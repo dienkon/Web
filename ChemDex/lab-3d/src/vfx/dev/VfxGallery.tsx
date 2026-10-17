@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAppStore } from '../../store/useAppStore';
 import { useQualityStore, QualityTier } from '../quality';
 import { REACTION_DATABASE } from '../../chem/reactions';
@@ -7,7 +7,7 @@ import { vfxBus } from '../bus';
 import { labSound } from '../../utils/audio';
 import { proceduralAudio } from '../../audio/procedural';
 import { LegacyAdapter } from '../../adapters/legacy';
-import { ThermometerProbe, formatHazardBadge } from '../../ui/overlays';
+import { formatHazardBadge } from '../../ui/overlays';
 import { reactionSimulationEngine } from '../reactions/ReactionSimulationEngine';
 import { ALL_HANDCRAFTED_PROGRAMS, getProgramById } from '../programs/library';
 import { EFFECT_ATOM_CATALOG, getEffectAtom } from '../catalog';
@@ -15,6 +15,11 @@ import { ReactionProgram } from '../../shared/programSchema';
 import { EffectAtom } from '../catalog/types';
 import { useFrameStats } from '../../render/FrameTelemetry';
 import { studioProgramForReaction } from '../../engine/studioProgram';
+import { studioAtomAction, runStudioAtomContext } from '../../engine/studioAtom';
+import { studioInventoryReading } from '../../engine/studioInventoryReading';
+import { PRECIPITATE_MORPHOLOGIES } from '../../engine/studioMorphology';
+import { dispensePipette } from '../../handling/instrumentOperations';
+import { HotPlateControls } from '../../components/HotPlateControls';
 import { LESSON_PROGRAM_IDS } from '../../lesson/programCompiler';
 import { useLessonLabStore } from '../../lesson/labBridge';
 import { 
@@ -26,88 +31,7 @@ import {
 
 type StudioTab = 'reactions' | 'programs' | 'atoms' | 'morphology' | 'physics' | 'flames' | 'telemetry';
 
-export const PRECIPITATE_MORPHOLOGIES = [
-  {
-    type: 'FINE_POWDER',
-    substance: 'BaSO4',
-    name: 'Fine Powder Micro-crystals',
-    example: 'BaSO4 (Barium Sulfate)',
-    color: '#ffffff',
-    settlingSpeed: '0.04 m/s (Very Slow)',
-    turbidity: 'High Optical Obscuration',
-    description: 'Tens of thousands of microscopic particles undergoing Brownian agitation, slowly settling over minutes.'
-  },
-  {
-    type: 'FLOC',
-    substance: 'Fe(OH)3',
-    name: 'Flocculent Clusters',
-    example: 'Fe(OH)3 (Iron(III) Hydroxide)',
-    color: '#b45309',
-    settlingSpeed: '0.12 m/s (Medium)',
-    turbidity: 'Dense Aggregates',
-    description: 'Individual particles collide and coalesce into jagged, irregularly-shaped flocculated masses.'
-  },
-  {
-    type: 'CURD',
-    substance: 'AgCl',
-    name: 'Curdy Cheese-like Clumps',
-    example: 'AgCl (Silver Chloride)',
-    color: '#f8fafc',
-    settlingSpeed: '0.22 m/s (Fast)',
-    turbidity: 'Opaque Cottage-cheese curd',
-    description: 'Thick, heavy clumps resembling cottage cheese curds that aggregate rapidly.'
-  },
-  {
-    type: 'GEL',
-    substance: 'Cu(OH)2',
-    name: 'Gelatinous Amorphous Mass',
-    example: 'Cu(OH)2 / Al(OH)3',
-    color: '#38bdf8',
-    settlingSpeed: '0.06 m/s (Sluggish)',
-    turbidity: 'Translucent Hydrated Gel',
-    description: 'Soft, semi-transparent jelly-like hydrated amorphous matrix suspended in fluid.'
-  },
-  {
-    type: 'CRYSTAL_PLATE',
-    substance: 'PbI2',
-    name: 'Crystalline Hexagonal Platelets',
-    example: 'PbI2 (Golden Rain)',
-    color: '#facc15',
-    settlingSpeed: '0.08 m/s (Shimmering)',
-    turbidity: 'Glittering Specular Facets',
-    description: 'Flat hexagonal golden plates that twinkle and shimmer under lab lighting as they slowly swirl and rain down.'
-  },
-  {
-    type: 'CRYSTAL_ROD',
-    substance: 'CaSO4',
-    name: 'Acicular Needle Rods',
-    example: 'CaSO4 (Calcium Sulfate Needles)',
-    color: '#f1f5f9',
-    settlingSpeed: '0.10 m/s',
-    turbidity: 'Fibrous Crystalline Mat',
-    description: 'Elongated needle-shaped crystalline prisms aligning with fluid convection currents.'
-  },
-  {
-    type: 'IRREGULAR_GRAIN',
-    substance: 'CaCO3',
-    name: 'Irregular Mineral Grains',
-    example: 'CaCO3 (Limestone / Calcite)',
-    color: '#e2e8f0',
-    settlingSpeed: '0.35 m/s (Rapid)',
-    turbidity: 'Coarse Sediment',
-    description: 'Faceted irregular mineral fragments that sink straight to the vessel floor.'
-  },
-  {
-    type: 'METALLIC_DEPOSIT',
-    substance: 'Cu',
-    name: 'Spongy Metallic Deposition',
-    example: 'Cu / Ag Redox Displacement',
-    color: '#b45309',
-    settlingSpeed: '0.25 m/s (Adherent)',
-    turbidity: 'Rough Specular Metal',
-    description: 'Rough metallic dendrites and spongy clusters that nucleate and cling to vessel walls or metal substrates.'
-  }
-];
+export { PRECIPITATE_MORPHOLOGIES } from '../../engine/studioMorphology';
 
 export const VfxGallery: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -122,21 +46,19 @@ export const VfxGallery: React.FC = () => {
   const [selectedProgramId, setSelectedProgramId] = useState<string | null>(null);
   const [programSearch, setProgramSearch] = useState<string>('');
   const [programCategoryFilter, setProgramCategoryFilter] = useState<string>('all');
+  const [atomNotice, setAtomNotice] = useState('');
   const [selectedAtomName, setSelectedAtomName] = useState<string | null>(null);
   const [atomCategoryFilter, setAtomCategoryFilter] = useState<string>('all');
 
   // Interactive Physics Controls State
   const [stirrerRpm, setStirrerRpm] = useState<number>(0);
-  const [hotplateTempC, setHotplateTempC] = useState<number>(150);
-  const [isHotplateOn, setIsHotplateOn] = useState<boolean>(false);
+  const [selectedHotPlateId, setSelectedHotPlateId] = useState('');
   const [burnerState, setBurnerState] = useState<'off' | 'blue' | 'yellow'>('off');
-  const [hasBoilingChips, setHasBoilingChips] = useState<boolean>(false);
   const [selectedFlameElement, setSelectedFlameElement] = useState<string>('Cu');
   const [useCobaltGlass, setUseCobaltGlass] = useState<boolean>(false);
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const [engineMode, setEngineMode] = useState<'v1' | 'v2'>('v2');
 
-  const thermometerRef = useRef<ThermometerProbe>(new ThermometerProbe());
 
   const {
     vessels,
@@ -244,46 +166,17 @@ export const VfxGallery: React.FC = () => {
     }
   };
 
-  const handleHotplateToggle = () => {
-    const nextOn = !isHotplateOn;
-    setIsHotplateOn(nextOn);
-    const targetId = getOrCreateTargetVesselId();
-    if (nextOn) {
-      useAppStore.setState(s => ({
-        vessels: {
-          ...s.vessels,
-          [targetId]: {
-            ...s.vessels[targetId],
-            temperature_c: hotplateTempC,
-            isBoiling: hotplateTempC >= 98
-          }
-        }
-      }));
-      proceduralAudio.updateBoilingState(hotplateTempC >= 98, hotplateTempC / 300);
-    } else {
-      proceduralAudio.updateBoilingState(false, 0);
-    }
-  };
-
   const handleBurnerCycle = () => {
-    const nextMode = burnerState === 'off' ? 'blue' : (burnerState === 'blue' ? 'yellow' : 'off');
-    setBurnerState(nextMode);
-    const burnerIds = Object.keys(burners);
-    if (burnerIds.length > 0) {
-      const bId = burnerIds[0];
-      useAppStore.setState(s => ({
-        burners: {
-          ...s.burners,
-          [bId]: {
-            ...s.burners[bId],
-            isOn: nextMode !== 'off',
-            intensity: nextMode === 'blue' ? 4 : 2,
-            flameState: nextMode === 'blue' ? 'HIGH_FLAME' : 'MEDIUM_FLAME',
-            flameEmission: undefined
-          }
-        }
-      }));
-    }
+    const store = useAppStore.getState();
+    const lamp = Object.values(store.burners)[0];
+    if (!lamp) { useAppStore.setState({ globalWarning: 'Thêm đèn cồn trước.' }); return; }
+    if (!lamp.isOn) {
+      store.setBurnerIntensity(lamp.id, 4);
+      store.toggleBurner(lamp.id);
+    } else if (lamp.intensity >= 4) store.setBurnerIntensity(lamp.id, 2);
+    else store.toggleBurner(lamp.id);
+    const next = useAppStore.getState().burners[lamp.id];
+    setBurnerState(next.isOn ? next.intensity >= 4 ? 'blue' : 'yellow' : 'off');
   };
 
   const executeProgram = (program: ReactionProgram, fresh = false) => {
@@ -309,112 +202,28 @@ export const VfxGallery: React.FC = () => {
   };
 
   const executeAtomPreset = (atom: EffectAtom, presetIndex: number) => {
-    const targetId = getOrCreateTargetVesselId();
-    const currentVessel = useAppStore.getState().vessels[targetId];
-    if (!currentVessel) return;
-
-    proceduralAudio.init();
-    proceduralAudio.resume();
-
-    const preset = atom.gallery[presetIndex] || atom.gallery[0];
-    if (!preset) return;
-
-    if (atom.category === 'gas' || atom.name.includes('bubbles') || atom.name.includes('Burst') || atom.name.includes('Plume')) {
-      labSound.playFizz();
-      useAppStore.setState(s => ({
-        vessels: {
-          ...s.vessels,
-          [targetId]: {
-            ...s.vessels[targetId],
-            hasGas: true,
-            gasColor: (preset.params as any)?.gasColor || (preset.params as any)?.color || '#ffffff',
-            volume_ml: Math.max(60, s.vessels[targetId].volume_ml || 60)
-          }
-        }
-      }));
-    } else if (atom.category === 'solidPhase' || atom.name.includes('precipitate') || atom.name.includes('Sedimentation') || atom.name.includes('crystal')) {
-      labSound.playPowder();
-      useAppStore.setState(s => ({
-        vessels: {
-          ...s.vessels,
-          [targetId]: {
-            ...s.vessels[targetId],
-            hasPrecipitate: true,
-            precipitateColor: (preset.params as any)?.color || '#ffffff',
-            precipitateSubstance: (preset.params as any)?.substance || 'BaSO4',
-            precipitateAmount_g: 0.75,
-            volume_ml: Math.max(60, s.vessels[targetId].volume_ml || 60)
-          }
-        }
-      }));
-    } else if (atom.category === 'combustion' || atom.name.includes('Sparks') || atom.name.includes('Flame')) {
-      labSound.playBurnerIgnite();
-      vfxBus.emit('sparks', {
-        position: currentVessel.position,
-        count: 30,
-        color: (preset.params as any)?.color || '#f59e0b',
-        speed: 3.5
-      });
-    } else if (atom.category === 'interface' || atom.name.includes('Ripple')) {
-      vfxBus.emit('surface:ripple', {
-        x: 0,
-        z: 0,
-        intensity: 1.0,
-        vesselId: targetId
-      });
-    } else {
-      useAppStore.setState(s => ({
-        vessels: {
-          ...s.vessels,
-          [targetId]: {
-            ...s.vessels[targetId],
-            liquidColor: (preset.params as any)?.color || '#38bdf8',
-            volume_ml: Math.max(60, s.vessels[targetId].volume_ml || 60)
-          }
-        }
-      }));
+    setSelectedAtomName(atom.name);
+    const result = runStudioAtomContext(atom, presetIndex, targetVessel?.id);
+    setAtomNotice(result.message);
+    if (result.vesselId) setSelectedVesselId(result.vesselId);
+    if (result.action.kind === 'ice_water') { setActiveTestId(null); setSelectedProgramId(null); }
+    if (result.action.kind === 'program') {
+      setSelectedProgramId(result.action.programId);
+      setActiveTestId(result.action.programId);
     }
-  };
-
-  const handleTriggerSuperheatBump = () => {
-    const targetId = getOrCreateTargetVesselId();
-    labSound.playPop();
-    labSound.playFizz(2.0);
-    proceduralAudio.playBubblePop(0.006, 2.0);
-
-    useAppStore.setState(s => ({
-      vessels: {
-        ...s.vessels,
-        [targetId]: {
-          ...s.vessels[targetId],
-          temperature_c: 100.0,
-          isBoiling: true,
-          boilingIntensity: 1.0
-        }
-      }
-    }));
+    if (result.action.kind === 'heating') setActiveTab('physics');
   };
 
   const handleAddDropperDrop = () => {
     const targetId = getOrCreateTargetVesselId();
+    const result = dispensePipette(0.05, targetId);
+    if (!result.ok) {
+      useAppStore.setState({ globalWarning: result.message });
+      return;
+    }
+    useAppStore.setState({ globalWarning: null });
     proceduralAudio.playBubblePop(0.002, 0.7);
     labSound.playDrop();
-
-    useAppStore.setState(s => {
-      const v = s.vessels[targetId];
-      if (!v) return s;
-      const addedMl = 0.05; // Tate's law drop volume
-      return {
-        vessels: {
-          ...s.vessels,
-          [targetId]: {
-            ...v,
-            volume_ml: Math.min(v.capacity_ml, (v.volume_ml || 50) + addedMl),
-            volume: Math.min(1.0, ((v.volume_ml || 50) + addedMl) / v.capacity_ml)
-          }
-        }
-      };
-    });
   };
 
   const handleFlameTest = () => previewFlame(selectedFlameElement);
@@ -511,6 +320,7 @@ export const VfxGallery: React.FC = () => {
     );
   }
 
+  const inventoryReading = studioInventoryReading(targetVessel);
   const currentActiveKinetics = targetVessel ? activeKinetics[targetVessel.id] : undefined;
   const vesselHazards = (targetVessel?.contents || []).flatMap(c => SUBSTANCE_DATABASE[c.formula]?.hazards || []);
   const hazard = vesselHazards.length > 0 
@@ -593,7 +403,6 @@ export const VfxGallery: React.FC = () => {
                     resetWorkbench();
                     setActiveTestId(null);
                     setBurnerState('off');
-                    setIsHotplateOn(false);
                     setStirrerRpm(0);
                   }}
                   className="p-1.5 hover:bg-slate-800 text-slate-400 hover:text-rose-400 rounded-lg border border-slate-800 transition-colors"
@@ -667,6 +476,9 @@ export const VfxGallery: React.FC = () => {
 
           {targetVessel?.studioProgramId && <div className="mx-3 my-2 rounded border border-indigo-700 bg-indigo-950/50 p-2 space-y-2 text-[10px]">
             <p>Mẫu định lượng mô phỏng riêng; không phải quy trình định lượng thực hành. Giữ nguyên mẫu trước đó. Tua tiến không thu hồi khí đã thoát.</p>
+            {getProgramById(targetVessel.studioProgramId)?.chemistry.conditions?.activationNote_vi && <p>{getProgramById(targetVessel.studioProgramId)?.chemistry.conditions?.activationNote_vi}</p>}
+            {getProgramById(targetVessel.studioProgramId)?.chemistry.conditions?.activation === 'ignition' &&
+              <button className="rounded bg-orange-800 px-2 py-1" onClick={() => useAppStore.getState().igniteStudioSample(targetVessel.id)}>Mồi cháy mẫu bằng nguồn nhiệt gần</button>}
             <div className="flex gap-2">
               <button className="rounded bg-indigo-700 px-2 py-1" onClick={() => useAppStore.getState().runStudioProgram(targetVessel.id)}>Kiểm tra điều kiện / Chạy mẫu</button>
               <button className="rounded bg-slate-700 px-2 py-1" onClick={() => {
@@ -1064,18 +876,19 @@ export const VfxGallery: React.FC = () => {
                                   <span className="text-amber-300">{prog.visual.duration_s}s</span>
                                 </div>
                                 <div>
-                                  <span className="text-slate-500">Enthalpy dH: </span>
+                                  <span className="text-slate-500">ΔH theo phương trình: </span>
                                   <span className={prog.chemistry.deltaH_kJ_per_mol && prog.chemistry.deltaH_kJ_per_mol < 0 ? 'text-rose-400' : 'text-cyan-400'}>
-                                    {prog.chemistry.deltaH_kJ_per_mol ? `${prog.chemistry.deltaH_kJ_per_mol} kJ/mol` : 'Neutral'}
+                                    {prog.chemistry.deltaH_kJ_per_mol == null ? 'Chưa có dữ liệu' : `${prog.chemistry.deltaH_kJ_per_mol} kJ/mol phản ứng`}
                                   </span>
                                 </div>
                                 <div>
-                                  <span className="text-slate-500">Confidence: </span>
-                                  <span className="text-emerald-400">{(prog.confidence * 100).toFixed(0)}%</span>
+                                  <span className="text-slate-500">Điểm metadata: </span>
+                                  <span className="text-emerald-400">{(prog.confidence * 100).toFixed(0)}% · chưa hiệu chuẩn</span>
                                 </div>
                               </div>
 
                               {/* Timeline Atoms */}
+                              {prog.chemistry.deltaHNote_vi && <p className="text-[10px] text-slate-400">{prog.chemistry.deltaHNote_vi}</p>}
                               <div>
                                 <span className="font-bold text-slate-300 block mb-1">Effect Atoms Timeline:</span>
                                 <div className="space-y-1">
@@ -1110,14 +923,14 @@ export const VfxGallery: React.FC = () => {
                   <div className="flex items-center justify-between text-[11px] font-bold text-cyan-300">
                     <span className="flex items-center gap-1.5">
                       <Cpu size={14} className="text-cyan-400" />
-                      Closed Effect Atom Master Catalog ({EFFECT_ATOM_CATALOG.length} Modular Atoms)
+                      Danh mục hiệu ứng ({EFFECT_ATOM_CATALOG.length} mục)
                     </span>
                     <span className="text-[10px] bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-full font-mono">
-                      Zero-Allocation
+                      Bối cảnh và điều kiện
                     </span>
                   </div>
                   <p className="text-[10px] text-slate-400 leading-relaxed">
-                    Modular building blocks with strictly validated parameter schemas, anchor geometry bindings, and zero-allocation particle pools.
+                    Mở mẫu phản ứng liên quan hoặc thao tác vật lý được hỗ trợ. Thông số tham khảo không tự thêm vật chất vào mẫu; hiệu ứng chưa có mô hình phù hợp sẽ mở phần giới hạn.
                   </p>
 
                   {/* Category Filter */}
@@ -1138,6 +951,7 @@ export const VfxGallery: React.FC = () => {
                   </div>
                 </div>
 
+                {atomNotice && <p role="status" className="rounded border border-cyan-800 p-2 text-[11px] text-cyan-200">{atomNotice}</p>}
                 {/* Atoms List */}
                 <div className="grid grid-cols-1 gap-2">
                   {EFFECT_ATOM_CATALOG
@@ -1180,7 +994,7 @@ export const VfxGallery: React.FC = () => {
                               className="px-2.5 py-1 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg text-[10px] font-bold flex items-center gap-1 transition-colors shadow-xs shrink-0"
                             >
                               <Play size={10} />
-                              <span>Test Preset</span>
+                              <span>{studioAtomAction(atom, 0).label}</span>
                             </button>
                           </div>
 
@@ -1234,7 +1048,7 @@ export const VfxGallery: React.FC = () => {
                                           onClick={() => executeAtomPreset(atom, pIdx)}
                                           className="px-2 py-0.5 bg-slate-800 hover:bg-cyan-600 text-slate-300 hover:text-white rounded text-[9px] font-bold transition-colors"
                                         >
-                                          Spawn #{pIdx + 1}
+                                          {studioAtomAction(atom, pIdx).label}
                                         </button>
                                       </div>
                                     ))}
@@ -1257,14 +1071,14 @@ export const VfxGallery: React.FC = () => {
                   <div className="flex items-center justify-between text-[11px] font-bold text-violet-300">
                     <span className="flex items-center gap-1.5">
                       <Sparkles size={14} />
-                      8 Non-Spherical Precipitate Morphologies
+                      8 mẫu hình thái chất rắn
                     </span>
                     <span className="text-[10px] bg-violet-500/20 text-violet-300 px-2 py-0.5 rounded-full font-mono">
-                      Stokes Settling Model
+                      Hình thái minh họa
                     </span>
                   </div>
                   <p className="text-[10px] text-slate-400 leading-relaxed">
-                    Examine authentic crystal habits, flocculation dynamics, curd aggregates, and sedimentation velocities under physical simulation.
+                    Tạo mẫu riêng có kho chất định lượng. Bảy mẫu chạy phản ứng tạo chất rắn; thạch cao là mẫu có sẵn. Hình dạng hạt chưa được hiệu chuẩn thực nghiệm.
                   </p>
                 </div>
 
@@ -1292,34 +1106,17 @@ export const VfxGallery: React.FC = () => {
 
                         <button
                           onClick={() => {
-                            const targetId = getOrCreateTargetVesselId();
-                            const currentVessel = useAppStore.getState().vessels[targetId];
-                            if (currentVessel) {
-                              const newVol = Math.max(65, currentVessel.volume_ml || 75);
-                              useAppStore.getState().setVesselState(targetId, {
-                                substances: ['H2O', morph.substance],
-                                liquidColor: morph.type === 'GEL' ? '#38bdf8' : (morph.type === 'CRYSTAL_PLATE' ? '#fef9c3' : '#f8fafc'),
-                                hasPrecipitate: true,
-                                precipitateColor: morph.color,
-                                precipitateSubstance: morph.substance,
-                                precipitateMorphology: morph.type,
-                                precipitateAmount_g: 0.85,
-                                volume_ml: newVol,
-                                volume: Math.min(1.0, newVol / (currentVessel.capacity_ml || 250)),
-                              });
-                              vfxBus.emit('particle:burst', {
-                                position: currentVessel.position,
-                                count: 40,
-                                color: morph.color,
-                                speed: 1.2,
-                              });
-                              labSound.playPowder();
-                            }
+                            const store = useAppStore.getState();
+                            const id = store.prepareStudioMorphology(morph.type);
+                            if (!id) return;
+                            setSelectedVesselId(id);
+                            setActiveTestId(morph.programId);
+                            if (morph.programId) store.runStudioProgram(id);
                           }}
                           className="px-2.5 py-1 bg-violet-600 hover:bg-violet-500 text-white rounded-lg text-[10px] font-bold flex items-center gap-1 transition-colors shadow-xs"
                         >
                           <Play size={10} />
-                          <span>Spawn in Vessel</span>
+                          <span>{morph.programId ? 'Tạo mẫu và chạy' : 'Tạo mẫu có sẵn'}</span>
                         </button>
                       </div>
 
@@ -1328,8 +1125,8 @@ export const VfxGallery: React.FC = () => {
                       </p>
 
                       <div className="flex items-center justify-between text-[9px] font-mono text-slate-500 bg-slate-950/40 px-2 py-1 rounded">
-                        <span>Stokes: {morph.settlingSpeed}</span>
-                        <span>Turbidity: {morph.turbidity}</span>
+                        <span>{morph.settling}</span>
+                        <span>{morph.programId ? 'Lượng từ phản ứng' : 'Mẫu ảo định lượng'}</span>
                       </div>
                     </div>
                   ))}
@@ -1375,64 +1172,22 @@ export const VfxGallery: React.FC = () => {
                           : (burnerState === 'yellow' ? 'bg-amber-600/30 border-amber-500 text-amber-200' : 'bg-slate-800/60 border-slate-700 text-slate-400')
                       }`}
                     >
-                      <span className="text-[9px] uppercase font-mono">Bunsen Burner</span>
+                      <span className="text-[9px] uppercase font-mono">Đèn cồn</span>
                       <span className="text-[11px]">
-                        {burnerState === 'blue' ? 'Blue (1500°C)' : (burnerState === 'yellow' ? 'Yellow (850°C)' : 'Burner Off')}
+                        {burnerState === 'blue' ? 'Mức bấc 4' : (burnerState === 'yellow' ? 'Mức bấc 2' : 'Đã tắt')}
                       </span>
                     </button>
 
-                    {/* Hotplate Toggle */}
-                    <button
-                      onClick={handleHotplateToggle}
-                      className={`p-2 rounded-lg border font-bold text-left flex flex-col justify-between transition-all ${
-                        isHotplateOn
-                          ? 'bg-rose-600/30 border-rose-500 text-rose-200'
-                          : 'bg-slate-800/60 border-slate-700 text-slate-400'
-                      }`}
-                    >
-                      <span className="text-[9px] uppercase font-mono">Hotplate ({hotplateTempC}°C)</span>
-                      <span className="text-[11px]">{isHotplateOn ? 'Heating Active' : 'Hotplate Off'}</span>
-                    </button>
                   </div>
+                  {Object.values(vessels).some(v => v.type === 'hot_plate') ? <>
+                    <select className="w-full rounded bg-slate-800 p-1 text-xs" value={selectedHotPlateId || Object.values(vessels).find(v => v.type === 'hot_plate')!.id}
+                      onChange={event => setSelectedHotPlateId(event.target.value)}>
+                      {Object.values(vessels).filter(v => v.type === 'hot_plate').map(v => <option key={v.id} value={v.id}>{v.name}</option>)}
+                    </select>
+                    <HotPlateControls plateId={vessels[selectedHotPlateId]?.type === 'hot_plate' ? selectedHotPlateId : Object.values(vessels).find(v => v.type === 'hot_plate')!.id} targetId={targetVessel?.id} />
+                  </> : <button className="rounded border px-3 py-1 text-xs" onClick={() => addVessel('hot_plate')}>Thêm bếp gia nhiệt</button>}
 
-                  {/* Hotplate Temperature Slider */}
-                  <div className="space-y-1">
-                    <div className="flex justify-between text-[10px] text-slate-400 font-mono">
-                      <span>Hotplate Dial:</span>
-                      <span className="text-white font-bold">{hotplateTempC} °C</span>
-                    </div>
-                    <input
-                      type="range"
-                      min={25}
-                      max={350}
-                      step={5}
-                      value={hotplateTempC}
-                      onChange={(e) => setHotplateTempC(Number(e.target.value))}
-                      className="w-full accent-rose-500 h-1.5 bg-slate-800 rounded-lg cursor-pointer"
-                    />
-                  </div>
-
-                  {/* Boiling Triggers */}
-                  <div className="flex gap-2 pt-1">
-                    <button
-                      onClick={handleTriggerSuperheatBump}
-                      className="flex-1 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-bold text-[10px] flex items-center justify-center gap-1 transition-colors"
-                    >
-                      <Zap size={12} />
-                      <span>Trigger Superheat Bump</span>
-                    </button>
-
-                    <button
-                      onClick={() => setHasBoilingChips(!hasBoilingChips)}
-                      className={`px-3 py-1.5 rounded-lg border text-[10px] font-bold transition-colors ${
-                        hasBoilingChips
-                          ? 'bg-blue-600/30 border-blue-500 text-blue-300'
-                          : 'bg-slate-800 border-slate-700 text-slate-400'
-                      }`}
-                    >
-                      Boiling Chips: {hasBoilingChips ? 'ON' : 'OFF'}
-                    </button>
-                  </div>
+                  <p className="text-[10px] text-slate-400">{targetVessel?.isBoiling ? 'Mẫu đang hóa hơi theo ngân sách nhiệt.' : 'Mẫu chưa sôi.'} Hết nước thì dừng sinh hơi nước. Chưa mô phỏng động học sôi vọt và đá bọt.</p>
                 </div>
 
                 {/* Stirring & Fluid Vortex Studio */}
@@ -1468,13 +1223,14 @@ export const VfxGallery: React.FC = () => {
                     <span>Hydraulic Inflow & Droppers</span>
                   </div>
 
+                  <p className="text-[10px] text-slate-400">Hút mẫu bằng công cụ pipet trước. 0,05 mL là liều chọn trong mô phỏng; thể tích giọt thật phụ thuộc đầu nhỏ giọt và chất lỏng.</p>
                   <div className="grid grid-cols-2 gap-2">
                     <button
                       onClick={handleAddDropperDrop}
                       className="py-2 px-3 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/40 text-blue-300 font-bold text-[10px] flex items-center justify-center gap-1.5 transition-colors"
                     >
                       <Droplets size={13} />
-                      <span>Add Drop (Tate's Law)</span>
+                      <span>Nhả 0,05 mL từ pipet</span>
                     </button>
 
                     <button
@@ -1706,7 +1462,7 @@ export const VfxGallery: React.FC = () => {
                         {targetVessel.temperature_c?.toFixed(1) || '25.0'} °C
                       </div>
                       <div className="text-[9px] text-slate-500">
-                        Thermometer: {thermometerRef.current.update(0.016, targetVessel.temperature_c || 25).toFixed(1)} °C
+                        Đầu đo 3D có thời gian đáp ứng riêng.
                       </div>
                     </div>
 
@@ -1720,12 +1476,12 @@ export const VfxGallery: React.FC = () => {
                         <span
                           className="w-2.5 h-2.5 rounded-full border border-white/20"
                           style={{
-                            backgroundColor: (targetVessel.ph || 7) < 3 ? '#ef4444' : ((targetVessel.ph || 7) > 9 ? '#3b82f6' : '#22c55e')
+                            backgroundColor: (targetVessel.ph ?? 7) < 3 ? '#ef4444' : ((targetVessel.ph ?? 7) > 9 ? '#3b82f6' : '#22c55e')
                           }}
                         />
                       </div>
                       <div className="text-[9px] text-slate-500">
-                        {(targetVessel.ph || 7) < 7 ? 'Acidic' : ((targetVessel.ph || 7) > 7 ? 'Basic' : 'Neutral')}
+                        {(targetVessel.ph ?? 7) < 7 ? 'Acidic' : ((targetVessel.ph ?? 7) > 7 ? 'Basic' : 'Neutral')}
                       </div>
                     </div>
 
@@ -1754,19 +1510,19 @@ export const VfxGallery: React.FC = () => {
                 {/* Conservation Error Telemetry */}
                 <div className="bg-slate-900/60 p-2.5 rounded-xl border border-slate-800 space-y-1.5 text-[10px] font-mono">
                   <div className="flex items-center justify-between text-slate-300 font-bold">
-                    <span>Conservation Check (Rule 3)</span>
-                    <span className="text-emerald-400 font-bold flex items-center gap-1">
-                      <CheckCircle2 size={12} />
-                      PASS
+                    <span>Đối chiếu kho chất hiện tại</span>
+                    <span className="text-slate-300 font-bold flex items-center gap-1">
+                      <Gauge size={12} />
+                      {inventoryReading.status === 'consistent' ? 'Khớp' : inventoryReading.status === 'mismatch' ? 'Lệch' : 'Chưa đủ dữ liệu'}
                     </span>
                   </div>
                   <div className="text-[9px] text-slate-400 flex justify-between">
                     <span>Rel. Mass Error:</span>
-                    <span className="text-slate-200">&lt; 1.2 × 10⁻⁴</span>
+                    <span className="text-slate-200">{inventoryReading.relativeMassError?.toExponential(2) ?? '—'}</span>
                   </div>
                   <div className="text-[9px] text-slate-400 flex justify-between">
-                    <span>Charge Neutrality:</span>
-                    <span className="text-slate-200">&lt; 1.0 × 10⁻⁷ M</span>
+                    <span>Dư điện tích (mô hình 25 °C):</span>
+                    <span className="text-slate-200">{inventoryReading.chargeResidual_M == null ? 'Chưa giải' : `${inventoryReading.chargeResidual_M.toExponential(2)} M`}</span>
                   </div>
                 </div>
 

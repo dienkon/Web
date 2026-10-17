@@ -592,6 +592,8 @@ export type WalletTransactionType =
   | "exam_unlock_debit"
   | "admin_adjustment_credit"
   | "admin_adjustment_debit"
+  | "admin_adjustment"
+  | "gift_code"
   | "debt_payment"
   | "debt_adjustment"
   | "refund_credit";
@@ -730,6 +732,7 @@ export interface Voucher {
   perUserLimit?: number;      // Số lượt mỗi học sinh được dùng (mặc định 1)
   expiresAt?: string | null;  // Thời gian hết hạn (ISO string)
   isActive: boolean;          // Đang hoạt động / tạm khóa
+  description?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -764,4 +767,5 @@ export interface AdminWalletEditPayload {
   totalCreditedVnd?: number;
   totalSpentVnd?: number;
   note?: string;
+  reason?: string;
 }

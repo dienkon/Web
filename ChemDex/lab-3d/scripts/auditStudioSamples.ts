@@ -25,8 +25,10 @@ const samples = ALL_HANDCRAFTED_PROGRAMS.filter(program => !LESSON_PROGRAM_IDS.h
     volume_ml: vessel.volume_ml, mass_g: vessel.mass_g, temperature_c: vessel.temperature_c,
     isSealed: vessel.isSealed, contents: vessel.contents,
     readyUnderDeclaredModelConditions: !!plan.kinetics, unmetConditions: plan.unmet,
+    activation: program.chemistry.conditions?.activation,
+    activationNote_vi: program.chemistry.conditions?.activationNote_vi,
     needsActivationReview: program.chemistry.kinetics.model === 'heat_activated'
-      && program.chemistry.conditions?.minTemp_c === undefined,
+      && program.chemistry.conditions?.minTemp_c === undefined && program.chemistry.conditions?.activation !== 'ignition',
     nonMolecularLabels,
   };
 });

@@ -10,6 +10,7 @@ import { formatTemperature, formatPH, formatVolume } from '../utils/units';
 import { AIReactionQueryModal } from './AIReactionQueryModal';
 import { WashBottleControls } from './WashBottleControls';
 import { FunnelFlowControls } from './FunnelFlowControls';
+import { HotPlateControls } from './HotPlateControls';
 
 export function VesselInspector() {
   const { 
@@ -541,6 +542,8 @@ export function VesselInspector() {
         </div>
       )}
 
+      {vessel.type === 'hot_plate' && <HotPlateControls plateId={vessel.id} />}
+      {vessel.thermalModelLimit && <p className="text-xs text-amber-700">{vessel.thermalModelLimit} Phần năng lượng chưa biểu diễn: {(vessel.thermalEnergyOutsideModel_J ?? 0).toExponential(2)} J.</p>}
       {vessel.type === 'wash_bottle' && <WashBottleControls vessel={vessel} />}
 
       {/* Test Tube Rack Slot Management */}

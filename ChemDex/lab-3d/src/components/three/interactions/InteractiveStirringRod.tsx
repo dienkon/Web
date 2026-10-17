@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { useAppStore } from '../../../store/useAppStore';
 import { labSound } from '../../../utils/audio';
 import { useToolDock } from '../../../handling/toolDock';
+import { instrumentHome } from '../../../handling/instrumentCatalog';
 
 const rodGlassMaterial = new THREE.MeshPhysicalMaterial({
   roughness: 0.1,
@@ -15,7 +16,7 @@ const rodGlassMaterial = new THREE.MeshPhysicalMaterial({
 });
 
 export const InteractiveStirringRod = React.memo(function InteractiveStirringRod({
-  position: initialPosition = [-5.2, 0.4, 2.0],
+  position: initialPosition = instrumentHome('stirring_rod'),
 }: {
   position?: [number, number, number];
 }) {
@@ -29,7 +30,7 @@ export const InteractiveStirringRod = React.memo(function InteractiveStirringRod
   const stirVessel = useAppStore(state => state.stirVessel);
 
   const groupRef = useRef<THREE.Group>(null);
-  const isActive = activeTool === 'stirring_rod';
+  const isActive = activeTool === 'stirring_rod' && !dock.moveMode;
 
   const [stirAngle, setStirAngle] = useState(0);
   const lastPointerRef = useRef({ x: 0, y: 0, time: 0 });
@@ -91,7 +92,7 @@ export const InteractiveStirringRod = React.memo(function InteractiveStirringRod
       // Resting position in rack
       const restPos = animationTarget.current.set(...position);
       groupRef.current.position.lerp(restPos, 1 - Math.exp(-delta * 8));
-      groupRef.current.rotation.set(0.1, 0, 0.1);
+      groupRef.current.rotation.set(-Math.PI / 2, 0, 0);
     }
   });
 
@@ -101,24 +102,17 @@ export const InteractiveStirringRod = React.memo(function InteractiveStirringRod
     <group
       ref={groupRef}
       name="tool-stirring_rod" visible={dock.visible}
+      position={position} rotation={isActive ? [0, 0, 0] : [-Math.PI / 2, 0, 0]}
       onPointerDown={dock.onPointerDown}
       onClick={(e) => {
         e.stopPropagation();
         if (dock.moveMode) return;
         setActiveTool(isActive ? 'none' : 'stirring_rod');
       }}
-      onPointerOver={() => { document.body.style.cursor = 'pointer'; }}
+      onPointerOver={() => { document.body.style.cursor = dock.moveMode ? 'grab' : 'pointer'; }}
       onPointerOut={() => { document.body.style.cursor = 'auto'; }}
     >
-      {/* Resting Stand block when not held */}
-      {!isActive && (
-        <mesh position={[0, -0.6, 0]} receiveShadow>
-          <boxGeometry args={[0.3, 0.4, 0.3]} />
-          <meshStandardMaterial color="#cbd5e1" roughness={0.4} />
-        </mesh>
-      )}
-
-      {/* Solid Glass Stirring Rod */}
+{/* Solid Glass Stirring Rod */}
       <mesh material={rodGlassMaterial} position={[0, 0.4, 0]} castShadow>
         <cylinderGeometry args={[0.035, 0.035, 2.4, 16]} />
       </mesh>

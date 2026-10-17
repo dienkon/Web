@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { useAppStore } from '../../../store/useAppStore';
 import { ContinuousLiquidStream } from './ContinuousLiquidStream';
 import { useToolDock } from '../../../handling/toolDock';
+import { instrumentHome } from '../../../handling/instrumentCatalog';
 import { useInstrumentStore } from '../../../handling/instrumentState';
 import { aspiratePipette, dispensePipette } from '../../../handling/instrumentOperations';
 
@@ -18,7 +19,7 @@ const glassMaterial = new THREE.MeshPhysicalMaterial({
 
 export const InteractivePipette = React.memo(function InteractivePipette({
   targetVesselId,
-  position: initialPosition = [-6.5, 0.4, 2.0],
+  position: initialPosition = instrumentHome('pipette'),
 }: {
   targetVesselId?: string | null;
   position?: [number, number, number];
@@ -44,7 +45,7 @@ export const InteractivePipette = React.memo(function InteractivePipette({
   const targetVessel = useAppStore(state => targetId ? state.vessels[targetId] : undefined);
 
   // Active if selected in toolbar or clicked
-  const isActive = activeTool === 'pipette';
+  const isActive = activeTool === 'pipette' && !dock.moveMode;
 
   // Position: either hovering above the active vessel or at resting rack position
   const targetWorldPos = useMemo(() => {
@@ -70,6 +71,7 @@ export const InteractivePipette = React.memo(function InteractivePipette({
     }
     if (!pipetteGroupRef.current) return;
     pipetteGroupRef.current.position.lerp(targetWorldPos, 1 - Math.exp(-delta * 8));
+    pipetteGroupRef.current.rotation.set(isActive && targetVessel ? 0 : -Math.PI / 2, 0, 0);
   });
 
   const handleBulbClick = (e: any) => {
@@ -99,24 +101,17 @@ export const InteractivePipette = React.memo(function InteractivePipette({
     <group
       ref={pipetteGroupRef}
       name="tool-pipette" visible={dock.visible}
+      position={position} rotation={isActive ? [0, 0, 0] : [-Math.PI / 2, 0, 0]}
       onPointerDown={dock.onPointerDown}
       onClick={(e) => {
         e.stopPropagation();
         if (dock.moveMode) return;
         setActiveTool(isActive ? 'none' : 'pipette');
       }}
-      onPointerOver={() => { document.body.style.cursor = 'pointer'; }}
+      onPointerOver={() => { document.body.style.cursor = dock.moveMode ? 'grab' : 'pointer'; }}
       onPointerOut={() => { document.body.style.cursor = 'auto'; }}
     >
-      {/* Pipette Rest Stand / Acrylic Block when resting */}
-      {!isActive && (
-        <mesh position={[0, -0.7, 0]} receiveShadow>
-          <boxGeometry args={[0.5, 0.4, 0.5]} />
-          <meshStandardMaterial color="#e2e8f0" roughness={0.4} />
-        </mesh>
-      )}
-
-      {/* Glass Barrel Stem */}
+{/* Glass Barrel Stem */}
       <mesh material={glassMaterial} position={[0, 0, 0]}>
         <cylinderGeometry args={[0.045, 0.045, 1.4, 16, 1, true]} />
       </mesh>

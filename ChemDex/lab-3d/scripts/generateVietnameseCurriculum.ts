@@ -22,6 +22,12 @@ const exclude = new Set([
   'fecl3_3kscn', 'iodine_clock',
 ]);
 const special: Record<string, string[]> = {
+  thiosulfate_acid_clock: [
+    'Trong mô phỏng, chọn dung dịch Na2S2O3 trong suốt và quan sát dấu chữ thập dưới đáy bình; ghi lại nhiệt độ và nồng độ của mẫu.',
+    'Cho dung dịch HCl loãng tiếp xúc với thiosulfat và bắt đầu tính giờ; giữ nguyên các yếu tố khác khi so sánh ảnh hưởng của nồng độ hoặc nhiệt độ.',
+    'Quan sát lưu huỳnh keo làm dịch đục ánh vàng và che dấu chữ thập dần; SO2 sinh ra không màu, không dùng mùi để nhận biết khí.',
+    'Ghi thời điểm dấu chữ thập không còn thấy rõ và đối chiếu chất giới hạn; đây là mốc quan sát độ đục, không chứng minh phản ứng đã hết. Thời gian trong mô phỏng chưa được hiệu chuẩn thực nghiệm.',
+  ],
   cuso4_naoh: ['Nhỏ NaOH từ từ vào dung dịch CuSO4 màu xanh lam.', 'Kết tủa Cu(OH)2 xanh nhạt dạng keo xuất hiện tại nơi giọt kiềm tiếp xúc.', 'Khuấy nhẹ: huyền phù xanh lan khắp bình; không có khí.', 'Để yên: bông keo lắng chậm; NaOH dư không làm tan kết tủa trong điều kiện thí nghiệm này.'],
   feso4_naoh: ['Dùng dung dịch FeSO4 mới pha, hạn chế tiếp xúc không khí.', 'Nhỏ NaOH: kết tủa Fe(OH)2 trắng xanh hình thành.', 'Lắc nhẹ trong không khí: bề mặt dần ngả nâu do oxy hóa.', 'Để lâu: Fe(OH)3 nâu đỏ tăng dần; đây là phản ứng tiếp theo với O2, không phải màu ban đầu của Fe(OH)2.'],
   alcl3_naoh: ['Nhỏ từng giọt NaOH vào dung dịch AlCl3, chưa cho kiềm dư.', 'Xuất hiện Al(OH)3 keo trắng.', 'Tiếp tục thêm NaOH dư: bông keo tan dần.', 'Dung dịch trở lại trong do tạo [Al(OH)4]−; phải tách hai giai đoạn kết tủa và hòa tan.'],
@@ -115,6 +121,10 @@ for (const p of ALL_HANDCRAFTED_PROGRAMS) {
     hazards: p.chemistry.hazards ?? [],
     steps: sequence.map((instruction_vi, i) => ({ order: i + 1, instruction_vi, checkpoint: ['prepare','contact','observe','conclude'][i], automaticValidation: false })),
     observation_vi: p.explain.observation_vi, explanation_vi: p.explain.why_vi,
+    thermochemistry: { deltaH_kJ_per_mol_reaction: p.chemistry.deltaH_kJ_per_mol ?? null,
+      basis: 'coefficients_as_written', referenceTemperature_K: p.chemistry.deltaHReferenceTemperature_K ?? null,
+      sources: p.chemistry.deltaHSourceUrls ?? [], note_vi: p.chemistry.deltaHNote_vi ?? null,
+      calibration: 'not_calibrated_for_sample' },
     effects: { ...p.visual, timingBasis: 'illustrative_not_measured', massBasis: 'fromLedger', gasNote_vi: 'Bọt khí trong chất lỏng không đồng nghĩa khí có màu; màu plume phải theo từng loài khí.' },
     sources: [{ url: sources.curriculum, scope: 'curriculum_context' },
       { url: p.id === 'pbno32_ki' ? 'https://edu.rsc.org/exhibition-chemistry/golden-rain/2000048.article'

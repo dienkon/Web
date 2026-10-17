@@ -262,15 +262,16 @@ describe('Stoichiometry Worked Examples via Conservation Ledger (§5.4 & §11.1)
 
     const vessel: VesselState = {
       id: 'ex6_mg',
+      ignitedProgramId: 'mg_o2_burn', // Explicitly initiated combustion, not spontaneous cold Mg/O2.
       name: 'Crucible',
       type: 'crucible',
       position: [0, 0, 0],
       rotationY: 0,
       isLocked: false,
-      volume: 0.1,
-      mass_g: m_mg,
+      volume: 0,
+      mass_g: m_mg + (n_mg / 2) * computeMolarMass('O2'),
       capacity_ml: 50,
-      volume_ml: 1,
+      volume_ml: 0,
       temperature_c: 25.0,
       ph: 7.0,
       hasPrecipitate: false,
@@ -356,16 +357,19 @@ describe('Stoichiometry Worked Examples via Conservation Ledger (§5.4 & §11.1)
       hasPrecipitate: false,
       isBoiling: false,
       hasGas: false,
-      substances: ['HCl', 'NaOH'],
+      substances: ['HCl', 'NaOH', 'H2O'],
       contents: [
-        { formula: 'HCl', moles: n_each, mass_g: n_each * computeMolarMass('HCl'), volume_ml: 50, concentration_M: 1.0 },
-        { formula: 'NaOH', moles: n_each, mass_g: n_each * computeMolarMass('NaOH'), volume_ml: 50, concentration_M: 1.0 }
+        { formula: 'HCl', phase: 'aq', moles: n_each, mass_g: n_each * computeMolarMass('HCl'), volume_ml: 50, concentration_M: 1.0 },
+        { formula: 'NaOH', phase: 'aq', moles: n_each, mass_g: n_each * computeMolarMass('NaOH'), volume_ml: 50, concentration_M: 1.0 },
+        { formula: 'H2O', phase: 'l', mass_g: 100 - n_each * (computeMolarMass('HCl') + computeMolarMass('NaOH')),
+          moles: (100 - n_each * (computeMolarMass('HCl') + computeMolarMass('NaOH'))) / computeMolarMass('H2O') },
       ]
     };
 
     const res = applyProgramToLedger(prog!, vessel, 1.0);
     const deltaT = (res.temperature_c || 25.0) - 25.0;
-    expect(deltaT).toBeCloseTo(6.85, 0.5); // ~ +6.85 K
+    // The shared model includes a 33.2 J/K vessel heat capacity.
+    expect(deltaT).toBeCloseTo(57_300 * n_each / (100 * 4.184 + 33.2), 9);
   });
 
   // Example 9: NH4NO3 Dissolution

@@ -115,7 +115,7 @@ export interface DifficultyLevel {
   examples?: string;
 }
 
-export type PracticeLengthMode = "quick" | "standard" | "marathon" | "endless" | 5 | 10 | 20;
+export type PracticeLengthMode = "quick" | "standard" | "marathon" | "endless" | 5 | 10 | 15 | 20;
 
 export interface PracticeSessionConfig {
   modeId: string;

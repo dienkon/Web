@@ -1131,7 +1131,7 @@ export async function getAdminVoucherUsagesApi(voucherId?: string): Promise<Vouc
       q = query(collection(db, "voucher_usages"));
     }
     const snap = await getDocs(q);
-    const list = snap.docs.map((d) => ({ id: d.id, ...d.data() } as VoucherUsage));
+    const list = snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) } as VoucherUsage));
     list.sort((a, b) => {
       const timeA = new Date(a.usedAt || a.createdAt || 0).getTime();
       const timeB = new Date(b.usedAt || b.createdAt || 0).getTime();

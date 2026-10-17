@@ -56,8 +56,11 @@ export const Foam = React.memo(function Foam({
   const scratchScale = useMemo(() => new THREE.Vector3(), []);
   const scratchMat4 = useMemo(() => new THREE.Matrix4(), []);
   const foamColor = useMemo(() => new THREE.Color(), []);
+  const white = useMemo(() => new THREE.Color('#ffffff'), []);
+  const lastColor = useRef<string | null>(null);
 
   useEffect(() => {
+    lastColor.current = null;
     if (meshRef.current) {
       scratchPos.set(0, -9999, 0);
       scratchScale.set(0, 0, 0);
@@ -72,7 +75,8 @@ export const Foam = React.memo(function Foam({
   }, [count, scratchMat4, scratchPos, scratchQuat, scratchScale]);
 
   useFrame((state) => {
-    if (!meshRef.current || !active) return;
+    if (!meshRef.current) return;
+    if (!active) { meshRef.current.visible = false; return; }
 
     const vessel = useAppStore.getState().vessels[vesselId];
     if (!vessel || vessel.isShattered || (vessel.volume_ml ?? 0) <= 0.2) {
@@ -99,7 +103,9 @@ export const Foam = React.memo(function Foam({
     const columnHeight = foamVolumeRatio * 1.2;
 
     const time = state.clock.getElapsedTime();
-    foamColor.set(vessel?.liquidColor || liquidColor).lerp(new THREE.Color('#ffffff'), 0.88);
+    const colorKey = vessel.liquidColor || liquidColor;
+    const recolor = lastColor.current !== colorKey;
+    if (recolor) foamColor.set(colorKey).lerp(white, 0.88);
     scratchQuat.copy(state.camera.quaternion);
 
     for (let i = 0; i < count; i++) {
@@ -127,13 +133,14 @@ export const Foam = React.memo(function Foam({
 
       scratchMat4.compose(scratchPos, scratchQuat, scratchScale);
       meshRef.current.setMatrixAt(i, scratchMat4);
-      meshRef.current.setColorAt(i, foamColor);
+      if (recolor) meshRef.current.setColorAt(i, foamColor);
     }
 
     meshRef.current.instanceMatrix.needsUpdate = true;
-    if (meshRef.current.instanceColor) {
+    if (recolor && meshRef.current.instanceColor) {
       meshRef.current.instanceColor.needsUpdate = true;
     }
+    lastColor.current = colorKey;
   });
 
   return (

@@ -112,9 +112,14 @@ export interface ReactionProgram {
     equation: string;
     ionic?: string;
     species: SpeciesRole[];
-    deltaH_kJ_per_mol?: number | null;
+    deltaH_kJ_per_mol?: number | null; // kJ per mole of reaction with coefficients AS WRITTEN.
+    deltaHReferenceTemperature_K?: number;
+    deltaHSourceUrls?: string[];
+    deltaHNote_vi?: string;
     kinetics: Kinetics;
     conditions?: {
+      activation?: 'contact' | 'catalyst' | 'warming' | 'ignition';
+      activationNote_vi?: string;
       minTemp_c?: number;
       catalyst?: string;
       light?: boolean;
@@ -242,8 +247,13 @@ export const ReactionProgramSchema = z.object({
     ionic: z.string().optional(),
     species: z.array(SpeciesRoleSchema),
     deltaH_kJ_per_mol: z.number().nullable().optional(),
+    deltaHReferenceTemperature_K: z.number().positive().optional(),
+    deltaHSourceUrls: z.array(z.string().url()).optional(),
+    deltaHNote_vi: z.string().optional(),
     kinetics: KineticsSchema,
     conditions: z.object({
+      activation: z.enum(['contact', 'catalyst', 'warming', 'ignition']).optional(),
+      activationNote_vi: z.string().optional(),
       minTemp_c: z.number().optional(),
       catalyst: z.string().optional(),
       light: z.boolean().optional(),

@@ -9,6 +9,7 @@ export interface ExperimentalEnvironment {
   isHeated?: boolean;
   light?: boolean;
   volume_ml?: number;
+  ignitedProgramId?: string;
 }
 
 export interface ConditionAssessment {
@@ -27,8 +28,12 @@ const DILUTE_ACID_CASES: Record<string, string> = {
   cu_hno3_dil: 'HNO3', cu_hno3_dilute: 'HNO3', zn_h2so4_dilute: 'H2SO4',
 };
 
-function present(contents: SubstanceContent[], formula: string): boolean {
-  return contents.some(item => sameMolecularFormula(item.formula, formula) && item.moles > 1e-12);
+function present(contents: SubstanceContent[], formula: string, expectedPhase?: string): boolean {
+  return contents.some(item => {
+    const phase = item.phase ?? item.state ?? identifySpecies(item.formula).phase;
+    return sameMolecularFormula(item.formula, formula) && item.moles > 1e-12
+      && (!expectedPhase || !phase || phase === expectedPhase || (phase === 'solid' && expectedPhase === 's'));
+  });
 }
 
 /** Conditions determine eligibility; they do not assert measured reaction rates. */
@@ -49,9 +54,13 @@ export function assessProgramConditions(
     || (sameMolecularFormula(item.formula, 'H2SO4') && identifySpecies(item.formula).concentration === 'concentrated')));
   if (producesHydrogen && oxidizingAcid) unmet.push('Không suy diễn H2 cho axit oxi hóa; cần kịch bản riêng đã xác định điều kiện.');
   const conditions = program.chemistry.conditions;
+  if (conditions?.activation === 'ignition' && env.ignitedProgramId !== program.id) unmet.push('Cần thao tác mồi cháy cho mẫu này; chỉ có chất phản ứng hoặc tăng nhiệt độ chung chưa xác nhận đã mồi.');
   const temperature = env.temperature_c ?? 25;
   if (conditions?.minTemp_c !== undefined && temperature < conditions.minTemp_c) unmet.push(`Nhiệt độ mẫu chưa đạt ${conditions.minTemp_c} °C của kịch bản.`);
-  if (conditions?.catalyst && !present(contents, conditions.catalyst)) unmet.push(`Thiếu xúc tác ${conditions.catalyst}.`);
+  if (conditions?.catalyst) {
+    const catalystPhase = program.chemistry.species.find(item => sameMolecularFormula(item.formula, conditions.catalyst!))?.phase;
+    if (!present(contents, conditions.catalyst, catalystPhase)) unmet.push(`Thiếu xúc tác hoặc pha phù hợp của ${conditions.catalyst}.`);
+  }
   if (conditions?.light && !env.light) unmet.push('Chưa có điều kiện chiếu sáng.');
   if (program.chemistry.representation === 'emission' && !env.isHeated) unmet.push('Phép thử ngọn lửa cần nguồn kích thích nhiệt.');
   const strongAcid = contents.filter(item => ['HCl', 'HNO3', 'H2SO4'].some(formula => sameMolecularFormula(item.formula, formula)))

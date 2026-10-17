@@ -110,6 +110,14 @@
       ],
       "observation_vi": "Dung dịch trong suốt, nhiệt độ tăng nhẹ do tỏa nhiệt.",
       "explanation_vi": "Ion H+ và OH- kết hợp tạo thành phân tử nước ổn định.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -57.3,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 4,
         "timeline": [
@@ -264,6 +272,14 @@
       ],
       "observation_vi": "Dung dịch vẫn trong; nhiệt độ tăng tùy nồng độ và lượng chất. Không mặc định có sương trắng hay sủi khí.",
       "explanation_vi": "Phản ứng trung hòa bậc hai tỏa nhiệt mạnh.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -114.6,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 5,
         "timeline": [
@@ -419,6 +435,14 @@
       ],
       "observation_vi": "Dung dịch trong suốt không màu, tỏa nhiệt nhẹ.",
       "explanation_vi": "Tạo muối tan kali nitrat và nước.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -57.3,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 4,
         "timeline": [
@@ -573,6 +597,14 @@
       ],
       "observation_vi": "Dung dịch vẫn trong, có thể ấm lên; pH tăng theo lượng kiềm. Nếu có chỉ thị phù hợp, màu đổi gần điểm kết thúc.",
       "explanation_vi": "OH− chuyển axit axetic thành axetat và nước. Lượng kiềm quyết định vùng đệm, điểm tương đương hoặc kiềm dư; muối axetat thủy phân làm điểm tương đương có pH lớn hơn 7.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -55.8,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 4,
         "timeline": [
@@ -730,6 +762,14 @@
       ],
       "observation_vi": "Khói trắng dày đặc xuất hiện ngay tại miệng bình khi hai hơi khí gặp nhau.",
       "explanation_vi": "Khí NH3 và HCl phản ứng tạo tinh thể muối rắn NH4Cl lơ lửng như khói.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -176,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6,
         "timeline": [
@@ -878,6 +918,14 @@
       ],
       "observation_vi": "Dung dịch tỏa nhiệt, mùi khai amoniac biến mất.",
       "explanation_vi": "Tạo muối amoni sunfat tan trong nước.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -108,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 4.5,
         "timeline": [
@@ -1032,6 +1080,14 @@
       ],
       "observation_vi": "Dung dịch tỏa nhiệt mạnh, trong suốt không màu.",
       "explanation_vi": "Axit photphoric ba nấc bị trung hòa hoàn toàn.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -160,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 4.5,
         "timeline": [
@@ -1186,6 +1242,14 @@
       ],
       "observation_vi": "Nước vôi trong phản ứng với axit tạo dung dịch canxi clorua trong suốt.",
       "explanation_vi": "Bazơ canxi hidroxit bị trung hòa thành muối tan.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -112,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 4,
         "timeline": [
@@ -1343,6 +1407,14 @@
       ],
       "observation_vi": "Vừa tỏa nhiệt vừa tạo kết tủa trắng đục như sữa; độ dẫn điện của dung dịch giảm gần bằng 0 tại điểm tương đương.",
       "explanation_vi": "Cả hai ion H+ và OH- kết hợp thành H2O, đồng thời Ba2+ và SO4(2-) tạo kết tủa BaSO4 không tan.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -140,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -1534,6 +1606,14 @@
       ],
       "observation_vi": "Dung dịch trong suốt, tỏa nhiệt trung hòa.",
       "explanation_vi": "Tạo natri nitrat và nước.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -57.3,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 4,
         "timeline": [
@@ -1686,6 +1766,14 @@
       ],
       "observation_vi": "Xuất hiện kết tủa trắng mịn như sữa ngay khi nhỏ vào nhau, không tan trong axit dư.",
       "explanation_vi": "Tích số tan BaSO4 cực nhỏ (Ksp = 1.1 x 10^-10), muối kết tinh dạng vi tinh thể huyền phù.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -26,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 8,
         "timeWarp": {
@@ -1883,6 +1971,14 @@
       ],
       "observation_vi": "Kết tủa trắng đục sữa hình thành ngay lập tức.",
       "explanation_vi": "Phản ứng nhận biết gốc sunfat bằng bari clorua.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -28,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7.5,
         "timeline": [
@@ -2073,6 +2169,14 @@
       ],
       "observation_vi": "Kết tủa trắng vón cục dạng phô mai (curdy), lắng nhanh để lại dung dịch trong phía trên.",
       "explanation_vi": "AgCl có Ksp = 1.8 x 10^-10, ion Ag+ và Cl- keo tụ thành mảng vón cục lớn.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -65.7,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6.5,
         "timeline": [
@@ -2256,6 +2360,14 @@
       ],
       "observation_vi": "Kết tủa màu vàng nhạt (kem), vón cục, nhạy sáng.",
       "explanation_vi": "AgBr có độ tan bé hơn AgCl (Ksp = 5.4 x 10^-13), tinh thể có màu vàng ngà đặc trưng.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -84.4,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6.5,
         "timeline": [
@@ -2425,6 +2537,14 @@
       ],
       "observation_vi": "Kết tủa màu vàng đậm vón cục (curd), không tan trong axit và amoniac.",
       "explanation_vi": "AgI có Ksp cực bé (8.5 x 10^-17), liên kết đồng hóa trị cao tạo màu vàng đậm.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -112,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6.5,
         "timeline": [
@@ -2601,6 +2721,14 @@
       ],
       "observation_vi": "Kết tủa màu vàng lấp lánh như vảy vàng (\"Mưa Vàng\"), các tinh thể xoay tròn phản chiếu ánh sáng.",
       "explanation_vi": "PbI2 kết tinh thành các phiến lục giác phẳng mỏng có độ phản xạ gương cao.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -63,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 8.5,
         "timeline": [
@@ -2790,6 +2918,14 @@
       ],
       "observation_vi": "Dung dịch chuyển đục màu phấn trắng, lắng dần tạo cặn canxi cacbonat ở đáy. Hoàn toàn không có bọt khí.",
       "explanation_vi": "Ca2+ và CO3(2-) tạo canxi cacbonat ít tan (Ksp = 3.3 x 10^-9).",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -12.5,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -2973,6 +3109,14 @@
       ],
       "observation_vi": "Nước vôi trong dần hóa đục như nước vo gạo khi sục khí CO2 vào.",
       "explanation_vi": "Khí CO2 hấp thụ vào dung dịch kiềm Ca(OH)2 tạo hạt CaCO3 mịn phân tán đều.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -113,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7.5,
         "timeline": [
@@ -3163,6 +3307,14 @@
       ],
       "observation_vi": "Xuất hiện kết tủa dạng keo màu xanh lam sáng đặc trưng, chiếm thể tích lớn.",
       "explanation_vi": "Ion Cu2+ liên kết với OH- tạo mạng lưới polymer đồng(II) hidroxit ngậm nước.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -52,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -3333,6 +3485,14 @@
       ],
       "observation_vi": "Kết tủa dạng bông cặn màu nâu đỏ (màu gỉ sắt) lắng xuống đáy cốc.",
       "explanation_vi": "Sắt(III) hidroxit là bazơ không tan màu nâu đỏ có Ksp = 2.8 x 10^-39 cực kỳ nhỏ.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -105,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -3503,6 +3663,14 @@
       ],
       "observation_vi": "Kết tủa màu trắng xanh / xanh rêu bẩn (dirty green), khi để lâu trong không khí sẽ chuyển dần sang nâu đỏ.",
       "explanation_vi": "Fe(OH)2 có màu trắng xanh, dễ bị oxi hòa tan trong nước oxi hóa thành Fe(OH)3.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -45,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -3672,6 +3840,14 @@
       ],
       "observation_vi": "Kết tủa keo trắng Al(OH)3 xuất hiện, nếu thêm dư NaOH kết tủa sẽ tan.",
       "explanation_vi": "Nhôm hidroxit là bazơ lưỡng tính không tan trong nước.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -90,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6.5,
         "timeline": [
@@ -3842,6 +4018,14 @@
       ],
       "observation_vi": "Lập tức xuất hiện vệt đen tuyền và kết tủa đen đặc CuS, dung dịch mất màu xanh.",
       "explanation_vi": "Đồng(II) sunfua có Ksp = 6 x 10^-36 cực kỳ nhỏ, không tan cả trong axit loãng.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -128,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6,
         "timeline": [
@@ -4025,6 +4209,14 @@
       ],
       "observation_vi": "Kết tủa đen kịt tạo thành lập tức (phản ứng nhận biết ion chì hoặc sunfua).",
       "explanation_vi": "PbS có độ tan cực thấp (Ksp = 3 x 10^-28).",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -100,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6,
         "timeline": [
@@ -4195,6 +4387,14 @@
       ],
       "observation_vi": "Kết tủa màu vàng chanh tươi sáng xuất hiện nhanh chóng.",
       "explanation_vi": "Bari cromat ít tan (Ksp = 1.2 x 10^-10), kết tinh màu vàng chanh đặc trưng.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -24,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6.5,
         "timeline": [
@@ -4370,6 +4570,14 @@
       ],
       "observation_vi": "Kết tủa màu đỏ gạch (brick-red) hình thành ngay lập tức (phương pháp Mohr chuẩn độ Cl-).",
       "explanation_vi": "Bạc cromat có Ksp = 1.1 x 10^-12, có màu đỏ gạch tương phản rõ nét với kết tủa trắng AgCl.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -61,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6.5,
         "timeline": [
@@ -4550,6 +4758,14 @@
       ],
       "observation_vi": "Đá vôi sủi bọt mạnh mẽ, sinh khí CO2 không màu, viên đá vôi mòn dần.",
       "explanation_vi": "Axit mạnh đẩy axit yếu H2CO3 không bền ra khỏi muối, phân hủy thành CO2 bay lên.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -15,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -4770,6 +4986,14 @@
       ],
       "observation_vi": "Sủi bọt tức thì rất mạnh, khí CO2 thoát ra cuồn cuộn.",
       "explanation_vi": "Phản ứng đồng pha giữa hai dung dịch diễn ra với tốc độ cực nhanh.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -28,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 5.5,
         "timeline": [
@@ -4946,6 +5170,14 @@
       ],
       "observation_vi": "Bột sủi bọt mạnh, dung dịch cảm giác mát lạnh hơn một chút do thu nhiệt nhẹ.",
       "explanation_vi": "Natri bicacbonat phản ứng 1:1 với axit, quá trình hòa tan và phân ly thu nhiệt.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": 12,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 5,
         "timeline": [
@@ -5122,6 +5354,14 @@
       ],
       "observation_vi": "Bọt khí không màu H2 thoát ra đều đặn từ bề mặt viên kẽm, viên kẽm mòn dần, dung dịch ấm lên.",
       "explanation_vi": "Kẽm đứng trước hiđro trong dãy điện hóa, khử ion H+ thành khí H2.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -153.9,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7.5,
         "timeline": [
@@ -5242,7 +5482,10 @@
       "category": "gas",
       "equation": "Mg(s) + 2HCl(aq) -> MgCl2(aq) + H2(g)",
       "ionic": null,
-      "conditions": {},
+      "conditions": {
+        "activation": "contact",
+        "activationNote_vi": "Tiếp xúc Mg với axit loãng; lớp oxit và diện tích bề mặt ảnh hưởng tốc độ, không cần mồi cháy."
+      },
       "reactants": [
         {
           "formula": "Mg",
@@ -5335,6 +5578,14 @@
       ],
       "observation_vi": "Dải magie tan rất nhanh, sủi bọt mãnh liệt, tỏa nhiệt nóng rực, hơi nước bốc lên.",
       "explanation_vi": "Magie có tính khử rất mạnh, tỏa nhiệt ΔH = -466.8 kJ/mol làm tăng tốc độ phản ứng theo cấp số nhân.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -466.8,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6,
         "timeline": [
@@ -5520,6 +5771,14 @@
       ],
       "observation_vi": "Đinh sắt sủi bọt khí chậm rãi, dung dịch dần nhuốm màu xanh nhạt của ion Fe2+.",
       "explanation_vi": "Sắt có thế điện cực âm (-0.44V) phản ứng vừa phải với axit loãng.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -87.9,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 8,
         "timeline": [
@@ -5702,6 +5961,14 @@
       ],
       "observation_vi": "Ban đầu phản ứng chậm do màng oxit Al2O3 bảo vệ; sau vài giây sủi bọt bùng nổ dữ dội và cốc rất nóng.",
       "explanation_vi": "Sau khi lớp màng Al2O3 bị phá hủy, kim loại Al tiếp xúc trực tiếp giải phóng năng lượng cực lớn.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -1004,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 8.5,
         "timeline": [
@@ -5899,6 +6166,14 @@
       ],
       "observation_vi": "Sủi bọt sinh khí SO2 không màu, có mùi hắc nồng nặc của que diêm quẹt cháy.",
       "explanation_vi": "Axit sunfurơ H2SO3 kém bền phân hủy tức thì giải phóng khí SO2.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -18,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6,
         "timeline": [
@@ -6078,6 +6353,14 @@
       ],
       "observation_vi": "Hạt quặng FeS đen tan dần, sủi bọt khí H2S có mùi trứng thối nồng nặc.",
       "explanation_vi": "HCl hòa tan quặng sunfua kim loại giải phóng khí hiđro sunfua.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -22,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -6260,6 +6543,14 @@
       ],
       "observation_vi": "Dung dịch bốc mùi khai nồng nặc đặc trưng của amoniac, làm xanh giấy quỳ đỏ ẩm.",
       "explanation_vi": "Bazơ mạnh đẩy bazơ yếu NH3 dễ bay hơi ra khỏi muối amoni.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -5,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6,
         "timeline": [
@@ -6345,6 +6636,8 @@
       "equation": "2H2O2(aq) -> 2H2O(l) + O2(g)",
       "ionic": null,
       "conditions": {
+        "activation": "catalyst",
+        "activationNote_vi": "MnO2 xúc tác phân hủy ở nhiệt độ thường; nhiệt độ và diện tích xúc tác ảnh hưởng tốc độ.",
         "catalyst": "MnO2"
       },
       "reactants": [
@@ -6421,6 +6714,17 @@
       ],
       "observation_vi": "Sủi bọt mãnh liệt sinh khí oxi duy trì sự cháy, tỏa nhiệt ấm, bột đen MnO2 đóng vai trò xúc tác không bị tiêu hao.",
       "explanation_vi": "MnO2 hạ thấp năng lượng hoạt hóa của phản ứng phân hủy hiđro peoxit.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -190.16,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": 298.15,
+        "sources": [
+          "https://atct.anl.gov/Thermochemical%20Data/version%201.122/reaction/?c1=-1&c2=1&species_number%5B%5D=1155&species_number%5B%5D=847",
+          "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+        ],
+        "note_vi": "−190,16 kJ cho 2H2O2(aq) → 2H2O(l) + O2(g), theo dữ liệu tạo thành chuẩn; chưa hiệu chỉnh nồng độ và nhiệt độ thực của mẫu.",
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -6437,20 +6741,6 @@
               "intensity": 3.2,
               "churnRadius": 0.5,
               "gasSpecies": "O2"
-            }
-          },
-          {
-            "id": "steam",
-            "atom": "thermalSteam",
-            "anchor": "rim",
-            "window": [
-              0.15,
-              0.85
-            ],
-            "intensity": 0.8,
-            "params": {
-              "steamDensity": 0.7,
-              "temperature_c": 62
             }
           },
           {
@@ -6524,7 +6814,10 @@
       "category": "gas",
       "equation": "Cu(s) + 4HNO3(conc) -> Cu(NO3)2(aq) + 2NO2(g) + 2H2O(l)",
       "ionic": null,
-      "conditions": {},
+      "conditions": {
+        "activation": "contact",
+        "activationNote_vi": "Đồng phản ứng với HNO3 đặc khi tiếp xúc; không cần bật đèn để bắt đầu."
+      },
       "reactants": [
         {
           "formula": "Cu",
@@ -6628,6 +6921,14 @@
       ],
       "observation_vi": "Dung dịch sủi bọt dữ dội và chuyển dần sang màu xanh lam đậm; luồng khí màu nâu đỏ đặc quánh cuộn tràn qua miệng bình.",
       "explanation_vi": "Đồng bị axit nitric đặc oxi hóa mạnh sinh ion Cu2+ màu xanh và khí nitơ đioxit NO2 màu nâu đỏ nặng hơn không khí.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -136,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 8.5,
         "timeline": [
@@ -6828,6 +7129,14 @@
       ],
       "observation_vi": "Khí thoát ra trong lòng chất lỏng không màu, nhưng khi lên đến miệng bình tiếp xúc không khí lập tức hóa nâu đỏ.",
       "explanation_vi": "Khí NO không màu tự phát kết hợp với oxi không khí (2NO + O2 -> 2NO2) tạo NO2 màu nâu đỏ.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -358,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 8,
         "timeline": [
@@ -7014,6 +7323,14 @@
       ],
       "observation_vi": "Đinh sắt được phủ một lớp đồng màu đỏ cam sáng bóng, màu xanh lam của dung dịch nhạt dần chuyển sang xanh rêu nhạt.",
       "explanation_vi": "Sắt có tính khử mạnh hơn đồng, khử ion Cu2+ thành kim loại đồng bám trên bề mặt.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -152,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 8.5,
         "timeline": [
@@ -7184,6 +7501,14 @@
       ],
       "observation_vi": "Kẽm tan nhanh, bị phủ một lớp đồng xốp màu nâu đen, dung dịch xanh lam mất màu hoàn toàn thành không màu.",
       "explanation_vi": "Kẽm có thế điện cực chuẩn rất âm (-0.76V) so với Cu (+0.34V), phản ứng thế diễn ra mãnh liệt hơn sắt.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -218.7,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 8,
         "timeline": [
@@ -7355,6 +7680,14 @@
       ],
       "observation_vi": "Cành cây bạc lấp lánh (dendrite) mọc tủa gai trên dây đồng, dung dịch từ không màu dần chuyển sang màu xanh lam ngọc.",
       "explanation_vi": "Đồng khử Ag+ thành các tinh thể bạc hình nhánh cây; ion Cu2+ sinh ra làm dung dịch hóa xanh.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -147,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 9,
         "timeWarp": {
@@ -7563,6 +7896,14 @@
       ],
       "observation_vi": "Màu tím đậm của KMnO4 thoạt đầu mất rất chậm (giai đoạn cảm ứng), sau đó bỗng nhiên mất màu rất nhanh thành dung dịch không màu kèm bọt khí CO2.",
       "explanation_vi": "Phản ứng tự xúc tác: ion Mn2+ sinh ra hoạt động như một chất xúc tác cực mạnh thúc đẩy phản ứng.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -680,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 8.5,
         "timeline": [
@@ -7768,6 +8109,14 @@
       ],
       "observation_vi": "Dung dịch màu da cam rực rỡ của đicromat chuyển nhanh chóng sang màu xanh lục thẫm của ion Cr3+.",
       "explanation_vi": "Crom(VI) bị ion sắt(II) khử xuống crom(III) trong môi trường axit.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -490,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6.5,
         "timeline": [
@@ -7937,6 +8286,14 @@
       ],
       "observation_vi": "Dung dịch màu vàng nâu nhạt nhanh chóng sẫm lại thành màu nâu đen của iot tự do tan trong KI (ion I3-).",
       "explanation_vi": "Fe3+ oxi hóa I- thành I2 tự do.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -58,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 5.5,
         "timeline": [
@@ -8089,6 +8446,14 @@
       ],
       "observation_vi": "Dung dịch không màu lập tức chuyển sang màu vàng cam rồi đỏ nâu của brom lỏng tan.",
       "explanation_vi": "Clo có tính oxi hóa mạnh hơn brom, đẩy brom ra khỏi dung dịch muối bromua.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -93,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 4.5,
         "timeline": [
@@ -8238,6 +8603,14 @@
       ],
       "observation_vi": "Dung dịch màu vàng rơm lập tức chuyển sang màu đỏ máu (blood red) cực kỳ đậm đà và rực rỡ.",
       "explanation_vi": "Ion Fe3+ và SCN- tạo phức cation pentaaquathiocyanatoiron(III) có hệ số hấp thụ quang học cực lớn.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -24,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 4.5,
         "timeline": [
@@ -8400,6 +8773,14 @@
       ],
       "observation_vi": "Ban đầu tạo kết tủa Cu(OH)2 xanh nhạt, sau đó kết tủa tan biến hoàn toàn thành dung dịch màu xanh lam thẫm (xanh hoàng gia / nước Schweizer) trong suốt.",
       "explanation_vi": "Phân tử amoniac đóng vai trò phối tử thay thế nước tạo phức chất bền [Cu(NH3)4]2+.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -88,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6,
         "timeline": [
@@ -8578,6 +8959,14 @@
       ],
       "observation_vi": "Dung dịch màu cam rực rỡ của ion đicromat lập tức chuyển sang màu vàng tươi chanh của ion cromat.",
       "explanation_vi": "Môi trường kiềm làm dịch chuyển cân bằng theo nguyên lý Le Chatelier từ Cr2O7(2-) sang CrO4(2-).",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -14,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 4.5,
         "timeline": [
@@ -8736,6 +9125,14 @@
       ],
       "observation_vi": "Dung dịch màu vàng chanh lập tức đổi ngược lại thành màu da cam rực rỡ.",
       "explanation_vi": "Tăng nồng độ ion H+ làm dịch chuyển cân bằng tái tạo ion đicromat Cr2O7(2-).",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -14,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 4.5,
         "timeline": [
@@ -8883,6 +9280,14 @@
       ],
       "observation_vi": "Kết tủa keo trắng đục tan biến dần, dung dịch trở nên trong suốt hoàn toàn.",
       "explanation_vi": "Nhôm hidroxit lưỡng tính tan trong kiềm mạnh tạo ion phức tan tetrahydroxoaluminat.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -31,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6,
         "timeline": [
@@ -8959,7 +9364,10 @@
       "category": "redox",
       "equation": "2Mg(s) + O2(g) -> 2MgO(s)",
       "ionic": null,
-      "conditions": {},
+      "conditions": {
+        "activation": "ignition",
+        "activationNote_vi": "Cần mồi cháy; không suy ra trạng thái đã mồi chỉ từ nhiệt độ trung bình của bình."
+      },
       "reactants": [
         {
           "formula": "Mg",
@@ -9040,6 +9448,14 @@
       ],
       "observation_vi": "Magie cháy bùng lên phát ra ánh sáng trắng chói lòa (3100 K) và khói trắng dày đặc của bột magie oxit.",
       "explanation_vi": "Phản ứng giải phóng năng lượng cực lớn biến hạt rắn MgO thành nguồn phát bức xạ vật đen nhiệt độ cao.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -1203,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6.5,
         "timeline": [
@@ -9138,7 +9554,10 @@
       "category": "gas",
       "equation": "2Na(s) + 2H2O(l) -> 2NaOH(aq) + H2(g)",
       "ionic": null,
-      "conditions": {},
+      "conditions": {
+        "activation": "contact",
+        "activationNote_vi": "Na phản ứng với nước khi tiếp xúc; cháy H2 hoặc bùng nổ là diễn biến riêng, không là điều kiện bắt đầu."
+      },
       "reactants": [
         {
           "formula": "Na",
@@ -9228,6 +9647,14 @@
       ],
       "observation_vi": "Mẩu natri nóng chảy vo tròn thành viên bi bạc lướt nhanh trên mặt nước, cháy với ngọn lửa màu vàng kim, có tiếng xèo xèo và nổ lép bép.",
       "explanation_vi": "Nhiệt tỏa ra làm nóng chảy natri (nóng chảy ở 97.8 °C); luồng khí H2 đẩy viên bi trượt trên đệm khí Leidenfrost.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -368.4,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6,
         "timeline": [
@@ -9341,7 +9768,10 @@
       "category": "gas",
       "equation": "2K(s) + 2H2O(l) -> 2KOH(aq) + H2(g)",
       "ionic": null,
-      "conditions": {},
+      "conditions": {
+        "activation": "contact",
+        "activationNote_vi": "K phản ứng với nước khi tiếp xúc; không cần nguồn mồi bên ngoài cho bước kim loại–nước."
+      },
       "reactants": [
         {
           "formula": "K",
@@ -9431,6 +9861,14 @@
       ],
       "observation_vi": "Kali bốc cháy ngay lập tức với ngọn lửa màu tím hoa cà (lilac) rực rỡ, phản ứng dữ dội và kết thúc bằng tiếng nổ tách đanh gọn.",
       "explanation_vi": "Kali có bán kính nguyên tử lớn hơn natri, năng lượng ion hóa thấp hơn, tự bốc cháy gần như tức thì với nước.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -392,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 4.5,
         "timeline": [
@@ -9617,6 +10055,14 @@
       ],
       "observation_vi": "Khi đun nóng trên 60 °C, kết tủa keo màu xanh lam Cu(OH)2 chuyển dần sang màu nâu rồi hóa thành bột oxit đồng(II) màu đen tuyền.",
       "explanation_vi": "Đồng(II) hidroxit không bền nhiệt, mất nước tạo đồng(II) oxit CuO màu đen.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": 48,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -9793,6 +10239,14 @@
       ],
       "observation_vi": "Bột natri bicacbonat giải phóng hơi nước đọng thành giọt trên thành ống nghiệm và thoát khí CO2.",
       "explanation_vi": "Muối axit bicacbonat bị nhiệt phân hủy thành muối trung hòa cacbonat bền nhiệt hơn.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": 129,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -9989,6 +10443,14 @@
       ],
       "observation_vi": "Sủi bọt dữ dội, giải phóng luồng khí màu vàng lục (yellow-green) nặng hơn không khí, có mùi hắc nồng nặc gây co thắt phế quản.",
       "explanation_vi": "Phản ứng comproporation giữa ion ClO- và Cl- trong môi trường axit sinh khí clo tự do Cl2.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -85,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -10162,6 +10624,14 @@
       ],
       "observation_vi": "Dung dịch chuyển từ màu hồng cánh sen sang màu xanh lam đậm coban đặc trưng.",
       "explanation_vi": "Sự thay đổi cấu hình từ bát diện d2sp3 (hồng) sang tứ diện sp3 (lam) làm thay đổi năng lượng tách trường phối tử Delta.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": 50,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 5,
         "timeline": [
@@ -10328,6 +10798,14 @@
       ],
       "observation_vi": "Dung dịch niken màu xanh lục bảo chuyển thành phức chất màu xanh tím đậm đà.",
       "explanation_vi": "Phối tử NH3 có trường tinh thể mạnh hơn H2O trong dãy quang phổ hóa học, làm tăng năng lượng Delta_o.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -78,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6,
         "timeline": [
@@ -10495,6 +10973,14 @@
       ],
       "observation_vi": "Tạo huyền phù kết tủa keo màu xanh Phổ (Prussian blue) đậm tuyệt đẹp.",
       "explanation_vi": "Tạo phức polyme phối trí hỗn hợp hóa trị Fe(II)-CN-Fe(III) với hiện tượng truyền điện tích ion.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -42,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7.5,
         "timeline": [
@@ -10683,6 +11169,14 @@
       ],
       "observation_vi": "Tạo kết tủa xanh Turnbull (Turnbull blue) tương đương cấu trúc với xanh Phổ.",
       "explanation_vi": "Fe(2+) chuyển nhanh electron cho [Fe(CN)6]3- tạo mạng tinh thể polyme phối trí đồng nhất.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -38,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -10858,6 +11352,14 @@
       ],
       "observation_vi": "Tạo kết tủa màu nâu đỏ sô-cô-la đặc trưng (Hatchett brown), thuốc thử định tính Cu2+ cực nhạy.",
       "explanation_vi": "Ion Cu2+ liên kết bền vững với cầu xyanua tạo màng bán thấm đồng ferroxianua nổi tiếng.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -35,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -11041,6 +11543,14 @@
       ],
       "observation_vi": "Kết tủa vón trắng AgCl tan hoàn toàn thành dung dịch không màu trong suốt.",
       "explanation_vi": "Phức điamminbạc(I) có hằng số bền Kf rất lớn (1.7 x 10^7), hòa tan kết tủa AgCl.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -12,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6,
         "timeline": [
@@ -11202,6 +11712,14 @@
       ],
       "observation_vi": "Kết tủa vàng AgI tan dần trong dung dịch thiosunfat, cơ sở của quá trình định hình phim ảnh.",
       "explanation_vi": "Phối tử thiosunfat tạo phức bis(thiosulfato)argentate(I) cực bền với Kf = 2.9 x 10^13.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -15,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6.5,
         "timeline": [
@@ -11372,6 +11890,14 @@
       ],
       "observation_vi": "Tạo kết tủa keo màu xanh lục táo (apple green) không tan trong kiềm dư.",
       "explanation_vi": "Ni2+ tạo hydroxit kết tủa có Ksp = 5.5 x 10^-16, không có tính lưỡng tính.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -32,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -11550,6 +12076,14 @@
       ],
       "observation_vi": "Ban đầu tạo kết tủa xanh lam của muối bazơ Co(OH)Cl, sau đó nhanh chóng chuyển sang màu hồng đào Co(OH)2.",
       "explanation_vi": "Giai đoạn đầu tạo muối bazơ tứ diện xanh, sau đó chuyển thành hydroxit bát diện ổn định màu hồng.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -28,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7.5,
         "timeline": [
@@ -11728,6 +12262,14 @@
       ],
       "observation_vi": "Tạo kết tủa keo trắng Zn(OH)2 đặc trưng, tan được trong kiềm dư tạo dung dịch trong suốt.",
       "explanation_vi": "Zn(OH)2 là hydroxit lưỡng tính kinh điển, tan trong kiềm dư tạo phức tetrahidroxozincat.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -30,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6.5,
         "timeline": [
@@ -11901,6 +12443,14 @@
       ],
       "observation_vi": "Tạo huyền phù kết tủa trắng đục (sữa magie - milk of magnesia) không tan trong kiềm dư.",
       "explanation_vi": "Tích số tan Ksp = 5.6 x 10^-12, ion Mg2+ không có tính lưỡng tính.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -22,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6.5,
         "timeline": [
@@ -12077,6 +12627,14 @@
       ],
       "observation_vi": "Mn(OH)2 mới kết tủa có màu rất nhạt. Trong không khí, kết tủa có thể sẫm nâu dần do quá trình oxy hóa tiếp theo; mô hình hiện chỉ ghi nhận giai đoạn kết tủa ban đầu.",
       "explanation_vi": "OH− kết tủa Mn(II). Sự sẫm màu do O2 cần một bước oxy hóa riêng, không tự đổi công thức sản phẩm của phương trình này.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -25,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7.5,
         "timeline": [
@@ -12249,6 +12807,14 @@
       ],
       "observation_vi": "Tạo kết tủa màu nâu đen đặc trưng của bismut(III) iotua BiI3.",
       "explanation_vi": "Tích số tan Ksp = 7.7 x 10^-19 rất nhỏ, tan trong KI dư tạo phức [BiI4]- màu vàng cam.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -45,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -12423,6 +12989,14 @@
       ],
       "observation_vi": "Tạo kết tủa trắng của kẽm sunfua ZnS (muối sunfua duy nhất của kim loại chuyển tiếp có màu trắng).",
       "explanation_vi": "Zn2+ phản ứng với ion sunfua S 2- tạo kết tủa ZnS có Ksp = 1.6 x 10^-24.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -42,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6.5,
         "timeline": [
@@ -12618,6 +13192,14 @@
       ],
       "observation_vi": "Tạo kết tủa màu vàng tươi rực rỡ (vàng crom - chrome yellow), phẩm màu họa sĩ cổ điển.",
       "explanation_vi": "Tích số tan Ksp = 2.8 x 10^-13 cực nhỏ, tan trong kiềm đặc do tính lưỡng tính.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -35,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -12793,6 +13375,14 @@
       ],
       "observation_vi": "Tạo kết tủa trắng nặng của chì sunfat, tan trong amoni axetat đặc.",
       "explanation_vi": "Tích số tan Ksp = 1.6 x 10^-8, chì sunfat là chất điện cực trong ắc quy chì-axit.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -20,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6.5,
         "timeline": [
@@ -12989,6 +13579,14 @@
       ],
       "observation_vi": "Dung dịch màu xanh lam lập tức chuyển thành huyền phù màu nâu thẫm gồm kết tủa trắng ngà CuI lẫn trong dung dịch iot I2.",
       "explanation_vi": "Cu2+ oxy hóa I- thành I2 tự do đồng thời bị khử thành kết tủa đồng(I) iotua CuI không tan.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -48,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -13166,6 +13764,14 @@
       ],
       "observation_vi": "Trên bề mặt kẽm mọc ra các chùm tinh thể bạc hình kim lấp lánh (cây bạc Diana).",
       "explanation_vi": "Zn có thế khử chuẩn (-0.76V) âm hơn nhiều so với Ag+ (+0.80V), thế khử deltaE = +1.56V đẩy mạnh kết tinh bạc.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -365,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 8,
         "timeWarp": {
@@ -13253,7 +13859,11 @@
       "category": "gas",
       "equation": "2KMnO4(aq) + 5Na2C2O4(aq) + 8H2SO4(aq) -> K2SO4(aq) + 2MnSO4(aq) + 5Na2SO4(aq) + 10CO2(g) + 8H2O(l)",
       "ionic": "2MnO4-(aq) + 5C2O4(2-)(aq) + 16H+(aq) -> 2Mn(2+)(aq) + 10CO2(g) + 8H2O(l)",
-      "conditions": {},
+      "conditions": {
+        "activation": "warming",
+        "activationNote_vi": "Cần môi trường axit; làm ấm rút ngắn cảm ứng, không có ngưỡng nhiệt phổ quát bật/tắt phản ứng.",
+        "medium": "acidic"
+      },
       "reactants": [
         {
           "formula": "KMnO4",
@@ -13385,6 +13995,14 @@
       ],
       "observation_vi": "Màu tím sẫm của KMnO4 mất màu dần khi chuẩn độ trong dung dịch axit nóng, đồng thời sinh bọt khí CO2 li ti.",
       "explanation_vi": "Phương pháp chuẩn độ pemanganat kinh điển chuẩn hóa nồng độ dung dịch KMnO4 bằng chất chuẩn gốc natri oxalat.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -280,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -13469,7 +14087,10 @@
       "category": "precipitation",
       "equation": "Mg(s) + CuSO4(aq) -> MgSO4(aq) + Cu(s)",
       "ionic": "Mg(s) + Cu(2+)(aq) -> Mg(2+)(aq) + Cu(s)",
-      "conditions": {},
+      "conditions": {
+        "activation": "contact",
+        "activationNote_vi": "Mg đẩy Cu khỏi dung dịch CuSO4 khi tiếp xúc; màng bề mặt ảnh hưởng tốc độ."
+      },
       "reactants": [
         {
           "formula": "Mg",
@@ -13564,6 +14185,14 @@
       ],
       "observation_vi": "Bề mặt magie lập tức phủ lớp đồng đỏ nâu, tỏa nhiệt mạnh làm nóng cốc và dung dịch nhạt màu xanh.",
       "explanation_vi": "Mg có thế điện cực cực âm (-2.37V) giải phóng nhiệt lượng khổng lồ (-536 kJ/mol) khi khử Cu2+.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -536,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -13752,6 +14381,14 @@
       ],
       "observation_vi": "Dung dịch không màu lập tức đổi sang màu nâu đỏ thẫm do giải phóng iot tự do (tạo phức I3-).",
       "explanation_vi": "Clo có độ âm điện và thế oxy hóa (+1.36V) cao hơn iot (+0.54V), đẩy iot ra khỏi muối.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -176,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 5.5,
         "timeline": [
@@ -13914,6 +14551,14 @@
       ],
       "observation_vi": "Màu nâu đỏ của iot bị mất màu nhanh chóng, dung dịch trở nên hoàn toàn trong suốt không màu.",
       "explanation_vi": "Thiosunfat khử định lượng iot thành iotua không màu, bản thân bị oxy hóa thành tetrationat S4O6 2-.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -68,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 5,
         "timeline": [
@@ -14092,6 +14737,14 @@
       ],
       "observation_vi": "Dung dịch không màu dần dần chuyển sang màu vàng rồi đậm dần thành nâu thẫm của iot tự do.",
       "explanation_vi": "Hiđro peoxit trong môi trường axit là chất oxy hóa mạnh (E = +1.77V), oxy hóa chậm I- thành I2.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -210,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6.5,
         "timeline": [
@@ -14281,6 +14934,14 @@
       ],
       "observation_vi": "Màu tím đặc trưng của thuốc tím KMnO4 bị mất màu ngay khi nhỏ vào, chuyển thành màu vàng rơm nhạt của Fe3+.",
       "explanation_vi": "Fe2+ khử ion MnO4- trong môi trường axit về Mn2+ không màu, bản thân chuyển thành Fe3+ màu vàng.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -690,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6,
         "timeline": [
@@ -14473,6 +15134,14 @@
       ],
       "observation_vi": "Dung dịch màu cam đỏ đicromat chuyển sang màu xanh lục ngọc của ion crom(III) Cr3+, tỏa mùi aldehyde đặc trưng.",
       "explanation_vi": "Cồn etanol bị đicromat oxy hóa thành axetanđehit, Cr(VI) màu cam bị khử về Cr(III) màu lục.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -450,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -14651,6 +15320,14 @@
       ],
       "observation_vi": "Sủi bọt khí O2 dữ dội, dâng bọt khí cuồn cuộn và xuất hiện bột màu nâu đen MnO2.",
       "explanation_vi": "Hiđro peoxit đóng vai trò chất khử đối với KMnO4, giải phóng O2 và MnO2 tự xúc tác.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -410,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -14848,6 +15525,14 @@
       ],
       "observation_vi": "Hạt kẽm tan dần, sủi bọt khí hiđro H2 đều đặn và liên tục từ bề mặt hạt kim loại.",
       "explanation_vi": "Kẽm khử ion H+ của axit sunfuric loãng giải phóng khí H2 trong bình Kipp.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -152,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -15041,6 +15726,14 @@
       ],
       "observation_vi": "Mẩu đá vôi tan mạnh, sủi bọt khí cacbonic CO2 nhanh chóng làm đục nước vôi trong.",
       "explanation_vi": "Axit nitric mạnh đẩy axit cacbonic yếu ra khỏi muối, sinh khí CO2 và muối tan canxi nitrat.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -21,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6.5,
         "timeline": [
@@ -15227,6 +15920,14 @@
       ],
       "observation_vi": "Khi đun nóng, phôi đồng tan dần, sủi bọt khí SO2 mùi hắc và dung dịch chuyển sang màu xanh lam ngọc.",
       "explanation_vi": "Axit sunfuric đặc nóng thể hiện tính oxi hóa mạnh, oxi hóa Cu kim loại lên Cu2+ và sinh SO2.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -65,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 8,
         "timeline": [
@@ -15424,6 +16125,14 @@
       ],
       "observation_vi": "Tỏa khí amoniac NH3 mùi khai mạnh, khói mỏng bốc lên từ bề mặt khi để gần đũa thủy tinh nhúng HCl đặc.",
       "explanation_vi": "Phản ứng đặc trưng dùng để nhận biết ion amoni trong phân bón đạm sunfat.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": 8,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 6,
         "timeline": [
@@ -15508,7 +16217,10 @@
       "category": "precipitation",
       "equation": "CaC2(s) + 2H2O(l) -> Ca(OH)2(s) + C2H2(g)",
       "ionic": "CaC2(s) + 2H2O(l) -> Ca(OH)2(s) + C2H2(g)",
-      "conditions": {},
+      "conditions": {
+        "activation": "contact",
+        "activationNote_vi": "Thủy phân khi CaC2 tiếp xúc nước; tạo C2H2 khác với bước mồi đốt khí."
+      },
       "reactants": [
         {
           "formula": "CaC2",
@@ -15601,6 +16313,14 @@
       ],
       "observation_vi": "Mẩu đất đèn CaC2 sủi bọt khí axetilen C2H2 cực kỳ dữ dội, tỏa nhiệt nóng và để lại vôi tôi Ca(OH)2 trắng đục.",
       "explanation_vi": "Muối cacbua kim loại bị thủy phân mạnh mẽ tạo khí hidrocacbon không no axetilen.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -128,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -15705,7 +16425,10 @@
       "category": "gas",
       "equation": "2Al(s) + 2NaOH(aq) + 2H2O(l) -> 2NaAlO2(aq) + 3H2(g)",
       "ionic": "2Al(s) + 2OH-(aq) + 2H2O(l) -> 2AlO2-(aq) + 3H2(g)",
-      "conditions": {},
+      "conditions": {
+        "activation": "contact",
+        "activationNote_vi": "Kiềm hòa tan lớp oxit bảo vệ rồi Al phản ứng; thời gian cảm ứng phụ thuộc bề mặt và nồng độ."
+      },
       "reactants": [
         {
           "formula": "Al",
@@ -15813,6 +16536,14 @@
       ],
       "observation_vi": "Nhôm tan mạnh trong dung dịch kiềm nóng, sủi bọt khí H2 dữ dội và dung dịch nóng lên rất nhanh.",
       "explanation_vi": "Nhôm có tính khử mạnh và tính lưỡng tính, tan được cả trong axit lẫn bazơ mạnh giải phóng khí H2.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -415,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 8,
         "timeline": [
@@ -15910,7 +16641,10 @@
       "category": "gas",
       "equation": "KCl(s) + H2SO4(aq) -> KHSO4(aq) + HCl(g)",
       "ionic": "Cl-(s) + H2SO4(l) -> HSO4-(aq) + HCl(g)",
-      "conditions": {},
+      "conditions": {
+        "activation": "contact",
+        "activationNote_vi": "Axit đặc đẩy HCl khỏi muối clorua; gia nhiệt có thể tăng tốc thoát khí, không phải mồi cháy."
+      },
       "reactants": [
         {
           "formula": "KCl",
@@ -16004,6 +16738,14 @@
       ],
       "observation_vi": "Muối KCl phản ứng với H2SO4 đặc tạo khói trắng mờ đục của khí hiđro clorua HCl bốc nghi ngút trong không khí ẩm.",
       "explanation_vi": "Phương pháp sunfat điều chế khí hiđro clorua khô: axit khó bay hơi đẩy axit dễ bay hơi ra khỏi muối.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -14,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -16186,6 +16928,14 @@
       ],
       "observation_vi": "Khi đun nhẹ, xuất hiện bọt khí nitơ N2 li ti sủi đều khắp toàn bộ thể tích dung dịch.",
       "explanation_vi": "Phân hủy amoni nitrit NH4NO2 tạo khí nitơ tinh khiết dùng trong phòng thí nghiệm.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -332,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7,
         "timeline": [
@@ -16269,7 +17019,10 @@
       "category": "gas",
       "equation": "2KMnO4(s) + 16HCl(aq) -> 2KCl(aq) + 2MnCl2(aq) + 5Cl2(g) + 8H2O(l)",
       "ionic": "2MnO4- + 10Cl- + 16H+ -> 2Mn(2+) + 5Cl2(g) + 8H2O",
-      "conditions": {},
+      "conditions": {
+        "activation": "contact",
+        "activationNote_vi": "Phản ứng oxi hóa khử trong axit; không gắn nhãn cần mồi cháy hoặc tự thêm ngưỡng nhiệt."
+      },
       "reactants": [
         {
           "formula": "KMnO4",
@@ -16384,6 +17137,14 @@
       ],
       "observation_vi": "Sủi bọt dữ dội, thoát ra dòng khí màu vàng lục Cl2 mùi hắc nồng cực độc, dung dịch mất màu tím thuốc tím.",
       "explanation_vi": "Thuốc tím KMnO4 oxy hóa mạnh mẽ ion clorua Cl- trong axit đặc tạo khí clo tự do.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": -440,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 7.5,
         "timeline": [
@@ -16548,7 +17309,7 @@
       "mode": "simulation_only",
       "runtime": "existing_program",
       "programId": "thiosulfate_acid_clock",
-      "protocolStatus": "qualitative_outline",
+      "protocolStatus": "reaction_specific",
       "quantityPolicy": "Không có định lượng thực nghiệm đã kiểm chứng: giáo viên cung cấp nồng độ, lượng mẫu và quy trình trước thực hành.",
       "safety_vi": "Mô phỏng sinh SO2 độc, không nhận biết bằng ngửi khí.",
       "hazards": [
@@ -16557,31 +17318,39 @@
       "steps": [
         {
           "order": 1,
-          "instruction_vi": "Chuẩn bị riêng Na2S2O3 (aq), HCl (aq); đối chiếu nhãn và điều kiện trước khi ghép mẫu.",
+          "instruction_vi": "Trong mô phỏng, chọn dung dịch Na2S2O3 trong suốt và quan sát dấu chữ thập dưới đáy bình; ghi lại nhiệt độ và nồng độ của mẫu.",
           "checkpoint": "prepare",
           "automaticValidation": false
         },
         {
           "order": 2,
-          "instruction_vi": "Cho các chất tiếp xúc có kiểm soát theo phương trình: Na2S2O3(aq) + 2HCl(aq) -> 2NaCl(aq) + SO2(g) + S(s) + H2O(l). ",
+          "instruction_vi": "Cho dung dịch HCl loãng tiếp xúc với thiosulfat và bắt đầu tính giờ; giữ nguyên các yếu tố khác khi so sánh ảnh hưởng của nồng độ hoặc nhiệt độ.",
           "checkpoint": "contact",
           "automaticValidation": false
         },
         {
           "order": 3,
-          "instruction_vi": "Lưu huỳnh keo làm dịch đục dần; SO2 sinh ra không màu, không phải khói trắng.",
+          "instruction_vi": "Quan sát lưu huỳnh keo làm dịch đục ánh vàng và che dấu chữ thập dần; SO2 sinh ra không màu, không dùng mùi để nhận biết khí.",
           "checkpoint": "observe",
           "automaticValidation": false
         },
         {
           "order": 4,
-          "instruction_vi": "Để hệ tiến triển rồi so sánh trạng thái cuối với phương trình. Thiosulfate phân hủy trong axit, khác đồng hồ iot–tinh bột. Lượng S và SO2 bị chặn theo chất giới hạn; thời gian là minh họa.",
+          "instruction_vi": "Ghi thời điểm dấu chữ thập không còn thấy rõ và đối chiếu chất giới hạn; đây là mốc quan sát độ đục, không chứng minh phản ứng đã hết. Thời gian trong mô phỏng chưa được hiệu chuẩn thực nghiệm.",
           "checkpoint": "conclude",
           "automaticValidation": false
         }
       ],
       "observation_vi": "Lưu huỳnh keo làm dịch đục dần; SO2 sinh ra không màu, không phải khói trắng.",
       "explanation_vi": "Thiosulfate phân hủy trong axit, khác đồng hồ iot–tinh bột. Lượng S và SO2 bị chặn theo chất giới hạn; thời gian là minh họa.",
+      "thermochemistry": {
+        "deltaH_kJ_per_mol_reaction": null,
+        "basis": "coefficients_as_written",
+        "referenceTemperature_K": null,
+        "sources": [],
+        "note_vi": null,
+        "calibration": "not_calibrated_for_sample"
+      },
       "effects": {
         "duration_s": 10,
         "timeline": [

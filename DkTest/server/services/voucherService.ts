@@ -21,10 +21,27 @@ import {
   setFirestoreRestDoc,
   deleteFirestoreRestDoc,
 } from "../firebaseAdmin.js";
+import { getOrCreateWallet } from "./walletService.js";
 import type { Voucher, VoucherType, VoucherUsage, StudentWallet, WalletTransaction } from "../../src/types/index.js";
 
 function normalizeCode(code: string): string {
   return String(code || "").trim().toUpperCase();
+}
+
+export async function getVoucherByCode(rawCode: string): Promise<Voucher | null> {
+  const code = normalizeCode(rawCode);
+  if (!code) return null;
+  if (adminDb) {
+    const snap = await adminDb.collection("vouchers").where("code", "==", code).limit(1).get();
+    if (!snap.empty) {
+      return { id: snap.docs[0].id, ...snap.docs[0].data() } as Voucher;
+    }
+  } else {
+    const all = await getFirestoreRestDocs("vouchers", 100, false);
+    const found = (all || []).find((v: any) => normalizeCode(v.code) === code);
+    if (found) return found as Voucher;
+  }
+  return null;
 }
 
 export async function getVouchersList(): Promise<Voucher[]> {

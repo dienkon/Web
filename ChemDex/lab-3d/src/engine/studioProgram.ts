@@ -9,6 +9,7 @@ import { assessProgramConditions } from '../science/conditions';
 import { cachedAqueousEquilibrium } from '../science/aqueousEquilibrium';
 import { DETERMINISTIC_PROGRAM_ALIASES } from '../science/reviewCatalog';
 import { getProgramById } from '../vfx/programs/library';
+import { FOAM_SURFACTANT } from './foamInventory';
 
 const EXTRA_ALIASES: Record<string, string> = {
   cacl2_na2co3_precipitate: 'cacl2_na2co3', al_naoh: 'aloh3_naoh',
@@ -32,8 +33,9 @@ function molarMass(formula: string, declared?: number) {
 /** Authored virtual specimen, not an experimentally validated lab procedure.
  * Normal aqueous demos assume 30 mL and density 1 g/mL. Concentrated acid
  * specimens have explicit stock water instead of an arbitrary 30 mL dilution. */
-export function createStudioSample(program: ReactionProgram, shell: VesselState): VesselState {
+export function createStudioSample(program: ReactionProgram, shell: VesselState, variant?: 'oxygen_foam'): VesselState {
   if (program.chemistry.representation === 'emission') throw new Error('Phát xạ ngọn lửa dùng mẫu màu trên đèn.');
+  if (variant && program.id !== 'h2o2_mno2') throw new Error('Biến thể bọt chỉ dành cho mẫu O2 đã khai báo.');
   const concentrated = ['cu_hno3_conc', 'cu_conc_h2so4', 'kcl_conc_h2so4', 'water_into_h2so4', 'h2so4_dilution'].includes(program.id);
   const extent = concentrated ? 0.01 : 0.001;
   const contents: SubstanceContent[] = [];
@@ -59,6 +61,8 @@ export function createStudioSample(program: ReactionProgram, shell: VesselState)
     if (existing) { existing.mass_g += mass_g; existing.moles += mass_g / molarMass('H2O'); existing.initialMoles = existing.moles; }
     else contents.push({ formula: 'H2O', phase: 'l', mass_g, moles: mass_g / molarMass('H2O') });
   };
+  if (variant === 'oxygen_foam') contents.push({ formula: FOAM_SURFACTANT, phase: 'aq',
+    mass_g: 0.2, moles: 0.2 / molarMass(FOAM_SURFACTANT) });
   if (concentrated) for (const acid of contents.filter(item => item.formula.includes('(conc)'))) {
     const fraction = sameMolecularFormula(acid.formula, 'HNO3') ? 0.68 : 0.98;
     addWater(acid.mass_g * (1 / fraction - 1));
@@ -75,7 +79,9 @@ export function createStudioSample(program: ReactionProgram, shell: VesselState)
   if (volume_ml > shell.capacity_ml) throw new Error('Dụng cụ không đủ sức chứa mẫu.');
   for (const item of contents) if (item.phase === 'aq') item.concentration_M = item.moles / (volume_ml / 1000);
   const equilibrium = cachedAqueousEquilibrium(contents, volume_ml);
-  return { ...shell, studioProgramId: program.id, contents,
+  return { ...shell, studioProgramId: program.id, studioSpecimenVariant: variant, contents,
+    ignitedProgramId: undefined,
+    programHeatApplied_J: 0,
     substances: [...new Set(contents.map(item => item.formula))], mass_g: contents.reduce((sum, item) => sum + item.mass_g, 0),
     volume_ml, volume: volume_ml / shell.capacity_ml, density_g_ml: volume_ml > 0 ? density : undefined,
     temperature_c: 25, ph: equilibrium?.ph ?? 7, phModel: equilibrium ? 'ideal_aqueous_25c' : undefined,
@@ -89,6 +95,7 @@ export function createStudioSample(program: ReactionProgram, shell: VesselState)
 export function planStudioProgram(program: ReactionProgram, vessel: VesselState, language: Language) {
   if (!vessel.contents.some(item => item.moles > 1e-12)) return { unmet: ['Mẫu đã hết lượng chất để phản ứng.'], kinetics: null };
   const assessment = assessProgramConditions(program, vessel.contents, { temperature_c: vessel.temperature_c,
+    ignitedProgramId: vessel.ignitedProgramId,
     volume_ml: vessel.volume_ml, pH: vessel.ph, isHeated: vessel.temperature_c > 25 });
   if (!assessment.ready) return { unmet: assessment.unmet, kinetics: null };
   const end = applyProgramToLedger(program, vessel, 1);

@@ -1,6 +1,6 @@
 {
   "schema": "chemdex.studio-sample-audit/1",
-  "checkedAt": "2026-10-16T14:34:05.380Z",
+  "checkedAt": "2026-10-17T03:49:31.057Z",
   "scope": "Mass/formula/phase audit only; model eligibility is not experimental validation.",
   "sampleCount": 108,
   "samples": [
@@ -1252,7 +1252,9 @@
       ],
       "readyUnderDeclaredModelConditions": true,
       "unmetConditions": [],
-      "needsActivationReview": true,
+      "activation": "contact",
+      "activationNote_vi": "Tiếp xúc Mg với axit loãng; lớp oxit và diện tích bề mặt ảnh hưởng tốc độ, không cần mồi cháy.",
+      "needsActivationReview": false,
       "nonMolecularLabels": []
     },
     {
@@ -1470,7 +1472,9 @@
       ],
       "readyUnderDeclaredModelConditions": true,
       "unmetConditions": [],
-      "needsActivationReview": true,
+      "activation": "catalyst",
+      "activationNote_vi": "MnO2 xúc tác phân hủy ở nhiệt độ thường; nhiệt độ và diện tích xúc tác ảnh hưởng tốc độ.",
+      "needsActivationReview": false,
       "nonMolecularLabels": []
     },
     {
@@ -1506,7 +1510,9 @@
       ],
       "readyUnderDeclaredModelConditions": true,
       "unmetConditions": [],
-      "needsActivationReview": true,
+      "activation": "contact",
+      "activationNote_vi": "Đồng phản ứng với HNO3 đặc khi tiếp xúc; không cần bật đèn để bắt đầu.",
+      "needsActivationReview": false,
       "nonMolecularLabels": []
     },
     {
@@ -2072,9 +2078,13 @@
           "mass_g": 0.031998
         }
       ],
-      "readyUnderDeclaredModelConditions": true,
-      "unmetConditions": [],
-      "needsActivationReview": true,
+      "readyUnderDeclaredModelConditions": false,
+      "unmetConditions": [
+        "Cần thao tác mồi cháy cho mẫu này; chỉ có chất phản ứng hoặc tăng nhiệt độ chung chưa xác nhận đã mồi."
+      ],
+      "activation": "ignition",
+      "activationNote_vi": "Cần mồi cháy; không suy ra trạng thái đã mồi chỉ từ nhiệt độ trung bình của bình.",
+      "needsActivationReview": false,
       "nonMolecularLabels": []
     },
     {
@@ -2103,7 +2113,9 @@
       ],
       "readyUnderDeclaredModelConditions": true,
       "unmetConditions": [],
-      "needsActivationReview": true,
+      "activation": "contact",
+      "activationNote_vi": "Na phản ứng với nước khi tiếp xúc; cháy H2 hoặc bùng nổ là diễn biến riêng, không là điều kiện bắt đầu.",
+      "needsActivationReview": false,
       "nonMolecularLabels": []
     },
     {
@@ -2132,7 +2144,9 @@
       ],
       "readyUnderDeclaredModelConditions": true,
       "unmetConditions": [],
-      "needsActivationReview": true,
+      "activation": "contact",
+      "activationNote_vi": "K phản ứng với nước khi tiếp xúc; không cần nguồn mồi bên ngoài cho bước kim loại–nước.",
+      "needsActivationReview": false,
       "nonMolecularLabels": []
     },
     {
@@ -3089,7 +3103,9 @@
       ],
       "readyUnderDeclaredModelConditions": true,
       "unmetConditions": [],
-      "needsActivationReview": true,
+      "activation": "warming",
+      "activationNote_vi": "Cần môi trường axit; làm ấm rút ngắn cảm ứng, không có ngưỡng nhiệt phổ quát bật/tắt phản ứng.",
+      "needsActivationReview": false,
       "nonMolecularLabels": []
     },
     {
@@ -3125,7 +3141,9 @@
       ],
       "readyUnderDeclaredModelConditions": true,
       "unmetConditions": [],
-      "needsActivationReview": true,
+      "activation": "contact",
+      "activationNote_vi": "Mg đẩy Cu khỏi dung dịch CuSO4 khi tiếp xúc; màng bề mặt ảnh hưởng tốc độ.",
+      "needsActivationReview": false,
       "nonMolecularLabels": []
     },
     {
@@ -3584,7 +3602,9 @@
       ],
       "readyUnderDeclaredModelConditions": true,
       "unmetConditions": [],
-      "needsActivationReview": true,
+      "activation": "contact",
+      "activationNote_vi": "Thủy phân khi CaC2 tiếp xúc nước; tạo C2H2 khác với bước mồi đốt khí.",
+      "needsActivationReview": false,
       "nonMolecularLabels": []
     },
     {
@@ -3621,7 +3641,9 @@
       ],
       "readyUnderDeclaredModelConditions": true,
       "unmetConditions": [],
-      "needsActivationReview": true,
+      "activation": "contact",
+      "activationNote_vi": "Kiềm hòa tan lớp oxit bảo vệ rồi Al phản ứng; thời gian cảm ứng phụ thuộc bề mặt và nồng độ.",
+      "needsActivationReview": false,
       "nonMolecularLabels": []
     },
     {
@@ -3657,7 +3679,9 @@
       ],
       "readyUnderDeclaredModelConditions": true,
       "unmetConditions": [],
-      "needsActivationReview": true,
+      "activation": "contact",
+      "activationNote_vi": "Axit đặc đẩy HCl khỏi muối clorua; gia nhiệt có thể tăng tốc thoát khí, không phải mồi cháy.",
+      "needsActivationReview": false,
       "nonMolecularLabels": []
     },
     {
@@ -3768,7 +3792,9 @@
       ],
       "readyUnderDeclaredModelConditions": true,
       "unmetConditions": [],
-      "needsActivationReview": true,
+      "activation": "contact",
+      "activationNote_vi": "Phản ứng oxi hóa khử trong axit; không gắn nhãn cần mồi cháy hoặc tự thêm ngưỡng nhiệt.",
+      "needsActivationReview": false,
       "nonMolecularLabels": []
     },
     {

@@ -1,0 +1,4012 @@
+{
+  "schema": "chemdex.studio-atom-contexts/1",
+  "checkedAt": "2026-10-17T04:43:12.275Z",
+  "scope": "Program contexts and supported controls, not validation of every independent atom renderer or gallery parameter.",
+  "atomCount": 175,
+  "presetCount": 350,
+  "counts": {
+    "program": 69,
+    "flame": 3,
+    "ripple": 2,
+    "stir": 2,
+    "heating": 10,
+    "audio": 4,
+    "ice_water": 1,
+    "inspect": 259
+  },
+  "entries": [
+    {
+      "atom": "colorFrontDiffusive",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Standard Diffusion",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "colorFrontDiffusive",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Fast Diffusion",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "colorFrontAdvective",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Dense Plume Sinking",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "colorFrontAdvective",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Light Layer Floating",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "beerLambertBlend",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Copper Sulfate Sky Blue",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "beerLambertBlend",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Potassium Dichromate Orange",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "indicatorTransition",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Phenolphthalein Endpoint",
+      "action": {
+        "kind": "program",
+        "programId": "phenolphthalein_naoh",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "HIn(colorless) + OH-(aq) -> In-(magenta) + H2O(l)"
+    },
+    {
+      "atom": "indicatorTransition",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Bromothymol Blue",
+      "action": {
+        "kind": "program",
+        "programId": "bromothymol_blue_base",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "HIn(yellow/green) + OH-(aq) -> In-(deep blue) + H2O(l)"
+    },
+    {
+      "atom": "fadeAbsorbance",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Permanganate Decolorization",
+      "action": {
+        "kind": "program",
+        "programId": "kmno4_oxalic",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "2KMnO4(aq) + 5H2C2O4(aq) + 3H2SO4(aq) -> K2SO4(aq) + 2MnSO4(aq) + 10CO2(g) + 8H2O(l)"
+    },
+    {
+      "atom": "fadeAbsorbance",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Triiodide Decolorization",
+      "action": {
+        "kind": "program",
+        "programId": "na2s2o3_i2",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "2Na2S2O3(aq) + I2(aq) -> Na2S4O6(aq) + 2NaI(aq)"
+    },
+    {
+      "atom": "multiStageColorLadder",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Chemical Chameleon",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "multiStageColorLadder",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Vanadium Rainbow",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "schlierenStreaks",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Sugar Dissolution Schlieren",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "schlierenStreaks",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Ethanol/Water Mixing",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "turbidityRise",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "BaSO4 Rapid Clouding",
+      "action": {
+        "kind": "program",
+        "programId": "bacl2_na2so4",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "BaCl2(aq) + Na2SO4(aq) -> BaSO4(s) + 2NaCl(aq)"
+    },
+    {
+      "atom": "turbidityRise",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Sulfur Induction Opalescence",
+      "action": {
+        "kind": "program",
+        "programId": "thiosulfate_acid_clock",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Na2S2O3(aq) + 2HCl(aq) -> 2NaCl(aq) + SO2(g) + S(s) + H2O(l)"
+    },
+    {
+      "atom": "tyndallBeam",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Red Laser through Starch Sol",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "tyndallBeam",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Green Laser in Sulfur Sol",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "opalescenceNearCritical",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "AgCl Critical Opalescence",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "opalescenceNearCritical",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Colloidal Soap Micelles",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "thermochromicShift",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Cobalt(II) Hexaaqua Pink to Tetrachloro Blue",
+      "action": {
+        "kind": "program",
+        "programId": "cocl2_hcl",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "[Co(H2O)6]2+(aq) + 4Cl-(aq) <-> [CoCl4]2-(aq) + 6H2O(l)"
+    },
+    {
+      "atom": "thermochromicShift",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Copper Chloro-complex",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "equilibriumShiftLeChatelier",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Chromate/Dichromate pH Shift",
+      "action": {
+        "kind": "program",
+        "programId": "k2cr2o7_naoh",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "K2Cr2O7(aq) + 2NaOH(aq) <-> K2CrO4(aq) + Na2CrO4(aq) + H2O(l)"
+    },
+    {
+      "atom": "equilibriumShiftLeChatelier",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Iron(III) Thiocyanate Perturbation",
+      "action": {
+        "kind": "program",
+        "programId": "fecl3_kscn",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "FeCl3(aq) + KSCN(aq) <-> [Fe(SCN)]Cl2(aq) + KCl(aq)"
+    },
+    {
+      "atom": "pHGradientLayers",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Universal Indicator Rainbow Cylinder",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "pHGradientLayers",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Gentle Neutral Buffer Layer",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "fluorescenceUV",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Quinine Blue Fluorescence",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "fluorescenceUV",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Fluorescein Intense Green",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "chemiluminescence",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Luminol Deep Blue Flash",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "chemiluminescence",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Green Glowstick Chemiluminescence",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "oscillatingColor",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Belousov-Zhabotinsky Wave",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "oscillatingColor",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Briggs-Rauscher Oscillating Clock",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "liesegangRings",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Silver Chromate Liesegang Rings",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "liesegangRings",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Lead Iodide Gel Bands",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "liquidLayerStratification",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Oil over Water",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "liquidLayerStratification",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Iodine Extraction into CH2Cl2",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "liquidSwirl",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Gentle Swirl",
+      "action": {
+        "kind": "stir",
+        "label": "Khuấy mẫu đang chọn",
+        "note": "Thao tác khuấy hiện có; không suy ra vận tốc dòng chảy từ preset."
+      }
+    },
+    {
+      "atom": "liquidSwirl",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Vigorous Agitation",
+      "action": {
+        "kind": "stir",
+        "label": "Khuấy mẫu đang chọn",
+        "note": "Thao tác khuấy hiện có; không suy ra vận tốc dòng chảy từ preset."
+      }
+    },
+    {
+      "atom": "beerLambertFade",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Permanganate Bleach",
+      "action": {
+        "kind": "program",
+        "programId": "kmno4_oxalic",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "2KMnO4(aq) + 5H2C2O4(aq) + 3H2SO4(aq) -> K2SO4(aq) + 2MnSO4(aq) + 10CO2(g) + 8H2O(l)"
+    },
+    {
+      "atom": "beerLambertFade",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Iodine Fading",
+      "action": {
+        "kind": "program",
+        "programId": "na2s2o3_i2",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "2Na2S2O3(aq) + I2(aq) -> Na2S4O6(aq) + 2NaI(aq)"
+    },
+    {
+      "atom": "turbidityShift",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Milky Barium Sulfate",
+      "action": {
+        "kind": "program",
+        "programId": "bacl2_na2so4",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "BaCl2(aq) + Na2SO4(aq) -> BaSO4(s) + 2NaCl(aq)"
+    },
+    {
+      "atom": "turbidityShift",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Sulfur Sol",
+      "action": {
+        "kind": "program",
+        "programId": "thiosulfate_acid_clock",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Na2S2O3(aq) + 2HCl(aq) -> 2NaCl(aq) + SO2(g) + S(s) + H2O(l)"
+    },
+    {
+      "atom": "fluorescenceGlow",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Fluorescein Green",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "fluorescenceGlow",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Quinine Blue Glow",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "liquidPhaseSplit",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Iodine Extraction in Hexane",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "liquidPhaseSplit",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Ether Layer over Copper Solution",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "nucleationSiteBubbleStream",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Gentle Fizz Chain",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "nucleationSiteBubbleStream",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Multiple Nucleation Sites",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "fineEffervescenceCloud",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Carbonate + Acid Fizz",
+      "action": {
+        "kind": "program",
+        "programId": "caco3_hcl",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "CaCO3(s) + 2HCl(aq) -> CaCl2(aq) + H2O(l) + CO2(g)"
+    },
+    {
+      "atom": "fineEffervescenceCloud",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Gentle Soda Effervescence",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "vigorousBoilBubbles",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Rolling Boil",
+      "action": {
+        "kind": "heating",
+        "label": "Điều khiển nguồn nhiệt",
+        "note": "Đặt mẫu lên bếp và cấp nhiệt; không bật sôi hoặc ép màu gốm phát sáng từ preset."
+      }
+    },
+    {
+      "atom": "vigorousBoilBubbles",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Simmering Onset",
+      "action": {
+        "kind": "heating",
+        "label": "Điều khiển nguồn nhiệt",
+        "note": "Đặt mẫu lên bếp và cấp nhiệt; không bật sôi hoặc ép màu gốm phát sáng từ preset."
+      }
+    },
+    {
+      "atom": "bumpingSurge",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Superheated Surge",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "bumpingSurge",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Mild Cavitation Bump",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "bubblesClingToSolid",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Zinc Granule H2 Cloak",
+      "action": {
+        "kind": "program",
+        "programId": "zn_hcl",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Zn(s) + 2HCl(aq) -> ZnCl2(aq) + H2(g)"
+    },
+    {
+      "atom": "bubblesClingToSolid",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Marble Chips CO2 Raft",
+      "action": {
+        "kind": "program",
+        "programId": "caco3_hcl",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "CaCO3(s) + 2HCl(aq) -> CaCl2(aq) + H2O(l) + CO2(g)"
+    },
+    {
+      "atom": "solidFlotationByGas",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Dancing Mg Ribbon",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "solidFlotationByGas",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Mothball Gas Elevator",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "foamHead",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Acid-Carbonate Soap Foam",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "foamHead",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Dense Microfoam",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "foamClimbRunaway",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Elephant Toothpaste Eruption",
+      "action": {
+        "kind": "program",
+        "programId": "h2o2_mno2",
+        "variant": "oxygen_foam",
+        "label": "Tạo mẫu O2 có chất giữ bọt",
+        "note": "Mẫu ảo H2O2/MnO2 có SDS trong kho chất. Bọt dùng lượng O2 sinh ra thật; chưa mô phỏng cột bọt tràn mang theo dịch."
+      },
+      "equation": "2H2O2(aq) -> 2H2O(l) + O2(g)"
+    },
+    {
+      "atom": "foamClimbRunaway",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Vinegar-Baking Soda Volcano",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "viscousFoamRope",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Black Carbon Sugar Snake Extrusion",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "viscousFoamRope",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Viscous Detergent Rope",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "burstAerosolSpray",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Acid Mist Ejection",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "burstAerosolSpray",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Champagne Droplet Spatter",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "gasBalloonInflate",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Hydrogen Balloon Expansion",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "gasBalloonInflate",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Carbon Dioxide Gentle Fill",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "gasSyringeCollect",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Gas Syringe Kinetics",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "gasSyringeCollect",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Slow Decomposition Measurement",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "pneumaticTroughCollection",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Oxygen Collection Over Water",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "pneumaticTroughCollection",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Hydrogen Upward Collection",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "gasJarFillByDisplacement",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Chlorine Jar Filling",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "gasJarFillByDisplacement",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Carbon Dioxide Air Displacement",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "splintTestSet",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Glowing Splint Relights (O2)",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "splintTestSet",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Burning Splint Squeaky Pop (H2)",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "limewaterClouding",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Limewater Turns Milky",
+      "action": {
+        "kind": "program",
+        "programId": "caoh2_co2",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Ca(OH)2(aq) + CO2(g) -> CaCO3(s) + H2O(l)"
+    },
+    {
+      "atom": "limewaterClouding",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Limewater Clears with Excess CO2",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "indicatorPaperTests",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Ammonia Litmus Test",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "indicatorPaperTests",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Hydrogen Sulfide Lead Acetate Test",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "gasDissolutionHenry",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Cold Water Dissolves CO2",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "gasDissolutionHenry",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Warm Water Degassing",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "suckBackReverseFlow",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Suck-back Hazard",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "suckBackReverseFlow",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Safety Trap Intervention",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "pressureBuildup",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Stopper Pop Under Pressure",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "pressureBuildup",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Glass Overpressure Hazard",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "nucleateBubbles",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Standard Bubbles",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "nucleateBubbles",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Vigorous Fizz",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "effervescenceBurst",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Intense Effervescence",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "effervescenceBurst",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Mild Fizz",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "buoyantGasPlume",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Rising Warm Plume",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "buoyantGasPlume",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Gentle Drift",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "heavyVaporPour",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Heavy Fog Spill",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "heavyVaporPour",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Subtle Dense Vapor",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "headspaceFog",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Acid Headspace Fume",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "headspaceFog",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Faint Headspace Haze",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "hotSteamPlume",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Vigorous Boiling Steam",
+      "action": {
+        "kind": "heating",
+        "label": "Điều khiển nguồn nhiệt",
+        "note": "Đặt mẫu lên bếp và cấp nhiệt; không bật sôi hoặc ép màu gốm phát sáng từ preset."
+      }
+    },
+    {
+      "atom": "hotSteamPlume",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Gentle Warm Vapor Wisp",
+      "action": {
+        "kind": "heating",
+        "label": "Điều khiển nguồn nhiệt",
+        "note": "Đặt mẫu lên bếp và cấp nhiệt; không bật sôi hoặc ép màu gốm phát sáng từ preset."
+      }
+    },
+    {
+      "atom": "condensationFogOnWalls",
+      "category": "wall",
+      "presetIndex": 0,
+      "title": "Reflux Condensation Ring",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "condensationFogOnWalls",
+      "category": "wall",
+      "presetIndex": 1,
+      "title": "Faint Beaker Fog",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "dryIceFogCascade",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Dry Ice Fog Waterfall",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "dryIceFogCascade",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Gentle Cold Fog Rim Spill",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "ammoniumChlorideSmoke",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Graham Diffusion Tube Ring",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "ammoniumChlorideSmoke",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Open Air White Smoke Wisps",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "hclFumingInHumidAir",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Concentrated HCl Fumes",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "hclFumingInHumidAir",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Dry Air Mild Haze",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "hno3FumingRed",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Red Fuming Nitric Acid",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "hno3FumingRed",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Concentrated HNO3 Yellow Haze",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "heavyYellowGreenChlorine",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Dense Chlorine Pooling",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "heavyYellowGreenChlorine",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Dilute Chlorine Haze",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "bromineVaporLayer",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Dense Bromine Vapor Cascade",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "bromineVaporLayer",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Bromine Headspace Layer",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "iodineVioletVapor",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Iodine Sublimation Violet Cloud",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "iodineVioletVapor",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Gentle Iodine Vapor Wisp",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "no2BrownPlume",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Vigorous NO2 Eruption",
+      "action": {
+        "kind": "program",
+        "programId": "cu_hno3_conc",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Cu(s) + 4HNO3(conc) -> Cu(NO3)2(aq) + 2NO2(g) + 2H2O(l)"
+    },
+    {
+      "atom": "no2BrownPlume",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Moderate NO2 Evolution",
+      "action": {
+        "kind": "program",
+        "programId": "cu_hno3_conc",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Cu(s) + 4HNO3(conc) -> Cu(NO3)2(aq) + 2NO2(g) + 2H2O(l)"
+    },
+    {
+      "atom": "noToNo2AtMouth",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "NO Colorless in Tube, Brown at Lip",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "noToNo2AtMouth",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Mild Dilute Nitric Oxidation",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "so2HazeMoist",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Sulfur Dioxide Pungent Haze",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "so2HazeMoist",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Faint SO2 Wisps",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "sulfurBlueFlameSmoke",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Sulfur Burning in Air",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "sulfurBlueFlameSmoke",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Sulfur Burning in Pure O2",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "magnesiumOxideSmoke",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Blinding Mg Flare & White Smoke",
+      "action": {
+        "kind": "program",
+        "programId": "mg_o2_burn",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "2Mg(s) + O2(g) -> 2MgO(s)"
+    },
+    {
+      "atom": "magnesiumOxideSmoke",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Moderate Mg Spark Combustion",
+      "action": {
+        "kind": "program",
+        "programId": "mg_o2_burn",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "2Mg(s) + O2(g) -> 2MgO(s)"
+    },
+    {
+      "atom": "sodiumOxideSmoke",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Sodium Fire with Dense Caustic Smoke",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "sodiumOxideSmoke",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Small Sodium Flare Pop",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "steelWoolSparkShower",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Steel Wool Spark Cascade",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "steelWoolSparkShower",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Gentle Iron Smolder",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "sootBlackSmoke",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Acetylene / Candle Black Soot",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "sootBlackSmoke",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Yellow Burner Flame Smudge",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "sugarCarbonSnake",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Black Carbon Snake Eruption",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "sugarCarbonSnake",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Initial Sugar Caramelization",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "ammoniumDichromateVolcano",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Chemical Volcano Eruption",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "ammoniumDichromateVolcano",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Gentle Volcano Smolder",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "hydrogenPopFlash",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Squeaky Pop Ignition",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "hydrogenPopFlash",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Muffled Hydrogen Flamelet",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "candleBurnPlume",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Steady Candle Flame in Air",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "candleBurnPlume",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Dying Flame in Depleted Jar",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "heatHazeShimmer",
+      "category": "thermal",
+      "presetIndex": 0,
+      "title": "Burner Thermal Heat Haze",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "heatHazeShimmer",
+      "category": "thermal",
+      "presetIndex": 1,
+      "title": "Hot Plate Convection Shimmer",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "fineMilkyPowder",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Barium Sulfate Milky Powder",
+      "action": {
+        "kind": "program",
+        "programId": "bacl2_na2so4",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "BaCl2(aq) + Na2SO4(aq) -> BaSO4(s) + 2NaCl(aq)"
+    },
+    {
+      "atom": "fineMilkyPowder",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Fine Calcium Carbonate Haze",
+      "action": {
+        "kind": "program",
+        "programId": "cacl2_na2co3",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "CaCl2(aq) + Na2CO3(aq) -> CaCO3(s) + 2NaCl(aq)"
+    },
+    {
+      "atom": "curdyClumps",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "AgCl White Curds",
+      "action": {
+        "kind": "program",
+        "programId": "agno3_nacl",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "AgNO3(aq) + NaCl(aq) -> AgCl(s) + NaNO3(aq)"
+    },
+    {
+      "atom": "curdyClumps",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "AgBr Pale Cream Curds",
+      "action": {
+        "kind": "program",
+        "programId": "agno3_kbr",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "AgNO3(aq) + KBr(aq) -> AgBr(s) + KNO3(aq)"
+    },
+    {
+      "atom": "rustFloc",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Iron(III) Hydroxide Floc",
+      "action": {
+        "kind": "program",
+        "programId": "fecl3_naoh",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "FeCl3(aq) + 3NaOH(aq) -> Fe(OH)3(s) + 3NaCl(aq)"
+    },
+    {
+      "atom": "rustFloc",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Aged Rust Sediment",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "blueGel",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Cu(OH)2 Sky Blue Gel",
+      "action": {
+        "kind": "program",
+        "programId": "cuso4_naoh",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "CuSO4(aq) + 2NaOH(aq) -> Cu(OH)2(s) + Na2SO4(aq)"
+    },
+    {
+      "atom": "blueGel",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Thermal Decomposition to Black CuO",
+      "action": {
+        "kind": "program",
+        "programId": "cuoh2_decomp",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Cu(OH)2(s) -> CuO(s) + H2O(l)"
+    },
+    {
+      "atom": "whiteGelatinousAmphoteric",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Al(OH)3 White Gel Precipitation",
+      "action": {
+        "kind": "program",
+        "programId": "alcl3_naoh",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "AlCl3(aq) + 3NaOH(aq) -> Al(OH)3(s) + 3NaCl(aq)"
+    },
+    {
+      "atom": "whiteGelatinousAmphoteric",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Aluminate Clear Redissolution",
+      "action": {
+        "kind": "program",
+        "programId": "aloh3_naoh",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Al(OH)3(s) + NaOH(aq) -> Na[Al(OH)4](aq)"
+    },
+    {
+      "atom": "goldenHexPlates",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Golden Rain Fluttering Plates",
+      "action": {
+        "kind": "program",
+        "programId": "pbno32_ki",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Pb(NO3)2(aq) + 2KI(aq) -> PbI2(s) + 2KNO3(aq)"
+    },
+    {
+      "atom": "goldenHexPlates",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Microcrystalline Yellow Powder",
+      "action": {
+        "kind": "program",
+        "programId": "pbno32_ki",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Pb(NO3)2(aq) + 2KI(aq) -> PbI2(s) + 2KNO3(aq)"
+    },
+    {
+      "atom": "blackFineColloid",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Copper(II) Sulfide Black Ink",
+      "action": {
+        "kind": "program",
+        "programId": "na2s_cuso4",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Na2S(aq) + CuSO4(aq) -> CuS(s) + Na2SO4(aq)"
+    },
+    {
+      "atom": "blackFineColloid",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Lead Sulfide Fine Colloid",
+      "action": {
+        "kind": "program",
+        "programId": "na2s_pbno32",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Na2S(aq) + Pb(NO3)2(aq) -> PbS(s) + 2NaNO3(aq)"
+    },
+    {
+      "atom": "yellowDensePowder",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Lead Chromate Chrome Yellow",
+      "action": {
+        "kind": "program",
+        "programId": "pbno32_k2cro4",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Pb(NO3)2(aq) + K2CrO4(aq) -> PbCrO4(s) + 2KNO3(aq)"
+    },
+    {
+      "atom": "yellowDensePowder",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Cadmium Sulfide Yellow Granules",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "colloidalSulfurHaze",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Disappearing Cross Experiment",
+      "action": {
+        "kind": "program",
+        "programId": "thiosulfate_acid_clock",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Na2S2O3(aq) + 2HCl(aq) -> 2NaCl(aq) + SO2(g) + S(s) + H2O(l)"
+    },
+    {
+      "atom": "colloidalSulfurHaze",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Fast Sulfur Clouding",
+      "action": {
+        "kind": "program",
+        "programId": "thiosulfate_acid_clock",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Na2S2O3(aq) + 2HCl(aq) -> 2NaCl(aq) + SO2(g) + S(s) + H2O(l)"
+    },
+    {
+      "atom": "needleCrystalGrowth",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "KNO3 Cooling Needles",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "needleCrystalGrowth",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Lead(II) Chloride Needles",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "cubicCrystalGrowth",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Halite Cubic Hopper Crystals",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "cubicCrystalGrowth",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Fine Salt Grains",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "octahedralCrystalGrowth",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Alum Octahedral Seed",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "octahedralCrystalGrowth",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Cluster of Alum Crystals",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "hydrateBlueCrystals",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Copper Sulfate Pentahydrate",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "hydrateBlueCrystals",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Anhydrous CuSO4 Dehydration",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "crystalFernFrost",
+      "category": "wall",
+      "presetIndex": 0,
+      "title": "NH4Cl Fern Crystal Front",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "crystalFernFrost",
+      "category": "wall",
+      "presetIndex": 1,
+      "title": "Urea Frost Pattern",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "dendriticMetalTree",
+      "category": "metal",
+      "presetIndex": 0,
+      "title": "Diana Silver Tree",
+      "action": {
+        "kind": "program",
+        "programId": "cu_agno3",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Cu(s) + 2AgNO3(aq) -> Cu(NO3)2(aq) + 2Ag(s)"
+    },
+    {
+      "atom": "dendriticMetalTree",
+      "category": "metal",
+      "presetIndex": 1,
+      "title": "Saturn Lead Tree",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "silverMirrorWall",
+      "category": "wall",
+      "presetIndex": 0,
+      "title": "Flawless Tollens Silver Mirror",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "silverMirrorWall",
+      "category": "wall",
+      "presetIndex": 1,
+      "title": "Impure Black Powder Byproduct",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "copperPlatingCoat",
+      "category": "metal",
+      "presetIndex": 0,
+      "title": "Fresh Copper Coat on Iron Nail",
+      "action": {
+        "kind": "program",
+        "programId": "fe_cuso4",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Fe(s) + CuSO4(aq) -> FeSO4(aq) + Cu(s)"
+    },
+    {
+      "atom": "copperPlatingCoat",
+      "category": "metal",
+      "presetIndex": 1,
+      "title": "Spongy Copper Flakes Detaching",
+      "action": {
+        "kind": "program",
+        "programId": "fe_cuso4",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Fe(s) + CuSO4(aq) -> FeSO4(aq) + Cu(s)"
+    },
+    {
+      "atom": "crystalSpikeBloom",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Hot Ice Crystallization Wave",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "crystalSpikeBloom",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Poured Crystal Tower",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "evaporationRimCrust",
+      "category": "wall",
+      "presetIndex": 0,
+      "title": "NaCl Coffee Ring Crust",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "evaporationRimCrust",
+      "category": "wall",
+      "presetIndex": 1,
+      "title": "CuSO4 Blue Crust Fringe",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "ringStainOnWall",
+      "category": "wall",
+      "presetIndex": 0,
+      "title": "Permanganate Ring Stain",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "ringStainOnWall",
+      "category": "wall",
+      "presetIndex": 1,
+      "title": "Salt Deposit Tide Mark",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "sedimentBedCompaction",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Compacted BaSO4 Bed",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "sedimentBedCompaction",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Porous Fe(OH)3 Floc Bed",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "sedimentAvalanche",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Sediment Slump on Tilt",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "sedimentAvalanche",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Cohesive Sand Avalanche",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "resuspensionCloud",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Glass Rod Stirring Resuspension",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "resuspensionCloud",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Gentle Swirl Lifting Fines",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "settlingFrontInterface",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Hindered Settling Interface",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "settlingFrontInterface",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Slow Sludge Front",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "floatingPrecipitate",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Benzoic Acid Floating Crust",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "floatingPrecipitate",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Wax / Organic Scum Layer",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "precipitateRedissolving",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Cu(OH)2 Dissolves to Royal Blue Complex",
+      "action": {
+        "kind": "program",
+        "programId": "cuso4_nh3",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "CuSO4(aq) + 4NH3(aq) -> [Cu(NH3)4]SO4(aq)"
+    },
+    {
+      "atom": "precipitateRedissolving",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "AgCl Dissolves in NH3",
+      "action": {
+        "kind": "program",
+        "programId": "agcl_nh3",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "AgCl(s) + 2NH3(aq) -> [Ag(NH3)2]Cl(aq)"
+    },
+    {
+      "atom": "precipitateAgeing",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Fe(OH)2 Air Oxidation",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "precipitateAgeing",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "AgCl Photodarkening",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "filterCakeFormation",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Barium Sulfate Filter Cake",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "filterCakeFormation",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Gelatinous Filter Cake Resistance",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "precipitateNucleation",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "AgCl Curds",
+      "action": {
+        "kind": "program",
+        "programId": "agno3_nacl",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "AgNO3(aq) + NaCl(aq) -> AgCl(s) + NaNO3(aq)"
+    },
+    {
+      "atom": "precipitateNucleation",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Cu(OH)2 Gel",
+      "action": {
+        "kind": "program",
+        "programId": "cuso4_naoh",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "CuSO4(aq) + 2NaOH(aq) -> Cu(OH)2(s) + Na2SO4(aq)"
+    },
+    {
+      "atom": "stokesSedimentation",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Lead Iodide Bed",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "stokesSedimentation",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Fine Powder Bed",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "crystalGlitter",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Golden Rain Glints",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "crystalGlitter",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Silver Plate Glints",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "surfaceDendriteGrowth",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Silver Tree",
+      "action": {
+        "kind": "program",
+        "programId": "cu_agno3",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Cu(s) + 2AgNO3(aq) -> Cu(NO3)2(aq) + 2Ag(s)"
+    },
+    {
+      "atom": "surfaceDendriteGrowth",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Lead Tree",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "metallicMirrorDeposit",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Silver Mirror",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "metallicMirrorDeposit",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Faint Film",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "solidErosion",
+      "category": "solidPhase",
+      "presetIndex": 0,
+      "title": "Zinc Granule Erosion",
+      "action": {
+        "kind": "program",
+        "programId": "zn_hcl",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Zn(s) + 2HCl(aq) -> ZnCl2(aq) + H2(g)"
+    },
+    {
+      "atom": "solidErosion",
+      "category": "solidPhase",
+      "presetIndex": 1,
+      "title": "Marble Chip Dissolution",
+      "action": {
+        "kind": "program",
+        "programId": "caco3_hcl",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "CaCO3(s) + 2HCl(aq) -> CaCl2(aq) + H2O(l) + CO2(g)"
+    },
+    {
+      "atom": "metalDissolveWithBubbles",
+      "category": "metal",
+      "presetIndex": 0,
+      "title": "Zinc Granule in HCl",
+      "action": {
+        "kind": "program",
+        "programId": "zn_hcl",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Zn(s) + 2HCl(aq) -> ZnCl2(aq) + H2(g)"
+    },
+    {
+      "atom": "metalDissolveWithBubbles",
+      "category": "metal",
+      "presetIndex": 1,
+      "title": "Magnesium Ribbon Fizzing",
+      "action": {
+        "kind": "program",
+        "programId": "mg_hcl",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Mg(s) + 2HCl(aq) -> MgCl2(aq) + H2(g)"
+    },
+    {
+      "atom": "pittingAndEtching",
+      "category": "metal",
+      "presetIndex": 0,
+      "title": "Steel Nail Acid Etching",
+      "action": {
+        "kind": "program",
+        "programId": "fe_hcl",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Fe(s) + 2HCl(aq) -> FeCl2(aq) + H2(g)"
+    },
+    {
+      "atom": "pittingAndEtching",
+      "category": "metal",
+      "presetIndex": 1,
+      "title": "Aluminum Foil Local Pitting",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "sodiumDartRun",
+      "category": "metal",
+      "presetIndex": 0,
+      "title": "Molten Sodium Skittering",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "sodiumDartRun",
+      "category": "metal",
+      "presetIndex": 1,
+      "title": "Small Sodium Darting Bead",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "potassiumLilacFlame",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Potassium Violent Lilac Fire",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "potassiumLilacFlame",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Mild Potassium Sizzle",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "calciumSlowGasMilky",
+      "category": "metal",
+      "presetIndex": 0,
+      "title": "Calcium in Water",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "calciumSlowGasMilky",
+      "category": "metal",
+      "presetIndex": 1,
+      "title": "Mild Calcium Effervescence",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "aluminumFoilInNaOH",
+      "category": "metal",
+      "presetIndex": 0,
+      "title": "Aluminum Foil Eruption in Lye",
+      "action": {
+        "kind": "program",
+        "programId": "al_naoh_h2",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "2Al(s) + 2NaOH(aq) + 2H2O(l) -> 2NaAlO2(aq) + 3H2(g)"
+    },
+    {
+      "atom": "aluminumFoilInNaOH",
+      "category": "metal",
+      "presetIndex": 1,
+      "title": "Dilute NaOH Induction Delay",
+      "action": {
+        "kind": "program",
+        "programId": "al_naoh_h2",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "2Al(s) + 2NaOH(aq) + 2H2O(l) -> 2NaAlO2(aq) + 3H2(g)"
+    },
+    {
+      "atom": "aluminumCopperChlorideDisplacement",
+      "category": "metal",
+      "presetIndex": 0,
+      "title": "Violent Al + CuCl2 Displacement",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "aluminumCopperChlorideDisplacement",
+      "category": "metal",
+      "presetIndex": 1,
+      "title": "Moderate CuCl2 Etching",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "coppernitricMetalConsume",
+      "category": "metal",
+      "presetIndex": 0,
+      "title": "Copper Wire Consumption in Conc HNO3",
+      "action": {
+        "kind": "program",
+        "programId": "cu_hno3_conc",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Cu(s) + 4HNO3(conc) -> Cu(NO3)2(aq) + 2NO2(g) + 2H2O(l)"
+    },
+    {
+      "atom": "coppernitricMetalConsume",
+      "category": "metal",
+      "presetIndex": 1,
+      "title": "Dilute Nitric Copper Dissolution",
+      "action": {
+        "kind": "program",
+        "programId": "cu_hno3_dil",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "3Cu(s) + 8HNO3(dil) -> 3Cu(NO3)2(aq) + 2NO(g) + 4H2O(l)"
+    },
+    {
+      "atom": "passivation",
+      "category": "metal",
+      "presetIndex": 0,
+      "title": "Iron Passivation in Conc HNO3",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "passivation",
+      "category": "metal",
+      "presetIndex": 1,
+      "title": "Aluminum Passivation",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "tarnishAndPatina",
+      "category": "metal",
+      "presetIndex": 0,
+      "title": "Copper Green Verdigris Patina",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "tarnishAndPatina",
+      "category": "metal",
+      "presetIndex": 1,
+      "title": "Silver Sulfide Black Tarnish",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "rustFormation",
+      "category": "metal",
+      "presetIndex": 0,
+      "title": "Orange Rust Bloom on Iron Nail",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "rustFormation",
+      "category": "metal",
+      "presetIndex": 1,
+      "title": "Subtle Pitting Rust in Saltwater",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "steelWoolBurn",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Steel Wool Burning on Balance",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "steelWoolBurn",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Battery Terminal Ignition",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "magnesiumRibbonBurn",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Blinding Magnesium Flare",
+      "action": {
+        "kind": "program",
+        "programId": "mg_o2_burn",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "2Mg(s) + O2(g) -> 2MgO(s)"
+    },
+    {
+      "atom": "magnesiumRibbonBurn",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Short Ribbon Flash",
+      "action": {
+        "kind": "program",
+        "programId": "mg_o2_burn",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "2Mg(s) + O2(g) -> 2MgO(s)"
+    },
+    {
+      "atom": "zincGranuleConsumption",
+      "category": "metal",
+      "presetIndex": 0,
+      "title": "Zinc Granules Shrinking Core",
+      "action": {
+        "kind": "program",
+        "programId": "zn_hcl",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Zn(s) + 2HCl(aq) -> ZnCl2(aq) + H2(g)"
+    },
+    {
+      "atom": "zincGranuleConsumption",
+      "category": "metal",
+      "presetIndex": 1,
+      "title": "Single Zinc Pellet Decay",
+      "action": {
+        "kind": "program",
+        "programId": "zn_hcl",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Zn(s) + 2HCl(aq) -> ZnCl2(aq) + H2(g)"
+    },
+    {
+      "atom": "coupledGalvanicCell",
+      "category": "metal",
+      "presetIndex": 0,
+      "title": "Daniell Cell (1.10 V)",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "coupledGalvanicCell",
+      "category": "metal",
+      "presetIndex": 1,
+      "title": "Discharged Galvanic Cell",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "exothermicGlowOverlay",
+      "category": "thermal",
+      "presetIndex": 0,
+      "title": "Exothermic Neutralization Glow",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "exothermicGlowOverlay",
+      "category": "thermal",
+      "presetIndex": 1,
+      "title": "Subtle Thermal Refraction",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "endothermicFrost",
+      "category": "thermal",
+      "presetIndex": 0,
+      "title": "Freezing Ba(OH)2 + NH4SCN Frost",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "endothermicFrost",
+      "category": "thermal",
+      "presetIndex": 1,
+      "title": "Cold Ammonium Nitrate Chill",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "boilingStages",
+      "category": "thermal",
+      "presetIndex": 0,
+      "title": "Full Rolling Boil Stage",
+      "action": {
+        "kind": "heating",
+        "label": "Điều khiển nguồn nhiệt",
+        "note": "Đặt mẫu lên bếp và cấp nhiệt; không bật sôi hoặc ép màu gốm phát sáng từ preset."
+      }
+    },
+    {
+      "atom": "boilingStages",
+      "category": "thermal",
+      "presetIndex": 1,
+      "title": "Microbubble Nucleation Stage",
+      "action": {
+        "kind": "heating",
+        "label": "Điều khiển nguồn nhiệt",
+        "note": "Đặt mẫu lên bếp và cấp nhiệt; không bật sôi hoặc ép màu gốm phát sáng từ preset."
+      }
+    },
+    {
+      "atom": "superheatBurst",
+      "category": "thermal",
+      "presetIndex": 0,
+      "title": "Explosive Bumping Cavitation",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "superheatBurst",
+      "category": "thermal",
+      "presetIndex": 1,
+      "title": "Mild Superheat Pulse",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "iceMeltShrink",
+      "category": "thermal",
+      "presetIndex": 0,
+      "title": "Floating Ice Cube Melting",
+      "action": {
+        "kind": "ice_water",
+        "label": "Tạo mẫu nước–đá",
+        "note": "Mẫu riêng 20 g nước và 5 g đá ở 0 °C. Nhiệt làm tan lượng đá hữu hạn trước khi làm ấm toàn bộ nước; chưa có bể làm lạnh cho bình khác."
+      }
+    },
+    {
+      "atom": "iceMeltShrink",
+      "category": "thermal",
+      "presetIndex": 1,
+      "title": "Calorimetry Ice Bath Chilling",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "meltingSolid",
+      "category": "thermal",
+      "presetIndex": 0,
+      "title": "Paraffin Wax Melting",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "meltingSolid",
+      "category": "thermal",
+      "presetIndex": 1,
+      "title": "Gallium Melting in Hand/Water",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "dissolutionHeat",
+      "category": "thermal",
+      "presetIndex": 0,
+      "title": "NaOH Dissolution Heat",
+      "action": {
+        "kind": "program",
+        "programId": "naoh_dissolution",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "NaOH(s) -> NaOH(aq)"
+    },
+    {
+      "atom": "dissolutionHeat",
+      "category": "thermal",
+      "presetIndex": 1,
+      "title": "NH4NO3 Cold Pack Dissolution",
+      "action": {
+        "kind": "program",
+        "programId": "nh4no3_dissolution",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "NH4NO3(s) -> NH4NO3(aq)"
+    },
+    {
+      "atom": "dilutionHeatConcAcid",
+      "category": "thermal",
+      "presetIndex": 0,
+      "title": "Dangerous: Water into Conc Acid",
+      "action": {
+        "kind": "program",
+        "programId": "water_into_h2so4",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "H2SO4(conc) + H2O(l) -> H2SO4(aq) + H2O(l)"
+    },
+    {
+      "atom": "dilutionHeatConcAcid",
+      "category": "thermal",
+      "presetIndex": 1,
+      "title": "Safe: Acid into Water",
+      "action": {
+        "kind": "program",
+        "programId": "h2so4_dilution",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "H2SO4(l) + H2O(l) -> H2SO4(aq) + H2O(l)"
+    },
+    {
+      "atom": "thermalShockCrack",
+      "category": "wall",
+      "presetIndex": 0,
+      "title": "Thermal Shock Glass Fracture",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "thermalShockCrack",
+      "category": "wall",
+      "presetIndex": 1,
+      "title": "Mild Thermal Stress Ping",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "sublimation",
+      "category": "thermal",
+      "presetIndex": 0,
+      "title": "Iodine Sublimation",
+      "action": {
+        "kind": "program",
+        "programId": "i2_sublimation",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "I2(s) + heat -> I2(g)"
+    },
+    {
+      "atom": "sublimation",
+      "category": "thermal",
+      "presetIndex": 1,
+      "title": "Dry Ice Sublimation",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "calorimetryCup",
+      "category": "thermal",
+      "presetIndex": 0,
+      "title": "Styrofoam Cup Neutralization",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "calorimetryCup",
+      "category": "thermal",
+      "presetIndex": 1,
+      "title": "Rapid Electronic Thermistor",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "hotPlateGlow",
+      "category": "thermal",
+      "presetIndex": 0,
+      "title": "Hot Plate Red Glow",
+      "action": {
+        "kind": "heating",
+        "label": "Điều khiển nguồn nhiệt",
+        "note": "Đặt mẫu lên bếp và cấp nhiệt; không bật sôi hoặc ép màu gốm phát sáng từ preset."
+      }
+    },
+    {
+      "atom": "hotPlateGlow",
+      "category": "thermal",
+      "presetIndex": 1,
+      "title": "Moderate Warm Setting",
+      "action": {
+        "kind": "heating",
+        "label": "Điều khiển nguồn nhiệt",
+        "note": "Đặt mẫu lên bếp và cấp nhiệt; không bật sôi hoặc ép màu gốm phát sáng từ preset."
+      }
+    },
+    {
+      "atom": "boilingBumping",
+      "category": "thermal",
+      "presetIndex": 0,
+      "title": "Rolling Boil",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "boilingBumping",
+      "category": "thermal",
+      "presetIndex": 1,
+      "title": "Bumping Pulse",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "thermalSteam",
+      "category": "thermal",
+      "presetIndex": 0,
+      "title": "Simmering Vapor",
+      "action": {
+        "kind": "heating",
+        "label": "Điều khiển nguồn nhiệt",
+        "note": "Đặt mẫu lên bếp và cấp nhiệt; không bật sôi hoặc ép màu gốm phát sáng từ preset."
+      }
+    },
+    {
+      "atom": "thermalSteam",
+      "category": "thermal",
+      "presetIndex": 1,
+      "title": "Boiling Steam",
+      "action": {
+        "kind": "heating",
+        "label": "Điều khiển nguồn nhiệt",
+        "note": "Đặt mẫu lên bếp và cấp nhiệt; không bật sôi hoặc ép màu gốm phát sáng từ preset."
+      }
+    },
+    {
+      "atom": "convectionCurrents",
+      "category": "thermal",
+      "presetIndex": 0,
+      "title": "Thermal Schlieren",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "convectionCurrents",
+      "category": "thermal",
+      "presetIndex": 1,
+      "title": "Gentle Currents",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "frostCreep",
+      "category": "thermal",
+      "presetIndex": 0,
+      "title": "Frost Coat",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "frostCreep",
+      "category": "thermal",
+      "presetIndex": 1,
+      "title": "Light Rim Frost",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "flameColorByElement",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Sodium Intense Yellow Flame",
+      "action": {
+        "kind": "flame",
+        "element": "Na",
+        "label": "Thử màu trên đèn",
+        "note": "Preview màu hữu hạn trên đèn còn cồn; kính cobalt và phổ phát xạ chưa được giải đầy đủ."
+      }
+    },
+    {
+      "atom": "flameColorByElement",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Potassium Lilac via Cobalt Glass",
+      "action": {
+        "kind": "flame",
+        "element": "K",
+        "label": "Thử màu trên đèn",
+        "note": "Preview màu hữu hạn trên đèn còn cồn; kính cobalt và phổ phát xạ chưa được giải đầy đủ."
+      }
+    },
+    {
+      "atom": "burnerFlameZones",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Non-luminous Blue Cone",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "burnerFlameZones",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Luminous Safety Yellow Flame",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "ethanolBurnerFlame",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Pale Blue Spirit Lamp Flame",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "ethanolBurnerFlame",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Low Fuel Flame Flicker",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "hydrogenFlameFaint",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Invisible Hydrogen Flame",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "hydrogenFlameFaint",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Hydrogen Micro-Torch",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "flareLightCast",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Blinding White Flare Light",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "flareLightCast",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Golden Sodium Flame Cast",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "afterimageBloom",
+      "category": "camera",
+      "presetIndex": 0,
+      "title": "Retinal Afterimage Glare",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "afterimageBloom",
+      "category": "camera",
+      "presetIndex": 1,
+      "title": "Mild Optical Bloom",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "emberGlowingSolid",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Orange Glowing Charcoal Splint",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "emberGlowingSolid",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "White-Hot Crucible",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "sparkLauncher",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Ballistic Spark Shower",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "sparkLauncher",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Gentle Low-Speed Sparks",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "flashFireEthanolSpill",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Ethanol Tabletop Puddle Fire",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "flashFireEthanolSpill",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Small Contained Flash Puddle",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "splintFlameResponse",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Splint Flame Relighting",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "splintFlameResponse",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Splint Flame Extinguishing",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "combustionProducts",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Condensation and CO2 Formation",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "combustionProducts",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Limewater Test Integration",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "luminolAndGlowstick",
+      "category": "light",
+      "presetIndex": 0,
+      "title": "Luminol Blue Radiance in Dark",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "luminolAndGlowstick",
+      "category": "light",
+      "presetIndex": 1,
+      "title": "Neon Green Glowstick",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "flameCone",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Premixed Blue Burner",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "flameCone",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Copper Flame Test",
+      "action": {
+        "kind": "flame",
+        "element": "Cu",
+        "label": "Thử màu trên đèn",
+        "note": "Preview màu hữu hạn trên đèn còn cồn; kính cobalt và phổ phát xạ chưa được giải đầy đủ."
+      }
+    },
+    {
+      "atom": "pyrotechnicSparks",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Sodium Skittering Sparks",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "pyrotechnicSparks",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Magnesium Sparks",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "incandescentGlow",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "Blinding Magnesium Core",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "incandescentGlow",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Orange Incandescence",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "smokeBillow",
+      "category": "combustion",
+      "presetIndex": 0,
+      "title": "White Oxide Smoke",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "smokeBillow",
+      "category": "combustion",
+      "presetIndex": 1,
+      "title": "Dark Smoke Billow",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "iodineClockSwitch",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Standard Iodine Clock (12 s)",
+      "action": {
+        "kind": "program",
+        "programId": "iodine_clock",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "IO3-(aq) + 3HSO3-(aq) -> I-(aq) + 3SO4(2-)(aq) + 3H+(aq)"
+    },
+    {
+      "atom": "iodineClockSwitch",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Chilled Slow Clock (35 s)",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "thiosulfateCrossDisappear",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Cross Disappears at 16 s",
+      "action": {
+        "kind": "program",
+        "programId": "thiosulfate_acid_clock",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "Na2S2O3(aq) + 2HCl(aq) -> 2NaCl(aq) + SO2(g) + S(s) + H2O(l)"
+    },
+    {
+      "atom": "thiosulfateCrossDisappear",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Dilute Acid Cross Fade (45 s)",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "landoltReactionFlash",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Landolt Flash Endpoint",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "landoltReactionFlash",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Rapid Landolt Flash",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "bzOscillator",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "BZ Stirred Beaker Oscillation",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "bzOscillator",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "BZ Spiral Chemical Waves",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "blueBottleShake",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Shaken Blue to Colorless Rest",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "blueBottleShake",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Repeated Blue Bottle Cycles",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "chameleonMnO4",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Chemical Chameleon Sequence",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "chameleonMnO4",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Rapid Alkaline Reduction",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "catalyticDecomposition",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "MnO2 Catalytic H2O2 Decomposition",
+      "action": {
+        "kind": "program",
+        "programId": "h2o2_mno2",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "2H2O2(aq) -> 2H2O(l) + O2(g)"
+    },
+    {
+      "atom": "catalyticDecomposition",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Potassium Iodide Catalyst",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "autocatalysisFront",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Permanganate Autocatalysis",
+      "action": {
+        "kind": "program",
+        "programId": "kmno4_na2c2o4_titration",
+        "label": "Tạo mẫu phản ứng liên quan",
+        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+      },
+      "equation": "2KMnO4(aq) + 5Na2C2O4(aq) + 8H2SO4(aq) -> K2SO4(aq) + 2MnSO4(aq) + 5Na2SO4(aq) + 10CO2(g) + 8H2O(l)"
+    },
+    {
+      "atom": "autocatalysisFront",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Moving Decolorization Front",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "enzymeFoam",
+      "category": "gas",
+      "presetIndex": 0,
+      "title": "Active Yeast Catalase Foam",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "enzymeFoam",
+      "category": "gas",
+      "presetIndex": 1,
+      "title": "Boiled Yeast Denatured (No Reaction)",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "reactionDiffusionFront",
+      "category": "liquidOptics",
+      "presetIndex": 0,
+      "title": "Chemical Spiral Wave Front",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "reactionDiffusionFront",
+      "category": "liquidOptics",
+      "presetIndex": 1,
+      "title": "Turing Morphogenesis Spots",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "cameraTraumaShake",
+      "category": "camera",
+      "presetIndex": 0,
+      "title": "Violent Detonation Shock",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "cameraTraumaShake",
+      "category": "camera",
+      "presetIndex": 1,
+      "title": "Subtle Pop Jolt",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "slowMoLayer",
+      "category": "camera",
+      "presetIndex": 0,
+      "title": "5x Slow-Motion Splash Impact",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "slowMoLayer",
+      "category": "camera",
+      "presetIndex": 1,
+      "title": "10x Ultra Slow Pop",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "hapticPulses",
+      "category": "camera",
+      "presetIndex": 0,
+      "title": "Single Pop Haptic Tap",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "hapticPulses",
+      "category": "camera",
+      "presetIndex": 1,
+      "title": "Hazard Warning Buzz",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "hudObservationToasts",
+      "category": "camera",
+      "presetIndex": 0,
+      "title": "Precipitation Toast",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "hudObservationToasts",
+      "category": "camera",
+      "presetIndex": 1,
+      "title": "Brown Toxic Gas Warning Toast",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "dangerOverlay",
+      "category": "camera",
+      "presetIndex": 0,
+      "title": "Toxic Gas Hazard Badge",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "dangerOverlay",
+      "category": "camera",
+      "presetIndex": 1,
+      "title": "Corrosive Acid Splatter Badge",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "cameraShake",
+      "category": "camera",
+      "presetIndex": 0,
+      "title": "Subtle Pop Jolt",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "cameraShake",
+      "category": "camera",
+      "presetIndex": 1,
+      "title": "Violent Detonation Shock",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "proceduralSoundBank",
+      "category": "audio",
+      "presetIndex": 0,
+      "title": "Pour Glug Helmholtz Resonance",
+      "action": {
+        "kind": "audio",
+        "label": "Nghe mẫu âm thanh",
+        "note": "Âm thanh xem thử có thời lượng hữu hạn; không xác nhận phản ứng đang xảy ra."
+      }
+    },
+    {
+      "atom": "proceduralSoundBank",
+      "category": "audio",
+      "presetIndex": 1,
+      "title": "Hydrogen Squeaky Pop",
+      "action": {
+        "kind": "audio",
+        "label": "Nghe mẫu âm thanh",
+        "note": "Âm thanh xem thử có thời lượng hữu hạn; không xác nhận phản ứng đang xảy ra."
+      }
+    },
+    {
+      "atom": "proceduralAcoustics",
+      "category": "audio",
+      "presetIndex": 0,
+      "title": "Effervescence Fizz",
+      "action": {
+        "kind": "audio",
+        "label": "Nghe mẫu âm thanh",
+        "note": "Âm thanh xem thử có thời lượng hữu hạn; không xác nhận phản ứng đang xảy ra."
+      }
+    },
+    {
+      "atom": "proceduralAcoustics",
+      "category": "audio",
+      "presetIndex": 1,
+      "title": "Sodium Sizzle & Pop",
+      "action": {
+        "kind": "audio",
+        "label": "Nghe mẫu âm thanh",
+        "note": "Âm thanh xem thử có thời lượng hữu hạn; không xác nhận phản ứng đang xảy ra."
+      }
+    },
+    {
+      "atom": "surfaceRipple",
+      "category": "interface",
+      "presetIndex": 0,
+      "title": "Gentle Drop Ripple",
+      "action": {
+        "kind": "ripple",
+        "label": "Tạo một gợn mặt thoáng",
+        "note": "Xung hình ảnh tắt dần, không thêm giọt hoặc lượng chất vào bình."
+      }
+    },
+    {
+      "atom": "surfaceRipple",
+      "category": "interface",
+      "presetIndex": 1,
+      "title": "Vigorous Bubble Burst Ripples",
+      "action": {
+        "kind": "ripple",
+        "label": "Tạo một gợn mặt thoáng",
+        "note": "Xung hình ảnh tắt dần, không thêm giọt hoặc lượng chất vào bình."
+      }
+    },
+    {
+      "atom": "meniscusDepression",
+      "category": "interface",
+      "presetIndex": 0,
+      "title": "Sodium Floating Dimple",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "meniscusDepression",
+      "category": "interface",
+      "presetIndex": 1,
+      "title": "Wax Raft Indentation",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "cellularFoamGrowth",
+      "category": "interface",
+      "presetIndex": 0,
+      "title": "Elephants Toothpaste Column",
+      "action": {
+        "kind": "program",
+        "programId": "h2o2_mno2",
+        "variant": "oxygen_foam",
+        "label": "Tạo mẫu O2 có chất giữ bọt",
+        "note": "Mẫu ảo H2O2/MnO2 có SDS trong kho chất. Bọt dùng lượng O2 sinh ra thật; chưa mô phỏng cột bọt tràn mang theo dịch."
+      },
+      "equation": "2H2O2(aq) -> 2H2O(l) + O2(g)"
+    },
+    {
+      "atom": "cellularFoamGrowth",
+      "category": "interface",
+      "presetIndex": 1,
+      "title": "Gentle Soap Foam Head",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "worthingtonMicroJet",
+      "category": "interface",
+      "presetIndex": 0,
+      "title": "Bubble Burst Droplet Jet",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "worthingtonMicroJet",
+      "category": "interface",
+      "presetIndex": 1,
+      "title": "Mild Cavitation Splash",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "wallCondensationDroplets",
+      "category": "wall",
+      "presetIndex": 0,
+      "title": "Flask Headspace Condensation",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "wallCondensationDroplets",
+      "category": "wall",
+      "presetIndex": 1,
+      "title": "Thin Wall Mist Film",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "residueStain",
+      "category": "wall",
+      "presetIndex": 0,
+      "title": "Permanganate Brown Stain",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    },
+    {
+      "atom": "residueStain",
+      "category": "wall",
+      "presetIndex": 1,
+      "title": "Iron Oxide Wall Discoloration",
+      "action": {
+        "kind": "inspect",
+        "label": "Xem điều kiện và giới hạn",
+        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+      }
+    }
+  ]
+}

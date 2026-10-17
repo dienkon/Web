@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { useAppStore, getSolidMorphology } from '../../../store/useAppStore';
 import { labSound } from '../../../utils/audio';
 import { useToolDock } from '../../../handling/toolDock';
+import { instrumentHome } from '../../../handling/instrumentCatalog';
 
 const stainlessSteelMaterial = new THREE.MeshStandardMaterial({
   color: '#e2e8f0',
@@ -24,7 +25,7 @@ interface InteractiveSpatulaProps {
 }
 
 export const InteractiveSpatula = React.memo(function InteractiveSpatula({
-  position: initialPosition = [-3.8, 0.4, 2.0],
+  position: initialPosition = instrumentHome('spatula'),
 }: InteractiveSpatulaProps) {
   const dock = useToolDock('spatula', initialPosition);
   const position = dock.position;
@@ -37,7 +38,7 @@ export const InteractiveSpatula = React.memo(function InteractiveSpatula({
   const setSpatulaScoop = useAppStore(state => state.setSpatulaScoop);
 
   const groupRef = useRef<THREE.Group>(null);
-  const isActive = activeTool === 'spatula';
+  const isActive = activeTool === 'spatula' && !dock.moveMode;
 
   const [isDumping, setIsDumping] = useState(false);
   const [fallingGrains, setFallingGrains] = useState<Array<{ x: number; y: number; z: number; vy: number; key: number }>>([]);
@@ -60,9 +61,9 @@ export const InteractiveSpatula = React.memo(function InteractiveSpatula({
 
     groupRef.current.position.lerp(targetPos, 1 - Math.exp(-delta * 8));
 
-    const currentRotationZ = isActive ? (isDumping ? -0.85 : -0.2) : 0.12;
-    const currentRotationX = isActive ? (isDumping ? 0.35 : 0.0) : 0.08;
-    groupRef.current.rotation.z = THREE.MathUtils.lerp(groupRef.current.rotation.z, currentRotationZ, delta * 10.0);
+    const currentRotationZ = isActive ? (isDumping ? -0.85 : -0.2) : 0;
+    const currentRotationX = isActive ? (isDumping ? 0.35 : 0.0) : -Math.PI / 2;
+    groupRef.current.rotation.z = THREE.MathUtils.lerp(groupRef.current.rotation.z, currentRotationZ, 1 - Math.exp(-delta * 10));
     groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, currentRotationX, delta * 10.0);
 
     // Animate falling grains during dump
@@ -141,20 +142,13 @@ export const InteractiveSpatula = React.memo(function InteractiveSpatula({
     <group
       ref={groupRef}
       name="tool-spatula" visible={dock.visible}
+      position={position} rotation={isActive ? [0, 0, 0] : [-Math.PI / 2, 0, 0]}
       onPointerDown={dock.onPointerDown}
       onClick={handleSpatulaAction}
-      onPointerOver={() => { document.body.style.cursor = 'pointer'; }}
+      onPointerOver={() => { document.body.style.cursor = dock.moveMode ? 'grab' : 'pointer'; }}
       onPointerOut={() => { document.body.style.cursor = 'auto'; }}
     >
-      {/* Resting Stand block when not held */}
-      {!isActive && (
-        <mesh position={[0, -0.6, 0]} receiveShadow>
-          <boxGeometry args={[0.35, 0.4, 0.35]} />
-          <meshStandardMaterial color="#cbd5e1" roughness={0.4} />
-        </mesh>
-      )}
-
-      {/* Main Hexagonal/Cylindrical Stainless Steel Handle */}
+{/* Main Hexagonal/Cylindrical Stainless Steel Handle */}
       <mesh material={stainlessSteelMaterial} position={[0, 0.5, 0]} castShadow>
         <cylinderGeometry args={[0.022, 0.022, 1.6, 12]} />
       </mesh>

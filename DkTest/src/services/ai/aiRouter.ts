@@ -48,7 +48,8 @@ aiRouter.post("/generate-exam-prompt-stream", express.json(), async (req, res) =
   res.setHeader("Connection", "keep-alive");
 
   try {
-    const { prompt } = req.body;
+    const { prompt, apiKey } = req.body;
+    const customApiKey = (req.headers["x-gemini-api-key"] as string) || apiKey;
     if (!prompt) {
       res.write(`data: ${JSON.stringify({ type: "error", message: "No prompt provided" })}\n\n`);
       res.end();
@@ -57,7 +58,7 @@ aiRouter.post("/generate-exam-prompt-stream", express.json(), async (req, res) =
     
     const result = await processExamFromPromptStream(prompt, (progressMsg) => {
       res.write(`data: ${progressMsg}\n\n`);
-    });
+    }, customApiKey);
     
     res.write(`data: ${JSON.stringify({ type: "done", result })}\n\n`);
     res.end();

@@ -7,6 +7,7 @@ import { NOISE_GLSL } from '../glsl/noise.glsl';
 import { createVesselLatheGeometry, getVesselInnerRadius } from './glass';
 import { getCausticTexture } from '../textures';
 import { SimulationEngine } from '../../simulation/core/SimulationEngine';
+import { liquidSurfaceVolume } from '../../engine/waterPhase';
 import { PourController } from '../../pour/controller/PourController';
 import { vfxBus } from '../bus';
 import { reactionSimulationEngine } from '../reactions/ReactionSimulationEngine';
@@ -324,7 +325,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     dynamicRippleRef.current = Math.max(0, dynamicRippleRef.current - dt * 3.0);
     uniforms.uDynamicRipple.value = dynamicRippleRef.current;
 
-    const volume = volumeOverride_ml ?? vessel.volume_ml ?? 0;
+    const volume = volumeOverride_ml ?? liquidSurfaceVolume(vessel);
     const capacity = vessel.capacity_ml ?? capacity_ml;
     const targetFillFraction = Math.max(0, Math.min(1.0, volume / capacity));
 

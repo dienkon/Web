@@ -27,6 +27,7 @@ import { releaseShatteredInventory } from '../engine/shatterInventory';
 import { stepAlcoholBurner, allocateBurnerHeat, burnerIntensity } from '../engine/burnerEnergy';
 import { createFlameEmission, flameEmissionExpired } from '../engine/flameEmission';
 import { createStudioSample, planStudioProgram } from '../engine/studioProgram';
+import { createStudioMorphologySample, PRECIPITATE_MORPHOLOGIES } from '../engine/studioMorphology';
 import { getProgramById } from '../vfx/programs/library';
 import { LESSON_PROGRAM_IDS } from '../lesson/programCompiler';
 import { collectSpillWaste } from '../engine/wasteInventory';
@@ -34,10 +35,13 @@ import { resolveMixture } from '../engine/resolveMixture';
 import { dispenseAliquot } from '../handling/aliquot';
 import { reactAliquotMixture } from '../engine/aliquotReaction';
 import { projectEscapedGas } from '../engine/gasInventory';
+import { stepFoamInventory } from '../engine/foamInventory';
+import { createIceWaterSample } from '../engine/waterPhase';
 import { partitionLeadIodide } from '../engine/leadIodidePhase';
 import { partitionSodiumChloride } from '../engine/sodiumChloridePhase';
 import { projectAqueousSolution } from '../engine/aqueousProjection';
 import { stepVesselThermal, sealedGasPressure } from '../engine/thermalState';
+import { stepHotPlate, hotPlateSetpoint, PLATE_TOP_Y, HOT_PLATE_RECEIVERS } from '../engine/hotPlateEnergy';
 import { transferWaterCondensate } from '../engine/condensationTransfer';
 import { applyProgramWithThermalSinks } from '../engine/thermalLedger';
 import { materializePresetInventory } from '../engine/presetInventory';
@@ -316,8 +320,13 @@ export interface AppState {
   toggleBurner: (id: string) => void;
   setBurnerIntensity: (id: string, intensity: number) => void;
   startFlameTest: (burnerId: string, element: string, duration_s?: number) => boolean;
-  prepareStudioProgram: (programId: string) => string | null;
+  prepareStudioProgram: (programId: string, variant?: 'oxygen_foam') => string | null;
+  prepareStudioIceSample: () => string | null;
+  prepareStudioMorphology: (type: string) => string | null;
+  setHotPlate: (id: string, options: { isOn?: boolean; setPoint_c?: number }) => boolean;
+  placeOnHotPlate: (vesselId: string, plateId: string) => boolean;
   runStudioProgram: (vesselId: string) => boolean;
+  igniteStudioSample: (vesselId: string) => boolean;
   seekStudioProgram: (vesselId: string, progress: number) => boolean;
 
   // Burette & Titration
@@ -1418,6 +1427,7 @@ export const useAppStore = create<AppState>((set, get) => {
       const hasActiveKinetics = Object.keys(state.activeKinetics).length > 0;
       const hasPendingReactions = Object.keys(state.pendingReactions).length > 0;
       const anyBurnerOn = burners.some(b => b.isOn);
+      const anyHotPlateOn = Object.values(state.vessels).some(v => v.type === 'hot_plate' && v.hotPlate?.isOn);
       const anyFlameEmission = burners.some(b => b.flameEmission !== undefined);
       const anyVesselHot = Object.values(state.vessels).some(v => Math.abs(v.temperature_c - 25) > 1e-5 || v.isBoiling || (v.evaporationRate_g_s ?? 0) > 0 || v.contents.some(item => item.phase === 'g' && item.moles > 1e-12));
       const anyFoam = Object.values(state.vessels).some(v => (v.foam_ml || 0) > 0);
@@ -1437,7 +1447,7 @@ export const useAppStore = create<AppState>((set, get) => {
       if (
         !hasActiveKinetics && 
         !hasPendingReactions && 
-        !anyBurnerOn && !anyFlameEmission &&
+        !anyBurnerOn && !anyHotPlateOn && !anyFlameEmission &&
         !anyVesselHot && 
         !anyFoam && 
         !anyStopcockDraining && 
@@ -1483,9 +1493,16 @@ export const useAppStore = create<AppState>((set, get) => {
         burnersUpdated = true;
       }
 
+      for (const plate of Object.values(newVessels).filter(v => v.type === 'hot_plate')) {
+        const step = stepHotPlate(plate, Object.values(newVessels), effectiveDt);
+        newVessels[plate.id] = step.plate;
+        if (step.plate !== plate) vesselsUpdated = true;
+        for (const [id, energy] of step.energyByVessel_J) heatByVessel_J.set(id, (heatByVessel_J.get(id) ?? 0) + energy);
+      }
+
       // One sample heat budget; the final partial flame still transfers its finite energy.
       for (const vId of Object.keys(newVessels)) {
-        if (vId.startsWith('lesson_vessel_')) continue;
+        if (vId.startsWith('lesson_vessel_') || newVessels[vId].type === 'hot_plate') continue;
         const v = newVessels[vId];
         const totalHeatingPower = (heatByVessel_J.get(vId) ?? 0) / effectiveDt;
 
@@ -1496,7 +1513,6 @@ export const useAppStore = create<AppState>((set, get) => {
         const evap_ml = thermal.evaporatedStep_g;
         const curTemp = thermal.temperature_c;
         const roundedTemp = curTemp; // Keep numerical precision; round only readouts.
-        const normalBoilingPoint_c = thermal.boilingPoint_c;
         const isBoilingNow = thermal.isBoiling ?? false;
         const boilingIntensity = thermal.boilingIntensity ?? 0;
 
@@ -1520,35 +1536,10 @@ export const useAppStore = create<AppState>((set, get) => {
           stainHeight = Math.max(0.15, Math.min(0.85, v.volume_ml / v.capacity_ml));
         }
 
-        // Real-World Mechanism: Boiling Bumping Surge without Nucleation
-        let isSuperheated = false;
-        let bumpingSurge = v.bumpingSurge || false;
-        let bumpingTimer = (v as any)._bumpingTimer || 0;
-        if (bumpingSurge) {
-          bumpingTimer += effectiveDt;
-          if (bumpingTimer >= 1.2) {
-            bumpingSurge = false;
-            bumpingTimer = 0;
-          }
-        }
-        (v as any)._bumpingTimer = bumpingTimer;
-
-        if (roundedTemp > normalBoilingPoint_c + 0.5 && currentVol > 5) {
-          const hasStirrer = state.stirringVesselId === vId;
-          if (!hasStirrer) {
-            isSuperheated = true;
-            if (!bumpingSurge && Math.random() < 0.12 * effectiveDt) {
-              bumpingSurge = true;
-              (v as any)._bumpingTimer = 0;
-              labSound.playBumping();
-              get().addSpill(v.position, 1.2, v.substances, v.liquidColor || '#38bdf8', v.name);
-            }
-          } else {
-            bumpingSurge = false;
-          }
-        } else if (roundedTemp < normalBoilingPoint_c - 2.0) {
-          bumpingSurge = false;
-        }
+        // The equilibrium boiling solver has no metastable nucleation model.
+        // Do not invent random surges or create spill inventory from a temperature flag.
+        const isSuperheated = false;
+        const bumpingSurge = false;
 
         // Acid/ammonia in water are not automatically visible aerosol clouds.
         // Dedicated finite gas-reaction effects own NH4Cl smoke/NO2 plumes.
@@ -1569,11 +1560,7 @@ export const useAppStore = create<AppState>((set, get) => {
         // Failure pressure depends on vessel rating/geometry. A generic 2.5-atm
         // threshold is not evidence of mechanical rupture or combustion.
 
-        // Natural foam dissipation when gas reaction stops
-        let currentFoam = v.foam_ml || 0;
-        if (currentFoam > 0 && !newKinetics[vId]?.hasGas) {
-          currentFoam = Math.max(0, currentFoam - 3.5 * effectiveDt);
-        }
+        const currentFoam = v.foam_ml ?? 0;
 
         if (
           roundedTemp !== v.temperature_c || 
@@ -1601,6 +1588,11 @@ export const useAppStore = create<AppState>((set, get) => {
             immiscibleOrganicVolume_ml: currentOrganicVol,
             immiscibleOrganicColor: v.immiscibleOrganicColor,
             mass_g: currentMass,
+            contents: thermal.contents ?? v.contents,
+            evaporationRate_g_s: thermal.evaporationRate_g_s ?? 0,
+            iceVolume_ml: thermal.iceVolume_ml,
+            thermalEnergyOutsideModel_J: thermal.thermalEnergyOutsideModel_J,
+            thermalModelLimit: thermal.thermalModelLimit,
             volume: Math.min(1.0, currentVol / v.capacity_ml),
             foam_ml: currentFoam,
             evaporated_ml: (v.evaporated_ml || 0) + evap_ml,
@@ -1670,6 +1662,9 @@ export const useAppStore = create<AppState>((set, get) => {
 
       // Transfer the finite current inventories after every vessel's thermal
       // step, so iteration order cannot overwrite an already received sample.
+      const condensed = transferWaterCondensate(newVessels, vaporBudgets);
+      if (condensed !== newVessels) { Object.assign(newVessels, condensed); vesselsUpdated = true; }
+
       for (const id of Object.keys(newVessels)) {
         const source = newVessels[id];
         if (id.startsWith('lesson_vessel_') || !['filter_funnel', 'separatory_funnel'].includes(source.type)) continue;
@@ -1695,9 +1690,6 @@ export const useAppStore = create<AppState>((set, get) => {
         }
       }
 
-      const condensed = transferWaterCondensate(newVessels, vaporBudgets);
-      if (condensed !== newVessels) { Object.assign(newVessels, condensed); vesselsUpdated = true; }
-
       // 3. Advance active reaction kinetics, gas production, foam overflow
       for (const [vId, kinetics] of Object.entries(newKinetics)) {
         const v = newVessels[vId];
@@ -1712,33 +1704,8 @@ export const useAppStore = create<AppState>((set, get) => {
 
         const rxId = (kinetics.reactionId || '').toLowerCase();
 
-        // In real chemistry, ONLY designated foaming decompositions (e.g. H2O2 + MnO2 Elephant's Toothpaste)
-        // produce persistent cellular foam. Normal gas evolutions (Sodium + H2O, Zn + HCl, CaCO3 + HCl)
-        // release buoyant gaseous bubbles directly into the headspace, NEVER accumulating foam!
-        const isFoamingReaction = rxId.includes('h2o2_mno2') || 
-                                  rxId.includes('elephant_toothpaste') || 
-                                  rxId.includes('decomposition_foam');
-        let updatedFoam = v.foam_ml || 0;
-        if (isFoamingReaction && newProgress < 0.85) {
-          const foamGenRate = 14.0 * (1.0 - newProgress);
-          updatedFoam += foamGenRate * effectiveDt;
-
-          // Reaction foam overflow check!
-          if (v.volume_ml + updatedFoam > v.capacity_ml) {
-            const overflowFoam = (v.volume_ml + updatedFoam) - v.capacity_ml;
-            updatedFoam = v.capacity_ml - v.volume_ml;
-            get().addSpill(
-              [v.position[0], -1.155, v.position[2]],
-              overflowFoam,
-              v.substances,
-              kinetics.targetLiquidColor || v.liquidColor || '#ffffff',
-              v.name
-            );
-          }
-        } else if (updatedFoam > 0) {
-          // Rapid natural dissipation for non-foaming reactions
-          updatedFoam = Math.max(0, updatedFoam - 6.0 * effectiveDt);
-        }
+        const updatedFoam = v.foam_ml ?? 0;
+        let programLedgerStep: Partial<VesselState> | undefined;
 
         // Dissolve solid reactants progressively (5x boost if finely pulverized in mortar)
         if (kinetics.dissolvingReactants.length > 0) {
@@ -1798,7 +1765,10 @@ export const useAppStore = create<AppState>((set, get) => {
 
         if (kinetics.program && kinetics.initialVesselBaseline) {
           const xi = newProgress;
-          const ledgerStep = applyProgramWithThermalSinks(kinetics.program, kinetics.initialVesselBaseline, newVessels[vId], xi);
+          const ledgerStep = applyProgramWithThermalSinks(kinetics.program, kinetics.initialVesselBaseline, newVessels[vId], xi, effectiveDt);
+          programLedgerStep = ledgerStep;
+          const reactionVapor = Math.max(0, (ledgerStep.evaporated_ml ?? 0) - (newVessels[vId].evaporated_ml ?? 0));
+          if (reactionVapor > 0) vaporBudgets.set(vId, (vaporBudgets.get(vId) ?? 0) + reactionVapor);
           const currentStepContents = ledgerStep.contents || kinetics.initialVesselBaseline.contents || [];
           const currentStepSubstances = Array.from(new Set(
             currentStepContents
@@ -1820,6 +1790,16 @@ export const useAppStore = create<AppState>((set, get) => {
             contents: currentStepContents,
             substances: currentStepSubstances.length > 0 ? currentStepSubstances : newVessels[vId].substances,
             mass_g: ledgerStep.mass_g ?? newVessels[vId].mass_g,
+            programHeatApplied_J: ledgerStep.programHeatApplied_J,
+            iceVolume_ml: ledgerStep.iceVolume_ml,
+            thermalEnergyOutsideModel_J: ledgerStep.thermalEnergyOutsideModel_J,
+            thermalModelLimit: ledgerStep.thermalModelLimit,
+            volume_ml: ledgerStep.volume_ml ?? newVessels[vId].volume_ml,
+            volume: ledgerStep.volume ?? newVessels[vId].volume,
+            evaporated_ml: ledgerStep.evaporated_ml ?? newVessels[vId].evaporated_ml,
+            evaporationRate_g_s: Math.max(newVessels[vId].evaporationRate_g_s ?? 0, ledgerStep.evaporationRate_g_s ?? 0),
+            isBoiling: ledgerStep.isBoiling ?? newVessels[vId].isBoiling,
+            boilingIntensity: ledgerStep.boilingIntensity ?? newVessels[vId].boilingIntensity,
             escapedGas_g: ledgerStep.escapedGas_g,
             ph: ledgerStep.ph ?? newVessels[vId].ph,
             phModel: ledgerStep.phModel,
@@ -1855,7 +1835,7 @@ export const useAppStore = create<AppState>((set, get) => {
 
         if (newProgress >= 1.0) {
           if (kinetics.program && kinetics.initialVesselBaseline) {
-            const finalLedger = applyProgramWithThermalSinks(kinetics.program, kinetics.initialVesselBaseline, newVessels[vId], 1.0);
+            const finalLedger = programLedgerStep!;
             const finalContents = finalLedger.contents || [];
             const finalSubstances = Array.from(new Set(
               finalContents
@@ -1907,6 +1887,11 @@ export const useAppStore = create<AppState>((set, get) => {
         const escaped = projectEscapedGas(vessel);
         if (escaped) {
           vessel = newVessels[id] = { ...vessel, ...escaped };
+          vesselsUpdated = true;
+        }
+        const foam = stepFoamInventory(vessel, state.vessels[id] ?? vessel, effectiveDt);
+        if (foam) {
+          vessel = newVessels[id] = { ...vessel, ...foam };
           vesselsUpdated = true;
         }
         const phase = !newKinetics[id] && !id.startsWith('lesson_vessel_') ? partitionLeadIodide(vessel, effectiveDt) : null;
@@ -2167,6 +2152,7 @@ export const useAppStore = create<AppState>((set, get) => {
         type === 'test_tube_rack' ? 'Test Tube Rack' :
         type === 'wash_bottle' ? 'Wash Bottle' :
         type === 'tongs' ? 'Crucible Tongs' :
+        type === 'hot_plate' ? 'Bếp gia nhiệt' :
         'Test Tube'
       } ${Object.keys(get().vessels).length + 1}`;
       const capacity_ml = 
@@ -2666,7 +2652,51 @@ export const useAppStore = create<AppState>((set, get) => {
       debounceSaveLocalState(s.vessels, updated);
       return { burners: updated };
     }),
-    prepareStudioProgram: (programId) => {
+    setHotPlate: (id, options) => {
+      const state = get(), plate = state.vessels[id];
+      if (!plate || plate.type !== 'hot_plate' || plate.isShattered) return false;
+      const hotPlate = { ...(plate.hotPlate ?? { isOn: false, setPoint_c: 100 }),
+        ...(options.isOn === undefined ? {} : { isOn: options.isOn }),
+        ...(options.setPoint_c === undefined ? {} : { setPoint_c: hotPlateSetpoint(options.setPoint_c) }) };
+      const vessels = { ...state.vessels, [id]: { ...plate, hotPlate } };
+      set({ vessels });
+      debounceSaveLocalState(vessels, state.burners);
+      return true;
+    },
+
+    placeOnHotPlate: (vesselId, plateId) => {
+      const state = get(), vessel = state.vessels[vesselId], plate = state.vessels[plateId];
+      if (!vessel || !plate || plate.type !== 'hot_plate' || plate.isShattered || vessel.isShattered
+        || vessel.isLocked || vessel.heldByTongsId || vesselId.startsWith('lesson_vessel_')
+        || !HOT_PLATE_RECEIVERS.includes(vessel.type)) return false;
+      const occupied = Object.values(state.vessels).some(other => other.id !== vesselId && other.id !== plateId
+        && Math.hypot(other.position[0] - plate.position[0], other.position[2] - plate.position[2]) < 0.55
+        && Math.abs(other.position[1] - plate.position[1] - PLATE_TOP_Y) < 0.1);
+      if (occupied) { set({ globalWarning: 'Mặt bếp đã có dụng cụ; di chuyển dụng cụ đó trước.' }); return false; }
+      const vessels = { ...state.vessels, [vesselId]: { ...vessel,
+        position: [plate.position[0], plate.position[1] + PLATE_TOP_Y, plate.position[2]] as [number, number, number], rotationZ: 0 } };
+      set({ vessels, globalWarning: null });
+      debounceSaveLocalState(vessels, state.burners);
+      return true;
+    },
+
+    prepareStudioIceSample: () => {
+      const id = 'studio_ice_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+      const index = get().vesselIds.length;
+      const shell: VesselState = { ...defaultVessels.beaker_1, id,
+        position: [((index % 5) - 2) * 1.5, -0.135, 1.8 + Math.floor(index / 5) * 1.2] };
+      const vessel = createIceWaterSample(shell);
+      set(s => {
+        const vessels = { ...s.vessels, [id]: vessel };
+        pushHistorySnapshot('ADD_VESSEL', vessels, s.burners, 'Prepared water and ice', 'Tạo mẫu nước và đá');
+        debounceSaveLocalState(vessels, s.burners);
+        return { vessels, vesselIds: Object.keys(vessels), selectedVesselId: id,
+          globalWarning: null, canUndo: checkCanUndo(), canRedo: checkCanRedo() };
+      });
+      return id;
+    },
+
+    prepareStudioProgram: (programId, variant) => {
       const program = getProgramById(programId);
       if (!program || LESSON_PROGRAM_IDS.has(program.id)) return null;
       try {
@@ -2674,10 +2704,34 @@ export const useAppStore = create<AppState>((set, get) => {
         const index = get().vesselIds.length;
         const shell: VesselState = { ...defaultVessels.beaker_1, id, name: 'Mẫu Studio: ' + program.id,
           position: [((index % 5) - 2) * 1.5, -0.135, 1.8 + Math.floor(index / 5) * 1.2] };
-        const vessel = createStudioSample(program, shell);
+        const vessel = createStudioSample(program, shell, variant);
         set(s => {
           const vessels = { ...s.vessels, [id]: vessel };
           pushHistorySnapshot('ADD_VESSEL', vessels, s.burners, 'Prepared virtual specimen', 'Tạo mẫu mô phỏng định lượng');
+          debounceSaveLocalState(vessels, s.burners);
+          return { vessels, vesselIds: Object.keys(vessels), selectedVesselId: id,
+            globalWarning: null, mixError: null, canUndo: checkCanUndo(), canRedo: checkCanRedo() };
+        });
+        return id;
+      } catch (error) {
+        set({ mixError: error instanceof Error ? error.message : String(error) });
+        return null;
+      }
+    },
+
+    prepareStudioMorphology: (type) => {
+      const entry = PRECIPITATE_MORPHOLOGIES.find(item => item.type === type);
+      if (!entry) return null;
+      if (entry.programId) return get().prepareStudioProgram(entry.programId);
+      try {
+        const id = 'studio_morphology_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+        const index = get().vesselIds.length;
+        const shell: VesselState = { ...defaultVessels.beaker_1, id,
+          position: [((index % 5) - 2) * 1.5, -0.135, 1.8 + Math.floor(index / 5) * 1.2] };
+        const vessel = createStudioMorphologySample(type, shell);
+        set(s => {
+          const vessels = { ...s.vessels, [id]: vessel };
+          pushHistorySnapshot('ADD_VESSEL', vessels, s.burners, 'Prepared solid specimen', 'Tạo mẫu chất rắn định lượng');
           debounceSaveLocalState(vessels, s.burners);
           return { vessels, vesselIds: Object.keys(vessels), selectedVesselId: id,
             globalWarning: null, mixError: null, canUndo: checkCanUndo(), canRedo: checkCanRedo() };
@@ -2696,7 +2750,28 @@ export const useAppStore = create<AppState>((set, get) => {
       if (!program || LESSON_PROGRAM_IDS.has(program.id)) return false;
       const plan = planStudioProgram(program, vessel, state.language);
       if (!plan.kinetics) { set({ globalWarning: plan.unmet.join(' ') }); return false; }
-      set(s => ({ activeKinetics: { ...s.activeKinetics, [vesselId]: plan.kinetics! }, globalWarning: null, lastMixResult: null }));
+      set(s => ({ vessels: { ...s.vessels, [vesselId]: { ...s.vessels[vesselId], ignitedProgramId: undefined } },
+        activeKinetics: { ...s.activeKinetics, [vesselId]: plan.kinetics! }, globalWarning: null, lastMixResult: null }));
+      return true;
+    },
+
+    igniteStudioSample: (vesselId) => {
+      const state = get(), vessel = state.vessels[vesselId];
+      if (!vessel || vessel.isShattered || state.activeKinetics[vesselId] || !vessel.studioProgramId) return false;
+      const program = getProgramById(vessel.studioProgramId);
+      if (program?.chemistry.conditions?.activation !== 'ignition') return false;
+      const source = Object.values(state.burners).some(burner => {
+        const height = vessel.position[1] - burner.position[1];
+        return stepAlcoholBurner(burner, 0).burner.isOn && height >= 0.6 && height <= 2.8
+          && Math.hypot(vessel.position[0] - burner.position[0], vessel.position[2] - burner.position[2]) < 0.85;
+      });
+      if (!source) { set({ globalWarning: 'Đặt mẫu ở vùng nguồn nhiệt đang cháy trước khi mồi trong mô phỏng.' }); return false; }
+      const primed = { ...vessel, ignitedProgramId: program.id };
+      const plan = planStudioProgram(program, primed, state.language);
+      if (!plan.kinetics) { set({ globalWarning: plan.unmet.join(' ') }); return false; }
+      // Only this run receives the initiation event; later reagent additions
+      // cannot borrow an ignition flag left on the container.
+      set(s => ({ activeKinetics: { ...s.activeKinetics, [vesselId]: plan.kinetics! }, globalWarning: null }));
       return true;
     },
 
@@ -2708,13 +2783,16 @@ export const useAppStore = create<AppState>((set, get) => {
         set({ globalWarning: 'Không tua ngược lượng chất đã phản ứng hoặc khí đã thoát. Tạo mẫu mới để xem lại.' });
         return false;
       }
-      const ledger = applyProgramWithThermalSinks(kinetics.program, kinetics.initialVesselBaseline, vessel, progress);
-      const contents = ledger.contents ?? vessel.contents;
+      const ledger = applyProgramWithThermalSinks(kinetics.program, kinetics.initialVesselBaseline, vessel, progress, (progress - kinetics.progress) * kinetics.duration);
+      const projected = { ...vessel, ...ledger };
+      const foam = stepFoamInventory(projected, vessel, (progress - kinetics.progress) * kinetics.duration);
+      const sampled = { ...projected, ...foam };
+      const contents = sampled.contents;
       set(s => {
         const activeKinetics = { ...s.activeKinetics };
         if (progress >= 1) delete activeKinetics[vesselId];
         else activeKinetics[vesselId] = { ...kinetics, progress };
-        return { vessels: { ...s.vessels, [vesselId]: { ...vessel, ...ledger, contents,
+        return { vessels: { ...s.vessels, [vesselId]: { ...sampled, contents,
           substances: [...new Set(contents.filter(item => item.moles > 1e-12).map(item => item.formula))],
           hasGas: progress < 1 && !!ledger.hasGas } }, activeKinetics };
       });

@@ -1,5 +1,6 @@
 import type { ToolPosition } from './toolDock';
 import { LAB_PHYSICS } from '../engine/interactionEngine';
+import { restingToolHeight } from './handheldRest';
 
 export type InstrumentId =
   | 'pipette'
@@ -26,7 +27,7 @@ export const INSTRUMENTS: InstrumentDefinition[] = [
   {
     id: 'pipette',
     name: 'Pipet 10 mL',
-    home: [-6.5, 0.4, 2],
+    home: [-6.5, restingToolHeight('pipette', 0.4), 2],
     description: 'Hút và chuyển một phần dung dịch, giữ nguyên tỉ lệ các chất tan.',
     instructions: [
       'Chọn bình nguồn có dung dịch rồi nhấn Hút.',
@@ -71,7 +72,7 @@ export const INSTRUMENTS: InstrumentDefinition[] = [
   {
     id: 'thermometer',
     name: 'Nhiệt kế',
-    home: [-7.8, 0.4, 2],
+    home: [-7.8, restingToolHeight('thermometer', 0.4), 2],
     description: 'Theo dõi nhiệt độ bình; đầu đo cần thời gian để ổn định.',
     instructions: [
       'Chọn bình cần đo rồi kích hoạt nhiệt kế.',
@@ -86,7 +87,7 @@ export const INSTRUMENTS: InstrumentDefinition[] = [
   {
     id: 'ph_meter',
     name: 'Máy đo pH',
-    home: [-2.5, 0.4, 2],
+    home: [-2.5, restingToolHeight('ph_meter', 0.4), 2],
     description: 'Đầu đo pH cho pha dung dịch; đầu đo khô không có số đọc hợp lệ.',
     instructions: [
       'Chọn bình có pha dung dịch rồi kích hoạt đầu đo.',
@@ -101,7 +102,7 @@ export const INSTRUMENTS: InstrumentDefinition[] = [
   {
     id: 'stirring_rod',
     name: 'Đũa thủy tinh',
-    home: [-5.2, 0.4, 2],
+    home: [-5.2, restingToolHeight('stirring_rod', 0.4), 2],
     description: 'Khuấy bình đang chọn và theo dõi nguy cơ nhiễm chéo.',
     instructions: [
       'Kích hoạt rồi di chuột để khuấy thủ công trong cảnh.',
@@ -116,7 +117,7 @@ export const INSTRUMENTS: InstrumentDefinition[] = [
   {
     id: 'spatula',
     name: 'Thìa lấy hóa chất',
-    home: [-3.8, 0.4, 2],
+    home: [-3.8, restingToolHeight('spatula', 0.4), 2],
     description: 'Chuyển lượng chất rắn đã lấy từ kho hóa chất vào bình.',
     instructions: [
       'Lấy hóa chất rắn trong danh sách hóa chất trước.',
@@ -156,5 +157,6 @@ export function isLessonVessel(id: string | null | undefined): boolean {
 }
 
 export function instrumentHome(id: InstrumentId): ToolPosition {
-  return [...getInstrument(id).home];
+  const home = getInstrument(id).home;
+  return [home[0], restingToolHeight(id, home[1]), home[2]];
 }

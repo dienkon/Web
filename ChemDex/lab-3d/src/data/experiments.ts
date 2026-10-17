@@ -577,31 +577,29 @@ export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
     safetyAdvisory_vi: 'Phản ứng tỏa nhiệt ấm bình. Khí oxi duy trì sự cháy, tránh xa các vật liệu dễ bắt lửa.',
     requiredEquipment: ['Erlenmeyer Flask', 'Spatula'],
     allowedChemicals: ['H2O2', 'MnO2', 'H2O'],
-    simulationAlgorithm_en: `Heterogeneous Catalytic Decomposition & Steam Eruption Model:
-1. Catalytic Surface Rate Law: r = k_cat * A_MnO2 * [H2O2] / (1 + K_ads * [H2O2]) with Ea = 23 kJ/mol.
-2. Exothermic Reaction Heating:
-   Delta H° = -98.2 kJ/mol. Heat accumulation raises local fluid temperature, accelerating gas evolution.
-3. Oxygen Effervescence & Reignition Kinetics:
-   Dense foam layer with high oxygen partial pressure (P_O2 > 0.9 atm), dramatically boosting charcoal/splint combustion rate.`,
-    simulationAlgorithm_vi: `Thuật toán Phân Hủy Xúc Tác Dị Thể & Thoát Hơi Nước Nóng:
-1. Tốc độ xúc tác bề mặt MnO2 làm giảm mạnh năng lượng hoạt hóa từ 75 kJ/mol xuống còn 23 kJ/mol.
-2. Nhiệt phản ứng tỏa ra (Delta H° = -98.2 kJ/mol) làm ấm dung dịch và sinh luồng hơi nước bốc lên.
-3. Luồng khí O2 tinh khiết (nồng độ > 90%) làm bùng cháy mãnh liệt tàn đóm đỏ khi đưa vào miệng bình.`,
+    simulationAlgorithm_en: `Finite catalytic decomposition model:
+1. MnO2 is retained as catalyst; H2O2 availability bounds water and oxygen production.
+2. Reference enthalpy at 298.15 K: -190.16 kJ per reaction 2H2O2(aq) -> 2H2O(l) + O2(g). This is not calibrated calorimetry at every concentration.
+3. Temperature follows incremental heat input and losses. Steam is not guaranteed; persistent foam requires an explicit surfactant. Splint observations are reference context, not a solved combustion-rate model.`,
+    simulationAlgorithm_vi: `Mô hình phân hủy xúc tác hữu hạn:
+1. MnO2 là xúc tác; lượng H2O2 còn lại giới hạn nước và O2 sinh ra.
+2. ΔH tham chiếu 298,15 K: -190,16 kJ cho phương trình 2H2O2(aq) -> 2H2O(l) + O2(g); chưa hiệu chuẩn nhiệt lượng theo mọi nồng độ.
+3. Cộng phần nhiệt mới và tính trao đổi nhiệt. Không mặc định có hơi trắng; bọt bền cần chất ổn định rõ trong kho. Thử tàn đóm là quan sát tham khảo, chưa có bộ giải tốc độ cháy.`,
     phenomenologyCases: [
       {
         id: 'catalytic_oxygen_effervescent_froth',
-        name_en: 'Case 1: Explosive Oxygen Effervescence & Black Churn',
-        name_vi: 'Trường hợp 1: Sủi bọt khí O2 bùng nổ cuồn cuộn cùng bột MnO2',
-        description_en: 'Adding black MnO2 triggers instant violent churning and thick foam bubbling as millions of oxygen bubbles detach from catalyst surfaces.',
-        description_vi: 'Thả bột MnO2 vào làm dung dịch sôi bùng lên tức thì, bọt khí O2 sinh ra cuồn cuộn cuốn theo các hạt MnO2 màu đen chuyển động mãnh liệt.',
+        name_en: 'Case 1: Oxygen Bubbles and Retained Catalyst',
+        name_vi: 'Trường hợp 1: Sinh khí O2, xúc tác MnO2 còn lại',
+        description_en: 'Black MnO2 accelerates oxygen evolution. Rate depends on catalyst and sample conditions; persistent foam is a separate surfactant-stabilized case.',
+        description_vi: 'MnO2 làm tăng tốc độ sinh khí O2. Không đồng nhất sủi bọt khí với sôi; lớp bọt bền cần chất giữ bọt.',
         algorithm: 'Catalytic gas flux Q_gas = r * V_m_gas; two-phase hydrodynamic churn.'
       },
       {
         id: 'catalytic_oxygen_thermal_steam',
         name_en: 'Case 2: Exothermic Thermal Rise & Water Vapor Mist',
         name_vi: 'Trường hợp 2: Nhiệt độ tăng cao & hơi nước bốc lên mù mịt',
-        description_en: 'Reaction heat warms the flask significantly to ~60-70°C; warm humid oxygen gas condenses into a visible white steam mist plume at the flask neck.',
-        description_vi: 'Phản ứng tỏa nhiệt làm ấm bình lên 60-70°C, hơi nước bốc lên ngưng tụ thành dải khói hơi nước màu trắng ở cổ bình.',
+        description_en: 'Heat release depends on reacted peroxide; the resulting temperature also depends on sample heat capacity and losses. A white plume is not guaranteed.',
+        description_vi: 'Mức tăng nhiệt phụ thuộc lượng H2O2 đã phản ứng, nhiệt dung mẫu và nhiệt thất thoát; không gán sẵn nhiệt độ 60–70 °C hoặc hơi trắng.',
         algorithm: 'Latent heat vaporization balance; aerosol fog condensation threshold.'
       },
       {

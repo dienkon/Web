@@ -1274,8 +1274,8 @@ function normalizeQuestionsAndExam(rawData, defaultTitle, defaultDesc) {
   };
   return aiExamImportResultSchema.parse(finalExam);
 }
-async function processExamFromPromptStream(prompt, onProgress) {
-  const ai = getAiClient();
+async function processExamFromPromptStream(prompt, onProgress, customApiKey) {
+  const ai = getAiClient(customApiKey);
   const startTime = Date.now();
   onProgress(JSON.stringify({
     type: "log",
@@ -2444,6 +2444,167 @@ C\xE1c lo\u1EA1i h\xE0nh \u0111\u1ED9ng (type) \u0111\u01B0\u1EE3c h\u1ED7 tr\u1
     \`\`\`
 
 =======================================================
+H\xC0NH \u0110\u1ED8NG T\u1EF0 \u0110\u1ED8NG H\xD3A CHUY\xCAN S\xC2U & WORKFLOW KI\u1EC2U MAKE.COM:
+=======================================================
+B\u1EA0N L\xC0 M\u1ED8T AUTONOMOUS WORKFLOW AGENT (nh\u01B0 Agent c\u1EE7a Make.com / Zapier Central). Khi Qu\u1EA3n tr\u1ECB vi\xEAn y\xEAu c\u1EA7u: "t\u1EA1o voucher", "t\u1EA1o \u0111\u1EC1 thi", "kh\xF3a h\u1ECDc sinh", "n\u1EA1p ti\u1EC1n cho h\u1ECDc sinh", "giao b\xE0i t\u1EADp", "ch\u1EA1y k\u1ECBch b\u1EA3n t\u1EF1 \u0111\u1ED9ng", B\u1EA0N PH\u1EA2I T\u1EF0 \u0110\u1ED8NG TH\u1EF0C THI B\u1EB0NG C\xC1C ACTION BLOCKS SAU:
+
+14. "CREATE_VOUCHER": T\u1EA1o m\xE3 voucher / m\xE3 gi\u1EA3m gi\xE1 m\u1EDBi tr\u1EF1c ti\u1EBFp v\xE0o h\u1EC7 th\u1ED1ng c\u01A1 s\u1EDF d\u1EEF li\u1EC7u.
+    Thu\u1ED9c t\xEDnh: "params": {
+      "code": "M\xC3_VOUCHER" (in hoa kh\xF4ng d\u1EA5u, v\xED d\u1EE5: "GIAM50K", "CHAOBANMOI", "TRIAN2026"),
+      "name": "T\xEAn ch\u01B0\u01A1ng tr\xECnh voucher",
+      "type": "discount_fixed" | "discount_percent" | "gift_money" | "exam_pass",
+      "value": s\u1ED1_ti\u1EC1n_ho\u1EB7c_ph\u1EA7n_tr\u0103m (v\xED d\u1EE5: 50000 ho\u1EB7c 20),
+      "minOrderVnd"?: s\u1ED1 ti\u1EC1n t\u1ED1i thi\u1EC3u \u0111\u1EC3 \xE1p d\u1EE5ng,
+      "maxDiscountVnd"?: s\u1ED1 ti\u1EC1n gi\u1EA3m t\u1ED1i \u0111a (n\u1EBFu l\xE0 ph\u1EA7n tr\u0103m),
+      "usageLimit"?: t\u1ED5ng s\u1ED1 l\u01B0\u1EE3t d\xF9ng (0 = kh\xF4ng gi\u1EDBi h\u1EA1n),
+      "perUserLimit"?: s\u1ED1 l\u1EA7n d\xF9ng tr\xEAn m\u1ED7i h\u1ECDc sinh (m\u1EB7c \u0111\u1ECBnh 1),
+      "expiresAt"?: ng\xE0y h\u1EBFt h\u1EA1n ISO (v\xED d\u1EE5: "2026-12-31T23:59:59Z"),
+      "isActive": true | false,
+      "description"?: "M\xF4 t\u1EA3 chi ti\u1EBFt"
+    }
+    V\xED d\u1EE5:
+    \`\`\`json:action
+    {
+      "type": "CREATE_VOUCHER",
+      "label": "T\u1EA1o Voucher GIAM50K (Gi\u1EA3m 50.000\u0111)",
+      "params": {
+        "code": "GIAM50K",
+        "name": "\u01AFu \u0111\xE3i h\u1ECDc sinh m\u1EDBi 50K",
+        "type": "discount_fixed",
+        "value": 50000,
+        "minOrderVnd": 100000,
+        "perUserLimit": 1,
+        "isActive": true
+      }
+    }
+    \`\`\`
+
+15. "UPDATE_VOUCHER": C\u1EADp nh\u1EADt ho\u1EB7c b\u1EADt/t\u1EAFt k\xEDch ho\u1EA1t voucher \u0111\xE3 c\xF3.
+    Thu\u1ED9c t\xEDnh: "params": { "id": "m\xE3_id_ho\u1EB7c_code", "updates": { ... } }
+
+16. "DELETE_VOUCHER": X\xF3a m\xE3 voucher kh\u1ECFi h\u1EC7 th\u1ED1ng.
+    Thu\u1ED9c t\xEDnh: "params": { "id": "m\xE3_id_ho\u1EB7c_code" }
+
+17. "LIST_VOUCHERS": Tra c\u1EE9u, li\u1EC7t k\xEA danh s\xE1ch voucher hi\u1EC7n c\xF3 trong h\u1EC7 th\u1ED1ng v\xE0 hi\u1EC3n th\u1ECB th\u1EBB t\xF3m t\u1EAFt.
+    Thu\u1ED9c t\xEDnh: "params": { "limit"?: s\u1ED1_l\u01B0\u1EE3ng (m\u1EB7c \u0111\u1ECBnh 20) }
+    V\xED d\u1EE5:
+    \`\`\`json:action
+    { "type": "LIST_VOUCHERS", "label": "Tra c\u1EE9u danh s\xE1ch Voucher trong h\u1EC7 th\u1ED1ng" }
+    \`\`\`
+
+18. "CREATE_EXAM_AI": T\u1EF1 \u0111\u1ED9ng kh\u1EDFi t\u1EA1o v\xE0 bi\xEAn so\u1EA1n \u0111\u1EC1 thi b\u1EB1ng AI t\u1EEB m\xF4 t\u1EA3 / c\xE2u l\u1EC7nh t\u1EF1 do, sau \u0111\xF3 t\u1EF1 \u0111\u1ED9ng l\u01B0u \u0111\u1EC1 thi v\xE0o Firestore v\xE0 tr\u1EA3 v\u1EC1 link ch\u1EC9nh s\u1EEDa.
+    Thu\u1ED9c t\xEDnh: "params": {
+      "prompt": "M\xF4 t\u1EA3 chi ti\u1EBFt y\xEAu c\u1EA7u \u0111\u1EC1 thi, m\xF4n, l\u1EDBp, s\u1ED1 l\u01B0\u1EE3ng c\xE2u, d\u1EA1ng c\xE2u tr\u1EAFc nghi\u1EC7m/t\u1EF1 lu\u1EADn, c\xF4ng th\u1EE9c KaTeX",
+      "title": "T\xEAn b\xE0i thi",
+      "subject"?: "To\xE1n h\u1ECDc" | "Ti\u1EBFng Anh" | "V\u1EADt l\xFD" | "H\xF3a h\u1ECDc" | "Tin h\u1ECDc" | "Ng\u1EEF v\u0103n" | ...,
+      "gradeCategory"?: "10" | "11" | "12" | "\u0110\u1EA1i h\u1ECDc",
+      "timeLimit"?: s\u1ED1 ph\xFAt l\xE0m b\xE0i (v\xED d\u1EE5: 15, 45, 90),
+      "autoSave": true (m\u1EB7c \u0111\u1ECBnh true: t\u1EF1 \u0111\u1ED9ng l\u01B0u tr\u1EF1c ti\u1EBFp v\xE0o c\u01A1 s\u1EDF d\u1EEF li\u1EC7u)
+    }
+    V\xED d\u1EE5:
+    \`\`\`json:action
+    {
+      "type": "CREATE_EXAM_AI",
+      "label": "T\u1EA1o \u0111\u1EC1 thi AI: Ki\u1EC3m tra 15 ph\xFAt Gi\u1EA3i t\xEDch 12 \u0110\u1EA1o h\xE0m",
+      "params": {
+        "prompt": "T\u1EA1o \u0111\u1EC1 ki\u1EC3m tra 15 ph\xFAt m\xF4n To\xE1n 12 ph\u1EA7n \u0110\u1EA1o h\xE0m g\u1ED3m 5 c\xE2u tr\u1EAFc nghi\u1EC7m 4 l\u1EF1a ch\u1ECDn c\xF3 c\xF4ng th\u1EE9c KaTeX, \u0111\xE1p \xE1n ch\xEDnh x\xE1c v\xE0 l\u1EDDi gi\u1EA3i chi ti\u1EBFt.",
+        "title": "Ki\u1EC3m tra 15 ph\xFAt Gi\u1EA3i t\xEDch 12: \u0110\u1EA1o h\xE0m",
+        "subject": "To\xE1n h\u1ECDc",
+        "gradeCategory": "12",
+        "timeLimit": 15,
+        "autoSave": true
+      }
+    }
+    \`\`\`
+
+19. "CREATE_EXAM_MANUAL": T\u1EA1o khung \u0111\u1EC1 thi m\u1EDBi th\u1EE7 c\xF4ng trong h\u1EC7 th\u1ED1ng.
+    Thu\u1ED9c t\xEDnh: "params": { "title": "...", "code": "...", "timeLimit": 45, "subject": "...", "accessMode": "free" | "paid" }
+
+20. "UPDATE_EXAM": C\u1EADp nh\u1EADt tr\u1EA1ng th\xE1i \u0111\u1EC1 thi (xu\u1EA5t b\u1EA3n, h\u1EE7y xu\u1EA5t b\u1EA3n, \u0111\u1ED5i t\xEAn, gi\xE1...).
+    Thu\u1ED9c t\xEDnh: "params": { "examId": "...", "updates": { "status": "published" | "draft" | "archived" } }
+
+21. "DELETE_EXAM": X\xF3a \u0111\u1EC1 thi v\xE0 c\xE2u h\u1ECFi li\xEAn quan.
+    Thu\u1ED9c t\xEDnh: "params": { "examId": "..." }
+
+22. "DUPLICATE_EXAM": Nh\xE2n b\u1EA3n / t\u1EA1o b\u1EA3n sao t\u1EEB m\u1ED9t b\xE0i thi \u0111\xE3 c\xF3 trong h\u1EC7 th\u1ED1ng.
+    Thu\u1ED9c t\xEDnh: "params": { "examId": "m\xE3_\u0111\u1EC1_c\u1EA7n_nh\xE2n_b\u1EA3n", "newTitle"?: "T\xEAn b\u1EA3n sao m\u1EDBi" }
+    V\xED d\u1EE5:
+    \`\`\`json:action
+    { "type": "DUPLICATE_EXAM", "label": "Nh\xE2n b\u1EA3n \u0110\u1EC1 thi To\xE1n 12", "params": { "examId": "exam_123" } }
+    \`\`\`
+
+23. "MERGE_EXAMS": G\u1ED9p 2 ho\u1EB7c nhi\u1EC1u \u0111\u1EC1 thi l\u1EA1i th\xE0nh m\u1ED9t \u0111\u1EC1 thi t\u1ED5ng h\u1EE3p duy nh\u1EA5t.
+    Thu\u1ED9c t\xEDnh: "params": { "title": "T\xEAn \u0111\u1EC1 t\u1ED5ng h\u1EE3p", "sourceExamIds": ["id_\u0111\u1EC1_1", "id_\u0111\u1EC1_2"], "organizeMode"?: "by_source_exam" | "flatten" }
+    V\xED d\u1EE5:
+    \`\`\`json:action
+    { "type": "MERGE_EXAMS", "label": "G\u1ED9p 2 \u0111\u1EC1 thi To\xE1n th\xE0nh \u0111\u1EC1 t\u1ED5ng h\u1EE3p", "params": { "title": "\u0110\u1EC1 T\u1ED5ng H\u1EE3p H\u1ECDc K\u1EF3 1", "sourceExamIds": ["ex_1", "ex_2"] } }
+    \`\`\`
+
+24. "ASSIGN_HOMEWORK": Giao b\xE0i thi cho m\u1ED9t l\u1EDBp h\u1ECDc l\xE0m b\xE0i t\u1EADp v\u1EC1 nh\xE0.
+    Thu\u1ED9c t\xEDnh: "params": { "examId": "...", "examTitle": "...", "targetClass": "12A1", "dueDate": "YYYY-MM-DD", "passingScore": 5.0 }
+
+25. "MANAGE_STUDENT": Qu\u1EA3n l\xFD h\u1ECDc sinh (ph\xEA duy\u1EC7t, kh\xF3a t\xE0i kho\u1EA3n, m\u1EDF kh\xF3a, x\xF3a, duy\u1EC7t n\u1EA1p ti\u1EC1n, c\u1EA5p quy\u1EC1n l\xE0m b\xE0i, ho\u1EB7c c\u1ED9ng ti\u1EC1n v\xED).
+    Thu\u1ED9c t\xEDnh: "params": {
+      "action": "approve" | "suspend" | "reactivate" | "delete" | "adjust_balance" | "approve_recharge" | "reject_recharge" | "grant_access",
+      "uid"?: "m\xE3_uid_h\u1ECDc_sinh",
+      "reason"?: "l\xFD do kh\xF3a / ghi ch\xFA",
+      "amountVnd"?: s\u1ED1 ti\u1EC1n n\u1EA1p/th\u01B0\u1EDFng,
+      "requestId"?: "m\xE3_y\xEAu_c\u1EA7u_n\u1EA1p_ti\u1EC1n" (khi duy\u1EC7t/t\u1EEB ch\u1ED1i n\u1EA1p ti\u1EC1n),
+      "examId"?: "m\xE3_\u0111\u1EC1_thi" (khi c\u1EA5p quy\u1EC1n l\xE0m b\xE0i)
+    }
+
+26. "SYSTEM_OPERATION": T\xE1c v\u1EE5 h\u1EC7 th\u1ED1ng (qu\xE9t s\u1EE9c kh\u1ECFe d\u1EEF li\u1EC7u, s\u1EEDa l\u1ED7i d\u1EEF li\u1EC7u, t\xEDnh to\xE1n l\u1EA1i th\u1ED1ng k\xEA, c\u1EADp nh\u1EADt c\u1EA5u h\xECnh, \u0111\u1ED5i theme, toggle sidebar).
+    Thu\u1ED9c t\xEDnh: "params": { "operation": "scan_health" | "repair_health" | "rebuild_stats" | "update_settings" | "toggle_theme" | "toggle_sidebar" | "reload", "settings"?: { ... } }
+
+27. "WORKFLOW": K\u1ECACH B\u1EA2N MAKE.COM \u0110A B\u01AF\u1EDAC (Multi-step Automation Workflow).
+    Khi Admin \u0111\u01B0a ra y\xEAu c\u1EA7u ph\u1EE9c t\u1EA1p g\u1ED3m nhi\u1EC1u b\u01B0\u1EDBc (v\xED d\u1EE5: "T\u1EA1o voucher gi\u1EA3m 20K r\u1ED3i t\u1EA1o \u0111\u1EC1 thi To\xE1n 15 ph\xFAt sau \u0111\xF3 giao b\xE0i cho l\u1EDBp 12A1 v\xE0 chuy\u1EC3n sang danh s\xE1ch \u0111\u1EC1"): B\u1EA0N PH\u1EA2I GOM TH\xC0NH M\u1ED8T WORKFLOW DUY NH\u1EA4T ch\u1EE9a danh s\xE1ch c\xE1c b\u01B0\u1EDBc "steps".
+    Quy t\u1EAFc truy\u1EC1n bi\u1EBFn ki\u1EC3u Make.com (Variable Chaining):
+    - C\xE1c b\u01B0\u1EDBc sau c\xF3 th\u1EC3 tham chi\u1EBFu k\u1EBFt qu\u1EA3 b\u01B0\u1EDBc tr\u01B0\u1EDBc b\u1EB1ng c\xFA ph\xE1p {{step_id.thu\u1ED9c_t\xEDnh}} ho\u1EB7c {{examId}}, {{voucherCode}}, {{prev.examId}}.
+    - V\xED d\u1EE5 b\u01B0\u1EDBc 1 t\u1EA1o \u0111\u1EC1 thi v\u1EDBi "id": "step_exam", b\u01B0\u1EDBc 2 giao b\xE0i t\u1EADp c\xF3 th\u1EC3 d\xF9ng "params": { "examId": "{{step_exam.examId}}" }!
+    Thu\u1ED9c t\xEDnh:
+    - "title": "T\xEAn quy tr\xECnh t\u1EF1 \u0111\u1ED9ng h\xF3a"
+    - "steps": m\u1EA3ng c\xE1c b\u01B0\u1EDBc h\xE0nh \u0111\u1ED9ng, m\u1ED7i b\u01B0\u1EDBc l\xE0 m\u1ED9t action block c\xF3 "id", "type", "label", "params".
+    V\xED d\u1EE5:
+    \`\`\`json:action
+    {
+      "type": "WORKFLOW",
+      "label": "Quy tr\xECnh Make.com: T\u1EA1o \u0110\u1EC1 thi AI + Giao b\xE0i L\u1EDBp 12A1 + \u0110i\u1EC1u h\u01B0\u1EDBng",
+      "steps": [
+        {
+          "id": "step_exam",
+          "type": "CREATE_EXAM_AI",
+          "label": "T\u1EA1o \u0111\u1EC1 thi kh\u1EA3o s\xE1t m\xF4n To\xE1n 12",
+          "params": {
+            "prompt": "T\u1EA1o \u0111\u1EC1 ki\u1EC3m tra 15 ph\xFAt m\xF4n To\xE1n 12 ph\u1EA7n Kh\u1EA3o s\xE1t h\xE0m s\u1ED1 g\u1ED3m 5 c\xE2u tr\u1EAFc nghi\u1EC7m...",
+            "title": "Kh\u1EA3o s\xE1t ch\u1EA5t l\u01B0\u1EE3ng To\xE1n 12",
+            "subject": "To\xE1n h\u1ECDc",
+            "gradeCategory": "12",
+            "timeLimit": 15,
+            "autoSave": true
+          }
+        },
+        {
+          "id": "step_assign",
+          "type": "ASSIGN_HOMEWORK",
+          "label": "Giao b\xE0i thi cho L\u1EDBp 12A1",
+          "params": {
+            "examId": "{{step_exam.examId}}",
+            "examTitle": "{{step_exam.title}}",
+            "targetClass": "12A1",
+            "dueDate": "2026-12-31"
+          }
+        },
+        {
+          "id": "step_navigate",
+          "type": "NAVIGATE",
+          "label": "Chuy\u1EC3n t\u1EDBi Danh s\xE1ch \u0110\u1EC1 thi",
+          "target": "/admin/exams"
+        }
+      ]
+    }
+    \`\`\`
+
+=======================================================
 QUY T\u1EAEC TR\u1EA2 L\u1EDCI & PH\xC2N T\xCDCH D\u1EEE LI\u1EC6U TRANG HI\u1EC6N T\u1EA0I:
 =======================================================
 - Lu\xF4n ki\u1EC3m tra k\u1EF9 "B\u1ED0I C\u1EA2NH TRANG HI\u1EC6N T\u1EA0I" \u0111\u01B0\u1EE3c cung c\u1EA5p b\xEAn d\u01B0\u1EDBi (bao g\u1ED3m \u0111\u01B0\u1EDDng d\u1EABn, ti\xEAu \u0111\u1EC1, c\xE1c ch\u1EC9 s\u1ED1 v\xE0 d\u1EEF li\u1EC7u b\u1EA3ng \u0111\u01B0\u1EE3c scrape tr\u1EF1c ti\u1EBFp t\u1EEB m\xE0n h\xECnh).
@@ -2616,7 +2777,8 @@ aiRouter.post("/generate-exam-prompt-stream", express.json(), async (req, res) =
   res.setHeader("Cache-Control", "no-cache");
   res.setHeader("Connection", "keep-alive");
   try {
-    const { prompt } = req.body;
+    const { prompt, apiKey } = req.body;
+    const customApiKey = req.headers["x-gemini-api-key"] || apiKey;
     if (!prompt) {
       res.write(`data: ${JSON.stringify({ type: "error", message: "No prompt provided" })}
 
@@ -2628,7 +2790,7 @@ aiRouter.post("/generate-exam-prompt-stream", express.json(), async (req, res) =
       res.write(`data: ${progressMsg}
 
 `);
-    });
+    }, customApiKey);
     res.write(`data: ${JSON.stringify({ type: "done", result })}
 
 `);

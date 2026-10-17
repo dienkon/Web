@@ -42,7 +42,7 @@ export function stepAlcoholBurner(burner: BurnerState, dt: number) {
 /** Existing scene geometry is only a coupling approximation, not a calibrated
  * distance law. Normalize all receivers against ONE finite source heat budget. */
 export function allocateBurnerHeat(burner: BurnerState, capturableHeat_J: number, vessels: VesselState[]) {
-  const weights = vessels.filter(v => !v.isShattered && !v.id.startsWith('lesson_vessel_')).map(v => {
+  const weights = vessels.filter(v => !v.isShattered && v.type !== 'hot_plate' && !v.id.startsWith('lesson_vessel_')).map(v => {
     const horizontal = Math.hypot(burner.position[0] - v.position[0], burner.position[2] - v.position[2]);
     const height = v.position[1] - burner.position[1];
     const distance = Math.hypot(horizontal, burner.position[1] + 1.25 - v.position[1]);

@@ -830,8 +830,12 @@ function normalizeQuestionsAndExam(rawData: any, defaultTitle: string, defaultDe
   return aiExamImportResultSchema.parse(finalExam);
 }
 
-export async function processExamFromPromptStream(prompt: string, onProgress: (msg: string) => void) {
-  const ai = getAiClient();
+export async function processExamFromPromptStream(
+  prompt: string,
+  onProgress: (msg: string) => void,
+  customApiKey?: string
+) {
+  const ai = getAiClient(customApiKey);
   const startTime = Date.now();
 
   onProgress(JSON.stringify({

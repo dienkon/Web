@@ -1,10 +1,13 @@
 import type { SubstanceContent, VesselState } from '../types/chemistry';
 import { identifySpecies, sameMolecularFormula } from '../science/speciesIdentity';
+import { equilibrateWaterIce, materializeWaterVolume } from './waterPhase';
+import { WATER_CP_J_G_K, ICE_CP_J_G_K, WATER_LATENT_HEAT_J_G } from './waterProperties';
+export { WATER_CP_J_G_K, WATER_LATENT_HEAT_J_G } from './waterProperties';
 
 // OpenStax College Physics §14.3: water Lv at 100 °C, 1 atm.
 // https://openstax.org/books/college-physics-2e/pages/14-3-phase-change-and-latent-heat
-export const WATER_LATENT_HEAT_J_G = 2256;
-export const WATER_CP_J_G_K = 4.184;
+
+
 
 /** Water produced in an initially dry thermal reaction becomes a finite liquid
  * volume or vapor. Approximate rapid phase relaxation at 1 atm, using the same
@@ -67,23 +70,43 @@ export interface ThermalStep extends Partial<VesselState> {
  * guessed without area/humidity/transfer data. Boiling model: open aqueous
  * vessels near atmospheric pressure; closed-vessel steam equilibrium is pending.
  */
-export function stepVesselThermal(vessel: VesselState, dt: number, absorbedPower_W = 0, ambient_c = 25): ThermalStep {
+export function sampleHeatCapacity(vessel: Pick<VesselState, 'volume_ml' | 'mass_g'> & Partial<Pick<VesselState, 'contents'>>): number {
+  if (vessel.contents?.length) {
+    let capacity = 33.2;
+    for (const item of vessel.contents) {
+      const phase = item.phase ?? item.state ?? identifySpecies(item.formula).phase
+        ?? (sameMolecularFormula(item.formula, 'H2O') ? 'l' : undefined);
+      if (phase === 'aq' || phase === 'l') capacity += Math.max(0, item.mass_g) * WATER_CP_J_G_K;
+      else if (phase === 's' && sameMolecularFormula(item.formula, 'H2O')) capacity += Math.max(0, item.mass_g) * ICE_CP_J_G_K;
+    }
+    return capacity;
+  }
+  return 33.2 + (vessel.volume_ml > 0 ? Math.max(0, vessel.mass_g) * WATER_CP_J_G_K : 0);
+}
+
+export function applyThermalEnergy(vessel: VesselState, netEnergy: number, dt = 0): ThermalStep {
+  if (!Number.isFinite(netEnergy)) return { temperature_c: vessel.temperature_c, volume_ml: vessel.volume_ml,
+    mass_g: vessel.mass_g, boilingPoint_c: aqueousBoilingPoint(vessel), evaporatedStep_g: 0, sensibleEnergy_J: 0, latentEnergy_J: 0 };
+  const originalEnergy = netEnergy;
+  const phase = equilibrateWaterIce(vessel, netEnergy);
+  const fusionEnergy = phase?.fusionEnergy_J ?? 0;
+  let outsideModel = phase?.outsideModel_J ?? 0;
+  if (phase) {
+    vessel = { ...vessel, ...phase };
+    netEnergy = 0;
+  }
+  vessel = materializeWaterVolume(vessel);
   const boilingPoint = aqueousBoilingPoint(vessel);
   const base: ThermalStep = { temperature_c: vessel.temperature_c, volume_ml: vessel.volume_ml,
     mass_g: vessel.mass_g, boilingPoint_c: boilingPoint, evaporatedStep_g: 0, sensibleEnergy_J: 0, latentEnergy_J: 0 };
-  if (!Number.isFinite(dt) || dt <= 0 || !Number.isFinite(absorbedPower_W)) return base;
+  if (!Number.isFinite(netEnergy)) return base;
   const water = vessel.contents.filter(item => sameMolecularFormula(item.formula, 'H2O')
-    && (item.phase ?? item.state ?? identifySpecies(item.formula).phase) !== 'g' && item.moles > 0);
+    && (item.phase ?? item.state ?? identifySpecies(item.formula).phase ?? 'l') === 'l' && item.moles > 0);
   const waterMass = water.reduce((sum, item) => sum + Math.max(0, item.mass_g), 0);
-  const liquidMass = vessel.volume_ml > 0.05 ? Math.max(0, vessel.mass_g) : 0;
-  const heatCapacity = 33.2 + liquidMass * WATER_CP_J_G_K;
-  const cooling = vessel.volume_ml > 1 ? 0.35 : 0.18;
-  // Exact Newton cooling for constant power/Cp prevents overshooting ambient
-  // and retains sub-0.1-degree increments at high frame rates.
-  const steady = ambient_c + Math.max(0, absorbedPower_W) / cooling;
-  const unconstrained = steady + (vessel.temperature_c - steady) * Math.exp(-cooling * dt / heatCapacity);
-  const netEnergy = (unconstrained - vessel.temperature_c) * heatCapacity;
-  let temperature = unconstrained;
+  const heatCapacity = sampleHeatCapacity(vessel);
+  const unconstrained = vessel.temperature_c + netEnergy / heatCapacity;
+  let temperature = Math.max(-273.15, unconstrained);
+  outsideModel += (unconstrained - temperature) * heatCapacity;
   let vaporized = 0;
   if (!vessel.isSealed && waterMass > 0 && unconstrained > boilingPoint) {
     const sensibleToBoil = Math.max(0, boilingPoint - vessel.temperature_c) * heatCapacity;
@@ -109,11 +132,26 @@ export function stepVesselThermal(vessel: VesselState, dt: number, absorbedPower
     volume_ml: Math.max(0, vessel.volume_ml - vaporized), mass_g: Math.max(0, vessel.mass_g - vaporized),
     volume: vessel.capacity_ml > 0 ? Math.max(0, (vessel.volume_ml - vaporized) / vessel.capacity_ml) : 0,
     evaporatedStep_g: vaporized, evaporated_ml: (vessel.evaporated_ml ?? 0) + vaporized,
-    evaporationRate_g_s: vaporized / dt, boilingPoint_c: boilingPoint, isBoiling,
-    boilingIntensity: isBoiling ? Math.min(1, vaporized / dt / 0.15) : 0,
-    sensibleEnergy_J: netEnergy - vaporized * WATER_LATENT_HEAT_J_G,
-    latentEnergy_J: vaporized * WATER_LATENT_HEAT_J_G,
+    evaporationRate_g_s: dt > 0 ? vaporized / dt : 0, boilingPoint_c: boilingPoint, isBoiling,
+    boilingIntensity: isBoiling ? dt > 0 ? Math.min(1, vaporized / dt / 0.15) : 1 : 0,
+    iceVolume_ml: phase?.iceVolume_ml ?? vessel.iceVolume_ml ?? 0,
+    thermalEnergyOutsideModel_J: (vessel.thermalEnergyOutsideModel_J ?? 0) + outsideModel,
+    thermalModelLimit: outsideModel !== 0 ? 'Năng lượng vượt miền nhiệt độ của mô hình.'
+      : !phase && temperature < 0 ? 'Chưa giải cân bằng đông đặc của hỗn hợp hoặc bình kín này.' : vessel.thermalModelLimit,
+    sensibleEnergy_J: originalEnergy - fusionEnergy - vaporized * WATER_LATENT_HEAT_J_G - outsideModel,
+    latentEnergy_J: fusionEnergy + vaporized * WATER_LATENT_HEAT_J_G,
   };
+}
+
+export function stepVesselThermal(vessel: VesselState, dt: number, absorbedPower_W = 0, ambient_c = 25): ThermalStep {
+  if (!Number.isFinite(dt) || dt <= 0 || !Number.isFinite(absorbedPower_W)) return {
+    temperature_c: vessel.temperature_c, volume_ml: vessel.volume_ml, mass_g: vessel.mass_g,
+    boilingPoint_c: aqueousBoilingPoint(vessel), evaporatedStep_g: 0, sensibleEnergy_J: 0, latentEnergy_J: 0 };
+  const capacity = sampleHeatCapacity(vessel);
+  const cooling = vessel.volume_ml > 1 ? 0.35 : 0.18;
+  const steady = ambient_c + Math.max(0, absorbedPower_W) / cooling;
+  const temperature = steady + (vessel.temperature_c - steady) * Math.exp(-cooling * dt / capacity);
+  return applyThermalEnergy(vessel, (temperature - vessel.temperature_c) * capacity, dt);
 }
 
 /** Finite retained gas plus an illustrative initial 1-atm dry-air headspace.

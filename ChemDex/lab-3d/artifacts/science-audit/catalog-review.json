@@ -1,6 +1,6 @@
 {
   "schema": "chemdex.science-audit/1",
-  "checkedAt": "2026-10-16T14:34:08.879Z",
+  "checkedAt": "2026-10-17T04:31:36.221Z",
   "scope": "All 144 program definitions, every deterministic rule, and all 34 lessons. Lesson programs are a subset of the 144, not additional unique experiments.",
   "claims": {
     "balanceChecked": true,
@@ -1112,7 +1112,10 @@
         "errors": []
       },
       "visualIssues": [],
-      "conditions": {},
+      "conditions": {
+        "activation": "contact",
+        "activationNote_vi": "Tiếp xúc Mg với axit loãng; lớp oxit và diện tích bề mặt ảnh hưởng tốc độ, không cần mồi cháy."
+      },
       "finding_vi": "Mg tan tạo H2; không phải mọi mẫu nhỏ đều nổ hoặc tự cháy.",
       "sourceScope": "family_context",
       "quantitativeCalibration": "not_validated",
@@ -1281,6 +1284,8 @@
       },
       "visualIssues": [],
       "conditions": {
+        "activation": "catalyst",
+        "activationNote_vi": "MnO2 xúc tác phân hủy ở nhiệt độ thường; nhiệt độ và diện tích xúc tác ảnh hưởng tốc độ.",
         "catalyst": "MnO2"
       },
       "finding_vi": "MnO2 là xúc tác, không bị tiêu thụ như chất đầu. O2 không màu; bọt bền cần chất hoạt động bề mặt.",
@@ -1310,7 +1315,10 @@
         "errors": []
       },
       "visualIssues": [],
-      "conditions": {},
+      "conditions": {
+        "activation": "contact",
+        "activationNote_vi": "Đồng phản ứng với HNO3 đặc khi tiếp xúc; không cần bật đèn để bắt đầu."
+      },
       "finding_vi": "HNO3 đặc tạo NO2 nâu; phải phân biệt thuốc thử loãng và đặc.",
       "sourceScope": "specific_observation",
       "quantitativeCalibration": "not_validated",
@@ -1796,7 +1804,10 @@
         "errors": []
       },
       "visualIssues": [],
-      "conditions": {},
+      "conditions": {
+        "activation": "ignition",
+        "activationNote_vi": "Cần mồi cháy; không suy ra trạng thái đã mồi chỉ từ nhiệt độ trung bình của bình."
+      },
       "finding_vi": "Cần mồi và O2; MgO trắng là khói hạt rắn, không phải khí màu trắng.",
       "sourceScope": "family_context",
       "quantitativeCalibration": "not_validated",
@@ -1824,7 +1835,10 @@
         "errors": []
       },
       "visualIssues": [],
-      "conditions": {},
+      "conditions": {
+        "activation": "contact",
+        "activationNote_vi": "Na phản ứng với nước khi tiếp xúc; cháy H2 hoặc bùng nổ là diễn biến riêng, không là điều kiện bắt đầu."
+      },
       "finding_vi": "Na bị tiêu thụ tạo NaOH/H2; mồi cháy hoặc nổ phụ thuộc lượng và truyền nhiệt, không luôn xảy ra.",
       "sourceScope": "family_context",
       "quantitativeCalibration": "not_validated",
@@ -1852,7 +1866,10 @@
         "errors": []
       },
       "visualIssues": [],
-      "conditions": {},
+      "conditions": {
+        "activation": "contact",
+        "activationNote_vi": "K phản ứng với nước khi tiếp xúc; không cần nguồn mồi bên ngoài cho bước kim loại–nước."
+      },
       "finding_vi": "K phản ứng mạnh; ngọn lửa lilac không do riêng vạch 766 nm gần hồng ngoại.",
       "sourceScope": "family_context",
       "quantitativeCalibration": "not_validated",
@@ -2842,7 +2859,11 @@
         "errors": []
       },
       "visualIssues": [],
-      "conditions": {},
+      "conditions": {
+        "activation": "warming",
+        "activationNote_vi": "Cần môi trường axit; làm ấm rút ngắn cảm ứng, không có ngưỡng nhiệt phổ quát bật/tắt phản ứng.",
+        "medium": "acidic"
+      },
       "finding_vi": "Cần axit và thường làm ấm; điểm cuối là dư manganate(VII) hồng nhạt, không mất màu mọi lượng thêm.",
       "sourceScope": "family_context",
       "quantitativeCalibration": "not_validated",
@@ -2877,7 +2898,10 @@
         "errors": []
       },
       "visualIssues": [],
-      "conditions": {},
+      "conditions": {
+        "activation": "contact",
+        "activationNote_vi": "Mg đẩy Cu khỏi dung dịch CuSO4 khi tiếp xúc; màng bề mặt ảnh hưởng tốc độ."
+      },
       "finding_vi": "Mg khử Cu(II) tạo đồng; phản ứng phụ với nước phụ thuộc điều kiện.",
       "sourceScope": "family_context",
       "quantitativeCalibration": "not_validated",
@@ -3299,7 +3323,10 @@
         "errors": []
       },
       "visualIssues": [],
-      "conditions": {},
+      "conditions": {
+        "activation": "contact",
+        "activationNote_vi": "Thủy phân khi CaC2 tiếp xúc nước; tạo C2H2 khác với bước mồi đốt khí."
+      },
       "finding_vi": "CaC2 tạo acetylene và Ca(OH)2; có thể còn pha rắn khi vượt độ tan hydroxide.",
       "sourceScope": "family_context",
       "quantitativeCalibration": "not_validated",
@@ -3334,7 +3361,10 @@
         "errors": []
       },
       "visualIssues": [],
-      "conditions": {},
+      "conditions": {
+        "activation": "contact",
+        "activationNote_vi": "Kiềm hòa tan lớp oxit bảo vệ rồi Al phản ứng; thời gian cảm ứng phụ thuộc bề mặt và nồng độ."
+      },
       "finding_vi": "Dung dịch kiềm tạo hydroxoaluminate và H2; NaAlO2 là công thức tổng giản lược.",
       "sourceScope": "model_caveat",
       "quantitativeCalibration": "not_validated",
@@ -3369,7 +3399,10 @@
         "errors": []
       },
       "visualIssues": [],
-      "conditions": {},
+      "conditions": {
+        "activation": "contact",
+        "activationNote_vi": "Axit đặc đẩy HCl khỏi muối clorua; gia nhiệt có thể tăng tốc thoát khí, không phải mồi cháy."
+      },
       "finding_vi": "Cần H2SO4 đặc; khí HCl không màu và chỉ tạo aerosol khi gặp ẩm.",
       "sourceScope": "family_context",
       "quantitativeCalibration": "not_validated",
@@ -3476,7 +3509,10 @@
         "errors": []
       },
       "visualIssues": [],
-      "conditions": {},
+      "conditions": {
+        "activation": "contact",
+        "activationNote_vi": "Phản ứng oxi hóa khử trong axit; không gắn nhãn cần mồi cháy hoặc tự thêm ngưỡng nhiệt."
+      },
       "finding_vi": "HCl đủ đặc và môi trường axit tạo chlorine; không phải phép chuẩn độ permanganate dùng HCl.",
       "sourceScope": "family_context",
       "quantitativeCalibration": "not_validated",

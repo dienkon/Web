@@ -13,6 +13,7 @@ import { Phase, PrecipMorphology, GasSpecies, GAS_SPECIES_TABLE } from '../vfx/c
 import { assessProgramConditions } from '../science/conditions';
 import { identifySpecies, sameMolecularFormula } from '../science/speciesIdentity';
 import { solveAqueousEquilibrium } from '../science/aqueousEquilibrium';
+import { applyThermalEnergy, sealedGasPressure } from './thermalState';
 import { indicatorColor, solutionIndicatorColor } from '../science/indicatorAppearance';
 
 // Standard Atomic Weights (IUPAC)
@@ -463,9 +464,11 @@ export class LedgerEngine {
 export function applyProgramToLedger(
   program: ReactionProgram,
   vessel: VesselState,
-  consumedExtent: number = 1.0 // 0.0 to 1.0 (fraction of limiting reagent reacted)
+  consumedExtent: number = 1.0, // 0.0 to 1.0 (fraction of limiting reagent reacted)
+  options: { deferThermal?: boolean } = {},
 ): Partial<VesselState> {
   const assessment = assessProgramConditions(program, vessel.contents ?? [], {
+    ignitedProgramId: vessel.ignitedProgramId,
     temperature_c: vessel.temperature_c, pH: vessel.ph, volume_ml: vessel.volume_ml,
     isHeated: vessel.temperature_c > 100,
   });
@@ -582,29 +585,10 @@ export function applyProgramToLedger(
     }
   }
 
-  // 3. Update thermodynamics & temperature
-  let currentTemp = vessel.temperature_c ?? 25.0;
-  if (program.chemistry.deltaH_kJ_per_mol && molesOfReaction > 0) {
-    const q_kJ = -program.chemistry.deltaH_kJ_per_mol * molesOfReaction; // Exo is negative ΔH -> Q > 0
-    // Heat capacity of water/aqueous solution: 4.184 J/(g*K) = 0.004184 kJ/(g*K)
-    const mass_solution_g = vessel.volume_ml ? vessel.volume_ml * 1.0 : 50.0;
-    const heatCapacity_kJ_per_K = Math.max(0.01, (mass_solution_g * 4.184) / 1000.0);
-    const deltaT = q_kJ / heatCapacity_kJ_per_K;
-    currentTemp = Math.max(-273.15, currentTemp + deltaT);
-  }
-
-  // 4. Update mass and headspace pressure
-  const currentMass_g = vessel.mass_g ?? ((vessel.volume_ml || 50) * (vessel.density_g_ml || 1.0));
-  const newMass_g = Math.max(0, currentMass_g - escapedGas_g);
-
-  let internalPressure_atm = vessel.internalPressure_atm ?? 1.0;
-  if (vessel.isSealed && totalGasMolesProduced > 0) {
-    const headspace_L = Math.max(0.01, (vessel.capacity_ml - (vessel.volume_ml || 50)) / 1000);
-    const R = 0.08206; // L*atm/(mol*K)
-    const T_K = 273.15 + currentTemp;
-    const deltaP = (totalGasMolesProduced * R * T_K) / headspace_L;
-    internalPressure_atm += deltaP;
-  }
+  // Enthalpy is per mole of reaction with coefficients exactly as written.
+  const heat_J = Number.isFinite(program.chemistry.deltaH_kJ_per_mol)
+    ? -(program.chemistry.deltaH_kJ_per_mol ?? 0) * 1000 * molesOfReaction : 0;
+  const newMass_g = Math.max(0, vessel.mass_g - escapedGas_g);
 
   // 5. Update liquid color via Beer-Lambert
   const afterColor = program.visual.after.liquidColor;
@@ -614,7 +598,7 @@ export function applyProgramToLedger(
   const observedIndicator = program.chemistry.representation === 'indicator' ? indicatorColor(program.id, ph) : null;
   const newColor = dyeColor ?? observedIndicator ?? calculateBeerLambertColor(currentContents, vessel.volume_ml || 50, afterColor);
 
-  return {
+  const state: Partial<VesselState> = {
     contents: currentContents,
     escapedGas_g: escapedByFormula,
     hasPrecipitate: currentContents.some(item => item.phase === 's' && item.formula === precipitateSubstance && item.moles > 1e-12),
@@ -627,9 +611,10 @@ export function applyProgramToLedger(
     liquidColor: newColor,
     ph,
     phModel: equilibrium ? 'ideal_aqueous_25c' : undefined,
-    temperature_c: currentTemp,
-    isBoiling: currentTemp >= 100.0 && vessel.volume_ml > 0,
+    temperature_c: vessel.temperature_c,
+    programHeatApplied_J: (vessel.programHeatApplied_J ?? 0) + heat_J,
     mass_g: newMass_g,
-    internalPressure_atm
   };
+  const thermal = options.deferThermal ? {} : applyThermalEnergy({ ...vessel, ...state }, heat_J);
+  return { ...state, ...thermal, internalPressure_atm: sealedGasPressure({ ...vessel, ...state, ...thermal }) };
 }

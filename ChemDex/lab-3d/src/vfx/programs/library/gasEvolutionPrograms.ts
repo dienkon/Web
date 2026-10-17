@@ -6,6 +6,7 @@
  */
 
 import { ReactionProgram } from '../../../shared/programSchema';
+import { H2O2_AQ_REACTION_DH_KJ, H2O2_DH_SOURCES } from '../../../science/thermochemistry';
 
 export const GAS_EVOLUTION_PROGRAMS: ReactionProgram[] = [
   // 1. CaCO3 + 2HCl -> CaCl2 + H2O + CO2
@@ -192,7 +193,8 @@ export const GAS_EVOLUTION_PROGRAMS: ReactionProgram[] = [
         { formula: 'H2', role: 'product', coeff: 1, phase: 'g', hazards: ['GHS02_flammable'] }
       ],
       deltaH_kJ_per_mol: -466.8,
-      kinetics: { model: 'heat_activated', halfTime_s: 0.8 },
+      conditions: { activation: 'contact', activationNote_vi: 'Tiếp xúc Mg với axit loãng; lớp oxit và diện tích bề mặt ảnh hưởng tốc độ, không cần mồi cháy.' },
+      kinetics: { model: 'surface_limited', halfTime_s: 0.8 },
       hazards: ['GHS05_corrosive', 'GHS02_flammable']
     },
     visual: {
@@ -428,22 +430,24 @@ export const GAS_EVOLUTION_PROGRAMS: ReactionProgram[] = [
     controller: 'catalytic_oxygen_prep',
     chemistry: {
       equation: '2H2O2(aq) -> 2H2O(l) + O2(g)',
-      conditions: { catalyst: 'MnO2' },
       species: [
         { formula: 'H2O2', role: 'reactant', coeff: 2, phase: 'aq', hazards: ['GHS03_oxidizer', 'GHS05_corrosive'] },
         { formula: 'MnO2', role: 'catalyst', coeff: 1, phase: 's', colorHex: '#18181b' },
         { formula: 'H2O', role: 'product', coeff: 2, phase: 'l' },
         { formula: 'O2', role: 'product', coeff: 1, phase: 'g' }
       ],
-      deltaH_kJ_per_mol: -98.2,
-      kinetics: { model: 'heat_activated', halfTime_s: 1.0 },
+      deltaH_kJ_per_mol: H2O2_AQ_REACTION_DH_KJ,
+      deltaHReferenceTemperature_K: 298.15,
+      deltaHSourceUrls: H2O2_DH_SOURCES,
+      deltaHNote_vi: '−190,16 kJ cho 2H2O2(aq) → 2H2O(l) + O2(g), theo dữ liệu tạo thành chuẩn; chưa hiệu chỉnh nồng độ và nhiệt độ thực của mẫu.',
+      conditions: { activation: 'catalyst', activationNote_vi: 'MnO2 xúc tác phân hủy ở nhiệt độ thường; nhiệt độ và diện tích xúc tác ảnh hưởng tốc độ.', catalyst: 'MnO2' },
+      kinetics: { model: 'first_order', halfTime_s: 1.0 },
       hazards: ['GHS03_oxidizer']
     },
     visual: {
       duration_s: 7.0,
       timeline: [
         { id: 'eff', atom: 'effervescenceBurst', anchor: 'bottom', window: [0, 0.75], intensity: 1.6, params: { intensity: 3.2, churnRadius: 0.5, gasSpecies: 'O2' } },
-        { id: 'steam', atom: 'thermalSteam', anchor: 'rim', window: [0.15, 0.85], intensity: 0.8, params: { steamDensity: 0.7, temperature_c: 62 } },
         { id: 'sound', atom: 'proceduralAcoustics', anchor: 'bulk', window: [0, 0.75], intensity: 1.0, params: { soundProfile: 'fizz_effervescence', volume: 0.8 } }
       ],
       after: {
@@ -479,7 +483,8 @@ export const GAS_EVOLUTION_PROGRAMS: ReactionProgram[] = [
         { formula: 'H2O', role: 'product', coeff: 2, phase: 'l' }
       ],
       deltaH_kJ_per_mol: -136.0,
-      kinetics: { model: 'heat_activated', halfTime_s: 1.2 },
+      conditions: { activation: 'contact', activationNote_vi: 'Đồng phản ứng với HNO3 đặc khi tiếp xúc; không cần bật đèn để bắt đầu.' },
+      kinetics: { model: 'surface_limited', halfTime_s: 1.2 },
       hazards: ['GHS03_oxidizer', 'GHS05_corrosive', 'GHS06_toxic'],
       warning_vi: 'Khí NO2 màu nâu đỏ cực kỳ độc, mùi hắc gắt gây bỏng phổi. Bắt buộc làm trong tủ hút!',
       warning_en: 'Dense reddish-brown NO2 gas is highly toxic and corrosive to lungs. Fume hood required!'

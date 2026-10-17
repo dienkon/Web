@@ -4,6 +4,7 @@ import { useInstrumentStore } from '../src/handling/instrumentState';
 import { useToolDockStore } from '../src/handling/toolDock';
 import { aspiratePipette, dispensePipette, tareBalance, balanceReading, alignSelectedVessel, dispenseOneBuretteDrop, positionInstrument, rinseInstrument } from '../src/handling/instrumentOperations';
 import { readInstrument } from '../src/handling/instrumentReadings';
+import { restingToolHeight } from '../src/handling/handheldRest';
 import type { VesselState } from '../src/types/chemistry';
 
 function vessel(id: string, x: number, volume = 20): VesselState {
@@ -35,6 +36,34 @@ describe('Shared keyboard and 3D instrument operations', () => {
     const state = useAppStore.getState();
     expect(state.vessels.source.mass_g + state.vessels.receiver.mass_g + useInstrumentStore.getState().pipetteSample!.mass_g).toBeCloseTo(20, 8);
     expect(useInstrumentStore.getState().pipetteSample?.volume_ml).toBe(7.5);
+  });
+
+  it('dispenses finite Studio doses into the explicit target while preserving the selected source', () => {
+    expect(dispensePipette(0.05, 'receiver').ok).toBe(false);
+    expect(useAppStore.getState().vessels.receiver.volume_ml).toBe(0);
+    expect(aspiratePipette(0.12).ok).toBe(true);
+    const source = useAppStore.getState().vessels.source;
+    const beforeMass = source.mass_g + useInstrumentStore.getState().pipetteSample!.mass_g;
+    for (const expected of [0.05, 0.05, 0.02]) {
+      expect(dispensePipette(0.05, 'receiver').transferred_ml).toBeCloseTo(expected, 10);
+    }
+    expect(dispensePipette(0.05, 'receiver').ok).toBe(false);
+    const state = useAppStore.getState();
+    expect(state.selectedVesselId).toBe('source');
+    expect(state.vessels.source).toBe(source);
+    expect(state.vessels.receiver.volume_ml).toBeCloseTo(0.12, 10);
+    expect(state.vessels.receiver.contents.find(item => item.formula === 'NaCl')!.moles).toBeCloseTo(0.000012, 10);
+    expect(source.mass_g + state.vessels.receiver.mass_g).toBeCloseTo(beforeMass, 10);
+  });
+
+  it('rejects an invalid explicit target without falling back to the selected vessel', () => {
+    expect(aspiratePipette(1).ok).toBe(true);
+    const sample = useInstrumentStore.getState().pipetteSample;
+    const source = useAppStore.getState().vessels.source;
+    expect(dispensePipette(0.05, 'missing').ok).toBe(false);
+    expect(dispensePipette(0.05, '').ok).toBe(false);
+    expect(useInstrumentStore.getState().pipetteSample).toBe(sample);
+    expect(useAppStore.getState().vessels.source).toBe(source);
   });
 
   it('does not create liquid when source is empty, inputs invalid, or target is a lesson', () => {
@@ -69,7 +98,7 @@ describe('Shared keyboard and 3D instrument operations', () => {
   it('rejects nonfinite placement and preserves each fixed resting height', () => {
     expect(positionInstrument('pipette', [NaN, 0, 0]).ok).toBe(false);
     expect(positionInstrument('pipette', [100, 999, -100]).ok).toBe(true);
-    expect(useToolDockStore.getState().positions.pipette).toEqual([10, 0.4, -4.5]);
+    expect(useToolDockStore.getState().positions.pipette).toEqual([10, restingToolHeight('pipette', 0), -4.5]);
   });
 
   it('reports dry pH as unavailable', () => {

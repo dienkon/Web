@@ -11,22 +11,49 @@ export interface AdminAssistantMessage {
   };
 }
 
+export type AdminActionType =
+  | "NAVIGATE"
+  | "SEARCH"
+  | "FILL_FORM"
+  | "CLICK"
+  | "SELECT_OPTION"
+  | "CONFIRM_MODAL"
+  | "EDIT_ITEM"
+  | "TOGGLE_THEME"
+  | "TOGGLE_SIDEBAR"
+  | "TRIGGER_DATA_HEALTH"
+  | "RELOAD_DATA"
+  | "SCROLL"
+  | "COPY_TEXT"
+  | "CUSTOM_ACTION"
+  // Autonomous & Workflow Actions (Make.com style):
+  | "CREATE_VOUCHER"
+  | "UPDATE_VOUCHER"
+  | "DELETE_VOUCHER"
+  | "LIST_VOUCHERS"
+  | "CREATE_EXAM_AI"
+  | "CREATE_EXAM_MANUAL"
+  | "UPDATE_EXAM"
+  | "DELETE_EXAM"
+  | "DUPLICATE_EXAM"
+  | "MERGE_EXAMS"
+  | "ASSIGN_HOMEWORK"
+  | "MANAGE_STUDENT"
+  | "SYSTEM_OPERATION"
+  | "WORKFLOW";
+
 export interface AdminAssistantAction {
-  type:
-    | "NAVIGATE"
-    | "SEARCH"
-    | "FILL_FORM"
-    | "CLICK"
-    | "SELECT_OPTION"
-    | "CONFIRM_MODAL"
-    | "EDIT_ITEM"
-    | "TOGGLE_THEME"
-    | "TOGGLE_SIDEBAR"
-    | "TRIGGER_DATA_HEALTH"
-    | "RELOAD_DATA"
-    | "SCROLL"
-    | "COPY_TEXT"
-    | "CUSTOM_ACTION";
+  id?: string;
+  type: AdminActionType;
+  label: string;
+  status?: "pending" | "running" | "success" | "error";
+  result?: any;
+  error?: string;
+  progressMsg?: string;
+  progressPercent?: number;
+  durationMs?: number;
+  params?: Record<string, any>;
+  steps?: AdminAssistantAction[];
   target?: string;
   selector?: string;
   query?: string;
@@ -36,9 +63,7 @@ export interface AdminAssistantAction {
   text?: string;
   actionId?: string;
   itemType?: "exam" | "student" | "folder" | "class";
-  id?: string;
   payload?: any;
-  label: string;
 }
 
 export interface AdminPageContext {
@@ -189,6 +214,167 @@ Các loại hành động (type) được hỗ trợ đầy đủ và kích ho�
     \`\`\`
 
 =======================================================
+HÀNH ĐỘNG TỰ ĐỘNG HÓA CHUYÊN SÂU & WORKFLOW KIỂU MAKE.COM:
+=======================================================
+BẠN LÀ MỘT AUTONOMOUS WORKFLOW AGENT (như Agent của Make.com / Zapier Central). Khi Quản trị viên yêu cầu: "tạo voucher", "tạo đề thi", "khóa học sinh", "nạp tiền cho học sinh", "giao bài tập", "chạy kịch bản tự động", BẠN PHẢI TỰ ĐỘNG THỰC THI BẰNG CÁC ACTION BLOCKS SAU:
+
+14. "CREATE_VOUCHER": Tạo mã voucher / mã giảm giá mới trực tiếp vào hệ thống cơ sở dữ liệu.
+    Thuộc tính: "params": {
+      "code": "MÃ_VOUCHER" (in hoa không dấu, ví dụ: "GIAM50K", "CHAOBANMOI", "TRIAN2026"),
+      "name": "Tên chương trình voucher",
+      "type": "discount_fixed" | "discount_percent" | "gift_money" | "exam_pass",
+      "value": số_tiền_hoặc_phần_trăm (ví dụ: 50000 hoặc 20),
+      "minOrderVnd"?: số tiền tối thiểu để áp dụng,
+      "maxDiscountVnd"?: số tiền giảm tối đa (nếu là phần trăm),
+      "usageLimit"?: tổng số lượt dùng (0 = không giới hạn),
+      "perUserLimit"?: số lần dùng trên mỗi học sinh (mặc định 1),
+      "expiresAt"?: ngày hết hạn ISO (ví dụ: "2026-12-31T23:59:59Z"),
+      "isActive": true | false,
+      "description"?: "Mô tả chi tiết"
+    }
+    Ví dụ:
+    \`\`\`json:action
+    {
+      "type": "CREATE_VOUCHER",
+      "label": "Tạo Voucher GIAM50K (Giảm 50.000đ)",
+      "params": {
+        "code": "GIAM50K",
+        "name": "Ưu đãi học sinh mới 50K",
+        "type": "discount_fixed",
+        "value": 50000,
+        "minOrderVnd": 100000,
+        "perUserLimit": 1,
+        "isActive": true
+      }
+    }
+    \`\`\`
+
+15. "UPDATE_VOUCHER": Cập nhật hoặc bật/tắt kích hoạt voucher đã có.
+    Thuộc tính: "params": { "id": "mã_id_hoặc_code", "updates": { ... } }
+
+16. "DELETE_VOUCHER": Xóa mã voucher khỏi hệ thống.
+    Thuộc tính: "params": { "id": "mã_id_hoặc_code" }
+
+17. "LIST_VOUCHERS": Tra cứu, liệt kê danh sách voucher hiện có trong hệ thống và hiển thị thẻ tóm tắt.
+    Thuộc tính: "params": { "limit"?: số_lượng (mặc định 20) }
+    Ví dụ:
+    \`\`\`json:action
+    { "type": "LIST_VOUCHERS", "label": "Tra cứu danh sách Voucher trong hệ thống" }
+    \`\`\`
+
+18. "CREATE_EXAM_AI": Tự động khởi tạo và biên soạn đề thi bằng AI từ mô tả / câu lệnh tự do, sau đó tự động lưu đề thi vào Firestore và trả về link chỉnh sửa.
+    Thuộc tính: "params": {
+      "prompt": "Mô tả chi tiết yêu cầu đề thi, môn, lớp, số lượng câu, dạng câu trắc nghiệm/tự luận, công thức KaTeX",
+      "title": "Tên bài thi",
+      "subject"?: "Toán học" | "Tiếng Anh" | "Vật lý" | "Hóa học" | "Tin học" | "Ngữ văn" | ...,
+      "gradeCategory"?: "10" | "11" | "12" | "Đại học",
+      "timeLimit"?: số phút làm bài (ví dụ: 15, 45, 90),
+      "autoSave": true (mặc định true: tự động lưu trực tiếp vào cơ sở dữ liệu)
+    }
+    Ví dụ:
+    \`\`\`json:action
+    {
+      "type": "CREATE_EXAM_AI",
+      "label": "Tạo đề thi AI: Kiểm tra 15 phút Giải tích 12 Đạo hàm",
+      "params": {
+        "prompt": "Tạo đề kiểm tra 15 phút môn Toán 12 phần Đạo hàm gồm 5 câu trắc nghiệm 4 lựa chọn có công thức KaTeX, đáp án chính xác và lời giải chi tiết.",
+        "title": "Kiểm tra 15 phút Giải tích 12: Đạo hàm",
+        "subject": "Toán học",
+        "gradeCategory": "12",
+        "timeLimit": 15,
+        "autoSave": true
+      }
+    }
+    \`\`\`
+
+19. "CREATE_EXAM_MANUAL": Tạo khung đề thi mới thủ công trong hệ thống.
+    Thuộc tính: "params": { "title": "...", "code": "...", "timeLimit": 45, "subject": "...", "accessMode": "free" | "paid" }
+
+20. "UPDATE_EXAM": Cập nhật trạng thái đề thi (xuất bản, hủy xuất bản, đổi tên, giá...).
+    Thuộc tính: "params": { "examId": "...", "updates": { "status": "published" | "draft" | "archived" } }
+
+21. "DELETE_EXAM": Xóa đề thi và câu hỏi liên quan.
+    Thuộc tính: "params": { "examId": "..." }
+
+22. "DUPLICATE_EXAM": Nhân bản / tạo bản sao từ một bài thi đã có trong hệ thống.
+    Thuộc tính: "params": { "examId": "mã_đề_cần_nhân_bản", "newTitle"?: "Tên bản sao mới" }
+    Ví dụ:
+    \`\`\`json:action
+    { "type": "DUPLICATE_EXAM", "label": "Nhân bản Đề thi Toán 12", "params": { "examId": "exam_123" } }
+    \`\`\`
+
+23. "MERGE_EXAMS": Gộp 2 hoặc nhiều đề thi lại thành một đề thi tổng hợp duy nhất.
+    Thuộc tính: "params": { "title": "Tên đề tổng hợp", "sourceExamIds": ["id_đề_1", "id_đề_2"], "organizeMode"?: "by_source_exam" | "flatten" }
+    Ví dụ:
+    \`\`\`json:action
+    { "type": "MERGE_EXAMS", "label": "Gộp 2 đề thi Toán thành đề tổng hợp", "params": { "title": "Đề Tổng Hợp Học Kỳ 1", "sourceExamIds": ["ex_1", "ex_2"] } }
+    \`\`\`
+
+24. "ASSIGN_HOMEWORK": Giao bài thi cho một lớp học làm bài tập về nhà.
+    Thuộc tính: "params": { "examId": "...", "examTitle": "...", "targetClass": "12A1", "dueDate": "YYYY-MM-DD", "passingScore": 5.0 }
+
+25. "MANAGE_STUDENT": Quản lý học sinh (phê duyệt, khóa tài khoản, mở khóa, xóa, duyệt nạp tiền, cấp quyền làm bài, hoặc cộng tiền ví).
+    Thuộc tính: "params": {
+      "action": "approve" | "suspend" | "reactivate" | "delete" | "adjust_balance" | "approve_recharge" | "reject_recharge" | "grant_access",
+      "uid"?: "mã_uid_học_sinh",
+      "reason"?: "lý do khóa / ghi chú",
+      "amountVnd"?: số tiền nạp/thưởng,
+      "requestId"?: "mã_yêu_cầu_nạp_tiền" (khi duyệt/từ chối nạp tiền),
+      "examId"?: "mã_đề_thi" (khi cấp quyền làm bài)
+    }
+
+26. "SYSTEM_OPERATION": Tác vụ hệ thống (quét sức khỏe dữ liệu, sửa lỗi dữ liệu, tính toán lại thống kê, cập nhật cấu hình, đổi theme, toggle sidebar).
+    Thuộc tính: "params": { "operation": "scan_health" | "repair_health" | "rebuild_stats" | "update_settings" | "toggle_theme" | "toggle_sidebar" | "reload", "settings"?: { ... } }
+
+27. "WORKFLOW": KỊCH BẢN MAKE.COM ĐA BƯỚC (Multi-step Automation Workflow).
+    Khi Admin đưa ra yêu cầu phức tạp gồm nhiều bước (ví dụ: "Tạo voucher giảm 20K rồi tạo đề thi Toán 15 phút sau đó giao bài cho lớp 12A1 và chuyển sang danh sách đề"): BẠN PHẢI GOM THÀNH MỘT WORKFLOW DUY NHẤT chứa danh sách các bước "steps".
+    Quy tắc truyền biến kiểu Make.com (Variable Chaining):
+    - Các bước sau có thể tham chiếu kết quả bước trước bằng cú pháp {{step_id.thuộc_tính}} hoặc {{examId}}, {{voucherCode}}, {{prev.examId}}.
+    - Ví dụ bước 1 tạo đề thi với "id": "step_exam", bước 2 giao bài tập có thể dùng "params": { "examId": "{{step_exam.examId}}" }!
+    Thuộc tính:
+    - "title": "Tên quy trình tự động hóa"
+    - "steps": mảng các bước hành động, mỗi bước là một action block có "id", "type", "label", "params".
+    Ví dụ:
+    \`\`\`json:action
+    {
+      "type": "WORKFLOW",
+      "label": "Quy trình Make.com: Tạo Đề thi AI + Giao bài Lớp 12A1 + Điều hướng",
+      "steps": [
+        {
+          "id": "step_exam",
+          "type": "CREATE_EXAM_AI",
+          "label": "Tạo đề thi khảo sát môn Toán 12",
+          "params": {
+            "prompt": "Tạo đề kiểm tra 15 phút môn Toán 12 phần Khảo sát hàm số gồm 5 câu trắc nghiệm...",
+            "title": "Khảo sát chất lượng Toán 12",
+            "subject": "Toán học",
+            "gradeCategory": "12",
+            "timeLimit": 15,
+            "autoSave": true
+          }
+        },
+        {
+          "id": "step_assign",
+          "type": "ASSIGN_HOMEWORK",
+          "label": "Giao bài thi cho Lớp 12A1",
+          "params": {
+            "examId": "{{step_exam.examId}}",
+            "examTitle": "{{step_exam.title}}",
+            "targetClass": "12A1",
+            "dueDate": "2026-12-31"
+          }
+        },
+        {
+          "id": "step_navigate",
+          "type": "NAVIGATE",
+          "label": "Chuyển tới Danh sách Đề thi",
+          "target": "/admin/exams"
+        }
+      ]
+    }
+    \`\`\`
+
+=======================================================
 QUY TẮC TRẢ LỜI & PHÂN TÍCH DỮ LIỆU TRANG HIỆN TẠI:
 =======================================================
 - Luôn kiểm tra kỹ "BỐI CẢNH TRANG HIỆN TẠI" được cung cấp bên dưới (bao gồm đường dẫn, tiêu đề, các chỉ số và dữ liệu bảng được scrape trực tiếp từ màn hình).
@@ -226,6 +412,160 @@ BỐI CẢNH TRANG HIỆN TẠI MÀ ADMIN ĐANG ĐỨNG:
   return instruction;
 }
 
+function cleanJsonString(str: string): string {
+  // 1. Remove single-line (// ...) and multi-line (/* ... */) comments while preserving strings
+  const noComments = str.replace(
+    /("(?:\\.|[^"\\])*")|(?:\/\*[\s\S]*?\*\/|\/\/[^\r\n]*)/g,
+    (match, quoted) => {
+      if (quoted !== undefined) return quoted;
+      return "";
+    }
+  );
+
+  // 2. Remove trailing commas before } or ] while preserving string literals
+  let cleaned = noComments;
+  let prev = "";
+  while (prev !== cleaned) {
+    prev = cleaned;
+    cleaned = cleaned.replace(
+      /("(?:\\.|[^"\\])*")|(,\s*([}\]]))/g,
+      (match, quoted, _commaWithBracket, bracket) => {
+        if (quoted !== undefined) return quoted;
+        return bracket;
+      }
+    );
+  }
+
+  return cleaned.trim();
+}
+
+export interface WorkflowExecutionContext {
+  steps: Record<string, any>;
+  prev?: any;
+  lastExamId?: string;
+  lastExamTitle?: string;
+  lastVoucherCode?: string;
+  lastVoucherId?: string;
+  lastStudentUid?: string;
+}
+
+export function interpolateWorkflowParams(
+  action: AdminAssistantAction,
+  context: WorkflowExecutionContext
+): AdminAssistantAction {
+  const cloned: AdminAssistantAction = {
+    ...action,
+    params: action.params ? { ...action.params } : {},
+  };
+
+  const resolveString = (str: string): string => {
+    if (!str || typeof str !== "string") return str;
+
+    return str.replace(/\{\{\s*([^}]+?)\s*\}\}/g, (match, expr) => {
+      const trimmed = expr.trim();
+
+      // 1. steps.stepId.key or stepId.key
+      if (trimmed.startsWith("steps.")) {
+        const parts = trimmed.slice(6).split(".");
+        const stepId = parts[0];
+        const prop = parts[1];
+        const stepData = context.steps[stepId];
+        if (stepData && prop && stepData[prop] !== undefined) {
+          return String(stepData[prop]);
+        }
+      } else if (trimmed.includes(".")) {
+        const [prefix, prop] = trimmed.split(".");
+        if (context.steps[prefix] && context.steps[prefix][prop] !== undefined) {
+          return String(context.steps[prefix][prop]);
+        }
+        if (prefix === "prev" && context.prev && context.prev[prop] !== undefined) {
+          return String(context.prev[prop]);
+        }
+        if (prefix === "data" && context.prev && context.prev[prop] !== undefined) {
+          return String(context.prev[prop]);
+        }
+      }
+
+      // 2. Common aliases
+      if (trimmed === "examId" || trimmed === "id" || trimmed === "newExamId") {
+        return context.lastExamId || context.prev?.examId || context.prev?.id || match;
+      }
+      if (trimmed === "title" || trimmed === "examTitle") {
+        return context.lastExamTitle || context.prev?.title || match;
+      }
+      if (trimmed === "code" || trimmed === "voucherCode") {
+        return context.lastVoucherCode || context.prev?.code || match;
+      }
+      if (trimmed === "voucherId") {
+        return context.lastVoucherId || context.prev?.id || match;
+      }
+      if (trimmed === "uid" || trimmed === "studentUid") {
+        return context.lastStudentUid || context.prev?.uid || match;
+      }
+      if (context.prev && context.prev[trimmed] !== undefined) {
+        return String(context.prev[trimmed]);
+      }
+
+      return match;
+    });
+  };
+
+  // Resolve strings in params
+  if (cloned.params) {
+    for (const [key, val] of Object.entries(cloned.params)) {
+      if (typeof val === "string") {
+        cloned.params[key] = resolveString(val);
+      }
+    }
+  }
+
+  // Resolve target, query, text
+  if (cloned.target && typeof cloned.target === "string") {
+    cloned.target = resolveString(cloned.target);
+  }
+  if (cloned.query && typeof cloned.query === "string") {
+    cloned.query = resolveString(cloned.query);
+  }
+  if (cloned.text && typeof cloned.text === "string") {
+    cloned.text = resolveString(cloned.text);
+  }
+
+  // Implicit contextual fallbacks for chained actions
+  if (cloned.type === "ASSIGN_HOMEWORK") {
+    if (!cloned.params.examId || cloned.params.examId === "unknown" || cloned.params.examId.startsWith("{{")) {
+      if (context.lastExamId) cloned.params.examId = context.lastExamId;
+      else if (context.prev?.examId) cloned.params.examId = context.prev.examId;
+    }
+    if (!cloned.params.examTitle || cloned.params.examTitle.startsWith("{{")) {
+      if (context.lastExamTitle) cloned.params.examTitle = context.lastExamTitle;
+      else if (context.prev?.title) cloned.params.examTitle = context.prev.title;
+    }
+  } else if (
+    cloned.type === "UPDATE_EXAM" ||
+    cloned.type === "DELETE_EXAM" ||
+    cloned.type === "DUPLICATE_EXAM"
+  ) {
+    if (!cloned.params.examId || cloned.params.examId.startsWith("{{")) {
+      if (context.lastExamId) cloned.params.examId = context.lastExamId;
+      else if (context.prev?.examId) cloned.params.examId = context.prev.examId;
+    }
+  } else if (cloned.type === "UPDATE_VOUCHER" || cloned.type === "DELETE_VOUCHER") {
+    if (!cloned.params.id || cloned.params.id.startsWith("{{")) {
+      if (context.lastVoucherId) cloned.params.id = context.lastVoucherId;
+      else if (context.lastVoucherCode) cloned.params.id = context.lastVoucherCode;
+      else if (context.prev?.id) cloned.params.id = context.prev.id;
+      else if (context.prev?.code) cloned.params.id = context.prev.code;
+    }
+  } else if (cloned.type === "MANAGE_STUDENT") {
+    if (!cloned.params.uid || cloned.params.uid.startsWith("{{")) {
+      if (context.lastStudentUid) cloned.params.uid = context.lastStudentUid;
+      else if (context.prev?.uid) cloned.params.uid = context.prev.uid;
+    }
+  }
+
+  return cloned;
+}
+
 export function parseActionsFromAiText(text: string): { cleanText: string; actions: AdminAssistantAction[] } {
   const actions: AdminAssistantAction[] = [];
   const actionBlockPatterns: string[] = [];
@@ -236,37 +576,89 @@ export function parseActionsFromAiText(text: string): { cleanText: string; actio
   while ((match = blockRegex.exec(text)) !== null) {
     const rawBlock = match[0];
     const jsonContent = match[1].trim();
+
+    let parsedList: any[] = [];
     try {
       const parsed = JSON.parse(jsonContent);
-      if (parsed && typeof parsed === "object" && parsed.type) {
-        actions.push({
-          type: parsed.type,
-          target: parsed.target,
-          selector: parsed.selector,
-          query: parsed.query,
-          field: parsed.field,
-          value: parsed.value,
-          direction: parsed.direction,
-          text: parsed.text,
-          actionId: parsed.actionId,
-          itemType: parsed.itemType,
-          id: parsed.id,
-          payload: parsed.payload,
-          label: parsed.label || `Thực hiện ${parsed.type}`,
-        });
-        actionBlockPatterns.push(rawBlock);
+      if (Array.isArray(parsed)) {
+        parsedList = parsed;
+      } else if (parsed && typeof parsed === "object") {
+        parsedList = [parsed];
       }
     } catch {
-      // Not a valid action json block, ignore
+      try {
+        const cleaned = cleanJsonString(jsonContent);
+        const parsed = JSON.parse(cleaned);
+        if (Array.isArray(parsed)) {
+          parsedList = parsed;
+        } else if (parsed && typeof parsed === "object") {
+          parsedList = [parsed];
+        }
+      } catch {
+        // Not valid JSON, ignore
+      }
+    }
+
+    let parsedAnyAction = false;
+    for (const parsedItem of parsedList) {
+      if (parsedItem && typeof parsedItem === "object" && parsedItem.type) {
+        parsedAnyAction = true;
+        // Parse nested workflow steps if present
+        let parsedSteps: AdminAssistantAction[] | undefined = undefined;
+        if (Array.isArray(parsedItem.steps)) {
+          parsedSteps = parsedItem.steps.map((st: any, idx: number) => ({
+            id: st.id || `step_${Date.now()}_${idx}_${Math.random().toString(36).slice(2, 6)}`,
+            type: st.type,
+            label: st.label || `Bước ${idx + 1}: ${st.type}`,
+            status: "pending" as const,
+            params: st.params || st.payload || {},
+            target: st.target,
+            selector: st.selector,
+            query: st.query,
+            field: st.field,
+            value: st.value,
+            direction: st.direction,
+            text: st.text,
+            actionId: st.actionId,
+            itemType: st.itemType,
+            payload: st.payload,
+          }));
+        }
+
+        const actionObj: AdminAssistantAction = {
+          id: parsedItem.id || `act_${Date.now()}_${actions.length}_${Math.random().toString(36).slice(2, 6)}`,
+          type: parsedItem.type,
+          target: parsedItem.target,
+          selector: parsedItem.selector,
+          query: parsedItem.query,
+          field: parsedItem.field,
+          value: parsedItem.value,
+          direction: parsedItem.direction,
+          text: parsedItem.text,
+          actionId: parsedItem.actionId,
+          itemType: parsedItem.itemType,
+          payload: parsedItem.payload,
+          params: parsedItem.params || parsedItem.payload || {},
+          steps: parsedSteps,
+          status: "pending" as const,
+          label: parsedItem.label || `Thực hiện ${parsedItem.type}`,
+        };
+
+        actions.push(actionObj);
+      }
+    }
+
+    if (parsedAnyAction) {
+      actionBlockPatterns.push(rawBlock);
     }
   }
 
   // Remove the action blocks from cleanText so it displays cleanly in the UI
   let cleanText = text;
   for (const block of actionBlockPatterns) {
-    cleanText = cleanText.replace(block, "");
+    cleanText = cleanText.split(block).join("");
   }
-  cleanText = cleanText.replace(/```(?:json:action)\s*[\r\n]*```/g, "").trim();
+  cleanText = cleanText.replace(/```(?:json:action|json)\s*[\r\n]*```/g, "").trim();
 
   return { cleanText: cleanText || text, actions };
 }

@@ -189,12 +189,12 @@ describe('ExperimentEngine: Procedural Validation, Tolerances & Contamination', 
       expect(types).toContain('METALLIC_DEPOSIT');
     });
 
-    it('ensures each morphology provides Stokes settling speed and optical description', () => {
+    it('provides morphology context without claiming a universal settling speed', () => {
       for (const morph of PRECIPITATE_MORPHOLOGIES) {
         expect(morph.name).toBeTruthy();
         expect(morph.color).toMatch(/^#[0-9a-fA-F]{6}$/);
-        expect(morph.settlingSpeed).toBeTruthy();
-        expect(morph.turbidity).toBeTruthy();
+        expect(morph.settling).toBeTruthy();
+        expect(morph.settling).not.toMatch(/\d+\.?\d*\s*m\/s/);
         expect(morph.description).toBeTruthy();
       }
     });

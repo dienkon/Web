@@ -4,12 +4,13 @@ import { Text } from '@react-three/drei';
 import * as THREE from 'three';
 import { useAppStore } from '../../../store/useAppStore';
 import { useToolDock } from '../../../handling/toolDock';
+import { instrumentHome } from '../../../handling/instrumentCatalog';
 
 /** Aqueous pH probe: the displayed value approaches the solution's chemistry
  * state. A dry probe has no valid pH measurement, rather than reading pH 7. */
 export const InteractivePhMeter = React.memo(function InteractivePhMeter() {
-  const dock = useToolDock('ph_meter', [-2.5, 0.4, 2]);
-  const active = useAppStore(state => state.activeTool === 'ph_meter');
+  const dock = useToolDock('ph_meter', instrumentHome('ph_meter'));
+  const active = useAppStore(state => state.activeTool === 'ph_meter' && !state.moveMode);
   const vessel = useAppStore(state => state.selectedVesselId ? state.vessels[state.selectedVesselId] : undefined);
   const group = useRef<THREE.Group>(null);
   const label = useRef<any>(null);
@@ -29,7 +30,7 @@ export const InteractivePhMeter = React.memo(function InteractivePhMeter() {
       reading.current = null;
     }
     group.current.position.lerp(target.current, 1 - Math.exp(-delta * 8));
-    group.current.rotation.z = immersed ? 0.08 : 0;
+    group.current.rotation.set(immersed ? 0 : -Math.PI / 2, 0, immersed ? 0.08 : 0);
     if (label.current) {
       const text = reading.current === null ? 'pH ---' : `pH ${reading.current.toFixed(2)}`;
       if (label.current.text !== text) label.current.text = text;
@@ -38,12 +39,12 @@ export const InteractivePhMeter = React.memo(function InteractivePhMeter() {
 
   if (!dock.visible) return null;
 
-  return <group ref={group} name="tool-ph_meter" visible={dock.visible} onPointerDown={dock.onPointerDown}
+  return <group ref={group} name="tool-ph_meter" visible={dock.visible} position={dock.position} rotation={active ? [0, 0, 0] : [-Math.PI / 2, 0, 0]} onPointerDown={dock.onPointerDown}
     onClick={event => {
       event.stopPropagation();
       if (!dock.moveMode) useAppStore.getState().setActiveTool(active ? 'none' : 'ph_meter');
     }}
-    onPointerOver={() => { document.body.style.cursor = 'pointer'; }}
+    onPointerOver={() => { document.body.style.cursor = dock.moveMode ? 'grab' : 'pointer'; }}
     onPointerOut={() => { document.body.style.cursor = 'auto'; }}>
     <mesh position={[0, 0.45, 0]}>
       <boxGeometry args={[0.38, 0.7, 0.18]} />
@@ -69,9 +70,5 @@ export const InteractivePhMeter = React.memo(function InteractivePhMeter() {
       <sphereGeometry args={[0.065, 12, 8]} />
       <meshStandardMaterial color="#bfdbfe" transparent opacity={0.7} roughness={0.12} />
     </mesh>
-    {!active && <mesh position={[0, -0.8, 0]}>
-      <boxGeometry args={[0.35, 0.16, 0.35]} />
-      <meshStandardMaterial color="#94a3b8" roughness={0.8} />
-    </mesh>}
-  </group>;
+</group>;
 });

@@ -1,0 +1,818 @@
+{
+  "basis": "Source snapshot captured at start of current continuation. src TS/TSX only; excludes JSON, tests, docs, blank lines and comment-only lines. Added code token lines, not total repository lines.",
+  "added": 9116,
+  "removed": 3042,
+  "files": [
+    {
+      "file": "App.tsx",
+      "added": 1,
+      "removed": 1,
+      "newFile": false
+    },
+    {
+      "file": "apparatus/HotPlate.tsx",
+      "added": 15,
+      "removed": 8,
+      "newFile": false
+    },
+    {
+      "file": "components/FunnelFlowControls.tsx",
+      "added": 36,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "components/HotPlateControls.tsx",
+      "added": 32,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "components/InstrumentPanel.tsx",
+      "added": 230,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "components/ReactionLibraryPanel.tsx",
+      "added": 22,
+      "removed": 1,
+      "newFile": false
+    },
+    {
+      "file": "components/three/AlcoholBurner.tsx",
+      "added": 30,
+      "removed": 14,
+      "newFile": false
+    },
+    {
+      "file": "components/three/interactions/InteractiveBuretteApparatus.tsx",
+      "added": 1,
+      "removed": 1,
+      "newFile": false
+    },
+    {
+      "file": "components/three/interactions/InteractiveDigitalBalance.tsx",
+      "added": 5,
+      "removed": 3,
+      "newFile": false
+    },
+    {
+      "file": "components/three/interactions/InteractivePhMeter.tsx",
+      "added": 11,
+      "removed": 10,
+      "newFile": false
+    },
+    {
+      "file": "components/three/interactions/InteractivePipette.tsx",
+      "added": 35,
+      "removed": 67,
+      "newFile": false
+    },
+    {
+      "file": "components/three/interactions/InteractiveSpatula.tsx",
+      "added": 12,
+      "removed": 16,
+      "newFile": false
+    },
+    {
+      "file": "components/three/interactions/InteractiveStirringRod.tsx",
+      "added": 9,
+      "removed": 13,
+      "newFile": false
+    },
+    {
+      "file": "components/three/interactions/InteractiveThermometer.tsx",
+      "added": 9,
+      "removed": 13,
+      "newFile": false
+    },
+    {
+      "file": "components/three/LabScene.tsx",
+      "added": 5,
+      "removed": 3,
+      "newFile": false
+    },
+    {
+      "file": "components/three/SolidContentsRenderer.tsx",
+      "added": 34,
+      "removed": 18,
+      "newFile": false
+    },
+    {
+      "file": "components/three/SpilledSolids.tsx",
+      "added": 51,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "components/three/Vessels.tsx",
+      "added": 38,
+      "removed": 179,
+      "newFile": false
+    },
+    {
+      "file": "components/three/WorkbenchSpills.tsx",
+      "added": 7,
+      "removed": 13,
+      "newFile": false
+    },
+    {
+      "file": "components/VesselInspector.tsx",
+      "added": 26,
+      "removed": 34,
+      "newFile": false
+    },
+    {
+      "file": "components/WashBottleControls.tsx",
+      "added": 47,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "components/WorkbenchToolbar.tsx",
+      "added": 12,
+      "removed": 2,
+      "newFile": false
+    },
+    {
+      "file": "data/chemicals.ts",
+      "added": 38,
+      "removed": 3,
+      "newFile": false
+    },
+    {
+      "file": "data/experiments.ts",
+      "added": 14,
+      "removed": 16,
+      "newFile": false
+    },
+    {
+      "file": "engine/aliquotReaction.ts",
+      "added": 6,
+      "removed": 2,
+      "newFile": false
+    },
+    {
+      "file": "engine/aqueousProjection.ts",
+      "added": 12,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/burnerEnergy.ts",
+      "added": 48,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/chemistryEngine.ts",
+      "added": 227,
+      "removed": 92,
+      "newFile": false
+    },
+    {
+      "file": "engine/condensationTransfer.ts",
+      "added": 30,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/decantTransfer.ts",
+      "added": 41,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/flameEmission.ts",
+      "added": 28,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/foamInventory.ts",
+      "added": 44,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/funnelFlow.ts",
+      "added": 131,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/gasInventory.ts",
+      "added": 22,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/hotPlateEnergy.ts",
+      "added": 56,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/interactionEngine.ts",
+      "added": 3,
+      "removed": 3,
+      "newFile": false
+    },
+    {
+      "file": "engine/leadIodidePhase.ts",
+      "added": 37,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/ledger.ts",
+      "added": 53,
+      "removed": 48,
+      "newFile": false
+    },
+    {
+      "file": "engine/presetInventory.ts",
+      "added": 51,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/resolveMixture.ts",
+      "added": 45,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/shatterInventory.ts",
+      "added": 19,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/sodiumChloridePhase.ts",
+      "added": 35,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/solidInventory.ts",
+      "added": 10,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/studioAtom.ts",
+      "added": 112,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/studioInventoryReading.ts",
+      "added": 14,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/studioMorphology.ts",
+      "added": 62,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/studioProgram.ts",
+      "added": 109,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/thermalLedger.ts",
+      "added": 28,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/thermalState.ts",
+      "added": 141,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/wasteInventory.ts",
+      "added": 18,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/waterPhase.ts",
+      "added": 76,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/waterProperties.ts",
+      "added": 6,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "handling/aliquot.ts",
+      "added": 12,
+      "removed": 5,
+      "newFile": false
+    },
+    {
+      "file": "handling/handheldRest.ts",
+      "added": 10,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "handling/instrumentCatalog.ts",
+      "added": 156,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "handling/instrumentOperations.ts",
+      "added": 224,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "handling/instrumentReadings.ts",
+      "added": 113,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "handling/instrumentState.ts",
+      "added": 44,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "handling/pointerDrag.ts",
+      "added": 61,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "handling/snapping.ts",
+      "added": 2,
+      "removed": 2,
+      "newFile": false
+    },
+    {
+      "file": "handling/toolDock.ts",
+      "added": 32,
+      "removed": 37,
+      "newFile": false
+    },
+    {
+      "file": "lesson/catalog/alcohols.ts",
+      "added": 182,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/catalog/amines.ts",
+      "added": 113,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/catalog/builders.ts",
+      "added": 89,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/catalog/carbohydrates.ts",
+      "added": 152,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/catalog/esters.ts",
+      "added": 147,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/catalog/hydrocarbons.ts",
+      "added": 252,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/catalog/index.ts",
+      "added": 43,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/catalog/inorganic.ts",
+      "added": 184,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/catalog/species.ts",
+      "added": 411,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/catalog/validate.ts",
+      "added": 115,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/chemistry/conditions.ts",
+      "added": 137,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/chemistry/formula.ts",
+      "added": 132,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/chemistry/inventory.ts",
+      "added": 152,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/chemistry/kinetics.ts",
+      "added": 108,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/chemistry/optics.ts",
+      "added": 155,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/diagnostics.ts",
+      "added": 164,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/history.ts",
+      "added": 175,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/labBridge.ts",
+      "added": 183,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/LessonChart.tsx",
+      "added": 51,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/LessonDiagnostics.tsx",
+      "added": 131,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/LessonPanel.tsx",
+      "added": 248,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/LessonScene.tsx",
+      "added": 231,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/programCompiler.ts",
+      "added": 159,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/report.ts",
+      "added": 67,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/runtime.ts",
+      "added": 257,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/types.ts",
+      "added": 234,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "pour/controller/PourController.ts",
+      "added": 49,
+      "removed": 59,
+      "newFile": false
+    },
+    {
+      "file": "pour/controller/store-bridge.ts",
+      "added": 8,
+      "removed": 8,
+      "newFile": false
+    },
+    {
+      "file": "pour/input/PourInput.tsx",
+      "added": 1,
+      "removed": 0,
+      "newFile": false
+    },
+    {
+      "file": "pour/physics/step.ts",
+      "added": 4,
+      "removed": 2,
+      "newFile": false
+    },
+    {
+      "file": "science/aqueousEquilibrium.ts",
+      "added": 114,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "science/balance.ts",
+      "added": 102,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "science/conditions.ts",
+      "added": 82,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "science/equationText.ts",
+      "added": 23,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "science/indicatorAppearance.ts",
+      "added": 35,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "science/reviewCatalog.ts",
+      "added": 230,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "science/speciesIdentity.ts",
+      "added": 31,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "science/thermochemistry.ts",
+      "added": 5,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "shared/programSchema.ts",
+      "added": 13,
+      "removed": 1,
+      "newFile": false
+    },
+    {
+      "file": "simulation/chemistry/PhaseEngine.ts",
+      "added": 4,
+      "removed": 4,
+      "newFile": false
+    },
+    {
+      "file": "simulation/core/SimulationConfig.ts",
+      "added": 3,
+      "removed": 3,
+      "newFile": false
+    },
+    {
+      "file": "simulation/core/SimulationEngine.ts",
+      "added": 46,
+      "removed": 89,
+      "newFile": false
+    },
+    {
+      "file": "simulation/effects/EvaporationSystem.ts",
+      "added": 7,
+      "removed": 3,
+      "newFile": false
+    },
+    {
+      "file": "simulation/effects/PrecipitationSystem.ts",
+      "added": 53,
+      "removed": 18,
+      "newFile": false
+    },
+    {
+      "file": "simulation/render/PhysicalSimulationRenderer.tsx",
+      "added": 24,
+      "removed": 13,
+      "newFile": false
+    },
+    {
+      "file": "simulation/render/SedimentMesh.tsx",
+      "added": 1,
+      "removed": 1,
+      "newFile": false
+    },
+    {
+      "file": "store/useAppStore.ts",
+      "added": 596,
+      "removed": 941,
+      "newFile": false
+    },
+    {
+      "file": "types/chemistry.ts",
+      "added": 34,
+      "removed": 0,
+      "newFile": false
+    },
+    {
+      "file": "vfx/bus.ts",
+      "added": 1,
+      "removed": 0,
+      "newFile": false
+    },
+    {
+      "file": "vfx/dev/VfxGallery.tsx",
+      "added": 170,
+      "removed": 1007,
+      "newFile": false
+    },
+    {
+      "file": "vfx/director.tsx",
+      "added": 38,
+      "removed": 52,
+      "newFile": false
+    },
+    {
+      "file": "vfx/materials/flame.tsx",
+      "added": 24,
+      "removed": 38,
+      "newFile": false
+    },
+    {
+      "file": "vfx/materials/liquid.tsx",
+      "added": 8,
+      "removed": 3,
+      "newFile": false
+    },
+    {
+      "file": "vfx/particles/Foam.tsx",
+      "added": 11,
+      "removed": 4,
+      "newFile": false
+    },
+    {
+      "file": "vfx/programs/library/acidBasePrograms.ts",
+      "added": 16,
+      "removed": 13,
+      "newFile": false
+    },
+    {
+      "file": "vfx/programs/library/combustionPyrotechnicPrograms.ts",
+      "added": 13,
+      "removed": 7,
+      "newFile": false
+    },
+    {
+      "file": "vfx/programs/library/complexationEquilibriaPrograms.ts",
+      "added": 4,
+      "removed": 2,
+      "newFile": false
+    },
+    {
+      "file": "vfx/programs/library/gasEvolutionPrograms.ts",
+      "added": 11,
+      "removed": 6,
+      "newFile": false
+    },
+    {
+      "file": "vfx/programs/library/gasGenerationPrograms.ts",
+      "added": 10,
+      "removed": 5,
+      "newFile": false
+    },
+    {
+      "file": "vfx/programs/library/index.ts",
+      "added": 5,
+      "removed": 1,
+      "newFile": false
+    },
+    {
+      "file": "vfx/programs/library/inorganicAnalysisPrograms.ts",
+      "added": 7,
+      "removed": 7,
+      "newFile": false
+    },
+    {
+      "file": "vfx/programs/library/precipitationPrograms.ts",
+      "added": 4,
+      "removed": 4,
+      "newFile": false
+    },
+    {
+      "file": "vfx/programs/library/redoxDisplacementPrograms.ts",
+      "added": 10,
+      "removed": 8,
+      "newFile": false
+    },
+    {
+      "file": "vfx/programs/library/redoxTitrationPrograms.ts",
+      "added": 4,
+      "removed": 2,
+      "newFile": false
+    },
+    {
+      "file": "vfx/programs/library/thermalDecompositionSafetyPrograms.ts",
+      "added": 11,
+      "removed": 12,
+      "newFile": false
+    },
+    {
+      "file": "vfx/programs/library/thiosulfateProgram.ts",
+      "added": 36,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "vfx/programs/player/ProgramPlayer.ts",
+      "added": 8,
+      "removed": 1,
+      "newFile": false
+    },
+    {
+      "file": "vfx/programs/resolver.ts",
+      "added": 67,
+      "removed": 75,
+      "newFile": false
+    },
+    {
+      "file": "vfx/programs/validate.ts",
+      "added": 18,
+      "removed": 24,
+      "newFile": false
+    },
+    {
+      "file": "vfx/reactionActivity.ts",
+      "added": 17,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "vfx/reactions/controllers/RedoxComplexControllers.ts",
+      "added": 12,
+      "removed": 12,
+      "newFile": false
+    },
+    {
+      "file": "vfx/reactions/ReactionSimulationEngine.ts",
+      "added": 21,
+      "removed": 0,
+      "newFile": false
+    },
+    {
+      "file": "vfx/reactions/registry.ts",
+      "added": 1,
+      "removed": 1,
+      "newFile": false
+    },
+    {
+      "file": "vfx/recipes/reactionVfx.ts",
+      "added": 14,
+      "removed": 12,
+      "newFile": false
+    }
+  ],
+  "net": 6074
+}

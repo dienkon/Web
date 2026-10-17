@@ -1,7 +1,7 @@
 {
   "basis": "Source snapshot captured at start of current continuation. src TS/TSX only; excludes JSON, tests, docs, blank lines and comment-only lines. Added code token lines, not total repository lines.",
-  "added": 8160,
-  "removed": 2505,
+  "added": 8791,
+  "removed": 2962,
   "files": [
     {
       "file": "App.tsx",
@@ -10,8 +10,20 @@
       "newFile": false
     },
     {
+      "file": "apparatus/HotPlate.tsx",
+      "added": 15,
+      "removed": 8,
+      "newFile": false
+    },
+    {
       "file": "components/FunnelFlowControls.tsx",
       "added": 36,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "components/HotPlateControls.tsx",
+      "added": 32,
       "removed": 0,
       "newFile": true
     },
@@ -47,38 +59,38 @@
     },
     {
       "file": "components/three/interactions/InteractivePhMeter.tsx",
-      "added": 5,
-      "removed": 1,
+      "added": 11,
+      "removed": 10,
       "newFile": false
     },
     {
       "file": "components/three/interactions/InteractivePipette.tsx",
-      "added": 28,
-      "removed": 56,
+      "added": 35,
+      "removed": 67,
       "newFile": false
     },
     {
       "file": "components/three/interactions/InteractiveSpatula.tsx",
-      "added": 3,
-      "removed": 2,
+      "added": 12,
+      "removed": 16,
       "newFile": false
     },
     {
       "file": "components/three/interactions/InteractiveStirringRod.tsx",
-      "added": 2,
-      "removed": 1,
+      "added": 9,
+      "removed": 13,
       "newFile": false
     },
     {
       "file": "components/three/interactions/InteractiveThermometer.tsx",
-      "added": 2,
-      "removed": 1,
+      "added": 9,
+      "removed": 13,
       "newFile": false
     },
     {
       "file": "components/three/LabScene.tsx",
-      "added": 4,
-      "removed": 2,
+      "added": 5,
+      "removed": 3,
       "newFile": false
     },
     {
@@ -107,7 +119,7 @@
     },
     {
       "file": "components/VesselInspector.tsx",
-      "added": 23,
+      "added": 25,
       "removed": 34,
       "newFile": false
     },
@@ -184,6 +196,12 @@
       "newFile": true
     },
     {
+      "file": "engine/hotPlateEnergy.ts",
+      "added": 56,
+      "removed": 0,
+      "newFile": true
+    },
+    {
       "file": "engine/interactionEngine.ts",
       "added": 3,
       "removed": 3,
@@ -197,7 +215,7 @@
     },
     {
       "file": "engine/ledger.ts",
-      "added": 42,
+      "added": 43,
       "removed": 27,
       "newFile": false
     },
@@ -232,8 +250,26 @@
       "newFile": true
     },
     {
+      "file": "engine/studioAtom.ts",
+      "added": 103,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/studioInventoryReading.ts",
+      "added": 14,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "engine/studioMorphology.ts",
+      "added": 62,
+      "removed": 0,
+      "newFile": true
+    },
+    {
       "file": "engine/studioProgram.ts",
-      "added": 102,
+      "added": 104,
       "removed": 0,
       "newFile": true
     },
@@ -262,8 +298,14 @@
       "newFile": false
     },
     {
+      "file": "handling/handheldRest.ts",
+      "added": 10,
+      "removed": 0,
+      "newFile": true
+    },
+    {
       "file": "handling/instrumentCatalog.ts",
-      "added": 154,
+      "added": 156,
       "removed": 0,
       "newFile": true
     },
@@ -286,6 +328,12 @@
       "newFile": true
     },
     {
+      "file": "handling/pointerDrag.ts",
+      "added": 61,
+      "removed": 0,
+      "newFile": true
+    },
+    {
       "file": "handling/snapping.ts",
       "added": 2,
       "removed": 2,
@@ -293,8 +341,8 @@
     },
     {
       "file": "handling/toolDock.ts",
-      "added": 3,
-      "removed": 1,
+      "added": 32,
+      "removed": 37,
       "newFile": false
     },
     {
@@ -491,7 +539,7 @@
     },
     {
       "file": "science/conditions.ts",
-      "added": 73,
+      "added": 82,
       "removed": 0,
       "newFile": true
     },
@@ -521,7 +569,7 @@
     },
     {
       "file": "shared/programSchema.ts",
-      "added": 2,
+      "added": 6,
       "removed": 0,
       "newFile": false
     },
@@ -569,13 +617,13 @@
     },
     {
       "file": "store/useAppStore.ts",
-      "added": 464,
-      "removed": 890,
+      "added": 551,
+      "removed": 916,
       "newFile": false
     },
     {
       "file": "types/chemistry.ts",
-      "added": 27,
+      "added": 29,
       "removed": 0,
       "newFile": false
     },
@@ -587,8 +635,8 @@
     },
     {
       "file": "vfx/dev/VfxGallery.tsx",
-      "added": 88,
-      "removed": 690,
+      "added": 167,
+      "removed": 1006,
       "newFile": false
     },
     {
@@ -617,8 +665,8 @@
     },
     {
       "file": "vfx/programs/library/combustionPyrotechnicPrograms.ts",
-      "added": 8,
-      "removed": 5,
+      "added": 13,
+      "removed": 7,
       "newFile": false
     },
     {
@@ -628,9 +676,15 @@
       "newFile": false
     },
     {
+      "file": "vfx/programs/library/gasEvolutionPrograms.ts",
+      "added": 6,
+      "removed": 4,
+      "newFile": false
+    },
+    {
       "file": "vfx/programs/library/gasGenerationPrograms.ts",
-      "added": 2,
-      "removed": 1,
+      "added": 10,
+      "removed": 5,
       "newFile": false
     },
     {
@@ -658,6 +712,12 @@
       "newFile": false
     },
     {
+      "file": "vfx/programs/library/redoxTitrationPrograms.ts",
+      "added": 4,
+      "removed": 2,
+      "newFile": false
+    },
+    {
       "file": "vfx/programs/library/thermalDecompositionSafetyPrograms.ts",
       "added": 11,
       "removed": 12,
@@ -677,7 +737,7 @@
     },
     {
       "file": "vfx/programs/resolver.ts",
-      "added": 66,
+      "added": 67,
       "removed": 75,
       "newFile": false
     },
@@ -718,5 +778,5 @@
       "newFile": false
     }
   ],
-  "net": 5655
+  "net": 5829
 }

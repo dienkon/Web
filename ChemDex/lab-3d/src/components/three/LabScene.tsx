@@ -276,7 +276,7 @@ const SceneVessel = React.memo(function SceneVessel({ id }: { id: string }) {
   } else if (type === 'pneumatic_trough') {
     return <ApparatusInteractive id={id} position={position}><PneumaticTrough position={[0, 0, 0]} /></ApparatusInteractive>;
   } else if (type === 'hot_plate') {
-    return <ApparatusInteractive id={id} position={position}><HotPlate position={[0, 0, 0]} temperature_c={useAppStore.getState().vessels[id]?.temperature_c ?? 25} /></ApparatusInteractive>;
+    return <ApparatusInteractive id={id} position={position}><HotPlate position={[0, 0, 0]} plateId={id} /></ApparatusInteractive>;
   }
   return <Beaker position={position} id={id} />;
 });

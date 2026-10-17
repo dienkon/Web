@@ -19,6 +19,7 @@ export const COMBUSTION_PYROTECHNIC_PROGRAMS: ReactionProgram[] = [
         { formula: 'MgO', role: 'product', coeff: 2, phase: 's', colorHex: '#ffffff' }
       ],
       deltaH_kJ_per_mol: -1203.0,
+      conditions: { activation: 'ignition', activationNote_vi: 'Cần mồi cháy; không suy ra trạng thái đã mồi chỉ từ nhiệt độ trung bình của bình.' },
       kinetics: { model: 'heat_activated', halfTime_s: 0.8 },
       hazards: ['GHS02_flammable']
     },
@@ -61,7 +62,8 @@ export const COMBUSTION_PYROTECHNIC_PROGRAMS: ReactionProgram[] = [
         { formula: 'H2', role: 'product', coeff: 1, phase: 'g', hazards: ['GHS02_flammable'] }
       ],
       deltaH_kJ_per_mol: -368.4,
-      kinetics: { model: 'heat_activated', halfTime_s: 1.2 },
+      conditions: { activation: 'contact', activationNote_vi: 'Na phản ứng với nước khi tiếp xúc; cháy H2 hoặc bùng nổ là diễn biến riêng, không là điều kiện bắt đầu.' },
+      kinetics: { model: 'surface_limited', halfTime_s: 1.2 },
       hazards: ['GHS02_flammable', 'GHS05_corrosive']
     },
     visual: {
@@ -103,7 +105,8 @@ export const COMBUSTION_PYROTECHNIC_PROGRAMS: ReactionProgram[] = [
         { formula: 'H2', role: 'product', coeff: 1, phase: 'g', hazards: ['GHS02_flammable'] }
       ],
       deltaH_kJ_per_mol: -392.0,
-      kinetics: { model: 'heat_activated', halfTime_s: 0.5 },
+      conditions: { activation: 'contact', activationNote_vi: 'K phản ứng với nước khi tiếp xúc; không cần nguồn mồi bên ngoài cho bước kim loại–nước.' },
+      kinetics: { model: 'surface_limited', halfTime_s: 0.5 },
       hazards: ['GHS02_flammable', 'GHS05_corrosive']
     },
     visual: {

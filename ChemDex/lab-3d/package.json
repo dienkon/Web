@@ -14,6 +14,8 @@
     "science:audit": "tsx scripts/auditScientificCatalog.ts",
     "presets:audit": "tsx scripts/auditPresetInventories.ts",
     "studio:audit": "tsx scripts/auditStudioSamples.ts",
+    "studio:atoms:audit": "tsx scripts/auditStudioAtomContexts.ts",
+    "thermo:audit": "tsx scripts/auditThermochemistry.ts",
     "lint": "tsc --noEmit",
     "test": "vitest run"
   },

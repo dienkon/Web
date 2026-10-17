@@ -57,9 +57,9 @@ export function aspiratePipette(requested_ml = 10): InstrumentResult {
   return result('pipette', true, `Đã hút ${transfer.sample.volume_ml.toFixed(3)} mL từ ${source.name}.`, transfer.sample.volume_ml);
 }
 
-export function dispensePipette(requested_ml = 2.5): InstrumentResult {
+export function dispensePipette(requested_ml = 2.5, targetId?: string): InstrumentResult {
   const state = useAppStore.getState();
-  const receiver = resolveInstrumentTarget();
+  const receiver = targetId === undefined ? resolveInstrumentTarget() : state.vessels[targetId] ?? null;
   const problem = instrumentTargetProblem('pipette', receiver);
   if (problem || !receiver) return result('pipette', false, problem ?? 'Không có bình nhận.');
   if (state.moveMode) return result('pipette', false, 'Tắt chế độ di chuyển trước khi nhả.');
@@ -89,7 +89,7 @@ export function positionInstrument(id: InstrumentId, position: ToolPosition): In
   if (!position.every(Number.isFinite)) return result(id, false, 'Tọa độ phải là số hữu hạn.');
   if (id === 'sponge') return result(id, false, 'Miếng lau đi theo con trỏ khi kích hoạt.');
   const constrained = constrainToolPosition(...position);
-  const next = [constrained[0], getInstrument(id).home[1], constrained[2]] as ToolPosition;
+  const next = [constrained[0], instrumentHome(id)[1], constrained[2]] as ToolPosition;
   useAppStore.getState().setActiveTool('none');
   useToolDockStore.setState(state => ({ positions: { ...state.positions, [id]: next } }));
   if (id === 'balance') LAB_PHYSICS.BALANCE_POSITION = next;

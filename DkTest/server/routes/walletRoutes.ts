@@ -1,6 +1,11 @@
 import { Router, type Response } from "express";
 import { requireAuth, type AuthenticatedRequest } from "../middleware/auth.js";
 import {
+  adminAuth,
+  adminDb,
+  getFirestoreRestDoc,
+} from "../firebaseAdmin.js";
+import {
   getOrCreateWallet,
   updateWalletProfile,
   createDepositRequest,

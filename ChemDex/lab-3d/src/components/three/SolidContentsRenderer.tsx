@@ -6,6 +6,8 @@ import { labSound } from '../../utils/audio';
 import { reactionSimulationEngine } from '../../vfx/reactions/ReactionSimulationEngine';
 import { solidInventoryFraction } from '../../engine/solidInventory';
 import { PourController } from '../../pour/controller/PourController';
+import { waterPhaseMasses, iceChunkDimensions, liquidSurfaceVolume } from '../../engine/waterPhase';
+import { ICE_DENSITY_G_ML } from '../../engine/waterProperties';
 
 // Shared scratch objects for zero-allocation per-frame transforms
 const _dummyMat4 = new THREE.Matrix4();
@@ -62,6 +64,7 @@ export const SolidContentsRenderer = React.memo(function SolidContentsRenderer({
   return (
     <group name={`solids_${vesselId}`}>
       {solidSubstances.map((sub, idx) => {
+        if (sub === 'H2O') return <WaterIceMesh key="water-ice" vesselId={vesselId} radius={radius} baseY={baseY} />;
         if (sub === 'Na' || sub === 'K') {
           return (
             <FloatingAlkaliMetalPellet
@@ -89,6 +92,22 @@ export const SolidContentsRenderer = React.memo(function SolidContentsRenderer({
     </group>
   );
 });
+
+function WaterIceMesh({ vesselId, radius, baseY }: { vesselId: string; radius: number; baseY: number }) {
+  const vessel = useAppStore(state => state.vessels[vesselId]);
+  if (!vessel || vessel.isShattered) return null;
+  const { ice_g } = waterPhaseMasses(vessel);
+  if (ice_g <= 1e-10) return null;
+  const height = vessel.type === 'beaker' ? 1.88 : 1.8;
+  const chunk = iceChunkDimensions(ice_g / ICE_DENSITY_G_ML, vessel.capacity_ml, radius, height);
+  const surface = baseY + height * Math.min(1, liquidSurfaceVolume(vessel) / vessel.capacity_ml);
+  const y = Math.max(baseY + chunk.height / 2, surface + chunk.height * (0.5 - ICE_DENSITY_G_ML));
+  return <mesh name="water-ice" position={[0, y, 0]} scale={[chunk.width, chunk.height, chunk.width]} castShadow>
+    <boxGeometry args={[1, 1, 1]} />
+    <meshPhysicalMaterial color="#dbeef5" transmission={0.55} opacity={0.65} transparent
+      roughness={0.15} thickness={0.4} ior={1.31} depthWrite={false} />
+  </mesh>;
+}
 
 interface FloatingAlkaliMetalPelletProps {
   substance?: 'Na' | 'K' | string;

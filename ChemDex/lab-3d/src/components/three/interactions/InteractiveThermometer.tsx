@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import { useAppStore } from '../../../store/useAppStore';
 import { updateThermalResponse } from '../../../engine/interactionEngine';
 import { useToolDock } from '../../../handling/toolDock';
+import { instrumentHome } from '../../../handling/instrumentCatalog';
 
 const stemGlassMaterial = new THREE.MeshPhysicalMaterial({
   roughness: 0.08,
@@ -16,7 +17,7 @@ const stemGlassMaterial = new THREE.MeshPhysicalMaterial({
 });
 
 export const InteractiveThermometer = React.memo(function InteractiveThermometer({
-  position: initialPosition = [-7.8, 0.4, 2.0],
+  position: initialPosition = instrumentHome('thermometer'),
 }: {
   position?: [number, number, number];
 }) {
@@ -33,7 +34,7 @@ export const InteractiveThermometer = React.memo(function InteractiveThermometer
   const fluidColumnRef = useRef<THREE.Mesh>(null);
   const currentTempRef = useRef(25.0);
 
-  const isActive = activeTool === 'thermometer';
+  const isActive = activeTool === 'thermometer' && !dock.moveMode;
 
   useFrame((_, delta) => {
     if (!groupRef.current) return;
@@ -60,7 +61,7 @@ export const InteractiveThermometer = React.memo(function InteractiveThermometer
       // Resting on rack
       const restPos = animationTarget.current.set(...position);
       groupRef.current.position.lerp(restPos, 1 - Math.exp(-delta * 8));
-      groupRef.current.rotation.set(0, 0, 0);
+      groupRef.current.rotation.set(-Math.PI / 2, 0, 0);
 
       // Cool back down to room ambient temperature (25°C)
       currentTempRef.current = updateThermalResponse(
@@ -92,24 +93,17 @@ export const InteractiveThermometer = React.memo(function InteractiveThermometer
     <group
       ref={groupRef}
       name="tool-thermometer" visible={dock.visible}
+      position={position} rotation={isActive ? [0, 0, 0] : [-Math.PI / 2, 0, 0]}
       onPointerDown={dock.onPointerDown}
       onClick={(e) => {
         e.stopPropagation();
         if (dock.moveMode) return;
         setActiveTool(isActive ? 'none' : 'thermometer');
       }}
-      onPointerOver={() => { document.body.style.cursor = 'pointer'; }}
+      onPointerOver={() => { document.body.style.cursor = dock.moveMode ? 'grab' : 'pointer'; }}
       onPointerOut={() => { document.body.style.cursor = 'auto'; }}
     >
-      {/* Wooden / Acrylic Rest Block */}
-      {!isActive && (
-        <mesh position={[0, -0.6, 0]} receiveShadow>
-          <boxGeometry args={[0.35, 0.4, 0.35]} />
-          <meshStandardMaterial color="#cbd5e1" roughness={0.4} />
-        </mesh>
-      )}
-
-      {/* Glass Stem */}
+{/* Glass Stem */}
       <mesh material={stemGlassMaterial} position={[0, 0.3, 0]}>
         <cylinderGeometry args={[0.045, 0.045, 2.0, 16, 1, true]} />
       </mesh>

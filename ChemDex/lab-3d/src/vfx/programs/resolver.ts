@@ -19,6 +19,7 @@ import { LESSON_PROGRAM_IDS } from '../../lesson/programCompiler';
 import { PrecipMorphology, GasSpecies, GAS_SPECIES_TABLE } from '../catalog/vocab';
 
 export interface ResolveEnv {
+  ignitedProgramId?: string;
   temperature_c?: number;
   isHeated?: boolean;
   isSealed?: boolean;

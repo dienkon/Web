@@ -46,7 +46,7 @@ export interface ChemicalDefinition {
 
 export interface SubstanceContent {
   liquidLayer?: 'aqueous' | 'organic';
-  location?: 'bulk' | 'filter';
+  location?: 'bulk' | 'filter' | 'foam';
   formula: string;
   moles: number;
   mass_g: number;
@@ -83,6 +83,7 @@ export type VesselType =
   | 'hot_plate';
 
 export interface VesselState {
+  hotPlate?: { isOn: boolean; setPoint_c: number; electricalEnergy_J?: number; deliveredHeat_J?: number; heatLost_J?: number };
   escapedGas_g?: Record<string, number>;
   id: string;
   name: string;
@@ -102,6 +103,9 @@ export interface VesselState {
   density_g_ml?: number; // density in g/mL (default ~1.0)
   
   temperature_c: number; // in Celsius (ambient ~25°C)
+  iceVolume_ml?: number;
+  thermalEnergyOutsideModel_J?: number;
+  thermalModelLimit?: string;
   ph: number; // 0 to 14
     phModel?: 'ideal_aqueous_25c'; // Concentration equilibrium, constants at 25 °C.
     evaporationRate_g_s?: number;
@@ -148,6 +152,9 @@ export interface VesselState {
   flowReceiverId?: string;
   washTargetId?: string | null;
   studioProgramId?: string;
+  programHeatApplied_J?: number; // Cumulative program heat already delivered, for baseline replay only.
+  studioSpecimenVariant?: 'oxygen_foam';
+  ignitedProgramId?: string; // Transient initiation token; consumed when a run captures its baseline.
   washDose_ml?: number;
   residueReceiverId?: string;
   flowStatus?: string;

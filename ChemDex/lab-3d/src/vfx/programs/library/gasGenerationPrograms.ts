@@ -189,7 +189,8 @@ export const GAS_GENERATION_PROGRAMS: ReactionProgram[] = [
         { formula: 'C2H2', role: 'product', coeff: 1, phase: 'g', hazards: ['GHS02_flammable'] }
       ],
       deltaH_kJ_per_mol: -128.0,
-      kinetics: { model: 'heat_activated', halfTime_s: 0.5 },
+      conditions: { activation: 'contact', activationNote_vi: 'Thủy phân khi CaC2 tiếp xúc nước; tạo C2H2 khác với bước mồi đốt khí.' },
+      kinetics: { model: 'surface_limited', halfTime_s: 0.5 },
       hazards: ['GHS02_flammable']
     },
     visual: {
@@ -232,7 +233,8 @@ export const GAS_GENERATION_PROGRAMS: ReactionProgram[] = [
         { formula: 'H2', role: 'product', coeff: 3, phase: 'g', hazards: ['GHS02_flammable'] }
       ],
       deltaH_kJ_per_mol: -415.0,
-      kinetics: { model: 'heat_activated', halfTime_s: 1.2 },
+      conditions: { activation: 'contact', activationNote_vi: 'Kiềm hòa tan lớp oxit bảo vệ rồi Al phản ứng; thời gian cảm ứng phụ thuộc bề mặt và nồng độ.' },
+      kinetics: { model: 'induction_then_fast', halfTime_s: 1.2 },
       hazards: ['GHS02_flammable', 'GHS05_corrosive']
     },
     visual: {
@@ -273,7 +275,8 @@ export const GAS_GENERATION_PROGRAMS: ReactionProgram[] = [
         { formula: 'HCl', role: 'product', coeff: 1, phase: 'g', hazards: ['GHS05_corrosive', 'GHS06_toxic'] }
       ],
       deltaH_kJ_per_mol: -14.0,
-      kinetics: { model: 'heat_activated', halfTime_s: 1.5 },
+      conditions: { activation: 'contact', activationNote_vi: 'Axit đặc đẩy HCl khỏi muối clorua; gia nhiệt có thể tăng tốc thoát khí, không phải mồi cháy.' },
+      kinetics: { model: 'surface_limited', halfTime_s: 1.5 },
       hazards: ['GHS05_corrosive', 'GHS06_toxic']
     },
     visual: {
@@ -398,7 +401,8 @@ export const GAS_GENERATION_PROGRAMS: ReactionProgram[] = [
         { formula: 'H2O', role: 'product', coeff: 8, phase: 'l' }
       ],
       deltaH_kJ_per_mol: -440.0,
-      kinetics: { model: 'heat_activated', halfTime_s: 0.6 },
+      conditions: { activation: 'contact', activationNote_vi: 'Phản ứng oxi hóa khử trong axit; không gắn nhãn cần mồi cháy hoặc tự thêm ngưỡng nhiệt.' },
+      kinetics: { model: 'first_order', halfTime_s: 0.6 },
       hazards: ['GHS03_oxidizer', 'GHS05_corrosive', 'GHS06_toxic', 'GHS09_environmental']
     },
     visual: {

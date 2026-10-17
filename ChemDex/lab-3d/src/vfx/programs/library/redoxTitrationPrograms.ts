@@ -69,7 +69,8 @@ export const REDOX_TITRATION_PROGRAMS: ReactionProgram[] = [
         { formula: 'H2O', role: 'product', coeff: 8, phase: 'l' }
       ],
       deltaH_kJ_per_mol: -280.0,
-      kinetics: { model: 'heat_activated', halfTime_s: 0.8 },
+      conditions: { activation: 'warming', activationNote_vi: 'Cần môi trường axit; làm ấm rút ngắn cảm ứng, không có ngưỡng nhiệt phổ quát bật/tắt phản ứng.', medium: 'acidic' },
+      kinetics: { model: 'autocatalytic', halfTime_s: 0.8 },
       hazards: ['GHS03_oxidizer', 'GHS05_corrosive']
     },
     visual: {
@@ -109,7 +110,8 @@ export const REDOX_TITRATION_PROGRAMS: ReactionProgram[] = [
         { formula: 'Cu', role: 'product', coeff: 1, phase: 's', colorHex: '#b45309' }
       ],
       deltaH_kJ_per_mol: -536.0,
-      kinetics: { model: 'heat_activated', halfTime_s: 0.8 },
+      conditions: { activation: 'contact', activationNote_vi: 'Mg đẩy Cu khỏi dung dịch CuSO4 khi tiếp xúc; màng bề mặt ảnh hưởng tốc độ.' },
+      kinetics: { model: 'surface_limited', halfTime_s: 0.8 },
       hazards: ['GHS07_harmful', 'GHS09_environmental']
     },
     visual: {

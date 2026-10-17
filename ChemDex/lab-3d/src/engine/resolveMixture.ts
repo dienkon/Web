@@ -12,7 +12,7 @@ export async function resolveMixture(vessel: VesselState, language: Language, is
   if (native.kinetics || native.vessel.phModel) return native;
   const base = native.vessel;
   const { program, provenance } = await resolveReactionProgram(base.substances, base.contents, {
-    temperature_c: base.temperature_c, isHeated, isSealed: base.isSealed,
+    temperature_c: base.temperature_c, isHeated, isSealed: base.isSealed, ignitedProgramId: base.ignitedProgramId,
     pressure_bar: (base.internalPressure_atm ?? 1) * 1.01325,
     pH: base.ph, volume_ml: base.volume_ml, lang: language,
   });

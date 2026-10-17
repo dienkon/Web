@@ -1,12 +1,13 @@
 import { MixResult } from '../shared/schemas';
-import { ChemicalDefinition, VesselState } from '../types/chemistry';
+import { ChemicalDefinition, VesselState, SubstanceContent } from '../types/chemistry';
 import { findChemical } from '../data/chemicals';
 import { chemistryCache, getCanonicalReactionKey } from './chemistryCache';
 import { identifySpecies, matchesReagent, sameMolecularFormula } from '../science/speciesIdentity';
 import { computeMolarMass } from './ledger';
 import { solveAqueousEquilibrium } from '../science/aqueousEquilibrium';
 import { solutionIndicatorColor } from '../science/indicatorAppearance';
-import { aqueousBoilingPoint, relaxGeneratedWater } from './thermalState';
+import { aqueousBoilingPoint, relaxGeneratedWater, sampleHeatCapacity } from './thermalState';
+import { H2O2_AQ_REACTION_DH_KJ } from '../science/thermochemistry';
 
 export interface DeterministicReaction {
   id: string;
@@ -341,17 +342,17 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
     reactionType_en: 'Catalytic Decomposition',
     reactionType_vi: 'Phản ứng phân hủy có xúc tác (Điều chế Oxi)',
     summary_en: 'Manganese dioxide catalytically accelerates the decomposition of hydrogen peroxide into water and hot oxygen gas.',
-    summary_vi: 'Mangan đioxit đóng vai trò xúc tác làm H2O2 phân hủy tức thì sinh nước và khí oxy sủi bọt nóng bốc hơi.',
-    observable_en: 'Violent eruption of oxygen froth, rapid foaming with steam rising from the vigorous exothermic decomposition.',
-    observable_vi: 'Bọt khí oxy và hơi nước bốc lên cuồn cuộn dữ dội, dung dịch nóng bừng, MnO2 giữ nguyên không đổi.',
+    summary_vi: 'MnO2 xúc tác phân hủy H2O2 thành nước và O2; tốc độ phụ thuộc điều kiện mẫu.',
+    observable_en: 'Colorless oxygen bubbles evolve and the sample warms. Persistent foam requires a stabilizer; boiling is not automatic.',
+    observable_vi: 'Sinh bọt khí O2 không màu và tỏa nhiệt. Bọt bền cần chất giữ bọt; mẫu không mặc định sôi hoặc bốc hơi trắng.',
     stoichiometry: { 'H2O2': 2, 'MnO2': 0 },
     products: { 'H2O': { coeff: 2, state: 'l' }, 'O2': { coeff: 1, state: 'g' } },
-    deltaH_kJ: -98.2,
+    deltaH_kJ: H2O2_AQ_REACTION_DH_KJ,
     resultingPh: 7.0,
     hasGas: true,
     gasColor: '#e2e8f0',
     gasFormula: 'O2',
-    isBoiling: true,
+    isBoiling: false,
     hasPrecipitate: true,
     precipitateColor: '#1e293b',
     precipitateFormula: 'MnO2 (catalyst)',
@@ -1072,7 +1073,7 @@ export interface MultiStepReactionResult {
  *   equilibrium constants and concentration-dependent calorimetry remain simplified.
  */
 export function executeMultiStepReactions(
-  initialContents: { formula: string; moles: number; mass_g: number; concentration_M?: number; volume_ml?: number }[],
+  initialContents: SubstanceContent[],
   initialSubstances: string[],
   volume_ml: number,
   initialTemperature_c: number,
@@ -1225,8 +1226,8 @@ export function executeMultiStepReactions(
     }
 
     // Thermal rise from reaction enthalpy
-    const solnMass_g = Math.max(10.0, volume_ml);
-    const totalHeatCap = solnMass_g * 4.184 + 33.2; // J/K
+    const solnMass_g = workingContents.filter(item => item.phase !== 'g').reduce((sum, item) => sum + item.mass_g, 0);
+    const totalHeatCap = sampleHeatCapacity({ mass_g: solnMass_g, volume_ml, contents: workingContents });
     const heatReleased_J = -candidate.deltaH_kJ * 1000.0 * xi;
     const deltaT = heatReleased_J / totalHeatCap;
     // Phase/thermal simulation handles boiling and cooling. A hot solid must
@@ -1476,7 +1477,7 @@ export function evaluateLocalChemistry(
   temperature_c: number, 
   isHeated: boolean,
   lang: 'en' | 'vi' = 'vi',
-  contents?: { formula: string; moles: number; mass_g: number }[]
+  contents?: SubstanceContent[]
 ): MixResult | null {
   if (!substances || substances.length === 0) return null;
 

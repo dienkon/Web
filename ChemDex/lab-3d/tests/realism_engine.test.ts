@@ -15,6 +15,7 @@ import { describe, it, expect } from 'vitest';
 import { useAppStore } from '../src/store/useAppStore';
 import { findChemical } from '../src/data/chemicals';
 import { evaluateLocalChemistry } from '../src/engine/chemistryEngine';
+import { computeMolarMass } from '../src/engine/ledger';
 import { SimulationEngine } from '../src/simulation/core/SimulationEngine';
 import { VesselState } from '../src/types/chemistry';
 
@@ -181,8 +182,10 @@ describe('Realism Engine: Physical & Chemical Invariants', () => {
       false,
       'en',
       [
-        { formula: 'HCl', moles: 0.05, mass_g: 1.82 },
-        { formula: 'NaOH', moles: 0.05, mass_g: 2.00 }
+        { formula: 'HCl', phase: 'aq', moles: 0.05, mass_g: 0.05 * computeMolarMass('HCl') },
+        { formula: 'NaOH', phase: 'aq', moles: 0.05, mass_g: 0.05 * computeMolarMass('NaOH') },
+        { formula: 'H2O', phase: 'l', mass_g: 100 - 0.05 * (computeMolarMass('HCl') + computeMolarMass('NaOH')),
+          moles: (100 - 0.05 * (computeMolarMass('HCl') + computeMolarMass('NaOH'))) / computeMolarMass('H2O') },
       ]
     );
 

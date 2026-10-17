@@ -66,9 +66,11 @@ describe('Multi-Step Stoichiometric Reactions & Physical Realism', () => {
     // Both HCl, CuSO4, and NaOH are completely consumed!
     const res = executeMultiStepReactions(
       [
-        { formula: 'HCl', moles: 0.03, mass_g: 0.03 * 36.46 },
-        { formula: 'CuSO4', moles: 0.02, mass_g: 0.02 * 159.6 },
-        { formula: 'NaOH', moles: 0.07, mass_g: 0.07 * 40.00 }
+        { formula: 'HCl', phase: 'aq', moles: 0.03, mass_g: 0.03 * 36.46 },
+        { formula: 'CuSO4', phase: 'aq', moles: 0.02, mass_g: 0.02 * 159.6 },
+        { formula: 'NaOH', phase: 'aq', moles: 0.07, mass_g: 0.07 * 40.00 },
+        { formula: 'H2O', phase: 'l', mass_g: 100 - (0.03 * 36.46 + 0.02 * 159.6 + 0.07 * 40),
+          moles: (100 - (0.03 * 36.46 + 0.02 * 159.6 + 0.07 * 40)) / 18.015 },
       ],
       ['HCl', 'CuSO4', 'NaOH'],
       100,

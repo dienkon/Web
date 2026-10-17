@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
+import type { MeshBasicMaterial } from 'three';
+import { useAppStore } from '../store/useAppStore';
 
 interface HotPlateProps {
   position: [number, number, number];
+  plateId?: string;
   temperature_c?: number;
   setPoint_c?: number;
   stirrerRpm?: number;
@@ -14,14 +18,18 @@ interface HotPlateProps {
  */
 export const HotPlate: React.FC<HotPlateProps> = React.memo(function HotPlate({
   position,
+  plateId,
   temperature_c = 25,
   setPoint_c = 100,
   stirrerRpm = 450,
-  isOn = true
+  isOn = false
 }) {
-  const isHeating = isOn && temperature_c > 60;
-  // Ceramic plate glows slightly orange/amber at very high temperatures
-  const topPlateColor = temperature_c > 200 ? '#ea580c' : '#f8fafc';
+  const led = useRef<MeshBasicMaterial>(null);
+  useFrame(() => {
+    if (!led.current) return;
+    const state = plateId ? useAppStore.getState().vessels[plateId] : undefined;
+    led.current.color.set(state?.hotPlate?.isOn ?? isOn ? '#f97316' : (state?.temperature_c ?? temperature_c) > 50 ? '#ef4444' : '#334155');
+  });
 
   return (
     <group position={position}>
@@ -35,10 +43,8 @@ export const HotPlate: React.FC<HotPlateProps> = React.memo(function HotPlate({
       <mesh position={[0, 0.25, 0]} receiveShadow castShadow>
         <boxGeometry args={[1.4, 0.04, 1.4]} />
         <meshStandardMaterial 
-          color={topPlateColor} 
+          color="#f8fafc"
           roughness={0.2} 
-          emissive={isHeating ? '#f97316' : '#000000'}
-          emissiveIntensity={isHeating ? Math.min(0.6, (temperature_c - 60) / 200) : 0}
         />
       </mesh>
 
@@ -59,7 +65,7 @@ export const HotPlate: React.FC<HotPlateProps> = React.memo(function HotPlate({
         {/* LED Digital Display */}
         <mesh position={[0, 0.02, 0]}>
           <boxGeometry args={[0.32, 0.1, 0.02]} />
-          <meshBasicMaterial color="#0284c7" />
+          <meshBasicMaterial ref={led} color="#334155" />
         </mesh>
       </group>
     </group>
