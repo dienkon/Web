@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "functions": {
     "api/*.ts": {
-      "includeFiles": "server/**"
+      "includeFiles": "{server/**,dist/index.html,public/**}"
     }
   },
   "headers": [
@@ -71,22 +71,34 @@
         {
           "type": "header",
           "key": "user-agent",
-          "value": "(?i).*(zalo|facebookexternalhit|facebot|twitterbot|whatsapp|telegrambot|linkedinbot|discordbot|googlebot|bingbot|applebot).*"
+          "value": ".*([zZ][aA][lL][oO]|[fF]acebook[eE]xternal[hH]it|[fF]acebot|[tT]witterbot|[wW]hats[aA]pp|[tT]elegram|[lL]inked[iI]n|[dD]iscord|[gG]ooglebot|[bB]ingbot|[aA]pplebot|[sS]lack|[sS]kype|line-poker).*"
         }
       ],
       "destination": "/api/social-meta?path=/$1"
     },
     {
-      "source": "/voucher/:code",
-      "destination": "/api/social-meta?path=/voucher/:code&voucher=:code"
+      "source": "/voucher/([^/]+)",
+      "destination": "/api/social-meta?path=/voucher/$1&voucher=$1&code=$1"
     },
     {
-      "source": "/vouchers/:code",
-      "destination": "/api/social-meta?path=/voucher/:code&voucher=:code"
+      "source": "/vouchers/([^/]+)",
+      "destination": "/api/social-meta?path=/voucher/$1&voucher=$1&code=$1"
     },
     {
-      "source": "/student/voucher/:code",
-      "destination": "/api/social-meta?path=/voucher/:code&voucher=:code"
+      "source": "/student/voucher/([^/]+)",
+      "destination": "/api/social-meta?path=/voucher/$1&voucher=$1&code=$1"
+    },
+    {
+      "source": "/voucher",
+      "destination": "/api/social-meta?path=/voucher"
+    },
+    {
+      "source": "/vouchers",
+      "destination": "/api/social-meta?path=/voucher"
+    },
+    {
+      "source": "/student/voucher",
+      "destination": "/api/social-meta?path=/voucher"
     },
     {
       "source": "/student/wallet",
@@ -97,24 +109,24 @@
       "destination": "/api/social-meta?path=/student/wallet"
     },
     {
-      "source": "/student/exam/:examId/result/:submissionId",
-      "destination": "/api/social-meta?path=/student/exam/:examId/result/:submissionId&examId=:examId&submissionId=:submissionId"
+      "source": "/student/exam/([^/]+)/result/([^/]+)",
+      "destination": "/api/social-meta?path=/student/exam/$1/result/$2&examId=$1&submissionId=$2"
     },
     {
-      "source": "/parent/exams/:examId/submissions/:submissionId",
-      "destination": "/api/social-meta?path=/parent/exams/:examId/submissions/:submissionId&examId=:examId&submissionId=:submissionId"
+      "source": "/parent/exams/([^/]+)/submissions/([^/]+)",
+      "destination": "/api/social-meta?path=/parent/exams/$1/submissions/$2&examId=$1&submissionId=$2"
     },
     {
-      "source": "/student/exam/:examId",
-      "destination": "/api/exam-meta?examId=:examId"
+      "source": "/student/exam/([^/]+)",
+      "destination": "/api/exam-meta?path=/student/exam/$1&examId=$1"
     },
     {
-      "source": "/exam/:examId",
-      "destination": "/api/exam-meta?examId=:examId"
+      "source": "/exam/([^/]+)",
+      "destination": "/api/exam-meta?path=/exam/$1&examId=$1"
     },
     {
-      "source": "/code-exam/:id",
-      "destination": "/api/social-meta?path=/code-exam/:id&codeExamId=:id"
+      "source": "/code-exam/([^/]+)",
+      "destination": "/api/social-meta?path=/code-exam/$1&codeExamId=$1"
     },
     {
       "source": "/student/journey",

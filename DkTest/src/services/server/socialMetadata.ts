@@ -117,6 +117,7 @@ export function isSocialCrawler(userAgent: string = ""): boolean {
     /Embedly/i,
     /Quora Link Preview/i,
     /outbrain/i,
+    /line-poker/i,
   ];
   return crawlerPatterns.some((pattern) => pattern.test(userAgent));
 }
@@ -743,10 +744,20 @@ export async function resolveSocialMetadataForUrl({
     searchParams.get("code") ||
     searchParams.get("redeem");
 
-  const rawVoucherCode = voucherPathMatch
-    ? voucherPathMatch[1]
-    : (pathname.includes("/wallet") || pathname.includes("/voucher")) && queryVoucherCode
-    ? queryVoucherCode
+  let rawCandidate = voucherPathMatch ? voucherPathMatch[1] : null;
+  if (rawCandidate && /^[:$](?:code|1)$/i.test(rawCandidate.trim())) {
+    rawCandidate = null;
+  }
+
+  let queryCandidate = queryVoucherCode;
+  if (queryCandidate && /^[:$](?:code|1|voucher)$/i.test(queryCandidate.trim())) {
+    queryCandidate = null;
+  }
+
+  const rawVoucherCode = rawCandidate
+    ? rawCandidate
+    : (pathname.includes("/wallet") || pathname.includes("/voucher")) && queryCandidate
+    ? queryCandidate
     : null;
 
   const voucherCode = rawVoucherCode ? safeDecodeURIComponent(rawVoucherCode).trim() : null;
@@ -754,10 +765,21 @@ export async function resolveSocialMetadataForUrl({
   if (voucherCode) {
     const { found, voucher } = await fetchVoucherMetadata(voucherCode);
     const codeUpper = voucherCode.trim().toUpperCase();
+
+    // Preserve any extra query parameters (e.g. ?v=1, ?t=... for Zalo cache-busting)
+    const extraParams = new URLSearchParams();
+    searchParams.forEach((val, key) => {
+      const kLower = key.toLowerCase();
+      if (!["voucher", "code", "redeem", "path", "format"].includes(kLower)) {
+        extraParams.append(key, val);
+      }
+    });
     const canonicalPath = pathname.includes("/voucher")
       ? `/voucher/${encodeURIComponent(codeUpper)}`
       : `/student/wallet?voucher=${encodeURIComponent(codeUpper)}`;
-    const canonicalUrl = `${cleanBaseUrl}${canonicalPath}`;
+    const joiner = canonicalPath.includes("?") ? "&" : "?";
+    const extraQueryStr = extraParams.toString() ? `${joiner}${extraParams.toString()}` : "";
+    const canonicalUrl = `${cleanBaseUrl}${canonicalPath}${extraQueryStr}`;
     const imageUrl = `${cleanBaseUrl}/images/voucher-banner.jpg`;
 
     if (found && voucher) {
@@ -1032,6 +1054,15 @@ export async function resolveSocialMetadataForUrl({
   // Case 5: Dedicated Sub-pages
   if (pathname.includes("/wallet") || pathname.includes("/voucher")) {
     const isVoucherPage = pathname.includes("/voucher");
+    const extraParams = new URLSearchParams();
+    searchParams.forEach((val, key) => {
+      const kLower = key.toLowerCase();
+      if (!["voucher", "code", "redeem", "path", "format"].includes(kLower)) {
+        extraParams.append(key, val);
+      }
+    });
+    const extraQueryStr = extraParams.toString() ? `?${extraParams.toString()}` : "";
+    const canonicalBase = isVoucherPage ? `${cleanBaseUrl}/voucher` : `${cleanBaseUrl}/student/wallet`;
     return {
       contentType: "page",
       title: isVoucherPage
@@ -1040,7 +1071,7 @@ export async function resolveSocialMetadataForUrl({
       description: isVoucherPage
         ? "Nhập mã voucher ưu đãi để nhận quà tặng vào ví hoặc giảm giá mở khóa bài thi trực tuyến trên DkTEST."
         : "Quản lý số dư, nạp tiền nhanh chóng qua QR chuyển khoản hoặc tiền mặt, nhận mã ưu đãi voucher và mở khóa đề thi trên DkTEST.",
-      canonicalUrl: isVoucherPage ? `${cleanBaseUrl}/voucher` : `${cleanBaseUrl}/student/wallet`,
+      canonicalUrl: `${canonicalBase}${extraQueryStr}`,
       imageUrl: `${cleanBaseUrl}/images/voucher-banner.jpg`,
       imageAlt: isVoucherPage ? "Nhập mã Voucher DkTEST" : "Ví điện tử DkTEST",
       imageWidth: 1200,
@@ -1318,6 +1349,7 @@ export function buildSocialMetaTags(meta: SocialMeta): {
   }
 
   tags.push(
+    `<meta property="og:locale" content="vi_VN">`,
     `<meta name="twitter:card" content="summary_large_image">`,
     `<meta name="twitter:title" content="${escapedTitle}">`,
     `<meta name="twitter:description" content="${escapedDescription}">`,

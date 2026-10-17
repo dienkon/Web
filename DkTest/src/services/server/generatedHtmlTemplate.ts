@@ -22,7 +22,13 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
       content="Tạo đề, tổ chức kỳ thi và làm bài trực tuyến với DK TEST."
     />
     <meta property="og:site_name" content="DK TEST" />
-    <meta property="og:image" content="/logo.png" />
+    <meta property="og:url" content="https://dk-test-v3.vercel.app/" />
+    <meta property="og:image" content="https://dk-test-v3.vercel.app/logo.png" />
+    <meta property="og:image:secure_url" content="https://dk-test-v3.vercel.app/logo.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="768" />
+    <meta property="og:image:height" content="768" />
+    <meta property="og:locale" content="vi_VN" />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -31,7 +37,7 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
       name="twitter:description"
       content="Tạo đề, tổ chức kỳ thi và làm bài trực tuyến với DK TEST."
     />
-    <meta name="twitter:image" content="/logo.png" />
+    <meta name="twitter:image" content="https://dk-test-v3.vercel.app/logo.png" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon.png" />

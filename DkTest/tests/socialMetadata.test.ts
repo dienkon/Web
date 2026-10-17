@@ -692,4 +692,90 @@ describe("socialMetadata - Social Preview & Crawler Engine", () => {
       }
     });
   });
+
+  describe("Zalo & Voucher Preview Optimizations", () => {
+    const baseUrl = "https://dk-test-v3.vercel.app";
+
+    it("generates og:locale vi_VN in social meta tags for Vietnamese social networks", () => {
+      const meta: SocialMeta = {
+        contentType: "voucher",
+        title: "🎫 Mã Voucher DKVIP20 | DkTEST",
+        description: "Ưu đãi đặc quyền học sinh",
+        canonicalUrl: "https://dk-test-v3.vercel.app/voucher/DKVIP20",
+        imageUrl: "https://dk-test-v3.vercel.app/images/voucher-banner.jpg",
+        imageAlt: "Voucher DkTEST",
+        imageWidth: 1200,
+        imageHeight: 630,
+        siteName: "DkTEST",
+      };
+
+      const { metaTagsHtml } = buildSocialMetaTags(meta);
+      expect(metaTagsHtml).toContain('<meta property="og:locale" content="vi_VN">');
+      expect(metaTagsHtml).toContain('<meta property="og:type" content="website">');
+      expect(metaTagsHtml).toContain('<meta property="og:image" content="https://dk-test-v3.vercel.app/images/voucher-banner.jpg">');
+      expect(metaTagsHtml).toContain('<meta property="og:url" content="https://dk-test-v3.vercel.app/voucher/DKVIP20">');
+    });
+
+    it("discards literal routing placeholder :code or $1 from URL and falls back gracefully", async () => {
+      const res = await resolveSocialMetadataForUrl({
+        url: "/voucher/:code",
+        baseUrl,
+      });
+
+      expect(res.contentType).toBe("page");
+      expect(res.title).not.toContain(":CODE");
+      expect(res.title).toContain("Nhập Mã Voucher");
+      expect(res.canonicalUrl).toBe("https://dk-test-v3.vercel.app/voucher");
+      expect(res.imageUrl).toBe("https://dk-test-v3.vercel.app/images/voucher-banner.jpg");
+    });
+
+    it("preserves cache-busting query parameter (?v=2 or ?nocache=1) in canonicalUrl for Zalo scrapers", async () => {
+      const res = await resolveSocialMetadataForUrl({
+        url: "/voucher/GIAM50K?v=2",
+        baseUrl,
+      });
+
+      expect(res.contentType).toBe("voucher");
+      expect(res.title).toContain("GIAM50K");
+      expect(res.canonicalUrl).toBe("https://dk-test-v3.vercel.app/voucher/GIAM50K?v=2");
+    });
+
+    it("preserves extra query parameters in /student/wallet?voucher=CODE&nocache=1", async () => {
+      const res = await resolveSocialMetadataForUrl({
+        url: "/student/wallet?voucher=DKVIP&t=12345",
+        baseUrl,
+      });
+
+      expect(res.contentType).toBe("voucher");
+      expect(res.title).toContain("DKVIP");
+      expect(res.canonicalUrl).toBe("https://dk-test-v3.vercel.app/student/wallet?voucher=DKVIP&t=12345");
+    });
+
+    it("detects Zalo user-agents including mobile, desktop, and crawler variants", () => {
+      expect(isSocialCrawler("Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 Zalo/21.08.01")).toBe(true);
+      expect(isSocialCrawler("Mozilla/5.0 (Windows NT 10.0; Win64; x64) ZaloPC-win32-24.1.2")).toBe(true);
+      expect(isSocialCrawler("Mozilla/5.0 (compatible; ZaloBot/1.0; +http://zalo.me/zalobot)")).toBe(true);
+      expect(isSocialCrawler("facebookexternalhit/1.1;line-poker/1.0")).toBe(true);
+      expect(isSocialCrawler("line-poker/1.0")).toBe(true);
+      expect(isSocialCrawler("LinkedInBot/1.0 (compatible; Mozilla/5.0; Apache-HttpClient +http://www.linkedin.com)")).toBe(true);
+      expect(isSocialCrawler("FacebookExternalHit/1.1")).toBe(true);
+    });
+
+    it("resolves /voucher and /student/voucher without code to general promotion page", async () => {
+      const res1 = await resolveSocialMetadataForUrl({
+        url: "/voucher",
+        baseUrl,
+      });
+      expect(res1.contentType).toBe("page");
+      expect(res1.title).toContain("Nhập Mã Voucher");
+      expect(res1.imageUrl).toBe("https://dk-test-v3.vercel.app/images/voucher-banner.jpg");
+
+      const res2 = await resolveSocialMetadataForUrl({
+        url: "/student/voucher",
+        baseUrl,
+      });
+      expect(res2.contentType).toBe("page");
+      expect(res2.title).toContain("Nhập Mã Voucher");
+    });
+  });
 });
