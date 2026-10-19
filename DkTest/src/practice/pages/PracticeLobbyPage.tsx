@@ -308,6 +308,21 @@ export default function PracticeLobbyPage() {
 
       {/* Main Container */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 -mt-6">
+        <button
+          type="button"
+          onClick={() => navigate("/practice/code")}
+          className="relative w-full mb-5 overflow-hidden rounded-2xl border border-lime-300/20 bg-slate-950 p-5 sm:p-6 text-left text-white shadow-lg flex items-center justify-between gap-4 group cursor-pointer"
+        >
+          <div className="flex items-center gap-4">
+            <div className="hidden sm:flex h-12 w-12 items-center justify-center rounded-xl bg-lime-300/10 text-lime-300 border border-lime-300/20"><Code2 className="h-6 w-6" /></div>
+            <div>
+              <span className="text-[10px] tracking-widest uppercase font-bold text-lime-300">Mới · Không gian sáng tạo</span>
+              <h2 className="mt-1 text-lg sm:text-xl font-bold">Code Studio <span className="font-normal text-slate-400">/ IDE ngay trên web</span></h2>
+              <p className="mt-1 text-xs sm:text-sm text-slate-400">HTML, CSS, JS, Python, C++ · Cây thư mục · Preview · Code trên điện thoại · Chia sẻ dự án</p>
+            </div>
+          </div>
+          <span className="shrink-0 flex items-center gap-2 rounded-xl bg-lime-300 px-3 sm:px-4 py-3 text-xs font-bold text-slate-950"><span className="hidden sm:inline">Bắt đầu code</span><ArrowRight className="w-4 h-4" /></span>
+        </button>
         {/* Navigation Tabs (5 workflow entry points) */}
         <div className="flex items-center gap-1.5 overflow-x-auto mb-6 bg-white/95 backdrop-blur-md p-1.5 rounded-2xl border border-slate-200 shadow-xs no-scrollbar">
           <button

@@ -6,10 +6,28 @@ import { analyzeExamPerformance, analyzeStructuredExamPerformance } from "./aiAn
 import { lookupAndTranslate } from "./aiLookup.js";
 import { selectReviewQuestionsWithAi } from "./aiReviewSelector.js";
 import { askAdminAssistant } from "./aiAdminAssistant.js";
+import { generateStudioChanges } from '../../../server/codeStudioAi.js';
 
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } }); // 10MB limit
 
 export const aiRouter = express.Router();
+const studioAiCalls = new Map<string, number>();
+aiRouter.post('/code-studio', async (req, res) => {
+  const ip = req.ip || 'unknown';
+  if ((studioAiCalls.get(ip) || 0) > Date.now() - 2500) return res.status(429).json({ error: 'Vui lòng đợi vài giây trước khi gửi lệnh tiếp.' });
+  if (studioAiCalls.size > 2000) studioAiCalls.clear();
+  studioAiCalls.set(ip, Date.now());
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 55000);
+  const cancel = () => { if (!res.writableEnded) controller.abort(); };
+  res.on('close', cancel);
+  try {
+    const result = await generateStudioChanges(req.body, req.headers['x-gemini-api-key'] as string, controller.signal);
+    if (!controller.signal.aborted) res.json(result);
+  } catch (error: any) {
+    if (!res.headersSent && !res.destroyed) res.status(error.status || (controller.signal.aborted ? 504 : 400)).json({ error: controller.signal.aborted ? 'AI hết thời gian xử lý. Hãy chia yêu cầu thành bước nhỏ hơn.' : error.message || 'Không thể sửa code bằng AI.' });
+  } finally { clearTimeout(timer); res.off('close', cancel); }
+});
 
 // 1. Generate Exam from Word (Streaming SSE)
 aiRouter.post("/generate-exam-stream", upload.single("file"), async (req, res) => {

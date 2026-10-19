@@ -288,6 +288,23 @@ service cloud.firestore {
       allow read, write: if true;
     }
 
+    // Immutable public snapshots: no autosave, editing, view counter or list writes.
+    // Publishing is the only client action allowed to create one document.
+    match /code_studio_shares/{shareId} {
+      allow get: if true;
+      allow list, update, delete: if false;
+      allow create: if shareId.matches('^[a-f0-9]{16}$')
+        && request.resource.data.keys().hasOnly(['version','mode','title','description','imageUrl','payload','createdAt'])
+        && request.resource.data.version == 1
+        && request.resource.data.mode in ['website','website-edit','editor']
+        && request.resource.data.title is string && request.resource.data.title.size() > 0 && request.resource.data.title.size() <= 160
+        && request.resource.data.description is string && request.resource.data.description.size() <= 300
+        && request.resource.data.payload is string && request.resource.data.payload.size() <= 700000
+        && (!('imageUrl' in request.resource.data) || (request.resource.data.imageUrl is string
+          && request.resource.data.imageUrl.size() <= 2048
+          && request.resource.data.imageUrl.matches('^https://res[.]cloudinary[.]com/[A-Za-z0-9_-]+/image/upload/[^ <>]+$')))
+        && request.resource.data.createdAt is string && request.resource.data.createdAt.size() <= 40;
+    }
     // Default deny for anything else
     match /{document=**} {
       allow read, write: if false;

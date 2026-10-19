@@ -66,6 +66,14 @@
   ],
   "rewrites": [
     {
+      "source": "/s/:slug",
+      "destination": "/api/code-studio?slug=:slug"
+    },
+    {
+      "source": "/api/code-studio/:match*",
+      "destination": "/api/code-studio?match=:match*"
+    },
+    {
       "source": "/((?!api/|assets/|images/|favicon|logo).*)",
       "has": [
         {

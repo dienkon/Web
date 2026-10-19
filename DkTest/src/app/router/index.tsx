@@ -62,6 +62,9 @@ const StudentProfile = lazyWithRetry(() => import("../../pages/student/StudentPr
 const Community = lazyWithRetry(() => import("../../pages/student/Community"), "Community");
 const AiTutorPage = lazyWithRetry(() => import("../../pages/student/AiTutorPage"), "AiTutorPage");
 const PracticePage = lazyWithRetry(() => import("../../pages/student/PracticePage"), "PracticePage");
+const CodeStudioPage = lazyWithRetry(() => import("../../practice/code-studio/CodeStudioPage"), "CodeStudioPage");
+const SharedWebsitePage = lazyWithRetry(() => import("../../practice/code-studio/SharedWebsitePage"), "SharedWebsitePage");
+const ShortSharePage = lazyWithRetry(() => import('../../practice/code-studio/ShortSharePage'), 'ShortSharePage');
 const PracticeSessionPage = lazyWithRetry(() => import("../../practice/pages/PracticeSessionPage"), "PracticeSessionPage");
 const StudentTutorialExam = lazyWithRetry(() => import("../../features/student-onboarding/StudentTutorialExam"), "StudentTutorialExam");
 const StudentTutorialResult = lazyWithRetry(() => import("../../features/student-onboarding/StudentTutorialResult"), "StudentTutorialResult");
@@ -72,6 +75,27 @@ const CodeExamTaking = lazyWithRetry(() => import("../../pages/student/CodeExamT
 const NotFoundPage = lazyWithRetry(() => import("../../pages/NotFoundPage"), "NotFoundPage");
 
 const router = createBrowserRouter([
+  { path: '/s/:slug', errorElement: <RouteErrorBoundary />, element: withSuspense(ShortSharePage, 'Đang tải website...') },
+  {
+    path: "/practice/code/view",
+    errorElement: <RouteErrorBoundary />,
+    element: withSuspense(SharedWebsitePage, "Đang mở website..."),
+  },
+  {
+    path: "/student/practice/code/view",
+    errorElement: <RouteErrorBoundary />,
+    element: withSuspense(SharedWebsitePage, "Đang mở website..."),
+  },
+  {
+    path: "/practice/code",
+    errorElement: <RouteErrorBoundary />,
+    element: withSuspense(CodeStudioPage, "Đang mở Code Studio..."),
+  },
+  {
+    path: "/student/practice/code",
+    errorElement: <RouteErrorBoundary />,
+    element: withSuspense(CodeStudioPage, "Đang mở Code Studio..."),
+  },
   {
     path: "/admin/live-monitor/:sessionId",
     errorElement: <RouteErrorBoundary />,

@@ -4,6 +4,7 @@ import { clearActiveExamSession } from "../../services/examSessionService";
 import { getOrCreateStudentFolder } from "../../services/folderService";
 import { sanitizeFirestoreData } from "../../services/learningActivityService";
 import type { ReviewQuestionCandidate } from "./types";
+import type { Question } from "../../types";
 
 export interface BuildReviewExamOptions {
   candidates: ReviewQuestionCandidate[];

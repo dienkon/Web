@@ -1,0 +1,64 @@
+# Code Studio
+
+Open **Luyện tập → Code Studio**, `/practice/code` or `/student/practice/code`.
+The IDE has its own full-screen route so the site navigation does not consume mobile editing space.
+
+- Desktop: Monaco Editor, IntelliSense for web languages, diagnostics, snippets, find, undo/redo and bracket matching.
+- Touch mode: highlighted native textarea, tappable snippets/identifiers, automatic indentation, symbol keyboard and visual-viewport resizing when the phone keyboard opens. Toggle touch mode in Settings.
+- Projects: file/folder tree, nested paths, create/rename/move/delete, tabs, multiple local projects, automatic browser storage, JSON project import/export and individual file download.
+- Upload: **Tải file code lên** accepts multiple UTF-8 programming/config/text files directly, including HTML/CSS/JS/TS/Python/C++/Java/Go/Rust/Vue and ordinary JSON. **Tải thư mục lên** preserves paths below the selected folder. Review the batch, then create a new project or add files into an existing project/folder. Collisions are rejected unless replacement is explicitly selected. Invalid paths, binary/non-UTF-8 files and oversized batches are rejected before changing the project. The JSON backup restore button remains separate. Current limits are 100 files and 1 MB per project.
+- Web preview: HTML with relative CSS/JS, nested CSS imports and local JavaScript ESM imports, explicit HTML entry selection, phone-width preview, optional auto refresh and console forwarding. No bundler, npm resolution or TypeScript transpilation is included.
+- Self-contained HTML: embedded `<style>`, `style` attributes, classic/inline module `<script>` and event handlers stay in the document and run in preview/shared website mode. Embedded styles can import local CSS too. Running a selected HTML tab uses that file as the preview entry, even when the project contains another HTML page. Uploading a standalone HTML creates an HTML-only project by default; it does not require separate CSS/JS files.
+- Python: Pyodide in a worker, STDIN, project-local Python imports.
+- C/C++: JSCPP interpreter for basic teaching exercises, STDIN and local quoted header includes. Not a GCC/Clang toolchain; advanced STL/C++ standards are unsupported.
+- JavaScript-only projects: asynchronous console execution in a worker; `prompt()` reads the prepared STDIN lines. DOM code belongs in a web project.
+- Prettier: HTML, CSS, JS, TS, JSON and Markdown, with optional formatting after typing. Python/C++ indentation is preserved.
+
+## Workspace controls
+
+- Drag a file or folder using its grip (`⋮`) into another folder; drop on the project heading, empty tree space or the root drop zone to move it to the root. Touch/pen uses the same grips without hijacking normal tree scrolling. Dragging near tree edges scrolls the list. Escape cancels a drag. Moving a folder moves its entire subtree, preserves file content and active/entry pointers, retains empty source folders and rejects collisions or moving into descendants. Relative imports/HTML links are not automatically rewritten after moves.
+- The item menu also offers **Di chuyển tới thư mục…**; press Enter/Space on a grip for the keyboard equivalent. Select a folder, then use the file/folder buttons to create inside it; each folder menu supports creating both files and subfolders.
+- Preview can dock right or below the editor, or become a floating window. Drag split separators to resize docked panes; use arrow keys when a separator is focused. Floating previews can be dragged by the header grip, resized from the bottom corner, minimized and maximized. The grip/corner also accepts arrow keys. Pane changes keep the same iframe, preserving website interaction state. Mobile starts with a compact floating size and keeps the editor visible behind it; viewport changes constrain the window to the available screen.
+- Console includes optional local-clock timestamps and completion details: execution duration (worker-measured, excluding runtime loading) and total elapsed time (including setup). Error, cancellation, initialization timeout and execution timeout are distinct. Web previews report readiness time on page load. C++ output fragments are buffered into readable lines, and Python/JS retain line breaks; bounded output is flushed before completion/errors.
+- Monaco skips the touch-highlighting work, and editor renders are memoized so dragging panes, moving the cursor and console updates do not redo syntax highlighting. Auto-preview responds to source/entry changes, not merely switching tabs.
+
+## Sharing and persistence
+
+New shares use short immutable links such as `/s/trang-web-cua-ban.0123456789abcdef` with three modes:
+
+- **Chỉ website**: immediately opens the interactive website, without IDE or editing controls. Only rendered HTML and required local assets are included. Browser-delivered HTML/CSS/JS remains inspectable with developer tools.
+- **Website + cho sửa**: opens the website with an option to edit an independent local copy.
+- **Dự án / IDE**: opens an independent editable local copy without automatically executing it.
+
+Editing, project management, AI requests, opening the share dialog, capturing a cover and reading a shared link do **not** write to Firebase. Only **Tạo link chia sẻ & sao chép** calls `POST /api/code-studio/shares` and creates one immutable Firestore document (after an optional Cloudinary cover upload). Continuing to edit does not update existing shares. Local project deletion does not revoke a published link. Legacy fragment links are still readable.
+
+The dialog extracts `<title>` and meta description from the entry HTML. A preview cover is optional: publish immediately without one, or capture/select an image and remove it with **Bỏ ảnh**. Image processing remains local until explicit publishing. On publish, a selected/captured JPEG uploads to Cloudinary using the existing cloud name and unsigned preset in `src/services/cloudinary.ts`; Firebase stores only the returned HTTPS `imageUrl`. Failed uploads can be retried or skipped by removing the image. A successful upload is reused if Firebase publication needs a retry while the dialog remains open. Capture first executes the page in an opaque sandbox, then renders a static script-disabled snapshot using pinned html2canvas 1.4.1. Cross-origin images require CORS; canvas/video, WebGL and complex CSS may need a custom cover. No user code executes in the application origin. JPEG covers are 1200 × 630. `/s/:slug` serves title, description and OpenGraph/Twitter image metadata directly in server HTML so crawlers need no JavaScript. `og:image` points directly to Cloudinary when a cover exists; no image metadata is emitted without one. `/api/code-studio/shares/:id/image.jpg` still serves legacy stored JPEG covers and redirects new ones to Cloudinary. Both these routes and the JSON read route only read Firebase.
+
+Firebase setup: either configure valid `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY` on the server, or apply the checked-in `firestore.rules` collection rule for `code_studio_shares` and configure the existing Firebase REST project/API key. Rules permit public single-document reads and immutable creates, deny list/update/delete, and constrain field sizes. Rule changes are not deployed by the application. Until credentials or rules permit access, publication returns an explicit configuration error without inventing a URL. Anonymous public publishing uses a lightweight per-process cooldown; production-wide quotas/abuse controls require infrastructure configuration.
+
+Up to 20 local projects, 100 files and 100 explicit folders per project, 1 MB per local project. Cloud source payload limit is 700 KB; optional Cloudinary image URLs are bounded to 2048 characters. New shares never store image bytes in Firestore. Legacy JPEG snapshots remain readable. Storage/quota errors are visible; export remains available. Corrupt existing storage is preserved instead of silently overwritten.
+
+## Mobile editing, projects and AI
+
+Mobile always keeps physical code lines unwrapped with horizontal scrolling. Textarea, syntax layer and gutter share identical line metrics and scroll offsets. HTML tags auto-close on typing `>` (excluding void/self-closing tags, comments and raw script/style text); Enter between a tag pair inserts an indented blank line. Desktop uses Monaco plus the same HTML closing guard.
+
+**Quản lý dự án** searches, opens, renames, duplicates, exports and deletes local projects. Delete requires confirmation and never deletes published snapshots.
+
+**AI lập trình** uses exactly `gemini-3.5-flash-lite` through `POST /api/ai/code-studio`. Set server-only `GEMINI_API_KEY`, or enter a personal key in the AI panel (the existing device-local key preference). A request sends the current project only after explicit submit; it does not write Firebase. Structured responses apply complete changed files atomically, reject invalid paths, and detect files edited while the request was running. One-step undo is available until subsequent file changes would make restoration unsafe. Stop/timeout never applies a late response. Provider access, model availability and billing depend on the supplied Gemini key; no live paid model request is part of automated verification.
+
+## Runtime isolation and downloads
+
+Preview and runtime frames use `sandbox="allow-scripts"` without `allow-same-origin`. Runtime workers are created inside an opaque frame, not in the application's origin. CSP prevents application API access from programs. Preview permits public JavaScript from cdn.tailwindcss.com, cdn.jsdelivr.net and cdnjs.cloudflare.com, CSS from those hosts and fonts.googleapis.com, and font files from fonts.gstatic.com/jsDelivr/cdnjs. Application-origin scripts and API connections remain blocked. Static cover capture permits the same CSS/fonts with scripts disabled. Website-only snapshots receive the current preview policy on read, including old fragment/cloud links, without modifying the stored snapshot. Preview messages must match the current frame and per-run token. Runtime initialization times out after 90 seconds, execution after 10 seconds, and the Stop button tears down the frame/worker. Output is bounded.
+
+No package installation or backend compiler is required. Pinned Monaco 0.52.2, html2canvas 1.4.1 and Prettier 3.6.2 load from jsDelivr on demand; Python uses Pyodide 0.27.7; JSCPP uses upstream commit `76e3534f04abf9c2547aa73ddca275e8935bed38`. These features require CDN connectivity. The Prism touch editor is bundled and remains available when Monaco cannot load.
+
+## Verification
+
+`npm run lint`, `npm test`, `npm run build`.
+`tests/codeStudio.test.ts` covers project validation, Unicode sharing, independent copies, path traversal, collisions, limits, rename propagation, language detection and local ESM path rewriting.
+`tests/codeStudioWorkspace.test.ts` covers file/folder moves, empty parent preservation, collision/descendant rejection, viewport bounds, duration formatting and execution of the worker with async timing, buffered C++ output and errors.
+`tests/codeStudioImport.test.ts` covers standalone HTML source preservation, multiple language/config uploads, directory structure, entry selection, UTF-8/binary/path/size validation and atomic collision/replacement handling.
+
+Browser smoke checks: desktop editor and Prettier, interactive HTML/CSS/JS preview and console, cross-origin storage isolation, C++/Python/JS execution with STDIN, mobile tree/suggestions/preview, and opening an editable shared copy without executing it. Workspace checks include actual mouse/touch dragging, nested creation, collision/cancellation, move dialog, both split resize directions, floating drag/resize, minimize/maximize without iframe remount, runtime timing/error/stop, and mobile overflow checks.
+
+`tests/codeStudioEditingAi.test.ts` covers HTML editing, AI response validation, conflict-safe application and exact provider model selection. `tests/codeStudioCloud.test.ts` verifies immutable publish, read-only viewing, failure handling, metadata escaping and payload validation using a mocked Firebase transport.

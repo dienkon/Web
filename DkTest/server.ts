@@ -17,6 +17,7 @@ import { authRouter } from "./server/routes/authRoutes.js";
 import { walletRouter } from "./server/routes/walletRoutes.js";
 import { webImporterRouter } from "./server/routes/webImporterRoutes.js";
 import { initFirebaseAdmin } from "./server/firebaseAdmin.js";
+import { codeStudioRouter, handleStudioSharePage } from './server/routes/codeStudioRoutes.js';
 
 async function startServer() {
   const app = express();
@@ -38,6 +39,8 @@ async function startServer() {
   });
 
   app.use(express.json({ limit: "50mb" }));
+  app.use('/api/code-studio', codeStudioRouter);
+  app.get('/s/:slug', handleStudioSharePage);
 
   // API routes FIRST
   app.get("/api/health", (req, res) => {
