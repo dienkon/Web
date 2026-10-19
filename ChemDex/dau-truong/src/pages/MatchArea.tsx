@@ -11,6 +11,13 @@ import CompoundNameGame from '../features/gameplay/CompoundNameGame';
 import ElementQuizGame from '../features/gameplay/ElementQuizGame';
 
 import OxidationStateGame from '../features/gameplay/OxidationStateGame';
+import { NumericGame } from '../features/gameplay/NumericGame';
+import { ChoiceGame } from '../features/gameplay/ChoiceGame';
+import { validateGameAnswer } from '../games/registry';
+import { getModeInfo } from '../data/modes';
+import { submitPlayerAnswer } from '../features/gameplay/scoring';
+import { calculateBreakDuration } from '../config/gameConfig';
+import { recordWrongAnswer, getWrongQuestions, analyzeWeakPoints } from '../features/learning/wrongQuestionTracker';
 import ChemText, { formatBalancedEquation } from '../components/common/ChemText';
 import { doc, updateDoc, addDoc, collection } from 'firebase/firestore';
 import { db } from '../services/firebase';
@@ -40,7 +47,10 @@ export default function MatchArea() {
     if (currentRoom?.status === 'roundBreak' && profile?.uid) {
       const round = currentRoom.currentRound;
       const myPlayer = currentRoom.players?.[profile.uid];
-      const ans = myPlayer?.lastAnswer || '(Bỏ trống)';
+      const rawAns = myPlayer?.lastAnswer;
+      const ans = rawAns !== undefined && rawAns !== null
+        ? (Array.isArray(rawAns) ? rawAns.join(' : ') : String(rawAns))
+        : '(Bỏ trống)';
       const corr = !!myPlayer?.lastAnswerCorrect;
 
       setRoundsHistory(prev => {
@@ -84,10 +94,12 @@ export default function MatchArea() {
             setStarted(true);
             if (currentRoom.hostId === profile?.uid) {
               const roomRef = doc(db, 'rooms', currentRoom.id);
+              const q0 = currentRoom.questions?.[0];
+              const qTime = q0?.timeLimitSec !== undefined ? q0.timeLimitSec : 45;
               updateDoc(roomRef, {
                 status: 'roundActive',
                 currentRound: 1,
-                roundEndTime: Date.now() + (currentRoom.questions[0]?.timeLimitSec || 20) * 1000
+                roundEndTime: qTime === 0 ? 0 : Date.now() + qTime * 1000
               }).catch(console.error);
             }
             return 0;
@@ -245,12 +257,54 @@ export default function MatchArea() {
       updateDoc(roomRef, { status: 'matchEnd' });
     } else {
       const nextQ = currentRoom.questions?.[currentRoom.currentRound];
+      const qTime = nextQ?.timeLimitSec !== undefined ? nextQ.timeLimitSec : 45;
       updateDoc(roomRef, {
         status: 'roundActive',
         currentRound: currentRoom.currentRound + 1,
-        roundEndTime: Date.now() + (nextQ?.timeLimitSec || 20) * 1000
+        roundEndTime: qTime === 0 ? 0 : Date.now() + qTime * 1000
       });
     }
+  };
+
+  const myPlayer = currentRoom.players?.[profile?.uid || ""];
+  const hasSubmitted = myPlayer?.submittedRound === currentRoom.currentRound;
+
+  const handleGenericSubmit = async (answer: string) => {
+    if (!profile || !currentRoom || !currentQuestion || hasSubmitted) return;
+    const { isCorrect, isPartialRatio } = validateGameAnswer(activeMode, currentQuestion, answer);
+
+    if (isCorrect) {
+      playCorrectSound();
+    } else {
+      playIncorrectSound();
+      recordWrongAnswer({
+        mode: activeMode,
+        difficulty: currentQuestion.difficulty || currentRoom.difficulty,
+        grade: currentQuestion.grade || 8,
+        chapter: currentQuestion.chapter || 'Kiến thức tổng hợp',
+        equation: currentQuestion.equation,
+        explanation: currentQuestion.explanation,
+        acceptedAnswers: currentQuestion.acceptedAnswers || [String((currentQuestion as any).correctValue || '')],
+      }, answer);
+    }
+
+    const roomRef = doc(db, 'rooms', currentRoom.id);
+    const evalRes = await submitPlayerAnswer(
+      currentRoom.id,
+      profile.uid,
+      currentRoom,
+      answer,
+      isCorrect,
+      isPartialRatio
+    );
+
+    await updateDoc(roomRef, {
+      [`players.${profile.uid}.score`]: evalRes.newTotalScore,
+      [`players.${profile.uid}.streak`]: evalRes.newStreak,
+      [`players.${profile.uid}.submittedRound`]: currentRoom.currentRound,
+      [`players.${profile.uid}.lastAnswerCorrect`]: isCorrect,
+      [`players.${profile.uid}.lastAnswer`]: answer || '(Bỏ trống)',
+    });
   };
 
   return (
@@ -382,6 +436,34 @@ export default function MatchArea() {
                     <OxidationStateGame question={currentQuestion} />
                   </div>
                 )}
+
+                {['mol_calc', 'math_algebra', 'physics_calc', 'unit_convert'].includes(activeMode) && (
+                  <div
+                    key={`${currentRoom.id}-${currentRoom.currentRound}`}
+                    className="w-full flex justify-center"
+                  >
+                    <NumericGame
+                      question={currentQuestion}
+                      onSubmit={handleGenericSubmit}
+                      disabled={hasSubmitted}
+                      fontSize={fontSize}
+                    />
+                  </div>
+                )}
+
+                {['science_mcq', 'substance_match'].includes(activeMode) && (
+                  <div
+                    key={`${currentRoom.id}-${currentRoom.currentRound}`}
+                    className="w-full flex justify-center"
+                  >
+                    <ChoiceGame
+                      question={currentQuestion}
+                      onSubmit={handleGenericSubmit}
+                      disabled={hasSubmitted}
+                      fontSize={fontSize}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -426,7 +508,7 @@ function BreakScreen({
   isHost: boolean;
   onNext: () => void;
 }) {
-  const [breakTimer, setBreakTimer] = useState(6);
+  const [breakTimer, setBreakTimer] = useState(() => calculateBreakDuration(currentQuestion?.explanation));
   const wasCorrect = myPlayer?.lastAnswerCorrect;
   const myAnswer = myPlayer?.lastAnswer;
   const activeBreakMode = currentQuestion?.mode || currentRoom?.mode;
@@ -465,7 +547,7 @@ function BreakScreen({
               🎉 CHÍNH XÁC! Trả lời đúng
             </h3>
             <p className="text-slate-600 dark:text-slate-300 text-sm">
-              <strong className="text-slate-900 dark:text-white">Khẳng định:</strong> Kết quả hoàn toàn khớp với danh pháp và nguyên lý Hóa Học IUPAC.
+              <strong className="text-slate-900 dark:text-white">Khẳng định:</strong> Kết quả hoàn toàn khớp với đáp án chuẩn và nguyên lý khoa học.
             </p>
           </div>
         </div>
@@ -477,7 +559,7 @@ function BreakScreen({
               ❌ CHƯA CHÍNH XÁC! (Đã nộp: &quot;{myAnswer || 'Chưa kịp nộp'}&quot;)
             </h3>
             <p className="text-slate-600 dark:text-slate-300 text-sm">
-              <strong className="text-slate-900 dark:text-white">Khẳng định:</strong> Đáp án của bạn chưa đúng. Cần hiệu chỉnh lại theo danh pháp và kết quả chuẩn dưới đây:
+              <strong className="text-slate-900 dark:text-white">Khẳng định:</strong> Đáp án của bạn chưa đúng. Cần hiệu chỉnh lại theo kết quả chuẩn dưới đây:
             </p>
           </div>
         </div>
@@ -552,6 +634,26 @@ function BreakScreen({
               <ChemText text={currentQuestion?.equation || ''} className="text-slate-700 dark:text-slate-200" />
             </div>
           </div>
+        ) : ['mol_calc', 'math_algebra', 'physics_calc', 'unit_convert'].includes(activeBreakMode) ? (
+          <div>
+            <div className="text-2xl md:text-3xl text-cyan-300 font-black mb-1">
+              {currentQuestion?.correctValue !== undefined ? `${currentQuestion.correctValue} ${currentQuestion.unit || ''}` : (currentQuestion?.acceptedAnswers?.[0] || '')}
+            </div>
+            {currentQuestion?.equation && (
+              <div className="text-xs text-slate-500 dark:text-slate-400 font-mono flex items-center gap-2 mt-1">
+                <span>Câu hỏi/Bài toán:</span>
+                <ChemText text={currentQuestion.equation} className="text-slate-700 dark:text-slate-200" />
+              </div>
+            )}
+          </div>
+        ) : ['science_mcq', 'substance_match'].includes(activeBreakMode) ? (
+          <div>
+            <div className="text-xl md:text-2xl text-emerald-400 font-black mb-1">
+              {currentQuestion?.options && currentQuestion?.correctIndex !== undefined
+                ? `${['A', 'B', 'C', 'D'][currentQuestion.correctIndex]}. ${currentQuestion.options[currentQuestion.correctIndex]}`
+                : (currentQuestion?.acceptedAnswers?.[0] || '')}
+            </div>
+          </div>
         ) : (
           <div className="text-2xl md:text-3xl text-cyan-300 font-black mb-4">
             <ChemText text={String(currentQuestion?.equation || '')} className="text-2xl md:text-3xl" />
@@ -585,11 +687,22 @@ function BreakScreen({
 }
 
 function Timer({ roundEndTime, onTimeUp }: { roundEndTime?: number; onTimeUp: () => void }) {
+  if (roundEndTime === 0) {
+    return (
+      <div className="flex justify-center">
+        <div className="text-sm md:text-base font-extrabold px-6 py-2 rounded-xl bg-white dark:bg-slate-900 border border-emerald-500/40 text-emerald-500 dark:text-emerald-400 flex items-center gap-2 shadow-xs">
+          <span>⏱️</span>
+          <span>∞ Không giới hạn thời gian (Luyện tập)</span>
+        </div>
+      </div>
+    );
+  }
+
   const [timeLeft, setTimeLeft] = useState(0);
   const timeUpFired = useRef(false);
 
   useEffect(() => {
-    if (!roundEndTime) return;
+    if (!roundEndTime || roundEndTime === 0) return;
     timeUpFired.current = false;
 
     const tick = () => {
@@ -600,6 +713,11 @@ function Timer({ roundEndTime, onTimeUp }: { roundEndTime?: number; onTimeUp: ()
       // Play clock tick countdown sound when time is short
       if (remaining <= 5 && remaining > 0) {
         playTickSound();
+        if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+          try {
+            navigator.vibrate(50);
+          } catch (_) {}
+        }
       }
 
       if (remaining <= 0 && !timeUpFired.current) {
@@ -613,23 +731,24 @@ function Timer({ roundEndTime, onTimeUp }: { roundEndTime?: number; onTimeUp: ()
     return () => clearInterval(t);
   }, [roundEndTime]);
 
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+  const timeStr = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
   return (
     <div className="flex justify-center">
       <div className={`text-3xl md:text-4xl font-black tabular-nums transition-colors px-6 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 ${timeLeft <= 5 ? 'text-red-500 animate-pulse border-red-500/50' : 'text-cyan-400'}`}>
-        ⏱️ 00:{timeLeft.toString().padStart(2, '0')}
+        ⏱️ {timeStr}
       </div>
     </div>
   );
 }
 
 function getModeLabel(mode: string): string {
-  switch (mode) {
-    case 'balance': return 'Cân Bằng Phản Ứng';
-    case 'fill_blank': return 'Điền Khuyết Phản Ứng';
-    case 'compound_name': return 'Gọi Tên Chất IUPAC';
-    case 'element_quiz': return 'Đoán Nguyên Tố';
-    case 'oxidation_state': return 'Số Oxi Hóa';
-    default: return mode;
+  try {
+    return getModeInfo(mode as any).name || mode;
+  } catch {
+    return mode;
   }
 }
 
@@ -691,6 +810,19 @@ function MatchEndPodium({
         <Trophy className="text-yellow-400 w-16 h-16 mx-auto mb-2 animate-bounce" />
         <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white uppercase tracking-tight">KẾT THÚC TRẬN ĐẤU!</h2>
         <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Bảng xếp hạng vinh danh chiến thắng cuối cùng:</p>
+        {!showOthers && (
+          <button
+            onClick={() => {
+              setShowTop1(true);
+              setShowTop2(true);
+              setShowTop3(true);
+              setShowOthers(true);
+            }}
+            className="mt-2 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-cyan-400 transition-colors cursor-pointer inline-flex items-center gap-1"
+          >
+            <span>⏩ Bỏ qua hoạt ảnh</span>
+          </button>
+        )}
       </div>
 
       {/* Graphical 3D Podium Row */}
@@ -841,6 +973,31 @@ function MatchEndPodium({
                   </div>
                 ))}
               </div>
+            </div>
+          )}
+
+          {/* Weak points recommendation */}
+          {analyzeWeakPoints().length > 0 && (
+            <div className="w-full max-w-lg bg-amber-500/10 border border-amber-500/30 rounded-xl p-4 mb-6 text-left">
+              <div className="flex items-center gap-2 text-amber-400 font-bold text-sm mb-2">
+                <Award size={16} />
+                <span>Gợi ý học tập & Chẩn đoán điểm yếu sau trận:</span>
+              </div>
+              <div className="space-y-1 text-xs text-slate-600 dark:text-slate-300">
+                {analyzeWeakPoints().slice(0, 3).map((w, idx) => (
+                  <div key={idx} className="flex items-center justify-between py-1 border-b border-amber-500/10 last:border-0">
+                    <span className="font-medium text-slate-700 dark:text-slate-200">{w.chapter}</span>
+                    <span className="text-red-500 dark:text-red-400 font-bold">{w.count} câu sai</span>
+                  </div>
+                ))}
+              </div>
+              <button
+                onClick={() => navigate('/mistakes')}
+                className="mt-3 w-full bg-amber-500/20 hover:bg-amber-500/30 text-amber-600 dark:text-amber-300 font-bold text-xs py-2 rounded-lg transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+              >
+                <span>Mở Sổ Tay Câu Sai để ôn luyện ngay</span>
+                <ArrowRight size={14} />
+              </button>
             </div>
           )}
 

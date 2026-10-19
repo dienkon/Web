@@ -1,5 +1,5 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Home, Play, Plus, Users, Target, Trophy, History, User, Settings, HelpCircle, LogOut, X, ChevronLeft, ChevronRight, Atom, Shield, Swords, MessageSquare, Grid, BookOpen, Wrench, FlaskConical } from 'lucide-react';
+import { Home, Play, Plus, Users, Target, Trophy, History, User, Settings, HelpCircle, LogOut, X, ChevronLeft, ChevronRight, Atom, Shield, Swords, MessageSquare, Grid, BookOpen, Wrench, FlaskConical, Flame, GraduationCap } from 'lucide-react';
 import { useAuthStore } from '../../store/useAuthStore';
 import { logout } from '../../services/firebase';
 
@@ -25,6 +25,9 @@ export default function Sidebar({ isOpen, setIsOpen, isCollapsed, setIsCollapsed
     { name: 'Tạo phòng', icon: Plus, path: '/create-room' },
     { name: 'Ghép phòng', icon: Users, path: '/join' },
     { name: 'Luyện tập', icon: Target, path: '/practice' },
+    { name: 'Thử thách ngày', icon: Flame, path: '/daily' },
+    { name: 'Sổ tay câu sai', icon: BookOpen, path: '/mistakes' },
+    { name: 'Ôn chuyên đề', icon: GraduationCap, path: '/chapters' },
     { name: 'BXH', icon: Trophy, path: '/leaderboard' },
     { name: 'Lịch sử đấu', icon: History, path: '/history' },
     { name: 'Hồ sơ', icon: User, path: '/profile' },

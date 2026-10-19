@@ -165,8 +165,7 @@ export default function FloatingChat() {
     <motion.div 
       drag 
       dragMomentum={false}
-      className="fixed bottom-6 right-6 z-40 select-none"
-      style={{ touchAction: 'none' }}
+      className="fixed bottom-6 right-6 z-40 select-none touch-none"
     >
       <AnimatePresence>
         {isOpen && (

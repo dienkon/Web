@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuthStore } from '../store/useAuthStore';
 import { useRoomStore, GameMode, Difficulty } from '../store/useRoomStore';
 import { useToastStore } from '../store/useToastStore';
-import { Beaker, Settings, Users, Swords } from 'lucide-react';
+import { Beaker, Settings, Users, Swords, Clock } from 'lucide-react';
+import { ALL_GAME_MODES } from '../data/modes';
 
 export default function RoomCreator() {
   const { profile } = useAuthStore();
@@ -77,29 +78,29 @@ export default function RoomCreator() {
               Chọn Minigame
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {[
-                { id: 'balance', name: 'Cân Bằng', desc: 'Hệ số phương trình' },
-                { id: 'fill_blank', name: 'Điền Khuyết', desc: 'Chất bị thiếu' },
-                { id: 'compound_name', name: 'Gọi Tên Chất', desc: 'Tên IUPAC/Tiếng Việt' },
-                { id: 'element_quiz', name: 'Đoán Nguyên Tố', desc: 'Sử dụng manh mối Z, vị trí' },
-                { id: 'oxidation_state', name: 'Số Oxi Hóa', desc: 'Số oxi hóa nguyên tố' },
-                { id: 'mixed', name: 'Hỗn Hợp', desc: 'Ngẫu nhiên các chế độ' },
-                { id: 'ranked_mixed', name: 'Đấu Xếp Hạng', desc: 'Leo rank (15 màn, Hỗn hợp)' },
-              ].map(g => (
+              {ALL_GAME_MODES.map(g => (
                 <button
                   key={g.id}
                   type="button"
                   onClick={() => setMode(g.id as GameMode)}
-                  className={`p-5 rounded-2xl border text-left transition-all ${
+                  className={`p-4 rounded-2xl border text-left transition-all ${
                     mode === g.id 
                       ? (g.id === 'ranked_mixed' ? 'border-amber-500 bg-amber-500/10 shadow-[0_0_15px_rgba(245,158,11,0.2)]' : 'border-cyan-500 bg-cyan-500/10 shadow-[0_0_15px_rgba(34,211,238,0.15)]') 
                       : (g.id === 'ranked_mixed' ? 'border-amber-200/50 dark:border-amber-900/30 bg-amber-50/50 dark:bg-amber-900/10 hover:border-amber-300 hover:bg-amber-100/50 dark:hover:border-amber-700' : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 bg-slate-100/40 dark:bg-slate-800/40 hover:bg-slate-100 dark:hover:bg-slate-800')
                   }`}
                 >
-                  <div className={`font-bold text-lg mb-1 ${mode === g.id ? (g.id === 'ranked_mixed' ? 'text-amber-500' : 'text-cyan-400') : (g.id === 'ranked_mixed' ? 'text-amber-600 dark:text-amber-400' : 'text-slate-700 dark:text-slate-200')}`}>
-                    {g.name}
+                  <div className="flex items-center justify-between mb-1">
+                    <span className={`font-bold text-base ${mode === g.id ? (g.id === 'ranked_mixed' ? 'text-amber-500' : 'text-cyan-400') : (g.id === 'ranked_mixed' ? 'text-amber-600 dark:text-amber-400' : 'text-slate-800 dark:text-slate-100')}`}>
+                      {g.name}
+                    </span>
+                    {g.isNew && (
+                      <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500 text-white uppercase">
+                        Mới
+                      </span>
+                    )}
                   </div>
-                  <div className="text-xs text-slate-500">{g.desc}</div>
+                  <div className="text-xs text-slate-500 line-clamp-1">{g.description}</div>
+                  <div className="text-[11px] font-semibold text-cyan-600 dark:text-cyan-400 mt-1">{g.subjectName} • {g.gradeText}</div>
                 </button>
               ))}
             </div>
@@ -203,6 +204,22 @@ export default function RoomCreator() {
               >
                 +
               </button>
+            </div>
+          </div>
+
+          {/* Room Time Limit Rule Info Banner */}
+          <div className="bg-cyan-500/10 border border-cyan-500/20 rounded-2xl p-4 flex items-start gap-3.5">
+            <Clock size={20} className="text-cyan-400 shrink-0 mt-0.5" />
+            <div className="space-y-1">
+              <div className="text-xs font-bold uppercase tracking-wider text-cyan-600 dark:text-cyan-300">
+                Quy định thời gian phòng ghép đấu
+              </div>
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                Thời gian mỗi câu được tự động tính toán theo mức độ khó của câu hỏi (<strong>Tối thiểu 45 giây — Tối đa 2 phút / 120s</strong>). Câu hỏi dễ có 45s - 50s, trung bình 60s - 75s, câu khó 90s - 120s giúp các đấu thủ có đủ thời gian cân bằng và suy luận logic.
+              </p>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                💡 <em>Lưu ý: Tùy chỉnh thời gian thi đấu tự do hoặc không giới hạn thời gian chỉ áp dụng trong chế độ <Link to="/practice" className="text-cyan-500 underline font-semibold hover:text-cyan-400">Luyện Tập Solo</Link>.</em>
+              </p>
             </div>
           </div>
         </div>

@@ -2,9 +2,83 @@ import { create } from 'zustand';
 import { db } from '../services/firebase';
 import { doc, setDoc, onSnapshot, updateDoc, arrayUnion, serverTimestamp, getDoc, deleteDoc, deleteField } from 'firebase/firestore';
 
-export type GameMode = 'balance' | 'fill_blank' | 'compound_name' | 'element_quiz' | 'mixed' | 'oxidation_state' | 'ranked_mixed';
+export type GameMode =
+  | 'balance'
+  | 'fill_blank'
+  | 'compound_name'
+  | 'element_quiz'
+  | 'mixed'
+  | 'oxidation_state'
+  | 'ranked_mixed'
+  | 'mol_calc'
+  | 'math_algebra'
+  | 'physics_calc'
+  | 'unit_convert'
+  | 'science_mcq'
+  | 'substance_match'
+  | 'stem_mixed';
 export type Difficulty = 'easy' | 'medium' | 'hard' | 'random';
 export type RoomStatus = 'lobby' | 'preparing' | 'roundActive' | 'roundReveal' | 'roundBreak' | 'matchEnd';
+
+export type PlayerAnswer = string | number | (string | number)[] | null;
+
+export interface BaseQuestion {
+  id?: string;
+  mode?: GameMode;
+  difficulty?: Difficulty;
+  equation: string;
+  explanation: string;
+  timeLimitSec?: number;
+  grade?: number;
+  chapter?: string;
+  tags?: string[];
+  hint?: string;
+}
+
+export interface BalanceQuestion extends BaseQuestion {
+  answers: number[];
+  acceptedAnswers: string[];
+}
+
+export interface FillBlankQuestion extends BaseQuestion {
+  acceptedAnswers: string[];
+}
+
+export interface CompoundNameQuestion extends BaseQuestion {
+  acceptedAnswers: string[];
+}
+
+export interface ElementQuizQuestion extends BaseQuestion {
+  acceptedAnswers: string[];
+}
+
+export interface OxidationStateQuestion extends BaseQuestion {
+  answers?: number[];
+  acceptedAnswers: string[];
+}
+
+export interface NumericQuestion extends BaseQuestion {
+  correctValue?: number | string;
+  acceptedAnswers: (string | number)[];
+  unit?: string;
+  tolerance?: number;
+}
+
+export interface ChoiceQuestion extends BaseQuestion {
+  options?: string[];
+  correctIndex?: number;
+  acceptedAnswers: string[];
+}
+
+export type Question =
+  | BalanceQuestion
+  | FillBlankQuestion
+  | CompoundNameQuestion
+  | ElementQuizQuestion
+  | OxidationStateQuestion
+  | NumericQuestion
+  | ChoiceQuestion
+  | (BaseQuestion & { answers?: any[]; acceptedAnswers?: any[]; [key: string]: any });
 
 export interface Player {
   uid: string;
@@ -16,7 +90,7 @@ export interface Player {
   streak: number;
   submittedRound?: number;
   lastAnswerCorrect?: boolean;
-  lastAnswer?: any;
+  lastAnswer?: PlayerAnswer;
   equippedTitle?: string;
 }
 
@@ -31,10 +105,11 @@ export interface Room {
   status: RoomStatus;
   players: Record<string, Player>;
   createdAt: any;
-  questions: any[];
+  questions: Question[];
   messages?: any[];
   roundEndTime?: number;
   isRanked?: boolean;
+  customTimeLimitSec?: number;
 }
 
 interface RoomState {
@@ -79,6 +154,7 @@ export const useRoomStore = create<RoomState>((set, get) => ({
         totalRounds: params.totalRounds,
         status: 'lobby',
         isRanked: params.isRanked || false,
+        customTimeLimitSec: params.customTimeLimitSec !== undefined ? params.customTimeLimitSec : undefined,
         players: {
           [hostId]: {
             uid: hostId,
@@ -283,13 +359,18 @@ export const useRoomStore = create<RoomState>((set, get) => ({
     // Request questions from Backend
     try {
       set({ loading: true });
-      const res = await fetch('/api/generate-questions', {
+      const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+      const res = await fetch(`${baseUrl}api/generate-questions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           mode: currentRoom.mode,
           difficulty: currentRoom.difficulty,
-          count: currentRoom.totalRounds
+          count: currentRoom.totalRounds,
+          safe: currentRoom.maxPlayers > 1,
+          roomId: roomId,
+          customTimeLimitSec: currentRoom.customTimeLimitSec,
+          isPractice: currentRoom.maxPlayers === 1
         })
       });
       

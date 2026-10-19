@@ -24,6 +24,9 @@ import Settings from './pages/Settings';
 import Help from './pages/Help';
 import Terms from './pages/Terms';
 import History from './pages/History';
+import DailyChallenge from './pages/DailyChallenge';
+import MistakeNotebook from './pages/MistakeNotebook';
+import ChapterReview from './pages/ChapterReview';
 import ToastContainer from './components/ToastContainer';
 
 function AutoReconnect() {
@@ -94,7 +97,7 @@ export default function App() {
   }
 
   return (
-  <BrowserRouter basename="/dau-truong">
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
     <AutoReconnect />
     <ToastContainer />
 
@@ -118,6 +121,9 @@ export default function App() {
           element={<Navigate to="/join" replace />}
         />
         <Route path="practice" element={<Practice />} />
+        <Route path="daily" element={<DailyChallenge />} />
+        <Route path="mistakes" element={<MistakeNotebook />} />
+        <Route path="chapters" element={<ChapterReview />} />
         <Route path="leaderboard" element={<Leaderboard />} />
         <Route path="history" element={<History />} />
         <Route path="profile" element={<Profile />} />

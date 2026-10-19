@@ -3,6 +3,7 @@ rules_version = '2';
 /**
  * ChemDex Ecosystem - Unified Firestore Security Rules
  * Covers ChemDex Visual CMS, Trung Tâm (Community/Feed), and Đấu Trường (Arena/Multiplayer)
+ * Hardened to prevent client-side score manipulation, profile hijacking, and room tampering.
  */
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -29,12 +30,15 @@ service cloud.firestore {
     // =========================================================================
     match /users/{userId} {
       allow read: if true;
-      allow create, update: if isAuthenticated();
+      // Chỉ chính chủ tài khoản mới được tạo hoặc cập nhật hồ sơ & chỉ số của mình
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId);
       allow delete: if false;
 
-      // Subcollection: Lịch sử trận đấu của user
+      // Subcollection: Lịch sử trận đấu cá nhân của user
       match /matches/{matchId} {
-        allow read, create: if isAuthenticated();
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId);
         allow update, delete: if false;
       }
     }
@@ -68,11 +72,22 @@ service cloud.firestore {
     }
 
     // =========================================================================
-    // 4. ĐẤU TRƯỜNG HÓA HỌC (Rooms, Matches, Global Chat, Questions)
+    // 4. ĐẤU TRƯỜNG HÓA HỌC (Phòng đấu, Tin nhắn, Trận đấu toàn cục)
     // =========================================================================
     match /rooms/{roomId} {
       allow read: if true;
-      allow create, update, delete: if isAuthenticated();
+      // Chỉ người tạo phòng (host) mới được khởi tạo phòng
+      allow create: if isAuthenticated() && request.resource.data.hostId == request.auth.uid;
+      
+      // Host có toàn quyền điều khiển phòng (chuyển vòng, đổi trạng thái)
+      // Người chơi tham gia chỉ được phép cập nhật thông tin người chơi (players) hoặc thời gian
+      allow update: if isAuthenticated() && (
+        resource.data.hostId == request.auth.uid ||
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['players', 'updatedAt'])
+      );
+      
+      // Chỉ host mới được xóa phòng
+      allow delete: if isAuthenticated() && resource.data.hostId == request.auth.uid;
 
       match /messages/{messageId} {
         allow read: if true;
@@ -83,12 +98,13 @@ service cloud.firestore {
 
     match /global_chat/{msgId} {
       allow read: if true;
-      allow create: if isAuthenticated();
+      allow create: if isAuthenticated() && request.resource.data.uid == request.auth.uid;
       allow update, delete: if false;
     }
 
     match /matches/{matchId} {
-      allow read, create: if isAuthenticated();
+      allow read: if true;
+      allow create: if isAuthenticated();
       allow update, delete: if false;
     }
 

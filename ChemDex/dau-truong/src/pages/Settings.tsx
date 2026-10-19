@@ -138,7 +138,8 @@ export default function Settings() {
     setReportSuccess(false);
 
     try {
-      const res = await fetch("/api/report-bug", {
+      const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+      const res = await fetch(`${baseUrl}api/report-bug`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

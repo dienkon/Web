@@ -17,11 +17,7 @@ export default defineConfig(() => {
       watch: process.env.DISABLE_HMR === 'true' ? null : {},
     },
     build: {
-      rollupOptions: {
-        input: {
-          main: path.resolve(__dirname, 'index.source.html'),
-        },
-      },
+      outDir: 'dist',
     },
   };
 });

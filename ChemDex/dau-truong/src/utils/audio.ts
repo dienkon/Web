@@ -42,7 +42,8 @@ export function getAudioSettings(): AudioSettings {
 export function initBGM() {
   if (typeof window === 'undefined') return;
   if (!bgMusic) {
-    bgMusic = new Audio('/nhac-nen.mp3');
+    const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+    bgMusic = new Audio(`${base}nhac-nen.mp3`);
     bgMusic.loop = true;
     bgMusic.preload = 'auto';
   }
