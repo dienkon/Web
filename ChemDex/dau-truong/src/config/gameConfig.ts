@@ -2,8 +2,8 @@
 // Cấu hình tập trung cho toàn bộ hệ thống trò chơi, thời gian, điểm số và luật chơi
 
 export type GameKind = 'balance' | 'fill_blank' | 'compound_name' | 'element_quiz' | 'oxidation_state'
-  | 'mol_calc' | 'math_algebra' | 'physics_calc' | 'unit_convert' | 'science_mcq'
-  | 'substance_match' | 'ph_indicator' | 'mixed' | 'ranked_mixed' | 'stem_mixed';
+  | 'mol_calc' | 'substance_match' | 'solution_ph' | 'organic_reactions' | 'experiment_lab'
+  | 'mixed' | 'ranked_mixed';
 
 export type GameDifficulty = 'easy' | 'medium' | 'hard' | 'random';
 
@@ -14,7 +14,7 @@ export interface TimeConfig {
 }
 
 /**
- * Bảng thời gian chuẩn (giây) theo độ khó cho từng loại trò chơi.
+ * Bảng thời gian chuẩn (giây) theo độ khó cho từng loại trò chơi Hóa học.
  * Được thiết kế khoa học: câu hỏi tính toán và phản ứng phức tạp có thời gian dài hơn.
  */
 export const GAME_TIME_LIMITS: Record<string, TimeConfig> = {
@@ -24,18 +24,16 @@ export const GAME_TIME_LIMITS: Record<string, TimeConfig> = {
   element_quiz: { easy: 18, medium: 24, hard: 32 },
   oxidation_state: { easy: 20, medium: 30, hard: 40 },
   mol_calc: { easy: 25, medium: 40, hard: 60 },
-  math_algebra: { easy: 25, medium: 40, hard: 60 },
-  physics_calc: { easy: 25, medium: 40, hard: 60 },
-  unit_convert: { easy: 20, medium: 30, hard: 45 },
-  science_mcq: { easy: 15, medium: 20, hard: 25 },
   substance_match: { easy: 25, medium: 35, hard: 45 },
-  ph_indicator: { easy: 15, medium: 22, hard: 30 },
+  solution_ph: { easy: 20, medium: 30, hard: 45 },
+  organic_reactions: { easy: 25, medium: 35, hard: 50 },
+  experiment_lab: { easy: 20, medium: 30, hard: 45 },
   default: { easy: 20, medium: 30, hard: 40 },
 };
 
 /**
  * Bảng thời gian dành cho phòng ghép đấu (Multiplayer Match Room)
- * Quy định nghiêm ngặt: Min 45s, Max 2 phút (120s) tùy theo độ khó và loại trò chơi.
+ * Quy định nghiêm ngặt: Min 45s, Max 2 phút (120s) tùy theo độ khó và loại trò chơi Hóa học.
  * - Dễ (Easy): 45s (sàn tối thiểu)
  * - Vừa (Medium): 60s - 75s
  * - Khó (Hard): 90s - 120s (trần tối đa 2 phút cho các bài phức tạp)
@@ -47,12 +45,10 @@ export const ROOM_TIME_LIMITS: Record<string, TimeConfig> = {
   element_quiz: { easy: 45, medium: 60, hard: 80 },
   oxidation_state: { easy: 45, medium: 65, hard: 95 },
   mol_calc: { easy: 50, medium: 80, hard: 120 },      // Tính toán số mol / nồng độ dung dịch
-  math_algebra: { easy: 45, medium: 75, hard: 120 },  // Hệ phương trình / phương trình bậc 2
-  physics_calc: { easy: 50, medium: 75, hard: 120 },  // Định luật Ohm, công suất, nhiệt lượng
-  unit_convert: { easy: 45, medium: 60, hard: 90 },
-  science_mcq: { easy: 45, medium: 60, hard: 80 },
   substance_match: { easy: 45, medium: 65, hard: 90 },
-  ph_indicator: { easy: 45, medium: 55, hard: 75 },
+  solution_ph: { easy: 45, medium: 60, hard: 85 },
+  organic_reactions: { easy: 45, medium: 70, hard: 100 },
+  experiment_lab: { easy: 45, medium: 60, hard: 85 },
   default: { easy: 45, medium: 70, hard: 110 },
 };
 

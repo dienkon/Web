@@ -3,7 +3,7 @@ import path from "path";
 import { createServer as createViteServer } from "vite";
 import dotenv from "dotenv";
 import { FALLBACK_QUESTIONS as ACADEMIC_QUESTIONS } from "./src/data/chemistryQuestions";
-import { generateStemQuestion } from "./src/data/stemGenerators";
+import { generateChemistryQuestion } from "./src/data/chemistryPureGenerators";
 import { cleanAndUpgradeQuestion } from "./src/data/questionCleaner";
 import { validateGameAnswer } from "./src/games/registry";
 import { EXPANDED_QUESTIONS, getExpandedQuestions } from "./src/data/expandedQuestionBank";
@@ -22,7 +22,26 @@ function shuffleArray<T>(array: T[]): T[] {
   return arr;
 }
 
-const STEM_MODES = ['mol_calc', 'math_algebra', 'physics_calc', 'unit_convert', 'science_mcq', 'substance_match'];
+const PURE_CHEM_MODES = [
+  'balance',
+  'fill_blank',
+  'compound_name',
+  'element_quiz',
+  'oxidation_state',
+  'mol_calc',
+  'substance_match',
+  'solution_ph',
+  'organic_reactions',
+  'experiment_lab',
+];
+
+const PROCEDURAL_CHEM_MODES = [
+  'mol_calc',
+  'substance_match',
+  'solution_ph',
+  'organic_reactions',
+  'experiment_lab',
+];
 
 // In-memory rate limiter for bug reports (IP based: max 3 requests per 10 mins)
 const bugReportLimits = new Map<string, { count: number; resetAt: number }>();
@@ -51,66 +70,59 @@ function getFallbackQuestions(mode: string, difficulty: string, count: number, g
     const matching = getExpandedQuestions({
       grade,
       difficulty: difficulty !== 'random' ? difficulty : undefined,
-      mode: (mode !== 'mixed' && mode !== 'ranked_mixed' && mode !== 'stem_mixed') ? mode : undefined
+      mode: (mode !== 'mixed' && mode !== 'ranked_mixed') ? mode : undefined
     });
     if (matching.length >= count) {
       return shuffleArray(matching).slice(0, count);
     }
   }
 
-  // STEM Mixed mode (luân phiên toàn bộ các game STEM)
-  if (mode === 'stem_mixed') {
-    const questions: any[] = [];
-    for (let i = 0; i < count; i++) {
-      const randomStemMode = STEM_MODES[i % STEM_MODES.length];
-      const targetDiff: 'easy' | 'medium' | 'hard' = difficulty === 'random'
-        ? difficulties[Math.floor(Math.random() * difficulties.length)]
-        : (difficulty as any);
-      questions.push(generateStemQuestion(randomStemMode, targetDiff));
-    }
-    return questions;
-  }
-
-  // Chế độ đơn môn STEM sinh theo công thức
-  if (STEM_MODES.includes(mode)) {
+  // Chế độ công thức Hóa học sinh theo thuật toán
+  if (PROCEDURAL_CHEM_MODES.includes(mode)) {
     const questions: any[] = [];
     for (let i = 0; i < count; i++) {
       const targetDiff: 'easy' | 'medium' | 'hard' = difficulty === 'random'
         ? difficulties[Math.floor(Math.random() * difficulties.length)]
         : (difficulty as any);
-      questions.push(generateStemQuestion(mode, targetDiff));
+      questions.push(generateChemistryQuestion(mode, targetDiff));
     }
     return questions;
   }
 
   if (mode === 'ranked_mixed') {
-    const modes = ['balance', 'fill_blank', 'compound_name', 'element_quiz', 'oxidation_state'];
-    const shuffledModes = shuffleArray([...modes]);
+    const selectedModes = shuffleArray([...PURE_CHEM_MODES]).slice(0, 5);
     const questions: any[] = [];
     
-    shuffledModes.forEach(m => {
+    selectedModes.forEach(m => {
       difficulties.forEach(diff => {
-        const list = ACADEMIC_QUESTIONS[m]?.[diff] || ACADEMIC_QUESTIONS[m]?.['medium'] || [];
-        if (list.length > 0) {
-          const rawQ = list[Math.floor(Math.random() * list.length)];
-          questions.push(cleanAndUpgradeQuestion(rawQ, m, diff));
+        if (PROCEDURAL_CHEM_MODES.includes(m)) {
+          questions.push(generateChemistryQuestion(m, diff));
+        } else {
+          const list = ACADEMIC_QUESTIONS[m]?.[diff] || ACADEMIC_QUESTIONS[m]?.['medium'] || [];
+          if (list.length > 0) {
+            const rawQ = list[Math.floor(Math.random() * list.length)];
+            questions.push(cleanAndUpgradeQuestion(rawQ, m, diff));
+          }
         }
       });
     });
 
-    return questions;
+    return shuffleArray(questions).slice(0, count);
   }
   
   if (mode === 'mixed') {
-    const modes = ['balance', 'fill_blank', 'compound_name', 'element_quiz', 'oxidation_state'];
     const questions: any[] = [];
     for (let i = 0; i < count; i++) {
-      const randomMode = modes[i % modes.length];
+      const randomMode = PURE_CHEM_MODES[i % PURE_CHEM_MODES.length];
       const targetDiff = difficulty === 'random' ? difficulties[Math.floor(Math.random() * difficulties.length)] : difficulty;
-      const list = ACADEMIC_QUESTIONS[randomMode]?.[targetDiff] || ACADEMIC_QUESTIONS[randomMode]?.['medium'] || [];
-      if (list.length > 0) {
-        const rawQ = list[Math.floor(Math.random() * list.length)];
-        questions.push(cleanAndUpgradeQuestion(rawQ, randomMode, targetDiff));
+      if (PROCEDURAL_CHEM_MODES.includes(randomMode)) {
+        questions.push(generateChemistryQuestion(randomMode, targetDiff as any));
+      } else {
+        const list = ACADEMIC_QUESTIONS[randomMode]?.[targetDiff] || ACADEMIC_QUESTIONS[randomMode]?.['medium'] || [];
+        if (list.length > 0) {
+          const rawQ = list[Math.floor(Math.random() * list.length)];
+          questions.push(cleanAndUpgradeQuestion(rawQ, randomMode, targetDiff));
+        }
       }
     }
     return questions;
@@ -123,6 +135,8 @@ function getFallbackQuestions(mode: string, difficulty: string, count: number, g
     if (list.length > 0) {
       const rawQ = list[Math.floor(Math.random() * list.length)];
       questions.push(cleanAndUpgradeQuestion(rawQ, mode, targetDiff));
+    } else {
+      questions.push(generateChemistryQuestion('mol_calc', targetDiff as any));
     }
   }
   return questions;

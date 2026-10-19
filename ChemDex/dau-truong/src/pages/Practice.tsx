@@ -39,7 +39,7 @@ export default function Practice() {
   const [searchParams] = useSearchParams();
 
   const [loading, setLoading] = useState(false);
-  const [selectedSubject, setSelectedSubject] = useState<string>('all');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
   const [difficulty, setDifficulty] = useState<Difficulty>(() => {
     const urlDiff = searchParams.get('difficulty');
@@ -99,12 +99,8 @@ export default function Practice() {
   };
 
   const filteredModes = ALL_GAME_MODES.filter(m => {
-    if (selectedSubject === 'all') return true;
-    if (selectedSubject === 'chemistry' && m.subject === 'chemistry') return true;
-    if (selectedSubject === 'math' && m.subject === 'math') return true;
-    if (selectedSubject === 'physics' && m.subject === 'physics') return true;
-    if (selectedSubject === 'science' && (m.subject === 'science' || m.subject === 'mixed')) return true;
-    return false;
+    if (selectedCategory === 'all') return true;
+    return m.category === selectedCategory;
   });
 
   return (
@@ -239,20 +235,21 @@ export default function Practice() {
         </div>
       </div>
 
-      {/* Tabs Phân Loại Môn Học */}
+      {/* Tabs Phân Loại Chuyên Đề Hóa Học */}
       <div className="flex flex-wrap items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
         {[
-          { id: 'all', name: 'Tất cả các chế độ (14)' },
-          { id: 'chemistry', name: 'Hóa Học (7)' },
-          { id: 'math', name: 'Toán Nhanh (1)' },
-          { id: 'physics', name: 'Vật Lí (1)' },
-          { id: 'science', name: 'KHTN / STEM (5)' },
+          { id: 'all', name: 'Tất cả chế độ Hóa (12)' },
+          { id: 'inorganic', name: 'Hóa Vô Cơ (4)' },
+          { id: 'physical', name: 'Hóa Lý & Tính Toán (3)' },
+          { id: 'organic', name: 'Hóa Hữu Cơ (1)' },
+          { id: 'experiment', name: 'Thực Nghiệm & An Toàn (2)' },
+          { id: 'mixed', name: 'Đấu Trường Hỗn Hợp (2)' },
         ].map(tab => (
           <button
             key={tab.id}
-            onClick={() => setSelectedSubject(tab.id)}
+            onClick={() => setSelectedCategory(tab.id)}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-              selectedSubject === tab.id
+              selectedCategory === tab.id
                 ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-sm'
                 : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
             }`}

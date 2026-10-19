@@ -171,69 +171,18 @@ export const GAME_REGISTRY: Record<string, GameModuleInfo> = {
     },
   },
 
-  math_algebra: {
-    id: 'math_algebra',
-    name: 'Toán Nhanh & Đại Số',
-    shortName: 'Toán nhanh',
-    subject: 'math',
-    subjectName: 'Toán học',
-    grade: [6, 7, 8, 9],
-    icon: 'Binary',
-    badgeColor: 'indigo',
-    description: 'Tính nhẩm nhanh, phần trăm, giảm giá, phương trình bậc nhất, Pytago, hệ phương trình.',
-    inputType: 'number',
-    timeConfig: GAME_TIME_LIMITS.math_algebra,
-    validateAnswer: (question, answer) => {
-      return checkNumericAnswer(String(answer), question.acceptedAnswers || [], question.correctValue, 0.05);
-    },
-  },
-
-  physics_calc: {
-    id: 'physics_calc',
-    name: 'Vật Lí Ứng Dụng',
-    shortName: 'Vật lí',
-    subject: 'physics',
-    subjectName: 'Vật lí',
-    grade: [8, 9, 10],
-    icon: 'Activity',
-    badgeColor: 'amber',
-    description: 'Tính vận tốc, khối lượng riêng, áp suất, công suất, định luật Ôm, nhiệt lượng Q = mcΔt.',
-    inputType: 'number',
-    timeConfig: GAME_TIME_LIMITS.physics_calc,
-    validateAnswer: (question, answer) => {
-      return checkNumericAnswer(String(answer), question.acceptedAnswers || [], question.correctValue, question.tolerance || 0.1);
-    },
-  },
-
-  unit_convert: {
-    id: 'unit_convert',
-    name: 'Đổi Đơn Vị KHTN',
-    shortName: 'Đổi đơn vị',
-    subject: 'science',
-    subjectName: 'KHTN',
-    grade: [6, 7, 8, 9],
-    icon: 'RefreshCw',
-    badgeColor: 'teal',
-    description: 'Chuyển đổi km/h ↔ m/s, g/cm³ ↔ kg/m³, ha ↔ m², °C ↔ K, kWh ↔ kJ, mol ↔ mmol.',
-    inputType: 'number',
-    timeConfig: GAME_TIME_LIMITS.unit_convert,
-    validateAnswer: (question, answer) => {
-      return checkNumericAnswer(String(answer), question.acceptedAnswers || [], question.correctValue, 0.05);
-    },
-  },
-
-  science_mcq: {
-    id: 'science_mcq',
-    name: 'Trắc Nghiệm KHTN',
-    shortName: 'Trắc nghiệm',
-    subject: 'science',
-    subjectName: 'KHTN',
-    grade: [6, 7, 8, 9],
+  substance_match: {
+    id: 'substance_match',
+    name: 'Nhận Biết & Ứng Dụng Hóa Chất',
+    shortName: 'Nhận biết chất',
+    subject: 'chemistry',
+    subjectName: 'Hóa học',
+    grade: [8, 9, 10, 11, 12],
     icon: 'CheckSquare',
-    badgeColor: 'rose',
-    description: 'Trắc nghiệm 4 đáp án về tế bào, quang hợp, ADN, quang học, điện học, an toàn lab.',
+    badgeColor: 'fuchsia',
+    description: 'Dùng thuốc thử đặc trưng nhận biết các ion, chất khí và liên hệ ứng dụng hóa chất thực tế.',
     inputType: 'choice',
-    timeConfig: GAME_TIME_LIMITS.science_mcq,
+    timeConfig: GAME_TIME_LIMITS.substance_match,
     validateAnswer: (question, answer) => {
       if (!answer) return false;
       const clean = String(answer).trim().toLowerCase();
@@ -242,18 +191,58 @@ export const GAME_REGISTRY: Record<string, GameModuleInfo> = {
     },
   },
 
-  substance_match: {
-    id: 'substance_match',
-    name: 'Ghép Chất & Ứng Dụng',
-    shortName: 'Ứng dụng',
+  solution_ph: {
+    id: 'solution_ph',
+    name: 'Dung Dịch, Axit - Bazơ & Độ pH',
+    shortName: 'Dung dịch & pH',
     subject: 'chemistry',
     subjectName: 'Hóa học',
-    grade: [8, 9, 11],
-    icon: 'Layers',
-    badgeColor: 'fuchsia',
-    description: 'Kết nối hóa chất với ứng dụng thực tế trong đời sống và sản xuất.',
+    grade: [8, 11],
+    icon: 'Activity',
+    badgeColor: 'violet',
+    description: 'Môi trường axit, bazơ, trung tính, đổi màu chất chỉ thị quỳ tím/phenolphtalein và tính toán độ pH.',
     inputType: 'choice',
-    timeConfig: GAME_TIME_LIMITS.substance_match,
+    timeConfig: GAME_TIME_LIMITS.solution_ph,
+    validateAnswer: (question, answer) => {
+      if (!answer) return false;
+      const clean = String(answer).trim().toLowerCase();
+      const accepted = (question.acceptedAnswers || []).map((x: string) => String(x).trim().toLowerCase());
+      return accepted.includes(clean);
+    },
+  },
+
+  organic_reactions: {
+    id: 'organic_reactions',
+    name: 'Hóa Học Hữu Cơ & Polime',
+    shortName: 'Hữu cơ',
+    subject: 'chemistry',
+    subjectName: 'Hóa học',
+    grade: [9, 11, 12],
+    icon: 'Layers',
+    badgeColor: 'amber',
+    description: 'Phản ứng đặc trưng của hiđrocacbon, ancol, anđehit, axit axetic, este, chất béo, protein và polime.',
+    inputType: 'choice',
+    timeConfig: GAME_TIME_LIMITS.organic_reactions,
+    validateAnswer: (question, answer) => {
+      if (!answer) return false;
+      const clean = String(answer).trim().toLowerCase();
+      const accepted = (question.acceptedAnswers || []).map((x: string) => String(x).trim().toLowerCase());
+      return accepted.includes(clean);
+    },
+  },
+
+  experiment_lab: {
+    id: 'experiment_lab',
+    name: 'Thí Nghiệm & An Toàn Phòng Hóa',
+    shortName: 'An toàn Lab',
+    subject: 'chemistry',
+    subjectName: 'Hóa học',
+    grade: [8, 9, 10, 11, 12],
+    icon: 'RefreshCw',
+    badgeColor: 'rose',
+    description: 'Quan sát hiện tượng thí nghiệm, thao tác dụng cụ lab và quy tắc an toàn hóa chất.',
+    inputType: 'choice',
+    timeConfig: GAME_TIME_LIMITS.experiment_lab,
     validateAnswer: (question, answer) => {
       if (!answer) return false;
       const clean = String(answer).trim().toLowerCase();

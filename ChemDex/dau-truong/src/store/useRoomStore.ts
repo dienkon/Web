@@ -1,22 +1,21 @@
 import { create } from 'zustand';
 import { db } from '../services/firebase';
 import { doc, setDoc, onSnapshot, updateDoc, arrayUnion, serverTimestamp, getDoc, deleteDoc, deleteField } from 'firebase/firestore';
+import { generateClientQuestions } from '../data/clientQuestionGenerator';
 
 export type GameMode =
   | 'balance'
   | 'fill_blank'
   | 'compound_name'
   | 'element_quiz'
-  | 'mixed'
   | 'oxidation_state'
-  | 'ranked_mixed'
   | 'mol_calc'
-  | 'math_algebra'
-  | 'physics_calc'
-  | 'unit_convert'
-  | 'science_mcq'
   | 'substance_match'
-  | 'stem_mixed';
+  | 'solution_ph'
+  | 'organic_reactions'
+  | 'experiment_lab'
+  | 'mixed'
+  | 'ranked_mixed';
 export type Difficulty = 'easy' | 'medium' | 'hard' | 'random';
 export type RoomStatus = 'lobby' | 'preparing' | 'roundActive' | 'roundReveal' | 'roundBreak' | 'matchEnd';
 
@@ -356,33 +355,46 @@ export const useRoomStore = create<RoomState>((set, get) => ({
     const { roomId, currentRoom } = get();
     if (!roomId || !currentRoom) return;
     
-    // Request questions from Backend
     try {
       set({ loading: true });
-      const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-      const res = await fetch(`${baseUrl}api/generate-questions`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          mode: currentRoom.mode,
-          difficulty: currentRoom.difficulty,
-          count: currentRoom.totalRounds,
-          safe: currentRoom.maxPlayers > 1,
-          roomId: roomId,
-          customTimeLimitSec: currentRoom.customTimeLimitSec,
-          isPractice: currentRoom.maxPlayers === 1
-        })
-      });
-      
-      if (!res.ok) {
-        const errorText = await res.text();
+      let questions: any[] | null = null;
 
-        console.error("generate-questions:", res.status, errorText);
-
-        throw new Error(`Không thể tạo câu hỏi (${res.status})`);
+      // 1. Thử gọi API backend (khi có server Express chạy cùng)
+      try {
+        const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+        const res = await fetch(`${baseUrl}api/generate-questions`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            mode: currentRoom.mode,
+            difficulty: currentRoom.difficulty,
+            count: currentRoom.totalRounds,
+            safe: currentRoom.maxPlayers > 1,
+            roomId: roomId,
+            customTimeLimitSec: currentRoom.customTimeLimitSec,
+            isPractice: currentRoom.maxPlayers === 1
+          })
+        });
+        
+        if (res.ok) {
+          questions = await res.json();
+        } else {
+          console.warn(`[ChemDex] API /generate-questions trả về mã ${res.status}. Tự động kích hoạt cơ chế sinh đề client nội bộ...`);
+        }
+      } catch (networkErr) {
+        console.warn("[ChemDex] Không thể kết nối API backend. Tự động chuyển sang bộ sinh đề client nội bộ:", networkErr);
       }
 
-      const questions = await res.json();
+      // 2. Dự phòng phía Client (Khi chạy static hosting, GitHub Pages, 404, hoặc offline)
+      if (!questions || !Array.isArray(questions) || questions.length === 0) {
+        questions = generateClientQuestions(
+          currentRoom.mode,
+          currentRoom.difficulty,
+          currentRoom.totalRounds,
+          currentRoom.customTimeLimitSec,
+          currentRoom.maxPlayers === 1
+        );
+      }
       
       const roomRef = doc(db, 'rooms', roomId);
       await updateDoc(roomRef, {
@@ -391,7 +403,8 @@ export const useRoomStore = create<RoomState>((set, get) => ({
       });
       set({ loading: false });
     } catch (error: any) {
-      set({ error: error.message, loading: false });
+      console.error("[ChemDex] Lỗi bắt đầu trận đấu:", error);
+      set({ error: error.message || "Không thể bắt đầu trận đấu", loading: false });
       throw error;
     }
   }

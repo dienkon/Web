@@ -437,7 +437,7 @@ export default function MatchArea() {
                   </div>
                 )}
 
-                {['mol_calc', 'math_algebra', 'physics_calc', 'unit_convert'].includes(activeMode) && (
+                {activeMode === 'mol_calc' && (
                   <div
                     key={`${currentRoom.id}-${currentRoom.currentRound}`}
                     className="w-full flex justify-center"
@@ -451,7 +451,7 @@ export default function MatchArea() {
                   </div>
                 )}
 
-                {['science_mcq', 'substance_match'].includes(activeMode) && (
+                {(['substance_match', 'solution_ph', 'organic_reactions', 'experiment_lab'].includes(activeMode) || Boolean((currentQuestion as any).options?.length)) && (
                   <div
                     key={`${currentRoom.id}-${currentRoom.currentRound}`}
                     className="w-full flex justify-center"

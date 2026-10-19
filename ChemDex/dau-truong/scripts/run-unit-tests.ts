@@ -4,7 +4,8 @@
 
 import { normalizeSubscripts, isChemicalNameMatch } from '../src/data/vietnameseNames';
 import { calculateSpeedRatio, calculateStreakMultiplier, evaluateRoundSubmission, calculateFairScore } from '../src/features/gameplay/scoring';
-import { generateStemQuestion } from '../src/data/stemGenerators';
+import { generateChemistryQuestion } from '../src/data/chemistryPureGenerators';
+import { generateClientQuestions } from '../src/data/clientQuestionGenerator';
 import { validateGameAnswer, checkNumericAnswer, validateOxidationStateAnswer } from '../src/games/registry';
 import { cleanAndUpgradeQuestion } from '../src/data/questionCleaner';
 import { calculateBreakDuration, getRoomQuestionTimeLimit, PRACTICE_TIME_OPTIONS, ROOM_TIME_LIMITS } from '../src/config/gameConfig';
@@ -138,45 +139,39 @@ assert(
 );
 
 // ============================================================================
-// 3. KIỂM THỬ TRÌNH TẠO ĐỀ THI THỰC HÀNH STEM (stemGenerators.ts)
+// 3. KIỂM THỬ TRÌNH TẠO ĐỀ HÓA HỌC CHUYÊN SÂU 100% (chemistryPureGenerators.ts)
 // ============================================================================
-console.log('\n▶ [3/6] Kiểm thử Sinh Đề Tự Động 6 Chế Độ STEM (src/data/stemGenerators.ts)');
+console.log('\n▶ [3/6] Kiểm thử Sinh Đề Hóa Học Chuyên Sâu (src/data/chemistryPureGenerators.ts)');
 
 for (const diff of ['easy', 'medium', 'hard'] as const) {
-  const molQ = generateStemQuestion('mol_calc', diff);
+  const molQ = generateChemistryQuestion('mol_calc', diff);
   assert(
     molQ.correctValue !== undefined && !isNaN(Number(molQ.correctValue)) && Number(molQ.correctValue) > 0,
-    `[mol_calc - ${diff}] Giá trị mol hợp lệ: ${molQ.correctValue} ${molQ.unit}`
+    `[mol_calc - ${diff}] Giá trị mol/nồng độ hợp lệ: ${molQ.correctValue} ${molQ.unit || ''}`
   );
 
-  const mathQ = generateStemQuestion('math_algebra', diff);
-  assert(
-    mathQ.correctValue !== undefined && !isNaN(Number(mathQ.correctValue)) && mathQ.equation.length > 5,
-    `[math_algebra - ${diff}] Phương trình đại số chuẩn: ${mathQ.equation} => ${mathQ.correctValue}`
-  );
-
-  const physQ = generateStemQuestion('physics_calc', diff);
-  assert(
-    physQ.correctValue !== undefined && !isNaN(Number(physQ.correctValue)),
-    `[physics_calc - ${diff}] Bài toán vật lý tính toán chính xác: ${physQ.correctValue} ${physQ.unit}`
-  );
-
-  const unitQ = generateStemQuestion('unit_convert', diff);
-  assert(
-    unitQ.correctValue !== undefined && !isNaN(Number(unitQ.correctValue)) && Number(unitQ.correctValue) > 0,
-    `[unit_convert - ${diff}] Đổi đơn vị đo: ${unitQ.equation} => ${unitQ.correctValue}`
-  );
-
-  const mcqQ = generateStemQuestion('science_mcq', diff);
-  assert(
-    Array.isArray(mcqQ.options) && mcqQ.options.length === 4 && mcqQ.correctIndex !== undefined && mcqQ.correctIndex >= 0 && mcqQ.correctIndex <= 3,
-    `[science_mcq - ${diff}] Trắc nghiệm KHTN có 4 đáp án và index đáp án đúng hợp lệ (0-3)`
-  );
-
-  const matchQ = generateStemQuestion('substance_match', diff);
+  const matchQ = generateChemistryQuestion('substance_match', diff);
   assert(
     Array.isArray(matchQ.options) && matchQ.options.length === 4 && matchQ.correctIndex !== undefined,
-    `[substance_match - ${diff}] Ghép tính chất chất hóa học có 4 lựa chọn`
+    `[substance_match - ${diff}] Nhận biết & Ứng dụng hóa chất có 4 lựa chọn`
+  );
+
+  const phQ = generateChemistryQuestion('solution_ph', diff);
+  assert(
+    Array.isArray(phQ.options) && phQ.options.length === 4 && phQ.correctIndex !== undefined,
+    `[solution_ph - ${diff}] Dung dịch & pH có 4 lựa chọn và giải thích`
+  );
+
+  const orgQ = generateChemistryQuestion('organic_reactions', diff);
+  assert(
+    Array.isArray(orgQ.options) && orgQ.options.length === 4 && orgQ.correctIndex !== undefined,
+    `[organic_reactions - ${diff}] Hóa học hữu cơ có 4 lựa chọn`
+  );
+
+  const labQ = generateChemistryQuestion('experiment_lab', diff);
+  assert(
+    Array.isArray(labQ.options) && labQ.options.length === 4 && labQ.correctIndex !== undefined,
+    `[experiment_lab - ${diff}] Thí nghiệm & An toàn lab có 4 lựa chọn`
   );
 }
 
@@ -331,6 +326,25 @@ const unlimitedSpeedRatio = calculateSpeedRatio(45, 45);
 assert(
   Math.abs(unlimitedSpeedRatio - 1.0) < 0.001,
   'Chế độ luyện tập không giới hạn thời gian bảo toàn 100% tỷ lệ điểm tốc độ (speedRatio = 1.0)'
+);
+
+// Kiểm tra bộ sinh đề Client-side độc lập (chống lỗi 404 khi chạy trên GitHub Pages / static hosting)
+const clientQuestionsPractice = generateClientQuestions('balance', 'medium', 5, 60, true);
+assert(
+  clientQuestionsPractice.length === 5 && clientQuestionsPractice.every(q => q.timeLimitSec === 60),
+  'Bộ sinh đề Client-side: Tạo đề luyện tập solo với thời gian custom (60s) thành công không cần server'
+);
+
+const clientQuestionsUnlimited = generateClientQuestions('mol_calc', 'easy', 3, 0, true);
+assert(
+  clientQuestionsUnlimited.length === 3 && clientQuestionsUnlimited.every(q => q.timeLimitSec === 0),
+  'Bộ sinh đề Client-side: Tạo đề luyện tập không giới hạn (0s) thành công'
+);
+
+const clientQuestionsMultiplayer = generateClientQuestions('mixed', 'hard', 10, undefined, false);
+assert(
+  clientQuestionsMultiplayer.length === 10 && clientQuestionsMultiplayer.every(q => q.timeLimitSec >= 45 && q.timeLimitSec <= 120),
+  'Bộ sinh đề Client-side: Tạo đề phòng ghép đấu tuân thủ nghiêm ngặt 45s <= t <= 120s'
 );
 
 // ============================================================================
