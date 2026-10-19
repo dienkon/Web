@@ -239,10 +239,32 @@ function Placard({ title, color = '#3e7e68' }: { title: string; color?: string }
 }
 
 function Prop({ kind, color, scenarioId }: { kind: PropKind; color: string; scenarioId: string }) {
-  if (kind === 'bottle' || kind === 'cabinet' || kind === 'waste') return <Bottle color={color} open={scenarioId === 'unknown-bottle'} unlabelled={scenarioId === 'unknown-bottle'} />;
+  if (kind === 'bottle') return <Bottle color={color} unlabelled={scenarioId === 'unknown-bottle'} />;
+  if (kind === 'cabinet') return <group name="segregated-storage-model">
+    <mesh position={[0,.2,0]}><boxGeometry args={[.32,.4,.2]}/><meshStandardMaterial color="#b4c5d0" metalness={.35} roughness={.45}/></mesh>
+    {[-.075,.075].map(x=><group key={x} position={[x,.2,.107]}>
+      <mesh><boxGeometry args={[.14,.36,.018]}/><meshStandardMaterial color={color}/></mesh>
+      <mesh position={[x<0?.045:-.045,0,.018]}><boxGeometry args={[.012,.08,.012]}/><meshStandardMaterial color="#dde8ee" metalness={.8}/></mesh>
+      <mesh position={[0,.09,.012]} rotation={[0,0,Math.PI/4]}><planeGeometry args={[.045,.045]}/><meshStandardMaterial color="#fff9e9"/></mesh>
+      {[-.12,-.09,-.06].map(y=><mesh key={y} position={[0,y,.012]}><boxGeometry args={[.09,.005,.003]}/><meshStandardMaterial color="#566f81"/></mesh>)}
+    </group>)}
+  </group>;
+  if (kind === 'waste') return <group name="labelled-waste-container">
+    <mesh position={[0,.13,0]}><boxGeometry args={[.18,.26,.16]}/><meshStandardMaterial color={color} roughness={.6}/></mesh>
+    <mesh position={[0,.275,0]}><boxGeometry args={[.2,.03,.18]}/><meshStandardMaterial color="#485e6d"/></mesh>
+    <mesh position={[0,.294,0]}><boxGeometry args={[.11,.009,.04]}/><meshStandardMaterial color="#233c4a"/></mesh>
+    <mesh position={[0,.16,.082]}><planeGeometry args={[.13,.1]}/><meshStandardMaterial color="#fff6dd"/></mesh>
+    <mesh position={[0,.16,.084]} rotation={[0,0,Math.PI/4]}><planeGeometry args={[.045,.045]}/><meshStandardMaterial color="#ce8059"/></mesh>
+  </group>;
   if (kind === 'glass') return <Beaker cracked={scenarioId === 'cracked-glass'} color={color} />;
   if (kind === 'beaker') return <Beaker color={color} />;
-  if (kind === 'hose' || kind === 'burner') return <Hose disconnected={scenarioId === 'gas-hose'} />;
+  if (kind === 'hose') return <Hose disconnected={scenarioId === 'gas-hose'} />;
+  if (kind === 'burner') return <group name="burner-with-air-collar">
+    <mesh position={[0,.018,0]}><cylinderGeometry args={[.07,.08,.036,6]}/><meshStandardMaterial color="#6c8190" metalness={.65}/></mesh>
+    <mesh position={[0,.12,0]}><cylinderGeometry args={[.018,.025,.2,16]}/><meshStandardMaterial color="#b7c9d4" metalness={.85} roughness={.25}/></mesh>
+    <mesh position={[0,.055,0]}><cylinderGeometry args={[.03,.03,.035,12]}/><meshStandardMaterial color="#bd9e62" metalness={.6}/></mesh>
+    <mesh position={[.05,.025,0]} rotation={[0,0,Math.PI/2]}><cylinderGeometry args={[.01,.01,.09,10]}/><meshStandardMaterial color="#b88a61"/></mesh>
+  </group>;
   if (kind === 'centrifuge') return <Centrifuge />;
   if (kind === 'crate') return <Crate small={scenarioId !== 'blocked-exit'} />;
   if (kind === 'goggles') return <Goggles />;

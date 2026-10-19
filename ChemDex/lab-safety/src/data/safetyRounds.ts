@@ -5,6 +5,7 @@ export interface SafetyRound {
   id: string; title: string; position: [number, number, number]; cinematic: CinematicId; color: string; steps: SafetyStep[];
 }
 export const SAFETY_ROUNDS: SafetyRound[] = [
+  { id: 'task_alcohol_cap', title: 'Đậy nắp dập đèn cồn', position: [5.35, .93, -1.8], cinematic: 'electrical', color: '#f59e0b', steps: [] },
   { id: 'task_electrical_safety', title: 'Vòng 4 · Nước cạnh thiết bị điện', position: [-4.2, 1, -1.35], cinematic: 'electrical', color: '#fbbf24', steps: [
     { prompt: 'Em nhìn thấy nước cạnh ổ cấp nguồn. Việc đầu tiên là gì?', options: ['Lau ngay khi thiết bị vẫn đang cắm điện', 'Dừng sử dụng, cảnh báo người xung quanh và báo giáo viên', 'Rút phích bằng tay đang ướt'], correct: 1, explanation: 'Tránh tiếp xúc với nước, thiết bị và ổ điện. Để người phụ trách cô lập nguồn an toàn.' },
     { prompt: 'Ai xử lý việc cô lập và kiểm tra nguồn điện?', options: ['Tự tháo ổ cắm để xem', 'Nhờ bạn giữ dây điện', 'Giáo viên hoặc người có trách nhiệm, đủ năng lực'], correct: 2, explanation: 'Học sinh giữ khoảng cách; người phụ trách xử lý nguồn trước khi cho phép dọn khu vực.' },

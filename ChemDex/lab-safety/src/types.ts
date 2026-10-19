@@ -4,7 +4,7 @@ export type GameMode = 'learn' | 'challenge' | 'exam';
 export type GameRunState = 'RUNNING' | 'PAUSED';
 export type CinematicId = 'fire' | 'electrical' | 'fume' | 'evacuation' | `scenario:${string}`;
 
-export type TaskId = 'task_talk' | 'task_rules' | 'task_goggles' | 'task_coat' | 'task_gloves' | 'task_mask' | 'task_hair' | 'task_shoes' | 'task_fire_extinguisher' | 'task_chemical_symbols' | 'task_inspect_acid' | 'task_bandage' | 'task_spill_kit' | 'task_spill_neutralize' | 'task_spill_wipe' | 'task_trash_disposal' | 'task_electrical_safety' | 'task_fume_safety' | 'task_evacuation';
+export type TaskId = 'task_alcohol_cap' | 'task_talk' | 'task_rules' | 'task_goggles' | 'task_coat' | 'task_gloves' | 'task_mask' | 'task_hair' | 'task_shoes' | 'task_fire_extinguisher' | 'task_chemical_symbols' | 'task_inspect_acid' | 'task_bandage' | 'task_spill_kit' | 'task_spill_neutralize' | 'task_spill_wipe' | 'task_trash_disposal' | 'task_electrical_safety' | 'task_fume_safety' | 'task_evacuation';
 export type PhaseId = 'phase_1' | 'phase_2' | 'phase_3' | 'phase_4' | 'phase_5';
 export type MistakeId =
   | 'ppe_missing'
@@ -90,6 +90,8 @@ export interface PlayerState {
     fireIntroSeen?: boolean;
     spillStage?: 'hazard' | 'cones_placed' | 'neutralized' | 'cleaned';
     spillProgress?: number;
+    spillNeutralizeStep?: number;
+    spillCollectStep?: number;
     trashCount?: number;
     wastePicked?: string[];
     wasteDisposed?: string[];

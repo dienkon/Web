@@ -9,6 +9,7 @@ import { interactionBus, INTERACTION_PRIORITY } from '../../../systems/input/Int
 import { isSceneInputBlocked } from '../../../systems/input/sceneInput';
 import { SceneHtml } from '../SceneHtml';
 import { LabInstrumentGame } from '../../ui/LabInstrumentGame';
+import { questOwnsEquipment } from '../../../systems/input/questEquipment';
 
 export function handleLabItemClick(event: ThreeEvent<MouseEvent>) {
   if (isSceneInputBlocked()) return;
@@ -25,12 +26,14 @@ export function LabEquipmentController() {
   const [catalog,setCatalog]=useState(false),[query,setQuery]=useState('');
   const items=useLabEquipment(s=>s.items), progress=useLabEquipment(s=>s.progress);
   const blocked=useStore(isSceneInputBlocked);
+  const tasks=useStore(s=>s.tasks), phase=useStore(s=>s.currentPhase);
   const objects=useRef(new Map<string,THREE.Object3D>());
   const startTime=useStore(s=>s.startTime);
   useEffect(()=>{useLabEquipment.getState().reset();setCurrent(null);setCatalog(false);},[startTime]);
   useEffect(()=>{
     // Descendant metadata describes whole functional objects, never individual screws.
     const scan=()=>{
+      objects.current.clear();
       scene.updateMatrixWorld(true);
       const entries:LabItem[]=[];const point=new THREE.Vector3();
       scene.traverse(object=>{
@@ -46,7 +49,7 @@ export function LabEquipmentController() {
     };
     scan();const timer=setTimeout(scan,600);
     return()=>{clearTimeout(timer);objects.current.clear();};
-  },[scene]);
+  },[scene,phase]);
   useEffect(()=>{
     const store=useInteractionStore.getState();
     for (const item of items) {
@@ -61,7 +64,7 @@ export function LabEquipmentController() {
         position: item.position,
         aimPosition: center.toArray() as [number, number, number],
         label: `Dùng: ${item.title}`,
-        isActive: !blocked && !ambient && center.y <= 2.5,
+        isActive: !blocked && !questOwnsEquipment(item) && !ambient && center.y <= 2.5,
         priority: .45,
         reach: 1.9,
         radius: Math.max(.12, Math.min(.4, Math.max(size.x, size.y) * .25)),
@@ -70,11 +73,12 @@ export function LabEquipmentController() {
       });
     }
     return()=>{for(const item of items)useInteractionStore.getState().unregister(`equipment:${item.id}`);};
-  },[items,blocked]);
+  },[items,blocked,tasks,phase]);
   useEffect(()=>{
     const open=(id:string)=>{
       if(isSceneInputBlocked() || useInteractionStore.getState().nearestId !== `equipment:${id}`)return;
       const item=useLabEquipment.getState().items.find(e=>e.id===id);if(!item)return;
+      if(questOwnsEquipment(item))return;
       if(Math.hypot(item.position[0]-playerCoords.position[0],item.position[2]-playerCoords.position[2])>2.5){useLabEquipment.getState().navigate(item);return;}
       useLabEquipment.getState().navigate(null);setCurrent(item);
     };

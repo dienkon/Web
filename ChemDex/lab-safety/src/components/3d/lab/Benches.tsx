@@ -1,5 +1,6 @@
 import React from 'react';
 import * as THREE from 'three';
+import { useStore } from '../../../store/useStore';
 
 interface BenchProps {
   id: string;
@@ -8,6 +9,7 @@ interface BenchProps {
 }
 
 const IslandBench: React.FC<BenchProps> = ({ id, position, scenarioType }) => {
+  const scenarioPhase = useStore(s => s.currentPhase === 5);
   return (
     <group userData={{labItem:{title:'Bàn thực hành và ngăn dụng cụ',kind:'workspace'}}} position={position}>
       {/* Heavy Black Chemical-Resistant Epoxy Resin Countertop (3.2m x 1.4m x 0.05m) */}
@@ -55,7 +57,7 @@ const IslandBench: React.FC<BenchProps> = ({ id, position, scenarioType }) => {
       ))}
 
       {/* Central 2-Tier Chemical Reagent Rack (2.4m W x 0.28m D x 0.55m H) */}
-      <group userData={{labItem:{title:'Giá hóa chất trên bàn',kind:'storage'}}} position={[0, 0.9, 0]}>
+      <group userData={{labItem:{title:'Giá hóa chất trên bàn',kind:'storage'}}} position={[0, 0.9, -.5]}>
         {/* Stainless Steel Upright Support Columns */}
         {[-1.1, 0, 1.1].map((cx, i) => (
           <mesh key={i} position={[cx, 0.28, 0]}>
@@ -133,7 +135,7 @@ const IslandBench: React.FC<BenchProps> = ({ id, position, scenarioType }) => {
 
       {/* ================= DETAILED REALISTIC BENCH APPARATUS ================= */}
       {/* 1. BENCH 1: ANALYTICAL & PHYSICAL INSTRUMENTS */}
-      {scenarioType === 'analytical' && (
+      {!scenarioPhase && scenarioType === 'analytical' && (
         <group position={[0, 0.9, 0]}>
           {/* Analytical Balance with Glass Draft Shield (0.1mg precision) */}
           <group userData={{labItem:{title:'Cân phân tích',kind:'balance'}}} position={[-0.5, 0, 0.4]}>
@@ -204,7 +206,7 @@ const IslandBench: React.FC<BenchProps> = ({ id, position, scenarioType }) => {
       )}
 
       {/* 2. BENCH 2: ORGANIC SYNTHESIS & HEATING */}
-      {scenarioType === 'heating' && (
+      {!scenarioPhase && scenarioType === 'heating' && (
         <group position={[0, 0.9, 0]}>
           {/* Bunsen Burner with Realistic Dual Blue Flame Core */}
           <group userData={{labItem:{title:'Đèn Bunsen',kind:'heat'}}} position={[-0.5, 0, 0.4]}>
@@ -272,7 +274,7 @@ const IslandBench: React.FC<BenchProps> = ({ id, position, scenarioType }) => {
       )}
 
       {/* 3. BENCH 3: INORGANIC REAGENTS & GLASSWARE */}
-      {scenarioType === 'reagents' && (
+      {!scenarioPhase && scenarioType === 'reagents' && (
         <group position={[0, 0.9, 0]}>
           {/* Test Tube Rack with 6 Colorful Solution Tubes */}
           <group userData={{labItem:{title:'Giá đỡ ống nghiệm',kind:'glass'}}} position={[-0.5, 0, 0.35]}>
@@ -316,45 +318,7 @@ const IslandBench: React.FC<BenchProps> = ({ id, position, scenarioType }) => {
         </group>
       )}
 
-      {/* 4. BENCH 4: ACID DILUTION & SPILL SCENARIO (Interactive Area) */}
-      {scenarioType === 'acid_spill' && (
-        <group position={[0, 0.9, 0]}>
-          {/* Concentrated H2SO4 Beaker with Safety Warning Label */}
-          <group userData={{labItem:{title:'Cốc axit và đũa thủy tinh',kind:'acid'}}} position={[-0.4, 0, 0.35]}>
-            <mesh position={[0, 0.08, 0]}>
-              <cylinderGeometry args={[0.06, 0.06, 0.16, 20]} />
-              <meshPhysicalMaterial transparent opacity={0.4} roughness={0.08} color="#BAE6FD" />
-            </mesh>
-            {/* Dense Acid Liquid */}
-            <mesh position={[0, 0.05, 0]}>
-              <cylinderGeometry args={[0.055, 0.055, 0.1, 20]} />
-              <meshStandardMaterial color="#0284C7" transparent opacity={0.75} roughness={0.2} />
-            </mesh>
-            {/* Glass Stirring Rod placed inside */}
-            <mesh position={[0.02, 0.12, 0]} rotation={[0, 0, 0.25]}>
-              <cylinderGeometry args={[0.004, 0.004, 0.22]} />
-              <meshPhysicalMaterial transparent opacity={0.6} roughness={0.05} color="#FFFFFF" />
-            </mesh>
-            {/* GHS Corrosive Diamond Symbol */}
-            <mesh position={[0, 0.08, 0.062]}>
-              <planeGeometry args={[0.04, 0.04]} />
-              <meshStandardMaterial color="#DC2626" roughness={0.3} />
-            </mesh>
-          </group>
 
-          {/* Water Beaker for Dilution Rule (Acid into Water, never water into acid) */}
-          <group userData={{labItem:{title:'Cốc nước pha loãng',kind:'acid'}}} position={[0.3, 0, 0.35]}>
-            <mesh position={[0, 0.09, 0]}>
-              <cylinderGeometry args={[0.07, 0.07, 0.18, 20]} />
-              <meshPhysicalMaterial transparent opacity={0.35} roughness={0.05} color="#BAE6FD" />
-            </mesh>
-            <mesh position={[0, 0.06, 0]}>
-              <cylinderGeometry args={[0.066, 0.066, 0.12, 20]} />
-              <meshStandardMaterial color="#E0F2FE" transparent opacity={0.6} roughness={0.1} />
-            </mesh>
-          </group>
-        </group>
-      )}
     </group>
   );
 };

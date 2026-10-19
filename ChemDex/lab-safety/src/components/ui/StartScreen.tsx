@@ -8,6 +8,8 @@ import {
   User, Zap,
 } from 'lucide-react';
 import { requestLandscapeFullscreen } from '../../systems/device/useOrientationGate';
+import { ConfirmPopup } from './ConfirmPopup';
+import { INITIAL_TASKS } from '../../data/tasks';
 
 const MODES = [
   { id: 'learn', label: vi.menu.modeLearn, eyebrow: 'Làm quen', desc: 'Chỉ dẫn từng bước, tự do luyện tập', icon: GraduationCap },
@@ -26,6 +28,7 @@ export const StartScreen: React.FC = () => {
   const character = useStore((s) => s.character);
   const reduceMotion = useStore((s) => s.settings.reduceMotion);
   const [hasSave, setHasSave] = useState(false);
+  const [confirmNew, setConfirmNew] = useState(false);
   const [showModeSelect, setShowModeSelect] = useState(false);
   const selectedMode = MODES.find((mode) => mode.id === gameMode) ?? MODES[0];
   const SelectedModeIcon = selectedMode.icon;
@@ -36,11 +39,12 @@ export const StartScreen: React.FC = () => {
   }, []);
 
   const handleStart = () => {
-    if (!hasSave || window.confirm('Bắt đầu lượt mới sẽ thay thế tiến trình đang lưu. Bạn muốn tiếp tục?')) startGame();
+    if (hasSave) setConfirmNew(true); else startGame();
   };
 
   return (
     <div className="start-shell absolute inset-0 z-20 overflow-y-auto select-none pointer-events-auto" data-ui>
+      {confirmNew && <ConfirmPopup title="Bắt đầu lượt mới?" message="Lượt mới sẽ thay thế tiến trình đang lưu trên máy này." onClose={()=>setConfirmNew(false)} onConfirm={()=>{setConfirmNew(false);startGame();}}/>}
       <div className="start-grid absolute inset-0" aria-hidden="true" />
       <div className="start-vignette absolute inset-0" aria-hidden="true" />
 
@@ -89,7 +93,7 @@ export const StartScreen: React.FC = () => {
             </div>
 
             <div className="mb-5 grid grid-cols-3 gap-2.5">
-              {([['05', 'Chặng huấn luyện'], ['34', 'Nhiệm vụ thực hành'], ['100', 'Điểm an toàn']] as const).map(([value, label]) => (
+              {([['05', 'Chặng huấn luyện'], [String(INITIAL_TASKS.length), 'Nhiệm vụ thực hành'], ['100', 'Điểm an toàn']] as const).map(([value, label]) => (
                 <div key={label} className="rounded-2xl border border-slate-200 bg-white/80 px-3 py-3 backdrop-blur-none">
                   <strong className="block font-mono text-lg font-black text-slate-800 sm:text-xl">{value}</strong>
                   <span className="mt-0.5 block text-[9px] font-bold uppercase leading-4 tracking-[0.08em] text-slate-600 sm:text-[10px]">{label}</span>

@@ -67,6 +67,8 @@ export interface LabScenario {
 export type ScenarioStage = 'observe' | 'decide' | 'act' | 'review' | 'complete';
 
 export interface ScenarioAttempt {
+  physicalStep?: number;
+  workVersion?: number;
   scenarioId: string;
   stage: ScenarioStage;
   observed: string[];
@@ -79,6 +81,7 @@ export interface ScenarioAttempt {
 }
 
 export type ScenarioEvent =
+  | { type: 'physical-step'; index: number }
   | { type: 'observe'; clueId: string }
   | { type: 'start-decisions' }
   | { type: 'answer'; choiceId: string }

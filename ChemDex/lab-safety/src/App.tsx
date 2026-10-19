@@ -22,6 +22,8 @@ import { useOrientationGate } from './systems/device/useOrientationGate';
 import { vi } from './i18n/vi';
 import { QuizInteractionGuard } from './systems/input/QuizInteractionGuard';
 import { CinematicOverlay } from './components/ui/CinematicOverlay';
+import { NoticePopup } from './components/ui/NoticePopup';
+import { AdvancedPracticeLibrary } from './components/ui/AdvancedPracticeLibrary';
 
 export default function App() {
   const view = useStore((state) => state.view);
@@ -30,7 +32,7 @@ export default function App() {
   const setShowRulesList = useStore((state) => state.setShowRulesList);
 
   const reduceMotion = useStore((state) => state.settings.reduceMotion);
-  const { isBlocked: isOrientationBlocked } = useOrientationGate();
+  const { isBlocked: isOrientationBlocked, isPortrait, enterLandscape, entryMessage } = useOrientationGate();
 
   useEffect(() => {
     document.documentElement.classList.toggle('game-active', view === 'game');
@@ -80,10 +82,13 @@ export default function App() {
       <SettingsModal />
       <CinematicOverlay />
       <ScenarioPanel />
+      <NoticePopup />
+      <AdvancedPracticeLibrary />
 
       {isOrientationBlocked && (
         <div
-          className="orientation-gate safe-pad fixed inset-0 z-[100] grid place-items-center bg-white text-slate-800 pointer-events-auto"
+          className="orientation-gate safe-pad fixed inset-0 z-[3000] grid place-items-center bg-white text-slate-800 pointer-events-auto"
+          data-ui
           role="dialog"
           aria-modal="true"
           aria-labelledby="orientation-gate-title"
@@ -93,11 +98,13 @@ export default function App() {
               <Smartphone className="h-9 w-9 text-cyan-700" aria-hidden="true" />
             </div>
             <h2 id="orientation-gate-title" className="text-2xl font-black tracking-tight">
-              {vi.device.rotateToLandscape}
+              {isPortrait ? vi.device.rotateToLandscape : 'Vào chế độ toàn màn hình'}
             </h2>
             <p className="mt-3 text-sm font-medium leading-6 text-slate-600">
               {vi.device.rotateDescription}
             </p>
+            <button className="mt-5 rounded-xl bg-cyan-700 px-5 py-3 font-bold text-white" onClick={()=>void enterLandscape?.()}>Mở toàn màn hình · xoay ngang</button>
+            <p role="status" className="mt-3 text-xs text-slate-500">{entryMessage}</p>
           </div>
         </div>
       )}

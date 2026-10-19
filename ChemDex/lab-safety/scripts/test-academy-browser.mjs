@@ -117,7 +117,6 @@ try{
   }else if(game.kind==='decision'){
    for(let i=0;i<game.caseIds.length;i++){await selector('[data-decision-choice="safe"]');await click('Xác nhận lựa chọn');await click(i===game.caseIds.length-1?'Hoàn thành tình huống':'Tình huống tiếp theo');}
   }else if(game.kind==='flow'){
-   await click('Khuấy trong mô hình');
    let loops=0;
    while(true){
     const amount=await evaluate(client,"parseFloat(document.querySelector('.academy-flow-readout strong').textContent)");
@@ -129,6 +128,9 @@ try{
     await client.send('Input.dispatchMouseEvent',{type:'mouseReleased',...rect,button:'left',clickCount:1});
     await delay(500);
    }
+   await evaluate(client,"document.querySelector('[data-stir-surface]').scrollIntoView({block:'center'});true;");
+   const circle=[];for(let n=0;n<=40;n++){const a=n/40*Math.PI*2;circle.push(await evaluate(client,`(()=>{const p=new DOMPoint(${180+76*Math.cos(a)},${140+76*Math.sin(a)}).matrixTransform(document.querySelector('[data-stir-surface]').getScreenCTM());return {x:p.x,y:p.y};})()`));}
+   await client.send('Input.dispatchMouseEvent',{type:'mousePressed',...circle[0],button:'left',buttons:1,clickCount:1});for(const q of circle.slice(1))await client.send('Input.dispatchMouseEvent',{type:'mouseMoved',...q,buttons:1});await client.send('Input.dispatchMouseEvent',{type:'mouseReleased',...circle.at(-1),button:'left',buttons:0,clickCount:1});
    await waitFor(client,"parseFloat(document.querySelectorAll('.academy-flow-readout strong')[1].textContent)<=28",'flow cooldown');
    if(game.id==='flow-first')await shot('academy-flow');
    await click('Kiểm tra mẻ');

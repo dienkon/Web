@@ -1,6 +1,7 @@
 import { ScenarioWorld } from '../../../scenarios/ScenarioWorld';
 import { LabEquipmentController, handleLabItemClick } from './LabEquipmentController';
 import React from 'react';
+import { useStore } from '../../../store/useStore';
 import { LooseWaste } from './LooseWaste';
 import { PlayerMirror } from './PlayerMirror';
 import { LabBaseRoom } from './Architecture';
@@ -16,18 +17,17 @@ import { InteractiveTasks } from './InteractiveTasks';
 import { ObjectiveMarker } from './ObjectiveMarker';
 import { FireEmergencyScenario } from './FireEmergencyScenario';
 import { AcidDilutionStation } from './AcidDilutionStation';
-import { PHTestingMinigame } from './PHTestingMinigame';
 import { HazardHuntManager } from './HazardHuntManager';
 import { EmergencyShowerStation } from './EmergencyShowerStation';
 import { InteractiveFumeHood } from './InteractiveFumeHood';
 import { FirstAidTreatmentStation } from './FirstAidTreatmentStation';
 import { ChemicalSpillSimulation } from './ChemicalSpillSimulation';
 import { BunsenBurnerStation } from './BunsenBurnerStation';
-import { ChemicalStorageStation } from './ChemicalStorageStation';
 import { AdvancedSafetyRounds } from './AdvancedSafetyRounds';
 import { ApparatusDetails } from './ApparatusDetails';
 
 export const LabStandardRoom: React.FC = () => {
+  const scenarioPhase = useStore(s => s.currentPhase === 5);
   return (
     <group name="lab-room" onClick={handleLabItemClick}>
       {/* 1. Core Architecture (Walls, floor, ceiling, doors A & B) */}
@@ -46,8 +46,8 @@ export const LabStandardRoom: React.FC = () => {
 
       {/* 4. Island Benches (4 benches with Bunsen Burner & Lab Equipment) */}
       <IslandBenches />
-      <ApparatusDetails />
-      <BunsenBurnerStation />
+      {!scenarioPhase && <ApparatusDetails />}
+      {!scenarioPhase && <BunsenBurnerStation />}
 
       {/* 5. Northeast Fume Hood (Base Shell + Interactive Sliding Sash & Vapors) */}
       <FumeHood />
@@ -55,7 +55,6 @@ export const LabStandardRoom: React.FC = () => {
 
       {/* 6. East Wall (Chemical Storage Cabinets & GHS Incompatibility Sorter) */}
       <StorageCabinets />
-      <ChemicalStorageStation />
 
       {/* 7. Southeast Waste Segregation Station */}
       <WasteStation />
@@ -76,10 +75,9 @@ export const LabStandardRoom: React.FC = () => {
       <FireEmergencyScenario />
 
       {/* 12. Fluid Simulation: Acid Dilution Lab Station */}
-      <AcidDilutionStation />
+      {!scenarioPhase && <AcidDilutionStation />}
 
       {/* 13. Chemical Color Indicator: pH Litmus Testing Minigame */}
-      <PHTestingMinigame />
 
       {/* 14. Real-time Physical Chemical Spill & Neutralization Simulation */}
       <ChemicalSpillSimulation />

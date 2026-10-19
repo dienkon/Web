@@ -67,14 +67,14 @@ export const PhaseRegistry: Record<number, Phase> = {
     teacherDialogComplete: [
       "Thầy Giáo Hóa Học: Ôi tuyệt vời quá! Em đã thu gom và vứt sạch sẽ túi chất thải hóa chất vào thùng rác chuyên dụng rồi.",
       "Thầy thực sự rất tự hào về tinh thần tự giác bảo vệ môi trường, ý thức giữ gìn vệ sinh và tuân thủ kỷ luật an toàn phòng thí nghiệm của em!",
-      "Tiếp theo là GIAI ĐOẠN 4: Ba vòng an toàn nâng cao ngay trong phòng lab này.",
+      "Tiếp theo là GIAI ĐOẠN 4: Bốn vòng an toàn nâng cao ngay trong phòng lab này.",
       "Đến bàn điện phía Tây Bắc, tủ hút phía Đông Bắc rồi lối thoát ở cửa vào. Quan sát tình huống và chọn đúng trình tự xử lý."
     ]
   },
   4: {
     id: 4,
     name: 'An toàn nâng cao',
-    requiredTasks: ['task_electrical_safety', 'task_fume_safety', 'task_evacuation'],
+    requiredTasks: ['task_alcohol_cap', 'task_electrical_safety', 'task_fume_safety', 'task_evacuation'],
     teacherDialogComplete: [
       'Em đã hoàn thành các vòng an toàn điện, hơi hóa chất và sơ tán trong phòng lab.',
       'Hãy luôn báo người phụ trách khi gặp nguy cơ chưa rõ và tuân thủ hướng dẫn của phòng thí nghiệm. Thầy sẽ ghi nhận kết quả trên chứng chỉ của em.'
@@ -229,12 +229,12 @@ export class PhaseEngine {
 
     if (currentPhase === 4) {
       if (!this.isPhaseComplete(4, tasksState, playerState)) return { seq: [
-        'Hãy hoàn thành lần lượt ba vòng: nước cạnh thiết bị điện, hơi hóa chất trong tủ hút và báo động sơ tán.',
+        'Hãy hoàn thành lần lượt bốn vòng: đậy nắp đèn cồn, nước cạnh thiết bị điện, hơi hóa chất trong tủ hút và báo động sơ tán.',
         'Đi theo đường chỉ dẫn, tương tác tại vị trí đánh dấu để xem tình huống và thực hành quyết định an toàn.'
       ] };
       return { seq: [
-        'Em đã hoàn thành ba vòng an toàn nâng cao.',
-        'Chặng tiếp theo có 15 tình huống trong chính phòng lab này. Mỗi vòng cần quan sát dấu hiệu, chọn cách xử lý và thực hiện đúng thứ tự.',
+        'Em đã hoàn thành bốn vòng an toàn nâng cao.',
+        'Chặng tiếp theo có 15 tình huống trong chính phòng lab này. Mỗi vòng cần quan sát dấu hiệu, thao tác trực tiếp với vật thể theo đúng thứ tự.',
         'Đi theo chỉ dẫn, đến gần mô hình và hướng nhìn vào vật. Khi có vòng xanh, bấm E để bắt đầu.'
       ], onComplete: () => setCurrentPhase(5) };
     }
@@ -244,7 +244,7 @@ export class PhaseEngine {
       if (next) return { seq: [
         `Tình huống tiếp theo: ${next.title}.`,
         next.summary,
-        'Theo chỉ dẫn đến hiện trường, quan sát đủ dấu hiệu và xử lý đúng trình tự. Tiến trình được lưu sau từng bước.'
+        'Theo chỉ dẫn đến hiện trường, thao tác với từng vật thể và xử lý đúng trình tự. Tiến trình được lưu sau từng bước.'
       ] };
       return { seq: PhaseRegistry[5].teacherDialogComplete, onComplete: endGame };
     }

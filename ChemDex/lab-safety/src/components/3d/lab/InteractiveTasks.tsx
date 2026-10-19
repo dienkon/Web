@@ -232,7 +232,7 @@ export const InteractiveTasks: React.FC = () => {
       {/* Task: Quy tắc pha loãng Axit Sunfuric tại Bàn 4 */}
       <InteractableItem
         id="acid_dilute_demo"
-        position={[4.2, 0.95, 2.2]}
+        position={[4.2, 0.93, 2.62]}
         label="Tìm hiểu Quy tắc pha loãng Axit (Phím E)"
         type="learn"
         taskId="task_inspect_acid"

@@ -71,11 +71,7 @@ export const HUD: React.FC = () => {
     };
   }, [sheet, practice]);
 
-  useEffect(() => {
-    if (!error) return;
-    const timer = window.setTimeout(() => useStore.getState().dismissErrorBanner(), 5000);
-    return () => window.clearTimeout(timer);
-  }, [error]);
+
 
   useEffect(() => {
     if (!menu) return;
@@ -122,6 +118,7 @@ export const HUD: React.FC = () => {
       {menu && <div ref={menuRoot} id="lab-quick-menu" className="lab-quick-menu" role="group" aria-label="Công cụ và trợ giúp">
         <button onClick={() => action(() => useStore.getState().setShowRulesList(true))}><BookOpen size={18} /><span>Sổ tay an toàn</span></button>
         <button onClick={() => action(() => window.dispatchEvent(new Event('lab-open-equipment')))}><ListChecks size={18} /><span>Sổ dụng cụ</span></button>
+        {phase>=4&&<button onClick={()=>action(()=>window.dispatchEvent(new Event('lab-open-advanced-practice')))}><ShieldCheck size={18}/><span>Xưởng luyện nâng cao</span></button>}
         <button onClick={() => action(() => setPractice(true))}><ShieldCheck size={18} /><span>Ôn kỹ năng</span></button>
         <button onClick={() => action(() => setSheet(true))}><Compass size={18} /><span>Tiến trình nhiệm vụ</span></button>
         <button onClick={() => action(() => window.dispatchEvent(new Event('lab-open-academy')))}><BookOpen size={18} /><span>Bài tập mở rộng</span></button>
@@ -138,13 +135,9 @@ export const HUD: React.FC = () => {
           aria-label={interaction ? `Tương tác: ${interaction}` : 'Chưa nhận diện vật để tương tác'}
         ><Hand size={23} /><span>{interaction ? 'Tương tác' : 'Chưa có vật'}</span><kbd>E</kbd></button>
       </div>
-      <p className="lab-control-hint">WASD di chuyển · Kéo chuột để nhìn · Vòng xanh + E để tương tác</p>
+      <p className="lab-control-hint">WASD di chuyển · Nhấp cảnh để khóa chuột · Esc thả chuột · E tương tác</p>
       {map && <LabMinimapHUD />}
-      {error && <aside className="lab-error-toast" role="status">
-        <ShieldCheck size={20} />
-        <div><strong>{error.title}</strong><p>{error.consequence}</p></div>
-        <button type="button" aria-label="Đóng thông báo" onClick={() => useStore.getState().dismissErrorBanner()}><X size={17} /></button>
-      </aside>}
+
     </div>}
     <Sheet isOpen={sheet} onClose={() => setSheet(false)} title="Nhiệm vụ trong phòng lab" subtitle={`Chặng ${phase} · ${phaseTitle} · ${totalDone}/${tasks.length} toàn khóa`} maxWidth="max-w-xl">
       <div className="lab-task-list">

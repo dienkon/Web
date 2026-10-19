@@ -6,7 +6,7 @@ import { AcidPourGame } from '../../ui/AcidPourGame';
 import { useStore } from '../../../store/useStore';
 import { soundManager } from '../../../audio/soundManager';
 
-const BENCH_POS: [number, number, number] = [4.2, 0.95, 2.2];
+const BENCH_POS: [number, number, number] = [4.2, 0.93, 2.62];
 
 export const AcidDilutionStation: React.FC = () => {
   const completeTask = useStore((s) => s.completeTask);

@@ -7,6 +7,9 @@ interface OrientationGateState {
   isBlocked: boolean;
   isTouchDevice: boolean;
   isPortrait: boolean;
+  needsFullscreen?: boolean;
+  enterLandscape?: () => Promise<void>;
+  entryMessage?: string;
 }
 
 const EMPTY_STATE: OrientationGateState = {
@@ -52,6 +55,13 @@ export const useOrientationGate = (): OrientationGateState => {
   const setRunState = useStore((state) => state.setRunState);
   const [state, setState] = useState<OrientationGateState>(EMPTY_STATE);
   const pausedByGate = useRef(false);
+  const [entered, setEntered] = useState(false);
+  const [entryMessage, setEntryMessage] = useState('Chạm để mở toàn màn hình và yêu cầu khóa xoay ngang.');
+  const enterLandscape = async () => {
+    await requestLandscapeFullscreen();
+    setEntered(true);
+    if (!document.fullscreenElement) setEntryMessage('Trình duyệt này không cho khóa toàn màn hình. Hãy xoay máy ngang để tiếp tục.');
+  };
 
   useEffect(() => {
     const orientationQuery = window.matchMedia('(orientation: portrait)');
@@ -61,7 +71,8 @@ export const useOrientationGate = (): OrientationGateState => {
     const update = () => {
       const device = readDeviceState();
       setState({
-        isBlocked: view === 'game' && device.isTouchDevice && device.width < 1024 && device.isPortrait,
+        isBlocked: device.isTouchDevice && Math.min(window.innerWidth, window.innerHeight) < 1024 && (device.isPortrait || (!entered && !document.fullscreenElement)),
+        needsFullscreen: !entered && !document.fullscreenElement,
         isTouchDevice: device.isTouchDevice,
         isPortrait: device.isPortrait,
       });
@@ -76,6 +87,8 @@ export const useOrientationGate = (): OrientationGateState => {
     pointerQuery.addEventListener('change', scheduleUpdate);
     window.addEventListener('resize', scheduleUpdate);
     window.addEventListener('orientationchange', scheduleUpdate);
+    const fullscreenChanged = () => { if (!document.fullscreenElement) setEntered(false); scheduleUpdate(); };
+    document.addEventListener('fullscreenchange', fullscreenChanged);
     window.visualViewport?.addEventListener('resize', scheduleUpdate);
 
     return () => {
@@ -84,14 +97,15 @@ export const useOrientationGate = (): OrientationGateState => {
       pointerQuery.removeEventListener('change', scheduleUpdate);
       window.removeEventListener('resize', scheduleUpdate);
       window.removeEventListener('orientationchange', scheduleUpdate);
+      document.removeEventListener('fullscreenchange', fullscreenChanged);
       window.visualViewport?.removeEventListener('resize', scheduleUpdate);
     };
-  }, [view]);
+  }, [view, entered]);
 
   useEffect(() => {
     if (state.isBlocked) {
       const runState = useStore.getState().runState;
-      if (runState === 'RUNNING') {
+      if (view === 'game' && runState === 'RUNNING') {
         pausedByGate.current = true;
         setRunState('PAUSED');
         void soundManager.suspend();
@@ -110,5 +124,5 @@ export const useOrientationGate = (): OrientationGateState => {
     }
   }, [setRunState, state.isBlocked, view]);
 
-  return state;
+  return { ...state, enterLandscape, entryMessage };
 };

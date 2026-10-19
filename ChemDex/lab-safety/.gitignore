@@ -9,3 +9,4 @@ coverage/
 !.env.example
 .browser-review/
 .browser-review-safety/
+.browser-review-practical/

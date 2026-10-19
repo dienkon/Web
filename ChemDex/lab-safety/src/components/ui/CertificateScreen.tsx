@@ -454,6 +454,7 @@ export const CertificateScreen: React.FC = () => {
             In / Xuất Bằng Khen (PDF)
           </Button>
 
+          <Button variant="primary" onClick={()=>window.dispatchEvent(new Event('lab-open-advanced-practice'))}>Tiếp tục luyện minigame nâng cao</Button>
           <Button
             variant="secondary"
             size="md"

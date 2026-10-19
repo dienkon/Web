@@ -68,7 +68,7 @@ export const FirstPersonController: React.FC = () => {
 
   // Automatically release pointer lock whenever a quest, quiz, or dialog modal opens!
   useEffect(() => {
-    if (isModalOrQuestActive) {
+    if (isModalOrQuestActive || runState !== 'RUNNING' || view !== 'game') {
       if (document.pointerLockElement) {
         try {
           document.exitPointerLock();
@@ -78,7 +78,7 @@ export const FirstPersonController: React.FC = () => {
       inputManager.resetAll();
       gl.domElement.style.cursor = 'default';
     }
-  }, [isModalOrQuestActive, gl.domElement]);
+  }, [isModalOrQuestActive, runState, view, gl.domElement]);
 
   useEffect(() => {
     inputManager.setLookConfig(settings.cameraSensitivity, settings.invertY);
@@ -87,6 +87,8 @@ export const FirstPersonController: React.FC = () => {
   // Unified pointer lock, mouse drag, and touch look listeners.
   useEffect(() => {
     const canvas = gl.domElement;
+    let pressPoint: {x:number;y:number} | null=null;
+    let dragged=false;
 
     const isUiTarget = (target: EventTarget | null) =>
       target instanceof Element && Boolean(target.closest('[data-ui]'));
@@ -108,10 +110,11 @@ export const FirstPersonController: React.FC = () => {
       const locked = document.pointerLockElement === canvas;
       isLocked.current = locked;
       canvas.style.cursor = locked ? 'none' : 'default';
+      inputManager.resetAll();
     };
 
     const onClick = (event: PointerEvent) => {
-      if (event.pointerType === 'mouse' && !isUiTarget(event.target) && !inputIsBlocked()) {
+      if (!dragged && (event.pointerType === 'mouse' || !('pointerType' in event)) && !isUiTarget(event.target) && !inputIsBlocked()) {
         if (!isLocked.current && canvas.requestPointerLock) {
           try {
             const p = canvas.requestPointerLock();
@@ -125,6 +128,7 @@ export const FirstPersonController: React.FC = () => {
 
     const onPointerDown = (event: PointerEvent) => {
       if (event.button !== 0 || inputIsBlocked() || isUiTarget(event.target)) return;
+      pressPoint={x:event.clientX,y:event.clientY};dragged=false;
       if (inputManager.beginLook(event.pointerId, event.clientX, event.clientY)) {
         if (document.pointerLockElement !== canvas) {
           try { canvas.setPointerCapture(event.pointerId); } catch { /* Window listeners still end a mouse drag if capture is unavailable. */ }
@@ -134,6 +138,7 @@ export const FirstPersonController: React.FC = () => {
 
     const onPointerMove = (event: PointerEvent) => {
       if (inputIsBlocked()) return;
+      if(pressPoint&&Math.hypot(event.clientX-pressPoint.x,event.clientY-pressPoint.y)>6)dragged=true;
       if (event.pointerType === 'mouse' && isLocked.current) {
         inputManager.addMouseLook(event.movementX, event.movementY);
         return;
@@ -142,6 +147,7 @@ export const FirstPersonController: React.FC = () => {
     };
 
     const onPointerEnd = (event: PointerEvent) => {
+      pressPoint=null;
       inputManager.endLook(event.pointerId);
       if (canvas.hasPointerCapture(event.pointerId)) canvas.releasePointerCapture(event.pointerId);
     };
@@ -180,6 +186,7 @@ export const FirstPersonController: React.FC = () => {
     };
 
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.target instanceof Element && event.target.closest('[data-ui], [role="dialog"], input, textarea, button, select')) return;
       if (event.code === 'KeyE' || event.code === 'Space' || event.code === 'Enter') {
         if (event.repeat || useStore.getState().view !== 'game') return;
         event.preventDefault();
@@ -200,7 +207,11 @@ export const FirstPersonController: React.FC = () => {
     };
 
     const handleKeyUp = (event: KeyboardEvent) => inputManager.handleKeyUp(event.code);
-    const resetInput = () => inputManager.resetAll();
+    const resetInput = () => {
+      inputManager.resetAll();
+      currentVelX.current=0;currentVelZ.current=0;
+      if(document.pointerLockElement===gl.domElement)document.exitPointerLock();
+    };
     const handleVisibility = () => {
       if (document.hidden) resetInput();
     };
@@ -217,7 +228,7 @@ export const FirstPersonController: React.FC = () => {
       document.removeEventListener('visibilitychange', handleVisibility);
       inputManager.resetAll();
     };
-  }, []);
+  }, [gl.domElement]);
 
   useEffect(() => {
     inputManager.resetAll();

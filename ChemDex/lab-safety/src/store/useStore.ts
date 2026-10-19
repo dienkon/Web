@@ -170,7 +170,8 @@ export const useStore = create<GameState>((set, get) => ({
         useScenarioSession.getState().restore(parsed.scenarioRuns);
         fireSimulation.reset(); SimulationClock.reset(); toolControls.spraying = false;
         const tasks = INITIAL_TASKS.map(task => ({ ...task, completed: !!parsed.tasks?.find((saved: { id: string; completed: boolean }) => saved.id === task.id)?.completed }));
-        set({ ...parsed, tasks, cinematic: null, activeTool: null, sceneModalCount: 0, isDialogActive: false, activeRuleDialog: null, showSettings: false, showRulesList: false, showFireExtinguisherQuiz: false, showBandageQuiz: false, showChemicalSymbolsQuiz: false, view: 'game', runState: 'RUNNING' });
+        const currentPhase = parsed.currentPhase >= 5 && !tasks.find(task => task.id === 'task_alcohol_cap')?.completed ? 4 : parsed.currentPhase;
+        set({ ...parsed, tasks, currentPhase, cinematic: null, activeTool: null, sceneModalCount: 0, isDialogActive: false, activeRuleDialog: null, showSettings: false, showRulesList: false, showFireExtinguisherQuiz: false, showBandageQuiz: false, showChemicalSymbolsQuiz: false, view: 'game', runState: 'RUNNING' });
         // Spawn player near entrance or checkpoint
         playerCoords.position = [-6.0, 0, 5.8];
         playerCoords.rotationY = Math.PI;

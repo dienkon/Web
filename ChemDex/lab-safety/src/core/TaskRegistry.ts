@@ -1,6 +1,7 @@
 import { TaskId, TaskDefinition } from '../types';
 
 export const TaskRegistry: Record<TaskId, TaskDefinition> = {
+  task_alcohol_cap: { id: 'task_alcohol_cap', titleKey: 'Đậy nắp dập đèn cồn', prerequisites: ['task_trash_disposal'], target: { type: 'scenario', value: 'alcohol-cap' }, completion: { condition: 'verified_steps', auto: false } },
   task_electrical_safety: { id: 'task_electrical_safety', titleKey: 'An toàn điện khi có nước', prerequisites: ['task_trash_disposal'], target: { type: 'scenario', value: 'electrical' }, completion: { condition: 'verified_steps', auto: false } },
   task_fume_safety: { id: 'task_fume_safety', titleKey: 'Hơi hóa chất và tủ hút', prerequisites: ['task_electrical_safety'], target: { type: 'scenario', value: 'fume' }, completion: { condition: 'verified_steps', auto: false } },
   task_evacuation: { id: 'task_evacuation', titleKey: 'Báo động và sơ tán', prerequisites: ['task_fume_safety'], target: { type: 'scenario', value: 'exit' }, completion: { condition: 'verified_steps', auto: false } },
@@ -21,5 +22,5 @@ export const TaskRegistry: Record<TaskId, TaskDefinition> = {
   task_spill_kit: { id: 'task_spill_kit', titleKey: 'Lấy bột trung hòa từ Spill Kit', prerequisites: [], target: { type: 'action', value: 'spill_kit' }, completion: { condition: 'done', auto: true } },
   task_spill_neutralize: { id: 'task_spill_neutralize', titleKey: 'Trung hòa vũng hóa chất', prerequisites: ['task_spill_kit'], target: { type: 'action', value: 'neutralize' }, completion: { condition: 'done', auto: true } },
   task_spill_wipe: { id: 'task_spill_wipe', titleKey: 'Lau dọn sạch vũng hóa chất', prerequisites: ['task_spill_neutralize'], target: { type: 'action', value: 'wipe' }, completion: { condition: 'done', auto: true } },
-  task_trash_disposal: { id: 'task_trash_disposal', titleKey: 'Thu gom rác thải hóa chất nguy hại (0/3)', prerequisites: [], target: { type: 'action', value: 'trash' }, completion: { condition: 'done', auto: true } }
+  task_trash_disposal: { id: 'task_trash_disposal', titleKey: 'Thu gom và phân loại 4 mẫu chất thải', prerequisites: [], target: { type: 'action', value: 'trash' }, completion: { condition: 'done', auto: true } }
 };

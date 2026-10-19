@@ -1,156 +1,53 @@
-import { useTaskProximity } from './useTaskProximity';
-import React, { useEffect, useRef, useMemo } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { SceneHtml as Html } from '../SceneHtml';
 import * as THREE from 'three';
-import { playerCoords, useStore } from '../../../store/useStore';
+import { SceneHtml } from '../SceneHtml';
+import { PracticalSimulation } from '../../ui/PracticalSimulation';
+import { PRACTICAL_WORK } from '../../../data/practicalWork';
+import { useStore } from '../../../store/useStore';
+import { useTaskProximity } from './useTaskProximity';
 import { isSceneInputBlocked } from '../../../systems/input/sceneInput';
 import { useInteractionStore } from '../../../core/InteractionSystem';
 import { interactionBus, INTERACTION_PRIORITY } from '../../../systems/input/InteractionBus';
-import { soundManager } from '../../../audio/soundManager';
-
-const SPILL_POS: [number, number, number] = [2.5, 0.015, 1.0];
-
-type SpillState = 'hazard' | 'cones_placed' | 'neutralized' | 'cleaned';
-
-export const ChemicalSpillSimulation: React.FC = () => {
-  const spillState = useStore(s => s.player.flags.spillStage ?? 'hazard');
-  const neutralizeProgress = useStore(s => s.player.flags.spillProgress ?? 0);
-  const activeTool = useStore(s => s.activeTool);
-  const setSpillState = (spillStage: SpillState) => useStore.setState(s => ({ player: { ...s.player, flags: { ...s.player.flags, spillStage } } }));
-  const setNeutralizeProgress = (spillProgress: number) => useStore.setState(s => ({ player: { ...s.player, flags: { ...s.player.flags, spillProgress } } }));
-
-  const vaporPointsRef = useRef<THREE.Points>(null);
-  const foamRef = useRef<THREE.Group>(null);
-
-  const currentPhase = useStore((s) => s.currentPhase);
-  const tasks = useStore((s) => s.tasks);
-  const completeTask = useStore((s) => s.completeTask);
-  const startDialog = useStore((s) => s.startDialog);
-  const player = useStore((s) => s.player);
-  const addError = useStore((s) => s.addError);
-
-  // Check distance to puddle
-  const dx = SPILL_POS[0] - playerCoords.position[0];
-  const dz = SPILL_POS[2] - playerCoords.position[2];
-  const distance = Math.hypot(dx, dz);
-  const isNear = useTaskProximity(SPILL_POS, 2.4, ['task_spill_neutralize', 'task_spill_wipe'], false);
-  const focusedSpill = useInteractionStore(s => s.nearestId === 'spill_simulation');
-
-  // Acid vapor particles
-  const vaporCount = 35;
-  const vaporPositions = useMemo(() => {
-    const pos = new Float32Array(vaporCount * 3);
-    for (let i = 0; i < vaporCount; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 0.9;
-      pos[i * 3 + 1] = Math.random() * 0.4;
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 0.9;
-    }
-    return pos;
-  }, []);
-
-  useFrame((_, delta) => {
-    if (currentPhase !== 3 || isSceneInputBlocked()) return;
-    // Animate rising toxic vapors if still active hazard
-    if (vaporPointsRef.current && (spillState === 'hazard' || spillState === 'cones_placed')) {
-      const posAttr = vaporPointsRef.current.geometry.attributes.position as THREE.BufferAttribute;
-      const arr = posAttr.array as Float32Array;
-
-      for (let i = 0; i < vaporCount; i++) {
-        arr[i * 3 + 1] += delta * 0.45;
-        arr[i * 3] += (Math.random() - 0.5) * delta * 0.1;
-        arr[i * 3 + 2] += (Math.random() - 0.5) * delta * 0.1;
-
-        if (arr[i * 3 + 1] > 0.8) {
-          arr[i * 3] = (Math.random() - 0.5) * 0.9;
-          arr[i * 3 + 1] = 0.05;
-          arr[i * 3 + 2] = (Math.random() - 0.5) * 0.9;
-        }
-      }
-      posAttr.needsUpdate = true;
-    }
-
-    // Animate bubbling foam when neutralizing
-    if (foamRef.current && spillState === 'cones_placed' && neutralizeProgress > 0) {
-      foamRef.current.scale.setScalar(
-        0.5 + Math.sin(performance.now() * 0.008) * 0.05 + (neutralizeProgress / 100) * 0.5
-      );
-    }
-  });
-
-  // Action 1: Place Safety Warning Cones
-  const canAct = () => !isSceneInputBlocked() && isNear && useStore.getState().activeTool === 'spillKit' && !!useStore.getState().player.inventory.hasSweeper;
-  const handlePlaceCones = () => {
-    if (!canAct()) return;
-    setSpillState('cones_placed');
-    soundManager.play('snap');
-    startDialog([
-      'BƯỚC 1: CÔ LẬP HIỆN TRƯỜNG SỰ CỐ!',
-      'Đã đặt 3 cọc tiêu an toàn màu vàng xung quanh vũng hóa chất.',
-      'Cảnh báo các bạn học sinh xung quanh không bước vào khu vực nguy hiểm trơn trượt và ăn mòn.',
-    ]);
-  };
-
-  // Action 2: Sprinkle Neutralizing Powder (NaHCO3)
-  const handleSprinklePowder = () => {
-    if (!canAct() || spillState !== 'cones_placed') return;
-    if (!player.equipment.hasGloves) {
-      addError('ppe_missing', {
-        penalty: 10,
-        title: 'Chưa đeo găng tay khi xử lý hóa chất tràn!',
-        consequence: 'Bột hóa chất và dung dịch axit bắn dính làm bỏng da tay!',
-      });
-      return;
-    }
-
-    soundManager.play('fizz');
-    const nextProg = Math.min(100, neutralizeProgress + 35);
-    setNeutralizeProgress(nextProg);
-
-    if (nextProg >= 100) {
-      setSpillState('neutralized');
-      completeTask('task_spill_neutralize');
-      soundManager.play('success');
-      startDialog([
-        'BƯỚC 2: TRUNG HÒA HÓA CHẤT AN TOÀN!',
-        'Đã rải bột Sodium Bicarbonate (NaHCO3) từ rìa ngoài vào tâm vũng axit.',
-        'Phản ứng trung hòa tạo muối, nước và sủi bọt khí CO2 không độc. Môi trường đã chuyển sang trung tính an toàn (pH ~ 7.0)!',
-      ]);
-    }
-  };
-
-  // Action 3: Wipe & Scoop up into Hazmat Bag
-  const handleWipeAndCollect = () => {
-    if (!canAct() || spillState !== 'neutralized') return;
-    useStore.setState(s => ({ activeTool: 'waste', player: { ...s.player, inventory: { ...s.player.inventory, isHoldingTrash: true, heldTrashType: 'chemical', heldWasteId: 'spill' } } }));
-    setSpillState('cleaned');
-    soundManager.play('complete');
-    completeTask('task_spill_wipe');
-    startDialog([
-      'BƯỚC 3: THU GOM & VỆ SINH MẶT SÀN!',
-      'Dùng xẻng gạt nhựa và giấy thấm gom toàn bộ bã muối trung hòa vào túi chất thải nguy hại màu vàng.',
-      'Lau sạch sàn bằng nước sạch. Hãy mang túi rác nguy hại đến thùng rác phân loại ở góc Đông Nam!',
-    ]);
-  };
-
-  const actionLabel = spillState === 'hazard' ? 'Đặt cọc tiêu cô lập vũng tràn' : spillState === 'cones_placed' ? `Rải bột trung hòa (${neutralizeProgress}%)` : 'Thu gom chất thải';
-  const active = isNear && activeTool === 'spillKit' && spillState !== 'cleaned';
-  useEffect(() => {
-    useInteractionStore.getState().register({ id: 'spill_simulation', position: SPILL_POS, label: actionLabel, isActive: active });
-    return () => useInteractionStore.getState().unregister('spill_simulation');
-  }, [active, actionLabel]);
-  useEffect(() => interactionBus.subscribe({ priority: INTERACTION_PRIORITY.TARGET, isActive: () => active && !isSceneInputBlocked() && useInteractionStore.getState().nearestId === 'spill_simulation', onInteract: () => {
-    if (spillState === 'hazard') handlePlaceCones();
-    else if (spillState === 'cones_placed') handleSprinklePowder();
-    else if (spillState === 'neutralized') handleWipeAndCollect();
-    useStore.getState().saveGame();
-  } }), [active, spillState, neutralizeProgress]);
-
-  // Only active in Phase 3 or when relevant
-  if (currentPhase !== 3) return null;
-
-  return (
-    <group position={SPILL_POS}>
+const SPILL_POS: [number,number,number]=[2.5,.015,1];
+export function ChemicalSpillSimulation(){
+ const phase=useStore(s=>s.currentPhase),player=useStore(s=>s.player),tool=useStore(s=>s.activeTool),startTime=useStore(s=>s.startTime);
+ const spillState=player.flags.spillStage??'hazard',neutralizeProgress=player.flags.spillProgress??0;
+ const [open,setOpen]=useState<'spill-neutralize'|'spill-collect'|null>(null);
+ const vaporPointsRef=useRef<THREE.Points>(null),foamRef=useRef<THREE.Group>(null);
+ const isNear=useTaskProximity(SPILL_POS,2.4,['task_spill_neutralize','task_spill_wipe'],false);
+ const active=phase===3&&isNear&&tool==='spillKit'&&spillState!=='cleaned';
+ const vaporCount=35;
+ const vaporPositions=useMemo(()=>Float32Array.from({length:vaporCount*3},(_,i)=>i%3===1?Math.random()*.4:(Math.random()-.5)*.9),[]);
+ useEffect(()=>setOpen(null),[startTime]);
+ useFrame((_,delta)=>{
+  if(phase!==3||isSceneInputBlocked())return;
+  if(vaporPointsRef.current&&(spillState==='hazard'||spillState==='cones_placed')){
+   const attr=vaporPointsRef.current.geometry.attributes.position;for(let i=0;i<vaporCount;i++){attr.array[i*3+1]+=delta*.35;if(attr.array[i*3+1]>.8)attr.array[i*3+1]=.02;}attr.needsUpdate=true;
+  }
+  if(foamRef.current)foamRef.current.scale.setScalar(.5+neutralizeProgress/200);
+ });
+ const begin=()=>{
+  const s=useStore.getState();if(!active||isSceneInputBlocked())return;
+  if(!s.player.inventory.hasSweeper||!s.player.equipment.hasGloves||!s.player.equipment.hasGoggles||!s.player.equipment.hasLabCoat){s.startDialog(['Mang đủ bảo hộ và lấy bộ xử lý tràn trước khi luyện với mẫu huấn luyện.']);return;}
+  if(s.player.inventory.isHoldingTrash){s.startDialog(['Hãy phân loại mẫu đang cầm trước khi thu gom thêm.']);return;}
+  setOpen(spillState==='neutralized'?'spill-collect':'spill-neutralize');
+ };
+ useEffect(()=>{
+  useInteractionStore.getState().register({id:'spill_simulation',position:SPILL_POS,label:spillState==='neutralized'?'Thấm và hốt bã mẫu':'Thực hành xử lý mẫu tràn',isActive:active});
+  return()=>useInteractionStore.getState().unregister('spill_simulation');
+ },[active,spillState]);
+ useEffect(()=>interactionBus.subscribe({priority:INTERACTION_PRIORITY.TARGET,isActive:()=>active&&!isSceneInputBlocked()&&useInteractionStore.getState().nearestId==='spill_simulation',onInteract:begin}),[active,spillState]);
+ const finish=()=>{
+  if(open==='spill-neutralize'){
+   useStore.setState(s=>({player:{...s.player,flags:{...s.player.flags,spillStage:'neutralized',spillProgress:100}}}));useStore.getState().completeTask('task_spill_neutralize');
+  }else if(open==='spill-collect'){
+   useStore.setState(s=>({activeTool:'waste',player:{...s.player,inventory:{...s.player.inventory,isHoldingTrash:true,heldTrashType:'chemical',heldWasteId:'spill'},flags:{...s.player.flags,spillStage:'cleaned'}}}));useStore.getState().completeTask('task_spill_wipe');
+  }
+  setOpen(null);useStore.getState().saveGame();
+ };
+ if(phase!==3)return null;
+ return <group position={SPILL_POS}>
       {/* 1. Chemical Spill Puddle on Floor */}
       {spillState !== 'cleaned' && (
         <group>
@@ -282,53 +179,8 @@ export const ChemicalSpillSimulation: React.FC = () => {
         </group>
       )}
 
-      {/* 3. Proximity Interactive HUD Overlay */}
-      {isNear && focusedSpill && activeTool === 'spillKit' && spillState !== 'cleaned' && (
-        <Html position={[0, 0.6, 0]} center distanceFactor={7}>
-          <div className="flex flex-col items-center gap-2 pointer-events-auto select-none font-sans whitespace-nowrap">
-            {spillState === 'hazard' && (
-              <button
-                onClick={handlePlaceCones}
-                className="px-4 py-2 rounded-full text-xs font-bold border border-amber-400 bg-amber-950/90 text-amber-700 shadow-sm flex items-center gap-2 backdrop-blur-none cursor-pointer hover:scale-105 active:scale-95 transition-all animate-pulse"
-              >
-                <span>⚠️</span>
-                <span>Đặt cọc tiêu cảnh báo cô lập vũng tràn</span>
-                <span className="text-[10px] font-mono text-amber-700">[Click]</span>
-              </button>
-            )}
-
-            {spillState === 'cones_placed' && (
-              <div className="flex flex-col items-center gap-1.5">
-                <button
-                  onClick={handleSprinklePowder}
-                  className="px-4 py-2 rounded-full text-xs font-bold border border-cyan-400 bg-slate-100/80 text-cyan-700 shadow-sm flex items-center gap-2 backdrop-blur-none cursor-pointer hover:scale-105 active:scale-95 transition-all"
-                >
-                  <span>🧪</span>
-                  <span>Rải bột trung hòa NaHCO3 ({neutralizeProgress}%)</span>
-                  <span className="text-[10px] font-mono text-cyan-700">[Click liên tục]</span>
-                </button>
-                <div className="w-48 h-1.5 rounded-full bg-slate-50 overflow-hidden border border-slate-200">
-                  <div
-                    className="h-full bg-white from-amber-400 to-emerald-400 transition-all duration-300"
-                    style={{ width: `${neutralizeProgress}%` }}
-                  />
-                </div>
-              </div>
-            )}
-
-            {spillState === 'neutralized' && (
-              <button
-                onClick={handleWipeAndCollect}
-                className="px-4 py-2 rounded-full text-xs font-bold border border-emerald-400 bg-emerald-100/90 text-emerald-700 shadow-sm flex items-center gap-2 backdrop-blur-none cursor-pointer hover:scale-105 active:scale-95 transition-all animate-bounce"
-              >
-                <span>🧹</span>
-                <span>Lau dọn & Thu gom vào túi rác nguy hại</span>
-                <span className="text-[10px] font-mono text-emerald-700">[Click]</span>
-              </button>
-            )}
-          </div>
-        </Html>
-      )}
-    </group>
-  );
-};
+ {open&&<SceneHtml zIndexRange={[1500,0]}><PracticalSimulation key={open} work={PRACTICAL_WORK[open]} initialStep={Math.max(0,Math.min(PRACTICAL_WORK[open].steps.length,Number(open==='spill-neutralize'?player.flags.spillNeutralizeStep:player.flags.spillCollectStep)||0))} onClose={()=>setOpen(null)} onStep={step=>{
+  useStore.setState(s=>({player:{...s.player,flags:{...s.player.flags,...(open==='spill-neutralize'?{spillNeutralizeStep:step,spillStage:step>=4?'cones_placed' as const:'hazard' as const,spillProgress:Math.max(0,(step-4)/5*100)}:{spillCollectStep:step})}}}));useStore.getState().saveGame();
+ }} onComplete={finish}/></SceneHtml>}
+ </group>;
+}

@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checks": [
+    "assembled pipette and bulb move together in rendered scene",
+    "final mobile workbench has no horizontal overflow",
+    "assembly and mobile review release modal guards",
+    "no detail-review runtime exceptions"
+  ],
+  "errors": []
+}

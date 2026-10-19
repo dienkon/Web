@@ -88,7 +88,7 @@ export const OBJECTIVE_LOCATIONS: Record<string, ObjectiveData> = {
   task_inspect_acid: {
     id: 'task_inspect_acid',
     title: 'Học quy tắc pha loãng Axit (Bàn 4)',
-    position: [4.2, 0.95, 2.2],
+    position: [4.2, 0.93, 2.62],
     color: '#f97316', // Orange
   },
   task_bandage: {

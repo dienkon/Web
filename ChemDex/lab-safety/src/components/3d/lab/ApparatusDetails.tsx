@@ -51,10 +51,10 @@ function Hose({ points, color = '#334155', radius = .012 }: { points: [number, n
 export function ApparatusDetails() {
   const quality = useStore(s => s.settings.graphicsQuality);
   return <group name="apparatus-fine-details">
-    <group position={[-5.2, .91, -2.65]} userData={{ labItem: { id: 'detail-graduated-cylinder', title: 'Ống đong có vạch chia và chân đế', kind: 'volume' } }}><GraduatedVessel tall /></group>
-    <group position={[-3.3, .91, -2.65]} userData={{ labItem: { id: 'detail-graduated-beaker', title: 'Cốc thủy tinh có mỏ rót và vạch chia', kind: 'volume' } }}><GraduatedVessel /></group>
-    <group position={[-4.2, .91, 1.75]}><TubeRack /></group>
-    <group position={[4.2, .91, -2.2]}>
+    <group position={[-5.2, .91, -2.2]} userData={{ labItem: { id: 'detail-graduated-cylinder', title: 'Ống đong có vạch chia và chân đế', kind: 'volume' } }}><GraduatedVessel tall /></group>
+    <group position={[-3.3, .91, -2.2]} userData={{ labItem: { id: 'detail-graduated-beaker', title: 'Cốc thủy tinh có mỏ rót và vạch chia', kind: 'volume' } }}><GraduatedVessel /></group>
+    <group position={[-4.2, .91, 2.1]}><TubeRack /></group>
+    <group position={[4.2, .91, -2.42]}>
       <Hose points={[[.7, .05, .4], [.85, .025, .3], [.7, .025, -.2], [.2, .025, -.25], [0, .035, 0]]} color="#c56b38" radius={.016} />
       <mesh position={[0, .06, 0]}><cylinderGeometry args={[.022, .028, .12, 12]} /><meshStandardMaterial color="#c0a36b" metalness={.7} /></mesh>
     </group>

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ArcadeGameProps } from '../core/types';
 import { clamp, DIFFICULTY } from '../core/scoring';
+import { StirringSurface } from '../../components/ui/StirringSurface';
 import { Feedback, GameInstruction, HintButton } from '../components/GameUI';
 
 interface FluidState {
@@ -22,9 +23,10 @@ export function FlowGame(props: ArcadeGameProps) {
     stirring: false,
     overheated: false,
   });
-  const [feedback, setFeedback] = useState('Chọn nguồn rồi giữ nút để rót từng phần; thả nút để dừng.');
+  const [feedback, setFeedback] = useState('Chia lượng rót thành hai phần; thả nút để quan sát, khuấy rồi chờ nguội giữa hai phần.');
   const [tone, setTone] = useState<'neutral' | 'correct' | 'mistake'>('neutral');
   const [stirs, setStirs] = useState(0);
+  const [batch,setBatch]=useState(0);
   const current = useRef(fluid);
   const finished = useRef(false);
   const heatedWarning = useRef(false);
@@ -53,7 +55,9 @@ export function FlowGame(props: ArcadeGameProps) {
         const old = current.current;
         const rate = config.pourRate * (difficulty === 'challenge' ? 1.15 : 1);
         const volume = clamp(old.volume + (old.pouring ? rate * delta : 0), 0, config.target + 15);
-        const heat = old.pouring ? config.heatingRate * rate * delta : 0;
+        // Abstract training units: two controlled additions must remain possible in every level.
+        const heatingPerUnit = Math.min(config.heatingRate, Math.max(0.1, (config.maxTemperature - 31) * 2 / config.target));
+        const heat = old.pouring ? heatingPerUnit * rate * delta : 0;
         const cooling = (!old.pouring ? config.coolingRate : config.coolingRate * 0.12) * (old.stirring ? 1.7 : 1) * delta;
         const temperature = Math.max(25, old.temperature + heat - cooling);
         const next = {
@@ -82,10 +86,10 @@ export function FlowGame(props: ArcadeGameProps) {
           callbacks.current.onMistake('Rót vượt lượng mô phỏng', 'Không cố đảo chiều thao tác hóa chất thật để sửa sai.');
           current.current = { ...current.current, pouring: false };
         }
-        const newMilestone = Math.min(3, Math.floor(volume / config.target * 3));
+        const newMilestone = Math.min(2, Math.floor(volume / config.target * 2));
         if (newMilestone > milestone.current) {
           milestone.current = newMilestone;
-          callbacks.current.onCorrect(`Đã kiểm soát ${newMilestone}/3 phần dòng rót`);
+          callbacks.current.onCorrect(`Đã kiểm soát ${newMilestone}/2 phần dòng rót`);
         }
       }
       animation = requestAnimationFrame(update);
@@ -140,7 +144,7 @@ export function FlowGame(props: ArcadeGameProps) {
 
   return (
     <div className="academy-game academy-flow-game" data-game-kind="flow">
-      <GameInstruction icon="💧" title="Giữ để rót, thả để quan sát">
+      <GameInstruction icon="💧" title="Rót hai phần, khuấy và quan sát">
         {config.instruction}
       </GameInstruction>
       <div className="academy-flow-controls">
@@ -193,29 +197,24 @@ export function FlowGame(props: ArcadeGameProps) {
         >
           {fluid.pouring ? 'Đang rót · thả để dừng' : 'Giữ để rót'}
         </button>
-        <button type="button" className="academy-button" disabled={paused} aria-pressed={fluid.stirring} onClick={() => {
-          change({ ...current.current, stirring: !current.current.stirring });
-          if (!fluid.stirring) setStirs(value => value + 1);
-        }}>
-          {fluid.stirring ? '↻ Đang khuấy' : '↻ Khuấy trong mô hình'}
-        </button>
         <button type="button" className="academy-button" disabled={paused} onClick={() => {
           change({ volume: 0, temperature: 25, pouring: false, stirring: false, overheated: false });
           heatedWarning.current = false;
           overfillWarning.current = false;
           milestone.current = 0;
-          setStirs(0);
+          setStirs(0);setBatch(n=>n+1);
           setFeedback('Đã đặt lại mẻ mô phỏng. Thêm từng phần nhỏ và nghỉ giữa các lần.');
         }}>
           Đặt lại mẻ
         </button>
         <button type="button" className="academy-button academy-button--primary" disabled={paused} onClick={finish}>Kiểm tra mẻ</button>
         <HintButton disabled={paused} onClick={() => {
-          const text = 'Giữ rót một đoạn ngắn, thả để nhiệt giảm, bật khuấy; gần mục tiêu thì nhấp từng phần nhỏ.';
+          const text = 'Giữ rót một đoạn ngắn, thả để nhiệt giảm, kéo đũa một vòng quanh cốc; gần mục tiêu thì nhấp từng phần nhỏ.';
           setFeedback(text);
           onHint(text);
         }} />
       </div>
+      <div className="academy-real-stir"><div><h3>Khuấy bằng đũa · {stirs?'✓ Đã hoàn thành':'một vòng là đủ'}</h3><p>{fluid.pouring?'Thả nút rót trước khi khuấy.':fluid.volume<=0?'Thêm một phần axit vào nước, rồi khuấy theo vòng tròn.':'Kéo ngón tay hoặc chuột quanh cốc bên dưới; không cần bật/tắt nút khuấy.'}</p></div><StirringSurface key={batch} disabled={paused||fluid.pouring||fluid.volume<=0} onActiveChange={active=>change({...current.current,stirring:active})} onComplete={()=>{setStirs(1);change({...current.current,stirring:false});setFeedback('Đã khuấy một vòng thật bằng đũa. Tiếp tục theo dõi nhiệt mô hình và lượng rót.');setTone('correct');}}/></div>
       <Feedback text={feedback} tone={tone} />
     </div>
   );

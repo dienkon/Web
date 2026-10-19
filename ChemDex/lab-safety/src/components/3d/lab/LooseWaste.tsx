@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { PracticalSimulation } from '../../ui/PracticalSimulation';
+import { collectionWork } from '../../../data/practicalWork';
 import { InteractableItem } from '../InteractableItem';
-import { useStore, playerCoords } from '../../../store/useStore';
+import { useStore } from '../../../store/useStore';
 import { WASTE_SAMPLES } from '../../../data/wasteSamples';
 import { SceneHtml } from '../SceneHtml';
 import { isSceneInputBlocked } from '../../../systems/input/sceneInput';
@@ -13,8 +15,6 @@ export function LooseWaste() {
     && !s.tasks.find(t => t.id === 'task_trash_disposal')?.completed);
   const picked = useStore(s => s.player.flags.wastePicked ?? EMPTY_PICKED);
   const [collecting, setCollecting] = useState<string | null>(null);
-  const [sweeps, setSweeps] = useState(0);
-  const [hint, setHint] = useState('');
   const sample = WASTE_SAMPLES.find(s => s.id === collecting);
   const begin = (id: string) => {
     const s = useStore.getState();
@@ -22,16 +22,16 @@ export function LooseWaste() {
     if (s.player.inventory.isHoldingTrash) { s.startDialog(['Bạn đang cầm một mẫu. Hãy phân loại mẫu đó ở trạm rác trước khi thu gom mẫu tiếp theo.']); return; }
     if (!s.player.equipment.hasGloves || !s.player.equipment.hasGoggles) { s.startDialog(['Trang bị kính và găng tay trước khi thu gom. Mảnh vỡ phải dùng chổi và hốt rác, không nhặt bằng tay.']); return; }
     if (!s.player.inventory.hasSweeper) { s.startDialog(['Đến thùng Spill Kit ở tường Tây để lấy chổi và hốt rác trước.']); return; }
-    s.selectTool('spillKit'); setSweeps(0); setHint('Quét từ ngoài vào trong, sau đó dùng hốt rác thu gom.'); setCollecting(id);
+    s.selectTool('spillKit'); setCollecting(id);
   };
   const collect = () => {
-    if (!sample || sweeps < 3) return;
+    if (!sample) return;
     const s = useStore.getState();
     if (s.player.inventory.isHoldingTrash || s.player.flags.wastePicked?.includes(sample.id)) return;
     useStore.setState(state => ({ activeTool: 'waste', player: { ...state.player,
       inventory: { ...state.player.inventory, isHoldingTrash: true, heldTrashType: sample.kind, heldWasteId: sample.id },
       flags: { ...state.player.flags, wastePicked: [...(state.player.flags.wastePicked ?? []), sample.id] } } }));
-    soundManager.play('success'); setCollecting(null);
+    soundManager.play('success'); useStore.getState().saveGame(); setCollecting(null);
   };
   if (!available) return null;
   return <group name="loose-waste-samples">
@@ -42,12 +42,6 @@ export function LooseWaste() {
         <SceneHtml position={[0,.45,0]}><span className="rounded-lg border border-amber-400 bg-slate-100/80 px-2 py-1 text-[10px] text-amber-700 whitespace-nowrap">♻ {s.title}</span></SceneHtml>
       </group>
     </InteractableItem>)}
-    {sample && <SceneHtml zIndexRange={[1000,0]}><div role="dialog" aria-modal="true" aria-label="Thu gom mẫu rác" className="fixed inset-0 bg-slate-100/80 backdrop-blur-none flex items-center justify-center p-4 pointer-events-auto text-slate-800"><section className="max-w-lg w-full rounded-3xl bg-white border border-cyan-700 p-6">
-      <header className="flex justify-between"><h2 className="font-bold text-xl">{sample.title}</h2><button onClick={()=>setCollecting(null)} aria-label="Đóng thu gom">✕</button></header>
-      <div className="relative h-44 my-4 bg-slate-50 rounded-xl overflow-hidden"><div className="absolute inset-0 flex items-center justify-center text-5xl" style={{transform:`translateX(${sweeps*20}px)`,opacity:1-sweeps*.2}}>{sample.kind==='sharps'?'◭ ◮ ◬':sample.kind==='chemical'?'🟨 🟨':'📄 📄'}</div><div className="absolute bottom-4 right-5 text-5xl">🧹</div></div>
-      <p role="status" className="text-sm text-cyan-700 mb-4">{hint} ({sweeps}/3 lượt)</p>
-      {sweeps<3?<button className="acid-action" onClick={()=>{setSweeps(v=>Math.min(3,v+1));soundManager.play('snap');if(sweeps===2)setHint('Mẫu đã được gom gọn. Dùng hốt rác và chứa đúng loại.');}}>Quét mẫu vào vùng thu gom</button>:<button className="acid-action" onClick={collect}>Hốt vào {sample.kind==='sharps'?'hộp cứng chống đâm thủng':sample.kind==='chemical'?'túi chất thải hóa chất':'túi rác sinh hoạt'}</button>}
-      <p className="text-xs text-slate-600 mt-4">Mẫu huấn luyện đã được giáo viên xác định. Với hóa chất tràn chưa biết, hãy cô lập và báo giáo viên.</p>
-    </section></div></SceneHtml>}
+    {sample && <SceneHtml zIndexRange={[1500,0]}><PracticalSimulation key={sample.id} work={collectionWork(sample.title,sample.kind==='sharps',sample.kind==='chemical')} onClose={()=>setCollecting(null)} onComplete={collect}/></SceneHtml>}
   </group>;
 }

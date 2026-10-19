@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "checks": [
+    "flow-first: rod follows real half circle",
+    "pause retains partial circular motion",
+    "flow-first: two additions stay within model limits",
+    "flow-first: completed with two pours and direct stirring",
+    "flow-steady: rod follows real half circle",
+    "flow-steady: two additions stay within model limits",
+    "flow-steady: completed with two pours and direct stirring",
+    "flow-patience: rod follows real half circle",
+    "flow-patience: two additions stay within model limits",
+    "flow-patience: completed with two pours and direct stirring",
+    "flow-master: rod follows real half circle",
+    "flow-master: two additions stay within model limits",
+    "flow-master: completed with two pours and direct stirring",
+    "no acid flow runtime exceptions"
+  ],
+  "errors": []
+}

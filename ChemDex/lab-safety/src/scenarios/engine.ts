@@ -1,3 +1,4 @@
+import { getPostPhaseWork, POST_PHASE_VERSION } from '../data/postPhaseWork';
 import type {
   LabScenario,
   ScenarioAttempt,
@@ -8,6 +9,8 @@ import type {
 export function newScenarioAttempt(scenario: LabScenario): ScenarioAttempt {
   return {
     scenarioId: scenario.id,
+    physicalStep: 0,
+    workVersion: POST_PHASE_VERSION,
     stage: 'observe',
     observed: [],
     decisionIndex: 0,
@@ -27,6 +30,15 @@ export function restoreScenarioAttempt(
   if (!value || typeof value !== 'object') return clean;
   const saved = value as Partial<ScenarioAttempt>;
   if (saved.scenarioId !== scenario.id) return clean;
+  clean.mistakes = Math.max(0, Math.min(999, Math.floor(Number(saved.mistakes) || 0)));
+  clean.attempts = Math.max(0, Math.min(9999, Math.floor(Number(saved.attempts) || 0)));
+  const physicalTotal = getPostPhaseWork(scenario.id).steps.length;
+  clean.physicalStep = Math.max(0, Math.min(physicalTotal, saved.workVersion === POST_PHASE_VERSION ? Math.floor(Number(saved.physicalStep) || 0) : 0));
+  if (physicalTotal && clean.physicalStep > 0) {
+    clean.completed = saved.completed === true && clean.physicalStep === physicalTotal;
+    clean.stage = clean.completed ? 'complete' : clean.physicalStep === physicalTotal ? 'review' : 'act';
+    return clean;
+  }
   const validClues = new Set(scenario.clues.map(clue => clue.id));
   clean.observed = [...new Set(
     Array.isArray(saved.observed)
@@ -69,6 +81,14 @@ export function transitionScenario(
     message: '',
   };
   if (current.completed || current.scenarioId !== scenario.id) return result;
+  if (event.type === 'physical-step') {
+    const total = getPostPhaseWork(scenario.id).steps.length;
+    if (!total || event.index !== (current.physicalStep ?? 0) + 1 || event.index > total) return result;
+    return { attempt: { ...current, physicalStep: event.index, stage: event.index === total ? 'review' : 'act', attempts: current.attempts + 1 }, accepted: true, mistake: false, message: 'Đã thực hiện thao tác mô phỏng.' };
+  }
+  if (event.type === 'finish' && current.physicalStep === getPostPhaseWork(scenario.id).steps.length) {
+    return { attempt: { ...current, stage: 'complete', completed: true }, accepted: true, mistake: false, message: 'Hoàn thành thực hành.' };
+  }
   const next: ScenarioAttempt = {
     ...current,
     observed: [...current.observed],
@@ -148,6 +168,10 @@ export function transitionScenario(
 }
 
 export function scenarioProgress(scenario: LabScenario, attempt: ScenarioAttempt): number {
+  if (attempt.physicalStep) {
+    const count = getPostPhaseWork(scenario.id).steps.length;
+    return Math.min(100, Math.round((attempt.physicalStep + Number(attempt.completed)) / (count + 1) * 100));
+  }
   const total = scenario.clues.length + scenario.decisions.length + scenario.actions.length + 1;
   const completed = attempt.observed.length
     + Math.min(attempt.decisionIndex, scenario.decisions.length)

@@ -29,6 +29,12 @@ export const LAB_SCENARIOS = [
   s11,
   s12,
   s13,
-  s14,];
+  s14,].map(scenario => {
+  // Put tabletop incidents in the clear front work zone, away from the service rack.
+  if (Math.abs(scenario.position[0]) < 6 && Math.abs(scenario.position[1] - .92) < .2 && Math.abs(scenario.position[2]) < 3) {
+    return { ...scenario, position: [scenario.position[0], scenario.position[1], scenario.position[2] + .38] as [number, number, number] };
+  }
+  return scenario;
+});
 
 export const SCENARIO_BY_ID = new Map(LAB_SCENARIOS.map(s => [s.id, s]));

@@ -172,25 +172,25 @@
     {
       "id": "flow-first",
       "score": 100,
-      "correct": 3,
+      "correct": 2,
       "mistakes": 0
     },
     {
       "id": "flow-steady",
-      "score": 100,
-      "correct": 3,
-      "mistakes": 0
+      "score": 95,
+      "correct": 2,
+      "mistakes": 1
     },
     {
       "id": "flow-patience",
       "score": 95,
-      "correct": 3,
+      "correct": 2,
       "mistakes": 1
     },
     {
       "id": "flow-master",
       "score": 95,
-      "correct": 3,
+      "correct": 2,
       "mistakes": 1
     },
     {
@@ -268,7 +268,7 @@
   ],
   "errors": [],
   "persisted": {
-    "xp": 5274,
+    "xp": 5271,
     "history": 44
   }
 }
