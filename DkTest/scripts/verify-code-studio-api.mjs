@@ -11,7 +11,7 @@ if (!process.argv.includes('--runtime')) {
   const source = await readFile(new URL('../api/code-studio.ts', import.meta.url), 'utf8');
   const { code } = await transform(source, { loader: 'ts', format: 'esm', platform: 'node', target: 'node20' });
   await writeFile(new URL('../scratch/code-studio-api-runtime.mjs', import.meta.url), code);
-  const child = spawnSync(process.execPath, [fileURLToPath(import.meta.url), '--runtime'], { cwd: new URL('../', import.meta.url), env: { ...process.env, FIREBASE_CLIENT_EMAIL: '', FIREBASE_PRIVATE_KEY: '' }, encoding: 'utf8', timeout: 20000 });
+  const child = spawnSync(process.execPath, [fileURLToPath(import.meta.url), '--runtime'], { cwd: new URL('../', import.meta.url), env: { ...process.env, FIREBASE_CLIENT_EMAIL: '', FIREBASE_PRIVATE_KEY: '', VITE_FIREBASE_API_KEY: '', FIREBASE_API_KEY: '' }, encoding: 'utf8', timeout: 20000 });
   process.stdout.write(child.stdout || ''); process.stderr.write(child.stderr || '');
   if (child.error) throw child.error;
   process.exitCode = child.status ?? 1;
@@ -19,7 +19,12 @@ if (!process.argv.includes('--runtime')) {
   const originalFetch = globalThis.fetch, documents = new Map(); let writes = 0, reads = 0, denied = false;
   globalThis.fetch = async (input, init) => {
     const url = new URL(String(input));
-    if (url.hostname === 'identitytoolkit.googleapis.com') { const token = JSON.parse(init.body).idToken; return token === 'owner-test-token' || token === 'other-test-token' ? Response.json({ users: [{ localId: token === 'owner-test-token' ? 'test-owner' : 'other-owner' }] }) : Response.json({}, { status: 401 }); }
+    if (url.hostname === 'identitytoolkit.googleapis.com') {
+      // A mock which accepts missing API keys would hide the production 401 bug.
+      if (!url.searchParams.get('key')) return Response.json({ error: { message: 'API_KEY_INVALID' } }, { status: 400 });
+      const token = JSON.parse(init.body).idToken;
+      return token === 'owner-test-token' || token === 'other-test-token' ? Response.json({ users: [{ localId: token === 'owner-test-token' ? 'test-owner' : 'other-owner' }] }) : Response.json({ error: { message: 'INVALID_ID_TOKEN' } }, { status: 400 });
+    }
     if (url.hostname !== 'firestore.googleapis.com') return originalFetch(input, init);
     if (denied) return Response.json({ error: 'denied' }, { status: 403 });
     const id = url.searchParams.get('documentId') || url.pathname.split('/').at(-1);

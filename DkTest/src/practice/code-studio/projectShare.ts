@@ -19,7 +19,7 @@ export async function shareIdentity(binding: ProjectShareBinding | null) {
   ]);
   if (!auth) throw new Error('Chưa cấu hình xác thực chia sẻ. Vui lòng thử lại sau.');
   await auth.authStateReady();
-  if (auth.currentUser && (!binding || auth.currentUser.uid === binding.ownerUid)) return { uid: auth.currentUser.uid, token: await auth.currentUser.getIdToken() };
+  if (auth.currentUser && (!binding || auth.currentUser.uid === binding.ownerUid)) return { uid: auth.currentUser.uid, token: await auth.currentUser.getIdToken(true) };
   const app = getApps().find(a => a.name === 'code-studio-publisher') || initializeApp(auth.app.options, 'code-studio-publisher');
   const guest = getAuth(app); await guest.authStateReady();
   if (!guest.currentUser && !binding) {
@@ -27,5 +27,5 @@ export async function shareIdentity(binding: ProjectShareBinding | null) {
     catch { throw new Error('Vui lòng đăng nhập để tạo link chia sẻ, hoặc bật đăng nhập khách trong Firebase.'); }
   }
   if (!guest.currentUser || (binding && guest.currentUser.uid !== binding.ownerUid)) throw new Error('Hãy đăng nhập đúng tài khoản đã tạo link này để cập nhật.');
-  return { uid: guest.currentUser.uid, token: await guest.currentUser.getIdToken() };
+  return { uid: guest.currentUser.uid, token: await guest.currentUser.getIdToken(true) };
 }

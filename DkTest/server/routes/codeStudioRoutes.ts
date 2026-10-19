@@ -10,7 +10,7 @@ codeStudioRouter.post('/shares', express.json({ limit: '950kb' }), async (req, r
   if (publishes.size > 2000) publishes.clear();
   publishes.set(ip, Date.now());
   try { return res.status(201).json(await publishStudioShare(req.body, req.get('authorization')?.replace(/^Bearer /i, ''))); }
-  catch (e: any) { return res.status(e.status || 400).json({ error: e.message || 'Không lưu được chia sẻ.' }); }
+  catch (e: any) { return res.status(e.status || 400).json({ error: e.message || 'Không lưu được chia sẻ.', ...(typeof e.code === 'string' && e.code.startsWith('SHARE_') ? { code: e.code } : {}) }); }
 });
 codeStudioRouter.get('/shares/:id', async (req, res) => {
   try {

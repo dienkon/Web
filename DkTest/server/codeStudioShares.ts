@@ -1,13 +1,12 @@
 import { createHash } from 'node:crypto';
-import { adminAuth, adminDb, decodeFirestoreDocument, encodeFirestoreFields } from './firebaseAdmin.js';
+import { adminAuth, adminDb, decodeFirestoreDocument, encodeFirestoreFields, getFirebaseApiKey } from './firebaseAdmin.js';
 import { PublishedShare, shareSlug, validatePublishedShare } from '../src/practice/code-studio/publishedShare.js';
 
 const collection = 'code_studio_shares';
 const failure = (message: string, status: number) => Object.assign(new Error(message), { status });
-function apiKey() { return process.env.FIREBASE_API_KEY || process.env.VITE_FIREBASE_API_KEY || ''; }
 function restUrl(id: string) {
   const project = process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || 'exam-fd7a1';
-  return `https://firestore.googleapis.com/v1/projects/${encodeURIComponent(project)}/databases/(default)/documents/${collection}/${id}?key=${encodeURIComponent(apiKey())}`;
+  return `https://firestore.googleapis.com/v1/projects/${encodeURIComponent(project)}/databases/(default)/documents/${collection}/${id}?key=${encodeURIComponent(getFirebaseApiKey())}`;
 }
 async function readRawShare(id: string) {
   const response = await fetch(restUrl(id), { signal: AbortSignal.timeout(10000), cache: 'no-store' });
@@ -26,10 +25,24 @@ async function publisherUid(token?: string): Promise<string> {
   if (!token) throw failure('Vui lòng đăng nhập hoặc xác thực phiên chia sẻ rồi thử lại.', 401);
   if (adminAuth) {
     try { return (await adminAuth.verifyIdToken(token)).uid; }
-    catch { throw failure('Phiên chia sẻ đã hết hạn. Vui lòng đăng nhập lại.', 401); }
+    catch (error: any) {
+      const code = error?.code;
+      if (code === 'auth/invalid-credential' || code === 'app/invalid-credential' || code === 'auth/insufficient-permission') throw Object.assign(failure('Cấu hình xác thực Firebase trên server chưa hợp lệ. Kiểm tra Firebase Admin và project ID.', 503), { code: 'SHARE_AUTH_SERVER_CONFIG' });
+      if (code === 'auth/internal-error' || code === 'app/network-error') throw Object.assign(failure('Dịch vụ xác thực Firebase tạm thời không phản hồi. Vui lòng thử lại.', 503), { code: 'SHARE_AUTH_UNAVAILABLE' });
+      throw Object.assign(failure('Phiên chia sẻ không hợp lệ hoặc đã hết hạn. Vui lòng đăng nhập lại.', 401), { code: 'SHARE_AUTH_SESSION' });
+    }
   }
-  const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${encodeURIComponent(apiKey())}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ idToken: token }), signal: AbortSignal.timeout(10000) });
-  if (!response.ok) throw failure('Không xác thực được phiên chia sẻ. Vui lòng đăng nhập lại.', response.status >= 500 ? 503 : 401);
+  const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${encodeURIComponent(getFirebaseApiKey())}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ idToken: token }), signal: AbortSignal.timeout(10000) });
+  if (!response.ok) {
+    const body = await response.json().catch(() => null);
+    const providerCode = typeof body?.error?.message === 'string' ? body.error.message.split(/[ :]/)[0] : '';
+    const reasons = Array.isArray(body?.error?.details) ? body.error.details.map((detail: any) => detail?.reason).filter((reason: unknown) => typeof reason === 'string') : [];
+    const sessionErrors = ['INVALID_ID_TOKEN', 'TOKEN_EXPIRED', 'USER_NOT_FOUND', 'USER_DISABLED', 'CREDENTIAL_TOO_OLD_LOGIN_AGAIN'];
+    if (sessionErrors.includes(providerCode)) throw Object.assign(failure('Phiên chia sẻ không hợp lệ hoặc đã hết hạn. Vui lòng đăng nhập lại.', 401), { code: 'SHARE_AUTH_SESSION' });
+    // Never log API keys, ID tokens, account payloads or raw provider messages.
+    console.warn('[CodeStudioAuth] Verification service rejected request', { status: response.status, category: reasons.some((reason: string) => reason.startsWith('API_KEY_')) || providerCode === 'API_KEY_INVALID' ? 'api-key-config' : 'provider-config-or-unavailable' });
+    throw Object.assign(failure(response.status >= 500 || response.status === 429 ? 'Dịch vụ xác thực Firebase tạm thời không phản hồi. Vui lòng thử lại.' : 'Cấu hình xác thực Firebase trên server chưa hợp lệ. Kiểm tra API key cùng project với web và quyền Identity Toolkit API.', 503), { code: response.status >= 500 || response.status === 429 ? 'SHARE_AUTH_UNAVAILABLE' : 'SHARE_AUTH_SERVER_CONFIG' });
+  }
   const data = await response.json();
   const uid = data.users?.[0]?.localId;
   if (typeof uid !== 'string' || !uid) throw failure('Phiên chia sẻ không hợp lệ.', 401);

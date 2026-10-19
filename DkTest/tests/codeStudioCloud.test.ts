@@ -1,6 +1,6 @@
 import { uploadShareCover } from '../src/practice/code-studio/shareCoverUpload';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-vi.mock('../server/firebaseAdmin.js', () => ({ adminDb: null, adminAuth: { verifyIdToken: async (token: string) => { if (token === 'owner-token') return { uid: 'owner' }; if (token === 'other-token') return { uid: 'other' }; throw new Error('invalid'); } }, encodeFirestoreFields: (data: any) => data, decodeFirestoreDocument: (data: any) => data.fields }));
+vi.mock('../server/firebaseAdmin.js', () => ({ adminDb: null, getFirebaseApiKey: () => 'test-key', adminAuth: { verifyIdToken: async (token: string) => { if (token === 'owner-token') return { uid: 'owner' }; if (token === 'other-token') return { uid: 'other' }; throw new Error('invalid'); } }, encodeFirestoreFields: (data: any) => data, decodeFirestoreDocument: (data: any) => data.fields }));
 import { publishStudioShare, readStudioShare, renderStudioShareHtml } from '../server/codeStudioShares';
 import { shareIdFromSlug, shareSlug, validatePublishedShare, PublishedShare } from '../src/practice/code-studio/publishedShare';
 const image = 'data:image/jpeg;base64,' + Buffer.from([255,216,...Array(30).fill(0),255,217]).toString('base64');

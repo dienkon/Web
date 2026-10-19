@@ -175,6 +175,9 @@ function encodeFirestoreFields(data) {
   }
   return fields;
 }
+function getFirebaseApiKey() {
+  return process.env.VITE_FIREBASE_API_KEY || process.env.FIREBASE_API_KEY || "AIzaSyDp9p5hkQ6fVEou4znk5YZu81VhgZtM7h4";
+}
 
 // src/practice/code-studio/project.ts
 var MAX_PROJECT_BYTES = 1e6;
@@ -235,12 +238,9 @@ function isShareImageUrl(value) {
 // server/codeStudioShares.ts
 var collection = "code_studio_shares";
 var failure = (message, status) => Object.assign(new Error(message), { status });
-function apiKey() {
-  return process.env.FIREBASE_API_KEY || process.env.VITE_FIREBASE_API_KEY || "";
-}
 function restUrl(id) {
   const project = process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || "exam-fd7a1";
-  return `https://firestore.googleapis.com/v1/projects/${encodeURIComponent(project)}/databases/(default)/documents/${collection}/${id}?key=${encodeURIComponent(apiKey())}`;
+  return `https://firestore.googleapis.com/v1/projects/${encodeURIComponent(project)}/databases/(default)/documents/${collection}/${id}?key=${encodeURIComponent(getFirebaseApiKey())}`;
 }
 async function readRawShare(id) {
   const response = await fetch(restUrl(id), { signal: AbortSignal.timeout(1e4), cache: "no-store" });
@@ -263,12 +263,23 @@ async function publisherUid(token) {
   if (adminAuth) {
     try {
       return (await adminAuth.verifyIdToken(token)).uid;
-    } catch {
-      throw failure("Phi\xEAn chia s\u1EBB \u0111\xE3 h\u1EBFt h\u1EA1n. Vui l\xF2ng \u0111\u0103ng nh\u1EADp l\u1EA1i.", 401);
+    } catch (error) {
+      const code = error?.code;
+      if (code === "auth/invalid-credential" || code === "app/invalid-credential" || code === "auth/insufficient-permission") throw Object.assign(failure("C\u1EA5u h\xECnh x\xE1c th\u1EF1c Firebase tr\xEAn server ch\u01B0a h\u1EE3p l\u1EC7. Ki\u1EC3m tra Firebase Admin v\xE0 project ID.", 503), { code: "SHARE_AUTH_SERVER_CONFIG" });
+      if (code === "auth/internal-error" || code === "app/network-error") throw Object.assign(failure("D\u1ECBch v\u1EE5 x\xE1c th\u1EF1c Firebase t\u1EA1m th\u1EDDi kh\xF4ng ph\u1EA3n h\u1ED3i. Vui l\xF2ng th\u1EED l\u1EA1i.", 503), { code: "SHARE_AUTH_UNAVAILABLE" });
+      throw Object.assign(failure("Phi\xEAn chia s\u1EBB kh\xF4ng h\u1EE3p l\u1EC7 ho\u1EB7c \u0111\xE3 h\u1EBFt h\u1EA1n. Vui l\xF2ng \u0111\u0103ng nh\u1EADp l\u1EA1i.", 401), { code: "SHARE_AUTH_SESSION" });
     }
   }
-  const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${encodeURIComponent(apiKey())}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ idToken: token }), signal: AbortSignal.timeout(1e4) });
-  if (!response.ok) throw failure("Kh\xF4ng x\xE1c th\u1EF1c \u0111\u01B0\u1EE3c phi\xEAn chia s\u1EBB. Vui l\xF2ng \u0111\u0103ng nh\u1EADp l\u1EA1i.", response.status >= 500 ? 503 : 401);
+  const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${encodeURIComponent(getFirebaseApiKey())}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ idToken: token }), signal: AbortSignal.timeout(1e4) });
+  if (!response.ok) {
+    const body = await response.json().catch(() => null);
+    const providerCode = typeof body?.error?.message === "string" ? body.error.message.split(/[ :]/)[0] : "";
+    const reasons = Array.isArray(body?.error?.details) ? body.error.details.map((detail) => detail?.reason).filter((reason) => typeof reason === "string") : [];
+    const sessionErrors = ["INVALID_ID_TOKEN", "TOKEN_EXPIRED", "USER_NOT_FOUND", "USER_DISABLED", "CREDENTIAL_TOO_OLD_LOGIN_AGAIN"];
+    if (sessionErrors.includes(providerCode)) throw Object.assign(failure("Phi\xEAn chia s\u1EBB kh\xF4ng h\u1EE3p l\u1EC7 ho\u1EB7c \u0111\xE3 h\u1EBFt h\u1EA1n. Vui l\xF2ng \u0111\u0103ng nh\u1EADp l\u1EA1i.", 401), { code: "SHARE_AUTH_SESSION" });
+    console.warn("[CodeStudioAuth] Verification service rejected request", { status: response.status, category: reasons.some((reason) => reason.startsWith("API_KEY_")) || providerCode === "API_KEY_INVALID" ? "api-key-config" : "provider-config-or-unavailable" });
+    throw Object.assign(failure(response.status >= 500 || response.status === 429 ? "D\u1ECBch v\u1EE5 x\xE1c th\u1EF1c Firebase t\u1EA1m th\u1EDDi kh\xF4ng ph\u1EA3n h\u1ED3i. Vui l\xF2ng th\u1EED l\u1EA1i." : "C\u1EA5u h\xECnh x\xE1c th\u1EF1c Firebase tr\xEAn server ch\u01B0a h\u1EE3p l\u1EC7. Ki\u1EC3m tra API key c\xF9ng project v\u1EDBi web v\xE0 quy\u1EC1n Identity Toolkit API.", 503), { code: response.status >= 500 || response.status === 429 ? "SHARE_AUTH_UNAVAILABLE" : "SHARE_AUTH_SERVER_CONFIG" });
+  }
   const data = await response.json();
   const uid = data.users?.[0]?.localId;
   if (typeof uid !== "string" || !uid) throw failure("Phi\xEAn chia s\u1EBB kh\xF4ng h\u1EE3p l\u1EC7.", 401);
@@ -721,7 +732,7 @@ var PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         100% { left: 100%; }
       }
     </style>
-    <script type="module" crossorigin src="/assets/index-CLiq7qgD.js"></script>
+    <script type="module" crossorigin src="/assets/index-Djy5eeKF.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-react-Cg2vLLvP.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-charts-Dtra7FLy.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-icons-JxXgHDMj.js">
@@ -761,7 +772,7 @@ codeStudioRouter.post("/shares", express.json({ limit: "950kb" }), async (req, r
   try {
     return res.status(201).json(await publishStudioShare(req.body, req.get("authorization")?.replace(/^Bearer /i, "")));
   } catch (e) {
-    return res.status(e.status || 400).json({ error: e.message || "Kh\xF4ng l\u01B0u \u0111\u01B0\u1EE3c chia s\u1EBB." });
+    return res.status(e.status || 400).json({ error: e.message || "Kh\xF4ng l\u01B0u \u0111\u01B0\u1EE3c chia s\u1EBB.", ...typeof e.code === "string" && e.code.startsWith("SHARE_") ? { code: e.code } : {} });
   }
 });
 codeStudioRouter.get("/shares/:id", async (req, res) => {

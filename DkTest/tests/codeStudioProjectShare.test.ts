@@ -15,12 +15,16 @@ describe('Local project share identity', () => {
     saveProjectShare('project-a', { ...binding, title: 'Renamed', mode: 'editor' }); expect(readProjectShare('project-a')?.path).toBe(binding.path);
   });
   it('uses a logged-in owner and never creates a guest session for them', async () => {
-    state.main.currentUser = { uid: 'owner', getIdToken: async () => 'owner-token' };
+    const getIdToken = vi.fn().mockResolvedValue('owner-token');
+    state.main.currentUser = { uid: 'owner', getIdToken };
     expect(await shareIdentity(binding)).toEqual({ uid: 'owner', token: 'owner-token' }); expect(state.signIn).not.toHaveBeenCalled();
+    expect(getIdToken).toHaveBeenCalledWith(true);
   });
   it('keeps anonymous publishing separate from the application login', async () => {
-    state.signIn.mockImplementation(async () => { state.guest.currentUser = { uid: 'guest', getIdToken: async () => 'guest-token' }; });
+    const getIdToken = vi.fn().mockResolvedValue('guest-token');
+    state.signIn.mockImplementation(async () => { state.guest.currentUser = { uid: 'guest', getIdToken }; });
     expect(await shareIdentity(null)).toEqual({ uid: 'guest', token: 'guest-token' }); expect(state.main.currentUser).toBeNull();
+    expect(getIdToken).toHaveBeenCalledWith(true);
   });
   it('rejects another account rather than silently creating a second URL', async () => {
     state.main.currentUser = { uid: 'other', getIdToken: async () => 'other-token' };

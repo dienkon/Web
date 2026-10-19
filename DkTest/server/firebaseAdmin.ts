@@ -211,7 +211,7 @@ export function clearServerRestCache(keyPattern?: string): void {
   }
 }
 
-function getFirebaseApiKey(): string {
+export function getFirebaseApiKey(): string {
   return process.env.VITE_FIREBASE_API_KEY || process.env.FIREBASE_API_KEY || "AIzaSyDp9p5hkQ6fVEou4znk5YZu81VhgZtM7h4";
 }
 
