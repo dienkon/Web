@@ -1,68 +1,84 @@
 import { uploadShareCover } from '../src/practice/code-studio/shareCoverUpload';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-vi.mock('../server/firebaseAdmin.js', () => ({ adminDb: null, encodeFirestoreFields: (data: any) => Object.fromEntries(Object.entries(data).map(([key,value]) => [key, { stringValue: String(value) }])), decodeFirestoreDocument: (data: any) => data.testDocument }));
+vi.mock('../server/firebaseAdmin.js', () => ({ adminDb: null, adminAuth: { verifyIdToken: async (token: string) => { if (token === 'owner-token') return { uid: 'owner' }; if (token === 'other-token') return { uid: 'other' }; throw new Error('invalid'); } }, encodeFirestoreFields: (data: any) => data, decodeFirestoreDocument: (data: any) => data.fields }));
 import { publishStudioShare, readStudioShare, renderStudioShareHtml } from '../server/codeStudioShares';
 import { shareIdFromSlug, shareSlug, validatePublishedShare, PublishedShare } from '../src/practice/code-studio/publishedShare';
 const image = 'data:image/jpeg;base64,' + Buffer.from([255,216,...Array(30).fill(0),255,217]).toString('base64');
-const sample: PublishedShare = { version: 1, mode: 'website', title: 'Website của Điền ✨', description: 'Một trang web riêng', imageUrl: 'https://res.cloudinary.com/dys3wgutz/image/upload/v123/cover.jpg', payload: JSON.stringify({ version: 1, title: 'Website', html: '<!DOCTYPE html><html><body>Hello</body></html>' }), createdAt: '' };
+const sample: PublishedShare & { projectId: string } = { version: 1, projectId: 'local-project', mode: 'website', title: 'Website của Điền ✨', description: 'Một trang web riêng', imageUrl: 'https://res.cloudinary.com/dys3wgutz/image/upload/v123/cover.jpg', payload: JSON.stringify({ version: 1, title: 'Website', html: '<!DOCTYPE html><html><body>Hello</body></html>' }), createdAt: '' };
+const publish = (input: any = sample, token = 'owner-token') => publishStudioShare(input, token);
+function firebase() {
+  const documents = new Map<string, any>(); let revision = 0;
+  const fetcher = vi.fn(async (url: string, init?: RequestInit) => {
+    const parsed = new URL(url), id = parsed.pathname.split('/').at(-1)!;
+    if (init?.method === 'PATCH') {
+      const old = documents.get(id);
+      if ((parsed.searchParams.get('currentDocument.exists') === 'false' && old) || (parsed.searchParams.has('currentDocument.updateTime') && old?.updateTime !== parsed.searchParams.get('currentDocument.updateTime'))) return Response.json({}, { status: 412 });
+      const doc = { ...JSON.parse(String(init.body)), updateTime: 'revision-' + ++revision }; documents.set(id, doc); return Response.json(doc);
+    }
+    return documents.has(id) ? Response.json(documents.get(id)) : Response.json({}, { status: 404 });
+  });
+  vi.stubGlobal('fetch', fetcher); return { documents, fetcher };
+}
 afterEach(() => vi.unstubAllGlobals());
-describe('Explicit Firebase publishing', () => {
-  it('publishes without an image and renders metadata without an empty/broken image tag', async () => {
-    const { imageUrl: _, ...withoutImage } = sample;
-    const fetcher = vi.fn().mockResolvedValue(Response.json({})); vi.stubGlobal('fetch', fetcher);
-    await publishStudioShare(withoutImage);
-    expect(fetcher).toHaveBeenCalledTimes(1);
-    const body = JSON.parse(fetcher.mock.calls[0][1].body);
-    expect(body.fields).not.toHaveProperty('imageDataUrl'); expect(body.fields).not.toHaveProperty('imageUrl');
+describe('One owner-bound project share', () => {
+  it('reuses the exact URL/document when title, payload, mode and cover change', async () => {
+    const { documents, fetcher } = firebase();
+    const first = await publish();
+    const next = await publish({ ...sample, shareId: first.id, title: 'Tên mới', payload: JSON.stringify({ version: 1, title: 'Updated', html: '<!DOCTYPE html><body>Updated</body>' }), imageUrl: '' });
+    expect(next.path).toBe(first.path); expect(next.id).toBe(first.id); expect(next.createdAt).toBe(first.createdAt);
+    expect(documents.size).toBe(1); expect(fetcher.mock.calls.filter(([,init]) => init?.method === 'PATCH')).toHaveLength(2);
+    expect((await readStudioShare(first.id))?.title).toBe('Tên mới'); expect((await readStudioShare(first.id))?.imageUrl).toBeUndefined();
+    expect(next.path).toMatch(/^\/s\/website-cua-dien\.[a-f0-9]{16}$/); expect(shareIdFromSlug(next.path.split('/').at(-1)!)).toBe(first.id);
+  });
+  it('recovers the same ID after a lost response/local binding and separates projects', async () => {
+    const { documents } = firebase(); const first = await publish(); const retry = await publish({ ...sample, title: 'Retry' });
+    expect(retry.path).toBe(first.path);
+    const copy = await publish({ ...sample, projectId: 'independent-copy' }); expect(copy.id).not.toBe(first.id); expect(documents.size).toBe(2);
+  });
+  it('rejects invalid identity, foreign links and incompatible ownership before writing', async () => {
+    const { documents } = firebase(); const first = await publish();
+    await expect(publish({ ...sample, shareId: first.id }, 'other-token')).rejects.toMatchObject({ status: 403 });
+    await expect(publish(sample, 'bad-token')).rejects.toMatchObject({ status: 401 });
+    await expect(publishStudioShare(sample)).rejects.toMatchObject({ status: 401 });
+    documents.get(first.id).fields.ownerUid = 'someone-else';
+    await expect(publish({ ...sample, shareId: first.id })).rejects.toMatchObject({ status: 403 });
+    expect(documents.size).toBe(1);
+  });
+  it('uses a precondition to detect simultaneous updates instead of creating another link', async () => {
+    const { fetcher } = firebase(); const first = await publish();
+    fetcher.mockImplementationOnce(async () => Response.json({ fields: { ...sample, ownerUid: 'owner', projectId: sample.projectId, slug: 'website-cua-dien' }, updateTime: 'stale' }));
+    await expect(publish({ ...sample, shareId: first.id })).rejects.toMatchObject({ status: 409 });
+  });
+  it('publishes without a cover and omits broken image metadata', async () => {
+    const { documents } = firebase(); const { imageUrl: _, ...withoutImage } = sample; const result = await publish(withoutImage);
+    const saved = documents.get(result.id).fields; expect(saved.imageUrl).toBeUndefined(); expect(saved.imageDataUrl).toBeUndefined();
     const html = renderStudioShareHtml('<head><meta property="og:image" content="old"></head>', validatePublishedShare(withoutImage), 'https://app.test/s/test');
     expect(html).not.toContain('og:image'); expect(html).not.toContain('twitter:image'); expect(html).toContain('content="summary"');
   });
-  it('keeps legacy JPEG shares readable but rejects base64 on new publications', async () => {
-    const legacy = { ...sample, imageUrl: undefined, imageDataUrl: image };
-    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(Response.json({ testDocument: legacy })));
+  it('keeps legacy snapshots readable but does not allow claiming their ownership', async () => {
+    const { documents } = firebase(); const legacy = { ...sample, imageUrl: undefined, imageDataUrl: image }; documents.set('0123456789abcdef', { fields: legacy });
     expect((await readStudioShare('0123456789abcdef'))?.imageDataUrl).toBe(image);
-    await expect(publishStudioShare(legacy)).rejects.toThrow('Cloudinary');
+    await expect(publish(legacy)).rejects.toThrow('Cloudinary');
+    await expect(publish({ ...sample, shareId: '0123456789abcdef' })).rejects.toMatchObject({ status: 403 });
   });
-  it('uploads a cover to Cloudinary and stores only its URL in a new snapshot', async () => {
-    const fetcher = vi.fn().mockResolvedValueOnce(Response.json({ secure_url: sample.imageUrl })).mockResolvedValueOnce(Response.json({})); vi.stubGlobal('fetch', fetcher);
-    const imageUrl = await uploadShareCover(image);
-    expect(fetcher.mock.calls[0][0]).toMatch(/^https:\/\/api.cloudinary.com\/v1_1\/[^/]+\/image\/upload$/);
-    const form = fetcher.mock.calls[0][1].body as FormData;
-    expect(form.get('file')).toBe(image); expect(form.get('upload_preset')).toBeTruthy();
-    await publishStudioShare({ ...sample, imageUrl });
-    const saved = JSON.parse(fetcher.mock.calls[1][1].body);
-    expect(saved.fields.imageUrl.stringValue).toBe(sample.imageUrl); expect(saved.fields).not.toHaveProperty('imageDataUrl');
-    expect(renderStudioShareHtml('<head></head>', sample, 'https://app.test/s/test')).toContain(`content="${sample.imageUrl}"`);
+  it('reads without writing and returns no private ownership fields in the public API', async () => {
+    const { fetcher } = firebase(); const first = await publish(); fetcher.mockClear();
+    const shared = await readStudioShare(first.id); expect(shared?.title).toBe(sample.title); expect(shared).not.toHaveProperty('ownerUid'); expect(shared).not.toHaveProperty('projectId');
+    expect(fetcher.mock.calls).toHaveLength(1); expect(fetcher.mock.calls[0][1]?.method).toBeUndefined();
   });
-  it('rejects failed uploads and invalid provider image URLs', async () => {
-    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(Response.json({ error: { message: 'Bad preset' } }, { status: 400 })));
+  it('surfaces denied Firebase writes without inventing a link', async () => {
+    const { fetcher } = firebase(); fetcher.mockImplementationOnce(async () => Response.json({}, { status: 404 })).mockImplementationOnce(async () => Response.json({}, { status: 403 }));
+    await expect(publish()).rejects.toThrow(/rules|Firebase/);
+  });
+  it('uploads to Cloudinary only when requested and rejects invalid URLs/provider errors', async () => {
+    const fetcher = vi.fn().mockResolvedValueOnce(Response.json({ secure_url: sample.imageUrl })).mockResolvedValueOnce(Response.json({}, { status: 400 })); vi.stubGlobal('fetch', fetcher);
+    expect(await uploadShareCover(image)).toBe(sample.imageUrl); expect((fetcher.mock.calls[0][1].body as FormData).get('file')).toBe(image);
     await expect(uploadShareCover(image)).rejects.toThrow('Cloudinary');
     for (const imageUrl of ['http://res.cloudinary.com/demo/image/upload/a.jpg','https://res.cloudinary.com.evil.test/demo/image/upload/a.jpg','javascript:alert(1)','https://res.cloudinary.com/demo/raw/upload/code.html']) expect(() => validatePublishedShare({ ...sample, imageUrl })).toThrow();
   });
-
-  it('performs exactly one immutable create when publishing and returns a short titled path', async () => {
-    const fetcher = vi.fn().mockResolvedValue(new Response('{}', { status: 200 })); vi.stubGlobal('fetch', fetcher);
-    const result = await publishStudioShare(sample);
-    expect(fetcher).toHaveBeenCalledTimes(1); expect(fetcher.mock.calls[0][1].method).toBe('POST');
-    expect(result.path).toMatch(/^\/s\/website-cua-dien\.[a-f0-9]{16}$/); expect(result.path).not.toContain('#');
-    expect(shareIdFromSlug(result.path.split('/').at(-1)!)).toBe(result.id);
-  });
-  it('viewing a link and retrieving metadata never writes', async () => {
-    const fetcher = vi.fn().mockResolvedValue(new Response(JSON.stringify({ testDocument: sample }), { status: 200 })); vi.stubGlobal('fetch', fetcher);
-    const share = await readStudioShare('0123456789abcdef'); expect(share?.title).toBe(sample.title);
-    expect(fetcher.mock.calls[0][1].method).toBeUndefined(); expect(fetcher.mock.calls).toHaveLength(1);
-    const html = renderStudioShareHtml('<html><head><title>Old</title><meta property="og:title" content="Old"></head><body><div id="root"></div></body></html>', sample, 'https://example.test/s/site.0123456789abcdef', 'https://example.test/image.jpg');
-    expect(html).toContain(`<title>${sample.title}</title>`); expect(html).toContain('summary_large_image'); expect(html).not.toContain('content="Old"');
-    expect(fetcher).toHaveBeenCalledTimes(1);
-  });
-  it('does not return a pretend link when rules deny publication', async () => {
-    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response('{}', { status: 403 })));
-    await expect(publishStudioShare(sample)).rejects.toThrow(/rules|Firebase/);
-  });
-  it('escapes title/metadata and rejects oversized or malformed snapshots', () => {
+  it('escapes metadata and validates legacy images and payload sizes', () => {
     expect(shareSlug('Điền & Bạn')).toBe('dien-ban'); expect(shareIdFromSlug('../invalid')).toBe('');
-    const html = renderStudioShareHtml('<head></head>', { ...sample, title: '"><script>bad</script>' }, 'https://example.test', 'https://example.test/image.jpg');
-    expect(html).not.toContain('<script>bad</script>');
+    const html = renderStudioShareHtml('<head></head>', { ...sample, title: '\"><script>bad</script>' }, 'https://example.test'); expect(html).not.toContain('<script>bad</script>');
     expect(() => validatePublishedShare({ ...sample, imageDataUrl: 'data:image/jpeg;base64,eA==' })).toThrow();
     expect(() => validatePublishedShare({ ...sample, payload: 'x'.repeat(700001) })).toThrow();
   });

@@ -284,7 +284,7 @@ export default function CodeStudioPage({ initialSharedProject }: { initialShared
       if (all.length >= 20) throw new Error('Tối đa 20 dự án. Hãy xuất và xóa bớt dự án cũ.');
       switchProject({ ...structuredClone(target), id: crypto.randomUUID(), name: target.name.slice(0, 70) + ' (bản sao)', updatedAt: Date.now() });
     }
-    if (action === 'delete' && window.confirm(`Xóa “${target.name}” trên thiết bị? Link đã chia sẻ vẫn được giữ.`)) {
+    if (action === 'delete' && window.confirm(`Xóa “${target.name}” trên thiết bị? Link đã chia sẻ vẫn được giữ, nhưng xóa dự án local sẽ mất bản làm việc để cập nhật.`)) {
       const rest = all.filter(p => p.id !== id);
       if (id === project.id) { stop(); const next = rest[0] || createProject(); setProject(next); setProjects(rest.length ? rest : [next]); setPreviewDoc(''); setLogs([]); }
       else setProjects(rest);

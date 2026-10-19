@@ -1,6 +1,6 @@
 import { validateProject } from './project';
 import type { ShareMode } from './sharing';
-export interface PublishedShare { version: 1; mode: ShareMode; title: string; description: string; imageUrl?: string; imageDataUrl?: string; payload: string; createdAt: string }
+export interface PublishedShare { version: 1; mode: ShareMode; title: string; description: string; imageUrl?: string; imageDataUrl?: string; payload: string; createdAt: string; updatedAt?: string }
 export function validatePublishedShare(input: unknown): PublishedShare {
   const p = input as PublishedShare;
   if (!p || p.version !== 1 || !['website', 'website-edit', 'editor'].includes(p.mode) || typeof p.title !== 'string' || !p.title.trim() || p.title.length > 160 || typeof p.description !== 'string' || p.description.length > 300 || typeof p.payload !== 'string' || new TextEncoder().encode(p.payload).length > 700000) throw new Error('Dữ liệu chia sẻ không hợp lệ (mã nguồn tối đa 700 KB, ảnh tối đa 135 KB).');
@@ -13,7 +13,7 @@ export function validatePublishedShare(input: unknown): PublishedShare {
   }
   if (p.mode === 'website') { if (data?.version !== 1 || typeof data.html !== 'string' || !data.html.startsWith('<!DOCTYPE html>')) throw new Error('Website chia sẻ không hợp lệ.'); }
   else validateProject(data);
-  const result = { version: 1 as const, mode: p.mode, title: p.title.trim(), description: p.description, ...(p.imageUrl ? { imageUrl: p.imageUrl } : {}), ...(p.imageDataUrl ? { imageDataUrl: p.imageDataUrl } : {}), payload: p.payload, createdAt: typeof p.createdAt === 'string' ? p.createdAt : '' };
+  const result = { version: 1 as const, mode: p.mode, title: p.title.trim(), description: p.description, ...(p.imageUrl ? { imageUrl: p.imageUrl } : {}), ...(p.imageDataUrl ? { imageDataUrl: p.imageDataUrl } : {}), payload: p.payload, createdAt: typeof p.createdAt === 'string' ? p.createdAt : '', ...(typeof p.updatedAt === 'string' ? { updatedAt: p.updatedAt } : {}) };
   if (new TextEncoder().encode(JSON.stringify(result)).length > 900000) throw new Error('Bản chia sẻ quá lớn để lưu Firebase.');
   return result;
 }
