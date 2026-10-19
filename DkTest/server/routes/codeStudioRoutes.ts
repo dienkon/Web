@@ -30,6 +30,10 @@ codeStudioRouter.get('/shares/:id/image.jpg', async (req, res) => {
     res.setHeader('Content-Type', 'image/jpeg'); res.setHeader('Cache-Control', 'public, max-age=31536000, immutable'); return res.send(bytes);
   } catch { return res.status(503).end(); }
 });
+codeStudioRouter.use((error: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  const status = error.type === 'entity.too.large' ? 413 : error instanceof SyntaxError ? 400 : 500;
+  res.status(status).json({ error: status === 413 ? 'Bản chia sẻ quá lớn.' : status === 400 ? 'Dữ liệu JSON gửi lên không hợp lệ.' : 'Máy chủ chia sẻ gặp lỗi. Vui lòng thử lại sau.' });
+});
 export async function handleStudioSharePage(req: any, res: any) {
   try {
     const slug = req.params.slug || String(req.query.slug || '');

@@ -5,6 +5,7 @@ import { StudioProject } from './project';
 import { ShareMode } from './sharing';
 import { captureWebsite, imageFileToCover, websiteMetadata } from './shareCapture';
 import { uploadShareCover } from './shareCoverUpload';
+import { readStudioJson } from './apiResponse';
 
 export default function StudioShareDialog({ project, onClose }: { project: StudioProject; onClose: () => void }) {
   const [snapshot] = useState(project);
@@ -44,7 +45,8 @@ export default function StudioShareDialog({ project, onClose }: { project: Studi
       setBusy('Đang lưu bản chia sẻ lên Firebase…');
       const payload = mode === 'website' ? JSON.stringify({ version: 1, title, html: buildPreview(snapshot, crypto.randomUUID()) }) : JSON.stringify(snapshot);
       const response = await fetch('/api/code-studio/shares', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ version: 1, mode, title, description, ...(imageUrl ? { imageUrl } : {}), payload }), signal: abort.signal });
-      const data = await response.json(); if (!response.ok) throw new Error(data.error || 'Không lưu được Firebase.');
+      const data = await readStudioJson(response, 'Không tạo được link chia sẻ.');
+      if (typeof data.path !== 'string' || !/^\/s\/[a-z0-9-]+\.[a-f0-9]{16}$/.test(data.path)) throw new Error('Máy chủ chưa trả về link chia sẻ hợp lệ.');
       const link = location.origin + data.path; setUrl(link); setCopied(false);
       const historyKey = 'dktest.code-studio.shared-links.v1';
       try { const items = JSON.parse(localStorage.getItem(historyKey) || '[]'); localStorage.setItem(historyKey, JSON.stringify([{ projectId: snapshot.id, title, mode, url: link, createdAt: data.createdAt }, ...(Array.isArray(items) ? items : [])].slice(0, 100))); } catch { /* Sharing succeeded even when local history is full. */ }

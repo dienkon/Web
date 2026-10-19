@@ -5,6 +5,7 @@ import { buildPreview } from './preview';
 import { validateProject } from './project';
 import './shared-website.css';
 import { refreshPreviewPolicy } from './previewPolicy';
+import { readStudioJson } from './apiResponse';
 const Editor = lazy(() => import('./CodeStudioPage'));
 export default function ShortSharePage() {
   const { slug = '' } = useParams(); const location = useLocation();
@@ -14,7 +15,7 @@ export default function ShortSharePage() {
     const abort = new AbortController(); setShare(null); setError('');
     if (!id) { setError('Link không hợp lệ.'); return; }
     const timer = setTimeout(() => abort.abort(), 15000);
-    fetch(`/api/code-studio/shares/${id}`, { signal: abort.signal }).then(async response => { const data = await response.json(); if (!response.ok) throw new Error(data.error || 'Link không tồn tại.'); return validatePublishedShare(data); }).then(data => { if (!abort.signal.aborted) setShare(data); }).catch(e => { if (!abort.signal.aborted) setError(e.message); else if (!abort.signal.reason?.unmounted) setError('Không tải được Firebase. Hãy thử lại.'); }).finally(() => clearTimeout(timer));
+    fetch(`/api/code-studio/shares/${id}`, { signal: abort.signal }).then(async response => validatePublishedShare(await readStudioJson(response, 'Không tải được link chia sẻ.'))).then(data => { if (!abort.signal.aborted) setShare(data); }).catch(e => { if (!abort.signal.aborted) setError(e.message); else if (!abort.signal.reason?.unmounted) setError('Không tải được Firebase. Hãy thử lại.'); }).finally(() => clearTimeout(timer));
     return () => { clearTimeout(timer); abort.abort({ unmounted: true }); };
   }, [id]);
   const content = useMemo(() => {

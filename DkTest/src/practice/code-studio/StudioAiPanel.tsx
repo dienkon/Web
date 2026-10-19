@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Send, Square, Undo2, X } from 'lucide-react';
 import { AiChanges, STUDIO_AI_MODEL } from './aiChanges';
 import { StudioProject } from './project';
+import { readStudioJson } from './apiResponse';
 interface Props { project: StudioProject; onApply: (base: StudioProject, changes: AiChanges) => string | null; onUndo: () => void; canUndo: boolean; onClose: () => void }
 export default function StudioAiPanel({ project, onApply, onUndo, canUndo, onClose }: Props) {
   const [prompt, setPrompt] = useState('');
@@ -19,8 +20,7 @@ export default function StudioAiPanel({ project, onApply, onUndo, canUndo, onClo
     setMessages(items => [...items.slice(-19), { role: 'user', text: instruction }]); setPrompt(''); setBusy(true);
     try {
       const response = await fetch('/api/ai/code-studio', { method: 'POST', headers: { 'Content-Type': 'application/json', ...(key.trim() ? { 'X-Gemini-Api-Key': key.trim() } : {}) }, body: JSON.stringify({ prompt: instruction, project: base }), signal: abort.signal });
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.error || 'AI không phản hồi.');
+      const result = await readStudioJson(response, 'AI không phản hồi.');
       if (abort.signal.aborted) return;
       const failure = apply.current(base, result.changes);
       if (failure) throw new Error(failure);
