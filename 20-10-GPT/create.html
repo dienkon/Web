@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#28121f"><title>Tạo một lời thương · Vườn thương</title>
+  <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="create.css">
+  <script src="gift-data.js" defer></script><script src="firestore.js" defer></script><script src="create.js" defer></script>
+</head>
+<body class="creator">
+  <header class="creator-header"><a class="wordmark" href="index.html"><span class="brand-flower">✳</span> vườn thương.</a><span class="studio-label">GÓC NHỎ TẠO YÊU THƯƠNG</span><a class="back-garden" href="index.html">Về khu vườn ↗</a></header>
+  <main class="studio">
+    <section class="editor-panel" aria-labelledby="editor-title">
+      <div class="editor-intro"><p class="paper-eyebrow">MỘT MÓN QUÀ, MANG DẤU ẤN CỦA BẠN</p><h1 id="editor-title">Viết nên<br><em>một điều dịu dàng.</em></h1><p>Chọn một tấm ảnh. Viết đôi lời thương.<br>Một khu vườn sẽ nở hoa, dành riêng người ấy.</p></div>
+      <form id="creator-form">
+        <details class="edit-section" open><summary><span class="section-number">01</span> Người bạn thương <span class="expand-mark">+</span></summary><div class="section-content">
+          <div class="photo-picker"><div class="photo-thumb"><img id="photo-thumb" alt="Ảnh người nhận" hidden><span id="photo-empty">♡</span></div><div><label class="upload-label" for="creator-photo">Chọn ảnh người nhận ↗</label><p id="photo-info">JPG, PNG, WebP · tự động tối ưu</p><button type="button" id="remove-photo" class="text-button" hidden>Xóa ảnh</button></div><input type="file" id="creator-photo" accept="image/jpeg,image/png,image/webp" hidden></div>
+          <div class="field-grid"><div><label for="recipient">Tên người nhận</label><input id="recipient" name="recipient" maxlength="60" placeholder="Ví dụ: Linh, mẹ yêu…"></div><div><label for="sender">Người gửi</label><input id="sender" name="sender" maxlength="100"></div></div>
+          <label for="caption">Dòng nhỏ dưới ảnh</label><input id="caption" name="caption" maxlength="100">
+          <label for="salutation">Lời gửi phía trên tiêu đề</label><textarea id="salutation" name="salutation" rows="2" maxlength="180"></textarea>
+        </div></details>
+        <details class="edit-section" open><summary><span class="section-number">02</span> Những dòng đầu tiên <span class="expand-mark">+</span></summary><div class="section-content">
+          <label for="eyebrow">Dòng chữ trên ngày</label><textarea id="eyebrow" name="eyebrow" rows="2" maxlength="160"></textarea>
+          <div class="field-grid"><div><label for="day">Ngày</label><input id="day" name="day" maxlength="2" inputmode="numeric"></div><div><label for="month">Tháng</label><input id="month" name="month" maxlength="2" inputmode="numeric"></div></div>
+          <label for="headline">Tiêu đề · dòng đầu</label><textarea id="headline" name="headline" rows="2" maxlength="100" required></textarea>
+          <div class="field-grid"><div><label for="headlineSecond">Dòng tiếp theo</label><input id="headlineSecond" name="headlineSecond" maxlength="70"></div><div><label for="headlineAccent">Phần in nghiêng</label><input id="headlineAccent" name="headlineAccent" maxlength="100"></div></div>
+          <label for="subtitle">Lời chúc dưới tiêu đề</label><textarea id="subtitle" name="subtitle" rows="3" maxlength="600"></textarea><p class="field-hint">Xuống dòng ở đâu, thiệp sẽ hiển thị ở đó.</p>
+          <label for="buttonText">Chữ trên nút mở thiệp</label><input id="buttonText" name="buttonText" maxlength="80">
+          <label for="footer">Câu nhắn cuối trang</label><textarea id="footer" name="footer" rows="2" maxlength="180"></textarea>
+        </div></details>
+        <details class="edit-section"><summary><span class="section-number">03</span> Bên trong tấm thiệp <span class="expand-mark">+</span></summary><div class="section-content">
+          <label for="letterEyebrow">Dòng đầu tấm thiệp</label><input id="letterEyebrow" name="letterEyebrow" maxlength="160">
+          <label for="letterTitle">Lời chào</label><input id="letterTitle" name="letterTitle" maxlength="120">
+          <label for="message">Lời chúc dành riêng người ấy</label><textarea id="message" name="message" rows="9" maxlength="5000" required></textarea>
+          <label for="signoff">Lời kết</label><input id="signoff" name="signoff" maxlength="100">
+          <label for="paperBottom">Dòng nhỏ cuối tấm thiệp</label><textarea id="paperBottom" name="paperBottom" rows="2" maxlength="180"></textarea>
+          <button type="button" id="preview-letter" class="outline-button">Xem bên trong thiệp ↗</button>
+        </div></details>
+        <details class="edit-section"><summary><span class="section-number">04</span> Sắc hoa & chuyển động <span class="expand-mark">+</span></summary><div class="section-content">
+          <label for="theme">Màu khu vườn</label><select id="theme" name="theme"><option value="rose">Hồng rượu vang</option><option value="lavender">Tím hoàng hôn</option><option value="forest">Xanh khu vườn đêm</option></select>
+          <label for="effect">Không khí</label><select id="effect" name="effect"><option value="enchanted">Lung linh · bướm, tia nắng & mưa hoa</option><option value="gentle">Êm dịu · ít chuyển động</option></select>
+          <label for="fontSize">Cỡ tiêu đề</label><select id="fontSize" name="fontSize"><option value="normal">Rạng rỡ</option><option value="small">Nhỏ xinh · hợp tiêu đề dài</option></select>
+        </div></details>
+        <div class="publish-card"><span class="publish-flower">✳</span><h2>Sẵn sàng gửi yêu thương?</h2><p>Ảnh và lời chúc được lưu cùng nhau.<br>Người nhận chỉ cần mở link để ngắm khu vườn.</p><button class="publish-button" type="submit" id="publish">Lưu thiệp & tạo link tặng <span>↗</span></button><p id="save-status" class="save-status" role="status" aria-live="polite"></p><p class="local-note" id="local-note" hidden>Bạn đang mở bản trên máy. Dùng <a href="https://dienkon.github.io/Web/20-10-GPT/create.html">bản GitHub Pages ↗</a> để tạo link gửi người khác.</p></div>
+        <div id="saved-result" class="saved-result" hidden><p class="paper-eyebrow">LỜI THƯƠNG ĐÃ ĐƯỢC LƯU</p><label for="gift-link">Link dành tặng</label><input id="gift-link" readonly><div class="result-actions"><button type="button" id="copy-link">Sao chép link</button><a id="open-gift" target="_blank" rel="noopener">Mở thiệp ↗</a></div><p>Mỗi lần thay đổi nội dung, hãy lưu thành một thiệp mới.</p></div>
+      </form>
+      <div class="editor-bottom"><span id="draft-status">Bản nháp chỉ lưu trên thiết bị này</span><button id="reset-draft" type="button">Dùng lại mẫu gốc</button></div>
+    </section>
+    <aside class="preview-panel" aria-label="Xem trước thiệp">
+      <div class="preview-toolbar"><div><span class="live-dot"></span><span>XEM TRƯỚC TRỰC TIẾP</span></div><div class="preview-controls"><button type="button" id="desktop-view" aria-pressed="true" title="Xem trên máy tính">Máy tính</button><button type="button" id="mobile-view" aria-pressed="false" title="Xem trên điện thoại">Điện thoại</button><button type="button" id="preview-replay" title="Xem lại hiệu ứng">↻</button></div></div>
+      <div id="preview-stage" class="preview-stage"><iframe id="gift-preview" src="index.html?preview=1" title="Xem trước khu vườn và lời chúc của bạn"></iframe></div>
+      <div class="preview-caption"><span>✧</span> Mỗi dòng bạn viết, khu vườn sẽ đổi thay.<span class="preview-hint">Bạn có thể bấm nút mở thiệp ngay trong bản xem trước.</span></div>
+    </aside>
+  </main>
+</body>
+</html>
