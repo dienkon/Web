@@ -4,7 +4,7 @@ const key = (projectId: string) => 'dktest.code-studio.share.v2.' + projectId;
 export function readProjectShare(projectId: string): ProjectShareBinding | null {
   try {
     const value = JSON.parse(localStorage.getItem(key(projectId)) || 'null');
-    if (value && typeof value.title === 'string' && typeof value.description === 'string' && (value.imageUrl === undefined || typeof value.imageUrl === 'string') && typeof value.ownerUid === 'string' && /^[a-f0-9]{16}$/.test(value.id) && typeof value.path === 'string' && new RegExp(`^/s/[a-z0-9-]+\\.${value.id}$`).test(value.path) && ['website','website-edit','editor'].includes(value.mode)) return value;
+    if (value && typeof value.title === 'string' && typeof value.description === 'string' && (value.imageUrl === undefined || typeof value.imageUrl === 'string') && typeof value.ownerUid === 'string' && /^[a-f0-9]{16}$/.test(value.id) && typeof value.path === 'string' && new RegExp(`^/(?:code|s)/[a-z0-9-]+\\.${value.id}$`).test(value.path) && ['website','website-edit','editor'].includes(value.mode)) return { ...value, path: value.path.replace(/^\/s\//,'/code/') };
   } catch { /* A missing local binding can be recovered from owner + project ID. */ }
   return null;
 }

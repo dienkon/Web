@@ -1,4 +1,5 @@
-export interface StudioFile { path: string; content: string }
+import { StudioAsset, validAsset } from './media';
+export interface StudioFile { path: string; content: string; asset?: StudioAsset }
 export interface StudioProject {
   version: 1;
   id: string;
@@ -29,8 +30,10 @@ export function validateProject(input: unknown): StudioProject {
   if (p.version !== 1 || typeof p.name !== 'string' || !p.name.trim() || p.name.length > 80 || !Array.isArray(p.files) || !p.files.length || p.files.length > 100 || !Array.isArray(p.folders) || p.folders.length > 100) throw new Error('Dự án cần 1–100 file và tên tối đa 80 ký tự.');
   const files = p.files.map(f => {
     if (!f || typeof f.path !== 'string' || typeof f.content !== 'string') throw new Error('File không hợp lệ.');
-    return { path: cleanPath(f.path), content: f.content };
+    if (f.asset && (!validAsset(f.asset) || f.content !== '')) throw new Error('File media không hợp lệ.');
+    return { path: cleanPath(f.path), content: f.content, ...(f.asset ? { asset: { url: f.asset.url, mime: f.asset.mime, bytes: f.asset.bytes } } : {}) };
   });
+  if (files.reduce((total,file) => total + (file.asset?.bytes || 0),0) > 80 * 1024 * 1024) throw new Error('Tổng ảnh/video mỗi dự án tối đa 80 MB để có thể xuất ZIP trên mobile.');
   const folders = [...new Set(p.folders.map(f => { if (typeof f !== 'string') throw new Error('Thư mục không hợp lệ.'); return cleanPath(f); }))];
   const paths = files.map(f => f.path);
   if (new Set(paths).size !== paths.length || paths.some(path => paths.some(other => other.startsWith(path + '/')) || folders.some(folder => folder === path || folder.startsWith(path + '/')))) throw new Error('File và thư mục bị trùng đường dẫn.');

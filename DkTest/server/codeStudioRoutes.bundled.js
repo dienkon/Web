@@ -179,6 +179,17 @@ function getFirebaseApiKey() {
   return process.env.VITE_FIREBASE_API_KEY || process.env.FIREBASE_API_KEY || "AIzaSyDp9p5hkQ6fVEou4znk5YZu81VhgZtM7h4";
 }
 
+// src/practice/code-studio/media.ts
+var IMAGE_LIMIT = 8 * 1024 * 1024;
+var VIDEO_LIMIT = 25 * 1024 * 1024;
+var BATCH_LIMIT = 50 * 1024 * 1024;
+var types = { "image/jpeg": "jpg", "image/png": "png", "image/gif": "gif", "image/webp": "webp", "image/avif": "avif", "video/mp4": "mp4", "video/webm": "webm", "video/quicktime": "mov" };
+function validAsset(asset) {
+  if (!asset || typeof asset.mime !== "string" || !Object.hasOwn(types, asset.mime)) return false;
+  const kind = asset?.mime?.startsWith("video/") ? "video" : "image";
+  return asset && types[asset.mime] && Number.isInteger(asset.bytes) && asset.bytes > 0 && asset.bytes <= (kind === "video" ? VIDEO_LIMIT : IMAGE_LIMIT) && typeof asset.url === "string" && asset.url.length <= 2048 && new RegExp(`^https://res\\.cloudinary\\.com/[A-Za-z0-9_-]+/${kind}/upload/[^\\s<>"']+$`).test(asset.url);
+}
+
 // src/practice/code-studio/project.ts
 var MAX_PROJECT_BYTES = 1e6;
 function cleanPath(value) {
@@ -194,8 +205,10 @@ function validateProject(input) {
   if (p.version !== 1 || typeof p.name !== "string" || !p.name.trim() || p.name.length > 80 || !Array.isArray(p.files) || !p.files.length || p.files.length > 100 || !Array.isArray(p.folders) || p.folders.length > 100) throw new Error("D\u1EF1 \xE1n c\u1EA7n 1\u2013100 file v\xE0 t\xEAn t\u1ED1i \u0111a 80 k\xFD t\u1EF1.");
   const files = p.files.map((f) => {
     if (!f || typeof f.path !== "string" || typeof f.content !== "string") throw new Error("File kh\xF4ng h\u1EE3p l\u1EC7.");
-    return { path: cleanPath(f.path), content: f.content };
+    if (f.asset && (!validAsset(f.asset) || f.content !== "")) throw new Error("File media kh\xF4ng h\u1EE3p l\u1EC7.");
+    return { path: cleanPath(f.path), content: f.content, ...f.asset ? { asset: { url: f.asset.url, mime: f.asset.mime, bytes: f.asset.bytes } } : {} };
   });
+  if (files.reduce((total, file) => total + (file.asset?.bytes || 0), 0) > 80 * 1024 * 1024) throw new Error("T\u1ED5ng \u1EA3nh/video m\u1ED7i d\u1EF1 \xE1n t\u1ED1i \u0111a 80 MB \u0111\u1EC3 c\xF3 th\u1EC3 xu\u1EA5t ZIP tr\xEAn mobile.");
   const folders = [...new Set(p.folders.map((f) => {
     if (typeof f !== "string") throw new Error("Th\u01B0 m\u1EE5c kh\xF4ng h\u1EE3p l\u1EC7.");
     return cleanPath(f);
@@ -315,7 +328,7 @@ async function publishStudioShare(input, token) {
     if (response.status === 409 || response.status === 412) throw failure("D\u1EF1 \xE1n v\u1EEBa \u0111\u01B0\u1EE3c chia s\u1EBB \u1EDF phi\xEAn kh\xE1c. B\u1EA5m c\u1EADp nh\u1EADt l\u1EA1i \u0111\u1EC3 gi\u1EEF c\xF9ng link.", 409);
     if (!response.ok) throw failure("Firebase ch\u01B0a cho ph\xE9p c\u1EADp nh\u1EADt link. \xC1p d\u1EE5ng rules code_studio_shares ho\u1EB7c c\u1EA5u h\xECnh Firebase Admin.", 503);
   }
-  return { id, path: `/s/${saved.slug}.${id}`, title: saved.title, createdAt: saved.createdAt, updatedAt: saved.updatedAt };
+  return { id, path: `/code/${saved.slug}.${id}`, title: saved.title, createdAt: saved.createdAt, updatedAt: saved.updatedAt };
 }
 var escape = (value) => value.replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[ch]);
 function renderStudioShareHtml(template, share, canonical, imageUrl = share.imageUrl || "") {
@@ -732,10 +745,10 @@ var PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         100% { left: 100%; }
       }
     </style>
-    <script type="module" crossorigin src="/assets/index-Djy5eeKF.js"></script>
+    <script type="module" crossorigin src="/assets/index-DP8Waj43.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-react-Cg2vLLvP.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-charts-Dtra7FLy.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-JxXgHDMj.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-CQh7DSqG.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-firebase-BJt7ZhnJ.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-katex-T051Jbj4.js">
     <link rel="stylesheet" crossorigin href="/assets/vendor-katex-Ddr6Z9Sf.css">
@@ -818,7 +831,7 @@ async function handleStudioSharePage(req, res) {
     const protocol = req.headers["x-forwarded-proto"] === "https" || req.protocol === "https" ? "https" : "http";
     const origin = `${protocol}://${host}`;
     res.setHeader("Cache-Control", "no-store");
-    return res.type("html").send(renderStudioShareHtml(PRODUCTION_HTML_TEMPLATE, share, `${origin}/s/${encodeURIComponent(slug)}`, share.imageUrl || (share.imageDataUrl ? `${origin}/api/code-studio/shares/${id}/image.jpg` : "")));
+    return res.type("html").send(renderStudioShareHtml(PRODUCTION_HTML_TEMPLATE, share, `${origin}/code/${encodeURIComponent(slug)}`, share.imageUrl || (share.imageDataUrl ? `${origin}/api/code-studio/shares/${id}/image.jpg` : "")));
   } catch {
     return res.status(503).type("html").send('<!doctype html><meta charset="utf-8"><h1>Ch\u01B0a th\u1EC3 t\u1EA3i link chia s\u1EBB</h1><p>Vui l\xF2ng ki\u1EC3m tra c\u1EA5u h\xECnh Firebase.</p>');
   }

@@ -13,6 +13,7 @@ export function validateAiChanges(input: unknown): AiChanges {
 export function applyAiChanges(base: StudioProject, current: StudioProject, input: unknown): StudioProject {
   if (base.id !== current.id) throw new Error('Bạn đã chuyển dự án. Thay đổi AI chưa được áp dụng.');
   const changes = validateAiChanges(input);
+  if (changes.files.some(f => current.files.find(existing => existing.path === f.path)?.asset)) throw new Error('AI chỉ sửa mã nguồn. File ảnh/video được quản lý bằng tải lên và cây thư mục.');
   const touched = new Set([...changes.files.map(f => f.path), ...changes.deletePaths]);
   for (const path of touched) {
     if (base.files.find(f => f.path === path)?.content !== current.files.find(f => f.path === path)?.content) throw new Error(`“${path}” đã được bạn sửa trong khi AI đang làm. Giữ nguyên code của bạn; hãy gửi lệnh lại.`);

@@ -77,7 +77,7 @@ export async function publishStudioShare(input: any, token?: string) {
     if (response.status === 409 || response.status === 412) throw failure('Dự án vừa được chia sẻ ở phiên khác. Bấm cập nhật lại để giữ cùng link.', 409);
     if (!response.ok) throw failure('Firebase chưa cho phép cập nhật link. Áp dụng rules code_studio_shares hoặc cấu hình Firebase Admin.', 503);
   }
-  return { id, path: `/s/${saved.slug}.${id}`, title: saved.title, createdAt: saved.createdAt, updatedAt: saved.updatedAt };
+  return { id, path: `/code/${saved.slug}.${id}`, title: saved.title, createdAt: saved.createdAt, updatedAt: saved.updatedAt };
 }
 
 const escape = (value: string) => value.replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]!));

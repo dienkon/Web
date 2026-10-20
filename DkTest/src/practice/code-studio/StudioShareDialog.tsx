@@ -51,7 +51,8 @@ export default function StudioShareDialog({ project, onClose }: { project: Studi
       const payload = mode === 'website' ? JSON.stringify({ version: 1, title, html: buildPreview(snapshot, crypto.randomUUID()) }) : JSON.stringify(snapshot);
       const response = await fetch('/api/code-studio/shares', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${identity.token}` }, body: JSON.stringify({ version: 1, projectId: snapshot.id, ...(binding ? { shareId: binding.id } : {}), mode, title, description, ...(imageUrl ? { imageUrl } : {}), payload }), signal: abort.signal });
       const data = await readStudioJson(response, 'Không tạo được link chia sẻ.');
-      if (typeof data.path !== 'string' || !/^\/s\/[a-z0-9-]+\.[a-f0-9]{16}$/.test(data.path)) throw new Error('Máy chủ chưa trả về link chia sẻ hợp lệ.');
+      if (typeof data.path !== 'string' || !/^\/(?:code|s)\/[a-z0-9-]+\.[a-f0-9]{16}$/.test(data.path)) throw new Error('Máy chủ chưa trả về link chia sẻ hợp lệ.');
+      data.path = data.path.replace(/^\/s\//, '/code/');
       const link = location.origin + data.path; setUrl(link); setCopied(false);
       const nextBinding = { ownerUid: identity.uid, id: data.id, path: data.path, mode, title, description, imageUrl };
       setBinding(nextBinding); setCoverUrl(imageUrl);

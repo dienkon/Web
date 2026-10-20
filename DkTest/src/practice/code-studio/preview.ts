@@ -13,6 +13,8 @@ export function rewriteImports(code: string, path: string, onResolve?: (path: st
 export function buildPreview(project: StudioProject, token: string): string {
   const files = new Map(project.files.map(f => [f.path, f.content]));
   const entry = project.entry;
+  const assets = new Map(project.files.filter(f => f.asset).map(f => [f.path, f.asset!.url]));
+  const assetUrl = (from: string, target: string) => { const path = resolveLocal(from, target); return path ? assets.get(path) : undefined; };
   if (!/\.html?$/i.test(entry)) throw new Error('Chọn file HTML làm trang mở đầu để xem preview.');
   const html = files.get(entry);
   if (html === undefined) throw new Error('Không tìm thấy trang mở đầu.');
@@ -28,7 +30,7 @@ export function buildPreview(project: StudioProject, token: string): string {
   const inlineCss = (content: string, from: string, seen = new Set<string>()): string => content.replace(/@import\s+(?:url\(\s*(?:['"]([^'"]+)['"]|([^\s)'";]+))\s*\)|['"]([^'"]+)['"])\s*;/g, (all, quoted, unquoted, plain) => {
     const resolved = resolveLocal(from, quoted || unquoted || plain);
     return resolved && files.has(resolved) ? css(resolved, seen) : all;
-  }).replace(/<\/style/gi, '<\\/style');
+  }).replace(/url\(\s*(['"]?)([^)'"]+)\1\s*\)/g, (all, quote, target) => { const url = assetUrl(from, target.trim()); return url ? `url("${url}")` : all; }).replace(/<\/style/gi, '<\\/style');
   doc.querySelectorAll('link[rel="stylesheet"][href]').forEach(link => {
     const path = resolveLocal(entry, link.getAttribute('href') || '');
     if (!path) return;
@@ -51,10 +53,16 @@ export function buildPreview(project: StudioProject, token: string): string {
   // Inline style/script blocks remain part of the document. Resolve local CSS
   // imports in embedded styles too, so a single HTML entry needs no split files.
   doc.querySelectorAll('style').forEach(style => { style.textContent = inlineCss(style.textContent || '', entry); });
-  doc.querySelectorAll('img[src], source[src]').forEach(node => {
-    const path = resolveLocal(entry, node.getAttribute('src') || '');
-    if (path && files.has(path) && /\.svg$/i.test(path)) node.setAttribute('src', 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(files.get(path)!));
+  doc.querySelectorAll('[style]').forEach(node => node.setAttribute('style',inlineCss(node.getAttribute('style') || '',entry)));
+  doc.querySelectorAll('[src],[poster],a[href]').forEach(node => {
+    for (const attribute of ['src','poster','href']) {
+      const target = node.getAttribute(attribute); if (!target) continue;
+      const remote = assetUrl(entry,target); if (remote) { node.setAttribute(attribute,remote); continue; }
+      const path = resolveLocal(entry,target);
+      if (attribute === 'src' && path && files.has(path) && /\.svg$/i.test(path)) node.setAttribute(attribute,'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(files.get(path)!));
+    }
   });
+  doc.querySelectorAll('[srcset]').forEach(node => { const value = node.getAttribute('srcset')!; if (!value.includes('data:')) node.setAttribute('srcset',value.split(',').map(candidate => { const [url,...descriptor] = candidate.trim().split(/\s+/); return [assetUrl(entry,url) || url,...descriptor].join(' '); }).join(', ')); });
   const imports: Record<string, string> = {};
   // Follow only modules used by the selected page. Unrelated source files must
   // never be included in a website-only share payload.

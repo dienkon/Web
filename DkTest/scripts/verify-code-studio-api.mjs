@@ -37,7 +37,7 @@ if (!process.argv.includes('--runtime')) {
   try {
     const project = { version: 1, id: 'production-check', name: 'Production', activeFile: 'index.html', entry: 'index.html', folders: [], files: [{ path: 'index.html', content: '<html><title>Production</title><body>Hello</body></html>' }] };
     const response = await fetch(origin + '/api/code-studio/shares?match=shares', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer owner-test-token' }, body: JSON.stringify({ version: 1, projectId: project.id, mode: 'website-edit', title: 'Production check', description: 'No image', payload: JSON.stringify(project) }) });
-    assert.equal(response.status, 201); const result = await response.json(); assert.match(result.path, /^\/s\/production-check\.[a-f0-9]{16}$/); assert.equal(writes, 1);
+    assert.equal(response.status, 201); const result = await response.json(); assert.match(result.path, /^\/code\/production-check\.[a-f0-9]{16}$/); assert.equal(writes, 1);
     const shared = await fetch(origin + `/api/code-studio/shares/${result.id}?match=shares/${result.id}`); assert.equal(shared.status, 200); assert.equal((await shared.json()).mode, 'website-edit');
     await new Promise(resolve => setTimeout(resolve, 3100));
     const updated = await fetch(origin + '/api/code-studio/shares?match=shares', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer owner-test-token' }, body: JSON.stringify({ version: 1, projectId: project.id, shareId: result.id, mode: 'website-edit', title: 'Updated title', description: 'Latest content', payload: JSON.stringify(project) }) });
@@ -46,7 +46,7 @@ if (!process.argv.includes('--runtime')) {
     await new Promise(resolve => setTimeout(resolve, 3100));
     const foreign = await fetch(origin + '/api/code-studio/shares?match=shares', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer other-test-token' }, body: JSON.stringify({ version: 1, projectId: project.id, shareId: result.id, mode: 'website-edit', title: 'Attack', description: '', payload: JSON.stringify(project) }) });
     assert.equal(foreign.status, 403); assert.equal(writes, 2);
-    const page = await fetch(origin + result.path + '?slug=' + result.path.slice(3)); assert.equal(page.status, 200); const html = await page.text(); assert.ok(html.includes('<title>Updated title</title>')); assert.ok(!html.includes('property="og:image"'));
+    const page = await fetch(origin + result.path + '?slug=' + result.path.split('/').at(-1)); assert.equal(page.status, 200); const html = await page.text(); assert.ok(html.includes('<title>Updated title</title>')); assert.ok(!html.includes('property="og:image"'));
     const bad = await fetch(origin + '/api/code-studio/shares?match=shares', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{' }); assert.equal(bad.status, 400); assert.ok((await bad.json()).error);
     const missing = await fetch(origin + '/api/code-studio/missing?match=missing'); assert.equal(missing.status, 404); assert.ok((await missing.json()).error);
     denied = true;

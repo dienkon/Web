@@ -1,0 +1,6 @@
+import React, { useState } from 'react';
+import { StudioFile } from './project';
+export default function StudioAssetView({ file }: { file: StudioFile }) {
+  const [copied, setCopied] = useState(''); const asset = file.asset!;
+  return <section className="studio-asset-view" aria-label="File media"><div className="studio-asset-canvas">{asset.mime.startsWith('video/') ? <video src={asset.url} controls playsInline preload="metadata" /> : <img src={asset.url} alt={file.path} />}</div><strong>{file.path}</strong><small>{asset.mime} · {(asset.bytes / 1048576).toFixed(2)} MB · Cloudinary</small><div><button onClick={async () => { try { await navigator.clipboard.writeText(file.path); setCopied('Đã sao chép đường dẫn dùng trong code.'); } catch { setCopied('Đường dẫn: ' + file.path); } }}>Sao chép đường dẫn</button><button onClick={async () => { try { await navigator.clipboard.writeText(asset.url); setCopied('Đã sao chép URL Cloudinary.'); } catch { setCopied(asset.url); } }}>Sao chép URL</button><a href={asset.url} target="_blank" rel="noopener noreferrer">Mở file ↗</a></div><code>{asset.mime.startsWith('video/') ? `<video src="${file.path}" controls></video>` : `<img src="${file.path}" alt="" />`}</code>{copied && <small role="status">{copied}</small>}</section>;
+}

@@ -2799,6 +2799,17 @@ async function askAdminAssistant(messages, context, customApiKey) {
 // server/codeStudioAi.ts
 init_aiClient();
 
+// src/practice/code-studio/media.ts
+var IMAGE_LIMIT = 8 * 1024 * 1024;
+var VIDEO_LIMIT = 25 * 1024 * 1024;
+var BATCH_LIMIT = 50 * 1024 * 1024;
+var types = { "image/jpeg": "jpg", "image/png": "png", "image/gif": "gif", "image/webp": "webp", "image/avif": "avif", "video/mp4": "mp4", "video/webm": "webm", "video/quicktime": "mov" };
+function validAsset(asset) {
+  if (!asset || typeof asset.mime !== "string" || !Object.hasOwn(types, asset.mime)) return false;
+  const kind = asset?.mime?.startsWith("video/") ? "video" : "image";
+  return asset && types[asset.mime] && Number.isInteger(asset.bytes) && asset.bytes > 0 && asset.bytes <= (kind === "video" ? VIDEO_LIMIT : IMAGE_LIMIT) && typeof asset.url === "string" && asset.url.length <= 2048 && new RegExp(`^https://res\\.cloudinary\\.com/[A-Za-z0-9_-]+/${kind}/upload/[^\\s<>"']+$`).test(asset.url);
+}
+
 // src/practice/code-studio/project.ts
 var MAX_PROJECT_BYTES = 1e6;
 function cleanPath(value) {
@@ -2814,8 +2825,10 @@ function validateProject(input) {
   if (p.version !== 1 || typeof p.name !== "string" || !p.name.trim() || p.name.length > 80 || !Array.isArray(p.files) || !p.files.length || p.files.length > 100 || !Array.isArray(p.folders) || p.folders.length > 100) throw new Error("D\u1EF1 \xE1n c\u1EA7n 1\u2013100 file v\xE0 t\xEAn t\u1ED1i \u0111a 80 k\xFD t\u1EF1.");
   const files = p.files.map((f) => {
     if (!f || typeof f.path !== "string" || typeof f.content !== "string") throw new Error("File kh\xF4ng h\u1EE3p l\u1EC7.");
-    return { path: cleanPath(f.path), content: f.content };
+    if (f.asset && (!validAsset(f.asset) || f.content !== "")) throw new Error("File media kh\xF4ng h\u1EE3p l\u1EC7.");
+    return { path: cleanPath(f.path), content: f.content, ...f.asset ? { asset: { url: f.asset.url, mime: f.asset.mime, bytes: f.asset.bytes } } : {} };
   });
+  if (files.reduce((total, file) => total + (file.asset?.bytes || 0), 0) > 80 * 1024 * 1024) throw new Error("T\u1ED5ng \u1EA3nh/video m\u1ED7i d\u1EF1 \xE1n t\u1ED1i \u0111a 80 MB \u0111\u1EC3 c\xF3 th\u1EC3 xu\u1EA5t ZIP tr\xEAn mobile.");
   const folders = [...new Set(p.folders.map((f) => {
     if (typeof f !== "string") throw new Error("Th\u01B0 m\u1EE5c kh\xF4ng h\u1EE3p l\u1EC7.");
     return cleanPath(f);
@@ -2847,6 +2860,7 @@ function validateAiChanges(input) {
 function applyAiChanges(base, current, input) {
   if (base.id !== current.id) throw new Error("B\u1EA1n \u0111\xE3 chuy\u1EC3n d\u1EF1 \xE1n. Thay \u0111\u1ED5i AI ch\u01B0a \u0111\u01B0\u1EE3c \xE1p d\u1EE5ng.");
   const changes = validateAiChanges(input);
+  if (changes.files.some((f) => current.files.find((existing) => existing.path === f.path)?.asset)) throw new Error("AI ch\u1EC9 s\u1EEDa m\xE3 ngu\u1ED3n. File \u1EA3nh/video \u0111\u01B0\u1EE3c qu\u1EA3n l\xFD b\u1EB1ng t\u1EA3i l\xEAn v\xE0 c\xE2y th\u01B0 m\u1EE5c.");
   const touched = /* @__PURE__ */ new Set([...changes.files.map((f) => f.path), ...changes.deletePaths]);
   for (const path of touched) {
     if (base.files.find((f) => f.path === path)?.content !== current.files.find((f) => f.path === path)?.content) throw new Error(`\u201C${path}\u201D \u0111\xE3 \u0111\u01B0\u1EE3c b\u1EA1n s\u1EEDa trong khi AI \u0111ang l\xE0m. Gi\u1EEF nguy\xEAn code c\u1EE7a b\u1EA1n; h\xE3y g\u1EEDi l\u1EC7nh l\u1EA1i.`);

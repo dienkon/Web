@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Check, ChevronDown, ChevronRight, Code2, Download, FileCode2, FolderOpen, HelpCircle, LayoutPanelLeft, Play, Plus, Search, Settings2, Share2, Sparkles, Square, Terminal, Trash2, Upload, WrapText, X } from 'lucide-react';
+import { ArrowLeft, Maximize2, Minimize2, ImagePlus, Check, ChevronDown, ChevronRight, Code2, Download, FileCode2, FolderOpen, HelpCircle, LayoutPanelLeft, Play, Plus, Search, Settings2, Share2, Sparkles, Square, Terminal, Trash2, Upload, WrapText, X } from 'lucide-react';
 import { cleanPath, createProject, decodeShare, languageFor, moveIntoFolder, movePath, projectFolders, readProjects, STORAGE_KEY, StudioProject, validateProject } from './project';
 import { buildPreview } from './preview';
 import { canFormat, formatCode } from './editorServices';
@@ -15,8 +15,14 @@ import StudioPreview, { PreviewDock } from './StudioPreview';
 import { completionText, formatDuration } from './timing';
 import { applyCodeUpload, CodeUpload, ImportOptions, readCodeUpload } from './codeImport';
 import CodeImportDialog from './CodeImportDialog';
+import StudioMediaDialog from './StudioMediaDialog';
+import StudioAssetView from './StudioAssetView';
+import { exportProjectZip } from './projectZip';
+import { useStudioFullscreen } from './useStudioFullscreen';
+import { StudioFile } from './project';
 import './studio.css';
 import './workspace.css';
+import './mobile.css';
 
 type Log = { level: string; text: string; at: number };
 type Dialog = { kind: 'file' | 'folder' | 'rename' | 'move' | 'project' | 'projectRename'; path?: string; value: string; template?: 'web' | 'python' | 'cpp' | 'javascript' };
@@ -39,14 +45,23 @@ function download(content: string, name: string, type = 'application/json') {
 }
 
 export default function CodeStudioPage({ initialSharedProject }: { initialSharedProject?: StudioProject } = {}) {
+  const viewportMode = useStudioFullscreen();
+  const mediaInput = useRef<HTMLInputElement>(null);
+  const [mediaFiles, setMediaFiles] = useState<File[] | null>(null);
+  const [zipProgress, setZipProgress] = useState<{ done: number; total: number; controller: AbortController } | null>(null);
+  const zipController = useRef<AbortController | null>(null);
+  const zipUrl = useRef('');
+  const [zipDownload, setZipDownload] = useState<{ url:string; name:string } | null>(null);
+  useEffect(() => () => { if (zipUrl.current) URL.revokeObjectURL(zipUrl.current); }, []);
+  useEffect(() => () => zipController.current?.abort(), []);
   const [initial] = useState(() => boot(initialSharedProject));
   const [projects, setProjects] = useState(initial.projects);
   const [project, setProject] = useState(initial.current);
   const [notice, setNotice] = useState(initial.error || (initial.shared ? 'Đã mở bản sao từ link. Bạn có thể chỉnh sửa và chia sẻ một link mới.' : ''));
   const [saveState, setSaveState] = useState('Đang lưu…');
   const [explorer, setExplorer] = useState(window.innerWidth >= 900);
-  const [previewOpen, setPreviewOpen] = useState(window.innerWidth >= 1100);
-  const [previewDock, setPreviewDock] = useState<PreviewDock>('right');
+  const [previewOpen, setPreviewOpen] = useState(window.innerWidth >= 1100 || window.innerWidth < 900 || matchMedia('(pointer: coarse)').matches);
+  const [previewDock, setPreviewDock] = useState<PreviewDock>(window.innerWidth < 900 && window.innerHeight > window.innerWidth ? 'top' : 'right');
   const [mobilePanel, setMobilePanel] = useState<'code' | 'preview'>('code');
   const [outputOpen, setOutputOpen] = useState(false);
   const [logs, setLogs] = useState<Log[]>([]);
@@ -56,7 +71,7 @@ export default function CodeStudioPage({ initialSharedProject }: { initialShared
   const [formatOnSave, setFormatOnSave] = useState(false);
   const [touch, setTouch] = useState(() => matchMedia('(pointer: coarse)').matches || window.innerWidth < 700);
   const [wrap, setWrap] = useState(false);
-  const [fontSize, setFontSize] = useState(15);
+  const [fontSize, setFontSize] = useState(window.innerWidth < 900 ? 16 : 15);
   const [cursor, setCursor] = useState([1, 1]);
   const [settings, setSettings] = useState(false);
   const [help, setHelp] = useState(false);
@@ -73,7 +88,7 @@ export default function CodeStudioPage({ initialSharedProject }: { initialShared
   const [previewKey, setPreviewKey] = useState(0);
   const [runnerDoc, setRunnerDoc] = useState('');
   const [runnerKey, setRunnerKey] = useState(0);
-  const [autoPreview, setAutoPreview] = useState(false);
+  const [autoPreview, setAutoPreview] = useState(!initial.shared);
   const editor = useRef<EditorHandle>(null);
   const previewFrame = useRef<HTMLIFrameElement>(null);
   const runnerFrame = useRef<HTMLIFrameElement>(null);
@@ -127,6 +142,7 @@ export default function CodeStudioPage({ initialSharedProject }: { initialShared
   useEffect(() => {
     const viewport = window.visualViewport;
     const resize = () => {
+      document.querySelector<HTMLElement>('.code-studio')?.classList.toggle('keyboard-open', (window.innerHeight - (viewport?.height || window.innerHeight)) > 120);
       document.querySelector<HTMLElement>('.code-studio')?.style.setProperty('--studio-height', `${Math.round(viewport?.height || window.innerHeight)}px`);
       if (!touchPreference.current) setTouch(matchMedia('(pointer: coarse)').matches || window.innerWidth < 700);
     };
@@ -228,12 +244,13 @@ export default function CodeStudioPage({ initialSharedProject }: { initialShared
 
   function run() {
     stop(); setLogs([]);
+    if (file.asset && htmlFiles.length) { refreshPreview(); return; }
     if (language === 'html') {
       const next = { ...project, entry: file.path };
       if (project.entry !== file.path) setProject(next);
-      refreshPreview(next); setOutputOpen(true); return;
+      refreshPreview(next); setOutputOpen(open => window.innerWidth >= 900 || open); return;
     }
-    if (['html', 'css'].includes(language) || (language === 'javascript' && htmlFiles.length > 0)) { refreshPreview(); setOutputOpen(true); return; }
+    if (['html', 'css'].includes(language) || (language === 'javascript' && htmlFiles.length > 0)) { refreshPreview(); setOutputOpen(open => window.innerWidth >= 900 || open); return; }
     if (!['javascript', 'python', 'cpp', 'c'].includes(language)) { setNotice('File này hỗ trợ soạn thảo. Chạy HTML/CSS/JS, Python hoặc C++ cơ bản. TypeScript cần được biên dịch trước.'); return; }
     setOutputOpen(true); setMobilePanel('code');
     const token = crypto.randomUUID(); runnerToken.current = token;
@@ -290,7 +307,7 @@ export default function CodeStudioPage({ initialSharedProject }: { initialShared
       else setProjects(rest);
       setSaveState('Đang lưu…');
     }
-    if (action === 'export') download(JSON.stringify(target, null, 2), target.name.replace(/[^\p{L}\p{N} -]/gu, '') + '.dkcode.json');
+    if (action === 'export') void exportZip(target);
   }
   function moveItem(source: string, destination: string) {
     try {
@@ -370,6 +387,23 @@ export default function CodeStudioPage({ initialSharedProject }: { initialShared
       return null;
     } catch (e) { return (e as Error).message; }
   }
+  function addMedia(id: string, files: StudioFile[]) {
+    if (current.current.id !== id) throw new Error('Dự án đã thay đổi. Hãy chọn lại file media.');
+    const next = validateProject({ ...current.current, files: [...current.current.files, ...files], activeFile: files[0]?.path || current.current.activeFile });
+    setProject(next); setSaveState('Đang lưu…'); if (window.innerWidth < 900) setExplorer(false); setNotice(`Đã thêm ${files.length} file media. Dùng đường dẫn trong assets cho HTML/CSS.`);
+  }
+  async function exportZip(target: StudioProject) {
+    if (zipController.current) { setNotice('Một dự án đang được xuất ZIP.'); return; }
+    const controller = new AbortController(); zipController.current = controller; setZipProgress({ done:0,total:target.files.length,controller });
+    try {
+      const blob = await exportProjectZip(target, controller.signal, (done,total) => setZipProgress({done,total,controller}));
+      if (zipUrl.current) URL.revokeObjectURL(zipUrl.current);
+      const url = URL.createObjectURL(blob), a = document.createElement('a'); a.href = url; a.download = (target.name.replace(/[^\p{L}\p{N} _-]/gu,'') || 'project') + '.zip';
+      zipUrl.current = url; setZipDownload({ url,name:a.download }); a.style.display = 'none'; (document.fullscreenElement || document.body).append(a); a.click(); a.remove();
+      setNotice('ZIP đã sẵn sàng, gồm mã nguồn, thư mục và file media.');
+    } catch (error: any) { setNotice(controller.signal.aborted ? 'Đã hủy xuất ZIP.' : error.message); }
+    finally { zipController.current = null; setZipProgress(null); }
+  }
   function deleteProject() {
     if (!window.confirm(`Xóa dự án “${project.name}” khỏi máy? Hãy xuất dự án nếu muốn giữ lại.`)) return;
     stop(); const rest = projects.filter(p => p.id !== project.id);
@@ -379,14 +413,14 @@ export default function CodeStudioPage({ initialSharedProject }: { initialShared
   const selectedProjects = [project, ...projects.filter(p => p.id !== project.id)];
   const modalOpen = !!(dialog || settings || help);
 
-  return <main className={`code-studio ${previewOpen ? 'with-preview' : ''} preview-${previewDock} mobile-${mobilePanel}`}>
+  return <main ref={viewportMode.root} className={`code-studio ${previewOpen ? 'with-preview' : ''} preview-${previewDock} mobile-${mobilePanel}`}>
     <header className="studio-header">
       <Link to="/practice" className="studio-back" aria-label="Về luyện tập"><ArrowLeft size={18} /></Link>
       <div className="studio-brand"><span className="studio-brand-icon"><Code2 size={22} /></span><div><strong>Code<span>Studio</span></strong><small>Ý tưởng của bạn. Không giới hạn.</small></div></div>
       <span className="studio-header-divider" />
       <button className="studio-icon-button" aria-label="Quản lý dự án" title="Quản lý dự án" onClick={() => setProjectsOpen(true)}><FolderOpen size={17} /></button><div className="studio-project-select"><FolderOpen size={15} /><select aria-label="Chọn dự án" value={project.id} onChange={e => { const next = selectedProjects.find(p => p.id === e.target.value); if (next) switchProject(next); }}>{selectedProjects.map(p => <option value={p.id} key={p.id}>{p.name}</option>)}</select><ChevronDown size={12} /></div>
       <button className="studio-icon-button" title="Tạo dự án mới" aria-label="Tạo dự án mới" onClick={() => openDialog({ kind: 'project', value: 'Dự án mới', template: 'web' })}><Plus size={18} /></button>
-      <div className="studio-header-actions"><button className="studio-button studio-share" onClick={() => setShareOpen(true)}><Share2 size={15} /><span>Chia sẻ</span></button><button className="studio-icon-button" onClick={() => setSettings(true)} aria-label="Cài đặt trình soạn thảo"><Settings2 size={18} /></button></div>
+      <div className="studio-header-actions"><button className="studio-icon-button" aria-label={viewportMode.fullscreen ? "Thoát toàn màn hình" : "Toàn màn hình"} onClick={() => void viewportMode.toggle()}>{viewportMode.fullscreen ? <Minimize2 size={17} /> : <Maximize2 size={17} />}</button><button className="studio-button studio-share" onClick={() => setShareOpen(true)}><Share2 size={15} /><span>Chia sẻ</span></button><button className="studio-icon-button" onClick={() => setSettings(true)} aria-label="Cài đặt trình soạn thảo"><Settings2 size={18} /></button></div>
     </header>
 
     <div className="studio-workspace">
@@ -398,7 +432,7 @@ export default function CodeStudioPage({ initialSharedProject }: { initialShared
         onMoveDialog={path => openDialog({ kind: 'move', path, value: path.split('/').slice(0, -1).join('/') })}
         onMove={moveItem} onDelete={removePath}
         onRenameProject={() => openDialog({ kind: 'projectRename', value: project.name })} onClose={() => setExplorer(false)}>
-        <div className="studio-explorer-bottom"><span>{project.files.length} file · Lưu tự động trên thiết bị</span><button disabled={readingUpload} onClick={() => codeFileInput.current?.click()}><Upload size={14} />{readingUpload ? 'Đang đọc file…' : 'Tải file code lên'}</button><button disabled={readingUpload} onClick={() => folderInput.current?.click()}><FolderOpen size={14} />Tải thư mục lên</button><button onClick={() => fileInput.current?.click()}><Upload size={14} />Nhập bản sao dự án JSON</button><button onClick={() => download(JSON.stringify(project, null, 2), project.name.replace(/[^\p{L}\p{N} -]/gu, '') + '.dkcode.json')}><Download size={14} />Xuất dự án</button><button onClick={deleteProject}><Trash2 size={14} />Xóa dự án khỏi máy</button></div>
+        <div className="studio-explorer-bottom"><span>{project.files.length} file · Lưu tự động trên thiết bị</span><button disabled={readingUpload} onClick={() => codeFileInput.current?.click()}><Upload size={14} />{readingUpload ? 'Đang đọc file…' : 'Tải file code lên'}</button><button disabled={readingUpload} onClick={() => folderInput.current?.click()}><FolderOpen size={14} />Tải thư mục lên</button><button onClick={() => fileInput.current?.click()}><Upload size={14} />Nhập bản sao dự án JSON</button><button onClick={() => mediaInput.current?.click()}><ImagePlus size={14} />Tải ảnh / video</button><button disabled={!!zipProgress} onClick={() => void exportZip(project)}><Download size={14} />Xuất dự án ZIP</button><button onClick={() => download(JSON.stringify(project,null,2), project.name + ".dkcode.json")}><Download size={14} />Sao lưu JSON</button><button onClick={deleteProject}><Trash2 size={14} />Xóa dự án khỏi máy</button></div>
       </StudioExplorer></>}
 
       <section className="studio-main">
@@ -408,8 +442,8 @@ export default function CodeStudioPage({ initialSharedProject }: { initialShared
           <div className="studio-code-column">
             <div className="studio-tabs" role="tablist" aria-label="File đang mở">{project.files.map(f => <button role="tab" aria-selected={f.path === project.activeFile} key={f.path} className={f.path === project.activeFile ? 'active' : ''} onClick={() => setProject(p => ({ ...p, activeFile: f.path }))}><FileCode2 size={13} className={`file-${languageFor(f.path)}`} /><span>{f.path.split('/').at(-1)}</span>{f.path === project.activeFile && <span className="studio-tab-dot" />}</button>)}<button onClick={() => openDialog({ kind: 'file', value: '' })} aria-label="Thêm file"><Plus size={15} /></button></div>
             <div className="studio-breadcrumb"><span>{project.name}</span><ChevronRight size={11} /><span>{file.path}</span><span className="studio-language">{language}</span></div>
-            <StudioEditor key={project.id} ref={editor} project={project} onChange={update} onCursor={onCursor} touch={touch} fontSize={fontSize} wrap={wrap} />
-            <div className="studio-keybar" aria-label="Phím hỗ trợ lập trình">{['Tab', '{ }', '( )', '[ ]', '< >', '"', "'", ';', '=', '/', ':'].map(key => <button key={key} onPointerDown={e => e.preventDefault()} onClick={() => editor.current?.insert(key === 'Tab' ? (language === 'python' ? '    ' : '  ') : key.replace(' ', ''))}>{key}</button>)}<button className="studio-suggest-key" onPointerDown={e => e.preventDefault()} onClick={() => editor.current?.command('suggest')}><Sparkles size={13} />Gợi ý</button></div>
+            {file.asset ? <StudioAssetView key={file.path} file={file} /> : <StudioEditor key={project.id} ref={editor} project={project} onChange={update} onCursor={onCursor} touch={touch} fontSize={fontSize} wrap={wrap} />}
+            <div hidden={!!file.asset} className="studio-keybar" aria-label="Phím hỗ trợ lập trình">{['Tab', '{ }', '( )', '[ ]', '< >', '"', "'", ';', '=', '/', ':'].map(key => <button key={key} onPointerDown={e => e.preventDefault()} onClick={() => editor.current?.insert(key === 'Tab' ? (language === 'python' ? '    ' : '  ') : key.replace(' ', ''))}>{key}</button>)}<button className="studio-suggest-key" onPointerDown={e => e.preventDefault()} onClick={() => editor.current?.command('suggest')}><Sparkles size={13} />Gợi ý</button></div>
             {outputOpen && <section className="studio-output" aria-label="Console"><div className="studio-pane-title"><span><Terminal size={13} />CONSOLE <b>{logs.filter(l => l.level === 'error').length || ''}</b></span><div><label className="studio-console-timestamps"><input type="checkbox" checked={showLogTimes} onChange={e => setShowLogTimes(e.target.checked)} />Giờ</label><button onClick={() => setLogs([])} title="Xóa console" aria-label="Xóa console"><Trash2 size={14} /></button><button onClick={() => setOutputOpen(false)} aria-label="Đóng console"><X size={15} /></button></div></div><div className="studio-output-body"><label className="studio-stdin-label">STDIN <small>input() / cin / prompt() — mỗi giá trị một dòng</small><textarea aria-label="Dữ liệu đầu vào" value={stdin} onChange={e => setStdin(e.target.value)} placeholder="Nhập dữ liệu trước khi chạy…" /></label><div className="studio-console-lines" role="log" aria-live="polite">{logs.length ? logs.map((log, i) => <div key={i} className="studio-log-row">{showLogTimes && <time dateTime={new Date(log.at).toISOString()}>{new Date(log.at).toLocaleTimeString("vi-VN", { hour12: false })}</time>}<pre className={`log-${log.level}`}>{log.text}</pre></div>) : <p>Kết quả và lỗi sẽ xuất hiện ở đây.</p>}<div ref={consoleEnd} /></div></div></section>}
           </div>
 
@@ -423,6 +457,10 @@ export default function CodeStudioPage({ initialSharedProject }: { initialShared
     </div>
     {runnerDoc && <iframe key={runnerKey} ref={runnerFrame} className="studio-runner-frame" title="Runtime cách ly" sandbox="allow-scripts" referrerPolicy="no-referrer" srcDoc={runnerDoc} />}
     <input ref={fileInput} className="studio-hidden-input" type="file" accept=".json,.dkcode.json" onChange={importProject} />
+    <input ref={mediaInput} className="studio-hidden-input" type="file" multiple accept="image/jpeg,image/png,image/gif,image/webp,image/avif,video/mp4,video/webm,video/quicktime" aria-label="Chọn ảnh và video" onChange={e => { const files = [...(e.target.files || [])]; e.target.value = ''; if (files.length) setMediaFiles(files); }} />
+    {mediaFiles && <StudioMediaDialog project={project} files={mediaFiles} onApply={addMedia} onClose={() => setMediaFiles(null)} />}
+    {zipDownload && !zipProgress && <div className="studio-export-progress"><span>ZIP đã sẵn sàng</span><a href={zipDownload.url} download={zipDownload.name}>Tải ZIP</a><button aria-label="Đóng tải ZIP" onClick={() => { URL.revokeObjectURL(zipDownload.url); zipUrl.current = ''; setZipDownload(null); }}>×</button></div>}
+    {zipProgress && <div className="studio-export-progress" role="status"><span>Đang xuất ZIP · {zipProgress.done}/{zipProgress.total} file</span><button onClick={() => zipProgress.controller.abort()}>Hủy</button></div>}
     <input ref={codeFileInput} className="studio-hidden-input" type="file" multiple aria-label="Chọn file mã nguồn" onChange={uploadCode} />
     <input ref={folderInput} className="studio-hidden-input" type="file" multiple {...{ webkitdirectory: '', directory: '' }} aria-label="Chọn thư mục mã nguồn" onChange={uploadCode} />
     {shareOpen && <StudioShareDialog project={project} onClose={() => setShareOpen(false)} />}
@@ -434,7 +472,7 @@ export default function CodeStudioPage({ initialSharedProject }: { initialShared
       <button className="studio-modal-close" aria-label="Đóng hộp thoại" onClick={() => { setDialog(null); setShareOpen(false); setSettings(false); setHelp(false); }}><X size={19} /></button>
       {dialog && <form onSubmit={submitDialog}><span className="studio-modal-eyebrow">CODE STUDIO / WORKSPACE</span><h2>{{ file: 'Tạo file mới', folder: 'Tạo thư mục', rename: 'Đổi tên / di chuyển', move: 'Di chuyển tới thư mục', project: 'Bắt đầu một ý tưởng.', projectRename: 'Đổi tên dự án' }[dialog.kind]}</h2>{dialog.kind === 'move' ? <label>Thư mục đích<select className="studio-move-select" autoFocus value={dialog.value} onChange={e => setDialog({ ...dialog, value: e.target.value })}><option value="">Thư mục gốc</option>{projectFolders(project).filter(path => path !== dialog.path && !path.startsWith(dialog.path! + '/')).map(path => <option key={path} value={path}>{path}</option>)}</select></label> : <label>{dialog.kind === 'project' || dialog.kind === 'projectRename' ? 'Tên dự án' : 'Đường dẫn'}<input autoFocus value={dialog.value} onChange={e => setDialog({ ...dialog, value: e.target.value })} placeholder={dialog.kind === 'file' ? 'src/main.js' : dialog.kind === 'folder' ? 'src/components' : 'Nhập tên…'} maxLength={160} required /></label>}{dialog.kind === 'project' && <div className="studio-template-grid">{([['web', '🌐', 'Web', 'HTML · CSS · JS'], ['python', '🐍', 'Python', 'Chạy với Pyodide'], ['cpp', '⚡', 'C++', 'Bài tập cơ bản'], ['javascript', '✦', 'JavaScript', 'Console & thuật toán']] as const).map(([id, icon, title, detail]) => <button key={id} type="button" className={dialog.template === id ? 'active' : ''} onClick={() => setDialog({ ...dialog, template: id })}><span>{icon}</span><strong>{title}</strong><small>{detail}</small></button>)}</div>}{dialogError && <p className="studio-form-error" role="alert">{dialogError}</p>}<button className="studio-primary" type="submit">{dialog.kind === 'project' ? 'Tạo dự án' : 'Lưu'}<ChevronRight size={16} /></button></form>}
 
-      {settings && <><span className="studio-modal-eyebrow">MAKE IT YOURS</span><h2>Góc code của bạn.</h2><label className="studio-setting-row">Chế độ cảm ứng <input autoFocus type="checkbox" checked={touch} onChange={e => { touchPreference.current = true; setTouch(e.target.checked); }} /></label><p className="studio-setting-hint">Bàn phím điện thoại, màu cú pháp và gợi ý chạm. Tắt để dùng Monaco với IntelliSense, kiểm tra lỗi, undo/redo và tìm kiếm.</p><label className="studio-setting-row">Tự format sau khi ngừng gõ<input type="checkbox" checked={formatOnSave} onChange={e => setFormatOnSave(e.target.checked)} /></label><label className="studio-setting-row">Tự xuống dòng<input type="checkbox" checked={wrap} onChange={e => setWrap(e.target.checked)} /></label><label className="studio-setting-row">Cỡ chữ <select value={fontSize} onChange={e => setFontSize(Number(e.target.value))}>{[13, 14, 15, 16, 18, 20].map(n => <option key={n} value={n}>{n}px</option>)}</select></label><button className="studio-secondary" onClick={() => download(file.content, file.path.split('/').at(-1)!, 'text/plain;charset=utf-8')}><Download size={15} />Tải file hiện tại</button></>}
+      {settings && <><span className="studio-modal-eyebrow">MAKE IT YOURS</span><h2>Góc code của bạn.</h2><label className="studio-setting-row">Chế độ cảm ứng <input autoFocus type="checkbox" checked={touch} onChange={e => { touchPreference.current = true; setTouch(e.target.checked); }} /></label><p className="studio-setting-hint">Bàn phím điện thoại, màu cú pháp và gợi ý chạm. Tắt để dùng Monaco với IntelliSense, kiểm tra lỗi, undo/redo và tìm kiếm.</p><label className="studio-setting-row">Tự format sau khi ngừng gõ<input type="checkbox" checked={formatOnSave} onChange={e => setFormatOnSave(e.target.checked)} /></label><label className="studio-setting-row">Tự xuống dòng<input type="checkbox" checked={wrap} onChange={e => setWrap(e.target.checked)} /></label><label className="studio-setting-row">Cỡ chữ <select value={fontSize} onChange={e => setFontSize(Number(e.target.value))}>{[13, 14, 15, 16, 18, 20].map(n => <option key={n} value={n}>{n}px</option>)}</select></label><button className="studio-secondary" onClick={() => file.asset ? window.open(file.asset.url, '_blank', 'noopener,noreferrer') : download(file.content, file.path.split('/').at(-1)!, 'text/plain;charset=utf-8')}><Download size={15} />{file.asset ? 'Mở file media' : 'Tải file hiện tại'}</button></>}
       {help && <><span className="studio-modal-eyebrow">TỪ DÒNG CODE ĐẦU TIÊN</span><h2>Chào mừng đến studio.</h2><p><b>Web:</b> chọn trang HTML mở đầu, liên kết CSS/JS bằng đường dẫn tương đối rồi bấm Chạy. Hỗ trợ CSS @import và JS module cục bộ. Preview bật/tắt riêng; mặc định chạy thủ công.</p><p><b>Python:</b> chọn file .py, nhập STDIN trong Console rồi Chạy. Hỗ trợ import file Python trong dự án. Runtime tải từ CDN ở lần chạy đầu.</p><p><b>C++:</b> chạy bài cơ bản bằng JSCPP: iostream, cin/cout, hàm và vòng lặp, include file .h cục bộ. Đây là trình thông dịch giới hạn, chưa thay thế GCC/Clang hoặc hỗ trợ toàn bộ STL.</p><p><b>JavaScript:</b> dự án web chạy trong Preview. Dự án JS riêng chạy console trong worker; dùng prompt() để đọc STDIN. TypeScript và các file khác hỗ trợ soạn thảo.</p><p><b>Format:</b> Prettier cho HTML/CSS/JS/TS/JSON/Markdown. Ctrl+S để format; Ctrl+Enter để chạy. Trên điện thoại, dùng thanh ký tự và nút Gợi ý.</p><p><b>Lưu & chia sẻ:</b> lưu tự động trên thiết bị. Xuất .dkcode.json để sao lưu và nhập lại trên máy khác. Link chia sẻ tạo bản sao chỉnh sửa, không đồng bộ trực tiếp.</p><a href="https://prettier.io/docs/browser" target="_blank" rel="noreferrer">Tài liệu Prettier ↗</a></>}
     </section></div>}
   </main>;

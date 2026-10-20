@@ -11,8 +11,9 @@ import 'prismjs/components/prism-cpp';
 import 'prismjs/components/prism-json';
 import 'prismjs/components/prism-markdown';
 import { languageFor, StudioProject } from './project';
-import { loadMonaco, snippets } from './editorServices';
+import { loadMonaco } from './editorServices';
 import { closeHtmlTag, htmlNewline } from './htmlEditing';
+import { applyCompletion, Completion, getCompletions } from './completions';
 
 export interface EditorHandle { insert: (text: string) => void; replace: (text: string) => void; command: (name: 'undo' | 'redo' | 'suggest' | 'find') => void }
 interface Props { project: StudioProject; onChange: (path: string, code: string) => void; onCursor: (line: number, column: number) => void; touch: boolean; fontSize: number; wrap: boolean }
@@ -36,10 +37,8 @@ const StudioEditor = forwardRef<EditorHandle, Props>(function StudioEditor({ pro
   const language = languageFor(file.path);
   const fallback = touch || !!error;
   const effectiveWrap = !touch && wrap;
-  const choices = useMemo(() => {
-    const ownWords = [...new Set(file.content.match(/[a-zA-Z_$][\w$]{2,}/g) || [])].filter(w => w !== word).slice(0, 150).map(w => ({ label: w, code: w }));
-    return [...(snippets[language] || []), ...ownWords].filter(s => !word || s.label.toLowerCase().startsWith(word.toLowerCase())).slice(0, 7);
-  }, [language, file.content, word]);
+  const [caret, setCaret] = useState(0), [expanded, setExpanded] = useState(false), [selected, setSelected] = useState(-1);
+  const choices = useMemo(() => suggestionsOpen ? getCompletions(project, file.path, caret, true) : [], [project, file.path, caret, suggestionsOpen]);
   const syntax = useMemo(() => {
     if (!fallback) return '';
     const name = language === 'html' || language === 'xml' ? 'markup' : language;
@@ -71,8 +70,12 @@ const StudioEditor = forwardRef<EditorHandle, Props>(function StudioEditor({ pro
         instance.executeEdits('close-html-tag', [{ range: new monaco.Range(position.lineNumber, position.column, position.lineNumber, position.column), text: insertion }]);
         instance.setPosition(position);
       }));
-      for (const [language, items] of Object.entries(snippets)) {
-        disposables.push(monaco.languages.registerCompletionItemProvider(language, { provideCompletionItems(model: any, position: any) { const word = model.getWordUntilPosition(position); return { suggestions: items.map(item => ({ label: item.label, kind: monaco.languages.CompletionItemKind.Snippet, insertText: item.code, range: { startLineNumber: position.lineNumber, endLineNumber: position.lineNumber, startColumn: word.startColumn, endColumn: word.endColumn } })) }; } }));
+      for (const language of ['html','css','javascript','typescript','python','cpp','c']) {
+        disposables.push(monaco.languages.registerCompletionItemProvider(language, { triggerCharacters: ['.','<','/','"',"'",':'], provideCompletionItems(model: any, position: any) {
+          const path = model.__studioPath; const project = latest.current.project;
+          const current = { ...project, files: project.files.map(f => f.path === path ? { ...f, content: model.getValue() } : f) };
+          return { suggestions: getCompletions(current, path, model.getOffsetAt(position), true).map(item => { const start = model.getPositionAt(item.start), end = model.getPositionAt(item.end); return { label: item.label, detail: item.detail, kind: item.kind === 'file' ? monaco.languages.CompletionItemKind.File : monaco.languages.CompletionItemKind.Snippet, insertText: item.template.replace(/\$(?!0)/g,'\\$'), insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet, range: new monaco.Range(start.lineNumber,start.column,end.lineNumber,end.column) }; }) };
+        } }));
       }
       setReady(true);
     }).catch(err => { if (!disposed) setError(err.message || 'Monaco không khả dụng.'); });
@@ -104,6 +107,7 @@ const StudioEditor = forwardRef<EditorHandle, Props>(function StudioEditor({ pro
   useEffect(() => { setWord(''); setSuggestionsOpen(false); if (textarea.current) { textarea.current.scrollTop = 0; textarea.current.scrollLeft = 0; } }, [file.path]);
 
   function cursor(el: HTMLTextAreaElement) {
+    setCaret(el.selectionStart);
     const before = el.value.slice(0, el.selectionStart);
     const lines = before.split('\n'); onCursor(lines.length, lines.at(-1)!.length + 1);
   }
@@ -116,6 +120,9 @@ const StudioEditor = forwardRef<EditorHandle, Props>(function StudioEditor({ pro
       if (highlight.current) { highlight.current.scrollTop = el.scrollTop; highlight.current.scrollLeft = el.scrollLeft; }
       if (gutter.current) gutter.current.scrollTop = el.scrollTop;
     });
+  }
+  function complete(item: Completion) {
+    try { const edit = applyCompletion(file.content, item); commitTyping(edit.code, edit.caret); setSuggestionsOpen(false); setSelected(-1); textarea.current?.focus(); } catch { setSuggestionsOpen(false); }
   }
   function insert(text: string, replaceWord = false) {
     const pair = ['{}', '()', '[]', '<>', '""', "''"].includes(text);
@@ -138,7 +145,7 @@ const StudioEditor = forwardRef<EditorHandle, Props>(function StudioEditor({ pro
     else onChange(file.path, text);
   }, command(name) {
     if (!fallback && editor.current) { editor.current.focus(); editor.current.trigger('studio', { undo: 'undo', redo: 'redo', suggest: 'editor.action.triggerSuggest', find: 'actions.find' }[name], null); }
-    else if (name === 'suggest') { setWord(''); setSuggestionsOpen(v => !v); textarea.current?.focus(); }
+    else if (name === 'suggest') { setWord(''); setCaret(textarea.current?.selectionStart || 0); setSuggestionsOpen(v => !v); setSelected(-1); textarea.current?.focus(); }
     else if (name === 'find') { const term = window.prompt('Tìm trong file:'); if (term) { const i = file.content.indexOf(term, (textarea.current?.selectionEnd || 0)); const at = i < 0 ? file.content.indexOf(term) : i; if (at >= 0) { textarea.current?.focus(); textarea.current?.setSelectionRange(at, at + term.length); } } }
   } }));
 
@@ -151,22 +158,26 @@ const StudioEditor = forwardRef<EditorHandle, Props>(function StudioEditor({ pro
         <div ref={gutter} className="studio-line-numbers" aria-hidden="true">{file.content.split('\n').map((_, i) => <div key={i}>{i + 1}</div>)}</div>
         <div className="studio-code-layers">
           <pre ref={highlight} aria-hidden="true"><code dangerouslySetInnerHTML={{ __html: syntax }} /></pre>
-          <textarea ref={textarea} aria-label={`Soạn thảo ${file.path}`} value={file.content} autoCapitalize="off" autoComplete="off" autoCorrect="off" spellCheck={false} wrap={effectiveWrap ? 'soft' : 'off'} onSelect={e => cursor(e.currentTarget)} onChange={e => {
+          <textarea ref={textarea} aria-label={`Soạn thảo ${file.path}`} value={file.content} autoCapitalize="off" autoComplete="off" autoCorrect="off" spellCheck={false} wrap={effectiveWrap ? 'soft' : 'off'} aria-autocomplete="list" aria-controls={choices.length ? 'studio-completions' : undefined} onSelect={e => cursor(e.currentTarget)} onChange={e => {
             const code = e.target.value, at = e.target.selectionStart;
             if (language === 'html' && !(e.nativeEvent as InputEvent).isComposing) {
               const edit = closeHtmlTag(file.content, code, at);
               if (edit) { commitTyping(edit.code, edit.caret); setSuggestionsOpen(false); return; }
               if (code.length === file.content.length + 1 && code[at - 1] === '\n' && code.slice(0, at - 1) + code.slice(at) === file.content) { const edit = htmlNewline(file.content, at - 1); commitTyping(edit.code, edit.caret); return; }
             }
-            onChange(file.path, code); const w = code.slice(0, at).match(/[\w$]+$/)?.[0] || ''; setWord(w); setSuggestionsOpen(w.length >= 2); cursor(e.target);
+            onChange(file.path, code); setCaret(at); setSelected(-1); setSuggestionsOpen(!(e.nativeEvent as InputEvent).isComposing && getCompletions({ ...project, files: project.files.map(f => f.path === file.path ? { ...f, content: code } : f) }, file.path, at).length > 0); cursor(e.target);
           }} onScroll={e => { if (highlight.current) { highlight.current.scrollTop = e.currentTarget.scrollTop; highlight.current.scrollLeft = e.currentTarget.scrollLeft; } if (gutter.current) gutter.current.scrollTop = e.currentTarget.scrollTop; }} onKeyDown={e => {
-            if (e.key === 'Tab') { e.preventDefault(); insert('  '); }
+            if (e.nativeEvent.isComposing || e.keyCode === 229) return;
+            if (choices.length && suggestionsOpen && ['ArrowDown','ArrowUp'].includes(e.key)) { e.preventDefault(); setSelected(i => (i + (e.key === 'ArrowDown' ? 1 : choices.length - 1) + choices.length) % choices.length); return; }
+            if ((e.key === 'Tab' && choices.length) || (e.key === 'Enter' && selected >= 0 && choices.length)) { e.preventDefault(); complete(choices[Math.max(0,selected)]); return; }
+            if (e.key === 'Tab') { e.preventDefault(); insert('  '); return; }
             if (e.key === 'Escape') setSuggestionsOpen(false);
             if (e.key === 'Enter') { e.preventDefault(); if (language === 'html') { const edit = htmlNewline(file.content, e.currentTarget.selectionStart, e.currentTarget.selectionEnd); commitTyping(edit.code, edit.caret); return; } const before = file.content.slice(0, e.currentTarget.selectionStart); const line = before.split('\n').at(-1) || ''; const indent = line.match(/^\s*/)?.[0] || ''; insert('\n' + indent + (/[{:\[]\s*$/.test(line) ? (language === 'python' ? '    ' : '  ') : '')); }
           }} />
         </div>
       </div>
-      {suggestionsOpen && choices.length > 0 && <div className="studio-suggestions" aria-label="Gợi ý code">{choices.map((s, i) => <button key={s.label + i} onPointerDown={e => e.preventDefault()} onClick={() => insert(s.code, true)}><span>↳</span> {s.label}</button>)}</div>}
+      {suggestionsOpen && choices.length > 0 && <div className={`studio-completions ${expanded ? 'expanded' : ''}`} aria-label="Gợi ý code"><div className="studio-completion-heading"><span>{language.toUpperCase()} · {choices.length} gợi ý</span><button aria-label={expanded ? 'Thu gọn gợi ý' : 'Chi tiết gợi ý'} onPointerDown={e => e.preventDefault()} onClick={() => setExpanded(v => !v)}>{expanded ? 'Gọn' : 'Chi tiết'}</button><button aria-label="Đóng gợi ý" onPointerDown={e => e.preventDefault()} onClick={() => setSuggestionsOpen(false)}>×</button></div><div id="studio-completions" role="listbox" className="studio-completion-items">{choices.map((item,i) => <button role="option" aria-selected={i === selected} title={item.detail} key={item.label} onPointerDown={e => e.preventDefault()} onClick={() => complete(item)}><span className={`completion-kind kind-${item.kind}`}>{item.kind === 'file' ? '▧' : item.kind === 'tag' ? '‹›' : item.kind === 'word' ? 'abc' : 'ƒ'}</span><span><strong>{item.label}</strong>{expanded && <small>{item.detail}</small>}</span></button>)}</div></div>}
+
     </>}
   </div>;
 });

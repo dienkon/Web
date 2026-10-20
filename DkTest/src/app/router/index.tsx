@@ -75,6 +75,7 @@ const CodeExamTaking = lazyWithRetry(() => import("../../pages/student/CodeExamT
 const NotFoundPage = lazyWithRetry(() => import("../../pages/NotFoundPage"), "NotFoundPage");
 
 const router = createBrowserRouter([
+  { path: '/code/:slug', errorElement: <RouteErrorBoundary />, element: withSuspense(ShortSharePage, 'Đang tải website...') },
   { path: '/s/:slug', errorElement: <RouteErrorBoundary />, element: withSuspense(ShortSharePage, 'Đang tải website...') },
   {
     path: "/practice/code/view",

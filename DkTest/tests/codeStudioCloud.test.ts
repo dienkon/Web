@@ -28,7 +28,7 @@ describe('One owner-bound project share', () => {
     expect(next.path).toBe(first.path); expect(next.id).toBe(first.id); expect(next.createdAt).toBe(first.createdAt);
     expect(documents.size).toBe(1); expect(fetcher.mock.calls.filter(([,init]) => init?.method === 'PATCH')).toHaveLength(2);
     expect((await readStudioShare(first.id))?.title).toBe('Tên mới'); expect((await readStudioShare(first.id))?.imageUrl).toBeUndefined();
-    expect(next.path).toMatch(/^\/s\/website-cua-dien\.[a-f0-9]{16}$/); expect(shareIdFromSlug(next.path.split('/').at(-1)!)).toBe(first.id);
+    expect(next.path).toMatch(/^\/code\/website-cua-dien\.[a-f0-9]{16}$/); expect(shareIdFromSlug(next.path.split('/').at(-1)!)).toBe(first.id);
   });
   it('recovers the same ID after a lost response/local binding and separates projects', async () => {
     const { documents } = firebase(); const first = await publish(); const retry = await publish({ ...sample, title: 'Retry' });
@@ -52,7 +52,7 @@ describe('One owner-bound project share', () => {
   it('publishes without a cover and omits broken image metadata', async () => {
     const { documents } = firebase(); const { imageUrl: _, ...withoutImage } = sample; const result = await publish(withoutImage);
     const saved = documents.get(result.id).fields; expect(saved.imageUrl).toBeUndefined(); expect(saved.imageDataUrl).toBeUndefined();
-    const html = renderStudioShareHtml('<head><meta property="og:image" content="old"></head>', validatePublishedShare(withoutImage), 'https://app.test/s/test');
+    const html = renderStudioShareHtml('<head><meta property="og:image" content="old"></head>', validatePublishedShare(withoutImage), 'https://app.test/code/test');
     expect(html).not.toContain('og:image'); expect(html).not.toContain('twitter:image'); expect(html).toContain('content="summary"');
   });
   it('keeps legacy snapshots readable but does not allow claiming their ownership', async () => {

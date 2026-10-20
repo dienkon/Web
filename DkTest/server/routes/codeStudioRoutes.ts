@@ -45,6 +45,6 @@ export async function handleStudioSharePage(req: any, res: any) {
     const protocol = req.headers['x-forwarded-proto'] === 'https' || req.protocol === 'https' ? 'https' : 'http';
     const origin = `${protocol}://${host}`;
     res.setHeader('Cache-Control', 'no-store');
-    return res.type('html').send(renderStudioShareHtml(PRODUCTION_HTML_TEMPLATE, share, `${origin}/s/${encodeURIComponent(slug)}`, share.imageUrl || (share.imageDataUrl ? `${origin}/api/code-studio/shares/${id}/image.jpg` : '')));
+    return res.type('html').send(renderStudioShareHtml(PRODUCTION_HTML_TEMPLATE, share, `${origin}/code/${encodeURIComponent(slug)}`, share.imageUrl || (share.imageDataUrl ? `${origin}/api/code-studio/shares/${id}/image.jpg` : '')));
   } catch { return res.status(503).type('html').send('<!doctype html><meta charset="utf-8"><h1>Chưa thể tải link chia sẻ</h1><p>Vui lòng kiểm tra cấu hình Firebase.</p>'); }
 }

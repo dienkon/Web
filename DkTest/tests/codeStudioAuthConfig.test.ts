@@ -20,7 +20,7 @@ describe('Code Studio Firebase REST auth configuration', () => {
   it('uses the application default key when runtime environment keys are absent', async () => {
     const key = getFirebaseApiKey(); expect(key).toMatch(/^AIza/);
     const { writes } = provider(key);
-    expect((await publishStudioShare(fixture, 'test-id-token')).path).toMatch(/^\/s\/auth-test\./); expect(writes).toHaveLength(1);
+    expect((await publishStudioShare(fixture, 'test-id-token')).path).toMatch(/^\/code\/auth-test\./); expect(writes).toHaveLength(1);
   });
   it('uses the same VITE key precedence as the existing username-login REST route', async () => {
     vi.stubEnv('VITE_FIREBASE_API_KEY', 'correct-web-key'); vi.stubEnv('FIREBASE_API_KEY', 'different-server-key');
