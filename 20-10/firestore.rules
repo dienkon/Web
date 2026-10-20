@@ -1,0 +1,35 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Immutable, link-accessible greetings. No listing, overwriting or deletion.
+    match /greetings/{giftId} {
+      function shortText(key, maximum) {
+        return request.resource.data[key] is string && request.resource.data[key].size() <= maximum;
+      }
+      function validGift() {
+        let d = request.resource.data;
+        return giftId.matches('^[a-f0-9]{32}$')
+          && d.keys().hasAll(['recipient','sender','eyebrow','day','month','caption','salutation','headline','headlineSecond','headlineAccent','subtitle','buttonText','footer','letterTitle','letterEyebrow','message','signoff','paperBottom','photoBase64','theme','effect','fontSize','version'])
+          && d.keys().hasOnly(['recipient','sender','eyebrow','day','month','caption','salutation','headline','headlineSecond','headlineAccent','subtitle','buttonText','footer','letterTitle','letterEyebrow','message','signoff','paperBottom','photoBase64','theme','effect','fontSize','version'])
+          && d.version is int && d.version == 2
+          && shortText('recipient',60) && shortText('sender',100)
+          && shortText('eyebrow',160) && shortText('day',2) && shortText('month',2)
+          && shortText('caption',100) && shortText('salutation',180)
+          && shortText('headline',100) && d.headline.size() > 0
+          && shortText('headlineSecond',70) && shortText('headlineAccent',100)
+          && shortText('subtitle',600) && shortText('buttonText',80) && shortText('footer',180)
+          && shortText('letterTitle',120) && shortText('letterEyebrow',160)
+          && shortText('message',5000) && d.message.size() > 0
+          && shortText('signoff',100) && shortText('paperBottom',180)
+          && shortText('photoBase64',650000)
+          && d.photoBase64.matches('^(|data:image/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+)$')
+          && d.theme in ['rose','lavender','forest']
+          && d.effect in ['enchanted','gentle']
+          && d.fontSize in ['normal','small'];
+      }
+      allow get: if giftId.matches('^[a-f0-9]{32}$');
+      allow create: if validGift();
+      allow list, update, delete: if false;
+    }
+  }
+}
