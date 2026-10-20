@@ -19,7 +19,7 @@ Không dùng Firebase Storage hay Realtime Database. Khi mở link ở thiết b
 
 ## Thiết lập Firestore cho project đã cung cấp
 
-Kiểm tra ngày 20/10/2026: ban đầu project trả `403 SERVICE_DISABLED`; lần kiểm tra cuối API đã phản hồi `403 PERMISSION_DENIED: Missing or insufficient permissions`. Mã đã tích hợp config; bước còn lại hiện tại là cấu hình Rules (bước 3). Các bước đầy đủ để thiết lập:
+Ngày 20/10/2026 đã kiểm tra trực tiếp trên GitHub Pages: tạo thiệp, lưu ảnh JPEG base64 và lời chúc vào Firestore thật, sau đó mở lại link và khôi phục ảnh/nội dung thành công. Các lỗi `SERVICE_DISABLED` và thiếu quyền xuất hiện ở giai đoạn thiết lập trước đã hết trong lần kiểm tra online này. Các bước dưới đây dùng khi cấu hình lại dự án:
 
 1. Vào [Firebase Console → Firestore Database](https://console.firebase.google.com/project/loveletter-f0f23/firestore), tạo database **Cloud Firestore `(default)`**. `databaseURL` trong config là Realtime Database, không thay thế Firestore.
 2. Nếu vẫn báo SERVICE_DISABLED, bật [Cloud Firestore API](https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=loveletter-f0f23), chờ cấu hình có hiệu lực.
