@@ -248,17 +248,23 @@ function isShareImageUrl(value) {
   return value.length <= 2048 && /^https:\/\/res\.cloudinary\.com\/[A-Za-z0-9_-]+\/image\/upload\/[^\s<>"']+$/.test(value);
 }
 
+// src/practice/code-studio/shareName.ts
+function validShareName(name) {
+  return typeof name === "string" && /^[a-z0-9](?:[a-z0-9-]{1,40}[a-z0-9])$/.test(name) && !["api", "admin", "practice", "login", "assets", "settings", "dkcode", "www"].includes(name);
+}
+
 // server/codeStudioShares.ts
+var namesCollection = "code_studio_names";
 var collection = "code_studio_shares";
 var failure = (message, status) => Object.assign(new Error(message), { status });
-function restUrl(id) {
+function restUrl(id, targetCollection = collection) {
   const project = process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || "exam-fd7a1";
-  return `https://firestore.googleapis.com/v1/projects/${encodeURIComponent(project)}/databases/(default)/documents/${collection}/${id}?key=${encodeURIComponent(getFirebaseApiKey())}`;
+  return `https://firestore.googleapis.com/v1/projects/${encodeURIComponent(project)}/databases/(default)/documents/${targetCollection}/${id}?key=${encodeURIComponent(getFirebaseApiKey())}`;
 }
-async function readRawShare(id) {
-  const response = await fetch(restUrl(id), { signal: AbortSignal.timeout(1e4), cache: "no-store" });
+async function readRawShare(id, targetCollection = collection) {
+  const response = await fetch(restUrl(id, targetCollection), { signal: AbortSignal.timeout(1e4), cache: "no-store" });
   if (response.status === 404) return null;
-  if (!response.ok) throw failure("Kh\xF4ng \u0111\u1ECDc \u0111\u01B0\u1EE3c Firebase. Ki\u1EC3m tra rules code_studio_shares ho\u1EB7c Firebase Admin.", 503);
+  if (!response.ok) throw failure(targetCollection === namesCollection ? "Ch\u01B0a ki\u1EC3m tra \u0111\u01B0\u1EE3c t\xEAn link. C\u1EA7n c\u1EADp nh\u1EADt rules code_studio_names ho\u1EB7c c\u1EA5u h\xECnh Firebase Admin." : "Kh\xF4ng \u0111\u1ECDc \u0111\u01B0\u1EE3c Firebase. Ki\u1EC3m tra rules code_studio_shares ho\u1EB7c Firebase Admin.", 503);
   const document = await response.json();
   return { data: decodeFirestoreDocument(document), updateTime: document.updateTime };
 }
@@ -270,6 +276,15 @@ async function readStudioShare(id) {
   }
   const document = await readRawShare(id);
   return document ? validatePublishedShare(document.data) : null;
+}
+async function resolveStudioShareName(name) {
+  if (!validShareName(name)) return "";
+  const data = adminDb ? (await adminDb.collection(namesCollection).doc(name).get()).data() : (await readRawShare(name, namesCollection))?.data;
+  return typeof data?.shareId === "string" && /^[a-f0-9]{16}$/.test(data.shareId) ? data.shareId : "";
+}
+async function shareNameAvailable(name) {
+  if (!validShareName(name)) throw failure("T\xEAn link kh\xF4ng h\u1EE3p l\u1EC7. D\xF9ng 3\u201342 ch\u1EEF th\u01B0\u1EDDng, s\u1ED1 ho\u1EB7c d\u1EA5u g\u1EA1ch ngang, kh\xF4ng \u0111\u1EB7t g\u1EA1ch ngang \u1EDF \u0111\u1EA7u/cu\u1ED1i.", 400);
+  return !await resolveStudioShareName(name);
 }
 async function publisherUid(token) {
   if (!token) throw failure("Vui l\xF2ng \u0111\u0103ng nh\u1EADp ho\u1EB7c x\xE1c th\u1EF1c phi\xEAn chia s\u1EBB r\u1ED3i th\u1EED l\u1EA1i.", 401);
@@ -306,10 +321,13 @@ async function publishStudioShare(input, token) {
   const ownerUid = await publisherUid(token);
   const id = createHash("sha256").update(ownerUid + "\0" + projectId).digest("hex").slice(0, 16);
   if (input.shareId !== void 0 && input.shareId !== id) throw failure("Link n\xE0y thu\u1ED9c d\u1EF1 \xE1n ho\u1EB7c t\xE0i kho\u1EA3n kh\xE1c. Kh\xF4ng th\u1EC3 ghi \u0111\xE8.", 403);
+  const requestedName = input.customSlug;
+  if (requestedName !== void 0 && !validShareName(requestedName)) throw failure("T\xEAn link kh\xF4ng h\u1EE3p l\u1EC7. D\xF9ng 3\u201342 ch\u1EEF th\u01B0\u1EDDng, s\u1ED1 v\xE0 d\u1EA5u g\u1EA1ch ngang.", 400);
   const now = (/* @__PURE__ */ new Date()).toISOString();
   const build = (existing) => {
     if (existing && (existing.ownerUid !== ownerUid || existing.projectId !== projectId)) throw failure("B\u1EA1n kh\xF4ng c\xF3 quy\u1EC1n c\u1EADp nh\u1EADt link n\xE0y.", 403);
-    return { ...share, ownerUid, projectId, slug: existing?.slug || shareSlug(share.title), createdAt: existing?.createdAt || now, updatedAt: now };
+    if (existing?.customSlug && requestedName && requestedName !== existing.customSlug) throw failure("M\u1ED7i d\u1EF1 \xE1n gi\u1EEF m\u1ED9t t\xEAn link c\u1ED1 \u0111\u1ECBnh \u0111\xE3 ch\u1ECDn.", 400);
+    return { ...share, ownerUid, projectId, ...existing?.customSlug || requestedName ? { customSlug: existing?.customSlug || requestedName } : {}, slug: existing?.slug || shareSlug(share.title), createdAt: existing?.createdAt || now, updatedAt: now };
   };
   let saved;
   if (adminDb) {
@@ -317,18 +335,39 @@ async function publishStudioShare(input, token) {
     saved = await adminDb.runTransaction(async (tx) => {
       const doc = await tx.get(ref);
       const next = build(doc.exists ? doc.data() : null);
+      if (next.customSlug) {
+        const nameRef = adminDb.collection(namesCollection).doc(next.customSlug), nameDoc = await tx.get(nameRef);
+        if (nameDoc.exists && nameDoc.data()?.shareId !== id) throw failure("T\xEAn link \u0111\xE3 \u0111\u01B0\u1EE3c \u0111\u1EB7t. H\xE3y ch\u1ECDn t\xEAn kh\xE1c.", 409);
+        if (!nameDoc.exists) tx.create(nameRef, { shareId: id, ownerUid, projectId, slug: next.customSlug });
+      }
       tx.set(ref, next);
       return next;
     });
   } else {
     const current = await readRawShare(id);
     saved = build(current?.data);
+    if (saved.customSlug) {
+      const alias = await readRawShare(saved.customSlug, namesCollection);
+      if (alias && alias.data.shareId !== id) throw failure("T\xEAn link \u0111\xE3 \u0111\u01B0\u1EE3c \u0111\u1EB7t. H\xE3y ch\u1ECDn t\xEAn kh\xE1c.", 409);
+      if (!alias) {
+        const base = restUrl(id).split("/documents/")[0];
+        const documentRoot = new URL(base).pathname.slice(4);
+        const writes = [
+          { update: { name: documentRoot + "/documents/" + collection + "/" + id, fields: encodeFirestoreFields(saved) }, currentDocument: current?.updateTime ? { updateTime: current.updateTime } : { exists: !!current } },
+          { update: { name: documentRoot + "/documents/" + namesCollection + "/" + saved.customSlug, fields: encodeFirestoreFields({ shareId: id, ownerUid, projectId, slug: saved.customSlug }) }, currentDocument: { exists: false } }
+        ];
+        const response2 = await fetch(base + "/documents:commit?key=" + encodeURIComponent(getFirebaseApiKey()), { method: "POST", headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }, body: JSON.stringify({ writes }), signal: AbortSignal.timeout(15e3) });
+        if (response2.status === 409 || response2.status === 412) throw failure("T\xEAn link v\u1EEBa \u0111\u01B0\u1EE3c \u0111\u1EB7t ho\u1EB7c d\u1EF1 \xE1n v\u1EEBa \u0111\u01B0\u1EE3c c\u1EADp nh\u1EADt. H\xE3y ki\u1EC3m tra v\xE0 th\u1EED l\u1EA1i.", 409);
+        if (!response2.ok) throw failure("Ch\u01B0a l\u01B0u \u0111\u01B0\u1EE3c t\xEAn link. C\u1EA7n c\u1EA5u h\xECnh Firebase Admin ho\u1EB7c c\u1EADp nh\u1EADt rules DkCode.", 503);
+        return { id, path: `/code/${saved.customSlug}`, title: saved.title, createdAt: saved.createdAt, updatedAt: saved.updatedAt };
+      }
+    }
     const precondition = current?.updateTime ? "&currentDocument.updateTime=" + encodeURIComponent(current.updateTime) : "&currentDocument.exists=" + Boolean(current);
     const response = await fetch(restUrl(id) + precondition, { method: "PATCH", headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }, body: JSON.stringify({ fields: encodeFirestoreFields(saved) }), signal: AbortSignal.timeout(15e3) });
     if (response.status === 409 || response.status === 412) throw failure("D\u1EF1 \xE1n v\u1EEBa \u0111\u01B0\u1EE3c chia s\u1EBB \u1EDF phi\xEAn kh\xE1c. B\u1EA5m c\u1EADp nh\u1EADt l\u1EA1i \u0111\u1EC3 gi\u1EEF c\xF9ng link.", 409);
     if (!response.ok) throw failure("Firebase ch\u01B0a cho ph\xE9p c\u1EADp nh\u1EADt link. \xC1p d\u1EE5ng rules code_studio_shares ho\u1EB7c c\u1EA5u h\xECnh Firebase Admin.", 503);
   }
-  return { id, path: `/code/${saved.slug}.${id}`, title: saved.title, createdAt: saved.createdAt, updatedAt: saved.updatedAt };
+  return { id, path: saved.customSlug ? `/code/${saved.customSlug}` : `/code/${saved.slug}.${id}`, title: saved.title, createdAt: saved.createdAt, updatedAt: saved.updatedAt };
 }
 var escape = (value) => value.replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[ch]);
 function renderStudioShareHtml(template, share, canonical, imageUrl = share.imageUrl || "") {
@@ -745,7 +784,7 @@ var PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         100% { left: 100%; }
       }
     </style>
-    <script type="module" crossorigin src="/assets/index-DP8Waj43.js"></script>
+    <script type="module" crossorigin src="/assets/index-uJcpATaV.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-react-Cg2vLLvP.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-charts-Dtra7FLy.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-icons-CQh7DSqG.js">
@@ -788,6 +827,24 @@ codeStudioRouter.post("/shares", express.json({ limit: "950kb" }), async (req, r
     return res.status(e.status || 400).json({ error: e.message || "Kh\xF4ng l\u01B0u \u0111\u01B0\u1EE3c chia s\u1EBB.", ...typeof e.code === "string" && e.code.startsWith("SHARE_") ? { code: e.code } : {} });
   }
 });
+codeStudioRouter.get("/names/:name", async (req, res) => {
+  res.setHeader("Cache-Control", "no-store");
+  try {
+    return res.json({ available: await shareNameAvailable(req.params.name) });
+  } catch (e) {
+    return res.status(e.status || 503).json({ error: e.message });
+  }
+});
+codeStudioRouter.get("/named/:name", async (req, res) => {
+  res.setHeader("Cache-Control", "no-store");
+  try {
+    const id = await resolveStudioShareName(req.params.name), share = id ? await readStudioShare(id) : null;
+    if (!share) return res.status(404).json({ error: "Link kh\xF4ng t\u1ED3n t\u1EA1i." });
+    return res.json(share);
+  } catch (e) {
+    return res.status(e.status || 503).json({ error: e.message });
+  }
+});
 codeStudioRouter.get("/shares/:id", async (req, res) => {
   try {
     const share = await readStudioShare(req.params.id);
@@ -823,7 +880,7 @@ codeStudioRouter.use((error, _req, res, _next) => {
 async function handleStudioSharePage(req, res) {
   try {
     const slug = req.params.slug || String(req.query.slug || "");
-    const id = shareIdFromSlug(slug);
+    const id = shareIdFromSlug(slug) || await resolveStudioShareName(slug);
     const share = await readStudioShare(id);
     if (!share) return res.status(404).type("html").send('<!doctype html><meta charset="utf-8"><h1>Link kh\xF4ng t\u1ED3n t\u1EA1i</h1>');
     const host = String(req.get?.("host") || req.headers.host || "");

@@ -292,7 +292,7 @@ service cloud.firestore {
     match /code_studio_shares/{shareId} {
       function validShare() {
         return shareId.matches('^[a-f0-9]{16}$')
-          && request.resource.data.keys().hasOnly(['version','mode','title','description','imageUrl','payload','createdAt','updatedAt','ownerUid','projectId','slug'])
+          && request.resource.data.keys().hasOnly(['version','mode','title','description','imageUrl','payload','createdAt','updatedAt','ownerUid','projectId','slug','customSlug'])
           && request.resource.data.version == 1
           && request.resource.data.mode in ['website','website-edit','editor']
           && request.resource.data.title is string && request.resource.data.title.size() > 0 && request.resource.data.title.size() <= 160
@@ -304,7 +304,11 @@ service cloud.firestore {
           && request.resource.data.createdAt is string && request.resource.data.createdAt.size() <= 40
           && request.resource.data.updatedAt is string && request.resource.data.updatedAt.size() <= 40
           && request.resource.data.projectId is string && request.resource.data.projectId.matches('^[a-zA-Z0-9_-]{1,80}$')
-          && request.resource.data.slug is string && request.resource.data.slug.matches('^[a-z0-9-]{1,42}$');
+          && request.resource.data.slug is string && request.resource.data.slug.matches('^[a-z0-9-]{1,42}$')
+          && (!('customSlug' in request.resource.data) || (request.resource.data.customSlug is string
+            && request.resource.data.customSlug.matches('^[a-z0-9][a-z0-9-]{1,40}[a-z0-9]$')
+            && getAfter(/databases/$(database)/documents/code_studio_names/$(request.resource.data.customSlug)).data.shareId == shareId
+            && getAfter(/databases/$(database)/documents/code_studio_names/$(request.resource.data.customSlug)).data.ownerUid == request.auth.uid));
       }
       allow get: if true;
       allow list, delete: if false;
@@ -313,7 +317,23 @@ service cloud.firestore {
         && request.resource.data.ownerUid == resource.data.ownerUid
         && request.resource.data.projectId == resource.data.projectId
         && request.resource.data.slug == resource.data.slug
-        && request.resource.data.createdAt == resource.data.createdAt && validShare();
+        && request.resource.data.createdAt == resource.data.createdAt
+        && (!('customSlug' in resource.data) || request.resource.data.customSlug == resource.data.customSlug) && validShare();
+    }
+    // Unique, immutable public names. Reserve together with its owner-bound share.
+    match /code_studio_names/{name} {
+      allow get: if true;
+      allow list, update, delete: if false;
+      allow create: if isAuthenticated()
+        && request.resource.data.keys().hasOnly(['shareId','ownerUid','projectId','slug'])
+        && name.matches('^[a-z0-9][a-z0-9-]{1,40}[a-z0-9]$')
+        && !(name in ['api','admin','practice','login','assets','settings','dkcode','www'])
+        && request.resource.data.slug == name
+        && request.resource.data.shareId is string && request.resource.data.shareId.matches('^[a-f0-9]{16}$')
+        && request.resource.data.ownerUid == request.auth.uid
+        && getAfter(/databases/$(database)/documents/code_studio_shares/$(request.resource.data.shareId)).data.ownerUid == request.auth.uid
+        && getAfter(/databases/$(database)/documents/code_studio_shares/$(request.resource.data.shareId)).data.projectId == request.resource.data.projectId
+        && getAfter(/databases/$(database)/documents/code_studio_shares/$(request.resource.data.shareId)).data.customSlug == name;
     }
     // Default deny for anything else
     match /{document=**} {

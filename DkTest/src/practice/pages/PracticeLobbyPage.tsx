@@ -317,7 +317,7 @@ export default function PracticeLobbyPage() {
             <div className="hidden sm:flex h-12 w-12 items-center justify-center rounded-xl bg-lime-300/10 text-lime-300 border border-lime-300/20"><Code2 className="h-6 w-6" /></div>
             <div>
               <span className="text-[10px] tracking-widest uppercase font-bold text-lime-300">Mới · Không gian sáng tạo</span>
-              <h2 className="mt-1 text-lg sm:text-xl font-bold">Code Studio <span className="font-normal text-slate-400">/ IDE ngay trên web</span></h2>
+              <h2 className="mt-1 text-lg sm:text-xl font-bold">DkCode <span className="font-normal text-slate-400">/ IDE ngay trên web</span></h2>
               <p className="mt-1 text-xs sm:text-sm text-slate-400">HTML, CSS, JS, Python, C++ · Cây thư mục · Preview · Code trên điện thoại · Chia sẻ dự án</p>
             </div>
           </div>

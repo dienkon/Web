@@ -28,6 +28,13 @@ if (!process.argv.includes('--runtime')) {
     if (url.hostname !== 'firestore.googleapis.com') return originalFetch(input, init);
     if (denied) return Response.json({ error: 'denied' }, { status: 403 });
     const id = url.searchParams.get('documentId') || url.pathname.split('/').at(-1);
+    if (url.pathname.endsWith('/documents:commit')) {
+      const {writes:batch}=JSON.parse(init.body);
+      for (const write of batch) { const id=write.update.name.split('/').at(-1),current=documents.get(id); if (write.currentDocument?.exists===false && current || write.currentDocument?.updateTime && current?.updateTime!==write.currentDocument.updateTime) return Response.json({},{status:409}); }
+      for (const write of batch) { writes++; documents.set(write.update.name.split('/').at(-1),{fields:write.update.fields,updateTime:'revision-'+writes}); }
+      return Response.json({});
+    }
+
     if (init?.method === 'PATCH') { const current = documents.get(id); if ((url.searchParams.get('currentDocument.exists') === 'false' && current) || (url.searchParams.has('currentDocument.updateTime') && current?.updateTime !== url.searchParams.get('currentDocument.updateTime'))) return Response.json({}, { status: 412 }); writes++; const doc = { ...JSON.parse(init.body), updateTime: 'revision-' + writes }; documents.set(id, doc); return Response.json(doc); }
     reads++; return documents.has(id) ? Response.json(documents.get(id)) : Response.json({}, { status: 404 });
   };
@@ -52,6 +59,16 @@ if (!process.argv.includes('--runtime')) {
     denied = true;
     const unavailable = await fetch(origin + `/api/code-studio/shares/${result.id}?match=shares/${result.id}`); assert.equal(unavailable.status, 503); assert.match((await unavailable.json()).error, /Firebase/);
     assert.equal(writes, 2); assert.ok(reads >= 5);
-    console.log('PASS plain Node production entry: cold start, rewritten publish/read/page, no-image share, same-link updates, ownership 403, JSON 400/404/503, two mocked writes to one document');
+    denied=false;
+    const available=await fetch(origin+'/api/code-studio/names/production-site?match=names/production-site');assert.equal((await available.json()).available,true);
+    await new Promise(resolve=>setTimeout(resolve,3100));
+    const named=await fetch(origin+'/api/code-studio/shares?match=shares',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer owner-test-token'},body:JSON.stringify({version:1,projectId:project.id,shareId:result.id,customSlug:'production-site',mode:'website-edit',title:'Named DkCode',description:'',payload:JSON.stringify(project)})});
+    assert.equal(named.status,201);assert.equal((await named.json()).path,'/code/production-site');assert.equal(documents.size,2);
+    const taken=await fetch(origin+'/api/code-studio/names/production-site?match=names/production-site');assert.equal((await taken.json()).available,false);
+    const namedRead=await fetch(origin+'/api/code-studio/named/production-site?match=named/production-site');assert.equal((await namedRead.json()).title,'Named DkCode');
+    const namedPage=await fetch(origin+'/code/production-site?slug=production-site');assert.equal(namedPage.status,200);assert.ok((await namedPage.text()).includes('<title>Named DkCode</title>'));
+    await new Promise(resolve=>setTimeout(resolve,3100));
+    const collision=await fetch(origin+'/api/code-studio/shares?match=shares',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer other-test-token'},body:JSON.stringify({version:1,projectId:'other-project',customSlug:'production-site',mode:'website-edit',title:'Collision',description:'',payload:JSON.stringify(project)})});assert.equal(collision.status,409);assert.equal(documents.size,2);
+    console.log('PASS plain Node production entry: cold imports, legacy links/updates, auth and JSON errors, atomic custom name migration, availability, named read/metadata and collision 409; Firebase mocked');
   } finally { await new Promise(resolve => server.close(resolve)); }
 }

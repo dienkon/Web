@@ -10,5 +10,5 @@ app.use((req, _res, next) => {
   next();
 });
 app.use('/api/code-studio', codeStudioRouter); app.use('/', codeStudioRouter);
-app.use((_req, res) => res.status(404).json({ error: 'Đường dẫn Code Studio không tồn tại.' }));
+app.use((_req, res) => res.status(404).json({ error: 'Đường dẫn DkCode không tồn tại.' }));
 export default app;

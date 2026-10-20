@@ -1,6 +1,6 @@
-# Code Studio
+# DkCode
 
-Open **Luyện tập → Code Studio**, `/practice/code` or `/student/practice/code`.
+Open **Luyện tập → DkCode**, `/practice/code` or `/student/practice/code`.
 The IDE has its own full-screen route so the site navigation does not consume mobile editing space.
 
 - Desktop: Monaco Editor, IntelliSense for web languages, diagnostics, snippets, find, undo/redo and bracket matching.
@@ -24,13 +24,15 @@ The IDE has its own full-screen route so the site navigation does not consume mo
 
 ## Sharing and persistence
 
-New shares use short stable project links such as `/code/trang-web-cua-ban.0123456789abcdef` with three modes:
+New shares let the publisher choose a unique name such as `/code/trang-web-cua-ban` with three modes:
 
 - **Chỉ website**: immediately opens the interactive website, without IDE or editing controls. Only rendered HTML and required local assets are included. Browser-delivered HTML/CSS/JS remains inspectable with developer tools.
 - **Website + cho sửa**: opens the website with an option to edit an independent local copy.
 - **Dự án / IDE**: opens an independent editable local copy without automatically executing it.
 
-Each local project has one current share URL. The server derives its document ID from the verified Firebase UID and local project ID; it preserves the first slug and creation timestamp. Republish replaces content, title, mode and cover in that document instead of creating a new URL. Renaming the project/title keeps the same URL. Duplicated projects and editable recipient copies have new local project IDs and therefore independent links. Closing/reopening the dialog retains mode, title, description, Cloudinary cover and URL locally. If a publish response or local binding is lost, the server still derives the same ID on retry.
+Names use 3–42 lowercase ASCII letters, digits or internal hyphens; reserved names are rejected. Availability checks are read-only and advisory. Publication atomically reserves an immutable `code_studio_names/{name}` pointer and creates/updates the same owner-bound share; simultaneous claims fail with 409. Admin uses a transaction; REST uses Firestore `documents:commit` with existence/update-time preconditions. The new checked-in rules must be applied for REST name access; alternatively configure Firebase Admin credentials. Rules are not automatically deployed. Existing ID-suffixed links continue to work; an existing project can add its chosen name once without changing the document ID. This is a custom path on the current website, not DNS/custom-hostname provisioning.
+
+Each local project has one current share URL. The server derives its document ID from the verified Firebase UID and local project ID; it preserves the chosen public name, first legacy slug and creation timestamp. Republish replaces content, title, mode and cover in that document instead of creating a new URL. Renaming the project/title keeps the same URL. Duplicated projects and editable recipient copies have new local project IDs and therefore independent links. Closing/reopening the dialog retains mode, title, description, Cloudinary cover and URL locally. If a publish response or local binding is lost, the server still derives the same ID on retry.
 
 Editing, project management, AI requests, opening the share dialog, capturing a cover and reading a shared link do **not** write to Firebase. Only **Tạo link chia sẻ & sao chép / Cập nhật link & sao chép** calls `POST /api/code-studio/shares` (after an optional Cloudinary cover upload). Continuing to edit stays local until republishing. Public JSON/HTML use `Cache-Control: no-store` so reopening a link reads the latest published version. This is explicit publication, not live collaboration. Local project deletion does not revoke a published link.
 
@@ -58,7 +60,7 @@ Touch suggestions recognize HTML tags/attributes/relative file paths, CSS proper
 
 **Quản lý dự án** searches, opens, renames, duplicates, exports and deletes local projects. Delete requires confirmation and never deletes published links.
 
-**AI lập trình** uses exactly `gemini-3.5-flash-lite` through `POST /api/ai/code-studio`. Set server-only `GEMINI_API_KEY`, or enter a personal key in the AI panel (the existing device-local key preference). A request sends the current project only after explicit submit; it does not write Firebase. Structured responses apply complete changed files atomically, reject invalid paths, and detect files edited while the request was running. One-step undo is available until subsequent file changes would make restoration unsafe. Stop/timeout never applies a late response. Provider access, model availability and billing depend on the supplied Gemini key; no live paid model request is part of automated verification.
+**AI lập trình** uses exactly `gemini-3.5-flash-lite` through `POST /api/ai/code-studio`. Set server-only `GEMINI_API_KEY`, or enter a personal key in the AI panel (the existing device-local key preference). A request sends the current project only after explicit submit; it does not write Firebase. The panel requests a real NDJSON stream from Gemini `generateContentStream`. Code drafts arrive incrementally, render highlighted in the editor with the current file and line count, and auto-follow until the user scrolls away. On mobile the busy agent panel collapses so code remains visible. Streaming drafts do not change local storage or execute preview code; Stop, unmount, timeout, truncation and provider errors discard them. A terminal validated response is required before applying changes. Nonstreaming JSON clients remain supported. Structured responses apply complete changed files atomically, reject invalid paths, and detect files edited while the request was running. One-step undo is available until subsequent file changes would make restoration unsafe. Stop/timeout never applies a late response. Provider access, model availability and billing depend on the supplied Gemini key; no live paid model request is part of automated verification.
 
 ## Runtime isolation and downloads
 
@@ -80,3 +82,5 @@ Browser smoke checks: desktop editor and Prettier, interactive HTML/CSS/JS previ
 Production API verification: after `npm run build`, run `node scripts/verify-code-studio-api.mjs`. It transpiles only the Vercel entry and loads it with plain Node (without tsx extension resolution), verifies cold-start imports, rewritten publish/read/metadata routes and JSON errors, and uses an in-memory Firebase transport. The build emits `server/codeStudioRoutes.bundled.js` just like the existing API route bundles.
 
 `tests/codeStudioMobileUpgrade.test.ts` covers contextual completions and stale ranges, media validation and metadata preservation, AI media protection and complete ZIP source/media/folder export with cancellation/failure handling. Browser smoke uses intercepted Cloudinary responses (no real uploads), checks touch split resizing and portrait/landscape/short layouts, fullscreen, media preview resolution and actual ZIP download; Python zipfile independently verifies CRC and file bytes.
+
+`tests/dkCodeAgent.test.ts` covers partial JSON/escaped Unicode drafts, byte-split UTF-8 NDJSON, stop/error/truncation, exact provider model and final validation. `tests/dkCodeNames.test.ts` covers atomic name reservation, collisions/races, stable updates, migration of existing project IDs and denied writes.

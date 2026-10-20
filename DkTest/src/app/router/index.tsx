@@ -90,12 +90,12 @@ const router = createBrowserRouter([
   {
     path: "/practice/code",
     errorElement: <RouteErrorBoundary />,
-    element: withSuspense(CodeStudioPage, "Đang mở Code Studio..."),
+    element: withSuspense(CodeStudioPage, "Đang mở DkCode..."),
   },
   {
     path: "/student/practice/code",
     errorElement: <RouteErrorBoundary />,
-    element: withSuspense(CodeStudioPage, "Đang mở Code Studio..."),
+    element: withSuspense(CodeStudioPage, "Đang mở DkCode..."),
   },
   {
     path: "/admin/live-monitor/:sessionId",

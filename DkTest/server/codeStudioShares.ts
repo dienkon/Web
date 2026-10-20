@@ -2,16 +2,18 @@ import { createHash } from 'node:crypto';
 import { adminAuth, adminDb, decodeFirestoreDocument, encodeFirestoreFields, getFirebaseApiKey } from './firebaseAdmin.js';
 import { PublishedShare, shareSlug, validatePublishedShare } from '../src/practice/code-studio/publishedShare.js';
 
+import { validShareName } from '../src/practice/code-studio/shareName.js';
+const namesCollection = 'code_studio_names';
 const collection = 'code_studio_shares';
 const failure = (message: string, status: number) => Object.assign(new Error(message), { status });
-function restUrl(id: string) {
+function restUrl(id: string, targetCollection = collection) {
   const project = process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || 'exam-fd7a1';
-  return `https://firestore.googleapis.com/v1/projects/${encodeURIComponent(project)}/databases/(default)/documents/${collection}/${id}?key=${encodeURIComponent(getFirebaseApiKey())}`;
+  return `https://firestore.googleapis.com/v1/projects/${encodeURIComponent(project)}/databases/(default)/documents/${targetCollection}/${id}?key=${encodeURIComponent(getFirebaseApiKey())}`;
 }
-async function readRawShare(id: string) {
-  const response = await fetch(restUrl(id), { signal: AbortSignal.timeout(10000), cache: 'no-store' });
+async function readRawShare(id: string, targetCollection = collection) {
+  const response = await fetch(restUrl(id, targetCollection), { signal: AbortSignal.timeout(10000), cache: 'no-store' });
   if (response.status === 404) return null;
-  if (!response.ok) throw failure('Không đọc được Firebase. Kiểm tra rules code_studio_shares hoặc Firebase Admin.', 503);
+  if (!response.ok) throw failure(targetCollection === namesCollection ? 'Chưa kiểm tra được tên link. Cần cập nhật rules code_studio_names hoặc cấu hình Firebase Admin.' : 'Không đọc được Firebase. Kiểm tra rules code_studio_shares hoặc Firebase Admin.', 503);
   const document = await response.json();
   return { data: decodeFirestoreDocument(document), updateTime: document.updateTime as string | undefined };
 }
@@ -20,6 +22,15 @@ export async function readStudioShare(id: string): Promise<PublishedShare | null
   if (adminDb) { const doc = await adminDb.collection(collection).doc(id).get(); return doc.exists ? validatePublishedShare(doc.data()) : null; }
   const document = await readRawShare(id);
   return document ? validatePublishedShare(document.data) : null;
+}
+export async function resolveStudioShareName(name: string): Promise<string> {
+  if (!validShareName(name)) return '';
+  const data = adminDb ? (await adminDb.collection(namesCollection).doc(name).get()).data() : (await readRawShare(name,namesCollection))?.data;
+  return typeof data?.shareId === 'string' && /^[a-f0-9]{16}$/.test(data.shareId) ? data.shareId : '';
+}
+export async function shareNameAvailable(name: string) {
+  if (!validShareName(name)) throw failure('Tên link không hợp lệ. Dùng 3–42 chữ thường, số hoặc dấu gạch ngang, không đặt gạch ngang ở đầu/cuối.',400);
+  return !(await resolveStudioShareName(name));
 }
 async function publisherUid(token?: string): Promise<string> {
   if (!token) throw failure('Vui lòng đăng nhập hoặc xác thực phiên chia sẻ rồi thử lại.', 401);
@@ -57,27 +68,51 @@ export async function publishStudioShare(input: any, token?: string) {
   const ownerUid = await publisherUid(token);
   const id = createHash('sha256').update(ownerUid + '\0' + projectId).digest('hex').slice(0, 16);
   if (input.shareId !== undefined && input.shareId !== id) throw failure('Link này thuộc dự án hoặc tài khoản khác. Không thể ghi đè.', 403);
+  const requestedName = input.customSlug;
+  if (requestedName !== undefined && !validShareName(requestedName)) throw failure('Tên link không hợp lệ. Dùng 3–42 chữ thường, số và dấu gạch ngang.',400);
   const now = new Date().toISOString();
   const build = (existing: any) => {
     if (existing && (existing.ownerUid !== ownerUid || existing.projectId !== projectId)) throw failure('Bạn không có quyền cập nhật link này.', 403);
+    if (existing?.customSlug && requestedName && requestedName !== existing.customSlug) throw failure('Mỗi dự án giữ một tên link cố định đã chọn.',400);
     // The original slug and timestamp remain fixed even when title/mode change.
-    return { ...share, ownerUid, projectId, slug: existing?.slug || shareSlug(share.title), createdAt: existing?.createdAt || now, updatedAt: now };
+    return { ...share, ownerUid, projectId, ...((existing?.customSlug || requestedName) ? { customSlug: existing?.customSlug || requestedName } : {}), slug: existing?.slug || shareSlug(share.title), createdAt: existing?.createdAt || now, updatedAt: now };
   };
   let saved: ReturnType<typeof build>;
   if (adminDb) {
     const ref = adminDb.collection(collection).doc(id);
     saved = await adminDb.runTransaction(async tx => {
       const doc = await tx.get(ref); const next = build(doc.exists ? doc.data() : null);
+      if (next.customSlug) {
+        const nameRef = adminDb!.collection(namesCollection).doc(next.customSlug), nameDoc = await tx.get(nameRef);
+        if (nameDoc.exists && nameDoc.data()?.shareId !== id) throw failure('Tên link đã được đặt. Hãy chọn tên khác.',409);
+        if (!nameDoc.exists) tx.create(nameRef,{ shareId:id, ownerUid, projectId, slug:next.customSlug });
+      }
       tx.set(ref, next); return next;
     });
   } else {
     const current = await readRawShare(id); saved = build(current?.data);
+    if (saved.customSlug) {
+      const alias = await readRawShare(saved.customSlug,namesCollection);
+      if (alias && alias.data.shareId !== id) throw failure('Tên link đã được đặt. Hãy chọn tên khác.',409);
+      if (!alias) {
+        const base = restUrl(id).split('/documents/')[0];
+        const documentRoot = new URL(base).pathname.slice(4); // projects/.../databases/(default)
+        const writes = [
+          { update:{ name:documentRoot+'/documents/'+collection+'/'+id, fields:encodeFirestoreFields(saved) }, currentDocument:current?.updateTime?{updateTime:current.updateTime}:{exists:!!current} },
+          { update:{ name:documentRoot+'/documents/'+namesCollection+'/'+saved.customSlug, fields:encodeFirestoreFields({shareId:id,ownerUid,projectId,slug:saved.customSlug}) }, currentDocument:{exists:false} },
+        ];
+        const response=await fetch(base+'/documents:commit?key='+encodeURIComponent(getFirebaseApiKey()),{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${token}`},body:JSON.stringify({writes}),signal:AbortSignal.timeout(15000)});
+        if (response.status===409 || response.status===412) throw failure('Tên link vừa được đặt hoặc dự án vừa được cập nhật. Hãy kiểm tra và thử lại.',409);
+        if (!response.ok) throw failure('Chưa lưu được tên link. Cần cấu hình Firebase Admin hoặc cập nhật rules DkCode.',503);
+        return {id,path:`/code/${saved.customSlug}`,title:saved.title,createdAt:saved.createdAt,updatedAt:saved.updatedAt};
+      }
+    }
     const precondition = current?.updateTime ? '&currentDocument.updateTime=' + encodeURIComponent(current.updateTime) : '&currentDocument.exists=' + Boolean(current);
     const response = await fetch(restUrl(id) + precondition, { method: 'PATCH', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ fields: encodeFirestoreFields(saved) }), signal: AbortSignal.timeout(15000) });
     if (response.status === 409 || response.status === 412) throw failure('Dự án vừa được chia sẻ ở phiên khác. Bấm cập nhật lại để giữ cùng link.', 409);
     if (!response.ok) throw failure('Firebase chưa cho phép cập nhật link. Áp dụng rules code_studio_shares hoặc cấu hình Firebase Admin.', 503);
   }
-  return { id, path: `/code/${saved.slug}.${id}`, title: saved.title, createdAt: saved.createdAt, updatedAt: saved.updatedAt };
+  return { id, path: saved.customSlug ? `/code/${saved.customSlug}` : `/code/${saved.slug}.${id}`, title: saved.title, createdAt: saved.createdAt, updatedAt: saved.updatedAt };
 }
 
 const escape = (value: string) => value.replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]!));

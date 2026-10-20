@@ -28,7 +28,7 @@ export default function SharedWebsitePage() {
     return () => { document.title = previous; };
   }, [website.title]);
 
-  if (website.error) return <main className="shared-website-error"><h1>Không thể mở website</h1><p role="alert">{website.error}</p><Link to="/practice/code">Về Code Studio</Link></main>;
+  if (website.error) return <main className="shared-website-error"><h1>Không thể mở website</h1><p role="alert">{website.error}</p><Link to="/practice/code">Về DkCode</Link></main>;
   return <main className="shared-website-page">
     <iframe key={location.hash + location.search} title={website.title} sandbox="allow-scripts" referrerPolicy="no-referrer" srcDoc={website.html} />
     {website.editorUrl && <Link className="shared-website-edit" to={website.editorUrl} target="_blank" rel="noopener noreferrer">✦ Mở bản sao để chỉnh sửa</Link>}

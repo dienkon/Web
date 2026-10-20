@@ -22,10 +22,17 @@ aiRouter.post('/code-studio', async (req, res) => {
   const cancel = () => { if (!res.writableEnded) controller.abort(); };
   res.on('close', cancel);
   try {
-    const result = await generateStudioChanges(req.body, req.headers['x-gemini-api-key'] as string, controller.signal);
-    if (!controller.signal.aborted) res.json(result);
+    const streaming = req.get('accept')?.includes('application/x-ndjson');
+    const emit = (event: unknown) => { if (!res.destroyed && !res.writableEnded) res.write(JSON.stringify(event) + '\n'); };
+    const result = await generateStudioChanges(req.body, req.headers['x-gemini-api-key'] as string, controller.signal, streaming ? text => {
+      if (!res.headersSent) { res.setHeader('Content-Type', 'application/x-ndjson; charset=utf-8'); res.setHeader('Cache-Control', 'no-store, no-transform'); res.setHeader('X-Accel-Buffering', 'no'); }
+      emit({ type: 'delta', text });
+    } : undefined);
+    if (!controller.signal.aborted) { if (streaming) { if (!res.headersSent) res.setHeader('Content-Type', 'application/x-ndjson; charset=utf-8'); emit({ type:'done', ...result }); res.end(); } else res.json(result); }
+    else if (!res.destroyed) { emit({ type:'error', error:'AI đã dừng hoặc hết thời gian xử lý.' }); res.end(); }
   } catch (error: any) {
     if (!res.headersSent && !res.destroyed) res.status(error.status || (controller.signal.aborted ? 504 : 400)).json({ error: controller.signal.aborted ? 'AI hết thời gian xử lý. Hãy chia yêu cầu thành bước nhỏ hơn.' : error.message || 'Không thể sửa code bằng AI.' });
+    else if (!res.destroyed) { res.write(JSON.stringify({ type:'error', error: controller.signal.aborted ? 'AI hết thời gian xử lý.' : error.message || 'Không thể sửa code bằng AI.' }) + '\n'); res.end(); }
   } finally { clearTimeout(timer); res.off('close', cancel); }
 });
 

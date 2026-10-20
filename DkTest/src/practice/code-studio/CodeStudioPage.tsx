@@ -8,6 +8,7 @@ import StudioEditor, { EditorHandle } from './StudioEditor';
 import { runnerDocument } from './runner';
 import StudioShareDialog from './StudioShareDialog';
 import StudioAiPanel from './StudioAiPanel';
+import StudioAgentDraft from './StudioAgentDraft';
 import StudioProjectsDialog from './StudioProjectsDialog';
 import { AiChanges, applyAiChanges } from './aiChanges';
 import StudioExplorer from './StudioExplorer';
@@ -45,6 +46,7 @@ function download(content: string, name: string, type = 'application/json') {
 }
 
 export default function CodeStudioPage({ initialSharedProject }: { initialSharedProject?: StudioProject } = {}) {
+  const [agentDraft,setAgentDraft] = useState<StudioFile | null>(null);
   const viewportMode = useStudioFullscreen();
   const mediaInput = useRef<HTMLInputElement>(null);
   const [mediaFiles, setMediaFiles] = useState<File[] | null>(null);
@@ -58,6 +60,7 @@ export default function CodeStudioPage({ initialSharedProject }: { initialShared
   const [projects, setProjects] = useState(initial.projects);
   const [project, setProject] = useState(initial.current);
   const [notice, setNotice] = useState(initial.error || (initial.shared ? 'Đã mở bản sao từ link. Bạn có thể chỉnh sửa và chia sẻ một link mới.' : ''));
+  useEffect(()=>{ const title=document.title; document.title='DkCode · '+project.name; return ()=>{document.title=title;}; },[project.name]);
   const [saveState, setSaveState] = useState('Đang lưu…');
   const [explorer, setExplorer] = useState(window.innerWidth >= 900);
   const [previewOpen, setPreviewOpen] = useState(window.innerWidth >= 1100 || window.innerWidth < 900 || matchMedia('(pointer: coarse)').matches);
@@ -413,10 +416,10 @@ export default function CodeStudioPage({ initialSharedProject }: { initialShared
   const selectedProjects = [project, ...projects.filter(p => p.id !== project.id)];
   const modalOpen = !!(dialog || settings || help);
 
-  return <main ref={viewportMode.root} className={`code-studio ${previewOpen ? 'with-preview' : ''} preview-${previewDock} mobile-${mobilePanel}`}>
+  return <main ref={viewportMode.root} className={`code-studio ${agentDraft ? 'has-agent-draft' : ''} ${previewOpen ? 'with-preview' : ''} preview-${previewDock} mobile-${mobilePanel}`}>
     <header className="studio-header">
       <Link to="/practice" className="studio-back" aria-label="Về luyện tập"><ArrowLeft size={18} /></Link>
-      <div className="studio-brand"><span className="studio-brand-icon"><Code2 size={22} /></span><div><strong>Code<span>Studio</span></strong><small>Ý tưởng của bạn. Không giới hạn.</small></div></div>
+      <div className="studio-brand"><span className="studio-brand-icon"><Code2 size={22} /></span><div><strong>Dk<span>Code</span></strong><small>Ý tưởng của bạn. Không giới hạn.</small></div></div>
       <span className="studio-header-divider" />
       <button className="studio-icon-button" aria-label="Quản lý dự án" title="Quản lý dự án" onClick={() => setProjectsOpen(true)}><FolderOpen size={17} /></button><div className="studio-project-select"><FolderOpen size={15} /><select aria-label="Chọn dự án" value={project.id} onChange={e => { const next = selectedProjects.find(p => p.id === e.target.value); if (next) switchProject(next); }}>{selectedProjects.map(p => <option value={p.id} key={p.id}>{p.name}</option>)}</select><ChevronDown size={12} /></div>
       <button className="studio-icon-button" title="Tạo dự án mới" aria-label="Tạo dự án mới" onClick={() => openDialog({ kind: 'project', value: 'Dự án mới', template: 'web' })}><Plus size={18} /></button>
@@ -442,7 +445,7 @@ export default function CodeStudioPage({ initialSharedProject }: { initialShared
           <div className="studio-code-column">
             <div className="studio-tabs" role="tablist" aria-label="File đang mở">{project.files.map(f => <button role="tab" aria-selected={f.path === project.activeFile} key={f.path} className={f.path === project.activeFile ? 'active' : ''} onClick={() => setProject(p => ({ ...p, activeFile: f.path }))}><FileCode2 size={13} className={`file-${languageFor(f.path)}`} /><span>{f.path.split('/').at(-1)}</span>{f.path === project.activeFile && <span className="studio-tab-dot" />}</button>)}<button onClick={() => openDialog({ kind: 'file', value: '' })} aria-label="Thêm file"><Plus size={15} /></button></div>
             <div className="studio-breadcrumb"><span>{project.name}</span><ChevronRight size={11} /><span>{file.path}</span><span className="studio-language">{language}</span></div>
-            {file.asset ? <StudioAssetView key={file.path} file={file} /> : <StudioEditor key={project.id} ref={editor} project={project} onChange={update} onCursor={onCursor} touch={touch} fontSize={fontSize} wrap={wrap} />}
+            {agentDraft ? <StudioAgentDraft file={agentDraft} /> : file.asset ? <StudioAssetView key={file.path} file={file} /> : <StudioEditor key={project.id} ref={editor} project={project} onChange={update} onCursor={onCursor} touch={touch} fontSize={fontSize} wrap={wrap} />}
             <div hidden={!!file.asset} className="studio-keybar" aria-label="Phím hỗ trợ lập trình">{['Tab', '{ }', '( )', '[ ]', '< >', '"', "'", ';', '=', '/', ':'].map(key => <button key={key} onPointerDown={e => e.preventDefault()} onClick={() => editor.current?.insert(key === 'Tab' ? (language === 'python' ? '    ' : '  ') : key.replace(' ', ''))}>{key}</button>)}<button className="studio-suggest-key" onPointerDown={e => e.preventDefault()} onClick={() => editor.current?.command('suggest')}><Sparkles size={13} />Gợi ý</button></div>
             {outputOpen && <section className="studio-output" aria-label="Console"><div className="studio-pane-title"><span><Terminal size={13} />CONSOLE <b>{logs.filter(l => l.level === 'error').length || ''}</b></span><div><label className="studio-console-timestamps"><input type="checkbox" checked={showLogTimes} onChange={e => setShowLogTimes(e.target.checked)} />Giờ</label><button onClick={() => setLogs([])} title="Xóa console" aria-label="Xóa console"><Trash2 size={14} /></button><button onClick={() => setOutputOpen(false)} aria-label="Đóng console"><X size={15} /></button></div></div><div className="studio-output-body"><label className="studio-stdin-label">STDIN <small>input() / cin / prompt() — mỗi giá trị một dòng</small><textarea aria-label="Dữ liệu đầu vào" value={stdin} onChange={e => setStdin(e.target.value)} placeholder="Nhập dữ liệu trước khi chạy…" /></label><div className="studio-console-lines" role="log" aria-live="polite">{logs.length ? logs.map((log, i) => <div key={i} className="studio-log-row">{showLogTimes && <time dateTime={new Date(log.at).toISOString()}>{new Date(log.at).toLocaleTimeString("vi-VN", { hour12: false })}</time>}<pre className={`log-${log.level}`}>{log.text}</pre></div>) : <p>Kết quả và lỗi sẽ xuất hiện ở đây.</p>}<div ref={consoleEnd} /></div></div></section>}
           </div>
@@ -465,7 +468,7 @@ export default function CodeStudioPage({ initialSharedProject }: { initialShared
     <input ref={folderInput} className="studio-hidden-input" type="file" multiple {...{ webkitdirectory: '', directory: '' }} aria-label="Chọn thư mục mã nguồn" onChange={uploadCode} />
     {shareOpen && <StudioShareDialog project={project} onClose={() => setShareOpen(false)} />}
     {projectsOpen && <StudioProjectsDialog projects={selectedProjects} currentId={project.id} onAction={manageProject} onClose={() => setProjectsOpen(false)} />}
-    {aiOpen && <StudioAiPanel key={project.id} project={project} onApply={applyAi} onUndo={undoAi} canUndo={!!aiUndo && aiUndo.after.id === project.id} onClose={() => setAiOpen(false)} />}
+    {aiOpen && <StudioAiPanel key={project.id} project={project} onApply={applyAi} onDraft={setAgentDraft} onUndo={undoAi} canUndo={!!aiUndo && aiUndo.after.id === project.id} onClose={() => setAiOpen(false)} />}
     {codeUpload && <CodeImportDialog upload={codeUpload} project={project} onImport={confirmCodeUpload} onClose={() => setCodeUpload(null)} />}
     {notice && <div className="studio-notice" role="status"><span>{notice}</span><button onClick={() => setNotice('')} aria-label="Đóng thông báo"><X size={17} /></button></div>}
     {modalOpen && <div className="studio-modal-backdrop" onClick={e => { if (e.target === e.currentTarget) { setDialog(null); setShareOpen(false); setSettings(false); setHelp(false); } }}><section className="studio-modal" role="dialog" aria-modal="true" aria-label={dialog ? 'Quản lý dự án' : settings ? 'Cài đặt' : 'Hướng dẫn'} onKeyDown={e => { if (e.key === 'Tab') { const nodes = Array.from(e.currentTarget.querySelectorAll<HTMLElement>('button,input,select,textarea,a[href]')).filter(node => !(node as HTMLButtonElement).disabled); const first = nodes[0], last = nodes.at(-1); if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus(); } else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus(); } } }}>

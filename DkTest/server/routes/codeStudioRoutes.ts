@@ -1,5 +1,5 @@
 import express from 'express';
-import { publishStudioShare, readStudioShare, renderStudioShareHtml } from '../codeStudioShares.js';
+import { publishStudioShare, readStudioShare, renderStudioShareHtml, resolveStudioShareName, shareNameAvailable } from '../codeStudioShares.js';
 import { shareIdFromSlug } from '../../src/practice/code-studio/publishedShare.js';
 import { PRODUCTION_HTML_TEMPLATE } from '../../src/services/server/generatedHtmlTemplate.js';
 export const codeStudioRouter = express.Router();
@@ -11,6 +11,16 @@ codeStudioRouter.post('/shares', express.json({ limit: '950kb' }), async (req, r
   publishes.set(ip, Date.now());
   try { return res.status(201).json(await publishStudioShare(req.body, req.get('authorization')?.replace(/^Bearer /i, ''))); }
   catch (e: any) { return res.status(e.status || 400).json({ error: e.message || 'Không lưu được chia sẻ.', ...(typeof e.code === 'string' && e.code.startsWith('SHARE_') ? { code: e.code } : {}) }); }
+});
+codeStudioRouter.get('/names/:name', async (req,res) => {
+  res.setHeader('Cache-Control','no-store');
+  try { return res.json({ available:await shareNameAvailable(req.params.name) }); }
+  catch (e:any) { return res.status(e.status || 503).json({error:e.message}); }
+});
+codeStudioRouter.get('/named/:name', async (req,res) => {
+  res.setHeader('Cache-Control','no-store');
+  try { const id=await resolveStudioShareName(req.params.name), share=id?await readStudioShare(id):null; if (!share) return res.status(404).json({error:'Link không tồn tại.'}); return res.json(share); }
+  catch (e:any) { return res.status(e.status || 503).json({error:e.message}); }
 });
 codeStudioRouter.get('/shares/:id', async (req, res) => {
   try {
@@ -37,7 +47,7 @@ codeStudioRouter.use((error: any, _req: express.Request, res: express.Response, 
 export async function handleStudioSharePage(req: any, res: any) {
   try {
     const slug = req.params.slug || String(req.query.slug || '');
-    const id = shareIdFromSlug(slug);
+    const id = shareIdFromSlug(slug) || await resolveStudioShareName(slug);
     const share = await readStudioShare(id);
     if (!share) return res.status(404).type('html').send('<!doctype html><meta charset="utf-8"><h1>Link không tồn tại</h1>');
     const host = String(req.get?.('host') || req.headers.host || '');

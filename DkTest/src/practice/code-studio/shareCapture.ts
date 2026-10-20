@@ -6,7 +6,7 @@ export function websiteMetadata(project: StudioProject) {
   const source = project.files.find(f => f.path === project.entry)?.content || '';
   const doc = new DOMParser().parseFromString(source, 'text/html');
   doc.querySelectorAll('script,style,noscript').forEach(node => node.remove());
-  return { title: (doc.querySelector('title')?.textContent?.trim() || project.name).slice(0, 160), description: (doc.querySelector('meta[name="description"]')?.getAttribute('content') || doc.body.textContent || 'Được tạo bằng Code Studio').replace(/\s+/g, ' ').trim().slice(0, 300) };
+  return { title: (doc.querySelector('title')?.textContent?.trim() || project.name).slice(0, 160), description: (doc.querySelector('meta[name="description"]')?.getAttribute('content') || doc.body.textContent || 'Được tạo bằng DkCode').replace(/\s+/g, ' ').trim().slice(0, 300) };
 }
 export async function imageFileToCover(file: File): Promise<string> {
   if (!file.type.startsWith('image/') || file.size > 6000000) throw new Error('Chọn ảnh đại diện tối đa 6 MB.');
