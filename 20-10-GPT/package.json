@@ -1,6 +1,0 @@
-{
-  "name": "vuon-thuong-20-10",
-  "private": true,
-  "version": "1.0.0",
-  "scripts": { "dev": "node server.mjs", "start": "node server.mjs", "check": "node --check app.js && node --check entrance.js && node --check gift-data.js && node --check firestore.js && node --check create.js && node --check server.mjs", "test": "node scripts/verify.mjs" }
-}
