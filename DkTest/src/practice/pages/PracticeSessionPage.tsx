@@ -241,6 +241,20 @@ export default function PracticeSessionPage() {
       };
       // Record to history
       PracticeHistoryService.recordSession(updated);
+
+      // Record daily streak
+      import("../../services/gamificationService").then(({ recordDailyStreak }) => {
+        const uInfo = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
+        let username = "student";
+        if (uInfo) {
+          try {
+            const parsed = JSON.parse(uInfo);
+            username = parsed.username || parsed.code || parsed.displayName || "student";
+          } catch (_) {}
+        }
+        recordDailyStreak(username);
+      }).catch(() => {});
+
       return updated;
     });
   }, [soundEnabled]);

@@ -50,6 +50,7 @@ import {
   sanitizeSessionId,
 } from "../../services/realtimeProctoringService";
 import { createSafeBroadcastChannel, safeRequestFullscreen, safeExitFullscreen } from "../../utils/mobileCompat";
+import { isScreenshotKeyEvent, isMobileScreenshotTouch, sanitizeClipboardOnViolation } from "../../utils/antiCheatService";
 import { collection, getDocs, query, orderBy, getDoc, doc, where, limit } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import { logQueryRead } from "../../utils/firestoreLogger";
@@ -213,6 +214,9 @@ export default function TakingExam() {
   // Real Screen Share States & Refs
   const [showScreenSharePrompt, setShowScreenSharePrompt] = useState(false);
   const [isScreenSharing, setIsScreenSharing] = useState(false);
+  const [isScreenShielded, setIsScreenShielded] = useState(false);
+  const shieldTimeoutRef = useRef<any>(null);
+  const lastVolumeKeyPressTimeRef = useRef<number>(0);
   const screenStreamRef = useRef<MediaStream | null>(null);
   const screenIntervalRef = useRef<any>(null);
   const offscreenVideoRef = useRef<HTMLVideoElement | null>(null);
@@ -1332,15 +1336,24 @@ export default function TakingExam() {
     prevAnswersRef.current = { ...answers };
   }, [answers, loading, questions.length]);
 
-  // Anti-cheat detection: visibilitychange & window blur (Directives 49 & 50)
+  // Anti-cheat detection: visibilitychange, window blur, screenshots (PC/Mobile), Gemini Live & copy protection
   useEffect(() => {
     if (!exam || !exam.antiCheatEnabled || submitting || sessionStatus !== "taking") return;
 
-    const recordViolation = () => {
+    const recordViolation = (customMsg?: string, isScreenshotOrShare = false) => {
       const now = Date.now();
       // 1000ms cooldown to avoid double counting blur and visibilitychange
       if (now - lastViolationTimeRef.current < 1000) return;
       lastViolationTimeRef.current = now;
+
+      if (isScreenshotOrShare) {
+        setIsScreenShielded(true);
+        sanitizeClipboardOnViolation();
+        if (shieldTimeoutRef.current) clearTimeout(shieldTimeoutRef.current);
+        shieldTimeoutRef.current = setTimeout(() => {
+          setIsScreenShielded(false);
+        }, 1500);
+      }
 
       setWarnings((prev) => {
         const next = prev + 1;
@@ -1350,7 +1363,9 @@ export default function TakingExam() {
           showErrorToast(`Đã vượt quá số lần cảnh báo cho phép (${maxLimit}). Hệ thống đang tự động nộp bài.`);
           handleAutoSubmit("suspended");
         } else {
-          showErrorToast(`Cảnh báo vi phạm (${next}/${maxLimit}): Vui lòng không chuyển tab hoặc thoát khỏi giao diện thi!`);
+          showErrorToast(
+            customMsg || `Cảnh báo vi phạm (${next}/${maxLimit}): Vui lòng không chuyển tab hoặc thoát khỏi giao diện thi!`
+          );
         }
 
         return next;
@@ -1359,20 +1374,143 @@ export default function TakingExam() {
 
     const handleVisibility = () => {
       if (document.hidden) {
-        recordViolation();
+        if (Date.now() - lastVolumeKeyPressTimeRef.current < 1200) {
+          recordViolation("Cảnh báo gian lận: Phát hiện phím cứng chụp màn hình trên điện thoại!", true);
+        } else {
+          recordViolation("Cảnh báo: Phát hiện rời tab hoặc chuyển sang ứng dụng khác!");
+        }
       }
     };
 
     const handleBlur = () => {
-      recordViolation();
+      if (Date.now() - lastVolumeKeyPressTimeRef.current < 1200) {
+        recordViolation("Cảnh báo gian lận: Phát hiện phím cứng chụp màn hình trên điện thoại!", true);
+      } else {
+        recordViolation("Cảnh báo: Cửa sổ thi mất tiêu điểm (mở ứng dụng ngoài hoặc Gemini Live)!");
+      }
     };
+
+    // Keyboard Screenshot & Copy Interception (PrintScreen, Win+Shift+S, Cmd+Shift+3/4/5, Mobile Volume)
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (
+        e.key === "VolumeDown" ||
+        e.key === "AudioVolumeDown" ||
+        e.code === "VolumeDown" ||
+        e.keyCode === 174 ||
+        e.keyCode === 25
+      ) {
+        lastVolumeKeyPressTimeRef.current = Date.now();
+      }
+
+      if (isScreenshotKeyEvent(e)) {
+        if (e.key !== "VolumeDown" && e.key !== "AudioVolumeDown") {
+          e.preventDefault();
+        }
+        sanitizeClipboardOnViolation();
+        recordViolation("Cảnh báo gian lận: Phát hiện phím chụp ảnh màn hình (PrintScreen / Snipping Tool / Phím cứng điện thoại)!", true);
+      }
+
+      if ((e.ctrlKey || e.metaKey) && (e.key === "c" || e.key === "C")) {
+        const target = e.target as HTMLElement;
+        if (target && ["INPUT", "TEXTAREA"].includes(target.tagName)) return;
+        e.preventDefault();
+        sanitizeClipboardOnViolation();
+        recordViolation("Cảnh báo: Không được phép sao chép nội dung câu hỏi!");
+      }
+    };
+
+    const handleKeyUp = (e: KeyboardEvent) => {
+      if (isScreenshotKeyEvent(e)) {
+        sanitizeClipboardOnViolation();
+        recordViolation("Cảnh báo gian lận: Phát hiện thao tác chụp màn hình!", true);
+      }
+    };
+
+    // Mobile Touch Gestures (3-finger swipe screenshot on Android / iOS)
+    const handleTouchStart = (e: TouchEvent) => {
+      if (isMobileScreenshotTouch(e)) {
+        e.preventDefault();
+        recordViolation("Cảnh báo gian lận: Phát hiện thao tác vuốt 3 ngón tay để chụp màn hình trên điện thoại!", true);
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (isMobileScreenshotTouch(e)) {
+        e.preventDefault();
+        recordViolation("Cảnh báo gian lận: Phát hiện cử chỉ chụp ảnh màn hình trên điện thoại!", true);
+      }
+    };
+
+    const handleCopy = (e: ClipboardEvent) => {
+      const target = e.target as HTMLElement;
+      if (target && ["INPUT", "TEXTAREA"].includes(target.tagName)) return;
+      e.preventDefault();
+      sanitizeClipboardOnViolation();
+      recordViolation("Cảnh báo: Không được phép sao chép câu hỏi đề thi!");
+    };
+
+    const handleCut = (e: ClipboardEvent) => {
+      const target = e.target as HTMLElement;
+      if (target && ["INPUT", "TEXTAREA"].includes(target.tagName)) return;
+      e.preventDefault();
+      recordViolation("Cảnh báo: Không được phép cắt nội dung câu hỏi!");
+    };
+
+    const handleDragStart = (e: DragEvent) => {
+      const target = e.target as HTMLElement;
+      if (target && ["INPUT", "TEXTAREA"].includes(target.tagName)) return;
+      e.preventDefault();
+      recordViolation("Cảnh báo: Không được phép kéo thả nội dung câu hỏi ra ngoài!");
+    };
+
+    const handleContextMenu = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target && ["INPUT", "TEXTAREA"].includes(target.tagName)) return;
+      e.preventDefault();
+      recordViolation("Thao tác chuột phải bị vô hiệu hóa trong phòng thi!");
+    };
+
+    // Screen Share / Media Stream Interception (Gemini Live screen sharing)
+    let restoreMedia: any = null;
+    try {
+      if (typeof navigator !== "undefined" && navigator.mediaDevices?.getDisplayMedia) {
+        const orig = navigator.mediaDevices.getDisplayMedia.bind(navigator.mediaDevices);
+        navigator.mediaDevices.getDisplayMedia = async function (...args: any[]) {
+          recordViolation("Phát hiện yêu cầu chia sẻ màn hình trực tiếp (Gemini Live / Screen Recording)!", true);
+          return orig(...args);
+        };
+        restoreMedia = () => {
+          try {
+            navigator.mediaDevices.getDisplayMedia = orig;
+          } catch (_) {}
+        };
+      }
+    } catch (_) {}
 
     document.addEventListener("visibilitychange", handleVisibility);
     window.addEventListener("blur", handleBlur);
+    window.addEventListener("keydown", handleKeyDown, true);
+    window.addEventListener("keyup", handleKeyUp, true);
+    window.addEventListener("touchstart", handleTouchStart, { passive: false, capture: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false, capture: true });
+    document.addEventListener("copy", handleCopy, true);
+    document.addEventListener("cut", handleCut, true);
+    document.addEventListener("dragstart", handleDragStart, true);
+    document.addEventListener("contextmenu", handleContextMenu, true);
 
     return () => {
       document.removeEventListener("visibilitychange", handleVisibility);
       window.removeEventListener("blur", handleBlur);
+      window.removeEventListener("keydown", handleKeyDown, true);
+      window.removeEventListener("keyup", handleKeyUp, true);
+      window.removeEventListener("touchstart", handleTouchStart, true);
+      window.removeEventListener("touchmove", handleTouchMove, true);
+      document.removeEventListener("copy", handleCopy, true);
+      document.removeEventListener("cut", handleCut, true);
+      document.removeEventListener("dragstart", handleDragStart, true);
+      document.removeEventListener("contextmenu", handleContextMenu, true);
+      if (restoreMedia) restoreMedia();
+      if (shieldTimeoutRef.current) clearTimeout(shieldTimeoutRef.current);
     };
   }, [exam, submitting, sessionStatus]);
 
@@ -2308,6 +2446,21 @@ export default function TakingExam() {
 
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col font-sans select-none pt-16 overscroll-y-contain overscroll-x-none touch-pan-y">
+      {/* Screen Shield Overlay against Screenshots, Gemini Live & Screen Sharing */}
+      {isScreenShielded && (
+        <div className="fixed inset-0 z-[9999] bg-slate-950/95 backdrop-blur-md flex flex-col items-center justify-center text-center p-6 text-white animate-in fade-in duration-150">
+          <div className="w-16 h-16 rounded-full bg-rose-500/20 text-rose-500 flex items-center justify-center mb-4 border border-rose-500/40 animate-pulse">
+            <ShieldAlert className="w-8 h-8" />
+          </div>
+          <h4 className="text-lg font-black text-rose-400 uppercase tracking-wide">
+            Phát Hiện Thao Tác Chụp Màn Hình / Gian Lận!
+          </h4>
+          <p className="text-xs text-slate-300 mt-2 max-w-sm leading-relaxed">
+            Hệ thống khảo thí DkTEST đã kích hoạt khiên che bảo mật và ghi nhận cảnh báo vào hệ thống giám thị trực tuyến. Đề thi được bảo vệ chống sao chép và chụp ảnh.
+          </p>
+        </div>
+      )}
+
       {/* Offline Alert Banner (Directive 26) */}
       {!isOnline && (
         <div className="fixed top-16 left-0 right-0 z-[105] bg-amber-500 text-white px-4 py-2 shadow-md flex items-center justify-center animate-in slide-in-from-top duration-200">

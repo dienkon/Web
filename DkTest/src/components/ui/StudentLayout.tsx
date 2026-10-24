@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
-import { getGamificationStats } from "../../services/gamificationService";
+import { getGamificationStats, recordDailyStreak, subscribeToStreakUpdates } from "../../services/gamificationService";
 import {
   LogOut,
   ArrowLeft,
@@ -21,6 +21,8 @@ import {
   MapPin,
   KeyRound,
   Wallet,
+  Swords,
+  MessageSquare,
 } from "lucide-react";
 import ConfirmModal from "./ConfirmModal";
 import BrandLogo from "./BrandLogo";
@@ -67,10 +69,27 @@ function StudentLayoutContent() {
           }
         : null);
 
+  const [streakTick, setStreakTick] = useState(0);
+
   const gameStats = useMemo(
     () => getGamificationStats(currentAccount?.username || ""),
-    [currentAccount?.username]
+    [currentAccount?.username, streakTick]
   );
+
+  // Subscribe to real-time streak updates
+  useEffect(() => {
+    const unsub = subscribeToStreakUpdates(() => {
+      setStreakTick((prev) => prev + 1);
+    });
+    return unsub;
+  }, []);
+
+  // Record active streak if student is active today
+  useEffect(() => {
+    if (currentAccount?.username) {
+      recordDailyStreak(currentAccount.username);
+    }
+  }, [currentAccount?.username]);
 
   // Real-time listener for avatar changes across the application
   useEffect(() => {
@@ -154,6 +173,8 @@ function StudentLayoutContent() {
   const navItems = [
     { to: "/", label: "Đề thi", icon: BookOpen, tourId: TOUR_DATA_IDS.NAV_EXAMS, actionKey: "click_exams" },
     { to: "/journey", label: "Hành trình", icon: MapPin, iconColor: "text-emerald-500", actionKey: "click_journey" },
+    { to: "/student/arena", label: "Đấu Trường", icon: Swords, iconColor: "text-amber-500", actionKey: "click_arena" },
+    { to: "/student/chat", label: "Kênh Thế Giới", icon: MessageSquare, iconColor: "text-sky-500", actionKey: "click_chat" },
     { to: "/student/escape-room", label: "Phòng Mật Mã", icon: KeyRound, iconColor: "text-purple-500", actionKey: "click_escape_room" },
     { to: "/student/practice", label: "Luyện tập", icon: BrainCircuit, iconColor: "text-blue-500", tourId: TOUR_DATA_IDS.NAV_PRACTICE, actionKey: "click_practice" },
     { to: "/student/ai-tutor", label: "Hỏi Gia sư AI", icon: Sparkles, iconColor: "text-indigo-500", tourId: TOUR_DATA_IDS.NAV_AI, actionKey: "click_ai" },
@@ -235,10 +256,10 @@ function StudentLayoutContent() {
 
             {currentAccount ? (
               <div className="flex items-center gap-1.5 sm:gap-2">
-                {/* Gamification Streak & XP Badge */}
+                {/* Gamification Streak & XP Badge (Visible on all viewports) */}
                 <Link
                   to="/student/profile"
-                  className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/40 dark:hover:bg-amber-900/50 border border-amber-200/80 dark:border-amber-800/60 rounded-xl transition-colors text-xs font-bold text-amber-800 dark:text-amber-300 shadow-2xs"
+                  className="flex items-center gap-1 sm:gap-1.5 px-2 py-1 sm:px-2.5 sm:py-1 bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/40 dark:hover:bg-amber-900/50 border border-amber-200/80 dark:border-amber-800/60 rounded-xl transition-colors text-xs font-bold text-amber-800 dark:text-amber-300 shadow-2xs shrink-0"
                   title={`Chuỗi học tập liên tục: ${gameStats.currentStreak} ngày | Cấp độ: ${gameStats.levelTitle} (${gameStats.totalXP} XP)`}
                 >
                   <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500 animate-pulse" />
@@ -290,26 +311,32 @@ function StudentLayoutContent() {
       <div className="flex-1 flex overflow-hidden relative">
         {!hideStudentNav && (
           <aside
-            className={`bg-white border-r border-slate-200 hidden md:flex flex-col shrink-0 transition-all duration-200 ease-in-out z-20 shadow-xs select-none ${
-              isSidebarCollapsed ? "w-18 p-3" : "w-60 p-4"
+            className={`bg-white border-r border-slate-200 hidden md:flex flex-col shrink-0 transition-all duration-200 ease-in-out z-20 shadow-xs select-none relative ${
+              isSidebarCollapsed ? "w-16 p-2.5" : "w-60 p-4"
             }`}
           >
-            {/* Collapse / Expand Toggle Button */}
-            <button
-              type="button"
-              onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-              className="absolute -right-3 top-6 w-6 h-6 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-300 shadow-xs z-20 cursor-pointer"
-              title={isSidebarCollapsed ? "Mở rộng sidebar" : "Thu gọn sidebar"}
+            {/* Header with Title and Modern Collapse / Expand Toggle Button */}
+            <div
+              className={`flex items-center mb-2 pb-2 border-b border-slate-100 ${
+                isSidebarCollapsed ? "justify-center" : "justify-between px-1"
+              }`}
             >
-              {isSidebarCollapsed ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-3.5 h-3.5" />}
-            </button>
-
-            <div className="space-y-1.5">
               {!isSidebarCollapsed && (
-                <div className="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
                   Thí sinh
                 </div>
               )}
+              <button
+                type="button"
+                onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+                className="w-7 h-7 rounded-lg bg-slate-100 hover:bg-blue-50 text-slate-500 hover:text-blue-600 flex items-center justify-center transition-all cursor-pointer border border-slate-200/60 shrink-0"
+                title={isSidebarCollapsed ? "Mở rộng sidebar" : "Thu gọn sidebar"}
+              >
+                {isSidebarCollapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
+              </button>
+            </div>
+
+            <div className="space-y-1.5 flex-1 overflow-y-auto">
 
               {navItems.map((item) => {
                 const Icon = item.icon;
@@ -405,6 +432,13 @@ function StudentLayoutContent() {
                   <div className="truncate flex-1">
                     <div className="text-sm font-bold text-slate-900 truncate">{currentAccount.displayName || "Thí sinh"}</div>
                     <div className="text-xs text-slate-500 truncate">@{currentAccount.username || "student"}</div>
+                    <div className="flex items-center gap-1.5 mt-1">
+                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-amber-100 text-amber-800 text-[10px] font-bold">
+                        <Flame className="w-3 h-3 text-amber-500 fill-amber-500" />
+                        <span>Chuỗi {gameStats.currentStreak} ngày</span>
+                      </span>
+                      <span className="text-[10px] font-semibold text-slate-400">Lv.{gameStats.level}</span>
+                    </div>
                   </div>
                 </Link>
               ) : (
@@ -536,6 +570,13 @@ function StudentLayoutContent() {
                       <div className="text-xs text-slate-500 dark:text-slate-400 truncate">
                         @{currentAccount.username || "student"}
                       </div>
+                      <div className="flex items-center gap-1.5 mt-1">
+                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 text-[10px] font-bold">
+                          <Flame className="w-2.5 h-2.5 text-amber-500 fill-amber-500" />
+                          <span>Chuỗi {gameStats.currentStreak} ngày</span>
+                        </span>
+                        <span className="text-[10px] text-slate-400">Lv.{gameStats.level}</span>
+                      </div>
                     </div>
                     <ChevronRight className="w-4 h-4 text-slate-400" />
                   </Link>
@@ -570,7 +611,34 @@ function StudentLayoutContent() {
                     </div>
                   </Link>
 
-                  {/* 2. Phòng mật mã */}
+                  {/* 2. Kênh Thế Giới */}
+                  <Link
+                    to="/student/chat"
+                    onClick={() => {
+                      setIsBottomMenuOpen(false);
+                      triggerAction("click_chat");
+                    }}
+                    className={`flex items-center gap-3.5 p-3 rounded-2xl border transition-all ${
+                      location.pathname === "/student/chat" || location.pathname === "/chat"
+                        ? "bg-sky-50/80 border-sky-300 dark:bg-sky-950/40 dark:border-sky-800 shadow-2xs"
+                        : "bg-slate-50/70 dark:bg-slate-800/40 border-slate-200/80 dark:border-slate-800 hover:bg-sky-50/50"
+                    }`}
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-sky-100 dark:bg-sky-900/50 text-sky-600 dark:text-sky-300 flex items-center justify-center shrink-0 shadow-2xs">
+                      <MessageSquare className="w-5 h-5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <span>Kênh Thế Giới</span>
+                        <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 font-bold">Chat</span>
+                      </div>
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                        Giao lưu & hỏi đáp trực tiếp
+                      </div>
+                    </div>
+                  </Link>
+
+                  {/* 3. Phòng mật mã */}
                   <Link
                     to="/student/escape-room"
                     onClick={() => {
@@ -763,19 +831,19 @@ function StudentLayoutContent() {
               <span className="text-[10px]">Cộng đồng</span>
             </Link>
 
-            {/* 5. Menu 3 gạch (Danh mục: Hành trình, Mật mã, Hồ sơ, Chính sách) */}
+            {/* 5. Menu 3 gạch (Danh mục: Hành trình, Kênh Thế Giới, Mật mã, Hồ sơ, Chính sách) */}
             <button
               type="button"
               onClick={() => setIsBottomMenuOpen(true)}
               className={`flex flex-col items-center gap-0.5 px-2.5 py-1 rounded-2xl transition-all cursor-pointer relative ${
-                isBottomMenuOpen || ["/journey", "/student/escape-room", "/student/profile", "/legal-policy", "/student/history"].some((p) => location.pathname === p)
+                isBottomMenuOpen || ["/journey", "/student/chat", "/chat", "/student/escape-room", "/student/profile", "/legal-policy", "/student/history"].some((p) => location.pathname === p)
                   ? "text-blue-600 dark:text-blue-400 font-bold scale-105"
                   : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
               }`}
             >
               <div className="relative">
                 <Menu className="w-5 h-5" />
-                {["/journey", "/student/escape-room", "/student/profile", "/legal-policy", "/student/history"].some((p) => location.pathname === p) && (
+                {["/journey", "/student/chat", "/chat", "/student/escape-room", "/student/profile", "/legal-policy", "/student/history"].some((p) => location.pathname === p) && (
                   <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
                 )}
               </div>
@@ -784,6 +852,7 @@ function StudentLayoutContent() {
           </nav>
         </>
       )}
+
 
       <ConfirmModal
         isOpen={showLogoutModal}

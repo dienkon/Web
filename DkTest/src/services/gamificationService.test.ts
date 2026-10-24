@@ -1,5 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { computeStreak, computeXPAndLevel } from "./gamificationService";
+import {
+  computeStreak,
+  computeXPAndLevel,
+  recordDailyStreak,
+  getGamificationStats,
+} from "./gamificationService";
 
 describe("gamificationService", () => {
   it("calculates active streak correctly for consecutive days", () => {
@@ -40,5 +45,14 @@ describe("gamificationService", () => {
     const levelHigh = computeXPAndLevel(100, 10, 5); // 250 + 1000 + 250 = 1500 XP -> Level 5 Cao Thủ
     expect(levelHigh.level).toBe(5);
     expect(levelHigh.levelTitle).toBe("Cao Thủ");
+  });
+
+  it("records daily streak and updates gamification stats reactively", () => {
+    const res = recordDailyStreak("student_test_streak");
+    expect(res.currentStreak).toBeGreaterThanOrEqual(1);
+
+    const stats = getGamificationStats("student_test_streak");
+    expect(stats.currentStreak).toBeGreaterThanOrEqual(1);
+    expect(stats.longestStreak).toBeGreaterThanOrEqual(1);
   });
 });

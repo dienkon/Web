@@ -22,6 +22,7 @@ import {
   BookOpen,
   ArrowRight,
   ShieldCheck,
+  Sparkles,
 } from "lucide-react";
 import clsx from "clsx";
 import type {
@@ -36,6 +37,14 @@ import {
   saveCustomCampaign,
   validateCampaignGraph,
 } from "../../features/journey/services/campaignService";
+import {
+  saveAdminJourneyLevel,
+  getAdminJourneyLevel,
+  getAllAdminJourneyLevels,
+  calculateJourneyDefaultRewardRange,
+  type AdminJourneyCustomLevel,
+} from "../../features/journey/services/journeyAdminSyncService";
+import type { JourneyQuestionItem } from "../../features/journey/data/journeySubjectQuestions";
 import { useToast } from "../../components/ui/ToastNotification";
 
 export default function JourneyCreatorStudio() {
@@ -47,7 +56,76 @@ export default function JourneyCreatorStudio() {
     errors: string[];
   } | null>(null);
 
-  const [activeTab, setActiveTab] = useState<"general" | "nodes" | "preview">("general");
+  const [activeTab, setActiveTab] = useState<"general" | "nodes" | "preview" | "csdl_events">("general");
+
+  // Admin CSDL Synchronizer State
+  const [csdlSubject, setCsdlSubject] = useState<"math" | "physics" | "chemistry">("math");
+  const [csdlLevel, setCsdlLevel] = useState<number>(1);
+  const [csdlEventName, setCsdlEventName] = useState<string>("");
+  const [csdlEventDesc, setCsdlEventDesc] = useState<string>("");
+  const [csdlEventActive, setCsdlEventActive] = useState<boolean>(false);
+  const [csdlRewardMin, setCsdlRewardMin] = useState<number>(5);
+  const [csdlRewardMax, setCsdlRewardMax] = useState<number>(30);
+  const [csdlQuestions, setCsdlQuestions] = useState<JourneyQuestionItem[]>([]);
+  const [savedCsdlLevels, setSavedCsdlLevels] = useState<AdminJourneyCustomLevel[]>([]);
+  const [isSavingCsdl, setIsSavingCsdl] = useState<boolean>(false);
+
+  const loadCsdlLevels = async () => {
+    try {
+      const all = await getAllAdminJourneyLevels();
+      setSavedCsdlLevels(all);
+    } catch (_) {}
+  };
+
+  const handleLoadLevelFromCsdl = async (sub: "math" | "physics" | "chemistry", lvl: number) => {
+    setCsdlSubject(sub);
+    setCsdlLevel(lvl);
+    const existing = await getAdminJourneyLevel(sub, lvl);
+    if (existing) {
+      setCsdlEventName(existing.eventName || "");
+      setCsdlEventDesc(existing.eventDescription || "");
+      setCsdlEventActive(!!existing.eventActive);
+      const defaultRange = calculateJourneyDefaultRewardRange(lvl);
+      setCsdlRewardMin(existing.rewardCoinsMin ?? defaultRange.min);
+      setCsdlRewardMax(existing.rewardCoinsMax ?? defaultRange.max);
+      setCsdlQuestions(existing.questions && existing.questions.length > 0 ? existing.questions : []);
+      toast.success(`Đã nạp dữ liệu Màn ${lvl} môn ${sub}!`);
+    } else {
+      const defaultRange = calculateJourneyDefaultRewardRange(lvl);
+      setCsdlEventName("");
+      setCsdlEventDesc("");
+      setCsdlEventActive(false);
+      setCsdlRewardMin(defaultRange.min);
+      setCsdlRewardMax(defaultRange.max);
+      setCsdlQuestions([]);
+      toast.info(`Màn ${lvl} môn ${sub} đang dùng câu hỏi mặc định.`);
+    }
+  };
+
+  const handleSaveCsdlLevel = async () => {
+    setIsSavingCsdl(true);
+    try {
+      await saveAdminJourneyLevel({
+        id: `${csdlSubject}_lvl_${csdlLevel}`,
+        subject: csdlSubject,
+        level: csdlLevel,
+        title: `Màn ${csdlLevel}`,
+        eventName: csdlEventName,
+        eventDescription: csdlEventDesc,
+        eventActive: csdlEventActive,
+        rewardCoinsMin: csdlRewardMin,
+        rewardCoinsMax: csdlRewardMax,
+        questions: csdlQuestions,
+        updatedAt: new Date().toISOString(),
+      });
+      toast.success(`Đã đồng bộ Màn ${csdlLevel} môn ${csdlSubject} lên Firestore CSDL thành công!`);
+      loadCsdlLevels();
+    } catch (err: any) {
+      toast.error(err.message || "Lỗi lưu CSDL");
+    } finally {
+      setIsSavingCsdl(false);
+    }
+  };
 
   const refreshList = () => {
     setCampaigns(getAllCampaigns());
@@ -236,6 +314,23 @@ export default function JourneyCreatorStudio() {
       <div className="flex-1 flex overflow-hidden">
         {/* Left Column: Campaigns List */}
         <div className="w-72 border-r border-slate-800 bg-slate-950/40 p-4 overflow-y-auto space-y-3">
+          <button
+            type="button"
+            onClick={() => {
+              setActiveTab("csdl_events");
+              loadCsdlLevels();
+            }}
+            className={clsx(
+              "w-full py-2.5 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer border mb-3 shadow-md",
+              activeTab === "csdl_events"
+                ? "bg-purple-600 border-purple-500 text-white shadow-purple-600/30"
+                : "bg-purple-950/40 hover:bg-purple-900/50 border-purple-800 text-purple-300"
+            )}
+          >
+            <Sparkles className="w-4 h-4 text-purple-400" />
+            <span>Đồng bộ CSDL & Sự kiện</span>
+          </button>
+
           <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">
             Danh sách chiến dịch ({campaigns.length})
           </span>
@@ -515,6 +610,238 @@ export default function JourneyCreatorStudio() {
               )}
             </div>
           </div>
+        ) : activeTab === "csdl_events" ? (
+          <div className="flex-1 flex flex-col overflow-y-auto bg-slate-900/80 p-6 space-y-6">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+              <div>
+                <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                  <Sparkles className="w-5 h-5 text-purple-400" />
+                  Đồng Bộ CSDL Hành Trình & Câu Hỏi Riêng (Firestore)
+                </h3>
+                <p className="text-xs text-slate-400 mt-1">
+                  Quản lý câu hỏi tùy biến, sự kiện thử thách và phần thưởng xu cho 50 màn chơi của từng môn học.
+                </p>
+              </div>
+              <button
+                type="button"
+                disabled={isSavingCsdl}
+                onClick={handleSaveCsdlLevel}
+                className="px-5 py-2.5 rounded-xl text-xs font-bold bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white shadow-lg shadow-purple-600/30 flex items-center gap-2 cursor-pointer transition-all"
+              >
+                <Save className="w-4 h-4" />
+                <span>{isSavingCsdl ? "Đang đồng bộ..." : "Lưu & Đồng bộ lên CSDL"}</span>
+              </button>
+            </div>
+
+            {/* Level & Subject Selector */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-slate-950/40 p-4 rounded-2xl border border-slate-800">
+              <div>
+                <label className="text-xs font-bold text-slate-400 block mb-1">Môn học</label>
+                <select
+                  value={csdlSubject}
+                  onChange={(e) => handleLoadLevelFromCsdl(e.target.value as any, csdlLevel)}
+                  className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-xs font-semibold text-white outline-hidden focus:border-purple-500"
+                >
+                  <option value="math">Toán Học (12)</option>
+                  <option value="physics">Vật Lý (12)</option>
+                  <option value="chemistry">Hóa Học (12)</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-400 block mb-1">Màn chơi (1 - 50)</label>
+                <input
+                  type="number"
+                  min={1}
+                  max={50}
+                  value={csdlLevel}
+                  onChange={(e) => handleLoadLevelFromCsdl(csdlSubject, Math.max(1, Math.min(50, parseInt(e.target.value, 10) || 1)))}
+                  className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-xs font-semibold text-white outline-hidden focus:border-purple-500"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-400 block mb-1">Phần thưởng vượt màn (Xu/Đồng)</label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="number"
+                    min={5}
+                    max={100}
+                    value={csdlRewardMin}
+                    onChange={(e) => setCsdlRewardMin(parseInt(e.target.value, 10) || 5)}
+                    className="w-20 px-2 py-2 bg-slate-900 border border-slate-700 rounded-xl text-xs text-center text-white"
+                  />
+                  <span className="text-slate-400 text-xs">đến</span>
+                  <input
+                    type="number"
+                    min={5}
+                    max={100}
+                    value={csdlRewardMax}
+                    onChange={(e) => setCsdlRewardMax(parseInt(e.target.value, 10) || 30)}
+                    className="w-20 px-2 py-2 bg-slate-900 border border-slate-700 rounded-xl text-xs text-center text-white"
+                  />
+                  <span className="text-slate-400 text-xs font-bold">đồng</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Special Event Configuration */}
+            <div className="bg-slate-950/40 p-5 rounded-2xl border border-slate-800 space-y-3">
+              <div className="flex items-center justify-between">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-purple-400 flex items-center gap-2">
+                  <Sparkles className="w-4 h-4" />
+                  Sự kiện đặc biệt tại Màn {csdlLevel}
+                </h4>
+                <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-300">
+                  <input
+                    type="checkbox"
+                    checked={csdlEventActive}
+                    onChange={(e) => setCsdlEventActive(e.target.checked)}
+                    className="w-4 h-4 rounded text-purple-600 focus:ring-purple-500"
+                  />
+                  Kích hoạt sự kiện
+                </label>
+              </div>
+
+              {csdlEventActive && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                  <div>
+                    <label className="text-xs font-medium text-slate-400 block mb-1">Tên sự kiện / Thử thách</label>
+                    <input
+                      type="text"
+                      value={csdlEventName}
+                      onChange={(e) => setCsdlEventName(e.target.value)}
+                      placeholder="VD: Đại Chiến Đạo Hàm - Nhân Đôi Xu Thưởng"
+                      className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-xs text-white"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-medium text-slate-400 block mb-1">Mô tả sự kiện</label>
+                    <input
+                      type="text"
+                      value={csdlEventDesc}
+                      onChange={(e) => setCsdlEventDesc(e.target.value)}
+                      placeholder="VD: Hoàn thành màn này để nhận thêm huy hiệu và phần thưởng đặc biệt!"
+                      className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-xs text-white"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Custom Questions Authoring */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="text-sm font-bold text-white">
+                    Câu hỏi riêng của Màn {csdlLevel} ({csdlQuestions.length} câu)
+                  </h4>
+                  <p className="text-xs text-slate-500">
+                    {csdlQuestions.length === 0
+                      ? "Chưa có câu hỏi riêng. Hệ thống sẽ tự động dùng câu hỏi chuẩn từ ngân hàng mặc định."
+                      : "Học sinh vượt màn này sẽ làm các câu hỏi riêng do Admin thiết lập dưới đây."}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const newQ: JourneyQuestionItem = {
+                      id: `custom_${csdlSubject}_lvl_${csdlLevel}_${Date.now()}`,
+                      subject: csdlSubject,
+                      level: csdlLevel,
+                      title: `Màn ${csdlLevel} - Câu ${csdlQuestions.length + 1}`,
+                      question: "Đề bài câu hỏi mới (hỗ trợ công thức LaTeX $...$)...",
+                      options: ["Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D"],
+                      correctIndex: 0,
+                      explanation: "Lời giải chi tiết...",
+                    };
+                    setCsdlQuestions([...csdlQuestions, newQ]);
+                  }}
+                  className="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Plus className="w-4 h-4" />
+                  Thêm câu hỏi riêng
+                </button>
+              </div>
+
+              <div className="space-y-4">
+                {csdlQuestions.map((q, qIdx) => (
+                  <div key={q.id || qIdx} className="bg-slate-950/60 p-5 rounded-2xl border border-slate-800 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-indigo-400">Câu hỏi #{qIdx + 1}</span>
+                      <button
+                        type="button"
+                        onClick={() => setCsdlQuestions(csdlQuestions.filter((_, idx) => idx !== qIdx))}
+                        className="text-rose-400 hover:text-rose-300 text-xs font-semibold flex items-center gap-1"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                        Xóa câu hỏi
+                      </button>
+                    </div>
+
+                    <div>
+                      <label className="text-xs font-medium text-slate-400 block mb-1">Nội dung câu hỏi (LaTeX):</label>
+                      <textarea
+                        rows={2}
+                        value={q.question}
+                        onChange={(e) => {
+                          const updated = [...csdlQuestions];
+                          updated[qIdx] = { ...updated[qIdx], question: e.target.value };
+                          setCsdlQuestions(updated);
+                        }}
+                        className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-xs text-white"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {q.options.map((opt, oIdx) => (
+                        <div key={oIdx} className="flex items-center gap-2">
+                          <input
+                            type="radio"
+                            name={`correct_${qIdx}`}
+                            checked={q.correctIndex === oIdx}
+                            onChange={() => {
+                              const updated = [...csdlQuestions];
+                              updated[qIdx] = { ...updated[qIdx], correctIndex: oIdx };
+                              setCsdlQuestions(updated);
+                            }}
+                            className="text-emerald-500 focus:ring-emerald-400"
+                          />
+                          <span className="text-xs font-bold text-slate-400">{String.fromCharCode(65 + oIdx)}:</span>
+                          <input
+                            type="text"
+                            value={opt}
+                            onChange={(e) => {
+                              const updated = [...csdlQuestions];
+                              const newOpts = [...updated[qIdx].options];
+                              newOpts[oIdx] = e.target.value;
+                              updated[qIdx] = { ...updated[qIdx], options: newOpts };
+                              setCsdlQuestions(updated);
+                            }}
+                            className="flex-1 px-2.5 py-1.5 bg-slate-900 border border-slate-700 rounded-xl text-xs text-white"
+                          />
+                        </div>
+                      ))}
+                    </div>
+
+                    <div>
+                      <label className="text-xs font-medium text-slate-400 block mb-1">Lời giải chi tiết:</label>
+                      <input
+                        type="text"
+                        value={q.explanation}
+                        onChange={(e) => {
+                          const updated = [...csdlQuestions];
+                          updated[qIdx] = { ...updated[qIdx], explanation: e.target.value };
+                          setCsdlQuestions(updated);
+                        }}
+                        className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-xl text-xs text-white"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         ) : (
           <div className="flex-1 flex flex-col items-center justify-center p-8 text-center text-slate-400 space-y-3">
             <div className="w-12 h-12 rounded-2xl bg-slate-800 text-slate-500 flex items-center justify-center">
@@ -522,7 +849,7 @@ export default function JourneyCreatorStudio() {
             </div>
             <h3 className="font-bold text-slate-300">Chưa chọn chiến dịch</h3>
             <p className="text-xs text-slate-500 max-w-sm">
-              Chọn một chiến dịch từ danh sách bên trái hoặc tạo mới để bắt đầu thiết kế.
+              Chọn một chiến dịch từ danh sách bên trái hoặc bấm "Đồng bộ CSDL & Sự kiện" để cấu hình câu hỏi riêng.
             </p>
           </div>
         )}

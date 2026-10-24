@@ -120,6 +120,86 @@ export function computeXPAndLevel(totalScoreSum: number, examCount: number, perf
   };
 }
 
+const memoryStorage: Record<string, string> = {};
+
+export function safeGetItem(key: string): string | null {
+  try {
+    if (typeof localStorage !== "undefined" && typeof localStorage?.getItem === "function") {
+      const val = localStorage.getItem(key);
+      if (val !== null) return val;
+    }
+  } catch (_) {}
+  return memoryStorage[key] ?? null;
+}
+
+export function safeSetItem(key: string, val: string): void {
+  try {
+    if (typeof localStorage !== "undefined" && typeof localStorage?.setItem === "function") {
+      localStorage.setItem(key, val);
+    }
+  } catch (_) {}
+  memoryStorage[key] = val;
+}
+
+export const STREAK_UPDATED_EVENT = "dktest:streak_updated";
+
+/**
+ * Records an active study/learning event for today to maintain and grow the student's streak.
+ */
+export function recordDailyStreak(studentUsernameOrUid: string): { currentStreak: number; longestStreak: number } {
+  if (!studentUsernameOrUid) {
+    return { currentStreak: 0, longestStreak: 0 };
+  }
+
+  const today = formatDateKey(new Date());
+  const cleanId = studentUsernameOrUid.trim();
+
+  try {
+    const key = `dktest_streak_dates_${cleanId}`;
+    const raw = safeGetItem(key);
+    let dates: string[] = raw ? JSON.parse(raw) : [];
+    if (!Array.isArray(dates)) dates = [];
+
+    if (!dates.includes(today)) {
+      dates.push(today);
+      safeSetItem(key, JSON.stringify(dates));
+    }
+
+    // Also persist into common fallback key
+    const commonRaw = safeGetItem("dktest_streak_dates_common");
+    let commonDates: string[] = commonRaw ? JSON.parse(commonRaw) : [];
+    if (!Array.isArray(commonDates)) commonDates = [];
+    if (!commonDates.includes(today)) {
+      commonDates.push(today);
+      safeSetItem("dktest_streak_dates_common", JSON.stringify(commonDates));
+    }
+
+    // Dispatch custom event for immediate reactive re-rendering
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent(STREAK_UPDATED_EVENT, { detail: { username: cleanId, today } }));
+    }
+
+    return computeStreak(dates);
+  } catch (err) {
+    console.warn("[GamificationService] Failed to record daily streak:", err);
+    return { currentStreak: 1, longestStreak: 1 };
+  }
+}
+
+/**
+ * Subscribes to real-time streak and gamification changes
+ */
+export function subscribeToStreakUpdates(callback: () => void): () => void {
+  if (typeof window === "undefined") return () => {};
+  const handler = () => callback();
+  window.addEventListener(STREAK_UPDATED_EVENT, handler);
+  window.addEventListener("storage", handler);
+  return () => {
+    window.removeEventListener(STREAK_UPDATED_EVENT, handler);
+    window.removeEventListener("storage", handler);
+  };
+}
+
 export function getGamificationStats(studentUsername: string): GamificationStats {
   if (!studentUsername) {
     return {
@@ -137,14 +217,16 @@ export function getGamificationStats(studentUsername: string): GamificationStats
   }
 
   try {
-    const rawHistory = localStorage.getItem(`dktest_student_submissions_${studentUsername}`) ||
-      localStorage.getItem("dktest_student_submissions");
+    const cleanId = studentUsername.trim();
+    const rawHistory = safeGetItem(`dktest_student_submissions_${cleanId}`) ||
+      safeGetItem("dktest_student_submissions");
     const submissions = rawHistory ? JSON.parse(rawHistory) : [];
 
     const dates: string[] = [];
     let scoreSum = 0;
     let perfectCount = 0;
 
+    // 1. Collect dates from submissions
     submissions.forEach((s: any) => {
       const ts = s.submittedAt || s.createdAt || Date.now();
       const d = new Date(typeof ts === "number" ? ts : (ts.seconds ? ts.seconds * 1000 : ts));
@@ -156,10 +238,51 @@ export function getGamificationStats(studentUsername: string): GamificationStats
       if (score >= 9.9) perfectCount++;
     });
 
-    const { currentStreak, longestStreak } = computeStreak(dates);
-    const xpStats = computeXPAndLevel(scoreSum, submissions.length, perfectCount);
+    // 2. Collect dates from explicit streak dates record
+    const streakRaw = safeGetItem(`dktest_streak_dates_${cleanId}`) ||
+      safeGetItem("dktest_streak_dates_common");
+    if (streakRaw) {
+      try {
+        const storedDates = JSON.parse(streakRaw);
+        if (Array.isArray(storedDates)) {
+          dates.push(...storedDates);
+        }
+      } catch (_) {}
+    }
 
-    const journeyLevel = parseInt(localStorage.getItem("dktest_journey_level") || "1", 10);
+    // 3. Collect dates from learning activities cache
+    const actRaw = safeGetItem(`dktest_learning_activities_${cleanId}`);
+    if (actRaw) {
+      try {
+        const acts = JSON.parse(actRaw);
+        if (Array.isArray(acts)) {
+          acts.forEach((a: any) => {
+            const timeStr = a.completedAt || a.startedAt || a.createdAt;
+            if (timeStr) {
+              const d = new Date(timeStr);
+              if (!isNaN(d.getTime())) dates.push(formatDateKey(d));
+            }
+          });
+        }
+      } catch (_) {}
+    }
+
+    // 4. Collect dates from journey progress
+    const journeyProg = safeGetItem("dktest_journey_progress");
+    if (journeyProg) {
+      try {
+        const prog = JSON.parse(journeyProg);
+        if (prog?.updatedAt) {
+          const d = new Date(prog.updatedAt);
+          if (!isNaN(d.getTime())) dates.push(formatDateKey(d));
+        }
+      } catch (_) {}
+    }
+
+    const { currentStreak, longestStreak } = computeStreak(dates);
+    const xpStats = computeXPAndLevel(scoreSum, Math.max(submissions.length, dates.length > 0 ? 1 : 0), perfectCount);
+
+    const journeyLevel = parseInt(safeGetItem("dktest_journey_level") || "1", 10);
     const hasNightExam = submissions.some((s: any) => {
       const ts = s.submittedAt || s.createdAt;
       if (!ts) return false;

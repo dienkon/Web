@@ -252,6 +252,12 @@ export const createSubmission = async (
     });
   }).catch(() => {});
 
+  // Update daily streak and gamification
+  import("./gamificationService").then(({ recordDailyStreak }) => {
+    const ident = (submissionData as any).studentName || submissionData.studentId || (submissionData as any).ownerId || "student";
+    recordDailyStreak(ident);
+  }).catch(() => {});
+
   return { id: docRef.id, ...newSubmission, submittedAt: new Date() as any } as Submission;
 };
 

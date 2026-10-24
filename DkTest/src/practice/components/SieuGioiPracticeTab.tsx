@@ -102,18 +102,15 @@ export default function SieuGioiPracticeTab({ onOpenLaunchModal }: Props) {
   };
 
   const handleLaunchBai = (baiNumber: number) => {
-    const mode = PracticeRegistry.get(`math_sieugioi_bai_${baiNumber}`);
-    if (mode) onOpenLaunchModal(mode);
+    const questions = SIEUGIOI_QUESTIONS.filter((q) => q.bai === baiNumber);
+    const totalQuestions = questions.length || 15;
+    navigate(`/practice/math_sieugioi_bai_${baiNumber}?diff=1&target=${totalQuestions}&fullExam=true`);
   };
 
   const handleLaunchExam = (examId: string) => {
-    const mode = PracticeRegistry.get(`sg_exam_${examId}`);
-    if (mode) {
-      onOpenLaunchModal(mode);
-    } else {
-      // Fallback: direct navigate
-      navigate(`/practice/sg_exam_${examId}?diff=1&target=15`);
-    }
+    const examQuestions = SIEUGIOI_QUESTIONS.filter((q) => q.examId === examId);
+    const totalQuestions = examQuestions.length || 15;
+    navigate(`/practice/sg_exam_${examId}?diff=1&target=${totalQuestions}&fullExam=true`);
   };
 
   return (

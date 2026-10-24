@@ -1291,3 +1291,69 @@ export async function adminDirectEditWalletApi(
     message: "Đã cập nhật ví học sinh trực tiếp!",
   };
 }
+
+/**
+ * Awards coins (5 - 30 đồng) to a student upon conquering a Journey level.
+ */
+export async function awardJourneyRewardCoins(
+  studentUid: string,
+  coins: number,
+  level: number,
+  subjectName: string
+): Promise<{ success: boolean; coinsAwarded: number; newBalance: number }> {
+  const cleanUid = studentUid || getResolvedStudentUid();
+  const rewardAmount = Math.max(5, Math.min(100, Math.floor(coins)));
+  if (!cleanUid) {
+    return { success: false, coinsAwarded: 0, newBalance: 0 };
+  }
+
+  // 1. Update local cache immediately
+  let localBal = 0;
+  try {
+    const rawBal = localStorage.getItem(`dktest_wallet_balance_${cleanUid}`);
+    localBal = rawBal ? parseInt(rawBal, 10) || 0 : 0;
+    localBal += rewardAmount;
+    localStorage.setItem(`dktest_wallet_balance_${cleanUid}`, String(localBal));
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("dktest:wallet_updated", { detail: { newBalance: localBal } }));
+    }
+  } catch (_) {}
+
+  // 2. Persist to Firestore if available
+  try {
+    const walletRef = doc(db, "wallets", cleanUid);
+    const snap = await getDoc(walletRef);
+    let currentBal = 0;
+    if (snap.exists()) {
+      currentBal = Number(snap.data()?.balanceVnd) || 0;
+    }
+    const updatedBal = currentBal + rewardAmount;
+    await setDoc(
+      walletRef,
+      {
+        balanceVnd: updatedBal,
+        totalCreditedVnd: (Number(snap.data()?.totalCreditedVnd) || 0) + rewardAmount,
+        updatedAt: new Date().toISOString(),
+      },
+      { merge: true }
+    );
+
+    // Record transaction
+    const txId = `tx_jny_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
+    await setDoc(doc(db, "wallet_transactions", txId), {
+      id: txId,
+      uid: cleanUid,
+      type: "reward",
+      amountVnd: rewardAmount,
+      balanceAfterVnd: updatedBal,
+      description: `Thưởng vượt Màn ${level} (${subjectName}) trong Hành trình học tập`,
+      createdAt: new Date().toISOString(),
+    });
+
+    return { success: true, coinsAwarded: rewardAmount, newBalance: updatedBal };
+  } catch (err) {
+    console.warn("[walletClientService] Could not persist reward to Firestore:", err);
+    return { success: true, coinsAwarded: rewardAmount, newBalance: localBal };
+  }
+}
+

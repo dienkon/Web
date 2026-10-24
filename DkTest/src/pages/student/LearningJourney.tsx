@@ -37,6 +37,7 @@ import {
   Compass,
   Star,
   ShieldCheck,
+  ShieldAlert,
   BookOpen,
   Atom,
   FlaskConical,
@@ -61,8 +62,17 @@ import { useToast } from "../../components/ui/ToastNotification";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 import {
   getSubjectJourneyQuestions,
+  getRandomizedJourneyQuestion,
   JourneyQuestionItem,
 } from "../../features/journey/data/journeySubjectQuestions";
+import AntiAiWatermarkStamp from "../../components/common/AntiAiWatermarkStamp";
+import { useAntiCheat } from "../../utils/antiCheatService";
+import {
+  getJourneyQuestionsWithAdminSync,
+  calculateJourneyDefaultRewardRange,
+} from "../../features/journey/services/journeyAdminSyncService";
+import { awardJourneyRewardCoins } from "../../services/walletClientService";
+import { recordDailyStreak } from "../../services/gamificationService";
 
 // Learning Intelligence imports
 import type { LearningActivity, StudentLearningStats } from "../../types/learningActivity";
@@ -320,6 +330,40 @@ export default function LearningJourney() {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isAnswerChecked, setIsAnswerChecked] = useState<boolean>(false);
   const [isLevelCompleted, setIsLevelCompleted] = useState<boolean>(false);
+  const [activeModalQuestions, setActiveModalQuestions] = useState<JourneyQuestionItem[]>([]);
+  const [activeModalEvent, setActiveModalEvent] = useState<{ name: string; description: string } | null>(null);
+  const [activeModalRewardRange, setActiveModalRewardRange] = useState<{ min: number; max: number } | null>(null);
+  const [earnedCoins, setEarnedCoins] = useState<number | null>(null);
+  const [myRank, setMyRank] = useState<number | null>(null);
+  const [retryCountdown, setRetryCountdown] = useState<number | null>(null);
+  const [canRetry, setCanRetry] = useState<boolean>(false);
+
+  // 5s countdown timer for retry option upon wrong answer
+  useEffect(() => {
+    if (retryCountdown === null) return;
+    if (retryCountdown <= 0) {
+      setCanRetry(true);
+      return;
+    }
+    const timer = setTimeout(() => {
+      setRetryCountdown((prev) => (prev !== null && prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [retryCountdown]);
+
+  // Anti-cheat protection during active challenge modal
+  const { isScreenShielded } = useAntiCheat({
+    enabled: activeModalLevel !== null && !isLevelCompleted,
+    maxViolations: 3,
+    onViolation: (violation, total) => {
+      showErrorToast(`⚠️ Cảnh báo gian lận (${total}/3): ${violation.message}`);
+    },
+    onAutoSubmit: () => {
+      showErrorToast("Bạn đã vi phạm quy chế làm bài quá số lần cho phép. Màn thử thách bị tạm dừng!");
+      setActiveModalLevel(null);
+    },
+    targetExamOrStageName: `Màn ${activeModalLevel} (${activeSubject})`,
+  });
 
   // 3D Quality Profile & Modals State
   const [quality, setQuality] = useState<QualityProfile>(() => {
@@ -539,7 +583,8 @@ export default function LearningJourney() {
     // Query by subject only (no orderBy in query to avoid requiring composite index on Firestore)
     const q = query(
       collection(db, "journey_progress"),
-      where("subject", "==", activeSubject)
+      where("subject", "==", activeSubject),
+      limit(25)
     );
 
     const unsub = onSnapshot(
@@ -573,10 +618,13 @@ export default function LearningJourney() {
           });
         }
 
-        // Sort descending by level in memory
-        const sorted = list
-          .sort((a, b) => b.level - a.level)
-          .slice(0, 10)
+        // Sort descending by level in memory - Top 3
+        const sortedFull = list.sort((a, b) => b.level - a.level);
+        const myIdx = sortedFull.findIndex((u) => u.username === currentUserInfo.username);
+        setMyRank(myIdx >= 0 ? myIdx + 1 : null);
+
+        const sorted = sortedFull
+          .slice(0, 3)
           .map((u, idx) => ({ ...u, rank: idx + 1 }));
 
         setLeaderboard(sorted);
@@ -585,6 +633,7 @@ export default function LearningJourney() {
       (err) => {
         console.warn("[Leaderboard] Snapshot error, falling back to local:", err);
         if (isCancelled) return;
+        setMyRank(1);
         setLeaderboard([
           {
             rank: 1,
@@ -604,8 +653,8 @@ export default function LearningJourney() {
     };
   }, [activeSubject, currentLevel, currentUserInfo]);
 
-  // Open Challenge Modal for a level
-  const handleOpenLevelModal = useCallback((lvl: number) => {
+  // Open Challenge Modal for a level with Admin CSDL synchronization
+  const handleOpenLevelModal = useCallback(async (lvl: number) => {
     if (lvl > currentLevel) {
       showErrorToast(`Màn ${lvl} đang bị khóa. Hãy hoàn thành các màn trước!`);
       return;
@@ -619,7 +668,23 @@ export default function LearningJourney() {
     setSelectedOption(null);
     setIsAnswerChecked(false);
     setIsLevelCompleted(false);
-  }, [currentLevel, hearts, showErrorToast]);
+    setEarnedCoins(null);
+    setActiveModalRewardRange(null);
+    setRetryCountdown(null);
+    setCanRetry(false);
+
+    // Sync questions and custom events with Admin Firestore CSDL
+    const defaultRange = calculateJourneyDefaultRewardRange(lvl);
+    try {
+      const res = await getJourneyQuestionsWithAdminSync(activeSubject, lvl);
+      setActiveModalQuestions(res.questions);
+      setActiveModalEvent(res.eventInfo || null);
+      setActiveModalRewardRange(res.rewardRange || defaultRange);
+    } catch (_) {
+      setActiveModalQuestions(getSubjectJourneyQuestions(activeSubject, lvl));
+      setActiveModalRewardRange(defaultRange);
+    }
+  }, [currentLevel, hearts, activeSubject, showErrorToast]);
 
   const getSubjectName = useCallback((sub: SubjectThemeType) => {
     switch (sub) {
@@ -636,7 +701,9 @@ export default function LearningJourney() {
   const handleCheckAnswer = () => {
     if (selectedOption === null || !activeModalLevel) return;
 
-    const questions = getSubjectJourneyQuestions(activeSubject, activeModalLevel);
+    const questions = activeModalQuestions.length > 0
+      ? activeModalQuestions
+      : getSubjectJourneyQuestions(activeSubject, activeModalLevel);
     const currentQ = questions[quizIndex] || questions[0];
 
     setIsAnswerChecked(true);
@@ -664,12 +731,17 @@ export default function LearningJourney() {
           spread: 85,
           origin: { y: 0.6 },
         });
-        showSuccessToast(`🎉 Tuyệt vời! Bạn đã chinh phục thành công Màn ${completedLvl} môn ${getSubjectName(activeSubject)}!`);
 
-        setTimeout(() => {
-          setActiveModalLevel(null);
-          setIsMilestoneRecapOpen(true);
-        }, 900);
+        // Award reward coins: Levels 1-5 receive 1-10 đồng; subsequent levels scale up to min 5 - max 30 đồng
+        const fallbackRange = calculateJourneyDefaultRewardRange(completedLvl);
+        const minCoins = activeModalRewardRange?.min ?? fallbackRange.min;
+        const maxCoins = activeModalRewardRange?.max ?? fallbackRange.max;
+        const rewardCoins = Math.floor(Math.random() * (maxCoins - minCoins + 1)) + minCoins;
+        setEarnedCoins(rewardCoins);
+        awardJourneyRewardCoins(studentUid, rewardCoins, completedLvl, getSubjectName(activeSubject));
+        recordDailyStreak(studentUsername);
+
+        showSuccessToast(`🎉 Tuyệt vời! Bạn đã chinh phục Màn ${completedLvl} môn ${getSubjectName(activeSubject)} và nhận +${rewardCoins} đồng!`);
 
         // Record into learning activities & topic mastery
         saveLearningActivity({
@@ -752,8 +824,40 @@ export default function LearningJourney() {
         return next;
       });
       showErrorToast("Chưa chính xác! Bạn bị trừ 1 tim ❤️.");
+      // Kích hoạt đếm ngược 5 giây để hiển thị nút làm lại câu hỏi
+      setRetryCountdown(5);
+      setCanRetry(false);
     }
   };
+
+  // Làm lại câu hỏi với số liệu mới và đáp án đảo vị trí
+  const handleRetryQuestion = useCallback(() => {
+    if (hearts <= 0) {
+      showErrorToast("Bạn đã hết tim! Hãy chờ hồi tim để tiếp tục thử sức nhé.");
+      return;
+    }
+    if (!activeModalLevel) return;
+
+    // Sinh lại câu hỏi mới với tham số đổi mới và hoán vị đáp án
+    const refreshedQ = getRandomizedJourneyQuestion(
+      activeSubject,
+      activeModalLevel,
+      quizIndex,
+      Date.now() + Math.random() * 9999
+    );
+
+    setActiveModalQuestions((prev) => {
+      const next = [...prev];
+      next[quizIndex] = refreshedQ;
+      return next;
+    });
+
+    setSelectedOption(null);
+    setIsAnswerChecked(false);
+    setRetryCountdown(null);
+    setCanRetry(false);
+    showInfoToast("Đã đổi số liệu và đảo vị trí đáp án! Hãy làm lại nhé 🎯");
+  }, [hearts, activeModalLevel, activeSubject, quizIndex, showErrorToast, showInfoToast]);
 
   // Filtered topics for topic mastery card section
   const filteredMasteries = useMemo(() => {
@@ -1116,7 +1220,7 @@ export default function LearningJourney() {
                       </h3>
                     </div>
                     <span className="text-[10px] font-bold text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">
-                      Top 10
+                      Top 3
                     </span>
                   </div>
 
@@ -1167,6 +1271,14 @@ export default function LearningJourney() {
                           </span>
                         </div>
                       ))}
+                      {myRank && myRank > 3 && (
+                        <div className="pt-2 mt-1 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs px-2 text-slate-500">
+                          <span>Vị trí của bạn:</span>
+                          <span className="font-extrabold text-indigo-600 dark:text-indigo-400">
+                            Hạng {myRank} • Màn {currentLevel}
+                          </span>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
@@ -1520,8 +1632,25 @@ export default function LearningJourney() {
         {/* 8. Challenge Quiz Modal for Levels */}
         {activeModalLevel && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fadeIn">
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl w-full max-w-lg p-6 space-y-5 shadow-2xl relative">
-              <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl w-full max-w-lg p-6 space-y-5 shadow-2xl relative overflow-hidden">
+              {/* Anti-AI Invisible Prompt Watermark Stamp behind the question */}
+              <AntiAiWatermarkStamp
+                studentName={studentUsername}
+                examOrSubjectTitle={`Màn ${activeModalLevel} (${getSubjectName(activeSubject)})`}
+              />
+
+              {/* Anti-Cheat Screen Shield (Flashes when screenshot/copy is attempted) */}
+              {isScreenShielded && (
+                <div className="absolute inset-0 z-50 bg-slate-950/95 flex flex-col items-center justify-center text-center p-6 text-white rounded-3xl animate-fadeIn">
+                  <ShieldAlert className="w-12 h-12 text-rose-500 mb-3 animate-pulse" />
+                  <h4 className="text-base font-black text-rose-400">PHÁT HIỆN THAO TÁC CHỤP ẢNH / SAO CHÉP!</h4>
+                  <p className="text-xs text-slate-300 mt-1 max-w-xs">
+                    Hệ thống tự động kích hoạt khiên che màn hình và ghi nhận vi phạm vào nhật ký khảo thí.
+                  </p>
+                </div>
+              )}
+
+              <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3 relative z-10">
                 <div>
                   <h3 className="font-extrabold text-base text-slate-900 dark:text-white flex items-center gap-2">
                     <Award className="w-5 h-5 text-indigo-600" />
@@ -1529,7 +1658,10 @@ export default function LearningJourney() {
                   </h3>
                   <span className="text-xs text-slate-400">
                     Câu hỏi {quizIndex + 1}/
-                    {getSubjectJourneyQuestions(activeSubject, activeModalLevel).length}
+                    {(activeModalQuestions.length > 0
+                      ? activeModalQuestions
+                      : getSubjectJourneyQuestions(activeSubject, activeModalLevel)
+                    ).length}
                   </span>
                 </div>
                 <button
@@ -1540,13 +1672,27 @@ export default function LearningJourney() {
                 </button>
               </div>
 
+              {/* Live Admin Custom Event Badge if active */}
+              {activeModalEvent && (
+                <div className="p-2.5 rounded-xl bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800 flex items-center gap-2 text-xs text-purple-800 dark:text-purple-300 relative z-10">
+                  <Sparkles className="w-4 h-4 text-purple-600 shrink-0" />
+                  <div>
+                    <strong className="font-bold">{activeModalEvent.name}: </strong>
+                    <span>{activeModalEvent.description}</span>
+                  </div>
+                </div>
+              )}
+
               {(() => {
-                const questions = getSubjectJourneyQuestions(activeSubject, activeModalLevel);
+                const questions =
+                  activeModalQuestions.length > 0
+                    ? activeModalQuestions
+                    : getSubjectJourneyQuestions(activeSubject, activeModalLevel);
                 const currentQ = questions[quizIndex] || questions[0];
 
                 if (isLevelCompleted) {
                   return (
-                    <div className="text-center py-6 space-y-4">
+                    <div className="text-center py-6 space-y-4 relative z-10">
                       <div className="w-16 h-16 bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mx-auto shadow-inner">
                         <Check className="w-8 h-8 stroke-[3]" />
                       </div>
@@ -1556,8 +1702,21 @@ export default function LearningJourney() {
                       <p className="text-xs text-slate-500 max-w-xs mx-auto">
                         Bạn đã trả lời xuất sắc toàn bộ câu hỏi của Màn {activeModalLevel}. Hãy tiếp tục tiến tới đỉnh vinh quang!
                       </p>
+
+                      {/* Coin Reward Banner (5 - 30 đồng) */}
+                      {earnedCoins !== null && (
+                        <div className="p-3 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 rounded-2xl flex items-center justify-center gap-2 text-amber-800 dark:text-amber-300 font-extrabold text-xs">
+                          <span className="text-base">💰</span>
+                          <span>Phần thưởng vượt Màn:</span>
+                          <span className="text-amber-600 dark:text-amber-400 font-black text-sm">+{earnedCoins} đồng</span>
+                        </div>
+                      )}
+
                       <button
-                        onClick={() => setActiveModalLevel(null)}
+                        onClick={() => {
+                          setActiveModalLevel(null);
+                          setIsMilestoneRecapOpen(true);
+                        }}
                         className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs rounded-xl shadow-md transition-all cursor-pointer"
                       >
                         Đóng & Tiếp tục hành trình
@@ -1567,7 +1726,7 @@ export default function LearningJourney() {
                 }
 
                 return (
-                  <div className="space-y-4">
+                  <div className="space-y-4 relative z-10">
                     <div className="text-sm font-extrabold text-slate-900 dark:text-white leading-relaxed">
                       <LatexPreview content={currentQ.question} />
                     </div>
@@ -1624,18 +1783,68 @@ export default function LearningJourney() {
                       </div>
                     )}
 
-                    {/* Submit Button */}
-                    <div className="pt-2">
-                      <button
-                        type="button"
-                        onClick={handleCheckAnswer}
-                        disabled={selectedOption === null || isAnswerChecked}
-                        className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 text-white font-extrabold text-xs rounded-xl transition-all shadow-md cursor-pointer flex items-center justify-center gap-1.5"
-                      >
-                        <Zap className="w-4 h-4" />
-                        <span>Kiểm tra đáp án</span>
-                      </button>
-                    </div>
+                    {/* Retry Panel when answer is incorrect */}
+                    {isAnswerChecked && selectedOption !== currentQ.correctIndex && (
+                      <div className="p-4 bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800 rounded-2xl space-y-3 animate-in fade-in duration-300">
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-amber-800 dark:text-amber-200 text-xs flex items-center gap-1.5">
+                            <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
+                            <span>Câu trả lời chưa chính xác (-1 tim)</span>
+                          </span>
+                          {retryCountdown !== null && retryCountdown > 0 ? (
+                            <span className="text-[11px] font-semibold text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-900/60 px-2.5 py-0.5 rounded-full flex items-center gap-1 animate-pulse">
+                              <Clock className="w-3 h-3" />
+                              Xem giải thích ({retryCountdown}s)...
+                            </span>
+                          ) : (
+                            <span className="text-[11px] font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-950/60 px-2.5 py-0.5 rounded-full">
+                              Sẵn sàng thử lại!
+                            </span>
+                          )}
+                        </div>
+
+                        <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                          {retryCountdown !== null && retryCountdown > 0
+                            ? "Hãy xem kỹ lời giải chi tiết phía trên. Sau 5 giây, hệ thống sẽ mở nút để bạn làm lại câu này với số liệu được đổi mới!"
+                            : "Bạn có muốn làm lại câu hỏi này không? Hệ thống sẽ đổi số liệu và đảo vị trí đáp án để bạn kiểm tra lại kiến thức!"}
+                        </p>
+
+                        {canRetry && (
+                          <div className="flex items-center gap-2 pt-1">
+                            <button
+                              type="button"
+                              onClick={handleRetryQuestion}
+                              className="flex-1 py-2.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+                            >
+                              <RotateCcw className="w-3.5 h-3.5" />
+                              <span>Làm lại câu này (Đổi số & Đảo đáp án)</span>
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setActiveModalLevel(null)}
+                              className="px-4 py-2.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition-all cursor-pointer"
+                            >
+                              Để sau
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Submit Button (Only before answer is checked) */}
+                    {!isAnswerChecked && (
+                      <div className="pt-2">
+                        <button
+                          type="button"
+                          onClick={handleCheckAnswer}
+                          disabled={selectedOption === null}
+                          className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 text-white font-extrabold text-xs rounded-xl transition-all shadow-md cursor-pointer flex items-center justify-center gap-1.5"
+                        >
+                          <Zap className="w-4 h-4" />
+                          <span>Kiểm tra đáp án</span>
+                        </button>
+                      </div>
+                    )}
                   </div>
                 );
               })()}

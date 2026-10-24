@@ -70,8 +70,11 @@ const StudentTutorialExam = lazyWithRetry(() => import("../../features/student-o
 const StudentTutorialResult = lazyWithRetry(() => import("../../features/student-onboarding/StudentTutorialResult"), "StudentTutorialResult");
 const LearningJourney = lazyWithRetry(() => import("../../pages/student/LearningJourney"), "LearningJourney");
 const EscapeRoomGame = lazyWithRetry(() => import("../../pages/student/EscapeRoomGame"), "EscapeRoomGame");
+const ArenaLobby = lazyWithRetry(() => import("../../pages/student/ArenaLobby"), "ArenaLobby");
+const ArenaRoom = lazyWithRetry(() => import("../../pages/student/ArenaRoom"), "ArenaRoom");
 const CodeExamBuilder = lazyWithRetry(() => import("../../pages/admin/CodeExamBuilder"), "CodeExamBuilder");
 const CodeExamTaking = lazyWithRetry(() => import("../../pages/student/CodeExamTaking"), "CodeExamTaking");
+const GlobalWorldChatPage = lazyWithRetry(() => import("../../pages/student/GlobalWorldChatPage"), "GlobalWorldChatPage");
 const NotFoundPage = lazyWithRetry(() => import("../../pages/NotFoundPage"), "NotFoundPage");
 
 const router = createBrowserRouter([
@@ -309,6 +312,10 @@ const router = createBrowserRouter([
       { path: "exams", element: withSuspense(Home, "Đang tải danh sách đề thi...") },
       { path: "journey", element: withSuspense(LearningJourney, "Đang tải bản đồ hành trình...") },
       { path: "student/journey", element: withSuspense(LearningJourney, "Đang tải bản đồ hành trình...") },
+      { path: "arena", element: withSuspense(ArenaLobby, "Đang vào Sảnh Đấu Trường...") },
+      { path: "student/arena", element: withSuspense(ArenaLobby, "Đang vào Sảnh Đấu Trường...") },
+      { path: "arena/room/:roomId", element: withSuspense(ArenaRoom, "Đang vào phòng đấu...") },
+      { path: "student/arena/room/:roomId", element: withSuspense(ArenaRoom, "Đang vào phòng đấu...") },
       { path: "escape-room", element: withSuspense(EscapeRoomGame, "Đang vào Phòng Mật Mã...") },
       { path: "student/escape-room", element: withSuspense(EscapeRoomGame, "Đang vào Phòng Mật Mã...") },
       { path: "student", element: <Navigate to="/student/history" replace /> },
@@ -317,6 +324,8 @@ const router = createBrowserRouter([
       { path: "practice", element: withSuspense(PracticePage, "Đang tải góc luyện tập...") },
       { path: "practice/:modeId", element: withSuspense(PracticeSessionPage, "Đang tải phòng luyện tập...") },
       { path: "student/community", element: withSuspense(Community, "Đang tải cộng đồng...") },
+      { path: "student/chat", element: withSuspense(GlobalWorldChatPage, "Đang mở Kênh Thế Giới...") },
+      { path: "chat", element: withSuspense(GlobalWorldChatPage, "Đang mở Kênh Thế Giới...") },
       { path: "student/ai-tutor", element: withSuspense(AiTutorPage, "Đang kết nối Gia sư AI...") },
       { path: "student/wallet", element: withSuspense(StudentWallet, "Đang tải Ví DkTEST...") },
       { path: "wallet", element: withSuspense(StudentWallet, "Đang tải Ví DkTEST...") },

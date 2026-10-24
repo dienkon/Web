@@ -169,16 +169,19 @@ export function createSieuGioiBaiMode(baiNumber: number): PracticeMode {
     icon: "BookOpen",
     badgeColor: "bg-blue-100 text-blue-800 border-blue-200",
     gameRule: "standard",
-    defaultLength: Math.min(15, questions.length || 10) as any,
-    supportsAdaptive: true,
+    defaultLength: (questions.length || 15) as any,
+    supportsAdaptive: false,
     difficultyLevels: [
-      { id: 1, name: "Cơ bản", description: "Nhận biết & Thông hiểu" },
-      { id: 2, name: "Chuẩn kiến thức", description: "Luyện tập toàn bộ dạng bài trong chuyên đề" },
-      { id: 3, name: "Nâng cao", description: "Vận dụng và câu hỏi phân loại" },
+      { id: 1, name: "Trọn bộ chuyên đề", description: "Làm tuần tự từ câu 1 đến hết bài học (full bài riêng biệt)" },
     ],
 
     generateQuestion(context: PracticeContext): PracticeQuestion {
-      return pickQuestionFromList(questions, context);
+      if (questions.length === 0) {
+        return pickQuestionFromList(SIEUGIOI_QUESTIONS, context);
+      }
+      const qIndex = context.questionIndex ?? 0;
+      const picked = questions[qIndex % questions.length];
+      return convertToPracticeQuestion(picked, qIndex);
     },
 
     validateAnswer: validateSieuGioiAnswer,
@@ -332,12 +335,17 @@ export const ALL_SIEUGIOI_EXAM_MODES: PracticeMode[] = Array.from(
     icon: "FileCheck",
     badgeColor: "bg-emerald-100 text-emerald-800 border-emerald-200",
     gameRule: "standard",
-    defaultLength: Math.min(examQuestions.length, 25) as any,
+    defaultLength: examQuestions.length as any,
     difficultyLevels: [
-      { id: 1, name: "Tiêu chuẩn", description: "Làm lần lượt các câu hỏi theo thứ tự đề thi" },
+      { id: 1, name: "Trọn bộ đề thi", description: "Làm tuần tự từ câu 1 đến hết đề thi (full bài riêng biệt)" },
     ],
     generateQuestion(context: PracticeContext): PracticeQuestion {
-      return pickQuestionFromList(examQuestions, context);
+      if (examQuestions.length === 0) {
+        return pickQuestionFromList(SIEUGIOI_QUESTIONS, context);
+      }
+      const qIndex = context.questionIndex ?? 0;
+      const picked = examQuestions[qIndex % examQuestions.length];
+      return convertToPracticeQuestion(picked, qIndex);
     },
     validateAnswer: validateSieuGioiAnswer,
     calculateScore: calculateSieuGioiScore,
