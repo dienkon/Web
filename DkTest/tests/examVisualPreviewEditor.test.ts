@@ -566,6 +566,43 @@ ctx.strokeRect(10, 10, 100, 100);
       const extracted = extractTextFromTouchEditable(mockContainer as any);
       expect(extracted).toBe("Câu 1: Cho $f(x) = x^2$ và **kết quả** cùng `v = 10`");
     });
+
+    it("protects <graph>, <bbt>, and <live-canvas> tags from entity corruption in renderTouchEditableHtml", () => {
+      const graphText = "Khảo sát:\n<graph title=\"Đồ thị bậc 3\">\nf(x) = x^3 - 3*x\n</graph>\nHết đề.";
+      const bbtText = "Bảng biến thiên:\n<bbt>\nx: -oo | 0 | +oo\ny': | + | 0 | - |\n</bbt>";
+      const canvasText = "<live-canvas width=\"400\" height=\"300\" title=\"Mô phỏng\">\nctx.fillRect(0,0,10,10);\n</live-canvas>";
+
+      const htmlGraph = renderTouchEditableHtml(graphText);
+      expect(htmlGraph).toContain("data-raw-widget=");
+      expect(htmlGraph).toContain("Khối Đồ Thị Hàm Số SVG &lt;graph&gt;");
+      expect(htmlGraph).not.toContain("&lt;graph title="); // Must NOT be raw escaped text
+
+      const htmlBbt = renderTouchEditableHtml(bbtText);
+      expect(htmlBbt).toContain("data-raw-widget=");
+      expect(htmlBbt).toContain("Bảng Biến Thiên &lt;bbt&gt;");
+
+      const htmlCanvas = renderTouchEditableHtml(canvasText);
+      expect(htmlCanvas).toContain("data-raw-widget=");
+      expect(htmlCanvas).toContain("Bản vẽ Canvas Trực Tiếp");
+
+      // Verify extraction recovers the exact tag code
+      const mockGraphElement = {
+        nodeType: 1,
+        childNodes: [
+          { nodeType: 3, textContent: "Khảo sát:\n" },
+          {
+            nodeType: 1,
+            tagName: "DIV",
+            hasAttribute: (a: string) => a === "data-raw-widget",
+            getAttribute: (a: string) => (a === "data-raw-widget" ? safeEncode("<graph>\nf(x) = x^2\n</graph>") : null),
+            textContent: "Đồ thị",
+            childNodes: [],
+          },
+        ],
+      };
+      const extractedGraph = extractTextFromTouchEditable(mockGraphElement as any);
+      expect(extractedGraph).toBe("Khảo sát:\n<graph>\nf(x) = x^2\n</graph>");
+    });
   });
 
   describe("Exam Visual Editor Resizable Panel & Clamping", () => {

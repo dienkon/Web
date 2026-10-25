@@ -37,11 +37,11 @@ interface Props {
 export function renderTouchEditableHtml(text: string): string {
   if (!text) return "";
 
-  // 1. Mask HTML widgets and standalone HTML documents
+  // 1. Mask HTML widgets, graphs, BBT, and standalone HTML documents
   let protectedText = text;
   const widgetMasks: string[] = [];
   protectedText = protectedText.replace(
-    /(?:<(?:html-widget|widget|live-html)\b[\s\S]*?<\/(?:html-widget|widget|live-html)>|<!DOCTYPE\s+html[\s\S]*?(?:<\/html>|$)|<html\b[\s\S]*?(?:<\/html>|$)|```(?:html|widget|simulation|canvas-html|live-code|canvas)[\s\S]*?```|<live-canvas\b[\s\S]*?<\/live-canvas>|(?:<style\b[\s\S]*?<\/style>[\s\S]*?<script\b[\s\S]*?<\/script>|<script\b[\s\S]*?<\/script>[\s\S]*?<style\b[\s\S]*?<\/style>|<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>))/gi,
+    /(?:<(?:html-widget|widget|live-html)\b[\s\S]*?<\/(?:html-widget|widget|live-html)>|<!DOCTYPE\s+html[\s\S]*?(?:<\/html>|$)|<html\b[\s\S]*?(?:<\/html>|$)|```(?:html|widget|simulation|canvas-html|live-code|canvas)[\s\S]*?```|<live-canvas\b[\s\S]*?<\/live-canvas>|<graph\b[\s\S]*?<\/graph>|<bbt\b[\s\S]*?<\/bbt>|(?:<style\b[\s\S]*?<\/style>[\s\S]*?<script\b[\s\S]*?<\/script>|<script\b[\s\S]*?<\/script>[\s\S]*?<style\b[\s\S]*?<\/style>|<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>))/gi,
     (m) => {
       widgetMasks.push(m);
       return `\uE00AHW_${widgetMasks.length - 1}\uE00B`;
@@ -80,10 +80,32 @@ export function renderTouchEditableHtml(text: string): string {
     )}" title="Công thức LaTeX: ${escapeHtml(item.latex)}">${renderedKaTeX}</span>`;
   });
 
-  // 5. Restore HTML widgets as contenteditable="false" preview blocks
+  // 5. Restore HTML widgets, Graph, BBT as contenteditable="false" preview blocks
   safeHtml = safeHtml.replace(/\uE00AHW_(\d+)\uE00B/g, (_, idx) => {
     const widgetCode = widgetMasks[parseInt(idx, 10)];
     if (!widgetCode) return "";
+    const isGraph = /^<graph\b/i.test(widgetCode.trim());
+    const isBbt = /^<bbt\b/i.test(widgetCode.trim());
+    const isLiveCanvas = /^<live-canvas\b/i.test(widgetCode.trim());
+
+    if (isGraph) {
+      return `<div contenteditable="false" class="my-2.5 p-3 bg-gradient-to-r from-cyan-50 to-blue-50 border border-cyan-200 text-cyan-950 rounded-xl text-xs font-mono select-none flex items-center justify-between shadow-2xs" data-raw-widget="${safeEncode(
+        widgetCode
+      )}"><div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-cyan-500"></span><div><div class="font-bold text-cyan-900">Khối Đồ Thị Hàm Số SVG &lt;graph&gt;</div><div class="text-[10px] text-cyan-600 font-sans">Khảo sát hàm số & toạ độ cực trị</div></div></div><span class="text-[10px] text-cyan-700 font-bold bg-white px-2 py-1 rounded-lg border border-cyan-200 shadow-2xs">Đồ thị</span></div>`;
+    }
+
+    if (isBbt) {
+      return `<div contenteditable="false" class="my-2.5 p-3 bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 text-emerald-950 rounded-xl text-xs font-mono select-none flex items-center justify-between shadow-2xs" data-raw-widget="${safeEncode(
+        widgetCode
+      )}"><div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span><div><div class="font-bold text-emerald-900">Bảng Biến Thiên &lt;bbt&gt;</div><div class="text-[10px] text-emerald-600 font-sans">Chuẩn GDPT 2018 (dấu đạo hàm, mũi tên biến thiên)</div></div></div><span class="text-[10px] text-emerald-700 font-bold bg-white px-2 py-1 rounded-lg border border-emerald-200 shadow-2xs">Bảng biến thiên</span></div>`;
+    }
+
+    if (isLiveCanvas) {
+      return `<div contenteditable="false" class="my-2.5 p-3 bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200 text-purple-950 rounded-xl text-xs font-mono select-none flex items-center justify-between shadow-2xs" data-raw-widget="${safeEncode(
+        widgetCode
+      )}"><div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-purple-500 animate-pulse"></span><div><div class="font-bold text-purple-900">Bản vẽ Canvas Trực Tiếp &lt;live-canvas&gt;</div><div class="text-[10px] text-purple-600 font-sans">Mã JavaScript vẽ hình toạ độ động</div></div></div><span class="text-[10px] text-purple-700 font-bold bg-white px-2 py-1 rounded-lg border border-purple-200 shadow-2xs">Bản vẽ</span></div>`;
+    }
+
     return `<div contenteditable="false" class="my-2.5 p-3 bg-gradient-to-r from-indigo-50 to-blue-50 border border-indigo-200 text-indigo-950 rounded-xl text-xs font-mono select-none flex items-center justify-between shadow-2xs" data-raw-widget="${safeEncode(
       widgetCode
     )}"><div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-pulse"></span><div><div class="font-bold text-indigo-900">Khối mô phỏng HTML5 / JavaScript (Tương tác)</div><div class="text-[10px] text-indigo-600 font-sans">Mã nguồn an toàn trong sandbox iframe</div></div></div><span class="text-[10px] text-indigo-700 font-bold bg-white px-2 py-1 rounded-lg border border-indigo-200 shadow-2xs">Đang chạy</span></div>`;

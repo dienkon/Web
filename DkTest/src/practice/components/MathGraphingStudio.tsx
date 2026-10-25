@@ -1411,13 +1411,25 @@ export default function MathGraphingStudio() {
                 <div className="text-xs text-slate-400">
                   Tải trực tiếp từ máy chủ GeoGebra Quốc tế (geogebra.org)
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setIsIframeLoading(false)}
-                  className="mt-1 text-xs text-purple-300 hover:text-white underline cursor-pointer bg-slate-800/80 hover:bg-slate-800 px-3 py-1 rounded-lg border border-slate-700 transition-colors"
-                >
-                  Bỏ qua màn hình chờ (Xem bảng vẽ ngay)
-                </button>
+                <div className="flex flex-wrap items-center justify-center gap-2 mt-1">
+                  <button
+                    type="button"
+                    onClick={() => setIsIframeLoading(false)}
+                    className="text-xs text-purple-300 hover:text-white underline cursor-pointer bg-slate-800/80 hover:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 transition-colors"
+                  >
+                    Bỏ qua màn hình chờ
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsIframeLoading(false);
+                      setStudioMode("dkmath");
+                    }}
+                    className="text-xs text-cyan-300 hover:text-white cursor-pointer bg-cyan-950/80 hover:bg-cyan-900 px-3.5 py-1.5 rounded-lg border border-cyan-800/60 transition-colors font-bold shadow-sm"
+                  >
+                    Chuyển DkMath 2D (Offline 100%)
+                  </button>
+                </div>
               </div>
             )}
 
@@ -1426,6 +1438,7 @@ export default function MathGraphingStudio() {
               src={currentGeoApp.embedUrl}
               title={currentGeoApp.name}
               onLoad={() => setIsIframeLoading(false)}
+              onError={() => setIsIframeLoading(false)}
               allow="fullscreen; clipboard-read; clipboard-write; microphone; camera"
               className="w-full h-[660px] lg:h-[720px] border-0 rounded-2xl block bg-white"
             />
