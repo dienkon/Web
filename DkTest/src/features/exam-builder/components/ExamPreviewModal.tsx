@@ -23,12 +23,14 @@ import {
   FileText,
   ArrowUp,
   ArrowDown,
+  Download,
 } from "lucide-react";
 import { Exam, Section, Question } from "../../../types";
 import LatexPreview from "../editor/LatexPreview";
 import InteractiveFillBlankText from "../../../components/exam/InteractiveFillBlankText";
 import InteractiveMatchingBoard from "../../../components/exam/InteractiveMatchingBoard";
 import ExamAudioPlayer from "../../../components/exam/ExamAudioPlayer";
+import ExamExportModal from "./ExamExportModal";
 
 interface Props {
   exam: Partial<Exam>;
@@ -45,6 +47,7 @@ export default function ExamPreviewModal({ exam, sections, questions, onClose }:
   const [activeQuestionIdx, setActiveQuestionIdx] = useState<number>(0);
   const [mapFilter, setMapFilter] = useState<"all" | "answered" | "unanswered" | "flagged">("all");
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
+  const [showExportModal, setShowExportModal] = useState<boolean>(false);
 
   // User Interactive Answers & Flags
   const [userAnswers, setUserAnswers] = useState<Record<string, any>>({});
@@ -997,6 +1000,17 @@ export default function ExamPreviewModal({ exam, sections, questions, onClose }:
               <span>{formatTime(timeLeft)}</span>
             </div>
 
+            {/* Export PDF / Print Button */}
+            <button
+              type="button"
+              onClick={() => setShowExportModal(true)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white transition-all shadow-xs cursor-pointer"
+              title="Xuất file PDF hoặc in đề thi với phân trang thông minh"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Xuất PDF / In</span>
+            </button>
+
             {/* Fullscreen Toggle */}
             <button
               type="button"
@@ -1444,6 +1458,16 @@ export default function ExamPreviewModal({ exam, sections, questions, onClose }:
           </div>
         )}
       </div>
+
+      {showExportModal && (
+        <ExamExportModal
+          isOpen={showExportModal}
+          onClose={() => setShowExportModal(false)}
+          exam={exam}
+          sections={sections}
+          questions={questions}
+        />
+      )}
     </div>
   );
 }

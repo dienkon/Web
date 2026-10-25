@@ -124,7 +124,7 @@ function ExamBuilderInner({ isNew }: { isNew?: boolean }) {
               }`}
             >
               <Columns className="w-3.5 h-3.5" />
-              <span>Soạn chia đôi (Song song)</span>
+              <span>Soạn văn bản (Chia đôi)</span>
             </button>
 
             <button
@@ -137,7 +137,7 @@ function ExamBuilderInner({ isNew }: { isNew?: boolean }) {
               }`}
             >
               <CheckSquare className="w-3.5 h-3.5" />
-              <span>Sửa xem trước </span>
+              <span>Xem trước & Sửa song song</span>
             </button>
 
             <button

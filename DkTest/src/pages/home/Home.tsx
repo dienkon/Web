@@ -29,6 +29,9 @@ import {
   Globe,
   RotateCw,
   Lock,
+  Compass,
+  Gamepad2,
+  Swords,
 } from "lucide-react";
 import {
   collection,
@@ -500,6 +503,140 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
           <span>Khám phá hành trình</span>
           <ArrowRight className="w-4 h-4" />
         </Link>
+      </div>
+
+      {/* Discover & Practice Innovation Hub (Góc Luyện Tập, Phòng Thí Nghiệm Toán & Đấu Trường) */}
+      <div className="space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h2 className="text-xl font-black text-slate-900 flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-indigo-600" />
+              <span>Không Gian Học Tập & Đổi Mới Sáng Tạo</span>
+            </h2>
+            <p className="text-xs text-slate-500 font-medium mt-0.5">
+              Phòng công cụ toán học trực quan, luyện thi cấu trúc 2025 và đấu trường trực tiếp
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {/* Card 1: Math Tools Room */}
+          <Link
+            to="/practice/tools"
+            className="group relative bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950 text-white rounded-3xl p-5 border border-slate-800 shadow-md hover:shadow-xl hover:border-cyan-500/50 transition-all flex flex-col justify-between overflow-hidden cursor-pointer"
+          >
+            <div className="absolute top-0 right-0 -mt-6 -mr-6 w-28 h-28 bg-cyan-500/15 rounded-full blur-2xl pointer-events-none group-hover:bg-cyan-500/30 transition-all" />
+            <div className="space-y-3 relative z-10">
+              <div className="flex items-center justify-between">
+                <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 text-white flex items-center justify-center shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">
+                  <Compass className="w-5 h-5" />
+                </div>
+                <span className="px-2 py-0.5 text-[10px] font-black uppercase tracking-wider bg-cyan-400/20 text-cyan-300 border border-cyan-400/30 rounded-full">
+                  GeoGebra Suite
+                </span>
+              </div>
+              <div>
+                <h3 className="font-black text-base text-white group-hover:text-cyan-300 transition-colors">
+                  Phòng Thí Nghiệm Toán Học
+                </h3>
+                <p className="text-xs text-slate-400 mt-1 line-clamp-2 leading-relaxed">
+                  Vẽ đồ thị 2D, khảo sát hàm số, không gian 3D Oxyz và giả lập máy tính Casio fx-580.
+                </p>
+              </div>
+            </div>
+            <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs font-bold text-cyan-400 group-hover:text-cyan-300 transition-colors mt-3">
+              <span>Mở công cụ vẽ đồ thị</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </Link>
+
+          {/* Card 2: 2025 Topic Practice & Drill */}
+          <Link
+            to="/practice"
+            className="group relative bg-white text-slate-800 rounded-3xl p-5 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-400 transition-all flex flex-col justify-between overflow-hidden cursor-pointer"
+          >
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold border border-blue-100 group-hover:scale-105 transition-transform">
+                  <BookOpen className="w-5 h-5" />
+                </div>
+                <span className="px-2 py-0.5 text-[10px] font-black uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200 rounded-full">
+                  Bộ GD 2025
+                </span>
+              </div>
+              <div>
+                <h3 className="font-black text-base text-slate-900 group-hover:text-blue-600 transition-colors">
+                  Góc Luyện Tập Chuyên Đề
+                </h3>
+                <p className="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">
+                  Kho 5000+ câu hỏi Toán, Lý, Hóa, Tin 12 theo cấu trúc 3 phần (QĐ 764) và ôn tập câu sai.
+                </p>
+              </div>
+            </div>
+            <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-blue-600 group-hover:text-blue-700 transition-colors mt-3">
+              <span>Bắt đầu ôn luyện</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </Link>
+
+          {/* Card 3: Arena Live 1vs1 */}
+          <Link
+            to="/arena"
+            className="group relative bg-white text-slate-800 rounded-3xl p-5 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-amber-400 transition-all flex flex-col justify-between overflow-hidden cursor-pointer"
+          >
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold border border-amber-100 group-hover:scale-105 transition-transform">
+                  <Swords className="w-5 h-5" />
+                </div>
+                <span className="px-2 py-0.5 text-[10px] font-black uppercase tracking-wider bg-amber-50 text-amber-700 border border-amber-200 rounded-full">
+                  Đấu Realtime
+                </span>
+              </div>
+              <div>
+                <h3 className="font-black text-base text-slate-900 group-hover:text-amber-600 transition-colors">
+                  Đấu Trường Trực Tiếp
+                </h3>
+                <p className="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">
+                  Tạo phòng so tài 1vs1 theo thời gian thực cùng bạn bè. Đua tốc độ và độ chính xác!
+                </p>
+              </div>
+            </div>
+            <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-amber-600 group-hover:text-amber-700 transition-colors mt-3">
+              <span>Vào phòng đấu</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </Link>
+
+          {/* Card 4: Escape Room */}
+          <Link
+            to="/student/escape-room"
+            className="group relative bg-white text-slate-800 rounded-3xl p-5 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-purple-400 transition-all flex flex-col justify-between overflow-hidden cursor-pointer"
+          >
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="w-10 h-10 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold border border-purple-100 group-hover:scale-105 transition-transform">
+                  <Gamepad2 className="w-5 h-5" />
+                </div>
+                <span className="px-2 py-0.5 text-[10px] font-black uppercase tracking-wider bg-purple-50 text-purple-700 border border-purple-200 rounded-full">
+                  Giải Mật Mã
+                </span>
+              </div>
+              <div>
+                <h3 className="font-black text-base text-slate-900 group-hover:text-purple-600 transition-colors">
+                  Phòng Bí Mật (Escape Room)
+                </h3>
+                <p className="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">
+                  Giải chuỗi câu đố logic toán học và mở từng tầng ổ khóa để thoát khỏi căn phòng bí mật.
+                </p>
+              </div>
+            </div>
+            <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-purple-600 group-hover:text-purple-700 transition-colors mt-3">
+              <span>Khám phá phòng mật mã</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </Link>
+        </div>
       </div>
 
       {/* Public Shared Folders Showcase (Hiển thị ngay ngoài Home khi Admin chia sẻ) */}

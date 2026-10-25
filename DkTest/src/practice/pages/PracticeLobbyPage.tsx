@@ -35,12 +35,14 @@ import {
   BarChart3,
   Wind,
   ShieldAlert,
+  Compass,
 } from "lucide-react";
 import { PracticeRegistry } from "../core/PracticeRegistry";
 import { PracticeHistoryService } from "../core/PracticeHistoryService";
 import { PracticeCategory, PracticeMode, UserQuestionAttempt } from "../core/types";
 import OldExamsReviewTab from "../components/OldExamsReviewTab";
 import SieuGioiPracticeTab from "../components/SieuGioiPracticeTab";
+import MathGraphingStudio from "../components/MathGraphingStudio";
 import { grade12CatalogService, TopicCatalogSummary } from "../curriculum/grade12CatalogService";
 import { ALL_GRADE_12_TAXONOMIES, Grade12Subject } from "../curriculum/grade12Taxonomy";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
@@ -75,10 +77,12 @@ export default function PracticeLobbyPage() {
   // exam_sim: 2025 Ministry Exam Simulation (QĐ 764)
   // mistakes: Mistake Review (questions answered wrongly)
   // review: Old exams & retakes
-  type PracticeTab = "drill" | "sieugioi" | "catalog" | "exam_sim" | "mistakes" | "review";
+  // tools: GeoGebra / Math Graphing Studio Room
+  type PracticeTab = "drill" | "sieugioi" | "catalog" | "exam_sim" | "mistakes" | "review" | "tools";
 
   const [activeTab, setActiveTab] = useState<PracticeTab>(() => {
     const tabParam = searchParams.get("tab");
+    if (tabParam === "tools" || tabParam === "geogebra" || tabParam === "studio") return "tools";
     if (tabParam === "review") return "review";
     if (tabParam === "sieugioi") return "sieugioi";
     if (tabParam === "drill") return "drill";
@@ -89,7 +93,8 @@ export default function PracticeLobbyPage() {
 
   useEffect(() => {
     const tabParam = searchParams.get("tab");
-    if (tabParam === "review" && activeTab !== "review") setActiveTab("review");
+    if ((tabParam === "tools" || tabParam === "geogebra" || tabParam === "studio") && activeTab !== "tools") setActiveTab("tools");
+    else if (tabParam === "review" && activeTab !== "review") setActiveTab("review");
     else if (tabParam === "sieugioi" && activeTab !== "sieugioi") setActiveTab("sieugioi");
     else if (tabParam === "catalog" && activeTab !== "catalog") setActiveTab("catalog");
     else if (tabParam === "exam_sim" && activeTab !== "exam_sim") setActiveTab("exam_sim");
@@ -428,6 +433,27 @@ export default function PracticeLobbyPage() {
                 {mistakeAttempts.length}
               </span>
             )}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setActiveTab("tools");
+              setSearchParams({ tab: "tools" });
+            }}
+            className={`min-h-[44px] px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+              activeTab === "tools"
+                ? "bg-blue-600 text-white shadow-xs"
+                : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+            }`}
+          >
+            <Compass className="w-4 h-4 text-cyan-400" />
+            <span>Phòng công cụ (GeoGebra)</span>
+            <span className={`text-[10px] font-extrabold px-1.5 py-0.5 rounded-full ${
+              activeTab === "tools" ? "bg-white/20 text-white" : "bg-cyan-50 text-cyan-700"
+            }`}>
+              Vẽ đồ thị
+            </span>
           </button>
 
           <button
@@ -1001,7 +1027,14 @@ export default function PracticeLobbyPage() {
           </div>
         )}
 
-        {/* TAB 5: OLD EXAMS REVIEW */}
+        {/* TAB 5: MATH GRAPHING STUDIO (GEOGEBRA TOOL ROOM) */}
+        {activeTab === "tools" && (
+          <div className="mb-8 animate-in fade-in duration-150">
+            <MathGraphingStudio />
+          </div>
+        )}
+
+        {/* TAB 6: OLD EXAMS REVIEW */}
         {activeTab === "review" && <OldExamsReviewTab />}
       </div>
 

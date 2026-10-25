@@ -2,6 +2,8 @@ import { saveAs } from "file-saver";
 import katex from "katex";
 import type { Exam, Question, Section, Submission } from "../types";
 import { normalizeLatexText } from "../features/exam-builder/editor/LatexPreview";
+import { renderBBTToHtml } from "../features/math-draw/bbtRenderer";
+import { renderGraphToSvg } from "../features/math-draw/graphRenderer";
 
 export interface WordExportOptions {
   schoolName?: string;
@@ -24,6 +26,29 @@ export function formatTextForWord(input: string): string {
   // 1. Normalize LaTeX corrupted chars, multiple backslashes, unicode roots
   let text = normalizeLatexText(input);
 
+  // 1a. Convert custom math tags (<graph>, <bbt>, <live-canvas>)
+  text = text.replace(/<graph\b[^>]*>([\s\S]*?)<\/graph>/gi, (_, graphCode) => {
+    try {
+      return renderGraphToSvg(graphCode);
+    } catch {
+      return "<div style=\"padding: 6pt; color: #dc2626;\">[Đồ thị hàm số]</div>";
+    }
+  });
+
+  text = text.replace(/<bbt\b[^>]*>([\s\S]*?)<\/bbt>/gi, (_, bbtCode) => {
+    try {
+      return renderBBTToHtml(bbtCode);
+    } catch {
+      return "<div style=\"padding: 6pt; color: #dc2626;\">[Bảng biến thiên]</div>";
+    }
+  });
+
+  text = text.replace(/<live-canvas\b([^>]*)>([\s\S]*?)<\/live-canvas>/gi, (_, attrs, code) => {
+    const titleMatch = attrs.match(/title=["']([^"']*)["']/i);
+    const title = titleMatch ? titleMatch[1] : "Khối vẽ code trực tiếp";
+    return `<div style="border: 1px solid #cbd5e1; border-radius: 6pt; padding: 6pt; margin: 8pt 0; background: #f8fafc; font-family: Consolas, monospace; font-size: 9pt;"><strong>[${title}]</strong><pre style="margin-top: 4pt; white-space: pre-wrap;">${code.trim().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre></div>`;
+  });
+
   // 1b. Convert markdown code blocks ```lang ... ``` to Word-friendly pre/code boxes
   text = text.replace(/(?:```|~~~)([\s\S]*?)(?:```|~~~)/g, (_, blockContent) => {
     let rawContent = blockContent;
@@ -37,6 +62,12 @@ export function formatTextForWord(input: string): string {
       }
     }
     const clean = rawContent.replace(/\r\n/g, "\n").trim();
+    if (lang === "GRAPH") {
+      try { return renderGraphToSvg(clean); } catch { return "[Đồ thị]"; }
+    }
+    if (lang === "BBT") {
+      try { return renderBBTToHtml(clean); } catch { return "[Bảng biến thiên]"; }
+    }
     const langHeader = lang
       ? `<div style="font-size: 8pt; font-weight: bold; color: #94a3b8; border-bottom: 1px solid #334155; padding-bottom: 4pt; margin-bottom: 6pt; letter-spacing: 0.5pt;">${lang}</div>`
       : "";

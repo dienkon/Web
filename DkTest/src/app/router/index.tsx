@@ -62,6 +62,7 @@ const StudentProfile = lazyWithRetry(() => import("../../pages/student/StudentPr
 const Community = lazyWithRetry(() => import("../../pages/student/Community"), "Community");
 const AiTutorPage = lazyWithRetry(() => import("../../pages/student/AiTutorPage"), "AiTutorPage");
 const PracticePage = lazyWithRetry(() => import("../../pages/student/PracticePage"), "PracticePage");
+const MathToolsPage = lazyWithRetry(() => import("../../pages/student/MathToolsPage"), "MathToolsPage");
 const CodeStudioPage = lazyWithRetry(() => import("../../practice/code-studio/CodeStudioPage"), "CodeStudioPage");
 const SharedWebsitePage = lazyWithRetry(() => import("../../practice/code-studio/SharedWebsitePage"), "SharedWebsitePage");
 const ShortSharePage = lazyWithRetry(() => import('../../practice/code-studio/ShortSharePage'), 'ShortSharePage');
@@ -320,8 +321,10 @@ const router = createBrowserRouter([
       { path: "student/escape-room", element: withSuspense(EscapeRoomGame, "Đang vào Phòng Mật Mã...") },
       { path: "student", element: <Navigate to="/student/history" replace /> },
       { path: "student/practice", element: withSuspense(PracticePage, "Đang tải góc luyện tập...") },
+      { path: "student/practice/tools", element: withSuspense(MathToolsPage, "Đang mở Phòng công cụ Toán học...") },
       { path: "student/practice/:modeId", element: withSuspense(PracticeSessionPage, "Đang tải phòng luyện tập...") },
       { path: "practice", element: withSuspense(PracticePage, "Đang tải góc luyện tập...") },
+      { path: "practice/tools", element: withSuspense(MathToolsPage, "Đang mở Phòng công cụ Toán học...") },
       { path: "practice/:modeId", element: withSuspense(PracticeSessionPage, "Đang tải phòng luyện tập...") },
       { path: "student/community", element: withSuspense(Community, "Đang tải cộng đồng...") },
       { path: "student/chat", element: withSuspense(GlobalWorldChatPage, "Đang mở Kênh Thế Giới...") },

@@ -1,9 +1,11 @@
 import React, { useState, useRef } from "react";
-import { Upload, X, Check, Plus, Trash2 } from "lucide-react";
+import { Upload, X, Check, Plus, Trash2, TrendingUp } from "lucide-react";
 import type { Question, QuestionType, QuestionOption, TrueFalseStatement } from "../../types";
 import { createQuestion, updateQuestion } from "../../services/questionService";
 import { uploadImageToCloudinary } from "../../services/cloudinary";
+import { handleClipboardImagePaste } from "../../utils/clipboardImageUpload";
 import { useToast } from "../ui/ToastNotification";
+import MathGraphModal from "../../features/math-draw/MathGraphModal";
 
 export default function QuestionEditor({
   examId,
@@ -22,6 +24,11 @@ export default function QuestionEditor({
   const isEditing = !!initialQuestion;
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [showMathGraphModal, setShowMathGraphModal] = useState(false);
+  const [activeFieldForModal, setActiveFieldForModal] = useState<"text" | "explanation">("text");
+
+  const questionTextareaRef = useRef<HTMLTextAreaElement>(null);
+  const explanationTextareaRef = useRef<HTMLTextAreaElement>(null);
 
   const [type, setType] = useState<QuestionType>(initialQuestion?.type || "single_choice");
   const [text, setText] = useState(initialQuestion?.text || "");
@@ -161,7 +168,19 @@ export default function QuestionEditor({
         <div>
           <div className="flex justify-between items-center mb-1">
             <label className="block text-sm font-medium text-slate-700">Nội dung câu hỏi</label>
-            <div>
+            <div className="flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveFieldForModal("text");
+                  setShowMathGraphModal(true);
+                }}
+                className="text-xs font-semibold text-indigo-600 hover:bg-indigo-50 px-2.5 py-1 rounded-lg inline-flex items-center gap-1 transition-colors cursor-pointer border border-indigo-100"
+                title="Vẽ đồ thị hàm số, bảng biến thiên chuẩn GDPT 2018, hoặc chạy mã vẽ trực tiếp"
+              >
+                <TrendingUp className="w-3.5 h-3.5 text-indigo-600" />
+                Vẽ đồ thị / BBT
+              </button>
               <input
                 type="file"
                 ref={fileInputRef}
@@ -186,11 +205,20 @@ export default function QuestionEditor({
             </div>
           </div>
           <textarea
+            ref={questionTextareaRef}
             value={text}
             onChange={(e) => setText(e.target.value)}
+            onPaste={(e) => {
+              handleClipboardImagePaste(e, {
+                value: text,
+                onChange: setText,
+                textareaRef: questionTextareaRef,
+                onUploading: setUploading,
+              });
+            }}
             rows={4}
             className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-            placeholder="Nhập nội dung câu hỏi (hỗ trợ HTML nếu chèn ảnh)..."
+            placeholder="Nhập nội dung câu hỏi (hỗ trợ Ctrl+V dán ảnh trực tiếp từ bộ nhớ tạm, công thức toán, thẻ <graph>, <bbt>, <live-canvas>...)..."
           />
         </div>
 
@@ -215,7 +243,14 @@ export default function QuestionEditor({
                     type="text"
                     value={opt.text}
                     onChange={(e) => updateOptionText(opt.id, e.target.value)}
-                    placeholder={`Lựa chọn ${idx + 1}`}
+                    onPaste={(e) => {
+                      handleClipboardImagePaste(e, {
+                        value: opt.text,
+                        onChange: (val) => updateOptionText(opt.id, val),
+                        onUploading: setUploading,
+                      });
+                    }}
+                    placeholder={`Lựa chọn ${idx + 1} (hỗ trợ Ctrl+V dán ảnh)`}
                     className="flex-1 px-3 py-1.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
                   />
                   <button
@@ -305,13 +340,36 @@ export default function QuestionEditor({
         )}
 
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">Giải thích (tùy chọn)</label>
+          <div className="flex justify-between items-center mb-1">
+            <label className="block text-sm font-medium text-slate-700">Giải thích / Lời giải chi tiết (tùy chọn)</label>
+            <button
+              type="button"
+              onClick={() => {
+                setActiveFieldForModal("explanation");
+                setShowMathGraphModal(true);
+              }}
+              className="text-xs font-semibold text-indigo-600 hover:bg-indigo-50 px-2 py-0.5 rounded-lg inline-flex items-center gap-1 transition-colors cursor-pointer border border-indigo-100"
+              title="Vẽ đồ thị hàm số hoặc bảng biến thiên cho phần lời giải"
+            >
+              <TrendingUp className="w-3.5 h-3.5 text-indigo-600" />
+              Vẽ đồ thị / BBT
+            </button>
+          </div>
           <textarea
+            ref={explanationTextareaRef}
             value={explanation}
             onChange={(e) => setExplanation(e.target.value)}
-            rows={2}
+            onPaste={(e) => {
+              handleClipboardImagePaste(e, {
+                value: explanation,
+                onChange: setExplanation,
+                textareaRef: explanationTextareaRef,
+                onUploading: setUploading,
+              });
+            }}
+            rows={3}
             className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-            placeholder="Hiển thị khi học sinh xem lại bài..."
+            placeholder="Hiển thị khi học sinh xem lại bài (hỗ trợ Ctrl+V dán ảnh trực tiếp từ bộ nhớ tạm, công thức toán, đồ thị, bảng biến thiên...)..."
           />
         </div>
       </div>
@@ -332,6 +390,37 @@ export default function QuestionEditor({
           {loading ? "Đang lưu..." : "Lưu câu hỏi"}
         </button>
       </div>
+
+      {showMathGraphModal && (
+        <MathGraphModal
+          onInsert={(tag) => {
+            if (activeFieldForModal === "explanation") {
+              const el = explanationTextareaRef.current;
+              if (el) {
+                const start = el.selectionStart ?? explanation.length;
+                const end = el.selectionEnd ?? explanation.length;
+                const before = explanation.substring(0, start);
+                const after = explanation.substring(end);
+                setExplanation(before + tag + after);
+              } else {
+                setExplanation((prev) => (prev ? prev + "\n" + tag : tag));
+              }
+            } else {
+              const el = questionTextareaRef.current;
+              if (el) {
+                const start = el.selectionStart ?? text.length;
+                const end = el.selectionEnd ?? text.length;
+                const before = text.substring(0, start);
+                const after = text.substring(end);
+                setText(before + tag + after);
+              } else {
+                setText((prev) => (prev ? prev + "\n" + tag : tag));
+              }
+            }
+          }}
+          onClose={() => setShowMathGraphModal(false)}
+        />
+      )}
     </div>
   );
 }

@@ -24,8 +24,11 @@ import {
   FileText,
   AlertCircle,
   HelpCircle,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 import { useExamEditorContext } from "../context/ExamEditorContext";
+import LatexPreview from "../editor/LatexPreview";
 import {
   questionsToExamText,
   examTextToQuestions,
@@ -43,6 +46,7 @@ export default function DualPaneSplitEditor() {
   const [showScoreModal, setShowScoreModal] = useState(false);
   const [totalScoreToDivide, setTotalScoreToDivide] = useState("10");
   const [showFormulaModal, setShowFormulaModal] = useState(false);
+  const [previewCards, setPreviewCards] = useState<Record<string, boolean>>({});
   const [formulaInput, setFormulaInput] = useState("\\frac{a}{b}");
   const [activeQuestionMenu, setActiveQuestionMenu] = useState<string | null>(null);
 
@@ -516,17 +520,28 @@ Chọn A"
   // Helper render for single visual card on left pane
   function renderVisualQuestionCard(q: Question, qIdx: number) {
     const isMenuOpen = activeQuestionMenu === q.id;
+    const isCardActive = state.activeQuestionId === q.id;
+    const isPreviewing = previewCards[q.id] || false;
 
     return (
       <div
         key={q.id}
         id={`split-card-q-${qIdx}`}
-        className="bg-white border border-slate-200 rounded-2xl p-4 shadow-2xs space-y-3.5 transition-all scroll-mt-14"
+        onClick={() => actions.setActiveQuestion(q.id)}
+        className={`bg-white border rounded-2xl p-4 shadow-2xs space-y-3.5 transition-all scroll-mt-14 ${
+          isCardActive ? "border-blue-500 ring-2 ring-blue-500/20 shadow-sm" : "border-slate-200"
+        }`}
       >
         {/* Header row */}
         <div className="flex items-center justify-between gap-2 flex-wrap text-xs">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="px-2.5 py-1 rounded-lg border border-slate-300 font-bold text-slate-800 bg-slate-50">
+            <span
+              className={`px-2.5 py-1 rounded-lg font-bold ${
+                isCardActive
+                  ? "bg-blue-600 text-white"
+                  : "bg-slate-100 text-slate-800 border border-slate-200"
+              }`}
+            >
               Câu {qIdx + 1}.
             </span>
 
@@ -542,15 +557,6 @@ Chọn A"
               className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 font-semibold text-slate-700 cursor-pointer"
             >
               {q.points !== undefined ? `${q.points} điểm` : "Nhập điểm"}
-            </button>
-
-            <button
-              type="button"
-              className="px-2 py-1 rounded-lg text-slate-500 hover:bg-slate-100 flex items-center gap-1 cursor-pointer"
-              title="Đính kèm Audio"
-            >
-              <Volume2 className="w-3.5 h-3.5 text-blue-500" />
-              <span>Audio</span>
             </button>
 
             {/* Type selector */}
@@ -585,13 +591,24 @@ Chọn A"
               </button>
             </div>
 
+            {/* Toggle Preview Button */}
             <button
               type="button"
-              onClick={() => showInfoToast("Đổi câu khác từ ngân hàng câu hỏi cùng dạng")}
-              className="px-2 py-1 text-slate-500 hover:bg-slate-100 rounded-lg flex items-center gap-1 cursor-pointer"
+              onClick={() =>
+                setPreviewCards((prev) => ({
+                  ...prev,
+                  [q.id]: !prev[q.id],
+                }))
+              }
+              className={`px-2 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 cursor-pointer transition-colors ${
+                isPreviewing
+                  ? "bg-blue-100 text-blue-800 border border-blue-200"
+                  : "text-slate-500 hover:bg-slate-100"
+              }`}
+              title="Bật/Tắt xem trước công thức LaTeX & đồ thị"
             >
-              <Shuffle className="w-3 h-3 text-slate-400" />
-              <span>Đổi câu khác</span>
+              {isPreviewing ? <EyeOff className="w-3.5 h-3.5 text-blue-600" /> : <Eye className="w-3.5 h-3.5 text-slate-500" />}
+              <span>{isPreviewing ? "Thu gọn" : "Xem trước"}</span>
             </button>
           </div>
 
@@ -639,6 +656,16 @@ Chọn A"
           placeholder="Nhập nội dung câu hỏi..."
           className="w-full p-2.5 text-xs font-medium text-slate-800 border border-slate-200 rounded-xl outline-hidden focus:border-blue-500 leading-relaxed resize-y min-h-[50px]"
         />
+
+        {/* LaTeX & Rich Preview Box */}
+        {isPreviewing && q.text && (
+          <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-800">
+            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1">
+              Xem trước hiển thị:
+            </div>
+            <LatexPreview content={q.text} />
+          </div>
+        )}
 
         {/* Options Row (For Single / Multiple Choice) */}
         {(q.type === "single_choice" || q.type === "multiple_choice" || !q.type) && (
@@ -698,6 +725,148 @@ Chọn A"
           </div>
         )}
 
+        {/* True / False Statements */}
+        {q.type === "true_false" && (
+          <div className="space-y-2">
+            {(q.statements || []).map((stmt, sIdx) => {
+              const letter = String.fromCharCode(97 + sIdx);
+              return (
+                <div key={stmt.id} className="flex items-center gap-2 text-xs">
+                  <span className="font-bold text-blue-700 w-5 shrink-0">{letter})</span>
+                  <input
+                    type="text"
+                    value={stmt.text || ""}
+                    onChange={(e) => {
+                      const nextStmts = [...(q.statements || [])];
+                      nextStmts[sIdx] = { ...stmt, text: e.target.value };
+                      actions.updateQuestion(q.id, { statements: nextStmts });
+                    }}
+                    className="flex-1 px-3 py-1.5 text-xs border border-slate-200 rounded-lg outline-hidden focus:border-blue-500"
+                  />
+                  <div className="flex items-center gap-1 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const nextStmts = (q.statements || []).map((s) =>
+                          s.id === stmt.id ? { ...s, correctAnswer: true } : s
+                        );
+                        actions.updateQuestion(q.id, { statements: nextStmts });
+                      }}
+                      className={`px-2.5 py-1 rounded text-xs font-bold cursor-pointer ${
+                        stmt.correctAnswer ? "bg-emerald-600 text-white" : "bg-slate-100 text-slate-600"
+                      }`}
+                    >
+                      ĐÚNG
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const nextStmts = (q.statements || []).map((s) =>
+                          s.id === stmt.id ? { ...s, correctAnswer: false } : s
+                        );
+                        actions.updateQuestion(q.id, { statements: nextStmts });
+                      }}
+                      className={`px-2.5 py-1 rounded text-xs font-bold cursor-pointer ${
+                        stmt.correctAnswer === false ? "bg-red-600 text-white" : "bg-slate-100 text-slate-600"
+                      }`}
+                    >
+                      SAI
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Short Answer */}
+        {q.type === "short_answer" && (
+          <div className="space-y-1.5 text-xs">
+            <span className="font-bold text-slate-700">Các đáp án chấp nhận (ngăn cách bằng ;):</span>
+            <input
+              type="text"
+              value={(q.acceptedAnswers || []).join("; ")}
+              onChange={(e) => {
+                const list = e.target.value.split(";").map((s) => s.trim()).filter(Boolean);
+                actions.updateQuestion(q.id, { acceptedAnswers: list });
+              }}
+              placeholder="12.5; 12,5"
+              className="w-full px-3 py-1.5 border border-slate-200 rounded-lg outline-hidden focus:border-blue-500 font-mono"
+            />
+          </div>
+        )}
+
+        {/* Fill in the Blank */}
+        {q.type === "fill_blank" && (
+          <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs space-y-1.5">
+            <span className="font-bold text-slate-700">Các ô điền khuyết:</span>
+            {Object.entries(q.acceptedAnswersPerBlank || {}).map(([bIdx, answers]) => (
+              <div key={bIdx} className="flex items-center gap-2">
+                <span className="font-bold text-blue-700">[{parseInt(bIdx, 10) + 1}]:</span>
+                <input
+                  type="text"
+                  value={Array.isArray(answers) ? answers.join("; ") : String(answers)}
+                  onChange={(e) => {
+                    const updated = { ...(q.acceptedAnswersPerBlank || {}) };
+                    updated[parseInt(bIdx, 10)] = e.target.value.split(";").map((s) => s.trim()).filter(Boolean);
+                    actions.updateQuestion(q.id, { acceptedAnswersPerBlank: updated });
+                  }}
+                  className="flex-1 px-2.5 py-1 bg-white border border-slate-200 rounded text-xs font-mono"
+                  placeholder="Đáp án đúng (ngăn cách bằng ;)"
+                />
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Ordering */}
+        {q.type === "ordering" && (
+          <div className="space-y-1.5 text-xs">
+            <span className="font-bold text-slate-700">Thứ tự đúng:</span>
+            {(q.orderingItems || []).map((item, idx) => (
+              <div key={item.id} className="flex items-center gap-2">
+                <span className="w-5 h-5 bg-blue-100 text-blue-700 rounded-full font-bold flex items-center justify-center shrink-0">
+                  {idx + 1}
+                </span>
+                <input
+                  type="text"
+                  value={item.text}
+                  onChange={(e) => {
+                    const next = [...(q.orderingItems || [])];
+                    next[idx] = { ...item, text: e.target.value };
+                    actions.updateQuestion(q.id, { orderingItems: next });
+                  }}
+                  className="flex-1 px-2.5 py-1 border border-slate-200 rounded text-xs"
+                />
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Matching */}
+        {q.type === "matching" && (
+          <div className="p-2.5 bg-slate-50 rounded-xl border border-slate-200 text-xs">
+            <span className="font-bold text-slate-700">Nối 2 cột:</span>
+            <div className="text-slate-500 text-[11px] mt-1">
+              {Object.keys(q.correctMatches || {}).length} cặp đã ghép nối
+            </div>
+          </div>
+        )}
+
+        {/* Essay */}
+        {q.type === "essay" && (
+          <div className="space-y-1 text-xs">
+            <span className="font-bold text-slate-700">Barem tự luận:</span>
+            <textarea
+              rows={2}
+              value={q.essayRubric || ""}
+              onChange={(e) => actions.updateQuestion(q.id, { essayRubric: e.target.value })}
+              className="w-full p-2 border border-slate-200 rounded-lg text-xs"
+              placeholder="Tiêu chí chấm tự luận..."
+            />
+          </div>
+        )}
+
         {/* Section Divider: HƯỚNG DẪN GIẢI */}
         <div className="relative flex items-center justify-center pt-2">
           <div className="absolute inset-0 flex items-center">
@@ -717,6 +886,15 @@ Cách giải: ...
 Chọn đáp án..."
           className="w-full p-2.5 text-xs text-slate-700 border border-slate-200 rounded-xl outline-hidden focus:border-blue-500 leading-relaxed resize-y min-h-[60px] bg-slate-50/50"
         />
+
+        {isPreviewing && q.explanation && (
+          <div className="p-3 bg-purple-50/60 rounded-xl border border-purple-200 text-xs text-purple-900">
+            <div className="text-[10px] font-bold text-purple-500 uppercase tracking-wide mb-1">
+              Xem trước lời giải:
+            </div>
+            <LatexPreview content={q.explanation} />
+          </div>
+        )}
       </div>
     );
   }

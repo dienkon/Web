@@ -36,6 +36,7 @@ import {
   FileSignature,
   Share2,
   Check,
+  Printer,
 } from "lucide-react";
 import { getSubmission } from "../../services/submissionService";
 import { getExam } from "../../services/examService";
@@ -527,6 +528,16 @@ export default function ExamResult() {
               <FileDown className="w-4 h-4 text-blue-600" />
             )}
             <span>Tải file Word</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => window.print()}
+            className="px-3.5 py-1.5 text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-xl transition-all shadow-2xs text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+            title="In hoặc lưu kết quả bài thi thành file PDF (A4 chuẩn)"
+          >
+            <Printer className="w-4 h-4 text-slate-600" />
+            <span>In / Xuất PDF</span>
           </button>
 
           <button
@@ -1934,22 +1945,25 @@ export default function ExamResult() {
         sections={sections}
       />
 
-      {/* Student Review Text Selection Floating Action Toolbar (Phát âm, Dịch & Phiên âm, Hỏi AI Tutor) */}
-      <StudentReviewSelectionToolbar
-        examContext={exam?.title || ""}
-        onAskAi={(highlightedText) => {
-          const promptMsg = `Chào Gia sư AI, em đang xem lại bài thi "${exam?.title || ""}" và có đoạn văn bản này cần bạn hướng dẫn, giải thích chi tiết: "${highlightedText}". Vui lòng giải nghĩa, phân tích ngữ pháp và chỉ ra các lưu ý giúp em nhé!`;
-          setAutoAiPrompt(promptMsg);
-        }}
-      />
+      {/* Floating Widgets (Excluded from Print) */}
+      <div className="print:hidden">
+        {/* Student Review Text Selection Floating Action Toolbar (Phát âm, Dịch & Phiên âm, Hỏi AI Tutor) */}
+        <StudentReviewSelectionToolbar
+          examContext={exam?.title || ""}
+          onAskAi={(highlightedText) => {
+            const promptMsg = `Chào Gia sư AI, em đang xem lại bài thi "${exam?.title || ""}" và có đoạn văn bản này cần bạn hướng dẫn, giải thích chi tiết: "${highlightedText}". Vui lòng giải nghĩa, phân tích ngữ pháp và chỉ ra các lưu ý giúp em nhé!`;
+            setAutoAiPrompt(promptMsg);
+          }}
+        />
 
-      {/* AI Tutor Chat Widget */}
-      <AiTutorChat
-        examTitle={exam?.title}
-        questionContext={aiQuestionContext}
-        autoPrompt={autoAiPrompt}
-        onClearAutoPrompt={() => setAutoAiPrompt(null)}
-      />
+        {/* AI Tutor Chat Widget */}
+        <AiTutorChat
+          examTitle={exam?.title}
+          questionContext={aiQuestionContext}
+          autoPrompt={autoAiPrompt}
+          onClearAutoPrompt={() => setAutoAiPrompt(null)}
+        />
+      </div>
     </div>
   );
 }

@@ -11,6 +11,13 @@ import {
   X,
   Sparkles,
   Loader2,
+  Sliders,
+  Columns,
+  Type,
+  Maximize2,
+  AlertCircle,
+  CheckCircle,
+  LayoutGrid,
 } from "lucide-react";
 import type { Exam, Question, Section } from "../../../types";
 import {
@@ -18,6 +25,8 @@ import {
   printExamDocument,
   downloadLatexSource,
   generateExamHtmlForPrint,
+  estimateExamPageBudget,
+  ExportExamOptions,
 } from "../../../services/latexExportService";
 import { exportExamToWordFile } from "../../../services/wordExportService";
 import { useToast } from "../../../components/ui/ToastNotification";
@@ -46,6 +55,16 @@ export default function ExamExportModal({
   const [gradeName, setGradeName] = useState("LỚP 12");
   const [includeExplanation, setIncludeExplanation] = useState(true);
 
+  // Page Budget & Intelligent Scaling State
+  const [targetMaxPages, setTargetMaxPages] = useState<number>(0);
+  const [isCustomPages, setIsCustomPages] = useState(false);
+  const [customPagesInput, setCustomPagesInput] = useState("3");
+  const [autoFitPageBudget, setAutoFitPageBudget] = useState(true);
+  const [layoutMode, setLayoutMode] = useState<"one-col" | "two-cols">("one-col");
+  const [fontSizePreset, setFontSizePreset] = useState<"compact" | "normal" | "large">("normal");
+  const [spacingPreset, setSpacingPreset] = useState<"tight" | "normal" | "relaxed">("normal");
+  const [diagramScalePreset, setDiagramScalePreset] = useState<"small" | "normal" | "large">("normal");
+
   const [isExportingPdf, setIsExportingPdf] = useState(false);
   const [isExportingWord, setIsExportingWord] = useState(false);
   const [previewHtml, setPreviewHtml] = useState<string>("");
@@ -53,13 +72,33 @@ export default function ExamExportModal({
 
   if (!isOpen) return null;
 
-  const currentOptions = {
+  const effectiveMaxPages = isCustomPages
+    ? Math.max(1, parseInt(customPagesInput, 10) || 1)
+    : targetMaxPages;
+
+  const currentOptions: ExportExamOptions = {
     includeAnswers: activeTab === "answers",
     includeExplanation,
     schoolName,
     examCode,
     subjectName,
     gradeName,
+    maxPages: effectiveMaxPages,
+    autoFitPageBudget,
+    layoutMode,
+    fontSizePreset,
+    spacingPreset,
+    diagramScalePreset,
+  };
+
+  const pageBudget = estimateExamPageBudget(questions, currentOptions);
+
+  const handleApplyBudgetRecommendations = () => {
+    setLayoutMode(pageBudget.recommendedLayout);
+    setFontSizePreset(pageBudget.recommendedFontSize);
+    setSpacingPreset(pageBudget.recommendedSpacing);
+    setDiagramScalePreset(pageBudget.recommendedDiagramScale);
+    toast.success("Đã tối ưu hóa bố cục và thông số để vừa khít số trang mục tiêu!");
   };
 
   const handleExportWord = async () => {
@@ -284,6 +323,221 @@ export default function ExamExportModal({
                 </label>
               </div>
             )}
+          </div>
+
+          {/* PDF Page Budget & Layout Settings */}
+          <div className="space-y-4 p-4.5 bg-gradient-to-br from-slate-50 to-blue-50/40 rounded-xl border border-blue-100 shadow-2xs">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <div className="flex items-center gap-2 text-sm font-bold text-slate-800">
+                <Sliders className="w-4 h-4 text-blue-600" />
+                Cấu hình số trang & Bố cục PDF (Page Budget & Smart Fit)
+              </div>
+              
+              {/* Real-time Page Budget Estimate Badge */}
+              <div className="flex items-center gap-2">
+                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold border shadow-2xs ${
+                  effectiveMaxPages > 0
+                    ? pageBudget.fitsWithinTarget
+                      ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                      : "bg-amber-50 text-amber-700 border-amber-200"
+                    : "bg-blue-50 text-blue-700 border-blue-200"
+                }`}>
+                  {effectiveMaxPages > 0 ? (
+                    pageBudget.fitsWithinTarget ? (
+                      <CheckCircle className="w-3.5 h-3.5 text-emerald-600" />
+                    ) : (
+                      <AlertCircle className="w-3.5 h-3.5 text-amber-600" />
+                    )
+                  ) : (
+                    <FileText className="w-3.5 h-3.5 text-blue-600" />
+                  )}
+                  <span>Dự kiến: ~{pageBudget.estimatedPages} trang A4</span>
+                  {effectiveMaxPages > 0 && (
+                    <span className="font-normal opacity-90">
+                      / tối đa {effectiveMaxPages} trang
+                    </span>
+                  )}
+                </span>
+              </div>
+            </div>
+
+            {/* Warning banner when content exceeds user's maxPages with one-click optimize */}
+            {effectiveMaxPages > 0 && !pageBudget.fitsWithinTarget && (
+              <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 flex items-center justify-between gap-3 animate-in fade-in duration-150">
+                <div className="flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
+                  <span>
+                    Đề thi hiện chiếm <strong>~{pageBudget.estimatedPages} trang</strong>, vượt quá giới hạn <strong>{effectiveMaxPages} trang</strong> đã đặt.
+                    {autoFitPageBudget ? " Chế độ Tự động co giãn sẽ nén tỷ lệ khi xuất file PDF." : ""}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleApplyBudgetRecommendations}
+                  className="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-bold text-xs shrink-0 cursor-pointer transition-colors shadow-2xs flex items-center gap-1"
+                >
+                  <Sparkles className="w-3.5 h-3.5" />
+                  Tối ưu vừa trang
+                </button>
+              </div>
+            )}
+
+            {/* Target Max Pages Selector */}
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                Số trang tối đa mong muốn (Max Pages):
+              </label>
+              <div className="flex items-center gap-2 flex-wrap">
+                {[
+                  { label: "Tự động (Không giới hạn)", value: 0 },
+                  { label: "1 trang (Đề 15')", value: 1 },
+                  { label: "2 trang (1 tờ A4)", value: 2 },
+                  { label: "3 trang", value: 3 },
+                  { label: "4 trang (Chuẩn THPT)", value: 4 },
+                ].map((item) => {
+                  const isSelected = !isCustomPages && targetMaxPages === item.value;
+                  return (
+                    <button
+                      key={item.value}
+                      type="button"
+                      onClick={() => {
+                        setIsCustomPages(false);
+                        setTargetMaxPages(item.value);
+                      }}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-all cursor-pointer ${
+                        isSelected
+                          ? "bg-blue-600 text-white border-blue-600 shadow-2xs font-bold"
+                          : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  );
+                })}
+                <button
+                  type="button"
+                  onClick={() => setIsCustomPages(true)}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-all cursor-pointer ${
+                    isCustomPages
+                      ? "bg-blue-600 text-white border-blue-600 shadow-2xs font-bold"
+                      : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"
+                  }`}
+                >
+                  Tùy chỉnh số trang...
+                </button>
+                {isCustomPages && (
+                  <div className="flex items-center gap-1.5 ml-1">
+                    <input
+                      type="number"
+                      min="1"
+                      max="50"
+                      value={customPagesInput}
+                      onChange={(e) => setCustomPagesInput(e.target.value)}
+                      className="w-16 px-2.5 py-1 text-xs bg-white border border-blue-400 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-blue-500 font-bold text-center"
+                    />
+                    <span className="text-xs text-slate-600 font-medium">trang</span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Layout & Font Controls Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1">
+              {/* 1. Layout Mode */}
+              <div>
+                <label className="block text-[11px] font-semibold text-slate-600 mb-1">
+                  Bố cục đề thi
+                </label>
+                <div className="grid grid-cols-2 gap-1.5 p-1 bg-white border border-slate-200 rounded-lg">
+                  <button
+                    type="button"
+                    onClick={() => setLayoutMode("one-col")}
+                    className={`py-1 px-2 text-xs rounded-md font-medium transition-colors cursor-pointer ${
+                      layoutMode === "one-col"
+                        ? "bg-blue-100 text-blue-800 font-bold"
+                        : "text-slate-600 hover:bg-slate-50"
+                    }`}
+                  >
+                    1 cột
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setLayoutMode("two-cols")}
+                    className={`py-1 px-2 text-xs rounded-md font-medium transition-colors cursor-pointer ${
+                      layoutMode === "two-cols"
+                        ? "bg-blue-100 text-blue-800 font-bold"
+                        : "text-slate-600 hover:bg-slate-50"
+                    }`}
+                    title="Tiết kiệm 40% số trang (Chuẩn Bộ GD&ĐT)"
+                  >
+                    2 cột (Chuẩn)
+                  </button>
+                </div>
+              </div>
+
+              {/* 2. Font Size */}
+              <div>
+                <label className="block text-[11px] font-semibold text-slate-600 mb-1">
+                  Cỡ chữ nội dung
+                </label>
+                <select
+                  value={fontSizePreset}
+                  onChange={(e) => setFontSizePreset(e.target.value as any)}
+                  className="w-full px-2.5 py-1.5 text-xs bg-white border border-slate-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="compact">Nhỏ gọn (10.5pt - Tiết kiệm)</option>
+                  <option value="normal">Tiêu chuẩn (12pt)</option>
+                  <option value="large">Lớn (13.5pt - Dễ đọc)</option>
+                </select>
+              </div>
+
+              {/* 3. Spacing Preset */}
+              <div>
+                <label className="block text-[11px] font-semibold text-slate-600 mb-1">
+                  Khoảng cách & Lề giấy
+                </label>
+                <select
+                  value={spacingPreset}
+                  onChange={(e) => setSpacingPreset(e.target.value as any)}
+                  className="w-full px-2.5 py-1.5 text-xs bg-white border border-slate-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="tight">Tiết kiệm giấy (Lề 8mm, dòng chặt)</option>
+                  <option value="normal">Tiêu chuẩn (Lề 12mm)</option>
+                  <option value="relaxed">Thoáng đãng (Lề 16mm)</option>
+                </select>
+              </div>
+
+              {/* 4. Diagram Scale */}
+              <div>
+                <label className="block text-[11px] font-semibold text-slate-600 mb-1">
+                  Kích cỡ đồ thị / hình vẽ
+                </label>
+                <select
+                  value={diagramScalePreset}
+                  onChange={(e) => setDiagramScalePreset(e.target.value as any)}
+                  className="w-full px-2.5 py-1.5 text-xs bg-white border border-slate-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="small">Thu nhỏ (Cao tối đa 180px)</option>
+                  <option value="normal">Chuẩn (Cao tối đa 250px)</option>
+                  <option value="large">Lớn (Cao tối đa 320px)</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Auto-fit toggle */}
+            <div className="pt-1 border-t border-blue-100 flex items-center justify-between flex-wrap gap-2">
+              <label className="flex items-center gap-2 cursor-pointer text-xs text-slate-700">
+                <input
+                  type="checkbox"
+                  checked={autoFitPageBudget}
+                  onChange={(e) => setAutoFitPageBudget(e.target.checked)}
+                  className="w-4 h-4 text-blue-600 rounded-sm border-slate-300 focus:ring-blue-500"
+                />
+                <span className="font-medium">
+                  Tự động co giãn thông minh (Auto-fit) để đảm bảo nội dung không tràn sang trang mới ngoài ý muốn
+                </span>
+              </label>
+            </div>
           </div>
 
           {/* Quick Actions Matrix */}

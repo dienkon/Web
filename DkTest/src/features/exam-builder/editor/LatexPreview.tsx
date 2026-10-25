@@ -1,10 +1,29 @@
 import { useEffect, useRef } from "react";
 import katex from "katex";
 import { renderDiscordCodeBlock } from "../../../utils/codeHighlighter";
+import { renderBBTToHtml } from "../../math-draw/bbtRenderer";
+import { renderGraphToSvg } from "../../math-draw/graphRenderer";
+import { executeLiveCanvasCode } from "../../math-draw/liveCanvasRunner";
 
 interface Props {
   content: string;
   className?: string;
+}
+
+export function safeDecode(encoded: string): string {
+  try {
+    return decodeURIComponent(encoded);
+  } catch {
+    return encoded;
+  }
+}
+
+export function safeEncode(val: string): string {
+  try {
+    return encodeURIComponent(val);
+  } catch {
+    return encodeURI(val);
+  }
 }
 
 export default function LatexPreview({ content, className = "" }: Props) {
@@ -20,6 +39,21 @@ export default function LatexPreview({ content, className = "" }: Props) {
     try {
       const renderedHtml = renderMarkdownWithLatex(content);
       containerRef.current.innerHTML = renderedHtml;
+
+      // Initialize all live canvas code runners
+      const canvases = containerRef.current.querySelectorAll("canvas.dk-live-canvas");
+      canvases.forEach((canvasEl) => {
+        const canvas = canvasEl as HTMLCanvasElement;
+        const rawEncoded = canvas.getAttribute("data-code");
+        if (!rawEncoded) return;
+        const code = safeDecode(rawEncoded);
+        const w = parseInt(canvas.getAttribute("data-width") || "500", 10);
+        const h = parseInt(canvas.getAttribute("data-height") || "340", 10);
+        executeLiveCanvasCode(canvas, code, w, h);
+      });
+
+      // Mount all interactive sandboxed HTML widgets (CSS + JS + Canvas + Simulations)
+      mountHtmlWidgets(containerRef.current);
     } catch (e) {
       console.error("Error parsing LaTeX preview", e);
       if (containerRef.current) {
@@ -32,35 +66,146 @@ export default function LatexPreview({ content, className = "" }: Props) {
     }
   }, [content]);
 
-  // Click delegation for Discord code block copy buttons
+  // Window message listener for auto-resizing sandboxed iframe HTML widgets
+  useEffect(() => {
+    const handleWidgetResize = (e: MessageEvent) => {
+      if (e.data?.type === "dk-widget-resize" && e.data?.id && typeof e.data?.height === "number") {
+        const targetIframe = containerRef.current?.querySelector(
+          `iframe[data-widget-target-id="${e.data.id}"]`
+        ) as HTMLIFrameElement | null;
+        if (targetIframe) {
+          const newHeight = Math.max(160, Math.min(1400, e.data.height + 16));
+          targetIframe.style.height = `${newHeight}px`;
+          const container = targetIframe.closest(".dk-widget-iframe-container") as HTMLElement | null;
+          if (container) {
+            container.style.minHeight = `${newHeight}px`;
+          }
+        }
+      }
+    };
+    window.addEventListener("message", handleWidgetResize);
+    return () => window.removeEventListener("message", handleWidgetResize);
+  }, []);
+
+  // Click delegation for Discord code block copy buttons, Live Canvas actions & HTML Widgets
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
     const handleCopy = (e: MouseEvent) => {
-      const btn = (e.target as HTMLElement).closest(".dk-copy-code-btn") as HTMLButtonElement | null;
-      if (!btn) return;
+      const target = e.target as HTMLElement;
 
-      const rawEncoded = btn.getAttribute("data-code");
-      if (!rawEncoded) return;
+      // 1. Copy code button in Discord code block & HTML widget
+      const btn = target.closest(".dk-copy-code-btn") as HTMLButtonElement | null;
+      if (btn) {
+        const rawEncoded = btn.getAttribute("data-code");
+        if (!rawEncoded) return;
 
-      const rawCode = decodeURIComponent(rawEncoded);
-      navigator.clipboard
-        .writeText(rawCode)
-        .then(() => {
-          const label = btn.querySelector(".dk-copy-label");
-          const originalText = label ? label.textContent : "Sao chép";
-          if (label) label.textContent = "Đã sao chép! ✓";
-          btn.classList.add("copied");
+        const rawCode = safeDecode(rawEncoded);
+        navigator.clipboard
+          .writeText(rawCode)
+          .then(() => {
+            const label = btn.querySelector(".dk-copy-label");
+            const originalText = label ? label.textContent : "Sao chép";
+            if (label) label.textContent = "Đã sao chép! ✓";
+            btn.classList.add("copied");
 
+            setTimeout(() => {
+              if (label) label.textContent = originalText;
+              btn.classList.remove("copied");
+            }, 2000);
+          })
+          .catch((err) => {
+            console.error("Clipboard copy failed:", err);
+          });
+        return;
+      }
+
+      // 2. View/Hide code button in Live Canvas block
+      const codeBtn = target.closest(".dk-canvas-btn-code") as HTMLButtonElement | null;
+      if (codeBtn) {
+        const block = codeBtn.closest(".dk-live-canvas-block");
+        const codeView = block?.querySelector(".dk-live-code-view");
+        if (codeView) {
+          codeView.classList.toggle("hidden");
+          codeBtn.textContent = codeView.classList.contains("hidden") ? "Xem code" : "Ẩn code";
+        }
+        return;
+      }
+
+      // 3. Rerun button in Live Canvas block
+      const rerunBtn = target.closest(".dk-canvas-btn-rerun") as HTMLButtonElement | null;
+      if (rerunBtn) {
+        const block = rerunBtn.closest(".dk-live-canvas-block");
+        const canvas = block?.querySelector("canvas.dk-live-canvas") as HTMLCanvasElement | null;
+        if (canvas) {
+          const rawEncoded = canvas.getAttribute("data-code");
+          if (rawEncoded) {
+            const code = safeDecode(rawEncoded);
+            const w = parseInt(canvas.getAttribute("data-width") || "500", 10);
+            const h = parseInt(canvas.getAttribute("data-height") || "340", 10);
+            executeLiveCanvasCode(canvas, code, w, h);
+          }
+        }
+        return;
+      }
+
+      // 4. Download image button in Live Canvas block
+      const downloadBtn = target.closest(".dk-canvas-btn-download") as HTMLButtonElement | null;
+      if (downloadBtn) {
+        const block = downloadBtn.closest(".dk-live-canvas-block");
+        const canvas = block?.querySelector("canvas.dk-live-canvas") as HTMLCanvasElement | null;
+        if (canvas) {
+          const url = canvas.toDataURL("image/png");
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `canvas-drawing-${Date.now()}.png`;
+          a.click();
+        }
+        return;
+      }
+
+      // 5. View/Hide code button in HTML Widget block
+      const widgetCodeBtn = target.closest(".dk-widget-btn-code") as HTMLButtonElement | null;
+      if (widgetCodeBtn) {
+        const block = widgetCodeBtn.closest(".dk-html-widget-block");
+        const codeView = block?.querySelector(".dk-widget-code-view");
+        if (codeView) {
+          codeView.classList.toggle("hidden");
+          widgetCodeBtn.textContent = codeView.classList.contains("hidden") ? "Xem code" : "Ẩn code";
+        }
+        return;
+      }
+
+      // 6. Reload button in HTML Widget block
+      const widgetReloadBtn = target.closest(".dk-widget-btn-reload") as HTMLButtonElement | null;
+      if (widgetReloadBtn) {
+        const block = widgetReloadBtn.closest(".dk-html-widget-block");
+        const iframe = block?.querySelector("iframe") as HTMLIFrameElement | null;
+        if (iframe && iframe.srcdoc) {
+          const savedSrcDoc = iframe.srcdoc;
+          iframe.srcdoc = "";
           setTimeout(() => {
-            if (label) label.textContent = originalText;
-            btn.classList.remove("copied");
-          }, 2000);
-        })
-        .catch((err) => {
-          console.error("Clipboard copy failed:", err);
-        });
+            iframe.srcdoc = savedSrcDoc;
+          }, 60);
+        }
+        return;
+      }
+
+      // 7. Fullscreen button in HTML Widget block
+      const widgetFsBtn = target.closest(".dk-widget-btn-fullscreen") as HTMLButtonElement | null;
+      if (widgetFsBtn) {
+        const block = widgetFsBtn.closest(".dk-html-widget-block");
+        const frameContainer = block?.querySelector(".dk-widget-iframe-container") as HTMLElement | null;
+        if (frameContainer) {
+          if (!document.fullscreenElement) {
+            frameContainer.requestFullscreen?.().catch(() => {});
+          } else {
+            document.exitFullscreen?.().catch(() => {});
+          }
+        }
+        return;
+      }
     };
 
     container.addEventListener("click", handleCopy);
@@ -328,7 +473,8 @@ function escapeUnmatchedAngleBrackets(text: string): string {
     "details", "summary", "mark", "a", "img", "svg", "path", "circle", "rect", "line",
     "polyline", "polygon", "text", "g", "defs", "clippath", "sub", "sup", "small", "big",
     "font", "center", "kbd", "var", "samp", "abbr", "section", "article", "aside",
-    "figure", "figcaption", "header", "footer", "nav", "main", "video", "audio", "source", "canvas"
+    "figure", "figcaption", "header", "footer", "nav", "main", "video", "audio", "source", "canvas",
+    "graph", "bbt", "live-canvas"
   ];
   const tagPattern = new RegExp(`<\\/?(${validTagNames.join("|")})\\b(?:[^<>"']|"[^"]*"|'[^']*')*\\/?>`, "gi");
 
@@ -563,6 +709,266 @@ export function renderRawBlockContent(
 }
 
 /**
+ * Generates the HTML container for a Live Canvas block to be initialized in DOM.
+ */
+export function renderLiveCanvasHtml(
+  code: string,
+  width = 500,
+  height = 340,
+  title?: string
+): string {
+  const cleanCode = code.trim();
+  const safeTitle = escapeHtml(title || "Khối Code Trực Tiếp (Live Canvas)");
+  return `<div class="dk-live-canvas-block my-4 rounded-2xl border border-slate-200 bg-white p-3 shadow-2xs max-w-full overflow-hidden select-none">
+  <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 px-1">
+    <div class="flex items-center gap-2">
+      <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span class="text-xs font-bold text-slate-800">${safeTitle}</span>
+    </div>
+    <div class="flex items-center gap-1">
+      <button type="button" class="dk-canvas-btn-code px-2 py-1 text-[11px] font-medium text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors flex items-center gap-1 cursor-pointer">Xem code</button>
+      <button type="button" class="dk-canvas-btn-rerun px-2 py-1 text-[11px] font-medium text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex items-center gap-1 cursor-pointer">Chạy lại</button>
+      <button type="button" class="dk-canvas-btn-download p-1 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors cursor-pointer" title="Tải ảnh PNG">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+      </button>
+    </div>
+  </div>
+  <div class="flex justify-center overflow-x-auto bg-slate-50/50 rounded-xl p-2">
+    <canvas class="dk-live-canvas rounded-lg shadow-2xs bg-white" data-code="${safeEncode(cleanCode)}" data-width="${width}" data-height="${height}" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"></canvas>
+  </div>
+  <div class="dk-live-code-view hidden mt-3 relative rounded-xl bg-slate-900 p-3 text-slate-100 font-mono text-xs">
+    <pre class="overflow-x-auto">${escapeHtml(cleanCode)}</pre>
+  </div>
+</div>`;
+}
+
+export interface HtmlWidgetToken {
+  id: string;
+  code: string;
+  height: number;
+  title: string;
+}
+
+/**
+ * Robust extractor for interactive HTML widgets with CSS and JavaScript.
+ * Supports:
+ * 1. <html-widget>...</html-widget>, <widget>...</widget>, <live-html>...</live-html>
+ * 2. <live-canvas>...</live-canvas> when containing HTML/CSS/JS
+ * 3. Fenced code blocks ```html, ```widget, ```simulation, ```canvas containing HTML/scripts/styles
+ * 4. Raw standalone HTML documents (<!DOCTYPE html>... or <html...>...) even if unclosed
+ * 5. Direct raw HTML blocks containing <style> and <script> tags
+ */
+export function extractHtmlWidgets(input: string): {
+  text: string;
+  htmlWidgets: HtmlWidgetToken[];
+} {
+  if (!input) return { text: "", htmlWidgets: [] };
+
+  const htmlWidgets: HtmlWidgetToken[] = [];
+  let text = input;
+
+  // 1. Explicit <html-widget>, <widget>, <live-html> tags
+  text = text.replace(/<(html-widget|widget|live-html)\b([^>]*)>([\s\S]*?)<\/\1>/gi, (_, tag, attrs, content) => {
+    const heightMatch = attrs.match(/height="?(\d+)"?/i);
+    const titleMatch = attrs.match(/title="([^"]*)"/i);
+    const height = heightMatch ? parseInt(heightMatch[1], 10) : 380;
+    const title = titleMatch ? titleMatch[1] : "Khối mô phỏng HTML5 / JavaScript";
+    const placeholder = `\uE00AHW_${htmlWidgets.length}\uE00B`;
+    htmlWidgets.push({ id: placeholder, code: content.trim(), height, title });
+    return placeholder;
+  });
+
+  // 2. <live-canvas> tags that actually contain HTML code (CSS, JS, or DOM tags)
+  text = text.replace(/<live-canvas\b([^>]*)>([\s\S]*?)<\/live-canvas>/gi, (match, attrs, code) => {
+    const isHtml = /<(?:!DOCTYPE|html|head|body|style|script|div|svg|canvas\b[^>]*>)/i.test(code);
+    if (isHtml) {
+      const heightMatch = attrs.match(/height="?(\d+)"?/i);
+      const titleMatch = attrs.match(/title="([^"]*)"/i);
+      const height = heightMatch ? parseInt(heightMatch[1], 10) : 380;
+      const title = titleMatch ? titleMatch[1] : "Khối mô phỏng HTML5 / JavaScript";
+      const placeholder = `\uE00AHW_${htmlWidgets.length}\uE00B`;
+      htmlWidgets.push({ id: placeholder, code: code.trim(), height, title });
+      return placeholder;
+    }
+    return match;
+  });
+
+  // 3. Fenced code blocks ```html, ```widget, ```simulation, ```live-code, ```canvas containing interactive elements
+  text = text.replace(/(?:```|~~~)(?:html|widget|simulation|canvas-html|live-code|canvas)\b([^\n]*)\r?\n([\s\S]*?)(?:```|~~~)/gi, (match, headerAttrs, code) => {
+    const isInteractive = /<script\b|<style\b|<!DOCTYPE|<canvas\b|<body\b|<html\b|<div\b/i.test(code);
+    if (isInteractive) {
+      const titleMatch = headerAttrs.match(/title="([^"]*)"/i);
+      const heightMatch = headerAttrs.match(/height="?(\d+)"?/i);
+      const title = titleMatch ? titleMatch[1] : "Khối mô phỏng HTML tương tác";
+      const height = heightMatch ? parseInt(heightMatch[1], 10) : 380;
+      const placeholder = `\uE00AHW_${htmlWidgets.length}\uE00B`;
+      htmlWidgets.push({ id: placeholder, code: code.trim(), height, title });
+      return placeholder;
+    }
+    return match;
+  });
+
+  // 4. Raw full HTML documents: <!DOCTYPE html>... or <html...>... (even if unclosed)
+  text = text.replace(/(<!DOCTYPE\s+html[\s\S]*?(?:<\/html>|$)|<html\b[\s\S]*?(?:<\/html>|$))/gi, (match) => {
+    const placeholder = `\uE00AHW_${htmlWidgets.length}\uE00B`;
+    htmlWidgets.push({
+      id: placeholder,
+      code: match.trim(),
+      height: 420,
+      title: "Ứng dụng mô phỏng HTML5 / Canvas",
+    });
+    return placeholder;
+  });
+
+  // 5. Directly pasted raw HTML chunks containing <style> and/or <script>
+  text = text.replace(/(?:<style\b[\s\S]*?<\/style>[\s\S]*?<script\b[\s\S]*?<\/script>|<script\b[\s\S]*?<\/script>[\s\S]*?<style\b[\s\S]*?<\/style>|<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>)/gi, (match) => {
+    const placeholder = `\uE00AHW_${htmlWidgets.length}\uE00B`;
+    htmlWidgets.push({
+      id: placeholder,
+      code: match.trim(),
+      height: 380,
+      title: "Khối mã mô phỏng trực tiếp",
+    });
+    return placeholder;
+  });
+
+  return { text, htmlWidgets };
+}
+
+/**
+ * Generates the HTML container for an Interactive HTML Widget block to be initialized in DOM.
+ */
+export function renderHtmlWidgetHtml(
+  code: string,
+  height = 380,
+  title = "Khối mô phỏng HTML5 / JavaScript"
+): string {
+  const cleanCode = code.trim();
+  const safeTitle = escapeHtml(title || "Khối mô phỏng HTML5 / JavaScript");
+  const widgetId = "dk-hw-" + Math.random().toString(36).substring(2, 9);
+
+  return `<div class="dk-html-widget-block my-4 rounded-2xl border border-slate-200 bg-white p-3 shadow-2xs max-w-full overflow-hidden select-none" data-widget-id="${widgetId}" data-html="${safeEncode(cleanCode)}" data-height="${height}" data-title="${safeEncode(title)}">
+  <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 px-1">
+    <div class="flex items-center gap-2">
+      <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-pulse"></span>
+      <span class="text-xs font-bold text-slate-800">${safeTitle}</span>
+      <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">HTML5 / JS</span>
+    </div>
+    <div class="flex items-center gap-1">
+      <button type="button" class="dk-widget-btn-code px-2 py-1 text-[11px] font-medium text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors flex items-center gap-1 cursor-pointer">Xem code</button>
+      <button type="button" class="dk-widget-btn-reload px-2 py-1 text-[11px] font-medium text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex items-center gap-1 cursor-pointer">Tải lại</button>
+      <button type="button" class="dk-widget-btn-fullscreen p-1 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors cursor-pointer" title="Toàn màn hình">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="dk-widget-iframe-container relative w-full overflow-hidden rounded-xl border border-slate-100 bg-white" style="min-height: ${height}px;">
+    <!-- Sandboxed responsive iframe is mounted dynamically here -->
+  </div>
+  <div class="dk-widget-code-view hidden mt-3 relative rounded-xl bg-slate-900 p-3 text-slate-100 font-mono text-xs border border-slate-800">
+    <div class="flex items-center justify-between pb-1.5 mb-1.5 border-b border-slate-800 text-[10px] text-slate-400">
+      <span>MÃ NGUỒN HTML / CSS / JS</span>
+      <button type="button" class="dk-copy-code-btn px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors" data-code="${safeEncode(cleanCode)}">
+        <span class="dk-copy-label">Sao chép</span>
+      </button>
+    </div>
+    <pre class="overflow-x-auto max-h-60 leading-relaxed">${escapeHtml(cleanCode)}</pre>
+  </div>
+</div>`;
+}
+
+/**
+ * Mounts sandboxed responsive iframes into all .dk-html-widget-block elements in container.
+ */
+export function mountHtmlWidgets(container: HTMLElement) {
+  const widgetBlocks = container.querySelectorAll(".dk-html-widget-block");
+  widgetBlocks.forEach((blockEl) => {
+    const block = blockEl as HTMLElement;
+    const iframeContainer = block.querySelector(".dk-widget-iframe-container");
+    if (!iframeContainer) return;
+    if (iframeContainer.querySelector("iframe")) return;
+
+    const rawEncoded = block.getAttribute("data-html");
+    if (!rawEncoded) return;
+    const rawHtml = safeDecode(rawEncoded);
+    const height = parseInt(block.getAttribute("data-height") || "380", 10);
+    const widgetId = block.getAttribute("data-widget-id") || ("dk-hw-" + Math.random().toString(36).substring(2, 9));
+
+    let fullHtml = rawHtml;
+    const hasDoctypeOrHtml = /<!DOCTYPE\b|<html\b/i.test(rawHtml);
+    if (!hasDoctypeOrHtml) {
+      fullHtml = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 12px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; overflow-x: hidden; }
+  </style>
+</head>
+<body>
+  ${rawHtml}
+</body>
+</html>`;
+    } else {
+      // Ensure UTF-8 meta charset exists for pristine Vietnamese text rendering
+      if (!/<meta\s+charset/i.test(fullHtml)) {
+        fullHtml = fullHtml.replace(/<head\b[^>]*>/i, (m) => `${m}\n  <meta charset="utf-8">`);
+      }
+      // Ensure closing html tag if missing
+      if (!/<\/html>/i.test(fullHtml)) {
+        fullHtml += "\n</html>";
+      }
+    }
+
+    const autoResizeScript = `
+<script>
+  (function() {
+    function notifyHeight() {
+      try {
+        var h = Math.max(
+          document.body ? document.body.scrollHeight : 0,
+          document.documentElement ? document.documentElement.scrollHeight : 0,
+          document.body ? document.body.offsetHeight : 0
+        );
+        if (h > 60 && window.parent) {
+          window.parent.postMessage({ type: 'dk-widget-resize', id: '${widgetId}', height: h }, '*');
+        }
+      } catch(e) {}
+    }
+    window.addEventListener('load', notifyHeight);
+    window.addEventListener('resize', notifyHeight);
+    if (window.ResizeObserver && document.body) {
+      new ResizeObserver(notifyHeight).observe(document.body);
+    }
+    setTimeout(notifyHeight, 200);
+    setTimeout(notifyHeight, 800);
+    setTimeout(notifyHeight, 2500);
+  })();
+</script>`;
+
+    let finalHtml = fullHtml;
+    if (/<\/body>/i.test(finalHtml)) {
+      finalHtml = finalHtml.replace(/<\/body>/i, `${autoResizeScript}</body>`);
+    } else {
+      finalHtml += autoResizeScript;
+    }
+
+    const iframe = document.createElement("iframe");
+    iframe.sandbox.add("allow-scripts", "allow-modals", "allow-forms", "allow-popups");
+    iframe.className = "w-full border-0 block rounded-xl";
+    iframe.style.width = "100%";
+    iframe.style.height = `${height}px`;
+    iframe.style.minHeight = `${Math.min(height, 200)}px`;
+    iframe.setAttribute("data-widget-target-id", widgetId);
+    iframe.srcdoc = finalHtml;
+
+    iframeContainer.appendChild(iframe);
+  });
+}
+
+/**
  * Main markdown with LaTeX and rich HTML parser.
  */
 export function renderMarkdownWithLatex(rawText: string): string {
@@ -570,6 +976,9 @@ export function renderMarkdownWithLatex(rawText: string): string {
 
   // 0. Extract and protect RAW blocks FIRST using tokenizer state machine
   const { text: textWithoutRaw, rawBlocks } = extractRawBlocks(rawText);
+
+  // 0.05 Extract and protect interactive HTML widgets (keeps them safe from KaTeX, math $, and sanitization!)
+  const { text: textWithoutWidgets, htmlWidgets } = extractHtmlWidgets(textWithoutRaw);
 
   const placeholders: { [key: string]: string } = {};
   let tokenCounter = 0;
@@ -580,11 +989,58 @@ export function renderMarkdownWithLatex(rawText: string): string {
     return key;
   };
 
-  let text = normalizeLatexText(textWithoutRaw);
+  let text = normalizeLatexText(textWithoutWidgets);
 
-  // 1. Code blocks: ```lang ... ``` or ~~~lang ... ~~~ (Discord style)
+  // 0.1 Custom Math Visualization Tags: <graph>, <bbt>, <live-canvas>
+  text = text.replace(/<graph\b[^>]*>([\s\S]*?)<\/graph>/gi, (_, graphCode) => {
+    try {
+      const svg = renderGraphToSvg(graphCode);
+      return createPlaceholder(svg);
+    } catch (e) {
+      return createPlaceholder(`<div class="p-2 text-xs text-red-500 font-mono">Lỗi đồ thị: ${escapeHtml(String(e))}</div>`);
+    }
+  });
+
+  text = text.replace(/<bbt\b[^>]*>([\s\S]*?)<\/bbt>/gi, (_, bbtCode) => {
+    try {
+      const bbtHtml = renderBBTToHtml(bbtCode);
+      return createPlaceholder(bbtHtml);
+    } catch (e) {
+      return createPlaceholder(`<div class="p-2 text-xs text-red-500 font-mono">Lỗi bảng biến thiên: ${escapeHtml(String(e))}</div>`);
+    }
+  });
+
+  text = text.replace(/<live-canvas\b([^>]*)>([\s\S]*?)<\/live-canvas>/gi, (_, attrs, code) => {
+    const widthMatch = attrs.match(/width="?(\d+)"?/i);
+    const heightMatch = attrs.match(/height="?(\d+)"?/i);
+    const titleMatch = attrs.match(/title="([^"]*)"/i);
+    const width = widthMatch ? parseInt(widthMatch[1], 10) : 500;
+    const height = heightMatch ? parseInt(heightMatch[1], 10) : 340;
+    const title = titleMatch ? titleMatch[1] : undefined;
+    return createPlaceholder(renderLiveCanvasHtml(code, width, height, title));
+  });
+
+  // 1. Code blocks: ```lang ... ``` or ~~~lang ... ~~~ (Discord style & Math blocks)
   text = text.replace(/(?:```|~~~)([\s\S]*?)(?:```|~~~)/g, (_, blockContent) => {
     const { lang, code } = parseFencedCodeBlock(blockContent);
+    const l = (lang || "").toLowerCase();
+    if (l === "graph") {
+      try {
+        return createPlaceholder(renderGraphToSvg(code));
+      } catch (e) {
+        return createPlaceholder(`<div class="p-2 text-xs text-red-500 font-mono">Lỗi đồ thị: ${escapeHtml(String(e))}</div>`);
+      }
+    }
+    if (l === "bbt") {
+      try {
+        return createPlaceholder(renderBBTToHtml(code));
+      } catch (e) {
+        return createPlaceholder(`<div class="p-2 text-xs text-red-500 font-mono">Lỗi bảng biến thiên: ${escapeHtml(String(e))}</div>`);
+      }
+    }
+    if (l === "canvas" || l === "live-code" || l === "live-canvas") {
+      return createPlaceholder(renderLiveCanvasHtml(code));
+    }
     const discordHtml = renderDiscordCodeBlock(code, lang);
     return createPlaceholder(discordHtml);
   });
@@ -818,6 +1274,15 @@ export function renderMarkdownWithLatex(rawText: string): string {
     for (const block of rawBlocks) {
       const renderedRaw = renderRawBlockContent(block.content);
       text = text.split(block.id).join(renderedRaw);
+    }
+  }
+
+  // Restore protected interactive HTML widgets directly into the final output.
+  // Content is sandboxed and ready for iframe execution with CSS & JS.
+  if (htmlWidgets.length > 0) {
+    for (const widget of htmlWidgets) {
+      const renderedWidget = renderHtmlWidgetHtml(widget.code, widget.height, widget.title);
+      text = text.split(widget.id).join(renderedWidget);
     }
   }
 
