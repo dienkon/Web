@@ -3,7 +3,9 @@ import katex from "katex";
 import { renderDiscordCodeBlock } from "../../../utils/codeHighlighter";
 import { renderBBTToHtml } from "../../math-draw/bbtRenderer";
 import { renderGraphToSvg } from "../../math-draw/graphRenderer";
-import { executeLiveCanvasCode } from "../../math-draw/liveCanvasRunner";
+import { executeLiveCanvasCode, decodeHtmlEntities } from "../../math-draw/liveCanvasRunner";
+
+export { decodeHtmlEntities };
 
 interface Props {
   content: string;
@@ -11,10 +13,15 @@ interface Props {
 }
 
 export function safeDecode(encoded: string): string {
+  if (!encoded) return "";
   try {
     return decodeURIComponent(encoded);
   } catch {
-    return encoded;
+    try {
+      return decodeURIComponent(encoded.replace(/%(?![0-9a-fA-F]{2})/g, "%25"));
+    } catch {
+      return encoded;
+    }
   }
 }
 
@@ -46,7 +53,7 @@ export default function LatexPreview({ content, className = "" }: Props) {
         const canvas = canvasEl as HTMLCanvasElement;
         const rawEncoded = canvas.getAttribute("data-code");
         if (!rawEncoded) return;
-        const code = safeDecode(rawEncoded);
+        const code = decodeHtmlEntities(safeDecode(rawEncoded));
         const w = parseInt(canvas.getAttribute("data-width") || "500", 10);
         const h = parseInt(canvas.getAttribute("data-height") || "340", 10);
         executeLiveCanvasCode(canvas, code, w, h);
@@ -141,7 +148,7 @@ export default function LatexPreview({ content, className = "" }: Props) {
         if (canvas) {
           const rawEncoded = canvas.getAttribute("data-code");
           if (rawEncoded) {
-            const code = safeDecode(rawEncoded);
+            const code = decodeHtmlEntities(safeDecode(rawEncoded));
             const w = parseInt(canvas.getAttribute("data-width") || "500", 10);
             const h = parseInt(canvas.getAttribute("data-height") || "340", 10);
             executeLiveCanvasCode(canvas, code, w, h);
@@ -717,7 +724,7 @@ export function renderLiveCanvasHtml(
   height = 340,
   title?: string
 ): string {
-  const cleanCode = code.trim();
+  const cleanCode = decodeHtmlEntities(code).trim();
   const safeTitle = escapeHtml(title || "Khối Code Trực Tiếp (Live Canvas)");
   return `<div class="dk-live-canvas-block my-4 rounded-2xl border border-slate-200 bg-white p-3 shadow-2xs max-w-full overflow-hidden select-none">
   <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 px-1">
@@ -779,13 +786,13 @@ export function extractHtmlWidgets(input: string): {
   });
 
   // 2. <live-canvas> tags that actually contain HTML code (CSS, JS, or DOM tags)
-  text = text.replace(/<live-canvas\b([^>]*)>([\s\S]*?)<\/live-canvas>/gi, (match, attrs, code) => {
-    const isHtml = /<(?:!DOCTYPE|html|head|body|style|script|div|svg|canvas\b[^>]*>)/i.test(code);
+  text = text.replace(/<live-canvas\b((?:[^>"']|"[^"]*"|'[^']*')*)>([\s\S]*?)<\/live-canvas>/gi, (match, attrs, code) => {
+    const isHtml = /(?:<!DOCTYPE\s+html|<\/?(?:html|head|body|style|script)\b|<\/(?:div|span|p|button|canvas|svg)>)/i.test(code);
     if (isHtml) {
-      const heightMatch = attrs.match(/height="?(\d+)"?/i);
-      const titleMatch = attrs.match(/title="([^"]*)"/i);
-      const height = heightMatch ? parseInt(heightMatch[1], 10) : 380;
-      const title = titleMatch ? titleMatch[1] : "Khối mô phỏng HTML5 / JavaScript";
+      const heightMatch = attrs.match(/height=(?:"(\d+)"|'(\d+)'|(\d+))/i);
+      const titleMatch = attrs.match(/title=(?:"([^"]*)"|'([^']*)')/i);
+      const height = heightMatch ? parseInt(heightMatch[1] || heightMatch[2] || heightMatch[3], 10) : 380;
+      const title = titleMatch ? (titleMatch[1] ?? titleMatch[2]) : "Khối mô phỏng HTML5 / JavaScript";
       const placeholder = `\uE00AHW_${htmlWidgets.length}\uE00B`;
       htmlWidgets.push({ id: placeholder, code: code.trim(), height, title });
       return placeholder;
@@ -793,9 +800,9 @@ export function extractHtmlWidgets(input: string): {
     return match;
   });
 
-  // 3. Fenced code blocks ```html, ```widget, ```simulation, ```live-code, ```canvas containing interactive elements
-  text = text.replace(/(?:```|~~~)(?:html|widget|simulation|canvas-html|live-code|canvas)\b([^\n]*)\r?\n([\s\S]*?)(?:```|~~~)/gi, (match, headerAttrs, code) => {
-    const isInteractive = /<script\b|<style\b|<!DOCTYPE|<canvas\b|<body\b|<html\b|<div\b/i.test(code);
+  // 3. Fenced code blocks ```html, ```widget, ```simulation, ```canvas-html containing interactive elements
+  text = text.replace(/(?:```|~~~)(?:html|widget|simulation|canvas-html)\b([^\n]*)\r?\n([\s\S]*?)(?:```|~~~)/gi, (match, headerAttrs, code) => {
+    const isInteractive = /(?:<!DOCTYPE\s+html|<\/?(?:html|head|body|style|script)\b|<\/(?:div|span|p|button|canvas|svg)>)/i.test(code);
     if (isInteractive) {
       const titleMatch = headerAttrs.match(/title="([^"]*)"/i);
       const heightMatch = headerAttrs.match(/height="?(\d+)"?/i);
@@ -989,9 +996,9 @@ export function renderMarkdownWithLatex(rawText: string): string {
     return key;
   };
 
-  let text = normalizeLatexText(textWithoutWidgets);
+  let text = textWithoutWidgets;
 
-  // 0.1 Custom Math Visualization Tags: <graph>, <bbt>, <live-canvas>
+  // 0.1 Custom Math Visualization Tags (extracted BEFORE normalizeLatexText so code is never mangled): <graph>, <bbt>, <live-canvas>
   text = text.replace(/<graph\b[^>]*>([\s\S]*?)<\/graph>/gi, (_, graphCode) => {
     try {
       const svg = renderGraphToSvg(graphCode);
@@ -1010,17 +1017,18 @@ export function renderMarkdownWithLatex(rawText: string): string {
     }
   });
 
-  text = text.replace(/<live-canvas\b([^>]*)>([\s\S]*?)<\/live-canvas>/gi, (_, attrs, code) => {
-    const widthMatch = attrs.match(/width="?(\d+)"?/i);
-    const heightMatch = attrs.match(/height="?(\d+)"?/i);
-    const titleMatch = attrs.match(/title="([^"]*)"/i);
-    const width = widthMatch ? parseInt(widthMatch[1], 10) : 500;
-    const height = heightMatch ? parseInt(heightMatch[1], 10) : 340;
-    const title = titleMatch ? titleMatch[1] : undefined;
+  text = text.replace(/<live-canvas\b((?:[^>"']|"[^"]*"|'[^']*')*)>([\s\S]*?)<\/live-canvas>/gi, (_, attrs, code) => {
+    const widthMatch = attrs.match(/width=(?:"(\d+)"|'(\d+)'|(\d+))/i);
+    const heightMatch = attrs.match(/height=(?:"(\d+)"|'(\d+)'|(\d+))/i);
+    const titleMatch = attrs.match(/title=(?:"([^"]*)"|'([^']*)')/i);
+    const width = widthMatch ? parseInt(widthMatch[1] || widthMatch[2] || widthMatch[3], 10) : 500;
+    const height = heightMatch ? parseInt(heightMatch[1] || heightMatch[2] || heightMatch[3], 10) : 340;
+    const title = titleMatch ? (titleMatch[1] ?? titleMatch[2]) : undefined;
     return createPlaceholder(renderLiveCanvasHtml(code, width, height, title));
   });
 
   // 1. Code blocks: ```lang ... ``` or ~~~lang ... ~~~ (Discord style & Math blocks)
+  // Extract and protect BEFORE normalizeLatexText so code snippets (JS, Python, C++, Math.sqrt, etc.) are never mangled by LaTeX math replacers!
   text = text.replace(/(?:```|~~~)([\s\S]*?)(?:```|~~~)/g, (_, blockContent) => {
     const { lang, code } = parseFencedCodeBlock(blockContent);
     const l = (lang || "").toLowerCase();
@@ -1044,6 +1052,9 @@ export function renderMarkdownWithLatex(rawText: string): string {
     const discordHtml = renderDiscordCodeBlock(code, lang);
     return createPlaceholder(discordHtml);
   });
+
+  // 1.5 Safely normalize LaTeX in the remaining Markdown and mathematical text:
+  text = normalizeLatexText(text);
 
   // 2. Process HTML tables: <table ...>...</table>
   // Auto-close dangling <table> tags if truncated or missing in AI stream

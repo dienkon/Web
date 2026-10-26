@@ -30,24 +30,37 @@ export default function MathGraphModal({ onInsert, onClose }: Props) {
 
   // Tab 3: Live Code State
   const [liveCode, setLiveCode] = useState(LIVE_CANVAS_TEMPLATES[0].code);
+  const [debouncedLiveCode, setDebouncedLiveCode] = useState(LIVE_CANVAS_TEMPLATES[0].code);
   const [liveCanvasTitle, setLiveCanvasTitle] = useState("Hình vẽ minh hoạ");
   const canvasPreviewRef = useRef<HTMLCanvasElement>(null);
   const [liveCodeError, setLiveCodeError] = useState<string | null>(null);
 
-  const isHtmlCode = /<(?:!DOCTYPE|html|head|body|style|script|div|svg|canvas\b[^>]*>)/i.test(liveCode.trim());
+  // Debounce live code updates while typing to avoid UI freezing
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedLiveCode(liveCode);
+    }, 250);
+    return () => clearTimeout(timer);
+  }, [liveCode]);
 
-  // Run live canvas preview when in live_code tab
+  const isHtmlCode = /(?:<!DOCTYPE\s+html|<\/?(?:html|head|body|style|script)\b|<\/(?:div|span|p|button|canvas|svg)>)/i.test(debouncedLiveCode.trim());
+
+  // Run live canvas preview when in live_code tab (debounced, with skipTrim to eliminate touch/scroll lag)
   useEffect(() => {
     if (activeTab === "live_code") {
       setLiveCodeError(null);
       if (!isHtmlCode && canvasPreviewRef.current) {
-        const res = executeLiveCanvasCode(canvasPreviewRef.current, liveCode, 460, 280);
-        if (!res.success && res.error) {
-          setLiveCodeError(res.error);
+        try {
+          const res = executeLiveCanvasCode(canvasPreviewRef.current, debouncedLiveCode, 460, 280, { skipTrim: true });
+          if (!res.success && res.error) {
+            setLiveCodeError(res.error);
+          }
+        } catch (err: any) {
+          setLiveCodeError(err?.message || String(err));
         }
       }
     }
-  }, [activeTab, liveCode, isHtmlCode]);
+  }, [activeTab, debouncedLiveCode, isHtmlCode]);
 
   // Handlers for Graph Presets
   const applyGraphPreset = (presetName: string) => {
@@ -108,8 +121,10 @@ export default function MathGraphModal({ onInsert, onClose }: Props) {
 
   const handleInsertLiveCanvas = () => {
     let tag = "";
-    if (isHtmlCode) {
-      tag = `\n<html-widget height="380" title="${liveCanvasTitle}">\n${liveCode.trim()}\n</html-widget>\n`;
+    const isActuallyHtml = /(?:<!DOCTYPE\s+html|<\/?(?:html|head|body|style|script)\b|<\/(?:div|span|p|button|canvas|svg)>)/i.test(liveCode.trim());
+    const safeTitle = (liveCanvasTitle || "Hình vẽ minh hoạ").replace(/"/g, "&quot;");
+    if (isActuallyHtml) {
+      tag = `\n<html-widget height="380" title="${safeTitle}">\n${liveCode.trim()}\n</html-widget>\n`;
     } else {
       const bounds = detectContentBounds(liveCode, 500, 340);
       let tagWidth = 500;
@@ -125,7 +140,7 @@ export default function MathGraphModal({ onInsert, onClose }: Props) {
           tagHeight = Math.ceil(bounds.maxY + 24);
         }
       }
-      tag = `\n<live-canvas width="${tagWidth}" height="${tagHeight}" title="${liveCanvasTitle}">\n${liveCode.trim()}\n</live-canvas>\n`;
+      tag = `\n<live-canvas width="${tagWidth}" height="${tagHeight}" title="${safeTitle}">\n${liveCode.trim()}\n</live-canvas>\n`;
     }
     onInsert(tag);
     onClose();
@@ -494,7 +509,7 @@ export default function MathGraphModal({ onInsert, onClose }: Props) {
                     <button
                       type="button"
                       onClick={() => {
-                        setLiveCode(`<!DOCTYPE html>
+                        const htmlSample = `<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
@@ -512,7 +527,9 @@ export default function MathGraphModal({ onInsert, onClose }: Props) {
     <button onclick="document.getElementById('sim-status').innerText = 'JavaScript đã thực thi thành công! ✓'">Thử nghiệm</button>
   </div>
 </body>
-</html>`);
+</html>`;
+                        setLiveCode(htmlSample);
+                        setDebouncedLiveCode(htmlSample);
                         setLiveCanvasTitle("Mô phỏng HTML5 / JavaScript");
                       }}
                       className="px-2.5 py-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-lg border border-indigo-200 transition-colors cursor-pointer"
@@ -525,6 +542,7 @@ export default function MathGraphModal({ onInsert, onClose }: Props) {
                         type="button"
                         onClick={() => {
                           setLiveCode(tmpl.code);
+                          setDebouncedLiveCode(tmpl.code);
                           setLiveCanvasTitle(tmpl.title);
                         }}
                         className="px-2.5 py-1 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 text-slate-700 text-xs font-medium rounded-lg border border-slate-200 transition-colors cursor-pointer"
@@ -591,15 +609,19 @@ export default function MathGraphModal({ onInsert, onClose }: Props) {
                       <iframe
                         sandbox="allow-scripts allow-modals allow-forms allow-popups"
                         srcDoc={
-                          /<!DOCTYPE\b|<html\b/i.test(liveCode)
-                            ? liveCode
-                            : `<!DOCTYPE html><html><head><meta charset="utf-8"><style>body{margin:0;padding:12px;font-family:sans-serif;}</style></head><body>${liveCode}</body></html>`
+                          /<!DOCTYPE\b|<html\b/i.test(debouncedLiveCode)
+                            ? debouncedLiveCode
+                            : `<!DOCTYPE html><html><head><meta charset="utf-8"><style>body{margin:0;padding:12px;font-family:sans-serif;}</style></head><body>${debouncedLiveCode}</body></html>`
                         }
                         className="w-full h-[280px] border-0 rounded-lg bg-white"
                         title="HTML5 Live Preview"
                       />
                     ) : (
-                      <canvas ref={canvasPreviewRef} className="rounded-lg shadow-2xs" />
+                      <canvas
+                        ref={canvasPreviewRef}
+                        className="rounded-lg shadow-2xs select-none pointer-events-none"
+                        style={{ touchAction: "none" }}
+                      />
                     )}
                   </div>
                 </div>

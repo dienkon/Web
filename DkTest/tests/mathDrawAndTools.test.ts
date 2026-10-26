@@ -9,10 +9,11 @@ import {
 import {
   createLiveCanvasHelpers,
   executeLiveCanvasCode,
+  cleanCanvasCode,
   LIVE_CANVAS_TEMPLATES,
 } from "../src/features/math-draw/liveCanvasRunner";
 import { handleClipboardImagePaste } from "../src/utils/clipboardImageUpload";
-import { renderMarkdownWithLatex } from "../src/features/exam-builder/editor/LatexPreview";
+import { renderMarkdownWithLatex, safeDecode } from "../src/features/exam-builder/editor/LatexPreview";
 import { formatTextForWord } from "../src/services/wordExportService";
 
 describe("Bảng Biến Thiên (BBT) Renderer", () => {
@@ -810,6 +811,229 @@ describe("Markdown & Custom Math Tags Integration in LatexPreview", () => {
 
     expect(wordHtml).toContain("dk-graph-container");
     expect(wordHtml).toContain("dk-bbt-container");
+  });
+
+  it("preserves Math.sqrt, loop comparison operators, and HTML entities in <live-canvas> without syntax or token corruption", () => {
+    const rawContent = `Câu 2: Hình vẽ toạ độ:
+<live-canvas width="500" height="340" title="Custom Geometry">
+const r = Math.sqrt(25);
+for (let i = 0; i &lt; 5; i++) {
+  if (i &gt; 0 &amp;&amp; i &lt; canvas.width) {
+    ctx.lineTo(i * 10, r);
+  }
+}
+ctx.fillText("Result: " + r, 10, 20);
+</live-canvas>`;
+
+    const html = renderMarkdownWithLatex(rawContent);
+    expect(html).toContain("dk-live-canvas-block");
+    expect(html).not.toContain("Math.\\sqrt");
+
+    const codeMatch = html.match(/data-code="([^"]+)"/);
+    expect(codeMatch).not.toBeNull();
+
+    const decodedCode = safeDecode(codeMatch![1]);
+    expect(decodedCode).toContain("Math.sqrt(25)");
+    expect(decodedCode).toContain("i < 5");
+    expect(decodedCode).toContain("i > 0 && i < canvas.width");
+
+    const mockCtx = {
+      save: vi.fn(),
+      restore: vi.fn(),
+      scale: vi.fn(),
+      fillRect: vi.fn(),
+      resetTransform: vi.fn(),
+      beginPath: vi.fn(),
+      lineTo: vi.fn(),
+      moveTo: vi.fn(),
+      stroke: vi.fn(),
+      fillText: vi.fn(),
+    } as unknown as CanvasRenderingContext2D;
+
+    const mockCanvas = {
+      getContext: vi.fn().mockReturnValue(mockCtx),
+      style: {},
+      width: 0,
+      height: 0,
+    } as unknown as HTMLCanvasElement;
+
+    const result = executeLiveCanvasCode(mockCanvas, decodedCode, 500, 340);
+    expect(result.success).toBe(true);
+    expect(mockCtx.fillText).toHaveBeenCalledWith("Result: 5", 10, 20);
+  });
+
+  it("preserves Math.sqrt and times inside fenced ```canvas code blocks", () => {
+    const fencedContent = "```canvas\nlet times = 3;\nconst dist = Math.sqrt(16) * times;\nctx.fillText('Dist: ' + dist, 10, 20);\n```";
+    const html = renderMarkdownWithLatex(fencedContent);
+    expect(html).toContain("dk-live-canvas-block");
+
+    const codeMatch = html.match(/data-code="([^"]+)"/);
+    expect(codeMatch).not.toBeNull();
+    const decodedCode = safeDecode(codeMatch![1]);
+    expect(decodedCode).toContain("Math.sqrt(16)");
+    expect(decodedCode).toContain("let times = 3;");
+
+    const mockCtx = {
+      save: vi.fn(),
+      restore: vi.fn(),
+      scale: vi.fn(),
+      fillRect: vi.fn(),
+      resetTransform: vi.fn(),
+      fillText: vi.fn(),
+    } as unknown as CanvasRenderingContext2D;
+
+    const mockCanvas = {
+      getContext: vi.fn().mockReturnValue(mockCtx),
+      style: {},
+      width: 0,
+      height: 0,
+    } as unknown as HTMLCanvasElement;
+
+    const result = executeLiveCanvasCode(mockCanvas, decodedCode, 500, 340);
+    expect(result.success).toBe(true);
+    expect(mockCtx.fillText).toHaveBeenCalledWith("Dist: 12", 10, 20);
+  });
+
+  it("preserves live canvas code with Math.sqrt and HTML entities in Word export without LaTeX mangling", () => {
+    const wordInput = `<live-canvas title="Word Canvas">
+const hyp = Math.sqrt(9);
+for (let i = 0; i &lt; 3; i++) {}
+</live-canvas>`;
+    const wordHtml = formatTextForWord(wordInput);
+    expect(wordHtml).toContain("Math.sqrt(9)");
+    expect(wordHtml).not.toContain("Math.\\sqrt");
+    expect(wordHtml).toContain("i &lt; 3");
+  });
+
+  it("handles <live-canvas> tag with title containing > and < without cutting tag or creating token error", () => {
+    const rawContent = `Câu hỏi với đồ thị:
+<live-canvas width="500" height="340" title="Đồ thị hàm số y = f(x) khi x > 0 và y < 5">
+const w = 400;
+ctx.fillText("Test", 10, 20);
+</live-canvas>`;
+
+    const html = renderMarkdownWithLatex(rawContent);
+    expect(html).toContain("dk-live-canvas-block");
+    expect(html).toContain("Đồ thị hàm số y = f(x) khi x &gt; 0 và y &lt; 5");
+
+    const codeMatch = html.match(/data-code="([^"]+)"/);
+    expect(codeMatch).not.toBeNull();
+    const decodedCode = safeDecode(codeMatch![1]);
+    expect(decodedCode).not.toContain('0">');
+    expect(decodedCode).toContain("const w = 400;");
+
+    const mockCtx = {
+      save: vi.fn(),
+      restore: vi.fn(),
+      scale: vi.fn(),
+      fillRect: vi.fn(),
+      resetTransform: vi.fn(),
+      fillText: vi.fn(),
+    } as unknown as CanvasRenderingContext2D;
+    const mockCanvas = {
+      getContext: vi.fn().mockReturnValue(mockCtx),
+      style: {},
+      width: 0,
+      height: 0,
+    } as unknown as HTMLCanvasElement;
+
+    const res = executeLiveCanvasCode(mockCanvas, decodedCode, 500, 340);
+    expect(res.success).toBe(true);
+    expect(mockCtx.fillText).toHaveBeenCalledWith("Test", 10, 20);
+  });
+
+  it("handles <live-canvas> with single-quoted attributes correctly", () => {
+    const rawContent = `<live-canvas title='Đồ thị hàm f(x)' width='450' height='280'>
+ctx.fillText('SingleQuoteTest', 5, 15);
+</live-canvas>`;
+    const html = renderMarkdownWithLatex(rawContent);
+    expect(html).toContain("Đồ thị hàm f(x)");
+    expect(html).toContain('data-width="450"');
+    expect(html).toContain('data-height="280"');
+  });
+
+  it("cleans and executes custom canvas code with smart quotes, non-breaking spaces, and unicode minus without token errors", () => {
+    const messyCode = `// Smart quotes & unicode minus pasted from Word / mobile
+ctx.font = “bold 12px sans-serif”;
+ctx.fillStyle = ‘#1e293b’;
+const a = 10 − 4;&nbsp;// U+2212 and &nbsp;
+const b = 5\u200B;\u00A0// zero-width space and non-breaking space
+ctx.fillText('Result: ' + (a + b), 10, 20);`;
+
+    const cleaned = cleanCanvasCode(messyCode);
+    expect(cleaned).toContain('ctx.font = "bold 12px sans-serif";');
+    expect(cleaned).toContain("ctx.fillStyle = '#1e293b';");
+    expect(cleaned).toContain("const a = 10 - 4;");
+
+    const mockCtx = {
+      save: vi.fn(),
+      restore: vi.fn(),
+      scale: vi.fn(),
+      fillRect: vi.fn(),
+      resetTransform: vi.fn(),
+      fillText: vi.fn(),
+    } as unknown as CanvasRenderingContext2D;
+    const mockCanvas = {
+      getContext: vi.fn().mockReturnValue(mockCtx),
+      style: {},
+      width: 0,
+      height: 0,
+    } as unknown as HTMLCanvasElement;
+
+    const res = executeLiveCanvasCode(mockCanvas, messyCode, 500, 340);
+    expect(res.success).toBe(true);
+    expect(mockCtx.fillText).toHaveBeenCalledWith("Result: 11", 10, 20);
+  });
+
+  it("handles template literals with braces inside expressions and regexes in protectCodeAgainstInfiniteLoops", () => {
+    const codeWithTemplateAndRegex = `
+const regex = /for (.*)/;
+const val = 1;
+const msg = \`Trạng thái: \${val > 0 ? "{dương}" : "{âm}"}\`;
+for (let i = 0; i < 3; i++) {
+  ctx.fillText(msg, 10, i * 20);
+}
+`;
+    const mockCtx = {
+      save: vi.fn(),
+      restore: vi.fn(),
+      scale: vi.fn(),
+      fillRect: vi.fn(),
+      resetTransform: vi.fn(),
+      fillText: vi.fn(),
+    } as unknown as CanvasRenderingContext2D;
+    const mockCanvas = {
+      getContext: vi.fn().mockReturnValue(mockCtx),
+      style: {},
+      width: 0,
+      height: 0,
+    } as unknown as HTMLCanvasElement;
+
+    const res = executeLiveCanvasCode(mockCanvas, codeWithTemplateAndRegex, 500, 340);
+    expect(res.success).toBe(true);
+    expect(mockCtx.fillText).toHaveBeenCalledWith("Trạng thái: {dương}", 10, 0);
+  });
+
+  it("supports skipTrim option in executeLiveCanvasCode to prevent getImageData latency in modal preview", () => {
+    const mockCtx = {
+      save: vi.fn(),
+      restore: vi.fn(),
+      scale: vi.fn(),
+      fillRect: vi.fn(),
+      resetTransform: vi.fn(),
+      fillText: vi.fn(),
+      getImageData: vi.fn(),
+    } as unknown as CanvasRenderingContext2D;
+    const mockCanvas = {
+      getContext: vi.fn().mockReturnValue(mockCtx),
+      style: {},
+      width: 0,
+      height: 0,
+    } as unknown as HTMLCanvasElement;
+
+    const res = executeLiveCanvasCode(mockCanvas, "ctx.fillText('Preview', 10, 20);", 460, 280, { skipTrim: true });
+    expect(res.success).toBe(true);
+    expect(mockCtx.getImageData).not.toHaveBeenCalled();
   });
 });
 

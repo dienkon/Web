@@ -491,181 +491,289 @@ export function createLiveCanvasHelpers(
 }
 
 /**
+ * Cleans and normalizes canvas JavaScript code:
+ * 1. Decodes HTML entities (&amp;, &lt;, &gt;, &quot;, &#39;, &nbsp;, numeric entities).
+ * 2. Normalizes smart quotes (“ ”, ‘ ’) to standard (" ').
+ * 3. Normalizes unicode dashes/minus (−, –, —) to standard (-).
+ * 4. Normalizes non-breaking spaces (\u00A0) to standard spaces and removes zero-width characters.
+ */
+export function cleanCanvasCode(str: string): string {
+  if (!str || typeof str !== "string") return "";
+
+  let cleaned = str;
+
+  if (cleaned.includes("&")) {
+    cleaned = cleaned
+      .replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;|&#x27;|&apos;/g, "'")
+      .replace(/&nbsp;/g, " ")
+      .replace(/&#(\d+);/g, (_, dec) => {
+        try {
+          return String.fromCharCode(parseInt(dec, 10));
+        } catch {
+          return _;
+        }
+      })
+      .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => {
+        try {
+          return String.fromCharCode(parseInt(hex, 16));
+        } catch {
+          return _;
+        }
+      });
+  }
+
+  // Normalize smart quotes and typographic characters that cause SyntaxError: Invalid or unexpected token
+  return cleaned
+    .replace(/[\u201C\u201D\u201E\u201F\u00AB\u00BB]/g, '"')
+    .replace(/[\u2018\u2019\u201A\u201B]/g, "'")
+    .replace(/[\u2212\u2013\u2014]/g, "-")
+    .replace(/[\u00A0\u202F\u2007]/g, " ")
+    .replace(/[\u200B\u200C\u200D\uFEFF]/g, "");
+}
+
+export function decodeHtmlEntities(str: string): string {
+  return cleanCanvasCode(str);
+}
+
+/**
  * Injects safety iteration counters into loops to prevent infinite freezes.
  * Uses lexical scanning to safely preserve strings, comments, and single-statement contexts.
  */
 export function protectCodeAgainstInfiniteLoops(code: string): string {
-  let result = "";
-  let i = 0;
-  const len = code.length;
+  if (!code || typeof code !== "string") return "";
+  if (code.includes("__iterGuard")) return code;
 
-  while (i < len) {
-    const ch = code[i];
-    const next = code[i + 1];
+  try {
+    let result = "";
+    let i = 0;
+    const len = code.length;
 
-    // 1. Single-line comment: // ...
-    if (ch === "/" && next === "/") {
-      const end = code.indexOf("\n", i + 2);
-      if (end === -1) {
-        result += code.slice(i);
-        break;
-      } else {
-        result += code.slice(i, end + 1);
-        i = end + 1;
-        continue;
-      }
-    }
+    while (i < len) {
+      const ch = code[i];
+      const next = code[i + 1];
 
-    // 2. Multi-line comment: /* ... */
-    if (ch === "/" && next === "*") {
-      const end = code.indexOf("*/", i + 2);
-      if (end === -1) {
-        result += code.slice(i);
-        break;
-      } else {
-        result += code.slice(i, end + 2);
-        i = end + 2;
-        continue;
-      }
-    }
-
-    // 3. Single-quoted string: '...'
-    if (ch === "'") {
-      let end = i + 1;
-      while (end < len) {
-        if (code[end] === "\\") {
-          end += 2;
-        } else if (code[end] === "'") {
-          end++;
+      // 1. Single-line comment: // ...
+      if (ch === "/" && next === "/") {
+        const end = code.indexOf("\n", i + 2);
+        if (end === -1) {
+          result += code.slice(i);
           break;
         } else {
-          end++;
+          result += code.slice(i, end + 1);
+          i = end + 1;
+          continue;
         }
       }
-      result += code.slice(i, end);
-      i = end;
-      continue;
-    }
 
-    // 4. Double-quoted string: "..."
-    if (ch === '"') {
-      let end = i + 1;
-      while (end < len) {
-        if (code[end] === "\\") {
-          end += 2;
-        } else if (code[end] === '"') {
-          end++;
+      // 2. Multi-line comment: /* ... */
+      if (ch === "/" && next === "*") {
+        const end = code.indexOf("*/", i + 2);
+        if (end === -1) {
+          result += code.slice(i);
           break;
         } else {
-          end++;
+          result += code.slice(i, end + 2);
+          i = end + 2;
+          continue;
         }
       }
-      result += code.slice(i, end);
-      i = end;
-      continue;
-    }
 
-    // 5. Template literal: `...`
-    if (ch === "`") {
-      let end = i + 1;
-      while (end < len) {
-        if (code[end] === "\\") {
-          end += 2;
-        } else if (code[end] === "`") {
-          end++;
-          break;
-        } else if (code[end] === "$" && code[end + 1] === "{") {
-          let depth = 1;
-          end += 2;
-          while (end < len && depth > 0) {
-            if (code[end] === "{") depth++;
-            else if (code[end] === "}") depth--;
+      // 3. Single-quoted string: '...'
+      if (ch === "'") {
+        let end = i + 1;
+        while (end < len) {
+          if (code[end] === "\\") {
+            end += 2;
+          } else if (code[end] === "'") {
+            end++;
+            break;
+          } else {
             end++;
           }
-        } else {
-          end++;
+        }
+        result += code.slice(i, end);
+        i = end;
+        continue;
+      }
+
+      // 4. Double-quoted string: "..."
+      if (ch === '"') {
+        let end = i + 1;
+        while (end < len) {
+          if (code[end] === "\\") {
+            end += 2;
+          } else if (code[end] === '"') {
+            end++;
+            break;
+          } else {
+            end++;
+          }
+        }
+        result += code.slice(i, end);
+        i = end;
+        continue;
+      }
+
+      // 5. Template literal: `...`
+      if (ch === "`") {
+        let end = i + 1;
+        while (end < len) {
+          if (code[end] === "\\") {
+            end += 2;
+          } else if (code[end] === "`") {
+            end++;
+            break;
+          } else if (code[end] === "$" && code[end + 1] === "{") {
+            let depth = 1;
+            end += 2;
+            while (end < len && depth > 0) {
+              const c = code[end];
+              if (c === "\\") {
+                end += 2;
+                continue;
+              }
+              if (c === "'" || c === '"' || c === "`") {
+                const q = c;
+                end++;
+                while (end < len && code[end] !== q) {
+                  if (code[end] === "\\") end++;
+                  end++;
+                }
+                if (end < len) end++;
+                continue;
+              }
+              if (c === "{") depth++;
+              else if (c === "}") depth--;
+              end++;
+            }
+          } else {
+            end++;
+          }
+        }
+        result += code.slice(i, end);
+        i = end;
+        continue;
+      }
+
+      // 5b. Regular expression literal: /.../
+      if (ch === "/" && next !== "/" && next !== "*") {
+        let p = i - 1;
+        while (p >= 0 && /\s/.test(code[p])) p--;
+        const pChar = p >= 0 ? code[p] : "";
+        const isRegexStart = p < 0 || /[(=:[,!&|?;~^{}]/.test(pChar) || /^(?:return|throw|typeof)$/.test(code.slice(Math.max(0, p - 6), p + 1));
+        if (isRegexStart) {
+          let end = i + 1;
+          let inClass = false;
+          while (end < len) {
+            if (code[end] === "\\") {
+              end += 2;
+            } else if (code[end] === "[" && !inClass) {
+              inClass = true;
+              end++;
+            } else if (code[end] === "]" && inClass) {
+              inClass = false;
+              end++;
+            } else if (code[end] === "/" && !inClass) {
+              end++;
+              while (end < len && /[a-z]/i.test(code[end])) end++;
+              break;
+            } else if (code[end] === "\n") {
+              break;
+            } else {
+              end++;
+            }
+          }
+          if (end > i + 1 && code[end - 1] !== "\n") {
+            result += code.slice(i, end);
+            i = end;
+            continue;
+          }
         }
       }
-      result += code.slice(i, end);
-      i = end;
-      continue;
-    }
 
-    // 6. Check for loop keywords: `for`, `while`
-    const prevChar = i > 0 ? code[i - 1] : " ";
-    const isWordBoundary = !/[a-zA-Z0-9_$]/.test(prevChar);
+      // 6. Check for loop keywords: `for`, `while`
+      const prevChar = i > 0 ? code[i - 1] : " ";
+      const isWordBoundary = !/[a-zA-Z0-9_$]/.test(prevChar);
 
-    if (isWordBoundary) {
-      if (code.startsWith("for", i) && !/[a-zA-Z0-9_$]/.test(code[i + 3] || "")) {
-        let p = i + 3;
-        while (p < len && /\s/.test(code[p])) p++;
-        if (p < len && code[p] === "(") {
-          let depth = 1;
-          let pEnd = p + 1;
-          while (pEnd < len && depth > 0) {
-            const c = code[pEnd];
-            if (c === "(") depth++;
-            else if (c === ")") depth--;
-            else if (c === "'" || c === '"') {
-              const q = c;
-              pEnd++;
-              while (pEnd < len && code[pEnd] !== q) {
-                if (code[pEnd] === "\\") pEnd++;
+      if (isWordBoundary) {
+        if (code.startsWith("for", i) && !/[a-zA-Z0-9_$]/.test(code[i + 3] || "")) {
+          let p = i + 3;
+          while (p < len && /\s/.test(code[p])) p++;
+          if (p < len && code[p] === "(") {
+            let depth = 1;
+            let pEnd = p + 1;
+            while (pEnd < len && depth > 0) {
+              const c = code[pEnd];
+              if (c === "(") depth++;
+              else if (c === ")") depth--;
+              else if (c === "'" || c === '"' || c === "`") {
+                const q = c;
                 pEnd++;
+                while (pEnd < len && code[pEnd] !== q) {
+                  if (code[pEnd] === "\\") pEnd++;
+                  pEnd++;
+                }
+              }
+              pEnd++;
+            }
+            if (depth === 0) {
+              let b = pEnd;
+              while (b < len && /\s/.test(code[b])) b++;
+              if (b < len && code[b] === "{") {
+                result += code.slice(i, b + 1);
+                result += ` if (++__iterGuard > 100000) throw new Error("Vòng lặp vượt quá giới hạn an toàn (quá 100,000 lần)");`;
+                i = b + 1;
+                continue;
               }
             }
-            pEnd++;
           }
-          if (depth === 0) {
-            let b = pEnd;
-            while (b < len && /\s/.test(code[b])) b++;
-            if (b < len && code[b] === "{") {
-              result += code.slice(i, b + 1);
-              result += ` if (++__iterGuard > 100000) throw new Error("Vòng lặp vượt quá giới hạn an toàn (quá 100,000 lần)");`;
-              i = b + 1;
-              continue;
-            }
-          }
-        }
-      } else if (code.startsWith("while", i) && !/[a-zA-Z0-9_$]/.test(code[i + 5] || "")) {
-        let p = i + 5;
-        while (p < len && /\s/.test(code[p])) p++;
-        if (p < len && code[p] === "(") {
-          let depth = 1;
-          let pEnd = p + 1;
-          while (pEnd < len && depth > 0) {
-            const c = code[pEnd];
-            if (c === "(") depth++;
-            else if (c === ")") depth--;
-            else if (c === "'" || c === '"') {
-              const q = c;
-              pEnd++;
-              while (pEnd < len && code[pEnd] !== q) {
-                if (code[pEnd] === "\\") pEnd++;
+        } else if (code.startsWith("while", i) && !/[a-zA-Z0-9_$]/.test(code[i + 5] || "")) {
+          let p = i + 5;
+          while (p < len && /\s/.test(code[p])) p++;
+          if (p < len && code[p] === "(") {
+            let depth = 1;
+            let pEnd = p + 1;
+            while (pEnd < len && depth > 0) {
+              const c = code[pEnd];
+              if (c === "(") depth++;
+              else if (c === ")") depth--;
+              else if (c === "'" || c === '"' || c === "`") {
+                const q = c;
                 pEnd++;
+                while (pEnd < len && code[pEnd] !== q) {
+                  if (code[pEnd] === "\\") pEnd++;
+                  pEnd++;
+                }
               }
+              pEnd++;
             }
-            pEnd++;
-          }
-          if (depth === 0) {
-            let b = pEnd;
-            while (b < len && /\s/.test(code[b])) b++;
-            if (b < len && code[b] === "{") {
-              result += code.slice(i, b + 1);
-              result += ` if (++__iterGuard > 100000) throw new Error("Vòng lặp vượt quá giới hạn an toàn (quá 100,000 lần)");`;
-              i = b + 1;
-              continue;
+            if (depth === 0) {
+              let b = pEnd;
+              while (b < len && /\s/.test(code[b])) b++;
+              if (b < len && code[b] === "{") {
+                result += code.slice(i, b + 1);
+                result += ` if (++__iterGuard > 100000) throw new Error("Vòng lặp vượt quá giới hạn an toàn (quá 100,000 lần)");`;
+                i = b + 1;
+                continue;
+              }
             }
           }
         }
       }
+
+      result += ch;
+      i++;
     }
 
-    result += ch;
-    i++;
+    return result;
+  } catch (err) {
+    console.warn("protectCodeAgainstInfiniteLoops fallback to raw code:", err);
+    return code;
   }
-
-  return result;
 }
 
 export interface ContentBounds {
@@ -899,7 +1007,9 @@ export function detectContentBounds(
     };
 
     const helpers = createLiveCanvasHelpers(fakeCanvas, fakeCtx, initialWidth, initialHeight);
-    runAdminCanvasCode(code, fakeCanvas, fakeCtx, initialWidth, initialHeight, helpers);
+    const cleanCode = decodeHtmlEntities(code);
+    const safeCode = protectCodeAgainstInfiniteLoops(cleanCode);
+    runAdminCanvasCode(safeCode, fakeCanvas, fakeCtx, initialWidth, initialHeight, helpers);
 
     if (!hasDrawn || !isFinite(minX) || !isFinite(maxX) || !isFinite(minY) || !isFinite(maxY)) {
       return null;
@@ -958,6 +1068,9 @@ function runAdminCanvasCode(
     exp: Math.exp,
     random: Math.random,
     hypot: Math.hypot,
+    toRad: (deg: number) => (deg * Math.PI) / 180,
+    toDeg: (rad: number) => (rad * 180) / Math.PI,
+    clamp: (val: number, minVal: number, maxVal: number) => Math.max(minVal, Math.min(maxVal, val)),
   };
 
   const fn = new Function(
@@ -1006,6 +1119,9 @@ function runAdminCanvasCode(
     var exp = __math.exp;
     var random = __math.random;
     var hypot = __math.hypot;
+    var toRad = __math.toRad;
+    var toDeg = __math.toDeg;
+    var clamp = __math.clamp;
 
     {
       ${code}
@@ -1036,9 +1152,9 @@ function trimExcessCanvasWhitespace(
     const data = imgData.data;
 
     let bottom = -1;
-    for (let y = h - 1; y >= 0; y--) {
+    for (let y = h - 1; y >= 0; y -= 2) {
       const rowOffset = y * w * 4;
-      for (let x = 0; x < w; x += 2) {
+      for (let x = 0; x < w; x += 4) {
         const idx = rowOffset + x * 4;
         const r = data[idx];
         const g = data[idx + 1];
@@ -1086,6 +1202,10 @@ function trimExcessCanvasWhitespace(
   }
 }
 
+export interface LiveCanvasExecutionOptions {
+  skipTrim?: boolean;
+}
+
 /**
  * Safely executes admin code on an HTML5 canvas element with high DPI scaling,
  * automatic coordinate bounding, responsive proportions, and excess whitespace elimination.
@@ -1094,12 +1214,14 @@ export function executeLiveCanvasCode(
   canvas: HTMLCanvasElement,
   code: string,
   width = 500,
-  height = 340
+  height = 340,
+  options?: LiveCanvasExecutionOptions
 ): LiveCanvasExecutionResult {
   if (!canvas) return { success: false, error: "Canvas element not found" };
 
   try {
-    const safeCode = protectCodeAgainstInfiniteLoops(code);
+    const rawCleanCode = decodeHtmlEntities(code);
+    const safeCode = protectCodeAgainstInfiniteLoops(rawCleanCode);
 
     // 1. Detect content bounding box to auto-adjust dimensions
     const bounds = detectContentBounds(safeCode, width, height);
@@ -1169,10 +1291,12 @@ export function executeLiveCanvasCode(
     // Execute admin canvas code in safe scope
     runAdminCanvasCode(safeCode, canvas, ctx, effectiveWidth, effectiveHeight, helpers);
 
-    // Trim trailing white pixels if canvas has excess empty space
-    const trimmedHeight = trimExcessCanvasWhitespace(canvas, ctx, dpr);
-    if (trimmedHeight && trimmedHeight > 0) {
-      effectiveHeight = trimmedHeight;
+    // Trim trailing white pixels if canvas has excess empty space (skipped in fast interactive preview)
+    if (!options?.skipTrim) {
+      const trimmedHeight = trimExcessCanvasWhitespace(canvas, ctx, dpr);
+      if (trimmedHeight && trimmedHeight > 0) {
+        effectiveHeight = trimmedHeight;
+      }
     }
 
     return {

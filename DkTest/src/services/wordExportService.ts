@@ -1,7 +1,7 @@
 import { saveAs } from "file-saver";
 import katex from "katex";
 import type { Exam, Question, Section, Submission } from "../types";
-import { normalizeLatexText } from "../features/exam-builder/editor/LatexPreview";
+import { normalizeLatexText, decodeHtmlEntities } from "../features/exam-builder/editor/LatexPreview";
 import { renderBBTToHtml } from "../features/math-draw/bbtRenderer";
 import { renderGraphToSvg } from "../features/math-draw/graphRenderer";
 
@@ -23,33 +23,41 @@ export interface WordExportOptions {
 export function formatTextForWord(input: string): string {
   if (!input) return "";
 
-  // 1. Normalize LaTeX corrupted chars, multiple backslashes, unicode roots
-  let text = normalizeLatexText(input);
+  const placeholders: { [key: string]: string } = {};
+  let tokenCounter = 0;
+  const createPlaceholder = (replacementHtml: string): string => {
+    const key = `\uE000WORDPCH${tokenCounter++}\uE001`;
+    placeholders[key] = replacementHtml;
+    return key;
+  };
 
-  // 1a. Convert custom math tags (<graph>, <bbt>, <live-canvas>)
+  let text = input;
+
+  // 1a. Convert custom math tags (<graph>, <bbt>, <live-canvas>) BEFORE normalizeLatexText
   text = text.replace(/<graph\b[^>]*>([\s\S]*?)<\/graph>/gi, (_, graphCode) => {
     try {
-      return renderGraphToSvg(graphCode);
+      return createPlaceholder(renderGraphToSvg(graphCode));
     } catch {
-      return "<div style=\"padding: 6pt; color: #dc2626;\">[Đồ thị hàm số]</div>";
+      return createPlaceholder("<div style=\"padding: 6pt; color: #dc2626;\">[Đồ thị hàm số]</div>");
     }
   });
 
   text = text.replace(/<bbt\b[^>]*>([\s\S]*?)<\/bbt>/gi, (_, bbtCode) => {
     try {
-      return renderBBTToHtml(bbtCode);
+      return createPlaceholder(renderBBTToHtml(bbtCode));
     } catch {
-      return "<div style=\"padding: 6pt; color: #dc2626;\">[Bảng biến thiên]</div>";
+      return createPlaceholder("<div style=\"padding: 6pt; color: #dc2626;\">[Bảng biến thiên]</div>");
     }
   });
 
-  text = text.replace(/<live-canvas\b([^>]*)>([\s\S]*?)<\/live-canvas>/gi, (_, attrs, code) => {
+  text = text.replace(/<live-canvas\b((?:[^>"']|"[^"]*"|'[^']*')*)>([\s\S]*?)<\/live-canvas>/gi, (_, attrs, code) => {
     const titleMatch = attrs.match(/title=["']([^"']*)["']/i);
     const title = titleMatch ? titleMatch[1] : "Khối vẽ code trực tiếp";
-    return `<div style="border: 1px solid #cbd5e1; border-radius: 6pt; padding: 6pt; margin: 8pt 0; background: #f8fafc; font-family: Consolas, monospace; font-size: 9pt;"><strong>[${title}]</strong><pre style="margin-top: 4pt; white-space: pre-wrap;">${code.trim().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre></div>`;
+    const clean = decodeHtmlEntities(code).trim();
+    return createPlaceholder(`<div style="border: 1px solid #cbd5e1; border-radius: 6pt; padding: 6pt; margin: 8pt 0; background: #f8fafc; font-family: Consolas, monospace; font-size: 9pt;"><strong>[${title}]</strong><pre style="margin-top: 4pt; white-space: pre-wrap;">${clean.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre></div>`);
   });
 
-  // 1b. Convert markdown code blocks ```lang ... ``` to Word-friendly pre/code boxes
+  // 1b. Convert markdown code blocks ```lang ... ``` to Word-friendly pre/code boxes BEFORE normalizeLatexText
   text = text.replace(/(?:```|~~~)([\s\S]*?)(?:```|~~~)/g, (_, blockContent) => {
     let rawContent = blockContent;
     let lang = "";
@@ -63,19 +71,22 @@ export function formatTextForWord(input: string): string {
     }
     const clean = rawContent.replace(/\r\n/g, "\n").trim();
     if (lang === "GRAPH") {
-      try { return renderGraphToSvg(clean); } catch { return "[Đồ thị]"; }
+      try { return createPlaceholder(renderGraphToSvg(clean)); } catch { return createPlaceholder("[Đồ thị]"); }
     }
     if (lang === "BBT") {
-      try { return renderBBTToHtml(clean); } catch { return "[Bảng biến thiên]"; }
+      try { return createPlaceholder(renderBBTToHtml(clean)); } catch { return createPlaceholder("[Bảng biến thiên]"); }
     }
     const langHeader = lang
       ? `<div style="font-size: 8pt; font-weight: bold; color: #94a3b8; border-bottom: 1px solid #334155; padding-bottom: 4pt; margin-bottom: 6pt; letter-spacing: 0.5pt;">${lang}</div>`
       : "";
-    return `<div style="background-color: #1e293b; color: #f8fafc; font-family: Consolas, 'Courier New', monospace; font-size: 9pt; padding: 8pt 10pt; border-radius: 6pt; margin: 8pt 0; border: 1px solid #334155; line-height: 1.45; white-space: pre-wrap;">${langHeader}${clean
+    return createPlaceholder(`<div style="background-color: #1e293b; color: #f8fafc; font-family: Consolas, 'Courier New', monospace; font-size: 9pt; padding: 8pt 10pt; border-radius: 6pt; margin: 8pt 0; border: 1px solid #334155; line-height: 1.45; white-space: pre-wrap;">${langHeader}${clean
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")}</div>`;
+      .replace(/>/g, "&gt;")}</div>`);
   });
+
+  // 1c. Now normalize LaTeX in the remaining Markdown and math prose:
+  text = normalizeLatexText(text);
 
   // 1c. Convert inline code `code`
   text = text.replace(
@@ -161,6 +172,11 @@ export function formatTextForWord(input: string): string {
 
   // 11. Convert newlines to <br/>
   text = text.replace(/\n/g, "<br/>");
+
+  // 12. Restore protected custom blocks (diagrams, variation tables, live canvases, code blocks)
+  for (const [key, replacement] of Object.entries(placeholders)) {
+    text = text.split(key).join(replacement);
+  }
 
   return text;
 }

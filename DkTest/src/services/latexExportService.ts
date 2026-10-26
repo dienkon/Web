@@ -77,8 +77,8 @@ export function escapeLatexText(text: string): string {
   let sanitized = text
     .replace(/<graph\b[^>]*>[\s\S]*?<\/graph>/gi, "\n% [Đồ thị hàm số]\n")
     .replace(/<bbt\b[^>]*>[\s\S]*?<\/bbt>/gi, "\n% [Bảng biến thiên]\n")
-    .replace(/<live-canvas\b[^>]*>[\s\S]*?<\/live-canvas>/gi, "\n% [Khối vẽ Canvas]\n")
-    .replace(/<(?:html-widget|widget|live-html)\b[^>]*>[\s\S]*?<\/(?:html-widget|widget|live-html)>/gi, "\n% [Khối mô phỏng HTML5]\n")
+    .replace(/<live-canvas\b((?:[^>"']|"[^"]*"|'[^']*')*)>[\s\S]*?<\/live-canvas>/gi, "\n% [Khối vẽ Canvas]\n")
+    .replace(/<(?:html-widget|widget|live-html)\b((?:[^>"']|"[^"]*"|'[^']*')*)>[\s\S]*?<\/(?:html-widget|widget|live-html)>/gi, "\n% [Khối mô phỏng HTML5]\n")
     .replace(/(?:```|~~~)(?:graph|bbt|canvas|live-canvas|simulation|widget)[^\n]*\n[\s\S]*?(?:```|~~~)/gi, (m) => {
       const type = m.match(/(?:```|~~~)(\w+)/)?.[1] || "diagram";
       return `\n% [Khối ${type.toUpperCase()}]\n`;
@@ -309,13 +309,13 @@ export function renderLatexToHtml(
   });
 
   // 0.3 Live Canvas: <live-canvas>...</live-canvas>
-  sanitized = sanitized.replace(/<live-canvas\b([^>]*)>([\s\S]*?)<\/live-canvas>/gi, (_, attrs, code) => {
-    const widthMatch = attrs.match(/width="?(\d+)"?/i);
-    const heightMatch = attrs.match(/height="?(\d+)"?/i);
-    const titleMatch = attrs.match(/title="([^"]*)"/i);
-    const width = widthMatch ? parseInt(widthMatch[1], 10) : 500;
-    const height = heightMatch ? parseInt(heightMatch[1], 10) : 340;
-    const title = titleMatch ? titleMatch[1] : undefined;
+  sanitized = sanitized.replace(/<live-canvas\b((?:[^>"']|"[^"]*"|'[^']*')*)>([\s\S]*?)<\/live-canvas>/gi, (_, attrs, code) => {
+    const widthMatch = attrs.match(/width=(?:"(\d+)"|'(\d+)'|(\d+))/i);
+    const heightMatch = attrs.match(/height=(?:"(\d+)"|'(\d+)'|(\d+))/i);
+    const titleMatch = attrs.match(/title=(?:"([^"]*)"|'([^']*)')/i);
+    const width = widthMatch ? parseInt(widthMatch[1] || widthMatch[2] || widthMatch[3], 10) : 500;
+    const height = heightMatch ? parseInt(heightMatch[1] || heightMatch[2] || heightMatch[3], 10) : 340;
+    const title = titleMatch ? (titleMatch[1] ?? titleMatch[2]) : undefined;
     return createPlaceholder(renderLiveCanvasForPrint(code, width, height, title));
   });
 
