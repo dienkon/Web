@@ -45,6 +45,7 @@ import { VesselFloorRing } from './Vessels';
 import { LAB_PHYSICS } from '../../engine/interactionEngine';
 import { restingVesselHeight } from '../../handling/vesselRest';
 import { FrameTelemetry } from '../../render/FrameTelemetry';
+import { RenderActivity } from '../../render/RenderActivity';
 import { LessonScene } from '../../lesson/LessonScene';
 
 function DragDropRaycaster() {
@@ -687,6 +688,7 @@ export function LabScene() {
           onIncline={handlePerformanceIncline}
         />
         <SceneEnvironmentSetup tier={effectiveTier} />
+        <RenderActivity />
 
         {/* Procedural Laboratory Environment with fluorescent tube reflections */}
         <Environment resolution={qualitySettings.glassTransmission ? 256 : 64} frames={1}>

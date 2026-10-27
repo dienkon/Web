@@ -17,7 +17,8 @@ export class ChemStructureViewer extends HTMLElement {
     this.querySelector("[data-labels]").onchange = () => this.applyStyle();
     this.querySelector("[data-reset]").onclick = () => {
       this.selected = [];
-      this.viewer?.zoomTo();
+      if (this.initialView) this.viewer?.setView(this.initialView);
+      else this.viewer?.zoomTo();
       this.viewer?.render();
       this.querySelector(".atom-readout").textContent =
         "Đã đặt lại góc nhìn. Chọn nguyên tử để đo.";
@@ -64,6 +65,7 @@ export class ChemStructureViewer extends HTMLElement {
     this.viewer?.destroy();
     this.querySelector(".canvas-shell")?.replaceChildren();
     this.viewer = null;
+    this.initialView = null;
   }
   status(text, error = false) {
     this.querySelector(".viewer-status").textContent = text;
@@ -124,6 +126,7 @@ export class ChemStructureViewer extends HTMLElement {
             : "#f4f8fa",
         antialias: !this.querySelector("[data-light]").checked,
         upscale: false,
+        minimumZoomToDistance: 2,
       });
       this.viewer.getRenderer().maxPixelRatio = this.querySelector(
         "[data-light]",
@@ -136,6 +139,14 @@ export class ChemStructureViewer extends HTMLElement {
       this.applyStyle();
       if (record.kind === "crystal") this.viewer.addUnitCell();
       this.viewer.zoomTo();
+      // Axis-aligned reference geometries can otherwise open edge-on (water
+      // would look linear). Rotate only the view, never the source coordinates.
+      const atoms = this.viewer.getModel().selectedAtoms({});
+      const extents = ["x", "y", "z"].map(axis =>
+        Math.max(...atoms.map(atom => atom[axis])) - Math.min(...atoms.map(atom => atom[axis])));
+      if (extents[0] < 1e-5 && Math.max(...extents) > 0) this.viewer.rotate(90, "y");
+      else if (extents[1] < 1e-5 && Math.max(...extents) > 0) this.viewer.rotate(90, "x");
+      this.initialView = this.viewer.getView();
       this.viewer.render();
       this.status(
         record.kind === "crystal"

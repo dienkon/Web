@@ -14,6 +14,7 @@ const vercelApi = path => JSON.parse(execFileSync(process.execPath, [process.env
 const project = vercelApi('/v9/projects/prj_jlIYLO6iiLWC7KLdjQ8xXlhmmxfy');
 const deployment = vercelApi(`/v13/deployments/${target.hostname}`);
 if (deployment.projectId !== project.id) throw new Error('Preview belongs to another project.');
+if (deployment.readyState !== 'READY') throw new Error(`Preview is ${deployment.readyState}; wait until READY.`);
 const secret = Object.entries(project.protectionBypass ?? {})
   .find(([, value]) => value.scope === 'automation-bypass')?.[0];
 if (!secret) throw new Error('No automation credential; authenticate with vercel curl first.');
@@ -33,7 +34,9 @@ try {
     const check = await client.get(path);
     console.log(JSON.stringify({ path, status: check.status(),
       type: check.headers()['content-type'] }));
-    if (path === '/api/health' && (!check.ok() || (await check.json()).status !== 'ok')) {
+    if (path === '/api/health' && (!check.ok()
+      || !check.headers()['content-type']?.includes('application/json')
+      || (await check.json()).status !== 'ok')) {
       throw new Error('Preview health API failed.');
     }
     if (path.includes('cid=invalid') && check.status() !== 400) throw new Error('API validation failed.');
