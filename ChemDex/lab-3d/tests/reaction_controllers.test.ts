@@ -265,7 +265,7 @@ describe('Reaction Controllers: Physical Chemistry & VFX Master Suite', () => {
       expect(mockRuntime.gasGenerationRate).toBeGreaterThan(0);
     });
 
-    it('Reaction 09 & 10: Zn/Mg + HCl produces H2 microbubbles and exothermic rise', () => {
+    it('Reaction 09 & 10: Zn/Mg + HCl visualizes bubbles and follows the actual vessel temperature', () => {
       const znCtrl = getReactionController('zn_hcl_gas')!;
       znCtrl.initialize(mockContext);
       mockRuntime.elapsed = 0.5 * mockRuntime.duration;
@@ -276,7 +276,22 @@ describe('Reaction Controllers: Physical Chemistry & VFX Master Suite', () => {
       mgCtrl.initialize(mockContext);
       mockRuntime.elapsed = 0.5 * mockRuntime.duration;
       mgCtrl.update(mockContext);
-      expect(mockRuntime.temperature).toBeGreaterThan(25.0);
+      expect(mockRuntime.temperature).toBe(25.0);
+      mockContext.vessel.temperature_c = 37;
+      mgCtrl.update(mockContext);
+      expect(mockRuntime.temperature).toBe(37);
+      mockRuntime.customData.chemistryProgress = 0.2;
+      mockRuntime.customData.chemistryRate = 0;
+      mgCtrl.update(mockContext);
+      expect(mockRuntime.progress).toBe(0.2);
+      expect(mockRuntime.gasGenerationRate).toBe(0);
+      mockRuntime.customData.gasMolesPerSecond = 1e-6;
+      mgCtrl.update(mockContext);
+      const atmosphericRate = mockRuntime.gasGenerationRate;
+      expect(atmosphericRate).toBeCloseTo(1e-6 * 82.057 * (37 + 273.15) / 0.05, 10);
+      mockContext.vessel.environment = { temperature_c: 25, pressure_atm: 0.6, oxygenFraction: 0.2095, airSpeed_m_s: 0.1 };
+      mgCtrl.update(mockContext);
+      expect(mockRuntime.gasGenerationRate).toBeCloseTo(atmosphericRate / 0.6, 10);
     });
 
     it('Reaction 12: NH3 + HCl produces dense white NH4Cl particulate aerosol fumes', () => {
@@ -303,6 +318,10 @@ describe('Reaction Controllers: Physical Chemistry & VFX Master Suite', () => {
 
   describe('Alkali Metal, Redox, Clocks & Pyrotechnics', () => {
     it('Reaction 17: Sodium + Water floats, darts via recoil thrust, and undergoes molten transition', () => {
+      mockVessel.contents = [
+        { formula: 'H2O', phase: 'l', moles: 50 / 18.015, mass_g: 50 },
+        { formula: 'Na', phase: 's', moles: 0.1 / 22.990, mass_g: 0.1 },
+      ];
       const ctrl = getReactionController('sodium_water_reaction')!;
       expect(ctrl.getReactionZone(mockContext).origin).toBe('airLiquidInterface');
       ctrl.initialize(mockContext);
@@ -408,7 +427,9 @@ describe('Reaction Controllers: Physical Chemistry & VFX Master Suite', () => {
       for (const morph of PRECIPITATE_MORPHOLOGIES) {
         expect(morph.substance).toBeTruthy();
         expect(resolveMorphology(morph.substance, morph.type as any)).toBe(morph.type);
-        expect(resolveMorphology(morph.substance)).toBe(morph.type);
+        // The studio explicitly requests plates; formula alone does not prove
+        // that PbI2 was recrystallized by cooling rather than freshly mixed.
+        expect(resolveMorphology(morph.substance)).toBe(morph.substance === 'PbI2' ? 'FINE_POWDER' : morph.type);
       }
     });
 

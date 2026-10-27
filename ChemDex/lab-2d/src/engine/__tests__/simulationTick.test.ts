@@ -12,6 +12,8 @@ import {
   hotPlateHeatToVessel,
   stepMixing,
   stepPour,
+  probeDipCoupling,
+  separatoryFunnelDrain,
   AMBIENT_TEMP_C,
   BURNER_FUEL_CAPACITY_ML,
 } from '../simulationTick';
@@ -210,5 +212,128 @@ describe('stepMixing', () => {
     const unstirred = stepMixing(v, 1);
     const stirred = stepMixing({ ...v, stirringSpeed: 1, isStirred: true }, 1);
     expect(stirred.mixedness!).toBeGreaterThan(unstirred.mixedness!);
+  });
+});
+
+describe('probeDipCoupling', () => {
+  it('reads vessel pH when pH meter probe is submerged in solution', () => {
+    // Beaker at (100, 100), width: 140, height: 160, volume: 50 mL, pH: 2.3
+    const beaker = baseEq({
+      id: 'beaker_1',
+      x: 100,
+      y: 100,
+      width: 140,
+      height: 160,
+      volume_ml: 50,
+      ph: 2.3,
+    });
+
+    // Probe at (150, 0), width: 40, height: 220 -> tip at (170, 208) which is inside beaker
+    const phMeter: EquipmentState = baseEq({
+      id: 'meter_1',
+      type: 'ph_meter',
+      x: 150,
+      y: 0,
+      width: 40,
+      height: 220,
+      ph: 7.0,
+      isContainer: false,
+    });
+
+    const dipResult = probeDipCoupling(phMeter, [beaker], 0.25);
+    expect(dipResult.isSubmerged).toBe(true);
+    expect(dipResult.submergedInVesselId).toBe('beaker_1');
+    expect(dipResult.measuredPh).toBeCloseTo(2.3, 2);
+
+    // When probe is moved far away into air
+    const phMeterAir: EquipmentState = { ...phMeter, x: 500, y: 500 };
+    const airResult = probeDipCoupling(phMeterAir, [beaker], 0.25);
+    expect(airResult.isSubmerged).toBe(false);
+    expect(airResult.measuredPh).toBe(7.00);
+  });
+
+  it('thermometer responds exponentially toward hot liquid temperature when submerged', () => {
+    const hotFlask = baseEq({
+      id: 'flask_1',
+      x: 200,
+      y: 200,
+      width: 150,
+      height: 180,
+      volume_ml: 80,
+      temperature_c: 85.0,
+    });
+
+    const thermometer: EquipmentState = baseEq({
+      id: 'thermo_1',
+      type: 'thermometer',
+      x: 250,
+      y: 80,
+      width: 30,
+      height: 240,
+      temperature_c: 25.0,
+      isContainer: false,
+    });
+
+    const step1 = probeDipCoupling(thermometer, [hotFlask], 0.25);
+    expect(step1.isSubmerged).toBe(true);
+    expect(step1.measuredTemp_c).toBeGreaterThan(25.0);
+    expect(step1.measuredTemp_c).toBeLessThanOrEqual(85.0);
+
+    // After prolonged immersion
+    const stepLong = probeDipCoupling(thermometer, [hotFlask], 3.0);
+    expect(stepLong.measuredTemp_c).toBeCloseTo(85.0, 0);
+  });
+
+  it('triggers stirring when glass stirring rod is dipped into container', () => {
+    const beaker = baseEq({
+      id: 'beaker_1',
+      x: 100,
+      y: 100,
+      width: 140,
+      height: 160,
+      volume_ml: 50,
+    });
+
+    const rod: EquipmentState = baseEq({
+      id: 'rod_1',
+      type: 'stirring_rod',
+      x: 150,
+      y: 20,
+      width: 20,
+      height: 200,
+      isContainer: false,
+    });
+
+    const res = probeDipCoupling(rod, [beaker], 0.25);
+    expect(res.isSubmerged).toBe(true);
+    expect(res.triggerStir).toBe(true);
+  });
+});
+
+describe('separatoryFunnelDrain', () => {
+  it('drains aqueous phase and stops automatically at the organic phase boundary', () => {
+    // 90 mL total: 40 mL organic upper layer, 50 mL aqueous lower layer
+    const sepFunnel: EquipmentState = baseEq({
+      id: 'sep_1',
+      type: 'separatory_funnel',
+      volume_ml: 90,
+      hasPhaseSeparation: true,
+      organicLayerVolume_ml: 40,
+      stopcockOpen: true,
+    });
+
+    // 1 second of draining at 2.0 mL/s
+    const step1 = separatoryFunnelDrain(sepFunnel, 1.0, 2.0);
+    expect(step1.drainedAqueous_ml).toBeCloseTo(2.0, 2);
+    expect(step1.closedAfterDrain).toBe(false);
+
+    // Funnel drained down to only 40.5 mL (only 0.5 mL aqueous left)
+    const almostDone: EquipmentState = {
+      ...sepFunnel,
+      volume_ml: 40.5,
+    };
+    const stepFinal = separatoryFunnelDrain(almostDone, 1.0, 2.0);
+    expect(stepFinal.drainedAqueous_ml).toBeCloseTo(0.5, 2);
+    expect(stepFinal.closedAfterDrain).toBe(true);
   });
 });

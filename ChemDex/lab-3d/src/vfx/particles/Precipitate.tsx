@@ -5,6 +5,7 @@ import { ParticlePool, ParticleState } from './ParticlePool';
 import { useQualityStore, QUALITY_CONFIGS } from '../quality';
 import { useAppStore } from '../../store/useAppStore';
 import { PRNG } from '../../core/rng';
+import { sameMolecularFormula } from '../../science/speciesIdentity';
 
 export type PrecipitateMorphologyType =
   | 'FINE_POWDER'       // e.g. BaSO4, fine micro-crystals with high turbidity
@@ -44,9 +45,9 @@ export function resolveMorphology(substance?: string, explicit?: PrecipitateMorp
     if (exp.includes('POWDER') || exp.includes('MILKY')) return 'FINE_POWDER';
   }
   const s = (substance || '').toLowerCase();
-  if (s.includes('pbi2') || s.includes('lead') || s.includes('gold')) return 'CRYSTAL_PLATE';
-  if (s.includes('cu(oh)2') || s.includes('al(oh)3') || s.includes('gel')) return 'GEL';
-  if (s.includes('agcl') || s.includes('curd')) return 'CURD';
+  if (s.includes('pbi2')) return 'FINE_POWDER';
+  if (['Cu(OH)2', 'Al(OH)3', 'Zn(OH)2'].some(formula => sameMolecularFormula(substance ?? '', formula)) || s.includes('gel')) return 'GEL';
+  if (['AgCl', 'AgBr', 'AgI'].some(formula => sameMolecularFormula(substance ?? '', formula)) || s.includes('curd')) return 'CURD';
   if (s.includes('fe(oh)3') || s.includes('floc')) return 'FLOC';
   if (s.includes('caso4') || s.includes('rod') || s.includes('needle')) return 'CRYSTAL_ROD';
   if (s.includes('caco3') || s.includes('mno2') || s.includes('grain')) return 'IRREGULAR_GRAIN';

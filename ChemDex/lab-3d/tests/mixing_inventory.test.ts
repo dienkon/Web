@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { useAppStore } from '../src/store/useAppStore';
 import { partitionSodiumChloride } from '../src/engine/sodiumChloridePhase';
+import { sodiumChlorideSolubilityRatio } from '../src/science/sodiumChlorideSolubility';
 import { solidInventoryFraction } from '../src/engine/solidInventory';
 import { computeMolarMass } from '../src/engine/ledger';
 import type { SubstanceContent, VesselState } from '../src/types/chemistry';
@@ -30,15 +31,19 @@ describe('Finite mixing and dissolution inventory', () => {
       pendingReactions: {}, dissolvingSubstances: {}, isSimulationPaused: false, timeScale: 1 });
     for (let i = 0; i < 600; i++) useAppStore.getState().tickSimulation(0.1);
     const after = useAppStore.getState().vessels[initial.id];
-    expect(mass(after, 'aq')).toBeGreaterThan(35.999);
-    expect(mass(after, 'aq')).toBeLessThanOrEqual(36);
+    const water = after.contents.filter(x => x.formula === 'H2O' && x.phase === 'l')
+      .reduce((sum, x) => sum + x.mass_g, 0);
+    const saturation = water * sodiumChlorideSolubilityRatio(after.temperature_c)!;
+    expect(mass(after, 'aq')).toBeCloseTo(saturation, 4);
     expect(mass(after, 's')).toBeGreaterThanOrEqual(14);
-    expect(after.mass_g).toBe(150);
+    expect(mass(after, 'aq') + mass(after, 's')).toBeCloseTo(50, 10);
+    expect(after.mass_g + (after.evaporated_ml ?? 0)
+      - (after.wallCondensation?.returned_g ?? 0)).toBeCloseTo(150, 8);
   });
-  it('leaves 14 g excess salt at the 36 g/100 g water reference limit', () => {
+  it('partitions at the IUPAC 25 C reference limit while conserving mass and moles', () => {
     const before = sample(), after = relax(before);
-    expect(mass(after, 'aq')).toBeCloseTo(36, 8);
-    expect(mass(after, 's')).toBeCloseTo(14, 8);
+    expect(mass(after, 'aq')).toBeCloseTo(35.96770716635604, 8);
+    expect(mass(after, 's')).toBeCloseTo(50 - 35.96770716635604, 8);
     expect(after.contents.reduce((s, x) => s + x.mass_g, 0)).toBeCloseTo(150, 10);
     expect(after.contents.reduce((s, x) => s + x.moles, 0))
       .toBeCloseTo(before.contents.reduce((s, x) => s + x.moles, 0), 10);
@@ -46,8 +51,8 @@ describe('Finite mixing and dissolution inventory', () => {
   });
   it('uses solvent mass rather than total solution volume', () => {
     const after = relax(sample({ volume_ml: 200, contents: [amount('H2O', 10, 'l'), amount('NaCl', 5, 's')] }));
-    expect(mass(after, 'aq')).toBeCloseTo(3.6, 8);
-    expect(mass(after, 's')).toBeCloseTo(1.4, 8);
+    expect(mass(after, 'aq')).toBeCloseTo(3.596770716635604, 8);
+    expect(mass(after, 's')).toBeCloseTo(5 - 3.596770716635604, 8);
   });
   it('stirring and grinding accelerate approach without changing saturation', () => {
     const base = sample(), stirred = partitionSodiumChloride(base, 1, true)!;
@@ -56,15 +61,28 @@ describe('Finite mixing and dissolution inventory', () => {
   });
   it('crystallizes an initially oversaturated inventory without adding mass', () => {
     const after = relax(sample({ contents: [amount('H2O', 100, 'l'), amount('NaCl', 50, 'aq')] }));
-    expect(mass(after, 's')).toBeCloseTo(14, 8);
+    expect(mass(after, 's')).toBeCloseTo(50 - 35.96770716635604, 8);
   });
   it('does not guess unknown temperatures, solvent, mixtures, or filter-cake equilibria', () => {
     for (const patch of [
-      { temperature_c: 60 }, { volume_ml: 0 }, { immiscibleOrganicVolume_ml: 10 },
+      { temperature_c: -1 }, { temperature_c: 101 }, { volume_ml: 0 }, { immiscibleOrganicVolume_ml: 10 },
       { contents: [amount('H2O', 100, 'l'), amount('NaCl', 50, 's'), amount('HCl', 1, 'aq')] },
       { contents: [{ ...amount('NaCl', 50, 's'), location: 'filter' as const }, amount('H2O', 100, 'l')] },
       { contents: [amount('NaCl', 50, 's')] },
     ]) expect(partitionSodiumChloride(sample(patch), 1)).toBeNull();
+  });
+  it('matches independent rounded IUPAC molality table values across the supported interval', () => {
+    for (const [kelvin, molality] of [[275, 6.099], [300, 6.163], [350, 6.503], [370, 6.684]]) {
+      expect(sodiumChlorideSolubilityRatio(kelvin - 273.15)! * 1000 / 58.44)
+        .toBeCloseTo(molality, 3);
+    }
+    expect(sodiumChlorideSolubilityRatio(NaN)).toBeUndefined();
+    expect(sodiumChlorideSolubilityRatio(Infinity)).toBeUndefined();
+    const warm = relax(sample({ temperature_c: 76.85 }));
+    expect(mass(warm, 'aq')).toBeCloseTo(38.00552904859223, 8);
+    const cool = relax({ ...warm, temperature_c: 25 });
+    expect(mass(cool, 'aq')).toBeCloseTo(35.96770716635604, 8);
+    expect(mass(cool, 's') + mass(cool, 'aq')).toBeCloseTo(50, 10);
   });
   it('renders only the solid phase and preserves hydroxide formula groups', () => {
     expect(solidInventoryFraction([amount('Cu(OH)2', 1, 'aq'), amount('Cu(OH)2', 1, 's')], 'Cu(OH)2')).toBeCloseTo(0.5);

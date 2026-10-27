@@ -34,8 +34,8 @@ describe('Registry Collision Prevention & Disambiguation Suite (Finding F4 & §1
       expect(agiProg!.visual.after.precipitate?.morphology).toBe('curd');
       expect(agiProg!.visual.after.precipitate?.substance).toBe('AgI');
 
-      // PbI2 must have crystal_plate morphology (golden hexagonal platelets)
-      expect(pbi2Prog!.visual.after.precipitate?.morphology).toBe('crystal_plate');
+      // Direct mixing produces fine yellow PbI2; cooling crystallization is separate.
+      expect(pbi2Prog!.visual.after.precipitate?.morphology).toBe('fine_powder');
       expect(pbi2Prog!.visual.after.precipitate?.substance).toBe('PbI2');
     });
 

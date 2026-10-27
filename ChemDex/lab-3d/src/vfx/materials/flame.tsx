@@ -45,7 +45,7 @@ void main() {
   float width = mix(0.28, 0.015, pow(h, 0.75)) * (0.75 + 0.35 * uIntensity);
   
   float d = abs(p.x + (n - 0.5) * 0.28 * h) / max(0.001, width);
-  float body = smoothstep(1.0, 0.0, d) * smoothstep(1.0, 0.5, h + (n - 0.5) * 0.28);
+  float body = (1.0 - smoothstep(0.0, 1.0, d)) * (1.0 - smoothstep(0.5, 1.0, h + (n - 0.5) * 0.28));
   
   // Real laboratory alcohol/Bunsen flame: clean blue base, bright core, warm plume tip
   vec3 defaultCol = mix(vec3(0.22, 0.55, 1.0), vec3(1.0, 0.88, 0.35), smoothstep(0.04, 0.42, h));
@@ -57,7 +57,7 @@ void main() {
   vec3 col = mix(defaultCol, emissionCol, uColorOverride);
   
   // High intensity core glow for bloom capture
-  float coreGlow = smoothstep(0.6, 0.0, d) * (1.0 - h * 0.5);
+  float coreGlow = (1.0 - smoothstep(0.0, 0.6, d)) * (1.0 - h * 0.5);
   vec3 finalColor = col * (1.4 + 2.5 * coreGlow);
   float alpha = body * 0.92;
 

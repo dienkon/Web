@@ -1,4 +1,5 @@
 export interface VfxEventMap {
+  'vessel:sample-reset': { vesselId: string };
   'reaction:start': { vesselId: string; reactionId?: string; mixResult?: any };
   'reaction:end': { vesselId: string; reactionId?: string };
   'pour:start': { sourceId: string; targetId: string | null; mode: string };
@@ -21,6 +22,9 @@ export interface VfxEventMap {
     position: [number, number, number];
     intensity: number;
     color?: string;
+    liquidColor?: string;
+    substances?: string[];
+    isAcid?: boolean;
     isDangerous?: boolean;
   };
   'acid:splatter': {
@@ -39,6 +43,7 @@ export interface VfxEventMap {
     intensity: number;
   };
   'particle:burst': {
+    vesselId?: string;
     position: [number, number, number];
     count: number;
     color?: string;
@@ -61,6 +66,16 @@ export interface VfxEventMap {
     z: number;
     intensity: number;
     vesselId?: string;
+  };
+  'vessel:overflow': {
+    vesselId: string;
+    position?: [number, number, number];
+    volume_ml?: number;
+    color?: string;
+    substances?: string[];
+    angle?: number;
+    flowRate?: number;
+    duration_s?: number;
   };
 }
 

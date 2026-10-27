@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useCallback, useState } from 'react';
 import { useAppStore } from '../store/useAppStore';
+import { LabEnvironmentControls } from './LabEnvironmentControls';
 import { 
   Undo2, Redo2, Move, Pause, Play, 
   RotateCcw, Globe, Presentation, BookOpen, Compass, Volume2, VolumeX,
@@ -218,6 +219,7 @@ export function WorkbenchToolbar() {
           ))}
         </div>
 
+        <LabEnvironmentControls />
         {/* Sound Toggle */}
         <button
           onClick={toggleSound}

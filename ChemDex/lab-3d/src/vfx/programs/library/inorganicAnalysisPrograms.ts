@@ -60,7 +60,7 @@ export const INORGANIC_ANALYSIS_PROGRAMS: ReactionProgram[] = [
       species: [
         { formula: 'CoCl2', role: 'reactant', coeff: 1, phase: 'aq', hazards: ['GHS07_harmful', 'GHS08_health_hazard'] },
         { formula: 'NaOH', role: 'reactant', coeff: 2, phase: 'aq', hazards: ['GHS05_corrosive'] },
-        { formula: 'Co(OH)2', role: 'product', coeff: 1, phase: 's', colorHex: '#f472b6' },
+        { formula: 'Co(OH)2', role: 'product', coeff: 1, phase: 's', colorHex: '#d68ca9' },
         { formula: 'NaCl', role: 'product', coeff: 2, phase: 'aq' }
       ],
       deltaH_kJ_per_mol: -28.0,
@@ -70,22 +70,21 @@ export const INORGANIC_ANALYSIS_PROGRAMS: ReactionProgram[] = [
     visual: {
       duration_s: 7.5,
       timeline: [
-        { id: 'precip', atom: 'precipitateNucleation', anchor: 'bulk', window: [0, 0.35], intensity: 1.2, params: { morphology: 'gel', color: '#0284c7', nucleationRate: 80 } },
-        { id: 'shift', atom: 'beerLambertFade', anchor: 'bulk', window: [0.35, 0.85], intensity: 1.0, params: { startColor: '#0284c7', endColor: '#f472b6', opticalPath_cm: 4.5 } }
+        { id: 'precip', atom: 'precipitateNucleation', anchor: 'bulk', window: [0, 0.35], intensity: 1.2, params: { morphology: 'gel', color: '#d68ca9', nucleationRate: 80 } }
       ],
       after: {
         liquidColor: '#fbcfe8',
         liquidOpacity: 0.95,
         turbidity: 0.8,
-        precipitate: { substance: 'Co(OH)2', morphology: 'gel', color: '#f472b6', mass_g: 'fromLedger' },
+        precipitate: { substance: 'Co(OH)2', morphology: 'gel', color: '#d68ca9', mass_g: 'fromLedger' },
         gasesOffgassed: []
       }
     },
     explain: {
-      observation_vi: 'Ban đầu tạo kết tủa xanh lam của muối bazơ Co(OH)Cl, sau đó nhanh chóng chuyển sang màu hồng đào Co(OH)2.',
-      observation_en: 'Initial blue basic salt Co(OH)Cl precipitate shifts to stable peach-pink Co(OH)2.',
-      why_vi: 'Giai đoạn đầu tạo muối bazơ tứ diện xanh, sau đó chuyển thành hydroxit bát diện ổn định màu hồng.',
-      why_en: 'Initial blue tetrahedral basic salt converts to thermodynamically stable pink octahedral hydroxide.'
+      observation_vi: 'Mô hình hiện tạo Co(OH)2 hồng. Giai đoạn muối bazơ xanh có thể xuất hiện trong thực nghiệm nhưng chưa có bước trung gian định lượng riêng.',
+      observation_en: 'This model forms pink Co(OH)2. A blue basic-salt stage can occur experimentally but is not yet represented by a separate quantitative step.',
+      why_vi: 'OH− kết tủa Co(II). Chuyển dạng, muối bazơ và oxy hóa cần trạng thái hóa học riêng, không chỉ đổi màu theo thời gian.',
+      why_en: 'Hydroxide precipitates Co(II). Phase conversion, basic salts and oxidation require separate chemical states rather than a timed color change.'
     },
     confidence: 1.0
   },
@@ -183,7 +182,7 @@ export const INORGANIC_ANALYSIS_PROGRAMS: ReactionProgram[] = [
       species: [
         { formula: 'MnSO4', role: 'reactant', coeff: 1, phase: 'aq', hazards: ['GHS08_health_hazard'] },
         { formula: 'NaOH', role: 'reactant', coeff: 2, phase: 'aq', hazards: ['GHS05_corrosive'] },
-        { formula: 'Mn(OH)2', role: 'product', coeff: 1, phase: 's', colorHex: '#fef08a' },
+        { formula: 'Mn(OH)2', role: 'product', coeff: 1, phase: 's', colorHex: '#f3eee9' },
         { formula: 'Na2SO4', role: 'product', coeff: 1, phase: 'aq' }
       ],
       deltaH_kJ_per_mol: -25.0,
@@ -193,14 +192,13 @@ export const INORGANIC_ANALYSIS_PROGRAMS: ReactionProgram[] = [
     visual: {
       duration_s: 7.5,
       timeline: [
-        { id: 'precip', atom: 'precipitateNucleation', anchor: 'bulk', window: [0, 0.35], intensity: 1.15, params: { morphology: 'floc', color: '#fef3c7', nucleationRate: 75 } },
-        { id: 'chroma', atom: 'beerLambertFade', anchor: 'bulk', window: [0.35, 0.95], intensity: 1.2, params: { startColor: '#fef3c7', endColor: '#f5ead6', opticalPath_cm: 4.5 } }
+        { id: 'precip', atom: 'precipitateNucleation', anchor: 'bulk', window: [0, 0.35], intensity: 1.15, params: { morphology: 'floc', color: '#f3eee9', nucleationRate: 75 } }
       ],
       after: {
         liquidColor: '#f8fafc',
         liquidOpacity: 0.95,
         turbidity: 0.85,
-        precipitate: { substance: 'Mn(OH)2', morphology: 'floc', color: '#f5ead6', mass_g: 'fromLedger' },
+        precipitate: { substance: 'Mn(OH)2', morphology: 'floc', color: '#f3eee9', mass_g: 'fromLedger' },
         gasesOffgassed: []
       }
     },
@@ -472,7 +470,7 @@ export const INORGANIC_ANALYSIS_PROGRAMS: ReactionProgram[] = [
       species: [
         { formula: 'CuSO4', role: 'reactant', coeff: 2, phase: 'aq', hazards: ['GHS07_harmful', 'GHS09_environmental'] },
         { formula: 'KI', role: 'reactant', coeff: 4, phase: 'aq' },
-        { formula: 'CuI', role: 'product', coeff: 2, phase: 's', colorHex: '#fef08a' },
+        { formula: 'CuI', role: 'product', coeff: 2, phase: 's', colorHex: '#f2f0e9' },
         { formula: 'I2', role: 'product', coeff: 1, phase: 'aq', colorHex: '#78350f' },
         { formula: 'K2SO4', role: 'product', coeff: 2, phase: 'aq' }
       ],
@@ -483,14 +481,14 @@ export const INORGANIC_ANALYSIS_PROGRAMS: ReactionProgram[] = [
     visual: {
       duration_s: 7.0,
       timeline: [
-        { id: 'precip', atom: 'precipitateNucleation', anchor: 'bulk', window: [0, 0.4], intensity: 1.25, params: { morphology: 'curd', color: '#fef08a', nucleationRate: 85 } },
+        { id: 'precip', atom: 'precipitateNucleation', anchor: 'bulk', window: [0, 0.4], intensity: 1.25, params: { morphology: 'curd', color: '#f2f0e9', nucleationRate: 85 } },
         { id: 'chroma', atom: 'beerLambertFade', anchor: 'bulk', window: [0, 0.5], intensity: 1.2, params: { startColor: '#38bdf8', endColor: '#78350f', opticalPath_cm: 4.5 } }
       ],
       after: {
         liquidColor: '#78350f',
         liquidOpacity: 0.98,
         turbidity: 0.85,
-        precipitate: { substance: 'CuI', morphology: 'curd', color: '#fef08a', mass_g: 'fromLedger' },
+        precipitate: { substance: 'CuI', morphology: 'curd', color: '#f2f0e9', mass_g: 'fromLedger' },
         gasesOffgassed: []
       }
     },

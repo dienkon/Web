@@ -221,12 +221,10 @@ export const REACTION_VFX_RECIPES: Record<string, ReactionVfxRecipe> = {
     duration: 5.5,
     layers: [
       { kind: 'bubbles', t: [0.0, 0.9], rate: 140, size: [0.008, 0.02], emitter: 'solid', color: '#ffffff', gasType: 'H2' },
-      { kind: 'gasPlume', t: [0.1, 0.8], color: '#ffffff', density: 0.15, heavy: false, buoyancy: 0.4 },
       { kind: 'solidDissolve', target: 'Zn', style: 'shrink' },
       { kind: 'sound', at: 0.04, id: 'fizz' }
     ],
     bubbles: { rate: 140, gasType: 'H2', color: '#ffffff', emitter: 'solid' },
-    gasPlume: { color: '#ffffff', density: 'light', rate: 12, turbidity: 0.2, buoyancy: 0.4 },
     soundEffect: 'fizz'
   },
 
@@ -237,15 +235,10 @@ export const REACTION_VFX_RECIPES: Record<string, ReactionVfxRecipe> = {
     duration: 4.0,
     layers: [
       { kind: 'bubbles', t: [0.0, 0.95], rate: 240, size: [0.015, 0.035], emitter: 'solid', color: '#ffffff', gasType: 'H2' },
-      { kind: 'foam', t: [0.05, 0.85], rate: 24, viscous: false },
-      { kind: 'steam', t: [0.1, 0.9], density: 0.75 },
-      { kind: 'gasPlume', t: [0.05, 0.9], color: '#ffffff', density: 0.7, heavy: false, buoyancy: 0.5 },
       { kind: 'solidDissolve', target: 'Mg', style: 'shrink' },
       { kind: 'sound', at: 0.02, id: 'fizz' }
     ],
     bubbles: { rate: 240, gasType: 'H2', color: '#ffffff', emitter: 'solid' },
-    steam: { active: true, rate: 30 },
-    foam: { active: true, growthMultiplier: 2.8 },
     soundEffect: 'fizz'
   },
 
@@ -347,23 +340,9 @@ export const REACTION_VFX_RECIPES: Record<string, ReactionVfxRecipe> = {
 
   // 17. 2Na + 2H2O -> 2NaOH + H2(g) (Sodium Fire Dart & Miniature Pop)
   'sodium_water_reaction': {
-    id: 'sodium_water_reaction',
-    name: 'Sodium Metal Water Dart & Ignition',
-    duration: 8.5,
-    layers: [
-      { kind: 'bubbles', t: [0.0, 0.9], rate: 50, emitter: 'surfaceOnly', color: '#fef08a', gasType: 'H2' },
-      { kind: 'gasPlume', t: [0.05, 0.9], color: '#ffffff', density: 0.55, heavy: false, buoyancy: 0.35 },
-      { kind: 'colorFront', t: [0.12, 0.85], to: '#f43f5e', origin: 'pourPoint', speed: 1.2 },
-      { kind: 'light', t: [0.4, 0.9], color: '#ffb300', intensity: 2.5, flicker: 0.35 },
-      { kind: 'flash', at: 0.65, color: '#fbbf24', intensity: 2.2, duration: 0.25 },
-      { kind: 'burst', at: 0.92, droplets: 35, speed: 2.6, steam: 0.45, shockwave: false },
-      { kind: 'sound', at: 0.92, id: 'pop' }
-    ],
-    bubbles: { rate: 50, gasType: 'H2', color: '#fef08a', emitter: 'surfaceOnly' },
-    gasPlume: { color: '#ffffff', density: 'light', rate: 28, turbidity: 0.7 },
-    sparks: { active: true, rate: 30, burstCount: 16, color: '#f59e0b' },
-    specialEffect: 'sodium_dart',
-    soundEffect: 'pop'
+    id: 'sodium_water_reaction', name: 'Sodium contact, hydrogen and surface recoil', duration: 7,
+    layers: [], specialEffect: 'sodium_dart',
+    // Contact bubbles and conditional flame are owned by SodiumWaterPellet.
   },
 
   // 17b. 2K + 2H2O -> 2KOH + H2(g) (Violent Lilac Reaction, Sparks & Pop)

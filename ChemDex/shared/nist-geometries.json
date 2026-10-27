@@ -1,0 +1,139 @@
+[
+  {
+    "cid": 962,
+    "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7732185&charge=0",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase Cartesian coordinates",
+    "retrievedAt": "2026-10-27",
+    "atoms": [
+      {
+        "element": "O",
+        "label": "O1",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.1173
+      },
+      {
+        "element": "H",
+        "label": "H2",
+        "x": 0.0,
+        "y": 0.7572,
+        "z": -0.4692
+      },
+      {
+        "element": "H",
+        "label": "H3",
+        "x": 0.0,
+        "y": -0.7572,
+        "z": -0.4692
+      }
+    ]
+  },
+  {
+    "cid": 222,
+    "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7664417&charge=0",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase Cartesian coordinates",
+    "retrievedAt": "2026-10-27",
+    "atoms": [
+      {
+        "element": "N",
+        "label": "N1",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      {
+        "element": "H",
+        "label": "H2",
+        "x": 0.0,
+        "y": -0.9377,
+        "z": -0.3816
+      },
+      {
+        "element": "H",
+        "label": "H3",
+        "x": 0.8121,
+        "y": 0.4689,
+        "z": -0.3816
+      },
+      {
+        "element": "H",
+        "label": "H4",
+        "x": -0.8121,
+        "y": 0.4689,
+        "z": -0.3816
+      }
+    ]
+  },
+  {
+    "cid": 297,
+    "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=74828&charge=0",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase Cartesian coordinates",
+    "retrievedAt": "2026-10-27",
+    "atoms": [
+      {
+        "element": "C",
+        "label": "C1",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      {
+        "element": "H",
+        "label": "H2",
+        "x": 0.6276,
+        "y": 0.6276,
+        "z": 0.6276
+      },
+      {
+        "element": "H",
+        "label": "H3",
+        "x": 0.6276,
+        "y": -0.6276,
+        "z": -0.6276
+      },
+      {
+        "element": "H",
+        "label": "H4",
+        "x": -0.6276,
+        "y": 0.6276,
+        "z": -0.6276
+      },
+      {
+        "element": "H",
+        "label": "H5",
+        "x": -0.6276,
+        "y": -0.6276,
+        "z": 0.6276
+      }
+    ]
+  },
+  {
+    "cid": 280,
+    "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=124389&charge=0",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase Cartesian coordinates",
+    "retrievedAt": "2026-10-27",
+    "atoms": [
+      {
+        "element": "C",
+        "label": "C1",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      {
+        "element": "O",
+        "label": "O2",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.1621
+      },
+      {
+        "element": "O",
+        "label": "O3",
+        "x": 0.0,
+        "y": 0.0,
+        "z": -1.1621
+      }
+    ]
+  }
+]

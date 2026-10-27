@@ -1,10 +1,13 @@
-import React, { useRef, useMemo } from 'react';
+import { simulationFrameDt } from '../../core/clock';
+import React, { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useAppStore, getChemical, getSolidMorphology, SolidMorphology } from '../../store/useAppStore';
 import { labSound } from '../../utils/audio';
 import { useQualityStore } from '../../vfx/quality';
 import { getGlassMaterials, createVesselLatheGeometry } from '../../vfx/materials/glass';
+import { vesselLiquidSurfaceY, liquidGeometry } from '../../science/vesselGeometry';
+import { fallingContactTime, dropSchedule, landedDropFraction, SCENE_GRAVITY, stockLiquidPacket, stockArrivedFraction, STOCK_RELEASE_START_S, STOCK_RELEASE_END_S } from '../../handling/doseTiming';
 
 // Helper to determine vessel rim height and mouth radius based on glassware geometry
 function getVesselMouthMetrics(type: string = 'beaker') {
@@ -41,11 +44,13 @@ const _scratchEuler = new THREE.Euler();
  * REAGENT DISPENSING ANIMATION (Chemical Bottle, Indicator Dropper, or Solid Spatula)
  */
 export const AddingAnimation = React.memo(function AddingAnimation({ 
+  doseId,
   chemical, 
   targetId, 
   amount = 20,
   onComplete 
 }: { 
+  doseId: number;
   chemical: string; 
   targetId: string; 
   amount?: number;
@@ -62,9 +67,11 @@ export const AddingAnimation = React.memo(function AddingAnimation({
   const rippleRef = useRef<THREE.Mesh>(null);
   const dropRef = useRef<THREE.Mesh>(null);
   const solidInstancedRef = useRef<THREE.InstancedMesh>(null);
-  const startTime = useRef(Date.now());
+  const elapsedTime = useRef(0);
   const soundPlayedRef = useRef(false);
   const lastDropIndexRef = useRef(-1);
+  const stockStreamGeometry = useMemo(() => new THREE.CylinderGeometry(0.03, 0.03, 1, 12, 24, true), []);
+  useEffect(() => () => stockStreamGeometry.dispose(), [stockStreamGeometry]);
 
   // Target vessel properties
   const targetVessel = useAppStore(state => state.vessels[targetId]);
@@ -76,6 +83,8 @@ export const AddingAnimation = React.memo(function AddingAnimation({
   const metrics = getVesselMouthMetrics(targetType);
   const mouthY = targetY + metrics.offset;
   const mouthRadius = metrics.radius;
+  const initialSurface = useRef(targetVessel ? vesselLiquidSurfaceY(targetVessel) : liquidGeometry(targetType).floorY);
+  const payloadRef = useRef<THREE.Group>(null);
 
   // Solid chunks falling simulation data (28 discrete chunks)
   const solidChunkCount = 28;
@@ -98,15 +107,17 @@ export const AddingAnimation = React.memo(function AddingAnimation({
     });
   }, [mouthRadius]);
 
-  useFrame((state) => {
-    const elapsed = (Date.now() - startTime.current) / 1000;
-    const time = state.clock.getElapsedTime();
+  useFrame((state, delta) => {
+    const live = useAppStore.getState();
+    if (live.isSimulationPaused) return;
+    elapsedTime.current += simulationFrameDt(delta, live);
+    const elapsed = elapsedTime.current;
+    const time = elapsed;
+    if (!live.vessels[targetId] || live.vessels[targetId].isShattered) { onComplete(); return; }
+    const deliver = (fraction: number) => { void live.advancePourContact(doseId, fraction); };
 
     // Calculate current liquid surface elevation inside recipient vessel
-    const currentVol = targetVessel ? targetVessel.volume_ml : 0;
-    const capacity = targetVessel ? targetVessel.capacity_ml : 100;
-    const volumeRatio = Math.max(0.06, Math.min(0.94, currentVol / capacity));
-    const liquidSurfaceY = targetY - 0.92 + volumeRatio * (metrics.offset + 0.8);
+    const liquidSurfaceY = targetY + (targetVessel ? vesselLiquidSurfaceY(targetVessel) : -0.96);
 
     // ============================================================
     // 1. SOLID REAGENT DISPENSING (Micro-spatula powder addition)
@@ -118,8 +129,13 @@ export const AddingAnimation = React.memo(function AddingAnimation({
       if (!groupRef.current) return;
 
       const hasWater = targetVessel && (targetVessel.volume_ml > 0.05) && targetVessel.substances.some(s => getChemical(s)?.type !== 'solid');
-      const bottomY = targetY - 0.95;
+      const bottomY = targetY + liquidGeometry(targetType).floorY;
       const actualSurfaceY = hasWater ? liquidSurfaceY : bottomY;
+      const flightTime = fallingContactTime(mouthY + 0.55 - actualSurfaceY);
+      const landedCount = solidChunksData.filter(chunk => elapsed >= chunk.stagger + flightTime).length;
+      deliver(landedCount / solidChunkCount);
+      if (payloadRef.current) payloadRef.current.visible = elapsed < solidChunksData[0].stagger;
+      const retractStart = Math.max(1.4, solidChunksData[solidChunkCount - 1].stagger + flightTime + 0.1);
 
       if (elapsed < 0.25) {
         // Approach vessel mouth from upper-right
@@ -132,7 +148,7 @@ export const AddingAnimation = React.memo(function AddingAnimation({
         groupRef.current.rotation.z = THREE.MathUtils.lerp(0, 0.25, t);
         if (solidInstancedRef.current) solidInstancedRef.current.visible = false;
         if (rippleRef.current) rippleRef.current.visible = false;
-      } else if (elapsed < 1.4) {
+      } else if (elapsed < retractStart) {
         if (!soundPlayedRef.current) {
           soundPlayedRef.current = true;
           if (morphology === 'GRANULES' || morphology === 'CHIPS') {
@@ -156,7 +172,7 @@ export const AddingAnimation = React.memo(function AddingAnimation({
         }
 
         // Tapping / vibrating spatula directly above vessel opening
-        const t = (elapsed - 0.25) / 1.15;
+        const t = (elapsed - 0.25) / Math.max(0.1, retractStart - 0.25);
         const tapVibe = Math.sin(time * 36) * 0.02;
         const pourTilt = THREE.MathUtils.lerp(0.25, 0.55, Math.min(1, t * 1.5));
         groupRef.current.position.set(targetX + 0.45, mouthY + 0.55, targetZ);
@@ -169,7 +185,7 @@ export const AddingAnimation = React.memo(function AddingAnimation({
           let splashX = targetX;
           let splashZ = targetZ;
 
-          const g = 9.2; // gravity acceleration
+          const g = SCENE_GRAVITY;
           const tipX = targetX + 0.15;
           const tipY = mouthY + 0.55;
           const tipZ = targetZ;
@@ -193,24 +209,16 @@ export const AddingAnimation = React.memo(function AddingAnimation({
             let currentChunkX = tipX + c.offsetX + c.vx * dtChunk;
             let currentChunkZ = tipZ + c.offsetZ + c.vz * dtChunk;
 
-            // Check water entry
-            if (hasWater && currentChunkY <= actualSurfaceY) {
-              const airTime = Math.sqrt(Math.max(0, 2 * (tipY - actualSurfaceY) / g));
-              const waterTime = dtChunk - airTime;
-              const sinkSpeed = 0.75; // slowed by water drag
-              currentChunkY = actualSurfaceY - sinkSpeed * waterTime;
-
-              if (waterTime > 0 && waterTime < 0.22) {
-                anyWaterSplash = true;
-                splashX = currentChunkX;
-                splashZ = currentChunkZ;
+            // A landed chunk now belongs to the finite vessel inventory;
+            // hide its airborne proxy instead of drawing it twice.
+            if (currentChunkY <= actualSurfaceY) {
+              if (hasWater && dtChunk - flightTime < 0.15) {
+                anyWaterSplash = true; splashX = currentChunkX; splashZ = currentChunkZ;
               }
-            }
-
-            // Settle on bottom
-            const targetFloorY = bottomY + c.size * 0.5 + c.pileY;
-            if (currentChunkY <= targetFloorY) {
-              currentChunkY = targetFloorY;
+              _scratchScale.set(0, 0, 0); _scratchPos.set(0, -9999, 0);
+              _scratchMat4.compose(_scratchPos, _scratchQuat, _scratchScale);
+              solidInstancedRef.current.setMatrixAt(i, _scratchMat4);
+              continue;
             }
 
             _scratchEuler.set(dtChunk * c.spinX, dtChunk * c.spinY, dtChunk * c.spinZ);
@@ -236,9 +244,9 @@ export const AddingAnimation = React.memo(function AddingAnimation({
             }
           }
         }
-      } else if (elapsed < 1.7) {
+      } else if (elapsed < retractStart + 0.3) {
         // Retract spatula and depart
-        const t = THREE.MathUtils.smoothstep((elapsed - 1.4) / 0.3, 0, 1);
+        const t = THREE.MathUtils.smoothstep((elapsed - retractStart) / 0.3, 0, 1);
         groupRef.current.position.set(
           THREE.MathUtils.lerp(targetX + 0.45, targetX + 2.0, t),
           THREE.MathUtils.lerp(mouthY + 0.55, mouthY + 1.8, t),
@@ -258,67 +266,44 @@ export const AddingAnimation = React.memo(function AddingAnimation({
     if (isDropper) {
       if (!groupRef.current) return;
 
+      const tipY = mouthY + 0.45;
+      const fallHeight = tipY - (targetY + initialSurface.current);
+      const schedule = dropSchedule(amount, fallHeight);
+      const landedFraction = landedDropFraction(elapsed, amount, fallHeight);
+      deliver(landedFraction);
+      const exitStart = schedule.lastImpact + 0.25;
       if (elapsed < 0.6) {
-        // Fly in centered vertically above vessel opening
         const t = THREE.MathUtils.smoothstep(elapsed / 0.6, 0, 1);
-        groupRef.current.position.set(
-          targetX,
-          THREE.MathUtils.lerp(mouthY + 3.0, mouthY + 1.45, t),
-          targetZ
-        );
+        groupRef.current.position.set(targetX, THREE.MathUtils.lerp(mouthY + 3, mouthY + 1.45, t), targetZ);
         if (dropRef.current) dropRef.current.visible = false;
-        if (rippleRef.current) rippleRef.current.visible = false;
-      } else if (elapsed < 2.4) {
-        // Hover and rhythmic drop formation & detachment
+      } else if (elapsed < exitStart) {
         groupRef.current.position.set(targetX, mouthY + 1.45, targetZ);
-        const dropIndex = Math.floor((elapsed - 0.6) / 0.6);
-        const cycleProgress = ((elapsed - 0.6) % 0.6) / 0.6; // 3 drops over 1.8s
-        const tipY = mouthY + 0.45;
-
-        if (dropIndex !== lastDropIndexRef.current && cycleProgress > 0.45) {
-          lastDropIndexRef.current = dropIndex;
-          labSound.playDrop();
+        const index = Math.min(schedule.count - 1, Math.max(0, Math.floor((elapsed - schedule.releaseStart) / schedule.period)));
+        const fallTime = elapsed - schedule.releaseStart - index * schedule.period;
+        const falling = fallTime >= 0 && fallTime < schedule.flightTime;
+        if (index !== lastDropIndexRef.current && falling) {
+          lastDropIndexRef.current = index; labSound.playDrop();
         }
-
         if (dropRef.current) {
-          dropRef.current.visible = true;
-          // Drop falls straight down from capillary tip to liquid surface
-          const fallDistance = tipY - liquidSurfaceY;
-          const currentDropY = tipY - Math.pow(cycleProgress, 1.8) * fallDistance;
-          dropRef.current.position.set(targetX, currentDropY, targetZ);
-
-          // Teardrop elongation
-          const stretch = 1.0 + Math.sin(cycleProgress * Math.PI) * 0.8;
-          dropRef.current.scale.set(0.04 / Math.sqrt(stretch), 0.04 * stretch, 0.04 / Math.sqrt(stretch));
+          dropRef.current.visible = falling;
+          dropRef.current.position.set(targetX, tipY - 0.5 * SCENE_GRAVITY * Math.max(0, fallTime) ** 2, targetZ);
+          const stretch = 1 + Math.min(0.7, Math.max(0, fallTime));
+          dropRef.current.scale.set(0.035 / Math.sqrt(stretch), 0.035 * stretch, 0.035 / Math.sqrt(stretch));
         }
-
-        // Concentric ripple on liquid surface upon impact
         if (rippleRef.current) {
-          if (cycleProgress > 0.82) {
-            const rippleFrac = (cycleProgress - 0.82) / 0.18;
-            rippleRef.current.visible = true;
-            rippleRef.current.position.set(targetX, liquidSurfaceY + 0.005, targetZ);
-            const rScale = THREE.MathUtils.lerp(0.04, mouthRadius * 0.55, rippleFrac);
-            rippleRef.current.scale.set(rScale, rScale, 1);
-            const mat = rippleRef.current.material as THREE.MeshBasicMaterial;
-            if (mat) mat.opacity = (1 - rippleFrac) * 0.7;
-          } else {
-            rippleRef.current.visible = false;
-          }
+          const sinceImpact = fallTime - schedule.flightTime;
+          rippleRef.current.visible = sinceImpact >= 0 && sinceImpact < 0.25 && (targetVessel?.volume_ml ?? 0) > 0;
+          rippleRef.current.position.set(targetX, liquidSurfaceY + 0.005, targetZ);
+          const f = Math.max(0, Math.min(1, sinceImpact / 0.25));
+          rippleRef.current.scale.setScalar(0.04 + mouthRadius * f * 0.5);
+          (rippleRef.current.material as THREE.MeshBasicMaterial).opacity = (1 - f) * 0.5;
         }
-      } else if (elapsed < 3.0) {
-        // Ascend and exit
-        const t = THREE.MathUtils.smoothstep((elapsed - 2.4) / 0.6, 0, 1);
-        groupRef.current.position.set(
-          targetX,
-          THREE.MathUtils.lerp(mouthY + 1.45, mouthY + 3.2, t),
-          targetZ
-        );
+      } else if (elapsed < exitStart + 0.6) {
+        const t = THREE.MathUtils.smoothstep((elapsed - exitStart) / 0.6, 0, 1);
+        groupRef.current.position.set(targetX, THREE.MathUtils.lerp(mouthY + 1.45, mouthY + 3.2, t), targetZ);
         if (dropRef.current) dropRef.current.visible = false;
         if (rippleRef.current) rippleRef.current.visible = false;
-      } else {
-        onComplete();
-      }
+      } else onComplete();
       return;
     }
 
@@ -326,6 +311,41 @@ export const AddingAnimation = React.memo(function AddingAnimation({
     // 3. CHEMICAL REAGENT BOTTLE (Laminar Stream & Surface Ripple)
     // ============================================================
     if (!groupRef.current) return;
+
+    const fractionAtSurface = stockArrivedFraction(elapsed, mouthY, liquidSurfaceY);
+    deliver(fractionAtSurface);
+    const finishTime = Math.max(2.95, stockLiquidPacket(STOCK_RELEASE_END_S, mouthY, liquidSurfaceY).impactTime + 0.1);
+    // Render only packets that have actually left the lip and have not landed.
+    // The front advances toward the liquid; the final tail falls after righting.
+    const youngest = Math.min(elapsed, STOCK_RELEASE_END_S);
+    const oldest = STOCK_RELEASE_START_S + fractionAtSurface * (STOCK_RELEASE_END_S - STOCK_RELEASE_START_S);
+    const visibleStream = youngest > oldest && elapsed > STOCK_RELEASE_START_S && fractionAtSurface < 1;
+    if (streamRef.current) {
+      streamRef.current.visible = visibleStream;
+      streamRef.current.position.set(0, 0, 0); streamRef.current.rotation.set(0, 0, 0); streamRef.current.scale.setScalar(1);
+      if (visibleStream) {
+        const vertices = stockStreamGeometry.attributes.position;
+        for (let ring = 0; ring <= 24; ring++) {
+          const release = youngest + (oldest - youngest) * ring / 24;
+          const packet = stockLiquidPacket(release, mouthY, liquidSurfaceY);
+          const age = Math.max(0, Math.min(packet.flightTime, elapsed - release));
+          const x = targetX + packet.x + packet.vx * age;
+          const y = packet.y + packet.vy * age - 0.5 * SCENE_GRAVITY * age * age;
+          const speedRatio = Math.hypot(packet.vx, packet.vy - SCENE_GRAVITY * age) / Math.hypot(packet.vx, packet.vy);
+          const radius = Math.max(0.006, Math.min(0.06, 0.03 * Math.sqrt(amount / 20)) / Math.sqrt(speedRatio));
+          for (let side = 0; side <= 12; side++) {
+            const angle = side / 12 * Math.PI * 2;
+            vertices.setXYZ(ring * 13 + side, x + Math.cos(angle) * radius, y, targetZ + Math.sin(angle) * radius);
+          }
+        }
+        vertices.needsUpdate = true; stockStreamGeometry.computeVertexNormals();
+      }
+    }
+    if (rippleRef.current) {
+      rippleRef.current.visible = fractionAtSurface > 0 && fractionAtSurface < 1 && (targetVessel?.volume_ml ?? 0) > 0;
+      rippleRef.current.position.set(targetX, liquidSurfaceY + 0.005, targetZ);
+      rippleRef.current.scale.setScalar(mouthRadius * (0.22 + Math.sin(time * 16) * 0.04));
+    }
 
     if (elapsed < 0.65) {
       // Fly bottle from shelf to vessel rim
@@ -336,8 +356,6 @@ export const AddingAnimation = React.memo(function AddingAnimation({
         targetZ
       );
       groupRef.current.rotation.z = THREE.MathUtils.lerp(0, 0.15, t);
-      if (streamRef.current) streamRef.current.visible = false;
-      if (rippleRef.current) rippleRef.current.visible = false;
     } else if (elapsed < 2.35) {
       // Pouring Phase: Bottle tilts left towards beaker mouth
       const t = (elapsed - 0.65) / 1.7;
@@ -352,42 +370,7 @@ export const AddingAnimation = React.memo(function AddingAnimation({
         labSound.playPour(1.4);
       }
 
-      // Spout tip in world coordinates
-      const spoutX = targetX + 0.82 - Math.sin(tiltAngle) * 0.98;
-      const spoutY = mouthY + 0.62 + Math.cos(tiltAngle) * 0.98;
-
-      if (streamRef.current) {
-        if (isStreaming) {
-          streamRef.current.visible = true;
-          // Connecting stream directly from spout to target vessel center
-          const dx = targetX - spoutX;
-          const dy = liquidSurfaceY - spoutY;
-          const streamLength = Math.hypot(dx, dy);
-          const midX = (spoutX + targetX) / 2;
-          const midY = (spoutY + liquidSurfaceY) / 2;
-          const streamAngle = Math.atan2(dx, -dy);
-
-          // Subtle fluid wobble
-          const wobble = Math.sin(time * 28) * 0.006;
-          streamRef.current.position.set(midX, midY, targetZ);
-          streamRef.current.rotation.z = streamAngle;
-          streamRef.current.scale.set(1 + wobble, streamLength, 1 + wobble);
-        } else {
-          streamRef.current.visible = false;
-        }
-      }
-
-      if (rippleRef.current) {
-        if (isStreaming) {
-          rippleRef.current.visible = true;
-          rippleRef.current.position.set(targetX, liquidSurfaceY + 0.005, targetZ);
-          const rippleRadius = mouthRadius * (0.28 + Math.sin(time * 16) * 0.06);
-          rippleRef.current.scale.set(rippleRadius, rippleRadius, 1);
-        } else {
-          rippleRef.current.visible = false;
-        }
-      }
-    } else if (elapsed < 2.95) {
+    } else if (elapsed < finishTime) {
       // Right the bottle upright and depart
       const t = THREE.MathUtils.smoothstep((elapsed - 2.35) / 0.6, 0, 1);
       groupRef.current.position.set(
@@ -396,8 +379,6 @@ export const AddingAnimation = React.memo(function AddingAnimation({
         targetZ
       );
       groupRef.current.rotation.z = THREE.MathUtils.lerp(1.18, 0, t);
-      if (streamRef.current) streamRef.current.visible = false;
-      if (rippleRef.current) rippleRef.current.visible = false;
     } else {
       onComplete();
     }
@@ -414,6 +395,7 @@ export const AddingAnimation = React.memo(function AddingAnimation({
             <meshStandardMaterial color="#cbd5e1" metalness={0.9} roughness={0.18} />
           </mesh>
           {/* Blade scoop with solid reagent resting on it matching authentic morphology */}
+          <group ref={payloadRef}>
           {morphology === 'RIBBON' ? (
             <mesh position={[-0.2, 0.08, 0]} rotation={[0.4, 0.2, -0.6]}>
               <torusGeometry args={[0.16, 0.04, 6, 16, Math.PI * 1.5]} />
@@ -475,6 +457,7 @@ export const AddingAnimation = React.memo(function AddingAnimation({
               <meshStandardMaterial color={color} roughness={0.96} metalness={0.02} />
             </mesh>
           )}
+          </group>
         </group>
 
         {/* Dynamic Falling Solid Particles (InstancedMesh, matches morphology) */}
@@ -622,8 +605,7 @@ export const AddingAnimation = React.memo(function AddingAnimation({
       </group>
 
       {/* World-space Laminar Flow Stream (Pinpoint Spout to Recipient Liquid Connection) */}
-      <mesh ref={streamRef} visible={false}>
-        <cylinderGeometry args={[0.042, 0.028, 1.0, 16]} />
+      <mesh ref={streamRef} geometry={stockStreamGeometry} frustumCulled={false} visible={false} dispose={null}>
         <meshStandardMaterial
           color={color}
           transparent

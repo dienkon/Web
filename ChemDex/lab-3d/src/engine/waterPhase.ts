@@ -1,6 +1,8 @@
 import type { VesselState } from '../types/chemistry';
 import { sameMolecularFormula } from '../science/speciesIdentity';
 import { WATER_CP_J_G_K, ICE_CP_J_G_K, WATER_FUSION_J_G, ICE_DENSITY_G_ML, VESSEL_HEAT_CAPACITY_J_K } from './waterProperties';
+import { occupiedLiquidVolume } from '../handling/solidOccupancy';
+import { neutralPhAtTemperature } from '../science/aqueousTemperature';
 
 export function waterPhaseMasses(vessel: Pick<VesselState, 'contents'>) {
   let liquid_g = 0, ice_g = 0;
@@ -53,24 +55,8 @@ export function materializeWaterVolume(vessel: VesselState): VesselState {
     ? { ...vessel, volume_ml, volume: volume_ml / vessel.capacity_ml } : vessel;
 }
 
-export function iceChunkDimensions(iceVolume_ml: number, capacity_ml: number, radius = 0.82, height = 1.88) {
-  const worldVolume = iceVolume_ml / Math.max(1, capacity_ml) * Math.PI * radius * radius * height;
-  const width = Math.min(Math.cbrt(Math.max(0, worldVolume)) * Math.cbrt(2), radius * Math.SQRT2 * 0.96);
-  return { width, height: width > 0 ? worldVolume / (width * width) : 0 };
-}
-
 export function liquidSurfaceVolume(vessel: Pick<VesselState, 'contents' | 'volume_ml' | 'capacity_ml' | 'type' | 'iceVolume_ml'>): number {
-  if (vessel.type !== 'beaker' || vessel.volume_ml <= 0.05 || !(vessel.iceVolume_ml! > 0)) return vessel.volume_ml;
-  let ice_g = 0;
-  for (const item of vessel.contents) if (item.phase === 's' && sameMolecularFormula(item.formula, 'H2O')) ice_g += item.mass_g;
-  if (ice_g <= 0) return vessel.volume_ml;
-  // Same prescribed slab geometry as the ice mesh; allow bottom contact in shallow water.
-  const radius = 0.82, height = 1.88, area = Math.PI * radius * radius;
-  const worldVolume = ice_g / ICE_DENSITY_G_ML / Math.max(1, vessel.capacity_ml) * area * height;
-  const width = Math.min(Math.cbrt(worldVolume) * Math.cbrt(2), radius * Math.SQRT2 * 0.96);
-  const iceHeight = worldVolume / (width * width);
-  const groundedDepth = vessel.volume_ml / vessel.capacity_ml * area * height / (area - width * width);
-  return groundedDepth < ICE_DENSITY_G_ML * iceHeight ? groundedDepth / height * vessel.capacity_ml : vessel.volume_ml + ice_g;
+  return occupiedLiquidVolume(vessel);
 }
 
 export function createIceWaterSample(shell: VesselState): VesselState {
@@ -80,7 +66,8 @@ export function createIceWaterSample(shell: VesselState): VesselState {
       { formula: 'H2O', phase: 'l', mass_g: 20, moles: 20 / 18.015 },
       { formula: 'H2O', phase: 's', mass_g: 5, moles: 5 / 18.015 },
     ], substances: ['H2O'], mass_g: 25, volume_ml: 20, volume: 20 / shell.capacity_ml,
-    temperature_c: 0, ph: 7, phModel: undefined, iceVolume_ml: 5 / ICE_DENSITY_G_ML,
+    temperature_c: 0, ph: neutralPhAtTemperature(0)!, phModel: 'ideal_aqueous_temperature',
+    phReferenceTemperature_c: 0, iceVolume_ml: 5 / ICE_DENSITY_G_ML,
     thermalEnergyOutsideModel_J: 0, thermalModelLimit: undefined, programHeatApplied_J: 0,
     hasGas: false, isBoiling: false, hasPrecipitate: false, foam_ml: 0, escapedGas_g: {}, evaporated_ml: 0,
     liquidColor: '#f8fafc' };

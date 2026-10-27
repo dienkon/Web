@@ -60,7 +60,7 @@ export function createStudioMorphologySample(type: string, shell: VesselState): 
     studioProgramId: undefined, ignitedProgramId: undefined, contents,
     substances: contents.map(item => item.formula), mass_g: 30.5, volume_ml: 30,
     volume: 30 / shell.capacity_ml, density_g_ml: 1, temperature_c: 25,
-    ph: 7, phModel: undefined, liquidColor: '#f8fafc',
+    ph: 7, phModel: undefined, phReferenceTemperature_c: undefined, liquidColor: '#f8fafc',
     hasPrecipitate: true, precipitateSubstance: entry.substance,
     precipitateAmount_g: 0.5, precipitateColor: entry.color, precipitateMorphology: entry.type,
     hasGas: false, isBoiling: false, boilingIntensity: 0, foam_ml: 0,

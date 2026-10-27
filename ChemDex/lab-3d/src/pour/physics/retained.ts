@@ -1,4 +1,5 @@
 import { VesselProfile, getVesselProfile } from './profiles';
+import { contourVolumeBelow } from '../../science/vesselDimensions';
 
 /**
  * Calculates the cross-sectional circular segment area of radius R where x <= s.
@@ -16,66 +17,73 @@ export function segArea(R: number, s: number): number {
  * Calculates volume of liquid inside vessel below plane n · p <= c
  * using Simpson's / numerical slice integration.
  */
-export function volumeBelowPlane(
-  profile: VesselProfile,
-  nx: number,
-  ny: number,
-  c: number,
-  slices: number = 64
-): number {
-  const y0 = profile.baseY;
-  const y1 = profile.baseY + profile.H;
-  const dy = (y1 - y0) / slices;
-
-  let totalArea = 0;
-  const lenN = Math.hypot(nx, ny);
-  const normNx = lenN > 1e-6 ? nx / lenN : 0;
-  const normNy = lenN > 1e-6 ? ny / lenN : 1;
-  const normC = lenN > 1e-6 ? c / lenN : c;
-
-  for (let i = 0; i <= slices; i++) {
-    const y = y0 + i * dy;
-    const R = profile.r(y);
-
-    let area = 0;
-    if (Math.abs(normNx) < 1e-6) {
-      // Pure horizontal plane
-      area = (normNy * y <= normC) ? Math.PI * R * R : 0;
-    } else {
-      // normNx * x + normNy * y <= normC
-      const s = (normC - normNy * y) / normNx;
-      if (normNx > 0) {
-        area = segArea(R, s);
-      } else {
-        area = Math.max(0, Math.PI * R * R - segArea(R, s));
-      }
+type Slice = { y: number; radius: number; weight: number };
+const quadratures = new WeakMap<VesselProfile, Map<number, Slice[]>>();
+function volumeSlices(profile: VesselProfile, count: number): Slice[] {
+  const evenCount = Math.max(8, Math.ceil(count / 2) * 2);
+  let cache = quadratures.get(profile);
+  if (!cache) { cache = new Map(); quadratures.set(profile, cache); }
+  const cached = cache.get(evenCount);
+  if (cached) return cached;
+  const base = profile.baseY, top = base + profile.H;
+  const knots = [...new Set([base, ...(profile.contour ?? []).map(([, y]) => y), top])]
+    .filter(y => y >= base && y <= top).sort((a, b) => a - b);
+  const result: Slice[] = [];
+  for (let k = 1; k < knots.length; k++) {
+    const a = knots[k - 1], b = knots[k];
+    const steps = Math.max(2, Math.ceil(evenCount * (b - a) / profile.H / 2) * 2);
+    const dy = (b - a) / steps;
+    for (let i = 0; i <= steps; i++) {
+      const y = a + i * dy;
+      result.push({ y, radius: profile.r(y), weight: dy / 3 * (i === 0 || i === steps ? 1 : i % 2 ? 4 : 2) });
     }
-
-    // Simpson's rule weight
-    const weight = (i === 0 || i === slices) ? 1 : (i % 2 === 1 ? 4 : 2);
-    totalArea += area * weight;
   }
-
-  const volumeSceneUnits = (totalArea * dy) / 3;
-  return Math.max(0, volumeSceneUnits);
+  cache.set(evenCount, result);
+  return result;
+}
+function uprightVolumeBelow(profile: VesselProfile, y: number, count: number): number {
+  if (profile.contour) return contourVolumeBelow(profile.contour, y);
+  const a = profile.baseY, b = Math.min(a + profile.H, y);
+  if (b <= a) return 0;
+  const steps = Math.max(8, Math.ceil(count / 2) * 2), dy = (b - a) / steps;
+  let sum = 0;
+  for (let i = 0; i <= steps; i++) {
+    const r = profile.r(a + i * dy);
+    sum += Math.PI * r * r * (i === 0 || i === steps ? 1 : i % 2 ? 4 : 2);
+  }
+  return sum * dy / 3;
+}
+export function volumeBelowPlane(profile: VesselProfile, nx: number, ny: number, c: number, slices = 64): number {
+  const length = Math.hypot(nx, ny);
+  if (!(length > 0) || !Number.isFinite(length) || !Number.isFinite(c)) return 0;
+  nx /= length; ny /= length; c /= length;
+  if (Math.abs(nx) < 1e-8) {
+    const below = uprightVolumeBelow(profile, c / ny, slices);
+    return ny > 0 ? below : Math.max(0, uprightVolumeBelow(profile, profile.baseY + profile.H, slices) - below);
+  }
+  let volume = 0;
+  for (const slice of volumeSlices(profile, slices)) {
+    const area = segArea(slice.radius, (c - ny * slice.y) / nx);
+    volume += slice.weight * (nx > 0 ? area : Math.PI * slice.radius * slice.radius - area);
+  }
+  return Math.max(0, volume);
 }
 
 /**
  * Precomputed 64-sample retained volume cache per vessel profile.
  */
-const RETAINED_CACHE: Record<string, number[]> = {};
+const RETAINED_CACHE = new WeakMap<VesselProfile, number[]>();
 const SAMPLE_COUNT = 64;
 
 export function getRetainedVolumeSamples(profile: VesselProfile): number[] {
-  if (RETAINED_CACHE[profile.type]) {
-    return RETAINED_CACHE[profile.type];
-  }
+  const cached = RETAINED_CACHE.get(profile);
+  if (cached) return cached;
 
   const samples: number[] = new Array(SAMPLE_COUNT);
   const maxTheta = Math.PI; // Full range 0 to 180 degrees (inversion)
 
   // Base upright volume at theta = 0
-  const rawUpright = volumeBelowPlane(profile, 0, 1, profile.lipLocal[1], 48);
+  const rawUpright = volumeBelowPlane(profile, 0, 1, profile.baseY + profile.H, 64);
   const scaleToMl = rawUpright > 0 ? profile.capacity_ml / rawUpright : 1.0;
 
   let prevVol = profile.capacity_ml;
@@ -105,7 +113,7 @@ export function getRetainedVolumeSamples(profile: VesselProfile): number[] {
     prevVol = monotonicVol;
   }
 
-  RETAINED_CACHE[profile.type] = samples;
+  RETAINED_CACHE.set(profile, samples);
   return samples;
 }
 
@@ -142,41 +150,27 @@ export function solveLevel(
   thetaRad: number,
   volume_ml: number
 ): { c: number; liquidTopY: number; surfaceArea: number } {
-  if (volume_ml <= 0.001) {
-    return { c: profile.baseY - 0.5, liquidTopY: profile.baseY, surfaceArea: 0.1 };
+  const nx = -Math.sin(thetaRad), ny = Math.cos(thetaRad);
+  const full = profile.referenceSceneVolume ?? volumeBelowPlane(profile, 0, 1, profile.baseY + profile.H);
+  const target = Math.max(0, Math.min(1, volume_ml / profile.capacity_ml)) * full;
+  const bounds = volumeSlices(profile, 64);
+  let low = Infinity, high = -Infinity;
+  for (const slice of bounds) {
+    low = Math.min(low, ny * slice.y - Math.abs(nx) * slice.radius);
+    high = Math.max(high, ny * slice.y + Math.abs(nx) * slice.radius);
   }
-
-  const nx = -Math.sin(thetaRad);
-  const ny = Math.cos(thetaRad);
-
-  const fullVol = profile.capacity_ml;
-  const targetRatio = Math.max(0.01, Math.min(1.0, volume_ml / fullVol));
-
-  const rawUpright = volumeBelowPlane(profile, 0, 1, profile.lipLocal[1], 24);
-  const scaleToMl = rawUpright > 0 ? profile.capacity_ml / rawUpright : 1.0;
-
-  // Binary search for plane offset c
-  let cMin = -3.5;
-  let cMax = 3.5;
-  let bestC = (cMin + cMax) / 2;
-
-  for (let iter = 0; iter < 14; iter++) {
-    const mid = (cMin + cMax) / 2;
-    const vol = volumeBelowPlane(profile, nx, ny, mid, 24) * scaleToMl;
-    if (vol < volume_ml) {
-      cMin = mid;
-    } else {
-      cMax = mid;
-    }
-    bestC = mid;
+  for (let i = 0; i < 24; i++) {
+    const middle = (low + high) / 2;
+    if (volumeBelowPlane(profile, nx, ny, middle, 64) < target) low = middle;
+    else high = middle;
   }
-
-  const lipY = profile.lipLocal[1];
-  const liquidTopY = profile.baseY + targetRatio * (lipY - profile.baseY);
-  const radiusAtLevel = Math.max(0.1, profile.r(liquidTopY));
-  const surfaceArea = Math.max(0.1, Math.PI * radiusAtLevel * radiusAtLevel);
-
-  return { c: isNaN(bestC) ? 0 : bestC, liquidTopY, surfaceArea };
+  const c = (low + high) / 2;
+  // dV/dc is the actual area cut by a plane with unit normal, even near 90 deg.
+  const epsilon = Math.max(1e-6, profile.H * 1e-4);
+  const area = (volumeBelowPlane(profile, nx, ny, c + epsilon) - volumeBelowPlane(profile, nx, ny, c - epsilon)) / (2 * epsilon);
+  const liquidTopY = Math.abs(ny) > 1e-8 ? Math.max(profile.baseY, Math.min(profile.baseY + profile.H, c / ny))
+    : profile.baseY + profile.H / 2;
+  return { c, liquidTopY, surfaceArea: Math.max(1e-6, area) };
 }
 
 /**

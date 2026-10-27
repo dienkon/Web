@@ -12,9 +12,18 @@ import { ReactionProgram } from '../shared/programSchema';
 import { Phase, PrecipMorphology, GasSpecies, GAS_SPECIES_TABLE } from '../vfx/catalog/vocab';
 import { assessProgramConditions } from '../science/conditions';
 import { identifySpecies, sameMolecularFormula } from '../science/speciesIdentity';
-import { solveAqueousEquilibrium } from '../science/aqueousEquilibrium';
-import { applyThermalEnergy, sealedGasPressure } from './thermalState';
+import { solveAqueousEquilibrium, aqueousModelFields } from '../science/aqueousEquilibrium';
+import { projectAqueousSolution } from './aqueousProjection';
+import { applyThermalEnergy } from './thermalState';
+import { ensureHeadspaceReference, gasPressurePatch } from './headspacePressure';
 import { indicatorColor, solutionIndicatorColor } from '../science/indicatorAppearance';
+import { baritePrecipitationExtent } from '../science/baritePrecipitation';
+import { magnesiumHydroxideExtent } from '../science/magnesiumHydroxidePrecipitation';
+import { silverHalideProgramExtent } from '../science/silverChloridePrecipitation';
+import { copperHydroxideExtent } from '../science/copperHydroxidePrecipitation';
+import { ferricHydroxideExtent, ferricHydroxideDissolutionExtent } from '../science/ferricHydroxidePrecipitation';
+import { withLegacyPrecipitateOrigins } from '../science/precipitateInventory';
+import { aluminumReactionExtent, aluminumReactionEnthalpy_J_mol } from '../science/aluminumHydroxideEquilibrium';
 
 // Standard Atomic Weights (IUPAC)
 export const ATOMIC_WEIGHTS: Record<string, number> = {
@@ -276,6 +285,8 @@ export const SPECIES_ABSORBANCE_TABLE: Record<string, SpeciesAbsorbance> = {
   'Ni2+': { epsR: 10.0, epsG: 0.5, epsB: 8.0 },     // Emerald green
   'Co2+': { epsR: 1.0, epsG: 9.0, epsB: 5.0 },      // Pale pink/magenta
   'I2': { epsR: 2.0, epsG: 10.0, epsB: 22.0 },      // Amber-brown iodine
+  // Qualitative bromine-water tint; coefficients are illustrative, not spectra.
+  'Br2': { epsR: 0.4, epsG: 6.0, epsB: 20.0 },
   'Phenolphthalein_basic': { epsR: 0.5, epsG: 28.0, epsB: 4.0 }, // Vivid magenta
 };
 
@@ -292,7 +303,10 @@ export function calculateBeerLambertColor(
   let optDensityB = 0;
 
   for (const item of contents) {
-    const conc_M = item.concentration_M || (item.moles / (volume_ml / 1000));
+    if ((item.location && item.location !== 'bulk') || item.phase === 's' || item.phase === 'g') continue;
+    // Inventory is authoritative; concentration_M may predate a dilution.
+    const conc_M = item.moles / (volume_ml / 1000);
+    if (!Number.isFinite(conc_M)) continue;
     if (conc_M <= 1e-5) continue;
 
     const abs = SPECIES_ABSORBANCE_TABLE[item.formula];
@@ -467,6 +481,7 @@ export function applyProgramToLedger(
   consumedExtent: number = 1.0, // 0.0 to 1.0 (fraction of limiting reagent reacted)
   options: { deferThermal?: boolean } = {},
 ): Partial<VesselState> {
+  vessel = ensureHeadspaceReference(vessel);
   const assessment = assessProgramConditions(program, vessel.contents ?? [], {
     ignitedProgramId: vessel.ignitedProgramId,
     temperature_c: vessel.temperature_c, pH: vessel.ph, volume_ml: vessel.volume_ml,
@@ -485,15 +500,16 @@ export function applyProgramToLedger(
   const products = program.chemistry.species.filter(s => s.role === 'product');
 
   // Identify available moles of reactants in vessel contents
-  const currentContents = vessel.contents ? vessel.contents.map(content => ({ ...content })) : [];
+  const currentContents = vessel.contents ? withLegacyPrecipitateOrigins(vessel) : [];
   // Empty quantitative inventory means no reactant amount. Do not manufacture
   // a 0.5 M solution from labels merely to make an animation run.
 
   // Find limiting reagent and maximal reaction extent (moles of reaction)
   let maxReactionMoles = Infinity;
   for (const r of reactants) {
-    const found = currentContents.find(c => sameMolecularFormula(c.formula, r.formula) && (!c.phase || c.phase === r.phase));
-    const available = found ? found.moles : 0;
+    const available = currentContents.filter(c => sameMolecularFormula(c.formula, r.formula)
+      && (!c.phase || c.phase === r.phase) && (!c.location || c.location === 'bulk'))
+      .reduce((sum, c) => sum + c.moles, 0);
     const possible = available / r.coeff;
     if (possible < maxReactionMoles) {
       maxReactionMoles = possible;
@@ -504,17 +520,47 @@ export function applyProgramToLedger(
     maxReactionMoles = 0;
   }
 
+  if (program.id === 'bacl2_na2so4') {
+    const saturationLimit = baritePrecipitationExtent(currentContents, vessel.volume_ml, vessel.temperature_c);
+    if (saturationLimit !== null) maxReactionMoles = Math.min(maxReactionMoles, saturationLimit);
+  }
+  if (program.id === 'mgcl2_naoh') {
+    const limit = magnesiumHydroxideExtent(currentContents, vessel.volume_ml, vessel.temperature_c);
+    if (limit !== null) maxReactionMoles = Math.min(maxReactionMoles, limit);
+  }
+  if (['agno3_nacl', 'agno3_kbr', 'agno3_ki'].includes(program.id)) {
+    const limit = silverHalideProgramExtent(program.id, currentContents, vessel.volume_ml, vessel.temperature_c);
+    if (limit !== null) maxReactionMoles = Math.min(maxReactionMoles, limit);
+  }
+  if (program.id === 'cuso4_naoh') {
+    const limit = copperHydroxideExtent(currentContents, vessel.volume_ml, vessel.temperature_c);
+    if (limit !== null) maxReactionMoles = Math.min(maxReactionMoles, limit);
+  }
+  if (program.id === 'fecl3_naoh') {
+    const limit = ferricHydroxideExtent(currentContents, vessel.volume_ml, vessel.temperature_c);
+    if (limit !== null) maxReactionMoles = Math.min(maxReactionMoles, limit);
+  }
+  if (program.id === 'feoh3_hcl') {
+    const limit = ferricHydroxideDissolutionExtent(currentContents, vessel.volume_ml, vessel.temperature_c);
+    maxReactionMoles = limit === null ? 0 : Math.min(maxReactionMoles, limit);
+  }
+  const aluminumLimit = aluminumReactionExtent(program.id, currentContents, vessel.volume_ml, vessel.temperature_c);
+  if (aluminumLimit !== undefined) maxReactionMoles = aluminumLimit === null ? 0 : Math.min(maxReactionMoles, aluminumLimit);
   const molesOfReaction = maxReactionMoles * Math.max(0, Math.min(1.0, consumedExtent));
 
   // 1. Consume reactants (only if reaction produces products)
   if (molesOfReaction > 0) {
     for (const r of reactants) {
       const consumeMoles = molesOfReaction * r.coeff;
-      const found = currentContents.find(c => sameMolecularFormula(c.formula, r.formula) && (!c.phase || c.phase === r.phase));
-      if (found) {
-        found.moles = Math.max(0, found.moles - consumeMoles);
-        const mm = computeMolarMass(found.formula);
-        found.mass_g = found.moles * mm;
+      let remaining = consumeMoles;
+      for (const found of currentContents) {
+        if (!sameMolecularFormula(found.formula, r.formula) || (found.phase && found.phase !== r.phase)
+          || (found.location && found.location !== 'bulk')) continue;
+        const taken = Math.min(Math.max(0, found.moles), remaining);
+        found.moles = Math.max(0, found.moles - taken);
+        found.mass_g = found.moles * computeMolarMass(found.formula);
+        remaining -= taken;
+        if (remaining <= 0) break;
       }
     }
   }
@@ -557,7 +603,8 @@ export function applyProgramToLedger(
         }
       }
 
-      const existing = currentContents.find(c => sameMolecularFormula(c.formula, p.formula) && c.phase === p.phase);
+      const existing = currentContents.find(c => sameMolecularFormula(c.formula, p.formula) && c.phase === p.phase
+        && (p.phase !== 's' || c.solidOrigin === 'precipitate'));
       if (existing) {
         existing.moles += produceMoles;
         existing.mass_g = existing.moles * mm;
@@ -569,7 +616,9 @@ export function applyProgramToLedger(
           volume_ml: undefined,
           concentration_M: p.phase === 'aq' && vessel.volume_ml > 0 ? produceMoles / (vessel.volume_ml / 1000) : undefined,
           state: p.phase,
-          phase: p.phase
+          phase: p.phase,
+          ...(p.phase === 's' ? { solidOrigin: 'precipitate' as const,
+            precipitateFormation: program.visual.after.precipitate?.morphology } : {})
         });
       }
     }
@@ -586,13 +635,14 @@ export function applyProgramToLedger(
   }
 
   // Enthalpy is per mole of reaction with coefficients exactly as written.
-  const heat_J = Number.isFinite(program.chemistry.deltaH_kJ_per_mol)
-    ? -(program.chemistry.deltaH_kJ_per_mol ?? 0) * 1000 * molesOfReaction : 0;
+  const aluminumHeat = aluminumReactionEnthalpy_J_mol(program.id, vessel.temperature_c);
+  const heat_J = aluminumHeat !== null && aluminumHeat !== undefined ? -aluminumHeat * molesOfReaction
+    : Number.isFinite(program.chemistry.deltaH_kJ_per_mol) ? -(program.chemistry.deltaH_kJ_per_mol ?? 0) * 1000 * molesOfReaction : 0;
   const newMass_g = Math.max(0, vessel.mass_g - escapedGas_g);
 
   // 5. Update liquid color via Beer-Lambert
   const afterColor = program.visual.after.liquidColor;
-  const equilibrium = solveAqueousEquilibrium(currentContents, vessel.volume_ml);
+  const equilibrium = solveAqueousEquilibrium(currentContents, vessel.volume_ml, vessel.temperature_c);
   const ph = equilibrium?.ph ?? vessel.ph;
   const dyeColor = equilibrium ? solutionIndicatorColor(currentContents, ph) : null;
   const observedIndicator = program.chemistry.representation === 'indicator' ? indicatorColor(program.id, ph) : null;
@@ -610,11 +660,13 @@ export function applyProgramToLedger(
     gasColor: gasColor || (program.visual.after.gasesOffgassed[0] ? GAS_SPECIES_TABLE[program.visual.after.gasesOffgassed[0].species as GasSpecies]?.colorHex : undefined),
     liquidColor: newColor,
     ph,
-    phModel: equilibrium ? 'ideal_aqueous_25c' : undefined,
+    ...aqueousModelFields(equilibrium),
     temperature_c: vessel.temperature_c,
     programHeatApplied_J: (vessel.programHeatApplied_J ?? 0) + heat_J,
     mass_g: newMass_g,
   };
   const thermal = options.deferThermal ? {} : applyThermalEnergy({ ...vessel, ...state }, heat_J);
-  return { ...state, ...thermal, internalPressure_atm: sealedGasPressure({ ...vessel, ...state, ...thermal }) };
+  const final = { ...vessel, ...state, ...thermal };
+  const aqueous = projectAqueousSolution(final);
+  return { ...state, ...thermal, ...aqueous, ...gasPressurePatch(final) };
 }

@@ -2,6 +2,11 @@ import { VesselProfile, getVesselProfile } from './profiles';
 import { calculateWeirFlow, FlowResult } from './flow';
 import { calculateStreamBallistics, BallisticsResult, LandingKind } from './ballistics';
 import { transferFluidIncrement, MixingState } from './mixing';
+import { vesselLiquidSurfaceY } from '../../science/vesselGeometry';
+import { LAB_PHYSICS } from '../../engine/interactionEngine';
+import type { SubstanceContent, VesselState } from '../../types/chemistry';
+import { availableLiquidVolume, liquidInventoryMass } from '../../handling/solidOccupancy';
+import { decantLiquid } from '../../engine/decantTransfer';
 
 export interface PourEvent {
   type: 'flow:start' | 'flow:impact' | 'spill' | 'bottle:glug' | 'wall:drip' | 'flow:end';
@@ -26,6 +31,9 @@ export interface SimVessel {
   temperature_c: number;
   colorHex: string;
   substances: string[];
+  contents?: SubstanceContent[];
+  isSealed?: boolean;
+  isShattered?: boolean;
 }
 
 export interface PourPhysicsSession {
@@ -41,6 +49,11 @@ export interface PourPhysicsSession {
   assist?: 'off' | 'low' | 'high';
 }
 
+const snapshot = (vessel: SimVessel): VesselState => ({ name: vessel.id, isLocked: false,
+  hasGas: false, hasPrecipitate: false, isBoiling: false, ph: 7, rotationY: 0,
+  volume: vessel.volume_ml / vessel.capacity_ml, ...vessel,
+  type: vessel.type as VesselState['type'], contents: vessel.contents ?? [], liquidColor: vessel.colorHex });
+
 /**
  * Pure simulation reducer: updates physics for 1 fixed sub-step dt (e.g. 1/60s).
  */
@@ -55,21 +68,19 @@ export function stepPourSimulation(
   updatedSource: SimVessel;
   updatedTarget: SimVessel | null;
   events: PourEvent[];
+  trajectory?: BallisticsResult;
 } {
   const source = vessels[session.sourceId];
   const target = session.targetId ? vessels[session.targetId] : null;
   const events: PourEvent[] = [];
+  const stopped = () => ({ nextSession: { ...session, isStreaming: false, lastFlowRate: 0 },
+    updatedSource: source, updatedTarget: target ?? null, events: [] as PourEvent[] });
 
-  if (!source) {
-    return {
-      nextSession: { ...session, isStreaming: false },
-      updatedSource: source,
-      updatedTarget: target,
-      events
-    };
-  }
+  if (!source || source.isSealed || source.isShattered || !(source.volume_ml > 0)
+    || !Number.isFinite(source.volume_ml) || !Number.isFinite(dt) || dt <= 0 || !(maxOutflow_ml > 0)
+    || (session.targetId && (!target || target.id === source.id || target.isSealed || target.isShattered))) return stopped();
 
-  const profile = getVesselProfile(source.type);
+  const profile = getVesselProfile(source.type, source.capacity_ml);
   const flow: FlowResult = calculateWeirFlow(
     profile,
     source.volume_ml,
@@ -103,7 +114,9 @@ export function stepPourSimulation(
     position: target.position,
     mouthR: getVesselProfile(target.type).mouthR,
     mouthY: target.position[1] + getVesselProfile(target.type).lipLocal[1],
-    liquidSurfaceY: target.position[1] - 0.92 + Math.max(0.08, target.volume_ml / target.capacity_ml) * 1.8
+    profile: getVesselProfile(target.type, target.capacity_ml),
+    liquidSurfaceY: target.position[1] + vesselLiquidSurfaceY({ ...target,
+      type: target.type as import('../../types/chemistry').VesselType, contents: target.contents ?? [] })
   } : null;
 
   const actualSourcePos = session.sourcePos || source.position;
@@ -116,20 +129,22 @@ export function stepPourSimulation(
     profile,
     flow.head_cm,
     targetMetrics,
-    -0.135,
+    LAB_PHYSICS.TABLE_SURFACE_Y,
     source.rotationY || 0,
     assistMode
   );
 
   const dV = Number.isFinite(dt) && dt > 0 && maxOutflow_ml > 0
     ? Math.min(flow.flowRate_ml_s * dt, maxOutflow_ml) : 0;
+  const sourceDensity = source.contents && source.volume_ml > 0
+    ? liquidInventoryMass({ contents: source.contents }) / source.volume_ml : source.density_g_ml || 1;
   let accepted_ml = 0;
   let spilled_ml = 0;
 
   const sourceMix: MixingState = {
     volume_ml: source.volume_ml,
     mass_g: source.mass_g || source.volume_ml * source.density_g_ml,
-    density_g_ml: source.density_g_ml || 1.0,
+    density_g_ml: sourceDensity,
     temperature_c: source.temperature_c,
     colorHex: source.colorHex,
     contents: {}
@@ -138,7 +153,7 @@ export function stepPourSimulation(
   let newSourceVessel = { ...source };
   let newTargetVessel = target ? { ...target } : null;
 
-  const landsInTarget = (ballistics.landingKind === 'inside' || ballistics.landingKind === 'rim') && target !== null;
+  const landsInTarget = ballistics.landingKind === 'inside' && target !== null;
   if (landsInTarget && target) {
     const targetMix: MixingState = {
       volume_ml: target.volume_ml,
@@ -150,7 +165,8 @@ export function stepPourSimulation(
     };
 
     const actualDV = Math.max(0, Math.min(source.volume_ml, dV));
-    const availableCapacity = Math.max(0, target.capacity_ml - target.volume_ml);
+    const availableCapacity = availableLiquidVolume({ ...target,
+      type: target.type as VesselState['type'], contents: target.contents ?? [] }, sourceDensity);
 
     let targetIntakeDV = actualDV;
 
@@ -170,11 +186,11 @@ export function stepPourSimulation(
       }
     }
 
-    const result = transferFluidIncrement(sourceMix, targetMix, targetIntakeDV, target.capacity_ml);
+    const result = transferFluidIncrement(sourceMix, targetMix, targetIntakeDV, target.volume_ml + availableCapacity);
     accepted_ml = result.accepted_ml;
     spilled_ml = Math.max(0, actualDV - accepted_ml);
 
-    const transferredMass_g = actualDV * (source.density_g_ml || 1.0);
+    const transferredMass_g = actualDV * sourceDensity;
     newSourceVessel = {
       ...source,
       volume_ml: Math.max(0, source.volume_ml - actualDV),
@@ -191,6 +207,20 @@ export function stepPourSimulation(
       colorHex: result.newRecipient.colorHex,
       substances: Array.from(new Set([...target.substances, ...source.substances]))
     };
+
+    // A full phase inventory uses the same pure aliquot plan as the store.
+    // Solids/headspace stay in the source; prediction must not leave stale moles.
+    if (source.contents && target.contents) {
+      const into = decantLiquid(snapshot(source), snapshot(target), targetIntakeDV);
+      if (!into) return stopped();
+      const ontoTable = into && actualDV > targetIntakeDV ? decantLiquid(into.source, null, actualDV - targetIntakeDV) : null;
+      if (into) {
+        newSourceVessel = { ...source, ...(ontoTable?.source ?? into.source), colorHex: source.colorHex };
+        newTargetVessel = { ...target, ...into.receiver!, colorHex: into.receiver!.liquidColor ?? target.colorHex };
+        accepted_ml = into.accepted_ml;
+        spilled_ml = (into.spill?.volume_ml ?? 0) + (ontoTable?.moved_ml ?? 0);
+      }
+    }
 
     events.push({
       type: 'flow:impact',
@@ -209,6 +239,11 @@ export function stepPourSimulation(
       volume_ml: Math.max(0, source.volume_ml - spilled_ml),
       mass_g: Math.max(0, (source.mass_g || source.volume_ml) - spilled_ml * source.density_g_ml)
     };
+    if (source.contents) {
+      const plan = decantLiquid(snapshot(source), null, spilled_ml);
+      if (!plan) return stopped();
+      if (plan) newSourceVessel = { ...source, ...plan.source, colorHex: source.colorHex };
+    }
   }
 
   if (spilled_ml > 0.001) {
@@ -242,6 +277,7 @@ export function stepPourSimulation(
     },
     updatedSource: newSourceVessel,
     updatedTarget: newTargetVessel,
-    events
+    events,
+    trajectory: ballistics
   };
 }

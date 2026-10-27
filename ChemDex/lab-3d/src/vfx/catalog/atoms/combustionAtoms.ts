@@ -323,7 +323,6 @@ export const flameConeAtom: EffectAtom = {
   },
   writeBack(h, vessel) {
     if (!h.alive) return;
-    vessel.temperature_c = Math.max(vessel.temperature_c || 25, 450);
   },
   dispose(h) {
     h.alive = false;
@@ -370,7 +369,6 @@ export const pyrotechnicSparksAtom: EffectAtom = {
   },
   writeBack(h, vessel) {
     if (!h.alive) return;
-    vessel.hasGas = true;
   },
   dispose(h) {
     h.alive = false;

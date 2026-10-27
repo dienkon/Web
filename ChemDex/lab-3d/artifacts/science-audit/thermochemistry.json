@@ -1,45 +1,132 @@
 {
   "schema": "chemdex.thermochemistry-audit/1",
-  "checkedAt": "2026-10-17T04:31:32.853Z",
+  "checkedAt": "2026-10-24T05:35:21.388Z",
   "counts": {
-    "programs": 145,
-    "sourcedReferences": 1,
-    "legacyValuesNeedReview": 102,
-    "missing": 42
+    "programs": 149,
+    "sourcedReferences": 63,
+    "legacyValuesNeedReview": 56,
+    "missing": 30
   },
   "scope": "Data completeness and stated basis only. No pass claim for concentration-dependent calorimetry.",
   "entries": [
     {
       "id": "hcl_naoh",
       "equation": "HCl(aq) + NaOH(aq) -> NaCl(aq) + H2O(l)",
-      "deltaH_kJ_per_mol_reaction": -57.3,
+      "deltaH_kJ_per_mol_reaction": -55.83,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "HCl",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -167.2
+        },
+        {
+          "formula": "NaOH",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -470.1
+        },
+        {
+          "formula": "NaCl",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -407.29999999999995
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1,
+          "formation_kJ_mol": -285.83
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "h2so4_naoh",
       "equation": "H2SO4(aq) + 2NaOH(aq) -> Na2SO4(aq) + 2H2O(l)",
-      "deltaH_kJ_per_mol_reaction": -114.6,
+      "deltaH_kJ_per_mol_reaction": -111.66,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "H2SO4",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -909.3
+        },
+        {
+          "formula": "NaOH",
+          "phase": "aq",
+          "coefficient": -2,
+          "formation_kJ_mol": -470.1
+        },
+        {
+          "formula": "Na2SO4",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -1389.5
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 2,
+          "formation_kJ_mol": -285.83
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "hno3_koh",
       "equation": "HNO3(aq) + KOH(aq) -> KNO3(aq) + H2O(l)",
-      "deltaH_kJ_per_mol_reaction": -57.3,
+      "deltaH_kJ_per_mol_reaction": -55.83,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "HNO3",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -205
+        },
+        {
+          "formula": "KOH",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -482.4
+        },
+        {
+          "formula": "KNO3",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -457.4
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1,
+          "formation_kJ_mol": -285.83
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -50,18 +137,42 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "nh3_hcl",
       "equation": "NH3(g) + HCl(g) -> NH4Cl(s)",
-      "deltaH_kJ_per_mol_reaction": -176,
+      "deltaH_kJ_per_mol_reaction": -176.223,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "NH3",
+          "phase": "g",
+          "coefficient": -1,
+          "formation_kJ_mol": -45.9
+        },
+        {
+          "formula": "HCl",
+          "phase": "g",
+          "coefficient": -1,
+          "formation_kJ_mol": -92.307
+        },
+        {
+          "formula": "NH4Cl",
+          "phase": "s",
+          "coefficient": 1,
+          "formation_kJ_mol": -314.43
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -72,6 +183,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -83,40 +195,128 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "hcl_caoh2",
       "equation": "2HCl(aq) + Ca(OH)2(aq) -> CaCl2(aq) + 2H2O(l)",
-      "deltaH_kJ_per_mol_reaction": -112,
+      "deltaH_kJ_per_mol_reaction": -111.66,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "HCl",
+          "phase": "aq",
+          "coefficient": -2,
+          "formation_kJ_mol": -167.2
+        },
+        {
+          "formula": "Ca(OH)2",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -1002.96
+        },
+        {
+          "formula": "CaCl2",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -877.36
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 2,
+          "formation_kJ_mol": -285.83
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "h2so4_baoh2",
       "equation": "H2SO4(aq) + Ba(OH)2(aq) -> BaSO4(s) + 2H2O(l)",
-      "deltaH_kJ_per_mol_reaction": -140,
+      "deltaH_kJ_per_mol_reaction": -137.96,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "H2SO4",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -909.3
+        },
+        {
+          "formula": "Ba(OH)2",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -997.6
+        },
+        {
+          "formula": "BaSO4",
+          "phase": "s",
+          "coefficient": 1,
+          "formation_kJ_mol": -1473.2
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 2,
+          "formation_kJ_mol": -285.83
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "hno3_naoh",
       "equation": "HNO3(aq) + NaOH(aq) -> NaNO3(aq) + H2O(l)",
-      "deltaH_kJ_per_mol_reaction": -57.3,
+      "deltaH_kJ_per_mol_reaction": -55.83,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "HNO3",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -205
+        },
+        {
+          "formula": "NaOH",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -470.1
+        },
+        {
+          "formula": "NaNO3",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -445.1
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1,
+          "formation_kJ_mol": -285.83
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -127,6 +327,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
@@ -138,6 +339,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
@@ -149,40 +351,128 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "bacl2_na2so4",
       "equation": "BaCl2(aq) + Na2SO4(aq) -> BaSO4(s) + 2NaCl(aq)",
-      "deltaH_kJ_per_mol_reaction": -26,
+      "deltaH_kJ_per_mol_reaction": -26.3,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "BaCl2",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -872
+        },
+        {
+          "formula": "Na2SO4",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -1389.5
+        },
+        {
+          "formula": "BaSO4",
+          "phase": "s",
+          "coefficient": 1,
+          "formation_kJ_mol": -1473.2
+        },
+        {
+          "formula": "NaCl",
+          "phase": "aq",
+          "coefficient": 2,
+          "formation_kJ_mol": -407.29999999999995
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "bacl2_h2so4",
       "equation": "BaCl2(aq) + H2SO4(aq) -> BaSO4(s) + 2HCl(aq)",
-      "deltaH_kJ_per_mol_reaction": -28,
+      "deltaH_kJ_per_mol_reaction": -26.3,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "BaCl2",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -872
+        },
+        {
+          "formula": "H2SO4",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -909.3
+        },
+        {
+          "formula": "BaSO4",
+          "phase": "s",
+          "coefficient": 1,
+          "formation_kJ_mol": -1473.2
+        },
+        {
+          "formula": "HCl",
+          "phase": "aq",
+          "coefficient": 2,
+          "formation_kJ_mol": -167.2
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "agno3_nacl",
       "equation": "AgNO3(aq) + NaCl(aq) -> AgCl(s) + NaNO3(aq)",
-      "deltaH_kJ_per_mol_reaction": -65.7,
+      "deltaH_kJ_per_mol_reaction": -65.4,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "AgNO3",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -99.4
+        },
+        {
+          "formula": "NaCl",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -407.29999999999995
+        },
+        {
+          "formula": "AgCl",
+          "phase": "s",
+          "coefficient": 1,
+          "formation_kJ_mol": -127
+        },
+        {
+          "formula": "NaNO3",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -445.1
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -193,6 +483,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -204,6 +495,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -215,29 +507,90 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "cacl2_na2co3",
       "equation": "CaCl2(aq) + Na2CO3(aq) -> CaCO3(s) + 2NaCl(aq)",
-      "deltaH_kJ_per_mol_reaction": -12.5,
+      "deltaH_kJ_per_mol_reaction": 13.16,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances",
+        "https://ch301.cm.utexas.edu/worksheets13/thermo/enthalpy-wkst-KEY.pdf"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "CaCl2",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -877.36
+        },
+        {
+          "formula": "Na2CO3",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -1157.3
+        },
+        {
+          "formula": "CaCO3",
+          "phase": "s",
+          "coefficient": 1,
+          "formation_kJ_mol": -1206.9
+        },
+        {
+          "formula": "NaCl",
+          "phase": "aq",
+          "coefficient": 2,
+          "formation_kJ_mol": -407.29999999999995
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "caoh2_co2",
       "equation": "Ca(OH)2(aq) + CO2(g) -> CaCO3(s) + H2O(l)",
-      "deltaH_kJ_per_mol_reaction": -113,
+      "deltaH_kJ_per_mol_reaction": -96.26,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances",
+        "https://ch301.cm.utexas.edu/worksheets13/thermo/enthalpy-wkst-KEY.pdf"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "Ca(OH)2",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -1002.96
+        },
+        {
+          "formula": "CO2",
+          "phase": "g",
+          "coefficient": -1,
+          "formation_kJ_mol": -393.51
+        },
+        {
+          "formula": "CaCO3",
+          "phase": "s",
+          "coefficient": 1,
+          "formation_kJ_mol": -1206.9
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1,
+          "formation_kJ_mol": -285.83
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -248,62 +601,183 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "fecl3_naoh",
       "equation": "FeCl3(aq) + 3NaOH(aq) -> Fe(OH)3(s) + 3NaCl(aq)",
-      "deltaH_kJ_per_mol_reaction": -105,
+      "deltaH_kJ_per_mol_reaction": -84.5,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "FeCl3",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -550.0999999999999
+        },
+        {
+          "formula": "NaOH",
+          "phase": "aq",
+          "coefficient": -3,
+          "formation_kJ_mol": -470.1
+        },
+        {
+          "formula": "Fe(OH)3",
+          "phase": "s",
+          "coefficient": 1,
+          "formation_kJ_mol": -823
+        },
+        {
+          "formula": "NaCl",
+          "phase": "aq",
+          "coefficient": 3,
+          "formation_kJ_mol": -407.29999999999995
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "feso4_naoh",
       "equation": "FeSO4(aq) + 2NaOH(aq) -> Fe(OH)2(s) + Na2SO4(aq)",
-      "deltaH_kJ_per_mol_reaction": -45,
+      "deltaH_kJ_per_mol_reaction": -19.9,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "FeSO4",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -998.4
+        },
+        {
+          "formula": "NaOH",
+          "phase": "aq",
+          "coefficient": -2,
+          "formation_kJ_mol": -470.1
+        },
+        {
+          "formula": "Fe(OH)2",
+          "phase": "s",
+          "coefficient": 1,
+          "formation_kJ_mol": -569
+        },
+        {
+          "formula": "Na2SO4",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -1389.5
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "alcl3_naoh",
       "equation": "AlCl3(aq) + 3NaOH(aq) -> Al(OH)3(s) + 3NaCl(aq)",
-      "deltaH_kJ_per_mol_reaction": -90,
+      "deltaH_kJ_per_mol_reaction": -58.20078201567422,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat",
+        "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/phreeqc.dat"
+      ],
+      "note_vi": "Suy từ đường cân bằng ion WATEQ4F của Al(OH)3 vô định hình, thủy phân Al và Kw. Nhiệt pha loãng, gel già hóa và nhiệt tái phân bố phức theo nồng độ chưa hiệu chuẩn.",
+      "hessDerivation": null,
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "na2s_cuso4",
       "equation": "Na2S(aq) + CuSO4(aq) -> CuS(s) + Na2SO4(aq)",
-      "deltaH_kJ_per_mol_reaction": -128,
+      "deltaH_kJ_per_mol_reaction": -159.67,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "Na2S",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -438.4
+        },
+        {
+          "formula": "CuSO4",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -844.53
+        },
+        {
+          "formula": "CuS",
+          "phase": "s",
+          "coefficient": 1,
+          "formation_kJ_mol": -53.1
+        },
+        {
+          "formula": "Na2SO4",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -1389.5
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "na2s_pbno32",
       "equation": "Na2S(aq) + Pb(NO3)2(aq) -> PbS(s) + 2NaNO3(aq)",
-      "deltaH_kJ_per_mol_reaction": -100,
+      "deltaH_kJ_per_mol_reaction": -140.5,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "Na2S",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -438.4
+        },
+        {
+          "formula": "Pb(NO3)2",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -411.7
+        },
+        {
+          "formula": "PbS",
+          "phase": "s",
+          "coefficient": 1,
+          "formation_kJ_mol": -100.4
+        },
+        {
+          "formula": "NaNO3",
+          "phase": "aq",
+          "coefficient": 2,
+          "formation_kJ_mol": -445.1
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -314,6 +788,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -325,40 +800,148 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "caco3_hcl",
       "equation": "CaCO3(s) + 2HCl(aq) -> CaCl2(aq) + H2O(l) + CO2(g)",
-      "deltaH_kJ_per_mol_reaction": -15,
+      "deltaH_kJ_per_mol_reaction": -15.4,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://ch301.cm.utexas.edu/worksheets13/thermo/enthalpy-wkst-KEY.pdf",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "CaCO3",
+          "phase": "s",
+          "coefficient": -1,
+          "formation_kJ_mol": -1206.9
+        },
+        {
+          "formula": "HCl",
+          "phase": "aq",
+          "coefficient": -2,
+          "formation_kJ_mol": -167.2
+        },
+        {
+          "formula": "CaCl2",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -877.36
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1,
+          "formation_kJ_mol": -285.83
+        },
+        {
+          "formula": "CO2",
+          "phase": "g",
+          "coefficient": 1,
+          "formation_kJ_mol": -393.51
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "na2co3_hcl",
       "equation": "Na2CO3(aq) + 2HCl(aq) -> 2NaCl(aq) + H2O(l) + CO2(g)",
-      "deltaH_kJ_per_mol_reaction": -28,
+      "deltaH_kJ_per_mol_reaction": -2.24,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "Na2CO3",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -1157.3
+        },
+        {
+          "formula": "HCl",
+          "phase": "aq",
+          "coefficient": -2,
+          "formation_kJ_mol": -167.2
+        },
+        {
+          "formula": "NaCl",
+          "phase": "aq",
+          "coefficient": 2,
+          "formation_kJ_mol": -407.29999999999995
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1,
+          "formation_kJ_mol": -285.83
+        },
+        {
+          "formula": "CO2",
+          "phase": "g",
+          "coefficient": 1,
+          "formation_kJ_mol": -393.51
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "nahco3_hcl",
       "equation": "NaHCO3(s) + HCl(aq) -> NaCl(aq) + H2O(l) + CO2(g)",
-      "deltaH_kJ_per_mol_reaction": 12,
+      "deltaH_kJ_per_mol_reaction": 28.26,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://chemphys.uconn.edu/~chem12x/127fall2004/exam_3.html",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "NaHCO3",
+          "phase": "s",
+          "coefficient": -1,
+          "formation_kJ_mol": -947.7
+        },
+        {
+          "formula": "HCl",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -167.2
+        },
+        {
+          "formula": "NaCl",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -407.29999999999995
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1,
+          "formation_kJ_mol": -285.83
+        },
+        {
+          "formula": "CO2",
+          "phase": "g",
+          "coefficient": 1,
+          "formation_kJ_mol": -393.51
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -366,43 +949,159 @@
       "equation": "Zn(s) + 2HCl(aq) -> ZnCl2(aq) + H2(g)",
       "deltaH_kJ_per_mol_reaction": -153.9,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "Zn",
+          "phase": "s",
+          "coefficient": -1,
+          "formation_kJ_mol": 0
+        },
+        {
+          "formula": "HCl",
+          "phase": "aq",
+          "coefficient": -2,
+          "formation_kJ_mol": -167.2
+        },
+        {
+          "formula": "ZnCl2",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -488.29999999999995
+        },
+        {
+          "formula": "H2",
+          "phase": "g",
+          "coefficient": 1,
+          "formation_kJ_mol": 0
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "mg_hcl",
       "equation": "Mg(s) + 2HCl(aq) -> MgCl2(aq) + H2(g)",
-      "deltaH_kJ_per_mol_reaction": -466.8,
+      "deltaH_kJ_per_mol_reaction": -466.9,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "Mg",
+          "phase": "s",
+          "coefficient": -1,
+          "formation_kJ_mol": 0
+        },
+        {
+          "formula": "HCl",
+          "phase": "aq",
+          "coefficient": -2,
+          "formation_kJ_mol": -167.2
+        },
+        {
+          "formula": "MgCl2",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -801.3
+        },
+        {
+          "formula": "H2",
+          "phase": "g",
+          "coefficient": 1,
+          "formation_kJ_mol": 0
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "fe_hcl",
       "equation": "Fe(s) + 2HCl(aq) -> FeCl2(aq) + H2(g)",
-      "deltaH_kJ_per_mol_reaction": -87.9,
+      "deltaH_kJ_per_mol_reaction": -89.1,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "Fe",
+          "phase": "s",
+          "coefficient": -1,
+          "formation_kJ_mol": 0
+        },
+        {
+          "formula": "HCl",
+          "phase": "aq",
+          "coefficient": -2,
+          "formation_kJ_mol": -167.2
+        },
+        {
+          "formula": "FeCl2",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -423.5
+        },
+        {
+          "formula": "H2",
+          "phase": "g",
+          "coefficient": 1,
+          "formation_kJ_mol": 0
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "al_hcl",
       "equation": "2Al(s) + 6HCl(aq) -> 2AlCl3(aq) + 3H2(g)",
-      "deltaH_kJ_per_mol_reaction": -1004,
+      "deltaH_kJ_per_mol_reaction": -1062,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "Al",
+          "phase": "s",
+          "coefficient": -2,
+          "formation_kJ_mol": 0
+        },
+        {
+          "formula": "HCl",
+          "phase": "aq",
+          "coefficient": -6,
+          "formation_kJ_mol": -167.2
+        },
+        {
+          "formula": "AlCl3",
+          "phase": "aq",
+          "coefficient": 2,
+          "formation_kJ_mol": -1032.6
+        },
+        {
+          "formula": "H2",
+          "phase": "g",
+          "coefficient": 3,
+          "formation_kJ_mol": 0
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -413,29 +1112,94 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "fes_hcl",
       "equation": "FeS(s) + 2HCl(aq) -> FeCl2(aq) + H2S(g)",
-      "deltaH_kJ_per_mol_reaction": -22,
+      "deltaH_kJ_per_mol_reaction": -9.7,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "FeS",
+          "phase": "s",
+          "coefficient": -1,
+          "formation_kJ_mol": -100
+        },
+        {
+          "formula": "HCl",
+          "phase": "aq",
+          "coefficient": -2,
+          "formation_kJ_mol": -167.2
+        },
+        {
+          "formula": "FeCl2",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -423.5
+        },
+        {
+          "formula": "H2S",
+          "phase": "g",
+          "coefficient": 1,
+          "formation_kJ_mol": -20.6
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "nh4cl_naoh",
       "equation": "NH4Cl(aq) + NaOH(aq) -> NaCl(aq) + H2O(l) + NH3(g)",
-      "deltaH_kJ_per_mol_reaction": -5,
+      "deltaH_kJ_per_mol_reaction": 30.77,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "NH4Cl",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -299.7
+        },
+        {
+          "formula": "NaOH",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -470.1
+        },
+        {
+          "formula": "NaCl",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -407.29999999999995
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1,
+          "formation_kJ_mol": -285.83
+        },
+        {
+          "formula": "NH3",
+          "phase": "g",
+          "coefficient": 1,
+          "formation_kJ_mol": -45.9
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -449,6 +1213,7 @@
         "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
       ],
       "note_vi": "−190,16 kJ cho 2H2O2(aq) → 2H2O(l) + O2(g), theo dữ liệu tạo thành chuẩn; chưa hiệu chỉnh nồng độ và nhiệt độ thực của mẫu.",
+      "hessDerivation": null,
       "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
@@ -460,51 +1225,174 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "cu_hno3_dil",
       "equation": "3Cu(s) + 8HNO3(dil) -> 3Cu(NO3)2(aq) + 2NO(g) + 4H2O(l)",
-      "deltaH_kJ_per_mol_reaction": -358,
+      "deltaH_kJ_per_mol_reaction": -358.51,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "Cu",
+          "phase": "s",
+          "coefficient": -3,
+          "formation_kJ_mol": 0
+        },
+        {
+          "formula": "HNO3",
+          "phase": "aq",
+          "coefficient": -8,
+          "formation_kJ_mol": -205
+        },
+        {
+          "formula": "Cu(NO3)2",
+          "phase": "aq",
+          "coefficient": 3,
+          "formation_kJ_mol": -345.23
+        },
+        {
+          "formula": "NO",
+          "phase": "g",
+          "coefficient": 2,
+          "formation_kJ_mol": 90.25
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 4,
+          "formation_kJ_mol": -285.83
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "fe_cuso4",
       "equation": "Fe(s) + CuSO4(aq) -> FeSO4(aq) + Cu(s)",
-      "deltaH_kJ_per_mol_reaction": -152,
+      "deltaH_kJ_per_mol_reaction": -153.87,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "Fe",
+          "phase": "s",
+          "coefficient": -1,
+          "formation_kJ_mol": 0
+        },
+        {
+          "formula": "CuSO4",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -844.53
+        },
+        {
+          "formula": "FeSO4",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -998.4
+        },
+        {
+          "formula": "Cu",
+          "phase": "s",
+          "coefficient": 1,
+          "formation_kJ_mol": 0
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "zn_cuso4",
       "equation": "Zn(s) + CuSO4(aq) -> ZnSO4(aq) + Cu(s)",
-      "deltaH_kJ_per_mol_reaction": -218.7,
+      "deltaH_kJ_per_mol_reaction": -218.67,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "Zn",
+          "phase": "s",
+          "coefficient": -1,
+          "formation_kJ_mol": 0
+        },
+        {
+          "formula": "CuSO4",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -844.53
+        },
+        {
+          "formula": "ZnSO4",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -1063.2
+        },
+        {
+          "formula": "Cu",
+          "phase": "s",
+          "coefficient": 1,
+          "formation_kJ_mol": 0
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "cu_agno3",
       "equation": "Cu(s) + 2AgNO3(aq) -> Cu(NO3)2(aq) + 2Ag(s)",
-      "deltaH_kJ_per_mol_reaction": -147,
+      "deltaH_kJ_per_mol_reaction": -146.43,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "Cu",
+          "phase": "s",
+          "coefficient": -1,
+          "formation_kJ_mol": 0
+        },
+        {
+          "formula": "AgNO3",
+          "phase": "aq",
+          "coefficient": -2,
+          "formation_kJ_mol": -99.4
+        },
+        {
+          "formula": "Cu(NO3)2",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -345.23
+        },
+        {
+          "formula": "Ag",
+          "phase": "s",
+          "coefficient": 2,
+          "formation_kJ_mol": 0
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -515,6 +1403,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -526,6 +1415,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -537,6 +1427,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -548,6 +1439,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -559,6 +1451,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
@@ -570,6 +1463,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -581,40 +1475,115 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "k2cr2o7_naoh",
       "equation": "K2Cr2O7(aq) + 2NaOH(aq) <-> K2CrO4(aq) + Na2CrO4(aq) + H2O(l)",
-      "deltaH_kJ_per_mol_reaction": -14,
+      "deltaH_kJ_per_mol_reaction": -97.93,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "K2Cr2O7",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -1995.1
+        },
+        {
+          "formula": "NaOH",
+          "phase": "aq",
+          "coefficient": -2,
+          "formation_kJ_mol": -470.1
+        },
+        {
+          "formula": "K2CrO4",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -1386
+        },
+        {
+          "formula": "Na2CrO4",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -1361.4
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1,
+          "formation_kJ_mol": -285.83
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "k2cro4_h2so4",
       "equation": "2K2CrO4(aq) + H2SO4(aq) <-> K2Cr2O7(aq) + K2SO4(aq) + H2O(l)",
-      "deltaH_kJ_per_mol_reaction": -14,
+      "deltaH_kJ_per_mol_reaction": -13.73,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "K2CrO4",
+          "phase": "aq",
+          "coefficient": -2,
+          "formation_kJ_mol": -1386
+        },
+        {
+          "formula": "H2SO4",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -909.3
+        },
+        {
+          "formula": "K2Cr2O7",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -1995.1
+        },
+        {
+          "formula": "K2SO4",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -1414.1
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1,
+          "formation_kJ_mol": -285.83
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "aloh3_naoh",
       "equation": "Al(OH)3(s) + NaOH(aq) -> Na[Al(OH)4](aq)",
-      "deltaH_kJ_per_mol_reaction": -31,
+      "deltaH_kJ_per_mol_reaction": 9.74126047440531,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat",
+        "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/phreeqc.dat"
+      ],
+      "note_vi": "Suy từ đường cân bằng ion WATEQ4F của Al(OH)3 vô định hình, thủy phân Al và Kw. Nhiệt pha loãng, gel già hóa và nhiệt tái phân bố phức theo nồng độ chưa hiệu chuẩn.",
+      "hessDerivation": null,
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -625,29 +1594,62 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "na_h2o",
       "equation": "2Na(s) + 2H2O(l) -> 2NaOH(aq) + H2(g)",
-      "deltaH_kJ_per_mol_reaction": -368.4,
+      "deltaH_kJ_per_mol_reaction": -367.54,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://genchem1.chem.okstate.edu/BDA/ACA20Response.php"
+      ],
+      "note_vi": "Theo bộ giá trị enthalpy tạo thành của bài tính OKState, trên 2 mol Na như phương trình viết; chưa hiệu chuẩn theo nồng độ mẫu.",
+      "hessDerivation": null,
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "k_h2o",
       "equation": "2K(s) + 2H2O(l) -> 2KOH(aq) + H2(g)",
-      "deltaH_kJ_per_mol_reaction": -392,
+      "deltaH_kJ_per_mol_reaction": -393.14,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "K",
+          "phase": "s",
+          "coefficient": -2,
+          "formation_kJ_mol": 0
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": -2,
+          "formation_kJ_mol": -285.83
+        },
+        {
+          "formula": "KOH",
+          "phase": "aq",
+          "coefficient": 2,
+          "formation_kJ_mol": -482.4
+        },
+        {
+          "formula": "H2",
+          "phase": "g",
+          "coefficient": 1,
+          "formation_kJ_mol": 0
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -658,6 +1660,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
@@ -669,6 +1672,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
@@ -680,6 +1684,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
@@ -691,29 +1696,77 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "nahco3_heat",
       "equation": "2NaHCO3(s) -> Na2CO3(s) + H2O(g) + CO2(g)",
-      "deltaH_kJ_per_mol_reaction": 129,
+      "deltaH_kJ_per_mol_reaction": 129.27,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://chemphys.uconn.edu/~chem12x/127fall2004/exam_3.html",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "NaHCO3",
+          "phase": "s",
+          "coefficient": -2,
+          "formation_kJ_mol": -947.7
+        },
+        {
+          "formula": "Na2CO3",
+          "phase": "s",
+          "coefficient": 1,
+          "formation_kJ_mol": -1130.8
+        },
+        {
+          "formula": "H2O",
+          "phase": "g",
+          "coefficient": 1,
+          "formation_kJ_mol": -241.82
+        },
+        {
+          "formula": "CO2",
+          "phase": "g",
+          "coefficient": 1,
+          "formation_kJ_mol": -393.51
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "i2_sublimation",
       "equation": "I2(s) + heat -> I2(g)",
-      "deltaH_kJ_per_mol_reaction": 62.4,
+      "deltaH_kJ_per_mol_reaction": 62.438,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "I2",
+          "phase": "s",
+          "coefficient": -1,
+          "formation_kJ_mol": 0
+        },
+        {
+          "formula": "I2",
+          "phase": "g",
+          "coefficient": 1,
+          "formation_kJ_mol": 62.438
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -724,6 +1777,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -735,6 +1789,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -746,6 +1801,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -757,6 +1813,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -768,6 +1825,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -779,6 +1837,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -790,6 +1849,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -801,6 +1861,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -812,6 +1873,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -823,6 +1885,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -834,6 +1897,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -845,6 +1909,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -856,6 +1921,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -867,6 +1933,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -878,6 +1945,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -889,18 +1957,48 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "znso4_na2s",
       "equation": "ZnSO4(aq) + Na2S(aq) -> ZnS(s) + Na2SO4(aq)",
-      "deltaH_kJ_per_mol_reaction": -42,
+      "deltaH_kJ_per_mol_reaction": -93.9,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "ZnSO4",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -1063.2
+        },
+        {
+          "formula": "Na2S",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -438.4
+        },
+        {
+          "formula": "ZnS",
+          "phase": "s",
+          "coefficient": 1,
+          "formation_kJ_mol": -206
+        },
+        {
+          "formula": "Na2SO4",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -1389.5
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -911,6 +2009,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -922,6 +2021,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -933,6 +2033,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -944,6 +2045,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -955,18 +2057,48 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "zn_agno3",
       "equation": "Zn(s) + 2AgNO3(aq) -> Zn(NO3)2(aq) + 2Ag(s)",
-      "deltaH_kJ_per_mol_reaction": -365,
+      "deltaH_kJ_per_mol_reaction": -365.1,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "Zn",
+          "phase": "s",
+          "coefficient": -1,
+          "formation_kJ_mol": 0
+        },
+        {
+          "formula": "AgNO3",
+          "phase": "aq",
+          "coefficient": -2,
+          "formation_kJ_mol": -99.4
+        },
+        {
+          "formula": "Zn(NO3)2",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -563.9
+        },
+        {
+          "formula": "Ag",
+          "phase": "s",
+          "coefficient": 2,
+          "formation_kJ_mol": 0
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -977,18 +2109,48 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "mg_cuso4",
       "equation": "Mg(s) + CuSO4(aq) -> MgSO4(aq) + Cu(s)",
-      "deltaH_kJ_per_mol_reaction": -536,
+      "deltaH_kJ_per_mol_reaction": -531.67,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "Mg",
+          "phase": "s",
+          "coefficient": -1,
+          "formation_kJ_mol": 0
+        },
+        {
+          "formula": "CuSO4",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -844.53
+        },
+        {
+          "formula": "MgSO4",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -1376.1999999999998
+        },
+        {
+          "formula": "Cu",
+          "phase": "s",
+          "coefficient": 1,
+          "formation_kJ_mol": 0
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -999,6 +2161,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -1010,6 +2173,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -1021,6 +2185,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -1032,18 +2197,66 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "feso4_kmno4_h2so4",
       "equation": "10FeSO4(aq) + 2KMnO4(aq) + 8H2SO4(aq) -> 5Fe2(SO4)3(aq) + 2MnSO4(aq) + K2SO4(aq) + 8H2O(l)",
-      "deltaH_kJ_per_mol_reaction": -690,
+      "deltaH_kJ_per_mol_reaction": -1239.44,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "FeSO4",
+          "phase": "aq",
+          "coefficient": -10,
+          "formation_kJ_mol": -998.4
+        },
+        {
+          "formula": "KMnO4",
+          "phase": "aq",
+          "coefficient": -2,
+          "formation_kJ_mol": -793.8
+        },
+        {
+          "formula": "H2SO4",
+          "phase": "aq",
+          "coefficient": -8,
+          "formation_kJ_mol": -909.3
+        },
+        {
+          "formula": "Fe2(SO4)3",
+          "phase": "aq",
+          "coefficient": 5,
+          "formation_kJ_mol": -2824.8999999999996
+        },
+        {
+          "formula": "MnSO4",
+          "phase": "aq",
+          "coefficient": 2,
+          "formation_kJ_mol": -1130.1
+        },
+        {
+          "formula": "K2SO4",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -1414.1
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 8,
+          "formation_kJ_mol": -285.83
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -1054,6 +2267,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -1065,29 +2279,95 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "zn_h2so4_dilute",
       "equation": "Zn(s) + H2SO4(aq) -> ZnSO4(aq) + H2(g)",
-      "deltaH_kJ_per_mol_reaction": -152,
+      "deltaH_kJ_per_mol_reaction": -153.9,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "Zn",
+          "phase": "s",
+          "coefficient": -1,
+          "formation_kJ_mol": 0
+        },
+        {
+          "formula": "H2SO4",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -909.3
+        },
+        {
+          "formula": "ZnSO4",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -1063.2
+        },
+        {
+          "formula": "H2",
+          "phase": "g",
+          "coefficient": 1,
+          "formation_kJ_mol": 0
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "caco3_hno3",
       "equation": "CaCO3(s) + 2HNO3(aq) -> Ca(NO3)2(aq) + H2O(l) + CO2(g)",
-      "deltaH_kJ_per_mol_reaction": -21,
+      "deltaH_kJ_per_mol_reaction": -15.4,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://ch301.cm.utexas.edu/worksheets13/thermo/enthalpy-wkst-KEY.pdf",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "CaCO3",
+          "phase": "s",
+          "coefficient": -1,
+          "formation_kJ_mol": -1206.9
+        },
+        {
+          "formula": "HNO3",
+          "phase": "aq",
+          "coefficient": -2,
+          "formation_kJ_mol": -205
+        },
+        {
+          "formula": "Ca(NO3)2",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -952.96
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1,
+          "formation_kJ_mol": -285.83
+        },
+        {
+          "formula": "CO2",
+          "phase": "g",
+          "coefficient": 1,
+          "formation_kJ_mol": -393.51
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -1098,18 +2378,54 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "nh42so4_naoh",
       "equation": "(NH4)2SO4(aq) + 2NaOH(aq) -> Na2SO4(aq) + 2H2O(l) + 2NH3(g)",
-      "deltaH_kJ_per_mol_reaction": 8,
+      "deltaH_kJ_per_mol_reaction": 61.54,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "(NH4)2SO4",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -1174.3
+        },
+        {
+          "formula": "NaOH",
+          "phase": "aq",
+          "coefficient": -2,
+          "formation_kJ_mol": -470.1
+        },
+        {
+          "formula": "Na2SO4",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -1389.5
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 2,
+          "formation_kJ_mol": -285.83
+        },
+        {
+          "formula": "NH3",
+          "phase": "g",
+          "coefficient": 2,
+          "formation_kJ_mol": -45.9
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -1120,6 +2436,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -1131,6 +2448,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -1142,6 +2460,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -1153,18 +2472,54 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "cu_hno3_dilute",
       "equation": "3Cu(s) + 8HNO3(aq) -> 3Cu(NO3)2(aq) + 2NO(g) + 4H2O(l)",
-      "deltaH_kJ_per_mol_reaction": -212,
+      "deltaH_kJ_per_mol_reaction": -358.51,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "Cu",
+          "phase": "s",
+          "coefficient": -3,
+          "formation_kJ_mol": 0
+        },
+        {
+          "formula": "HNO3",
+          "phase": "aq",
+          "coefficient": -8,
+          "formation_kJ_mol": -205
+        },
+        {
+          "formula": "Cu(NO3)2",
+          "phase": "aq",
+          "coefficient": 3,
+          "formation_kJ_mol": -345.23
+        },
+        {
+          "formula": "NO",
+          "phase": "g",
+          "coefficient": 2,
+          "formation_kJ_mol": 90.25
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 4,
+          "formation_kJ_mol": -285.83
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -1175,18 +2530,36 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "nh4no3_dissolution",
       "equation": "NH4NO3(s) -> NH4NO3(aq)",
-      "deltaH_kJ_per_mol_reaction": 25.7,
+      "deltaH_kJ_per_mol_reaction": 28.06,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "legacy_value_not_source_reviewed",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "NH4NO3",
+          "phase": "s",
+          "coefficient": -1,
+          "formation_kJ_mol": -365.56
+        },
+        {
+          "formula": "NH4NO3",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -337.5
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -1197,6 +2570,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -1208,6 +2582,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -1219,6 +2594,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "legacy_value_not_source_reviewed",
       "experimentallyCalibratedForSample": false
     },
@@ -1230,29 +2606,76 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "ethene_hydrogen",
       "equation": "C2H4 + H2 -> C2H6",
-      "deltaH_kJ_per_mol_reaction": null,
+      "deltaH_kJ_per_mol_reaction": -136.4,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "missing",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "C2H4",
+          "phase": "g",
+          "coefficient": -1,
+          "formation_kJ_mol": 52.4
+        },
+        {
+          "formula": "H2",
+          "phase": "g",
+          "coefficient": -1,
+          "formation_kJ_mol": 0
+        },
+        {
+          "formula": "C2H6",
+          "phase": "g",
+          "coefficient": 1,
+          "formation_kJ_mol": -84
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "ethene_water",
       "equation": "C2H4 + H2O -> C2H5OH",
-      "deltaH_kJ_per_mol_reaction": null,
+      "deltaH_kJ_per_mol_reaction": -44.17,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "missing",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "C2H4",
+          "phase": "g",
+          "coefficient": -1,
+          "formation_kJ_mol": 52.4
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": -1,
+          "formation_kJ_mol": -285.83
+        },
+        {
+          "formula": "C2H5OH",
+          "phase": "l",
+          "coefficient": 1,
+          "formation_kJ_mol": -277.6
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -1263,51 +2686,168 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "ethene_combustion",
       "equation": "C2H4 + 3O2 -> 2CO2 + 2H2O",
-      "deltaH_kJ_per_mol_reaction": null,
+      "deltaH_kJ_per_mol_reaction": -1411.08,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "missing",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "C2H4",
+          "phase": "g",
+          "coefficient": -1,
+          "formation_kJ_mol": 52.4
+        },
+        {
+          "formula": "O2",
+          "phase": "g",
+          "coefficient": -3,
+          "formation_kJ_mol": 0
+        },
+        {
+          "formula": "CO2",
+          "phase": "g",
+          "coefficient": 2,
+          "formation_kJ_mol": -393.51
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 2,
+          "formation_kJ_mol": -285.83
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "methane_combustion",
       "equation": "CH4 + 2O2 -> CO2 + 2H2O",
-      "deltaH_kJ_per_mol_reaction": null,
+      "deltaH_kJ_per_mol_reaction": -890.57,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "missing",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "CH4",
+          "phase": "g",
+          "coefficient": -1,
+          "formation_kJ_mol": -74.6
+        },
+        {
+          "formula": "O2",
+          "phase": "g",
+          "coefficient": -2,
+          "formation_kJ_mol": 0
+        },
+        {
+          "formula": "CO2",
+          "phase": "g",
+          "coefficient": 1,
+          "formation_kJ_mol": -393.51
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 2,
+          "formation_kJ_mol": -285.83
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "ethyne_combustion",
       "equation": "2C2H2 + 5O2 -> 4CO2 + 2H2O",
-      "deltaH_kJ_per_mol_reaction": null,
+      "deltaH_kJ_per_mol_reaction": -2600.5,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "missing",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "C2H2",
+          "phase": "g",
+          "coefficient": -2,
+          "formation_kJ_mol": 227.4
+        },
+        {
+          "formula": "O2",
+          "phase": "g",
+          "coefficient": -5,
+          "formation_kJ_mol": 0
+        },
+        {
+          "formula": "CO2",
+          "phase": "g",
+          "coefficient": 4,
+          "formation_kJ_mol": -393.51
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 2,
+          "formation_kJ_mol": -285.83
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "ethanol_combustion",
       "equation": "C2H5OH + 3O2 -> 2CO2 + 3H2O",
-      "deltaH_kJ_per_mol_reaction": null,
+      "deltaH_kJ_per_mol_reaction": -1366.91,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "missing",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "C2H5OH",
+          "phase": "l",
+          "coefficient": -1,
+          "formation_kJ_mol": -277.6
+        },
+        {
+          "formula": "O2",
+          "phase": "g",
+          "coefficient": -3,
+          "formation_kJ_mol": 0
+        },
+        {
+          "formula": "CO2",
+          "phase": "g",
+          "coefficient": 2,
+          "formation_kJ_mol": -393.51
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 3,
+          "formation_kJ_mol": -285.83
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -1318,6 +2858,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
@@ -1329,18 +2870,42 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "ethanol_dehydration",
       "equation": "C2H5OH -> C2H4 + H2O",
-      "deltaH_kJ_per_mol_reaction": null,
+      "deltaH_kJ_per_mol_reaction": 44.17,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "missing",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "C2H5OH",
+          "phase": "l",
+          "coefficient": -1,
+          "formation_kJ_mol": -277.6
+        },
+        {
+          "formula": "C2H4",
+          "phase": "g",
+          "coefficient": 1,
+          "formation_kJ_mol": 52.4
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1,
+          "formation_kJ_mol": -285.83
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -1351,6 +2916,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
@@ -1362,6 +2928,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
@@ -1373,6 +2940,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
@@ -1384,6 +2952,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
@@ -1395,6 +2964,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
@@ -1406,6 +2976,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
@@ -1417,6 +2988,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
@@ -1428,6 +3000,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
@@ -1439,6 +3012,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
@@ -1450,6 +3024,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
@@ -1461,6 +3036,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
@@ -1472,6 +3048,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
@@ -1483,6 +3060,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
@@ -1494,6 +3072,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
@@ -1505,6 +3084,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
@@ -1516,6 +3096,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
@@ -1527,51 +3108,157 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "cuo_hcl",
       "equation": "CuO + 2HCl -> CuCl2 + H2O",
-      "deltaH_kJ_per_mol_reaction": null,
+      "deltaH_kJ_per_mol_reaction": -63.76,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "missing",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "CuO",
+          "phase": "s",
+          "coefficient": -1,
+          "formation_kJ_mol": -157.3
+        },
+        {
+          "formula": "HCl",
+          "phase": "aq",
+          "coefficient": -2,
+          "formation_kJ_mol": -167.2
+        },
+        {
+          "formula": "CuCl2",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -269.63
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1,
+          "formation_kJ_mol": -285.83
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "fe2o3_hcl",
       "equation": "Fe2O3 + 6HCl -> 2FeCl3 + 3H2O",
-      "deltaH_kJ_per_mol_reaction": null,
+      "deltaH_kJ_per_mol_reaction": -130.29,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "missing",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "Fe2O3",
+          "phase": "s",
+          "coefficient": -1,
+          "formation_kJ_mol": -824.2
+        },
+        {
+          "formula": "HCl",
+          "phase": "aq",
+          "coefficient": -6,
+          "formation_kJ_mol": -167.2
+        },
+        {
+          "formula": "FeCl3",
+          "phase": "aq",
+          "coefficient": 2,
+          "formation_kJ_mol": -550.0999999999999
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 3,
+          "formation_kJ_mol": -285.83
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "cao_water",
       "equation": "CaO + H2O -> Ca(OH)2",
-      "deltaH_kJ_per_mol_reaction": null,
+      "deltaH_kJ_per_mol_reaction": -64.47,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "missing",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "CaO",
+          "phase": "s",
+          "coefficient": -1,
+          "formation_kJ_mol": -634.9
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": -1,
+          "formation_kJ_mol": -285.83
+        },
+        {
+          "formula": "Ca(OH)2",
+          "phase": "s",
+          "coefficient": 1,
+          "formation_kJ_mol": -985.2
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "caco3_heat",
       "equation": "CaCO3 -> CaO + CO2",
-      "deltaH_kJ_per_mol_reaction": null,
+      "deltaH_kJ_per_mol_reaction": 178.49,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "missing",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://ch301.cm.utexas.edu/worksheets13/thermo/enthalpy-wkst-KEY.pdf",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "CaCO3",
+          "phase": "s",
+          "coefficient": -1,
+          "formation_kJ_mol": -1206.9
+        },
+        {
+          "formula": "CaO",
+          "phase": "s",
+          "coefficient": 1,
+          "formation_kJ_mol": -634.9
+        },
+        {
+          "formula": "CO2",
+          "phase": "g",
+          "coefficient": 1,
+          "formation_kJ_mol": -393.51
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     },
     {
@@ -1582,6 +3269,7 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
@@ -1593,18 +3281,145 @@
       "referenceTemperature_K": null,
       "sourceUrls": [],
       "note_vi": null,
+      "hessDerivation": null,
       "review": "missing",
       "experimentallyCalibratedForSample": false
     },
     {
       "id": "thiosulfate_acid_clock",
       "equation": "Na2S2O3(aq) + 2HCl(aq) -> 2NaCl(aq) + SO2(g) + S(s) + H2O(l)",
-      "deltaH_kJ_per_mol_reaction": null,
+      "deltaH_kJ_per_mol_reaction": 65.84,
       "basis": "coefficients_as_written",
-      "referenceTemperature_K": null,
-      "sourceUrls": [],
-      "note_vi": null,
-      "review": "missing",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "Na2S2O3",
+          "phase": "aq",
+          "coefficient": -1,
+          "formation_kJ_mol": -1128.7
+        },
+        {
+          "formula": "HCl",
+          "phase": "aq",
+          "coefficient": -2,
+          "formation_kJ_mol": -167.2
+        },
+        {
+          "formula": "NaCl",
+          "phase": "aq",
+          "coefficient": 2,
+          "formation_kJ_mol": -407.29999999999995
+        },
+        {
+          "formula": "SO2",
+          "phase": "g",
+          "coefficient": 1,
+          "formation_kJ_mol": -296.83
+        },
+        {
+          "formula": "S",
+          "phase": "s",
+          "coefficient": 1,
+          "formation_kJ_mol": 0
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1,
+          "formation_kJ_mol": -285.83
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
+      "experimentallyCalibratedForSample": false
+    },
+    {
+      "id": "feoh3_hcl",
+      "equation": "Fe(OH)3(s) + 3HCl(aq) -> FeCl3(aq) + 3H2O(l)",
+      "deltaH_kJ_per_mol_reaction": -82.99,
+      "basis": "coefficients_as_written",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://chemlab.truman.edu/formationnote/",
+        "https://openstax.org/books/chemistry-2e/pages/g-standard-thermodynamic-properties-for-selected-substances"
+      ],
+      "note_vi": "Tính theo định luật Hess từ enthalpy tạo thành và pha như phương trình viết; chất điện ly dùng ion ở giới hạn dung dịch loãng. Chưa hiệu chuẩn nhiệt pha loãng, nồng độ hoặc nhiệt độ của mẫu thực.",
+      "hessDerivation": [
+        {
+          "formula": "Fe(OH)3",
+          "phase": "s",
+          "coefficient": -1,
+          "formation_kJ_mol": -823
+        },
+        {
+          "formula": "HCl",
+          "phase": "aq",
+          "coefficient": -3,
+          "formation_kJ_mol": -167.2
+        },
+        {
+          "formula": "FeCl3",
+          "phase": "aq",
+          "coefficient": 1,
+          "formation_kJ_mol": -550.0999999999999
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 3,
+          "formation_kJ_mol": -285.83
+        }
+      ],
+      "review": "sourced_reference_not_sample_calibration",
+      "experimentallyCalibratedForSample": false
+    },
+    {
+      "id": "al2so43_naoh",
+      "equation": "Al2(SO4)3(aq) + 6NaOH(aq) -> 2Al(OH)3(s) + 3Na2SO4(aq)",
+      "deltaH_kJ_per_mol_reaction": -116.40156403134844,
+      "basis": "coefficients_as_written",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat",
+        "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/phreeqc.dat"
+      ],
+      "note_vi": "Suy từ đường cân bằng ion WATEQ4F của Al(OH)3 vô định hình, thủy phân Al và Kw. Nhiệt pha loãng, gel già hóa và nhiệt tái phân bố phức theo nồng độ chưa hiệu chuẩn.",
+      "hessDerivation": null,
+      "review": "sourced_reference_not_sample_calibration",
+      "experimentallyCalibratedForSample": false
+    },
+    {
+      "id": "alcl3_naoh_excess",
+      "equation": "AlCl3(aq) + 4NaOH(aq) -> Na[Al(OH)4](aq) + 3NaCl(aq)",
+      "deltaH_kJ_per_mol_reaction": -48.45952154126891,
+      "basis": "coefficients_as_written",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat",
+        "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/phreeqc.dat"
+      ],
+      "note_vi": "Suy từ đường cân bằng ion WATEQ4F của Al(OH)3 vô định hình, thủy phân Al và Kw. Nhiệt pha loãng, gel già hóa và nhiệt tái phân bố phức theo nồng độ chưa hiệu chuẩn.",
+      "hessDerivation": null,
+      "review": "sourced_reference_not_sample_calibration",
+      "experimentallyCalibratedForSample": false
+    },
+    {
+      "id": "al2so43_naoh_excess",
+      "equation": "Al2(SO4)3(aq) + 8NaOH(aq) -> 2Na[Al(OH)4](aq) + 3Na2SO4(aq)",
+      "deltaH_kJ_per_mol_reaction": -96.91904308253783,
+      "basis": "coefficients_as_written",
+      "referenceTemperature_K": 298.15,
+      "sourceUrls": [
+        "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat",
+        "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/phreeqc.dat"
+      ],
+      "note_vi": "Suy từ đường cân bằng ion WATEQ4F của Al(OH)3 vô định hình, thủy phân Al và Kw. Nhiệt pha loãng, gel già hóa và nhiệt tái phân bố phức theo nồng độ chưa hiệu chuẩn.",
+      "hessDerivation": null,
+      "review": "sourced_reference_not_sample_calibration",
       "experimentallyCalibratedForSample": false
     }
   ]

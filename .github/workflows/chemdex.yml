@@ -1,0 +1,32 @@
+name: ChemDex checks
+on:
+  push:
+    paths: ['ChemDex/**', '.github/workflows/chemdex.yml']
+  pull_request:
+    paths: ['ChemDex/**', '.github/workflows/chemdex.yml']
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ChemDex
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: ChemDex/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - run: npm --prefix lab-2d run lint && npm --prefix lab-2d test
+      - run: npm --prefix lab-3d run lint && npm --prefix lab-3d test -- --maxWorkers=2
+      - run: npm --prefix lab-safety test && npm --prefix lab-safety run test:practical
+      - run: npm run lint:api && npm run test:platform
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - run: npx playwright test
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: browser-report
+          path: ChemDex/playwright-report/

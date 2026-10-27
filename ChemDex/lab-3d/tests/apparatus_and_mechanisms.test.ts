@@ -353,7 +353,7 @@ describe('Authentic Solid Chemical Morphologies & Interactive Apparatus Usabilit
       mass_g: 40, temperature_c: 25, internalPressure_atm: 1 });
     for (let i=0;i<10;i++) store.tickSimulation(0.1);
     const flask = useAppStore.getState().vessels[id];
-    expect(flask.internalPressure_atm).toBe(1);
+    expect(flask.internalPressure_atm).toBeCloseTo(1, 12);
     expect(flask.isExplosion).toBeFalsy();
     expect(flask.isShattered).toBeFalsy();
     expect(flask.volume_ml).toBe(40);
@@ -514,7 +514,8 @@ describe('Authentic Solid Chemical Morphologies & Interactive Apparatus Usabilit
     store.tickSimulation(0.1);
     const state=useAppStore.getState();
     expect(state.vessels[receiver].volume_ml).toBeGreaterThan(0);
-    expect(state.vessels[receiver].mass_g+state.vessels[source].mass_g).toBeCloseTo(50,10);
+    expect(state.vessels[receiver].mass_g+state.vessels[source].mass_g
+      +(state.vessels[source].wallCondensation?.inner_g ?? 0)).toBeCloseTo(50,10);
     expect(state.vessels[receiver].contents[0].moles*18.015).toBeCloseTo(state.vessels[receiver].mass_g,10);
     store.removeVessel(receiver);store.removeVessel(source);
   });

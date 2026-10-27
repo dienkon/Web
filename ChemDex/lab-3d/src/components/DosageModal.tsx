@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useAppStore, getChemical } from '../store/useAppStore';
 import { labSound } from '../utils/audio';
-import { Scale, Droplet, Beaker, Check, X, Sparkles, TestTube, ArrowRight } from 'lucide-react';
+import { Scale, Droplet, Beaker, Check, X, Sparkles, TestTube, ArrowRight, AlertTriangle } from 'lucide-react';
+import { NOMINAL_DROP_ML } from '../handling/doseTiming';
 
 interface InnerProps {
   pendingDispense: {
@@ -24,7 +25,7 @@ function DosageModalDialog({ pendingDispense }: InnerProps) {
   const isIndicator = chemDef.category === 'indicator' || chemical === 'Phenolphthalein';
 
   // Smart default measurement values based on chemical physical state
-  const defaultAmount = isSolid ? 2.0 : (isIndicator ? 2 : 20);
+  const defaultAmount = chemical === 'Na' ? 0.1 : isSolid ? 2.0 : (isIndicator ? 2 : 20);
   const [amount, setAmount] = useState<number>(defaultAmount);
 
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
@@ -45,7 +46,7 @@ function DosageModalDialog({ pendingDispense }: InnerProps) {
     }
 
     // Trigger pour animation and store amount with appropriate scale
-    triggerPour(chemical, targetVesselId, isIndicator ? amount * 0.1 : amount);
+    triggerPour(chemical, targetVesselId, isIndicator ? amount * NOMINAL_DROP_ML : amount);
     setPendingDispense(null);
   }, [isSolid, chemical, targetVesselId, isIndicator, amount, triggerPour, setPendingDispense, activeTool, chemDef.color]);
 
@@ -149,38 +150,48 @@ function DosageModalDialog({ pendingDispense }: InnerProps) {
                 </div>
               </div>
 
+              {chemical === 'Na' && (
+                <div className="p-2.5 rounded-xl border text-[11px] leading-snug bg-amber-50 border-amber-200 text-amber-800">
+                  <strong>{t('Sodium + water: ', 'Natri + nước: ')}</strong>
+                  {t('Produces NaOH, hydrogen and heat. Flame depends on available hydrogen, oxygen and ignition; melting alone does not establish burning.',
+                    'Tạo NaOH, H₂ và nhiệt. Ngọn lửa phụ thuộc lượng H₂, O₂ và mồi cháy; nóng chảy không đồng nghĩa với đang cháy.')}
+                  <p className="mt-1">{t('The model does not predict a safe dose or glass rupture from metal mass alone.',
+                    'Mô hình không suy ra liều an toàn hoặc vỡ bình chỉ từ khối lượng kim loại.')}</p>
+                </div>
+              )}
+
               {/* Mass Slider */}
               <div className="space-y-1">
                 <input 
                   type="range" 
-                  min="0.1" 
-                  max="10.0" 
-                  step="0.1"
+                  min={chemical === 'Na' ? "0.05" : "0.1"}
+                  max={chemical === 'Na' ? "2.0" : "10.0"}
+                  step={chemical === 'Na' ? "0.05" : "0.1"}
                   value={amount}
                   onChange={e => setAmount(parseFloat(e.target.value))}
-                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
+                  className="w-full h-2 rounded-lg appearance-none cursor-pointer accent-emerald-600 bg-slate-200"
                 />
                 <div className="flex justify-between text-[10px] text-slate-400 font-mono">
-                  <span>0.1g</span>
-                  <span>5.0g</span>
-                  <span>10.0g</span>
+                  <span>{chemical === 'Na' ? '0.05g' : '0.1g'}</span>
+                  <span>{chemical === 'Na' ? '2.0g' : '10.0g'}</span>
                 </div>
               </div>
 
               {/* Quick Preset Buttons */}
               <div className="flex gap-1.5 pt-0.5">
-                {[0.5, 1.0, 2.0, 5.0].map(val => (
+                {(chemical === 'Na' ? [0.1, 0.2, 0.5, 1.0] : [0.5, 1.0, 2.0, 5.0]).map(val => (
                   <button
                     key={val}
                     type="button"
                     onClick={() => setAmount(val)}
                     className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all ${
                       Math.abs(amount - val) < 0.01 
-                        ? 'bg-emerald-600 text-white shadow-sm' 
+                        ? 'bg-emerald-600 text-white shadow-sm'
                         : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                     }`}
                   >
                     {val.toFixed(1)}g
+
                   </button>
                 ))}
               </div>
@@ -207,7 +218,7 @@ function DosageModalDialog({ pendingDispense }: InnerProps) {
                   {amount} <span className="text-base text-pink-400 font-normal">{t('drops', 'giọt')}</span>
                 </div>
                 <span className="text-[10px] text-pink-400 block mt-0.5">
-                  ≈ {(amount * 0.05).toFixed(2)} mL
+                  ≈ {(amount * NOMINAL_DROP_ML).toFixed(2)} mL
                 </span>
               </div>
 

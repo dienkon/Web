@@ -3,6 +3,7 @@
  */
 
 import { ReactionProgram } from '../../../shared/programSchema';
+import { aluminumThermochemistry } from './aluminumHydroxidePrograms';
 
 export const COMPLEXATION_EQUILIBRIA_PROGRAMS: ReactionProgram[] = [
   // 1. FeCl3 + KSCN -> [Fe(SCN)]2+ (Blood red complex)
@@ -182,14 +183,13 @@ export const COMPLEXATION_EQUILIBRIA_PROGRAMS: ReactionProgram[] = [
         { formula: 'NaOH', role: 'reactant', coeff: 1, phase: 'aq', hazards: ['GHS05_corrosive'] },
         { formula: 'Na[Al(OH)4]', role: 'product', coeff: 1, phase: 'aq' }
       ],
-      deltaH_kJ_per_mol: -31.0,
+      ...aluminumThermochemistry('aloh3_naoh'),
       kinetics: { model: 'first_order', halfTime_s: 1.2 },
       hazards: ['GHS05_corrosive']
     },
     visual: {
       duration_s: 6.0,
       timeline: [
-        { id: 'turb', atom: 'turbidityShift', anchor: 'bulk', window: [0, 0.8], intensity: 1.0, params: { maxTurbidity: 0.05, hazeColor: '#ffffff' } },
         { id: 'swirl', atom: 'liquidSwirl', anchor: 'pourPoint', window: [0, 0.5], intensity: 1.0, params: { speed: 1.4, color: '#f8fafc' } }
       ],
       after: {
@@ -200,8 +200,8 @@ export const COMPLEXATION_EQUILIBRIA_PROGRAMS: ReactionProgram[] = [
       }
     },
     explain: {
-      observation_vi: 'Kết tủa keo trắng đục tan biến dần, dung dịch trở nên trong suốt hoàn toàn.',
-      observation_en: 'Opaque white gel clears completely into transparent solution.',
+      observation_vi: 'Keo trắng giảm khi thêm kiềm; chỉ trong hoàn toàn nếu lượng rắn đã hòa tan hết.',
+      observation_en: 'White gel decreases with base; complete clearing requires all available solid to dissolve.',
       why_vi: 'Nhôm hidroxit lưỡng tính tan trong kiềm mạnh tạo ion phức tan tetrahydroxoaluminat.',
       why_en: 'Amphoteric Al(OH)3 dissolves in excess hydroxide forming soluble aluminate complex [Al(OH)4]-.'
     },

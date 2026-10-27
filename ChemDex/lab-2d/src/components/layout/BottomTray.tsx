@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLabStore } from '../../store/useLabStore';
 import { EquipmentType } from '../../types/equipment';
+import { soundEngine } from '../../services/soundEngine';
 
 export const BottomTray: React.FC = () => {
   const { addEquipment, language } = useLabStore();
@@ -17,6 +18,8 @@ export const BottomTray: React.FC = () => {
     { type: 'evaporating_dish', label_vi: 'Bát sứ', label_en: 'Dish', icon: '🥣' },
     { type: 'ph_meter', label_vi: 'Bút pH', label_en: 'pH Meter', icon: '📟' },
     { type: 'thermometer', label_vi: 'Nhiệt kế', label_en: 'Thermo', icon: '🌡️' },
+    { type: 'separatory_funnel', label_vi: 'Phễu chiết', label_en: 'Sep Funnel', icon: '🍷' },
+    { type: 'ph_paper', label_vi: 'Giấy pH', label_en: 'pH Paper', icon: '📜' },
     { type: 'wash_bottle', label_vi: 'Bình tia H2O', label_en: 'Wash Bottle', icon: '🧴' },
   ];
 
@@ -28,7 +31,10 @@ export const BottomTray: React.FC = () => {
       {QUICK_ITEMS.map(item => (
         <button
           key={item.type}
-          onClick={() => addEquipment(item.type)}
+          onClick={() => {
+            addEquipment(item.type);
+            soundEngine.glassClink();
+          }}
           className="flex flex-col items-center justify-center p-1.5 px-2.5 rounded-xl hover:bg-blue-50 hover:text-blue-600 text-slate-700 transition-all hover:scale-105 active:scale-95 group"
           title={language === 'vi' ? `Thêm ${item.label_vi}` : `Add ${item.label_en}`}
         >

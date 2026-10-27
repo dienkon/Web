@@ -6,8 +6,14 @@ import { labSound } from '../../utils/audio';
 import { reactionSimulationEngine } from '../../vfx/reactions/ReactionSimulationEngine';
 import { solidInventoryFraction } from '../../engine/solidInventory';
 import { PourController } from '../../pour/controller/PourController';
-import { waterPhaseMasses, iceChunkDimensions, liquidSurfaceVolume } from '../../engine/waterPhase';
+import { waterPhaseMasses } from '../../engine/waterPhase';
+import { liquidGeometry, solidBlockDimensions } from '../../science/vesselDimensions';
+import { vesselLiquidSurfaceY } from '../../science/vesselGeometry';
 import { ICE_DENSITY_G_ML } from '../../engine/waterProperties';
+import { SodiumWaterPellet } from './SodiumWaterPellet';
+import { metalSurfaceAppearance } from '../../science/metalSurfaceAppearance';
+import { placeSolidChunk } from '../../science/solidChunkPlacement';
+import { isSuspensionRow } from '../../science/precipitateInventory';
 
 // Shared scratch objects for zero-allocation per-frame transforms
 const _dummyMat4 = new THREE.Matrix4();
@@ -15,6 +21,7 @@ const _dummyPos = new THREE.Vector3();
 const _dummyQuat = new THREE.Quaternion();
 const _dummyScale = new THREE.Vector3();
 const _dummyEuler = new THREE.Euler();
+const _chunkPlacement = { x: 0, y: 0, z: 0, scale: 0 };
 
 interface SolidContentsRendererProps {
   vesselId: string;
@@ -50,9 +57,9 @@ export const SolidContentsRenderer = React.memo(function SolidContentsRenderer({
 
   // Filter only solid substances present in the vessel
   const solidSubstances = vessel.substances.filter(sub => {
-    if (sub === vessel.precipitateSubstance && vessel.hasPrecipitate && vessel.volume_ml > 0.05) return false;
     const entries = vessel.contents.filter(item => item.formula === sub);
-    if (entries.length) return entries.some(item => item.phase === 's' && item.location !== 'filter' && item.moles > 1e-12);
+    if (entries.length) return entries.some(item => item.phase === 's' && item.location !== 'filter' && item.moles > 1e-12
+      && (vessel.volume_ml <= 0.05 || !isSuspensionRow(item, vessel.contents, vessel.precipitateSubstance)));
     const chem = getChemical(sub);
     return chem && chem.type === 'solid' && vessel.volume_ml <= 0.05;
   });
@@ -64,8 +71,9 @@ export const SolidContentsRenderer = React.memo(function SolidContentsRenderer({
   return (
     <group name={`solids_${vesselId}`}>
       {solidSubstances.map((sub, idx) => {
-        if (sub === 'H2O') return <WaterIceMesh key="water-ice" vesselId={vesselId} radius={radius} baseY={baseY} />;
-        if (sub === 'Na' || sub === 'K') {
+        if (sub === 'H2O') return <WaterIceMesh key="water-ice" vesselId={vesselId} />;
+        if (sub === 'Na') return <SodiumWaterPellet key={sub} vesselId={vesselId} />;
+        if (sub === 'K') {
           return (
             <FloatingAlkaliMetalPellet
               key={`${sub}_${idx}`}
@@ -83,7 +91,7 @@ export const SolidContentsRenderer = React.memo(function SolidContentsRenderer({
             vesselId={vesselId}
             substance={sub}
             vesselRadius={radius}
-            baseY={baseY}
+            baseY={vessel.type === 'filter_funnel' ? baseY : liquidGeometry(vessel.type).floorY}
             dissolveProgress={dissolving[sub] || 0}
             isStirring={isStirring}
           />
@@ -93,15 +101,14 @@ export const SolidContentsRenderer = React.memo(function SolidContentsRenderer({
   );
 });
 
-function WaterIceMesh({ vesselId, radius, baseY }: { vesselId: string; radius: number; baseY: number }) {
+function WaterIceMesh({ vesselId }: { vesselId: string }) {
   const vessel = useAppStore(state => state.vessels[vesselId]);
   if (!vessel || vessel.isShattered) return null;
   const { ice_g } = waterPhaseMasses(vessel);
   if (ice_g <= 1e-10) return null;
-  const height = vessel.type === 'beaker' ? 1.88 : 1.8;
-  const chunk = iceChunkDimensions(ice_g / ICE_DENSITY_G_ML, vessel.capacity_ml, radius, height);
-  const surface = baseY + height * Math.min(1, liquidSurfaceVolume(vessel) / vessel.capacity_ml);
-  const y = Math.max(baseY + chunk.height / 2, surface + chunk.height * (0.5 - ICE_DENSITY_G_ML));
+  const chunk = solidBlockDimensions(vessel, ice_g / ICE_DENSITY_G_ML);
+  const surface = vesselLiquidSurfaceY(vessel);
+  const y = Math.max(chunk.floorY + chunk.height / 2, surface + chunk.height * (0.5 - ICE_DENSITY_G_ML));
   return <mesh name="water-ice" position={[0, y, 0]} scale={[chunk.width, chunk.height, chunk.width]} castShadow>
     <boxGeometry args={[1, 1, 1]} />
     <meshPhysicalMaterial color="#dbeef5" transmission={0.55} opacity={0.65} transparent
@@ -151,8 +158,7 @@ export const FloatingAlkaliMetalPellet = React.memo(function FloatingAlkaliMetal
   const kinetics = useAppStore(state => state.activeKinetics[vesselId]);
 
   const hasLiquid = (vessel?.volume_ml || 0) > 0.5;
-  const volumeFrac = Math.max(0, Math.min(1.0, (vessel?.volume_ml || 0) / (vessel?.capacity_ml || 100)));
-  const liquidSurfaceY = baseY + (vessel?.type === 'test_tube' ? 1.6 : 1.88) * volumeFrac;
+  const liquidSurfaceY = vessel ? vesselLiquidSurfaceY(vessel) : baseY;
 
   const isAlkaliReaction = kinetics?.reactionId && (
     kinetics.reactionId.includes('sodium') ||
@@ -446,6 +452,9 @@ const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
   const category = chem?.category;
   const vessel = useAppStore(state => state.vessels[vesselId]);
   const isPulverized = vessel?.isPulverized || vessel?.precipitateMorphology === 'POWDER';
+  const coating = vessel ? metalSurfaceAppearance(vessel) : null;
+  const coatingColor = coating?.substrate === substance
+    ? new THREE.Color(color).lerp(new THREE.Color(coating.color), coating.colorFraction) : null;
   const baseMorphology = getSolidMorphology(substance);
   const morphology: SolidMorphology = isPulverized ? 'POWDER' : baseMorphology;
 
@@ -521,7 +530,9 @@ const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
     });
   }, [substance, count, effectiveRadius, isRibbon, isTurnings, isFilings, isGranules, isChips, isCubic, isPrismatic, isTabular, isHydrate, isPowder, vesselScale]);
 
-  const remainingMoleFraction = solidInventoryFraction(vessel?.contents ?? [], substance) ?? 1;
+  const chunkContents = vessel && vessel.volume_ml > 0.05
+    ? vessel.contents.filter(c => !isSuspensionRow(c, vessel.contents, vessel.precipitateSubstance)) : vessel?.contents ?? [];
+  const remainingMoleFraction = solidInventoryFraction(chunkContents, substance) ?? 1;
   // Visual scale follows remaining moles via cubic root (volume ~ r^3), never disappears prematurely
   const currentScale = Math.max(0, Math.min(1.0, Math.cbrt(remainingMoleFraction)));
 
@@ -555,12 +566,16 @@ const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
 
         const px = Math.cos(stirRot) * c.x - Math.sin(stirRot) * c.z + tiltSlideX;
         const pz = Math.sin(stirRot) * c.x + Math.cos(stirRot) * c.z;
-        const py = baseY + c.y + (isPowder ? 0.04 : 0.07) + tiltSlideY;
-
-        _dummyPos.set(px, py, pz);
         _dummyEuler.set(c.rotX, c.rotY + stirRot, c.rotZ);
         _dummyQuat.setFromEuler(_dummyEuler);
-        _dummyScale.set(s, s, s);
+        // Place the actual lowest rotated vertex against the inner floor.
+        // A fixed 0.07 offset leaves shrinking crystals suspended in mid-air.
+        _dummyMat4.makeRotationFromQuaternion(_dummyQuat);
+        const vertices = mesh.geometry.attributes.position;
+        _chunkPlacement.x = px; _chunkPlacement.z = pz; _chunkPlacement.scale = s;
+        placeSolidChunk(_chunkPlacement, vertices, _dummyMat4, vessel?.type ?? 'beaker', baseY);
+        _dummyPos.set(_chunkPlacement.x, _chunkPlacement.y, _chunkPlacement.z);
+        _dummyScale.setScalar(_chunkPlacement.scale);
 
         _dummyMat4.compose(_dummyPos, _dummyQuat, _dummyScale);
         mesh.setMatrixAt(i, _dummyMat4);
@@ -649,12 +664,12 @@ const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
         )}
         <meshStandardMaterial
           color={
-            isTurnings ? '#ea580c' : 
+            coatingColor ?? (isTurnings ? '#ea580c' :
             (isFilings ? '#475569' : 
             (isIodine ? '#3b0764' : 
             (isPrismatic ? '#581c87' : 
             (isTabular ? '#ea580c' : 
-            (isChips ? '#f1f5f9' : color)))))
+            (isChips ? '#f1f5f9' : color))))))
           }
           roughness={
             isRibbon ? 0.18 : 

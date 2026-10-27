@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
+import { FRAME_ORDER } from '../../simulation/core/frameOrder';
 import { ContactShadows, Grid, Environment, Lightformer, PerformanceMonitor } from '@react-three/drei';
 import * as THREE from 'three';
 import { PostFX } from '../../vfx/post/PostFX';
@@ -13,6 +14,7 @@ import {
 } from './Vessels';
 import { AlcoholBurner } from './AlcoholBurner';
 import { AddingAnimation, VesselPourAnimation } from './PouringBottle';
+import { SodiumDoseAnimation } from './SodiumDoseAnimation';
 import { PerformanceHUD } from './PerformanceHUD';
 import { CameraControls } from './CameraControls';
 import { InteractivePipette } from './interactions/InteractivePipette';
@@ -41,6 +43,7 @@ import { getVesselGripSpec } from '../../handling/gripPoints';
 import { clampLift } from '../../handling/limits';
 import { VesselFloorRing } from './Vessels';
 import { LAB_PHYSICS } from '../../engine/interactionEngine';
+import { restingVesselHeight } from '../../handling/vesselRest';
 import { FrameTelemetry } from '../../render/FrameTelemetry';
 import { LessonScene } from '../../lesson/LessonScene';
 
@@ -318,7 +321,7 @@ function SimulationTicker() {
     tickSimulation(delta);
     const state = useAppStore.getState();
     PourController.tick(delta, state.vessels as any, state.isSimulationPaused, state.timeScale);
-  });
+  }, FRAME_ORDER.chemistry);
   return null;
 }
 
@@ -370,7 +373,7 @@ export function LabScene() {
     // Physical snapping logic
     let targetX = Math.max(-14.5, Math.min(14.5, e.point.x));
     let targetZ = Math.max(-5.5, Math.min(5.5, e.point.z));
-    let targetY = -0.135;
+    let targetY = restingVesselHeight(useAppStore.getState().vessels[draggingVesselId]?.type);
 
     // Check snapping to analytical balance pan
     const [balanceX, , balanceZ] = LAB_PHYSICS.BALANCE_POSITION;
@@ -958,12 +961,17 @@ export function LabScene() {
         )}
         
         {/* Chemical Bottle/Dropper Pouring Animation */}
-        {pouringChemical && (
+        {pouringChemical?.chemical === 'Na' ? (
+          <SodiumDoseAnimation key={pouringChemical.id} doseId={pouringChemical.id} targetId={pouringChemical.targetId}
+            amount={pouringChemical.amount} onComplete={() => clearPour(pouringChemical.id)} />
+        ) : pouringChemical && (
           <AddingAnimation 
+            key={pouringChemical.id}
+            doseId={pouringChemical.id}
             chemical={pouringChemical.chemical} 
             targetId={pouringChemical.targetId} 
             amount={pouringChemical.amount}
-            onComplete={clearPour} 
+            onComplete={() => clearPour(pouringChemical.id)}
           />
         )}
 

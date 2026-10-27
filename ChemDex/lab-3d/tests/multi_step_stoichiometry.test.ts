@@ -12,6 +12,8 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { useAppStore } from '../src/store/useAppStore';
 import { executeMultiStepReactions } from '../src/engine/chemistryEngine';
+import { aqueousConstantsAtTemperature, neutralPhAtTemperature } from '../src/science/aqueousTemperature';
+import { computeMolarMass } from '../src/engine/ledger';
 
 describe('Multi-Step Stoichiometric Reactions & Physical Realism', () => {
   beforeEach(() => {
@@ -24,8 +26,10 @@ describe('Multi-Step Stoichiometric Reactions & Physical Realism', () => {
     // Limiting reagent: HCl (0.04 mol). Remaining NaOH: 0.02 mol.
     const res = executeMultiStepReactions(
       [
-        { formula: 'HCl', moles: 0.04, mass_g: 0.04 * 36.46 },
-        { formula: 'NaOH', moles: 0.06, mass_g: 0.06 * 40.00 }
+        { formula: 'HCl', phase: 'aq', moles: 0.04, mass_g: 0.04 * 36.46 },
+        { formula: 'NaOH', phase: 'aq', moles: 0.06, mass_g: 0.06 * 40.00 },
+        { formula: 'H2O', phase: 'l', mass_g: 100 - 0.04 * 36.46 - 0.06 * 40,
+          moles: (100 - 0.04 * 36.46 - 0.06 * 40) / 18.015 },
       ],
       ['HCl', 'NaOH'],
       100,
@@ -54,8 +58,9 @@ describe('Multi-Step Stoichiometric Reactions & Physical Realism', () => {
     expect(naclContent).toBeDefined();
     expect(naclContent!.moles).toBeCloseTo(0.04, 3);
 
-    // Excess strong base (0.02 mol in 0.1 L = 0.2 M OH- -> pOH ~ 0.7 -> pH ~ 13.3)
-    expect(res.finalPh).toBeGreaterThan(12.5);
+    // pH + pOH = pKw(T), with 0.2 M excess hydroxide at the final heated T.
+    const kw = aqueousConstantsAtTemperature(res.finalTemperature_c)!.waterKw;
+    expect(res.finalPh).toBeCloseTo(-Math.log10(kw) + Math.log10(0.2), 8);
   });
 
   it('cascades sequential multi-step reactions in a single vessel: Neutralization then Precipitation', () => {
@@ -96,34 +101,35 @@ describe('Multi-Step Stoichiometric Reactions & Physical Realism', () => {
     expect(res.precipitateAmount_g).toBeCloseTo(0.02 * 97.56, 1);
   });
 
-  it('handles amphoteric hydroxide precipitation followed by complete redissolution in excess NaOH', () => {
-    // Al2(SO4)3 (0.01 mol) + NaOH (0.08 mol)
-    // Step 1: Al2(SO4)3 + 6NaOH -> 2Al(OH)3↓ + 3Na2SO4
-    //   Consumes 0.01 mol Al2(SO4)3 and 0.06 mol NaOH.
-    //   Forms 0.02 mol Al(OH)3 precipitate.
-    //   Remaining NaOH: 0.02 mol.
-    // Step 2: Al(OH)3 (0.02 mol) + NaOH (0.02 mol) -> Na[Al(OH)4] (0.02 mol)
-    //   Precipitate redissolves completely!
-    const res = executeMultiStepReactions(
-      [
-        { formula: 'Al2(SO4)3', moles: 0.01, mass_g: 0.01 * 342.15 },
-        { formula: 'NaOH', moles: 0.08, mass_g: 0.08 * 40.00 }
-      ],
-      ['Al2(SO4)3', 'NaOH'],
-      100,
-      25.0,
-      false,
-      'en'
-    );
+  it('forms finite amphoteric gel and redissolves it after an actual excess-base addition', () => {
+    // Initially 3 OH per Al; only the equilibrium solid fraction is formed.
+    const saltMass = 5e-5 * computeMolarMass('Al2(SO4)3'), baseMass = 3e-4 * computeMolarMass('NaOH');
+    const initial = [
+      { formula: 'Al2(SO4)3', phase: 'aq', moles: 5e-5, mass_g: saltMass },
+      { formula: 'NaOH', phase: 'aq', moles: 3e-4, mass_g: baseMass },
+      { formula: 'H2O', phase: 'l', moles: (100 - saltMass - baseMass) / computeMolarMass('H2O'), mass_g: 100 - saltMass - baseMass },
+    ];
+    const gel = executeMultiStepReactions(initial, initial.map(c => c.formula), 100, 25, false, 'en', { preserveQuantities: true });
+    expect(gel.reactionsOccurred[0].reactionId).toBe('al2so4_naoh_amphoteric');
+    expect(gel.hasPrecipitate).toBe(true);
+    const solidAl = gel.updatedContents.filter(c => c.formula === 'Al(OH)3' && c.phase === 's').reduce((s, c) => s + c.moles, 0);
+    expect(solidAl).toBeGreaterThan(0);
+    expect(solidAl).toBeLessThan(1e-4);
 
-    expect(res.reactionsOccurred.length).toBe(2);
-    expect(res.reactionsOccurred[0].reactionId).toBe('al2so4_naoh_amphoteric');
-    expect(res.reactionsOccurred[1].reactionId).toBe('aloh3_naoh_dissolution');
-
-    // Insoluble Al(OH)3 was consumed in step 2
-    expect(res.hasPrecipitate).toBe(false);
-    expect(res.updatedSubstances).toContain('Na[Al(OH)4]');
-    expect(res.updatedSubstances).toContain('Na2SO4');
+    // Add 30 mL containing another 3 OH per original Al, including its water.
+    const dose = [
+      { formula: 'NaOH', phase: 'aq', moles: 3e-4, mass_g: baseMass },
+      { formula: 'H2O', phase: 'l', moles: (30 - baseMass) / computeMolarMass('H2O'), mass_g: 30 - baseMass },
+    ];
+    const combined = [...gel.updatedContents, ...dose];
+    const clear = executeMultiStepReactions(combined, [...new Set(combined.map(c => c.formula))],
+      130, gel.finalTemperature_c, false, 'en', { preserveQuantities: true });
+    expect(clear.reactionsOccurred.some(r => r.reactionId === 'aloh3_naoh_dissolution')).toBe(true);
+    expect(clear.hasPrecipitate).toBe(false);
+    expect(clear.updatedContents.filter(c => c.formula === 'Al(OH)3' && c.phase === 's').reduce((s, c) => s + c.moles, 0)).toBe(0);
+    expect(clear.updatedSubstances).toContain('Na[Al(OH)4]');
+    expect(clear.updatedSubstances).toContain('Na2SO4');
+    expect(clear.updatedContents.reduce((s, c) => s + c.mass_g, 0)).toBeCloseTo(130, 8);
   });
 
   it('simulates accurate stoichiometric transfer and reaction during vessel pouring', async () => {
@@ -164,8 +170,8 @@ describe('Multi-Step Stoichiometric Reactions & Physical Realism', () => {
     expect(nacl).toBeDefined();
     expect(nacl!.moles).toBeCloseTo(0.05, 2);
 
-    // Neutral pH 7.0
-    expect(updatedBase.ph).toBeCloseTo(7.0, 1);
+    // A heated neutral solution follows pKw(T)/2, rather than a fixed pH 7.
+    expect(updatedBase.ph).toBeCloseTo(neutralPhAtTemperature(updatedBase.temperature_c)!, 10);
 
     // Clean up
     store.removeVessel(acidId);

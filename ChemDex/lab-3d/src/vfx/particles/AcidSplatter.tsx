@@ -5,8 +5,12 @@ import { useQualityStore, QUALITY_CONFIGS } from '../quality';
 import { vfxBus } from '../bus';
 import { useAppStore } from '../../store/useAppStore';
 import { labSound } from '../../utils/audio';
+import { LAB_PHYSICS } from '../../engine/interactionEngine';
+import { simulationFrameDt } from '../../core/clock';
+import { PRNG } from '../../core/rng';
+import { advanceSplatterFlight, advanceSplatterBounce } from '../../science/splatterFlight';
 
-const TABLE_SURFACE_Y = -1.155;
+const TABLE_SURFACE_Y = LAB_PHYSICS.TABLE_SURFACE_Y;
 const MAX_TRAIL_STEPS = 5;
 
 interface DropletProjectile {
@@ -31,6 +35,7 @@ interface DropletProjectile {
 }
 
 interface BounceDroplet {
+  delay_s: number;
   active: boolean;
   x: number;
   y: number;
@@ -48,11 +53,13 @@ interface BounceDroplet {
 }
 
 export const AcidSplatter = React.memo(function AcidSplatter() {
+  const rng = useMemo(() => new PRNG(), []);
+  const simulationTime = useRef(0);
   const effectiveTier = useQualityStore((state) => state.effectiveTier);
   const multiplier = QUALITY_CONFIGS[effectiveTier].particleMultiplier;
 
   const maxDroplets = useMemo(() => {
-    return Math.max(24, Math.floor((effectiveTier === 'high' ? 120 : effectiveTier === 'medium' ? 64 : 32) * multiplier));
+    return Math.max(24, Math.floor((effectiveTier === 'high' || effectiveTier === 'ultra' ? 120 : effectiveTier === 'medium' ? 64 : 32) * multiplier));
   }, [effectiveTier, multiplier]);
 
   const maxTrails = maxDroplets * MAX_TRAIL_STEPS;
@@ -62,7 +69,7 @@ export const AcidSplatter = React.memo(function AcidSplatter() {
   const trailMeshRef = useRef<THREE.InstancedMesh>(null);
   const bounceMeshRef = useRef<THREE.InstancedMesh>(null);
 
-  // Droplet pools pre-allocated (zero per-frame GC)
+  // Preallocated glyph slots; trajectory samples still allocate on the CPU.
   const projectiles = useMemo<DropletProjectile[]>(() => {
     return Array.from({ length: maxDroplets }, () => ({
       active: false,
@@ -78,8 +85,8 @@ export const AcidSplatter = React.memo(function AcidSplatter() {
       b: 1,
       alpha: 1,
       colorHex: '#fca5a5',
-      isAcid: true,
-      substances: ['H2SO4'],
+      isAcid: false,
+      substances: [],
       life: 0,
       maxLife: 2.5,
       history: [],
@@ -88,6 +95,7 @@ export const AcidSplatter = React.memo(function AcidSplatter() {
 
   const bounces = useMemo<BounceDroplet[]>(() => {
     return Array.from({ length: maxBounces }, () => ({
+      delay_s: 0,
       active: false,
       x: 0,
       y: -9999,
@@ -113,7 +121,7 @@ export const AcidSplatter = React.memo(function AcidSplatter() {
   const _up = useMemo(() => new THREE.Vector3(0, 1, 0), []);
   const _vDir = useMemo(() => new THREE.Vector3(), []);
   const _color = useMemo(() => new THREE.Color(), []);
-  const lastSoundTime = useRef(0);
+  const lastSoundTime = useRef(-Infinity);
 
   // Initialize instanced meshes
   useEffect(() => {
@@ -143,26 +151,27 @@ export const AcidSplatter = React.memo(function AcidSplatter() {
   }, [maxDroplets, maxTrails, maxBounces, _mat4, _pos, _quat, _scale]);
 
   // Helper to spawn a bounce splash droplet upon landing
-  const spawnBounce = (x: number, z: number, r: number, g: number, b: number) => {
+  const spawnBounce = (x: number, z: number, r: number, g: number, b: number, delay_s: number) => {
     const slot = bounces.find(b => !b.active);
     if (!slot) return;
 
-    const angle = Math.random() * Math.PI * 2;
-    const speed = 0.25 + Math.random() * 0.45;
+    const angle = rng.next() * Math.PI * 2;
+    const speed = 0.25 + rng.next() * 0.45;
     slot.active = true;
+    slot.delay_s = delay_s;
     slot.x = x;
     slot.y = TABLE_SURFACE_Y + 0.003;
     slot.z = z;
     slot.vx = Math.cos(angle) * speed;
-    slot.vy = 0.08 + Math.random() * 0.16;
+    slot.vy = 0.08 + rng.next() * 0.16;
     slot.vz = Math.sin(angle) * speed;
-    slot.size = 0.012 + Math.random() * 0.014;
+    slot.size = 0.012 + rng.next() * 0.014;
     slot.r = r;
     slot.g = g;
     slot.b = b;
     slot.alpha = 0.9;
     slot.life = 0;
-    slot.maxLife = 0.28 + Math.random() * 0.15;
+    slot.maxLife = 0.28 + rng.next() * 0.15;
   };
 
   // Helper to spawn projectile droplets
@@ -174,6 +183,7 @@ export const AcidSplatter = React.memo(function AcidSplatter() {
     isAcid: boolean,
     substances: string[]
   ) => {
+    if (![...origin, count, baseSpeed].every(Number.isFinite) || count <= 0 || baseSpeed < 0) return;
     const col = new THREE.Color(colorHex);
     let spawned = 0;
 
@@ -181,20 +191,20 @@ export const AcidSplatter = React.memo(function AcidSplatter() {
       const p = projectiles[i];
       if (p.active) continue;
 
-      // Realistic ballistic eruption cone (polar angle 35°..80° from horizontal)
-      const theta = Math.random() * Math.PI * 2;
-      const elevation = 0.55 + Math.random() * 0.42; // sin(elevation)
+      // Seeded presentation cone; speeds supplied by VFX are in scene units/s.
+      const theta = rng.next() * Math.PI * 2;
+      const elevation = 0.55 + rng.next() * 0.42; // sin(elevation)
       const horizFrac = Math.sqrt(Math.max(0.01, 1 - elevation * elevation));
-      const speed = baseSpeed * (0.7 + Math.random() * 0.6);
+      const speed = baseSpeed * (0.7 + rng.next() * 0.6);
 
       p.active = true;
-      p.x = origin[0] + (Math.random() - 0.5) * 0.08;
+      p.x = origin[0] + (rng.next() - 0.5) * 0.08;
       p.y = origin[1];
-      p.z = origin[2] + (Math.random() - 0.5) * 0.08;
+      p.z = origin[2] + (rng.next() - 0.5) * 0.08;
       p.vx = Math.cos(theta) * horizFrac * speed;
       p.vy = elevation * speed;
       p.vz = Math.sin(theta) * horizFrac * speed;
-      p.size = 0.022 + Math.random() * 0.024;
+      p.size = 0.022 + rng.next() * 0.024;
       p.r = col.r;
       p.g = col.g;
       p.b = col.b;
@@ -210,45 +220,31 @@ export const AcidSplatter = React.memo(function AcidSplatter() {
     }
   };
 
-  // Listen to explosion and acid:splatter events on vfxBus
+  // One explicit liquid-presentation channel. A flash/explosion alone does
+  // not prove that any liquid was ejected.
   useEffect(() => {
     const unsubAcid = vfxBus.on('acid:splatter', (e) => {
-      const burstCount = Math.floor((e.count || 60) * multiplier);
+      const burstCount = Math.floor((e.count ?? 60) * multiplier);
       spawnSplatter(
         e.position,
         burstCount,
-        e.speed || 4.2,
+        e.speed ?? 4.2,
         e.color || '#fca5a5',
-        e.isAcid ?? true,
-        e.substances || ['H2SO4']
-      );
-    });
-
-    const unsubExplosion = vfxBus.on('explosion', (e) => {
-      // Mouth of vessel is typically ~0.85 above vessel center
-      const mouthY = e.position[1] + (e.position[1] < 0 ? 0.85 : 0.45);
-      const origin: [number, number, number] = [e.position[0], mouthY, e.position[2]];
-      const burstCount = Math.floor((85 + Math.random() * 30) * multiplier);
-
-      spawnSplatter(
-        origin,
-        burstCount,
-        4.8,
-        e.color || '#fca5a5',
-        true,
-        ['H2SO4']
+        e.isAcid ?? false,
+        e.substances ?? []
       );
     });
 
     return () => {
       unsubAcid();
-      unsubExplosion();
     };
   }, [multiplier]);
 
-  useFrame((state, delta) => {
-    const dt = Math.min(delta, 0.05);
-    const now = state.clock.elapsedTime;
+  useFrame((_, delta) => {
+    const dt = simulationFrameDt(delta, useAppStore.getState());
+    if (dt <= 0) return;
+    const startTime = simulationTime.current;
+    simulationTime.current += dt;
     let activeProjectileCount = 0;
     let trailIndex = 0;
 
@@ -264,19 +260,11 @@ export const AcidSplatter = React.memo(function AcidSplatter() {
         continue;
       }
 
-      activeProjectileCount++;
-      p.life += dt;
-
-      // Ballistic flight under gravity and aerodynamic drag
+      const flight = advanceSplatterFlight(p, dt, TABLE_SURFACE_Y);
+      p.x = flight.x; p.y = flight.y; p.z = flight.z;
+      p.vx = flight.vx; p.vy = flight.vy; p.vz = flight.vz;
+      p.life += flight.elapsed_s;
       const speed = Math.hypot(p.vx, p.vy, p.vz);
-      const dragFactor = Math.max(0, 1.0 - 0.14 * speed * dt);
-      p.vx *= dragFactor;
-      p.vz *= dragFactor;
-      p.vy += -9.8 * dt; // Gravity
-
-      p.x += p.vx * dt;
-      p.y += p.vy * dt;
-      p.z += p.vz * dt;
 
       // Store trajectory point history for arc rendering
       p.history.push([p.x, p.y, p.z]);
@@ -285,30 +273,23 @@ export const AcidSplatter = React.memo(function AcidSplatter() {
       }
 
       // Check Table Collision (Landing & Spattering onto Workbench Surface)
-      if (p.y <= TABLE_SURFACE_Y) {
+      if (flight.hit) {
         p.active = false;
 
-        // Dynamic puddle creation at exact landing coordinates on the table
-        const impactVol = (p.size / 0.03) * (0.35 + Math.random() * 0.45);
-        useAppStore.getState().addSpill(
-          [p.x, TABLE_SURFACE_Y, p.z],
-          impactVol,
-          p.substances,
-          p.colorHex,
-          p.isAcid ? 'Acid Splatter' : 'Chemical Splatter'
-        );
+        // Read-only presentation. Shatter/pour inventory already owns the
+        // finite released matter; quality-dependent glyphs cannot add it again.
 
         // Spawn secondary capillary bounce droplets scattering outward
-        const numBounces = 3 + Math.floor(Math.random() * 3);
+        const numBounces = 3 + Math.floor(rng.next() * 3);
         for (let b = 0; b < numBounces; b++) {
-          spawnBounce(p.x, p.z, p.r, p.g, p.b);
+          spawnBounce(p.x, p.z, p.r, p.g, p.b, flight.elapsed_s);
         }
 
         // Play audio impact sizzle and splash
-        if (now - lastSoundTime.current > 0.12) {
+        const impactTime = startTime + flight.elapsed_s;
+        if (impactTime - lastSoundTime.current >= 0.12) {
           labSound.playDroplet();
-          if (p.isAcid) labSound.playSodiumSizzlePop(0.18, 0.25);
-          lastSoundTime.current = now;
+          lastSoundTime.current = impactTime;
         }
 
         _pos.set(0, -9999, 0);
@@ -322,8 +303,11 @@ export const AcidSplatter = React.memo(function AcidSplatter() {
       // Exceeded max life
       if (p.life >= p.maxLife) {
         p.active = false;
+        _scale.set(0, 0, 0); _quat.identity(); _mat4.compose(_pos, _quat, _scale);
+        dropletMeshRef.current?.setMatrixAt(i, _mat4);
         continue;
       }
+      activeProjectileCount++;
 
       // Render flying droplet elongated along velocity vector
       _pos.set(p.x, p.y, p.z);
@@ -394,24 +378,20 @@ export const AcidSplatter = React.memo(function AcidSplatter() {
         continue;
       }
 
-      activeBounces++;
-      bd.life += dt;
+      const bounceDt = Math.max(0, dt - bd.delay_s);
+      bd.delay_s = 0;
+      bd.life += bounceDt;
       if (bd.life >= bd.maxLife) {
         bd.active = false;
+        _scale.set(0, 0, 0); _quat.identity(); _mat4.compose(_pos, _quat, _scale);
+        bounceMeshRef.current?.setMatrixAt(b, _mat4);
         continue;
       }
+      activeBounces++;
 
-      bd.x += bd.vx * dt;
-      bd.z += bd.vz * dt;
-      bd.vy += -9.8 * dt;
-      bd.y += bd.vy * dt;
-
-      if (bd.y <= TABLE_SURFACE_Y) {
-        bd.y = TABLE_SURFACE_Y + 0.002;
-        bd.vy = -bd.vy * 0.25; // Elastic damping
-        bd.vx *= 0.6;
-        bd.vz *= 0.6;
-      }
+      const bounce = advanceSplatterBounce(bd, bounceDt, TABLE_SURFACE_Y);
+      bd.x = bounce.x; bd.y = bounce.y; bd.z = bounce.z;
+      bd.vx = bounce.vx; bd.vy = bounce.vy; bd.vz = bounce.vz;
 
       const lifeFrac = 1.0 - bd.life / bd.maxLife;
       const bScale = bd.size * lifeFrac;

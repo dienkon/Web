@@ -4,6 +4,8 @@ import { useQualityStore, QualityTier } from '../quality';
 import { REACTION_DATABASE } from '../../chem/reactions';
 import { SUBSTANCE_DATABASE } from '../../chem/substances';
 import { vfxBus } from '../bus';
+import { effects } from '../vesselEffects';
+import { runBasicPhysicalScenario } from './basicScenarios';
 import { labSound } from '../../utils/audio';
 import { proceduralAudio } from '../../audio/procedural';
 import { LegacyAdapter } from '../../adapters/legacy';
@@ -14,6 +16,7 @@ import { EFFECT_ATOM_CATALOG, getEffectAtom } from '../catalog';
 import { ReactionProgram } from '../../shared/programSchema';
 import { EffectAtom } from '../catalog/types';
 import { useFrameStats } from '../../render/FrameTelemetry';
+import { gasVolumeRateMl_s } from '../gasVisualState';
 import { studioProgramForReaction } from '../../engine/studioProgram';
 import { studioAtomAction, runStudioAtomContext } from '../../engine/studioAtom';
 import { studioInventoryReading } from '../../engine/studioInventoryReading';
@@ -21,15 +24,19 @@ import { PRECIPITATE_MORPHOLOGIES } from '../../engine/studioMorphology';
 import { dispensePipette } from '../../handling/instrumentOperations';
 import { HotPlateControls } from '../../components/HotPlateControls';
 import { LESSON_PROGRAM_IDS } from '../../lesson/programCompiler';
-import { useLessonLabStore } from '../../lesson/labBridge';
 import { 
   Sparkles, Play, Pause, RotateCcw, AlertTriangle, Flame, Droplets,
   Layers, Gauge, CheckCircle2, ChevronDown, ChevronUp, X, Thermometer,
   Beaker, Compass, Volume2, VolumeX, Eye, ShieldAlert, Activity,
-  Wind, Zap, Info, Filter, SlidersHorizontal, Clock, Cpu
+  Wind, Zap, Info, Filter, SlidersHorizontal, Clock, Cpu, Box
 } from 'lucide-react';
+import { useSimulationDebugStore } from '../../simulation/core/debugStore';
+import { SimulationEngine } from '../../simulation/core/SimulationEngine';
+import { PourController } from '../../pour/controller/PourController';
+import { PourSessionState } from '../../pour/controller/modes';
+import { kineticsEngine, ReactionProgressState } from '../../simulation/chemistry/KineticsEngine';
 
-type StudioTab = 'reactions' | 'programs' | 'atoms' | 'morphology' | 'physics' | 'flames' | 'telemetry';
+type StudioTab = 'reactions' | 'simulation' | 'programs' | 'atoms' | 'morphology' | 'physics' | 'flames' | 'telemetry';
 
 export { PRECIPITATE_MORPHOLOGIES } from '../../engine/studioMorphology';
 
@@ -38,7 +45,7 @@ export const VfxGallery: React.FC = () => {
   const [isMinimized, setIsMinimized] = useState(false);
   const [activeTab, setActiveTab] = useState<StudioTab>('reactions');
   const [activeTestId, setActiveTestId] = useState<string | null>(null);
-  const [selectedVesselId, setSelectedVesselId] = useState<string | null>(null);
+  const [selectedVesselId, setSelectedVesselId] = useState<string | null>(useAppStore.getState().selectedVesselId);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<number>(0);
 
@@ -46,6 +53,7 @@ export const VfxGallery: React.FC = () => {
   const [selectedProgramId, setSelectedProgramId] = useState<string | null>(null);
   const [programSearch, setProgramSearch] = useState<string>('');
   const [programCategoryFilter, setProgramCategoryFilter] = useState<string>('all');
+  const [overflowSourceId, setOverflowSourceId] = useState('');
   const [atomNotice, setAtomNotice] = useState('');
   const [selectedAtomName, setSelectedAtomName] = useState<string | null>(null);
   const [atomCategoryFilter, setAtomCategoryFilter] = useState<string>('all');
@@ -58,6 +66,20 @@ export const VfxGallery: React.FC = () => {
   const [useCobaltGlass, setUseCobaltGlass] = useState<boolean>(false);
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const [engineMode, setEngineMode] = useState<'v1' | 'v2'>('v2');
+
+  // Simulation Debug Gizmos & Telemetry State
+  const showGravity = useSimulationDebugStore(s => s.showGravity);
+  const showLiquidPlane = useSimulationDebugStore(s => s.showLiquidPlane);
+  const showPourTrajectory = useSimulationDebugStore(s => s.showPourTrajectory);
+  const showMixingZone = useSimulationDebugStore(s => s.showMixingZone);
+  const showSedimentBounds = useSimulationDebugStore(s => s.showSedimentBounds);
+  const toggleDebug = useSimulationDebugStore(s => s.toggleDebug);
+
+  const [pourSession, setPourSession] = useState<PourSessionState | null>(null);
+  const [activeKineticsRxns, setActiveKineticsRxns] = useState<ReactionProgressState[]>([]);
+
+  const setVesselState = useAppStore(state => state.setVesselState);
+  const setActiveTool = useAppStore(state => state.setActiveTool);
 
 
   const {
@@ -85,22 +107,37 @@ export const VfxGallery: React.FC = () => {
     }
   }, []);
 
-  // Update target vessel selection
+  // Keep the explicit target, including after deletion. A missing ID never falls back.
+  const targetVessel = selectedVesselId ? vessels[selectedVesselId] : undefined;
+  const simMgr = targetVessel ? SimulationEngine.findManager(targetVessel.id) : null;
+  const measuredGasMol_s = Object.values(targetVessel?.gasFlux?.generated_mol_s ?? {}).reduce((sum, rate) => sum + (Number.isFinite(rate) ? Math.max(0, rate) : 0), 0);
+
+  // Poll continuous pouring & kinetics telemetry
   useEffect(() => {
-    const vesselIds = Object.keys(vessels);
-    if (vesselIds.length > 0 && (!selectedVesselId || !vessels[selectedVesselId])) {
-      setSelectedVesselId(vesselIds[0]);
-    }
-  }, [vessels, selectedVesselId]);
+    if (!isVisible) return;
+    const unsub = PourController.subscribe(s => setPourSession(s));
+    const interval = setInterval(() => {
+      const activeId = selectedVesselId;
+      if (activeId) {
+        setActiveKineticsRxns([...kineticsEngine.getVesselReactions(activeId)]);
+      }
+    }, 150);
 
-  const targetVessel = selectedVesselId && vessels[selectedVesselId] ? vessels[selectedVesselId] : Object.values(vessels)[0];
+    return () => {
+      unsub();
+      clearInterval(interval);
+    };
+  }, [isVisible, selectedVesselId, vessels]);
 
-  // Helper to get or create a beaker
-  const getOrCreateTargetVesselId = (): string => {
-    if (targetVessel) return targetVessel.id;
-    addVessel('beaker');
-    const updated = Object.values(useAppStore.getState().vessels);
-    return updated.length > 0 ? updated[0].id : 'beaker_1';
+  const requireTarget = (): string | null => {
+    if (selectedVesselId && useAppStore.getState().vessels[selectedVesselId]) return selectedVesselId;
+    setAtomNotice('Chọn bình đích; dùng nút Thêm bình nếu bàn đang trống.');
+    return null;
+  };
+
+  const applyScenario = (testNum: number) => {
+    const id = requireTarget(); if (!id) return;
+    setAtomNotice(runBasicPhysicalScenario(id, testNum).message);
   };
 
   // Read the renderer telemetry; no second window RAF loop or assumed 60 FPS.
@@ -159,7 +196,8 @@ export const VfxGallery: React.FC = () => {
   // -------------------------------------------------------------
   const handleStirChange = (rpm: number) => {
     setStirrerRpm(rpm);
-    const targetId = getOrCreateTargetVesselId();
+    const targetId = requireTarget();
+    if (!targetId) return;
     // V2 Stirring audio & physical vortex injection
     if (rpm > 100) {
       proceduralAudio.playGlassClink(Math.min(0.8, rpm / 1500));
@@ -187,15 +225,13 @@ export const VfxGallery: React.FC = () => {
       return;
     }
     if (LESSON_PROGRAM_IDS.has(program.id)) {
-      if (useLessonLabStore.getState().start(program.id)) {
-        setSelectedVesselId(useAppStore.getState().selectedVesselId);
-      }
+      setAtomNotice('Chương trình bài học có nhiều dụng cụ: mở mục Bài học để chạy. VFX Studio giữ nguyên bình đích.');
       return;
     }
     const store = useAppStore.getState();
     const current = selectedVesselId ? store.vessels[selectedVesselId] : undefined;
-    const id = !fresh && current?.studioProgramId === program.id ? current.id : store.prepareStudioProgram(program.id);
-    if (!id) return;
+    const id = !fresh && current?.studioProgramId === program.id ? current.id : store.prepareStudioProgram(program.id, undefined, requireTarget() ?? "");
+    if (!id) { setAtomNotice(useAppStore.getState().mixError ?? 'Chọn bình đích hợp lệ.'); return; }
     setSelectedVesselId(id);
     store.setSelectedVesselId(id);
     store.runStudioProgram(id);
@@ -215,7 +251,8 @@ export const VfxGallery: React.FC = () => {
   };
 
   const handleAddDropperDrop = () => {
-    const targetId = getOrCreateTargetVesselId();
+    const targetId = requireTarget();
+    if (!targetId) return;
     const result = dispensePipette(0.05, targetId);
     if (!result.ok) {
       useAppStore.setState({ globalWarning: result.message });
@@ -310,12 +347,16 @@ export const VfxGallery: React.FC = () => {
     return (
       <button
         onClick={() => setIsVisible(true)}
-        className="fixed bottom-4 right-4 z-50 px-3.5 py-2 bg-gradient-to-r from-slate-900 to-indigo-950 text-white rounded-xl shadow-2xl border border-indigo-500/40 text-xs font-bold flex items-center gap-2 hover:border-indigo-400 hover:shadow-indigo-500/20 transition-all backdrop-blur-md group"
-        title="Open VFX Studio (?vfx=1)"
+        className="fixed bottom-4 right-4 z-50 px-4 py-2 bg-white/95 text-slate-800 hover:text-blue-600 rounded-full shadow-lg border border-slate-200/90 text-xs font-semibold flex items-center gap-2 hover:border-blue-400 hover:shadow-xl transition-all backdrop-blur-md group"
+        title="Open VFX & Simulation Studio (?vfx=1)"
       >
-        <Sparkles size={15} className="text-amber-400 group-hover:rotate-12 transition-transform" />
-        <span className="bg-gradient-to-r from-amber-200 to-blue-200 bg-clip-text text-transparent">VFX STUDIO</span>
-        <span className="text-[10px] px-1 py-0.2 bg-indigo-500/30 text-indigo-300 rounded font-mono">v2.0 PBR</span>
+        <div className="w-5 h-5 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-200/60 group-hover:scale-110 transition-transform">
+          <Sparkles size={12} className="text-blue-600" />
+        </div>
+        <span className="font-bold tracking-wide">VFX & LAB STUDIO</span>
+        <span className="text-[10px] px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full font-mono font-bold">
+          {frameStats.samples > 0 ? `${fps} FPS` : 'v2.0'}
+        </span>
       </button>
     );
   }
@@ -328,27 +369,27 @@ export const VfxGallery: React.FC = () => {
     : (activeTestId && REACTION_DATABASE[activeTestId]?.hazards ? formatHazardBadge(REACTION_DATABASE[activeTestId].hazards) : null);
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 w-[420px] max-h-[88vh] bg-slate-950/95 text-slate-200 rounded-2xl shadow-2xl border border-slate-800 flex flex-col backdrop-blur-xl overflow-hidden transition-all text-xs font-sans ring-1 ring-white/10">
+    <div className="fixed bottom-4 right-4 z-50 w-[470px] max-w-[calc(100vw-2rem)] max-h-[88vh] bg-white/98 text-slate-800 rounded-2xl shadow-2xl border border-slate-200/90 flex flex-col backdrop-blur-xl overflow-hidden transition-all text-xs font-sans ring-1 ring-slate-900/5">
       
       {/* 1. Header Bar */}
-      <div className="px-4 py-3 bg-gradient-to-r from-slate-900 via-slate-850 to-indigo-950/80 border-b border-slate-800 flex items-center justify-between select-none">
+      <div className="px-4 py-3 bg-slate-50/90 border-b border-slate-200/80 flex items-center justify-between select-none">
         <div className="flex items-center gap-2.5">
-          <div className="p-1.5 rounded-lg bg-indigo-500/20 border border-indigo-500/40">
-            <Sparkles size={16} className="text-amber-400 animate-pulse" />
+          <div className="p-1.5 rounded-xl bg-blue-50 border border-blue-200/60 text-blue-600">
+            <Sparkles size={16} />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-extrabold tracking-wider text-slate-100 text-xs uppercase bg-gradient-to-r from-amber-200 via-white to-blue-200 bg-clip-text text-transparent">
-                VFX STUDIO
+              <span className="font-extrabold tracking-wider text-slate-800 text-xs uppercase">
+                VFX & LAB STUDIO
               </span>
-              <span className="text-[9px] px-1.5 py-0.5 rounded font-mono font-bold bg-blue-500/20 text-blue-400 border border-blue-500/30">
+              <span className="text-[9px] px-1.5 py-0.5 rounded font-mono font-bold bg-blue-50 text-blue-600 border border-blue-200/60">
                 PBR v2.0
               </span>
-              <span className="text-[9px] px-1.5 py-0.5 rounded font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                {frameStats.samples > 0 ? fps : '—'} FPS
+              <span className="text-[9px] px-1.5 py-0.5 rounded font-mono font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/60">
+                {frameStats.samples > 0 ? `${fps} FPS` : '—'}
               </span>
             </div>
-            <div className="text-[10px] text-slate-400">Emergent Physics Simulation Harness</div>
+            <div className="text-[10px] text-slate-500">Emergent Physics Simulation & Reaction VFX</div>
           </div>
         </div>
 
@@ -356,7 +397,7 @@ export const VfxGallery: React.FC = () => {
           <button
             onClick={handleToggleMute}
             className={`p-1.5 rounded-lg border transition-colors ${
-              isMuted ? 'bg-red-500/20 border-red-500/40 text-red-300' : 'bg-slate-800/80 border-slate-700 text-slate-300 hover:text-white'
+              isMuted ? 'bg-red-50 border-red-200 text-red-600' : 'bg-white border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50'
             }`}
             title={isMuted ? 'Unmute Procedural Audio' : 'Mute Audio'}
           >
@@ -364,13 +405,13 @@ export const VfxGallery: React.FC = () => {
           </button>
           <button
             onClick={() => setIsMinimized(!isMinimized)}
-            className="p-1.5 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white border border-slate-800"
+            className="p-1.5 hover:bg-slate-100 rounded-lg text-slate-500 hover:text-slate-800 border border-slate-200"
           >
             {isMinimized ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
           </button>
           <button
             onClick={() => setIsVisible(false)}
-            className="p-1.5 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white border border-slate-800"
+            className="p-1.5 hover:bg-slate-100 rounded-lg text-slate-500 hover:text-slate-800 border border-slate-200"
           >
             <X size={14} />
           </button>
@@ -381,17 +422,43 @@ export const VfxGallery: React.FC = () => {
         <div className="flex flex-col flex-1 overflow-hidden">
           
           {/* 2. Global Top Control Strip */}
-          <div className="p-3 bg-slate-900/60 border-b border-slate-800/80 space-y-2.5">
-            {/* Simulation Clock & Quality Settings */}
+          <div className="p-3 bg-slate-50/90 border-b border-slate-200/80 space-y-2.5">
+            <p className="text-[10px] text-slate-600">Mọi hiệu ứng dùng cùng bình đích. Nút “Thay mẫu” thay lượng chất trong bình này.</p>
+            {atomNotice && <p role="status" className="text-[11px] text-blue-700">{atomNotice}</p>}
+            {/* Target Vessel & Simulation Clock Controls */}
             <div className="flex items-center justify-between gap-2">
+              {/* Target Vessel Selector */}
+              <div className="flex items-center gap-1.5 flex-1 max-w-[200px]">
+                <Beaker size={13} className="text-blue-600 shrink-0" />
+                <select
+                  value={selectedVesselId || ''}
+                  onChange={(e) => setSelectedVesselId(e.target.value)}
+                  className="bg-white text-slate-800 rounded-lg px-2 py-1 text-[11px] border border-slate-200 font-medium truncate w-full shadow-2xs focus:border-blue-500 focus:outline-none"
+                >
+                  <option value="">Chọn bình đích…</option>
+                  {Object.values(vessels).map(v => (
+                    <option key={v.id} value={v.id}>
+                      {v.name || v.id} ({v.type})
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <button className="text-[10px] text-blue-700 border rounded px-2 py-1" onClick={() => {
+                const oldIds = new Set(Object.keys(useAppStore.getState().vessels));
+                addVessel('beaker');
+                const id = Object.keys(useAppStore.getState().vessels).find(key => !oldIds.has(key));
+                if (id) setSelectedVesselId(id);
+              }}>Thêm bình</button>
+
               {/* Play / Pause / Reset */}
               <div className="flex items-center gap-1.5">
                 <button
                   onClick={() => setSimulationPaused(!isSimulationPaused)}
-                  className={`px-2.5 py-1.5 rounded-lg font-bold flex items-center gap-1.5 text-[11px] transition-all shadow-sm ${
+                  className={`px-2.5 py-1 rounded-lg font-bold flex items-center gap-1.5 text-[11px] transition-all shadow-2xs ${
                     isSimulationPaused
-                      ? 'bg-amber-600 text-white hover:bg-amber-500'
-                      : 'bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700'
+                      ? 'bg-amber-500 text-white hover:bg-amber-600'
+                      : 'bg-white hover:bg-slate-100 text-slate-700 border border-slate-200'
                   }`}
                 >
                   {isSimulationPaused ? <Play size={12} /> : <Pause size={12} />}
@@ -405,7 +472,7 @@ export const VfxGallery: React.FC = () => {
                     setBurnerState('off');
                     setStirrerRpm(0);
                   }}
-                  className="p-1.5 hover:bg-slate-800 text-slate-400 hover:text-rose-400 rounded-lg border border-slate-800 transition-colors"
+                  className="p-1.5 bg-white hover:bg-slate-100 text-slate-500 hover:text-rose-500 rounded-lg border border-slate-200 transition-colors shadow-2xs"
                   title="Reset Workbench"
                 >
                   <RotateCcw size={13} />
@@ -413,185 +480,392 @@ export const VfxGallery: React.FC = () => {
               </div>
 
               {/* Time Scales */}
-              <div className="flex items-center gap-1 bg-slate-950/80 p-1 rounded-lg border border-slate-800">
+              <div className="flex items-center gap-0.5 bg-slate-100 p-0.5 rounded-lg border border-slate-200">
                 {[0.25, 0.5, 1, 2, 4].map(scale => (
                   <button
                     key={scale}
                     onClick={() => setTimeScale(scale)}
                     className={`px-1.5 py-0.5 rounded font-mono text-[9px] font-bold transition-all ${
                       timeScale === scale
-                        ? 'bg-indigo-600 text-white shadow'
-                        : 'text-slate-400 hover:text-slate-200'
+                        ? 'bg-blue-600 text-white shadow-2xs'
+                        : 'text-slate-600 hover:text-slate-900'
                     }`}
                   >
                     {scale}x
                   </button>
                 ))}
               </div>
-
-              {/* Engine Toggle */}
-              <div className="flex items-center gap-1 bg-slate-950/80 p-0.5 rounded-lg border border-slate-800">
-                <button
-                  onClick={() => handleSwitchEngine('v2')}
-                  className={`px-2 py-0.5 rounded text-[9px] font-mono font-bold transition-all ${
-                    engineMode === 'v2' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  v2 (PBR)
-                </button>
-                <button
-                  onClick={() => handleSwitchEngine('v1')}
-                  className={`px-2 py-0.5 rounded text-[9px] font-mono font-bold transition-all ${
-                    engineMode === 'v1' ? 'bg-amber-600 text-white' : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  v1 (Leg)
-                </button>
-              </div>
             </div>
 
-            {/* Quality Tier Selector */}
-            <div className="flex items-center justify-between text-[10px]">
-              <span className="text-slate-400 font-semibold flex items-center gap-1">
-                <Layers size={12} className="text-indigo-400" />
-                Render Tier:
-              </span>
+            {/* Quality Tier & Engine Toggle */}
+            <div className="flex items-center justify-between text-[10px] pt-0.5">
               <div className="flex items-center gap-1">
-                {(['low', 'medium', 'high', 'auto'] as const).map(t => (
+                <span className="text-slate-500 font-semibold flex items-center gap-1">
+                  <Layers size={11} className="text-blue-500" />
+                  Tier:
+                </span>
+                <div className="flex items-center gap-0.5 bg-slate-100 p-0.5 rounded-lg border border-slate-200">
+                  {(['low', 'medium', 'high', 'auto'] as const).map(t => (
+                    <button
+                      key={t}
+                      onClick={() => setPreference(t)}
+                      className={`px-1.5 py-0.5 rounded text-[9px] font-bold uppercase transition-all ${
+                        preference === t
+                          ? 'bg-blue-600 text-white shadow-2xs'
+                          : 'text-slate-600 hover:text-slate-900'
+                      }`}
+                    >
+                      {t === 'auto' ? `Auto (${effectiveTier[0].toUpperCase()})` : t}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-1">
+                <span className="text-slate-500 font-semibold">Engine:</span>
+                <div className="flex items-center gap-0.5 bg-slate-100 p-0.5 rounded-lg border border-slate-200">
                   <button
-                    key={t}
-                    onClick={() => setPreference(t)}
-                    className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase transition-all ${
-                      preference === t
-                        ? 'bg-blue-600 text-white shadow-sm'
-                        : 'bg-slate-800/80 text-slate-400 hover:text-slate-200'
+                    onClick={() => handleSwitchEngine('v2')}
+                    className={`px-2 py-0.5 rounded text-[9px] font-mono font-bold transition-all ${
+                      engineMode === 'v2' ? 'bg-blue-600 text-white shadow-2xs' : 'text-slate-600 hover:text-slate-900'
                     }`}
                   >
-                    {t === 'auto' ? `Auto (${effectiveTier[0].toUpperCase()})` : t}
+                    v2 PBR
                   </button>
-                ))}
+                  <button
+                    onClick={() => handleSwitchEngine('v1')}
+                    className={`px-2 py-0.5 rounded text-[9px] font-mono font-bold transition-all ${
+                      engineMode === 'v1' ? 'bg-amber-600 text-white shadow-2xs' : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                  >
+                    v1 Leg
+                  </button>
+                </div>
               </div>
             </div>
           </div>
 
-          {targetVessel?.studioProgramId && <div className="mx-3 my-2 rounded border border-indigo-700 bg-indigo-950/50 p-2 space-y-2 text-[10px]">
-            <p>Mẫu định lượng mô phỏng riêng; không phải quy trình định lượng thực hành. Giữ nguyên mẫu trước đó. Tua tiến không thu hồi khí đã thoát.</p>
-            {getProgramById(targetVessel.studioProgramId)?.chemistry.conditions?.activationNote_vi && <p>{getProgramById(targetVessel.studioProgramId)?.chemistry.conditions?.activationNote_vi}</p>}
+          {targetVessel?.studioProgramId && <div className="mx-3 my-2 rounded-xl border border-blue-200 bg-blue-50/70 p-2.5 space-y-1.5 text-[10px] text-slate-700">
+            <p className="font-medium">Mẫu định lượng mô phỏng riêng; không phải quy trình định lượng thực hành. Giữ nguyên mẫu trước đó. Tua tiến không thu hồi khí đã thoát.</p>
+            {getProgramById(targetVessel.studioProgramId)?.chemistry.conditions?.activationNote_vi && <p className="text-blue-700 font-semibold">{getProgramById(targetVessel.studioProgramId)?.chemistry.conditions?.activationNote_vi}</p>}
             {getProgramById(targetVessel.studioProgramId)?.chemistry.conditions?.activation === 'ignition' &&
-              <button className="rounded bg-orange-800 px-2 py-1" onClick={() => useAppStore.getState().igniteStudioSample(targetVessel.id)}>Mồi cháy mẫu bằng nguồn nhiệt gần</button>}
-            <div className="flex gap-2">
-              <button className="rounded bg-indigo-700 px-2 py-1" onClick={() => useAppStore.getState().runStudioProgram(targetVessel.id)}>Kiểm tra điều kiện / Chạy mẫu</button>
-              <button className="rounded bg-slate-700 px-2 py-1" onClick={() => {
+              <button className="rounded-lg bg-orange-600 hover:bg-orange-700 text-white font-bold px-2.5 py-1 shadow-2xs transition-colors" onClick={() => useAppStore.getState().igniteStudioSample(targetVessel.id)}>Mồi cháy mẫu bằng nguồn nhiệt gần</button>}
+            <div className="flex gap-2 pt-0.5">
+              <button className="rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold px-2.5 py-1 shadow-2xs transition-colors" onClick={() => useAppStore.getState().runStudioProgram(targetVessel.id)}>Kiểm tra điều kiện / Chạy mẫu</button>
+              <button className="rounded-lg bg-white hover:bg-slate-100 text-slate-700 font-medium border border-slate-200 px-2.5 py-1 shadow-2xs transition-colors" onClick={() => {
                 const program = getProgramById(targetVessel.studioProgramId!);
                 if (program) executeProgram(program, true);
               }}>Tạo mẫu mới</button>
             </div>
           </div>}
-          {/* 3. Navigation Tabs */}
-          <div className="flex border-b border-slate-800 bg-slate-900/40 text-[11px] font-bold select-none overflow-x-auto">
+
+          {/* 3. Navigation Tabs (Clean 4x2 Grid: No horizontal scrollbar, all 8 tabs accessible at a glance) */}
+          <div className="grid grid-cols-4 p-1.5 bg-slate-100/80 border-b border-slate-200/80 gap-1 text-[10px] font-semibold select-none">
             <button
               onClick={() => setActiveTab('reactions')}
-              className={`flex-1 py-2 text-center border-b-2 transition-all flex items-center justify-center gap-1.5 whitespace-nowrap px-2 ${
+              className={`py-1.5 px-1.5 rounded-lg transition-all flex items-center justify-center gap-1.5 truncate ${
                 activeTab === 'reactions'
-                  ? 'border-indigo-500 text-indigo-300 bg-indigo-500/10'
-                  : 'border-transparent text-slate-400 hover:text-slate-200'
+                  ? 'bg-blue-600 text-white shadow-2xs font-bold'
+                  : 'bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-50 border border-slate-200/70'
               }`}
+              title="Chemical Reactions Catalog"
             >
-              <Beaker size={13} />
-              <span>Legacy</span>
+              <Beaker size={12} className={activeTab === 'reactions' ? 'text-white' : 'text-blue-500'} />
+              <span className="truncate">Reactions</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('simulation')}
+              className={`py-1.5 px-1.5 rounded-lg transition-all flex items-center justify-center gap-1.5 truncate ${
+                activeTab === 'simulation'
+                  ? 'bg-blue-600 text-white shadow-2xs font-bold'
+                  : 'bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-50 border border-slate-200/70'
+              }`}
+              title="Simulation & 3D Debug Gizmos"
+            >
+              <Activity size={12} className={activeTab === 'simulation' ? 'text-white' : 'text-emerald-500'} />
+              <span className="truncate">Simulation</span>
             </button>
 
             <button
               onClick={() => setActiveTab('programs')}
-              className={`flex-1 py-2 text-center border-b-2 transition-all flex items-center justify-center gap-1.5 whitespace-nowrap px-2 ${
+              className={`py-1.5 px-1.5 rounded-lg transition-all flex items-center justify-center gap-1.5 truncate ${
                 activeTab === 'programs'
-                  ? 'border-blue-500 text-blue-300 bg-blue-500/10'
-                  : 'border-transparent text-slate-400 hover:text-slate-200'
+                  ? 'bg-blue-600 text-white shadow-2xs font-bold'
+                  : 'bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-50 border border-slate-200/70'
               }`}
+              title={`Handcrafted Reaction Programs (${ALL_HANDCRAFTED_PROGRAMS.length})`}
             >
-              <Layers size={13} />
-              <span>Programs ({ALL_HANDCRAFTED_PROGRAMS.length})</span>
+              <Layers size={12} className={activeTab === 'programs' ? 'text-white' : 'text-indigo-500'} />
+              <span className="truncate">Programs</span>
             </button>
 
             <button
               onClick={() => setActiveTab('atoms')}
-              className={`flex-1 py-2 text-center border-b-2 transition-all flex items-center justify-center gap-1.5 whitespace-nowrap px-2 ${
+              className={`py-1.5 px-1.5 rounded-lg transition-all flex items-center justify-center gap-1.5 truncate ${
                 activeTab === 'atoms'
-                  ? 'border-cyan-500 text-cyan-300 bg-cyan-500/10'
-                  : 'border-transparent text-slate-400 hover:text-slate-200'
+                  ? 'bg-blue-600 text-white shadow-2xs font-bold'
+                  : 'bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-50 border border-slate-200/70'
               }`}
+              title={`Effect Atoms Catalog (${EFFECT_ATOM_CATALOG.length})`}
             >
-              <Cpu size={13} />
-              <span>Atoms ({EFFECT_ATOM_CATALOG.length})</span>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('morphology')}
-              className={`flex-1 py-2 text-center border-b-2 transition-all flex items-center justify-center gap-1.5 whitespace-nowrap px-2 ${
-                activeTab === 'morphology'
-                  ? 'border-violet-500 text-violet-300 bg-violet-500/10'
-                  : 'border-transparent text-slate-400 hover:text-slate-200'
-              }`}
-            >
-              <Sparkles size={13} />
-              <span>Morphology</span>
+              <Cpu size={12} className={activeTab === 'atoms' ? 'text-white' : 'text-amber-500'} />
+              <span className="truncate">Atoms</span>
             </button>
 
             <button
               onClick={() => setActiveTab('physics')}
-              className={`flex-1 py-2 text-center border-b-2 transition-all flex items-center justify-center gap-1.5 whitespace-nowrap px-2 ${
+              className={`py-1.5 px-1.5 rounded-lg transition-all flex items-center justify-center gap-1.5 truncate ${
                 activeTab === 'physics'
-                  ? 'border-cyan-500 text-cyan-300 bg-cyan-500/10'
-                  : 'border-transparent text-slate-400 hover:text-slate-200'
+                  ? 'bg-blue-600 text-white shadow-2xs font-bold'
+                  : 'bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-50 border border-slate-200/70'
               }`}
+              title="Laboratory Apparatus Controls (Stirrer, Burner, Hotplate)"
             >
-              <Activity size={13} />
-              <span>Physics</span>
+              <SlidersHorizontal size={12} className={activeTab === 'physics' ? 'text-white' : 'text-violet-500'} />
+              <span className="truncate">Apparatus</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('morphology')}
+              className={`py-1.5 px-1.5 rounded-lg transition-all flex items-center justify-center gap-1.5 truncate ${
+                activeTab === 'morphology'
+                  ? 'bg-blue-600 text-white shadow-2xs font-bold'
+                  : 'bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-50 border border-slate-200/70'
+              }`}
+              title="Precipitate Crystal & Colloid Morphology"
+            >
+              <Sparkles size={12} className={activeTab === 'morphology' ? 'text-white' : 'text-pink-500'} />
+              <span className="truncate">Morphology</span>
             </button>
 
             <button
               onClick={() => setActiveTab('flames')}
-              className={`flex-1 py-2 text-center border-b-2 transition-all flex items-center justify-center gap-1.5 whitespace-nowrap px-2 ${
+              className={`py-1.5 px-1.5 rounded-lg transition-all flex items-center justify-center gap-1.5 truncate ${
                 activeTab === 'flames'
-                  ? 'border-amber-500 text-amber-300 bg-amber-500/10'
-                  : 'border-transparent text-slate-400 hover:text-slate-200'
+                  ? 'bg-blue-600 text-white shadow-2xs font-bold'
+                  : 'bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-50 border border-slate-200/70'
               }`}
+              title="Flame Emission Spectroscopy"
             >
-              <Flame size={13} />
-              <span>Flames</span>
+              <Flame size={12} className={activeTab === 'flames' ? 'text-white' : 'text-orange-500'} />
+              <span className="truncate">Flames</span>
             </button>
 
             <button
               onClick={() => setActiveTab('telemetry')}
-              className={`flex-1 py-2 text-center border-b-2 transition-all flex items-center justify-center gap-1.5 whitespace-nowrap px-2 ${
+              className={`py-1.5 px-1.5 rounded-lg transition-all flex items-center justify-center gap-1.5 truncate ${
                 activeTab === 'telemetry'
-                  ? 'border-emerald-500 text-emerald-300 bg-emerald-500/10'
-                  : 'border-transparent text-slate-400 hover:text-slate-200'
+                  ? 'bg-blue-600 text-white shadow-2xs font-bold'
+                  : 'bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-50 border border-slate-200/70'
               }`}
+              title="Sensor Readouts & Mass Balance Telemetry"
             >
-              <Gauge size={13} />
-              <span>Telemetry</span>
+              <Gauge size={12} className={activeTab === 'telemetry' ? 'text-white' : 'text-cyan-600'} />
+              <span className="truncate">Telemetry</span>
             </button>
           </div>
 
           {/* 4. Tab Content Area */}
-          <div className="p-3.5 overflow-y-auto space-y-3.5 flex-1 max-h-[calc(88vh-165px)]">
+          <div className="p-3.5 overflow-y-auto space-y-3.5 flex-1 max-h-[calc(88vh-165px)] bg-slate-50/40">
+
+            {/* TAB: SIMULATION & GIZMOS */}
+            {activeTab === 'simulation' && (
+              <div className="space-y-3">
+                {/* 1. Target Vessel Quick Telemetry */}
+                {targetVessel && (
+                  <div className="bg-white border border-slate-200 rounded-xl p-3 space-y-2 shadow-2xs">
+                    <div className="flex justify-between items-center text-slate-500 text-[10px] uppercase font-semibold">
+                      <span>Bình: <strong className="text-slate-800">{targetVessel.name || targetVessel.id}</strong></span>
+                      <span className="text-blue-600 font-mono font-bold">{targetVessel.type}</span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 text-[11px]">
+                      <div className="bg-slate-50 p-2 rounded-lg border border-slate-200/80">
+                        <span className="text-slate-500 text-[10px]">Nhiệt độ:</span>
+                        <div className="text-amber-600 font-bold text-xs">{targetVessel.temperature_c.toFixed(1)}°C</div>
+                      </div>
+                      <div className="bg-slate-50 p-2 rounded-lg border border-slate-200/80">
+                        <span className="text-slate-500 text-[10px]">Thể tích:</span>
+                        <div className="text-blue-600 font-bold text-xs">{targetVessel.volume_ml.toFixed(1)} mL</div>
+                      </div>
+                      <div className="bg-slate-50 p-2 rounded-lg border border-slate-200/80">
+                        <span className="text-slate-500 text-[10px]">Trạng thái sôi:</span>
+                        <div className={targetVessel.isBoiling ? 'text-rose-600 font-bold' : 'text-slate-600'}>
+                          {targetVessel.isBoiling ? 'Đang sôi' : 'Bình thường'}
+                        </div>
+                      </div>
+                      <div className="bg-slate-50 p-2 rounded-lg border border-slate-200/80">
+                        <span className="text-slate-500 text-[10px]">Kết tủa:</span>
+                        <div className={targetVessel.hasPrecipitate ? 'text-amber-600 font-bold' : 'text-slate-600'}>
+                          {targetVessel.hasPrecipitate ? `${(targetVessel.precipitateAmount_g || 0).toFixed(2)}g` : 'Không'}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* 2. 3D Debug Gizmos Toggles */}
+                <div className="bg-white border border-slate-200 rounded-xl p-3 space-y-2 shadow-2xs">
+                  <span className="text-[10px] uppercase tracking-wider text-slate-600 font-bold block border-b border-slate-200 pb-1">
+                    Hiển Thị Trực Quan Debug (3D Gizmos)
+                  </span>
+                  <div className="grid grid-cols-2 gap-1.5 text-[11px]">
+                    <button
+                      onClick={() => toggleDebug('showGravity')}
+                      className={`p-2 rounded-lg border text-left flex items-center justify-between transition-all ${
+                        showGravity ? 'bg-blue-50 text-blue-700 border-blue-300 font-bold shadow-2xs' : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
+                      }`}
+                    >
+                      <span>Vector Trọng Lực</span>
+                      <span className={`text-[9px] px-1.5 py-0.5 rounded font-mono font-bold ${showGravity ? 'bg-blue-600 text-white' : 'bg-slate-200 text-slate-600'}`}>{showGravity ? 'ON' : 'OFF'}</span>
+                    </button>
+                    <button
+                      onClick={() => toggleDebug('showLiquidPlane')}
+                      className={`p-2 rounded-lg border text-left flex items-center justify-between transition-all ${
+                        showLiquidPlane ? 'bg-blue-50 text-blue-700 border-blue-300 font-bold shadow-2xs' : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
+                      }`}
+                    >
+                      <span>Mặt Phẳng Ngang</span>
+                      <span className={`text-[9px] px-1.5 py-0.5 rounded font-mono font-bold ${showLiquidPlane ? 'bg-blue-600 text-white' : 'bg-slate-200 text-slate-600'}`}>{showLiquidPlane ? 'ON' : 'OFF'}</span>
+                    </button>
+                    <button
+                      onClick={() => toggleDebug('showPourTrajectory')}
+                      className={`p-2 rounded-lg border text-left flex items-center justify-between transition-all ${
+                        showPourTrajectory ? 'bg-emerald-50 text-emerald-700 border-emerald-300 font-bold shadow-2xs' : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
+                      }`}
+                    >
+                      <span>Quỹ Đạo Rót Parabol</span>
+                      <span className={`text-[9px] px-1.5 py-0.5 rounded font-mono font-bold ${showPourTrajectory ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-600'}`}>{showPourTrajectory ? 'ON' : 'OFF'}</span>
+                    </button>
+                    <button
+                      onClick={() => toggleDebug('showMixingZone')}
+                      className={`p-2 rounded-lg border text-left flex items-center justify-between transition-all ${
+                        showMixingZone ? 'bg-pink-50 text-pink-700 border-pink-300 font-bold shadow-2xs' : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
+                      }`}
+                    >
+                      <span>Vùng Trộn Cục Bộ</span>
+                      <span className={`text-[9px] px-1.5 py-0.5 rounded font-mono font-bold ${showMixingZone ? 'bg-pink-600 text-white' : 'bg-slate-200 text-slate-600'}`}>{showMixingZone ? 'ON' : 'OFF'}</span>
+                    </button>
+                    <button
+                      onClick={() => toggleDebug('showSedimentBounds')}
+                      className={`p-2 rounded-lg border text-left flex items-center justify-between transition-all col-span-2 ${
+                        showSedimentBounds ? 'bg-amber-50 text-amber-700 border-amber-300 font-bold shadow-2xs' : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
+                      }`}
+                    >
+                      <span>Giới Hạn Lớp Cặn Lắng (Sediment Bed Bounds)</span>
+                      <span className={`text-[9px] px-1.5 py-0.5 rounded font-mono font-bold ${showSedimentBounds ? 'bg-amber-600 text-white' : 'bg-slate-200 text-slate-600'}`}>{showSedimentBounds ? 'ON' : 'OFF'}</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* 3. Pre-configured Simulation Scenarios (TEST 1 to 8) */}
+                <div className="bg-white border border-slate-200 rounded-xl p-3 space-y-2 shadow-2xs">
+                  <span className="text-[10px] uppercase tracking-wider text-slate-600 font-bold block border-b border-slate-200 pb-1">
+                    Kịch Bản Kiểm Thử Nhanh (Test Scenarios)
+                  </span>
+                  <div className="grid grid-cols-2 gap-1.5">
+                    {[
+                      { id: 1, label: 'Thay mẫu nước 25°C', desc: 'Giữ bình, thay lượng chất' },
+                      { id: 2, label: 'Gia nhiệt 80 W', desc: 'Mẫu ấm dần theo nhiệt cấp' },
+                      { id: 3, label: 'Gia nhiệt 300 W', desc: 'Sôi khi đạt bão hòa' },
+                      { id: 4, label: 'Tủa BaSO4/PbI2', desc: 'Mưa vàng & Tyndall' },
+                      { id: 5, label: 'Gợn mặt thoáng', desc: 'Một xung tắt dần' },
+                      { id: 6, label: 'Thay mẫu nước 5°C', desc: 'Đọng sương ngoài thành' },
+                      { id: 7, label: 'Ngắt nhiệt ảo', desc: 'Mẫu nguội tự nhiên' },
+                      { id: 8, label: 'Gió 0,8 m/s', desc: 'Chỉ bình đang chọn' },
+                    ].map(sc => (
+                      <button
+                        key={sc.id}
+                        onClick={() => applyScenario(sc.id)}
+                        className="p-2 bg-slate-50 hover:bg-blue-50 hover:border-blue-200 active:bg-blue-100 border border-slate-200/90 rounded-lg text-left transition-all shadow-2xs"
+                      >
+                        <div className="font-bold text-slate-800 text-[11px]">{sc.label}</div>
+                        <div className="text-[9px] text-slate-500">{sc.desc}</div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 4. Pouring Pipeline Telemetry */}
+                <div className="bg-white border border-slate-200 rounded-xl p-3 space-y-1.5 shadow-2xs">
+                  <span className="text-[10px] uppercase tracking-wider text-blue-600 font-bold block border-b border-slate-200 pb-1">
+                    Rót Dung Dịch (Continuous Pouring Pipeline)
+                  </span>
+                  {pourSession ? (
+                    <div className="space-y-1 text-[11px]">
+                      <div className="flex justify-between">
+                        <span className="text-slate-500">Trạng thái:</span>
+                        <span className="text-emerald-600 font-bold uppercase">{pourSession.phase}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-500">Tốc độ dòng:</span>
+                        <span className="text-blue-600 font-bold">{pourSession.flow_ml_s.toFixed(2)} mL/s</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-500">Đã chuyển:</span>
+                        <span className="text-amber-600 font-bold">{pourSession.transferred_ml.toFixed(1)} mL</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-500">Góc nghiêng / Đổ:</span>
+                        <span className="text-slate-700">{((pourSession.tilt * 180) / Math.PI).toFixed(1)}° | {pourSession.spilled_ml > 0 ? `${pourSession.spilled_ml.toFixed(1)}mL đổ` : '0 mL'}</span>
+                      </div>
+                      {pourSession.wallClinging && (
+                        <div className="text-[10px] text-amber-700 bg-amber-50 px-2 py-1 rounded border border-amber-200">
+                          ⚠ Wall-clinging: Góc rót nông gây chảy bám thành bình!
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="text-slate-500 text-[11px] py-1">
+                      Chưa có phiên rót. Kéo nghiêng bình vào bình khác để quan sát dòng chảy.
+                    </div>
+                  )}
+                </div>
+
+                {/* 5. Physical Engine Telemetry */}
+                {simMgr && (
+                  <div className="bg-white border border-slate-200 rounded-xl p-3 space-y-1.5 shadow-2xs">
+                    <span className="text-[10px] uppercase tracking-wider text-slate-600 font-bold block border-b border-slate-200 pb-1">
+                      Mô Phỏng Vật Lý Chi Tiết
+                    </span>
+                    <div className="grid grid-cols-2 gap-2 text-[11px]">
+                      <div className="bg-slate-50 p-2 rounded-lg border border-slate-200/80">
+                        <span className="text-slate-500 text-[10px]">Bọt hiển thị:</span>
+                        <div className="text-rose-600 font-bold">{simMgr.boilingSystem.bubbles.length} bọt</div>
+                      </div>
+                      <div className="bg-slate-50 p-2 rounded-lg border border-slate-200/80">
+                        <span className="text-slate-500 text-[10px]">Hơi nước ra ngoài:</span>
+                        <div className="text-blue-600 font-bold">{(simMgr.evaporationSystem.currentRate_g_s * 60).toFixed(2)} g/phút</div>
+                      </div>
+                      <div className="bg-slate-50 p-2 rounded-lg border border-slate-200/80">
+                        <span className="text-slate-500 text-[10px]">Độ đục:</span>
+                        <div className="text-indigo-600 font-bold">{Math.round(simMgr.precipitationSystem.cloudiness * 100)}%</div>
+                      </div>
+                      <div className="bg-slate-50 p-2 rounded-lg border border-slate-200/80">
+                        <span className="text-slate-500 text-[10px]">Cặn đáy:</span>
+                        <div className="text-amber-600 font-bold">{simMgr.precipitationSystem.sedimentBed.amount_g.toFixed(2)}g</div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* TAB 1: REACTIONS CATALOG */}
             {activeTab === 'reactions' && (
               <div className="space-y-3">
                 {/* Interactive Timeline Scrubber (0% to 100%) */}
                 {currentActiveKinetics && (
-                  <div className="bg-gradient-to-r from-blue-950/70 via-indigo-950/60 to-slate-900/90 p-3 rounded-xl border border-indigo-500/40 space-y-2 shadow-xl">
+                  <div className="bg-gradient-to-r from-blue-50/80 via-indigo-50/60 to-slate-50 p-3 rounded-xl border border-indigo-200/80 space-y-2 shadow-2xs">
                     <div className="flex justify-between items-center text-[10px]">
-                      <span className="font-bold text-blue-200 truncate max-w-[220px]">
+                      <span className="font-bold text-slate-800 truncate max-w-[220px]">
                         {currentActiveKinetics.reactionName}
                       </span>
-                      <div className="flex items-center gap-1.5 font-mono text-blue-300 font-bold">
-                        <span className="text-[11px] text-amber-300">
+                      <div className="flex items-center gap-1.5 font-mono text-blue-700 font-bold">
+                        <span className="text-[11px] text-amber-600">
                           {Math.round(currentActiveKinetics.progress * 100)}%
                         </span>
-                        <span className="text-[9px] text-slate-400">
+                        <span className="text-[9px] text-slate-500">
                           ({(currentActiveKinetics.progress * (currentActiveKinetics.duration || 5.0)).toFixed(1)}s / {(currentActiveKinetics.duration || 5.0).toFixed(1)}s)
                         </span>
                       </div>
@@ -606,42 +880,41 @@ export const VfxGallery: React.FC = () => {
                         step="0.005"
                         value={currentActiveKinetics.progress}
                         onChange={(e) => handleScrubReaction(currentActiveKinetics.vesselId, parseFloat(e.target.value))}
-                        className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-400 focus:outline-none"
+                        className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600 focus:outline-none"
                       />
                     </div>
 
                     {/* Scrubbing Quick Controls */}
-                    <div className="flex items-center justify-between text-[9px] text-slate-400 font-mono">
+                    <div className="flex items-center justify-between text-[9px] text-slate-600 font-mono">
                       <button
                         onClick={() => { if (currentActiveKinetics.program) executeProgram(currentActiveKinetics.program, true); }}
-                        className="hover:text-indigo-300 px-1.5 py-0.5 rounded bg-slate-800/80 transition-colors"
+                        className="hover:text-indigo-600 px-2 py-0.5 rounded bg-white border border-slate-200 shadow-2xs transition-colors"
                       >
                         Mẫu mới
                       </button>
                       <div className="flex items-center gap-1">
-
                         <button
                           onClick={() => setSimulationPaused(!isSimulationPaused)}
-                          className="hover:text-white px-2 py-0.5 rounded bg-indigo-600/60 text-indigo-200 font-bold transition-colors"
+                          className="hover:bg-indigo-700 px-2 py-0.5 rounded bg-indigo-600 text-white font-bold transition-colors shadow-2xs"
                         >
                           {isSimulationPaused ? 'Play' : 'Pause'}
                         </button>
                         <button
                           onClick={() => handleScrubReaction(currentActiveKinetics.vesselId, Math.min(1.0, currentActiveKinetics.progress + 0.1))}
-                          className="hover:text-indigo-300 px-1.5 py-0.5 rounded bg-slate-800/80 font-bold transition-colors"
+                          className="hover:text-indigo-600 px-1.5 py-0.5 rounded bg-white border border-slate-200 font-bold transition-colors shadow-2xs"
                         >
                           +10%
                         </button>
                       </div>
                       <button
                         onClick={() => handleScrubReaction(currentActiveKinetics.vesselId, 1.0)}
-                        className="hover:text-indigo-300 px-1.5 py-0.5 rounded bg-slate-800/80 transition-colors"
+                        className="hover:text-indigo-600 px-1.5 py-0.5 rounded bg-white border border-slate-200 transition-colors shadow-2xs"
                       >
                         100%
                       </button>
                     </div>
 
-                    <div className="text-[9px] font-mono text-slate-400 truncate border-t border-slate-800/60 pt-1">
+                    <div className="text-[9px] font-mono text-slate-500 truncate border-t border-indigo-100 pt-1">
                       {currentActiveKinetics.equation}
                     </div>
                   </div>
@@ -655,8 +928,8 @@ export const VfxGallery: React.FC = () => {
                       onClick={() => setSelectedCategory(idx)}
                       className={`px-2 py-1 rounded-lg text-[10px] font-bold whitespace-nowrap flex items-center gap-1 transition-all ${
                         selectedCategory === idx
-                          ? 'bg-indigo-600 text-white shadow-sm'
-                          : 'bg-slate-800/60 text-slate-400 hover:text-slate-200'
+                          ? 'bg-blue-600 text-white shadow-2xs'
+                          : 'bg-white text-slate-600 hover:text-slate-900 border border-slate-200 hover:bg-slate-50'
                       }`}
                     >
                       {cat.icon}
@@ -676,26 +949,26 @@ export const VfxGallery: React.FC = () => {
                         key={item.id}
                         className={`p-2.5 rounded-xl border transition-all flex flex-col gap-1.5 ${
                           isCurrent
-                            ? 'bg-indigo-950/40 border-indigo-500 shadow-md ring-1 ring-indigo-500/30'
-                            : 'bg-slate-900/60 hover:bg-slate-900 border-slate-800/80 text-slate-300'
+                            ? 'bg-blue-50/80 border-blue-300 shadow-2xs ring-1 ring-blue-400/30'
+                            : 'bg-white hover:bg-slate-50/80 border-slate-200/90 text-slate-800 shadow-2xs'
                         }`}
                       >
                         <div className="flex items-center justify-between gap-2">
-                          <div className="truncate font-semibold text-[11px] text-slate-100">
+                          <div className="truncate font-semibold text-[11px] text-slate-800">
                             {language === 'vi' ? item.name_vi : item.name}
                           </div>
                           <button
                             onClick={() => executeReaction(item.id)}
-                            className="px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[10px] shadow transition-colors shrink-0"
+                            className="px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-[10px] shadow-2xs transition-colors shrink-0"
                           >
                             Execute
                           </button>
                         </div>
 
                         {program && (
-                          <div className="flex items-center justify-between text-[9px] font-mono text-slate-400">
-                            <span className="truncate max-w-[240px] text-indigo-300">{program.chemistry.equation}</span>
-                            <span className={(program.chemistry.deltaH_kJ_per_mol ?? 0) < 0 ? 'text-amber-400 font-bold' : 'text-cyan-400'}>
+                          <div className="flex items-center justify-between text-[9px] font-mono text-slate-500">
+                            <span className="truncate max-w-[240px] text-blue-600 font-medium">{program.chemistry.equation}</span>
+                            <span className={(program.chemistry.deltaH_kJ_per_mol ?? 0) < 0 ? 'text-rose-600 font-bold' : 'text-blue-600'}>
                               {program.chemistry.deltaH_kJ_per_mol != null ? 'ΔH: ' + program.chemistry.deltaH_kJ_per_mol + ' kJ/mol' : 'ΔH: —'}
                             </span>
                           </div>
@@ -710,17 +983,17 @@ export const VfxGallery: React.FC = () => {
             {/* TAB 2: REACTION PROGRAMS MASTER LIBRARY (106 PROGRAMS) */}
             {activeTab === 'programs' && (
               <div className="space-y-3">
-                <div className="bg-slate-900/60 p-3 rounded-xl border border-slate-800 space-y-2">
-                  <div className="flex items-center justify-between text-[11px] font-bold text-blue-300">
-                    <span className="flex items-center gap-1.5">
-                      <Layers size={14} className="text-blue-400" />
+                <div className="bg-white p-3 rounded-xl border border-slate-200 space-y-2 shadow-2xs">
+                  <div className="flex items-center justify-between text-[11px] font-bold text-slate-800">
+                    <span className="flex items-center gap-1.5 text-blue-600">
+                      <Layers size={14} />
                       Reaction Programs Master Catalog ({ALL_HANDCRAFTED_PROGRAMS.length} Balanced Programs)
                     </span>
-                    <span className="text-[10px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded-full font-mono">
+                    <span className="text-[10px] bg-blue-50 text-blue-700 border border-blue-200/80 px-2 py-0.5 rounded-full font-mono font-bold">
                       Declarative JSON / Zod
                     </span>
                   </div>
-                  <p className="text-[10px] text-slate-400 leading-relaxed">
+                  <p className="text-[10px] text-slate-500 leading-relaxed">
                     Closed Effect-Atom compositions with stoichiometric elemental balance, deltaH enthalpy, GHS hazard tagging, and physical time honesty.
                   </p>
 
@@ -731,12 +1004,12 @@ export const VfxGallery: React.FC = () => {
                       placeholder="Search equation, ID, formula..."
                       value={programSearch}
                       onChange={(e) => setProgramSearch(e.target.value)}
-                      className="flex-1 bg-slate-950/80 border border-slate-700/80 rounded-lg px-2.5 py-1 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                      className="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:bg-white"
                     />
                     <select
                       value={programCategoryFilter}
                       onChange={(e) => setProgramCategoryFilter(e.target.value)}
-                      className="bg-slate-950/80 border border-slate-700/80 rounded-lg px-2 py-1 text-xs text-slate-300 focus:outline-none focus:border-blue-500"
+                      className="bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 text-xs text-slate-700 focus:outline-none focus:border-blue-500 focus:bg-white"
                     >
                       <option value="all">All Categories</option>
                       <option value="acid">Acid-Base</option>
@@ -755,16 +1028,16 @@ export const VfxGallery: React.FC = () => {
 
                 {/* Scrubber for current kinetics if active */}
                 {currentActiveKinetics && (
-                  <div className="bg-gradient-to-r from-blue-950/70 via-indigo-950/60 to-slate-900/90 p-3 rounded-xl border border-blue-500/40 space-y-2 shadow-xl">
+                  <div className="bg-gradient-to-r from-blue-50/80 via-indigo-50/60 to-slate-50 p-3 rounded-xl border border-blue-200/80 space-y-2 shadow-2xs">
                     <div className="flex justify-between items-center text-[10px]">
-                      <span className="font-bold text-blue-200 truncate max-w-[220px]">
+                      <span className="font-bold text-slate-800 truncate max-w-[220px]">
                         Active: {currentActiveKinetics.reactionName}
                       </span>
-                      <div className="flex items-center gap-1.5 font-mono text-blue-300 font-bold">
-                        <span className="text-[11px] text-amber-300">
+                      <div className="flex items-center gap-1.5 font-mono text-blue-700 font-bold">
+                        <span className="text-[11px] text-amber-600">
                           {Math.round(currentActiveKinetics.progress * 100)}%
                         </span>
-                        <span className="text-[9px] text-slate-400">
+                        <span className="text-[9px] text-slate-500">
                           ({(currentActiveKinetics.progress * (currentActiveKinetics.duration || 5.0)).toFixed(1)}s / {(currentActiveKinetics.duration || 5.0).toFixed(1)}s)
                         </span>
                       </div>
@@ -776,7 +1049,7 @@ export const VfxGallery: React.FC = () => {
                       step="0.005"
                       value={currentActiveKinetics.progress}
                       onChange={(e) => handleScrubReaction(currentActiveKinetics.vesselId, parseFloat(e.target.value))}
-                      className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-400 focus:outline-none"
+                      className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600 focus:outline-none"
                     />
                   </div>
                 )}
@@ -812,12 +1085,12 @@ export const VfxGallery: React.FC = () => {
                       return (
                         <div
                           key={prog.id}
-                          className={`bg-slate-900/50 border p-3 rounded-xl space-y-2 transition-all ${
+                          className={`border p-3 rounded-xl space-y-2 transition-all shadow-2xs ${
                             isRunning
-                              ? 'border-blue-500 bg-blue-950/20 shadow-md ring-1 ring-blue-500/40'
+                              ? 'border-blue-400 bg-blue-50/70 shadow-2xs ring-1 ring-blue-400/40'
                               : isSelected
-                              ? 'border-slate-700 bg-slate-900/80'
-                              : 'border-slate-800/80 hover:border-slate-700'
+                              ? 'border-slate-300 bg-slate-50/90'
+                              : 'bg-white border-slate-200/90 hover:border-slate-300'
                           }`}
                         >
                           <div className="flex items-start justify-between gap-2">
@@ -825,37 +1098,37 @@ export const VfxGallery: React.FC = () => {
                               className="cursor-pointer flex-1"
                               onClick={() => setSelectedProgramId(isSelected ? null : prog.id)}
                             >
-                              <div className="flex items-center gap-2">
-                                <span className="font-mono text-[10px] font-bold text-blue-400 bg-blue-500/10 px-1.5 py-0.5 rounded">
+                              <div className="flex items-center gap-1.5 flex-wrap">
+                                <span className="font-mono text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200/60 px-1.5 py-0.5 rounded">
                                   {prog.id}
                                 </span>
                                 {hasPrecip && (
-                                  <span className="text-[9px] bg-cyan-500/20 text-cyan-300 px-1.5 py-0.2 rounded font-semibold">
+                                  <span className="text-[9px] bg-cyan-50 text-cyan-700 border border-cyan-200/60 px-1.5 py-0.5 rounded font-semibold">
                                     Precipitate
                                   </span>
                                 )}
                                 {hasGas && (
-                                  <span className="text-[9px] bg-amber-500/20 text-amber-300 px-1.5 py-0.2 rounded font-semibold">
+                                  <span className="text-[9px] bg-amber-50 text-amber-700 border border-amber-200/60 px-1.5 py-0.5 rounded font-semibold">
                                     Gas
                                   </span>
                                 )}
                                 {prog.visual.timeWarp && (
-                                  <span className="text-[9px] bg-violet-500/20 text-violet-300 px-1.5 py-0.2 rounded font-semibold">
+                                  <span className="text-[9px] bg-purple-50 text-purple-700 border border-purple-200/60 px-1.5 py-0.5 rounded font-semibold">
                                     time-lapse
                                   </span>
                                 )}
                               </div>
-                              <h4 className="text-xs font-bold text-slate-100 mt-1 font-mono">
+                              <h4 className="text-xs font-bold text-slate-800 mt-1 font-mono">
                                 {prog.chemistry.equation}
                               </h4>
-                              <p className="text-[10px] text-slate-400 mt-0.5">
+                              <p className="text-[10px] text-slate-500 mt-0.5">
                                 {language === 'vi' ? prog.explain.observation_vi : prog.explain.observation_en}
                               </p>
                             </div>
 
                             <button
                               onClick={() => executeProgram(prog)}
-                              className="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-[10px] font-bold flex items-center gap-1 transition-colors shadow-xs shrink-0"
+                              className="px-2.5 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-[10px] font-bold flex items-center gap-1 transition-colors shadow-2xs shrink-0"
                             >
                               <Play size={10} />
                               <span>Run Program</span>
@@ -864,47 +1137,47 @@ export const VfxGallery: React.FC = () => {
 
                           {/* Expanded Program Deep Inspector */}
                           {isSelected && (
-                            <div className="pt-2 border-t border-slate-800/80 space-y-2 text-[10px]">
+                            <div className="pt-2 border-t border-slate-200 space-y-2 text-[10px]">
                               {/* Kinetics & Energy */}
-                              <div className="grid grid-cols-2 gap-2 bg-slate-950/60 p-2 rounded-lg font-mono">
+                              <div className="grid grid-cols-2 gap-2 bg-slate-50 p-2 rounded-lg font-mono border border-slate-200/80">
                                 <div>
                                   <span className="text-slate-500">Model: </span>
-                                  <span className="text-indigo-300">{prog.chemistry.kinetics.model}</span>
+                                  <span className="text-indigo-600 font-semibold">{prog.chemistry.kinetics.model}</span>
                                 </div>
                                 <div>
                                   <span className="text-slate-500">Duration: </span>
-                                  <span className="text-amber-300">{prog.visual.duration_s}s</span>
+                                  <span className="text-amber-600 font-semibold">{prog.visual.duration_s}s</span>
                                 </div>
                                 <div>
                                   <span className="text-slate-500">ΔH theo phương trình: </span>
-                                  <span className={prog.chemistry.deltaH_kJ_per_mol && prog.chemistry.deltaH_kJ_per_mol < 0 ? 'text-rose-400' : 'text-cyan-400'}>
+                                  <span className={prog.chemistry.deltaH_kJ_per_mol && prog.chemistry.deltaH_kJ_per_mol < 0 ? 'text-rose-600 font-bold' : 'text-blue-600 font-semibold'}>
                                     {prog.chemistry.deltaH_kJ_per_mol == null ? 'Chưa có dữ liệu' : `${prog.chemistry.deltaH_kJ_per_mol} kJ/mol phản ứng`}
                                   </span>
                                 </div>
                                 <div>
                                   <span className="text-slate-500">Điểm metadata: </span>
-                                  <span className="text-emerald-400">{(prog.confidence * 100).toFixed(0)}% · chưa hiệu chuẩn</span>
+                                  <span className="text-emerald-600 font-semibold">{(prog.confidence * 100).toFixed(0)}% · chưa hiệu chuẩn</span>
                                 </div>
                               </div>
 
                               {/* Timeline Atoms */}
-                              {prog.chemistry.deltaHNote_vi && <p className="text-[10px] text-slate-400">{prog.chemistry.deltaHNote_vi}</p>}
+                              {prog.chemistry.deltaHNote_vi && <p className="text-[10px] text-slate-500">{prog.chemistry.deltaHNote_vi}</p>}
                               <div>
-                                <span className="font-bold text-slate-300 block mb-1">Effect Atoms Timeline:</span>
+                                <span className="font-bold text-slate-700 block mb-1">Effect Atoms Timeline:</span>
                                 <div className="space-y-1">
                                   {prog.visual.timeline.map((atomInst, idx) => (
-                                    <div key={idx} className="flex items-center justify-between bg-slate-950/40 px-2 py-1 rounded text-[9px] font-mono">
-                                      <span className="text-cyan-400 font-bold">{atomInst.atom}</span>
-                                      <span className="text-slate-400">anchor: {atomInst.anchor}</span>
-                                      <span className="text-amber-300">[{atomInst.window[0] * 100}% - {atomInst.window[1] * 100}%]</span>
+                                    <div key={idx} className="flex items-center justify-between bg-slate-50 border border-slate-200/70 px-2 py-1 rounded text-[9px] font-mono">
+                                      <span className="text-blue-600 font-bold">{atomInst.atom}</span>
+                                      <span className="text-slate-500">anchor: {atomInst.anchor}</span>
+                                      <span className="text-amber-600 font-semibold">[{atomInst.window[0] * 100}% - {atomInst.window[1] * 100}%]</span>
                                     </div>
                                   ))}
                                 </div>
                               </div>
 
                               {/* Chemical Mechanism */}
-                              <div className="bg-slate-950/40 p-2 rounded text-[10px] text-slate-300">
-                                <span className="font-bold text-slate-400 block mb-0.5">Mechanism:</span>
+                              <div className="bg-slate-50 border border-slate-200/80 p-2 rounded text-[10px] text-slate-700">
+                                <span className="font-bold text-slate-800 block mb-0.5">Mechanism:</span>
                                 {language === 'vi' ? prog.explain.why_vi : prog.explain.why_en}
                               </div>
                             </div>
@@ -919,17 +1192,17 @@ export const VfxGallery: React.FC = () => {
             {/* TAB 3: EFFECT ATOM MASTER CATALOG (32 ATOMS) */}
             {activeTab === 'atoms' && (
               <div className="space-y-3">
-                <div className="bg-slate-900/60 p-3 rounded-xl border border-slate-800 space-y-2">
-                  <div className="flex items-center justify-between text-[11px] font-bold text-cyan-300">
-                    <span className="flex items-center gap-1.5">
-                      <Cpu size={14} className="text-cyan-400" />
+                <div className="bg-white p-3 rounded-xl border border-slate-200 space-y-2 shadow-2xs">
+                  <div className="flex items-center justify-between text-[11px] font-bold text-slate-800">
+                    <span className="flex items-center gap-1.5 text-blue-600">
+                      <Cpu size={14} />
                       Danh mục hiệu ứng ({EFFECT_ATOM_CATALOG.length} mục)
                     </span>
-                    <span className="text-[10px] bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-full font-mono">
+                    <span className="text-[10px] bg-blue-50 text-blue-700 border border-blue-200/80 px-2 py-0.5 rounded-full font-mono font-bold">
                       Bối cảnh và điều kiện
                     </span>
                   </div>
-                  <p className="text-[10px] text-slate-400 leading-relaxed">
+                  <p className="text-[10px] text-slate-500 leading-relaxed">
                     Mở mẫu phản ứng liên quan hoặc thao tác vật lý được hỗ trợ. Thông số tham khảo không tự thêm vật chất vào mẫu; hiệu ứng chưa có mô hình phù hợp sẽ mở phần giới hạn.
                   </p>
 
@@ -941,8 +1214,8 @@ export const VfxGallery: React.FC = () => {
                         onClick={() => setAtomCategoryFilter(cat)}
                         className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase transition-all ${
                           atomCategoryFilter === cat
-                            ? 'bg-cyan-600 text-white shadow-xs'
-                            : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                            ? 'bg-blue-600 text-white shadow-2xs'
+                            : 'bg-slate-100 text-slate-600 hover:text-slate-900 border border-slate-200'
                         }`}
                       >
                         {cat}
@@ -951,7 +1224,7 @@ export const VfxGallery: React.FC = () => {
                   </div>
                 </div>
 
-                {atomNotice && <p role="status" className="rounded border border-cyan-800 p-2 text-[11px] text-cyan-200">{atomNotice}</p>}
+                {atomNotice && <p role="status" className="rounded-lg border border-blue-200 bg-blue-50/80 p-2 text-[11px] text-blue-800">{atomNotice}</p>}
                 {/* Atoms List */}
                 <div className="grid grid-cols-1 gap-2">
                   {EFFECT_ATOM_CATALOG
@@ -962,10 +1235,10 @@ export const VfxGallery: React.FC = () => {
                       return (
                         <div
                           key={atom.name}
-                          className={`bg-slate-900/50 border p-3 rounded-xl space-y-2 transition-all ${
+                          className={`border p-3 rounded-xl space-y-2 transition-all shadow-2xs ${
                             isSelected
-                              ? 'border-cyan-500 bg-cyan-950/20 shadow-md'
-                              : 'border-slate-800/80 hover:border-slate-700'
+                              ? 'border-blue-400 bg-blue-50/70 shadow-2xs ring-1 ring-blue-400/40'
+                              : 'bg-white border-slate-200/90 hover:border-slate-300'
                           }`}
                         >
                           <div className="flex items-start justify-between gap-2">
@@ -973,25 +1246,25 @@ export const VfxGallery: React.FC = () => {
                               className="cursor-pointer flex-1"
                               onClick={() => setSelectedAtomName(isSelected ? null : atom.name)}
                             >
-                              <div className="flex items-center gap-2">
-                                <h4 className="text-xs font-bold text-slate-100 font-mono text-cyan-300">
+                              <div className="flex items-center gap-1.5 flex-wrap">
+                                <h4 className="text-xs font-bold text-slate-800 font-mono text-blue-700">
                                   {atom.name}
                                 </h4>
-                                <span className="text-[9px] bg-slate-800 text-slate-300 px-1.5 py-0.2 rounded font-mono">
+                                <span className="text-[9px] bg-slate-100 text-slate-600 border border-slate-200 px-1.5 py-0.5 rounded font-mono">
                                   {atom.category}
                                 </span>
-                                <span className="text-[9px] bg-slate-800/80 text-amber-300 px-1.5 py-0.2 rounded font-mono">
+                                <span className="text-[9px] bg-amber-50 text-amber-700 border border-amber-200 px-1.5 py-0.5 rounded font-mono font-semibold">
                                   cost: {atom.budget.shaderCost}/3
                                 </span>
                               </div>
-                              <p className="text-[10px] text-slate-400 mt-1">
+                              <p className="text-[10px] text-slate-500 mt-1">
                                 {atom.summary_en}
                               </p>
                             </div>
 
                             <button
                               onClick={() => executeAtomPreset(atom, 0)}
-                              className="px-2.5 py-1 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg text-[10px] font-bold flex items-center gap-1 transition-colors shadow-xs shrink-0"
+                              className="px-2.5 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-[10px] font-bold flex items-center gap-1 transition-colors shadow-2xs shrink-0"
                             >
                               <Play size={10} />
                               <span>{studioAtomAction(atom, 0).label}</span>
@@ -1000,34 +1273,34 @@ export const VfxGallery: React.FC = () => {
 
                           {/* Expanded Atom Details */}
                           {isSelected && (
-                            <div className="pt-2 border-t border-slate-800/80 space-y-2 text-[10px]">
+                            <div className="pt-2 border-t border-slate-200 space-y-2 text-[10px]">
                               {/* Use When / Avoid When */}
                               <div className="grid grid-cols-2 gap-2">
-                                <div className="bg-emerald-950/30 border border-emerald-800/40 p-2 rounded text-emerald-300">
-                                  <span className="font-bold block text-emerald-400 mb-0.5">Use When:</span>
+                                <div className="bg-emerald-50 border border-emerald-200 p-2 rounded-lg text-emerald-800">
+                                  <span className="font-bold block text-emerald-900 mb-0.5">Use When:</span>
                                   {atom.useWhen.join('; ')}
                                 </div>
-                                <div className="bg-rose-950/30 border border-rose-800/40 p-2 rounded text-rose-300">
-                                  <span className="font-bold block text-rose-400 mb-0.5">Avoid When:</span>
+                                <div className="bg-rose-50 border border-rose-200 p-2 rounded-lg text-rose-800">
+                                  <span className="font-bold block text-rose-900 mb-0.5">Avoid When:</span>
                                   {atom.avoidWhen.join('; ')}
                                 </div>
                               </div>
 
                               {/* Allowed Anchors */}
-                              <div className="bg-slate-950/60 p-2 rounded font-mono text-[9px] text-slate-400">
-                                <span className="font-bold text-slate-300">Allowed Anchors: </span>
+                              <div className="bg-slate-50 border border-slate-200 p-2 rounded-lg font-mono text-[9px] text-slate-700">
+                                <span className="font-bold text-slate-800">Allowed Anchors: </span>
                                 {atom.anchorsAllowed.join(', ')}
                               </div>
 
                               {/* Parameter Specs */}
                               <div>
-                                <span className="font-bold text-slate-300 block mb-1">Parameters Schema:</span>
+                                <span className="font-bold text-slate-700 block mb-1">Parameters Schema:</span>
                                 <div className="space-y-1">
                                   {Object.entries(atom.params).map(([paramName, spec]: [string, any]) => (
-                                    <div key={paramName} className="flex items-center justify-between bg-slate-950/40 px-2 py-1 rounded text-[9px] font-mono">
-                                      <span className="text-indigo-300 font-bold">{paramName}</span>
+                                    <div key={paramName} className="flex items-center justify-between bg-slate-50 border border-slate-200/70 px-2 py-1 rounded text-[9px] font-mono">
+                                      <span className="text-blue-700 font-bold">{paramName}</span>
                                       <span className="text-slate-500">type: {spec.type}</span>
-                                      <span className="text-amber-400">default: {JSON.stringify(spec.default)}</span>
+                                      <span className="text-amber-600 font-semibold">default: {JSON.stringify(spec.default)}</span>
                                     </div>
                                   ))}
                                 </div>
@@ -1036,17 +1309,17 @@ export const VfxGallery: React.FC = () => {
                               {/* Presets Gallery */}
                               {atom.gallery && atom.gallery.length > 0 && (
                                 <div>
-                                  <span className="font-bold text-slate-300 block mb-1">Gallery Presets ({atom.gallery.length}):</span>
+                                  <span className="font-bold text-slate-700 block mb-1">Gallery Presets ({atom.gallery.length}):</span>
                                   <div className="space-y-1.5">
                                     {atom.gallery.map((preset, pIdx) => (
-                                      <div key={pIdx} className="flex items-center justify-between bg-slate-950/60 p-2 rounded">
+                                      <div key={pIdx} className="flex items-center justify-between bg-slate-50 border border-slate-200/80 p-2 rounded-lg">
                                         <div>
-                                          <span className="font-bold text-slate-200 block">{preset.title}</span>
-                                          <span className="text-[9px] text-slate-400">{preset.description}</span>
+                                          <span className="font-bold text-slate-800 block">{preset.title}</span>
+                                          <span className="text-[9px] text-slate-500">{preset.description}</span>
                                         </div>
                                         <button
                                           onClick={() => executeAtomPreset(atom, pIdx)}
-                                          className="px-2 py-0.5 bg-slate-800 hover:bg-cyan-600 text-slate-300 hover:text-white rounded text-[9px] font-bold transition-colors"
+                                          className="px-2 py-0.5 bg-white hover:bg-blue-50 text-slate-700 hover:text-blue-700 border border-slate-200 rounded text-[9px] font-bold transition-colors shadow-2xs"
                                         >
                                           {studioAtomAction(atom, pIdx).label}
                                         </button>
@@ -1067,17 +1340,17 @@ export const VfxGallery: React.FC = () => {
             {/* TAB: PRECIPITATE MORPHOLOGY INSPECTOR */}
             {activeTab === 'morphology' && (
               <div className="space-y-3">
-                <div className="bg-slate-900/60 p-3 rounded-xl border border-slate-800 space-y-1.5">
-                  <div className="flex items-center justify-between text-[11px] font-bold text-violet-300">
-                    <span className="flex items-center gap-1.5">
+                <div className="bg-white p-3 rounded-xl border border-slate-200 space-y-1.5 shadow-2xs">
+                  <div className="flex items-center justify-between text-[11px] font-bold text-slate-800">
+                    <span className="flex items-center gap-1.5 text-purple-600">
                       <Sparkles size={14} />
                       8 mẫu hình thái chất rắn
                     </span>
-                    <span className="text-[10px] bg-violet-500/20 text-violet-300 px-2 py-0.5 rounded-full font-mono">
+                    <span className="text-[10px] bg-purple-50 text-purple-700 border border-purple-200 px-2 py-0.5 rounded-full font-mono font-bold">
                       Hình thái minh họa
                     </span>
                   </div>
-                  <p className="text-[10px] text-slate-400 leading-relaxed">
+                  <p className="text-[10px] text-slate-500 leading-relaxed">
                     Tạo mẫu riêng có kho chất định lượng. Bảy mẫu chạy phản ứng tạo chất rắn; thạch cao là mẫu có sẵn. Hình dạng hạt chưa được hiệu chuẩn thực nghiệm.
                   </p>
                 </div>
@@ -1086,20 +1359,20 @@ export const VfxGallery: React.FC = () => {
                   {PRECIPITATE_MORPHOLOGIES.map((morph) => (
                     <div
                       key={morph.type}
-                      className="bg-slate-900/40 border border-slate-800 hover:border-violet-500/50 p-3 rounded-xl space-y-2 transition-all group"
+                      className="bg-white border border-slate-200/90 hover:border-purple-300 hover:shadow-2xs p-3 rounded-xl space-y-2 transition-all group shadow-2xs"
                     >
                       <div className="flex items-start justify-between">
                         <div>
                           <div className="flex items-center gap-2">
                             <span 
-                              className="w-3.5 h-3.5 rounded-full border border-white/20 shadow-xs shrink-0" 
+                              className="w-3.5 h-3.5 rounded-full border border-slate-300 shadow-2xs shrink-0"
                               style={{ backgroundColor: morph.color }} 
                             />
-                            <h4 className="text-xs font-bold text-slate-200 group-hover:text-violet-300 transition-colors">
+                            <h4 className="text-xs font-bold text-slate-800 group-hover:text-purple-700 transition-colors">
                               {morph.name}
                             </h4>
                           </div>
-                          <span className="text-[10px] font-mono text-violet-400/90 ml-5">
+                          <span className="text-[10px] font-mono text-purple-600 ml-5 font-semibold">
                             {morph.example}
                           </span>
                         </div>
@@ -1107,26 +1380,26 @@ export const VfxGallery: React.FC = () => {
                         <button
                           onClick={() => {
                             const store = useAppStore.getState();
-                            const id = store.prepareStudioMorphology(morph.type);
+                            const id = store.prepareStudioMorphology(morph.type, requireTarget() ?? "");
                             if (!id) return;
                             setSelectedVesselId(id);
                             setActiveTestId(morph.programId);
                             if (morph.programId) store.runStudioProgram(id);
                           }}
-                          className="px-2.5 py-1 bg-violet-600 hover:bg-violet-500 text-white rounded-lg text-[10px] font-bold flex items-center gap-1 transition-colors shadow-xs"
+                          className="px-2.5 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-[10px] font-bold flex items-center gap-1 transition-colors shadow-2xs"
                         >
                           <Play size={10} />
                           <span>{morph.programId ? 'Tạo mẫu và chạy' : 'Tạo mẫu có sẵn'}</span>
                         </button>
                       </div>
 
-                      <p className="text-[10px] text-slate-400 leading-relaxed">
+                      <p className="text-[10px] text-slate-500 leading-relaxed">
                         {morph.description}
                       </p>
 
-                      <div className="flex items-center justify-between text-[9px] font-mono text-slate-500 bg-slate-950/40 px-2 py-1 rounded">
+                      <div className="flex items-center justify-between text-[9px] font-mono text-slate-600 bg-slate-50 border border-slate-200/70 px-2 py-1 rounded">
                         <span>{morph.settling}</span>
-                        <span>{morph.programId ? 'Lượng từ phản ứng' : 'Mẫu ảo định lượng'}</span>
+                        <span className="font-semibold text-slate-500">{morph.programId ? 'Lượng từ phản ứng' : 'Mẫu ảo định lượng'}</span>
                       </div>
                     </div>
                   ))}
@@ -1135,11 +1408,12 @@ export const VfxGallery: React.FC = () => {
                 {/* Resuspension Action */}
                 <button
                   onClick={() => {
-                    const targetId = getOrCreateTargetVesselId();
+                    const targetId = requireTarget();
+    if (!targetId) return;
                     useAppStore.getState().stirVessel(targetId);
                     labSound.playStir();
                   }}
-                  className="w-full py-2 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-colors border border-slate-700"
+                  className="w-full py-2 bg-purple-50 hover:bg-purple-100 text-purple-700 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-colors border border-purple-200 shadow-2xs"
                 >
                   <RotateCcw size={13} />
                   <span>Agitate Liquid & Resuspend Precipitates</span>
@@ -1151,13 +1425,13 @@ export const VfxGallery: React.FC = () => {
             {activeTab === 'physics' && (
               <div className="space-y-3.5">
                 {/* Laboratory Heating Controls */}
-                <div className="bg-slate-900/60 p-3 rounded-xl border border-slate-800 space-y-2.5">
-                  <div className="flex items-center justify-between text-[11px] font-bold text-slate-200">
-                    <span className="flex items-center gap-1.5 text-amber-400">
+                <div className="bg-white p-3 rounded-xl border border-slate-200 space-y-2.5 shadow-2xs">
+                  <div className="flex items-center justify-between text-[11px] font-bold text-slate-800">
+                    <span className="flex items-center gap-1.5 text-amber-600">
                       <Flame size={14} />
                       Heating Equipment
                     </span>
-                    <span className="text-[10px] font-mono text-slate-400">
+                    <span className="text-[10px] font-mono text-slate-500">
                       Target: {targetVessel ? targetVessel.name : 'Beaker'}
                     </span>
                   </div>
@@ -1168,36 +1442,59 @@ export const VfxGallery: React.FC = () => {
                       onClick={handleBurnerCycle}
                       className={`p-2 rounded-lg border font-bold text-left flex flex-col justify-between transition-all ${
                         burnerState === 'blue'
-                          ? 'bg-blue-600/30 border-blue-500 text-blue-200'
-                          : (burnerState === 'yellow' ? 'bg-amber-600/30 border-amber-500 text-amber-200' : 'bg-slate-800/60 border-slate-700 text-slate-400')
+                          ? 'bg-blue-50 border-blue-300 text-blue-700 shadow-2xs'
+                          : (burnerState === 'yellow' ? 'bg-amber-50 border-amber-300 text-amber-700 shadow-2xs' : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100')
                       }`}
                     >
-                      <span className="text-[9px] uppercase font-mono">Đèn cồn</span>
+                      <span className="text-[9px] uppercase font-mono text-slate-500">Đèn cồn</span>
                       <span className="text-[11px]">
                         {burnerState === 'blue' ? 'Mức bấc 4' : (burnerState === 'yellow' ? 'Mức bấc 2' : 'Đã tắt')}
                       </span>
                     </button>
-
                   </div>
                   {Object.values(vessels).some(v => v.type === 'hot_plate') ? <>
-                    <select className="w-full rounded bg-slate-800 p-1 text-xs" value={selectedHotPlateId || Object.values(vessels).find(v => v.type === 'hot_plate')!.id}
+                    <select className="w-full rounded-lg bg-slate-50 border border-slate-200 text-slate-800 p-1.5 text-xs shadow-2xs" value={selectedHotPlateId || Object.values(vessels).find(v => v.type === 'hot_plate')!.id}
                       onChange={event => setSelectedHotPlateId(event.target.value)}>
                       {Object.values(vessels).filter(v => v.type === 'hot_plate').map(v => <option key={v.id} value={v.id}>{v.name}</option>)}
                     </select>
                     <HotPlateControls plateId={vessels[selectedHotPlateId]?.type === 'hot_plate' ? selectedHotPlateId : Object.values(vessels).find(v => v.type === 'hot_plate')!.id} targetId={targetVessel?.id} />
-                  </> : <button className="rounded border px-3 py-1 text-xs" onClick={() => addVessel('hot_plate')}>Thêm bếp gia nhiệt</button>}
+                  </> : <button className="rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-semibold px-3 py-1.5 text-xs shadow-2xs transition-colors" onClick={() => addVessel('hot_plate')}>Thêm bếp gia nhiệt</button>}
 
-                  <p className="text-[10px] text-slate-400">{targetVessel?.isBoiling ? 'Mẫu đang hóa hơi theo ngân sách nhiệt.' : 'Mẫu chưa sôi.'} Hết nước thì dừng sinh hơi nước. Chưa mô phỏng động học sôi vọt và đá bọt.</p>
+                  <p className="text-[10px] text-slate-500">{targetVessel?.isBoiling ? 'Mẫu đang hóa hơi theo ngân sách nhiệt.' : 'Mẫu chưa sôi.'} Hết nước thì dừng sinh hơi nước. Chưa mô phỏng động học sôi vọt và đá bọt.</p>
+                </div>
+
+                <div className="bg-white p-3 rounded-xl border border-slate-200 space-y-3 text-[11px]">
+                  <p className="font-bold">Sôi · Bay hơi · Sương trên thành · Tràn</p>
+                  <label className="block">Nguồn nhiệt ảo: {targetVessel?.effectHeatInput_W ?? 0} W
+                    <input aria-label="VFX heat input" className="w-full" type="range" min="0" max="500" step="10"
+                      value={targetVessel?.effectHeatInput_W ?? 0} onChange={e => {
+                        const id = requireTarget(); if (id) setAtomNotice(effects.forVessel(id).setHeatInput(Number(e.target.value)).message);
+                      }} />
+                  </label>
+                  <label className="block">Độ ẩm tại bình: {Math.round((targetVessel?.effectsEnvironment?.relativeHumidity ?? targetVessel?.environment?.relativeHumidity ?? 0.5) * 100)}%
+                    <input aria-label="VFX relative humidity" className="w-full" type="range" min="0" max="1" step="0.05"
+                      value={targetVessel?.effectsEnvironment?.relativeHumidity ?? targetVessel?.environment?.relativeHumidity ?? 0.5}
+                      onChange={e => { const id = requireTarget(); if (id) setAtomNotice(effects.forVessel(id).setEnvironment({ relativeHumidity: Number(e.target.value) }).message); }} />
+                  </label>
+                  <p>Bay hơi: {(targetVessel?.evaporationRate_g_s ?? 0).toFixed(5)} g/s · Sương trong: {(targetVessel?.wallCondensation?.inner_g ?? 0).toFixed(4)} g · Sương ngoài: {(targetVessel?.wallCondensation?.outer_g ?? 0).toFixed(4)} g</p>
+                  <p className="text-slate-500">Hơi nước trong suốt; chỉ hiện plume khi trộn với không khí tạo quá bão hòa. Mô hình truyền khối và nhiệt độ thành là xấp xỉ.</p>
+                  <select aria-label="Overflow source vessel" className="w-full border rounded p-1" value={overflowSourceId} onChange={e => setOverflowSourceId(e.target.value)}>
+                    <option value="">Chọn bình nguồn hữu hạn để cấp nước…</option>
+                    {Object.values(vessels).filter(v => v.id !== selectedVesselId && v.volume_ml > 0).map(v => <option key={v.id} value={v.id}>{v.name} · {v.volume_ml.toFixed(1)} mL</option>)}
+                  </select>
+                  <button className="rounded border px-2 py-1 text-blue-700" onClick={() => {
+                    const id = requireTarget(); if (id) setAtomNotice(effects.forVessel(id).doseLiquid(overflowSourceId, 10).message);
+                  }}>Chuyển 10 mL vào bình đích · đầy thì tràn</button>
                 </div>
 
                 {/* Stirring & Fluid Vortex Studio */}
-                <div className="bg-slate-900/60 p-3 rounded-xl border border-slate-800 space-y-2.5">
-                  <div className="flex items-center justify-between text-[11px] font-bold text-slate-200">
-                    <span className="flex items-center gap-1.5 text-cyan-400">
+                <div className="bg-white p-3 rounded-xl border border-slate-200 space-y-2.5 shadow-2xs">
+                  <div className="flex items-center justify-between text-[11px] font-bold text-slate-800">
+                    <span className="flex items-center gap-1.5 text-blue-600">
                       <Compass size={14} />
                       Stirrer & Fluid Vortex
                     </span>
-                    <span className="text-[10px] font-mono text-cyan-300">{stirrerRpm} RPM</span>
+                    <span className="text-[10px] font-mono text-blue-700 font-bold">{stirrerRpm} RPM</span>
                   </div>
 
                   <input
@@ -1207,27 +1504,27 @@ export const VfxGallery: React.FC = () => {
                     step={50}
                     value={stirrerRpm}
                     onChange={(e) => handleStirChange(Number(e.target.value))}
-                    className="w-full accent-cyan-500 h-1.5 bg-slate-800 rounded-lg cursor-pointer"
+                    className="w-full accent-blue-600 h-1.5 bg-slate-200 rounded-lg cursor-pointer"
                   />
 
-                  <div className="flex justify-between text-[9px] font-mono text-slate-400">
+                  <div className="flex justify-between text-[9px] font-mono text-slate-500">
                     <span>Rankine Dip: {stirrerRpm > 0 ? `${(Math.pow(stirrerRpm / 300, 2) * 2.2).toFixed(1)} mm` : '0 mm'}</span>
                     <span>Shear: {stirrerRpm > 0 ? `${(stirrerRpm * 0.005).toFixed(2)} Pa` : '0 Pa'}</span>
                   </div>
                 </div>
 
                 {/* Dropper & Hydraulics */}
-                <div className="bg-slate-900/60 p-3 rounded-xl border border-slate-800 space-y-2">
-                  <div className="text-[11px] font-bold text-slate-200 flex items-center gap-1.5 text-blue-400">
+                <div className="bg-white p-3 rounded-xl border border-slate-200 space-y-2 shadow-2xs">
+                  <div className="text-[11px] font-bold text-slate-800 flex items-center gap-1.5 text-blue-600">
                     <Droplets size={14} />
                     <span>Hydraulic Inflow & Droppers</span>
                   </div>
 
-                  <p className="text-[10px] text-slate-400">Hút mẫu bằng công cụ pipet trước. 0,05 mL là liều chọn trong mô phỏng; thể tích giọt thật phụ thuộc đầu nhỏ giọt và chất lỏng.</p>
+                  <p className="text-[10px] text-slate-500">Hút mẫu bằng công cụ pipet trước. 0,05 mL là liều chọn trong mô phỏng; thể tích giọt thật phụ thuộc đầu nhỏ giọt và chất lỏng.</p>
                   <div className="grid grid-cols-2 gap-2">
                     <button
                       onClick={handleAddDropperDrop}
-                      className="py-2 px-3 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/40 text-blue-300 font-bold text-[10px] flex items-center justify-center gap-1.5 transition-colors"
+                      className="py-2 px-3 rounded-lg bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 font-bold text-[10px] flex items-center justify-center gap-1.5 transition-colors shadow-2xs"
                     >
                       <Droplets size={13} />
                       <span>Nhả 0,05 mL từ pipet</span>
@@ -1239,7 +1536,7 @@ export const VfxGallery: React.FC = () => {
                         setTimeout(() => proceduralAudio.updatePouringState(false, 0.08), 2000);
                         labSound.playPour(2.0);
                       }}
-                      className="py-2 px-3 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-indigo-300 font-bold text-[10px] flex items-center justify-center gap-1.5 transition-colors"
+                      className="py-2 px-3 rounded-lg bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-700 font-bold text-[10px] flex items-center justify-center gap-1.5 transition-colors shadow-2xs"
                     >
                       <Wind size={13} />
                       <span>Weir Pour Stream</span>
@@ -1253,9 +1550,9 @@ export const VfxGallery: React.FC = () => {
             {activeTab === 'flames' && (
               <div className="space-y-3.5">
                 {/* Wire Loop Flame Test */}
-                <div className="bg-slate-900/60 p-3 rounded-xl border border-slate-800 space-y-2.5">
-                  <div className="flex items-center justify-between text-[11px] font-bold text-slate-200">
-                    <span className="flex items-center gap-1.5 text-amber-400">
+                <div className="bg-white p-3 rounded-xl border border-slate-200 space-y-2.5 shadow-2xs">
+                  <div className="flex items-center justify-between text-[11px] font-bold text-slate-800">
+                    <span className="flex items-center gap-1.5 text-amber-600">
                       <Flame size={14} />
                       Flame Color Reference Preview
                     </span>
@@ -1263,8 +1560,8 @@ export const VfxGallery: React.FC = () => {
                       onClick={() => setUseCobaltGlass(!useCobaltGlass)}
                       className={`px-2 py-0.5 rounded font-mono text-[9px] font-bold border transition-colors flex items-center gap-1 ${
                         useCobaltGlass
-                          ? 'bg-purple-600 text-white border-purple-400'
-                          : 'bg-slate-800 border-slate-700 text-slate-400'
+                          ? 'bg-purple-50 text-purple-700 border-purple-300 font-bold shadow-2xs'
+                          : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
                       }`}
                     >
                       <Filter size={10} />
@@ -1272,8 +1569,8 @@ export const VfxGallery: React.FC = () => {
                     </button>
                   </div>
 
-                  {useCobaltGlass && <p className="text-[10px] text-slate-300">Kính coban lọc ánh sáng tới mắt, làm giảm màu vàng của Na; không làm đổi ngọn lửa. Mục này giải thích kính lọc, chưa mô phỏng phổ truyền qua kính.</p>}
-                {/* Element Selector */}
+                  {useCobaltGlass && <p className="text-[10px] text-slate-500">Kính coban lọc ánh sáng tới mắt, làm giảm màu vàng của Na; không làm đổi ngọn lửa. Mục này giải thích kính lọc, chưa mô phỏng phổ truyền qua kính.</p>}
+                  {/* Element Selector */}
                   <div className="grid grid-cols-3 gap-1.5">
                     {[
                       { sym: 'Cu', name: 'Copper (Blue-green)', color: '#10b981' },
@@ -1288,22 +1585,22 @@ export const VfxGallery: React.FC = () => {
                         onClick={() => setSelectedFlameElement(el.sym)}
                         className={`p-2 rounded-lg border font-bold text-left transition-all ${
                           selectedFlameElement === el.sym
-                            ? 'bg-slate-800 border-amber-400 text-white shadow'
-                            : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
+                            ? 'bg-amber-50 border-amber-400 text-slate-900 shadow-2xs'
+                            : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
                         }`}
                       >
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-mono">{el.sym}</span>
-                          <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: el.color }} />
+                          <span className="text-xs font-mono font-bold">{el.sym}</span>
+                          <span className="w-2.5 h-2.5 rounded-full border border-slate-300" style={{ backgroundColor: el.color }} />
                         </div>
-                        <div className="text-[9px] text-slate-400 truncate mt-0.5">{el.name.split(' ')[0]}</div>
+                        <div className="text-[9px] text-slate-500 truncate mt-0.5">{el.name.split(' ')[0]}</div>
                       </button>
                     ))}
                   </div>
 
                   <button
                     onClick={handleFlameTest}
-                    className="w-full py-2 rounded-lg bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-bold text-[11px] shadow transition-all flex items-center justify-center gap-1.5"
+                    className="w-full py-2 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold text-[11px] shadow-2xs transition-all flex items-center justify-center gap-1.5"
                   >
                     <Flame size={14} />
                     <span>Preview Reference Color (7.5 s)</span>
@@ -1311,8 +1608,8 @@ export const VfxGallery: React.FC = () => {
                 </div>
 
                 {/* Pyrotechnics Demonstrations */}
-                <div className="bg-slate-900/60 p-3 rounded-xl border border-slate-800 space-y-2">
-                  <div className="text-[11px] font-bold text-slate-200 flex items-center gap-1.5 text-red-400">
+                <div className="bg-white p-3 rounded-xl border border-slate-200 space-y-2 shadow-2xs">
+                  <div className="text-[11px] font-bold text-slate-800 flex items-center gap-1.5 text-rose-600">
                     <Zap size={14} />
                     <span>Metal Pyrotechnics & Alkali</span>
                   </div>
@@ -1320,18 +1617,18 @@ export const VfxGallery: React.FC = () => {
                   <div className="grid grid-cols-2 gap-2">
                     <button
                       onClick={() => executeReaction('burn_magnesium')}
-                      className="p-2.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-left flex flex-col justify-between transition-colors"
+                      className="p-2.5 rounded-lg bg-slate-50 border border-slate-200 hover:bg-slate-100 text-left flex flex-col justify-between transition-colors shadow-2xs"
                     >
-                      <span className="font-bold text-[10px] text-white">Magnesium Ribbon</span>
-                      <span className="text-[9px] text-slate-400">3100 K Blinding White</span>
+                      <span className="font-bold text-[10px] text-slate-800">Magnesium Ribbon</span>
+                      <span className="text-[9px] text-slate-500">3100 K Blinding White</span>
                     </button>
 
                     <button
                       onClick={() => executeReaction('sodium_water_reaction')}
-                      className="p-2.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-left flex flex-col justify-between transition-colors"
+                      className="p-2.5 rounded-lg bg-slate-50 border border-slate-200 hover:bg-slate-100 text-left flex flex-col justify-between transition-colors shadow-2xs"
                     >
-                      <span className="font-bold text-[10px] text-amber-300">Sodium in Water</span>
-                      <span className="text-[9px] text-slate-400">H2 Jet Skater & Pop</span>
+                      <span className="font-bold text-[10px] text-amber-700">Sodium in Water</span>
+                      <span className="text-[9px] text-slate-500">H2 Jet Skater & Pop</span>
                     </button>
                   </div>
                 </div>
@@ -1342,17 +1639,18 @@ export const VfxGallery: React.FC = () => {
             {activeTab === 'telemetry' && (
               <div className="space-y-3.5">
                 {/* Vessel Target Selector */}
-                <div className="flex items-center justify-between bg-slate-900/60 p-2.5 rounded-xl border border-slate-800 text-[11px]">
-                  <span className="text-slate-400 font-semibold flex items-center gap-1.5">
-                    <Beaker size={14} className="text-indigo-400" />
+                <div className="flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-200 text-[11px] shadow-2xs">
+                  <span className="text-slate-600 font-semibold flex items-center gap-1.5">
+                    <Beaker size={14} className="text-blue-600" />
                     Target Vessel:
                   </span>
                   <select
                     value={selectedVesselId || ''}
                     onChange={(e) => setSelectedVesselId(e.target.value)}
-                    className="bg-slate-800 text-white rounded-lg px-2 py-1 text-[11px] border border-slate-700 font-mono"
+                    className="bg-slate-50 text-slate-800 rounded-lg px-2 py-1 text-[11px] border border-slate-200 font-medium"
                   >
-                    {Object.values(vessels).map(v => (
+                    <option value="">Chọn bình đích…</option>
+                  {Object.values(vessels).map(v => (
                       <option key={v.id} value={v.id}>
                         {v.name || v.id} ({v.type})
                       </option>
@@ -1362,28 +1660,28 @@ export const VfxGallery: React.FC = () => {
 
                 {/* Reaction Dynamics Live HUD */}
                 {(() => {
-                  const targetId = targetVessel?.id || Object.keys(vessels)[0];
+                  const targetId = targetVessel?.id;
                   const simRuntime = targetId ? reactionSimulationEngine.getRuntime(targetId) : undefined;
                   const kinetics = targetId ? activeKinetics[targetId] : undefined;
 
                   return (
-                    <div className="bg-gradient-to-br from-indigo-950/70 via-slate-900/80 to-slate-900/90 p-3 rounded-xl border border-indigo-500/40 space-y-2.5">
+                    <div className="bg-gradient-to-br from-blue-50/70 via-indigo-50/50 to-white p-3 rounded-xl border border-indigo-200 space-y-2.5 shadow-2xs">
                       <div className="flex items-center justify-between text-[11px] font-bold">
-                        <span className="flex items-center gap-1.5 text-indigo-300">
-                          <Activity size={13} className="text-indigo-400" />
+                        <span className="flex items-center gap-1.5 text-indigo-700">
+                          <Activity size={13} className="text-indigo-600" />
                           Reaction Dynamics Telemetry
                         </span>
-                        <span className="px-1.5 py-0.5 rounded font-mono text-[9px] bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                        <span className="px-1.5 py-0.5 rounded font-mono text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-200 font-bold">
                           {simRuntime?.reactionId || kinetics?.reactionId || 'IDLE'}
                         </span>
                       </div>
 
                       {/* Scrubber inside Telemetry HUD */}
                       {kinetics && (
-                        <div className="space-y-1 bg-slate-950/60 p-2 rounded-lg border border-slate-800/80">
-                          <div className="flex justify-between items-center text-[9px] font-mono text-slate-300">
+                        <div className="space-y-1 bg-white p-2 rounded-lg border border-slate-200 shadow-2xs">
+                          <div className="flex justify-between items-center text-[9px] font-mono text-slate-600">
                             <span>Tua tiến:</span>
-                            <span className="text-amber-300 font-bold">{Math.round(kinetics.progress * 100)}%</span>
+                            <span className="text-amber-600 font-bold">{Math.round(kinetics.progress * 100)}%</span>
                           </div>
                           <input
                             type="range"
@@ -1392,57 +1690,58 @@ export const VfxGallery: React.FC = () => {
                             step="0.005"
                             value={kinetics.progress}
                             onChange={(e) => handleScrubReaction(kinetics.vesselId, parseFloat(e.target.value))}
-                            className="w-full h-1.5 bg-slate-800 rounded appearance-none cursor-pointer accent-indigo-400 focus:outline-none"
+                            className="w-full h-1.5 bg-slate-200 rounded appearance-none cursor-pointer accent-indigo-600 focus:outline-none"
                           />
                         </div>
                       )}
 
                       <div className="grid grid-cols-2 gap-2 text-[10px] font-mono">
-                        <div className="bg-slate-950/70 p-2 rounded-lg border border-slate-800/80 space-y-0.5">
-                          <div className="text-[9px] text-slate-400">Progress / Rate</div>
-                          <div className="text-white font-bold">
+                        <div className="bg-white p-2 rounded-lg border border-slate-200/80 space-y-0.5 shadow-2xs">
+                          <div className="text-[9px] text-slate-500">Progress / Rate</div>
+                          <div className="text-slate-800 font-bold">
                             {Math.round(((simRuntime?.progress ?? kinetics?.progress) || 0) * 100)}% 
-                            <span className="text-slate-400 font-normal ml-1">
+                            <span className="text-slate-500 font-normal ml-1">
                               (r = {(simRuntime?.reactionRate ?? 1.0).toFixed(2)})
                             </span>
                           </div>
                         </div>
 
-                        <div className="bg-slate-950/70 p-2 rounded-lg border border-slate-800/80 space-y-0.5">
-                          <div className="text-[9px] text-slate-400">Gas Evolution Rate</div>
-                          <div className="text-amber-300 font-bold">
-                            {simRuntime?.gasGenerationRate !== undefined ? (simRuntime.gasGenerationRate * 25).toFixed(1) + ' mL/s' : '—'}
+                        <div className="bg-white p-2 rounded-lg border border-slate-200/80 space-y-0.5 shadow-2xs">
+                          <div className="text-[9px] text-slate-500">Gas Evolution Rate</div>
+                          <div className="text-amber-600 font-bold">
+                            {targetVessel?.gasFlux ? gasVolumeRateMl_s(measuredGasMol_s, targetVessel.temperature_c,
+                              targetVessel.effectsEnvironment?.pressure_atm ?? targetVessel.environment?.pressure_atm ?? 1).toFixed(2) + ' mL/s' : '—'}
                           </div>
                         </div>
 
-                        <div className="bg-slate-950/70 p-2 rounded-lg border border-slate-800/80 space-y-0.5">
-                          <div className="text-[9px] text-slate-400">Precipitate / Turbidity</div>
-                          <div className="text-cyan-300 font-bold">
+                        <div className="bg-white p-2 rounded-lg border border-slate-200/80 space-y-0.5 shadow-2xs">
+                          <div className="text-[9px] text-slate-500">Precipitate / Turbidity</div>
+                          <div className="text-blue-700 font-bold">
                             {(targetVessel?.precipitateAmount_g || 0).toFixed(2)} g 
-                            <span className="text-slate-400 font-normal ml-1">
+                            <span className="text-slate-500 font-normal ml-1">
                               (τ = {(simRuntime?.turbidity || 0).toFixed(2)})
                             </span>
                           </div>
                         </div>
 
-                        <div className="bg-slate-950/70 p-2 rounded-lg border border-slate-800/80 space-y-0.5">
-                          <div className="text-[9px] text-slate-400">Surface Activity</div>
-                          <div className="text-emerald-300 font-bold">
+                        <div className="bg-white p-2 rounded-lg border border-slate-200/80 space-y-0.5 shadow-2xs">
+                          <div className="text-[9px] text-slate-500">Surface Activity</div>
+                          <div className="text-emerald-700 font-bold">
                             {((simRuntime?.surfaceActivity || 0) * 100).toFixed(0)}%
                           </div>
                         </div>
 
-                        <div className="bg-slate-950/70 p-2 rounded-lg border border-slate-800/80 space-y-0.5">
-                          <div className="text-[9px] text-slate-400">Bubble / Solid Particles</div>
-                          <div className="text-white font-bold">
-                            {Math.round((simRuntime?.gasGenerationRate || 0) * 35)} bubbles / {Math.round((simRuntime?.turbidity || 0) * 800 + (targetVessel?.precipitateAmount_g || 0) * 600)} solids
+                        <div className="bg-white p-2 rounded-lg border border-slate-200/80 space-y-0.5 shadow-2xs">
+                          <div className="text-[9px] text-slate-500">Bubble / Solid Particles</div>
+                          <div className="text-slate-800 font-bold">
+                            {simMgr?.boilingSystem.bubbles.length ?? 0} bubble glyphs / {[...(simMgr?.precipitationSystems.values() ?? [])].reduce((sum, system) => sum + system.particles.length, 0)} solid glyphs
                           </div>
                         </div>
 
-                        <div className="bg-slate-950/70 p-2 rounded-lg border border-slate-800/80 space-y-0.5">
-                          <div className="text-[9px] text-slate-400">Frame Budget / FPS</div>
-                          <div className="text-emerald-400 font-bold">
-                            {fps} FPS <span className="text-slate-400 font-normal">({frameStats.samples > 0 ? frameStats.ms.toFixed(1) : '—'} ms)</span>
+                        <div className="bg-white p-2 rounded-lg border border-slate-200/80 space-y-0.5 shadow-2xs">
+                          <div className="text-[9px] text-slate-500">Frame Budget / FPS</div>
+                          <div className="text-emerald-600 font-bold">
+                            {fps} FPS <span className="text-slate-500 font-normal">({frameStats.samples > 0 ? frameStats.ms.toFixed(1) : '—'} ms)</span>
                           </div>
                         </div>
                       </div>
@@ -1453,54 +1752,54 @@ export const VfxGallery: React.FC = () => {
                 {/* Telemetry Grid */}
                 {targetVessel && (
                   <div className="grid grid-cols-2 gap-2 font-mono">
-                    <div className="bg-slate-900/60 p-2.5 rounded-xl border border-slate-800 space-y-1">
-                      <div className="text-[9px] text-slate-400 flex items-center gap-1">
-                        <Thermometer size={11} className="text-rose-400" />
+                    <div className="bg-white p-2.5 rounded-xl border border-slate-200 space-y-1 shadow-2xs">
+                      <div className="text-[9px] text-slate-500 flex items-center gap-1 font-semibold">
+                        <Thermometer size={11} className="text-rose-500" />
                         Temperature
                       </div>
-                      <div className="text-sm font-bold text-white">
+                      <div className="text-sm font-bold text-slate-800">
                         {targetVessel.temperature_c?.toFixed(1) || '25.0'} °C
                       </div>
-                      <div className="text-[9px] text-slate-500">
+                      <div className="text-[9px] text-slate-400">
                         Đầu đo 3D có thời gian đáp ứng riêng.
                       </div>
                     </div>
 
-                    <div className="bg-slate-900/60 p-2.5 rounded-xl border border-slate-800 space-y-1">
-                      <div className="text-[9px] text-slate-400 flex items-center gap-1">
-                        <Gauge size={11} className="text-cyan-400" />
+                    <div className="bg-white p-2.5 rounded-xl border border-slate-200 space-y-1 shadow-2xs">
+                      <div className="text-[9px] text-slate-500 flex items-center gap-1 font-semibold">
+                        <Gauge size={11} className="text-blue-500" />
                         pH Level
                       </div>
-                      <div className="text-sm font-bold text-white flex items-center gap-1.5">
+                      <div className="text-sm font-bold text-slate-800 flex items-center gap-1.5">
                         <span>{targetVessel.ph?.toFixed(2) || '7.00'}</span>
                         <span
-                          className="w-2.5 h-2.5 rounded-full border border-white/20"
+                          className="w-2.5 h-2.5 rounded-full border border-slate-300"
                           style={{
                             backgroundColor: (targetVessel.ph ?? 7) < 3 ? '#ef4444' : ((targetVessel.ph ?? 7) > 9 ? '#3b82f6' : '#22c55e')
                           }}
                         />
                       </div>
-                      <div className="text-[9px] text-slate-500">
+                      <div className="text-[9px] text-slate-400">
                         {(targetVessel.ph ?? 7) < 7 ? 'Acidic' : ((targetVessel.ph ?? 7) > 7 ? 'Basic' : 'Neutral')}
                       </div>
                     </div>
 
-                    <div className="bg-slate-900/60 p-2.5 rounded-xl border border-slate-800 space-y-1">
-                      <div className="text-[9px] text-slate-400">Volume & Mass</div>
-                      <div className="text-sm font-bold text-white">
+                    <div className="bg-white p-2.5 rounded-xl border border-slate-200 space-y-1 shadow-2xs">
+                      <div className="text-[9px] text-slate-500 font-semibold">Volume & Mass</div>
+                      <div className="text-sm font-bold text-slate-800">
                         {targetVessel.volume_ml?.toFixed(1) || '0.0'} mL
                       </div>
-                      <div className="text-[9px] text-slate-500">
+                      <div className="text-[9px] text-slate-400">
                         Mass: {targetVessel.mass_g?.toFixed(1) || '0.0'} g
                       </div>
                     </div>
 
-                    <div className="bg-slate-900/60 p-2.5 rounded-xl border border-slate-800 space-y-1">
-                      <div className="text-[9px] text-slate-400">Phase & Boiling</div>
-                      <div className="text-sm font-bold text-white">
-                        {targetVessel.isBoiling ? 'Boiling 100°C' : 'Liquid Phase'}
+                    <div className="bg-white p-2.5 rounded-xl border border-slate-200 space-y-1 shadow-2xs">
+                      <div className="text-[9px] text-slate-500 font-semibold">Phase & Boiling</div>
+                      <div className="text-sm font-bold text-slate-800">
+                        {targetVessel.isBoiling ? 'Đang sôi' : 'Chưa sôi'}
                       </div>
-                      <div className="text-[9px] text-slate-500">
+                      <div className="text-[9px] text-slate-400">
                         Precip: {targetVessel.hasPrecipitate ? `${(targetVessel.precipitateAmount_g || 0).toFixed(2)} g` : 'None'}
                       </div>
                     </div>
@@ -1508,32 +1807,32 @@ export const VfxGallery: React.FC = () => {
                 )}
 
                 {/* Conservation Error Telemetry */}
-                <div className="bg-slate-900/60 p-2.5 rounded-xl border border-slate-800 space-y-1.5 text-[10px] font-mono">
-                  <div className="flex items-center justify-between text-slate-300 font-bold">
+                <div className="bg-white p-2.5 rounded-xl border border-slate-200 space-y-1.5 text-[10px] font-mono shadow-2xs">
+                  <div className="flex items-center justify-between text-slate-700 font-bold">
                     <span>Đối chiếu kho chất hiện tại</span>
-                    <span className="text-slate-300 font-bold flex items-center gap-1">
-                      <Gauge size={12} />
+                    <span className="text-slate-700 font-bold flex items-center gap-1">
+                      <Gauge size={12} className="text-blue-500" />
                       {inventoryReading.status === 'consistent' ? 'Khớp' : inventoryReading.status === 'mismatch' ? 'Lệch' : 'Chưa đủ dữ liệu'}
                     </span>
                   </div>
-                  <div className="text-[9px] text-slate-400 flex justify-between">
+                  <div className="text-[9px] text-slate-500 flex justify-between">
                     <span>Rel. Mass Error:</span>
-                    <span className="text-slate-200">{inventoryReading.relativeMassError?.toExponential(2) ?? '—'}</span>
+                    <span className="text-slate-800 font-semibold">{inventoryReading.relativeMassError?.toExponential(2) ?? '—'}</span>
                   </div>
-                  <div className="text-[9px] text-slate-400 flex justify-between">
+                  <div className="text-[9px] text-slate-500 flex justify-between">
                     <span>Dư điện tích (mô hình 25 °C):</span>
-                    <span className="text-slate-200">{inventoryReading.chargeResidual_M == null ? 'Chưa giải' : `${inventoryReading.chargeResidual_M.toExponential(2)} M`}</span>
+                    <span className="text-slate-800 font-semibold">{inventoryReading.chargeResidual_M == null ? 'Chưa giải' : `${inventoryReading.chargeResidual_M.toExponential(2)} M`}</span>
                   </div>
                 </div>
 
                 {/* Educational Hazard Badge */}
                 {hazard && (
-                  <div className="bg-rose-950/40 p-2.5 rounded-xl border border-rose-500/40 space-y-1">
-                    <div className="flex items-center gap-1.5 text-rose-300 font-bold text-[10px]">
-                      <ShieldAlert size={13} className="text-rose-400 shrink-0" />
+                  <div className="bg-rose-50 p-2.5 rounded-xl border border-rose-200 space-y-1 shadow-2xs">
+                    <div className="flex items-center gap-1.5 text-rose-800 font-bold text-[10px]">
+                      <ShieldAlert size={13} className="text-rose-600 shrink-0" />
                       <span>{hazard.title}</span>
                     </div>
-                    <div className="text-[9px] text-rose-200/80 leading-relaxed">
+                    <div className="text-[9px] text-rose-700 leading-relaxed">
                       {hazard.warningText}
                     </div>
                   </div>

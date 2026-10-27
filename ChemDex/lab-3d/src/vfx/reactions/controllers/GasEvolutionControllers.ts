@@ -13,6 +13,19 @@
  */
 
 import { ReactionVisualController, ReactionContext, ReactionZone } from '../types';
+import { liquidGeometry } from '../../../science/vesselGeometry';
+
+function updateMeteredMetalAcid({ runtime, vessel }: ReactionContext, particleLimit: number): boolean {
+  if (typeof runtime.customData.chemistryProgress !== 'number') return false;
+  runtime.progress = runtime.customData.chemistryProgress;
+  // PV=nRT: finite H2 production drives gas volume at the vessel's T and P.
+  // Visible particles represent packets of gas; their count is capped for rendering.
+  const gasMol_s = Math.max(0, runtime.customData.gasMolesPerSecond ?? 0);
+  const gasMl_s = gasMol_s * 82.057 * (vessel.temperature_c + 273.15) / (vessel.environment?.pressure_atm ?? 1);
+  runtime.reactionRate = Math.min(4, gasMl_s / 5);
+  runtime.gasGenerationRate = Math.min(particleLimit, gasMl_s / 0.05);
+  return true;
+}
 
 /**
  * 08. CaCO3 + 2HCl -> CO2
@@ -67,6 +80,8 @@ export class ZnHclGasController implements ReactionVisualController {
 
   public update(context: ReactionContext): void {
     const { runtime, dt } = context;
+    runtime.temperature = context.vessel.temperature_c;
+    if (updateMeteredMetalAcid(context, 140)) return;
     runtime.elapsed += dt;
     runtime.progress = Math.min(1.0, runtime.elapsed / runtime.duration);
 
@@ -75,8 +90,8 @@ export class ZnHclGasController implements ReactionVisualController {
     runtime.gasGenerationRate = runtime.reactionRate * 35.0;
   }
 
-  public getReactionZone(): ReactionZone {
-    return { origin: 'metalSurface', position: [0, -0.5, 0], radius: 0.18 };
+  public getReactionZone({ vessel }: ReactionContext): ReactionZone {
+    return { origin: 'metalSurface', position: [0, liquidGeometry(vessel.type).floorY + 0.04, 0], radius: 0.18 };
   }
 
   public finalize(context: ReactionContext): void {
@@ -95,33 +110,42 @@ export class MgHclGasController implements ReactionVisualController {
   public initialize(context: ReactionContext): void {
     const { runtime } = context;
     runtime.duration = 5.0;
-    runtime.heatReleaseRate = 35.0;
+    runtime.heatReleaseRate = 0; // Heat belongs to the finite reaction ledger.
     context.playSound('fizz');
   }
 
   public update(context: ReactionContext): void {
     const { runtime, dt, addSurfaceImpulse } = context;
+    runtime.temperature = context.vessel.temperature_c;
+    if (updateMeteredMetalAcid(context, 300)) {
+      if (runtime.reactionRate > 0) addSurfaceImpulse(0, 0, 0.002 * Math.min(1, runtime.reactionRate), 0.15);
+      return;
+    }
     runtime.elapsed += dt;
     runtime.progress = Math.min(1.0, runtime.elapsed / runtime.duration);
 
     // Vigorous rapid bubbling, exothermic warming
     runtime.reactionRate = Math.max(0, 1.0 - runtime.progress);
     runtime.gasGenerationRate = runtime.reactionRate * 75.0;
-    runtime.temperature = 25.0 + 18.0 * Math.sin(runtime.progress * Math.PI * 0.7);
 
     if (runtime.reactionRate > 0.2) {
       addSurfaceImpulse(0, 0, 0.002 * runtime.reactionRate, 0.15);
     }
   }
 
-  public getReactionZone(): ReactionZone {
-    return { origin: 'metalSurface', position: [0, -0.3, 0], radius: 0.2 };
+  public getReactionZone({ vessel }: ReactionContext): ReactionZone {
+    return { origin: 'metalSurface', position: [0, liquidGeometry(vessel.type).floorY + 0.02, 0], radius: 0.2 };
   }
 
   public finalize(context: ReactionContext): void {
     const { runtime } = context;
     runtime.gasGenerationRate = 0;
   }
+}
+
+export class FeHclGasController extends ZnHclGasController {
+  public id = 'fe_hcl_gas';
+  public name = 'Iron + HCl Hydrogen Gas Evolution';
 }
 
 /**

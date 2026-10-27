@@ -1,20 +1,24 @@
 import React, { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { shardManager, ShardInstance } from '../../damage/Shards';
+import { MAX_ACTIVE_SHARDS, shardManager } from '../../damage/Shards';
+import { simulationFrameDt } from '../../core/clock';
+import { useAppStore } from '../../store/useAppStore';
 
 /**
  * ShardsRenderer Component (K4.2 & K4.4)
- * Renders Voronoi physical broken glass shards resulting from drop impact,
+ * Renders illustrative tetrahedral glass glyphs resulting from drop impact,
  * thermal shock, or overpressure shattering on the laboratory bench.
  */
 export const ShardsRenderer = React.memo(function ShardsRenderer() {
   const meshRef = useRef<THREE.InstancedMesh>(null);
+  const renderedSourceIds = useRef<string[]>([]);
   const matrix = useMemo(() => new THREE.Matrix4(), []);
   const pos = useMemo(() => new THREE.Vector3(), []);
   const quat = useMemo(() => new THREE.Quaternion(), []);
   const scale = useMemo(() => new THREE.Vector3(), []);
   const euler = useMemo(() => new THREE.Euler(), []);
+  const vertex = useMemo(() => new THREE.Vector3(), []);
 
   // Irregular sharp shard geometry
   const shardGeom = useMemo(() => {
@@ -23,13 +27,18 @@ export const ShardsRenderer = React.memo(function ShardsRenderer() {
 
   useFrame((_, delta) => {
     // Tick physical trajectory for all active flying / bouncing shards
-    shardManager.update(delta);
+    if (shardManager.update(simulationFrameDt(delta, useAppStore.getState()))) {
+      useAppStore.getState().checkpointGlassDebris();
+    }
 
     if (!meshRef.current) return;
     const shards = shardManager.getShards();
     const count = shards.length;
+    renderedSourceIds.current = shards.map(s => s.sourceVesselId);
+    meshRef.current.count = count;
+    meshRef.current.boundingSphere = null;
 
-    for (let i = 0; i < 600; i++) {
+    for (let i = 0; i < MAX_ACTIVE_SHARDS; i++) {
       if (i < count) {
         const s = shards[i];
         pos.set(...s.position);
@@ -37,6 +46,15 @@ export const ShardsRenderer = React.memo(function ShardsRenderer() {
         quat.setFromEuler(euler);
         const sSize = s.size || 0.05;
         scale.set(sSize, sSize * 0.4, sSize * 1.4); // Flake/splinter shape
+        // The trajectory tracks the glyph's lower support. Offset its center
+        // by the actual rotated mesh extent so settled glass does not clip.
+        let minY = Infinity;
+        const vertices = shardGeom.getAttribute('position');
+        for (let j = 0; j < vertices.count; j++) {
+          vertex.fromBufferAttribute(vertices, j).multiply(scale).applyQuaternion(quat);
+          minY = Math.min(minY, vertex.y);
+        }
+        pos.y -= minY;
         matrix.compose(pos, quat, scale);
       } else {
         // Hide unused instances below bench
@@ -53,9 +71,17 @@ export const ShardsRenderer = React.memo(function ShardsRenderer() {
   return (
     <instancedMesh
       ref={meshRef}
-      args={[shardGeom, undefined, 600]}
+      args={[shardGeom, undefined, MAX_ACTIVE_SHARDS]}
       castShadow
       receiveShadow
+      frustumCulled={false}
+      onClick={e => {
+        const sourceId = e.instanceId === undefined ? undefined : renderedSourceIds.current[e.instanceId];
+        if (sourceId && useAppStore.getState().vessels[sourceId]) {
+          e.stopPropagation();
+          useAppStore.getState().openVesselInfo(sourceId);
+        }
+      }}
     >
       <meshPhysicalMaterial
         color="#e2e8f0"

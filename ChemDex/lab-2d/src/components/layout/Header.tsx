@@ -1,3 +1,4 @@
+import {useShallow} from 'zustand/react/shallow';
 import React from 'react';
 import { useLabStore } from '../../store/useLabStore';
 import { RotateCcw, Undo2, Redo2, BookOpen, Globe, Beaker, Sparkles, Volume2, VolumeX, Key, Atom, Activity } from 'lucide-react';
@@ -20,7 +21,8 @@ export const Header: React.FC = () => {
     toggleMute,
     activeMode,
     activeExperiment,
-  } = useLabStore();
+    history,
+  } = useLabStore(useShallow(state => ({language: state.language,setLanguage: state.setLanguage,undo: state.undo,redo: state.redo,undoStack: state.undoStack,redoStack: state.redoStack,resetWorkbench: state.resetWorkbench,toggleNotebook: state.toggleNotebook,toggleAIAssistant: state.toggleAIAssistant,toggleApiKeyModal: state.toggleApiKeyModal,togglePeriodicTable: state.togglePeriodicTable,toggleTitrationCurve: state.toggleTitrationCurve,isMuted: state.isMuted,toggleMute: state.toggleMute,activeMode: state.activeMode,activeExperiment: state.activeExperiment,history: state.history})));
 
   return (
     <header className="h-14 bg-white border-b border-slate-200 px-4 flex items-center justify-between select-none z-20 shadow-2xs">
@@ -144,12 +146,17 @@ export const Header: React.FC = () => {
         {/* Lab Notebook / Data Sheet */}
         <button
           onClick={() => toggleNotebook(true)}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold transition-colors shadow-2xs"
+          className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold transition-colors shadow-2xs"
         >
           <BookOpen className="w-3.5 h-3.5 text-blue-600" />
           <span className="hidden md:inline">
             {language === 'vi' ? 'Sổ tay' : 'Data Sheet'}
           </span>
+          {history.length > 0 && (
+            <span className="ml-0.5 px-1.5 py-0.2 bg-blue-600 text-white rounded-full text-[10px] font-bold font-mono">
+              {history.length}
+            </span>
+          )}
         </button>
 
         {/* Language Switcher */}

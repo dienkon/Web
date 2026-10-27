@@ -747,7 +747,6 @@ export default function App() {
         {isDev && (
           <React.Suspense fallback={null}>
             <VfxGallery />
-            <SimulationDebugPanel />
           </React.Suspense>
         )}
       </div>

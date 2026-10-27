@@ -8,6 +8,8 @@ import { constrainToolPosition, useToolDockStore, type ToolPosition } from './to
 import { getInstrument, instrumentHome, isLessonVessel, type InstrumentId } from './instrumentCatalog';
 import { lessonRuntime } from '../lesson/runtime';
 import { useLessonLabStore } from '../lesson/labBridge';
+import { mobileSolidInventory } from '../science/suspensionTransport';
+import { SimulationEngine } from '../simulation/core/SimulationEngine';
 
 export interface InstrumentResult {
   ok: boolean;
@@ -48,7 +50,7 @@ export function aspiratePipette(requested_ml = 10): InstrumentResult {
     return result('pipette', false, 'Thể tích hút phải lớn hơn 0 và không vượt quá 10 mL.');
   }
   if (source.volume_ml <= 0) return result('pipette', false, 'Bình nguồn không có dung dịch.');
-  const transfer = withdrawAliquot(source, requested_ml);
+  const transfer = withdrawAliquot(source, requested_ml, mobileSolidInventory(source, SimulationEngine.findManager(source.id)));
   state.setVesselState(source.id, transfer.vessel);
   useInstrumentStore.getState().setSample(transfer.sample);
   state.setActiveTool('pipette');

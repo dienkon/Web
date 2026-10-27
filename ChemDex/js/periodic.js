@@ -1213,7 +1213,7 @@ function showToast(message) {
 
 const GEMINI_API_KEY =
   window.GEMINI_API_KEY ||
-  "AQ.Ab8RN6Juy3ij9wnROTLohZ6cT9lXzBHml2WO_iR62y9QYyycOg";
+  "";
 const GEMINI_MODEL = window.GEMINI_MODEL || "gemini-2.5-flash";
 const GEMINI_ENDPOINT =
   window.GEMINI_ENDPOINT ||

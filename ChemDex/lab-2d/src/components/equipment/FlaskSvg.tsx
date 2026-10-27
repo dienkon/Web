@@ -24,6 +24,11 @@ export const FlaskSvg: React.FC<FlaskSvgProps> = ({ equipment, isSelected }) => 
     hasFumes,
     fumeType = 'steam',
     fumeColorHex = '#cbd5e1',
+    isBeingHeated,
+    hasTripod,
+    foamHead_mm = 0,
+    hasSilverMirror,
+    temperature_c = 25.0,
   } = equipment;
 
   const fillRatio = Math.min(1.0, Math.max(0, volume_ml / capacity_ml));
@@ -82,10 +87,49 @@ export const FlaskSvg: React.FC<FlaskSvgProps> = ({ equipment, isSelected }) => 
           <path d="M 61 24 L 61 64 L 18 156 Q 16 164 26 164 L 124 164 Q 134 164 132 156 L 89 64 L 89 24 Z" />
         </clipPath>
 
+        {/* Thermal Bottom Radiant Glow */}
+        <radialGradient id={`flaskThermalGlow-${id}`} cx="50%" cy="100%" r="60%">
+          <stop offset="0%" stopColor="#f97316" stopOpacity="0.85" />
+          <stop offset="50%" stopColor="#ea580c" stopOpacity="0.4" />
+          <stop offset="100%" stopColor="#f97316" stopOpacity="0" />
+        </radialGradient>
+
+        {/* Silver Mirror Coating Gradient */}
+        <linearGradient id={`flaskSilverMirror-${id}`} x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#94a3b8" stopOpacity="0.9" />
+          <stop offset="25%" stopColor="#f8fafc" stopOpacity="0.95" />
+          <stop offset="50%" stopColor="#cbd5e1" stopOpacity="0.85" />
+          <stop offset="75%" stopColor="#ffffff" stopOpacity="0.95" />
+          <stop offset="100%" stopColor="#64748b" stopOpacity="0.9" />
+        </linearGradient>
+
         <filter id={`flaskFumeBlur-${id}`} x="-20%" y="-20%" width="140%" height="140%">
           <feGaussianBlur stdDeviation="3.2" />
         </filter>
       </defs>
+
+      {/* Laboratory Tripod Stand with Wire Gauze (When supported over burner) */}
+      {hasTripod && (
+        <g className="select-none pointer-events-none">
+          <rect x="16" y="165" width="118" height="4" rx="1.5" fill="#475569" stroke="#334155" strokeWidth="1" />
+          <ellipse cx="75" cy="167" rx="32" ry="2.2" fill="#e2e8f0" stroke="#cbd5e1" strokeWidth="0.8" />
+          <line x1="20" y1="168" x2="6" y2="220" stroke="#1e293b" strokeWidth="3" strokeLinecap="round" />
+          <line x1="130" y1="168" x2="144" y2="220" stroke="#1e293b" strokeWidth="3" strokeLinecap="round" />
+          <line x1="75" y1="168" x2="75" y2="215" stroke="#334155" strokeWidth="2.5" strokeLinecap="round" />
+        </g>
+      )}
+
+      {/* Thermal Flame Licking & Heating Glow when positioned over active burner */}
+      {isBeingHeated && (
+        <g className="animate-pulse">
+          <ellipse cx="75" cy="164" rx="55" ry="14" fill={`url(#flaskThermalGlow-${id})`} />
+          {/* Flame tongues licking conical slope */}
+          <path d="M 22 164 C 15 155, 16 140, 24 132 C 26 142, 28 154, 28 164 Z" fill="#f59e0b" fillOpacity="0.85" />
+          <path d="M 22 164 C 17 156, 18 145, 23 138 C 25 145, 27 154, 27 164 Z" fill="#fef08a" />
+          <path d="M 128 164 C 135 155, 134 140, 126 132 C 124 142, 122 154, 122 164 Z" fill="#f59e0b" fillOpacity="0.85" />
+          <path d="M 128 164 C 133 156, 132 145, 127 138 C 125 145, 123 154, 123 164 Z" fill="#fef08a" />
+        </g>
+      )}
 
       {/* Selection Glow */}
       {isSelected && (
@@ -209,6 +253,39 @@ export const FlaskSvg: React.FC<FlaskSvgProps> = ({ equipment, isSelected }) => 
                 <circle cx="98" cy={liquidY + 32} r="2.8" fill="#ffffff" fillOpacity="0.8" />
                 <circle cx="60" cy={liquidY + 55} r="3.2" fill="#ffffff" fillOpacity="0.75" />
                 <circle cx="88" cy={liquidY + 65} r="2.5" fill="#ffffff" fillOpacity="0.8" />
+              </g>
+            )}
+
+            {/* Frothy Foam Head during Gas Evolution */}
+            {(hasGas || isBoiling || (foamHead_mm && foamHead_mm > 0)) && (
+              <g className="animate-pulse">
+                <ellipse cx="75" cy={liquidY - 1} rx={halfWidthAtMeniscus * 0.95} ry="3.8" fill="#ffffff" fillOpacity="0.85" />
+                <circle cx={75 - halfWidthAtMeniscus * 0.7} cy={liquidY - 2} r="2.8" fill="#ffffff" fillOpacity="0.9" />
+                <circle cx={75 - halfWidthAtMeniscus * 0.35} cy={liquidY - 3.5} r="3.2" fill="#ffffff" fillOpacity="0.9" />
+                <circle cx={75} cy={liquidY - 4} r="3.8" fill="#ffffff" fillOpacity="0.95" />
+                <circle cx={75 + halfWidthAtMeniscus * 0.35} cy={liquidY - 3.5} r="3.2" fill="#ffffff" fillOpacity="0.9" />
+                <circle cx={75 + halfWidthAtMeniscus * 0.7} cy={liquidY - 2} r="2.8" fill="#ffffff" fillOpacity="0.9" />
+              </g>
+            )}
+
+            {/* Specular Silver Mirror Coating (Tollens test) */}
+            {hasSilverMirror && (
+              <path
+                d="M 61 40 L 61 64 L 18 156 Q 16 164 26 164 L 124 164 Q 134 164 132 156 L 89 64 L 89 40 L 84 40 L 84 62 L 125 154 Q 127 159 120 159 L 30 159 Q 23 159 25 154 L 66 62 L 66 40 Z"
+                fill={`url(#flaskSilverMirror-${id})`}
+                className="drop-shadow-xs"
+              />
+            )}
+
+            {/* Steam Condensation Water Beads inside Conical Wall */}
+            {temperature_c >= 50 && totalLiquidHeight < 75 && (
+              <g fill="#ffffff" fillOpacity="0.75" className="animate-pulse">
+                <circle cx="68" cy="45" r="1.4" />
+                <circle cx="82" cy="52" r="1.3" />
+                <circle cx="58" cy="78" r="1.6" />
+                <circle cx="92" cy="85" r="1.5" />
+                <circle cx="48" cy="105" r="1.8" />
+                <circle cx="102" cy="112" r="1.6" />
               </g>
             )}
 

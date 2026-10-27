@@ -45,6 +45,9 @@ export interface ChemicalDefinition {
 }
 
 export interface SubstanceContent {
+  /** Solid formed by chemistry, distinct from a separately added solid chunk. */
+  solidOrigin?: 'precipitate';
+  precipitateFormation?: string;
   liquidLayer?: 'aqueous' | 'organic';
   location?: 'bulk' | 'filter' | 'foam';
   formula: string;
@@ -83,6 +86,24 @@ export type VesselType =
   | 'hot_plate';
 
 export interface VesselState {
+  bubbleInterfaceMobility?: import('../science/bubbleRise').BubbleInterfaceMobility;
+  gasFlux?: import('../engine/gasFlux').GasFlux;
+  hydrogenCombustion?: import('../engine/hydrogenExhaustCombustion').HydrogenExhaustCombustion;
+  wallCondensation?: import('../engine/wallCondensation').WallCondensationState;
+  effectsEnvironment?: Partial<import('../science/labEnvironment').LabEnvironment>;
+  effectHeatInput_W?: number; // explicit virtual heater, separate from physical apparatus
+  effectHeatHandle?: string;
+  waterVaporOutflow_g_s?: number; // after wall capture and connected condensers
+  waterVaporReleased_g?: number; // cumulative actual external water sink, after recovery
+  waterVaporFromChemistry_g?: number; // cumulative gross source from chemical gas projection
+  condensateReceived_g?: number; // water supplied by an explicitly connected condenser
+  waterVaporPartialPressure_Pa?: number; // fresh external stream after recovery
+  waterVaporCarrier_mol_s?: number; // non-water carrier of that stream, not retained headspace gas
+  waterVaporTemperature_c?: number; // emitted water stream, independently of later glass temperature
+  waterVaporSpecificEnthalpy_J_g?: number;
+  waterVaporTemperatureModel?: 'emission-ledger' | 'source-temperature-estimate';
+  effectSampleRevision?: number; // invalidates handles/visuals when a specimen is replaced
+  environment?: import('../science/labEnvironment').LabEnvironment;
   hotPlate?: { isOn: boolean; setPoint_c: number; electricalEnergy_J?: number; deliveredHeat_J?: number; heatLost_J?: number };
   escapedGas_g?: Record<string, number>;
   id: string;
@@ -98,16 +119,26 @@ export interface VesselState {
   contents: SubstanceContent[];
   volume: number; // normalized 0 to 1 for 3D display
   volume_ml: number; // actual volume in mL
-  mass_g: number; // authoritative total mass in grams
+  mass_g: number; // mass of contents in grams; separate wall parcels are added only for physical weighing
+  // Derived from wall-stage pour parcels, excluded from contents/mass_g until pool contact.
+  wallCoating_ml?: number;
+  wallCoatingMass_g?: number;
+  recentPourContact?: { point: [number, number, number]; expiresAt_ms: number };
+  bodyRevision?: number;
   tare_g?: number; // tare weight of empty vessel in grams
   density_g_ml?: number; // density in g/mL (default ~1.0)
   
   temperature_c: number; // in Celsius (ambient ~25°C)
+  /** Mean heater input over the last accepted thermal step, W; excludes cooling/reaction heat. */
+  thermalHeatingPower_W?: number;
+  /** Cumulative external heater energy delivered to this sample, J. */
+  thermalHeatingEnergy_J?: number;
   iceVolume_ml?: number;
   thermalEnergyOutsideModel_J?: number;
   thermalModelLimit?: string;
   ph: number; // 0 to 14
-    phModel?: 'ideal_aqueous_25c'; // Concentration equilibrium, constants at 25 °C.
+    phModel?: 'ideal_aqueous_25c' | 'ideal_aqueous_temperature';
+    phReferenceTemperature_c?: number; // Temperature actually used for equilibrium constants.
     evaporationRate_g_s?: number;
     vaporSourceId?: string;
     condensedTransfer_g?: number;
@@ -122,6 +153,11 @@ export interface VesselState {
   precipitateSubstance?: string;
   precipitateMorphology?: string;
   precipitateAmount_g?: number;
+  /** Cumulative suspended-solid outflow by canonical formula, g. A transport
+   * transaction updates this with inventory; physics consumes only the delta. */
+  precipitateOutflow_g?: Record<string, number>;
+  /** Observation used to distinguish cooling crystallization from direct mixing. */
+  leadIodidePhaseHistory?: { temperature_c: number; totalMass_g: number };
   
   isBoiling: boolean;
   boilingIntensity?: number; // 0 (none) to 1.0 (rolling boil)
@@ -132,7 +168,14 @@ export interface VesselState {
   isExplosion?: boolean;
 
   overflow_ml?: number; // recent overflow volume
+  overflowTimestamp?: number; // timestamp of recent overflow
   evaporated_ml?: number; // evaporated volume over time
+  /** Cumulative emitted thermal-water enthalpy; liquid Cp*T reference at 0 C. */
+  thermalVaporEnthalpy_J?: number;
+  thermalVaporSensibleEnthalpy_J?: number; // cumulative Cp*integral(T_emission dm)
+  waterVaporReleasedEnergy_J?: number;
+  condensedTransferEnergy_J?: number;
+  waterVaporEnergyModel?: 'emission-ledger' | 'source-temperature-estimate';
   lastReactionId?: string; // ID of active or most recent reaction
   reactionProgress?: number; // 0 to 1 kinetics progress
 
@@ -165,8 +208,20 @@ export interface VesselState {
   filterPaperResidue_g?: number; // Precipitate cake retained on filter paper
   filterPaperResidueSubstance?: string;
   isSealed?: boolean; // Stoppered/sealed vessel (can build overpressure)
-  internalPressure_atm?: number; // Internal headspace gas pressure in atm (burst at > 2.5 atm)
+  sealedHeadspace?: import('../engine/headspacePressure').SealedHeadspace;
+  internalPressureModel?: 'ideal-gas' | 'ambient' | 'unavailable';
+  gasReplayBlocked?: boolean; // A proposed extent needs molecules already lost across the gas boundary.
+  internalPressure_atm?: number; // Absolute pressure; unknown when the gas closure has no valid free volume.
   coolingWaterActive?: boolean; // Condenser cooling water active
+  condenserCooling?: Partial<import('../science/condenserHeatExchange').CondenserCoolingSettings>;
+  coolantPassed_ml?: number;
+  coolantPassed_g?: number;
+  coolantHeatReceived_J?: number;
+  coolantOutletTemperature_c?: number;
+  condenserCoolingPower_W?: number;
+  condenserEffectiveConductance_W_K?: number;
+  condenserVaporEnergyReceived_J?: number;
+  condenserCoolingStatus?: string;
   slottedTestTubeIds?: string[]; // Test tube IDs held in test tube rack
   grippedVesselId?: string; // Vessel ID gripped by tongs
   heldByTongsId?: string; // Tongs holding this vessel
@@ -265,6 +320,14 @@ export interface ReactionRecord {
   warning_vi?: string;
 }
 
+export interface LabMaterialSnapshot {
+  glassDebris?: import('../damage/Shards').ShardSnapshot;
+  inFlightPours: import('../engine/pourTransport').PourParcel[];
+  spills: Record<string, SpillState>;
+  wasteMass_g: number;
+  wasteContents: SubstanceContent[];
+}
+
 export interface LabActionHistory {
   id: string;
   timestamp: number;
@@ -274,5 +337,6 @@ export interface LabActionHistory {
   snapshot: {
     vessels: Record<string, VesselState>;
     burners: Record<string, BurnerState>;
+    materials?: LabMaterialSnapshot;
   };
 }

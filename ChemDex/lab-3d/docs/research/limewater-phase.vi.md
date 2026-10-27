@@ -1,0 +1,17 @@
+# Nước vôi trong và sữa vôi
+
+Đối chiếu 24/10/2026. Thêm phân chia lượng Ca(OH)₂ sẵn có giữa pha rắn và pha hòa tan trong nước ở 0–90°C, gồm các muối ion chung được liệt kê dưới đây. Lượng ít tan hết; lượng vượt bão hòa giữ phần rắn trắng, pha loãng làm tăng lượng hòa tan. Không suy ra CaCO₃ từ màu trắng hay chỉ vì bình đang mở.
+
+[Measurement and prediction of portlandite solubility in alkali solutions (1995)](https://www.sciencedirect.com/science/article/pii/000888469500099X) tổng hợp −log Ksp = 5,19 ± 0,04 từ các nghiên cứu nước tinh khiết. Bản đầu dùng mốc đó; bản nhiệt độ hiện chọn mốc nhất quán WATEQ4F pKsp = 5,20 thay vì ghép nguyên hai bộ dữ liệu. Vẫn xấp xỉ hoạt độ bằng nồng độ. [CDC/NIOSH — Calcium hydroxide](https://www.cdc.gov/niosh/npg/npgd0092.html) mô tả bột trắng, tỷ trọng 2,24 và sự hấp thụ CO₂ tạo carbonate. Profile hạt mới dùng mật độ 2,24 g/cm³; bán kính cầu 1 µm và quang học là giả định minh họa.
+
+[WATEQ4F — Portlandite](https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat): Ca(OH)₂ + 2H⁺ → Ca²⁺ + 2H₂O có log K = 22,8 và ΔH = −31 kcal/mol. Tính K_acid(T) bằng van't Hoff với enthalpy hằng, rồi Ksp(T) = K_acid(T) × Kw(T)². Khoảng 0–90°C là giới hạn triển khai aqueous của ứng dụng, không phải khẳng định hiệu chuẩn mới trên toàn khoảng. Không dùng −31 kcal/mol trực tiếp làm nhiệt hòa tan thành Ca²⁺/OH⁻ vì đó là phản ứng có H⁺ khác.
+
+Giải c[OH⁻]² = Ksp với [OH⁻] = c + sqrt(c² + Kw), c là lượng Ca(OH)₂ hòa tan trên thể tích, giới hạn bằng tổng lượng đã có. pH từ cùng lượng hòa tan được nối vào phép chiếu dung dịch. Chất rắn không góp điện tích hòa tan. Bộ màu nhận diện dung dịch Ca(OH)₂ không màu; phần đục vẫn do lượng hạt lơ lửng riêng.
+
+Tốc độ tiến tới cân bằng 0,3/s là giả định hiển thị; chưa mô phỏng vận chuyển CO₂. Từ chối acid, CO₂ và các chất khác ngoài danh sách hỗ trợ để không chiếm quyền của phản ứng carbonate/trung hòa. Bã trên giấy lọc không tự chuyển về bulk. Bước này chưa làm phản ứng CaC₂ trong hỗn hợp có khí trở thành mô hình phân chia vôi đầy đủ. Kiểm thử nóng–lạnh kiểm tra tăng lượng rắn khi đun, hòa tan lại khi nguội, pH và tích số ở nhiệt độ sau phản ứng, cùng bảo toàn lượng khi lưu/đọc JSON.
+
+Nhiệt hòa tan nay vào bộ nhiệt chung theo Q = −Δn × ΔH_hòa_tan(T). Dùng ΔH_hòa_tan(T) = −31×4184 + 2ΔH_điện_ly_nước(T), trong đó ΔH_nước = RT² d ln Kw/dT từ cùng đường cong Kw đang dùng trong Ksp. Không áp −31 kcal/mol của phản ứng acid trực tiếp cho hòa tan thành OH⁻. Tính lại pH sau bước nhiệt; nhiệt độ mới ảnh hưởng điểm bão hòa ở bước tiếp theo. Nhiệt lấy ở đầu bước, chưa tích phân nhiệt dung/phản ứng chính xác cho bước lớn. Kiểm thử đối chiếu với đạo hàm sai phân trung tâm của ln Ksp tại 10, 25, 60, 80°C và kiểm tra Q/C của bước hòa tan.
+
+Ion chung: hỗ trợ NaOH/KOH, CaCl₂/Ca(NO₃)₂ và spectator Na/K chloride/nitrate ở pha aq. Giải [Ca²⁺]_tổng = (nCa,nền + d)/V và kiềm A = (nOH,nền + 2d)/V, với OH từ tự điện ly nước. Giữ nguyên từng kho muối nền, chỉ phân chia lượng Ca(OH)₂ đã tồn tại. Nếu riêng nền đã quá bão hòa ở d=0, từ chối thay vì tự tiêu thụ ion và bỏ quên counterion. Kiểm thử kiểm tra NaOH/KOH/CaCl₂ giảm độ tan, Q/K ở điểm cuối, bảo toàn khối lượng và giữ nguyên muối nền. Chưa có hiệu chỉnh hoạt độ nên không khẳng định chính xác định lượng ở nồng độ muối cao.
+
+Kiểm thử kiểm tra tích số ở bão hòa, pH kiềm, độ ổn định phép chiếu, lượng dư/tan hết, pha loãng, bảo toàn khối lượng/mol, từ chối điều kiện ngoài phạm vi và không sinh carbonate vô căn cứ. Chưa xác minh GPU.

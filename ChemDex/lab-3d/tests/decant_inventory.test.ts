@@ -144,7 +144,7 @@ describe('Decanting transfers actual phase inventory once', () => {
     setup(source);
     PourController.beginPour({ sourceId: source.id, targetId: 'target', mode: 'ASSIST', requestedVolume_ml: 15 });
     PourController.setTilt(1.25);
-    for (let i = 0; i < 120 && PourController.getSession()?.phase !== 'dripping'; i++) PourController.tick(1 / 60);
+    for (let i = 0; i < 120 && (PourController.getSession()?.phase !== 'dripping' || (PourController.getSession()?.inFlight_ml ?? 0) > 1e-8); i++) PourController.tick(1 / 60);
     const session = PourController.getSession()!;
     expect(session.transferred_ml).toBeCloseTo(15, 8);
     const state = useAppStore.getState();
@@ -166,7 +166,7 @@ describe('Decanting transfers actual phase inventory once', () => {
     setup(source);
     PourController.beginPour({ sourceId: source.id, targetId: null, mode: 'TABLE', requestedVolume_ml: 5 });
     PourController.setTilt(1.4);
-    for (let i = 0; i < 180 && PourController.getSession()?.phase !== 'dripping'; i++) PourController.tick(1 / 60);
+    for (let i = 0; i < 180 && (PourController.getSession()?.phase !== 'dripping' || (PourController.getSession()?.inFlight_ml ?? 0) > 1e-8); i++) PourController.tick(1 / 60);
     const session = PourController.getSession()!;
     expect(session.spilled_ml).toBeCloseTo(5, 8);
     const beforeCommit = useAppStore.getState().vessels[source.id];

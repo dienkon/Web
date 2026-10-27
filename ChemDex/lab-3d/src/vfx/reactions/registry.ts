@@ -32,6 +32,7 @@ import {
 import {
   CaCo3HclGasController,
   ZnHclGasController,
+  FeHclGasController,
   MgHclGasController,
   H2o2Mno2CatalyticController,
   Nh3HclFumesController,
@@ -123,6 +124,7 @@ register(new ZnHclGasController(), [
 register(new MgHclGasController(), [
   'mg_hcl', 'magnesium_acid_gas', 'Mg+HCl', 'mg_hcl_gas'
 ]);
+register(new FeHclGasController(), ['fe_hcl', 'fe_hcl_gas', 'Fe+HCl']);
 register(new H2o2Mno2CatalyticController(), [
   'catalytic_oxygen_prep', 'h2o2_decomposition', 'H2O2+MnO2', 'h2o2_mno2_decomposition', 'h2o2_mno2_gas'
 ]);
@@ -148,7 +150,7 @@ register(new WaterIntoConcH2so4ExplosionController(), [
 
 // 17: Sodium & Alkali Metal + Water Special Case
 register(new SodiumWaterController(), [
-  'sodium_water', 'alkali_metal_water_na', 'Na+H2O', 'sodium_water_reaction', 'alkali_metal_water'
+  'na_h2o', 'sodium_water', 'alkali_metal_water_na', 'Na+H2O', 'sodium_water_reaction', 'alkali_metal_water'
 ]);
 
 // 18 - 19: Copper Acids

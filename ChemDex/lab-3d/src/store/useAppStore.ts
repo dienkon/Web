@@ -1,3 +1,5 @@
+import { stepHydrogenExhaustCombustion, sodiumExternalIgnition } from '../engine/hydrogenExhaustCombustion';
+import { acceptedFrameSeconds } from '../core/clock';
 import { create } from 'zustand';
 import { MixResult } from '../shared/schemas';
 import { CHEMICAL_DATABASE, findChemical, isImmiscibleOrganic, getSolidMorphology } from '../data/chemicals';
@@ -6,23 +8,25 @@ import { evaluateLocalChemistry, findPendingReaction, initReactionCache, execute
 import { checkSafetyViolations } from '../engine/safetyEngine';
 import { 
   loadPersistedLabState, 
-  debounceSaveLocalState, 
-  pushHistorySnapshot, 
+  debounceSaveLocalState as persistLabState,
+  pushHistorySnapshot as persistHistorySnapshot,
   stepUndo, 
   stepRedo,
   canUndo as checkCanUndo,
   canRedo as checkCanRedo
 } from './persistence';
-import { vfxBus } from '../vfx/bus';
+import { vfxBus, type VfxEventMap } from '../vfx/bus';
 import { getReactionVfxRecipe } from '../vfx/recipes/reactionVfx';
 import { ExperimentDifficultyMode, ExamReportCard, experimentEngine } from '../engine/experimentEngine';
 import { labSound } from '../utils/audio';
 import { ppeService } from '../safety/Ppe';
 import { shardManager } from '../damage/Shards';
+import { condenserCoolingSettings, validCondenserCooling, type CondenserCoolingSettings } from '../science/condenserHeatExchange';
+import { isSodiumWaterReaction, sodiumMetalMass } from '../science/sodiumWater';
 import { applyProgramToLedger } from '../engine/ledger';
 import { resolveReactionProgram } from '../vfx/programs/resolver';
 import { ReactionProgram } from '../shared/programSchema';
-import { decantLiquid } from '../engine/decantTransfer';
+import { decantLiquid, EMPTY_LIQUID_TRANSFER, type LiquidTransferReceipt } from '../engine/decantTransfer';
 import { releaseShatteredInventory } from '../engine/shatterInventory';
 import { stepAlcoholBurner, allocateBurnerHeat, burnerIntensity } from '../engine/burnerEnergy';
 import { createFlameEmission, flameEmissionExpired } from '../engine/flameEmission';
@@ -39,13 +43,97 @@ import { stepFoamInventory } from '../engine/foamInventory';
 import { createIceWaterSample } from '../engine/waterPhase';
 import { partitionLeadIodide } from '../engine/leadIodidePhase';
 import { partitionSodiumChloride } from '../engine/sodiumChloridePhase';
+import { partitionCalcite } from '../engine/calcitePhase';
+import { partitionBarite } from '../engine/baritePhase';
+import { partitionCalciumHydroxide } from '../engine/calciumHydroxidePhase';
+import { partitionMagnesiumHydroxide } from '../engine/magnesiumHydroxidePhase';
+import { partitionSilverHalide } from '../engine/silverChloridePhase';
 import { projectAqueousSolution } from '../engine/aqueousProjection';
-import { stepVesselThermal, sealedGasPressure } from '../engine/thermalState';
+import { stepVesselThermal } from '../engine/thermalState';
+import { captureHeadspace, ensureHeadspaceReference, gasPressurePatch } from '../engine/headspacePressure';
+import { sameMolecularFormula } from '../science/speciesIdentity';
 import { stepHotPlate, hotPlateSetpoint, PLATE_TOP_Y, HOT_PLATE_RECEIVERS } from '../engine/hotPlateEnergy';
 import { transferWaterCondensate } from '../engine/condensationTransfer';
 import { applyProgramWithThermalSinks } from '../engine/thermalLedger';
+import { applyAluminumMaterialProgress, planAluminumMaterialReaction, type AluminumMaterialStage } from '../engine/aluminumMaterialProgress';
 import { materializePresetInventory } from '../engine/presetInventory';
 import { stepFunnelFlow, selectFunnelReceiver, recoverFilterCake, solidContent } from '../engine/funnelFlow';
+import { planSodiumWater } from '../engine/sodiumWaterPlan';
+import { useLabEnvironment } from './useLabEnvironment';
+import { restingVesselHeight } from '../handling/vesselRest';
+import { AnimatedDoseQueue, releaseDoseAmount, type AnimatedStockDose } from '../engine/animatedDose';
+import { prepareStockAddition } from '../engine/stockAddition';
+import { planMetalAcid, advanceMetalAcidProgress } from '../engine/metalAcidPlan';
+import { planVerifiedContact } from '../engine/verifiedContactPlan';
+import { advancePourParcel, scalePourSample, pourContactLocal, type PourParcel, type PourArrival } from '../engine/pourTransport';
+import { createWallFilm, advanceWallFilm, detachWallFilm } from '../engine/wallFilm';
+import { availableLiquidVolume } from '../handling/solidOccupancy';
+import { canReceivePour } from '../engine/decantTransfer';
+import { mobileSolidInventory } from '../science/suspensionTransport';
+import { SimulationEngine } from '../simulation/core/SimulationEngine';
+import { refreshFlowInventory } from '../engine/funnelFlow';
+import type { LabMaterialSnapshot } from '../types/chemistry';
+import { LAB_PHYSICS } from '../engine/interactionEngine';
+import { mergeWorkbenchSpill, overflowLandingPosition, normalizeSpillFootprints } from '../engine/spillInventory';
+import { collectSpillPatch } from '../engine/spillCleanup';
+import { routeWaterVaporToWall, finalizeWaterVaporOutflow, waterVaporReleasedHistoryG } from '../engine/waterVaporRouting';
+import { advanceHeatActivatedProgress } from '../engine/heatActivatedProgress';
+import { measureGasFlux } from '../engine/gasFlux';
+import { supportsWaterSurface } from '../science/waterSurface';
+import { reactionSimulationEngine } from '../vfx/reactions/ReactionSimulationEngine';
+import { kineticsEngine } from '../simulation/chemistry/KineticsEngine';
+import { programPlayer } from '../vfx/programs/player/ProgramPlayer';
+
+/** Explicit specimen replacement; supplying a stale ID must never create another vessel. */
+function prepareStudioSpecimen(get: () => AppState, set: (patch: Partial<AppState>) => void,
+  targetId: string | undefined, prefix: string, create: (shell: VesselState) => VesselState): string | null {
+  const state = get();
+  const target = targetId === undefined ? undefined : state.vessels[targetId];
+  if (targetId && (state.pouringChemical?.targetId === targetId
+    || state.inFlightPours.some(parcel => parcel.targetId === targetId || parcel.sourceId === targetId))) {
+    set({ mixError: 'Chờ lần rót hiện tại kết thúc trước khi thay mẫu.' });
+    return null;
+  }
+  if (targetId !== undefined && (!target || target.isLocked || target.isShattered || target.isSealed
+    || target.id.startsWith('lesson_vessel_') || !['beaker', 'flask', 'test_tube', 'cylinder',
+      'watch_glass', 'evaporating_dish', 'crucible', 'petri_dish'].includes(target.type))) {
+    set({ mixError: 'Chọn bình mở, nguyên vẹn và không khóa để thay mẫu Studio.' });
+    return null;
+  }
+  const id = targetId ?? `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+  const index = state.vesselIds.length;
+  const shell: VesselState = { ...defaultVessels.beaker_1, id,
+    position: target?.position ?? [((index % 5) - 2) * 1.5, -0.135, 1.8 + Math.floor(index / 5) * 1.2],
+    ...(target ? { type: target.type, capacity_ml: target.capacity_ml, rotationY: target.rotationY,
+      rotationZ: target.rotationZ, name: target.name } : {}),
+    effectHeatInput_W: 0, effectsEnvironment: undefined, wallCondensation: undefined,
+    condensationMist: 0, evaporationRate_g_s: 0,
+    effectSampleRevision: (target?.effectSampleRevision ?? 0) + 1 };
+  try {
+    const vessel = create(shell); // validate capacity/composition before any cleanup or mutation
+    reactionSimulationEngine.stopReaction(id);
+    programPlayer.stopProgram(id);
+    kineticsEngine.reset(id);
+    SimulationEngine.findManager(id)?.reset();
+    vfxBus.emit('vessel:sample-reset', { vesselId: id });
+    const live = get(); // finalizers may have written their last visual state
+    const activeKinetics = { ...live.activeKinetics }, pendingReactions = { ...live.pendingReactions },
+      dissolvingSubstances = { ...live.dissolvingSubstances };
+    delete activeKinetics[id]; delete pendingReactions[id]; delete dissolvingSubstances[id];
+    const vessels = { ...live.vessels, [id]: vessel };
+    const materials = { inFlightPours: live.inFlightPours, spills: live.spills, wasteMass_g: live.wasteMass_g, wasteContents: live.wasteContents };
+    persistHistorySnapshot('ADD_VESSEL', vessels, live.burners, 'Prepared virtual specimen', 'Chuẩn bị mẫu Studio', materials);
+    persistLabState(vessels, live.burners, materials);
+    set({ vessels, vesselIds: Object.keys(vessels), selectedVesselId: id, activeKinetics,
+      pendingReactions, dissolvingSubstances, globalWarning: null, mixError: null,
+      stirringVesselId: live.stirringVesselId === id ? null : live.stirringVesselId,
+      canUndo: checkCanUndo(), canRedo: checkCanRedo() });
+    return id;
+  } catch (error) {
+    set({ mixError: error instanceof Error ? error.message : String(error) });
+    return null;
+  }
+}
 
 export type Language = 'en' | 'vi';
 export type SubstanceType = 'liquid' | 'solid' | 'gas';
@@ -147,6 +235,8 @@ const defaultVessels: Record<string, VesselState> = {
 };
 
 export interface ActiveKineticsState {
+  actualProgressRate_s?: number; // measured accepted progress/s, zero while awaiting heat
+  rateModel?: 'metal_hcl';
   vesselId: string;
   reactionId?: string;
   startTime: number;
@@ -170,6 +260,7 @@ export interface ActiveKineticsState {
     note_en?: string;
   };
   program?: ReactionProgram;
+  materialStages?: AluminumMaterialStage[];
   initialVesselBaseline?: VesselState;
   targetPrecipitateMass_g?: number;
 }
@@ -277,14 +368,20 @@ export interface AppState {
   };
   setSpatulaScoop: (chemical: string | null, mass_g?: number, color?: string) => void;
   settleVesselMixture: (id: string) => Promise<void>;
-  transferLiquidContinuous: (fromId: string, toId: string | null, delta_ml: number, dropPos?: [number, number, number]) => void;
+  transferLiquidContinuous: (fromId: string, toId: string | null, delta_ml: number, dropPos?: [number, number, number]) => LiquidTransferReceipt;
+  inFlightPours: PourParcel[];
+  pourEpoch: number;
+  releasePourLiquid: (parcel: Omit<PourParcel, 'sample' | 'releasedVolume_ml' | 'elapsed_s' | 'arrivedFraction'>, volume_ml: number) => number;
+  advancePourTransport: (dt: number) => PourArrival[];
 
   // Environmental Mass Conservation & Workbench Spills
   spills: Record<string, SpillState>;
   wasteMass_g: number;
   wasteContents: VesselState['contents'];
-  addSpill: (pos: [number, number, number], volume_ml: number, substances: string[], color: string, sourceName?: string, actualMass_g?: number, contents?: VesselState['contents']) => void;
+  addSpill: (pos: [number, number, number], volume_ml: number, substances: string[], color: string, sourceName?: string, actualMass_g?: number, contents?: VesselState['contents'], vesselId?: string) => void;
   cleanSpills: () => void;
+  cleanGlassDebris: (sourceVesselId?: string) => number;
+  checkpointGlassDebris: () => void;
   wipeSpillAt: (pos: [number, number, number], radius?: number) => void;
 
   // Vessels
@@ -308,6 +405,7 @@ export interface AppState {
   removeTestTubeFromRack: (rackId: string, tubeId: string) => void;
   toggleGripWithTongs: (tongsId: string, targetVesselId?: string) => void;
   toggleCondenserWater: (id: string) => void;
+  setCondenserCooling: (id: string, patch: Partial<CondenserCoolingSettings>) => boolean;
   recoverFilterResidue: (sourceId: string, receiverId: string) => void;
   sealVessel: (id: string) => void;
 
@@ -320,9 +418,10 @@ export interface AppState {
   toggleBurner: (id: string) => void;
   setBurnerIntensity: (id: string, intensity: number) => void;
   startFlameTest: (burnerId: string, element: string, duration_s?: number) => boolean;
-  prepareStudioProgram: (programId: string, variant?: 'oxygen_foam') => string | null;
-  prepareStudioIceSample: () => string | null;
-  prepareStudioMorphology: (type: string) => string | null;
+  prepareStudioProgram: (programId: string, variant?: 'oxygen_foam', targetId?: string) => string | null;
+  prepareStudioIceSample: (targetId?: string) => string | null;
+  prepareStudioWaterSample: (targetId: string, temperature_c?: number) => string | null;
+  prepareStudioMorphology: (type: string, targetId?: string) => string | null;
   setHotPlate: (id: string, options: { isOn?: boolean; setPoint_c?: number }) => boolean;
   placeOnHotPlate: (vesselId: string, plateId: string) => boolean;
   runStudioProgram: (vesselId: string) => boolean;
@@ -361,9 +460,11 @@ export interface AppState {
   // Interactive Drag & Pour
   isDraggingChemical: string | null;
   setIsDraggingChemical: (chem: string | null) => void;
-  pouringChemical: { chemical: string; targetId: string; type: SubstanceType; amount?: number } | null;
+  pouringChemical: AnimatedStockDose | null;
+  contactPour: (doseId?: number) => void;
+  advancePourContact: (doseId: number, fraction: number) => Promise<void>;
   triggerPour: (chemical: string, targetId: string, amount?: number) => void;
-  clearPour: () => void;
+  clearPour: (doseId?: number) => void;
 
   vesselPourAnimation: { 
     fromId: string; 
@@ -431,6 +532,8 @@ for (const [k, v] of Object.entries(rawVessels)) {
   };
 }
 
+shardManager.restoreLabSnapshot(persisted?.materials?.glassDebris, sanitizedVessels);
+
 const defaultBurners: Record<string, BurnerState> = {
   'burner_1': {
     id: 'burner_1',
@@ -464,8 +567,22 @@ for (const [k, b] of Object.entries(rawBurners)) {
 
 let _lastSimulationCommitTime = 0;
 let _pendingSimulationDt = 0;
+let _stockDoseId = 0;
 
 export const useAppStore = create<AppState>((set, get) => {
+  const materials = (): LabMaterialSnapshot => {
+    const s = get();
+    return { inFlightPours: s.inFlightPours, spills: s.spills, wasteMass_g: s.wasteMass_g, wasteContents: s.wasteContents,
+      glassDebris: shardManager.snapshot() };
+  };
+  const debounceSaveLocalState = (vessels: Record<string, VesselState>, burners: Record<string, BurnerState>) =>
+    persistLabState(vessels, burners, materials());
+  const pushHistorySnapshot: typeof persistHistorySnapshot = (action, vessels, burners, en, vi) =>
+    persistHistorySnapshot(action, vessels, burners, en, vi, materials());
+  const animatedDoses = new AnimatedDoseQueue(
+    job => get().mixSubstances(job.targetId, job.chemical, job.amount),
+    error => set({ mixError: error instanceof Error ? error.message : String(error) }),
+  );
   // Push initial snapshot into history
   setTimeout(() => {
     const s = get();
@@ -901,15 +1018,15 @@ export const useAppStore = create<AppState>((set, get) => {
           rotationY: 0,
           isLocked: false,
           substances: ['Na'],
-          contents: [{ formula: 'Na', moles: 0.0435, mass_g: 1.0 }],
+          contents: [{ formula: 'Na', moles: 0.1 / 22.990, mass_g: 0.1 }],
           volume_ml: 0,
           volume: 0,
-          mass_g: 1.0,
+          mass_g: 0.1,
           density_g_ml: 0.97,
           foam_ml: 0,
           temperature_c: 25,
           ph: 7.0,
-          hasPrecipitate: true,
+          hasPrecipitate: false,
           precipitateColor: '#cbd5e1',
           isBoiling: false,
           hasGas: false
@@ -1372,8 +1489,10 @@ export const useAppStore = create<AppState>((set, get) => {
         };
       }
       for (const id of Object.keys(vessels)) vessels[id] = materializePresetInventory(vessels[id]);
+      shardManager.restoreSnapshot();
       set({
         activeKinetics: {}, pendingReactions: {}, dissolvingSubstances: {}, lastMixResult: null,
+        inFlightPours: [], pourEpoch: get().pourEpoch + 1, isPouring: false,
         vessels,
         vesselIds: Object.keys(vessels),
         selectedVesselId: Object.keys(vessels)[0] || null,
@@ -1413,11 +1532,12 @@ export const useAppStore = create<AppState>((set, get) => {
 
     tickSimulation: (dt: number) => {
       const state = get();
-      if (state.isSimulationPaused || !Number.isFinite(dt) || dt <= 0) return;
+      if (state.isSimulationPaused || !Number.isFinite(dt) || dt <= 0
+        || !Number.isFinite(state.timeScale) || state.timeScale <= 0) return;
       const testFrame = typeof process !== 'undefined' && (process.env?.NODE_ENV === 'test' || !!process.env?.VITEST);
       if (!testFrame) {
         const frameNow = typeof performance !== 'undefined' ? performance.now() : Date.now();
-        _pendingSimulationDt += Math.min(dt, 0.1);
+        _pendingSimulationDt += acceptedFrameSeconds(dt);
         if (frameNow - _lastSimulationCommitTime < 50) return;
         dt = _pendingSimulationDt;
         _pendingSimulationDt = 0;
@@ -1429,8 +1549,10 @@ export const useAppStore = create<AppState>((set, get) => {
       const anyBurnerOn = burners.some(b => b.isOn);
       const anyHotPlateOn = Object.values(state.vessels).some(v => v.type === 'hot_plate' && v.hotPlate?.isOn);
       const anyFlameEmission = burners.some(b => b.flameEmission !== undefined);
-      const anyVesselHot = Object.values(state.vessels).some(v => Math.abs(v.temperature_c - 25) > 1e-5 || v.isBoiling || (v.evaporationRate_g_s ?? 0) > 0 || v.contents.some(item => item.phase === 'g' && item.moles > 1e-12));
-      const anyFoam = Object.values(state.vessels).some(v => (v.foam_ml || 0) > 0);
+      const environment = useLabEnvironment.getState().conditions;
+      const anyVesselHot = Object.values(state.vessels).some(v => v.environment !== environment || Math.abs(v.temperature_c - environment.temperature_c) > 1e-5 || v.isBoiling || (v.evaporationRate_g_s ?? 0) > 0 || v.contents.some(item => item.phase === 'g' && item.moles > 1e-12));
+      const anyFoam = Object.values(state.vessels).some(v => (v.foam_ml || 0) > 0
+        || (v.hydrogenCombustion?.power_W ?? 0) > 0);
       const anyStopcockDraining = Object.values(state.vessels).some(
         v => v.type === 'separatory_funnel' && v.stopcockOpen && (v.volume_ml > 0 || (v.immiscibleOrganicVolume_ml || 0) > 0)
       );
@@ -1438,9 +1560,15 @@ export const useAppStore = create<AppState>((set, get) => {
         && (v.volume_ml > 0 || v.isFiltrating || v.contents.some(item => solidContent(item) && item.location !== 'filter' && item.mass_g > 0)));
       const anyFuming = Object.values(state.vessels).some(v => (v.fumingIntensity || 0) > 0);
       const anyMist = Object.values(state.vessels).some(v => (v.condensationMist || 0) > 0);
+      const anySurfaceExchange = Object.values(state.vessels).some(v => !v.id.startsWith('lesson_vessel_')
+        && ((v.effectHeatInput_W ?? 0) > 0 || (v.thermalHeatingPower_W ?? 0) > 0 || supportsWaterSurface(v)
+          || (v.wallCondensation?.inner_g ?? 0) + (v.wallCondensation?.outer_g ?? 0) > 0));
       const anyPhaseChange = Object.values(state.vessels).some(v => !state.activeKinetics[v.id]
         && !v.id.startsWith('lesson_vessel_') && (partitionLeadIodide(v, 1 / 60) !== null
-          || partitionSodiumChloride(v, 1 / 60, state.stirringVesselId === v.id) !== null));
+          || partitionSodiumChloride(v, 1 / 60, state.stirringVesselId === v.id) !== null
+          || partitionCalcite(v, 1 / 60, state.stirringVesselId === v.id) !== null
+          || partitionBarite(v, 1 / 60) !== null || partitionCalciumHydroxide(v, 1 / 60) !== null
+          || partitionSilverHalide(v, 1 / 60) !== null || partitionMagnesiumHydroxide(v, 1 / 60) !== null));
       const anyAqueousChange = Object.values(state.vessels).some(v => projectAqueousSolution(v) !== null);
 
       // Fast exit if simulation state has no ongoing physical or chemical dynamics
@@ -1452,7 +1580,7 @@ export const useAppStore = create<AppState>((set, get) => {
         !anyFoam && 
         !anyStopcockDraining && 
         !anyFuming && 
-        !anyMist
+        !anyMist && !anySurfaceExchange
         && !anyPhaseChange
         && !anyAqueousChange
         && !anyFunnelFlow
@@ -1460,17 +1588,21 @@ export const useAppStore = create<AppState>((set, get) => {
         return;
       }
 
-      const scale = state.timeScale || 1;
+      const scale = state.timeScale;
       // Frame input is capped before accumulation; do not discard accepted time again here.
       const effectiveDt = dt * scale;
       let vesselsUpdated = false;
       let burnersUpdated = false;
       const newVessels = { ...state.vessels };
+      const condensationDrainages: { position: [number, number, number]; name: string; mass_g: number }[] = [];
       const newBurners = { ...state.burners };
       const newKinetics = { ...state.activeKinetics };
       const newPending = { ...state.pendingReactions };
       const newDissolving = { ...state.dissolvingSubstances };
       const vaporBudgets = new Map<string, number>();
+      const vaporEnergyBudgets = new Map<string, number>();
+      const vaporTemperatureBudgets = new Map<string, number>();
+      const wallThermalHandoffs = new Map<string, { includedDryHeat_J: number; enabled: boolean }>();
 
       // Consume once, then distribute one finite heat budget across all receivers.
       const heatByVessel_J = new Map<string, number>();
@@ -1503,11 +1635,18 @@ export const useAppStore = create<AppState>((set, get) => {
       // One sample heat budget; the final partial flame still transfers its finite energy.
       for (const vId of Object.keys(newVessels)) {
         if (vId.startsWith('lesson_vessel_') || newVessels[vId].type === 'hot_plate') continue;
-        const v = newVessels[vId];
-        const totalHeatingPower = (heatByVessel_J.get(vId) ?? 0) / effectiveDt;
+        const vesselEnvironment = newVessels[vId].effectsEnvironment
+          ? { ...environment, ...newVessels[vId].effectsEnvironment } : environment;
+        if (newVessels[vId].environment !== vesselEnvironment) vesselsUpdated = true;
+        const v = ensureHeadspaceReference({ ...newVessels[vId], environment: vesselEnvironment });
+        if (v.sealedHeadspace !== newVessels[vId].sealedHeadspace) vesselsUpdated = true;
+        newVessels[vId] = v;
+        const totalHeatingPower = (heatByVessel_J.get(vId) ?? 0) / effectiveDt
+          + (v.isShattered ? 0 : Math.max(0, v.effectHeatInput_W ?? 0));
 
         const thermal = stepVesselThermal(v, effectiveDt, totalHeatingPower);
-        if (thermal.evaporatedStep_g > 0) vaporBudgets.set(vId, thermal.evaporatedStep_g);
+        wallThermalHandoffs.set(vId, { includedDryHeat_J: thermal.wallThermalDryCredit_J ?? 0,
+          enabled: thermal.wallThermalEligible ?? false });
         let currentVol = thermal.volume_ml;
         let currentMass = thermal.mass_g;
         const evap_ml = thermal.evaporatedStep_g;
@@ -1516,13 +1655,6 @@ export const useAppStore = create<AppState>((set, get) => {
         const isBoilingNow = thermal.isBoiling ?? false;
         const boilingIntensity = thermal.boilingIntensity ?? 0;
 
-        // Real-World Mechanism: Headspace Condensation Fogging (T > 55°C)
-        let currentMist = v.condensationMist || 0;
-        if (roundedTemp > 55.0 && currentVol > 0.5) {
-          currentMist = Math.min(1.0, (roundedTemp - 55.0) / 32.0);
-        } else if (currentMist > 0) {
-          currentMist = Math.max(0, currentMist - 0.08 * effectiveDt);
-        }
 
         // Real-World Mechanism: Evaporative Wall Staining & Residue Ring
         let currentStain = v.stainIntensity || 0;
@@ -1553,7 +1685,8 @@ export const useAppStore = create<AppState>((set, get) => {
 
         // A nearby condenser cannot manufacture distilled water without a
         // connected vapor-transfer inventory. That coupling is not yet modeled.
-        const currentPressure = sealedGasPressure({ ...v, temperature_c: curTemp, volume_ml: currentVol });
+        const pressurePatch = gasPressurePatch({ ...v, temperature_c: curTemp, volume_ml: currentVol, contents: thermal.contents });
+        const currentPressure = pressurePatch.internalPressure_atm;
         const isExploded = v.isExplosion || false;
         const isShattered = v.isShattered || false;
         const shatterReason = v.shatterReason;
@@ -1563,18 +1696,23 @@ export const useAppStore = create<AppState>((set, get) => {
         const currentFoam = v.foam_ml ?? 0;
 
         if (
-          roundedTemp !== v.temperature_c || 
+          thermal.thermalHeatingPower_W !== v.thermalHeatingPower_W ||
+          thermal.thermalHeatingEnergy_J !== v.thermalHeatingEnergy_J ||
+          thermal.thermalEnergyOutsideModel_J !== v.thermalEnergyOutsideModel_J ||
+          thermal.thermalModelLimit !== v.thermalModelLimit ||
+          roundedTemp !== v.temperature_c ||
+          (thermal.evaporationRate_g_s ?? 0) !== (v.evaporationRate_g_s ?? 0) ||
           v.isBoiling !== isBoilingNow || 
           Math.abs(currentVol - v.volume_ml) > 1e-12 ||
           Math.abs(currentOrganicVol - (v.immiscibleOrganicVolume_ml || 0)) > 0.01 ||
           Math.abs(currentFoam - (v.foam_ml || 0)) > 0.01 ||
-          currentMist !== v.condensationMist ||
           currentStain !== v.stainIntensity ||
           isSuperheated !== v.isSuperheated ||
           bumpingSurge !== v.bumpingSurge ||
           fumingIntensity !== v.fumingIntensity ||
           isFiltrating !== v.isFiltrating ||
-          Math.abs(currentPressure - (v.internalPressure_atm || 1.0)) > 0.0001 ||
+          pressurePatch.internalPressureModel !== v.internalPressureModel ||
+          Math.abs((currentPressure ?? 0) - (v.internalPressure_atm ?? 0)) > 0.0001 ||
           Math.abs(currentFilterResidue - (v.filterPaperResidue_g || 0)) > 0.0001 ||
           isExploded !== v.isExplosion ||
           isShattered !== v.isShattered
@@ -1582,6 +1720,8 @@ export const useAppStore = create<AppState>((set, get) => {
           newVessels[vId] = {
             ...newVessels[vId],
             temperature_c: roundedTemp,
+            thermalHeatingPower_W: thermal.thermalHeatingPower_W,
+            thermalHeatingEnergy_J: thermal.thermalHeatingEnergy_J,
             isBoiling: isBoilingNow,
             boilingIntensity,
             volume_ml: currentVol,
@@ -1596,7 +1736,8 @@ export const useAppStore = create<AppState>((set, get) => {
             volume: Math.min(1.0, currentVol / v.capacity_ml),
             foam_ml: currentFoam,
             evaporated_ml: (v.evaporated_ml || 0) + evap_ml,
-            condensationMist: currentMist,
+            thermalVaporEnthalpy_J: thermal.thermalVaporEnthalpy_J ?? v.thermalVaporEnthalpy_J,
+            thermalVaporSensibleEnthalpy_J: thermal.thermalVaporSensibleEnthalpy_J ?? v.thermalVaporSensibleEnthalpy_J,
             stainIntensity: currentStain,
             stainColor,
             stainHeight,
@@ -1607,7 +1748,7 @@ export const useAppStore = create<AppState>((set, get) => {
             isFiltrating,
             filterPaperResidue_g: currentFilterResidue,
             filterPaperResidueSubstance: currentFilterSubstance,
-            internalPressure_atm: currentPressure,
+            ...pressurePatch,
             isExplosion: isExploded,
             isShattered,
             shatterReason
@@ -1660,11 +1801,6 @@ export const useAppStore = create<AppState>((set, get) => {
         }
       }
 
-      // Transfer the finite current inventories after every vessel's thermal
-      // step, so iteration order cannot overwrite an already received sample.
-      const condensed = transferWaterCondensate(newVessels, vaporBudgets);
-      if (condensed !== newVessels) { Object.assign(newVessels, condensed); vesselsUpdated = true; }
-
       for (const id of Object.keys(newVessels)) {
         const source = newVessels[id];
         if (id.startsWith('lesson_vessel_') || !['filter_funnel', 'separatory_funnel'].includes(source.type)) continue;
@@ -1699,7 +1835,17 @@ export const useAppStore = create<AppState>((set, get) => {
         }
 
         const validDuration = Number.isFinite(kinetics.duration) && kinetics.duration > 0;
-        const newProgress = validDuration ? Math.min(1, Math.max(0, kinetics.progress || 0) + effectiveDt / kinetics.duration) : 1;
+        const previousProgress = kinetics.progress;
+        const replayLimited = kinetics.program?.chemistry.kinetics?.model === 'heat_activated'
+          || kinetics.program?.chemistry.species.some(s => s.role === 'reactant' && s.phase === 'g');
+        const newProgress = kinetics.rateModel === 'metal_hcl'
+          ? advanceMetalAcidProgress(kinetics, v, effectiveDt, state.stirringVesselId === vId)
+          : replayLimited
+            ? advanceHeatActivatedProgress(kinetics, v, effectiveDt)
+          : validDuration ? Math.min(1, Math.max(0, kinetics.progress || 0) + effectiveDt / kinetics.duration) : 1;
+        if (replayLimited) {
+          kinetics.actualProgressRate_s = Math.max(0, newProgress - previousProgress) / effectiveDt;
+        }
         kinetics.progress = newProgress;
 
         const rxId = (kinetics.reactionId || '').toLowerCase();
@@ -1732,7 +1878,7 @@ export const useAppStore = create<AppState>((set, get) => {
             : 0;
           kinetics.targetPrecipitateMass_g = Math.max(0, solidMass || v.precipitateAmount_g || 0);
         }
-        if (!kinetics.program) {
+        if (!kinetics.program && !kinetics.materialStages) {
           curPrecipAmount_g = kinetics.targetPrecipitateMass_g;
           activeHasPrecip = curPrecipAmount_g > 1e-12;
         }
@@ -1763,16 +1909,21 @@ export const useAppStore = create<AppState>((set, get) => {
           }
         }
 
-        if (kinetics.program && kinetics.initialVesselBaseline) {
+        if ((kinetics.program || kinetics.materialStages) && kinetics.initialVesselBaseline) {
           const xi = newProgress;
-          const ledgerStep = applyProgramWithThermalSinks(kinetics.program, kinetics.initialVesselBaseline, newVessels[vId], xi, effectiveDt);
+          const ledgerStep = kinetics.materialStages
+            ? applyAluminumMaterialProgress(kinetics.materialStages, kinetics.initialVesselBaseline, newVessels[vId], xi, effectiveDt)
+            : applyProgramWithThermalSinks(kinetics.program!, kinetics.initialVesselBaseline, newVessels[vId], xi, effectiveDt);
+          if (ledgerStep.gasReplayBlocked) {
+            kinetics.progress = previousProgress; kinetics.actualProgressRate_s = 0;
+            newKinetics[vId] = { ...kinetics };
+            continue;
+          }
           programLedgerStep = ledgerStep;
-          const reactionVapor = Math.max(0, (ledgerStep.evaporated_ml ?? 0) - (newVessels[vId].evaporated_ml ?? 0));
-          if (reactionVapor > 0) vaporBudgets.set(vId, (vaporBudgets.get(vId) ?? 0) + reactionVapor);
           const currentStepContents = ledgerStep.contents || kinetics.initialVesselBaseline.contents || [];
           const currentStepSubstances = Array.from(new Set(
             currentStepContents
-              .filter(c => (c.moles || 0) > 1e-6)
+              .filter(c => (c.moles || 0) > (kinetics.materialStages ? 1e-12 : 1e-6))
               .map(c => c.formula)
               .concat((ledgerStep.hasPrecipitate && ledgerStep.precipitateSubstance) ? [ledgerStep.precipitateSubstance] : [])
           ));
@@ -1782,7 +1933,7 @@ export const useAppStore = create<AppState>((set, get) => {
           if (ledgerStep.precipitateSubstance) activePrecipSubstance = ledgerStep.precipitateSubstance;
           if (ledgerStep.precipitateColor) activePrecipColor = ledgerStep.precipitateColor;
 
-          const targetTurbidity = kinetics.program.visual?.after?.turbidity ?? 0;
+          const targetTurbidity = kinetics.program?.visual?.after?.turbidity ?? 0;
           const currentTurbidity = targetTurbidity * Math.min(1.0, newProgress / 0.4);
 
           newVessels[vId] = {
@@ -1797,19 +1948,23 @@ export const useAppStore = create<AppState>((set, get) => {
             volume_ml: ledgerStep.volume_ml ?? newVessels[vId].volume_ml,
             volume: ledgerStep.volume ?? newVessels[vId].volume,
             evaporated_ml: ledgerStep.evaporated_ml ?? newVessels[vId].evaporated_ml,
-            evaporationRate_g_s: Math.max(newVessels[vId].evaporationRate_g_s ?? 0, ledgerStep.evaporationRate_g_s ?? 0),
+            thermalVaporEnthalpy_J: ledgerStep.thermalVaporEnthalpy_J ?? newVessels[vId].thermalVaporEnthalpy_J,
+            thermalVaporSensibleEnthalpy_J: ledgerStep.thermalVaporSensibleEnthalpy_J ?? newVessels[vId].thermalVaporSensibleEnthalpy_J,
+            evaporationRate_g_s: (newVessels[vId].evaporationRate_g_s ?? 0) + (ledgerStep.evaporationRate_g_s ?? 0),
             isBoiling: ledgerStep.isBoiling ?? newVessels[vId].isBoiling,
             boilingIntensity: ledgerStep.boilingIntensity ?? newVessels[vId].boilingIntensity,
             escapedGas_g: ledgerStep.escapedGas_g,
             ph: ledgerStep.ph ?? newVessels[vId].ph,
             phModel: ledgerStep.phModel,
+            phReferenceTemperature_c: ledgerStep.phReferenceTemperature_c,
             temperature_c: ledgerStep.temperature_c ?? newVessels[vId].temperature_c,
             internalPressure_atm: ledgerStep.internalPressure_atm ?? newVessels[vId].internalPressure_atm,
             liquidColor: blendedColor,
             turbidity: currentTurbidity,
-            hasGas: (ledgerStep.hasGas ?? false) && newProgress < 0.95,
+            hasGas: (ledgerStep.hasGas ?? false) && (kinetics.rateModel === 'metal_hcl' || kinetics.actualProgressRate_s !== undefined
+              ? newProgress > previousProgress && newProgress < 1 : newProgress < 0.95),
             gasColor: ledgerStep.gasColor || kinetics.gasColor,
-            hasPrecipitate: activeHasPrecip && curPrecipAmount_g > 0.001,
+            hasPrecipitate: activeHasPrecip && curPrecipAmount_g > (kinetics.materialStages ? 1e-12 : 0.001),
             precipitateColor: activePrecipColor,
             precipitateSubstance: activePrecipSubstance,
             precipitateMorphology: (ledgerStep.precipitateMorphology as any) || activePrecipMorphology,
@@ -1834,12 +1989,12 @@ export const useAppStore = create<AppState>((set, get) => {
         }
 
         if (newProgress >= 1.0) {
-          if (kinetics.program && kinetics.initialVesselBaseline) {
+          if ((kinetics.program || kinetics.materialStages) && kinetics.initialVesselBaseline) {
             const finalLedger = programLedgerStep!;
             const finalContents = finalLedger.contents || [];
             const finalSubstances = Array.from(new Set(
               finalContents
-                .filter(c => (c.moles || 0) > 1e-6)
+                .filter(c => (c.moles || 0) > (kinetics.materialStages ? 1e-12 : 1e-6))
                 .map(c => c.formula)
                 .concat((finalLedger.hasPrecipitate && finalLedger.precipitateSubstance) ? [finalLedger.precipitateSubstance] : [])
             ));
@@ -1851,13 +2006,14 @@ export const useAppStore = create<AppState>((set, get) => {
               escapedGas_g: finalLedger.escapedGas_g,
               ph: finalLedger.ph ?? newVessels[vId].ph,
               phModel: finalLedger.phModel,
+              phReferenceTemperature_c: finalLedger.phReferenceTemperature_c,
               liquidColor: finalLedger.liquidColor || kinetics.targetLiquidColor,
               hasPrecipitate: finalLedger.hasPrecipitate ?? false,
               precipitateColor: finalLedger.precipitateColor || activePrecipColor,
               precipitateSubstance: finalLedger.precipitateSubstance || activePrecipSubstance,
               precipitateMorphology: (finalLedger.precipitateMorphology as any) || activePrecipMorphology,
               precipitateAmount_g: finalLedger.precipitateAmount_g,
-              turbidity: kinetics.program.visual?.after?.turbidity ?? 0,
+              turbidity: kinetics.program?.visual?.after?.turbidity ?? 0,
               hasGas: false,
               foam_ml: 0
             };
@@ -1889,6 +2045,18 @@ export const useAppStore = create<AppState>((set, get) => {
           vessel = newVessels[id] = { ...vessel, ...escaped };
           vesselsUpdated = true;
         }
+        const sourceKinetics = state.activeKinetics[id];
+        if (isSodiumWaterReaction(sourceKinetics?.reactionId) || vessel.hydrogenCombustion) {
+          const contact = reactionSimulationEngine.getRuntime(id)?.customData;
+          const combustion = stepHydrogenExhaustCombustion(vessel, state.vessels[id] ?? vessel, effectiveDt,
+            isSodiumWaterReaction(sourceKinetics?.reactionId),
+            sodiumExternalIgnition(vessel, state.burners, [contact?.x ?? 0, contact?.z ?? 0]),
+            sodiumMetalMass(sourceKinetics?.initialVesselBaseline ?? vessel));
+          if (combustion) {
+            vessel = newVessels[id] = { ...vessel, hydrogenCombustion: combustion };
+            vesselsUpdated = true;
+          }
+        }
         const foam = stepFoamInventory(vessel, state.vessels[id] ?? vessel, effectiveDt);
         if (foam) {
           vessel = newVessels[id] = { ...vessel, ...foam };
@@ -1905,11 +2073,67 @@ export const useAppStore = create<AppState>((set, get) => {
           vessel = newVessels[id] = { ...vessel, ...saltPhase };
           vesselsUpdated = true;
         }
+        const calcitePhase = !newKinetics[id] && !id.startsWith('lesson_vessel_')
+          ? partitionCalcite(vessel, effectiveDt, state.stirringVesselId === id) : null;
+        if (calcitePhase) {
+          vessel = newVessels[id] = { ...vessel, ...calcitePhase };
+          vesselsUpdated = true;
+        }
+        const baritePhase = !newKinetics[id] && !id.startsWith('lesson_vessel_')
+          ? partitionBarite(vessel, effectiveDt) : null;
+        if (baritePhase) {
+          vessel = newVessels[id] = { ...vessel, ...baritePhase };
+          vesselsUpdated = true;
+        }
+        const limePhase = !newKinetics[id] && !id.startsWith('lesson_vessel_')
+          ? partitionCalciumHydroxide(vessel, effectiveDt) : null;
+        if (limePhase) {
+          vessel = newVessels[id] = { ...vessel, ...limePhase };
+          vesselsUpdated = true;
+        }
+        const silverPhase = !newKinetics[id] && !id.startsWith('lesson_vessel_')
+          ? partitionSilverHalide(vessel, effectiveDt) : null;
+        if (silverPhase) {
+          vessel = newVessels[id] = { ...vessel, ...silverPhase };
+          vesselsUpdated = true;
+        }
+        const magnesiumPhase = !newKinetics[id] && !id.startsWith('lesson_vessel_')
+          ? partitionMagnesiumHydroxide(vessel, effectiveDt) : null;
+        if (magnesiumPhase) {
+          vessel = newVessels[id] = { ...vessel, ...magnesiumPhase };
+          vesselsUpdated = true;
+        }
         const aqueous = projectAqueousSolution(vessel);
         if (aqueous) {
           newVessels[id] = { ...vessel, ...aqueous };
           vesselsUpdated = true;
         }
+      }
+      // All sources now exist: external heating, reaction heat and chemical
+      // H2O(g). Advance each wall once, then share its remaining finite budget
+      // between explicitly connected condensers and the external exhaust.
+      for (const id of Object.keys(newVessels)) {
+        let current = newVessels[id];
+        if (id.startsWith('lesson_vessel_') || current.type === 'hot_plate') continue;
+        const finalGas = projectEscapedGas(current);
+        if (finalGas) current = { ...current, ...finalGas };
+        current = { ...current, gasFlux: measureGasFlux(current, state.vessels[id] ?? current, effectiveDt) };
+        const routed = routeWaterVaporToWall(current, state.vessels[id] ?? current, effectiveDt, wallThermalHandoffs.get(id));
+        newVessels[id] = routed.vessel;
+        vaporBudgets.set(id, routed.availableVapor_g);
+        vaporEnergyBudgets.set(id, routed.availableVaporEnergy_J);
+        vaporTemperatureBudgets.set(id, routed.availableVaporTemperatureMass_c_g);
+        if (routed.drainedOutside_g > 0) condensationDrainages.push({ position: current.position,
+          name: current.name, mass_g: routed.drainedOutside_g });
+        vesselsUpdated = true;
+      }
+      const condensed = transferWaterCondensate(newVessels, vaporBudgets, effectiveDt, vaporEnergyBudgets);
+      if (condensed !== newVessels) Object.assign(newVessels, condensed);
+      for (const [id, vapor] of vaporBudgets) {
+        const current = newVessels[id];
+        const final = finalizeWaterVaporOutflow(current, state.vessels[id] ?? current, vapor, effectiveDt,
+          vaporEnergyBudgets.get(id), vaporTemperatureBudgets.get(id));
+        newVessels[id] = { ...final, ...projectAqueousSolution(final) };
       }
       const kineticsCountChanged = Object.keys(newKinetics).length !== Object.keys(state.activeKinetics).length;
       const now = typeof performance !== 'undefined' ? performance.now() : Date.now();
@@ -1918,6 +2142,10 @@ export const useAppStore = create<AppState>((set, get) => {
         _lastSimulationCommitTime = now;
         set({
           vessels: newVessels,
+          // Preserve spills committed by reaction/shatter handlers during this tick.
+          spills: condensationDrainages.reduce((spills, drain) => mergeWorkbenchSpill(spills,
+            drain.position, drain.mass_g, ['H2O'], '#f8fafc', drain.name, drain.mass_g,
+            [{ formula: 'H2O', phase: 'l', mass_g: drain.mass_g, moles: drain.mass_g / 18.015 }]), get().spills),
           burners: newBurners,
           activeKinetics: newKinetics,
           pendingReactions: newPending,
@@ -1938,81 +2166,54 @@ export const useAppStore = create<AppState>((set, get) => {
       mass_g: 0,
       color: '#cbd5e1',
     },
-    setSpatulaScoop: (chemical, mass_g = 0.5, color = '#cbd5e1') =>
+    setSpatulaScoop: (chemical, mass_g, color = '#cbd5e1') =>
       set({
         spatulaState: {
           chemical,
-          mass_g: chemical ? mass_g : 0,
+          mass_g: chemical ? (mass_g !== undefined ? mass_g : (chemical === 'Na' ? 0.1 : 0.5)) : 0,
           color: chemical ? color : '#cbd5e1',
         },
       }),
 
     // Environmental Spills & Cleanup
-    spills: {},
-    wasteMass_g: 0,
-    wasteContents: [],
-    addSpill: (pos, volume_ml, substances, color, sourceName, actualMass_g, contents) => {
-      if (!Number.isFinite(volume_ml) || volume_ml < 0) return;
-      if (volume_ml <= (actualMass_g !== undefined ? 1e-12 : 0.02)
-        && !(actualMass_g !== undefined && actualMass_g > 0)) return;
-      if (actualMass_g !== undefined && (!Number.isFinite(actualMass_g) || actualMass_g < 0)) return;
-      set(s => {
-        const existing = Object.values(s.spills).find(
-          sp => Math.hypot(sp.position[0] - pos[0], sp.position[2] - pos[2]) < 0.35
-        );
-        const density = 1.0;
-        const addedMass = actualMass_g ?? volume_ml * density;
-        const newSpills = { ...s.spills };
-        if (existing) {
-          const totalVol = existing.volume_ml + volume_ml;
-          const merged = (existing.contents ?? []).map(item => ({ ...item }));
-          for (const item of contents ?? []) {
-            const found = merged.find(target => target.formula === item.formula && target.phase === item.phase && target.liquidLayer === item.liquidLayer);
-            if (found) { found.mass_g += item.mass_g; found.moles += item.moles; }
-            else merged.push({ ...item });
-          }
-          newSpills[existing.id] = {
-            ...existing,
-            contents: merged,
-            volume_ml: totalVol,
-            mass_g: existing.mass_g + addedMass,
-            radius: Math.min(1.2, 0.15 + Math.sqrt(totalVol || existing.mass_g + addedMass) * 0.07),
-            substances: Array.from(new Set([...existing.substances, ...substances])),
-            isHazard: existing.isHazard || substances.some(sub => ['H2SO4', 'HCl', 'HNO3', 'NaOH', 'BaCl2'].some(h => sub.includes(h))),
-            timestamp: Date.now()
-          };
-        } else {
-          const id = `spill_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
-          const tableY = typeof pos[1] === 'number' && pos[1] < -0.5 ? pos[1] : -1.155;
-          newSpills[id] = {
-            id,
-            position: [pos[0], tableY, pos[2]],
-            substances,
-            color: color || '#38bdf8',
-            volume_ml,
-            mass_g: addedMass,
-            radius: Math.min(1.2, 0.15 + Math.sqrt(volume_ml || addedMass) * 0.07),
-            isHazard: substances.some(sub => ['H2SO4', 'HCl', 'HNO3', 'NaOH', 'BaCl2'].some(h => sub.includes(h))),
-            contents: contents?.map(item => ({ ...item })),
-            sourceVesselName: sourceName,
-            timestamp: Date.now()
-          };
-        }
-        ppeService.handleChemicalSplash(substances, color);
-        return { spills: newSpills };
-      });
+    spills: persisted?.materials?.spills ?? {},
+    wasteMass_g: persisted?.materials?.wasteMass_g ?? 0,
+    wasteContents: persisted?.materials?.wasteContents ?? [],
+    addSpill: (pos, volume_ml, substances, color, sourceName, actualMass_g, contents, vesselId) => {
+      const state = get();
+      // A nearby puddle does not prove that liquid crossed this vessel's rim.
+      // Only finite-overflow callers explicitly name that receiver.
+      const overflowingVessel = vesselId ? state.vessels[vesselId] : undefined;
+
+      const previous = state.spills;
+      const deposition = overflowingVessel && !overflowingVessel.isShattered && volume_ml > 0
+        ? overflowLandingPosition(overflowingVessel) : pos;
+      const spills = mergeWorkbenchSpill(previous, deposition, volume_ml, substances, color, sourceName, actualMass_g, contents);
+      if (spills === previous) return;
+      set({ spills });
+      if (overflowingVessel && !overflowingVessel.isShattered && volume_ml > 0) {
+        vfxBus.emit('vessel:overflow', {
+          vesselId: overflowingVessel.id,
+          volume_ml,
+          color: color || overflowingVessel.liquidColor || '#38bdf8',
+          substances,
+          angle: overflowingVessel.rotationY || 0,
+        });
+      }
+      ppeService.handleChemicalSplash(substances, color);
+      debounceSaveLocalState(get().vessels, get().burners);
     },
     cleanSpills: () => {
       const currentSpills = Object.values(get().spills);
       if (currentSpills.length === 0) return;
       const collected = collectSpillWaste(get().wasteContents, currentSpills);
       labSound.playSpongeWipe();
-      shardManager.cleanShards('brush_dustpan');
       set(s => ({
         spills: {},
         wasteMass_g: (s.wasteMass_g || 0) + collected.addedMass_g,
         wasteContents: collected.contents
       }));
+      debounceSaveLocalState(get().vessels, get().burners);
     },
     wipeSpillAt: (pos: [number, number, number], radius: number = 0.55) => {
       const state = get();
@@ -2020,29 +2221,40 @@ export const useAppStore = create<AppState>((set, get) => {
       if (currentSpills.length === 0) return;
 
       let cleanedAny = false;
-      let totalCleanedMass = 0;
       const cleanedSpills: SpillState[] = [];
       const newSpills = { ...state.spills };
 
       for (const sp of currentSpills) {
-        const dist = Math.hypot(sp.position[0] - pos[0], sp.position[2] - pos[2]);
-        if (dist <= radius + (sp.radius || 0.2)) {
+        const patch = collectSpillPatch(sp, pos, radius);
+        if (patch) {
           cleanedAny = true;
-          totalCleanedMass += sp.mass_g || 0;
-          cleanedSpills.push(sp);
-          delete newSpills[sp.id];
+          cleanedSpills.push(patch.collected);
+          if (patch.remaining) newSpills[sp.id] = patch.remaining;
+          else delete newSpills[sp.id];
         }
       }
 
       if (cleanedAny) {
+        const collected = collectSpillWaste(state.wasteContents, cleanedSpills);
         labSound.playSpongeWipe();
-        shardManager.cleanShards('brush_dustpan');
         set(s => ({
           spills: newSpills,
-          wasteMass_g: (s.wasteMass_g || 0) + totalCleanedMass,
-          wasteContents: collectSpillWaste(s.wasteContents, cleanedSpills).contents
+          wasteMass_g: (s.wasteMass_g || 0) + collected.addedMass_g,
+          wasteContents: collected.contents
         }));
+        debounceSaveLocalState(get().vessels, get().burners);
       }
+    },
+
+    checkpointGlassDebris: () => debounceSaveLocalState(get().vessels, get().burners),
+    cleanGlassDebris: (sourceVesselId) => {
+      const count = shardManager.collectSettledShards(sourceVesselId);
+      const vi = get().language !== 'en';
+      get().showToast(count > 0
+        ? (vi ? `Đã dùng chổi/hót rác thu gom ${count} mảnh kính đã rơi.` : `Swept ${count} landed glass fragments into a sharps container.`)
+        : (vi ? 'Không có mảnh kính đã rơi trong phạm vi thu gom.' : 'No landed glass fragments in this collection scope.'), 'info');
+      if (count > 0) debounceSaveLocalState(get().vessels, get().burners);
+      return count;
     },
 
     vessels: sanitizedVessels,
@@ -2051,7 +2263,23 @@ export const useAppStore = create<AppState>((set, get) => {
       set(s => {
         if (!s.vessels[id]) return s;
         const currentVessel = s.vessels[id];
-        let updated = { ...s.vessels, [id]: { ...currentVessel, ...state } };
+        let next = { ...currentVessel, ...state };
+        if (state.isSealed === true && !currentVessel.isSealed) next.sealedHeadspace = captureHeadspace(next);
+        else if (currentVessel.isSealed && !currentVessel.sealedHeadspace) {
+          next.sealedHeadspace = ensureHeadspaceReference(currentVessel).sealedHeadspace;
+        }
+        if (state.isSealed === false) {
+          const history = waterVaporReleasedHistoryG(next), escapedBefore = next.escapedGas_g ?? {};
+          const vent = projectEscapedGas(next);
+          if (vent) {
+            const water = Object.entries(vent.escapedGas_g ?? {}).reduce((sum, [formula, mass]) => sum
+              + (sameMolecularFormula(formula, 'H2O') ? mass - (escapedBefore[formula] ?? 0) : 0), 0);
+            next = { ...next, ...vent, waterVaporReleased_g: history + water };
+          }
+          next.sealedHeadspace = undefined;
+        }
+        if (next.isSealed || state.isSealed !== undefined) next = { ...next, ...gasPressurePatch(next) };
+        let updated = { ...s.vessels, [id]: next };
 
         // Synchronize slotted test tubes when test tube rack is moved
         if (state.position && currentVessel.type === 'test_tube_rack' && currentVessel.slottedTestTubeIds) {
@@ -2130,6 +2358,14 @@ export const useAppStore = create<AppState>((set, get) => {
         }
 
         debounceSaveLocalState(updated, s.burners);
+        if (state.contents && state.contents !== currentVessel.contents) {
+          // Pipette withdrawals and other explicit inventory replacements must
+          // retire replay baselines, or the next tick recreates removed matter.
+          const activeKinetics = { ...s.activeKinetics }, pendingReactions = { ...s.pendingReactions },
+            dissolvingSubstances = { ...s.dissolvingSubstances };
+          delete activeKinetics[id]; delete pendingReactions[id]; delete dissolvingSubstances[id];
+          return { vessels: updated, activeKinetics, pendingReactions, dissolvingSubstances };
+        }
         return { vessels: updated };
       });
     },
@@ -2184,7 +2420,7 @@ export const useAppStore = create<AppState>((set, get) => {
           name,
           type,
           capacity_ml,
-          position: [x, -0.135, z],
+          position: [x, restingVesselHeight(type), z],
           rotationY: 0,
           isLocked: false,
           substances: isWashBottle ? ['H2O'] : [],
@@ -2222,6 +2458,7 @@ export const useAppStore = create<AppState>((set, get) => {
         ...JSON.parse(JSON.stringify(source)),
         id: newId,
         name: `${source.name} (Copy)`,
+        wallCoating_ml: 0, wallCoatingMass_g: 0,
         position: [source.position[0] + 0.8, source.position[1], source.position[2] + 0.5],
         isLocked: false
       };
@@ -2289,19 +2526,34 @@ export const useAppStore = create<AppState>((set, get) => {
     shatterVessel: (id, reason = 'Thermal shock & overpressure') => {
       const v = get().vessels[id];
       if (!v || v.isShattered) return;
-      labSound.playGlassShatter();
-      shardManager.spawnShatterShards(id, v.position, v.liquidColor || '#e2e8f0', 20);
+      if (![v.volume_ml, v.mass_g, v.wallCondensation?.inner_g ?? 0, v.wallCondensation?.outer_g ?? 0,
+        ...v.position].every(Number.isFinite) || v.volume_ml < 0 || v.mass_g < 0
+        || (v.wallCondensation?.inner_g ?? 0) < 0 || (v.wallCondensation?.outer_g ?? 0) < 0) return;
+      const isExplosionReason = reason.toLowerCase().includes('nổ')
+        || reason.toLowerCase().includes('explosion')
+        || reason.toLowerCase().includes('overpressure');
+      const liquidColor = v.liquidColor || v.precipitateColor || '#38bdf8';
       const released = releaseShatteredInventory(v);
-      if (released.spill.volume_ml > 0 || released.spill.mass_g > 0) {
-        get().addSpill(v.position, released.spill.volume_ml, released.spill.substances,
-          v.liquidColor || v.precipitateColor || '#94a3b8', v.name, released.spill.mass_g, released.spill.contents);
-      }
+      const vesselSubstances = released.spill.substances;
+      const isAcidLiquid = vesselSubstances.some(s => ['H2SO4', 'HCl', 'HNO3', 'CH3COOH'].includes(s));
+
+      let committed = false;
       set(s => {
+        if (s.vessels[id] !== v || v.isShattered) return s;
         const updatedVessel: VesselState = {
           ...v,
           isShattered: true,
+          effectSampleRevision: (v.effectSampleRevision ?? 0) + 1,
           shatterReason: reason,
           escapedGas_g: released.escapedGas_g,
+          wallCondensation: released.wallAfterBreak,
+          isSealed: false,
+          sealedHeadspace: undefined, internalPressureModel: 'ambient',
+          internalPressure_atm: v.effectsEnvironment?.pressure_atm ?? v.environment?.pressure_atm ?? 1,
+          effectHeatInput_W: 0, effectHeatHandle: undefined,
+          evaporationRate_g_s: 0, waterVaporOutflow_g_s: 0, waterVaporPartialPressure_Pa: 0,
+          waterVaporReleased_g: waterVaporReleasedHistoryG(v) + released.waterVaporVented_g,
+          gasFlux: undefined,
           filterPaperResidue_g: 0,
           filterPaperResidueSubstance: undefined,
           immiscibleOrganicVolume_ml: 0,
@@ -2329,14 +2581,45 @@ export const useAppStore = create<AppState>((set, get) => {
         const updatedDissolving = { ...s.dissolvingSubstances };
         delete updatedDissolving[id];
 
-        debounceSaveLocalState(updated, s.burners);
+        const spills = mergeWorkbenchSpill(s.spills, v.position, released.spill.volume_ml,
+          released.spill.substances, liquidColor, v.name, released.spill.mass_g, released.spill.contents);
+        if ((released.spill.volume_ml > 0 || released.spill.mass_g > 0) && spills === s.spills) return s;
+        committed = true;
         return { 
           vessels: updated,
+          spills,
           activeKinetics: updatedKinetics,
           pendingReactions: updatedPending,
           dissolvingSubstances: updatedDissolving
         };
       });
+      if (!committed) return;
+      reactionSimulationEngine.stopReaction(id);
+      programPlayer.stopProgram(id);
+      kineticsEngine.reset(id);
+      SimulationEngine.findManager(id)?.reset();
+      vfxBus.emit('vessel:sample-reset', { vesselId: id });
+      // Persist and publish only after source depletion, wall release, gas
+      // venting and spill receipt are visible in the same store version.
+      labSound.playGlassShatter();
+      shardManager.spawnShatterShards(id, v.position, v.liquidColor || '#e2e8f0', isExplosionReason ? 30 : 20);
+      debounceSaveLocalState(get().vessels, get().burners);
+      if (released.spill.volume_ml > 0 || released.spill.mass_g > 0) {
+        ppeService.handleChemicalSplash(vesselSubstances, liquidColor);
+      }
+      if (isExplosionReason) {
+        labSound.playExplosion();
+        labSound.playBumpingSurge();
+        vfxBus.emit('explosion', { vesselId: id, position: v.position, intensity: 1, color: '#f59e0b',
+          liquidColor, substances: vesselSubstances, isAcid: isAcidLiquid, isDangerous: true });
+        vfxBus.emit('sparks', { position: [v.position[0], v.position[1] + 0.35, v.position[2]],
+          count: 50, color: '#fbbf24', speed: 4.8 });
+        const mouthY = v.position[1] + (v.position[1] < 0 ? 0.85 : 0.45);
+        if (released.spill.volume_ml > 0) vfxBus.emit('acid:splatter', {
+          vesselId: id, position: [v.position[0], mouthY, v.position[2]],
+          count: Math.min(100, Math.ceil(released.spill.volume_ml * 1.6)), speed: 5.6,
+          color: liquidColor, substances: vesselSubstances, isAcid: isAcidLiquid, spread: 0.85 });
+      }
     },
 
     replaceShatteredVessel: (id) => {
@@ -2346,6 +2629,9 @@ export const useAppStore = create<AppState>((set, get) => {
       set(s => {
         const updatedVessel: VesselState = {
           ...v,
+          bodyRevision: (v.bodyRevision ?? 0) + 1,
+          wallCoating_ml: 0, wallCoatingMass_g: 0,
+          contents: [], substances: [],
           isShattered: false,
           shatterReason: undefined,
           volume_ml: 0,
@@ -2566,30 +2852,34 @@ export const useAppStore = create<AppState>((set, get) => {
 
     toggleCondenserWater: (id) => {
       const v = get().vessels[id];
-      if (!v) return;
+      if (!v || v.type !== 'condenser' || v.isLocked || v.isShattered) return;
       labSound.playLiquidPour(0.4);
       set(s => {
         const updated = {
           ...s.vessels,
-          [id]: { ...v, coolingWaterActive: !v.coolingWaterActive }
+          [id]: { ...v, coolingWaterActive: !v.coolingWaterActive, condenserCoolingPower_W: 0,
+            condenserEffectiveConductance_W_K: 0, coolantOutletTemperature_c: undefined }
         };
         debounceSaveLocalState(updated, s.burners);
         return { vessels: updated };
       });
     },
+    setCondenserCooling: (id, patch) => {
+      const v = get().vessels[id];
+      if (!v || v.type !== 'condenser' || v.isLocked || v.isShattered || !patch
+        || Object.keys(patch).some(key => !['flow_ml_s', 'inletTemperature_c', 'conductance_W_K'].includes(key))) return false;
+      const settings = { ...condenserCoolingSettings(v.condenserCooling), ...patch };
+      if (!validCondenserCooling(settings)) return false;
+      get().setVesselState(id, { condenserCooling: settings, condenserCoolingPower_W: 0,
+        condenserEffectiveConductance_W_K: 0, coolantOutletTemperature_c: undefined });
+      return true;
+    },
 
     sealVessel: (id) => {
       const v = get().vessels[id];
-      if (!v) return;
+      if (!v || v.isShattered || v.isLocked) return;
       labSound.playTap();
-      set(s => {
-        const updated = {
-          ...s.vessels,
-          [id]: { ...v, isSealed: !v.isSealed, internalPressure_atm: v.isSealed ? 1.0 : (v.internalPressure_atm || 1.0) }
-        };
-        debounceSaveLocalState(updated, s.burners);
-        return { vessels: updated };
-      });
+      get().setVesselState(id, { isSealed: !v.isSealed });
     },
 
     burners: sanitizedBurners,
@@ -2680,67 +2970,31 @@ export const useAppStore = create<AppState>((set, get) => {
       return true;
     },
 
-    prepareStudioIceSample: () => {
-      const id = 'studio_ice_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
-      const index = get().vesselIds.length;
-      const shell: VesselState = { ...defaultVessels.beaker_1, id,
-        position: [((index % 5) - 2) * 1.5, -0.135, 1.8 + Math.floor(index / 5) * 1.2] };
-      const vessel = createIceWaterSample(shell);
-      set(s => {
-        const vessels = { ...s.vessels, [id]: vessel };
-        pushHistorySnapshot('ADD_VESSEL', vessels, s.burners, 'Prepared water and ice', 'Tạo mẫu nước và đá');
-        debounceSaveLocalState(vessels, s.burners);
-        return { vessels, vesselIds: Object.keys(vessels), selectedVesselId: id,
-          globalWarning: null, canUndo: checkCanUndo(), canRedo: checkCanRedo() };
-      });
-      return id;
+    prepareStudioIceSample: (targetId) => {
+      return prepareStudioSpecimen(get, set, targetId, 'studio_ice', createIceWaterSample);
     },
 
-    prepareStudioProgram: (programId, variant) => {
+    prepareStudioWaterSample: (targetId, temperature_c = 25) => {
+      if (!Number.isFinite(temperature_c) || temperature_c < 0 || temperature_c > 95) return null;
+      return prepareStudioSpecimen(get, set, targetId, 'studio_water', shell => {
+        const mass = Math.min(100, shell.capacity_ml * 0.5);
+        return { ...shell, contents: [{ formula: 'H2O', phase: 'l', mass_g: mass, moles: mass / 18.015 }],
+          substances: ['H2O'], volume_ml: mass, mass_g: mass, volume: mass / shell.capacity_ml,
+          temperature_c, isBoiling: false, boilingIntensity: 0, evaporated_ml: 0 };
+      });
+    },
+
+    prepareStudioProgram: (programId, variant, targetId) => {
       const program = getProgramById(programId);
       if (!program || LESSON_PROGRAM_IDS.has(program.id)) return null;
-      try {
-        const id = 'studio_sample_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
-        const index = get().vesselIds.length;
-        const shell: VesselState = { ...defaultVessels.beaker_1, id, name: 'Mẫu Studio: ' + program.id,
-          position: [((index % 5) - 2) * 1.5, -0.135, 1.8 + Math.floor(index / 5) * 1.2] };
-        const vessel = createStudioSample(program, shell, variant);
-        set(s => {
-          const vessels = { ...s.vessels, [id]: vessel };
-          pushHistorySnapshot('ADD_VESSEL', vessels, s.burners, 'Prepared virtual specimen', 'Tạo mẫu mô phỏng định lượng');
-          debounceSaveLocalState(vessels, s.burners);
-          return { vessels, vesselIds: Object.keys(vessels), selectedVesselId: id,
-            globalWarning: null, mixError: null, canUndo: checkCanUndo(), canRedo: checkCanRedo() };
-        });
-        return id;
-      } catch (error) {
-        set({ mixError: error instanceof Error ? error.message : String(error) });
-        return null;
-      }
+      return prepareStudioSpecimen(get, set, targetId, 'studio_sample', shell => createStudioSample(program, shell, variant));
     },
 
-    prepareStudioMorphology: (type) => {
+    prepareStudioMorphology: (type, targetId) => {
       const entry = PRECIPITATE_MORPHOLOGIES.find(item => item.type === type);
       if (!entry) return null;
-      if (entry.programId) return get().prepareStudioProgram(entry.programId);
-      try {
-        const id = 'studio_morphology_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
-        const index = get().vesselIds.length;
-        const shell: VesselState = { ...defaultVessels.beaker_1, id,
-          position: [((index % 5) - 2) * 1.5, -0.135, 1.8 + Math.floor(index / 5) * 1.2] };
-        const vessel = createStudioMorphologySample(type, shell);
-        set(s => {
-          const vessels = { ...s.vessels, [id]: vessel };
-          pushHistorySnapshot('ADD_VESSEL', vessels, s.burners, 'Prepared solid specimen', 'Tạo mẫu chất rắn định lượng');
-          debounceSaveLocalState(vessels, s.burners);
-          return { vessels, vesselIds: Object.keys(vessels), selectedVesselId: id,
-            globalWarning: null, mixError: null, canUndo: checkCanUndo(), canRedo: checkCanRedo() };
-        });
-        return id;
-      } catch (error) {
-        set({ mixError: error instanceof Error ? error.message : String(error) });
-        return null;
-      }
+      if (entry.programId) return get().prepareStudioProgram(entry.programId, undefined, targetId);
+      return prepareStudioSpecimen(get, set, targetId, 'studio_morphology', shell => createStudioMorphologySample(type, shell));
     },
 
     runStudioProgram: (vesselId) => {
@@ -2784,6 +3038,7 @@ export const useAppStore = create<AppState>((set, get) => {
         return false;
       }
       const ledger = applyProgramWithThermalSinks(kinetics.program, kinetics.initialVesselBaseline, vessel, progress, (progress - kinetics.progress) * kinetics.duration);
+      if (ledger.gasReplayBlocked) return false;
       const projected = { ...vessel, ...ledger };
       const foam = stepFoamInventory(projected, vessel, (progress - kinetics.progress) * kinetics.duration);
       const sampled = { ...projected, ...foam };
@@ -2932,12 +3187,28 @@ export const useAppStore = create<AppState>((set, get) => {
     pouringChemical: null,
     triggerPour: (chemical, targetId, amount) => {
       const chemData = findChemical(chemical);
-      const amt = amount !== undefined ? amount : (chemData.type === 'solid' ? 2 : 20);
-      // Immediately register chemical & begin reaction kinetics without any artificial delay!
-      get().mixSubstances(targetId, chemical, amt);
-      set({ pouringChemical: { chemical, targetId, type: chemData.type, amount: amt } });
+      const amt = amount !== undefined ? amount : chemical === 'Na' ? 0.1 : (chemData.type === 'solid' ? 2 : 20);
+      const target = get().vessels[targetId];
+      if (!target || target.isShattered || target.isSealed || !Number.isFinite(amt) || amt <= 0) return;
+      set({ pouringChemical: { id: ++_stockDoseId, chemical, targetId, type: chemData.type,
+        amount: amt, releasedAmount: 0, awaitingContact: true } });
     },
-    clearPour: () => {
+    advancePourContact: (doseId, fraction) => {
+      const dose = get().pouringChemical;
+      if (!dose || dose.id !== doseId || get().isSimulationPaused) return Promise.resolve();
+      const target = get().vessels[dose.targetId];
+      if (!target || target.isShattered || target.isSealed) return Promise.resolve();
+      const released = releaseDoseAmount(dose, fraction);
+      if (released.amount <= 0) return Promise.resolve();
+      set({ pouringChemical: released.dose });
+      return animatedDoses.enqueue({ id: dose.id, targetId: dose.targetId, chemical: dose.chemical, amount: released.amount });
+    },
+    contactPour: doseId => {
+      const dose = get().pouringChemical;
+      if (dose && (doseId === undefined || dose.id === doseId)) void get().advancePourContact(dose.id, 1);
+    },
+    clearPour: doseId => {
+      if (doseId !== undefined && get().pouringChemical?.id !== doseId) return;
       set({ pouringChemical: null });
     },
 
@@ -2966,13 +3237,155 @@ export const useAppStore = create<AppState>((set, get) => {
       await get().pourVessel(fromId, toId, amount_ml);
     },
 
+    inFlightPours: persisted?.materials?.inFlightPours ?? [],
+    pourEpoch: 0,
+    releasePourLiquid: (draft, volume_ml) => {
+      const state = get(), source = state.vessels[draft.sourceId];
+      if (!source || draft.sourceId.startsWith('lesson_vessel_') || draft.targetId?.startsWith('lesson_vessel_')
+        || !Number.isFinite(draft.duration_s) || draft.duration_s <= 0
+        || !Number.isFinite(draft.trajectory.timeOfFlight) || draft.trajectory.timeOfFlight < 0
+        || [...draft.trajectory.exitPos, ...draft.trajectory.exitVel].some(value => !Number.isFinite(value))
+        || state.inFlightPours.some(parcel => parcel.id === draft.id)) return 0;
+      const release = decantLiquid(source, null, volume_ml, mobileSolidInventory(source, SimulationEngine.findManager(source.id)));
+      if (!release?.spill) return 0;
+      const parcel: PourParcel = { ...draft, sample: release.spill, releasedVolume_ml: release.moved_ml,
+        elapsed_s: 0, arrivedFraction: 0 };
+      set(s => {
+        const activeKinetics = { ...s.activeKinetics }, pendingReactions = { ...s.pendingReactions },
+          dissolvingSubstances = { ...s.dissolvingSubstances };
+        delete activeKinetics[source.id]; delete pendingReactions[source.id]; delete dissolvingSubstances[source.id];
+        const pending = findPendingReaction(release.source.substances, release.source.temperature_c, false, s.language);
+        if (pending) pendingReactions[source.id] = { ...pending, vesselId: source.id };
+        return { vessels: { ...s.vessels, [source.id]: release.source },
+          inFlightPours: [...s.inFlightPours, parcel], activeKinetics, pendingReactions, dissolvingSubstances };
+      });
+      debounceSaveLocalState(get().vessels, get().burners);
+      return release.moved_ml;
+    },
+    advancePourTransport: dt => {
+      const state = get();
+      if (state.isSimulationPaused || !Number.isFinite(dt) || dt <= 0 || !state.inFlightPours.length) return [];
+      const arrivals: PourArrival[] = [], remaining: PourParcel[] = [];
+      const overflowEvents: VfxEventMap['vessel:overflow'][] = [];
+      const vessels = { ...state.vessels }, activeKinetics = { ...state.activeKinetics },
+        pendingReactions = { ...state.pendingReactions }, dissolvingSubstances = { ...state.dissolvingSubstances };
+      let spills = state.spills, lastMixResult = state.lastMixResult, changedVessels = false;
+      const coating = new Map<string, { volume: number; mass: number }>();
+      const changeCoating = (id: string, volume: number, mass: number) => {
+        const previous = coating.get(id) ?? { volume: 0, mass: 0 };
+        coating.set(id, { volume: Math.max(0, previous.volume + volume), mass: Math.max(0, previous.mass + mass) });
+      };
+      for (const p of state.inFlightPours) if (p.stage === 'wall' && p.targetId) changeCoating(p.targetId, p.sample.volume_ml, p.sample.mass_g);
+      const syncCoating = (id: string) => {
+        const v = vessels[id], held = coating.get(id) ?? { volume: 0, mass: 0 };
+        if (v && ((v.wallCoating_ml ?? 0) !== held.volume || (v.wallCoatingMass_g ?? 0) !== held.mass)) {
+          vessels[id] = { ...v, wallCoating_ml: held.volume, wallCoatingMass_g: held.mass }; changedVessels = true;
+        }
+      };
+      for (const id of Object.keys(vessels)) syncCoating(id);
+      const receive = (parcel: PourParcel, contact: typeof parcel.sample, alreadyInside = false) => {
+        let accepted_ml = 0, spill = contact;
+        const target = parcel.targetId ? vessels[parcel.targetId] : null;
+        if (target && parcel.trajectory.landingKind === 'inside' && parcel.trajectory.targetVesselId === target.id
+          && canReceivePour(alreadyInside ? { ...target, isSealed: false } : target) && !target.id.startsWith('lesson_vessel_')) {
+          const dispensed = dispenseAliquot(target, contact, contact.volume_ml);
+          accepted_ml = dispensed.dispensed_ml; spill = dispensed.sample;
+          if (accepted_ml > 0) {
+            const heated = Object.values(state.burners).some(b => b.isOn
+              && Math.hypot(b.position[0] - target.position[0], b.position[2] - target.position[2]) < 1.5);
+            const reacted = reactAliquotMixture(refreshFlowInventory(dispensed.vessel), state.language, heated);
+            delete activeKinetics[target.id]; delete pendingReactions[target.id]; delete dissolvingSubstances[target.id];
+            if (reacted.kinetics) activeKinetics[target.id] = reacted.kinetics;
+            const pending = findPendingReaction(reacted.vessel.substances, reacted.vessel.temperature_c, heated, state.language);
+            if (pending) pendingReactions[target.id] = { ...pending, vesselId: target.id };
+            vessels[target.id] = { ...reacted.vessel, recentPourContact: {
+              point: pourContactLocal(parcel, target), expiresAt_ms: Date.now() + 1500,
+            } }; lastMixResult = reacted.mixResult; changedVessels = true;
+          }
+        }
+        return { accepted_ml, spill };
+      };
+      const recordSpill = (parcel: PourParcel, spill: typeof parcel.sample) => {
+        if (spill.volume_ml <= 0) return;
+        const point = parcel.trajectory.impactPos;
+        if (parcel.targetId && parcel.trajectory.landingKind === 'inside' && vessels[parcel.targetId]) {
+          const targetVessel = vessels[parcel.targetId];
+          overflowEvents.push({
+            vesselId: parcel.targetId,
+            volume_ml: spill.volume_ml,
+            color: spill.color,
+            substances: spill.substances,
+            angle: targetVessel.rotationY || 0,
+          });
+        }
+        const deposition = parcel.targetId && parcel.trajectory.landingKind === 'inside' && vessels[parcel.targetId]
+          ? overflowLandingPosition(vessels[parcel.targetId]) : [point[0], LAB_PHYSICS.TABLE_SURFACE_Y, point[2]] as [number, number, number];
+        spills = mergeWorkbenchSpill(spills, deposition,
+          spill.volume_ml, spill.substances, spill.color, parcel.sourceName, spill.mass_g, spill.contents);
+      };
+      // Existing wall liquid moves first. A newly wetted interval begins moving next step.
+      const ordered = [...state.inFlightPours.filter(p => p.stage === 'wall'), ...state.inFlightPours.filter(p => p.stage !== 'wall')];
+      for (const original of ordered) {
+        let target = original.targetId ? vessels[original.targetId] : null;
+        if (original.stage === 'wall' && original.wallFilm) {
+          changeCoating(original.targetId!, -original.sample.volume_ml, -original.sample.mass_g);
+          if (!target || target.isShattered || Math.abs(target.rotationZ ?? 0) > 1e-6
+            || target.type !== original.wallFilm.type || target.capacity_ml !== original.wallFilm.capacity_ml
+            || (target.bodyRevision ?? 0) !== original.wallFilm.bodyRevision) {
+            remaining.push(detachWallFilm(original, target)); syncCoating(original.targetId!); continue;
+          }
+          const { parcel, contact } = advanceWallFilm(original, dt, target);
+          if (parcel.arrivedFraction < 1) {
+            remaining.push(parcel); changeCoating(target.id, parcel.sample.volume_ml, parcel.sample.mass_g);
+          }
+          syncCoating(target.id);
+          if (contact) {
+            const receipt = receive(parcel, contact, true);
+            recordSpill(parcel, receipt.spill);
+            arrivals.push({ parcel, sample: contact, accepted_ml: receipt.accepted_ml, spilled_ml: receipt.spill.volume_ml });
+          }
+          continue;
+        }
+        const { parcel, contact } = advancePourParcel(original, dt, target);
+        if (contact) {
+          let accepted_ml = 0, spill = contact;
+          if (target && canReceivePour(target) && parcel.trajectory.landingKind === 'inside'
+            && parcel.trajectory.targetVesselId === target.id && parcel.trajectory.detailKind === 'wall_inner') {
+            const space = availableLiquidVolume(target, contact.mass_g / contact.volume_ml);
+            const fraction = Math.max(0, Math.min(1, space / contact.volume_ml));
+            const held = scalePourSample(contact, fraction);
+            const film = createWallFilm(parcel, held, target);
+            if (film) {
+              remaining.push(film); changeCoating(target.id, held.volume_ml, held.mass_g); syncCoating(target.id);
+              spill = scalePourSample(contact, 1 - fraction);
+            }
+          } else {
+            const receipt = receive(parcel, contact);
+            accepted_ml = receipt.accepted_ml; spill = receipt.spill;
+          }
+          recordSpill(parcel, spill);
+          arrivals.push({ parcel, sample: contact, accepted_ml, spilled_ml: spill.volume_ml });
+        }
+        if (parcel.arrivedFraction < 1) remaining.push(parcel);
+      }
+      // Air, wall, pool, products and overflow are one material transaction.
+      set({ vessels: changedVessels ? vessels : state.vessels, inFlightPours: remaining, spills,
+        activeKinetics: changedVessels ? activeKinetics : state.activeKinetics,
+        pendingReactions: changedVessels ? pendingReactions : state.pendingReactions,
+        dissolvingSubstances: changedVessels ? dissolvingSubstances : state.dissolvingSubstances, lastMixResult });
+      for (const event of overflowEvents) vfxBus.emit('vessel:overflow', event);
+      for (const arrival of arrivals) if (arrival.spilled_ml > 0) ppeService.handleChemicalSplash(arrival.sample.substances, arrival.sample.color);
+      debounceSaveLocalState(get().vessels, get().burners);
+      return arrivals;
+    },
+
     transferLiquidContinuous: (fromId, toId, delta_ml, dropPos) => {
       const state = get();
-      if (fromId.startsWith('lesson_vessel_') || toId?.startsWith('lesson_vessel_')) return;
+      if (fromId.startsWith('lesson_vessel_') || toId?.startsWith('lesson_vessel_')) return EMPTY_LIQUID_TRANSFER;
       const from = state.vessels[fromId], to = toId ? state.vessels[toId] : null;
-      if (!from || (toId && !to)) return;
-      const transfer = decantLiquid(from, to ?? null, delta_ml);
-      if (!transfer) return;
+      if (!from || (toId && !to)) return EMPTY_LIQUID_TRANSFER;
+      const transfer = decantLiquid(from, to ?? null, delta_ml, mobileSolidInventory(from, SimulationEngine.findManager(from.id)));
+      if (!transfer) return EMPTY_LIQUID_TRANSFER;
       const burners = Object.values(state.burners);
       const isHeated = !!to && burners.some(b => b.isOn && Math.hypot(b.position[0] - to.position[0], b.position[2] - to.position[2]) < 1.5);
       const reacted = transfer.receiver ? reactAliquotMixture(transfer.receiver, state.language, isHeated) : null;
@@ -2992,8 +3405,9 @@ export const useAppStore = create<AppState>((set, get) => {
       if (transfer.spill) {
         const spill = transfer.spill;
         get().addSpill(dropPos ?? to?.position ?? [from.position[0], -0.132, from.position[2]],
-          spill.volume_ml, spill.substances, spill.color, from.name, spill.mass_g, spill.contents);
+          spill.volume_ml, spill.substances, spill.color, from.name, spill.mass_g, spill.contents, to?.id);
       }
+      return { moved_ml: transfer.moved_ml, accepted_ml: transfer.accepted_ml, spilled_ml: transfer.spill?.volume_ml ?? 0 };
     },
 
     settleVesselMixture: async (id) => {
@@ -3137,11 +3551,17 @@ export const useAppStore = create<AppState>((set, get) => {
     undo: () => {
       const prev = stepUndo();
       if (prev) {
+        shardManager.restoreLabSnapshot(prev.snapshot.materials?.glassDebris, prev.snapshot.vessels);
         set({
           vessels: prev.snapshot.vessels,
           vesselIds: Object.keys(prev.snapshot.vessels),
           burners: prev.snapshot.burners,
           burnerIds: Object.keys(prev.snapshot.burners),
+          inFlightPours: prev.snapshot.materials?.inFlightPours ?? [],
+          spills: normalizeSpillFootprints(prev.snapshot.materials?.spills ?? {}), wasteMass_g: prev.snapshot.materials?.wasteMass_g ?? 0,
+          wasteContents: prev.snapshot.materials?.wasteContents ?? [],
+          pourEpoch: get().pourEpoch + 1, isPouring: false,
+          activeKinetics: {}, pendingReactions: {}, dissolvingSubstances: {},
           canUndo: checkCanUndo(),
           canRedo: checkCanRedo()
         });
@@ -3151,11 +3571,17 @@ export const useAppStore = create<AppState>((set, get) => {
     redo: () => {
       const next = stepRedo();
       if (next) {
+        shardManager.restoreLabSnapshot(next.snapshot.materials?.glassDebris, next.snapshot.vessels);
         set({
           vessels: next.snapshot.vessels,
           vesselIds: Object.keys(next.snapshot.vessels),
           burners: next.snapshot.burners,
           burnerIds: Object.keys(next.snapshot.burners),
+          inFlightPours: next.snapshot.materials?.inFlightPours ?? [],
+          spills: normalizeSpillFootprints(next.snapshot.materials?.spills ?? {}), wasteMass_g: next.snapshot.materials?.wasteMass_g ?? 0,
+          wasteContents: next.snapshot.materials?.wasteContents ?? [],
+          pourEpoch: get().pourEpoch + 1, isPouring: false,
+          activeKinetics: {}, pendingReactions: {}, dissolvingSubstances: {},
           canUndo: checkCanUndo(),
           canRedo: checkCanRedo()
         });
@@ -3168,132 +3594,50 @@ export const useAppStore = create<AppState>((set, get) => {
     mixError: null,
 
     timeScale: 1,
-    setTimeScale: (scale) => set({ timeScale: scale }),
+    setTimeScale: (scale) => {
+      if (Number.isFinite(scale) && scale >= 0.1 && scale <= 8) set({ timeScale: scale });
+    },
 
     mixSubstances: async (targetId: string, newChemical: string, addedVolume_ml: number = 20) => {
-      const vessel = get().vessels[targetId];
-      if (!vessel || targetId.startsWith('lesson_vessel_')) return;
-
+      const original = get().vessels[targetId];
+      if (!original || targetId.startsWith('lesson_vessel_') || original.isSealed || original.isShattered
+        || !Number.isFinite(addedVolume_ml) || addedVolume_ml <= 0) return;
       const chemData = findChemical(newChemical);
-      const burners = Object.values(get().burners);
-      const isHeated = burners.some(b => b.isOn && Math.hypot(b.position[0] - vessel.position[0], b.position[2] - vessel.position[2]) < 1.5);
-
+      let prepared: ReturnType<typeof prepareStockAddition>;
+      try {
+        prepared = prepareStockAddition(original, chemData, newChemical, addedVolume_ml,
+          useLabEnvironment.getState().conditions.temperature_c);
+      } catch (error) {
+        set({ mixError: error instanceof Error ? error.message : String(error) });
+        return;
+      }
+      if (!prepared) return;
       const isSolid = chemData.type === 'solid';
-
-      // Real-World Mechanism: Thermal Shock Glass Shattering
-      if (!isSolid && vessel.temperature_c >= 180 && vessel.volume_ml <= 2) {
+      if (!isSolid && original.temperature_c >= 180 && original.volume_ml <= 2) {
+        // Breaking the receiver cannot erase the incoming dose.
+        const dose = prepared.incoming!;
+        get().addSpill(original.position, dose.volume_ml, dose.substances, dose.color,
+          original.name, dose.mass_g, dose.contents);
         get().shatterVessel(targetId, 'Thermal Shock: Cold liquid poured into dry superheated glassware (>180°C)');
         return;
       }
-
-      // Real-World Mechanism: Rayleigh-Taylor wave perturbation upon addition
-      vfxBus.emit('surface:ripple', { 
-        x: vessel.position[0], 
-        z: vessel.position[2], 
-        vesselId: targetId, 
-        intensity: 0.95 
-      });
-
-      let accepted_ml = 0;
-      let acceptedMass_g = 0;
-      let overflow_ml = 0;
-
-      if (isSolid) {
-        // addedVolume_ml represents mass in grams for solid chemicals!
-        const solidMass_g = addedVolume_ml;
-        acceptedMass_g = solidMass_g;
-        // Solids displace volume only if liquid solvent already exists:
-        if (vessel.volume_ml > 0) {
-          const solidDisplacement_ml = solidMass_g / (chemData.density || 2.2);
-          const availableCapacity = Math.max(0, vessel.capacity_ml - vessel.volume_ml);
-          accepted_ml = Math.min(solidDisplacement_ml, availableCapacity);
-          overflow_ml = Math.max(0, solidDisplacement_ml - accepted_ml);
-        } else {
-          // EMPTY VESSEL: Adding dry solid powder / crystals produces NO liquid volume!
-          accepted_ml = 0;
-          overflow_ml = 0;
-        }
-      } else {
-        const availableCapacity = Math.max(0, vessel.capacity_ml - vessel.volume_ml);
-        accepted_ml = Math.min(addedVolume_ml, availableCapacity);
-        overflow_ml = Math.max(0, addedVolume_ml - accepted_ml);
-        const chemDensity = chemData.density || 1.0;
-        acceptedMass_g = accepted_ml * chemDensity;
+      if (prepared.spill) {
+        const spill = prepared.spill;
+        get().addSpill(original.position, spill.volume_ml, spill.substances, spill.color,
+          original.name, spill.mass_g, spill.contents, targetId);
       }
-
-      const newTotalVolume_ml = vessel.volume_ml + accepted_ml;
-      const newTotalMass_g = (vessel.mass_g || 0) + acceptedMass_g;
-      const newDensity = newTotalVolume_ml > 0 ? (newTotalMass_g / newTotalVolume_ml) : (chemData.density || 1.0);
-
-      if (overflow_ml > 0) {
-        get().addSpill(vessel.position, overflow_ml, [newChemical], chemData.color, vessel.name);
-      }
-
-      const newSubstances = Array.from(new Set([...vessel.substances, newChemical]));
-
-      // Update contents tracking with physical moles and mass calculation (P0.3)
-      let addedMoles = 0;
-      let soluteMass_g = 0;
-      let solventWaterMass_g = 0;
-
-      if (isSolid) {
-        addedMoles = acceptedMass_g / (chemData.molarMass || 100);
-        soluteMass_g = acceptedMass_g;
-      } else if (newChemical === 'H2O') {
-        addedMoles = acceptedMass_g / 18.015;
-        soluteMass_g = 0;
-        solventWaterMass_g = acceptedMass_g;
-      } else if (chemData.defaultConcentration !== undefined && chemData.defaultConcentration > 0) {
-        // Solution reagent: n_solute = V (L) * c (mol/L)
-        addedMoles = (accepted_ml / 1000.0) * chemData.defaultConcentration;
-        soluteMass_g = addedMoles * (chemData.molarMass || 100);
-        solventWaterMass_g = Math.max(0, acceptedMass_g - soluteMass_g);
-      } else {
-        // Neat liquid without specified molarity
-        addedMoles = acceptedMass_g / (chemData.molarMass || 100);
-        soluteMass_g = acceptedMass_g;
-      }
-
-      const existingContents = (vessel.contents || []).map(content => ({ ...content }));
-      const existingItem = existingContents.find(c => c.formula === newChemical);
-      if (existingItem) {
-        existingItem.mass_g += isSolid ? acceptedMass_g : (chemData.defaultConcentration ? soluteMass_g : acceptedMass_g);
-        existingItem.moles += addedMoles;
-        if (isSolid) {
-          existingItem.initialMoles = (existingItem.initialMoles || (existingItem.moles - addedMoles)) + addedMoles;
-          existingItem.initialMass_g = (existingItem.initialMass_g || (existingItem.mass_g - acceptedMass_g)) + acceptedMass_g;
-        }
-        if (!isSolid) {
-          existingItem.volume_ml = (existingItem.volume_ml || 0) + accepted_ml;
-        }
-        existingItem.concentration_M = newTotalVolume_ml > 0 
-          ? (existingItem.moles / (newTotalVolume_ml / 1000.0))
-          : (chemData.defaultConcentration || 0);
-      } else {
-        existingContents.push({
-          formula: newChemical,
-          phase: isSolid ? 's' : newChemical === 'H2O' ? 'l' : chemData.defaultConcentration ? 'aq' : 'l',
-          moles: addedMoles,
-          mass_g: isSolid ? acceptedMass_g : (chemData.defaultConcentration ? soluteMass_g : acceptedMass_g),
-          volume_ml: !isSolid ? accepted_ml : 0,
-          initialMoles: isSolid ? addedMoles : undefined,
-          initialMass_g: isSolid ? acceptedMass_g : undefined,
-          concentration_M: newTotalVolume_ml > 0 && !isSolid
-            ? (addedMoles / (newTotalVolume_ml / 1000.0))
-            : (chemData.defaultConcentration || 0)
-        });
-      }
-
-      if (!isSolid && solventWaterMass_g > 0 && newChemical !== 'H2O') {
-        const waterItem = existingContents.find(c => c.formula === 'H2O');
-        const waterMoles = solventWaterMass_g / 18.015;
-        if (waterItem) {
-          waterItem.mass_g += solventWaterMass_g;
-          waterItem.moles += waterMoles;
-        } else {
-          existingContents.push({ formula: 'H2O', phase: 'l', moles: waterMoles, mass_g: solventWaterMass_g });
-        }
-      }
+      if (prepared.acceptedAmount <= 0) return;
+      const vessel = prepared.vessel;
+      const burners = Object.values(get().burners);
+      const isHeated = burners.some(b => b.isOn && Math.hypot(b.position[0] - vessel.position[0], b.position[2] - vessel.position[2]) < 1.5);
+      vfxBus.emit('surface:ripple', { x: vessel.position[0], z: vessel.position[2], vesselId: targetId, intensity: 0.95 });
+      const newTotalVolume_ml = vessel.volume_ml;
+      const newTotalMass_g = vessel.mass_g;
+      const newDensity = vessel.density_g_ml;
+      const newSubstances = vessel.substances;
+      const existingContents = vessel.contents;
+      const newImmOrganicVol = vessel.immiscibleOrganicVolume_ml || 0;
+      const newImmOrganicColor = vessel.immiscibleOrganicColor;
 
       // Check safety rules immediately
       const safetyViolations = checkSafetyViolations(newSubstances, isHeated, vessel.temperature_c);
@@ -3336,17 +3680,6 @@ export const useAppStore = create<AppState>((set, get) => {
         ? (vessel.liquidColor || (!isSolid ? chemData.color : undefined))
         : undefined;
 
-      const isImmiscible = isImmiscibleOrganic(newChemical);
-      let newImmOrganicVol = vessel.immiscibleOrganicVolume_ml || 0;
-      let newImmOrganicColor = vessel.immiscibleOrganicColor;
-      if (isImmiscible) {
-        newImmOrganicVol += accepted_ml;
-        newImmOrganicColor = chemData.color || '#fef08a';
-        for (const item of existingContents) {
-          if (item.formula === newChemical) { item.phase = 'l'; item.liquidLayer = 'organic'; }
-        }
-      }
-
       // 1. Check if reaction requires conditions (e.g. heating by burner) that are not yet met
       const pendingCondition = findPendingReaction(newSubstances, vessel.temperature_c, isHeated, get().language);
       if (pendingCondition) {
@@ -3372,6 +3705,27 @@ export const useAppStore = create<AppState>((set, get) => {
         return;
       }
 
+      const contactMixture = { ...vessel, contents: existingContents, substances: newSubstances,
+        volume_ml: newTotalVolume_ml, volume: newTotalVolume_ml / vessel.capacity_ml,
+        mass_g: newTotalMass_g, density_g_ml: newDensity, liquidColor: newLiquidColor,
+        environment: useLabEnvironment.getState().conditions };
+      const contactPlan = planSodiumWater(contactMixture, get().language)
+        ?? planMetalAcid(contactMixture, get().language);
+      const publishContact = (plan: { vessel: VesselState; kinetics: ActiveKineticsState; mixResult: MixResult }) => {
+        set(s => {
+          const updated = { ...s.vessels, [targetId]: plan.vessel };
+          pushHistorySnapshot('POUR', updated, s.burners, 'Reagents contact; reaction begins', 'Thuốc thử tiếp xúc; bắt đầu phản ứng');
+          debounceSaveLocalState(updated, s.burners);
+          return { vessels: updated, activeKinetics: { ...s.activeKinetics, [targetId]: plan.kinetics },
+            lastMixResult: plan.mixResult, selectedVesselId: targetId, rightSidebarOpen: true,
+            canUndo: checkCanUndo(), canRedo: checkCanRedo() };
+        });
+      };
+      if (contactPlan) {
+        publishContact(contactPlan);
+        return;
+      }
+
       // 2. Try multi-step stoichiometric chemistry engine first (Instant & completely offline)
       const multiStep = executeMultiStepReactions(
         existingContents,
@@ -3379,8 +3733,15 @@ export const useAppStore = create<AppState>((set, get) => {
         newTotalVolume_ml,
         vessel.temperature_c,
         isHeated,
-        get().language
+        get().language,
+        { preserveQuantities: true }
       );
+
+      const aluminumPlan = planAluminumMaterialReaction(contactMixture, multiStep);
+      if (aluminumPlan) {
+        publishContact(aluminumPlan);
+        return;
+      }
 
       if (multiStep.reactionsOccurred.length > 0 && multiStep.combinedMixResult) {
         const localResult = multiStep.combinedMixResult;
@@ -3442,7 +3803,8 @@ export const useAppStore = create<AppState>((set, get) => {
           gasColor: multiStep.gasColor,
           isExplosion: multiStep.isExplosion,
           temperature_c: multiStep.finalTemperature_c,
-          ph: multiStep.finalPh
+          ph: multiStep.finalPh, phModel: multiStep.phModel,
+          phReferenceTemperature_c: multiStep.phReferenceTemperature_c
         };
 
         set(s => {
@@ -3465,14 +3827,23 @@ export const useAppStore = create<AppState>((set, get) => {
 
       // Known aqueous speciation is not an invented irreversible reaction.
       // Keep dilution/buffer mixing local and retire the old playback baseline.
+      const verified = planVerifiedContact(contactMixture, get().language, isHeated);
+      if (verified) {
+        publishContact(verified);
+        return;
+      }
       if (multiStep.phModel && multiStep.reactionsOccurred.length === 0) {
         const mixed: VesselState = {
           ...vessel, contents: multiStep.updatedContents, substances: multiStep.updatedSubstances,
           volume_ml: newTotalVolume_ml, volume: Math.min(1, newTotalVolume_ml / vessel.capacity_ml),
           mass_g: newTotalMass_g, density_g_ml: newDensity,
           immiscibleOrganicVolume_ml: newImmOrganicVol, immiscibleOrganicColor: newImmOrganicColor,
-          ph: multiStep.finalPh, phModel: multiStep.phModel, liquidColor: multiStep.finalLiquidColor,
-          hasGas: false, hasPrecipitate: false, precipitateAmount_g: 0, isExplosion: false,
+          ph: multiStep.finalPh, phModel: multiStep.phModel,
+          phReferenceTemperature_c: multiStep.phReferenceTemperature_c, liquidColor: multiStep.finalLiquidColor,
+          hasGas: false, hasPrecipitate: multiStep.hasPrecipitate,
+          precipitateAmount_g: multiStep.precipitateAmount_g ?? 0,
+          precipitateSubstance: multiStep.precipitateSubstance,
+          precipitateColor: multiStep.precipitateColor, isExplosion: false,
         };
         set(s => {
           const updated = { ...s.vessels, [targetId]: mixed };
@@ -3497,6 +3868,7 @@ export const useAppStore = create<AppState>((set, get) => {
           { isHeated, temperature_c: vessel.temperature_c, volume_ml: newTotalVolume_ml, lang: get().language }
         );
 
+        if (get().vessels[targetId]?.effectSampleRevision !== original.effectSampleRevision) return;
         const baseVessel: VesselState = {
           ...vessel,
           substances: newSubstances,
@@ -3636,7 +4008,10 @@ export const useAppStore = create<AppState>((set, get) => {
     },
 
     resetWorkbench: () => {
+      shardManager.restoreSnapshot();
       set({
+        inFlightPours: [], pourEpoch: get().pourEpoch + 1, isPouring: false,
+        activeKinetics: {}, pendingReactions: {}, dissolvingSubstances: {},
         vessels: defaultVessels,
         vesselIds: Object.keys(defaultVessels),
         burners: sanitizedBurners,

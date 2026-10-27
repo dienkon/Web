@@ -47,29 +47,29 @@ export function createProceduralFlameMaterial(): THREE.ShaderMaterial {
         // Height parameter normalized from base (0.0) to flame tip (1.0)
         float h = clamp((vPosition.y + 0.15) / 0.65, 0.0, 1.0);
 
-        // Core colors
-        vec3 blueBase = vec3(0.08, 0.58, 0.98); // Combustion base
-        vec3 yellowCore = vec3(0.98, 0.84, 0.12); // Reducing incandescent zone
-        vec3 orangeTip = vec3(0.94, 0.32, 0.04); // Oxidizing amber tip
+        // Illustrative faint H2 flame. Sodium aerosol emission is not modeled.
+        vec3 blueBase = vec3(0.12, 0.35, 0.75);
+        vec3 paleCore = vec3(0.35, 0.58, 0.9);
+        vec3 faintTip = vec3(0.5, 0.65, 0.9);
 
         vec3 color;
         if (h < 0.25) {
           float t = h / 0.25;
-          color = mix(blueBase, yellowCore, t);
+          color = mix(blueBase, paleCore, t);
         } else {
           float t = (h - 0.25) / 0.75;
-          color = mix(yellowCore, orangeTip, t);
+          color = mix(paleCore, faintTip, t);
         }
 
         // Core brightness boost
-        color += vec3(0.2, 0.2, 0.1) * (1.0 - h);
+        color += vec3(0.04, 0.04, 0.06) * (1.0 - h);
 
         // Alpha falloff towards the edges and tip
         float edgeDist = length(vPosition.xz) * 6.5;
         float alpha = clamp(1.0 - edgeDist + vNoise * 0.35, 0.0, 1.0);
         alpha *= (1.0 - pow(h, 2.5));
 
-        gl_FragColor = vec4(color * uIntensity, alpha * 0.88);
+        gl_FragColor = vec4(color * uIntensity, alpha * 0.22);
       }
     `,
     transparent: true,

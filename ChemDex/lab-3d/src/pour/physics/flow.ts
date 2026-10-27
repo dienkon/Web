@@ -1,5 +1,6 @@
 import { VesselProfile } from './profiles';
 import { retainedVolume, solveLevel } from './retained';
+import { GRAVITY_M_S2 } from '../../science/sceneUnits';
 
 export interface FlowResult {
   isPouring: boolean;
@@ -11,7 +12,7 @@ export interface FlowResult {
   glugPulse: number; // 0..1 amplitude
 }
 
-const GRAVITY = 981.0; // cm / s^2
+const GRAVITY = GRAVITY_M_S2 * 100; // cm / s^2
 const TEAPOT_HEAD_THRESHOLD_CM = 0.12; // 1.2 mm
 const MIN_FLOW_ML_S = 0.15;
 const MAX_FLOW_ML_S = 22.0; // Realistic laboratory maximum pouring discharge (mL/s)

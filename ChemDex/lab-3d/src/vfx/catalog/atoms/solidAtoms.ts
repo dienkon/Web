@@ -822,7 +822,6 @@ export const crystalGlitterAtom: EffectAtom = {
   },
   writeBack(h, vessel) {
     if (!h.alive) return;
-    vessel.hasPrecipitate = true;
     if (h.custom.glintColor && !vessel.precipitateColor) {
       vessel.precipitateColor = h.custom.glintColor;
     }
@@ -871,7 +870,6 @@ export const surfaceDendriteGrowthAtom: EffectAtom = {
   },
   writeBack(h, vessel) {
     if (!h.alive) return;
-    vessel.hasPrecipitate = true;
     if (h.custom.metalColor) {
       vessel.precipitateColor = h.custom.metalColor;
     }

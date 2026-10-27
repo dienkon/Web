@@ -1,3 +1,4 @@
+import { solutionAcidity } from '../science/aqueousTemperature';
 import React, { useState } from 'react';
 import { useAppStore, getChemical } from '../store/useAppStore';
 import { 
@@ -11,6 +12,7 @@ import { AIReactionQueryModal } from './AIReactionQueryModal';
 import { WashBottleControls } from './WashBottleControls';
 import { FunnelFlowControls } from './FunnelFlowControls';
 import { HotPlateControls } from './HotPlateControls';
+import { CondenserCoolingControls } from './CondenserCoolingControls';
 
 export function VesselInspector() {
   const { 
@@ -24,6 +26,7 @@ export function VesselInspector() {
     toggleLockVessel, 
     focusVessel, 
     replaceShatteredVessel,
+    cleanGlassDebris,
     grindMortar,
     toggleStopcock,
     cleanVesselStain,
@@ -118,21 +121,23 @@ export function VesselInspector() {
 
   const fillPercentage = Math.min(100, Math.round((vessel.volume_ml / (vessel.capacity_ml || 100)) * 100));
 
-  // Determine pH description and color
+  // Acidity follows the neutral point at the model temperature. pH alone
+  // does not establish whether the acid/base is intrinsically strong or weak.
+  const acidity = (ph: number) => vessel.phModel
+    ? solutionAcidity(ph, vessel.phReferenceTemperature_c ?? 25) : null;
   const getPHColor = (ph: number) => {
-    if (ph < 3) return 'bg-red-500/15 text-red-700 border-red-300';
-    if (ph < 6) return 'bg-amber-500/15 text-amber-800 border-amber-300';
-    if (ph <= 8) return 'bg-emerald-500/15 text-emerald-800 border-emerald-300';
-    if (ph <= 11) return 'bg-blue-500/15 text-blue-800 border-blue-300';
-    return 'bg-purple-500/15 text-purple-800 border-purple-300';
+    const state = acidity(ph);
+    if (state === 'neutral') return 'bg-emerald-500/15 text-emerald-800 border-emerald-300';
+    if (state === 'acidic') return ph < 3 ? 'bg-red-500/15 text-red-700 border-red-300' : 'bg-amber-500/15 text-amber-800 border-amber-300';
+    if (state === 'basic') return ph > 11 ? 'bg-purple-500/15 text-purple-800 border-purple-300' : 'bg-blue-500/15 text-blue-800 border-blue-300';
+    return 'bg-slate-500/15 text-slate-700 border-slate-300';
   };
-
   const getPHLabel = (ph: number) => {
-    if (ph < 3) return t('Strong Acid', 'Axit mạnh');
-    if (ph < 6) return t('Weak Acid', 'Axit yếu');
-    if (ph <= 8) return t('Neutral', 'Trung tính');
-    if (ph <= 11) return t('Weak Base', 'Bazo yếu');
-    return t('Strong Base', 'Bazo mạnh');
+    const state = acidity(ph);
+    if (state === 'neutral') return t('Neutral at model temperature', 'Trung tính ở nhiệt độ mô hình');
+    if (state === 'acidic') return t('Acidic solution', 'Dung dịch có tính axit');
+    if (state === 'basic') return t('Basic solution', 'Dung dịch có tính kiềm');
+    return t('Simplified pH', 'pH giản lược');
   };
 
   const handleCoolDown = () => {
@@ -231,6 +236,12 @@ export function VesselInspector() {
       </div>
 
       {/* Shattered Glassware Critical Alert */}
+      <button
+        onClick={() => cleanGlassDebris(vessel.id)}
+        className="w-full py-1.5 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold"
+      >
+        {t('Brush & dustpan: collect this vessel’s landed glass', 'Chổi/hót rác: thu gom kính đã rơi của dụng cụ này')}
+      </button>
       {vessel.isShattered && (
         <div className="bg-red-500/10 border border-red-500/30 rounded-2xl p-3 text-red-700 space-y-2">
           <div className="flex items-start gap-2">
@@ -527,9 +538,11 @@ export function VesselInspector() {
                   <option key={id} value={id}>{vessels[id].name}</option>)}
               </select>
             </label>
-            <p className="text-[10px] text-cyan-800">{t('Water only; ideal cooling. Collection is limited by vapor supply and capacity.', 'Mô hình hơi nước, làm mát lý tưởng. Chỉ thu lượng hơi thực có, trong giới hạn dung tích.')}</p>
+            <p className="text-[10px] text-cyan-800">{t('Water-vapor model with finite coolant flow and heat-transfer conductance. Unrecovered vapor remains in the exhaust budget.', 'Mô hình hơi nước với lưu lượng làm mát và khả năng truyền nhiệt hữu hạn. Hơi chưa thu được vẫn đi theo đường thoát khí.')}</p>
+            <CondenserCoolingControls vesselId={vessel.id} />
             <button
               onClick={() => toggleCondenserWater(vessel.id)}
+              disabled={vessel.isLocked || vessel.isShattered}
             className={`w-full py-1.5 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-2xs ${
               vessel.coolingWaterActive 
                 ? 'bg-slate-600 hover:bg-slate-700 text-white' 
@@ -640,7 +653,7 @@ export function VesselInspector() {
                 {vessel.isSealed ? t('Sealed', 'Đã đậy kín') : t('Open', 'Mở nắp')}
               </span>
               <span className="text-[10px] font-mono font-bold text-slate-600">
-                {(vessel.internalPressure_atm || 1.0).toFixed(2)} atm
+                {vessel.internalPressureModel === 'unavailable' ? '—' : `${(vessel.internalPressure_atm ?? 1).toFixed(2)} atm`}
               </span>
             </div>
           </div>
@@ -692,7 +705,7 @@ export function VesselInspector() {
                       style={{ backgroundColor: chem.color || '#3b82f6' }}
                     />
                     <div className="min-w-0">
-                      <span className="font-bold text-slate-800 block truncate">{chem.formula}</span>
+                      <span className="font-bold text-slate-800 block truncate">{chem.formula}</span><a className="text-[10px] text-teal-700 underline" href={`/tien-ich/cau-truc-3d/?q=${encodeURIComponent(chem.formula)}`} target="_blank" rel="noreferrer">{t('View structure 3D', 'Xem cấu trúc 3D')}</a>
                       <span className="text-[10px] text-slate-400 block truncate">
                         {language === 'en' ? chem.name_en : chem.name_vi}
                       </span>

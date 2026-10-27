@@ -132,8 +132,8 @@ describe('Phase B — Solid Persistence & Stoichiometric Consumption (§4.7, §1
 
     // Add 10 mL 1M HCl: n(HCl) = 0.010 L * 1.0 mol/L = 0.010 mol
     // Primary Reaction: CaCO3 + 2HCl -> CaCl2 + H2O + CO2(g) (consumes 0.005 mol CaCO3)
-    // Secondary Cascading Reaction: CaCO3 + CO2 + H2O -> Ca(HCO3)2 (consumes further 0.005 mol CaCO3)
-    // Total stoichiometric consumption leaves 0.010 mol CaCO3 (1.00 g)
+    // The evolved gas must not be treated as fully dissolved excess CO2.
+    // Only 0.005 mol CaCO3 is consumed by this acid dose.
     await store.mixSubstances(flaskId, 'HCl', 10);
 
     flask = useAppStore.getState().vessels[flaskId];
@@ -141,7 +141,7 @@ describe('Phase B — Solid Persistence & Stoichiometric Consumption (§4.7, §1
     expect(remainingCaCO3).toBeDefined();
 
     // The solid was NOT 100% wiped out; stoichiometric amount persists!
-    expect(remainingCaCO3!.moles).toBeCloseTo(0.010, 3);
+    expect(remainingCaCO3!.moles).toBeCloseTo(nInitial - 0.005, 10);
     expect(remainingCaCO3!.moles).toBeLessThan(0.020);
     expect(flask.substances).toContain('CaCO3');
   });

@@ -119,7 +119,10 @@ function InstrumentActions({ id, disabled }: { id: InstrumentId; disabled: boole
     <button className={BUTTON} disabled={disabled} onClick={() => void depositSpatula()}>Cho mẫu vào bình</button>
     <button className={BUTTON} onClick={() => rinseInstrument('spatula')}>Rửa thìa</button>
   </div>;
-  if (id === 'sponge') return <button className={BUTTON} onClick={cleanAllSpills}>Thu gom tất cả vết tràn</button>;
+  if (id === 'sponge') return <div className="flex flex-wrap gap-2">
+    <button className={BUTTON} onClick={cleanAllSpills}>Thu gom tất cả vết tràn</button>
+    <button className={BUTTON} onClick={() => useAppStore.getState().cleanGlassDebris()}>Chổi/hót rác: thu gom kính đã rơi trên bàn</button>
+  </div>;
   return <button className={BUTTON} disabled={disabled} onClick={() => activateInstrument(id)}>Đưa đầu đo vào bình</button>;
 }
 

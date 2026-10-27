@@ -145,20 +145,25 @@ export function stepVesselThermal(
 
 /** Compute the heating power delivered to `eq` by a Bunsen burner `burner`.
  * Coupling is based on the 2D scene geometry (y grows downward): the vessel's
- * bottom must hover just above the burner's barrel top, roughly centered. */
+ * bottom must hover in the flame cone above the burner's barrel top. */
 export function burnerHeatToVessel(burner: EquipmentState, eq: EquipmentState): number {
   if (burner.type !== 'bunsen_burner' || !burner.isOn) return 0;
   if ((burner.fuelLevel_ml ?? BURNER_FUEL_CAPACITY_ML) <= 0) return 0;
-  const burnerTop = burner.y + 40; // barrel mouth in SVG coords
+  const burnerTop = burner.y + 42; // barrel mouth in SVG coords
   const vesselBottom = eq.y + eq.height;
-  const gap = burnerTop - vesselBottom; // >0 means vessel hovers above flame
-  if (gap < -30 || gap > 160) return 0; // too low (overlapping) or too high
-  const dx = eq.x + eq.width / 2 - (burner.x + burner.width / 2);
-  const dist = Math.hypot(dx, Math.max(0, gap - 40));
+  const gap = burnerTop - vesselBottom; // >0 means vessel hovers in/above flame
+  if (gap < -45 || gap > 180) return 0; // out of flame vertical reach
+
+  const dx = (eq.x + eq.width / 2) - (burner.x + burner.width / 2);
+  // Optimal heating occurs around 20-55 px above the nozzle in the oxidizing flame zone
+  const optimalH = 35;
+  const vertDist = Math.max(0, Math.abs(gap - optimalH) - 15);
+  const dist = Math.hypot(dx * 1.1, vertDist);
+
   if (dist > BURNER_HEAT_RADIUS_PX) return 0;
   const falloff = Math.max(0, 1 - dist / BURNER_HEAT_RADIUS_PX);
-  const intensity = Math.max(0.2, Math.min(1, burner.heatIntensity ?? 0.7));
-  return BURNER_PEAK_POWER_W * intensity * falloff;
+  const intensity = Math.max(0.2, Math.min(1, burner.heatIntensity ?? 0.8));
+  return BURNER_PEAK_POWER_W * intensity * (falloff * falloff * (3 - 2 * falloff)); // smooth hermite falloff
 }
 
 /** Hot plate conductive coupling: plate must physically touch the vessel. */
@@ -209,4 +214,83 @@ export function stepPour(
   const spill = overflow + spillFrac * accepted;
   const moved = accepted * (1 - spillFrac);
   return { moved_ml: moved, spill_ml: spill, done: source.volume_ml - requested <= 1e-6 };
+}
+
+export interface ProbeDipResult {
+  isSubmerged: boolean;
+  submergedInVesselId?: string;
+  measuredPh?: number;
+  measuredTemp_c?: number;
+  triggerStir?: boolean;
+}
+
+/**
+ * Detect physical immersion of measurement probes (pH meter, thermometer, stirring rod, pH paper)
+ * into a vessel containing liquid on the workbench.
+ */
+export function probeDipCoupling(
+  probe: EquipmentState,
+  vessels: EquipmentState[],
+  dt: number,
+): ProbeDipResult {
+  const probeTipX = probe.x + probe.width / 2;
+  const probeTipY = probe.y + probe.height - 12;
+
+  // Find a container vessel whose bounding box encloses the probe tip
+  const vessel = vessels.find(v => {
+    if (!v.isContainer || v.id === probe.id) return false;
+    const insideX = probeTipX >= v.x + 5 && probeTipX <= v.x + v.width - 5;
+    const insideY = probeTipY >= v.y + 15 && probeTipY <= v.y + v.height + 5;
+    return insideX && insideY;
+  });
+
+  if (!vessel || vessel.volume_ml <= 0) {
+    const curTemp = probe.temperature_c ?? AMBIENT_TEMP_C;
+    return {
+      isSubmerged: false,
+      measuredPh: 7.00,
+      measuredTemp_c: Math.round((curTemp + (AMBIENT_TEMP_C - curTemp) * Math.min(1.0, dt * 0.8)) * 10) / 10,
+      triggerStir: false,
+    };
+  }
+
+  // Probe is submerged in liquid!
+  const targetTemp = vessel.temperature_c;
+  const currentTemp = probe.temperature_c ?? AMBIENT_TEMP_C;
+  const newTemp = currentTemp + (targetTemp - currentTemp) * Math.min(1.0, dt * 2.5);
+
+  return {
+    isSubmerged: true,
+    submergedInVesselId: vessel.id,
+    measuredPh: vessel.ph,
+    measuredTemp_c: Math.round(newTemp * 10) / 10,
+    triggerStir: probe.type === 'stirring_rod',
+  };
+}
+
+/**
+ * Continuous liquid drainage through separatory funnel stopcock.
+ * Drains the denser lower aqueous phase first, stopping cleanly at the phase boundary.
+ */
+export function separatoryFunnelDrain(
+  funnel: EquipmentState,
+  dt: number,
+  drainRate_ml_s = 2.0,
+): { drainedAqueous_ml: number; closedAfterDrain: boolean } {
+  if (funnel.type !== 'separatory_funnel' || !funnel.stopcockOpen || funnel.volume_ml <= 0) {
+    return { drainedAqueous_ml: 0, closedAfterDrain: false };
+  }
+
+  const organicVol = funnel.hasPhaseSeparation ? (funnel.organicLayerVolume_ml || 0) : 0;
+  const maxDrainableAqueous = Math.max(0, funnel.volume_ml - organicVol);
+
+  if (maxDrainableAqueous <= 1e-4) {
+    return { drainedAqueous_ml: 0, closedAfterDrain: true };
+  }
+
+  const drainAmount = Math.min(maxDrainableAqueous, drainRate_ml_s * dt);
+  const remainingAqueous = maxDrainableAqueous - drainAmount;
+  const closedAfterDrain = remainingAqueous <= 1e-3;
+
+  return { drainedAqueous_ml: drainAmount, closedAfterDrain };
 }

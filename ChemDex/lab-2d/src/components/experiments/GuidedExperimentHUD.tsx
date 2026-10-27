@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLabStore } from '../../store/useLabStore';
-import { CheckCircle2, Circle, ChevronRight, ChevronLeft, HelpCircle, Lightbulb, BookOpen, Activity } from 'lucide-react';
+import { CheckCircle2, Circle, ChevronRight, ChevronLeft, HelpCircle, Lightbulb, BookOpen, Activity, Award } from 'lucide-react';
 
 export const GuidedExperimentHUD: React.FC = () => {
   const {
@@ -8,10 +8,12 @@ export const GuidedExperimentHUD: React.FC = () => {
     currentStepIndex,
     stepCompleted,
     nextStep,
+    completeExperiment,
     prevStep,
     language,
     selectExperiment,
     toggleTitrationCurve,
+    toggleQuizModal,
   } = useLabStore();
 
   const [showTheory, setShowTheory] = useState(false);
@@ -96,6 +98,14 @@ export const GuidedExperimentHUD: React.FC = () => {
                 <span>{language === 'vi' ? 'Đồ thị chuẩn độ' : 'Titration Curve'}</span>
               </button>
             )}
+            <button
+              onClick={() => toggleQuizModal(true)}
+              className="flex items-center gap-1 text-[11px] text-purple-600 font-semibold bg-purple-50 px-2 py-0.5 rounded-md border border-purple-200 hover:bg-purple-100 transition-colors"
+              title={language === 'vi' ? 'Làm bài kiểm tra đánh giá kiến thức' : 'Take assessment quiz'}
+            >
+              <Award className="w-3.5 h-3.5" />
+              <span>{language === 'vi' ? 'Bài kiểm tra' : 'Quiz'}</span>
+            </button>
           </div>
 
           {showTheory && theory && (
@@ -117,8 +127,8 @@ export const GuidedExperimentHUD: React.FC = () => {
           </button>
 
           <button
-            onClick={nextStep}
-            disabled={!stepCompleted && !isLastStep}
+            onClick={isLastStep ? completeExperiment : nextStep}
+            disabled={!stepCompleted}
             className={`flex items-center gap-1 py-2 px-3.5 rounded-xl text-xs font-bold transition-all ${
               stepCompleted
                 ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs'

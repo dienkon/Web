@@ -23,7 +23,7 @@ export function MeasurementHUD() {
   const ph = vessel ? vessel.ph : 7.0;
   const tare = vessel ? (vessel.tare_g ?? (vessel.type === 'test_tube' ? 25.0 : vessel.type === 'flask' ? 95.0 : 85.0)) : 0.0;
   const netMass = vessel ? (vessel.mass_g ?? ((vessel.volume_ml || 0) * (vessel.density_g_ml || 1.0))) : 0.0;
-  const mass = vessel ? netMass + tare : 0.0;
+  const mass = vessel ? netMass + tare + (vessel.wallCoatingMass_g ?? 0) : 0.0;
 
   return (
     <div className="flex items-center gap-2 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-lg border border-slate-200/80 shadow-md">

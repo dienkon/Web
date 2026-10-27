@@ -429,11 +429,11 @@ export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
     solidMorphology: 'PELLET',
     color: '#cbd5e1',
     molarMass: 22.99,
-    density: 0.97,
+    density: 0.971,
     hazards: ['flammable', 'reactive_water', 'corrosive'],
     ppe: ['goggles', 'gloves', 'fume_hood'],
-    safetyNotes_en: 'Violently reacts with water releasing H2 with yellow flame and pop!',
-    safetyNotes_vi: 'Phản ứng dữ dội với nước, bốc cháy với ngọn lửa màu vàng và nổ lách tách!'
+    safetyNotes_en: 'Reacts exothermically with water, forming corrosive NaOH and flammable H2. Ignition and splashing depend on conditions.',
+    safetyNotes_vi: 'Phản ứng tỏa nhiệt với nước tạo NaOH ăn mòn và H2 dễ cháy. Cháy và bắn tóe phụ thuộc điều kiện.'
   },
   {
     formula: 'Al',
@@ -1308,6 +1308,12 @@ CHEMICAL_DATABASE.push({
 // Explicit dilute stocks make the new buffer systems available from the
 // chemical shelf. Density is approximated as water; pH is the 25 °C model.
 CHEMICAL_DATABASE.push(
+  { formula: 'CO2(aq)', name_en: 'Dissolved CO2 reference water (0.01 M)',
+    name_vi: 'Nước hòa tan CO2 tham chiếu (0,01 M)', type: 'liquid', color: '#f8fafc',
+    molarMass: 44.0095, density: 1, defaultConcentration: 0.01, ph: 4.176,
+    hazards: [], ppe: ['goggles', 'lab_coat'],
+    safetyNotes_vi: 'Mẫu nước đã hòa tan CO2 để khảo sát cân bằng cacbonat ở 25 °C; mật độ xấp xỉ nước. Chưa mô hình hóa đầy đủ thoát khí sau mở bình và đường cấp khí từ bình sinh khí.',
+    safetyNotes_en: 'Prepared dissolved-carbon reference at 25 C, with approximate water density. Open-vessel degassing and delivery tubing are not yet fully modeled.' },
   { formula: 'CH3COOH', name_en: 'Acetic acid solution (0.1 M)', name_vi: 'Axit axetic (0,1 M)',
     type: 'liquid', category: 'acid', color: '#f8fafc', molarMass: 60.052,
     density: 1, defaultConcentration: 0.1, ph: 2.875, hazards: ['irritant'], ppe: ['goggles', 'lab_coat'],

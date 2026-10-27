@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { AQUEOUS_CONSTANTS_25C, solveAqueousEquilibrium, cachedAqueousEquilibrium } from '../src/science/aqueousEquilibrium';
+import { aqueousConstantsAtTemperature } from '../src/science/aqueousTemperature';
 import { indicatorColor, solutionIndicatorColor } from '../src/science/indicatorAppearance';
 import { projectAqueousSolution } from '../src/engine/aqueousProjection';
 import { executeMultiStepReactions } from '../src/engine/chemistryEngine';
@@ -93,6 +94,15 @@ describe('Aqueous electroneutrality, water and conjugate-pair speciation', () =>
     expect(solveAqueousEquilibrium([sample('HCl', 0.01)], 0)).toBeNull();
   });
 
+  it('reads the aqueous phase while elemental metal remains under separate surface kinetics', () => {
+    const input = [sample('H2O', 5, 'l'), sample('Na', 0.001, 's'), sample('NaOH', 0.001)];
+    const before = structuredClone(input);
+    expect(solution(input).ph).toBeCloseTo(12, 6);
+    expect(solution([sample('H2O', 5, 'l'), sample('Na', 0.001, 's')]).ph).toBeCloseTo(7, 8);
+    expect(solveAqueousEquilibrium([...input, sample('FeCl3', 0.001)], 100)).toBeNull();
+    expect(input).toEqual(before);
+  });
+
   it('does not consume or mutate formula-unit inventories to display equilibrium', () => {
     const input = [sample('NH3', 0.01), sample('NH4Cl', 0.003)];
     const before = structuredClone(input);
@@ -163,8 +173,11 @@ describe('Titration and indicator rendering follow the current sample', () => {
   it('uses the same equilibrium for native neutralization and metered samples', () => {
     const input = [sample('NH3', 0.01), sample('HCl', 0.01)];
     const native = executeMultiStepReactions(input, ['NH3', 'HCl'], 100, 25, false);
-    expect(native.finalPh).toBeCloseTo(5.13, 1);
-    expect(native.phModel).toBe('ideal_aqueous_25c');
+    const heatedKa = aqueousConstantsAtTemperature(native.finalTemperature_c)!.ammoniumKa;
+    expect(native.finalTemperature_c).toBeGreaterThan(25);
+    expect(native.finalPh).toBeCloseTo(-Math.log10(Math.sqrt(heatedKa * 0.1)), 3);
+    expect(native.phModel).toBe('ideal_aqueous_temperature');
+    expect(native.phReferenceTemperature_c).toBe(native.finalTemperature_c);
     const metered = reactAliquotMixture(vessel(input), 'vi', false);
     expect(metered.vessel.ph).toBeCloseTo(native.finalPh, 10);
     const weakOnly = reactAliquotMixture(vessel([sample('CH3COOH', 0.01)]), 'vi', false);

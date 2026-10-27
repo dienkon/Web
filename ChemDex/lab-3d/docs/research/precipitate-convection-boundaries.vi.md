@@ -1,0 +1,13 @@
+# Đối lưu kín và hạt kết tủa
+
+Đối chiếu 24/10/2026. Trường vận tốc cũ có vận tốc đứng khác không ngay tại đáy/mặt thoáng và chọn các thành phần đứng/ngang riêng rẽ, nên không bảo đảm điều kiện liên tục của chất lỏng không nén được. Điều này có thể đẩy hạt vào biên dù hệ containment cuối bước vẫn giữ chúng trong dụng cụ.
+
+Nguồn phương pháp: [University of Texas — Axisymmetric Velocity Fields](https://farside.ph.utexas.edu/teaching/336L/Fluidhtml/node97.html), biểu diễn dòng đối xứng trục không nén bằng hàm dòng Stokes; [Ansys Polyflow — Calculation of Stream Function](https://ansyshelp.ansys.com/public/Views/Secured/corp/v242/en/poly_pf/x1-70800029.2.1.html), hàm dòng hằng trên biên không có dòng xuyên qua. Hàm cụ thể dưới đây là lựa chọn của ứng dụng, không phải nghiệm thực nghiệm từ hai nguồn.
+
+Với r là bán kính trụ, h là độ cao từ đáy, R là bán kính miền và H là chiều cao chất lỏng, đặt ψ = U r²(1−r²/R²)² sin²(πh/H)/2. Tính u_r = −(1/r)∂ψ/∂h và u_h = (1/r)∂ψ/∂r. Đạo hàm chéo triệt tiêu trong divergence; dòng đi lên gần tâm và trở xuống phía ngoài. Cả ba thành phần bằng không ở đáy, mặt trên và thành trụ. Dùng biểu thức Cartesian không chia cho r tại trục. Miền khô, số không hữu hạn hoặc điểm ngoài trụ trả về không có đối lưu.
+
+U vẫn lấy từ quy tắc nhiệt độ/công suất/độ nhớt minh họa đã có; không giải Navier–Stokes, truyền nhiệt, lớp biên hoặc ngưỡng Rayleigh. Hạt kết tủa lấy cùng hệ số 0,4 cho cả ba thành phần dòng; trước đây chỉ thành phần đứng nhận hệ số này. Đáp ứng vận tốc hạt nay dùng thời gian lực cản từ bán kính vật lý và độ nhớt, xem [đáp ứng lực cản](precipitate-drag-response.vi.md); vẫn có xấp xỉ lực cản hằng trong từng bước. Dòng này không thay cho động học kết tụ.
+
+Khi có profile dụng cụ, thay R hằng bằng R(h) nội suy từ cùng contour lòng dụng cụ. Thành phần ngang thêm đạo hàm R′(h) khi lấy ∂ψ/∂h; nếu chỉ đổi bán kính mà bỏ đạo hàm này sẽ mất tính liên tục. Hàm dòng và gradient bằng không trên thành contour. Kiểm tra biên và divergence trên từng đoạn thẳng của toàn bộ 16 profile; đạo hàm tại góc nối contour không liên tục nên không khẳng định trường trơn tại góc. Hạt và bọt dùng chung profile khi lấy dòng. Containment cuối bước vẫn cần để xử lý glyph có kích thước hữu hạn, Brownian và sai số bước thời gian. Trường hợp không có contour dùng trụ chuẩn. Vận tốc và kích thước miền dùng đơn vị scene nhất quán, không coi U là vận tốc đo trong phòng thí nghiệm.
+
+Kiểm thử: dòng xuyên biên bằng không, divergence sai phân gần không tại nhiều vị trí và tỷ lệ chiều cao/bán kính, tổng thông lượng đứng qua lát cắt bằng không, dòng trở về đúng hướng và trục hữu hạn. Các kiểm thử lifecycle/contact/display tiếp tục kiểm tra lượng chất rắn và vị trí hạt; chưa có xác minh GPU.

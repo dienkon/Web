@@ -57,7 +57,7 @@ export const PRECIPITATES_DATABASE: Record<string, PrecipitateProperty> = {
     name_en: 'Silver Bromide',
     name_vi: 'Bạc bromua',
     ksp_25c: 5.4e-13,
-    colorHex: '#fef08a', // Pale cream
+    colorHex: '#f5edcd', // Cream; qualitative display color, not a spectral measurement
     morphology: 'curd',
     particleRadius_um_range: [1.0, 5.0],
     density_g_cm3: 6.47,
@@ -71,13 +71,13 @@ export const PRECIPITATES_DATABASE: Record<string, PrecipitateProperty> = {
     name_en: 'Silver Iodide',
     name_vi: 'Bạc iotua',
     ksp_25c: 8.5e-17,
-    colorHex: '#facc15', // Pale yellow
+    colorHex: '#f6e58d', // Pale yellow
     morphology: 'curd',
     particleRadius_um_range: [1.0, 5.0],
-    density_g_cm3: 5.68,
+    density_g_cm3: 5.67, // Carl Roth SDS: about 5.67 g/cm3 at 20 C
     packingFraction_phi: 0.15,
     specialNotes_en: 'Pale yellow curdy precipitate. Insoluble in dilute NH3 (distinct from AgCl/AgBr).',
-    specialNotes_vi: 'Kết tủa vón màu vàng đậm. Không tan trong dung dịch NH₃ loãng.'
+    specialNotes_vi: 'Kết tủa vón màu vàng nhạt. Không tan trong dung dịch NH₃ loãng.'
   },
   PbI2: {
     formula: 'PbI2',

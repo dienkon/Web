@@ -1,106 +1,95 @@
-/**
- * condensation.ts - Glass wall condensation, microscopic fog film, discrete droplets,
- * sliding with clear trail deposition, and gravity drips.
- * 
- * Physical Model:
- * 1. Condensation Criterion:
- *    T_glass < T_dew
- * 2. Fog Film Phase:
- *    Microscopic droplet fog coverage θ_c(t) rises with (T_dew - T_glass)
- * 3. Discrete Droplet Growth & Sliding:
- *    dr/dt ∝ (T_dew - T_glass) / r
- *    When droplet radius exceeds pinning threshold r_pin (~1.5 - 2.5 mm, Bond-number criterion),
- *    droplet slides down wall with v ∝ r², sweeping and coalescing smaller droplets along its trail.
- * 4. Drip back:
- *    Droplets reaching liquid level or rim drip into liquid, creating small surface ripple.
- * 
- * Units: SI internally (m, m/s, K, s)
- */
-
+/** Optional discrete wall-droplet solver. The live vessel uses
+ * engine/wallCondensation.ts for its authoritative aggregate water ledger.
+ * This solver consumes an explicit condensate supply; it never infers mass
+ * from a temperature difference alone. SI lengths, seconds, mass in grams. */
 export interface WallDroplet {
-  u: number;            // Normalized circumferential angle [0, 1]
-  y: number;            // Height along vessel wall (m)
-  radius: number;       // Droplet radius (m, 0.2 - 3 mm)
+  u: number;
+  y: number;
+  radius: number;
   isSliding: boolean;
   slideVelocity: number;
 }
+export const dropletMassG = (radiusM: number) => 4 * Math.PI * Math.max(0, radiusM) ** 3 / 3 * 1e6;
+export const radiusForDropletMass = (mass_g: number) => Math.cbrt(Math.max(0, mass_g) * 3 / (4 * Math.PI * 1e6));
+
+export function mergeWallDroplets(a: WallDroplet, b: WallDroplet): WallDroplet {
+  const ma = dropletMassG(a.radius), mb = dropletMassG(b.radius), mass = ma + mb;
+  const du = ((b.u - a.u + 1.5) % 1) - 0.5;
+  return { ...a, u: ((a.u + du * mb / Math.max(1e-30, mass)) % 1 + 1) % 1,
+    y: mass > 0 ? (a.y * ma + b.y * mb) / mass : a.y,
+    radius: radiusForDropletMass(mass), isSliding: a.isSliding || b.isSliding };
+}
 
 export class CondensationEngine {
-  public fogCoverage: number = 0; // [0, 1]
+  public fogCoverage = 0;
   public droplets: WallDroplet[] = [];
-  public maxDroplets: number = 64;
-  public pinningRadiusM: number = 0.0022; // 2.2 mm pinning threshold
-
+  public maxDroplets = 64;
+  public pinningRadiusM = 0.0022;
+  public filmMass_g = 0;
+  public evaporatedMass_g = 0;
+  public drippedMass_g = 0;
   public onDrip?: (angleRad: number, radiusM: number) => void;
+  private spawnAccumulator = 0;
+  constructor(private random: () => number = Math.random) {}
+  public get retainedMass_g() { return this.filmMass_g + this.droplets.reduce((s, d) => s + dropletMassG(d.radius), 0); }
+  public reset() {
+    this.fogCoverage = 0; this.droplets = []; this.filmMass_g = 0;
+    this.evaporatedMass_g = 0; this.drippedMass_g = 0; this.spawnAccumulator = 0;
+  }
 
-  /**
-   * Evaluate glass wall condensation and droplet dynamics
-   */
-  public update(
-    dt: number,
-    glassTempK: number,
-    dewPointK: number,
-    liquidHeightM: number,
-    vesselHeightM: number
-  ): void {
-    if (dt <= 0) return;
-
-    const deltaT = dewPointK - glassTempK;
-
-    // 1. Fog film coverage
-    if (deltaT > 0.5) {
-      this.fogCoverage = Math.min(1.0, this.fogCoverage + 0.15 * deltaT * dt);
-    } else {
-      this.fogCoverage = Math.max(0.0, this.fogCoverage - 0.25 * (glassTempK - dewPointK) * dt);
-    }
-
-    // 2. Spawn discrete droplets when fog film is dense
-    if (this.fogCoverage > 0.4 && this.droplets.length < this.maxDroplets && Math.random() < 0.15) {
-      // Spawn on upper headspace wall
-      const spawnY = liquidHeightM + 0.01 + Math.random() * (vesselHeightM - liquidHeightM - 0.015);
-      this.droplets.push({
-        u: Math.random(),
-        y: spawnY,
-        radius: 0.0004 + Math.random() * 0.0004, // 0.4 - 0.8 mm initial
-        isSliding: false,
-        slideVelocity: 0,
-      });
-    }
-
-    // 3. Droplet growth, coalescence, and sliding
-    for (let i = this.droplets.length - 1; i >= 0; i--) {
-      const drop = this.droplets[i];
-
-      if (deltaT > 0) {
-        // Growth rate: dr/dt = k * ΔT / r
-        drop.radius += (0.00002 * deltaT / Math.max(0.0005, drop.radius)) * dt;
-      } else {
-        // Evaporative shrinkage
-        drop.radius -= 0.00005 * (glassTempK - dewPointK) * dt;
-        if (drop.radius <= 0.0002) {
-          this.droplets.splice(i, 1);
-          continue;
+  /** condensedMass_g is one finite delivery, not a rate. Caller owns the vapor
+   * inventory and must debit it exactly once. Fixed substeps remove the old
+   * per-frame spawn probability. Circumference is the local wall path length.
+   * Slide/pinning coefficients are visual approximations, not measured laws. */
+  public update(dt: number, glassTempK: number, dewPointK: number, liquidHeightM: number,
+    vesselHeightM: number, condensedMass_g = 0, circumferenceM = 0.1): void {
+    if (![dt, glassTempK, dewPointK, liquidHeightM, vesselHeightM, condensedMass_g, circumferenceM].every(Number.isFinite)
+      || dt <= 0 || condensedMass_g < 0 || circumferenceM <= 0) return;
+    const steps = Math.ceil(dt * 120), h = dt / steps;
+    for (let step = 0; step < steps; step++) {
+      this.filmMass_g += condensedMass_g / steps;
+      const delta = dewPointK - glassTempK;
+      if (delta > 0 && vesselHeightM - liquidHeightM > 0.002) {
+        this.spawnAccumulator += h * 9;
+        while (this.spawnAccumulator >= 1 && this.droplets.length < this.maxDroplets) {
+          const mass = dropletMassG(0.0004);
+          if (this.filmMass_g < mass) break;
+          this.spawnAccumulator -= 1; this.filmMass_g -= mass;
+          this.droplets.push({ u: this.random(), y: liquidHeightM + 0.001
+            + this.random() * (vesselHeightM - liquidHeightM - 0.002),
+            radius: 0.0004, isSliding: false, slideVelocity: 0 });
         }
+        // No accumulated burst after reaching the particle/available-mass budget.
+        this.spawnAccumulator = Math.min(1, this.spawnAccumulator);
+        if (this.droplets.length) {
+          const transfer = this.filmMass_g * (1 - Math.exp(-h / 2));
+          this.filmMass_g -= transfer;
+          for (const d of this.droplets) d.radius = radiusForDropletMass(dropletMassG(d.radius) + transfer / this.droplets.length);
+        }
+      } else if (delta < 0) {
+        const keep = Math.exp(delta * 0.02 * h), previous = this.retainedMass_g;
+        this.filmMass_g *= keep;
+        for (const d of this.droplets) d.radius *= Math.cbrt(keep);
+        this.evaporatedMass_g += previous - this.retainedMass_g;
       }
-
-      // Check pinning threshold
-      if (drop.radius >= this.pinningRadiusM) {
-        drop.isSliding = true;
-        // Sliding velocity: v ∝ r²
-        drop.slideVelocity = 15.0 * drop.radius * drop.radius; // ~0.05 - 0.15 m/s
-      }
-
-      if (drop.isSliding) {
-        drop.y -= drop.slideVelocity * dt;
-
-        // Drip back into liquid surface
-        if (drop.y <= liquidHeightM) {
-          if (this.onDrip) {
-            this.onDrip(drop.u * Math.PI * 2, drop.radius);
-          }
+      for (let i = this.droplets.length - 1; i >= 0; i--) {
+        const d = this.droplets[i];
+        if (d.radius >= this.pinningRadiusM) d.isSliding = true;
+        d.slideVelocity = d.isSliding ? Math.min(0.15, 0.04 * (d.radius / this.pinningRadiusM) ** 2) : 0;
+        d.y -= d.slideVelocity * h;
+        if (d.y <= liquidHeightM) {
+          this.drippedMass_g += dropletMassG(d.radius);
+          this.onDrip?.(d.u * Math.PI * 2, d.radius);
           this.droplets.splice(i, 1);
         }
       }
+      for (let i = 0; i < this.droplets.length; i++) for (let j = this.droplets.length - 1; j > i; j--) {
+        const a = this.droplets[i], b = this.droplets[j], du = Math.abs(a.u - b.u);
+        if (Math.hypot(Math.min(du, 1 - du) * circumferenceM, a.y - b.y) <= a.radius + b.radius) {
+          this.droplets[i] = mergeWallDroplets(a, b); this.droplets.splice(j, 1);
+        }
+      }
     }
+    this.fogCoverage = Math.min(1, this.retainedMass_g / 0.03);
   }
 }

@@ -4,12 +4,19 @@ import { findChemical } from '../data/chemicals';
 import { chemistryCache, getCanonicalReactionKey } from './chemistryCache';
 import { identifySpecies, matchesReagent, sameMolecularFormula } from '../science/speciesIdentity';
 import { computeMolarMass } from './ledger';
-import { solveAqueousEquilibrium } from '../science/aqueousEquilibrium';
+import { solveAqueousEquilibrium, aqueousModelFields } from '../science/aqueousEquilibrium';
 import { solutionIndicatorColor } from '../science/indicatorAppearance';
 import { aqueousBoilingPoint, relaxGeneratedWater, sampleHeatCapacity } from './thermalState';
-import { H2O2_AQ_REACTION_DH_KJ } from '../science/thermochemistry';
+import { H2O2_AQ_REACTION_DH_KJ, SODIUM_WATER_DH_KJ } from '../science/thermochemistry';
+import { deriveStandardEnthalpy } from '../science/formationEnthalpy';
+import { baritePrecipitationExtent } from '../science/baritePrecipitation';
+import { silverChlorideExtent } from '../science/silverChloridePrecipitation';
+import { copperHydroxideExtent } from '../science/copperHydroxidePrecipitation';
+import { ferricHydroxideExtent, ferricChlorideAqueousState, ferricHydroxideDissolutionExtent } from '../science/ferricHydroxidePrecipitation';
+import { aluminumReactionExtent, aluminumReactionEnthalpy_J_mol, aluminumAqueousState } from '../science/aluminumHydroxideEquilibrium';
 
 export interface DeterministicReaction {
+  equilibriumOnly?: boolean; // Inventory is handled by a finite phase/speciation solver.
   id: string;
   reactants: string[]; // required formulas (or canonical keys)
   optionalAdditions?: string[]; // e.g. Phenolphthalein
@@ -31,7 +38,7 @@ export interface DeterministicReaction {
   // Products: formula -> { coeff: number, state: 'aq' | 's' | 'g' | 'l' }
   products: Record<string, { coeff: number; state: 'aq' | 's' | 'g' | 'l' }>;
   
-  // Thermal properties: deltaH in kJ/mol of limiting reagent
+  // Thermal properties: kJ per mol of reaction extent, as written.
   deltaH_kJ: number; 
   
   // Visual outcome
@@ -68,6 +75,23 @@ function matchesReactants(substances: string[], required: string[]): boolean {
   }
 
   return required.every(req => substances.some(sub => chemicalFormulaMatches(sub, req)));
+}
+
+function aluminateNative(sulfate: boolean): DeterministicReaction {
+  const id = sulfate ? 'al2so43_naoh_aluminate' : 'alcl3_naoh_aluminate';
+  return { id, reactants: [sulfate ? 'Al2(SO4)3' : 'AlCl3', 'NaOH'],
+    equation: sulfate ? 'Al₂(SO₄)₃ + 8NaOH → 2Na[Al(OH)₄] + 3Na₂SO₄' : 'AlCl₃ + 4NaOH → Na[Al(OH)₄] + 3NaCl',
+    ionic_equation: 'Al³⁺(aq) + 4OH⁻(aq) → [Al(OH)₄]⁻(aq)',
+    reactionType_en: 'Aluminate formation in excess base', reactionType_vi: 'Tạo aluminate trong kiềm dư',
+    summary_en: 'Sufficient excess hydroxide favors dissolved aluminate; quantity follows aqueous speciation.',
+    summary_vi: 'Kiềm đủ dư ưu tiên aluminate hòa tan; lượng tạo thành được giới hạn bởi cân bằng dung dịch.',
+    observable_en: 'No new gel or gas is imposed on a sample that is not supersaturated.',
+    observable_vi: 'Không tự tạo keo hoặc khí trong mẫu chưa quá bão hòa.',
+    stoichiometry: { [sulfate ? 'Al2(SO4)3' : 'AlCl3']: 1, NaOH: sulfate ? 8 : 4 },
+    products: { 'Na[Al(OH)4]': { coeff: sulfate ? 2 : 1, state: 'aq' },
+      [sulfate ? 'Na2SO4' : 'NaCl']: { coeff: 3, state: 'aq' } },
+    deltaH_kJ: aluminumReactionEnthalpy_J_mol(id, 25)! / 1000,
+    resultingLiquidColor: '#f8fafc', hasPrecipitate: false, hasGas: false, isDangerous: false };
 }
 
 export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
@@ -505,18 +529,18 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
     equation: '2Na + 2H₂O → 2NaOH + H₂↑ + Q',
     reactionType_en: 'Alkali Metal Oxidation (Hazardous)',
     reactionType_vi: 'Kim loại kiềm tác dụng với nước (Tỏa nhiệt mạnh)',
-    summary_en: 'Metallic sodium melts into a silvery sphere, skips furiously across the water surface, and ignites with an intense yellow flame.',
-    summary_vi: 'Mẩu natri nóng chảy vo tròn thành viên bi bạc, chạy lướt nhanh trên mặt nước, bốc cháy với ngọn lửa màu vàng và nổ lách tách.',
-    observable_en: 'Sodium sphere hisses and glides rapidly over water with white smoke trail, then pops with a bright golden flame!',
-    observable_vi: 'Viên bi natri xèo xèo chạy nhanh trên mặt nước, tỏa khói trắng rồi bùng cháy với ngọn lửa vàng cam rực rỡ và nổ bụp!',
+    summary_en: 'Metallic sodium melts into a silvery sphere, skips furiously across the water surface, and releases colorless hydrogen; ignition depends on conditions.',
+    summary_vi: 'Mẩu natri nóng chảy vo tròn thành viên bi bạc, chạy lướt nhanh trên mặt nước, giải phóng H2 không màu; cháy và bùng nổ phụ thuộc điều kiện.',
+    observable_en: 'Sodium floats, hisses, rounds as it melts and shrinks. The solution is alkaline; pink only with indicator.',
+    observable_vi: 'Na nổi, chạy trên mặt nước, nóng chảy vo tròn và nhỏ dần. Dung dịch kiềm chỉ có màu hồng khi có chỉ thị phù hợp.',
     stoichiometry: { 'Na': 2, 'H2O': 2 },
     products: { 'NaOH': { coeff: 2, state: 'aq' }, 'H2': { coeff: 1, state: 'g' } },
-    deltaH_kJ: -368.0,
+    deltaH_kJ: SODIUM_WATER_DH_KJ,
     resultingPh: 14.0,
     hasGas: true,
-    gasColor: '#fef08a',
+    gasColor: '#f8fafc',
     gasFormula: 'H2',
-    isBoiling: true,
+    isBoiling: false,
     isDangerous: true,
     safetyNotes_en: 'Violent reaction. Produces caustic NaOH and explosive H2. Handle with tweezers under dry conditions.',
     safetyNotes_vi: 'Phản ứng rất mãnh liệt. Tạo bazơ kiềm mạnh NaOH và khí H2 dễ nổ. Dùng panh gắp cẩn thận.'
@@ -601,6 +625,7 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
   // 21. Excess CO2 with Milky Limewater (Precipitate Re-dissolution / Clarification)
   {
     id: 'caco3_co2_excess_clearing',
+    equilibriumOnly: true,
     reactants: ['CaCO3', 'CO2', 'H2O'],
     equation: 'CaCO₃ + CO₂ + H₂O → Ca(HCO₃)₂ (Tan trong nước)',
     ionic_equation: 'CaCO₃(s) + CO₂(aq) + H₂O(l) → Ca²⁺(aq) + 2HCO₃⁻(aq)',
@@ -620,22 +645,35 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
     isDangerous: false
   },
 
+  {
+    id: 'alcl3_naoh_precipitate', reactants: ['AlCl3', 'NaOH'],
+    equation: 'AlCl₃ + 3NaOH → Al(OH)₃ + 3NaCl', ionic_equation: 'Al³⁺(aq) + 3OH⁻(aq) → Al(OH)₃(s)',
+    reactionType_en: 'Hydroxide precipitation', reactionType_vi: 'Tạo keo nhôm hiđroxit',
+    summary_en: 'Supersaturated aluminum chloride/base mixtures form a finite quantity of fresh white hydroxide gel.',
+    summary_vi: 'Dung dịch nhôm clorua và kiềm tạo lượng keo Al(OH)₃ hữu hạn khi quá bão hòa.',
+    observable_en: 'White gel quantity depends on pH; sufficiently excess base can leave a clear aluminate solution.',
+    observable_vi: 'Lượng keo trắng phụ thuộc pH; kiềm đủ dư có thể cho dung dịch aluminate trong.',
+    stoichiometry: { AlCl3: 1, NaOH: 3 }, products: { 'Al(OH)3': { coeff: 1, state: 's' }, NaCl: { coeff: 3, state: 'aq' } },
+    deltaH_kJ: aluminumReactionEnthalpy_J_mol('alcl3_naoh', 25)! / 1000,
+    hasPrecipitate: true, precipitateColor: '#ffffff', precipitateFormula: 'Al(OH)3',
+    resultingLiquidColor: '#f8fafc', hasGas: false, isDangerous: false,
+  },
+  aluminateNative(false), aluminateNative(true),
+
   // 22. Al2(SO4)3 + NaOH -> Amphoteric Al(OH)3 (Forms then Dissolves in Excess Base)
   {
     id: 'al2so4_naoh_amphoteric',
     reactants: ['Al2(SO4)3', 'NaOH'],
-    equation: 'Al₂(SO₄)₃ + 6NaOH → 2Al(OH)₃↓ + 3Na₂SO₄; Al(OH)₃ + NaOH → Na[Al(OH)₄]',
-    ionic_equation: 'Al³⁺ + 3OH⁻ → Al(OH)₃↓; Al(OH)₃ + OH⁻ → [Al(OH)₄]⁻',
-    reactionType_en: 'Amphoteric Hydroxide Formation & Dissolution',
-    reactionType_vi: 'Tính chất lưỡng tính của nhôm hiđroxit',
-    summary_en: 'Addition of base first precipitates white gelatinous Al(OH)3, which completely redissolves in excess NaOH.',
-    summary_vi: 'Ban đầu tạo kết tủa keo trắng Al(OH)3, khi cho kiềm dư kết tủa tan hoàn toàn tạo natri aluminat trong suốt.',
-    observable_en: 'White gelatinous precipitate appears like clouds in water, then dissolves smoothly when stirred with excess NaOH.',
-    observable_vi: 'Xuất hiện kết tủa keo trắng lơ lửng, sau đó tan biến khi thêm kiềm dư tạo dung dịch trong suốt.',
+    equation: 'Al₂(SO₄)₃ + 6NaOH → 2Al(OH)₃↓ + 3Na₂SO₄',
+    ionic_equation: 'Al³⁺(aq) + 3OH⁻(aq) → Al(OH)₃(s)',
+    reactionType_en: 'Hydroxide precipitation', reactionType_vi: 'Tạo keo nhôm hiđroxit',
+    summary_en: 'Supersaturation produces a finite quantity of white aluminum hydroxide gel; excess-base pathways are resolved separately.',
+    summary_vi: 'Quá bão hòa tạo lượng keo nhôm hiđroxit trắng hữu hạn; nhánh kiềm dư được xét riêng theo dung dịch.',
+    observable_en: 'White gel can form; its amount follows actual reagents and pH.',
+    observable_vi: 'Có thể xuất hiện keo trắng; lượng keo phụ thuộc lượng chất và pH.',
     stoichiometry: { 'Al2(SO4)3': 1, 'NaOH': 6 },
     products: { 'Al(OH)3': { coeff: 2, state: 's' }, 'Na2SO4': { coeff: 3, state: 'aq' } },
-    deltaH_kJ: -88.0,
-    resultingPh: 12.0,
+    deltaH_kJ: aluminumReactionEnthalpy_J_mol('al2so43_naoh', 25)! / 1000,
     hasPrecipitate: true,
     precipitateColor: '#f8fafc',
     precipitateFormula: 'Al(OH)3',
@@ -761,18 +799,17 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
   {
     id: 'aloh3_naoh_dissolution',
     reactants: ['Al(OH)3', 'NaOH'],
-    equation: 'Al(OH)₃ + NaOH → Na[Al(OH)₄] (Tan hoàn toàn)',
+    equation: 'Al(OH)₃ + NaOH → Na[Al(OH)₄]',
     ionic_equation: 'Al(OH)₃(s) + OH⁻(aq) → [Al(OH)₄]⁻(aq)',
     reactionType_en: 'Amphoteric Hydroxide Dissolution',
     reactionType_vi: 'Hòa tan kết tủa nhôm hiđroxit bằng kiềm dư',
-    summary_en: 'Insoluble white gelatinous aluminum hydroxide dissolves completely in excess sodium hydroxide forming clear sodium aluminate.',
-    summary_vi: 'Kết tủa keo trắng Al(OH)3 tan hoàn toàn trong dung dịch NaOH dư tạo phức natri aluminat trong suốt.',
-    observable_en: 'The white gelatinous clouds dissolve smoothly and disappear completely, leaving a crystal clear solution.',
-    observable_vi: 'Kết tủa keo trắng tan biến hoàn toàn, dung dịch trở lại trong suốt không màu.',
+    summary_en: 'Available base dissolves fresh aluminum hydroxide subject to saturation and actual reagent amounts.',
+    summary_vi: 'Kiềm hòa tan keo nhôm hiđroxit mới tạo trong giới hạn bão hòa và lượng thuốc thử có thật.',
+    observable_en: 'White gel decreases; residual solid remains unless enough dissolves.',
+    observable_vi: 'Keo trắng giảm dần; vẫn còn cặn nếu chưa đủ điều kiện hòa tan hết.',
     stoichiometry: { 'Al(OH)3': 1, 'NaOH': 1 },
     products: { 'Na[Al(OH)4]': { coeff: 1, state: 'aq' } },
-    deltaH_kJ: -31.5,
-    resultingPh: 12.5,
+    deltaH_kJ: aluminumReactionEnthalpy_J_mol('aloh3_naoh', 25)! / 1000,
     hasPrecipitate: false,
     resultingLiquidColor: '#f8fafc',
     hasGas: false,
@@ -867,6 +904,22 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
     resultingLiquidColor: '#fef3c7',
     hasGas: false,
     isDangerous: false
+  },
+
+  {
+    id: 'feoh3_hcl_dissolution',
+    reactants: ['Fe(OH)3', 'HCl'],
+    equation: 'Fe(OH)₃ + 3HCl → FeCl₃ + 3H₂O',
+    ionic_equation: 'Fe(OH)₃(s) + 3H⁺(aq) → Fe³⁺(aq) + 3H₂O(l)',
+    reactionType_en: 'Acid dissolution', reactionType_vi: 'Hòa tan kết tủa trong acid',
+    summary_en: 'Hydrochloric acid dissolves available fresh ferric hydroxide, subject to saturation.',
+    summary_vi: 'HCl hòa tan Fe(OH)₃ mới tạo trong giới hạn lượng acid và độ bão hòa.',
+    observable_en: 'Brown floc decreases; insufficient acid leaves solid behind. No gas is formed.',
+    observable_vi: 'Bông nâu giảm dần; acid thiếu vẫn còn chất rắn. Không sinh khí.',
+    stoichiometry: { 'Fe(OH)3': 1, HCl: 3 },
+    products: { FeCl3: { coeff: 1, state: 'aq' }, H2O: { coeff: 3, state: 'l' } },
+    deltaH_kJ: 0, // Standard Hess heat is derived below; no calibrated kinetic heat model.
+    resultingLiquidColor: '#fef3c7', hasPrecipitate: false, hasGas: false, isDangerous: false,
   },
 
   // 33. AgNO3 + HCl -> AgCl (Acid-Salt Precipitation)
@@ -1049,7 +1102,8 @@ export interface MultiStepReactionResult {
   finalTemperature_c: number;
   finalVolume_ml: number;
   finalPh: number;
-  phModel?: 'ideal_aqueous_25c';
+  phModel?: VesselState['phModel'];
+  phReferenceTemperature_c?: number;
   finalLiquidColor: string;
   hasPrecipitate: boolean;
   precipitateColor?: string;
@@ -1146,7 +1200,9 @@ export function executeMultiStepReactions(
     if (activeSubstances.length === 0) break;
 
     // Find candidate deterministic reaction
+    let aluminumLimitForCandidate: number | undefined;
     const candidate = DETERMINISTIC_REACTIONS.find(r => {
+      if (r.equilibriumOnly) return false;
       if (!matchesReactants(activeSubstances, r.reactants)) return false;
       if (r.id === 'cuso4_nh3_hydroxide') {
         const copper = workingContents.find(item => sameMolecularFormula(item.formula, 'CuSO4'))?.moles ?? 0;
@@ -1154,6 +1210,11 @@ export function executeMultiStepReactions(
         if (ammonia >= 4 * copper) return false;
       }
       if (!r.reactants.every(required => workingContents.some(item => item.moles > reactionThreshold && matchesReagent(item.formula, required) && (!identifySpecies(required).phase || item.phase === identifySpecies(required).phase)))) return false;
+      const aluminumLimit = aluminumReactionExtent(r.id, workingContents, volume_ml, currentTemp);
+      if (aluminumLimit !== undefined) {
+        if (aluminumLimit === null || aluminumLimit <= moleThreshold) return false;
+        aluminumLimitForCandidate = aluminumLimit;
+      }
       if (r.requiresHeating && currentTemp < (r.minTemp_c || 50)) return false;
       return true;
     });
@@ -1162,12 +1223,17 @@ export function executeMultiStepReactions(
 
     // Use the same physical reagent for eligibility, limiting extent and
     // consumption, even if a vessel contains both gas and aqueous forms.
-    const reagentItem = (formula: string) => workingContents.find(item => {
-      if (item.moles <= reactionThreshold || !matchesReagent(item.formula, formula)) return false;
-      const required = candidate.reactants.find(required => sameMolecularFormula(required, formula));
-      const phase = required ? identifySpecies(required).phase : null;
-      return !phase || item.phase === phase;
-    });
+    const reagentItem = (formula: string) => {
+      const eligible = workingContents.filter(item => {
+        if (item.moles <= reactionThreshold || !matchesReagent(item.formula, formula)) return false;
+        const required = candidate.reactants.find(required => sameMolecularFormula(required, formula));
+        const phase = required ? identifySpecies(required).phase : null;
+        return !phase || item.phase === phase;
+      });
+      // Neutralize the dissolved carbonate pool before attacking more rock.
+      return sameMolecularFormula(formula, 'CaCO3')
+        ? eligible.find(item => item.phase === 'aq') ?? eligible[0] : eligible[0];
+    };
 
     // Calculate limiting reagent extent xi based on stoichiometry
     let minXi = Infinity;
@@ -1185,11 +1251,48 @@ export function executeMultiStepReactions(
       }
     }
 
+    if (candidate.id === 'bacl2_na2so4_conservation') {
+      const saturationLimit = baritePrecipitationExtent(workingContents, volume_ml, currentTemp);
+      if (saturationLimit !== null) minXi = Math.min(minXi, saturationLimit);
+    }
+    if (candidate.id === 'agno3_nacl_precipitate') {
+      const limit = silverChlorideExtent(workingContents, volume_ml, currentTemp);
+      if (limit !== null) minXi = Math.min(minXi, limit);
+    }
+    if (candidate.id === 'cuso4_naoh_precipitate') {
+      const limit = copperHydroxideExtent(workingContents, volume_ml, currentTemp);
+      if (limit !== null) minXi = Math.min(minXi, limit);
+    }
+    if (candidate.id === 'fecl3_naoh_precipitate') {
+      const limit = ferricHydroxideExtent(workingContents, volume_ml, currentTemp);
+      if (limit !== null) minXi = Math.min(minXi, limit);
+    }
+    if (candidate.id === 'feoh3_hcl_dissolution') {
+      const limit = ferricHydroxideDissolutionExtent(workingContents, volume_ml, currentTemp);
+      minXi = limit === null ? 0 : Math.min(minXi, limit);
+    }
+    if (aluminumLimitForCandidate !== undefined) minXi = Math.min(minXi, aluminumLimitForCandidate);
     if (minXi <= moleThreshold || minXi === Infinity) {
       break;
     }
 
     const xi = minXi;
+    // Use the actual reagent phase. A solid bicarbonate and a bicarbonate
+    // solution do not have the same heat of reaction. Concentrated-acid mixing
+    // and separately reviewed references retain their dedicated models.
+    const standardHeat = candidate.id === 'sodium_water_reaction'
+      || candidate.reactants.some(formula => identifySpecies(formula).concentration === 'concentrated')
+      ? null : deriveStandardEnthalpy([
+        ...Object.entries(candidate.stoichiometry).map(([formula, coeff]) => ({
+          formula, coeff, role: 'reactant' as const,
+          phase: (reagentItem(formula)?.phase ?? identifySpecies(formula).phase ?? '') as 's' | 'l' | 'g' | 'aq',
+        })),
+        ...Object.entries(candidate.products).map(([formula, product]) => ({
+          formula, coeff: product.coeff, role: 'product' as const, phase: product.state,
+        })),
+      ]);
+    const aluminumHeat = aluminumReactionEnthalpy_J_mol(candidate.id, currentTemp);
+    const reactionEnthalpy_kJ = aluminumHeat !== undefined && aluminumHeat !== null ? aluminumHeat / 1000 : standardHeat?.value ?? candidate.deltaH_kJ;
 
     // Deduct reactants cleanly
     for (const [reactantFormula, coeff] of Object.entries(candidate.stoichiometry)) {
@@ -1210,7 +1313,8 @@ export function executeMultiStepReactions(
     for (const [productFormula, prodInfo] of Object.entries(candidate.products)) {
       const addedMoles = xi * prodInfo.coeff;
       const chem = findChemical(productFormula);
-      const existing = workingContents.find(c => matchesReagent(c.formula, productFormula) && c.phase === prodInfo.state);
+      const existing = workingContents.find(c => matchesReagent(c.formula, productFormula) && c.phase === prodInfo.state
+        && (prodInfo.state !== 's' || c.solidOrigin === 'precipitate'));
       if (existing) {
         existing.moles += addedMoles;
         existing.mass_g = existing.moles * computeMolarMass(productFormula);
@@ -1220,6 +1324,7 @@ export function executeMultiStepReactions(
           moles: addedMoles,
           mass_g: addedMoles * computeMolarMass(productFormula),
           phase: prodInfo.state,
+          ...(prodInfo.state === 's' ? { solidOrigin: 'precipitate' as const } : {}),
           concentration_M: prodInfo.state === 'aq' && volume_ml > 0 ? addedMoles / (volume_ml / 1000.0) : undefined
         });
       }
@@ -1228,7 +1333,7 @@ export function executeMultiStepReactions(
     // Thermal rise from reaction enthalpy
     const solnMass_g = workingContents.filter(item => item.phase !== 'g').reduce((sum, item) => sum + item.mass_g, 0);
     const totalHeatCap = sampleHeatCapacity({ mass_g: solnMass_g, volume_ml, contents: workingContents });
-    const heatReleased_J = -candidate.deltaH_kJ * 1000.0 * xi;
+    const heatReleased_J = -reactionEnthalpy_kJ * 1000.0 * xi;
     const deltaT = heatReleased_J / totalHeatCap;
     // Phase/thermal simulation handles boiling and cooling. A hot solid must
     // not jump down to an aqueous boiling cap after an unrelated reaction.
@@ -1246,7 +1351,7 @@ export function executeMultiStepReactions(
       equation: candidate.equation,
       summary: lang === 'en' ? candidate.summary_en : candidate.summary_vi,
       xi,
-      deltaH_kJ: candidate.deltaH_kJ,
+      deltaH_kJ: reactionEnthalpy_kJ,
       match: candidate
     });
   }
@@ -1325,8 +1430,12 @@ export function executeMultiStepReactions(
     finalPh = Math.max(0, Math.min(14, -Math.log10(hydrogen)));
   } else if (!precise) finalPh = Math.round(finalPh * 10) / 10;
 
-  const aqueousEquilibrium = solveAqueousEquilibrium(updatedContents, volume_ml);
+  const aqueousEquilibrium = solveAqueousEquilibrium(updatedContents, volume_ml, currentTemp);
   if (aqueousEquilibrium) finalPh = aqueousEquilibrium.ph;
+  const ferricState = aqueousEquilibrium ? null : ferricChlorideAqueousState(updatedContents, volume_ml, currentTemp);
+  if (ferricState) finalPh = ferricState.ph;
+  const aluminumState = aqueousEquilibrium || ferricState ? null : aluminumAqueousState(updatedContents, volume_ml, currentTemp);
+  if (aluminumState) finalPh = aluminumState.ph;
 
   const iodinePresent = updatedContents.some(item => sameMolecularFormula(item.formula, 'I2') && item.moles > moleThreshold);
   if (iodinePresent) {
@@ -1438,7 +1547,8 @@ export function executeMultiStepReactions(
         is_explosion: isExplosionOccurred
       },
       effects: [
-        ...(hasPrecipitate ? [{ type: 'PRECIPITATE' as const, duration: 3, color: precipitateColor }] : []),
+        ...(hasPrecipitate && reactionsOccurred.some(r => Object.values(r.match.products).some(p => p.state === 's'))
+          ? [{ type: 'PRECIPITATE' as const, duration: 3, color: precipitateColor }] : []),
         ...(hasGasOccurred ? [{ type: 'GAS' as const, duration: 4, color: gasColorFinal }] : []),
         ...(thermallyBoiling ? [{ type: 'BOIL' as const, duration: 5 }] : []),
         { type: 'COLOR_CHANGE' as const, duration: 2, color: finalLiquidColor }
@@ -1456,7 +1566,11 @@ export function executeMultiStepReactions(
     finalTemperature_c: precise ? currentTemp : Math.round(currentTemp * 10) / 10,
     finalVolume_ml: volume_ml,
     finalPh,
-    phModel: aqueousEquilibrium ? 'ideal_aqueous_25c' : undefined,
+    ...aqueousModelFields(aqueousEquilibrium),
+    ...(ferricState ? { phModel: currentTemp === 25 ? 'ideal_aqueous_25c' as const : 'ideal_aqueous_temperature' as const,
+      phReferenceTemperature_c: currentTemp } : {}),
+    ...(aluminumState ? { phModel: currentTemp === 25 ? 'ideal_aqueous_25c' as const : 'ideal_aqueous_temperature' as const,
+      phReferenceTemperature_c: currentTemp } : {}),
     finalLiquidColor,
     hasPrecipitate,
     precipitateColor,

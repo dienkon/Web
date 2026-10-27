@@ -1,0 +1,786 @@
+[
+  {
+    "id": "cid-962",
+    "cid": 962,
+    "name_vi": "Nước",
+    "name_en": "water",
+    "formula": "H2O",
+    "kind": "molecule",
+    "family": "inorganic",
+    "aliases": [
+      "Nước",
+      "water",
+      "H2O"
+    ]
+  },
+  {
+    "id": "cid-702",
+    "cid": 702,
+    "name_vi": "Etanol",
+    "name_en": "ethanol",
+    "formula": "C2H6O",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Etanol",
+      "ethanol",
+      "C2H6O"
+    ]
+  },
+  {
+    "id": "cid-887",
+    "cid": 887,
+    "name_vi": "Metanol",
+    "name_en": "methanol",
+    "formula": "CH4O",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Metanol",
+      "methanol",
+      "CH4O"
+    ]
+  },
+  {
+    "id": "cid-180",
+    "cid": 180,
+    "name_vi": "Axeton",
+    "name_en": "acetone",
+    "formula": "C3H6O",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Axeton",
+      "acetone",
+      "C3H6O"
+    ]
+  },
+  {
+    "id": "cid-176",
+    "cid": 176,
+    "name_vi": "Axit axetic",
+    "name_en": "acetic acid",
+    "formula": "C2H4O2",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Axit axetic",
+      "acetic acid",
+      "C2H4O2"
+    ]
+  },
+  {
+    "id": "cid-222",
+    "cid": 222,
+    "name_vi": "Amoniac",
+    "name_en": "ammonia",
+    "formula": "H3N",
+    "kind": "molecule",
+    "family": "inorganic",
+    "aliases": [
+      "Amoniac",
+      "ammonia",
+      "H3N"
+    ]
+  },
+  {
+    "id": "cid-947",
+    "cid": 947,
+    "name_vi": "Nitơ",
+    "name_en": "nitrogen",
+    "formula": "N2",
+    "kind": "molecule",
+    "family": "inorganic",
+    "aliases": [
+      "Nitơ",
+      "nitrogen",
+      "N2"
+    ]
+  },
+  {
+    "id": "cid-977",
+    "cid": 977,
+    "name_vi": "Oxi",
+    "name_en": "oxygen",
+    "formula": "O2",
+    "kind": "molecule",
+    "family": "inorganic",
+    "aliases": [
+      "Oxi",
+      "oxygen",
+      "O2"
+    ]
+  },
+  {
+    "id": "cid-783",
+    "cid": 783,
+    "name_vi": "Hiđro",
+    "name_en": "hydrogen",
+    "formula": "H2",
+    "kind": "molecule",
+    "family": "inorganic",
+    "aliases": [
+      "Hiđro",
+      "hydrogen",
+      "H2"
+    ]
+  },
+  {
+    "id": "cid-280",
+    "cid": 280,
+    "name_vi": "Cacbon đioxit",
+    "name_en": "carbon dioxide",
+    "formula": "CO2",
+    "kind": "molecule",
+    "family": "inorganic",
+    "aliases": [
+      "Cacbon đioxit",
+      "carbon dioxide",
+      "CO2"
+    ]
+  },
+  {
+    "id": "cid-281",
+    "cid": 281,
+    "name_vi": "Cacbon monoxit",
+    "name_en": "carbon monoxide",
+    "formula": "CO",
+    "kind": "molecule",
+    "family": "inorganic",
+    "aliases": [
+      "Cacbon monoxit",
+      "carbon monoxide",
+      "CO"
+    ]
+  },
+  {
+    "id": "cid-297",
+    "cid": 297,
+    "name_vi": "Metan",
+    "name_en": "methane",
+    "formula": "CH4",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Metan",
+      "methane",
+      "CH4"
+    ]
+  },
+  {
+    "id": "cid-6324",
+    "cid": 6324,
+    "name_vi": "Etan",
+    "name_en": "ethane",
+    "formula": "C2H6",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Etan",
+      "ethane",
+      "C2H6"
+    ]
+  },
+  {
+    "id": "cid-6325",
+    "cid": 6325,
+    "name_vi": "Eten",
+    "name_en": "ethylene",
+    "formula": "C2H4",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Eten",
+      "ethylene",
+      "C2H4"
+    ]
+  },
+  {
+    "id": "cid-6326",
+    "cid": 6326,
+    "name_vi": "Axetilen",
+    "name_en": "acetylene",
+    "formula": "C2H2",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Axetilen",
+      "acetylene",
+      "C2H2"
+    ]
+  },
+  {
+    "id": "cid-6334",
+    "cid": 6334,
+    "name_vi": "Propan",
+    "name_en": "propane",
+    "formula": "C3H8",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Propan",
+      "propane",
+      "C3H8"
+    ]
+  },
+  {
+    "id": "cid-8252",
+    "cid": 8252,
+    "name_vi": "Propen",
+    "name_en": "propylene",
+    "formula": "C3H6",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Propen",
+      "propylene",
+      "C3H6"
+    ]
+  },
+  {
+    "id": "cid-7843",
+    "cid": 7843,
+    "name_vi": "Butan",
+    "name_en": "butane",
+    "formula": "C4H10",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Butan",
+      "butane",
+      "C4H10"
+    ]
+  },
+  {
+    "id": "cid-6360",
+    "cid": 6360,
+    "name_vi": "Isobutan",
+    "name_en": "isobutane",
+    "formula": "C4H10",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Isobutan",
+      "isobutane",
+      "C4H10"
+    ]
+  },
+  {
+    "id": "cid-241",
+    "cid": 241,
+    "name_vi": "Benzen",
+    "name_en": "benzene",
+    "formula": "C6H6",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Benzen",
+      "benzene",
+      "C6H6"
+    ]
+  },
+  {
+    "id": "cid-1140",
+    "cid": 1140,
+    "name_vi": "Toluen",
+    "name_en": "toluene",
+    "formula": "C7H8",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Toluen",
+      "toluene",
+      "C7H8"
+    ]
+  },
+  {
+    "id": "cid-996",
+    "cid": 996,
+    "name_vi": "Phenol",
+    "name_en": "phenol",
+    "formula": "C6H6O",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Phenol",
+      "phenol",
+      "C6H6O"
+    ]
+  },
+  {
+    "id": "cid-6115",
+    "cid": 6115,
+    "name_vi": "Anilin",
+    "name_en": "aniline",
+    "formula": "C6H7N",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Anilin",
+      "aniline",
+      "C6H7N"
+    ]
+  },
+  {
+    "id": "cid-712",
+    "cid": 712,
+    "name_vi": "Fomanđehit",
+    "name_en": "formaldehyde",
+    "formula": "CH2O",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Fomanđehit",
+      "formaldehyde",
+      "CH2O"
+    ]
+  },
+  {
+    "id": "cid-177",
+    "cid": 177,
+    "name_vi": "Axetanđehit",
+    "name_en": "acetaldehyde",
+    "formula": "C2H4O",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Axetanđehit",
+      "acetaldehyde",
+      "C2H4O"
+    ]
+  },
+  {
+    "id": "cid-284",
+    "cid": 284,
+    "name_vi": "Axit fomic",
+    "name_en": "formic acid",
+    "formula": "CH2O2",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Axit fomic",
+      "formic acid",
+      "CH2O2"
+    ]
+  },
+  {
+    "id": "cid-885",
+    "cid": 885,
+    "name_vi": "Etyl axetat",
+    "name_en": "ethyl acetate",
+    "formula": "C4H8O2",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Etyl axetat",
+      "ethyl acetate",
+      "C4H8O2"
+    ]
+  },
+  {
+    "id": "cid-178",
+    "cid": 178,
+    "name_vi": "Axetamit",
+    "name_en": "acetamide",
+    "formula": "C2H5NO",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Axetamit",
+      "acetamide",
+      "C2H5NO"
+    ]
+  },
+  {
+    "id": "cid-1176",
+    "cid": 1176,
+    "name_vi": "Urê",
+    "name_en": "urea",
+    "formula": "CH4N2O",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Urê",
+      "urea",
+      "CH4N2O"
+    ]
+  },
+  {
+    "id": "cid-5793",
+    "cid": 5793,
+    "name_vi": "Glucozơ",
+    "name_en": "D-glucose",
+    "formula": "C6H12O6",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Glucozơ",
+      "D-glucose",
+      "C6H12O6"
+    ]
+  },
+  {
+    "id": "cid-5984",
+    "cid": 5984,
+    "name_vi": "Fructozơ",
+    "name_en": "D-fructose",
+    "formula": "C6H12O6",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Fructozơ",
+      "D-fructose",
+      "C6H12O6"
+    ]
+  },
+  {
+    "id": "cid-5988",
+    "cid": 5988,
+    "name_vi": "Saccarozơ",
+    "name_en": "sucrose",
+    "formula": "C12H22O11",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Saccarozơ",
+      "sucrose",
+      "C12H22O11"
+    ]
+  },
+  {
+    "id": "cid-753",
+    "cid": 753,
+    "name_vi": "Glixerol",
+    "name_en": "glycerol",
+    "formula": "C3H8O3",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Glixerol",
+      "glycerol",
+      "C3H8O3"
+    ]
+  },
+  {
+    "id": "cid-784",
+    "cid": 784,
+    "name_vi": "Hiđro peoxit",
+    "name_en": "hydrogen peroxide",
+    "formula": "H2O2",
+    "kind": "molecule",
+    "family": "inorganic",
+    "aliases": [
+      "Hiđro peoxit",
+      "hydrogen peroxide",
+      "H2O2"
+    ]
+  },
+  {
+    "id": "cid-248",
+    "cid": 248,
+    "name_vi": "Ozon",
+    "name_en": "ozone",
+    "formula": "O3",
+    "kind": "molecule",
+    "family": "inorganic",
+    "aliases": [
+      "Ozon",
+      "ozone",
+      "O3"
+    ]
+  },
+  {
+    "id": "cid-1119",
+    "cid": 1119,
+    "name_vi": "Lưu huỳnh đioxit",
+    "name_en": "sulfur dioxide",
+    "formula": "O2S",
+    "kind": "molecule",
+    "family": "inorganic",
+    "aliases": [
+      "Lưu huỳnh đioxit",
+      "sulfur dioxide",
+      "O2S"
+    ]
+  },
+  {
+    "id": "cid-24682",
+    "cid": 24682,
+    "name_vi": "Lưu huỳnh trioxit",
+    "name_en": "sulfur trioxide",
+    "formula": "O3S",
+    "kind": "molecule",
+    "family": "inorganic",
+    "aliases": [
+      "Lưu huỳnh trioxit",
+      "sulfur trioxide",
+      "O3S"
+    ]
+  },
+  {
+    "id": "cid-145068",
+    "cid": 145068,
+    "name_vi": "Nitơ monoxit",
+    "name_en": "nitric oxide",
+    "formula": "NO",
+    "kind": "molecule",
+    "family": "inorganic",
+    "aliases": [
+      "Nitơ monoxit",
+      "nitric oxide",
+      "NO"
+    ]
+  },
+  {
+    "id": "cid-948",
+    "cid": 948,
+    "name_vi": "Đinitơ monoxit",
+    "name_en": "nitrous oxide",
+    "formula": "N2O",
+    "kind": "molecule",
+    "family": "inorganic",
+    "aliases": [
+      "Đinitơ monoxit",
+      "nitrous oxide",
+      "N2O"
+    ]
+  },
+  {
+    "id": "cid-313",
+    "cid": 313,
+    "name_vi": "Hiđro clorua",
+    "name_en": "hydrogen chloride",
+    "formula": "ClH",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Hiđro clorua",
+      "hydrogen chloride",
+      "ClH"
+    ]
+  },
+  {
+    "id": "cid-14917",
+    "cid": 14917,
+    "name_vi": "Hiđro florua",
+    "name_en": "hydrogen fluoride",
+    "formula": "FH",
+    "kind": "molecule",
+    "family": "inorganic",
+    "aliases": [
+      "Hiđro florua",
+      "hydrogen fluoride",
+      "FH"
+    ]
+  },
+  {
+    "id": "cid-402",
+    "cid": 402,
+    "name_vi": "Hiđro sunfua",
+    "name_en": "hydrogen sulfide",
+    "formula": "H2S",
+    "kind": "molecule",
+    "family": "inorganic",
+    "aliases": [
+      "Hiđro sunfua",
+      "hydrogen sulfide",
+      "H2S"
+    ]
+  },
+  {
+    "id": "cid-944",
+    "cid": 944,
+    "name_vi": "Axit nitric",
+    "name_en": "nitric acid",
+    "formula": "HNO3",
+    "kind": "molecule",
+    "family": "inorganic",
+    "aliases": [
+      "Axit nitric",
+      "nitric acid",
+      "HNO3"
+    ]
+  },
+  {
+    "id": "cid-1118",
+    "cid": 1118,
+    "name_vi": "Axit sulfuric",
+    "name_en": "sulfuric acid",
+    "formula": "H2O4S",
+    "kind": "molecule",
+    "family": "inorganic",
+    "aliases": [
+      "Axit sulfuric",
+      "sulfuric acid",
+      "H2O4S"
+    ]
+  },
+  {
+    "id": "cid-1004",
+    "cid": 1004,
+    "name_vi": "Axit phosphoric",
+    "name_en": "phosphoric acid",
+    "formula": "H3O4P",
+    "kind": "molecule",
+    "family": "inorganic",
+    "aliases": [
+      "Axit phosphoric",
+      "phosphoric acid",
+      "H3O4P"
+    ]
+  },
+  {
+    "id": "cid-8078",
+    "cid": 8078,
+    "name_vi": "Xiclohexan",
+    "name_en": "cyclohexane",
+    "formula": "C6H12",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Xiclohexan",
+      "cyclohexane",
+      "C6H12"
+    ]
+  },
+  {
+    "id": "cid-931",
+    "cid": 931,
+    "name_vi": "Naphtalen",
+    "name_en": "naphthalene",
+    "formula": "C10H8",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Naphtalen",
+      "naphthalene",
+      "C10H8"
+    ]
+  },
+  {
+    "id": "cid-2244",
+    "cid": 2244,
+    "name_vi": "Aspirin",
+    "name_en": "aspirin",
+    "formula": "C9H8O4",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Aspirin",
+      "aspirin",
+      "C9H8O4"
+    ]
+  },
+  {
+    "id": "cid-2519",
+    "cid": 2519,
+    "name_vi": "Cafein",
+    "name_en": "caffeine",
+    "formula": "C8H10N4O2",
+    "kind": "molecule",
+    "family": "organic",
+    "aliases": [
+      "Cafein",
+      "caffeine",
+      "C8H10N4O2"
+    ]
+  },
+  {
+    "id": "cid-769",
+    "cid": 769,
+    "name_vi": "Ion hiđrocacbonat",
+    "name_en": "bicarbonate",
+    "formula": "CHO3",
+    "kind": "ion",
+    "family": "inorganic",
+    "aliases": [
+      "Ion hiđrocacbonat",
+      "bicarbonate",
+      "CHO3"
+    ]
+  },
+  {
+    "id": "cid-19660",
+    "cid": 19660,
+    "name_vi": "Ion cacbonat",
+    "name_en": "carbonate",
+    "formula": "CO3",
+    "kind": "ion",
+    "family": "inorganic",
+    "aliases": [
+      "Ion cacbonat",
+      "carbonate",
+      "CO3"
+    ]
+  },
+  {
+    "id": "cid-1117",
+    "cid": 1117,
+    "name_vi": "Ion sunfat",
+    "name_en": "sulfate",
+    "formula": "O4S",
+    "kind": "ion",
+    "family": "inorganic",
+    "aliases": [
+      "Ion sunfat",
+      "sulfate",
+      "O4S"
+    ]
+  },
+  {
+    "id": "cid-223",
+    "cid": 223,
+    "name_vi": "Ion amoni",
+    "name_en": "ammonium",
+    "formula": "H4N",
+    "kind": "ion",
+    "family": "inorganic",
+    "aliases": [
+      "Ion amoni",
+      "ammonium",
+      "H4N"
+    ]
+  },
+  {
+    "id": "cid-961",
+    "cid": 961,
+    "name_vi": "Ion hiđroxit",
+    "name_en": "hydroxide",
+    "formula": "HO",
+    "kind": "ion",
+    "family": "inorganic",
+    "aliases": [
+      "Ion hiđroxit",
+      "hydroxide",
+      "HO"
+    ]
+  },
+  {
+    "id": "cid-943",
+    "cid": 943,
+    "name_vi": "Ion nitrat",
+    "name_en": "nitrate",
+    "formula": "NO3",
+    "kind": "ion",
+    "family": "inorganic",
+    "aliases": [
+      "Ion nitrat",
+      "nitrate",
+      "NO3"
+    ]
+  },
+  {
+    "id": "cid-946",
+    "cid": 946,
+    "name_vi": "Ion nitrit",
+    "name_en": "nitrite",
+    "formula": "NO2",
+    "kind": "ion",
+    "family": "inorganic",
+    "aliases": [
+      "Ion nitrit",
+      "nitrite",
+      "NO2"
+    ]
+  }
+]

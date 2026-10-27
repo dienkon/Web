@@ -20,6 +20,9 @@ import { GAS_GENERATION_PROGRAMS } from './gasGenerationPrograms';
 import { PHYSICAL_SOLUTION_PROGRAMS } from './physicalSolutionPrograms';
 import { LESSON_PROGRAMS } from '../../../lesson/programCompiler';
 import { THIOSULFATE_ACID_PROGRAM } from './thiosulfateProgram';
+import { FERRIC_HYDROXIDE_ACID_PROGRAM } from './ferricHydroxideAcidProgram';
+import { ALUMINUM_HYDROXIDE_PROGRAMS } from './aluminumHydroxidePrograms';
+import { sourceProgramThermochemistry } from '../../../science/formationEnthalpy';
 
 export const ALL_HANDCRAFTED_PROGRAMS: ReactionProgram[] = [
   ...ACID_BASE_PROGRAMS,
@@ -35,11 +38,14 @@ export const ALL_HANDCRAFTED_PROGRAMS: ReactionProgram[] = [
   ...GAS_GENERATION_PROGRAMS,
   ...PHYSICAL_SOLUTION_PROGRAMS,
   ...LESSON_PROGRAMS,
-  THIOSULFATE_ACID_PROGRAM
+  THIOSULFATE_ACID_PROGRAM,
+  FERRIC_HYDROXIDE_ACID_PROGRAM,
+  ...ALUMINUM_HYDROXIDE_PROGRAMS
 ];
 
 export const PROGRAMS_BY_ID = new Map<string, ReactionProgram>();
 for (const p of ALL_HANDCRAFTED_PROGRAMS) {
+  sourceProgramThermochemistry(p);
   PROGRAMS_BY_ID.set(p.id.toLowerCase().trim(), p);
 }
 

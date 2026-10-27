@@ -33,6 +33,9 @@ export interface PourSessionState {
   requestedVolume_ml?: number;// For stock bottle / dropper / solid
   transferred_ml: number;     // Volume successfully transferred
   spilled_ml: number;         // Volume spilled onto table or rim
+  released_ml: number;        // Volume withdrawn, including matter still in flight
+  inFlight_ml: number;
+  onWall_ml: number;
   flow_ml_s: number;          // Current instantaneous flow rate
   wallClinging: boolean;      // True if liquid is clinging to vessel wall
   aim: {
@@ -46,6 +49,7 @@ export interface PourSessionState {
   solidMass_g?: number;       // Grams for solid chemicals
   sourcePos?: [number, number, number];
   sourceRotationZ?: number;
+  trajectory?: import('../physics/ballistics').BallisticsResult;
   initialSourcePos?: [number, number, number];
   initialFromVolume_ml?: number;
   initialToVolume_ml?: number;

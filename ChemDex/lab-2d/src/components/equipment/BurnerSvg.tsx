@@ -12,7 +12,9 @@ export const BurnerSvg: React.FC<BurnerSvgProps> = ({
   isSelected,
   onToggleFlame,
 }) => {
-  const { isOn, id } = equipment;
+  const { isOn, id, gasColorHex } = equipment;
+  const flameEmissionColor = gasColorHex || '#f59e0b';
+  const isFlameTestActive = Boolean(gasColorHex);
 
   return (
     <svg
@@ -41,10 +43,15 @@ export const BurnerSvg: React.FC<BurnerSvgProps> = ({
 
         {/* Flame Warm Radial Glow */}
         <radialGradient id={`flameGlow-${id}`} cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.45" />
-          <stop offset="60%" stopColor="#ea580c" stopOpacity="0.18" />
-          <stop offset="100%" stopColor="#f59e0b" stopOpacity="0" />
+          <stop offset="0%" stopColor={flameEmissionColor} stopOpacity="0.5" />
+          <stop offset="60%" stopColor={flameEmissionColor} stopOpacity="0.2" />
+          <stop offset="100%" stopColor={flameEmissionColor} stopOpacity="0" />
         </radialGradient>
+
+        {/* Heat Convection Blur Filter */}
+        <filter id={`burnerShimmer-${id}`} x="-20%" y="-40%" width="140%" height="160%">
+          <feGaussianBlur stdDeviation="1.5" />
+        </filter>
       </defs>
 
       {/* Selection Glow */}
@@ -63,16 +70,45 @@ export const BurnerSvg: React.FC<BurnerSvgProps> = ({
         />
       )}
 
-      {/* Ambient Tabletop Thermal Glow when ON */}
+      {/* Ambient Tabletop & Air Thermal Glow when ON */}
       {isOn && (
-        <ellipse
-          cx="55"
-          cy="25"
-          rx="48"
-          ry="32"
-          fill={`url(#flameGlow-${id})`}
-          className="animate-pulse"
-        />
+        <g>
+          <ellipse
+            cx="55"
+            cy="20"
+            rx="52"
+            ry="38"
+            fill={`url(#flameGlow-${id})`}
+            className="animate-pulse"
+          />
+          {/* Flame Test Emission Indicator Badge */}
+          {isFlameTestActive && (
+            <g transform="translate(55, -28)">
+              <rect
+                x="-36"
+                y="-10"
+                width="72"
+                height="16"
+                rx="8"
+                fill="#0f172a"
+                fillOpacity="0.85"
+                stroke={flameEmissionColor}
+                strokeWidth="1.2"
+              />
+              <text
+                x="0"
+                y="1.5"
+                fill={flameEmissionColor}
+                fontSize="8.5"
+                fontFamily="sans-serif"
+                fontWeight="bold"
+                textAnchor="middle"
+              >
+                FLAME TEST 🔥
+              </text>
+            </g>
+          )}
+        </g>
       )}
 
       {/* Base Shadow */}
@@ -139,38 +175,45 @@ export const BurnerSvg: React.FC<BurnerSvgProps> = ({
       {/* Flame Graphics when Lit */}
       {isOn && (
         <g className="animate-pulse">
-          {/* Outer Flickering Amber Flame Mantle */}
+          {/* Convection Heat Waves Shimmer */}
+          <g filter={`url(#burnerShimmer-${id})`} stroke={flameEmissionColor} strokeWidth="1.2" opacity="0.35" fill="none">
+            <path d="M 46 0 Q 42 -15 48 -30 Q 42 -45 46 -60" />
+            <path d="M 55 -5 Q 59 -20 54 -35 Q 58 -50 55 -65" />
+            <path d="M 64 0 Q 68 -15 62 -30 Q 68 -45 64 -60" />
+          </g>
+
+          {/* Outer Characteristic Flame Test / Amber Flame Mantle */}
           <path
-            d="M 55 46 C 30 28, 42 6, 55 -12 C 68 6, 80 28, 55 46 Z"
-            fill="#f59e0b"
-            fillOpacity="0.82"
+            d="M 55 46 C 26 26, 38 4, 55 -16 C 72 4, 84 26, 55 46 Z"
+            fill={flameEmissionColor}
+            fillOpacity={isFlameTestActive ? 0.92 : 0.82}
           />
 
-          {/* Middle Bright Yellow/Orange Flame */}
+          {/* Middle Bright Flame */}
           <path
-            d="M 55 46 C 38 32, 46 14, 55 2 C 64 14, 72 32, 55 46 Z"
-            fill="#fef08a"
+            d="M 55 46 C 36 30, 44 12, 55 -2 C 66 12, 74 30, 55 46 Z"
+            fill={isFlameTestActive ? flameEmissionColor : '#fef08a'}
             fillOpacity="0.9"
           />
 
           {/* Inner Hot Reducing Blue Combustion Cone */}
           <path
-            d="M 55 46 C 46 38, 49 24, 55 18 C 61 24, 64 38, 55 46 Z"
+            d="M 55 46 C 45 36, 48 22, 55 16 C 62 22, 65 36, 55 46 Z"
             fill="#38bdf8"
             fillOpacity="0.95"
           />
 
           {/* High Heat Deep Cyan Core Tip */}
           <path
-            d="M 55 46 C 50 42, 51 32, 55 26 C 59 32, 60 42, 55 46 Z"
+            d="M 55 46 C 49 40, 50 30, 55 24 C 60 30, 61 40, 55 46 Z"
             fill="#0284c7"
           />
 
           {/* Dancing Ember Sparks */}
-          <g fill="#fef08a" className="animate-ping" opacity="0.8">
-            <circle cx="48" cy="10" r="1.5" />
-            <circle cx="63" cy="-4" r="1.8" />
-            <circle cx="53" cy="-18" r="1.2" />
+          <g fill={flameEmissionColor} className="animate-ping" opacity="0.85">
+            <circle cx="47" cy="8" r="1.6" />
+            <circle cx="64" cy="-6" r="2.0" />
+            <circle cx="53" cy="-22" r="1.4" />
           </g>
         </g>
       )}

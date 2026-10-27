@@ -3,6 +3,7 @@
  */
 
 import { ReactionProgram } from '../../../shared/programSchema';
+import { SODIUM_WATER_DH_KJ, SODIUM_WATER_DH_SOURCES } from '../../../science/thermochemistry';
 
 export const COMBUSTION_PYROTECHNIC_PROGRAMS: ReactionProgram[] = [
   // 1. 2Mg + O2 -> 2MgO (Blinding white light & white smoke)
@@ -61,7 +62,12 @@ export const COMBUSTION_PYROTECHNIC_PROGRAMS: ReactionProgram[] = [
         { formula: 'NaOH', role: 'product', coeff: 2, phase: 'aq' },
         { formula: 'H2', role: 'product', coeff: 1, phase: 'g', hazards: ['GHS02_flammable'] }
       ],
-      deltaH_kJ_per_mol: -368.4,
+      deltaH_kJ_per_mol: SODIUM_WATER_DH_KJ,
+      deltaHSourceUrls: SODIUM_WATER_DH_SOURCES,
+      deltaHReferenceTemperature_K: 298.15,
+      deltaHNote_vi: 'Theo bộ giá trị enthalpy tạo thành của bài tính OKState, trên 2 mol Na như phương trình viết; chưa hiệu chuẩn theo nồng độ mẫu.',
+      warning_vi: 'Mô phỏng biểu diễn Na với nước. Thí nghiệm thật cần người được đào tạo, kẹp khô, bảo vệ mắt và tấm chắn theo quy trình cơ sở. NaOH ăn mòn; H2 dễ cháy. Không gia nhiệt hoặc đậy kín bình.',
+      warning_en: 'Virtual sodium-water demonstration. Real demonstrations require trained staff, dry forceps, eye protection and shielding under institutional procedures. NaOH is corrosive and H2 flammable. Do not heat or seal the vessel.',
       conditions: { activation: 'contact', activationNote_vi: 'Na phản ứng với nước khi tiếp xúc; cháy H2 hoặc bùng nổ là diễn biến riêng, không là điều kiện bắt đầu.' },
       kinetics: { model: 'surface_limited', halfTime_s: 1.2 },
       hazards: ['GHS02_flammable', 'GHS05_corrosive']
@@ -70,22 +76,19 @@ export const COMBUSTION_PYROTECHNIC_PROGRAMS: ReactionProgram[] = [
       duration_s: 6.0,
       timeline: [
         { id: 'meniscus', atom: 'meniscusDepression', anchor: 'surface', window: [0, 0.8], intensity: 1.0, params: { depth_mm: 3.0, radius_mm: 6.0 } },
-        { id: 'sparks', atom: 'pyrotechnicSparks', anchor: 'surface', window: [0.1, 0.75], intensity: 1.4, params: { sparkCount: 35, sparkColor: '#f59e0b', speed: 3.2 } },
-        { id: 'flame', atom: 'flameCone', anchor: 'surface', window: [0.25, 0.75], intensity: 1.2, params: { flameColor: '#f59e0b', tipColor: '#fbbf24', height_cm: 4.5, turbulent: true } },
-        { id: 'sound', atom: 'proceduralAcoustics', anchor: 'surface', window: [0, 0.8], intensity: 1.0, params: { soundProfile: 'sodium_sizzle', volume: 0.85 } }
       ],
       after: {
-        liquidColor: '#ffffff',
-        liquidOpacity: 0.95,
+        liquidColor: '#f8fafc',
+        liquidOpacity: 0.12,
         turbidity: 0.0,
         gasesOffgassed: [{ species: 'H2', mol: 'fromLedger', escaped: true }]
       }
     },
     explain: {
-      observation_vi: 'Mẩu natri nóng chảy vo tròn thành viên bi bạc lướt nhanh trên mặt nước, cháy với ngọn lửa màu vàng kim, có tiếng xèo xèo và nổ lép bép.',
-      observation_en: 'Sodium melts into a silvery sphere skittering across surface, burning with a golden-yellow flame with popping sizzles.',
-      why_vi: 'Nhiệt tỏa ra làm nóng chảy natri (nóng chảy ở 97.8 °C); luồng khí H2 đẩy viên bi trượt trên đệm khí Leidenfrost.',
-      why_en: 'Reaction heat melts sodium into a sphere; asymmetric H2 jets propel it across a vapor cushion.'
+      observation_vi: 'Mẩu natri nóng chảy vo tròn thành viên bi bạc lướt nhanh trên mặt nước, giải phóng H2 không màu, tạo NaOH. Chỉ thị phenolphthalein nếu có chuyển hồng; cháy vàng phụ thuộc điều kiện.',
+      observation_en: 'Sodium melts into a silvery sphere skittering across surface, releasing colorless H2 and forming NaOH. Phenolphthalein turns pink if present; ignition is conditional.',
+      why_vi: 'Nhiệt tỏa ra làm nóng chảy natri (nóng chảy ở 97.8 °C); khí thoát bất đối xứng góp phần làm viên Na di chuyển. Mô hình chuyển động là xấp xỉ định tính.',
+      why_en: 'Reaction heat melts sodium into a sphere; asymmetric gas evolution contributes to motion. The recoil model is a qualitative approximation.'
     },
     confidence: 1.0
   },

@@ -9,7 +9,13 @@
 
 import { SubstanceQuantity } from '../../types/chemistry';
 
-export type IndicatorType = 'phenolphthalein' | 'litmus' | 'universal' | 'bromothymol_blue';
+export type IndicatorType =
+  | 'phenolphthalein'
+  | 'litmus'
+  | 'universal'
+  | 'bromothymol_blue'
+  | 'methyl_orange'
+  | 'thymolphthalein';
 
 export interface AcidBaseInventory {
   strongAcidH_moles: number;
@@ -42,21 +48,48 @@ export function analyzeAcidBaseInventory(contents: SubstanceQuantity[]): AcidBas
     } else if (f.includes('HCLO4')) {
       strongAcidH_moles += item.moles;
     }
+    // Weak acids (triprotic / diprotic / monoprotic)
+    else if (f.includes('H3PO4')) {
+      weakAcidHA_moles += item.moles * 1.5;
+      pKa = 2.15;
+    } else if (f.includes('HF')) {
+      weakAcidHA_moles += item.moles;
+      pKa = 3.17;
+    } else if (f.includes('H2SO3')) {
+      weakAcidHA_moles += item.moles;
+      pKa = 1.85;
+    } else if (f.includes('H2S')) {
+      weakAcidHA_moles += item.moles;
+      pKa = 7.05;
+    } else if (f.includes('HCOOH')) {
+      weakAcidHA_moles += item.moles;
+      pKa = 3.75;
+    } else if (f.includes('CH3COOH') || f === 'C2H4O2') {
+      weakAcidHA_moles += item.moles;
+      pKa = 4.76;
+    }
     // Strong bases
     else if (f === 'NAOH' || f === 'KOH') {
       strongBaseOH_moles += item.moles;
     } else if (f.includes('BA(OH)2') || f.includes('CA(OH)2')) {
       strongBaseOH_moles += item.moles * 2;
     }
-    // Weak acids (e.g. Acetic acid CH3COOH)
-    else if (f.includes('CH3COOH') || f === 'C2H4O2') {
-      weakAcidHA_moles += item.moles;
-      pKa = 4.76;
+    // Weak base NH3 / NH4OH
+    else if (f === 'NH3' || f === 'NH4OH') {
+      // NH3 + H2O <=> NH4+ + OH- (Kb = 1.8e-5, pKb = 4.75 -> effective basicity)
+      strongBaseOH_moles += item.moles * 0.15; // Weakly dissociated hydroxide
     }
-    // Conjugate base salts (e.g. CH3COONa)
+    // Conjugate base salts (e.g. CH3COONa, NaHCO3)
     else if (f.includes('CH3COONA')) {
       conjugateBaseA_moles += item.moles;
       pKa = 4.76;
+    } else if (f.includes('NAHCO3')) {
+      // Bicarbonate buffer
+      weakAcidHA_moles += item.moles * 0.5;
+      conjugateBaseA_moles += item.moles * 0.5;
+      pKa = 6.35;
+    } else if (f.includes('NA2CO3')) {
+      strongBaseOH_moles += item.moles * 0.35; // Hydrolyzed carbonate pH ~11.5
     }
   }
 
@@ -124,24 +157,35 @@ export function calculateSolutionPh(contents: SubstanceQuantity[], volume_ml: nu
 export function getIndicatorColor(indicator: IndicatorType, ph: number): string {
   switch (indicator) {
     case 'phenolphthalein':
-      if (ph < 8.2) return '#f8fafc'; // Colorless
+      if (ph < 8.2) return '#f8fafc'; // Colorless in acid / neutral
       if (ph < 9.0) return '#f472b6'; // Light pink transition
-      return '#ec4899'; // Vivid magenta/pink
-    
+      if (ph <= 12.5) return '#ec4899'; // Vivid magenta/pink
+      return '#fdf2f8'; // Colorless in extremely concentrated alkali (pH > 12.5)
+
     case 'litmus':
-      if (ph < 5.0) return '#ef4444'; // Red
-      if (ph <= 8.0) return '#a855f7'; // Purple (neutral)
-      return '#3b82f6'; // Blue
-    
+      if (ph < 4.5) return '#ef4444'; // Red in acid
+      if (ph <= 8.3) return '#a855f7'; // Purple (neutral)
+      return '#3b82f6'; // Blue in base
+
+    case 'methyl_orange':
+      if (ph < 3.1) return '#ef4444'; // Red in strong acid
+      if (ph <= 4.4) return '#f97316'; // Orange transition
+      return '#eab308'; // Yellow in weak acid / neutral / base
+
+    case 'thymolphthalein':
+      if (ph < 9.3) return '#f8fafc'; // Colorless
+      if (ph <= 10.5) return '#60a5fa'; // Light blue transition
+      return '#1d4ed8'; // Vivid royal blue
+
     case 'universal':
-      if (ph <= 2.0) return '#dc2626'; // Deep red
-      if (ph <= 4.0) return '#ea580c'; // Orange
-      if (ph <= 6.0) return '#eab308'; // Yellow
-      if (ph <= 7.5) return '#22c55e'; // Green (neutral)
-      if (ph <= 9.0) return '#06b6d4'; // Blue-green
-      if (ph <= 11.0) return '#2563eb'; // Deep blue
-      return '#7c3aed'; // Violet
-    
+      if (ph <= 2.0) return '#dc2626'; // Deep red (pH 1-2)
+      if (ph <= 4.0) return '#ea580c'; // Orange (pH 3-4)
+      if (ph <= 6.0) return '#eab308'; // Yellow (pH 5-6)
+      if (ph <= 7.5) return '#22c55e'; // Green (pH 7)
+      if (ph <= 9.0) return '#06b6d4'; // Blue-green (pH 8-9)
+      if (ph <= 11.0) return '#2563eb'; // Deep blue (pH 10-11)
+      return '#7c3aed'; // Violet (pH 12-14)
+
     case 'bromothymol_blue':
       if (ph < 6.0) return '#eab308'; // Yellow
       if (ph <= 7.6) return '#22c55e'; // Green

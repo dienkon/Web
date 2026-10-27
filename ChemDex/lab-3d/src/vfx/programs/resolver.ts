@@ -17,6 +17,7 @@ import { assessProgramConditions } from '../../science/conditions';
 import { identifySpecies } from '../../science/speciesIdentity';
 import { LESSON_PROGRAM_IDS } from '../../lesson/programCompiler';
 import { PrecipMorphology, GasSpecies, GAS_SPECIES_TABLE } from '../catalog/vocab';
+import { aluminumReactionExtent } from '../../science/aluminumHydroxideEquilibrium';
 
 export interface ResolveEnv {
   ignitedProgramId?: string;
@@ -244,25 +245,9 @@ export async function resolveReactionProgram(
 ): Promise<ResolveResult> {
   const key = canonicalProgramKey(substances);
 
-  // 1. Handcrafted exact match
-  const exact = getProgramById(key);
-  if (exact && !LESSON_PROGRAM_IDS.has(exact.id) && assessProgramConditions(exact, contents, env).ready) {
-    return { program: exact, provenance: 'handcrafted' };
-  }
-
-  // Check any pairwise combinations with exact normalized formulas
+  const handcrafted = findHandcraftedProgram(substances, contents, env);
+  if (handcrafted) return { program: handcrafted, provenance: 'handcrafted' };
   const normInput = substances.map(s => identifySpecies(s).formula.toLowerCase());
-  for (const prog of ALL_HANDCRAFTED_PROGRAMS) {
-    // These programs require explicit lesson conditions (catalyst, ignition,
-    // enzyme, etc.); a free-mixing lookup must not bypass those gates.
-    if (LESSON_PROGRAM_IDS.has(prog.id) || !assessProgramConditions(prog, contents, env).ready) continue;
-    const progSubs = prog.chemistry.species
-      .filter(s => s.role === 'reactant')
-      .map(s => identifySpecies(s.formula).formula.toLowerCase());
-    if (progSubs.length > 0 && progSubs.length === normInput.length && progSubs.every(ps => normInput.includes(ps))) {
-      return { program: prog, provenance: 'handcrafted' };
-    }
-  }
 
   // 2. Rule-derived program
   const ruleDerived = deriveProgramFromRules(substances, env);
@@ -278,6 +263,52 @@ export async function resolveReactionProgram(
     return { program: cached, provenance: 'cache' };
   }
 
+  return resolveRemoteOrFallback(substances, contents, env, key);
+}
+
+/** Read-only local lookup, shared with quantitative aliquot planning. */
+export function findHandcraftedProgram(substances: string[], contents: SubstanceContent[] = [], env: ResolveEnv = {}): ReactionProgram | null {
+  const key = canonicalProgramKey(substances);
+
+  // The same Al salt/base pair can yield gel or dissolved aluminate. Resolve
+  // from the quantitative state before a name-only exact match or cache entry.
+  if ((env.volume_ml ?? 0) > 0 && contents.some(c => c.moles > 0
+    && ['AlCl3', 'Al2(SO4)3', 'Al(OH)3'].includes(identifySpecies(c.formula).formula))) {
+    for (const id of ['alcl3_naoh', 'al2so43_naoh', 'aloh3_naoh', 'alcl3_naoh_excess', 'al2so43_naoh_excess']) {
+      const program = getProgramById(id)!;
+      if (!assessProgramConditions(program, contents, env).ready) continue;
+      const extent = aluminumReactionExtent(id, contents, env.volume_ml!, env.temperature_c ?? 25);
+      if (extent !== undefined && extent !== null && extent > 1e-12) return program;
+    }
+  }
+
+  // 1. Handcrafted exact match
+  const exact = getProgramById(key);
+  if (exact && !LESSON_PROGRAM_IDS.has(exact.id) && assessProgramConditions(exact, contents, env).ready) {
+    return exact;
+  }
+
+  // Check any pairwise combinations with exact normalized formulas
+  const normInput = substances.map(s => identifySpecies(s).formula.toLowerCase());
+  for (const prog of ALL_HANDCRAFTED_PROGRAMS) {
+    // These programs require explicit lesson conditions (catalyst, ignition,
+    // enzyme, etc.); a free-mixing lookup must not bypass those gates.
+    if (LESSON_PROGRAM_IDS.has(prog.id) || !assessProgramConditions(prog, contents, env).ready) continue;
+    const progSubs = prog.chemistry.species
+      .filter(s => s.role === 'reactant')
+      .map(s => identifySpecies(s.formula).formula.toLowerCase());
+    // Tracking stock solvent must not hide an otherwise exact reagent pair.
+    // Retain H2O when the equation actually consumes it (Na, carbide, oxides...).
+    const relevantInput = normInput.filter(input => input !== 'h2o' || progSubs.includes('h2o'));
+    if (progSubs.length > 0 && progSubs.length === relevantInput.length && progSubs.every(ps => relevantInput.includes(ps))) {
+      return prog;
+    }
+  }
+
+  return null;
+}
+
+async function resolveRemoteOrFallback(substances: string[], contents: SubstanceContent[], env: ResolveEnv, key: string): Promise<ResolveResult> {
   // 4. AI resolution (Gemini via /api/experiment/mix)
   if (typeof fetch === 'function') {
     try {

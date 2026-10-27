@@ -44,6 +44,9 @@ describe('Phase A — Guaranteed Controlled Pouring & Liquid Conservation (§3.7
 
       const initialSourceVol = Math.min(startVol, srcProfile.capacity_ml * 0.9);
       const tiltRad = findPouringTilt(srcProfile, initialSourceVol);
+      // Keep the actual rotated pouring lip above the recipient opening.
+      const lipY = srcProfile.lipLocal[0] * Math.sin(-tiltRad) + srcProfile.lipLocal[1] * Math.cos(-tiltRad);
+      sourcePos[1] = targetPos[1] + tgtProfile.lipLocal[1] + offset[1] - lipY;
       const initialTargetVol = 10; // 10 mL initial liquid in recipient
       const targetCapacity = tgtProfile.capacity_ml;
 
@@ -193,8 +196,13 @@ describe('Phase A — Guaranteed Controlled Pouring & Liquid Conservation (§3.7
     expect(session).toBeDefined();
     const transferred = session!.transferred_ml;
     expect(transferred).toBeGreaterThan(0);
+    expect(useAppStore.getState().vessels.beaker_1.volume_ml + useAppStore.getState().vessels.flask_1.volume_ml
+      + useAppStore.getState().inFlightPours.reduce((sum, parcel) => sum + parcel.sample.volume_ml, 0))
+      .toBeCloseTo(b1Init + f1Init, 8);
 
     // Commit current pour through storeBridge
+    await pourCtrl.commitCurrentPour();
+    for (let i = 0; i < 180 && pourCtrl.getSession(); i++) pourCtrl.tick(1 / 60);
     await pourCtrl.commitCurrentPour();
 
     const b1Final = useAppStore.getState().vessels['beaker_1'].volume_ml;
@@ -202,7 +210,7 @@ describe('Phase A — Guaranteed Controlled Pouring & Liquid Conservation (§3.7
 
     // Total volume before and after must be strictly conserved without double addition
     expect(b1Final + f1Final).toBeCloseTo(b1Init + f1Init, 1);
-    expect(f1Final).toBeCloseTo(f1Init + transferred, 1);
-    expect(b1Final).toBeCloseTo(b1Init - transferred, 1);
+    expect(f1Final).toBeCloseTo(f1Init + session!.transferred_ml, 1);
+    expect(b1Final).toBeCloseTo(b1Init - session!.released_ml, 1);
   });
 });

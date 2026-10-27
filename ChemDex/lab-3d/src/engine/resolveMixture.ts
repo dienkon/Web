@@ -4,6 +4,12 @@ import type { MixResult } from '../shared/schemas';
 import { reactAliquotMixture } from './aliquotReaction';
 import { resolveReactionProgram } from '../vfx/programs/resolver';
 import { applyProgramToLedger } from './ledger';
+import { baritePrecipitationExtent } from '../science/baritePrecipitation';
+import { magnesiumHydroxideExtent } from '../science/magnesiumHydroxidePrecipitation';
+import { silverHalideProgramExtent } from '../science/silverChloridePrecipitation';
+import { copperHydroxideExtent } from '../science/copperHydroxidePrecipitation';
+import { ferricHydroxideExtent, ferricHydroxideDissolutionExtent } from '../science/ferricHydroxidePrecipitation';
+import { aluminumReactionExtent } from '../science/aluminumHydroxideEquilibrium';
 
 /** Resolve an existing quantitative sample; adding or transferring matter is a
  * separate transaction. Callers must reject results for a changed vessel ref. */
@@ -18,6 +24,14 @@ export async function resolveMixture(vessel: VesselState, language: Language, is
   });
   // An unknown mixture remains a mixture, rather than an endless fake reaction.
   if (provenance === 'fallback') return native;
+  const aluminumLimit = aluminumReactionExtent(program.id, base.contents, base.volume_ml, base.temperature_c);
+  if (aluminumLimit !== undefined && !(aluminumLimit !== null && aluminumLimit > 1e-12)) return native;
+  if (program.id === 'feoh3_hcl' && !((ferricHydroxideDissolutionExtent(base.contents, base.volume_ml, base.temperature_c) ?? 0) > 0)) return native;
+  if (program.id === 'fecl3_naoh' && ferricHydroxideExtent(base.contents, base.volume_ml, base.temperature_c) === 0) return native;
+  if (program.id === 'cuso4_naoh' && copperHydroxideExtent(base.contents, base.volume_ml, base.temperature_c) === 0) return native;
+  if (silverHalideProgramExtent(program.id, base.contents, base.volume_ml, base.temperature_c) === 0) return native;
+  if (program.id === 'mgcl2_naoh' && magnesiumHydroxideExtent(base.contents, base.volume_ml, base.temperature_c) === 0) return native;
+  if (program.id === 'bacl2_na2so4' && baritePrecipitationExtent(base.contents, base.volume_ml, base.temperature_c) === 0) return native;
   const final = applyProgramToLedger(program, base, 1);
   const initial = applyProgramToLedger(program, base, 0);
   const kinetics: ActiveKineticsState = {

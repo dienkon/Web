@@ -4,6 +4,7 @@ import { useAppStore } from '../store/useAppStore';
 import { useInstrumentStore } from './instrumentState';
 import { balanceOccupant, balanceReading, buretteReceiver, resolveInstrumentTarget } from './instrumentOperations';
 import { lessonRuntime } from '../lesson/runtime';
+import { neutralPhAtTemperature } from '../science/aqueousTemperature';
 
 export interface InstrumentReading {
   value: string;
@@ -83,8 +84,11 @@ export function readInstrument(id: InstrumentId): InstrumentReading {
           value: lesson ? 'pH điều kiện kịch bản; không suy ra từ cân bằng axit–bazơ'
             : target?.phModel === 'ideal_aqueous_25c'
               ? 'Cân bằng điện tích dung dịch lý tưởng; hằng số ở 25 °C, chưa hiệu chỉnh hoạt độ/nhiệt độ'
+              : target?.phModel === 'ideal_aqueous_temperature'
+                ? `Cân bằng dung dịch lý tưởng; hằng số tại ${(target.phReferenceTemperature_c ?? target.temperature_c).toFixed(1)} °C, chưa hiệu chỉnh hoạt độ`
               : 'Trạng thái pH giản lược; hệ này chưa có bộ cân bằng đầy đủ',
-        }],
+        }, ...(!lesson && target?.phModel ? [{ label: 'Mốc trung tính',
+          value: `pH ${neutralPhAtTemperature(target.phReferenceTemperature_c ?? 25)?.toFixed(2) ?? '---'} theo nhiệt độ của mô hình` }] : [])],
       };
     }
     case 'stirring_rod':

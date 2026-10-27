@@ -9,8 +9,9 @@ export function studioInventoryReading(vessel: VesselState | undefined) {
   }
   const inventory = vessel.contents.reduce((sum, item) => sum + item.mass_g, 0);
   const relativeMassError = Math.abs(inventory - vessel.mass_g) / Math.max(inventory, vessel.mass_g, 1e-12);
-  const aqueous = vessel.phModel === 'ideal_aqueous_25c' && Math.abs(vessel.temperature_c - 25) < 0.5
-    ? cachedAqueousEquilibrium(vessel.contents, vessel.volume_ml) : null;
+  const reference = vessel.phReferenceTemperature_c ?? (vessel.phModel === 'ideal_aqueous_25c' ? 25 : NaN);
+  const aqueous = vessel.phModel && Math.abs(vessel.temperature_c - reference) < 0.5
+    ? cachedAqueousEquilibrium(vessel.contents, vessel.volume_ml, reference) : null;
   return { status: relativeMassError <= 1e-8 ? 'consistent' as const : 'mismatch' as const,
     relativeMassError, chargeResidual_M: aqueous?.chargeResidual_M ?? null };
 }

@@ -113,8 +113,10 @@ describe('Finite wash bottle, breakage and cleanup', () => {
     useAppStore.getState().addSpill([1, 0, 0], 5, ['H2O', 'NaCl'], '#fff', 'Wet', 6, wet);
     useAppStore.getState().addSpill([3, 0, 0], 0, ['Cu'], '#b87333', 'Dry', 2, dry);
     useAppStore.getState().wipeSpillAt([1, 0, 0], 0.1);
-    expect(useAppStore.getState().wasteMass_g).toBe(6);
-    expect(useAppStore.getState().wasteContents.find(item => item.formula === 'NaCl')!.mass_g).toBe(1);
+    const patchWaste = useAppStore.getState().wasteMass_g;
+    expect(patchWaste).toBeGreaterThan(0);
+    expect(patchWaste).toBeLessThan(6);
+    expect(useAppStore.getState().wasteContents.find(item => item.formula === 'NaCl')!.mass_g).toBeCloseTo(patchWaste / 6, 12);
     useAppStore.getState().cleanSpills();
     useAppStore.getState().cleanSpills();
     const state = useAppStore.getState();

@@ -28,7 +28,7 @@ describe('Studio morphology specimens use finite inventory', () => {
       expect(initial.precipitateAmount_g, entry.type).toBe(0);
       expect(initial.contents.some(item => item.formula === entry.substance), entry.type).toBe(false);
       const program = getProgramById(entry.programId)!;
-      const patch = applyProgramToLedger(program, initial, 1);
+      const patch = applyProgramToLedger(program, initial, 1, { deferThermal: true });
       const end = { ...initial, ...patch };
       const solid = end.contents.filter(item => item.formula === entry.substance && item.phase === 's');
       expect(solid.reduce((sum, item) => sum + item.moles, 0), entry.type).toBeGreaterThan(0);
@@ -70,7 +70,14 @@ describe('Studio morphology specimens use finite inventory', () => {
         expect(useAppStore.getState().runStudioProgram(id)).toBe(true);
         expect(useAppStore.getState().seekStudioProgram(id, 1)).toBe(true);
         expect(useAppStore.getState().activeKinetics[id]).toBeUndefined();
-        expect(useAppStore.getState().runStudioProgram(id)).toBe(false);
+        // Heat can shift a hydrolysis-coupled endpoint: further finite growth
+        // is valid until the sample reaches its new temperature equilibrium.
+        if (entry.type === 'GEL') {
+          for (let i = 0; i < 8 && useAppStore.getState().runStudioProgram(id); i++) {
+            expect(useAppStore.getState().seekStudioProgram(id, 1)).toBe(true);
+          }
+          expect(useAppStore.getState().runStudioProgram(id)).toBe(false);
+        } else expect(useAppStore.getState().runStudioProgram(id)).toBe(false);
       } else expect(useAppStore.getState().runStudioProgram(id)).toBe(false);
     }
     expect(ids.size).toBe(8);

@@ -1,7 +1,7 @@
 {
   "schema": "chemdex.science-audit/1",
-  "checkedAt": "2026-10-17T04:31:36.221Z",
-  "scope": "All 144 program definitions, every deterministic rule, and all 34 lessons. Lesson programs are a subset of the 144, not additional unique experiments.",
+  "checkedAt": "2026-10-24T05:28:53.462Z",
+  "scope": "All 149 program definitions, every deterministic rule, and all 34 lessons. Lesson programs are a subset of the programs, not additional unique experiments.",
   "claims": {
     "balanceChecked": true,
     "qualitativeLiteratureReview": true,
@@ -10,11 +10,12 @@
     "allSourcesDescribeExactExperiment": false
   },
   "counts": {
-    "programs": 145,
-    "deterministic": 44,
+    "programs": 149,
+    "deterministic": 48,
+    "equilibriumOnly": 1,
     "lessons": 34,
     "dynamicRules": 18,
-    "ionicEquations": 102,
+    "ionicEquations": 109,
     "ionicFailures": 0,
     "nonStoichiometricObservations": 6,
     "balanceFailures": 0,
@@ -823,14 +824,14 @@
       },
       "visualIssues": [],
       "conditions": {},
-      "finding_vi": "Al(OH)3 keo trắng; hòa tan cần kiềm dư, không tự tan vì hết timeline.",
-      "sourceScope": "specific_observation",
+      "finding_vi": "Al(OH)3 vô định hình tạo keo khi quá bão hòa; lượng rắn phụ thuộc speciation và pH, không theo chiều cao lớp cặn cố định.",
+      "sourceScope": "model_caveat",
       "quantitativeCalibration": "not_validated",
       "references": [
         {
-          "title": "RSC: Testing salts for anions and cations",
-          "url": "https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article",
-          "scope": "experiment"
+          "title": "PHREEQC WATEQ4F: amorphous aluminum hydroxide, hydrolysis and sulfate complexes",
+          "url": "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat",
+          "scope": "research"
         }
       ],
       "parameterLimits": [
@@ -1777,14 +1778,14 @@
       },
       "visualIssues": [],
       "conditions": {},
-      "finding_vi": "Al(OH)3 tan trong OH− dư tạo hydroxoaluminate; lượng dư là điều kiện thiết yếu.",
-      "sourceScope": "specific_observation",
+      "finding_vi": "Al(OH)3 vô định hình tan trong OH− đến giới hạn thuốc thử hoặc bão hòa. Nhiệt theo cùng đường cân bằng, chưa hiệu chuẩn pha loãng/già hóa gel.",
+      "sourceScope": "model_caveat",
       "quantitativeCalibration": "not_validated",
       "references": [
         {
-          "title": "RSC: Testing salts for anions and cations",
-          "url": "https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article",
-          "scope": "experiment"
+          "title": "PHREEQC WATEQ4F: amorphous aluminum hydroxide, hydrolysis and sulfate complexes",
+          "url": "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat",
+          "scope": "research"
         }
       ],
       "parameterLimits": [
@@ -1839,14 +1840,29 @@
         "activation": "contact",
         "activationNote_vi": "Na phản ứng với nước khi tiếp xúc; cháy H2 hoặc bùng nổ là diễn biến riêng, không là điều kiện bắt đầu."
       },
-      "finding_vi": "Na bị tiêu thụ tạo NaOH/H2; mồi cháy hoặc nổ phụ thuộc lượng và truyền nhiệt, không luôn xảy ra.",
-      "sourceScope": "family_context",
+      "finding_vi": "Na nổi, chạy và nóng chảy; NaOH không màu, chỉ hồng khi có chỉ thị. Cháy hoặc nổ phụ thuộc điều kiện. Lượng chất theo 2:2:2:1; chuyển động và truyền nhiệt cục bộ chỉ là xấp xỉ định tính.",
+      "sourceScope": "specific_observation",
       "quantitativeCalibration": "not_validated",
       "references": [
         {
-          "title": "RSC: Displacement reactions of metals",
-          "url": "https://edu.rsc.org/download?ac=513064",
+          "title": "University of Washington: Alkali metals in water",
+          "url": "https://chem.washington.edu/lecture-demos/activity-series-alkali-metals-water",
           "scope": "experiment"
+        },
+        {
+          "title": "University of Waterloo: Sodium and potassium in water without air",
+          "url": "https://uwaterloo.ca/centre-advanced-science-education/news/sodium-and-potassium-reacting-water-absence-air",
+          "scope": "experiment"
+        },
+        {
+          "title": "University of Waterloo: Sodium properties",
+          "url": "https://uwaterloo.ca/chemistry/community-outreach/periodic-table-project/sodium",
+          "scope": "teaching_text"
+        },
+        {
+          "title": "Oklahoma State University: Sodium-water reaction enthalpy",
+          "url": "https://genchem1.chem.okstate.edu/BDA/ACA20Response.php",
+          "scope": "teaching_text"
         }
       ],
       "parameterLimits": [
@@ -4972,12 +4988,153 @@
         "Kinetic time and RGB values are illustrative.",
         "Enthalpy and activities are not experimentally calibrated for every reagent concentration."
       ]
+    },
+    {
+      "id": "feoh3_hcl",
+      "equation": "Fe(OH)3(s) + 3HCl(aq) -> FeCl3(aq) + 3H2O(l)",
+      "ionicBalance": [
+        {
+          "valid": true,
+          "atomDifference": {},
+          "chargeDifference": 0,
+          "errors": []
+        }
+      ],
+      "representation": "reaction",
+      "balance": {
+        "valid": true,
+        "atomDifference": {},
+        "chargeDifference": 0,
+        "errors": []
+      },
+      "visualIssues": [],
+      "conditions": {},
+      "finding_vi": "Acid hòa tan lượng Fe(OH)3 hữu hạn đến giới hạn thuốc thử hoặc bão hòa; có thể còn cặn, không sinh khí. Tốc độ và nhiệt pha vô định hình chưa hiệu chuẩn.",
+      "sourceScope": "model_caveat",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "PHREEQC WATEQ4F: amorphous ferric hydroxide, hydrolysis and chloride species",
+          "url": "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat",
+          "scope": "research"
+        }
+      ],
+      "parameterLimits": [
+        "Kinetic time and RGB values are illustrative.",
+        "Enthalpy and activities are not experimentally calibrated for every reagent concentration."
+      ]
+    },
+    {
+      "id": "al2so43_naoh",
+      "equation": "Al2(SO4)3(aq) + 6NaOH(aq) -> 2Al(OH)3(s) + 3Na2SO4(aq)",
+      "ionicBalance": [
+        {
+          "valid": true,
+          "atomDifference": {},
+          "chargeDifference": 0,
+          "errors": []
+        }
+      ],
+      "representation": "reaction",
+      "balance": {
+        "valid": true,
+        "atomDifference": {},
+        "chargeDifference": 0,
+        "errors": []
+      },
+      "visualIssues": [],
+      "conditions": {},
+      "finding_vi": "Giới hạn tạo keo nhôm xét sulfate tự do, bisulfate và phức Al–sulfate; 2 mol Al trên mỗi mol Al2(SO4)3.",
+      "sourceScope": "model_caveat",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "PHREEQC WATEQ4F: amorphous aluminum hydroxide, hydrolysis and sulfate complexes",
+          "url": "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat",
+          "scope": "research"
+        }
+      ],
+      "parameterLimits": [
+        "Kinetic time and RGB values are illustrative.",
+        "Enthalpy and activities are not experimentally calibrated for every reagent concentration."
+      ]
+    },
+    {
+      "id": "alcl3_naoh_excess",
+      "equation": "AlCl3(aq) + 4NaOH(aq) -> Na[Al(OH)4](aq) + 3NaCl(aq)",
+      "ionicBalance": [
+        {
+          "valid": true,
+          "atomDifference": {},
+          "chargeDifference": 0,
+          "errors": []
+        }
+      ],
+      "representation": "reaction",
+      "balance": {
+        "valid": true,
+        "atomDifference": {},
+        "chargeDifference": 0,
+        "errors": []
+      },
+      "visualIssues": [],
+      "conditions": {},
+      "finding_vi": "Kiềm đủ dư ưu tiên aluminate hòa tan; không bắt buộc dựng một đợt keo trung gian khi mẫu dưới bão hòa.",
+      "sourceScope": "model_caveat",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "PHREEQC WATEQ4F: amorphous aluminum hydroxide, hydrolysis and sulfate complexes",
+          "url": "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat",
+          "scope": "research"
+        }
+      ],
+      "parameterLimits": [
+        "Kinetic time and RGB values are illustrative.",
+        "Enthalpy and activities are not experimentally calibrated for every reagent concentration."
+      ]
+    },
+    {
+      "id": "al2so43_naoh_excess",
+      "equation": "Al2(SO4)3(aq) + 8NaOH(aq) -> 2Na[Al(OH)4](aq) + 3Na2SO4(aq)",
+      "ionicBalance": [
+        {
+          "valid": true,
+          "atomDifference": {},
+          "chargeDifference": 0,
+          "errors": []
+        }
+      ],
+      "representation": "reaction",
+      "balance": {
+        "valid": true,
+        "atomDifference": {},
+        "chargeDifference": 0,
+        "errors": []
+      },
+      "visualIssues": [],
+      "conditions": {},
+      "finding_vi": "Nhánh aluminate của muối sulfate giữ cân bằng Al/Na/S và bị chặn nếu còn quá bão hòa hydroxide.",
+      "sourceScope": "model_caveat",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "PHREEQC WATEQ4F: amorphous aluminum hydroxide, hydrolysis and sulfate complexes",
+          "url": "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat",
+          "scope": "research"
+        }
+      ],
+      "parameterLimits": [
+        "Kinetic time and RGB values are illustrative.",
+        "Enthalpy and activities are not experimentally calibrated for every reagent concentration."
+      ]
     }
   ],
   "deterministic": [
     {
       "id": "hcl_naoh_neutralization",
       "equation": "HCl + NaOH → NaCl + H₂O",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -5010,6 +5167,7 @@
     {
       "id": "h2so4_naoh_neutralization",
       "equation": "H₂SO₄ + 2NaOH → Na₂SO₄ + 2H₂O",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -5042,6 +5200,7 @@
     {
       "id": "bacl2_h2so4_precipitate",
       "equation": "BaCl₂ + H₂SO₄ → BaSO₄↓ + 2HCl",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -5074,6 +5233,7 @@
     {
       "id": "bacl2_na2so4_conservation",
       "equation": "BaCl₂ + Na₂SO₄ → BaSO₄↓ + 2NaCl",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -5106,6 +5266,7 @@
     {
       "id": "agno3_nacl_precipitate",
       "equation": "AgNO₃ + NaCl → AgCl↓ + NaNO₃",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -5138,6 +5299,7 @@
     {
       "id": "golden_rain_pbi2",
       "equation": "2KI + Pb(NO₃)₂ → PbI₂↓ + 2KNO₃",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -5175,6 +5337,7 @@
     {
       "id": "cuso4_naoh_precipitate",
       "equation": "CuSO₄ + 2NaOH → Cu(OH)₂↓ + Na₂SO₄",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -5207,6 +5370,7 @@
     {
       "id": "fe_cuso4_displacement",
       "equation": "Fe + CuSO₄ → FeSO₄ + Cu↓",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -5239,6 +5403,7 @@
     {
       "id": "caco3_hcl_gas",
       "equation": "CaCO₃ + 2HCl → CaCl₂ + CO₂↑ + H₂O",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -5276,6 +5441,7 @@
     {
       "id": "zn_hcl_gas",
       "equation": "Zn + 2HCl → ZnCl₂ + H₂↑",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -5308,6 +5474,7 @@
     {
       "id": "mg_hcl_gas",
       "equation": "Mg + 2HCl → MgCl₂ + H₂↑",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -5340,6 +5507,7 @@
     {
       "id": "h2o2_mno2_decomposition",
       "equation": "2H₂O₂ ⎯⎯MnO₂⎯→ 2H₂O + O₂↑",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [],
       "balance": {
         "valid": true,
@@ -5365,6 +5533,7 @@
     {
       "id": "nh3_hcl_fumes",
       "equation": "NH₃(g) + HCl(g) → NH₄Cl(s)",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [],
       "balance": {
         "valid": true,
@@ -5390,6 +5559,7 @@
     {
       "id": "na2co3_hcl_gas",
       "equation": "Na₂CO₃ + 2HCl → 2NaCl + CO₂↑ + H₂O",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [],
       "balance": {
         "valid": true,
@@ -5415,6 +5585,7 @@
     {
       "id": "cuoh2_thermal_decomposition",
       "equation": "Cu(OH)₂ ⎯⎯t°⎯→ CuO↓ + H₂O",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [],
       "balance": {
         "valid": true,
@@ -5440,6 +5611,7 @@
     {
       "id": "iodine_sublimation",
       "equation": "I₂(s) ⎯⎯t°⎯→ I₂(g) (Thăng hoa)",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [],
       "balance": {
         "valid": true,
@@ -5465,6 +5637,7 @@
     {
       "id": "cuso4_thermal_dehydration",
       "equation": "CuSO₄·5H₂O(s) ⎯⎯t°⎯→ CuSO₄(s) + 5H₂O↑",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [],
       "balance": {
         "valid": true,
@@ -5490,6 +5663,7 @@
     {
       "id": "water_into_conc_h2so4_explosion",
       "equation": "H₂SO₄(conc) + H₂O → H₃O⁺ + HSO₄⁻ + Q (CựC KỲ NGUY HIỂM)",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [],
       "balance": {
         "valid": true,
@@ -5515,6 +5689,7 @@
     {
       "id": "sodium_water_reaction",
       "equation": "2Na + 2H₂O → 2NaOH + H₂↑ + Q",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [],
       "balance": {
         "valid": true,
@@ -5526,20 +5701,36 @@
         "required": false,
         "minimum_c": null
       },
-      "finding_vi": "Na bị tiêu thụ tạo NaOH/H2; mồi cháy hoặc nổ phụ thuộc lượng và truyền nhiệt, không luôn xảy ra.",
-      "sourceScope": "family_context",
+      "finding_vi": "Na nổi, chạy và nóng chảy; NaOH không màu, chỉ hồng khi có chỉ thị. Cháy hoặc nổ phụ thuộc điều kiện. Lượng chất theo 2:2:2:1; chuyển động và truyền nhiệt cục bộ chỉ là xấp xỉ định tính.",
+      "sourceScope": "specific_observation",
       "quantitativeCalibration": "not_validated",
       "references": [
         {
-          "title": "RSC: Displacement reactions of metals",
-          "url": "https://edu.rsc.org/download?ac=513064",
+          "title": "University of Washington: Alkali metals in water",
+          "url": "https://chem.washington.edu/lecture-demos/activity-series-alkali-metals-water",
           "scope": "experiment"
+        },
+        {
+          "title": "University of Waterloo: Sodium and potassium in water without air",
+          "url": "https://uwaterloo.ca/centre-advanced-science-education/news/sodium-and-potassium-reacting-water-absence-air",
+          "scope": "experiment"
+        },
+        {
+          "title": "University of Waterloo: Sodium properties",
+          "url": "https://uwaterloo.ca/chemistry/community-outreach/periodic-table-project/sodium",
+          "scope": "teaching_text"
+        },
+        {
+          "title": "Oklahoma State University: Sodium-water reaction enthalpy",
+          "url": "https://genchem1.chem.okstate.edu/BDA/ACA20Response.php",
+          "scope": "teaching_text"
         }
       ]
     },
     {
       "id": "cu_hno3_conc",
       "equation": "Cu + 4HNO₃(đặc) → Cu(NO₃)₂ + 2NO₂↑ + 2H₂O",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -5572,6 +5763,7 @@
     {
       "id": "cu_conc_h2so4_heated",
       "equation": "Cu + 2H₂SO₄(đặc) —(t°)→ CuSO₄ + SO₂↑ + 2H₂O",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -5604,6 +5796,7 @@
     {
       "id": "limewater_co2_milky",
       "equation": "Ca(OH)₂ + CO₂ → CaCO₃↓ + H₂O",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -5641,6 +5834,7 @@
     {
       "id": "caco3_co2_excess_clearing",
       "equation": "CaCO₃ + CO₂ + H₂O → Ca(HCO₃)₂ (Tan trong nước)",
+      "execution": "finite_phase_equilibrium",
       "ionicBalance": [
         {
           "valid": true,
@@ -5659,32 +5853,121 @@
         "required": false,
         "minimum_c": null
       },
-      "finding_vi": "CO2 làm đục nước vôi; CO2 tiếp tục dư trong nước có thể chuyển cặn sang bicarbonat tan.",
-      "sourceScope": "specific_observation",
+      "finding_vi": "Chuyển sang cân bằng pha hữu hạn; CO2 khí vừa sinh không bị tiêu thụ tiếp như CO2 đã hòa tan. Độ trong phụ thuộc lượng cacbon hòa tan và bão hòa calcite; tốc độ, nhiệt và hiệu chỉnh nhiệt độ/hoạt độ chưa hiệu chuẩn.",
+      "sourceScope": "family_context",
       "quantitativeCalibration": "not_validated",
       "references": [
         {
-          "title": "Indiana University: Limewater as indicator of carbon dioxide",
-          "url": "https://www.chem.indiana.edu/faculty-research/faculty-resources/chemistry-demos/demo/limewater-as-indicator-of-carbon-dioxide-gas/",
-          "scope": "experiment"
-        },
+          "title": "USGS: Calcite, CO2 and aqueous equilibrium (Plummer & Busenberg 1982)",
+          "url": "https://www.usgs.gov/publications/solubilities-calcite-aragonite-and-vaterite-co2-h2o-solutions-between-0-and-90degc-and",
+          "scope": "research"
+        }
+      ]
+    },
+    {
+      "id": "alcl3_naoh_precipitate",
+      "equation": "AlCl₃ + 3NaOH → Al(OH)₃ + 3NaCl",
+      "execution": "stoichiometric_rule",
+      "ionicBalance": [
         {
-          "title": "RSC: Limestone weathering",
-          "url": "https://edu.rsc.org/resources/limestone-weathering/486.article",
-          "scope": "experiment"
+          "valid": true,
+          "atomDifference": {},
+          "chargeDifference": 0,
+          "errors": []
+        }
+      ],
+      "balance": {
+        "valid": true,
+        "atomDifference": {},
+        "chargeDifference": 0,
+        "errors": []
+      },
+      "heating": {
+        "required": false,
+        "minimum_c": null
+      },
+      "finding_vi": "Al(OH)3 vô định hình tạo keo khi quá bão hòa; lượng rắn phụ thuộc speciation và pH, không theo chiều cao lớp cặn cố định.",
+      "sourceScope": "model_caveat",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "PHREEQC WATEQ4F: amorphous aluminum hydroxide, hydrolysis and sulfate complexes",
+          "url": "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat",
+          "scope": "research"
+        }
+      ]
+    },
+    {
+      "id": "alcl3_naoh_aluminate",
+      "equation": "AlCl₃ + 4NaOH → Na[Al(OH)₄] + 3NaCl",
+      "execution": "stoichiometric_rule",
+      "ionicBalance": [
+        {
+          "valid": true,
+          "atomDifference": {},
+          "chargeDifference": 0,
+          "errors": []
+        }
+      ],
+      "balance": {
+        "valid": true,
+        "atomDifference": {},
+        "chargeDifference": 0,
+        "errors": []
+      },
+      "heating": {
+        "required": false,
+        "minimum_c": null
+      },
+      "finding_vi": "Kiềm đủ dư ưu tiên aluminate hòa tan; không bắt buộc dựng một đợt keo trung gian khi mẫu dưới bão hòa.",
+      "sourceScope": "model_caveat",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "PHREEQC WATEQ4F: amorphous aluminum hydroxide, hydrolysis and sulfate complexes",
+          "url": "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat",
+          "scope": "research"
+        }
+      ]
+    },
+    {
+      "id": "al2so43_naoh_aluminate",
+      "equation": "Al₂(SO₄)₃ + 8NaOH → 2Na[Al(OH)₄] + 3Na₂SO₄",
+      "execution": "stoichiometric_rule",
+      "ionicBalance": [
+        {
+          "valid": true,
+          "atomDifference": {},
+          "chargeDifference": 0,
+          "errors": []
+        }
+      ],
+      "balance": {
+        "valid": true,
+        "atomDifference": {},
+        "chargeDifference": 0,
+        "errors": []
+      },
+      "heating": {
+        "required": false,
+        "minimum_c": null
+      },
+      "finding_vi": "Nhánh aluminate của muối sulfate giữ cân bằng Al/Na/S và bị chặn nếu còn quá bão hòa hydroxide.",
+      "sourceScope": "model_caveat",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "PHREEQC WATEQ4F: amorphous aluminum hydroxide, hydrolysis and sulfate complexes",
+          "url": "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat",
+          "scope": "research"
         }
       ]
     },
     {
       "id": "al2so4_naoh_amphoteric",
-      "equation": "Al₂(SO₄)₃ + 6NaOH → 2Al(OH)₃↓ + 3Na₂SO₄; Al(OH)₃ + NaOH → Na[Al(OH)₄]",
+      "equation": "Al₂(SO₄)₃ + 6NaOH → 2Al(OH)₃↓ + 3Na₂SO₄",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
-        {
-          "valid": true,
-          "atomDifference": {},
-          "chargeDifference": 0,
-          "errors": []
-        },
         {
           "valid": true,
           "atomDifference": {},
@@ -5702,20 +5985,21 @@
         "required": false,
         "minimum_c": null
       },
-      "finding_vi": "Al(OH)3 keo trắng; hòa tan cần kiềm dư, không tự tan vì hết timeline.",
-      "sourceScope": "specific_observation",
+      "finding_vi": "Giới hạn tạo keo nhôm xét sulfate tự do, bisulfate và phức Al–sulfate; 2 mol Al trên mỗi mol Al2(SO4)3.",
+      "sourceScope": "model_caveat",
       "quantitativeCalibration": "not_validated",
       "references": [
         {
-          "title": "RSC: Testing salts for anions and cations",
-          "url": "https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article",
-          "scope": "experiment"
+          "title": "PHREEQC WATEQ4F: amorphous aluminum hydroxide, hydrolysis and sulfate complexes",
+          "url": "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat",
+          "scope": "research"
         }
       ]
     },
     {
       "id": "cuso4_nh3_hydroxide",
       "equation": "CuSO4 + 2NH3 + 2H2O -> Cu(OH)2 + (NH4)2SO4",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -5753,6 +6037,7 @@
     {
       "id": "cuso4_nh3_complex",
       "equation": "CuSO₄ + 4NH₃ → [Cu(NH₃)₄]SO₄ (Xanh thẫm)",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -5790,6 +6075,7 @@
     {
       "id": "fecl3_kscn_complex",
       "equation": "FeCl₃ + KSCN ⇌ [Fe(SCN)]Cl₂ + KCl",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -5822,6 +6108,7 @@
     {
       "id": "kmno4_oxalic_redox",
       "equation": "2KMnO₄ + 5H₂C₂O₄ + 3H₂SO₄ → K₂SO₄ + 2MnSO₄ + 10CO₂↑ + 8H₂O",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [],
       "balance": {
         "valid": true,
@@ -5847,6 +6134,7 @@
     {
       "id": "thiosulfate_acid_clock",
       "equation": "Na₂S₂O₃ + 2HCl → 2NaCl + SO₂↑ + S↓ + H₂O",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [],
       "balance": {
         "valid": true,
@@ -5872,6 +6160,7 @@
     {
       "id": "iodine_clock",
       "equation": "IO₃⁻ + 3HSO₃⁻ → I⁻ + 3SO₄²⁻ + 3H⁺; IO₃⁻ + 5I⁻ + 6H⁺ → 3I₂ + 3H₂O",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [],
       "balance": {
         "valid": true,
@@ -5901,7 +6190,8 @@
     },
     {
       "id": "aloh3_naoh_dissolution",
-      "equation": "Al(OH)₃ + NaOH → Na[Al(OH)₄] (Tan hoàn toàn)",
+      "equation": "Al(OH)₃ + NaOH → Na[Al(OH)₄]",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -5920,20 +6210,21 @@
         "required": false,
         "minimum_c": null
       },
-      "finding_vi": "Al(OH)3 tan trong OH− dư tạo hydroxoaluminate; lượng dư là điều kiện thiết yếu.",
-      "sourceScope": "specific_observation",
+      "finding_vi": "Al(OH)3 vô định hình tan trong OH− đến giới hạn thuốc thử hoặc bão hòa. Nhiệt theo cùng đường cân bằng, chưa hiệu chuẩn pha loãng/già hóa gel.",
+      "sourceScope": "model_caveat",
       "quantitativeCalibration": "not_validated",
       "references": [
         {
-          "title": "RSC: Testing salts for anions and cations",
-          "url": "https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article",
-          "scope": "experiment"
+          "title": "PHREEQC WATEQ4F: amorphous aluminum hydroxide, hydrolysis and sulfate complexes",
+          "url": "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat",
+          "scope": "research"
         }
       ]
     },
     {
       "id": "cuoh2_nh3_complex",
       "equation": "Cu(OH)₂ + 4NH₃ → [Cu(NH₃)₄](OH)₂ (Xanh thẫm)",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -5971,6 +6262,7 @@
     {
       "id": "agcl_nh3_complex",
       "equation": "AgCl + 2NH₃ → [Ag(NH₃)₂]Cl (Tan trong suốt)",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -6003,6 +6295,7 @@
     {
       "id": "hno3_naoh_neutralization",
       "equation": "HNO₃ + NaOH → NaNO₃ + H₂O",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -6035,6 +6328,7 @@
     {
       "id": "fecl3_naoh_precipitate",
       "equation": "FeCl₃ + 3NaOH → Fe(OH)₃↓ + 3NaCl",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -6065,8 +6359,42 @@
       ]
     },
     {
+      "id": "feoh3_hcl_dissolution",
+      "equation": "Fe(OH)₃ + 3HCl → FeCl₃ + 3H₂O",
+      "execution": "stoichiometric_rule",
+      "ionicBalance": [
+        {
+          "valid": true,
+          "atomDifference": {},
+          "chargeDifference": 0,
+          "errors": []
+        }
+      ],
+      "balance": {
+        "valid": true,
+        "atomDifference": {},
+        "chargeDifference": 0,
+        "errors": []
+      },
+      "heating": {
+        "required": false,
+        "minimum_c": null
+      },
+      "finding_vi": "Acid hòa tan lượng Fe(OH)3 hữu hạn đến giới hạn thuốc thử hoặc bão hòa; có thể còn cặn, không sinh khí. Tốc độ và nhiệt pha vô định hình chưa hiệu chuẩn.",
+      "sourceScope": "model_caveat",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "PHREEQC WATEQ4F: amorphous ferric hydroxide, hydrolysis and chloride species",
+          "url": "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat",
+          "scope": "research"
+        }
+      ]
+    },
+    {
       "id": "agno3_hcl_precipitate",
       "equation": "AgNO₃ + HCl → AgCl↓ + HNO₃",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -6099,6 +6427,7 @@
     {
       "id": "cu_hno3_dilute",
       "equation": "3Cu + 8HNO3(dil) -> 3Cu(NO3)2 + 2NO + 4H2O",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -6131,6 +6460,7 @@
     {
       "id": "nh3_hcl_aqueous",
       "equation": "NH3(aq) + HCl(aq) -> NH4Cl(aq)",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [],
       "balance": {
         "valid": true,
@@ -6156,6 +6486,7 @@
     {
       "id": "iodate_iodide_acid",
       "equation": "KIO3 + 5KI + 3H2SO4 -> 3I2 + 3K2SO4 + 3H2O",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -6193,6 +6524,7 @@
     {
       "id": "ch3cooh_naoh_aqueous",
       "equation": "CH3COOH + NaOH -> CH3COONa + H2O",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -6225,6 +6557,7 @@
     {
       "id": "ch3cooh_koh_aqueous",
       "equation": "CH3COOH + KOH -> CH3COOK + H2O",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -6257,6 +6590,7 @@
     {
       "id": "sodium_acetate_hcl",
       "equation": "CH3COONa + HCl -> CH3COOH + NaCl",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -6289,6 +6623,7 @@
     {
       "id": "potassium_acetate_hcl",
       "equation": "CH3COOK + HCl -> CH3COOH + KCl",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,
@@ -6321,6 +6656,7 @@
     {
       "id": "nh4cl_naoh_aqueous",
       "equation": "NH4Cl + NaOH -> NH3 + NaCl + H2O",
+      "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
           "valid": true,

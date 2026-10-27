@@ -816,44 +816,14 @@ export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
     difficulty: 'intermediate',
     objective_en: 'Investigate the dramatic reactivity of elemental sodium on water: floating buoyancy, hydrogen jet recoil skittering, melting at 97.8°C into a spherical molten bead, 589nm yellow flame ignition, and swirling phenolphthalein trails.',
     objective_vi: 'Khảo sát hiện tượng phản ứng mãnh liệt đặc trưng của kim loại natri với nước: nổi trên mặt nước, chạy lướt hỗn loạn do phản lực tia khí H2, nóng chảy vo tròn thành viên bi bạc ở 97.8°C, bốc cháy ngọn lửa màu vàng 589nm và để lại vệt màu hồng phenolphtalein xoáy theo dòng nước.',
-    theory_en: 'Sodium is a group 1 alkali metal with low density (ρ = 0.968 g/cm³) and low melting point (mp = 97.8 °C). The oxidation-reduction reaction with water is strongly exothermic: 2Na(s) + 2H₂O(l) → 2NaOH(aq) + H₂(g)↑ (ΔH° = -368.4 kJ/mol). The released heat rapidly melts the metal into a spherical liquid drop due to high liquid-metal surface tension (σ ≈ 0.19 N/m). Directional venting of evolved hydrogen gas creates asymmetric jet recoil propulsion that drives chaotic skittering across the water surface on a microscopic Leidenfrost vapor cushion.',
-    theory_vi: 'Natri là kim loại kiềm nhóm IA có khối lượng riêng nhỏ hơn nước (ρ = 0.968 g/cm³) và nhiệt độ nóng chảy thấp (tnc = 97.8 °C). Phản ứng oxi hóa - khử với nước tỏa nhiệt cực mạnh: 2Na(r) + 2H₂O(l) → 2NaOH(dd) + H₂(k)↑ (ΔH° = -368.4 kJ/mol). Nhiệt lượng giải phóng làm nóng chảy mẩu kim loại thành giọt chất lỏng hình cầu do lực căng bề mặt lớn của natri lỏng (σ ≈ 0.19 N/m). Khí hiđro thoát ra bất đối xứng tạo phản lực đẩy viên natri chạy lướt hỗn loạn trên mặt nước nhờ lớp đệm khí vi mô kiểu hiệu ứng Leidenfrost.',
-    safetyAdvisory_en: 'EXPLOSION & FIRE HAZARD: Use only a small piece of sodium (~0.1 g). Keep tweezers dry. Never handle sodium with bare fingers. Wear safety splash goggles and face shield.',
-    safetyAdvisory_vi: 'NGUY CƠ CHÁY NỔ NGUY HIỂM: Chỉ dùng mẩu natri nhỏ cỡ hạt đậu xanh (~0.1 g). Kẹp gắp phải tuyệt đối khô ráo. Không cầm trực tiếp bằng tay. Luôn đeo kính bảo hộ chống hóa chất và làm trong tủ hút.',
+    theory_en: '2Na(s) + 2H2O(l) -> 2NaOH(aq) + H2(g). Standard heat release is about 368 kJ per reaction as written (2 mol Na), about 184 kJ/mol Na. Sodium density is about 0.97 g/cm3 and melting point 97.8 C. Gas evolution and interfacial flow contribute to motion. NaOH and H2 are colorless. Pink requires phenolphthalein; ignition depends on conditions. Recoil, drag and local heat transfer here are qualitative approximations.',
+    theory_vi: '2Na(r) + 2H2O(l) -> 2NaOH(dd) + H2(k). Nhiệt tỏa ra chuẩn khoảng 368 kJ cho phản ứng như viết (2 mol Na), khoảng 184 kJ/mol Na. Khối lượng riêng Na khoảng 0,97 g/cm3; nhiệt độ nóng chảy 97,8 C. Khí thoát và dòng chảy bề mặt góp phần gây chuyển động. NaOH và H2 không màu. Màu hồng cần phenolphthalein; cháy phụ thuộc điều kiện. Phản lực, lực cản và truyền nhiệt cục bộ ở đây là xấp xỉ định tính.',
+    safetyAdvisory_en: 'Virtual demonstration. A real sodium demonstration requires trained staff, dry forceps, eye protection and a suitable screen under institutional procedures. Do not heat or seal the vessel. This simulation does not replace an operating procedure.',
+    safetyAdvisory_vi: 'Thí nghiệm ảo. Biểu diễn thật cần người được đào tạo, kẹp khô, bảo vệ mắt và tấm chắn theo quy trình cơ sở. Không gia nhiệt hoặc đậy kín bình. Mô phỏng không thay thế quy trình thao tác thật.',
     requiredEquipment: ['Beaker', 'Forceps / Tweezers', 'Filter Paper'],
     allowedChemicals: ['Na', 'H2O', 'Phenolphthalein'],
-    simulationAlgorithm_en: `Sodium on Water Mathematical & Physical Simulation Architecture:
-1. Floating Interface & Meniscus Depression:
-   Density ratio ρ_Na / ρ_H2O = 0.968 < 1.0 (positive buoyancy). Low freeboard creates a surface meniscus indentation ring modeled by static Young-Laplace curvature: Δz_m = -m*g / (2π*R*σ).
-2. Asymmetric Hydrogen Jet Recoil & Leidenfrost Cushion:
-   Reaction rate r = k(T) * A_wetted * [H2O]. Directional hydrogen evolution creates recoil thrust:
-   m_pellet * (dv/dt) = -dm_gas/dt * u_exhaust - γ_eff * v + F_wall_elastic.
-   Underneath the pellet, a microscopic cushion of H2 gas and water vapor forms (Leidenfrost phenomenon), reducing hydrodynamic friction damping γ_eff by ~75-85%.
-3. Phase Transition & Spherical Rounding at 97.8 °C:
-   Pellet internal thermal energy: Cp * (dT/dt) = r * (-ΔH_rxn) - h * A * (T - T_water).
-   When T >= 97.8 °C, meltFactor smoothly transitions 0 -> 1. Irregular dodecahedral mesh morphs into an oblate molten sphere, with centrifugal flattening: a = R / (ar)^(1/3), b = R * (ar)^(2/3).
-4. Autoignition & 589nm Flame Doublet:
-   When T >= 115 °C, H2/air mixture with vaporized Na ignites. Atomic 3p -> 3s transition produces yellow D-line emission (λ = 589.0 nm, 589.6 nm). Luminous cone and spark bursts are rendered at the pellet center.
-5. Alkaline Wake & Phenolphthalein Indicator Ribbon:
-   Lagrangian trail points track OH- diffusion wake. In2- chromophore (R=244, G=63, B=94) renders fading, expanding circular discs on the liquid surface.
-6. Acoustic Profile:
-   Continuous hydrogen cavitation hiss combined with discrete Minnaert bubble pops f = 3260 / R_mm (Hz).`,
-    simulationAlgorithm_vi: `Kiến trúc Thuật toán và Mô hình Vật lý của Viên Natri trên Nước:
-1. Nổi bề mặt & Vết lõm Meniscus:
-   Tỉ trọng ρ_Na / ρ_H2O = 0.968 < 1.0 (lực đẩy Archimedes thắng trọng lực). Độ nổi thấp tạo vết lõm mặt nước dạng lòng chảo theo phương trình Young-Laplace: Δz_m = -m*g / (2π*R*σ).
-2. Phản lực luồng khí H2 & Đệm khí Leidenfrost:
-   Tốc độ phản ứng r = k(T) * A_tiếp_xúc. Dòng khí H2 phụt ra bất đối xứng sinh lực đẩy phản lực:
-   m * (dv/dt) = -dm_k/dt * u_thoát - γ_cản * v + F_va_chạm.
-   Bên dưới viên natri hình thành lớp đệm khí H2 và hơi nước mỏng (hiệu ứng Leidenfrost) triệt tiêu ~75-85% lực cản ma sát thủy động lực học, khiến viên natri lướt nhanh như trượt băng!
-3. Chuyển pha & Vo tròn thành viên bi bạc ở 97.8 °C:
-   Phương trình cân bằng nhiệt: Cp * (dT/dt) = r * (-ΔH) - h * A * (T - T_nước).
-   Khi T >= 97.8 °C, natri rắn nóng chảy; lực căng bề mặt kim loại lỏng cực lớn (σ ≈ 0.19 N/m) ép viên natri vo tròn thành hình cầu bóng loáng như thủy ngân. Momen quay bất đối xứng làm viên bi xoay tròn quanh trục.
-4. Bốc cháy ngọn lửa màu vàng 589nm:
-   Khi nhiệt độ vượt quá 115 °C, hỗn hợp H2 - không khí cùng hơi natri tự bốc cháy với ngọn lửa hình nón màu vàng rực rỡ đặc trưng của vạch quang phổ phát xạ natri D-line (589.0 nm và 589.6 nm), kèm các tia lửa bắn ra.
-5. Vệt kiềm Phenolphtalein xoáy màu hồng fuchsia:
-   Dung dịch NaOH hòa tan phía sau đuôi viên natri làm pH tăng vọt > 8.2; chỉ thị phenolphtalein mở vòng lactone chuyển thành dianion In2- màu hồng cánh sen, uốn lượn theo dòng xoáy thủy động học.
-6. Âm thanh Minnaert & Tiếng xèo xèo nổ lách tách:
-   Bộ tổng hợp âm thanh WebAudio API mô phỏng tiếng xèo xèo liên tục cùng các tiếng nổ bọt khí Minnaert f = 3260 / R_mm (Hz).`,
+    simulationAlgorithm_en: `Finite inventory drives Na loss, NaOH formation and H2 escape at the 2:2:2:1 ratio. Radius follows remaining mass. Buoyancy sets immersion; shallow water permits floor contact. Local illustrative heating includes fusion near 97.8 C; bulk temperature is separate. Seeded recoil stays within the vessel. Pink trails require phenolphthalein. This version gates flames on oxygen and an ignition source, and does not predict spontaneous ignition or explosions.`,
+    simulationAlgorithm_vi: `Sổ lượng chất điều khiển Na bị tiêu thụ, NaOH sinh ra và H2 thoát ra theo tỉ lệ 2:2:2:1. Bán kính theo khối lượng còn lại; lực nổi xác định độ ngập, nước nông có tiếp xúc đáy. Nhiệt cục bộ và nóng chảy quanh 97,8 C là xấp xỉ, tách khỏi nhiệt độ khối dung dịch. Chuyển động phản lực có giới hạn thành bình. Vệt hồng cần phenolphthalein. Lửa cần oxy và nguồn mồi; chưa dự đoán tự bốc cháy hoặc bùng nổ.`,
     phenomenologyCases: [
       {
         id: 'case_1_float_meniscus',
@@ -861,7 +831,7 @@ export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
         name_vi: 'Trường hợp 1: Thả vào và Nổi lõm mặt nước',
         description_en: 'Solid irregular metallic block floats due to low density (0.97 g/cm³), indenting a visible capillary meniscus depression ring on water.',
         description_vi: 'Mẩu natri kim loại góc cạnh nổi trên mặt nước do khối lượng riêng nhỏ hơn nước (0.97 g/cm³), tạo một vành khuyên lõm mặt cong mao dẫn rõ rệt.',
-        algorithm: 'Young-Laplace boundary condition Δz_m = -mg / (2πRσ); initial faceted dodecahedral mesh geometry.'
+        algorithm: 'Buoyant submerged spherical-cap volume; floor contact in shallow water.'
       },
       {
         id: 'case_2_recoil_skittering',
@@ -869,7 +839,7 @@ export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
         name_vi: 'Trường hợp 2: Lướt phản lực khí H2 trên đệm khí Leidenfrost',
         description_en: 'Asymmetric venting of hydrogen jet shoots the pellet across water on a low-friction vapor cushion with erratic Brownian turns and wall bounces.',
         description_vi: 'Khí hiđro thoát ra bất đối xứng sinh phản lực đẩy viên natri phóng vụt trên lớp đệm khí giảm ma sát, đổi hướng ngẫu nhiên và va chạm đàn hồi vào thành cốc.',
-        algorithm: 'm(dv/dt) = -dm_gas/dt * u_gas - γ_eff * v; friction damping reduced by 80% under vapor cushion.'
+        algorithm: 'm(dv/dt) = -dm_gas/dt * u_gas - γ_eff * v; qualitative drag parameter; not an experimentally measured percentage.'
       },
       {
         id: 'case_3_molten_silver_bead',
@@ -883,8 +853,8 @@ export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
         id: 'case_4_flame_ignition_589nm',
         name_en: 'Case 4: 589nm Golden Yellow Flame Cone',
         name_vi: 'Trường hợp 4: Bốc cháy ngọn lửa màu vàng 589nm & tia lửa',
-        description_en: 'At T >= 115°C, thermal autoignition of hydrogen enriched with vaporized sodium produces an intense 589nm yellow flame cone and bright sparks.',
-        description_vi: 'Khi nhiệt độ vượt 115°C, hiđro cùng hơi natri bốc cháy với ngọn lửa hình nón màu vàng rực rỡ và phát ra các tia lửa vi mô.',
+        description_en: 'Ignition depends on heat transfer, gas mixing and oxygen. This version renders a yellow emission effect only with oxygen and an ignition source.',
+        description_vi: 'Cháy phụ thuộc truyền nhiệt, sự trộn khí và oxy. Phiên bản này chỉ hiện hiệu ứng lửa vàng khi có oxy và nguồn mồi; không dùng ngưỡng 115 C.',
         algorithm: 'Planck blackbody radiation combined with 3p -> 3s atomic emission at 589 nm; localized point light and spark particle emitter.'
       },
       {
@@ -899,9 +869,9 @@ export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
         id: 'case_6_micro_pop_exhaustion',
         name_en: 'Case 6: Micro-Explosion Pop and Complete Exhaustion',
         name_vi: 'Trường hợp 6: Tiếng nổ lách tách và tan biến hoàn toàn',
-        description_en: 'As mass drops below 0.01 g, rapid boiling and hydrogen cavity collapse trigger a sharp acoustic pop, leaving a calm, transparent magenta solution.',
-        description_vi: 'Khi khối lượng giảm dần đến hết, bọt khí hiđro vỡ tạo tiếng nổ lách tách vui tai, viên natri biến mất hoàn toàn để lại dung dịch kiềm màu hồng trong suốt.',
-        algorithm: 'Minnaert acoustic burst formula f = 3260 / R_mm (Hz); consumption rate dm/dt ~ mass_fraction.'
+        description_en: 'When sodium is exhausted, gas evolution and motion stop. There is no scheduled explosion or mandatory bulk boiling.',
+        description_vi: 'Na hết thì khí và chuyển động dừng. Không đặt lịch nổ và không ép khối nước sôi; dung dịch kiềm chỉ hồng khi có chỉ thị.',
+        algorithm: 'Gas emission stops with the limiting reagent; no scheduled final pop.'
       }
     ],
     steps: [
@@ -909,8 +879,8 @@ export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
         stepNumber: 1,
         title_en: 'Prepare Water with Phenolphthalein',
         title_vi: 'Chuẩn bị nước cất có phenolphtalein',
-        instruction_en: 'Pour 60 mL of distilled water into Beaker 1 and add 2-3 drops of Phenolphthalein indicator.',
-        instruction_vi: 'Rót 60 mL nước cất vào Cốc 1 và nhỏ 2-3 giọt dung dịch phenolphtalein.',
+        instruction_en: 'Pour 50 mL of distilled water into Beaker 1 and add 2-3 drops of Phenolphthalein indicator.',
+        instruction_vi: 'Rót 50 mL nước cất vào Cốc 1 và nhỏ 2-3 giọt dung dịch phenolphtalein.',
         expectedResult_en: 'Colorless, transparent liquid at pH ~ 7.0.',
         expectedResult_vi: 'Dung dịch trong suốt không màu ở pH ~ 7.0.'
       },
@@ -920,8 +890,8 @@ export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
         title_vi: 'Thả mẩu natri vào cốc nước',
         instruction_en: 'Using dry forceps, drop a small metallic sodium piece into the beaker and observe immediately.',
         instruction_vi: 'Dùng kẹp gắp khô thả một mẩu natri nhỏ vào cốc nước và quan sát kỹ hiện tượng.',
-        expectedResult_en: 'Sodium immediately floats, melts at 97.8°C into a shimmering silvery liquid ball, darts across the surface on a hydrogen gas cushion, ignites with a golden 589nm yellow flame, and leaves a gorgeous swirling fuchsia pink trail!',
-        expectedResult_vi: 'Mẩu natri nổi trên mặt nước, nóng chảy ở 97.8°C vo tròn thành viên bi bạc lỏng, chạy lướt hỗn loạn trên đệm khí H2, bốc cháy với ngọn lửa màu vàng 589nm rực rỡ và để lại vệt màu hồng fuchsia xoáy cuộn tuyệt đẹp!'
+        expectedResult_en: 'Sodium immediately floats, melts at 97.8°C into a shimmering silvery liquid ball, darts across the surface on a hydrogen gas cushion, releases H2 and turns the indicator pink; ignition is conditional.',
+        expectedResult_vi: 'Mẩu natri nổi trên mặt nước, nóng chảy ở 97.8°C vo tròn thành viên bi bạc lỏng, chạy lướt hỗn loạn trên đệm khí H2, giải phóng H2 và làm chỉ thị chuyển hồng; cháy phụ thuộc điều kiện.'
       }
     ],
     quizzes: [
@@ -940,8 +910,8 @@ export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
         options_en: ['Directional recoil propulsion from hydrogen gas ejection and Leidenfrost vapor cushion', 'Magnetic repulsion from glass beaker', 'Convective water boiling waves only', 'Surface tension pulling it toward dry air'],
         options_vi: ['Phản lực từ luồng khí hiđro thoát ra bất đối xứng và đệm khí Leidenfrost giảm ma sát', 'Lực đẩy từ tính từ cốc thủy tinh', 'Do sóng nước sôi đẩy', 'Lực căng bề mặt hút về phía không khí khô'],
         correctAnswer: 0,
-        explanation_en: 'Hydrogen gas venting from localized contact points acts like a miniature rocket thruster, while the vapor cushion eliminates hydrodynamic friction.',
-        explanation_vi: 'Khí hiđro thoát ra từ các điểm tiếp xúc đóng vai trò như động cơ phản lực mini, cùng lớp đệm khí loại bỏ ma sát thủy động học.'
+        explanation_en: 'Hydrogen gas venting from localized contact points acts like a miniature rocket thruster, while the vapor cushion reduces effective drag in the qualitative model.',
+        explanation_vi: 'Khí hiđro thoát ra từ các điểm tiếp xúc đóng vai trò như động cơ phản lực mini, cùng lớp đệm khí giảm lực cản hiệu dụng trong mô hình định tính.'
       }
     ]
   },

@@ -78,15 +78,9 @@ export const CameraControls = React.memo(function CameraControls({
     const unsubExplosion = vfxBus.on('explosion', (e) => {
       trauma.current = Math.min(1.0, trauma.current + (e.intensity || 0.85));
     });
-    const unsubBurst = vfxBus.on('particle:burst', (e) => {
-      if (e.count >= 8) {
-        trauma.current = Math.min(1.0, trauma.current + 0.35);
-      }
-    });
 
     return () => {
       unsubExplosion();
-      unsubBurst();
     };
   }, []);
 

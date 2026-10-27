@@ -1,11 +1,10 @@
 import type { VesselState } from '../types/chemistry';
-import { sameMolecularFormula } from '../science/speciesIdentity';
+import { isFreeHeadspaceGas } from './headspacePressure';
 
 /** Finite open-vessel gas sink. A second projection cannot remove it twice. */
 export function projectEscapedGas(vessel: VesselState): Partial<VesselState> | null {
   if (vessel.isSealed || vessel.id.startsWith('lesson_vessel_')) return null;
-  const gas = vessel.contents.filter(item => item.phase === 'g' && item.moles > 1e-12
-    && !(item.location === 'foam' && sameMolecularFormula(item.formula, 'O2')));
+  const gas = vessel.contents.filter(item => isFreeHeadspaceGas(item) && item.moles > 1e-12);
   if (!gas.length) return null;
   const escaped = { ...vessel.escapedGas_g };
   let mass = 0;

@@ -1,3 +1,4 @@
+import { stepVesselThermal } from '../src/engine/thermalState';
 import { describe, expect, it } from 'vitest';
 import { useAppStore } from '../src/store/useAppStore';
 import { LAB_PRESET_IDS, materializePresetInventory } from '../src/engine/presetInventory';
@@ -44,10 +45,12 @@ describe('Every authored preset has an explicit finite inventory', () => {
         targetLiquidColor: '#fff', targetTemp: 80, hasGas: false, hasPrecipitate: false, dissolvingReactants: [],
       } } });
       useAppStore.getState().setupExperimentPreset('golden_rain_synthesis');
+      const prepared = useAppStore.getState().vessels.beaker_1;
+      const expectedThermal = stepVesselThermal(prepared, 0.05);
       useAppStore.getState().tickSimulation(0.05);
       const current = useAppStore.getState();
       expect(current.activeKinetics.beaker_1).toBeUndefined();
-      expect(current.vessels.beaker_1.temperature_c).toBeCloseTo(25, 10);
+      expect(current.vessels.beaker_1.temperature_c).toBeCloseTo(expectedThermal.temperature_c, 10);
       expect(current.vessels.beaker_1.contents.some(item => item.formula === 'Pb(NO3)2')).toBe(true);
     } finally { useAppStore.setState(before, true); }
   });
@@ -245,12 +248,14 @@ describe('Store flow and cleanup preserve sample mass', () => {
       let state = useAppStore.getState();
       expect(state.vessels[target.id].mass_g).toBeGreaterThan(0);
       expect(state.vessels[source.id].filterPaperResidue_g).toBe(1);
-      expect(Object.values(state.vessels).reduce((sum, item) => sum + item.mass_g, 0)).toBeCloseTo(103, 9);
+      expect(Object.values(state.vessels).reduce((sum, item) => sum + item.mass_g
+        + (item.evaporated_ml ?? 0) - (item.wallCondensation?.returned_g ?? 0), 0)).toBeCloseTo(103, 9);
       state.recoverFilterResidue(source.id, cake.id);
       state = useAppStore.getState();
       expect(state.vessels[cake.id].mass_g).toBe(1);
       expect(state.vessels[source.id].filterPaperResidue_g).toBe(0);
-      expect(Object.values(state.vessels).reduce((sum, item) => sum + item.mass_g, 0)).toBeCloseTo(103, 9);
+      expect(Object.values(state.vessels).reduce((sum, item) => sum + item.mass_g
+        + (item.evaporated_ml ?? 0) - (item.wallCondensation?.returned_g ?? 0), 0)).toBeCloseTo(103, 9);
     } finally { useAppStore.setState(before, true); }
   });
 

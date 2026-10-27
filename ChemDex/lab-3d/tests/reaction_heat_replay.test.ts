@@ -19,12 +19,12 @@ describe('Incremental reaction heat and external thermal history', () => {
     const program = getProgramById('hcl_naoh')!, baseline = createStudioSample(program, shell);
     let current = { ...baseline, temperature_c: 40 };
     const first = applyProgramWithThermalSinks(program, baseline, current, 0.2);
-    expect(first.temperature_c).toBeCloseTo(40 + 57.3 * 0.2 / sampleHeatCapacity(current), 9);
+    expect(first.temperature_c).toBeCloseTo(40 + 55.83 * 0.2 / sampleHeatCapacity(current), 9);
     current = { ...current, ...first, temperature_c: first.temperature_c! + 8 };
     const cooled = { ...current, ...stepVesselThermal(current, 2) };
     const second = applyProgramWithThermalSinks(program, baseline, cooled, 0.6);
-    expect(second.programHeatApplied_J).toBeCloseTo(57.3 * 0.6, 10);
-    expect(second.temperature_c).toBeCloseTo(cooled.temperature_c + 57.3 * 0.4 / sampleHeatCapacity(cooled), 9);
+    expect(second.programHeatApplied_J).toBeCloseTo(55.83 * 0.6, 10);
+    expect(second.temperature_c).toBeCloseTo(cooled.temperature_c + 55.83 * 0.4 / sampleHeatCapacity(cooled), 9);
     const repeated = applyProgramWithThermalSinks(program, baseline, { ...cooled, ...second }, 0.6);
     expect(repeated.temperature_c).toBeCloseTo(second.temperature_c!, 10);
   });
@@ -84,13 +84,13 @@ describe('Incremental reaction heat and external thermal history', () => {
     state.tickSimulation(0.1);
     const first = useAppStore.getState();
     const firstSample = first.vessels[id];
-    const reaction = 57.3 * (0.1 / getProgramById('hcl_naoh')!.visual.duration_s);
+    const reaction = 55.83 * (0.1 / getProgramById('hcl_naoh')!.visual.duration_s);
     expect(firstSample.programHeatApplied_J).toBeCloseTo(reaction, 10);
     const burnerOnly = stepVesselThermal(sample, 0.1, first.burners.lamp.deliveredHeat_J! / 0.1);
     expect(firstSample.temperature_c).toBeCloseTo(burnerOnly.temperature_c + reaction / sampleHeatCapacity(sample), 8);
     state.seekStudioProgram(id, 1);
     const end = useAppStore.getState().vessels[id];
-    expect(end.programHeatApplied_J).toBeCloseTo(57.3, 10);
+    expect(end.programHeatApplied_J).toBeCloseTo(55.83, 10);
     expect(useAppStore.getState().activeKinetics[id]).toBeUndefined();
   });
   it('keeps the aqueous peroxide reference distinct from a per-mole pure-liquid value', () => {

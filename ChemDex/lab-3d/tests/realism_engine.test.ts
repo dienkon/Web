@@ -173,8 +173,8 @@ describe('Realism Engine: Physical & Chemical Invariants', () => {
   });
 
   // Test 4: Reaction calorimetry (P1.3)
-  it('calculates physical enthalpy release for strong acid-base neutralization (+6.3 to +6.8 K)', () => {
-    // 50 mL 1 M HCl + 50 mL 1 M NaOH -> total volume 100 mL, xi = 0.05 mol, deltaH = -57.1 kJ/mol
+  it('calculates physical enthalpy release for strong acid-base neutralization (standard-state reference near +6.2 K)', () => {
+    // 50 mL 1 M HCl + 50 mL 1 M NaOH -> total volume 100 mL, xi = 0.05 mol, deltaH = -55.83 kJ/mol (sourced ideal ionic reference)
     const result = evaluateLocalChemistry(
       ['HCl', 'NaOH'],
       100,
@@ -196,14 +196,14 @@ describe('Realism Engine: Physical & Chemical Invariants', () => {
     const finalTemp = result!.new_vessel_state.temperature_c!;
     const deltaT = finalTemp - 25.0;
 
-    // Delta T = (57100 J/mol * 0.05 mol) / (100 g * 4.184 J/gK + 33.2 J/K) = 2855 / 451.6 = 6.32 K
-    expect(deltaT).toBeGreaterThanOrEqual(6.2);
-    expect(deltaT).toBeLessThanOrEqual(6.8);
-    expect(finalTemp).toBeCloseTo(31.3, 1);
+    // Ideal ionic reference: 2791.5 J / 451.6 J/K = 6.18 K, displayed to 0.1 K.
+    expect(deltaT).toBeGreaterThanOrEqual(6.1);
+    expect(deltaT).toBeLessThanOrEqual(6.3);
+    expect(finalTemp).toBeCloseTo(31.2, 1);
   });
 
   // Test 5: Colligative boiling point elevation (P1.5-lite)
-  it('elevates water boiling point above 100 °C for concentrated salt solutions (3 mol/kg NaCl boils at ~102.8 °C)', () => {
+  it('declares concentrated salt VLE unavailable without inventing a boiling plateau or deleting water', () => {
     SimulationEngine.clearAll();
 
     // 100 mL solution with 3 molal NaCl
@@ -218,7 +218,7 @@ describe('Realism Engine: Physical & Chemical Invariants', () => {
       isLocked: false,
       volume_ml: 100,
       volume: 100 / 250,
-      mass_g: 110,
+      mass_g: 95 + 0.285 * 58.44,
       temperature_c: 98.0,
       liquidColor: '#f8fafc',
       ph: 7.0,
@@ -227,27 +227,27 @@ describe('Realism Engine: Physical & Chemical Invariants', () => {
       hasGas: false,
       substances: ['H2O', 'NaCl'],
       contents: [
-        { formula: 'H2O', moles: 95 / 18.015, mass_g: 95 },
-        { formula: 'NaCl', moles: 0.285, mass_g: 0.285 * 58.44 }
+        { formula: 'H2O', phase: 'l', moles: 95 / 18.015, mass_g: 95 },
+        { formula: 'NaCl', phase: 'aq', moles: 0.285, mass_g: 0.285 * 58.44 }
       ]
     };
 
     const mgr = SimulationEngine.getManager(naclVessel.id);
 
-    // Heat intensely over several seconds to reach boiling limit
+    // Sensible-only fallback is explicitly outside a calibrated mixture VLE model.
     let currentVessel = { ...naclVessel };
     for (let i = 0; i < 20; i++) {
       const step = mgr.step(currentVessel, 0.5, { heatPower_W: 100, ambientTemp_c: 25.0 });
       currentVessel = { ...currentVessel, ...step };
     }
 
-    // Boiling point elevation: Tb = 100 + 0.512 * (0.285 * 1.8 / 0.095) = 100 + 0.512 * 5.4 = 102.76 °C
-    // Temperature must exceed standard 100.0 °C and cap at ~102.8 °C
-    expect(currentVessel.temperature_c).toBeGreaterThan(101.5);
-    const remainingWaterKg = currentVessel.contents.find(item => item.formula === 'H2O')!.mass_g / 1000;
-    // Evaporation concentrates the sample; its boiling point is no longer fixed.
-    expect(currentVessel.temperature_c).toBeLessThanOrEqual(100 + 0.512 * 0.285 * 1.8 / remainingWaterKg);
-    expect(currentVessel.temperature_c).toBeGreaterThan(102.7);
+    expect(currentVessel.thermalModelLimit).toContain('VLE');
+    expect(currentVessel.isBoiling).toBe(false);
+    expect(currentVessel.evaporated_ml ?? 0).toBe(0);
+    expect(currentVessel.contents.find(item => item.formula === 'H2O')!.mass_g).toBe(95);
+    expect(currentVessel.mass_g).toBe(naclVessel.mass_g);
+    expect(Number.isFinite(currentVessel.temperature_c)).toBe(true);
+    expect(currentVessel.temperature_c).toBeGreaterThan(naclVessel.temperature_c);
   });
 
   // Test 6: Stoichiometric precipitate mass (P4.2)
@@ -303,11 +303,9 @@ describe('Realism Engine: Physical & Chemical Invariants', () => {
     expect(stage1!.new_vessel_state.precipitate_substance).toBe('CaCO3');
     expect(stage1!.new_vessel_state.precipitate_color).toBe('#ffffff');
 
-    // Stage 2: Excess CO2 bubbling into milky CaCO3 suspension dissolves the precipitate back to clear Ca(HCO3)2
+    // Labels alone cannot establish a dissolved CO2 amount or equilibrium.
+    // Finite clearing and partial dissolution are tested in carbonate_equilibrium.test.ts.
     const stage2 = evaluateLocalChemistry(['CaCO3', 'CO2', 'H2O'], 50, 25.0, false, 'en');
-    expect(stage2).not.toBeNull();
-    expect(stage2!.reaction_id).toBe('caco3_co2_excess_clearing');
-    expect(stage2!.new_vessel_state.has_precipitate).toBe(false);
-    expect(stage2!.products).toContain('Ca(HCO3)2');
+    expect(stage2).toBeNull();
   });
 });

@@ -18,7 +18,8 @@ function setup(stabilized = true) {
 }
 function closedMass(initial: VesselState, current: VesselState) {
   expect(current.contents.reduce((sum, item) => sum + item.mass_g, 0)).toBeCloseTo(current.mass_g, 8);
-  expect(current.mass_g + Object.values(current.escapedGas_g ?? {}).reduce((sum, mass) => sum + mass, 0)).toBeCloseTo(initial.mass_g, 8);
+  expect(current.mass_g + Object.values(current.escapedGas_g ?? {}).reduce((sum, mass) => sum + mass, 0)
+    + (current.evaporated_ml ?? 0) - (current.wallCondensation?.returned_g ?? 0)).toBeCloseTo(initial.mass_g, 8);
 }
 function heldMass(vessel: VesselState) {
   return vessel.contents.filter(item => item.location === 'foam').reduce((sum, item) => sum + item.mass_g, 0);

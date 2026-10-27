@@ -1,0 +1,19 @@
+# FeCl₃ + NaOH: điều kiện tạo bông Fe(OH)₃
+
+Đối chiếu 24/10/2026. Chương trình `fecl3_naoh`, đường native `fecl3_naoh_precipitate` và điều kiện khởi động Studio dùng chung giới hạn quá bão hòa. Mẫu dưới bão hòa không tạo lượng sản phẩm hoặc chạy hoạt ảnh chỉ vì có hai tên chất.
+
+Nguồn hằng số: [WATEQ4F của PHREEQC](https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat). Chọn pha rắn `Fe(OH)3(a)` vô định hình với phản ứng hòa tan acid có log K = 4,891; chữ `(a)` ở tên pha này chỉ dạng vô định hình, không phải trạng thái `aq`. Không lấy hằng số của Fe(OH)₃ hòa tan hay goethite thay vào. Ksp = K_acid Kw³, tại 25°C log Ksp = −37,109. Pha này không có ΔH được khai báo: giữ K_acid tham chiếu, chỉ Kw đổi theo nhiệt độ. Đây là xấp xỉ, chưa phải quan hệ độ tan theo nhiệt độ đã hiệu chuẩn thực nghiệm.
+
+Thủy phân đơn nhân giải phóng H⁺ dùng log K tích lũy −2,19; −5,67; −12,56; −21,6, ΔH tương ứng 10,4; 17,1; 24,8; 31,9 kcal/mol cho FeOH²⁺, Fe(OH)₂⁺, Fe(OH)₃(aq), Fe(OH)₄⁻. Phức FeCl²⁺/FeCl₂⁺/FeCl₃(aq) dùng log β = 1,48/2,13/1,13; chỉ phức thứ nhất có ΔH = 5,6 kcal/mol trong mục nguồn. Dùng van't Hoff cho các mục có ΔH, giữ tham chiếu cho các mục còn lại.
+
+Ở mỗi pH thử, giải cân bằng chloride tự do và chloride liên kết; tổng sắt bằng tổng các dạng hòa tan. Sau đó giải điện trung hòa để tìm pH. Tích số ion dùng [Fe³⁺] tự do × [OH⁻]³. Với mỗi lượng kết tủa thử, giảm sắt hòa tan đúng lượng chuyển sang pha rắn, giữ tổng chloride/natri. Ledger vẫn ghi công thức phân tử để bảo toàn nguyên tố; các dạng ion là phép chiếu, không tạo thêm hóa chất trong inventory.
+
+Thêm hai phức đa nhân hòa tan từ cùng nguồn: 2Fe³⁺ + 2H₂O ⇌ Fe₂(OH)₂⁴⁺ + 2H⁺ (log K −2,95; ΔH 13,5 kcal/mol) và 3Fe³⁺ + 4H₂O ⇌ Fe₃(OH)₄⁵⁺ + 4H⁺ (log K −6,3; ΔH 14,3 kcal/mol). Cả hai được hiệu chỉnh nhiệt bằng van't Hoff. Mỗi mol phức đóng góp lần lượt 2/3 mol nguyên tử Fe và 4/5 mol điện tích dương; không đếm như hai dạng Fe đơn nhân hoặc tự gán chúng thành hạt rắn.
+
+Tại chloride và pH cố định, cân bằng sắt có dạng M = af + 2df² + 3tf³, trong đó f là Fe³⁺ tự do. Đa thức tăng và lồi trên miền dương. Newton bắt đầu từ giá trị nhỏ nhất của ba nghiệm đơn hạng; mỗi nghiệm này là một cận trên của nghiệm thật. Bộ tính giải cân bằng chloride bên ngoài và điện trung hòa bên ngoài nữa. `hydrolyzedIron_M` là mol nguyên tử Fe/L, còn `dimer_M` và `trimer_M` là mol phức/L. Phép tính này chưa mô tả mạng gel hoặc tốc độ bông hóa.
+
+Miền hỗ trợ gồm nước lỏng, FeCl₃/NaOH/NaCl aq và Fe(OH)₃ rắn trong bulk. HCl, sulfate, NH₃, Fe(II), chất khác hoặc vật chất trên bộ lọc trả về không hỗ trợ; các đường cũ ngoài miền này chưa được kiểm chứng bằng bộ tính mới. Không coi toàn bộ sắt hòa tan là Fe³⁺. pH hiển thị và pH cuối native dùng cùng speciation, không gán cố định pH 8.
+
+Giới hạn tạo rắn này chỉ áp dụng chiều FeCl₃ + 3NaOH → Fe(OH)₃ + 3NaCl, trong lượng thuốc thử có thật. Chiều hòa tan bởi HCl có đường riêng, xem [hòa tan bông trong acid](ferric-hydroxide-acid-dissolution.vi.md). Chưa mô phỏng kết tủa tự phát từ thủy phân FeCl₃ không có NaOH, polymer lớn hơn hai phức đã nêu, hoạt độ, tạo mầm, kết tụ theo pH/điện giải, khử nước hoặc lão hóa thành ferrihydrite/goethite. Bông nâu hiện tại vẫn dùng profile hiển thị; bộ tính bão hòa không chứng minh cấu trúc hoặc động học bông đã giống thực nghiệm.
+
+Kiểm thử: mẫu vết không khởi động hiệu ứng; điểm cuối ledger đẳng nhiệt đạt Q/K = 1; lượng sắt và chloride, khối lượng và điện tích được giữ; kiểm tra speciation và hai định luật tác dụng khối lượng đa nhân với 16 tổ hợp nhiệt độ/lượng kiềm; pH native/hiển thị thống nhất với bộ tính; từ chối phối tử ngoài miền. Mẫu tổng phân tích được dựng độc lập từ trạng thái pH 4, Fe³⁺ tự do 10⁻⁵ M và chloride tự do 0,01 M phải được giải ngược về đúng trạng thái và lượng phức đã biết. Chưa xác minh GPU hoặc hiệu chuẩn định lượng với mẫu phòng thí nghiệm.
