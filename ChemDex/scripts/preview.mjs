@@ -67,7 +67,7 @@ const server = http.createServer(async (req, res) => {
         await apiHandler()
       )(req, res);
     }
-    if (["/thi-nghiem", "/thi-nghiem.html"].includes(pathname)) {
+    if (["/thi-nghiem", "/thi-nghiem/", "/thi-nghiem.html"].includes(pathname)) {
       res.writeHead(302, { Location: "/lab-2d/" });
       return res.end();
     }

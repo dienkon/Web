@@ -6,14 +6,29 @@
   "trailingSlash": true,
   "redirects": [
     {
+      "source": "/lab/",
+      "destination": "/lab-3d/",
+      "permanent": true
+    },
+    {
       "source": "/lab",
       "destination": "/lab-3d/",
+      "permanent": true
+    },
+    {
+      "source": "/lab/:path*/",
+      "destination": "/lab-3d/:path*/",
       "permanent": true
     },
     {
       "source": "/lab/:path*",
       "destination": "/lab-3d/:path*",
       "permanent": true
+    },
+    {
+      "source": "/thi-nghiem/",
+      "destination": "/lab-2d/",
+      "permanent": false
     },
     {
       "source": "/thi-nghiem",

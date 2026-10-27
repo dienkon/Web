@@ -1,5 +1,13 @@
 import { test, expect } from "@playwright/test";
 import fs from "node:fs";
+test("legacy laboratory links resolve to the React applications", async ({request}) => {
+  for (const [path, destination] of [["/lab/","/lab-3d/"],["/lab","/lab-3d/"],
+    ["/thi-nghiem","/lab-2d/"],["/thi-nghiem/","/lab-2d/"],["/thi-nghiem.html","/lab-2d/"]]) {
+    const response=await request.get(path);
+    expect(response.status(),path).toBe(200);
+    expect(new URL(response.url()).pathname,path).toBe(destination);
+  }
+});
 test("118 elements, accent-free search, filters and comparison", async ({
   page,
 }) => {
