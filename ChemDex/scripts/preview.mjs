@@ -27,7 +27,7 @@ async function apiHandler() {
   if (!api) {
     const file = path.join(root, ".cache", "preview-api.mjs");
     await build({
-      entryPoints: [path.join(root, "api/[...route].ts")],
+      entryPoints: [path.join(root, "api/dispatch.ts")],
       bundle: true,
       platform: "node",
       format: "esm",

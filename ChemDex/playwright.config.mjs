@@ -9,6 +9,10 @@ export default defineConfig({
   use: {
     baseURL: process.env.CHEMDEX_TEST_URL ?? "http://127.0.0.1:4173",
     trace: "retain-on-failure",
+    ...(process.env.CHEMDEX_TEST_STATE ? {
+      storageState: JSON.parse(process.env.CHEMDEX_TEST_STATE),
+      trace: "off",
+    } : {}),
   },
   projects: [
     {

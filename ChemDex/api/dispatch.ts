@@ -13,7 +13,9 @@ import route11 from '../server/routes/gemini/verify';
 const handlers:Record<string,any>={"/api/feedback":route0,"/api/generate-questions":route1,"/api/health":route2,"/api/chemistry/search":route3,"/api/chemistry/structure":route4,"/api/experiment/ai-query":route5,"/api/experiment/mix":route6,"/api/gemini/chain":route7,"/api/gemini/chat":route8,"/api/gemini/community":route9,"/api/gemini/generate":route10,"/api/gemini/verify":route11};
 const requestWindows=new Map<string,{count:number;until:number}>();
 export default async function handler(req:any,res:any){
- const route=new URL(req.url||'/', 'https://chemdex.invalid').pathname.replace(/\/+$/,'');
+ const pathname=new URL(req.url||'/', 'https://chemdex.invalid').pathname.replace(/\/+$/,'');
+ const rewritten=typeof req.query?.__route==='string'?`/api/${req.query.__route.replace(/^\/+|\/+$/g,'')}`:'';
+ const route=handlers[pathname]?pathname:rewritten||pathname;
  const selected=handlers[route];if(!selected)return res.status(404).json({error:'API không tồn tại.'});
  if(req.method==='OPTIONS')return res.status(204).end();
  const origin=req.headers?.origin,host=req.headers?.host;if(origin&&host){try{if(new URL(origin).host!==host)return res.status(403).json({error:'Nguồn yêu cầu không hợp lệ.'});}catch{return res.status(403).json({error:'Nguồn yêu cầu không hợp lệ.'});}}

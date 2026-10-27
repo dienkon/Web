@@ -125,7 +125,7 @@ test("production package excludes development sources and missing assets are not
 test("serverless routes validate inputs and retain JSON errors", async () => {
   const file = ".cache/test-api.mjs";
   await build({
-    entryPoints: ["api/[...route].ts"],
+    entryPoints: ["api/dispatch.ts"],
     bundle: true,
     format: "esm",
     platform: "node",
@@ -157,6 +157,7 @@ test("serverless routes validate inputs and retain JSON errors", async () => {
     return result;
   }
   assert.equal((await request("/api/health")).body.status, "ok");
+  assert.equal((await request("/api/dispatch/", "GET", {}, {__route:"health/"})).body.status, "ok");
   assert.equal(
     (await request("/api/chemistry/structure", "GET", {}, { cid: "invalid" }))
       .statusCode,

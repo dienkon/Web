@@ -12,7 +12,7 @@ npm run preview
 
 The build installs missing child dependencies (always uses `npm ci` in CI), builds seven applications, and assembles **only public runtime files** into `dist`. Source HTML is never overwritten. `npm run build:static` packages existing child builds after changes to the static platform. `build.js` is a compatibility entry point for this packaging step.
 
-Vercel uses the existing `chem-dex` project, repository `dienkon/Web`, Root Directory `ChemDex`, build command `npm run build`, output `dist`, Node 22. All server routes are dispatched by one `api/[...route].ts` function; implementations live outside the public output in `server/routes`. This also avoids publishing helper files as separate serverless endpoints. Configure `GEMINI_API_KEY` (or `GOOGLE_API_KEY`) and optionally `GEMINI_MODEL` as **server variables**. No application key is embedded in the lab frontend. Optional personal keys are held only in sessionStorage and forwarded to the server in a request header.
+Vercel uses the existing `chem-dex` project, repository `dienkon/Web`, Root Directory `ChemDex`, build command `npm run build`, output `dist`, Node 22. Explicit `/api/:path*` rewrites dispatch server routes through one `api/dispatch.ts` function; implementations live outside the public output in `server/routes`. This also avoids publishing helper files as separate serverless endpoints. Configure `GEMINI_API_KEY` (or `GOOGLE_API_KEY`) and optionally `GEMINI_MODEL` as **server variables**. No application key is embedded in the lab frontend. Optional personal keys are held only in sessionStorage and forwarded to the server in a request header.
 
 | Public route | Purpose |
 | --- | --- |
@@ -75,6 +75,7 @@ npm --prefix lab-safety test
 npm --prefix lab-safety run test:practical
 npx playwright install --with-deps chromium firefox webkit
 npm run test:browser
+npm run test:preview -- https://YOUR-CHEMDEX-PREVIEW.vercel.app
 node scripts/measure-platform.mjs
 node scripts/benchmark-browser.mjs
 ```

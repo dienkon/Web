@@ -31,7 +31,8 @@ Detailed generated measurements remain under ignored `artifacts/platform/`; they
 
 - GitHub source baseline: `3c17731`; clean-install dependency correction: `3acdc48`.
 - Vercel correctly built `3acdc48` as a Preview in the existing `chem-dex` project. Its deployment ID is `CKKWne4kuaShaiFzaopBWeY7yRHu`; URL: https://chem-bs5pgqmht-duongthanhdien3456-2621s-projects.vercel.app.
-- That Preview currently redirects to Vercel Authentication. Application checks against it remain pending authenticated access. A successful build is not counted as a passing remote browser check.
+- Vercel CLI authentication was completed by the project owner. The project settings now explicitly specify Node 22, `npm ci`, `npm run build`, and output `dist`; Git production branch is verified as `main`. Server environment contains `GEMINI_API_KEY` (value not logged).
+- Authenticated checks exposed that a standalone `[...route].ts` function was published as a literal filename by the Other framework preset. Explicit API rewrites to `api/dispatch.ts` replace that assumption. Remote API and browser verification against the corrected deployment remains required.
 - The first clean Linux CI run exposed floating-point aggregate residue after full water depletion. The correction uses authoritative water contents at complete depletion, retains real trace inventories and has regression tests. A clean CI rerun is required before promotion.
 - Production has not yet been promoted by this upgrade. Existing production source: `dfd08c24dd8fa2b5677646b7e5549055f2d82b36`; previous successful deployment: https://chem-obarvp7mg-duongthanhdien3456-2621s-projects.vercel.app (GitHub deployment `7328219991`).
 - After all gates pass, fast-forward the verified production branch, confirm `/api/health` reports the new commit, and test public routes/assets and chemistry APIs. The rollback target is the recorded previous deployment, promoted through Vercel; do not rewrite Git history.

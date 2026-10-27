@@ -16,6 +16,7 @@
     "build-lab-2d": "npm --prefix lab-2d run build",
     "test:platform": "node --test tests/platform.test.mjs",
     "test:browser": "playwright test",
+    "test:preview": "node scripts/test-preview.mjs",
     "preview": "node scripts/preview.mjs",
     "lint:api": "tsc -p tsconfig.server.json"
   },
