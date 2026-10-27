@@ -13,3 +13,5 @@ test-results/
 artifacts/platform/
 
 .cache/
+
+/artifacts/
