@@ -166,18 +166,26 @@ test("repeated molecular viewing releases global handlers and measures reference
     page.locator("chem-structure-viewer .viewer-status"),
   ).toContainText("Kéo để xoay");
   const client = await page.context().newCDPSession(page);
+  const scripts = new Map();
+  client.on("Debugger.scriptParsed", event=>scripts.set(event.scriptId,event.url));
+  await client.send("Debugger.enable");
+  const platformPrefix=new URL("/platform/",page.url()).href;
   const listeners = async (expression) => {
     const object = await client.send("Runtime.evaluate", { expression });
     return (
       await client.send("DOMDebugger.getEventListeners", {
         objectId: object.result.objectId,
       })
-    ).listeners.length;
+    ).listeners.filter(listener=>scripts.get(listener.scriptId)?.startsWith(platformPrefix)).length;
   };
   const before = {
     window: await listeners("window"),
     body: await listeners("document.body"),
   };
+  // Scope to application scripts: the Vercel Preview toolbar can attach its
+  // own global handlers after page load and is outside the viewer lifecycle.
+  expect(before.window).toBeGreaterThan(0);
+  expect(before.body).toBeGreaterThan(0);
   for (const id of ["cid-241", "cid-702", "cid-2519", "cid-962"]) {
     await page.locator(`#cards [data-id="${id}"]`).click();
     await expect(

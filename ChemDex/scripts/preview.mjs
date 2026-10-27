@@ -72,7 +72,7 @@ const server = http.createServer(async (req, res) => {
       return res.end();
     }
     if (pathname === "/lab" || pathname.startsWith("/lab/")) {
-      res.writeHead(307, { Location: pathname.replace(/^\/lab/, "/lab-3d") });
+      res.writeHead(307, { Location: pathname === "/lab" ? "/lab-3d/" : pathname.replace(/^\/lab/, "/lab-3d") });
       return res.end();
     }
     let file = path.resolve(output, "." + pathname);
