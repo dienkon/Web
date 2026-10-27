@@ -93,6 +93,10 @@ async function open(record) {
   const url = new URL(location.href);
   url.searchParams.delete("cid");
   url.searchParams.set("compound", record.id);
+  if (record.id.startsWith("remote-") && record.cid) {
+    url.searchParams.delete("compound");
+    url.searchParams.set("cid", String(record.cid));
+  }
   history.replaceState(null, "", url);
   const old = $("selected").querySelector("chem-structure-viewer");
   old?.remove();
@@ -228,6 +232,10 @@ async function remote() {
             open(record);
           }),
       );
+    // An exact CID has one identity; opening its shared URL restores that
+    // structure. Formula/name searches continue to require explicit selection.
+    if (/^\d+$/.test(value) && data.results.length === 1)
+      $("remote-results").querySelector("button")?.click();
   } catch (error) {
     if (controller.signal.aborted) return;
     $("remote-results").innerHTML =

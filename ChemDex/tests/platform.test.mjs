@@ -174,4 +174,35 @@ test("serverless routes validate inputs and retain JSON errors", async () => {
       .statusCode,
     400,
   );
+  const originalFetch = globalThis.fetch;
+  const upstreamCalls = [];
+  let retryCount = 0;
+  globalThis.fetch = async (url) => {
+    upstreamCalls.push(String(url));
+    if (String(url).includes("99999996")) throw new DOMException("Timed out", "TimeoutError");
+    if (String(url).includes("99999997")) return new Response("<html>Unavailable</html>", {headers:{"content-type":"text/html"}});
+    if (String(url).includes("99999998/SDF")) return String(url).includes("record_type=3d")
+      ? new Response("", {status:404})
+      : new Response(fs.readFileSync("shared/structures/962.sdf", "utf8"));
+    if (String(url).includes("99999995") && retryCount++ === 0) return new Response("", {status:429});
+    return Response.json({PropertyTable:{Properties:[
+      {CID:1,IUPACName:"molecule",MolecularFormula:"H2O",MolecularWeight:"18.015",Charge:0,CovalentUnitCount:1},
+      {CID:2,IUPACName:"ion",MolecularFormula:"Na+",MolecularWeight:"22.99",Charge:1,CovalentUnitCount:1},
+      {CID:3,IUPACName:"salt components",MolecularFormula:"ClNa",MolecularWeight:"58.44",Charge:0,CovalentUnitCount:2},
+    ]}});
+  };
+  try {
+    const candidates = await request("/api/chemistry/search", "GET", {}, {q:"99999999"});
+    assert.deepEqual(candidates.body.results.map(r=>r.kind), ["molecule","ion","components"]);
+    const beforeCache = upstreamCalls.length;
+    await request("/api/chemistry/search", "GET", {}, {q:"99999999"});
+    assert.equal(upstreamCalls.length, beforeCache);
+    const flat = await request("/api/chemistry/structure", "GET", {}, {cid:"99999998"});
+    assert.equal(flat.statusCode, 200);
+    assert.equal(flat.body.dimension, "2d");
+    for (const cid of ["99999997", "99999996"])
+      assert.equal((await request("/api/chemistry/structure", "GET", {}, {cid})).statusCode, 503);
+    assert.equal((await request("/api/chemistry/search", "GET", {}, {q:"99999995"})).statusCode, 200);
+    assert.equal(retryCount, 2);
+  } finally { globalThis.fetch = originalFetch; }
 });

@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import fs from "node:fs";
 test("118 elements, accent-free search, filters and comparison", async ({
   page,
 }) => {
@@ -124,6 +125,24 @@ test("remote errors preserve offline library and API errors are JSON", async ({
   const missing = await request.get("/lab-2d/assets/missing.js");
   expect(missing.status()).toBe(404);
 });
+test("shared PubChem CID restores the selected remote record", async ({page}) => {
+  const cid=99999999;
+  await page.route("**/api/chemistry/search?**", route=>route.fulfill({
+    json:{results:[{cid,name_en:"Reference water fixture",formula:"H2O",molarMass:18.015,kind:"molecule"}]},
+  }));
+  await page.route("**/api/chemistry/structure?**", route=>route.fulfill({
+    json:{cid,dimension:"3d",format:"sdf",data:fs.readFileSync("shared/structures/962.sdf","utf8")},
+  }));
+  await page.goto("/tien-ich/cau-truc-3d/");
+  await page.locator("#search").fill(String(cid));
+  await page.locator("#remote").click();
+  await expect(page.locator("#selected h2")).toHaveText("Reference water fixture");
+  await expect(page).toHaveURL(new RegExp(`[?&]cid=${cid}`));
+  await page.reload();
+  await expect(page.locator("#selected h2")).toHaveText("Reference water fixture");
+  await expect(page.locator(".viewer-status")).not.toHaveText("Đang tải cấu trúc…");
+});
+
 test("repeated molecular viewing releases global handlers and measures reference geometry", async ({
   page,
   browserName,

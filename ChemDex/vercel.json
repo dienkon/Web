@@ -36,19 +36,19 @@
       "destination": "/api/dispatch?__route=:path*"
     },
     {
-      "source": "/trung-tam/tai-lieu-so/:path*/",
+      "source": "/trung-tam/tai-lieu-so/:path([^.]*)/",
       "destination": "/trung-tam/index.html"
     },
     {
-      "source": "/trung-tam/tai-lieu-so/:path*",
+      "source": "/trung-tam/tai-lieu-so/:path([^.]*)",
       "destination": "/trung-tam/index.html"
     },
     {
-      "source": "/trung-tam/cong-dong/:path*/",
+      "source": "/trung-tam/cong-dong/:path([^.]*)/",
       "destination": "/trung-tam/index.html"
     },
     {
-      "source": "/trung-tam/cong-dong/:path*",
+      "source": "/trung-tam/cong-dong/:path([^.]*)",
       "destination": "/trung-tam/index.html"
     },
     {
