@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import {PERIODIC_ELEMENTS,CATEGORY_COLORS} from '../../data/periodicTable';
 import {CHEMICAL_CATALOG} from '../../data/chemicals';
 import {useLabStore} from '../../store/useLabStore';
-const normalize=(value:string)=>value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replaceAll('đ','d').toLowerCase();
+const normalize=(value:string)=>value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replaceAll('đ','d');
 export function PeriodicTableModal({isOpen,onClose}:{isOpen:boolean;onClose:()=>void}){
  const [query,setQuery]=useState(''),[selected,setSelected]=useState(PERIODIC_ELEMENTS[0]);const language=useLabStore(s=>s.language);
  if(!isOpen)return null;const chemical=CHEMICAL_CATALOG.find(c=>c.formula===selected.symbol);
