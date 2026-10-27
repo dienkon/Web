@@ -305,12 +305,13 @@ function SceneEnvironmentSetup({ tier }: { tier: QualityTier }) {
   useEffect(() => {
     (scene as any).environmentIntensity = 0.9;
     gl.localClippingEnabled = true;
+    gl.transmissionResolutionScale = settings.transmissionResolutionScale;
     if (!settings.usePostFX) {
       gl.toneMapping = THREE.ACESFilmicToneMapping;
     } else {
       gl.toneMapping = THREE.NoToneMapping;
     }
-  }, [scene, gl, settings.usePostFX]);
+  }, [scene, gl, settings.usePostFX, settings.transmissionResolutionScale]);
 
   return null;
 }
@@ -664,6 +665,11 @@ export function LabScene() {
           stencil: false,
         }}
         onCreated={({ gl }) => {
+          const context = gl.getContext();
+          const extension = context.getExtension('WEBGL_debug_renderer_info');
+          if (extension) {
+            useQualityStore.getState().configureRenderer(String(context.getParameter(extension.UNMASKED_RENDERER_WEBGL)));
+          }
           gl.localClippingEnabled = true;
         }}
         onPointerMissed={(e) => {
@@ -683,7 +689,7 @@ export function LabScene() {
         <SceneEnvironmentSetup tier={effectiveTier} />
 
         {/* Procedural Laboratory Environment with fluorescent tube reflections */}
-        <Environment resolution={256} frames={1}>
+        <Environment resolution={qualitySettings.glassTransmission ? 256 : 64} frames={1}>
           {/* Main overhead softbox */}
           <Lightformer
             form="rect"

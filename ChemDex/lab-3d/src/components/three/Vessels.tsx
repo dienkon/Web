@@ -6,7 +6,7 @@ import * as THREE from 'three';
 import { useAppStore, getChemical } from '../../store/useAppStore';
 import { labSound } from '../../utils/audio';
 import { getReagentBottleLabelTexture, getVesselGraduationTexture } from '../../vfx/textures';
-import { useQualityStore } from '../../vfx/quality';
+import { useQualityStore, getQualitySettings } from '../../vfx/quality';
 import { getGlassMaterials, getCeramicMaterials, createVesselLatheGeometry } from '../../vfx/materials/glass';
 import { RealisticLiquid } from '../../vfx/materials/liquid';
 import { Bubbles, GasPlume } from '../../vfx/particles';
@@ -308,6 +308,7 @@ export const Bottle = React.memo(function Bottle({
   hazard = 'safe',
   isAmber = false,
 }: BottleProps) {
+  const transmission=useQualityStore(state=>getQualitySettings(state.effectiveTier).glassTransmission);
   const labelMap = useMemo(
     () => getReagentBottleLabelTexture(name, formula, hazard),
     [name, formula, hazard]
@@ -323,7 +324,7 @@ export const Bottle = React.memo(function Bottle({
         <meshPhysicalMaterial
           color={glassColor}
           roughness={isAmber ? 0.16 : 0.08}
-          transmission={isAmber ? 0.35 : 0.88}
+          transmission={transmission ? (isAmber ? 0.35 : 0.88) : 0}
           thickness={0.2}
           ior={1.5}
           transparent
@@ -338,7 +339,7 @@ export const Bottle = React.memo(function Bottle({
         <meshPhysicalMaterial
           color={glassColor}
           roughness={isAmber ? 0.16 : 0.08}
-          transmission={isAmber ? 0.35 : 0.88}
+          transmission={transmission ? (isAmber ? 0.35 : 0.88) : 0}
           thickness={0.2}
           ior={1.5}
           transparent

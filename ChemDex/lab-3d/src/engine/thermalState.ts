@@ -171,10 +171,17 @@ export function applyThermalEnergy(vessel: VesselState, netEnergy: number, dt = 
     }
   }
   let contents = vessel.contents;
+  // Contents are authoritative at complete depletion. Repeated subtraction
+  // from the aggregate mass/volume can leave a few ulps after the last water
+  // packet has gone; retain every real non-water inventory, however small.
+  const waterEntries = new Set(water);
+  const completelyDryWater = waterMass > 0 && vaporized >= waterMass
+    && vessel.contents.every(item => waterEntries.has(item) || item.mass_g === 0);
+  const remainingVolume = completelyDryWater ? 0 : Math.max(0, vessel.volume_ml - vaporized);
+  const remainingMass = completelyDryWater ? 0 : Math.max(0, vessel.mass_g - vaporized);
   if (vaporized > 0) {
     const keep = Math.max(0, 1 - vaporized / waterMass);
-    const waterEntries = new Set(water);
-    const newVolume = Math.max(0, vessel.volume_ml - vaporized);
+    const newVolume = remainingVolume;
     contents = vessel.contents.map(item => {
       if (waterEntries.has(item)) return { ...item, mass_g: item.mass_g * keep,
         moles: item.moles * keep };
@@ -182,8 +189,8 @@ export function applyThermalEnergy(vessel: VesselState, netEnergy: number, dt = 
     });
   }
   return { ...base, temperature_c: temperature, contents,
-    volume_ml: Math.max(0, vessel.volume_ml - vaporized), mass_g: Math.max(0, vessel.mass_g - vaporized),
-    volume: vessel.capacity_ml > 0 ? Math.max(0, (vessel.volume_ml - vaporized) / vessel.capacity_ml) : 0,
+    volume_ml: remainingVolume, mass_g: remainingMass,
+    volume: vessel.capacity_ml > 0 ? remainingVolume / vessel.capacity_ml : 0,
     evaporatedStep_g: vaporized, evaporated_ml: (vessel.evaporated_ml ?? 0) + vaporized,
     thermalVaporEnthalpy_J: (vessel.thermalVaporEnthalpy_J ?? 0) + vaporizationEnergy + vaporSensibleEnergy_J,
     thermalVaporSensibleEnthalpy_J: (vessel.thermalVaporSensibleEnthalpy_J ?? 0) + vaporSensibleEnergy_J,

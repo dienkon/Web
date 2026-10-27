@@ -23,6 +23,15 @@ const receiver = (patch: Partial<VesselState> = {}) => sample({ id: 'r', type: '
 afterEach(() => { useAppStore.setState(initial, true); SimulationEngine.clearAll(); });
 
 describe('Emitted vapor carries finite enthalpy through the shared water boundary', () => {
+  it('canonicalizes fully depleted water without erasing a real trace inventory', () => {
+    const water = sample({ mass_g: 1 + Number.EPSILON, volume_ml: 1 + Number.EPSILON });
+    const depleted = applyThermalEnergy(water, 5000);
+    expect(depleted.mass_g).toBe(0);
+    expect(depleted.volume_ml).toBe(0);
+    const trace = { formula: 'Cu', phase: 's' as const, mass_g: 1e-18, moles: 1e-18 / 63.546 };
+    const withTrace = applyThermalEnergy(sample({ contents: [...water.contents, trace] }), 5000);
+    expect(withTrace.contents?.find(item => item.formula === 'Cu')?.mass_g).toBe(1e-18);
+  });
   it('does not assign later dry-glass superheat to water that already boiled away', () => {
     const before = sample(), q = waterLatentHeatJ_G(boiling) + 33.2 * 400;
     const thermal = applyThermalEnergy(before, q), after = { ...before, ...thermal };

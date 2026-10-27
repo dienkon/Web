@@ -76,6 +76,7 @@ npm --prefix lab-safety run test:practical
 npx playwright install --with-deps chromium firefox webkit
 npm run test:browser
 node scripts/measure-platform.mjs
+node scripts/benchmark-browser.mjs
 ```
 
 The preview must be running for the Lighthouse command. Its output records three identically configured mobile runs per route and medians; targets are Performance 90 and Accessibility 95 for home/tool directory. Browser checks cover 360-px layouts, actual React hydration, session save/restore, structure rendering/fallback, measured NIST water geometry and release of global event handlers. Chrome/Edge-only inspections explicitly use DevTools; their skips in other engines are intentional.

@@ -4,10 +4,23 @@ import {makeSession,restoreSession,validateSession} from '../services/labSession
 import {CHEMICAL_CATALOG} from '../data/chemicals';
 import {REACTION_DATABASE} from '../chemistry/reactions/reactionDatabase';
 import {EXPERIMENTS_CATALOG} from '../data/experiments';
+import {isElementBalancedReaction} from '../chemistry/core/ledger';
 const state=()=>useLabStore.getState();
 const add=(id:string,chemical:string,ml=10,g=0)=>state().addChemicalToEquipment(id,chemical,ml,g);
 const check=()=>{expect(state().checkStepProgress()).toBe(true);state().nextStep();};
 beforeEach(()=>{state().resetWorkbench();state().selectExperiment(null);useLabStore.setState({undoStack:[],redoStack:[],simulationPaused:false,studentNotes:''});});
+
+describe('AI reaction conservation gate',()=>{
+ it('accepts balanced catalog chemistry and rejects changed atoms or invalid amounts',()=>{
+  const balanced=REACTION_DATABASE.find(reaction=>reaction.id==='rx_fe_cuso4_displacement')!;
+  expect(isElementBalancedReaction(balanced)).toBe(true);
+  const unbalanced=structuredClone(balanced);unbalanced.products[0].coefficient+=1;
+  expect(isElementBalancedReaction(unbalanced)).toBe(false);
+  for(const value of [0,-1,NaN,Infinity]){const bad=structuredClone(balanced);bad.reactants[0].coefficient=value;expect(isElementBalancedReaction(bad)).toBe(false);}
+  const invalidHeat=structuredClone(balanced);invalidHeat.deltaH_kJ_mol=Infinity;
+  expect(isElementBalancedReaction(invalidHeat)).toBe(false);
+ });
+});
 describe('New guided experiments',()=>{
  it('has 20 unique experiments and unique deterministic reaction IDs',()=>{expect(EXPERIMENTS_CATALOG).toHaveLength(20);expect(new Set(EXPERIMENTS_CATALOG.map(e=>e.id)).size).toBe(20);expect(new Set(REACTION_DATABASE.map(r=>r.id)).size).toBe(REACTION_DATABASE.length);});
  it('identifies AgCl, AgBr and AgI in separate vessels',()=>{state().selectExperiment('exp-halide-identification');for(const chemical of ['chem-nacl','chem-nabr','chem-ki']){const id=state().addEquipment('test_tube');add(id,'chem-agno3');add(id,chemical);check();}});
