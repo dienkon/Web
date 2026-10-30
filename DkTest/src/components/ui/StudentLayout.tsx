@@ -186,15 +186,15 @@ function StudentLayoutContent() {
   ];
 
   return (
-    <div className="min-h-dvh h-dvh w-full max-w-[100vw] overflow-hidden bg-slate-50 font-sans text-slate-900 flex flex-col">
+    <div className="min-h-dvh h-dvh w-full max-w-[100vw] overflow-hidden bg-slate-50 dark:bg-slate-950 font-sans text-slate-900 dark:text-slate-100 flex flex-col transition-colors duration-200">
       {!hideStudentNav && (
-        <header className="h-14 sm:h-16 bg-white border-b border-slate-200 flex items-center justify-between px-3 sm:px-6 shadow-2xs shrink-0 z-30">
+        <header className="h-14 sm:h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-3 sm:px-6 shadow-2xs shrink-0 z-30 transition-colors duration-200">
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Mobile Hamburger Drawer Button */}
             <button
               type="button"
               onClick={() => setIsMobileDrawerOpen(true)}
-              className="md:hidden p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
+              className="md:hidden p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors cursor-pointer"
               title="Mở menu"
             >
               <Menu className="w-5 h-5" />
@@ -202,7 +202,7 @@ function StudentLayoutContent() {
 
             <Link
               to="/"
-              className="flex items-center gap-1.5 sm:gap-2 text-slate-600 hover:text-slate-900 p-1.5 rounded-xl hover:bg-slate-100 transition-colors"
+              className="flex items-center gap-1.5 sm:gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               title="Về trang chủ"
             >
               <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 text-slate-500" />
@@ -220,10 +220,10 @@ function StudentLayoutContent() {
 
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Quick Portal Switcher */}
-            <div className="hidden sm:flex items-center bg-slate-100 p-1 rounded-xl text-xs font-bold text-slate-600">
+            <div className="hidden sm:flex items-center bg-slate-100 dark:bg-slate-800 border border-slate-200/50 dark:border-slate-700/60 p-1 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400">
               <Link
                 to="/parent/dashboard"
-                className="px-2.5 py-1 text-slate-600 hover:text-indigo-700 hover:bg-white/60 rounded-lg transition-all flex items-center gap-1.5"
+                className="px-2.5 py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-700 dark:hover:text-indigo-300 hover:bg-white/60 dark:hover:bg-slate-700/50 rounded-lg transition-all flex items-center gap-1.5"
                 title="Cổng Phụ huynh & Soạn đề ChatGPT"
               >
                 <HeartHandshake className="w-3.5 h-3.5 text-indigo-600" />
@@ -232,7 +232,7 @@ function StudentLayoutContent() {
               {isAdmin && (
                 <Link
                   to="/admin/exams"
-                  className="px-2.5 py-1 text-slate-600 hover:text-blue-700 hover:bg-white/60 rounded-lg transition-all flex items-center gap-1.5"
+                  className="px-2.5 py-1 text-slate-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 hover:bg-white/60 dark:hover:bg-slate-700/50 rounded-lg transition-all flex items-center gap-1.5"
                   title="Cổng Quản trị Viên"
                 >
                   <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
@@ -271,7 +271,7 @@ function StudentLayoutContent() {
                   to="/student/profile"
                   data-tour-id={TOUR_DATA_IDS.HEADER_AVATAR}
                   onClick={() => triggerAction("click_profile")}
-                  className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 px-2.5 py-1 rounded-xl transition-colors cursor-pointer border border-slate-200/60"
+                  className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 px-2.5 py-1 rounded-xl transition-colors cursor-pointer border border-slate-200/60 dark:border-slate-700"
                   title="Chỉnh sửa hồ sơ cá nhân"
                 >
                   <UserAvatar
@@ -280,14 +280,14 @@ function StudentLayoutContent() {
                     size="xs"
                     shape="circle"
                   />
-                  <span className="text-xs font-bold text-slate-800 max-w-[90px] sm:max-w-[120px] truncate">
+                  <span className="text-xs font-bold text-slate-800 dark:text-slate-200 max-w-[90px] sm:max-w-[120px] truncate">
                     {currentAccount.displayName || "Học sinh"}
                   </span>
                 </Link>
                 <button
                   type="button"
                   onClick={() => setShowLogoutModal(true)}
-                  className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-colors cursor-pointer"
+                  className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-xl transition-colors cursor-pointer"
                   title="Đăng xuất"
                 >
                   <LogOut className="w-4 h-4" />
@@ -311,13 +311,13 @@ function StudentLayoutContent() {
       <div className="flex-1 flex overflow-hidden relative">
         {!hideStudentNav && (
           <aside
-            className={`bg-white border-r border-slate-200 hidden md:flex flex-col shrink-0 transition-all duration-200 ease-in-out z-20 shadow-xs select-none relative ${
+            className={`bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 hidden md:flex flex-col shrink-0 transition-all duration-200 ease-in-out z-20 shadow-xs select-none relative ${
               isSidebarCollapsed ? "w-16 p-2.5" : "w-60 p-4"
             }`}
           >
             {/* Header with Title and Modern Collapse / Expand Toggle Button */}
             <div
-              className={`flex items-center mb-2 pb-2 border-b border-slate-100 ${
+              className={`flex items-center mb-2 pb-2 border-b border-slate-100 dark:border-slate-800 ${
                 isSidebarCollapsed ? "justify-center" : "justify-between px-1"
               }`}
             >
@@ -329,7 +329,7 @@ function StudentLayoutContent() {
               <button
                 type="button"
                 onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-                className="w-7 h-7 rounded-lg bg-slate-100 hover:bg-blue-50 text-slate-500 hover:text-blue-600 flex items-center justify-center transition-all cursor-pointer border border-slate-200/60 shrink-0"
+                className="w-7 h-7 rounded-lg bg-slate-100 hover:bg-blue-50 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 flex items-center justify-center transition-all cursor-pointer border border-slate-200/60 dark:border-slate-700 shrink-0"
                 title={isSidebarCollapsed ? "Mở rộng sidebar" : "Thu gọn sidebar"}
               >
                 {isSidebarCollapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
@@ -352,8 +352,8 @@ function StudentLayoutContent() {
                     title={isSidebarCollapsed ? item.label : undefined}
                     className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold transition-all ${
                       isActive
-                        ? "bg-blue-50 text-blue-700 shadow-2xs border border-blue-100"
-                        : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                        ? "bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400 shadow-2xs border border-blue-100 dark:border-blue-800"
+                        : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-100"
                     } ${isSidebarCollapsed ? "justify-center px-2" : ""}`}
                   >
                     <Icon className={`w-4 h-4 shrink-0 ${item.iconColor || ""}`} />
@@ -368,7 +368,7 @@ function StudentLayoutContent() {
               <div className="mt-auto pt-4 border-t border-slate-100">
                 <Link
                   to="/student/profile"
-                  className={`p-2 bg-slate-50 hover:bg-slate-100 rounded-2xl flex items-center gap-2.5 transition-colors cursor-pointer border border-slate-200/50 ${
+                  className={`p-2 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800/60 dark:hover:bg-slate-800 rounded-2xl flex items-center gap-2.5 transition-colors cursor-pointer border border-slate-200/50 dark:border-slate-700/60 ${
                     isSidebarCollapsed ? "justify-center" : ""
                   }`}
                   title="Hồ sơ cá nhân"
@@ -381,7 +381,7 @@ function StudentLayoutContent() {
                   />
                   {!isSidebarCollapsed && (
                     <div className="truncate flex-1">
-                      <div className="text-xs font-bold text-slate-800 truncate">{currentAccount.displayName || "Thí sinh"}</div>
+                      <div className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">{currentAccount.displayName || "Thí sinh"}</div>
                       <div className="text-[10px] text-slate-400 truncate">@{currentAccount.username || "student"}</div>
                     </div>
                   )}
@@ -401,7 +401,7 @@ function StudentLayoutContent() {
             />
 
             {/* Drawer */}
-            <div className="fixed inset-y-0 left-0 max-w-xs w-3/4 bg-white shadow-2xl z-10 p-5 flex flex-col space-y-6">
+            <div className="fixed inset-y-0 left-0 max-w-xs w-3/4 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 shadow-2xl z-10 p-5 flex flex-col space-y-6">
               <div className="flex items-center justify-between pb-4 border-b border-slate-100">
                 <BrandLogo size="xs" badgeText="Phòng thi" theme="blue" />
                 <div className="flex items-center gap-1.5">
@@ -421,7 +421,7 @@ function StudentLayoutContent() {
                 <Link
                   to="/student/profile"
                   onClick={() => setIsMobileDrawerOpen(false)}
-                  className="p-3 bg-slate-50 rounded-2xl flex items-center gap-3 border border-slate-200/70"
+                  className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-2xl flex items-center gap-3 border border-slate-200/70 dark:border-slate-700/60"
                 >
                   <UserAvatar
                     src={currentAccount.avatarUrl}
@@ -430,7 +430,7 @@ function StudentLayoutContent() {
                     shape="rounded"
                   />
                   <div className="truncate flex-1">
-                    <div className="text-sm font-bold text-slate-900 truncate">{currentAccount.displayName || "Thí sinh"}</div>
+                    <div className="text-sm font-bold text-slate-900 dark:text-slate-100 truncate">{currentAccount.displayName || "Thí sinh"}</div>
                     <div className="text-xs text-slate-500 truncate">@{currentAccount.username || "student"}</div>
                     <div className="flex items-center gap-1.5 mt-1">
                       <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-amber-100 text-amber-800 text-[10px] font-bold">
@@ -506,7 +506,7 @@ function StudentLayoutContent() {
           </div>
         )}
 
-        <main className="flex-1 overflow-y-auto pb-24 md:pb-6">
+        <main className="flex-1 overflow-y-auto pb-24 md:pb-6 bg-slate-50/50 dark:bg-slate-950/60">
           <Outlet />
         </main>
       </div>

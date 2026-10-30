@@ -2,12 +2,216 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* =========================================================
+   DKTEST ADAPTIVE THEME SYSTEM (LIGHT + MULTI-INTENSITY DARK)
+   ========================================================= */
+
+/* Smooth, high-performance theme transition for entire system */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition: background-color 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+              fill 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+              stroke 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transition-delay: 0s !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.theme-transitioning,
+  html.theme-transitioning *,
+  html.theme-transitioning *::before,
+  html.theme-transitioning *::after {
+    transition: none !important;
+  }
+}
+
+:root {
+  color-scheme: light;
+  --theme-bg: #f8fafc;
+  --theme-surface: #ffffff;
+  --theme-surface-hover: #f1f5f9;
+  --theme-card: #ffffff;
+  --theme-card-subtle: #f8fafc;
+  --theme-border: #e2e8f0;
+  --theme-border-subtle: #f1f5f9;
+  --theme-text-primary: #0f172a;
+  --theme-text-secondary: #475569;
+  --theme-text-muted: #64748b;
+  --theme-accent: #2563eb;
+  --theme-accent-hover: #1d4ed8;
+}
+
 html.dark {
   color-scheme: dark;
 }
+
+/* 1. MẶC ĐỊNH: Tối vừa chuẩn Google Chrome & Material Design (#202124) */
+html.dark,
+html.dark[data-dark-intensity="chrome"] {
+  --theme-bg: #202124;
+  --theme-surface: #292a2d;
+  --theme-surface-hover: #35363a;
+  --theme-card: #292a2d;
+  --theme-card-subtle: #242528;
+  --theme-border: #3c4043;
+  --theme-border-subtle: #303336;
+  --theme-text-primary: #f1f3f4;
+  --theme-text-secondary: #bdc1c6;
+  --theme-text-muted: #9aa0a6;
+  --theme-accent: #3b82f6;
+  --theme-accent-hover: #60a5fa;
+
+  /* Dynamically re-map Tailwind slate palette in dark mode */
+  --color-slate-950: #18191b;
+  --color-slate-900: #202124;
+  --color-slate-800: #292a2d;
+  --color-slate-700: #35363a;
+  --color-slate-600: #5f6368;
+  --color-slate-500: #80868b;
+  --color-slate-400: #9aa0a6;
+  --color-slate-300: #bdc1c6;
+  --color-slate-200: #dadce0;
+  --color-slate-100: #f1f3f4;
+  --color-slate-50: #ffffff;
+}
+
+/* 2. Tối nhẹ: Soft Slate (~#23272f) - Dịu mắt, độ tương phản mềm mại */
+html.dark[data-dark-intensity="soft"] {
+  --theme-bg: #23272f;
+  --theme-surface: #2d323f;
+  --theme-surface-hover: #373e4f;
+  --theme-card: #2d323f;
+  --theme-card-subtle: #272b36;
+  --theme-border: #3e4453;
+  --theme-border-subtle: #343a47;
+  --theme-text-primary: #f8fafc;
+  --theme-text-secondary: #cbd5e1;
+  --theme-text-muted: #94a3b8;
+  --theme-accent: #3b82f6;
+  --theme-accent-hover: #60a5fa;
+
+  --color-slate-950: #1b1e24;
+  --color-slate-900: #23272f;
+  --color-slate-800: #2d323f;
+  --color-slate-700: #373e4f;
+  --color-slate-600: #525c70;
+  --color-slate-500: #6d7990;
+  --color-slate-400: #94a3b8;
+  --color-slate-300: #cbd5e1;
+  --color-slate-200: #e2e8f0;
+  --color-slate-100: #f8fafc;
+  --color-slate-50: #ffffff;
+}
+
+/* 3. Tối sâu: Deep Midnight (~#0b0f19) - Tông xanh đêm vũ trụ */
+html.dark[data-dark-intensity="deep"] {
+  --theme-bg: #0b0f19;
+  --theme-surface: #151c2e;
+  --theme-surface-hover: #1e293b;
+  --theme-card: #151c2e;
+  --theme-card-subtle: #0f1422;
+  --theme-border: #283548;
+  --theme-border-subtle: #1e2838;
+  --theme-text-primary: #f1f5f9;
+  --theme-text-secondary: #cbd5e1;
+  --theme-text-muted: #94a3b8;
+  --theme-accent: #3b82f6;
+  --theme-accent-hover: #60a5fa;
+
+  --color-slate-950: #070a12;
+  --color-slate-900: #0b0f19;
+  --color-slate-800: #151c2e;
+  --color-slate-700: #1e293b;
+  --color-slate-600: #334155;
+  --color-slate-500: #64748b;
+  --color-slate-400: #94a3b8;
+  --color-slate-300: #cbd5e1;
+  --color-slate-200: #e2e8f0;
+  --color-slate-100: #f1f5f9;
+  --color-slate-50: #ffffff;
+}
+
+/* 4. Siêu tối OLED: Pure Black (#000000) - Tối đa tiết kiệm pin & tương phản cao */
+html.dark[data-dark-intensity="oled"] {
+  --theme-bg: #000000;
+  --theme-surface: #0e1014;
+  --theme-surface-hover: #181b21;
+  --theme-card: #0e1014;
+  --theme-card-subtle: #07080a;
+  --theme-border: #242730;
+  --theme-border-subtle: #191b22;
+  --theme-text-primary: #ffffff;
+  --theme-text-secondary: #d1d5db;
+  --theme-text-muted: #8e929b;
+  --theme-accent: #3b82f6;
+  --theme-accent-hover: #60a5fa;
+
+  --color-slate-950: #000000;
+  --color-slate-900: #0a0b0e;
+  --color-slate-800: #14161b;
+  --color-slate-700: #22252c;
+  --color-slate-600: #373b45;
+  --color-slate-500: #6b7280;
+  --color-slate-400: #9ca3af;
+  --color-slate-300: #d1d5db;
+  --color-slate-200: #e5e7eb;
+  --color-slate-100: #f9fafb;
+  --color-slate-50: #ffffff;
+}
+
 html.dark body {
-  background-color: #0b0f19;
-  color: #f1f5f9;
+  background-color: var(--theme-bg);
+  color: var(--theme-text-primary);
+}
+
+/* Sleek dark mode scrollbars */
+html.dark ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+html.dark ::-webkit-scrollbar-track {
+  background: var(--theme-bg);
+}
+html.dark ::-webkit-scrollbar-thumb {
+  background: var(--theme-border);
+  border-radius: 4px;
+}
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-text-muted);
+}
+
+/* =========================================================
+   SYSTEM-WIDE ADAPTIVE UTILITY FALLBACKS
+   (Ensures smooth dark mode across cards, inputs, and text)
+   ========================================================= */
+html.dark :where(.bg-white:not([class*="dark:bg-"])) {
+  background-color: var(--theme-card);
+}
+html.dark :where(.bg-slate-50:not([class*="dark:bg-"])) {
+  background-color: var(--theme-bg);
+}
+html.dark :where(.bg-slate-100:not([class*="dark:bg-"])) {
+  background-color: var(--theme-surface-hover);
+}
+html.dark :where(.border-slate-100:not([class*="dark:border-"])),
+html.dark :where(.border-slate-200:not([class*="dark:border-"])),
+html.dark :where(.border-slate-300:not([class*="dark:border-"])) {
+  border-color: var(--theme-border);
+}
+html.dark :where(.text-slate-900:not([class*="dark:text-"])),
+html.dark :where(.text-slate-800:not([class*="dark:text-"])) {
+  color: var(--theme-text-primary);
+}
+html.dark :where(.text-slate-700:not([class*="dark:text-"])),
+html.dark :where(.text-slate-600:not([class*="dark:text-"])) {
+  color: var(--theme-text-secondary);
+}
+html.dark :where(.text-slate-500:not([class*="dark:text-"])) {
+  color: var(--theme-text-muted);
 }
 
 @layer utilities {

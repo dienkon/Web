@@ -36,22 +36,22 @@ export default function ConfirmModal({
   const getIcon = () => {
     switch (effectiveVariant) {
       case "danger":
-        return <Trash2 className="w-6 h-6 text-red-600" />;
+        return <Trash2 className="w-6 h-6 text-red-600 dark:text-red-400" />;
       case "warning":
-        return <AlertTriangle className="w-6 h-6 text-amber-600" />;
+        return <AlertTriangle className="w-6 h-6 text-amber-600 dark:text-amber-400" />;
       case "info":
-        return <Info className="w-6 h-6 text-blue-600" />;
+        return <Info className="w-6 h-6 text-blue-600 dark:text-blue-400" />;
     }
   };
 
   const getIconBg = () => {
     switch (effectiveVariant) {
       case "danger":
-        return "bg-red-100";
+        return "bg-red-100 dark:bg-red-950/50";
       case "warning":
-        return "bg-amber-100";
+        return "bg-amber-100 dark:bg-amber-950/50";
       case "info":
-        return "bg-blue-100";
+        return "bg-blue-100 dark:bg-blue-950/50";
     }
   };
 
@@ -70,16 +70,16 @@ export default function ConfirmModal({
     <div className="fixed inset-0 z-[9999] overflow-y-auto flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity animate-in fade-in duration-200"
+        className="fixed inset-0 bg-slate-900/60 dark:bg-black/75 backdrop-blur-xs transition-opacity animate-in fade-in duration-200"
         onClick={isLoading ? undefined : handleClose}
       />
 
       {/* Modal Card */}
-      <div className="relative bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 z-10 animate-in zoom-in-95 duration-200">
+      <div className="relative bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 z-10 animate-in zoom-in-95 duration-200 transition-colors duration-200">
         <button
           onClick={isLoading ? undefined : handleClose}
           disabled={isLoading}
-          className="absolute top-4 right-4 p-1 text-slate-400 hover:text-slate-600 rounded-lg transition-colors"
+          className="absolute top-4 right-4 p-1 text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300 rounded-lg transition-colors cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
@@ -90,17 +90,17 @@ export default function ConfirmModal({
           </div>
 
           <div className="flex-1 min-w-0 pr-4">
-            <h3 className="text-lg font-bold text-slate-900 leading-6">{title}</h3>
-            <div className="mt-2 text-sm text-slate-600 leading-relaxed whitespace-pre-line">{message}</div>
+            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 leading-6">{title}</h3>
+            <div className="mt-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line">{message}</div>
           </div>
         </div>
 
-        <div className="mt-6 flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
+        <div className="mt-6 flex items-center justify-end gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
           <button
             type="button"
             onClick={handleClose}
             disabled={isLoading}
-            className="px-4 py-2.5 text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors disabled:opacity-50"
+            className="px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl transition-colors cursor-pointer disabled:opacity-50"
           >
             {cancelText}
           </button>
@@ -110,7 +110,7 @@ export default function ConfirmModal({
               await onConfirm();
             }}
             disabled={isLoading}
-            className={`px-4 py-2.5 text-sm font-semibold rounded-xl transition-colors flex items-center gap-2 disabled:opacity-50 ${getConfirmButtonClasses()}`}
+            className={`px-4 py-2.5 text-sm font-semibold rounded-xl transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-50 ${getConfirmButtonClasses()}`}
           >
             {isLoading && <Loader2 className="w-4 h-4 animate-spin" />}
             {confirmText}
