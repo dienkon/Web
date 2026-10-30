@@ -1,0 +1,5520 @@
+{
+  "passed": true,
+  "checks": [
+    "finite solid geometry: warning-cone/front",
+    "finite solid geometry: warning-cone/three-quarter",
+    "bottom rests on support plane: warning-cone",
+    "bounded asset draw calls: warning-cone / 4",
+    "finite solid geometry: warning-cone/back",
+    "finite solid geometry: warning-cone/top",
+    "finite solid geometry: shipping-crate/front",
+    "finite solid geometry: shipping-crate/three-quarter",
+    "bottom rests on support plane: shipping-crate",
+    "bounded asset draw calls: shipping-crate / 5",
+    "finite solid geometry: shipping-crate/back",
+    "finite solid geometry: shipping-crate/top",
+    "finite solid geometry: phone/front",
+    "finite solid geometry: phone/three-quarter",
+    "bottom rests on support plane: phone",
+    "bounded asset draw calls: phone / 7",
+    "finite solid geometry: phone/back",
+    "finite solid geometry: phone/top",
+    "finite solid geometry: power-switch/front",
+    "finite solid geometry: power-switch/three-quarter",
+    "bottom rests on support plane: power-switch",
+    "bounded asset draw calls: power-switch / 6",
+    "finite solid geometry: power-switch/back",
+    "finite solid geometry: power-switch/top",
+    "finite solid geometry: safety-shield/front",
+    "finite solid geometry: safety-shield/three-quarter",
+    "bottom rests on support plane: safety-shield",
+    "bounded asset draw calls: safety-shield / 4",
+    "finite solid geometry: safety-shield/back",
+    "finite solid geometry: safety-shield/top",
+    "finite solid geometry: utility-tray/front",
+    "finite solid geometry: utility-tray/three-quarter",
+    "bottom rests on support plane: utility-tray",
+    "bounded asset draw calls: utility-tray / 2",
+    "finite solid geometry: utility-tray/back",
+    "finite solid geometry: utility-tray/top",
+    "finite solid geometry: held-pan/front",
+    "finite solid geometry: held-pan/three-quarter",
+    "bottom rests on support plane: held-pan",
+    "bounded asset draw calls: held-pan / 6",
+    "finite solid geometry: held-pan/back",
+    "finite solid geometry: held-pan/top",
+    "finite solid geometry: hand-brush/front",
+    "finite solid geometry: hand-brush/three-quarter",
+    "bottom rests on support plane: hand-brush",
+    "bounded asset draw calls: hand-brush / 4",
+    "finite solid geometry: hand-brush/back",
+    "finite solid geometry: hand-brush/top",
+    "finite solid geometry: extinguisher-nozzle/front",
+    "finite solid geometry: extinguisher-nozzle/three-quarter",
+    "bottom rests on support plane: extinguisher-nozzle",
+    "bounded asset draw calls: extinguisher-nozzle / 2",
+    "finite solid geometry: extinguisher-nozzle/back",
+    "finite solid geometry: extinguisher-nozzle/top",
+    "finite solid geometry: chemical-carrier/front",
+    "finite solid geometry: chemical-carrier/three-quarter",
+    "bottom rests on support plane: chemical-carrier",
+    "bounded asset draw calls: chemical-carrier / 3",
+    "finite solid geometry: chemical-carrier/back",
+    "finite solid geometry: chemical-carrier/top",
+    "finite solid geometry: domestic-carrier/front",
+    "finite solid geometry: domestic-carrier/three-quarter",
+    "bottom rests on support plane: domestic-carrier",
+    "bounded asset draw calls: domestic-carrier / 3",
+    "finite solid geometry: domestic-carrier/back",
+    "finite solid geometry: domestic-carrier/top",
+    "finite solid geometry: sharps-carrier/front",
+    "finite solid geometry: sharps-carrier/three-quarter",
+    "bottom rests on support plane: sharps-carrier",
+    "bounded asset draw calls: sharps-carrier / 10",
+    "finite solid geometry: sharps-carrier/back",
+    "finite solid geometry: sharps-carrier/top",
+    "finite solid geometry: worn-coat/front",
+    "finite solid geometry: worn-coat/three-quarter",
+    "bottom rests on support plane: worn-coat",
+    "bounded asset draw calls: worn-coat / 11",
+    "finite solid geometry: worn-coat/back",
+    "finite solid geometry: worn-coat/top",
+    "finite solid geometry: lab-door/front",
+    "finite solid geometry: lab-door/three-quarter",
+    "bottom rests on support plane: lab-door",
+    "bounded asset draw calls: lab-door / 32",
+    "finite solid geometry: lab-door/back",
+    "finite solid geometry: lab-door/top",
+    "finite solid geometry: transom-window/front",
+    "finite solid geometry: transom-window/three-quarter",
+    "bottom rests on support plane: transom-window",
+    "bounded asset draw calls: transom-window / 6",
+    "finite solid geometry: transom-window/back",
+    "finite solid geometry: transom-window/top",
+    "finite solid geometry: north-wall/front",
+    "finite solid geometry: north-wall/three-quarter",
+    "bottom rests on support plane: north-wall",
+    "bounded asset draw calls: north-wall / 1",
+    "finite solid geometry: north-wall/back",
+    "finite solid geometry: north-wall/top",
+    "finite solid geometry: vent-grille/front",
+    "finite solid geometry: vent-grille/three-quarter",
+    "bottom rests on support plane: vent-grille",
+    "bounded asset draw calls: vent-grille / 6",
+    "finite solid geometry: vent-grille/back",
+    "finite solid geometry: vent-grille/top",
+    "finite solid geometry: ventilation-duct/front",
+    "finite solid geometry: ventilation-duct/three-quarter",
+    "bottom rests on support plane: ventilation-duct",
+    "bounded asset draw calls: ventilation-duct / 10",
+    "finite solid geometry: ventilation-duct/back",
+    "finite solid geometry: ventilation-duct/top",
+    "finite solid geometry: hood-exhaust/front",
+    "finite solid geometry: hood-exhaust/three-quarter",
+    "bottom rests on support plane: hood-exhaust",
+    "bounded asset draw calls: hood-exhaust / 3",
+    "finite solid geometry: hood-exhaust/back",
+    "finite solid geometry: hood-exhaust/top",
+    "finite solid geometry: smoke-detector/front",
+    "finite solid geometry: smoke-detector/three-quarter",
+    "bottom rests on support plane: smoke-detector",
+    "bounded asset draw calls: smoke-detector / 5",
+    "finite solid geometry: smoke-detector/back",
+    "finite solid geometry: smoke-detector/top",
+    "finite solid geometry: sprinkler/front",
+    "finite solid geometry: sprinkler/three-quarter",
+    "bottom rests on support plane: sprinkler",
+    "bounded asset draw calls: sprinkler / 6",
+    "finite solid geometry: sprinkler/back",
+    "finite solid geometry: sprinkler/top",
+    "finite solid geometry: wall-clock/front",
+    "finite solid geometry: wall-clock/three-quarter",
+    "bottom rests on support plane: wall-clock",
+    "bounded asset draw calls: wall-clock / 9",
+    "finite solid geometry: wall-clock/back",
+    "finite solid geometry: wall-clock/top",
+    "finite solid geometry: whiteboard-marker/front",
+    "finite solid geometry: whiteboard-marker/three-quarter",
+    "bottom rests on support plane: whiteboard-marker",
+    "bounded asset draw calls: whiteboard-marker / 3",
+    "finite solid geometry: whiteboard-marker/back",
+    "finite solid geometry: whiteboard-marker/top",
+    "finite solid geometry: whiteboard-eraser/front",
+    "finite solid geometry: whiteboard-eraser/three-quarter",
+    "bottom rests on support plane: whiteboard-eraser",
+    "bounded asset draw calls: whiteboard-eraser / 2",
+    "finite solid geometry: whiteboard-eraser/back",
+    "finite solid geometry: whiteboard-eraser/top",
+    "finite solid geometry: ghs-board/front",
+    "finite solid geometry: ghs-board/three-quarter",
+    "bottom rests on support plane: ghs-board",
+    "bounded asset draw calls: ghs-board / 31",
+    "finite solid geometry: ghs-board/back",
+    "finite solid geometry: ghs-board/top",
+    "finite solid geometry: periodic-board/front",
+    "finite solid geometry: periodic-board/three-quarter",
+    "bottom rests on support plane: periodic-board",
+    "bounded asset draw calls: periodic-board / 3",
+    "finite solid geometry: periodic-board/back",
+    "finite solid geometry: periodic-board/top",
+    "finite solid geometry: lesson-board/front",
+    "finite solid geometry: lesson-board/three-quarter",
+    "bottom rests on support plane: lesson-board",
+    "bounded asset draw calls: lesson-board / 16",
+    "finite solid geometry: lesson-board/back",
+    "finite solid geometry: lesson-board/top",
+    "finite solid geometry: evacuation-board/front",
+    "finite solid geometry: evacuation-board/three-quarter",
+    "bottom rests on support plane: evacuation-board",
+    "bounded asset draw calls: evacuation-board / 3",
+    "finite solid geometry: evacuation-board/back",
+    "finite solid geometry: evacuation-board/top",
+    "finite solid geometry: rules-board/front",
+    "finite solid geometry: rules-board/three-quarter",
+    "bottom rests on support plane: rules-board",
+    "bounded asset draw calls: rules-board / 3",
+    "finite solid geometry: rules-board/back",
+    "finite solid geometry: rules-board/top",
+    "finite solid geometry: teaching-bench/front",
+    "finite solid geometry: teaching-bench/three-quarter",
+    "bottom rests on support plane: teaching-bench",
+    "bounded asset draw calls: teaching-bench / 48",
+    "finite solid geometry: teaching-bench/back",
+    "finite solid geometry: teaching-bench/top",
+    "finite solid geometry: bag-rack/front",
+    "finite solid geometry: bag-rack/three-quarter",
+    "bottom rests on support plane: bag-rack",
+    "bounded asset draw calls: bag-rack / 4",
+    "finite solid geometry: bag-rack/back",
+    "finite solid geometry: bag-rack/top",
+    "finite solid geometry: chemical-bin/front",
+    "finite solid geometry: chemical-bin/three-quarter",
+    "bottom rests on support plane: chemical-bin",
+    "bounded asset draw calls: chemical-bin / 7",
+    "finite solid geometry: chemical-bin/back",
+    "finite solid geometry: chemical-bin/top",
+    "finite solid geometry: chemical-bin-open/front",
+    "finite solid geometry: chemical-bin-open/three-quarter",
+    "bottom rests on support plane: chemical-bin-open",
+    "bounded asset draw calls: chemical-bin-open / 7",
+    "finite solid geometry: chemical-bin-open/back",
+    "finite solid geometry: chemical-bin-open/top",
+    "finite solid geometry: domestic-bin/front",
+    "finite solid geometry: domestic-bin/three-quarter",
+    "bottom rests on support plane: domestic-bin",
+    "bounded asset draw calls: domestic-bin / 7",
+    "finite solid geometry: domestic-bin/back",
+    "finite solid geometry: domestic-bin/top",
+    "finite solid geometry: liquid-waste/front",
+    "finite solid geometry: liquid-waste/three-quarter",
+    "bottom rests on support plane: liquid-waste",
+    "bounded asset draw calls: liquid-waste / 8",
+    "finite solid geometry: liquid-waste/back",
+    "finite solid geometry: liquid-waste/top",
+    "finite solid geometry: liquid-waste-open/front",
+    "finite solid geometry: liquid-waste-open/three-quarter",
+    "bottom rests on support plane: liquid-waste-open",
+    "bounded asset draw calls: liquid-waste-open / 8",
+    "finite solid geometry: liquid-waste-open/back",
+    "finite solid geometry: liquid-waste-open/top",
+    "finite solid geometry: glass-waste/front",
+    "finite solid geometry: glass-waste/three-quarter",
+    "bottom rests on support plane: glass-waste",
+    "bounded asset draw calls: glass-waste / 9",
+    "finite solid geometry: glass-waste/back",
+    "finite solid geometry: glass-waste/top",
+    "finite solid geometry: sharps-box/front",
+    "finite solid geometry: sharps-box/three-quarter",
+    "bottom rests on support plane: sharps-box",
+    "bounded asset draw calls: sharps-box / 10",
+    "finite solid geometry: sharps-box/back",
+    "finite solid geometry: sharps-box/top",
+    "finite solid geometry: sharps-box-closed/front",
+    "finite solid geometry: sharps-box-closed/three-quarter",
+    "bottom rests on support plane: sharps-box-closed",
+    "bounded asset draw calls: sharps-box-closed / 10",
+    "finite solid geometry: sharps-box-closed/back",
+    "finite solid geometry: sharps-box-closed/top",
+    "finite solid geometry: glass-shards/front",
+    "finite solid geometry: glass-shards/three-quarter",
+    "bottom rests on support plane: glass-shards",
+    "bounded asset draw calls: glass-shards / 6",
+    "finite solid geometry: glass-shards/back",
+    "finite solid geometry: glass-shards/top",
+    "finite solid geometry: crumpled-paper/front",
+    "finite solid geometry: crumpled-paper/three-quarter",
+    "bottom rests on support plane: crumpled-paper",
+    "bounded asset draw calls: crumpled-paper / 1",
+    "finite solid geometry: crumpled-paper/back",
+    "finite solid geometry: crumpled-paper/top",
+    "finite solid geometry: contaminated-paper/front",
+    "finite solid geometry: contaminated-paper/three-quarter",
+    "bottom rests on support plane: contaminated-paper",
+    "bounded asset draw calls: contaminated-paper / 1",
+    "finite solid geometry: contaminated-paper/back",
+    "finite solid geometry: contaminated-paper/top",
+    "finite solid geometry: emergency-shower/front",
+    "finite solid geometry: emergency-shower/three-quarter",
+    "bottom rests on support plane: emergency-shower",
+    "bounded asset draw calls: emergency-shower / 25",
+    "finite solid geometry: emergency-shower/back",
+    "finite solid geometry: emergency-shower/top",
+    "finite solid geometry: emergency-shower-active/front",
+    "finite solid geometry: emergency-shower-active/three-quarter",
+    "bottom rests on support plane: emergency-shower-active",
+    "bounded asset draw calls: emergency-shower-active / 26",
+    "finite solid geometry: emergency-shower-active/back",
+    "finite solid geometry: emergency-shower-active/top",
+    "finite solid geometry: emergency-eyewash-active/front",
+    "finite solid geometry: emergency-eyewash-active/three-quarter",
+    "bottom rests on support plane: emergency-eyewash-active",
+    "bounded asset draw calls: emergency-eyewash-active / 28",
+    "finite solid geometry: emergency-eyewash-active/back",
+    "finite solid geometry: emergency-eyewash-active/top",
+    "finite solid geometry: shower-head/front",
+    "finite solid geometry: shower-head/three-quarter",
+    "bottom rests on support plane: shower-head",
+    "bounded asset draw calls: shower-head / 2",
+    "finite solid geometry: shower-head/back",
+    "finite solid geometry: shower-head/top",
+    "finite solid geometry: eyewash/front",
+    "finite solid geometry: eyewash/three-quarter",
+    "bottom rests on support plane: eyewash",
+    "bounded asset draw calls: eyewash / 13",
+    "finite solid geometry: eyewash/back",
+    "finite solid geometry: eyewash/top",
+    "finite solid geometry: eyewash-active/front",
+    "finite solid geometry: eyewash-active/three-quarter",
+    "bottom rests on support plane: eyewash-active",
+    "bounded asset draw calls: eyewash-active / 16",
+    "finite solid geometry: eyewash-active/back",
+    "finite solid geometry: eyewash-active/top",
+    "finite solid geometry: extinguisher-powder/front",
+    "finite solid geometry: extinguisher-powder/three-quarter",
+    "bottom rests on support plane: extinguisher-powder",
+    "bounded asset draw calls: extinguisher-powder / 18",
+    "finite solid geometry: extinguisher-powder/back",
+    "finite solid geometry: extinguisher-powder/top",
+    "finite solid geometry: extinguisher-co2/front",
+    "finite solid geometry: extinguisher-co2/three-quarter",
+    "bottom rests on support plane: extinguisher-co2",
+    "bounded asset draw calls: extinguisher-co2 / 14",
+    "finite solid geometry: extinguisher-co2/back",
+    "finite solid geometry: extinguisher-co2/top",
+    "finite solid geometry: extinguisher-cabinet/front",
+    "finite solid geometry: extinguisher-cabinet/three-quarter",
+    "bottom rests on support plane: extinguisher-cabinet",
+    "bounded asset draw calls: extinguisher-cabinet / 46",
+    "finite solid geometry: extinguisher-cabinet/back",
+    "finite solid geometry: extinguisher-cabinet/top",
+    "finite solid geometry: extinguisher-cabinet-open/front",
+    "finite solid geometry: extinguisher-cabinet-open/three-quarter",
+    "bottom rests on support plane: extinguisher-cabinet-open",
+    "bounded asset draw calls: extinguisher-cabinet-open / 46",
+    "finite solid geometry: extinguisher-cabinet-open/back",
+    "finite solid geometry: extinguisher-cabinet-open/top",
+    "finite solid geometry: fire-blanket/front",
+    "finite solid geometry: fire-blanket/three-quarter",
+    "bottom rests on support plane: fire-blanket",
+    "bounded asset draw calls: fire-blanket / 9",
+    "finite solid geometry: fire-blanket/back",
+    "finite solid geometry: fire-blanket/top",
+    "finite solid geometry: first-aid/front",
+    "finite solid geometry: first-aid/three-quarter",
+    "bottom rests on support plane: first-aid",
+    "bounded asset draw calls: first-aid / 59",
+    "finite solid geometry: first-aid/back",
+    "finite solid geometry: first-aid/top",
+    "finite solid geometry: first-aid-closed/front",
+    "finite solid geometry: first-aid-closed/three-quarter",
+    "bottom rests on support plane: first-aid-closed",
+    "bounded asset draw calls: first-aid-closed / 59",
+    "finite solid geometry: first-aid-closed/back",
+    "finite solid geometry: first-aid-closed/top",
+    "finite solid geometry: gauze-pack/front",
+    "finite solid geometry: gauze-pack/three-quarter",
+    "bottom rests on support plane: gauze-pack",
+    "bounded asset draw calls: gauze-pack / 4",
+    "finite solid geometry: gauze-pack/back",
+    "finite solid geometry: gauze-pack/top",
+    "finite solid geometry: bandage-roll/front",
+    "finite solid geometry: bandage-roll/three-quarter",
+    "bottom rests on support plane: bandage-roll",
+    "bounded asset draw calls: bandage-roll / 9",
+    "finite solid geometry: bandage-roll/back",
+    "finite solid geometry: bandage-roll/top",
+    "finite solid geometry: spill-cart/front",
+    "finite solid geometry: spill-cart/three-quarter",
+    "bottom rests on support plane: spill-cart",
+    "bounded asset draw calls: spill-cart / 22",
+    "finite solid geometry: spill-cart/back",
+    "finite solid geometry: spill-cart/top",
+    "finite solid geometry: spill-cart-open/front",
+    "finite solid geometry: spill-cart-open/three-quarter",
+    "bottom rests on support plane: spill-cart-open",
+    "bounded asset draw calls: spill-cart-open / 22",
+    "finite solid geometry: spill-cart-open/back",
+    "finite solid geometry: spill-cart-open/top",
+    "finite solid geometry: scoop/front",
+    "finite solid geometry: scoop/three-quarter",
+    "bottom rests on support plane: scoop",
+    "bounded asset draw calls: scoop / 6",
+    "finite solid geometry: scoop/back",
+    "finite solid geometry: scoop/top",
+    "finite solid geometry: bench-cabinet/front",
+    "finite solid geometry: bench-cabinet/three-quarter",
+    "bottom rests on support plane: bench-cabinet",
+    "bounded asset draw calls: bench-cabinet / 67",
+    "finite solid geometry: bench-cabinet/back",
+    "finite solid geometry: bench-cabinet/top",
+    "finite solid geometry: drawer/front",
+    "finite solid geometry: drawer/three-quarter",
+    "bottom rests on support plane: drawer",
+    "bounded asset draw calls: drawer / 10",
+    "finite solid geometry: drawer/back",
+    "finite solid geometry: drawer/top",
+    "finite solid geometry: drawer-open/front",
+    "finite solid geometry: drawer-open/three-quarter",
+    "bottom rests on support plane: drawer-open",
+    "bounded asset draw calls: drawer-open / 10",
+    "finite solid geometry: drawer-open/back",
+    "finite solid geometry: drawer-open/top",
+    "finite solid geometry: reagent-rack/front",
+    "finite solid geometry: reagent-rack/three-quarter",
+    "bottom rests on support plane: reagent-rack",
+    "bounded asset draw calls: reagent-rack / 18",
+    "finite solid geometry: reagent-rack/back",
+    "finite solid geometry: reagent-rack/top",
+    "finite solid geometry: stirring-rod/front",
+    "finite solid geometry: stirring-rod/three-quarter",
+    "bottom rests on support plane: stirring-rod",
+    "bounded asset draw calls: stirring-rod / 6",
+    "finite solid geometry: stirring-rod/back",
+    "finite solid geometry: stirring-rod/top",
+    "finite solid geometry: fume-hood/front",
+    "finite solid geometry: fume-hood/three-quarter",
+    "bottom rests on support plane: fume-hood",
+    "bounded asset draw calls: fume-hood / 49",
+    "finite solid geometry: fume-hood/back",
+    "finite solid geometry: fume-hood/top",
+    "finite solid geometry: fume-hood-open/front",
+    "finite solid geometry: fume-hood-open/three-quarter",
+    "bottom rests on support plane: fume-hood-open",
+    "bounded asset draw calls: fume-hood-open / 49",
+    "finite solid geometry: fume-hood-open/back",
+    "finite solid geometry: fume-hood-open/top",
+    "finite solid geometry: sink-basin/front",
+    "finite solid geometry: sink-basin/three-quarter",
+    "bottom rests on support plane: sink-basin",
+    "bounded asset draw calls: sink-basin / 4",
+    "finite solid geometry: sink-basin/back",
+    "finite solid geometry: sink-basin/top",
+    "finite solid geometry: bench-sink/front",
+    "finite solid geometry: bench-sink/three-quarter",
+    "bottom rests on support plane: bench-sink",
+    "bounded asset draw calls: bench-sink / 9",
+    "finite solid geometry: bench-sink/back",
+    "finite solid geometry: bench-sink/top",
+    "finite solid geometry: faucet/front",
+    "finite solid geometry: faucet/three-quarter",
+    "bottom rests on support plane: faucet",
+    "bounded asset draw calls: faucet / 5",
+    "finite solid geometry: faucet/back",
+    "finite solid geometry: faucet/top",
+    "finite solid geometry: handwash/front",
+    "finite solid geometry: handwash/three-quarter",
+    "bottom rests on support plane: handwash",
+    "bounded asset draw calls: handwash / 60",
+    "finite solid geometry: handwash/back",
+    "finite solid geometry: handwash/top",
+    "finite solid geometry: handwash-running/front",
+    "finite solid geometry: handwash-running/three-quarter",
+    "bottom rests on support plane: handwash-running",
+    "bounded asset draw calls: handwash-running / 64",
+    "finite solid geometry: handwash-running/back",
+    "finite solid geometry: handwash-running/top",
+    "finite solid geometry: soap-dispenser/front",
+    "finite solid geometry: soap-dispenser/three-quarter",
+    "bottom rests on support plane: soap-dispenser",
+    "bounded asset draw calls: soap-dispenser / 8",
+    "finite solid geometry: soap-dispenser/back",
+    "finite solid geometry: soap-dispenser/top",
+    "finite solid geometry: paper-dispenser/front",
+    "finite solid geometry: paper-dispenser/three-quarter",
+    "bottom rests on support plane: paper-dispenser",
+    "bounded asset draw calls: paper-dispenser / 10",
+    "finite solid geometry: paper-dispenser/back",
+    "finite solid geometry: paper-dispenser/top",
+    "finite solid geometry: bunsen/front",
+    "finite solid geometry: bunsen/three-quarter",
+    "bottom rests on support plane: bunsen",
+    "bounded asset draw calls: bunsen / 15",
+    "finite solid geometry: bunsen/back",
+    "finite solid geometry: bunsen/top",
+    "finite solid geometry: bunsen-blue/front",
+    "finite solid geometry: bunsen-blue/three-quarter",
+    "bottom rests on support plane: bunsen-blue",
+    "bounded asset draw calls: bunsen-blue / 17",
+    "finite solid geometry: bunsen-blue/back",
+    "finite solid geometry: bunsen-blue/top",
+    "finite solid geometry: bunsen-yellow/front",
+    "finite solid geometry: bunsen-yellow/three-quarter",
+    "bottom rests on support plane: bunsen-yellow",
+    "bounded asset draw calls: bunsen-yellow / 17",
+    "finite solid geometry: bunsen-yellow/back",
+    "finite solid geometry: bunsen-yellow/top",
+    "finite solid geometry: bunsen-assembly/front",
+    "finite solid geometry: bunsen-assembly/three-quarter",
+    "bottom rests on support plane: bunsen-assembly",
+    "bounded asset draw calls: bunsen-assembly / 31",
+    "finite solid geometry: bunsen-assembly/back",
+    "finite solid geometry: bunsen-assembly/top",
+    "finite solid geometry: gas-tap/front",
+    "finite solid geometry: gas-tap/three-quarter",
+    "bottom rests on support plane: gas-tap",
+    "bounded asset draw calls: gas-tap / 7",
+    "finite solid geometry: gas-tap/back",
+    "finite solid geometry: gas-tap/top",
+    "finite solid geometry: gas-hose/front",
+    "finite solid geometry: gas-hose/three-quarter",
+    "bottom rests on support plane: gas-hose",
+    "bounded asset draw calls: gas-hose / 5",
+    "finite solid geometry: gas-hose/back",
+    "finite solid geometry: gas-hose/top",
+    "finite solid geometry: tripod/front",
+    "finite solid geometry: tripod/three-quarter",
+    "bottom rests on support plane: tripod",
+    "bounded asset draw calls: tripod / 6",
+    "finite solid geometry: tripod/back",
+    "finite solid geometry: tripod/top",
+    "finite solid geometry: alcohol-lamp/front",
+    "finite solid geometry: alcohol-lamp/three-quarter",
+    "bottom rests on support plane: alcohol-lamp",
+    "bounded asset draw calls: alcohol-lamp / 9",
+    "finite solid geometry: alcohol-lamp/back",
+    "finite solid geometry: alcohol-lamp/top",
+    "finite solid geometry: alcohol-lit/front",
+    "finite solid geometry: alcohol-lit/three-quarter",
+    "bottom rests on support plane: alcohol-lit",
+    "bounded asset draw calls: alcohol-lit / 15",
+    "finite solid geometry: alcohol-lit/back",
+    "finite solid geometry: alcohol-lit/top",
+    "finite solid geometry: alcohol-covered/front",
+    "finite solid geometry: alcohol-covered/three-quarter",
+    "bottom rests on support plane: alcohol-covered",
+    "bounded asset draw calls: alcohol-covered / 13",
+    "finite solid geometry: alcohol-covered/back",
+    "finite solid geometry: alcohol-covered/top",
+    "finite solid geometry: snuffer-cap/front",
+    "finite solid geometry: snuffer-cap/three-quarter",
+    "bottom rests on support plane: snuffer-cap",
+    "bounded asset draw calls: snuffer-cap / 3",
+    "finite solid geometry: snuffer-cap/back",
+    "finite solid geometry: snuffer-cap/top",
+    "finite solid geometry: glove-dispenser/front",
+    "finite solid geometry: glove-dispenser/three-quarter",
+    "bottom rests on support plane: glove-dispenser",
+    "bounded asset draw calls: glove-dispenser / 22",
+    "finite solid geometry: glove-dispenser/back",
+    "finite solid geometry: glove-dispenser/top",
+    "finite solid geometry: hanger/front",
+    "finite solid geometry: hanger/three-quarter",
+    "bottom rests on support plane: hanger",
+    "bounded asset draw calls: hanger / 3",
+    "finite solid geometry: hanger/back",
+    "finite solid geometry: hanger/top",
+    "finite solid geometry: backpack/front",
+    "finite solid geometry: backpack/three-quarter",
+    "bottom rests on support plane: backpack",
+    "bounded asset draw calls: backpack / 8",
+    "finite solid geometry: backpack/back",
+    "finite solid geometry: backpack/top",
+    "finite solid geometry: beaker/front",
+    "finite solid geometry: beaker/three-quarter",
+    "bottom rests on support plane: beaker",
+    "bounded asset draw calls: beaker / 9",
+    "finite solid geometry: beaker/back",
+    "finite solid geometry: beaker/top",
+    "finite solid geometry: cracked-beaker/front",
+    "finite solid geometry: cracked-beaker/three-quarter",
+    "bottom rests on support plane: cracked-beaker",
+    "bounded asset draw calls: cracked-beaker / 10",
+    "finite solid geometry: cracked-beaker/back",
+    "finite solid geometry: cracked-beaker/top",
+    "finite solid geometry: cylinder/front",
+    "finite solid geometry: cylinder/three-quarter",
+    "bottom rests on support plane: cylinder",
+    "bounded asset draw calls: cylinder / 10",
+    "finite solid geometry: cylinder/back",
+    "finite solid geometry: cylinder/top",
+    "finite solid geometry: flask/front",
+    "finite solid geometry: flask/three-quarter",
+    "bottom rests on support plane: flask",
+    "bounded asset draw calls: flask / 8",
+    "finite solid geometry: flask/back",
+    "finite solid geometry: flask/top",
+    "finite solid geometry: vacuum-flask/front",
+    "finite solid geometry: vacuum-flask/three-quarter",
+    "bottom rests on support plane: vacuum-flask",
+    "bounded asset draw calls: vacuum-flask / 12",
+    "finite solid geometry: vacuum-flask/back",
+    "finite solid geometry: vacuum-flask/top",
+    "finite solid geometry: reagent-bottle/front",
+    "finite solid geometry: reagent-bottle/three-quarter",
+    "bottom rests on support plane: reagent-bottle",
+    "bounded asset draw calls: reagent-bottle / 10",
+    "finite solid geometry: reagent-bottle/back",
+    "finite solid geometry: reagent-bottle/top",
+    "finite solid geometry: amber-bottle/front",
+    "finite solid geometry: amber-bottle/three-quarter",
+    "bottom rests on support plane: amber-bottle",
+    "bounded asset draw calls: amber-bottle / 11",
+    "finite solid geometry: amber-bottle/back",
+    "finite solid geometry: amber-bottle/top",
+    "finite solid geometry: test-tube/front",
+    "finite solid geometry: test-tube/three-quarter",
+    "bottom rests on support plane: test-tube",
+    "bounded asset draw calls: test-tube / 8",
+    "finite solid geometry: test-tube/back",
+    "finite solid geometry: test-tube/top",
+    "finite solid geometry: pipette/front",
+    "finite solid geometry: pipette/three-quarter",
+    "bottom rests on support plane: pipette",
+    "bounded asset draw calls: pipette / 3",
+    "finite solid geometry: pipette/back",
+    "finite solid geometry: pipette/top",
+    "finite solid geometry: pipette-bulb/front",
+    "finite solid geometry: pipette-bulb/three-quarter",
+    "bottom rests on support plane: pipette-bulb",
+    "bounded asset draw calls: pipette-bulb / 12",
+    "finite solid geometry: pipette-bulb/back",
+    "finite solid geometry: pipette-bulb/top",
+    "finite solid geometry: pipette-assembled/front",
+    "finite solid geometry: pipette-assembled/three-quarter",
+    "bottom rests on support plane: pipette-assembled",
+    "bounded asset draw calls: pipette-assembled / 15",
+    "finite solid geometry: pipette-assembled/back",
+    "finite solid geometry: pipette-assembled/top",
+    "finite solid geometry: tube-rack/front",
+    "finite solid geometry: tube-rack/three-quarter",
+    "bottom rests on support plane: tube-rack",
+    "bounded asset draw calls: tube-rack / 41",
+    "finite solid geometry: tube-rack/back",
+    "finite solid geometry: tube-rack/top",
+    "finite solid geometry: tongs/front",
+    "finite solid geometry: tongs/three-quarter",
+    "bottom rests on support plane: tongs",
+    "bounded asset draw calls: tongs / 7",
+    "finite solid geometry: tongs/back",
+    "finite solid geometry: tongs/top",
+    "finite solid geometry: wash-bottle/front",
+    "finite solid geometry: wash-bottle/three-quarter",
+    "bottom rests on support plane: wash-bottle",
+    "bounded asset draw calls: wash-bottle / 8",
+    "finite solid geometry: wash-bottle/back",
+    "finite solid geometry: wash-bottle/top",
+    "finite solid geometry: pipette-tray/front",
+    "finite solid geometry: pipette-tray/three-quarter",
+    "bottom rests on support plane: pipette-tray",
+    "bounded asset draw calls: pipette-tray / 16",
+    "finite solid geometry: pipette-tray/back",
+    "finite solid geometry: pipette-tray/top",
+    "finite solid geometry: balance/front",
+    "finite solid geometry: balance/three-quarter",
+    "bottom rests on support plane: balance",
+    "bounded asset draw calls: balance / 32",
+    "finite solid geometry: balance/back",
+    "finite solid geometry: balance/top",
+    "finite solid geometry: hotplate/front",
+    "finite solid geometry: hotplate/three-quarter",
+    "bottom rests on support plane: hotplate",
+    "bounded asset draw calls: hotplate / 22",
+    "finite solid geometry: hotplate/back",
+    "finite solid geometry: hotplate/top",
+    "finite solid geometry: hotplate-flask/front",
+    "finite solid geometry: hotplate-flask/three-quarter",
+    "bottom rests on support plane: hotplate-flask",
+    "bounded asset draw calls: hotplate-flask / 30",
+    "finite solid geometry: hotplate-flask/back",
+    "finite solid geometry: hotplate-flask/top",
+    "finite solid geometry: burette/front",
+    "finite solid geometry: burette/three-quarter",
+    "bottom rests on support plane: burette",
+    "bounded asset draw calls: burette / 45",
+    "finite solid geometry: burette/back",
+    "finite solid geometry: burette/top",
+    "finite solid geometry: ph-meter/front",
+    "finite solid geometry: ph-meter/three-quarter",
+    "bottom rests on support plane: ph-meter",
+    "bounded asset draw calls: ph-meter / 30",
+    "finite solid geometry: ph-meter/back",
+    "finite solid geometry: ph-meter/top",
+    "finite solid geometry: electrode/front",
+    "finite solid geometry: electrode/three-quarter",
+    "bottom rests on support plane: electrode",
+    "bounded asset draw calls: electrode / 7",
+    "finite solid geometry: electrode/back",
+    "finite solid geometry: electrode/top",
+    "finite solid geometry: centrifuge/front",
+    "finite solid geometry: centrifuge/three-quarter",
+    "bottom rests on support plane: centrifuge",
+    "bounded asset draw calls: centrifuge / 58",
+    "finite solid geometry: centrifuge/back",
+    "finite solid geometry: centrifuge/top",
+    "finite solid geometry: centrifuge-closed/front",
+    "finite solid geometry: centrifuge-closed/three-quarter",
+    "bottom rests on support plane: centrifuge-closed",
+    "bounded asset draw calls: centrifuge-closed / 42",
+    "finite solid geometry: centrifuge-closed/back",
+    "finite solid geometry: centrifuge-closed/top",
+    "finite solid geometry: teacher-imported/front",
+    "finite solid geometry: teacher-imported/three-quarter",
+    "bottom rests on support plane: teacher-imported",
+    "bounded asset draw calls: teacher-imported / 1",
+    "finite solid geometry: teacher-imported/back",
+    "finite solid geometry: teacher-imported/top",
+    "finite solid geometry: shoes-mat/front",
+    "finite solid geometry: shoes-mat/three-quarter",
+    "bottom rests on support plane: shoes-mat",
+    "bounded asset draw calls: shoes-mat / 6",
+    "finite solid geometry: shoes-mat/back",
+    "finite solid geometry: shoes-mat/top",
+    "finite solid geometry: mirror-frame/front",
+    "finite solid geometry: mirror-frame/three-quarter",
+    "bottom rests on support plane: mirror-frame",
+    "bounded asset draw calls: mirror-frame / 5",
+    "finite solid geometry: mirror-frame/back",
+    "finite solid geometry: mirror-frame/top",
+    "finite solid geometry: led-panel/front",
+    "finite solid geometry: led-panel/three-quarter",
+    "bottom rests on support plane: led-panel",
+    "bounded asset draw calls: led-panel / 7",
+    "finite solid geometry: led-panel/back",
+    "finite solid geometry: led-panel/top",
+    "finite solid geometry: chemical-cabinet-flammable/front",
+    "finite solid geometry: chemical-cabinet-flammable/three-quarter",
+    "bottom rests on support plane: chemical-cabinet-flammable",
+    "bounded asset draw calls: chemical-cabinet-flammable / 83",
+    "finite solid geometry: chemical-cabinet-flammable/back",
+    "finite solid geometry: chemical-cabinet-flammable/top",
+    "finite solid geometry: chemical-cabinet-acid/front",
+    "finite solid geometry: chemical-cabinet-acid/three-quarter",
+    "bottom rests on support plane: chemical-cabinet-acid",
+    "bounded asset draw calls: chemical-cabinet-acid / 83",
+    "finite solid geometry: chemical-cabinet-acid/back",
+    "finite solid geometry: chemical-cabinet-acid/top",
+    "finite solid geometry: chemical-cabinet-base/front",
+    "finite solid geometry: chemical-cabinet-base/three-quarter",
+    "bottom rests on support plane: chemical-cabinet-base",
+    "bounded asset draw calls: chemical-cabinet-base / 83",
+    "finite solid geometry: chemical-cabinet-base/back",
+    "finite solid geometry: chemical-cabinet-base/top",
+    "finite solid geometry: chemical-cabinet-open/front",
+    "finite solid geometry: chemical-cabinet-open/three-quarter",
+    "bottom rests on support plane: chemical-cabinet-open",
+    "bounded asset draw calls: chemical-cabinet-open / 83",
+    "finite solid geometry: chemical-cabinet-open/back",
+    "finite solid geometry: chemical-cabinet-open/top",
+    "finite solid geometry: glassware-rack/front",
+    "finite solid geometry: glassware-rack/three-quarter",
+    "bottom rests on support plane: glassware-rack",
+    "bounded asset draw calls: glassware-rack / 114",
+    "finite solid geometry: glassware-rack/back",
+    "finite solid geometry: glassware-rack/top",
+    "finite solid geometry: stool/front",
+    "finite solid geometry: stool/three-quarter",
+    "bottom rests on support plane: stool",
+    "bounded asset draw calls: stool / 11",
+    "finite solid geometry: stool/back",
+    "finite solid geometry: stool/top",
+    "finite solid geometry: grip-hand/front",
+    "finite solid geometry: grip-hand/three-quarter",
+    "bottom rests on support plane: grip-hand",
+    "bounded asset draw calls: grip-hand / 1",
+    "finite solid geometry: grip-hand/back",
+    "finite solid geometry: grip-hand/top",
+    "finite solid geometry: bare-grip-hand/front",
+    "finite solid geometry: bare-grip-hand/three-quarter",
+    "bottom rests on support plane: bare-grip-hand",
+    "bounded asset draw calls: bare-grip-hand / 1",
+    "finite solid geometry: bare-grip-hand/back",
+    "finite solid geometry: bare-grip-hand/top",
+    "finite solid geometry: student-character/front",
+    "finite solid geometry: student-character/three-quarter",
+    "bottom rests on support plane: student-character",
+    "bounded asset draw calls: student-character / 24",
+    "finite solid geometry: student-character/back",
+    "finite solid geometry: student-character/top",
+    "finite solid geometry: teacher-character/front",
+    "finite solid geometry: teacher-character/three-quarter",
+    "bottom rests on support plane: teacher-character",
+    "bounded asset draw calls: teacher-character / 13",
+    "finite solid geometry: teacher-character/back",
+    "finite solid geometry: teacher-character/top",
+    "finite solid geometry: unprepared-character/front",
+    "finite solid geometry: unprepared-character/three-quarter",
+    "bottom rests on support plane: unprepared-character",
+    "bounded asset draw calls: unprepared-character / 16",
+    "finite solid geometry: unprepared-character/back",
+    "finite solid geometry: unprepared-character/top",
+    "finite solid geometry: bun-character/front",
+    "finite solid geometry: bun-character/three-quarter",
+    "bottom rests on support plane: bun-character",
+    "bounded asset draw calls: bun-character / 24",
+    "finite solid geometry: bun-character/back",
+    "finite solid geometry: bun-character/top",
+    "finite solid geometry: braided-character/front",
+    "finite solid geometry: braided-character/three-quarter",
+    "bottom rests on support plane: braided-character",
+    "bounded asset draw calls: braided-character / 24",
+    "finite solid geometry: braided-character/back",
+    "finite solid geometry: braided-character/top",
+    "finite solid geometry: long-hair-character/front",
+    "finite solid geometry: long-hair-character/three-quarter",
+    "bottom rests on support plane: long-hair-character",
+    "bounded asset draw calls: long-hair-character / 14",
+    "finite solid geometry: long-hair-character/back",
+    "finite solid geometry: long-hair-character/top",
+    "finite solid geometry: goggles/front",
+    "finite solid geometry: goggles/three-quarter",
+    "bottom rests on support plane: goggles",
+    "bounded asset draw calls: goggles / 7",
+    "finite solid geometry: goggles/back",
+    "finite solid geometry: goggles/top",
+    "finite solid geometry: glove/front",
+    "finite solid geometry: glove/three-quarter",
+    "bottom rests on support plane: glove",
+    "bounded asset draw calls: glove / 11",
+    "finite solid geometry: glove/back",
+    "finite solid geometry: glove/top",
+    "finite solid geometry: mask/front",
+    "finite solid geometry: mask/three-quarter",
+    "bottom rests on support plane: mask",
+    "bounded asset draw calls: mask / 2",
+    "finite solid geometry: mask/back",
+    "finite solid geometry: mask/top",
+    "finite solid geometry: lab-coat/front",
+    "finite solid geometry: lab-coat/three-quarter",
+    "bottom rests on support plane: lab-coat",
+    "bounded asset draw calls: lab-coat / 21",
+    "finite solid geometry: lab-coat/back",
+    "finite solid geometry: lab-coat/top",
+    "finite solid geometry: hair-tie/front",
+    "finite solid geometry: hair-tie/three-quarter",
+    "bottom rests on support plane: hair-tie",
+    "bounded asset draw calls: hair-tie / 2",
+    "finite solid geometry: hair-tie/back",
+    "finite solid geometry: hair-tie/top",
+    "no runtime exceptions while rendering all asset studies"
+  ],
+  "errors": [],
+  "snapshots": [
+    {
+      "id": "chemical-cabinet-flammable",
+      "min": [
+        -0.550000011920929,
+        -3.5762786898541066e-9,
+        -0.3249999992251396
+      ],
+      "max": [
+        0.550000011920929,
+        1.8000000143051147,
+        0.3825000000745058
+      ],
+      "size": [
+        1.100000023841858,
+        1.8000000178813933,
+        0.7074999992996454
+      ],
+      "meshes": 74,
+      "triangles": 29308,
+      "calls": 83,
+      "invalidVertices": 0,
+      "parts": [
+        "cab_flammable",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "cabinet-hinge-left",
+        "cabinet-hinge-right"
+      ],
+      "textures": 8
+    },
+    {
+      "id": "chemical-cabinet-acid",
+      "min": [
+        -0.550000011920929,
+        -3.5762786898541066e-9,
+        -0.3249999992251396
+      ],
+      "max": [
+        0.550000011920929,
+        1.8000000143051147,
+        0.3825000000745058
+      ],
+      "size": [
+        1.100000023841858,
+        1.8000000178813933,
+        0.7074999992996454
+      ],
+      "meshes": 74,
+      "triangles": 29308,
+      "calls": 83,
+      "invalidVertices": 0,
+      "parts": [
+        "cab_acid",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "cabinet-hinge-left",
+        "cabinet-hinge-right"
+      ],
+      "textures": 8
+    },
+    {
+      "id": "chemical-cabinet-base",
+      "min": [
+        -0.550000011920929,
+        -3.5762786898541066e-9,
+        -0.3249999992251396
+      ],
+      "max": [
+        0.550000011920929,
+        1.8000000143051147,
+        0.3825000000745058
+      ],
+      "size": [
+        1.100000023841858,
+        1.8000000178813933,
+        0.7074999992996454
+      ],
+      "meshes": 74,
+      "triangles": 29308,
+      "calls": 83,
+      "invalidVertices": 0,
+      "parts": [
+        "cab_base",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "cabinet-hinge-left",
+        "cabinet-hinge-right"
+      ],
+      "textures": 8
+    },
+    {
+      "id": "chemical-cabinet-open",
+      "min": [
+        -0.550000011920929,
+        -3.5762786898541066e-9,
+        -0.3249999992251396
+      ],
+      "max": [
+        0.550000011920929,
+        1.8000000143051147,
+        0.8286889162470041
+      ],
+      "size": [
+        1.100000023841858,
+        1.8000000178813933,
+        1.1536889154721437
+      ],
+      "meshes": 74,
+      "triangles": 29308,
+      "calls": 83,
+      "invalidVertices": 0,
+      "parts": [
+        "cab_acid",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "static-copy-batch",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "cabinet-hinge-left",
+        "cabinet-hinge-right"
+      ],
+      "textures": 8
+    },
+    {
+      "id": "glassware-rack",
+      "min": [
+        -0.6024999988079071,
+        -2.3841857821338408e-8,
+        -0.2290000021457672
+      ],
+      "max": [
+        0.6024999988079071,
+        2.200000023841858,
+        0.2274999988079071
+      ],
+      "size": [
+        1.2049999976158141,
+        2.200000047683716,
+        0.4565000009536743
+      ],
+      "meshes": 66,
+      "triangles": 16832,
+      "calls": 114,
+      "invalidVertices": 0,
+      "parts": [
+        "shelf_general",
+        "shelf-0-vessel-0",
+        "asset-beaker",
+        "shelf-0-vessel-1",
+        "asset-beaker",
+        "shelf-0-vessel-2",
+        "asset-beaker",
+        "shelf-0-vessel-3",
+        "asset-beaker",
+        "shelf-1-vessel-0",
+        "asset-beaker",
+        "shelf-1-vessel-1",
+        "asset-beaker",
+        "shelf-1-vessel-2",
+        "asset-beaker",
+        "shelf-1-vessel-3",
+        "asset-beaker",
+        "shelf-2-vessel-0",
+        "asset-beaker",
+        "shelf-2-vessel-1",
+        "asset-beaker",
+        "shelf-2-vessel-2",
+        "asset-beaker",
+        "shelf-2-vessel-3",
+        "asset-beaker",
+        "shelf-3-vessel-0",
+        "asset-beaker",
+        "shelf-3-vessel-1",
+        "asset-beaker",
+        "shelf-3-vessel-2",
+        "asset-beaker",
+        "shelf-3-vessel-3",
+        "asset-beaker"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "warning-cone",
+      "min": [
+        -0.11000499874353409,
+        -0.000004999607801437975,
+        -0.10999999940395355
+      ],
+      "max": [
+        0.11000499874353409,
+        0.3700000047683716,
+        0.10999999940395355
+      ],
+      "size": [
+        0.22000999748706818,
+        0.370005004376173,
+        0.2199999988079071
+      ],
+      "meshes": 4,
+      "triangles": 1100,
+      "calls": 4,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-warning-cone"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "shipping-crate",
+      "min": [
+        -0.2750050127506256,
+        -0.0000050055980682361945,
+        -0.20999999344348907
+      ],
+      "max": [
+        0.2750050127506256,
+        0.4445000000130385,
+        0.211
+      ],
+      "size": [
+        0.5500100255012512,
+        0.44450500561110673,
+        0.42099999344348904
+      ],
+      "meshes": 5,
+      "triangles": 754,
+      "calls": 5,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-shipping-crate"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "phone",
+      "min": [
+        -0.04350500000361353,
+        -0.000005000241100788436,
+        -0.08000000566244125
+      ],
+      "max": [
+        0.04400499996915459,
+        0.012705000003613532,
+        0.08000000566244125
+      ],
+      "size": [
+        0.08750999997276812,
+        0.01271000024471432,
+        0.1600000113248825
+      ],
+      "meshes": 6,
+      "triangles": 3582,
+      "calls": 7,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-phone"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "power-switch",
+      "min": [
+        -0.06000499799847603,
+        -0.000005000233650208352,
+        -0.12377525866031647
+      ],
+      "max": [
+        0.10113225132226944,
+        0.061114664053705386,
+        0.042500000447034836
+      ],
+      "size": [
+        0.16113724932074547,
+        0.061119664287355595,
+        0.1662752591073513
+      ],
+      "meshes": 5,
+      "triangles": 2662,
+      "calls": 6,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-power-switch"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "safety-shield",
+      "min": [
+        -0.15499999932944775,
+        0,
+        -0.03999999910593033
+      ],
+      "max": [
+        0.15499999932944775,
+        0.20000000298023224,
+        0.03999999910593033
+      ],
+      "size": [
+        0.3099999986588955,
+        0.20000000298023224,
+        0.07999999821186066
+      ],
+      "meshes": 3,
+      "triangles": 36,
+      "calls": 4,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-safety-shield"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "utility-tray",
+      "min": [
+        -0.19000500440597534,
+        -0.000004999995231628335,
+        -0.125
+      ],
+      "max": [
+        0.19000500440597534,
+        0.03199999965727329,
+        0.125
+      ],
+      "size": [
+        0.3800100088119507,
+        0.03200499965250492,
+        0.25
+      ],
+      "meshes": 2,
+      "triangles": 728,
+      "calls": 2,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-utility-tray"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "mirror-frame",
+      "min": [
+        -0.6200000289827585,
+        -0.000005000755190848888,
+        -0.20000000715255736
+      ],
+      "max": [
+        0.6200000289827585,
+        2.2100000381469727,
+        0.16000000715255738
+      ],
+      "size": [
+        1.240000057965517,
+        2.2100050389021635,
+        0.36000001430511475
+      ],
+      "meshes": 5,
+      "triangles": 2468,
+      "calls": 5,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-mirror-frame"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "grip-hand",
+      "min": [
+        -0.048443157225847244,
+        0.002999999195337298,
+        -0.046460866928100586
+      ],
+      "max": [
+        0.032999999821186066,
+        0.08100000080466271,
+        0.023531075567007065
+      ],
+      "size": [
+        0.08144315704703331,
+        0.07800000160932541,
+        0.06999194249510765
+      ],
+      "meshes": 1,
+      "triangles": 2864,
+      "calls": 1,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-grip-hand"
+      ],
+      "textures": 4,
+      "palette": [
+        "#70a9b7",
+        "#94bdc2"
+      ],
+      "wardrobe": [
+        {
+          "name": "asset-grip-hand",
+          "gloved": true,
+          "color": "#70a9b7",
+          "pose": "grip"
+        }
+      ],
+      "anchors": []
+    },
+    {
+      "id": "bare-grip-hand",
+      "min": [
+        -0.048443157225847244,
+        0.002999999195337298,
+        -0.046460866928100586
+      ],
+      "max": [
+        0.032999999821186066,
+        0.08100000080466271,
+        0.024527480825781822
+      ],
+      "size": [
+        0.08144315704703331,
+        0.07800000160932541,
+        0.07098834775388241
+      ],
+      "meshes": 1,
+      "triangles": 2624,
+      "calls": 1,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-grip-hand"
+      ],
+      "textures": 4,
+      "palette": [
+        "#dfb197",
+        "#bb8f79"
+      ],
+      "wardrobe": [
+        {
+          "name": "asset-grip-hand",
+          "gloved": false,
+          "color": "#dfb197",
+          "pose": "grip"
+        }
+      ],
+      "anchors": []
+    },
+    {
+      "id": "held-pan",
+      "min": [
+        -0.08500000089406967,
+        -9.499490256914545e-11,
+        -0.23499999955296516
+      ],
+      "max": [
+        0.08500000089406967,
+        0.06907980144023895,
+        0.10250000018626451
+      ],
+      "size": [
+        0.17000000178813934,
+        0.06907980153523385,
+        0.3374999997392297
+      ],
+      "meshes": 6,
+      "triangles": 944,
+      "calls": 6,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-held-pan"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "hand-brush",
+      "min": [
+        -0.06500500440597534,
+        0,
+        -0.17000027000904083
+      ],
+      "max": [
+        0.06500500440597534,
+        0.07764503359794617,
+        0.027499999850988388
+      ],
+      "size": [
+        0.13001000881195068,
+        0.07764503359794617,
+        0.19750026986002922
+      ],
+      "meshes": 4,
+      "triangles": 1956,
+      "calls": 4,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-hand-brush"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "extinguisher-nozzle",
+      "min": [
+        -0.02800000086426735,
+        0,
+        -0.02800000086426735
+      ],
+      "max": [
+        0.02800000086426735,
+        0.11999999731779099,
+        0.02800000086426735
+      ],
+      "size": [
+        0.0560000017285347,
+        0.11999999731779099,
+        0.0560000017285347
+      ],
+      "meshes": 2,
+      "triangles": 768,
+      "calls": 2,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-extinguisher-nozzle"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "chemical-carrier",
+      "min": [
+        -0.06991276144981384,
+        0,
+        -0.0704047679901123
+      ],
+      "max": [
+        0.07170254737138748,
+        0.2199999988079071,
+        0.07000000029802322
+      ],
+      "size": [
+        0.14161530882120132,
+        0.2199999988079071,
+        0.14040476828813553
+      ],
+      "meshes": 3,
+      "triangles": 960,
+      "calls": 3,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-chemical-carrier"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "domestic-carrier",
+      "min": [
+        -0.06991276144981384,
+        0,
+        -0.0704047679901123
+      ],
+      "max": [
+        0.07170254737138748,
+        0.2199999988079071,
+        0.07000000029802322
+      ],
+      "size": [
+        0.14161530882120132,
+        0.2199999988079071,
+        0.14040476828813553
+      ],
+      "meshes": 3,
+      "triangles": 960,
+      "calls": 3,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-domestic-carrier"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "sharps-carrier",
+      "min": [
+        -0.059500000625848766,
+        5.867332227710298e-11,
+        -0.05319999828934669
+      ],
+      "max": [
+        0.059500000625848766,
+        0.20462386310100555,
+        0.05250000208616257
+      ],
+      "size": [
+        0.11900000125169753,
+        0.20462386304233224,
+        0.10570000037550925
+      ],
+      "meshes": 10,
+      "triangles": 1718,
+      "calls": 10,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-sharps-carrier",
+        "asset-held-sharps-box",
+        "countertop-with-openings"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "worn-coat",
+      "min": [
+        -0.2096221148967743,
+        -1.1920928910669204e-8,
+        -0.13859999567270279
+      ],
+      "max": [
+        0.2096221148967743,
+        0.6800000041723251,
+        0.1477063391432166
+      ],
+      "size": [
+        0.4192442297935486,
+        0.680000016093254,
+        0.2863063348159194
+      ],
+      "meshes": 11,
+      "triangles": 3148,
+      "calls": 11,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-worn-coat"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "student-character",
+      "min": [
+        -0.2721693229408056,
+        -3.7252903539730653e-10,
+        -0.23940000295639038
+      ],
+      "max": [
+        0.2721693229408056,
+        1.817960000038147,
+        0.20700000102818011
+      ],
+      "size": [
+        0.5443386458816112,
+        1.8179600004106762,
+        0.44640000398457047
+      ],
+      "meshes": 23,
+      "triangles": 36568,
+      "calls": 24,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-character",
+        "asset-trouser-leg",
+        "asset-closed-shoe",
+        "asset-trouser-leg",
+        "asset-closed-shoe",
+        "asset-worn-coat",
+        "asset-sleeve-cuff",
+        "avatar-left-palm",
+        "asset-grip-hand",
+        "asset-sleeve-cuff",
+        "avatar-right-palm",
+        "asset-grip-hand",
+        "asset-player-hair",
+        "asset-hair-tie",
+        "asset-face-details",
+        "asset-worn-goggles",
+        "wardrobe-goggle-temple--1",
+        "wardrobe-goggle-temple-1",
+        "asset-worn-mask",
+        "wardrobe-mask-cheek--1",
+        "wardrobe-mask-ear--1",
+        "wardrobe-mask-cheek-1",
+        "wardrobe-mask-ear-1"
+      ],
+      "textures": 4,
+      "palette": [
+        "#304754",
+        "#617580",
+        "#c5d2d0",
+        "#405967",
+        "#78919c",
+        "#a4b8b9",
+        "#e5e7dc",
+        "#87adb0",
+        "#edf0e6",
+        "#d8ded5",
+        "#a4b5b0",
+        "#8fa6a4",
+        "#70a9b7",
+        "#94bdc2",
+        "#e6b89b",
+        "#5b4f43",
+        "#8e7c88",
+        "#b49aa7",
+        "#dcac92",
+        "#eee8dc",
+        "#5f665a",
+        "#293b42",
+        "#f4faf5",
+        "#a76f64",
+        "#78a4ad",
+        "#7b9695",
+        "#cce7eb",
+        "#5d8791",
+        "#3b6571",
+        "#728c96",
+        "#526c77",
+        "#9abfc5",
+        "#c7dbd9",
+        "#d4e3de",
+        "#77979d"
+      ],
+      "wardrobe": [
+        {
+          "name": "asset-closed-shoe",
+          "closed": true
+        },
+        {
+          "name": "asset-closed-shoe",
+          "closed": true
+        },
+        {
+          "name": "asset-worn-coat",
+          "fabric": "#e5e7dc",
+          "buttons": 6,
+          "pockets": 3,
+          "fastened": true
+        },
+        {
+          "name": "asset-sleeve-cuff",
+          "coat": true,
+          "gloved": true,
+          "fabric": "#e5e7dc"
+        },
+        {
+          "name": "asset-grip-hand",
+          "gloved": true,
+          "color": "#70a9b7",
+          "pose": "relaxed"
+        },
+        {
+          "name": "asset-sleeve-cuff",
+          "coat": true,
+          "gloved": true,
+          "fabric": "#e5e7dc"
+        },
+        {
+          "name": "asset-grip-hand",
+          "gloved": true,
+          "color": "#70a9b7",
+          "pose": "relaxed"
+        },
+        {
+          "name": "asset-worn-goggles",
+          "frame": "#78a4ad",
+          "gasket": "#7b9695",
+          "wrapDepth": 0.085
+        },
+        {
+          "name": "asset-worn-mask",
+          "fabric": "#9abfc5",
+          "wrapDepth": 0.075,
+          "earDepth": 0.19,
+          "earLift": 0.075
+        }
+      ],
+      "anchors": [
+        {
+          "name": "wardrobe-goggle-temple--1",
+          "at": [
+            -0.1392,
+            1.6,
+            0.08857222222222219
+          ]
+        },
+        {
+          "name": "wardrobe-goggle-temple-1",
+          "at": [
+            0.1392,
+            1.6,
+            0.08857222222222219
+          ]
+        },
+        {
+          "name": "wardrobe-mask-cheek--1",
+          "at": [
+            -0.1275,
+            1.535,
+            0.106
+          ]
+        },
+        {
+          "name": "wardrobe-mask-ear--1",
+          "at": [
+            -0.18375,
+            1.5959999999999999,
+            0.0005000000000000004
+          ]
+        },
+        {
+          "name": "wardrobe-mask-cheek-1",
+          "at": [
+            0.1275,
+            1.535,
+            0.106
+          ]
+        },
+        {
+          "name": "wardrobe-mask-ear-1",
+          "at": [
+            0.18375,
+            1.5959999999999999,
+            0.0005000000000000004
+          ]
+        }
+      ]
+    },
+    {
+      "id": "teacher-character",
+      "min": [
+        -0.2721693229408056,
+        -3.7252903539730653e-10,
+        -0.18087583780288696
+      ],
+      "max": [
+        0.2721693229408056,
+        1.817960000038147,
+        0.1899999976158142
+      ],
+      "size": [
+        0.5443386458816112,
+        1.8179600004106762,
+        0.37087583541870117
+      ],
+      "meshes": 13,
+      "triangles": 27512,
+      "calls": 13,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-character",
+        "asset-trouser-leg",
+        "asset-closed-shoe",
+        "asset-trouser-leg",
+        "asset-closed-shoe",
+        "asset-worn-coat",
+        "asset-sleeve-cuff",
+        "avatar-left-palm",
+        "asset-grip-hand",
+        "asset-sleeve-cuff",
+        "avatar-right-palm",
+        "asset-grip-hand",
+        "asset-player-hair",
+        "asset-face-details"
+      ],
+      "textures": 4,
+      "palette": [
+        "#304754",
+        "#617580",
+        "#c5d2d0",
+        "#405967",
+        "#78919c",
+        "#a4b8b9",
+        "#e5e7dc",
+        "#7199aa",
+        "#edf0e6",
+        "#d8ded5",
+        "#a4b5b0",
+        "#8fa6a4",
+        "#e6b89b",
+        "#d9b9a4",
+        "#bb8f79",
+        "#5e7078",
+        "#dcac92",
+        "#eee8dc",
+        "#5f665a",
+        "#293b42",
+        "#f4faf5",
+        "#a76f64"
+      ],
+      "wardrobe": [
+        {
+          "name": "asset-closed-shoe",
+          "closed": true
+        },
+        {
+          "name": "asset-closed-shoe",
+          "closed": true
+        },
+        {
+          "name": "asset-worn-coat",
+          "fabric": "#e5e7dc",
+          "buttons": 6,
+          "pockets": 3,
+          "fastened": true
+        },
+        {
+          "name": "asset-sleeve-cuff",
+          "coat": true,
+          "gloved": false,
+          "fabric": "#e5e7dc"
+        },
+        {
+          "name": "asset-grip-hand",
+          "gloved": false,
+          "color": "#e6b89b",
+          "pose": "relaxed"
+        },
+        {
+          "name": "asset-sleeve-cuff",
+          "coat": true,
+          "gloved": false,
+          "fabric": "#e5e7dc"
+        },
+        {
+          "name": "asset-grip-hand",
+          "gloved": false,
+          "color": "#e6b89b",
+          "pose": "relaxed"
+        }
+      ],
+      "anchors": []
+    },
+    {
+      "id": "unprepared-character",
+      "min": [
+        -0.2761393846960606,
+        -3.7252903539730653e-10,
+        -0.23940000295639038
+      ],
+      "max": [
+        0.2761393846960606,
+        1.817960000038147,
+        0.1899999976158142
+      ],
+      "size": [
+        0.5522787693921212,
+        1.8179600004106762,
+        0.4294000005722046
+      ],
+      "meshes": 16,
+      "triangles": 22188,
+      "calls": 16,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-character",
+        "asset-trouser-leg",
+        "asset-closed-shoe",
+        "asset-trouser-leg",
+        "asset-closed-shoe",
+        "asset-trouser-waist",
+        "asset-sleeve-cuff",
+        "avatar-left-palm",
+        "asset-grip-hand",
+        "asset-sleeve-cuff",
+        "avatar-right-palm",
+        "asset-grip-hand",
+        "asset-player-hair",
+        "asset-hair-tie",
+        "asset-face-details"
+      ],
+      "textures": 4,
+      "palette": [
+        "#304754",
+        "#617580",
+        "#c5d2d0",
+        "#405967",
+        "#78919c",
+        "#a4b8b9",
+        "#87adb0",
+        "#e6b89b",
+        "#d9b9a4",
+        "#bb8f79",
+        "#5b4f43",
+        "#8e7c88",
+        "#b49aa7",
+        "#dcac92",
+        "#eee8dc",
+        "#5f665a",
+        "#293b42",
+        "#f4faf5",
+        "#a76f64"
+      ],
+      "wardrobe": [
+        {
+          "name": "asset-closed-shoe",
+          "closed": true
+        },
+        {
+          "name": "asset-closed-shoe",
+          "closed": true
+        },
+        {
+          "name": "asset-sleeve-cuff",
+          "coat": false,
+          "gloved": false,
+          "fabric": "#87adb0"
+        },
+        {
+          "name": "asset-grip-hand",
+          "gloved": false,
+          "color": "#e6b89b",
+          "pose": "relaxed"
+        },
+        {
+          "name": "asset-sleeve-cuff",
+          "coat": false,
+          "gloved": false,
+          "fabric": "#87adb0"
+        },
+        {
+          "name": "asset-grip-hand",
+          "gloved": false,
+          "color": "#e6b89b",
+          "pose": "relaxed"
+        }
+      ],
+      "anchors": []
+    },
+    {
+      "id": "bun-character",
+      "min": [
+        -0.2721693229408056,
+        -3.7252903539730653e-10,
+        -0.18349999499320985
+      ],
+      "max": [
+        0.2721693229408056,
+        1.8440000027418137,
+        0.20700000102818011
+      ],
+      "size": [
+        0.5443386458816112,
+        1.8440000031143429,
+        0.39049999602138996
+      ],
+      "meshes": 23,
+      "triangles": 36704,
+      "calls": 24,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-character",
+        "asset-trouser-leg",
+        "asset-closed-shoe",
+        "asset-trouser-leg",
+        "asset-closed-shoe",
+        "asset-worn-coat",
+        "asset-sleeve-cuff",
+        "avatar-left-palm",
+        "asset-grip-hand",
+        "asset-sleeve-cuff",
+        "avatar-right-palm",
+        "asset-grip-hand",
+        "asset-player-hair",
+        "asset-hair-tie",
+        "asset-face-details",
+        "asset-worn-goggles",
+        "wardrobe-goggle-temple--1",
+        "wardrobe-goggle-temple-1",
+        "asset-worn-mask",
+        "wardrobe-mask-cheek--1",
+        "wardrobe-mask-ear--1",
+        "wardrobe-mask-cheek-1",
+        "wardrobe-mask-ear-1"
+      ],
+      "textures": 4,
+      "palette": [
+        "#304754",
+        "#617580",
+        "#c5d2d0",
+        "#405967",
+        "#78919c",
+        "#a4b8b9",
+        "#e5e7dc",
+        "#87adb0",
+        "#edf0e6",
+        "#d8ded5",
+        "#a4b5b0",
+        "#8fa6a4",
+        "#70a9b7",
+        "#94bdc2",
+        "#e6b89b",
+        "#5b4f43",
+        "#8e7c88",
+        "#b49aa7",
+        "#dcac92",
+        "#eee8dc",
+        "#5f665a",
+        "#293b42",
+        "#f4faf5",
+        "#a76f64",
+        "#78a4ad",
+        "#7b9695",
+        "#cce7eb",
+        "#5d8791",
+        "#3b6571",
+        "#728c96",
+        "#526c77",
+        "#9abfc5",
+        "#c7dbd9",
+        "#d4e3de",
+        "#77979d"
+      ],
+      "wardrobe": [
+        {
+          "name": "asset-closed-shoe",
+          "closed": true
+        },
+        {
+          "name": "asset-closed-shoe",
+          "closed": true
+        },
+        {
+          "name": "asset-worn-coat",
+          "fabric": "#e5e7dc",
+          "buttons": 6,
+          "pockets": 3,
+          "fastened": true
+        },
+        {
+          "name": "asset-sleeve-cuff",
+          "coat": true,
+          "gloved": true,
+          "fabric": "#e5e7dc"
+        },
+        {
+          "name": "asset-grip-hand",
+          "gloved": true,
+          "color": "#70a9b7",
+          "pose": "relaxed"
+        },
+        {
+          "name": "asset-sleeve-cuff",
+          "coat": true,
+          "gloved": true,
+          "fabric": "#e5e7dc"
+        },
+        {
+          "name": "asset-grip-hand",
+          "gloved": true,
+          "color": "#70a9b7",
+          "pose": "relaxed"
+        },
+        {
+          "name": "asset-worn-goggles",
+          "frame": "#78a4ad",
+          "gasket": "#7b9695",
+          "wrapDepth": 0.085
+        },
+        {
+          "name": "asset-worn-mask",
+          "fabric": "#9abfc5",
+          "wrapDepth": 0.075,
+          "earDepth": 0.19,
+          "earLift": 0.075
+        }
+      ],
+      "anchors": [
+        {
+          "name": "wardrobe-goggle-temple--1",
+          "at": [
+            -0.1392,
+            1.6,
+            0.08857222222222219
+          ]
+        },
+        {
+          "name": "wardrobe-goggle-temple-1",
+          "at": [
+            0.1392,
+            1.6,
+            0.08857222222222219
+          ]
+        },
+        {
+          "name": "wardrobe-mask-cheek--1",
+          "at": [
+            -0.1275,
+            1.535,
+            0.106
+          ]
+        },
+        {
+          "name": "wardrobe-mask-ear--1",
+          "at": [
+            -0.18375,
+            1.5959999999999999,
+            0.0005000000000000004
+          ]
+        },
+        {
+          "name": "wardrobe-mask-cheek-1",
+          "at": [
+            0.1275,
+            1.535,
+            0.106
+          ]
+        },
+        {
+          "name": "wardrobe-mask-ear-1",
+          "at": [
+            0.18375,
+            1.5959999999999999,
+            0.0005000000000000004
+          ]
+        }
+      ]
+    },
+    {
+      "id": "braided-character",
+      "min": [
+        -0.2721693229408056,
+        -3.7252903539730653e-10,
+        -0.18349999499320985
+      ],
+      "max": [
+        0.2721693229408056,
+        1.817960000038147,
+        0.20700000102818011
+      ],
+      "size": [
+        0.5443386458816112,
+        1.8179600004106762,
+        0.39049999602138996
+      ],
+      "meshes": 23,
+      "triangles": 37672,
+      "calls": 24,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-character",
+        "asset-trouser-leg",
+        "asset-closed-shoe",
+        "asset-trouser-leg",
+        "asset-closed-shoe",
+        "asset-worn-coat",
+        "asset-sleeve-cuff",
+        "avatar-left-palm",
+        "asset-grip-hand",
+        "asset-sleeve-cuff",
+        "avatar-right-palm",
+        "asset-grip-hand",
+        "asset-player-hair",
+        "asset-hair-tie",
+        "asset-face-details",
+        "asset-worn-goggles",
+        "wardrobe-goggle-temple--1",
+        "wardrobe-goggle-temple-1",
+        "asset-worn-mask",
+        "wardrobe-mask-cheek--1",
+        "wardrobe-mask-ear--1",
+        "wardrobe-mask-cheek-1",
+        "wardrobe-mask-ear-1"
+      ],
+      "textures": 4,
+      "palette": [
+        "#304754",
+        "#617580",
+        "#c5d2d0",
+        "#405967",
+        "#78919c",
+        "#a4b8b9",
+        "#e5e7dc",
+        "#87adb0",
+        "#edf0e6",
+        "#d8ded5",
+        "#a4b5b0",
+        "#8fa6a4",
+        "#70a9b7",
+        "#94bdc2",
+        "#e6b89b",
+        "#5b4f43",
+        "#8e7c88",
+        "#b49aa7",
+        "#dcac92",
+        "#eee8dc",
+        "#5f665a",
+        "#293b42",
+        "#f4faf5",
+        "#a76f64",
+        "#78a4ad",
+        "#7b9695",
+        "#cce7eb",
+        "#5d8791",
+        "#3b6571",
+        "#728c96",
+        "#526c77",
+        "#9abfc5",
+        "#c7dbd9",
+        "#d4e3de",
+        "#77979d"
+      ],
+      "wardrobe": [
+        {
+          "name": "asset-closed-shoe",
+          "closed": true
+        },
+        {
+          "name": "asset-closed-shoe",
+          "closed": true
+        },
+        {
+          "name": "asset-worn-coat",
+          "fabric": "#e5e7dc",
+          "buttons": 6,
+          "pockets": 3,
+          "fastened": true
+        },
+        {
+          "name": "asset-sleeve-cuff",
+          "coat": true,
+          "gloved": true,
+          "fabric": "#e5e7dc"
+        },
+        {
+          "name": "asset-grip-hand",
+          "gloved": true,
+          "color": "#70a9b7",
+          "pose": "relaxed"
+        },
+        {
+          "name": "asset-sleeve-cuff",
+          "coat": true,
+          "gloved": true,
+          "fabric": "#e5e7dc"
+        },
+        {
+          "name": "asset-grip-hand",
+          "gloved": true,
+          "color": "#70a9b7",
+          "pose": "relaxed"
+        },
+        {
+          "name": "asset-worn-goggles",
+          "frame": "#78a4ad",
+          "gasket": "#7b9695",
+          "wrapDepth": 0.085
+        },
+        {
+          "name": "asset-worn-mask",
+          "fabric": "#9abfc5",
+          "wrapDepth": 0.075,
+          "earDepth": 0.19,
+          "earLift": 0.075
+        }
+      ],
+      "anchors": [
+        {
+          "name": "wardrobe-goggle-temple--1",
+          "at": [
+            -0.1392,
+            1.6,
+            0.08857222222222219
+          ]
+        },
+        {
+          "name": "wardrobe-goggle-temple-1",
+          "at": [
+            0.1392,
+            1.6,
+            0.08857222222222219
+          ]
+        },
+        {
+          "name": "wardrobe-mask-cheek--1",
+          "at": [
+            -0.1275,
+            1.535,
+            0.106
+          ]
+        },
+        {
+          "name": "wardrobe-mask-ear--1",
+          "at": [
+            -0.18375,
+            1.5959999999999999,
+            0.0005000000000000004
+          ]
+        },
+        {
+          "name": "wardrobe-mask-cheek-1",
+          "at": [
+            0.1275,
+            1.535,
+            0.106
+          ]
+        },
+        {
+          "name": "wardrobe-mask-ear-1",
+          "at": [
+            0.18375,
+            1.5959999999999999,
+            0.0005000000000000004
+          ]
+        }
+      ]
+    },
+    {
+      "id": "long-hair-character",
+      "min": [
+        -0.2761393846960606,
+        -3.7252903539730653e-10,
+        -0.18960000574588776
+      ],
+      "max": [
+        0.2761393846960606,
+        1.817960000038147,
+        0.1899999976158142
+      ],
+      "size": [
+        0.5522787693921212,
+        1.8179600004106762,
+        0.37960000336170197
+      ],
+      "meshes": 14,
+      "triangles": 21532,
+      "calls": 14,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-character",
+        "asset-trouser-leg",
+        "asset-closed-shoe",
+        "asset-trouser-leg",
+        "asset-closed-shoe",
+        "asset-trouser-waist",
+        "asset-sleeve-cuff",
+        "avatar-left-palm",
+        "asset-grip-hand",
+        "asset-sleeve-cuff",
+        "avatar-right-palm",
+        "asset-grip-hand",
+        "asset-player-hair",
+        "asset-face-details"
+      ],
+      "textures": 4,
+      "palette": [
+        "#304754",
+        "#617580",
+        "#c5d2d0",
+        "#405967",
+        "#78919c",
+        "#a4b8b9",
+        "#87adb0",
+        "#e6b89b",
+        "#d9b9a4",
+        "#bb8f79",
+        "#5b4f43",
+        "#dcac92",
+        "#eee8dc",
+        "#5f665a",
+        "#293b42",
+        "#f4faf5",
+        "#a76f64"
+      ],
+      "wardrobe": [
+        {
+          "name": "asset-closed-shoe",
+          "closed": true
+        },
+        {
+          "name": "asset-closed-shoe",
+          "closed": true
+        },
+        {
+          "name": "asset-sleeve-cuff",
+          "coat": false,
+          "gloved": false,
+          "fabric": "#87adb0"
+        },
+        {
+          "name": "asset-grip-hand",
+          "gloved": false,
+          "color": "#e6b89b",
+          "pose": "relaxed"
+        },
+        {
+          "name": "asset-sleeve-cuff",
+          "coat": false,
+          "gloved": false,
+          "fabric": "#87adb0"
+        },
+        {
+          "name": "asset-grip-hand",
+          "gloved": false,
+          "color": "#e6b89b",
+          "pose": "relaxed"
+        }
+      ],
+      "anchors": []
+    },
+    {
+      "id": "lab-door",
+      "min": [
+        -1.0800000429153442,
+        0,
+        -0.05000000074505806
+      ],
+      "max": [
+        1.0800000429153442,
+        2.6800050061941145,
+        0.0925000000745058
+      ],
+      "size": [
+        2.1600000858306885,
+        2.6800050061941145,
+        0.14250000081956388
+      ],
+      "meshes": 27,
+      "triangles": 8750,
+      "calls": 32,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-lab-door",
+        "door-leaf-left",
+        "door-leaf-right"
+      ],
+      "textures": 7
+    },
+    {
+      "id": "transom-window",
+      "min": [
+        -1.4299999475479126,
+        -2.1606683716507424e-10,
+        -0.03999999910593033
+      ],
+      "max": [
+        1.4299999475479126,
+        0.5500000258907676,
+        0.0799999986588955
+      ],
+      "size": [
+        2.859999895095825,
+        0.5500000261068344,
+        0.11999999776482582
+      ],
+      "meshes": 5,
+      "triangles": 764,
+      "calls": 6,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-transom-window"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "north-wall",
+      "min": [
+        -10,
+        0,
+        -7.6
+      ],
+      "max": [
+        10,
+        3.799999952316284,
+        -7.399999997019767
+      ],
+      "size": [
+        20,
+        3.799999952316284,
+        0.20000000298023224
+      ],
+      "meshes": 1,
+      "triangles": 476,
+      "calls": 1,
+      "invalidVertices": 0,
+      "parts": [
+        "north-wall-with-window-openings"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "led-panel",
+      "min": [
+        -0.7000000067055225,
+        -1.3038516013391677e-11,
+        -0.20000000670552254
+      ],
+      "max": [
+        0.7000000067055225,
+        0.03500000014901161,
+        0.20000000670552254
+      ],
+      "size": [
+        1.400000013411045,
+        0.03500000016205013,
+        0.4000000134110451
+      ],
+      "meshes": 7,
+      "triangles": 186,
+      "calls": 7,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-led-panel"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "vent-grille",
+      "min": [
+        -0.25,
+        0,
+        -0.019999999552965164
+      ],
+      "max": [
+        0.25,
+        0.2199999988079071,
+        0.024500000013038516
+      ],
+      "size": [
+        0.5,
+        0.2199999988079071,
+        0.04449999956600368
+      ],
+      "meshes": 6,
+      "triangles": 184,
+      "calls": 6,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-vent-grille"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "ventilation-duct",
+      "min": [
+        -1.505196152254939,
+        0.0010000056028366122,
+        -0.16600000005215407
+      ],
+      "max": [
+        1.505196152254939,
+        0.4,
+        0.16600000005215407
+      ],
+      "size": [
+        3.010392304509878,
+        0.3989999943971634,
+        0.33200000010430814
+      ],
+      "meshes": 10,
+      "triangles": 2304,
+      "calls": 10,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-ventilation-duct"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "hood-exhaust",
+      "min": [
+        -0.18400000035762787,
+        1.341104505225843e-9,
+        -0.18400000035762787
+      ],
+      "max": [
+        0.18400000035762787,
+        0.990378737449646,
+        2.0000100135803223
+      ],
+      "size": [
+        0.36800000071525574,
+        0.9903787361085414,
+        2.18401001393795
+      ],
+      "meshes": 3,
+      "triangles": 976,
+      "calls": 3,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-hood-exhaust"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "smoke-detector",
+      "min": [
+        -0.08500000089406967,
+        0,
+        -0.08500000089406967
+      ],
+      "max": [
+        0.08500000089406967,
+        0.051,
+        0.08500000089406967
+      ],
+      "size": [
+        0.17000000178813934,
+        0.051,
+        0.17000000178813934
+      ],
+      "meshes": 4,
+      "triangles": 498,
+      "calls": 5,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-smoke-detector"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "sprinkler",
+      "min": [
+        -0.03799999877810478,
+        -2.1606683716507424e-10,
+        -0.03799999877810478
+      ],
+      "max": [
+        0.03799999877810478,
+        0.09450000221841037,
+        0.03799999877810478
+      ],
+      "size": [
+        0.07599999755620956,
+        0.0945000024344772,
+        0.07599999755620956
+      ],
+      "meshes": 6,
+      "triangles": 992,
+      "calls": 6,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-sprinkler"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "wall-clock",
+      "min": [
+        -0.2199999988079071,
+        1.1920928966180355e-9,
+        -0.017500000074505855
+      ],
+      "max": [
+        0.2199999988079071,
+        0.4399999988079071,
+        0.034
+      ],
+      "size": [
+        0.4399999976158142,
+        0.4399999976158142,
+        0.05150000007450586
+      ],
+      "meshes": 8,
+      "triangles": 306,
+      "calls": 9,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-wall-clock"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "whiteboard-marker",
+      "min": [
+        -0.00800000037997961,
+        -3.7997961374602873e-10,
+        -0.08800000010430813
+      ],
+      "max": [
+        0.00800000037997961,
+        0.017505000051110983,
+        0.07000000029802322
+      ],
+      "size": [
+        0.01600000075995922,
+        0.017505000431090597,
+        0.15800000040233136
+      ],
+      "meshes": 3,
+      "triangles": 844,
+      "calls": 3,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-whiteboard-marker"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "whiteboard-eraser",
+      "min": [
+        -0.0525050014257431,
+        -1.899898051382909e-10,
+        -0.027499999850988388
+      ],
+      "max": [
+        0.0525050014257431,
+        0.03300500045716763,
+        0.027499999850988388
+      ],
+      "size": [
+        0.1050100028514862,
+        0.03300500064715743,
+        0.054999999701976776
+      ],
+      "meshes": 2,
+      "triangles": 728,
+      "calls": 2,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-whiteboard-eraser"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "ghs-board",
+      "min": [
+        -1.4000049829483032,
+        -0.000004959106445268091,
+        -0.017500000074505806
+      ],
+      "max": [
+        1.4000049829483032,
+        1.6000049591064454,
+        0.028
+      ],
+      "size": [
+        2.8000099658966064,
+        1.6000099182128906,
+        0.0455000000745058
+      ],
+      "meshes": 21,
+      "triangles": 766,
+      "calls": 31,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-ghs-board",
+        "asset-board-frame"
+      ],
+      "textures": 23
+    },
+    {
+      "id": "periodic-board",
+      "min": [
+        -1.4000049829483032,
+        -0.000004959106445268091,
+        -0.017500000074505806
+      ],
+      "max": [
+        1.4000049829483032,
+        1.6000049591064454,
+        0.025
+      ],
+      "size": [
+        2.8000099658966064,
+        1.6000099182128906,
+        0.04250000007450581
+      ],
+      "meshes": 3,
+      "triangles": 730,
+      "calls": 3,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-periodic-board",
+        "asset-board-frame"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "lesson-board",
+      "min": [
+        -2.6000049114227295,
+        -0.000004982948303200452,
+        -0.017500000074505806
+      ],
+      "max": [
+        2.6000049114227295,
+        1.8000049829483031,
+        0.12000000178813934
+      ],
+      "size": [
+        5.200009822845459,
+        1.8000099658966064,
+        0.13750000186264516
+      ],
+      "meshes": 16,
+      "triangles": 4014,
+      "calls": 16,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-lesson-board",
+        "asset-board-frame",
+        "whiteboard-tray",
+        "asset-whiteboard-marker",
+        "asset-whiteboard-marker",
+        "asset-whiteboard-marker",
+        "asset-whiteboard-eraser"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "evacuation-board",
+      "min": [
+        -0.6000049710273743,
+        -0.000005018711090098993,
+        -0.017500000074505806
+      ],
+      "max": [
+        0.6000049710273743,
+        0.8500050187110901,
+        0.025
+      ],
+      "size": [
+        1.2000099420547485,
+        0.8500100374221802,
+        0.04250000007450581
+      ],
+      "meshes": 3,
+      "triangles": 730,
+      "calls": 3,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-evacuation-board",
+        "asset-board-frame"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "rules-board",
+      "min": [
+        -0.6000049710273743,
+        -0.000005018711090098993,
+        -0.017500000074505806
+      ],
+      "max": [
+        0.6000049710273743,
+        0.8500050187110901,
+        0.025
+      ],
+      "size": [
+        1.2000099420547485,
+        0.8500100374221802,
+        0.04250000007450581
+      ],
+      "meshes": 3,
+      "triangles": 730,
+      "calls": 3,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-rules-board",
+        "asset-board-frame"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "teaching-bench",
+      "min": [
+        -1.5000050067901611,
+        0,
+        -0.5499999523162842
+      ],
+      "max": [
+        1.5000050067901611,
+        0.9000049997121096,
+        0.5499999523162842
+      ],
+      "size": [
+        3.0000100135803223,
+        0.9000049997121096,
+        1.0999999046325684
+      ],
+      "meshes": 48,
+      "triangles": 12544,
+      "calls": 48,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-teaching-bench",
+        "asset-drawer",
+        "asset-drawer",
+        "asset-drawer",
+        "asset-drawer"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "bag-rack",
+      "min": [
+        -0.8000000240281224,
+        0,
+        -0.22499999403953552
+      ],
+      "max": [
+        0.8000000240281224,
+        0.8999999882653356,
+        0.22499999977648258
+      ],
+      "size": [
+        1.6000000480562449,
+        0.8999999882653356,
+        0.4499999938160181
+      ],
+      "meshes": 4,
+      "triangles": 48,
+      "calls": 4,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-bag-rack"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "chemical-bin",
+      "min": [
+        -0.23999999463558197,
+        0,
+        -0.23999999463558197
+      ],
+      "max": [
+        0.23999999463558197,
+        0.6925049998015166,
+        0.29500000074505806
+      ],
+      "size": [
+        0.47999998927116394,
+        0.6925049998015166,
+        0.53499999538064
+      ],
+      "meshes": 7,
+      "triangles": 3608,
+      "calls": 7,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-chemical-bin",
+        "waste-lid-hinge"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "chemical-bin-open",
+      "min": [
+        -0.23999999463558197,
+        0,
+        -0.257993755713772
+      ],
+      "max": [
+        0.23999999463558197,
+        1.0741280936263047,
+        0.29500000074505806
+      ],
+      "size": [
+        0.47999998927116394,
+        1.0741280936263047,
+        0.5529937564588301
+      ],
+      "meshes": 7,
+      "triangles": 3608,
+      "calls": 7,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-chemical-bin",
+        "waste-lid-hinge"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "domestic-bin",
+      "min": [
+        -0.23999999463558197,
+        0,
+        -0.23999999463558197
+      ],
+      "max": [
+        0.23999999463558197,
+        0.6925049998015166,
+        0.29500000074505806
+      ],
+      "size": [
+        0.47999998927116394,
+        0.6925049998015166,
+        0.53499999538064
+      ],
+      "meshes": 7,
+      "triangles": 3608,
+      "calls": 7,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-domestic-bin",
+        "waste-lid-hinge"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "liquid-waste",
+      "min": [
+        -0.21199999749660492,
+        0,
+        -0.21199999749660492
+      ],
+      "max": [
+        0.25278328406983036,
+        0.7865050004050136,
+        0.21199999749660492
+      ],
+      "size": [
+        0.4647832815664353,
+        0.7865050004050136,
+        0.42399999499320984
+      ],
+      "meshes": 8,
+      "triangles": 4124,
+      "calls": 8,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-liquid-waste"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "liquid-waste-open",
+      "min": [
+        -0.21199999749660492,
+        0,
+        -0.21199999749660492
+      ],
+      "max": [
+        0.25278328406983036,
+        0.9869012529217568,
+        0.21199999749660492
+      ],
+      "size": [
+        0.4647832815664353,
+        0.9869012529217568,
+        0.42399999499320984
+      ],
+      "meshes": 8,
+      "triangles": 4124,
+      "calls": 8,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-liquid-waste"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "glass-waste",
+      "min": [
+        -0.2199999988079071,
+        0,
+        -0.2199999988079071
+      ],
+      "max": [
+        0.2199999988079071,
+        0.7175000008940696,
+        0.2199999988079071
+      ],
+      "size": [
+        0.4399999976158142,
+        0.7175000008940696,
+        0.4399999976158142
+      ],
+      "meshes": 9,
+      "triangles": 502,
+      "calls": 9,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-glass-waste",
+        "countertop-with-openings"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "sharps-box",
+      "min": [
+        -0.17000000178813934,
+        1.6763806315323038e-10,
+        -0.15199999511241913
+      ],
+      "max": [
+        0.17000000178813934,
+        0.5846396088600159,
+        0.15000000596046448
+      ],
+      "size": [
+        0.3400000035762787,
+        0.5846396086923779,
+        0.3020000010728836
+      ],
+      "meshes": 10,
+      "triangles": 1718,
+      "calls": 10,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-sharps-box",
+        "countertop-with-openings"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "sharps-box-closed",
+      "min": [
+        -0.17000000178813934,
+        1.6763806315323038e-10,
+        -0.15199999511241913
+      ],
+      "max": [
+        0.17000000178813934,
+        0.5846396088600159,
+        0.15000000596046448
+      ],
+      "size": [
+        0.3400000035762787,
+        0.5846396086923779,
+        0.3020000010728836
+      ],
+      "meshes": 10,
+      "triangles": 1718,
+      "calls": 10,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-sharps-box",
+        "countertop-with-openings"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "glass-shards",
+      "min": [
+        -0.15000000074505807,
+        -1.4988011014419348e-17,
+        -0.054999999701976776
+      ],
+      "max": [
+        0.13644505239222054,
+        0.0020000000949949182,
+        0.11025254001041625
+      ],
+      "size": [
+        0.28644505313727864,
+        0.0020000000949949334,
+        0.165252539712393
+      ],
+      "meshes": 3,
+      "triangles": 36,
+      "calls": 6,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-glass-shards"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "crumpled-paper",
+      "min": [
+        -0.10000000149011612,
+        2.1606683716507424e-10,
+        -0.07999999821186066
+      ],
+      "max": [
+        0.10000000149011612,
+        0.029924850195646287,
+        0.07999999821186066
+      ],
+      "size": [
+        0.20000000298023224,
+        0.02992484997957945,
+        0.1599999964237213
+      ],
+      "meshes": 1,
+      "triangles": 160,
+      "calls": 1,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-crumpled-paper"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "contaminated-paper",
+      "min": [
+        -0.10000000149011612,
+        2.1606683716507424e-10,
+        -0.07999999821186066
+      ],
+      "max": [
+        0.10000000149011612,
+        0.029924850195646287,
+        0.07999999821186066
+      ],
+      "size": [
+        0.20000000298023224,
+        0.02992484997957945,
+        0.1599999964237213
+      ],
+      "meshes": 1,
+      "triangles": 160,
+      "calls": 1,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-contaminated-paper"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "emergency-shower",
+      "min": [
+        -0.18000000715255737,
+        -5.2154064053566707e-11,
+        -0.125
+      ],
+      "max": [
+        0.2672054621577263,
+        2.703395128250122,
+        0.9500000059604645
+      ],
+      "size": [
+        0.44720546931028365,
+        2.7033951283022764,
+        1.0750000059604645
+      ],
+      "meshes": 24,
+      "triangles": 13576,
+      "calls": 25,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-emergency-shower",
+        "asset-eyewash",
+        "asset-shower-head",
+        "asset-shower-pull",
+        "asset-shower-pull-rod"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "emergency-shower-active",
+      "min": [
+        -0.18000000715255737,
+        -5.2154064053566707e-11,
+        -0.125
+      ],
+      "max": [
+        0.2600049994885921,
+        2.703395128250122,
+        0.9500000059604645
+      ],
+      "size": [
+        0.4400050066411495,
+        2.7033951283022764,
+        1.0750000059604645
+      ],
+      "meshes": 24,
+      "triangles": 13576,
+      "calls": 26,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-emergency-shower",
+        "asset-eyewash",
+        "asset-shower-head",
+        "asset-shower-pull",
+        "asset-shower-pull-rod",
+        "asset-shower-water"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "emergency-eyewash-active",
+      "min": [
+        -0.18000000715255737,
+        -5.2154064053566707e-11,
+        -0.125
+      ],
+      "max": [
+        0.27556442735584247,
+        2.703395128250122,
+        0.9500000059604645
+      ],
+      "size": [
+        0.45556443450839984,
+        2.7033951283022764,
+        1.0750000059604645
+      ],
+      "meshes": 27,
+      "triangles": 14680,
+      "calls": 28,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-emergency-shower",
+        "asset-eyewash",
+        "asset-eyewash-jets",
+        "asset-shower-head",
+        "asset-shower-pull",
+        "asset-shower-pull-rod"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "shower-head",
+      "min": [
+        -0.15000000596046448,
+        0,
+        -0.15000000596046448
+      ],
+      "max": [
+        0.15000000596046448,
+        0.09000000357627869,
+        0.15000000596046448
+      ],
+      "size": [
+        0.30000001192092896,
+        0.09000000357627869,
+        0.30000001192092896
+      ],
+      "meshes": 2,
+      "triangles": 3456,
+      "calls": 2,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-shower-head"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "eyewash",
+      "min": [
+        -0.18000000715255737,
+        0,
+        -0.18000000715255737
+      ],
+      "max": [
+        0.2600049994885921,
+        0.17250499710440637,
+        0.18000000715255737
+      ],
+      "size": [
+        0.4400050066411495,
+        0.17250499710440637,
+        0.36000001430511475
+      ],
+      "meshes": 12,
+      "triangles": 6246,
+      "calls": 13,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-eyewash"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "eyewash-active",
+      "min": [
+        -0.18000000715255737,
+        0,
+        -0.18000000715255737
+      ],
+      "max": [
+        0.27556442735584247,
+        0.2954889158718288,
+        0.18000000715255737
+      ],
+      "size": [
+        0.45556443450839984,
+        0.2954889158718288,
+        0.36000001430511475
+      ],
+      "meshes": 15,
+      "triangles": 7350,
+      "calls": 16,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-eyewash",
+        "asset-eyewash-jets"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "extinguisher-powder",
+      "min": [
+        -0.07900000043213368,
+        0,
+        -0.07599999755620956
+      ],
+      "max": [
+        0.11850257962942123,
+        0.5240050001591444,
+        0.07699999958276749
+      ],
+      "size": [
+        0.1975025800615549,
+        0.5240050001591444,
+        0.15299999713897705
+      ],
+      "meshes": 18,
+      "triangles": 6204,
+      "calls": 18,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-extinguisher-powder",
+        "asset-extinguisher-lever",
+        "asset-extinguisher-pin",
+        "extinguisher-pressure-gauge"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "extinguisher-co2",
+      "min": [
+        -0.07900000043213368,
+        0,
+        -0.07599999755620956
+      ],
+      "max": [
+        0.1640000004172325,
+        0.5240050001591444,
+        0.07699999958276749
+      ],
+      "size": [
+        0.24300000084936618,
+        0.5240050001591444,
+        0.15299999713897705
+      ],
+      "meshes": 14,
+      "triangles": 5652,
+      "calls": 14,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-extinguisher-co2",
+        "asset-extinguisher-lever",
+        "asset-extinguisher-pin"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "extinguisher-cabinet",
+      "min": [
+        -0.28999999961256984,
+        -7.152557379708213e-9,
+        -0.12499999961256981
+      ],
+      "max": [
+        0.28999999961256984,
+        0.8600000071525573,
+        0.15899999994039535
+      ],
+      "size": [
+        0.5799999992251397,
+        0.8600000143051147,
+        0.2839999995529652
+      ],
+      "meshes": 44,
+      "triangles": 12694,
+      "calls": 46,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-extinguisher-cabinet",
+        "asset-extinguisher-powder",
+        "asset-extinguisher-lever",
+        "asset-extinguisher-pin",
+        "extinguisher-pressure-gauge",
+        "asset-extinguisher-co2",
+        "asset-extinguisher-lever",
+        "asset-extinguisher-pin",
+        "extinguisher-cabinet-door"
+      ],
+      "textures": 7
+    },
+    {
+      "id": "extinguisher-cabinet-open",
+      "min": [
+        -0.28999999961256984,
+        -7.152557379708213e-9,
+        -0.12499999961256981
+      ],
+      "max": [
+        0.28999999961256984,
+        0.8600000071525573,
+        0.6550671857551561
+      ],
+      "size": [
+        0.5799999992251397,
+        0.8600000143051147,
+        0.7800671853677259
+      ],
+      "meshes": 44,
+      "triangles": 12694,
+      "calls": 46,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-extinguisher-cabinet",
+        "asset-extinguisher-powder",
+        "asset-extinguisher-lever",
+        "asset-extinguisher-pin",
+        "extinguisher-pressure-gauge",
+        "asset-extinguisher-co2",
+        "asset-extinguisher-lever",
+        "asset-extinguisher-pin",
+        "extinguisher-cabinet-door"
+      ],
+      "textures": 7
+    },
+    {
+      "id": "fire-blanket",
+      "min": [
+        -0.16500499844551086,
+        1.341104505225843e-9,
+        -0.05250000208616257
+      ],
+      "max": [
+        0.16500499844551086,
+        0.46150500045716764,
+        0.05500000002607703
+      ],
+      "size": [
+        0.33000999689102173,
+        0.46150499911606313,
+        0.10750000211223959
+      ],
+      "meshes": 8,
+      "triangles": 1494,
+      "calls": 9,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-fire-blanket"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "first-aid",
+      "min": [
+        -0.24730415488851842,
+        -0.000005012750625588147,
+        -0.10700000021606684
+      ],
+      "max": [
+        0.24000000037997962,
+        0.5500050127506256,
+        0.5573991561284084
+      ],
+      "size": [
+        0.487304155268498,
+        0.5500100255012512,
+        0.6643991563444752
+      ],
+      "meshes": 53,
+      "triangles": 15130,
+      "calls": 59,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-first-aid-cabinet",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-reagent-bottle",
+        "bottle-cap",
+        "asset-reagent-bottle",
+        "bottle-cap",
+        "asset-gauze-pack",
+        "asset-gauze-pack",
+        "asset-bandage-roll",
+        "first-aid-door"
+      ],
+      "textures": 10
+    },
+    {
+      "id": "first-aid-closed",
+      "min": [
+        -0.2400050014257431,
+        -0.000005012750625588147,
+        -0.10700000021606684
+      ],
+      "max": [
+        0.2400050014257431,
+        0.5500050127506256,
+        0.14699999994039536
+      ],
+      "size": [
+        0.4800100028514862,
+        0.5500100255012512,
+        0.2540000001564622
+      ],
+      "meshes": 53,
+      "triangles": 15130,
+      "calls": 59,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-first-aid-cabinet",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-reagent-bottle",
+        "bottle-cap",
+        "asset-reagent-bottle",
+        "bottle-cap",
+        "asset-gauze-pack",
+        "asset-gauze-pack",
+        "asset-bandage-roll",
+        "first-aid-door"
+      ],
+      "textures": 10
+    },
+    {
+      "id": "gauze-pack",
+      "min": [
+        -0.05500499904155731,
+        -0.000004999883472920144,
+        -0.04249999672174454
+      ],
+      "max": [
+        0.05500499904155731,
+        0.019000000262167305,
+        0.04249999672174454
+      ],
+      "size": [
+        0.11000999808311462,
+        0.019005000145640223,
+        0.08499999344348907
+      ],
+      "meshes": 3,
+      "triangles": 730,
+      "calls": 4,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-gauze-pack"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "bandage-roll",
+      "min": [
+        -0.039000000804662704,
+        -4.749745128457272e-11,
+        -0.039000000804662704
+      ],
+      "max": [
+        0.0625000000745058,
+        0.07000000029802322,
+        0.039000000804662704
+      ],
+      "size": [
+        0.10150000087916851,
+        0.07000000034552067,
+        0.07800000160932541
+      ],
+      "meshes": 9,
+      "triangles": 3180,
+      "calls": 9,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-bandage-roll"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "spill-cart",
+      "min": [
+        -0.26899999380111694,
+        -0.000004999712109564347,
+        -0.26899999380111694
+      ],
+      "max": [
+        0.26899999380111694,
+        0.925865888595581,
+        0.26899999380111694
+      ],
+      "size": [
+        0.5379999876022339,
+        0.9258708883076906,
+        0.5379999876022339
+      ],
+      "meshes": 22,
+      "triangles": 6580,
+      "calls": 22,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-spill-cart",
+        "asset-scoop"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "spill-cart-open",
+      "min": [
+        -0.26899999380111694,
+        -0.000004999712109564347,
+        -0.28439969397902104
+      ],
+      "max": [
+        0.26899999380111694,
+        1.1698302894830062,
+        0.2619999945163727
+      ],
+      "size": [
+        0.5379999876022339,
+        1.1698352891951158,
+        0.5463996884953937
+      ],
+      "meshes": 22,
+      "triangles": 6580,
+      "calls": 22,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-spill-cart",
+        "asset-scoop"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "scoop",
+      "min": [
+        -0.0550000001899898,
+        1.9371509518001373e-10,
+        -0.3119999998807907
+      ],
+      "max": [
+        0.0550000001899898,
+        0.07900208234786987,
+        0.07000000029802322
+      ],
+      "size": [
+        0.1100000003799796,
+        0.07900208215415477,
+        0.3820000001788139
+      ],
+      "meshes": 6,
+      "triangles": 944,
+      "calls": 6,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-scoop"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "bench-cabinet",
+      "min": [
+        -1.6000000331550837,
+        0,
+        -0.6999999973922968
+      ],
+      "max": [
+        1.6000000331550837,
+        1.170142216308117,
+        0.6999999973922968
+      ],
+      "size": [
+        3.2000000663101673,
+        1.170142216308117,
+        1.3999999947845936
+      ],
+      "meshes": 65,
+      "triangles": 19704,
+      "calls": 67,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-bench-cabinet",
+        "bench-sink-service-bay",
+        "drawer-slide-study-bench-drawer-0-0",
+        "asset-drawer",
+        "drawer-slide-study-bench-drawer-0-1",
+        "asset-drawer",
+        "drawer-slide-study-bench-drawer-1-0",
+        "asset-drawer",
+        "drawer-slide-study-bench-drawer-1-1",
+        "asset-drawer",
+        "countertop-with-openings",
+        "asset-bench-sink",
+        "asset-sink-basin",
+        "basin-hollow-shell",
+        "basin-floor-with-drain",
+        "basin-drain-grate",
+        "asset-faucet",
+        "asset-gas-tap",
+        "gas-tap-lever"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "drawer",
+      "min": [
+        -0.48000502586364746,
+        -0.000005003213882442958,
+        -0.5350000262260437
+      ],
+      "max": [
+        0.48000502586364746,
+        0.3200050032138825,
+        0.612499999858439
+      ],
+      "size": [
+        0.9600100517272949,
+        0.3200100064277649,
+        1.1475000260844825
+      ],
+      "meshes": 10,
+      "triangles": 2936,
+      "calls": 10,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-drawer"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "drawer-open",
+      "min": [
+        -0.48000502586364746,
+        -0.000005003213882442958,
+        -0.31500002622604373
+      ],
+      "max": [
+        0.48000502586364746,
+        0.3200050032138825,
+        0.8324999998584389
+      ],
+      "size": [
+        0.9600100517272949,
+        0.3200100064277649,
+        1.1475000260844825
+      ],
+      "meshes": 10,
+      "triangles": 2936,
+      "calls": 10,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-drawer"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "stool",
+      "min": [
+        -0.21006446704268456,
+        0,
+        -0.18123045191168785
+      ],
+      "max": [
+        0.21006446704268456,
+        0.6225000008940696,
+        0.2199999950826168
+      ],
+      "size": [
+        0.4201289340853691,
+        0.6225000008940696,
+        0.40123044699430466
+      ],
+      "meshes": 11,
+      "triangles": 6012,
+      "calls": 11,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-stool"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "reagent-rack",
+      "min": [
+        -1.2000000476837158,
+        -1.19209286886246e-9,
+        -0.14000000059604645
+      ],
+      "max": [
+        1.2000000476837158,
+        0.5600000011920929,
+        0.15450000039767475
+      ],
+      "size": [
+        2.4000000953674316,
+        0.5600000023841858,
+        0.2945000009937212
+      ],
+      "meshes": 16,
+      "triangles": 1988,
+      "calls": 18,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-reagent-rack"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "stirring-rod",
+      "min": [
+        -0.004999999888241291,
+        1.1175867349610957e-10,
+        -0.1649999998882413
+      ],
+      "max": [
+        0.004999999888241291,
+        0.009999999888241327,
+        0.1649999998882413
+      ],
+      "size": [
+        0.009999999776482582,
+        0.009999999776482653,
+        0.3299999997764826
+      ],
+      "meshes": 3,
+      "triangles": 400,
+      "calls": 6,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-stirring-rod"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "fume-hood",
+      "min": [
+        -1.2000000476837158,
+        1.341104505225843e-9,
+        -0.550000011920929
+      ],
+      "max": [
+        1.2000000476837158,
+        2.765196152254939,
+        0.6075000008940697
+      ],
+      "size": [
+        2.4000000953674316,
+        2.7651961509138343,
+        1.1575000128149986
+      ],
+      "meshes": 43,
+      "triangles": 11250,
+      "calls": 49,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-fume-hood",
+        "asset-hood-shell",
+        "hood-baffles",
+        "asset-hood-sash",
+        "hood-airflow-monitor",
+        "asset-beaker"
+      ],
+      "textures": 9
+    },
+    {
+      "id": "fume-hood-open",
+      "min": [
+        -1.2000000476837158,
+        1.341104505225843e-9,
+        -0.550000011920929
+      ],
+      "max": [
+        1.2000000476837158,
+        2.765196152254939,
+        0.6075000008940697
+      ],
+      "size": [
+        2.4000000953674316,
+        2.7651961509138343,
+        1.1575000128149986
+      ],
+      "meshes": 43,
+      "triangles": 11250,
+      "calls": 49,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-fume-hood",
+        "asset-hood-shell",
+        "hood-baffles",
+        "asset-hood-sash",
+        "hood-airflow-monitor",
+        "asset-beaker"
+      ],
+      "textures": 9
+    },
+    {
+      "id": "sink-basin",
+      "min": [
+        -0.3499999940395355,
+        -3.108624482185328e-17,
+        -0.2199999988079071
+      ],
+      "max": [
+        0.3499999940395355,
+        0.20600000023841858,
+        0.2199999988079071
+      ],
+      "size": [
+        0.699999988079071,
+        0.2060000002384186,
+        0.4399999976158142
+      ],
+      "meshes": 4,
+      "triangles": 2152,
+      "calls": 4,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-sink-basin",
+        "basin-hollow-shell",
+        "basin-floor-with-drain",
+        "basin-drain-grate"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "bench-sink",
+      "min": [
+        -0.17499999701976776,
+        -2.1138646478860234e-17,
+        -0.16499999910593033
+      ],
+      "max": [
+        0.17499999701976776,
+        0.41022221630811684,
+        0.16499999910593033
+      ],
+      "size": [
+        0.3499999940395355,
+        0.41022221630811684,
+        0.32999999821186066
+      ],
+      "meshes": 9,
+      "triangles": 3924,
+      "calls": 9,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-bench-sink",
+        "asset-sink-basin",
+        "basin-hollow-shell",
+        "basin-floor-with-drain",
+        "basin-drain-grate",
+        "asset-faucet"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "faucet",
+      "min": [
+        -0.028999999165534973,
+        3.8743019036002746e-10,
+        -0.028999999165534973
+      ],
+      "max": [
+        0.028999999165534973,
+        0.3167320191860199,
+        0.17530000008642674
+      ],
+      "size": [
+        0.057999998331069946,
+        0.3167320187985897,
+        0.2042999992519617
+      ],
+      "meshes": 5,
+      "triangles": 1772,
+      "calls": 5,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-faucet"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "handwash",
+      "min": [
+        -1,
+        6.705522526129215e-10,
+        -0.30000001192092896
+      ],
+      "max": [
+        1,
+        1.7300050127506257,
+        0.3159999995008111
+      ],
+      "size": [
+        2,
+        1.7300050120800734,
+        0.6160000114217401
+      ],
+      "meshes": 57,
+      "triangles": 23602,
+      "calls": 60,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-handwash-station",
+        "countertop-with-openings",
+        "asset-sink-basin",
+        "basin-hollow-shell",
+        "basin-floor-with-drain",
+        "basin-drain-grate",
+        "asset-faucet",
+        "asset-sink-basin",
+        "basin-hollow-shell",
+        "basin-floor-with-drain",
+        "basin-drain-grate",
+        "asset-faucet",
+        "asset-soap-dispenser",
+        "asset-soap-dispenser",
+        "asset-paper-dispenser"
+      ],
+      "textures": 7
+    },
+    {
+      "id": "handwash-running",
+      "min": [
+        -1,
+        6.705522526129215e-10,
+        -0.30000001192092896
+      ],
+      "max": [
+        1,
+        1.7300050127506257,
+        0.3159999995008111
+      ],
+      "size": [
+        2,
+        1.7300050120800734,
+        0.6160000114217401
+      ],
+      "meshes": 61,
+      "triangles": 23858,
+      "calls": 64,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-handwash-station",
+        "countertop-with-openings",
+        "asset-sink-basin",
+        "basin-hollow-shell",
+        "basin-floor-with-drain",
+        "basin-drain-grate",
+        "asset-faucet",
+        "faucet-water-flow",
+        "asset-sink-basin",
+        "basin-hollow-shell",
+        "basin-floor-with-drain",
+        "basin-drain-grate",
+        "asset-faucet",
+        "faucet-water-flow",
+        "asset-soap-dispenser",
+        "asset-soap-dispenser",
+        "asset-paper-dispenser"
+      ],
+      "textures": 7
+    },
+    {
+      "id": "soap-dispenser",
+      "min": [
+        -0.07000499963760376,
+        -0.0000050061941146845035,
+        -0.052000000026077034
+      ],
+      "max": [
+        0.07000499963760376,
+        0.22800499988347292,
+        0.0645000001862645
+      ],
+      "size": [
+        0.14000999927520752,
+        0.2280100060775876,
+        0.11650000021234154
+      ],
+      "meshes": 7,
+      "triangles": 2962,
+      "calls": 8,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-soap-dispenser"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "paper-dispenser",
+      "min": [
+        -0.145005002617836,
+        2.384185793236071e-9,
+        -0.06600000005215406
+      ],
+      "max": [
+        0.145005002617836,
+        0.3800050127506256,
+        0.08899965036660433
+      ],
+      "size": [
+        0.290010005235672,
+        0.3800050103664398,
+        0.1549996504187584
+      ],
+      "meshes": 9,
+      "triangles": 5206,
+      "calls": 10,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-paper-dispenser"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "bunsen",
+      "min": [
+        -0.08399999886751175,
+        -2.682209020860027e-10,
+        -0.08399999886751175
+      ],
+      "max": [
+        0.08399999886751175,
+        0.22473205079045147,
+        0.08399999886751175
+      ],
+      "size": [
+        0.1679999977350235,
+        0.22473205105867236,
+        0.1679999977350235
+      ],
+      "meshes": 14,
+      "triangles": 3726,
+      "calls": 15,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-bunsen",
+        "bunsen-barrel",
+        "bunsen-air-collar"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "bunsen-blue",
+      "min": [
+        -0.08399999886751175,
+        -2.682209020860027e-10,
+        -0.08399999886751175
+      ],
+      "max": [
+        0.08399999886751175,
+        0.3620145904858873,
+        0.08399999886751175
+      ],
+      "size": [
+        0.1679999977350235,
+        0.3620145907541082,
+        0.1679999977350235
+      ],
+      "meshes": 16,
+      "triangles": 4246,
+      "calls": 17,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-bunsen",
+        "bunsen-barrel",
+        "bunsen-air-collar",
+        "asset-bunsen-flame"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "bunsen-yellow",
+      "min": [
+        -0.08399999886751175,
+        -2.682209020860027e-10,
+        -0.08399999886751175
+      ],
+      "max": [
+        0.08399999886751175,
+        0.3913569624513928,
+        0.08399999886751175
+      ],
+      "size": [
+        0.1679999977350235,
+        0.3913569627196137,
+        0.1679999977350235
+      ],
+      "meshes": 16,
+      "triangles": 4246,
+      "calls": 17,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-bunsen",
+        "bunsen-barrel",
+        "bunsen-air-collar",
+        "asset-bunsen-flame"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "bunsen-assembly",
+      "min": [
+        -0.11655928194522858,
+        -2.682209020860027e-10,
+        -0.09399999678134918
+      ],
+      "max": [
+        0.3359999984502792,
+        0.4100000000130385,
+        0.22113269567489624
+      ],
+      "size": [
+        0.4525592803955078,
+        0.4100000002812594,
+        0.3151326924562454
+      ],
+      "meshes": 29,
+      "triangles": 8432,
+      "calls": 31,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-bunsen-assembly",
+        "asset-bunsen",
+        "bunsen-barrel",
+        "bunsen-air-collar",
+        "asset-bunsen-flame",
+        "asset-gas-tap",
+        "gas-tap-lever",
+        "asset-tripod"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "gas-tap",
+      "min": [
+        -0.04250499978661537,
+        3.8743019036002746e-10,
+        -0.06700000014901161
+      ],
+      "max": [
+        0.04250499978661537,
+        0.11049999994412066,
+        0.035999998450279236
+      ],
+      "size": [
+        0.08500999957323074,
+        0.11049999955669047,
+        0.10299999859929085
+      ],
+      "meshes": 6,
+      "triangles": 1614,
+      "calls": 7,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-gas-tap",
+        "gas-tap-lever"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "gas-hose",
+      "min": [
+        -0.2626000000163913,
+        0.0022418375592678785,
+        -0.104000001847744
+      ],
+      "max": [
+        0.2626000000163913,
+        0.042600000016391276,
+        0.16797621548175812
+      ],
+      "size": [
+        0.5252000000327826,
+        0.0403581624571234,
+        0.2719762173295021
+      ],
+      "meshes": 5,
+      "triangles": 2400,
+      "calls": 5,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-gas-hose"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "tripod",
+      "min": [
+        -0.11655928194522858,
+        0.0034955660812556744,
+        -0.09399999678134918
+      ],
+      "max": [
+        0.11655928194522858,
+        0.4100000000130385,
+        0.1339680701494217
+      ],
+      "size": [
+        0.23311856389045715,
+        0.4065044339317828,
+        0.22796806693077087
+      ],
+      "meshes": 6,
+      "triangles": 2060,
+      "calls": 6,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-tripod"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "alcohol-lamp",
+      "min": [
+        -0.09000000357627869,
+        0,
+        -0.09000000357627869
+      ],
+      "max": [
+        0.09000000357627869,
+        0.19799999966472387,
+        0.09000000357627869
+      ],
+      "size": [
+        0.18000000715255737,
+        0.19799999966472387,
+        0.18000000715255737
+      ],
+      "meshes": 7,
+      "triangles": 3176,
+      "calls": 9,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-alcohol-lamp"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "alcohol-lit",
+      "min": [
+        -0.2400050014257431,
+        -0.000004999883472920144,
+        -0.14999999105930328
+      ],
+      "max": [
+        0.2400050014257431,
+        0.3368471139930034,
+        0.14999999105930328
+      ],
+      "size": [
+        0.4800100028514862,
+        0.3368521138764763,
+        0.29999998211860657
+      ],
+      "meshes": 13,
+      "triangles": 5964,
+      "calls": 15,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-alcohol-station",
+        "asset-alcohol-lamp",
+        "asset-alcohol-flame",
+        "asset-snuffer-cap"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "alcohol-covered",
+      "min": [
+        -0.2400050014257431,
+        -0.000004999883472920144,
+        -0.14999999105930328
+      ],
+      "max": [
+        0.2400050014257431,
+        0.2594999995827675,
+        0.14999999105930328
+      ],
+      "size": [
+        0.4800100028514862,
+        0.2595049994662404,
+        0.29999998211860657
+      ],
+      "meshes": 11,
+      "triangles": 5444,
+      "calls": 13,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-alcohol-station",
+        "asset-alcohol-lamp",
+        "asset-snuffer-cap"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "snuffer-cap",
+      "min": [
+        -0.04500000178813934,
+        0,
+        -0.04500000178813934
+      ],
+      "max": [
+        0.04500000178813934,
+        0.09749999958276749,
+        0.04500000178813934
+      ],
+      "size": [
+        0.09000000357627869,
+        0.09749999958276749,
+        0.09000000357627869
+      ],
+      "meshes": 3,
+      "triangles": 1552,
+      "calls": 3,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-snuffer-cap"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "goggles",
+      "min": [
+        -0.13518188893795013,
+        -0.0010000000474974513,
+        -0.13650000095367432
+      ],
+      "max": [
+        0.13518188893795013,
+        0.09300005435943604,
+        0.029000001028180122
+      ],
+      "size": [
+        0.27036377787590027,
+        0.09400005440693349,
+        0.16550000198185444
+      ],
+      "meshes": 6,
+      "triangles": 5384,
+      "calls": 7,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-goggles",
+        "wardrobe-goggle-temple--1",
+        "wardrobe-goggle-temple-1"
+      ],
+      "textures": 4,
+      "palette": [
+        "#78a4ad",
+        "#7b9695",
+        "#cce7eb",
+        "#5d8791",
+        "#3b6571",
+        "#728c96",
+        "#526c77"
+      ],
+      "wardrobe": [
+        {
+          "name": "asset-goggles",
+          "frame": "#78a4ad",
+          "gasket": "#7b9695",
+          "wrapDepth": 0
+        }
+      ],
+      "anchors": [
+        {
+          "name": "wardrobe-goggle-temple--1",
+          "at": [
+            -0.116,
+            0.045,
+            -0.01
+          ]
+        },
+        {
+          "name": "wardrobe-goggle-temple-1",
+          "at": [
+            0.116,
+            0.045,
+            -0.01
+          ]
+        }
+      ]
+    },
+    {
+      "id": "glove",
+      "min": [
+        -0.07725165184943933,
+        1.2218952169518182e-9,
+        -0.015999999642372132
+      ],
+      "max": [
+        0.05040000200271607,
+        0.260486923781544,
+        0.017063256353139877
+      ],
+      "size": [
+        0.1276516538521554,
+        0.2604869225596488,
+        0.033063255995512006
+      ],
+      "meshes": 11,
+      "triangles": 4640,
+      "calls": 11,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-glove"
+      ],
+      "textures": 4,
+      "palette": [
+        "#70a9b7",
+        "#8db5bc",
+        "#94bdc2"
+      ],
+      "wardrobe": [],
+      "anchors": []
+    },
+    {
+      "id": "glove-dispenser",
+      "min": [
+        -0.09000000357627869,
+        -2.6077036363592043e-11,
+        -0.05000000002607703
+      ],
+      "max": [
+        0.09000000357627869,
+        0.12000000002607702,
+        0.07294558692825355
+      ],
+      "size": [
+        0.18000000715255737,
+        0.12000000005215405,
+        0.12294558695433058
+      ],
+      "meshes": 22,
+      "triangles": 5262,
+      "calls": 22,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-glove-dispenser",
+        "asset-glove"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "mask",
+      "min": [
+        -0.12783898413181305,
+        0.0015000012516975386,
+        -0.02677137218415737
+      ],
+      "max": [
+        0.12783898413181305,
+        0.08849999874830246,
+        0.019127842038869858
+      ],
+      "size": [
+        0.2556779682636261,
+        0.08699999749660492,
+        0.04589921422302723
+      ],
+      "meshes": 2,
+      "triangles": 3168,
+      "calls": 2,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-mask",
+        "wardrobe-mask-cheek--1",
+        "wardrobe-mask-ear--1",
+        "wardrobe-mask-cheek-1",
+        "wardrobe-mask-ear-1"
+      ],
+      "textures": 4,
+      "palette": [
+        "#9abfc5",
+        "#c7dbd9",
+        "#d4e3de",
+        "#77979d"
+      ],
+      "wardrobe": [
+        {
+          "name": "asset-mask",
+          "fabric": "#9abfc5",
+          "wrapDepth": 0,
+          "earDepth": 0.024,
+          "earLift": 0.02
+        }
+      ],
+      "anchors": [
+        {
+          "name": "wardrobe-mask-cheek--1",
+          "at": [
+            -0.085,
+            0.045,
+            0
+          ]
+        },
+        {
+          "name": "wardrobe-mask-ear--1",
+          "at": [
+            -0.1225,
+            0.051,
+            -0.0228
+          ]
+        },
+        {
+          "name": "wardrobe-mask-cheek-1",
+          "at": [
+            0.085,
+            0.045,
+            0
+          ]
+        },
+        {
+          "name": "wardrobe-mask-ear-1",
+          "at": [
+            0.1225,
+            0.051,
+            -0.0228
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hanger",
+      "min": [
+        -0.15733355283737183,
+        0.0024999999441206455,
+        -0.0024999999441206455
+      ],
+      "max": [
+        0.15733355283737183,
+        0.15258803963661194,
+        0.0024999999441206455
+      ],
+      "size": [
+        0.31466710567474365,
+        0.1500880396924913,
+        0.004999999888241291
+      ],
+      "meshes": 3,
+      "triangles": 1536,
+      "calls": 3,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-hanger"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "lab-coat",
+      "min": [
+        -0.27666616439819336,
+        -0.001500000013038516,
+        -0.0024999999441206455
+      ],
+      "max": [
+        0.27666616439819336,
+        0.8875880396366119,
+        0.034992944449186325
+      ],
+      "size": [
+        0.5533323287963867,
+        0.8890880396496504,
+        0.03749294439330697
+      ],
+      "meshes": 21,
+      "triangles": 7040,
+      "calls": 21,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-lab-coat",
+        "asset-hanger"
+      ],
+      "textures": 4,
+      "palette": [
+        "#e5e7dc",
+        "#9eafb7",
+        "#d8ded5",
+        "#a4b5b0",
+        "#b9c9c2",
+        "#b3c1b9",
+        "#c1d0c7",
+        "#8fa6a4",
+        "#bbc9bf"
+      ],
+      "wardrobe": [],
+      "anchors": []
+    },
+    {
+      "id": "backpack",
+      "min": [
+        -0.1400049924850464,
+        -0.000005003809928905145,
+        -0.14537887275218964
+      ],
+      "max": [
+        0.1400049924850464,
+        0.39390692114830017,
+        0.135
+      ],
+      "size": [
+        0.2800099849700928,
+        0.3939119249582291,
+        0.28037887275218965
+      ],
+      "meshes": 8,
+      "triangles": 4198,
+      "calls": 8,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-backpack"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "hair-tie",
+      "min": [
+        -0.03400000184774399,
+        -1.8998981294454653e-10,
+        -0.03400000184774399
+      ],
+      "max": [
+        0.03400000184774399,
+        0.008000000189989812,
+        0.03400000184774399
+      ],
+      "size": [
+        0.06800000369548798,
+        0.008000000379979624,
+        0.06800000369548798
+      ],
+      "meshes": 2,
+      "triangles": 656,
+      "calls": 2,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-hair-tie"
+      ],
+      "textures": 4,
+      "palette": [
+        "#8e7c88",
+        "#b49aa7"
+      ],
+      "wardrobe": [],
+      "anchors": []
+    },
+    {
+      "id": "beaker",
+      "min": [
+        -0.08399999886751175,
+        0,
+        -0.08399999886751175
+      ],
+      "max": [
+        0.09799999743700027,
+        0.22499999403953552,
+        0.08399999886751175
+      ],
+      "size": [
+        0.18199999630451202,
+        0.22499999403953552,
+        0.1679999977350235
+      ],
+      "meshes": 6,
+      "triangles": 1560,
+      "calls": 9,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-beaker"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "cracked-beaker",
+      "min": [
+        -0.08399999886751175,
+        0,
+        -0.08399999886751175
+      ],
+      "max": [
+        0.09799999743700027,
+        0.22499999403953552,
+        0.08399999886751175
+      ],
+      "size": [
+        0.18199999630451202,
+        0.22499999403953552,
+        0.1679999977350235
+      ],
+      "meshes": 7,
+      "triangles": 1740,
+      "calls": 10,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-beaker"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "cylinder",
+      "min": [
+        -0.06148780509829521,
+        -3.799796102765818e-10,
+        -0.07100000232458115
+      ],
+      "max": [
+        0.06148780509829521,
+        0.38499999046325684,
+        0.07100000232458115
+      ],
+      "size": [
+        0.12297561019659042,
+        0.38499999084323644,
+        0.1420000046491623
+      ],
+      "meshes": 7,
+      "triangles": 1392,
+      "calls": 10,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-cylinder"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "flask",
+      "min": [
+        -0.09000000357627869,
+        0,
+        -0.09000000357627869
+      ],
+      "max": [
+        0.09000000357627869,
+        0.25999999046325684,
+        0.09000000357627869
+      ],
+      "size": [
+        0.18000000715255737,
+        0.25999999046325684,
+        0.18000000715255737
+      ],
+      "meshes": 6,
+      "triangles": 2632,
+      "calls": 8,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-flask"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "vacuum-flask",
+      "min": [
+        -0.09000000357627869,
+        0,
+        -0.09000000357627869
+      ],
+      "max": [
+        0.09000000357627869,
+        0.25999999046325684,
+        0.09000000357627869
+      ],
+      "size": [
+        0.18000000715255737,
+        0.25999999046325684,
+        0.18000000715255737
+      ],
+      "meshes": 9,
+      "triangles": 3784,
+      "calls": 12,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-vacuum-flask"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "reagent-bottle",
+      "min": [
+        -0.06800000369548798,
+        0,
+        -0.06800000369548798
+      ],
+      "max": [
+        0.06800000369548798,
+        0.32000000043213367,
+        0.06880000233650208
+      ],
+      "size": [
+        0.13600000739097595,
+        0.32000000043213367,
+        0.13680000603199005
+      ],
+      "meshes": 9,
+      "triangles": 2964,
+      "calls": 10,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-reagent-bottle",
+        "bottle-cap"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "amber-bottle",
+      "min": [
+        -0.06800000369548798,
+        0,
+        -0.06800000369548798
+      ],
+      "max": [
+        0.06800000369548798,
+        0.32000000043213367,
+        0.06880000233650208
+      ],
+      "size": [
+        0.13600000739097595,
+        0.32000000043213367,
+        0.13680000603199005
+      ],
+      "meshes": 10,
+      "triangles": 3044,
+      "calls": 11,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-amber-bottle",
+        "bottle-cap"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "test-tube",
+      "min": [
+        -0.026000000536441803,
+        0,
+        -0.026000000536441803
+      ],
+      "max": [
+        0.026000000536441803,
+        0.2600000001043081,
+        0.026000000536441803
+      ],
+      "size": [
+        0.052000001072883606,
+        0.2600000001043081,
+        0.052000001072883606
+      ],
+      "meshes": 7,
+      "triangles": 2184,
+      "calls": 8,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-test-tube"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "pipette",
+      "min": [
+        -0.006000000052154064,
+        0,
+        -0.006000000052154064
+      ],
+      "max": [
+        0.006000000052154064,
+        0.3199999928474426,
+        0.006000000052154064
+      ],
+      "size": [
+        0.012000000104308128,
+        0.3199999928474426,
+        0.012000000104308128
+      ],
+      "meshes": 2,
+      "triangles": 684,
+      "calls": 3,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-pipette"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "pipette-bulb",
+      "min": [
+        -0.03099999949336052,
+        -1.0430812810713341e-10,
+        -0.03099999949336052
+      ],
+      "max": [
+        0.04599999961256981,
+        0.1139999996125698,
+        0.0455
+      ],
+      "size": [
+        0.07699999910593033,
+        0.11399999971687794,
+        0.07649999949336052
+      ],
+      "meshes": 9,
+      "triangles": 1822,
+      "calls": 12,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-pipette-bulb"
+      ],
+      "textures": 7
+    },
+    {
+      "id": "pipette-assembled",
+      "min": [
+        -0.03099999949336052,
+        0,
+        -0.03099999949336052
+      ],
+      "max": [
+        0.04599999961256981,
+        0.4269999996125698,
+        0.0455
+      ],
+      "size": [
+        0.07699999910593033,
+        0.4269999996125698,
+        0.07649999949336052
+      ],
+      "meshes": 11,
+      "triangles": 2506,
+      "calls": 15,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-pipette",
+        "asset-pipette-bulb"
+      ],
+      "textures": 7
+    },
+    {
+      "id": "tube-rack",
+      "min": [
+        -0.25000500679016113,
+        -0.000005000375211238611,
+        -0.08999999612569809
+      ],
+      "max": [
+        0.25000500679016113,
+        0.28400000010430815,
+        0.091
+      ],
+      "size": [
+        0.5000100135803223,
+        0.2840050004795194,
+        0.1809999961256981
+      ],
+      "meshes": 37,
+      "triangles": 14002,
+      "calls": 41,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-tube-rack",
+        "rack-perforated-plate",
+        "asset-test-tube",
+        "asset-test-tube",
+        "asset-test-tube",
+        "asset-test-tube"
+      ],
+      "textures": 9
+    },
+    {
+      "id": "tongs",
+      "min": [
+        -0.057430116434705705,
+        0.001999999947845936,
+        -0.14257184284435293
+      ],
+      "max": [
+        0.057430116434705705,
+        0.014000000432133675,
+        0.12919726517999533
+      ],
+      "size": [
+        0.11486023286941141,
+        0.012000000484287739,
+        0.2717691080243483
+      ],
+      "meshes": 7,
+      "triangles": 2688,
+      "calls": 7,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-tongs"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "wash-bottle",
+      "min": [
+        -0.061000000685453415,
+        0,
+        -0.061000000685453415
+      ],
+      "max": [
+        0.12199301272630692,
+        0.3180834650993347,
+        0.061500001698732376
+      ],
+      "size": [
+        0.18299301341176033,
+        0.3180834650993347,
+        0.12250000238418579
+      ],
+      "meshes": 7,
+      "triangles": 2408,
+      "calls": 8,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-wash-bottle"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "pipette-tray",
+      "min": [
+        -0.22000500559806824,
+        -0.000004999995231628335,
+        -0.0950000001899898
+      ],
+      "max": [
+        0.22000500559806824,
+        0.038000000052154134,
+        0.0950000001899898
+      ],
+      "size": [
+        0.4400100111961365,
+        0.03800500004738576,
+        0.1900000003799796
+      ],
+      "meshes": 13,
+      "triangles": 2840,
+      "calls": 16,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-pipette-tray",
+        "asset-pipette",
+        "asset-pipette",
+        "asset-pipette"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "balance",
+      "min": [
+        -0.16000498831272125,
+        -3.799796102765818e-10,
+        -0.18000000715255737
+      ],
+      "max": [
+        0.16000498831272125,
+        0.31800000004749746,
+        0.18749999994412064
+      ],
+      "size": [
+        0.3200099766254425,
+        0.31800000042747706,
+        0.367500007096678
+      ],
+      "meshes": 26,
+      "triangles": 3704,
+      "calls": 32,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-balance"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "hotplate",
+      "min": [
+        -0.12000500410795212,
+        -3.799796102765818e-10,
+        -0.13200000004749746
+      ],
+      "max": [
+        0.12000500410795212,
+        0.09686602539522575,
+        0.14249999983236195
+      ],
+      "size": [
+        0.24001000821590424,
+        0.09686602577520537,
+        0.2744999998798594
+      ],
+      "meshes": 21,
+      "triangles": 2674,
+      "calls": 22,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-hotplate"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "hotplate-flask",
+      "min": [
+        -0.12000500410795212,
+        -3.799796102765818e-10,
+        -0.13200000004749746
+      ],
+      "max": [
+        0.12000500410795212,
+        0.3559999904632568,
+        0.14249999983236195
+      ],
+      "size": [
+        0.24001000821590424,
+        0.3559999908432364,
+        0.2744999998798594
+      ],
+      "meshes": 27,
+      "triangles": 5306,
+      "calls": 30,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-hotplate",
+        "asset-flask"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "burette",
+      "min": [
+        -0.12000499665737152,
+        -0.000005000375211238611,
+        -0.14999999105930328
+      ],
+      "max": [
+        0.12000499665737152,
+        0.6680000090599061,
+        0.14999999105930328
+      ],
+      "size": [
+        0.24000999331474304,
+        0.6680050094351173,
+        0.29999998211860657
+      ],
+      "meshes": 41,
+      "triangles": 8118,
+      "calls": 45,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-burette",
+        "asset-flask"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "ph-meter",
+      "min": [
+        -0.15861235558986664,
+        -3.799796102765818e-10,
+        -0.1128496378660202
+      ],
+      "max": [
+        0.21389999859035017,
+        0.4380567967891693,
+        0.0949999988079071
+      ],
+      "size": [
+        0.3725123541802168,
+        0.4380567971691489,
+        0.2078496366739273
+      ],
+      "meshes": 25,
+      "triangles": 6102,
+      "calls": 30,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-ph-meter",
+        "asset-electrode",
+        "asset-beaker"
+      ],
+      "textures": 8
+    },
+    {
+      "id": "electrode",
+      "min": [
+        -0.010499999858438969,
+        -2.6077032026783353e-11,
+        -0.010499999858438969
+      ],
+      "max": [
+        0.010499999858438969,
+        0.19000000029802322,
+        0.010499999858438969
+      ],
+      "size": [
+        0.020999999716877937,
+        0.19000000032410025,
+        0.020999999716877937
+      ],
+      "meshes": 5,
+      "triangles": 1584,
+      "calls": 7,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-electrode"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "centrifuge",
+      "min": [
+        -0.23199999332427979,
+        -3.799796102765818e-10,
+        -0.23447944686799246
+      ],
+      "max": [
+        0.23199999332427979,
+        0.588691032510197,
+        0.23221981720912666
+      ],
+      "size": [
+        0.46399998664855957,
+        0.5886910328901767,
+        0.46669926407711915
+      ],
+      "meshes": 49,
+      "triangles": 9560,
+      "calls": 58,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-centrifuge",
+        "asset-test-tube",
+        "asset-test-tube",
+        "centrifuge-lid-hinge"
+      ],
+      "textures": 14
+    },
+    {
+      "id": "centrifuge-closed",
+      "min": [
+        -0.23199999332427979,
+        -3.799796102765818e-10,
+        -0.23199999332427979
+      ],
+      "max": [
+        0.23199999332427979,
+        0.2140049998834729,
+        0.23221981720912666
+      ],
+      "size": [
+        0.46399998664855957,
+        0.2140050002634525,
+        0.46421981053340644
+      ],
+      "meshes": 35,
+      "triangles": 5192,
+      "calls": 42,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-centrifuge",
+        "centrifuge-lid-hinge"
+      ],
+      "textures": 12
+    },
+    {
+      "id": "teacher-imported",
+      "min": [
+        -0.3262953352928162,
+        0,
+        -0.2845544099807739
+      ],
+      "max": [
+        0.3262953352928162,
+        1.76,
+        0.2845544099807739
+      ],
+      "size": [
+        0.6525906705856324,
+        1.76,
+        0.5691088199615478
+      ],
+      "meshes": 1,
+      "triangles": 286137,
+      "calls": 1,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-imported-teacher",
+        "mesh_0"
+      ],
+      "textures": 7
+    },
+    {
+      "id": "shoes-mat",
+      "min": [
+        -0.8000050187110901,
+        -0.000005000159144401446,
+        -0.5999999642372131
+      ],
+      "max": [
+        0.8000050187110901,
+        0.01160000004749748,
+        0.5999999642372131
+      ],
+      "size": [
+        1.6000100374221802,
+        0.011605000206641881,
+        1.1999999284744263
+      ],
+      "meshes": 5,
+      "triangles": 1018,
+      "calls": 6,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-shoes-mat"
+      ],
+      "textures": 5
+    }
+  ],
+  "refreshedAssets": [
+    "led-panel",
+    "mirror-frame",
+    "shoes-mat",
+    "teacher-imported",
+    "chemical-cabinet-flammable",
+    "chemical-cabinet-acid",
+    "chemical-cabinet-base",
+    "chemical-cabinet-open",
+    "glassware-rack",
+    "stool",
+    "grip-hand",
+    "bare-grip-hand",
+    "student-character",
+    "teacher-character",
+    "unprepared-character",
+    "bun-character",
+    "braided-character",
+    "long-hair-character",
+    "goggles",
+    "glove",
+    "mask",
+    "lab-coat",
+    "hair-tie"
+  ]
+}

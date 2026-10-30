@@ -1,0 +1,3345 @@
+{
+  "passed": true,
+  "stage": "after",
+  "errors": [],
+  "snapshots": [
+    {
+      "id": "full-front",
+      "asset": "student-character",
+      "wear": "full",
+      "angle": "front",
+      "detail": "full",
+      "file": "after-full-front.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2721693229408056,
+          -3.7252903539730653e-10,
+          -0.23940000295639038
+        ],
+        "max": [
+          0.2721693229408056,
+          1.817960000038147,
+          0.20700000102818011
+        ],
+        "size": [
+          0.5443386458816112,
+          1.8179600004106762,
+          0.44640000398457047
+        ],
+        "meshes": 23,
+        "triangles": 36568,
+        "calls": 25,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-trouser-leg",
+          "asset-closed-shoe",
+          "asset-trouser-leg",
+          "asset-closed-shoe",
+          "asset-worn-coat",
+          "asset-sleeve-cuff",
+          "avatar-left-palm",
+          "asset-grip-hand",
+          "asset-sleeve-cuff",
+          "avatar-right-palm",
+          "asset-grip-hand",
+          "asset-player-hair",
+          "asset-hair-tie",
+          "asset-face-details",
+          "asset-worn-goggles",
+          "wardrobe-goggle-temple--1",
+          "wardrobe-goggle-temple-1",
+          "asset-worn-mask",
+          "wardrobe-mask-cheek--1",
+          "wardrobe-mask-ear--1",
+          "wardrobe-mask-cheek-1",
+          "wardrobe-mask-ear-1"
+        ],
+        "textures": 4,
+        "palette": [
+          "#304754",
+          "#617580",
+          "#c5d2d0",
+          "#405967",
+          "#78919c",
+          "#a4b8b9",
+          "#e5e7dc",
+          "#87adb0",
+          "#edf0e6",
+          "#d8ded5",
+          "#a4b5b0",
+          "#8fa6a4",
+          "#70a9b7",
+          "#94bdc2",
+          "#e6b89b",
+          "#5b4f43",
+          "#8e7c88",
+          "#b49aa7",
+          "#dcac92",
+          "#eee8dc",
+          "#5f665a",
+          "#293b42",
+          "#f4faf5",
+          "#a76f64",
+          "#78a4ad",
+          "#7b9695",
+          "#cce7eb",
+          "#5d8791",
+          "#3b6571",
+          "#728c96",
+          "#526c77",
+          "#9abfc5",
+          "#c7dbd9",
+          "#d4e3de",
+          "#77979d"
+        ],
+        "wardrobe": [
+          {
+            "name": "asset-closed-shoe",
+            "closed": true
+          },
+          {
+            "name": "asset-closed-shoe",
+            "closed": true
+          },
+          {
+            "name": "asset-worn-coat",
+            "fabric": "#e5e7dc",
+            "buttons": 6,
+            "pockets": 3,
+            "fastened": true
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": true,
+            "gloved": true,
+            "fabric": "#e5e7dc"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": true,
+            "color": "#70a9b7",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": true,
+            "gloved": true,
+            "fabric": "#e5e7dc"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": true,
+            "color": "#70a9b7",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-worn-goggles",
+            "frame": "#78a4ad",
+            "gasket": "#7b9695",
+            "wrapDepth": 0.085
+          },
+          {
+            "name": "asset-worn-mask",
+            "fabric": "#9abfc5",
+            "wrapDepth": 0.075,
+            "earDepth": 0.19,
+            "earLift": 0.075
+          }
+        ],
+        "anchors": [
+          {
+            "name": "wardrobe-goggle-temple--1",
+            "at": [
+              -0.1392,
+              1.6,
+              0.08857222222222219
+            ]
+          },
+          {
+            "name": "wardrobe-goggle-temple-1",
+            "at": [
+              0.1392,
+              1.6,
+              0.08857222222222219
+            ]
+          },
+          {
+            "name": "wardrobe-mask-cheek--1",
+            "at": [
+              -0.1275,
+              1.535,
+              0.106
+            ]
+          },
+          {
+            "name": "wardrobe-mask-ear--1",
+            "at": [
+              -0.18375,
+              1.5959999999999999,
+              0.0005000000000000004
+            ]
+          },
+          {
+            "name": "wardrobe-mask-cheek-1",
+            "at": [
+              0.1275,
+              1.535,
+              0.106
+            ]
+          },
+          {
+            "name": "wardrobe-mask-ear-1",
+            "at": [
+              0.18375,
+              1.5959999999999999,
+              0.0005000000000000004
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "full-back",
+      "asset": "student-character",
+      "wear": "full",
+      "angle": "back",
+      "detail": "full",
+      "file": "after-full-back.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2721693229408056,
+          -3.7252903539730653e-10,
+          -0.23940000295639038
+        ],
+        "max": [
+          0.2721693229408056,
+          1.817960000038147,
+          0.20700000102818011
+        ],
+        "size": [
+          0.5443386458816112,
+          1.8179600004106762,
+          0.44640000398457047
+        ],
+        "meshes": 23,
+        "triangles": 36568,
+        "calls": 24,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-trouser-leg",
+          "asset-closed-shoe",
+          "asset-trouser-leg",
+          "asset-closed-shoe",
+          "asset-worn-coat",
+          "asset-sleeve-cuff",
+          "avatar-left-palm",
+          "asset-grip-hand",
+          "asset-sleeve-cuff",
+          "avatar-right-palm",
+          "asset-grip-hand",
+          "asset-player-hair",
+          "asset-hair-tie",
+          "asset-face-details",
+          "asset-worn-goggles",
+          "wardrobe-goggle-temple--1",
+          "wardrobe-goggle-temple-1",
+          "asset-worn-mask",
+          "wardrobe-mask-cheek--1",
+          "wardrobe-mask-ear--1",
+          "wardrobe-mask-cheek-1",
+          "wardrobe-mask-ear-1"
+        ],
+        "textures": 4,
+        "palette": [
+          "#304754",
+          "#617580",
+          "#c5d2d0",
+          "#405967",
+          "#78919c",
+          "#a4b8b9",
+          "#e5e7dc",
+          "#87adb0",
+          "#edf0e6",
+          "#d8ded5",
+          "#a4b5b0",
+          "#8fa6a4",
+          "#70a9b7",
+          "#94bdc2",
+          "#e6b89b",
+          "#5b4f43",
+          "#8e7c88",
+          "#b49aa7",
+          "#dcac92",
+          "#eee8dc",
+          "#5f665a",
+          "#293b42",
+          "#f4faf5",
+          "#a76f64",
+          "#78a4ad",
+          "#7b9695",
+          "#cce7eb",
+          "#5d8791",
+          "#3b6571",
+          "#728c96",
+          "#526c77",
+          "#9abfc5",
+          "#c7dbd9",
+          "#d4e3de",
+          "#77979d"
+        ],
+        "wardrobe": [
+          {
+            "name": "asset-closed-shoe",
+            "closed": true
+          },
+          {
+            "name": "asset-closed-shoe",
+            "closed": true
+          },
+          {
+            "name": "asset-worn-coat",
+            "fabric": "#e5e7dc",
+            "buttons": 6,
+            "pockets": 3,
+            "fastened": true
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": true,
+            "gloved": true,
+            "fabric": "#e5e7dc"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": true,
+            "color": "#70a9b7",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": true,
+            "gloved": true,
+            "fabric": "#e5e7dc"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": true,
+            "color": "#70a9b7",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-worn-goggles",
+            "frame": "#78a4ad",
+            "gasket": "#7b9695",
+            "wrapDepth": 0.085
+          },
+          {
+            "name": "asset-worn-mask",
+            "fabric": "#9abfc5",
+            "wrapDepth": 0.075,
+            "earDepth": 0.19,
+            "earLift": 0.075
+          }
+        ],
+        "anchors": [
+          {
+            "name": "wardrobe-goggle-temple--1",
+            "at": [
+              -0.1392,
+              1.6,
+              0.08857222222222219
+            ]
+          },
+          {
+            "name": "wardrobe-goggle-temple-1",
+            "at": [
+              0.1392,
+              1.6,
+              0.08857222222222219
+            ]
+          },
+          {
+            "name": "wardrobe-mask-cheek--1",
+            "at": [
+              -0.1275,
+              1.535,
+              0.106
+            ]
+          },
+          {
+            "name": "wardrobe-mask-ear--1",
+            "at": [
+              -0.18375,
+              1.5959999999999999,
+              0.0005000000000000004
+            ]
+          },
+          {
+            "name": "wardrobe-mask-cheek-1",
+            "at": [
+              0.1275,
+              1.535,
+              0.106
+            ]
+          },
+          {
+            "name": "wardrobe-mask-ear-1",
+            "at": [
+              0.18375,
+              1.5959999999999999,
+              0.0005000000000000004
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "full-quarter",
+      "asset": "student-character",
+      "wear": "full",
+      "angle": "three-quarter",
+      "detail": "full",
+      "file": "after-full-quarter.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2721693229408056,
+          -3.7252903539730653e-10,
+          -0.23940000295639038
+        ],
+        "max": [
+          0.2721693229408056,
+          1.817960000038147,
+          0.20700000102818011
+        ],
+        "size": [
+          0.5443386458816112,
+          1.8179600004106762,
+          0.44640000398457047
+        ],
+        "meshes": 23,
+        "triangles": 36568,
+        "calls": 24,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-trouser-leg",
+          "asset-closed-shoe",
+          "asset-trouser-leg",
+          "asset-closed-shoe",
+          "asset-worn-coat",
+          "asset-sleeve-cuff",
+          "avatar-left-palm",
+          "asset-grip-hand",
+          "asset-sleeve-cuff",
+          "avatar-right-palm",
+          "asset-grip-hand",
+          "asset-player-hair",
+          "asset-hair-tie",
+          "asset-face-details",
+          "asset-worn-goggles",
+          "wardrobe-goggle-temple--1",
+          "wardrobe-goggle-temple-1",
+          "asset-worn-mask",
+          "wardrobe-mask-cheek--1",
+          "wardrobe-mask-ear--1",
+          "wardrobe-mask-cheek-1",
+          "wardrobe-mask-ear-1"
+        ],
+        "textures": 4,
+        "palette": [
+          "#304754",
+          "#617580",
+          "#c5d2d0",
+          "#405967",
+          "#78919c",
+          "#a4b8b9",
+          "#e5e7dc",
+          "#87adb0",
+          "#edf0e6",
+          "#d8ded5",
+          "#a4b5b0",
+          "#8fa6a4",
+          "#70a9b7",
+          "#94bdc2",
+          "#e6b89b",
+          "#5b4f43",
+          "#8e7c88",
+          "#b49aa7",
+          "#dcac92",
+          "#eee8dc",
+          "#5f665a",
+          "#293b42",
+          "#f4faf5",
+          "#a76f64",
+          "#78a4ad",
+          "#7b9695",
+          "#cce7eb",
+          "#5d8791",
+          "#3b6571",
+          "#728c96",
+          "#526c77",
+          "#9abfc5",
+          "#c7dbd9",
+          "#d4e3de",
+          "#77979d"
+        ],
+        "wardrobe": [
+          {
+            "name": "asset-closed-shoe",
+            "closed": true
+          },
+          {
+            "name": "asset-closed-shoe",
+            "closed": true
+          },
+          {
+            "name": "asset-worn-coat",
+            "fabric": "#e5e7dc",
+            "buttons": 6,
+            "pockets": 3,
+            "fastened": true
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": true,
+            "gloved": true,
+            "fabric": "#e5e7dc"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": true,
+            "color": "#70a9b7",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": true,
+            "gloved": true,
+            "fabric": "#e5e7dc"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": true,
+            "color": "#70a9b7",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-worn-goggles",
+            "frame": "#78a4ad",
+            "gasket": "#7b9695",
+            "wrapDepth": 0.085
+          },
+          {
+            "name": "asset-worn-mask",
+            "fabric": "#9abfc5",
+            "wrapDepth": 0.075,
+            "earDepth": 0.19,
+            "earLift": 0.075
+          }
+        ],
+        "anchors": [
+          {
+            "name": "wardrobe-goggle-temple--1",
+            "at": [
+              -0.1392,
+              1.6,
+              0.08857222222222219
+            ]
+          },
+          {
+            "name": "wardrobe-goggle-temple-1",
+            "at": [
+              0.1392,
+              1.6,
+              0.08857222222222219
+            ]
+          },
+          {
+            "name": "wardrobe-mask-cheek--1",
+            "at": [
+              -0.1275,
+              1.535,
+              0.106
+            ]
+          },
+          {
+            "name": "wardrobe-mask-ear--1",
+            "at": [
+              -0.18375,
+              1.5959999999999999,
+              0.0005000000000000004
+            ]
+          },
+          {
+            "name": "wardrobe-mask-cheek-1",
+            "at": [
+              0.1275,
+              1.535,
+              0.106
+            ]
+          },
+          {
+            "name": "wardrobe-mask-ear-1",
+            "at": [
+              0.18375,
+              1.5959999999999999,
+              0.0005000000000000004
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "plain-front",
+      "asset": "student-character",
+      "wear": "none",
+      "angle": "front",
+      "detail": "full",
+      "file": "after-plain-front.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2761393846960606,
+          -3.7252903539730653e-10,
+          -0.23940000295639038
+        ],
+        "max": [
+          0.2761393846960606,
+          1.817960000038147,
+          0.1899999976158142
+        ],
+        "size": [
+          0.5522787693921212,
+          1.8179600004106762,
+          0.4294000005722046
+        ],
+        "meshes": 16,
+        "triangles": 22908,
+        "calls": 16,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-waist",
+          "asset-sleeve-cuff",
+          "avatar-left-palm",
+          "asset-grip-hand",
+          "asset-sleeve-cuff",
+          "avatar-right-palm",
+          "asset-grip-hand",
+          "asset-player-hair",
+          "asset-hair-tie",
+          "asset-face-details"
+        ],
+        "textures": 4,
+        "palette": [
+          "#304754",
+          "#617580",
+          "#c5d2d0",
+          "#e6b89b",
+          "#8b7963",
+          "#87adb0",
+          "#d9b9a4",
+          "#bb8f79",
+          "#5b4f43",
+          "#8e7c88",
+          "#b49aa7",
+          "#dcac92",
+          "#eee8dc",
+          "#5f665a",
+          "#293b42",
+          "#f4faf5",
+          "#a76f64"
+        ],
+        "wardrobe": [
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": false,
+            "gloved": false,
+            "fabric": "#87adb0"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": false,
+            "gloved": false,
+            "fabric": "#87adb0"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          }
+        ],
+        "anchors": []
+      }
+    },
+    {
+      "id": "plain-back",
+      "asset": "student-character",
+      "wear": "none",
+      "angle": "back",
+      "detail": "full",
+      "file": "after-plain-back.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2761393846960606,
+          -3.7252903539730653e-10,
+          -0.23940000295639038
+        ],
+        "max": [
+          0.2761393846960606,
+          1.817960000038147,
+          0.1899999976158142
+        ],
+        "size": [
+          0.5522787693921212,
+          1.8179600004106762,
+          0.4294000005722046
+        ],
+        "meshes": 16,
+        "triangles": 22908,
+        "calls": 16,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-waist",
+          "asset-sleeve-cuff",
+          "avatar-left-palm",
+          "asset-grip-hand",
+          "asset-sleeve-cuff",
+          "avatar-right-palm",
+          "asset-grip-hand",
+          "asset-player-hair",
+          "asset-hair-tie",
+          "asset-face-details"
+        ],
+        "textures": 4,
+        "palette": [
+          "#304754",
+          "#617580",
+          "#c5d2d0",
+          "#e6b89b",
+          "#8b7963",
+          "#87adb0",
+          "#d9b9a4",
+          "#bb8f79",
+          "#5b4f43",
+          "#8e7c88",
+          "#b49aa7",
+          "#dcac92",
+          "#eee8dc",
+          "#5f665a",
+          "#293b42",
+          "#f4faf5",
+          "#a76f64"
+        ],
+        "wardrobe": [
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": false,
+            "gloved": false,
+            "fabric": "#87adb0"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": false,
+            "gloved": false,
+            "fabric": "#87adb0"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          }
+        ],
+        "anchors": []
+      }
+    },
+    {
+      "id": "coat-front",
+      "asset": "student-character",
+      "wear": "coat",
+      "angle": "front",
+      "detail": "torso",
+      "file": "after-coat-front.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2721693229408056,
+          -3.7252903539730653e-10,
+          -0.23940000295639038
+        ],
+        "max": [
+          0.2721693229408056,
+          1.817960000038147,
+          0.1899999976158142
+        ],
+        "size": [
+          0.5443386458816112,
+          1.8179600004106762,
+          0.4294000005722046
+        ],
+        "meshes": 15,
+        "triangles": 29104,
+        "calls": 15,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-worn-coat",
+          "asset-sleeve-cuff",
+          "avatar-left-palm",
+          "asset-grip-hand",
+          "asset-sleeve-cuff",
+          "avatar-right-palm",
+          "asset-grip-hand",
+          "asset-player-hair",
+          "asset-hair-tie",
+          "asset-face-details"
+        ],
+        "textures": 4,
+        "palette": [
+          "#304754",
+          "#617580",
+          "#c5d2d0",
+          "#e6b89b",
+          "#8b7963",
+          "#e5e7dc",
+          "#87adb0",
+          "#edf0e6",
+          "#d8ded5",
+          "#a4b5b0",
+          "#8fa6a4",
+          "#d9b9a4",
+          "#bb8f79",
+          "#5b4f43",
+          "#8e7c88",
+          "#b49aa7",
+          "#dcac92",
+          "#eee8dc",
+          "#5f665a",
+          "#293b42",
+          "#f4faf5",
+          "#a76f64"
+        ],
+        "wardrobe": [
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-worn-coat",
+            "fabric": "#e5e7dc",
+            "buttons": 6,
+            "pockets": 3,
+            "fastened": true
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": true,
+            "gloved": false,
+            "fabric": "#e5e7dc"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": true,
+            "gloved": false,
+            "fabric": "#e5e7dc"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          }
+        ],
+        "anchors": []
+      }
+    },
+    {
+      "id": "coat-back",
+      "asset": "student-character",
+      "wear": "coat",
+      "angle": "back",
+      "detail": "torso",
+      "file": "after-coat-back.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2721693229408056,
+          -3.7252903539730653e-10,
+          -0.23940000295639038
+        ],
+        "max": [
+          0.2721693229408056,
+          1.817960000038147,
+          0.1899999976158142
+        ],
+        "size": [
+          0.5443386458816112,
+          1.8179600004106762,
+          0.4294000005722046
+        ],
+        "meshes": 15,
+        "triangles": 29104,
+        "calls": 15,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-worn-coat",
+          "asset-sleeve-cuff",
+          "avatar-left-palm",
+          "asset-grip-hand",
+          "asset-sleeve-cuff",
+          "avatar-right-palm",
+          "asset-grip-hand",
+          "asset-player-hair",
+          "asset-hair-tie",
+          "asset-face-details"
+        ],
+        "textures": 4,
+        "palette": [
+          "#304754",
+          "#617580",
+          "#c5d2d0",
+          "#e6b89b",
+          "#8b7963",
+          "#e5e7dc",
+          "#87adb0",
+          "#edf0e6",
+          "#d8ded5",
+          "#a4b5b0",
+          "#8fa6a4",
+          "#d9b9a4",
+          "#bb8f79",
+          "#5b4f43",
+          "#8e7c88",
+          "#b49aa7",
+          "#dcac92",
+          "#eee8dc",
+          "#5f665a",
+          "#293b42",
+          "#f4faf5",
+          "#a76f64"
+        ],
+        "wardrobe": [
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-worn-coat",
+            "fabric": "#e5e7dc",
+            "buttons": 6,
+            "pockets": 3,
+            "fastened": true
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": true,
+            "gloved": false,
+            "fabric": "#e5e7dc"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": true,
+            "gloved": false,
+            "fabric": "#e5e7dc"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          }
+        ],
+        "anchors": []
+      }
+    },
+    {
+      "id": "coat-side",
+      "asset": "student-character",
+      "wear": "coat",
+      "angle": "right",
+      "detail": "torso",
+      "file": "after-coat-side.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2721693229408056,
+          -3.7252903539730653e-10,
+          -0.23940000295639038
+        ],
+        "max": [
+          0.2721693229408056,
+          1.817960000038147,
+          0.1899999976158142
+        ],
+        "size": [
+          0.5443386458816112,
+          1.8179600004106762,
+          0.4294000005722046
+        ],
+        "meshes": 15,
+        "triangles": 29104,
+        "calls": 14,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-worn-coat",
+          "asset-sleeve-cuff",
+          "avatar-left-palm",
+          "asset-grip-hand",
+          "asset-sleeve-cuff",
+          "avatar-right-palm",
+          "asset-grip-hand",
+          "asset-player-hair",
+          "asset-hair-tie",
+          "asset-face-details"
+        ],
+        "textures": 4,
+        "palette": [
+          "#304754",
+          "#617580",
+          "#c5d2d0",
+          "#e6b89b",
+          "#8b7963",
+          "#e5e7dc",
+          "#87adb0",
+          "#edf0e6",
+          "#d8ded5",
+          "#a4b5b0",
+          "#8fa6a4",
+          "#d9b9a4",
+          "#bb8f79",
+          "#5b4f43",
+          "#8e7c88",
+          "#b49aa7",
+          "#dcac92",
+          "#eee8dc",
+          "#5f665a",
+          "#293b42",
+          "#f4faf5",
+          "#a76f64"
+        ],
+        "wardrobe": [
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-worn-coat",
+            "fabric": "#e5e7dc",
+            "buttons": 6,
+            "pockets": 3,
+            "fastened": true
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": true,
+            "gloved": false,
+            "fabric": "#e5e7dc"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": true,
+            "gloved": false,
+            "fabric": "#e5e7dc"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          }
+        ],
+        "anchors": []
+      }
+    },
+    {
+      "id": "goggles-front",
+      "asset": "student-character",
+      "wear": "goggles",
+      "angle": "front",
+      "detail": "head",
+      "file": "after-goggles-front.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2761393846960606,
+          -3.7252903539730653e-10,
+          -0.23940000295639038
+        ],
+        "max": [
+          0.2761393846960606,
+          1.817960000038147,
+          0.20700000102818011
+        ],
+        "size": [
+          0.5522787693921212,
+          1.8179600004106762,
+          0.44640000398457047
+        ],
+        "meshes": 22,
+        "triangles": 28292,
+        "calls": 19,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-waist",
+          "asset-sleeve-cuff",
+          "avatar-left-palm",
+          "asset-grip-hand",
+          "asset-sleeve-cuff",
+          "avatar-right-palm",
+          "asset-grip-hand",
+          "asset-player-hair",
+          "asset-hair-tie",
+          "asset-face-details",
+          "asset-worn-goggles",
+          "wardrobe-goggle-temple--1",
+          "wardrobe-goggle-temple-1"
+        ],
+        "textures": 4,
+        "palette": [
+          "#304754",
+          "#617580",
+          "#c5d2d0",
+          "#e6b89b",
+          "#8b7963",
+          "#87adb0",
+          "#d9b9a4",
+          "#bb8f79",
+          "#5b4f43",
+          "#8e7c88",
+          "#b49aa7",
+          "#dcac92",
+          "#eee8dc",
+          "#5f665a",
+          "#293b42",
+          "#f4faf5",
+          "#a76f64",
+          "#78a4ad",
+          "#7b9695",
+          "#cce7eb",
+          "#5d8791",
+          "#3b6571",
+          "#728c96",
+          "#526c77"
+        ],
+        "wardrobe": [
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": false,
+            "gloved": false,
+            "fabric": "#87adb0"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": false,
+            "gloved": false,
+            "fabric": "#87adb0"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-worn-goggles",
+            "frame": "#78a4ad",
+            "gasket": "#7b9695",
+            "wrapDepth": 0.085
+          }
+        ],
+        "anchors": [
+          {
+            "name": "wardrobe-goggle-temple--1",
+            "at": [
+              -0.1392,
+              1.6,
+              0.08857222222222219
+            ]
+          },
+          {
+            "name": "wardrobe-goggle-temple-1",
+            "at": [
+              0.1392,
+              1.6,
+              0.08857222222222219
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "goggles-side",
+      "asset": "student-character",
+      "wear": "goggles",
+      "angle": "right",
+      "detail": "head",
+      "file": "after-goggles-side.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2761393846960606,
+          -3.7252903539730653e-10,
+          -0.23940000295639038
+        ],
+        "max": [
+          0.2761393846960606,
+          1.817960000038147,
+          0.20700000102818011
+        ],
+        "size": [
+          0.5522787693921212,
+          1.8179600004106762,
+          0.44640000398457047
+        ],
+        "meshes": 22,
+        "triangles": 28292,
+        "calls": 18,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-waist",
+          "asset-sleeve-cuff",
+          "avatar-left-palm",
+          "asset-grip-hand",
+          "asset-sleeve-cuff",
+          "avatar-right-palm",
+          "asset-grip-hand",
+          "asset-player-hair",
+          "asset-hair-tie",
+          "asset-face-details",
+          "asset-worn-goggles",
+          "wardrobe-goggle-temple--1",
+          "wardrobe-goggle-temple-1"
+        ],
+        "textures": 4,
+        "palette": [
+          "#304754",
+          "#617580",
+          "#c5d2d0",
+          "#e6b89b",
+          "#8b7963",
+          "#87adb0",
+          "#d9b9a4",
+          "#bb8f79",
+          "#5b4f43",
+          "#8e7c88",
+          "#b49aa7",
+          "#dcac92",
+          "#eee8dc",
+          "#5f665a",
+          "#293b42",
+          "#f4faf5",
+          "#a76f64",
+          "#78a4ad",
+          "#7b9695",
+          "#cce7eb",
+          "#5d8791",
+          "#3b6571",
+          "#728c96",
+          "#526c77"
+        ],
+        "wardrobe": [
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": false,
+            "gloved": false,
+            "fabric": "#87adb0"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": false,
+            "gloved": false,
+            "fabric": "#87adb0"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-worn-goggles",
+            "frame": "#78a4ad",
+            "gasket": "#7b9695",
+            "wrapDepth": 0.085
+          }
+        ],
+        "anchors": [
+          {
+            "name": "wardrobe-goggle-temple--1",
+            "at": [
+              -0.1392,
+              1.6,
+              0.08857222222222219
+            ]
+          },
+          {
+            "name": "wardrobe-goggle-temple-1",
+            "at": [
+              0.1392,
+              1.6,
+              0.08857222222222219
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "goggles-back",
+      "asset": "student-character",
+      "wear": "goggles",
+      "angle": "back",
+      "detail": "head",
+      "file": "after-goggles-back.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2761393846960606,
+          -3.7252903539730653e-10,
+          -0.23940000295639038
+        ],
+        "max": [
+          0.2761393846960606,
+          1.817960000038147,
+          0.20700000102818011
+        ],
+        "size": [
+          0.5522787693921212,
+          1.8179600004106762,
+          0.44640000398457047
+        ],
+        "meshes": 22,
+        "triangles": 28292,
+        "calls": 21,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-waist",
+          "asset-sleeve-cuff",
+          "avatar-left-palm",
+          "asset-grip-hand",
+          "asset-sleeve-cuff",
+          "avatar-right-palm",
+          "asset-grip-hand",
+          "asset-player-hair",
+          "asset-hair-tie",
+          "asset-face-details",
+          "asset-worn-goggles",
+          "wardrobe-goggle-temple--1",
+          "wardrobe-goggle-temple-1"
+        ],
+        "textures": 4,
+        "palette": [
+          "#304754",
+          "#617580",
+          "#c5d2d0",
+          "#e6b89b",
+          "#8b7963",
+          "#87adb0",
+          "#d9b9a4",
+          "#bb8f79",
+          "#5b4f43",
+          "#8e7c88",
+          "#b49aa7",
+          "#dcac92",
+          "#eee8dc",
+          "#5f665a",
+          "#293b42",
+          "#f4faf5",
+          "#a76f64",
+          "#78a4ad",
+          "#7b9695",
+          "#cce7eb",
+          "#5d8791",
+          "#3b6571",
+          "#728c96",
+          "#526c77"
+        ],
+        "wardrobe": [
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": false,
+            "gloved": false,
+            "fabric": "#87adb0"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": false,
+            "gloved": false,
+            "fabric": "#87adb0"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-worn-goggles",
+            "frame": "#78a4ad",
+            "gasket": "#7b9695",
+            "wrapDepth": 0.085
+          }
+        ],
+        "anchors": [
+          {
+            "name": "wardrobe-goggle-temple--1",
+            "at": [
+              -0.1392,
+              1.6,
+              0.08857222222222219
+            ]
+          },
+          {
+            "name": "wardrobe-goggle-temple-1",
+            "at": [
+              0.1392,
+              1.6,
+              0.08857222222222219
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mask-front",
+      "asset": "student-character",
+      "wear": "mask",
+      "angle": "front",
+      "detail": "head",
+      "file": "after-mask-front.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2761393846960606,
+          -3.7252903539730653e-10,
+          -0.23940000295639038
+        ],
+        "max": [
+          0.2761393846960606,
+          1.817960000038147,
+          0.20013351751863956
+        ],
+        "size": [
+          0.5522787693921212,
+          1.8179600004106762,
+          0.4395335204750299
+        ],
+        "meshes": 18,
+        "triangles": 26076,
+        "calls": 14,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-waist",
+          "asset-sleeve-cuff",
+          "avatar-left-palm",
+          "asset-grip-hand",
+          "asset-sleeve-cuff",
+          "avatar-right-palm",
+          "asset-grip-hand",
+          "asset-player-hair",
+          "asset-hair-tie",
+          "asset-face-details",
+          "asset-worn-mask",
+          "wardrobe-mask-cheek--1",
+          "wardrobe-mask-ear--1",
+          "wardrobe-mask-cheek-1",
+          "wardrobe-mask-ear-1"
+        ],
+        "textures": 4,
+        "palette": [
+          "#304754",
+          "#617580",
+          "#c5d2d0",
+          "#e6b89b",
+          "#8b7963",
+          "#87adb0",
+          "#d9b9a4",
+          "#bb8f79",
+          "#5b4f43",
+          "#8e7c88",
+          "#b49aa7",
+          "#dcac92",
+          "#eee8dc",
+          "#5f665a",
+          "#293b42",
+          "#f4faf5",
+          "#a76f64",
+          "#9abfc5",
+          "#c7dbd9",
+          "#d4e3de",
+          "#77979d"
+        ],
+        "wardrobe": [
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": false,
+            "gloved": false,
+            "fabric": "#87adb0"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": false,
+            "gloved": false,
+            "fabric": "#87adb0"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-worn-mask",
+            "fabric": "#9abfc5",
+            "wrapDepth": 0.075,
+            "earDepth": 0.19,
+            "earLift": 0.075
+          }
+        ],
+        "anchors": [
+          {
+            "name": "wardrobe-mask-cheek--1",
+            "at": [
+              -0.1275,
+              1.535,
+              0.106
+            ]
+          },
+          {
+            "name": "wardrobe-mask-ear--1",
+            "at": [
+              -0.18375,
+              1.5959999999999999,
+              0.0005000000000000004
+            ]
+          },
+          {
+            "name": "wardrobe-mask-cheek-1",
+            "at": [
+              0.1275,
+              1.535,
+              0.106
+            ]
+          },
+          {
+            "name": "wardrobe-mask-ear-1",
+            "at": [
+              0.18375,
+              1.5959999999999999,
+              0.0005000000000000004
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mask-side",
+      "asset": "student-character",
+      "wear": "mask",
+      "angle": "right",
+      "detail": "head",
+      "file": "after-mask-side.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2761393846960606,
+          -3.7252903539730653e-10,
+          -0.23940000295639038
+        ],
+        "max": [
+          0.2761393846960606,
+          1.817960000038147,
+          0.20013351751863956
+        ],
+        "size": [
+          0.5522787693921212,
+          1.8179600004106762,
+          0.4395335204750299
+        ],
+        "meshes": 18,
+        "triangles": 26076,
+        "calls": 13,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-waist",
+          "asset-sleeve-cuff",
+          "avatar-left-palm",
+          "asset-grip-hand",
+          "asset-sleeve-cuff",
+          "avatar-right-palm",
+          "asset-grip-hand",
+          "asset-player-hair",
+          "asset-hair-tie",
+          "asset-face-details",
+          "asset-worn-mask",
+          "wardrobe-mask-cheek--1",
+          "wardrobe-mask-ear--1",
+          "wardrobe-mask-cheek-1",
+          "wardrobe-mask-ear-1"
+        ],
+        "textures": 4,
+        "palette": [
+          "#304754",
+          "#617580",
+          "#c5d2d0",
+          "#e6b89b",
+          "#8b7963",
+          "#87adb0",
+          "#d9b9a4",
+          "#bb8f79",
+          "#5b4f43",
+          "#8e7c88",
+          "#b49aa7",
+          "#dcac92",
+          "#eee8dc",
+          "#5f665a",
+          "#293b42",
+          "#f4faf5",
+          "#a76f64",
+          "#9abfc5",
+          "#c7dbd9",
+          "#d4e3de",
+          "#77979d"
+        ],
+        "wardrobe": [
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": false,
+            "gloved": false,
+            "fabric": "#87adb0"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": false,
+            "gloved": false,
+            "fabric": "#87adb0"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-worn-mask",
+            "fabric": "#9abfc5",
+            "wrapDepth": 0.075,
+            "earDepth": 0.19,
+            "earLift": 0.075
+          }
+        ],
+        "anchors": [
+          {
+            "name": "wardrobe-mask-cheek--1",
+            "at": [
+              -0.1275,
+              1.535,
+              0.106
+            ]
+          },
+          {
+            "name": "wardrobe-mask-ear--1",
+            "at": [
+              -0.18375,
+              1.5959999999999999,
+              0.0005000000000000004
+            ]
+          },
+          {
+            "name": "wardrobe-mask-cheek-1",
+            "at": [
+              0.1275,
+              1.535,
+              0.106
+            ]
+          },
+          {
+            "name": "wardrobe-mask-ear-1",
+            "at": [
+              0.18375,
+              1.5959999999999999,
+              0.0005000000000000004
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "all-head-front",
+      "asset": "student-character",
+      "wear": "full",
+      "angle": "front",
+      "detail": "head",
+      "file": "after-all-head-front.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2721693229408056,
+          -3.7252903539730653e-10,
+          -0.23940000295639038
+        ],
+        "max": [
+          0.2721693229408056,
+          1.817960000038147,
+          0.20700000102818011
+        ],
+        "size": [
+          0.5443386458816112,
+          1.8179600004106762,
+          0.44640000398457047
+        ],
+        "meshes": 23,
+        "triangles": 36568,
+        "calls": 21,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-trouser-leg",
+          "asset-closed-shoe",
+          "asset-trouser-leg",
+          "asset-closed-shoe",
+          "asset-worn-coat",
+          "asset-sleeve-cuff",
+          "avatar-left-palm",
+          "asset-grip-hand",
+          "asset-sleeve-cuff",
+          "avatar-right-palm",
+          "asset-grip-hand",
+          "asset-player-hair",
+          "asset-hair-tie",
+          "asset-face-details",
+          "asset-worn-goggles",
+          "wardrobe-goggle-temple--1",
+          "wardrobe-goggle-temple-1",
+          "asset-worn-mask",
+          "wardrobe-mask-cheek--1",
+          "wardrobe-mask-ear--1",
+          "wardrobe-mask-cheek-1",
+          "wardrobe-mask-ear-1"
+        ],
+        "textures": 4,
+        "palette": [
+          "#304754",
+          "#617580",
+          "#c5d2d0",
+          "#405967",
+          "#78919c",
+          "#a4b8b9",
+          "#e5e7dc",
+          "#87adb0",
+          "#edf0e6",
+          "#d8ded5",
+          "#a4b5b0",
+          "#8fa6a4",
+          "#70a9b7",
+          "#94bdc2",
+          "#e6b89b",
+          "#5b4f43",
+          "#8e7c88",
+          "#b49aa7",
+          "#dcac92",
+          "#eee8dc",
+          "#5f665a",
+          "#293b42",
+          "#f4faf5",
+          "#a76f64",
+          "#78a4ad",
+          "#7b9695",
+          "#cce7eb",
+          "#5d8791",
+          "#3b6571",
+          "#728c96",
+          "#526c77",
+          "#9abfc5",
+          "#c7dbd9",
+          "#d4e3de",
+          "#77979d"
+        ],
+        "wardrobe": [
+          {
+            "name": "asset-closed-shoe",
+            "closed": true
+          },
+          {
+            "name": "asset-closed-shoe",
+            "closed": true
+          },
+          {
+            "name": "asset-worn-coat",
+            "fabric": "#e5e7dc",
+            "buttons": 6,
+            "pockets": 3,
+            "fastened": true
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": true,
+            "gloved": true,
+            "fabric": "#e5e7dc"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": true,
+            "color": "#70a9b7",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": true,
+            "gloved": true,
+            "fabric": "#e5e7dc"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": true,
+            "color": "#70a9b7",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-worn-goggles",
+            "frame": "#78a4ad",
+            "gasket": "#7b9695",
+            "wrapDepth": 0.085
+          },
+          {
+            "name": "asset-worn-mask",
+            "fabric": "#9abfc5",
+            "wrapDepth": 0.075,
+            "earDepth": 0.19,
+            "earLift": 0.075
+          }
+        ],
+        "anchors": [
+          {
+            "name": "wardrobe-goggle-temple--1",
+            "at": [
+              -0.1392,
+              1.6,
+              0.08857222222222219
+            ]
+          },
+          {
+            "name": "wardrobe-goggle-temple-1",
+            "at": [
+              0.1392,
+              1.6,
+              0.08857222222222219
+            ]
+          },
+          {
+            "name": "wardrobe-mask-cheek--1",
+            "at": [
+              -0.1275,
+              1.535,
+              0.106
+            ]
+          },
+          {
+            "name": "wardrobe-mask-ear--1",
+            "at": [
+              -0.18375,
+              1.5959999999999999,
+              0.0005000000000000004
+            ]
+          },
+          {
+            "name": "wardrobe-mask-cheek-1",
+            "at": [
+              0.1275,
+              1.535,
+              0.106
+            ]
+          },
+          {
+            "name": "wardrobe-mask-ear-1",
+            "at": [
+              0.18375,
+              1.5959999999999999,
+              0.0005000000000000004
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "all-head-side",
+      "asset": "student-character",
+      "wear": "full",
+      "angle": "right",
+      "detail": "head",
+      "file": "after-all-head-side.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2721693229408056,
+          -3.7252903539730653e-10,
+          -0.23940000295639038
+        ],
+        "max": [
+          0.2721693229408056,
+          1.817960000038147,
+          0.20700000102818011
+        ],
+        "size": [
+          0.5443386458816112,
+          1.8179600004106762,
+          0.44640000398457047
+        ],
+        "meshes": 23,
+        "triangles": 36568,
+        "calls": 20,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-trouser-leg",
+          "asset-closed-shoe",
+          "asset-trouser-leg",
+          "asset-closed-shoe",
+          "asset-worn-coat",
+          "asset-sleeve-cuff",
+          "avatar-left-palm",
+          "asset-grip-hand",
+          "asset-sleeve-cuff",
+          "avatar-right-palm",
+          "asset-grip-hand",
+          "asset-player-hair",
+          "asset-hair-tie",
+          "asset-face-details",
+          "asset-worn-goggles",
+          "wardrobe-goggle-temple--1",
+          "wardrobe-goggle-temple-1",
+          "asset-worn-mask",
+          "wardrobe-mask-cheek--1",
+          "wardrobe-mask-ear--1",
+          "wardrobe-mask-cheek-1",
+          "wardrobe-mask-ear-1"
+        ],
+        "textures": 4,
+        "palette": [
+          "#304754",
+          "#617580",
+          "#c5d2d0",
+          "#405967",
+          "#78919c",
+          "#a4b8b9",
+          "#e5e7dc",
+          "#87adb0",
+          "#edf0e6",
+          "#d8ded5",
+          "#a4b5b0",
+          "#8fa6a4",
+          "#70a9b7",
+          "#94bdc2",
+          "#e6b89b",
+          "#5b4f43",
+          "#8e7c88",
+          "#b49aa7",
+          "#dcac92",
+          "#eee8dc",
+          "#5f665a",
+          "#293b42",
+          "#f4faf5",
+          "#a76f64",
+          "#78a4ad",
+          "#7b9695",
+          "#cce7eb",
+          "#5d8791",
+          "#3b6571",
+          "#728c96",
+          "#526c77",
+          "#9abfc5",
+          "#c7dbd9",
+          "#d4e3de",
+          "#77979d"
+        ],
+        "wardrobe": [
+          {
+            "name": "asset-closed-shoe",
+            "closed": true
+          },
+          {
+            "name": "asset-closed-shoe",
+            "closed": true
+          },
+          {
+            "name": "asset-worn-coat",
+            "fabric": "#e5e7dc",
+            "buttons": 6,
+            "pockets": 3,
+            "fastened": true
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": true,
+            "gloved": true,
+            "fabric": "#e5e7dc"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": true,
+            "color": "#70a9b7",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": true,
+            "gloved": true,
+            "fabric": "#e5e7dc"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": true,
+            "color": "#70a9b7",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-worn-goggles",
+            "frame": "#78a4ad",
+            "gasket": "#7b9695",
+            "wrapDepth": 0.085
+          },
+          {
+            "name": "asset-worn-mask",
+            "fabric": "#9abfc5",
+            "wrapDepth": 0.075,
+            "earDepth": 0.19,
+            "earLift": 0.075
+          }
+        ],
+        "anchors": [
+          {
+            "name": "wardrobe-goggle-temple--1",
+            "at": [
+              -0.1392,
+              1.6,
+              0.08857222222222219
+            ]
+          },
+          {
+            "name": "wardrobe-goggle-temple-1",
+            "at": [
+              0.1392,
+              1.6,
+              0.08857222222222219
+            ]
+          },
+          {
+            "name": "wardrobe-mask-cheek--1",
+            "at": [
+              -0.1275,
+              1.535,
+              0.106
+            ]
+          },
+          {
+            "name": "wardrobe-mask-ear--1",
+            "at": [
+              -0.18375,
+              1.5959999999999999,
+              0.0005000000000000004
+            ]
+          },
+          {
+            "name": "wardrobe-mask-cheek-1",
+            "at": [
+              0.1275,
+              1.535,
+              0.106
+            ]
+          },
+          {
+            "name": "wardrobe-mask-ear-1",
+            "at": [
+              0.18375,
+              1.5959999999999999,
+              0.0005000000000000004
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "all-head-back",
+      "asset": "student-character",
+      "wear": "full",
+      "angle": "back",
+      "detail": "head",
+      "file": "after-all-head-back.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2721693229408056,
+          -3.7252903539730653e-10,
+          -0.23940000295639038
+        ],
+        "max": [
+          0.2721693229408056,
+          1.817960000038147,
+          0.20700000102818011
+        ],
+        "size": [
+          0.5443386458816112,
+          1.8179600004106762,
+          0.44640000398457047
+        ],
+        "meshes": 23,
+        "triangles": 36568,
+        "calls": 23,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-trouser-leg",
+          "asset-closed-shoe",
+          "asset-trouser-leg",
+          "asset-closed-shoe",
+          "asset-worn-coat",
+          "asset-sleeve-cuff",
+          "avatar-left-palm",
+          "asset-grip-hand",
+          "asset-sleeve-cuff",
+          "avatar-right-palm",
+          "asset-grip-hand",
+          "asset-player-hair",
+          "asset-hair-tie",
+          "asset-face-details",
+          "asset-worn-goggles",
+          "wardrobe-goggle-temple--1",
+          "wardrobe-goggle-temple-1",
+          "asset-worn-mask",
+          "wardrobe-mask-cheek--1",
+          "wardrobe-mask-ear--1",
+          "wardrobe-mask-cheek-1",
+          "wardrobe-mask-ear-1"
+        ],
+        "textures": 4,
+        "palette": [
+          "#304754",
+          "#617580",
+          "#c5d2d0",
+          "#405967",
+          "#78919c",
+          "#a4b8b9",
+          "#e5e7dc",
+          "#87adb0",
+          "#edf0e6",
+          "#d8ded5",
+          "#a4b5b0",
+          "#8fa6a4",
+          "#70a9b7",
+          "#94bdc2",
+          "#e6b89b",
+          "#5b4f43",
+          "#8e7c88",
+          "#b49aa7",
+          "#dcac92",
+          "#eee8dc",
+          "#5f665a",
+          "#293b42",
+          "#f4faf5",
+          "#a76f64",
+          "#78a4ad",
+          "#7b9695",
+          "#cce7eb",
+          "#5d8791",
+          "#3b6571",
+          "#728c96",
+          "#526c77",
+          "#9abfc5",
+          "#c7dbd9",
+          "#d4e3de",
+          "#77979d"
+        ],
+        "wardrobe": [
+          {
+            "name": "asset-closed-shoe",
+            "closed": true
+          },
+          {
+            "name": "asset-closed-shoe",
+            "closed": true
+          },
+          {
+            "name": "asset-worn-coat",
+            "fabric": "#e5e7dc",
+            "buttons": 6,
+            "pockets": 3,
+            "fastened": true
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": true,
+            "gloved": true,
+            "fabric": "#e5e7dc"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": true,
+            "color": "#70a9b7",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": true,
+            "gloved": true,
+            "fabric": "#e5e7dc"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": true,
+            "color": "#70a9b7",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-worn-goggles",
+            "frame": "#78a4ad",
+            "gasket": "#7b9695",
+            "wrapDepth": 0.085
+          },
+          {
+            "name": "asset-worn-mask",
+            "fabric": "#9abfc5",
+            "wrapDepth": 0.075,
+            "earDepth": 0.19,
+            "earLift": 0.075
+          }
+        ],
+        "anchors": [
+          {
+            "name": "wardrobe-goggle-temple--1",
+            "at": [
+              -0.1392,
+              1.6,
+              0.08857222222222219
+            ]
+          },
+          {
+            "name": "wardrobe-goggle-temple-1",
+            "at": [
+              0.1392,
+              1.6,
+              0.08857222222222219
+            ]
+          },
+          {
+            "name": "wardrobe-mask-cheek--1",
+            "at": [
+              -0.1275,
+              1.535,
+              0.106
+            ]
+          },
+          {
+            "name": "wardrobe-mask-ear--1",
+            "at": [
+              -0.18375,
+              1.5959999999999999,
+              0.0005000000000000004
+            ]
+          },
+          {
+            "name": "wardrobe-mask-cheek-1",
+            "at": [
+              0.1275,
+              1.535,
+              0.106
+            ]
+          },
+          {
+            "name": "wardrobe-mask-ear-1",
+            "at": [
+              0.18375,
+              1.5959999999999999,
+              0.0005000000000000004
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "glove-hands",
+      "asset": "student-character",
+      "wear": "gloves",
+      "angle": "front",
+      "detail": "hands",
+      "file": "after-glove-hands.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2761393846960606,
+          -3.7252903539730653e-10,
+          -0.23940000295639038
+        ],
+        "max": [
+          0.2761393846960606,
+          1.817960000038147,
+          0.1899999976158142
+        ],
+        "size": [
+          0.5522787693921212,
+          1.8179600004106762,
+          0.4294000005722046
+        ],
+        "meshes": 16,
+        "triangles": 22540,
+        "calls": 12,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-waist",
+          "asset-sleeve-cuff",
+          "avatar-left-palm",
+          "asset-grip-hand",
+          "asset-sleeve-cuff",
+          "avatar-right-palm",
+          "asset-grip-hand",
+          "asset-player-hair",
+          "asset-hair-tie",
+          "asset-face-details"
+        ],
+        "textures": 4,
+        "palette": [
+          "#304754",
+          "#617580",
+          "#c5d2d0",
+          "#e6b89b",
+          "#8b7963",
+          "#87adb0",
+          "#70a9b7",
+          "#94bdc2",
+          "#5b4f43",
+          "#8e7c88",
+          "#b49aa7",
+          "#dcac92",
+          "#eee8dc",
+          "#5f665a",
+          "#293b42",
+          "#f4faf5",
+          "#a76f64"
+        ],
+        "wardrobe": [
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": false,
+            "gloved": true,
+            "fabric": "#87adb0"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": true,
+            "color": "#70a9b7",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": false,
+            "gloved": true,
+            "fabric": "#87adb0"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": true,
+            "color": "#70a9b7",
+            "pose": "relaxed"
+          }
+        ],
+        "anchors": []
+      }
+    },
+    {
+      "id": "bare-hands",
+      "asset": "student-character",
+      "wear": "none",
+      "angle": "front",
+      "detail": "hands",
+      "file": "after-bare-hands.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2761393846960606,
+          -3.7252903539730653e-10,
+          -0.23940000295639038
+        ],
+        "max": [
+          0.2761393846960606,
+          1.817960000038147,
+          0.1899999976158142
+        ],
+        "size": [
+          0.5522787693921212,
+          1.8179600004106762,
+          0.4294000005722046
+        ],
+        "meshes": 16,
+        "triangles": 22908,
+        "calls": 12,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-waist",
+          "asset-sleeve-cuff",
+          "avatar-left-palm",
+          "asset-grip-hand",
+          "asset-sleeve-cuff",
+          "avatar-right-palm",
+          "asset-grip-hand",
+          "asset-player-hair",
+          "asset-hair-tie",
+          "asset-face-details"
+        ],
+        "textures": 4,
+        "palette": [
+          "#304754",
+          "#617580",
+          "#c5d2d0",
+          "#e6b89b",
+          "#8b7963",
+          "#87adb0",
+          "#d9b9a4",
+          "#bb8f79",
+          "#5b4f43",
+          "#8e7c88",
+          "#b49aa7",
+          "#dcac92",
+          "#eee8dc",
+          "#5f665a",
+          "#293b42",
+          "#f4faf5",
+          "#a76f64"
+        ],
+        "wardrobe": [
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": false,
+            "gloved": false,
+            "fabric": "#87adb0"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": false,
+            "gloved": false,
+            "fabric": "#87adb0"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          }
+        ],
+        "anchors": []
+      }
+    },
+    {
+      "id": "shoe-feet",
+      "asset": "student-character",
+      "wear": "shoes",
+      "angle": "three-quarter",
+      "detail": "feet",
+      "file": "after-shoe-feet.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2761393846960606,
+          -3.7252903539730653e-10,
+          -0.23940000295639038
+        ],
+        "max": [
+          0.2761393846960606,
+          1.817960000038147,
+          0.1899999976158142
+        ],
+        "size": [
+          0.5522787693921212,
+          1.8179600004106762,
+          0.4294000005722046
+        ],
+        "meshes": 16,
+        "triangles": 22188,
+        "calls": 4,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-trouser-leg",
+          "asset-closed-shoe",
+          "asset-trouser-leg",
+          "asset-closed-shoe",
+          "asset-trouser-waist",
+          "asset-sleeve-cuff",
+          "avatar-left-palm",
+          "asset-grip-hand",
+          "asset-sleeve-cuff",
+          "avatar-right-palm",
+          "asset-grip-hand",
+          "asset-player-hair",
+          "asset-hair-tie",
+          "asset-face-details"
+        ],
+        "textures": 4,
+        "palette": [
+          "#304754",
+          "#617580",
+          "#c5d2d0",
+          "#405967",
+          "#78919c",
+          "#a4b8b9",
+          "#87adb0",
+          "#e6b89b",
+          "#d9b9a4",
+          "#bb8f79",
+          "#5b4f43",
+          "#8e7c88",
+          "#b49aa7",
+          "#dcac92",
+          "#eee8dc",
+          "#5f665a",
+          "#293b42",
+          "#f4faf5",
+          "#a76f64"
+        ],
+        "wardrobe": [
+          {
+            "name": "asset-closed-shoe",
+            "closed": true
+          },
+          {
+            "name": "asset-closed-shoe",
+            "closed": true
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": false,
+            "gloved": false,
+            "fabric": "#87adb0"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": false,
+            "gloved": false,
+            "fabric": "#87adb0"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          }
+        ],
+        "anchors": []
+      }
+    },
+    {
+      "id": "open-feet",
+      "asset": "student-character",
+      "wear": "none",
+      "angle": "three-quarter",
+      "detail": "feet",
+      "file": "after-open-feet.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2761393846960606,
+          -3.7252903539730653e-10,
+          -0.23940000295639038
+        ],
+        "max": [
+          0.2761393846960606,
+          1.817960000038147,
+          0.1899999976158142
+        ],
+        "size": [
+          0.5522787693921212,
+          1.8179600004106762,
+          0.4294000005722046
+        ],
+        "meshes": 16,
+        "triangles": 22908,
+        "calls": 4,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-waist",
+          "asset-sleeve-cuff",
+          "avatar-left-palm",
+          "asset-grip-hand",
+          "asset-sleeve-cuff",
+          "avatar-right-palm",
+          "asset-grip-hand",
+          "asset-player-hair",
+          "asset-hair-tie",
+          "asset-face-details"
+        ],
+        "textures": 4,
+        "palette": [
+          "#304754",
+          "#617580",
+          "#c5d2d0",
+          "#e6b89b",
+          "#8b7963",
+          "#87adb0",
+          "#d9b9a4",
+          "#bb8f79",
+          "#5b4f43",
+          "#8e7c88",
+          "#b49aa7",
+          "#dcac92",
+          "#eee8dc",
+          "#5f665a",
+          "#293b42",
+          "#f4faf5",
+          "#a76f64"
+        ],
+        "wardrobe": [
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": false,
+            "gloved": false,
+            "fabric": "#87adb0"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": false,
+            "gloved": false,
+            "fabric": "#87adb0"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          }
+        ],
+        "anchors": []
+      }
+    },
+    {
+      "id": "bun-head",
+      "asset": "bun-character",
+      "wear": "full",
+      "angle": "back",
+      "detail": "head",
+      "file": "after-bun-head.png",
+      "model": {
+        "id": "bun-character",
+        "min": [
+          -0.2721693229408056,
+          -3.7252903539730653e-10,
+          -0.18349999499320985
+        ],
+        "max": [
+          0.2721693229408056,
+          1.8440000027418137,
+          0.20700000102818011
+        ],
+        "size": [
+          0.5443386458816112,
+          1.8440000031143429,
+          0.39049999602138996
+        ],
+        "meshes": 23,
+        "triangles": 36704,
+        "calls": 22,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-trouser-leg",
+          "asset-closed-shoe",
+          "asset-trouser-leg",
+          "asset-closed-shoe",
+          "asset-worn-coat",
+          "asset-sleeve-cuff",
+          "avatar-left-palm",
+          "asset-grip-hand",
+          "asset-sleeve-cuff",
+          "avatar-right-palm",
+          "asset-grip-hand",
+          "asset-player-hair",
+          "asset-hair-tie",
+          "asset-face-details",
+          "asset-worn-goggles",
+          "wardrobe-goggle-temple--1",
+          "wardrobe-goggle-temple-1",
+          "asset-worn-mask",
+          "wardrobe-mask-cheek--1",
+          "wardrobe-mask-ear--1",
+          "wardrobe-mask-cheek-1",
+          "wardrobe-mask-ear-1"
+        ],
+        "textures": 4,
+        "palette": [
+          "#304754",
+          "#617580",
+          "#c5d2d0",
+          "#405967",
+          "#78919c",
+          "#a4b8b9",
+          "#e5e7dc",
+          "#87adb0",
+          "#edf0e6",
+          "#d8ded5",
+          "#a4b5b0",
+          "#8fa6a4",
+          "#70a9b7",
+          "#94bdc2",
+          "#e6b89b",
+          "#5b4f43",
+          "#8e7c88",
+          "#b49aa7",
+          "#dcac92",
+          "#eee8dc",
+          "#5f665a",
+          "#293b42",
+          "#f4faf5",
+          "#a76f64",
+          "#78a4ad",
+          "#7b9695",
+          "#cce7eb",
+          "#5d8791",
+          "#3b6571",
+          "#728c96",
+          "#526c77",
+          "#9abfc5",
+          "#c7dbd9",
+          "#d4e3de",
+          "#77979d"
+        ],
+        "wardrobe": [
+          {
+            "name": "asset-closed-shoe",
+            "closed": true
+          },
+          {
+            "name": "asset-closed-shoe",
+            "closed": true
+          },
+          {
+            "name": "asset-worn-coat",
+            "fabric": "#e5e7dc",
+            "buttons": 6,
+            "pockets": 3,
+            "fastened": true
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": true,
+            "gloved": true,
+            "fabric": "#e5e7dc"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": true,
+            "color": "#70a9b7",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": true,
+            "gloved": true,
+            "fabric": "#e5e7dc"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": true,
+            "color": "#70a9b7",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-worn-goggles",
+            "frame": "#78a4ad",
+            "gasket": "#7b9695",
+            "wrapDepth": 0.085
+          },
+          {
+            "name": "asset-worn-mask",
+            "fabric": "#9abfc5",
+            "wrapDepth": 0.075,
+            "earDepth": 0.19,
+            "earLift": 0.075
+          }
+        ],
+        "anchors": [
+          {
+            "name": "wardrobe-goggle-temple--1",
+            "at": [
+              -0.1392,
+              1.6,
+              0.08857222222222219
+            ]
+          },
+          {
+            "name": "wardrobe-goggle-temple-1",
+            "at": [
+              0.1392,
+              1.6,
+              0.08857222222222219
+            ]
+          },
+          {
+            "name": "wardrobe-mask-cheek--1",
+            "at": [
+              -0.1275,
+              1.535,
+              0.106
+            ]
+          },
+          {
+            "name": "wardrobe-mask-ear--1",
+            "at": [
+              -0.18375,
+              1.5959999999999999,
+              0.0005000000000000004
+            ]
+          },
+          {
+            "name": "wardrobe-mask-cheek-1",
+            "at": [
+              0.1275,
+              1.535,
+              0.106
+            ]
+          },
+          {
+            "name": "wardrobe-mask-ear-1",
+            "at": [
+              0.18375,
+              1.5959999999999999,
+              0.0005000000000000004
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "braid-head",
+      "asset": "braided-character",
+      "wear": "full",
+      "angle": "back",
+      "detail": "head",
+      "file": "after-braid-head.png",
+      "model": {
+        "id": "braided-character",
+        "min": [
+          -0.2721693229408056,
+          -3.7252903539730653e-10,
+          -0.18349999499320985
+        ],
+        "max": [
+          0.2721693229408056,
+          1.817960000038147,
+          0.20700000102818011
+        ],
+        "size": [
+          0.5443386458816112,
+          1.8179600004106762,
+          0.39049999602138996
+        ],
+        "meshes": 23,
+        "triangles": 37672,
+        "calls": 23,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-trouser-leg",
+          "asset-closed-shoe",
+          "asset-trouser-leg",
+          "asset-closed-shoe",
+          "asset-worn-coat",
+          "asset-sleeve-cuff",
+          "avatar-left-palm",
+          "asset-grip-hand",
+          "asset-sleeve-cuff",
+          "avatar-right-palm",
+          "asset-grip-hand",
+          "asset-player-hair",
+          "asset-hair-tie",
+          "asset-face-details",
+          "asset-worn-goggles",
+          "wardrobe-goggle-temple--1",
+          "wardrobe-goggle-temple-1",
+          "asset-worn-mask",
+          "wardrobe-mask-cheek--1",
+          "wardrobe-mask-ear--1",
+          "wardrobe-mask-cheek-1",
+          "wardrobe-mask-ear-1"
+        ],
+        "textures": 4,
+        "palette": [
+          "#304754",
+          "#617580",
+          "#c5d2d0",
+          "#405967",
+          "#78919c",
+          "#a4b8b9",
+          "#e5e7dc",
+          "#87adb0",
+          "#edf0e6",
+          "#d8ded5",
+          "#a4b5b0",
+          "#8fa6a4",
+          "#70a9b7",
+          "#94bdc2",
+          "#e6b89b",
+          "#5b4f43",
+          "#8e7c88",
+          "#b49aa7",
+          "#dcac92",
+          "#eee8dc",
+          "#5f665a",
+          "#293b42",
+          "#f4faf5",
+          "#a76f64",
+          "#78a4ad",
+          "#7b9695",
+          "#cce7eb",
+          "#5d8791",
+          "#3b6571",
+          "#728c96",
+          "#526c77",
+          "#9abfc5",
+          "#c7dbd9",
+          "#d4e3de",
+          "#77979d"
+        ],
+        "wardrobe": [
+          {
+            "name": "asset-closed-shoe",
+            "closed": true
+          },
+          {
+            "name": "asset-closed-shoe",
+            "closed": true
+          },
+          {
+            "name": "asset-worn-coat",
+            "fabric": "#e5e7dc",
+            "buttons": 6,
+            "pockets": 3,
+            "fastened": true
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": true,
+            "gloved": true,
+            "fabric": "#e5e7dc"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": true,
+            "color": "#70a9b7",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": true,
+            "gloved": true,
+            "fabric": "#e5e7dc"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": true,
+            "color": "#70a9b7",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-worn-goggles",
+            "frame": "#78a4ad",
+            "gasket": "#7b9695",
+            "wrapDepth": 0.085
+          },
+          {
+            "name": "asset-worn-mask",
+            "fabric": "#9abfc5",
+            "wrapDepth": 0.075,
+            "earDepth": 0.19,
+            "earLift": 0.075
+          }
+        ],
+        "anchors": [
+          {
+            "name": "wardrobe-goggle-temple--1",
+            "at": [
+              -0.1392,
+              1.6,
+              0.08857222222222219
+            ]
+          },
+          {
+            "name": "wardrobe-goggle-temple-1",
+            "at": [
+              0.1392,
+              1.6,
+              0.08857222222222219
+            ]
+          },
+          {
+            "name": "wardrobe-mask-cheek--1",
+            "at": [
+              -0.1275,
+              1.535,
+              0.106
+            ]
+          },
+          {
+            "name": "wardrobe-mask-ear--1",
+            "at": [
+              -0.18375,
+              1.5959999999999999,
+              0.0005000000000000004
+            ]
+          },
+          {
+            "name": "wardrobe-mask-cheek-1",
+            "at": [
+              0.1275,
+              1.535,
+              0.106
+            ]
+          },
+          {
+            "name": "wardrobe-mask-ear-1",
+            "at": [
+              0.18375,
+              1.5959999999999999,
+              0.0005000000000000004
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "long-head",
+      "asset": "long-hair-character",
+      "wear": "none",
+      "angle": "back",
+      "detail": "head",
+      "file": "after-long-head.png",
+      "model": {
+        "id": "long-hair-character",
+        "min": [
+          -0.2761393846960606,
+          -3.7252903539730653e-10,
+          -0.18960000574588776
+        ],
+        "max": [
+          0.2761393846960606,
+          1.817960000038147,
+          0.1899999976158142
+        ],
+        "size": [
+          0.5522787693921212,
+          1.8179600004106762,
+          0.37960000336170197
+        ],
+        "meshes": 14,
+        "triangles": 22252,
+        "calls": 12,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-leg",
+          "asset-open-sandal",
+          "asset-trouser-waist",
+          "asset-sleeve-cuff",
+          "avatar-left-palm",
+          "asset-grip-hand",
+          "asset-sleeve-cuff",
+          "avatar-right-palm",
+          "asset-grip-hand",
+          "asset-player-hair",
+          "asset-face-details"
+        ],
+        "textures": 4,
+        "palette": [
+          "#304754",
+          "#617580",
+          "#c5d2d0",
+          "#e6b89b",
+          "#8b7963",
+          "#87adb0",
+          "#d9b9a4",
+          "#bb8f79",
+          "#5b4f43",
+          "#dcac92",
+          "#eee8dc",
+          "#5f665a",
+          "#293b42",
+          "#f4faf5",
+          "#a76f64"
+        ],
+        "wardrobe": [
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-open-sandal",
+            "closed": false
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": false,
+            "gloved": false,
+            "fabric": "#87adb0"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          },
+          {
+            "name": "asset-sleeve-cuff",
+            "coat": false,
+            "gloved": false,
+            "fabric": "#87adb0"
+          },
+          {
+            "name": "asset-grip-hand",
+            "gloved": false,
+            "color": "#e6b89b",
+            "pose": "relaxed"
+          }
+        ],
+        "anchors": []
+      }
+    }
+  ]
+}

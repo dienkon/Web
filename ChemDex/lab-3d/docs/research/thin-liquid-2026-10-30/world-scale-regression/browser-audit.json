@@ -1,0 +1,523 @@
+{
+  "errors": [],
+  "consoleErrors": [],
+  "phases": [
+    {
+      "name": "01-wall-before-ground",
+      "mass_g": 150,
+      "substances": {
+        "H2O": 8.270885373300027,
+        "CuSO4": 0.006265271599523839
+      },
+      "wall_ml": 3.333333333333335,
+      "air_ml": 0,
+      "queued_ml": 16.666666666666664,
+      "ground_ml": 0,
+      "pending_ml": 20,
+      "renderedWall_ml": 3.3333325404403293,
+      "renderedAir_ml": 0,
+      "packets": [
+        {
+          "stage": "overflow",
+          "volume_ml": 20,
+          "elapsed_s": 0.020000000000000004,
+          "wall_s": 0.09048088164351267,
+          "flight_s": 0.029386563986801062,
+          "duration_s": 0.12,
+          "releaseBasis": "assumed-dose-interval",
+          "circularSheet": {
+            "center": [
+              0,
+              0
+            ],
+            "radius": 0.6991000016993884
+          },
+          "span_rad": 6.283185307179586,
+          "widthBasis": "level_circular_rim",
+          "entrySpeed_m_s": 0.21255566287532726,
+          "reynolds4": 4771.07529450682,
+          "exit": [
+            0.6841920278270182,
+            -0.19999999999999996,
+            0
+          ]
+        }
+      ],
+      "spills": []
+    },
+    {
+      "name": "02-air-before-ground",
+      "mass_g": 150,
+      "substances": {
+        "H2O": 8.270885373300027,
+        "CuSO4": 0.006265271599523839
+      },
+      "wall_ml": 15.080146940585447,
+      "air_ml": 2.448880332233422,
+      "queued_ml": 2.470972727181131,
+      "ground_ml": 0,
+      "pending_ml": 20,
+      "renderedWall_ml": 15.080144954313937,
+      "renderedAir_ml": 2.4488804085581526,
+      "packets": [
+        {
+          "stage": "overflow",
+          "volume_ml": 20,
+          "elapsed_s": 0.1051741636369132,
+          "wall_s": 0.09048088164351267,
+          "flight_s": 0.029386563986801062,
+          "duration_s": 0.12,
+          "releaseBasis": "assumed-dose-interval",
+          "circularSheet": {
+            "center": [
+              0,
+              0
+            ],
+            "radius": 0.6991000016993884
+          },
+          "span_rad": 6.283185307179586,
+          "widthBasis": "level_circular_rim",
+          "entrySpeed_m_s": 0.21255566287532726,
+          "reynolds4": 4771.07529450682,
+          "exit": [
+            0.6841920278270182,
+            -0.19999999999999996,
+            0
+          ]
+        }
+      ],
+      "spills": []
+    },
+    {
+      "name": "03-partial-ground",
+      "mass_g": 150,
+      "substances": {
+        "H2O": 8.270885373300027,
+        "CuSO4": 0.006265271599523839
+      },
+      "wall_ml": 5.102239335533156,
+      "air_ml": 4.897760664466844,
+      "queued_ml": 0,
+      "ground_ml": 10,
+      "pending_ml": 10,
+      "renderedWall_ml": 5.102239381289011,
+      "renderedAir_ml": 4.897759034038662,
+      "packets": [
+        {
+          "stage": "overflow",
+          "volume_ml": 10,
+          "elapsed_s": 0.17986744563031373,
+          "wall_s": 0.09048088164351267,
+          "flight_s": 0.029386563986801062,
+          "duration_s": 0.12,
+          "releaseBasis": "assumed-dose-interval",
+          "circularSheet": {
+            "center": [
+              0,
+              0
+            ],
+            "radius": 0.6991000016993884
+          },
+          "span_rad": 6.283185307179586,
+          "widthBasis": "level_circular_rim",
+          "entrySpeed_m_s": 0.21255566287532726,
+          "reynolds4": 4771.07529450682,
+          "exit": [
+            0.6841920278270182,
+            -0.19999999999999996,
+            0
+          ]
+        }
+      ],
+      "spills": [
+        {
+          "volume_ml": 10,
+          "position": [
+            -2.7755575615628914e-17,
+            -1.1750000000000003,
+            2.914335439641036e-17
+          ]
+        }
+      ]
+    },
+    {
+      "name": "04-complete-ground",
+      "mass_g": 150,
+      "substances": {
+        "H2O": 8.270885373300029,
+        "CuSO4": 0.006265271599523841
+      },
+      "wall_ml": 0,
+      "air_ml": 0,
+      "queued_ml": 0,
+      "ground_ml": 20.000000000000004,
+      "pending_ml": 0,
+      "renderedWall_ml": 0,
+      "renderedAir_ml": 0,
+      "packets": [],
+      "spills": [
+        {
+          "volume_ml": 20.000000000000004,
+          "position": [
+            -3.608224830031758e-17,
+            -1.1750000000000003,
+            1.4571677198205177e-17
+          ]
+        }
+      ]
+    }
+  ],
+  "full": [
+    {
+      "type": "beaker",
+      "capacity_ml": 100,
+      "stock_ml": 100,
+      "modelScale": 0.7434695954641501,
+      "oldUnscaledInterior_ml": 243.33823987099385,
+      "continuumInterior_ml": 99.99999999999999,
+      "polygonInterior_ml": 99.8394394161607,
+      "polygonClipped_ml": 99.83943843456987,
+      "polygonFactor": 0.9983943930356184,
+      "actualScale": 0.7434695954641501,
+      "clipY": 0.98,
+      "profileMouthY": 0.3519391909283003,
+      "renderedMouthY": 0.3519391909283003,
+      "segments": 64
+    },
+    {
+      "type": "flask",
+      "capacity_ml": 250,
+      "stock_ml": 250,
+      "modelScale": 1.151540078328079,
+      "oldUnscaledInterior_ml": 163.72041441740322,
+      "continuumInterior_ml": 249.99999999999986,
+      "polygonInterior_ml": 249.59859668953027,
+      "polygonClipped_ml": 249.59859620973108,
+      "polygonFactor": 0.9983943930356184,
+      "actualScale": 1.151540078328079,
+      "clipY": 1.4799999999999998,
+      "profileMouthY": 1.7208193942536356,
+      "renderedMouthY": 1.7208193942536356,
+      "segments": 64
+    },
+    {
+      "type": "test_tube",
+      "capacity_ml": 50,
+      "stock_ml": 50,
+      "modelScale": 1.6988430476739658,
+      "oldUnscaledInterior_ml": 10.197887876081012,
+      "continuumInterior_ml": 49.999999999999986,
+      "polygonInterior_ml": 49.91971888257861,
+      "polygonClipped_ml": 49.91971888257861,
+      "polygonFactor": 0.9983943930356184,
+      "actualScale": 1.6988430476739658,
+      "clipY": 1.1799999999999997,
+      "profileMouthY": 2.4426860953479315,
+      "renderedMouthY": 2.442686095347931,
+      "segments": 64
+    },
+    {
+      "type": "cylinder",
+      "capacity_ml": 100,
+      "stock_ml": 100,
+      "modelScale": 1.4021022856829453,
+      "oldUnscaledInterior_ml": 36.279467847197715,
+      "continuumInterior_ml": 99.99999999999999,
+      "polygonInterior_ml": 99.83943485778394,
+      "polygonClipped_ml": 99.83943485778394,
+      "polygonFactor": 0.9983943930356184,
+      "actualScale": 1.4021022856829453,
+      "clipY": 1.6800000000000004,
+      "profileMouthY": 2.5824238970619993,
+      "renderedMouthY": 2.582423897061999,
+      "segments": 64
+    }
+  ],
+  "half": [
+    {
+      "type": "beaker",
+      "capacity_ml": 100,
+      "stock_ml": 50,
+      "modelScale": 0.7434695954641501,
+      "oldUnscaledInterior_ml": 243.33823987099385,
+      "continuumInterior_ml": 99.99999999999999,
+      "polygonInterior_ml": 99.8394394161607,
+      "polygonClipped_ml": 49.9197186651401,
+      "polygonFactor": 0.9983943930356184,
+      "actualScale": 0.7434695954641501,
+      "clipY": 0.010000000000000122,
+      "profileMouthY": 0.3519391909283003,
+      "renderedMouthY": 0.3519391909283003,
+      "segments": 64
+    },
+    {
+      "type": "flask",
+      "capacity_ml": 250,
+      "stock_ml": 125,
+      "modelScale": 1.151540078328079,
+      "oldUnscaledInterior_ml": 163.72041441740322,
+      "continuumInterior_ml": 249.99999999999986,
+      "polygonInterior_ml": 249.59859668953027,
+      "polygonClipped_ml": 124.79929627014138,
+      "polygonFactor": 0.9983943930356184,
+      "actualScale": 1.151540078328079,
+      "clipY": -0.44159978818409745,
+      "profileMouthY": 1.7208193942536356,
+      "renderedMouthY": 1.7208193942536356,
+      "segments": 64
+    },
+    {
+      "type": "test_tube",
+      "capacity_ml": 50,
+      "stock_ml": 25,
+      "modelScale": 1.6988430476739658,
+      "oldUnscaledInterior_ml": 10.197887876081012,
+      "continuumInterior_ml": 49.999999999999986,
+      "polygonInterior_ml": 49.91971888257861,
+      "polygonClipped_ml": 24.95986019270602,
+      "polygonFactor": 0.9983943930356184,
+      "actualScale": 1.6988430476739658,
+      "clipY": 0.2336185046208728,
+      "profileMouthY": 2.4426860953479315,
+      "renderedMouthY": 2.442686095347931,
+      "segments": 64
+    },
+    {
+      "type": "cylinder",
+      "capacity_ml": 100,
+      "stock_ml": 50,
+      "modelScale": 1.4021022856829453,
+      "oldUnscaledInterior_ml": 36.279467847197715,
+      "continuumInterior_ml": 99.99999999999999,
+      "polygonInterior_ml": 99.83943485778394,
+      "polygonClipped_ml": 49.919718549060285,
+      "polygonFactor": 0.9983943930356184,
+      "actualScale": 1.4021022856829453,
+      "clipY": 0.40499999999999997,
+      "profileMouthY": 2.5824238970619993,
+      "renderedMouthY": 2.582423897061999,
+      "segments": 64
+    }
+  ],
+  "initial": {
+    "mass_g": 150,
+    "substances": {
+      "H2O": 8.270885373300027,
+      "CuSO4": 0.006265271599523839
+    },
+    "wall_ml": 0,
+    "air_ml": 0,
+    "queued_ml": 0,
+    "ground_ml": 0,
+    "pending_ml": 0,
+    "renderedWall_ml": 0,
+    "renderedAir_ml": 0,
+    "packets": [],
+    "spills": []
+  },
+  "receipt": {
+    "ok": true,
+    "vesselId": "beaker_1793319982957_b5son",
+    "code": "ok",
+    "message": "Đã chuyển lượng chất thực; phần vượt sức chứa đi vào đường tràn.",
+    "moved_ml": 20,
+    "accepted_ml": 0,
+    "spilled_ml": 20
+  },
+  "observableDoseMasses_g": [
+    150
+  ],
+  "release": {
+    "mass_g": 150,
+    "substances": {
+      "H2O": 8.270885373300027,
+      "CuSO4": 0.006265271599523839
+    },
+    "wall_ml": 0,
+    "air_ml": 0,
+    "queued_ml": 20,
+    "ground_ml": 0,
+    "pending_ml": 20,
+    "renderedWall_ml": 0,
+    "renderedAir_ml": 0,
+    "packets": [
+      {
+        "stage": "overflow",
+        "volume_ml": 20,
+        "elapsed_s": 0,
+        "wall_s": 0.09048088164351267,
+        "flight_s": 0.029386563986801062,
+        "duration_s": 0.12,
+        "releaseBasis": "assumed-dose-interval",
+        "circularSheet": {
+          "center": [
+            0,
+            0
+          ],
+          "radius": 0.6991000016993884
+        },
+        "span_rad": 6.283185307179586,
+        "widthBasis": "level_circular_rim",
+        "entrySpeed_m_s": 0.21255566287532726,
+        "reynolds4": 4771.07529450682,
+        "exit": [
+          0.6841920278270182,
+          -0.19999999999999996,
+          0
+        ]
+      }
+    ],
+    "spills": []
+  },
+  "moved": {
+    "mass_g": 150,
+    "substances": {
+      "H2O": 8.270885373300027,
+      "CuSO4": 0.006265271599523839
+    },
+    "wall_ml": 15.080146940585445,
+    "air_ml": 2.615546998900089,
+    "queued_ml": 2.304306060514466,
+    "ground_ml": 0,
+    "pending_ml": 20,
+    "renderedWall_ml": 0,
+    "renderedAir_ml": 0,
+    "packets": [
+      {
+        "stage": "air",
+        "volume_ml": 2.448880332233422,
+        "elapsed_s": 0.015693281993400532,
+        "wall_s": 0,
+        "flight_s": 0.029386563986801062,
+        "duration_s": 0.014693281993400531,
+        "releaseBasis": "assumed-dose-interval",
+        "circularSheet": {
+          "center": [
+            0,
+            0
+          ],
+          "radius": 0.6991000016993884
+        },
+        "exit": [
+          0.6841920278270182,
+          -0.19999999999999996,
+          0
+        ]
+      },
+      {
+        "stage": "overflow",
+        "volume_ml": 17.551119667766578,
+        "elapsed_s": 0.09148088164351267,
+        "wall_s": 0.09048088164351267,
+        "flight_s": 0.029386563986801062,
+        "duration_s": 0.10530671800659946,
+        "releaseBasis": "assumed-dose-interval",
+        "circularSheet": {
+          "center": [
+            3,
+            -1
+          ],
+          "radius": 0.6991000016993884
+        },
+        "span_rad": 6.283185307179586,
+        "widthBasis": "level_circular_rim",
+        "entrySpeed_m_s": 0.21255566287532726,
+        "reynolds4": 4771.07529450682,
+        "exit": [
+          3.6841920278270184,
+          -0.19999999999999996,
+          -1
+        ]
+      }
+    ],
+    "spills": []
+  },
+  "afterMove": {
+    "mass_g": 150,
+    "substances": {
+      "H2O": 8.270885373300027,
+      "CuSO4": 0.006265271599523839
+    },
+    "wall_ml": 0,
+    "air_ml": 0,
+    "queued_ml": 0,
+    "ground_ml": 20,
+    "pending_ml": 0,
+    "renderedWall_ml": 0,
+    "renderedAir_ml": 0,
+    "packets": [],
+    "spills": [
+      {
+        "volume_ml": 2.448880332233422,
+        "position": [
+          -4.533594435023346e-17,
+          -1.1750000000000003,
+          1.2750734348503162e-17
+        ]
+      },
+      {
+        "volume_ml": 17.551119667766578,
+        "position": [
+          2.9999999999999996,
+          -1.1750000000000003,
+          -1.0000000000000002
+        ]
+      }
+    ]
+  },
+  "beforeReload": {
+    "mass_g": 150,
+    "substances": {
+      "H2O": 8.270885373300027,
+      "CuSO4": 0.006265271599523839
+    },
+    "wall_ml": 10.102239335533156,
+    "air_ml": 4.897760664466844,
+    "queued_ml": 0,
+    "ground_ml": 5,
+    "pending_ml": 15,
+    "renderedWall_ml": 10.102240493543995,
+    "renderedAir_ml": 4.897759034038662,
+    "packets": [
+      {
+        "stage": "overflow",
+        "volume_ml": 15,
+        "elapsed_s": 0.14986744563031373,
+        "wall_s": 0.09048088164351267,
+        "flight_s": 0.029386563986801062,
+        "duration_s": 0.12,
+        "releaseBasis": "assumed-dose-interval",
+        "circularSheet": {
+          "center": [
+            0,
+            0
+          ],
+          "radius": 0.6991000016993884
+        },
+        "span_rad": 6.283185307179586,
+        "widthBasis": "level_circular_rim",
+        "entrySpeed_m_s": 0.21255566287532726,
+        "reynolds4": 4771.07529450682,
+        "exit": [
+          0.6841920278270182,
+          -0.19999999999999996,
+          0
+        ]
+      }
+    ],
+    "spills": [
+      {
+        "volume_ml": 5,
+        "position": [
+          -2.7755575615628914e-17,
+          -1.1750000000000003,
+          2.914335439641036e-17
+        ]
+      }
+    ]
+  },
+  "afterReload": {
+    "mass_g": 150,
+    "outside_ml": 20
+  }
+}

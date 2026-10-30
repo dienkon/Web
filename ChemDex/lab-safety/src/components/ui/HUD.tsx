@@ -163,14 +163,35 @@ const VirtualJoystick: React.FC = () => {
     knobY: 0,
     sprinting: false,
   });
+  const pending = useRef<typeof visual | null>(null);
+  const frame = useRef(0);
+  const queueVisual = (next: typeof visual) => {
+    pending.current = next;
+    if (!frame.current) frame.current = requestAnimationFrame(() => {
+      frame.current = 0;
+      if (pending.current) setVisual(pending.current);
+    });
+  };
+  const clearVisual = () => {
+    cancelAnimationFrame(frame.current); frame.current = 0; pending.current = null;
+    setVisual(current => ({ ...current, active: false, knobX: 0, knobY: 0, sprinting: false }));
+  };
 
   const finish = (pointerId: number, target: HTMLDivElement) => {
     if (!inputManager.endJoystick(pointerId)) return;
     if (target.hasPointerCapture(pointerId)) target.releasePointerCapture(pointerId);
-    setVisual((current) => ({ ...current, active: false, knobX: 0, knobY: 0, sprinting: false }));
+    clearVisual();
   };
 
-  useEffect(() => () => inputManager.resetPointers(), []);
+  useEffect(() => {
+    const reset = () => { inputManager.resetPointers(); clearVisual(); };
+    const hidden = () => { if (document.hidden) reset(); };
+    window.addEventListener('blur', reset); document.addEventListener('visibilitychange', hidden);
+    return () => {
+      cancelAnimationFrame(frame.current); inputManager.resetPointers();
+      window.removeEventListener('blur', reset); document.removeEventListener('visibilitychange', hidden);
+    };
+  }, []);
 
   return (
     <div
@@ -182,7 +203,7 @@ const VirtualJoystick: React.FC = () => {
         if (event.button !== 0 || !inputManager.beginJoystick(event.pointerId, event.clientX, event.clientY)) return;
         event.currentTarget.setPointerCapture(event.pointerId);
         const rect = event.currentTarget.getBoundingClientRect();
-        setVisual({
+        queueVisual({
           active: true,
           originX: event.clientX - rect.left,
           originY: event.clientY - rect.top,
@@ -194,15 +215,16 @@ const VirtualJoystick: React.FC = () => {
       onPointerMove={(event) => {
         const next = inputManager.updateJoystick(event.pointerId, event.clientX, event.clientY);
         if (!next) return;
-        setVisual((current) => ({
-          ...current,
+        queueVisual({
+          ...(pending.current ?? visual),
           knobX: next.x,
           knobY: next.y,
           sprinting: next.sprinting,
-        }));
+        });
       }}
       onPointerUp={(event) => finish(event.pointerId, event.currentTarget)}
       onPointerCancel={(event) => finish(event.pointerId, event.currentTarget)}
+      onLostPointerCapture={(event) => finish(event.pointerId, event.currentTarget)}
     >
       {visual.active && (
         <div
@@ -213,7 +235,7 @@ const VirtualJoystick: React.FC = () => {
           <div className="absolute left-1/2 top-1/2 h-full w-px -translate-y-1/2 bg-white/20" />
           <div
             className={`absolute left-1/2 top-1/2 grid h-12 w-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border-2 border-white shadow-lg ${visual.sprinting ? 'bg-amber-400' : 'bg-white from-[var(--primary)] to-cyan-400'}`}
-            style={{ marginLeft: visual.knobX, marginTop: visual.knobY }}
+            style={{ translate: 'none', transform: `translate3d(calc(-50% + ${visual.knobX}px), calc(-50% + ${visual.knobY}px), 0)` }}
           >
             <div className="h-3 w-3 rounded-full bg-white/70" />
           </div>

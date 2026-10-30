@@ -5,7 +5,7 @@ import type { VesselState } from '../../types/chemistry';
 import { useAppStore } from '../../store/useAppStore';
 import { vesselContours } from '../../science/vesselContours';
 import { vesselInterior } from '../../science/vesselDimensions';
-import { METERS_PER_SCENE_UNIT } from '../../science/sceneUnits';
+import { vesselBodyTransform } from '../../science/vesselScale';
 import { WALL_CONTACT_ANGLE, wallDropCap, wallSurfaceFrame } from '../../science/wallDropletGeometry';
 
 /** Read-only projection of engine-owned finite beads. A spherical cap sits on
@@ -36,7 +36,7 @@ export const WallCondensateDroplets = React.memo(function WallCondensateDroplets
         normal.fromArray(frame.normal).multiplyScalar(side === 'inner' ? -1 : 1);
         scratch.position.fromArray(frame.position).addScaledVector(normal, 0.0001);
         scratch.quaternion.setFromUnitVectors(zAxis, normal);
-        scratch.scale.setScalar(wallDropCap(bead.mass_g).radius_m / METERS_PER_SCENE_UNIT);
+        scratch.scale.setScalar(wallDropCap(bead.mass_g).radius_m / vesselBodyTransform(live).metersPerLocalUnit);
         scratch.updateMatrix();
         mesh.current.setMatrixAt(count++, scratch.matrix);
       }

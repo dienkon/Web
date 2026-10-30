@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import type { PourParcel } from '../../engine/pourTransport';
 import { wallPointAtTime, wallTimeAtHeight } from '../../engine/wallFilm';
 import { METERS_PER_SCENE_UNIT } from '../../science/sceneUnits';
-import { vesselLiquidSurfaceY } from '../../science/vesselGeometry';
+import { vesselWorldLiquidSurfaceY } from '../../science/vesselGeometry';
 import type { VesselState } from '../../types/chemistry';
 
 const VERTICES = 8, INDICES = 24;
@@ -19,7 +19,8 @@ export class WallFilmGeometry extends THREE.BufferGeometry {
       const plan = parcel.wallFilm, target = parcel.targetId ? vessels[parcel.targetId] : null;
       if (parcel.stage !== 'wall' || !plan || !target || target.isShattered) continue;
       const tail = Math.max(0, parcel.elapsed_s - parcel.duration_s);
-      const front = Math.min(wallTimeAtHeight(plan, vesselLiquidSurfaceY(target)), parcel.elapsed_s - parcel.arrivedFraction * parcel.duration_s);
+      const endTime = wallTimeAtHeight(plan, vesselWorldLiquidSurfaceY(target));
+      const front = Math.min(endTime, parcel.elapsed_s - parcel.arrivedFraction * parcel.duration_s);
       if (front <= tail + 1e-12) continue;
       const times = [tail, ...plan.points.filter(p => p.time_s > tail && p.time_s < front).map(p => p.time_s), front];
       strips.push({ parcel, target, times }); segments += times.length - 1;
@@ -53,7 +54,8 @@ export class WallFilmGeometry extends THREE.BufferGeometry {
           const thickness = Math.min(point.radius, point.thickness_m / METERS_PER_SCENE_UNIT);
           for (let i = 0; i < 4; i++) {
             const a = angle + (i === 0 || i === 3 ? -halfAngle : halfAngle);
-            const radius = Math.max(0, point.radius - (i >= 2 ? thickness : 0.0002));
+            const offset = i >= 2 ? thickness : 0.0002;
+            const radius = Math.max(0, point.radius + (plan.side === 'outer' ? offset : -offset));
             const k = (segment * VERTICES + end * 4 + i) * 3;
             positions[k] = target.position[0] + radius * Math.cos(a);
             positions[k + 1] = target.position[1] + point.y;

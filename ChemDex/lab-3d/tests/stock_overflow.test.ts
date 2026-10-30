@@ -103,11 +103,15 @@ describe('Stock overflow preserves actual phases and inventory', () => {
     const input = vessel();
     useAppStore.setState({ vessels: { [input.id]: input }, burners: {}, spills: {}, activeKinetics: {}, pendingReactions: {} });
     await useAppStore.getState().mixSubstances(input.id, 'HCl', 10);
-    const state = useAppStore.getState(), spill = Object.values(state.spills)[0];
-    expect(state.vessels[input.id]).toBe(input);
+    expect(Object.values(useAppStore.getState().spills)).toHaveLength(0);
+    expect(useAppStore.getState().inFlightPours[0].sample.volume_ml).toBeCloseTo(10, 10);
+    useAppStore.getState().advancePourTransport(2);
+    const state = useAppStore.getState(), spills = Object.values(state.spills);
+    expect(state.vessels[input.id].contents).toEqual(input.contents);
+    expect(state.vessels[input.id].mass_g).toBe(input.mass_g);
     expect(state.activeKinetics[input.id]).toBeUndefined();
-    expect(spill.mass_g).toBeCloseTo(10.2, 10);
-    expect(spill.contents!.find(entry => entry.formula === 'HCl')!.moles).toBeCloseTo(0.01, 10);
+    expect(spills.reduce((sum, s) => sum + s.mass_g, 0)).toBeCloseTo(10.2, 10);
+    expect(spills.flatMap(s => s.contents ?? []).filter(c => c.formula === 'HCl').reduce((sum, c) => sum + c.moles, 0)).toBeCloseTo(0.01, 10);
   });
   it('keeps tracked stock solvent while resolving a precipitation reagent pair', async () => {
     const ca = stockLiquidAliquot(findChemical('CaCl2'), 'CaCl2', 50, 25);

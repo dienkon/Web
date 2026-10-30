@@ -1,0 +1,215 @@
+{
+  "errors": [],
+  "consoleErrors": [],
+  "phases": [],
+  "pipette": {
+    "before": {
+      "inventory": {
+        "mass_g": 30,
+        "atoms": {
+          "H": 3.324069941715237,
+          "Cl": 0.001,
+          "Na": 0.001,
+          "O": 1.6620349708576185
+        }
+      },
+      "pipette": null,
+      "reading": {
+        "value": "0.000",
+        "unit": "mL",
+        "valid": true,
+        "context": "Pipet rỗng",
+        "details": [
+          {
+            "label": "Khối lượng mẫu",
+            "value": "0.0000 g"
+          },
+          {
+            "label": "Thành phần",
+            "value": "—"
+          },
+          {
+            "label": "Nhiễm chéo",
+            "value": "Đã sạch"
+          }
+        ]
+      }
+    },
+    "loaded": {
+      "inventory": {
+        "mass_g": 30,
+        "atoms": {
+          "H": 3.3240699417152375,
+          "Cl": 0.001,
+          "Na": 0.001,
+          "O": 1.6620349708576185
+        }
+      },
+      "pipette": {
+        "volume_ml": 5,
+        "mass_g": 5,
+        "temperature_c": 25,
+        "acid_mol": 0.00016666666666666666,
+        "salt_mol": 0,
+        "program": "hcl_naoh"
+      },
+      "reading": {
+        "value": "5.000",
+        "unit": "mL",
+        "valid": true,
+        "context": "Mẫu đang giữ trong pipet",
+        "details": [
+          {
+            "label": "Khối lượng mẫu",
+            "value": "5.0000 g"
+          },
+          {
+            "label": "Thành phần",
+            "value": "HCl, NaOH, H2O"
+          },
+          {
+            "label": "Nhiễm chéo",
+            "value": "HCl"
+          }
+        ]
+      }
+    },
+    "held": {
+      "inventory": {
+        "mass_g": 30,
+        "atoms": {
+          "H": 3.324069941715237,
+          "Cl": 0.001,
+          "Na": 0.001,
+          "O": 1.6620349708576185
+        }
+      },
+      "pipette": {
+        "volume_ml": 5,
+        "mass_g": 5,
+        "temperature_c": 25.2223948374761,
+        "acid_mol": 0.00008333333333333333,
+        "salt_mol": 0.00008333333333333333,
+        "program": "hcl_naoh"
+      },
+      "reading": {
+        "value": "5.000",
+        "unit": "mL",
+        "valid": true,
+        "context": "Mẫu đang giữ trong pipet",
+        "details": [
+          {
+            "label": "Khối lượng mẫu",
+            "value": "5.0000 g"
+          },
+          {
+            "label": "Thành phần",
+            "value": "HCl, NaOH, H2O, NaCl"
+          },
+          {
+            "label": "Nhiễm chéo",
+            "value": "HCl"
+          }
+        ]
+      }
+    },
+    "dispensed": {
+      "inventory": {
+        "mass_g": 30,
+        "atoms": {
+          "H": 3.324069941715237,
+          "Cl": 0.001,
+          "Na": 0.001,
+          "O": 1.6620349708576185
+        }
+      },
+      "pipette": {
+        "volume_ml": 2.5,
+        "mass_g": 2.5,
+        "temperature_c": 25.2223948374761,
+        "acid_mol": 0.000041666666666666665,
+        "salt_mol": 0.000041666666666666665,
+        "program": "hcl_naoh"
+      },
+      "reading": {
+        "value": "2.500",
+        "unit": "mL",
+        "valid": true,
+        "context": "Mẫu đang giữ trong pipet",
+        "details": [
+          {
+            "label": "Khối lượng mẫu",
+            "value": "2.5000 g"
+          },
+          {
+            "label": "Thành phần",
+            "value": "HCl, NaOH, H2O, NaCl"
+          },
+          {
+            "label": "Nhiễm chéo",
+            "value": "HCl"
+          }
+        ]
+      }
+    },
+    "remainder": {
+      "inventory": {
+        "mass_g": 30,
+        "atoms": {
+          "H": 3.3240699417152366,
+          "Cl": 0.001,
+          "Na": 0.001,
+          "O": 1.6620349708576185
+        }
+      },
+      "pipette": {
+        "volume_ml": 2.5,
+        "mass_g": 2.5,
+        "temperature_c": 25.33359225621415,
+        "acid_mol": 0.000020833333333333333,
+        "salt_mol": 0.0000625,
+        "program": "hcl_naoh"
+      },
+      "reading": {
+        "value": "2.500",
+        "unit": "mL",
+        "valid": true,
+        "context": "Mẫu đang giữ trong pipet",
+        "details": [
+          {
+            "label": "Khối lượng mẫu",
+            "value": "2.5000 g"
+          },
+          {
+            "label": "Thành phần",
+            "value": "HCl, NaOH, H2O, NaCl"
+          },
+          {
+            "label": "Nhiễm chéo",
+            "value": "HCl"
+          }
+        ]
+      }
+    },
+    "observedVersions": 13
+  },
+  "restored": {
+    "volume_ml": 2.5,
+    "acidBefore_mol": 0.000020833333333333333,
+    "acidAfter_mol": 0.000010416666666666666,
+    "program": "hcl_naoh"
+  },
+  "flight": {
+    "initialAcid_mol": 0.00016666666666666666,
+    "after100msAcid_mol": 0.00008333333333333333,
+    "temperature_c": 25.2223948374761,
+    "flight_s": 0.17268882005337974,
+    "duration_s": 0.2
+  },
+  "arrived": {
+    "acid_mol": 0.000027240144609384637,
+    "expectedAcid_mol": 0.000027240144609384634,
+    "mass_g": 30,
+    "spill_ml": 5
+  }
+}

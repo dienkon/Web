@@ -17,6 +17,14 @@ describe('Quasi-steady wall advection splits actual travel time at corners',()=>
     expect(out.distance_m).toBeCloseTo(motion.speed_m_s*dt,16);
     expect(out.movingTime_s).toBeCloseTo(dt,16);
   });
+  it('keeps physical sliding speed when a model-local unit changes with vessel capacity',()=>{
+    const motion=wallDropMotion(mass,temp,1);
+    for(const metersPerLocalUnit of [0.015,0.035,0.07]){
+      const out=advanceWallDrop(mass,temp,vertical,1,dt,{metersPerLocalUnit});
+      expect(out.y).toBeCloseTo(1-motion.speed_m_s*dt/metersPerLocalUnit,14);
+      expect(out.distance_m).toBeCloseTo(motion.speed_m_s*dt,16);
+    }
+  });
   it('travels the right meridian distance across a cylinder/frustum corner',()=>{
     const start=1.005;
     const upper=wallDropMotion(mass,temp,Math.sqrt(2)),lower=wallDropMotion(mass,temp,1);

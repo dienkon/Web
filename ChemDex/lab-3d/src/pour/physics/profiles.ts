@@ -1,5 +1,7 @@
 import { vesselInterior, contourRadius } from '../../science/vesselDimensions';
 import { vesselContours, type ContourPoint } from '../../science/vesselContours';
+import { vesselBodyTransform } from '../../science/vesselScale';
+import { CENTIMETERS_PER_SCENE_UNIT } from '../../science/sceneUnits';
 
 export interface VesselProfile {
   type: string;
@@ -11,7 +13,8 @@ export interface VesselProfile {
   rimR?: number;
   spoutWidth: number;
   capacity_ml: number;
-  /** Centimeters per scene unit, inferred from model capacity / scene volume. */
+  /** Centimeters per profile unit: inferred for model-local profiles, fixed
+   * to the global scene scale for world profiles. */
   sceneScale: number;
   contour?: readonly ContourPoint[];
   referenceSceneVolume?: number;
@@ -53,4 +56,21 @@ export function getVesselProfile(type: string, capacity_ml?: number): VesselProf
   if (scaledProfiles.size >= 128) scaledProfiles.delete(scaledProfiles.keys().next().value!);
   scaledProfiles.set(key, result);
   return result;
+}
+
+const worldProfiles = new WeakMap<VesselProfile, VesselProfile>();
+/** World-relative profile for pouring/collision. Shared model-local profiles
+ * still drive the interior shaders and particle bounds under the body group. */
+export function getWorldVesselProfile(type: string, capacity_ml?: number): VesselProfile {
+  const local = getVesselProfile(type, capacity_ml), cached = worldProfiles.get(local);
+  if (cached) return cached;
+  const { scale, offsetY } = vesselBodyTransform(local);
+  const result: VesselProfile = { ...local, H: local.H * scale, baseY: local.baseY * scale + offsetY,
+    mouthR: local.mouthR * scale, rimR: local.rimR === undefined ? undefined : local.rimR * scale,
+    lipLocal: [local.lipLocal[0] * scale, local.lipLocal[1] * scale + offsetY, local.lipLocal[2] * scale],
+    spoutWidth: local.spoutWidth * scale, sceneScale: CENTIMETERS_PER_SCENE_UNIT,
+    contour: local.contour?.map(([r, y]) => [r * scale, y * scale + offsetY] as const),
+    referenceSceneVolume: local.referenceSceneVolume === undefined ? undefined : local.referenceSceneVolume * scale ** 3,
+    r: y => local.r((y - offsetY) / scale) * scale };
+  worldProfiles.set(local, result); return result;
 }

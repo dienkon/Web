@@ -44,7 +44,7 @@ export const OBJECTIVE_LOCATIONS: Record<string, ObjectiveData> = {
   task_hair: {
     id: 'task_hair',
     title: 'Buộc tóc gọn gàng trước gương',
-    position: [-0.95, 1.5, 6.82],
+    position: [-.8,1.5,7.115],
     color: '#ec4899', // Pink
   },
   task_goggles: {

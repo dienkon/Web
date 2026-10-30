@@ -9,7 +9,7 @@ import {
   ReactionExecutionRecord,
   PrecipitateMorphology,
 } from '../../types/chemistry';
-import { REACTION_DATABASE } from './reactionDatabase';
+import { getReactionCandidates, REACTION_DATABASE } from './reactionDatabase';
 import { normalizeFormula, computeMolarMass } from '../core/formula';
 import { calculateSolutionPh, getIndicatorColor, IndicatorType } from '../equilibrium/acidBase';
 import { calculateReactionDeltaT } from '../thermodynamics/calorimetry';
@@ -39,11 +39,13 @@ export function runSimulationCycle(
   const MAX_CYCLES = 5;
   let cycle = 0;
 
+  const candidateFormulas = workingContents.filter(content => content.moles > 1e-6).map(content => content.formula);
+  const candidateReactions = getReactionCandidates(candidateFormulas);
   while (cycle < MAX_CYCLES) {
     cycle++;
     let matchedReactionThisPass = false;
 
-    for (const rx of REACTION_DATABASE) {
+    for (const rx of candidateReactions) {
       // Check temperature / heating prerequisites
       if (rx.requiresHeating && !isHeated && temp_c < (rx.minTemp_c || 60)) {
         continue;

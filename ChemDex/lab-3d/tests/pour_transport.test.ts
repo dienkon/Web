@@ -3,8 +3,8 @@ import { useAppStore } from '../src/store/useAppStore';
 import { PourController } from '../src/pour/controller/PourController';
 import { advancePourParcel, pourFlightInterval, pourTargetPose } from '../src/engine/pourTransport';
 import { traceLaunchedStream } from '../src/pour/physics/ballistics';
-import { getVesselProfile } from '../src/pour/physics/profiles';
-import { vesselLiquidSurfaceY } from '../src/science/vesselGeometry';
+import { getWorldVesselProfile } from '../src/pour/physics/profiles';
+import { vesselWorldLiquidSurfaceY } from '../src/science/vesselGeometry';
 import { LAB_PHYSICS } from '../src/engine/interactionEngine';
 import { computeMolarMass } from '../src/engine/ledger';
 import { readComposition } from '../src/science/balance';
@@ -38,10 +38,10 @@ function setup(source = vessel('source', 50, [item('H2O', 50, 'l'), item('NaCl',
 }
 function release(volume = 10, duration = 0.1) {
   const target = useAppStore.getState().vessels.target;
-  const profile = getVesselProfile(target.type, target.capacity_ml);
+  const profile = getWorldVesselProfile(target.type, target.capacity_ml);
   const trajectory = traceLaunchedStream([0, 6, 0], [0, 0, 0], {
     id: target.id, position: target.position, profile, mouthR: profile.mouthR,
-    mouthY: target.position[1] + profile.lipLocal[1], liquidSurfaceY: target.position[1] + vesselLiquidSurfaceY(target),
+    mouthY: target.position[1] + profile.lipLocal[1], liquidSurfaceY: target.position[1] + vesselWorldLiquidSurfaceY(target),
   }, LAB_PHYSICS.TABLE_SURFACE_Y);
   const moved = useAppStore.getState().releasePourLiquid({ id: 'parcel', sessionId: 'test', sourceId: 'source',
     sourceName: 'source', targetId: 'target', targetPose: pourTargetPose(target), trajectory, duration_s: duration }, volume);
@@ -118,16 +118,19 @@ describe('Finite material in a pouring stream', () => {
   });
 
   it('uses available capacity at arrival, including solid displacement', () => {
-    const target = vessel('target', 89, [item('H2O', 89, 'l'), item('Cu', 89.6, 's')]);
+    const target = vessel('target', 89, [item('H2O', 89, 'l'), item('Zn', 71.4, 's')]);
     setup(undefined, target); const before = inventory(), parcel = release(5);
     useAppStore.getState().advancePourTransport(parcel.trajectory.timeOfFlight + 1);
     expect(useAppStore.getState().vessels.target.volume_ml).toBeCloseTo(90, 8);
+    expect(useAppStore.getState().inFlightPours.filter(p => p.overflowOrigin).reduce((sum, p) => sum + p.sample.volume_ml, 0)).toBeCloseTo(4, 8);
+    conserved(before);
+    useAppStore.getState().advancePourTransport(2);
     expect(Object.values(useAppStore.getState().spills).reduce((sum, s) => sum + s.volume_ml, 0)).toBeCloseTo(4, 8);
     conserved(before);
   });
 
   it('does not reserve receiver space at release, and commits overflow and queue depletion atomically', () => {
-    setup(undefined, vessel('target', 89, [item('H2O', 89, 'l'), item('Cu', 89.6, 's')]));
+    setup(undefined, vessel('target', 89, [item('H2O', 89, 'l'), item('Zn', 71.4, 's')]));
     const before = inventory(); release(5);
     useAppStore.getState().transferLiquidContinuous('source', 'target', 1);
     const observed: number[] = [];
@@ -135,6 +138,9 @@ describe('Finite material in a pouring stream', () => {
     try { useAppStore.getState().advancePourTransport(1); } finally { unsubscribe(); }
     expect(observed).toHaveLength(1);
     for (const mass of observed) expect(mass).toBeCloseTo(before.mass, 9);
+    expect(useAppStore.getState().inFlightPours.filter(p => p.overflowOrigin).reduce((sum, p) => sum + p.sample.volume_ml, 0)).toBeCloseTo(5, 8);
+    conserved(before);
+    useAppStore.getState().advancePourTransport(2);
     expect(Object.values(useAppStore.getState().spills).reduce((sum, s) => sum + s.volume_ml, 0)).toBeCloseTo(5, 8);
     conserved(before);
   });
@@ -181,7 +187,7 @@ describe('Finite material in a pouring stream', () => {
     const session = PourController.getSession()!;
     expect(session.released_ml).toBeCloseTo(0.3, 10);
     expect(session.inFlight_ml).toBeGreaterThan(0);
-    expect(session.transferred_ml + session.spilled_ml + session.inFlight_ml).toBeCloseTo(0.3, 10);
+    expect(session.transferred_ml + session.spilled_ml + session.inFlight_ml + session.onWall_ml).toBeCloseTo(0.3, 10);
     conserved(before);
     await PourController.commitCurrentPour();
     PourController.cancelPour();

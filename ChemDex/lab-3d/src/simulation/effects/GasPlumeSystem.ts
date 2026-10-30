@@ -3,6 +3,7 @@ import { METERS_PER_SCENE_UNIT } from '../../science/sceneUnits';
 import type { PhysicalEvaporationParticle } from '../core/SimulationTypes';
 
 export interface GasPlumeInput {
+  sourceToWorld?: (point: [number, number, number]) => [number, number, number];
   rate: number; // display packets/s, already authorized by measured species exhaust
   mol_s: number;
   temperature_c: number;
@@ -40,6 +41,7 @@ export class GasPlumeSystem {
   private credit = 0;
   private nextId = 1;
   public get pendingSeconds() { return this.accumulator; }
+  public get pendingGas_mol() { return this.queue.reduce((sum, q) => sum + q.seconds * q.input.mol_s, 0); }
   constructor(public maxParticles = 140, private rng = new PRNG()) {}
   public reset() {
     this.particles = []; this.queue = []; this.accumulator = this.credit = 0;
@@ -47,7 +49,8 @@ export class GasPlumeSystem {
     this.nextId = 1; this.rng.reset();
   }
   public update(dt: number, input: GasPlumeInput) {
-    if (![dt, ...Object.values(input)].every(Number.isFinite) || dt <= 0 || input.rate < 0 || input.mol_s < 0
+    if (![dt, input.rate, input.mol_s, input.temperature_c, input.ambient_c, input.molarMass,
+      input.mouthY, input.mouthRadius, input.floorY, input.wind_m_s].every(Number.isFinite) || dt <= 0 || input.rate < 0 || input.mol_s < 0
       || input.molarMass <= 0 || input.temperature_c <= -273.15 || input.ambient_c <= -273.15 || input.mouthRadius < 0) return;
     this.queue.push({ seconds: dt, input: { ...input } });
     this.accumulator += dt; this.acceptedSeconds += dt; this.acceptedGas_mol += dt * input.mol_s;
@@ -74,7 +77,9 @@ export class GasPlumeSystem {
       const sinking = gasDensityRatio(input.molarMass, input.temperature_c, input.ambient_c) > 1;
       const r = sinking ? input.mouthRadius + 0.04 : Math.sqrt(this.rng.next()) * input.mouthRadius * 0.88;
       const baseSize = 0.045 + this.rng.next() * 0.025;
-      this.particles.push({ id: this.nextId++, x: Math.cos(angle) * r, y: input.mouthY + 0.04, z: Math.sin(angle) * r,
+      const birth = input.sourceToWorld?.([Math.cos(angle) * r, input.mouthY + 0.04, Math.sin(angle) * r])
+        ?? [Math.cos(angle) * r, input.mouthY + 0.04, Math.sin(angle) * r];
+      this.particles.push({ id: this.nextId++, x: birth[0], y: birth[1], z: birth[2],
         vx: Math.cos(angle) * 0.08, vy: 0, vz: Math.sin(angle) * 0.08, age: 0,
         life: 2.4 + this.rng.next() * 0.6, size: baseSize, baseSize, opacity: 0.4,
         curlSeed: this.rng.next() * 20, sourceTemperature: input.temperature_c, ambient: input.ambient_c, molarMass: input.molarMass });

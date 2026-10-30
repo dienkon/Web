@@ -1,8 +1,7 @@
 /**
- * precipitates.ts — Authoritative Morphology and Physical Precipitation Properties (§6.5)
- * 
- * Drives physical sedimentation, bed compaction, particle sizing,
- * and solubility-driven crystallization.
+ * Qualitative appearance, material-density inputs and illustrative particle/
+ * wet-bed assumptions. These are not a measured precipitation-size dataset.
+ * Runtime transport profiles are maintained separately in SimulationConfig.
  */
 
 import { PrecipMorphology } from '../vfx/catalog/vocab';
@@ -16,7 +15,7 @@ export interface PrecipitateProperty {
   morphology: PrecipMorphology;
   particleRadius_um_range: [number, number];
   density_g_cm3: number;
-  packingFraction_phi: number; // Bed volume porosity multiplier: V_bed = mass / (rho * phi)
+  packingFraction_phi: number; // Assumed solid volume fraction (not porosity): V_bed = mass / (rho * phi)
   amphoteric?: boolean;
   reversibleHeat?: boolean;
   photodarkening?: boolean;

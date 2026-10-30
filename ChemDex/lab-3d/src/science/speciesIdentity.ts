@@ -11,12 +11,16 @@ export function identifySpecies(input: string): SpeciesIdentity {
   let formula = String(input ?? '').trim().replace(/[₀-₉]/g, digit => String(SUBSCRIPTS.indexOf(digit)));
   let phase: SpeciesIdentity['phase'] = null;
   let concentration: SpeciesIdentity['concentration'] = null;
-  formula = formula.replace(/\s*\((aq|s|l|g|conc|concentrated|dil|dilute|đặc|loãng)\)/gi, (_, label: string) => {
+  formula = formula.replace(/\s*\((aq|s|l|g|solid|liquid|gas|conc|concentrated|glacial|dil|dilute|đặc|loãng)\)/gi, (_, label: string) => {
     const value = label.toLowerCase();
     if (['aq', 's', 'l', 'g'].includes(value)) phase = value as SpeciesIdentity['phase'];
-    else concentration = ['conc', 'concentrated', 'đặc'].includes(value) ? 'concentrated' : 'dilute';
+    else if (['solid', 'liquid', 'gas'].includes(value)) phase = ({ solid: 's', liquid: 'l', gas: 'g' } as const)[value as 'solid' | 'liquid' | 'gas'];
+    else concentration = ['conc', 'concentrated', 'glacial', 'đặc'].includes(value) ? 'concentrated' : 'dilute';
     return '';
   });
+  // These describe the macroscopic stock, not molecular groups. Keep the full
+  // label on stock rows for rendering; normalize it only for chemical identity.
+  formula = formula.replace(/\s*\((ribbon|powder|granules|dust|filings|nail|turnings|foil|chips|carbon)\)/gi, '');
   formula = formula.replace(/\s*\(\d+(?:\.\d+)?%\)/g, '');
   formula = formula.replace(/^(?:chemical[-_]|reagent[-_])/i, '').replace(/\s+/g, '');
   return { formula, phase, concentration };

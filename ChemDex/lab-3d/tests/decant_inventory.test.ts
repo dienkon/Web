@@ -111,11 +111,14 @@ describe('Decanting transfers actual phase inventory once', () => {
     const source = vessel('source', [item('H2O', 100, 'l'), item('NaCl', 1, 'aq')]);
     setup(source, { ...empty(), capacity_ml: 10 });
     await useAppStore.getState().pourVessel(source.id, 'target', 20);
-    const state = useAppStore.getState(), spill = Object.values(state.spills)[0];
+    expect(Object.values(useAppStore.getState().spills)).toHaveLength(0);
+    expect(useAppStore.getState().inFlightPours.reduce((sum, p) => sum + p.sample.volume_ml, 0)).toBeCloseTo(10, 10);
+    useAppStore.getState().advancePourTransport(2);
+    const state = useAppStore.getState(), spills = Object.values(state.spills);
     expect(state.vessels[source.id].volume_ml).toBe(80);
     expect(state.vessels.target.volume_ml).toBe(10);
-    expect(spill.volume_ml).toBe(10);
-    expect(state.vessels[source.id].mass_g + state.vessels.target.mass_g + spill.mass_g!).toBeCloseTo(101, 10);
+    expect(spills.reduce((sum, s) => sum + s.volume_ml, 0)).toBeCloseTo(10, 10);
+    expect(state.vessels[source.id].mass_g + state.vessels.target.mass_g + spills.reduce((sum, s) => sum + s.mass_g, 0)).toBeCloseTo(101, 10);
   });
   it('keeps handcrafted reactions beyond the native solver available after a pour', async () => {
     const source = vessel('source', [item('H2O', 100, 'l'), item('Na2S', computeMolarMass('Na2S') * 0.001, 'aq')]);

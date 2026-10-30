@@ -26,8 +26,7 @@ import ResultCard from "./components/ResultCard";
 import LoadingState from "./components/LoadingState";
 import HistoryDrawer from "./components/HistoryDrawer";
 import Toast, { ToastMessage } from "./components/Toast";
-
-const API_URL = "/api/gemini/chain/";
+import { requestCatalogChain } from "./localCatalog";
 
 const TAB_1_EXAMPLES = [
   "Fe -> FeCl2 -> Fe(OH)2 -> Fe(OH)3 -> Fe2O3",
@@ -45,9 +44,9 @@ const TAB_2_EXAMPLES = [
   },
   {
     start: "CH4",
-    end: "PVC",
-    minSteps: 4,
-    label: "Metan sang Nhựa PVC (4 bước)",
+    end: "CH3COOC2H5",
+    minSteps: 5,
+    label: "Metan sang Etyl axetat (ít nhất 5 bước)",
   },
   {
     start: "Cu",
@@ -95,6 +94,9 @@ const getReactionChain = (
 ): string[] => {
   if (!steps || steps.length === 0) {
     return [start, end].filter(Boolean);
+  }
+  if (steps.every(step => step.from && step.to)) {
+    return [steps[0].from!, ...steps.map(step => step.to!)];
   }
 
   const chain: string[] = [start.trim()];
@@ -319,6 +321,9 @@ export default function App() {
           latexWithCondition: String(step.latexWithCondition ?? ""),
           condition: String(step.condition ?? ""),
           explanation: String(step.explanation ?? ""),
+          ...(step.reactionId ? { reactionId: step.reactionId, from: step.from, to: step.to,
+            carrier: step.carrier, workup: step.workup, reagents: step.reagents,
+            evidence: step.evidence, sourceReferences: step.sourceReferences } : {}),
         }))
       : [];
 
@@ -395,26 +400,8 @@ export default function App() {
   };
 
   // =========================================================
-  // API RESPONSE PARSER
+  // REQUESTS USE THE SOURCED LOCAL CATALOG
   // =========================================================
-
-  const parseApiResponse = async (response: Response) => {
-    const contentType = response.headers.get("content-type") || "";
-
-    if (!contentType.includes("application/json")) {
-      const text = await response.text();
-
-      throw new Error(text || `Server trả về HTTP ${response.status}`);
-    }
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data?.error || `API lỗi HTTP ${response.status}`);
-    }
-
-    return data;
-  };
 
   // =========================================================
   // TAB 1 — ANALYZE
@@ -456,18 +443,7 @@ export default function App() {
     };
 
     try {
-      const res = await fetch(API_URL, {
-        method: "POST",
-
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-
-        body: JSON.stringify(requestBody),
-      });
-
-      const data = await parseApiResponse(res);
+      const data = await requestCatalogChain(requestBody);
 
       if (data?.error) {
         setApiError(String(data.error));
@@ -503,18 +479,7 @@ export default function App() {
           chain: targetInput,
         };
 
-        const resRetry = await fetch(API_URL, {
-          method: "POST",
-
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-
-          body: JSON.stringify(retryBody),
-        });
-
-        const dataRetry = await parseApiResponse(resRetry);
+        const dataRetry = await requestCatalogChain(retryBody);
 
         if (dataRetry?.error) {
           setApiError(String(dataRetry.error));
@@ -546,7 +511,7 @@ export default function App() {
 
         setApiError(message);
 
-        addToast("error", "Thất bại khi liên hệ với trợ lý AI.");
+        addToast("error", "Không tải được kho phản ứng. Hãy thử lại khi kết nối ổn định.");
       }
     } finally {
       setLoading(false);
@@ -606,33 +571,12 @@ export default function App() {
     };
 
     try {
-      /*
-       * QUAN TRỌNG:
-       * phải có await ở đây.
-       *
-       * Code cũ:
-       * const res = fetch(...)
-       *
-       * là Promise<Response>, không phải Response.
-       */
-
-      const res = await fetch(API_URL, {
-        method: "POST",
-
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-
-        body: JSON.stringify(requestBody),
-      });
-
-      const data = await parseApiResponse(res);
+      const data = await requestCatalogChain(requestBody);
 
       if (data?.error) {
         setApiError(String(data.error));
 
-        addToast("error", "Không thể tạo chuỗi phản ứng hợp lệ.");
+        addToast("info", "Kho hiện chưa có chuỗi đáp ứng yêu cầu này.");
 
         return;
       }
@@ -648,7 +592,7 @@ export default function App() {
 
         addToast(
           "success",
-          "Đã tạo chuỗi phản ứng hóa học khép kín thành công!",
+          "Đã tìm thấy chuỗi từ kho phản ứng có nguồn!",
         );
 
         return;
@@ -668,18 +612,7 @@ export default function App() {
           minSteps,
         };
 
-        const resRetry = await fetch(API_URL, {
-          method: "POST",
-
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-
-          body: JSON.stringify(retryBody),
-        });
-
-        const dataRetry = await parseApiResponse(resRetry);
+        const dataRetry = await requestCatalogChain(retryBody);
 
         if (dataRetry?.error) {
           setApiError(String(dataRetry.error));
@@ -857,6 +790,7 @@ export default function App() {
                 <h1 className="text-lg font-extrabold tracking-tight text-slate-900 dark:text-white flex items-center gap-1.5">
                   Chuỗi phản ứng
                 </h1>
+                <p className="text-[10px] text-slate-500 dark:text-slate-400">Kho phản ứng có nguồn · tìm chuỗi cục bộ</p>
               </div>
             </div>
 
@@ -946,11 +880,11 @@ export default function App() {
                   <p>
                     {activeTab === "analyze"
                       ? "Nhập các chất hóa học nối nhau bằng dấu mũi tên. Hệ thống sẽ tự động phân tích chi tiết từng giai đoạn chuyển hóa với đầy đủ điều kiện lý thuyết."
-                      : "Nhập chất ban đầu và chất kết thúc mong muốn cùng số phản ứng tối thiểu. Hệ thống sẽ tự động thiết lập con đường phản ứng tối ưu nhất."}
+                      : "Nhập chất đầu, chất cuối và số phản ứng tối thiểu. Hệ thống tìm chuỗi có trong kho với điều kiện của từng bước."}
                   </p>
 
                   <p className="text-slate-450 text-[10px]">
-                    Hệ thống có thể mắc lỗi, hãy kiểm tra kĩ!!!
+                    Nguồn đối chiếu theo họ phản ứng; cần xét điều kiện và việc tách mẫu giữa các bước.
                   </p>
                 </div>
               </div>

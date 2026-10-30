@@ -11,7 +11,12 @@ import { reconcileReplayGas } from './replayGasBoundary';
  * delivered. The current temperature includes external heating and cooling.
  * Historical solvent loss is removed before applying the new heat packet. */
 export function applyProgramWithThermalSinks(program: ReactionProgram, baseline: VesselState, current: VesselState, extent: number, elapsed_s = 0): Partial<VesselState> {
-  const result = applyProgramToLedger(program, baseline, extent, { deferThermal: true });
+  // Replay describes already accepted extent. The progress integrator gates
+  // NEW extent by current temperature; cooling must not undo accepted matter.
+  // A cold outflow baseline must also remain replayable after reheating.
+  const result = applyProgramToLedger(program, baseline, extent, { deferThermal: true,
+    conditionTemperature_c: Math.max(baseline.temperature_c, current.temperature_c,
+      program.chemistry.conditions?.minTemp_c ?? -Infinity) });
   return applyLedgerWithThermalSinks(result, baseline, current, elapsed_s);
 }
 

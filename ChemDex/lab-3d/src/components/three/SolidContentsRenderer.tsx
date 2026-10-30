@@ -3,17 +3,25 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useAppStore, getChemical, getSolidMorphology, SolidMorphology } from '../../store/useAppStore';
 import { labSound } from '../../utils/audio';
-import { reactionSimulationEngine } from '../../vfx/reactions/ReactionSimulationEngine';
 import { solidInventoryFraction } from '../../engine/solidInventory';
-import { PourController } from '../../pour/controller/PourController';
+import { reactionSimulationEngine } from '../../vfx/reactions/ReactionSimulationEngine';
 import { waterPhaseMasses } from '../../engine/waterPhase';
 import { liquidGeometry, solidBlockDimensions } from '../../science/vesselDimensions';
 import { vesselLiquidSurfaceY } from '../../science/vesselGeometry';
 import { ICE_DENSITY_G_ML } from '../../engine/waterProperties';
 import { SodiumWaterPellet } from './SodiumWaterPellet';
 import { metalSurfaceAppearance } from '../../science/metalSurfaceAppearance';
-import { placeSolidChunk } from '../../science/solidChunkPlacement';
 import { isSuspensionRow } from '../../science/precipitateInventory';
+import { stockSolidMaterial } from '../../science/stockAppearance';
+import { createStockSolidGeometry, geometryVolume, stockSolidChunkCount } from './stockSolidGeometry';
+import { createStockSolidLayout, type StockSolidLayout } from './stockSolidLayout';
+import { createPowderPileGeometry } from './powderPileGeometry';
+import { solidSceneVolume } from '../../science/vesselDimensions';
+import { getPrecipitateProfile } from '../../simulation/core/SimulationConfig';
+import { simulationFrameDt } from '../../core/clock';
+import { sameMolecularFormula } from '../../science/speciesIdentity';
+import { createPrecipitateGeometry } from '../../simulation/render/precipitateGeometry';
+import { getNoiseTexture } from '../../vfx/textures';
 
 // Shared scratch objects for zero-allocation per-frame transforms
 const _dummyMat4 = new THREE.Matrix4();
@@ -21,21 +29,11 @@ const _dummyPos = new THREE.Vector3();
 const _dummyQuat = new THREE.Quaternion();
 const _dummyScale = new THREE.Vector3();
 const _dummyEuler = new THREE.Euler();
-const _chunkPlacement = { x: 0, y: 0, z: 0, scale: 0 };
 
 interface SolidContentsRendererProps {
   vesselId: string;
   radius?: number;
   baseY?: number;
-}
-
-// Pseudo-random deterministic hash
-function hashString(str: string): number {
-  let hash = 5381;
-  for (let i = 0; i < str.length; i++) {
-    hash = (hash * 33) ^ str.charCodeAt(i);
-  }
-  return hash >>> 0;
 }
 
 const EMPTY_DISSOLVING: Record<string, number> = {};
@@ -58,7 +56,7 @@ export const SolidContentsRenderer = React.memo(function SolidContentsRenderer({
   // Filter only solid substances present in the vessel
   const solidSubstances = vessel.substances.filter(sub => {
     const entries = vessel.contents.filter(item => item.formula === sub);
-    if (entries.length) return entries.some(item => item.phase === 's' && item.location !== 'filter' && item.moles > 1e-12
+    if (entries.length) return entries.some(item => item.phase === 's' && item.location !== 'filter' && item.mass_g > 0
       && (vessel.volume_ml <= 0.05 || !isSuspensionRow(item, vessel.contents, vessel.precipitateSubstance)));
     const chem = getChemical(sub);
     return chem && chem.type === 'solid' && vessel.volume_ml <= 0.05;
@@ -157,27 +155,25 @@ export const FloatingAlkaliMetalPellet = React.memo(function FloatingAlkaliMetal
   const vessel = useAppStore(state => state.vessels[vesselId]);
   const kinetics = useAppStore(state => state.activeKinetics[vesselId]);
 
-  const hasLiquid = (vessel?.volume_ml || 0) > 0.5;
+  const hasLiquid = (vessel?.volume_ml || 0) > 0.5 && !!vessel?.contents.some(c => c.formula === 'H2O' && c.phase === 'l' && c.mass_g > 0);
+  const hasIndicator = !!vessel?.contents.some(c => c.formula === 'Phenolphthalein' && c.moles > 1e-12);
   const liquidSurfaceY = vessel ? vesselLiquidSurfaceY(vessel) : baseY;
 
-  const isAlkaliReaction = kinetics?.reactionId && (
-    kinetics.reactionId.includes('sodium') ||
-    kinetics.reactionId.includes('Na') ||
-    kinetics.reactionId.includes('potassium') ||
-    kinetics.reactionId.includes('K') ||
-    kinetics.reactionId.includes('alkali_metal_water')
-  );
+  const isAlkaliReaction = ['k_h2o', 'potassium_water_reaction', 'K+H2O', 'potassium_water',
+    'na_h2o', 'sodium_water', 'alkali_metal_water_na', 'Na+H2O', 'sodium_water_reaction', 'alkali_metal_water'].includes(kinetics?.reactionId ?? '');
   const reactionProgress = isAlkaliReaction ? kinetics.progress : 0;
   const inventoryFraction = solidInventoryFraction(vessel?.contents ?? [], substance);
   const effectiveProgress = inventoryFraction === null ? Math.max(dissolveProgress, reactionProgress) : 1 - inventoryFraction;
-  const isConsumed = effectiveProgress >= 0.99;
+  const metalMass = (vessel?.contents ?? []).filter(c => c.formula === substance && c.phase === 's')
+    .reduce((sum, c) => sum + Math.max(0, c.mass_g), 0);
+  const isConsumed = metalMass <= 1e-10;
 
   // Molten metal droplet scale (shrinks from ~1.0 down to 0)
-  const currentScale = Math.cbrt(Math.max(0, 1 - effectiveProgress));
+  const currentScale = vessel ? Math.cbrt(solidSceneVolume(vessel, metalMass / (isPotassium ? 0.862 : 0.971)) / (4 * Math.PI / 3)) / 0.13 : 0;
 
   useFrame((state, delta) => {
     if (!groupRef.current || !vessel || isConsumed) return;
-    const dt = Math.min(delta, 0.05);
+    const dt = simulationFrameDt(delta, useAppStore.getState());
     const m = motion.current;
     const now = state.clock.elapsedTime;
 
@@ -230,7 +226,7 @@ export const FloatingAlkaliMetalPellet = React.memo(function FloatingAlkaliMetal
       m.spin += dt * (isMolten ? (isPotassium ? 32.0 : 24.0) : 9.0);
 
       // Record swirling phenolphthalein trail in water wake
-      if (isReacting && now - m.lastTrailDrop > 0.045) {
+      if (isReacting && hasIndicator && now - m.lastTrailDrop > 0.045 && dt > 0) {
         m.lastTrailDrop = now;
         m.trail.push({ x: m.x, z: m.z, age: 0, maxAge: 2.2 });
       }
@@ -265,7 +261,7 @@ export const FloatingAlkaliMetalPellet = React.memo(function FloatingAlkaliMetal
           }
         }
         trailMeshRef.current.instanceMatrix.needsUpdate = true;
-        trailMeshRef.current.visible = count > 0;
+        trailMeshRef.current.visible = hasIndicator && count > 0;
       }
 
       // Slight floating meniscus bobbing
@@ -302,7 +298,7 @@ export const FloatingAlkaliMetalPellet = React.memo(function FloatingAlkaliMetal
 
       // Update Micro-Steam puff
       if (steamRef.current) {
-        const isSteaming = isReacting && effectiveProgress > 0.05 && effectiveProgress < 0.95;
+        const isSteaming = isReacting && (vessel.waterVaporOutflow_g_s ?? 0) > 1e-8;
         steamRef.current.visible = isSteaming;
         if (isSteaming) {
           const puff = 1.0 + Math.sin(now * 16.0) * 0.22;
@@ -312,8 +308,7 @@ export const FloatingAlkaliMetalPellet = React.memo(function FloatingAlkaliMetal
 
       // Thermal glow during vigorous reaction
       if (lightRef.current) {
-        const isHot = isReacting && effectiveProgress > 0.35 && effectiveProgress < 0.95;
-        lightRef.current.intensity = isHot ? (isIgnited ? 3.6 : 2.0 + Math.random() * 0.8) : 0;
+        lightRef.current.intensity = isIgnited ? 2.5 : 0;
       }
 
       // Continuous procedural audio sizzle and micro-pops
@@ -325,7 +320,7 @@ export const FloatingAlkaliMetalPellet = React.memo(function FloatingAlkaliMetal
       }
     } else {
       // Dry vessel: exactly 1 metallic pellet resting quietly on the floor
-      groupRef.current.position.set(0, baseY + 0.065, 0);
+      groupRef.current.position.set(0, baseY + 0.13 * currentScale, 0);
       if (lightRef.current) lightRef.current.intensity = 0;
       if (trailMeshRef.current) trailMeshRef.current.visible = false;
       if (flameGroupRef.current) flameGroupRef.current.visible = false;
@@ -373,9 +368,9 @@ export const FloatingAlkaliMetalPellet = React.memo(function FloatingAlkaliMetal
             <dodecahedronGeometry args={[0.13, 0]} />
           )}
           <meshStandardMaterial
-            color={effectiveProgress >= (isPotassium ? 0.08 : 0.45) && effectiveProgress <= 0.92 ? (isPotassium ? '#e9d5ff' : '#fef08a') : (effectiveProgress >= 0.2 ? '#ffffff' : '#cbd5e1')}
-            emissive={effectiveProgress >= (isPotassium ? 0.08 : 0.45) && effectiveProgress <= 0.92 ? emissiveColor : '#000000'}
-            emissiveIntensity={effectiveProgress >= (isPotassium ? 0.08 : 0.45) && effectiveProgress <= 0.92 ? 3.0 : 0}
+            color="#bfc2c5"
+            emissive="#000000"
+            emissiveIntensity={0}
             roughness={effectiveProgress >= 0.2 ? 0.02 : 0.28}
             metalness={1.0}
           />
@@ -439,264 +434,107 @@ interface SolidSubstanceMeshProps {
   isStirring: boolean;
 }
 
-const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
-  vesselId,
-  substance,
-  vesselRadius,
-  baseY,
-  dissolveProgress,
-  isStirring,
+export const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
+  vesselId, substance, vesselRadius, baseY, isStirring,
 }: SolidSubstanceMeshProps) {
-  const chem = getChemical(substance);
-  const color = chem?.color || '#e2e8f0';
-  const category = chem?.category;
   const vessel = useAppStore(state => state.vessels[vesselId]);
-  const isPulverized = vessel?.isPulverized || vessel?.precipitateMorphology === 'POWDER';
+  const stockChemical = getChemical(substance);
+  const chemical = stockChemical?.type === 'solid' ? stockChemical : getChemical(`${substance} (s)`);
+  const rows = vessel?.contents.filter(c => c.formula === substance && c.phase === 's'
+    && c.location !== 'filter' && c.location !== 'foam'
+    && (vessel.volume_ml <= 0.05 || !isSuspensionRow(c, vessel.contents, vessel.precipitateSubstance))) ?? [];
+  const mass = rows.reduce((sum, row) => sum + Math.max(0, row.mass_g), 0);
+  const product = rows.some(c => c.solidOrigin === 'precipitate') ? getPrecipitateProfile(substance) : null;
+  const density = product && product.modelBasis !== 'generic_fallback'
+    ? product.particleDensity_g_cm3 : chemical?.type === 'solid' ? chemical.density : undefined;
+  const pulverized = vessel?.isPulverized;
+  const morphology: SolidMorphology = pulverized || product ? 'POWDER' : getSolidMorphology(substance);
+  const material = stockSolidMaterial(chemical, morphology);
+  if (product) { material.color = product.color; material.roughness = product.roughness; material.metalness = product.metalness ?? 0; }
   const coating = vessel ? metalSurfaceAppearance(vessel) : null;
-  const coatingColor = coating?.substrate === substance
-    ? new THREE.Color(color).lerp(new THREE.Color(coating.color), coating.colorFraction) : null;
-  const baseMorphology = getSolidMorphology(substance);
-  const morphology: SolidMorphology = isPulverized ? 'POWDER' : baseMorphology;
-
-  const isRibbon = morphology === 'RIBBON';
-  const isTurnings = morphology === 'TURNINGS';
-  const isFilings = morphology === 'FILINGS';
-  const isGranules = morphology === 'GRANULES';
-  const isChips = morphology === 'CHIPS';
-  const isCubic = morphology === 'CUBIC_CRYSTAL';
-  const isPrismatic = morphology === 'PRISMATIC_CRYSTAL';
-  const isTabular = morphology === 'TABULAR_CRYSTAL';
-  const isHydrate = morphology === 'HYDRATE_CRYSTAL';
-  const isIodine = morphology === 'LUSTROUS_PLATES';
-  const isPowder = morphology === 'POWDER';
-  const isColoredCrystal = isPrismatic || isTabular || isHydrate;
-
-  const moundRef = useRef<THREE.Mesh>(null);
+  const attachment = coating && sameMolecularFormula(coating.substrate, substance) ? coating : null;
+  const powder = morphology === 'POWDER';
+  const grainTexture = useMemo(() => getNoiseTexture(128, 128), []);
+  const color = powder && attachment ? new THREE.Color(material.color).lerp(new THREE.Color(attachment.color), attachment.colorFraction) : material.color;
+  const geometry = useMemo(() => createStockSolidGeometry(morphology, substance), [morphology, substance]);
+  useEffect(() => () => geometry.dispose(), [geometry]);
+  const sceneVolume = vessel && density && density > 0 ? solidSceneVolume(vessel, mass / density) : 0;
+  const initialMass = rows.reduce((sum, row) => sum + Math.max(row.mass_g, row.initialMass_g
+    ?? (row.initialMoles !== undefined && chemical ? row.initialMoles * chemical.molarMass : row.mass_g)), 0);
+  const initialSceneVolume = vessel && density && density > 0 ? solidSceneVolume(vessel, initialMass / density) : 0;
+  const layout = useMemo(() => !powder && vessel ? createStockSolidLayout(vessel.type, morphology, geometry,
+    sceneVolume, initialSceneVolume, baseY, !vessel.isSealed) : null,
+    [powder, vessel?.type, vessel?.isSealed, morphology, geometry, sceneVolume, initialSceneVolume, baseY]);
+  const count = Math.max(1, layout?.pieces.length ?? stockSolidChunkCount(morphology));
+  // A vessel may contain both filings and a nail of the same metal. Partition
+  // the shared deposit by surviving substrate mass instead of drawing it twice.
+  const attachedSceneVolume = attachment && vessel ? solidSceneVolume(vessel,
+    attachment.attachedMass_g * mass / attachment.substrateMass_g / getPrecipitateProfile(attachment.product).particleDensity_g_cm3) : 0;
+  const powderGeometry = useMemo(() => powder && sceneVolume > 0 && vessel
+    ? createPowderPileGeometry(vessel.type, (sceneVolume + attachedSceneVolume) / 0.55, vesselRadius * 0.85) : null,
+    [powder, sceneVolume, attachedSceneVolume, vessel?.type, vesselRadius]);
+  useEffect(() => () => powderGeometry?.dispose(), [powderGeometry]);
   const chunksRef = useRef<THREE.InstancedMesh>(null);
+  const depositRef = useRef<THREE.InstancedMesh>(null);
+  const depositGeometry = useMemo(() => {
+    if (!attachment) return null;
+    const g = createPrecipitateGeometry(getPrecipitateProfile(attachment.product));
+    const scale = Math.cbrt(1 / geometryVolume(g));
+    g.scale(scale, scale, scale); g.computeBoundingSphere();
+    return g;
+  }, [attachment?.product]);
+  useEffect(() => () => depositGeometry?.dispose(), [depositGeometry]);
+  const depositScratch = useMemo(() => ({ anchor: new THREE.Vector3(), normal: new THREE.Vector3(),
+    matrix: new THREE.Matrix4(), scale: new THREE.Vector3() }), []);
+  const uploaded = useRef<{ mesh: THREE.InstancedMesh; deposit: THREE.InstancedMesh | null;
+    layout: StockSolidLayout; attached: number } | null>(null);
 
-  const count = isPowder 
-    ? 36 
-    : (isRibbon ? 10 
-    : (isTurnings ? 14 
-    : (isFilings ? 36 
-    : (isGranules ? 18 
-    : (isChips ? 14
-    : (isCubic ? 24 
-    : (isPrismatic ? 22 
-    : (isTabular ? 16 
-    : (isHydrate ? 20 
-    : 16)))))))));
-  const effectiveRadius = Math.min(0.85, vesselRadius * 0.78);
-  const vesselScale = Math.min(1.0, Math.max(0.55, vesselRadius / 0.65));
-
-  const hasLiquid = (vessel?.volume_ml || 0) > 0.5;
-
-  // Generate deterministic chunk positions & orientations
-  const chunkData = useMemo(() => {
-    const seed = hashString(substance);
-    const rng = (offset: number) => {
-      const x = Math.sin(seed + offset) * 10000;
-      return x - Math.floor(x);
-    };
-
-    return Array.from({ length: count }).map((_, i) => {
-      const angle = rng(i * 7) * Math.PI * 2;
-      const dist = Math.sqrt(rng(i * 7 + 1)) * effectiveRadius;
-      const yOffset = rng(i * 7 + 2) * (isPowder ? 0.08 : 0.05);
-
-      const baseScale = (isRibbon 
-        ? (0.24 + rng(i * 7 + 3) * 0.08)
-        : (isTurnings 
-          ? (0.20 + rng(i * 7 + 3) * 0.07)
-          : (isFilings 
-            ? (0.16 + rng(i * 7 + 3) * 0.06)
-            : (isGranules 
-              ? (0.19 + rng(i * 7 + 3) * 0.07) 
-              : (isChips 
-                ? (0.21 + rng(i * 7 + 3) * 0.08)
-                : (isCubic || isPrismatic || isTabular || isHydrate 
-                  ? (0.17 + rng(i * 7 + 3) * 0.06) 
-                  : (0.07 + rng(i * 7 + 3) * 0.04))))))) * vesselScale;
-
-      return {
-        x: Math.cos(angle) * dist,
-        y: yOffset,
-        z: Math.sin(angle) * dist,
-        rotX: rng(i * 7 + 4) * Math.PI,
-        rotY: rng(i * 7 + 5) * Math.PI,
-        rotZ: rng(i * 7 + 6) * Math.PI,
-        scale: baseScale,
-      };
-    });
-  }, [substance, count, effectiveRadius, isRibbon, isTurnings, isFilings, isGranules, isChips, isCubic, isPrismatic, isTabular, isHydrate, isPowder, vesselScale]);
-
-  const chunkContents = vessel && vessel.volume_ml > 0.05
-    ? vessel.contents.filter(c => !isSuspensionRow(c, vessel.contents, vessel.precipitateSubstance)) : vessel?.contents ?? [];
-  const remainingMoleFraction = solidInventoryFraction(chunkContents, substance) ?? 1;
-  // Visual scale follows remaining moles via cubic root (volume ~ r^3), never disappears prematurely
-  const currentScale = Math.max(0, Math.min(1.0, Math.cbrt(remainingMoleFraction)));
-
-  useFrame((state) => {
-    if (currentScale <= 0.001) return;
-
-    // Physical tilt slide displacement based on vessel rotation (including live pour controller)
-    const pourSession = PourController.getSession();
-    const tiltZ = (pourSession && pourSession.sourceId === vesselId)
-      ? (pourSession.sourceRotationZ ?? -pourSession.tilt)
-      : (vessel?.rotationZ || 0);
-    const tiltSlideX = Math.sin(tiltZ) * effectiveRadius * 0.45;
-    const tiltSlideY = -Math.abs(Math.sin(tiltZ)) * 0.08;
-
-    // 1. Animate central powder mound scale if powder
-    if (moundRef.current && isPowder) {
-      const moundHeight = 0.28 * currentScale * vesselScale;
-      const moundRad = effectiveRadius * 0.92 * Math.sqrt(currentScale);
-      moundRef.current.scale.set(moundRad, moundHeight, moundRad);
-      moundRef.current.position.set(tiltSlideX, baseY + moundHeight * 0.48 + tiltSlideY, 0);
-    }
-
-    // 2. Animate chunks/granules instanced mesh
-    if (chunksRef.current) {
-      const stirRot = isStirring ? state.clock.elapsedTime * 3.5 : 0;
-      const mesh = chunksRef.current;
-
-      for (let i = 0; i < count; i++) {
-        const c = chunkData[i];
-        const s = c.scale * currentScale;
-
-        const px = Math.cos(stirRot) * c.x - Math.sin(stirRot) * c.z + tiltSlideX;
-        const pz = Math.sin(stirRot) * c.x + Math.cos(stirRot) * c.z;
-        _dummyEuler.set(c.rotX, c.rotY + stirRot, c.rotZ);
-        _dummyQuat.setFromEuler(_dummyEuler);
-        // Place the actual lowest rotated vertex against the inner floor.
-        // A fixed 0.07 offset leaves shrinking crystals suspended in mid-air.
-        _dummyMat4.makeRotationFromQuaternion(_dummyQuat);
-        const vertices = mesh.geometry.attributes.position;
-        _chunkPlacement.x = px; _chunkPlacement.z = pz; _chunkPlacement.scale = s;
-        placeSolidChunk(_chunkPlacement, vertices, _dummyMat4, vessel?.type ?? 'beaker', baseY);
-        _dummyPos.set(_chunkPlacement.x, _chunkPlacement.y, _chunkPlacement.z);
-        _dummyScale.setScalar(_chunkPlacement.scale);
-
-        _dummyMat4.compose(_dummyPos, _dummyQuat, _dummyScale);
-        mesh.setMatrixAt(i, _dummyMat4);
+  useFrame(() => {
+    if (!chunksRef.current || powder || !layout) return;
+    const previous = uploaded.current;
+    if (previous?.mesh === chunksRef.current && previous.deposit === depositRef.current
+      && previous.layout === layout && previous.attached === attachedSceneVolume) return;
+    chunksRef.current.visible = sceneVolume > 0;
+    chunksRef.current.userData.stockSolid = { status: layout.status, materialSceneVolume: sceneVolume, initialSceneVolume,
+      pieces: layout.pieces.length, poseBasis: 'body-fixed-envelope-reference' };
+    const depositScale = Math.cbrt(attachedSceneVolume / (count * 4));
+    for (let i = 0; i < layout.pieces.length; i++) {
+      _dummyMat4.copy(layout.pieces[i].matrix);
+      _dummyMat4.decompose(_dummyPos, _dummyQuat, _dummyScale);
+      chunksRef.current.setMatrixAt(i, _dummyMat4);
+      if (depositRef.current && depositGeometry && depositScale > 0) {
+        const positions = geometry.getAttribute('position'), normals = geometry.getAttribute('normal');
+        for (let j = 0; j < 4; j++) {
+          const vertex = (i * 37 + j * 17) % positions.count;
+          depositScratch.anchor.fromBufferAttribute(positions, vertex).applyMatrix4(_dummyMat4);
+          depositScratch.normal.fromBufferAttribute(normals, vertex).transformDirection(_dummyMat4);
+          depositScratch.anchor.addScaledVector(depositScratch.normal, depositScale * 0.3);
+          // A surface aggregate cannot grow through the vessel floor.
+          depositScratch.anchor.y = Math.max(baseY + depositScale * depositGeometry.boundingSphere!.radius,
+            depositScratch.anchor.y);
+          depositScratch.scale.setScalar(depositScale);
+          depositScratch.matrix.compose(depositScratch.anchor, _dummyQuat, depositScratch.scale);
+          depositRef.current.setMatrixAt(i * 4 + j, depositScratch.matrix);
+        }
       }
-      mesh.instanceMatrix.needsUpdate = true;
     }
+    chunksRef.current.instanceMatrix.needsUpdate = true;
+    if (depositRef.current) depositRef.current.instanceMatrix.needsUpdate = true;
+    uploaded.current = { mesh: chunksRef.current, deposit: depositRef.current, layout, attached: attachedSceneVolume };
   });
 
-  if (currentScale <= 0.001) return null;
-
-  return (
-    <group>
-      {/* A. Conical Powder Mound (Only for fine powders e.g. CaCO3, MnO2, S, CaO, Fe2O3, etc.) */}
-      {isPowder && (
-        <mesh ref={moundRef} position={[0, baseY + 0.12, 0]} renderOrder={3}>
-          <coneGeometry args={[1.0, 1.0, 24]} />
-          <meshStandardMaterial
-            color={color}
-            roughness={0.96}
-            metalness={0.02}
-            flatShading={false}
-          />
-        </mesh>
-      )}
-
-      {/* B. Convective Dissolution Halo for Colored Soluble Salts (e.g. CuSO4, KMnO4, K2Cr2O7) */}
-      {isColoredCrystal && hasLiquid && dissolveProgress < 0.98 && (
-        <mesh position={[0, baseY + 0.08, 0]} renderOrder={2}>
-          <sphereGeometry args={[effectiveRadius * 0.85, 20, 20]} />
-          <meshBasicMaterial
-            color={color}
-            transparent
-            opacity={0.35 * Math.min(1.0, currentScale)}
-            depthWrite={false}
-          />
-        </mesh>
-      )}
-
-      {/* C. Purple Sublimation Vapor for Iodine when heated (>40°C) */}
-      {isIodine && (vessel?.temperature_c || 25) > 40 && (
-        <mesh position={[0, baseY + 0.45, 0]} renderOrder={4}>
-          <coneGeometry args={[effectiveRadius * 0.75, 0.9, 16]} />
-          <meshBasicMaterial color="#a855f7" transparent opacity={0.4} depthWrite={false} />
-        </mesh>
-      )}
-
-      {/* D. Discrete Solid Chunks / Ribbons / Turnings / Crystals / Pellets / Powder dusting */}
-      <instancedMesh
-        ref={chunksRef}
-        args={[undefined, undefined, count]}
-        renderOrder={3}
-      >
-        {isRibbon ? (
-          // Magnesium curled ribbon segment
-          <torusGeometry args={[0.75, 0.16, 8, 20, Math.PI * 1.5]} />
-        ) : isTurnings ? (
-          // Copper curly wire turnings
-          <torusGeometry args={[0.70, 0.15, 8, 20, Math.PI * 1.8]} />
-        ) : isFilings ? (
-          // Fine iron filings / needles
-          <cylinderGeometry args={[0.07, 0.07, 1.0, 8]} />
-        ) : isGranules ? (
-          // Zinc irregular chunks
-          <dodecahedronGeometry args={[0.75, 0]} />
-        ) : isChips ? (
-          // Marble chips / irregular stone chunks
-          <dodecahedronGeometry args={[0.85, 0]} />
-        ) : isIodine ? (
-          // Iodine lustrous plates
-          <boxGeometry args={[0.9, 0.25, 0.7]} />
-        ) : isCubic ? (
-          // NaCl crystal cubes
-          <boxGeometry args={[0.85, 0.85, 0.85]} />
-        ) : isPrismatic ? (
-          // KMnO4 dark purple needles
-          <cylinderGeometry args={[0.1, 0.1, 1.25, 6]} />
-        ) : isTabular ? (
-          // K2Cr2O7 flat orange tabular plates
-          <boxGeometry args={[0.85, 0.22, 1.1]} />
-        ) : isHydrate ? (
-          // Blue vitriol octahedral crystals
-          <octahedronGeometry args={[0.85, 0]} />
-        ) : (
-          // Fine powder granules / dusting
-          <dodecahedronGeometry args={[0.6, 0]} />
-        )}
-        <meshStandardMaterial
-          color={
-            coatingColor ?? (isTurnings ? '#ea580c' :
-            (isFilings ? '#475569' : 
-            (isIodine ? '#3b0764' : 
-            (isPrismatic ? '#581c87' : 
-            (isTabular ? '#ea580c' : 
-            (isChips ? '#f1f5f9' : color))))))
-          }
-          roughness={
-            isRibbon ? 0.18 : 
-            (isTurnings ? 0.22 : 
-            (isFilings ? 0.35 : 
-            (isGranules ? 0.40 : 
-            (isChips ? 0.82 :
-            (isIodine ? 0.18 : 
-            (isPrismatic ? 0.12 : 
-            (isTabular ? 0.18 : 
-            (isHydrate ? 0.15 : 
-            (isCubic ? 0.20 : 0.94)))))))))
-          }
-          metalness={
-            isRibbon ? 0.96 : 
-            (isTurnings ? 0.98 : 
-            (isFilings ? 0.92 : 
-            (isGranules ? 0.88 : 
-            (isChips ? 0.02 :
-            (isIodine ? 0.75 : 
-            (isPrismatic ? 0.65 : 
-            (isTabular ? 0.35 : 
-            (isHydrate ? 0.12 : 
-            (isCubic ? 0.10 : 0.03)))))))))
-          }
-        />
-      </instancedMesh>
-    </group>
-  );
+  if (!(sceneVolume > 0)) return null;
+  return <group name={`stock-solid-${substance}`}>
+    {powder && powderGeometry ? <mesh geometry={powderGeometry} renderOrder={3}>
+      <meshStandardMaterial color={color} roughness={material.roughness} metalness={material.metalness}
+        bumpMap={grainTexture} bumpScale={0.003} />
+    </mesh> : <instancedMesh ref={chunksRef} name={`stock_solid_${vesselId}_${substance}`} args={[geometry, undefined, count]} renderOrder={3}>
+      <meshStandardMaterial color={color} roughness={material.roughness} metalness={material.metalness} />
+    </instancedMesh>}
+    {!powder && attachment && depositGeometry && <instancedMesh ref={depositRef}
+      name={`stock_coating_${vesselId}_${substance}`}
+      args={[depositGeometry, undefined, count * 4]} renderOrder={3}>
+      <meshStandardMaterial color={attachment.color} metalness={0.9} roughness={0.6} />
+    </instancedMesh>}
+  </group>;
 });

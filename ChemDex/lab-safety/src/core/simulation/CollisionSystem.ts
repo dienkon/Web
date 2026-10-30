@@ -1,3 +1,6 @@
+import { CABINET_SIZE, STORAGE_CABINETS, STORAGE_RACK, storageCollider } from '../../data/scene/storageLayout';
+import { FUME_HOOD_LAYOUT as HOOD, WASH_STATION_LAYOUT as WASH, WASTE_CONTAINERS, fixtureCollider } from '../../data/scene/fixtureLayout';
+
 export interface ColliderBox {
   id: string;
   minX: number;
@@ -34,25 +37,26 @@ export const INITIAL_COLLIDER_BOXES: ColliderBox[] = [
   // Teacher Demo Bench: (0, -5.5), size: 3.0 x 1.1
   { id: 'bench_teacher', minX: -1.6, maxX: 1.6, minZ: -6.1, maxZ: -4.9 },
   // Fume Hoods at East Wall: (+8.8, -3.5), size: 2.2 x 1.1
-  { id: 'fume_hood', minX: 7.7, maxX: 9.8, minZ: -4.8, maxZ: -2.2 },
-  // Chemical Storage Cabinets: (+9.4, 0.5)
-  { id: 'cab_chemicals', minX: 8.8, maxX: 9.9, minZ: -1.2, maxZ: 2.2 },
+  fixtureCollider('fume_hood',HOOD.position,HOOD.size,HOOD.rotationY,.065),
+  ...STORAGE_CABINETS.map(cabinet=>storageCollider(cabinet.position,CABINET_SIZE,cabinet.id)),
+  storageCollider(STORAGE_RACK.position,STORAGE_RACK.size,STORAGE_RACK.id),
   // PPE Locker Station at South Wall: (-3.0, +7.1), size: 3.0 x 0.6
   { id: 'ppe_locker', minX: -4.6, maxX: -1.4, minZ: 6.8, maxZ: 7.4 },
+  { id: 'bag_rack', minX: -9, maxX: -7.4, minZ: 6.575, maxZ: 7.025 },
+  { id: 'mirror_stand', minX: -1.42, maxX: -.18, minZ: 6.97, maxZ: 7.35 },
   // Handwash Sink Station: (+3.5, +7.1), size: 2.0 x 0.6
-  { id: 'sink_handwash', minX: 2.5, maxX: 4.5, minZ: 6.8, maxZ: 7.4 },
+  fixtureCollider('sink_handwash',WASH.position,WASH.size,WASH.rotationY,.02),
 ];
 
 export const INITIAL_COLLIDER_CYLINDERS: ColliderCylinder[] = [
   ...([-4.2, 4.2].flatMap(bx => [-2.2,2.2].flatMap(bz => [-1,1].flatMap(dx => [-1,1].map(dz => ({id:`stool_${bx}_${bz}_${dx}_${dz}`,x:bx+dx,z:bz+dz,radius:.22})))))),
   // Emergency Shower & Eyewash Station (-9.2, -4.0)
-  { id: 'shower_emergency', x: -9.2, z: -4.0, radius: 0.35 },
+  { id: 'shower_emergency', x: -9.2, z: -4.0, radius: 0.14 },
+  { id: 'eyewash_emergency', x: -8.92, z: -4.0, radius: 0.20 },
   // Chemical Spill Kit Drum / Cart (-9.3, 3.0)
   { id: 'spill_kit_cart', x: -9.3, z: 3.0, radius: 0.35 },
   // Multi-stream Waste Bins (East wall at Z ~ 5.0)
-  { id: 'bin_biohazard', x: 8.8, z: 4.5, radius: 0.3 },
-  { id: 'bin_chemical', x: 8.8, z: 5.2, radius: 0.3 },
-  { id: 'bin_glass', x: 8.8, z: 5.9, radius: 0.3 },
+  ...WASTE_CONTAINERS.map(bin=>({id:bin.id,x:bin.position[0],z:bin.position[2],radius:bin.radius})),
 ];
 
 /**

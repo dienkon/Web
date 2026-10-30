@@ -18,7 +18,7 @@ export function getGlassMaterials(tier: QualityTier): GlassMaterialSet {
     return glassCache.get(tier)!;
   }
 
-  if (tier === 'high' || tier === 'medium') {
+  if (tier === 'ultra' || tier === 'high' || tier === 'medium') {
     // Ultra-clear laboratory borosilicate glass (Pyrex/Duran quality)
     // Highly transparent from side view with crisp edge Fresnel rim highlights
     const front = new THREE.MeshPhysicalMaterial({

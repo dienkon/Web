@@ -50,14 +50,20 @@ export interface LabDebugStateSnapshot {
 declare global {
   interface Window {
     __LAB_RENDERER_INFO__?: RendererInfoSnapshot;
+    __LAB_READ_RENDER_FRAME__?: () => number;
+    __LAB_FRAME_CLOCK__?: {count:number;time:number};
+    __LAB_INSPECT_BATCHES__?: () => unknown;
     __LAB_DEBUG_STATE__?: LabDebugStateSnapshot;
     __LAB_SET_PLAYER_POSE__?: (position: [number, number, number], rotationY: number) => void;
+    __LAB_INSPECT_MODELS__?: () => {name:string;position:number[];rotation:number[];min:number[];max:number[];visible:boolean}[];
+    __LAB_INSPECT_RESOURCES__?: (name:string) => {geometries:string[];materials:string[];textures:string[];instances:number;buffers:{geometry:string;vertices:number;version:number;indices:number}[]}[];
   }
 }
 
 export const RendererInfoProbe = () => {
   const { gl, scene, camera } = useThree();
   const lastSample = useRef(-Infinity);
+  const frameClock=useRef({count:0,time:0});
   const cameraEuler = useRef(new THREE.Euler(0, 0, 0, 'YXZ'));
   const snapshot = useRef<RendererInfoSnapshot>({
     timestamp: 0,
@@ -66,6 +72,7 @@ export const RendererInfoProbe = () => {
   });
 
   useFrame(({ clock }) => {
+    frameClock.current.count++;frameClock.current.time=performance.now();
     const elapsed = clock.getElapsedTime();
     if (elapsed - lastSample.current >= 1) {
       lastSample.current = elapsed;
@@ -121,6 +128,36 @@ export const RendererInfoProbe = () => {
   useEffect(() => {
     const previousAutoReset = gl.info.autoReset;
     gl.info.autoReset = false;
+    window.__LAB_FRAME_CLOCK__=frameClock.current;
+    window.__LAB_INSPECT_BATCHES__=()=>{const batches:unknown[]=[];scene.traverse(o=>{if(o.userData.renderBatch)batches.push(o.userData.renderBatch);});return {batches,mirror:scene.getObjectByName('player-mirror')?.userData.reflectionBudget};};
+    window.__LAB_READ_RENDER_FRAME__ = () => gl.info.render.frame;
+    window.__LAB_INSPECT_RESOURCES__ = name => scene.getObjectsByProperty('name',name).map(root=>{
+      const geometries=new Set<string>(),materials=new Set<string>(),textures=new Set<string>();
+      const buffers:{geometry:string;vertices:number;version:number;indices:number}[]=[];let instances=0;
+      root.traverse(object=>{
+        if(!(object instanceof THREE.Mesh))return;
+        if(!geometries.has(object.geometry.uuid)){const p=object.geometry.getAttribute('position');buffers.push({geometry:object.geometry.uuid,vertices:p?.count??0,version:(p as THREE.BufferAttribute)?.version??0,indices:object.geometry.index?.count??0});}
+        geometries.add(object.geometry.uuid);
+        if(object instanceof THREE.InstancedMesh)instances+=object.count;
+        for(const material of Array.isArray(object.material)?object.material:[object.material]){
+          materials.add(material.uuid);for(const value of Object.values(material))if(value instanceof THREE.Texture)textures.add(value.uuid);
+        }
+      });
+      return {geometries:[...geometries],materials:[...materials],textures:[...textures],instances,buffers};
+    });
+    window.__LAB_INSPECT_MODELS__ = () => {
+      scene.updateMatrixWorld(true);
+      const models:{name:string;position:number[];rotation:number[];min:number[];max:number[];visible:boolean}[]=[];
+      scene.traverse(object=>{
+        if(!/^(asset-|avatar-|wardrobe-|cab_|shelf_general|shelf-\d-vessel-|scenario-props-|evidence-|cabinet-hinge-|scenario-motion-|drawer-slide-|hood-extraction-|held-|extinguisher-muzzle|door-leaf-|north-wall-)/.test(object.name))return;
+        const box=new THREE.Box3().setFromObject(object);
+        const point=object.getWorldPosition(new THREE.Vector3());
+        if(box.isEmpty()){if(!/^held-(.*grip|.*port|mirror-muzzle)$|^extinguisher-muzzle$|^wardrobe-/.test(object.name))return;box.set(point,point);}
+        let visible=true;for(let node:THREE.Object3D|null=object;node;node=node.parent)visible=visible&&node.visible;
+        models.push({name:object.name,position:point.toArray(),rotation:[object.rotation.x,object.rotation.y,object.rotation.z],min:box.min.toArray(),max:box.max.toArray(),visible});
+      });
+      return models;
+    };
     window.__LAB_SET_PLAYER_POSE__ = (position, rotationY) => {
       playerCoords.position = [...position];
       playerCoords.rotationY = rotationY;
@@ -129,12 +166,17 @@ export const RendererInfoProbe = () => {
 
     return () => {
       delete window.__LAB_RENDERER_INFO__;
+      delete window.__LAB_FRAME_CLOCK__;
+      delete window.__LAB_INSPECT_BATCHES__;
+      delete window.__LAB_READ_RENDER_FRAME__;
       delete window.__LAB_DEBUG_STATE__;
       delete window.__LAB_SET_PLAYER_POSE__;
+      delete window.__LAB_INSPECT_MODELS__;
+      delete window.__LAB_INSPECT_RESOURCES__;
       gl.info.autoReset = previousAutoReset;
       gl.info.reset();
     };
-  }, [gl]);
+  }, [gl,scene]);
 
   return null;
 };

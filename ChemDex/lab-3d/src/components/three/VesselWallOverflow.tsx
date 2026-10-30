@@ -10,6 +10,8 @@ import { vfxBus } from '../../vfx/bus';
 import { labSound } from '../../utils/audio';
 import { useAppStore } from '../../store/useAppStore';
 import { LAB_PHYSICS } from '../../engine/interactionEngine';
+import { liquidDropRadius } from '../../science/sceneUnits';
+import { overflowDropFlight } from '../../science/overflowFlight';
 
 interface VesselWallOverflowProps {
   vessel: VesselState;
@@ -40,7 +42,7 @@ export const VesselWallOverflow = React.memo(function VesselWallOverflow({ vesse
   const fallingDripsGroupRef = useRef<THREE.Group>(null);
   const splashesGroupRef = useRef<THREE.Group>(null);
 
-  const simulationTimeRef = useRef(Date.now());
+  const simulationTimeRef = useRef(0);
   const seenTimestampRef = useRef<number | undefined>(undefined);
   const activeRef = useRef<ActiveOverflow | null>(null);
   const opacityRef = useRef(0);
@@ -83,6 +85,7 @@ export const VesselWallOverflow = React.memo(function VesselWallOverflow({ vesse
       side: THREE.DoubleSide,
     });
   }, []);
+  const splashMaterials = useMemo(() => Array.from({ length: SPLASH_RINGS_COUNT }, () => splashMaterial.clone()), [splashMaterial]);
 
   // Procedural streams buffer geometry
   const streamsGeometry = useMemo(() => {
@@ -144,6 +147,10 @@ export const VesselWallOverflow = React.memo(function VesselWallOverflow({ vesse
     geom.setIndex(new THREE.BufferAttribute(indices, 1));
     return geom;
   }, []);
+  useEffect(() => () => {
+    streamsGeometry.dispose(); crestGeometry.dispose(); fluidMaterial.dispose(); splashMaterial.dispose();
+    splashMaterials.forEach(material => material.dispose());
+  }, [streamsGeometry, crestGeometry, fluidMaterial, splashMaterial, splashMaterials]);
 
   // Droplet beads along the wall
   const dropletData = useMemo(() => {
@@ -178,6 +185,7 @@ export const VesselWallOverflow = React.memo(function VesselWallOverflow({ vesse
   // Listen to vfxBus for overflow events
   useEffect(() => {
     const unsub = vfxBus.on('vessel:overflow', (data) => {
+      if (data.transported) return; // finite exterior packets own geometry/time
       if (data.vesselId === vessel.id && !vessel.isShattered
         && Number.isFinite(data.volume_ml) && data.volume_ml! > 0
         && (data.angle === undefined || Number.isFinite(data.angle))
@@ -528,20 +536,22 @@ export const VesselWallOverflow = React.memo(function VesselWallOverflow({ vesse
           drop.position.set(Math.cos(streamAngle) * r, y, Math.sin(streamAngle) * r);
           const wobbleAmp = profile.regime === 'surge' ? 0.35 : (profile.regime === 'minor' ? 0.08 : 0.20);
           const wobble = 1.0 + wobbleAmp * Math.sin(time * 16.0 + i);
-          const dropSize = data.size * profile.dropletSizeScale;
-          drop.scale.set(dropSize * wobble, dropSize * 1.3, dropSize * wobble);
+          const dropSize = Math.min(data.size * profile.dropletSizeScale,
+            liquidDropRadius(currentOverflow.volume_ml / (2 * Math.max(1, activeDropletsCount))));
+          drop.scale.set(dropSize * wobble, dropSize / (wobble * wobble), dropSize * wobble);
         }
       }
     }
 
-    // 4. Update Falling Drips beneath the base down to table (active once stream hits table)
+    // 4. Detached drips fall with the same SI gravity as pouring streams.
     const localTableY = LAB_PHYSICS.TABLE_SURFACE_Y - vessel.position[1];
-    const dropFallDist = Math.max(0.01, bottomY - localTableY);
-    const tableReached = elapsed >= profile.headDescentDuration_ms;
+    const fall = overflowDropFlight(bottomY, localTableY, 0);
+    const baseReached = !!fall && elapsed >= profile.headDescentDuration_ms;
+    const tableReached = !!fall && elapsed >= profile.headDescentDuration_ms + fall.flightTime_s * 1000;
 
     if (fallingDripsGroupRef.current) {
-      fallingDripsGroupRef.current.visible = tableReached && (tailFrac < 0.9);
-      if (tableReached && tailFrac < 0.9) {
+      fallingDripsGroupRef.current.visible = baseReached && (tailFrac < 0.9);
+      if (baseReached && tailFrac < 0.9) {
         const children = fallingDripsGroupRef.current.children;
         const activeDripsCount = profile.activeFallingDripsCount;
         for (let i = 0; i < FALLING_DRIPS_COUNT && i < children.length; i++) {
@@ -558,23 +568,22 @@ export const VesselWallOverflow = React.memo(function VesselWallOverflow({ vesse
           const baseR = dimensions.baseRadius + 0.003;
 
           const dripSpeed = profile.regime === 'minor' ? data.speed * 0.65 : (profile.regime === 'surge' ? data.speed * 1.5 : data.speed);
-          const cycle = ((time * dripSpeed + data.phase) % 1.0);
-
-          // For minor overflow: intermittent dripping cadence ("nhỏ giọt ngắt quãng")
-          if (profile.isIntermittentDripping && cycle > 0.42) {
+          // Cadence is presentation metadata; flight duration is determined
+          // by height/gravity rather than an arbitrary cycle^2 trajectory.
+          const period = Math.max(fall!.flightTime_s, 1 / dripSpeed);
+          const sinceFirstBirth = (elapsed - profile.headDescentDuration_ms) / 1000 - data.phase * period;
+          const age = sinceFirstBirth < 0 ? -1 : sinceFirstBirth % period;
+          const pose = overflowDropFlight(bottomY, localTableY, age);
+          if (!pose || pose.arrived) {
             drip.visible = false;
             continue;
           }
           drip.visible = true;
-
-          // Quadratic acceleration under gravity
-          const fallFrac = cycle * cycle;
-          const y = bottomY - fallFrac * dropFallDist;
-
-          drip.position.set(Math.cos(streamAngle) * baseR, y, Math.sin(streamAngle) * baseR);
-          const stretch = 1.0 + fallFrac * profile.dripStretchFactor;
-          const dripSize = data.size * profile.dripSizeScale;
-          drip.scale.set(dripSize, dripSize * stretch, dripSize);
+          drip.position.set(Math.cos(streamAngle) * baseR, pose.y, Math.sin(streamAngle) * baseR);
+          const stretch = 1.0 + age / pose.flightTime_s * profile.dripStretchFactor;
+          const dripSize = Math.min(data.size * profile.dripSizeScale,
+            liquidDropRadius(currentOverflow.volume_ml / (2 * Math.max(1, activeDripsCount))));
+          drip.scale.set(dripSize / Math.sqrt(stretch), dripSize * stretch, dripSize / Math.sqrt(stretch));
         }
       }
     }
@@ -617,7 +626,7 @@ export const VesselWallOverflow = React.memo(function VesselWallOverflow({ vesse
   });
 
   return (
-    <group ref={groupRef} visible={false}>
+    <group ref={groupRef} name={`wall-overflow-${vessel.id}`} visible={false}>
       {/* 1. Cascading Outer Wall Rivulets */}
       <mesh
         ref={streamsMeshRef}
@@ -666,7 +675,7 @@ export const VesselWallOverflow = React.memo(function VesselWallOverflow({ vesse
           <mesh
             key={i}
             rotation={[-Math.PI / 2, 0, 0]}
-            material={splashMaterial}
+            material={splashMaterials[i]}
             renderOrder={8}
           >
             <ringGeometry args={[0.7, 1.0, 24]} />

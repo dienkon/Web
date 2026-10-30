@@ -1,0 +1,320 @@
+{
+  "method": "Actual app, controlled declared PbI2 crystal-plate specimen, finite settling, real PourController pose and rendered bed mesh. Manual accepted population time while app paused isolates mechanics; not a measured avalanche speed or recrystallization experiment.",
+  "cases": [
+    {
+      "type": "beaker",
+      "upright": {
+        "mass_g": 0.49999999999999906,
+        "target_ml": 0.27056277056277006,
+        "mesh_ml": 0.27056210245253737,
+        "centerWorld": [
+          -2.5000000000000018,
+          -1.103304416282453,
+          1.1065864952478468e-15
+        ],
+        "slope_rad": 0,
+        "plane": {
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "offset": -0.9547360624335149
+        },
+        "status": "static-friction",
+        "relaxationTime_s": null,
+        "mobile_g": 9.43689570931383e-16,
+        "population_g": 0.5000000000000006,
+        "actualStock_g": 0.5,
+        "geometryIndexCount": 858
+      },
+      "inclined": {
+        "mass_g": 0.49999999999999906,
+        "target_ml": 0.27056277056277006,
+        "mesh_ml": 0.27056210245253737,
+        "centerWorld": [
+          0.35623203789004876,
+          1.3884944008106457,
+          0.9147341420745216
+        ],
+        "slope_rad": 0.9711177995226091,
+        "plane": {
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "offset": -0.9547360624335149
+        },
+        "status": "static-friction",
+        "relaxationTime_s": null,
+        "mobile_g": 9.43689570931383e-16,
+        "population_g": 0.5000000000000006,
+        "actualStock_g": 0.5,
+        "geometryIndexCount": 858
+      },
+      "relaxed": {
+        "mass_g": 0.49999999999999906,
+        "target_ml": 0.27056277056277006,
+        "mesh_ml": 0.2705626439119983,
+        "centerWorld": [
+          0.6664066250194638,
+          0.8877980462011132,
+          0.7025322618803445
+        ],
+        "slope_rad": 0.5239153314105025,
+        "plane": {
+          "normal": [
+            -0.4324448058555816,
+            0.9016604071869455,
+            1.3152200915605655e-17
+          ],
+          "offset": -1.157543445616894
+        },
+        "status": "granular-reference",
+        "relaxationTime_s": 4.135663687131646,
+        "mobile_g": 9.43689570931383e-16,
+        "population_g": 0.5000000000000006,
+        "actualStock_g": 0.5,
+        "geometryIndexCount": 312
+      }
+    },
+    {
+      "type": "flask",
+      "upright": {
+        "mass_g": 0.49999999999999933,
+        "target_ml": 0.2705627705627702,
+        "mesh_ml": 0.2705513401938523,
+        "centerWorld": [
+          -2.5000000000000213,
+          -1.0884237280588882,
+          1.9326010193868655e-14
+        ],
+        "slope_rad": 1.4901161193847656e-8,
+        "plane": {
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "offset": -0.959106011796357
+        },
+        "status": "static-friction",
+        "relaxationTime_s": null,
+        "mobile_g": 6.661338147750939e-16,
+        "population_g": 0.5000000000000009,
+        "actualStock_g": 0.5,
+        "geometryIndexCount": 858
+      },
+      "inclined": {
+        "mass_g": 0.49999999999999933,
+        "target_ml": 0.2705627705627702,
+        "mesh_ml": 0.2705513401938523,
+        "centerWorld": [
+          -0.41076210148662373,
+          0.3615572435298178,
+          1.4394630646044666
+        ],
+        "slope_rad": 0.9711177995226092,
+        "plane": {
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "offset": -0.959106011796357
+        },
+        "status": "static-friction",
+        "relaxationTime_s": null,
+        "mobile_g": 6.661338147750939e-16,
+        "population_g": 0.5000000000000009,
+        "actualStock_g": 0.5,
+        "geometryIndexCount": 858
+      },
+      "relaxed": {
+        "mass_g": 0.49999999999999933,
+        "target_ml": 0.2705627705627702,
+        "mesh_ml": 0.2705626099927698,
+        "centerWorld": [
+          0.2084386484234325,
+          -0.6975418068839321,
+          1.0158449556629152
+        ],
+        "slope_rad": 0.5344468832082457,
+        "plane": {
+          "normal": [
+            -0.42292511632958635,
+            0.9061646351395568,
+            0
+          ],
+          "offset": -1.3074191058196485
+        },
+        "status": "granular-reference",
+        "relaxationTime_s": 8.065104973990575,
+        "mobile_g": 6.661338147750939e-16,
+        "population_g": 0.5000000000000009,
+        "actualStock_g": 0.5,
+        "geometryIndexCount": 216
+      }
+    },
+    {
+      "type": "test_tube",
+      "upright": {
+        "mass_g": 0.4999999999999992,
+        "target_ml": 0.27056277056277017,
+        "mesh_ml": 0.2705626768066431,
+        "centerWorld": [
+          -2.5000000000000004,
+          -0.8336112602036595,
+          2.961301164853754e-16
+        ],
+        "slope_rad": 0,
+        "plane": {
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "offset": -0.732462339177377
+        },
+        "status": "static-friction",
+        "relaxationTime_s": null,
+        "mobile_g": 7.771561172376096e-16,
+        "population_g": 0.5000000000000008,
+        "actualStock_g": 0.5,
+        "geometryIndexCount": 2010
+      },
+      "inclined": {
+        "mass_g": 0.4999999999999992,
+        "target_ml": 0.27056277056277017,
+        "mesh_ml": 0.2705626768066431,
+        "centerWorld": [
+          -0.6819586040107521,
+          0.018369737891421378,
+          1.6249985742747484
+        ],
+        "slope_rad": 0.9711177995226093,
+        "plane": {
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "offset": -0.732462339177377
+        },
+        "status": "static-friction",
+        "relaxationTime_s": null,
+        "mobile_g": 7.771561172376096e-16,
+        "population_g": 0.5000000000000008,
+        "actualStock_g": 0.5,
+        "geometryIndexCount": 2010
+      },
+      "relaxed": {
+        "mass_g": 0.4999999999999992,
+        "target_ml": 0.27056277056277017,
+        "mesh_ml": 0.270562857883074,
+        "centerWorld": [
+          -0.6052344448146362,
+          -0.06777128335136051,
+          1.572508767948161
+        ],
+        "slope_rad": 0.5235988752709174,
+        "plane": {
+          "normal": [
+            -0.43273012016901297,
+            0.901523512227225,
+            0
+          ],
+          "offset": -0.6752976536724107
+        },
+        "status": "granular-reference",
+        "relaxationTime_s": 1.9585647849718097,
+        "mobile_g": 7.771561172376096e-16,
+        "population_g": 0.5000000000000008,
+        "actualStock_g": 0.5,
+        "geometryIndexCount": 1908
+      }
+    },
+    {
+      "type": "cylinder",
+      "upright": {
+        "mass_g": 0.49999999999999933,
+        "target_ml": 0.2705627705627702,
+        "mesh_ml": 0.27056248403162664,
+        "centerWorld": [
+          -2.5000000000000004,
+          -0.9880863049821256,
+          4.777166413991077e-16
+        ],
+        "slope_rad": 0,
+        "plane": {
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "offset": -0.8630809068069397
+        },
+        "status": "static-friction",
+        "relaxationTime_s": null,
+        "mobile_g": 6.661338147750939e-16,
+        "population_g": 0.5000000000000009,
+        "actualStock_g": 0.5,
+        "geometryIndexCount": 858
+      },
+      "inclined": {
+        "mass_g": 0.49999999999999933,
+        "target_ml": 0.2705627705627702,
+        "mesh_ml": 0.27056248403162664,
+        "centerWorld": [
+          -0.9386415768013616,
+          -0.05298022791548307,
+          1.8006048440353735
+        ],
+        "slope_rad": 0.9711177995226092,
+        "plane": {
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "offset": -0.8630809068069397
+        },
+        "status": "static-friction",
+        "relaxationTime_s": null,
+        "mobile_g": 6.661338147750939e-16,
+        "population_g": 0.5000000000000009,
+        "actualStock_g": 0.5,
+        "geometryIndexCount": 858
+      },
+      "relaxed": {
+        "mass_g": 0.49999999999999933,
+        "target_ml": 0.2705627705627702,
+        "mesh_ml": 0.27056285841817224,
+        "centerWorld": [
+          -0.7539918198851461,
+          -0.3303453951246038,
+          1.674279167121073
+        ],
+        "slope_rad": 0.5236036817542454,
+        "plane": {
+          "normal": [
+            -0.43272578700628284,
+            0.9015255921269197,
+            0
+          ],
+          "offset": -0.8515225998051343
+        },
+        "status": "granular-reference",
+        "relaxationTime_s": 2.6267439883978296,
+        "mobile_g": 6.661338147750939e-16,
+        "population_g": 0.5000000000000009,
+        "actualStock_g": 0.5,
+        "geometryIndexCount": 408
+      }
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [],
+  "qualityPreserved": true
+}

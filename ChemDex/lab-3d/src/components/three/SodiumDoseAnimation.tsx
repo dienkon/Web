@@ -3,10 +3,11 @@ import React, { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useAppStore } from '../../store/useAppStore';
-import { getVesselProfile } from '../../pour/physics/profiles';
-import { liquidGeometry, vesselLiquidSurfaceY } from '../../science/vesselGeometry';
+import { getWorldVesselProfile } from '../../pour/physics/profiles';
+import { liquidGeometry, vesselWorldLiquidSurfaceY } from '../../science/vesselGeometry';
 import { applySodiumPelletShape, sodiumPelletShape, sodiumPelletRadius } from '../../vfx/geometry/sodiumPellet';
 import { SCENE_GRAVITY } from '../../science/sceneUnits';
+import { vesselBodyTransform } from '../../science/vesselScale';
 
 /** A single piece is released from forceps. Inventory transfer happens once,
  * when its falling surface first touches water (or the dry vessel floor). */
@@ -31,8 +32,9 @@ export function SodiumDoseAnimation({ doseId, targetId, amount, onComplete }: {
     if (state.isSimulationPaused) return;
     elapsed.current += simulationFrameDt(delta, state);
     const t = elapsed.current;
-    const radius = sodiumPelletRadius(vessel, amount), shape = sodiumPelletShape(0);
-    const mouth = vessel.position[1] + getVesselProfile(vessel.type).lipLocal[1];
+    const body = vesselBodyTransform(vessel);
+    const radius = sodiumPelletRadius(vessel, amount) * body.scale, shape = sodiumPelletShape(0);
+    const mouth = vessel.position[1] + getWorldVesselProfile(vessel.type, vessel.capacity_ml).lipLocal[1];
     const releaseY = mouth + 0.35;
     const approach = THREE.MathUtils.smoothstep(t, 0, 0.35);
     const x = vessel.position[0] + (1 - approach) * 1.4;
@@ -44,8 +46,8 @@ export function SodiumDoseAnimation({ doseId, targetId, amount, onComplete }: {
     }
     if (metal.current) {
       const fallTime = Math.max(0, t - 0.35);
-      const floor = vessel.position[1] + liquidGeometry(vessel.type).floorY;
-      const surface = vessel.position[1] + vesselLiquidSurfaceY(vessel);
+      const floor = vessel.position[1] + body.offsetY + body.scale * liquidGeometry(vessel.type).floorY;
+      const surface = vessel.position[1] + vesselWorldLiquidSurfaceY(vessel);
       const hasWater = vessel.contents.some(item => item.formula === 'H2O' && item.phase !== 's' && item.phase !== 'g' && item.moles > 1e-12);
       const fallingY = t <= 0.35 ? y : releaseY - 0.5 * SCENE_GRAVITY * fallTime * fallTime;
       // First contact occurs at the bottom of the falling piece, before equilibrium immersion.

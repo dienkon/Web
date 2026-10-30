@@ -16,6 +16,7 @@ const projects = [
 ];
 const output = path.join(root, "dist");
 if (path.dirname(output) !== root) throw new Error("Invalid output directory");
+run("node", ["scripts/build-reaction-data.mjs"]);
 fs.rmSync(output, { recursive: true, force: true });
 fs.mkdirSync(output, { recursive: true });
 function run(command, args, cwd = root) {
@@ -33,6 +34,7 @@ function run(command, args, cwd = root) {
   });
   if (result.status !== 0) throw new Error(`${command} failed in ${cwd}`);
 }
+run("node", ["scripts/generate-platform-summary.mjs"]);
 for (const project of projects) {
   if (!process.argv.includes("--static-only")) {
     if (process.env.CI || !fs.existsSync(path.join(project, "node_modules")))

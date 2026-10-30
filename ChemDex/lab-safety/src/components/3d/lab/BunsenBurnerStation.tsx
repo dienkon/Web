@@ -1,22 +1,18 @@
+import { BunsenAssemblyAsset } from '../assets/CombustionAssets';
 import { useTaskProximity } from './useTaskProximity';
-import React, { useState, useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
+import React, { useState } from 'react';
 import { SceneHtml as Html } from '../SceneHtml';
-import * as THREE from 'three';
 import { playerCoords, useStore } from '../../../store/useStore';
 import { soundManager } from '../../../audio/soundManager';
+import { BUNSEN_LAYOUT } from '../../../data/scene/fixtureLayout';
 
-const BURNER_POS: [number, number, number] = [3.5, 0.95, -2.5];
+const BURNER_POS = BUNSEN_LAYOUT.position;
 
 export const BunsenBurnerStation: React.FC = () => {
   const [isGasValveOpen, setIsGasValveOpen] = useState(false);
   const [isLit, setIsLit] = useState(false);
   const [airCollarOpen, setAirCollarOpen] = useState(false); // false = Safety yellow flame, true = Roaring blue flame
   const [isStrikeBack, setIsStrikeBack] = useState(false);
-
-  const flameRef = useRef<THREE.Group>(null);
-  const innerConeRef = useRef<THREE.Mesh>(null);
-  const tubeRef = useRef<THREE.Mesh>(null);
 
   const startDialog = useStore((s) => s.startDialog);
   const addError = useStore((s) => s.addError);
@@ -26,28 +22,6 @@ export const BunsenBurnerStation: React.FC = () => {
   const dx = BURNER_POS[0] - playerCoords.position[0];
   const dz = BURNER_POS[2] - playerCoords.position[2];
   const isNear = useTaskProximity(BURNER_POS, 2.2, []);
-
-  useFrame((_, delta) => {
-    // Flickering flame animation
-    if (flameRef.current && isLit && !isStrikeBack) {
-      const flicker = Math.sin(performance.now() * 0.02) * 0.08 + Math.cos(performance.now() * 0.035) * 0.05;
-      flameRef.current.scale.y = (airCollarOpen ? 1.0 : 1.3) + flicker;
-      flameRef.current.scale.x = 1.0 + flicker * 0.3;
-      flameRef.current.scale.z = 1.0 + flicker * 0.3;
-    }
-
-    // Glowing red chimney barrel on strike back
-    if (tubeRef.current) {
-      const mat = tubeRef.current.material as THREE.MeshStandardMaterial;
-      if (isStrikeBack) {
-        mat.emissive.set('#DC2626');
-        mat.emissiveIntensity = 0.8 + Math.sin(performance.now() * 0.01) * 0.3;
-      } else {
-        mat.emissive.set('#000000');
-        mat.emissiveIntensity = 0;
-      }
-    }
-  });
 
   // Action: Toggle Gas Valve
   const toggleGas = () => {
@@ -147,97 +121,7 @@ export const BunsenBurnerStation: React.FC = () => {
 
   return (
     <group userData={{labItem:{title:'Bộ đèn Bunsen thực hành',kind:'heat'}}} position={BURNER_POS}>
-      {/* 1. Bunsen Burner Hardware Assembly */}
-      {/* Heavy Cast Iron Round Base */}
-      <mesh position={[0, 0.015, 0]} castShadow receiveShadow>
-        <cylinderGeometry args={[0.075, 0.085, 0.03, 24]} />
-        <meshStandardMaterial color="#1E293B" roughness={0.7} metalness={0.6} />
-      </mesh>
-
-      {/* Brass Chimney Tube */}
-      <mesh ref={tubeRef} position={[0, 0.12, 0]} castShadow>
-        <cylinderGeometry args={[0.012, 0.012, 0.18, 16]} />
-        <meshStandardMaterial color="#EAB308" roughness={0.3} metalness={0.8} />
-      </mesh>
-
-      {/* Rotating Air Collar Ring with air hole */}
-      <mesh position={[0, 0.045, 0]}>
-        <cylinderGeometry args={[0.015, 0.015, 0.03, 16]} />
-        <meshStandardMaterial color="#CA8A04" metalness={0.9} roughness={0.2} />
-      </mesh>
-
-      {/* Gas Inlet Side Nipple */}
-      <mesh position={[0.03, 0.02, 0]} rotation={[0, 0, Math.PI / 2]}>
-        <cylinderGeometry args={[0.007, 0.007, 0.04, 12]} />
-        <meshStandardMaterial color="#CA8A04" metalness={0.8} />
-      </mesh>
-
-      {/* Flexible Black Rubber Gas Hose connecting to bench turret */}
-      <mesh position={[0.15, 0.02, 0.1]} rotation={[0, 0.6, 0]}>
-        <boxGeometry args={[0.22, 0.012, 0.012]} />
-        <meshStandardMaterial color="#0F172A" roughness={0.8} />
-      </mesh>
-
-      {/* Bench Gas Valve Turret */}
-      <group position={[0.3, 0.06, 0.2]}>
-        <mesh>
-          <cylinderGeometry args={[0.02, 0.02, 0.12, 12]} />
-          <meshStandardMaterial color="#475569" metalness={0.8} />
-        </mesh>
-        {/* Red Quarter-Turn Lever Handle */}
-        <mesh
-          position={[0, 0.06, 0]}
-          rotation={[0, isGasValveOpen ? Math.PI / 2 : 0, 0]}
-        >
-          <boxGeometry args={[0.08, 0.015, 0.02]} />
-          <meshStandardMaterial color="#DC2626" roughness={0.3} />
-        </mesh>
-      </group>
-
-      {/* Tripod Stand with Ceramic Wire Gauze above Burner */}
-      <group position={[0, 0.22, 0]}>
-        {/* Ceramic Wire Gauze */}
-        <mesh position={[0, 0, 0]}>
-          <boxGeometry args={[0.18, 0.005, 0.18]} />
-          <meshStandardMaterial color="#E2E8F0" roughness={0.9} />
-        </mesh>
-        {/* Ceramic White Heat Center Circle */}
-        <mesh position={[0, 0.003, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-          <circleGeometry args={[0.05, 16]} />
-          <meshStandardMaterial color="#FFFFFF" roughness={0.5} />
-        </mesh>
-      </group>
-
-      {/* 2. Realistic Animated Flame */}
-      {isLit && !isStrikeBack && (
-        <group ref={flameRef} position={[0, 0.21, 0]}>
-          {/* Main Outer Flame */}
-          <mesh position={[0, airCollarOpen ? 0.06 : 0.09, 0]}>
-            <coneGeometry args={[airCollarOpen ? 0.025 : 0.035, airCollarOpen ? 0.12 : 0.18, 16]} />
-            <meshBasicMaterial
-              color={airCollarOpen ? '#38BDF8' : '#F59E0B'}
-              transparent
-              opacity={airCollarOpen ? 0.75 : 0.88}
-            />
-          </mesh>
-
-          {/* Inner Sharp Intense Cone (When Air Collar is Open) */}
-          {airCollarOpen && (
-            <mesh ref={innerConeRef} position={[0, 0.035, 0]}>
-              <coneGeometry args={[0.015, 0.07, 16]} />
-              <meshBasicMaterial color="#06B6D4" transparent opacity={0.95} />
-            </mesh>
-          )}
-
-          {/* Dynamic Flame Point Light */}
-          <pointLight
-            position={[0, 0.1, 0]}
-            color={airCollarOpen ? '#38BDF8' : '#F59E0B'}
-            intensity={airCollarOpen ? 0.8 : 1.4}
-            distance={3.0}
-          />
-        </group>
-      )}
+      <BunsenAssemblyAsset gasOpen={isGasValveOpen} flame={isLit?(airCollarOpen?'blue':'yellow'):'off'} airOpen={airCollarOpen} strikeBack={isStrikeBack}/>
 
       {/* 3. Proximity Interactive HUD Menu */}
       {isNear && (

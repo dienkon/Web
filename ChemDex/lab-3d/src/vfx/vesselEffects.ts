@@ -125,6 +125,9 @@ export const effects = {
           bubbleVisualSampling: SimulationEngine.findManager(vesselId)?.boilingSystem.sourceSampling ?? null,
           precipitationTiming: [...(SimulationEngine.findManager(vesselId)?.precipitationSystems ?? [])]
             .map(([formula,system]) => ({ formula,carrierMode:system.carrierMode,...system.clock })),
+          flocculation: [...(SimulationEngine.findManager(vesselId)?.precipitationSystems ?? [])]
+            .filter(([, system]) => system.flocculation.enabled)
+            .map(([formula, system]) => ({ formula, ...system.flocculation })),
           suspensionCarrier: { mode:fluid.carrierMode,model:fluid.carrierModel,liquidMass_g:fluid.liquidMass_g },
           convection: convectionForcing({ temp_c: v.temperature_c, ambientTemp_c: env.temperature_c,
             heatPower_W: v.thermalHeatingPower_W ?? 0, viscosity_mPa_s: fluid.viscosity_mPa_s,

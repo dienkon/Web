@@ -6,6 +6,8 @@ const properties = JSON.parse(
     .readFileSync("shared/element-properties.json", "utf8")
     .replace(/^\uFEFF/, ""),
 );
+const weights = JSON.parse(fs.readFileSync("shared/atomic-weights.json", "utf8"));
+const insights = JSON.parse(fs.readFileSync("shared/element-insights.json", "utf8"));
 for (const e of elements) {
   const p = properties.elements.find((p) => p.z === e.z);
   if (!p) continue;
@@ -26,6 +28,17 @@ for (const e of elements) {
     radiusKind: "empirical",
     ionizationEnergyKind: "first",
   };
+  const weight = weights.elements.find((record) => record.symbol === e.symbol && record.z === e.z);
+  if (weight) {
+    e.mass = weight.value;
+    e.massSource = "CIAAW2024";
+  }
+  const insight = insights.elements[e.symbol];
+  if (insight && Object.hasOwn(insight, "meltingPoint")) {
+    e.meltingPoint = insight.meltingPoint;
+    e.meltingPointNote = insight.meltingPointNote;
+    e.meltingPointSource = insight.meltingPointSource ?? insight.source;
+  }
 }
 fs.writeFileSync(file, JSON.stringify(elements, null, 2) + "\n");
 console.log(

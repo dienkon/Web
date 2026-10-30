@@ -1,0 +1,4 @@
+
+> lint:api
+> tsc -p tsconfig.server.json
+

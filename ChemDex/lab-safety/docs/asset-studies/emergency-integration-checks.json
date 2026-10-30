@@ -1,0 +1,390 @@
+{
+  "passed": true,
+  "checks": [
+    "one integrated emergency model: emergency-shower",
+    "one integrated emergency model: eyewash",
+    "one integrated emergency model: shower-head",
+    "one integrated emergency model: extinguisher-cabinet",
+    "one integrated emergency model: extinguisher-powder",
+    "one integrated emergency model: extinguisher-co2",
+    "one integrated emergency model: first-aid-cabinet",
+    "one integrated emergency model: fire-blanket",
+    "one integrated emergency model: spill-cart",
+    "spill cart wheels and feet touch floor",
+    "shower outlet matches shared world layout",
+    "standing space beneath shower clears eyewash bowl",
+    "first aid bottles sit on upper shelf",
+    "shower control enables only overhead water",
+    "pull rod follows lever end down",
+    "eyewash has its own jets and turns overhead water off",
+    "overhead pull rod resets when eyewash starts",
+    "stopping eyewash removes jet geometry",
+    "detailed fire cabinet still opens its practice",
+    "no runtime errors in emergency assets"
+  ],
+  "errors": [],
+  "snapshots": {
+    "installed": [
+      {
+        "name": "asset-extinguisher-cabinet",
+        "position": [
+          -9.85,
+          0.65,
+          -1.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          -9.97499999961257,
+          0.6499999928474427,
+          -1.78999999961257
+        ],
+        "max": [
+          -9.691000000059605,
+          1.5100000071525574,
+          -1.21000000038743
+        ],
+        "visible": true
+      },
+      {
+        "name": "asset-extinguisher-powder",
+        "position": [
+          -9.85,
+          0.685,
+          -1.37
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          -9.912319997996091,
+          0.685,
+          -1.4671721152961255
+        ],
+        "max": [
+          -9.78686000034213,
+          1.1146841001304986,
+          -1.3052199996456506
+        ],
+        "visible": true
+      },
+      {
+        "name": "asset-extinguisher-lever",
+        "position": [
+          -9.85,
+          1.1105800000000001,
+          -1.3741
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          -9.860250000152737,
+          1.1064758998695017,
+          -1.4433940998250248
+        ],
+        "max": [
+          -9.839749999847262,
+          1.1146841001304986,
+          -1.3736859001749755
+        ],
+        "visible": true
+      },
+      {
+        "name": "asset-extinguisher-pin",
+        "position": [
+          -9.85,
+          0.685,
+          -1.37
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          -9.83974999995418,
+          1.0080800005009771,
+          -1.3736899998778105
+        ],
+        "max": [
+          -9.815559999961051,
+          1.0884400003543497,
+          -1.3052199996456506
+        ],
+        "visible": true
+      },
+      {
+        "name": "asset-extinguisher-co2",
+        "position": [
+          -9.85,
+          0.685,
+          -1.63
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          -9.912319997996091,
+          0.685,
+          -1.7644800003421306
+        ],
+        "max": [
+          -9.78686000034213,
+          1.1146841001304986,
+          -1.5652199996456504
+        ],
+        "visible": true
+      },
+      {
+        "name": "asset-extinguisher-lever",
+        "position": [
+          -9.85,
+          1.1105800000000001,
+          -1.6340999999999999
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          -9.860250000152737,
+          1.1064758998695017,
+          -1.7033940998250245
+        ],
+        "max": [
+          -9.839749999847262,
+          1.1146841001304986,
+          -1.6336859001749753
+        ],
+        "visible": true
+      },
+      {
+        "name": "asset-extinguisher-pin",
+        "position": [
+          -9.85,
+          0.685,
+          -1.63
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          -9.83974999995418,
+          1.0080800005009771,
+          -1.6336899998778103
+        ],
+        "max": [
+          -9.815559999961051,
+          1.0884400003543497,
+          -1.5652199996456504
+        ],
+        "visible": true
+      },
+      {
+        "name": "asset-fire-blanket",
+        "position": [
+          -9.85,
+          1.13,
+          -0.4
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          -9.902500002086162,
+          1.1300000013411045,
+          -0.5650049984455109
+        ],
+        "max": [
+          -9.794999999973923,
+          1.5915050004571676,
+          -0.23499500155448916
+        ],
+        "visible": true
+      },
+      {
+        "name": "asset-spill-cart",
+        "position": [
+          -9.3,
+          0,
+          3
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          -9.568999993801118,
+          -0.000004999712109564347,
+          2.731000006198883
+        ],
+        "max": [
+          -9.031000006198884,
+          0.925865888595581,
+          3.268999993801117
+        ],
+        "visible": true
+      },
+      {
+        "name": "asset-emergency-shower",
+        "position": [
+          -9.2,
+          0,
+          -4
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          -9.325,
+          -5.2154064053566707e-11,
+          -4.267205462157726
+        ],
+        "max": [
+          -8.249999994039534,
+          2.703395128250122,
+          -3.8199999928474426
+        ],
+        "visible": true
+      },
+      {
+        "name": "asset-eyewash",
+        "position": [
+          -8.92,
+          1,
+          -4
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          -9.100000007152557,
+          1,
+          -4.260004999488592
+        ],
+        "max": [
+          -8.739999992847443,
+          1.1725049971044064,
+          -3.8199999928474426
+        ],
+        "visible": true
+      },
+      {
+        "name": "asset-shower-head",
+        "position": [
+          -8.399999999999999,
+          2.335,
+          -4
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          -8.550000005960463,
+          2.335,
+          -4.1500000059604645
+        ],
+        "max": [
+          -8.249999994039534,
+          2.4250000035762787,
+          -3.8499999940395355
+        ],
+        "visible": true
+      },
+      {
+        "name": "asset-shower-pull",
+        "position": [
+          -9.2,
+          0,
+          -4
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          -8.76800000037998,
+          1.6411714792251586,
+          -4.267205462157726
+        ],
+        "max": [
+          -8.75199999962002,
+          2.6580000003799795,
+          -4
+        ],
+        "visible": true
+      },
+      {
+        "name": "asset-shower-pull-rod",
+        "position": [
+          -8.76,
+          2.65,
+          -4.18
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          -8.767000000216067,
+          1.6411714792251586,
+          -4.267205462157726
+        ],
+        "max": [
+          -8.752999999783933,
+          2.65,
+          -4.092794537842273
+        ],
+        "visible": true
+      },
+      {
+        "name": "asset-first-aid-cabinet",
+        "position": [
+          -9.85,
+          1.125,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          -9.957000000216066,
+          1.1249949872493743,
+          0.7599999996200204
+        ],
+        "max": [
+          -9.292600843871591,
+          1.6750050127506255,
+          1.2473041548885184
+        ],
+        "visible": true
+      }
+    ]
+  }
+}

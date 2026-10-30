@@ -11,6 +11,7 @@ import { getBubbleSpriteTexture, getSoftParticleTexture } from '../../vfx/textur
 import { useQualityStore } from '../../vfx/quality';
 import { useAppStore } from '../../store/useAppStore';
 import { PrecipitateParticleLayer } from './PrecipitateParticleLayer';
+import { vesselAgitation } from '../../science/stirring';
 import { createInstancedMistMaterial, mistParticleAppearance } from './mistAppearance';
 
 export interface PhysicalSimulationRendererProps {
@@ -23,6 +24,7 @@ export interface PhysicalSimulationRendererProps {
   reactionGasRate?: number;
   reactionPrecipitateActive?: boolean;
   reactionPrecipitateSubstance?: string;
+  agitationOverride?: number; // Explicit carrier forcing for controlled specimen comparisons
 }
 
 export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulationRenderer({
@@ -34,7 +36,8 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
   color = '#ffffff',
   reactionGasRate = 0,
   reactionPrecipitateActive = false,
-  reactionPrecipitateSubstance
+  reactionPrecipitateSubstance,
+  agitationOverride,
 }: PhysicalSimulationRendererProps) {
   const componentSignature = useAppStore(state => {
     const vessel = state.vessels[vesselId];
@@ -46,9 +49,13 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
   const components = useMemo(() => JSON.parse(componentSignature) as [string, string | null][], [componentSignature]);
   const effectiveTier = useQualityStore((state) => state.effectiveTier);
   const mgr = useMemo(() => SimulationEngine.getManager(vesselId, effectiveTier), [vesselId, effectiveTier]);
+  const precipitateBudget = effectiveTier === 'high' || effectiveTier === 'ultra' ? 900
+    : effectiveTier === 'medium' ? 550 : effectiveTier === 'low' ? 260 : 120;
+  useEffect(() => mgr.setPrecipitateBudget(precipitateBudget), [mgr, precipitateBudget]);
 
   const bubbleMeshRef = useRef<THREE.InstancedMesh>(null);
   const evaporationMeshRef = useRef<THREE.InstancedMesh>(null);
+  const groupRef = useRef<THREE.Group>(null);
 
   const bubbleTexture = useMemo(() => getBubbleSpriteTexture(128), []);
   const vaporTexture = useMemo(() => getSoftParticleTexture(128), []);
@@ -64,6 +71,7 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
   const scratchPos = useMemo(() => new THREE.Vector3(), []);
   const scratchScale = useMemo(() => new THREE.Vector3(), []);
   const scratchQuat = useMemo(() => new THREE.Quaternion(), []);
+  const inverseBodyQuat = useMemo(() => new THREE.Quaternion(), []);
   const scratchMat4 = useMemo(() => new THREE.Matrix4(), []);
 
   // Initialize all instanced matrices to scale 0 at (0, -9999, 0)
@@ -85,7 +93,11 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
     zeroInstances(evaporationMeshRef.current, mgr.evaporationSystem.maxParticles);
 
     return () => {
-      SimulationEngine.removeManager(vesselId);
+      // A renderer may remount when quality/canvas settings change. The sample
+      // still owns its population history; only removing the vessel retires it.
+      const live = useAppStore.getState().vessels[vesselId];
+      if (!live) SimulationEngine.removeManager(vesselId);
+      else if (live.isShattered) mgr.reset();
     };
   }, [mgr, vesselId]);
 
@@ -107,12 +119,16 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
     const heatPower_W = vessel.thermalHeatingPower_W ?? 0;
 
     // Check stirring rod agitation
-    const activeTool = useAppStore.getState().activeTool;
-    const isStirringThisVessel = activeTool === 'stirring_rod' && useAppStore.getState().selectedVesselId === vesselId;
-    const agitation = isStirringThisVessel ? 0.85 : 0;
+    const agitation = agitationOverride === undefined ? vesselAgitation(vessel, app) : agitationOverride;
 
-    // Step physical simulation
+    groupRef.current?.updateWorldMatrix(true, false);
+    const bodyMatrix = groupRef.current?.matrixWorld.clone();
+    if (bodyMatrix) inverseBodyQuat.setFromRotationMatrix(new THREE.Matrix4().extractRotation(bodyMatrix)).invert();
+
+    // Step physical simulation using this frame's rendered body, not the
+    // stored resting pose while the pour controller is lifting/tilting it.
     if (dt > 0) mgr.step(vessel, dt, {
+      bodyMatrixWorld: bodyMatrix?.elements,
       thermalStateAuthoritative: true,
       heatPower_W,
       agitation,
@@ -139,7 +155,7 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
           if (i < bList.length) {
             const b = bList[i];
             scratchPos.set(b.x, b.y, b.z);
-            scratchQuat.copy(cam.quaternion);
+            scratchQuat.copy(inverseBodyQuat).multiply(cam.quaternion);
 
             // Volume-preserving oblate spheroidal deformation
             const ar = Math.max(0.5, Math.min(1.2, b.aspectRatio));
@@ -162,6 +178,10 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
 
     // 3. UPDATE PHYSICAL EVAPORATION VAPOR
     if (evaporationMeshRef.current) {
+      // Mist particles already live in world space once emitted. Cancel the
+      // container transform while retaining the same React ownership/lifecycle.
+      if (bodyMatrix) evaporationMeshRef.current.matrix.copy(bodyMatrix).invert();
+      evaporationMeshRef.current.updateWorldMatrix(false, false);
       const eList = mgr.evaporationSystem.particles;
       const maxE = mgr.evaporationSystem.maxParticles;
 
@@ -197,10 +217,11 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
   }, FRAME_ORDER.physics);
 
   return (
-    <group name={`physical_sim_${vesselId}`}>
+    <group ref={groupRef} name={`physical_sim_${vesselId}`}>
       {/* 1. Boiling Bubbles InstancedMesh */}
       <instancedMesh
         ref={bubbleMeshRef}
+        name={`physical_bubbles_${vesselId}`}
         args={[undefined, undefined, mgr.boilingSystem.maxBubbles]}
         frustumCulled={false}
         renderOrder={5}
@@ -218,7 +239,8 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
       </instancedMesh>
 
       {components.map(([formula, formation]) => <PrecipitateParticleLayer key={formula} vesselId={vesselId}
-        system={mgr.getPrecipitationSystem(formula)} formation={formation ?? undefined} capacity={mgr.maxPrecipitateParticles} />)}
+        system={mgr.getPrecipitationSystem(formula)} formation={formation ?? undefined}
+        capacity={Math.ceil(precipitateBudget / Math.max(1, components.length))} />)}
 
       {/* 3. Bottom Sediment Bed Mesh */}
       <SedimentMesh
@@ -231,6 +253,8 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
       {/* 4. Surface Evaporation Vapor InstancedMesh */}
       <instancedMesh
         ref={evaporationMeshRef}
+        name={`physical_mist_${vesselId}`}
+        matrixAutoUpdate={false}
         args={[undefined, undefined, mgr.evaporationSystem.maxParticles]}
         geometry={vaporGeometry}
         material={vaporMaterial}

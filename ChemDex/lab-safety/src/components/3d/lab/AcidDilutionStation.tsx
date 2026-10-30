@@ -6,7 +6,10 @@ import { AcidPourGame } from '../../ui/AcidPourGame';
 import { useStore } from '../../../store/useStore';
 import { soundManager } from '../../../audio/soundManager';
 
-const BENCH_POS: [number, number, number] = [4.2, 0.93, 2.62];
+import { BeakerAsset } from '../assets/LabwareAssets';
+import { StirringRodAsset } from '../assets/FurnitureAssets';
+import { AssetLabel } from '../assets/AssetPrimitives';
+const BENCH_POS: [number, number, number] = [4.2,.901,2.62];
 
 export const AcidDilutionStation: React.FC = () => {
   const completeTask = useStore((s) => s.completeTask);
@@ -25,63 +28,9 @@ export const AcidDilutionStation: React.FC = () => {
 
   return (
     <group userData={{labItem:{title:'Bàn pha loãng axit',kind:'acid'}}} position={BENCH_POS}>
-      {/* 1. Beaker A: Sulfuric Acid H2SO4 98% */}
-      <group position={[-0.22, 0.12, 0]}>
-        {/* Glass Cylinder */}
-        <mesh>
-          <cylinderGeometry args={[0.075, 0.075, 0.22, 24]} />
-          <meshPhysicalMaterial
-            transparent
-            opacity={0.3}
-            roughness={0.1}
-            metalness={0.1}
-            ior={1.5}
-            color="#FFFFFF"
-          />
-        </mesh>
-        {/* Liquid: Acid H2SO4 */}
-        <mesh position={[0, -0.04, 0]}>
-          <cylinderGeometry args={[0.072, 0.072, 0.12, 24]} />
-          <meshStandardMaterial color="#E2E8F0" roughness={0.1} transparent opacity={0.85} />
-        </mesh>
-        {/* Label */}
-        <mesh position={[0, 0.02, 0.076]}>
-          <planeGeometry args={[0.08, 0.04]} />
-          <meshBasicMaterial color="#FEF08A" />
-        </mesh>
-      </group>
-
-      {/* 2. Beaker B: Distilled Water H2O */}
-      <group position={[0.22, 0.12, 0]}>
-        {/* Glass Cylinder */}
-        <mesh>
-          <cylinderGeometry args={[0.085, 0.085, 0.24, 24]} />
-          <meshPhysicalMaterial
-            transparent
-            opacity={0.3}
-            roughness={0.1}
-            metalness={0.1}
-            ior={1.5}
-            color="#FFFFFF"
-          />
-        </mesh>
-        {/* Liquid: Distilled Water */}
-        <mesh position={[0, -0.03, 0]}>
-          <cylinderGeometry args={[0.082, 0.082, 0.16, 24]} />
-          <meshStandardMaterial color="#38BDF8" roughness={0.1} transparent opacity={0.65} />
-        </mesh>
-        {/* Label */}
-        <mesh position={[0, 0.03, 0.086]}>
-          <planeGeometry args={[0.08, 0.04]} />
-          <meshBasicMaterial color="#BAE6FD" />
-        </mesh>
-      </group>
-
-      {/* 3. Glass Stirring Rod */}
-      <mesh position={[0, 0.14, 0]} rotation={[0.2, 0, 0.3]}>
-        <cylinderGeometry args={[0.005, 0.005, 0.32, 12]} />
-        <meshPhysicalMaterial transparent opacity={0.5} roughness={0.1} color="#FFFFFF" />
-      </mesh>
+      <group position={[-.22,0,0]}><BeakerAsset color="#cfdbde"/><AssetLabel lines={['H₂SO₄']} size={[.065,.028]} at={[0,.075,0]} curveRadius={.081}/></group>
+      <group position={[.22,0,0]}><BeakerAsset color="#99c8d2"/><AssetLabel lines={['H₂O']} size={[.065,.028]} at={[0,.075,0]} curveRadius={.081}/></group>
+      <group position={[0,0,0]}><StirringRodAsset/></group>
 
       {/* 4. Reaction Visual FX (Boiling or Steam) */}
       {reactionState === 'exploded' && (

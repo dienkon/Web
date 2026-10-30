@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { PrecipitationSystem } from '../src/simulation/effects/PrecipitationSystem';
 import { getPrecipitateProfile } from '../src/simulation/core/SimulationConfig';
+import { getFlocculationModel } from '../src/science/flocculationModels';
 
 describe('Distinct divalent hydroxide suspensions', () => {
   it.each(['Mg(OH)2', 'Ni(OH)2', 'Fe(OH)2'])('%s preserves identity and finite mass through stirring and dissolution', substance => {
@@ -11,8 +12,13 @@ describe('Distinct divalent hydroxide suspensions', () => {
     expect(system.profile.modelBasis).toBeUndefined();
     expect(system.profile.id).toBe(substance);
     expect(system.representedMass_g).toBeCloseTo(0.1, 12);
+    const floc = getFlocculationModel(system.profile);
     for (const particle of system.particles) {
-      expect(particle.physicalRadius_m).toBeCloseTo(1e-6, 12);
+      // The initial constituent stays 1 um. Supported porous aggregates can
+      // grow around it while preserving its identity and material inventory.
+      const primary = floc ? particle.physicalRadius_m!
+        / system.flocculation.properties!.meanPrimaryCount ** (1 / floc.fractalDimension) : particle.physicalRadius_m;
+      expect(primary).toBeCloseTo(1e-6, 12);
       expect(particle.y + particle.radius * 2.01).toBeLessThanOrEqual(0.5 + 1e-8);
       expect(Math.hypot(particle.x, particle.z) + particle.radius * 2.01).toBeLessThanOrEqual(0.3 + 1e-8);
     }

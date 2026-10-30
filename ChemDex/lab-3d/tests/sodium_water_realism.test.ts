@@ -23,7 +23,7 @@ import { vesselLiquidSurfaceY, sodiumSurfaceRadius } from '../src/science/vessel
 import type { VesselState } from '../src/types/chemistry';
 import type { ReactionContext } from '../src/vfx/reactions/types';
 import { PourController } from '../src/pour/controller/PourController';
-import { getVesselProfile } from '../src/pour/physics/profiles';
+import { getWorldVesselProfile } from '../src/pour/physics/profiles';
 import { getReactionController } from '../src/vfx/reactions/registry';
 import { vfxBus } from '../src/vfx/bus';
 
@@ -244,7 +244,7 @@ describe('Contact geometry and laboratory environment', () => {
     expect(trajectory.exitPos[0] + trajectory.exitVel[0] * t).toBeCloseTo(trajectory.impactPos[0], 10);
     expect(trajectory.exitPos[1] + trajectory.exitVel[1] * t - 0.5 * SCENE_GRAVITY * t * t).toBeCloseTo(trajectory.impactPos[1], 10);
     expect(session.aim.landing).toEqual(trajectory.impactPos);
-    const profile = getVesselProfile(source.type), angle = session.sourceRotationZ!;
+    const profile = getWorldVesselProfile(source.type, source.capacity_ml), angle = session.sourceRotationZ!;
     const tiltedX = profile.lipLocal[0] * Math.cos(angle) - profile.lipLocal[1] * Math.sin(angle);
     expect(trajectory.exitPos[2]).toBeCloseTo(session.sourcePos![2] - tiltedX, 10);
   });

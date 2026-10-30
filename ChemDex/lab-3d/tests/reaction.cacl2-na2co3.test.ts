@@ -65,16 +65,16 @@ describe('Phase C, D & E — End-to-End Reaction & ProgramPlayer Verification (�
     expect(vessel.hasGas).toBe(false);
 
     // 4. STEP SIMULATION to intermediate progress xi ≈ 0.5
-    // Duration is ~7.0s. At 35 ticks of dt=0.1s (3.5s elapsed): progress ~ 0.5
-    for (let i = 0; i < 35; i++) {
+    // Contact half-time is 0.2 s; the seven-second visual timeline does not
+    // set chemical conversion. Two 0.1 s ticks reach half conversion.
+    for (let i = 0; i < 2; i++) {
       useAppStore.getState().tick(0.1);
     }
 
     vessel = useAppStore.getState().vessels[beakerId];
     const midKinetics = useAppStore.getState().activeKinetics[beakerId];
     expect(midKinetics).toBeDefined();
-    expect(midKinetics.progress).toBeGreaterThan(0.4);
-    expect(midKinetics.progress).toBeLessThan(0.7);
+    expect(midKinetics.progress).toBeCloseTo(0.5, 12);
 
     // Intermediate reactants partially consumed
     const caCl2Mid = vessel.contents?.find(c => c.formula === 'CaCl2');

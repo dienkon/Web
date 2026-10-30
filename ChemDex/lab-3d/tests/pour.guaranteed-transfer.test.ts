@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { stepPourSimulation, SimVessel, PourPhysicsSession } from '../src/pour/physics/step';
 import { calculateStreamBallistics } from '../src/pour/physics/ballistics';
-import { getVesselProfile } from '../src/pour/physics/profiles';
+import { getWorldVesselProfile } from '../src/pour/physics/profiles';
 import { findPouringTilt } from '../src/pour/physics/retained';
 import { useAppStore } from '../src/store/useAppStore';
 import { PourController } from '../src/pour/controller/PourController';
@@ -32,8 +32,8 @@ describe('Phase A — Guaranteed Controlled Pouring & Liquid Conservation (§3.7
       const startVol = startingVolumes[testIdx % startingVolumes.length];
       const offset = positionOffsets[testIdx % positionOffsets.length];
 
-      const tgtProfile = getVesselProfile(tgtType);
-      const srcProfile = getVesselProfile(srcType);
+      const tgtProfile = getWorldVesselProfile(tgtType);
+      const srcProfile = getWorldVesselProfile(srcType);
 
       const targetPos: [number, number, number] = [0.0, -0.135, 0.0];
       const sourcePos: [number, number, number] = [
@@ -47,6 +47,8 @@ describe('Phase A — Guaranteed Controlled Pouring & Liquid Conservation (§3.7
       // Keep the actual rotated pouring lip above the recipient opening.
       const lipY = srcProfile.lipLocal[0] * Math.sin(-tiltRad) + srcProfile.lipLocal[1] * Math.cos(-tiltRad);
       sourcePos[1] = targetPos[1] + tgtProfile.lipLocal[1] + offset[1] - lipY;
+      const lipX = srcProfile.lipLocal[0] * Math.cos(-tiltRad) - srcProfile.lipLocal[1] * Math.sin(-tiltRad);
+      sourcePos[0] = targetPos[0] + offset[0] - lipX;
       const initialTargetVol = 10; // 10 mL initial liquid in recipient
       const targetCapacity = tgtProfile.capacity_ml;
 

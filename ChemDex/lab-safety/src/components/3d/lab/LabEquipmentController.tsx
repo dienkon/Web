@@ -97,7 +97,7 @@ export function LabEquipmentController() {
       if(!object.userData.initialPosition)object.userData.initialPosition=object.position.clone();
       if(!object.userData.initialRotation)object.userData.initialRotation=object.rotation.clone();
       if(kind==='seat')object.rotation.y=object.userData.initialRotation.y+(state?.active?Math.PI/2:0);
-      if(kind==='drawer')object.position.z=object.userData.initialPosition.z+(state?.active ? .22:0);
+      if(kind==='drawer'&&!object.userData.ownsDrawerMotion)object.position.z=object.userData.initialPosition.z+(state?.active ? .22:0);
       if(kind==='door'){
         const left=object.getObjectByName('door-leaf-left'),right=object.getObjectByName('door-leaf-right');
         if(left)left.rotation.y=state?.active?1.15:0;

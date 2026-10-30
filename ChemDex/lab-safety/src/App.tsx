@@ -24,6 +24,7 @@ import { QuizInteractionGuard } from './systems/input/QuizInteractionGuard';
 import { CinematicOverlay } from './components/ui/CinematicOverlay';
 import { NoticePopup } from './components/ui/NoticePopup';
 import { AdvancedPracticeLibrary } from './components/ui/AdvancedPracticeLibrary';
+const AssetReview = import.meta.env.DEV ? lazy(()=>import('./components/3d/assets/AssetReview')) : null;
 
 export default function App() {
   const view = useStore((state) => state.view);
@@ -40,6 +41,8 @@ export default function App() {
       document.documentElement.classList.remove('game-active');
     };
   }, [view]);
+
+  if(AssetReview&&new URLSearchParams(window.location.search).has('asset-review'))return <Suspense fallback={<div>Đang dựng asset…</div>}><AssetReview/></Suspense>;
 
   return (
     <div

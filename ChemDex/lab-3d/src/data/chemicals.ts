@@ -1,4 +1,5 @@
 import { identifySpecies } from '../science/speciesIdentity';
+import { applyStockAppearance } from '../science/stockAppearance';
 import { ChemicalDefinition, SolidMorphology } from '../types/chemistry';
 
 export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
@@ -884,7 +885,7 @@ export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
   {
     formula: 'NH3 (aq)',
     name_en: 'Ammonia Aqueous Solution (2M)',
-    name_vi: 'Axit/Dung Dịch Amoniac (2M Khai Nồng)',
+    name_vi: 'Dung dịch amoniac (2 M)',
     type: 'liquid',
     category: 'base',
     color: '#f1f5f9',
@@ -1063,8 +1064,8 @@ export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
     solidMorphology: 'HYDRATE_CRYSTAL',
     category: 'salt',
     color: '#0284c7',
-    molarMass: 249.68,
-    density: 2.28,
+    molarMass: 249.677,
+    density: 2.286,
     hazards: ['toxic', 'irritant'],
     ppe: ['goggles', 'gloves'],
     safetyNotes_en: 'Vivid azure-blue vitriol crystals. Dehydrates into white anhydrous CuSO4 powder upon heating in crucible.',
@@ -1297,17 +1298,14 @@ export function isImmiscibleOrganic(substance: string): boolean {
   );
 }
 
-// Explicit hydrate identity retains all five waters in molar-mass accounting.
-CHEMICAL_DATABASE.push({
-  formula: 'CuSO4·5H2O', name_en: 'Copper(II) sulfate pentahydrate',
-  name_vi: 'Đồng(II) sunfat ngậm 5 nước', type: 'solid', color: '#2589c5',
-  molarMass: 249.677, density: 2.286, hazards: ['irritant', 'toxic'],
-  ppe: ['lab_coat', 'goggles', 'gloves'], solidMorphology: 'HYDRATE_CRYSTAL',
-});
-
 // Explicit dilute stocks make the new buffer systems available from the
 // chemical shelf. Density is approximated as water; pH is the 25 °C model.
 CHEMICAL_DATABASE.push(
+  { formula: 'CuSO4 (solid)', name_en: 'Anhydrous copper(II) sulfate',
+    name_vi: 'Đồng(II) sunfat khan (bột trắng)', type: 'solid', category: 'salt',
+    color: '#f5f3ed', molarMass: 159.609, density: 3.6, solidMorphology: 'POWDER',
+    hazards: ['toxic', 'irritant'], ppe: ['goggles', 'gloves', 'lab_coat'],
+    safetyNotes_vi: 'Chất khan màu trắng/xám nhạt, khác tinh thể CuSO4·5H2O màu xanh. ICSC 0751; mật độ vật liệu, không phải mật độ bột rời.' },
   { formula: 'CO2(aq)', name_en: 'Dissolved CO2 reference water (0.01 M)',
     name_vi: 'Nước hòa tan CO2 tham chiếu (0,01 M)', type: 'liquid', color: '#f8fafc',
     molarMass: 44.0095, density: 1, defaultConcentration: 0.01, ph: 4.176,
@@ -1342,6 +1340,10 @@ CHEMICAL_DATABASE.push(
     safetyNotes_vi: 'Vàng trong axit, lục gần trung tính, lam trong kiềm. Mô hình lượng vết; RGB chưa phải phổ hấp thụ đo thực nghiệm.' },
 );
 
+// Resolve full stock identities after supplemental stocks have been registered.
+// Shelf tint, dispensed aliquot and solid renderer share the same appearance.
+CHEMICAL_DATABASE.forEach(applyStockAppearance);
+
 export function findChemical(formula: string): ChemicalDefinition {
   if (!formula) {
     return {
@@ -1357,14 +1359,19 @@ export function findChemical(formula: string): ChemicalDefinition {
   }
   const norm = formula.trim().toLowerCase();
   // 1. Exact formula match
-  let chem = CHEMICAL_DATABASE.find(c => c.formula.toLowerCase() === norm);
+  let chem = CHEMICAL_DATABASE.find(c => c.formula.toLowerCase().replace(/\s+/g, '') === norm.replace(/\s+/g, ''));
   if (chem) return chem;
 
   // 2. Base formula match (e.g. 'HCl' matching 'HCl (dil)', 'H2O2' matching 'H2O2 (30%)')
-  const baseNorm = identifySpecies(formula).formula.toLowerCase();
+  const target = identifySpecies(formula);
+  const baseNorm = target.formula.toLowerCase();
   chem = CHEMICAL_DATABASE.find(c => {
-    const cBase = identifySpecies(c.formula).formula.toLowerCase();
-    return cBase === baseNorm;
+    const candidate = identifySpecies(c.formula);
+    if (target.phase === 's' && c.type !== 'solid') return false;
+    if (target.phase === 'g' && c.type !== 'gas') return false;
+    if (['l', 'aq'].includes(target.phase ?? '') && c.type !== 'liquid') return false;
+    if (target.concentration && candidate.concentration !== target.concentration) return false;
+    return candidate.formula.toLowerCase() === baseNorm;
   });
   if (chem) return chem;
 
@@ -1394,7 +1401,9 @@ export function getSolidMorphology(substance: string): SolidMorphology {
     return chem.solidMorphology;
   }
   const s = substance.toLowerCase();
-  if (s.includes('ribbon') || s === 'mg' || s === 'al' || s.includes('foil')) return 'RIBBON';
+  if (s.includes('nail')) return 'NAIL';
+  if (s.includes('foil') || s === 'al') return 'FOIL';
+  if (s.includes('ribbon') || s === 'mg') return 'RIBBON';
   if (s.includes('turning') || s.includes('wire') || s === 'cu') return 'TURNINGS';
   if (s.includes('filing') || s.includes('nail') || s === 'fe') return 'FILINGS';
   if (s.includes('granule') || s === 'zn') return 'GRANULES';
@@ -1415,7 +1424,7 @@ export function getSolidMorphology(substance: string): SolidMorphology {
   if (s.includes('nacl') || s.includes('kcl') || s.includes('table salt') || s.includes('halite')) return 'CUBIC_CRYSTAL';
   if (s.includes('kmno4') || s.includes('permanganate')) return 'PRISMATIC_CRYSTAL';
   if (s.includes('k2cr2o7') || s.includes('dichromate')) return 'TABULAR_CRYSTAL';
-  if (s.includes('cuso4') || s.includes('cocl2') || s.includes('niso4') || s.includes('feso4') || s.includes('hydrate') || s.includes('vitriol')) return 'HYDRATE_CRYSTAL';
+  if (s.includes('hydrate') || s.includes('vitriol') || /(?:[·.]\d+H2O)/i.test(substance)) return 'HYDRATE_CRYSTAL';
   if (s.includes('i2') || s.includes('iodine') || s.includes('iot')) return 'LUSTROUS_PLATES';
   return 'POWDER';
 }

@@ -3,7 +3,7 @@ import { DEFAULT_LAB_ENVIRONMENT, waterBoilingPointAtPressure } from '../science
 import { waterDewPointC, waterMassFluxG_M2_S, waterPressureDrivenFluxG_M2_S, supportsWaterSurface, waterSaturationPressurePa } from '../science/waterSurface';
 import { vesselInterior } from '../science/vesselDimensions';
 import { vesselLiquidSurfaceY } from '../science/vesselGeometry';
-import { METERS_PER_SCENE_UNIT } from '../science/sceneUnits';
+import { vesselBodyTransform } from '../science/vesselScale';
 import { occupiedLiquidVolume } from '../handling/solidOccupancy';
 import { vesselContours } from '../science/vesselContours';
 import { contourWallArea } from '../science/wallDropletGeometry';
@@ -102,6 +102,7 @@ export function stepWallCondensation(vessel: VesselState, dt: number, vapor_g: n
   const interior = vesselInterior(vessel.type);
   const liquidY = vesselLiquidSurfaceY(vessel);
   const outerPoints = vesselContours(vessel.type).outer;
+  const METERS_PER_SCENE_UNIT = vesselBodyTransform(vessel).metersPerLocalUnit;
   const headArea = contourWallArea(interior.points, liquidY, interior.topY) * METERS_PER_SCENE_UNIT ** 2;
   const wetArea = contourWallArea(outerPoints, interior.floorY, liquidY) * METERS_PER_SCENE_UNIT ** 2;
   const innerLatent = waterLatentHeatJ_G(innerWall_c);
@@ -121,6 +122,7 @@ export function stepWallCondensation(vessel: VesselState, dt: number, vapor_g: n
     + 1.86 * (vessel.temperature_c - referenceT);
   const ambientH = WATER_CP_J_G_K * env.temperature_c + waterLatentHeatJ_G(env.temperature_c);
   const outerTransport = transportWallBeads({ previous: wall.outerBeads, initialMass_g: wall.outer_g,
+    metersPerLocalUnit: METERS_PER_SCENE_UNIT,
     deposited_g: 0, evaporated_g: 0, evaporationFlux_g_m2_s: 0, dt, points: outerPoints,
     condensationBoundary: { gasTemperature_c: env.temperature_c,
       waterPressure_Pa: (env.relativeHumidity ?? 0.5) * waterSaturationPressurePa(env.temperature_c), airSpeed_m_s: env.airSpeed_m_s,
@@ -161,6 +163,7 @@ export function stepWallCondensation(vessel: VesselState, dt: number, vapor_g: n
     admissionCache.set(key, accepted); return accepted;
   };
   const innerTransport = transportWallBeads({ previous: wall.innerBeads, initialMass_g: wall.inner_g,
+    metersPerLocalUnit: METERS_PER_SCENE_UNIT,
     deposited_g: 0, evaporated_g: 0, evaporationFlux_g_m2_s: 0, dt, points: interior.points,
     condensationBoundary: !vessel.isSealed && vapor_g > 0 && (supportsWaterSurface(vessel) || source.headspaceWaterPressure_Pa !== undefined)
       ? { gasTemperature_c: vessel.temperature_c, waterPressure_Pa: innerGasPressure, airSpeed_m_s: env.airSpeed_m_s,

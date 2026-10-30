@@ -7,6 +7,8 @@ import { calculateOverflowProfile, calculateSpillRadius } from '../src/science/o
 import { storeBridge } from '../src/pour/controller/store-bridge';
 import { reactionSimulationEngine } from '../src/vfx/reactions/ReactionSimulationEngine';
 import type { VesselState } from '../src/types/chemistry';
+import * as THREE from 'three';
+import { METERS_PER_SCENE_UNIT, SCENE_GRAVITY } from '../src/science/sceneUnits';
 
 const harness = vi.hoisted(() => ({ refs: [] as { current: any }[], cleanup: [] as (() => void)[],
   frame: null as null | ((state: unknown, delta: number) => void) }));
@@ -34,6 +36,7 @@ const frame = () => harness.frame!({}, 1 / 60);
 beforeEach(() => {
   useAppStore.setState({ vessels: {}, vesselIds: [], burners: {}, spills: {}, activeKinetics: {}, pendingReactions: {},
     dissolvingSubstances: {}, isSimulationPaused: false, timeScale: 1 });
+  useAppStore.setState({ inFlightPours: [] });
   vi.spyOn(labSound, 'playOverflow').mockImplementation(() => {});
 });
 afterEach(() => {
@@ -65,10 +68,14 @@ describe('Overflow/splatter requires an identified, finite liquid release', () =
       expect(receipt.spilled_ml).toBeCloseTo(15, 10);
       expect(seen).toHaveLength(1); expect(seen[0].vesselId).toBe('b'); expect(seen[0].volume_ml).toBeCloseTo(15, 10);
       const inventory = after.vessels.a.mass_g + after.vessels.b.mass_g
-        + Object.values(after.spills).reduce((s, spill) => s + spill.mass_g, 0);
+        + Object.values(after.spills).reduce((s, spill) => s + spill.mass_g, 0)
+        + after.inFlightPours.reduce((sum, p) => sum + p.sample.mass_g, 0);
       expect(inventory).toBeCloseTo(100, 10);
       const material = JSON.stringify(after.spills); frame();
-      expect(group.visible).toBe(true); expect(JSON.stringify(useAppStore.getState().spills)).toBe(material);
+      expect(group.visible).toBe(false); expect(JSON.stringify(useAppStore.getState().spills)).toBe(material);
+      expect(after.inFlightPours[0].stage).toBe('overflow');
+      useAppStore.getState().advancePourTransport(2);
+      expect(Object.values(useAppStore.getState().spills).reduce((sum, p) => sum + p.volume_ml, 0)).toBeCloseTo(15, 10);
       expect(Object.keys(after.vessels)).toEqual(['a', 'b']);
     } finally { stop(); }
   });
@@ -118,6 +125,37 @@ describe('Overflow/splatter requires an identified, finite liquid release', () =
     vfxBus.emit('vessel:overflow', { vesselId: 'b', volume_ml: 1e-4 }); frame();
     expect(group.visible).toBe(true); expect(labSound.playOverflow).toHaveBeenCalledWith(1e-4);
     expect(useAppStore.getState()).toBe(before);
+  });
+  it('renders detached drops with SI flight time, volume-preserving stretch and pause', () => {
+    const b = vessel('b', { position: [0, 1, 0] }); mount(b);
+    const sliding = new THREE.Group(), falling = new THREE.Group(), rings = new THREE.Group();
+    for (let i = 0; i < 12; i++) sliding.add(new THREE.Mesh());
+    for (let i = 0; i < 8; i++) falling.add(new THREE.Mesh());
+    for (let i = 0; i < 6; i++) rings.add(new THREE.Mesh(undefined, new THREE.MeshBasicMaterial()));
+    harness.refs[3].current = sliding; harness.refs[4].current = falling; harness.refs[5].current = rings;
+    const volume = 1e-4, head_s = calculateOverflowProfile(volume).headDescentDuration_ms / 1000;
+    vfxBus.emit('vessel:overflow', { vesselId: b.id, volume_ml: volume });
+    const step = 1 / 240;
+    let elapsed = 0, found = false;
+    for (let i = 0; i < 400; i++) {
+      elapsed += step; harness.frame!({}, step);
+      if (elapsed < head_s) expect(falling.visible).toBe(false);
+      const first = falling.children[0];
+      if (falling.visible && first.visible) {
+        const age = elapsed - head_s;
+        expect(first.position.y).toBeCloseTo(-1 - 0.5 * SCENE_GRAVITY * age ** 2, 4);
+        expect(rings.visible).toBe(false); // first drop has not arrived
+        const renderedDropVolume = [...sliding.children, ...falling.children]
+          .filter(drop => drop.visible).reduce((sum, drop) => sum + 4 * Math.PI / 3
+            * drop.scale.x * drop.scale.y * drop.scale.z * METERS_PER_SCENE_UNIT ** 3 * 1e6, 0);
+        expect(renderedDropVolume).toBeLessThanOrEqual(volume * (1 + 1e-12));
+        const pose = first.position.clone();
+        useAppStore.setState({ isSimulationPaused: true }); harness.frame!({}, 1);
+        expect(first.position.equals(pose)).toBe(true);
+        found = true; break;
+      }
+    }
+    expect(found).toBe(true);
   });
   it('does not turn ordinary boiling or an acid-dilution timeline into ejected sulfuric acid', () => {
     const b = vessel('b', { temperature_c: 100, isBoiling: true, evaporationRate_g_s: 1 });

@@ -84,7 +84,9 @@ describe('Incremental reaction heat and external thermal history', () => {
     state.tickSimulation(0.1);
     const first = useAppStore.getState();
     const firstSample = first.vessels[id];
-    const reaction = 55.83 * (0.1 / getProgramById('hcl_naoh')!.visual.duration_s);
+    // Half conversion at the declared 0.1 s half-time, independent of the
+    // four-second presentation. The total heat must still be applied once.
+    const reaction = 55.83 * 0.5;
     expect(firstSample.programHeatApplied_J).toBeCloseTo(reaction, 10);
     const burnerOnly = stepVesselThermal(sample, 0.1, first.burners.lamp.deliveredHeat_J! / 0.1);
     expect(firstSample.temperature_c).toBeCloseTo(burnerOnly.temperature_c + reaction / sampleHeatCapacity(sample), 8);

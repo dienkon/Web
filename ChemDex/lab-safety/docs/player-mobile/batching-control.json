@@ -1,0 +1,231 @@
+{
+  "passed": true,
+  "method": "ABBA; same avatar, scene, camera, 844x390, DPR .85; CPU 1 and 4; 6-second main-render samples; only render visibility of original proxies/batches toggled",
+  "errors": [],
+  "samples": [
+    {
+      "cpu": 1,
+      "enabled": false,
+      "timing": {
+        "fps": 30.156112027472034,
+        "frames": 181,
+        "p95": 41.29999999701977
+      },
+      "renderer": {
+        "timestamp": 24218.60000000894,
+        "render": {
+          "calls": 1072,
+          "triangles": 309368,
+          "points": 40,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1709,
+          "textures": 125
+        },
+        "mirrorUpdates": 2,
+        "shadowEnabled": false,
+        "pixelRatio": 0.85,
+        "visibleFlames": 0,
+        "heldTool": null
+      },
+      "sameBounds": true
+    },
+    {
+      "cpu": 1,
+      "enabled": true,
+      "timing": {
+        "fps": 29.994501008208083,
+        "frames": 180,
+        "p95": 41.29999999701977
+      },
+      "renderer": {
+        "timestamp": 32424.20000000298,
+        "render": {
+          "calls": 798,
+          "triangles": 340150,
+          "points": 40,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1709,
+          "textures": 125
+        },
+        "mirrorUpdates": 2,
+        "shadowEnabled": false,
+        "pixelRatio": 0.85,
+        "visibleFlames": 0,
+        "heldTool": null
+      },
+      "sameBounds": true
+    },
+    {
+      "cpu": 1,
+      "enabled": true,
+      "timing": {
+        "fps": 29.989503673743982,
+        "frames": 180,
+        "p95": 35.5
+      },
+      "renderer": {
+        "timestamp": 39617.80000001192,
+        "render": {
+          "calls": 798,
+          "triangles": 340150,
+          "points": 40,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1709,
+          "textures": 125
+        },
+        "mirrorUpdates": 2,
+        "shadowEnabled": false,
+        "pixelRatio": 0.85,
+        "visibleFlames": 0,
+        "heldTool": null
+      },
+      "sameBounds": true
+    },
+    {
+      "cpu": 1,
+      "enabled": false,
+      "timing": {
+        "fps": 29.993001632996993,
+        "frames": 180,
+        "p95": 36.099999994039536
+      },
+      "renderer": {
+        "timestamp": 47790.30000001192,
+        "render": {
+          "calls": 1072,
+          "triangles": 309368,
+          "points": 40,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1709,
+          "textures": 125
+        },
+        "mirrorUpdates": 2,
+        "shadowEnabled": false,
+        "pixelRatio": 0.85,
+        "visibleFlames": 0,
+        "heldTool": null
+      },
+      "sameBounds": true
+    },
+    {
+      "cpu": 4,
+      "enabled": false,
+      "timing": {
+        "fps": 7.6442435522581045,
+        "frames": 46,
+        "p95": 214.8999999910593
+      },
+      "renderer": {
+        "timestamp": 56434.90000000596,
+        "render": {
+          "calls": 1072,
+          "triangles": 309368,
+          "points": 40,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1709,
+          "textures": 125
+        },
+        "mirrorUpdates": 2,
+        "shadowEnabled": false,
+        "pixelRatio": 0.85,
+        "visibleFlames": 0,
+        "heldTool": null
+      },
+      "sameBounds": true
+    },
+    {
+      "cpu": 4,
+      "enabled": true,
+      "timing": {
+        "fps": 9.32929064074088,
+        "frames": 56,
+        "p95": 196.19999998807907
+      },
+      "renderer": {
+        "timestamp": 63822.80000001192,
+        "render": {
+          "calls": 798,
+          "triangles": 340150,
+          "points": 40,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1709,
+          "textures": 125
+        },
+        "mirrorUpdates": 2,
+        "shadowEnabled": false,
+        "pixelRatio": 0.85,
+        "visibleFlames": 0,
+        "heldTool": null
+      },
+      "sameBounds": true
+    },
+    {
+      "cpu": 4,
+      "enabled": true,
+      "timing": {
+        "fps": 9.902787634733786,
+        "frames": 60,
+        "p95": 197.79999999701977
+      },
+      "renderer": {
+        "timestamp": 72267,
+        "render": {
+          "calls": 798,
+          "triangles": 340150,
+          "points": 40,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1709,
+          "textures": 125
+        },
+        "mirrorUpdates": 2,
+        "shadowEnabled": false,
+        "pixelRatio": 0.85,
+        "visibleFlames": 0,
+        "heldTool": null
+      },
+      "sameBounds": true
+    },
+    {
+      "cpu": 4,
+      "enabled": false,
+      "timing": {
+        "fps": 6.637131431801736,
+        "frames": 40,
+        "p95": 263
+      },
+      "renderer": {
+        "timestamp": 80944.20000000298,
+        "render": {
+          "calls": 1072,
+          "triangles": 309368,
+          "points": 40,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1709,
+          "textures": 125
+        },
+        "mirrorUpdates": 2,
+        "shadowEnabled": false,
+        "pixelRatio": 0.85,
+        "visibleFlames": 0,
+        "heldTool": null
+      },
+      "sameBounds": true
+    }
+  ]
+}

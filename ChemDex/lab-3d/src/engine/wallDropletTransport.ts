@@ -1,5 +1,5 @@
 import type { ContourPoint } from '../science/vesselContours';
-import { METERS_PER_SCENE_UNIT } from '../science/sceneUnits';
+import { METERS_PER_SCENE_UNIT as DEFAULT_METERS_PER_UNIT } from '../science/sceneUnits';
 import { wallDropCap, wallDropMotion, wallSurfaceSection, wallHeightAtMeridian, wallDropEvaporationG } from '../science/wallDropletGeometry';
 import { evaporateWallFilm, type WallEvaporationBoundary } from '../science/wallFilmEvaporation';
 import { WATER_CP_J_G_K as cp, waterLatentHeatJ_G } from './waterProperties';
@@ -22,6 +22,7 @@ const weightSum = weights.reduce((a, b) => a + b, 0);
  * new, explicitly supplied condensate delivery gives them water. No wrapping.
  * Existing beads keep their location when the fill level changes. */
 export function transportWallBeads(options: {
+  metersPerLocalUnit?: number;
   previous?: WallBead[]; initialMass_g: number; deposited_g: number; evaporated_g: number;
   dt: number; points: readonly ContourPoint[]; bottom: number; top: number;
   temperature_c: number; inner: boolean; maximumDrain_g?: number;
@@ -32,6 +33,7 @@ export function transportWallBeads(options: {
   condensationBoundary?: WallCondensationBoundary;
   admitDrain?: (requested_g: number, previouslyDrained_g: number, previousSensible_J: number, temperature_c: number) => number;
 }) {
+  const METERS_PER_SCENE_UNIT = options.metersPerLocalUnit ?? DEFAULT_METERS_PER_UNIT;
   const { points, bottom, top, inner, temperature_c } = options;
   const diagnostics = { temperature_c, vaporEnergy_J: 0, vaporSensibleEnergy_J: 0, vaporTemperatureMass_c_g: 0,
     motionModel: 'quasi-steady-cap/iapws2008-saturation-reference' as const, motionModelLimit: undefined as string | undefined,
@@ -182,7 +184,7 @@ export function transportWallBeads(options: {
       } else b.mass_g *= keep;
       if (!(b.mass_g > 0)) continue;
       const motion = advanceWallDrop(b.mass_g,filmTemperature,points,b.y,dt,
-        { sectionAt,lowerBoundaryMeridian:bottomMeridian });
+        { sectionAt,lowerBoundaryMeridian:bottomMeridian, metersPerLocalUnit: METERS_PER_SCENE_UNIT });
       if (motion.motionLimit) diagnostics.motionModelLimit = motion.motionLimit;
       contacts[i] = motion.contactRadius_m;
       b.sliding = motion.speed_m_s > 0;

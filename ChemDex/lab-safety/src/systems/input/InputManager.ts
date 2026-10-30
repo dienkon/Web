@@ -186,13 +186,12 @@ export class InputManager {
     this.lookLastX = clientX;
     this.lookLastY = clientY;
 
-    const acceleratedX = Math.sign(dx) * Math.pow(Math.abs(dx), 1.15);
-    const acceleratedY = Math.sign(dy) * Math.pow(Math.abs(dy), 1.15);
-    this.smoothedLookX += (acceleratedX - this.smoothedLookX) * 0.5;
-    this.smoothedLookY += (acceleratedY - this.smoothedLookY) * 0.5;
+    // Preserve displacement even when the browser coalesces pointer events.
+    // Filtering each event changes both the final angle and sensitivity with
+    // event frequency, and discards the remaining movement on finger release.
     const scale = 0.0035 * this.sensitivity;
-    this.lookDelta.x += this.smoothedLookX * scale;
-    this.lookDelta.y += this.smoothedLookY * scale * (this.invertY ? -1 : 1);
+    this.lookDelta.x += dx * scale;
+    this.lookDelta.y += dy * scale * (this.invertY ? -1 : 1);
     return true;
   }
 

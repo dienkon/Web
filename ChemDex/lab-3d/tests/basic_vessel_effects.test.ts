@@ -96,7 +96,8 @@ describe('Commands remain bound to exactly one existing vessel', () => {
     const receipt = effects.forVessel('b').doseLiquid('a', 20);
     expect(receipt.ok).toBe(true); expect(receipt.spilled_ml).toBeCloseTo(15, 8);
     const state = useAppStore.getState();
-    const spillMass = Object.values(state.spills).reduce((s, c) => s + c.mass_g, 0);
+    const spillMass = Object.values(state.spills).reduce((s, c) => s + c.mass_g, 0)
+      + state.inFlightPours.reduce((sum, p) => sum + p.sample.mass_g, 0);
     expect(state.vessels.a.mass_g + state.vessels.b.mass_g + spillMass).toBeCloseTo(100, 9);
     expect(Object.keys(state.vessels)).toEqual(['a', 'b']);
   });
@@ -168,7 +169,7 @@ describe('Water surface thermodynamics and wall budgets', () => {
     const c = sample.wallCondensation!;
     expect(c.drainedOutside_g).toBeGreaterThan(0);
     expect(c.outer_g + c.drainedOutside_g + c.ambientReleased_g).toBeCloseTo(c.ambientCollected_g, 10);
-  }, 15000); // Integrates ten minutes of 1/120-s wall transport, including coalescence.
+  }, 60000); // Ten minutes at 1/120 s, including coalescence: measured ~24 s isolated on this host. Conservation assertions remain unchanged.
   it('shares one store vapor budget between the wall, condenser and plume', () => {
     setup();
     useAppStore.setState({ vessels: {

@@ -47,8 +47,9 @@ export function bubbleResponseTime(radius_m: number, liquidDensity_kg_m3: number
  * Nonlinear drag is frozen at at least terminal slip for this small substep. */
 export function advanceBubbleMotion(position: [number, number, number], velocity: [number, number, number],
   fluidVelocity: [number, number, number], radius_m: number, density: number, viscosity: number,
-  dt: number, mobility: BubbleInterfaceMobility = 'immobile') {
-  if (![...position, ...velocity, ...fluidVelocity, radius_m, density, viscosity, dt].every(Number.isFinite)
+  dt: number, mobility: BubbleInterfaceMobility = 'immobile', up: readonly [number, number, number] = [0, 1, 0]) {
+  if (![...position, ...velocity, ...fluidVelocity, ...up, radius_m, density, viscosity, dt].every(Number.isFinite)
+    || !(Math.hypot(...up) > 0)
     || dt <= 0 || radius_m <= 0 || density <= 0 || viscosity <= 0) {
     return { position: [...position] as [number, number, number], velocity: [...velocity] as [number, number, number],
       terminal_m_s: 0, responseTime_s: 0 };
@@ -57,7 +58,8 @@ export function advanceBubbleMotion(position: [number, number, number], velocity
   const slip = Math.max(terminal, Math.hypot(...velocity.map((u, i) => u - fluidVelocity[i])));
   const tau = bubbleResponseTime(radius_m, density, viscosity, slip, mobility);
   const f = particleResponseFactors(dt, tau);
-  const target = [fluidVelocity[0], fluidVelocity[1] + terminal, fluidVelocity[2]];
+  const length = Math.hypot(...up);
+  const target = fluidVelocity.map((u, i) => u + terminal * up[i] / length);
   return { position: position.map((x, i) => x + velocity[i] * f.initialTime_s + target[i] * f.targetTime_s) as [number, number, number],
     velocity: velocity.map((u, i) => u + (target[i] - u) * f.relaxation) as [number, number, number],
     terminal_m_s: terminal, responseTime_s: tau };

@@ -156,14 +156,14 @@ describe('Finite suspended-solid sampling and pour transport', () => {
     const { source, manager, mobile } = setupSlurry(), target = vessel('pipette-target', [], 0);
     useAppStore.setState({ vessels: { [source.id]: source, [target.id]: target }, selectedVesselId: source.id,
       vesselIds: [source.id, target.id], moveMode: false, burners: {}, activeKinetics: {}, pendingReactions: {}, dissolvingSubstances: {} });
-    useInstrumentStore.getState().setSample(null);
+    useAppStore.getState().setPipetteSample(null);
     expect(aspiratePipette(10).ok).toBe(true);
-    expect(solidMass(useInstrumentStore.getState().pipetteSample!.contents)).toBeCloseTo(
+    expect(solidMass(useAppStore.getState().pipetteSample!.contents)).toBeCloseTo(
       Object.values(mobile).reduce((s, c) => s + c.suspendedMass_g * 0.1, 0), 12);
     expect(dispensePipette(10, target.id).ok).toBe(true);
     const state = useAppStore.getState();
     expectConservation(source.contents, [...state.vessels[source.id].contents, ...state.vessels[target.id].contents,
-      ...(useInstrumentStore.getState().pipetteSample?.contents ?? [])]);
+      ...(useAppStore.getState().pipetteSample?.contents ?? [])]);
     manager.step(state.vessels[source.id], 1e-9, { thermalStateAuthoritative: true });
     expect(manager.precipitationSystems.get('AgBr')!.representedMass_g).toBeCloseTo(solidMass(state.vessels[source.id].contents, 'AgBr'), 12);
   });

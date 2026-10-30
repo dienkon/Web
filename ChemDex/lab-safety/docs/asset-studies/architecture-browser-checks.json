@@ -1,0 +1,633 @@
+{
+  "passed": true,
+  "checks": [
+    "finite solid geometry: lab-door/front",
+    "finite solid geometry: lab-door/three-quarter",
+    "bottom rests on support plane: lab-door",
+    "bounded asset draw calls: lab-door / 32",
+    "finite solid geometry: lab-door/back",
+    "finite solid geometry: lab-door/top",
+    "finite solid geometry: transom-window/front",
+    "finite solid geometry: transom-window/three-quarter",
+    "bottom rests on support plane: transom-window",
+    "bounded asset draw calls: transom-window / 6",
+    "finite solid geometry: transom-window/back",
+    "finite solid geometry: transom-window/top",
+    "finite solid geometry: north-wall/front",
+    "finite solid geometry: north-wall/three-quarter",
+    "bottom rests on support plane: north-wall",
+    "bounded asset draw calls: north-wall / 1",
+    "finite solid geometry: north-wall/back",
+    "finite solid geometry: north-wall/top",
+    "finite solid geometry: led-panel/front",
+    "finite solid geometry: led-panel/three-quarter",
+    "bottom rests on support plane: led-panel",
+    "bounded asset draw calls: led-panel / 6",
+    "finite solid geometry: led-panel/back",
+    "finite solid geometry: led-panel/top",
+    "finite solid geometry: vent-grille/front",
+    "finite solid geometry: vent-grille/three-quarter",
+    "bottom rests on support plane: vent-grille",
+    "bounded asset draw calls: vent-grille / 6",
+    "finite solid geometry: vent-grille/back",
+    "finite solid geometry: vent-grille/top",
+    "finite solid geometry: ventilation-duct/front",
+    "finite solid geometry: ventilation-duct/three-quarter",
+    "bottom rests on support plane: ventilation-duct",
+    "bounded asset draw calls: ventilation-duct / 10",
+    "finite solid geometry: ventilation-duct/back",
+    "finite solid geometry: ventilation-duct/top",
+    "finite solid geometry: hood-exhaust/front",
+    "finite solid geometry: hood-exhaust/three-quarter",
+    "bottom rests on support plane: hood-exhaust",
+    "bounded asset draw calls: hood-exhaust / 3",
+    "finite solid geometry: hood-exhaust/back",
+    "finite solid geometry: hood-exhaust/top",
+    "finite solid geometry: smoke-detector/front",
+    "finite solid geometry: smoke-detector/three-quarter",
+    "bottom rests on support plane: smoke-detector",
+    "bounded asset draw calls: smoke-detector / 5",
+    "finite solid geometry: smoke-detector/back",
+    "finite solid geometry: smoke-detector/top",
+    "finite solid geometry: sprinkler/front",
+    "finite solid geometry: sprinkler/three-quarter",
+    "bottom rests on support plane: sprinkler",
+    "bounded asset draw calls: sprinkler / 6",
+    "finite solid geometry: sprinkler/back",
+    "finite solid geometry: sprinkler/top",
+    "finite solid geometry: wall-clock/front",
+    "finite solid geometry: wall-clock/three-quarter",
+    "bottom rests on support plane: wall-clock",
+    "bounded asset draw calls: wall-clock / 9",
+    "finite solid geometry: wall-clock/back",
+    "finite solid geometry: wall-clock/top",
+    "finite solid geometry: whiteboard-marker/front",
+    "finite solid geometry: whiteboard-marker/three-quarter",
+    "bottom rests on support plane: whiteboard-marker",
+    "bounded asset draw calls: whiteboard-marker / 3",
+    "finite solid geometry: whiteboard-marker/back",
+    "finite solid geometry: whiteboard-marker/top",
+    "finite solid geometry: whiteboard-eraser/front",
+    "finite solid geometry: whiteboard-eraser/three-quarter",
+    "bottom rests on support plane: whiteboard-eraser",
+    "bounded asset draw calls: whiteboard-eraser / 2",
+    "finite solid geometry: whiteboard-eraser/back",
+    "finite solid geometry: whiteboard-eraser/top",
+    "finite solid geometry: ghs-board/front",
+    "finite solid geometry: ghs-board/three-quarter",
+    "bottom rests on support plane: ghs-board",
+    "bounded asset draw calls: ghs-board / 31",
+    "finite solid geometry: ghs-board/back",
+    "finite solid geometry: ghs-board/top",
+    "finite solid geometry: periodic-board/front",
+    "finite solid geometry: periodic-board/three-quarter",
+    "bottom rests on support plane: periodic-board",
+    "bounded asset draw calls: periodic-board / 3",
+    "finite solid geometry: periodic-board/back",
+    "finite solid geometry: periodic-board/top",
+    "finite solid geometry: lesson-board/front",
+    "finite solid geometry: lesson-board/three-quarter",
+    "bottom rests on support plane: lesson-board",
+    "bounded asset draw calls: lesson-board / 16",
+    "finite solid geometry: lesson-board/back",
+    "finite solid geometry: lesson-board/top",
+    "finite solid geometry: evacuation-board/front",
+    "finite solid geometry: evacuation-board/three-quarter",
+    "bottom rests on support plane: evacuation-board",
+    "bounded asset draw calls: evacuation-board / 3",
+    "finite solid geometry: evacuation-board/back",
+    "finite solid geometry: evacuation-board/top",
+    "finite solid geometry: rules-board/front",
+    "finite solid geometry: rules-board/three-quarter",
+    "bottom rests on support plane: rules-board",
+    "bounded asset draw calls: rules-board / 3",
+    "finite solid geometry: rules-board/back",
+    "finite solid geometry: rules-board/top",
+    "finite solid geometry: teaching-bench/front",
+    "finite solid geometry: teaching-bench/three-quarter",
+    "bottom rests on support plane: teaching-bench",
+    "bounded asset draw calls: teaching-bench / 48",
+    "finite solid geometry: teaching-bench/back",
+    "finite solid geometry: teaching-bench/top",
+    "finite solid geometry: bag-rack/front",
+    "finite solid geometry: bag-rack/three-quarter",
+    "bottom rests on support plane: bag-rack",
+    "bounded asset draw calls: bag-rack / 4",
+    "finite solid geometry: bag-rack/back",
+    "finite solid geometry: bag-rack/top",
+    "no runtime exceptions while rendering all asset studies"
+  ],
+  "errors": [],
+  "snapshots": [
+    {
+      "id": "lab-door",
+      "min": [
+        -1.0800000429153442,
+        0,
+        -0.05000000074505806
+      ],
+      "max": [
+        1.0800000429153442,
+        2.6800050061941145,
+        0.0925000000745058
+      ],
+      "size": [
+        2.1600000858306885,
+        2.6800050061941145,
+        0.14250000081956388
+      ],
+      "meshes": 27,
+      "triangles": 8750,
+      "calls": 32,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-lab-door",
+        "door-leaf-left",
+        "door-leaf-right"
+      ],
+      "textures": 7
+    },
+    {
+      "id": "transom-window",
+      "min": [
+        -1.4299999475479126,
+        -2.1606683716507424e-10,
+        -0.03999999910593033
+      ],
+      "max": [
+        1.4299999475479126,
+        0.5500000258907676,
+        0.0799999986588955
+      ],
+      "size": [
+        2.859999895095825,
+        0.5500000261068344,
+        0.11999999776482582
+      ],
+      "meshes": 5,
+      "triangles": 764,
+      "calls": 6,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-transom-window"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "north-wall",
+      "min": [
+        -10,
+        0,
+        -7.6
+      ],
+      "max": [
+        10,
+        3.799999952316284,
+        -7.399999997019767
+      ],
+      "size": [
+        20,
+        3.799999952316284,
+        0.20000000298023224
+      ],
+      "meshes": 1,
+      "triangles": 476,
+      "calls": 1,
+      "invalidVertices": 0,
+      "parts": [
+        "north-wall-with-window-openings"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "led-panel",
+      "min": [
+        -0.7000049948692322,
+        -0.0000050012767314894235,
+        -0.20000000298023224
+      ],
+      "max": [
+        0.7000049948692322,
+        0.03500500127673149,
+        0.20000000298023224
+      ],
+      "size": [
+        1.4000099897384644,
+        0.03501000255346298,
+        0.4000000059604645
+      ],
+      "meshes": 6,
+      "triangles": 878,
+      "calls": 6,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-led-panel"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "vent-grille",
+      "min": [
+        -0.25,
+        0,
+        -0.019999999552965164
+      ],
+      "max": [
+        0.25,
+        0.2199999988079071,
+        0.024500000013038516
+      ],
+      "size": [
+        0.5,
+        0.2199999988079071,
+        0.04449999956600368
+      ],
+      "meshes": 6,
+      "triangles": 184,
+      "calls": 6,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-vent-grille"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "ventilation-duct",
+      "min": [
+        -1.505196152254939,
+        0.0010000056028366122,
+        -0.16600000005215407
+      ],
+      "max": [
+        1.505196152254939,
+        0.4,
+        0.16600000005215407
+      ],
+      "size": [
+        3.010392304509878,
+        0.3989999943971634,
+        0.33200000010430814
+      ],
+      "meshes": 10,
+      "triangles": 2304,
+      "calls": 10,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-ventilation-duct"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "hood-exhaust",
+      "min": [
+        -0.18400000035762787,
+        1.341104505225843e-9,
+        -0.18400000035762787
+      ],
+      "max": [
+        0.18400000035762787,
+        0.990378737449646,
+        2.0000100135803223
+      ],
+      "size": [
+        0.36800000071525574,
+        0.9903787361085414,
+        2.18401001393795
+      ],
+      "meshes": 3,
+      "triangles": 976,
+      "calls": 3,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-hood-exhaust"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "smoke-detector",
+      "min": [
+        -0.08500000089406967,
+        0,
+        -0.08500000089406967
+      ],
+      "max": [
+        0.08500000089406967,
+        0.051,
+        0.08500000089406967
+      ],
+      "size": [
+        0.17000000178813934,
+        0.051,
+        0.17000000178813934
+      ],
+      "meshes": 4,
+      "triangles": 498,
+      "calls": 5,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-smoke-detector"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "sprinkler",
+      "min": [
+        -0.03799999877810478,
+        -2.1606683716507424e-10,
+        -0.03799999877810478
+      ],
+      "max": [
+        0.03799999877810478,
+        0.09450000221841037,
+        0.03799999877810478
+      ],
+      "size": [
+        0.07599999755620956,
+        0.0945000024344772,
+        0.07599999755620956
+      ],
+      "meshes": 6,
+      "triangles": 992,
+      "calls": 6,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-sprinkler"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "wall-clock",
+      "min": [
+        -0.2199999988079071,
+        1.1920928966180355e-9,
+        -0.017500000074505855
+      ],
+      "max": [
+        0.2199999988079071,
+        0.4399999988079071,
+        0.034
+      ],
+      "size": [
+        0.4399999976158142,
+        0.4399999976158142,
+        0.05150000007450586
+      ],
+      "meshes": 8,
+      "triangles": 306,
+      "calls": 9,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-wall-clock"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "whiteboard-marker",
+      "min": [
+        -0.00800000037997961,
+        -3.7997961374602873e-10,
+        -0.08800000010430813
+      ],
+      "max": [
+        0.00800000037997961,
+        0.017505000051110983,
+        0.07000000029802322
+      ],
+      "size": [
+        0.01600000075995922,
+        0.017505000431090597,
+        0.15800000040233136
+      ],
+      "meshes": 3,
+      "triangles": 844,
+      "calls": 3,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-whiteboard-marker"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "whiteboard-eraser",
+      "min": [
+        -0.0525050014257431,
+        -1.899898051382909e-10,
+        -0.027499999850988388
+      ],
+      "max": [
+        0.0525050014257431,
+        0.03300500045716763,
+        0.027499999850988388
+      ],
+      "size": [
+        0.1050100028514862,
+        0.03300500064715743,
+        0.054999999701976776
+      ],
+      "meshes": 2,
+      "triangles": 728,
+      "calls": 2,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-whiteboard-eraser"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "ghs-board",
+      "min": [
+        -1.4000049829483032,
+        -0.000004959106445268091,
+        -0.017500000074505806
+      ],
+      "max": [
+        1.4000049829483032,
+        1.6000049591064454,
+        0.028
+      ],
+      "size": [
+        2.8000099658966064,
+        1.6000099182128906,
+        0.0455000000745058
+      ],
+      "meshes": 21,
+      "triangles": 766,
+      "calls": 31,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-ghs-board",
+        "asset-board-frame"
+      ],
+      "textures": 23
+    },
+    {
+      "id": "periodic-board",
+      "min": [
+        -1.4000049829483032,
+        -0.000004959106445268091,
+        -0.017500000074505806
+      ],
+      "max": [
+        1.4000049829483032,
+        1.6000049591064454,
+        0.025
+      ],
+      "size": [
+        2.8000099658966064,
+        1.6000099182128906,
+        0.04250000007450581
+      ],
+      "meshes": 3,
+      "triangles": 730,
+      "calls": 3,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-periodic-board",
+        "asset-board-frame"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "lesson-board",
+      "min": [
+        -2.6000049114227295,
+        -0.000004982948303200452,
+        -0.017500000074505806
+      ],
+      "max": [
+        2.6000049114227295,
+        1.8000049829483031,
+        0.12000000178813934
+      ],
+      "size": [
+        5.200009822845459,
+        1.8000099658966064,
+        0.13750000186264516
+      ],
+      "meshes": 16,
+      "triangles": 4014,
+      "calls": 16,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-lesson-board",
+        "asset-board-frame",
+        "whiteboard-tray",
+        "asset-whiteboard-marker",
+        "asset-whiteboard-marker",
+        "asset-whiteboard-marker",
+        "asset-whiteboard-eraser"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "evacuation-board",
+      "min": [
+        -0.6000049710273743,
+        -0.000005018711090098993,
+        -0.017500000074505806
+      ],
+      "max": [
+        0.6000049710273743,
+        0.8500050187110901,
+        0.025
+      ],
+      "size": [
+        1.2000099420547485,
+        0.8500100374221802,
+        0.04250000007450581
+      ],
+      "meshes": 3,
+      "triangles": 730,
+      "calls": 3,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-evacuation-board",
+        "asset-board-frame"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "rules-board",
+      "min": [
+        -0.6000049710273743,
+        -0.000005018711090098993,
+        -0.017500000074505806
+      ],
+      "max": [
+        0.6000049710273743,
+        0.8500050187110901,
+        0.025
+      ],
+      "size": [
+        1.2000099420547485,
+        0.8500100374221802,
+        0.04250000007450581
+      ],
+      "meshes": 3,
+      "triangles": 730,
+      "calls": 3,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-rules-board",
+        "asset-board-frame"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "teaching-bench",
+      "min": [
+        -1.5000050067901611,
+        0,
+        -0.5499999523162842
+      ],
+      "max": [
+        1.5000050067901611,
+        0.9000049997121096,
+        0.5499999523162842
+      ],
+      "size": [
+        3.0000100135803223,
+        0.9000049997121096,
+        1.0999999046325684
+      ],
+      "meshes": 48,
+      "triangles": 12544,
+      "calls": 48,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-teaching-bench",
+        "asset-drawer",
+        "asset-drawer",
+        "asset-drawer",
+        "asset-drawer"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "bag-rack",
+      "min": [
+        -0.8000000240281224,
+        0,
+        -0.22499999403953552
+      ],
+      "max": [
+        0.8000000240281224,
+        0.8999999882653356,
+        0.22499999977648258
+      ],
+      "size": [
+        1.6000000480562449,
+        0.8999999882653356,
+        0.4499999938160181
+      ],
+      "meshes": 4,
+      "triangles": 48,
+      "calls": 4,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-bag-rack"
+      ],
+      "textures": 4
+    }
+  ]
+}

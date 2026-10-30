@@ -14,11 +14,14 @@
     "build": "node scripts/build-platform.mjs",
     "build:static": "node scripts/build-platform.mjs --static-only",
     "build-lab-2d": "npm --prefix lab-2d run build",
-    "test:platform": "node --test tests/platform.test.mjs",
+    "test:platform": "node --test tests/platform.test.mjs tests/workspace.test.mjs",
     "test:browser": "playwright test",
     "test:preview": "node scripts/test-preview.mjs",
     "preview": "node scripts/preview.mjs",
-    "lint:api": "tsc -p tsconfig.server.json"
+    "lint:api": "tsc -p tsconfig.server.json",
+    "catalog:build": "node scripts/build-reaction-data.mjs",
+    "catalog:audit": "node scripts/audit-reaction-catalog.mjs",
+    "test:reactions": "node --test tests/reaction-catalog.test.mjs tests/reaction-chain-api.test.mjs"
   },
   "dependencies": {
     "@google/genai": "^1.17.0",

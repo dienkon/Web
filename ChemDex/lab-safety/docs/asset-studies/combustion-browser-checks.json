@@ -1,0 +1,382 @@
+{
+  "passed": true,
+  "checks": [
+    "finite solid geometry: bunsen/front",
+    "finite solid geometry: bunsen/three-quarter",
+    "bottom rests on support plane: bunsen",
+    "bounded asset draw calls: bunsen / 15",
+    "finite solid geometry: bunsen/back",
+    "finite solid geometry: bunsen/top",
+    "finite solid geometry: bunsen-blue/front",
+    "finite solid geometry: bunsen-blue/three-quarter",
+    "bottom rests on support plane: bunsen-blue",
+    "bounded asset draw calls: bunsen-blue / 17",
+    "finite solid geometry: bunsen-blue/back",
+    "finite solid geometry: bunsen-blue/top",
+    "finite solid geometry: bunsen-yellow/front",
+    "finite solid geometry: bunsen-yellow/three-quarter",
+    "bottom rests on support plane: bunsen-yellow",
+    "bounded asset draw calls: bunsen-yellow / 17",
+    "finite solid geometry: bunsen-yellow/back",
+    "finite solid geometry: bunsen-yellow/top",
+    "finite solid geometry: bunsen-assembly/front",
+    "finite solid geometry: bunsen-assembly/three-quarter",
+    "bottom rests on support plane: bunsen-assembly",
+    "bounded asset draw calls: bunsen-assembly / 31",
+    "finite solid geometry: bunsen-assembly/back",
+    "finite solid geometry: bunsen-assembly/top",
+    "finite solid geometry: gas-tap/front",
+    "finite solid geometry: gas-tap/three-quarter",
+    "bottom rests on support plane: gas-tap",
+    "bounded asset draw calls: gas-tap / 7",
+    "finite solid geometry: gas-tap/back",
+    "finite solid geometry: gas-tap/top",
+    "finite solid geometry: gas-hose/front",
+    "finite solid geometry: gas-hose/three-quarter",
+    "bottom rests on support plane: gas-hose",
+    "bounded asset draw calls: gas-hose / 5",
+    "finite solid geometry: gas-hose/back",
+    "finite solid geometry: gas-hose/top",
+    "finite solid geometry: tripod/front",
+    "finite solid geometry: tripod/three-quarter",
+    "bottom rests on support plane: tripod",
+    "bounded asset draw calls: tripod / 6",
+    "finite solid geometry: tripod/back",
+    "finite solid geometry: tripod/top",
+    "finite solid geometry: alcohol-lamp/front",
+    "finite solid geometry: alcohol-lamp/three-quarter",
+    "bottom rests on support plane: alcohol-lamp",
+    "bounded asset draw calls: alcohol-lamp / 9",
+    "finite solid geometry: alcohol-lamp/back",
+    "finite solid geometry: alcohol-lamp/top",
+    "finite solid geometry: alcohol-lit/front",
+    "finite solid geometry: alcohol-lit/three-quarter",
+    "bottom rests on support plane: alcohol-lit",
+    "bounded asset draw calls: alcohol-lit / 15",
+    "finite solid geometry: alcohol-lit/back",
+    "finite solid geometry: alcohol-lit/top",
+    "finite solid geometry: alcohol-covered/front",
+    "finite solid geometry: alcohol-covered/three-quarter",
+    "bottom rests on support plane: alcohol-covered",
+    "bounded asset draw calls: alcohol-covered / 13",
+    "finite solid geometry: alcohol-covered/back",
+    "finite solid geometry: alcohol-covered/top",
+    "finite solid geometry: snuffer-cap/front",
+    "finite solid geometry: snuffer-cap/three-quarter",
+    "bottom rests on support plane: snuffer-cap",
+    "bounded asset draw calls: snuffer-cap / 3",
+    "finite solid geometry: snuffer-cap/back",
+    "finite solid geometry: snuffer-cap/top",
+    "no runtime exceptions while rendering all asset studies"
+  ],
+  "errors": [],
+  "snapshots": [
+    {
+      "id": "bunsen",
+      "min": [
+        -0.08399999886751175,
+        -2.682209020860027e-10,
+        -0.08399999886751175
+      ],
+      "max": [
+        0.08399999886751175,
+        0.22473205079045147,
+        0.08399999886751175
+      ],
+      "size": [
+        0.1679999977350235,
+        0.22473205105867236,
+        0.1679999977350235
+      ],
+      "meshes": 14,
+      "triangles": 3726,
+      "calls": 15,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-bunsen",
+        "bunsen-barrel",
+        "bunsen-air-collar"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "bunsen-blue",
+      "min": [
+        -0.08399999886751175,
+        -2.682209020860027e-10,
+        -0.08399999886751175
+      ],
+      "max": [
+        0.08399999886751175,
+        0.3620006639054488,
+        0.08399999886751175
+      ],
+      "size": [
+        0.1679999977350235,
+        0.3620006641736697,
+        0.1679999977350235
+      ],
+      "meshes": 16,
+      "triangles": 4246,
+      "calls": 17,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-bunsen",
+        "bunsen-barrel",
+        "bunsen-air-collar",
+        "asset-bunsen-flame"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "bunsen-yellow",
+      "min": [
+        -0.08399999886751175,
+        -2.682209020860027e-10,
+        -0.08399999886751175
+      ],
+      "max": [
+        0.08399999886751175,
+        0.39137952010350124,
+        0.08399999886751175
+      ],
+      "size": [
+        0.1679999977350235,
+        0.39137952037172213,
+        0.1679999977350235
+      ],
+      "meshes": 16,
+      "triangles": 4246,
+      "calls": 17,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-bunsen",
+        "bunsen-barrel",
+        "bunsen-air-collar",
+        "asset-bunsen-flame"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "bunsen-assembly",
+      "min": [
+        -0.11655928194522858,
+        -0.0031550780404359102,
+        -0.09399999678134918
+      ],
+      "max": [
+        0.3359999984502792,
+        0.4100000000130385,
+        0.2210761457681656
+      ],
+      "size": [
+        0.4525592803955078,
+        0.4131550780534744,
+        0.31507614254951477
+      ],
+      "meshes": 29,
+      "triangles": 8432,
+      "calls": 31,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-bunsen-assembly",
+        "asset-bunsen",
+        "bunsen-barrel",
+        "bunsen-air-collar",
+        "asset-bunsen-flame",
+        "asset-gas-tap",
+        "gas-tap-lever",
+        "asset-tripod"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "gas-tap",
+      "min": [
+        -0.04250499978661537,
+        3.8743019036002746e-10,
+        -0.035999998450279236
+      ],
+      "max": [
+        0.04250499978661537,
+        0.11049999994412066,
+        0.035999998450279236
+      ],
+      "size": [
+        0.08500999957323074,
+        0.11049999955669047,
+        0.07199999690055847
+      ],
+      "meshes": 6,
+      "triangles": 1614,
+      "calls": 7,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-gas-tap",
+        "gas-tap-lever"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "gas-hose",
+      "min": [
+        -0.2626000000163913,
+        -0.002139184856787324,
+        -0.104000001847744
+      ],
+      "max": [
+        0.2626000000163913,
+        0.042600000016391276,
+        0.16796916723251343
+      ],
+      "size": [
+        0.5252000000327826,
+        0.0447391848731786,
+        0.2719691690802574
+      ],
+      "meshes": 5,
+      "triangles": 2400,
+      "calls": 5,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-gas-hose"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "tripod",
+      "min": [
+        -0.11655928194522858,
+        0.0034955660812556744,
+        -0.09399999678134918
+      ],
+      "max": [
+        0.11655928194522858,
+        0.4100000000130385,
+        0.1339680701494217
+      ],
+      "size": [
+        0.23311856389045715,
+        0.4065044339317828,
+        0.22796806693077087
+      ],
+      "meshes": 6,
+      "triangles": 2060,
+      "calls": 6,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-tripod"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "alcohol-lamp",
+      "min": [
+        -0.09000000357627869,
+        0,
+        -0.09000000357627869
+      ],
+      "max": [
+        0.09000000357627869,
+        0.19799999966472387,
+        0.09000000357627869
+      ],
+      "size": [
+        0.18000000715255737,
+        0.19799999966472387,
+        0.18000000715255737
+      ],
+      "meshes": 7,
+      "triangles": 3176,
+      "calls": 9,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-alcohol-lamp"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "alcohol-lit",
+      "min": [
+        -0.2400050014257431,
+        -0.000004999883472920144,
+        -0.14999999105930328
+      ],
+      "max": [
+        0.2400050014257431,
+        0.33854185114187885,
+        0.14999999105930328
+      ],
+      "size": [
+        0.4800100028514862,
+        0.33854685102535176,
+        0.29999998211860657
+      ],
+      "meshes": 13,
+      "triangles": 5964,
+      "calls": 15,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-alcohol-station",
+        "asset-alcohol-lamp",
+        "asset-alcohol-flame",
+        "asset-snuffer-cap"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "alcohol-covered",
+      "min": [
+        -0.2400050014257431,
+        -0.000004999883472920144,
+        -0.14999999105930328
+      ],
+      "max": [
+        0.2400050014257431,
+        0.2594999995827675,
+        0.14999999105930328
+      ],
+      "size": [
+        0.4800100028514862,
+        0.2595049994662404,
+        0.29999998211860657
+      ],
+      "meshes": 11,
+      "triangles": 5444,
+      "calls": 13,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-alcohol-station",
+        "asset-alcohol-lamp",
+        "asset-snuffer-cap"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "snuffer-cap",
+      "min": [
+        -0.04500000178813934,
+        0,
+        -0.04500000178813934
+      ],
+      "max": [
+        0.04500000178813934,
+        0.09749999958276749,
+        0.04500000178813934
+      ],
+      "size": [
+        0.09000000357627869,
+        0.09749999958276749,
+        0.09000000357627869
+      ],
+      "meshes": 3,
+      "triangles": 1552,
+      "calls": 3,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-snuffer-cap"
+      ],
+      "textures": 4
+    }
+  ]
+}

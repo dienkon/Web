@@ -15,6 +15,8 @@ export type PPEItem = 'goggles' | 'gloves' | 'fume_hood' | 'lab_coat';
 export type SolidMorphology = 
   | 'POWDER' 
   | 'RIBBON' 
+  | 'FOIL'
+  | 'NAIL'
   | 'TURNINGS' 
   | 'FILINGS' 
   | 'GRANULES' 
@@ -86,6 +88,7 @@ export type VesselType =
   | 'hot_plate';
 
 export interface VesselState {
+  stirringIntensity?: number; // 0..1 operational control; not a measured shear rate
   bubbleInterfaceMobility?: import('../science/bubbleRise').BubbleInterfaceMobility;
   gasFlux?: import('../engine/gasFlux').GasFlux;
   hydrogenCombustion?: import('../engine/hydrogenExhaustCombustion').HydrogenExhaustCombustion;
@@ -123,6 +126,9 @@ export interface VesselState {
   // Derived from wall-stage pour parcels, excluded from contents/mass_g until pool contact.
   wallCoating_ml?: number;
   wallCoatingMass_g?: number;
+  // Mirrors of exterior parcels for weighing only; material stays in inFlightPours.
+  outerWallCoating_ml?: number;
+  outerWallCoatingMass_g?: number;
   recentPourContact?: { point: [number, number, number]; expiresAt_ms: number };
   bodyRevision?: number;
   tare_g?: number; // tare weight of empty vessel in grams
@@ -321,6 +327,7 @@ export interface ReactionRecord {
 }
 
 export interface LabMaterialSnapshot {
+  pipetteSample?: import('../handling/aliquot').LiquidAliquot | null;
   glassDebris?: import('../damage/Shards').ShardSnapshot;
   inFlightPours: import('../engine/pourTransport').PourParcel[];
   spills: Record<string, SpillState>;

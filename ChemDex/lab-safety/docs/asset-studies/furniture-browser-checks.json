@@ -1,0 +1,219 @@
+{
+  "passed": true,
+  "checks": [
+    "finite solid geometry: bench-cabinet/front",
+    "finite solid geometry: bench-cabinet/three-quarter",
+    "bottom rests on support plane: bench-cabinet",
+    "bounded asset draw calls: bench-cabinet / 68",
+    "finite solid geometry: bench-cabinet/back",
+    "finite solid geometry: bench-cabinet/top",
+    "finite solid geometry: drawer/front",
+    "finite solid geometry: drawer/three-quarter",
+    "bottom rests on support plane: drawer",
+    "bounded asset draw calls: drawer / 10",
+    "finite solid geometry: drawer/back",
+    "finite solid geometry: drawer/top",
+    "finite solid geometry: drawer-open/front",
+    "finite solid geometry: drawer-open/three-quarter",
+    "bottom rests on support plane: drawer-open",
+    "bounded asset draw calls: drawer-open / 10",
+    "finite solid geometry: drawer-open/back",
+    "finite solid geometry: drawer-open/top",
+    "finite solid geometry: stool/front",
+    "finite solid geometry: stool/three-quarter",
+    "bottom rests on support plane: stool",
+    "bounded asset draw calls: stool / 19",
+    "finite solid geometry: stool/back",
+    "finite solid geometry: stool/top",
+    "finite solid geometry: reagent-rack/front",
+    "finite solid geometry: reagent-rack/three-quarter",
+    "bottom rests on support plane: reagent-rack",
+    "bounded asset draw calls: reagent-rack / 18",
+    "finite solid geometry: reagent-rack/back",
+    "finite solid geometry: reagent-rack/top",
+    "finite solid geometry: stirring-rod/front",
+    "finite solid geometry: stirring-rod/three-quarter",
+    "bottom rests on support plane: stirring-rod",
+    "bounded asset draw calls: stirring-rod / 6",
+    "finite solid geometry: stirring-rod/back",
+    "finite solid geometry: stirring-rod/top",
+    "no runtime exceptions while rendering all asset studies"
+  ],
+  "errors": [],
+  "snapshots": [
+    {
+      "id": "bench-cabinet",
+      "min": [
+        -1.6000000331550837,
+        0,
+        -0.6999999973922968
+      ],
+      "max": [
+        1.6000000331550837,
+        1.170142216308117,
+        0.6999999973922968
+      ],
+      "size": [
+        3.2000000663101673,
+        1.170142216308117,
+        1.3999999947845936
+      ],
+      "meshes": 65,
+      "triangles": 19704,
+      "calls": 68,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-bench-cabinet",
+        "bench-sink-service-bay",
+        "drawer-slide-study-bench-drawer-0-0",
+        "asset-drawer",
+        "drawer-slide-study-bench-drawer-0-1",
+        "asset-drawer",
+        "drawer-slide-study-bench-drawer-1-0",
+        "asset-drawer",
+        "drawer-slide-study-bench-drawer-1-1",
+        "asset-drawer",
+        "countertop-with-openings",
+        "asset-bench-sink",
+        "asset-sink-basin",
+        "basin-hollow-shell",
+        "basin-floor-with-drain",
+        "basin-drain-grate",
+        "asset-faucet",
+        "asset-gas-tap",
+        "gas-tap-lever"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "drawer",
+      "min": [
+        -0.48000502586364746,
+        -0.000005003213882442958,
+        -0.5350000262260437
+      ],
+      "max": [
+        0.48000502586364746,
+        0.3200050032138825,
+        0.612499999858439
+      ],
+      "size": [
+        0.9600100517272949,
+        0.3200100064277649,
+        1.1475000260844825
+      ],
+      "meshes": 10,
+      "triangles": 2936,
+      "calls": 10,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-drawer"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "drawer-open",
+      "min": [
+        -0.48000502586364746,
+        -0.000005003213882442958,
+        -0.31500002622604373
+      ],
+      "max": [
+        0.48000502586364746,
+        0.3200050032138825,
+        0.8324999998584389
+      ],
+      "size": [
+        0.9600100517272949,
+        0.3200100064277649,
+        1.1475000260844825
+      ],
+      "meshes": 10,
+      "triangles": 2936,
+      "calls": 10,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-drawer"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "stool",
+      "min": [
+        -0.2100644737317882,
+        -1.0430812810713341e-10,
+        -0.18123045078198635
+      ],
+      "max": [
+        0.2100644737317882,
+        0.6225000008940696,
+        0.220000000923872
+      ],
+      "size": [
+        0.4201289474635764,
+        0.6225000009983778,
+        0.40123045170585836
+      ],
+      "meshes": 19,
+      "triangles": 5988,
+      "calls": 19,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-stool"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "reagent-rack",
+      "min": [
+        -1.2000000476837158,
+        -1.19209286886246e-9,
+        -0.14000000059604645
+      ],
+      "max": [
+        1.2000000476837158,
+        0.5600000011920929,
+        0.15450000039767475
+      ],
+      "size": [
+        2.4000000953674316,
+        0.5600000023841858,
+        0.2945000009937212
+      ],
+      "meshes": 16,
+      "triangles": 1988,
+      "calls": 18,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-reagent-rack"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "stirring-rod",
+      "min": [
+        -0.004999999888241291,
+        1.1175867349610957e-10,
+        -0.1649999998882413
+      ],
+      "max": [
+        0.004999999888241291,
+        0.009999999888241327,
+        0.1649999998882413
+      ],
+      "size": [
+        0.009999999776482582,
+        0.009999999776482653,
+        0.3299999997764826
+      ],
+      "meshes": 3,
+      "triangles": 400,
+      "calls": 6,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-stirring-rod"
+      ],
+      "textures": 4
+    }
+  ]
+}

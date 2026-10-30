@@ -3,7 +3,8 @@ export type PropKind =
   | 'bottle' | 'beaker' | 'glass' | 'burner' | 'hose'
   | 'cabinet' | 'pipette' | 'centrifuge' | 'crate'
   | 'goggles' | 'gloves' | 'waste' | 'vacuum' | 'tray'
-  | 'switch' | 'label' | 'barrier';
+  | 'switch' | 'label' | 'barrier'
+  | 'tongs' | 'bulb' | 'hotplate' | 'phone' | 'eyewash' | 'sink' | 'vacuumFlask' | 'valve' | 'tube' | 'shard' | 'backpack';
 
 export interface ScenarioClue {
   id: string;

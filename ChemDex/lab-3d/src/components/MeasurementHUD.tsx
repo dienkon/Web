@@ -10,20 +10,17 @@ export function MeasurementHUD() {
   const activeTool = useAppStore(state => state.activeTool);
   const setActiveTool = useAppStore(state => state.setActiveTool);
   const spills = useAppStore(state => state.spills);
-  const activeKinetics = useAppStore(state => state.activeKinetics);
+  const timeScale = useAppStore(state => state.timeScale);
   const spillCount = Object.keys(spills || {}).length;
 
   const vessel = selectedVesselId ? vessels[selectedVesselId] : null;
-  const kinetics = selectedVesselId ? activeKinetics[selectedVesselId] : null;
-  const timeWarp = kinetics?.timeWarp;
-  const timeWarpRatio = timeWarp ? Math.round(timeWarp.physical_s / (kinetics?.duration || 5.0)) : 1;
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
 
   const temp = vessel ? vessel.temperature_c : 25.0;
   const ph = vessel ? vessel.ph : 7.0;
   const tare = vessel ? (vessel.tare_g ?? (vessel.type === 'test_tube' ? 25.0 : vessel.type === 'flask' ? 95.0 : 85.0)) : 0.0;
   const netMass = vessel ? (vessel.mass_g ?? ((vessel.volume_ml || 0) * (vessel.density_g_ml || 1.0))) : 0.0;
-  const mass = vessel ? netMass + tare + (vessel.wallCoatingMass_g ?? 0) : 0.0;
+  const mass = vessel ? netMass + tare + (vessel.wallCoatingMass_g ?? 0) + (vessel.outerWallCoatingMass_g ?? 0) : 0.0;
 
   return (
     <div className="flex items-center gap-2 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-lg border border-slate-200/80 shadow-md">
@@ -123,16 +120,13 @@ export function MeasurementHUD() {
         <span>{formatMass(mass, 'g')}</span>
       </button>
 
-      {/* Time-Honesty Badge (Fix F9): Time-lapse compression indicator */}
-      {kinetics && timeWarp && timeWarpRatio >= 2 && (
+      {Number.isFinite(timeScale) && timeScale > 0 && timeScale !== 1 && (
         <div 
           className="flex items-center gap-1 px-2.5 py-1 rounded text-xs font-bold bg-amber-500/15 border border-amber-500/40 text-amber-700 dark:text-amber-300 shadow-sm animate-pulse select-none"
-          title={language === 'en' 
-            ? (timeWarp.note_en || `Physical reaction time: ${Math.round(timeWarp.physical_s)}s (~${Math.round(timeWarp.physical_s / 60)} min), displayed in ${Math.round(kinetics.duration || 5)}s`)
-            : (timeWarp.note_vi || `Thời gian phản ứng thực: ${Math.round(timeWarp.physical_s)}s (~${Math.round(timeWarp.physical_s / 60)} phút), hiển thị trong ${Math.round(kinetics.duration || 5)}s`)}
+          title={t('Selected simulation clock speed.', 'Tốc độ đồng hồ mô phỏng đang chọn.')}
         >
           <span>⏩</span>
-          <span>{t(`time-lapse ×${timeWarpRatio}`, `tua nhanh ×${timeWarpRatio}`)}</span>
+          <span>{t(`simulation ×${timeScale}`, `mô phỏng ×${timeScale}`)}</span>
         </div>
       )}
     </div>

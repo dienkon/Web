@@ -1,30 +1,11 @@
 import type { SubstanceContent, VesselState } from '../types/chemistry';
 import type { LiquidAliquot } from '../handling/aliquot';
 import { dispenseAliquot } from '../handling/aliquot';
-import { isImmiscibleOrganic } from '../data/chemicals';
-
-export const solidContent = (item: SubstanceContent) => item.phase === 's' || item.state === 's' || item.state === 'solid';
-const gasContent = (item: SubstanceContent) => item.phase === 'g' || item.state === 'g' || item.state === 'gas';
-const organicContent = (item: SubstanceContent) => item.liquidLayer === 'organic'
-  || (item.liquidLayer !== 'aqueous' && isImmiscibleOrganic(item.formula));
-const positive = (item: SubstanceContent) => item.moles > 1e-12 || item.mass_g > 1e-12;
-
-/** volume_ml is TOTAL liquid; the organic volume is a subset, never added twice. */
-export function phaseVolumes(vessel: VesselState) {
-  const total = Math.max(0, vessel.volume_ml);
-  const organic = Math.max(0, Math.min(total, vessel.immiscibleOrganicVolume_ml ?? 0));
-  return { organic, aqueous: total - organic };
-}
-
-export function separatedLayers(vessel: VesselState) {
-  const volumes = phaseVolumes(vessel);
-  const liquid = vessel.contents.filter(item => !solidContent(item) && !gasContent(item));
-  const mass = (organic: boolean) => liquid.filter(item => organicContent(item) === organic).reduce((sum, item) => sum + item.mass_g, 0);
-  const organicBelow = volumes.organic > 0 && (volumes.aqueous <= 0 || mass(true) / volumes.organic > mass(false) / volumes.aqueous);
-  return { lower: organicBelow ? 'organic' as const : 'aqueous' as const,
-    lowerVolume_ml: organicBelow ? volumes.organic : volumes.aqueous,
-    upperVolume_ml: organicBelow ? volumes.aqueous : volumes.organic };
-}
+import { solidContent, gasContent, organicContent, phaseVolumes, separatedLayers } from '../science/liquidLayers';
+import { calculateFunnelDischarge, type FunnelDischarge } from '../science/funnelDischarge';
+import type { Point3 } from '../science/clippedSolidVolume';
+export { solidContent, phaseVolumes, separatedLayers } from '../science/liquidLayers';
+const positive = (item: SubstanceContent) => item.moles > 0 || item.mass_g > 0;
 
 export function refreshFlowInventory(vessel: VesselState): VesselState {
   const aqueous = phaseVolumes(vessel).aqueous;
@@ -65,13 +46,18 @@ export interface FunnelFlowResult {
   receiver?: VesselState;
   spill?: LiquidAliquot;
   moved_ml: number;
+  discharge?: FunnelDischarge;
+  released?: LiquidAliquot;
+  releaseDuration_s?: number;
 }
 
 /** Ideal filter retains modeled solid particles, not dissolved salts. Separation
  * uses current layer inventories/densities; partition coefficients are not guessed.
- * Flow rates remain illustrative and geometry tests use vessel reference points.
+ * Filter-paper rate remains illustrative; separatory flow uses the explicitly
+ * uncalibrated vented inertial port closure.
  */
-export function stepFunnelFlow(input: VesselState, receiver: VesselState | null, dt: number): FunnelFlowResult {
+function stepFunnelPhase(input: VesselState, receiver: VesselState | null, dt: number,
+  selectedPhase?: 'aqueous' | 'organic', rate_ml_s = 2): FunnelFlowResult {
   if (![input.volume_ml, input.mass_g].every(value => Number.isFinite(value) && value >= 0)
     || input.contents.some(item => ![item.moles, item.mass_g].every(value => Number.isFinite(value) && value >= 0))) {
     return { source: { ...input, isFiltrating: false, flowStatus: 'Lượng chất không hợp lệ; chưa thể tính dòng chảy.' }, moved_ml: 0 };
@@ -80,25 +66,26 @@ export function stepFunnelFlow(input: VesselState, receiver: VesselState | null,
   const idle = (message: string): FunnelFlowResult => ({ source: { ...source, flowStatus: message }, moved_ml: 0 });
   if (!Number.isFinite(dt) || dt <= 0 || source.isShattered || source.isSealed) return idle('Chưa có dòng chảy: kiểm tra nút đậy và trạng thái bình.');
   if (source.type === 'separatory_funnel' && !source.stopcockOpen) return idle('Khóa van đang đóng.');
-  if (source.volume_ml <= 1e-12) return idle('Đã hết pha lỏng.');
+  if (!(source.volume_ml > 0)) return idle('Đã hết pha lỏng.');
   const liquid = source.contents.filter(item => !solidContent(item) && !gasContent(item) && positive(item));
   const tracked = source.contents.reduce((sum, item) => sum + item.mass_g, 0);
   if (!liquid.length || Math.abs(tracked - source.mass_g) > Math.max(1e-6, source.mass_g * 0.0001)) {
     return idle('Chưa có kho chất định lượng khớp khối lượng mẫu; không tự tạo dịch lọc.');
   }
   const volumes = phaseVolumes(source);
-  let layer: 'aqueous' | 'organic' | 'all' = 'all';
-  if (source.type === 'separatory_funnel') {
+  let layer: 'aqueous' | 'organic' | 'all' = selectedPhase ?? 'all';
+  if (source.type === 'separatory_funnel' && !selectedPhase) {
     const mass = (organic: boolean) => liquid.filter(item => organicContent(item) === organic).reduce((sum, item) => sum + item.mass_g, 0);
-    if (volumes.aqueous > 1e-12 && volumes.organic > 1e-12) {
+    if (volumes.aqueous > 0 && volumes.organic > 0) {
       if (mass(false) <= 0 || mass(true) <= 0) return idle('Thiếu thành phần định lượng của một pha.');
       layer = mass(true) / volumes.organic > mass(false) / volumes.aqueous ? 'organic' : 'aqueous';
-    } else layer = volumes.organic > 1e-12 ? 'organic' : 'aqueous';
+    } else layer = volumes.organic > 0 ? 'organic' : 'aqueous';
   }
   const selected = liquid.filter(item => layer === 'all' || organicContent(item) === (layer === 'organic'));
   const layerVolume = layer === 'all' ? source.volume_ml : volumes[layer];
-  if (!selected.length || layerVolume <= 1e-12) return idle('Pha được chọn chưa có lượng chất để xả.');
-  const volume = Math.min(layerVolume, (source.type === 'filter_funnel' ? 2 : 2.5) * dt);
+  if (!selected.length || !(layerVolume > 0)) return idle('Pha được chọn chưa có lượng chất để xả.');
+  const volume = Math.min(layerVolume, rate_ml_s * dt);
+  if (!(volume > 0)) return idle('Cửa van chưa có phần ngập và cột áp dương để xả.');
   const fraction = volume / layerVolume;
   const selectedSet = new Set(selected);
   // Carry the tiny stock-table mass rounding discrepancy proportionally;
@@ -109,6 +96,7 @@ export function stepFunnelFlow(input: VesselState, receiver: VesselState | null,
   const transferredMass = Math.max(0, source.mass_g - nonLiquidMass) * selectedMass / liquidMass * fraction;
   const organicVolume = layer === 'organic' ? volume : layer === 'all' ? volumes.organic * fraction : 0;
   const sample: LiquidAliquot = { volume_ml: volume, mass_g: transferredMass, temperature_c: source.temperature_c,
+    organicVolume_ml: organicVolume, organicColor: source.immiscibleOrganicColor,
     color: layer === 'organic' ? source.immiscibleOrganicColor ?? '#f8fafc' : source.liquidColor ?? '#f8fafc',
     contents: selected.map(item => ({ ...item, moles: item.moles * fraction, mass_g: item.mass_g * fraction,
       ...(item.volume_ml !== undefined ? { volume_ml: item.volume_ml * fraction } : {}) })),
@@ -118,14 +106,60 @@ export function stepFunnelFlow(input: VesselState, receiver: VesselState | null,
     contents: source.contents.map(item => selectedSet.has(item) ? { ...item, moles: item.moles * (1 - fraction), mass_g: item.mass_g * (1 - fraction),
       ...(item.volume_ml !== undefined ? { volume_ml: item.volume_ml * (1 - fraction) } : {}) } : item),
     isFiltrating: source.type === 'filter_funnel', flowStatus: layer === 'organic' ? 'Đang xả pha hữu cơ ở dưới.' : 'Đang chuyển pha lỏng xuống bình hứng.' });
-  if (!receiver || receiver.isSealed || receiver.isShattered) return { source: { ...source, flowStatus: 'Chưa có bình hứng phù hợp phía dưới; dịch rơi xuống bàn.' }, spill: sample, moved_ml: volume };
+  if (!receiver || receiver.isSealed || receiver.isShattered) return { source: { ...source, flowStatus: 'Chưa có bình hứng phù hợp phía dưới; dịch rơi xuống bàn.' }, spill: sample, moved_ml: volume, releaseDuration_s: volume / rate_ml_s };
   const transfer = dispenseAliquot(receiver, sample, volume);
-  const receivedFraction = transfer.dispensed_ml / volume;
-  const target = refreshFlowInventory({ ...transfer.vessel,
-    immiscibleOrganicVolume_ml: (receiver.immiscibleOrganicVolume_ml ?? 0) + organicVolume * receivedFraction,
-    immiscibleOrganicColor: organicVolume > 0 ? source.immiscibleOrganicColor : receiver.immiscibleOrganicColor });
-  return { source, receiver: target, moved_ml: volume,
-    ...(transfer.sample.volume_ml > 1e-12 ? { spill: transfer.sample } : {}) };
+  const target = refreshFlowInventory(transfer.vessel);
+  return { source, receiver: target, moved_ml: volume, releaseDuration_s: volume / rate_ml_s,
+    ...(transfer.sample.volume_ml > 0 ? { spill: transfer.sample } : {}) };
+}
+
+/** One conservative explicit physical step. Two phases can wet the tilted
+ * port simultaneously: withdraw each finite inventory, then deliver their
+ * combined sample once so receiver capacity does not privilege loop order.
+ * Caller substeps control time accuracy; Q is not an imposed 2.5 mL/s rate.
+ * Filter paper retains its separately declared illustrative 2 mL/s model. */
+export function stepFunnelFlow(input: VesselState, receiver: VesselState | null, dt: number, localUp?: Point3): FunnelFlowResult {
+  if (input.type !== 'separatory_funnel') return stepFunnelPhase(input, receiver, dt);
+  const discharge = calculateFunnelDischarge(input, localUp);
+  return stepFunnelUsingDischarge(input, receiver, dt, discharge);
+}
+
+function stepFunnelUsingDischarge(input: VesselState, receiver: VesselState | null, dt: number, discharge: FunnelDischarge): FunnelFlowResult {
+  let source = input;
+  const samples: LiquidAliquot[] = [];
+  for (const layer of ['aqueous', 'organic'] as const) {
+    if (!(discharge[layer].flow_ml_s > 0)) continue;
+    const part = stepFunnelPhase(source, null, dt, layer, discharge[layer].flow_ml_s);
+    source = part.source; if (part.spill) samples.push(part.spill);
+  }
+  if (!samples.length) return { ...stepFunnelPhase(input, null, dt, 'aqueous', 0), discharge };
+  const volume_ml = samples.reduce((s, p) => s + p.volume_ml, 0);
+  const sample: LiquidAliquot = { volume_ml, mass_g: samples.reduce((s, p) => s + p.mass_g, 0), temperature_c: input.temperature_c,
+    organicVolume_ml: samples.reduce((s, p) => s + (p.organicVolume_ml ?? 0), 0), organicColor: input.immiscibleOrganicColor,
+    color: samples.reduce((a, b) => a.volume_ml >= b.volume_ml ? a : b).color,
+    contents: samples.flatMap(p => p.contents), substances: [...new Set(samples.flatMap(p => p.substances))] };
+  source = { ...source, flowStatus: 'Đang xả phần chất lỏng tiếp xúc cửa van theo cột áp.' };
+  const organic = sample.organicVolume_ml ?? 0, aqueous = volume_ml - organic;
+  const releaseDuration_s = Math.max(discharge.aqueous.flow_ml_s > 0 ? aqueous / discharge.aqueous.flow_ml_s : 0,
+    discharge.organic.flow_ml_s > 0 ? organic / discharge.organic.flow_ml_s : 0);
+  const result = { source, moved_ml: volume_ml, released: sample, discharge, releaseDuration_s };
+  if (!receiver || receiver.isSealed || receiver.isShattered) return { ...result, spill: sample };
+  const transfer = dispenseAliquot(receiver, sample, volume_ml);
+  return { ...result, receiver: refreshFlowInventory(transfer.vessel), ...(transfer.sample.volume_ml > 0 ? { spill: transfer.sample } : {}) };
+}
+
+/** Midpoint rate for smooth flow, with the original conservative finite phase
+ * event step when a phase can run out. The predictor is pure and discarded;
+ * only the final source/sample transaction owns material. No time multiplier. */
+export function advanceFunnelFlow(input: VesselState, receiver: VesselState | null, dt: number, localUp?: Point3): FunnelFlowResult {
+  if (input.type !== 'separatory_funnel' || !Number.isFinite(dt) || !(dt > 0)) return stepFunnelFlow(input, receiver, dt, localUp);
+  const initial = calculateFunnelDischarge(input, localUp), volumes = phaseVolumes(input);
+  const mayDeplete = (flow: FunnelDischarge) => (['aqueous', 'organic'] as const)
+    .some(phase => flow[phase].flow_ml_s > 0 && flow[phase].flow_ml_s * dt >= volumes[phase]);
+  if (!(initial.total_ml_s > 0) || mayDeplete(initial)) return stepFunnelUsingDischarge(input, receiver, dt, initial);
+  const predicted = stepFunnelUsingDischarge(input, null, dt / 2, initial).source;
+  const middle = calculateFunnelDischarge(predicted, localUp);
+  return stepFunnelUsingDischarge(input, receiver, dt, mayDeplete(middle) ? initial : middle);
 }
 
 /** Recover the actual cake; resetting a display counter must not delete matter. */

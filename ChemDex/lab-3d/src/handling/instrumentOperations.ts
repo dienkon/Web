@@ -10,6 +10,7 @@ import { lessonRuntime } from '../lesson/runtime';
 import { useLessonLabStore } from '../lesson/labBridge';
 import { mobileSolidInventory } from '../science/suspensionTransport';
 import { SimulationEngine } from '../simulation/core/SimulationEngine';
+import { prepareAliquotContact } from '../engine/aliquotContactChemistry';
 
 export interface InstrumentResult {
   ok: boolean;
@@ -44,15 +45,15 @@ export function aspiratePipette(requested_ml = 10): InstrumentResult {
   const problem = instrumentTargetProblem('pipette', source);
   if (problem || !source) return result('pipette', false, problem ?? 'Không có mẫu.');
   if (state.moveMode) return result('pipette', false, 'Tắt chế độ di chuyển trước khi hút.');
-  const loaded = useInstrumentStore.getState().pipetteSample;
+  const loaded = state.pipetteSample;
   if (loaded && loaded.volume_ml > 1e-6) return result('pipette', false, 'Pipet còn mẫu; nhả mẫu trước khi hút tiếp.');
   if (!Number.isFinite(requested_ml) || requested_ml <= 0 || requested_ml > 10) {
     return result('pipette', false, 'Thể tích hút phải lớn hơn 0 và không vượt quá 10 mL.');
   }
   if (source.volume_ml <= 0) return result('pipette', false, 'Bình nguồn không có dung dịch.');
   const transfer = withdrawAliquot(source, requested_ml, mobileSolidInventory(source, SimulationEngine.findManager(source.id)));
-  state.setVesselState(source.id, transfer.vessel);
-  useInstrumentStore.getState().setSample(transfer.sample);
+  state.commitPipetteTransfer({ vessel: transfer.vessel,
+    sample: prepareAliquotContact(transfer.sample, state.activeKinetics[source.id]?.program?.id), withdrawal: true });
   state.setActiveTool('pipette');
   const chemical = transfer.sample.substances[0];
   if (chemical) state.touchToolChemical('pipette', chemical);
@@ -65,7 +66,7 @@ export function dispensePipette(requested_ml = 2.5, targetId?: string): Instrume
   const problem = instrumentTargetProblem('pipette', receiver);
   if (problem || !receiver) return result('pipette', false, problem ?? 'Không có bình nhận.');
   if (state.moveMode) return result('pipette', false, 'Tắt chế độ di chuyển trước khi nhả.');
-  const sample = useInstrumentStore.getState().pipetteSample;
+  const sample = state.pipetteSample;
   if (!sample || sample.volume_ml <= 1e-6) return result('pipette', false, 'Pipet đang rỗng.');
   if (!Number.isFinite(requested_ml) || requested_ml <= 0 || requested_ml > 10) {
     return result('pipette', false, 'Thể tích nhả phải lớn hơn 0 và không vượt quá 10 mL.');
@@ -75,14 +76,8 @@ export function dispensePipette(requested_ml = 2.5, targetId?: string): Instrume
   const heated = Object.values(state.burners).some(burner => burner.isOn
     && Math.hypot(burner.position[0] - receiver.position[0], burner.position[2] - receiver.position[2]) < 1.5);
   const reacted = reactAliquotMixture(transfer.vessel, state.language, heated);
-  state.setVesselState(receiver.id, reacted.vessel);
-  if (reacted.kinetics) {
-    useAppStore.setState(current => ({
-      lastMixResult: reacted.mixResult,
-      activeKinetics: { ...current.activeKinetics, [receiver.id]: reacted.kinetics! },
-    }));
-  }
-  useInstrumentStore.getState().setSample(transfer.sample, true);
+  state.commitPipetteTransfer({ vessel: reacted.vessel, sample: transfer.sample, withdrawal: false,
+    kinetics: reacted.kinetics, mixResult: reacted.mixResult });
   state.setActiveTool('pipette');
   return result('pipette', true, `Đã nhả ${transfer.dispensed_ml.toFixed(3)} mL vào ${receiver.name}.`, transfer.dispensed_ml);
 }
@@ -232,7 +227,7 @@ export async function depositSpatula(): Promise<InstrumentResult> {
 
 export function rinseInstrument(id: 'pipette' | 'stirring_rod' | 'spatula'): InstrumentResult {
   const state = useAppStore.getState();
-  if (id === 'pipette' && (useInstrumentStore.getState().pipetteSample?.volume_ml ?? 0) > 1e-6) {
+  if (id === 'pipette' && (state.pipetteSample?.volume_ml ?? 0) > 1e-6) {
     return result(id, false, 'Nhả hết mẫu vào bình nhận trước khi rửa pipet.');
   }
   if (id === 'spatula' && state.spatulaState.mass_g > 0) return result(id, false, 'Chuyển hết mẫu rắn trước khi rửa thìa.');

@@ -3,9 +3,13 @@ import { PhysicalEvaporationParticle, EvaporationRegime } from '../core/Simulati
 import { determineEvaporationRegime } from '../chemistry/PhaseEngine';
 import { waterPlumeVisibility } from '../../science/waterSurface';
 import { PRNG } from '../../core/rng';
-import { METERS_PER_SCENE_UNIT } from '../../science/sceneUnits';
+import { METERS_PER_SCENE_UNIT as DEFAULT_METERS_PER_UNIT } from '../../science/sceneUnits';
 
 export interface EvaporationSimulationParams {
+  /** When present, birth positions enter a world-space plume. Existing puffs
+   * never follow subsequent motion of the source. Capture an immutable frame. */
+  sourceToWorld?: (point: [number, number, number]) => [number, number, number];
+  metersPerLocalUnit?: number;
   temp_c: number;
   surfaceArea_cm2: number;
   radius: number;
@@ -110,6 +114,7 @@ export class EvaporationSystem {
   }
 
   private step(dt: number, params: EvaporationSimulationParams & { mistVisibility: number }): void {
+    const METERS_PER_SCENE_UNIT = params.sourceToWorld ? DEFAULT_METERS_PER_UNIT : params.metersPerLocalUnit ?? DEFAULT_METERS_PER_UNIT;
 
     const {
       temp_c,
@@ -168,6 +173,7 @@ export class EvaporationSystem {
         // Mist is drawn outside the mouth; the vapor travelling through the
         // headspace remains transparent and cannot clip the glass shoulders.
         const py = Math.max(surfaceY, mouthY) + 0.015;
+        const birth = params.sourceToWorld?.([px, py, pz]) ?? [px, py, pz];
 
         const baseSize = baseParticleSize * (0.9 + this.rng.next() * 0.35);
         const verticalSpeed = 0.42 + (temp_c / 100) * 0.65;
@@ -178,9 +184,9 @@ export class EvaporationSystem {
 
         this.particles.push({
           id: this.nextId++,
-          x: px,
-          y: py,
-          z: pz,
+          x: birth[0],
+          y: birth[1],
+          z: birth[2],
           vx,
           vy: verticalSpeed + (this.rng.next() - 0.5) * 0.1,
           vz,

@@ -1,62 +1,41 @@
 import { useTaskProximity } from './useTaskProximity';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { SceneHtml as Html } from '../SceneHtml';
 import * as THREE from 'three';
-import { playerCoords, useStore } from '../../../store/useStore';
+import { useStore } from '../../../store/useStore';
 import { soundManager } from '../../../audio/soundManager';
 
-const FUME_HOOD_POS: [number, number, number] = [8.8, 0, -3.5];
+import { FUME_HOOD_LAYOUT as L } from '../../../data/scene/fixtureLayout';
+import { HoodSashAsset, HoodMonitorAsset } from '../assets/StationAssets';
+import { BeakerAsset } from '../assets/LabwareAssets';
+import { useReducedLabMotion } from '../../../systems/device/useReducedLabMotion';
 
 export const InteractiveFumeHood: React.FC = () => {
   // Sash height: 0 (safe working height 30cm) to 1.0 (fully open 80cm)
   const [sashHeight, setSashHeight] = useState(0.25);
   const [isChemicalReactionActive, setIsChemicalReactionActive] = useState(true);
   const addError = useStore((s) => s.addError);
-  const sashRef = useRef<THREE.Group>(null);
+  const reduced = useReducedLabMotion();
+  const elapsed = useRef(0);
+  const particles = useMemo(()=>new Float32Array(Array.from({length:120},(_,i)=>i%3===1?1.04+(Math.floor(i/3)/40)*1.15:0)),[]);
   const vaporPointsRef = useRef<THREE.Points>(null);
 
-  // Check distance
-  const dx = FUME_HOOD_POS[0] - playerCoords.position[0];
-  const dz = FUME_HOOD_POS[2] - playerCoords.position[2];
-  const isNear = useTaskProximity(FUME_HOOD_POS, 2.5, []);
+  const isNear = useTaskProximity(L.position, 2.5, []);
 
   const isAlarm = sashHeight > 0.55;
   const faceVelocity = isAlarm ? 42 : 100;
 
   useFrame((_, delta) => {
-    // Smoothly animate sash glass panel
-    if (sashRef.current) {
-      const targetY = 1.35 + sashHeight * 0.5;
-      sashRef.current.position.y = THREE.MathUtils.lerp(
-        sashRef.current.position.y,
-        targetY,
-        delta * 8
-      );
+    if (!vaporPointsRef.current || !isChemicalReactionActive || reduced || document.hidden) return;
+    elapsed.current += Math.min(delta,.05);
+    const pos = vaporPointsRef.current.geometry.attributes.position as THREE.BufferAttribute;
+    for(let i=0;i<40;i++){
+      const t=(elapsed.current*.32+i/40)%1;
+      // Each path starts inside the beaker, then bends toward the rear baffles.
+      pos.setXYZ(i,Math.sin(i*2.4+t*8)*(.018+t*.045),1.04+t*1.15,.02-t*.37+Math.cos(i*1.7+t*5)*.018);
     }
-
-    // Swirling vapor particles inside chamber
-    if (vaporPointsRef.current && isChemicalReactionActive) {
-      const posAttr = vaporPointsRef.current.geometry.attributes.position as THREE.BufferAttribute;
-      const arr = posAttr.array as Float32Array;
-
-      for (let i = 0; i < 40; i++) {
-        // Move upward into exhaust duct
-        arr[i * 3 + 1] += delta * 0.8;
-        // Vortex swirl
-        const angle = performance.now() * 0.003 + i;
-        arr[i * 3] += Math.sin(angle) * delta * 0.2;
-        arr[i * 3 + 2] += Math.cos(angle) * delta * 0.2;
-
-        if (arr[i * 3 + 1] > 2.2) {
-          // Reset at beaker base
-          arr[i * 3] = (Math.random() - 0.5) * 0.3;
-          arr[i * 3 + 1] = 0.95;
-          arr[i * 3 + 2] = 0.05 + (Math.random() - 0.5) * 0.3;
-        }
-      }
-      posAttr.needsUpdate = true;
-    }
+    pos.needsUpdate=true;
   });
 
   const toggleSash = () => {
@@ -75,67 +54,14 @@ export const InteractiveFumeHood: React.FC = () => {
   };
 
   return (
-    <group userData={{labItem:{title:'Cửa kính và buồng tủ hút',kind:'hood'}}} position={FUME_HOOD_POS}>
-      {/* 1. Safety Glass Sash (Vertical Sliding Panel) */}
-      <group ref={sashRef} position={[0, 1.45, 0.52]}>
-        {/* Laminated Glass Pane */}
-        <mesh>
-          <boxGeometry args={[2.18, 0.72, 0.02]} />
-          <meshPhysicalMaterial
-            transparent
-            opacity={0.3}
-            roughness={0.05}
-            color="#BAE6FD"
-            metalness={0.1}
-          />
-        </mesh>
-        {/* Aluminum Sash Handle */}
-        <mesh position={[0, -0.34, 0.015]}>
-          <boxGeometry args={[2.15, 0.04, 0.02]} />
-          <meshStandardMaterial color="#94A3B8" metalness={0.9} roughness={0.2} />
-        </mesh>
-      </group>
-
-      {/* 2. Toxic Vapor Swirling Particles (Inside Chamber) */}
-      {isChemicalReactionActive && (
-        <points ref={vaporPointsRef}>
-          <bufferGeometry>
-            <bufferAttribute
-              attach="attributes-position"
-              count={40}
-              array={new Float32Array(120).map((_, idx) => (idx % 3 === 1 ? 1.0 : (Math.random() - 0.5) * 0.4))}
-              itemSize={3}
-            />
-          </bufferGeometry>
-          <pointsMaterial
-            size={0.14}
-            color={isAlarm ? '#EA580C' : '#94A3B8'}
-            transparent
-            opacity={0.5}
-            depthWrite={false}
-          />
-        </points>
-      )}
-
-      {/* 3. Beaker generating reaction vapors on black worktop */}
-      <group position={[0, 0.92, 0.05]}>
-        <mesh>
-          <cylinderGeometry args={[0.07, 0.07, 0.16, 16]} />
-          <meshPhysicalMaterial transparent opacity={0.3} color="#FFFFFF" />
-        </mesh>
-        <mesh position={[0, -0.02, 0]}>
-          <cylinderGeometry args={[0.066, 0.066, 0.1, 16]} />
-          <meshStandardMaterial color="#CA8A04" roughness={0.2} transparent opacity={0.8} />
-        </mesh>
-      </group>
-
-      {/* 4. Digital Face Velocity Monitor */}
-      <group position={[1.0, 2.1, 0.56]}>
-        <mesh position={[0, 0, 0.02]}>
-          <planeGeometry args={[0.2, 0.08]} />
-          <meshBasicMaterial color={isAlarm ? '#DC2626' : '#16A34A'} />
-        </mesh>
-      </group>
+    <group userData={{labItem:{title:'Cửa kính và buồng tủ hút',kind:'hood'}}} position={L.position} rotation={[0,L.rotationY,0]}>
+      <HoodSashAsset height={sashHeight} animate/>
+      <HoodMonitorAsset alarm={isAlarm}/>
+      <group position={[0,.871,.02]}><BeakerAsset color="#c3af86" fill={.35}/></group>
+      {isChemicalReactionActive && <points ref={vaporPointsRef} name="hood-extraction-vapor">
+        <bufferGeometry><bufferAttribute attach="attributes-position" count={40} array={particles} itemSize={3}/></bufferGeometry>
+        <pointsMaterial size={.045} color={isAlarm?'#bc9576':'#a4bec6'} transparent opacity={.36} depthWrite={false}/>
+      </points>}
 
       {/* 5. Proximity Interactive Control */}
       {isNear && (

@@ -1,7 +1,7 @@
 import type { VesselState } from '../types/chemistry';
 import { aqueousWaterBoundary } from './aqueousWaterBoundary';
 import { contourRadius, liquidLevelForVolume, vesselInterior } from './vesselDimensions';
-import { METERS_PER_SCENE_UNIT } from './sceneUnits';
+import { vesselBodyTransform } from './vesselScale';
 import { waterSaturationPressurePa, waterSaturationTemperatureC } from './waterSaturation';
 import { waterPlumeState } from './moistAirFog';
 export { waterSaturationPressurePa } from './waterSaturation';
@@ -21,7 +21,7 @@ export function exposedWaterAreaM2(vessel: VesselState): number {
   const y = liquidLevelForVolume(vessel.type, vessel.volume_ml, vessel.capacity_ml);
   // Narrow mouths constrain exchange even when the liquid surface is wider.
   const radius = Math.min(contourRadius(interior.points, y), contourRadius(interior.points, interior.topY));
-  return Math.PI * (radius * METERS_PER_SCENE_UNIT) ** 2;
+  return Math.PI * (radius * vesselBodyTransform(vessel).metersPerLocalUnit) ** 2;
 }
 
 /** Deliberately restricted to water / dilute, nonvolatile aqueous solutes.

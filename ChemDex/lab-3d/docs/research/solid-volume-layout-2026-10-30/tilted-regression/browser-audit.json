@@ -1,0 +1,737 @@
+{
+  "method": "Real app/pour controller and rendered matrices. Controlled CuS population; optical bubble/mist seeds verify transforms, not a new chemical or heat source. Paused manual controller and population steps isolate geometry. No FPS claim.",
+  "errors": [],
+  "consoleErrors": [],
+  "cases": [
+    {
+      "type": "beaker",
+      "session": {
+        "id": "pour_1",
+        "mode": "HAND_TILT",
+        "sourceId": "beaker_1793325919094_ubv92",
+        "targetId": "beaker_1793325919094_6xe1x",
+        "tilt": 0.9514020837748739,
+        "targetTilt": 1.15,
+        "lift": 1,
+        "transferred_ml": 0,
+        "spilled_ml": 0,
+        "released_ml": 0.6100659284338201,
+        "inFlight_ml": 0.6100659284338201,
+        "onWall_ml": 0,
+        "flow_ml_s": 11.826487531392962,
+        "wallClinging": false,
+        "aim": {
+          "landing": [
+            2.425627254665547,
+            -1.0841473949868337,
+            -0.6168347583738645
+          ],
+          "kind": "inside"
+        },
+        "assist": "low",
+        "phase": "pouring",
+        "startedAt": 0,
+        "sourcePos": [
+          1.0590870968284847,
+          1.9111672872448227,
+          0.5341861380084755
+        ],
+        "sourceRotationZ": -0.9514020837748739,
+        "initialSourcePos": [
+          -2.5,
+          -0.135,
+          0
+        ],
+        "initialFromVolume_ml": 60,
+        "initialToVolume_ml": 0,
+        "mixingZone": {
+          "active": false,
+          "point": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.05,
+          "intensity": 0,
+          "color": "#d9f0f6"
+        },
+        "trajectory": {
+          "exitPos": [
+            1.6858474903255065,
+            1.6006076162321852,
+            0.006273141231466606
+          ],
+          "exitVel": [
+            6.631572504278747,
+            -8.44923349037834,
+            -5.585696464552433
+          ],
+          "impactPos": [
+            2.425627254665547,
+            -1.0841473949868337,
+            -0.6168347583738645
+          ],
+          "timeOfFlight": 0.11155419983159773,
+          "landingKind": "inside",
+          "targetVesselId": "beaker_1793325919094_6xe1x",
+          "detailKind": "liquid"
+        }
+      },
+      "initial": {
+        "mass_g": 60.1,
+        "water_mol": 3.330557868442964,
+        "CuS_g": 0.1
+      },
+      "tilted": {
+        "frameError": 1.1102230246251565e-16,
+        "solidPositionError": 1.3408537429731524e-8,
+        "minimumDepth": 0.0012330654567234145,
+        "mistPositionError": 1.2063671773074051e-7,
+        "billboardDot": 0.999999977555303,
+        "solidCount": 19,
+        "bubbleCount": 1,
+        "mistCount": 6,
+        "population_g": 0.09999999999999998,
+        "stock_g": 0.1,
+        "pose": [
+          0.33011763346558903,
+          -0.6053554519958841,
+          -0.27805424685403546,
+          0,
+          0.46300138798912216,
+          0.4316153566759249,
+          -0.3899806892415156,
+          0,
+          0.47895626332145663,
+          -4.127085314965252e-17,
+          0.5686369115743144,
+          0,
+          0.8993308215401071,
+          1.7622406025122266,
+          0.668746992389937,
+          1
+        ],
+        "inventory": {
+          "mass_g": 60.1,
+          "water_mol": 3.3305578684429644,
+          "CuS_g": 0.1
+        }
+      },
+      "moved": {
+        "frameError": 0,
+        "solidPositionError": 1.3408537542311737e-8,
+        "minimumDepth": -0.007836912257475959,
+        "mistPositionError": 1.206367172431863e-7,
+        "billboardDot": 0.9999999926293772,
+        "solidCount": 19,
+        "bubbleCount": 1,
+        "mistCount": 6,
+        "population_g": 0.09999999999999998,
+        "stock_g": 0.09961542210570339,
+        "pose": [
+          0.3169622989539679,
+          -0.6172576484025115,
+          -0.266973661453792,
+          0,
+          0.4721046899222567,
+          0.41441529275381284,
+          -0.3976482946836419,
+          0,
+          0.4789562633214565,
+          0,
+          0.5686369115743144,
+          0,
+          2.903637509172955,
+          1.7951980315592686,
+          2.1651195194385053,
+          1
+        ],
+        "inventory": {
+          "mass_g": 60.1,
+          "water_mol": 3.3305578684429644,
+          "CuS_g": 0.1
+        }
+      }
+    },
+    {
+      "type": "flask",
+      "session": {
+        "id": "pour_2",
+        "mode": "HAND_TILT",
+        "sourceId": "flask_1793325925505_rlvhj",
+        "targetId": "beaker_1793325925506_2e1g1",
+        "tilt": 0.9711177995226092,
+        "targetTilt": 1.15,
+        "lift": 1,
+        "transferred_ml": 0,
+        "spilled_ml": 0,
+        "released_ml": 0,
+        "inFlight_ml": 0,
+        "onWall_ml": 0,
+        "flow_ml_s": 0,
+        "wallClinging": false,
+        "aim": {
+          "landing": [
+            1.7060725761478464,
+            -1.0841473949868332,
+            -0.010762213550558952
+          ],
+          "kind": "inside"
+        },
+        "assist": "low",
+        "phase": "tilting",
+        "startedAt": 0.55,
+        "sourcePos": [
+          0.3454384272110005,
+          0.8996477825810973,
+          1.1352841201602173
+        ],
+        "sourceRotationZ": -0.9711177995226092,
+        "initialSourcePos": [
+          -2.5,
+          -0.135,
+          0
+        ],
+        "initialFromVolume_ml": 150,
+        "initialToVolume_ml": 0,
+        "mixingZone": {
+          "active": false,
+          "point": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.05,
+          "intensity": 0,
+          "color": "#d9f0f6"
+        },
+        "trajectory": {
+          "exitPos": [
+            1.7060725761478464,
+            1.5857957047750832,
+            -0.010762213550558952
+          ],
+          "exitVel": [
+            0,
+            0,
+            0
+          ],
+          "impactPos": [
+            1.7060725761478464,
+            -1.0841473949868332,
+            -0.010762213550558952
+          ],
+          "timeOfFlight": 0.13809787160255782,
+          "landingKind": "inside",
+          "targetVesselId": "beaker_1793325925506_2e1g1",
+          "detailKind": "liquid"
+        }
+      },
+      "initial": {
+        "mass_g": 150.1,
+        "water_mol": 8.32639467110741,
+        "CuS_g": 0.1
+      },
+      "tilted": {
+        "frameError": 5.551115123125783e-17,
+        "solidPositionError": 3.357969837899943e-8,
+        "minimumDepth": 0.0020274111813936013,
+        "mistPositionError": 1.1940788374342793e-7,
+        "billboardDot": 1,
+        "solidCount": 19,
+        "bubbleCount": 1,
+        "mistCount": 6,
+        "population_g": 0.09999999999999998,
+        "stock_g": 0.1,
+        "pose": [
+          0.4970731360588732,
+          -0.9506160138068309,
+          -0.41867892674273227,
+          0,
+          0.7270712312676779,
+          0.6499028745049904,
+          -0.6124036498657496,
+          0,
+          0.7418424860220245,
+          0,
+          0.8807464322541989,
+          0,
+          0.44111936216931097,
+          0.9851735357542932,
+          1.0546931804129887,
+          1
+        ],
+        "inventory": {
+          "mass_g": 150.1,
+          "water_mol": 8.32639467110741,
+          "CuS_g": 0.1
+        }
+      },
+      "moved": {
+        "frameError": 0,
+        "solidPositionError": 3.357969819569087e-8,
+        "minimumDepth": -0.0017441704757923393,
+        "mistPositionError": 1.194078841593699e-7,
+        "billboardDot": 0.9999999999999997,
+        "solidCount": 19,
+        "bubbleCount": 1,
+        "mistCount": 6,
+        "population_g": 0.09999999999999998,
+        "stock_g": 0.1,
+        "pose": [
+          0.4817923153181976,
+          -0.9639712278069565,
+          -0.40580806898892186,
+          0,
+          0.7372858623551863,
+          0.6299238239312648,
+          -0.6210073149414748,
+          0,
+          0.7418424860220245,
+          -6.392331543692447e-17,
+          0.8807464322541989,
+          0,
+          2.4296862344595205,
+          1.0243788836218783,
+          2.564323171035296,
+          1
+        ],
+        "inventory": {
+          "mass_g": 150.1,
+          "water_mol": 8.32639467110741,
+          "CuS_g": 0.1
+        }
+      }
+    },
+    {
+      "type": "test_tube",
+      "session": {
+        "id": "pour_3",
+        "mode": "HAND_TILT",
+        "sourceId": "test_tube_1793325926033_1wcox",
+        "targetId": "beaker_1793325926034_0nyax",
+        "tilt": 0.9711177995226092,
+        "targetTilt": 1.15,
+        "lift": 1,
+        "transferred_ml": 0,
+        "spilled_ml": 0,
+        "released_ml": 0,
+        "inFlight_ml": 0,
+        "onWall_ml": 0,
+        "flow_ml_s": 0,
+        "wallClinging": false,
+        "aim": {
+          "landing": [
+            1.71475683061156,
+            -1.08414738012779,
+            -0.018076860178329213
+          ],
+          "kind": "inside"
+        },
+        "assist": "low",
+        "phase": "tilting",
+        "startedAt": 1.1333333333333342,
+        "sourcePos": [
+          -0.06676669815208847,
+          0.4126499498551395,
+          1.4824797076208742
+        ],
+        "sourceRotationZ": -0.9711177995226092,
+        "initialSourcePos": [
+          -2.5,
+          -0.135,
+          0
+        ],
+        "initialFromVolume_ml": 30,
+        "initialToVolume_ml": 0,
+        "mixingZone": {
+          "active": false,
+          "point": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.05,
+          "intensity": 0,
+          "color": "#d9f0f6"
+        },
+        "trajectory": {
+          "exitPos": [
+            1.71475683061156,
+            1.572927974745746,
+            -0.018076860178329213
+          ],
+          "exitVel": [
+            0,
+            0,
+            0
+          ],
+          "impactPos": [
+            1.71475683061156,
+            -1.08414738012779,
+            -0.018076860178329213
+          ],
+          "timeOfFlight": 0.13776468951682835,
+          "landingKind": "inside",
+          "targetVesselId": "beaker_1793325926034_0nyax",
+          "detailKind": "wall_inner"
+        }
+      },
+      "initial": {
+        "mass_g": 30.1,
+        "water_mol": 1.665278934221482,
+        "CuS_g": 0.1
+      },
+      "tilted": {
+        "frameError": 2.220446049250313e-16,
+        "solidPositionError": 2.3930592036678634e-8,
+        "minimumDepth": 0.005924547122250212,
+        "mistPositionError": 1.1229427446052461e-7,
+        "billboardDot": 1,
+        "solidCount": 19,
+        "bubbleCount": 1,
+        "mistCount": 6,
+        "population_g": 0.09999999999999998,
+        "stock_g": 0.1,
+        "pose": [
+          0.7333216249018166,
+          -1.4024239680897737,
+          -0.6176682837971049,
+          0,
+          1.072633015253974,
+          0.9587881488407654,
+          -0.9034663252494994,
+          0,
+          1.0944247391523527,
+          0,
+          1.2993468324360025,
+          0,
+          0.2950523313824889,
+          0.7360669924124955,
+          1.177723743213472,
+          1
+        ],
+        "inventory": {
+          "mass_g": 30.1,
+          "water_mol": 1.665278934221482,
+          "CuS_g": 0.1
+        }
+      },
+      "moved": {
+        "frameError": 0,
+        "solidPositionError": 2.3930591938485172e-8,
+        "minimumDepth": 0.0014146016697405006,
+        "mistPositionError": 1.1229427491396862e-7,
+        "billboardDot": 0.9999999999999999,
+        "solidCount": 19,
+        "bubbleCount": 1,
+        "mistCount": 6,
+        "population_g": 0.09999999999999998,
+        "stock_g": 0.1,
+        "pose": [
+          0.7107781489372286,
+          -1.4221266366128291,
+          -0.5986801759368836,
+          0,
+          1.087702447342489,
+          0.9293134724442829,
+          -0.9161591327978329,
+          0,
+          1.0944247391523527,
+          -9.430473333760046e-17,
+          1.2993468324360025,
+          0,
+          2.278673925993542,
+          0.780826912777571,
+          2.691519083763096,
+          1
+        ],
+        "inventory": {
+          "mass_g": 30.1,
+          "water_mol": 1.665278934221482,
+          "CuS_g": 0.1
+        }
+      }
+    },
+    {
+      "type": "cylinder",
+      "session": {
+        "id": "pour_4",
+        "mode": "HAND_TILT",
+        "sourceId": "cylinder_1793325926523_5aj23",
+        "targetId": "beaker_1793325926523_lkf1x",
+        "tilt": 0.9711177995226092,
+        "targetTilt": 1.15,
+        "lift": 1,
+        "transferred_ml": 0,
+        "spilled_ml": 0,
+        "released_ml": 0,
+        "inFlight_ml": 0,
+        "onWall_ml": 0,
+        "flow_ml_s": 0,
+        "wallClinging": false,
+        "aim": {
+          "landing": [
+            1.7144316024101525,
+            -1.0841473949868332,
+            -0.01780292424328489
+          ],
+          "kind": "inside"
+        },
+        "assist": "low",
+        "phase": "tilting",
+        "startedAt": 1.7166666666666655,
+        "sourcePos": [
+          -0.20710190704480458,
+          0.4284821651379056,
+          1.600682423441068
+        ],
+        "sourceRotationZ": -0.9711177995226092,
+        "initialSourcePos": [
+          -2.5,
+          -0.135,
+          0
+        ],
+        "initialFromVolume_ml": 60,
+        "initialToVolume_ml": 0,
+        "mixingZone": {
+          "active": false,
+          "point": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.05,
+          "intensity": 0,
+          "color": "#d9f0f6"
+        },
+        "trajectory": {
+          "exitPos": [
+            1.7144316024101525,
+            1.5685978463003925,
+            -0.01780292424328489
+          ],
+          "exitVel": [
+            0,
+            0,
+            0
+          ],
+          "impactPos": [
+            1.7144316024101525,
+            -1.0841473949868332,
+            -0.01780292424328489
+          ],
+          "timeOfFlight": 0.13765238935415816,
+          "landingKind": "inside",
+          "targetVesselId": "beaker_1793325926523_lkf1x",
+          "detailKind": "liquid"
+        }
+      },
+      "initial": {
+        "mass_g": 60.1,
+        "water_mol": 3.330557868442964,
+        "CuS_g": 0.1
+      },
+      "tilted": {
+        "frameError": 2.7755575615628914e-17,
+        "solidPositionError": 2.1641907374574053e-8,
+        "minimumDepth": 0.002599178146534209,
+        "mistPositionError": 9.209811194527434e-8,
+        "billboardDot": 0.9999999999999999,
+        "solidCount": 19,
+        "bubbleCount": 1,
+        "mistCount": 6,
+        "population_g": 0.09999999999999998,
+        "stock_g": 0.1,
+        "pose": [
+          0.6052306761494864,
+          -1.1574593979399732,
+          -0.5097787660205255,
+          0,
+          0.8852737776133961,
+          0.79131445180647,
+          -0.7456558164124198,
+          0,
+          0.9032590917533473,
+          0,
+          1.0723869789783245,
+          0,
+          0.021393226128821247,
+          0.6327257625651135,
+          1.408223627776559,
+          1
+        ],
+        "inventory": {
+          "mass_g": 60.1,
+          "water_mol": 3.330557868442964,
+          "CuS_g": 0.1
+        }
+      },
+      "moved": {
+        "frameError": 4.440892098500626e-16,
+        "solidPositionError": 2.1641907547078546e-8,
+        "minimumDepth": -0.0025358072816445976,
+        "mistPositionError": 9.20981114194828e-8,
+        "billboardDot": 0.9999999999999998,
+        "solidCount": 19,
+        "bubbleCount": 1,
+        "mistCount": 6,
+        "population_g": 0.09999999999999998,
+        "stock_g": 0.1,
+        "pose": [
+          0.5866249201789951,
+          -1.173720556737458,
+          -0.49410735395684896,
+          0,
+          0.8977109978758449,
+          0.7669881838785075,
+          -0.7561315425247401,
+          0,
+          0.9032590917533473,
+          -7.783231202223824e-17,
+          1.0723869789783245,
+          0,
+          2.0034669801717997,
+          0.6854793930901394,
+          2.923322696451482,
+          1
+        ],
+        "inventory": {
+          "mass_g": 60.1,
+          "water_mol": 3.330557868442964,
+          "CuS_g": 0.1
+        }
+      }
+    }
+  ],
+  "afterQuality": {
+    "frameError": 4.440892098500626e-16,
+    "solidPositionError": 2.1641907547078546e-8,
+    "minimumDepth": -0.0025358072816445976,
+    "mistPositionError": 9.20981114194828e-8,
+    "billboardDot": 0.9999999999999998,
+    "solidCount": 19,
+    "bubbleCount": 1,
+    "mistCount": 6,
+    "population_g": 0.09999999999999998,
+    "stock_g": 0.1,
+    "pose": [
+      0.5866249201789951,
+      -1.173720556737458,
+      -0.49410735395684896,
+      0,
+      0.8977109978758449,
+      0.7669881838785075,
+      -0.7561315425247401,
+      0,
+      0.9032590917533473,
+      -7.783231202223824e-17,
+      1.0723869789783245,
+      0,
+      2.0034669801717997,
+      0.6854793930901394,
+      2.923322696451482,
+      1
+    ],
+    "inventory": {
+      "mass_g": 60.1,
+      "water_mol": 3.330557868442964,
+      "CuS_g": 0.1
+    }
+  },
+  "coloredGas": {
+    "program": "cu_hno3_conc",
+    "before": {
+      "count": 6,
+      "centers": [
+        [
+          -1.7040377855300903,
+          0.3562507927417755,
+          -0.0020928161684423685
+        ],
+        [
+          -2.116015911102295,
+          0.35939154028892517,
+          -0.664867639541626
+        ],
+        [
+          -3.2038064002990723,
+          0.3620302975177765,
+          -0.21291004121303558
+        ],
+        [
+          -1.7923741340637207,
+          0.3641379177570343,
+          0.2788504958152771
+        ],
+        [
+          -2.1469907760620117,
+          0.3656681180000305,
+          -0.6634551286697388
+        ],
+        [
+          -1.9594179391860962,
+          0.366574764251709,
+          0.51816725730896
+        ]
+      ],
+      "worldMatrixError": 0,
+      "escapedNO2_g": 0.01737365294117647,
+      "flux": {
+        "dt_s": 0.1,
+        "generated_mol_s": {
+          "NO2": 0.002352941176470588
+        },
+        "escaped_mol_s": {
+          "NO2": 0.002352941176470588
+        }
+      }
+    },
+    "after": {
+      "count": 6,
+      "centers": [
+        [
+          -1.7040377855300903,
+          0.3562507927417755,
+          -0.0020928161684423685
+        ],
+        [
+          -2.116015911102295,
+          0.35939154028892517,
+          -0.664867639541626
+        ],
+        [
+          -3.2038064002990723,
+          0.3620302975177765,
+          -0.21291004121303558
+        ],
+        [
+          -1.7923741340637207,
+          0.3641379177570343,
+          0.2788504958152771
+        ],
+        [
+          -2.1469907760620117,
+          0.3656681180000305,
+          -0.6634551286697388
+        ],
+        [
+          -1.9594179391860962,
+          0.366574764251709,
+          0.51816725730896
+        ]
+      ],
+      "worldMatrixError": 0,
+      "escapedNO2_g": 0.01737365294117647,
+      "flux": {
+        "dt_s": 0.1,
+        "generated_mol_s": {
+          "NO2": 0.002352941176470588
+        },
+        "escaped_mol_s": {
+          "NO2": 0.002352941176470588
+        }
+      }
+    }
+  }
+}

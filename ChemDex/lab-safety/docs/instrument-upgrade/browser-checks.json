@@ -1,0 +1,378 @@
+{
+  "passed": true,
+  "fixtureCount": 29,
+  "checks": [
+    "dedicated instrument backdrop: balance",
+    "all gestures complete with fixed frame: balance",
+    "dedicated instrument backdrop: volume",
+    "correct numbered scale orientation: volume",
+    "invalid placement is rejected before volume reading",
+    "invalid placement leaves instrument frame fixed",
+    "instrument hint leaves frame fixed",
+    "volume surface and 25 mL reading match slider",
+    "all gestures complete with fixed frame: volume",
+    "dedicated instrument backdrop: titration",
+    "correct numbered scale orientation: titration",
+    "flow is absent before activation: titration",
+    "opening stopcock enables drops",
+    "closing begins at previous stopcock position without jumping",
+    "closing stopcock stops drops",
+    "all gestures complete with fixed frame: titration",
+    "dedicated instrument backdrop: ph",
+    "all gestures complete with fixed frame: ph",
+    "dedicated instrument backdrop: heat",
+    "power off preserves residual heat indication",
+    "all gestures complete with fixed frame: heat",
+    "dedicated instrument backdrop: wash",
+    "flow is absent before activation: wash",
+    "wetting starts sink flow",
+    "rinsed hands have no foam and stream stops before drying",
+    "all gestures complete with fixed frame: wash",
+    "dedicated instrument backdrop: washBottle",
+    "flow is absent before activation: washBottle",
+    "all gestures complete with fixed frame: washBottle",
+    "dedicated instrument backdrop: seat",
+    "all gestures complete with fixed frame: seat",
+    "dedicated instrument backdrop: drawer",
+    "closing begins at previous opening: drawer",
+    "all gestures complete with fixed frame: drawer",
+    "dedicated instrument backdrop: locker",
+    "closing begins at previous opening: locker",
+    "all gestures complete with fixed frame: locker",
+    "dedicated instrument backdrop: blanket",
+    "two independent straps release folded blanket",
+    "all gestures complete with fixed frame: blanket",
+    "dedicated instrument backdrop: shower",
+    "flow is absent before activation: shower",
+    "pulling handle activates shower",
+    "all gestures complete with fixed frame: shower",
+    "dedicated instrument backdrop: spillKit",
+    "all gestures complete with fixed frame: spillKit",
+    "dedicated instrument backdrop: clock",
+    "clock keeps first three seconds at next step",
+    "clock accumulates 3 + 2 actual simulated seconds",
+    "clock hand advances by 6 degrees per simulated second",
+    "all gestures complete with fixed frame: clock",
+    "dedicated instrument backdrop: ventilation",
+    "correct device instead of fume hood: ventilation",
+    "all gestures complete with fixed frame: ventilation",
+    "dedicated instrument backdrop: smokeAlarm",
+    "correct device instead of fume hood: smokeAlarm",
+    "all gestures complete with fixed frame: smokeAlarm",
+    "dedicated instrument backdrop: bin_liquid",
+    "all gestures complete with fixed frame: bin_liquid",
+    "dedicated instrument backdrop: chemical",
+    "all gestures complete with fixed frame: chemical",
+    "dedicated instrument backdrop: domestic",
+    "all gestures complete with fixed frame: domestic",
+    "dedicated instrument backdrop: sharps",
+    "all gestures complete with fixed frame: sharps",
+    "dedicated instrument backdrop: Bảng ký hiệu GHS",
+    "all gestures complete with fixed frame: Bảng ký hiệu GHS",
+    "dedicated instrument backdrop: Bảng tuần hoàn",
+    "periodic board uses all 118 shared elements",
+    "all gestures complete with fixed frame: Bảng tuần hoàn",
+    "dedicated instrument backdrop: Sơ đồ thoát nạn",
+    "all gestures complete with fixed frame: Sơ đồ thoát nạn",
+    "dedicated instrument backdrop: Bảng hướng dẫn trên lớp",
+    "all gestures complete with fixed frame: Bảng hướng dẫn trên lớp",
+    "dedicated instrument backdrop: acid-dilution",
+    "dilution uses solid stirring rod rather than graduated pipette",
+    "water vessel sits on receiving tray without overlapping tray label",
+    "portion stream stops after pouring confirmation 3",
+    "each dilution cycle has real circular stirring 4",
+    "portion stream stops after pouring confirmation 8",
+    "each dilution cycle has real circular stirring 9",
+    "all gestures complete with fixed frame: acid-dilution",
+    "dedicated instrument backdrop: hazard-labels",
+    "last warning label remains affixed at completion",
+    "all gestures complete with fixed frame: hazard-labels",
+    "bottle jet appears only during held squeeze",
+    "releasing squeeze removes water jet",
+    "actual range interaction changes instrument control",
+    "reset restores starting control and confirmation guard",
+    "reset leaves instrument frame fixed",
+    "instrument zoom survives step advance",
+    "expanded instrument viewport stays fixed",
+    "local titration drop uses its own animation",
+    "game reduced motion stops instrument animation",
+    "OS reduced motion stops instrument animation",
+    "touch preserves frame 844x390",
+    "no mobile horizontal overflow 844x390",
+    "touch preserves frame 390x844",
+    "no mobile horizontal overflow 390x844",
+    "every full fixture records exactly one completion",
+    "no runtime exceptions across instrument visuals",
+    "empty cylinder does not show residual liquid",
+    "actual meniscus bottom aligns exactly with 25 mL graduation",
+    "actual buret meniscus bottom aligns exactly with 20 mL reading"
+  ],
+  "errors": [],
+  "snapshots": [
+    {
+      "item": {
+        "kind": "balance",
+        "id": "balance",
+        "title": "Cân phân tích"
+      },
+      "visualId": "instrument-balance",
+      "steps": 6
+    },
+    {
+      "item": {
+        "kind": "volume",
+        "id": "volume",
+        "title": "Đong thể tích"
+      },
+      "visualId": "instrument-volume",
+      "steps": 5
+    },
+    {
+      "item": {
+        "kind": "titration",
+        "id": "titration",
+        "title": "Đọc và điều chỉnh buret"
+      },
+      "visualId": "instrument-titration",
+      "steps": 5
+    },
+    {
+      "item": {
+        "kind": "ph",
+        "id": "ph",
+        "title": "Điện cực pH"
+      },
+      "visualId": "instrument-ph",
+      "steps": 6
+    },
+    {
+      "item": {
+        "kind": "heat",
+        "id": "heat",
+        "title": "Bếp gia nhiệt"
+      },
+      "visualId": "instrument-heat",
+      "steps": 7
+    },
+    {
+      "item": {
+        "kind": "wash",
+        "id": "wash",
+        "title": "Vệ sinh tay"
+      },
+      "visualId": "instrument-wash",
+      "steps": 6
+    },
+    {
+      "item": {
+        "kind": "washBottle",
+        "id": "washBottle",
+        "title": "Bình tia"
+      },
+      "visualId": "instrument-washBottle",
+      "steps": 4
+    },
+    {
+      "item": {
+        "kind": "seat",
+        "id": "seat",
+        "title": "Ghế thực hành"
+      },
+      "visualId": "instrument-seat",
+      "steps": 3
+    },
+    {
+      "item": {
+        "kind": "drawer",
+        "id": "drawer",
+        "title": "Ngăn dụng cụ"
+      },
+      "visualId": "instrument-drawer",
+      "steps": 4
+    },
+    {
+      "item": {
+        "kind": "locker",
+        "id": "locker",
+        "title": "Tủ cá nhân"
+      },
+      "visualId": "instrument-locker",
+      "steps": 4
+    },
+    {
+      "item": {
+        "kind": "blanket",
+        "id": "blanket",
+        "title": "Chăn chữa cháy"
+      },
+      "visualId": "instrument-blanket",
+      "steps": 4
+    },
+    {
+      "item": {
+        "kind": "shower",
+        "id": "shower",
+        "title": "Vòi khẩn cấp"
+      },
+      "visualId": "instrument-shower",
+      "steps": 4
+    },
+    {
+      "item": {
+        "kind": "spillKit",
+        "id": "spillKit",
+        "title": "Bộ xử lý tràn"
+      },
+      "visualId": "instrument-spillKit",
+      "steps": 5
+    },
+    {
+      "item": {
+        "kind": "clock",
+        "id": "clock",
+        "title": "Đồng hồ"
+      },
+      "visualId": "instrument-clock",
+      "steps": 2
+    },
+    {
+      "item": {
+        "kind": "ventilation",
+        "id": "ventilation",
+        "title": "Lưới thông gió"
+      },
+      "visualId": "instrument-ventilation",
+      "steps": 3
+    },
+    {
+      "item": {
+        "kind": "smokeAlarm",
+        "id": "smokeAlarm",
+        "title": "Đầu báo khói"
+      },
+      "visualId": "instrument-smokeAlarm",
+      "steps": 3
+    },
+    {
+      "item": {
+        "kind": "waste",
+        "id": "bin_liquid",
+        "title": "Can thải lỏng"
+      },
+      "visualId": "instrument-waste-liquid",
+      "steps": 3
+    },
+    {
+      "item": {
+        "kind": "disposal",
+        "id": "chemical",
+        "title": "Mẫu nhiễm đã được cho phép xử lý"
+      },
+      "visualId": "dispose-chemical",
+      "steps": 3
+    },
+    {
+      "item": {
+        "kind": "disposal",
+        "id": "domestic",
+        "title": "Giấy sạch"
+      },
+      "visualId": "dispose-domestic",
+      "steps": 3
+    },
+    {
+      "item": {
+        "kind": "disposal",
+        "id": "sharps",
+        "title": "Mảnh thủy tinh"
+      },
+      "visualId": "dispose-sharps",
+      "steps": 3
+    },
+    {
+      "item": {
+        "kind": "collection",
+        "id": "chemical",
+        "title": "Mẫu nhiễm đã được cho phép xử lý"
+      },
+      "visualId": "collect-chemical",
+      "steps": 6
+    },
+    {
+      "item": {
+        "kind": "collection",
+        "id": "domestic",
+        "title": "Giấy sạch"
+      },
+      "visualId": "collect-domestic",
+      "steps": 6
+    },
+    {
+      "item": {
+        "kind": "collection",
+        "id": "sharps",
+        "title": "Mảnh thủy tinh"
+      },
+      "visualId": "collect-sharps",
+      "steps": 6
+    },
+    {
+      "item": {
+        "kind": "board",
+        "id": "Bảng ký hiệu GHS",
+        "title": "Bảng ký hiệu GHS"
+      },
+      "visualId": "instrument-board",
+      "steps": 3
+    },
+    {
+      "item": {
+        "kind": "board",
+        "id": "Bảng tuần hoàn",
+        "title": "Bảng tuần hoàn"
+      },
+      "visualId": "instrument-board",
+      "steps": 3
+    },
+    {
+      "item": {
+        "kind": "board",
+        "id": "Sơ đồ thoát nạn",
+        "title": "Sơ đồ thoát nạn"
+      },
+      "visualId": "instrument-board",
+      "steps": 3
+    },
+    {
+      "item": {
+        "kind": "board",
+        "id": "Bảng hướng dẫn trên lớp",
+        "title": "Bảng hướng dẫn trên lớp"
+      },
+      "visualId": "instrument-board",
+      "steps": 3
+    },
+    {
+      "item": {
+        "kind": "extra",
+        "id": "acid-dilution",
+        "title": "Pha loãng"
+      },
+      "visualId": "instrument-acid-dilution",
+      "steps": 13
+    },
+    {
+      "item": {
+        "kind": "extra",
+        "id": "hazard-labels",
+        "title": "Nhận diện biểu tượng"
+      },
+      "visualId": "instrument-hazard-labels",
+      "steps": 11
+    }
+  ],
+  "refreshedFixtures": [
+    "volume",
+    "titration"
+  ]
+}

@@ -5,8 +5,8 @@ import { pourTargetPose, type PourParcel } from '../src/engine/pourTransport';
 import { createWallFilm, wallTimeAtHeight, wallWorldPoint } from '../src/engine/wallFilm';
 import { liquidWaterViscosity_Pa_s, nusseltFilm } from '../src/science/liquidTransport';
 import { traceLaunchedStream } from '../src/pour/physics/ballistics';
-import { getVesselProfile } from '../src/pour/physics/profiles';
-import { vesselLiquidSurfaceY } from '../src/science/vesselGeometry';
+import { getWorldVesselProfile } from '../src/pour/physics/profiles';
+import { vesselWorldLiquidSurfaceY } from '../src/science/vesselGeometry';
 import { calculateVesselMass, LAB_PHYSICS } from '../src/engine/interactionEngine';
 import { availableLiquidVolume } from '../src/handling/solidOccupancy';
 import { computeMolarMass } from '../src/engine/ledger';
@@ -16,6 +16,7 @@ import { TransitStreamGeometry } from '../src/pour/render/transitGeometry';
 import { clearHistory, debounceSaveLocalState, loadPersistedLabState, pushHistorySnapshot } from '../src/store/persistence';
 import type { SubstanceContent, VesselState } from '../src/types/chemistry';
 import { vfxBus } from '../src/vfx/bus';
+import { descendingFlightTime } from '../src/science/sceneUnits';
 
 const original = useAppStore.getState();
 afterEach(() => {
@@ -41,10 +42,12 @@ function setup(acidBase = false) {
   return { source, target };
 }
 function launch(volume = 0.1, duration_s = 0.02): PourParcel {
-  const target = useAppStore.getState().vessels.target, profile = getVesselProfile(target.type, target.capacity_ml);
-  const trajectory = traceLaunchedStream([0.3, 3, 0], [0.4, 0, 0], { id: target.id, position: target.position, profile,
+  const target = useAppStore.getState().vessels.target, profile = getWorldVesselProfile(target.type, target.capacity_ml);
+  const entryTime = descendingFlightTime(3, 0, target.position[1] + profile.lipLocal[1])!;
+  const launchX = profile.mouthR * 0.99 - 0.4 * entryTime;
+  const trajectory = traceLaunchedStream([launchX, 3, 0], [0.4, 0, 0], { id: target.id, position: target.position, profile,
     mouthR: profile.mouthR, mouthY: target.position[1] + profile.lipLocal[1],
-    liquidSurfaceY: target.position[1] + vesselLiquidSurfaceY(target) }, LAB_PHYSICS.TABLE_SURFACE_Y);
+    liquidSurfaceY: target.position[1] + vesselWorldLiquidSurfaceY(target) }, LAB_PHYSICS.TABLE_SURFACE_Y);
   expect(trajectory.detailKind).toBe('wall_inner');
   expect(useAppStore.getState().releasePourLiquid({ id: 'wall_test', sessionId: 'wall_session', sourceId: 'source',
     sourceName: 'source', targetId: target.id, targetPose: pourTargetPose(target), duration_s, trajectory }, volume)).toBe(volume);
@@ -108,7 +111,7 @@ describe('Finite wall coating before chemical contact', () => {
     expect(calculateVesselMass(v)).toBeCloseTo(50 + target.mass_g + film.sample.mass_g, 10);
     expect(useAppStore.getState().activeKinetics.target).toBeUndefined();
     conserved(before);
-    const travel = wallTimeAtHeight(film.wallFilm!, vesselLiquidSurfaceY(v));
+    const travel = wallTimeAtHeight(film.wallFilm!, vesselWorldLiquidSurfaceY(v));
     expect(travel).toBeGreaterThan(0);
     useAppStore.getState().advancePourTransport(travel / 2);
     expect(useAppStore.getState().vessels.target.contents).toBe(target.contents);
@@ -124,9 +127,9 @@ describe('Finite wall coating before chemical contact', () => {
   });
 
   it('counts wall liquid against capacity of subsequent pours without raising the bulk surface', () => {
-    const { target } = setup(), beforeSurface = vesselLiquidSurfaceY(target); wetWall();
+    const { target } = setup(), beforeSurface = vesselWorldLiquidSurfaceY(target); wetWall();
     let v = useAppStore.getState().vessels.target;
-    expect(vesselLiquidSurfaceY(v)).toBe(beforeSurface);
+    expect(vesselWorldLiquidSurfaceY(v)).toBe(beforeSurface);
     expect(availableLiquidVolume(v)).toBeCloseTo(79.9, 10);
     const filler = vessel('filler', 100, 'beaker');
     useAppStore.setState(s => ({ vessels: { ...s.vessels, filler } }));
@@ -200,7 +203,7 @@ describe('Finite wall coating before chemical contact', () => {
       for (let i = 0; i < 120 && useAppStore.getState().inFlightPours.length; i++) PourController.tick(1 / 60);
       expect(impacts.length).toBeGreaterThan(0);
       const v = useAppStore.getState().vessels.target;
-      for (const point of impacts) expect(Math.abs(point[1] - (v.position[1] + vesselLiquidSurfaceY(v)))).toBeLessThan(0.002);
+      for (const point of impacts) expect(Math.abs(point[1] - (v.position[1] + vesselWorldLiquidSurfaceY(v)))).toBeLessThan(0.002);
     } finally { stop(); }
   });
 
@@ -238,16 +241,16 @@ describe('Finite wall coating before chemical contact', () => {
 
   it('draws a finite ribbon on the inner contour and follows the vessel without a phantom ballistic stream', () => {
     setup(); const film = wetWall(), target = useAppStore.getState().vessels.target;
-    const travel = wallTimeAtHeight(film.wallFilm!, vesselLiquidSurfaceY(target));
+    const travel = wallTimeAtHeight(film.wallFilm!, vesselWorldLiquidSurfaceY(target));
     useAppStore.getState().advancePourTransport(travel * 0.5);
     const s = useAppStore.getState(), wall = new WallFilmGeometry(), air = new TransitStreamGeometry();
     wall.update(s.inFlightPours, s.vessels); air.update(s.inFlightPours);
     expect(wall.drawRange.count).toBeGreaterThan(0); expect(air.drawRange.count).toBe(0);
-    const positions = wall.attributes.position, profile = getVesselProfile(target.type, target.capacity_ml);
+    const positions = wall.attributes.position, profile = getWorldVesselProfile(target.type, target.capacity_ml);
     const used = wall.drawRange.count / 24 * 8;
     for (let i = 0; i < used; i++) {
       const y = positions.getY(i) - target.position[1], radius = Math.hypot(positions.getX(i) - target.position[0], positions.getZ(i) - target.position[2]);
-      expect(y).toBeGreaterThanOrEqual(vesselLiquidSurfaceY(target) - 1e-6);
+      expect(y).toBeGreaterThanOrEqual(vesselWorldLiquidSurfaceY(target) - 1e-6);
       expect(radius).toBeLessThanOrEqual(profile.r(y) + 1e-6);
     }
     const firstX = positions.getX(0);
@@ -262,7 +265,7 @@ describe('Finite wall coating before chemical contact', () => {
     const neckTime = wallTimeAtHeight(film.wallFilm!, 0.7);
     const crossing = { ...film, elapsed_s: neckTime + film.duration_s * 0.37 };
     const geometry = new WallFilmGeometry(); geometry.update([crossing], { target });
-    const positions = geometry.attributes.position, indices = geometry.index!, profile = getVesselProfile(target.type, target.capacity_ml);
+    const positions = geometry.attributes.position, indices = geometry.index!, profile = getWorldVesselProfile(target.type, target.capacity_ml);
     expect(geometry.drawRange.count).toBeGreaterThan(0);
     for (let i = 0; i < geometry.drawRange.count; i += 3) {
       const ids = [indices.getX(i), indices.getX(i + 1), indices.getX(i + 2)];

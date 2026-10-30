@@ -1,6 +1,7 @@
 import type { ActiveKineticsState } from '../store/useAppStore';
 import type { VesselState } from '../types/chemistry';
 import { applyProgramWithThermalSinks } from './thermalLedger';
+import { reactionReplayProgress } from './reactionProgress';
 
 /** Honor the program's declared activation domain continuously, not just at
  * startup. No Arrhenius constants are inferred from a visual duration.
@@ -18,7 +19,7 @@ export function advanceHeatActivatedProgress(kinetics: ActiveKineticsState, curr
   const gasLimit = program.chemistry.species.some(s => s.role === 'reactant' && s.phase === 'g');
   if (!thermalLimit && !gasLimit) return candidate;
   const feasible = (extent: number) => {
-    const next = applyProgramWithThermalSinks(program, baseline, current, extent);
+    const next = applyProgramWithThermalSinks(program, baseline, current, reactionReplayProgress(kinetics, extent));
     return !next.gasReplayBlocked && (!thermalLimit || Number.isFinite(next.temperature_c) && next.temperature_c! >= minimum!);
   };
   if (feasible(candidate)) return candidate;

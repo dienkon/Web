@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 const DynamicLessonPanel = React.lazy(() => import('../lesson/LessonPanel').then(module => ({ default: module.LessonPanel })));
+const ReactionCatalogPanel = React.lazy(() => import('./ReactionCatalogPanel'));
 
 type ReactionEntry = {
   id: string;
@@ -26,6 +27,7 @@ type ReactionEntry = {
 };
 
 export default function ReactionLibraryPanel() {
+  const [catalogOpen, setCatalogOpen] = useState(false);
   const [entries, setEntries] = useState<ReactionEntry[]>([]);
   const [error, setError] = useState(false);
   const [query, setQuery] = useState('');
@@ -52,7 +54,12 @@ export default function ReactionLibraryPanel() {
   }, [entries, query, topic]);
   const selected = entries.find(entry => entry.id === selectedId);
 
-  return <section className="space-y-3 rounded-xl border border-teal-200 bg-teal-50 p-3 text-xs">
+  return <>
+    <div className="mb-3 flex flex-wrap gap-2 text-xs" role="group" aria-label="Chọn thư viện phản ứng">
+      <button className="rounded border bg-white px-3 py-2 font-semibold" aria-pressed={!catalogOpen} onClick={() => setCatalogOpen(false)}>Bài thực hành</button>
+      <button className="rounded border bg-white px-3 py-2 font-semibold text-teal-800" aria-pressed={catalogOpen} onClick={() => setCatalogOpen(true)}>Kho mở rộng & chuỗi</button>
+    </div>
+    {catalogOpen ? <React.Suspense fallback={<p>Đang mở kho phản ứng…</p>}><ReactionCatalogPanel /></React.Suspense> : <section className="space-y-3 rounded-xl border border-teal-200 bg-teal-50 p-3 text-xs">
     <h3 className="font-bold text-teal-900">Thư viện phản ứng THPT · {entries.length || '…'} mục</h3>
     <p className="text-teal-800">Các bước định tính, hiện tượng và điều kiện. Mục mở rộng được phân biệt với chương trình mô phỏng đã có.</p>
     {error && <p role="alert">Không tải được dữ liệu. Hãy mở lại bảng hướng dẫn để thử lại.</p>}
@@ -111,7 +118,8 @@ export default function ReactionLibraryPanel() {
         aria-label={`Màu kết tủa ${selected.effects.after.precipitate.color}`} className="inline-block h-3 w-3 border border-slate-500"
         style={{ background: selected.effects.after.precipitate.color }} /></p>}
       {!!selected.effects.after?.gasesOffgassed?.length && <p>Khí: {selected.effects.after.gasesOffgassed.map(gas => gas.species).join(', ')}</p>}
-      {selected.effects.timeWarp && <p className="text-amber-900">Thời gian được rút gọn: {selected.effects.timeWarp.note_vi ?? `${selected.effects.timeWarp.physical_s} giây vật lý trong mô hình`}. Thời gian hiệu ứng không phải số đo thực nghiệm.</p>}
+      {selected.effects.timeWarp && <p className="text-amber-900">Giả định thời gian minh họa: {selected.effects.timeWarp.note_vi ?? `${selected.effects.timeWarp.physical_s} giây`}. Chưa hiệu chuẩn thực nghiệm; tốc độ đồng hồ được chọn trên thanh điều khiển.</p>}
     </article>}
-  </section>;
+  </section>}
+  </>;
 }

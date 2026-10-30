@@ -5,11 +5,13 @@ import * as THREE from 'three';
 import { useAppStore } from '../store/useAppStore';
 import { isSodiumWaterReaction, sodiumMetalMass } from '../science/sodiumWater';
 import { sodiumWaterGasMolesPerSecond } from '../engine/sodiumWaterPlan';
-import { vesselLiquidSurfaceY } from '../science/vesselGeometry';
+import { vesselLiquidSurfaceY, vesselWorldLiquidSurfaceY } from '../science/vesselGeometry';
+import { getVesselProfile, getWorldVesselProfile } from '../pour/physics/profiles';
+import { VesselEffectsFrame } from '../simulation/render/VesselEffectsFrame';
 import { vfxBus } from './bus';
 import { getReactionVfxRecipe, sampleRecipeProgress, ReactionVfxRecipe } from './recipes/reactionVfx';
 import { getGenericVfxRecipe } from './recipes/generic';
-import { GasPlume, Sparks, Foam, Splash, AcidSplatter } from './particles';
+import { GasClouds, Sparks, Foam, Splash, AcidSplatter } from './particles';
 import { PhysicalSimulationRenderer } from '../simulation/render/PhysicalSimulationRenderer';
 import { labSound } from '../utils/audio';
 import { reactionSimulationEngine } from './reactions/ReactionSimulationEngine';
@@ -37,6 +39,10 @@ export const VfxDirector = React.memo(function VfxDirector() {
   const activeKinetics = useAppStore((state) => state.activeKinetics);
   const addSpill = useAppStore((state) => state.addSpill);
   const startedRuns = useRef(new Map<string, string>());
+  const liveVesselIds = Object.keys(vessels).join('\u0000');
+  useEffect(() => {
+    SimulationEngine.pruneManagers(new Set(Object.keys(useAppStore.getState().vessels)));
+  }, [liveVesselIds]);
 
   // Flash flare light for intense reactions (Mg burning, explosions)
   const flashLightRef = useRef<THREE.PointLight>(null);
@@ -210,6 +216,7 @@ export const VfxDirector = React.memo(function VfxDirector() {
 
   return (
     <group name="vfx_director_layer">
+      <GasClouds />
       {/* Global Splash listener for liquid impacts */}
       <Splash />
 
@@ -280,9 +287,10 @@ export const VfxDirector = React.memo(function VfxDirector() {
         const simRuntime = reactionSimulationEngine.getRuntime(vesselId);
 
         const pos = vessel.position;
-        const volumeFrac = Math.max(0.1, Math.min(1.0, (vessel.volume_ml || 0) / (vessel.capacity_ml || 100)));
-        const liquidTopY = pos[1] - 0.9 + volumeFrac * 1.5;
-        const mouthY = pos[1] + (vessel.type === 'cylinder' ? 1.7 : vessel.type === 'flask' ? 1.45 : 1.0);
+        const localProfile = getVesselProfile(vessel.type, vessel.capacity_ml);
+        const worldProfile = getWorldVesselProfile(vessel.type, vessel.capacity_ml);
+        const liquidTopY = pos[1] + vesselWorldLiquidSurfaceY(vessel);
+        const mouthY = pos[1] + worldProfile.lipLocal[1];
 
         const effectiveBubbleRate = !isSodiumWaterReaction(kinetics?.reactionId) && hasLiquid ? measuredGas.bubbleRate : 0;
 
@@ -295,17 +303,17 @@ export const VfxDirector = React.memo(function VfxDirector() {
         return (
           <group key={vesselId} position={pos}>
             {/* Core Realistic Chemical Simulation: Multi-stage Boiling, Stokes Precipitation, Sediment Bed, Clausius-Clapeyron Evaporation */}
-            <PhysicalSimulationRenderer
+            <VesselEffectsFrame vessel={vessel}><PhysicalSimulationRenderer
               vesselId={vesselId}
-              baseY={-0.88}
-              mouthY={mouthY - pos[1]}
-              radius={vessel.type === 'test_tube' ? 0.14 : vessel.type === 'cylinder' ? 0.28 : vessel.type === 'flask' ? 0.45 : 0.52}
-              mouthRadius={vessel.type === 'test_tube' ? 0.12 : vessel.type === 'cylinder' ? 0.25 : 0.35}
+              baseY={localProfile.baseY}
+              mouthY={localProfile.baseY + localProfile.H}
+              radius={localProfile.r(vesselLiquidSurfaceY(vessel))}
+              mouthRadius={localProfile.mouthR}
               color={sampled.bubblesColor || '#ffffff'}
               reactionGasRate={effectiveBubbleRate}
               reactionPrecipitateActive={effectivePrecipitate}
               reactionPrecipitateSubstance={vessel.precipitateSubstance || sampled.precipitateSubstance || activeRecipe.precipitate?.substance}
-            />
+            /></VesselEffectsFrame>
 
             {/* 8-Morphology Precipitate Particle Cascades (PbI2 Golden Rain, AgCl Curd, Fe(OH)3 Floc, Cu(OH)2 Gel, etc.) */}
             {/* Finite-mass suspended solids are rendered once by PhysicalSimulationRenderer. */}
@@ -316,8 +324,8 @@ export const VfxDirector = React.memo(function VfxDirector() {
             {/* Water-vapor visuals are emitted once by the physical renderer,
                 using the authoritative finite evaporation rate. */}
 
-            {/* Supplementary Reaction Gas Plume (Heavy colored fumes, e.g. NO2 brown gas) */}
-            {measuredGas.visible.map(gas => <GasPlume key={gas.formula} vesselId={vesselId} species={gas.formula} />)}
+            {/* Colored exhaust belongs to the room, independently of this
+                conditional reaction/source tree. */}
 
             {/* Declarative Sparks & Energetic Micro-Flashes */}
             {(emission.running && (activeRecipe.sparks?.active || !!simRuntime?.customData?.hasSparks)) && (
@@ -336,7 +344,7 @@ export const VfxDirector = React.memo(function VfxDirector() {
                 vesselId={vesselId}
                 surfaceY={liquidTopY - pos[1]}
                 vesselTopY={mouthY - pos[1]}
-                radius={vessel.type === 'test_tube' ? 0.14 : 0.52}
+                radius={worldProfile.r(vesselWorldLiquidSurfaceY(vessel))}
                 capacity_ml={vessel.capacity_ml}
                 active={true}
               />

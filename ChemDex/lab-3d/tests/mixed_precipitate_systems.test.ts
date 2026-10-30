@@ -77,11 +77,14 @@ describe('Independent precipitate species in a shared vessel', () => {
     expect(systems.reduce((s, p) => s + p.representedMass_g, 0)).toBeCloseTo(0.3, 10);
   });
 
-  it('adds sediment volumes using each material density, rather than overlapping beds', () => {
+  it('adds wet-bed volumes using each material density and packing fraction', () => {
     const v = vessel([row('AgBr', 0.3), row('BaSO4', 0.2)]), manager = new VesselSimulationManager(v.id, 'low');
     for (let i = 0; i < 1000; i++) manager.step(v, 0.1, { thermalStateAuthoritative: true });
     const systems = [...manager.precipitationSystems.values()];
-    const packedVolume = systems.reduce((s, p) => s + p.sedimentBed.amount_g / p.profile.particleDensity_g_cm3 / 0.65, 0);
+    // AgBr curds have a looser modeled bed than fine BaSO4 powder. These are
+    // explicit catalog assumptions, not a universal 65% sphere packing.
+    const packedVolume = manager.precipitationSystems.get('AgBr')!.sedimentBed.amount_g / (6.47 * 0.15)
+      + manager.precipitationSystems.get('BaSO4')!.sedimentBed.amount_g / (4.5 * 0.35);
     expect(manager.sedimentBed.amount_g).toBeCloseTo(0.5, 8);
     expect(manager.sedimentBed.thickness).toBeCloseTo(liquidLevelForVolume(v.type, packedVolume, v.capacity_ml) - vesselInterior(v.type).floorY, 12);
     expect(manager.cloudiness).toBeLessThan(1e-6);

@@ -4,7 +4,8 @@ import { VesselSimulationManager } from '../src/simulation/core/SimulationEngine
 import { currentPrecipitateTurbidity } from '../src/simulation/render/precipitateTurbidity';
 import type { VesselState } from '../src/types/chemistry';
 describe('Finite attached-metal appearance', () => {
-  it.each([['zn_agno3', 'Zn', 'Ag'], ['mg_cuso4', 'Mg', 'Cu']])('%s attaches product appearance to its surviving substrate without a duplicate cloud', (id, substrate, product) => {
+  it.each([['zn_agno3', 'Zn', 'Ag'], ['mg_cuso4', 'Mg', 'Cu'], ['fe_cuso4', 'Fe (nail)', 'Cu'],
+    ['zn_cuso4', 'Zn (granules)', 'Cu'], ['cu_agno3', 'Cu (turnings)', 'Ag']])('%s attaches product appearance to its surviving substrate without a duplicate cloud', (id, substrate, product) => {
     const v = { id: 'metal', type: 'beaker', capacity_ml: 250, volume_ml: 100, temperature_c: 25,
       lastReactionId: id, precipitateSubstance: product, precipitateAmount_g: 0.1,
       contents: [{ formula: 'H2O', phase: 'l', moles: 5, mass_g: 90 },
@@ -28,5 +29,14 @@ describe('Finite attached-metal appearance', () => {
     expect(manager.precipitationSystem.sedimentBed.metalness).toBe(1);
     expect(manager.precipitationSystem.representedMass_g).toBeCloseTo(0.1, 12);
     expect(manager.precipitationSystem.profile.color).not.toBe('#f8fafc');
+  });
+  it('does not turn independently added copper stock or filter cake into an iron coating', () => {
+    const v = { lastReactionId: 'fe_cuso4', precipitateSubstance: 'Cu', contents: [
+      { formula: 'Fe (nail)', phase: 's', mass_g: 1, moles: 1 / 55.845 },
+      { formula: 'Cu', phase: 's', mass_g: 2, moles: 2 / 63.546 },
+      { formula: 'Cu', phase: 's', mass_g: 0.1, moles: 0.1 / 63.546, solidOrigin: 'precipitate' },
+      { formula: 'Cu', phase: 's', mass_g: 3, moles: 3 / 63.546, solidOrigin: 'precipitate', location: 'filter' },
+    ] } as VesselState;
+    expect(metalSurfaceAppearance(v)!.attachedMass_g).toBeCloseTo(0.1);
   });
 });

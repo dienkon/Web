@@ -1,5 +1,5 @@
 import type { ContourPoint } from './vesselContours';
-import { METERS_PER_SCENE_UNIT as scale } from './sceneUnits';
+import { METERS_PER_SCENE_UNIT as defaultScale } from './sceneUnits';
 import { wallDropMotion, wallSurfaceSection, wallHeightAtMeridian } from './wallDropletGeometry';
 
 /** Piecewise-exact advection for the existing quasi-steady drop closure.
@@ -8,9 +8,11 @@ import { wallDropMotion, wallSurfaceSection, wallHeightAtMeridian } from './wall
  * a lower segment may pin the drop. Horizontal rim dynamics remain unsolved. */
 export function advanceWallDrop(mass_g: number, temperature_c: number, points: readonly ContourPoint[],
   initialY: number, dt_s: number, options: {
+    metersPerLocalUnit?: number;
     lowerBoundaryMeridian?: number;
     sectionAt?: (y: number) => ReturnType<typeof wallSurfaceSection>;
   } = {}) {
+  const scale = options.metersPerLocalUnit ?? defaultScale;
   const sectionAt = options.sectionAt ?? ((y: number) => wallSurfaceSection(points,y));
   let frame = sectionAt(initialY);
   const result = { ...wallDropMotion(mass_g,temperature_c,frame.metric), y: initialY,

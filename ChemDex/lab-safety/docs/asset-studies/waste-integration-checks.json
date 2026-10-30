@@ -1,0 +1,227 @@
+{
+  "passed": true,
+  "checks": [
+    "one floor-supported container: bin_glass",
+    "container and collision share placement: bin_glass",
+    "one floor-supported container: bin_chemical",
+    "container and collision share placement: bin_chemical",
+    "one floor-supported container: bin_liquid",
+    "container and collision share placement: bin_liquid",
+    "one floor-supported container: bin_sharps",
+    "container and collision share placement: bin_sharps",
+    "one floor-supported container: bin_domestic",
+    "container and collision share placement: bin_domestic",
+    "correct named practice for bin_glass",
+    "sorting target follows container label: bin_glass",
+    "correct named practice for bin_chemical",
+    "sorting target follows container label: bin_chemical",
+    "correct named practice for bin_liquid",
+    "liquid inspection avoids the solid-waste sorting workflow",
+    "liquid container inspection can complete",
+    "correct named practice for bin_sharps",
+    "sorting target follows container label: bin_sharps",
+    "correct named practice for bin_domestic",
+    "sorting target follows container label: bin_domestic",
+    "all loose samples sit just above floor",
+    "no runtime errors in waste fixtures"
+  ],
+  "errors": [],
+  "snapshots": {
+    "installed": [
+      {
+        "name": "asset-glass-waste",
+        "position": [
+          8.8,
+          0,
+          3.9
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          8.580000001192094,
+          0,
+          3.680000001192093
+        ],
+        "max": [
+          9.019999998807908,
+          0.7175000008940696,
+          4.1199999988079075
+        ],
+        "visible": true
+      },
+      {
+        "name": "asset-chemical-bin",
+        "position": [
+          8.8,
+          0,
+          4.55
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          8.504999999254943,
+          0,
+          4.310000005364418
+        ],
+        "max": [
+          9.039999994635583,
+          0.6925049998015166,
+          4.789999994635582
+        ],
+        "visible": true
+      },
+      {
+        "name": "asset-liquid-waste",
+        "position": [
+          8.8,
+          0,
+          5.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          8.588000002503396,
+          0,
+          4.988000002503395
+        ],
+        "max": [
+          9.011999997496606,
+          0.7865050004050136,
+          5.452783284069831
+        ],
+        "visible": true
+      },
+      {
+        "name": "asset-sharps-box",
+        "position": [
+          8.8,
+          0,
+          5.85
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          8.649999994039536,
+          1.6763806315323038e-10,
+          5.67999999821186
+        ],
+        "max": [
+          8.95199999511242,
+          0.5846396088600159,
+          6.020000001788139
+        ],
+        "visible": true
+      },
+      {
+        "name": "asset-domestic-bin",
+        "position": [
+          8.8,
+          0,
+          6.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          8.504999999254943,
+          0,
+          6.260000005364418
+        ],
+        "max": [
+          9.039999994635583,
+          0.6925049998015166,
+          6.739999994635582
+        ],
+        "visible": true
+      }
+    ],
+    "loose": [
+      {
+        "name": "asset-crumpled-paper",
+        "position": [
+          -6.7,
+          -0.001,
+          4.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          -6.800000001490116,
+          0.006000000216066837,
+          4.420000001788139
+        ],
+        "max": [
+          -6.599999998509884,
+          0.035924850195646285,
+          4.579999998211861
+        ],
+        "visible": true
+      },
+      {
+        "name": "asset-glass-shards",
+        "position": [
+          -1.5,
+          0.006,
+          2.7
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          -1.6500000007450581,
+          0.005999999999999985,
+          2.6450000002980234
+        ],
+        "max": [
+          -1.3635549476077793,
+          0.008000000094994918,
+          2.810252540010416
+        ],
+        "visible": true
+      },
+      {
+        "name": "asset-contaminated-paper",
+        "position": [
+          6.4,
+          -0.001,
+          0.3
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          6.299999998509884,
+          0.006000000216066837,
+          0.22000000178813933
+        ],
+        "max": [
+          6.5000000014901165,
+          0.035924850195646285,
+          0.37999999821186065
+        ],
+        "visible": true
+      }
+    ]
+  }
+}

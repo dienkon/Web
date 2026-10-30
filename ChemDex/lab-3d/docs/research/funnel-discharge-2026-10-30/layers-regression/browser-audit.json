@@ -1,0 +1,2881 @@
+{
+  "method": "Real app stock instance buffers and liquid clipping planes, GPU uniforms read after each layer draw. Independent explicit mouth cap and triangle clip. Controlled finite funnelFlow steps update canonical fixtures; no chemistry kinetics, rigid contact or hydraulic calibration claim.",
+  "cases": [
+    {
+      "heavy": false,
+      "samples": [
+        {
+          "angle": 0,
+          "tier": "low",
+          "snapshot": {
+            "expected": {
+              "lower": "aqueous",
+              "lowerVolume_ml": 3,
+              "upperVolume_ml": 0.005
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 3,
+                "geometric_ml": 3.595143362605828,
+                "displaced_ml": 0.5951433769206047,
+                "liquid_ml": 2.999999985685223,
+                "gpuGeometric_ml": 3.5893711714783896,
+                "gpuLiquid_ml": 2.994227794557785,
+                "top": -0.06792323661534344,
+                "bottom": null,
+                "angle": 0,
+                "gpu": {
+                  "top": [
+                    0,
+                    1,
+                    0,
+                    0.38207677006721497
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "75e6faa7-f2a5-4b16-afad-c927d198c82a"
+                }
+              },
+              {
+                "upper": true,
+                "expected_ml": 0.005,
+                "geometric_ml": 0.006143956537977502,
+                "displaced_ml": 0.0011439564820844295,
+                "liquid_ml": 0.005000000055893072,
+                "gpuGeometric_ml": 0.006134065035114521,
+                "gpuLiquid_ml": 0.004990108553030091,
+                "top": -0.06767539940724837,
+                "bottom": -0.06792323661534344,
+                "angle": 0,
+                "gpu": {
+                  "top": [
+                    0,
+                    1,
+                    0,
+                    0.38232460618019104
+                  ],
+                  "lower": [
+                    0,
+                    1,
+                    0,
+                    0.38207677006721497
+                  ],
+                  "uuid": "d6c788ff-eee7-47f4-b902-55e11446bbf4"
+                }
+              }
+            ],
+            "stockVolume_ml": 1.0000000221128889,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.01662519662172506,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 1
+            }
+          }
+        },
+        {
+          "angle": 0,
+          "tier": "medium",
+          "snapshot": {
+            "expected": {
+              "lower": "aqueous",
+              "lowerVolume_ml": 3,
+              "upperVolume_ml": 0.005
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 3,
+                "geometric_ml": 3.595143362605828,
+                "displaced_ml": 0.5951433769206047,
+                "liquid_ml": 2.999999985685223,
+                "gpuGeometric_ml": 3.5893711714783896,
+                "gpuLiquid_ml": 2.994227794557785,
+                "top": -0.06792323661534344,
+                "bottom": null,
+                "angle": 0,
+                "gpu": {
+                  "top": [
+                    0,
+                    1,
+                    0,
+                    0.38207677006721497
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "75e6faa7-f2a5-4b16-afad-c927d198c82a"
+                }
+              },
+              {
+                "upper": true,
+                "expected_ml": 0.005,
+                "geometric_ml": 0.006143956537977502,
+                "displaced_ml": 0.0011439564820844295,
+                "liquid_ml": 0.005000000055893072,
+                "gpuGeometric_ml": 0.006134065035114521,
+                "gpuLiquid_ml": 0.004990108553030091,
+                "top": -0.06767539940724837,
+                "bottom": -0.06792323661534344,
+                "angle": 0,
+                "gpu": {
+                  "top": [
+                    0,
+                    1,
+                    0,
+                    0.38232460618019104
+                  ],
+                  "lower": [
+                    0,
+                    1,
+                    0,
+                    0.38207677006721497
+                  ],
+                  "uuid": "d6c788ff-eee7-47f4-b902-55e11446bbf4"
+                }
+              }
+            ],
+            "stockVolume_ml": 1.0000000221128889,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.01662519662172506,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 1
+            }
+          }
+        },
+        {
+          "angle": 0,
+          "tier": "high",
+          "snapshot": {
+            "expected": {
+              "lower": "aqueous",
+              "lowerVolume_ml": 3,
+              "upperVolume_ml": 0.005
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 3,
+                "geometric_ml": 3.595143362605828,
+                "displaced_ml": 0.5951433769206047,
+                "liquid_ml": 2.999999985685223,
+                "gpuGeometric_ml": 3.5893711714783896,
+                "gpuLiquid_ml": 2.994227794557785,
+                "top": -0.06792323661534344,
+                "bottom": null,
+                "angle": 0,
+                "gpu": {
+                  "top": [
+                    0,
+                    1,
+                    0,
+                    0.38207677006721497
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "75e6faa7-f2a5-4b16-afad-c927d198c82a"
+                }
+              },
+              {
+                "upper": true,
+                "expected_ml": 0.005,
+                "geometric_ml": 0.006143956537977502,
+                "displaced_ml": 0.0011439564820844295,
+                "liquid_ml": 0.005000000055893072,
+                "gpuGeometric_ml": 0.006134065035114521,
+                "gpuLiquid_ml": 0.004990108553030091,
+                "top": -0.06767539940724837,
+                "bottom": -0.06792323661534344,
+                "angle": 0,
+                "gpu": {
+                  "top": [
+                    0,
+                    1,
+                    0,
+                    0.38232460618019104
+                  ],
+                  "lower": [
+                    0,
+                    1,
+                    0,
+                    0.38207677006721497
+                  ],
+                  "uuid": "d6c788ff-eee7-47f4-b902-55e11446bbf4"
+                }
+              }
+            ],
+            "stockVolume_ml": 1.0000000221128889,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.01662519662172506,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 1
+            }
+          }
+        },
+        {
+          "angle": 0,
+          "tier": "ultra",
+          "snapshot": {
+            "expected": {
+              "lower": "aqueous",
+              "lowerVolume_ml": 3,
+              "upperVolume_ml": 0.005
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 3,
+                "geometric_ml": 3.595143362605828,
+                "displaced_ml": 0.5951433769206047,
+                "liquid_ml": 2.999999985685223,
+                "gpuGeometric_ml": 3.5893711714783896,
+                "gpuLiquid_ml": 2.994227794557785,
+                "top": -0.06792323661534344,
+                "bottom": null,
+                "angle": 0,
+                "gpu": {
+                  "top": [
+                    0,
+                    1,
+                    0,
+                    0.38207677006721497
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "75e6faa7-f2a5-4b16-afad-c927d198c82a"
+                }
+              },
+              {
+                "upper": true,
+                "expected_ml": 0.005,
+                "geometric_ml": 0.006143956537977502,
+                "displaced_ml": 0.0011439564820844295,
+                "liquid_ml": 0.005000000055893072,
+                "gpuGeometric_ml": 0.006134065035114521,
+                "gpuLiquid_ml": 0.004990108553030091,
+                "top": -0.06767539940724837,
+                "bottom": -0.06792323661534344,
+                "angle": 0,
+                "gpu": {
+                  "top": [
+                    0,
+                    1,
+                    0,
+                    0.38232460618019104
+                  ],
+                  "lower": [
+                    0,
+                    1,
+                    0,
+                    0.38207677006721497
+                  ],
+                  "uuid": "d6c788ff-eee7-47f4-b902-55e11446bbf4"
+                }
+              }
+            ],
+            "stockVolume_ml": 1.0000000221128889,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.01662519662172506,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 1
+            }
+          }
+        },
+        {
+          "angle": 0.8,
+          "tier": "low",
+          "snapshot": {
+            "expected": {
+              "lower": "aqueous",
+              "lowerVolume_ml": 3,
+              "upperVolume_ml": 0.005
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 3,
+                "geometric_ml": 3.074185579566181,
+                "displaced_ml": 0.07418557578016843,
+                "liquid_ml": 3.000000003786013,
+                "gpuGeometric_ml": 3.073021720452564,
+                "gpuLiquid_ml": 2.9988361446723957,
+                "top": -0.22620406445293142,
+                "bottom": null,
+                "angle": 0.8,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.6967067122459412,
+                    -0.7173560857772827,
+                    0.18774381279945374
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "b7fcb650-8c1e-4625-adfc-f0782129e4fc"
+                }
+              },
+              {
+                "upper": true,
+                "expected_ml": 0.005,
+                "geometric_ml": 0.005140653327951661,
+                "displaced_ml": 0.00014065332093189664,
+                "liquid_ml": 0.005000000007019764,
+                "gpuGeometric_ml": 0.005139564347065416,
+                "gpuLiquid_ml": 0.004998911026133519,
+                "top": -0.22610289841008788,
+                "bottom": -0.22620406445293142,
+                "angle": 0.8,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.6967067122459412,
+                    -0.7173560857772827,
+                    0.18784497678279877
+                  ],
+                  "lower": [
+                    0,
+                    0.6967067122459412,
+                    -0.7173560857772827,
+                    0.18774381279945374
+                  ],
+                  "uuid": "c8afc936-5f9b-4c2a-aec7-80d9d75bae9e"
+                }
+              }
+            ],
+            "stockVolume_ml": 1.0000000221128889,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.01662519662172506,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 1
+            }
+          }
+        },
+        {
+          "angle": 0.8,
+          "tier": "medium",
+          "snapshot": {
+            "expected": {
+              "lower": "aqueous",
+              "lowerVolume_ml": 3,
+              "upperVolume_ml": 0.005
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 3,
+                "geometric_ml": 3.074185579566181,
+                "displaced_ml": 0.07418557578016843,
+                "liquid_ml": 3.000000003786013,
+                "gpuGeometric_ml": 3.073021720452564,
+                "gpuLiquid_ml": 2.9988361446723957,
+                "top": -0.22620406445293142,
+                "bottom": null,
+                "angle": 0.8,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.6967067122459412,
+                    -0.7173560857772827,
+                    0.18774381279945374
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "b7fcb650-8c1e-4625-adfc-f0782129e4fc"
+                }
+              },
+              {
+                "upper": true,
+                "expected_ml": 0.005,
+                "geometric_ml": 0.005140653327951661,
+                "displaced_ml": 0.00014065332093189664,
+                "liquid_ml": 0.005000000007019764,
+                "gpuGeometric_ml": 0.005139564347065416,
+                "gpuLiquid_ml": 0.004998911026133519,
+                "top": -0.22610289841008788,
+                "bottom": -0.22620406445293142,
+                "angle": 0.8,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.6967067122459412,
+                    -0.7173560857772827,
+                    0.18784497678279877
+                  ],
+                  "lower": [
+                    0,
+                    0.6967067122459412,
+                    -0.7173560857772827,
+                    0.18774381279945374
+                  ],
+                  "uuid": "c8afc936-5f9b-4c2a-aec7-80d9d75bae9e"
+                }
+              }
+            ],
+            "stockVolume_ml": 1.0000000221128889,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.01662519662172506,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 1
+            }
+          }
+        },
+        {
+          "angle": 0.8,
+          "tier": "high",
+          "snapshot": {
+            "expected": {
+              "lower": "aqueous",
+              "lowerVolume_ml": 3,
+              "upperVolume_ml": 0.005
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 3,
+                "geometric_ml": 3.074185579566181,
+                "displaced_ml": 0.07418557578016843,
+                "liquid_ml": 3.000000003786013,
+                "gpuGeometric_ml": 3.073021720452564,
+                "gpuLiquid_ml": 2.9988361446723957,
+                "top": -0.22620406445293142,
+                "bottom": null,
+                "angle": 0.8,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.6967067122459412,
+                    -0.7173560857772827,
+                    0.18774381279945374
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "b7fcb650-8c1e-4625-adfc-f0782129e4fc"
+                }
+              },
+              {
+                "upper": true,
+                "expected_ml": 0.005,
+                "geometric_ml": 0.005140653327951661,
+                "displaced_ml": 0.00014065332093189664,
+                "liquid_ml": 0.005000000007019764,
+                "gpuGeometric_ml": 0.005139564347065416,
+                "gpuLiquid_ml": 0.004998911026133519,
+                "top": -0.22610289841008788,
+                "bottom": -0.22620406445293142,
+                "angle": 0.8,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.6967067122459412,
+                    -0.7173560857772827,
+                    0.18784497678279877
+                  ],
+                  "lower": [
+                    0,
+                    0.6967067122459412,
+                    -0.7173560857772827,
+                    0.18774381279945374
+                  ],
+                  "uuid": "c8afc936-5f9b-4c2a-aec7-80d9d75bae9e"
+                }
+              }
+            ],
+            "stockVolume_ml": 1.0000000221128889,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.01662519662172506,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 1
+            }
+          }
+        },
+        {
+          "angle": 0.8,
+          "tier": "ultra",
+          "snapshot": {
+            "expected": {
+              "lower": "aqueous",
+              "lowerVolume_ml": 3,
+              "upperVolume_ml": 0.005
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 3,
+                "geometric_ml": 3.074185579566181,
+                "displaced_ml": 0.07418557578016843,
+                "liquid_ml": 3.000000003786013,
+                "gpuGeometric_ml": 3.073021720452564,
+                "gpuLiquid_ml": 2.9988361446723957,
+                "top": -0.22620406445293142,
+                "bottom": null,
+                "angle": 0.8,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.6967067122459412,
+                    -0.7173560857772827,
+                    0.18774381279945374
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "b7fcb650-8c1e-4625-adfc-f0782129e4fc"
+                }
+              },
+              {
+                "upper": true,
+                "expected_ml": 0.005,
+                "geometric_ml": 0.005140653327951661,
+                "displaced_ml": 0.00014065332093189664,
+                "liquid_ml": 0.005000000007019764,
+                "gpuGeometric_ml": 0.005139564347065416,
+                "gpuLiquid_ml": 0.004998911026133519,
+                "top": -0.22610289841008788,
+                "bottom": -0.22620406445293142,
+                "angle": 0.8,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.6967067122459412,
+                    -0.7173560857772827,
+                    0.18784497678279877
+                  ],
+                  "lower": [
+                    0,
+                    0.6967067122459412,
+                    -0.7173560857772827,
+                    0.18774381279945374
+                  ],
+                  "uuid": "c8afc936-5f9b-4c2a-aec7-80d9d75bae9e"
+                }
+              }
+            ],
+            "stockVolume_ml": 1.0000000221128889,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.01662519662172506,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 1
+            }
+          }
+        },
+        {
+          "angle": 1.2,
+          "tier": "low",
+          "snapshot": {
+            "expected": {
+              "lower": "aqueous",
+              "lowerVolume_ml": 3,
+              "upperVolume_ml": 0.005
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 3,
+                "geometric_ml": 2.9999999999999987,
+                "displaced_ml": 0,
+                "liquid_ml": 2.9999999999999987,
+                "gpuGeometric_ml": 2.998386136225934,
+                "gpuLiquid_ml": 2.998386136225934,
+                "top": -0.4830072578744889,
+                "bottom": null,
+                "angle": 1.2,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.3623577654361725,
+                    -0.9320390820503235,
+                    0.17412614822387695
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "43d924af-fe3d-4b2f-a0d9-fd1e6319bff1"
+                }
+              },
+              {
+                "upper": true,
+                "expected_ml": 0.005,
+                "geometric_ml": 0.004999999999999893,
+                "displaced_ml": 0,
+                "liquid_ml": 0.004999999999999893,
+                "gpuGeometric_ml": 0.004998621172574225,
+                "gpuLiquid_ml": 0.004998621172574225,
+                "top": -0.4828776593047286,
+                "bottom": -0.4830072578744889,
+                "angle": 1.2,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.3623577654361725,
+                    -0.9320390820503235,
+                    0.17425574362277985
+                  ],
+                  "lower": [
+                    0,
+                    0.3623577654361725,
+                    -0.9320390820503235,
+                    0.17412614822387695
+                  ],
+                  "uuid": "45c70603-cc86-4563-bea7-7d01e991103d"
+                }
+              }
+            ],
+            "stockVolume_ml": 1.0000000221128886,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.01662519662172506,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 1
+            }
+          }
+        },
+        {
+          "angle": 1.2,
+          "tier": "medium",
+          "snapshot": {
+            "expected": {
+              "lower": "aqueous",
+              "lowerVolume_ml": 3,
+              "upperVolume_ml": 0.005
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 3,
+                "geometric_ml": 2.9999999999999987,
+                "displaced_ml": 0,
+                "liquid_ml": 2.9999999999999987,
+                "gpuGeometric_ml": 2.998386136225934,
+                "gpuLiquid_ml": 2.998386136225934,
+                "top": -0.4830072578744889,
+                "bottom": null,
+                "angle": 1.2,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.3623577654361725,
+                    -0.9320390820503235,
+                    0.17412614822387695
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "43d924af-fe3d-4b2f-a0d9-fd1e6319bff1"
+                }
+              },
+              {
+                "upper": true,
+                "expected_ml": 0.005,
+                "geometric_ml": 0.004999999999999893,
+                "displaced_ml": 0,
+                "liquid_ml": 0.004999999999999893,
+                "gpuGeometric_ml": 0.004998621172574225,
+                "gpuLiquid_ml": 0.004998621172574225,
+                "top": -0.4828776593047286,
+                "bottom": -0.4830072578744889,
+                "angle": 1.2,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.3623577654361725,
+                    -0.9320390820503235,
+                    0.17425574362277985
+                  ],
+                  "lower": [
+                    0,
+                    0.3623577654361725,
+                    -0.9320390820503235,
+                    0.17412614822387695
+                  ],
+                  "uuid": "45c70603-cc86-4563-bea7-7d01e991103d"
+                }
+              }
+            ],
+            "stockVolume_ml": 1.0000000221128886,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.01662519662172506,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 1
+            }
+          }
+        },
+        {
+          "angle": 1.2,
+          "tier": "high",
+          "snapshot": {
+            "expected": {
+              "lower": "aqueous",
+              "lowerVolume_ml": 3,
+              "upperVolume_ml": 0.005
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 3,
+                "geometric_ml": 2.9999999999999987,
+                "displaced_ml": 0,
+                "liquid_ml": 2.9999999999999987,
+                "gpuGeometric_ml": 2.998386136225934,
+                "gpuLiquid_ml": 2.998386136225934,
+                "top": -0.4830072578744889,
+                "bottom": null,
+                "angle": 1.2,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.3623577654361725,
+                    -0.9320390820503235,
+                    0.17412614822387695
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "43d924af-fe3d-4b2f-a0d9-fd1e6319bff1"
+                }
+              },
+              {
+                "upper": true,
+                "expected_ml": 0.005,
+                "geometric_ml": 0.004999999999999893,
+                "displaced_ml": 0,
+                "liquid_ml": 0.004999999999999893,
+                "gpuGeometric_ml": 0.004998621172574225,
+                "gpuLiquid_ml": 0.004998621172574225,
+                "top": -0.4828776593047286,
+                "bottom": -0.4830072578744889,
+                "angle": 1.2,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.3623577654361725,
+                    -0.9320390820503235,
+                    0.17425574362277985
+                  ],
+                  "lower": [
+                    0,
+                    0.3623577654361725,
+                    -0.9320390820503235,
+                    0.17412614822387695
+                  ],
+                  "uuid": "45c70603-cc86-4563-bea7-7d01e991103d"
+                }
+              }
+            ],
+            "stockVolume_ml": 1.0000000221128886,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.01662519662172506,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 1
+            }
+          }
+        },
+        {
+          "angle": 1.2,
+          "tier": "ultra",
+          "snapshot": {
+            "expected": {
+              "lower": "aqueous",
+              "lowerVolume_ml": 3,
+              "upperVolume_ml": 0.005
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 3,
+                "geometric_ml": 2.9999999999999987,
+                "displaced_ml": 0,
+                "liquid_ml": 2.9999999999999987,
+                "gpuGeometric_ml": 2.998386136225934,
+                "gpuLiquid_ml": 2.998386136225934,
+                "top": -0.4830072578744889,
+                "bottom": null,
+                "angle": 1.2,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.3623577654361725,
+                    -0.9320390820503235,
+                    0.17412614822387695
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "43d924af-fe3d-4b2f-a0d9-fd1e6319bff1"
+                }
+              },
+              {
+                "upper": true,
+                "expected_ml": 0.005,
+                "geometric_ml": 0.004999999999999893,
+                "displaced_ml": 0,
+                "liquid_ml": 0.004999999999999893,
+                "gpuGeometric_ml": 0.004998621172574225,
+                "gpuLiquid_ml": 0.004998621172574225,
+                "top": -0.4828776593047286,
+                "bottom": -0.4830072578744889,
+                "angle": 1.2,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.3623577654361725,
+                    -0.9320390820503235,
+                    0.17425574362277985
+                  ],
+                  "lower": [
+                    0,
+                    0.3623577654361725,
+                    -0.9320390820503235,
+                    0.17412614822387695
+                  ],
+                  "uuid": "45c70603-cc86-4563-bea7-7d01e991103d"
+                }
+              }
+            ],
+            "stockVolume_ml": 1.0000000221128886,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.01662519662172506,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 1
+            }
+          }
+        }
+      ],
+      "shrinking": {
+        "expected": {
+          "lower": "aqueous",
+          "lowerVolume_ml": 3,
+          "upperVolume_ml": 0.005
+        },
+        "layers": [
+          {
+            "upper": false,
+            "expected_ml": 3,
+            "geometric_ml": 2.9999999999999987,
+            "displaced_ml": 0,
+            "liquid_ml": 2.9999999999999987,
+            "gpuGeometric_ml": 2.998386136225934,
+            "gpuLiquid_ml": 2.998386136225934,
+            "top": -0.4830072578744889,
+            "bottom": null,
+            "angle": 1.2,
+            "gpu": {
+              "top": [
+                0,
+                0.3623577654361725,
+                -0.9320390820503235,
+                0.17412614822387695
+              ],
+              "lower": [
+                0,
+                0,
+                0,
+                -100000002004087730000
+              ],
+              "uuid": "43d924af-fe3d-4b2f-a0d9-fd1e6319bff1"
+            }
+          },
+          {
+            "upper": true,
+            "expected_ml": 0.005,
+            "geometric_ml": 0.004999999999999893,
+            "displaced_ml": 0,
+            "liquid_ml": 0.004999999999999893,
+            "gpuGeometric_ml": 0.004998621172574225,
+            "gpuLiquid_ml": 0.004998621172574225,
+            "top": -0.4828776593047286,
+            "bottom": -0.4830072578744889,
+            "angle": 1.2,
+            "gpu": {
+              "top": [
+                0,
+                0.3623577654361725,
+                -0.9320390820503235,
+                0.17425574362277985
+              ],
+              "lower": [
+                0,
+                0.3623577654361725,
+                -0.9320390820503235,
+                0.17412614822387695
+              ],
+              "uuid": "45c70603-cc86-4563-bea7-7d01e991103d"
+            }
+          }
+        ],
+        "stockVolume_ml": 0.4000000181098429,
+        "stock": {
+          "status": "packed-reference",
+          "materialSceneVolume": 0.006650078648690023,
+          "initialSceneVolume": 0.01662519662172506,
+          "pieces": 22,
+          "poseBasis": "body-fixed-envelope-reference",
+          "matrixVersion": 2
+        }
+      },
+      "drains": [
+        {
+          "receipt": {
+            "before": [
+              {
+                "id": "separatory_funnel_1793361531031_kk1i1",
+                "name": "Phễu có hai pha và kẽm",
+                "type": "separatory_funnel",
+                "capacity_ml": 150,
+                "position": [
+                  -1.2,
+                  0.2,
+                  0
+                ],
+                "rotationY": 0.4,
+                "isLocked": false,
+                "substances": [
+                  "H2O",
+                  "C6H6",
+                  "Zn"
+                ],
+                "contents": [
+                  {
+                    "formula": "H2O",
+                    "mass_g": 3,
+                    "phase": "l",
+                    "moles": 0.16652789342214822
+                  },
+                  {
+                    "formula": "C6H6",
+                    "mass_g": 0.0043950000000000005,
+                    "phase": "l",
+                    "moles": 0.000056263921960212,
+                    "liquidLayer": "organic"
+                  },
+                  {
+                    "formula": "Zn",
+                    "mass_g": 2.856,
+                    "phase": "s",
+                    "moles": 0.043683083511777306,
+                    "initialMass_g": 7.14
+                  }
+                ],
+                "volume": 0.020033333333333334,
+                "volume_ml": 3.005,
+                "mass_g": 5.8603950000000005,
+                "density_g_ml": 1,
+                "foam_ml": 0,
+                "temperature_c": 25,
+                "ph": 7,
+                "liquidColor": "#28b5db",
+                "hasPrecipitate": false,
+                "isBoiling": false,
+                "hasGas": false,
+                "immiscibleOrganicVolume_ml": 0.005,
+                "immiscibleOrganicColor": "#f3b328",
+                "stopcockOpen": false
+              },
+              {
+                "id": "beaker_1793361531031_863jm",
+                "name": "Bình nhận",
+                "type": "beaker",
+                "capacity_ml": 500,
+                "position": [
+                  2,
+                  -0.135,
+                  0
+                ],
+                "rotationY": 0,
+                "isLocked": false,
+                "substances": [],
+                "contents": [],
+                "volume": 0,
+                "volume_ml": 0,
+                "mass_g": 0,
+                "density_g_ml": 1,
+                "foam_ml": 0,
+                "temperature_c": 25,
+                "ph": 7,
+                "hasPrecipitate": false,
+                "isBoiling": false,
+                "hasGas": false
+              }
+            ],
+            "after": [
+              {
+                "id": "separatory_funnel_1793361531031_kk1i1",
+                "name": "Phễu có hai pha và kẽm",
+                "type": "separatory_funnel",
+                "capacity_ml": 150,
+                "position": [
+                  -1.2,
+                  0.2,
+                  0
+                ],
+                "rotationY": 0.4,
+                "isLocked": false,
+                "substances": [
+                  "C6H6",
+                  "Zn"
+                ],
+                "contents": [
+                  {
+                    "formula": "H2O",
+                    "mass_g": 0,
+                    "phase": "l",
+                    "moles": 0
+                  },
+                  {
+                    "formula": "C6H6",
+                    "mass_g": 0.0043950000000000005,
+                    "phase": "l",
+                    "moles": 0.000056263921960212,
+                    "liquidLayer": "organic"
+                  },
+                  {
+                    "formula": "Zn",
+                    "mass_g": 2.856,
+                    "phase": "s",
+                    "moles": 0.043683083511777306,
+                    "initialMass_g": 7.14
+                  }
+                ],
+                "volume": 0.000033333333333332623,
+                "volume_ml": 0.004999999999999893,
+                "mass_g": 2.860395,
+                "density_g_ml": 0.8790000000000485,
+                "foam_ml": 0,
+                "temperature_c": 25,
+                "ph": 7,
+                "liquidColor": "#28b5db",
+                "hasPrecipitate": false,
+                "isBoiling": false,
+                "hasGas": false,
+                "immiscibleOrganicVolume_ml": 0.005,
+                "immiscibleOrganicColor": "#f3b328",
+                "stopcockOpen": true,
+                "isFiltrating": false,
+                "flowStatus": "Đang xả phần chất lỏng tiếp xúc cửa van theo cột áp."
+              },
+              {
+                "id": "beaker_1793361531031_863jm",
+                "name": "Bình nhận",
+                "type": "beaker",
+                "capacity_ml": 500,
+                "position": [
+                  2,
+                  -0.135,
+                  0
+                ],
+                "rotationY": 0,
+                "isLocked": false,
+                "substances": [
+                  "H2O"
+                ],
+                "contents": [
+                  {
+                    "formula": "H2O",
+                    "mass_g": 3,
+                    "phase": "l",
+                    "moles": 0.16652789342214822,
+                    "concentration_M": 55.50929780738274
+                  }
+                ],
+                "volume": 0.006,
+                "volume_ml": 3,
+                "mass_g": 3.0000000000000004,
+                "density_g_ml": 1.0000000000000002,
+                "foam_ml": 0,
+                "temperature_c": 25,
+                "ph": 7,
+                "liquidColor": "#28b5db",
+                "hasPrecipitate": false,
+                "isBoiling": false,
+                "hasGas": false
+              }
+            ],
+            "moved_ml": 3
+          },
+          "snapshot": {
+            "expected": {
+              "lower": "organic",
+              "lowerVolume_ml": 0.004999999999999893,
+              "upperVolume_ml": 0
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 0.004999999999999893,
+                "geometric_ml": 0.0050184264306681325,
+                "displaced_ml": 0.000018426873829493915,
+                "liquid_ml": 0.004999999556838638,
+                "gpuGeometric_ml": 0.005010368977034863,
+                "gpuLiquid_ml": 0.004991942103205369,
+                "top": -0.4486476483000994,
+                "bottom": null,
+                "angle": 0,
+                "gpu": {
+                  "top": [
+                    0,
+                    1,
+                    0,
+                    0.0013523517409339547
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "75e6faa7-f2a5-4b16-afad-c927d198c82a"
+                }
+              }
+            ],
+            "stockVolume_ml": 0.40000001810984304,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.006650078648690023,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 2
+            }
+          },
+          "legacyStreamAbsent": true
+        },
+        {
+          "receipt": {
+            "before": [
+              {
+                "id": "separatory_funnel_1793361531031_kk1i1",
+                "name": "Phễu có hai pha và kẽm",
+                "type": "separatory_funnel",
+                "capacity_ml": 150,
+                "position": [
+                  -1.2,
+                  0.2,
+                  0
+                ],
+                "rotationY": 0.4,
+                "isLocked": false,
+                "substances": [
+                  "C6H6",
+                  "Zn"
+                ],
+                "contents": [
+                  {
+                    "formula": "H2O",
+                    "mass_g": 0,
+                    "phase": "l",
+                    "moles": 0
+                  },
+                  {
+                    "formula": "C6H6",
+                    "mass_g": 0.0043950000000000005,
+                    "phase": "l",
+                    "moles": 0.000056263921960212,
+                    "liquidLayer": "organic"
+                  },
+                  {
+                    "formula": "Zn",
+                    "mass_g": 2.856,
+                    "phase": "s",
+                    "moles": 0.043683083511777306,
+                    "initialMass_g": 7.14
+                  }
+                ],
+                "volume": 0.000033333333333332623,
+                "volume_ml": 0.004999999999999893,
+                "mass_g": 2.860395,
+                "density_g_ml": 0.8790000000000485,
+                "foam_ml": 0,
+                "temperature_c": 25,
+                "ph": 7,
+                "liquidColor": "#28b5db",
+                "hasPrecipitate": false,
+                "isBoiling": false,
+                "hasGas": false,
+                "immiscibleOrganicVolume_ml": 0.005,
+                "immiscibleOrganicColor": "#f3b328",
+                "stopcockOpen": true,
+                "isFiltrating": false,
+                "flowStatus": "Đang xả phần chất lỏng tiếp xúc cửa van theo cột áp."
+              },
+              {
+                "id": "beaker_1793361531031_863jm",
+                "name": "Bình nhận",
+                "type": "beaker",
+                "capacity_ml": 500,
+                "position": [
+                  2,
+                  -0.135,
+                  0
+                ],
+                "rotationY": 0,
+                "isLocked": false,
+                "substances": [
+                  "H2O"
+                ],
+                "contents": [
+                  {
+                    "formula": "H2O",
+                    "mass_g": 3,
+                    "phase": "l",
+                    "moles": 0.16652789342214822,
+                    "concentration_M": 55.50929780738274
+                  }
+                ],
+                "volume": 0.006,
+                "volume_ml": 3,
+                "mass_g": 3.0000000000000004,
+                "density_g_ml": 1.0000000000000002,
+                "foam_ml": 0,
+                "temperature_c": 25,
+                "ph": 7,
+                "liquidColor": "#28b5db",
+                "hasPrecipitate": false,
+                "isBoiling": false,
+                "hasGas": false
+              }
+            ],
+            "after": [
+              {
+                "id": "separatory_funnel_1793361531031_kk1i1",
+                "name": "Phễu có hai pha và kẽm",
+                "type": "separatory_funnel",
+                "capacity_ml": 150,
+                "position": [
+                  -1.2,
+                  0.2,
+                  0
+                ],
+                "rotationY": 0.4,
+                "isLocked": false,
+                "substances": [
+                  "Zn"
+                ],
+                "contents": [
+                  {
+                    "formula": "H2O",
+                    "mass_g": 0,
+                    "phase": "l",
+                    "moles": 0
+                  },
+                  {
+                    "formula": "C6H6",
+                    "mass_g": 0,
+                    "phase": "l",
+                    "moles": 0,
+                    "liquidLayer": "organic"
+                  },
+                  {
+                    "formula": "Zn",
+                    "mass_g": 2.856,
+                    "phase": "s",
+                    "moles": 0.043683083511777306,
+                    "initialMass_g": 7.14
+                  }
+                ],
+                "volume": 0,
+                "volume_ml": 0,
+                "mass_g": 2.856,
+                "foam_ml": 0,
+                "temperature_c": 25,
+                "ph": 7,
+                "liquidColor": "#28b5db",
+                "hasPrecipitate": false,
+                "isBoiling": false,
+                "hasGas": false,
+                "immiscibleOrganicVolume_ml": 0,
+                "immiscibleOrganicColor": "#f3b328",
+                "stopcockOpen": true,
+                "isFiltrating": false,
+                "flowStatus": "Đang xả phần chất lỏng tiếp xúc cửa van theo cột áp."
+              },
+              {
+                "id": "beaker_1793361531031_863jm",
+                "name": "Bình nhận",
+                "type": "beaker",
+                "capacity_ml": 500,
+                "position": [
+                  2,
+                  -0.135,
+                  0
+                ],
+                "rotationY": 0,
+                "isLocked": false,
+                "substances": [
+                  "H2O",
+                  "C6H6"
+                ],
+                "contents": [
+                  {
+                    "formula": "H2O",
+                    "mass_g": 3,
+                    "phase": "l",
+                    "moles": 0.16652789342214822,
+                    "concentration_M": 55.416936246971126
+                  },
+                  {
+                    "formula": "C6H6",
+                    "mass_g": 0.0043950000000000005,
+                    "phase": "l",
+                    "moles": 0.000056263921960212,
+                    "liquidLayer": "organic",
+                    "concentration_M": 0.018723434928523127
+                  }
+                ],
+                "volume": 0.00601,
+                "volume_ml": 3.005,
+                "mass_g": 3.0043950000000006,
+                "density_g_ml": 0.9997986688851915,
+                "foam_ml": 0,
+                "temperature_c": 25,
+                "ph": 7,
+                "liquidColor": "#28b5db",
+                "hasPrecipitate": false,
+                "isBoiling": false,
+                "hasGas": false,
+                "immiscibleOrganicVolume_ml": 0.004999999999999893,
+                "immiscibleOrganicColor": "#f3b328"
+              }
+            ],
+            "moved_ml": 0.004999999999999893
+          },
+          "snapshot": {
+            "expected": {
+              "lower": "aqueous",
+              "lowerVolume_ml": 0,
+              "upperVolume_ml": 0
+            },
+            "layers": [],
+            "stockVolume_ml": 0.40000001810984304,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.006650078648690023,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 2
+            }
+          },
+          "legacyStreamAbsent": true
+        }
+      ]
+    },
+    {
+      "heavy": true,
+      "samples": [
+        {
+          "angle": 0,
+          "tier": "low",
+          "snapshot": {
+            "expected": {
+              "lower": "organic",
+              "lowerVolume_ml": 0.005,
+              "upperVolume_ml": 3
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 0.005,
+                "geometric_ml": 0.005025175223150565,
+                "displaced_ml": 0.000025175129352810068,
+                "liquid_ml": 0.005000000093797754,
+                "gpuGeometric_ml": 0.005017106974087599,
+                "gpuLiquid_ml": 0.004991931844734789,
+                "top": -0.44864583316330053,
+                "bottom": null,
+                "angle": 0,
+                "gpu": {
+                  "top": [
+                    0,
+                    1,
+                    0,
+                    0.0013541668886318803
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "937bd26a-d3a7-42f6-95a5-19cd0e533e69"
+                }
+              },
+              {
+                "upper": true,
+                "expected_ml": 3,
+                "geometric_ml": 3.596262143920655,
+                "displaced_ml": 0.5962621582733363,
+                "liquid_ml": 2.9999999856473183,
+                "gpuGeometric_ml": 3.590488129539417,
+                "gpuLiquid_ml": 2.994225971266081,
+                "top": -0.06767539940724837,
+                "bottom": -0.44864583316330053,
+                "angle": 0,
+                "gpu": {
+                  "top": [
+                    0,
+                    1,
+                    0,
+                    0.38232460618019104
+                  ],
+                  "lower": [
+                    0,
+                    1,
+                    0,
+                    0.0013541668886318803
+                  ],
+                  "uuid": "b37b1e19-bdd6-4e5d-8e2a-d166ae64f2a7"
+                }
+              }
+            ],
+            "stockVolume_ml": 1.0000000221128889,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.01662519662172506,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 1
+            }
+          }
+        },
+        {
+          "angle": 0,
+          "tier": "medium",
+          "snapshot": {
+            "expected": {
+              "lower": "organic",
+              "lowerVolume_ml": 0.005,
+              "upperVolume_ml": 3
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 0.005,
+                "geometric_ml": 0.005025175223150565,
+                "displaced_ml": 0.000025175129352810068,
+                "liquid_ml": 0.005000000093797754,
+                "gpuGeometric_ml": 0.005017106974087599,
+                "gpuLiquid_ml": 0.004991931844734789,
+                "top": -0.44864583316330053,
+                "bottom": null,
+                "angle": 0,
+                "gpu": {
+                  "top": [
+                    0,
+                    1,
+                    0,
+                    0.0013541668886318803
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "937bd26a-d3a7-42f6-95a5-19cd0e533e69"
+                }
+              },
+              {
+                "upper": true,
+                "expected_ml": 3,
+                "geometric_ml": 3.596262143920655,
+                "displaced_ml": 0.5962621582733363,
+                "liquid_ml": 2.9999999856473183,
+                "gpuGeometric_ml": 3.590488129539417,
+                "gpuLiquid_ml": 2.994225971266081,
+                "top": -0.06767539940724837,
+                "bottom": -0.44864583316330053,
+                "angle": 0,
+                "gpu": {
+                  "top": [
+                    0,
+                    1,
+                    0,
+                    0.38232460618019104
+                  ],
+                  "lower": [
+                    0,
+                    1,
+                    0,
+                    0.0013541668886318803
+                  ],
+                  "uuid": "b37b1e19-bdd6-4e5d-8e2a-d166ae64f2a7"
+                }
+              }
+            ],
+            "stockVolume_ml": 1.0000000221128889,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.01662519662172506,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 1
+            }
+          }
+        },
+        {
+          "angle": 0,
+          "tier": "high",
+          "snapshot": {
+            "expected": {
+              "lower": "organic",
+              "lowerVolume_ml": 0.005,
+              "upperVolume_ml": 3
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 0.005,
+                "geometric_ml": 0.005025175223150565,
+                "displaced_ml": 0.000025175129352810068,
+                "liquid_ml": 0.005000000093797754,
+                "gpuGeometric_ml": 0.005017106974087599,
+                "gpuLiquid_ml": 0.004991931844734789,
+                "top": -0.44864583316330053,
+                "bottom": null,
+                "angle": 0,
+                "gpu": {
+                  "top": [
+                    0,
+                    1,
+                    0,
+                    0.0013541668886318803
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "937bd26a-d3a7-42f6-95a5-19cd0e533e69"
+                }
+              },
+              {
+                "upper": true,
+                "expected_ml": 3,
+                "geometric_ml": 3.596262143920655,
+                "displaced_ml": 0.5962621582733363,
+                "liquid_ml": 2.9999999856473183,
+                "gpuGeometric_ml": 3.590488129539417,
+                "gpuLiquid_ml": 2.994225971266081,
+                "top": -0.06767539940724837,
+                "bottom": -0.44864583316330053,
+                "angle": 0,
+                "gpu": {
+                  "top": [
+                    0,
+                    1,
+                    0,
+                    0.38232460618019104
+                  ],
+                  "lower": [
+                    0,
+                    1,
+                    0,
+                    0.0013541668886318803
+                  ],
+                  "uuid": "b37b1e19-bdd6-4e5d-8e2a-d166ae64f2a7"
+                }
+              }
+            ],
+            "stockVolume_ml": 1.0000000221128889,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.01662519662172506,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 1
+            }
+          }
+        },
+        {
+          "angle": 0,
+          "tier": "ultra",
+          "snapshot": {
+            "expected": {
+              "lower": "organic",
+              "lowerVolume_ml": 0.005,
+              "upperVolume_ml": 3
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 0.005,
+                "geometric_ml": 0.005025175223150565,
+                "displaced_ml": 0.000025175129352810068,
+                "liquid_ml": 0.005000000093797754,
+                "gpuGeometric_ml": 0.005017106974087599,
+                "gpuLiquid_ml": 0.004991931844734789,
+                "top": -0.44864583316330053,
+                "bottom": null,
+                "angle": 0,
+                "gpu": {
+                  "top": [
+                    0,
+                    1,
+                    0,
+                    0.0013541668886318803
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "937bd26a-d3a7-42f6-95a5-19cd0e533e69"
+                }
+              },
+              {
+                "upper": true,
+                "expected_ml": 3,
+                "geometric_ml": 3.596262143920655,
+                "displaced_ml": 0.5962621582733363,
+                "liquid_ml": 2.9999999856473183,
+                "gpuGeometric_ml": 3.590488129539417,
+                "gpuLiquid_ml": 2.994225971266081,
+                "top": -0.06767539940724837,
+                "bottom": -0.44864583316330053,
+                "angle": 0,
+                "gpu": {
+                  "top": [
+                    0,
+                    1,
+                    0,
+                    0.38232460618019104
+                  ],
+                  "lower": [
+                    0,
+                    1,
+                    0,
+                    0.0013541668886318803
+                  ],
+                  "uuid": "b37b1e19-bdd6-4e5d-8e2a-d166ae64f2a7"
+                }
+              }
+            ],
+            "stockVolume_ml": 1.0000000221128889,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.01662519662172506,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 1
+            }
+          }
+        },
+        {
+          "angle": 0.8,
+          "tier": "low",
+          "snapshot": {
+            "expected": {
+              "lower": "organic",
+              "lowerVolume_ml": 0.005,
+              "upperVolume_ml": 3
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 0.005,
+                "geometric_ml": 0.0050000000000003444,
+                "displaced_ml": 0,
+                "liquid_ml": 0.0050000000000003444,
+                "gpuGeometric_ml": 0.004999329965747213,
+                "gpuLiquid_ml": 0.004999329965747213,
+                "top": -0.38874709340258456,
+                "bottom": null,
+                "angle": 0.8,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.6967067122459412,
+                    -0.7173560857772827,
+                    0.025200778618454933
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "e2acbfc0-5a1e-4d2b-a451-8614d8f5a97b"
+                }
+              },
+              {
+                "upper": true,
+                "expected_ml": 3,
+                "geometric_ml": 3.0743262328941325,
+                "displaced_ml": 0.07432622910110033,
+                "liquid_ml": 3.000000003793032,
+                "gpuGeometric_ml": 3.0731639643933466,
+                "gpuLiquid_ml": 2.998837735292246,
+                "top": -0.22610289841008788,
+                "bottom": -0.38874709340258456,
+                "angle": 0.8,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.6967067122459412,
+                    -0.7173560857772827,
+                    0.18784497678279877
+                  ],
+                  "lower": [
+                    0,
+                    0.6967067122459412,
+                    -0.7173560857772827,
+                    0.025200778618454933
+                  ],
+                  "uuid": "32fc98ad-3171-405d-b58c-a7da56460355"
+                }
+              }
+            ],
+            "stockVolume_ml": 1.0000000221128889,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.01662519662172506,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 1
+            }
+          }
+        },
+        {
+          "angle": 0.8,
+          "tier": "medium",
+          "snapshot": {
+            "expected": {
+              "lower": "organic",
+              "lowerVolume_ml": 0.005,
+              "upperVolume_ml": 3
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 0.005,
+                "geometric_ml": 0.0050000000000003444,
+                "displaced_ml": 0,
+                "liquid_ml": 0.0050000000000003444,
+                "gpuGeometric_ml": 0.004999329965747213,
+                "gpuLiquid_ml": 0.004999329965747213,
+                "top": -0.38874709340258456,
+                "bottom": null,
+                "angle": 0.8,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.6967067122459412,
+                    -0.7173560857772827,
+                    0.025200778618454933
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "e2acbfc0-5a1e-4d2b-a451-8614d8f5a97b"
+                }
+              },
+              {
+                "upper": true,
+                "expected_ml": 3,
+                "geometric_ml": 3.0743262328941325,
+                "displaced_ml": 0.07432622910110033,
+                "liquid_ml": 3.000000003793032,
+                "gpuGeometric_ml": 3.0731639643933466,
+                "gpuLiquid_ml": 2.998837735292246,
+                "top": -0.22610289841008788,
+                "bottom": -0.38874709340258456,
+                "angle": 0.8,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.6967067122459412,
+                    -0.7173560857772827,
+                    0.18784497678279877
+                  ],
+                  "lower": [
+                    0,
+                    0.6967067122459412,
+                    -0.7173560857772827,
+                    0.025200778618454933
+                  ],
+                  "uuid": "32fc98ad-3171-405d-b58c-a7da56460355"
+                }
+              }
+            ],
+            "stockVolume_ml": 1.0000000221128889,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.01662519662172506,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 1
+            }
+          }
+        },
+        {
+          "angle": 0.8,
+          "tier": "high",
+          "snapshot": {
+            "expected": {
+              "lower": "organic",
+              "lowerVolume_ml": 0.005,
+              "upperVolume_ml": 3
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 0.005,
+                "geometric_ml": 0.0050000000000003444,
+                "displaced_ml": 0,
+                "liquid_ml": 0.0050000000000003444,
+                "gpuGeometric_ml": 0.004999329965747213,
+                "gpuLiquid_ml": 0.004999329965747213,
+                "top": -0.38874709340258456,
+                "bottom": null,
+                "angle": 0.8,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.6967067122459412,
+                    -0.7173560857772827,
+                    0.025200778618454933
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "e2acbfc0-5a1e-4d2b-a451-8614d8f5a97b"
+                }
+              },
+              {
+                "upper": true,
+                "expected_ml": 3,
+                "geometric_ml": 3.0743262328941325,
+                "displaced_ml": 0.07432622910110033,
+                "liquid_ml": 3.000000003793032,
+                "gpuGeometric_ml": 3.0731639643933466,
+                "gpuLiquid_ml": 2.998837735292246,
+                "top": -0.22610289841008788,
+                "bottom": -0.38874709340258456,
+                "angle": 0.8,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.6967067122459412,
+                    -0.7173560857772827,
+                    0.18784497678279877
+                  ],
+                  "lower": [
+                    0,
+                    0.6967067122459412,
+                    -0.7173560857772827,
+                    0.025200778618454933
+                  ],
+                  "uuid": "32fc98ad-3171-405d-b58c-a7da56460355"
+                }
+              }
+            ],
+            "stockVolume_ml": 1.0000000221128889,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.01662519662172506,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 1
+            }
+          }
+        },
+        {
+          "angle": 0.8,
+          "tier": "ultra",
+          "snapshot": {
+            "expected": {
+              "lower": "organic",
+              "lowerVolume_ml": 0.005,
+              "upperVolume_ml": 3
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 0.005,
+                "geometric_ml": 0.0050000000000003444,
+                "displaced_ml": 0,
+                "liquid_ml": 0.0050000000000003444,
+                "gpuGeometric_ml": 0.004999329965747213,
+                "gpuLiquid_ml": 0.004999329965747213,
+                "top": -0.38874709340258456,
+                "bottom": null,
+                "angle": 0.8,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.6967067122459412,
+                    -0.7173560857772827,
+                    0.025200778618454933
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "e2acbfc0-5a1e-4d2b-a451-8614d8f5a97b"
+                }
+              },
+              {
+                "upper": true,
+                "expected_ml": 3,
+                "geometric_ml": 3.0743262328941325,
+                "displaced_ml": 0.07432622910110033,
+                "liquid_ml": 3.000000003793032,
+                "gpuGeometric_ml": 3.0731639643933466,
+                "gpuLiquid_ml": 2.998837735292246,
+                "top": -0.22610289841008788,
+                "bottom": -0.38874709340258456,
+                "angle": 0.8,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.6967067122459412,
+                    -0.7173560857772827,
+                    0.18784497678279877
+                  ],
+                  "lower": [
+                    0,
+                    0.6967067122459412,
+                    -0.7173560857772827,
+                    0.025200778618454933
+                  ],
+                  "uuid": "32fc98ad-3171-405d-b58c-a7da56460355"
+                }
+              }
+            ],
+            "stockVolume_ml": 1.0000000221128889,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.01662519662172506,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 1
+            }
+          }
+        },
+        {
+          "angle": 1.2,
+          "tier": "low",
+          "snapshot": {
+            "expected": {
+              "lower": "organic",
+              "lowerVolume_ml": 0.005,
+              "upperVolume_ml": 3
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 0.005,
+                "geometric_ml": 0.004999999999999952,
+                "displaced_ml": 0,
+                "liquid_ml": 0.004999999999999952,
+                "gpuGeometric_ml": 0.004997530285714245,
+                "gpuLiquid_ml": 0.004997530285714245,
+                "top": -0.6441063280301611,
+                "bottom": null,
+                "angle": 1.2,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.3623577654361725,
+                    -0.9320390820503235,
+                    0.013027078472077847
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "b46cf735-00da-4ef9-b35b-6a28ffc9af3b"
+                }
+              },
+              {
+                "upper": true,
+                "expected_ml": 3,
+                "geometric_ml": 2.9999999999999987,
+                "displaced_ml": 0,
+                "liquid_ml": 2.9999999999999987,
+                "gpuGeometric_ml": 2.9984241637278575,
+                "gpuLiquid_ml": 2.9984241637278575,
+                "top": -0.4828776593047286,
+                "bottom": -0.6441063280301611,
+                "angle": 1.2,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.3623577654361725,
+                    -0.9320390820503235,
+                    0.17425574362277985
+                  ],
+                  "lower": [
+                    0,
+                    0.3623577654361725,
+                    -0.9320390820503235,
+                    0.013027078472077847
+                  ],
+                  "uuid": "94fbf8b1-71f6-4576-8643-1f0fd4f45941"
+                }
+              }
+            ],
+            "stockVolume_ml": 1.0000000221128886,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.01662519662172506,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 1
+            }
+          }
+        },
+        {
+          "angle": 1.2,
+          "tier": "medium",
+          "snapshot": {
+            "expected": {
+              "lower": "organic",
+              "lowerVolume_ml": 0.005,
+              "upperVolume_ml": 3
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 0.005,
+                "geometric_ml": 0.004999999999999952,
+                "displaced_ml": 0,
+                "liquid_ml": 0.004999999999999952,
+                "gpuGeometric_ml": 0.004997530285714245,
+                "gpuLiquid_ml": 0.004997530285714245,
+                "top": -0.6441063280301611,
+                "bottom": null,
+                "angle": 1.2,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.3623577654361725,
+                    -0.9320390820503235,
+                    0.013027078472077847
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "b46cf735-00da-4ef9-b35b-6a28ffc9af3b"
+                }
+              },
+              {
+                "upper": true,
+                "expected_ml": 3,
+                "geometric_ml": 2.9999999999999987,
+                "displaced_ml": 0,
+                "liquid_ml": 2.9999999999999987,
+                "gpuGeometric_ml": 2.9984241637278575,
+                "gpuLiquid_ml": 2.9984241637278575,
+                "top": -0.4828776593047286,
+                "bottom": -0.6441063280301611,
+                "angle": 1.2,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.3623577654361725,
+                    -0.9320390820503235,
+                    0.17425574362277985
+                  ],
+                  "lower": [
+                    0,
+                    0.3623577654361725,
+                    -0.9320390820503235,
+                    0.013027078472077847
+                  ],
+                  "uuid": "94fbf8b1-71f6-4576-8643-1f0fd4f45941"
+                }
+              }
+            ],
+            "stockVolume_ml": 1.0000000221128886,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.01662519662172506,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 1
+            }
+          }
+        },
+        {
+          "angle": 1.2,
+          "tier": "high",
+          "snapshot": {
+            "expected": {
+              "lower": "organic",
+              "lowerVolume_ml": 0.005,
+              "upperVolume_ml": 3
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 0.005,
+                "geometric_ml": 0.004999999999999952,
+                "displaced_ml": 0,
+                "liquid_ml": 0.004999999999999952,
+                "gpuGeometric_ml": 0.004997530285714245,
+                "gpuLiquid_ml": 0.004997530285714245,
+                "top": -0.6441063280301611,
+                "bottom": null,
+                "angle": 1.2,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.3623577654361725,
+                    -0.9320390820503235,
+                    0.013027078472077847
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "b46cf735-00da-4ef9-b35b-6a28ffc9af3b"
+                }
+              },
+              {
+                "upper": true,
+                "expected_ml": 3,
+                "geometric_ml": 2.9999999999999987,
+                "displaced_ml": 0,
+                "liquid_ml": 2.9999999999999987,
+                "gpuGeometric_ml": 2.9984241637278575,
+                "gpuLiquid_ml": 2.9984241637278575,
+                "top": -0.4828776593047286,
+                "bottom": -0.6441063280301611,
+                "angle": 1.2,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.3623577654361725,
+                    -0.9320390820503235,
+                    0.17425574362277985
+                  ],
+                  "lower": [
+                    0,
+                    0.3623577654361725,
+                    -0.9320390820503235,
+                    0.013027078472077847
+                  ],
+                  "uuid": "94fbf8b1-71f6-4576-8643-1f0fd4f45941"
+                }
+              }
+            ],
+            "stockVolume_ml": 1.0000000221128886,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.01662519662172506,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 1
+            }
+          }
+        },
+        {
+          "angle": 1.2,
+          "tier": "ultra",
+          "snapshot": {
+            "expected": {
+              "lower": "organic",
+              "lowerVolume_ml": 0.005,
+              "upperVolume_ml": 3
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 0.005,
+                "geometric_ml": 0.004999999999999952,
+                "displaced_ml": 0,
+                "liquid_ml": 0.004999999999999952,
+                "gpuGeometric_ml": 0.004997530285714245,
+                "gpuLiquid_ml": 0.004997530285714245,
+                "top": -0.6441063280301611,
+                "bottom": null,
+                "angle": 1.2,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.3623577654361725,
+                    -0.9320390820503235,
+                    0.013027078472077847
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "b46cf735-00da-4ef9-b35b-6a28ffc9af3b"
+                }
+              },
+              {
+                "upper": true,
+                "expected_ml": 3,
+                "geometric_ml": 2.9999999999999987,
+                "displaced_ml": 0,
+                "liquid_ml": 2.9999999999999987,
+                "gpuGeometric_ml": 2.9984241637278575,
+                "gpuLiquid_ml": 2.9984241637278575,
+                "top": -0.4828776593047286,
+                "bottom": -0.6441063280301611,
+                "angle": 1.2,
+                "gpu": {
+                  "top": [
+                    0,
+                    0.3623577654361725,
+                    -0.9320390820503235,
+                    0.17425574362277985
+                  ],
+                  "lower": [
+                    0,
+                    0.3623577654361725,
+                    -0.9320390820503235,
+                    0.013027078472077847
+                  ],
+                  "uuid": "94fbf8b1-71f6-4576-8643-1f0fd4f45941"
+                }
+              }
+            ],
+            "stockVolume_ml": 1.0000000221128886,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.01662519662172506,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 1
+            }
+          }
+        }
+      ],
+      "shrinking": {
+        "expected": {
+          "lower": "organic",
+          "lowerVolume_ml": 0.005,
+          "upperVolume_ml": 3
+        },
+        "layers": [
+          {
+            "upper": false,
+            "expected_ml": 0.005,
+            "geometric_ml": 0.004999999999999952,
+            "displaced_ml": 0,
+            "liquid_ml": 0.004999999999999952,
+            "gpuGeometric_ml": 0.004997530285714245,
+            "gpuLiquid_ml": 0.004997530285714245,
+            "top": -0.6441063280301611,
+            "bottom": null,
+            "angle": 1.2,
+            "gpu": {
+              "top": [
+                0,
+                0.3623577654361725,
+                -0.9320390820503235,
+                0.013027078472077847
+              ],
+              "lower": [
+                0,
+                0,
+                0,
+                -100000002004087730000
+              ],
+              "uuid": "b46cf735-00da-4ef9-b35b-6a28ffc9af3b"
+            }
+          },
+          {
+            "upper": true,
+            "expected_ml": 3,
+            "geometric_ml": 2.9999999999999987,
+            "displaced_ml": 0,
+            "liquid_ml": 2.9999999999999987,
+            "gpuGeometric_ml": 2.9984241637278575,
+            "gpuLiquid_ml": 2.9984241637278575,
+            "top": -0.4828776593047286,
+            "bottom": -0.6441063280301611,
+            "angle": 1.2,
+            "gpu": {
+              "top": [
+                0,
+                0.3623577654361725,
+                -0.9320390820503235,
+                0.17425574362277985
+              ],
+              "lower": [
+                0,
+                0.3623577654361725,
+                -0.9320390820503235,
+                0.013027078472077847
+              ],
+              "uuid": "94fbf8b1-71f6-4576-8643-1f0fd4f45941"
+            }
+          }
+        ],
+        "stockVolume_ml": 0.4000000181098429,
+        "stock": {
+          "status": "packed-reference",
+          "materialSceneVolume": 0.006650078648690023,
+          "initialSceneVolume": 0.01662519662172506,
+          "pieces": 22,
+          "poseBasis": "body-fixed-envelope-reference",
+          "matrixVersion": 2
+        }
+      },
+      "drains": [
+        {
+          "receipt": {
+            "before": [
+              {
+                "id": "separatory_funnel_1793361563784_vku0g",
+                "name": "Phễu có hai pha và kẽm",
+                "type": "separatory_funnel",
+                "capacity_ml": 150,
+                "position": [
+                  -1.2,
+                  0.2,
+                  0
+                ],
+                "rotationY": 0.4,
+                "isLocked": false,
+                "substances": [
+                  "H2O",
+                  "CHCl3",
+                  "Zn"
+                ],
+                "contents": [
+                  {
+                    "formula": "H2O",
+                    "mass_g": 3,
+                    "phase": "l",
+                    "moles": 0.16652789342214822
+                  },
+                  {
+                    "formula": "CHCl3",
+                    "mass_g": 0.00745,
+                    "phase": "l",
+                    "moles": 0.00006241151387713728,
+                    "liquidLayer": "organic"
+                  },
+                  {
+                    "formula": "Zn",
+                    "mass_g": 2.856,
+                    "phase": "s",
+                    "moles": 0.043683083511777306,
+                    "initialMass_g": 7.14
+                  }
+                ],
+                "volume": 0.020033333333333334,
+                "volume_ml": 3.005,
+                "mass_g": 5.86345,
+                "density_g_ml": 1,
+                "foam_ml": 0,
+                "temperature_c": 25,
+                "ph": 7,
+                "liquidColor": "#28b5db",
+                "hasPrecipitate": false,
+                "isBoiling": false,
+                "hasGas": false,
+                "immiscibleOrganicVolume_ml": 0.005,
+                "immiscibleOrganicColor": "#f3b328",
+                "stopcockOpen": false
+              },
+              {
+                "id": "beaker_1793361563784_l142p",
+                "name": "Bình nhận",
+                "type": "beaker",
+                "capacity_ml": 500,
+                "position": [
+                  2,
+                  -0.135,
+                  0
+                ],
+                "rotationY": 0,
+                "isLocked": false,
+                "substances": [],
+                "contents": [],
+                "volume": 0,
+                "volume_ml": 0,
+                "mass_g": 0,
+                "density_g_ml": 1,
+                "foam_ml": 0,
+                "temperature_c": 25,
+                "ph": 7,
+                "hasPrecipitate": false,
+                "isBoiling": false,
+                "hasGas": false
+              }
+            ],
+            "after": [
+              {
+                "id": "separatory_funnel_1793361563784_vku0g",
+                "name": "Phễu có hai pha và kẽm",
+                "type": "separatory_funnel",
+                "capacity_ml": 150,
+                "position": [
+                  -1.2,
+                  0.2,
+                  0
+                ],
+                "rotationY": 0.4,
+                "isLocked": false,
+                "substances": [
+                  "H2O",
+                  "Zn"
+                ],
+                "contents": [
+                  {
+                    "formula": "H2O",
+                    "mass_g": 3,
+                    "phase": "l",
+                    "moles": 0.16652789342214822
+                  },
+                  {
+                    "formula": "CHCl3",
+                    "mass_g": 0,
+                    "phase": "l",
+                    "moles": 0,
+                    "liquidLayer": "organic"
+                  },
+                  {
+                    "formula": "Zn",
+                    "mass_g": 2.856,
+                    "phase": "s",
+                    "moles": 0.043683083511777306,
+                    "initialMass_g": 7.14
+                  }
+                ],
+                "volume": 0.02,
+                "volume_ml": 3,
+                "mass_g": 5.856,
+                "density_g_ml": 1,
+                "foam_ml": 0,
+                "temperature_c": 25,
+                "ph": 7,
+                "liquidColor": "#28b5db",
+                "hasPrecipitate": false,
+                "isBoiling": false,
+                "hasGas": false,
+                "immiscibleOrganicVolume_ml": 0,
+                "immiscibleOrganicColor": "#f3b328",
+                "stopcockOpen": true,
+                "isFiltrating": false,
+                "flowStatus": "Đang xả phần chất lỏng tiếp xúc cửa van theo cột áp."
+              },
+              {
+                "id": "beaker_1793361563784_l142p",
+                "name": "Bình nhận",
+                "type": "beaker",
+                "capacity_ml": 500,
+                "position": [
+                  2,
+                  -0.135,
+                  0
+                ],
+                "rotationY": 0,
+                "isLocked": false,
+                "substances": [
+                  "CHCl3"
+                ],
+                "contents": [
+                  {
+                    "formula": "CHCl3",
+                    "mass_g": 0.00745,
+                    "phase": "l",
+                    "moles": 0.00006241151387713728,
+                    "liquidLayer": "organic",
+                    "concentration_M": 12.482302775427454
+                  }
+                ],
+                "volume": 0.00001,
+                "volume_ml": 0.005,
+                "mass_g": 0.007450000000000002,
+                "density_g_ml": 1.4900000000000002,
+                "foam_ml": 0,
+                "temperature_c": 25,
+                "ph": 7,
+                "liquidColor": "#f3b328",
+                "hasPrecipitate": false,
+                "isBoiling": false,
+                "hasGas": false,
+                "immiscibleOrganicVolume_ml": 0.005,
+                "immiscibleOrganicColor": "#f3b328"
+              }
+            ],
+            "moved_ml": 0.005
+          },
+          "snapshot": {
+            "expected": {
+              "lower": "aqueous",
+              "lowerVolume_ml": 3,
+              "upperVolume_ml": 0
+            },
+            "layers": [
+              {
+                "upper": false,
+                "expected_ml": 3,
+                "geometric_ml": 3.3188921915853493,
+                "displaced_ml": 0.318892203112232,
+                "liquid_ml": 2.9999999884731174,
+                "gpuGeometric_ml": 3.3135633834091713,
+                "gpuLiquid_ml": 2.9946711802969395,
+                "top": -0.07943661234371249,
+                "bottom": null,
+                "angle": 0,
+                "gpu": {
+                  "top": [
+                    0,
+                    1,
+                    0,
+                    0.3705633878707886
+                  ],
+                  "lower": [
+                    0,
+                    0,
+                    0,
+                    -100000002004087730000
+                  ],
+                  "uuid": "937bd26a-d3a7-42f6-95a5-19cd0e533e69"
+                }
+              }
+            ],
+            "stockVolume_ml": 0.40000001810984304,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.006650078648690023,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 2
+            }
+          },
+          "legacyStreamAbsent": true
+        },
+        {
+          "receipt": {
+            "before": [
+              {
+                "id": "separatory_funnel_1793361563784_vku0g",
+                "name": "Phễu có hai pha và kẽm",
+                "type": "separatory_funnel",
+                "capacity_ml": 150,
+                "position": [
+                  -1.2,
+                  0.2,
+                  0
+                ],
+                "rotationY": 0.4,
+                "isLocked": false,
+                "substances": [
+                  "H2O",
+                  "Zn"
+                ],
+                "contents": [
+                  {
+                    "formula": "H2O",
+                    "mass_g": 3,
+                    "phase": "l",
+                    "moles": 0.16652789342214822
+                  },
+                  {
+                    "formula": "CHCl3",
+                    "mass_g": 0,
+                    "phase": "l",
+                    "moles": 0,
+                    "liquidLayer": "organic"
+                  },
+                  {
+                    "formula": "Zn",
+                    "mass_g": 2.856,
+                    "phase": "s",
+                    "moles": 0.043683083511777306,
+                    "initialMass_g": 7.14
+                  }
+                ],
+                "volume": 0.02,
+                "volume_ml": 3,
+                "mass_g": 5.856,
+                "density_g_ml": 1,
+                "foam_ml": 0,
+                "temperature_c": 25,
+                "ph": 7,
+                "liquidColor": "#28b5db",
+                "hasPrecipitate": false,
+                "isBoiling": false,
+                "hasGas": false,
+                "immiscibleOrganicVolume_ml": 0,
+                "immiscibleOrganicColor": "#f3b328",
+                "stopcockOpen": true,
+                "isFiltrating": false,
+                "flowStatus": "Đang xả phần chất lỏng tiếp xúc cửa van theo cột áp."
+              },
+              {
+                "id": "beaker_1793361563784_l142p",
+                "name": "Bình nhận",
+                "type": "beaker",
+                "capacity_ml": 500,
+                "position": [
+                  2,
+                  -0.135,
+                  0
+                ],
+                "rotationY": 0,
+                "isLocked": false,
+                "substances": [
+                  "CHCl3"
+                ],
+                "contents": [
+                  {
+                    "formula": "CHCl3",
+                    "mass_g": 0.00745,
+                    "phase": "l",
+                    "moles": 0.00006241151387713728,
+                    "liquidLayer": "organic",
+                    "concentration_M": 12.482302775427454
+                  }
+                ],
+                "volume": 0.00001,
+                "volume_ml": 0.005,
+                "mass_g": 0.007450000000000002,
+                "density_g_ml": 1.4900000000000002,
+                "foam_ml": 0,
+                "temperature_c": 25,
+                "ph": 7,
+                "liquidColor": "#f3b328",
+                "hasPrecipitate": false,
+                "isBoiling": false,
+                "hasGas": false,
+                "immiscibleOrganicVolume_ml": 0.005,
+                "immiscibleOrganicColor": "#f3b328"
+              }
+            ],
+            "after": [
+              {
+                "id": "separatory_funnel_1793361563784_vku0g",
+                "name": "Phễu có hai pha và kẽm",
+                "type": "separatory_funnel",
+                "capacity_ml": 150,
+                "position": [
+                  -1.2,
+                  0.2,
+                  0
+                ],
+                "rotationY": 0.4,
+                "isLocked": false,
+                "substances": [
+                  "Zn"
+                ],
+                "contents": [
+                  {
+                    "formula": "H2O",
+                    "mass_g": 0,
+                    "phase": "l",
+                    "moles": 0
+                  },
+                  {
+                    "formula": "CHCl3",
+                    "mass_g": 0,
+                    "phase": "l",
+                    "moles": 0,
+                    "liquidLayer": "organic"
+                  },
+                  {
+                    "formula": "Zn",
+                    "mass_g": 2.856,
+                    "phase": "s",
+                    "moles": 0.043683083511777306,
+                    "initialMass_g": 7.14
+                  }
+                ],
+                "volume": 0,
+                "volume_ml": 0,
+                "mass_g": 2.856,
+                "foam_ml": 0,
+                "temperature_c": 25,
+                "ph": 7,
+                "liquidColor": "#28b5db",
+                "hasPrecipitate": false,
+                "isBoiling": false,
+                "hasGas": false,
+                "immiscibleOrganicVolume_ml": 0,
+                "immiscibleOrganicColor": "#f3b328",
+                "stopcockOpen": true,
+                "isFiltrating": false,
+                "flowStatus": "Đang xả phần chất lỏng tiếp xúc cửa van theo cột áp."
+              },
+              {
+                "id": "beaker_1793361563784_l142p",
+                "name": "Bình nhận",
+                "type": "beaker",
+                "capacity_ml": 500,
+                "position": [
+                  2,
+                  -0.135,
+                  0
+                ],
+                "rotationY": 0,
+                "isLocked": false,
+                "substances": [
+                  "CHCl3",
+                  "H2O"
+                ],
+                "contents": [
+                  {
+                    "formula": "CHCl3",
+                    "mass_g": 0.00745,
+                    "phase": "l",
+                    "moles": 0.00006241151387713728,
+                    "liquidLayer": "organic",
+                    "concentration_M": 0.020769222588065652
+                  },
+                  {
+                    "formula": "H2O",
+                    "mass_g": 3,
+                    "phase": "l",
+                    "moles": 0.16652789342214822,
+                    "concentration_M": 55.416936246971126
+                  }
+                ],
+                "volume": 0.00601,
+                "volume_ml": 3.005,
+                "mass_g": 3.00745,
+                "density_g_ml": 1.0008153078202995,
+                "foam_ml": 0,
+                "temperature_c": 25,
+                "ph": 7,
+                "liquidColor": "#f3b328",
+                "hasPrecipitate": false,
+                "isBoiling": false,
+                "hasGas": false,
+                "immiscibleOrganicVolume_ml": 0.005,
+                "immiscibleOrganicColor": "#f3b328"
+              }
+            ],
+            "moved_ml": 3
+          },
+          "snapshot": {
+            "expected": {
+              "lower": "aqueous",
+              "lowerVolume_ml": 0,
+              "upperVolume_ml": 0
+            },
+            "layers": [],
+            "stockVolume_ml": 0.40000001810984304,
+            "stock": {
+              "status": "packed-reference",
+              "materialSceneVolume": 0.006650078648690023,
+              "initialSceneVolume": 0.01662519662172506,
+              "pieces": 22,
+              "poseBasis": "body-fixed-envelope-reference",
+              "matrixVersion": 2
+            }
+          },
+          "legacyStreamAbsent": true
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "consoleErrors": []
+}

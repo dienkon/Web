@@ -1,12 +1,16 @@
-import { VesselProfile, getVesselProfile } from './profiles';
-import { calculateWeirFlow, FlowResult } from './flow';
+import { VesselProfile, getWorldVesselProfile } from './profiles';
+import { FlowResult } from './flow';
+import { calculateVesselWeirFlow } from './vesselFlow';
 import { calculateStreamBallistics, BallisticsResult, LandingKind } from './ballistics';
 import { transferFluidIncrement, MixingState } from './mixing';
-import { vesselLiquidSurfaceY } from '../../science/vesselGeometry';
+import { vesselWorldLiquidSurfaceY } from '../../science/vesselGeometry';
 import { LAB_PHYSICS } from '../../engine/interactionEngine';
 import type { SubstanceContent, VesselState } from '../../types/chemistry';
 import { availableLiquidVolume, liquidInventoryMass } from '../../handling/solidOccupancy';
 import { decantLiquid } from '../../engine/decantTransfer';
+import { dispenseAliquot } from '../../handling/aliquot';
+import { refreshFlowInventory } from '../../engine/funnelFlow';
+import type { MobileSolidInventory } from '../../science/suspensionTransport';
 
 export interface PourEvent {
   type: 'flow:start' | 'flow:impact' | 'spill' | 'bottle:glug' | 'wall:drip' | 'flow:end';
@@ -62,7 +66,8 @@ export function stepPourSimulation(
   vessels: Record<string, SimVessel>,
   dt: number,
   simTime: number,
-  maxOutflow_ml: number = Infinity
+  maxOutflow_ml: number = Infinity,
+  mobileSolids: MobileSolidInventory = {}
 ): {
   nextSession: PourPhysicsSession;
   updatedSource: SimVessel;
@@ -80,15 +85,14 @@ export function stepPourSimulation(
     || !Number.isFinite(source.volume_ml) || !Number.isFinite(dt) || dt <= 0 || !(maxOutflow_ml > 0)
     || (session.targetId && (!target || target.id === source.id || target.isSealed || target.isShattered))) return stopped();
 
-  const profile = getVesselProfile(source.type, source.capacity_ml);
-  const flow: FlowResult = calculateWeirFlow(
-    profile,
-    source.volume_ml,
+  const profile = getWorldVesselProfile(source.type, source.capacity_ml);
+  const flow: FlowResult = calculateVesselWeirFlow(
+    snapshot(source),
     session.tilt,
-    simTime
+    simTime, 1, mobileSolids
   );
 
-  if (!flow.isPouring || flow.flowRate_ml_s <= 0.001) {
+  if (!flow.isPouring || flow.flowRate_ml_s <= 0) {
     const wasStreaming = session.isStreaming;
     return {
       nextSession: {
@@ -112,10 +116,10 @@ export function stepPourSimulation(
   const targetMetrics = target ? {
     id: target.id,
     position: target.position,
-    mouthR: getVesselProfile(target.type).mouthR,
-    mouthY: target.position[1] + getVesselProfile(target.type).lipLocal[1],
-    profile: getVesselProfile(target.type, target.capacity_ml),
-    liquidSurfaceY: target.position[1] + vesselLiquidSurfaceY({ ...target,
+    mouthR: getWorldVesselProfile(target.type, target.capacity_ml).mouthR,
+    mouthY: target.position[1] + getWorldVesselProfile(target.type, target.capacity_ml).lipLocal[1],
+    profile: getWorldVesselProfile(target.type, target.capacity_ml),
+    liquidSurfaceY: target.position[1] + vesselWorldLiquidSurfaceY({ ...target,
       type: target.type as import('../../types/chemistry').VesselType, contents: target.contents ?? [] })
   } : null;
 
@@ -135,7 +139,7 @@ export function stepPourSimulation(
   );
 
   const dV = Number.isFinite(dt) && dt > 0 && maxOutflow_ml > 0
-    ? Math.min(flow.flowRate_ml_s * dt, maxOutflow_ml) : 0;
+    ? Math.min(flow.flowRate_ml_s * dt, maxOutflow_ml, flow.excessVolume_ml, source.volume_ml) : 0;
   const sourceDensity = source.contents && source.volume_ml > 0
     ? liquidInventoryMass({ contents: source.contents }) / source.volume_ml : source.density_g_ml || 1;
   let accepted_ml = 0;
@@ -172,7 +176,7 @@ export function stepPourSimulation(
 
     // Only apply neck choke & turbulent splashing if precision assist is explicitly turned off
     if (assistMode === 'off') {
-      const targetProfile = getVesselProfile(target.type);
+      const targetProfile = getWorldVesselProfile(target.type, target.capacity_ml);
       const maxIntakeRate = Math.max(24, (targetProfile.mouthR || 0.15) * 160);
       if (flow.flowRate_ml_s > maxIntakeRate) {
         const surplusRate = flow.flowRate_ml_s - maxIntakeRate;
@@ -211,15 +215,16 @@ export function stepPourSimulation(
     // A full phase inventory uses the same pure aliquot plan as the store.
     // Solids/headspace stay in the source; prediction must not leave stale moles.
     if (source.contents && target.contents) {
-      const into = decantLiquid(snapshot(source), snapshot(target), targetIntakeDV);
-      if (!into) return stopped();
-      const ontoTable = into && actualDV > targetIntakeDV ? decantLiquid(into.source, null, actualDV - targetIntakeDV) : null;
-      if (into) {
-        newSourceVessel = { ...source, ...(ontoTable?.source ?? into.source), colorHex: source.colorHex };
-        newTargetVessel = { ...target, ...into.receiver!, colorHex: into.receiver!.liquidColor ?? target.colorHex };
-        accepted_ml = into.accepted_ml;
-        spilled_ml = (into.spill?.volume_ml ?? 0) + (ontoTable?.moved_ml ?? 0);
-      }
+      // Withdraw one authorized sample, then partition its arrival. Sampling
+      // twice would reuse a stale suspension snapshot for the splash share.
+      const released = decantLiquid(snapshot(source), null, actualDV, mobileSolids);
+      if (!released?.spill) return stopped();
+      const into = dispenseAliquot(snapshot(target), released.spill, targetIntakeDV);
+      const receiver = refreshFlowInventory(into.vessel);
+      newSourceVessel = { ...source, ...released.source, colorHex: source.colorHex };
+      newTargetVessel = { ...target, ...receiver, colorHex: receiver.liquidColor ?? target.colorHex };
+      accepted_ml = into.dispensed_ml;
+      spilled_ml = released.moved_ml - accepted_ml;
     }
 
     events.push({
@@ -240,7 +245,7 @@ export function stepPourSimulation(
       mass_g: Math.max(0, (source.mass_g || source.volume_ml) - spilled_ml * source.density_g_ml)
     };
     if (source.contents) {
-      const plan = decantLiquid(snapshot(source), null, spilled_ml);
+      const plan = decantLiquid(snapshot(source), null, spilled_ml, mobileSolids);
       if (!plan) return stopped();
       if (plan) newSourceVessel = { ...source, ...plan.source, colorHex: source.colorHex };
     }

@@ -2078,3 +2078,31 @@ const REACTION_ENTRIES: ReactionDefinition[] = [
 
 // Keep the first authoritative entry for duplicate legacy IDs.
 export const REACTION_DATABASE: ReactionDefinition[] = REACTION_ENTRIES.filter((reaction, index, all) => all.findIndex(candidate => candidate.id === reaction.id) === index);
+
+/**
+ * Formula index used by the synchronous simulator. Reaction order remains the
+ * authoritative tie-breaker, while lookup only visits reactions that can see
+ * at least one currently present species.
+ */
+const REACTIONS_BY_SPECIES = new Map<string, ReactionDefinition[]>();
+for (const reaction of REACTION_DATABASE) {
+  for (const species of reaction.reactants) {
+    const key = species.formula.replace(/\s*\((?:s|l|g|aq|conc|dil)\)/gi, '').replace(/\s+/g, '').toUpperCase();
+    const bucket = REACTIONS_BY_SPECIES.get(key) ?? [];
+    if (!bucket.includes(reaction)) bucket.push(reaction);
+    REACTIONS_BY_SPECIES.set(key, bucket);
+  }
+}
+
+export function getReactionCandidates(formulas: string[]): ReactionDefinition[] {
+  const candidates = new Set<ReactionDefinition>();
+  for (const formula of formulas) {
+    const key = formula.replace(/\s*\((?:s|l|g|aq|conc|dil)\)/gi, '').replace(/\s+/g, '').toUpperCase();
+    for (const reaction of REACTIONS_BY_SPECIES.get(key) ?? []) candidates.add(reaction);
+  }
+  return REACTION_DATABASE.filter(reaction => candidates.has(reaction));
+}
+
+export function getReactionIndexStats() {
+  return { reactions: REACTION_DATABASE.length, speciesKeys: REACTIONS_BY_SPECIES.size };
+}

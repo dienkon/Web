@@ -2,8 +2,10 @@ import { useEffect, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useStore } from '../../store/useStore';
 import { isSceneInputBlocked } from '../input/sceneInput';
+import {useCoarsePointer} from '../device/useCoarsePointer';
+import type {SettingsState} from '../../types';
 
-const PRESET_DPR = {
+export const PRESET_DPR = {
   potato: .7,
   low: .85,
   medium: 1,
@@ -11,16 +13,18 @@ const PRESET_DPR = {
   ultra: 1.5,
   auto: 1,
 };
+export const initialDpr=(quality:SettingsState['graphicsQuality'],coarse:boolean)=>Math.min(typeof window==='undefined'?1:window.devicePixelRatio||1,quality==='auto'&&coarse?.85:PRESET_DPR[quality]);
 
 export function AdaptivePerformance() {
   const { setDpr } = useThree();
   const quality = useStore(state => state.settings.graphicsQuality);
+  const coarse=useCoarsePointer();
   const sample = useRef({ elapsed: 0, frames: 0, dpr: 1, slow: 0, fast: 0, warmup: 3 });
   useEffect(() => {
-    const dpr = Math.min(window.devicePixelRatio || 1, PRESET_DPR[quality]);
+    const dpr = initialDpr(quality,coarse);
     sample.current = { elapsed: 0, frames: 0, dpr, slow: 0, fast: 0, warmup: 3 };
     setDpr(dpr);
-  }, [quality, setDpr]);
+  }, [quality, coarse, setDpr]);
   useFrame((_, delta) => {
     const state = useStore.getState();
     const current = sample.current;
@@ -35,8 +39,9 @@ export function AdaptivePerformance() {
       current.warmup -= delta;
       return;
     }
-    if (delta > .25) return;
-    current.elapsed += delta;
+    // Genuine slow visible frames must count toward adaptation too. Previously
+    // a device slower than 4 fps could never lower its resolution.
+    current.elapsed += Math.min(delta,1);
     current.frames++;
     if (current.elapsed < 2) return;
     const fps = current.frames / current.elapsed;
@@ -47,8 +52,8 @@ export function AdaptivePerformance() {
       current.slow = 0;
       current.fast = 0;
       setDpr(current.dpr);
-    } else if (current.fast >= 4 && current.dpr < Math.min(1.25, window.devicePixelRatio || 1)) {
-      current.dpr = Math.min(1.25, window.devicePixelRatio || 1, current.dpr + .1);
+    } else if (current.fast >= 4 && current.dpr < Math.min(coarse?1:1.25, window.devicePixelRatio || 1)) {
+      current.dpr = Math.min(coarse?1:1.25, window.devicePixelRatio || 1, current.dpr + .1);
       current.fast = 0;
       setDpr(current.dpr);
     }

@@ -111,10 +111,13 @@ describe('Vessel Outer Wall Overflow & Animation Mechanics', () => {
       expect(overflowEmitted.volume_ml).toBe(10);
       expect(overflowEmitted.substances).toContain('HCl');
 
-      // Spill was registered
+      // Exterior inventory is registered before any ground deposition.
+      expect(Object.values(useAppStore.getState().spills)).toHaveLength(0);
+      expect(useAppStore.getState().inFlightPours[0].sample.volume_ml).toBe(10);
+      useAppStore.getState().advancePourTransport(2);
       const spills = Object.values(useAppStore.getState().spills);
       expect(spills.length).toBeGreaterThan(0);
-      expect(spills[0].volume_ml).toBe(10);
+      expect(spills.reduce((sum, s) => sum + s.volume_ml, 0)).toBeCloseTo(10, 10);
     } finally {
       unsub();
     }
@@ -250,7 +253,10 @@ describe('Vessel Outer Wall Overflow & Animation Mechanics', () => {
       useAppStore.getState().addSpill(rotatedBeaker.position, 10, ['H2O'], '#38bdf8', rotatedBeaker.name,
         10, [item('H2O', 10)], rotatedBeaker.id);
       expect(overflowEmitted).not.toBeNull();
-      expect(overflowEmitted.angle).toBeCloseTo(Math.PI / 4, 4);
+      expect(overflowEmitted.angle).toBeCloseTo(-Math.PI / 4, 4);
+      const parcel = useAppStore.getState().inFlightPours.at(-1)!;
+      expect(Math.atan2(parcel.trajectory.exitPos[2] - rotatedBeaker.position[2],
+        parcel.trajectory.exitPos[0] - rotatedBeaker.position[0])).toBeCloseTo(overflowEmitted.angle, 8);
     } finally {
       unsub();
     }

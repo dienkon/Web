@@ -6,23 +6,15 @@ import { useAppStore, getChemical, getSolidMorphology, SolidMorphology } from '.
 import { labSound } from '../../utils/audio';
 import { useQualityStore } from '../../vfx/quality';
 import { getGlassMaterials, createVesselLatheGeometry } from '../../vfx/materials/glass';
-import { vesselLiquidSurfaceY, liquidGeometry } from '../../science/vesselGeometry';
+import { vesselWorldLiquidSurfaceY, liquidGeometry } from '../../science/vesselGeometry';
 import { fallingContactTime, dropSchedule, landedDropFraction, SCENE_GRAVITY, stockLiquidPacket, stockArrivedFraction, STOCK_RELEASE_START_S, STOCK_RELEASE_END_S } from '../../handling/doseTiming';
-
-// Helper to determine vessel rim height and mouth radius based on glassware geometry
-function getVesselMouthMetrics(type: string = 'beaker') {
-  switch (type) {
-    case 'cylinder':
-      return { offset: 1.7, radius: 0.35 };
-    case 'flask':
-      return { offset: 1.5, radius: 0.42 };
-    case 'test_tube':
-      return { offset: 1.2, radius: 0.22 };
-    case 'beaker':
-    default:
-      return { offset: 1.0, radius: 0.95 };
-  }
-}
+import { createStockSolidGeometry, stockSolidChunkCount } from './stockSolidGeometry';
+import { stockSolidMaterial } from '../../science/stockAppearance';
+import { solidSceneVolume } from '../../science/vesselDimensions';
+import { liquidOpacity } from '../../science/liquidOptics';
+import { getWorldVesselProfile } from '../../pour/physics/profiles';
+import { vesselBodyTransform } from '../../science/vesselScale';
+import { VesselBodyScale } from './VesselBodyScale';
 
 // Reagent bottle glass material: highly transparent, specular clearcoat, non-occluding
 const reagentBottleGlass = new THREE.MeshPhysicalMaterial({
@@ -70,6 +62,9 @@ export const AddingAnimation = React.memo(function AddingAnimation({
   const elapsedTime = useRef(0);
   const soundPlayedRef = useRef(false);
   const lastDropIndexRef = useRef(-1);
+  const lastContactFraction = useRef(0);
+  const deliveryRef = useRef<Promise<void>>(Promise.resolve());
+  const completingRef = useRef(false);
   const stockStreamGeometry = useMemo(() => new THREE.CylinderGeometry(0.03, 0.03, 1, 12, 24, true), []);
   useEffect(() => () => stockStreamGeometry.dispose(), [stockStreamGeometry]);
 
@@ -80,18 +75,26 @@ export const AddingAnimation = React.memo(function AddingAnimation({
   const targetZ = targetVessel ? targetVessel.position[2] : 0;
 
   const targetType = targetVessel?.type || 'beaker';
-  const metrics = getVesselMouthMetrics(targetType);
-  const mouthY = targetY + metrics.offset;
-  const mouthRadius = metrics.radius;
-  const initialSurface = useRef(targetVessel ? vesselLiquidSurfaceY(targetVessel) : liquidGeometry(targetType).floorY);
+  const targetProfile = getWorldVesselProfile(targetType, targetVessel?.capacity_ml);
+  const body = targetVessel ? vesselBodyTransform(targetVessel) : { scale: 1, offsetY: 0 };
+  const mouthY = targetY + targetProfile.lipLocal[1];
+  const mouthRadius = targetProfile.mouthR;
+  const initialSurface = useRef(targetVessel ? vesselWorldLiquidSurfaceY(targetVessel) : liquidGeometry(targetType).floorY);
   const payloadRef = useRef<THREE.Group>(null);
+  const payloadMeshRef = useRef<THREE.InstancedMesh>(null);
+  const solidGeometry = useMemo(() => type === 'solid' ? createStockSolidGeometry(morphology, chemical) : null,
+    [type, morphology, chemical]);
+  useEffect(() => () => solidGeometry?.dispose(), [solidGeometry]);
+  const solidMaterial = stockSolidMaterial(chemData, morphology);
 
   // Solid chunks falling simulation data (28 discrete chunks)
-  const solidChunkCount = 28;
+  const solidChunkCount = stockSolidChunkCount(morphology);
+  const solidChunkScale = targetVessel && chemData.density ? Math.cbrt(solidSceneVolume(targetVessel,
+    amount / chemData.density) / solidChunkCount) * body.scale : 0;
   const solidChunksData = useMemo(() => {
-    return Array.from({ length: 28 }).map((_, i) => {
+    return Array.from({ length: solidChunkCount }).map((_, i) => {
       const angle = (i * 2.39996) % (Math.PI * 2);
-      const spreadR = Math.sqrt((i + 1) / 28) * (mouthRadius * 0.42);
+      const spreadR = Math.sqrt((i + 1) / solidChunkCount) * (mouthRadius * 0.42);
       return {
         stagger: 0.22 + i * 0.038,
         offsetX: Math.cos(angle) * spreadR,
@@ -105,19 +108,32 @@ export const AddingAnimation = React.memo(function AddingAnimation({
         pileY: ((i % 4) * 0.025),
       };
     });
-  }, [mouthRadius]);
+  }, [mouthRadius, solidChunkCount]);
 
   useFrame((state, delta) => {
     const live = useAppStore.getState();
+    if (completingRef.current) return;
     if (live.isSimulationPaused) return;
     elapsedTime.current += simulationFrameDt(delta, live);
     const elapsed = elapsedTime.current;
     const time = elapsed;
     if (!live.vessels[targetId] || live.vessels[targetId].isShattered) { onComplete(); return; }
-    const deliver = (fraction: number) => { void live.advancePourContact(doseId, fraction); };
+    const deliver = (fraction: number) => {
+      if (fraction <= lastContactFraction.current) return;
+      lastContactFraction.current = fraction;
+      deliveryRef.current = live.advancePourContact(doseId, fraction);
+    };
+    // A cloud/local resolver can finish after the last visual contact. Retain
+    // the dose until its serialized writes have drained; a no-op contact must
+    // not replace that pending promise with an already-resolved one.
+    const complete = () => {
+      if (lastContactFraction.current < 1) return;
+      completingRef.current = true;
+      void deliveryRef.current.then(onComplete);
+    };
 
     // Calculate current liquid surface elevation inside recipient vessel
-    const liquidSurfaceY = targetY + (targetVessel ? vesselLiquidSurfaceY(targetVessel) : -0.96);
+    const liquidSurfaceY = targetY + (targetVessel ? vesselWorldLiquidSurfaceY(targetVessel) : -0.96);
 
     // ============================================================
     // 1. SOLID REAGENT DISPENSING (Micro-spatula powder addition)
@@ -129,12 +145,23 @@ export const AddingAnimation = React.memo(function AddingAnimation({
       if (!groupRef.current) return;
 
       const hasWater = targetVessel && (targetVessel.volume_ml > 0.05) && targetVessel.substances.some(s => getChemical(s)?.type !== 'solid');
-      const bottomY = targetY + liquidGeometry(targetType).floorY;
+      const bottomY = targetY + body.offsetY + body.scale * liquidGeometry(targetType).floorY;
       const actualSurfaceY = hasWater ? liquidSurfaceY : bottomY;
       const flightTime = fallingContactTime(mouthY + 0.55 - actualSurfaceY);
       const landedCount = solidChunksData.filter(chunk => elapsed >= chunk.stagger + flightTime).length;
       deliver(landedCount / solidChunkCount);
-      if (payloadRef.current) payloadRef.current.visible = elapsed < solidChunksData[0].stagger;
+      if (payloadRef.current) payloadRef.current.visible = elapsed < solidChunksData[solidChunkCount - 1].stagger;
+      if (payloadMeshRef.current) {
+        for (let i = 0; i < solidChunkCount; i++) {
+          _scratchPos.set(-0.2 + (i % 4 - 1.5) * 0.055, 0.06 + Math.floor(i / 12) * 0.03, (Math.floor(i / 4) % 3 - 1) * 0.035);
+          _scratchEuler.set(0.4, 0.2, morphology === 'NAIL' ? Math.PI / 2 : -0.6);
+          _scratchQuat.setFromEuler(_scratchEuler);
+          _scratchScale.setScalar(elapsed < solidChunksData[i].stagger ? solidChunkScale : 0);
+          _scratchMat4.compose(_scratchPos, _scratchQuat, _scratchScale);
+          payloadMeshRef.current.setMatrixAt(i, _scratchMat4);
+        }
+        payloadMeshRef.current.instanceMatrix.needsUpdate = true;
+      }
       const retractStart = Math.max(1.4, solidChunksData[solidChunkCount - 1].stagger + flightTime + 0.1);
 
       if (elapsed < 0.25) {
@@ -157,7 +184,7 @@ export const AddingAnimation = React.memo(function AddingAnimation({
             } else {
               labSound.playTap();
             }
-          } else if (morphology === 'RIBBON' || morphology === 'TURNINGS' || morphology === 'FILINGS') {
+          } else if (['RIBBON', 'TURNINGS', 'FILINGS', 'NAIL', 'FOIL'].includes(morphology)) {
             labSound.playTap();
           } else if (morphology === 'PELLET') {
             if (hasWater && (chemical === 'Na' || chemical === 'K')) {
@@ -223,7 +250,7 @@ export const AddingAnimation = React.memo(function AddingAnimation({
 
             _scratchEuler.set(dtChunk * c.spinX, dtChunk * c.spinY, dtChunk * c.spinZ);
             _scratchQuat.setFromEuler(_scratchEuler);
-            _scratchScale.set(c.size, c.size, c.size);
+            _scratchScale.setScalar(solidChunkScale);
             _scratchPos.set(currentChunkX, currentChunkY, currentChunkZ);
             _scratchMat4.compose(_scratchPos, _scratchQuat, _scratchScale);
             solidInstancedRef.current.setMatrixAt(i, _scratchMat4);
@@ -255,7 +282,7 @@ export const AddingAnimation = React.memo(function AddingAnimation({
         groupRef.current.rotation.z = THREE.MathUtils.lerp(0.55, 0, t);
         if (rippleRef.current) rippleRef.current.visible = false;
       } else {
-        onComplete();
+        complete();
       }
       return;
     }
@@ -303,7 +330,7 @@ export const AddingAnimation = React.memo(function AddingAnimation({
         groupRef.current.position.set(targetX, THREE.MathUtils.lerp(mouthY + 1.45, mouthY + 3.2, t), targetZ);
         if (dropRef.current) dropRef.current.visible = false;
         if (rippleRef.current) rippleRef.current.visible = false;
-      } else onComplete();
+      } else complete();
       return;
     }
 
@@ -380,7 +407,7 @@ export const AddingAnimation = React.memo(function AddingAnimation({
       );
       groupRef.current.rotation.z = THREE.MathUtils.lerp(1.18, 0, t);
     } else {
-      onComplete();
+      complete();
     }
   });
 
@@ -396,67 +423,9 @@ export const AddingAnimation = React.memo(function AddingAnimation({
           </mesh>
           {/* Blade scoop with solid reagent resting on it matching authentic morphology */}
           <group ref={payloadRef}>
-          {morphology === 'RIBBON' ? (
-            <mesh position={[-0.2, 0.08, 0]} rotation={[0.4, 0.2, -0.6]}>
-              <torusGeometry args={[0.16, 0.04, 6, 16, Math.PI * 1.5]} />
-              <meshStandardMaterial color={color} roughness={0.18} metalness={0.96} />
-            </mesh>
-          ) : morphology === 'TURNINGS' ? (
-            <mesh position={[-0.2, 0.08, 0]} rotation={[0.2, 0.5, -0.4]}>
-              <torusGeometry args={[0.14, 0.035, 6, 16, Math.PI * 1.8]} />
-              <meshStandardMaterial color="#ea580c" roughness={0.22} metalness={0.98} />
-            </mesh>
-          ) : morphology === 'FILINGS' ? (
-            <mesh position={[-0.2, 0.06, 0]} scale={[1.1, 0.6, 0.9]}>
-              <sphereGeometry args={[0.13, 12, 12]} />
-              <meshStandardMaterial color="#475569" roughness={0.35} metalness={0.92} />
-            </mesh>
-          ) : morphology === 'GRANULES' ? (
-            <mesh position={[-0.2, 0.06, 0]}>
-              <dodecahedronGeometry args={[0.14, 0]} />
-              <meshStandardMaterial color={color} roughness={0.4} metalness={0.88} />
-            </mesh>
-          ) : morphology === 'CHIPS' ? (
-            <mesh position={[-0.2, 0.06, 0]}>
-              <dodecahedronGeometry args={[0.15, 0]} />
-              <meshStandardMaterial color="#f1f5f9" roughness={0.82} metalness={0.02} />
-            </mesh>
-          ) : morphology === 'CUBIC_CRYSTAL' ? (
-            <mesh position={[-0.2, 0.06, 0]}>
-              <boxGeometry args={[0.18, 0.18, 0.18]} />
-              <meshStandardMaterial color={color} roughness={0.2} metalness={0.1} />
-            </mesh>
-          ) : morphology === 'PRISMATIC_CRYSTAL' ? (
-            <mesh position={[-0.2, 0.06, 0]} rotation={[0, 0, Math.PI / 4]}>
-              <cylinderGeometry args={[0.03, 0.03, 0.28, 6]} />
-              <meshStandardMaterial color="#581c87" roughness={0.12} metalness={0.65} />
-            </mesh>
-          ) : morphology === 'TABULAR_CRYSTAL' ? (
-            <mesh position={[-0.2, 0.06, 0]}>
-              <boxGeometry args={[0.22, 0.05, 0.18]} />
-              <meshStandardMaterial color="#ea580c" roughness={0.18} metalness={0.35} />
-            </mesh>
-          ) : morphology === 'HYDRATE_CRYSTAL' ? (
-            <mesh position={[-0.2, 0.06, 0]}>
-              <octahedronGeometry args={[0.15, 0]} />
-              <meshStandardMaterial color={color} roughness={0.15} metalness={0.12} />
-            </mesh>
-          ) : morphology === 'LUSTROUS_PLATES' ? (
-            <mesh position={[-0.2, 0.06, 0]}>
-              <boxGeometry args={[0.22, 0.05, 0.16]} />
-              <meshStandardMaterial color="#3b0764" roughness={0.18} metalness={0.75} />
-            </mesh>
-          ) : morphology === 'PELLET' ? (
-            <mesh position={[-0.2, 0.06, 0]}>
-              <boxGeometry args={[0.16, 0.14, 0.16]} />
-              <meshStandardMaterial color="#cbd5e1" roughness={0.3} metalness={0.9} />
-            </mesh>
-          ) : (
-            <mesh position={[-0.2, 0.06, 0]} scale={[1.2, 0.65, 0.95]}>
-              <sphereGeometry args={[0.15, 16, 12]} />
-              <meshStandardMaterial color={color} roughness={0.96} metalness={0.02} />
-            </mesh>
-          )}
+          <instancedMesh ref={payloadMeshRef} args={[solidGeometry!, undefined, solidChunkCount]}>
+            <meshStandardMaterial color={solidMaterial.color} roughness={solidMaterial.roughness} metalness={solidMaterial.metalness} />
+          </instancedMesh>
           </group>
         </group>
 
@@ -467,63 +436,8 @@ export const AddingAnimation = React.memo(function AddingAnimation({
           renderOrder={5}
           visible={false}
         >
-          {morphology === 'RIBBON' ? (
-            <torusGeometry args={[0.75, 0.16, 8, 20, Math.PI * 1.5]} />
-          ) : morphology === 'TURNINGS' ? (
-            <torusGeometry args={[0.70, 0.15, 8, 20, Math.PI * 1.8]} />
-          ) : morphology === 'FILINGS' ? (
-            <cylinderGeometry args={[0.07, 0.07, 1.0, 8]} />
-          ) : morphology === 'GRANULES' ? (
-            <dodecahedronGeometry args={[0.75, 0]} />
-          ) : morphology === 'CHIPS' ? (
-            <dodecahedronGeometry args={[0.85, 0]} />
-          ) : morphology === 'CUBIC_CRYSTAL' ? (
-            <boxGeometry args={[0.85, 0.85, 0.85]} />
-          ) : morphology === 'PRISMATIC_CRYSTAL' ? (
-            <cylinderGeometry args={[0.1, 0.1, 1.25, 6]} />
-          ) : morphology === 'TABULAR_CRYSTAL' ? (
-            <boxGeometry args={[0.85, 0.22, 1.1]} />
-          ) : morphology === 'HYDRATE_CRYSTAL' ? (
-            <octahedronGeometry args={[0.85, 0]} />
-          ) : morphology === 'LUSTROUS_PLATES' ? (
-            <boxGeometry args={[0.9, 0.25, 0.7]} />
-          ) : (
-            <dodecahedronGeometry args={[0.55, 0]} />
-          )}
-          <meshStandardMaterial
-            color={
-              morphology === 'TURNINGS' ? '#ea580c' : 
-              (morphology === 'FILINGS' ? '#475569' : 
-              (morphology === 'LUSTROUS_PLATES' ? '#3b0764' : 
-              (morphology === 'PRISMATIC_CRYSTAL' ? '#581c87' : 
-              (morphology === 'TABULAR_CRYSTAL' ? '#ea580c' : 
-              (morphology === 'CHIPS' ? '#f1f5f9' : color)))))
-            }
-            roughness={
-              morphology === 'RIBBON' ? 0.18 : 
-              (morphology === 'TURNINGS' ? 0.22 : 
-              (morphology === 'FILINGS' ? 0.35 : 
-              (morphology === 'GRANULES' ? 0.40 : 
-              (morphology === 'CHIPS' ? 0.82 :
-              (morphology === 'LUSTROUS_PLATES' ? 0.18 : 
-              (morphology === 'PRISMATIC_CRYSTAL' ? 0.12 : 
-              (morphology === 'TABULAR_CRYSTAL' ? 0.18 : 
-              (morphology === 'HYDRATE_CRYSTAL' ? 0.15 : 
-              (morphology === 'CUBIC_CRYSTAL' ? 0.20 : 0.96)))))))))
-            }
-            metalness={
-              morphology === 'RIBBON' ? 0.96 : 
-              (morphology === 'TURNINGS' ? 0.98 : 
-              (morphology === 'FILINGS' ? 0.92 : 
-              (morphology === 'GRANULES' ? 0.88 : 
-              (morphology === 'CHIPS' ? 0.02 :
-              (morphology === 'LUSTROUS_PLATES' ? 0.75 : 
-              (morphology === 'PRISMATIC_CRYSTAL' ? 0.65 : 
-              (morphology === 'TABULAR_CRYSTAL' ? 0.35 : 
-              (morphology === 'HYDRATE_CRYSTAL' ? 0.12 : 
-              (morphology === 'CUBIC_CRYSTAL' ? 0.10 : 0.02)))))))))
-            }
-          />
+          <primitive object={solidGeometry!} attach="geometry" />
+          <meshStandardMaterial color={solidMaterial.color} roughness={solidMaterial.roughness} metalness={solidMaterial.metalness} />
         </instancedMesh>
 
         {/* Dynamic Concentric Water Surface Ripple on Impact */}
@@ -556,14 +470,14 @@ export const AddingAnimation = React.memo(function AddingAnimation({
           {/* Chemical Indicator inside Pipette Column */}
           <mesh position={[0, -0.2, 0]}>
             <cylinderGeometry args={[0.038, 0.038, 0.9, 16]} />
-            <meshStandardMaterial color={color} transparent opacity={0.88} roughness={0.12} depthWrite={false} />
+            <meshStandardMaterial color={color} transparent opacity={liquidOpacity(color, 0)} roughness={0.12} depthWrite={false} />
           </mesh>
         </group>
 
         {/* Falling Indicator Drop (World space) */}
         <mesh ref={dropRef} visible={false}>
           <sphereGeometry args={[1, 14, 14]} />
-          <meshStandardMaterial color={color} transparent opacity={0.92} roughness={0.1} depthWrite={false} />
+          <meshStandardMaterial color={color} transparent opacity={liquidOpacity(color, 0, true)} roughness={0.1} depthWrite={false} />
         </mesh>
 
         {/* Concentric Impact Ripple Ring on Liquid Surface */}
@@ -595,7 +509,7 @@ export const AddingAnimation = React.memo(function AddingAnimation({
         {/* Chemical Liquid Inside Reagent Bottle */}
         <mesh position={[0, -0.08, 0]}>
           <cylinderGeometry args={[0.31, 0.35, 0.85, 24]} />
-          <meshStandardMaterial color={color} transparent opacity={0.88} roughness={0.12} depthWrite={false} />
+          <meshStandardMaterial color={color} transparent opacity={liquidOpacity(color, 0)} roughness={0.12} depthWrite={false} />
         </mesh>
         {/* Reagent Label */}
         <mesh position={[0, 0, 0.36]} rotation={[0, 0, 0]}>
@@ -609,7 +523,7 @@ export const AddingAnimation = React.memo(function AddingAnimation({
         <meshStandardMaterial
           color={color}
           transparent
-          opacity={0.88}
+          opacity={liquidOpacity(color, 0, true)}
           roughness={0.08}
           metalness={0.04}
           depthWrite={false}
@@ -654,8 +568,10 @@ export const VesselPourAnimation = React.memo(function VesselPourAnimation({
   const validFromType = (fromType === 'burette' ? 'cylinder' : fromType) as 'beaker' | 'flask' | 'test_tube' | 'cylinder';
   const latheGeom = useMemo(() => createVesselLatheGeometry(validFromType, 32), [validFromType]);
 
-  const toMetrics = getVesselMouthMetrics(toType);
-  const fromMetrics = getVesselMouthMetrics(fromType);
+  const toProfile = getWorldVesselProfile(toType, toVessel?.capacity_ml);
+  const fromProfile = getWorldVesselProfile(fromType, fromVessel?.capacity_ml);
+  const toMetrics = { offset: toProfile.lipLocal[1], radius: toProfile.mouthR };
+  const fromMetrics = { offset: fromProfile.lipLocal[1], radius: fromProfile.mouthR };
 
   if (!fromVessel || !toVessel) return null;
 
@@ -673,10 +589,7 @@ export const VesselPourAnimation = React.memo(function VesselPourAnimation({
     if (!groupRef.current) return;
 
     // Target liquid surface elevation
-    const toVol = toVessel ? toVessel.volume_ml : 0;
-    const toCap = toVessel ? toVessel.capacity_ml : 100;
-    const toRatio = Math.max(0.06, Math.min(0.95, toVol / toCap));
-    const toLiquidSurfaceY = targetY - 0.92 + toRatio * (toMetrics.offset + 0.8);
+    const toLiquidSurfaceY = targetY + vesselWorldLiquidSurfaceY(toVessel);
 
     // Initial position on table
     const startX = fromVessel.position[0];
@@ -768,21 +681,23 @@ export const VesselPourAnimation = React.memo(function VesselPourAnimation({
     <group>
       {/* Animated Pouring Source Vessel with Authentic Lathe Geometry */}
       <group ref={groupRef} position={fromVessel.position}>
+        <VesselBodyScale vessel={fromVessel}>
         {/* Inner and Outer Glassware Shells */}
         <mesh geometry={latheGeom.inner} material={glassMats.back} renderOrder={1} />
         <mesh geometry={latheGeom.outer} material={glassMats.front} renderOrder={6} castShadow receiveShadow />
 
         {/* Draining Liquid inside Source Vessel */}
         <mesh ref={liquidMeshRef} position={[0, -0.3, 0]} renderOrder={3}>
-          <cylinderGeometry args={[fromMetrics.radius * 0.88, fromMetrics.radius * 0.88, 0.8, 20]} />
+          <cylinderGeometry args={[fromMetrics.radius / vesselBodyTransform(fromVessel).scale * 0.88, fromMetrics.radius / vesselBodyTransform(fromVessel).scale * 0.88, 0.8, 20]} />
           <meshStandardMaterial
             color={liquidColor}
             transparent
-            opacity={0.88}
+            opacity={liquidOpacity(liquidColor, fromVessel.turbidity ?? 0)}
             roughness={0.12}
             depthWrite={false}
           />
         </mesh>
+        </VesselBodyScale>
       </group>
 
       {/* World-space Laminar Liquid Stream (Connecting Lip directly to Recipient Surface) */}
@@ -791,7 +706,7 @@ export const VesselPourAnimation = React.memo(function VesselPourAnimation({
         <meshStandardMaterial
           color={liquidColor}
           transparent
-          opacity={0.88}
+          opacity={liquidOpacity(liquidColor, fromVessel.turbidity ?? 0, true)}
           roughness={0.08}
           metalness={0.04}
           depthWrite={false}

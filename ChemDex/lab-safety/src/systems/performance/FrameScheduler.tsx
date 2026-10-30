@@ -2,9 +2,11 @@ import { useEffect } from 'react';
 import { useThree } from '@react-three/fiber';
 import { useStore } from '../../store/useStore';
 import { isSceneInputBlocked } from '../input/sceneInput';
+import {useCoarsePointer} from '../device/useCoarsePointer';
 
 export function FrameScheduler() {
   const invalidate = useThree(state => state.invalidate);
+  const coarse=useCoarsePointer();
   useEffect(() => {
     let frame = 0;
     let nextFrame = 0;
@@ -18,7 +20,7 @@ export function FrameScheduler() {
       }
       const state = useStore.getState();
       const quality = state.settings.graphicsQuality;
-      const activeRate = quality === 'potato' ? 30 : quality === 'low' ? 40 : 60;
+      const activeRate = quality === 'potato'||coarse&&quality==='low' ? 30 : quality === 'low' ? 40 : 60;
       const fps = state.cinematic ? activeRate : isSceneInputBlocked(state) ? 15 : activeRate;
       const interval = 1000 / fps;
       if (time + .5 < nextFrame) return;
@@ -37,6 +39,6 @@ export function FrameScheduler() {
       cancelAnimationFrame(frame);
       document.removeEventListener('visibilitychange', visible);
     };
-  }, [invalidate]);
+  }, [invalidate,coarse]);
   return null;
 }

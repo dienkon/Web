@@ -173,11 +173,11 @@ describe('Separatory funnel uses finite lower-layer inventory', () => {
   it('drains water below hexane and preserves both phase volumes and all molecules', () => {
     const initial = separated();
     const result = stepFunnelFlow(initial, receiver(), 4);
-    expect(result.source.volume_ml).toBe(20);
+    expect(result.source.volume_ml).toBe(10);
     expect(result.source.immiscibleOrganicVolume_ml).toBe(10);
     expect(result.receiver!.contents.some(item => item.formula === 'C6H14')).toBe(false);
-    expect(result.receiver!.contents.find(item => item.formula === 'NaCl')!.mass_g).toBeCloseTo(0.5);
-    expect(phaseVolumes(result.source)).toEqual({ aqueous: 10, organic: 10 });
+    expect(result.receiver!.contents.find(item => item.formula === 'NaCl')!.mass_g).toBeCloseTo(1);
+    expect(phaseVolumes(result.source)).toEqual({ aqueous: 0, organic: 10 });
     expect(result.source.mass_g + result.receiver!.mass_g).toBeCloseTo(initial.mass_g, 10);
     conserved(initial.contents, [...result.source.contents, ...result.receiver!.contents]);
   });
@@ -188,7 +188,7 @@ describe('Separatory funnel uses finite lower-layer inventory', () => {
     initial.mass_g = 36;
     const result = stepFunnelFlow(initial, receiver(), 2);
     expect(result.receiver!.contents.map(item => item.formula)).toEqual(['CHCl3']);
-    expect(result.source.immiscibleOrganicVolume_ml).toBe(5);
+    expect(result.source.immiscibleOrganicVolume_ml).toBe(0);
     expect(phaseVolumes(result.source).aqueous).toBe(20);
     expect(separatedLayers(initial).lower).toBe('organic');
     conserved(initial.contents, [...result.source.contents, ...result.receiver!.contents]);
@@ -241,15 +241,20 @@ describe('Store flow and cleanup preserve sample mass', () => {
   it('runs gravity filtration at room temperature and moves the actual cake through the recovery tool', () => {
     const before = useAppStore.getState();
     try {
-      const source = vessel(), target = receiver(), cake = receiver({ id: 'cake', type: 'watch_glass' });
+      const source = vessel({ position: [4, 4, 4] }), target = receiver(), cake = receiver({ id: 'cake', type: 'watch_glass' });
       useAppStore.setState({ vessels: { [source.id]: source, [target.id]: target, [cake.id]: cake }, vesselIds: [source.id, target.id, cake.id],
-        burners: {}, activeKinetics: {}, pendingReactions: {}, dissolvingSubstances: {}, spills: {}, wasteMass_g: 0, isSimulationPaused: false });
+        burners: {}, activeKinetics: {}, pendingReactions: {}, dissolvingSubstances: {}, spills: {}, inFlightPours: [], wasteMass_g: 0, isSimulationPaused: false });
       useAppStore.getState().tickSimulation(0.1);
       let state = useAppStore.getState();
-      expect(state.vessels[target.id].mass_g).toBeGreaterThan(0);
+      expect(state.vessels[target.id].mass_g).toBe(0);
+      expect(state.inFlightPours.length).toBeGreaterThan(0);
       expect(state.vessels[source.id].filterPaperResidue_g).toBe(1);
       expect(Object.values(state.vessels).reduce((sum, item) => sum + item.mass_g
-        + (item.evaporated_ml ?? 0) - (item.wallCondensation?.returned_g ?? 0), 0)).toBeCloseTo(103, 9);
+        + (item.evaporated_ml ?? 0) - (item.wallCondensation?.returned_g ?? 0), 0)
+        + state.inFlightPours.reduce((sum, p) => sum + p.sample.mass_g, 0)).toBeCloseTo(103, 9);
+      state.advancePourTransport(2);
+      state = useAppStore.getState();
+      expect(state.vessels[target.id].mass_g).toBeGreaterThan(0);
       state.recoverFilterResidue(source.id, cake.id);
       state = useAppStore.getState();
       expect(state.vessels[cake.id].mass_g).toBe(1);

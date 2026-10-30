@@ -55,7 +55,7 @@ function NumberControl({ label, value, minimum, maximum, step, onChange }: {
 
 function PipetteActions({ disabled }: { disabled: boolean }) {
   const [volume, setVolume] = useState(2.5);
-  const sample = useInstrumentStore(state => state.pipetteSample);
+  const sample = useAppStore(state => state.pipetteSample);
   const loaded = (sample?.volume_ml ?? 0) > 1e-6;
   return <div className="space-y-3">
     <NumberControl

@@ -1,0 +1,361 @@
+{
+  "errors": [],
+  "consoleErrors": [],
+  "observations": [],
+  "remainingIssues": [
+    "The spill ledger/puddle is still deposited immediately at the rim receipt, before exterior wall/drop transit completes. A finite exterior transit inventory remains required."
+  ],
+  "setup": [
+    {
+      "id": "studio_sample_1793246793328_yvbxby",
+      "program": "fecl3_naoh",
+      "mass_g": 30
+    },
+    {
+      "id": "studio_sample_1793246793332_eimqpq",
+      "program": "agno3_nacl",
+      "mass_g": 30
+    },
+    {
+      "id": "studio_sample_1793246793333_ujhmgx",
+      "program": "bacl2_na2so4",
+      "mass_g": 30
+    }
+  ],
+  "clockBadgeTruthful": true,
+  "contactHistory": [
+    [
+      {
+        "id": "studio_sample_1793246793328_yvbxby",
+        "progress": 0,
+        "precipitate_g": 0,
+        "mass_g": 30,
+        "evaporated_g": 0
+      },
+      {
+        "id": "studio_sample_1793246793332_eimqpq",
+        "precipitate_g": 0,
+        "mass_g": 30,
+        "evaporated_g": 0
+      },
+      {
+        "id": "studio_sample_1793246793333_ujhmgx",
+        "precipitate_g": 0,
+        "mass_g": 30,
+        "evaporated_g": 0
+      }
+    ],
+    [
+      {
+        "id": "studio_sample_1793246793328_yvbxby",
+        "progress": 0,
+        "precipitate_g": 0,
+        "mass_g": 30,
+        "evaporated_g": 0
+      },
+      {
+        "id": "studio_sample_1793246793332_eimqpq",
+        "progress": 0,
+        "precipitate_g": 0,
+        "mass_g": 30,
+        "evaporated_g": 0
+      },
+      {
+        "id": "studio_sample_1793246793333_ujhmgx",
+        "precipitate_g": 0,
+        "mass_g": 30,
+        "evaporated_g": 0
+      }
+    ],
+    [
+      {
+        "id": "studio_sample_1793246793328_yvbxby",
+        "progress": 0,
+        "precipitate_g": 0,
+        "mass_g": 30,
+        "evaporated_g": 0
+      },
+      {
+        "id": "studio_sample_1793246793332_eimqpq",
+        "progress": 0,
+        "precipitate_g": 0,
+        "mass_g": 30,
+        "evaporated_g": 0
+      },
+      {
+        "id": "studio_sample_1793246793333_ujhmgx",
+        "progress": 0,
+        "precipitate_g": 0,
+        "mass_g": 30,
+        "evaporated_g": 0
+      }
+    ],
+    [
+      {
+        "id": "studio_sample_1793246793328_yvbxby",
+        "progress": 0.4999999999999999,
+        "precipitate_g": 0.053432940591792884,
+        "mass_g": 29.999984105565566,
+        "evaporated_g": 0.00001589443443389022
+      },
+      {
+        "id": "studio_sample_1793246793332_eimqpq",
+        "progress": 0.4999999999999999,
+        "precipitate_g": 0.07163033235630777,
+        "mass_g": 29.999983989378403,
+        "evaporated_g": 0.000016010621597431612
+      },
+      {
+        "id": "studio_sample_1793246793333_ujhmgx",
+        "progress": 0.3700394750525634,
+        "precipitate_g": 0.0863341040563674,
+        "mass_g": 29.99998402856135,
+        "evaporated_g": 0.000015971438649116687
+      }
+    ],
+    [
+      {
+        "id": "studio_sample_1793246793328_yvbxby",
+        "progress": 0.5913323358233944,
+        "precipitate_g": 0.06319325114011512,
+        "mass_g": 29.999979322215506,
+        "evaporated_g": 0.00002067778449405889
+      },
+      {
+        "id": "studio_sample_1793246793332_eimqpq",
+        "progress": 0.5913323358233944,
+        "precipitate_g": 0.0847146634961231,
+        "mass_g": 29.999979210851173,
+        "evaporated_g": 0.000020789148827599936
+      },
+      {
+        "id": "studio_sample_1793246793333_ujhmgx",
+        "progress": 0.44930197744912737,
+        "precipitate_g": 0.1048268800735774,
+        "mass_g": 29.999979343069953,
+        "evaporated_g": 0.000020656930047872724
+      }
+    ],
+    [
+      {
+        "id": "studio_sample_1793246793328_yvbxby",
+        "progress": 0.7956661679116972,
+        "precipitate_g": 0.08502956616185046,
+        "mass_g": 29.999962784617452,
+        "evaporated_g": 0.00003721538254668131
+      },
+      {
+        "id": "studio_sample_1793246793332_eimqpq",
+        "progress": 0.7956661679116972,
+        "precipitate_g": 0.11398766410436932,
+        "mass_g": 29.999962714431945,
+        "evaporated_g": 0.00003728556805566614
+      },
+      {
+        "id": "studio_sample_1793246793333_ujhmgx",
+        "progress": 0.6530819846263369,
+        "precipitate_g": 0.15237090045612017,
+        "mass_g": 29.99996321388203,
+        "evaporated_g": 0.00003678611797152873
+      }
+    ],
+    [
+      {
+        "id": "studio_sample_1793246793328_yvbxby",
+        "progress": 0.8978330839558486,
+        "precipitate_g": 0.09594772367271813,
+        "mass_g": 29.999946022421515,
+        "evaporated_g": 0.00005397757848492534
+      },
+      {
+        "id": "studio_sample_1793246793332_eimqpq",
+        "progress": 0.8978330839558486,
+        "precipitate_g": 0.12862416440849245,
+        "mass_g": 29.99994604888699,
+        "evaporated_g": 0.00005395111300865144
+      },
+      {
+        "id": "studio_sample_1793246793333_ujhmgx",
+        "progress": 0.7814553449214843,
+        "precipitate_g": 0.18232175649441848,
+        "mass_g": 29.999947013041044,
+        "evaporated_g": 0.00005298695895731466
+      }
+    ],
+    [
+      {
+        "id": "studio_sample_1793246793328_yvbxby",
+        "progress": 0.9489165419779243,
+        "precipitate_g": 0.10140680242815196,
+        "mass_g": 29.999929147761076,
+        "evaporated_g": 0.00007085223892254015
+      },
+      {
+        "id": "studio_sample_1793246793332_eimqpq",
+        "progress": 0.9489165419779243,
+        "precipitate_g": 0.135942414560554,
+        "mass_g": 29.999929298803732,
+        "evaporated_g": 0.0000707011962696738
+      },
+      {
+        "id": "studio_sample_1793246793333_ujhmgx",
+        "progress": 0.8623254943622818,
+        "precipitate_g": 0.20118961348692996,
+        "mass_g": 29.99993076716022,
+        "evaporated_g": 0.00006923283978061269
+      }
+    ],
+    [
+      {
+        "id": "studio_sample_1793246793328_yvbxby",
+        "progress": 0.9744582709889621,
+        "precipitate_g": 0.10413634180586887,
+        "mass_g": 29.999912217102416,
+        "evaporated_g": 0.0000877828975834421
+      },
+      {
+        "id": "studio_sample_1793246793332_eimqpq",
+        "progress": 0.9744582709889621,
+        "precipitate_g": 0.13960153963658478,
+        "mass_g": 29.999912506711283,
+        "evaporated_g": 0.00008749328871615352
+      },
+      {
+        "id": "studio_sample_1793246793333_ujhmgx",
+        "progress": 0.9132704961565842,
+        "precipitate_g": 0.21307561858256566,
+        "mass_g": 29.99991449306809,
+        "evaporated_g": 0.0000855069319098523
+      }
+    ],
+    [
+      {
+        "id": "studio_sample_1793246793328_yvbxby",
+        "progress": 0.987229135494481,
+        "precipitate_g": 0.10550111149472734,
+        "mass_g": 29.99989525877864,
+        "evaporated_g": 0.00010474122136162473
+      },
+      {
+        "id": "studio_sample_1793246793332_eimqpq",
+        "progress": 0.987229135494481,
+        "precipitate_g": 0.14143110217460014,
+        "mass_g": 29.999895693933013,
+        "evaporated_g": 0.00010430606698657381
+      },
+      {
+        "id": "studio_sample_1793246793333_ujhmgx",
+        "progress": 0.945363836230371,
+        "precipitate_g": 0.22056333259214023,
+        "mass_g": 29.999898201391055,
+        "evaporated_g": 0.00010179860894575531
+      }
+    ],
+    [
+      {
+        "id": "studio_sample_1793246793328_yvbxby",
+        "progress": 0.9936145677472404,
+        "precipitate_g": 0.10618349633915655,
+        "mass_g": 29.999878286981133,
+        "evaporated_g": 0.0001217130188662873
+      },
+      {
+        "id": "studio_sample_1793246793332_eimqpq",
+        "progress": 0.9936145677472404,
+        "precipitate_g": 0.14234588344360785,
+        "mass_g": 29.999878871145167,
+        "evaporated_g": 0.00012112885483431436
+      },
+      {
+        "id": "studio_sample_1793246793333_ujhmgx",
+        "progress": 0.9655813735905704,
+        "precipitate_g": 0.2252802968402681,
+        "mass_g": 29.99988189883323,
+        "evaporated_g": 0.00011810116676841985
+      }
+    ],
+    [
+      {
+        "id": "studio_sample_1793246793328_yvbxby",
+        "progress": 0.9968072838736202,
+        "precipitate_g": 0.10652468876137117,
+        "mass_g": 29.999861308811674,
+        "evaporated_g": 0.0001386911883258394
+      },
+      {
+        "id": "studio_sample_1793246793332_eimqpq",
+        "progress": 0.9968072838736202,
+        "precipitate_g": 0.1428032740781117,
+        "mass_g": 29.999862043689394,
+        "evaporated_g": 0.0001379563106048166
+      },
+      {
+        "id": "studio_sample_1793246793333_ujhmgx",
+        "progress": 0.978317624039146,
+        "precipitate_g": 0.22825179811417703,
+        "mass_g": 29.999865589621834,
+        "evaporated_g": 0.00013441037816489432
+      }
+    ]
+  ],
+  "overflowSetup": {
+    "sourceId": "beaker_1793246806107_0skpx",
+    "targetId": "beaker_1793246806110_mscf2",
+    "initialMass_g": 140
+  },
+  "overflowReceipt": {
+    "ok": true,
+    "vesselId": "beaker_1793246806110_mscf2",
+    "code": "ok",
+    "message": "Đã chuyển lượng chất thực; phần vượt sức chứa đi vào đường tràn.",
+    "moved_ml": 20,
+    "accepted_ml": 0,
+    "spilled_ml": 20
+  },
+  "overflowCapture": {
+    "y": -1.0087927875099196,
+    "scale": [
+      0.018465143166449708,
+      0.02802821298344365,
+      0.018465143166449708
+    ],
+    "ringsVisible": false,
+    "spills": [
+      {
+        "id": "spill_1793246807006_1",
+        "position": [
+          1.02,
+          -1.175,
+          0
+        ],
+        "substances": [
+          "H2O",
+          "CuSO4"
+        ],
+        "color": "#4ca9cf",
+        "volume_ml": 20,
+        "mass_g": 20,
+        "radius": 1.4334091676841205,
+        "isHazard": false,
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass_g": 19.8,
+            "moles": 1.0990840965861781
+          },
+          {
+            "formula": "CuSO4",
+            "phase": "aq",
+            "mass_g": 0.2,
+            "moles": 0.0012530543199047678
+          }
+        ],
+        "sourceVesselName": "Nguồn dung dịch",
+        "timestamp": 1793246807006
+      }
+    ],
+    "vesselMass_g": 119.99990938145555,
+    "evaporated_g": 0.00009061854443343619
+  }
+}

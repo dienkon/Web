@@ -7,33 +7,42 @@ let progress = read("study-progress", { answers: {}, current: 0 }),
   answered = false;
 if (!progress.answers || typeof progress.answers !== "object")
   progress = { answers: {}, current: 0 };
+progress.answers = Object.fromEntries(bank.filter((q) => Number.isInteger(progress.answers[q.id]?.choice) && progress.answers[q.id].choice >= 0 && progress.answers[q.id].choice < q.options.length).map((q) => [q.id, { ...progress.answers[q.id], correct: progress.answers[q.id].choice === q.answer }]));
 const $ = (id) => document.getElementById(id);
 document.querySelector("#app").innerHTML =
-  '<section class="hero"><div><div class="eyebrow">Học một chút, hiểu thêm mỗi ngày</div><h1>Kiến thức được kết nối.</h1><p>60 câu hỏi về nguyên tố, cấu trúc phân tử và thực hành. Mỗi câu đều có giải thích để bạn hiểu bản chất.</p></div></section><div class="toolbar panel"><button class="button primary" id="all">Tất cả câu hỏi</button><button class="button" id="wrong">Ôn lại câu sai</button><label><span class="sr-only">Chủ đề</span><select id="topic"><option value="">Mọi chủ đề</option>Nguyên tố</option><option>Cấu trúc &amp; liên kết</option><option>Thực hành</option></select></label><span class="muted" id="stats"></span><button class="button" id="reset">Đặt lại tiến độ</button></div><section class="panel quiz" id="quiz"></section>';
+  `<section class="hero"><div><div class="eyebrow">Học một chút, hiểu thêm mỗi ngày</div><h1>Kiến thức được kết nối.</h1><p>${bank.length} câu hỏi về nguyên tố, cấu trúc phân tử và thực hành. Mỗi câu đều có giải thích để bạn hiểu bản chất.</p></div></section><div class="toolbar panel"><button class="button primary" id="all">Tất cả câu hỏi</button><button class="button" id="unanswered">Chưa làm</button><button class="button" id="wrong">Ôn lại câu sai</button><label><span class="sr-only">Chủ đề</span><select id="topic"><option value="">Mọi chủ đề</option>${[...new Set(bank.map((q) => q.topic))].map((t) => `<option>${escape(t)}</option>`).join("")}</select></label><span class="muted" id="stats" role="status"></span><button class="button" id="reset">Đặt lại tiến độ</button></div><section class="panel quiz" id="quiz"></section>`;
 function queue() {
   return bank.filter(
     (q) =>
       (!topic || q.topic === topic) &&
-      (mode !== "wrong" || progress.answers[q.id]?.correct === false),
+      (mode !== "wrong" || progress.answers[q.id]?.correct === false) &&
+      (mode !== "unanswered" || !progress.answers[q.id]),
   );
 }
 function save() {
   if (!write("study-progress", progress))
     toast("Không lưu được tiến độ trên trình duyệt.");
 }
-function render() {
-  answered = false;
-  const list = queue();
+function updateStats() {
   const done = Object.values(progress.answers),
     correct = done.filter((a) => a.correct).length;
   $("stats").textContent =
-    `Đã làm ${done.length}/60 · Đúng ${correct} · Cần ôn ${done.length - correct}`;
+    `Đã làm ${done.length}/${bank.length} · Đúng ${correct} · Cần ôn ${done.length - correct}`;
+}
+function render() {
+  answered = false;
+  const list = queue();
+  updateStats();
+  for (const id of ["all", "wrong", "unanswered"]) {
+    $(id).classList.toggle("primary", mode === id);
+    $(id).setAttribute("aria-pressed", String(mode === id));
+  }
   if (!list.length) {
     $("quiz").innerHTML =
       '<div class="empty"><h2>Không có câu cần ôn trong chủ đề này.</h2><p>Chọn tất cả câu hỏi hoặc đổi chủ đề để tiếp tục.</p></div>';
     return;
   }
-  const index = Math.max(0, Number(progress.current) || 0) % list.length,
+  const index = (Number.isFinite(Number(progress.current)) ? Math.max(0, Math.floor(Number(progress.current))) : 0) % list.length,
     q = list[index];
   $("quiz").innerHTML =
     `<div class="card-top"><span class="badge">${escape(q.topic)}</span><span class="muted">${index + 1} / ${list.length}</span></div><div class="progress"><span style="width:${((index + 1) / list.length) * 100}%"></span></div><h2>${escape(q.question)}</h2><div class="quiz-options">${q.options.map((option, i) => `<button class="button" data-answer="${i}">${String.fromCharCode(65 + i)}. ${escape(option)}</button>`).join("")}</div><div id="explanation" role="status"></div><div class="viewer-toolbar"><button class="button" id="prev" ${index === 0 ? "disabled" : ""}>← Câu trước</button><button class="button primary" id="next">Câu tiếp →</button></div>`;
@@ -51,6 +60,7 @@ function render() {
             answeredAt: new Date().toISOString(),
           };
           save();
+          updateStats();
           $("quiz")
             .querySelectorAll("[data-answer]")
             .forEach((b) => {
@@ -69,7 +79,8 @@ function render() {
     render();
   };
   $("next").onclick = () => {
-    progress.current = mode === "wrong" && answered ? index : index + 1;
+    const removed = answered && (mode === "unanswered" || (mode === "wrong" && progress.answers[q.id]?.correct));
+    progress.current = removed ? index : index + 1;
     save();
     render();
   };
@@ -81,6 +92,11 @@ $("all").onclick = () => {
 };
 $("wrong").onclick = () => {
   mode = "wrong";
+  progress.current = 0;
+  render();
+};
+$("unanswered").onclick = () => {
+  mode = "unanswered";
   progress.current = 0;
   render();
 };

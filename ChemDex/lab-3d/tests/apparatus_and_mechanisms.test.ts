@@ -273,7 +273,9 @@ describe('Authentic Solid Chemical Morphologies & Interactive Apparatus Usabilit
     expect(getSolidMorphology('Cu')).toBe('TURNINGS');
     expect(getSolidMorphology('Fe')).toBe('FILINGS');
     expect(getSolidMorphology('Zn')).toBe('GRANULES');
-    expect(getSolidMorphology('Al')).toBe('RIBBON');
+    expect(getSolidMorphology('Al')).toBe('FOIL');
+    expect(getSolidMorphology('Al (foil)')).toBe('FOIL');
+    expect(getSolidMorphology('Fe (nail)')).toBe('NAIL');
 
     // Pellets & chips
     expect(getSolidMorphology('NaOH')).toBe('PELLET');
@@ -285,7 +287,8 @@ describe('Authentic Solid Chemical Morphologies & Interactive Apparatus Usabilit
     expect(getSolidMorphology('NaCl')).toBe('CUBIC_CRYSTAL');
     expect(getSolidMorphology('KMnO4')).toBe('PRISMATIC_CRYSTAL');
     expect(getSolidMorphology('K2Cr2O7')).toBe('TABULAR_CRYSTAL');
-    expect(getSolidMorphology('CuSO4')).toBe('HYDRATE_CRYSTAL');
+    expect(getSolidMorphology('CuSO4')).toBe('POWDER');
+    expect(getSolidMorphology('CuSO4·5H2O')).toBe('HYDRATE_CRYSTAL');
     expect(getSolidMorphology('CuSO4.5H2O')).toBe('HYDRATE_CRYSTAL');
     expect(getSolidMorphology('I2')).toBe('LUSTROUS_PLATES');
 
@@ -307,7 +310,7 @@ describe('Authentic Solid Chemical Morphologies & Interactive Apparatus Usabilit
 
     // Place receiver directly under funnel away from default workbench vessels
     store.setVesselState(funnelId, {
-      position: [4.0, 1.0, 4.0],
+      position: [4.0, 4.0, 4.0],
       volume_ml: 30, mass_g: 32.5, contents: [{ formula: 'H2O', phase: 'l', mass_g: 30, moles: 30/18.015 }, { formula: 'BaSO4', phase: 's', mass_g: 2.5, moles: 2.5/233.383 }],
       substances: ['H2O', 'BaSO4'],
       hasPrecipitate: true,
@@ -323,6 +326,9 @@ describe('Authentic Solid Chemical Morphologies & Interactive Apparatus Usabilit
 
     // Run simulation tick
     store.tickSimulation(1.0);
+    expect(useAppStore.getState().vessels[receiverId].volume_ml).toBe(0);
+    expect(useAppStore.getState().inFlightPours.some(p => p.sourceId === funnelId)).toBe(true);
+    store.advancePourTransport(2);
 
     const funnel = useAppStore.getState().vessels[funnelId];
     const receiver = useAppStore.getState().vessels[receiverId];

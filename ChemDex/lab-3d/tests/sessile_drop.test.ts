@@ -5,6 +5,7 @@ import { METERS_PER_SCENE_UNIT } from '../src/science/sceneUnits';
 import { calculateSpillRadius } from '../src/science/overflowPhysics';
 import { useAppStore } from '../src/store/useAppStore';
 import { overflowLandingPosition } from '../src/engine/spillInventory';
+import { overflowImpactSites } from '../src/engine/overflowTransport';
 import type { VesselState } from '../src/types/chemistry';
 
 const initial = useAppStore.getState();
@@ -77,12 +78,20 @@ describe('Finite-volume Young–Laplace puddle', () => {
     useAppStore.setState({ vessels: { wet: vessel }, vesselIds: ['wet'], spills: {} });
     useAppStore.getState().addSpill(vessel.position, 1, ['H2O'], '#fff', 'water', 1,
       [{ formula: 'H2O', phase: 'l', mass_g: 1, moles: 1 / 18.015 }], 'wet');
-    const spill = Object.values(useAppStore.getState().spills)[0];
-    expect(spill.position).toEqual(overflowLandingPosition(vessel));
-    const deposited = [...spill.position];
+    expect(Object.values(useAppStore.getState().spills)).toHaveLength(0);
+    const sites = overflowImpactSites(useAppStore.getState().inFlightPours[0]);
+    useAppStore.getState().advancePourTransport(2);
+    const pools = Object.values(useAppStore.getState().spills), deposited = pools.map(s => [...s.position]);
+    expect(pools.reduce((sum, s) => sum + s.volume_ml, 0)).toBeCloseTo(1, 12);
+    expect(pools.reduce((sum, s) => sum + s.position[0] * s.mass_g, 0)).toBeCloseTo(2, 12);
+    expect(pools.reduce((sum, s) => sum + s.position[2] * s.mass_g, 0)).toBeCloseTo(3, 12);
+    expect(sites.some(p => p[0] < 1.5)).toBe(true);
+    expect(sites.some(p => p[0] > 2.5)).toBe(true);
     useAppStore.getState().setVesselState('wet', { position: [10, 0, 10], rotationY: 0 });
-    expect(Object.values(useAppStore.getState().spills)[0].position).toEqual(deposited);
-    expect(spill.radius).toBeCloseTo(solveSessileDrop(1)!.radius_m / METERS_PER_SCENE_UNIT, 10);
-    expect(spill.contents![0].mass_g).toBe(1);
+    expect(Object.values(useAppStore.getState().spills).map(s => s.position)).toEqual(deposited);
+    for (const spill of pools) {
+      expect(spill.radius).toBeCloseTo(solveSessileDrop(spill.volume_ml)!.radius_m / METERS_PER_SCENE_UNIT, 10);
+      expect(spill.contents![0].mass_g).toBeCloseTo(spill.volume_ml, 12);
+    }
   });
 });

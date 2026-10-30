@@ -112,16 +112,28 @@ export function shell(active) {
       )
       .join(
         "",
-      )}</nav><button id="theme" class="icon-button" aria-label="Đổi chế độ sáng tối" title="Đổi chế độ sáng tối">◐</button>`;
+      )}</nav><button id="open-search" class="button global-search" aria-label="Tìm kiếm nhanh toàn web" title="Tìm kiếm nhanh (Ctrl+K)"><span aria-hidden="true">⌕</span><span>Tìm nhanh</span><kbd>Ctrl K</kbd></button><button id="theme" class="icon-button" aria-label="Đổi chế độ sáng tối" title="Đổi chế độ sáng tối" aria-pressed="${theme === "dark"}">◐</button>`;
+  const openSearch = async (event) => {
+    const opener = event?.currentTarget instanceof HTMLElement ? event.currentTarget : document.activeElement;
+    try { (await import("./search.js")).openSearch(opener); }
+    catch { toast("Chưa tải được tìm kiếm. Vui lòng thử lại."); }
+  };
+  document.querySelector("#open-search").onclick = openSearch;
+  document.addEventListener("keydown", (event) => {
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
+      event.preventDefault();
+      openSearch();
+    }
+  });
   document.querySelector("#theme").onclick = () => {
     const value =
       document.documentElement.dataset.theme === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = value;
+    document.querySelector("#theme").setAttribute("aria-pressed", String(value === "dark"));
     write("theme", value);
   };
 }
-export function focusDialog(dialog) {
-  const previous = document.activeElement;
+export function focusDialog(dialog, previous = document.activeElement) {
   dialog.showModal();
   const handler = (event) => {
     if (event.key !== "Tab") return;

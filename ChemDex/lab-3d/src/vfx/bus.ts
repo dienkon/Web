@@ -68,6 +68,7 @@ export interface VfxEventMap {
     vesselId?: string;
   };
   'vessel:overflow': {
+    transported?: boolean;
     vesselId: string;
     position?: [number, number, number];
     volume_ml?: number;
@@ -77,6 +78,7 @@ export interface VfxEventMap {
     flowRate?: number;
     duration_s?: number;
   };
+  'spill:impact': { position: [number, number, number]; volume_ml: number; color: string };
 }
 
 export type VfxEventType = keyof VfxEventMap;

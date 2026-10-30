@@ -16,7 +16,7 @@ export function ScenarioWorld() {
     <InteractableItem
       id={`scenario:${scenario.id}`}
       taskId={scenario.taskId}
-      position={scenario.position}
+      position={[scenario.position[0],scenario.position[1]<.2?.026:scenario.position[1],scenario.position[2]]}
       label={`Quan sát: ${scenario.title}`}
       type="learn"
       dialogCallback={() => {

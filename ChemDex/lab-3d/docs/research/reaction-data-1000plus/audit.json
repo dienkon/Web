@@ -1,0 +1,38 @@
+{
+  "checkedAt": "2026-10-28T13:43:22.024Z",
+  "schema": "chemdex.catalog/2",
+  "valid": true,
+  "molecularReactions": 1299,
+  "netIonicTransformations": 378,
+  "threeStepChains": 5740,
+  "species": 325,
+  "families": {
+    "ammonium_base": 33,
+    "amphoteric": 5,
+    "carbonate_acid": 91,
+    "combustion": 29,
+    "displacement": 132,
+    "esterification": 16,
+    "metal_acid": 27,
+    "neutralization": 115,
+    "organic_conversion": 8,
+    "oxide_acid": 106,
+    "precipitation": 601,
+    "redox": 10,
+    "saponification": 48,
+    "sulfide_acid": 12,
+    "sulfite_acid": 15,
+    "synthesis": 22,
+    "thermal": 29
+  },
+  "sourceCount": 14,
+  "referencedSourceCount": 11,
+  "evidenceTypes": {
+    "family-rule": 1225,
+    "established-transformation": 74
+  },
+  "catalogDigest": "efdbd39114283eedf7926529972be909883dc408eaba83f3c028be44fe276cc6",
+  "errors": [],
+  "evidenceScope": "Structure, atom/charge conservation, curated exclusions, references and material links. Family-level sources do not establish individual experimental calibration.",
+  "runtimeScope": "Extended catalog entries are reference data; existing dedicated lab programs retain their own runtime and validation."
+}

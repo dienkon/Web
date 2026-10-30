@@ -2,12 +2,15 @@ import type { VesselState } from '../types/chemistry';
 import type { LiquidAliquot } from '../handling/aliquot';
 import type { PourParcel } from './pourTransport';
 import { scalePourSample } from './pourTransport';
-import { getVesselProfile } from '../pour/physics/profiles';
+import { getWorldVesselProfile } from '../pour/physics/profiles';
 import { GRAVITY_M_S2, METERS_PER_SCENE_UNIT, SCENE_GRAVITY, streamRadiusForFlow } from '../science/sceneUnits';
 import { liquidWaterViscosity_Pa_s, nusseltFilm } from '../science/liquidTransport';
-import { vesselLiquidSurfaceY } from '../science/vesselGeometry';
+import { vesselWorldLiquidSurfaceY } from '../science/vesselGeometry';
 import { traceLaunchedStream } from '../pour/physics/ballistics';
 import { LAB_PHYSICS } from './interactionEngine';
+import { vesselWorldContours, vesselWorldDimensions } from '../science/vesselScale';
+import { contourRadius } from '../science/vesselDimensions';
+import { evolveAliquotContact, prepareAliquotContact } from './aliquotContactChemistry';
 
 export interface WallFilmPoint {
   time_s: number;
@@ -18,6 +21,10 @@ export interface WallFilmPoint {
   thickness_m: number;
 }
 export interface WallFilmPlan {
+  azimuthSpan_rad?: number;
+  entrySpeed_m_s?: number;
+  widthBasis?: 'level_circular_rim';
+  side?: 'outer';
   type: string;
   angle_rad: number;
   capacity_ml: number;
@@ -36,31 +43,50 @@ export interface WallFilmPlan {
 export function createWallFilm(air: PourParcel, sample: LiquidAliquot, target: VesselState): PourParcel | null {
   if (air.trajectory.detailKind !== 'wall_inner' || !(sample.volume_ml > 0)
     || Math.abs(target.rotationZ ?? 0) > 1e-6) return null;
-  const profile = getVesselProfile(target.type, target.capacity_ml);
+  const profile = getWorldVesselProfile(target.type, target.capacity_ml);
   const hitY = Math.max(profile.baseY, Math.min(profile.baseY + profile.H, air.trajectory.impactPos[1] - target.position[1]));
   const flow_ml_s = air.releasedVolume_ml / air.duration_s;
   if (!(flow_ml_s > 0)) return null;
   const [vx, vy0, vz] = air.trajectory.exitVel, vy = vy0 - SCENE_GRAVITY * air.trajectory.timeOfFlight;
   const speed = Math.hypot(vx, vy, vz);
   const width_m = 2 * streamRadiusForFlow(flow_ml_s, speed) * METERS_PER_SCENE_UNIT;
+  const angle_rad = Math.atan2(air.trajectory.impactPos[2] - target.position[2], air.trajectory.impactPos[0] - target.position[0])
+    + target.rotationY;
+  const plan = createFilmPlan(target, sample, flow_ml_s, width_m, hitY, angle_rad, [vx, vy, vz]);
+  return { ...air, id: `${air.id}_wall_${air.arrivedFraction}`, stage: 'wall', wallFilm: plan,
+    sample, elapsed_s: 0, arrivedFraction: 0, releasedVolume_ml: sample.volume_ml,
+    duration_s: sample.volume_ml / flow_ml_s };
+}
+
+/** Shared contour transit closure. Width and complete wetting are prescribed;
+ * this does not predict contact-line motion or shoulder detachment. */
+export function createFilmPlan(target: VesselState, sample: LiquidAliquot, flow_ml_s: number, width_m: number,
+  hitY: number, angle_rad: number, velocity_scene_s: [number, number, number], side?: 'outer', azimuthSpan_rad?: number): WallFilmPlan {
+  const profile = getWorldVesselProfile(target.type, target.capacity_ml);
+  const envelope = side === 'outer' ? new Map<number, number>() : null;
+  if (envelope) for (const [r, y] of vesselWorldContours(target).outer) envelope.set(y, Math.max(r, envelope.get(y) ?? 0));
+  const outer = envelope ? [...envelope].sort(([a], [b]) => a - b).map(([y, r]) => [r, y] as const) : null;
+  const floor = outer ? Math.max(vesselWorldDimensions(target).bottomY, LAB_PHYSICS.TABLE_SURFACE_Y - target.position[1]) : profile.baseY;
+  const contour = outer ?? profile.contour;
+  const radiusAt = (y: number) => outer ? contourRadius(outer, y) + 0.0002 : profile.r(y);
+  hitY = Math.max(floor, hitY);
+  const [vx, vy, vz] = velocity_scene_s;
   const waterMass = sample.contents.filter(c => c.formula === 'H2O' && (c.phase ?? c.state) !== 's')
     .reduce((sum, c) => sum + c.mass_g, 0);
   const waterLike = waterMass > 0 && sample.contents.every(c => c.formula === 'H2O' || c.phase === 'aq');
   const viscosity = waterLike ? liquidWaterViscosity_Pa_s(sample.temperature_c) : null;
   const density = sample.mass_g / sample.volume_ml * 1000;
-  const angle_rad = Math.atan2(air.trajectory.impactPos[2] - target.position[2], air.trajectory.impactPos[0] - target.position[0])
-    + target.rotationY;
-  const angleWorld = angle_rad - target.rotationY;
-  const keys = [...new Set([hitY, ...(profile.contour ?? []).map(([, y]) => y)
-    .filter(y => y < hitY && y >= profile.baseY), profile.baseY])].sort((a, b) => b - a);
-  const points: WallFilmPoint[] = [{ time_s: 0, y: hitY, radius: profile.r(hitY), speed_m_s: 0,
+  const angleWorld = angle_rad - (target.rotationY ?? 0);
+  const keys = [...new Set([hitY, ...(contour ?? []).map(([, y]) => y)
+    .filter(y => y < hitY && y >= floor), floor])].sort((a, b) => b - a);
+  const points: WallFilmPoint[] = [{ time_s: 0, y: hitY, radius: radiusAt(hitY), speed_m_s: 0,
     width_m, thickness_m: 0 }];
   let velocity: number | null = null, reynolds4: number | null = null;
   for (let k = 1; k < keys.length; k++) {
     const count = Math.max(1, Math.ceil((keys[k - 1] - keys[k]) / 0.04));
     for (let j = 1; j <= count; j++) {
       const previous = points[points.length - 1];
-      const y = keys[k - 1] + (keys[k] - keys[k - 1]) * j / count, radius = profile.r(y);
+      const y = keys[k - 1] + (keys[k] - keys[k - 1]) * j / count, radius = radiusAt(y);
       const dy = previous.y - y, dr = radius - previous.radius, ds = Math.hypot(dy, dr) * METERS_PER_SCENE_UNIT;
       if (!(dy > 0) || !(ds > 0)) continue;
       const tangentR = dr * METERS_PER_SCENE_UNIT / ds, tangentY = -dy * METERS_PER_SCENE_UNIT / ds;
@@ -69,7 +95,8 @@ export function createWallFilm(air: PourParcel, sample: LiquidAliquot, target: V
       const gravity = GRAVITY_M_S2 * -tangentY;
       const vEnd = Math.sqrt(velocity * velocity + 2 * gravity * ds);
       const energyTime = 2 * ds / Math.max(1e-12, velocity + vEnd);
-      const localWidth = Math.max(1e-9, Math.min(width_m, 2 * Math.PI * Math.max(previous.radius, radius) * METERS_PER_SCENE_UNIT));
+      const localWidth = Math.max(1e-9, azimuthSpan_rad ? azimuthSpan_rad * (previous.radius + radius) / 2 * METERS_PER_SCENE_UNIT
+        : Math.min(width_m, 2 * Math.PI * Math.max(previous.radius, radius) * METERS_PER_SCENE_UNIT));
       const film = viscosity !== null ? nusseltFilm(flow_ml_s * 1e-6, localWidth, density, viscosity, gravity) : null;
       const duration = Math.max(energyTime, film ? ds / film.meanVelocity_m_s : 0);
       velocity = Math.min(vEnd, film?.meanVelocity_m_s ?? vEnd);
@@ -79,14 +106,11 @@ export function createWallFilm(air: PourParcel, sample: LiquidAliquot, target: V
     }
   }
   if (points.length > 1) Object.assign(points[0], { speed_m_s: points[1].speed_m_s, thickness_m: points[1].thickness_m });
-  const plan: WallFilmPlan = { type: target.type, capacity_ml: target.capacity_ml, bodyRevision: target.bodyRevision ?? 0, angle_rad,
-    lastPosition: [...target.position], lastRotationY: target.rotationY, viscosity_Pa_s: viscosity,
+  return { side, azimuthSpan_rad, type: target.type, capacity_ml: target.capacity_ml, bodyRevision: target.bodyRevision ?? 0, angle_rad,
+    lastPosition: [...target.position], lastRotationY: target.rotationY ?? 0, viscosity_Pa_s: viscosity,
     viscosityBasis: viscosity === null ? 'unavailable' : Math.abs(waterMass - sample.mass_g) < 1e-9
       ? 'pure_water_iapws' : 'aqueous_water_proxy',
     model: viscosity === null ? 'inviscid_travel_lower_bound' : 'local_nusselt_with_energy_bound', reynolds4, points };
-  return { ...air, id: `${air.id}_wall_${air.arrivedFraction}`, stage: 'wall', wallFilm: plan,
-    sample, elapsed_s: 0, arrivedFraction: 0, releasedVolume_ml: sample.volume_ml,
-    duration_s: sample.volume_ml / flow_ml_s };
 }
 
 export function wallTimeAtHeight(plan: WallFilmPlan, y: number): number {
@@ -120,15 +144,18 @@ export function wallWorldPoint(plan: WallFilmPlan, time: number, vessel?: Vessel
 export function advanceWallFilm(parcel: PourParcel, dt: number, target: VesselState) {
   const plan = parcel.wallFilm!;
   const current = { ...plan, lastPosition: [...target.position] as [number, number, number], lastRotationY: target.rotationY };
-  const contactTime = wallTimeAtHeight(plan, vesselLiquidSurfaceY(target));
+  const contactTime = wallTimeAtHeight(plan, vesselWorldLiquidSurfaceY(target));
   const elapsed_s = parcel.elapsed_s + dt;
   const fraction = Math.max(parcel.arrivedFraction, Math.min(1, Math.max(0, (elapsed_s - contactTime) / parcel.duration_s)));
   const relative = (fraction - parcel.arrivedFraction) / Math.max(1e-15, 1 - parcel.arrivedFraction);
-  const contact = relative > 0 ? scalePourSample(parcel.sample, relative) : null;
+  const sample = prepareAliquotContact(parcel.sample);
+  const start = Math.max(0, contactTime + parcel.arrivedFraction * parcel.duration_s - parcel.elapsed_s);
+  const end = Math.max(start, contactTime + fraction * parcel.duration_s - parcel.elapsed_s);
+  const contact = relative > 0 ? evolveAliquotContact(scalePourSample(sample, relative), start, end) : null;
   const impactPos = wallWorldPoint(current, contactTime, target);
   return { parcel: { ...parcel, wallFilm: current, elapsed_s, arrivedFraction: fraction,
     trajectory: { ...parcel.trajectory, impactPos, detailKind: 'liquid' as const },
-    sample: relative > 0 ? scalePourSample(parcel.sample, 1 - relative) : parcel.sample }, contact };
+    sample: evolveAliquotContact(relative > 0 ? scalePourSample(sample, 1 - relative) : sample, dt) }, contact };
 }
 
 /** A broken/removed support releases its remaining film back into free flight.
@@ -145,7 +172,9 @@ export function detachWallFilm(parcel: PourParcel, target?: VesselState | null):
   const position = wallWorldPoint(plan, age, target);
   const trajectory = traceLaunchedStream(position, [r * Math.cos(angle) * speed, y * speed, r * Math.sin(angle) * speed],
     null, LAB_PHYSICS.TABLE_SURFACE_Y);
-  return { ...parcel, id: `${parcel.id}_detached`, stage: 'air', wallFilm: undefined,
+  const circularSheet = plan.azimuthSpan_rad ? { center: [plan.lastPosition[0], plan.lastPosition[2]] as [number, number],
+    radius: point.radius + point.thickness_m / (2 * METERS_PER_SCENE_UNIT), radialVelocity_scene_s: r * speed } : undefined;
+  return { ...parcel, circularSheet, id: `${parcel.id}_detached`, stage: 'air', wallFilm: undefined,
     targetId: null, targetPose: '', trajectory, elapsed_s: 0, arrivedFraction: 0,
     duration_s: parcel.duration_s * (1 - parcel.arrivedFraction), releasedVolume_ml: parcel.sample.volume_ml };
 }

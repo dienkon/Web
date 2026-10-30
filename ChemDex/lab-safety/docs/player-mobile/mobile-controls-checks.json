@@ -1,0 +1,92 @@
+{
+  "passed": true,
+  "checks": [
+    "actual coarse pointer layout is active",
+    "two fingers have distinct joystick and look owners",
+    "walking reacts immediately to real touch displacement",
+    "joystick uses compositor transform without changing margins",
+    "releasing both fingers clears both owners and movement",
+    "joystick knob disappears after release",
+    "no stuck movement after cancel",
+    "no stale knob after cancel",
+    "no stuck movement after blur",
+    "no stale knob after blur",
+    "no stuck movement after modal",
+    "no stale knob after modal",
+    "coarse mirror has compact target and separate main-frame budget",
+    "high quality restores detailed reflection target",
+    "switching back restores compact reflection without losing mirror",
+    "no runtime errors during native touch, cancellation and graphics changes"
+  ],
+  "errors": [],
+  "snapshots": {
+    "moving": {
+      "move": {
+        "x": 0,
+        "y": 0.6715765962270047
+      },
+      "look": {
+        "x": 0,
+        "y": 0
+      },
+      "joystick": 2,
+      "lookId": 3
+    },
+    "budget": {
+      "batches": [
+        {
+          "id": "architecture",
+          "sourceMeshes": 139,
+          "drawBatches": 21,
+          "buildMs": 60.6000000089407
+        },
+        {
+          "id": "benches",
+          "sourceMeshes": 236,
+          "drawBatches": 47,
+          "buildMs": 46.400000005960464
+        },
+        {
+          "id": "decor",
+          "sourceMeshes": 139,
+          "drawBatches": 14,
+          "buildMs": 13.700000002980232
+        }
+      ],
+      "mirror": {
+        "width": 256,
+        "height": 384,
+        "rate": 20,
+        "frameSpacing": 3
+      }
+    },
+    "high": {
+      "batches": [
+        {
+          "id": "architecture",
+          "sourceMeshes": 139,
+          "drawBatches": 21,
+          "buildMs": 60.6000000089407
+        },
+        {
+          "id": "benches",
+          "sourceMeshes": 236,
+          "drawBatches": 47,
+          "buildMs": 46.400000005960464
+        },
+        {
+          "id": "decor",
+          "sourceMeshes": 139,
+          "drawBatches": 14,
+          "buildMs": 13.700000002980232
+        }
+      ],
+      "mirror": {
+        "width": 512,
+        "height": 768,
+        "rate": 30,
+        "frameSpacing": 3
+      }
+    }
+  }
+}

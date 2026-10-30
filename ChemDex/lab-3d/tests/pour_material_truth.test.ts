@@ -22,17 +22,37 @@ const vessel = (id: string, volume_ml: number, contents: SubstanceContent[]): Ve
 });
 function specimens() {
   return { source: vessel('source', 50, [item('H2O', 50, 'l'), item('NaCl', 1, 'aq'), item('Cu', 1, 's')]),
-    target: vessel('target', 89, [item('H2O', 89, 'l'), item('Cu', 89.6, 's')]) };
+    // Compact, fully contained granules provide exactly 10 mL displacement.
+    // A 10 mL Cu-turning group protrudes and has less immersed volume.
+    target: vessel('target', 89, [item('H2O', 89, 'l'), item('Zn', 71.4, 's')]) };
 }
 function setup(source: VesselState, target: VesselState) {
   useAppStore.setState({ vessels: { [source.id]: source, [target.id]: target }, vesselIds: [source.id, target.id],
-    burners: {}, activeKinetics: {}, pendingReactions: {}, dissolvingSubstances: {}, spills: {}, timeScale: 1, isSimulationPaused: false });
+    burners: {}, activeKinetics: {}, pendingReactions: {}, dissolvingSubstances: {}, spills: {}, inFlightPours: [], timeScale: 1, isSimulationPaused: false });
 }
 const sim = (v: VesselState): SimVessel => ({ ...v, rotationZ: 0, density_g_ml: v.density_g_ml ?? 1, colorHex: v.liquidColor ?? '#f8fafc' });
 const session = (): PourPhysicsSession => ({ sourceId: 'source', targetId: 'target', sourcePos: [0, 3, 0],
   tilt: 1.4, sourceRotationZ: -1.4, isStreaming: true, totalTransferred_ml: 0, totalSpilled_ml: 0, lastFlowRate: 0, assist: 'high' });
 
 describe('Pour receipts and occupied receiver capacity', () => {
+  for (const type of ['beaker', 'flask', 'test_tube', 'cylinder'] as const) {
+    it(`releases a sub-0.05 mL source through the live ${type} controller without losing water`, () => {
+      const amount = 0.02;
+      const source = { ...vessel('source', amount, [item('H2O', amount, 'l')]), type };
+      const target = vessel('target', 0, []); setup(source, target);
+      PourController.beginPour({ sourceId: source.id, targetId: target.id, mode: 'ASSIST', requestedVolume_ml: amount });
+      const current = PourController.getSession()!;
+      for (let i = 0; i < 900; i++) PourController.tick(1 / 60);
+      const state = useAppStore.getState();
+      expect(current.released_ml).toBeCloseTo(amount, 10);
+      expect(state.vessels.source.volume_ml).toBeCloseTo(0, 10);
+      const parts = [...Object.values(state.vessels), ...state.inFlightPours.map(p => p.sample), ...Object.values(state.spills)];
+      expect(parts.reduce((sum, p) => sum + p.volume_ml, 0)).toBeCloseTo(amount, 12);
+      expect(parts.reduce((sum, p) => sum + p.mass_g, 0)).toBeCloseTo(amount, 12);
+      expect(parts.flatMap(p => p.contents).reduce((sum, p) => sum + (p.formula === 'H2O' ? p.moles : 0), 0))
+        .toBeCloseTo(amount / computeMolarMass('H2O'), 13);
+    });
+  }
   it('returns received and spilled volumes from actual inventory and retains solid metal in the source', () => {
     const { source, target } = specimens(); setup(source, target);
     const receipt = useAppStore.getState().transferLiquidContinuous(source.id, target.id, 10);
@@ -42,11 +62,15 @@ describe('Pour receipts and occupied receiver capacity', () => {
     const state = useAppStore.getState(), finalSource = state.vessels.source, finalTarget = state.vessels.target;
     expect(occupiedLiquidVolume(finalTarget)).toBeCloseTo(100, 8);
     expect(finalSource.contents.find(entry => entry.formula === 'Cu')!.mass_g).toBe(1);
-    expect(finalTarget.contents.find(entry => entry.formula === 'Cu')!.mass_g).toBe(89.6);
+    expect(finalTarget.contents.find(entry => entry.formula === 'Zn')!.mass_g).toBe(71.4);
     const spills = Object.values(state.spills);
-    expect(finalSource.mass_g + finalTarget.mass_g + spills.reduce((sum, spill) => sum + spill.mass_g!, 0))
+    expect(finalSource.mass_g + finalTarget.mass_g + spills.reduce((sum, spill) => sum + spill.mass_g!, 0)
+      + state.inFlightPours.reduce((sum, p) => sum + p.sample.mass_g, 0))
       .toBeCloseTo(source.mass_g + target.mass_g, 9);
-    expect(spills.reduce((sum, spill) => sum + spill.volume_ml, 0)).toBeCloseTo(receipt.spilled_ml, 9);
+    expect(spills).toHaveLength(0);
+    expect(state.inFlightPours.reduce((sum, p) => sum + p.sample.volume_ml, 0)).toBeCloseTo(receipt.spilled_ml, 9);
+    useAppStore.getState().advancePourTransport(2);
+    expect(Object.values(useAppStore.getState().spills).reduce((sum, p) => sum + p.volume_ml, 0)).toBeCloseTo(receipt.spilled_ml, 9);
   });
   it('uses phase inventories and the same aliquot plan in the pure physical prediction', () => {
     const { source, target } = specimens();
@@ -67,8 +91,9 @@ describe('Pour receipts and occupied receiver capacity', () => {
     let previousStoredVolume = 0, previousSnapshot: object | undefined;
     const committed: { published: number; stored: number }[] = [];
     const stop = vfxBus.on('vessel:overflow', event => {
-      const snapshot = useAppStore.getState().spills;
-      const volume = Object.values(snapshot).reduce((sum, spill) => sum + spill.volume_ml, 0);
+      const state = useAppStore.getState(), snapshot = state.inFlightPours;
+      const volume = Object.values(state.spills).reduce((sum, spill) => sum + spill.volume_ml, 0)
+        + snapshot.filter(p => p.overflowOrigin).reduce((sum, p) => sum + p.sample.volume_ml, 0);
       if (snapshot !== previousSnapshot) {
         committed.push({ published: 0, stored: volume - previousStoredVolume });
         previousSnapshot = snapshot; previousStoredVolume = volume;
@@ -79,8 +104,10 @@ describe('Pour receipts and occupied receiver capacity', () => {
     try {
       PourController.beginPour({ sourceId: source.id, targetId: target.id, mode: 'ASSIST', requestedVolume_ml: 5 });
       PourController.setTilt(1.4);
-      for (let i = 0; i < 240 && (PourController.getSession()?.phase !== 'dripping' || (PourController.getSession()?.inFlight_ml ?? 0) > 1e-8); i++) PourController.tick(1 / 60);
-      const current = PourController.getSession()!, state = useAppStore.getState();
+      const current = PourController.getSession()!;
+      for (let i = 0; i < 240 && PourController.getSession() && (PourController.getSession()?.phase !== 'dripping'
+        || (PourController.getSession()?.inFlight_ml ?? 0) + (PourController.getSession()?.onWall_ml ?? 0) > 1e-8); i++) PourController.tick(1 / 60);
+      const state = useAppStore.getState();
       expect(current.transferred_ml).toBeCloseTo(1, 8);
       expect(current.spilled_ml).toBeCloseTo(4, 8);
       expect(state.vessels.source.volume_ml).toBeCloseTo(45, 8);

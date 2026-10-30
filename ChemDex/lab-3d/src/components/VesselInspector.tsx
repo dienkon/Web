@@ -761,6 +761,19 @@ export function VesselInspector() {
           </button>
         </div>
 
+        <label className="flex items-center justify-between gap-2 text-xs text-slate-600">
+          <span>{t('Stirring strength', 'Mức khuấy')}</span>
+          <select aria-label={t('Stirring strength', 'Mức khuấy')}
+            value={vessel.stirringIntensity ?? 0.65}
+            onChange={event => setVesselState(vessel.id, { stirringIntensity: Number(event.target.value) })}
+            disabled={vessel.volume_ml <= 0}
+            className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-slate-800 disabled:opacity-40">
+            <option value={0.3}>{t('Gentle', 'Nhẹ')}</option>
+            <option value={0.65}>{t('Moderate', 'Vừa')}</option>
+            <option value={0.95}>{t('Vigorous', 'Mạnh')}</option>
+          </select>
+        </label>
+
         {/* Secondary Vessel Controls */}
         <div className="grid grid-cols-4 gap-1.5 pt-1">
           <button 

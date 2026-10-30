@@ -4,8 +4,10 @@ import { sameMolecularFormula } from '../science/speciesIdentity';
 import { liquidGeometry, liquidLevelForVolume, solidSceneVolume, solidBlockDimensions } from '../science/vesselDimensions';
 import { ICE_DENSITY_G_ML } from '../engine/waterProperties';
 import { getPrecipitateProfile } from '../simulation/core/SimulationConfig';
+import { stockImmersion, type StockImmersionVessel } from '../science/stockImmersion';
+import { solveStockLiquidSurface } from '../science/stockLiquidSurface';
 
-type OccupancyVessel = Pick<VesselState, 'type' | 'capacity_ml' | 'volume_ml' | 'contents'>
+type OccupancyVessel = StockImmersionVessel
   & Partial<Pick<VesselState, 'wallCoating_ml'>>;
 const solid = (item: SubstanceContent) => ['s', 'solid'].includes(item.phase ?? item.state ?? '');
 const gas = (item: SubstanceContent) => ['g', 'gas'].includes(item.phase ?? item.state ?? '');
@@ -35,19 +37,24 @@ function bodies(vessel: OccupancyVessel) {
   return result;
 }
 
-/** Archimedes: floating material displaces m/rho_liquid, submerged material V_solid.
- * Immersion uses compact equivalent spheres resting on the floor (the existing
- * beaker ice mesh uses a slab). Powder packing, trapped air and wetting are not
- * resolved. Unknown solid densities are left unestimated.
+/** Dense certified stock layouts use actual mesh immersion below this upright
+ * surface. Other solids retain the compact-sphere / ice-slab buoyancy reference:
+ * floating material displaces m/rho_liquid, fully submerged material V_solid.
+ * Powder packing, trapped air and wetting remain unresolved. Unknown solid
+ * densities are left unestimated.
  * https://openstax.org/books/university-physics-volume-1/pages/14-4-archimedes-principle-and-buoyancy
  */
 export function solidDisplacementAtSurface(vessel: OccupancyVessel, surfaceVolume_ml: number,
   liquidDensity = vessel.volume_ml > 0 ? liquidInventoryMass(vessel) / vessel.volume_ml : 1): number {
   if (!(vessel.capacity_ml > 0) || !(surfaceVolume_ml > 0)) return 0;
+  const actual = stockImmersion(vessel, liquidDensity);
+  if (actual) return actual.displacementMl([0, 1, 0], liquidLevelForVolume(vessel.type, surfaceVolume_ml, vessel.capacity_ml));
+  const solidBodies = bodies(vessel);
+  if (!solidBodies.length) return 0;
   const { floorY } = liquidGeometry(vessel.type);
   const worldPerMl = solidSceneVolume(vessel, 1);
   const depth = liquidLevelForVolume(vessel.type, surfaceVolume_ml, vessel.capacity_ml) - floorY;
-  return bodies(vessel).reduce((sum, body) => {
+  return solidBodies.reduce((sum, body) => {
     const worldVolume = body.volume_ml * worldPerMl;
     let immersed: number;
     if (body.ice) {
@@ -72,10 +79,24 @@ export function solidMaterialVolumeMl(vessel: OccupancyVessel): number {
   return bodies(vessel).reduce((sum, body) => sum + body.volume_ml, 0);
 }
 
+/** Upper displacement of the known condensed material under this buoyancy
+ * reference. Equality at a plane permits an exact linear withdrawal solve. */
+export function solidMaximumDisplacementMl(vessel: OccupancyVessel,
+  liquidDensity = vessel.volume_ml > 0 ? liquidInventoryMass(vessel) / vessel.volume_ml : 1): number {
+  const actual = stockImmersion(vessel, liquidDensity);
+  if (actual) return actual.insideVolume_ml;
+  return bodies(vessel).reduce((sum, body) => {
+    const density = body.ice ? 1 : liquidDensity;
+    return sum + Math.min(body.volume_ml, density > 0 ? body.mass_g / density : body.volume_ml);
+  }, 0);
+}
+
 /** Display/contact level; never changes the actual liquid inventory. */
 export function occupiedLiquidVolume(vessel: OccupancyVessel): number {
   const liquid = Math.max(0, vessel.volume_ml);
   if (liquid === 0) return 0;
+  const actual = solveStockLiquidSurface(vessel, [0, 1, 0], liquidInventoryMass(vessel) / liquid);
+  if (actual) return actual.grossVolume_ml;
   const solidBodies = bodies(vessel);
   if (!solidBodies.length) return liquid;
   let low = liquid, high = liquid + solidBodies.reduce((sum, body) => sum + body.volume_ml, 0);

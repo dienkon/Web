@@ -1,5 +1,16 @@
 # Lộ Trình Phát Triển ChemDex (Roadmap)
 
+## Hoàn thành 27/10/2026 — web chính
+
+- [x] Không gian khám phá mới, giao diện sáng/tối và danh sách mobile theo đợt.
+- [x] Tìm nhanh nguyên tố, công thức và công cụ bằng Ctrl/Cmd+K.
+- [x] Danh mục đầy đủ 25 tiện ích có lọc, tìm kiếm và yêu thích.
+- [x] Liên kết giữ bộ lọc, so sánh có lưu và xuất CSV.
+- [x] 84 nguyên tử khối chuẩn CIAAW 2024 kèm độ không đảm bảo; 10 mục ứng dụng có nguồn.
+- [x] Chế độ ôn câu chưa làm và thống kê trả lời cập nhật ngay.
+
+Chi tiết triển khai, dữ liệu và kiểm thử: [nâng cấp web chính](MAIN_WEB_UPGRADE.md). Các mốc cũ bên dưới được giữ để tham khảo lịch sử.
+
 Dự án ChemDex đã trải qua nhiều giai đoạn tiến hóa. Dưới đây là các cột mốc đã hoàn thành và những dự định trong tương lai để đưa ChemDex trở thành Siêu Ứng Dụng Hóa Học (Super App) hàng đầu.
 
 ---

@@ -1,4 +1,4 @@
-/** Radius/height contours of the actual lathed glass meshes, in scene units.
+/** Radius/height contours of the lathed glass meshes, in model-local units.
  * Kept independent of Three.js so containment and rendering share one shape. */
 export type ContourPoint = readonly [radius: number, y: number];
 const point = (radius: number, y: number): ContourPoint => [radius, y];

@@ -124,9 +124,10 @@ describe('Spill cleanup, restoration and material invariants', () => {
   });
   it('emits overflow only for a committed finite receipt, with the inventory already visible to its listener', () => {
     const vessel = { id: 'target', type: 'beaker', position: [0, 0, 0], volume_ml: 100, capacity_ml: 100 } as VesselState;
-    useAppStore.setState({ vessels: { target: vessel }, vesselIds: ['target'], spills: {} });
+    useAppStore.setState({ vessels: { target: vessel }, vesselIds: ['target'], spills: {}, inFlightPours: [] });
     const observed: number[] = [];
-    const off = vfxBus.on('vessel:overflow', () => observed.push(Object.values(useAppStore.getState().spills).reduce((sum, s) => sum + s.volume_ml, 0)));
+    const off = vfxBus.on('vessel:overflow', () => observed.push(Object.values(useAppStore.getState().spills).reduce((sum, s) => sum + s.volume_ml, 0)
+      + useAppStore.getState().inFlightPours.reduce((sum, p) => sum + p.sample.volume_ml, 0)));
     try {
       for (const volume of [0, -1, NaN, Infinity]) useAppStore.getState().addSpill(vessel.position, volume, ['H2O'], '#fff',
         undefined, undefined, undefined, vessel.id);

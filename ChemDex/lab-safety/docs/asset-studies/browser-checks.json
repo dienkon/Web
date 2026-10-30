@@ -1,0 +1,764 @@
+{
+  "passed": true,
+  "checks": [
+    "finite solid geometry: beaker/front",
+    "finite solid geometry: beaker/three-quarter",
+    "bottom rests on support plane: beaker",
+    "bounded asset draw calls: beaker / 9",
+    "finite solid geometry: beaker/back",
+    "finite solid geometry: beaker/top",
+    "finite solid geometry: cracked-beaker/front",
+    "finite solid geometry: cracked-beaker/three-quarter",
+    "bottom rests on support plane: cracked-beaker",
+    "bounded asset draw calls: cracked-beaker / 10",
+    "finite solid geometry: cracked-beaker/back",
+    "finite solid geometry: cracked-beaker/top",
+    "finite solid geometry: cylinder/front",
+    "finite solid geometry: cylinder/three-quarter",
+    "bottom rests on support plane: cylinder",
+    "bounded asset draw calls: cylinder / 10",
+    "finite solid geometry: cylinder/back",
+    "finite solid geometry: cylinder/top",
+    "finite solid geometry: flask/front",
+    "finite solid geometry: flask/three-quarter",
+    "bottom rests on support plane: flask",
+    "bounded asset draw calls: flask / 8",
+    "finite solid geometry: flask/back",
+    "finite solid geometry: flask/top",
+    "finite solid geometry: vacuum-flask/front",
+    "finite solid geometry: vacuum-flask/three-quarter",
+    "bottom rests on support plane: vacuum-flask",
+    "bounded asset draw calls: vacuum-flask / 12",
+    "finite solid geometry: vacuum-flask/back",
+    "finite solid geometry: vacuum-flask/top",
+    "finite solid geometry: reagent-bottle/front",
+    "finite solid geometry: reagent-bottle/three-quarter",
+    "bottom rests on support plane: reagent-bottle",
+    "bounded asset draw calls: reagent-bottle / 10",
+    "finite solid geometry: reagent-bottle/back",
+    "finite solid geometry: reagent-bottle/top",
+    "finite solid geometry: amber-bottle/front",
+    "finite solid geometry: amber-bottle/three-quarter",
+    "bottom rests on support plane: amber-bottle",
+    "bounded asset draw calls: amber-bottle / 11",
+    "finite solid geometry: amber-bottle/back",
+    "finite solid geometry: amber-bottle/top",
+    "finite solid geometry: test-tube/front",
+    "finite solid geometry: test-tube/three-quarter",
+    "bottom rests on support plane: test-tube",
+    "bounded asset draw calls: test-tube / 8",
+    "finite solid geometry: test-tube/back",
+    "finite solid geometry: test-tube/top",
+    "finite solid geometry: pipette/front",
+    "finite solid geometry: pipette/three-quarter",
+    "bottom rests on support plane: pipette",
+    "bounded asset draw calls: pipette / 3",
+    "finite solid geometry: pipette/back",
+    "finite solid geometry: pipette/top",
+    "finite solid geometry: pipette-bulb/front",
+    "finite solid geometry: pipette-bulb/three-quarter",
+    "bottom rests on support plane: pipette-bulb",
+    "bounded asset draw calls: pipette-bulb / 12",
+    "finite solid geometry: pipette-bulb/back",
+    "finite solid geometry: pipette-bulb/top",
+    "finite solid geometry: pipette-assembled/front",
+    "finite solid geometry: pipette-assembled/three-quarter",
+    "bottom rests on support plane: pipette-assembled",
+    "bounded asset draw calls: pipette-assembled / 15",
+    "finite solid geometry: pipette-assembled/back",
+    "finite solid geometry: pipette-assembled/top",
+    "finite solid geometry: tube-rack/front",
+    "finite solid geometry: tube-rack/three-quarter",
+    "bottom rests on support plane: tube-rack",
+    "bounded asset draw calls: tube-rack / 41",
+    "finite solid geometry: tube-rack/back",
+    "finite solid geometry: tube-rack/top",
+    "finite solid geometry: tongs/front",
+    "finite solid geometry: tongs/three-quarter",
+    "bottom rests on support plane: tongs",
+    "bounded asset draw calls: tongs / 7",
+    "finite solid geometry: tongs/back",
+    "finite solid geometry: tongs/top",
+    "finite solid geometry: wash-bottle/front",
+    "finite solid geometry: wash-bottle/three-quarter",
+    "bottom rests on support plane: wash-bottle",
+    "bounded asset draw calls: wash-bottle / 8",
+    "finite solid geometry: wash-bottle/back",
+    "finite solid geometry: wash-bottle/top",
+    "finite solid geometry: pipette-tray/front",
+    "finite solid geometry: pipette-tray/three-quarter",
+    "bottom rests on support plane: pipette-tray",
+    "bounded asset draw calls: pipette-tray / 16",
+    "finite solid geometry: pipette-tray/back",
+    "finite solid geometry: pipette-tray/top",
+    "finite solid geometry: balance/front",
+    "finite solid geometry: balance/three-quarter",
+    "bottom rests on support plane: balance",
+    "bounded asset draw calls: balance / 32",
+    "finite solid geometry: balance/back",
+    "finite solid geometry: balance/top",
+    "finite solid geometry: hotplate/front",
+    "finite solid geometry: hotplate/three-quarter",
+    "bottom rests on support plane: hotplate",
+    "bounded asset draw calls: hotplate / 22",
+    "finite solid geometry: hotplate/back",
+    "finite solid geometry: hotplate/top",
+    "finite solid geometry: hotplate-flask/front",
+    "finite solid geometry: hotplate-flask/three-quarter",
+    "bottom rests on support plane: hotplate-flask",
+    "bounded asset draw calls: hotplate-flask / 30",
+    "finite solid geometry: hotplate-flask/back",
+    "finite solid geometry: hotplate-flask/top",
+    "finite solid geometry: burette/front",
+    "finite solid geometry: burette/three-quarter",
+    "bottom rests on support plane: burette",
+    "bounded asset draw calls: burette / 45",
+    "finite solid geometry: burette/back",
+    "finite solid geometry: burette/top",
+    "finite solid geometry: ph-meter/front",
+    "finite solid geometry: ph-meter/three-quarter",
+    "bottom rests on support plane: ph-meter",
+    "bounded asset draw calls: ph-meter / 30",
+    "finite solid geometry: ph-meter/back",
+    "finite solid geometry: ph-meter/top",
+    "finite solid geometry: electrode/front",
+    "finite solid geometry: electrode/three-quarter",
+    "bottom rests on support plane: electrode",
+    "bounded asset draw calls: electrode / 7",
+    "finite solid geometry: electrode/back",
+    "finite solid geometry: electrode/top",
+    "finite solid geometry: centrifuge/front",
+    "finite solid geometry: centrifuge/three-quarter",
+    "bottom rests on support plane: centrifuge",
+    "bounded asset draw calls: centrifuge / 58",
+    "finite solid geometry: centrifuge/back",
+    "finite solid geometry: centrifuge/top",
+    "finite solid geometry: centrifuge-closed/front",
+    "finite solid geometry: centrifuge-closed/three-quarter",
+    "bottom rests on support plane: centrifuge-closed",
+    "bounded asset draw calls: centrifuge-closed / 42",
+    "finite solid geometry: centrifuge-closed/back",
+    "finite solid geometry: centrifuge-closed/top",
+    "no runtime exceptions while rendering all asset studies"
+  ],
+  "errors": [],
+  "snapshots": [
+    {
+      "id": "beaker",
+      "min": [
+        -0.08399999886751175,
+        0,
+        -0.08399999886751175
+      ],
+      "max": [
+        0.09799999743700027,
+        0.22499999403953552,
+        0.08399999886751175
+      ],
+      "size": [
+        0.18199999630451202,
+        0.22499999403953552,
+        0.1679999977350235
+      ],
+      "meshes": 6,
+      "triangles": 1560,
+      "calls": 9,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-beaker"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "cracked-beaker",
+      "min": [
+        -0.08399999886751175,
+        0,
+        -0.08399999886751175
+      ],
+      "max": [
+        0.09799999743700027,
+        0.22499999403953552,
+        0.08399999886751175
+      ],
+      "size": [
+        0.18199999630451202,
+        0.22499999403953552,
+        0.1679999977350235
+      ],
+      "meshes": 7,
+      "triangles": 1740,
+      "calls": 10,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-beaker"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "cylinder",
+      "min": [
+        -0.06148780509829521,
+        -3.799796102765818e-10,
+        -0.07100000232458115
+      ],
+      "max": [
+        0.06148780509829521,
+        0.38499999046325684,
+        0.07100000232458115
+      ],
+      "size": [
+        0.12297561019659042,
+        0.38499999084323644,
+        0.1420000046491623
+      ],
+      "meshes": 7,
+      "triangles": 1392,
+      "calls": 10,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-cylinder"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "flask",
+      "min": [
+        -0.09000000357627869,
+        0,
+        -0.09000000357627869
+      ],
+      "max": [
+        0.09000000357627869,
+        0.25999999046325684,
+        0.09000000357627869
+      ],
+      "size": [
+        0.18000000715255737,
+        0.25999999046325684,
+        0.18000000715255737
+      ],
+      "meshes": 6,
+      "triangles": 2632,
+      "calls": 8,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-flask"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "vacuum-flask",
+      "min": [
+        -0.09000000357627869,
+        0,
+        -0.09000000357627869
+      ],
+      "max": [
+        0.09000000357627869,
+        0.25999999046325684,
+        0.09000000357627869
+      ],
+      "size": [
+        0.18000000715255737,
+        0.25999999046325684,
+        0.18000000715255737
+      ],
+      "meshes": 9,
+      "triangles": 3784,
+      "calls": 12,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-vacuum-flask"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "reagent-bottle",
+      "min": [
+        -0.06800000369548798,
+        0,
+        -0.06800000369548798
+      ],
+      "max": [
+        0.06800000369548798,
+        0.32000000043213367,
+        0.06880000233650208
+      ],
+      "size": [
+        0.13600000739097595,
+        0.32000000043213367,
+        0.13680000603199005
+      ],
+      "meshes": 9,
+      "triangles": 2964,
+      "calls": 10,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-reagent-bottle",
+        "bottle-cap"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "amber-bottle",
+      "min": [
+        -0.06800000369548798,
+        0,
+        -0.06800000369548798
+      ],
+      "max": [
+        0.06800000369548798,
+        0.32000000043213367,
+        0.06880000233650208
+      ],
+      "size": [
+        0.13600000739097595,
+        0.32000000043213367,
+        0.13680000603199005
+      ],
+      "meshes": 10,
+      "triangles": 3044,
+      "calls": 11,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-amber-bottle",
+        "bottle-cap"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "test-tube",
+      "min": [
+        -0.026000000536441803,
+        0,
+        -0.026000000536441803
+      ],
+      "max": [
+        0.026000000536441803,
+        0.2600000001043081,
+        0.026000000536441803
+      ],
+      "size": [
+        0.052000001072883606,
+        0.2600000001043081,
+        0.052000001072883606
+      ],
+      "meshes": 7,
+      "triangles": 2184,
+      "calls": 8,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-test-tube"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "pipette",
+      "min": [
+        -0.006000000052154064,
+        0,
+        -0.006000000052154064
+      ],
+      "max": [
+        0.006000000052154064,
+        0.3199999928474426,
+        0.006000000052154064
+      ],
+      "size": [
+        0.012000000104308128,
+        0.3199999928474426,
+        0.012000000104308128
+      ],
+      "meshes": 2,
+      "triangles": 684,
+      "calls": 3,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-pipette"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "pipette-bulb",
+      "min": [
+        -0.03099999949336052,
+        -1.0430812810713341e-10,
+        -0.03099999949336052
+      ],
+      "max": [
+        0.04599999961256981,
+        0.1139999996125698,
+        0.0455
+      ],
+      "size": [
+        0.07699999910593033,
+        0.11399999971687794,
+        0.07649999949336052
+      ],
+      "meshes": 9,
+      "triangles": 1822,
+      "calls": 12,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-pipette-bulb"
+      ],
+      "textures": 7
+    },
+    {
+      "id": "pipette-assembled",
+      "min": [
+        -0.03099999949336052,
+        0,
+        -0.03099999949336052
+      ],
+      "max": [
+        0.04599999961256981,
+        0.4269999996125698,
+        0.0455
+      ],
+      "size": [
+        0.07699999910593033,
+        0.4269999996125698,
+        0.07649999949336052
+      ],
+      "meshes": 11,
+      "triangles": 2506,
+      "calls": 15,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-pipette",
+        "asset-pipette-bulb"
+      ],
+      "textures": 7
+    },
+    {
+      "id": "tube-rack",
+      "min": [
+        -0.25000500679016113,
+        -0.000005000375211238611,
+        -0.08999999612569809
+      ],
+      "max": [
+        0.25000500679016113,
+        0.28400000010430815,
+        0.091
+      ],
+      "size": [
+        0.5000100135803223,
+        0.2840050004795194,
+        0.1809999961256981
+      ],
+      "meshes": 37,
+      "triangles": 14002,
+      "calls": 41,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-tube-rack",
+        "rack-perforated-plate",
+        "asset-test-tube",
+        "asset-test-tube",
+        "asset-test-tube",
+        "asset-test-tube"
+      ],
+      "textures": 9
+    },
+    {
+      "id": "tongs",
+      "min": [
+        -0.057430116434705705,
+        0.001999999947845936,
+        -0.14257184284435293
+      ],
+      "max": [
+        0.057430116434705705,
+        0.014000000432133675,
+        0.12919726517999533
+      ],
+      "size": [
+        0.11486023286941141,
+        0.012000000484287739,
+        0.2717691080243483
+      ],
+      "meshes": 7,
+      "triangles": 2688,
+      "calls": 7,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-tongs"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "wash-bottle",
+      "min": [
+        -0.061000000685453415,
+        0,
+        -0.061000000685453415
+      ],
+      "max": [
+        0.12199301272630692,
+        0.3180834650993347,
+        0.061500001698732376
+      ],
+      "size": [
+        0.18299301341176033,
+        0.3180834650993347,
+        0.12250000238418579
+      ],
+      "meshes": 7,
+      "triangles": 2408,
+      "calls": 8,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-wash-bottle"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "pipette-tray",
+      "min": [
+        -0.22000500559806824,
+        -0.000004999995231628335,
+        -0.0950000001899898
+      ],
+      "max": [
+        0.22000500559806824,
+        0.038000000052154134,
+        0.0950000001899898
+      ],
+      "size": [
+        0.4400100111961365,
+        0.03800500004738576,
+        0.1900000003799796
+      ],
+      "meshes": 13,
+      "triangles": 2840,
+      "calls": 16,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-pipette-tray",
+        "asset-pipette",
+        "asset-pipette",
+        "asset-pipette"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "balance",
+      "min": [
+        -0.16000498831272125,
+        -3.799796102765818e-10,
+        -0.18000000715255737
+      ],
+      "max": [
+        0.16000498831272125,
+        0.31800000004749746,
+        0.18749999994412064
+      ],
+      "size": [
+        0.3200099766254425,
+        0.31800000042747706,
+        0.367500007096678
+      ],
+      "meshes": 26,
+      "triangles": 3704,
+      "calls": 32,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-balance"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "hotplate",
+      "min": [
+        -0.12000500410795212,
+        -3.799796102765818e-10,
+        -0.13200000004749746
+      ],
+      "max": [
+        0.12000500410795212,
+        0.09686602539522575,
+        0.14249999983236195
+      ],
+      "size": [
+        0.24001000821590424,
+        0.09686602577520537,
+        0.2744999998798594
+      ],
+      "meshes": 21,
+      "triangles": 2674,
+      "calls": 22,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-hotplate"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "hotplate-flask",
+      "min": [
+        -0.12000500410795212,
+        -3.799796102765818e-10,
+        -0.13200000004749746
+      ],
+      "max": [
+        0.12000500410795212,
+        0.3559999904632568,
+        0.14249999983236195
+      ],
+      "size": [
+        0.24001000821590424,
+        0.3559999908432364,
+        0.2744999998798594
+      ],
+      "meshes": 27,
+      "triangles": 5306,
+      "calls": 30,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-hotplate",
+        "asset-flask"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "burette",
+      "min": [
+        -0.12000499665737152,
+        -0.000005000375211238611,
+        -0.14999999105930328
+      ],
+      "max": [
+        0.12000499665737152,
+        0.6680000090599061,
+        0.14999999105930328
+      ],
+      "size": [
+        0.24000999331474304,
+        0.6680050094351173,
+        0.29999998211860657
+      ],
+      "meshes": 41,
+      "triangles": 8118,
+      "calls": 45,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-burette",
+        "asset-flask"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "ph-meter",
+      "min": [
+        -0.15861235558986664,
+        -3.799796102765818e-10,
+        -0.1128496378660202
+      ],
+      "max": [
+        0.21389999859035017,
+        0.4380567967891693,
+        0.0949999988079071
+      ],
+      "size": [
+        0.3725123541802168,
+        0.4380567971691489,
+        0.2078496366739273
+      ],
+      "meshes": 25,
+      "triangles": 6102,
+      "calls": 30,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-ph-meter",
+        "asset-electrode",
+        "asset-beaker"
+      ],
+      "textures": 8
+    },
+    {
+      "id": "electrode",
+      "min": [
+        -0.010499999858438969,
+        -2.6077032026783353e-11,
+        -0.010499999858438969
+      ],
+      "max": [
+        0.010499999858438969,
+        0.19000000029802322,
+        0.010499999858438969
+      ],
+      "size": [
+        0.020999999716877937,
+        0.19000000032410025,
+        0.020999999716877937
+      ],
+      "meshes": 5,
+      "triangles": 1584,
+      "calls": 7,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-electrode"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "centrifuge",
+      "min": [
+        -0.23199999332427979,
+        -3.799796102765818e-10,
+        -0.23447944686799246
+      ],
+      "max": [
+        0.23199999332427979,
+        0.588691032510197,
+        0.23221981720912666
+      ],
+      "size": [
+        0.46399998664855957,
+        0.5886910328901767,
+        0.46669926407711915
+      ],
+      "meshes": 49,
+      "triangles": 9560,
+      "calls": 58,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-centrifuge",
+        "asset-test-tube",
+        "asset-test-tube",
+        "centrifuge-lid-hinge"
+      ],
+      "textures": 14
+    },
+    {
+      "id": "centrifuge-closed",
+      "min": [
+        -0.23199999332427979,
+        -3.799796102765818e-10,
+        -0.23199999332427979
+      ],
+      "max": [
+        0.23199999332427979,
+        0.2140049998834729,
+        0.23221981720912666
+      ],
+      "size": [
+        0.46399998664855957,
+        0.2140050002634525,
+        0.46421981053340644
+      ],
+      "meshes": 35,
+      "triangles": 5192,
+      "calls": 42,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-centrifuge",
+        "centrifuge-lid-hinge"
+      ],
+      "textures": 12
+    }
+  ]
+}

@@ -20,7 +20,7 @@ export function readInstrument(id: InstrumentId): InstrumentReading {
   const instruments = useInstrumentStore.getState();
   switch (id) {
     case 'pipette': {
-      const sample = instruments.pipetteSample;
+      const sample = state.pipetteSample;
       return {
         value: (sample?.volume_ml ?? 0).toFixed(3),
         unit: 'mL',

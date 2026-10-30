@@ -4,6 +4,7 @@ import type { MixResult } from '../shared/schemas';
 import { getProgramById } from '../vfx/programs/library';
 import { identifySpecies, sameMolecularFormula } from '../science/speciesIdentity';
 import { planStudioProgram } from './studioProgram';
+import { reactionReplayProgress } from './reactionProgress';
 
 const PROGRAMS = ['mg_hcl', 'zn_hcl', 'fe_hcl'];
 
@@ -74,15 +75,17 @@ export function metalAcidProgressRate(kinetics: ActiveKineticsState, current: Ve
   if (!solid || !acid || !(solid.moles > 0)) return 0;
   const extent = Math.min(solid.moles, acid.moles / 2);
   if (!(extent > 0)) return 0;
-  const p = Math.max(0, Math.min(1, progress));
-  const remainingFraction = Math.max(0, 1 - extent * p / solid.moles);
+  const p = reactionReplayProgress(kinetics, progress);
+  const referenceMoles = kinetics.surfaceReferenceMoles ?? solid.moles;
+  const referenceMass = kinetics.surfaceReferenceMass_g ?? solid.mass_g;
+  const remainingFraction = Math.max(0, (solid.moles - extent * p) / referenceMoles);
   const acidConcentration = Math.max(0, acid.moles - 2 * extent * p) / (current.volume_ml / 1000);
-  const massFactor = Math.cbrt(0.1 / Math.max(1e-12, solid.mass_g));
+  const massFactor = Math.cbrt(0.1 / Math.max(1e-12, referenceMass));
   const areaFactor = metal.formula === 'Mg' ? (remainingFraction > 0 ? 1 : 0) : remainingFraction ** (2 / 3);
   const temperatureFactor = Math.max(0.05, Math.min(16, 2 ** ((current.temperature_c - 25) / 10)));
   const grinding = current.isPulverized ? 5 : 1;
   const stirring = stirred ? 1 + (kinetics.program.chemistry.kinetics?.stirSensitivity ?? 0.5) : 1;
-  return solid.moles / extent / kinetics.duration * massFactor * areaFactor
+  return (1 - (kinetics.replayProgressBase ?? 0)) * referenceMoles / extent / kinetics.duration * massFactor * areaFactor
     * acidConcentration * temperatureFactor * grinding * stirring;
 }
 

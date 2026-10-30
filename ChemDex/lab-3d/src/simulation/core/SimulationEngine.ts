@@ -5,6 +5,16 @@ import { sameMolecularFormula, identifySpecies } from '../../science/speciesIden
 import { VesselState } from '../../types/chemistry';
 import { getVesselProfile } from '../../pour/physics/profiles';
 import { vesselLiquidSurfaceY } from '../../science/vesselGeometry';
+import { vesselLocalToWorld } from '../../science/vesselScale';
+import { liquidSurfaceVolume } from '../../engine/waterPhase';
+import { liquidInventoryMass } from '../../handling/solidOccupancy';
+import { stockImmersion } from '../../science/stockImmersion';
+import { solveStockLiquidSurface } from '../../science/stockLiquidSurface';
+import { liquidParticlePlane, type LiquidPlane } from '../effects/liquidParticleFrame';
+import { SedimentSurface } from '../../science/sedimentSurface';
+import { sedimentPlane } from '../effects/sedimentPlane';
+import { vesselInterior } from '../../science/vesselDimensions';
+import { metersPerModelUnit } from '../../science/sceneUnits';
 import { precipitateComponents } from '../../science/precipitateInventory';
 import { suspensionFluidProperties } from '../../science/suspensionFluid';
 import { metalSurfaceAppearance } from '../../science/metalSurfaceAppearance';
@@ -16,6 +26,7 @@ import { checkSaturation } from '../chemistry/SolubilityEngine';
 import { getPrecipitateProfile } from './SimulationConfig';
 import type { SedimentBedState } from './SimulationTypes';
 import { sedimentLevel } from '../effects/sedimentGeometry';
+import { precipitatePackingFraction } from '../../science/precipitatePacking';
 import { DEFAULT_LAB_ENVIRONMENT, waterBoilingPointAtPressure } from '../../science/labEnvironment';
 import { waterSaturationPressurePa } from '../../science/waterSaturation';
 import { WATER_CP_J_G_K } from '../../engine/waterProperties';
@@ -62,6 +73,16 @@ export class VesselSimulationManager {
   public hasPrecipitationSnapshot = false;
   public suspensionOutflowApplied_g = new Map<string, number>();
   private initialSystemAssigned = false;
+  private surfaceFrameCache?: { profile: object; volume: number; up: number[]; plane?: LiquidPlane; stock?: object | null };
+  private bedSurface = new SedimentSurface();
+  private bedPlaneCache?: { profile: object; volume: number; normal: readonly number[]; plane: LiquidPlane };
+  private bedPlane(profile: ReturnType<typeof getVesselProfile>, volume: number) {
+    if (!(volume > 0)) return undefined;
+    const normal = this.bedSurface.normal, old = this.bedPlaneCache;
+    if (!old || old.profile !== profile || old.volume !== volume || old.normal.some((n, i) => n !== normal[i]))
+      this.bedPlaneCache = { profile, volume, normal: [...normal], plane: sedimentPlane(profile, volume, normal) };
+    return this.bedPlaneCache!.plane;
+  }
 
   constructor(vesselId: string, qualityTier: QualityTier | 'high' | 'medium' | 'low' = 'high') {
     this.vesselId = vesselId;
@@ -90,7 +111,17 @@ export class VesselSimulationManager {
     return system;
   }
 
+  public setPrecipitateBudget(count: number): void {
+    if (!Number.isInteger(count) || count < 0 || count === this.maxPrecipitateParticles) return;
+    this.maxPrecipitateParticles = count;
+    const systems = [...this.precipitationSystems.values()];
+    systems.forEach((system, index) => system.setParticleBudget(Math.floor(count / systems.length)
+      + (index < count % systems.length ? 1 : 0)));
+  }
+
   public reset(): void {
+    this.bedSurface.reset(); this.bedPlaneCache = undefined;
+    this.sedimentBed.surfacePlane = undefined; this.sedimentBed.packedVolume_ml = 0; this.sedimentBed.surfaceStatus = 'empty';
     this.boilingSystem.reset();
     this.evaporationSystem.reset();
     this.precipitationSystem.reset();
@@ -120,6 +151,8 @@ export class VesselSimulationManager {
       reactionGasRate?: number;
       reactionPrecipitateActive?: boolean;
       reactionPrecipitateSubstance?: string;
+      /** Immutable model-to-world snapshot from the actual rendered glass. */
+      bodyMatrixWorld?: readonly number[];
     } = {}
   ): SimulationStepResult {
     const {
@@ -164,12 +197,33 @@ export class VesselSimulationManager {
     const fillY = vesselLiquidSurfaceY({ ...vessel,
       volume_ml: thermal?.volume_ml ?? vessel.volume_ml,
       contents: thermal?.contents ?? vessel.contents });
+    const bodyMatrix = options.bodyMatrixWorld ? new THREE.Matrix4().fromArray(options.bodyMatrixWorld) : undefined;
+    const localUp = bodyMatrix ? new THREE.Vector3(0, 1, 0).transformDirection(bodyMatrix.clone().invert())
+      : new THREE.Vector3(Math.sin(vessel.rotationZ ?? 0), Math.cos(vessel.rotationZ ?? 0), 0);
+    const localToWorld = bodyMatrix ? (point: [number, number, number]) => new THREE.Vector3(...point).applyMatrix4(bodyMatrix).toArray() as [number, number, number]
+      : (point: [number, number, number]) => vesselLocalToWorld(vessel, point);
+    const surfaceVolume = liquidSurfaceVolume({ ...vessel, volume_ml: thermal?.volume_ml ?? vessel.volume_ml,
+      contents: thermal?.contents ?? vessel.contents });
+    const surfaceVessel = { ...vessel, volume_ml: thermal?.volume_ml ?? vessel.volume_ml, contents: thermal?.contents ?? vessel.contents };
+    const stockDensity = surfaceVessel.volume_ml > 0 ? liquidInventoryMass(surfaceVessel) / surfaceVessel.volume_ml : 1;
+    const stock = stockImmersion(surfaceVessel, stockDensity);
+    const cached = this.surfaceFrameCache;
+    if (!cached || cached.profile !== profile || cached.volume !== surfaceVolume
+      || cached.stock !== stock
+      || cached.up[0] !== localUp.x || cached.up[1] !== localUp.y || cached.up[2] !== localUp.z) {
+      const solved = stock ? solveStockLiquidSurface(surfaceVessel, localUp.toArray(), stockDensity) : null;
+      this.surfaceFrameCache = { profile, volume: surfaceVolume, up: localUp.toArray(), stock,
+        plane: solved ? { normal: localUp.toArray(), offset: solved.c } : liquidParticlePlane(profile, surfaceVolume, localUp.toArray()) };
+    }
+    const surfacePlane = this.surfaceFrameCache!.plane;
     const mouthY = profile.baseY + profile.H;
     const currentRadius = profile.r(fillY);
     const surfaceArea_cm2 = Math.PI * Math.pow(currentRadius * profile.sceneScale, 2);
 
     // 4. EVAPORATION STEP (Mass loss & solute concentration)
     this.evaporationSystem.update(dt, {
+      sourceToWorld: bodyMatrix ? localToWorld : undefined,
+      metersPerLocalUnit: profile.sceneScale / 100,
       actualRate_g_s: vessel.isSealed || vessel.isShattered ? 0 : vaporRate,
       ambient_c: environment.temperature_c,
       relativeHumidity: environment.relativeHumidity,
@@ -211,6 +265,14 @@ export class VesselSimulationManager {
     let transmission = 1, suspendedTotal = 0, bedVolume = 0, bedMass = 0;
     let sr = 0, sg = 0, sb = 0, br = 0, bg = 0, bb = 0, roughness = 0, metalness = 0;
     const sampleColor = new THREE.Color();
+    const support = components.map(c => {
+      const system = this.getPrecipitationSystem(c.formula);
+      return { mass_g: Math.min(c.mass_g, system.sedimentBed.amount_g), profile: system.profile };
+    });
+    const priorBedVolume = support.reduce((sum, c) => sum + c.mass_g / (c.profile.particleDensity_g_cm3 * precipitatePackingFraction(c.profile)), 0);
+    this.bedSurface.advance(dt, localUp.toArray(), 2 * vesselInterior(vessel.type).maximumRadius * metersPerModelUnit(profile),
+      density_g_ml * 1000, viscosity_mPa_s * 0.001, support, fluid.carrierMode === 'liquid');
+    const sharedSedimentPlane = this.bedPlane(profile, priorBedVolume);
     for (let index = 0; index < components.length; index++) {
       const component = components[index];
       const system = this.getPrecipitationSystem(component.formula);
@@ -233,10 +295,12 @@ export class VesselSimulationManager {
       precipitateAmount_g: component.mass_g,
       volume_ml: newVolume_ml,
       vesselProfile: profile,
+      surfacePlane,
       substance: component.formula,
       formation: component.formation ?? (isActive ? vessel.precipitateMorphology : undefined),
       declaredColor: isActive ? vessel.precipitateColor : undefined,
       sharedSedimentThickness: this.sedimentBed.thickness,
+      sharedSedimentPlane,
       withdrawnSuspension_g: Math.max(0, outflow - previouslyApplied),
       entryPoint: vessel.recentPourContact && vessel.recentPourContact.expiresAt_ms > Date.now()
         && vessel.recentPourContact.point.every(Number.isFinite) ? vessel.recentPourContact.point : undefined,
@@ -251,7 +315,7 @@ export class VesselSimulationManager {
       suspendedTotal += suspended;
       const settled = system.sedimentBed.amount_g;
       bedMass += settled;
-      bedVolume += settled / system.profile.particleDensity_g_cm3;
+      bedVolume += settled / (system.profile.particleDensity_g_cm3 * precipitatePackingFraction(system.profile));
       br += sampleColor.r * settled; bg += sampleColor.g * settled; bb += sampleColor.b * settled;
       roughness += system.profile.roughness * settled;
       metalness += (system.profile.metalness ?? 0) * settled;
@@ -259,7 +323,17 @@ export class VesselSimulationManager {
     this.cloudiness = 1 - transmission;
     this.suspensionColor = suspendedTotal > 0 ? '#' + sampleColor.setRGB(sr / suspendedTotal, sg / suspendedTotal, sb / suspendedTotal).getHexString() : precipitateColor;
     this.sedimentBed.amount_g = bedMass;
-    this.sedimentBed.thickness = bedVolume > 0 ? sedimentLevel(vessel.type, vessel.capacity_ml, bedMass, bedMass / bedVolume) - profile.baseY : 0;
+    this.sedimentBed.packedVolume_ml = bedVolume;
+    this.sedimentBed.surfacePlane = this.bedPlane(profile, bedVolume);
+    this.sedimentBed.surfaceStatus = this.bedSurface.status;
+    this.sedimentBed.relaxationTime_s = this.bedSurface.relaxationTime_s;
+    const bedPlane = this.sedimentBed.surfacePlane;
+    if (bedPlane && bedPlane.normal[1] * (profile.baseY + profile.H)
+      - Math.hypot(bedPlane.normal[0], bedPlane.normal[2]) * profile.mouthR <= bedPlane.offset)
+      this.sedimentBed.surfaceStatus = 'outlet-unresolved';
+    // bedVolume already includes each species' pore volume; do not apply a
+    // second, global packing factor to a mixed hydroxide/powder bed.
+    this.sedimentBed.thickness = bedVolume > 0 ? sedimentLevel(vessel.type, vessel.capacity_ml, bedMass, bedMass / bedVolume, 1) - profile.baseY : 0;
     if (bedMass > 0) {
       this.sedimentBed.color = '#' + sampleColor.setRGB(br / bedMass, bg / bedMass, bb / bedMass).getHexString();
       this.sedimentBed.roughness = roughness / bedMass;
@@ -279,6 +353,7 @@ export class VesselSimulationManager {
     if (fluid.carrierMode==='liquid' && Number.isFinite(transportBoilingPoint)
       && (boilingStage !== 'COLD_STABLE' || hasGasGeneration || this.boilingSystem.bubbles.length > 0) && newVolume_ml > 0.5) {
       this.boilingSystem.update(dt, {
+        localToWorld,
         interfaceMobility: vessel.bubbleInterfaceMobility ?? 'immobile',
         vesselId: vessel.id,
         worldPosition: vessel.position,
@@ -296,6 +371,7 @@ export class VesselSimulationManager {
         surfaceY: fillY,
         boilingStage,
         vesselProfile: profile,
+        surfacePlane,
         boilingIntensity: hasGasGeneration ? Math.max(boilingIntensity, Math.min(1.0, reactionGasRate / 30)) : boilingIntensity,
         agitation,
         reactionGasRate
@@ -364,6 +440,10 @@ class SimulationEngineClass {
       mgr.reset();
     }
     this.managers.clear();
+  }
+
+  public pruneManagers(liveIds: ReadonlySet<string>): void {
+    for (const id of this.managers.keys()) if (!liveIds.has(id)) this.removeManager(id);
   }
 }
 

@@ -1,13 +1,14 @@
 import type { SpillState, SubstanceContent, VesselState } from '../types/chemistry';
 import { calculateSpillRadius } from '../science/overflowPhysics';
-import { vesselOuterDimensions } from '../science/vesselContours';
+import { vesselWorldDimensions } from '../science/vesselScale';
 import { LAB_PHYSICS } from './interactionEngine';
 import { sameMolecularFormula } from '../science/speciesIdentity';
+import type { LiquidAliquot } from '../handling/aliquot';
 
 /** Snapshot a local-spout overflow landing location into world coordinates.
  * Store it at deposition; later glassware motion must not move the spill. */
-export function overflowLandingPosition(vessel: Pick<VesselState, 'type' | 'position' | 'rotationY'>): [number, number, number] {
-  const radius = vesselOuterDimensions(vessel.type).baseRadius * 1.02, angle = vessel.rotationY ?? 0;
+export function overflowLandingPosition(vessel: Pick<VesselState, 'type' | 'capacity_ml' | 'position' | 'rotationY'>): [number, number, number] {
+  const radius = vesselWorldDimensions(vessel).baseRadius * 1.02, angle = vessel.rotationY ?? 0;
   return [vessel.position[0] + radius * Math.cos(angle), LAB_PHYSICS.TABLE_SURFACE_Y, vessel.position[2] + radius * Math.sin(angle)];
 }
 
@@ -125,4 +126,60 @@ export function mergeWorkbenchSpill(
     contents: contents?.map(item => ({ ...item })), sourceVesselName: sourceName, timestamp: Date.now() };
   footprintCache.set(created, { volume_ml, radius: incoming.radius });
   return { ...spills, [id]: created };
+}
+
+/** Deposit simultaneous quadrature sites as one material transaction. Union
+ * contact components before relaxation: processing a circular sheet from its
+ * first azimuth onward would introduce a preferred direction into the pool.
+ * Repeat after relaxation because merged footprints can contact another pool.
+ * Untouched old components retain their original identity/state. */
+export function mergeWorkbenchSpillBatch(spills: Record<string, SpillState>, positions: readonly [number, number, number][],
+  sample: LiquidAliquot, sourceName?: string): Record<string, SpillState> {
+  if (!positions.length || !(sample.volume_ml > 0) || !Number.isFinite(sample.mass_g) || sample.mass_g < 0
+    || positions.some(p => p.some(v => !Number.isFinite(v)))) return spills;
+  const volume_ml = sample.volume_ml / positions.length, mass_g = sample.mass_g / positions.length;
+  let nodes = Object.entries(spills).sort(([a], [b]) => a.localeCompare(b)).map(([key, spill]) => ({ key, spill, active: false }));
+  for (const position of positions) {
+    const id = `spill_${Date.now()}_${++spillSequence}`;
+    const spill: SpillState = { id, position: [...position], volume_ml, mass_g, radius: calculateSpillRadius(volume_ml),
+      substances: [...sample.substances], color: sample.color, sourceVesselName: sourceName, timestamp: Date.now(),
+      isHazard: hazardous(sample.substances), contents: sample.contents.map(c => ({ ...c,
+        moles: c.moles / positions.length, mass_g: c.mass_g / positions.length,
+        ...(c.volume_ml !== undefined ? { volume_ml: c.volume_ml / positions.length } : {}),
+        ...(c.initialMass_g !== undefined ? { initialMass_g: c.initialMass_g / positions.length } : {}),
+        ...(c.initialMoles !== undefined ? { initialMoles: c.initialMoles / positions.length } : {}) })) };
+    nodes.push({ key: id, spill, active: true });
+  }
+  for (;;) {
+    const parents = nodes.map((_, i) => i);
+    const root = (i: number): number => { while (parents[i] !== i) { parents[i] = parents[parents[i]]; i = parents[i]; } return i; };
+    const footprints = nodes.map(n => ({ ...n.spill, radius: currentRadius(n.spill) }));
+    const families = footprints.map(liquidFamily);
+    for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++) {
+      if (!footprintsTouch(footprints[i], footprints[j])) continue;
+      const a = root(i), b = root(j);
+      if (a === b || families[a] && families[b] && families[a] !== families[b]) continue;
+      parents[b] = a; families[a] ??= families[b];
+    }
+    const groups = new Map<number, typeof nodes>();
+    nodes.forEach((n, i) => { const r = root(i), members = groups.get(r) ?? []; members.push(n); groups.set(r, members); });
+    const next: typeof nodes = [];
+    let merged = false;
+    for (const members of groups.values()) {
+      if (members.length === 1 || !members.some(n => n.active)) { next.push(...members); continue; }
+      merged = true;
+      const totalVolume = members.reduce((sum, n) => sum + n.spill.volume_ml, 0), totalMass = members.reduce((sum, n) => sum + n.spill.mass_g, 0);
+      const primary = members.find(n => !n.active) ?? members[0], weight = totalMass || totalVolume;
+      const coordinate = (axis: 0 | 2) => members.reduce((sum, n) => sum + n.spill.position[axis]
+        * (totalMass > 0 ? n.spill.mass_g : n.spill.volume_ml), 0) / weight;
+      const spill: SpillState = { ...primary.spill, volume_ml: totalVolume, mass_g: totalMass, radius: calculateSpillRadius(totalVolume),
+        position: [coordinate(0), primary.spill.position[1], coordinate(2)], timestamp: Date.now(),
+        contents: aggregateContents(members.map(n => n.spill.contents), totalVolume),
+        substances: [...new Set(members.flatMap(n => n.spill.substances))].sort(), isHazard: members.some(n => n.spill.isHazard) };
+      next.push({ key: primary.key, spill, active: true });
+    }
+    nodes = next;
+    if (!merged) break;
+  }
+  return Object.fromEntries(nodes.map(n => [n.key, n.spill]));
 }

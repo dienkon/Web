@@ -53,7 +53,7 @@ export const InteractionManager: React.FC = () => {
       return intersections.current.some(hit => {
         let node: THREE.Object3D | null = hit.object;
         while (node) {
-          if (!node.visible) return false;
+          if (!node.visible&&!node.userData.staticRenderProxy) return false;
           node = node.parent;
         }
         return true;
@@ -67,12 +67,12 @@ export const InteractionManager: React.FC = () => {
       ray.current.intersectObjects(scene.children, true, intersections.current);
       const firstSurface = intersections.current.find(hit => {
         const mesh = hit.object as THREE.Mesh;
-        if (!mesh.isMesh || !mesh.visible) return false;
+        if (!mesh.isMesh || !mesh.visible&&!mesh.userData.staticRenderProxy) return false;
         const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
         if (materials.every(material => !material.visible || material.opacity < .4)) return false;
         let node: THREE.Object3D | null = hit.object;
         while (node) {
-          if (!node.visible || node.name.startsWith('held-') || node.name === 'detected-item-green-ring') return false;
+          if ((!node.visible&&!node.userData.staticRenderProxy) || node.userData.focusOverlay || node.name.startsWith('held-') || node.name === 'detected-item-green-ring') return false;
           node = node.parent;
         }
         return true;

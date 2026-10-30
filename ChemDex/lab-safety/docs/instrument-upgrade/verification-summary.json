@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "fixtureCount": 29,
+  "images": 61,
+  "browserChecks": 351,
+  "reports": {
+    "docs/instrument-upgrade/browser-checks.json": 104,
+    "docs/practical-review/advanced-browser-checks.json": 70,
+    "docs/visual-gameplay/model-browser-checks.json": 69,
+    "docs/visual-gameplay/detail-browser-checks.json": 8,
+    "docs/practical-review/mobile-ux-checks.json": 64,
+    "docs/practical-review/browser-checks.json": 36
+  },
+  "core": {
+    "workflows": 78,
+    "steps": 421
+  },
+  "sourceSHA256": {
+    "src/components/ui/PracticalSimulation.tsx": "50def12b572a24a5dcfebd118fa3ab40bec1effdc36a6680b66755f2bb6a2c68",
+    "src/components/ui/AcidPourGame.tsx": "a652966897ead618c3d1aa9fe32d52fc80775de519e5acc10fde1d17ffba997c",
+    "src/components/ui/ChemicalSymbolsQuiz.tsx": "65856ceddf8ad0f0934636a7788d8525dbb99180baa0a4ff16dd0b44d320f49e",
+    "src/components/ui/practical/sceneVisuals.ts": "e09b824f1ed41ae8b36df55c864c6d3c04666decbcb0313aa3b29eeee0d25455",
+    "src/components/ui/practical/SceneArt.tsx": "828ac85127ae2dc99aea6c15ed8f76617fb9f28dc6f42d91b95dd9be2cd7e0eb",
+    "src/components/ui/practical/instrumentVisuals.ts": "e23a7dd637133df232584aaab6eb4652586427101003991213b49e965f45f779",
+    "src/components/ui/practical/InstrumentArt.tsx": "4a21185dbc2072455c94f140d1c5871afd25d1f90fc976c6746b8c5007926411",
+    "src/components/ui/practical/InstrumentModels.tsx": "2bc4a5f7da1d8f828199a0f3559410e6d02ef4273cff7e3db14a80315ecdc4cc",
+    "src/styles/instrument-visuals.css": "a3376d304c280e54a5b0cfa522d473979bde8fa02bdc58ea758a4eaf377059b0",
+    "src/data/practicalWork.ts": "5ec37045e3ad122b276acf9d44d3baea86c7f3f7b9d9bde431200726a28b342b",
+    "src/data/instrumentWork.ts": "fa4599a18909181bf739370ebcaf171474a2d5ea7aec78b59d583ba8687e1d9f",
+    "src/data/acidWork.ts": "e0e432bbdabff5ad59efcc98aed2fbb9ea646ff10750c3a4a1b21b8632ed7462",
+    "src/data/hazardLabelWork.ts": "20da2bb5c89b40eb27b8d9270df43d3b4bcca480f892c4725d11063d72ff7f5b",
+    "scripts/practical-browser-driver.mjs": "9693712a3dfbfefd33ec29810d0474ed05a58e7444143bc26d2a81ce728dbfaf",
+    "scripts/practical-core-checks.ts": "d6c13b1249cc602a92a8dd0aa90be44b627430e847958d70acea5376bff271dc",
+    "scripts/test-instrument-visuals-browser.mjs": "77bbc2d3ab7da40f33b3181f057dfad98b8eb90ec8dfbf5114b9db6984978df6"
+  }
+}

@@ -1,0 +1,395 @@
+{
+  "passed": true,
+  "checks": [
+    "23 final wardrobe photos captured without runtime exceptions",
+    "finite model and grounded soles: full-front",
+    "finite model and grounded soles: full-back",
+    "finite model and grounded soles: full-quarter",
+    "finite model and grounded soles: plain-front",
+    "finite model and grounded soles: plain-back",
+    "finite model and grounded soles: coat-front",
+    "finite model and grounded soles: coat-back",
+    "finite model and grounded soles: coat-side",
+    "finite model and grounded soles: goggles-front",
+    "finite model and grounded soles: goggles-side",
+    "finite model and grounded soles: goggles-back",
+    "finite model and grounded soles: mask-front",
+    "finite model and grounded soles: mask-side",
+    "finite model and grounded soles: all-head-front",
+    "finite model and grounded soles: all-head-side",
+    "finite model and grounded soles: all-head-back",
+    "finite model and grounded soles: glove-hands",
+    "finite model and grounded soles: bare-hands",
+    "finite model and grounded soles: shoe-feet",
+    "finite model and grounded soles: open-feet",
+    "finite model and grounded soles: bun-head",
+    "finite model and grounded soles: braid-head",
+    "finite model and grounded soles: long-head",
+    "more detailed full avatar uses less than half of previous draw calls",
+    "real avatar vertex/material palette contains #e5e7dc",
+    "real avatar vertex/material palette contains #70a9b7",
+    "real avatar vertex/material palette contains #78a4ad",
+    "real avatar vertex/material palette contains #9abfc5",
+    "real avatar vertex/material palette contains #405967",
+    "closed coat has six modeled buttons and three pockets",
+    "mask loop terminates within 4 mm of actual ear wardrobe-mask-ear--1",
+    "mask loop terminates within 4 mm of actual ear wardrobe-mask-ear-1",
+    "architecture, benches and decor all build their render batches",
+    "each batch retains named interaction proxies while reducing draws",
+    "mirror tool touches same anatomical palm: held-mirror-pan-grip",
+    "mirror tool touches same anatomical palm: held-mirror-brush-grip",
+    "visible mirror updates live avatar",
+    "modal stops mirror rendering",
+    "mirror extinguisher handle is within 5 mm of palm",
+    "mirror nozzle base touches left palm",
+    "mirror uses labeled detailed carried extinguisher",
+    "mirror completely behind camera stops rendering",
+    "batch proxy and animated-door exclusion survive every remount",
+    "all original and merged geometries released after three remounts",
+    "demand-rendered preview changes actual hair geometry",
+    "static creator preview stops rendering when idle",
+    "finite stored asset lab-coat",
+    "finite stored asset goggles",
+    "finite stored asset mask",
+    "finite stored asset grip-hand",
+    "finite stored asset bare-grip-hand",
+    "stored and worn palette match lab-coat",
+    "stored and worn palette match goggles",
+    "stored and worn palette match mask",
+    "no runtime exceptions in wardrobe, mirror, batch lifecycle and preview"
+  ],
+  "errors": [],
+  "snapshots": {
+    "batching": {
+      "batches": [
+        {
+          "id": "architecture",
+          "sourceMeshes": 139,
+          "drawBatches": 21,
+          "buildMs": 62.599999994039536
+        },
+        {
+          "id": "benches",
+          "sourceMeshes": 236,
+          "drawBatches": 47,
+          "buildMs": 73.79999999701977
+        },
+        {
+          "id": "decor",
+          "sourceMeshes": 139,
+          "drawBatches": 14,
+          "buildMs": 15.700000002980232
+        }
+      ],
+      "mirror": {
+        "width": 256,
+        "height": 384,
+        "rate": 20,
+        "frameSpacing": 2
+      }
+    },
+    "lifecycle": [
+      {
+        "mounted": {
+          "geometries": 2,
+          "textures": 1
+        },
+        "cleared": {
+          "geometries": 0,
+          "textures": 1
+        },
+        "proxy": true,
+        "door": true
+      },
+      {
+        "mounted": {
+          "geometries": 2,
+          "textures": 1
+        },
+        "cleared": {
+          "geometries": 0,
+          "textures": 1
+        },
+        "proxy": true,
+        "door": true
+      },
+      {
+        "mounted": {
+          "geometries": 2,
+          "textures": 1
+        },
+        "cleared": {
+          "geometries": 0,
+          "textures": 1
+        },
+        "proxy": true,
+        "door": true
+      }
+    ],
+    "preview": {
+      "hair": "braided",
+      "calls": 22,
+      "frame": 2
+    },
+    "lab-coat": {
+      "id": "lab-coat",
+      "min": [
+        -0.27666616439819336,
+        -0.001500000013038516,
+        -0.0024999999441206455
+      ],
+      "max": [
+        0.27666616439819336,
+        0.8875880396366119,
+        0.034992944449186325
+      ],
+      "size": [
+        0.5533323287963867,
+        0.8890880396496504,
+        0.03749294439330697
+      ],
+      "meshes": 21,
+      "triangles": 7040,
+      "calls": 21,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-lab-coat",
+        "asset-hanger"
+      ],
+      "textures": 4,
+      "palette": [
+        "#e5e7dc",
+        "#9eafb7",
+        "#d8ded5",
+        "#a4b5b0",
+        "#b9c9c2",
+        "#b3c1b9",
+        "#c1d0c7",
+        "#8fa6a4",
+        "#bbc9bf"
+      ],
+      "wardrobe": [],
+      "anchors": []
+    },
+    "goggles": {
+      "id": "goggles",
+      "min": [
+        -0.13518188893795013,
+        -0.0010000000474974513,
+        -0.13650000095367432
+      ],
+      "max": [
+        0.13518188893795013,
+        0.09300005435943604,
+        0.029000001028180122
+      ],
+      "size": [
+        0.27036377787590027,
+        0.09400005440693349,
+        0.16550000198185444
+      ],
+      "meshes": 6,
+      "triangles": 5384,
+      "calls": 7,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-goggles",
+        "wardrobe-goggle-temple--1",
+        "wardrobe-goggle-temple-1"
+      ],
+      "textures": 4,
+      "palette": [
+        "#78a4ad",
+        "#7b9695",
+        "#cce7eb",
+        "#5d8791",
+        "#3b6571",
+        "#728c96",
+        "#526c77"
+      ],
+      "wardrobe": [
+        {
+          "name": "asset-goggles",
+          "frame": "#78a4ad",
+          "gasket": "#7b9695",
+          "wrapDepth": 0
+        }
+      ],
+      "anchors": [
+        {
+          "name": "wardrobe-goggle-temple--1",
+          "at": [
+            -0.116,
+            0.045,
+            -0.01
+          ]
+        },
+        {
+          "name": "wardrobe-goggle-temple-1",
+          "at": [
+            0.116,
+            0.045,
+            -0.01
+          ]
+        }
+      ]
+    },
+    "mask": {
+      "id": "mask",
+      "min": [
+        -0.12783898413181305,
+        0.0015000012516975386,
+        -0.02677137218415737
+      ],
+      "max": [
+        0.12783898413181305,
+        0.08849999874830246,
+        0.019127842038869858
+      ],
+      "size": [
+        0.2556779682636261,
+        0.08699999749660492,
+        0.04589921422302723
+      ],
+      "meshes": 2,
+      "triangles": 3168,
+      "calls": 2,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-mask",
+        "wardrobe-mask-cheek--1",
+        "wardrobe-mask-ear--1",
+        "wardrobe-mask-cheek-1",
+        "wardrobe-mask-ear-1"
+      ],
+      "textures": 4,
+      "palette": [
+        "#9abfc5",
+        "#c7dbd9",
+        "#d4e3de",
+        "#77979d"
+      ],
+      "wardrobe": [
+        {
+          "name": "asset-mask",
+          "fabric": "#9abfc5",
+          "wrapDepth": 0,
+          "earDepth": 0.024,
+          "earLift": 0.02
+        }
+      ],
+      "anchors": [
+        {
+          "name": "wardrobe-mask-cheek--1",
+          "at": [
+            -0.085,
+            0.045,
+            0
+          ]
+        },
+        {
+          "name": "wardrobe-mask-ear--1",
+          "at": [
+            -0.1225,
+            0.051,
+            -0.0228
+          ]
+        },
+        {
+          "name": "wardrobe-mask-cheek-1",
+          "at": [
+            0.085,
+            0.045,
+            0
+          ]
+        },
+        {
+          "name": "wardrobe-mask-ear-1",
+          "at": [
+            0.1225,
+            0.051,
+            -0.0228
+          ]
+        }
+      ]
+    },
+    "grip-hand": {
+      "id": "grip-hand",
+      "min": [
+        -0.048443157225847244,
+        0.002999999195337298,
+        -0.046460866928100586
+      ],
+      "max": [
+        0.032999999821186066,
+        0.08100000080466271,
+        0.023531075567007065
+      ],
+      "size": [
+        0.08144315704703331,
+        0.07800000160932541,
+        0.06999194249510765
+      ],
+      "meshes": 1,
+      "triangles": 2864,
+      "calls": 1,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-grip-hand"
+      ],
+      "textures": 4,
+      "palette": [
+        "#70a9b7",
+        "#94bdc2"
+      ],
+      "wardrobe": [
+        {
+          "name": "asset-grip-hand",
+          "gloved": true,
+          "color": "#70a9b7",
+          "pose": "grip"
+        }
+      ],
+      "anchors": []
+    },
+    "bare-grip-hand": {
+      "id": "bare-grip-hand",
+      "min": [
+        -0.048443157225847244,
+        0.002999999195337298,
+        -0.046460866928100586
+      ],
+      "max": [
+        0.032999999821186066,
+        0.08100000080466271,
+        0.024527480825781822
+      ],
+      "size": [
+        0.08144315704703331,
+        0.07800000160932541,
+        0.07098834775388241
+      ],
+      "meshes": 1,
+      "triangles": 2624,
+      "calls": 1,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-grip-hand"
+      ],
+      "textures": 4,
+      "palette": [
+        "#dfb197",
+        "#bb8f79"
+      ],
+      "wardrobe": [
+        {
+          "name": "asset-grip-hand",
+          "gloved": false,
+          "color": "#dfb197",
+          "pose": "grip"
+        }
+      ],
+      "anchors": []
+    }
+  }
+}

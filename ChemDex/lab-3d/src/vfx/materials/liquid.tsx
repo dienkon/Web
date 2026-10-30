@@ -14,6 +14,9 @@ import { PourController } from '../../pour/controller/PourController';
 import { vfxBus } from '../bus';
 import { reactionSimulationEngine } from '../reactions/ReactionSimulationEngine';
 import { solveLevel } from '../../pour/physics/retained';
+import { stockImmersion } from '../../science/stockImmersion';
+import { solveStockLiquidSurface } from '../../science/stockLiquidSurface';
+import { liquidInventoryMass } from '../../handling/solidOccupancy';
 import { getVesselProfile } from '../../pour/physics/profiles';
 
 import { VesselType } from '../../types/chemistry';
@@ -21,6 +24,8 @@ import { liquidGeometry, liquidLevelForVolume, vesselInterior } from '../../scie
 import { isSodiumWaterReaction } from '../../science/sodiumWater';
 import { currentMixedPrecipitateTurbidity } from '../../simulation/render/precipitateTurbidity';
 import { supernatantColor } from '../../science/supernatantAppearance';
+import { liquidOpacity } from '../../science/liquidOptics';
+import { createLiquidVolumeGeometry, liquidMeshLayout, liquidMeshOrigin } from './liquidGeometry';
 
 interface LiquidProps {
   vesselId: string;
@@ -49,8 +54,13 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
   colorOverride,
 }: LiquidProps) {
   const baseY = liquidGeometry(vesselType).floorY;
+  const initialColor = useMemo(() => {
+    const vessel = useAppStore.getState().vessels[vesselId];
+    return colorOverride || (vessel && supernatantColor(vessel.contents, vessel.volume_ml))
+      || vessel?.liquidColor || '#ffffff';
+  }, [vesselId, colorOverride]);
   const meshGroupRef = useRef<THREE.Group>(null);
-  const liquidMeshRef = useRef<THREE.Mesh>(null);
+  const liquidMeshRef = useRef<THREE.Mesh<THREE.LatheGeometry>>(null);
   const meniscusMeshRef = useRef<THREE.Mesh>(null);
   const causticMeshRef = useRef<THREE.Mesh>(null);
 
@@ -85,12 +95,15 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
   // Dynamic clipping plane dedicated to this vessel's fluid surface
   const clippingPlane = useMemo(() => new THREE.Plane(new THREE.Vector3(0, -1, 0), 0), []);
   const bottomPlane = useMemo(() => new THREE.Plane(new THREE.Vector3(0, 1, 0), 1e6), []);
-  const planeCache = useRef<{ profile: object; tilt: number; volume: number; offset: number; bottom: number; lowerOffset: number } | null>(null);
+  const planeCache = useRef<{ profile: object; tilt: number; volume: number; offset: number; depth: number; bottom: number; lowerOffset: number; stock: object | null; nx: number; nz: number } | null>(null);
 
-  // Pre-generate lathe geometry for this vessel type
-  const innerGeom = useMemo(() => new THREE.LatheGeometry(vesselInterior(vesselType).points
-    .map(([r, y]) => new THREE.Vector2(r, y)), 32), [vesselType]);
-  useEffect(() => () => innerGeom.dispose(), [innerGeom]);
+  const geometryProfile = useMemo(() => getVesselProfile(vesselType), [vesselType]);
+  const innerGeometries = useMemo(() => {
+    const layout = liquidMeshLayout(geometryProfile, 0, baseY, 0);
+    return new Map([[layout.key, createLiquidVolumeGeometry(geometryProfile, layout)]]);
+  }, [geometryProfile, baseY]);
+  const innerGeom = innerGeometries.get('64:0:-1')!;
+  useEffect(() => () => { for (const geometry of innerGeometries.values()) geometry.dispose(); }, [innerGeometries]);
 
   // Caustic texture
   const causticTex = useMemo(() => getCausticTexture(256), []);
@@ -101,13 +114,16 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     uFillY: { value: baseY },
     uBaseY: { value: baseY },
     uSurfaceRadius: { value: 0.5 },
+    uSurfaceWaveLimit: { value: 0 },
     uWorldToVessel: { value: new THREE.Matrix4() },
+    uBodyPlane: { value: new THREE.Vector4(0, 1, 0, 0) },
+    uBodyLowerPlane: { value: new THREE.Vector4(0, 0, 0, -1e20) },
     uInteriorCount: { value: vesselInterior(vesselType).points.length },
     uInterior: { value: Array.from({ length: 32 }, (_, i) => {
       const point = vesselInterior(vesselType).points[i] ?? vesselInterior(vesselType).points.at(-1)!;
       return new THREE.Vector2(point[0], point[1]);
     }) },
-    uLiquidColor: { value: new THREE.Color('#38bdf8') },
+    uLiquidColor: { value: new THREE.Color(initialColor) },
     uSuspensionColor: { value: new THREE.Color('#f8fafc') },
     uTurbidity: { value: 0.0 }, // 0 = clear, 1 = milky BaSO4/AgCl
     uBoilingIntensity: { value: 0.0 },
@@ -124,31 +140,34 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     uReactionProgress: { value: 0.0 },
     uReactionInitialColor: { value: new THREE.Color('#38bdf8') },
     uReactionTargetColor: { value: new THREE.Color('#38bdf8') },
-  }), [baseY, vesselType]);
+  }), [baseY, vesselType, initialColor]);
 
   // Liquid Material with physical absorption, clearcoat, and turbidity
   const liquidMaterial = useMemo(() => {
     const mat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color('#38bdf8'),
+      color: new THREE.Color(initialColor),
       roughness: 0.08,
-      metalness: 0.02,
+      metalness: 0,
       specularIntensity: 0.9,
       clearcoat: 0.8,
       clearcoatRoughness: 0.06,
       transparent: true,
-      opacity: 0.85,
+      opacity: 0.12,
       clippingPlanes: [clippingPlane, bottomPlane],
       clipShadows: true,
       side: THREE.DoubleSide,
       depthWrite: false,
     });
 
-    mat.customProgramCacheKey = () => 'chemlab_realistic_liquid_v2';
+    mat.customProgramCacheKey = () => 'chemlab_realistic_liquid_v4_local_clip';
 
     mat.onBeforeCompile = (shader) => {
       shader.uniforms.uTime = uniforms.uTime;
       shader.uniforms.uFillY = uniforms.uFillY;
       shader.uniforms.uBaseY = uniforms.uBaseY;
+      shader.uniforms.uWorldToVessel = uniforms.uWorldToVessel;
+      shader.uniforms.uBodyPlane = uniforms.uBodyPlane;
+      shader.uniforms.uBodyLowerPlane = uniforms.uBodyLowerPlane;
       shader.uniforms.uLiquidColor = uniforms.uLiquidColor;
       shader.uniforms.uSuspensionColor = uniforms.uSuspensionColor;
       shader.uniforms.uTurbidity = uniforms.uTurbidity;
@@ -164,6 +183,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
 
       shader.vertexShader = `
         varying vec3 vWorldPosition;
+        varying vec3 vLiquidModelPosition;
         ${shader.vertexShader}
       `;
       shader.vertexShader = shader.vertexShader.replace(
@@ -171,6 +191,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
         `
         #include <worldpos_vertex>
         vWorldPosition = (modelMatrix * vec4(transformed, 1.0)).xyz;
+        vLiquidModelPosition = transformed;
         `
       );
 
@@ -178,6 +199,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
         uniform float uTime;
         uniform float uFillY;
         uniform float uBaseY;
+        uniform mat4 uWorldToVessel;
         uniform vec3 uLiquidColor;
         uniform vec3 uSuspensionColor;
         uniform float uTurbidity;
@@ -191,26 +213,36 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
         uniform vec3 uReactionInitialColor;
         uniform vec3 uReactionTargetColor;
         varying vec3 vWorldPosition;
+        varying vec3 vLiquidModelPosition;
+        uniform vec4 uBodyPlane;
+        uniform vec4 uBodyLowerPlane;
         ${NOISE_GLSL}
         ${shader.fragmentShader}
       `;
 
+      // Keep the same physical planes on the material for contacts/audits,
+      // but evaluate GPU clipping near the support point. Subtracting large
+      // view/world heights loses a thin upright layer in Float32 arithmetic.
+      shader.fragmentShader = shader.fragmentShader.replace('#include <clipping_planes_fragment>', `
+        if (dot(uBodyPlane.xyz, vLiquidModelPosition) > uBodyPlane.w) discard;
+        if (dot(uBodyLowerPlane.xyz, vLiquidModelPosition) < uBodyLowerPlane.w) discard;
+      `);
+
       shader.fragmentShader = shader.fragmentShader.replace(
-        '#include <dithering_fragment>',
+        '#include <tonemapping_fragment>',
         `
-        #include <dithering_fragment>
+        vec3 vesselPosition = (uWorldToVessel * vec4(vWorldPosition, 1.0)).xyz;
         vec3 vDir = normalize(vViewPosition);
         float rim = 1.0 - abs(dot(vDir, normal));
         rim = pow(rim, 2.0);
 
-        // Edge internal glow highlight
-        gl_FragColor.rgb += uLiquidColor * rim * 0.35;
-        gl_FragColor.a = max(gl_FragColor.a, 0.78);
+        // A small reflected edge, never an opaque or emissive volume of water.
+        gl_FragColor.a = min(0.98, gl_FragColor.a + rim * 0.08);
 
         // Dynamic downward convective color dispersion front during chemical reactions
         if (uHasActiveReaction > 0.01) {
           float liquidHeight = max(0.02, uFillY - uBaseY);
-          float normH = clamp((vWorldPosition.y - uBaseY) / liquidHeight, 0.0, 1.0);
+          float normH = clamp((vesselPosition.y - uBaseY) / liquidHeight, 0.0, 1.0);
 
           // Front descends from 1.05 down to -0.15 as progress increases
           float frontPos = 1.05 - uReactionProgress * 1.25;
@@ -237,30 +269,31 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
         // Turbidity Tyndall scattering for precipitates (BaSO4, AgCl, Cu(OH)2, PbI2)
         if (uTurbidity > 0.01) {
           vec3 milkyScattering = uSuspensionColor;
-          float depthFactor = clamp((uFillY - vWorldPosition.y) * 1.5, 0.0, 1.0);
+          float depthFactor = clamp((uFillY - vesselPosition.y) * 1.5, 0.0, 1.0);
           gl_FragColor.rgb = mix(gl_FragColor.rgb, milkyScattering, uTurbidity * 0.75 * depthFactor);
           gl_FragColor.a = mix(gl_FragColor.a, 0.98, uTurbidity);
         }
 
-        #include <colorspace_fragment>
+        // Three.js applies the display transform once, after all linear mixing.
+        #include <tonemapping_fragment>
         `
       );
     };
 
     return mat;
-  }, [clippingPlane, bottomPlane, uniforms]);
+  }, [clippingPlane, bottomPlane, uniforms, initialColor]);
 
   // Meniscus Surface Disk Material
   const meniscusMaterial = useMemo(() => {
     const mat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color('#38bdf8'),
+      color: new THREE.Color(initialColor),
       roughness: 0.06,
-      metalness: 0.02,
+      metalness: 0,
       specularIntensity: 0.95,
       clearcoat: 0.9,
       clearcoatRoughness: 0.05,
       transparent: true,
-      opacity: 0.92,
+      opacity: 0.18,
       side: THREE.DoubleSide,
       depthWrite: false,
     });
@@ -270,6 +303,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       shader.uniforms.uBoilingIntensity = uniforms.uBoilingIntensity;
       shader.uniforms.uDynamicRipple = uniforms.uDynamicRipple;
       shader.uniforms.uSurfaceRadius = uniforms.uSurfaceRadius;
+      shader.uniforms.uSurfaceWaveLimit = uniforms.uSurfaceWaveLimit;
       shader.uniforms.uSloshSpeed = uniforms.uSloshSpeed;
       shader.uniforms.uSloshAngle = uniforms.uSloshAngle;
       shader.uniforms.uPourAgitation = uniforms.uPourAgitation;
@@ -283,6 +317,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
         uniform float uBoilingIntensity;
         uniform float uDynamicRipple;
         uniform float uSurfaceRadius;
+        uniform float uSurfaceWaveLimit;
         uniform float uSloshSpeed;
         uniform float uSloshAngle;
         uniform float uPourAgitation;
@@ -349,12 +384,18 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
           float wave = snoise(vec3(position.xy * 8.0, uTime * 6.0)) * totalAgitation * 0.035;
           transformed.z += wave;
         }
+        // Optical deformation has no inventory. Bound its amplitude by the
+        // available depth, so it vanishes with a thin remaining layer.
+        transformed.z = position.z + clamp(transformed.z - position.z, -uSurfaceWaveLimit, uSurfaceWaveLimit);
         `
       );
     };
 
     return mat;
-  }, [uniforms]);
+  }, [uniforms, initialColor]);
+
+  useEffect(() => () => { liquidMaterial.dispose(); meniscusMaterial.dispose(); },
+    [liquidMaterial, meniscusMaterial]);
 
   const previousFillFraction = useRef<number | null>(null);
   const simulationTime = useRef(0);
@@ -375,7 +416,12 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     dynamicRippleRef.current = Math.max(0, dynamicRippleRef.current - dt * 3.0);
     uniforms.uDynamicRipple.value = dynamicRippleRef.current;
 
-    const volume = volumeOverride_ml ?? liquidSurfaceVolume(vessel);
+    const stockDensity = vessel.volume_ml > 0 ? liquidInventoryMass(vessel) / vessel.volume_ml : 1;
+    const stock = stockImmersion(vessel, stockDensity);
+    // Layer overrides are CUMULATIVE LIQUID inventory, not geometric volume.
+    // Keep the original phase ledgers/densities while solving each interface.
+    const upright = stock ? solveStockLiquidSurface(vessel, [0, 1, 0], stockDensity, volumeOverride_ml) : null;
+    const volume = upright?.grossVolume_ml ?? (volumeOverride_ml ?? liquidSurfaceVolume(vessel));
     const capacity = vessel.capacity_ml ?? capacity_ml;
     const targetFillFraction = Math.max(0, Math.min(1.0, volume / capacity));
 
@@ -394,7 +440,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     });
 
     // Hide fluid when empty, shattered, or if vessel only contains dry solids without solvent
-    if (vessel.isShattered || fillFraction <= 0.002 || volume <= 0.05 || (!hasLiquidSubstance && !vessel.liquidColor)) {
+    if (vessel.isShattered || !(volume > 0) || (!hasLiquidSubstance && !vessel.liquidColor)) {
       if (liquidMeshRef.current) liquidMeshRef.current.visible = false;
       if (meniscusMeshRef.current) meniscusMeshRef.current.visible = false;
       if (causticMeshRef.current) causticMeshRef.current.visible = false;
@@ -413,7 +459,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     uniforms.uSurfaceRadius.value = surfaceR;
 
     // Update liquid color and turbidity
-    const dissolvedColor = vessel.precipitateSubstance ? supernatantColor(vessel.contents, vessel.volume_ml) : null;
+    const dissolvedColor = supernatantColor(vessel.contents, vessel.volume_ml);
     const liquidColorHex = colorOverride || dissolvedColor || vessel.liquidColor || '#38bdf8';
     _scratchTargetColor.set(liquidColorHex);
     uniforms.uLiquidColor.value.lerp(_scratchTargetColor, frameSmoothing(0.1, dt));
@@ -422,14 +468,14 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     meniscusMaterial.color.copy(uniforms.uLiquidColor.value);
 
     // Dynamic Turbidity & Cloudiness from physical simulation and dedicated reaction controller
-    const simMgr = SimulationEngine.getManager(vesselId);
+    const simMgr = SimulationEngine.findManager(vesselId);
     const simRuntime = reactionSimulationEngine.getRuntime(vesselId);
     let targetTurbidity = (vessel.turbidity !== undefined && vessel.turbidity > 0)
       ? vessel.turbidity
       : (vessel.hasPrecipitate ? 0.85 : 0.0);
-    const suspensionTurbidity = currentMixedPrecipitateTurbidity(vessel, simMgr);
+    const suspensionTurbidity = simMgr ? currentMixedPrecipitateTurbidity(vessel, simMgr) : null;
     uniforms.uSuspensionColor.value.set(suspensionTurbidity !== null
-      ? simMgr.suspensionColor : liquidColorHex);
+      ? simMgr!.suspensionColor : liquidColorHex);
     if (suspensionTurbidity !== null) targetTurbidity = suspensionTurbidity;
     if (suspensionTurbidity === null && simRuntime && simRuntime.progress < 1.0) {
       // Allow controller-driven turbidity (including stage-2 redissolution in CuSO4+NH3 and Al(OH)3+NaOH)
@@ -440,6 +486,8 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       }
     }
     uniforms.uTurbidity.value = THREE.MathUtils.lerp(uniforms.uTurbidity.value, targetTurbidity, 1 - Math.exp(-5 * dt));
+    liquidMaterial.opacity = liquidOpacity(liquidColorHex, uniforms.uTurbidity.value);
+    meniscusMaterial.opacity = liquidOpacity(liquidColorHex, uniforms.uTurbidity.value, true);
 
     // Dynamic Boiling intensity from thermal phase & physical bubble engine
     // Latent-heat/pressure-aware thermal state owns boiling. Temperature alone
@@ -542,13 +590,46 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     const tilt = Math.atan2(Math.hypot(localUpNormal.x, localUpNormal.z), localUpNormal.y);
     const profile = getVesselProfile(vesselType, capacity);
     const cached = planeCache.current;
-    if (!cached || cached.profile !== profile || cached.tilt !== tilt || cached.volume !== volume || cached.bottom !== bottomVolume_ml) {
-      planeCache.current = { profile, tilt, volume, bottom: bottomVolume_ml,
-        offset: tilt < 1e-8 ? fillY : solveLevel(profile, tilt, volume).c,
-        lowerOffset: bottomVolume_ml > 0 ? tilt < 1e-8 ? liquidLevelForVolume(vesselType, bottomVolume_ml, capacity)
-          : solveLevel(profile, tilt, bottomVolume_ml).c : 0 };
+    if (!cached || cached.profile !== profile || cached.tilt !== tilt || cached.volume !== volume || cached.bottom !== bottomVolume_ml
+      || cached.stock !== stock || (stock && (cached.nx !== localUpNormal.x || cached.nz !== localUpNormal.z))) {
+      const solved = (stock ? solveStockLiquidSurface(vessel, localUpNormal.toArray(), stockDensity, volumeOverride_ml) : null)
+        ?? (tilt < 1e-8 ? { c: fillY, depth: fillY - baseY } : solveLevel(profile, tilt, volume));
+      const lowerSolved = bottomVolume_ml > 0 && stock
+        ? solveStockLiquidSurface(vessel, localUpNormal.toArray(), stockDensity, bottomVolume_ml) : null;
+      planeCache.current = { profile, tilt, volume, bottom: bottomVolume_ml, stock, nx: localUpNormal.x, nz: localUpNormal.z,
+        offset: solved.c, depth: solved.depth,
+        lowerOffset: lowerSolved?.c ?? (bottomVolume_ml > 0 ? tilt < 1e-8 ? liquidLevelForVolume(vesselType, bottomVolume_ml, capacity)
+          : solveLevel(profile, tilt, bottomVolume_ml).c : 0) };
     }
     const plane = planeCache.current!;
+    const layout = liquidMeshLayout(profile, tilt, plane.offset, plane.depth);
+    if (liquidMeshRef.current && liquidMeshRef.current.geometry.userData.liquid.layoutKey !== layout.key) {
+      let geometry = innerGeometries.get(layout.key);
+      if (!geometry) {
+        geometry = createLiquidVolumeGeometry(profile, layout);
+        innerGeometries.set(layout.key, geometry);
+      }
+      liquidMeshRef.current.geometry = geometry;
+      // Keep the base plus two active resolutions. Tiny horizontal caps can
+      // require dense rings; retain adjacent levels without caching every
+      // resolution the vessel has ever visited.
+      for (const [key, old] of innerGeometries) {
+        if (innerGeometries.size <= 3) break;
+        if (key !== '64:0:-1' && key !== layout.key) { innerGeometries.delete(key); old.dispose(); }
+      }
+    }
+    const horizontal = Math.hypot(localUpNormal.x, localUpNormal.z);
+    const { y: originY, z: originZ } = liquidMeshOrigin(profile, layout);
+    if (liquidMeshRef.current) {
+      const rotation = horizontal > 1e-12 ? Math.atan2(-localUpNormal.x, -localUpNormal.z) : 0;
+      liquidMeshRef.current.rotation.y = rotation;
+      liquidMeshRef.current.position.set(originZ * Math.sin(rotation), originY, originZ * Math.cos(rotation));
+    }
+    uniforms.uBodyPlane.value.set(0, localUpNormal.y, -horizontal, plane.offset - localUpNormal.y * originY + horizontal * originZ);
+    if (bottomVolume_ml > 0) uniforms.uBodyLowerPlane.value.set(0, localUpNormal.y, -horizontal, plane.lowerOffset - localUpNormal.y * originY + horizontal * originZ);
+    else uniforms.uBodyLowerPlane.value.set(0, 0, 0, -1e20);
+    uniforms.uSurfaceWaveLimit.value = Math.max(0, Math.min(profile.H * 0.025,
+      (bottomVolume_ml > 0 ? plane.offset - plane.lowerOffset : plane.depth) * 0.05));
     const localSurfPt = localUpNormal.clone().multiplyScalar(plane.offset);
     const worldSurfPt = localSurfPt.clone().applyMatrix4(meshGroupRef.current.matrixWorld);
     clippingPlane.setFromNormalAndCoplanarPoint(worldGravityNormal, worldSurfPt);
@@ -560,7 +641,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
 
     // Orient meniscus surface disk according to local upward gravity normal
     if (meniscusMeshRef.current) {
-      if (volume <= 0.05 || fillFraction <= 0.001) {
+      if (!(volume > 0)) {
         meniscusMeshRef.current.visible = false;
       } else {
         meniscusMeshRef.current.visible = true;
@@ -580,7 +661,12 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     // Update caustic projector quad under vessel
     if (causticMeshRef.current) {
       causticMeshRef.current.visible = bottomVolume_ml <= 0;
-      causticMeshRef.current.position.set(0, -1.155 - vessel.position[1], 0);
+      // This projection belongs on the world bench even when the body has
+      // a capacity-dependent scale or is tilted for pouring.
+      worldSurfPt.set(vessel.position[0], -1.155, vessel.position[2]);
+      causticMeshRef.current.position.copy(meshGroupRef.current.worldToLocal(worldSurfPt));
+      causticMeshRef.current.quaternion.copy(invContainerQuat);
+      causticMeshRef.current.rotateX(-Math.PI / 2);
       const causticIntensity = Math.min(1.0, fillFraction * 1.5);
       const mat = causticMeshRef.current.material as THREE.MeshBasicMaterial;
       mat.color.copy(uniforms.uLiquidColor.value);
@@ -593,6 +679,8 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       {/* Liquid Body Mesh with Clipping Plane */}
       <mesh
         ref={liquidMeshRef}
+        name={`liquid_volume_${vesselId}`}
+        position={[0, baseY, 0]}
         geometry={innerGeom}
         material={liquidMaterial}
         renderOrder={2}
@@ -601,6 +689,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       {/* Surface Meniscus Disc */}
       <mesh
         ref={meniscusMeshRef}
+        name={`liquid_surface_${vesselId}`}
         material={meniscusMaterial}
         renderOrder={3}
       >

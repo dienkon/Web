@@ -1,0 +1,61 @@
+{
+  "checkedAt": "2026-10-28T13:40:10.646Z",
+  "browser": "156.0.8078.48",
+  "build": "production",
+  "checks": [
+    {
+      "name": "Lab: all 17 family filters and bounded pagination",
+      "familyCount": 17
+    },
+    {
+      "name": "Lab: correct polyvalent counterions, structured equation and source links",
+      "equation": "Ba(NO3)2(aq) + K2SO4(aq) → BaSO4(s) + 2KNO3(aq)"
+    },
+    {
+      "name": "Lab: analyze four-step cycle and generate sulfur chain"
+    },
+    {
+      "name": "Lab: load, filter and open the real three-step chain library",
+      "chainCount": 5740
+    },
+    {
+      "name": "Lab: unsupported transitions produce no invented reaction"
+    },
+    {
+      "name": "Lab: original lesson library remains available"
+    },
+    {
+      "name": "Lab: catalog and chain controls are clickable at 390px without document overflow",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "Chain tool: exact iron intermediates and source-backed LaTeX with APIs blocked"
+    },
+    {
+      "name": "Chain tool: generation and explicit unknown state without AI fallback"
+    },
+    {
+      "name": "HTTP: /api/gemini/chain/",
+      "steps": 3,
+      "source": "catalog"
+    },
+    {
+      "name": "HTTP: /api/analyze",
+      "steps": 3,
+      "source": "catalog"
+    },
+    {
+      "name": "HTTP: /api/generate",
+      "steps": 3,
+      "source": "catalog"
+    }
+  ],
+  "errors": [],
+  "uiApiRequests": [],
+  "counts": {
+    "reactions": 1299,
+    "netIonic": 378,
+    "threeStepChains": 5740
+  }
+}

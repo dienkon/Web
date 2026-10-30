@@ -1,0 +1,5967 @@
+{
+  "checkedAt": "2026-10-28T14:49:52.540Z",
+  "origin": "http://127.0.0.1:6773",
+  "screenshots": [
+    {
+      "name": "stocks-01",
+      "specimens": [
+        {
+          "formula": "H2O"
+        },
+        {
+          "formula": "HCl (dil)"
+        },
+        {
+          "formula": "H2SO4 (dil)"
+        },
+        {
+          "formula": "H2SO4 (conc)"
+        },
+        {
+          "formula": "NaOH"
+        },
+        {
+          "formula": "Phenolphthalein"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "H2O · l · 30 mL",
+          "HCl (dil) · aq · 30 mL",
+          "H2SO4 (dil) · aq · 30 mL",
+          "H2SO4 (conc) · aq · 30 mL",
+          "NaOH · aq · 30 mL",
+          "Phenolphthalein · aq · 30 mL"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-2-0",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "moles": 1.665278934221482,
+                "mass_g": 30,
+                "volume_ml": 30,
+                "concentration_M": 55.50929780738274
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-2-1",
+            "contents": [
+              {
+                "formula": "HCl (dil)",
+                "phase": "aq",
+                "moles": 0.03,
+                "mass_g": 1.0937999999999999,
+                "volume_ml": 30,
+                "concentration_M": 1
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 29.5062,
+                "moles": 1.6378684429641965,
+                "concentration_M": 54.59561476547322
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-2-2",
+            "contents": [
+              {
+                "formula": "H2SO4 (dil)",
+                "phase": "aq",
+                "moles": 0.03,
+                "mass_g": 2.9423699999999995,
+                "volume_ml": 30,
+                "concentration_M": 1
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 28.85763,
+                "moles": 1.6018667776852622,
+                "concentration_M": 53.39555925617541
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-2-3",
+            "contents": [
+              {
+                "formula": "H2SO4 (conc)",
+                "phase": "aq",
+                "moles": 0.54,
+                "mass_g": 52.96266,
+                "volume_ml": 30,
+                "concentration_M": 18.000000000000004
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 2.237340000000003,
+                "moles": 0.12419317235636987,
+                "concentration_M": 4.139772411878996
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-2-4",
+            "contents": [
+              {
+                "formula": "NaOH",
+                "phase": "aq",
+                "moles": 0.03,
+                "mass_g": 1.19991,
+                "volume_ml": 30,
+                "concentration_M": 1
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30.000090000000004,
+                "moles": 1.665283930058285,
+                "concentration_M": 55.509464335276164
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-2-5",
+            "contents": [
+              {
+                "formula": "Phenolphthalein",
+                "phase": "aq",
+                "moles": 0.0015,
+                "mass_g": 0.47748,
+                "volume_ml": 30,
+                "concentration_M": 0.05
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 28.02252,
+                "moles": 1.5555104079933388,
+                "concentration_M": 51.8503469331113
+              }
+            ],
+            "volume_ml": 30
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-2-0",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-2-1",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-2-2",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-2-3",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-2-4",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-2-5",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        }
+      ]
+    },
+    {
+      "name": "stocks-02",
+      "specimens": [
+        {
+          "formula": "CuSO4"
+        },
+        {
+          "formula": "Fe"
+        },
+        {
+          "formula": "Cu"
+        },
+        {
+          "formula": "Zn"
+        },
+        {
+          "formula": "Mg"
+        },
+        {
+          "formula": "CaCO3"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "CuSO4 · aq · 30 mL",
+          "Fe · s · 5 g",
+          "Cu · s · 5 g",
+          "Zn · s · 5 g",
+          "Mg · s · 5 g",
+          "CaCO3 · s · 5 g"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-3-0",
+            "contents": [
+              {
+                "formula": "CuSO4",
+                "phase": "aq",
+                "moles": 0.015,
+                "mass_g": 2.394135,
+                "volume_ml": 30,
+                "concentration_M": 0.5
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 29.105865,
+                "moles": 1.615646128226478,
+                "concentration_M": 53.854870940882606
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-3-1",
+            "contents": [
+              {
+                "formula": "Fe",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.08953353030710001,
+                "initialMass_g": 5,
+                "initialMoles": 0.08953353030710001
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-3-2",
+            "contents": [
+              {
+                "formula": "Cu",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.07868315865672111,
+                "initialMass_g": 5,
+                "initialMoles": 0.07868315865672111
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-3-3",
+            "contents": [
+              {
+                "formula": "Zn",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.07647598654022637,
+                "initialMass_g": 5,
+                "initialMoles": 0.07647598654022637
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-3-4",
+            "contents": [
+              {
+                "formula": "Mg",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.20571898786257972,
+                "initialMass_g": 5,
+                "initialMoles": 0.20571898786257972
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-3-5",
+            "contents": [
+              {
+                "formula": "CaCO3",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.04995703694822453,
+                "initialMass_g": 5,
+                "initialMoles": 0.04995703694822453
+              }
+            ],
+            "volume_ml": 0
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-3-0",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-3-1",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-3-2",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-3-3",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-3-4",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-3-5",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        }
+      ]
+    },
+    {
+      "name": "stocks-03",
+      "specimens": [
+        {
+          "formula": "NaCl"
+        },
+        {
+          "formula": "NaNO3"
+        },
+        {
+          "formula": "AgNO3"
+        },
+        {
+          "formula": "BaCl2"
+        },
+        {
+          "formula": "Na2SO4"
+        },
+        {
+          "formula": "Na2CO3"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "NaCl · s · 5 g",
+          "NaNO3 · aq · 30 mL",
+          "AgNO3 · aq · 30 mL",
+          "BaCl2 · aq · 30 mL",
+          "Na2SO4 · aq · 30 mL",
+          "Na2CO3 · aq · 30 mL"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-4-0",
+            "contents": [
+              {
+                "formula": "NaCl",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.08555783709787818,
+                "initialMass_g": 5,
+                "initialMoles": 0.08555783709787818
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-4-1",
+            "contents": [
+              {
+                "formula": "NaNO3",
+                "phase": "aq",
+                "moles": 0.03,
+                "mass_g": 2.5496999999999996,
+                "volume_ml": 30,
+                "concentration_M": 1
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 28.9503,
+                "moles": 1.6070108243130723,
+                "concentration_M": 53.567027477102414
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-4-2",
+            "contents": [
+              {
+                "formula": "AgNO3",
+                "phase": "aq",
+                "moles": 0.003,
+                "mass_g": 0.50961,
+                "volume_ml": 30,
+                "concentration_M": 0.1
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30.090390000000003,
+                "moles": 1.6702964196502916,
+                "concentration_M": 55.67654732167639
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-4-3",
+            "contents": [
+              {
+                "formula": "BaCl2",
+                "phase": "aq",
+                "moles": 0.006,
+                "mass_g": 1.24938,
+                "volume_ml": 30,
+                "concentration_M": 0.2
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 29.650620000000004,
+                "moles": 1.645885095753539,
+                "concentration_M": 54.86283652511796
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-4-4",
+            "contents": [
+              {
+                "formula": "Na2SO4",
+                "phase": "aq",
+                "moles": 0.006,
+                "mass_g": 0.85224,
+                "volume_ml": 30,
+                "concentration_M": 0.2
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30.047760000000004,
+                "moles": 1.667930058284763,
+                "concentration_M": 55.597668609492096
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-4-5",
+            "contents": [
+              {
+                "formula": "Na2CO3",
+                "phase": "aq",
+                "moles": 0.015,
+                "mass_g": 1.5898499999999998,
+                "volume_ml": 30,
+                "concentration_M": 0.5
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 29.610150000000004,
+                "moles": 1.6436386344712741,
+                "concentration_M": 54.7879544823758
+              }
+            ],
+            "volume_ml": 30
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-4-0",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-4-1",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-4-2",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-4-3",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-4-4",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-4-5",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        }
+      ]
+    },
+    {
+      "name": "stocks-04",
+      "specimens": [
+        {
+          "formula": "KI"
+        },
+        {
+          "formula": "Pb(NO3)2"
+        },
+        {
+          "formula": "H2O2 (30%)"
+        },
+        {
+          "formula": "MnO2"
+        },
+        {
+          "formula": "KMnO4"
+        },
+        {
+          "formula": "KMnO4 (solid)"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "KI · aq · 30 mL",
+          "Pb(NO3)2 · aq · 30 mL",
+          "H2O2 (30%) · aq · 30 mL",
+          "MnO2 · s · 5 g",
+          "KMnO4 · aq · 30 mL",
+          "KMnO4 (solid) · s · 5 g"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-5-0",
+            "contents": [
+              {
+                "formula": "KI",
+                "phase": "aq",
+                "moles": 0.015,
+                "mass_g": 2.4899999999999998,
+                "volume_ml": 30,
+                "concentration_M": 0.5
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 29.01,
+                "moles": 1.6103247293921732,
+                "concentration_M": 53.67749097973911
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-5-1",
+            "contents": [
+              {
+                "formula": "Pb(NO3)2",
+                "phase": "aq",
+                "moles": 0.006,
+                "mass_g": 1.9872,
+                "volume_ml": 30,
+                "concentration_M": 0.2
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 29.2128,
+                "moles": 1.6215820149875104,
+                "concentration_M": 54.05273383291701
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-5-2",
+            "contents": [
+              {
+                "formula": "H2O2 (30%)",
+                "phase": "aq",
+                "moles": 0.294,
+                "mass_g": 10.00041,
+                "volume_ml": 30,
+                "concentration_M": 9.799999999999999
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 23.299590000000002,
+                "moles": 1.2933438800999169,
+                "concentration_M": 43.11146266999723
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-5-3",
+            "contents": [
+              {
+                "formula": "MnO2",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.05751092707614447,
+                "initialMass_g": 5,
+                "initialMoles": 0.05751092707614447
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-5-4",
+            "contents": [
+              {
+                "formula": "KMnO4",
+                "phase": "aq",
+                "moles": 0.0015,
+                "mass_g": 0.23705099999999998,
+                "volume_ml": 30,
+                "concentration_M": 0.05
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30.062949,
+                "moles": 1.668773189009159,
+                "concentration_M": 55.62577296697197
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-5-5",
+            "contents": [
+              {
+                "formula": "KMnO4 (solid)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.0316387612792184,
+                "initialMass_g": 5,
+                "initialMoles": 0.0316387612792184
+              }
+            ],
+            "volume_ml": 0
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-5-0",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-5-1",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-5-2",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-5-3",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-5-4",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-5-5",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        }
+      ]
+    },
+    {
+      "name": "stocks-05",
+      "specimens": [
+        {
+          "formula": "K2Cr2O7"
+        },
+        {
+          "formula": "K2Cr2O7 (solid)"
+        },
+        {
+          "formula": "NH3"
+        },
+        {
+          "formula": "HNO3 (conc)"
+        },
+        {
+          "formula": "I2"
+        },
+        {
+          "formula": "Na"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "K2Cr2O7 · aq · 30 mL",
+          "K2Cr2O7 (solid) · s · 5 g",
+          "NH3 · aq · 30 mL",
+          "HNO3 (conc) · aq · 30 mL",
+          "I2 · s · 5 g",
+          "Na · s · 0.05 g"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-6-0",
+            "contents": [
+              {
+                "formula": "K2Cr2O7",
+                "phase": "aq",
+                "moles": 0.003,
+                "mass_g": 0.882555,
+                "volume_ml": 30,
+                "concentration_M": 0.1
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 29.717445,
+                "moles": 1.649594504579517,
+                "concentration_M": 54.986483485983904
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-6-1",
+            "contents": [
+              {
+                "formula": "K2Cr2O7 (solid)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.016996107891292894,
+                "initialMass_g": 5,
+                "initialMoles": 0.016996107891292894
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-6-2",
+            "contents": [
+              {
+                "formula": "NH3",
+                "phase": "aq",
+                "moles": 0.06,
+                "mass_g": 1.02186,
+                "volume_ml": 30,
+                "concentration_M": 2
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 28.37814,
+                "moles": 1.5752506244796003,
+                "concentration_M": 52.50835414932001
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-6-3",
+            "contents": [
+              {
+                "formula": "HNO3 (conc)",
+                "phase": "aq",
+                "moles": 0.44999999999999996,
+                "mass_g": 28.354499999999998,
+                "volume_ml": 30,
+                "concentration_M": 14.999999999999998
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 13.9455,
+                "moles": 0.7741049125728559,
+                "concentration_M": 25.80349708576186
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-6-4",
+            "contents": [
+              {
+                "formula": "I2",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.019700551615445233,
+                "initialMass_g": 5,
+                "initialMoles": 0.019700551615445233
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-6-5",
+            "contents": [
+              {
+                "formula": "Na",
+                "phase": "s",
+                "mass_g": 0.05,
+                "moles": 0.002174858634188778,
+                "initialMass_g": 0.05,
+                "initialMoles": 0.002174858634188778
+              }
+            ],
+            "volume_ml": 0
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-6-0",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-6-1",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-6-2",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-6-3",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-6-4",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-6-5",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        }
+      ]
+    },
+    {
+      "name": "stocks-06",
+      "specimens": [
+        {
+          "formula": "Al"
+        },
+        {
+          "formula": "C (Carbon)"
+        },
+        {
+          "formula": "S"
+        },
+        {
+          "formula": "FeCl3"
+        },
+        {
+          "formula": "KSCN"
+        },
+        {
+          "formula": "H2C2O4"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "Al · s · 5 g",
+          "C (Carbon) · s · 5 g",
+          "S · s · 5 g",
+          "FeCl3 · aq · 30 mL",
+          "KSCN · aq · 30 mL",
+          "H2C2O4 · aq · 30 mL"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-7-0",
+            "contents": [
+              {
+                "formula": "Al",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.18532246108228317,
+                "initialMass_g": 5,
+                "initialMoles": 0.18532246108228317
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-7-1",
+            "contents": [
+              {
+                "formula": "C (Carbon)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.41628507201731746,
+                "initialMass_g": 5,
+                "initialMoles": 0.41628507201731746
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-7-2",
+            "contents": [
+              {
+                "formula": "S",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.15593326056447843,
+                "initialMass_g": 5,
+                "initialMoles": 0.15593326056447843
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-7-3",
+            "contents": [
+              {
+                "formula": "FeCl3",
+                "phase": "aq",
+                "moles": 0.003,
+                "mass_g": 0.4866,
+                "volume_ml": 30,
+                "concentration_M": 0.1
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30.413400000000003,
+                "moles": 1.6882264779350542,
+                "concentration_M": 56.27421593116848
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-7-4",
+            "contents": [
+              {
+                "formula": "KSCN",
+                "phase": "aq",
+                "moles": 0.003,
+                "mass_g": 0.29154,
+                "volume_ml": 30,
+                "concentration_M": 0.1
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30.30846,
+                "moles": 1.6824013322231473,
+                "concentration_M": 56.080044407438244
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-7-5",
+            "contents": [
+              {
+                "formula": "H2C2O4",
+                "phase": "aq",
+                "moles": 0.003,
+                "mass_g": 0.27009,
+                "volume_ml": 30,
+                "concentration_M": 0.1
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30.02991,
+                "moles": 1.6669392173189008,
+                "concentration_M": 55.56464057729669
+              }
+            ],
+            "volume_ml": 30
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-7-0",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-7-1",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-7-2",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-7-3",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-7-4",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-7-5",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        }
+      ]
+    },
+    {
+      "name": "stocks-07",
+      "specimens": [
+        {
+          "formula": "Na2S2O3"
+        },
+        {
+          "formula": "KIO3"
+        },
+        {
+          "formula": "NaHSO3"
+        },
+        {
+          "formula": "Starch"
+        },
+        {
+          "formula": "Al2(SO4)3"
+        },
+        {
+          "formula": "Ca(OH)2"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "Na2S2O3 · aq · 30 mL",
+          "KIO3 · aq · 30 mL",
+          "NaHSO3 · aq · 30 mL",
+          "Starch · aq · 30 mL",
+          "Al2(SO4)3 · aq · 30 mL",
+          "Ca(OH)2 · aq · 30 mL"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-8-0",
+            "contents": [
+              {
+                "formula": "Na2S2O3",
+                "phase": "aq",
+                "moles": 0.003,
+                "mass_g": 0.47433000000000003,
+                "volume_ml": 30,
+                "concentration_M": 0.1
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30.125670000000003,
+                "moles": 1.672254787676936,
+                "concentration_M": 55.74182625589787
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-8-1",
+            "contents": [
+              {
+                "formula": "KIO3",
+                "phase": "aq",
+                "moles": 0.0015,
+                "mass_g": 0.321,
+                "volume_ml": 30,
+                "concentration_M": 0.05
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30.279,
+                "moles": 1.6807660283097419,
+                "concentration_M": 56.0255342769914
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-8-2",
+            "contents": [
+              {
+                "formula": "NaHSO3",
+                "phase": "aq",
+                "moles": 0.0015,
+                "mass_g": 0.15609,
+                "volume_ml": 30,
+                "concentration_M": 0.05
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30.443910000000002,
+                "moles": 1.6899200666111573,
+                "concentration_M": 56.33066888703858
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-8-3",
+            "contents": [
+              {
+                "formula": "Starch",
+                "phase": "aq",
+                "moles": 0.0015,
+                "mass_g": 0.24320999999999998,
+                "volume_ml": 30,
+                "concentration_M": 0.05
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 29.75679,
+                "moles": 1.6517785179017483,
+                "concentration_M": 55.05928393005828
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-8-4",
+            "contents": [
+              {
+                "formula": "Al2(SO4)3",
+                "phase": "aq",
+                "moles": 0.003,
+                "mass_g": 1.0264499999999999,
+                "volume_ml": 30,
+                "concentration_M": 0.1
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 29.87355,
+                "moles": 1.6582597835137385,
+                "concentration_M": 55.27532611712462
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-8-5",
+            "contents": [
+              {
+                "formula": "Ca(OH)2",
+                "phase": "aq",
+                "moles": 0.0006,
+                "mass_g": 0.0444558,
+                "volume_ml": 30,
+                "concentration_M": 0.02
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 29.9555442,
+                "moles": 1.6628112239800166,
+                "concentration_M": 55.42704079933389
+              }
+            ],
+            "volume_ml": 30
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-8-0",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-8-1",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-8-2",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-8-3",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-8-4",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-8-5",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        }
+      ]
+    },
+    {
+      "name": "stocks-08",
+      "specimens": [
+        {
+          "formula": "CaCl2"
+        },
+        {
+          "formula": "K"
+        },
+        {
+          "formula": "Mg (ribbon)"
+        },
+        {
+          "formula": "Mg (powder)"
+        },
+        {
+          "formula": "Zn (granules)"
+        },
+        {
+          "formula": "Zn (dust)"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "CaCl2 · aq · 30 mL",
+          "K · s · 0.05 g",
+          "Mg (ribbon) · s · 5 g",
+          "Mg (powder) · s · 5 g",
+          "Zn (granules) · s · 5 g",
+          "Zn (dust) · s · 5 g"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-9-0",
+            "contents": [
+              {
+                "formula": "CaCl2",
+                "phase": "aq",
+                "moles": 0.006,
+                "mass_g": 0.66588,
+                "volume_ml": 30,
+                "concentration_M": 0.2
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 29.93412,
+                "moles": 1.6616219816819318,
+                "concentration_M": 55.38739938939773
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-9-1",
+            "contents": [
+              {
+                "formula": "K",
+                "phase": "s",
+                "mass_g": 0.05,
+                "moles": 0.0012788377922144357,
+                "initialMass_g": 0.05,
+                "initialMoles": 0.0012788377922144357
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-9-2",
+            "contents": [
+              {
+                "formula": "Mg (ribbon)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.20571898786257972,
+                "initialMass_g": 5,
+                "initialMoles": 0.20571898786257972
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-9-3",
+            "contents": [
+              {
+                "formula": "Mg (powder)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.20571898786257972,
+                "initialMass_g": 5,
+                "initialMoles": 0.20571898786257972
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-9-4",
+            "contents": [
+              {
+                "formula": "Zn (granules)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.07647598654022637,
+                "initialMass_g": 5,
+                "initialMoles": 0.07647598654022637
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-9-5",
+            "contents": [
+              {
+                "formula": "Zn (dust)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.07647598654022637,
+                "initialMass_g": 5,
+                "initialMoles": 0.07647598654022637
+              }
+            ],
+            "volume_ml": 0
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-9-0",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-9-1",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-9-2",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-9-3",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-9-4",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-9-5",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        }
+      ]
+    },
+    {
+      "name": "stocks-09",
+      "specimens": [
+        {
+          "formula": "Fe (filings)"
+        },
+        {
+          "formula": "Fe (nail)"
+        },
+        {
+          "formula": "Cu (turnings)"
+        },
+        {
+          "formula": "Al (foil)"
+        },
+        {
+          "formula": "I2 (solid)"
+        },
+        {
+          "formula": "K2CrO4"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "Fe (filings) · s · 5 g",
+          "Fe (nail) · s · 5 g",
+          "Cu (turnings) · s · 5 g",
+          "Al (foil) · s · 5 g",
+          "I2 (solid) · s · 5 g",
+          "K2CrO4 · aq · 30 mL"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-10-0",
+            "contents": [
+              {
+                "formula": "Fe (filings)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.08953353030710001,
+                "initialMass_g": 5,
+                "initialMoles": 0.08953353030710001
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-10-1",
+            "contents": [
+              {
+                "formula": "Fe (nail)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.08953353030710001,
+                "initialMass_g": 5,
+                "initialMoles": 0.08953353030710001
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-10-2",
+            "contents": [
+              {
+                "formula": "Cu (turnings)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.07868315865672111,
+                "initialMass_g": 5,
+                "initialMoles": 0.07868315865672111
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-10-3",
+            "contents": [
+              {
+                "formula": "Al (foil)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.1853087243347417,
+                "initialMass_g": 5,
+                "initialMoles": 0.1853087243347417
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-10-4",
+            "contents": [
+              {
+                "formula": "I2 (solid)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.01969993065624409,
+                "initialMass_g": 5,
+                "initialMoles": 0.01969993065624409
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-10-5",
+            "contents": [
+              {
+                "formula": "K2CrO4",
+                "phase": "aq",
+                "moles": 0.006,
+                "mass_g": 1.16514,
+                "volume_ml": 30,
+                "concentration_M": 0.2
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 29.73486,
+                "moles": 1.6505611990008326,
+                "concentration_M": 55.01870663336109
+              }
+            ],
+            "volume_ml": 30
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-10-0",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-10-1",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-10-2",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-10-3",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-10-4",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-10-5",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        }
+      ]
+    },
+    {
+      "name": "stocks-10",
+      "specimens": [
+        {
+          "formula": "FeSO4"
+        },
+        {
+          "formula": "CuCl2"
+        },
+        {
+          "formula": "CoCl2"
+        },
+        {
+          "formula": "NiSO4"
+        },
+        {
+          "formula": "CH3COOH (dil)"
+        },
+        {
+          "formula": "CH3COOH (glacial)"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "FeSO4 · aq · 30 mL",
+          "CuCl2 · aq · 30 mL",
+          "CoCl2 · aq · 30 mL",
+          "NiSO4 · aq · 30 mL",
+          "CH3COOH (dil) · aq · 30 mL",
+          "CH3COOH (glacial) · aq · 30 mL"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-11-0",
+            "contents": [
+              {
+                "formula": "FeSO4",
+                "phase": "aq",
+                "moles": 0.006,
+                "mass_g": 0.91146,
+                "volume_ml": 30,
+                "concentration_M": 0.2
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 29.98854,
+                "moles": 1.6646427976686096,
+                "concentration_M": 55.48809325562032
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-11-1",
+            "contents": [
+              {
+                "formula": "CuCl2",
+                "phase": "aq",
+                "moles": 0.006,
+                "mass_g": 0.8067,
+                "volume_ml": 30,
+                "concentration_M": 0.2
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30.093300000000003,
+                "moles": 1.670457951706911,
+                "concentration_M": 55.6819317235637
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-11-2",
+            "contents": [
+              {
+                "formula": "CoCl2",
+                "phase": "aq",
+                "moles": 0.003,
+                "mass_g": 0.38952000000000003,
+                "volume_ml": 30,
+                "concentration_M": 0.1
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30.21048,
+                "moles": 1.67696253122398,
+                "concentration_M": 55.89875104079933
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-11-3",
+            "contents": [
+              {
+                "formula": "NiSO4",
+                "phase": "aq",
+                "moles": 0.003,
+                "mass_g": 0.46425,
+                "volume_ml": 30,
+                "concentration_M": 0.1
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30.13575,
+                "moles": 1.6728143213988342,
+                "concentration_M": 55.760477379961145
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-11-4",
+            "contents": [
+              {
+                "formula": "CH3COOH (dil)",
+                "phase": "aq",
+                "moles": 0.03,
+                "mass_g": 1.8015599999999998,
+                "volume_ml": 30,
+                "concentration_M": 1
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 28.498440000000002,
+                "moles": 1.5819283930058285,
+                "concentration_M": 52.73094643352762
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-11-5",
+            "contents": [
+              {
+                "formula": "CH3COOH (glacial)",
+                "phase": "aq",
+                "moles": 0.5219999999999999,
+                "mass_g": 31.347143999999993,
+                "volume_ml": 30,
+                "concentration_M": 17.4
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 0.152856000000007,
+                "moles": 0.008484929225645683,
+                "concentration_M": 0.2828309741881894
+              }
+            ],
+            "volume_ml": 30
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-11-0",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-11-1",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-11-2",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-11-3",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-11-4",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-11-5",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        }
+      ]
+    },
+    {
+      "name": "stocks-11",
+      "specimens": [
+        {
+          "formula": "NH3 (aq)"
+        },
+        {
+          "formula": "KOH"
+        },
+        {
+          "formula": "C2H5OH"
+        },
+        {
+          "formula": "CH3COCH3"
+        },
+        {
+          "formula": "C6H12O6"
+        },
+        {
+          "formula": "Litmus"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "NH3 (aq) · aq · 30 mL",
+          "KOH · aq · 30 mL",
+          "C2H5OH · aq · 30 mL",
+          "CH3COCH3 · l · 30 mL",
+          "C6H12O6 · s · 5 g",
+          "Litmus · aq · 30 mL"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-12-0",
+            "contents": [
+              {
+                "formula": "NH3 (aq)",
+                "phase": "aq",
+                "moles": 0.06,
+                "mass_g": 1.02186,
+                "volume_ml": 30,
+                "concentration_M": 2
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 28.37814,
+                "moles": 1.5752506244796003,
+                "concentration_M": 52.50835414932001
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-12-1",
+            "contents": [
+              {
+                "formula": "KOH",
+                "phase": "aq",
+                "moles": 0.03,
+                "mass_g": 1.68318,
+                "volume_ml": 30,
+                "concentration_M": 1
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 29.81682,
+                "moles": 1.6551107410491257,
+                "concentration_M": 55.17035803497086
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-12-2",
+            "contents": [
+              {
+                "formula": "C2H5OH",
+                "phase": "aq",
+                "moles": 0.495,
+                "mass_g": 22.804155,
+                "volume_ml": 30,
+                "concentration_M": 16.5
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 1.1958449999999985,
+                "moles": 0.06638051623646953,
+                "concentration_M": 2.212683874548984
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-12-3",
+            "contents": [
+              {
+                "formula": "CH3COCH3",
+                "phase": "l",
+                "moles": 0.4080578512396695,
+                "mass_g": 23.700000000000003,
+                "volume_ml": 30,
+                "concentration_M": 13.60192837465565
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-12-4",
+            "contents": [
+              {
+                "formula": "C6H12O6",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.02775310834813499,
+                "initialMass_g": 5,
+                "initialMoles": 0.02775310834813499
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-12-5",
+            "contents": [
+              {
+                "formula": "Litmus",
+                "phase": "aq",
+                "moles": 0.0003,
+                "mass_g": 0.09899999999999999,
+                "volume_ml": 30,
+                "concentration_M": 0.01
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 29.901,
+                "moles": 1.659783513738551,
+                "concentration_M": 55.32611712461837
+              }
+            ],
+            "volume_ml": 30
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-12-0",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-12-1",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-12-2",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-12-3",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-12-4",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-12-5",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        }
+      ]
+    },
+    {
+      "name": "stocks-12",
+      "specimens": [
+        {
+          "formula": "UniversalIndicator"
+        },
+        {
+          "formula": "NH4Cl"
+        },
+        {
+          "formula": "NH4NO3"
+        },
+        {
+          "formula": "CaO"
+        },
+        {
+          "formula": "Hexane"
+        },
+        {
+          "formula": "CuSO4·5H2O"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "UniversalIndicator · aq · 30 mL",
+          "NH4Cl · s · 5 g",
+          "NH4NO3 · s · 5 g",
+          "CaO · s · 5 g",
+          "Hexane · l · 30 mL",
+          "CuSO4·5H2O · s · 5 g"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-13-0",
+            "contents": [
+              {
+                "formula": "UniversalIndicator",
+                "phase": "aq",
+                "moles": 0.0006,
+                "mass_g": 0.16799999999999998,
+                "volume_ml": 30,
+                "concentration_M": 0.02
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 28.332,
+                "moles": 1.5726894254787678,
+                "concentration_M": 52.42298084929226
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-13-1",
+            "contents": [
+              {
+                "formula": "NH4Cl",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.09347366846759268,
+                "initialMass_g": 5,
+                "initialMoles": 0.09347366846759268
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-13-2",
+            "contents": [
+              {
+                "formula": "NH4NO3",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.06246642429694039,
+                "initialMass_g": 5,
+                "initialMoles": 0.06246642429694039
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-13-3",
+            "contents": [
+              {
+                "formula": "CaO",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.08916311500258574,
+                "initialMass_g": 5,
+                "initialMoles": 0.08916311500258574
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-13-4",
+            "contents": [
+              {
+                "formula": "Hexane",
+                "phase": "l",
+                "moles": 0.22975168252494776,
+                "mass_g": 19.8,
+                "volume_ml": 30,
+                "liquidLayer": "organic",
+                "concentration_M": 7.658389417498259
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-13-5",
+            "contents": [
+              {
+                "formula": "CuSO4·5H2O",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.020025873428469582,
+                "initialMass_g": 5,
+                "initialMoles": 0.020025873428469582
+              }
+            ],
+            "volume_ml": 0
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-13-0",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-13-1",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-13-2",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-13-3",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-13-4",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-13-5",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        }
+      ]
+    },
+    {
+      "name": "stocks-13",
+      "specimens": [
+        {
+          "formula": "Cu(OH)2"
+        },
+        {
+          "formula": "CuO"
+        },
+        {
+          "formula": "CaCO3 (chips)"
+        },
+        {
+          "formula": "BaSO4"
+        },
+        {
+          "formula": "PbI2"
+        },
+        {
+          "formula": "AgCl"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "Cu(OH)2 · s · 5 g",
+          "CuO · s · 5 g",
+          "CaCO3 (chips) · s · 5 g",
+          "BaSO4 · s · 5 g",
+          "PbI2 · s · 5 g",
+          "AgCl · s · 5 g"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-14-0",
+            "contents": [
+              {
+                "formula": "Cu(OH)2",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.05125051250512505,
+                "initialMass_g": 5,
+                "initialMoles": 0.05125051250512505
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-14-1",
+            "contents": [
+              {
+                "formula": "CuO",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.06285750204286882,
+                "initialMass_g": 5,
+                "initialMoles": 0.06285750204286882
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-14-2",
+            "contents": [
+              {
+                "formula": "CaCO3 (chips)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.04995703694822453,
+                "initialMass_g": 5,
+                "initialMoles": 0.04995703694822453
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-14-3",
+            "contents": [
+              {
+                "formula": "BaSO4",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.021423368610480314,
+                "initialMass_g": 5,
+                "initialMoles": 0.021423368610480314
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-14-4",
+            "contents": [
+              {
+                "formula": "PbI2",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.010845751719051647,
+                "initialMass_g": 5,
+                "initialMoles": 0.010845751719051647
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-14-5",
+            "contents": [
+              {
+                "formula": "AgCl",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.03488696622941669,
+                "initialMass_g": 5,
+                "initialMoles": 0.03488696622941669
+              }
+            ],
+            "volume_ml": 0
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-14-0",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-14-1",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-14-2",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-14-3",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-14-4",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-14-5",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        }
+      ]
+    },
+    {
+      "name": "stocks-14",
+      "specimens": [
+        {
+          "formula": "Fe2O3"
+        },
+        {
+          "formula": "Al(OH)3"
+        },
+        {
+          "formula": "NaOH (solid)"
+        },
+        {
+          "formula": "KOH (solid)"
+        },
+        {
+          "formula": "CoCl2.6H2O"
+        },
+        {
+          "formula": "NiSO4.6H2O"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "Fe2O3 · s · 5 g",
+          "Al(OH)3 · s · 5 g",
+          "NaOH (solid) · s · 5 g",
+          "KOH (solid) · s · 5 g",
+          "CoCl2.6H2O · s · 5 g",
+          "NiSO4.6H2O · s · 5 g"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-15-0",
+            "contents": [
+              {
+                "formula": "Fe2O3",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.03131066441229883,
+                "initialMass_g": 5,
+                "initialMoles": 0.03131066441229883
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-15-1",
+            "contents": [
+              {
+                "formula": "Al(OH)3",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.0641025641025641,
+                "initialMass_g": 5,
+                "initialMoles": 0.0641025641025641
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-15-2",
+            "contents": [
+              {
+                "formula": "NaOH (solid)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.12500937570317774,
+                "initialMass_g": 5,
+                "initialMoles": 0.12500937570317774
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-15-3",
+            "contents": [
+              {
+                "formula": "KOH (solid)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.08911861687906604,
+                "initialMass_g": 5,
+                "initialMoles": 0.08911861687906604
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-15-4",
+            "contents": [
+              {
+                "formula": "CoCl2.6H2O",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.02101458412138024,
+                "initialMass_g": 5,
+                "initialMoles": 0.02101458412138024
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-15-5",
+            "contents": [
+              {
+                "formula": "NiSO4.6H2O",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.019022256039566292,
+                "initialMass_g": 5,
+                "initialMoles": 0.019022256039566292
+              }
+            ],
+            "volume_ml": 0
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-15-0",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-15-1",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-15-2",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-15-3",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-15-4",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-15-5",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        }
+      ]
+    },
+    {
+      "name": "stocks-15",
+      "specimens": [
+        {
+          "formula": "FeSO4.7H2O"
+        },
+        {
+          "formula": "NaHCO3"
+        },
+        {
+          "formula": "CuSO4 (solid)"
+        },
+        {
+          "formula": "CO2(aq)"
+        },
+        {
+          "formula": "CH3COOH"
+        },
+        {
+          "formula": "CH3COONa"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "FeSO4.7H2O · s · 5 g",
+          "NaHCO3 · s · 5 g",
+          "CuSO4 (solid) · s · 5 g",
+          "CO2(aq) · aq · 30 mL",
+          "CH3COOH · aq · 30 mL",
+          "CH3COONa · aq · 30 mL"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-16-0",
+            "contents": [
+              {
+                "formula": "FeSO4.7H2O",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.017984317674987413,
+                "initialMass_g": 5,
+                "initialMoles": 0.017984317674987413
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-16-1",
+            "contents": [
+              {
+                "formula": "NaHCO3",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.059518849619674546,
+                "initialMass_g": 5,
+                "initialMoles": 0.059518849619674546
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-16-2",
+            "contents": [
+              {
+                "formula": "CuSO4 (solid)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.03132655426698996,
+                "initialMass_g": 5,
+                "initialMoles": 0.03132655426698996
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-16-3",
+            "contents": [
+              {
+                "formula": "CO2(aq)",
+                "phase": "aq",
+                "moles": 0.0003,
+                "mass_g": 0.01320285,
+                "volume_ml": 30,
+                "concentration_M": 0.01
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 29.98679715,
+                "moles": 1.6645460532889258,
+                "concentration_M": 55.48486844296419
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-16-4",
+            "contents": [
+              {
+                "formula": "CH3COOH",
+                "phase": "aq",
+                "moles": 0.003,
+                "mass_g": 0.180156,
+                "volume_ml": 30,
+                "concentration_M": 0.1
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 29.819844,
+                "moles": 1.6552786011656953,
+                "concentration_M": 55.175953372189845
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-16-5",
+            "contents": [
+              {
+                "formula": "CH3COONa",
+                "phase": "aq",
+                "moles": 0.003,
+                "mass_g": 0.24610200000000002,
+                "volume_ml": 30,
+                "concentration_M": 0.1
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 29.753898,
+                "moles": 1.6516179850124895,
+                "concentration_M": 55.05393283374965
+              }
+            ],
+            "volume_ml": 30
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-16-0",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-16-1",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-16-2",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-16-3",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-16-4",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-16-5",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        }
+      ]
+    },
+    {
+      "name": "stocks-16",
+      "specimens": [
+        {
+          "formula": "CH3COOK"
+        },
+        {
+          "formula": "NH4Cl(aq)"
+        },
+        {
+          "formula": "Methyl_Orange"
+        },
+        {
+          "formula": "Bromothymol_Blue"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "CH3COOK · aq · 30 mL",
+          "NH4Cl(aq) · aq · 30 mL",
+          "Methyl_Orange · aq · 30 mL",
+          "Bromothymol_Blue · aq · 30 mL"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-17-0",
+            "contents": [
+              {
+                "formula": "CH3COOK",
+                "phase": "aq",
+                "moles": 0.003,
+                "mass_g": 0.294426,
+                "volume_ml": 30,
+                "concentration_M": 0.1
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 29.705574,
+                "moles": 1.6489355537052455,
+                "concentration_M": 54.96451845684152
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-17-1",
+            "contents": [
+              {
+                "formula": "NH4Cl(aq)",
+                "phase": "aq",
+                "moles": 0.003,
+                "mass_g": 0.160473,
+                "volume_ml": 30,
+                "concentration_M": 0.1
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 29.839527,
+                "moles": 1.6563711906744378,
+                "concentration_M": 55.212373022481266
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-17-2",
+            "contents": [
+              {
+                "formula": "Methyl_Orange",
+                "phase": "aq",
+                "moles": 0.000003,
+                "mass_g": 0.00098202,
+                "volume_ml": 30,
+                "concentration_M": 0.0001
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 29.99901798,
+                "moles": 1.6652244229808493,
+                "concentration_M": 55.50748076602831
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-17-3",
+            "contents": [
+              {
+                "formula": "Bromothymol_Blue",
+                "phase": "aq",
+                "moles": 0.000003,
+                "mass_g": 0.0018732,
+                "volume_ml": 30,
+                "concentration_M": 0.0001
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 29.9981268,
+                "moles": 1.6651749542048293,
+                "concentration_M": 55.50583180682764
+              }
+            ],
+            "volume_ml": 30
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-17-0",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-17-1",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-17-2",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-17-3",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        }
+      ]
+    },
+    {
+      "name": "products-01",
+      "specimens": [
+        {
+          "formula": "PbCl2",
+          "mode": "product"
+        },
+        {
+          "formula": "Ag2S",
+          "mode": "product"
+        },
+        {
+          "formula": "Pb",
+          "mode": "product"
+        },
+        {
+          "formula": "KFe[Fe(CN)6]",
+          "mode": "product"
+        },
+        {
+          "formula": "Cu2[Fe(CN)6]",
+          "mode": "product"
+        },
+        {
+          "formula": "C6H2Br3OH",
+          "mode": "product"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "PbCl2 · fine_powder · 0.05 g / 30 mL",
+          "Ag2S · fine_powder · 0.05 g / 30 mL",
+          "Pb · granular · 0.05 g / 30 mL",
+          "KFe[Fe(CN)6] · fine_powder · 0.05 g / 30 mL",
+          "Cu2[Fe(CN)6] · gel_like · 0.05 g / 30 mL",
+          "C6H2Br3OH · fine_powder · 0.05 g / 30 mL"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-18-0",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "PbCl2",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.00017979144192736425
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-18-1",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "Ag2S",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.00020177888262925956
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-18-2",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "Pb",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.00024131274131274135
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-18-3",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "KFe[Fe(CN)6]",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.00016292164120744487
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-18-4",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "Cu2[Fe(CN)6]",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.0001474730493002404
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-18-5",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "C6H2Br3OH",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.00015114827343327256
+              }
+            ],
+            "volume_ml": 30
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-18-0",
+          "cloudiness": 0.6558789473062278,
+          "sediment_g": 0,
+          "represented_g": 0.0499999999999997
+        },
+        {
+          "id": "appearance-18-1",
+          "cloudiness": 0.6923166666010198,
+          "sediment_g": 0,
+          "represented_g": 0.0499999999999997
+        },
+        {
+          "id": "appearance-18-2",
+          "cloudiness": 0.21862631576874325,
+          "sediment_g": 0,
+          "represented_g": 0.0499999999999997
+        },
+        {
+          "id": "appearance-18-3",
+          "cloudiness": 0.6923166666010198,
+          "sediment_g": 0,
+          "represented_g": 0.0499999999999997
+        },
+        {
+          "id": "appearance-18-4",
+          "cloudiness": 0.6558789473062278,
+          "sediment_g": 0,
+          "represented_g": 0.0499999999999997
+        },
+        {
+          "id": "appearance-18-5",
+          "cloudiness": 0.6194412280114401,
+          "sediment_g": 0,
+          "represented_g": 0.0499999999999997
+        }
+      ]
+    },
+    {
+      "name": "products-02",
+      "specimens": [
+        {
+          "formula": "C6H2Br3NH2",
+          "mode": "product"
+        },
+        {
+          "formula": "Ag",
+          "mode": "product"
+        },
+        {
+          "formula": "Cu",
+          "mode": "product"
+        },
+        {
+          "formula": "BaSO4",
+          "mode": "product"
+        },
+        {
+          "formula": "AgCl",
+          "mode": "product"
+        },
+        {
+          "formula": "AgBr",
+          "mode": "product"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "C6H2Br3NH2 · fine_powder · 0.05 g / 30 mL",
+          "Ag · granular · 0.05 g / 30 mL",
+          "Cu · granular · 0.05 g / 30 mL",
+          "BaSO4 · fine_powder · 0.05 g / 30 mL",
+          "AgCl · flocculent · 0.05 g / 30 mL",
+          "AgBr · flocculent · 0.05 g / 30 mL"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-19-0",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "C6H2Br3NH2",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.00015159922017361142
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-19-1",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "Ag",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.0004635294990173175
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-19-2",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "Cu",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.0007868315865672112
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-19-3",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "BaSO4",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.0002142401117476423
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-19-4",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "AgCl",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.0003488745307637562
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-19-5",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "AgBr",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.00026628038259165376
+              }
+            ],
+            "volume_ml": 30
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-19-0",
+          "cloudiness": 0.6224718236385911,
+          "sediment_g": 0,
+          "represented_g": 0.04999999999999969
+        },
+        {
+          "id": "appearance-19-1",
+          "cloudiness": 0.18307994812899753,
+          "sediment_g": 0,
+          "represented_g": 0.04999999999999969
+        },
+        {
+          "id": "appearance-19-2",
+          "cloudiness": 0.21969593775479646,
+          "sediment_g": 0,
+          "represented_g": 0.04999999999999969
+        },
+        {
+          "id": "appearance-19-3",
+          "cloudiness": 0.6954662267159794,
+          "sediment_g": 0.0003333333333333333,
+          "represented_g": 0.04999999999999969
+        },
+        {
+          "id": "appearance-19-4",
+          "cloudiness": 0.647133023155095,
+          "sediment_g": 0.003833333333333337,
+          "represented_g": 0.0499999999999997
+        },
+        {
+          "id": "appearance-19-5",
+          "cloudiness": 0.6463450093947196,
+          "sediment_g": 0.0040000000000000036,
+          "represented_g": 0.0499999999999997
+        }
+      ]
+    },
+    {
+      "name": "products-03",
+      "specimens": [
+        {
+          "formula": "AgI",
+          "mode": "product"
+        },
+        {
+          "formula": "PbI2",
+          "mode": "product"
+        },
+        {
+          "formula": "Al(OH)3",
+          "mode": "product"
+        },
+        {
+          "formula": "Zn(OH)2",
+          "mode": "product"
+        },
+        {
+          "formula": "Mg(OH)2",
+          "mode": "product"
+        },
+        {
+          "formula": "Ca(OH)2",
+          "mode": "product"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "AgI · flocculent · 0.05 g / 30 mL",
+          "PbI2 · fine_powder · 0.05 g / 30 mL",
+          "Al(OH)3 · gel_like · 0.05 g / 30 mL",
+          "Zn(OH)2 · gel_like · 0.05 g / 30 mL",
+          "Mg(OH)2 · fine_powder · 0.05 g / 30 mL",
+          "Ca(OH)2 · fine_powder · 0.05 g / 30 mL"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-20-0",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "AgI",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.00021297258616870837
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-20-1",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "PbI2",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.00010845798771387916
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-20-2",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "Al(OH)3",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.0006410009871415202
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-20-3",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "Zn(OH)2",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.0005030484737509306
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-20-4",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "Mg(OH)2",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.0008573535211509115
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-20-5",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "Ca(OH)2",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.0006748366895211358
+              }
+            ],
+            "volume_ml": 30
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-20-0",
+          "cloudiness": 0.6593262444640858,
+          "sediment_g": 0.004611111111111114,
+          "represented_g": 0.04999999999999966
+        },
+        {
+          "id": "appearance-20-1",
+          "cloudiness": 0.6269325535777487,
+          "sediment_g": 0.0037222222222222253,
+          "represented_g": 0.04999999999999966
+        },
+        {
+          "id": "appearance-20-2",
+          "cloudiness": 0.6326610461319607,
+          "sediment_g": 0.0021666666666666683,
+          "represented_g": 0.04999999999999967
+        },
+        {
+          "id": "appearance-20-3",
+          "cloudiness": 0.6292359982558192,
+          "sediment_g": 0.002944444444444447,
+          "represented_g": 0.04999999999999966
+        },
+        {
+          "id": "appearance-20-4",
+          "cloudiness": 0.6744882042854314,
+          "sediment_g": 0,
+          "represented_g": 0.049999999999999656
+        },
+        {
+          "id": "appearance-20-5",
+          "cloudiness": 0.6744882042854314,
+          "sediment_g": 0,
+          "represented_g": 0.049999999999999656
+        }
+      ]
+    },
+    {
+      "name": "products-04",
+      "specimens": [
+        {
+          "formula": "Ni(OH)2",
+          "mode": "product"
+        },
+        {
+          "formula": "Co(OH)2",
+          "mode": "product"
+        },
+        {
+          "formula": "Mn(OH)2",
+          "mode": "product"
+        },
+        {
+          "formula": "Fe(OH)2",
+          "mode": "product"
+        },
+        {
+          "formula": "Cu(OH)2",
+          "mode": "product"
+        },
+        {
+          "formula": "Fe(OH)3",
+          "mode": "product"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "Ni(OH)2 · gel_like · 0.05 g / 30 mL",
+          "Co(OH)2 · gel_like · 0.05 g / 30 mL",
+          "Mn(OH)2 · flocculent · 0.05 g / 30 mL",
+          "Fe(OH)2 · gel_like · 0.05 g / 30 mL",
+          "Cu(OH)2 · gel_like · 0.05 g / 30 mL",
+          "Fe(OH)3 · flocculent · 0.05 g / 30 mL"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-21-0",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "Ni(OH)2",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.0005393335994045757
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-21-1",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "Co(OH)2",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.0005379409771159909
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-21-2",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "Mn(OH)2",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.0005621009083550679
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-21-3",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "Fe(OH)2",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.0005564272916458006
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-21-4",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "Cu(OH)2",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.0005125051250512505
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-21-5",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "Fe(OH)3",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.0004678756573652986
+              }
+            ],
+            "volume_ml": 30
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-21-0",
+          "cloudiness": 0.6366139399094718,
+          "sediment_g": 0,
+          "represented_g": 0.049999999999999656
+        },
+        {
+          "id": "appearance-21-1",
+          "cloudiness": 0.6366139399094718,
+          "sediment_g": 0,
+          "represented_g": 0.049999999999999656
+        },
+        {
+          "id": "appearance-21-2",
+          "cloudiness": 0.6366139399094718,
+          "sediment_g": 0,
+          "represented_g": 0.049999999999999656
+        },
+        {
+          "id": "appearance-21-3",
+          "cloudiness": 0.6366139399094718,
+          "sediment_g": 0,
+          "represented_g": 0.049999999999999656
+        },
+        {
+          "id": "appearance-21-4",
+          "cloudiness": 0.6414969451907743,
+          "sediment_g": 0.005000000000000001,
+          "represented_g": 0.04999999999999966
+        },
+        {
+          "id": "appearance-21-5",
+          "cloudiness": 0.6712744726205508,
+          "sediment_g": 0.005000000000000001,
+          "represented_g": 0.04999999999999966
+        }
+      ]
+    },
+    {
+      "name": "products-05",
+      "specimens": [
+        {
+          "formula": "CaCO3",
+          "mode": "product"
+        },
+        {
+          "formula": "CuS",
+          "mode": "product"
+        },
+        {
+          "formula": "PbS",
+          "mode": "product"
+        },
+        {
+          "formula": "ZnS",
+          "mode": "product"
+        },
+        {
+          "formula": "Cu2O",
+          "mode": "product"
+        },
+        {
+          "formula": "Ag2CrO4",
+          "mode": "product"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "CaCO3 · granular · 0.05 g / 30 mL",
+          "CuS · fine_powder · 0.05 g / 30 mL",
+          "PbS · fine_powder · 0.05 g / 30 mL",
+          "ZnS · fine_powder · 0.05 g / 30 mL",
+          "Cu2O · fine_powder · 0.05 g / 30 mL",
+          "Ag2CrO4 · fine_powder · 0.05 g / 30 mL"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-22-0",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "CaCO3",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.0004995703694822453
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-22-1",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "CuS",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.0005229797293056921
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-22-2",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "PbS",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.0002089776811836496
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-22-3",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "ZnS",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.000513136288998358
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-22-4",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "Cu2O",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.00034942798638628567
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-22-5",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "Ag2CrO4",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.00015072589591472535
+              }
+            ],
+            "volume_ml": 30
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-22-0",
+          "cloudiness": 0.6105872428483149,
+          "sediment_g": 0.0040000000000000036,
+          "represented_g": 0.04999999999999964
+        },
+        {
+          "id": "appearance-22-1",
+          "cloudiness": 0.7199263361271988,
+          "sediment_g": 0,
+          "represented_g": 0.04999999999999963
+        },
+        {
+          "id": "appearance-22-2",
+          "cloudiness": 0.7199263361271988,
+          "sediment_g": 0,
+          "represented_g": 0.04999999999999963
+        },
+        {
+          "id": "appearance-22-3",
+          "cloudiness": 0.6820354763310286,
+          "sediment_g": 0,
+          "represented_g": 0.04999999999999963
+        },
+        {
+          "id": "appearance-22-4",
+          "cloudiness": 0.6820354763310286,
+          "sediment_g": 0,
+          "represented_g": 0.04999999999999963
+        },
+        {
+          "id": "appearance-22-5",
+          "cloudiness": 0.6820354763310286,
+          "sediment_g": 0,
+          "represented_g": 0.04999999999999963
+        }
+      ]
+    },
+    {
+      "name": "products-06",
+      "specimens": [
+        {
+          "formula": "BaCrO4",
+          "mode": "product"
+        },
+        {
+          "formula": "PbCrO4",
+          "mode": "product"
+        },
+        {
+          "formula": "PbSO4",
+          "mode": "product"
+        },
+        {
+          "formula": "CuI",
+          "mode": "product"
+        },
+        {
+          "formula": "BiI3",
+          "mode": "product"
+        },
+        {
+          "formula": "MnO2",
+          "mode": "product"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "BaCrO4 · fine_powder · 0.05 g / 30 mL",
+          "PbCrO4 · fine_powder · 0.05 g / 30 mL",
+          "PbSO4 · fine_powder · 0.05 g / 30 mL",
+          "CuI · flocculent · 0.05 g / 30 mL",
+          "BiI3 · fine_powder · 0.05 g / 30 mL",
+          "MnO2 · fine_powder · 0.05 g / 30 mL"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-23-0",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "BaCrO4",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.00019737958858198555
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-23-1",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "PbCrO4",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.00015470679967325928
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-23-2",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "PbSO4",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.00016487719946184086
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-23-3",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "CuI",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.00026253609871357313
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-23-4",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "BiI3",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.00008478996846491493
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-23-5",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "MnO2",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.0005751357320327598
+              }
+            ],
+            "volume_ml": 30
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-23-0",
+          "cloudiness": 0.6763630602101657,
+          "sediment_g": 0,
+          "represented_g": 0.04999999999999965
+        },
+        {
+          "id": "appearance-23-1",
+          "cloudiness": 0.6763630602101657,
+          "sediment_g": 0,
+          "represented_g": 0.04999999999999965
+        },
+        {
+          "id": "appearance-23-2",
+          "cloudiness": 0.6763630602101657,
+          "sediment_g": 0,
+          "represented_g": 0.04999999999999965
+        },
+        {
+          "id": "appearance-23-3",
+          "cloudiness": 0.6763630602101657,
+          "sediment_g": 0,
+          "represented_g": 0.04999999999999965
+        },
+        {
+          "id": "appearance-23-4",
+          "cloudiness": 0.7139387857773978,
+          "sediment_g": 0,
+          "represented_g": 0.04999999999999965
+        },
+        {
+          "id": "appearance-23-5",
+          "cloudiness": 0.7139387857773978,
+          "sediment_g": 0,
+          "represented_g": 0.04999999999999965
+        }
+      ]
+    },
+    {
+      "name": "products-07",
+      "specimens": [
+        {
+          "formula": "S",
+          "mode": "product"
+        },
+        {
+          "formula": "CuO",
+          "mode": "product"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "S · fine_powder · 0.05 g / 30 mL",
+          "CuO · fine_powder · 0.05 g / 30 mL"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-24-0",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "S",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.0015595757953836555
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-24-1",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "CuO",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.0006285750204286882
+              }
+            ],
+            "volume_ml": 30
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-24-0",
+          "cloudiness": 0.6391130941379689,
+          "sediment_g": 0,
+          "represented_g": 0.04999999999999965
+        },
+        {
+          "id": "appearance-24-1",
+          "cloudiness": 0.7251087153764892,
+          "sediment_g": 0.0036666666666666714,
+          "represented_g": 0.04999999999999966
+        }
+      ]
+    },
+    {
+      "name": "stock-forms",
+      "specimens": [
+        {
+          "formula": "Fe (nail)"
+        },
+        {
+          "formula": "Al (foil)"
+        },
+        {
+          "formula": "Mg (ribbon)"
+        },
+        {
+          "formula": "Cu (turnings)"
+        },
+        {
+          "formula": "CuSO4·5H2O"
+        },
+        {
+          "formula": "I2"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "Fe (nail) · s · 5 g",
+          "Al (foil) · s · 5 g",
+          "Mg (ribbon) · s · 5 g",
+          "Cu (turnings) · s · 5 g",
+          "CuSO4·5H2O · s · 5 g",
+          "I2 · s · 5 g"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-25-0",
+            "contents": [
+              {
+                "formula": "Fe (nail)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.08953353030710001,
+                "initialMass_g": 5,
+                "initialMoles": 0.08953353030710001
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-25-1",
+            "contents": [
+              {
+                "formula": "Al (foil)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.1853087243347417,
+                "initialMass_g": 5,
+                "initialMoles": 0.1853087243347417
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-25-2",
+            "contents": [
+              {
+                "formula": "Mg (ribbon)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.20571898786257972,
+                "initialMass_g": 5,
+                "initialMoles": 0.20571898786257972
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-25-3",
+            "contents": [
+              {
+                "formula": "Cu (turnings)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.07868315865672111,
+                "initialMass_g": 5,
+                "initialMoles": 0.07868315865672111
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-25-4",
+            "contents": [
+              {
+                "formula": "CuSO4·5H2O",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.020025873428469582,
+                "initialMass_g": 5,
+                "initialMoles": 0.020025873428469582
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-25-5",
+            "contents": [
+              {
+                "formula": "I2",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.019700551615445233,
+                "initialMass_g": 5,
+                "initialMoles": 0.019700551615445233
+              }
+            ],
+            "volume_ml": 0
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-25-0",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-25-1",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-25-2",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-25-3",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-25-4",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-25-5",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        }
+      ]
+    },
+    {
+      "name": "submerged-forms",
+      "specimens": [
+        {
+          "formula": "Fe (nail)",
+          "wet": true
+        },
+        {
+          "formula": "Al (foil)",
+          "wet": true
+        },
+        {
+          "formula": "Zn (granules)",
+          "wet": true
+        },
+        {
+          "formula": "Cu (turnings)",
+          "wet": true
+        },
+        {
+          "formula": "CuSO4·5H2O",
+          "wet": true
+        },
+        {
+          "formula": "I2",
+          "wet": true
+        }
+      ],
+      "setup": {
+        "captions": [
+          "Fe (nail) · s · 5 g + 30 mL H₂O",
+          "Al (foil) · s · 5 g + 30 mL H₂O",
+          "Zn (granules) · s · 5 g + 30 mL H₂O",
+          "Cu (turnings) · s · 5 g + 30 mL H₂O",
+          "CuSO4·5H2O · s · 5 g + 30 mL H₂O",
+          "I2 · s · 5 g + 30 mL H₂O"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-26-0",
+            "contents": [
+              {
+                "formula": "Fe (nail)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.08953353030710001,
+                "initialMass_g": 5,
+                "initialMoles": 0.08953353030710001
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "moles": 1.665278934221482,
+                "mass_g": 30,
+                "volume_ml": 30
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-26-1",
+            "contents": [
+              {
+                "formula": "Al (foil)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.1853087243347417,
+                "initialMass_g": 5,
+                "initialMoles": 0.1853087243347417
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "moles": 1.665278934221482,
+                "mass_g": 30,
+                "volume_ml": 30
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-26-2",
+            "contents": [
+              {
+                "formula": "Zn (granules)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.07647598654022637,
+                "initialMass_g": 5,
+                "initialMoles": 0.07647598654022637
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "moles": 1.665278934221482,
+                "mass_g": 30,
+                "volume_ml": 30
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-26-3",
+            "contents": [
+              {
+                "formula": "Cu (turnings)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.07868315865672111,
+                "initialMass_g": 5,
+                "initialMoles": 0.07868315865672111
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "moles": 1.665278934221482,
+                "mass_g": 30,
+                "volume_ml": 30
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-26-4",
+            "contents": [
+              {
+                "formula": "CuSO4·5H2O",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.020025873428469582,
+                "initialMass_g": 5,
+                "initialMoles": 0.020025873428469582
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "moles": 1.665278934221482,
+                "mass_g": 30,
+                "volume_ml": 30
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-26-5",
+            "contents": [
+              {
+                "formula": "I2",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.019700551615445233,
+                "initialMass_g": 5,
+                "initialMoles": 0.019700551615445233
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "moles": 1.665278934221482,
+                "mass_g": 30,
+                "volume_ml": 30
+              }
+            ],
+            "volume_ml": 30
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-26-0",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-26-1",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-26-2",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-26-3",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-26-4",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-26-5",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        }
+      ]
+    },
+    {
+      "name": "powder-dose-scale",
+      "specimens": [
+        {
+          "formula": "CaCO3",
+          "grams": 0.01
+        },
+        {
+          "formula": "CaCO3",
+          "grams": 0.1
+        },
+        {
+          "formula": "CaCO3",
+          "grams": 1
+        },
+        {
+          "formula": "CaCO3",
+          "grams": 2
+        },
+        {
+          "formula": "CaCO3",
+          "grams": 5
+        },
+        {
+          "formula": "CaCO3",
+          "grams": 10
+        }
+      ],
+      "setup": {
+        "captions": [
+          "CaCO3 · s · 0.01 g",
+          "CaCO3 · s · 0.1 g",
+          "CaCO3 · s · 1 g",
+          "CaCO3 · s · 2 g",
+          "CaCO3 · s · 5 g",
+          "CaCO3 · s · 10 g"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-27-0",
+            "contents": [
+              {
+                "formula": "CaCO3",
+                "phase": "s",
+                "mass_g": 0.01,
+                "moles": 0.00009991407389644905,
+                "initialMass_g": 0.01,
+                "initialMoles": 0.00009991407389644905
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-27-1",
+            "contents": [
+              {
+                "formula": "CaCO3",
+                "phase": "s",
+                "mass_g": 0.1,
+                "moles": 0.0009991407389644907,
+                "initialMass_g": 0.1,
+                "initialMoles": 0.0009991407389644907
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-27-2",
+            "contents": [
+              {
+                "formula": "CaCO3",
+                "phase": "s",
+                "mass_g": 1,
+                "moles": 0.009991407389644906,
+                "initialMass_g": 1,
+                "initialMoles": 0.009991407389644906
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-27-3",
+            "contents": [
+              {
+                "formula": "CaCO3",
+                "phase": "s",
+                "mass_g": 2,
+                "moles": 0.01998281477928981,
+                "initialMass_g": 2,
+                "initialMoles": 0.01998281477928981
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-27-4",
+            "contents": [
+              {
+                "formula": "CaCO3",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.04995703694822453,
+                "initialMass_g": 5,
+                "initialMoles": 0.04995703694822453
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-27-5",
+            "contents": [
+              {
+                "formula": "CaCO3",
+                "phase": "s",
+                "mass_g": 10,
+                "moles": 0.09991407389644906,
+                "initialMass_g": 10,
+                "initialMoles": 0.09991407389644906
+              }
+            ],
+            "volume_ml": 0
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-27-0",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-27-1",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-27-2",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-27-3",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-27-4",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-27-5",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        }
+      ]
+    },
+    {
+      "name": "precipitate-forms",
+      "specimens": [
+        {
+          "formula": "AgCl",
+          "mode": "product",
+          "grams": 0.01
+        },
+        {
+          "formula": "BaSO4",
+          "mode": "product",
+          "grams": 0.01
+        },
+        {
+          "formula": "Cu(OH)2",
+          "mode": "product",
+          "grams": 0.01
+        },
+        {
+          "formula": "Fe(OH)3",
+          "mode": "product",
+          "grams": 0.01
+        },
+        {
+          "formula": "PbI2",
+          "mode": "product",
+          "grams": 0.01
+        },
+        {
+          "formula": "Al(OH)3",
+          "mode": "product",
+          "grams": 0.01
+        }
+      ],
+      "setup": {
+        "captions": [
+          "AgCl · flocculent · 0.01 g / 30 mL",
+          "BaSO4 · fine_powder · 0.01 g / 30 mL",
+          "Cu(OH)2 · gel_like · 0.01 g / 30 mL",
+          "Fe(OH)3 · flocculent · 0.01 g / 30 mL",
+          "PbI2 · fine_powder · 0.01 g / 30 mL",
+          "Al(OH)3 · gel_like · 0.01 g / 30 mL"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-28-0",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "AgCl",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.01,
+                "moles": 0.00006977490615275124
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-28-1",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "BaSO4",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.01,
+                "moles": 0.00004284802234952846
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-28-2",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "Cu(OH)2",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.01,
+                "moles": 0.0001025010250102501
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-28-3",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "Fe(OH)3",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.01,
+                "moles": 0.00009357513147305972
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-28-4",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "PbI2",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.01,
+                "moles": 0.000021691597542775832
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-28-5",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "Al(OH)3",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.01,
+                "moles": 0.00012820019742830404
+              }
+            ],
+            "volume_ml": 30
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-28-0",
+          "cloudiness": 0.22808184238290052,
+          "sediment_g": 0.0011777777777777778,
+          "represented_g": 0.010000000000000009
+        },
+        {
+          "id": "appearance-28-1",
+          "cloudiness": 0.2540966590434721,
+          "sediment_g": 0.0004555555555555555,
+          "represented_g": 0.01000000000000001
+        },
+        {
+          "id": "appearance-28-2",
+          "cloudiness": 0.22066948980323053,
+          "sediment_g": 0.0013111111111111114,
+          "represented_g": 0.01000000000000001
+        },
+        {
+          "id": "appearance-28-3",
+          "cloudiness": 0.23120056185864313,
+          "sediment_g": 0.0012555555555555564,
+          "represented_g": 0.01000000000000001
+        },
+        {
+          "id": "appearance-28-4",
+          "cloudiness": 0.21850062337250442,
+          "sediment_g": 0.0009777777777777786,
+          "represented_g": 0.01000000000000001
+        },
+        {
+          "id": "appearance-28-5",
+          "cloudiness": 0.22366843245646206,
+          "sediment_g": 0.000711111111111112,
+          "represented_g": 0.01000000000000001
+        }
+      ]
+    },
+    {
+      "name": "conditional-crystals",
+      "specimens": [
+        {
+          "formula": "PbI2",
+          "mode": "product"
+        },
+        {
+          "formula": "PbI2",
+          "mode": "product",
+          "formation": "CRYSTAL_PLATE"
+        },
+        {
+          "formula": "PbCl2",
+          "mode": "product",
+          "formation": "CRYSTAL_NEEDLE"
+        },
+        {
+          "formula": "CuSO4"
+        },
+        {
+          "formula": "CuSO4 (solid)"
+        },
+        {
+          "formula": "CuSO4·5H2O"
+        }
+      ],
+      "setup": {
+        "captions": [
+          "PbI2 · fine_powder · 0.05 g / 30 mL",
+          "PbI2 · crystalline · 0.05 g / 30 mL · CRYSTAL_PLATE",
+          "PbCl2 · crystalline · 0.05 g / 30 mL · CRYSTAL_NEEDLE",
+          "CuSO4 · aq · 30 mL",
+          "CuSO4 (solid) · s · 5 g",
+          "CuSO4·5H2O · s · 5 g"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-29-0",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "PbI2",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.05,
+                "moles": 0.00010845798771387916
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-29-1",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "PbI2",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "precipitateFormation": "CRYSTAL_PLATE",
+                "mass_g": 0.05,
+                "moles": 0.00010845798771387916
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-29-2",
+            "contents": [
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 30,
+                "moles": 1.665278934221482
+              },
+              {
+                "formula": "PbCl2",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "precipitateFormation": "CRYSTAL_NEEDLE",
+                "mass_g": 0.05,
+                "moles": 0.00017979144192736425
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-29-3",
+            "contents": [
+              {
+                "formula": "CuSO4",
+                "phase": "aq",
+                "moles": 0.015,
+                "mass_g": 2.394135,
+                "volume_ml": 30,
+                "concentration_M": 0.5
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "mass_g": 29.105865,
+                "moles": 1.615646128226478,
+                "concentration_M": 53.854870940882606
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-29-4",
+            "contents": [
+              {
+                "formula": "CuSO4 (solid)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.03132655426698996,
+                "initialMass_g": 5,
+                "initialMoles": 0.03132655426698996
+              }
+            ],
+            "volume_ml": 0
+          },
+          {
+            "id": "appearance-29-5",
+            "contents": [
+              {
+                "formula": "CuSO4·5H2O",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.020025873428469582,
+                "initialMass_g": 5,
+                "initialMoles": 0.020025873428469582
+              }
+            ],
+            "volume_ml": 0
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-29-0",
+          "cloudiness": 0.6395936836707793,
+          "sediment_g": 0.004666666666666667,
+          "represented_g": 0.04999999999999961
+        },
+        {
+          "id": "appearance-29-1",
+          "cloudiness": 0.1640700809522908,
+          "sediment_g": 0.022333333333333292,
+          "represented_g": 0.049999999999998955
+        },
+        {
+          "id": "appearance-29-2",
+          "cloudiness": 0.19246013630133807,
+          "sediment_g": 0,
+          "represented_g": 0.049999999999998865
+        },
+        {
+          "id": "appearance-29-3",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-29-4",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-29-5",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        }
+      ]
+    },
+    {
+      "name": "attached-metals",
+      "specimens": [
+        {
+          "formula": "Fe (nail)",
+          "wet": true
+        },
+        {
+          "formula": "Fe (nail)",
+          "wet": true,
+          "deposit": {
+            "formula": "Cu",
+            "mass_g": 0.1,
+            "reactionId": "fe_cuso4"
+          }
+        },
+        {
+          "formula": "Fe (nail)",
+          "wet": true,
+          "deposit": {
+            "formula": "Cu",
+            "mass_g": 0.4,
+            "reactionId": "fe_cuso4"
+          }
+        },
+        {
+          "formula": "Zn (granules)",
+          "wet": true,
+          "deposit": {
+            "formula": "Ag",
+            "mass_g": 0.2,
+            "reactionId": "zn_agno3"
+          }
+        },
+        {
+          "formula": "Cu (turnings)",
+          "wet": true,
+          "deposit": {
+            "formula": "Ag",
+            "mass_g": 0.2,
+            "reactionId": "cu_agno3"
+          }
+        },
+        {
+          "formula": "Mg (powder)",
+          "wet": true,
+          "deposit": {
+            "formula": "Cu",
+            "mass_g": 0.2,
+            "reactionId": "mg_cuso4"
+          }
+        }
+      ],
+      "setup": {
+        "captions": [
+          "Fe (nail) · s · 5 g + 30 mL H₂O",
+          "Fe (nail) · s · 5 g + 30 mL H₂O · bám 0.1 g Cu",
+          "Fe (nail) · s · 5 g + 30 mL H₂O · bám 0.4 g Cu",
+          "Zn (granules) · s · 5 g + 30 mL H₂O · bám 0.2 g Ag",
+          "Cu (turnings) · s · 5 g + 30 mL H₂O · bám 0.2 g Ag",
+          "Mg (powder) · s · 5 g + 30 mL H₂O · bám 0.2 g Cu"
+        ],
+        "vessels": [
+          {
+            "id": "appearance-30-0",
+            "contents": [
+              {
+                "formula": "Fe (nail)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.08953353030710001,
+                "initialMass_g": 5,
+                "initialMoles": 0.08953353030710001
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "moles": 1.665278934221482,
+                "mass_g": 30,
+                "volume_ml": 30
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-30-1",
+            "contents": [
+              {
+                "formula": "Fe (nail)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.08953353030710001,
+                "initialMass_g": 5,
+                "initialMoles": 0.08953353030710001
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "moles": 1.665278934221482,
+                "mass_g": 30,
+                "volume_ml": 30
+              },
+              {
+                "formula": "Cu",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.1,
+                "moles": 0.0015736631731344225
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-30-2",
+            "contents": [
+              {
+                "formula": "Fe (nail)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.08953353030710001,
+                "initialMass_g": 5,
+                "initialMoles": 0.08953353030710001
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "moles": 1.665278934221482,
+                "mass_g": 30,
+                "volume_ml": 30
+              },
+              {
+                "formula": "Cu",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.4,
+                "moles": 0.00629465269253769
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-30-3",
+            "contents": [
+              {
+                "formula": "Zn (granules)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.07647598654022637,
+                "initialMass_g": 5,
+                "initialMoles": 0.07647598654022637
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "moles": 1.665278934221482,
+                "mass_g": 30,
+                "volume_ml": 30
+              },
+              {
+                "formula": "Ag",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.2,
+                "moles": 0.00185411799606927
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-30-4",
+            "contents": [
+              {
+                "formula": "Cu (turnings)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.07868315865672111,
+                "initialMass_g": 5,
+                "initialMoles": 0.07868315865672111
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "moles": 1.665278934221482,
+                "mass_g": 30,
+                "volume_ml": 30
+              },
+              {
+                "formula": "Ag",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.2,
+                "moles": 0.00185411799606927
+              }
+            ],
+            "volume_ml": 30
+          },
+          {
+            "id": "appearance-30-5",
+            "contents": [
+              {
+                "formula": "Mg (powder)",
+                "phase": "s",
+                "mass_g": 5,
+                "moles": 0.20571898786257972,
+                "initialMass_g": 5,
+                "initialMoles": 0.20571898786257972
+              },
+              {
+                "formula": "H2O",
+                "phase": "l",
+                "moles": 1.665278934221482,
+                "mass_g": 30,
+                "volume_ml": 30
+              },
+              {
+                "formula": "Cu",
+                "phase": "s",
+                "solidOrigin": "precipitate",
+                "mass_g": 0.2,
+                "moles": 0.003147326346268845
+              }
+            ],
+            "volume_ml": 30
+          }
+        ]
+      },
+      "simulation": [
+        {
+          "id": "appearance-30-0",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-30-1",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-30-2",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-30-3",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-30-4",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        },
+        {
+          "id": "appearance-30-5",
+          "cloudiness": 0,
+          "sediment_g": 0,
+          "represented_g": 0
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [],
+  "blockedRequests": [
+    "http://127.0.0.1:6773/api/experiment/mix",
+    "http://127.0.0.1:6773/api/experiment/mix",
+    "http://127.0.0.1:6773/api/experiment/mix",
+    "http://127.0.0.1:6773/api/experiment/mix",
+    "http://127.0.0.1:6773/api/experiment/mix",
+    "http://127.0.0.1:6773/api/experiment/mix"
+  ],
+  "expectedBlockedNetworkErrors": [
+    {
+      "message": "lab: Failed to load resource: net::ERR_FAILED",
+      "url": "http://127.0.0.1:6773/api/experiment/mix"
+    },
+    {
+      "message": "lab: Failed to load resource: net::ERR_FAILED",
+      "url": "http://127.0.0.1:6773/api/experiment/mix"
+    },
+    {
+      "message": "lab: Failed to load resource: net::ERR_FAILED",
+      "url": "http://127.0.0.1:6773/api/experiment/mix"
+    },
+    {
+      "message": "lab: Failed to load resource: net::ERR_FAILED",
+      "url": "http://127.0.0.1:6773/api/experiment/mix"
+    },
+    {
+      "message": "lab: Failed to load resource: net::ERR_FAILED",
+      "url": "http://127.0.0.1:6773/api/experiment/mix"
+    },
+    {
+      "message": "lab: Failed to load resource: net::ERR_FAILED",
+      "url": "http://127.0.0.1:6773/api/experiment/mix"
+    }
+  ],
+  "method": "Actual Beaker, RealisticLiquid, SolidContentsRenderer and PhysicalSimulationRenderer in a development-only fixture. All current stock identities and precipitate profiles visited; stock solids shown at 5 g except 0.05 g alkali metals, liquids at 30 mL, 50 mL modeled glassware, 25 C. Product samples are pre-existing solid inventory, not evidence of a reaction pathway. Plate/needle route labels are supplied explicitly. Product optics, aggregates, packing and transport remain illustrative. Separate lab runs exercise actual studio reaction preparation and progression. No cloud chemistry calls. No FPS conclusions from this capture.",
+  "inventory": {
+    "stocks": [
+      "H2O",
+      "HCl (dil)",
+      "H2SO4 (dil)",
+      "H2SO4 (conc)",
+      "NaOH",
+      "Phenolphthalein",
+      "CuSO4",
+      "Fe",
+      "Cu",
+      "Zn",
+      "Mg",
+      "CaCO3",
+      "NaCl",
+      "NaNO3",
+      "AgNO3",
+      "BaCl2",
+      "Na2SO4",
+      "Na2CO3",
+      "KI",
+      "Pb(NO3)2",
+      "H2O2 (30%)",
+      "MnO2",
+      "KMnO4",
+      "KMnO4 (solid)",
+      "K2Cr2O7",
+      "K2Cr2O7 (solid)",
+      "NH3",
+      "HNO3 (conc)",
+      "I2",
+      "Na",
+      "Al",
+      "C (Carbon)",
+      "S",
+      "FeCl3",
+      "KSCN",
+      "H2C2O4",
+      "Na2S2O3",
+      "KIO3",
+      "NaHSO3",
+      "Starch",
+      "Al2(SO4)3",
+      "Ca(OH)2",
+      "CaCl2",
+      "K",
+      "Mg (ribbon)",
+      "Mg (powder)",
+      "Zn (granules)",
+      "Zn (dust)",
+      "Fe (filings)",
+      "Fe (nail)",
+      "Cu (turnings)",
+      "Al (foil)",
+      "I2 (solid)",
+      "K2CrO4",
+      "FeSO4",
+      "CuCl2",
+      "CoCl2",
+      "NiSO4",
+      "CH3COOH (dil)",
+      "CH3COOH (glacial)",
+      "NH3 (aq)",
+      "KOH",
+      "C2H5OH",
+      "CH3COCH3",
+      "C6H12O6",
+      "Litmus",
+      "UniversalIndicator",
+      "NH4Cl",
+      "NH4NO3",
+      "CaO",
+      "Hexane",
+      "CuSO4·5H2O",
+      "Cu(OH)2",
+      "CuO",
+      "CaCO3 (chips)",
+      "BaSO4",
+      "PbI2",
+      "AgCl",
+      "Fe2O3",
+      "Al(OH)3",
+      "NaOH (solid)",
+      "KOH (solid)",
+      "CoCl2.6H2O",
+      "NiSO4.6H2O",
+      "FeSO4.7H2O",
+      "NaHCO3",
+      "CuSO4 (solid)",
+      "CO2(aq)",
+      "CH3COOH",
+      "CH3COONa",
+      "CH3COOK",
+      "NH4Cl(aq)",
+      "Methyl_Orange",
+      "Bromothymol_Blue"
+    ],
+    "products": [
+      "PbCl2",
+      "Ag2S",
+      "Pb",
+      "KFe[Fe(CN)6]",
+      "Cu2[Fe(CN)6]",
+      "C6H2Br3OH",
+      "C6H2Br3NH2",
+      "Ag",
+      "Cu",
+      "BaSO4",
+      "AgCl",
+      "AgBr",
+      "AgI",
+      "PbI2",
+      "Al(OH)3",
+      "Zn(OH)2",
+      "Mg(OH)2",
+      "Ca(OH)2",
+      "Ni(OH)2",
+      "Co(OH)2",
+      "Mn(OH)2",
+      "Fe(OH)2",
+      "Cu(OH)2",
+      "Fe(OH)3",
+      "CaCO3",
+      "CuS",
+      "PbS",
+      "ZnS",
+      "Cu2O",
+      "Ag2CrO4",
+      "BaCrO4",
+      "PbCrO4",
+      "PbSO4",
+      "CuI",
+      "BiI3",
+      "MnO2",
+      "S",
+      "CuO"
+    ]
+  },
+  "reactions": [
+    {
+      "started": [
+        {
+          "program": "bacl2_na2so4",
+          "id": "studio_sample_1793199053655_kf1vg8",
+          "started": true
+        },
+        {
+          "program": "agno3_nacl",
+          "id": "studio_sample_1793199053662_2uzz71",
+          "started": true
+        },
+        {
+          "program": "cuso4_naoh",
+          "id": "studio_sample_1793199053663_zxkf50",
+          "started": true
+        }
+      ],
+      "snapshot": [
+        {
+          "id": "studio_sample_1793199053655_kf1vg8",
+          "contents": [
+            {
+              "formula": "BaCl2",
+              "phase": "aq",
+              "moles": 0.0007513772289508525,
+              "initialMoles": 0.001,
+              "mass_g": 0.15645702625274918,
+              "concentration_M": 0.025046278374562952
+            },
+            {
+              "formula": "Na2SO4",
+              "phase": "aq",
+              "moles": 0.0007513772289508525,
+              "initialMoles": 0.001,
+              "mass_g": 0.1067226160912633,
+              "concentration_M": 0.025046278374562952
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.64929293059099,
+              "moles": 1.6458114310625027,
+              "concentration_M": 54.86119998733529
+            },
+            {
+              "formula": "BaSO4",
+              "moles": 0.00024862277104914754,
+              "mass_g": 0.0580243281757632,
+              "state": "s",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "precipitateFormation": "fine_powder"
+            },
+            {
+              "formula": "NaCl",
+              "moles": 0.0004972455420982951,
+              "mass_g": 0.029059029480224364,
+              "concentration_M": 0.016575096753057156,
+              "state": "aq",
+              "phase": "aq"
+            }
+          ],
+          "precipitateAmount_g": 0.0580243281757632,
+          "temperature_c": 25.03432890733611,
+          "progress": 0.2487000000011176
+        },
+        {
+          "id": "studio_sample_1793199053662_2uzz71",
+          "contents": [
+            {
+              "formula": "AgNO3",
+              "phase": "aq",
+              "moles": 0.0006940301354848553,
+              "initialMoles": 0.001,
+              "mass_g": 0.11789628717508335,
+              "concentration_M": 0.02313468232305171
+            },
+            {
+              "formula": "NaCl",
+              "phase": "aq",
+              "moles": 0.0006940301354848553,
+              "initialMoles": 0.001,
+              "mass_g": 0.04055912111773494,
+              "concentration_M": 0.02313468232305171
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.77124130241619,
+              "moles": 1.652580699551273,
+              "concentration_M": 55.08684807386578
+            },
+            {
+              "formula": "AgCl",
+              "moles": 0.00030596986451514476,
+              "mass_g": 0.043850989042581515,
+              "state": "s",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "precipitateFormation": "curd"
+            },
+            {
+              "formula": "NaNO3",
+              "moles": 0.00030596986451514476,
+              "mass_g": 0.026005602664600214,
+              "concentration_M": 0.01019914734832074,
+              "state": "aq",
+              "phase": "aq"
+            }
+          ],
+          "precipitateAmount_g": 0.043850989042581515,
+          "temperature_c": 25.1190332337537,
+          "progress": 0.30609230769368323
+        },
+        {
+          "id": "studio_sample_1793199053663_zxkf50",
+          "contents": [
+            {
+              "formula": "CuSO4",
+              "phase": "aq",
+              "moles": 0.0007158531182362031,
+              "initialMoles": 0.001,
+              "mass_g": 0.11425158937673449,
+              "concentration_M": 0.02386212462104056
+            },
+            {
+              "formula": "NaOH",
+              "phase": "aq",
+              "moles": 0.0014317062364724061,
+              "initialMoles": 0.002,
+              "mass_g": 0.05726395434018683,
+              "concentration_M": 0.04772424924208112
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.759958926680575,
+              "moles": 1.6519544227965903,
+              "concentration_M": 55.06596909350282
+            },
+            {
+              "formula": "Cu(OH)2",
+              "moles": 0.00028414688176379695,
+              "mass_g": 0.02772136978487603,
+              "state": "s",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "precipitateFormation": "gel"
+            },
+            {
+              "formula": "Na2SO4",
+              "moles": 0.00028414688176379695,
+              "mass_g": 0.04035908649820266,
+              "concentration_M": 0.009471703245540036,
+              "state": "aq",
+              "phase": "aq"
+            }
+          ],
+          "precipitateAmount_g": 0.02772136978487603,
+          "temperature_c": 25.08610573937433,
+          "progress": 0.2842285714298487
+        }
+      ]
+    },
+    {
+      "started": [
+        {
+          "program": "fecl3_naoh",
+          "id": "studio_sample_1793199062040_ilryey",
+          "started": true
+        },
+        {
+          "program": "pbno32_ki",
+          "id": "studio_sample_1793199062041_oe5y3y",
+          "started": true
+        },
+        {
+          "program": "alcl3_naoh",
+          "id": "studio_sample_1793199062042_2b4qzd",
+          "started": true
+        }
+      ],
+      "snapshot": [
+        {
+          "id": "studio_sample_1793199062040_ilryey",
+          "contents": [
+            {
+              "formula": "FeCl3",
+              "phase": "aq",
+              "moles": 0.0005858290318027431,
+              "initialMoles": 0.001,
+              "mass_g": 0.09501853981324591,
+              "concentration_M": 0.01952801316291758
+            },
+            {
+              "formula": "NaOH",
+              "phase": "aq",
+              "moles": 0.0017574870954082291,
+              "initialMoles": 0.003,
+              "mass_g": 0.07029421135504293,
+              "concentration_M": 0.05858403948875273
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.717232113625307,
+              "moles": 1.6495826874063448,
+              "concentration_M": 54.98716424714984
+            },
+            {
+              "formula": "Fe(OH)3",
+              "moles": 0.00041417096819725696,
+              "mass_g": 0.044260794687368064,
+              "state": "s",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "precipitateFormation": "floc"
+            },
+            {
+              "formula": "NaCl",
+              "moles": 0.001242512904591771,
+              "mass_g": 0.07261245414434309,
+              "concentration_M": 0.041417900170118274,
+              "state": "aq",
+              "phase": "aq"
+            }
+          ],
+          "precipitateAmount_g": 0.044260794687368064,
+          "temperature_c": 25.211032229998292,
+          "progress": 0.4141714285718544
+        },
+        {
+          "id": "studio_sample_1793199062041_oe5y3y",
+          "contents": [
+            {
+              "formula": "Pb(NO3)2",
+              "phase": "aq",
+              "moles": 0.0006589176470584727,
+              "initialMoles": 0.001,
+              "mass_g": 0.21823879604694263,
+              "concentration_M": 0.02196434732055628
+            },
+            {
+              "formula": "KI",
+              "phase": "aq",
+              "moles": 0.0013178352941169455,
+              "initialMoles": 0.002,
+              "mass_g": 0.2187632944940012,
+              "concentration_M": 0.04392869464111256
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.33620648678545,
+              "moles": 1.6284322224138468,
+              "concentration_M": 54.282145335455894
+            },
+            {
+              "formula": "PbI2",
+              "moles": 0.00034108235294152733,
+              "mass_g": 0.15724169336486762,
+              "state": "s",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "precipitateFormation": "fine_powder"
+            },
+            {
+              "formula": "KNO3",
+              "moles": 0.0006821647058830547,
+              "mass_g": 0.0689682160941886,
+              "concentration_M": 0.02273926430219118,
+              "state": "aq",
+              "phase": "aq"
+            }
+          ],
+          "precipitateAmount_g": 0.15724169336486762,
+          "temperature_c": 25.12633199368965,
+          "progress": 0.34108235294152733
+        },
+        {
+          "id": "studio_sample_1793199062042_2b4qzd",
+          "contents": [
+            {
+              "formula": "AlCl3",
+              "phase": "aq",
+              "moles": 0.00005547706386257923,
+              "initialMoles": 0.0001,
+              "mass_g": 0.007396867878925414,
+              "concentration_M": 0.0018492713641533388
+            },
+            {
+              "formula": "NaOH",
+              "phase": "aq",
+              "moles": 0.0001664311915877377,
+              "initialMoles": 0.00030000000000000003,
+              "mass_g": 0.006656748369934745,
+              "concentration_M": 0.005547814092460017
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.9740852749207,
+              "moles": 1.6638404260294588,
+              "concentration_M": 55.462425019416095
+            },
+            {
+              "formula": "Al(OH)3",
+              "moles": 0.000044522936137420774,
+              "mass_g": 0.003472922587527233,
+              "state": "s",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "precipitateFormation": "gel"
+            },
+            {
+              "formula": "NaCl",
+              "moles": 0.00013356880841226232,
+              "mass_g": 0.00780576116361261,
+              "concentration_M": 0.00445238005300226,
+              "state": "aq",
+              "phase": "aq"
+            }
+          ],
+          "precipitateAmount_g": 0.003472922587527233,
+          "temperature_c": 25.007350785968665,
+          "progress": 0.44603076923122775
+        }
+      ]
+    },
+    {
+      "started": [
+        {
+          "program": "fe_cuso4",
+          "id": "studio_sample_1793199067367_2je2mo",
+          "started": true
+        },
+        {
+          "program": "zn_agno3",
+          "id": "studio_sample_1793199067368_sdcyzg",
+          "started": true
+        },
+        {
+          "program": "cu_agno3",
+          "id": "studio_sample_1793199067370_nvhp73",
+          "started": true
+        }
+      ],
+      "snapshot": [
+        {
+          "id": "studio_sample_1793199067367_2je2mo",
+          "contents": [
+            {
+              "formula": "Fe (nail)",
+              "phase": "s",
+              "moles": 0.0006482235294072066,
+              "initialMoles": 0.001,
+              "mass_g": 0.036200042999745455
+            },
+            {
+              "formula": "CuSO4",
+              "phase": "aq",
+              "moles": 0.0006482235294072066,
+              "initialMoles": 0.001,
+              "mass_g": 0.103457771740449,
+              "concentration_M": 0.021607905440708938
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.8397670358328,
+              "moles": 1.6563845148949656,
+              "concentration_M": 55.21398324439106
+            },
+            {
+              "formula": "FeSO4",
+              "moles": 0.0003517764705927934,
+              "mass_g": 0.05343519765951591,
+              "concentration_M": 0.011726128978666634,
+              "state": "aq",
+              "phase": "aq"
+            },
+            {
+              "formula": "Cu",
+              "moles": 0.0003517764705927934,
+              "mass_g": 0.02235398760028965,
+              "state": "s",
+              "phase": "s",
+              "solidOrigin": "precipitate"
+            }
+          ],
+          "precipitateAmount_g": 0.02235398760028965,
+          "temperature_c": 25.330288387399865,
+          "progress": 0.3517764705927934
+        },
+        {
+          "id": "studio_sample_1793199067368_sdcyzg",
+          "contents": [
+            {
+              "formula": "Zn",
+              "phase": "s",
+              "moles": 0.000626237499995157,
+              "initialMoles": 0.001,
+              "mass_g": 0.040943407749683365
+            },
+            {
+              "formula": "AgNO3",
+              "phase": "aq",
+              "moles": 0.001252474999990314,
+              "initialMoles": 0.002,
+              "mass_g": 0.21276043319835464,
+              "concentration_M": 0.0417493800663806
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.66010265637924,
+              "moles": 1.6464114713504991,
+              "concentration_M": 54.8806631428447
+            },
+            {
+              "formula": "Zn(NO3)2",
+              "moles": 0.00037376250000484295,
+              "mass_g": 0.07078613235091719,
+              "concentration_M": 0.012458813682814781,
+              "state": "aq",
+              "phase": "aq"
+            },
+            {
+              "formula": "Ag",
+              "moles": 0.0007475250000096859,
+              "mass_g": 0.08063402670104479,
+              "state": "s",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "precipitateFormation": "crystal_needle"
+            }
+          ],
+          "precipitateAmount_g": 0.08063402670104479,
+          "temperature_c": 25.855327357432614,
+          "progress": 0.37376250000484296
+        },
+        {
+          "id": "studio_sample_1793199067370_nvhp73",
+          "contents": [
+            {
+              "formula": "Cu",
+              "phase": "s",
+              "moles": 0.0006677666666623618,
+              "initialMoles": 0.001,
+              "mass_g": 0.04243390059972644
+            },
+            {
+              "formula": "AgNO3",
+              "phase": "aq",
+              "moles": 0.0013355333333247236,
+              "initialMoles": 0.002,
+              "mass_g": 0.22686971839853745,
+              "concentration_M": 0.044518005329228325
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.66010265637924,
+              "moles": 1.6464114713504991,
+              "concentration_M": 54.8806631428447
+            },
+            {
+              "formula": "Cu(NO3)2",
+              "moles": 0.0003322333333376382,
+              "mass_g": 0.06231169060080739,
+              "concentration_M": 0.011074501051390916,
+              "state": "aq",
+              "phase": "aq"
+            },
+            {
+              "formula": "Ag",
+              "moles": 0.0006644666666752763,
+              "mass_g": 0.0716746904009287,
+              "state": "s",
+              "phase": "s",
+              "solidOrigin": "precipitate"
+            }
+          ],
+          "precipitateAmount_g": 0.0716746904009287,
+          "temperature_c": 25.30339825583339,
+          "progress": 0.33223333333763816
+        }
+      ]
+    }
+  ],
+  "dispensing": [
+    {
+      "setup": {
+        "id": "beaker_1793199072165_cs8wi",
+        "chemical": "Fe (nail)",
+        "amount": 1
+      },
+      "final": {
+        "mass_g": 1,
+        "volume_ml": 0,
+        "contents": [
+          {
+            "formula": "Fe (nail)",
+            "phase": "s",
+            "mass_g": 1,
+            "moles": 0.017906706061420002,
+            "initialMass_g": 1,
+            "initialMoles": 0.017906706061420002
+          }
+        ],
+        "mixError": null,
+        "dose": null
+      }
+    },
+    {
+      "setup": {
+        "id": "beaker_1793199074264_nwvug",
+        "chemical": "Al (foil)",
+        "amount": 0.5
+      },
+      "final": {
+        "mass_g": 0.5,
+        "volume_ml": 0,
+        "contents": [
+          {
+            "formula": "Al (foil)",
+            "phase": "s",
+            "mass_g": 0.5,
+            "moles": 0.01853087243347417,
+            "initialMass_g": 0.5,
+            "initialMoles": 0.01853087243347417
+          }
+        ],
+        "mixError": null,
+        "dose": null
+      }
+    },
+    {
+      "setup": {
+        "id": "beaker_1793199076169_yfqhv",
+        "chemical": "CuSO4·5H2O",
+        "amount": 1
+      },
+      "final": {
+        "mass_g": 1,
+        "volume_ml": 0,
+        "contents": [
+          {
+            "formula": "CuSO4·5H2O",
+            "phase": "s",
+            "mass_g": 1,
+            "moles": 0.004005174685693917,
+            "initialMass_g": 1,
+            "initialMoles": 0.004005174685693917
+          }
+        ],
+        "mixError": null,
+        "dose": null
+      }
+    },
+    {
+      "setup": {
+        "id": "beaker_1793199078168_66sjt",
+        "chemical": "NaOH (solid)",
+        "amount": 0.5
+      },
+      "final": {
+        "mass_g": 0.5,
+        "volume_ml": 0,
+        "contents": [
+          {
+            "formula": "NaOH (solid)",
+            "phase": "s",
+            "mass_g": 0.5,
+            "moles": 0.012500937570317772,
+            "initialMass_g": 0.5,
+            "initialMoles": 0.012500937570317772
+          }
+        ],
+        "mixError": null,
+        "dose": null
+      }
+    }
+  ]
+}

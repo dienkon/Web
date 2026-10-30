@@ -72,6 +72,23 @@ export const DEFAULT_SIMULATION_CONFIG: SimulationConfig = {
  * Density is sourced separately from uncalibrated particle size and optics.
  */
 export const PRECIPITATE_PROFILES: Record<string, PrecipitateProfile> = {
+  // Appearance coverage for products already described by precipitates.ts.
+  // Direct mixing does not imply the large needles of recrystallized PbCl2.
+  PbCl2: {
+    id: 'PbCl2', modelBasis: 'uncalibrated_transport', morphology: 'fine_powder', color: '#f8fafc',
+    particleDensity_g_cm3: 5.85, baseParticleRadius_mm: 0.001, displayRadius_scene: 0.001,
+    aggregationRate: 0.4, cloudinessFactor: 0.9, specularReflectivity: 0.1, roughness: 0.9,
+  },
+  Ag2S: {
+    id: 'Ag2S', modelBasis: 'uncalibrated_transport', morphology: 'fine_powder', color: '#242225',
+    particleDensity_g_cm3: 7.2, baseParticleRadius_mm: 0.001, displayRadius_scene: 0.001,
+    aggregationRate: 0.4, cloudinessFactor: 0.95, specularReflectivity: 0.05, roughness: 0.95,
+  },
+  Pb: {
+    id: 'Pb', modelBasis: 'uncalibrated_transport', morphology: 'granular', color: '#8e9397',
+    particleDensity_g_cm3: 11.34, baseParticleRadius_mm: 0.01, displayRadius_scene: 0.0015,
+    aggregationRate: 0.3, cloudinessFactor: 0.3, specularReflectivity: 0.5, roughness: 0.6, metalness: 1,
+  },
   // Appearance-specific colloids; transport is explicitly uncalibrated.
   // See docs/research/ferrocyanide-colloids.vi.md for hydration/composition limits.
   'KFe[Fe(CN)6]': {
@@ -214,7 +231,7 @@ export const PRECIPITATE_PROFILES: Record<string, PrecipitateProfile> = {
     specularReflectivity: 0.05, roughness: 0.90,
   },
   'Fe(OH)2': {
-    id: 'Fe(OH)2', morphology: 'gel_like', color: '#65826a',
+    id: 'Fe(OH)2', morphology: 'gel_like', color: '#a1b39f',
     particleDensity_g_cm3: 3.4, baseParticleRadius_mm: 0.001, displayRadius_scene: 0.0015,
     aggregationRate: 0.8, cloudinessFactor: 0.85,
     specularReflectivity: 0.05, roughness: 0.80,
@@ -223,7 +240,7 @@ export const PRECIPITATE_PROFILES: Record<string, PrecipitateProfile> = {
   'Cu(OH)2': {
     id: 'Cu(OH)2',
     morphology: 'gel_like',
-    color: '#0284c7',
+    color: '#6eadd2',
     particleDensity_g_cm3: 3.37,
     baseParticleRadius_mm: 0.28,
     aggregationRate: 0.85, // Highly flocculating gelatinous network
@@ -348,7 +365,9 @@ export function getPrecipitateProfile(substanceOrColor?: string, formation?: str
     if (sameMolecularFormula(substanceOrColor, key)) {
       return profile.id === 'PbI2' && formation === 'CRYSTAL_PLATE'
         ? { ...profile, morphology: 'crystalline', cloudinessFactor: 0.25,
-          specularReflectivity: 0.95, roughness: 0.18 } : profile;
+          specularReflectivity: 0.95, roughness: 0.18 }
+        : profile.id === 'PbCl2' && formation === 'CRYSTAL_NEEDLE'
+          ? { ...profile, morphology: 'crystalline', cloudinessFactor: 0.25, roughness: 0.25 } : profile;
     }
   }
   

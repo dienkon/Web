@@ -89,7 +89,7 @@ export function parseChemicalFormula(formula: string): Record<string, number> {
   if (!formula || typeof formula !== 'string') return result;
 
   // Clean formula: remove state indicators like (s), (aq), (l), (g), (conc), (dil)
-  let clean = formula.replace(/\s*\((?:s|l|g|aq|conc|dil)\)/gi, '').trim();
+  const clean = identifySpecies(formula).formula;
 
   // Split hydrate dot (· or .)
   const hydrateParts = clean.split(/[·\.]/);
@@ -355,7 +355,7 @@ export class LedgerEngine {
           speciesId: c.formula,
           formula: c.formula,
           moles: c.moles,
-          phase: (c.state as Phase) || (c.formula === 'H2O' ? 'l' : 'aq'),
+          phase: (c.phase as Phase) || (c.state as Phase) || identifySpecies(c.formula).phase || (c.formula === 'H2O' ? 'l' : 'aq'),
           location: 'bulk',
           mass_g: mass,
           molarMass_g_mol: mm
@@ -479,13 +479,13 @@ export function applyProgramToLedger(
   program: ReactionProgram,
   vessel: VesselState,
   consumedExtent: number = 1.0, // 0.0 to 1.0 (fraction of limiting reagent reacted)
-  options: { deferThermal?: boolean } = {},
+  options: { deferThermal?: boolean; conditionTemperature_c?: number } = {},
 ): Partial<VesselState> {
   vessel = ensureHeadspaceReference(vessel);
   const assessment = assessProgramConditions(program, vessel.contents ?? [], {
     ignitedProgramId: vessel.ignitedProgramId,
-    temperature_c: vessel.temperature_c, pH: vessel.ph, volume_ml: vessel.volume_ml,
-    isHeated: vessel.temperature_c > 100,
+    temperature_c: options.conditionTemperature_c ?? vessel.temperature_c, pH: vessel.ph, volume_ml: vessel.volume_ml,
+    isHeated: (options.conditionTemperature_c ?? vessel.temperature_c) > 100,
   });
   if (!assessment.ready) return {
     contents: vessel.contents.map(item => ({ ...item })),

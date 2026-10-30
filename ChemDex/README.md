@@ -14,6 +14,8 @@
 
 Bản nâng cấp nền tảng: xem [kiến trúc, dữ liệu, kiểm thử và triển khai](docs/PLATFORM_UPGRADE.md). Dùng Node.js 22, `npm ci`, `npm run build`, rồi `npm run preview` (cổng 4173). Bản production được đóng gói trong `dist`; không phục vụ trực tiếp thư mục source.
 
+Nâng cấp web chính 27/10/2026: [giao diện mới, tìm kiếm nhanh, 25 tiện ích và dữ liệu CIAAW](docs/MAIN_WEB_UPGRADE.md).
+
 ## 📖 Giới thiệu
 
 **ChemDex** là một nền tảng học tập hóa học trực tuyến, không chỉ là một bảng tuần hoàn thông thường mà còn là một cổng thông tin và trải nghiệm học tập phong phú. Dự án kết hợp dữ liệu hóa học chi tiết, các công cụ tương tác, và môi trường giả lập (phòng thí nghiệm ảo) nhằm mang lại trải nghiệm học tập sinh động và trực quan nhất.

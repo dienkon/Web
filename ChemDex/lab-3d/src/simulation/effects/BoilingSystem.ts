@@ -7,10 +7,11 @@ import { vfxBus } from '../../vfx/bus';
 import { labSound } from '../../utils/audio';
 import { containParticle, type ParticleBounds } from './particleBounds';
 import { PRNG } from '../../core/rng';
-import { METERS_PER_SCENE_UNIT } from '../../science/sceneUnits';
+import { metersPerModelUnit } from '../../science/sceneUnits';
 import { bubbleMechanicalRadius, condenseBubbleVapor } from '../../science/bubblePhase';
 import { mergeBubbleGas, synchronizeBubbleGas, updateBubbleSource } from './bubbleGasInventory';
 import type { ConvectionFluidModel } from '../../science/convectionForcing';
+import { pointPlaneDepth, projectToLiquidPlane } from './liquidParticleFrame';
 
 function advanceGlyphCredit(credit: number, rate: number, dt: number) {
   const total = credit + rate * dt;
@@ -21,6 +22,7 @@ function advanceGlyphCredit(credit: number, rate: number, dt: number) {
 }
 
 export interface BoilingSimulationParams extends ParticleBounds {
+  localToWorld?: (point: [number, number, number]) => [number, number, number];
   interfaceMobility?: BubbleInterfaceMobility;
   vesselId?: string;
   worldPosition?: [number, number, number];
@@ -98,6 +100,7 @@ export class BoilingSystem {
     this.accumulator += dt;
     this.acceptedTime_s += dt;
     this.pending.push({ seconds: dt, params: { ...params,
+      surfacePlane: params.surfacePlane ? { offset: params.surfacePlane.offset, normal: [...params.surfacePlane.normal] } : undefined,
       worldPosition: params.worldPosition ? [...params.worldPosition] : undefined } });
     let steps = 0;
     while (this.accumulator + 1e-12 >= this.fixedDt && steps++ < 240) {
@@ -114,6 +117,7 @@ export class BoilingSystem {
   }
 
   private step(dt: number, params: BoilingSimulationParams): void {
+    const METERS_PER_SCENE_UNIT = metersPerModelUnit(params.vesselProfile);
 
     const {
       temp_c,
@@ -203,8 +207,10 @@ export class BoilingSystem {
         const by = liquidBottomY + this.rng.next() * (height * 0.08); // Right at heated floor!
 
         const baseRad = baseBubbleSize * (0.8 + this.rng.next() * 0.4);
+        const birth = { x: bx, y: by, z: bz, radius: baseRad };
+        if (params.surfacePlane && !containParticle(birth, params, 1.6)) continue;
         const pressure = (params.pressure_atm ?? 1) * 101325
-          + (params.liquidDensity_kg_m3 ?? 1000) * 9.80665 * (surfaceY - by) * METERS_PER_SCENE_UNIT
+          + (params.liquidDensity_kg_m3 ?? 1000) * 9.80665 * Math.max(0, pointPlaneDepth(birth, surfaceY, params.surfacePlane)) * METERS_PER_SCENE_UNIT
           + 2 * sigma / (baseRad * METERS_PER_SCENE_UNIT);
 
         this.bubbles.push({
@@ -212,9 +218,9 @@ export class BoilingSystem {
           source,
           gasPV_scene3_Pa: pressure * baseRad ** 3,
           nucleationPressure_Pa: pressure,
-          x: bx,
-          y: by,
-          z: bz,
+          x: birth.x,
+          y: birth.y,
+          z: birth.z,
           baseRadius: baseRad,
           radius: baseRad,
           vx: (this.rng.next() - 0.5) * 0.04,
@@ -249,7 +255,7 @@ export class BoilingSystem {
       synchronizeBubbleGas(b, temp_c);
       if ((b.vaporPV_scene3_Pa ?? 0) > 0) {
         const pressure = (params.pressure_atm ?? 1) * 101325 + (params.liquidDensity_kg_m3 ?? 1000)
-          * 9.80665 * Math.max(0, surfaceY - b.y) * METERS_PER_SCENE_UNIT;
+          * 9.80665 * Math.max(0, pointPlaneDepth(b, surfaceY, params.surfacePlane)) * METERS_PER_SCENE_UNIT;
         const phase = condenseBubbleVapor({ vapor_Pa_m3: b.vaporPV_scene3_Pa! * scale3,
           noncondensable_Pa_m3: b.noncondensablePV_scene3_Pa! * scale3, temperature_c: temp_c }, pressure, sigma, temp_c, dt);
         b.vaporPV_scene3_Pa = phase.vapor_Pa_m3 / scale3;
@@ -282,7 +288,7 @@ export class BoilingSystem {
 
       const rho = params.liquidDensity_kg_m3 ?? 1000;
       const pressureBefore = (params.pressure_atm ?? 1) * 101325
-        + rho * 9.80665 * Math.max(0, surfaceY - b.y) * METERS_PER_SCENE_UNIT;
+        + rho * 9.80665 * Math.max(0, pointPlaneDepth(b, surfaceY, params.surfacePlane)) * METERS_PER_SCENE_UNIT;
       if (!(b.gasPV_scene3_Pa! > 0)) continue;
 
       // Sample convective circulation current
@@ -304,7 +310,7 @@ export class BoilingSystem {
       const motion = advanceBubbleMotion([b.x * METERS_PER_SCENE_UNIT, b.y * METERS_PER_SCENE_UNIT, b.z * METERS_PER_SCENE_UNIT],
         [b.vx * METERS_PER_SCENE_UNIT, b.vy * METERS_PER_SCENE_UNIT, b.vz * METERS_PER_SCENE_UNIT],
         [cvx * METERS_PER_SCENE_UNIT, cvy * METERS_PER_SCENE_UNIT, cvz * METERS_PER_SCENE_UNIT],
-        physicalRadius_m, rho, viscosity_mPa_s * 0.001, dt, params.interfaceMobility);
+        physicalRadius_m, rho, viscosity_mPa_s * 0.001, dt, params.interfaceMobility, params.surfacePlane?.normal);
       [b.x, b.y, b.z] = motion.position.map(x => x / METERS_PER_SCENE_UNIT);
       [b.vx, b.vy, b.vz] = motion.velocity.map(u => u / METERS_PER_SCENE_UNIT);
       b.physicalRadius_m = physicalRadius_m;
@@ -319,8 +325,15 @@ export class BoilingSystem {
       const angularRate = 2 * Math.PI * Math.min(30, 0.22 * motion.terminal_m_s / diameter_m);
       b.wobblePhase += dt * angularRate;
       const amplitude = physicalRadius_m / METERS_PER_SCENE_UNIT * Math.min(0.12, 0.02 * eo);
-      b.x += amplitude * (Math.sin(b.wobblePhase) - Math.sin(oldPhase));
-      b.z += amplitude * (Math.cos(b.wobblePhase * 0.85) - Math.cos(oldPhase * 0.85));
+      const wobbleX = amplitude * (Math.sin(b.wobblePhase) - Math.sin(oldPhase));
+      const wobbleZ = amplitude * (Math.cos(b.wobblePhase * 0.85) - Math.cos(oldPhase * 0.85));
+      if (params.surfacePlane) {
+        const [ux, uy, uz] = params.surfacePlane.normal, planar = Math.hypot(ux, uy);
+        const ax = planar > 1e-8 ? uy / planar : 1, ay = planar > 1e-8 ? -ux / planar : 0;
+        b.x += ax * wobbleX + ay * uz * wobbleZ;
+        b.y += ay * wobbleX - ax * uz * wobbleZ;
+        b.z += (ax * uy - ay * ux) * wobbleZ;
+      } else { b.x += wobbleX; b.z += wobbleZ; }
 
       // 3. Oblate spheroidal deformation (Eötvös & Weber numbers)
       // Eo = g * Δρ * d² / σ ; We = ρ * U² * d / σ
@@ -332,7 +345,7 @@ export class BoilingSystem {
       // Hydrostatic exterior plus the single-interface Laplace pressure.
       const atmosphericPressure = (params.pressure_atm ?? 1) * 101325;
       const localPressure = atmosphericPressure + (params.liquidDensity_kg_m3 ?? 1000)
-        * 9.80665 * Math.max(0, surfaceY - b.y) * METERS_PER_SCENE_UNIT;
+        * 9.80665 * Math.max(0, pointPlaneDepth(b, surfaceY, params.surfacePlane)) * METERS_PER_SCENE_UNIT;
       const gasPV = b.gasPV_scene3_Pa ?? (b.nucleationPressure_Pa ?? atmosphericPressure) * b.baseRadius ** 3;
       b.radius = bubbleMechanicalRadius(gasPV * scale3, localPressure, sigma) / METERS_PER_SCENE_UNIT;
       b.physicalRadius_m = b.radius * METERS_PER_SCENE_UNIT;
@@ -353,7 +366,7 @@ export class BoilingSystem {
         const mergeDist = b.radius + b2.radius;
         if (distSq < mergeDist * mergeDist) {
           mergeBubbleGas(b, b2);
-          const mergedPressure = atmosphericPressure + rho * 9.80665 * Math.max(0, surfaceY - b.y) * METERS_PER_SCENE_UNIT;
+          const mergedPressure = atmosphericPressure + rho * 9.80665 * Math.max(0, pointPlaneDepth(b, surfaceY, params.surfacePlane)) * METERS_PER_SCENE_UNIT;
           b.radius = bubbleMechanicalRadius(b.gasPV_scene3_Pa! * scale3, mergedPressure, sigma) / METERS_PER_SCENE_UNIT;
           b.baseRadius = b.radius;
           b.nucleationPressure_Pa = mergedPressure + 2 * sigma / (b.radius * METERS_PER_SCENE_UNIT);
@@ -367,11 +380,11 @@ export class BoilingSystem {
       b.physicalRadius_m = b.radius * METERS_PER_SCENE_UNIT;
 
       // 5. CHECK MENISCUS SURFACE IMPACT & BURST
-      if (b.y >= surfaceY - b.radius * 1.6) {
+      if (pointPlaneDepth(b, surfaceY, params.surfacePlane) <= b.radius * 1.6) {
         // Trigger surface pop!
         b.isPopping = true;
         b.popProgress = 0.05;
-        b.y = surfaceY;
+        projectToLiquidPlane(b, surfaceY, params.surfacePlane);
         if (!containParticle(b, params, 1.6, true)) continue;
 
         // Deterministic per-vessel event budget. Pure vapor and mixed packets
@@ -391,9 +404,11 @@ export class BoilingSystem {
         // Worthington micro-jet and droplet ejecta
         if (boilingIntensity > 0.25 || this.rng.next() < 0.45) {
           const origin = params.worldPosition ?? [0, 0, 0];
+          const up = params.surfacePlane?.normal ?? [0, 1, 0];
+          const burstPoint: [number, number, number] = [b.x + up[0] * 0.006, b.y + up[1] * 0.006, b.z + up[2] * 0.006];
           if (params.vesselId) vfxBus.emit('particle:burst', {
             vesselId: params.vesselId,
-            position: [origin[0] + b.x, origin[1] + surfaceY + 0.006, origin[2] + b.z],
+            position: params.localToWorld?.(burstPoint) ?? [origin[0] + burstPoint[0], origin[1] + burstPoint[1], origin[2] + burstPoint[2]],
             count: Math.floor(2 + this.rng.next() * 3),
             color: '#f8fafc',
             speed: 0.85

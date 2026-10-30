@@ -5,6 +5,8 @@ import { precipitateComponents, isSuspensionRow, withLegacyPrecipitateOrigins } 
 import { identifySpecies, sameMolecularFormula } from '../science/speciesIdentity';
 
 export interface LiquidAliquot {
+  reactionProgramId?: string | null;
+  contactChemistryLimit?: 'phase_boundary';
   organicVolume_ml?: number;
   organicColor?: string;
   volume_ml: number;

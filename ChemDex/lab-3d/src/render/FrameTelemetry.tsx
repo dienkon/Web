@@ -1,5 +1,5 @@
-import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useEffect, useRef } from 'react';
+import { addAfterEffect, useFrame, useThree } from '@react-three/fiber';
 import { create } from 'zustand';
 
 interface FrameStats {
@@ -20,23 +20,40 @@ export function summarizeFrames(values: ArrayLike<number>, count = values.length
     p95_ms: Math.round(sorted[Math.ceil(sorted.length * 0.95) - 1] * 10) / 10, samples: sorted.length };
 }
 
-/** Samples the R3F loop, publishing once a second. Hidden tabs reset the
- * sampling window instead of counting background RAF throttling as lag. */
+/** Samples complete frames, including all scene and postprocessing passes.
+ * Hidden tabs reset the window rather than counting background throttling. */
 export function FrameTelemetry() {
+  const gl = useThree(state => state.gl);
   const samples = useRef(new Float32Array(240));
   const count = useRef(0);
   const elapsed = useRef(0);
-  useFrame(({ gl }, delta) => {
+  const publish = useRef(false);
+  useEffect(() => {
+    const autoReset = gl.info.autoReset;
+    gl.info.autoReset = false;
+    const unsubscribe = addAfterEffect(() => {
+      if (!publish.current) return;
+      publish.current = false;
+      useFrameStats.setState({ ...summarizeFrames(samples.current, count.current),
+        drawCalls: gl.info.render.calls, triangles: gl.info.render.triangles });
+      count.current = 0;
+      elapsed.current = 0;
+    });
+    return () => { unsubscribe(); gl.info.autoReset = autoReset; gl.info.reset(); };
+  }, [gl]);
+  useFrame((_, delta) => {
+    // Negative priority leaves rendering to R3F/the composer. Reset before
+    // frame callbacks; read after rendering so the final quad cannot hide
+    // the scene, shadows and other passes from the HUD.
+    gl.info.reset();
+    publish.current = false;
     if (document.hidden) { count.current = 0; elapsed.current = 0; return; }
     if (!Number.isFinite(delta) || delta <= 0) return;
     samples.current[count.current++] = delta * 1000;
     elapsed.current += delta;
     if (elapsed.current >= 1 || count.current === samples.current.length) {
-      useFrameStats.setState({ ...summarizeFrames(samples.current, count.current),
-        drawCalls: gl.info.render.calls, triangles: gl.info.render.triangles });
-      count.current = 0;
-      elapsed.current = 0;
+      publish.current = true;
     }
-  });
+  }, -Infinity);
   return null;
 }

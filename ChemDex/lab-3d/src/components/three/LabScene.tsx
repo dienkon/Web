@@ -907,12 +907,12 @@ export function LabScene() {
         </mesh>
         
         {/* Reagent Shelf Stock Bottles with Authentic GHS Labels */}
-        <Bottle position={[-11.5, 2.9, -6.0]} color="#f1f5f9" formula="HCl" name="Hydrochloric Acid 37%" hazard="corrosive" />
-        <Bottle position={[-10.3, 2.9, -6.0]} color="#f8fafc" formula="NaOH" name="Sodium Hydroxide 2M" hazard="corrosive" />
-        <Bottle position={[-9.1, 2.9, -6.0]} color="#0284c7" formula="CuSO4" name="Copper Sulfate 1M" hazard="toxic" />
-        <Bottle position={[-7.9, 2.9, -6.0]} color="#fef08a" formula="KI" name="Potassium Iodide" hazard="safe" />
-        <Bottle position={[-6.7, 2.9, -6.0]} color="#e0f2fe" formula="C2H5OH" name="Ethanol 96°" hazard="flammable" />
-        <Bottle position={[-5.5, 2.9, -6.0]} color="#fef3c7" formula="HNO3" name="Nitric Acid Conc" hazard="oxidizer" isAmber />
+        <Bottle position={[-11.5, 2.9, -6.0]} color="#ffffff" formula="HCl (dil)" name="Hydrochloric Acid 1 M" hazard="corrosive" />
+        <Bottle position={[-10.3, 2.9, -6.0]} color="#ffffff" formula="NaOH" name="Sodium Hydroxide 1 M" hazard="corrosive" />
+        <Bottle position={[-9.1, 2.9, -6.0]} color="#2563eb" formula="CuSO4" name="Copper Sulfate 0.5 M" hazard="toxic" />
+        <Bottle position={[-7.9, 2.9, -6.0]} color="#ffffff" formula="KI" name="Potassium Iodide 0.5 M" hazard="safe" />
+        <Bottle position={[-6.7, 2.9, -6.0]} color="#ffffff" formula="C2H5OH" name="Ethanol 96%" hazard="flammable" />
+        <Bottle position={[-5.5, 2.9, -6.0]} color="#ffffff" formula="HNO3 (conc)" name="Nitric Acid 68%" hazard="oxidizer" isAmber />
 
         {/* Digital Analytical Balance */}
         <DigitalBalance position={[7.5, -1.175, -2.5]} />

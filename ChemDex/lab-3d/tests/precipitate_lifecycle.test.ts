@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { PrecipitationSystem } from '../src/simulation/effects/PrecipitationSystem';
 import { PRECIPITATE_PROFILES } from '../src/simulation/core/SimulationConfig';
 import { PRNG } from '../src/core/rng';
+import { getFlocculationModel } from '../src/science/flocculationModels';
 
 const params = { temp_c: 25, viscosity_mPa_s: 1, density_g_ml: 1,
   radius: 1, liquidBottomY: 0, surfaceY: 3, precipitateAmount_g: 1 };
@@ -13,9 +14,19 @@ describe('Finite precipitation lifecycle', () => {
     const p = system.particles[0];
     expect(p).toBeDefined();
     const originalRadius = p.radius;
+    const physicalRadius = p.physicalRadius_m!;
+    const beforeMean = system.flocculation.properties?.meanPrimaryCount;
     const originalMass = p.mass_ug;
     system.update(0.001, { ...params, substance, precipitateAmount_g: 0.125 });
-    expect(p.radius).toBeCloseTo(originalRadius * 0.5, 12);
+    const flocModel = getFlocculationModel(system.profile);
+    if (flocModel && beforeMean) {
+      // Dissolution halves the constituent radius; ongoing aggregation may
+      // also change the enclosing porous-floc radius in this same interval.
+      const beforePrimary = physicalRadius / beforeMean ** (1 / flocModel.fractalDimension);
+      const afterPrimary = p.physicalRadius_m! / system.flocculation.properties!.meanPrimaryCount ** (1 / flocModel.fractalDimension);
+      expect(afterPrimary).toBeCloseTo(beforePrimary * 0.5, 15);
+      expect(p.radius / originalRadius).toBeCloseTo(p.physicalRadius_m! / physicalRadius, 12);
+    } else expect(p.radius).toBeCloseTo(originalRadius * 0.5, 12);
     expect(p.mass_ug).toBeCloseTo(originalMass * 0.125, 12);
     expect(system.representedMass_g).toBeCloseTo(0.125, 12);
     system.update(0.1, { ...params, substance, precipitateAmount_g: 0 });

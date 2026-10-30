@@ -1,0 +1,367 @@
+{
+  "passed": true,
+  "checks": [
+    "finite solid geometry: chemical-bin/front",
+    "finite solid geometry: chemical-bin/three-quarter",
+    "bottom rests on support plane: chemical-bin",
+    "bounded asset draw calls: chemical-bin / 8",
+    "finite solid geometry: chemical-bin/back",
+    "finite solid geometry: chemical-bin/top",
+    "finite solid geometry: chemical-bin-open/front",
+    "finite solid geometry: chemical-bin-open/three-quarter",
+    "bottom rests on support plane: chemical-bin-open",
+    "bounded asset draw calls: chemical-bin-open / 8",
+    "finite solid geometry: chemical-bin-open/back",
+    "finite solid geometry: chemical-bin-open/top",
+    "finite solid geometry: domestic-bin/front",
+    "finite solid geometry: domestic-bin/three-quarter",
+    "bottom rests on support plane: domestic-bin",
+    "bounded asset draw calls: domestic-bin / 8",
+    "finite solid geometry: domestic-bin/back",
+    "finite solid geometry: domestic-bin/top",
+    "finite solid geometry: liquid-waste/front",
+    "finite solid geometry: liquid-waste/three-quarter",
+    "bottom rests on support plane: liquid-waste",
+    "bounded asset draw calls: liquid-waste / 8",
+    "finite solid geometry: liquid-waste/back",
+    "finite solid geometry: liquid-waste/top",
+    "finite solid geometry: liquid-waste-open/front",
+    "finite solid geometry: liquid-waste-open/three-quarter",
+    "bottom rests on support plane: liquid-waste-open",
+    "bounded asset draw calls: liquid-waste-open / 8",
+    "finite solid geometry: liquid-waste-open/back",
+    "finite solid geometry: liquid-waste-open/top",
+    "finite solid geometry: glass-waste/front",
+    "finite solid geometry: glass-waste/three-quarter",
+    "bottom rests on support plane: glass-waste",
+    "bounded asset draw calls: glass-waste / 9",
+    "finite solid geometry: glass-waste/back",
+    "finite solid geometry: glass-waste/top",
+    "finite solid geometry: sharps-box/front",
+    "finite solid geometry: sharps-box/three-quarter",
+    "bottom rests on support plane: sharps-box",
+    "bounded asset draw calls: sharps-box / 10",
+    "finite solid geometry: sharps-box/back",
+    "finite solid geometry: sharps-box/top",
+    "finite solid geometry: sharps-box-closed/front",
+    "finite solid geometry: sharps-box-closed/three-quarter",
+    "bottom rests on support plane: sharps-box-closed",
+    "bounded asset draw calls: sharps-box-closed / 10",
+    "finite solid geometry: sharps-box-closed/back",
+    "finite solid geometry: sharps-box-closed/top",
+    "finite solid geometry: glass-shards/front",
+    "finite solid geometry: glass-shards/three-quarter",
+    "bottom rests on support plane: glass-shards",
+    "bounded asset draw calls: glass-shards / 6",
+    "finite solid geometry: glass-shards/back",
+    "finite solid geometry: glass-shards/top",
+    "finite solid geometry: crumpled-paper/front",
+    "finite solid geometry: crumpled-paper/three-quarter",
+    "bottom rests on support plane: crumpled-paper",
+    "bounded asset draw calls: crumpled-paper / 1",
+    "finite solid geometry: crumpled-paper/back",
+    "finite solid geometry: crumpled-paper/top",
+    "finite solid geometry: contaminated-paper/front",
+    "finite solid geometry: contaminated-paper/three-quarter",
+    "bottom rests on support plane: contaminated-paper",
+    "bounded asset draw calls: contaminated-paper / 1",
+    "finite solid geometry: contaminated-paper/back",
+    "finite solid geometry: contaminated-paper/top",
+    "no runtime exceptions while rendering all asset studies"
+  ],
+  "errors": [],
+  "snapshots": [
+    {
+      "id": "chemical-bin",
+      "min": [
+        -0.23999999463558197,
+        0,
+        -0.23999999463558197
+      ],
+      "max": [
+        0.23999999463558197,
+        0.6925049998015166,
+        0.29500000074505806
+      ],
+      "size": [
+        0.47999998927116394,
+        0.6925049998015166,
+        0.53499999538064
+      ],
+      "meshes": 8,
+      "triangles": 3992,
+      "calls": 8,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-chemical-bin",
+        "waste-lid-hinge"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "chemical-bin-open",
+      "min": [
+        -0.23999999463558197,
+        0,
+        -0.257993755713772
+      ],
+      "max": [
+        0.23999999463558197,
+        1.0741280936263047,
+        0.29500000074505806
+      ],
+      "size": [
+        0.47999998927116394,
+        1.0741280936263047,
+        0.5529937564588301
+      ],
+      "meshes": 8,
+      "triangles": 3992,
+      "calls": 8,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-chemical-bin",
+        "waste-lid-hinge"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "domestic-bin",
+      "min": [
+        -0.23999999463558197,
+        0,
+        -0.23999999463558197
+      ],
+      "max": [
+        0.23999999463558197,
+        0.6925049998015166,
+        0.29500000074505806
+      ],
+      "size": [
+        0.47999998927116394,
+        0.6925049998015166,
+        0.53499999538064
+      ],
+      "meshes": 8,
+      "triangles": 3992,
+      "calls": 8,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-domestic-bin",
+        "waste-lid-hinge"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "liquid-waste",
+      "min": [
+        -0.21199999749660492,
+        0,
+        -0.21199999749660492
+      ],
+      "max": [
+        0.25278328406983036,
+        0.7865050004050136,
+        0.21199999749660492
+      ],
+      "size": [
+        0.4647832815664353,
+        0.7865050004050136,
+        0.42399999499320984
+      ],
+      "meshes": 8,
+      "triangles": 4124,
+      "calls": 8,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-liquid-waste"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "liquid-waste-open",
+      "min": [
+        -0.21199999749660492,
+        0,
+        -0.21199999749660492
+      ],
+      "max": [
+        0.25278328406983036,
+        0.9869012529217568,
+        0.21199999749660492
+      ],
+      "size": [
+        0.4647832815664353,
+        0.9869012529217568,
+        0.42399999499320984
+      ],
+      "meshes": 8,
+      "triangles": 4124,
+      "calls": 8,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-liquid-waste"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "glass-waste",
+      "min": [
+        -0.2199999988079071,
+        0,
+        -0.2199999988079071
+      ],
+      "max": [
+        0.2199999988079071,
+        0.7175000008940696,
+        0.2199999988079071
+      ],
+      "size": [
+        0.4399999976158142,
+        0.7175000008940696,
+        0.4399999976158142
+      ],
+      "meshes": 9,
+      "triangles": 502,
+      "calls": 9,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-glass-waste",
+        "countertop-with-openings"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "sharps-box",
+      "min": [
+        -0.17000000178813934,
+        1.6763806315323038e-10,
+        -0.15199999511241913
+      ],
+      "max": [
+        0.17000000178813934,
+        0.5846396088600159,
+        0.15000000596046448
+      ],
+      "size": [
+        0.3400000035762787,
+        0.5846396086923779,
+        0.3020000010728836
+      ],
+      "meshes": 10,
+      "triangles": 1718,
+      "calls": 10,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-sharps-box",
+        "countertop-with-openings"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "sharps-box-closed",
+      "min": [
+        -0.17000000178813934,
+        1.6763806315323038e-10,
+        -0.15199999511241913
+      ],
+      "max": [
+        0.17000000178813934,
+        0.5846396088600159,
+        0.15000000596046448
+      ],
+      "size": [
+        0.3400000035762787,
+        0.5846396086923779,
+        0.3020000010728836
+      ],
+      "meshes": 10,
+      "triangles": 1718,
+      "calls": 10,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-sharps-box",
+        "countertop-with-openings"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "glass-shards",
+      "min": [
+        -0.15000000074505807,
+        -1.4988011014419348e-17,
+        -0.054999999701976776
+      ],
+      "max": [
+        0.13644505239222054,
+        0.0020000000949949182,
+        0.11025254001041625
+      ],
+      "size": [
+        0.28644505313727864,
+        0.0020000000949949334,
+        0.165252539712393
+      ],
+      "meshes": 3,
+      "triangles": 36,
+      "calls": 6,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-glass-shards"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "crumpled-paper",
+      "min": [
+        -0.10000000149011612,
+        2.1606683716507424e-10,
+        -0.07999999821186066
+      ],
+      "max": [
+        0.10000000149011612,
+        0.029924850195646287,
+        0.07999999821186066
+      ],
+      "size": [
+        0.20000000298023224,
+        0.02992484997957945,
+        0.1599999964237213
+      ],
+      "meshes": 1,
+      "triangles": 160,
+      "calls": 1,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-crumpled-paper"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "contaminated-paper",
+      "min": [
+        -0.10000000149011612,
+        2.1606683716507424e-10,
+        -0.07999999821186066
+      ],
+      "max": [
+        0.10000000149011612,
+        0.029924850195646287,
+        0.07999999821186066
+      ],
+      "size": [
+        0.20000000298023224,
+        0.02992484997957945,
+        0.1599999964237213
+      ],
+      "meshes": 1,
+      "triangles": 160,
+      "calls": 1,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-contaminated-paper"
+      ],
+      "textures": 4
+    }
+  ]
+}

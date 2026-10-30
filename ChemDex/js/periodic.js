@@ -380,7 +380,8 @@ function showElementDetails(el) {
                 ${categories[el.category]?.name.toUpperCase() || "CHƯA XÁC ĐỊNH"}
               </span>
               <h2 class="text-5xl font-bold text-white mb-2">${el.nameVi}</h2>
-              <p class="text-xl text-slate-300">${el.nameEn} • ${el.mass} g/mol</p>
+              <p class="text-xl text-slate-300">${el.nameEn} • Nguyên tử khối: ${escapeHtml(el.massStandardText ?? el.mass ?? "Chưa có dữ liệu")}</p>
+              ${el.massStandardSource ? `<a class="text-sm text-cyan-300" href="${escapeHtml(el.massStandardSource)}" target="_blank" rel="noreferrer">Nguồn: CIAAW 2024 ↗</a>` : ""}
             </div>
           </div>
         `;
@@ -552,7 +553,7 @@ function showElementDetails(el) {
                   </div>
                   <div class="glass p-4 rounded-xl border border-slate-700/50">
                     <p class="text-slate-400 text-sm mb-1">Nguyên tử khối</p>
-                    <p class="text-lg font-bold text-white">${el.mass ?? "Chưa có dữ liệu"} g/mol</p>
+                    <p class="text-lg font-bold text-white">${escapeHtml(el.massStandardText ?? el.mass ?? "Chưa có dữ liệu")}</p>
                   </div>
                   <div class="glass p-4 rounded-xl border border-slate-700/50">
                     <p class="text-slate-400 text-sm mb-1">Vỏ nguyên tử</p>

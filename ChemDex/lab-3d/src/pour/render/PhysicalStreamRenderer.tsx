@@ -4,7 +4,7 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { PourController } from '../controller/PourController';
 import { useAppStore } from '../../store/useAppStore';
-import { getVesselProfile } from '../physics/profiles';
+import { getWorldVesselProfile } from '../physics/profiles';
 import { pourAudio } from '../audio/PourAudio';
 import { SCENE_GRAVITY, METERS_PER_SCENE_UNIT, streamRadiusForFlow, liquidDropRadius } from '../../science/sceneUnits';
 import { NOMINAL_DROP_ML } from '../../handling/doseTiming';
@@ -167,7 +167,7 @@ export const PhysicalStreamRenderer = React.memo(function PhysicalStreamRenderer
     const [targetX, targetY, targetZ] = trajectory.impactPos;
     const [v0x, v0y, v0z] = trajectory.exitVel;
     const flightTime = trajectory.timeOfFlight;
-    const targetMouthR = targetVessel ? getVesselProfile(targetVessel.type).mouthR : 0.4;
+    const targetMouthR = targetVessel ? getWorldVesselProfile(targetVessel.type, targetVessel.capacity_ml).mouthR : 0.4;
     const landsInLiquid = !!targetVessel && trajectory.targetVesselId === targetVessel.id && targetVessel.volume_ml > 0 && trajectory.detailKind === 'liquid';
     if (!wasStreamingRef.current) {
       pourAudio.startPourStream(320); wasStreamingRef.current = true;

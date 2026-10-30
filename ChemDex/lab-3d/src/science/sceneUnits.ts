@@ -1,9 +1,15 @@
-/** One global display scale for flight through the lab. Glassware capacities
- * are separately calibrated to their modeled interiors, not certified SI sizes. */
+/** Global world scale. Model-local glassware uses vesselBodyTransform to
+ * make its reservoir capacity agree with this same length/volume scale. */
 export const METERS_PER_SCENE_UNIT = 0.035;
 export const CENTIMETERS_PER_SCENE_UNIT = METERS_PER_SCENE_UNIT * 100;
 export const GRAVITY_M_S2 = 9.8;
 export const SCENE_GRAVITY = GRAVITY_M_S2 / METERS_PER_SCENE_UNIT;
+
+/** A shared model may be instanced at different physical sizes. Profiles use
+ * cm per MODEL-local unit; free flight continues to use world units above. */
+export function metersPerModelUnit(profile?: { sceneScale: number }): number {
+  return profile && Number.isFinite(profile.sceneScale) && profile.sceneScale > 0 ? profile.sceneScale / 100 : METERS_PER_SCENE_UNIT;
+}
 
 /** Descending intersection with a horizontal plane; null if it is unreachable. */
 export function descendingFlightTime(startY: number, initialVy: number, targetY: number): number | null {

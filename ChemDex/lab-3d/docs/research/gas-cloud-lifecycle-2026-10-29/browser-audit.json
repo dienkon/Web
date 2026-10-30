@@ -1,0 +1,712 @@
+{
+  "errors": [],
+  "consoleErrors": [],
+  "qualities": [
+    {
+      "tier": "ultra",
+      "maximum": 175,
+      "modelCount": 26,
+      "drawCount": 26,
+      "channels": [
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",1,\"NO2\"]",
+          "revision": 1,
+          "sourceLive": true,
+          "count": 26,
+          "accepted_mol": 0.0016745882352660682,
+          "integrated_mol": 0.001547607843081157,
+          "age": 0.7083333333333331
+        }
+      ],
+      "escaped_mol": 0.0016745882352660682,
+      "reactionActive": true
+    },
+    {
+      "tier": "potato",
+      "maximum": 16,
+      "modelCount": 26,
+      "drawCount": 16,
+      "channels": [
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",1,\"NO2\"]",
+          "revision": 1,
+          "sourceLive": true,
+          "count": 26,
+          "accepted_mol": 0.0016745882352660682,
+          "integrated_mol": 0.001547607843081157,
+          "age": 0.7083333333333331
+        }
+      ],
+      "escaped_mol": 0.0016745882352660682,
+      "reactionActive": true
+    },
+    {
+      "tier": "medium",
+      "maximum": 35,
+      "modelCount": 26,
+      "drawCount": 26,
+      "channels": [
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",1,\"NO2\"]",
+          "revision": 1,
+          "sourceLive": true,
+          "count": 26,
+          "accepted_mol": 0.0016745882352660682,
+          "integrated_mol": 0.001547607843081157,
+          "age": 0.7083333333333331
+        }
+      ],
+      "escaped_mol": 0.0016745882352660682,
+      "reactionActive": true
+    },
+    {
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 26,
+      "drawCount": 16,
+      "channels": [
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",1,\"NO2\"]",
+          "revision": 1,
+          "sourceLive": true,
+          "count": 26,
+          "accepted_mol": 0.0016745882352660682,
+          "integrated_mol": 0.001547607843081157,
+          "age": 0.7083333333333331
+        }
+      ],
+      "escaped_mol": 0.0016745882352660682,
+      "reactionActive": true
+    }
+  ],
+  "emitting": {
+    "tier": "low",
+    "maximum": 16,
+    "modelCount": 26,
+    "drawCount": 16,
+    "channels": [
+      {
+        "key": "[\"studio_sample_1793274857864_07ai3a\",1,\"NO2\"]",
+        "revision": 1,
+        "sourceLive": true,
+        "count": 26,
+        "accepted_mol": 0.0016745882352660682,
+        "integrated_mol": 0.001547607843081157,
+        "age": 0.7083333333333331
+      }
+    ],
+    "escaped_mol": 0.0016745882352660682,
+    "reactionActive": true
+  },
+  "sourceFinished": {
+    "tier": "low",
+    "maximum": 16,
+    "modelCount": 108,
+    "drawCount": 16,
+    "channels": [
+      {
+        "key": "[\"studio_sample_1793274857864_07ai3a\",1,\"NO2\"]",
+        "revision": 1,
+        "sourceLive": true,
+        "count": 108,
+        "accepted_mol": 0.020000000000000004,
+        "integrated_mol": 0.019305020503146104,
+        "age": 8.65000000000014
+      }
+    ],
+    "escaped_mol": 0.02,
+    "reactionActive": false
+  },
+  "replaced": {
+    "tier": "low",
+    "maximum": 16,
+    "modelCount": 114,
+    "drawCount": 16,
+    "channels": [
+      {
+        "key": "[\"studio_sample_1793274857864_07ai3a\",1,\"NO2\"]",
+        "revision": 1,
+        "sourceLive": false,
+        "count": 110,
+        "accepted_mol": 0.020000000000000004,
+        "integrated_mol": 0.01953252831787296,
+        "age": 8.783333333333468
+      },
+      {
+        "key": "[\"studio_sample_1793274857864_07ai3a\",2,\"NO2\"]",
+        "revision": 2,
+        "sourceLive": true,
+        "count": 4,
+        "accepted_mol": 0.0002665882353221668,
+        "integrated_mol": 0.0002665882353221669,
+        "age": 0.13333333333333333
+      }
+    ],
+    "escaped_mol": 0.00026658823532216687,
+    "reactionActive": true
+  },
+  "deleted": {
+    "tier": "low",
+    "maximum": 16,
+    "modelCount": 114,
+    "drawCount": 16,
+    "channels": [
+      {
+        "key": "[\"studio_sample_1793274857864_07ai3a\",1,\"NO2\"]",
+        "revision": 1,
+        "sourceLive": false,
+        "count": 110,
+        "accepted_mol": 0.020000000000000004,
+        "integrated_mol": 0.01953252831787296,
+        "age": 8.783333333333468
+      },
+      {
+        "key": "[\"studio_sample_1793274857864_07ai3a\",2,\"NO2\"]",
+        "revision": 2,
+        "sourceLive": true,
+        "count": 4,
+        "accepted_mol": 0.0002665882353221668,
+        "integrated_mol": 0.0002665882353221669,
+        "age": 0.13333333333333333
+      }
+    ],
+    "escaped_mol": 0,
+    "reactionActive": true
+  },
+  "decay": [
+    {
+      "t_s": 0.2,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 116,
+      "drawCount": 16,
+      "channels": [
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",1,\"NO2\"]",
+          "revision": 1,
+          "sourceLive": false,
+          "count": 112,
+          "accepted_mol": 0.020000000000000004,
+          "integrated_mol": 0.019873790039963247,
+          "age": 8.983333333333457
+        },
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",2,\"NO2\"]",
+          "revision": 2,
+          "sourceLive": false,
+          "count": 4,
+          "accepted_mol": 0.0002665882353221668,
+          "integrated_mol": 0.0002665882353221669,
+          "age": 0.33333333333333354
+        }
+      ],
+      "escaped_mol": 0,
+      "reactionActive": true
+    },
+    {
+      "t_s": 0.4,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 108,
+      "drawCount": 16,
+      "channels": [
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",1,\"NO2\"]",
+          "revision": 1,
+          "sourceLive": false,
+          "count": 104,
+          "accepted_mol": 0.020000000000000004,
+          "integrated_mol": 0.019999999999999907,
+          "age": 9.183333333333449
+        },
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",2,\"NO2\"]",
+          "revision": 2,
+          "sourceLive": false,
+          "count": 4,
+          "accepted_mol": 0.0002665882353221668,
+          "integrated_mol": 0.0002665882353221669,
+          "age": 0.5333333333333339
+        }
+      ],
+      "escaped_mol": 0,
+      "reactionActive": true
+    },
+    {
+      "t_s": 0.6000000000000001,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 98,
+      "drawCount": 16,
+      "channels": [
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",1,\"NO2\"]",
+          "revision": 1,
+          "sourceLive": false,
+          "count": 94,
+          "accepted_mol": 0.020000000000000004,
+          "integrated_mol": 0.019999999999999907,
+          "age": 9.38333333333344
+        },
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",2,\"NO2\"]",
+          "revision": 2,
+          "sourceLive": false,
+          "count": 4,
+          "accepted_mol": 0.0002665882353221668,
+          "integrated_mol": 0.0002665882353221669,
+          "age": 0.7333333333333332
+        }
+      ],
+      "escaped_mol": 0,
+      "reactionActive": true
+    },
+    {
+      "t_s": 0.8,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 87,
+      "drawCount": 16,
+      "channels": [
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",1,\"NO2\"]",
+          "revision": 1,
+          "sourceLive": false,
+          "count": 83,
+          "accepted_mol": 0.020000000000000004,
+          "integrated_mol": 0.019999999999999907,
+          "age": 9.58333333333343
+        },
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",2,\"NO2\"]",
+          "revision": 2,
+          "sourceLive": false,
+          "count": 4,
+          "accepted_mol": 0.0002665882353221668,
+          "integrated_mol": 0.0002665882353221669,
+          "age": 0.9333333333333326
+        }
+      ],
+      "escaped_mol": 0,
+      "reactionActive": true
+    },
+    {
+      "t_s": 1,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 81,
+      "drawCount": 16,
+      "channels": [
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",1,\"NO2\"]",
+          "revision": 1,
+          "sourceLive": false,
+          "count": 77,
+          "accepted_mol": 0.020000000000000004,
+          "integrated_mol": 0.019999999999999907,
+          "age": 9.78333333333342
+        },
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",2,\"NO2\"]",
+          "revision": 2,
+          "sourceLive": false,
+          "count": 4,
+          "accepted_mol": 0.0002665882353221668,
+          "integrated_mol": 0.0002665882353221669,
+          "age": 1.133333333333332
+        }
+      ],
+      "escaped_mol": 0,
+      "reactionActive": true
+    },
+    {
+      "t_s": 1.2000000000000002,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 74,
+      "drawCount": 16,
+      "channels": [
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",1,\"NO2\"]",
+          "revision": 1,
+          "sourceLive": false,
+          "count": 70,
+          "accepted_mol": 0.020000000000000004,
+          "integrated_mol": 0.019999999999999907,
+          "age": 9.98333333333341
+        },
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",2,\"NO2\"]",
+          "revision": 2,
+          "sourceLive": false,
+          "count": 4,
+          "accepted_mol": 0.0002665882353221668,
+          "integrated_mol": 0.0002665882353221669,
+          "age": 1.3333333333333313
+        }
+      ],
+      "escaped_mol": 0,
+      "reactionActive": true
+    },
+    {
+      "t_s": 1.4000000000000001,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 67,
+      "drawCount": 16,
+      "channels": [
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",1,\"NO2\"]",
+          "revision": 1,
+          "sourceLive": false,
+          "count": 63,
+          "accepted_mol": 0.020000000000000004,
+          "integrated_mol": 0.019999999999999907,
+          "age": 10.183333333333401
+        },
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",2,\"NO2\"]",
+          "revision": 2,
+          "sourceLive": false,
+          "count": 4,
+          "accepted_mol": 0.0002665882353221668,
+          "integrated_mol": 0.0002665882353221669,
+          "age": 1.5333333333333306
+        }
+      ],
+      "escaped_mol": 0,
+      "reactionActive": true
+    },
+    {
+      "t_s": 1.6,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 62,
+      "drawCount": 16,
+      "channels": [
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",1,\"NO2\"]",
+          "revision": 1,
+          "sourceLive": false,
+          "count": 58,
+          "accepted_mol": 0.020000000000000004,
+          "integrated_mol": 0.019999999999999907,
+          "age": 10.383333333333391
+        },
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",2,\"NO2\"]",
+          "revision": 2,
+          "sourceLive": false,
+          "count": 4,
+          "accepted_mol": 0.0002665882353221668,
+          "integrated_mol": 0.0002665882353221669,
+          "age": 1.7333333333333298
+        }
+      ],
+      "escaped_mol": 0,
+      "reactionActive": true
+    },
+    {
+      "t_s": 1.8,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 47,
+      "drawCount": 16,
+      "channels": [
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",1,\"NO2\"]",
+          "revision": 1,
+          "sourceLive": false,
+          "count": 43,
+          "accepted_mol": 0.020000000000000004,
+          "integrated_mol": 0.019999999999999907,
+          "age": 10.583333333333382
+        },
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",2,\"NO2\"]",
+          "revision": 2,
+          "sourceLive": false,
+          "count": 4,
+          "accepted_mol": 0.0002665882353221668,
+          "integrated_mol": 0.0002665882353221669,
+          "age": 1.9333333333333294
+        }
+      ],
+      "escaped_mol": 0,
+      "reactionActive": true
+    },
+    {
+      "t_s": 2,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 44,
+      "drawCount": 16,
+      "channels": [
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",1,\"NO2\"]",
+          "revision": 1,
+          "sourceLive": false,
+          "count": 40,
+          "accepted_mol": 0.020000000000000004,
+          "integrated_mol": 0.019999999999999907,
+          "age": 10.783333333333372
+        },
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",2,\"NO2\"]",
+          "revision": 2,
+          "sourceLive": false,
+          "count": 4,
+          "accepted_mol": 0.0002665882353221668,
+          "integrated_mol": 0.0002665882353221669,
+          "age": 2.133333333333329
+        }
+      ],
+      "escaped_mol": 0,
+      "reactionActive": true
+    },
+    {
+      "t_s": 2.2,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 34,
+      "drawCount": 16,
+      "channels": [
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",1,\"NO2\"]",
+          "revision": 1,
+          "sourceLive": false,
+          "count": 30,
+          "accepted_mol": 0.020000000000000004,
+          "integrated_mol": 0.019999999999999907,
+          "age": 10.983333333333361
+        },
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",2,\"NO2\"]",
+          "revision": 2,
+          "sourceLive": false,
+          "count": 4,
+          "accepted_mol": 0.0002665882353221668,
+          "integrated_mol": 0.0002665882353221669,
+          "age": 2.333333333333328
+        }
+      ],
+      "escaped_mol": 0,
+      "reactionActive": true
+    },
+    {
+      "t_s": 2.4000000000000004,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 28,
+      "drawCount": 16,
+      "channels": [
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",1,\"NO2\"]",
+          "revision": 1,
+          "sourceLive": false,
+          "count": 24,
+          "accepted_mol": 0.020000000000000004,
+          "integrated_mol": 0.019999999999999907,
+          "age": 11.18333333333335
+        },
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",2,\"NO2\"]",
+          "revision": 2,
+          "sourceLive": false,
+          "count": 4,
+          "accepted_mol": 0.0002665882353221668,
+          "integrated_mol": 0.0002665882353221669,
+          "age": 2.5333333333333274
+        }
+      ],
+      "escaped_mol": 0,
+      "reactionActive": true
+    },
+    {
+      "t_s": 2.6,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 18,
+      "drawCount": 16,
+      "channels": [
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",1,\"NO2\"]",
+          "revision": 1,
+          "sourceLive": false,
+          "count": 14,
+          "accepted_mol": 0.020000000000000004,
+          "integrated_mol": 0.019999999999999907,
+          "age": 11.383333333333338
+        },
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",2,\"NO2\"]",
+          "revision": 2,
+          "sourceLive": false,
+          "count": 4,
+          "accepted_mol": 0.0002665882353221668,
+          "integrated_mol": 0.0002665882353221669,
+          "age": 2.7333333333333267
+        }
+      ],
+      "escaped_mol": 0,
+      "reactionActive": true
+    },
+    {
+      "t_s": 2.8000000000000003,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 10,
+      "drawCount": 16,
+      "channels": [
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",1,\"NO2\"]",
+          "revision": 1,
+          "sourceLive": false,
+          "count": 7,
+          "accepted_mol": 0.020000000000000004,
+          "integrated_mol": 0.019999999999999907,
+          "age": 11.583333333333327
+        },
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",2,\"NO2\"]",
+          "revision": 2,
+          "sourceLive": false,
+          "count": 3,
+          "accepted_mol": 0.0002665882353221668,
+          "integrated_mol": 0.0002665882353221669,
+          "age": 2.933333333333326
+        }
+      ],
+      "escaped_mol": 0,
+      "reactionActive": true
+    },
+    {
+      "t_s": 3,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 2,
+      "drawCount": 16,
+      "channels": [
+        {
+          "key": "[\"studio_sample_1793274857864_07ai3a\",1,\"NO2\"]",
+          "revision": 1,
+          "sourceLive": false,
+          "count": 2,
+          "accepted_mol": 0.020000000000000004,
+          "integrated_mol": 0.019999999999999907,
+          "age": 11.783333333333315
+        }
+      ],
+      "escaped_mol": 0,
+      "reactionActive": true
+    },
+    {
+      "t_s": 3.2,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 0,
+      "drawCount": 16,
+      "channels": [],
+      "escaped_mol": 0,
+      "reactionActive": true
+    },
+    {
+      "t_s": 3.4000000000000004,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 0,
+      "drawCount": 16,
+      "channels": [],
+      "escaped_mol": 0,
+      "reactionActive": true
+    },
+    {
+      "t_s": 3.6,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 0,
+      "drawCount": 16,
+      "channels": [],
+      "escaped_mol": 0,
+      "reactionActive": true
+    },
+    {
+      "t_s": 3.8000000000000003,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 0,
+      "drawCount": 16,
+      "channels": [],
+      "escaped_mol": 0,
+      "reactionActive": true
+    },
+    {
+      "t_s": 4,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 0,
+      "drawCount": 16,
+      "channels": [],
+      "escaped_mol": 0,
+      "reactionActive": true
+    },
+    {
+      "t_s": 4.2,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 0,
+      "drawCount": 16,
+      "channels": [],
+      "escaped_mol": 0,
+      "reactionActive": true
+    },
+    {
+      "t_s": 4.4,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 0,
+      "drawCount": 16,
+      "channels": [],
+      "escaped_mol": 0,
+      "reactionActive": true
+    },
+    {
+      "t_s": 4.6000000000000005,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 0,
+      "drawCount": 16,
+      "channels": [],
+      "escaped_mol": 0,
+      "reactionActive": true
+    },
+    {
+      "t_s": 4.800000000000001,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 0,
+      "drawCount": 16,
+      "channels": [],
+      "escaped_mol": 0,
+      "reactionActive": true
+    },
+    {
+      "t_s": 5,
+      "tier": "low",
+      "maximum": 16,
+      "modelCount": 0,
+      "drawCount": 16,
+      "channels": [],
+      "escaped_mol": 0,
+      "reactionActive": true
+    }
+  ],
+  "reload": {
+    "clouds": 0,
+    "positiveFlux": false
+  },
+  "remount": {
+    "preserved": true,
+    "controlledOpticalSeed": true
+  }
+}

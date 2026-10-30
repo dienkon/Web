@@ -1,0 +1,29 @@
+
+> test:reactions
+> node --test tests/reaction-catalog.test.mjs tests/reaction-chain-api.test.mjs
+
+✔ formula parsing preserves identity, nested groups and hydrate atom counts (3.76ms)
+✔ rational balancing handles independently specified redox and polyvalent examples (1.7486ms)
+✔ the shipped 1000+ catalog is deterministic, unique and fully balanced (450.2845ms)
+✔ all rows have actual products, conditions, sources and a valid material link (20.198ms)
+✔ spectator ions and counterions are balanced rather than borrowed from another preset (2.9774ms)
+✔ known balanced-looking but chemically misleading families are excluded (7.6988ms)
+✔ validator detects a poisoned catalog instead of trusting a count or manifest (452.5362ms)
+✔ school chains use an actual reaction at every arrow and retain workup and sources (1.1649ms)
+✔ equation rendering distinguishes input gas from evolved gas and keeps full conditions (0.3126ms)
+✔ generation respects minSteps, species order, finite bounds and no repeated filler reactions (1.9303ms)
+✔ unsupported links stay unknown; parser does not silently repair CO into cobalt (0.5389ms)
+✔ search supports Unicode formulas, accents, filters and bounded pagination (63.0247ms)
+✔ the exported 1000+ three-step chains are distinct real material paths (157.8448ms)
+✔ public chain API returns sourced local results without an AI key (2.8467ms)
+✔ public analyze API preserves the exact intermediates (1.6606ms)
+✔ unknown chemistry is reported as unknown, with no invented AI steps (0.7996ms)
+✔ API rejects malformed requests, invalid bounds and unsupported methods (1.3537ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1327.7954

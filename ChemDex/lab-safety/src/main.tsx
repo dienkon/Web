@@ -4,6 +4,7 @@ import App from './App.tsx';
 import './index.css';
 import './styles/bright-lab.css';
 import './styles/mobile-dialogs.css';
+import './styles/practical-visuals.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

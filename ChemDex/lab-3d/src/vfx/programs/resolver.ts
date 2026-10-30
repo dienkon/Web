@@ -49,6 +49,25 @@ export function canonicalProgramKey(substances: string[]): string {
 }
 
 /**
+ * The authored library is immutable at runtime. Build its exact-key index once
+ * so known reactions resolve immediately without scanning every program.
+ */
+const HANDCRAFTED_BY_KEY = new Map<string, ReactionProgram>();
+const HANDCRAFTED_BY_REACTANT_SET = new Map<string, ReactionProgram[]>();
+for (const program of ALL_HANDCRAFTED_PROGRAMS) {
+  if (LESSON_PROGRAM_IDS.has(program.id)) continue;
+  const reactants = program.chemistry.species.filter(species => species.role === 'reactant').map(species => species.formula);
+  const key = canonicalProgramKey(reactants);
+  if (key && !HANDCRAFTED_BY_KEY.has(key)) HANDCRAFTED_BY_KEY.set(key, program);
+  const setKey = [...new Set(reactants.map(formula => identifySpecies(formula).formula.toLowerCase()))].sort().join('+');
+  if (setKey) HANDCRAFTED_BY_REACTANT_SET.set(setKey, [...(HANDCRAFTED_BY_REACTANT_SET.get(setKey) ?? []), program]);
+}
+
+export function getHandcraftedProgramIndexStats() {
+  return { exactKeys: HANDCRAFTED_BY_KEY.size, reactantSets: HANDCRAFTED_BY_REACTANT_SET.size };
+}
+
+/**
  * Tier 2: Rule-Derived Program Generator
  * Deterministically analyzes ionic species to produce fully parameterized ReactionPrograms.
  */
@@ -283,26 +302,27 @@ export function findHandcraftedProgram(substances: string[], contents: Substance
   }
 
   // 1. Handcrafted exact match
-  const exact = getProgramById(key);
-  if (exact && !LESSON_PROGRAM_IDS.has(exact.id) && assessProgramConditions(exact, contents, env).ready) {
+  const exact = HANDCRAFTED_BY_KEY.get(key) || getProgramById(key);
+  if (exact && assessProgramConditions(exact, contents, env).ready) {
     return exact;
   }
 
-  // Check any pairwise combinations with exact normalized formulas
+  // Check indexed reactant sets instead of scanning the complete library.
   const normInput = substances.map(s => identifySpecies(s).formula.toLowerCase());
-  for (const prog of ALL_HANDCRAFTED_PROGRAMS) {
-    // These programs require explicit lesson conditions (catalyst, ignition,
-    // enzyme, etc.); a free-mixing lookup must not bypass those gates.
-    if (LESSON_PROGRAM_IDS.has(prog.id) || !assessProgramConditions(prog, contents, env).ready) continue;
+  const inputWithWater = [...new Set(normInput)].sort().join('+');
+  const inputWithoutWater = [...new Set(normInput.filter(input => input !== 'h2o'))].sort().join('+');
+  const candidates = new Set([
+    ...(HANDCRAFTED_BY_REACTANT_SET.get(inputWithWater) ?? []),
+    ...(HANDCRAFTED_BY_REACTANT_SET.get(inputWithoutWater) ?? []),
+  ]);
+  for (const prog of candidates) {
+    if (!assessProgramConditions(prog, contents, env).ready) continue;
     const progSubs = prog.chemistry.species
       .filter(s => s.role === 'reactant')
       .map(s => identifySpecies(s.formula).formula.toLowerCase());
-    // Tracking stock solvent must not hide an otherwise exact reagent pair.
-    // Retain H2O when the equation actually consumes it (Na, carbide, oxides...).
+    // Tracking stock solvent may be omitted unless the program consumes water.
     const relevantInput = normInput.filter(input => input !== 'h2o' || progSubs.includes('h2o'));
-    if (progSubs.length > 0 && progSubs.length === relevantInput.length && progSubs.every(ps => relevantInput.includes(ps))) {
-      return prog;
-    }
+    if (progSubs.length === relevantInput.length && progSubs.every(ps => relevantInput.includes(ps))) return prog;
   }
 
   return null;

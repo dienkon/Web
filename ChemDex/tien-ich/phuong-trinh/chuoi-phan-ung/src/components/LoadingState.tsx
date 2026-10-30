@@ -3,15 +3,10 @@ import { motion } from 'motion/react';
 import { Atom } from 'lucide-react';
 
 const CHEMISTRY_MESSAGES = [
-  "Đang kết nối phòng thí nghiệm AI Hóa học...",
-  "Đang phân tích cấu trúc phân tử của các chất phản ứng...",
-  "Đang tính toán và xác lập các liên kết electron...",
-  "Đang tìm kiếm các phản ứng hóa học khả thi trong thực tế...",
-  "Đang cân bằng phương trình hóa học và xác định hệ số...",
-  "Đang đối chiếu các điều kiện nhiệt độ, áp suất, xúc tác...",
-  "Đang xây dựng chuỗi phản ứng liên tục từ chất đầu đến chất cuối...",
-  "Đang định dạng công thức hóa học chuẩn xác bằng LaTeX...",
-  "Gần xong rồi, đang sắp xếp kết quả trực quan..."
+  "Đang tải kho phản ứng có nguồn...",
+  "Đang tìm các bước chuyển hóa có trong kho...",
+  "Đang nối sản phẩm với chất tham gia ở bước tiếp theo...",
+  "Đang chuẩn bị phương trình, điều kiện và nguồn đối chiếu..."
 ];
 
 export default function LoadingState() {

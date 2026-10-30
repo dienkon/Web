@@ -98,6 +98,13 @@ export default function ResultCard({ step, index, totalSteps }: ResultCardProps)
           </p>
         </div>
       </div>
+      {!!step.sourceReferences?.length && <aside className="mt-4 border-t border-slate-200 dark:border-slate-800 pt-3 text-xs text-slate-500">
+        <p className="mb-2">Nguồn đối chiếu theo họ phản ứng. Chuỗi có thể cần tách mẫu và đổi môi trường giữa các bước.</p>
+        <ul className="space-y-1">{step.sourceReferences.map(source => <li key={source.url}>
+          <a href={source.url} target="_blank" rel="noreferrer" className="underline text-indigo-600 dark:text-indigo-400">{source.title}</a>
+        </li>)}</ul>
+      </aside>}
+      {!step.reactionId && <p className="mt-3 text-xs text-amber-700 dark:text-amber-400">Kết quả lưu cũ chưa được đối chiếu với kho phản ứng hiện tại.</p>}
     </motion.div>
   );
 }

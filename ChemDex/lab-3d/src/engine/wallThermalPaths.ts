@@ -2,7 +2,7 @@ import type { VesselState } from '../types/chemistry';
 import { vesselContours } from '../science/vesselContours';
 import { vesselInterior } from '../science/vesselDimensions';
 import { contourWallArea, wallDropCap } from '../science/wallDropletGeometry';
-import { METERS_PER_SCENE_UNIT } from '../science/sceneUnits';
+import { vesselBodyTransform } from '../science/vesselScale';
 import { waterBoilingPointAtPressure } from '../science/labEnvironment';
 
 export const dryVesselConductance = (v: VesselState) => (v.volume_ml > 1 ? 0.35 : 0.18)
@@ -26,7 +26,7 @@ export function wallThermalPaths(v: VesselState, air_c: number) {
   if (entries.some(side => !Number.isFinite(wall[`${side}_g`]) || !Number.isFinite(wall[`${side}Wall_c`])
     || wall[`${side}Wall_c`] < 0 || wall[`${side}Wall_c`] >= 373.946)) return { ...empty, status: 'unsupported-liquid-state' };
   const interior = vesselInterior(v.type);
-  const area = contourWallArea(vesselContours(v.type).outer, interior.floorY, interior.topY) * METERS_PER_SCENE_UNIT ** 2;
+  const area = contourWallArea(vesselContours(v.type).outer, interior.floorY, interior.topY) * vesselBodyTransform(v).metersPerLocalUnit ** 2;
   const footprints = entries.map(side => {
     const beads = wall[`${side}Beads`];
     return beads?.length ? beads.reduce((sum, bead) => sum + Math.PI * wallDropCap(bead.mass_g).contactRadius_m ** 2, 0)

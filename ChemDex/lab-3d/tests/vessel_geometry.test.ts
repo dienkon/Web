@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { contourVolumeBelow, liquidLevelForVolume, solidSceneVolume, vesselInterior, contourRadius, solidBlockDimensions } from '../src/science/vesselDimensions';
 import { vesselContours } from '../src/science/vesselContours';
-import { getVesselProfile, VESSEL_PROFILES, type VesselProfile } from '../src/pour/physics/profiles';
+import { getVesselProfile, getWorldVesselProfile, VESSEL_PROFILES, type VesselProfile } from '../src/pour/physics/profiles';
+import { vesselWorldLiquidSurfaceY } from '../src/science/vesselGeometry';
+import { vesselBodyTransform } from '../src/science/vesselScale';
 import { retainedVolume, solveLevel, volumeBelowPlane } from '../src/pour/physics/retained';
 import { vesselLiquidSurfaceY } from '../src/science/vesselGeometry';
 import { occupiedLiquidVolume } from '../src/handling/solidOccupancy';
@@ -65,9 +67,10 @@ describe('Shared glass geometry and volume-calibrated contact levels', () => {
       totalSpilled_ml: 0, lastFlowRate: 0, assist: 'high' }, { source, target }, 1 / 60, 0);
     const impact = result.events.find(event => event.type === 'flow:impact')!;
     expect(impact).toBeDefined();
-    const level = vesselLiquidSurfaceY({ ...target, type: 'beaker', contents: target.contents! });
+    const level = vesselWorldLiquidSurfaceY({ ...target, type: 'beaker', contents: target.contents! });
     expect(impact.position[1]).toBeCloseTo(target.position[1] + level, 10);
-    expect(level).toBeGreaterThan(liquidLevelForVolume('beaker', 20, 100));
+    const transform = vesselBodyTransform(target);
+    expect(level).toBeGreaterThan(transform.offsetY + transform.scale * liquidLevelForVolume('beaker', 20, 100));
   });
 });
 

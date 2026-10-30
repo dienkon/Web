@@ -80,10 +80,14 @@ describe('Renderer reads the accepted thermal ledger on its vessel', () => {
     const spy = mount();
     useAppStore.setState({ activeTool: 'stirring_rod', selectedVesselId: 'a' });
     harness.frame!({},1/60);
-    expect(spy.mock.calls[0][2]?.agitation).toBe(0.85);
+    expect(spy.mock.calls[0][2]?.agitation).toBe(0.65);
     useAppStore.setState({ selectedVesselId: 'another-vessel' });
     harness.frame!({},1/60);
     expect(spy.mock.calls[1][2]?.agitation).toBe(0);
+    useAppStore.setState({ activeTool: 'none', stirringVesselId: 'a' });
+    useAppStore.getState().setVesselState('a', { stirringIntensity: 0.3 });
+    harness.frame!({}, 1 / 60);
+    expect(spy.mock.calls[2][2]?.agitation).toBe(0.3);
     expect(useAppStore.getState().vesselIds).toEqual(['a']);
   });
   it('uses a freshly addressed effect environment before the next thermal store tick', () => {

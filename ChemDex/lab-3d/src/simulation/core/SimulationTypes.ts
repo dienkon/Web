@@ -61,7 +61,7 @@ export interface PhysicalBubble {
   x: number;
   y: number;
   z: number;
-  radius: number;          // scene units; convert with METERS_PER_SCENE_UNIT for SI laws
+  radius: number;          // model-local units; convert using the vessel profile's length scale
   baseRadius: number;
   vx: number;
   vy: number;
@@ -94,6 +94,7 @@ export interface PhysicalPrecipitateParticle {
   vz: number;
   sedimentationSpeed: number; // Equivalent-sphere terminal slip in scene units/s
   physicalRadius_m?: number; // Separate from magnified display glyph radius
+  primaryDisplayRadius_scene?: number; // Fixed glyph baseline before population growth/containment
   aggregationLevel: number;   // 1 to 5
   brownianSeed: number;
   opacity: number;
@@ -118,9 +119,13 @@ export interface PhysicalEvaporationParticle {
 }
 
 export interface SedimentBedState {
+  surfacePlane?: import('../effects/liquidParticleFrame').LiquidPlane;
+  packedVolume_ml?: number;
+  surfaceStatus?: import('../../science/sedimentSurface').SedimentSurfaceStatus;
+  relaxationTime_s?: number;
   metalness?: number;
   amount_g: number;         // total settled sediment mass
-  thickness: number;        // scene units, measured from the actual vessel floor
+  thickness: number;        // upright-equivalent model-local height; tilted beds use surfacePlane
   roughness: number;
   color: string;
   morphology: PrecipitationMorphology;

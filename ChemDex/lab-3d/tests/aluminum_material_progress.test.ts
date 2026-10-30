@@ -125,23 +125,23 @@ describe('Native Al material and heat progress together', () => {
     const halfway = useAppStore.getState().vessels[v.id];
     expect(amount(halfway, 'Al(OH)3')).toBeGreaterThan(0);
     expect(amount(halfway, 'AlCl3')).toBeLessThan(amount(v, 'AlCl3'));
-    useInstrumentStore.getState().setSample(null);
+    useAppStore.getState().setPipetteSample(null);
     expect(aspiratePipette(10).ok).toBe(true);
     const withdrawn = useAppStore.getState().vessels[v.id];
-    expect(useAppStore.getState().activeKinetics[v.id]).toBeUndefined();
+    const continued = useAppStore.getState().activeKinetics[v.id];
+    expect(continued.replayProgressBase).toBe(continued.progress);
     useAppStore.getState().tickSimulation(0.1);
-    expect(amount(useAppStore.getState().vessels[v.id], 'AlCl3')).toBeCloseTo(amount(withdrawn, 'AlCl3'), 12);
+    expect(amount(useAppStore.getState().vessels[v.id], 'AlCl3')).toBeLessThan(amount(withdrawn, 'AlCl3'));
     const cooled = useAppStore.getState().vessels[v.id];
-    const waterLoss = ((cooled.evaporated_ml ?? 0) - (withdrawn.evaporated_ml ?? 0)
-      - ((cooled.wallCondensation?.returned_g ?? 0) - (withdrawn.wallCondensation?.returned_g ?? 0))) / 18.015;
-    expect(amount(cooled, 'H2O') + waterLoss).toBeCloseTo(amount(withdrawn, 'H2O'), 12);
+    const sample = useAppStore.getState().pipetteSample!;
+    conserved(v, { ...cooled, contents: [...cooled.contents, ...sample.contents], mass_g: cooled.mass_g + sample.mass_g });
   });
 
   it('replans a new pipette dose from current gel and finite base, rather than its old baseline', () => {
     const v = specimen(); setup(v); useAppStore.getState().tickSimulation(0.1);
     const before = useAppStore.getState().vessels[v.id], oldKinetics = useAppStore.getState().activeKinetics[v.id];
     const dose = stockLiquidAliquot(findChemical('NaOH'), 'NaOH', 1, 25);
-    useInstrumentStore.getState().setSample(dose);
+    useAppStore.getState().setPipetteSample(dose);
     expect(dispensePipette(1, v.id).ok).toBe(true);
     const state = useAppStore.getState(), k = state.activeKinetics[v.id];
     expect(k).not.toBe(oldKinetics);

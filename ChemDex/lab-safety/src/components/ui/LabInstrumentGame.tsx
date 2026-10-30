@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { LabItem, useLabEquipment } from '../../store/useLabEquipment';
 import { useStore } from '../../store/useStore';
 import { instrumentWork } from '../../data/instrumentWork';
 import { PracticalSimulation } from './PracticalSimulation';
 export function LabInstrumentGame({item,onClose}:{item:LabItem;onClose:()=>void}) {
+ const work=useMemo(()=>instrumentWork(item),[item]);
+ useEffect(()=>()=>{if(['storage','drawer'].includes(item.kind))useLabEquipment.getState().setActive(item.id,false);},[item.id,item.kind]);
  const equipment=useStore(s=>s.player.equipment);
  const ready=equipment.hasGoggles&&equipment.hasGloves&&equipment.hasLabCoat;
  const needsPPE=['heat','volume','titration','glass','ph','storage','washBottle','hood'].includes(item.kind);
@@ -20,5 +22,5 @@ export function LabInstrumentGame({item,onClose}:{item:LabItem;onClose:()=>void}
   if(item.kind==='firstAid')s.completeTask('task_bandage');
   s.saveGame();onClose();
  };
- return <PracticalSimulation key={item.id} work={instrumentWork(item)} onClose={onClose} onComplete={finish} blockedReason={needsPPE&&!ready?'Đóng bàn thực hành và mang đủ kính, găng tay, áo blouse trước khi sử dụng.':undefined}/>;
+ return <PracticalSimulation key={item.id} work={work} onClose={onClose} onComplete={finish} onStep={index=>{if(item.kind==='storage')useLabEquipment.getState().setActive(item.id,index>0&&index<work.steps.length);if(item.kind==='drawer')useLabEquipment.getState().setActive(item.id,index>=2&&index<work.steps.length);}} blockedReason={needsPPE&&!ready?'Đóng bàn thực hành và mang đủ kính, găng tay, áo blouse trước khi sử dụng.':undefined}/>;
 }

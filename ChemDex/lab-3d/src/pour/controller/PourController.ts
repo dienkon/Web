@@ -3,15 +3,17 @@ import { stepPourSimulation, SimVessel, PourPhysicsSession } from '../physics/st
 import { storeBridge } from './store-bridge';
 import { vfxBus } from '../../vfx/bus';
 import { useAppStore } from '../../store/useAppStore';
-import { getVesselProfile } from '../physics/profiles';
-import { findPouringTilt } from '../physics/retained';
+import { getWorldVesselProfile } from '../physics/profiles';
+import { calculateVesselWeirFlow, findVesselPouringTilt } from '../physics/vesselFlow';
 import { decantLiquid, canReceivePour } from '../../engine/decantTransfer';
 import { clampTilt } from '../../handling/limits';
 import { calculateStreamBallistics } from '../physics/ballistics';
-import { calculateWeirFlow } from '../physics/flow';
-import { vesselLiquidSurfaceY } from '../../science/vesselGeometry';
+import { mobileSolidInventory } from '../../science/suspensionTransport';
+import { SimulationEngine } from '../../simulation/core/SimulationEngine';
+import { vesselWorldLiquidSurfaceY } from '../../science/vesselGeometry';
 import { LAB_PHYSICS } from '../../engine/interactionEngine';
 import { pourTargetPose, type PourArrival } from '../../engine/pourTransport';
+import { overflowLocationFractions } from '../../engine/overflowTransport';
 
 let pourSessionCounter = 0;
 
@@ -64,8 +66,10 @@ class PourControllerClass {
     }
     if (this.activeSession) {
       const parcels = useAppStore.getState().inFlightPours.filter(p => p.sessionId === this.activeSession!.id);
-      this.activeSession.inFlight_ml = parcels.filter(p => p.stage !== 'wall').reduce((sum, p) => sum + p.sample.volume_ml, 0);
-      this.activeSession.onWall_ml = parcels.filter(p => p.stage === 'wall').reduce((sum, p) => sum + p.sample.volume_ml, 0);
+      this.activeSession.inFlight_ml = parcels.reduce((sum, p) => sum + (p.stage === 'wall' ? 0
+        : p.stage === 'overflow' ? p.sample.volume_ml * overflowLocationFractions(p).air : p.sample.volume_ml), 0);
+      this.activeSession.onWall_ml = parcels.reduce((sum, p) => sum + (p.stage === 'wall' ? p.sample.volume_ml
+        : p.stage === 'overflow' ? p.sample.volume_ml * (1 - overflowLocationFractions(p).air) : 0), 0);
     }
   }
 
@@ -222,8 +226,8 @@ class PourControllerClass {
           continue;
         }
 
-        const srcProfile = getVesselProfile(sourceVessel.type, sourceVessel.capacity_ml);
-        const tgtProfile = targetVessel ? getVesselProfile(targetVessel.type) : null;
+        const srcProfile = getWorldVesselProfile(sourceVessel.type, sourceVessel.capacity_ml);
+        const tgtProfile = targetVessel ? getWorldVesselProfile(targetVessel.type, targetVessel.capacity_ml) : null;
 
         // Calculate hover pouring position: anchor spout lip directly above recipient mouth
         let hoverPos: [number, number, number] = [
@@ -291,7 +295,7 @@ class PourControllerClass {
               this.activeSession.phase = 'tilting';
               this.activeSession.sourcePos = [...hoverPos];
               if (this.activeSession.assist === 'high' || this.activeSession.mode === 'ASSIST') {
-                this.activeSession.targetTilt = findPouringTilt(srcProfile, sourceVessel.volume_ml);
+                this.activeSession.targetTilt = findVesselPouringTilt(sourceVessel);
               }
             }
             break;
@@ -319,8 +323,9 @@ class PourControllerClass {
               assist: this.activeSession.assist || 'high'
             };
 
-            const check = stepPourSimulation(physSession, effectiveVesselsMap, FIXED_STEP, this.simTime);
-            if (check.nextSession.isStreaming && check.nextSession.lastFlowRate > 0.05) {
+            const check = stepPourSimulation(physSession, effectiveVesselsMap, FIXED_STEP, this.simTime, Infinity,
+              mobileSolidInventory(sourceVessel, SimulationEngine.findManager(sourceVessel.id)));
+            if (check.nextSession.isStreaming && check.nextSession.lastFlowRate > 0) {
               this.activeSession.phase = 'pouring';
             }
             break;
@@ -349,7 +354,8 @@ class PourControllerClass {
 
             const result = stepPourSimulation(physSession, effectiveVesselsMap, FIXED_STEP, this.simTime,
               this.activeSession.requestedVolume_ml === undefined ? Infinity
-                : Math.max(0, this.activeSession.requestedVolume_ml - this.activeSession.released_ml));
+                : Math.max(0, this.activeSession.requestedVolume_ml - this.activeSession.released_ml),
+              mobileSolidInventory(sourceVessel, SimulationEngine.findManager(sourceVessel.id)));
 
             const finiteVesselMode = !['STOCK_BOTTLE', 'DROPPER', 'SOLID'].includes(this.activeSession.mode);
             if (finiteVesselMode) {
@@ -376,7 +382,7 @@ class PourControllerClass {
             }
 
             // Check if pour should transition to dripping
-            const isDepleted = sourceVessel.volume_ml <= 0.05;
+            const isDepleted = sourceVessel.volume_ml <= 0;
             const isRequestedReached = this.activeSession.requestedVolume_ml && this.activeSession.released_ml >= this.activeSession.requestedVolume_ml - 1e-9;
             const isTiltingBack = this.activeSession.targetTilt <= 0.08;
 
@@ -444,15 +450,16 @@ class PourControllerClass {
       const source = current[session.sourceId];
       const target = session.targetId ? current[session.targetId] : undefined;
       if (source) {
-        const profile = getVesselProfile(source.type, source.capacity_ml);
-        const targetProfile = target ? getVesselProfile(target.type) : null;
-        const flow = calculateWeirFlow(profile, source.volume_ml, session.tilt, this.simTime);
+        const profile = getWorldVesselProfile(source.type, source.capacity_ml);
+        const targetProfile = target ? getWorldVesselProfile(target.type, target.capacity_ml) : null;
+        const flow = calculateVesselWeirFlow(source, session.tilt, this.simTime, 1,
+          mobileSolidInventory(source, SimulationEngine.findManager(source.id)));
         session.trajectory = calculateStreamBallistics(session.sourcePos ?? source.position,
           session.sourceRotationZ ?? -session.tilt, profile, flow.head_cm,
           target && targetProfile ? { id: target.id, position: target.position,
             mouthR: targetProfile.mouthR, mouthY: target.position[1] + targetProfile.lipLocal[1],
-            profile: getVesselProfile(target.type, target.capacity_ml),
-            liquidSurfaceY: target.position[1] + vesselLiquidSurfaceY(target) } : null,
+            profile: getWorldVesselProfile(target.type, target.capacity_ml),
+            liquidSurfaceY: target.position[1] + vesselWorldLiquidSurfaceY(target) } : null,
           LAB_PHYSICS.TABLE_SURFACE_Y, source.rotationY, session.assist);
         session.aim = { landing: session.trajectory.impactPos,
           kind: session.trajectory.landingKind === 'rim' ? 'rim' : session.trajectory.landingKind === 'inside' ? 'inside' : 'table' };

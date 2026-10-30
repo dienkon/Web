@@ -68,7 +68,10 @@ describe('Finite wash bottle, breakage and cleanup', () => {
     useAppStore.getState().squirtWashBottle('wash');
     let state = useAppStore.getState();
     expect(state.vessels.target.volume_ml).toBe(2);
-    expect(Object.values(state.spills)[0].volume_ml).toBe(3);
+    expect(Object.values(state.spills)).toHaveLength(0);
+    expect(state.inFlightPours[0].sample.volume_ml).toBe(3);
+    useAppStore.getState().advancePourTransport(2); state = useAppStore.getState();
+    expect(Object.values(state.spills).reduce((sum, s) => sum + s.volume_ml, 0)).toBeCloseTo(3, 10);
     setup(bottle({ washTargetId: null }));
     useAppStore.getState().squirtWashBottle('wash');
     state = useAppStore.getState();
