@@ -151,6 +151,13 @@ export default function TakingExam() {
   );
   const [showScratchpad, setShowScratchpad] = useState(false);
   const [showCasio, setShowCasio] = useState(false);
+  const [showAttachmentsModal, setShowAttachmentsModal] = useState(false);
+
+  const preSubmitAttachments = useMemo(() => {
+    if (!exam?.attachments || exam.attachments.length === 0) return [];
+    if (!exam.showAttachmentsBeforeSubmit) return [];
+    return exam.attachments.filter((att) => att.showBeforeSubmit !== false);
+  }, [exam]);
   const [isOnline, setIsOnline] = useState<boolean>(() => (typeof navigator !== "undefined" ? navigator.onLine : true));
   const [showReconnectedNotice, setShowReconnectedNotice] = useState(false);
   const [fontSizeLevel, setFontSizeLevel] = useState<"sm" | "base" | "lg" | "xl">(() => {
@@ -2667,6 +2674,19 @@ export default function TakingExam() {
               Lướt xuống
             </button>
           </div>
+
+          {/* Attachments / Reference Materials Button */}
+          {preSubmitAttachments.length > 0 && (
+            <button
+              type="button"
+              onClick={() => setShowAttachmentsModal(true)}
+              className="px-3 py-2 text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-xl transition-all text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-2xs"
+              title="Xem tài liệu & tệp đính kèm bài thi do giáo viên cung cấp"
+            >
+              <Paperclip className="w-4 h-4 text-indigo-600" />
+              <span className="hidden sm:inline">Tài liệu ({preSubmitAttachments.length})</span>
+            </button>
+          )}
 
           {/* Scratchpad Note Button */}
           <button

@@ -814,6 +814,7 @@ var ExamSchemaV3 = z.object({
   showScore: z.boolean().default(true).optional(),
   showDetails: z.boolean().default(true).optional(),
   showExamUrl: z.boolean().default(true).optional(),
+  showAttachmentsBeforeSubmit: z.boolean().default(false).optional(),
   description: z.string().optional(),
   subject: z.string().optional(),
   gradeCategory: z.string().optional(),

@@ -64,6 +64,7 @@ export interface Exam {
 
   // Attachments (Files and URLs) displayed after submission
   attachments?: ExamAttachment[];
+  showAttachmentsBeforeSubmit?: boolean; // Cho phép xem tài liệu & tệp đính kèm trước khi nộp bài
 
   // Listening Audio Configuration
   audioConfig?: ExamAudioConfig;
@@ -380,6 +381,7 @@ export interface ExamAttachment {
   fileData?: string; // Base64 data URL hoặc URL download
   fileSize?: number; // Kích thước tệp (bytes)
   mimeType?: string; // Loại tệp
+  showBeforeSubmit?: boolean; // Cho phép xem trước khi nộp bài
 }
 
 export interface ExamAudioConfig {

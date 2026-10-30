@@ -26,6 +26,10 @@ import {
   Ticket,
   Check,
   Share2,
+  Paperclip,
+  Link2,
+  ExternalLink,
+  Download,
 } from "lucide-react";
 import { useToast } from "../../components/ui/ToastNotification";
 import { safeShare } from "../../utils/mobileCompat";
@@ -104,6 +108,12 @@ export default function ExamIntro() {
   const { success: showToastSuccess } = useToast();
 
   // Quyền hiển thị URL/Link & nút chia sẻ đề thi: ưu tiên exam.showExamUrl, fallback về cấu hình mặc định
+  const preSubmitAttachments = React.useMemo(() => {
+    if (!exam?.attachments || exam.attachments.length === 0) return [];
+    if (!exam.showAttachmentsBeforeSubmit) return [];
+    return exam.attachments.filter((att) => att.showBeforeSubmit !== false);
+  }, [exam]);
+
   const canShowExamUrl = () => {
     if (exam?.showExamUrl !== undefined) {
       return exam.showExamUrl;
@@ -725,6 +735,78 @@ export default function ExamIntro() {
                 <span className="text-xs font-extrabold text-emerald-700 block mt-1">Đang kích hoạt</span>
               </div>
             </div>
+
+            {/* Pre-Submission Attachments from Teacher/Admin */}
+            {preSubmitAttachments.length > 0 && (
+              <div className="bg-gradient-to-br from-indigo-50/60 to-blue-50/40 border border-indigo-200/80 rounded-2xl p-4 sm:p-5 shadow-xs space-y-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="p-2 bg-indigo-100 text-indigo-700 rounded-xl shrink-0">
+                    <Paperclip className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h3 className="font-extrabold text-sm text-slate-900">
+                      Tài liệu & Tệp đính kèm bài thi (Được phép xem trước)
+                    </h3>
+                    <p className="text-[11px] text-slate-500">
+                      Tài liệu tham khảo, bảng công thức hoặc hướng dẫn làm bài do giáo viên cung cấp:
+                    </p>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  {preSubmitAttachments.map((att, idx) => (
+                    <div
+                      key={att.id || idx}
+                      className="p-3 bg-white border border-slate-200/80 hover:border-indigo-300 rounded-xl flex items-center justify-between gap-3 shadow-2xs transition-all"
+                    >
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        {att.type === "link" ? (
+                          <Link2 className="w-4 h-4 text-blue-600 shrink-0" />
+                        ) : (
+                          <FileText className="w-4 h-4 text-emerald-600 shrink-0" />
+                        )}
+                        <div className="truncate text-xs">
+                          <span className="font-bold text-slate-800 mr-2">
+                            {att.label || `Tài liệu ${idx + 1}:`}
+                          </span>
+                          <span className="text-slate-500 truncate">
+                            {att.type === "link" ? att.url : att.fileName}
+                          </span>
+                          {att.fileSize && (
+                            <span className="text-[10px] text-slate-400 ml-1.5">
+                              ({(att.fileSize / 1024).toFixed(1)} KB)
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="shrink-0">
+                        {att.type === "link" ? (
+                          <a
+                            href={att.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-1 px-3 py-1 text-xs font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg transition-colors cursor-pointer"
+                          >
+                            <ExternalLink className="w-3 h-3" /> Mở link
+                          </a>
+                        ) : (
+                          <a
+                            href={att.url || att.fileData}
+                            target="_blank"
+                            rel="noreferrer"
+                            download={att.fileName || `tailieu_${idx + 1}`}
+                            className="inline-flex items-center gap-1 px-3 py-1 text-xs font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-lg transition-colors cursor-pointer"
+                          >
+                            <Download className="w-3 h-3" /> Xem / Tải file
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Security Alert: Personal Retake Exam Forbidden */}
             {isPersonalRetakeForbidden && (

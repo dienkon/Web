@@ -375,10 +375,10 @@ export default function ExamMetaEditor() {
           <div>
             <h3 className="font-bold text-sm text-slate-900 flex items-center gap-2">
               <Paperclip className="w-4 h-4 text-blue-600" />
-              Tài liệu & Tệp đính kèm sau khi nộp bài
+              Tài liệu & Tệp đính kèm bài thi
             </h3>
             <p className="text-xs text-slate-500 mt-0.5">
-              Dán liên kết (URL) hoặc tải lên tệp tin bất kỳ (mp3, pdf, docx, zip...). Thí sinh sẽ nhìn thấy sau khi hoàn thành bài thi.
+              Dán liên kết (URL) hoặc tải lên tệp tin bất kỳ (mp3, pdf, docx, zip...). Cho phép học sinh tra cứu trước/trong khi thi hoặc xem giải chi tiết sau khi nộp.
             </p>
           </div>
 
@@ -415,6 +415,41 @@ export default function ExamMetaEditor() {
           </div>
         </div>
 
+        {/* Master Toggle: Cho phép xem trước khi nộp bài */}
+        <div className={`p-4 rounded-2xl border-2 transition-all flex items-center justify-between gap-4 ${
+          state.examMeta.showAttachmentsBeforeSubmit
+            ? "bg-blue-50/50 border-blue-400/80 shadow-2xs"
+            : "bg-slate-50 border-slate-200"
+        }`}>
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-black text-slate-900">
+                Cho phép thí sinh xem tài liệu & tệp đính kèm TRƯỚC KHI NỘP BÀI
+              </span>
+              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                state.examMeta.showAttachmentsBeforeSubmit
+                  ? "bg-blue-100 text-blue-800"
+                  : "bg-slate-200 text-slate-700"
+              }`}>
+                {state.examMeta.showAttachmentsBeforeSubmit ? "✓ ĐANG BẬT XEM TRƯỚC" : "✕ CHỈ XEM SAU KHI NỘP"}
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-600 leading-relaxed font-medium">
+              Khi bật, thí sinh có thể xem và tra cứu tài liệu này ở màn hình chuẩn bị làm bài (Exam Intro) và trong suốt quá trình làm bài thi. Khi tắt, tài liệu chỉ hiển thị sau khi đã nộp bài.
+            </p>
+          </div>
+
+          <label className="relative inline-flex items-center cursor-pointer shrink-0">
+            <input
+              type="checkbox"
+              checked={state.examMeta.showAttachmentsBeforeSubmit || false}
+              onChange={(e) => actions.setExamMeta({ showAttachmentsBeforeSubmit: e.target.checked })}
+              className="sr-only peer"
+            />
+            <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+          </label>
+        </div>
+
         {uploadProgressText && (
           <div className="p-3 bg-blue-50/80 border border-blue-200 rounded-xl flex items-center gap-2 text-xs font-semibold text-blue-700 animate-pulse">
             <Loader2 className="w-4 h-4 animate-spin text-blue-600 shrink-0" />
@@ -449,6 +484,19 @@ export default function ExamMetaEditor() {
                       placeholder="VD: Nội dung:"
                       className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
+                    {state.examMeta.showAttachmentsBeforeSubmit && (
+                      <div className="mt-2 flex items-center gap-1.5">
+                        <span className="text-[10px] font-bold text-slate-500 uppercase">Quyền xem:</span>
+                        <select
+                          value={att.showBeforeSubmit === false ? "after_submit" : "always"}
+                          onChange={(e) => handleUpdateAttachment(att.id, { showBeforeSubmit: e.target.value === "always" })}
+                          className="px-2 py-1 bg-white border border-slate-200 rounded-lg text-[11px] font-semibold text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        >
+                          <option value="always">👀 Cả trước & sau khi nộp</option>
+                          <option value="after_submit">🔒 Chỉ sau khi nộp bài</option>
+                        </select>
+                      </div>
+                    )}
                   </div>
 
                   <div className="md:col-span-8">

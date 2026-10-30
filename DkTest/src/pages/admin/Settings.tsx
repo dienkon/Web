@@ -34,6 +34,7 @@ export default function Settings() {
   const [defaultShuffleStatements, setDefaultShuffleStatements] = useState(true);
   const [defaultShowResults, setDefaultShowResults] = useState(true);
   const [defaultShowExamUrl, setDefaultShowExamUrl] = useState(true);
+  const [defaultShowAttachmentsBeforeSubmit, setDefaultShowAttachmentsBeforeSubmit] = useState(false);
 
   // Anti-cheat defaults
   const [enableTabMonitor, setEnableTabMonitor] = useState(true);
@@ -58,6 +59,7 @@ export default function Settings() {
         if (parsed.defaultShuffleStatements !== undefined) setDefaultShuffleStatements(parsed.defaultShuffleStatements);
         if (parsed.defaultShowResults !== undefined) setDefaultShowResults(parsed.defaultShowResults);
         if (parsed.defaultShowExamUrl !== undefined) setDefaultShowExamUrl(parsed.defaultShowExamUrl);
+        if (parsed.defaultShowAttachmentsBeforeSubmit !== undefined) setDefaultShowAttachmentsBeforeSubmit(parsed.defaultShowAttachmentsBeforeSubmit);
         if (parsed.enableTabMonitor !== undefined) setEnableTabMonitor(parsed.enableTabMonitor);
         if (parsed.maxWarnings !== undefined) setMaxWarnings(parsed.maxWarnings);
         if (parsed.autoSubmitOnViolation !== undefined) setAutoSubmitOnViolation(parsed.autoSubmitOnViolation);
@@ -93,6 +95,7 @@ export default function Settings() {
       defaultShuffleStatements,
       defaultShowResults,
       defaultShowExamUrl,
+      defaultShowAttachmentsBeforeSubmit,
       enableTabMonitor,
       maxWarnings,
       autoSubmitOnViolation,
@@ -378,6 +381,19 @@ export default function Settings() {
                     type="checkbox"
                     checked={defaultShowExamUrl}
                     onChange={(e) => setDefaultShowExamUrl(e.target.checked)}
+                    className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 border-slate-300 dark:border-slate-700 dark:bg-slate-800"
+                  />
+                </div>
+
+                <div className="pt-4 flex items-center justify-between">
+                  <div>
+                    <label className="text-sm font-semibold text-slate-800 dark:text-slate-200">Cho phép xem tài liệu & tệp đính kèm trước khi nộp bài</label>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">Mặc định cho phép thí sinh xem và tra cứu tài liệu ở màn hình chuẩn bị và trong lúc thi</p>
+                  </div>
+                  <input
+                    type="checkbox"
+                    checked={defaultShowAttachmentsBeforeSubmit}
+                    onChange={(e) => setDefaultShowAttachmentsBeforeSubmit(e.target.checked)}
                     className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 border-slate-300 dark:border-slate-700 dark:bg-slate-800"
                   />
                 </div>
