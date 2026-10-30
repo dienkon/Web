@@ -28,6 +28,7 @@ import {
   Keyboard,
   Type,
   FileSignature,
+  Paperclip,
 } from "lucide-react";
 import ScratchpadModal from "../../features/student-exam/components/ScratchpadModal";
 import CasioCalculator from "../../components/exam/CasioCalculator";
