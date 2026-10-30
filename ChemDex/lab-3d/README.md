@@ -62,3 +62,5 @@ Từ thư mục ChemDex, dùng `npm run catalog:build`, `npm run catalog:audit` 
 [Phần vật rắn ngập thật](docs/research/stock-immersion.vi.md) nối lưới vật rắn với mặt nước, hệ hạt, dung tích nhận mẫu và đầu áp ở các bố trí được hỗ trợ. Audit dùng nắp miệng độc lập, đo 16 tư thế trong Chrome và xác nhận ca bình tam giác chưa đủ head sẽ không chảy; các dạng bột, vật nổi và tiếp xúc động còn được ghi rõ là chưa giải.
 
 [Hai pha có vật rắn trong phễu phân lớp](docs/research/layered-stock.vi.md) giải mặt phân cách và mặt thoáng theo phần rắn ngập, thêm mesh stock trong phễu và giữ thể tích pha trong aliquot xả/tràn. Audit đo 24 snapshot ở hai thứ tự pha, kiểm tra khi vật rắn giảm khối lượng và xả hết từng pha; thủy lực xả đáy vẫn là phần chưa hoàn thành.
+
+[Cột áp hai pha và dòng xả hữu hạn](docs/research/funnel-discharge.vi.md) thay tốc độ phễu phân lớp cố định bằng tích phân cửa ngập theo pha, dùng midpoint theo thời gian và nối nguồn → dòng bay → bình nhận/tràn trong cùng kho chất. Có oracle áp suất/thời gian, kiểm tra Chrome với cửa khô, nguồn đậy kín và bình nhận bị dời; các giả định Cd, ống đã mồi và phần chưa giải được ghi riêng.

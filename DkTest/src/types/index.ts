@@ -51,6 +51,7 @@ export interface Exam {
   showResults: boolean;
   showScore?: boolean;
   showDetails: boolean;
+  showExamUrl?: boolean; // Cho phép hiển thị URL/Link và nút chia sẻ ở màn hình bắt đầu làm bài
   submissionsCount?: number;
   totalParticipants?: number;
 

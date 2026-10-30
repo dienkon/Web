@@ -33,6 +33,7 @@ export default function Settings() {
   const [defaultShuffleOptions, setDefaultShuffleOptions] = useState(true);
   const [defaultShuffleStatements, setDefaultShuffleStatements] = useState(true);
   const [defaultShowResults, setDefaultShowResults] = useState(true);
+  const [defaultShowExamUrl, setDefaultShowExamUrl] = useState(true);
 
   // Anti-cheat defaults
   const [enableTabMonitor, setEnableTabMonitor] = useState(true);
@@ -56,6 +57,7 @@ export default function Settings() {
         if (parsed.defaultShuffleOptions !== undefined) setDefaultShuffleOptions(parsed.defaultShuffleOptions);
         if (parsed.defaultShuffleStatements !== undefined) setDefaultShuffleStatements(parsed.defaultShuffleStatements);
         if (parsed.defaultShowResults !== undefined) setDefaultShowResults(parsed.defaultShowResults);
+        if (parsed.defaultShowExamUrl !== undefined) setDefaultShowExamUrl(parsed.defaultShowExamUrl);
         if (parsed.enableTabMonitor !== undefined) setEnableTabMonitor(parsed.enableTabMonitor);
         if (parsed.maxWarnings !== undefined) setMaxWarnings(parsed.maxWarnings);
         if (parsed.autoSubmitOnViolation !== undefined) setAutoSubmitOnViolation(parsed.autoSubmitOnViolation);
@@ -90,6 +92,7 @@ export default function Settings() {
       defaultShuffleOptions,
       defaultShuffleStatements,
       defaultShowResults,
+      defaultShowExamUrl,
       enableTabMonitor,
       maxWarnings,
       autoSubmitOnViolation,
@@ -362,6 +365,19 @@ export default function Settings() {
                     type="checkbox"
                     checked={defaultShowResults}
                     onChange={(e) => setDefaultShowResults(e.target.checked)}
+                    className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 border-slate-300 dark:border-slate-700 dark:bg-slate-800"
+                  />
+                </div>
+
+                <div className="pt-4 flex items-center justify-between">
+                  <div>
+                    <label className="text-sm font-semibold text-slate-800 dark:text-slate-200">Hiển thị liên kết (URL) & Chia sẻ ở màn hình bắt đầu làm bài</label>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">Cho phép thí sinh xem và sao chép link / nút chia sẻ Zalo trước khi nhấn Bắt đầu</p>
+                  </div>
+                  <input
+                    type="checkbox"
+                    checked={defaultShowExamUrl}
+                    onChange={(e) => setDefaultShowExamUrl(e.target.checked)}
                     className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 border-slate-300 dark:border-slate-700 dark:bg-slate-800"
                   />
                 </div>

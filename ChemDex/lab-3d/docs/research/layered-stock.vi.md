@@ -1,5 +1,7 @@
 # Hai pha chất lỏng có vật rắn trong phễu phân lớp
 
+Cập nhật tiếp: [cột áp hai pha và dòng xả hữu hạn](funnel-discharge.vi.md) đã thay tốc độ phễu phân lớp cố định và mesh minh họa bằng closure có phần cửa ngập cùng kho dòng bay. Mô tả xả cố định/dải minh họa bên dưới giữ làm bằng chứng phạm vi đợt trước; các giới hạn hiệu chuẩn, mồi ống và hai pha trong ống vẫn còn.
+
 Ngày kiểm tra: 30/10/2026. Đợt [phần rắn ngập thật](stock-immersion.vi.md) chưa hỗ trợ phễu phân lớp: hai lớp vẽ theo thể tích lỏng thuần, vật rắn chưa có mesh trong khoang. Đợt này thêm vật rắn và giải cả mặt phân cách lẫn mặt thoáng theo cùng phần ngập, đồng thời giữ thông tin pha trong mẫu xả/tràn.
 
 ## Phương trình và dữ liệu dùng chung

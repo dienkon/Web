@@ -26,6 +26,7 @@ import {
   Play,
   Volume2,
   Award,
+  Share2,
   Coins,
 } from "lucide-react";
 import React, { useState, useRef } from "react";
@@ -228,7 +229,7 @@ export default function ExamMetaEditor() {
             />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <div>
               <label className="block text-xs font-bold text-slate-700 mb-1.5">
                 Môn học
@@ -818,10 +819,10 @@ export default function ExamMetaEditor() {
         <h3 className="font-bold text-sm text-slate-900 border-b border-slate-100 pb-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Eye className="w-4 h-4 text-blue-600" />
-            <span>3. Cài đặt xem Điểm & Chi tiết bài làm (2 ô riêng biệt)</span>
+            <span>3. Cài đặt xem Điểm, Chi tiết & Hiển thị URL đề thi</span>
           </div>
           <span className="text-[11px] text-slate-500 font-normal">
-            Quyền xem sau khi nộp bài
+            Quyền xem sau nộp & màn hình bắt đầu
           </span>
         </h3>
 
@@ -909,6 +910,48 @@ export default function ExamMetaEditor() {
                   : "bg-slate-200 text-slate-700"
               }`}>
                 {state.examMeta.showDetails !== false ? "✓ ĐANG CHO XEM CHI TIẾT" : "✕ ĐÃ ẨN CHI TIẾT"}
+              </span>
+            </div>
+          </div>
+
+          {/* Ô RIÊNG 3: Bật/Tắt Hiển thị URL & Chia sẻ đề thi */}
+          <div className={`p-4 rounded-2xl border-2 transition-all flex flex-col justify-between gap-3 ${
+            state.examMeta.showExamUrl !== false
+              ? "bg-indigo-50/40 border-indigo-400/80 shadow-2xs"
+              : "bg-slate-50/60 border-slate-200 opacity-80"
+          }`}>
+            <div className="flex items-start justify-between gap-3">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <Share2 className={`w-4 h-4 ${state.examMeta.showExamUrl !== false ? "text-indigo-600" : "text-slate-400"}`} />
+                  <span className="text-xs font-black text-slate-900">
+                    Bật / Tắt Hiển thị URL & Chia sẻ
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-600 leading-relaxed font-medium">
+                  Cho phép thí sinh thấy liên kết bài thi & nút sao chép link/Zalo ở màn hình bắt đầu làm bài.
+                </p>
+              </div>
+
+              <label className="relative inline-flex items-center cursor-pointer shrink-0 mt-0.5">
+                <input
+                  type="checkbox"
+                  checked={state.examMeta.showExamUrl !== false}
+                  onChange={(e) => actions.setExamMeta({ showExamUrl: e.target.checked })}
+                  className="sr-only peer"
+                />
+                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+              </label>
+            </div>
+
+            <div className="flex items-center justify-between pt-2 border-t border-slate-200/60 text-[10px] font-bold">
+              <span className="text-slate-500 uppercase">Trạng thái URL đề:</span>
+              <span className={`px-2 py-0.5 rounded-full ${
+                state.examMeta.showExamUrl !== false
+                  ? "bg-indigo-100 text-indigo-800"
+                  : "bg-slate-200 text-slate-700"
+              }`}>
+                {state.examMeta.showExamUrl !== false ? "✓ ĐANG HIỆN URL / LINK" : "✕ ĐÃ ẨN URL / LINK"}
               </span>
             </div>
           </div>

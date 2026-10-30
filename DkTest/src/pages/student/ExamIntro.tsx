@@ -103,7 +103,27 @@ export default function ExamIntro() {
   const [copiedLink, setCopiedLink] = useState<boolean>(false);
   const { success: showToastSuccess } = useToast();
 
+  // Quyền hiển thị URL/Link & nút chia sẻ đề thi: ưu tiên exam.showExamUrl, fallback về cấu hình mặc định
+  const canShowExamUrl = () => {
+    if (exam?.showExamUrl !== undefined) {
+      return exam.showExamUrl;
+    }
+    try {
+      const savedDefaults = localStorage.getItem("dktest_exam_defaults");
+      if (savedDefaults) {
+        const parsed = JSON.parse(savedDefaults);
+        if (parsed.defaultShowExamUrl !== undefined) {
+          return !!parsed.defaultShowExamUrl;
+        }
+      }
+    } catch (e) {
+      // ignore
+    }
+    return true; // Mặc định hiển thị nếu chưa thiết lập
+  };
+
   const handleShareExam = async () => {
+    if (!canShowExamUrl()) return;
     const url = `${window.location.origin}/student/exam/${examId}`;
     const shared = await safeShare({
       title: exam ? `Đề thi: ${exam.title}` : "Đề thi DkTEST",
@@ -650,15 +670,17 @@ export default function ExamIntro() {
                   SẴN SÀNG THI
                 </span>
               </div>
-              <button
-                type="button"
-                onClick={handleShareExam}
-                className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/15 hover:bg-white/25 active:scale-95 text-white rounded-full text-xs font-semibold backdrop-blur-xs transition-all cursor-pointer"
-                title="Chia sẻ đề thi qua Zalo (hiển thị thẻ xem trước có môn, thời gian, số câu)"
-              >
-                {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-300" /> : <Share2 className="w-3.5 h-3.5" />}
-                <span>{copiedLink ? "Đã chép link!" : "Chia sẻ Zalo"}</span>
-              </button>
+              {canShowExamUrl() && (
+                <button
+                  type="button"
+                  onClick={handleShareExam}
+                  className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/15 hover:bg-white/25 active:scale-95 text-white rounded-full text-xs font-semibold backdrop-blur-xs transition-all cursor-pointer"
+                  title="Chia sẻ đề thi qua Zalo (hiển thị thẻ xem trước có môn, thời gian, số câu)"
+                >
+                  {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-300" /> : <Share2 className="w-3.5 h-3.5" />}
+                  <span>{copiedLink ? "Đã chép link!" : "Chia sẻ Zalo"}</span>
+                </button>
+              )}
             </div>
             <h1 className="text-2xl lg:text-3xl font-extrabold tracking-tight leading-snug">
               {exam.title}

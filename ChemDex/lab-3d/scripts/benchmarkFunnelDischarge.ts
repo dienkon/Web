@@ -49,7 +49,7 @@ for (let i = 0; i < count; i++) {
 const partial = circularPortFlux(r, -r, r, 0.001, 1, m).flow_ml_s, reference = oracle * 0.62 * m * m * 1e6;
 const output = 'docs/research/funnel-discharge-2026-10-30'; mkdirSync(output, { recursive: true });
 writeFileSync(`${output}/cpu.json`, JSON.stringify({ node: process.version,
-  method: '30 warmups and 120 changing normals, CPU discharge only, no React/render/transport. Separate one-second scalar RK4 time oracle and independent 200000-strip port integral. No FPS or calibration claim.',
+  method: '30 warmups and 120 changing normals, discharge and conservative midpoint-step CPU measured separately; no React/render/transport. Separate one-second scalar RK4 time oracle and independent 200000-strip port integral. No FPS or calibration claim.',
   median_ms: quantile(times, 0.5), p95_ms: quantile(times, 0.95), times, angles,
   advance_median_ms: quantile(advanceTimes, 0.5), advance_p95_ms: quantile(advanceTimes, 0.95), advanceTimes,
   partial: { production_ml_s: partial, reference_ml_s: reference, error_ml_s: partial - reference },

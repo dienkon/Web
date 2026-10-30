@@ -239,6 +239,16 @@ export default function ExamEditor({ isNew }: { isNew?: boolean }) {
               <span className="text-slate-600">Cho xem chi tiết đáp án</span>
             </label>
 
+            <label className="flex items-center gap-3 cursor-pointer">
+              <input 
+                type="checkbox" 
+                checked={exam.showExamUrl !== false}
+                onChange={(e) => handleChange("showExamUrl", e.target.checked)}
+                className="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+              />
+              <span className="text-slate-700 font-medium">Hiển thị link/URL bài thi & nút chia sẻ</span>
+            </label>
+
             <div className="h-px bg-slate-200 my-4"></div>
 
             <label className="flex items-center gap-3 cursor-pointer">
