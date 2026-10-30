@@ -61,7 +61,7 @@ function LeftSidebar() {
   const safetyInfo = getChemicalHazardsAndPpe(allWorkbenchSubstances);
 
   return (
-    <aside className="w-72 max-w-[85vw] bg-white border-r border-slate-200 flex flex-col z-20 shrink-0 shadow-sm max-md:absolute max-md:top-0 max-md:bottom-0 max-md:left-0 max-md:shadow-2xl transition-all duration-200">
+    <aside className="w-72 max-w-[85vw] bg-white border-r border-slate-200 flex flex-col z-20 shrink-0 shadow-sm max-md:absolute max-md:top-0 max-md:bottom-0 max-md:left-0 max-md:z-40 max-md:shadow-2xl transition-all duration-200">
       {/* Sidebar Tabs */}
       <div className="flex items-center border-b border-slate-200 bg-slate-50/50">
         <button 
@@ -670,6 +670,9 @@ export default function App() {
           </div>
           
           <div className="flex items-center gap-1.5">
+            <a href="?view=assets" className="p-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 text-emerald-700 bg-emerald-50 hover:bg-emerald-100" title="Khám phá toàn bộ mô hình 3D cận cảnh">
+              <Layers size={16} /><span className="hidden sm:inline">Asset 3D</span>
+            </a>
             <button 
               onClick={toggleLeftSidebar} 
               className={`p-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors ${leftSidebarOpen ? 'text-blue-600 bg-blue-50' : 'text-slate-500 hover:bg-slate-100'}`} 
@@ -747,7 +750,6 @@ export default function App() {
         {isDev && (
           <React.Suspense fallback={null}>
             <VfxGallery />
-            <SimulationDebugPanel />
           </React.Suspense>
         )}
       </div>

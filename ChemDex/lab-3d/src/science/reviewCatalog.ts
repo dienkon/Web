@@ -5,6 +5,13 @@ export interface ScienceReference {
 }
 
 export const SCIENCE_REFERENCES: Record<string, ScienceReference> = {
+  aluminumEquilibrium: { title: 'PHREEQC WATEQ4F: amorphous aluminum hydroxide, hydrolysis and sulfate complexes', url: 'https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat', scope: 'research' },
+  ferricEquilibrium: { title: 'PHREEQC WATEQ4F: amorphous ferric hydroxide, hydrolysis and chloride species', url: 'https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat', scope: 'research' },
+  calciteEquilibrium: { title: 'USGS: Calcite, CO2 and aqueous equilibrium (Plummer & Busenberg 1982)', url: 'https://www.usgs.gov/publications/solubilities-calcite-aragonite-and-vaterite-co2-h2o-solutions-between-0-and-90degc-and', scope: 'research' },
+  sodiumWashington: { title: 'University of Washington: Alkali metals in water', url: 'https://chem.washington.edu/lecture-demos/activity-series-alkali-metals-water', scope: 'experiment' },
+  sodiumWaterloo: { title: 'University of Waterloo: Sodium and potassium in water without air', url: 'https://uwaterloo.ca/centre-advanced-science-education/news/sodium-and-potassium-reacting-water-absence-air', scope: 'experiment' },
+  sodiumProperties: { title: 'University of Waterloo: Sodium properties', url: 'https://uwaterloo.ca/chemistry/community-outreach/periodic-table-project/sodium', scope: 'teaching_text' },
+  sodiumHeat: { title: 'Oklahoma State University: Sodium-water reaction enthalpy', url: 'https://genchem1.chem.okstate.edu/BDA/ACA20Response.php', scope: 'teaching_text' },
   thiosulfate: { title: 'RSC: Effect of concentration on reaction rate', url: 'https://edu.rsc.org/experiments/the-effect-of-concentration-on-reaction-rate/743.article', scope: 'experiment' },
   aqueousEquilibria: { title: 'OpenStax Chemistry 2e: Acid/base ionization and conjugate pairs', url: 'https://openstax.org/books/chemistry-2e/pages/14-3-relative-strengths-of-acids-and-bases', scope: 'teaching_text' },
   indicatorTable: { title: 'University of Wisconsin: Indicator Table', url: 'https://www2.chem.wisc.edu/deptfiles/genchem/tables/IndicatorTable.htm', scope: 'teaching_text' },
@@ -79,10 +86,15 @@ review('agno3_ki', ['halides'], 'AgI vàng; không tan trong NH3 như AgCl.');
 review('pbno32_ki', ['halides', 'golden'], 'Trộn lạnh tạo kết tủa vàng; mưa phiến lấp lánh là chu kỳ hòa tan nóng rồi tái kết tinh khi nguội.');
 review('cacl2_na2co3', ['salts'], 'CaCO3 trắng khi vượt độ tan; không có khí nếu không có axit.', 'family_context');
 review('caoh2_co2', ['lime', 'weathering'], 'CO2 làm đục nước vôi; CO2 tiếp tục dư trong nước có thể chuyển cặn sang bicarbonat tan.');
+review('caco3_co2_excess_clearing', ['calciteEquilibrium'], 'Chuyển sang cân bằng pha hữu hạn; CO2 khí vừa sinh không bị tiêu thụ tiếp như CO2 đã hòa tan. Độ trong phụ thuộc lượng cacbon hòa tan và bão hòa calcite; tốc độ, nhiệt và hiệu chỉnh nhiệt độ/hoạt độ chưa hiệu chuẩn.', 'family_context');
 review('cuso4_naoh', ['salts'], 'Cu(OH)2 xanh dạng gel; đun nóng mới chuyển dần sang CuO đen.');
 review('fecl3_naoh', ['salts'], 'Fe(OH)3 nâu đỏ dạng bông, không phải dung dịch đỏ trong.');
+review('feoh3_hcl', ['ferricEquilibrium'], 'Acid hòa tan lượng Fe(OH)3 hữu hạn đến giới hạn thuốc thử hoặc bão hòa; có thể còn cặn, không sinh khí. Tốc độ và nhiệt pha vô định hình chưa hiệu chuẩn.', 'model_caveat');
 review('feso4_naoh', ['salts'], 'Fe(OH)2 ban đầu lục nhạt; tiếp xúc O2 có thể chuyển nâu.');
-review('alcl3_naoh', ['salts'], 'Al(OH)3 keo trắng; hòa tan cần kiềm dư, không tự tan vì hết timeline.');
+review('alcl3_naoh', ['aluminumEquilibrium'], 'Al(OH)3 vô định hình tạo keo khi quá bão hòa; lượng rắn phụ thuộc speciation và pH, không theo chiều cao lớp cặn cố định.', 'model_caveat');
+review('al2so43_naoh', ['aluminumEquilibrium'], 'Giới hạn tạo keo nhôm xét sulfate tự do, bisulfate và phức Al–sulfate; 2 mol Al trên mỗi mol Al2(SO4)3.', 'model_caveat');
+review('alcl3_naoh_excess', ['aluminumEquilibrium'], 'Kiềm đủ dư ưu tiên aluminate hòa tan; không bắt buộc dựng một đợt keo trung gian khi mẫu dưới bão hòa.', 'model_caveat');
+review('al2so43_naoh_excess', ['aluminumEquilibrium'], 'Nhánh aluminate của muối sulfate giữ cân bằng Al/Na/S và bị chặn nếu còn quá bão hòa hydroxide.', 'model_caveat');
 review('na2s_cuso4', ['sulfide'], 'CuS đen; pH quyết định dạng sulfide hòa tan và nguy cơ giải phóng H2S.', 'family_context');
 review('na2s_pbno32', ['sulfide'], 'PbS đen; không diễn giải mọi muối chì đều là mưa vàng.', 'family_context');
 review('k2cro4_bacl2', ['chromate', 'sulfide'], 'BaCrO4 vàng trong điều kiện phù hợp; axit làm đổi cân bằng chromate/dichromate.', 'family_context');
@@ -112,9 +124,9 @@ review('fecl3_kscn', ['thiocyanate'], 'Cân bằng phối tử, thường biểu
 review('cuso4_nh3', ['copperAmmonia', 'salts'], 'NH3 ít tạo hydroxide xanh nhạt; NH3 dư đủ tạo dung dịch phức xanh đậm.');
 review('k2cr2o7_naoh', ['chromate'], 'Kiềm chuyển dichromate cam sang chromate vàng; cation K/Na là ion khán.');
 review('k2cro4_h2so4', ['chromate'], 'Axit hóa dịch chuyển cân bằng chromate sang dichromate; không tạo khí.');
-review('aloh3_naoh', ['salts'], 'Al(OH)3 tan trong OH− dư tạo hydroxoaluminate; lượng dư là điều kiện thiết yếu.');
+review('aloh3_naoh', ['aluminumEquilibrium'], 'Al(OH)3 vô định hình tan trong OH− đến giới hạn thuốc thử hoặc bão hòa. Nhiệt theo cùng đường cân bằng, chưa hiệu chuẩn pha loãng/già hóa gel.', 'model_caveat');
 review('mg_o2_burn', ['displacement'], 'Cần mồi và O2; MgO trắng là khói hạt rắn, không phải khí màu trắng.', 'family_context');
-review('na_h2o', ['displacement'], 'Na bị tiêu thụ tạo NaOH/H2; mồi cháy hoặc nổ phụ thuộc lượng và truyền nhiệt, không luôn xảy ra.', 'family_context');
+review('na_h2o', ['sodiumWashington', 'sodiumWaterloo', 'sodiumProperties', 'sodiumHeat'], 'Na nổi, chạy và nóng chảy; NaOH không màu, chỉ hồng khi có chỉ thị. Cháy hoặc nổ phụ thuộc điều kiện. Lượng chất theo 2:2:2:1; chuyển động và truyền nhiệt cục bộ chỉ là xấp xỉ định tính.');
 review('k_h2o', ['displacement'], 'K phản ứng mạnh; ngọn lửa lilac không do riêng vạch 766 nm gần hồng ngoại.', 'family_context');
 review('flame_cu', ['salts'], 'Quan sát phát xạ xanh lục–lam, có đóng góp phân tử chứa đồng; không phải phương trình tiêu thụ CuCl2.');
 review('flame_na', ['salts'], 'Phát xạ nguyên tử Na vùng 589 nm; phép thử ngọn lửa không tạo phân tử sản phẩm giả.');
@@ -226,12 +238,14 @@ export const DETERMINISTIC_PROGRAM_ALIASES: Record<string, string> = {
   cuoh2_thermal_decomposition: 'cuoh2_decomp', iodine_sublimation: 'i2_sublimation',
   water_into_conc_h2so4_explosion: 'water_into_h2so4', sodium_water_reaction: 'na_h2o',
   cu_conc_h2so4_heated: 'cu_conc_h2so4', limewater_co2_milky: 'caoh2_co2',
-  caco3_co2_excess_clearing: 'caoh2_co2', al2so4_naoh_amphoteric: 'alcl3_naoh',
+  caco3_co2_excess_clearing: 'caoh2_co2', al2so4_naoh_amphoteric: 'al2so43_naoh',
+  alcl3_naoh_precipitate: 'alcl3_naoh', alcl3_naoh_aluminate: 'alcl3_naoh_excess', al2so43_naoh_aluminate: 'al2so43_naoh_excess',
   cuso4_nh3_complex: 'cuso4_nh3', cuso4_nh3_hydroxide: 'cuso4_nh3',
   fecl3_kscn_complex: 'fecl3_kscn', kmno4_oxalic_redox: 'kmno4_oxalic',
   aloh3_naoh_dissolution: 'aloh3_naoh', cuoh2_nh3_complex: 'cuso4_nh3',
   agcl_nh3_complex: 'agcl_nh3', hno3_naoh_neutralization: 'hno3_naoh',
   fecl3_naoh_precipitate: 'fecl3_naoh', agno3_hcl_precipitate: 'agno3_nacl',
+  feoh3_hcl_dissolution: 'feoh3_hcl',
   iodate_iodide_acid: 'iodine_clock',
 };
 

@@ -36,9 +36,13 @@ export function resolveFilm(id: CinematicId): { title: string; shots: FilmShot[]
     const scenario = SCENARIO_BY_ID.get(id.slice(9));
     if (scenario) return {
       title: scenario.title,
-      shots: scenario.dialogue.map(shot => ({
-        position: shot.camera,
-        target: shot.target,
+      shots: scenario.dialogue.map((shot,index) => ({
+        position: index===1?[
+          scenario.position[0]+(shot.camera[0]-scenario.position[0])*.75,
+          Math.max(2.05,scenario.position[1]+.95),
+          scenario.position[2]+(shot.camera[2]-scenario.position[2])*.75,
+        ] as Point:shot.camera,
+        target: index===1?[scenario.position[0],scenario.position[1]+.12,scenario.position[2]] as Point:shot.target,
         speaker: shot.speaker,
         line: shot.line,
       })),

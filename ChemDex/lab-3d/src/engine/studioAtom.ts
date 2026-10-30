@@ -61,20 +61,20 @@ export function studioAtomAction(atom: EffectAtom, index: number): StudioAtomAct
   if (!Number.isInteger(index) || index < 0 || index >= atom.gallery.length) return {
     kind: 'inspect', label: 'Xem điều kiện', note: 'Preset không tồn tại; không thay đổi mẫu.' };
   const programId = PROGRAM_CONTEXTS[atom.name]?.[index];
-  if (atom.name === 'iceMeltShrink' && index === 0) return { kind: 'ice_water', label: 'Tạo mẫu nước–đá',
-    note: 'Mẫu riêng 20 g nước và 5 g đá ở 0 °C. Nhiệt làm tan lượng đá hữu hạn trước khi làm ấm toàn bộ nước; chưa có bể làm lạnh cho bình khác.' };
+  if (atom.name === 'iceMeltShrink' && index === 0) return { kind: 'ice_water', label: 'Thay mẫu nước–đá trong bình đích',
+    note: 'Thay mẫu trong bình đích; mẫu 20 g nước và 5 g đá ở 0 °C. Nhiệt làm tan lượng đá hữu hạn trước khi làm ấm toàn bộ nước; chưa có bể làm lạnh cho bình khác.' };
   if (['foamClimbRunaway', 'cellularFoamGrowth'].includes(atom.name) && index === 0) return {
-    kind: 'program', programId: 'h2o2_mno2', variant: 'oxygen_foam', label: 'Tạo mẫu O2 có chất giữ bọt',
+    kind: 'program', programId: 'h2o2_mno2', variant: 'oxygen_foam', label: 'Thay mẫu O2 trong bình đích',
     note: 'Mẫu ảo H2O2/MnO2 có SDS trong kho chất. Bọt dùng lượng O2 sinh ra thật; chưa mô phỏng cột bọt tràn mang theo dịch.' };
   if (programId && getProgramById(programId)) return { kind: 'program', programId,
-    label: 'Tạo mẫu phản ứng liên quan',
-    note: 'Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này.' };
+    label: 'Thay mẫu và chạy trong bình đích',
+    note: 'Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này.' };
   if (atom.name === 'flameColorByElement' || (atom.name === 'flameCone' && index === 1)) return {
     kind: 'flame', element: atom.name === 'flameCone' ? 'Cu' : index === 0 ? 'Na' : 'K',
     label: 'Thử màu trên đèn', note: 'Preview màu hữu hạn trên đèn còn cồn; kính cobalt và phổ phát xạ chưa được giải đầy đủ.' };
   if (atom.name === 'surfaceRipple') return { kind: 'ripple', label: 'Tạo một gợn mặt thoáng', note: 'Xung hình ảnh tắt dần, không thêm giọt hoặc lượng chất vào bình.' };
   if (atom.name === 'liquidSwirl') return { kind: 'stir', label: 'Khuấy mẫu đang chọn', note: 'Thao tác khuấy hiện có; không suy ra vận tốc dòng chảy từ preset.' };
-  if (['vigorousBoilBubbles', 'boilingStages', 'thermalSteam', 'hotSteamPlume', 'hotPlateGlow'].includes(atom.name)) return {
+  if (['headspaceFog', 'condensationDroplets', 'evaporation', 'vigorousBoilBubbles', 'boilingStages', 'thermalSteam', 'hotSteamPlume', 'hotPlateGlow'].includes(atom.name)) return {
     kind: 'heating', label: 'Điều khiển nguồn nhiệt', note: 'Đặt mẫu lên bếp và cấp nhiệt; không bật sôi hoặc ép màu gốm phát sáng từ preset.' };
   if (atom.category === 'audio') return { kind: 'audio', label: 'Nghe mẫu âm thanh', note: 'Âm thanh xem thử có thời lượng hữu hạn; không xác nhận phản ứng đang xảy ra.' };
   return { kind: 'inspect', label: 'Xem điều kiện và giới hạn',
@@ -85,11 +85,11 @@ export function runStudioAtomContext(atom: EffectAtom, index: number, targetId?:
   const action = studioAtomAction(atom, index);
   const store = useAppStore.getState();
   if (action.kind === 'ice_water') {
-    const vesselId = store.prepareStudioIceSample();
+    const vesselId = store.prepareStudioIceSample(targetId ?? "");
     return { action, ok: !!vesselId, vesselId: vesselId ?? undefined, message: action.note };
   }
   if (action.kind === 'program') {
-    const id = store.prepareStudioProgram(action.programId, action.variant);
+    const id = store.prepareStudioProgram(action.programId, action.variant, targetId ?? "");
     if (!id) return { action, ok: false, message: store.mixError ?? 'Không tạo được mẫu.' };
     const started = store.runStudioProgram(id);
     return { action, ok: true, vesselId: id, started,

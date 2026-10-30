@@ -1,0 +1,2185 @@
+{
+  "checkedAt": "2026-10-28T18:34:42.525Z",
+  "errors": [],
+  "consoleErrors": [],
+  "snapshots": [
+    {
+      "name": "01-new-flocs",
+      "seconds": 1,
+      "snapshot": [
+        {
+          "id": "appearance-2-0",
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30,
+              "moles": 1.665278934221482
+            },
+            {
+              "formula": "Cu(OH)2",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "mass_g": 0.6,
+              "moles": 0.006150061500615006
+            }
+          ],
+          "systems": [
+            {
+              "formula": "Cu(OH)2",
+              "clock": {
+                "model": "bounded-120hz-precipitation",
+                "acceptedTime_s": 1.1400000000000001,
+                "integratedTime_s": 1.1399999999999988,
+                "pendingTime_s": 0
+              },
+              "flocculation": {
+                "enabled": true,
+                "basis": "illustrative-mean-population",
+                "lastAppliedShear_s_1": 33.800000000000004,
+                "suspended": {
+                  "solidMass_g": 0.5871327902723364,
+                  "primaryCount": 1894.714293483724,
+                  "clusterCount": 1660.3871164417787
+                },
+                "settled": {
+                  "solidMass_g": 0.012867209727662924,
+                  "primaryCount": 41.523291821169515,
+                  "clusterCount": 38.69354186279784
+                },
+                "properties": {
+                  "meanPrimaryCount": 1.141128038589043,
+                  "radius_m": 0.00029731656840473604,
+                  "solidFraction": 0.9531277977073118,
+                  "effectiveDensity_kg_m3": 3258.912880566329
+                }
+              },
+              "representedMass_g": 0.599999999999999,
+              "sediment_g": 0.012867209727662924,
+              "glyphCount": 2,
+              "particles": [
+                {
+                  "x": -0.05931319491492752,
+                  "y": -0.9029738358978244,
+                  "z": -0.2727303893594912,
+                  "radius": 0.009086762980471334,
+                  "physicalRadius_m": 0.00029731656840473604,
+                  "density": 3258.912880566329,
+                  "aggregationLevel": 1.1904606761786662
+                },
+                {
+                  "x": -0.2838624369943568,
+                  "y": -0.8649534707465266,
+                  "z": 0.48573498854446107,
+                  "radius": 0.009050057754744179,
+                  "physicalRadius_m": 0.00029731656840473604,
+                  "density": 3258.912880566329,
+                  "aggregationLevel": 1.1904606761786662
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "appearance-2-1",
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30,
+              "moles": 1.665278934221482
+            },
+            {
+              "formula": "Cu(OH)2",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "mass_g": 0.6,
+              "moles": 0.006150061500615006
+            }
+          ],
+          "systems": [
+            {
+              "formula": "Cu(OH)2",
+              "clock": {
+                "model": "bounded-120hz-precipitation",
+                "acceptedTime_s": 1.1400000000000001,
+                "integratedTime_s": 1.1399999999999988,
+                "pendingTime_s": 0
+              },
+              "flocculation": {
+                "enabled": true,
+                "basis": "illustrative-mean-population",
+                "lastAppliedShear_s_1": 33.800000000000004,
+                "suspended": {
+                  "solidMass_g": 0.5871327902723364,
+                  "primaryCount": 1894.714293483724,
+                  "clusterCount": 1660.3871164417787
+                },
+                "settled": {
+                  "solidMass_g": 0.012867209727662924,
+                  "primaryCount": 41.523291821169515,
+                  "clusterCount": 38.69354186279784
+                },
+                "properties": {
+                  "meanPrimaryCount": 1.141128038589043,
+                  "radius_m": 0.00029731656840473604,
+                  "solidFraction": 0.9531277977073118,
+                  "effectiveDensity_kg_m3": 3258.912880566329
+                }
+              },
+              "representedMass_g": 0.599999999999999,
+              "sediment_g": 0.012867209727662924,
+              "glyphCount": 2,
+              "particles": [
+                {
+                  "x": -0.05931319491492752,
+                  "y": -0.9029738358978244,
+                  "z": -0.2727303893594912,
+                  "radius": 0.009086762980471334,
+                  "physicalRadius_m": 0.00029731656840473604,
+                  "density": 3258.912880566329,
+                  "aggregationLevel": 1.1904606761786662
+                },
+                {
+                  "x": -0.2838624369943568,
+                  "y": -0.8649534707465266,
+                  "z": 0.48573498854446107,
+                  "radius": 0.009050057754744179,
+                  "physicalRadius_m": 0.00029731656840473604,
+                  "density": 3258.912880566329,
+                  "aggregationLevel": 1.1904606761786662
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "appearance-2-2",
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30,
+              "moles": 1.665278934221482
+            },
+            {
+              "formula": "Fe(OH)3",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "mass_g": 0.6,
+              "moles": 0.005614507888383583
+            }
+          ],
+          "systems": [
+            {
+              "formula": "Fe(OH)3",
+              "clock": {
+                "model": "bounded-120hz-precipitation",
+                "acceptedTime_s": 1.1400000000000001,
+                "integratedTime_s": 1.1399999999999988,
+                "pendingTime_s": 0
+              },
+              "flocculation": {
+                "enabled": true,
+                "basis": "illustrative-mean-population",
+                "lastAppliedShear_s_1": 33.800000000000004,
+                "suspended": {
+                  "solidMass_g": 0.585846069105219,
+                  "primaryCount": 2632.667231690875,
+                  "clusterCount": 2309.8521878551846
+                },
+                "settled": {
+                  "solidMass_g": 0.014153930894780637,
+                  "primaryCount": 63.60474539535341,
+                  "clusterCount": 59.08760690737483
+                },
+                "properties": {
+                  "meanPrimaryCount": 1.139755714903749,
+                  "radius_m": 0.00026531606308112255,
+                  "solidFraction": 0.9535449521935968,
+                  "effectiveDensity_kg_m3": 3288.5078852646325
+                }
+              },
+              "representedMass_g": 0.5999999999999992,
+              "sediment_g": 0.014153930894780637,
+              "glyphCount": 2,
+              "particles": [
+                {
+                  "x": -0.4257192374609468,
+                  "y": -0.901858821516843,
+                  "z": 0.1140214854159425,
+                  "radius": 0.007675190672843093,
+                  "physicalRadius_m": 0.00026531606308112255,
+                  "density": 3288.5078852646325,
+                  "aggregationLevel": 1.1887246431071548
+                },
+                {
+                  "x": -0.5600995977208462,
+                  "y": -0.8657882296699636,
+                  "z": 0.2512028705265152,
+                  "radius": 0.006766627694930415,
+                  "physicalRadius_m": 0.00026531606308112255,
+                  "density": 3288.5078852646325,
+                  "aggregationLevel": 1.1887246431071548
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "appearance-2-3",
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30,
+              "moles": 1.665278934221482
+            },
+            {
+              "formula": "Fe(OH)3",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "mass_g": 0.6,
+              "moles": 0.005614507888383583
+            }
+          ],
+          "systems": [
+            {
+              "formula": "Fe(OH)3",
+              "clock": {
+                "model": "bounded-120hz-precipitation",
+                "acceptedTime_s": 1.1400000000000001,
+                "integratedTime_s": 1.1399999999999988,
+                "pendingTime_s": 0
+              },
+              "flocculation": {
+                "enabled": true,
+                "basis": "illustrative-mean-population",
+                "lastAppliedShear_s_1": 33.800000000000004,
+                "suspended": {
+                  "solidMass_g": 0.585846069105219,
+                  "primaryCount": 2632.667231690875,
+                  "clusterCount": 2309.8521878551846
+                },
+                "settled": {
+                  "solidMass_g": 0.014153930894780637,
+                  "primaryCount": 63.60474539535341,
+                  "clusterCount": 59.08760690737483
+                },
+                "properties": {
+                  "meanPrimaryCount": 1.139755714903749,
+                  "radius_m": 0.00026531606308112255,
+                  "solidFraction": 0.9535449521935968,
+                  "effectiveDensity_kg_m3": 3288.5078852646325
+                }
+              },
+              "representedMass_g": 0.5999999999999992,
+              "sediment_g": 0.014153930894780637,
+              "glyphCount": 2,
+              "particles": [
+                {
+                  "x": -0.4257192374609468,
+                  "y": -0.901858821516843,
+                  "z": 0.1140214854159425,
+                  "radius": 0.007675190672843093,
+                  "physicalRadius_m": 0.00026531606308112255,
+                  "density": 3288.5078852646325,
+                  "aggregationLevel": 1.1887246431071548
+                },
+                {
+                  "x": -0.5600995977208462,
+                  "y": -0.8657882296699636,
+                  "z": 0.2512028705265152,
+                  "radius": 0.006766627694930415,
+                  "physicalRadius_m": 0.00026531606308112255,
+                  "density": 3288.5078852646325,
+                  "aggregationLevel": 1.1887246431071548
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "appearance-2-4",
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30,
+              "moles": 1.665278934221482
+            },
+            {
+              "formula": "AgCl",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "mass_g": 0.6,
+              "moles": 0.004186494369165074
+            }
+          ],
+          "systems": [
+            {
+              "formula": "AgCl",
+              "clock": {
+                "model": "bounded-120hz-precipitation",
+                "acceptedTime_s": 1.1400000000000001,
+                "integratedTime_s": 1.1399999999999988,
+                "pendingTime_s": 0
+              },
+              "flocculation": {
+                "enabled": true,
+                "basis": "illustrative-mean-population",
+                "lastAppliedShear_s_1": 33.800000000000004,
+                "suspended": {
+                  "solidMass_g": 0.5809576555096697,
+                  "primaryCount": 14435.68310998739,
+                  "clusterCount": 13696.967498845801
+                },
+                "settled": {
+                  "solidMass_g": 0.019042344490329623,
+                  "primaryCount": 473.1657258091462,
+                  "clusterCount": 456.3918305592574
+                },
+                "properties": {
+                  "meanPrimaryCount": 1.0539327855748974,
+                  "radius_m": 0.00012265538702230897,
+                  "solidFraction": 0.9869536814015845,
+                  "effectiveDensity_kg_m3": 5500.508787191226
+                }
+              },
+              "representedMass_g": 0.599999999999999,
+              "sediment_g": 0.019042344490329623,
+              "glyphCount": 3,
+              "particles": [
+                {
+                  "x": -0.4513978777007685,
+                  "y": -0.9422998443747378,
+                  "z": -0.31267091504839917,
+                  "radius": 0.004097397048518191,
+                  "physicalRadius_m": 0.00012265538702230897,
+                  "density": 5500.508787191226,
+                  "aggregationLevel": 1.0757828622219703
+                },
+                {
+                  "x": -0.2504197921880667,
+                  "y": -0.9093811967209483,
+                  "z": 0.13315207180225336,
+                  "radius": 0.003429359532974512,
+                  "physicalRadius_m": 0.00012265538702230897,
+                  "density": 5500.508787191226,
+                  "aggregationLevel": 1.0757828622219703
+                },
+                {
+                  "x": 0.4391919176197696,
+                  "y": -0.8792531896186362,
+                  "z": -0.3189035525770048,
+                  "radius": 0.003193264385146043,
+                  "physicalRadius_m": 0.00012265538702230897,
+                  "density": 5500.508787191226,
+                  "aggregationLevel": 1.0757828622219703
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "appearance-2-5",
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30,
+              "moles": 1.665278934221482
+            },
+            {
+              "formula": "AgCl",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "mass_g": 0.6,
+              "moles": 0.004186494369165074
+            }
+          ],
+          "systems": [
+            {
+              "formula": "AgCl",
+              "clock": {
+                "model": "bounded-120hz-precipitation",
+                "acceptedTime_s": 1.1400000000000001,
+                "integratedTime_s": 1.1399999999999988,
+                "pendingTime_s": 0
+              },
+              "flocculation": {
+                "enabled": true,
+                "basis": "illustrative-mean-population",
+                "lastAppliedShear_s_1": 33.800000000000004,
+                "suspended": {
+                  "solidMass_g": 0.5809576555096697,
+                  "primaryCount": 14435.68310998739,
+                  "clusterCount": 13696.967498845801
+                },
+                "settled": {
+                  "solidMass_g": 0.019042344490329623,
+                  "primaryCount": 473.1657258091462,
+                  "clusterCount": 456.3918305592574
+                },
+                "properties": {
+                  "meanPrimaryCount": 1.0539327855748974,
+                  "radius_m": 0.00012265538702230897,
+                  "solidFraction": 0.9869536814015845,
+                  "effectiveDensity_kg_m3": 5500.508787191226
+                }
+              },
+              "representedMass_g": 0.599999999999999,
+              "sediment_g": 0.019042344490329623,
+              "glyphCount": 3,
+              "particles": [
+                {
+                  "x": -0.4513978777007685,
+                  "y": -0.9422998443747378,
+                  "z": -0.31267091504839917,
+                  "radius": 0.004097397048518191,
+                  "physicalRadius_m": 0.00012265538702230897,
+                  "density": 5500.508787191226,
+                  "aggregationLevel": 1.0757828622219703
+                },
+                {
+                  "x": -0.2504197921880667,
+                  "y": -0.9093811967209483,
+                  "z": 0.13315207180225336,
+                  "radius": 0.003429359532974512,
+                  "physicalRadius_m": 0.00012265538702230897,
+                  "density": 5500.508787191226,
+                  "aggregationLevel": 1.0757828622219703
+                },
+                {
+                  "x": 0.4391919176197696,
+                  "y": -0.8792531896186362,
+                  "z": -0.3189035525770048,
+                  "radius": 0.003193264385146043,
+                  "physicalRadius_m": 0.00012265538702230897,
+                  "density": 5500.508787191226,
+                  "aggregationLevel": 1.0757828622219703
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "02-moderate-stirring",
+      "seconds": 8,
+      "snapshot": [
+        {
+          "id": "appearance-2-0",
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30,
+              "moles": 1.665278934221482
+            },
+            {
+              "formula": "Cu(OH)2",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "mass_g": 0.6,
+              "moles": 0.006150061500615006
+            }
+          ],
+          "systems": [
+            {
+              "formula": "Cu(OH)2",
+              "clock": {
+                "model": "bounded-120hz-precipitation",
+                "acceptedTime_s": 8.032800000071516,
+                "integratedTime_s": 8.032800000071694,
+                "pendingTime_s": 0
+              },
+              "flocculation": {
+                "enabled": true,
+                "basis": "illustrative-mean-population",
+                "lastAppliedShear_s_1": 33.800000000000004,
+                "suspended": {
+                  "solidMass_g": 0.5870960694779618,
+                  "primaryCount": 1894.5957931800015,
+                  "clusterCount": 648.3672263210592
+                },
+                "settled": {
+                  "solidMass_g": 0.012903930522039296,
+                  "primaryCount": 41.64179212489234,
+                  "clusterCount": 17.390847859182802
+                },
+                "properties": {
+                  "meanPrimaryCount": 2.922102963054202,
+                  "radius_m": 0.0004558666386622469,
+                  "solidFraction": 0.6771052427333101,
+                  "effectiveDensity_kg_m3": 2604.739425277945
+                }
+              },
+              "representedMass_g": 0.6000000000000005,
+              "sediment_g": 0.012903930522039298,
+              "glyphCount": 3,
+              "particles": [
+                {
+                  "x": 0.30802463725483187,
+                  "y": -0.9091622342226839,
+                  "z": 0.22633784409123778,
+                  "radius": 0.013721669315253286,
+                  "physicalRadius_m": 0.0004558666386622469,
+                  "density": 2604.739425277945,
+                  "aggregationLevel": 2.5470070137576375
+                },
+                {
+                  "x": -0.23248410175218723,
+                  "y": -0.8682810932648446,
+                  "z": 0.5425628654462382,
+                  "radius": 0.014288377789783447,
+                  "physicalRadius_m": 0.0004558666386622469,
+                  "density": 2604.739425277945,
+                  "aggregationLevel": 2.5470070137576375
+                },
+                {
+                  "x": 0.2765514141889232,
+                  "y": -0.8492084538424636,
+                  "z": -0.2785560188847775,
+                  "radius": 0.010574133064040842,
+                  "physicalRadius_m": 0.0004558666386622469,
+                  "density": 2604.739425277945,
+                  "aggregationLevel": 2.5470070137576375
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "appearance-2-1",
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30,
+              "moles": 1.665278934221482
+            },
+            {
+              "formula": "Cu(OH)2",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "mass_g": 0.6,
+              "moles": 0.006150061500615006
+            }
+          ],
+          "systems": [
+            {
+              "formula": "Cu(OH)2",
+              "clock": {
+                "model": "bounded-120hz-precipitation",
+                "acceptedTime_s": 8.032800000071516,
+                "integratedTime_s": 8.032800000071694,
+                "pendingTime_s": 0
+              },
+              "flocculation": {
+                "enabled": true,
+                "basis": "illustrative-mean-population",
+                "lastAppliedShear_s_1": 33.800000000000004,
+                "suspended": {
+                  "solidMass_g": 0.5870960694779618,
+                  "primaryCount": 1894.5957931800015,
+                  "clusterCount": 648.3672263210592
+                },
+                "settled": {
+                  "solidMass_g": 0.012903930522039296,
+                  "primaryCount": 41.64179212489234,
+                  "clusterCount": 17.390847859182802
+                },
+                "properties": {
+                  "meanPrimaryCount": 2.922102963054202,
+                  "radius_m": 0.0004558666386622469,
+                  "solidFraction": 0.6771052427333101,
+                  "effectiveDensity_kg_m3": 2604.739425277945
+                }
+              },
+              "representedMass_g": 0.6000000000000005,
+              "sediment_g": 0.012903930522039298,
+              "glyphCount": 3,
+              "particles": [
+                {
+                  "x": 0.30802463725483187,
+                  "y": -0.9091622342226839,
+                  "z": 0.22633784409123778,
+                  "radius": 0.013721669315253286,
+                  "physicalRadius_m": 0.0004558666386622469,
+                  "density": 2604.739425277945,
+                  "aggregationLevel": 2.5470070137576375
+                },
+                {
+                  "x": -0.23248410175218723,
+                  "y": -0.8682810932648446,
+                  "z": 0.5425628654462382,
+                  "radius": 0.014288377789783447,
+                  "physicalRadius_m": 0.0004558666386622469,
+                  "density": 2604.739425277945,
+                  "aggregationLevel": 2.5470070137576375
+                },
+                {
+                  "x": 0.2765514141889232,
+                  "y": -0.8492084538424636,
+                  "z": -0.2785560188847775,
+                  "radius": 0.010574133064040842,
+                  "physicalRadius_m": 0.0004558666386622469,
+                  "density": 2604.739425277945,
+                  "aggregationLevel": 2.5470070137576375
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "appearance-2-2",
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30,
+              "moles": 1.665278934221482
+            },
+            {
+              "formula": "Fe(OH)3",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "mass_g": 0.6,
+              "moles": 0.005614507888383583
+            }
+          ],
+          "systems": [
+            {
+              "formula": "Fe(OH)3",
+              "clock": {
+                "model": "bounded-120hz-precipitation",
+                "acceptedTime_s": 8.032800000071516,
+                "integratedTime_s": 8.032800000071694,
+                "pendingTime_s": 0
+              },
+              "flocculation": {
+                "enabled": true,
+                "basis": "illustrative-mean-population",
+                "lastAppliedShear_s_1": 33.800000000000004,
+                "suspended": {
+                  "solidMass_g": 0.5858056956348024,
+                  "primaryCount": 2632.4858019293847,
+                  "clusterCount": 915.5223811693911
+                },
+                "settled": {
+                  "solidMass_g": 0.014194304365197502,
+                  "primaryCount": 63.78617515685832,
+                  "clusterCount": 26.96289286430322
+                },
+                "properties": {
+                  "meanPrimaryCount": 2.8753920778724456,
+                  "radius_m": 0.0004040533182311619,
+                  "solidFraction": 0.6810846066099743,
+                  "effectiveDensity_kg_m3": 2634.603055863938
+                }
+              },
+              "representedMass_g": 0.5999999999999998,
+              "sediment_g": 0.014194304365197502,
+              "glyphCount": 3,
+              "particles": [
+                {
+                  "x": -0.5321493845569585,
+                  "y": -0.9084284139637566,
+                  "z": -0.18698898490676827,
+                  "radius": 0.013788192592357114,
+                  "physicalRadius_m": 0.0004040533182311619,
+                  "density": 2634.603055863938,
+                  "aggregationLevel": 2.523758690051995
+                },
+                {
+                  "x": -0.24604187740281797,
+                  "y": -0.8691805327809969,
+                  "z": -0.2110726460741535,
+                  "radius": 0.010774758676828127,
+                  "physicalRadius_m": 0.0004040533182311619,
+                  "density": 2634.603055863938,
+                  "aggregationLevel": 2.523758690051995
+                },
+                {
+                  "x": -0.17354582172675026,
+                  "y": -0.8504051819789317,
+                  "z": 0.5704510781128351,
+                  "radius": 0.009568716285345993,
+                  "physicalRadius_m": 0.0004040533182311619,
+                  "density": 2634.603055863938,
+                  "aggregationLevel": 2.523758690051995
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "appearance-2-3",
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30,
+              "moles": 1.665278934221482
+            },
+            {
+              "formula": "Fe(OH)3",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "mass_g": 0.6,
+              "moles": 0.005614507888383583
+            }
+          ],
+          "systems": [
+            {
+              "formula": "Fe(OH)3",
+              "clock": {
+                "model": "bounded-120hz-precipitation",
+                "acceptedTime_s": 8.032800000071516,
+                "integratedTime_s": 8.032800000071694,
+                "pendingTime_s": 0
+              },
+              "flocculation": {
+                "enabled": true,
+                "basis": "illustrative-mean-population",
+                "lastAppliedShear_s_1": 33.800000000000004,
+                "suspended": {
+                  "solidMass_g": 0.5858056956348024,
+                  "primaryCount": 2632.4858019293847,
+                  "clusterCount": 915.5223811693911
+                },
+                "settled": {
+                  "solidMass_g": 0.014194304365197502,
+                  "primaryCount": 63.78617515685832,
+                  "clusterCount": 26.96289286430322
+                },
+                "properties": {
+                  "meanPrimaryCount": 2.8753920778724456,
+                  "radius_m": 0.0004040533182311619,
+                  "solidFraction": 0.6810846066099743,
+                  "effectiveDensity_kg_m3": 2634.603055863938
+                }
+              },
+              "representedMass_g": 0.5999999999999998,
+              "sediment_g": 0.014194304365197502,
+              "glyphCount": 3,
+              "particles": [
+                {
+                  "x": -0.5321493845569585,
+                  "y": -0.9084284139637566,
+                  "z": -0.18698898490676827,
+                  "radius": 0.013788192592357114,
+                  "physicalRadius_m": 0.0004040533182311619,
+                  "density": 2634.603055863938,
+                  "aggregationLevel": 2.523758690051995
+                },
+                {
+                  "x": -0.24604187740281797,
+                  "y": -0.8691805327809969,
+                  "z": -0.2110726460741535,
+                  "radius": 0.010774758676828127,
+                  "physicalRadius_m": 0.0004040533182311619,
+                  "density": 2634.603055863938,
+                  "aggregationLevel": 2.523758690051995
+                },
+                {
+                  "x": -0.17354582172675026,
+                  "y": -0.8504051819789317,
+                  "z": 0.5704510781128351,
+                  "radius": 0.009568716285345993,
+                  "physicalRadius_m": 0.0004040533182311619,
+                  "density": 2634.603055863938,
+                  "aggregationLevel": 2.523758690051995
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "appearance-2-4",
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30,
+              "moles": 1.665278934221482
+            },
+            {
+              "formula": "AgCl",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "mass_g": 0.6,
+              "moles": 0.004186494369165074
+            }
+          ],
+          "systems": [
+            {
+              "formula": "AgCl",
+              "clock": {
+                "model": "bounded-120hz-precipitation",
+                "acceptedTime_s": 8.032800000071516,
+                "integratedTime_s": 8.032800000071694,
+                "pendingTime_s": 0
+              },
+              "flocculation": {
+                "enabled": true,
+                "basis": "illustrative-mean-population",
+                "lastAppliedShear_s_1": 33.800000000000004,
+                "suspended": {
+                  "solidMass_g": 0.5806394997525252,
+                  "primaryCount": 14427.777549838242,
+                  "clusterCount": 9968.272723156017
+                },
+                "settled": {
+                  "solidMass_g": 0.01936050024747354,
+                  "primaryCount": 481.0712859583087,
+                  "clusterCount": 352.14467261755374
+                },
+                "properties": {
+                  "meanPrimaryCount": 1.4473698654254232,
+                  "radius_m": 0.00013998754007910592,
+                  "solidFraction": 0.9117066413322965,
+                  "effectiveDensity_kg_m3": 5157.382284475272
+                }
+              },
+              "representedMass_g": 0.5999999999999983,
+              "sediment_g": 0.01936050024747354,
+              "glyphCount": 3,
+              "particles": [
+                {
+                  "x": -0.006151048056568071,
+                  "y": -0.9167432087234669,
+                  "z": 0.1943845895886846,
+                  "radius": 0.004017431119462767,
+                  "physicalRadius_m": 0.0001399875400791059,
+                  "density": 5157.382284475272,
+                  "aggregationLevel": 1.5334336397894397
+                },
+                {
+                  "x": -0.40049303848697876,
+                  "y": -0.883656883630533,
+                  "z": -0.1920896934335348,
+                  "radius": 0.0036678906607534863,
+                  "physicalRadius_m": 0.0001399875400791059,
+                  "density": 5157.382284475272,
+                  "aggregationLevel": 1.5334336397894397
+                },
+                {
+                  "x": 0.3660487842926664,
+                  "y": -0.8639359431273769,
+                  "z": -0.1418885764525303,
+                  "radius": 0.004572539713388796,
+                  "physicalRadius_m": 0.0001399875400791059,
+                  "density": 5157.382284475272,
+                  "aggregationLevel": 1.5334336397894397
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "appearance-2-5",
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30,
+              "moles": 1.665278934221482
+            },
+            {
+              "formula": "AgCl",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "mass_g": 0.6,
+              "moles": 0.004186494369165074
+            }
+          ],
+          "systems": [
+            {
+              "formula": "AgCl",
+              "clock": {
+                "model": "bounded-120hz-precipitation",
+                "acceptedTime_s": 8.032800000071516,
+                "integratedTime_s": 8.032800000071694,
+                "pendingTime_s": 0
+              },
+              "flocculation": {
+                "enabled": true,
+                "basis": "illustrative-mean-population",
+                "lastAppliedShear_s_1": 33.800000000000004,
+                "suspended": {
+                  "solidMass_g": 0.5806394997525252,
+                  "primaryCount": 14427.777549838242,
+                  "clusterCount": 9968.272723156017
+                },
+                "settled": {
+                  "solidMass_g": 0.01936050024747354,
+                  "primaryCount": 481.0712859583087,
+                  "clusterCount": 352.14467261755374
+                },
+                "properties": {
+                  "meanPrimaryCount": 1.4473698654254232,
+                  "radius_m": 0.00013998754007910592,
+                  "solidFraction": 0.9117066413322965,
+                  "effectiveDensity_kg_m3": 5157.382284475272
+                }
+              },
+              "representedMass_g": 0.5999999999999983,
+              "sediment_g": 0.01936050024747354,
+              "glyphCount": 3,
+              "particles": [
+                {
+                  "x": -0.006151048056568071,
+                  "y": -0.9167432087234669,
+                  "z": 0.1943845895886846,
+                  "radius": 0.004017431119462767,
+                  "physicalRadius_m": 0.0001399875400791059,
+                  "density": 5157.382284475272,
+                  "aggregationLevel": 1.5334336397894397
+                },
+                {
+                  "x": -0.40049303848697876,
+                  "y": -0.883656883630533,
+                  "z": -0.1920896934335348,
+                  "radius": 0.0036678906607534863,
+                  "physicalRadius_m": 0.0001399875400791059,
+                  "density": 5157.382284475272,
+                  "aggregationLevel": 1.5334336397894397
+                },
+                {
+                  "x": 0.3660487842926664,
+                  "y": -0.8639359431273769,
+                  "z": -0.1418885764525303,
+                  "radius": 0.004572539713388796,
+                  "physicalRadius_m": 0.0001399875400791059,
+                  "density": 5157.382284475272,
+                  "aggregationLevel": 1.5334336397894397
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "03-gentle-vigorous-pairs",
+      "seconds": 20,
+      "snapshot": [
+        {
+          "id": "appearance-2-0",
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30,
+              "moles": 1.665278934221482
+            },
+            {
+              "formula": "Cu(OH)2",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "mass_g": 0.6,
+              "moles": 0.006150061500615006
+            }
+          ],
+          "systems": [
+            {
+              "formula": "Cu(OH)2",
+              "clock": {
+                "model": "bounded-120hz-precipitation",
+                "acceptedTime_s": 20.038399999976136,
+                "integratedTime_s": 20.038399999975713,
+                "pendingTime_s": 0
+              },
+              "flocculation": {
+                "enabled": true,
+                "basis": "illustrative-mean-population",
+                "lastAppliedShear_s_1": 7.199999999999999,
+                "suspended": {
+                  "solidMass_g": 0.5868172794048295,
+                  "primaryCount": 1893.6961201499873,
+                  "clusterCount": 382.4343838383294
+                },
+                "settled": {
+                  "solidMass_g": 0.013182720595172236,
+                  "primaryCount": 42.541465154908835,
+                  "clusterCount": 9.938011417631833
+                },
+                "properties": {
+                  "meanPrimaryCount": 4.951688969866606,
+                  "radius_m": 0.0005793686773374575,
+                  "solidFraction": 0.5589364283636873,
+                  "effectiveDensity_kg_m3": 2324.679335221939
+                }
+              },
+              "representedMass_g": 0.6000000000000013,
+              "sediment_g": 0.01318272059517224,
+              "glyphCount": 2,
+              "particles": [
+                {
+                  "x": 0.35215569984993966,
+                  "y": -0.9156535267626295,
+                  "z": 0.1469367201704776,
+                  "radius": 0.014537573089115729,
+                  "physicalRadius_m": 0.0005793686773374575,
+                  "density": 2324.679335221939,
+                  "aggregationLevel": 3.307920697483623
+                },
+                {
+                  "x": -0.4464276176670827,
+                  "y": -0.8875748994549687,
+                  "z": 0.2468919216435785,
+                  "radius": 0.016176068444699324,
+                  "physicalRadius_m": 0.0005793686773374575,
+                  "density": 2324.679335221939,
+                  "aggregationLevel": 3.307920697483623
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "appearance-2-1",
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30,
+              "moles": 1.665278934221482
+            },
+            {
+              "formula": "Cu(OH)2",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "mass_g": 0.6,
+              "moles": 0.006150061500615006
+            }
+          ],
+          "systems": [
+            {
+              "formula": "Cu(OH)2",
+              "clock": {
+                "model": "bounded-120hz-precipitation",
+                "acceptedTime_s": 20.038399999976136,
+                "integratedTime_s": 20.038399999975713,
+                "pendingTime_s": 0
+              },
+              "flocculation": {
+                "enabled": true,
+                "basis": "illustrative-mean-population",
+                "lastAppliedShear_s_1": 72.2,
+                "suspended": {
+                  "solidMass_g": 0.5875303144094891,
+                  "primaryCount": 1895.9971287760932,
+                  "clusterCount": 59.326686799710046
+                },
+                "settled": {
+                  "solidMass_g": 0.012469685590509158,
+                  "primaryCount": 40.240456528797885,
+                  "clusterCount": 1.2711777715200037
+                },
+                "properties": {
+                  "meanPrimaryCount": 31.95858779670399,
+                  "radius_m": 0.0013522639704463106,
+                  "solidFraction": 0.2837116983656271,
+                  "effectiveDensity_kg_m3": 1672.3967251265362
+                }
+              },
+              "representedMass_g": 0.5999999999999979,
+              "sediment_g": 0.012469685590509162,
+              "glyphCount": 3,
+              "particles": [
+                {
+                  "x": -0.055576343355348,
+                  "y": -0.8819023609218306,
+                  "z": -0.030490699527538894,
+                  "radius": 0.036520642910082404,
+                  "physicalRadius_m": 0.0013522639704463106,
+                  "density": 1672.3967251265362,
+                  "aggregationLevel": 5
+                },
+                {
+                  "x": -0.5089325861032525,
+                  "y": -0.8421011933204571,
+                  "z": -0.035649795881761336,
+                  "radius": 0.04534085246141981,
+                  "physicalRadius_m": 0.0013522639704463106,
+                  "density": 1672.3967251265362,
+                  "aggregationLevel": 5
+                },
+                {
+                  "x": 0.11064645604029334,
+                  "y": -0.8209985253879563,
+                  "z": -0.26318993953501746,
+                  "radius": 0.0408928625857759,
+                  "physicalRadius_m": 0.0013522639704463106,
+                  "density": 1672.3967251265362,
+                  "aggregationLevel": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "appearance-2-2",
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30,
+              "moles": 1.665278934221482
+            },
+            {
+              "formula": "Fe(OH)3",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "mass_g": 0.6,
+              "moles": 0.005614507888383583
+            }
+          ],
+          "systems": [
+            {
+              "formula": "Fe(OH)3",
+              "clock": {
+                "model": "bounded-120hz-precipitation",
+                "acceptedTime_s": 20.038399999976136,
+                "integratedTime_s": 20.038399999975713,
+                "pendingTime_s": 0
+              },
+              "flocculation": {
+                "enabled": true,
+                "basis": "illustrative-mean-population",
+                "lastAppliedShear_s_1": 7.199999999999999,
+                "suspended": {
+                  "solidMass_g": 0.5854990073453156,
+                  "primaryCount": 2631.1076101949707,
+                  "clusterCount": 546.1453295020245
+                },
+                "settled": {
+                  "solidMass_g": 0.014500992654685338,
+                  "primaryCount": 65.16436689126908,
+                  "clusterCount": 15.591694982039897
+                },
+                "properties": {
+                  "meanPrimaryCount": 4.817596101378392,
+                  "radius_m": 0.0005108783013431038,
+                  "solidFraction": 0.5645443186495899,
+                  "effectiveDensity_kg_m3": 2354.9063647590156
+                }
+              },
+              "representedMass_g": 0.6000000000000005,
+              "sediment_g": 0.014500992654685338,
+              "glyphCount": 2,
+              "particles": [
+                {
+                  "x": -0.23148488225055644,
+                  "y": -0.916297358143329,
+                  "z": -0.22444258293450944,
+                  "radius": 0.012278373731252339,
+                  "physicalRadius_m": 0.0005108783013431038,
+                  "density": 2354.9063647590156,
+                  "aggregationLevel": 3.26831344568014
+                },
+                {
+                  "x": 0.24755613981507282,
+                  "y": -0.888737231335834,
+                  "z": -0.09921138244575821,
+                  "radius": 0.016850520394897272,
+                  "physicalRadius_m": 0.0005108783013431038,
+                  "density": 2354.9063647590156,
+                  "aggregationLevel": 3.26831344568014
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "appearance-2-3",
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30,
+              "moles": 1.665278934221482
+            },
+            {
+              "formula": "Fe(OH)3",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "mass_g": 0.6,
+              "moles": 0.005614507888383583
+            }
+          ],
+          "systems": [
+            {
+              "formula": "Fe(OH)3",
+              "clock": {
+                "model": "bounded-120hz-precipitation",
+                "acceptedTime_s": 20.038399999976136,
+                "integratedTime_s": 20.038399999975713,
+                "pendingTime_s": 0
+              },
+              "flocculation": {
+                "enabled": true,
+                "basis": "illustrative-mean-population",
+                "lastAppliedShear_s_1": 72.2,
+                "suspended": {
+                  "solidMass_g": 0.5860073295904055,
+                  "primaryCount": 2633.3919019029263,
+                  "clusterCount": 82.40013353076002
+                },
+                "settled": {
+                  "solidMass_g": 0.013992670409594128,
+                  "primaryCount": 62.88007518332107,
+                  "clusterCount": 1.9933261588938338
+                },
+                "properties": {
+                  "meanPrimaryCount": 31.95858779670399,
+                  "radius_m": 0.001207378545041346,
+                  "solidFraction": 0.2837116983656271,
+                  "effectiveDensity_kg_m3": 1680.908076077505
+                }
+              },
+              "representedMass_g": 0.5999999999999992,
+              "sediment_g": 0.013992670409594128,
+              "glyphCount": 2,
+              "particles": [
+                {
+                  "x": 0.4782855838337014,
+                  "y": -0.843176646754216,
+                  "z": -0.3675314823222229,
+                  "radius": 0.03990415783142134,
+                  "physicalRadius_m": 0.0012073785450413463,
+                  "density": 1680.908076077505,
+                  "aggregationLevel": 5
+                },
+                {
+                  "x": 0.2727244146266525,
+                  "y": -0.8221730644927954,
+                  "z": -0.014273578684413948,
+                  "radius": 0.02925078841715714,
+                  "physicalRadius_m": 0.0012073785450413463,
+                  "density": 1680.908076077505,
+                  "aggregationLevel": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "appearance-2-4",
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30,
+              "moles": 1.665278934221482
+            },
+            {
+              "formula": "AgCl",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "mass_g": 0.6,
+              "moles": 0.004186494369165074
+            }
+          ],
+          "systems": [
+            {
+              "formula": "AgCl",
+              "clock": {
+                "model": "bounded-120hz-precipitation",
+                "acceptedTime_s": 20.038399999976136,
+                "integratedTime_s": 20.038399999975713,
+                "pendingTime_s": 0
+              },
+              "flocculation": {
+                "enabled": true,
+                "basis": "illustrative-mean-population",
+                "lastAppliedShear_s_1": 7.199999999999999,
+                "suspended": {
+                  "solidMass_g": 0.5802259190903825,
+                  "primaryCount": 14417.500863882773,
+                  "clusterCount": 8630.542778906936
+                },
+                "settled": {
+                  "solidMass_g": 0.019774080909615115,
+                  "primaryCount": 491.3479719137721,
+                  "clusterCount": 304.92710435186115
+                },
+                "properties": {
+                  "meanPrimaryCount": 1.670520757873905,
+                  "radius_m": 0.00014860594870571607,
+                  "solidFraction": 0.8796036662517854,
+                  "effectiveDensity_kg_m3": 5010.992718108142
+                }
+              },
+              "representedMass_g": 0.5999999999999972,
+              "sediment_g": 0.019774080909615115,
+              "glyphCount": 2,
+              "particles": [
+                {
+                  "x": 0.25085260428616907,
+                  "y": -0.9308389531739166,
+                  "z": -0.20249729716290418,
+                  "radius": 0.004332475791348599,
+                  "physicalRadius_m": 0.00014860594870571607,
+                  "density": 5010.992718108142,
+                  "aggregationLevel": 1.7402979096981326
+                },
+                {
+                  "x": 0.1814746699988998,
+                  "y": -0.9032254825129375,
+                  "z": 0.05181628232329231,
+                  "radius": 0.0034646712204022753,
+                  "physicalRadius_m": 0.00014860594870571607,
+                  "density": 5010.992718108142,
+                  "aggregationLevel": 1.7402979096981326
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "appearance-2-5",
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30,
+              "moles": 1.665278934221482
+            },
+            {
+              "formula": "AgCl",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "mass_g": 0.6,
+              "moles": 0.004186494369165074
+            }
+          ],
+          "systems": [
+            {
+              "formula": "AgCl",
+              "clock": {
+                "model": "bounded-120hz-precipitation",
+                "acceptedTime_s": 20.038399999976136,
+                "integratedTime_s": 20.038399999975713,
+                "pendingTime_s": 0
+              },
+              "flocculation": {
+                "enabled": true,
+                "basis": "illustrative-mean-population",
+                "lastAppliedShear_s_1": 72.2,
+                "suspended": {
+                  "solidMass_g": 0.5812810941608154,
+                  "primaryCount": 14443.719939916677,
+                  "clusterCount": 3256.2842351594627
+                },
+                "settled": {
+                  "solidMass_g": 0.01871890583918364,
+                  "primaryCount": 465.12889587982977,
+                  "clusterCount": 114.0580921788434
+                },
+                "properties": {
+                  "meanPrimaryCount": 4.43564470937819,
+                  "radius_m": 0.00022322691611803084,
+                  "solidFraction": 0.6890659849273724,
+                  "effectiveDensity_kg_m3": 4142.140891268818
+                }
+              },
+              "representedMass_g": 0.5999999999999988,
+              "sediment_g": 0.018718905839183633,
+              "glyphCount": 3,
+              "particles": [
+                {
+                  "x": 0.36907016857861913,
+                  "y": -0.910601455427919,
+                  "z": -0.3616495409411547,
+                  "radius": 0.006161136663179654,
+                  "physicalRadius_m": 0.00022322691611803084,
+                  "density": 4142.140891268818,
+                  "aggregationLevel": 3.149143811724596
+                },
+                {
+                  "x": 0.011749983260921713,
+                  "y": -0.8675694680087453,
+                  "z": -0.19009925153556304,
+                  "radius": 0.005378188453317574,
+                  "physicalRadius_m": 0.00022322691611803084,
+                  "density": 4142.140891268818,
+                  "aggregationLevel": 3.149143811724596
+                },
+                {
+                  "x": -0.3563719072925987,
+                  "y": -0.8376966379733988,
+                  "z": -0.049964072175517044,
+                  "radius": 0.007024415844196466,
+                  "physicalRadius_m": 0.00022322691611803084,
+                  "density": 4142.140891268818,
+                  "aggregationLevel": 3.149143811724596
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "04-refill-then-breakage",
+      "seconds": 32,
+      "snapshot": [
+        {
+          "id": "appearance-2-0",
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30,
+              "moles": 1.665278934221482
+            },
+            {
+              "formula": "Cu(OH)2",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "mass_g": 0.07188841753827346,
+              "moles": 0.0007368636484037871
+            }
+          ],
+          "systems": [
+            {
+              "formula": "Cu(OH)2",
+              "clock": {
+                "model": "bounded-120hz-precipitation",
+                "acceptedTime_s": 32.01320000004764,
+                "integratedTime_s": 32.013200000046595,
+                "pendingTime_s": 0
+              },
+              "flocculation": {
+                "enabled": true,
+                "basis": "illustrative-mean-population",
+                "lastAppliedShear_s_1": 72.2,
+                "suspended": {
+                  "solidMass_g": 0.06786312297432459,
+                  "primaryCount": 218.99854893176962,
+                  "clusterCount": 155.10425185833319
+                },
+                "settled": {
+                  "solidMass_g": 0.004025294563948314,
+                  "primaryCount": 12.98987771106759,
+                  "clusterCount": 8.822576143877992
+                },
+                "properties": {
+                  "meanPrimaryCount": 1.4119442008062761,
+                  "radius_m": 0.00032753439321412157,
+                  "solidFraction": 0.8821062449774495,
+                  "effectiveDensity_kg_m3": 3090.5918005965555
+                }
+              },
+              "representedMass_g": 0.07188841753827253,
+              "sediment_g": 0.004025294563948317,
+              "glyphCount": 3,
+              "particles": [
+                {
+                  "x": -0.037157338593670035,
+                  "y": -0.9161179753312968,
+                  "z": 0.33097106614446453,
+                  "radius": 0.010175775921223946,
+                  "physicalRadius_m": 0.00032753439321412157,
+                  "density": 3090.5918005965555,
+                  "aggregationLevel": 1.4976830752870463
+                },
+                {
+                  "x": -0.11682143201510965,
+                  "y": -0.8686587869009258,
+                  "z": -0.5128331588779894,
+                  "radius": 0.007816629029451959,
+                  "physicalRadius_m": 0.00032753439321412157,
+                  "density": 3090.5918005965555,
+                  "aggregationLevel": 1.4976830752870463
+                },
+                {
+                  "x": -0.06573193893847647,
+                  "y": -0.8323308316661284,
+                  "z": 0.4503738815792422,
+                  "radius": 0.007580021265379781,
+                  "physicalRadius_m": 0.00032753439321412157,
+                  "density": 3090.5918005965555,
+                  "aggregationLevel": 1.4976830752870463
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "appearance-2-1",
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30,
+              "moles": 1.665278934221482
+            },
+            {
+              "formula": "Cu(OH)2",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "mass_g": 0.07125331204050112,
+              "moles": 0.000730353751952656
+            }
+          ],
+          "systems": [
+            {
+              "formula": "Cu(OH)2",
+              "clock": {
+                "model": "bounded-120hz-precipitation",
+                "acceptedTime_s": 32.01320000004764,
+                "integratedTime_s": 32.013200000046595,
+                "pendingTime_s": 0
+              },
+              "flocculation": {
+                "enabled": true,
+                "basis": "illustrative-mean-population",
+                "lastAppliedShear_s_1": 72.2,
+                "suspended": {
+                  "solidMass_g": 0.06728274403103,
+                  "primaryCount": 217.125629725541,
+                  "clusterCount": 50.98222675308116
+                },
+                "settled": {
+                  "solidMass_g": 0.003970568009473145,
+                  "primaryCount": 12.813271691584859,
+                  "clusterCount": 2.6630253696897856
+                },
+                "properties": {
+                  "meanPrimaryCount": 4.258849476644698,
+                  "radius_m": 0.000541003384066241,
+                  "solidFraction": 0.590427313129262,
+                  "effectiveDensity_kg_m3": 2399.312732116351
+                }
+              },
+              "representedMass_g": 0.07125331204050257,
+              "sediment_g": 0.003970568009473149,
+              "glyphCount": 3,
+              "particles": [
+                {
+                  "x": -0.299587825959014,
+                  "y": -0.9173493062576108,
+                  "z": 0.4423967439925129,
+                  "radius": 0.016263712677614492,
+                  "physicalRadius_m": 0.000541003384066241,
+                  "density": 2399.312732116351,
+                  "aggregationLevel": 3.090463740657025
+                },
+                {
+                  "x": -0.425456998009658,
+                  "y": -0.8669386453350392,
+                  "z": -0.29498937037468503,
+                  "radius": 0.014303511934328977,
+                  "physicalRadius_m": 0.000541003384066241,
+                  "density": 2399.312732116351,
+                  "aggregationLevel": 3.090463740657025
+                },
+                {
+                  "x": -0.09523339265041808,
+                  "y": -0.8311186352312435,
+                  "z": 0.03823612301652914,
+                  "radius": 0.013388402297974642,
+                  "physicalRadius_m": 0.000541003384066241,
+                  "density": 2399.312732116351,
+                  "aggregationLevel": 3.090463740657025
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "appearance-2-2",
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30,
+              "moles": 1.665278934221482
+            },
+            {
+              "formula": "Fe(OH)3",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "mass_g": 0.07307725929209963,
+              "moles": 0.0006838214145949099
+            }
+          ],
+          "systems": [
+            {
+              "formula": "Fe(OH)3",
+              "clock": {
+                "model": "bounded-120hz-precipitation",
+                "acceptedTime_s": 32.01320000004764,
+                "integratedTime_s": 32.013200000046595,
+                "pendingTime_s": 0
+              },
+              "flocculation": {
+                "enabled": true,
+                "basis": "illustrative-mean-population",
+                "lastAppliedShear_s_1": 72.2,
+                "suspended": {
+                  "solidMass_g": 0.06897253279939268,
+                  "primaryCount": 309.9478456261201,
+                  "clusterCount": 220.94845439123534
+                },
+                "settled": {
+                  "solidMass_g": 0.004104726492703228,
+                  "primaryCount": 18.445765026466105,
+                  "clusterCount": 12.625605688175002
+                },
+                "properties": {
+                  "meanPrimaryCount": 1.4028061272485426,
+                  "radius_m": 0.00029157959217965555,
+                  "solidFraction": 0.8841914429878062,
+                  "effectiveDensity_kg_m3": 3122.059463170735
+                }
+              },
+              "representedMass_g": 0.07307725929209546,
+              "sediment_g": 0.004104726492703228,
+              "glyphCount": 3,
+              "particles": [
+                {
+                  "x": -0.11269261508227939,
+                  "y": -0.9133466795030973,
+                  "z": 0.00340691109215437,
+                  "radius": 0.008031052097609659,
+                  "physicalRadius_m": 0.00029157959217965555,
+                  "density": 3122.059463170735,
+                  "aggregationLevel": 1.4883156371945103
+                },
+                {
+                  "x": -0.473733984438271,
+                  "y": -0.8690616769850699,
+                  "z": 0.3614454388713158,
+                  "radius": 0.006730608666106506,
+                  "physicalRadius_m": 0.00029157959217965555,
+                  "density": 3122.059463170735,
+                  "aggregationLevel": 1.4883156371945103
+                },
+                {
+                  "x": 0.08640178989926327,
+                  "y": -0.8343472767268303,
+                  "z": 0.3163147161652009,
+                  "radius": 0.00708792580731901,
+                  "physicalRadius_m": 0.00029157959217965555,
+                  "density": 3122.059463170735,
+                  "aggregationLevel": 1.4883156371945103
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "appearance-2-3",
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30,
+              "moles": 1.665278934221482
+            },
+            {
+              "formula": "Fe(OH)3",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "mass_g": 0.0723821579535241,
+              "moles": 0.0006773169946804793
+            }
+          ],
+          "systems": [
+            {
+              "formula": "Fe(OH)3",
+              "clock": {
+                "model": "bounded-120hz-precipitation",
+                "acceptedTime_s": 32.01320000004764,
+                "integratedTime_s": 32.013200000046595,
+                "pendingTime_s": 0
+              },
+              "flocculation": {
+                "enabled": true,
+                "basis": "illustrative-mean-population",
+                "lastAppliedShear_s_1": 72.2,
+                "suspended": {
+                  "solidMass_g": 0.06834173887310142,
+                  "primaryCount": 307.11319231482224,
+                  "clusterCount": 71.7438790113919
+                },
+                "settled": {
+                  "solidMass_g": 0.004040419080418068,
+                  "primaryCount": 18.156781237026784,
+                  "clusterCount": 3.7556308928202333
+                },
+                "properties": {
+                  "meanPrimaryCount": 4.280688423134427,
+                  "radius_m": 0.00048416306235754894,
+                  "solidFraction": 0.5893301828855034,
+                  "effectiveDensity_kg_m3": 2414.392438925208
+                }
+              },
+              "representedMass_g": 0.07238215795351917,
+              "sediment_g": 0.004040419080418068,
+              "glyphCount": 3,
+              "particles": [
+                {
+                  "x": -0.32570271503291376,
+                  "y": -0.9160504370487489,
+                  "z": -0.06746285749545694,
+                  "radius": 0.014914834470878126,
+                  "physicalRadius_m": 0.00048416306235754894,
+                  "density": 2414.392438925208,
+                  "aggregationLevel": 3.09784283045247
+                },
+                {
+                  "x": -0.1935510246020361,
+                  "y": -0.8680198152124188,
+                  "z": -0.007424603794604499,
+                  "radius": 0.013193841654259325,
+                  "physicalRadius_m": 0.00048416306235754894,
+                  "density": 2414.392438925208,
+                  "aggregationLevel": 3.09784283045247
+                },
+                {
+                  "x": 0.2537748316784612,
+                  "y": -0.8332417902577752,
+                  "z": 0.07747127292100511,
+                  "radius": 0.011414694105079769,
+                  "physicalRadius_m": 0.00048416306235754894,
+                  "density": 2414.392438925208,
+                  "aggregationLevel": 3.09784283045247
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "appearance-2-4",
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30,
+              "moles": 1.665278934221482
+            },
+            {
+              "formula": "AgCl",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "mass_g": 0.07783284616622599,
+              "moles": 0.0005430779536849942
+            }
+          ],
+          "systems": [
+            {
+              "formula": "AgCl",
+              "clock": {
+                "model": "bounded-120hz-precipitation",
+                "acceptedTime_s": 32.01320000004764,
+                "integratedTime_s": 32.013200000046595,
+                "pendingTime_s": 0
+              },
+              "flocculation": {
+                "enabled": true,
+                "basis": "illustrative-mean-population",
+                "lastAppliedShear_s_1": 72.2,
+                "suspended": {
+                  "solidMass_g": 0.07343369045837173,
+                  "primaryCount": 1824.6863174975406,
+                  "clusterCount": 1118.8308976274614
+                },
+                "settled": {
+                  "solidMass_g": 0.00439915570785277,
+                  "primaryCount": 109.31057908917929,
+                  "clusterCount": 66.94988761295366
+                },
+                "properties": {
+                  "meanPrimaryCount": 1.630886599008735,
+                  "radius_m": 0.00014712658270574713,
+                  "solidFraction": 0.8848997226100938,
+                  "effectiveDensity_kg_m3": 5035.1427351020275
+                }
+              },
+              "representedMass_g": 0.07783284616622413,
+              "sediment_g": 0.00439915570785277,
+              "glyphCount": 3,
+              "particles": [
+                {
+                  "x": 0.4836916864986305,
+                  "y": -0.9156292846526317,
+                  "z": 0.3222952650471488,
+                  "radius": 0.0045309906867379525,
+                  "physicalRadius_m": 0.0001471265827057471,
+                  "density": 5035.142735102028,
+                  "aggregationLevel": 1.7056564701334689
+                },
+                {
+                  "x": 0.06835384090346291,
+                  "y": -0.8788691672849069,
+                  "z": 0.047276965779109136,
+                  "radius": 0.003591596543553245,
+                  "physicalRadius_m": 0.0001471265827057471,
+                  "density": 5035.142735102028,
+                  "aggregationLevel": 1.7056564701334689
+                },
+                {
+                  "x": -0.040800975653822395,
+                  "y": -0.8470015815501022,
+                  "z": -0.3473051265545471,
+                  "radius": 0.00498562749299809,
+                  "physicalRadius_m": 0.0001471265827057471,
+                  "density": 5035.142735102028,
+                  "aggregationLevel": 1.7056564701334689
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "appearance-2-5",
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30,
+              "moles": 1.665278934221482
+            },
+            {
+              "formula": "AgCl",
+              "phase": "s",
+              "solidOrigin": "precipitate",
+              "mass_g": 0.07689424188524563,
+              "moles": 0.0005365288511229967
+            }
+          ],
+          "systems": [
+            {
+              "formula": "AgCl",
+              "clock": {
+                "model": "bounded-120hz-precipitation",
+                "acceptedTime_s": 32.01320000004764,
+                "integratedTime_s": 32.013200000046595,
+                "pendingTime_s": 0
+              },
+              "flocculation": {
+                "enabled": true,
+                "basis": "illustrative-mean-population",
+                "lastAppliedShear_s_1": 72.2,
+                "suspended": {
+                  "solidMass_g": 0.07259210652768115,
+                  "primaryCount": 1803.7745714887978,
+                  "clusterCount": 452.775051163832
+                },
+                "settled": {
+                  "solidMass_g": 0.004302135357558573,
+                  "primaryCount": 106.8998095282978,
+                  "clusterCount": 26.585830294488158
+                },
+                "properties": {
+                  "meanPrimaryCount": 3.9838205900530514,
+                  "radius_m": 0.00021345491092541173,
+                  "solidFraction": 0.7078236299775013,
+                  "effectiveDensity_kg_m3": 4227.675752697405
+                }
+              },
+              "representedMass_g": 0.0768942418852394,
+              "sediment_g": 0.004302135357558568,
+              "glyphCount": 3,
+              "particles": [
+                {
+                  "x": -0.041792729806286025,
+                  "y": -0.9281302109459433,
+                  "z": -0.18364813798376456,
+                  "radius": 0.006778124132877446,
+                  "physicalRadius_m": 0.00021345491092541173,
+                  "density": 4227.675752697405,
+                  "aggregationLevel": 2.9941526776095815
+                },
+                {
+                  "x": 0.1019056055873439,
+                  "y": -0.8835603133282245,
+                  "z": -0.038310768381996645,
+                  "radius": 0.005011348373076746,
+                  "physicalRadius_m": 0.00021345491092541173,
+                  "density": 4227.675752697405,
+                  "aggregationLevel": 2.9941526776095815
+                },
+                {
+                  "x": 0.13764230798935212,
+                  "y": -0.8473776715508167,
+                  "z": -0.48988370068700166,
+                  "radius": 0.004935731656445749,
+                  "physicalRadius_m": 0.00021345491092541173,
+                  "density": 4227.675752697405,
+                  "aggregationLevel": 2.9941526776095815
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "method": "Real Beaker and PhysicalSimulationRenderer; pre-existing finite precipitates, fixed 120 Hz population integration, 4x simulation clock. Mean-population coefficients are illustrative. No FPS or experimentally calibrated settling claim. Browser predicates are synchronous.",
+  "setup": {
+    "captions": [
+      "Cu(OH)2 · gel_like · 0.6 g / 30 mL · khuấy 0.65",
+      "Cu(OH)2 · gel_like · 0.6 g / 30 mL · khuấy 0.65",
+      "Fe(OH)3 · flocculent · 0.6 g / 30 mL · khuấy 0.65",
+      "Fe(OH)3 · flocculent · 0.6 g / 30 mL · khuấy 0.65",
+      "AgCl · flocculent · 0.6 g / 30 mL · khuấy 0.65",
+      "AgCl · flocculent · 0.6 g / 30 mL · khuấy 0.65"
+    ],
+    "vessels": [
+      {
+        "id": "appearance-2-0",
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass_g": 30,
+            "moles": 1.665278934221482
+          },
+          {
+            "formula": "Cu(OH)2",
+            "phase": "s",
+            "solidOrigin": "precipitate",
+            "mass_g": 0.6,
+            "moles": 0.006150061500615006
+          }
+        ],
+        "volume_ml": 30
+      },
+      {
+        "id": "appearance-2-1",
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass_g": 30,
+            "moles": 1.665278934221482
+          },
+          {
+            "formula": "Cu(OH)2",
+            "phase": "s",
+            "solidOrigin": "precipitate",
+            "mass_g": 0.6,
+            "moles": 0.006150061500615006
+          }
+        ],
+        "volume_ml": 30
+      },
+      {
+        "id": "appearance-2-2",
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass_g": 30,
+            "moles": 1.665278934221482
+          },
+          {
+            "formula": "Fe(OH)3",
+            "phase": "s",
+            "solidOrigin": "precipitate",
+            "mass_g": 0.6,
+            "moles": 0.005614507888383583
+          }
+        ],
+        "volume_ml": 30
+      },
+      {
+        "id": "appearance-2-3",
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass_g": 30,
+            "moles": 1.665278934221482
+          },
+          {
+            "formula": "Fe(OH)3",
+            "phase": "s",
+            "solidOrigin": "precipitate",
+            "mass_g": 0.6,
+            "moles": 0.005614507888383583
+          }
+        ],
+        "volume_ml": 30
+      },
+      {
+        "id": "appearance-2-4",
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass_g": 30,
+            "moles": 1.665278934221482
+          },
+          {
+            "formula": "AgCl",
+            "phase": "s",
+            "solidOrigin": "precipitate",
+            "mass_g": 0.6,
+            "moles": 0.004186494369165074
+          }
+        ],
+        "volume_ml": 30
+      },
+      {
+        "id": "appearance-2-5",
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass_g": 30,
+            "moles": 1.665278934221482
+          },
+          {
+            "formula": "AgCl",
+            "phase": "s",
+            "solidOrigin": "precipitate",
+            "mass_g": 0.6,
+            "moles": 0.004186494369165074
+          }
+        ],
+        "volume_ml": 30
+      }
+    ]
+  },
+  "withdrawRefill": [
+    {
+      "id": "appearance-2-0",
+      "removed_g": 0.5281115824617265,
+      "remaining_g": 0.07188841753827346,
+      "beforeN": 5.059959792335979
+    },
+    {
+      "id": "appearance-2-1",
+      "removed_g": 0.5287466879594989,
+      "remaining_g": 0.07125331204050112,
+      "beforeN": 31.944601819603985
+    },
+    {
+      "id": "appearance-2-2",
+      "removed_g": 0.5269227407079004,
+      "remaining_g": 0.07307725929209963,
+      "beforeN": 4.920449825559705
+    },
+    {
+      "id": "appearance-2-3",
+      "removed_g": 0.5276178420464759,
+      "remaining_g": 0.0723821579535241,
+      "beforeN": 31.944601819603985
+    },
+    {
+      "id": "appearance-2-4",
+      "removed_g": 0.522167153833774,
+      "remaining_g": 0.07783284616622599,
+      "beforeN": 1.6795974689071107
+    },
+    {
+      "id": "appearance-2-5",
+      "removed_g": 0.5231057581147543,
+      "remaining_g": 0.07689424188524563,
+      "beforeN": 4.6850636026887
+    }
+  ],
+  "netBreakageObserved": true,
+  "rodPauseStable": true,
+  "pauseStable": true,
+  "uiSetup": {
+    "id": "studio_sample_1793212497304_5whdom"
+  },
+  "ui": [
+    {
+      "intensity": 0.3,
+      "active": true,
+      "flocculation": [
+        {
+          "formula": "Fe(OH)3",
+          "enabled": true,
+          "basis": "illustrative-mean-population",
+          "lastAppliedShear_s_1": 7.199999999999999,
+          "suspended": {
+            "solidMass_g": 0.00878808741519747,
+            "primaryCount": 39.49178971630178,
+            "clusterCount": 39.48967352616455
+          },
+          "settled": {
+            "solidMass_g": 0.000159640151578584,
+            "primaryCount": 0.7173887785318895,
+            "clusterCount": 0.7173779744135593
+          },
+          "properties": {
+            "meanPrimaryCount": 1.0000535884434656,
+            "radius_m": 0.0002500060895068512,
+            "solidFraction": 0.9999805140052522,
+            "effectiveDensity_kg_m3": 3399.9532278007414
+          }
+        }
+      ]
+    },
+    {
+      "intensity": 0.65,
+      "active": true,
+      "flocculation": [
+        {
+          "formula": "Fe(OH)3",
+          "enabled": true,
+          "basis": "illustrative-mean-population",
+          "lastAppliedShear_s_1": 33.800000000000004,
+          "suspended": {
+            "solidMass_g": 0.011244156088584444,
+            "primaryCount": 50.52883827938951,
+            "clusterCount": 50.516590818542916
+          },
+          "settled": {
+            "solidMass_g": 0.0001538534681866832,
+            "primaryCount": 0.6913846580821355,
+            "clusterCount": 0.6913679979246142
+          },
+          "properties": {
+            "meanPrimaryCount": 1.0002424443266686,
+            "radius_m": 0.00025002754867022335,
+            "solidFraction": 0.9999118529972509,
+            "effectiveDensity_kg_m3": 3399.7884137032565
+          }
+        }
+      ]
+    },
+    {
+      "intensity": 0.95,
+      "active": true,
+      "flocculation": [
+        {
+          "formula": "Fe(OH)3",
+          "enabled": true,
+          "basis": "illustrative-mean-population",
+          "lastAppliedShear_s_1": 72.2,
+          "suspended": {
+            "solidMass_g": 0.018386257114776327,
+            "primaryCount": 82.6239163701227,
+            "clusterCount": 82.4210173934984
+          },
+          "settled": {
+            "solidMass_g": 0.0001488666496128493,
+            "primaryCount": 0.6689749594563994,
+            "clusterCount": 0.668567231417909
+          },
+          "properties": {
+            "meanPrimaryCount": 1.0024617383167647,
+            "radius_m": 0.000250279555413612,
+            "solidFraction": 0.999106322039979,
+            "effectiveDensity_kg_m3": 3397.854620744659
+          }
+        }
+      ]
+    }
+  ],
+  "qualityHistoryStable": true
+}

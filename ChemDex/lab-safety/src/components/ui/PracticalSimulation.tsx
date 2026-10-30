@@ -1,15 +1,21 @@
 import React, { useEffect, useId, useRef, useState } from 'react';
-import type { Model, Point, PracticalWork } from '../../data/practicalWork';
+import type { Model, Point, PracticalWork, WorkObject } from '../../data/practicalWork';
 import { useScenarioModal } from '../../scenarios/useScenarioModal';
 import { useDialogFocus } from '../../academy/hooks/useDialogFocus';
 import { soundManager } from '../../audio/soundManager';
 import './practical.css';
+import '../../styles/instrument-visuals.css';
 import { pathLength, pointAlong, traceStroke } from '../../core/simulation/GestureProgress';
 import { StirringSurface } from './StirringSurface';
 import { placementAt, practicalScore, type PracticalResult } from '../../core/simulation/PracticalEvaluation';
+import { useReducedLabMotion } from '../../systems/device/useReducedLabMotion';
+import { getSceneVisual } from './practical/sceneVisuals';
+import { SceneBackdrop, SceneEffects } from './practical/SceneArt';
+import { instrumentDrawing } from './practical/InstrumentModels';
 
 /** Code-native models share physical proportions and remain sharp on mobile. */
 function ModelDrawing({ model, color = '#67c9d8', active = false, value = 0 }: { model: Model; color?: string; active?: boolean; value?: number }) {
+ const drawing=instrumentDrawing(model,value);if(drawing!==undefined)return drawing;
  const metal = '#a9bdcb';
  switch(model) {
   case 'shield': return <><rect x="-67" y="-59" width="134" height="110" rx="7" fill="#bde4ee" fillOpacity=".35" stroke="#6d98ac" strokeWidth="5"/><path d="M-49-43-9-51M24-51 48-54" stroke="white" strokeWidth="6" opacity=".8"/><path d="M-55 51V67H-80M55 51V67H80" fill="none" stroke="#65879b" strokeWidth="8"/></>;
@@ -21,15 +27,10 @@ function ModelDrawing({ model, color = '#67c9d8', active = false, value = 0 }: {
   case 'paper': return <><path d="M-25-21 8-28 29-5 17 26-12 30-29 3Z" fill="#f8f7f0" stroke="#9caaa9" strokeWidth="2"/><path d="M-25-21-3-2 8-28M-3-2 17 26M-29 3-3-2 29-5M-12 30-3-2" fill="none" stroke="#d1d8d4" strokeWidth="2"/></>;
   case 'absorbent': return <><path d="M-28-19 14-27 29-4 19 26-23 29-32 4Z" fill="#d9c66b" stroke="#a08d40" strokeWidth="2"/><ellipse rx="18" ry="12" fill="#9aa25b" opacity=".6"/>{[-14,0,14].map(x=><path key={x} d={`M${x}-15v33`} stroke="#eeeba7" strokeWidth="2" opacity=".5"/>)}</>;
   case 'balance': return <><rect x="-90" y="-65" width="180" height="138" rx="15" fill="#c8d9e4" stroke="#5c7789" strokeWidth="4"/><path d="M-78-48H78V24H-78Z" fill="#e7f8fc" fillOpacity=".6" stroke="#8ba9b9" strokeWidth="3"/><ellipse cy="-12" rx="45" ry="26" fill="#849aa9"/><ellipse cy="-17" rx="45" ry="26" fill="#e8f0f4" stroke="#8ba4b5" strokeWidth="2"/><rect x="-66" y="39" width="104" height="23" rx="3" fill="#254e4f"/><text x="-15" y="55" fontSize="13" fill="#94f7c0" textAnchor="middle">{(value/10).toFixed(2)} g</text><circle cx="61" cy="49" r="9" fill="#459d9c"/></>;
-  case 'cylinder': case 'burette': return <><path d="M-20-95H20V75Q0 92-20 75Z" fill="#d9f2f8" stroke="#658b9f" strokeWidth="3"/><path d={`M-16 ${73-value*1.6}H16V72Q0 87-16 72Z`} fill="#69c4e2" opacity=".8"/>{Array.from({length:9},(_,i)=><g key={i}><path d={`M3 ${65-i*18}h14`} stroke="#507b90" strokeWidth="2"/><text x="-10" y={68-i*18} fontSize="8" fill="#3c667a">{i*5}</text></g>)}{model==='cylinder'?<ellipse cy="91" rx="43" ry="12" fill="#afcedc" stroke="#678b9d" strokeWidth="2"/>:<><path d="M0 80v35" stroke="#66899a" strokeWidth="6"/><path d="M-19 87h38" stroke="#b94d50" strokeWidth="8"/></>}</>;
-  case 'electrode': return <><rect x="-11" y="-72" width="22" height="108" rx="5" fill="#5f8ca6" stroke="#32536b" strokeWidth="2"/><path d="M-7 36H7V70Q0 85-7 70Z" fill="#c7eaf2" stroke="#688b9f" strokeWidth="2"/><path d="M0-72Q-40-110-66-60" fill="none" stroke="#334b5f" strokeWidth="5"/><circle cy="64" r="4" fill="#9a7fad"/></>;
   case 'thermometer': return <><rect x="-10" y="-75" width="20" height="125" rx="10" fill="#eff8fa" stroke="#5e879c" strokeWidth="3"/><circle cy="52" r="18" fill="#e06c6a"/><path d={`M0 50V${40-value}`} stroke="#e06c6a" strokeWidth="8"/>{[-55,-35,-15,5,25].map(y=><path key={y} d={`M4 ${y}h10`} stroke="#4d6f82"/>)}</>;
   case 'hood': return <><rect x="-115" y="-78" width="230" height="155" rx="9" fill="#b9ccd7" stroke="#5c7689" strokeWidth="4"/><rect x="-98" y="-55" width="196" height="107" fill="#355467"/>{[-70,-35,0,35,70].map(x=><path key={x} d={`M${x}-40v75`} stroke="#93bbca" strokeWidth="5"/>)}<rect x="-98" y="-55" width="196" height={Math.max(15,90-value*.6)} fill="#c9edf3" fillOpacity=".5" stroke="#608d9e" strokeWidth="3"/><path d="M-115 65H115" stroke="#e1ebf0" strokeWidth="12"/><circle cx="94" cy="-67" r="5" fill={active?'#43d3a4':'#bd7267'}/></>;
-  case 'sink': return <><rect x="-100" y="-63" width="200" height="140" rx="19" fill="#c2d1db" stroke="#718c9e" strokeWidth="4"/><rect x="-83" y="-47" width="166" height="109" rx="25" fill="#86a4b5"/><circle cy="20" r="12" fill="#4f6c81"/><path d="M0-90V-35Q0-15 20-15H33" fill="none" stroke="#e7eff4" strokeWidth="12"/><path d="M30-10V33" stroke="#79d7ed" strokeWidth="7" strokeDasharray="5 3"/></>;
-  case 'locker': case 'drawer': return <><rect x="-88" y="-75" width="176" height="150" rx="8" fill="#abbfcd" stroke="#5e7c90" strokeWidth="4"/><rect x="-78" y={-65+value*.5} width="156" height="125" rx="4" fill="#d9e5ec" stroke="#7694a7" strokeWidth="3"/><rect x="-27" y={-14+value*.5} width="54" height="10" rx="4" fill="#62869c"/>{[-49,-37,-25].map(y=><path key={y} d={`M-52 ${y+value*.5}H52`} stroke="#9cb7c7" strokeWidth="3"/>)}</>;
   case 'chair': return <><path d="M0 0V65M0 50-52 75M0 50 52 75M0 50-52 25M0 50 52 25" stroke="#7f9cad" strokeWidth="9"/><ellipse rx="58" ry="37" fill="#3f596d" stroke="#263f53" strokeWidth="4"/><ellipse cy="-5" rx="51" ry="30" fill="#5e8095"/></>;
   case 'door': return <><rect x="-65" y="-90" width="130" height="180" fill="#b8cedb" stroke="#627f93" strokeWidth="7"/><rect x="-52" y="-78" width="104" height="160" fill="#e3f0f4"/><rect x="-36" y="-65" width="72" height="45" fill="#73b7a1"/><path d="M-20-43H20M8-54 20-43 8-32" fill="none" stroke="white" strokeWidth="5"/><path d="M30 6H43V26" fill="none" stroke="#557b93" strokeWidth="6"/></>;
-  case 'shower': return <><path d="M-55 90V-90H12Q45-90 45-60" fill="none" stroke="#bacbd7" strokeWidth="13"/><path d="M18-50Q45-80 72-50Z" fill="#7298ad"/><path d="M22-35V50M45-35V70M68-35V50" stroke="#7ac7de" strokeWidth="5" strokeDasharray="10 8"/><path d="M-40-60H-15V30" stroke="#b7a465" fill="none" strokeWidth="5"/><path d="M-28 35H-2" stroke="#cbaa58" strokeWidth="7"/></>;
   case 'blanket': return <><rect x="-65" y="-65" width="130" height="120" rx="9" fill="#bb514e" stroke="#8a363b" strokeWidth="3"/><rect x="-46" y="-48" width="92" height="75" rx="4" fill="#fff2db"/><path d="M-30-28H30M-30-12H30M-30 4H16" stroke="#b55653" strokeWidth="6"/><path d="M-25 44v60M25 44v60" stroke="#292e36" strokeWidth="13"/></>;
   case 'clock': return <><circle r="78" fill="#edf4f7" stroke="#7392a6" strokeWidth="7"/>{Array.from({length:12},(_,i)=><path key={i} d="M0-66V-57" stroke="#567588" strokeWidth="4" transform={`rotate(${i*30})`}/>)}<path d="M0 0V-40M0 0 26 18" stroke="#344e64" strokeWidth="6"/><path d="M0 0V-58" stroke="#df7865" strokeWidth="2" transform={`rotate(${value*3.6})`}/><circle r="6" fill="#df7865"/></>;
   case 'soap': return <><rect x="-28" y="-25" width="56" height="75" rx="12" fill="#b6ddd7" stroke="#60998e" strokeWidth="3"/><path d="M0-25V-50H35V-38" stroke="#7c98a7" strokeWidth="9" fill="none"/><rect x="-20" y="-2" width="40" height="29" rx="5" fill="#f1faf7"/><path d="M-8 12H8M0 4V20" stroke="#61a89b" strokeWidth="4"/></>;
@@ -62,6 +63,21 @@ function ModelDrawing({ model, color = '#67c9d8', active = false, value = 0 }: {
  }
 }
 
+function WorkModel({object,visualId,value,active,at}:{object:WorkObject;visualId:string;value:number;active:boolean;at:Point}) {
+ if(visualId==='instrument-acid-dilution'&&object.model==='stirringRod')return <g transform={`rotate(${-65*Math.max(0,Math.min(1,(750-at[0])/150))})`}><ModelDrawing model={object.model}/></g>;
+ if(object.model==='hood'&&visualId==='fume')return <g>
+  <rect x="-120" y="-65" width="240" height={40+value*1.25} fill="#d3edf0" fillOpacity=".3" stroke="#779da9" strokeWidth="3"/>
+  <path d={`M-120 ${-25+value*1.25}H120`} stroke="#d6e7ec" strokeWidth="9"/>
+  <path d={`M-30 ${-25+value*1.25}H30`} stroke="#6e8e9e" strokeWidth="4"/>
+ </g>;
+ if(object.id==='cap'&&visualId==='centrifuge-balance')return at[1]>200?<g>
+  <circle r="108" fill="#d1dce5" stroke="#5e788d" strokeWidth="5"/><circle r="84" fill="#b8cad7" stroke="#e6eef2" strokeWidth="3"/><rect x="-33" y="-8" width="66" height="16" rx="6" fill="#658295"/>
+ </g>:<g>
+  <path d="M-84 0v16Q0 65 84 16V0" fill="#9db1c1" stroke="#617c91" strokeWidth="3"/><ellipse rx="84" ry="32" fill="#d6e2ea" stroke="#7891a3" strokeWidth="3"/><rect x="-30" y="-7" width="60" height="12" rx="5" fill="#7891a3"/>
+ </g>;
+ return <ModelDrawing model={object.model} color={object.color} active={active} value={value}/>;
+}
+
 export interface PracticalProgress { step:number; inspected:number[]; placed:string[]; mistakes:number; hints:number; revealed?:boolean; traceDistance?:number }
 export function PracticalSimulation({ work, onClose, onComplete, initialStep = 0, onStep, blockedReason, mode='guided', initialProgress, onProgress }: {
  work: PracticalWork; onClose:()=>void; onComplete:(result?:PracticalResult)=>void; initialStep?:number; onStep?:(step:number)=>void; blockedReason?:string;
@@ -71,13 +87,19 @@ export function PracticalSimulation({ work, onClose, onComplete, initialStep = 0
  const dialog = useRef<HTMLElement>(null);
  useDialogFocus(dialog, onClose);
  const titleId = useId();
+ const reducedMotion = useReducedLabMotion();
+ const visual = getSceneVisual(work);
  const svg = useRef<SVGSVGElement>(null);
  const [index,setIndex] = useState(Math.max(0,Math.min(initialProgress?.step??initialStep,work.steps.length)));
  const [moving,setMoving] = useState<Point|null>(null);
  const [progress,setProgress] = useState(0);
  const [traceSaved,setTraceSaved]=useState(initialProgress?.traceDistance??0);
  const traceDistance=useRef(initialProgress?.traceDistance??0);
- const [value,setValue] = useState(100);
+ const currentObject=work.steps[index]?.object;
+ const startingValue=visual.id==='instrument-acid-dilution'&&currentObject==='acid'?0:work.steps.slice(0,index).filter(step=>step.object===currentObject&&step.mode==='adjust').at(-1)?.value??(work.steps[index]?.value===0?100:0);
+ const [adjustment,setAdjustment] = useState({step:index,value:startingValue});
+ const value=adjustment.step===index?adjustment.value:startingValue;
+ const setValue=(next:number)=>setAdjustment({step:index,value:next});
  const [adjusted,setAdjusted] = useState(false);
  const [message,setMessage] = useState('');
  const [inspected,setInspected]=useState<number[]>(initialProgress?.inspected??[]);
@@ -100,15 +122,21 @@ export function PracticalSimulation({ work, onClose, onComplete, initialStep = 0
  const done = !step;
  const positions: Record<string,Point> = Object.fromEntries(work.objects.map(obj=>[obj.id,obj.at]));
  work.steps.slice(0,index).forEach(s=>{ if(s.mode==='drag') positions[s.object]=s.target; if(s.mode==='trace'&&s.path)positions[s.object]=s.path[s.path.length-1]; if(s.mode==='stir')positions[s.object]=s.target; if(s.mode==='arrange')s.placements?.forEach(p=>positions[p.object]=p.target); });
+ const fixedInspectionObject=visual.id==='instrument-board'?'board':['instrument-ventilation','instrument-smokeAlarm'].includes(visual.id)?'hood':visual.id==='instrument-blanket'?'blanket':undefined;
+ if(fixedInspectionObject)positions[fixedInspectionObject]=work.objects.find(object=>object.id===fixedInspectionObject)!.at;
  if(step?.mode==='arrange')step.placements?.forEach(p=>{if(placed.includes(p.object))positions[p.object]=p.target;});
  work.objects.forEach(obj=>{if(obj.follow&&index>=obj.follow.fromStep){const parent=gesture.current?.object===obj.follow.object&&moving?moving:positions[obj.follow.object];positions[obj.id]=[parent[0]+obj.follow.offset[0],parent[1]+obj.follow.offset[1]];}});
+ if(visual.id==='shutdown-check'&&work.steps.slice(0,index).some(s=>s.object==='cap'&&s.mode==='drag')){
+  const bottle=gesture.current?.object==='bottle'&&moving?moving:positions.bottle;
+  positions.cap=[bottle[0],bottle[1]-35];
+ }
  if(step?.mode==='trace'&&step.path&&traceDistance.current>0)positions[step.object]=pointAlong(step.path,traceDistance.current);
  const stopTimer = () => {if(timer.current)clearInterval(timer.current);timer.current=null;};
  const resetGesture = () => {gesture.current=null;stopTimer();setMoving(null);setProgress(0);};
  const pauseTrace=()=>{gesture.current=null;setMoving(null);setTraceSaved(traceDistance.current);if(step?.path)setProgress(traceDistance.current/pathLength(step.path));};
  useEffect(()=>()=>stopTimer(),[]);
  useEffect(()=>{
-  advancing.current=false;setValue(step?.value===0?100:0);setAdjusted(false);setMessage('');setInspection(null);resetGesture();
+  advancing.current=false;setValue(startingValue);setAdjusted(false);setMessage('');setInspection(null);resetGesture();
   if(previousIndex.current!==index){previousIndex.current=index;setInspected([]);setPlaced([]);setHintVisible(false);traceDistance.current=0;setTraceSaved(0);}
  },[index]);
  useEffect(()=>{onProgress?.({step:index,inspected,placed,mistakes,hints,revealed:hintVisible,traceDistance:traceSaved});},[index,inspected,placed,mistakes,hints,hintVisible,traceSaved]);
@@ -127,7 +155,7 @@ export function PracticalSimulation({ work, onClose, onComplete, initialStep = 0
  const advance = () => {
   if(advancing.current || !step || blockedReason)return;
   advancing.current=true; stopTimer(); gesture.current=null; setMoving(null);
-  soundManager.play('snap'); if(index+1>=work.steps.length||['inspect','adjust','hold'].includes(work.steps[index+1]?.mode))setExpanded(false);onStep?.(index+1); setIndex(index+1);
+  soundManager.play('snap'); onStep?.(index+1); setIndex(index+1);
  };
  const point = (e: React.PointerEvent): Point => {
   const matrix=svg.current?.getScreenCTM();
@@ -188,26 +216,33 @@ export function PracticalSimulation({ work, onClose, onComplete, initialStep = 0
   if(step.mode==='drag'&&near(point(e),step.target,48)&&Math.hypot(point(e)[0]-g.origin[0],point(e)[1]-g.origin[1])>20)advance();
   else {if(step.mode==='hold')setMessage('Giữ liên tục đến khi vòng tiến độ đầy.');else fail('Chưa tới đích. Vật đã được trả về vị trí cũ, hãy kiểm tra vùng đặt và thử lại.');resetGesture();}
  };
- return <div className="practical-backdrop" data-ui data-practical-simulation>
+ return <div className="practical-backdrop" data-ui data-practical-simulation data-scene-id={visual.id} data-reduced-motion={reducedMotion} style={{'--scene-accent':visual.accent} as React.CSSProperties}>
   <section className="practical-dialog" role="dialog" aria-modal="true" aria-labelledby={titleId} ref={dialog}>
-   <header><div><p>THỰC HÀNH MÔ PHỎNG · GÓC NHÌN TỪ TRÊN</p><h2 id={titleId}>{work.title}</h2></div><div className="practical-header-actions">{!done&&<button type="button" className="practical-expand" aria-pressed={expanded} onClick={()=>setExpanded(v=>!v)}>{expanded?'Hiện hướng dẫn':'Phóng vùng chơi'}</button>}<button type="button" onClick={onClose} aria-label="Đóng thực hành">✕</button></div></header>
+   <header><div><p>THỰC HÀNH MÔ PHỎNG · GÓC NHÌN TỪ TRÊN</p><h2 id={titleId}>{work.title}</h2></div><div className="practical-header-actions"><button type="button" className="practical-expand" aria-pressed={expanded} onClick={()=>setExpanded(v=>!v)}>{expanded?'Hiện hướng dẫn':'Phóng vùng chơi'}</button><button type="button" onClick={onClose} aria-label="Đóng thực hành">✕</button></div></header>
    <div className="practical-session-meta"><span>{mode==='guided'?'Luyện có hướng dẫn':'Tự thực hành'}</span><span>Thao tác cần sửa: {mistakes} · Gợi ý: {hints}</span></div>
    <div className="practical-progress" aria-label="Tiến độ" role="progressbar" aria-valuenow={index} aria-valuemin={0} aria-valuemax={work.steps.length}>{work.steps.map((_,i)=><span key={i} className={i<index?'done':i===index?'current':''}/>)}</div>
    <div className={`practical-body ${expanded?'is-expanded':''}`}>
 
    <div className={`practical-scene ${step?.mode==='stir'?'practical-stir-scene':''}`}>
+    <div className="practical-scene-label"><span><i/>{visual.label}</span><small>MÔ HÌNH HUẤN LUYỆN</small></div>
     {step?.mode==='stir'?<StirringSurface key={`${index}-${restart}`} turns={step.turns??1} disabled={!!blockedReason} onProgress={setProgress} onComplete={advance}/>:<svg ref={svg} viewBox="0 0 900 480" role="img" aria-label={`Bàn mô phỏng: ${work.title}`} onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={()=>{if(step?.mode==='trace')pauseTrace();else resetGesture();}}>
      <defs><pattern id={titleId+'grid'} width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#45616d" strokeOpacity=".15"/></pattern><filter id={titleId+'shadow'} x="-80%" y="-80%" width="260%" height="260%"><feDropShadow dx="0" dy="6" stdDeviation="5" floodOpacity=".16"/></filter></defs>
-     <rect x="8" y="8" width="884" height="464" rx="22" fill={work.surface==='medical'?'#e0efef':work.surface==='floor'?'#d7e1df':'#dce7ea'} stroke="#8ba4ae" strokeWidth="4"/>
+     <rect x="8" y="8" width="884" height="464" rx="22" fill={visual.surface} stroke="#8ba4ae" strokeWidth="2"/>
      <rect x="20" y="20" width="860" height="440" rx="15" fill={`url(#${titleId}grid)`}/>
-     {work.title.includes('Sắp xếp')&&<><rect x="40" y="45" width="170" height="100" rx="10" fill="#f3e6cc"/><text x="55" y="65" fontSize="12" fill="#725f3c">KHU ĐỒ CÁ NHÂN</text><path d="M240 70H800M240 430H800" stroke="#647d87" strokeWidth="12"/></>}
-     {work.surface==='floor'&&<path d="M90 440H810" stroke="#f2be55" strokeWidth="8" strokeDasharray="24 15"/>}
+     <SceneBackdrop visual={visual}/>
      {step&&step.mode==='drag'&&showGuide&&<g><rect x={step.target[0]-55} y={step.target[1]-48} width="110" height="96" rx="18" fill="#23b7a8" fillOpacity=".12" stroke="#178f85" strokeWidth="3" strokeDasharray="8 5"/><text x={step.target[0]} y={step.target[1]+62} textAnchor="middle" fontSize="13" fill="#12675e">ĐẶT VÀO ĐÂY</text></g>}
      {step?.mode==='trace'&&step.path&&<g pointerEvents="none"><polyline points={step.path.map(p=>p.join(',')).join(' ')} fill="none" stroke="#139d99" strokeWidth="58" opacity=".1" strokeLinecap="round" strokeLinejoin="round"/><polyline points={step.path.map(p=>p.join(',')).join(' ')} fill="none" stroke="#2c9f99" strokeWidth={showGuide?5:3} strokeDasharray="9 7" strokeLinecap="round"/></g>}
      {step?.mode==='arrange'&&step.placements?.map(p=><g key={p.object}><rect x={p.target[0]-45} y={p.target[1]-38} width="90" height="76" rx="12" fill={placed.includes(p.object)?'#a1dec9':'#f9fcfd'} fillOpacity=".7" stroke={placed.includes(p.object)?'#168977':'#6b939d'} strokeWidth="2" strokeDasharray={placed.includes(p.object)?undefined:'6 4'}/></g>)}
-     {work.objects.map(obj=>{
+     {[...work.objects].sort((a,b)=>{
+      const layer=(obj:typeof a)=>gesture.current?.object===obj.id?10:['tray','rotor','hood','sink','locker','drawer'].includes(obj.model)?0:obj.model==='label'?4:obj.id==='cap'?3:2;
+      return layer(a)-layer(b);
+     }).map(obj=>{
       if(index<(obj.fromStep??0)||index>=(obj.untilStep??Infinity))return null;
-      let at=gesture.current?.object===obj.id&&moving?moving:positions[obj.id];
+      if(visual.id==='centrifuge-balance'&&positions.cap[1]>200&&(obj.model==='tube'||obj.id==='rotor'))return null;
+      let at=obj.id!==fixedInspectionObject&&gesture.current?.object===obj.id&&moving?moving:positions[obj.id];
+      const storedContent=['instrument-drawer','instrument-locker'].includes(visual.id)&&obj.id==='bag'&&index>=3;
+      const opening=step?.object==='cabinet'&&step.mode==='adjust'?value:work.steps.slice(0,index).filter(s=>s.object==='cabinet'&&s.mode==='adjust').at(-1)?.value??0;
+      if(storedContent&&opening<40)return null;
       const isCurrent=step?.mode==='arrange'?step.placements?.some(p=>p.object===obj.id&&!placed.includes(obj.id)):step?.mode==='inspect'?step.inspections?.some((check,i)=>check.object===obj.id&&!inspected.includes(i)):step?.object===obj.id;
       const piece=obj.id.startsWith('piece')?Number(obj.id.slice(5)):-1;
       const swept=piece>=0&&piece<index;
@@ -217,20 +252,25 @@ export function PracticalSimulation({ work, onClose, onComplete, initialStep = 0
       const itemLabel=piece>=0?String(piece+1):obj.label;
       const labelWidth=piece>=0?28:Math.max(84,obj.label.length*7.6);
       const previousAdjustment=work.steps.slice(0,index).filter(s=>s.object===obj.id&&s.mode==='adjust').at(-1)?.value??0;
-      const modelValue=isCurrent&&step?.mode==='adjust'?value:obj.model==='clock'?progress*100:previousAdjustment;
+      const elapsedSeconds=work.steps.slice(0,index).filter(s=>s.mode==='hold').reduce((sum,s)=>sum+(s.seconds??2),0)+(step?.mode==='hold'?progress*(step.seconds??2):0);
+      const modelValue=isCurrent&&step?.mode==='adjust'?value:obj.model==='clock'?elapsedSeconds*100/60:previousAdjustment;
       const fanOn=(work.steps.slice(0,index).filter(s=>s.object==='switch'&&s.mode==='adjust').at(-1)?.value??0)>0;
-      const modelActive=obj.model==='burner'?!work.steps.slice(0,index).some(s=>s.object==='cap'&&s.mode==='trace'):obj.model==='hood'?fanOn:obj.model==='switch'?modelValue>0:index>0;
+      const modelActive=obj.model==='burner'?false:obj.model==='hood'?fanOn:obj.model==='switch'?modelValue>0:index>0;
+      const labelOffset=obj.model==='hood'?-95:visual.id==='centrifuge-balance'&&obj.id==='cap'&&at[1]<200?-62:at[1]>370?-70:obj.model==='arm'?65:68;
+      const occupiedTray=['tray','probeStand'].includes(obj.model)&&work.objects.some(other=>other.id!==obj.id&&!['label','person','tray'].includes(other.model)&&Math.hypot(positions[other.id][0]-at[0],positions[other.id][1]-at[1])<90);
       return <g key={obj.id} data-work-object={obj.id} transform={`translate(${at[0]} ${at[1]})`} opacity={isCurrent&&step?.mode==='trace' ? .6 : 1}>
        {isCurrent&&showGuide&&<circle r={obj.model==='arm'?65:57} fill="none" stroke="#099b96" strokeWidth="3" strokeDasharray="7 4"/>}
-       <g filter={`url(#${titleId}shadow)`} style={{pointerEvents:'none'}} transform={['valve','chair'].includes(obj.model)?`rotate(${modelValue*2.7})`:undefined}>{obj.image?<image href={obj.image} x="-65" y="-65" width="130" height="130"/>:<ModelDrawing model={obj.model} color={obj.color} active={modelActive} value={modelValue}/>}</g>
+       <g filter={`url(#${titleId}shadow)`} style={{pointerEvents:'none'}} transform={['valve','chair'].includes(obj.model)?`rotate(${modelValue*2.7})`:storedContent?'scale(.65)':visual.id==='instrument-acid-dilution'&&obj.id==='acid'&&isCurrent&&step?.mode==='adjust'?`rotate(${value*.55} 0 40)`:undefined}>{obj.image?<image href={obj.image} x="-65" y="-65" width="130" height="130"/>:<WorkModel object={obj} visualId={visual.id} active={modelActive} value={modelValue} at={at}/>}</g>
        {bandaged&&Array.from({length:index===5?Math.floor(progress*5):5},(_,i)=><path key={i} d={`M${-95+i*24}-34l12 70`} stroke="#fffcf4" strokeWidth="20"/>)}
-       {!(step?.mode==='arrange'&&(placed.includes(obj.id)||obj.id==='rotor'))&&<g transform={`translate(0 ${at[1]>390?-75:obj.model==='arm'?65:68})`}><rect x={-labelWidth/2} y="-15" width={labelWidth} height="23" rx="6" fill="white" fillOpacity=".92"/><text textAnchor="middle" fontSize="13" fontWeight="600" fill="#314f62">{itemLabel}</text></g>}
+       {!occupiedTray&&obj.id!=='rotor'&&!(step?.mode==='arrange'&&placed.includes(obj.id))&&<g pointerEvents="none" transform={`translate(${Math.max(labelWidth/2+25,Math.min(875-labelWidth/2,at[0]))-at[0]} ${labelOffset})`}><rect x={-labelWidth/2} y="-15" width={labelWidth} height="23" rx="6" fill="white" fillOpacity=".92"/><text textAnchor="middle" fontSize="12" fontWeight="600" fill="#314f62">{itemLabel}</text></g>}
       </g>;
      })}
+     <SceneEffects visual={visual} state={{work,index,positions,step,progress,value,moving,movingObject:gesture.current?.object}}/>
      {step?.mode==='arrange'&&step.placements?.map(p=><g key={p.object} pointerEvents="none"><rect x={p.target[0]-50} y={p.target[1]-10} width="100" height="20" rx="6" fill={placed.includes(p.object)?'#d5f0e5':'#f7fbfd'} stroke="#8db4bd"/><text x={p.target[0]} y={p.target[1]+4} textAnchor="middle" fontSize="9" fill="#254e61">{placed.includes(p.object)?'✓ ':''}{p.label}</text></g>)}
      {step?.mode==='trace'&&step.path&&<g pointerEvents="none"><circle cx={step.path.at(-1)![0]} cy={step.path.at(-1)![1]} r="19" fill="#ecfaf4" stroke="#168b80" strokeWidth="3"/><text x={step.path.at(-1)![0]} y={step.path.at(-1)![1]+5} textAnchor="middle" fontSize="14" fill="#126b63">✓</text><circle cx={pointAlong(step.path,traceDistance.current)[0]} cy={pointAlong(step.path,traceDistance.current)[1]} r="25" fill="#16a093" fillOpacity=".25" stroke="#087f77" strokeWidth="4"/></g>}
      {step?.mode==='hold'&&<g transform={`translate(${step.target.join(' ')})`}><circle r="48" fill="#0ca595" fillOpacity=".1" stroke="#05998c" strokeWidth="7" strokeDasharray={`${progress*302} 302`} transform="rotate(-90)"/><text y="5" textAnchor="middle" fill="#123e4b" fontWeight="700">{Math.round(progress*100)}%</text></g>}
     </svg>}
+    <div className="practical-scene-note"><span>{expanded?(step?.instruction??'Hoàn tất · Hiện hướng dẫn để ghi nhận kết quả'):visual.zone}</span><span>{Math.min(index+1,work.steps.length)} / {work.steps.length}</span></div>
    </div>
    <aside className="practical-side">
    <div className="practical-instruction" aria-live="polite"><strong>{blockedReason?'Cần chuẩn bị bảo hộ':done?'✓ Đã hoàn thành các thao tác':`${index+1}/${work.steps.length} · ${step.instruction}`}</strong><p>{blockedReason??(done?'Kiểm tra kết quả rồi ghi nhận để trở lại phòng lab.':step.detail)}</p></div>
@@ -240,13 +280,12 @@ export function PracticalSimulation({ work, onClose, onComplete, initialStep = 0
     {step?.mode==='arrange'&&<p className="practical-placement-counter" aria-live="polite">Đã bố trí {placed.length}/{step.placements?.length} vật · Có thể kéo lại một món để điều chỉnh</p>}
     {done&&<div className="practical-result"><strong>Kết quả thực hành: {practicalScore(mistakes,hints)}/100</strong><span>{work.steps.length} bước hoàn tất · {mistakes} thao tác đã sửa · {hints} gợi ý</span><p>Điểm phản ánh độ chính xác, không thưởng vì làm nhanh. Các thao tác chưa phù hợp đã được sửa trước khi hoàn thành.</p></div>}
     {step?.mode==='adjust'?<div className="practical-adjust"><label htmlFor={titleId+'adjust'}>{step.instruction} · {value} / 100 · đích {step.value}</label><input id={titleId+'adjust'} type="range" min="0" max="100" value={value} disabled={!!blockedReason} onChange={e=>{setValue(Number(e.target.value));setAdjusted(true);}}/><button disabled={!!blockedReason||!adjusted||Math.abs(value-step.value!)>4} onClick={advance}>Xác nhận vị trí</button></div>:done?<button disabled={!!blockedReason} className="practical-finish" onClick={()=>{if(!finishing.current){finishing.current=true;onComplete({completedSteps:index,totalSteps:work.steps.length,mistakes,hints,score:practicalScore(mistakes,hints),mode});}}}>Ghi nhận kết quả và trở lại lab</button>:<p className="practical-help">{step.mode==='drag'?'Kéo vật thể sáng màu rồi thả đúng khung.':step.mode==='trace'?'Kéo dụng cụ theo dải rộng. Có thể nhấc tay, đổi tư thế rồi tiếp tục.':step.mode==='stir'?'Kéo đũa theo vòng tròn trong cốc; không cần đi qua số.':step.mode==='inspect'?'Mở từng vật để quan sát cận cảnh.':step.mode==='arrange'?'Kéo từng món về đúng khu vực. Không bắt buộc thứ tự giữa các món.':'Giữ chuột hoặc ngón tay trong vòng kiểm tra.'}</p>}
-    {!done&&<div className="practical-assistance"><button onClick={()=>{if(!hintVisible){setHints(n=>n+1);setHintVisible(true);}const tool=work.objects.find(o=>o.id===step.object)?.label??'dụng cụ';setMessage(step.mode==='arrange'?`Còn lại: ${step.placements?.filter(p=>!placed.includes(p.object)).map(p=>`${work.objects.find(o=>o.id===p.object)?.label} → ${p.label}`).join('; ')}.`:step.mode==='adjust'?`Điều chỉnh ${tool} về ${step.value}, trong sai số ±4, rồi xác nhận.`:step.mode==='inspect'?'Mở các thẻ chưa có dấu ✓ và ghi nhận sau khi đọc dấu hiệu.':step.mode==='trace'?`Nắm ${tool} ở đầu đoạn sáng, kéo theo dải. Lệch một chút hoặc nhấc tay sẽ không mất đoạn đã làm.`:step.mode==='stir'?'Kéo đũa một vòng quanh thành cốc. Đổi chiều liên tục hoặc giữ yên không tính là khuấy; có thể nhấc tay rồi tiếp tục.':step.mode==='drag'?`Nắm ${tool} rồi đặt trọn vào khung đang hiện, sau đó thả tay.`:`Giữ tại vị trí kiểm tra đủ ${step.seconds??2} giây mô phỏng; rời vùng sẽ hủy lượt giữ.`);}}>Xem gợi ý thao tác</button><button onClick={()=>{setRestart(n=>n+1);resetGesture();traceDistance.current=0;setTraceSaved(0);setInspected([]);setPlaced([]);setInspection(null);setMessage('Đã đặt lại riêng bước hiện tại. Những bước hoàn thành trước đó vẫn được giữ.');}}>Làm lại bước này</button></div>}
+    {!done&&<div className="practical-assistance"><button onClick={()=>{if(!hintVisible){setHints(n=>n+1);setHintVisible(true);}const tool=work.objects.find(o=>o.id===step.object)?.label??'dụng cụ';setMessage(step.mode==='arrange'?`Còn lại: ${step.placements?.filter(p=>!placed.includes(p.object)).map(p=>`${work.objects.find(o=>o.id===p.object)?.label} → ${p.label}`).join('; ')}.`:step.mode==='adjust'?`Điều chỉnh ${tool} về ${step.value}, trong sai số ±4, rồi xác nhận.`:step.mode==='inspect'?'Mở các thẻ chưa có dấu ✓ và ghi nhận sau khi đọc dấu hiệu.':step.mode==='trace'?`Nắm ${tool} ở đầu đoạn sáng, kéo theo dải. Lệch một chút hoặc nhấc tay sẽ không mất đoạn đã làm.`:step.mode==='stir'?'Kéo đũa một vòng quanh thành cốc. Đổi chiều liên tục hoặc giữ yên không tính là khuấy; có thể nhấc tay rồi tiếp tục.':step.mode==='drag'?`Nắm ${tool} rồi đặt trọn vào khung đang hiện, sau đó thả tay.`:`Giữ tại vị trí kiểm tra đủ ${step.seconds??2} giây mô phỏng; rời vùng sẽ hủy lượt giữ.`);}}>Xem gợi ý thao tác</button><button onClick={()=>{setRestart(n=>n+1);setValue(startingValue);setAdjusted(false);resetGesture();traceDistance.current=0;setTraceSaved(0);setInspected([]);setPlaced([]);setInspection(null);setMessage('Đã đặt lại riêng bước hiện tại. Những bước hoàn thành trước đó vẫn được giữ.');}}>Làm lại bước này</button></div>}
     <p role="status" className="practical-feedback">{message}</p>
     {step?.mode==='hold'&&<button className="practical-key-hold" onPointerDown={e=>{e.currentTarget.setPointerCapture(e.pointerId);beginHold();}} onPointerUp={()=>{stopTimer();setProgress(0);}} onPointerCancel={()=>{stopTimer();setProgress(0);}} onKeyDown={e=>{if((e.key===' '||e.key==='Enter')&&!e.repeat){e.preventDefault();beginHold();}}} onKeyUp={()=>{stopTimer();setProgress(0);}} onBlur={()=>{stopTimer();setProgress(0);}}>Giữ để kiểm tra (Space)</button>}
     {work.surface==='medical'&&<a href="https://www.redcross.org/take-a-class/resources/learn-first-aid/wounds" target="_blank" rel="noreferrer">Tham khảo kỹ thuật sơ cứu · American Red Cross</a>}
    </footer>
    </aside>
-   {expanded&&<p className="practical-expanded-caption">{index+1}/{work.steps.length} · {step?.instruction}</p>}
    </div>
    {inspection!==null&&step?.inspections?.[inspection]&&<ObjectInspection object={work.objects.find(o=>o.id===step.inspections![inspection].object)!} title={step.inspections[inspection].title} detail={step.inspections[inspection].detail} onClose={()=>setInspection(null)} onCheck={()=>{const checked=[...new Set([...inspected,inspection])];setInspected(checked);setInspection(null);soundManager.play('snap');if(checked.length===step.inspections!.length)advance();}}/>}
   </section>

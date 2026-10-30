@@ -35,23 +35,33 @@ export type PrecipitationMorphology =
   | 'gel_like';     // e.g. Al(OH)3, silicic acid (translucent gelatinous suspension)
 
 export interface PrecipitateProfile {
+  modelBasis?: 'generic_fallback' | 'uncalibrated_transport';
   id: string;
   morphology: PrecipitationMorphology;
   color: string;
   particleDensity_g_cm3: number; // e.g. 4.5 for BaSO4, 6.16 for PbI2, 3.37 for Cu(OH)2
   baseParticleRadius_mm: number; // e.g. 0.05 for powder, 0.4 for flocs
+  displayRadius_scene?: number; // Explicit magnification; never used in drag calculation
   aggregationRate: number;       // rate of flocculation (0.0 to 1.0)
   cloudinessFactor: number;      // optical turbidity contribution per gram
   specularReflectivity: number;  // 0.0 to 1.0 (PbI2 glittering vs matte chalk)
   roughness: number;             // surface roughness of bottom sediment bed
+  metalness?: number;            // PBR conductor fraction, separate from specular reflection
 }
 
 export interface PhysicalBubble {
+  physicalRadius_m?: number; // pressure-volume radius, independent of glyph containment
+  terminalSpeed_m_s?: number;
+  source?: 'vapor' | 'reaction' | 'mixed';
+  vaporPV_scene3_Pa?: number;
+  noncondensablePV_scene3_Pa?: number;
+  gasPV_scene3_Pa?: number; // visual gas-content proxy P*r³, independent of containment glyph clipping
+  nucleationPressure_Pa?: number;
   id: number;
   x: number;
   y: number;
   z: number;
-  radius: number;          // meters (scene scale)
+  radius: number;          // model-local units; convert using the vessel profile's length scale
   baseRadius: number;
   vx: number;
   vy: number;
@@ -63,7 +73,7 @@ export interface PhysicalBubble {
   wobbleAmp: number;
   aspectRatio: number;      // vertical stretch due to hydrodynamic shear
   life: number;            // seconds alive
-  maxLife: number;         // maximum seconds
+  maxLife: number;         // legacy presentation hint; not a submerged gas-removal law
   opacity: number;
   temperature: number;
   isPopping: boolean;
@@ -82,7 +92,9 @@ export interface PhysicalPrecipitateParticle {
   vx: number;
   vy: number;
   vz: number;
-  sedimentationSpeed: number; // Stokes terminal velocity
+  sedimentationSpeed: number; // Equivalent-sphere terminal slip in scene units/s
+  physicalRadius_m?: number; // Separate from magnified display glyph radius
+  primaryDisplayRadius_scene?: number; // Fixed glyph baseline before population growth/containment
   aggregationLevel: number;   // 1 to 5
   brownianSeed: number;
   opacity: number;
@@ -107,8 +119,13 @@ export interface PhysicalEvaporationParticle {
 }
 
 export interface SedimentBedState {
+  surfacePlane?: import('../effects/liquidParticleFrame').LiquidPlane;
+  packedVolume_ml?: number;
+  surfaceStatus?: import('../../science/sedimentSurface').SedimentSurfaceStatus;
+  relaxationTime_s?: number;
+  metalness?: number;
   amount_g: number;         // total settled sediment mass
-  thickness: number;        // physical bed thickness in meters
+  thickness: number;        // upright-equivalent model-local height; tilted beds use surfacePlane
   roughness: number;
   color: string;
   morphology: PrecipitationMorphology;

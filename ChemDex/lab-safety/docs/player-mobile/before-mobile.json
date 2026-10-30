@@ -1,0 +1,609 @@
+{
+  "passed": true,
+  "stage": "before",
+  "cpuThrottle": 4,
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/156.0.8078.48",
+    "revision": "@d0c02bfad08ec92a6ffcf989e53cd995e6381a4c",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+    "jsVersion": "15.6.75.19"
+  },
+  "errors": [],
+  "samples": [
+    {
+      "viewport": {
+        "id": "mobile-844",
+        "width": 844,
+        "height": 390,
+        "dpr": 3,
+        "touch": true
+      },
+      "scene": "room",
+      "timing": {
+        "seconds": 5.000799999988085,
+        "frames": 22,
+        "fps": 4.399296112632462,
+        "p50": 241,
+        "p95": 316.8999999910593,
+        "p99": 386.20000000298023
+      },
+      "renderer": {
+        "timestamp": 111379,
+        "render": {
+          "calls": 1148,
+          "triangles": 307398,
+          "points": 40,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1925,
+          "textures": 125
+        },
+        "mirrorUpdates": 6,
+        "shadowEnabled": false,
+        "pixelRatio": 1,
+        "visibleFlames": 0,
+        "heldTool": "spillKit"
+      },
+      "mirrorUpdates": 0,
+      "positionBefore": [
+        -0.8,
+        0,
+        4.7
+      ],
+      "positionAfter": [
+        -0.8,
+        0,
+        4.7
+      ],
+      "state": {
+        "coarse": true,
+        "touches": 2,
+        "width": 844,
+        "height": 390,
+        "quality": "RUNNING"
+      }
+    },
+    {
+      "viewport": {
+        "id": "mobile-844",
+        "width": 844,
+        "height": 390,
+        "dpr": 3,
+        "touch": true
+      },
+      "scene": "mirror",
+      "timing": {
+        "seconds": 5.317199999994045,
+        "frames": 12,
+        "fps": 2.256826901379192,
+        "p50": 435.79999999701977,
+        "p95": 539.3999999910593,
+        "p99": 539.3999999910593
+      },
+      "renderer": {
+        "timestamp": 128161.30000001192,
+        "render": {
+          "calls": 2246,
+          "triangles": 701230,
+          "points": 40,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1925,
+          "textures": 125
+        },
+        "mirrorUpdates": 23,
+        "shadowEnabled": false,
+        "pixelRatio": 0.9,
+        "visibleFlames": 0,
+        "heldTool": "spillKit"
+      },
+      "mirrorUpdates": 16,
+      "positionBefore": [
+        -0.8,
+        0,
+        5.2
+      ],
+      "positionAfter": [
+        -0.8,
+        0,
+        5.2
+      ],
+      "state": {
+        "coarse": true,
+        "touches": 2,
+        "width": 844,
+        "height": 390,
+        "quality": "RUNNING"
+      }
+    },
+    {
+      "viewport": {
+        "id": "mobile-844",
+        "width": 844,
+        "height": 390,
+        "dpr": 3,
+        "touch": true
+      },
+      "scene": "mirror-off-axis",
+      "timing": {
+        "seconds": 5.067,
+        "frames": 10,
+        "fps": 1.9735543714229327,
+        "p50": 524.5,
+        "p95": 606.6999999880791,
+        "p99": 606.6999999880791
+      },
+      "renderer": {
+        "timestamp": 149955.60000000894,
+        "render": {
+          "calls": 1442,
+          "triangles": 456306,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1950,
+          "textures": 130
+        },
+        "mirrorUpdates": 69,
+        "shadowEnabled": false,
+        "pixelRatio": 0.9,
+        "visibleFlames": 0,
+        "heldTool": "spillKit"
+      },
+      "mirrorUpdates": 18,
+      "positionBefore": [
+        -0.8,
+        0,
+        5.2
+      ],
+      "positionAfter": [
+        -0.8,
+        0,
+        5.2
+      ],
+      "state": {
+        "coarse": true,
+        "touches": 2,
+        "width": 844,
+        "height": 390,
+        "quality": "RUNNING"
+      }
+    },
+    {
+      "viewport": {
+        "id": "mobile-844",
+        "width": 844,
+        "height": 390,
+        "dpr": 3,
+        "touch": true
+      },
+      "scene": "move-look",
+      "timing": {
+        "seconds": 6.156199999997014,
+        "frames": 30,
+        "fps": 4.873136025472621,
+        "p50": 181.59999999403954,
+        "p95": 599.5999999940395,
+        "p99": 646.2000000029802
+      },
+      "renderer": {
+        "timestamp": 175410.60000000894,
+        "render": {
+          "calls": 487,
+          "triangles": 111056,
+          "points": 40,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1947,
+          "textures": 130
+        },
+        "mirrorUpdates": 84,
+        "shadowEnabled": false,
+        "pixelRatio": 0.7000000000000001,
+        "visibleFlames": 0,
+        "heldTool": "spillKit"
+      },
+      "mirrorUpdates": 0,
+      "positionBefore": [
+        -0.8,
+        0,
+        4.7
+      ],
+      "positionAfter": [
+        -0.02118053575035339,
+        0,
+        0.06322485263039243
+      ],
+      "state": {
+        "coarse": true,
+        "touches": 2,
+        "width": 844,
+        "height": 390,
+        "quality": "RUNNING"
+      }
+    },
+    {
+      "viewport": {
+        "id": "mobile-740",
+        "width": 740,
+        "height": 360,
+        "dpr": 2,
+        "touch": true
+      },
+      "scene": "room",
+      "timing": {
+        "seconds": 5.1197999999940365,
+        "frames": 11,
+        "fps": 2.14852142662073,
+        "p50": 453.6000000089407,
+        "p95": 602.2999999970198,
+        "p99": 602.2999999970198
+      },
+      "renderer": {
+        "timestamp": 95111.59999999404,
+        "render": {
+          "calls": 1100,
+          "triangles": 288590,
+          "points": 40,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1909,
+          "textures": 125
+        },
+        "mirrorUpdates": 5,
+        "shadowEnabled": false,
+        "pixelRatio": 1,
+        "visibleFlames": 0,
+        "heldTool": "spillKit"
+      },
+      "mirrorUpdates": 0,
+      "positionBefore": [
+        -0.8,
+        0,
+        4.7
+      ],
+      "positionAfter": [
+        -0.8,
+        0,
+        4.7
+      ],
+      "state": {
+        "coarse": true,
+        "touches": 2,
+        "width": 740,
+        "height": 360,
+        "quality": "RUNNING"
+      }
+    },
+    {
+      "viewport": {
+        "id": "mobile-740",
+        "width": 740,
+        "height": 360,
+        "dpr": 2,
+        "touch": true
+      },
+      "scene": "mirror",
+      "timing": {
+        "seconds": 5.094400000005961,
+        "frames": 9,
+        "fps": 1.766645728641149,
+        "p50": 594.6000000089407,
+        "p95": 757.6999999880791,
+        "p99": 757.6999999880791
+      },
+      "renderer": {
+        "timestamp": 109792.79999999702,
+        "render": {
+          "calls": 2194,
+          "triangles": 682616,
+          "points": 40,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1909,
+          "textures": 125
+        },
+        "mirrorUpdates": 26,
+        "shadowEnabled": false,
+        "pixelRatio": 0.9,
+        "visibleFlames": 0,
+        "heldTool": "spillKit"
+      },
+      "mirrorUpdates": 14,
+      "positionBefore": [
+        -0.8,
+        0,
+        5.2
+      ],
+      "positionAfter": [
+        -0.8,
+        0,
+        5.2
+      ],
+      "state": {
+        "coarse": true,
+        "touches": 2,
+        "width": 740,
+        "height": 360,
+        "quality": "RUNNING"
+      }
+    },
+    {
+      "viewport": {
+        "id": "mobile-740",
+        "width": 740,
+        "height": 360,
+        "dpr": 2,
+        "touch": true
+      },
+      "scene": "mirror-off-axis",
+      "timing": {
+        "seconds": 5.2895999999940395,
+        "frames": 24,
+        "fps": 4.537205081674804,
+        "p50": 215,
+        "p95": 403.1000000089407,
+        "p99": 440.5
+      },
+      "renderer": {
+        "timestamp": 124312.09999999404,
+        "render": {
+          "calls": 1347,
+          "triangles": 431234,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1935,
+          "textures": 130
+        },
+        "mirrorUpdates": 73,
+        "shadowEnabled": false,
+        "pixelRatio": 0.8,
+        "visibleFlames": 0,
+        "heldTool": "spillKit"
+      },
+      "mirrorUpdates": 27,
+      "positionBefore": [
+        -0.8,
+        0,
+        5.2
+      ],
+      "positionAfter": [
+        -0.8,
+        0,
+        5.2
+      ],
+      "state": {
+        "coarse": true,
+        "touches": 2,
+        "width": 740,
+        "height": 360,
+        "quality": "RUNNING"
+      }
+    },
+    {
+      "viewport": {
+        "id": "mobile-740",
+        "width": 740,
+        "height": 360,
+        "dpr": 2,
+        "touch": true
+      },
+      "scene": "move-look",
+      "timing": {
+        "seconds": 6.0615000000059664,
+        "frames": 66,
+        "fps": 10.888393961879904,
+        "p50": 70.29999999701977,
+        "p95": 217.6000000089407,
+        "p99": 273.5
+      },
+      "renderer": {
+        "timestamp": 141521.40000000596,
+        "render": {
+          "calls": 234,
+          "triangles": 43250,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1918,
+          "textures": 124
+        },
+        "mirrorUpdates": 92,
+        "shadowEnabled": false,
+        "pixelRatio": 0.7,
+        "visibleFlames": 0,
+        "heldTool": "spillKit"
+      },
+      "mirrorUpdates": 0,
+      "positionBefore": [
+        -0.8,
+        0,
+        4.7
+      ],
+      "positionAfter": [
+        0.5195989746943496,
+        0,
+        -3.1918059286410263
+      ],
+      "state": {
+        "coarse": true,
+        "touches": 2,
+        "width": 740,
+        "height": 360,
+        "quality": "RUNNING"
+      }
+    },
+    {
+      "viewport": {
+        "id": "desktop",
+        "width": 1366,
+        "height": 768,
+        "dpr": 1,
+        "touch": false
+      },
+      "scene": "room",
+      "timing": {
+        "seconds": 5.083300000002978,
+        "frames": 51,
+        "fps": 10.032852674437887,
+        "p50": 91.70000000298023,
+        "p95": 188,
+        "p99": 346.3999999910593
+      },
+      "renderer": {
+        "timestamp": 46434,
+        "render": {
+          "calls": 994,
+          "triangles": 245384,
+          "points": 40,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1822,
+          "textures": 122
+        },
+        "mirrorUpdates": 4,
+        "shadowEnabled": false,
+        "pixelRatio": 0.9,
+        "visibleFlames": 0,
+        "heldTool": "spillKit"
+      },
+      "mirrorUpdates": 0,
+      "positionBefore": [
+        -0.8,
+        0,
+        4.7
+      ],
+      "positionAfter": [
+        -0.8,
+        0,
+        4.7
+      ],
+      "state": {
+        "coarse": false,
+        "touches": 0,
+        "width": 1366,
+        "height": 768,
+        "quality": "RUNNING"
+      }
+    },
+    {
+      "viewport": {
+        "id": "desktop",
+        "width": 1366,
+        "height": 768,
+        "dpr": 1,
+        "touch": false
+      },
+      "scene": "mirror",
+      "timing": {
+        "seconds": 5.14009999999404,
+        "frames": 21,
+        "fps": 4.085523627949719,
+        "p50": 240.09999999403954,
+        "p95": 332.90000000596046,
+        "p99": 386.29999999701977
+      },
+      "renderer": {
+        "timestamp": 56446.40000000596,
+        "render": {
+          "calls": 3570,
+          "triangles": 1069708,
+          "points": 40,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1822,
+          "textures": 122
+        },
+        "mirrorUpdates": 26,
+        "shadowEnabled": false,
+        "pixelRatio": 0.8,
+        "visibleFlames": 0,
+        "heldTool": "spillKit"
+      },
+      "mirrorUpdates": 21,
+      "positionBefore": [
+        -0.8,
+        0,
+        5.2
+      ],
+      "positionAfter": [
+        -0.8,
+        0,
+        5.2
+      ],
+      "state": {
+        "coarse": false,
+        "touches": 0,
+        "width": 1366,
+        "height": 768,
+        "quality": "RUNNING"
+      }
+    },
+    {
+      "viewport": {
+        "id": "desktop",
+        "width": 1366,
+        "height": 768,
+        "dpr": 1,
+        "touch": false
+      },
+      "scene": "mirror-off-axis",
+      "timing": {
+        "seconds": 5.17690000000596,
+        "frames": 16,
+        "fps": 3.0906527072150474,
+        "p50": 329,
+        "p95": 594.5,
+        "p99": 594.5
+      },
+      "renderer": {
+        "timestamp": 69479.20000000298,
+        "render": {
+          "calls": 1198,
+          "triangles": 380540,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1903,
+          "textures": 128
+        },
+        "mirrorUpdates": 65,
+        "shadowEnabled": false,
+        "pixelRatio": 0.7000000000000001,
+        "visibleFlames": 0,
+        "heldTool": "spillKit"
+      },
+      "mirrorUpdates": 21,
+      "positionBefore": [
+        -0.8,
+        0,
+        5.2
+      ],
+      "positionAfter": [
+        -0.8,
+        0,
+        5.2
+      ],
+      "state": {
+        "coarse": false,
+        "touches": 0,
+        "width": 1366,
+        "height": 768,
+        "quality": "RUNNING"
+      }
+    }
+  ]
+}

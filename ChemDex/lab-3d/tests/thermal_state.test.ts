@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import { stepVesselThermal, sealedGasPressure, aqueousBoilingPoint, WATER_LATENT_HEAT_J_G, relaxGeneratedWater } from '../src/engine/thermalState';
+import { IDEAL_GAS_R_L_ATM } from '../src/engine/headspacePressure';
+import { stepVesselThermal, sealedGasPressure, aqueousBoilingPoint, relaxGeneratedWater } from '../src/engine/thermalState';
 import { VesselSimulationManager } from '../src/simulation/core/SimulationEngine';
 import { EvaporationSystem } from '../src/simulation/effects/EvaporationSystem';
 import { determineBoilingStage } from '../src/simulation/chemistry/PhaseEngine';
@@ -9,6 +10,8 @@ import { applyProgramWithThermalSinks } from '../src/engine/thermalLedger';
 import { computeMolarMass } from '../src/engine/ledger';
 import { getProgramById } from '../src/vfx/programs/library';
 import type { VesselState } from '../src/types/chemistry';
+import { waterBoilingPointAtPressure } from '../src/science/labEnvironment';
+import { waterLatentHeatJ_G } from '../src/science/waterThermodynamics';
 
 const water = (patch: Partial<VesselState> = {}): VesselState => ({
   id: 'thermal_test', name: 'Water', type: 'beaker', capacity_ml: 250,
@@ -24,8 +27,8 @@ describe('Heat and solvent budgets', () => {
     expect(cool.volume_ml).toBe(1);
     expect(cool.vaporMass_g).toBe(0);
     const warm = relaxGeneratedWater(contents, 105)!;
-    expect(warm.temperature_c).toBe(100);
-    expect(warm.vaporMass_g * 2256).toBeCloseTo((33.2 + 4.184) * 5, 8);
+    expect(warm.temperature_c).toBe(waterBoilingPointAtPressure());
+    expect(warm.vaporMass_g * waterLatentHeatJ_G(waterBoilingPointAtPressure())).toBeCloseTo((33.2 + 4.184) * (105 - waterBoilingPointAtPressure()), 8);
     expect(warm.volume_ml + warm.vaporMass_g).toBeCloseTo(1, 12);
     expect(warm.contents.reduce((sum, item) => sum + item.mass_g, 0)).toBeCloseTo(1, 12);
     expect(warm.contents.reduce((sum, item) => sum + item.moles, 0)).toBeCloseTo(1 / 18.015, 12);
@@ -61,10 +64,10 @@ describe('Heat and solvent budgets', () => {
   it('spends surplus heat on vaporization instead of increasing temperature above boiling', () => {
     const initial = water({ temperature_c: 100 });
     const next = stepVesselThermal(initial, 10, 300);
-    expect(next.temperature_c).toBeCloseTo(100, 10);
+    expect(next.temperature_c).toBeCloseTo(waterBoilingPointAtPressure(), 10);
     expect(next.evaporatedStep_g).toBeGreaterThan(1);
-    expect(next.evaporatedStep_g * WATER_LATENT_HEAT_J_G).toBeLessThanOrEqual(3000);
-    expect(next.latentEnergy_J).toBeCloseTo(next.evaporatedStep_g * 2256, 8);
+    expect(next.evaporatedStep_g * waterLatentHeatJ_G(next.boilingPoint_c)).toBeLessThanOrEqual(3000);
+    expect(next.latentEnergy_J).toBeCloseTo(next.evaporatedStep_g * waterLatentHeatJ_G(next.boilingPoint_c), 8);
     expect(next.mass_g + next.evaporatedStep_g).toBeCloseTo(initial.mass_g, 10);
     expect(next.contents![0].mass_g + next.evaporatedStep_g).toBeCloseTo(100, 10);
     expect(next.contents![0].moles * 18.015).toBeCloseTo(next.contents![0].mass_g, 10);
@@ -73,21 +76,23 @@ describe('Heat and solvent budgets', () => {
 
   it('keeps solute moles and concentrates the solution as water leaves', () => {
     const initial = water({ temperature_c: 101,
-      mass_g: 105.844, contents: [...water().contents, { formula: 'NaCl', phase: 'aq', moles: 0.1, mass_g: 5.844 }],
+      mass_g: 102.922, contents: [...water().contents, { formula: 'NaCl', phase: 'aq', moles: 0.05, mass_g: 2.922 }],
     });
     const next = stepVesselThermal(initial, 10, 300);
     const salt = next.contents!.find(item => item.formula === 'NaCl')!;
-    expect(salt.moles).toBe(0.1);
-    expect(salt.mass_g).toBe(5.844);
-    expect(salt.concentration_M).toBeGreaterThan(1);
+    expect(salt.moles).toBe(0.05);
+    expect(salt.mass_g).toBe(2.922);
+    expect(salt.concentration_M).toBeGreaterThan(0.5);
     expect(aqueousBoilingPoint({ ...initial, ...next })).toBeGreaterThan(aqueousBoilingPoint(initial));
   });
 
   it('ignores settled solids and gas when estimating boiling elevation', () => {
     const pure = water();
     const solid = { ...pure, contents: [...pure.contents, { formula: 'NaCl', phase: 's', moles: 0.2, mass_g: 11.688 }] };
-    expect(aqueousBoilingPoint(solid)).toBe(100);
-    expect(aqueousBoilingPoint({ ...solid, contents: [...pure.contents, { ...solid.contents[1], phase: 'aq' }] })).toBeGreaterThan(100);
+    expect(aqueousBoilingPoint(solid)).toBe(waterBoilingPointAtPressure());
+    expect(aqueousBoilingPoint({ ...solid, contents: [...pure.contents, { ...solid.contents[1], phase: 'aq' }] })).toBeNaN();
+    expect(aqueousBoilingPoint({ ...pure, contents: [...pure.contents,
+      { formula: 'NaCl', phase: 'aq', mass_g: 1.1688, moles: 0.02 }] })).toBeGreaterThan(waterBoilingPointAtPressure());
   });
 
   it('cannot evaporate more water than exists or evaporate sealed-vessel mass', () => {
@@ -119,7 +124,8 @@ describe('Physical visuals and finite pressure', () => {
     vi.stubEnv('NODE_ENV', 'production'); vi.stubEnv('VITEST', '');
     let unsubscribe = () => {};
     try {
-      const initial = water({ temperature_c: 10 });
+      // Dry glass isolates the clock from evaporation/condensation latent heat.
+      const initial = water({ temperature_c: 10, contents: [], mass_g: 0, volume_ml: 0 });
       useAppStore.setState({ vessels: { [initial.id]: initial }, vesselIds: [initial.id], burners: {},
         activeKinetics: {}, pendingReactions: {}, dissolvingSubstances: {}, isSimulationPaused: false, timeScale: 1 });
       let commits = 0;
@@ -140,7 +146,8 @@ describe('Physical visuals and finite pressure', () => {
     const clock = vi.spyOn(performance, 'now').mockImplementation(() => frameTime);
     vi.stubEnv('NODE_ENV', 'production'); vi.stubEnv('VITEST', '');
     try {
-      const initial = water({ temperature_c: 10 });
+      // Dry glass isolates the clock from evaporation/condensation latent heat.
+      const initial = water({ temperature_c: 10, contents: [], mass_g: 0, volume_ml: 0 });
       useAppStore.setState({ vessels: { [initial.id]: initial }, burners: {}, activeKinetics: {},
         pendingReactions: {}, dissolvingSubstances: {}, isSimulationPaused: false, timeScale: 1 });
       useAppStore.getState().tickSimulation(0.1);
@@ -153,19 +160,22 @@ describe('Physical visuals and finite pressure', () => {
     } finally { vi.unstubAllEnvs(); clock.mockRestore(); useAppStore.setState(before, true); }
   });
   it('limits two connected condensers to one vapor budget and respects cooling/capacity', () => {
-    const source = water({ id: 'source', mass_g: 99, volume_ml: 99 });
+    const source = water({ id: 'source', mass_g: 99, volume_ml: 99, temperature_c: 100 });
     const a = water({ id: 'a', type: 'condenser', vaporSourceId: 'source', coolingWaterActive: true,
       capacity_ml: 0.6, mass_g: 0, volume_ml: 0, contents: [] });
     const b = { ...a, id: 'b', capacity_ml: 100 };
     const initial = { source, a, b };
-    const next = transferWaterCondensate(initial, new Map([['source', 1]]));
+    const next = transferWaterCondensate(initial, new Map([['source', 1]]), 10);
     expect(next.a.mass_g).toBeCloseTo(0.6, 12);
     expect(next.b.mass_g).toBeCloseTo(0.4, 12);
     expect(next.source.condensedTransfer_g).toBeCloseTo(1, 12);
-    expect(next.a.condensationHeatRemoved_J! + next.b.condensationHeatRemoved_J!).toBeCloseTo(2256, 8);
-    expect(transferWaterCondensate(initial, new Map())).toBe(initial);
-    const disconnected = { ...initial, a: { ...a, vaporSourceId: undefined }, b: { ...b, coolingWaterActive: false } };
-    expect(transferWaterCondensate(disconnected, new Map([['source', 1]]))).toBe(disconnected);
+    expect(next.a.condensationHeatRemoved_J! + next.b.condensationHeatRemoved_J!).toBeCloseTo(
+      next.a.coolantHeatReceived_J! + next.b.coolantHeatReceived_J!, 8);
+    const idle = transferWaterCondensate(initial, new Map(), 1);
+    expect(idle.a.mass_g).toBe(0); expect(idle.a.coolantPassed_ml).toBe(10);
+    const disconnected = { ...initial, a: { ...a, vaporSourceId: undefined }, b: { ...b, vaporSourceId: undefined, coolingWaterActive: false } };
+    const out = transferWaterCondensate(disconnected, new Map([['source', 1]]), 1);
+    expect(out.a.mass_g).toBe(0); expect(out.b.mass_g).toBe(0); expect(out.source).toBe(source);
   });
   it('does not classify 95–99 °C atmospheric water as active boiling', () => {
     for (const temperature of [90, 95, 98, 99.9]) {
@@ -198,7 +208,7 @@ describe('Physical visuals and finite pressure', () => {
   it('computes pressure from retained gas rather than elapsed reaction time', () => {
     const initial = water({ isSealed: true, hasGas: true,
       contents: [...water().contents, { formula: 'H2', phase: 'g', moles: 0.001, mass_g: 0.002016 }] });
-    const expected = 1 + 0.001 * 0.082057 * 298.15 / 0.15;
+    const expected = 1 + 0.001 * IDEAL_GAS_R_L_ATM * 298.15 / 0.15;
     expect(sealedGasPressure(initial)).toBeCloseTo(expected, 10);
     const before = useAppStore.getState();
     try {

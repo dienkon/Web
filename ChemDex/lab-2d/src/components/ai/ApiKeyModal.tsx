@@ -40,7 +40,7 @@ export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({
   useEffect(() => {
     if (isOpen) {
       const current = getGeminiApiKey();
-      setApiKeyInput(current && !current.startsWith('AQ.') ? current : '');
+      setApiKeyInput(current && current !== '__server__' ? current : '');
       setSelectedModel(getGeminiModel());
       setTestStatus('idle');
       setStatusMessage('');
@@ -56,8 +56,8 @@ export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({
       setGeminiModel(selectedModel);
       setStatusMessage(
         language === 'vi'
-          ? 'Đã lưu API Key vào trình duyệt thành công!'
-          : 'API Key saved to browser storage successfully!'
+          ? 'Đã lưu API Key cho phiên trình duyệt này.'
+          : 'API Key saved for this browser session.'
       );
       setTestStatus('success');
     } else {

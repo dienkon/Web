@@ -1,6 +1,6 @@
 # Rà soát khoa học từng phương trình
 
-Phạm vi: 145 chương trình, 44 quy tắc bộ giải, 34 bài học (đã nằm trong danh mục chương trình).
+Phạm vi: 149 chương trình, 48 quy tắc bộ giải, 34 bài học (đã nằm trong danh mục chương trình).
 
 Cân bằng nguyên tố/điện tích là kiểm tra bắt buộc, không chứng nhận mô phỏng giống thực nghiệm. Nguồn mô tả đúng thí nghiệm được phân biệt với nguồn bối cảnh của cả họ phản ứng. Chưa hiệu chuẩn toàn bộ động học, nhiệt và màu.
 
@@ -30,7 +30,7 @@ Cân bằng nguyên tố/điện tích là kiểm tra bắt buộc, không chứ
 | cuso4_naoh | CuSO4(aq) + 2NaOH(aq) -> Cu(OH)2(s) + Na2SO4(aq) | Đạt | Cu(OH)2 xanh dạng gel; đun nóng mới chuyển dần sang CuO đen. | specific_observation: [RSC: Testing salts for anions and cations](https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article) |
 | fecl3_naoh | FeCl3(aq) + 3NaOH(aq) -> Fe(OH)3(s) + 3NaCl(aq) | Đạt | Fe(OH)3 nâu đỏ dạng bông, không phải dung dịch đỏ trong. | specific_observation: [RSC: Testing salts for anions and cations](https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article) |
 | feso4_naoh | FeSO4(aq) + 2NaOH(aq) -> Fe(OH)2(s) + Na2SO4(aq) | Đạt | Fe(OH)2 ban đầu lục nhạt; tiếp xúc O2 có thể chuyển nâu. | specific_observation: [RSC: Testing salts for anions and cations](https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article) |
-| alcl3_naoh | AlCl3(aq) + 3NaOH(aq) -> Al(OH)3(s) + 3NaCl(aq) | Đạt | Al(OH)3 keo trắng; hòa tan cần kiềm dư, không tự tan vì hết timeline. | specific_observation: [RSC: Testing salts for anions and cations](https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article) |
+| alcl3_naoh | AlCl3(aq) + 3NaOH(aq) -> Al(OH)3(s) + 3NaCl(aq) | Đạt | Al(OH)3 vô định hình tạo keo khi quá bão hòa; lượng rắn phụ thuộc speciation và pH, không theo chiều cao lớp cặn cố định. | model_caveat: [PHREEQC WATEQ4F: amorphous aluminum hydroxide, hydrolysis and sulfate complexes](https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat) |
 | na2s_cuso4 | Na2S(aq) + CuSO4(aq) -> CuS(s) + Na2SO4(aq) | Đạt | CuS đen; pH quyết định dạng sulfide hòa tan và nguy cơ giải phóng H2S. | family_context: [University inorganic/organic practical handbook](https://uou.ac.in/sites/default/files/slm/MSCCH-505L.pdf) |
 | na2s_pbno32 | Na2S(aq) + Pb(NO3)2(aq) -> PbS(s) + 2NaNO3(aq) | Đạt | PbS đen; không diễn giải mọi muối chì đều là mưa vàng. | family_context: [University inorganic/organic practical handbook](https://uou.ac.in/sites/default/files/slm/MSCCH-505L.pdf) |
 | k2cro4_bacl2 | K2CrO4(aq) + BaCl2(aq) -> BaCrO4(s) + 2KCl(aq) | Đạt | BaCrO4 vàng trong điều kiện phù hợp; axit làm đổi cân bằng chromate/dichromate. | family_context: [University of Washington: Chromate–dichromate equilibrium](https://chem.washington.edu/lecture-demos/chromate-dichromate-equilibrium), [University inorganic/organic practical handbook](https://uou.ac.in/sites/default/files/slm/MSCCH-505L.pdf) |
@@ -60,9 +60,9 @@ Cân bằng nguyên tố/điện tích là kiểm tra bắt buộc, không chứ
 | cuso4_nh3 | CuSO4(aq) + 4NH3(aq) -> [Cu(NH3)4]SO4(aq) | Đạt | NH3 ít tạo hydroxide xanh nhạt; NH3 dư đủ tạo dung dịch phức xanh đậm. | specific_observation: [RSC: Transition elements and complex compounds](https://edu.rsc.org/experiments/transition-elements-and-complex-compounds-microscale-experiment-16-18-years/518.article), [RSC: Testing salts for anions and cations](https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article) |
 | k2cr2o7_naoh | K2Cr2O7(aq) + 2NaOH(aq) <-> K2CrO4(aq) + Na2CrO4(aq) + H2O(l) | Đạt | Kiềm chuyển dichromate cam sang chromate vàng; cation K/Na là ion khán. | specific_observation: [University of Washington: Chromate–dichromate equilibrium](https://chem.washington.edu/lecture-demos/chromate-dichromate-equilibrium) |
 | k2cro4_h2so4 | 2K2CrO4(aq) + H2SO4(aq) <-> K2Cr2O7(aq) + K2SO4(aq) + H2O(l) | Đạt | Axit hóa dịch chuyển cân bằng chromate sang dichromate; không tạo khí. | specific_observation: [University of Washington: Chromate–dichromate equilibrium](https://chem.washington.edu/lecture-demos/chromate-dichromate-equilibrium) |
-| aloh3_naoh | Al(OH)3(s) + NaOH(aq) -> Na[Al(OH)4](aq) | Đạt | Al(OH)3 tan trong OH− dư tạo hydroxoaluminate; lượng dư là điều kiện thiết yếu. | specific_observation: [RSC: Testing salts for anions and cations](https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article) |
+| aloh3_naoh | Al(OH)3(s) + NaOH(aq) -> Na[Al(OH)4](aq) | Đạt | Al(OH)3 vô định hình tan trong OH− đến giới hạn thuốc thử hoặc bão hòa. Nhiệt theo cùng đường cân bằng, chưa hiệu chuẩn pha loãng/già hóa gel. | model_caveat: [PHREEQC WATEQ4F: amorphous aluminum hydroxide, hydrolysis and sulfate complexes](https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat) |
 | mg_o2_burn | 2Mg(s) + O2(g) -> 2MgO(s) | Đạt | Cần mồi và O2; MgO trắng là khói hạt rắn, không phải khí màu trắng. | family_context: [RSC: Displacement reactions of metals](https://edu.rsc.org/download?ac=513064) |
-| na_h2o | 2Na(s) + 2H2O(l) -> 2NaOH(aq) + H2(g) | Đạt | Na bị tiêu thụ tạo NaOH/H2; mồi cháy hoặc nổ phụ thuộc lượng và truyền nhiệt, không luôn xảy ra. | family_context: [RSC: Displacement reactions of metals](https://edu.rsc.org/download?ac=513064) |
+| na_h2o | 2Na(s) + 2H2O(l) -> 2NaOH(aq) + H2(g) | Đạt | Na nổi, chạy và nóng chảy; NaOH không màu, chỉ hồng khi có chỉ thị. Cháy hoặc nổ phụ thuộc điều kiện. Lượng chất theo 2:2:2:1; chuyển động và truyền nhiệt cục bộ chỉ là xấp xỉ định tính. | specific_observation: [University of Washington: Alkali metals in water](https://chem.washington.edu/lecture-demos/activity-series-alkali-metals-water), [University of Waterloo: Sodium and potassium in water without air](https://uwaterloo.ca/centre-advanced-science-education/news/sodium-and-potassium-reacting-water-absence-air), [University of Waterloo: Sodium properties](https://uwaterloo.ca/chemistry/community-outreach/periodic-table-project/sodium), [Oklahoma State University: Sodium-water reaction enthalpy](https://genchem1.chem.okstate.edu/BDA/ACA20Response.php) |
 | k_h2o | 2K(s) + 2H2O(l) -> 2KOH(aq) + H2(g) | Đạt | K phản ứng mạnh; ngọn lửa lilac không do riêng vạch 766 nm gần hồng ngoại. | family_context: [RSC: Displacement reactions of metals](https://edu.rsc.org/download?ac=513064) |
 | flame_cu | Cu(2+) + heat -> Cu* -> Cu(2+) + hv (510 nm) | Quan sát quang học, không giả phản ứng mol | Quan sát phát xạ xanh lục–lam, có đóng góp phân tử chứa đồng; không phải phương trình tiêu thụ CuCl2. | specific_observation: [RSC: Testing salts for anions and cations](https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article) |
 | flame_na | Na+ + heat -> Na* -> Na+ + hv (589 nm) | Quan sát quang học, không giả phản ứng mol | Phát xạ nguyên tử Na vùng 589 nm; phép thử ngọn lửa không tạo phân tử sản phẩm giả. | specific_observation: [RSC: Testing salts for anions and cations](https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article) |
@@ -151,55 +151,63 @@ Cân bằng nguyên tố/điện tích là kiểm tra bắt buộc, không chứ
 | cuoh2_hcl | Cu(OH)2 + 2HCl -> CuCl2 + 2H2O | Đạt | Hydroxide xanh tan khi đủ axit; chất dư quyết định endpoint. | family_context: [RSC: Preparing salts by neutralisation of oxides and carbonates](https://edu.rsc.org/experiments/preparing-salts-by-neutralisation-of-oxides-and-carbonates/1762.article) |
 | aloh3_hcl | Al(OH)3 + 3HCl -> AlCl3 + 3H2O | Đạt | Hydroxide nhôm tan trong axit; khác với hòa tan trong kiềm tạo hydroxoaluminate. | specific_observation: [RSC: Testing salts for anions and cations](https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article) |
 | thiosulfate_acid_clock | Na2S2O3(aq) + 2HCl(aq) -> 2NaCl(aq) + SO2(g) + S(s) + H2O(l) | Đạt | Axit phân hủy thiosulfate tạo sulfur, SO2 và nước; đây không phải đồng hồ iot–tinh bột. | family_context: [RSC: Effect of concentration on reaction rate](https://edu.rsc.org/experiments/the-effect-of-concentration-on-reaction-rate/743.article) |
+| feoh3_hcl | Fe(OH)3(s) + 3HCl(aq) -> FeCl3(aq) + 3H2O(l) | Đạt | Acid hòa tan lượng Fe(OH)3 hữu hạn đến giới hạn thuốc thử hoặc bão hòa; có thể còn cặn, không sinh khí. Tốc độ và nhiệt pha vô định hình chưa hiệu chuẩn. | model_caveat: [PHREEQC WATEQ4F: amorphous ferric hydroxide, hydrolysis and chloride species](https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat) |
+| al2so43_naoh | Al2(SO4)3(aq) + 6NaOH(aq) -> 2Al(OH)3(s) + 3Na2SO4(aq) | Đạt | Giới hạn tạo keo nhôm xét sulfate tự do, bisulfate và phức Al–sulfate; 2 mol Al trên mỗi mol Al2(SO4)3. | model_caveat: [PHREEQC WATEQ4F: amorphous aluminum hydroxide, hydrolysis and sulfate complexes](https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat) |
+| alcl3_naoh_excess | AlCl3(aq) + 4NaOH(aq) -> Na[Al(OH)4](aq) + 3NaCl(aq) | Đạt | Kiềm đủ dư ưu tiên aluminate hòa tan; không bắt buộc dựng một đợt keo trung gian khi mẫu dưới bão hòa. | model_caveat: [PHREEQC WATEQ4F: amorphous aluminum hydroxide, hydrolysis and sulfate complexes](https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat) |
+| al2so43_naoh_excess | Al2(SO4)3(aq) + 8NaOH(aq) -> 2Na[Al(OH)4](aq) + 3Na2SO4(aq) | Đạt | Nhánh aluminate của muối sulfate giữ cân bằng Al/Na/S và bị chặn nếu còn quá bão hòa hydroxide. | model_caveat: [PHREEQC WATEQ4F: amorphous aluminum hydroxide, hydrolysis and sulfate complexes](https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat) |
 
 ## Quy tắc bộ giải
 
-| ID | Phương trình | Cân bằng |
-|---|---|---|
-| hcl_naoh_neutralization | HCl + NaOH → NaCl + H₂O | Đạt |
-| h2so4_naoh_neutralization | H₂SO₄ + 2NaOH → Na₂SO₄ + 2H₂O | Đạt |
-| bacl2_h2so4_precipitate | BaCl₂ + H₂SO₄ → BaSO₄↓ + 2HCl | Đạt |
-| bacl2_na2so4_conservation | BaCl₂ + Na₂SO₄ → BaSO₄↓ + 2NaCl | Đạt |
-| agno3_nacl_precipitate | AgNO₃ + NaCl → AgCl↓ + NaNO₃ | Đạt |
-| golden_rain_pbi2 | 2KI + Pb(NO₃)₂ → PbI₂↓ + 2KNO₃ | Đạt |
-| cuso4_naoh_precipitate | CuSO₄ + 2NaOH → Cu(OH)₂↓ + Na₂SO₄ | Đạt |
-| fe_cuso4_displacement | Fe + CuSO₄ → FeSO₄ + Cu↓ | Đạt |
-| caco3_hcl_gas | CaCO₃ + 2HCl → CaCl₂ + CO₂↑ + H₂O | Đạt |
-| zn_hcl_gas | Zn + 2HCl → ZnCl₂ + H₂↑ | Đạt |
-| mg_hcl_gas | Mg + 2HCl → MgCl₂ + H₂↑ | Đạt |
-| h2o2_mno2_decomposition | 2H₂O₂ ⎯⎯MnO₂⎯→ 2H₂O + O₂↑ | Đạt |
-| nh3_hcl_fumes | NH₃(g) + HCl(g) → NH₄Cl(s) | Đạt |
-| na2co3_hcl_gas | Na₂CO₃ + 2HCl → 2NaCl + CO₂↑ + H₂O | Đạt |
-| cuoh2_thermal_decomposition | Cu(OH)₂ ⎯⎯t°⎯→ CuO↓ + H₂O | Đạt |
-| iodine_sublimation | I₂(s) ⎯⎯t°⎯→ I₂(g) (Thăng hoa) | Đạt |
-| cuso4_thermal_dehydration | CuSO₄·5H₂O(s) ⎯⎯t°⎯→ CuSO₄(s) + 5H₂O↑ | Đạt |
-| water_into_conc_h2so4_explosion | H₂SO₄(conc) + H₂O → H₃O⁺ + HSO₄⁻ + Q (CựC KỲ NGUY HIỂM) | Đạt |
-| sodium_water_reaction | 2Na + 2H₂O → 2NaOH + H₂↑ + Q | Đạt |
-| cu_hno3_conc | Cu + 4HNO₃(đặc) → Cu(NO₃)₂ + 2NO₂↑ + 2H₂O | Đạt |
-| cu_conc_h2so4_heated | Cu + 2H₂SO₄(đặc) —(t°)→ CuSO₄ + SO₂↑ + 2H₂O | Đạt |
-| limewater_co2_milky | Ca(OH)₂ + CO₂ → CaCO₃↓ + H₂O | Đạt |
-| caco3_co2_excess_clearing | CaCO₃ + CO₂ + H₂O → Ca(HCO₃)₂ (Tan trong nước) | Đạt |
-| al2so4_naoh_amphoteric | Al₂(SO₄)₃ + 6NaOH → 2Al(OH)₃↓ + 3Na₂SO₄; Al(OH)₃ + NaOH → Na[Al(OH)₄] | Đạt |
-| cuso4_nh3_hydroxide | CuSO4 + 2NH3 + 2H2O -> Cu(OH)2 + (NH4)2SO4 | Đạt |
-| cuso4_nh3_complex | CuSO₄ + 4NH₃ → [Cu(NH₃)₄]SO₄ (Xanh thẫm) | Đạt |
-| fecl3_kscn_complex | FeCl₃ + KSCN ⇌ [Fe(SCN)]Cl₂ + KCl | Đạt |
-| kmno4_oxalic_redox | 2KMnO₄ + 5H₂C₂O₄ + 3H₂SO₄ → K₂SO₄ + 2MnSO₄ + 10CO₂↑ + 8H₂O | Đạt |
-| thiosulfate_acid_clock | Na₂S₂O₃ + 2HCl → 2NaCl + SO₂↑ + S↓ + H₂O | Đạt |
-| iodine_clock | IO₃⁻ + 3HSO₃⁻ → I⁻ + 3SO₄²⁻ + 3H⁺; IO₃⁻ + 5I⁻ + 6H⁺ → 3I₂ + 3H₂O | Đạt |
-| aloh3_naoh_dissolution | Al(OH)₃ + NaOH → Na[Al(OH)₄] (Tan hoàn toàn) | Đạt |
-| cuoh2_nh3_complex | Cu(OH)₂ + 4NH₃ → [Cu(NH₃)₄](OH)₂ (Xanh thẫm) | Đạt |
-| agcl_nh3_complex | AgCl + 2NH₃ → [Ag(NH₃)₂]Cl (Tan trong suốt) | Đạt |
-| hno3_naoh_neutralization | HNO₃ + NaOH → NaNO₃ + H₂O | Đạt |
-| fecl3_naoh_precipitate | FeCl₃ + 3NaOH → Fe(OH)₃↓ + 3NaCl | Đạt |
-| agno3_hcl_precipitate | AgNO₃ + HCl → AgCl↓ + HNO₃ | Đạt |
-| cu_hno3_dilute | 3Cu + 8HNO3(dil) -> 3Cu(NO3)2 + 2NO + 4H2O | Đạt |
-| nh3_hcl_aqueous | NH3(aq) + HCl(aq) -> NH4Cl(aq) | Đạt |
-| iodate_iodide_acid | KIO3 + 5KI + 3H2SO4 -> 3I2 + 3K2SO4 + 3H2O | Đạt |
-| ch3cooh_naoh_aqueous | CH3COOH + NaOH -> CH3COONa + H2O | Đạt |
-| ch3cooh_koh_aqueous | CH3COOH + KOH -> CH3COOK + H2O | Đạt |
-| sodium_acetate_hcl | CH3COONa + HCl -> CH3COOH + NaCl | Đạt |
-| potassium_acetate_hcl | CH3COOK + HCl -> CH3COOH + KCl | Đạt |
-| nh4cl_naoh_aqueous | NH4Cl + NaOH -> NH3 + NaCl + H2O | Đạt |
+| ID | Phương trình | Cân bằng | Cách xử lý lượng chất |
+|---|---|---|---|
+| hcl_naoh_neutralization | HCl + NaOH → NaCl + H₂O | Đạt | stoichiometric_rule |
+| h2so4_naoh_neutralization | H₂SO₄ + 2NaOH → Na₂SO₄ + 2H₂O | Đạt | stoichiometric_rule |
+| bacl2_h2so4_precipitate | BaCl₂ + H₂SO₄ → BaSO₄↓ + 2HCl | Đạt | stoichiometric_rule |
+| bacl2_na2so4_conservation | BaCl₂ + Na₂SO₄ → BaSO₄↓ + 2NaCl | Đạt | stoichiometric_rule |
+| agno3_nacl_precipitate | AgNO₃ + NaCl → AgCl↓ + NaNO₃ | Đạt | stoichiometric_rule |
+| golden_rain_pbi2 | 2KI + Pb(NO₃)₂ → PbI₂↓ + 2KNO₃ | Đạt | stoichiometric_rule |
+| cuso4_naoh_precipitate | CuSO₄ + 2NaOH → Cu(OH)₂↓ + Na₂SO₄ | Đạt | stoichiometric_rule |
+| fe_cuso4_displacement | Fe + CuSO₄ → FeSO₄ + Cu↓ | Đạt | stoichiometric_rule |
+| caco3_hcl_gas | CaCO₃ + 2HCl → CaCl₂ + CO₂↑ + H₂O | Đạt | stoichiometric_rule |
+| zn_hcl_gas | Zn + 2HCl → ZnCl₂ + H₂↑ | Đạt | stoichiometric_rule |
+| mg_hcl_gas | Mg + 2HCl → MgCl₂ + H₂↑ | Đạt | stoichiometric_rule |
+| h2o2_mno2_decomposition | 2H₂O₂ ⎯⎯MnO₂⎯→ 2H₂O + O₂↑ | Đạt | stoichiometric_rule |
+| nh3_hcl_fumes | NH₃(g) + HCl(g) → NH₄Cl(s) | Đạt | stoichiometric_rule |
+| na2co3_hcl_gas | Na₂CO₃ + 2HCl → 2NaCl + CO₂↑ + H₂O | Đạt | stoichiometric_rule |
+| cuoh2_thermal_decomposition | Cu(OH)₂ ⎯⎯t°⎯→ CuO↓ + H₂O | Đạt | stoichiometric_rule |
+| iodine_sublimation | I₂(s) ⎯⎯t°⎯→ I₂(g) (Thăng hoa) | Đạt | stoichiometric_rule |
+| cuso4_thermal_dehydration | CuSO₄·5H₂O(s) ⎯⎯t°⎯→ CuSO₄(s) + 5H₂O↑ | Đạt | stoichiometric_rule |
+| water_into_conc_h2so4_explosion | H₂SO₄(conc) + H₂O → H₃O⁺ + HSO₄⁻ + Q (CựC KỲ NGUY HIỂM) | Đạt | stoichiometric_rule |
+| sodium_water_reaction | 2Na + 2H₂O → 2NaOH + H₂↑ + Q | Đạt | stoichiometric_rule |
+| cu_hno3_conc | Cu + 4HNO₃(đặc) → Cu(NO₃)₂ + 2NO₂↑ + 2H₂O | Đạt | stoichiometric_rule |
+| cu_conc_h2so4_heated | Cu + 2H₂SO₄(đặc) —(t°)→ CuSO₄ + SO₂↑ + 2H₂O | Đạt | stoichiometric_rule |
+| limewater_co2_milky | Ca(OH)₂ + CO₂ → CaCO₃↓ + H₂O | Đạt | stoichiometric_rule |
+| caco3_co2_excess_clearing | CaCO₃ + CO₂ + H₂O → Ca(HCO₃)₂ (Tan trong nước) | Đạt | finite_phase_equilibrium |
+| alcl3_naoh_precipitate | AlCl₃ + 3NaOH → Al(OH)₃ + 3NaCl | Đạt | stoichiometric_rule |
+| alcl3_naoh_aluminate | AlCl₃ + 4NaOH → Na[Al(OH)₄] + 3NaCl | Đạt | stoichiometric_rule |
+| al2so43_naoh_aluminate | Al₂(SO₄)₃ + 8NaOH → 2Na[Al(OH)₄] + 3Na₂SO₄ | Đạt | stoichiometric_rule |
+| al2so4_naoh_amphoteric | Al₂(SO₄)₃ + 6NaOH → 2Al(OH)₃↓ + 3Na₂SO₄ | Đạt | stoichiometric_rule |
+| cuso4_nh3_hydroxide | CuSO4 + 2NH3 + 2H2O -> Cu(OH)2 + (NH4)2SO4 | Đạt | stoichiometric_rule |
+| cuso4_nh3_complex | CuSO₄ + 4NH₃ → [Cu(NH₃)₄]SO₄ (Xanh thẫm) | Đạt | stoichiometric_rule |
+| fecl3_kscn_complex | FeCl₃ + KSCN ⇌ [Fe(SCN)]Cl₂ + KCl | Đạt | stoichiometric_rule |
+| kmno4_oxalic_redox | 2KMnO₄ + 5H₂C₂O₄ + 3H₂SO₄ → K₂SO₄ + 2MnSO₄ + 10CO₂↑ + 8H₂O | Đạt | stoichiometric_rule |
+| thiosulfate_acid_clock | Na₂S₂O₃ + 2HCl → 2NaCl + SO₂↑ + S↓ + H₂O | Đạt | stoichiometric_rule |
+| iodine_clock | IO₃⁻ + 3HSO₃⁻ → I⁻ + 3SO₄²⁻ + 3H⁺; IO₃⁻ + 5I⁻ + 6H⁺ → 3I₂ + 3H₂O | Đạt | stoichiometric_rule |
+| aloh3_naoh_dissolution | Al(OH)₃ + NaOH → Na[Al(OH)₄] | Đạt | stoichiometric_rule |
+| cuoh2_nh3_complex | Cu(OH)₂ + 4NH₃ → [Cu(NH₃)₄](OH)₂ (Xanh thẫm) | Đạt | stoichiometric_rule |
+| agcl_nh3_complex | AgCl + 2NH₃ → [Ag(NH₃)₂]Cl (Tan trong suốt) | Đạt | stoichiometric_rule |
+| hno3_naoh_neutralization | HNO₃ + NaOH → NaNO₃ + H₂O | Đạt | stoichiometric_rule |
+| fecl3_naoh_precipitate | FeCl₃ + 3NaOH → Fe(OH)₃↓ + 3NaCl | Đạt | stoichiometric_rule |
+| feoh3_hcl_dissolution | Fe(OH)₃ + 3HCl → FeCl₃ + 3H₂O | Đạt | stoichiometric_rule |
+| agno3_hcl_precipitate | AgNO₃ + HCl → AgCl↓ + HNO₃ | Đạt | stoichiometric_rule |
+| cu_hno3_dilute | 3Cu + 8HNO3(dil) -> 3Cu(NO3)2 + 2NO + 4H2O | Đạt | stoichiometric_rule |
+| nh3_hcl_aqueous | NH3(aq) + HCl(aq) -> NH4Cl(aq) | Đạt | stoichiometric_rule |
+| iodate_iodide_acid | KIO3 + 5KI + 3H2SO4 -> 3I2 + 3K2SO4 + 3H2O | Đạt | stoichiometric_rule |
+| ch3cooh_naoh_aqueous | CH3COOH + NaOH -> CH3COONa + H2O | Đạt | stoichiometric_rule |
+| ch3cooh_koh_aqueous | CH3COOH + KOH -> CH3COOK + H2O | Đạt | stoichiometric_rule |
+| sodium_acetate_hcl | CH3COONa + HCl -> CH3COOH + NaCl | Đạt | stoichiometric_rule |
+| potassium_acetate_hcl | CH3COOK + HCl -> CH3COOH + KCl | Đạt | stoichiometric_rule |
+| nh4cl_naoh_aqueous | NH4Cl + NaOH -> NH3 + NaCl + H2O | Đạt | stoichiometric_rule |
 
 ## Nhánh cacbonat tự suy diễn
 

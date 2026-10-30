@@ -24,7 +24,9 @@ export type EquipmentType =
   | 'spatula'
   | 'reagent_bottle'
   | 'wash_bottle'
-  | 'test_tube_rack';
+  | 'test_tube_rack'
+  | 'separatory_funnel'
+  | 'ph_paper';
 
 export interface EquipmentState {
   id: string;
@@ -67,6 +69,16 @@ export interface EquipmentState {
   hasFumes?: boolean;
   fumeType?: 'steam' | 'no2' | 'nh4cl' | 'iodine';
   fumeColorHex?: string;
+  turbidity?: number; // 0..1 suspension opacity
+  foamHead_mm?: number; // height of froth layer on meniscus
+  hasSilverMirror?: boolean; // silver mirror coat on glass walls
+  hasTripod?: boolean; // physical tripod wire gauze support underneath
+
+  // Real-time heating telemetry from spatial burner/plate coupling
+  isBeingHeated?: boolean;
+  absorbedPower_W?: number;
+  heatingRate_c_s?: number;
+  flameTestColorHex?: string; // Characteristic flame test emission color when heated over flame
 
 
   // Mixing / stirring
@@ -103,6 +115,12 @@ export interface EquipmentState {
   isLocked?: boolean;
   isTargeted?: boolean;
   selected?: boolean;
+
+  // Measuring probe telemetry & phase separation
+  submergedInVesselId?: string;
+  isSubmerged?: boolean;
+  paperColorHex?: string;
+  isDrainingSeparatory?: boolean;
 }
 
 /** A spill puddle on the workbench surface. */
@@ -113,6 +131,9 @@ export interface SpillPuddle {
   colorHex: string;
   volume_ml: number;
   formula: string;
+  ph?: number;
+  isNeutralized?: boolean;
+  radius_px?: number;
   timestamp: number;
 }
 

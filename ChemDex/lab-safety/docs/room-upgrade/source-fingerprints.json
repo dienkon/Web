@@ -1,0 +1,9 @@
+{
+  "src/components/3d/assets/StaticAssetCopies.tsx": "39703c893165b4e9465c88e080d8a8c1d1523ae143ef14a25cb96f3d88186e72",
+  "src/components/3d/assets/FurnitureAssets.tsx": "80c57fca5deebbc186160895a38a5619b95566f2c2054bb142de85450830e7a2",
+  "src/components/3d/fps/MutableTubeGeometry.ts": "8285a31c4d6acbec1447b33e0b0b40535ac4b7315d4a734aa2a01b1581fb5c11",
+  "src/components/3d/fps/FPSHands.tsx": "8c0dc6127b6bafc111a2559e5f047dd7d10ad1f3853649445976ade04acfe490",
+  "src/components/3d/lab/StorageCabinets.tsx": "d341d694d7deeff160f8ef035d64e47428a60634ef6523d897f92e8f647a7280",
+  "src/components/3d/LabScene.tsx": "9f31195b3331b855fc7ea5485496105614666eb9af6538fc93654c0702f07147",
+  "src/systems/performance/AdaptivePerformance.tsx": "b4b153fe8ff3c5d57bd61b9516927ea35b06765dfcf051851f28614e1d27886f"
+}

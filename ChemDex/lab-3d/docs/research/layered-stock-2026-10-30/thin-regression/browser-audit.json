@@ -1,0 +1,1990 @@
+{
+  "method": "Actual app meshes, clipping plane, compiled WebGL wave uniform, controller poses and water inventory. Paused geometric cases are not a capillary experiment or FPS measurement.",
+  "errors": [],
+  "consoleErrors": [],
+  "cases": [
+    {
+      "type": "beaker",
+      "volume": 0.02,
+      "before": {
+        "volume_ml": 0.02,
+        "mass_g": 0.02,
+        "water_mol": 0.0011101859561476546
+      },
+      "upright": {
+        "type": "beaker",
+        "stock_ml": 0.02,
+        "bodyVisible": true,
+        "surfaceVisible": true,
+        "tilt": 0,
+        "c": -0.9596120000000004,
+        "radialSegments": 64,
+        "fineSegments": 64,
+        "originY": -0.96,
+        "vertices": 260,
+        "triangles": 384,
+        "continuumVolume_ml": 0.019999999999979937,
+        "uniformFineMeshVolume_ml": 0.01996788786069234,
+        "uploadedMeshVolume_ml": 0.019967887907763323,
+        "gpuPlane": [
+          0,
+          1,
+          0,
+          0.000387999985832721
+        ],
+        "gpuVolume_ml": 0.019967887178672313,
+        "localClippingCompiled": true,
+        "relativeError": -1.0031905861573875e-12,
+        "waveLimit": 0.000019400000383029692,
+        "depth": 0.00038800000000005497,
+        "surfaceNormalDot": 0.9999999999999998,
+        "worldPlaneNormal": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "session": {
+        "id": "pour_1",
+        "mode": "HAND_TILT",
+        "sourceId": "beaker_1793358685628_ph6ag",
+        "targetId": "beaker_1793358685629_drbhf",
+        "tilt": 0.8006482512054092,
+        "targetTilt": 1,
+        "lift": 1,
+        "transferred_ml": 0,
+        "spilled_ml": 0,
+        "released_ml": 0,
+        "inFlight_ml": 0,
+        "onWall_ml": 0,
+        "flow_ml_s": 0,
+        "wallClinging": false,
+        "aim": {
+          "landing": [
+            1.8164505992547983,
+            -1.1052612081116506,
+            0.0017703877673400092
+          ],
+          "kind": "inside"
+        },
+        "assist": "low",
+        "phase": "tilting",
+        "startedAt": 0,
+        "sourcePos": [
+          1.0272759903384996,
+          0.7332861253384599,
+          0.33542806081749194
+        ],
+        "sourceRotationZ": -0.8006482512054092,
+        "initialSourcePos": [
+          -1,
+          -0.135,
+          0
+        ],
+        "initialFromVolume_ml": 0.02,
+        "initialToVolume_ml": 0,
+        "mixingZone": {
+          "active": false,
+          "point": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.05,
+          "intensity": 0,
+          "color": "#25b5db"
+        },
+        "trajectory": {
+          "exitPos": [
+            1.8164505992547983,
+            0.5493186658825375,
+            0.0017703877673400092
+          ],
+          "exitVel": [
+            0,
+            0,
+            0
+          ],
+          "impactPos": [
+            1.8164505992547983,
+            -1.1052612081116506,
+            0.0017703877673400092
+          ],
+          "timeOfFlight": 0.10871259205532291,
+          "landingKind": "inside",
+          "targetVesselId": "beaker_1793358685629_drbhf",
+          "detailKind": "wall_inner"
+        }
+      },
+      "tilted": {
+        "type": "beaker",
+        "stock_ml": 0.02,
+        "bodyVisible": true,
+        "surfaceVisible": true,
+        "tilt": 0.8006482512054093,
+        "c": -1.3078339051975243,
+        "radialSegments": 134,
+        "fineSegments": 512,
+        "originY": -0.96,
+        "vertices": 540,
+        "triangles": 804,
+        "continuumVolume_ml": 0.020000000000000278,
+        "uniformFineMeshVolume_ml": 0.019991737162396737,
+        "uploadedMeshVolume_ml": 0.019991737295430228,
+        "gpuPlane": [
+          0,
+          0.696241557598114,
+          -0.7178075909614563,
+          0.053242284804582596
+        ],
+        "gpuVolume_ml": 0.019991735926994724,
+        "localClippingCompiled": true,
+        "relativeError": 1.3877787807814457e-14,
+        "waveLimit": 0.0026621143333613873,
+        "depth": 0.05324228516778917,
+        "surfaceNormalDot": 0.9999999999999999,
+        "worldPlaneNormal": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "after": {
+        "volume_ml": 0.02,
+        "mass_g": 0.02,
+        "water_mol": 0.0011101859561476546
+      },
+      "horizontal": {
+        "type": "beaker",
+        "stock_ml": 0.02,
+        "bodyVisible": true,
+        "surfaceVisible": true,
+        "tilt": 1.5707963267948966,
+        "c": -0.9603596179336877,
+        "radialSegments": 126,
+        "fineSegments": 2048,
+        "originY": -0.96,
+        "vertices": 508,
+        "triangles": 756,
+        "continuumVolume_ml": 0.02000000000000087,
+        "uniformFineMeshVolume_ml": 0.019995097937569983,
+        "uploadedMeshVolume_ml": 0.01999509858577887,
+        "gpuPlane": [
+          0,
+          4.579669976578771e-16,
+          -1,
+          0.004640382248908281
+        ],
+        "gpuVolume_ml": 0.019995099765675716,
+        "localClippingCompiled": true,
+        "relativeError": 4.354155924701786e-14,
+        "waveLimit": 0.00023201909789349884,
+        "depth": 0.004640382066312232,
+        "surfaceNormalDot": 0.9999999999999998,
+        "worldPlaneNormal": [
+          0,
+          -1,
+          0
+        ]
+      }
+    },
+    {
+      "type": "beaker",
+      "volume": 0.0002,
+      "before": {
+        "volume_ml": 0.0002,
+        "mass_g": 0.0002,
+        "water_mol": 0.000011101859561476547
+      },
+      "upright": {
+        "type": "beaker",
+        "stock_ml": 0.0002,
+        "bodyVisible": true,
+        "surfaceVisible": true,
+        "tilt": 0,
+        "c": -0.9599961200000002,
+        "radialSegments": 64,
+        "fineSegments": 64,
+        "originY": -0.96,
+        "vertices": 260,
+        "triangles": 384,
+        "continuumVolume_ml": 0.00019999999998629355,
+        "uniformFineMeshVolume_ml": 0.00019967887859343933,
+        "uploadedMeshVolume_ml": 0.00019967887907546174,
+        "gpuPlane": [
+          0,
+          1,
+          0,
+          0.000003879999894706998
+        ],
+        "gpuVolume_ml": 0.00019967887365895923,
+        "localClippingCompiled": true,
+        "relativeError": -6.853228379753717e-11,
+        "waveLimit": 1.939999947353499e-7,
+        "depth": 0.000003879999999956141,
+        "surfaceNormalDot": 0.9999999999999998,
+        "worldPlaneNormal": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "session": {
+        "id": "pour_2",
+        "mode": "HAND_TILT",
+        "sourceId": "beaker_1793358691813_h2y8y",
+        "targetId": "beaker_1793358691813_xb9i3",
+        "tilt": 0.8006482512054092,
+        "targetTilt": 1,
+        "lift": 1,
+        "transferred_ml": 0,
+        "spilled_ml": 0,
+        "released_ml": 0,
+        "inFlight_ml": 0,
+        "onWall_ml": 0,
+        "flow_ml_s": 0,
+        "wallClinging": false,
+        "aim": {
+          "landing": [
+            1.8164505992547983,
+            -1.1052612081116506,
+            0.0017703877673400092
+          ],
+          "kind": "inside"
+        },
+        "assist": "low",
+        "phase": "tilting",
+        "startedAt": 0.5333333333333333,
+        "sourcePos": [
+          1.0272759903384996,
+          0.7332861253384599,
+          0.33542806081749194
+        ],
+        "sourceRotationZ": -0.8006482512054092,
+        "initialSourcePos": [
+          -1,
+          -0.135,
+          0
+        ],
+        "initialFromVolume_ml": 0.0002,
+        "initialToVolume_ml": 0,
+        "mixingZone": {
+          "active": false,
+          "point": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.05,
+          "intensity": 0,
+          "color": "#25b5db"
+        },
+        "trajectory": {
+          "exitPos": [
+            1.8164505992547983,
+            0.5493186658825375,
+            0.0017703877673400092
+          ],
+          "exitVel": [
+            0,
+            0,
+            0
+          ],
+          "impactPos": [
+            1.8164505992547983,
+            -1.1052612081116506,
+            0.0017703877673400092
+          ],
+          "timeOfFlight": 0.10871259205532291,
+          "landingKind": "inside",
+          "targetVesselId": "beaker_1793358691813_xb9i3",
+          "detailKind": "wall_inner"
+        }
+      },
+      "tilted": {
+        "type": "beaker",
+        "stock_ml": 0.0002,
+        "bodyVisible": true,
+        "surfaceVisible": true,
+        "tilt": 0.8006482512054093,
+        "c": -1.3526614876558591,
+        "radialSegments": 124,
+        "fineSegments": 1024,
+        "originY": -0.96,
+        "vertices": 500,
+        "triangles": 744,
+        "continuumVolume_ml": 0.00020000000000000936,
+        "uniformFineMeshVolume_ml": 0.00019987065566021297,
+        "uploadedMeshVolume_ml": 0.00019987065579660555,
+        "gpuPlane": [
+          0,
+          0.696241557598114,
+          -0.7178075909614563,
+          0.008414702489972115
+        ],
+        "gpuVolume_ml": 0.00019987063246341454,
+        "localClippingCompiled": true,
+        "relativeError": 4.675621868843738e-14,
+        "waveLimit": 0.0004207351303193718,
+        "depth": 0.008414702709454103,
+        "surfaceNormalDot": 0.9999999999999999,
+        "worldPlaneNormal": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "after": {
+        "volume_ml": 0.0002,
+        "mass_g": 0.0002,
+        "water_mol": 0.000011101859561476547
+      },
+      "horizontal": {
+        "type": "beaker",
+        "stock_ml": 0.0002,
+        "bodyVisible": true,
+        "surfaceVisible": true,
+        "tilt": 1.5707963267948966,
+        "c": -0.9647847113710669,
+        "radialSegments": 318,
+        "fineSegments": 8192,
+        "originY": -0.96,
+        "vertices": 1276,
+        "triangles": 1908,
+        "continuumVolume_ml": 0.0002000000000011591,
+        "uniformFineMeshVolume_ml": 0.00019993403450778083,
+        "uploadedMeshVolume_ml": 0.00019993403929362996,
+        "gpuPlane": [
+          0,
+          4.579669976578771e-16,
+          -1,
+          0.0002152886299882084
+        ],
+        "gpuVolume_ml": 0.00019993404076309665,
+        "localClippingCompiled": true,
+        "relativeError": 5.795467187749703e-12,
+        "waveLimit": 0.000010764431863208301,
+        "depth": 0.00021528862893305245,
+        "surfaceNormalDot": 0.9999999999999998,
+        "worldPlaneNormal": [
+          0,
+          -1,
+          0
+        ]
+      }
+    },
+    {
+      "type": "flask",
+      "volume": 0.02,
+      "before": {
+        "volume_ml": 0.02,
+        "mass_g": 0.02,
+        "water_mol": 0.0011101859561476546
+      },
+      "upright": {
+        "type": "flask",
+        "stock_ml": 0.02,
+        "bodyVisible": true,
+        "surfaceVisible": true,
+        "tilt": 0,
+        "c": -0.9599341283518541,
+        "radialSegments": 64,
+        "fineSegments": 64,
+        "originY": -0.96,
+        "vertices": 325,
+        "triangles": 512,
+        "continuumVolume_ml": 0.019999999999951057,
+        "uniformFineMeshVolume_ml": 0.019967887860663506,
+        "uploadedMeshVolume_ml": 0.01996788815093598,
+        "gpuPlane": [
+          0,
+          1,
+          0,
+          0.00006587164534721524
+        ],
+        "gpuVolume_ml": 0.019967887302573543,
+        "localClippingCompiled": true,
+        "relativeError": -2.4471744075604818e-12,
+        "waveLimit": 0.000003293582494734437,
+        "depth": 0.00006587164814597646,
+        "surfaceNormalDot": 0.9999999999999998,
+        "worldPlaneNormal": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "session": {
+        "id": "pour_5",
+        "mode": "HAND_TILT",
+        "sourceId": "flask_1793358692653_832u9",
+        "targetId": "beaker_1793358692653_ovcz6",
+        "tilt": 0.8006482512054092,
+        "targetTilt": 1,
+        "lift": 1,
+        "transferred_ml": 0,
+        "spilled_ml": 0,
+        "released_ml": 0,
+        "inFlight_ml": 0,
+        "onWall_ml": 0,
+        "flow_ml_s": 0,
+        "wallClinging": false,
+        "aim": {
+          "landing": [
+            1.8448751947806397,
+            -1.1052612080140491,
+            -0.010247338466360945
+          ],
+          "kind": "inside"
+        },
+        "assist": "low",
+        "phase": "tilting",
+        "startedAt": 16.066666666667036,
+        "sourcePos": [
+          0.3372952309462367,
+          -0.44880913061080063,
+          0.6271472469483478
+        ],
+        "sourceRotationZ": -0.8006482512054092,
+        "initialSourcePos": [
+          -1,
+          -0.135,
+          0
+        ],
+        "initialFromVolume_ml": 0.02,
+        "initialToVolume_ml": 0,
+        "mixingZone": {
+          "active": false,
+          "point": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.05,
+          "intensity": 0,
+          "color": "#25b5db"
+        },
+        "trajectory": {
+          "exitPos": [
+            1.8448751947806397,
+            0.5291874197538732,
+            -0.010247338466360945
+          ],
+          "exitVel": [
+            0,
+            0,
+            0
+          ],
+          "impactPos": [
+            1.8448751947806397,
+            -1.1052612080140491,
+            -0.010247338466360945
+          ],
+          "timeOfFlight": 0.10804921589481878,
+          "landingKind": "inside",
+          "targetVesselId": "beaker_1793358692653_ovcz6",
+          "detailKind": "wall_inner"
+        }
+      },
+      "tilted": {
+        "type": "flask",
+        "stock_ml": 0.02,
+        "bodyVisible": true,
+        "surfaceVisible": true,
+        "tilt": 0.8006482512054093,
+        "c": -1.5048334603630433,
+        "radialSegments": 106,
+        "fineSegments": 512,
+        "originY": -0.96,
+        "vertices": 535,
+        "triangles": 848,
+        "continuumVolume_ml": 0.02000000000000022,
+        "uniformFineMeshVolume_ml": 0.01998467442576645,
+        "uploadedMeshVolume_ml": 0.019984674293812944,
+        "gpuPlane": [
+          0,
+          0.696241557598114,
+          -0.7178075909614563,
+          0.03569462522864342
+        ],
+        "gpuVolume_ml": 0.019984673316173655,
+        "localClippingCompiled": true,
+        "relativeError": 1.0928757898653885e-14,
+        "waveLimit": 0.0017847312847152352,
+        "depth": 0.03569462527849687,
+        "surfaceNormalDot": 1,
+        "worldPlaneNormal": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "after": {
+        "volume_ml": 0.02,
+        "mass_g": 0.02,
+        "water_mol": 0.0011101859561476546
+      },
+      "horizontal": {
+        "type": "flask",
+        "stock_ml": 0.02,
+        "bodyVisible": true,
+        "surfaceVisible": true,
+        "tilt": 1.5707963267948966,
+        "c": -1.182340181180695,
+        "radialSegments": 154,
+        "fineSegments": 1024,
+        "originY": -0.96,
+        "vertices": 775,
+        "triangles": 1232,
+        "continuumVolume_ml": 0.01999999999999997,
+        "uniformFineMeshVolume_ml": 0.01999421138331622,
+        "uploadedMeshVolume_ml": 0.019994211274331163,
+        "gpuPlane": [
+          0,
+          -2.220446049250313e-16,
+          -1,
+          0.03265981748700142
+        ],
+        "gpuVolume_ml": 0.01999420924057741,
+        "localClippingCompiled": true,
+        "relativeError": -1.5612511283791264e-15,
+        "waveLimit": 0.0016329908976331353,
+        "depth": 0.0326598188193048,
+        "surfaceNormalDot": 0.9999999999999997,
+        "worldPlaneNormal": [
+          0,
+          -1,
+          0
+        ]
+      }
+    },
+    {
+      "type": "flask",
+      "volume": 0.0002,
+      "before": {
+        "volume_ml": 0.0002,
+        "mass_g": 0.0002,
+        "water_mol": 0.000011101859561476547
+      },
+      "upright": {
+        "type": "flask",
+        "stock_ml": 0.0002,
+        "bodyVisible": true,
+        "surfaceVisible": true,
+        "tilt": 0,
+        "c": -0.9599993413019416,
+        "radialSegments": 64,
+        "fineSegments": 64,
+        "originY": -0.96,
+        "vertices": 325,
+        "triangles": 512,
+        "continuumVolume_ml": 0.00019999999995432572,
+        "uniformFineMeshVolume_ml": 0.00019967887856152275,
+        "uploadedMeshVolume_ml": 0.00019967888148659886,
+        "gpuPlane": [
+          0,
+          1,
+          0,
+          6.586980703104928e-7
+        ],
+        "gpuVolume_ml": 0.00019967888509895467,
+        "localClippingCompiled": true,
+        "relativeError": -2.2837146670257047e-10,
+        "waveLimit": 3.29349028049819e-8,
+        "depth": 6.586980585421287e-7,
+        "surfaceNormalDot": 0.9999999999999998,
+        "worldPlaneNormal": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "session": {
+        "id": "pour_6",
+        "mode": "HAND_TILT",
+        "sourceId": "flask_1793358693378_5fz6c",
+        "targetId": "beaker_1793358693379_gdyi3",
+        "tilt": 0.8006482512054092,
+        "targetTilt": 1,
+        "lift": 1,
+        "transferred_ml": 0,
+        "spilled_ml": 0,
+        "released_ml": 0,
+        "inFlight_ml": 0,
+        "onWall_ml": 0,
+        "flow_ml_s": 0,
+        "wallClinging": false,
+        "aim": {
+          "landing": [
+            1.8448751947806397,
+            -1.1052612080140491,
+            -0.010247338466360945
+          ],
+          "kind": "inside"
+        },
+        "assist": "low",
+        "phase": "tilting",
+        "startedAt": 16.60000000000034,
+        "sourcePos": [
+          0.3372952309462367,
+          -0.44880913061080063,
+          0.6271472469483478
+        ],
+        "sourceRotationZ": -0.8006482512054092,
+        "initialSourcePos": [
+          -1,
+          -0.135,
+          0
+        ],
+        "initialFromVolume_ml": 0.0002,
+        "initialToVolume_ml": 0,
+        "mixingZone": {
+          "active": false,
+          "point": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.05,
+          "intensity": 0,
+          "color": "#25b5db"
+        },
+        "trajectory": {
+          "exitPos": [
+            1.8448751947806397,
+            0.5291874197538732,
+            -0.010247338466360945
+          ],
+          "exitVel": [
+            0,
+            0,
+            0
+          ],
+          "impactPos": [
+            1.8448751947806397,
+            -1.1052612080140491,
+            -0.010247338466360945
+          ],
+          "timeOfFlight": 0.10804921589481878,
+          "landingKind": "inside",
+          "targetVesselId": "beaker_1793358693379_gdyi3",
+          "detailKind": "wall_inner"
+        }
+      },
+      "tilted": {
+        "type": "flask",
+        "stock_ml": 0.0002,
+        "bodyVisible": true,
+        "surfaceVisible": true,
+        "tilt": 0.8006482512054093,
+        "c": -1.5348831982407543,
+        "radialSegments": 188,
+        "fineSegments": 2048,
+        "originY": -0.96,
+        "vertices": 945,
+        "triangles": 1504,
+        "continuumVolume_ml": 0.00020000000000284572,
+        "uniformFineMeshVolume_ml": 0.00019993941360662218,
+        "uploadedMeshVolume_ml": 0.00019993941314954515,
+        "gpuPlane": [
+          0,
+          0.696241557598114,
+          -0.7178075909614563,
+          0.0056448872201144695
+        ],
+        "gpuVolume_ml": 0.00019993938805372598,
+        "localClippingCompiled": true,
+        "relativeError": 1.4228527210613517e-11,
+        "waveLimit": 0.00028224437846802175,
+        "depth": 0.005644887400786169,
+        "surfaceNormalDot": 1,
+        "worldPlaneNormal": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "after": {
+        "volume_ml": 0.0002,
+        "mass_g": 0.0002,
+        "water_mol": 0.000011101859561476547
+      },
+      "horizontal": {
+        "type": "flask",
+        "stock_ml": 0.0002,
+        "bodyVisible": true,
+        "surfaceVisible": true,
+        "tilt": 1.5707963267948966,
+        "c": -1.2098355658276896,
+        "radialSegments": 126,
+        "fineSegments": 2048,
+        "originY": -0.96,
+        "vertices": 635,
+        "triangles": 1008,
+        "continuumVolume_ml": 0.00020000000000115067,
+        "uniformFineMeshVolume_ml": 0.00019990786214219957,
+        "uploadedMeshVolume_ml": 0.00019990785893956664,
+        "gpuPlane": [
+          0,
+          -2.220446049250313e-16,
+          -1,
+          0.0051644342020154
+        ],
+        "gpuVolume_ml": 0.00019990786181346674,
+        "localClippingCompiled": true,
+        "relativeError": 5.753318828294329e-12,
+        "waveLimit": 0.0002582216984592378,
+        "depth": 0.005164434172310051,
+        "surfaceNormalDot": 0.9999999999999997,
+        "worldPlaneNormal": [
+          0,
+          -1,
+          0
+        ]
+      }
+    },
+    {
+      "type": "test_tube",
+      "volume": 0.02,
+      "before": {
+        "volume_ml": 0.02,
+        "mass_g": 0.02,
+        "water_mol": 0.0011101859561476546
+      },
+      "upright": {
+        "type": "test_tube",
+        "stock_ml": 0.02,
+        "bodyVisible": true,
+        "surfaceVisible": true,
+        "tilt": 0,
+        "c": -0.7672502184618814,
+        "radialSegments": 64,
+        "fineSegments": 64,
+        "originY": -0.78,
+        "vertices": 1040,
+        "triangles": 1920,
+        "continuumVolume_ml": 0.019999999999999712,
+        "uniformFineMeshVolume_ml": 0.019967887860712068,
+        "uploadedMeshVolume_ml": 0.01996788792065505,
+        "gpuPlane": [
+          0,
+          1,
+          0,
+          0.012749781832098961
+        ],
+        "gpuVolume_ml": 0.01996788885014254,
+        "localClippingCompiled": true,
+        "relativeError": -1.43982048506075e-14,
+        "waveLimit": 0.0006374890799634159,
+        "depth": 0.012749781538182958,
+        "surfaceNormalDot": 0.9999999999999997,
+        "worldPlaneNormal": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "session": {
+        "id": "pour_9",
+        "mode": "HAND_TILT",
+        "sourceId": "test_tube_1793358694034_1fa51",
+        "targetId": "beaker_1793358694035_6q9k5",
+        "tilt": 0.8006482512054092,
+        "targetTilt": 1,
+        "lift": 1,
+        "transferred_ml": 0,
+        "spilled_ml": 0,
+        "released_ml": 0,
+        "inFlight_ml": 0,
+        "onWall_ml": 0,
+        "flow_ml_s": 0,
+        "wallClinging": false,
+        "aim": {
+          "landing": [
+            1.85861652432366,
+            -1.1052612079512747,
+            -0.016057079413596353
+          ],
+          "kind": "inside"
+        },
+        "assist": "low",
+        "phase": "tilting",
+        "startedAt": 32.13333333333279,
+        "sourcePos": [
+          -0.07438810899594572,
+          -1.0213872869281038,
+          0.80120417134338
+        ],
+        "sourceRotationZ": -0.8006482512054092,
+        "initialSourcePos": [
+          -1,
+          -0.135,
+          0
+        ],
+        "initialFromVolume_ml": 0.02,
+        "initialToVolume_ml": 0,
+        "mixingZone": {
+          "active": false,
+          "point": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.05,
+          "intensity": 0,
+          "color": "#25b5db"
+        },
+        "trajectory": {
+          "exitPos": [
+            1.85861652432366,
+            0.5172219315948883,
+            -0.016057079413596353
+          ],
+          "exitVel": [
+            0,
+            0,
+            0
+          ],
+          "impactPos": [
+            1.85861652432366,
+            -1.1052612079512747,
+            -0.016057079413596353
+          ],
+          "timeOfFlight": 0.10765298547867863,
+          "landingKind": "inside",
+          "targetVesselId": "beaker_1793358694035_6q9k5",
+          "detailKind": "wall_inner"
+        }
+      },
+      "tilted": {
+        "type": "test_tube",
+        "stock_ml": 0.02,
+        "bodyVisible": true,
+        "surfaceVisible": true,
+        "tilt": 0.8006482512054094,
+        "c": -0.591089285421734,
+        "radialSegments": 148,
+        "fineSegments": 512,
+        "originY": -0.7214213562373095,
+        "vertices": 2384,
+        "triangles": 4440,
+        "continuumVolume_ml": 0.019999999999999157,
+        "uniformFineMeshVolume_ml": 0.01999565283202105,
+        "uploadedMeshVolume_ml": 0.01999565288494764,
+        "gpuPlane": [
+          0,
+          0.696241557598114,
+          -0.7178075909614563,
+          0.012707549147307873
+        ],
+        "gpuVolume_ml": 0.019995651061087704,
+        "localClippingCompiled": true,
+        "relativeError": -4.215378046623641e-14,
+        "waveLimit": 0.000635377480648458,
+        "depth": 0.012707549414779251,
+        "surfaceNormalDot": 1,
+        "worldPlaneNormal": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "after": {
+        "volume_ml": 0.02,
+        "mass_g": 0.02,
+        "water_mol": 0.0011101859561476546
+      },
+      "horizontal": {
+        "type": "test_tube",
+        "stock_ml": 0.02,
+        "bodyVisible": true,
+        "surfaceVisible": true,
+        "tilt": 1.5707963267948966,
+        "c": -0.19840287344382332,
+        "radialSegments": 124,
+        "fineSegments": 1024,
+        "originY": -0.58,
+        "vertices": 2000,
+        "triangles": 3720,
+        "continuumVolume_ml": 0.020000000000004087,
+        "uniformFineMeshVolume_ml": 0.019988121051222427,
+        "uploadedMeshVolume_ml": 0.01998812084835111,
+        "gpuPlane": [
+          0,
+          4.440892098500626e-16,
+          -1,
+          0.0015971265966072679
+        ],
+        "gpuVolume_ml": 0.0199881216097434,
+        "localClippingCompiled": true,
+        "relativeError": 2.0435042547006788e-13,
+        "waveLimit": 0.00007985632691998035,
+        "depth": 0.0015971265561764425,
+        "surfaceNormalDot": 0.9999999999999997,
+        "worldPlaneNormal": [
+          0,
+          -1,
+          0
+        ]
+      }
+    },
+    {
+      "type": "test_tube",
+      "volume": 0.0002,
+      "before": {
+        "volume_ml": 0.0002,
+        "mass_g": 0.0002,
+        "water_mol": 0.000011101859561476547
+      },
+      "upright": {
+        "type": "test_tube",
+        "stock_ml": 0.0002,
+        "bodyVisible": true,
+        "surfaceVisible": true,
+        "tilt": 0,
+        "c": -0.7784255383770754,
+        "radialSegments": 64,
+        "fineSegments": 64,
+        "originY": -0.78,
+        "vertices": 1040,
+        "triangles": 1920,
+        "continuumVolume_ml": 0.00019999999999997374,
+        "uniformFineMeshVolume_ml": 0.00019967887860710058,
+        "uploadedMeshVolume_ml": 0.00019967888680039433,
+        "gpuPlane": [
+          0,
+          1,
+          0,
+          0.00157446158118546
+        ],
+        "gpuVolume_ml": 0.00019967887091986065,
+        "localClippingCompiled": true,
+        "relativeError": -1.3132398814230672e-13,
+        "waveLimit": 0.00007872308196965605,
+        "depth": 0.0015744616229246278,
+        "surfaceNormalDot": 0.9999999999999997,
+        "worldPlaneNormal": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "session": {
+        "id": "pour_10",
+        "mode": "HAND_TILT",
+        "sourceId": "test_tube_1793358694851_8a1s9",
+        "targetId": "beaker_1793358694852_r0yzq",
+        "tilt": 0.8006482512054092,
+        "targetTilt": 1,
+        "lift": 1,
+        "transferred_ml": 0,
+        "spilled_ml": 0,
+        "released_ml": 0,
+        "inFlight_ml": 0,
+        "onWall_ml": 0,
+        "flow_ml_s": 0,
+        "wallClinging": false,
+        "aim": {
+          "landing": [
+            1.85861652432366,
+            -1.1052612079512747,
+            -0.016057079413596353
+          ],
+          "kind": "inside"
+        },
+        "assist": "low",
+        "phase": "tilting",
+        "startedAt": 32.666666666666096,
+        "sourcePos": [
+          -0.07438810899594572,
+          -1.0213872869281038,
+          0.80120417134338
+        ],
+        "sourceRotationZ": -0.8006482512054092,
+        "initialSourcePos": [
+          -1,
+          -0.135,
+          0
+        ],
+        "initialFromVolume_ml": 0.0002,
+        "initialToVolume_ml": 0,
+        "mixingZone": {
+          "active": false,
+          "point": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.05,
+          "intensity": 0,
+          "color": "#25b5db"
+        },
+        "trajectory": {
+          "exitPos": [
+            1.85861652432366,
+            0.5172219315948883,
+            -0.016057079413596353
+          ],
+          "exitVel": [
+            0,
+            0,
+            0
+          ],
+          "impactPos": [
+            1.85861652432366,
+            -1.1052612079512747,
+            -0.016057079413596353
+          ],
+          "timeOfFlight": 0.10765298547867863,
+          "landingKind": "inside",
+          "targetVesselId": "beaker_1793358694852_r0yzq",
+          "detailKind": "wall_inner"
+        }
+      },
+      "tilted": {
+        "type": "test_tube",
+        "stock_ml": 0.0002,
+        "bodyVisible": true,
+        "surfaceVisible": true,
+        "tilt": 0.8006482512054094,
+        "c": -0.6022924754062947,
+        "radialSegments": 124,
+        "fineSegments": 1024,
+        "originY": -0.7214213562373095,
+        "vertices": 2000,
+        "triangles": 3720,
+        "continuumVolume_ml": 0.00020000000000027404,
+        "uniformFineMeshVolume_ml": 0.00019989336057077967,
+        "uploadedMeshVolume_ml": 0.00019989334979464697,
+        "gpuPlane": [
+          0,
+          0.696241557598114,
+          -0.7178075909614563,
+          0.0015043594175949693
+        ],
+        "gpuVolume_ml": 0.0001998933233940174,
+        "localClippingCompiled": true,
+        "relativeError": 1.3701604954785562e-12,
+        "waveLimit": 0.00007521796942455694,
+        "depth": 0.0015043594302186492,
+        "surfaceNormalDot": 1,
+        "worldPlaneNormal": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "after": {
+        "volume_ml": 0.0002,
+        "mass_g": 0.0002,
+        "water_mol": 0.000011101859561476547
+      },
+      "horizontal": {
+        "type": "test_tube",
+        "stock_ml": 0.0002,
+        "bodyVisible": true,
+        "surfaceVisible": true,
+        "tilt": 1.5707963267948966,
+        "c": -0.1999256642056698,
+        "radialSegments": 318,
+        "fineSegments": 8192,
+        "originY": -0.58,
+        "vertices": 5104,
+        "triangles": 9540,
+        "continuumVolume_ml": 0.00020000000000120594,
+        "uniformFineMeshVolume_ml": 0.00019996039716501003,
+        "uploadedMeshVolume_ml": 0.00019996039617490804,
+        "gpuPlane": [
+          0,
+          4.440892098500626e-16,
+          -1,
+          0.00007433579594362527
+        ],
+        "gpuVolume_ml": 0.00019996040268574868,
+        "localClippingCompiled": true,
+        "relativeError": 6.029654857006572e-12,
+        "waveLimit": 0.0000037167897062317934,
+        "depth": 0.00007433579432994386,
+        "surfaceNormalDot": 0.9999999999999997,
+        "worldPlaneNormal": [
+          0,
+          -1,
+          0
+        ]
+      }
+    },
+    {
+      "type": "cylinder",
+      "volume": 0.02,
+      "before": {
+        "volume_ml": 0.02,
+        "mass_g": 0.02,
+        "water_mol": 0.0011101859561476546
+      },
+      "upright": {
+        "type": "cylinder",
+        "stock_ml": 0.02,
+        "bodyVisible": true,
+        "surfaceVisible": true,
+        "tilt": 0,
+        "c": -0.8694900000000003,
+        "radialSegments": 64,
+        "fineSegments": 64,
+        "originY": -0.87,
+        "vertices": 260,
+        "triangles": 384,
+        "continuumVolume_ml": 0.01999999999998735,
+        "uniformFineMeshVolume_ml": 0.01996788786069974,
+        "uploadedMeshVolume_ml": 0.019967887344949534,
+        "gpuPlane": [
+          0,
+          1,
+          0,
+          0.0005099999834783375
+        ],
+        "gpuVolume_ml": 0.019967886698078217,
+        "localClippingCompiled": true,
+        "relativeError": -6.324801793411439e-13,
+        "waveLimit": 0.000025499999537714757,
+        "depth": 0.0005100000000000104,
+        "surfaceNormalDot": 0.9999999999999998,
+        "worldPlaneNormal": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "session": {
+        "id": "pour_13",
+        "mode": "HAND_TILT",
+        "sourceId": "cylinder_1793358695479_vi8za",
+        "targetId": "beaker_1793358695479_pfvz4",
+        "tilt": 0.8006482512054092,
+        "targetTilt": 1,
+        "lift": 1,
+        "transferred_ml": 0,
+        "spilled_ml": 0,
+        "released_ml": 0,
+        "inFlight_ml": 0,
+        "onWall_ml": 0,
+        "flow_ml_s": 0,
+        "wallClinging": false,
+        "aim": {
+          "landing": [
+            1.8589464176332424,
+            -1.1052612079247746,
+            -0.0161965560677948
+          ],
+          "kind": "inside"
+        },
+        "assist": "low",
+        "phase": "tilting",
+        "startedAt": 48.199999999998546,
+        "sourcePos": [
+          -0.2433717118686467,
+          -1.0374075402100777,
+          0.8726492927159005
+        ],
+        "sourceRotationZ": -0.8006482512054092,
+        "initialSourcePos": [
+          -1,
+          -0.135,
+          0
+        ],
+        "initialFromVolume_ml": 0.02,
+        "initialToVolume_ml": 0,
+        "mixingZone": {
+          "active": false,
+          "point": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.05,
+          "intensity": 0,
+          "color": "#25b5db"
+        },
+        "trajectory": {
+          "exitPos": [
+            1.8589464176332424,
+            0.5123863669038633,
+            -0.0161965560677948
+          ],
+          "exitVel": [
+            0,
+            0,
+            0
+          ],
+          "impactPos": [
+            1.8589464176332424,
+            -1.1052612079247746,
+            -0.0161965560677948
+          ],
+          "timeOfFlight": 0.1074924440809226,
+          "landingKind": "inside",
+          "targetVesselId": "beaker_1793358695479_pfvz4",
+          "detailKind": "wall_inner"
+        }
+      },
+      "tilted": {
+        "type": "cylinder",
+        "stock_ml": 0.02,
+        "bodyVisible": true,
+        "surfaceVisible": true,
+        "tilt": 0.8006482512054093,
+        "c": -0.8080266181709115,
+        "radialSegments": 100,
+        "fineSegments": 256,
+        "originY": -0.87,
+        "vertices": 404,
+        "triangles": 600,
+        "continuumVolume_ml": 0.02000000000000051,
+        "uniformFineMeshVolume_ml": 0.019980707280550708,
+        "uploadedMeshVolume_ml": 0.01998070713667395,
+        "gpuPlane": [
+          0,
+          0.696241557598114,
+          -0.7178075909614563,
+          0.030990982428193092
+        ],
+        "gpuVolume_ml": 0.019980706726732918,
+        "localClippingCompiled": true,
+        "relativeError": 2.5500435096859064e-14,
+        "waveLimit": 0.0015495490515604615,
+        "depth": 0.03099098204359818,
+        "surfaceNormalDot": 1,
+        "worldPlaneNormal": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "after": {
+        "volume_ml": 0.02,
+        "mass_g": 0.02,
+        "water_mol": 0.0011101859561476546
+      },
+      "horizontal": {
+        "type": "cylinder",
+        "stock_ml": 0.02,
+        "bodyVisible": true,
+        "surfaceVisible": true,
+        "tilt": 1.5707963267948966,
+        "c": -0.3234371770242991,
+        "radialSegments": 126,
+        "fineSegments": 2048,
+        "originY": -0.87,
+        "vertices": 508,
+        "triangles": 756,
+        "continuumVolume_ml": 0.019999999999998602,
+        "uniformFineMeshVolume_ml": 0.01999509793756993,
+        "uploadedMeshVolume_ml": 0.01999509761506865,
+        "gpuPlane": [
+          0,
+          4.579669976578771e-16,
+          -1,
+          0.0015628229593858123
+        ],
+        "gpuVolume_ml": 0.019995097302023482,
+        "localClippingCompiled": true,
+        "relativeError": -6.990935608186533e-14,
+        "waveLimit": 0.00007814115087967366,
+        "depth": 0.0015628229757010392,
+        "surfaceNormalDot": 0.9999999999999998,
+        "worldPlaneNormal": [
+          0,
+          -1,
+          0
+        ]
+      }
+    },
+    {
+      "type": "cylinder",
+      "volume": 0.0002,
+      "before": {
+        "volume_ml": 0.0002,
+        "mass_g": 0.0002,
+        "water_mol": 0.000011101859561476547
+      },
+      "upright": {
+        "type": "cylinder",
+        "stock_ml": 0.0002,
+        "bodyVisible": true,
+        "surfaceVisible": true,
+        "tilt": 0,
+        "c": -0.8699949000000002,
+        "radialSegments": 64,
+        "fineSegments": 64,
+        "originY": -0.87,
+        "vertices": 260,
+        "triangles": 384,
+        "continuumVolume_ml": 0.0001999999999905128,
+        "uniformFineMeshVolume_ml": 0.00019967887859765173,
+        "uploadedMeshVolume_ml": 0.00019967887345013314,
+        "gpuPlane": [
+          0,
+          1,
+          0,
+          0.000005100000180391362
+        ],
+        "gpuVolume_ml": 0.00019967888051227473,
+        "localClippingCompiled": true,
+        "relativeError": -4.743601345058579e-11,
+        "waveLimit": 2.550000033352262e-7,
+        "depth": 0.0000050999999999801204,
+        "surfaceNormalDot": 0.9999999999999998,
+        "worldPlaneNormal": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "session": {
+        "id": "pour_14",
+        "mode": "HAND_TILT",
+        "sourceId": "cylinder_1793358696145_b4p6w",
+        "targetId": "beaker_1793358696146_piixf",
+        "tilt": 0.8006482512054092,
+        "targetTilt": 1,
+        "lift": 1,
+        "transferred_ml": 0,
+        "spilled_ml": 0,
+        "released_ml": 0,
+        "inFlight_ml": 0,
+        "onWall_ml": 0,
+        "flow_ml_s": 0,
+        "wallClinging": false,
+        "aim": {
+          "landing": [
+            1.8589464176332424,
+            -1.1052612079247746,
+            -0.0161965560677948
+          ],
+          "kind": "inside"
+        },
+        "assist": "low",
+        "phase": "tilting",
+        "startedAt": 48.73333333333185,
+        "sourcePos": [
+          -0.2433717118686467,
+          -1.0374075402100777,
+          0.8726492927159005
+        ],
+        "sourceRotationZ": -0.8006482512054092,
+        "initialSourcePos": [
+          -1,
+          -0.135,
+          0
+        ],
+        "initialFromVolume_ml": 0.0002,
+        "initialToVolume_ml": 0,
+        "mixingZone": {
+          "active": false,
+          "point": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.05,
+          "intensity": 0,
+          "color": "#25b5db"
+        },
+        "trajectory": {
+          "exitPos": [
+            1.8589464176332424,
+            0.5123863669038633,
+            -0.0161965560677948
+          ],
+          "exitVel": [
+            0,
+            0,
+            0
+          ],
+          "impactPos": [
+            1.8589464176332424,
+            -1.1052612079247746,
+            -0.0161965560677948
+          ],
+          "timeOfFlight": 0.1074924440809226,
+          "landingKind": "inside",
+          "targetVesselId": "beaker_1793358696146_piixf",
+          "detailKind": "wall_inner"
+        }
+      },
+      "tilted": {
+        "type": "cylinder",
+        "stock_ml": 0.0002,
+        "bodyVisible": true,
+        "surfaceVisible": true,
+        "tilt": 0.8006482512054093,
+        "c": -0.8341298126939947,
+        "radialSegments": 154,
+        "fineSegments": 1024,
+        "originY": -0.87,
+        "vertices": 620,
+        "triangles": 924,
+        "continuumVolume_ml": 0.00020000000000001662,
+        "uniformFineMeshVolume_ml": 0.00019992489180321307,
+        "uploadedMeshVolume_ml": 0.000199924892632295,
+        "gpuPlane": [
+          0,
+          0.696241557598114,
+          -0.7178075909614563,
+          0.004887787625193596
+        ],
+        "gpuVolume_ml": 0.00019992489302543513,
+        "localClippingCompiled": true,
+        "relativeError": 8.307699146670178e-14,
+        "waveLimit": 0.0002443893754389137,
+        "depth": 0.004887787520515108,
+        "surfaceNormalDot": 1,
+        "worldPlaneNormal": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "after": {
+        "volume_ml": 0.0002,
+        "mass_g": 0.0002,
+        "water_mol": 0.000011101859561476547
+      },
+      "horizontal": {
+        "type": "cylinder",
+        "stock_ml": 0.0002,
+        "bodyVisible": true,
+        "surfaceVisible": true,
+        "tilt": 1.5707963267948966,
+        "c": -0.3249274934669396,
+        "radialSegments": 318,
+        "fineSegments": 8192,
+        "originY": -0.87,
+        "vertices": 1276,
+        "triangles": 1908,
+        "continuumVolume_ml": 0.00020000000000125096,
+        "uniformFineMeshVolume_ml": 0.00019993403450738407,
+        "uploadedMeshVolume_ml": 0.00019993403145396904,
+        "gpuPlane": [
+          0,
+          4.579669976578771e-16,
+          -1,
+          0.00007250653288792819
+        ],
+        "gpuVolume_ml": 0.00019993403073750266,
+        "localClippingCompiled": true,
+        "relativeError": 6.254762333068875e-12,
+        "waveLimit": 0.0000036253265989216743,
+        "depth": 0.00007250653306040133,
+        "surfaceNormalDot": 0.9999999999999998,
+        "worldPlaneNormal": [
+          0,
+          -1,
+          0
+        ]
+      }
+    }
+  ],
+  "pours": [
+    {
+      "type": "beaker",
+      "before": {
+        "volume_ml": 0.02,
+        "mass_g": 0.02,
+        "water_mol": 0.0011101859561476546
+      },
+      "after": {
+        "volume_ml": 0.019999999999999997,
+        "mass_g": 0.019999999999999997,
+        "water_mol": 0.0011101859561476546
+      },
+      "session": {
+        "id": "pour_4",
+        "mode": "ASSIST",
+        "sourceId": "beaker_1793358692193_t42rf",
+        "targetId": "beaker_1793358692193_s41bk",
+        "tilt": 0,
+        "targetTilt": 0,
+        "lift": 1,
+        "requestedVolume_ml": 0.02,
+        "transferred_ml": 0.019999999999999997,
+        "spilled_ml": 0,
+        "released_ml": 0.02,
+        "inFlight_ml": 0,
+        "onWall_ml": 0,
+        "flow_ml_s": 0,
+        "wallClinging": false,
+        "aim": {
+          "landing": [
+            -0.32891477228304966,
+            -1.1749999999999998,
+            -0.2837302834740817
+          ],
+          "kind": "table"
+        },
+        "assist": "high",
+        "phase": "settling",
+        "startedAt": 1.0666666666666678,
+        "sourcePos": [
+          -1,
+          -0.135,
+          0
+        ],
+        "sourceRotationZ": 0,
+        "initialSourcePos": [
+          -1,
+          -0.135,
+          0
+        ],
+        "initialFromVolume_ml": 0.02,
+        "initialToVolume_ml": 0,
+        "mixingZone": {
+          "active": true,
+          "point": [
+            1.4235179177113881,
+            -1.1052612082528168,
+            -0.4270834468186273
+          ],
+          "radius": 0.08,
+          "intensity": 0.006853228608017381,
+          "color": "#25b5db"
+        },
+        "trajectory": {
+          "exitPos": [
+            -0.32891477228304966,
+            0.3519391909283003,
+            -0.2837302834740817
+          ],
+          "exitVel": [
+            0,
+            0,
+            0
+          ],
+          "impactPos": [
+            -0.32891477228304966,
+            -1.1749999999999998,
+            -0.2837302834740817
+          ],
+          "timeOfFlight": 0.10443518806719657,
+          "landingKind": "table",
+          "targetVesselId": null
+        }
+      },
+      "sourceRemaining_ml": 1.734723475976807e-18
+    },
+    {
+      "type": "flask",
+      "before": {
+        "volume_ml": 0.02,
+        "mass_g": 0.02,
+        "water_mol": 0.0011101859561476546
+      },
+      "after": {
+        "volume_ml": 0.02,
+        "mass_g": 0.02,
+        "water_mol": 0.0011101859561476546
+      },
+      "session": {
+        "id": "pour_8",
+        "mode": "ASSIST",
+        "sourceId": "flask_1793358693794_qto33",
+        "targetId": "beaker_1793358693795_p2lmr",
+        "tilt": 0,
+        "targetTilt": 0,
+        "lift": 1,
+        "requestedVolume_ml": 0.02,
+        "transferred_ml": 0.02,
+        "spilled_ml": 0,
+        "released_ml": 0.02,
+        "inFlight_ml": 0,
+        "onWall_ml": 0,
+        "flow_ml_s": 0,
+        "wallClinging": false,
+        "aim": {
+          "landing": [
+            2.7159086232583,
+            -0.5068130956473156,
+            0.046975546433022264
+          ],
+          "kind": "inside"
+        },
+        "assist": "high",
+        "phase": "settling",
+        "startedAt": 17.133333333333642,
+        "sourcePos": [
+          -1,
+          -0.135,
+          0
+        ],
+        "sourceRotationZ": 0,
+        "initialSourcePos": [
+          -1,
+          -0.135,
+          0
+        ],
+        "initialFromVolume_ml": 0.02,
+        "initialToVolume_ml": 0,
+        "mixingZone": {
+          "active": false,
+          "point": [
+            1.2857709244081126,
+            -1.1052612082992532,
+            -0.06788732816550583
+          ],
+          "radius": 0.08,
+          "intensity": 0.0009489323820838849,
+          "color": "#25b5db"
+        },
+        "trajectory": {
+          "exitPos": [
+            -0.5969573133119721,
+            1.7208193942536356,
+            -0.17040371479370775
+          ],
+          "exitVel": [
+            26.263107271357995,
+            0,
+            1.7232978833054153
+          ],
+          "impactPos": [
+            2.7159086232583,
+            -0.5068130956473156,
+            0.046975546433022264
+          ],
+          "timeOfFlight": 0.12614143110869502,
+          "landingKind": "inside",
+          "targetVesselId": "beaker_1793358693795_p2lmr",
+          "detailKind": "wall_inner"
+        }
+      },
+      "sourceRemaining_ml": 0
+    },
+    {
+      "type": "test_tube",
+      "before": {
+        "volume_ml": 0.02,
+        "mass_g": 0.02,
+        "water_mol": 0.0011101859561476546
+      },
+      "after": {
+        "volume_ml": 0.019999999999999997,
+        "mass_g": 0.019999999999999997,
+        "water_mol": 0.0011101859561476546
+      },
+      "session": {
+        "id": "pour_12",
+        "mode": "ASSIST",
+        "sourceId": "test_tube_1793358695234_4hkts",
+        "targetId": "beaker_1793358695234_7je2j",
+        "tilt": 0,
+        "targetTilt": 0,
+        "lift": 1,
+        "requestedVolume_ml": 0.02,
+        "transferred_ml": 0.019999999999999997,
+        "spilled_ml": 0,
+        "released_ml": 0.019999999999999997,
+        "inFlight_ml": 0,
+        "onWall_ml": 0,
+        "flow_ml_s": 0,
+        "wallClinging": false,
+        "aim": {
+          "landing": [
+            2.7164799302425697,
+            -0.9199455453710139,
+            0.03726089220683129
+          ],
+          "kind": "inside"
+        },
+        "assist": "high",
+        "phase": "settling",
+        "startedAt": 33.1999999999994,
+        "sourcePos": [
+          -1,
+          -0.135,
+          0
+        ],
+        "sourceRotationZ": 0,
+        "initialSourcePos": [
+          -1,
+          -0.135,
+          0
+        ],
+        "initialFromVolume_ml": 0.02,
+        "initialToVolume_ml": 0,
+        "mixingZone": {
+          "active": true,
+          "point": [
+            1.5471914958730288,
+            -1.105261208136081,
+            -0.5565036570738668
+          ],
+          "radius": 0.08,
+          "intensity": 0.0029188460576297956,
+          "color": "#25b5db"
+        },
+        "trajectory": {
+          "exitPos": [
+            -0.6714050061094505,
+            2.4426860953479315,
+            -0.138927735128232
+          ],
+          "exitVel": [
+            21.860144183455393,
+            0,
+            1.136847581717687
+          ],
+          "impactPos": [
+            2.7164799302425697,
+            -0.9199455453710139,
+            0.03726089220683129
+          ],
+          "timeOfFlight": 0.15497999043007699,
+          "landingKind": "inside",
+          "targetVesselId": "beaker_1793358695234_7je2j",
+          "detailKind": "wall_inner"
+        }
+      },
+      "sourceRemaining_ml": 0
+    },
+    {
+      "type": "cylinder",
+      "before": {
+        "volume_ml": 0.02,
+        "mass_g": 0.02,
+        "water_mol": 0.0011101859561476546
+      },
+      "after": {
+        "volume_ml": 0.020000000000000004,
+        "mass_g": 0.020000000000000004,
+        "water_mol": 0.0011101859561476548
+      },
+      "session": {
+        "id": "pour_16",
+        "mode": "ASSIST",
+        "sourceId": "cylinder_1793358696750_hwr9s",
+        "targetId": "beaker_1793358696750_1m6a9",
+        "tilt": 0,
+        "targetTilt": 0,
+        "lift": 1,
+        "requestedVolume_ml": 0.02,
+        "transferred_ml": 0.020000000000000004,
+        "spilled_ml": 0,
+        "released_ml": 0.019999999999999997,
+        "inFlight_ml": 0,
+        "onWall_ml": 0,
+        "flow_ml_s": 0,
+        "wallClinging": false,
+        "aim": {
+          "landing": [
+            2.7155705201326006,
+            -1.0686893891327673,
+            0.05187188386335087
+          ],
+          "kind": "inside"
+        },
+        "assist": "high",
+        "phase": "settling",
+        "startedAt": 49.26666666666515,
+        "sourcePos": [
+          -1,
+          -0.135,
+          0
+        ],
+        "sourceRotationZ": 0,
+        "initialSourcePos": [
+          -1,
+          -0.135,
+          0
+        ],
+        "initialFromVolume_ml": 0.02,
+        "initialToVolume_ml": 0,
+        "mixingZone": {
+          "active": false,
+          "point": [
+            1.9313260401235128,
+            -1.105261216181434,
+            -0.04679816963150914
+          ],
+          "radius": 0.08,
+          "intensity": 0.0001491108716549645,
+          "color": "#25b5db"
+        },
+        "trajectory": {
+          "exitPos": [
+            -0.5609166135187507,
+            2.5824238970619993,
+            -0.18564147826485966
+          ],
+          "exitVel": [
+            20.288962083416102,
+            0,
+            1.4707518760049914
+          ],
+          "impactPos": [
+            2.7155705201326006,
+            -1.0686893891327673,
+            0.05187188386335087
+          ],
+          "timeOfFlight": 0.1614911162128645,
+          "landingKind": "inside",
+          "targetVesselId": "beaker_1793358696750_1m6a9",
+          "detailKind": "wall_inner"
+        }
+      },
+      "sourceRemaining_ml": 0
+    }
+  ],
+  "layers": [
+    {
+      "tier": "low",
+      "unchanged": true,
+      "layers": [
+        {
+          "volume_ml": 2.999055564151774,
+          "top": [
+            0,
+            0.6967067122459412,
+            -0.7173560857772827,
+            0.2138751596212387
+          ],
+          "lower": [
+            0,
+            0,
+            0,
+            -100000002004087730000
+          ],
+          "vertices": 2056
+        },
+        {
+          "volume_ml": 0.004999254723823524,
+          "top": [
+            0,
+            0.6967067122459412,
+            -0.7173560857772827,
+            0.21400412917137146
+          ],
+          "lower": [
+            0,
+            0.6967067122459412,
+            -0.7173560857772827,
+            0.2138751596212387
+          ],
+          "vertices": 2056
+        }
+      ]
+    },
+    {
+      "tier": "medium",
+      "unchanged": true,
+      "layers": [
+        {
+          "volume_ml": 2.999055564151774,
+          "top": [
+            0,
+            0.6967067122459412,
+            -0.7173560857772827,
+            0.2138751596212387
+          ],
+          "lower": [
+            0,
+            0,
+            0,
+            -100000002004087730000
+          ],
+          "vertices": 2056
+        },
+        {
+          "volume_ml": 0.004999254723823524,
+          "top": [
+            0,
+            0.6967067122459412,
+            -0.7173560857772827,
+            0.21400412917137146
+          ],
+          "lower": [
+            0,
+            0.6967067122459412,
+            -0.7173560857772827,
+            0.2138751596212387
+          ],
+          "vertices": 2056
+        }
+      ]
+    },
+    {
+      "tier": "high",
+      "unchanged": true,
+      "layers": [
+        {
+          "volume_ml": 2.999055564151774,
+          "top": [
+            0,
+            0.6967067122459412,
+            -0.7173560857772827,
+            0.2138751596212387
+          ],
+          "lower": [
+            0,
+            0,
+            0,
+            -100000002004087730000
+          ],
+          "vertices": 2056
+        },
+        {
+          "volume_ml": 0.004999254723823524,
+          "top": [
+            0,
+            0.6967067122459412,
+            -0.7173560857772827,
+            0.21400412917137146
+          ],
+          "lower": [
+            0,
+            0.6967067122459412,
+            -0.7173560857772827,
+            0.2138751596212387
+          ],
+          "vertices": 2056
+        }
+      ]
+    },
+    {
+      "tier": "ultra",
+      "unchanged": true,
+      "layers": [
+        {
+          "volume_ml": 2.999055564151774,
+          "top": [
+            0,
+            0.6967067122459412,
+            -0.7173560857772827,
+            0.2138751596212387
+          ],
+          "lower": [
+            0,
+            0,
+            0,
+            -100000002004087730000
+          ],
+          "vertices": 2056
+        },
+        {
+          "volume_ml": 0.004999254723823524,
+          "top": [
+            0,
+            0.6967067122459412,
+            -0.7173560857772827,
+            0.21400412917137146
+          ],
+          "lower": [
+            0,
+            0.6967067122459412,
+            -0.7173560857772827,
+            0.2138751596212387
+          ],
+          "vertices": 2056
+        }
+      ]
+    }
+  ]
+}

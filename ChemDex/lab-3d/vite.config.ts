@@ -37,6 +37,7 @@ export default defineConfig(() => {
     },
     build: {
       rollupOptions: {
+        output: {manualChunks(id) {if(!id.includes('node_modules'))return; if(id.includes('/three/')||id.includes('\\three\\'))return 'vendor-three'; if(id.includes('recharts'))return 'vendor-charts';}},
         input: {
           main: path.resolve(__dirname, 'index.source.html'),
         },

@@ -4,6 +4,7 @@ const cache = {
   element: new Map(),
   metaByNumber: new Map(),
   metaBySymbol: new Map(),
+  references: null,
 };
 const NATURAL_STATE_IMAGE = "trang-thai-tu-nhien.png";
 
@@ -86,6 +87,14 @@ async function fetchJson(url, fallback = null) {
   }
 }
 
+function loadReferences() {
+  cache.references ??= Promise.all([
+    fetchJson(new URL("../shared/atomic-weights.json", import.meta.url)),
+    fetchJson(new URL("../shared/element-insights.json", import.meta.url)),
+  ]);
+  return cache.references;
+}
+
 export async function loadManifest() {
   if (cache.manifest) return cache.manifest;
   const manifest = await fetchJson(manifestUrl, []);
@@ -134,6 +143,18 @@ export async function loadElementData(numberOrSymbol) {
       }
     : getPlaceholderFromMeta(meta);
 
+  const [weights, insights] = await loadReferences();
+  const weight = weights?.elements?.find((entry) => entry.z === meta.number && entry.symbol === meta.symbol);
+  if (weight) {
+    merged.mass = weight.value;
+    merged.massStandardText = weight.text;
+    merged.massStandardSource = weights.source;
+  }
+  const insight = insights?.elements?.[meta.symbol];
+  if (insight && Object.hasOwn(insight, "meltingPoint")) {
+    merged.general = { ...merged.general, meltingPoint: insight.meltingPointNote };
+    merged.meltingPointSource = insight.meltingPointSource ?? insight.source;
+  }
   const normalized = applyAssetDefaults(merged, meta);
 
   cache.element.set(cacheKey, normalized);

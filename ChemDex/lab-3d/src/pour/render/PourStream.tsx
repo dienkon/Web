@@ -3,7 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { PourController } from '../controller/PourController';
 import { useAppStore } from '../../store/useAppStore';
-import { getVesselProfile } from '../physics/profiles';
+import { getWorldVesselProfile } from '../physics/profiles';
 import { pourAudio } from '../audio/PourAudio';
 
 /**
@@ -38,8 +38,8 @@ export const PourStream = React.memo(function PourStream() {
       return;
     }
 
-    const srcProfile = getVesselProfile(sourceVessel.type);
-    const tgtProfile = getVesselProfile(targetVessel.type);
+    const srcProfile = getWorldVesselProfile(sourceVessel.type, sourceVessel.capacity_ml);
+    const tgtProfile = getWorldVesselProfile(targetVessel.type, targetVessel.capacity_ml);
 
     // Audio acoustic feedback
     const fillRatio = targetVessel.volume_ml / targetVessel.capacity_ml;

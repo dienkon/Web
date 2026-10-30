@@ -12,6 +12,10 @@
 
 ---
 
+Bản nâng cấp nền tảng: xem [kiến trúc, dữ liệu, kiểm thử và triển khai](docs/PLATFORM_UPGRADE.md). Dùng Node.js 22, `npm ci`, `npm run build`, rồi `npm run preview` (cổng 4173). Bản production được đóng gói trong `dist`; không phục vụ trực tiếp thư mục source.
+
+Nâng cấp web chính 27/10/2026: [giao diện mới, tìm kiếm nhanh, 25 tiện ích và dữ liệu CIAAW](docs/MAIN_WEB_UPGRADE.md).
+
 ## 📖 Giới thiệu
 
 **ChemDex** là một nền tảng học tập hóa học trực tuyến, không chỉ là một bảng tuần hoàn thông thường mà còn là một cổng thông tin và trải nghiệm học tập phong phú. Dự án kết hợp dữ liệu hóa học chi tiết, các công cụ tương tác, và môi trường giả lập (phòng thí nghiệm ảo) nhằm mang lại trải nghiệm học tập sinh động và trực quan nhất.
@@ -73,7 +77,7 @@ ChemDex/
 Dự án có thể chạy như một trang web tĩnh, tuy nhiên để các tính năng `fetch()` dữ liệu JSON, ES Modules hoặc Build hoạt động tốt nhất, vui lòng chạy qua local server.
 
 ### 1. Yêu cầu hệ thống
-- **Node.js**: Phiên bản >= 18.x (khuyến nghị)
+- **Node.js**: Phiên bản 22.x (khuyến nghị)
 - **NPM**: Phiên bản đi kèm với Node.js.
 
 ### 2. Cài đặt
@@ -101,9 +105,9 @@ npm run build
 ### 4. Chạy dự án (Local Server)
 Sử dụng một công cụ local server bất kỳ (như Live Server của VSCode, `http-server`, `serve`,...) để chạy web tĩnh từ thư mục gốc:
 ```bash
-npx serve .
+npm run preview
 ```
-Truy cập `http://localhost:3000` (hoặc cổng mà server cung cấp) trên trình duyệt.
+Truy cập `http://localhost:4173` (hoặc cổng mà server cung cấp) trên trình duyệt.
 
 ---
 

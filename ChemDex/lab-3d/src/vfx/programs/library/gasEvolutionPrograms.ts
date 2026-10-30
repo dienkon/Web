@@ -157,7 +157,6 @@ export const GAS_EVOLUTION_PROGRAMS: ReactionProgram[] = [
       duration_s: 7.5,
       timeline: [
         { id: 'bubbles', atom: 'nucleateBubbles', anchor: 'bottom', window: [0, 0.8], intensity: 1.2, params: { bubbleRate: 40, meanRadius_mm: 1.8, color: '#e0f2fe', gasSpecies: 'H2' } },
-        { id: 'plume', atom: 'buoyantGasPlume', anchor: 'rim', window: [0.1, 0.9], intensity: 0.8, params: { riseSpeed: 2.0, color: '#f8fafc', opacity: 0.15 } },
         { id: 'erosion', atom: 'solidErosion', anchor: 'bottom', window: [0, 1.0], intensity: 1.0, params: { initialShape: 'granule', erosionRate: 0.12 } },
         { id: 'sound', atom: 'proceduralAcoustics', anchor: 'bulk', window: [0, 0.7], intensity: 0.8, params: { soundProfile: 'fizz_effervescence', volume: 0.6 } }
       ],
@@ -201,7 +200,6 @@ export const GAS_EVOLUTION_PROGRAMS: ReactionProgram[] = [
       duration_s: 6.0,
       timeline: [
         { id: 'eff', atom: 'effervescenceBurst', anchor: 'bottom', window: [0, 0.7], intensity: 1.8, params: { intensity: 3.5, churnRadius: 0.5, gasSpecies: 'H2' } },
-        { id: 'steam', atom: 'thermalSteam', anchor: 'rim', window: [0.15, 0.85], intensity: 1.0, params: { steamDensity: 0.9, temperature_c: 68 } },
         { id: 'erosion', atom: 'solidErosion', anchor: 'bottom', window: [0, 0.8], intensity: 1.5, params: { initialShape: 'ribbon', erosionRate: 0.35 } }
       ],
       after: {
@@ -212,10 +210,10 @@ export const GAS_EVOLUTION_PROGRAMS: ReactionProgram[] = [
       }
     },
     explain: {
-      observation_vi: 'Dải magie tan rất nhanh, sủi bọt mãnh liệt, tỏa nhiệt nóng rực, hơi nước bốc lên.',
-      observation_en: 'Magnesium ribbon dissolves extremely rapidly with vigorous effervescence and intense heat.',
-      why_vi: 'Magie có tính khử rất mạnh, tỏa nhiệt ΔH = -466.8 kJ/mol làm tăng tốc độ phản ứng theo cấp số nhân.',
-      why_en: 'Highly active metal with massive exothermic enthalpy accelerating reaction via Arrhenius thermal feedback.'
+      observation_vi: 'Dải magie mòn dần và sinh bọt H2 không màu; mức ấm lên phụ thuộc lượng phản ứng, nhiệt dung và thất thoát nhiệt.',
+      observation_en: 'Magnesium ribbon erodes and releases colorless hydrogen; warming depends on reacted amount, heat capacity and heat loss.',
+      why_vi: 'Mg khử H+ thành H2. Lượng khí, lượng kim loại còn lại và nhiệt được tính từ mức tiến triển theo chất giới hạn.',
+      why_en: 'Mg reduces H+ to H2. Gas, remaining metal and heat follow the finite limiting-reagent extent.'
     },
     confidence: 1.0
   },

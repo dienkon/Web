@@ -31,6 +31,7 @@ export interface ReactionRuntime {
 
   // Normalized progress & rate
   progress: number; // 0..1
+  chemistryProgress?: number; // optional authoritative chemical extent for live playback
   reactionRate: number; // instantaneous kinetic rate (0..1+)
   temperature: number; // °C
 

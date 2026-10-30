@@ -93,7 +93,7 @@ export const InteractiveTasks: React.FC = () => {
       {/* Task: Buộc tóc gọn gàng trước gương */}
       <InteractableItem
         id="mirror_hair"
-        position={[-0.95, 1.5, 6.82]}
+        position={[-.8,1.5,7.115]}
         label="Buộc tóc gọn gàng trước gương (Phím E)"
         type="action"
         taskId="task_hair"

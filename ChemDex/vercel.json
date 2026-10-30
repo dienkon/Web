@@ -1,13 +1,23 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build",
-  "outputDirectory": ".",
+  "outputDirectory": "dist",
   "cleanUrls": false,
   "trailingSlash": true,
   "redirects": [
     {
+      "source": "/lab/",
+      "destination": "/lab-3d/",
+      "permanent": true
+    },
+    {
       "source": "/lab",
       "destination": "/lab-3d/",
+      "permanent": true
+    },
+    {
+      "source": "/lab/:path*/",
+      "destination": "/lab-3d/:path*/",
       "permanent": true
     },
     {
@@ -16,75 +26,78 @@
       "permanent": true
     },
     {
+      "source": "/thi-nghiem/",
+      "destination": "/lab-2d/",
+      "permanent": false
+    },
+    {
       "source": "/thi-nghiem",
-      "destination": "/thi-nghiem.html",
+      "destination": "/lab-2d/",
+      "permanent": false
+    },
+    {
+      "source": "/thi-nghiem.html",
+      "destination": "/lab-2d/",
       "permanent": false
     }
   ],
   "rewrites": [
     {
-      "source": "/trung-tam/assets/:path*",
-      "destination": "/trung-tam/dist/assets/:path*"
+      "source": "/api/:path*/",
+      "destination": "/api/dispatch?__route=:path*"
     },
     {
-      "source": "/trung-tam/:path*",
-      "destination": "/trung-tam/dist/index.html"
+      "source": "/api/:path*",
+      "destination": "/api/dispatch?__route=:path*"
     },
     {
-      "source": "/dau-truong/assets/:path*",
-      "destination": "/dau-truong/dist/assets/:path*"
+      "source": "/trung-tam/tai-lieu-so/:path([^.]*)/",
+      "destination": "/trung-tam/index.html"
     },
     {
-      "source": "/dau-truong/:path*",
-      "destination": "/dau-truong/dist/index.html"
+      "source": "/trung-tam/tai-lieu-so/:path([^.]*)",
+      "destination": "/trung-tam/index.html"
     },
     {
-      "source": "/lab-3d/assets/:path*",
-      "destination": "/lab-3d/dist/assets/:path*"
+      "source": "/trung-tam/cong-dong/:path([^.]*)/",
+      "destination": "/trung-tam/index.html"
     },
     {
-      "source": "/lab-3d/:path*",
-      "destination": "/lab-3d/dist/index.html"
-    },
-    {
-      "source": "/lab-safety/assets/:path*",
-      "destination": "/lab-safety/dist/assets/:path*"
-    },
-    {
-      "source": "/lab-safety/teacher.glb",
-      "destination": "/lab-safety/dist/teacher.glb"
-    },
-    {
-      "source": "/lab-safety/SYMBOLS-IMG/:path*",
-      "destination": "/lab-safety/dist/SYMBOLS-IMG/:path*"
-    },
-    {
-      "source": "/lab-safety/:path*",
-      "destination": "/lab-safety/dist/index.html"
-    },
-    {
-      "source": "/lab-2d/:path*",
-      "destination": "/lab-2d/index.html"
-    },
-    {
-      "source": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/assets/:path*",
-      "destination": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/dist/assets/:path*"
-    },
-    {
-      "source": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/:path*",
-      "destination": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/dist/index.html"
-    },
-    {
-      "source": "/tien-ich/phuong-trinh/chuoi-phan-ung/assets/:path*",
-      "destination": "/tien-ich/phuong-trinh/chuoi-phan-ung/dist/assets/:path*"
-    },
-    {
-      "source": "/tien-ich/phuong-trinh/chuoi-phan-ung/:path*",
-      "destination": "/tien-ich/phuong-trinh/chuoi-phan-ung/dist/index.html"
+      "source": "/trung-tam/cong-dong/:path([^.]*)",
+      "destination": "/trung-tam/index.html"
     },
     {
       "source": "/404",
       "destination": "/404.html"
     }
-  ]
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/platform/chunks/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
+  "functions": {
+    "api/dispatch.ts": {
+      "maxDuration": 60
+    }
+  }
 }

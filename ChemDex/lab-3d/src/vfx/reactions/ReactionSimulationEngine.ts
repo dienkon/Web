@@ -12,6 +12,7 @@
 import { ReactionRuntime, ReactionContext, ReactionVisualController } from './types';
 import { getReactionController } from './registry';
 import { useAppStore } from '../../store/useAppStore';
+import { gasVisualState } from '../gasVisualState';
 import { vfxBus } from '../bus';
 import { labSound } from '../../utils/audio';
 
@@ -29,6 +30,12 @@ export class ReactionSimulationEngine {
   // Fixed timestep configuration: 1/60 s
   public readonly fixedDt: number = 1.0 / 60.0;
   private accumulator: number = 0;
+  private acceptedTime_s = 0;
+  private integratedTime_s = 0;
+  private joinedAt = new Map<string, number>();
+  public getClockState() {
+    return { acceptedTime_s: this.acceptedTime_s, integratedTime_s: this.integratedTime_s, pendingTime_s: this.accumulator };
+  }
 
   /**
    * Starts a reaction simulation in a vessel with its dedicated controller.
@@ -41,13 +48,14 @@ export class ReactionSimulationEngine {
     const controller = getReactionController(reactionId);
     const vessel = useAppStore.getState().vessels[vesselId];
     if (!vessel) return null;
+    if (this.activeRuntimes.has(vesselId)) this.stopReaction(vesselId);
 
     const runtime: ReactionRuntime = {
       reactionId,
       vesselId,
       progress: 0.0,
       reactionRate: 1.0,
-      temperature: vessel.temperature_c || 25.0,
+      temperature: vessel.temperature_c,
       reactantAvailability: Object.fromEntries((vessel.contents ?? []).map(content => [content.formula, content.moles])),
       productFormation: {},
       surfaceActivity: 0.0,
@@ -79,6 +87,7 @@ export class ReactionSimulationEngine {
     }
 
     this.activeRuntimes.set(vesselId, runtime);
+    this.joinedAt.set(vesselId, this.acceptedTime_s);
     return runtime;
   }
 
@@ -87,20 +96,23 @@ export class ReactionSimulationEngine {
    */
   public update(frameDelta: number, timeScale: number = 1.0): void {
     if (!Number.isFinite(frameDelta) || !Number.isFinite(timeScale) || frameDelta <= 0 || timeScale <= 0) return;
-    const clampedDelta = Math.min(frameDelta, 0.1) * Math.min(timeScale, 8);
-    this.accumulator += clampedDelta;
+    const simulatedDelta = frameDelta * timeScale;
+    if (!Number.isFinite(simulatedDelta) || !Number.isFinite(this.accumulator + simulatedDelta)
+      || !Number.isFinite(this.acceptedTime_s + simulatedDelta)) return;
+    this.accumulator += simulatedDelta;
+    this.acceptedTime_s += simulatedDelta;
 
-    const maxSubSteps = 5;
+    // Enough for 30 FPS at 8x. Exceptional backlog is retained and observable,
+    // never silently discarded. Paused/invalid inputs do not drain it.
+    const maxSubSteps = 240;
     let stepCount = 0;
 
-    while (this.accumulator >= this.fixedDt && stepCount < maxSubSteps) {
-      this.stepFixed(this.fixedDt, timeScale);
-      this.accumulator -= this.fixedDt;
+    while (this.accumulator + 1e-12 >= this.fixedDt && stepCount < maxSubSteps) {
+      this.stepFixed(this.fixedDt, 1);
+      this.integratedTime_s += this.fixedDt;
+      this.accumulator = Math.max(0, this.accumulator - this.fixedDt);
       stepCount++;
     }
-    // Discard whole overdue steps instead of carrying an ever-growing backlog
-    // after a tab resumes or the user enables accelerated simulation time.
-    if (stepCount === maxSubSteps) this.accumulator %= this.fixedDt;
   }
 
   /**
@@ -111,9 +123,11 @@ export class ReactionSimulationEngine {
     const activeTool = useAppStore.getState().activeTool;
 
     for (const [vesselId, runtime] of this.activeRuntimes.entries()) {
+      if (this.integratedTime_s + 1e-12 < (this.joinedAt.get(vesselId) ?? 0)) continue;
       const vessel = vessels[vesselId];
       if (!vessel) {
         this.activeRuntimes.delete(vesselId);
+        this.joinedAt.delete(vesselId);
         continue;
       }
 
@@ -129,6 +143,12 @@ export class ReactionSimulationEngine {
         if (controller.updateLiquid) controller.updateLiquid(context);
         if (controller.updateSolids) controller.updateSolids(context);
       }
+      if (runtime.chemistryProgress !== undefined && Number.isFinite(runtime.chemistryProgress)) {
+        runtime.progress = Math.max(0, Math.min(1, runtime.chemistryProgress));
+        runtime.elapsed = runtime.progress * runtime.duration;
+        runtime.temperature = vessel.temperature_c;
+        runtime.gasGenerationRate = gasVisualState(vessel).bubbleRate;
+      }
 
       // Check for completion
       if (runtime.progress >= 1.0) {
@@ -136,6 +156,7 @@ export class ReactionSimulationEngine {
           controller.finalize(context);
         }
         this.activeRuntimes.delete(vesselId);
+        this.joinedAt.delete(vesselId);
       }
     }
   }
@@ -186,11 +207,15 @@ export class ReactionSimulationEngine {
       runtime.heatReleaseRate = 0;
     }
     this.activeRuntimes.delete(vesselId);
+    this.joinedAt.delete(vesselId);
   }
 
   public resetAll(): void {
-    this.activeRuntimes.clear();
+    for (const id of [...this.activeRuntimes.keys()]) this.stopReaction(id);
     this.accumulator = 0;
+    this.acceptedTime_s = 0;
+    this.integratedTime_s = 0;
+    this.joinedAt.clear();
   }
 
   private createContext(
@@ -215,6 +240,7 @@ export class ReactionSimulationEngine {
       },
       emitBurst: (pos, count, color = '#ffffff', speed = 1.5) => {
         vfxBus.emit('particle:burst', {
+          vesselId: vessel.id,
           position: [vessel.position[0] + pos[0], vessel.position[1] + pos[1], vessel.position[2] + pos[2]],
           count,
           color,

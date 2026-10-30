@@ -1,14 +1,17 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { ALL_HANDCRAFTED_PROGRAMS } from '../src/vfx/programs/library';
+import { deriveStandardEnthalpy } from '../src/science/formationEnthalpy';
 
 const entries = ALL_HANDCRAFTED_PROGRAMS.map(program => {
   const value = program.chemistry.deltaH_kJ_per_mol;
   if (value != null && !Number.isFinite(value)) throw new Error('Nonfinite enthalpy: ' + program.id);
   const sourceUrls = program.chemistry.deltaHSourceUrls ?? [];
+  const derived = deriveStandardEnthalpy(program.chemistry.species);
   return { id: program.id, equation: program.chemistry.equation, deltaH_kJ_per_mol_reaction: value ?? null,
     basis: 'coefficients_as_written',
     referenceTemperature_K: program.chemistry.deltaHReferenceTemperature_K ?? null,
     sourceUrls, note_vi: program.chemistry.deltaHNote_vi ?? null,
+    hessDerivation: derived && Math.abs(derived.value - (value ?? Infinity)) < 1e-6 ? derived.contributions : null,
     review: value == null ? 'missing' : sourceUrls.length ? 'sourced_reference_not_sample_calibration' : 'legacy_value_not_source_reviewed',
     experimentallyCalibratedForSample: false };
 });

@@ -1,0 +1,1 @@
+module.exports={content:['./*.html','./js/**/*.js','./tien-ich/**/*.html','!./**/node_modules/**','!./**/dist/**'],theme:{extend:{colors:{dark:'#0f172a',darker:'#0b1120',panel:'#1e293b',primary:'#3b82f6'},fontFamily:{sans:['Inter','system-ui','sans-serif'],mono:['monospace']}}},darkMode:'class'};

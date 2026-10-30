@@ -274,4 +274,355 @@ describe('End-to-End Scientific Experiment Integration Suite', () => {
       expect(useLabStore.getState().equipment[beakerId].volume_ml).toBe(50);
     });
   });
+
+  describe('Experiment 11: "Golden Rain" Lead(II) Iodide Synthesis & Heating', () => {
+    it('synthesizes yellow crystalline PbI2 and supports thermal heating', () => {
+      const store = useLabStore.getState();
+      const flaskId = store.addEquipment('erlenmeyer_flask');
+
+      // Add 20 mL of Pb(NO3)2 and 30 mL of KI
+      store.addChemicalToEquipment(flaskId, 'chem-pbno32', 20);
+      store.addChemicalToEquipment(flaskId, 'chem-ki', 30);
+
+      let flask = useLabStore.getState().equipment[flaskId];
+      expect(flask.hasPrecipitate).toBe(true);
+      expect(flask.precipitateSubstance).toBe('PbI2');
+      expect(flask.precipitateColorHex).toMatch(/#(fbbf24|eab308)/);
+
+      // Heat flask
+      store.toggleHeat(flaskId);
+      flask = useLabStore.getState().equipment[flaskId];
+      expect(flask.isOn).toBe(true);
+      expect(flask.temperature_c).toBeGreaterThan(60.0);
+    });
+
+    it('validates step progression in Guided Experiment mode for Golden Rain', () => {
+      const store = useLabStore.getState();
+      store.selectExperiment('exp-golden-rain');
+
+      expect(useLabStore.getState().activeExperiment?.id).toBe('exp-golden-rain');
+      expect(useLabStore.getState().currentStepIndex).toBe(0);
+      expect(useLabStore.getState().stepCompleted).toBe(false);
+
+      // Step 1: Add erlenmeyer_flask with 30 mL Pb(NO3)2
+      const flaskId = store.addEquipment('erlenmeyer_flask');
+      store.addChemicalToEquipment(flaskId, 'chem-pbno32', 30);
+
+      expect(useLabStore.getState().stepCompleted).toBe(true);
+
+      // Advance to step 2
+      store.nextStep();
+      expect(useLabStore.getState().currentStepIndex).toBe(1);
+      expect(useLabStore.getState().stepCompleted).toBe(false);
+
+      // Step 2: Add 30 mL KI -> forms PbI2 precipitate
+      store.addChemicalToEquipment(flaskId, 'chem-ki', 30);
+      expect(useLabStore.getState().stepCompleted).toBe(true);
+
+      // Advance to step 3
+      store.nextStep();
+      expect(useLabStore.getState().currentStepIndex).toBe(2);
+      expect(useLabStore.getState().stepCompleted).toBe(false);
+
+      // Step 3: Heat flask above 68°C
+      store.toggleHeat(flaskId);
+      expect(useLabStore.getState().stepCompleted).toBe(true);
+    });
+  });
+
+  describe('Experiment 12: Silver Mirror Tollens Reaction', () => {
+    it('forms metallic silver mirror upon adding acetaldehyde and warming', () => {
+      const store = useLabStore.getState();
+      const tubeId = store.addEquipment('test_tube');
+
+      // Add 20 mL AgNO3, 15 mL NH3, and 10 mL CH3CHO
+      store.addChemicalToEquipment(tubeId, 'chem-agno3', 20);
+      store.addChemicalToEquipment(tubeId, 'chem-nh3', 15);
+      store.addChemicalToEquipment(tubeId, 'chem-ch3cho', 10);
+
+      // Warm over burner (toggleHeat warms to 85°C)
+      store.toggleHeat(tubeId);
+
+      const tube = useLabStore.getState().equipment[tubeId];
+      expect(tube.hasSilverMirror).toBe(true);
+      expect(tube.contents.some(c => c.formula === 'Ag')).toBe(true);
+    });
+
+    it('validates step progression in Guided Experiment mode for Silver Mirror', () => {
+      const store = useLabStore.getState();
+      store.selectExperiment('exp-silver-mirror');
+
+      expect(useLabStore.getState().activeExperiment?.id).toBe('exp-silver-mirror');
+      expect(useLabStore.getState().currentStepIndex).toBe(0);
+      expect(useLabStore.getState().stepCompleted).toBe(false);
+
+      // Step 1: Add test tube with 20 mL AgNO3
+      const tubeId = store.addEquipment('test_tube');
+      store.addChemicalToEquipment(tubeId, 'chem-agno3', 20);
+      expect(useLabStore.getState().stepCompleted).toBe(true);
+
+      // Advance to step 2: Add 15 mL NH3
+      store.nextStep();
+      expect(useLabStore.getState().currentStepIndex).toBe(1);
+      expect(useLabStore.getState().stepCompleted).toBe(false);
+
+      store.addChemicalToEquipment(tubeId, 'chem-nh3', 15);
+      expect(useLabStore.getState().stepCompleted).toBe(true);
+
+      // Advance to step 3: Add acetaldehyde & warm above 48°C
+      store.nextStep();
+      expect(useLabStore.getState().currentStepIndex).toBe(2);
+      expect(useLabStore.getState().stepCompleted).toBe(false);
+
+      store.addChemicalToEquipment(tubeId, 'chem-ch3cho', 10);
+      store.toggleHeat(tubeId);
+      expect(useLabStore.getState().stepCompleted).toBe(true);
+    });
+  });
+
+  describe('Workbench Vessel Quick-Actions (Empty, Stir, Dilute, Seal)', () => {
+    it('handles emptyEquipment, toggleStir, addDistilledWater, and toggleSeal', () => {
+      const store = useLabStore.getState();
+      const beakerId = store.addEquipment('beaker');
+
+      // Add 50 mL NaCl
+      store.addChemicalToEquipment(beakerId, 'chem-nacl', 50);
+      expect(useLabStore.getState().equipment[beakerId].volume_ml).toBe(50);
+
+      // Stirring
+      expect(useLabStore.getState().equipment[beakerId].isStirred).toBeFalsy();
+      store.toggleStir(beakerId);
+      expect(useLabStore.getState().equipment[beakerId].isStirred).toBe(true);
+
+      // Dilution with distilled water
+      store.addDistilledWater(beakerId, 25);
+      expect(useLabStore.getState().equipment[beakerId].volume_ml).toBe(75);
+
+      // Seal container
+      expect(useLabStore.getState().equipment[beakerId].isSealed).toBeFalsy();
+      store.toggleSeal(beakerId);
+      expect(useLabStore.getState().equipment[beakerId].isSealed).toBe(true);
+
+      // Empty equipment (rinse)
+      store.emptyEquipment(beakerId);
+      const emptyBeaker = useLabStore.getState().equipment[beakerId];
+      expect(emptyBeaker.volume_ml).toBe(0);
+      expect(emptyBeaker.contents.length).toBe(0);
+      expect(emptyBeaker.hasPrecipitate).toBe(false);
+      expect(emptyBeaker.isStirred).toBe(false);
+    });
+  });
+
+  describe('Position-Based Bunsen Burner Spatial Heating & Flame Emission Color', () => {
+    it('heats beaker positioned in flame cone and detects copper emerald flame emission', () => {
+      const store = useLabStore.getState();
+
+      // Add Bunsen burner at (400, 300) and turn it on
+      const burnerId = store.addEquipment('bunsen_burner', 400, 300);
+      store.toggleHeat(burnerId);
+      expect(useLabStore.getState().equipment[burnerId].isOn).toBe(true);
+
+      // Burner width is 100, height is 160.
+      // Barrel mouth is at burner.y + 42 = 342.
+      // Beaker width is 120, height is 140.
+      // Position beaker so bottom hovers 35px above barrel top:
+      // vesselBottom = 342 - 35 = 307 => beaker.y = 307 - 140 = 167.
+      // Center beaker with burner: burner center = 400 + 50 = 450.
+      // beaker center = beaker.x + 60 => beaker.x = 450 - 60 = 390.
+      const beakerId = store.addEquipment('beaker', 390, 167);
+      store.addChemicalToEquipment(beakerId, 'chem-cuso4', 50);
+
+      // Run multiple physics simulation ticks
+      for (let i = 0; i < 4; i++) {
+        store.tickSimulation(0.5);
+      }
+
+      const beaker = useLabStore.getState().equipment[beakerId];
+      const burner = useLabStore.getState().equipment[burnerId];
+
+      // Beaker should absorb heat and warm up
+      expect(beaker.isBeingHeated).toBe(true);
+      expect(beaker.absorbedPower_W).toBeGreaterThan(100);
+      expect(beaker.temperature_c).toBeGreaterThan(25.0);
+
+      // Burner flame emission should shift to emerald green due to Cu2+ ions
+      expect(burner.gasColorHex).toBe('#10b981');
+    });
+  });
+
+  describe('Experiment 13: Le Chatelier Equilibrium Shift of Iron(III) Thiocyanate', () => {
+    it('forms blood-red complex and shifts equilibrium upon adding phosphate', () => {
+      const store = useLabStore.getState();
+      store.selectExperiment('exp-le-chatelier-thiocyanate');
+
+      expect(useLabStore.getState().currentStepIndex).toBe(0);
+
+      // Step 1: Add test tube with 20 mL FeCl3
+      const tubeId = store.addEquipment('test_tube');
+      store.addChemicalToEquipment(tubeId, 'chem-fecl3', 20);
+      expect(useLabStore.getState().stepCompleted).toBe(true);
+
+      // Step 2: Add 15 mL KSCN -> blood-red color
+      store.nextStep();
+      expect(useLabStore.getState().currentStepIndex).toBe(1);
+      store.addChemicalToEquipment(tubeId, 'chem-kscn', 15);
+      expect(useLabStore.getState().stepCompleted).toBe(true);
+      expect(useLabStore.getState().equipment[tubeId].liquidColorHex).toBe('#7f1d1d');
+
+      // Step 3: Add 20 mL Na2HPO4 -> shifts equilibrium, bleaching blood-red
+      store.nextStep();
+      expect(useLabStore.getState().currentStepIndex).toBe(2);
+      store.addChemicalToEquipment(tubeId, 'chem-na2hpo4', 20);
+      expect(useLabStore.getState().stepCompleted).toBe(true);
+      expect(useLabStore.getState().equipment[tubeId].liquidColorHex).not.toBe('#7f1d1d');
+    });
+  });
+
+  describe('Experiment 14: Liquid-Liquid Phase Extraction using Separatory Funnel', () => {
+    it('separates immiscible organic ester layer and aqueous layer cleanly', () => {
+      const store = useLabStore.getState();
+      store.selectExperiment('exp-phase-extraction');
+
+      // Step 1: Add separatory funnel with 50 mL H2O and 40 mL ethyl acetate
+      const sepId = store.addEquipment('separatory_funnel', 300, 100);
+      store.addChemicalToEquipment(sepId, 'chem-h2o', 50);
+      store.addChemicalToEquipment(sepId, 'chem-ch3cooc2h5', 40);
+
+      const sep = useLabStore.getState().equipment[sepId];
+      expect(sep.volume_ml).toBe(90);
+      expect(sep.hasPhaseSeparation).toBe(true);
+      expect(useLabStore.getState().stepCompleted).toBe(true);
+
+      // Step 2: Place flask underneath and drain lower aqueous phase
+      store.nextStep();
+      const flaskId = store.addEquipment('erlenmeyer_flask', 290, 360);
+      store.toggleBuretteStopcock(sepId);
+
+      // Simulate several seconds of drainage
+      for (let i = 0; i < 26; i++) {
+        store.tickSimulation(1.0);
+      }
+
+      const flask = useLabStore.getState().equipment[flaskId];
+      expect(flask.volume_ml).toBeGreaterThan(30);
+      expect(useLabStore.getState().stepCompleted).toBe(true);
+    });
+  });
+
+  describe('Physical Telemetry Probes Dip Coupling (pH meter, thermometer, pH paper, stirring rod)', () => {
+    it('dynamically measures pH, temperature, paper color, and induces stirring upon immersion', () => {
+      const store = useLabStore.getState();
+
+      // Place a beaker at (200, 200), width: 140, height: 160
+      const beakerId = store.addEquipment('beaker', 200, 200);
+      store.addChemicalToEquipment(beakerId, 'chem-hcl', 50);
+      store.toggleHeat(beakerId); // heats to 85°C
+
+      let beaker = useLabStore.getState().equipment[beakerId];
+      expect(beaker.ph).toBeCloseTo(1.0, 1);
+      expect(beaker.temperature_c).toBeGreaterThan(70.0);
+
+      // 1. Dip pH meter into beaker: probe x=240, y=100 (tip at 260, 308 inside beaker)
+      const meterId = store.addEquipment('ph_meter', 240, 100);
+      store.tickSimulation(0.5);
+
+      const meter = useLabStore.getState().equipment[meterId];
+      expect(meter.isSubmerged).toBe(true);
+      expect(meter.ph).toBeCloseTo(1.0, 1);
+
+      // 2. Dip Thermometer into beaker: x=260, y=90 (bulb at 275, 315 inside beaker)
+      const thermoId = store.addEquipment('thermometer', 260, 90);
+      for (let i = 0; i < 5; i++) {
+        store.tickSimulation(0.5);
+      }
+
+      const thermo = useLabStore.getState().equipment[thermoId];
+      expect(thermo.isSubmerged).toBe(true);
+      expect(thermo.temperature_c).toBeGreaterThan(60.0);
+
+      // 3. Dip Universal pH Paper: x=280, y=150
+      const paperId = store.addEquipment('ph_paper', 280, 150);
+      store.tickSimulation(0.5);
+
+      const paper = useLabStore.getState().equipment[paperId];
+      expect(paper.isSubmerged).toBe(true);
+      expect(paper.paperColorHex).toBe('#dc2626'); // Acid red for pH ~1
+
+      // 4. Dip Glass Stirring Rod: x=230, y=110
+      const rodId = store.addEquipment('stirring_rod', 230, 110);
+      store.tickSimulation(0.5);
+
+      beaker = useLabStore.getState().equipment[beakerId];
+      expect(beaker.isStirred).toBe(true);
+      expect(beaker.stirringSpeed).toBe(1.0);
+    });
+  });
+
+  describe('Lab Safety: Chemical Spill Puddle Tracking & Sponge Cleanup', () => {
+    it('creates fluid spill puddle on tabletop and cleans it with sponge', () => {
+      const store = useLabStore.getState();
+
+      // Create an acid spill of 25 mL HCl at (250, 300)
+      store.addSpillPuddle(250, 300, 25, '#dc2626', 'HCl', 1.0);
+
+      let puddles = useLabStore.getState().spillPuddles;
+      expect(puddles.length).toBe(1);
+      expect(puddles[0].formula).toBe('HCl');
+      expect(puddles[0].radius_px).toBeGreaterThan(20);
+
+      // Clean the spill with sponge
+      store.cleanSpill(puddles[0].id);
+      puddles = useLabStore.getState().spillPuddles;
+      expect(puddles.length).toBe(0);
+    });
+  });
+
+  describe('Lab Safety: Sealed Vessel Internal Vapor Overpressure Cork Pop', () => {
+    it('pops cork off sealed vessel when boiling develops under heat', () => {
+      const store = useLabStore.getState();
+      // Test tube at x=200, y=127 (bottom at 307)
+      const tubeId = store.addEquipment('test_tube', 200, 127);
+
+      store.addChemicalToEquipment(tubeId, 'chem-h2o', 20);
+      store.toggleHeat(tubeId); // heats to 85°C
+      store.toggleSeal(tubeId); // seals opening with cork
+
+      expect(useLabStore.getState().equipment[tubeId].isSealed).toBe(true);
+
+      // Place burner directly underneath (burner top at 300 + 42 = 342, optimal 35px gap)
+      const burnerId = store.addEquipment('bunsen_burner', 175, 300);
+      store.toggleHeat(burnerId);
+
+      // Simulate heating ticks until boiling occurs
+      for (let i = 0; i < 20; i++) {
+        store.tickSimulation(0.5);
+      }
+
+      const tube = useLabStore.getState().equipment[tubeId];
+      // Cork must pop off for safety
+      expect(tube.isSealed).toBe(false);
+
+      // Verify warning log entry was recorded
+      const history = useLabStore.getState().history;
+      expect(history.some(h => h.details_en.includes('Cork popped') || h.details_vi.includes('Nút đậy bật tung'))).toBe(true);
+    });
+  });
+
+  describe('Educational Pre-Lab & Post-Lab Assessment Quizzes', () => {
+    it('verifies that quizzes have valid questions, options, and accurate explanations', async () => {
+      const { EXPERIMENT_QUIZZES } = await import('../data/experimentQuizzes');
+      expect(EXPERIMENT_QUIZZES.length).toBeGreaterThanOrEqual(4);
+
+      for (const quiz of EXPERIMENT_QUIZZES) {
+        expect(quiz.questions.length).toBeGreaterThan(0);
+        for (const q of quiz.questions) {
+          expect(q.options_en.length).toBeGreaterThanOrEqual(2);
+          expect(q.options_vi.length).toBe(q.options_en.length);
+          expect(q.correctIndex).toBeGreaterThanOrEqual(0);
+          expect(q.correctIndex).toBeLessThan(q.options_en.length);
+          expect(q.explanation_vi.length).toBeGreaterThan(10);
+        }
+      }
+    });
+  });
 });

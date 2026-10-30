@@ -33,8 +33,8 @@ function conservation(initial: VesselState, current: VesselState) {
 }
 
 describe('Quantitative Studio specimens and playback', () => {
-  it('builds all 108 non-lesson, non-emission specimens with explicit consistent masses/phases', () => {
-    expect(ordinary).toHaveLength(108);
+  it('builds all 112 non-lesson, non-emission specimens with explicit consistent masses/phases', () => {
+    expect(ordinary).toHaveLength(112);
     for (const program of ordinary) {
       const sample = createStudioSample(program, shell);
       expect(sample.contents.length, program.id).toBeGreaterThan(0);
@@ -49,7 +49,17 @@ describe('Quantitative Studio specimens and playback', () => {
         expect(item.mass_g / item.moles, program.id + ': ' + item.formula).toBeCloseTo(computeMolarMass(item.formula), 8);
       }
       expect(sample.hasGas).toBe(false);
-      expect(sample.precipitateAmount_g).toBe(0);
+      if (program.id === 'feoh3_hcl') {
+        expect(sample.precipitateAmount_g).toBeCloseTo(sample.contents.find(c => c.formula === 'Fe(OH)3')!.mass_g, 12);
+        expect(sample.hasPrecipitate).toBe(true);
+        expect(sample.precipitateMorphology).toBe('FLOC');
+        expect(sample.ph).toBeLessThan(2);
+      } else if (program.id === 'aloh3_naoh') {
+        expect(sample.precipitateAmount_g).toBeCloseTo(sample.contents.find(c => c.formula === 'Al(OH)3')!.mass_g, 12);
+        expect(sample.hasPrecipitate).toBe(true);
+        expect(sample.precipitateMorphology).toBe('GEL');
+        expect(sample.ph).toBeGreaterThan(7);
+      } else expect(sample.precipitateAmount_g).toBe(0);
     }
   });
   it('adds finite solvent for dissolution and actual indicators without pseudo-species', () => {
@@ -103,8 +113,10 @@ describe('Quantitative Studio specimens and playback', () => {
     expect(useAppStore.getState().runStudioProgram(id)).toBe(true);
     expect(useAppStore.getState().seekStudioProgram(id, 0.5)).toBe(true);
     const half = useAppStore.getState().vessels[id];
-    expect(half.contents.find(item => item.formula === 'AgCl')!.moles).toBeCloseTo(0.0005, 10);
-    expect(half.precipitateAmount_g).toBeCloseTo(0.0005 * computeMolarMass('AgCl'), 8);
+    // Equal analytical Ag/Cl pools retain sqrt(Ksp)*V dissolved at 25 C.
+    const expectedHalf = 0.5 * (0.001 - Math.sqrt(10 ** -9.75) * initial.volume_ml / 1000);
+    expect(half.contents.find(item => item.formula === 'AgCl')!.moles).toBeCloseTo(expectedHalf, 10);
+    expect(half.precipitateAmount_g).toBeCloseTo(expectedHalf * computeMolarMass('AgCl'), 8);
     conservation(initial, half);
     expect(useAppStore.getState().seekStudioProgram(id, 0.1)).toBe(false);
     expect(useAppStore.getState().vessels[id]).toBe(half);

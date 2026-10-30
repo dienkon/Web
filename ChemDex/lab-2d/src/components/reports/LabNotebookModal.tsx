@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { useLabStore } from '../../store/useLabStore';
 import { X, Download, Printer, FileText, CheckCircle } from 'lucide-react';
+import {REACTION_DATABASE} from '../../chemistry/reactions/reactionDatabase';
 
 export const LabNotebookModal: React.FC = () => {
-  const { isNotebookOpen, toggleNotebook, history, equipment, activeExperiment, language } = useLabStore();
-  const [studentNotes, setStudentNotes] = useState<string>('');
+  const { isNotebookOpen, toggleNotebook, history, equipment, activeExperiment, language, studentNotes, setStudentNotes } = useLabStore();
+  const equations = [...new Set(history.filter(item => item.reactionId).map(item => REACTION_DATABASE.find(reaction => reaction.id === item.reactionId)?.equation).filter(Boolean))];
+  const readings = history.filter(item => Number.isFinite(item.measurements?.ph)).slice(-200);
+  const graph = readings.map((item, index) => `${40 + index / Math.max(1, readings.length - 1) * 520},${150 - Math.max(0, Math.min(14, item.measurements!.ph!)) / 14 * 120}`).join(' ');
 
   if (!isNotebookOpen) return null;
 
@@ -12,6 +15,11 @@ export const LabNotebookModal: React.FC = () => {
     const data = {
       title: activeExperiment ? activeExperiment.title_vi : 'Thí nghiệm tự do ChemDex 2D',
       exportDate: new Date().toISOString(),
+      reportVersion: 1,
+      equations,
+      readings: readings.map(item => ({timestamp:item.timestamp, ...item.measurements})),
+      objectives: activeExperiment?.objectives_vi ?? [],
+      conclusion: activeExperiment?.conclusion_vi ?? '',
       workbenchEquipment: equipment,
       activityLog: history,
       studentNotes,
@@ -30,7 +38,7 @@ export const LabNotebookModal: React.FC = () => {
     for (const h of history) {
       const timeStr = new Date(h.timestamp).toLocaleTimeString();
       const action = h.actionType;
-      const details = (language === 'vi' ? h.details_vi : h.details_en).replace(/,/g, ';');
+      const details = (language === 'vi' ? h.details_vi : h.details_en).replace(/"/g, '""').replace(/\r?\n/g, ' ');
       const vol = h.measurements?.volume_ml ?? '';
       const temp = h.measurements?.temperature_c ?? '';
       const ph = h.measurements?.ph ?? '';
@@ -51,7 +59,7 @@ export const LabNotebookModal: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-2xs flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-3xl w-full max-h-[85vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-150 print:max-w-none print:max-h-none print:shadow-none print:border-none">
+      <div className="print-report bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-3xl w-full max-h-[85vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-150 print:max-w-none print:max-h-none print:shadow-none print:border-none">
         {/* Header */}
         <div className="p-4 border-b border-slate-200 flex items-center justify-between bg-slate-50 print:hidden">
           <div className="flex items-center gap-2">
@@ -87,6 +95,9 @@ export const LabNotebookModal: React.FC = () => {
             </p>
           </div>
 
+          {activeExperiment && <section><h3 className="text-sm font-bold mb-2">{language === 'vi' ? 'Mục tiêu thực hành' : 'Objectives'}</h3><ul className="list-disc pl-5 text-xs space-y-1">{(language === 'vi' ? activeExperiment.objectives_vi : activeExperiment.objectives_en).map((objective,index)=><li key={index}>{objective}</li>)}</ul></section>}
+          {equations.length>0 && <section><h3 className="text-sm font-bold mb-2">{language === 'vi' ? 'Phương trình đã xảy ra' : 'Observed reaction equations'}</h3>{equations.map(equation=><p key={equation} className="font-mono text-sm py-1">{equation}</p>)}</section>}
+          {readings.length>1 && <figure><h3 className="text-sm font-bold mb-2">{language === 'vi' ? 'Diễn biến pH theo thứ tự phép đo' : 'pH by measurement order'}</h3><svg viewBox="0 0 600 185" role="img" aria-label="Đồ thị pH từ 0 đến 14 theo thứ tự phép đo" className="w-full border border-slate-200 rounded-lg bg-white"><path d="M40 25V150H570" fill="none" stroke="#94a3b8"/>{[0,7,14].map(value=><g key={value}><text x="12" y={154-value/14*120} fontSize="11" fill="#475569">{value}</text><path d={`M40 ${150-value/14*120}H570`} stroke="#e2e8f0"/></g>)}<polyline points={graph} fill="none" stroke="#087c83" strokeWidth="2.5"/><text x="220" y="175" fontSize="11" fill="#475569">Thứ tự phép đo / thao tác</text></svg><figcaption className="text-[10px] text-slate-500">{readings.length} bản ghi gần nhất; giá trị từ mô phỏng, không phải phép đo thực nghiệm ngoài đời.</figcaption></figure>}
           {/* Activity Log / Telemetry Records */}
           <div>
             <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-3">
@@ -137,6 +148,7 @@ export const LabNotebookModal: React.FC = () => {
             <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
               {language === 'vi' ? 'Nhận xét & Kết luận của học sinh' : 'Student Notes & Conclusions'}
             </h3>
+            <p className="hidden print:block whitespace-pre-wrap text-sm">{studentNotes || (language === 'vi' ? 'Chưa có ghi chú.' : 'No notes.')}</p>
             <textarea
               rows={4}
               value={studentNotes}
@@ -149,6 +161,7 @@ export const LabNotebookModal: React.FC = () => {
               className="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl p-3 focus:ring-2 focus:ring-blue-500 focus:outline-hidden leading-relaxed"
             />
           </div>
+          {activeExperiment?.conclusion_vi && <section><h3 className="text-sm font-bold mb-2">{language === 'vi' ? 'Kết luận tham khảo' : 'Reference conclusion'}</h3><p className="text-xs leading-relaxed">{language === 'vi' ? activeExperiment.conclusion_vi : activeExperiment.conclusion_en}</p></section>}
         </div>
 
         {/* Footer Actions */}

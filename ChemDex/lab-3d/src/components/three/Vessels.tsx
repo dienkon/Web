@@ -1,19 +1,27 @@
-import React, { useRef, useMemo, useState } from 'react';
+import { FRAME_ORDER } from '../../simulation/core/frameOrder';
+import { simulationFrameDt } from '../../core/clock';
+import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { MeshPhysicalMaterial, MeshStandardMaterial, DoubleSide } from 'three';
 import * as THREE from 'three';
 import { useAppStore, getChemical } from '../../store/useAppStore';
 import { labSound } from '../../utils/audio';
 import { getReagentBottleLabelTexture, getVesselGraduationTexture } from '../../vfx/textures';
-import { useQualityStore } from '../../vfx/quality';
+import { useQualityStore, getQualitySettings } from '../../vfx/quality';
 import { getGlassMaterials, getCeramicMaterials, createVesselLatheGeometry } from '../../vfx/materials/glass';
 import { RealisticLiquid } from '../../vfx/materials/liquid';
-import { Bubbles, GasPlume } from '../../vfx/particles';
+import { Bubbles } from '../../vfx/particles';
 import { PourController } from '../../pour/controller/PourController';
 import { SolidContentsRenderer } from './SolidContentsRenderer';
 import { VesselState } from '../../types/chemistry';
 import { openRadialMenu } from '../../ui/RadialMenu';
 import { separatedLayers } from '../../engine/funnelFlow';
+import { vesselInterior, liquidLevelForVolume, contourRadius } from '../../science/vesselDimensions';
+import { NOISE_GLSL } from '../../vfx/glsl/noise.glsl';
+import { WallCondensateDroplets } from './WallCondensateDroplets';
+import { vesselContours } from '../../science/vesselContours';
+import { VesselBodyScale } from './VesselBodyScale';
+import { liquidOpacity } from '../../science/liquidOptics';
 
 // Glassware material reference matching active high-tier physical glass
 export const glassMaterial = getGlassMaterials('high').front as MeshPhysicalMaterial;
@@ -38,13 +46,15 @@ export const shelfLiquidMaterial = new MeshStandardMaterial({
 const EMPTY_DISSOLVING: Record<string, number> = {};
 
 // Real laboratory glass stirring rod with smooth rotation animation
-export const StirringRod = React.memo(function StirringRod({ height = 2.5, isStirring }: { height?: number; isStirring: boolean }) {
+export const StirringRod = React.memo(function StirringRod({ height = 2.5, isStirring, intensity = 0.65 }: { height?: number; isStirring: boolean; intensity?: number }) {
   const rodRef = useRef<THREE.Group>(null);
+  const phase = useRef(0);
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     if (!rodRef.current) return;
     if (isStirring) {
-      const t = state.clock.elapsedTime * 8;
+      phase.current += simulationFrameDt(delta, useAppStore.getState()) * (2 + Math.max(0, Math.min(1, intensity)) * 9);
+      const t = phase.current;
       rodRef.current.position.x = Math.cos(t) * 0.22;
       rodRef.current.position.z = Math.sin(t) * 0.22;
       rodRef.current.rotation.z = -0.22 + Math.cos(t) * 0.08;
@@ -58,7 +68,7 @@ export const StirringRod = React.memo(function StirringRod({ height = 2.5, isSti
   });
 
   return (
-    <group ref={rodRef} position={[0, 0.45, 0]}>
+    <group ref={rodRef} name="stirring-rod" position={[0, 0.45, 0]}>
       <mesh>
         <cylinderGeometry args={[0.032, 0.032, height, 16]} />
         <meshPhysicalMaterial 
@@ -220,7 +230,8 @@ export const GasParticles = React.memo(function GasParticles({ color = '#ffffff'
   if (isBubbles) {
     return <Bubbles liquidBottomY={-0.6} surfaceY={0.6} radius={0.55} color={color} active />;
   }
-  return <GasPlume origin={[0, 0, 0]} color={color} active />;
+  // A decorative color cannot authorize chemical exhaust.
+  return null;
 });
 
 
@@ -302,6 +313,7 @@ export const Bottle = React.memo(function Bottle({
   hazard = 'safe',
   isAmber = false,
 }: BottleProps) {
+  const transmission=useQualityStore(state=>getQualitySettings(state.effectiveTier).glassTransmission);
   const labelMap = useMemo(
     () => getReagentBottleLabelTexture(name, formula, hazard),
     [name, formula, hazard]
@@ -317,7 +329,7 @@ export const Bottle = React.memo(function Bottle({
         <meshPhysicalMaterial
           color={glassColor}
           roughness={isAmber ? 0.16 : 0.08}
-          transmission={isAmber ? 0.35 : 0.88}
+          transmission={transmission ? (isAmber ? 0.35 : 0.88) : 0}
           thickness={0.2}
           ior={1.5}
           transparent
@@ -332,7 +344,7 @@ export const Bottle = React.memo(function Bottle({
         <meshPhysicalMaterial
           color={glassColor}
           roughness={isAmber ? 0.16 : 0.08}
-          transmission={isAmber ? 0.35 : 0.88}
+          transmission={transmission ? (isAmber ? 0.35 : 0.88) : 0}
           thickness={0.2}
           ior={1.5}
           transparent
@@ -357,7 +369,7 @@ export const Bottle = React.memo(function Bottle({
         <meshStandardMaterial
           color={color}
           transparent
-          opacity={0.88}
+          opacity={liquidOpacity(color, 0)}
           roughness={0.2}
           metalness={0.05}
         />
@@ -411,16 +423,16 @@ export const VesselLiquid = React.memo(function VesselLiquid({
       Math.abs(currentColor.current.g - targetColorObj.g) +
       Math.abs(currentColor.current.b - targetColorObj.b);
 
-    const dt = Math.min(delta, 0.05) * timeScale;
+    const dt = simulationFrameDt(delta, useAppStore.getState());
 
     if (volDiff > 0.002) {
-      currentVolume.current = THREE.MathUtils.lerp(currentVolume.current, targetVolume, dt * 5.0);
+      currentVolume.current = THREE.MathUtils.lerp(currentVolume.current, targetVolume, 1 - Math.exp(-dt * 5.0));
     } else {
       currentVolume.current = targetVolume;
     }
 
     if (colDiff > 0.002) {
-      currentColor.current.lerp(targetColorObj, dt * 5.0);
+      currentColor.current.lerp(targetColorObj, 1 - Math.exp(-dt * 5.0));
     }
 
     const v = currentVolume.current;
@@ -536,7 +548,7 @@ export const Beaker = React.memo(function Beaker({ position, id }: { position: [
         groupRef.current.rotation.set(tiltAngle, vessel?.rotationY || 0, 0);
       }
     }
-  });
+  }, FRAME_ORDER.vesselPose);
 
   if (!vessel) return null;
 
@@ -571,6 +583,7 @@ export const Beaker = React.memo(function Beaker({ position, id }: { position: [
         document.body.style.cursor = 'auto';
       }}
     >
+      <VesselBodyScale vessel={vessel}>
       <VesselFloorRing 
         isSelected={isSelected} 
         isDropTarget={isDropTarget} 
@@ -579,7 +592,7 @@ export const Beaker = React.memo(function Beaker({ position, id }: { position: [
       />
 
       {vessel.isShattered ? (
-        <VesselShatteredShards radius={0.9} />
+        null
       ) : (
         <>
           {/* 1. Back Glass Inner Surface */}
@@ -588,7 +601,7 @@ export const Beaker = React.memo(function Beaker({ position, id }: { position: [
           )}
 
           {/* 2. Physics-based Sloshing Liquid with Meniscus & Caustics */}
-          <RealisticLiquid vesselId={id} vesselType="beaker" baseY={-0.96} maxHeight={1.88} capacity_ml={vessel.capacity_ml || 250} />
+          <RealisticLiquid vesselId={id} vesselType="beaker" capacity_ml={vessel.capacity_ml || 250} />
 
           {/* 3. Authentic Printed Graduation Decal */}
           <VesselGraduations type="beaker" capacity_ml={vessel.capacity_ml || 250} radius={1.0} height={1.7} yOffset={0} />
@@ -601,7 +614,7 @@ export const Beaker = React.memo(function Beaker({ position, id }: { position: [
 
           {/* Stirring Glass Rod Effect */}
           {isStirring && (
-            <StirringRod height={2.4} isStirring={isStirring} />
+            <StirringRod height={2.4} isStirring={isStirring} intensity={vessel.stirringIntensity ?? 0.65} />
           )}
 
           {/* Dynamic Falling Precipitate Particles (e.g. Golden Rain PbI2, BaSO4, AgCl, Cu(OH)2, Fe(OH)3, CaCO3, Cu) */}
@@ -613,7 +626,7 @@ export const Beaker = React.memo(function Beaker({ position, id }: { position: [
           {/* Real-World Mechanisms: Condensation, Stain, Fume, Boiling Bumping */}
           <VesselPhysicalEffects 
             vessel={vessel}
-            fogRadius={0.82}
+            fogRadius={0.96}
             fogHeight={1.1}
             fogY={0.4}
             stainRadius={0.95}
@@ -625,6 +638,7 @@ export const Beaker = React.memo(function Beaker({ position, id }: { position: [
           />
         </>
       )}
+    </VesselBodyScale>
     </group>
   );
 });
@@ -673,7 +687,7 @@ export const Flask = React.memo(function Flask({ position, id }: { position: [nu
         groupRef.current.rotation.set(tiltAngle, vessel?.rotationY || 0, 0);
       }
     }
-  });
+  }, FRAME_ORDER.vesselPose);
 
   if (!vessel) return null;
 
@@ -708,6 +722,7 @@ export const Flask = React.memo(function Flask({ position, id }: { position: [nu
         document.body.style.cursor = 'auto';
       }}
     >
+      <VesselBodyScale vessel={vessel}>
       <VesselFloorRing 
         isSelected={isSelected} 
         isDropTarget={isDropTarget} 
@@ -716,7 +731,7 @@ export const Flask = React.memo(function Flask({ position, id }: { position: [nu
       />
 
       {vessel.isShattered ? (
-        <VesselShatteredShards radius={1.1} />
+        null
       ) : (
         <>
           {/* 1. Back Glass Inner Surface */}
@@ -725,7 +740,7 @@ export const Flask = React.memo(function Flask({ position, id }: { position: [nu
           )}
 
           {/* 2. Physics-based Sloshing Liquid with Meniscus & Absorption */}
-          <RealisticLiquid vesselId={id} vesselType="flask" baseY={-0.96} maxHeight={1.8} capacity_ml={vessel.capacity_ml || 250} />
+          <RealisticLiquid vesselId={id} vesselType="flask" capacity_ml={vessel.capacity_ml || 250} />
 
           {/* 3. Authentic Printed Graduation Decal */}
           <VesselGraduations type="flask" capacity_ml={vessel.capacity_ml || 250} radius={1.22} height={1.4} yOffset={-0.2} />
@@ -738,7 +753,7 @@ export const Flask = React.memo(function Flask({ position, id }: { position: [nu
 
           {/* Stirring Glass Rod */}
           {isStirring && (
-            <StirringRod height={2.8} isStirring={isStirring} />
+            <StirringRod height={2.8} isStirring={isStirring} intensity={vessel.stirringIntensity ?? 0.65} />
           )}
 
           {/* Dynamic Falling Precipitate Particles (e.g. Golden Rain PbI2, BaSO4, AgCl, Cu(OH)2) */}
@@ -762,6 +777,7 @@ export const Flask = React.memo(function Flask({ position, id }: { position: [nu
           />
         </>
       )}
+    </VesselBodyScale>
     </group>
   );
 });
@@ -810,7 +826,7 @@ export const TestTube = React.memo(function TestTube({ position, id }: { positio
         groupRef.current.rotation.set(tiltAngle, vessel?.rotationY || 0, 0);
       }
     }
-  });
+  }, FRAME_ORDER.vesselPose);
 
   if (!vessel) return null;
 
@@ -845,6 +861,7 @@ export const TestTube = React.memo(function TestTube({ position, id }: { positio
         document.body.style.cursor = 'auto';
       }}
     >
+      <VesselBodyScale vessel={vessel}>
       <VesselFloorRing 
         isSelected={isSelected} 
         isDropTarget={isDropTarget} 
@@ -853,7 +870,7 @@ export const TestTube = React.memo(function TestTube({ position, id }: { positio
       />
 
       {vessel.isShattered ? (
-        <VesselShatteredShards radius={0.35} />
+        null
       ) : (
         <>
           {/* Wooden / Acrylic Mini Rack */}
@@ -872,7 +889,7 @@ export const TestTube = React.memo(function TestTube({ position, id }: { positio
           )}
 
           {/* 2. Physics-based Sloshing Liquid with Meniscus & Absorption */}
-          <RealisticLiquid vesselId={id} vesselType="test_tube" baseY={-0.6} maxHeight={1.6} capacity_ml={vessel.capacity_ml || 50} />
+          <RealisticLiquid vesselId={id} vesselType="test_tube" capacity_ml={vessel.capacity_ml || 50} />
 
           {/* 3. Authentic Printed Graduation Decal */}
           <VesselGraduations type="test_tube" capacity_ml={vessel.capacity_ml || 50} radius={0.22} height={1.6} yOffset={0.2} />
@@ -885,7 +902,7 @@ export const TestTube = React.memo(function TestTube({ position, id }: { positio
 
           {/* Stirring Glass Rod */}
           {isStirring && (
-            <StirringRod height={1.8} isStirring={isStirring} />
+            <StirringRod height={1.8} isStirring={isStirring} intensity={vessel.stirringIntensity ?? 0.65} />
           )}
 
           {/* Dynamic Falling Precipitate Particles */}
@@ -909,6 +926,7 @@ export const TestTube = React.memo(function TestTube({ position, id }: { positio
           />
         </>
       )}
+    </VesselBodyScale>
     </group>
   );
 });
@@ -956,7 +974,7 @@ export const GraduatedCylinder = React.memo(function GraduatedCylinder({ positio
         groupRef.current.rotation.set(tiltAngle, vessel?.rotationY || 0, 0);
       }
     }
-  });
+  }, FRAME_ORDER.vesselPose);
 
   if (!vessel) return null;
 
@@ -991,6 +1009,7 @@ export const GraduatedCylinder = React.memo(function GraduatedCylinder({ positio
         document.body.style.cursor = 'auto';
       }}
     >
+      <VesselBodyScale vessel={vessel}>
       <VesselFloorRing 
         isSelected={isSelected} 
         isDropTarget={isDropTarget} 
@@ -999,7 +1018,7 @@ export const GraduatedCylinder = React.memo(function GraduatedCylinder({ positio
       />
 
       {vessel.isShattered ? (
-        <VesselShatteredShards radius={0.55} />
+        null
       ) : (
         <>
           {/* Hexagonal Base */}
@@ -1014,7 +1033,7 @@ export const GraduatedCylinder = React.memo(function GraduatedCylinder({ positio
           )}
 
           {/* 2. Physics-based Sloshing Liquid with Meniscus & Absorption */}
-          <RealisticLiquid vesselId={id} vesselType="cylinder" baseY={-0.87} maxHeight={2.4} capacity_ml={vessel.capacity_ml || 100} />
+          <RealisticLiquid vesselId={id} vesselType="cylinder" capacity_ml={vessel.capacity_ml || 100} />
 
           {/* 3. Authentic Printed Graduation Decal */}
           <VesselGraduations type="cylinder" capacity_ml={vessel.capacity_ml || 100} radius={0.352} height={2.4} yOffset={0.3} />
@@ -1025,7 +1044,7 @@ export const GraduatedCylinder = React.memo(function GraduatedCylinder({ positio
           {/* Laboratory Stirring Rod when active */}
           {isStirring && (
             <group position={[0, -0.9, 0]}>
-              <StirringRod height={3.2} isStirring={isStirring} />
+              <StirringRod height={3.2} isStirring={isStirring} intensity={vessel.stirringIntensity ?? 0.65} />
             </group>
           )}
 
@@ -1050,6 +1069,7 @@ export const GraduatedCylinder = React.memo(function GraduatedCylinder({ positio
           />
         </>
       )}
+    </VesselBodyScale>
     </group>
   );
 });
@@ -1092,7 +1112,7 @@ export const WatchGlass = React.memo(function WatchGlass({ position, id }: { pos
         groupRef.current.rotation.set(tiltAngle, vessel?.rotationY || 0, 0);
       }
     }
-  });
+  }, FRAME_ORDER.vesselPose);
 
   if (!vessel) return null;
 
@@ -1127,6 +1147,7 @@ export const WatchGlass = React.memo(function WatchGlass({ position, id }: { pos
         document.body.style.cursor = 'auto';
       }}
     >
+      <VesselBodyScale vessel={vessel}>
       <VesselFloorRing 
         isSelected={isSelected} 
         isDropTarget={isDropTarget} 
@@ -1135,7 +1156,7 @@ export const WatchGlass = React.memo(function WatchGlass({ position, id }: { pos
       />
 
       {vessel.isShattered ? (
-        <VesselShatteredShards radius={0.85} />
+        null
       ) : (
         <>
           {/* 1. Back Glass Inner Surface */}
@@ -1147,8 +1168,6 @@ export const WatchGlass = React.memo(function WatchGlass({ position, id }: { pos
           <RealisticLiquid 
             vesselId={id} 
             vesselType="watch_glass" 
-            baseY={-0.12} 
-            maxHeight={0.16} 
             capacity_ml={vessel.capacity_ml || 40} 
           />
 
@@ -1175,6 +1194,7 @@ export const WatchGlass = React.memo(function WatchGlass({ position, id }: { pos
           />
         </>
       )}
+    </VesselBodyScale>
     </group>
   );
 });
@@ -1218,7 +1238,7 @@ export const EvaporatingDish = React.memo(function EvaporatingDish({ position, i
         groupRef.current.rotation.set(tiltAngle, vessel?.rotationY || 0, 0);
       }
     }
-  });
+  }, FRAME_ORDER.vesselPose);
 
   if (!vessel) return null;
 
@@ -1253,6 +1273,7 @@ export const EvaporatingDish = React.memo(function EvaporatingDish({ position, i
         document.body.style.cursor = 'auto';
       }}
     >
+      <VesselBodyScale vessel={vessel}>
       <VesselFloorRing 
         isSelected={isSelected} 
         isDropTarget={isDropTarget} 
@@ -1261,7 +1282,7 @@ export const EvaporatingDish = React.memo(function EvaporatingDish({ position, i
       />
 
       {vessel.isShattered ? (
-        <VesselShatteredShards radius={0.85} color="#f8fafc" />
+        null
       ) : (
         <>
           {/* Porcelain Glazed Body */}
@@ -1271,15 +1292,13 @@ export const EvaporatingDish = React.memo(function EvaporatingDish({ position, i
           <RealisticLiquid 
             vesselId={id} 
             vesselType="evaporating_dish" 
-            baseY={-0.38} 
-            maxHeight={0.68} 
             capacity_ml={vessel.capacity_ml || 100} 
           />
 
           {/* Stirring Rod if active */}
           {isStirring && (
             <group position={[0, -0.4, 0]}>
-              <StirringRod height={2.0} isStirring={isStirring} />
+              <StirringRod height={2.0} isStirring={isStirring} intensity={vessel.stirringIntensity ?? 0.65} />
             </group>
           )}
 
@@ -1303,6 +1322,7 @@ export const EvaporatingDish = React.memo(function EvaporatingDish({ position, i
           />
         </>
       )}
+    </VesselBodyScale>
     </group>
   );
 });
@@ -1345,7 +1365,7 @@ export const Crucible = React.memo(function Crucible({ position, id }: { positio
         groupRef.current.rotation.set(tiltAngle, vessel?.rotationY || 0, 0);
       }
     }
-  });
+  }, FRAME_ORDER.vesselPose);
 
   if (!vessel) return null;
 
@@ -1380,6 +1400,7 @@ export const Crucible = React.memo(function Crucible({ position, id }: { positio
         document.body.style.cursor = 'auto';
       }}
     >
+      <VesselBodyScale vessel={vessel}>
       <VesselFloorRing 
         isSelected={isSelected} 
         isDropTarget={isDropTarget} 
@@ -1388,7 +1409,7 @@ export const Crucible = React.memo(function Crucible({ position, id }: { positio
       />
 
       {vessel.isShattered ? (
-        <VesselShatteredShards radius={0.6} color="#f8fafc" />
+        null
       ) : (
         <>
           {/* Porcelain Crucible Body */}
@@ -1409,8 +1430,6 @@ export const Crucible = React.memo(function Crucible({ position, id }: { positio
           <RealisticLiquid 
             vesselId={id} 
             vesselType="crucible" 
-            baseY={-0.55} 
-            maxHeight={1.0} 
             capacity_ml={vessel.capacity_ml || 50} 
           />
 
@@ -1432,6 +1451,7 @@ export const Crucible = React.memo(function Crucible({ position, id }: { positio
           />
         </>
       )}
+    </VesselBodyScale>
     </group>
   );
 });
@@ -1474,7 +1494,7 @@ export const PetriDish = React.memo(function PetriDish({ position, id }: { posit
         groupRef.current.rotation.set(tiltAngle, vessel?.rotationY || 0, 0);
       }
     }
-  });
+  }, FRAME_ORDER.vesselPose);
 
   if (!vessel) return null;
 
@@ -1509,6 +1529,7 @@ export const PetriDish = React.memo(function PetriDish({ position, id }: { posit
         document.body.style.cursor = 'auto';
       }}
     >
+      <VesselBodyScale vessel={vessel}>
       <VesselFloorRing 
         isSelected={isSelected} 
         isDropTarget={isDropTarget} 
@@ -1517,7 +1538,7 @@ export const PetriDish = React.memo(function PetriDish({ position, id }: { posit
       />
 
       {vessel.isShattered ? (
-        <VesselShatteredShards radius={0.95} />
+        null
       ) : (
         <>
           {/* 1. Back Glass Inner Surface */}
@@ -1529,8 +1550,6 @@ export const PetriDish = React.memo(function PetriDish({ position, id }: { posit
           <RealisticLiquid 
             vesselId={id} 
             vesselType="petri_dish" 
-            baseY={-0.18} 
-            maxHeight={0.36} 
             capacity_ml={vessel.capacity_ml || 60} 
           />
 
@@ -1565,6 +1584,7 @@ export const PetriDish = React.memo(function PetriDish({ position, id }: { posit
           />
         </>
       )}
+    </VesselBodyScale>
     </group>
   );
 });
@@ -1643,65 +1663,193 @@ export const BunsenBurner = React.memo(function BunsenBurner({ id, position, isO
 
 // REALISTIC PHYSICAL PHENOMENA VISUAL COMPONENTS
 
-// 1. Shattered Glass Debris Shards (for overpressure/thermal shock shattered vessels)
-export const VesselShatteredShards = React.memo(function VesselShatteredShards({ radius = 0.8, color = '#bae6fd' }: { radius?: number; color?: string }) {
-  const shards = useMemo(() => {
-    return Array.from({ length: 16 }).map((_, i) => {
-      const angle = (i / 16) * Math.PI * 2 + (Math.sin(i * 3.14) * 0.3);
-      const r = (0.15 + (i % 5) * 0.18) * radius;
-      const x = Math.cos(angle) * r;
-      const z = Math.sin(angle) * r;
-      const size = 0.08 + (i % 3) * 0.06;
-      const rot = [Math.sin(i) * 0.4, (i * 0.7), Math.cos(i) * 0.4] as [number, number, number];
-      return { x, z, size, rot };
-    });
-  }, [radius]);
-
-  return (
-    <group position={[0, -0.92, 0]}>
-      {shards.map((s, idx) => (
-        <mesh key={idx} position={[s.x, 0.015, s.z]} rotation={s.rot} castShadow>
-          <coneGeometry args={[s.size, s.size * 0.4, 3]} />
-          <meshPhysicalMaterial 
-            roughness={0.06}
-            transmission={0.92}
-            ior={1.52}
-            color={color}
-            transparent
-            opacity={0.85}
-          />
-        </mesh>
-      ))}
-    </group>
-  );
-});
+// Broken-vessel debris is rendered once, in the world-space ShardsRenderer pool.
 
 // 2. Headspace Condensation Fogging Mist (for warm/boiling vessels T > 55°C)
-export const CondensationFog = React.memo(function CondensationFog({
-  radius = 0.35,
-  height = 0.8,
-  yOffset = 0.6,
-  intensity = 0.7
-}: {
+export interface CondensationFogProps {
+  wallSide?: 'inner' | 'outer';
+  vessel?: VesselState;
   radius?: number;
   height?: number;
   yOffset?: number;
   intensity?: number;
-}) {
+}
+
+export const CondensationFog = React.memo(function CondensationFog({
+  wallSide = 'inner',
+  vessel,
+  radius = 0.35,
+  height = 0.8,
+  yOffset = 0.6,
+  intensity = 0.7
+}: CondensationFogProps) {
+  const meshRef = useRef<THREE.Mesh>(null);
+
+  // Compute exact headspace bounds and inner contour profile
+  const bounds = useMemo(() => {
+    if (vessel) {
+      const interior = vesselInterior(vessel.type);
+      const liquidY = liquidLevelForVolume(vessel.type, vessel.volume_ml, vessel.capacity_ml || 250);
+      // Strictly above liquid surface (+0.025) so it never clips into or intersects the water surface!
+      const bottomY = wallSide === 'outer' ? interior.floorY + 0.025 : Math.max(interior.floorY, liquidY + 0.025);
+      // Below rim (-0.035) so it stays neatly inside the vessel mouth
+      const topY = wallSide === 'outer' ? liquidY - 0.025 : interior.topY - 0.035;
+      const h = topY - bottomY;
+      if (h < 0.04) return null; // Insufficient headspace for condensation
+      return { bottomY, topY, height: h, type: vessel.type, interior };
+    }
+    const bottomY = yOffset - height / 2;
+    const topY = yOffset + height / 2;
+    return { bottomY, topY, height, type: null, interior: null };
+  }, [wallSide, vessel?.type, vessel ? Math.round(vessel.volume_ml * 2) / 2 : null, vessel?.capacity_ml, radius, height, yOffset]);
+
+  // Construct lathe geometry that conforms strictly to the vessel's inner glass wall contour
+  const geometry = useMemo(() => {
+    if (!bounds) return null;
+    const { bottomY, topY, interior } = bounds;
+    const pts: THREE.Vector2[] = [];
+    const SAMPLES = 20;
+
+    if (interior) {
+      // Inset by 0.005 units: strictly inside inner glass wall, eliminating any z-fighting or exterior wall penetration!
+      for (let i = 0; i <= SAMPLES; i++) {
+        const y = bottomY + (topY - bottomY) * (i / SAMPLES);
+        const contour = wallSide === 'outer' ? vesselContours(bounds.type!).outer : interior.points;
+        const r = Math.max(0.02, contourRadius(contour, y) + (wallSide === 'outer' ? 0.005 : -0.005));
+        pts.push(new THREE.Vector2(r, y));
+      }
+    } else {
+      // Standalone fallback cylinder
+      const r = Math.max(0.02, radius * 0.98);
+      for (let i = 0; i <= SAMPLES; i++) {
+        const y = bottomY + (topY - bottomY) * (i / SAMPLES);
+        pts.push(new THREE.Vector2(r, y));
+      }
+    }
+
+    return new THREE.LatheGeometry(pts, 36);
+  }, [bounds, radius, wallSide]);
+
+  useEffect(() => {
+    return () => {
+      geometry?.dispose();
+    };
+  }, [geometry]);
+
+  // Stable uniforms ref: updated every frame without recompiling the shader!
+  const uniforms = useMemo(() => ({
+    uBottomY: { value: bounds?.bottomY ?? 0.0 },
+    uTopY: { value: bounds?.topY ?? 1.0 },
+    uFogIntensity: { value: intensity },
+    uTime: { value: 0.0 },
+  }), []);
+
+  // Update dynamic uniforms on each frame without material re-creation
+  useFrame((state, delta) => {
+    const simulation = useAppStore.getState();
+    if (!simulation.isSimulationPaused) uniforms.uTime.value += simulationFrameDt(delta, simulation);
+    uniforms.uFogIntensity.value = intensity;
+    if (bounds) {
+      uniforms.uBottomY.value = bounds.bottomY;
+      uniforms.uTopY.value = bounds.topY;
+    }
+  });
+
+  const fogMaterial = useMemo(() => {
+    const mat = new THREE.MeshStandardMaterial({
+      color: '#f8fafc',
+      roughness: 0.85,
+      metalness: 0.02,
+      transparent: true,
+      opacity: Math.min(0.38, Math.max(0.06, intensity * 0.35)),
+      depthWrite: false,
+      side: DoubleSide,
+    });
+
+    mat.onBeforeCompile = (shader) => {
+      shader.uniforms.uBottomY = uniforms.uBottomY;
+      shader.uniforms.uTopY = uniforms.uTopY;
+      shader.uniforms.uFogIntensity = uniforms.uFogIntensity;
+      shader.uniforms.uTime = uniforms.uTime;
+
+      shader.vertexShader = `
+        varying vec3 vLocalPos;
+        varying vec3 vWorldPos;
+        ${shader.vertexShader}
+      `;
+      shader.vertexShader = shader.vertexShader.replace(
+        '#include <begin_vertex>',
+        `
+        #include <begin_vertex>
+        vLocalPos = position;
+        `
+      );
+      shader.vertexShader = shader.vertexShader.replace(
+        '#include <worldpos_vertex>',
+        `
+        #include <worldpos_vertex>
+        vWorldPos = (modelMatrix * vec4(transformed, 1.0)).xyz;
+        `
+      );
+
+      shader.fragmentShader = `
+        uniform float uBottomY;
+        uniform float uTopY;
+        uniform float uFogIntensity;
+        uniform float uTime;
+        varying vec3 vLocalPos;
+        varying vec3 vWorldPos;
+        ${NOISE_GLSL}
+        ${shader.fragmentShader}
+      `;
+
+      shader.fragmentShader = shader.fragmentShader.replace(
+        '#include <dithering_fragment>',
+        `
+        #include <dithering_fragment>
+        // Normalized height across headspace [0.0 = bottom near liquid, 1.0 = top near rim]
+        float headspaceH = max(0.01, uTopY - uBottomY);
+        float vNorm = clamp((vLocalPos.y - uBottomY) / headspaceH, 0.0, 1.0);
+
+        // Soft bottom fade: dissolves smoothly above liquid, eliminating any sharp cutoff or circle on the water!
+        float bottomFade = smoothstep(0.0, 0.28, vNorm);
+
+        // Soft top fade: dissolves smoothly before the vessel rim bead
+        float topFade = 1.0 - smoothstep(0.72, 1.0, vNorm);
+
+        // Organic micro-droplet mist variation using procedural noise
+        vec3 nPos = vec3(vWorldPos.xz * 12.0, vWorldPos.y * 8.0);
+        float mistNoise = snoise(nPos) * 0.22 + snoise(nPos * 2.8) * 0.12;
+        float streakNoise = sin(vWorldPos.y * 30.0 + snoise(vWorldPos * 5.0) * 2.0) * 0.06;
+        float dropletVariation = clamp(0.85 + mistNoise + streakNoise, 0.2, 1.35);
+
+        // Final soft mist alpha
+        float baseAlpha = clamp(uFogIntensity * 0.35, 0.0, 0.40);
+        float targetAlpha = baseAlpha * bottomFade * topFade * dropletVariation;
+
+        // Soft translucent white mist color with Mie forward-scattering boost
+        vec3 mistColor = vec3(0.97, 0.985, 1.0);
+        gl_FragColor.rgb = mix(gl_FragColor.rgb, mistColor, 0.75);
+        gl_FragColor.a = targetAlpha;
+        `
+      );
+    };
+
+    mat.customProgramCacheKey = () => 'chemlab_condensation_fog_v1';
+    return mat;
+  }, [uniforms]);
+
+  useEffect(() => {
+    return () => {
+      fogMaterial.dispose();
+    };
+  }, [fogMaterial]);
+
+  if (!bounds || !geometry) return null;
+
   return (
-    <group position={[0, yOffset, 0]}>
-      <mesh>
-        <cylinderGeometry args={[radius * 0.98, radius * 0.98, height, 24, 1, true]} />
-        <meshStandardMaterial 
-          color="#f8fafc"
-          roughness={0.7}
-          metalness={0.05}
-          transparent
-          opacity={Math.min(0.65, Math.max(0.08, intensity * 0.65))}
-          depthWrite={false}
-          side={DoubleSide}
-        />
-      </mesh>
+    <group position={[0, 0, 0]}>
+      <mesh ref={meshRef} renderOrder={4} geometry={geometry} material={fogMaterial} />
     </group>
   );
 });
@@ -1833,12 +1981,16 @@ export const VesselPhysicalEffects = React.memo(function VesselPhysicalEffects({
 
   return (
     <>
-      {hasLiquid && (vessel.temperature_c > 55 || (vessel.condensationMist || 0) > 0) && (
+      <WallCondensateDroplets vessel={vessel} />
+      {(vessel.wallCondensation?.outer_g ?? 0) > 0 && <CondensationFog vessel={vessel} wallSide="outer"
+        intensity={Math.min(1, (vessel.wallCondensation?.outer_g ?? 0) / 0.05)} />}
+      {(vessel.wallCondensation?.inner_g ?? 0) > 0 && (
         <CondensationFog 
+          vessel={vessel}
           radius={fogRadius} 
           height={fogHeight} 
           yOffset={fogY} 
-          intensity={vessel.condensationMist || ((vessel.temperature_c - 55) / 35)} 
+          intensity={Math.min(1, (vessel.wallCondensation?.inner_g ?? 0) / 0.03)}
         />
       )}
       {(vessel.stainIntensity || 0) > 0 && (
@@ -1862,6 +2014,8 @@ export const VesselPhysicalEffects = React.memo(function VesselPhysicalEffects({
           yOffset={surgeY} 
         />
       )}
+      {/* Real-world fluid overflow cascading over rim and streaming down outside wall */}
+      {/* Exterior flow is rendered from finite packets by PourTransitRenderer. */}
       {/* Rubber Stopper for Sealed Containers with Overpressure Stress Indicator */}
       {vessel.isSealed && (
         <group position={[0, fumeY - 0.05, 0]}>
@@ -1943,7 +2097,7 @@ export const VolumetricFlask = React.memo(function VolumetricFlask({ position, i
         groupRef.current.rotation.set(tiltAngle + rotX, vessel?.rotationY || 0, rotZ);
       }
     }
-  });
+  }, FRAME_ORDER.vesselPose);
 
   if (!vessel) return null;
 
@@ -1958,10 +2112,11 @@ export const VolumetricFlask = React.memo(function VolumetricFlask({ position, i
       onPointerOver={(e) => { e.stopPropagation(); setHoveredVesselId(id); document.body.style.cursor = vessel.isLocked ? 'not-allowed' : (moveMode ? 'grab' : 'pointer'); }}
       onPointerOut={() => { setHoveredVesselId(null); document.body.style.cursor = 'auto'; }}
     >
+      <VesselBodyScale vessel={vessel}>
       <VesselFloorRing isSelected={isSelected} isDropTarget={isDropTarget} isChemicalDrop={isChemicalDrop} isNearestPourTarget={isNearestPourTarget} />
 
       {vessel.isShattered ? (
-        <VesselShatteredShards radius={0.9} />
+        null
       ) : (
         <>
           {effectiveTier !== 'low' && (
@@ -1971,8 +2126,6 @@ export const VolumetricFlask = React.memo(function VolumetricFlask({ position, i
           <RealisticLiquid 
             vesselId={id} 
             vesselType="volumetric_flask" 
-            baseY={-0.95} 
-            maxHeight={2.8} 
             capacity_ml={vessel.capacity_ml || 100} 
           />
 
@@ -1990,7 +2143,7 @@ export const VolumetricFlask = React.memo(function VolumetricFlask({ position, i
             onClick={(e) => { 
               e.stopPropagation(); 
               if (!vessel.isSealed) {
-                useAppStore.getState().setVesselState(id, { isSealed: true });
+                useAppStore.getState().sealVessel(id);
                 return;
               }
               if (vessel.isShattered || vessel.volume_ml <= 0) return;
@@ -2013,20 +2166,22 @@ export const VolumetricFlask = React.memo(function VolumetricFlask({ position, i
             </mesh>
           </group>
 
-          {/* Real-world effects: Condensation, Stain, Fume, Solids */}
-          {(vessel.temperature_c > 55 || (vessel.condensationMist || 0) > 0) && (
-            <CondensationFog radius={0.18} height={1.1} yOffset={1.3} intensity={vessel.condensationMist || ((vessel.temperature_c - 55) / 35)} />
-          )}
-          {(vessel.stainIntensity || 0) > 0 && (
-            <WallStainRing radius={0.65} y={-0.95 + 2.8 * (vessel.stainHeight || 0.4)} color={vessel.stainColor || '#0284c7'} intensity={vessel.stainIntensity} />
-          )}
-          {(vessel.fumingIntensity || 0) > 0 && (
-            <AcidBaseFume yOffset={2.2} color={vessel.fumingColor || '#f8fafc'} intensity={vessel.fumingIntensity} />
-          )}
+          {/* Real-world effects: Condensation, Stain, Fume, Wall Overflow, Solids */}
+          <VesselPhysicalEffects
+            vessel={vessel}
+            fogRadius={0.18}
+            fogHeight={1.1}
+            fogY={1.3}
+            stainRadius={0.65}
+            stainBaseY={-0.95}
+            stainHeightRange={2.8}
+            fumeY={2.2}
+          />
 
           <SolidContentsRenderer vesselId={id} radius={0.65} baseY={-0.95} />
         </>
       )}
+    </VesselBodyScale>
     </group>
   );
 });
@@ -2070,13 +2225,11 @@ export const SeparatoryFunnel = React.memo(function SeparatoryFunnel({ position,
         groupRef.current.rotation.set(tiltAngle, vessel?.rotationY || 0, 0);
       }
     }
-  });
+  }, FRAME_ORDER.vesselPose);
 
   if (!vessel) return null;
   const layers = separatedLayers(vessel);
   const capacity = vessel.capacity_ml || 150;
-  const lowerHeight = 1.9 * layers.lowerVolume_ml / capacity;
-  const upperHeight = 1.9 * layers.upperVolume_ml / capacity;
   const lowerColor = layers.lower === 'organic' ? vessel.immiscibleOrganicColor : vessel.liquidColor;
   const upperColor = layers.lower === 'organic' ? vessel.liquidColor : vessel.immiscibleOrganicColor;
 
@@ -2091,10 +2244,11 @@ export const SeparatoryFunnel = React.memo(function SeparatoryFunnel({ position,
       onPointerOver={(e) => { e.stopPropagation(); setHoveredVesselId(id); document.body.style.cursor = vessel.isLocked ? 'not-allowed' : (moveMode ? 'grab' : 'pointer'); }}
       onPointerOut={() => { setHoveredVesselId(null); document.body.style.cursor = 'auto'; }}
     >
+      <VesselBodyScale vessel={vessel}>
       <VesselFloorRing isSelected={isSelected} isDropTarget={isDropTarget} isChemicalDrop={isChemicalDrop} isNearestPourTarget={isNearestPourTarget} />
 
       {vessel.isShattered ? (
-        <VesselShatteredShards radius={0.9} />
+        null
       ) : (
         <>
           {effectiveTier !== 'low' && (
@@ -2105,27 +2259,20 @@ export const SeparatoryFunnel = React.memo(function SeparatoryFunnel({ position,
           <RealisticLiquid 
             vesselId={id} 
             vesselType="separatory_funnel" 
-            baseY={-0.45} 
-            maxHeight={1.9} 
             volumeOverride_ml={layers.lowerVolume_ml}
             colorOverride={lowerColor}
             capacity_ml={vessel.capacity_ml || 150} 
           />
 
-          {/* Finite upper layer; its height follows its actual remaining volume. */}
-          {layers.upperVolume_ml > 0.01 && (
-            <group position={[0, -0.45 + lowerHeight + upperHeight / 2, 0]}>
-              <mesh>
-                <cylinderGeometry args={[0.78, 0.78, Math.max(0.002, upperHeight), 24]} />
-                <meshPhysicalMaterial color={upperColor || '#f8fafc'} roughness={0.08}
-                  transmission={0.88} transparent opacity={0.8} />
-              </mesh>
-              <mesh position={[0, -upperHeight / 2, 0]} rotation={[Math.PI / 2, 0, 0]}>
-                <ringGeometry args={[0.01, 0.78, 24]} />
-                <meshBasicMaterial color={lowerColor || '#f8fafc'} transparent opacity={0.35} side={DoubleSide} />
-              </mesh>
-            </group>
+          {/* The same reservoir clipped between the finite phase volumes. */}
+          {layers.upperVolume_ml > 0 && (
+            <RealisticLiquid vesselId={id} vesselType="separatory_funnel"
+              volumeOverride_ml={layers.lowerVolume_ml + layers.upperVolume_ml}
+              bottomVolume_ml={layers.lowerVolume_ml} colorOverride={upperColor || '#f8fafc'}
+              capacity_ml={capacity} />
           )}
+
+          <SolidContentsRenderer vesselId={id} radius={0.8} baseY={-0.45} />
 
           <mesh geometry={latheGeom.outer} material={glassMats.front} renderOrder={6} castShadow receiveShadow />
 
@@ -2199,23 +2346,17 @@ export const SeparatoryFunnel = React.memo(function SeparatoryFunnel({ position,
             </group>
           </group>
 
-          {/* Stopcock Draining Liquid Stream when open */}
-          {vessel.stopcockOpen && (vessel.volume_ml > 0) && (
-            <mesh position={[0, -1.55, 0]}>
-              <cylinderGeometry args={[0.035, 0.035, 0.6, 12]} />
-              <meshBasicMaterial color={vessel.liquidColor || '#38bdf8'} transparent opacity={0.8} />
-            </mesh>
-          )}
+          {/* The finite transport renderer owns discharged liquid. */}
 
           {/* Ground Glass Stopper on Top */}
-          <group position={[0, 1.88, 0]}>
+          {vessel.isSealed && <group name={`separatory_stopper_${id}`} position={[0, 1.88, 0]}>
             <mesh material={glassMats.front} castShadow>
               <cylinderGeometry args={[0.24, 0.19, 0.22, 16]} />
             </mesh>
             <mesh position={[0, 0.18, 0]} material={glassMats.front} castShadow>
               <cylinderGeometry args={[0.34, 0.34, 0.12, 6]} />
             </mesh>
-          </group>
+          </group>}
 
           {/* Real-World Mechanisms: Condensation, Stain, Fume, Boiling Bumping */}
           <VesselPhysicalEffects 
@@ -2232,6 +2373,7 @@ export const SeparatoryFunnel = React.memo(function SeparatoryFunnel({ position,
           />
         </>
       )}
+    </VesselBodyScale>
     </group>
   );
 });
@@ -2274,7 +2416,7 @@ export const FilterFunnel = React.memo(function FilterFunnel({ position, id }: {
         groupRef.current.rotation.set(tiltAngle, vessel?.rotationY || 0, 0);
       }
     }
-  });
+  }, FRAME_ORDER.vesselPose);
 
   if (!vessel) return null;
 
@@ -2289,10 +2431,11 @@ export const FilterFunnel = React.memo(function FilterFunnel({ position, id }: {
       onPointerOver={(e) => { e.stopPropagation(); setHoveredVesselId(id); document.body.style.cursor = vessel.isLocked ? 'not-allowed' : (moveMode ? 'grab' : 'pointer'); }}
       onPointerOut={() => { setHoveredVesselId(null); document.body.style.cursor = 'auto'; }}
     >
+      <VesselBodyScale vessel={vessel}>
       <VesselFloorRing isSelected={isSelected} isDropTarget={isDropTarget} isChemicalDrop={isChemicalDrop} isNearestPourTarget={isNearestPourTarget} />
 
       {vessel.isShattered ? (
-        <VesselShatteredShards radius={0.8} />
+        null
       ) : (
         <>
           {effectiveTier !== 'low' && (
@@ -2364,20 +2507,10 @@ export const FilterFunnel = React.memo(function FilterFunnel({ position, id }: {
           <RealisticLiquid 
             vesselId={id} 
             vesselType="filter_funnel" 
-            baseY={-0.10} 
-            maxHeight={0.95} 
             capacity_ml={vessel.capacity_ml || 75} 
           />
 
-          {/* Filtrate droplets dripping from stem tip */}
-          {vessel.isFiltrating && (
-            <group position={[0, -1.35, 0]}>
-              <mesh position={[0, -0.08, 0]}>
-                <sphereGeometry args={[0.045, 12, 12]} />
-                <meshBasicMaterial color={vessel.liquidColor || '#38bdf8'} transparent opacity={0.85} />
-              </mesh>
-            </group>
-          )}
+          {/* Filtrate is drawn from its finite released parcels. */}
 
           <SolidContentsRenderer vesselId={id} radius={0.45} baseY={0.08} />
 
@@ -2396,6 +2529,7 @@ export const FilterFunnel = React.memo(function FilterFunnel({ position, id }: {
           />
         </>
       )}
+    </VesselBodyScale>
     </group>
   );
 });
@@ -2469,7 +2603,7 @@ export const MortarPestle = React.memo(function MortarPestle({ position, id }: {
         pestleRef.current.rotation.set(0.12, 0, -0.38);
       }
     }
-  });
+  }, FRAME_ORDER.vesselPose);
 
   if (!vessel) return null;
 
@@ -2484,10 +2618,11 @@ export const MortarPestle = React.memo(function MortarPestle({ position, id }: {
       onPointerOver={(e) => { e.stopPropagation(); setHoveredVesselId(id); document.body.style.cursor = vessel.isLocked ? 'not-allowed' : (moveMode ? 'grab' : 'pointer'); }}
       onPointerOut={() => { setHoveredVesselId(null); document.body.style.cursor = 'auto'; }}
     >
+      <VesselBodyScale vessel={vessel}>
       <VesselFloorRing isSelected={isSelected} isDropTarget={isDropTarget} isChemicalDrop={isChemicalDrop} isNearestPourTarget={isNearestPourTarget} />
 
       {vessel.isShattered ? (
-        <VesselShatteredShards radius={0.75} color="#f8fafc" />
+        null
       ) : (
         <>
           {/* Heavy Glazed Porcelain Body */}
@@ -2503,8 +2638,6 @@ export const MortarPestle = React.memo(function MortarPestle({ position, id }: {
           <RealisticLiquid 
             vesselId={id} 
             vesselType="mortar_pestle" 
-            baseY={-0.42} 
-            maxHeight={0.72} 
             capacity_ml={vessel.capacity_ml || 80} 
           />
 
@@ -2555,6 +2688,7 @@ export const MortarPestle = React.memo(function MortarPestle({ position, id }: {
           />
         </>
       )}
+    </VesselBodyScale>
     </group>
   );
 });
@@ -2592,7 +2726,7 @@ export const LiebigCondenser = React.memo(function LiebigCondenser({ position, i
       groupRef.current.position.set(renderPos[0], renderPos[1], renderPos[2]);
       groupRef.current.rotation.set(tiltAngle, vessel?.rotationY || 0, 0);
     }
-  });
+  }, FRAME_ORDER.vesselPose);
 
   if (!vessel) return null;
 
@@ -2607,10 +2741,11 @@ export const LiebigCondenser = React.memo(function LiebigCondenser({ position, i
       onPointerOver={(e) => { e.stopPropagation(); setHoveredVesselId(id); document.body.style.cursor = vessel.isLocked ? 'not-allowed' : (moveMode ? 'grab' : 'pointer'); }}
       onPointerOut={() => { setHoveredVesselId(null); document.body.style.cursor = 'auto'; }}
     >
+      <VesselBodyScale vessel={vessel}>
       <VesselFloorRing isSelected={isSelected} isDropTarget={isDropTarget} isChemicalDrop={isChemicalDrop} isNearestPourTarget={isNearestPourTarget} />
 
       {vessel.isShattered ? (
-        <VesselShatteredShards radius={0.7} />
+        null
       ) : (
         <>
           {effectiveTier !== 'low' && (
@@ -2685,14 +2820,18 @@ export const LiebigCondenser = React.memo(function LiebigCondenser({ position, i
           <RealisticLiquid 
             vesselId={id} 
             vesselType="condenser" 
-            baseY={-1.25} 
-            maxHeight={2.9} 
             capacity_ml={vessel.capacity_ml || 120} 
           />
 
-          <CondensationFog radius={0.14} height={2.5} yOffset={0.2} intensity={0.65} />
+          <VesselPhysicalEffects
+            vessel={vessel}
+            fogRadius={0.14}
+            fogHeight={2.5}
+            fogY={0.2}
+          />
         </>
       )}
+    </VesselBodyScale>
     </group>
   );
 });
@@ -2724,7 +2863,7 @@ export const TestTubeRack = React.memo(function TestTubeRack({ position, id }: {
       const renderPos = isDragging ? [position[0], position[1] + 0.35, position[2]] : position;
       groupRef.current.position.set(renderPos[0], renderPos[1], renderPos[2]);
     }
-  });
+  }, FRAME_ORDER.vesselPose);
 
   if (!vessel) return null;
 
@@ -2839,7 +2978,7 @@ export const WashBottle = React.memo(function WashBottle({ position, id }: { pos
       groupRef.current.position.set(renderPos[0], renderPos[1], renderPos[2]);
       groupRef.current.rotation.set(tiltAngle, vessel?.rotationY || 0, 0);
     }
-  });
+  }, FRAME_ORDER.vesselPose);
 
   if (!vessel) return null;
 
@@ -2852,6 +2991,7 @@ export const WashBottle = React.memo(function WashBottle({ position, id }: { pos
       onPointerOver={(e) => { e.stopPropagation(); setHoveredVesselId(id); document.body.style.cursor = vessel.isLocked ? 'not-allowed' : (moveMode ? 'grab' : 'pointer'); }}
       onPointerOut={() => { setHoveredVesselId(null); document.body.style.cursor = 'auto'; }}
     >
+      <VesselBodyScale vessel={vessel}>
       <VesselFloorRing isSelected={isSelected} isDropTarget={isDropTarget} isChemicalDrop={false} isNearestPourTarget={isNearestPourTarget} />
 
       {/* Translucent LDPE Plastic Body */}
@@ -2870,8 +3010,6 @@ export const WashBottle = React.memo(function WashBottle({ position, id }: { pos
       <RealisticLiquid 
         vesselId={id} 
         vesselType="wash_bottle" 
-        baseY={-0.95} 
-        maxHeight={1.8} 
         capacity_ml={vessel.capacity_ml || 250} 
       />
 
@@ -2918,6 +3056,7 @@ export const WashBottle = React.memo(function WashBottle({ position, id }: { pos
           <meshStandardMaterial color="#ef4444" roughness={0.3} />
         </mesh>
       </group>
+    </VesselBodyScale>
     </group>
   );
 });
@@ -2943,7 +3082,7 @@ export const LabTongs = React.memo(function LabTongs({ position, id }: { positio
       const renderPos = isDragging ? [position[0], position[1] + 0.35, position[2]] : position;
       groupRef.current.position.set(renderPos[0], renderPos[1], renderPos[2]);
     }
-  });
+  }, FRAME_ORDER.vesselPose);
 
   if (!vessel) return null;
 

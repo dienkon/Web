@@ -64,7 +64,7 @@ describe('Solubility & Precipitation Engine', () => {
 });
 
 describe('Physical Effect Systems', () => {
-  it('BoilingSystem spawns bubbles only at high temperature or onset', () => {
+  it('BoilingSystem requires actual vapor supply for thermal bubbles', () => {
     const boiling = new BoilingSystem(50);
     // Cold: 0 bubbles
     boiling.update(0.1, {
@@ -91,7 +91,8 @@ describe('Physical Effect Systems', () => {
         liquidBottomY: -0.8,
         surfaceY: 0.2,
         boilingStage: 'ACTIVE_BOIL',
-        boilingIntensity: 0.8
+        boilingIntensity: 0.8,
+        vaporRate_g_s: 0.1,
       });
     }
     expect(boiling.bubbles.length).toBeGreaterThan(0);
@@ -134,7 +135,7 @@ describe('Physical Effect Systems', () => {
     expect(precip.sedimentBed.thickness).toBeGreaterThan(0);
   });
 
-  it('EvaporationSystem scales with temperature and surface area', () => {
+  it('EvaporationSystem never infers a solvent sink from temperature or surface area', () => {
     const evap = new EvaporationSystem(40);
     const coldEvap = evap.update(0.1, {
       temp_c: 25,
@@ -156,7 +157,9 @@ describe('Physical Effect Systems', () => {
       isBoiling: true
     });
 
-    expect(hotEvap.evaporated_ml).toBeGreaterThan(coldEvap.evaporated_ml);
+    expect(coldEvap.evaporated_ml).toBe(0);
+    expect(hotEvap.evaporated_ml).toBe(0);
+    expect(evap.particles).toHaveLength(0);
   });
 });
 

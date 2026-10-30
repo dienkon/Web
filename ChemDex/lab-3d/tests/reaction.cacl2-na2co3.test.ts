@@ -65,16 +65,16 @@ describe('Phase C, D & E â€” End-to-End Reaction & ProgramPlayer Verification (Â
     expect(vessel.hasGas).toBe(false);
 
     // 4. STEP SIMULATION to intermediate progress xi â‰ˆ 0.5
-    // Duration is ~7.0s. At 35 ticks of dt=0.1s (3.5s elapsed): progress ~ 0.5
-    for (let i = 0; i < 35; i++) {
+    // Contact half-time is 0.2 s; the seven-second visual timeline does not
+    // set chemical conversion. Two 0.1 s ticks reach half conversion.
+    for (let i = 0; i < 2; i++) {
       useAppStore.getState().tick(0.1);
     }
 
     vessel = useAppStore.getState().vessels[beakerId];
     const midKinetics = useAppStore.getState().activeKinetics[beakerId];
     expect(midKinetics).toBeDefined();
-    expect(midKinetics.progress).toBeGreaterThan(0.4);
-    expect(midKinetics.progress).toBeLessThan(0.7);
+    expect(midKinetics.progress).toBeCloseTo(0.5, 12);
 
     // Intermediate reactants partially consumed
     const caCl2Mid = vessel.contents?.find(c => c.formula === 'CaCl2');
@@ -106,13 +106,15 @@ describe('Phase C, D & E â€” End-to-End Reaction & ProgramPlayer Verification (Â
     expect(useAppStore.getState().activeKinetics[beakerId]).toBeUndefined();
 
     // Final stoichiometric yields
-    const finalCaCO3 = vessel.contents?.find(c => c.formula === 'CaCO3');
+    const finalCaCO3 = vessel.contents?.find(c => c.formula === 'CaCO3' && c.phase === 's');
+    const totalCarbonate = vessel.contents.filter(c => c.formula === 'CaCO3').reduce((sum, item) => sum + item.moles, 0);
     const finalNaCl = vessel.contents?.find(c => c.formula === 'NaCl');
     const finalNa2CO3 = vessel.contents?.find(c => c.formula === 'Na2CO3');
     const finalCaCl2 = vessel.contents?.find(c => c.formula === 'CaCl2');
 
     expect(finalCaCO3).toBeDefined();
-    expect(finalCaCO3!.moles).toBeCloseTo(0.010, 2); // 100% conversion
+    expect(totalCarbonate).toBeCloseTo(0.010, 10); // Solid + finite dissolved pool conserve the yield.
+    expect(finalCaCO3!.moles).toBeCloseTo(0.010, 2); // Most remains as insoluble calcite.
     expect(vessel.precipitateAmount_g).toBeCloseTo(1.00, 1); // 1.00g CaCO3
     expect(vessel.precipitateSubstance).toBe('CaCO3');
     expect(vessel.precipitateColor).toBe('#ffffff');
@@ -255,8 +257,8 @@ describe('Phase C, D & E â€” End-to-End Reaction & ProgramPlayer Verification (Â
     expect(bHandle.custom.activeBubbleCount).toBeGreaterThan(0);
     const bPatch: any = {};
     bubbleAtom.writeBack!(bHandle, bPatch);
-    expect(bPatch.hasGas).toBe(true);
-    expect(bPatch.gasRate).toBe(20);
+    expect(bPatch.hasGas).toBeUndefined();
+    expect(bPatch.gasRate).toBeUndefined();
     bubbleAtom.dispose(bHandle);
     expect(bHandle.alive).toBe(false);
 
@@ -281,7 +283,7 @@ describe('Phase C, D & E â€” End-to-End Reaction & ProgramPlayer Verification (Â
     glitterAtom.update(gHandle, 0.5, ledger);
     const gPatch: any = {};
     glitterAtom.writeBack!(gHandle, gPatch);
-    expect(gPatch.hasPrecipitate).toBe(true);
+    expect(gPatch.hasPrecipitate).toBeUndefined();
     expect(gPatch.precipitateColor).toBe('#fef08a');
     glitterAtom.dispose(gHandle);
     expect(gHandle.alive).toBe(false);
@@ -294,8 +296,8 @@ describe('Phase C, D & E â€” End-to-End Reaction & ProgramPlayer Verification (Â
     steamAtom.update(sHandle, 1.0, ledger);
     const sPatch: any = {};
     steamAtom.writeBack!(sHandle, sPatch);
-    expect(sPatch.temperature_c).toBe(85);
-    expect(sPatch.fumingIntensity).toBeGreaterThan(0);
+    expect(sPatch.temperature_c).toBeUndefined();
+    expect(sPatch.fumingIntensity).toBeUndefined();
     steamAtom.dispose(sHandle);
     expect(sHandle.alive).toBe(false);
 
@@ -307,7 +309,7 @@ describe('Phase C, D & E â€” End-to-End Reaction & ProgramPlayer Verification (Â
     flameAtom.update(flameHandle, 0.5, ledger);
     const flamePatch: any = {};
     flameAtom.writeBack!(flameHandle, flamePatch);
-    expect(flamePatch.temperature_c).toBeGreaterThanOrEqual(450);
+    expect(flamePatch.temperature_c).toBeUndefined();
     flameAtom.dispose(flameHandle);
     expect(flameHandle.alive).toBe(false);
   });

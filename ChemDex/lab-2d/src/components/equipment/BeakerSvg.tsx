@@ -25,6 +25,13 @@ export const BeakerSvg: React.FC<BeakerSvgProps> = ({ equipment, isSelected }) =
     hasFumes,
     fumeType = 'steam',
     fumeColorHex = '#cbd5e1',
+    isBeingHeated,
+    absorbedPower_W = 0,
+    hasTripod,
+    foamHead_mm = 0,
+    hasSilverMirror,
+    turbidity = 0,
+    temperature_c = 25.0,
   } = equipment;
 
   const fillRatio = Math.min(1.0, Math.max(0, volume_ml / capacity_ml));
@@ -78,11 +85,68 @@ export const BeakerSvg: React.FC<BeakerSvgProps> = ({ equipment, isSelected }) =
           <path d="M 22 22 L 22 136 Q 22 144 32 144 L 108 144 Q 118 144 118 136 L 118 22 Z" />
         </clipPath>
 
+        {/* Thermal Bottom Radiant Glow Gradient */}
+        <radialGradient id={`beakerThermalGlow-${id}`} cx="50%" cy="100%" r="60%">
+          <stop offset="0%" stopColor="#f97316" stopOpacity="0.85" />
+          <stop offset="50%" stopColor="#ea580c" stopOpacity="0.4" />
+          <stop offset="100%" stopColor="#f97316" stopOpacity="0" />
+        </radialGradient>
+
+        {/* Silver Mirror Coating Gradient */}
+        <linearGradient id={`silverMirrorGrad-${id}`} x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#94a3b8" stopOpacity="0.9" />
+          <stop offset="25%" stopColor="#f8fafc" stopOpacity="0.95" />
+          <stop offset="50%" stopColor="#cbd5e1" stopOpacity="0.85" />
+          <stop offset="75%" stopColor="#ffffff" stopOpacity="0.95" />
+          <stop offset="100%" stopColor="#64748b" stopOpacity="0.9" />
+        </linearGradient>
+
         {/* Steam / Fume Glow Filter */}
         <filter id={`fumeBlur-${id}`} x="-20%" y="-20%" width="140%" height="140%">
           <feGaussianBlur stdDeviation="3" />
         </filter>
       </defs>
+
+      {/* Laboratory Tripod Stand with Wire Gauze (When supported over burner) */}
+      {hasTripod && (
+        <g className="select-none pointer-events-none">
+          {/* Ceramic Center Wire Gauze */}
+          <rect x="12" y="145" width="116" height="4" rx="1.5" fill="#475569" stroke="#334155" strokeWidth="1" />
+          <ellipse cx="70" cy="147" rx="30" ry="2" fill="#e2e8f0" stroke="#cbd5e1" strokeWidth="0.8" />
+          {/* Iron Tripod Ring & 3 Heavy Triangular Legs */}
+          <line x1="16" y1="148" x2="2" y2="200" stroke="#1e293b" strokeWidth="3" strokeLinecap="round" />
+          <line x1="124" y1="148" x2="138" y2="200" stroke="#1e293b" strokeWidth="3" strokeLinecap="round" />
+          <line x1="70" y1="148" x2="70" y2="195" stroke="#334155" strokeWidth="2.5" strokeLinecap="round" />
+        </g>
+      )}
+
+      {/* Thermal Flame Licking & Heating Glow when positioned over active burner */}
+      {isBeingHeated && (
+        <g className="animate-pulse">
+          {/* Bottom Radiant Glass Heat Glow */}
+          <ellipse cx="70" cy="144" rx="52" ry="14" fill={`url(#beakerThermalGlow-${id})`} />
+          {/* Left Flame Tongue licking beaker curve */}
+          <path
+            d="M 22 144 C 15 136, 14 122, 19 114 C 22 124, 25 134, 26 144 Z"
+            fill="#f59e0b"
+            fillOpacity="0.85"
+          />
+          <path
+            d="M 22 144 C 17 138, 16 128, 20 120 C 22 127, 24 135, 25 144 Z"
+            fill="#fef08a"
+          />
+          {/* Right Flame Tongue licking beaker curve */}
+          <path
+            d="M 118 144 C 125 136, 126 122, 121 114 C 118 124, 115 134, 114 144 Z"
+            fill="#f59e0b"
+            fillOpacity="0.85"
+          />
+          <path
+            d="M 118 144 C 123 138, 124 128, 120 120 C 118 127, 116 135, 115 144 Z"
+            fill="#fef08a"
+          />
+        </g>
+      )}
 
       {/* Selection Glow Indicator */}
       {isSelected && (
@@ -256,12 +320,52 @@ export const BeakerSvg: React.FC<BeakerSvgProps> = ({ equipment, isSelected }) =
               </g>
             )}
 
+            {/* Frothy Foam Head on Meniscus during vigorous gas evolution */}
+            {(hasGas || isBoiling || (foamHead_mm && foamHead_mm > 0)) && (
+              <g className="animate-pulse">
+                {/* Cluster of froth bubbles covering the meniscus */}
+                <ellipse cx="70" cy={liquidY - 1} rx="46" ry="4" fill="#ffffff" fillOpacity="0.85" />
+                <circle cx="30" cy={liquidY - 2} r="3.2" fill="#ffffff" fillOpacity="0.9" />
+                <circle cx="36" cy={liquidY - 4} r="2.8" fill="#ffffff" fillOpacity="0.85" />
+                <circle cx="45" cy={liquidY - 3} r="3.5" fill="#ffffff" fillOpacity="0.9" />
+                <circle cx="56" cy={liquidY - 4.5} r="3.8" fill="#ffffff" fillOpacity="0.95" />
+                <circle cx="68" cy={liquidY - 3} r="4.2" fill="#ffffff" fillOpacity="0.95" />
+                <circle cx="78" cy={liquidY - 4} r="3.6" fill="#ffffff" fillOpacity="0.9" />
+                <circle cx="89" cy={liquidY - 3} r="3.8" fill="#ffffff" fillOpacity="0.9" />
+                <circle cx="100" cy={liquidY - 2.5} r="3.2" fill="#ffffff" fillOpacity="0.85" />
+                <circle cx="108" cy={liquidY - 1} r="2.5" fill="#ffffff" fillOpacity="0.8" />
+              </g>
+            )}
+
             {/* Boiling Turbulent Agitation */}
             {isBoiling && (
               <g className="animate-bounce" opacity="0.8">
                 <circle cx="45" cy={liquidY + 6} r="4" fill="#ffffff" fillOpacity="0.7" />
                 <circle cx="72" cy={liquidY + 4} r="5" fill="#ffffff" fillOpacity="0.7" />
                 <circle cx="95" cy={liquidY + 7} r="4.5" fill="#ffffff" fillOpacity="0.7" />
+              </g>
+            )}
+
+            {/* Specular Silver Mirror Metallic Coating (Tollens test) */}
+            {hasSilverMirror && (
+              <path
+                d="M 22 35 L 22 136 Q 22 144 32 144 L 108 144 Q 118 144 118 136 L 118 35 L 113 35 L 113 133 Q 113 139 105 139 L 35 139 Q 27 139 27 133 L 27 35 Z"
+                fill={`url(#silverMirrorGrad-${id})`}
+                className="drop-shadow-sm"
+              />
+            )}
+
+            {/* Steam Condensation Water Droplets inside Upper Glass Walls */}
+            {temperature_c >= 50 && totalLiquidHeight < 90 && (
+              <g fill="#ffffff" fillOpacity="0.75" className="animate-pulse">
+                <circle cx="26" cy="38" r="1.5" />
+                <circle cx="28" cy="52" r="1.2" />
+                <circle cx="25" cy="68" r="1.8" />
+                <circle cx="29" cy="84" r="1.4" />
+                <circle cx="114" cy="42" r="1.6" />
+                <circle cx="112" cy="58" r="1.3" />
+                <circle cx="115" cy="74" r="1.7" />
+                <circle cx="111" cy="90" r="1.2" />
               </g>
             )}
 

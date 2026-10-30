@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "referenceCoordinates": 1428,
+  "finiteCoordinates": 1785,
+  "normalChecks": 595,
+  "persistentBufferUpdates": 1000,
+  "endpointChecks": 10
+}

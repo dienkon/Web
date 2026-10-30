@@ -1,0 +1,65 @@
+[
+  {
+    "id": "crystal-nacl",
+    "name_vi": "Tinh thể natri clorua",
+    "name_en": "Sodium chloride (halite)",
+    "formula": "NaCl",
+    "kind": "crystal",
+    "family": "inorganic",
+    "aliases": [
+      "Tinh thể natri clorua",
+      "NaCl",
+      "Sodium chloride (halite)"
+    ],
+    "structure": {
+      "format": "cif",
+      "url": "/shared/structures/nacl.cif",
+      "dimension": "3d",
+      "provenance": "Ideal conventional unit cell reconstructed from published lattice parameters (University of Potsdam / cited crystallographic literature)",
+      "source": "https://www.uni-potsdam.de/en/crystallography/lehre/merge-cube-lehre-mit-erweiterter-realtitaet/strukturdatenbank/salze",
+      "retrievedAt": "2026-10-26"
+    }
+  },
+  {
+    "id": "crystal-cscl",
+    "name_vi": "Tinh thể xesi clorua",
+    "name_en": "Cesium chloride",
+    "formula": "CsCl",
+    "kind": "crystal",
+    "family": "inorganic",
+    "aliases": [
+      "Tinh thể xesi clorua",
+      "CsCl",
+      "Cesium chloride"
+    ],
+    "structure": {
+      "format": "cif",
+      "url": "/shared/structures/cscl.cif",
+      "dimension": "3d",
+      "provenance": "Ideal conventional unit cell reconstructed from published lattice parameters (University of Potsdam / cited crystallographic literature)",
+      "source": "https://www.uni-potsdam.de/en/crystallography/lehre/merge-cube-lehre-mit-erweiterter-realtitaet/strukturdatenbank/salze",
+      "retrievedAt": "2026-10-26"
+    }
+  },
+  {
+    "id": "crystal-caf2",
+    "name_vi": "Tinh thể canxi florua",
+    "name_en": "Calcium fluoride (fluorite)",
+    "formula": "CaF2",
+    "kind": "crystal",
+    "family": "inorganic",
+    "aliases": [
+      "Tinh thể canxi florua",
+      "CaF2",
+      "Calcium fluoride (fluorite)"
+    ],
+    "structure": {
+      "format": "cif",
+      "url": "/shared/structures/caf2.cif",
+      "dimension": "3d",
+      "provenance": "Ideal conventional unit cell reconstructed from published lattice parameters (University of Potsdam / cited crystallographic literature)",
+      "source": "https://www.uni-potsdam.de/en/crystallography/lehre/merge-cube-lehre-mit-erweiterter-realtitaet/strukturdatenbank/salze",
+      "retrievedAt": "2026-10-26"
+    }
+  }
+]

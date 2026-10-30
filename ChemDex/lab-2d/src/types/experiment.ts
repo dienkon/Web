@@ -26,6 +26,7 @@ export interface ExperimentStep {
     precipitateFormula?: string;
     mustHaveGas?: boolean;
     requiredReactionId?: string;
+    absentFormulas?: string[];
   };
   theory_en?: string;
   theory_vi?: string;
@@ -53,6 +54,7 @@ export interface GuidedExperiment {
 }
 
 export interface LabLogEntry {
+  reactionId?: string;
   id: string;
   timestamp: number;
   actionType: 'ADD_EQUIPMENT' | 'ADD_CHEMICAL' | 'TRANSFER' | 'HEAT' | 'MEASURE' | 'REACTION' | 'RESET';

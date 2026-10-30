@@ -1,0 +1,867 @@
+{
+  "passed": true,
+  "stage": "before",
+  "errors": [],
+  "snapshots": [
+    {
+      "id": "full-front",
+      "asset": "student-character",
+      "wear": "full",
+      "angle": "front",
+      "detail": "full",
+      "file": "before-full-front.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2908848198618062,
+          -1.862645593320167e-10,
+          -0.2770000000298023
+        ],
+        "max": [
+          0.2908848198618062,
+          1.83700000166893,
+          0.20700000102818011
+        ],
+        "size": [
+          0.5817696397236124,
+          1.8370000018551946,
+          0.4840000010579824
+        ],
+        "meshes": 77,
+        "triangles": 25652,
+        "calls": 79,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-worn-coat",
+          "asset-grip-hand",
+          "asset-grip-hand",
+          "asset-worn-goggles",
+          "asset-worn-mask"
+        ],
+        "textures": 4
+      }
+    },
+    {
+      "id": "full-back",
+      "asset": "student-character",
+      "wear": "full",
+      "angle": "back",
+      "detail": "full",
+      "file": "before-full-back.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2908848198618062,
+          -1.862645593320167e-10,
+          -0.2770000000298023
+        ],
+        "max": [
+          0.2908848198618062,
+          1.83700000166893,
+          0.20700000102818011
+        ],
+        "size": [
+          0.5817696397236124,
+          1.8370000018551946,
+          0.4840000010579824
+        ],
+        "meshes": 77,
+        "triangles": 25652,
+        "calls": 78,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-worn-coat",
+          "asset-grip-hand",
+          "asset-grip-hand",
+          "asset-worn-goggles",
+          "asset-worn-mask"
+        ],
+        "textures": 4
+      }
+    },
+    {
+      "id": "full-quarter",
+      "asset": "student-character",
+      "wear": "full",
+      "angle": "three-quarter",
+      "detail": "full",
+      "file": "before-full-quarter.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2908848198618062,
+          -1.862645593320167e-10,
+          -0.2770000000298023
+        ],
+        "max": [
+          0.2908848198618062,
+          1.83700000166893,
+          0.20700000102818011
+        ],
+        "size": [
+          0.5817696397236124,
+          1.8370000018551946,
+          0.4840000010579824
+        ],
+        "meshes": 77,
+        "triangles": 25652,
+        "calls": 78,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-worn-coat",
+          "asset-grip-hand",
+          "asset-grip-hand",
+          "asset-worn-goggles",
+          "asset-worn-mask"
+        ],
+        "textures": 4
+      }
+    },
+    {
+      "id": "plain-front",
+      "asset": "student-character",
+      "wear": "none",
+      "angle": "front",
+      "detail": "full",
+      "file": "before-plain-front.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2908848198618062,
+          -1.862645593320167e-10,
+          -0.2770000000298023
+        ],
+        "max": [
+          0.2908848198618062,
+          1.83700000166893,
+          0.18833012703433633
+        ],
+        "size": [
+          0.5817696397236124,
+          1.8370000018551946,
+          0.4653301270641386
+        ],
+        "meshes": 42,
+        "triangles": 8312,
+        "calls": 42,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-grip-hand",
+          "asset-grip-hand"
+        ],
+        "textures": 4
+      }
+    },
+    {
+      "id": "plain-back",
+      "asset": "student-character",
+      "wear": "none",
+      "angle": "back",
+      "detail": "full",
+      "file": "before-plain-back.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2908848198618062,
+          -1.862645593320167e-10,
+          -0.2770000000298023
+        ],
+        "max": [
+          0.2908848198618062,
+          1.83700000166893,
+          0.18833012703433633
+        ],
+        "size": [
+          0.5817696397236124,
+          1.8370000018551946,
+          0.4653301270641386
+        ],
+        "meshes": 42,
+        "triangles": 8312,
+        "calls": 42,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-grip-hand",
+          "asset-grip-hand"
+        ],
+        "textures": 4
+      }
+    },
+    {
+      "id": "coat-front",
+      "asset": "student-character",
+      "wear": "coat",
+      "angle": "front",
+      "detail": "torso",
+      "file": "before-coat-front.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2908848198618062,
+          -1.862645593320167e-10,
+          -0.2770000000298023
+        ],
+        "max": [
+          0.2908848198618062,
+          1.83700000166893,
+          0.18833012703433633
+        ],
+        "size": [
+          0.5817696397236124,
+          1.8370000018551946,
+          0.4653301270641386
+        ],
+        "meshes": 52,
+        "triangles": 11244,
+        "calls": 52,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-worn-coat",
+          "asset-grip-hand",
+          "asset-grip-hand"
+        ],
+        "textures": 4
+      }
+    },
+    {
+      "id": "coat-back",
+      "asset": "student-character",
+      "wear": "coat",
+      "angle": "back",
+      "detail": "torso",
+      "file": "before-coat-back.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2908848198618062,
+          -1.862645593320167e-10,
+          -0.2770000000298023
+        ],
+        "max": [
+          0.2908848198618062,
+          1.83700000166893,
+          0.18833012703433633
+        ],
+        "size": [
+          0.5817696397236124,
+          1.8370000018551946,
+          0.4653301270641386
+        ],
+        "meshes": 52,
+        "triangles": 11244,
+        "calls": 52,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-worn-coat",
+          "asset-grip-hand",
+          "asset-grip-hand"
+        ],
+        "textures": 4
+      }
+    },
+    {
+      "id": "coat-side",
+      "asset": "student-character",
+      "wear": "coat",
+      "angle": "right",
+      "detail": "torso",
+      "file": "before-coat-side.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2908848198618062,
+          -1.862645593320167e-10,
+          -0.2770000000298023
+        ],
+        "max": [
+          0.2908848198618062,
+          1.83700000166893,
+          0.18833012703433633
+        ],
+        "size": [
+          0.5817696397236124,
+          1.8370000018551946,
+          0.4653301270641386
+        ],
+        "meshes": 52,
+        "triangles": 11244,
+        "calls": 51,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-worn-coat",
+          "asset-grip-hand",
+          "asset-grip-hand"
+        ],
+        "textures": 4
+      }
+    },
+    {
+      "id": "goggles-front",
+      "asset": "student-character",
+      "wear": "goggles",
+      "angle": "front",
+      "detail": "head",
+      "file": "before-goggles-front.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2908848198618062,
+          -1.862645593320167e-10,
+          -0.2770000000298023
+        ],
+        "max": [
+          0.2908848198618062,
+          1.83700000166893,
+          0.20700000102818011
+        ],
+        "size": [
+          0.5817696397236124,
+          1.8370000018551946,
+          0.4840000010579824
+        ],
+        "meshes": 56,
+        "triangles": 17832,
+        "calls": 51,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-grip-hand",
+          "asset-grip-hand",
+          "asset-worn-goggles"
+        ],
+        "textures": 4
+      }
+    },
+    {
+      "id": "goggles-side",
+      "asset": "student-character",
+      "wear": "goggles",
+      "angle": "right",
+      "detail": "head",
+      "file": "before-goggles-side.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2908848198618062,
+          -1.862645593320167e-10,
+          -0.2770000000298023
+        ],
+        "max": [
+          0.2908848198618062,
+          1.83700000166893,
+          0.20700000102818011
+        ],
+        "size": [
+          0.5817696397236124,
+          1.8370000018551946,
+          0.4840000010579824
+        ],
+        "meshes": 56,
+        "triangles": 17832,
+        "calls": 41,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-grip-hand",
+          "asset-grip-hand",
+          "asset-worn-goggles"
+        ],
+        "textures": 4
+      }
+    },
+    {
+      "id": "goggles-back",
+      "asset": "student-character",
+      "wear": "goggles",
+      "angle": "back",
+      "detail": "head",
+      "file": "before-goggles-back.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2908848198618062,
+          -1.862645593320167e-10,
+          -0.2770000000298023
+        ],
+        "max": [
+          0.2908848198618062,
+          1.83700000166893,
+          0.20700000102818011
+        ],
+        "size": [
+          0.5817696397236124,
+          1.8370000018551946,
+          0.4840000010579824
+        ],
+        "meshes": 56,
+        "triangles": 17832,
+        "calls": 50,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-grip-hand",
+          "asset-grip-hand",
+          "asset-worn-goggles"
+        ],
+        "textures": 4
+      }
+    },
+    {
+      "id": "mask-front",
+      "asset": "student-character",
+      "wear": "mask",
+      "angle": "front",
+      "detail": "head",
+      "file": "before-mask-front.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2908848198618062,
+          -1.862645593320167e-10,
+          -0.2770000000298023
+        ],
+        "max": [
+          0.2908848198618062,
+          1.83700000166893,
+          0.19829999296367168
+        ],
+        "size": [
+          0.5817696397236124,
+          1.8370000018551946,
+          0.475299992993474
+        ],
+        "meshes": 53,
+        "triangles": 13200,
+        "calls": 47,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-grip-hand",
+          "asset-grip-hand",
+          "asset-worn-mask"
+        ],
+        "textures": 4
+      }
+    },
+    {
+      "id": "mask-side",
+      "asset": "student-character",
+      "wear": "mask",
+      "angle": "right",
+      "detail": "head",
+      "file": "before-mask-side.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2908848198618062,
+          -1.862645593320167e-10,
+          -0.2770000000298023
+        ],
+        "max": [
+          0.2908848198618062,
+          1.83700000166893,
+          0.19829999296367168
+        ],
+        "size": [
+          0.5817696397236124,
+          1.8370000018551946,
+          0.475299992993474
+        ],
+        "meshes": 53,
+        "triangles": 13200,
+        "calls": 37,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-grip-hand",
+          "asset-grip-hand",
+          "asset-worn-mask"
+        ],
+        "textures": 4
+      }
+    },
+    {
+      "id": "all-head-front",
+      "asset": "student-character",
+      "wear": "full",
+      "angle": "front",
+      "detail": "head",
+      "file": "before-all-head-front.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2908848198618062,
+          -1.862645593320167e-10,
+          -0.2770000000298023
+        ],
+        "max": [
+          0.2908848198618062,
+          1.83700000166893,
+          0.20700000102818011
+        ],
+        "size": [
+          0.5817696397236124,
+          1.8370000018551946,
+          0.4840000010579824
+        ],
+        "meshes": 77,
+        "triangles": 25652,
+        "calls": 69,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-worn-coat",
+          "asset-grip-hand",
+          "asset-grip-hand",
+          "asset-worn-goggles",
+          "asset-worn-mask"
+        ],
+        "textures": 4
+      }
+    },
+    {
+      "id": "all-head-side",
+      "asset": "student-character",
+      "wear": "full",
+      "angle": "right",
+      "detail": "head",
+      "file": "before-all-head-side.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2908848198618062,
+          -1.862645593320167e-10,
+          -0.2770000000298023
+        ],
+        "max": [
+          0.2908848198618062,
+          1.83700000166893,
+          0.20700000102818011
+        ],
+        "size": [
+          0.5817696397236124,
+          1.8370000018551946,
+          0.4840000010579824
+        ],
+        "meshes": 77,
+        "triangles": 25652,
+        "calls": 61,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-worn-coat",
+          "asset-grip-hand",
+          "asset-grip-hand",
+          "asset-worn-goggles",
+          "asset-worn-mask"
+        ],
+        "textures": 4
+      }
+    },
+    {
+      "id": "all-head-back",
+      "asset": "student-character",
+      "wear": "full",
+      "angle": "back",
+      "detail": "head",
+      "file": "before-all-head-back.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2908848198618062,
+          -1.862645593320167e-10,
+          -0.2770000000298023
+        ],
+        "max": [
+          0.2908848198618062,
+          1.83700000166893,
+          0.20700000102818011
+        ],
+        "size": [
+          0.5817696397236124,
+          1.8370000018551946,
+          0.4840000010579824
+        ],
+        "meshes": 77,
+        "triangles": 25652,
+        "calls": 71,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-worn-coat",
+          "asset-grip-hand",
+          "asset-grip-hand",
+          "asset-worn-goggles",
+          "asset-worn-mask"
+        ],
+        "textures": 4
+      }
+    },
+    {
+      "id": "glove-hands",
+      "asset": "student-character",
+      "wear": "gloves",
+      "angle": "front",
+      "detail": "hands",
+      "file": "before-glove-hands.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2908848198618062,
+          -1.862645593320167e-10,
+          -0.2770000000298023
+        ],
+        "max": [
+          0.2908848198618062,
+          1.83700000166893,
+          0.18833012703433633
+        ],
+        "size": [
+          0.5817696397236124,
+          1.8370000018551946,
+          0.4653301270641386
+        ],
+        "meshes": 42,
+        "triangles": 8312,
+        "calls": 29,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-grip-hand",
+          "asset-grip-hand"
+        ],
+        "textures": 4
+      }
+    },
+    {
+      "id": "bare-hands",
+      "asset": "student-character",
+      "wear": "none",
+      "angle": "front",
+      "detail": "hands",
+      "file": "before-bare-hands.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2908848198618062,
+          -1.862645593320167e-10,
+          -0.2770000000298023
+        ],
+        "max": [
+          0.2908848198618062,
+          1.83700000166893,
+          0.18833012703433633
+        ],
+        "size": [
+          0.5817696397236124,
+          1.8370000018551946,
+          0.4653301270641386
+        ],
+        "meshes": 42,
+        "triangles": 8312,
+        "calls": 29,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-grip-hand",
+          "asset-grip-hand"
+        ],
+        "textures": 4
+      }
+    },
+    {
+      "id": "shoe-feet",
+      "asset": "student-character",
+      "wear": "shoes",
+      "angle": "three-quarter",
+      "detail": "feet",
+      "file": "before-shoe-feet.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2908848198618062,
+          -1.862645593320167e-10,
+          -0.2770000000298023
+        ],
+        "max": [
+          0.2908848198618062,
+          1.83700000166893,
+          0.18833012703433633
+        ],
+        "size": [
+          0.5817696397236124,
+          1.8370000018551946,
+          0.4653301270641386
+        ],
+        "meshes": 42,
+        "triangles": 8312,
+        "calls": 6,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-grip-hand",
+          "asset-grip-hand"
+        ],
+        "textures": 4
+      }
+    },
+    {
+      "id": "open-feet",
+      "asset": "student-character",
+      "wear": "none",
+      "angle": "three-quarter",
+      "detail": "feet",
+      "file": "before-open-feet.png",
+      "model": {
+        "id": "student-character",
+        "min": [
+          -0.2908848198618062,
+          -1.862645593320167e-10,
+          -0.2770000000298023
+        ],
+        "max": [
+          0.2908848198618062,
+          1.83700000166893,
+          0.18833012703433633
+        ],
+        "size": [
+          0.5817696397236124,
+          1.8370000018551946,
+          0.4653301270641386
+        ],
+        "meshes": 42,
+        "triangles": 8312,
+        "calls": 6,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-grip-hand",
+          "asset-grip-hand"
+        ],
+        "textures": 4
+      }
+    },
+    {
+      "id": "bun-head",
+      "asset": "bun-character",
+      "wear": "full",
+      "angle": "back",
+      "detail": "head",
+      "file": "before-bun-head.png",
+      "model": {
+        "id": "bun-character",
+        "min": [
+          -0.2908848198618062,
+          -1.862645593320167e-10,
+          -0.20680987775325776
+        ],
+        "max": [
+          0.2908848198618062,
+          1.8600000002980233,
+          0.20700000102818011
+        ],
+        "size": [
+          0.5817696397236124,
+          1.8600000004842878,
+          0.4138098787814379
+        ],
+        "meshes": 77,
+        "triangles": 25652,
+        "calls": 71,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-worn-coat",
+          "asset-grip-hand",
+          "asset-grip-hand",
+          "asset-worn-goggles",
+          "asset-worn-mask"
+        ],
+        "textures": 4
+      }
+    },
+    {
+      "id": "braid-head",
+      "asset": "braided-character",
+      "wear": "full",
+      "angle": "back",
+      "detail": "head",
+      "file": "before-braid-head.png",
+      "model": {
+        "id": "braided-character",
+        "min": [
+          -0.2908848198618062,
+          -1.862645593320167e-10,
+          -0.20680987775325776
+        ],
+        "max": [
+          0.2908848198618062,
+          1.83700000166893,
+          0.20700000102818011
+        ],
+        "size": [
+          0.5817696397236124,
+          1.8370000018551946,
+          0.4138098787814379
+        ],
+        "meshes": 80,
+        "triangles": 25996,
+        "calls": 74,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-worn-coat",
+          "asset-grip-hand",
+          "asset-grip-hand",
+          "asset-worn-goggles",
+          "asset-worn-mask"
+        ],
+        "textures": 4
+      }
+    },
+    {
+      "id": "long-head",
+      "asset": "long-hair-character",
+      "wear": "none",
+      "angle": "back",
+      "detail": "head",
+      "file": "before-long-head.png",
+      "model": {
+        "id": "long-hair-character",
+        "min": [
+          -0.2908848198618062,
+          -1.862645593320167e-10,
+          -0.20680987775325776
+        ],
+        "max": [
+          0.2908848198618062,
+          1.83700000166893,
+          0.18833012703433633
+        ],
+        "size": [
+          0.5817696397236124,
+          1.8370000018551946,
+          0.3951400047875941
+        ],
+        "meshes": 42,
+        "triangles": 8312,
+        "calls": 35,
+        "invalidVertices": 0,
+        "parts": [
+          "asset-character",
+          "asset-grip-hand",
+          "asset-grip-hand"
+        ],
+        "textures": 4
+      }
+    }
+  ]
+}

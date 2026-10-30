@@ -172,6 +172,18 @@ describe('Scientific Chemistry Simulation Engine', () => {
       expect(getIndicatorColor('litmus', 7.0)).toBe('#a855f7'); // Purple neutral
       expect(getIndicatorColor('litmus', 12.0)).toBe('#3b82f6'); // Blue in base
     });
+
+    it('correctly transitions methyl orange indicator', () => {
+      expect(getIndicatorColor('methyl_orange', 2.5)).toBe('#ef4444'); // Red at pH < 3.1
+      expect(getIndicatorColor('methyl_orange', 3.8)).toBe('#f97316'); // Orange transition (3.1-4.4)
+      expect(getIndicatorColor('methyl_orange', 5.5)).toBe('#eab308'); // Yellow at pH > 4.4
+    });
+
+    it('correctly transitions thymolphthalein indicator', () => {
+      expect(getIndicatorColor('thymolphthalein', 7.0)).toBe('#f8fafc'); // Colorless at pH < 9.3
+      expect(getIndicatorColor('thymolphthalein', 9.8)).toBe('#60a5fa'); // Light blue (9.3-10.5)
+      expect(getIndicatorColor('thymolphthalein', 11.5)).toBe('#1d4ed8'); // Vivid royal blue at pH > 10.5
+    });
   });
 
   describe('Verification Case G: Advanced 3D-Parity Realistic Mechanisms', () => {
@@ -233,6 +245,134 @@ describe('Scientific Chemistry Simulation Engine', () => {
       expect(sim.reactionsOccurred.length).toBeGreaterThan(0);
       expect(sim.finalPh).toBeCloseTo(7.0, 1);
       expect(sim.finalTemperature_c).toBeGreaterThan(25.0);
+    });
+
+    it('simulates Golden Rain PbI2 precipitation with crystalline yellow morphology', () => {
+      // Pb(NO3)2 + 2KI -> PbI2(s) + 2KNO3
+      const initial: SubstanceQuantity[] = [
+        { formula: 'Pb(NO3)2', moles: 0.002, mass_g: 0.662, state: 'aq', volume_ml: 25 },
+        { formula: 'KI', moles: 0.004, mass_g: 0.664, state: 'aq', volume_ml: 25 },
+      ];
+
+      const sim = runSimulationCycle(initial, 50.0, 25.0);
+      expect(sim.hasPrecipitate).toBe(true);
+      expect(sim.precipitateInfo?.formula).toBe('PbI2');
+      expect(sim.precipitateInfo?.morphology).toBe('crystalline');
+      expect(sim.precipitateInfo?.colorHex).toMatch(/#(fbbf24|eab308)/);
+    });
+
+    it('simulates Tollens acetaldehyde reduction to form metallic silver mirror coating under heating', () => {
+      // CH3CHO + 2AgNO3 + 3NH3 + H2O -> CH3COONH4 + 2Ag(s) + 2NH4NO3
+      const initial: SubstanceQuantity[] = [
+        { formula: 'CH3CHO', moles: 0.002, mass_g: 0.088, state: 'aq', volume_ml: 10 },
+        { formula: 'AgNO3', moles: 0.004, mass_g: 0.680, state: 'aq', volume_ml: 20 },
+        { formula: 'NH3', moles: 0.006, mass_g: 0.102, state: 'aq', volume_ml: 15 },
+      ];
+
+      // Below reaction temperature 50°C
+      const cold = runSimulationCycle(initial, 45.0, 25.0, false);
+      expect(cold.hasSilverMirror).toBe(false);
+
+      // Heated above 50°C
+      const heated = runSimulationCycle(initial, 45.0, 55.0, true);
+      expect(heated.hasSilverMirror).toBe(true);
+      expect(heated.updatedContents.some(c => c.formula === 'Ag')).toBe(true);
+    });
+
+    it('accurately identifies flame test emission colors for various cations', () => {
+      // Copper solution -> Green flame emission
+      const cuSol: SubstanceQuantity[] = [
+        { formula: 'CuSO4', moles: 0.001, mass_g: 0.16, state: 'aq', volume_ml: 20 },
+      ];
+      expect(runSimulationCycle(cuSol, 20.0, 25.0).flameTestColorHex).toBe('#10b981');
+
+      // Sodium solution -> Golden yellow flame emission
+      const naSol: SubstanceQuantity[] = [
+        { formula: 'NaCl', moles: 0.001, mass_g: 0.058, state: 'aq', volume_ml: 20 },
+      ];
+      expect(runSimulationCycle(naSol, 20.0, 25.0).flameTestColorHex).toBe('#eab308');
+
+      // Potassium solution -> Lilac flame emission
+      const kSol: SubstanceQuantity[] = [
+        { formula: 'KCl', moles: 0.001, mass_g: 0.074, state: 'aq', volume_ml: 20 },
+      ];
+      expect(runSimulationCycle(kSol, 20.0, 25.0).flameTestColorHex).toBe('#c084fc');
+
+      // Barium solution -> Apple green flame emission
+      const baSol: SubstanceQuantity[] = [
+        { formula: 'BaCl2', moles: 0.001, mass_g: 0.208, state: 'aq', volume_ml: 20 },
+      ];
+      expect(runSimulationCycle(baSol, 20.0, 25.0).flameTestColorHex).toBe('#84cc16');
+
+      // Calcium solution -> Brick red flame emission
+      const caSol: SubstanceQuantity[] = [
+        { formula: 'CaCl2', moles: 0.001, mass_g: 0.111, state: 'aq', volume_ml: 20 },
+      ];
+      expect(runSimulationCycle(caSol, 20.0, 25.0).flameTestColorHex).toBe('#f97316');
+    });
+
+    it('simulates tetraamminecopper(II) deep royal blue complex formation', () => {
+      // Cu(OH)2 + 4NH3 -> [Cu(NH3)4](OH)2
+      const initial: SubstanceQuantity[] = [
+        { formula: 'Cu(OH)2', moles: 0.002, mass_g: 0.195, state: 's' },
+        { formula: 'NH3', moles: 0.008, mass_g: 0.136, state: 'aq', volume_ml: 25 },
+      ];
+
+      const sim = runSimulationCycle(initial, 25.0, 25.0);
+      expect(sim.reactionsOccurred.length).toBeGreaterThan(0);
+      expect(sim.finalLiquidColorHex).toBe('#1d4ed8'); // Royal azure blue
+    });
+
+    it('simulates violent reaction of metallic sodium with water generating H2 and alkaline NaOH', () => {
+      // 2Na + 2H2O -> 2NaOH + H2(g)
+      const initial: SubstanceQuantity[] = [
+        { formula: 'Na', moles: 0.002, mass_g: 0.046, state: 's' },
+        { formula: 'H2O', moles: 2.77, mass_g: 50.0, state: 'l', volume_ml: 50 },
+      ];
+
+      const sim = runSimulationCycle(initial, 50.0, 25.0);
+      expect(sim.reactionsOccurred.length).toBeGreaterThan(0);
+      expect(sim.hasGas).toBe(true);
+      expect(sim.gasInfo?.formula).toBe('H2');
+      expect(sim.finalPh).toBeGreaterThan(12.0); // Highly alkaline
+      expect(sim.finalTemperature_c).toBeGreaterThan(25.0); // Exothermic
+    });
+
+    it('simulates iron(III) thiocyanate blood-red complex and subsequent decolorization with NaF', () => {
+      // Stage 1: FeCl3 + 3KSCN -> Fe(SCN)3 blood-red
+      const stage1Initial: SubstanceQuantity[] = [
+        { formula: 'FeCl3', moles: 0.001, mass_g: 0.162, state: 'aq', volume_ml: 20 },
+        { formula: 'KSCN', moles: 0.003, mass_g: 0.291, state: 'aq', volume_ml: 20 },
+      ];
+      const stage1 = runSimulationCycle(stage1Initial, 40.0, 25.0);
+      expect(stage1.finalLiquidColorHex).toBe('#7f1d1d'); // Blood red
+
+      // Stage 2: Add excess NaF to displace SCN- and form colorless [FeF6]3-
+      const stage2Initial: SubstanceQuantity[] = [
+        ...stage1.updatedContents,
+        { formula: 'NaF', moles: 0.005, mass_g: 0.21, state: 'aq', volume_ml: 20 },
+      ];
+      const stage2 = runSimulationCycle(stage2Initial, 60.0, 25.0);
+      expect(stage2.reactionsOccurred.length).toBeGreaterThan(0);
+      expect(stage2.finalLiquidColorHex).not.toBe('#7f1d1d'); // Bleached blood-red
+    });
+
+    it('simulates combustion of magnesium ribbon under heat to produce white MgO', () => {
+      // 2Mg + O2 -> 2MgO
+      const initial: SubstanceQuantity[] = [
+        { formula: 'Mg', moles: 0.004, mass_g: 0.097, state: 's' },
+        { formula: 'O2', moles: 0.002, mass_g: 0.064, state: 'g' },
+      ];
+
+      // Cold: no reaction
+      const cold = runSimulationCycle(initial, 0, 25.0, false);
+      expect(cold.reactionsOccurred.length).toBe(0);
+
+      // Heated above 60°C: ignites vigorously
+      const hot = runSimulationCycle(initial, 0, 75.0, true);
+      expect(hot.reactionsOccurred.length).toBeGreaterThan(0);
+      expect(hot.updatedContents.some(c => c.formula === 'MgO')).toBe(true);
+      expect(hot.precipitateInfo?.formula).toBe('MgO');
     });
   });
 });

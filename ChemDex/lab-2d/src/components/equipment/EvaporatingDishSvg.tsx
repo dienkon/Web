@@ -8,6 +8,7 @@ interface EvaporatingDishSvgProps {
 
 export const EvaporatingDishSvg: React.FC<EvaporatingDishSvgProps> = ({ equipment, isSelected }) => {
   const {
+    id,
     volume_ml = 0,
     capacity_ml = 80,
     liquidColorHex = '#38bdf8',
@@ -15,6 +16,8 @@ export const EvaporatingDishSvg: React.FC<EvaporatingDishSvgProps> = ({ equipmen
     hasPrecipitate = false,
     precipitateColorHex = '#ffffff',
     contents = [],
+    isBeingHeated = false,
+    hasTripod = false,
   } = equipment;
 
   // Has dry crystals formed after evaporation?
@@ -61,6 +64,26 @@ export const EvaporatingDishSvg: React.FC<EvaporatingDishSvgProps> = ({ equipmen
           </filter>
         )}
       </defs>
+
+      {/* Laboratory Tripod Stand with Wire Gauze (When supported over burner) */}
+      {hasTripod && (
+        <g className="select-none pointer-events-none">
+          <rect x="8" y="66" width="114" height="4" rx="1.5" fill="#475569" stroke="#334155" strokeWidth="1" />
+          <ellipse cx="65" cy="68" rx="30" ry="2" fill="#e2e8f0" stroke="#cbd5e1" strokeWidth="0.8" />
+          <line x1="12" y1="68" x2="2" y2="105" stroke="#1e293b" strokeWidth="3" strokeLinecap="round" />
+          <line x1="118" y1="68" x2="128" y2="105" stroke="#1e293b" strokeWidth="3" strokeLinecap="round" />
+          <line x1="65" y1="68" x2="65" y2="100" stroke="#334155" strokeWidth="2.5" strokeLinecap="round" />
+        </g>
+      )}
+
+      {/* Thermal Flame Licking & Heating Glow when positioned over active burner */}
+      {isBeingHeated && (
+        <g className="animate-pulse">
+          <ellipse cx="65" cy="68" rx="46" ry="10" fill="#f97316" fillOpacity="0.45" />
+          <path d="M 16 66 C 10 58, 12 45, 18 38 C 20 48, 22 58, 22 66 Z" fill="#f59e0b" fillOpacity="0.85" />
+          <path d="M 114 66 C 120 58, 118 45, 112 38 C 110 48, 108 58, 108 66 Z" fill="#f59e0b" fillOpacity="0.85" />
+        </g>
+      )}
 
       {/* Selection Glow */}
       {isSelected && (

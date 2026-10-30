@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { segArea, retainedVolume } from '../retained';
 import { getVesselProfile } from '../profiles';
 import { calculateWeirFlow } from '../flow';
+import { rectangularWeirDischarge } from '../../../science/discharge';
 import { transferFluidIncrement, mixColorBeerLambert, MixingState } from '../mixing';
 import { calculateSolidDisplacement, willSolidFloat } from '../solids';
 import { stepPourSimulation, SimVessel, PourPhysicsSession } from '../step';
@@ -80,12 +81,13 @@ describe('Weir Discharge Flow Rate', () => {
     expect(result.flowRate_ml_s).toBe(0);
   });
 
-  it('discharges positive laminar flow when liquid exceeds retained volume', () => {
+  it('uses the inertial weir equation without an arbitrary 60 mL/s cap', () => {
     const beaker = getVesselProfile('beaker');
     const result = calculateWeirFlow(beaker, 200, 1.1); // Steep tilt, liquid overflows
     expect(result.isPouring).toBe(true);
     expect(result.flowRate_ml_s).toBeGreaterThan(0.5);
-    expect(result.flowRate_ml_s).toBeLessThanOrEqual(60);
+    const expected = rectangularWeirDischarge(beaker.spoutWidth * beaker.sceneScale / 100, result.head_cm / 100) * 1e6;
+    expect(result.flowRate_ml_s).toBeCloseTo(expected, 10);
   });
 });
 

@@ -18,7 +18,7 @@ function setup() {
 }
 
 describe('Studio atom contexts never fabricate inventory', () => {
-  it('prepares every supported program context separately and conserves its finite sample', () => {
+  it('reuses the target for every supported context and conserves its finite sample', () => {
     let covered = 0;
     for (const atom of EFFECT_ATOM_CATALOG) for (let index = 0; index < atom.gallery.length; index++) {
       const action = studioAtomAction(atom, index);
@@ -29,7 +29,10 @@ describe('Studio atom contexts never fabricate inventory', () => {
       expect(result.vesselId, atom.name).toBeTruthy();
       const id = result.vesselId!;
       const initial = useAppStore.getState().vessels[id];
-      expect(useAppStore.getState().vessels.existing, atom.name).toBe(existing);
+      expect(id, atom.name).toBe(existing.id);
+      expect(Object.keys(useAppStore.getState().vessels)).toEqual([existing.id]);
+      expect(initial.position).toEqual(existing.position);
+      expect(initial.capacity_ml).toBe(existing.capacity_ml);
       expect(initial.mass_g, atom.name).toBeCloseTo(initial.contents.reduce((sum, item) => sum + item.mass_g, 0), 8);
       if (result.started) {
         expect(useAppStore.getState().seekStudioProgram(id, 1), atom.name).toBe(true);
@@ -69,11 +72,12 @@ describe('Studio atom contexts never fabricate inventory', () => {
     expect(sample.volume_ml).toBe(30);
     expect(sample.hasPrecipitate).toBe(false);
     expect(sample.precipitateAmount_g).toBe(0);
-    expect(useAppStore.getState().vessels.existing).toBe(existing);
+    expect(result.vesselId).toBe(existing.id);
   });
   it('does not bypass thermal or ignition conditions when opening atom contexts', () => {
     setup();
     for (const [name, index] of [['blueGel', 1], ['magnesiumRibbonBurn', 0], ['sublimation', 0]] as const) {
+      setup();
       const result = runStudioAtomContext(getEffectAtom(name)!, index, existing.id);
       expect(result.started, name).toBe(false);
       const sample = useAppStore.getState().vessels[result.vesselId!];

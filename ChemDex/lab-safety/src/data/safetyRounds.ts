@@ -1,4 +1,5 @@
 import type { CinematicId } from '../types';
+import { FUME_HOOD_LAYOUT } from './scene/fixtureLayout';
 
 export interface SafetyStep { prompt: string; options: string[]; correct: number; explanation: string }
 export interface SafetyRound {
@@ -11,7 +12,7 @@ export const SAFETY_ROUNDS: SafetyRound[] = [
     { prompt: 'Ai xử lý việc cô lập và kiểm tra nguồn điện?', options: ['Tự tháo ổ cắm để xem', 'Nhờ bạn giữ dây điện', 'Giáo viên hoặc người có trách nhiệm, đủ năng lực'], correct: 2, explanation: 'Học sinh giữ khoảng cách; người phụ trách xử lý nguồn trước khi cho phép dọn khu vực.' },
     { prompt: 'Khi nào được sử dụng lại thiết bị?', options: ['Khi người phụ trách xác nhận nguồn, dây dẫn và khu vực đã an toàn', 'Ngay khi nước không còn nhìn thấy', 'Sau khi quấn băng dính quanh dây'], correct: 0, explanation: 'Thiết bị phải được kiểm tra. Không dùng dây hỏng hoặc tự sửa điện trong phòng học.' },
   ] },
-  { id: 'task_fume_safety', title: 'Vòng 5 · Hơi hóa chất và tủ hút', position: [8.8, 1.1, -2.5], cinematic: 'fume', color: '#22d3ee', steps: [
+  { id: 'task_fume_safety', title: 'Vòng 5 · Hơi hóa chất và tủ hút', position: FUME_HOOD_LAYOUT.front, cinematic: 'fume', color: '#22d3ee', steps: [
     { prompt: 'Mẫu có mùi lạ nhưng chưa rõ thành phần. Em làm gì?', options: ['Ngửi sát miệng chai để xác định', 'Đọc nhãn, báo giáo viên và kiểm tra hướng dẫn an toàn', 'Trộn thêm hóa chất để thử phản ứng'], correct: 1, explanation: 'Không nếm hay ngửi trực tiếp. Mẫu chưa biết cần được giáo viên xác định trước khi xử lý.' },
     { prompt: 'Trước khi thao tác trong tủ hút cần kiểm tra gì?', options: ['Chỉ cần bật đèn', 'Mở cửa chắn cao nhất có thể', 'Luồng hút hoạt động và cửa chắn ở mức được hướng dẫn'], correct: 2, explanation: 'Tủ hút phải hoạt động đúng. Giữ cửa chắn ở mức quy định và không đưa đầu vào trong tủ.' },
     { prompt: 'Bố trí chai và dụng cụ trong tủ hút như thế nào?', options: ['Theo vạch làm việc, không chắn khe hút; đóng chai khi xong', 'Sát mép ngoài để dễ lấy', 'Chất kín tủ để cất toàn bộ hóa chất'], correct: 0, explanation: 'Giữ vùng thao tác thông thoáng. Tủ hút không thay thế tủ lưu trữ hóa chất.' },

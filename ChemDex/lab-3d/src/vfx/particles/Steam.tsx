@@ -1,3 +1,4 @@
+import { simulationFrameDt } from '../../core/clock';
 import React, { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
@@ -5,6 +6,7 @@ import { ParticlePool, ParticleState } from './ParticlePool';
 import { useQualityStore, QUALITY_CONFIGS } from '../quality';
 import { getSoftParticleTexture } from '../textures';
 import { useAppStore } from '../../store/useAppStore';
+import { waterVisualState } from '../waterVisualState';
 
 export interface SteamProps {
   vesselId: string;
@@ -48,7 +50,9 @@ export const Steam = React.memo(function Steam({
 
   useFrame((state, delta) => {
     if (!meshRef.current) return;
-    const dt = Math.min(delta, 0.05);
+    const simulation = useAppStore.getState();
+    if (simulation.isSimulationPaused) return;
+    const dt = simulationFrameDt(delta, simulation);
 
     const vessel = useAppStore.getState().vessels[vesselId];
     if (!vessel || vessel.isShattered || (vessel.volume_ml ?? 0) <= 0.5) {
@@ -57,16 +61,14 @@ export const Steam = React.memo(function Steam({
     }
 
     const currentTemp = temperature_c ?? (vessel?.temperature_c || 25);
-    const isBoiling = vessel?.isBoiling || currentTemp >= 98;
+    const water = waterVisualState(vessel);
+    const isBoiling = water.isBoiling;
 
-    // Steam/evaporation activates starting at 48°C or when boiling
-    const heatExcess = Math.max(0, currentTemp - 48);
-    const steamIntensity = isBoiling 
-      ? 2.2 
-      : (heatExcess > 0 ? Math.min(1.8, Math.pow(heatExcess / 45, 1.25)) : 0);
+    // Only finite water vapor that can condense in the surrounding air is visible.
+    const steamIntensity = water.visibility;
 
     if (active && steamIntensity > 0.01) {
-      const rate = (isBoiling ? 26 : (5 + steamIntensity * 12)) * multiplier;
+      const rate = water.mistRate * multiplier;
       spawnTimer.current += dt * rate;
 
       while (spawnTimer.current >= 1.0) {

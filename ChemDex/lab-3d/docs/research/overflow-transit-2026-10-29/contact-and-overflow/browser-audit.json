@@ -1,0 +1,589 @@
+{
+  "errors": [],
+  "consoleErrors": [],
+  "observations": [],
+  "phases": [
+    {
+      "name": "01-wall-before-ground",
+      "mass_g": 150,
+      "substances": {
+        "H2O": 8.270885373300027,
+        "CuSO4": 0.006265271599523839
+      },
+      "wall_ml": 3.333333333333335,
+      "air_ml": 0,
+      "queued_ml": 16.666666666666664,
+      "ground_ml": 0,
+      "pending_ml": 20,
+      "renderedWall_ml": 3.333330371214745,
+      "renderedAir_ml": 0,
+      "packets": [
+        {
+          "stage": "overflow",
+          "volume_ml": 20,
+          "elapsed_s": 0.020000000000000004,
+          "wall_s": 0.12615946315104523,
+          "flight_s": 0.026318567564999295,
+          "duration_s": 0.12,
+          "releaseBasis": "assumed-dose-interval",
+          "exit": [
+            0.9202,
+            -0.19999999999999996,
+            0
+          ]
+        }
+      ],
+      "spills": []
+    },
+    {
+      "name": "02-air-before-ground",
+      "mass_g": 150,
+      "substances": {
+        "H2O": 8.270885373300027,
+        "CuSO4": 0.006265271599523839
+      },
+      "wall_ml": 17.80678603625006,
+      "air_ml": 2.1932139637499404,
+      "queued_ml": 0,
+      "ground_ml": 0,
+      "pending_ml": 20,
+      "renderedWall_ml": 17.80678418339235,
+      "renderedAir_ml": 2.1932140458535656,
+      "packets": [
+        {
+          "stage": "overflow",
+          "volume_ml": 20,
+          "elapsed_s": 0.13931874693354487,
+          "wall_s": 0.12615946315104523,
+          "flight_s": 0.026318567564999295,
+          "duration_s": 0.12,
+          "releaseBasis": "assumed-dose-interval",
+          "exit": [
+            0.9202,
+            -0.19999999999999996,
+            0
+          ]
+        }
+      ],
+      "spills": []
+    },
+    {
+      "name": "03-partial-ground",
+      "mass_g": 150,
+      "substances": {
+        "H2O": 8.270885373300027,
+        "CuSO4": 0.006265271599523839
+      },
+      "wall_ml": 5.613572072500119,
+      "air_ml": 4.3864279274998825,
+      "queued_ml": 0,
+      "ground_ml": 9.999999999999998,
+      "pending_ml": 10.000000000000002,
+      "renderedWall_ml": 5.61357231424763,
+      "renderedAir_ml": 4.386427882230068,
+      "packets": [
+        {
+          "stage": "overflow",
+          "volume_ml": 10.000000000000002,
+          "elapsed_s": 0.2124780307160445,
+          "wall_s": 0.12615946315104523,
+          "flight_s": 0.026318567564999295,
+          "duration_s": 0.12,
+          "releaseBasis": "assumed-dose-interval",
+          "exit": [
+            0.9202,
+            -0.19999999999999996,
+            0
+          ]
+        }
+      ],
+      "spills": [
+        {
+          "volume_ml": 9.999999999999998,
+          "position": [
+            0.9202,
+            -1.1750000000000003,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "04-complete-ground",
+      "mass_g": 150,
+      "substances": {
+        "H2O": 8.270885373300027,
+        "CuSO4": 0.006265271599523839
+      },
+      "wall_ml": 0,
+      "air_ml": 0,
+      "queued_ml": 0,
+      "ground_ml": 20,
+      "pending_ml": 0,
+      "renderedWall_ml": 0,
+      "renderedAir_ml": 0,
+      "packets": [],
+      "spills": [
+        {
+          "volume_ml": 20,
+          "position": [
+            0.9202,
+            -1.1750000000000003,
+            0
+          ]
+        }
+      ]
+    }
+  ],
+  "setup": [
+    {
+      "id": "studio_sample_1793249941521_foqlnr",
+      "program": "fecl3_naoh",
+      "mass_g": 30
+    },
+    {
+      "id": "studio_sample_1793249941524_i3kihm",
+      "program": "agno3_nacl",
+      "mass_g": 30
+    },
+    {
+      "id": "studio_sample_1793249941524_uw4kib",
+      "program": "bacl2_na2so4",
+      "mass_g": 30
+    }
+  ],
+  "clockBadgeTruthful": true,
+  "contactHistory": [
+    [
+      {
+        "id": "studio_sample_1793249941521_foqlnr",
+        "progress": 0,
+        "precipitate_g": 0,
+        "mass_g": 30,
+        "evaporated_g": 0
+      },
+      {
+        "id": "studio_sample_1793249941524_i3kihm",
+        "precipitate_g": 0,
+        "mass_g": 30,
+        "evaporated_g": 0
+      },
+      {
+        "id": "studio_sample_1793249941524_uw4kib",
+        "precipitate_g": 0,
+        "mass_g": 30,
+        "evaporated_g": 0
+      }
+    ],
+    [
+      {
+        "id": "studio_sample_1793249941521_foqlnr",
+        "progress": 0,
+        "precipitate_g": 0,
+        "mass_g": 30,
+        "evaporated_g": 0
+      },
+      {
+        "id": "studio_sample_1793249941524_i3kihm",
+        "progress": 0,
+        "precipitate_g": 0,
+        "mass_g": 30,
+        "evaporated_g": 0
+      },
+      {
+        "id": "studio_sample_1793249941524_uw4kib",
+        "precipitate_g": 0,
+        "mass_g": 30,
+        "evaporated_g": 0
+      }
+    ],
+    [
+      {
+        "id": "studio_sample_1793249941521_foqlnr",
+        "progress": 0,
+        "precipitate_g": 0,
+        "mass_g": 30,
+        "evaporated_g": 0
+      },
+      {
+        "id": "studio_sample_1793249941524_i3kihm",
+        "progress": 0,
+        "precipitate_g": 0,
+        "mass_g": 30,
+        "evaporated_g": 0
+      },
+      {
+        "id": "studio_sample_1793249941524_uw4kib",
+        "progress": 0,
+        "precipitate_g": 0,
+        "mass_g": 30,
+        "evaporated_g": 0
+      }
+    ],
+    [
+      {
+        "id": "studio_sample_1793249941521_foqlnr",
+        "progress": 0.04999961696811772,
+        "precipitate_g": 0.005343253126139669,
+        "mass_g": 29.999998823811854,
+        "evaporated_g": 0.0000011761881443183476
+      },
+      {
+        "id": "studio_sample_1793249941524_i3kihm",
+        "progress": 0.04999961696811772,
+        "precipitate_g": 0.007162978362228717,
+        "mass_g": 29.999998815214006,
+        "evaporated_g": 0.0000011847859943927096
+      },
+      {
+        "id": "studio_sample_1793249941524_uw4kib",
+        "progress": 0.0336172104603526,
+        "precipitate_g": 0.007843249008924294,
+        "mass_g": 29.999998818113543,
+        "evaporated_g": 0.000001181886456226747
+      }
+    ],
+    [
+      {
+        "id": "studio_sample_1793249941521_foqlnr",
+        "progress": 0.5249998084840588,
+        "precipitate_g": 0.05610456715486272,
+        "mass_g": 29.9999828754697,
+        "evaporated_g": 0.000017124530297722707
+      },
+      {
+        "id": "studio_sample_1793249941524_i3kihm",
+        "progress": 0.5249998084840588,
+        "precipitate_g": 0.07521182153742213,
+        "mass_g": 29.999982763807157,
+        "evaporated_g": 0.000017236192841195553
+      },
+      {
+        "id": "studio_sample_1793249941524_uw4kib",
+        "progress": 0.39121699060143555,
+        "precipitate_g": 0.0912750413193228,
+        "mass_g": 29.99998283490715,
+        "evaporated_g": 0.000017165092847698042
+      }
+    ],
+    [
+      {
+        "id": "studio_sample_1793249941521_foqlnr",
+        "progress": 0.7624999042420293,
+        "precipitate_g": 0.08148522416922425,
+        "mass_g": 29.99996641056899,
+        "evaporated_g": 0.00003358943101040301
+      },
+      {
+        "id": "studio_sample_1793249941524_i3kihm",
+        "progress": 0.7624999042420293,
+        "precipitate_g": 0.10923624312501883,
+        "mass_g": 29.999966322197544,
+        "evaporated_g": 0.00003367780245449151
+      },
+      {
+        "id": "studio_sample_1793249941524_uw4kib",
+        "progress": 0.6164907358202001,
+        "precipitate_g": 0.14383377700048697,
+        "mass_g": 29.999966726140833,
+        "evaporated_g": 0.00003327385916756624
+      }
+    ],
+    [
+      {
+        "id": "studio_sample_1793249941521_foqlnr",
+        "progress": 0.8812499521210146,
+        "precipitate_g": 0.09417555267640502,
+        "mass_g": 29.999949684897196,
+        "evaporated_g": 0.0000503151028046648
+      },
+      {
+        "id": "studio_sample_1793249941524_i3kihm",
+        "progress": 0.8812499521210146,
+        "precipitate_g": 0.1262484539188172,
+        "mass_g": 29.999949684137505,
+        "evaporated_g": 0.000050315862495850885
+      },
+      {
+        "id": "studio_sample_1793249941524_uw4kib",
+        "progress": 0.7584043026150881,
+        "precipitate_g": 0.1769437057207667,
+        "mass_g": 29.999950538158206,
+        "evaporated_g": 0.00004946184179527243
+      }
+    ],
+    [
+      {
+        "id": "studio_sample_1793249941521_foqlnr",
+        "progress": 0.935698330746025,
+        "precipitate_g": 0.09999422663718428,
+        "mass_g": 29.999934766964653,
+        "evaporated_g": 0.00006523303534764727
+      },
+      {
+        "id": "studio_sample_1793249941524_i3kihm",
+        "progress": 0.935698330746025,
+        "precipitate_g": 0.13404876483316036,
+        "mass_g": 29.999934872441575,
+        "evaporated_g": 0.00006512755842703874
+      },
+      {
+        "id": "studio_sample_1793249941524_uw4kib",
+        "progress": 0.8394976120689569,
+        "precipitate_g": 0.19586362829300313,
+        "mass_g": 29.99993616769343,
+        "evaporated_g": 0.0000638323065686866
+      }
+    ],
+    [
+      {
+        "id": "studio_sample_1793249941521_foqlnr",
+        "progress": 0.9641777441841483,
+        "precipitate_g": 0.10303770424984098,
+        "mass_g": 29.999920489677805,
+        "evaporated_g": 0.00007951032219453452
+      },
+      {
+        "id": "studio_sample_1793249941524_i3kihm",
+        "progress": 0.9641777441841483,
+        "precipitate_g": 0.13812874453293128,
+        "mass_g": 29.999920709054148,
+        "evaporated_g": 0.0000792909458500847
+      },
+      {
+        "id": "studio_sample_1793249941524_uw4kib",
+        "progress": 0.8913319299648027,
+        "precipitate_g": 0.20795712019484713,
+        "mass_g": 29.99992243905576,
+        "evaporated_g": 0.00007756094424012485
+      }
+    ],
+    [
+      {
+        "id": "studio_sample_1793249941521_foqlnr",
+        "progress": 0.9804135465523773,
+        "precipitate_g": 0.10477275757664432,
+        "mass_g": 29.999905728624793,
+        "evaporated_g": 0.00009427137520637486
+      },
+      {
+        "id": "studio_sample_1793249941524_i3kihm",
+        "progress": 0.9804135465523773,
+        "precipitate_g": 0.14045469637234642,
+        "mass_g": 29.99990607233136,
+        "evaporated_g": 0.00009392766863896537
+      },
+      {
+        "id": "studio_sample_1793249941524_uw4kib",
+        "progress": 0.927338581859058,
+        "precipitate_g": 0.2163578510382753,
+        "mass_g": 29.999908255571047,
+        "evaporated_g": 0.00009174442895366849
+      }
+    ],
+    [
+      {
+        "id": "studio_sample_1793249941521_foqlnr",
+        "progress": 0.9900424950970113,
+        "precipitate_g": 0.10580176364773802,
+        "mass_g": 29.99988917112178,
+        "evaporated_g": 0.0001108288782214432
+      },
+      {
+        "id": "studio_sample_1793249941524_i3kihm",
+        "progress": 0.9900424950970113,
+        "precipitate_g": 0.14183414594133426,
+        "mass_g": 29.99988965846312,
+        "evaporated_g": 0.00011034153688008243
+      },
+      {
+        "id": "studio_sample_1793249941524_uw4kib",
+        "progress": 0.9537157014846708,
+        "precipitate_g": 0.22251191065621584,
+        "mass_g": 29.999892350209493,
+        "evaporated_g": 0.0001076497905086342
+      }
+    ]
+  ],
+  "initial": {
+    "mass_g": 150,
+    "substances": {
+      "H2O": 8.270885373300027,
+      "CuSO4": 0.006265271599523839
+    },
+    "wall_ml": 0,
+    "air_ml": 0,
+    "queued_ml": 0,
+    "ground_ml": 0,
+    "pending_ml": 0,
+    "renderedWall_ml": 0,
+    "renderedAir_ml": 0,
+    "packets": [],
+    "spills": []
+  },
+  "receipt": {
+    "ok": true,
+    "vesselId": "beaker_1793249947805_t3i7t",
+    "code": "ok",
+    "message": "Đã chuyển lượng chất thực; phần vượt sức chứa đi vào đường tràn.",
+    "moved_ml": 20,
+    "accepted_ml": 0,
+    "spilled_ml": 20
+  },
+  "observableDoseMasses_g": [
+    150
+  ],
+  "release": {
+    "mass_g": 150,
+    "substances": {
+      "H2O": 8.270885373300027,
+      "CuSO4": 0.006265271599523839
+    },
+    "wall_ml": 0,
+    "air_ml": 0,
+    "queued_ml": 20,
+    "ground_ml": 0,
+    "pending_ml": 20,
+    "renderedWall_ml": 0,
+    "renderedAir_ml": 0,
+    "packets": [
+      {
+        "stage": "overflow",
+        "volume_ml": 20,
+        "elapsed_s": 0,
+        "wall_s": 0.12615946315104523,
+        "flight_s": 0.026318567564999295,
+        "duration_s": 0.12,
+        "releaseBasis": "assumed-dose-interval",
+        "exit": [
+          0.9202,
+          -0.19999999999999996,
+          0
+        ]
+      }
+    ],
+    "spills": []
+  },
+  "moved": {
+    "mass_g": 150,
+    "substances": {
+      "H2O": 8.270885373300027,
+      "CuSO4": 0.006265271599523839
+    },
+    "wall_ml": 17.64011936958339,
+    "air_ml": 2.3598806304166073,
+    "queued_ml": 0,
+    "ground_ml": 0,
+    "pending_ml": 20,
+    "renderedWall_ml": 0,
+    "renderedAir_ml": 0,
+    "packets": [
+      {
+        "stage": "air",
+        "volume_ml": 2.1932139637499404,
+        "elapsed_s": 0.014159283782499643,
+        "wall_s": 0,
+        "flight_s": 0.026318567564999295,
+        "duration_s": 0.013159283782499642,
+        "releaseBasis": "assumed-dose-interval",
+        "exit": [
+          0.9202,
+          -0.19999999999999996,
+          0
+        ]
+      },
+      {
+        "stage": "overflow",
+        "volume_ml": 17.80678603625006,
+        "elapsed_s": 0.12715946315104523,
+        "wall_s": 0.12615946315104523,
+        "flight_s": 0.026318567564999295,
+        "duration_s": 0.10684071621750035,
+        "releaseBasis": "assumed-dose-interval",
+        "exit": [
+          3.9202,
+          -0.19999999999999996,
+          -1
+        ]
+      }
+    ],
+    "spills": []
+  },
+  "afterMove": {
+    "mass_g": 150,
+    "substances": {
+      "H2O": 8.270885373300027,
+      "CuSO4": 0.006265271599523839
+    },
+    "wall_ml": 0,
+    "air_ml": 0,
+    "queued_ml": 0,
+    "ground_ml": 20,
+    "pending_ml": 0,
+    "renderedWall_ml": 0,
+    "renderedAir_ml": 0,
+    "packets": [],
+    "spills": [
+      {
+        "volume_ml": 2.1932139637499404,
+        "position": [
+          0.9202,
+          -1.1750000000000003,
+          0
+        ]
+      },
+      {
+        "volume_ml": 17.80678603625006,
+        "position": [
+          3.9202,
+          -1.1750000000000003,
+          -1
+        ]
+      }
+    ]
+  },
+  "beforeReload": {
+    "mass_g": 150,
+    "substances": {
+      "H2O": 8.270885373300027,
+      "CuSO4": 0.006265271599523839
+    },
+    "wall_ml": 10.61357207250012,
+    "air_ml": 4.3864279274998825,
+    "queued_ml": 0,
+    "ground_ml": 4.999999999999998,
+    "pending_ml": 15.000000000000002,
+    "renderedWall_ml": 10.613571938183654,
+    "renderedAir_ml": 4.386427882230068,
+    "packets": [
+      {
+        "stage": "overflow",
+        "volume_ml": 15.000000000000002,
+        "elapsed_s": 0.18247803071604451,
+        "wall_s": 0.12615946315104523,
+        "flight_s": 0.026318567564999295,
+        "duration_s": 0.12,
+        "releaseBasis": "assumed-dose-interval",
+        "exit": [
+          0.9202,
+          -0.19999999999999996,
+          0
+        ]
+      }
+    ],
+    "spills": [
+      {
+        "volume_ml": 4.999999999999998,
+        "position": [
+          0.9202,
+          -1.1750000000000003,
+          0
+        ]
+      }
+    ]
+  },
+  "afterReload": {
+    "mass_g": 150,
+    "outside_ml": 20
+  }
+}

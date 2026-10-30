@@ -7,6 +7,8 @@ import { useToolDock } from '../../../handling/toolDock';
 import { instrumentHome } from '../../../handling/instrumentCatalog';
 import { useInstrumentStore } from '../../../handling/instrumentState';
 import { aspiratePipette, dispensePipette } from '../../../handling/instrumentOperations';
+import { getWorldVesselProfile } from '../../../pour/physics/profiles';
+import { vesselWorldLiquidSurfaceY } from '../../../science/vesselGeometry';
 
 const glassMaterial = new THREE.MeshPhysicalMaterial({
   roughness: 0.05,
@@ -30,7 +32,7 @@ export const InteractivePipette = React.memo(function InteractivePipette({
   const setActiveTool = useAppStore(state => state.setActiveTool);
   const selectedVesselId = useAppStore(state => state.selectedVesselId);
 
-  const sample = useInstrumentStore(state => state.pipetteSample);
+  const sample = useAppStore(state => state.pipetteSample);
   const pulse = useInstrumentStore(state => state.pipettePulse);
   const dispensing = useInstrumentStore(state => state.pipetteDispensing);
   const pipetteVolume = sample?.volume_ml ?? 0;
@@ -50,7 +52,8 @@ export const InteractivePipette = React.memo(function InteractivePipette({
   // Position: either hovering above the active vessel or at resting rack position
   const targetWorldPos = useMemo(() => {
     if (isActive && targetVessel) {
-      return new THREE.Vector3(targetVessel.position[0], targetVessel.position[1] + 1.8, targetVessel.position[2]);
+      return new THREE.Vector3(targetVessel.position[0], targetVessel.position[1]
+        + getWorldVesselProfile(targetVessel.type, targetVessel.capacity_ml).lipLocal[1] + 0.8, targetVessel.position[2]);
     }
     return new THREE.Vector3(...position);
   }, [isActive, targetVessel, position]);
@@ -87,10 +90,10 @@ export const InteractivePipette = React.memo(function InteractivePipette({
   };
 
   const streamFrom: [number, number, number] = targetVessel
-    ? [targetVessel.position[0], targetVessel.position[1] + 1.1, targetVessel.position[2]]
+    ? [targetVessel.position[0], targetVessel.position[1] + getWorldVesselProfile(targetVessel.type, targetVessel.capacity_ml).lipLocal[1] + 0.1, targetVessel.position[2]]
     : [position[0], position[1] - 0.7, position[2]];
   const streamTo: [number, number, number] = targetVessel
-    ? [targetVessel.position[0], targetVessel.position[1] + 0.2, targetVessel.position[2]]
+    ? [targetVessel.position[0], targetVessel.position[1] + vesselWorldLiquidSurfaceY(targetVessel), targetVessel.position[2]]
     : [position[0], position[1] - 1.2, position[2]];
 
   const fillRatio = pipetteVolume / 10;

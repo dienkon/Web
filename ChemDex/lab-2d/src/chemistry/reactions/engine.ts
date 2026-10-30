@@ -9,7 +9,7 @@ import {
   ReactionExecutionRecord,
   PrecipitateMorphology,
 } from '../../types/chemistry';
-import { REACTION_DATABASE } from './reactionDatabase';
+import { getReactionCandidates, REACTION_DATABASE } from './reactionDatabase';
 import { normalizeFormula, computeMolarMass } from '../core/formula';
 import { calculateSolutionPh, getIndicatorColor, IndicatorType } from '../equilibrium/acidBase';
 import { calculateReactionDeltaT } from '../thermodynamics/calorimetry';
@@ -39,11 +39,13 @@ export function runSimulationCycle(
   const MAX_CYCLES = 5;
   let cycle = 0;
 
+  const candidateFormulas = workingContents.filter(content => content.moles > 1e-6).map(content => content.formula);
+  const candidateReactions = getReactionCandidates(candidateFormulas);
   while (cycle < MAX_CYCLES) {
     cycle++;
     let matchedReactionThisPass = false;
 
-    for (const rx of REACTION_DATABASE) {
+    for (const rx of candidateReactions) {
       // Check temperature / heating prerequisites
       if (rx.requiresHeating && !isHeated && temp_c < (rx.minTemp_c || 60)) {
         continue;
@@ -266,20 +268,116 @@ export function runSimulationCycle(
     }
   }
 
-  // Determine liquid color (taking indicators into account)
+  // Determine liquid color (taking indicators, complexes, redox, and thermochromism into account)
   let finalLiquidColorHex = calculateBeerLambertColor(updatedContents, volume_ml, '#f8fafc');
 
   const hasPhenol = initialContents.some(c => c.formula.toLowerCase().includes('phenolphthalein'));
   const hasLitmus = initialContents.some(c => c.formula.toLowerCase().includes('litmus'));
   const hasUniversal = initialContents.some(c => c.formula.toLowerCase().includes('universal'));
+  const hasMethylOrange = initialContents.some(c => c.formula.toLowerCase().includes('methyl_orange') || c.formula.toLowerCase().includes('methyl'));
+  const hasThymolphthalein = initialContents.some(c => c.formula.toLowerCase().includes('thymolphthalein'));
 
   if (hasPhenol) {
     finalLiquidColorHex = getIndicatorColor('phenolphthalein', finalPh);
   } else if (hasLitmus) {
     finalLiquidColorHex = getIndicatorColor('litmus', finalPh);
+  } else if (hasMethylOrange) {
+    finalLiquidColorHex = getIndicatorColor('methyl_orange', finalPh);
+  } else if (hasThymolphthalein) {
+    finalLiquidColorHex = getIndicatorColor('thymolphthalein', finalPh);
   } else if (hasUniversal) {
     finalLiquidColorHex = getIndicatorColor('universal', finalPh);
   }
+
+  // Starch-Iodine complex thermochromism
+  const hasStarch = updatedContents.some(c => c.formula.toLowerCase().includes('starch') && c.moles > 1e-5);
+  const hasIodine = updatedContents.some(c => (c.formula.toUpperCase() === 'I2' || c.formula.toUpperCase() === 'I3-') && c.moles > 1e-5);
+  if (hasStarch && hasIodine) {
+    if (temp_c >= 60.0) {
+      // Reversible thermal dissociation of helical amylose-iodine complex
+      finalLiquidColorHex = '#fef08a'; // Pale yellow free iodine
+    } else {
+      finalLiquidColorHex = '#1e1b4b'; // Deep dark blue-black complex
+    }
+  }
+
+  // Iron(III) thiocyanate deep blood red complex [Fe(SCN)]2+ / Fe(SCN)3
+  const hasFeSCNComplex = updatedContents.some(
+    c => (c.formula.toUpperCase().includes('FE(SCN)') || c.formula.toUpperCase() === 'FE(SCN)3') && c.moles > 1e-5
+  );
+  if (hasFeSCNComplex) {
+    finalLiquidColorHex = '#7f1d1d'; // Blood red
+  }
+
+  // Tetraamminecopper(II) complex [Cu(NH3)4]2+ royal azure blue
+  const hasCuAmmonia = updatedContents.some(c => c.formula.toUpperCase().includes('CU(NH3)4') && c.moles > 1e-5);
+  if (hasCuAmmonia) {
+    finalLiquidColorHex = '#1d4ed8'; // Royal azure blue
+  }
+
+  // Copper-glycerol deep blue chelate complex
+  const hasCuGlycerol = updatedContents.some(c => c.formula.toUpperCase().includes('CU(C3H7O3)2') && c.moles > 1e-5);
+  if (hasCuGlycerol) {
+    finalLiquidColorHex = '#2563eb'; // Deep blue
+  }
+
+  // Permanganate deep purple color if KMnO4 remains
+  const kmno4Item = updatedContents.find(c => normalizeFormula(c.formula) === 'KMNO4' && c.moles > 1e-5);
+  if (kmno4Item) {
+    finalLiquidColorHex = '#701a75'; // Royal purple
+  }
+
+  // Dichromate / Chromate pH equilibrium color
+  const cr2o7Item = updatedContents.find(c => normalizeFormula(c.formula) === 'K2CR2O7' || c.formula.includes('Cr2O7'));
+  const cro4Item = updatedContents.find(c => normalizeFormula(c.formula) === 'K2CRO4' || c.formula.includes('CrO4'));
+  if (cr2o7Item && finalPh < 6.5) {
+    finalLiquidColorHex = '#ea580c'; // Orange dichromate
+  } else if (cro4Item || (cr2o7Item && finalPh >= 6.5)) {
+    finalLiquidColorHex = '#facc15'; // Yellow chromate
+  }
+
+  // Characteristic flame test emission detection when heated over flame
+  let flameTestColorHex: string | undefined = undefined;
+  const hasCu = updatedContents.some(c => c.formula.toUpperCase().includes('CU') && c.moles > 1e-5);
+  const hasNa = updatedContents.some(c => c.formula.toUpperCase().includes('NA') && c.moles > 1e-5);
+  const hasK = updatedContents.some(c => c.formula.toUpperCase().includes('K') && c.moles > 1e-5 && normalizeFormula(c.formula) !== 'H2O');
+  const hasBa = updatedContents.some(c => c.formula.toUpperCase().includes('BA') && c.moles > 1e-5);
+  const hasCa = updatedContents.some(c => c.formula.toUpperCase().includes('CA') && c.moles > 1e-5);
+
+  if (hasCu) {
+    flameTestColorHex = '#10b981'; // Emerald green flame
+  } else if (hasNa) {
+    flameTestColorHex = '#eab308'; // Intense persistent yellow-orange flame
+  } else if (hasK) {
+    flameTestColorHex = '#c084fc'; // Lilac / violet flame
+  } else if (hasBa) {
+    flameTestColorHex = '#84cc16'; // Pale apple green flame
+  } else if (hasCa) {
+    flameTestColorHex = '#f97316'; // Brick-red flame
+  }
+
+  // Turbidity / milkiness index
+  let turbidity = 0;
+  if (hasPrecipitate && precipitateInfo) {
+    turbidity = precipitateInfo.morphology === 'milky' || precipitateInfo.morphology === 'floc' ? 0.85 : 0.65;
+  }
+  const hasColloidalSulfur = updatedContents.some(c => normalizeFormula(c.formula) === 'S' && c.state === 's');
+  if (hasColloidalSulfur) {
+    turbidity = Math.max(turbidity, 0.9);
+  }
+
+  // Foam head / froth height (mm) on meniscus
+  let foamHead_mm = 0;
+  if (hasGasOccurred) {
+    if (gasInfoFinal?.effervescenceSpeed === 'instant' || gasInfoFinal?.effervescenceSpeed === 'vigorous') {
+      foamHead_mm = 7.5;
+    } else {
+      foamHead_mm = 3.0;
+    }
+  }
+
+  // Tollen's test silver mirror coat
+  const hasSilverMirror = reactionsOccurred.some(r => r.reactionId.includes('silver_mirror') || r.reactionId.includes('tollens'));
 
   // Check for immiscible phase separation (e.g. ester layer floating on water)
   const esterItem = updatedContents.find(
@@ -328,6 +426,10 @@ export function runSimulationCycle(
     hasFumes,
     fumeType,
     fumeColorHex,
+    turbidity,
+    foamHead_mm,
+    flameTestColorHex,
+    hasSilverMirror,
   };
 }
 

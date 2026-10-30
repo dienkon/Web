@@ -1,5 +1,6 @@
 // Web Audio API Procedural Sound Synthesizer for Virtual Chemistry Lab
 // 100% self-contained, no external audio files required
+import { bubbleNaturalFrequencyHz, canRenderBubbleFrequency, type BubbleAcousticMedium } from '../science/bubbleAcoustics';
 
 class SoundEngine {
   private ctx: AudioContext | null = null;
@@ -258,20 +259,21 @@ class SoundEngine {
     } catch {}
   }
 
-  // Authentic Minnaert acoustic bubble synthesis
-  // f = (1 / 2πR) * sqrt(3γ P0 / ρ) ≈ 3260 / R_mm (Hz)
-  public playMinnaertBubble(radius_mm: number = 2.5, isBurst: boolean = true, volume: number = 0.16) {
-    if (!this.enabled) return;
+  // Reduced spherical gas resonance with an illustrative burst envelope.
+  public playMinnaertBubble(radius_mm: number = 2.5, isBurst: boolean = true, volume: number = 0.16,
+    medium: BubbleAcousticMedium = {}) {
+    const f0 = bubbleNaturalFrequencyHz(radius_mm * 0.001, medium);
+    if (!this.enabled || !Number.isFinite(f0) || !Number.isFinite(volume) || volume <= 0) return;
     try {
       this.initCtx();
       if (!this.ctx) return;
 
       const t = this.ctx.currentTime;
-      const clampedR = Math.max(0.6, Math.min(10.0, radius_mm));
-      const f0 = Math.max(320, Math.min(4800, 3260 / clampedR));
+      if (!canRenderBubbleFrequency(f0, this.ctx.sampleRate)) return;
+      volume = Math.min(1, volume);
 
       // 1. Film rupture high-frequency micro-click (0 - 1.5ms)
-      if (isBurst) {
+      if (isBurst && canRenderBubbleFrequency(f0 * 3.5, this.ctx.sampleRate)) {
         const clickOsc = this.ctx.createOscillator();
         const clickGain = this.ctx.createGain();
         clickOsc.type = 'triangle';
@@ -287,16 +289,15 @@ class SoundEngine {
         clickOsc.stop(t + 0.005);
       }
 
-      // 2. Cavity volumetric resonance with upward chirp (expanding cavity as neck pinches/film retracts)
+      // Constant linear natural frequency. An arbitrary chirp would imply
+      // radius evolution which this acoustic envelope does not resolve.
       const osc = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
 
       osc.type = 'sine';
       osc.frequency.setValueAtTime(f0, t);
-      // Minnaert chirp: frequency rises slightly as bubble detaches or cavity shrinks
-      osc.frequency.exponentialRampToValueAtTime(f0 * 1.14, t + 0.035);
 
-      // Acoustic decay time: Q factor ~ 12-20
+      // Illustrative envelope; this is not a computed physical damping/Q.
       const durationSec = Math.max(0.02, Math.min(0.09, 14.0 / f0));
       gain.gain.setValueAtTime(volume, t);
       gain.gain.exponentialRampToValueAtTime(0.001, t + durationSec);
@@ -632,6 +633,147 @@ class SoundEngine {
 
       noise.start(t);
     } catch {}
+  }
+
+  // Gentle acoustic feedback for micro-spill / small drip (~0.1 - 2.0 mL)
+  public playMinorDropletDrip() {
+    if (!this.enabled) return;
+    try {
+      this.initCtx();
+      if (!this.ctx) return;
+
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      const t = this.ctx.currentTime;
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(750, t);
+      osc.frequency.exponentialRampToValueAtTime(1450, t + 0.05);
+
+      gain.gain.setValueAtTime(0.045, t);
+      gain.gain.exponentialRampToValueAtTime(0.0005, t + 0.055);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start(t);
+      osc.stop(t + 0.06);
+    } catch {}
+  }
+
+  // Steady cascading fluid trickle for moderate overflow (~2.0 - 12.0 mL)
+  public playModerateOverflow() {
+    if (!this.enabled) return;
+    try {
+      this.initCtx();
+      if (!this.ctx) return;
+
+      const durationSec = 0.55;
+      const bufferSize = Math.floor(this.ctx.sampleRate * durationSec);
+      const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+
+      let lastOut = 0.0;
+      for (let i = 0; i < bufferSize; i++) {
+        const white = Math.random() * 2 - 1;
+        data[i] = (lastOut + 0.03 * white) / 1.03;
+        lastOut = data[i];
+      }
+
+      const noise = this.ctx.createBufferSource();
+      noise.buffer = buffer;
+
+      const filter = this.ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(950, this.ctx.currentTime);
+      filter.frequency.exponentialRampToValueAtTime(1350, this.ctx.currentTime + durationSec);
+      filter.Q.value = 3.5;
+
+      const gain = this.ctx.createGain();
+      gain.gain.setValueAtTime(0.01, this.ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.09, this.ctx.currentTime + 0.06);
+      gain.gain.linearRampToValueAtTime(0.001, this.ctx.currentTime + durationSec);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      noise.start();
+      noise.stop(this.ctx.currentTime + durationSec);
+
+      // Delicate bubble detachment pop
+      this.playMinnaertBubble(2.2, true, 0.08);
+    } catch {}
+  }
+
+  // Energetic rushing fluid surge & splatter for massive overflow (> 12.0 - 50+ mL)
+  public playSurgeRushSplatter(volume_ml: number = 25) {
+    if (!this.enabled) return;
+    try {
+      this.initCtx();
+      if (!this.ctx) return;
+
+      const t = this.ctx.currentTime;
+      const durationSec = Math.min(1.4, 0.6 + Math.min(1.0, (volume_ml - 12) / 38) * 0.6);
+
+      // 1. Turbulent rushing waterfall roar
+      const bufferSize = Math.floor(this.ctx.sampleRate * durationSec);
+      const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        const progress = i / bufferSize;
+        const envelope = Math.sin(Math.pow(progress, 0.6) * Math.PI);
+        data[i] = (Math.random() * 2 - 1) * envelope * 0.35;
+      }
+
+      const noise = this.ctx.createBufferSource();
+      noise.buffer = buffer;
+
+      const lp = this.ctx.createBiquadFilter();
+      lp.type = 'lowpass';
+      lp.frequency.setValueAtTime(2600, t);
+      lp.frequency.linearRampToValueAtTime(1200, t + durationSec);
+      lp.Q.value = 1.5;
+
+      const gain = this.ctx.createGain();
+      gain.gain.setValueAtTime(0.02, t);
+      gain.gain.linearRampToValueAtTime(0.22, t + 0.08);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + durationSec);
+
+      noise.connect(lp);
+      lp.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      noise.start(t);
+      noise.stop(t + durationSec);
+
+      // 2. Heavy fluid impact thud
+      const osc = this.ctx.createOscillator();
+      const oscGain = this.ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(160, t);
+      osc.frequency.exponentialRampToValueAtTime(38, t + 0.18);
+      oscGain.gain.setValueAtTime(0.18, t);
+      oscGain.gain.exponentialRampToValueAtTime(0.001, t + 0.20);
+      osc.connect(oscGain);
+      oscGain.connect(this.ctx.destination);
+      osc.start(t);
+      osc.stop(t + 0.22);
+
+      // 3. Energetic droplet splatter satellites
+      this.playMinnaertBubble(5.5, true, 0.16);
+    } catch {}
+  }
+
+  // Realistic overflow sound dispatcher based on volume
+  public playOverflow(volume_ml: number = 5) {
+    if (volume_ml <= 2.0) {
+      this.playMinorDropletDrip();
+    } else if (volume_ml <= 12.0) {
+      this.playModerateOverflow();
+    } else {
+      this.playSurgeRushSplatter(volume_ml);
+    }
   }
 
   // Convenient aliases

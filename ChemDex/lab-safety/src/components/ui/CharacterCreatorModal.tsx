@@ -84,7 +84,7 @@ export const CharacterCreatorModal: React.FC = () => {
             <div className="absolute left-3 bottom-3 z-10 inline-flex items-center gap-1.5 rounded-full border border-cyan-200 bg-white/70 px-2.5 py-1 text-[9px] font-black uppercase tracking-wider text-cyan-800 backdrop-blur-none">
               <Rotate3D className="h-3 w-3" /> Xem trước 3D
             </div>
-            <Canvas camera={{ position: [0, 0.85, 4.8], fov: 30 }} dpr={1} gl={{ antialias: true }}>
+            <Canvas frameloop="demand" camera={{ position: [0, 0.85, 4.8], fov: 30 }} dpr={1} gl={{ antialias: true }}>
               <ambientLight intensity={1.7} />
               <directionalLight position={[3, 5, 4]} intensity={2.2} color="#ffffff" />
               <directionalLight position={[-3, 2, 2]} intensity={0.9} color="#67e8f9" />

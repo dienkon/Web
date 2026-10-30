@@ -23,10 +23,10 @@
   - Liquid level geometry matching real glassware profiles with meniscus curves.
 - **Two Experiment Modes**:
   - **Free Laboratory Mode**: Open exploration with direct dragging, pouring, measuring, and heating.
-  - **Guided Experiment Mode**: 10 step-by-step curriculum experiments validated by actual simulation state.
+  - **Guided Experiment Mode**: 20 step-by-step curriculum experiments validated by actual simulation state.
 - **Bilingual Support**: Full Vietnamese (default) and English localization throughout all controls, chemicals, and explanations.
 - **Laboratory Notebook & Export**: Automated activity log, observations, CSV measurement export, JSON state export, and print-ready PDF reporting.
-- **Full History**: Unlimited Undo / Redo with exact physical state restoration.
+- **Full History**: 50-snapshot Undo / Redo with exact physical state restoration.
 
 ---
 
@@ -48,7 +48,7 @@
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js $\ge 18$
+- Node.js 22.x
 - npm $\ge 9$
 
 ### Installation
@@ -85,3 +85,7 @@ npm run dev
 - [System Architecture](docs/ARCHITECTURE.md)
 - [Known Limitations & Physical Bounds](docs/KNOWN_LIMITATIONS.md)
 - [Implementation Progress Dashboard](IMPLEMENTATION_PROGRESS.md)
+
+## Platform upgrade
+
+The React lab now ships at `/lab-2d/` through the main ChemDex pipeline. It includes 20 guided experiments, 95 chemical entries, a shared 118-element table, structure lookup, IndexedDB sessions, paused restoration, print reports and local study progress. New advanced lesson content is currently Vietnamese; the existing core UI retains VI/EN controls. See [platform documentation](../docs/PLATFORM_UPGRADE.md).

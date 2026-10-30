@@ -159,5 +159,9 @@ export interface SimulationResult {
   hasFumes?: boolean;
   fumeType?: 'steam' | 'no2' | 'nh4cl' | 'iodine';
   fumeColorHex?: string;
+  turbidity?: number; // 0 (crystal clear) to 1 (opaque milkiness)
+  foamHead_mm?: number; // Evolving gas foam head height on meniscus
+  flameTestColorHex?: string; // Characteristic emission flame test color
+  hasSilverMirror?: boolean; // Tollen's test metallic silver reflective mirror coating
 }
 

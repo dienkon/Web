@@ -18,6 +18,8 @@ export const PourHUD = React.memo(function PourHUD() {
   const deg = Math.round((session.tilt * 180) / Math.PI);
   const transferred = Math.round(session.transferred_ml * 10) / 10;
   const flow = Math.round(session.flow_ml_s * 10) / 10;
+  const inFlight = Math.round(session.inFlight_ml * 10) / 10;
+  const onWall = Math.round(session.onWall_ml * 10) / 10;
 
   const targetVessel = session.targetId ? useAppStore.getState().vessels[session.targetId] : null;
   const targetName = targetVessel?.name || (lang === 'vi' ? 'Bình nhận' : 'Target Vessel');
@@ -39,12 +41,22 @@ export const PourHUD = React.memo(function PourHUD() {
         {/* Volume Transferred */}
         <div className="flex flex-col items-center border-l border-slate-800 pl-4">
           <span className="text-[10px] uppercase tracking-wider text-slate-400">
-            {lang === 'vi' ? 'Đã rót' : 'Poured'}
+            {lang === 'vi' ? 'Đã nhận' : 'Received'}
           </span>
           <span className="text-base font-bold font-mono text-cyan-400">
             {transferred} <span className="text-xs font-normal text-slate-400">mL</span>
           </span>
         </div>
+
+        {inFlight > 0 && <div className="flex flex-col items-center border-l border-slate-800 pl-4">
+          <span className="text-[10px] uppercase tracking-wider text-slate-400">{lang === 'vi' ? 'Đang rơi' : 'In flight'}</span>
+          <span className="text-base font-bold font-mono text-sky-300">{inFlight} <span className="text-xs font-normal text-slate-400">mL</span></span>
+        </div>}
+
+        {onWall > 0 && <div className="flex flex-col items-center border-l border-slate-800 pl-4">
+          <span className="text-[10px] uppercase tracking-wider text-slate-400">{lang === 'vi' ? 'Trên thành bình' : 'On glass'}</span>
+          <span className="text-base font-bold font-mono text-sky-300">{onWall} <span className="text-xs font-normal text-slate-400">mL</span></span>
+        </div>}
 
         {/* Flow Rate */}
         <div className="flex flex-col items-center border-l border-slate-800 pl-4">

@@ -54,6 +54,7 @@ import UserAvatar from "../../components/common/UserAvatar";
 import { broadcastAvatarUpdate } from "../../utils/avatarSync";
 import { useStudentOnboarding } from "../../features/student-onboarding";
 import { getGamificationStats } from "../../services/gamificationService";
+import ThemeSettingsPanel from "../../components/ui/ThemeSettingsPanel";
 
 export default function StudentProfile() {
   const { showToast } = useToast();
@@ -566,21 +567,21 @@ export default function StudentProfile() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-8 px-4 sm:px-6 lg:px-8 transition-colors duration-200">
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Email verification alert banner */}
         <EmailVerificationBanner />
 
         {/* Profile Completion Bar */}
-        <div className="bg-white rounded-3xl p-5 border border-slate-200 shadow-xs space-y-2">
+        <div className="bg-white dark:bg-slate-900 rounded-3xl p-5 border border-slate-200 dark:border-slate-800 shadow-xs space-y-2">
           <div className="flex items-center justify-between text-xs">
-            <span className="font-bold text-slate-700 flex items-center gap-1.5">
+            <span className="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
               <Sparkles className="w-4 h-4 text-amber-500" />
               <span>Mức độ hoàn thiện hồ sơ:</span>
             </span>
             <span className="font-black text-blue-600 text-sm">{completionPercent}%</span>
           </div>
-          <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+          <div className="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden">
             <div
               className={`h-full rounded-full transition-all duration-500 ${
                 completionPercent >= 80 ? "bg-emerald-500" : completionPercent >= 50 ? "bg-blue-500" : "bg-amber-500"
@@ -596,7 +597,7 @@ export default function StudentProfile() {
         {/* Header Profile Card */}
         <div
           data-tour-id="profile-page-overview"
-          className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs flex flex-col sm:flex-row items-center gap-6"
+          className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col sm:flex-row items-center gap-6"
         >
           <div className="relative group shrink-0">
             <UserAvatar
@@ -631,7 +632,7 @@ export default function StudentProfile() {
 
           <div className="flex-1 text-center sm:text-left space-y-1">
             <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-              <h1 className="text-2xl font-black text-slate-900 tracking-tight">
+              <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight">
                 {displayName || username || "Học sinh"}
               </h1>
               <span className="px-2.5 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold rounded-full">
@@ -639,13 +640,13 @@ export default function StudentProfile() {
               </span>
             </div>
             <p className="text-xs text-slate-400 font-mono">@{username || "hocsinh"}</p>
-            <p className="text-xs text-slate-600 font-medium">
+            <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">
               {studentClass ? `Lớp: ${studentClass}` : "Chưa cập nhật lớp học"}
             </p>
           </div>
 
           <div className="flex items-center gap-4 text-center">
-            <div className="p-3 bg-slate-50 rounded-2xl border border-slate-100 min-w-[90px]">
+            <div className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-100 dark:border-slate-800 min-w-[90px]">
               <p className="text-2xl font-black text-emerald-600">{examCount}</p>
               <p className="text-[10px] font-bold text-slate-500 mt-0.5">Bài thi</p>
             </div>
@@ -965,18 +966,23 @@ export default function StudentProfile() {
           </div>
         </form>
 
+        {/* Appearance & Dark Theme Customizer Card */}
+        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-xs transition-colors duration-200">
+          <ThemeSettingsPanel />
+        </div>
+
         {/* Onboarding Tutorial Replay Card */}
-        <div className="bg-gradient-to-br from-indigo-50 via-white to-blue-50 rounded-3xl p-6 sm:p-7 border border-indigo-100 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+        <div className="bg-gradient-to-br from-indigo-50 via-white to-blue-50 dark:from-indigo-950/40 dark:via-slate-900 dark:to-blue-950/40 rounded-3xl p-6 sm:p-7 border border-indigo-100 dark:border-indigo-900/50 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
           <div className="space-y-1.5 max-w-xl">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center shadow-xs">
                 <Sparkles className="w-4 h-4" />
               </div>
-              <h3 className="text-sm font-bold text-slate-900">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
                 Hướng Dẫn Sử Dụng & Trải Nghiệm DkTEST
               </h3>
             </div>
-            <p className="text-xs text-slate-600 leading-relaxed">
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
               Khám phá toàn bộ thanh công cụ, các tính năng chính và trải nghiệm bài thi thử nghiệm 7 dạng câu hỏi (chế độ an toàn sandbox, không ghi đè vào dữ liệu thật).
             </p>
           </div>

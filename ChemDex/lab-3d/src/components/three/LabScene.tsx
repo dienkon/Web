@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
+import { FRAME_ORDER } from '../../simulation/core/frameOrder';
 import { ContactShadows, Grid, Environment, Lightformer, PerformanceMonitor } from '@react-three/drei';
 import * as THREE from 'three';
 import { PostFX } from '../../vfx/post/PostFX';
@@ -13,6 +14,7 @@ import {
 } from './Vessels';
 import { AlcoholBurner } from './AlcoholBurner';
 import { AddingAnimation, VesselPourAnimation } from './PouringBottle';
+import { SodiumDoseAnimation } from './SodiumDoseAnimation';
 import { PerformanceHUD } from './PerformanceHUD';
 import { CameraControls } from './CameraControls';
 import { InteractivePipette } from './interactions/InteractivePipette';
@@ -41,7 +43,9 @@ import { getVesselGripSpec } from '../../handling/gripPoints';
 import { clampLift } from '../../handling/limits';
 import { VesselFloorRing } from './Vessels';
 import { LAB_PHYSICS } from '../../engine/interactionEngine';
+import { restingVesselHeight } from '../../handling/vesselRest';
 import { FrameTelemetry } from '../../render/FrameTelemetry';
+import { RenderActivity } from '../../render/RenderActivity';
 import { LessonScene } from '../../lesson/LessonScene';
 
 function DragDropRaycaster() {
@@ -302,12 +306,13 @@ function SceneEnvironmentSetup({ tier }: { tier: QualityTier }) {
   useEffect(() => {
     (scene as any).environmentIntensity = 0.9;
     gl.localClippingEnabled = true;
+    gl.transmissionResolutionScale = settings.transmissionResolutionScale;
     if (!settings.usePostFX) {
       gl.toneMapping = THREE.ACESFilmicToneMapping;
     } else {
       gl.toneMapping = THREE.NoToneMapping;
     }
-  }, [scene, gl, settings.usePostFX]);
+  }, [scene, gl, settings.usePostFX, settings.transmissionResolutionScale]);
 
   return null;
 }
@@ -318,7 +323,7 @@ function SimulationTicker() {
     tickSimulation(delta);
     const state = useAppStore.getState();
     PourController.tick(delta, state.vessels as any, state.isSimulationPaused, state.timeScale);
-  });
+  }, FRAME_ORDER.chemistry);
   return null;
 }
 
@@ -370,7 +375,7 @@ export function LabScene() {
     // Physical snapping logic
     let targetX = Math.max(-14.5, Math.min(14.5, e.point.x));
     let targetZ = Math.max(-5.5, Math.min(5.5, e.point.z));
-    let targetY = -0.135;
+    let targetY = restingVesselHeight(useAppStore.getState().vessels[draggingVesselId]?.type);
 
     // Check snapping to analytical balance pan
     const [balanceX, , balanceZ] = LAB_PHYSICS.BALANCE_POSITION;
@@ -661,6 +666,11 @@ export function LabScene() {
           stencil: false,
         }}
         onCreated={({ gl }) => {
+          const context = gl.getContext();
+          const extension = context.getExtension('WEBGL_debug_renderer_info');
+          if (extension) {
+            useQualityStore.getState().configureRenderer(String(context.getParameter(extension.UNMASKED_RENDERER_WEBGL)));
+          }
           gl.localClippingEnabled = true;
         }}
         onPointerMissed={(e) => {
@@ -678,9 +688,10 @@ export function LabScene() {
           onIncline={handlePerformanceIncline}
         />
         <SceneEnvironmentSetup tier={effectiveTier} />
+        <RenderActivity />
 
         {/* Procedural Laboratory Environment with fluorescent tube reflections */}
-        <Environment resolution={256} frames={1}>
+        <Environment resolution={qualitySettings.glassTransmission ? 256 : 64} frames={1}>
           {/* Main overhead softbox */}
           <Lightformer
             form="rect"
@@ -896,12 +907,12 @@ export function LabScene() {
         </mesh>
         
         {/* Reagent Shelf Stock Bottles with Authentic GHS Labels */}
-        <Bottle position={[-11.5, 2.9, -6.0]} color="#f1f5f9" formula="HCl" name="Hydrochloric Acid 37%" hazard="corrosive" />
-        <Bottle position={[-10.3, 2.9, -6.0]} color="#f8fafc" formula="NaOH" name="Sodium Hydroxide 2M" hazard="corrosive" />
-        <Bottle position={[-9.1, 2.9, -6.0]} color="#0284c7" formula="CuSO4" name="Copper Sulfate 1M" hazard="toxic" />
-        <Bottle position={[-7.9, 2.9, -6.0]} color="#fef08a" formula="KI" name="Potassium Iodide" hazard="safe" />
-        <Bottle position={[-6.7, 2.9, -6.0]} color="#e0f2fe" formula="C2H5OH" name="Ethanol 96°" hazard="flammable" />
-        <Bottle position={[-5.5, 2.9, -6.0]} color="#fef3c7" formula="HNO3" name="Nitric Acid Conc" hazard="oxidizer" isAmber />
+        <Bottle position={[-11.5, 2.9, -6.0]} color="#ffffff" formula="HCl (dil)" name="Hydrochloric Acid 1 M" hazard="corrosive" />
+        <Bottle position={[-10.3, 2.9, -6.0]} color="#ffffff" formula="NaOH" name="Sodium Hydroxide 1 M" hazard="corrosive" />
+        <Bottle position={[-9.1, 2.9, -6.0]} color="#2563eb" formula="CuSO4" name="Copper Sulfate 0.5 M" hazard="toxic" />
+        <Bottle position={[-7.9, 2.9, -6.0]} color="#ffffff" formula="KI" name="Potassium Iodide 0.5 M" hazard="safe" />
+        <Bottle position={[-6.7, 2.9, -6.0]} color="#ffffff" formula="C2H5OH" name="Ethanol 96%" hazard="flammable" />
+        <Bottle position={[-5.5, 2.9, -6.0]} color="#ffffff" formula="HNO3 (conc)" name="Nitric Acid 68%" hazard="oxidizer" isAmber />
 
         {/* Digital Analytical Balance */}
         <DigitalBalance position={[7.5, -1.175, -2.5]} />
@@ -958,12 +969,17 @@ export function LabScene() {
         )}
         
         {/* Chemical Bottle/Dropper Pouring Animation */}
-        {pouringChemical && (
+        {pouringChemical?.chemical === 'Na' ? (
+          <SodiumDoseAnimation key={pouringChemical.id} doseId={pouringChemical.id} targetId={pouringChemical.targetId}
+            amount={pouringChemical.amount} onComplete={() => clearPour(pouringChemical.id)} />
+        ) : pouringChemical && (
           <AddingAnimation 
+            key={pouringChemical.id}
+            doseId={pouringChemical.id}
             chemical={pouringChemical.chemical} 
             targetId={pouringChemical.targetId} 
             amount={pouringChemical.amount}
-            onComplete={clearPour} 
+            onComplete={() => clearPour(pouringChemical.id)}
           />
         )}
 

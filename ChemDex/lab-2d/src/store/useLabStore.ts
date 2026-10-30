@@ -5,7 +5,7 @@
  */
 
 import { create } from 'zustand';
-import { EquipmentState, EquipmentType } from '../types/equipment';
+import { EquipmentState, EquipmentType, SpillPuddle } from '../types/equipment';
 import { SubstanceQuantity } from '../types/chemistry';
 import { GuidedExperiment, LabLogEntry } from '../types/experiment';
 import { findChemicalById } from '../data/chemicals';
@@ -15,9 +15,19 @@ import { computeMolarMass } from '../chemistry/core/formula';
 import { soundEngine } from '../services/soundEngine';
 import { generateReactionFromGemini } from '../services/geminiService';
 import { REACTION_DATABASE } from '../chemistry/reactions/reactionDatabase';
-import { stepVesselThermal, burnerHeatToVessel, hotPlateHeatToVessel } from '../engine/simulationTick';
+import { stepVesselThermal, burnerHeatToVessel, hotPlateHeatToVessel, probeDipCoupling, separatoryFunnelDrain } from '../engine/simulationTick';
+import {isElementBalancedReaction} from '../chemistry/core/ledger';
+import { getIndicatorColor } from '../chemistry/equilibrium/acidBase';
 
-interface LabStoreState {
+export type LabSnapshot = Pick<LabStoreState, 'equipment' | 'selectedEquipmentId' | 'activeMode' | 'activeExperiment' | 'currentStepIndex' | 'stepCompleted' | 'history' | 'spillPuddles' | 'studentNotes'>;
+
+export interface LabStoreState {
+  simulationPaused: boolean;
+  studentNotes: string;
+  setStudentNotes: (notes: string) => void;
+  completedExperiments: Record<string, string>;
+  completeExperiment: () => boolean;
+  setSimulationPaused: (paused: boolean) => void;
   equipment: Record<string, EquipmentState>;
   selectedEquipmentId: string | null;
   language: 'vi' | 'en';
@@ -26,8 +36,8 @@ interface LabStoreState {
   currentStepIndex: number;
   stepCompleted: boolean;
   history: LabLogEntry[];
-  undoStack: Record<string, EquipmentState>[];
-  redoStack: Record<string, EquipmentState>[];
+  undoStack: LabSnapshot[];
+  redoStack: LabSnapshot[];
   
   // UI Dialog & VFX States
   isTransferModalOpen: boolean;
@@ -50,6 +60,8 @@ interface LabStoreState {
     endY: number;
     liquidColorHex: string;
   } | null;
+  spillPuddles: SpillPuddle[];
+  isQuizModalOpen: boolean;
 
   // Actions
   setLanguage: (lang: 'vi' | 'en') => void;
@@ -63,6 +75,10 @@ interface LabStoreState {
   toggleApiKeyModal: (open?: boolean) => void;
   togglePeriodicTable: (open?: boolean) => void;
   toggleTitrationCurve: (open?: boolean) => void;
+  toggleQuizModal: (open?: boolean) => void;
+  cleanSpill: (id: string) => void;
+  cleanAllSpills: () => void;
+  addSpillPuddle: (x: number, y: number, volume_ml: number, colorHex: string, formula: string, ph?: number) => void;
   toggleMute: () => void;
   setDraggedChemicalId: (id: string | null) => void;
   triggerDirectPour: (sourceId: string, targetId: string) => void;
@@ -92,6 +108,10 @@ interface LabStoreState {
   toggleHeat: (id: string) => void;
   tareEquipment: (id: string) => void;
   toggleBuretteStopcock: (id: string) => void;
+  emptyEquipment: (id: string) => void;
+  toggleStir: (id: string) => void;
+  addDistilledWater: (id: string, amount_ml?: number) => void;
+  toggleSeal: (id: string) => void;
 
   selectExperiment: (experimentId: string | null) => void;
   nextStep: () => void;
@@ -127,17 +147,25 @@ const EQUIPMENT_SPECS: Record<
   reagent_bottle: { name: 'Reagent Bottle', name_vi: 'Lọ đựng hóa chất', capacity_ml: 150, width: 90, height: 150, tare_g: 90.0, isContainer: true },
   wash_bottle: { name: 'Wash Bottle (Distilled H2O)', name_vi: 'Bình tia nước cất', capacity_ml: 250, width: 90, height: 190, tare_g: 60.0, isContainer: true },
   test_tube_rack: { name: 'Test Tube Rack', name_vi: 'Giá để ống nghiệm', capacity_ml: 0, width: 200, height: 110, tare_g: 120.0, isContainer: false },
+  separatory_funnel: { name: '250 mL Separatory Funnel', name_vi: 'Phễu chiết quả lê 250 mL', capacity_ml: 250, width: 130, height: 260, tare_g: 140.0, isContainer: true },
+  ph_paper: { name: 'Universal pH Indicator Paper Strip', name_vi: 'Giấy quỳ tím & chỉ thị pH', capacity_ml: 0, width: 24, height: 120, tare_g: 2.0, isContainer: false },
 };
 
-function pushSnapshot(state: LabStoreState): { undoStack: Record<string, EquipmentState>[]; redoStack: Record<string, EquipmentState>[] } {
-  const currentSnapshot = JSON.parse(JSON.stringify(state.equipment));
-  return {
-    undoStack: [...state.undoStack.slice(-20), currentSnapshot],
-    redoStack: [],
-  };
+export function captureSnapshot(state: LabStoreState): LabSnapshot {
+  const {equipment, selectedEquipmentId, activeMode, activeExperiment, currentStepIndex, stepCompleted, history, spillPuddles, studentNotes} = state;
+  return structuredClone({equipment, selectedEquipmentId, activeMode, activeExperiment, currentStepIndex, stepCompleted, history, spillPuddles, studentNotes});
+}
+function pushSnapshot(state: LabStoreState): {undoStack: LabSnapshot[]; redoStack: LabSnapshot[]} {
+  return {undoStack: [...state.undoStack.slice(-49), captureSnapshot(state)], redoStack: []};
 }
 
 export const useLabStore = create<LabStoreState>((set, get) => ({
+  simulationPaused: false,
+  studentNotes: '',
+  completedExperiments: (()=>{try{return typeof window==='undefined'?{}:JSON.parse(localStorage.getItem('chemdex:completed-experiments')??'{}');}catch{return {};}})(),
+  completeExperiment: () => {const state=get();if(!state.activeExperiment||state.currentStepIndex!==state.activeExperiment.steps.length-1||!state.checkStepProgress())return false;const completedExperiments={...state.completedExperiments,[state.activeExperiment.id]:new Date().toISOString()};try{localStorage.setItem('chemdex:completed-experiments',JSON.stringify(completedExperiments));}catch{}set({completedExperiments,isQuizModalOpen:true});return true;},
+  setStudentNotes: (studentNotes) => set({studentNotes}),
+  setSimulationPaused: (simulationPaused) => set({simulationPaused}),
   equipment: {},
   selectedEquipmentId: null,
   language: 'vi',
@@ -157,10 +185,12 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
   isApiKeyModalOpen: false,
   isPeriodicTableOpen: false,
   isTitrationCurveOpen: false,
+  isQuizModalOpen: false,
   isMuted: false,
   activeSidebarTab: 'chemicals',
   draggedChemicalId: null,
   activePourVfx: null,
+  spillPuddles: [],
 
   setLanguage: (lang) => set({ language: lang }),
   setActiveMode: (mode) => set({ activeMode: mode }),
@@ -182,6 +212,28 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
   toggleApiKeyModal: (open) => set(s => ({ isApiKeyModalOpen: open !== undefined ? open : !s.isApiKeyModalOpen })),
   togglePeriodicTable: (open) => set(s => ({ isPeriodicTableOpen: open !== undefined ? open : !s.isPeriodicTableOpen })),
   toggleTitrationCurve: (open) => set(s => ({ isTitrationCurveOpen: open !== undefined ? open : !s.isTitrationCurveOpen })),
+  toggleQuizModal: (open) => set(s => ({ isQuizModalOpen: open !== undefined ? open : !s.isQuizModalOpen })),
+  cleanSpill: (id) => set(s => ({
+    spillPuddles: s.spillPuddles.filter(p => p.id !== id),
+  })),
+  cleanAllSpills: () => set({ spillPuddles: [] }),
+  addSpillPuddle: (x, y, volume_ml, colorHex, formula, ph = 7.0) => {
+    const id = `puddle_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`;
+    const newPuddle: SpillPuddle = {
+      id,
+      x,
+      y,
+      volume_ml,
+      colorHex,
+      formula,
+      ph,
+      radius_px: Math.min(65, Math.max(18, 12 + Math.sqrt(volume_ml) * 5)),
+      timestamp: Date.now(),
+    };
+    set(s => ({
+      spillPuddles: [...s.spillPuddles.slice(-12), newPuddle],
+    }));
+  },
   toggleMute: () => {
     const nextMuted = !get().isMuted;
     soundEngine.setMuted(nextMuted);
@@ -210,6 +262,7 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
     soundEngine.pour(0.7);
 
     setTimeout(() => {
+      if(get().activePourVfx?.sourceId !== sourceId || get().activePourVfx?.targetId !== targetId) return;
       get().transferMaterial(sourceId, targetId, pourAmount);
       set({ activePourVfx: null });
     }, 450);
@@ -228,8 +281,10 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
         eq.volume_ml
       );
 
+      if (get().equipment[vesselId] !== eq || get().simulationPaused) return false;
       if (aiRes && aiRes.isReaction && aiRes.reactionDefinition) {
         const rx = aiRes.reactionDefinition;
+        if (!isElementBalancedReaction(rx)) return false;
         const exists = REACTION_DATABASE.some(r => r.id === rx.id);
         if (!exists) {
           REACTION_DATABASE.push(rx);
@@ -243,6 +298,7 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
         soundEngine.success();
 
         set(state => ({
+          ...pushSnapshot(state),
           equipment: {
             ...state.equipment,
             [vesselId]: {
@@ -268,8 +324,8 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
               id: `log_${Date.now()}`,
               timestamp: Date.now(),
               actionType: 'REACTION',
-              details_en: `[Gemini 3.5 Flash Lite] Predicted Reaction: ${rx.name_en} (${rx.equation})`,
-              details_vi: `[Gemini 3.5 Flash Lite] Sinh phản ứng AI: ${rx.name_vi} (${rx.equation})`,
+              details_en: `[AI proposal] Predicted Reaction: ${rx.name_en} (${rx.equation})`,
+              details_vi: `[Đề xuất AI] Phản ứng dự đoán: ${rx.name_vi} (${rx.equation})`,
               vesselId,
               measurements: {
                 volume_ml: eq.volume_ml,
@@ -308,12 +364,13 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
       capacity_ml: spec.capacity_ml,
       isContainer: spec.isContainer,
       temperature_c: 25.0,
-      contents: [],
-      volume_ml: 0,
-      mass_g: spec.tare_g,
+      contents: type === 'wash_bottle' ? [{ formula: 'H2O', moles: 250 / 18.015, mass_g: 250, state: 'l' }] : [],
+      volume_ml: type === 'wash_bottle' ? 250 : 0,
+      mass_g: type === 'wash_bottle' ? spec.tare_g + 250 : spec.tare_g,
       tare_g: spec.tare_g,
       ph: 7.0,
       isOn: false,
+      paperColorHex: type === 'ph_paper' ? '#fbbf24' : undefined,
     };
 
     set(state => ({
@@ -381,7 +438,8 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
     if (!eq || !chem || !eq.isContainer) return;
 
     const isLiquid = chem.phase_STP === 'aqueous' || chem.phase_STP === 'liquid';
-    const volumeAdded = isLiquid ? amount_ml : 0;
+    if (!Number.isFinite(amount_ml) || !Number.isFinite(amount_g) || amount_ml < 0 || amount_g < 0) return;
+    const volumeAdded = isLiquid ? Math.min(amount_ml, Math.max(0, eq.capacity_ml - eq.volume_ml)) : 0;
     const density = chem.density_g_ml || 1.0;
     const massAdded = isLiquid ? volumeAdded * density : amount_g;
     
@@ -390,16 +448,20 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
       ? chem.defaultConcentration_M * (volumeAdded / 1000.0)
       : massAdded / chem.molarMass_g_mol;
 
+    // Keep solute and solvent inventories separate: C*V describes dissolved
+    // solute moles, while density*V is the mass of the whole stock solution.
+    const soluteMass = chem.phase_STP === 'aqueous' ? molesAdded * chem.molarMass_g_mol : massAdded;
+    const solventMass = chem.phase_STP === 'aqueous' ? Math.max(0, massAdded - soluteMass) : 0;
     // Calculate new total volume
     const newVolume = Math.min(eq.capacity_ml, eq.volume_ml + volumeAdded);
 
     // Prepare updated contents list
-    const newContents: SubstanceQuantity[] = [...eq.contents];
+    const newContents: SubstanceQuantity[] = structuredClone(eq.contents);
     const existing = newContents.find(c => c.formula.toUpperCase() === chem.formula.toUpperCase());
 
     if (existing) {
       existing.moles += molesAdded;
-      existing.mass_g += massAdded;
+      existing.mass_g += soluteMass;
       if (isLiquid && newVolume > 0) {
         existing.concentration_M = existing.moles / (newVolume / 1000.0);
       }
@@ -407,13 +469,19 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
       newContents.push({
         formula: chem.formula,
         moles: molesAdded,
-        mass_g: massAdded,
-        volume_ml: isLiquid ? volumeAdded : undefined,
+        mass_g: soluteMass,
+        volume_ml: chem.phase_STP === 'liquid' ? volumeAdded : undefined,
         concentration_M: isLiquid && newVolume > 0 ? molesAdded / (newVolume / 1000.0) : undefined,
-        state: isLiquid ? 'aq' : 's',
+        state: chem.phase_STP === 'gas' ? 'g' : chem.phase_STP === 'aqueous' ? 'aq' : chem.phase_STP === 'liquid' ? 'l' : 's',
       });
     }
 
+    if (solventMass > 0) {
+      const solvent = newContents.find(item => item.formula === 'H2O');
+      const waterMoles = solventMass / computeMolarMass('H2O');
+      if (solvent) { solvent.mass_g += solventMass; solvent.moles += waterMoles; }
+      else newContents.push({formula:'H2O',moles:waterMoles,mass_g:solventMass,state:'l'});
+    }
     // Run deterministic chemistry calculation engine
     const simResult = runSimulationCycle(newContents, newVolume, eq.temperature_c, eq.isOn || false);
 
@@ -436,6 +504,7 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
       id: `log_rx_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`,
       timestamp: Date.now(),
       actionType: 'REACTION' as const,
+      reactionId: rx.reactionId,
       details_en: `Reaction: ${rx.name_en || rx.observable_en || rx.equation} (${rx.equation})`,
       details_vi: `Phản ứng: ${rx.name_vi || rx.observable_vi || rx.equation} (${rx.equation})`,
       vesselId: equipmentId,
@@ -473,6 +542,9 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
           hasFumes: simResult.hasFumes,
           fumeType: simResult.fumeType,
           fumeColorHex: simResult.fumeColorHex,
+          turbidity: simResult.turbidity,
+          foamHead_mm: simResult.foamHead_mm,
+          hasSilverMirror: simResult.hasSilverMirror || eq.hasSilverMirror,
         },
       },
       history: [
@@ -578,6 +650,7 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
       id: `log_rx_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`,
       timestamp: Date.now(),
       actionType: 'REACTION' as const,
+      reactionId: rx.reactionId,
       details_en: `Reaction: ${rx.name_en || rx.observable_en || rx.equation} (${rx.equation})`,
       details_vi: `Phản ứng: ${rx.name_vi || rx.observable_vi || rx.equation} (${rx.equation})`,
       vesselId: targetId,
@@ -711,6 +784,8 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
           ...eq,
           isOn: nextIsOn,
           temperature_c: sim.finalTemperature_c,
+          liquidColorHex: sim.finalLiquidColorHex,
+          ph: sim.finalPh,
           contents: sim.updatedContents,
           hasPrecipitate: sim.hasPrecipitate,
           precipitateColorHex: sim.precipitateInfo?.colorHex,
@@ -723,6 +798,9 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
           hasFumes: sim.hasFumes,
           fumeType: sim.fumeType,
           fumeColorHex: sim.fumeColorHex,
+          turbidity: sim.turbidity,
+          foamHead_mm: sim.foamHead_mm,
+          hasSilverMirror: sim.hasSilverMirror || eq.hasSilverMirror,
         },
       },
       history: [
@@ -774,19 +852,19 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
   },
 
   toggleBuretteStopcock: (id) => {
-    const burette = get().equipment[id];
-    if (!burette || burette.type !== 'burette') return;
+    const item = get().equipment[id];
+    if (!item || (item.type !== 'burette' && item.type !== 'separatory_funnel')) return;
 
-    const nextOpen = !burette.stopcockOpen;
+    const nextOpen = !item.stopcockOpen;
     if (nextOpen) soundEngine.drip();
 
-    // Find receiving vessel placed underneath burette
+    // Find receiving vessel placed underneath
     const allEq = Object.values(get().equipment);
     const target = allEq.find(
-      e => e.id !== id && e.isContainer && Math.abs(e.x - burette.x) < 80 && e.y > burette.y
+      e => e.id !== id && e.isContainer && Math.abs((e.x + e.width / 2) - (item.x + item.width / 2)) < 80 && e.y > item.y
     );
 
-    if (target && burette.volume_ml > 0) {
+    if (target && item.volume_ml > 0 && item.type === 'burette') {
       // Dispense standard initial aliquot (1.0 mL)
       get().transferMaterial(id, target.id, 1.0, undefined, false);
     }
@@ -802,7 +880,93 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
     }));
   },
 
+  emptyEquipment: (id) => {
+    const eq = get().equipment[id];
+    if (!eq || !eq.isContainer) return;
+
+    soundEngine.pour(0.3);
+    set(state => ({
+      ...pushSnapshot(state),
+      equipment: {
+        ...state.equipment,
+        [id]: {
+          ...eq,
+          contents: [],
+          volume_ml: 0,
+          mass_g: eq.tare_g || 0,
+          ph: 7.0,
+          liquidColorHex: '#f8fafc',
+          hasPrecipitate: false,
+          precipitateSubstance: undefined,
+          precipitateMass_g: 0,
+          precipitateColorHex: undefined,
+          precipitateMorphology: undefined,
+          hasGas: false,
+          isBoiling: false,
+          hasPhaseSeparation: false,
+          organicLayerVolume_ml: undefined,
+          hasFumes: false,
+          turbidity: 0,
+          foamHead_mm: 0,
+          hasSilverMirror: false,
+          isStirred: false,
+        },
+      },
+      history: [
+        ...state.history,
+        {
+          id: `log_${Date.now()}`,
+          timestamp: Date.now(),
+          actionType: 'TRANSFER',
+          details_en: `Rinsed and emptied ${eq.name}`,
+          details_vi: `Đã đổ bỏ và tráng rửa ${eq.name_vi}`,
+          vesselId: id,
+        },
+      ],
+    }));
+    get().checkStepProgress();
+  },
+
+  toggleStir: (id) => {
+    const eq = get().equipment[id];
+    if (!eq || !eq.isContainer) return;
+
+    const nextStirred = !eq.isStirred;
+    soundEngine.drip();
+    set(state => ({
+      equipment: {
+        ...state.equipment,
+        [id]: {
+          ...eq,
+          isStirred: nextStirred,
+          stirringSpeed: nextStirred ? 0.8 : 0,
+        },
+      },
+    }));
+  },
+
+  addDistilledWater: (id, amount_ml = 25) => {
+    get().addChemicalToEquipment(id, 'chem-h2o', amount_ml);
+  },
+
+  toggleSeal: (id) => {
+    const eq = get().equipment[id];
+    if (!eq || !eq.isContainer) return;
+
+    soundEngine.click();
+    set(state => ({
+      equipment: {
+        ...state.equipment,
+        [id]: {
+          ...eq,
+          isSealed: !eq.isSealed,
+        },
+      },
+    }));
+  },
+
   tickSimulation: (dt: number) => {
+    if (get().simulationPaused) return;
     const currentEquipment = get().equipment;
     if (Object.keys(currentEquipment).length === 0) return;
 
@@ -893,28 +1057,89 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
       }
     }
 
-    // 2. Process thermal physics: continuous Heating & Cooling
+    // 2. Process thermal physics: continuous Heating & Cooling by position
+    const newLogs: LabLogEntry[] = [];
+    const activeBurnerFlameColors: Record<string, string | undefined> = {};
+
     for (const eq of allEqList) {
       if (!eq.isContainer) continue;
       const currentEq = nextEquipment[eq.id] || eq;
 
       let heatPower_W = 0;
+      let heatingBurnerId: string | null = null;
+
       for (const burner of activeBurners) {
-        heatPower_W += burnerHeatToVessel(burner, currentEq);
+        const power = burnerHeatToVessel(burner, currentEq);
+        if (power > 5) {
+          heatPower_W += power;
+          heatingBurnerId = burner.id;
+        }
       }
       for (const plate of activeHotPlates) {
         heatPower_W += hotPlateHeatToVessel(plate, currentEq);
       }
 
-      if (heatPower_W > 0 || Math.abs(currentEq.temperature_c - 25.0) > 0.3) {
+      const isBeingHeated = heatPower_W > 5;
+      const heatingStateChanged = Boolean(currentEq.isBeingHeated) !== isBeingHeated;
+
+      if (heatPower_W > 0 || Math.abs(currentEq.temperature_c - 25.0) > 0.2 || heatingStateChanged) {
         const therm = stepVesselThermal(currentEq, dt, heatPower_W);
         const tempDiff = Math.abs(therm.temperature_c - currentEq.temperature_c);
         const boilChanged = therm.isBoiling !== currentEq.isBoiling;
         const evap = therm.evaporatedStep_g > 0;
 
-        if (tempDiff > 0.1 || boilChanged || evap) {
+        if (tempDiff > 0.05 || boilChanged || evap || heatingStateChanged) {
           hasChanged = true;
-          const sim = runSimulationCycle(therm.contents, therm.volume_ml, therm.temperature_c, currentEq.isOn || heatPower_W > 10);
+          const sim = runSimulationCycle(
+            therm.contents,
+            therm.volume_ml,
+            therm.temperature_c,
+            currentEq.isOn || heatPower_W > 10
+          );
+
+          // Check if any thermal reactions occurred during this tick
+          if (sim.reactionsOccurred.length > 0) {
+            for (const rx of sim.reactionsOccurred) {
+              newLogs.push({
+                id: `log_thermal_rx_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`,
+                timestamp: Date.now(),
+                actionType: 'REACTION',
+                details_en: `Thermal Reaction: ${rx.name_en || rx.equation} (${rx.equation})`,
+                details_vi: `Phản ứng nhiệt: ${rx.name_vi || rx.equation} (${rx.equation})`,
+                vesselId: eq.id,
+                measurements: {
+                  volume_ml: therm.volume_ml,
+                  temperature_c: therm.temperature_c,
+                  ph: sim.finalPh,
+                },
+              });
+            }
+            if (sim.hasGas) soundEngine.fizz(1.2);
+            else soundEngine.success();
+          }
+
+          // If vessel is over burner and contains characteristic flame test elements, register flame color
+          if (heatingBurnerId && sim.flameTestColorHex) {
+            activeBurnerFlameColors[heatingBurnerId] = sim.flameTestColorHex;
+          }
+
+          const heatingRate = Math.round(((therm.temperature_c - currentEq.temperature_c) / Math.max(0.01, dt)) * 10) / 10;
+          const showTripod = isBeingHeated && (eq.type === 'beaker' || eq.type === 'erlenmeyer_flask' || eq.type === 'evaporating_dish');
+
+          let corkPopped = false;
+          if (currentEq.isSealed && (therm.temperature_c >= 99.5 || therm.isBoiling || sim.gasInfo?.effervescenceSpeed === 'instant')) {
+            corkPopped = true;
+            soundEngine.ignite();
+            newLogs.push({
+              id: `log_${Date.now()}`,
+              timestamp: Date.now(),
+              actionType: 'HEAT',
+              details_en: `⚠️ Cork popped from ${currentEq.name} due to internal vapor pressure!`,
+              details_vi: `⚠️ Nút đậy bật tung khỏi ${currentEq.name_vi} do áp suất hơi tăng cao!`,
+              vesselId: eq.id,
+            });
+          }
+
           nextEquipment[eq.id] = {
             ...currentEq,
             temperature_c: Math.round(therm.temperature_c * 10) / 10,
@@ -938,9 +1163,35 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
             hasFumes: sim.hasFumes || (therm.isBoiling ? true : false),
             fumeType: sim.fumeType || (therm.isBoiling ? 'steam' : undefined),
             fumeColorHex: sim.fumeColorHex || '#ffffff',
+            turbidity: sim.turbidity,
+            foamHead_mm: sim.foamHead_mm,
+            flameTestColorHex: sim.flameTestColorHex,
+            hasSilverMirror: sim.hasSilverMirror || currentEq.hasSilverMirror,
+            isBeingHeated,
+            absorbedPower_W: isBeingHeated ? Math.round(heatPower_W) : 0,
+            heatingRate_c_s: heatingRate,
+            hasTripod: showTripod,
+            isSealed: corkPopped ? false : currentEq.isSealed,
           };
         }
       }
+    }
+
+    // Update flame test colors on active burners
+    for (const burner of activeBurners) {
+      const targetFlameColor = activeBurnerFlameColors[burner.id] || undefined;
+      if (burner.gasColorHex !== targetFlameColor) {
+        hasChanged = true;
+        nextEquipment[burner.id] = {
+          ...burner,
+          gasColorHex: targetFlameColor,
+        };
+      }
+    }
+
+    if (newLogs.length > 0) {
+      set(state => ({ history: [...state.history, ...newLogs] }));
+      get().checkStepProgress();
     }
 
     // 3. Process hot plate magnetic stirring & acceleration
@@ -1034,6 +1285,124 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
       }
     }
 
+    // 5. Process Separatory Funnel Drainage (Liquid-liquid phase extraction)
+    const activeSepFunnels = allEqList.filter(e => e.type === 'separatory_funnel' && e.stopcockOpen && e.volume_ml > 0);
+    for (const sep of activeSepFunnels) {
+      const currentSep = nextEquipment[sep.id] || sep;
+      const { drainedAqueous_ml, closedAfterDrain } = separatoryFunnelDrain(currentSep, dt);
+      if (drainedAqueous_ml > 1e-4) {
+        hasChanged = true;
+        const newSepVol = Math.max(0, currentSep.volume_ml - drainedAqueous_ml);
+        const receiver = allEqList.find(
+          e => e.id !== sep.id && e.isContainer && Math.abs((e.x + e.width / 2) - (sep.x + sep.width / 2)) < 70 && e.y > sep.y
+        );
+
+        // Deduct aqueous contents proportionally from separatory funnel
+        const frac = currentSep.volume_ml > 0 ? drainedAqueous_ml / currentSep.volume_ml : 1.0;
+        const drainedContents: SubstanceQuantity[] = [];
+        const remContents: SubstanceQuantity[] = [];
+
+        for (const item of currentSep.contents) {
+          const mPass = item.moles * frac;
+          const gPass = item.mass_g * frac;
+          if (mPass > 0) drainedContents.push({ ...item, moles: mPass, mass_g: gPass });
+          const remM = item.moles - mPass;
+          if (remM > 1e-6) remContents.push({ ...item, moles: remM, mass_g: item.mass_g - gPass });
+        }
+
+        nextEquipment[sep.id] = {
+          ...currentSep,
+          volume_ml: Math.round(newSepVol * 10) / 10,
+          contents: remContents,
+          stopcockOpen: closedAfterDrain ? false : currentSep.stopcockOpen,
+          hasPhaseSeparation: newSepVol > (currentSep.organicLayerVolume_ml || 0),
+        };
+
+        if (closedAfterDrain) {
+          soundEngine.click();
+        }
+
+        if (receiver) {
+          const tgt = nextEquipment[receiver.id] || receiver;
+          const newTgtVol = Math.min(tgt.capacity_ml, tgt.volume_ml + drainedAqueous_ml);
+          const mergedTgt = [...tgt.contents];
+          for (const item of drainedContents) {
+            const ex = mergedTgt.find(c => c.formula.toUpperCase() === item.formula.toUpperCase());
+            if (ex) {
+              ex.moles += item.moles;
+              ex.mass_g += item.mass_g;
+            } else {
+              mergedTgt.push({ ...item });
+            }
+          }
+          const tgtSim = runSimulationCycle(mergedTgt, newTgtVol, tgt.temperature_c, tgt.isOn || false);
+          const tgtMass = (tgt.tare_g || 0) + tgtSim.updatedContents.reduce((s, c) => s + c.mass_g, 0);
+
+          nextEquipment[receiver.id] = {
+            ...tgt,
+            volume_ml: Math.round(newTgtVol * 10) / 10,
+            mass_g: Math.round(tgtMass * 100) / 100,
+            contents: tgtSim.updatedContents,
+            ph: tgtSim.finalPh,
+            liquidColorHex: tgtSim.finalLiquidColorHex,
+          };
+        }
+      }
+    }
+
+    // 6. Process Measurement Probes Dip Coupling (pH meter, thermometer, stirring rod, pH paper)
+    const probeTypes: EquipmentType[] = ['ph_meter', 'thermometer', 'stirring_rod', 'ph_paper'];
+    const activeProbes = allEqList.filter(e => probeTypes.includes(e.type));
+    const allContainersList = Object.values(nextEquipment).filter(e => e.isContainer);
+
+    for (const probe of activeProbes) {
+      const currentProbe = nextEquipment[probe.id] || probe;
+      const dip = probeDipCoupling(currentProbe, allContainersList, dt);
+
+      let probeChanged = false;
+      const updatedProbe: EquipmentState = { ...currentProbe };
+
+      if (currentProbe.isSubmerged !== dip.isSubmerged) {
+        updatedProbe.isSubmerged = dip.isSubmerged;
+        updatedProbe.submergedInVesselId = dip.submergedInVesselId;
+        probeChanged = true;
+      }
+
+      if (currentProbe.type === 'ph_meter' && dip.measuredPh !== undefined) {
+        if (Math.abs((currentProbe.ph ?? 7.0) - dip.measuredPh) > 0.02) {
+          updatedProbe.ph = dip.measuredPh;
+          probeChanged = true;
+        }
+      } else if (currentProbe.type === 'thermometer' && dip.measuredTemp_c !== undefined) {
+        if (Math.abs((currentProbe.temperature_c ?? 25.0) - dip.measuredTemp_c) > 0.1) {
+          updatedProbe.temperature_c = dip.measuredTemp_c;
+          probeChanged = true;
+        }
+      } else if (currentProbe.type === 'ph_paper' && dip.isSubmerged && dip.measuredPh !== undefined) {
+        const paperColor = getIndicatorColor('universal', dip.measuredPh);
+        if (currentProbe.paperColorHex !== paperColor || currentProbe.ph !== dip.measuredPh) {
+          updatedProbe.ph = dip.measuredPh;
+          updatedProbe.paperColorHex = paperColor;
+          probeChanged = true;
+        }
+      } else if (dip.triggerStir && dip.submergedInVesselId) {
+        const targetVessel = nextEquipment[dip.submergedInVesselId];
+        if (targetVessel && !targetVessel.isStirred) {
+          nextEquipment[dip.submergedInVesselId] = {
+            ...targetVessel,
+            isStirred: true,
+            stirringSpeed: 1.0,
+          };
+          hasChanged = true;
+        }
+      }
+
+      if (probeChanged) {
+        nextEquipment[probe.id] = updatedProbe;
+        hasChanged = true;
+      }
+    }
+
     if (hasChanged) {
       set({ equipment: nextEquipment });
       get().checkStepProgress();
@@ -1049,6 +1418,9 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
     if (!exp) return;
 
     set({
+      ...pushSnapshot(get()),
+      spillPuddles: [],
+      studentNotes: '',
       activeExperiment: exp,
       activeMode: 'guided',
       currentStepIndex: 0,
@@ -1103,6 +1475,9 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
         if (!hasAll) return false;
       }
 
+      if (criteria.requiredReactionId && !get().history.some(h => h.vesselId === v.id && h.reactionId === criteria.requiredReactionId)) return false;
+      if (criteria.absentFormulas?.some(formula => v.contents.some(c => c.formula === formula && c.moles > 1e-6))) return false;
+      if (criteria.minMass_g !== undefined && v.mass_g < criteria.minMass_g) return false;
       if (criteria.minVolume_ml !== undefined && v.volume_ml < criteria.minVolume_ml) return false;
       if (criteria.maxVolume_ml !== undefined && v.volume_ml > criteria.maxVolume_ml) return false;
       if (criteria.targetPhMin !== undefined && v.ph < criteria.targetPhMin) return false;
@@ -1116,15 +1491,18 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
     });
 
     if (matches) {
-      set({ stepCompleted: true });
+      if (!get().stepCompleted) set({ stepCompleted: true });
       return true;
     }
+    if (get().stepCompleted) set({stepCompleted: false});
     return false;
   },
 
   resetWorkbench: () => {
     set(state => ({
       ...pushSnapshot(state),
+      spillPuddles: [],
+      activePourVfx: null,
       equipment: {},
       selectedEquipmentId: null,
       history: [
@@ -1141,34 +1519,32 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
   },
 
   undo: () => {
-    const { undoStack, equipment, redoStack } = get();
+    const { undoStack, redoStack } = get();
     if (undoStack.length === 0) return;
 
     const previous = undoStack[undoStack.length - 1];
     const newUndo = undoStack.slice(0, -1);
-    const current = JSON.parse(JSON.stringify(equipment));
+    const current = captureSnapshot(get());
 
     set({
-      equipment: previous,
+      ...previous,
       undoStack: newUndo,
       redoStack: [current, ...redoStack],
-      selectedEquipmentId: null,
     });
   },
 
   redo: () => {
-    const { redoStack, equipment, undoStack } = get();
+    const { redoStack, undoStack } = get();
     if (redoStack.length === 0) return;
 
     const next = redoStack[0];
     const newRedo = redoStack.slice(1);
-    const current = JSON.parse(JSON.stringify(equipment));
+    const current = captureSnapshot(get());
 
     set({
-      equipment: next,
+      ...next,
       undoStack: [...undoStack, current],
       redoStack: newRedo,
-      selectedEquipmentId: null,
     });
   },
 }));

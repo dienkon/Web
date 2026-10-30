@@ -1,0 +1,782 @@
+[
+  {
+    "id": "exp-neutralization-0",
+    "topic": "Thực hành",
+    "question": "Phương trình ion rút gọn của phản ứng trung hòa giữa axit mạnh HCl và bazơ mạnh NaOH là gì?",
+    "options": [
+      "H⁺(aq) + OH⁻(aq) → H₂O(l)",
+      "Na⁺(aq) + Cl⁻(aq) → NaCl(s)",
+      "HCl(aq) + NaOH(aq) → NaCl(aq) + H₂O(l)",
+      "H⁺(aq) + Cl⁻(aq) → HCl(aq)"
+    ],
+    "answer": 0,
+    "explanation": "Bản chất cốt lõi của phản ứng trung hòa axit mạnh - bazơ mạnh là cation H⁺ kết hợp với anion OH⁻ tạo phân tử nước."
+  },
+  {
+    "id": "exp-neutralization-1",
+    "topic": "Thực hành",
+    "question": "Độ pH lý thuyết tại điểm tương đương của phép chuẩn độ axit mạnh bằng bazơ mạnh ở 25°C là bao nhiêu?",
+    "options": [
+      "pH = 1.0",
+      "pH = 7.0",
+      "pH = 8.2",
+      "pH = 14.0"
+    ],
+    "answer": 1,
+    "explanation": "Muối NaCl tạo thành là muối trung hòa không bị thủy phân, do đó dung dịch có tính trung tính với pH = 7.00."
+  },
+  {
+    "id": "exp-neutralization-2",
+    "topic": "Thực hành",
+    "question": "Tại sao nhiệt độ dung dịch lại tăng lên trong quá trình phản ứng trung hòa?",
+    "options": [
+      "Phản ứng trung hòa tỏa nhiệt mạnh (nhiệt trung hòa ΔH ≈ -57.1 kJ/mol)",
+      "Phản ứng trung hòa thu nhiệt từ môi trường",
+      "Do ma sát giữa các phân tử chất lỏng",
+      "Do ion natri phát xạ nhiệt"
+    ],
+    "answer": 0,
+    "explanation": "Sự hình thành liên kết cộng hóa trị bền vững trong phân tử H2O giải phóng lượng nhiệt khoảng 57.1 kJ/mol."
+  },
+  {
+    "id": "exp-titration-0",
+    "topic": "Thực hành",
+    "question": "Tại sao phenolphtalein được sử dụng phổ biến trong phép chuẩn độ HCl bằng NaOH?",
+    "options": [
+      "Chuyển màu rõ rệt từ không màu sang hồng cánh sen trong khoảng pH 8.2–10.0",
+      "Đóng vai trò xúc tác oxi hóa khử cho phản ứng",
+      "Làm kết tủa hoàn toàn muối natri clorua",
+      "Chỉ đổi màu ở môi trường axit cực mạnh pH < 2.0"
+    ],
+    "answer": 0,
+    "explanation": "Khoảng chuyển màu của phenolphtalein nằm trúng bước nhảy pH thẳng đứng tại điểm tương đương."
+  },
+  {
+    "id": "exp-titration-1",
+    "topic": "Thực hành",
+    "question": "Nếu 25.0 mL dung dịch HCl 0.100 M cần đúng 25.0 mL dung dịch NaOH để đạt điểm tương đương, nồng độ mol của NaOH là bao nhiêu?",
+    "options": [
+      "0.050 M",
+      "0.100 M",
+      "0.200 M",
+      "1.000 M"
+    ],
+    "answer": 1,
+    "explanation": "Áp dụng công thức chuẩn độ C1V1 = C2V2: C(NaOH) = (0.100 M × 25.0 mL) / 25.0 mL = 0.100 M."
+  },
+  {
+    "id": "exp-golden-rain-0",
+    "topic": "Thực hành",
+    "question": "Yếu tố nào làm kết tủa PbI2 màu vàng tan trong nước nóng và kết tinh trở lại khi để nguội?",
+    "options": [
+      "Độ tan của PbI2 tăng vọt theo nhiệt độ (Ksp tăng gấp gần 10 lần từ 20°C lên 100°C)",
+      "Kim loại chì bị oxi hóa nhiệt",
+      "Nước bay hơi hết để lại muối khan",
+      "Iot phân hủy thành khí bay hơi"
+    ],
+    "answer": 0,
+    "explanation": "PbI2 có đường cong độ tan dốc đứng theo nhiệt độ, giúp hòa tan hoàn toàn khi sôi và tái kết tinh thành vảy lấp lánh khi nguội."
+  },
+  {
+    "id": "exp-silver-mirror-0",
+    "topic": "Thực hành",
+    "question": "Nhóm chức nào bị oxi hóa trong phản ứng tráng gương với thuốc thử Tollens?",
+    "options": [
+      "Nhóm anđehit (-CHO)",
+      "Nhóm hiđroxyl ancol (-OH)",
+      "Nhóm axit cacboxylic (-COOH)",
+      "Nhóm este (-COOR)"
+    ],
+    "answer": 0,
+    "explanation": "Nhóm anđehit (-CHO) có tính khử, dễ dàng bị oxi hóa thành muối amoni axetat đồng thời khử Ag⁺ thành bạc kim loại bám tạo gương."
+  },
+  {
+    "id": "element-1",
+    "topic": "Nguyên tố",
+    "question": "Nguyên tố có ký hiệu H và số hiệu nguyên tử 1 là gì?",
+    "options": [
+      "Beri",
+      "Flo",
+      "Photpho",
+      "Hiđro"
+    ],
+    "answer": 3,
+    "explanation": "H là Hiđro (Hydrogen), có 1 proton trong hạt nhân. Số proton xác định nguyên tố."
+  },
+  {
+    "id": "element-2",
+    "topic": "Nguyên tố",
+    "question": "Nguyên tố có ký hiệu He và số hiệu nguyên tử 2 là gì?",
+    "options": [
+      "Neon",
+      "Lưu huỳnh",
+      "Heli",
+      "Bo"
+    ],
+    "answer": 2,
+    "explanation": "He là Heli (Helium), có 2 proton trong hạt nhân. Số proton xác định nguyên tố."
+  },
+  {
+    "id": "element-3",
+    "topic": "Nguyên tố",
+    "question": "Nguyên tố có ký hiệu Li và số hiệu nguyên tử 3 là gì?",
+    "options": [
+      "Clo",
+      "Liti",
+      "Cacbon",
+      "Natri"
+    ],
+    "answer": 1,
+    "explanation": "Li là Liti (Lithium), có 3 proton trong hạt nhân. Số proton xác định nguyên tố."
+  },
+  {
+    "id": "element-4",
+    "topic": "Nguyên tố",
+    "question": "Nguyên tố có ký hiệu Be và số hiệu nguyên tử 4 là gì?",
+    "options": [
+      "Beri",
+      "Nitơ",
+      "Magie",
+      "Argon"
+    ],
+    "answer": 0,
+    "explanation": "Be là Beri (Beryllium), có 4 proton trong hạt nhân. Số proton xác định nguyên tố."
+  },
+  {
+    "id": "element-5",
+    "topic": "Nguyên tố",
+    "question": "Nguyên tố có ký hiệu B và số hiệu nguyên tử 5 là gì?",
+    "options": [
+      "Oxi",
+      "Nhôm",
+      "Kali",
+      "Bo"
+    ],
+    "answer": 3,
+    "explanation": "B là Bo (Boron), có 5 proton trong hạt nhân. Số proton xác định nguyên tố."
+  },
+  {
+    "id": "element-6",
+    "topic": "Nguyên tố",
+    "question": "Nguyên tố có ký hiệu C và số hiệu nguyên tử 6 là gì?",
+    "options": [
+      "Silic",
+      "Canxi",
+      "Cacbon",
+      "Flo"
+    ],
+    "answer": 2,
+    "explanation": "C là Cacbon (Carbon), có 6 proton trong hạt nhân. Số proton xác định nguyên tố."
+  },
+  {
+    "id": "element-7",
+    "topic": "Nguyên tố",
+    "question": "Nguyên tố có ký hiệu N và số hiệu nguyên tử 7 là gì?",
+    "options": [
+      "Scandi",
+      "Nitơ",
+      "Neon",
+      "Photpho"
+    ],
+    "answer": 1,
+    "explanation": "N là Nitơ (Nitrogen), có 7 proton trong hạt nhân. Số proton xác định nguyên tố."
+  },
+  {
+    "id": "element-8",
+    "topic": "Nguyên tố",
+    "question": "Nguyên tố có ký hiệu O và số hiệu nguyên tử 8 là gì?",
+    "options": [
+      "Oxi",
+      "Natri",
+      "Lưu huỳnh",
+      "Titan"
+    ],
+    "answer": 0,
+    "explanation": "O là Oxi (Oxygen), có 8 proton trong hạt nhân. Số proton xác định nguyên tố."
+  },
+  {
+    "id": "element-9",
+    "topic": "Nguyên tố",
+    "question": "Nguyên tố có ký hiệu F và số hiệu nguyên tử 9 là gì?",
+    "options": [
+      "Magie",
+      "Clo",
+      "Vanadi",
+      "Flo"
+    ],
+    "answer": 3,
+    "explanation": "F là Flo (Fluorine), có 9 proton trong hạt nhân. Số proton xác định nguyên tố."
+  },
+  {
+    "id": "element-10",
+    "topic": "Nguyên tố",
+    "question": "Nguyên tố có ký hiệu Ne và số hiệu nguyên tử 10 là gì?",
+    "options": [
+      "Argon",
+      "Crom",
+      "Neon",
+      "Nhôm"
+    ],
+    "answer": 2,
+    "explanation": "Ne là Neon (Neon), có 10 proton trong hạt nhân. Số proton xác định nguyên tố."
+  },
+  {
+    "id": "element-11",
+    "topic": "Nguyên tố",
+    "question": "Nguyên tố có ký hiệu Na và số hiệu nguyên tử 11 là gì?",
+    "options": [
+      "Mangan",
+      "Natri",
+      "Silic",
+      "Kali"
+    ],
+    "answer": 1,
+    "explanation": "Na là Natri (Sodium), có 11 proton trong hạt nhân. Số proton xác định nguyên tố."
+  },
+  {
+    "id": "element-12",
+    "topic": "Nguyên tố",
+    "question": "Nguyên tố có ký hiệu Mg và số hiệu nguyên tử 12 là gì?",
+    "options": [
+      "Magie",
+      "Photpho",
+      "Canxi",
+      "Sắt"
+    ],
+    "answer": 0,
+    "explanation": "Mg là Magie (Magnesium), có 12 proton trong hạt nhân. Số proton xác định nguyên tố."
+  },
+  {
+    "id": "element-13",
+    "topic": "Nguyên tố",
+    "question": "Nguyên tố có ký hiệu Al và số hiệu nguyên tử 13 là gì?",
+    "options": [
+      "Lưu huỳnh",
+      "Scandi",
+      "Coban",
+      "Nhôm"
+    ],
+    "answer": 3,
+    "explanation": "Al là Nhôm (Aluminium), có 13 proton trong hạt nhân. Số proton xác định nguyên tố."
+  },
+  {
+    "id": "element-14",
+    "topic": "Nguyên tố",
+    "question": "Nguyên tố có ký hiệu Si và số hiệu nguyên tử 14 là gì?",
+    "options": [
+      "Titan",
+      "Niken",
+      "Silic",
+      "Clo"
+    ],
+    "answer": 2,
+    "explanation": "Si là Silic (Silicon), có 14 proton trong hạt nhân. Số proton xác định nguyên tố."
+  },
+  {
+    "id": "element-15",
+    "topic": "Nguyên tố",
+    "question": "Nguyên tố có ký hiệu P và số hiệu nguyên tử 15 là gì?",
+    "options": [
+      "Đồng",
+      "Photpho",
+      "Argon",
+      "Vanadi"
+    ],
+    "answer": 1,
+    "explanation": "P là Photpho (Phosphorus), có 15 proton trong hạt nhân. Số proton xác định nguyên tố."
+  },
+  {
+    "id": "element-16",
+    "topic": "Nguyên tố",
+    "question": "Nguyên tố có ký hiệu S và số hiệu nguyên tử 16 là gì?",
+    "options": [
+      "Lưu huỳnh",
+      "Kali",
+      "Crom",
+      "Kẽm"
+    ],
+    "answer": 0,
+    "explanation": "S là Lưu huỳnh (Sulfur), có 16 proton trong hạt nhân. Số proton xác định nguyên tố."
+  },
+  {
+    "id": "element-17",
+    "topic": "Nguyên tố",
+    "question": "Nguyên tố có ký hiệu Cl và số hiệu nguyên tử 17 là gì?",
+    "options": [
+      "Canxi",
+      "Mangan",
+      "Gali",
+      "Clo"
+    ],
+    "answer": 3,
+    "explanation": "Cl là Clo (Chlorine), có 17 proton trong hạt nhân. Số proton xác định nguyên tố."
+  },
+  {
+    "id": "element-18",
+    "topic": "Nguyên tố",
+    "question": "Nguyên tố có ký hiệu Ar và số hiệu nguyên tử 18 là gì?",
+    "options": [
+      "Sắt",
+      "Gecmani",
+      "Argon",
+      "Scandi"
+    ],
+    "answer": 2,
+    "explanation": "Ar là Argon (Argon), có 18 proton trong hạt nhân. Số proton xác định nguyên tố."
+  },
+  {
+    "id": "element-19",
+    "topic": "Nguyên tố",
+    "question": "Nguyên tố có ký hiệu K và số hiệu nguyên tử 19 là gì?",
+    "options": [
+      "Asen",
+      "Kali",
+      "Titan",
+      "Coban"
+    ],
+    "answer": 1,
+    "explanation": "K là Kali (Potassium), có 19 proton trong hạt nhân. Số proton xác định nguyên tố."
+  },
+  {
+    "id": "element-20",
+    "topic": "Nguyên tố",
+    "question": "Nguyên tố có ký hiệu Ca và số hiệu nguyên tử 20 là gì?",
+    "options": [
+      "Canxi",
+      "Vanadi",
+      "Niken",
+      "Selen"
+    ],
+    "answer": 0,
+    "explanation": "Ca là Canxi (Calcium), có 20 proton trong hạt nhân. Số proton xác định nguyên tố."
+  },
+  {
+    "id": "structure-1",
+    "topic": "Cấu trúc & liên kết",
+    "question": "Hình học phân tử H₂O gần đúng là gì?",
+    "options": [
+      "Gấp khúc",
+      "Thẳng",
+      "Tam giác phẳng",
+      "Tứ diện đều"
+    ],
+    "answer": 0,
+    "explanation": "Hai cặp electron không liên kết trên O làm phân tử nước có dạng gấp khúc, góc H–O–H khoảng 104,5°."
+  },
+  {
+    "id": "structure-2",
+    "topic": "Cấu trúc & liên kết",
+    "question": "Phân tử CO₂ có hình học nào?",
+    "options": [
+      "Gấp khúc",
+      "Thẳng",
+      "Chóp tam giác",
+      "Tứ diện"
+    ],
+    "answer": 1,
+    "explanation": "Hai miền electron liên kết quanh C sắp xếp đối nhau; góc O–C–O bằng 180°."
+  },
+  {
+    "id": "structure-3",
+    "topic": "Cấu trúc & liên kết",
+    "question": "Phân tử CH₄ có hình học nào?",
+    "options": [
+      "Tam giác phẳng",
+      "Thẳng",
+      "Tứ diện",
+      "Gấp khúc"
+    ],
+    "answer": 2,
+    "explanation": "Bốn liên kết C–H hướng về bốn đỉnh tứ diện; góc xấp xỉ 109,5°."
+  },
+  {
+    "id": "structure-4",
+    "topic": "Cấu trúc & liên kết",
+    "question": "Phân tử NH₃ có hình học nào?",
+    "options": [
+      "Thẳng",
+      "Tứ diện đều",
+      "Tam giác phẳng",
+      "Chóp tam giác"
+    ],
+    "answer": 3,
+    "explanation": "Nitơ có ba liên kết N–H và một cặp electron không liên kết, tạo hình chóp tam giác."
+  },
+  {
+    "id": "structure-5",
+    "topic": "Cấu trúc & liên kết",
+    "question": "NaCl rắn nên được mô tả như thế nào?",
+    "options": [
+      "Mạng tinh thể ion",
+      "Một phân tử NaCl cô lập",
+      "Hỗn hợp kim loại Na và khí Cl₂",
+      "Phân tử hữu cơ"
+    ],
+    "answer": 0,
+    "explanation": "NaCl rắn gồm các ion Na⁺ và Cl⁻ sắp xếp tuần hoàn trong mạng tinh thể; công thức biểu thị tỉ lệ ion."
+  },
+  {
+    "id": "structure-6",
+    "topic": "Cấu trúc & liên kết",
+    "question": "Một công thức phân tử có luôn xác định duy nhất cấu trúc không?",
+    "options": [
+      "Luôn xác định duy nhất",
+      "Không, có thể có đồng phân",
+      "Chỉ phụ thuộc khối lượng",
+      "Chỉ phụ thuộc màu"
+    ],
+    "answer": 1,
+    "explanation": "Đồng phân có cùng công thức phân tử nhưng khác cách liên kết hoặc cách sắp xếp không gian."
+  },
+  {
+    "id": "structure-7",
+    "topic": "Cấu trúc & liên kết",
+    "question": "C₂H₆O có thể tương ứng với cặp chất nào?",
+    "options": [
+      "Metan và etan",
+      "Benzen và toluen",
+      "Etanol và đimetyl ete",
+      "Nước và amoniac"
+    ],
+    "answer": 2,
+    "explanation": "Etanol CH₃CH₂OH và đimetyl ete CH₃OCH₃ có cùng công thức C₂H₆O nhưng khác nhóm chức."
+  },
+  {
+    "id": "structure-8",
+    "topic": "Cấu trúc & liên kết",
+    "question": "Trong liên kết ba C≡C có bao nhiêu liên kết σ và π?",
+    "options": [
+      "3 σ, 0 π",
+      "2 σ, 1 π",
+      "0 σ, 3 π",
+      "1 σ, 2 π"
+    ],
+    "answer": 3,
+    "explanation": "Liên kết ba gồm một liên kết sigma và hai liên kết pi."
+  },
+  {
+    "id": "structure-9",
+    "topic": "Cấu trúc & liên kết",
+    "question": "Ion amoni có công thức và điện tích nào?",
+    "options": [
+      "NH₄⁺",
+      "NH₃⁻",
+      "NH₄²⁻",
+      "NO₃⁺"
+    ],
+    "answer": 0,
+    "explanation": "Ion amoni NH₄⁺ có bốn liên kết N–H và điện tích tổng +1."
+  },
+  {
+    "id": "structure-10",
+    "topic": "Cấu trúc & liên kết",
+    "question": "Đơn vị Å dùng trong trình xem cấu trúc tương ứng với gì?",
+    "options": [
+      "10⁻⁶ m",
+      "10⁻¹⁰ m",
+      "1 m",
+      "10⁻³ m"
+    ],
+    "answer": 1,
+    "explanation": "Một ångström bằng 10⁻¹⁰ mét, thường dùng mô tả độ dài liên kết nguyên tử."
+  },
+  {
+    "id": "structure-11",
+    "topic": "Cấu trúc & liên kết",
+    "question": "Cấu trúc phân tử được tính toán có ý nghĩa gì?",
+    "options": [
+      "Luôn là cấu trúc thực nghiệm",
+      "Là ảnh chụp mọi phân tử",
+      "Là cấu dạng của một mô hình tính toán",
+      "Là quỹ đạo chuyển động thực"
+    ],
+    "answer": 2,
+    "explanation": "Tọa độ tính toán biểu diễn một cấu dạng theo mô hình và điều kiện nhất định, cần được ghi rõ nguồn."
+  },
+  {
+    "id": "structure-12",
+    "topic": "Cấu trúc & liên kết",
+    "question": "Góc liên kết được xác định bởi bao nhiêu nguyên tử?",
+    "options": [
+      "Một",
+      "Hai",
+      "Bốn",
+      "Ba"
+    ],
+    "answer": 3,
+    "explanation": "Ba nguyên tử A–B–C xác định góc tại nguyên tử trung tâm B."
+  },
+  {
+    "id": "structure-13",
+    "topic": "Cấu trúc & liên kết",
+    "question": "Khối lượng mol của một phân tử được tính từ đâu?",
+    "options": [
+      "Tổng nguyên tử khối theo số nguyên tử",
+      "Tổng số liên kết",
+      "Số cặp electron tự do",
+      "Kích thước ảnh mô hình"
+    ],
+    "answer": 0,
+    "explanation": "Khối lượng mol bằng tổng khối lượng mol nguyên tử của từng nguyên tố nhân với số nguyên tử tương ứng."
+  },
+  {
+    "id": "structure-14",
+    "topic": "Cấu trúc & liên kết",
+    "question": "Nhóm chức đặc trưng của etanol là gì?",
+    "options": [
+      "–COOH",
+      "–OH",
+      "–CHO",
+      "–COO–"
+    ],
+    "answer": 1,
+    "explanation": "Etanol là ancol, có nhóm hydroxyl –OH liên kết với nguyên tử carbon no."
+  },
+  {
+    "id": "structure-15",
+    "topic": "Cấu trúc & liên kết",
+    "question": "Nhóm chức đặc trưng của axit axetic là gì?",
+    "options": [
+      "–OH ancol",
+      "–CHO",
+      "–COOH",
+      "–NH₂"
+    ],
+    "answer": 2,
+    "explanation": "Axit axetic CH₃COOH chứa nhóm carboxyl –COOH."
+  },
+  {
+    "id": "structure-16",
+    "topic": "Cấu trúc & liên kết",
+    "question": "Trong mô hình cầu–que, các que thường biểu diễn gì?",
+    "options": [
+      "Quỹ đạo electron",
+      "Đường đi phân tử",
+      "Liên kết hydrogen với mọi chất",
+      "Liên kết giữa các nguyên tử"
+    ],
+    "answer": 3,
+    "explanation": "Que biểu diễn liên kết trong mô hình hình học, không phải thanh vật chất cứng giữa các nguyên tử."
+  },
+  {
+    "id": "structure-17",
+    "topic": "Cấu trúc & liên kết",
+    "question": "Benzen có bao nhiêu nguyên tử carbon?",
+    "options": [
+      "6",
+      "5",
+      "4",
+      "3"
+    ],
+    "answer": 0,
+    "explanation": "Benzen có công thức C₆H₆; sáu nguyên tử carbon tạo vòng phẳng với hệ electron π liên hợp."
+  },
+  {
+    "id": "structure-18",
+    "topic": "Cấu trúc & liên kết",
+    "question": "Dung dịch NaCl trong nước chứa chủ yếu dạng nào của chất tan?",
+    "options": [
+      "Phân tử NaCl độc lập",
+      "Ion Na⁺ và Cl⁻ được hydrat hóa",
+      "Kim loại Na",
+      "Khí Cl₂"
+    ],
+    "answer": 1,
+    "explanation": "NaCl là chất điện li mạnh; trong dung dịch loãng nó tồn tại chủ yếu dưới dạng các ion được nước bao quanh."
+  },
+  {
+    "id": "structure-19",
+    "topic": "Cấu trúc & liên kết",
+    "question": "Hai nguyên tử được chọn trên mô hình cho phép đo gì trực tiếp?",
+    "options": [
+      "pH",
+      "Nhiệt độ sôi",
+      "Khoảng cách trong cấu dạng",
+      "Năng lượng phản ứng"
+    ],
+    "answer": 2,
+    "explanation": "Tọa độ của hai nguyên tử xác định khoảng cách hình học; không tự xác định pH hay nhiệt động lực học."
+  },
+  {
+    "id": "structure-20",
+    "topic": "Cấu trúc & liên kết",
+    "question": "Vì sao ion sunfat được xem riêng với muối chứa nó?",
+    "options": [
+      "Vì không chứa sulfur",
+      "Vì là kim loại",
+      "Vì mọi muối đều có phân tử cô lập",
+      "Vì ion đa nguyên tử và mạng tinh thể muối là hai cấp cấu trúc khác nhau"
+    ],
+    "answer": 3,
+    "explanation": "SO₄²⁻ là một ion đa nguyên tử; cấu trúc của toàn bộ tinh thể còn phụ thuộc cation và cách sắp xếp trong mạng."
+  },
+  {
+    "id": "practical-1",
+    "topic": "Thực hành",
+    "question": "Kết tủa AgCl có màu gì?",
+    "options": [
+      "Trắng",
+      "Vàng đậm",
+      "Đỏ nâu",
+      "Đen"
+    ],
+    "answer": 0,
+    "explanation": "AgCl mới tạo thành có màu trắng; ánh sáng có thể làm nó sẫm dần do phân hủy quang hóa."
+  },
+  {
+    "id": "practical-2",
+    "topic": "Thực hành",
+    "question": "Kết tủa AgBr có màu điển hình nào?",
+    "options": [
+      "Đen",
+      "Vàng nhạt (kem)",
+      "Xanh lam",
+      "Đỏ"
+    ],
+    "answer": 1,
+    "explanation": "AgBr có màu vàng nhạt/kem, khác với AgCl trắng và AgI vàng."
+  },
+  {
+    "id": "practical-3",
+    "topic": "Thực hành",
+    "question": "Kết tủa AgI có màu gì?",
+    "options": [
+      "Xanh lục",
+      "Trắng",
+      "Vàng",
+      "Tím"
+    ],
+    "answer": 2,
+    "explanation": "AgI là kết tủa vàng được tạo khi ion Ag⁺ gặp ion I⁻."
+  },
+  {
+    "id": "practical-4",
+    "topic": "Thực hành",
+    "question": "Al(OH)₃ tan trong NaOH dư thể hiện tính gì?",
+    "options": [
+      "Tính oxi hóa mạnh",
+      "Chỉ có tính bazơ",
+      "Tính kim loại",
+      "Tính lưỡng tính"
+    ],
+    "answer": 3,
+    "explanation": "Al(OH)₃ phản ứng được với cả axit và bazơ mạnh; trong kiềm tạo ion aluminat [Al(OH)₄]⁻."
+  },
+  {
+    "id": "practical-5",
+    "topic": "Thực hành",
+    "question": "Thêm NH₃ dư vào kết tủa Cu(OH)₂ có thể quan sát gì?",
+    "options": [
+      "Dung dịch xanh thẫm",
+      "Khí vàng lục",
+      "Gương bạc",
+      "Lửa tím"
+    ],
+    "answer": 0,
+    "explanation": "Cu(OH)₂ tan trong ammonia dư, tạo phức ammine đồng(II) có màu xanh thẫm."
+  },
+  {
+    "id": "practical-6",
+    "topic": "Thực hành",
+    "question": "Sục CO₂ vừa đủ vào nước vôi trong tạo gì?",
+    "options": [
+      "CuO đen",
+      "CaCO₃ trắng",
+      "AgCl trắng",
+      "Fe(OH)₃ nâu đỏ"
+    ],
+    "answer": 1,
+    "explanation": "Ca(OH)₂ + CO₂ → CaCO₃↓ + H₂O làm dung dịch vẩn đục."
+  },
+  {
+    "id": "practical-7",
+    "topic": "Thực hành",
+    "question": "Sục tiếp CO₂ dư vào nước vôi đã đục có thể làm gì?",
+    "options": [
+      "Tạo vàng kim loại",
+      "Tăng pH mãi",
+      "Làm kết tủa tan dần",
+      "Tạo đồng kim loại"
+    ],
+    "answer": 2,
+    "explanation": "CaCO₃ + CO₂ + H₂O → Ca(HCO₃)₂ tan, làm dung dịch trong trở lại trong điều kiện phù hợp."
+  },
+  {
+    "id": "practical-8",
+    "topic": "Thực hành",
+    "question": "Cho sắt sạch vào dung dịch CuSO₄ quan sát gì?",
+    "options": [
+      "Khí clo",
+      "Gương bạc",
+      "Kết tủa vàng AgI",
+      "Đồng bám và màu xanh nhạt dần"
+    ],
+    "answer": 3,
+    "explanation": "Fe khử Cu²⁺ thành Cu, đồng thời Fe bị oxi hóa thành Fe²⁺: Fe + CuSO₄ → FeSO₄ + Cu."
+  },
+  {
+    "id": "practical-9",
+    "topic": "Thực hành",
+    "question": "Cặp nào tạo hệ đệm axit axetic/acetat?",
+    "options": [
+      "CH₃COOH và CH₃COONa",
+      "HCl và NaCl",
+      "NaOH và KOH",
+      "HNO₃ và HCl"
+    ],
+    "answer": 0,
+    "explanation": "Hệ đệm gồm axit yếu và bazơ liên hợp của nó, ở đây là CH₃COOH/CH₃COO⁻."
+  },
+  {
+    "id": "practical-10",
+    "topic": "Thực hành",
+    "question": "Khi [CH₃COO⁻] = [CH₃COOH], pH hệ đệm gần bằng gì?",
+    "options": [
+      "0",
+      "pKa của axit axetic",
+      "14",
+      "Luôn bằng 7"
+    ],
+    "answer": 1,
+    "explanation": "Theo Henderson–Hasselbalch, pH = pKa + log([A⁻]/[HA]); khi tỉ số bằng 1, pH = pKa."
+  },
+  {
+    "id": "practical-11",
+    "topic": "Thực hành",
+    "question": "Chất giới hạn trong phản ứng quyết định điều gì?",
+    "options": [
+      "Màu dụng cụ",
+      "Dung tích bàn",
+      "Lượng sản phẩm tối đa theo tỉ lượng",
+      "Tên phản ứng"
+    ],
+    "answer": 2,
+    "explanation": "Chất giới hạn bị tiêu thụ trước theo hệ số phương trình và giới hạn mức tiến triển phản ứng."
+  },
+  {
+    "id": "practical-12",
+    "topic": "Thực hành",
+    "question": "Khi pha loãng dung dịch bằng nước, đại lượng nào của chất tan được bảo toàn nếu không có phản ứng?",
+    "options": [
+      "Nồng độ mol",
+      "Thể tích dung dịch",
+      "Độ đậm màu",
+      "Số mol chất tan"
+    ],
+    "answer": 3,
+    "explanation": "Thêm nước làm tăng thể tích và giảm nồng độ, nhưng số mol chất tan không đổi nếu không có thất thoát hay phản ứng."
+  },
+  {
+    "id": "practical-13",
+    "topic": "Thực hành",
+    "question": "Khi lưu rồi mở lại phiên lab, vì sao cần tạm dừng trước?",
+    "options": [
+      "Để kiểm tra trạng thái trước khi tiếp tục gia nhiệt/rót",
+      "Để xóa hết chất",
+      "Để thay phương trình bằng AI",
+      "Để đổi đơn vị khối lượng"
+    ],
+    "answer": 0,
+    "explanation": "Phiên được khôi phục ở trạng thái tạm dừng giúp người học kiểm tra dụng cụ và lượng chất trước khi tiếp tục thao tác."
+  }
+]

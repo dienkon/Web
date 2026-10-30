@@ -1,0 +1,267 @@
+{
+  "passed": true,
+  "checks": [
+    "finite solid geometry: goggles/front",
+    "finite solid geometry: goggles/three-quarter",
+    "bottom rests on support plane: goggles",
+    "bounded asset draw calls: goggles / 15",
+    "finite solid geometry: goggles/back",
+    "finite solid geometry: goggles/top",
+    "finite solid geometry: glove/front",
+    "finite solid geometry: glove/three-quarter",
+    "bottom rests on support plane: glove",
+    "bounded asset draw calls: glove / 11",
+    "finite solid geometry: glove/back",
+    "finite solid geometry: glove/top",
+    "finite solid geometry: glove-dispenser/front",
+    "finite solid geometry: glove-dispenser/three-quarter",
+    "bottom rests on support plane: glove-dispenser",
+    "bounded asset draw calls: glove-dispenser / 22",
+    "finite solid geometry: glove-dispenser/back",
+    "finite solid geometry: glove-dispenser/top",
+    "finite solid geometry: mask/front",
+    "finite solid geometry: mask/three-quarter",
+    "bottom rests on support plane: mask",
+    "bounded asset draw calls: mask / 11",
+    "finite solid geometry: mask/back",
+    "finite solid geometry: mask/top",
+    "finite solid geometry: hanger/front",
+    "finite solid geometry: hanger/three-quarter",
+    "bottom rests on support plane: hanger",
+    "bounded asset draw calls: hanger / 3",
+    "finite solid geometry: hanger/back",
+    "finite solid geometry: hanger/top",
+    "finite solid geometry: lab-coat/front",
+    "finite solid geometry: lab-coat/three-quarter",
+    "bottom rests on support plane: lab-coat",
+    "bounded asset draw calls: lab-coat / 20",
+    "finite solid geometry: lab-coat/back",
+    "finite solid geometry: lab-coat/top",
+    "finite solid geometry: backpack/front",
+    "finite solid geometry: backpack/three-quarter",
+    "bottom rests on support plane: backpack",
+    "bounded asset draw calls: backpack / 8",
+    "finite solid geometry: backpack/back",
+    "finite solid geometry: backpack/top",
+    "finite solid geometry: hair-tie/front",
+    "finite solid geometry: hair-tie/three-quarter",
+    "bottom rests on support plane: hair-tie",
+    "bounded asset draw calls: hair-tie / 13",
+    "finite solid geometry: hair-tie/back",
+    "finite solid geometry: hair-tie/top",
+    "no runtime exceptions while rendering all asset studies"
+  ],
+  "errors": [],
+  "snapshots": [
+    {
+      "id": "goggles",
+      "min": [
+        -0.13419751822948456,
+        -0.0010100000479724258,
+        -0.1364999998062849
+      ],
+      "max": [
+        0.13419751822948456,
+        0.0939300549030304,
+        0.029000001028180122
+      ],
+      "size": [
+        0.2683950364589691,
+        0.09494005495100283,
+        0.16550000083446503
+      ],
+      "meshes": 14,
+      "triangles": 9520,
+      "calls": 15,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-goggles"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "glove",
+      "min": [
+        -0.07725165184943933,
+        1.2218952169518182e-9,
+        -0.015999999642372132
+      ],
+      "max": [
+        0.05040000200271607,
+        0.260486923781544,
+        0.017063256353139877
+      ],
+      "size": [
+        0.1276516538521554,
+        0.2604869225596488,
+        0.033063255995512006
+      ],
+      "meshes": 11,
+      "triangles": 4640,
+      "calls": 11,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-glove"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "glove-dispenser",
+      "min": [
+        -0.09000000357627869,
+        -2.6077036363592043e-11,
+        -0.05000000002607703
+      ],
+      "max": [
+        0.09000000357627869,
+        0.12000000002607702,
+        0.07294558692825355
+      ],
+      "size": [
+        0.18000000715255737,
+        0.12000000005215405,
+        0.12294558695433058
+      ],
+      "meshes": 22,
+      "triangles": 5262,
+      "calls": 22,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-glove-dispenser",
+        "asset-glove"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "mask",
+      "min": [
+        -0.1288120448589325,
+        0.0015000012516975386,
+        -0.025921281427145004
+      ],
+      "max": [
+        0.1288120448589325,
+        0.08869999840855598,
+        0.017299992963671684
+      ],
+      "size": [
+        0.257624089717865,
+        0.08719999715685844,
+        0.04322127439081669
+      ],
+      "meshes": 11,
+      "triangles": 4888,
+      "calls": 11,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-mask"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "hanger",
+      "min": [
+        -0.15733355283737183,
+        0.0024999999441206455,
+        -0.0024999999441206455
+      ],
+      "max": [
+        0.15733355283737183,
+        0.15258803963661194,
+        0.0024999999441206455
+      ],
+      "size": [
+        0.31466710567474365,
+        0.1500880396924913,
+        0.004999999888241291
+      ],
+      "meshes": 3,
+      "triangles": 1536,
+      "calls": 3,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-hanger"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "lab-coat",
+      "min": [
+        -0.27666616439819336,
+        -0.001500000013038516,
+        -0.0024999999441206455
+      ],
+      "max": [
+        0.27666616439819336,
+        0.8875880396366119,
+        0.034992944449186325
+      ],
+      "size": [
+        0.5533323287963867,
+        0.8890880396496504,
+        0.03749294439330697
+      ],
+      "meshes": 20,
+      "triangles": 7028,
+      "calls": 20,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-lab-coat",
+        "asset-hanger"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "backpack",
+      "min": [
+        -0.1400049924850464,
+        -0.000005003809928905145,
+        -0.14537887275218964
+      ],
+      "max": [
+        0.1400049924850464,
+        0.39390692114830017,
+        0.135
+      ],
+      "size": [
+        0.2800099849700928,
+        0.3939119249582291,
+        0.28037887275218965
+      ],
+      "meshes": 8,
+      "triangles": 4198,
+      "calls": 8,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-backpack"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "hair-tie",
+      "min": [
+        -0.03400000184774399,
+        0.0004999998919665814,
+        -0.03400000184774399
+      ],
+      "max": [
+        0.03400000184774399,
+        0.007500000108033419,
+        0.03400000184774399
+      ],
+      "size": [
+        0.06800000369548798,
+        0.007000000216066837,
+        0.06800000369548798
+      ],
+      "meshes": 13,
+      "triangles": 528,
+      "calls": 13,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-hair-tie"
+      ],
+      "textures": 4
+    }
+  ]
+}

@@ -6,3 +6,13 @@ coverage/
 *.log
 .env*
 !.env.example
+
+.vercel/
+playwright-report/
+test-results/
+artifacts/platform/
+
+.cache/
+
+/artifacts/
+.vercel

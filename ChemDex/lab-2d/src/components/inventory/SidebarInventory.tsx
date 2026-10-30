@@ -1,3 +1,4 @@
+import {useShallow} from 'zustand/react/shallow';
 import React, { useState } from 'react';
 import { useLabStore } from '../../store/useLabStore';
 import { CHEMICAL_CATALOG } from '../../data/chemicals';
@@ -17,8 +18,9 @@ export const SidebarInventory: React.FC = () => {
     activeExperiment,
     setDraggedChemicalId,
     language,
-  } = useLabStore();
+  } = useLabStore(useShallow(state => ({activeSidebarTab: state.activeSidebarTab,setActiveSidebarTab: state.setActiveSidebarTab,addEquipment: state.addEquipment,selectedEquipmentId: state.selectedEquipmentId,addChemicalToEquipment: state.addChemicalToEquipment,selectExperiment: state.selectExperiment,activeExperiment: state.activeExperiment,setDraggedChemicalId: state.setDraggedChemicalId,language: state.language})));
 
+  const completedExperiments=useLabStore(state=>state.completedExperiments);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
@@ -40,6 +42,8 @@ export const SidebarInventory: React.FC = () => {
     { type: 'funnel', name_en: 'Filter Funnel with Paper', name_vi: 'Phễu lọc có giấy lọc', desc_vi: 'Tách chất rắn không tan ra khỏi dung dịch.', icon: '⏳' },
     { type: 'pipette', name_en: 'Graduated Pipette', name_vi: 'Pipet chia vạch (10 mL)', desc_vi: 'Hút và chuyển chính xác thể tích chất lỏng nhỏ.', icon: '💧' },
     { type: 'wash_bottle', name_en: 'Wash Bottle (H2O)', name_vi: 'Bình tia nước cất', desc_vi: 'Bơm tia nước cất tráng rửa và pha loãng nhanh.', icon: '🧴' },
+    { type: 'separatory_funnel', name_en: 'Separatory Funnel (250 mL)', name_vi: 'Phễu chiết quả lê (250 mL)', desc_vi: 'Chiết tách hai pha lỏng không đồng tan (pha hữu cơ và pha nước).', icon: '🍷' },
+    { type: 'ph_paper', name_en: 'Universal pH Indicator Paper Strip', name_vi: 'Giấy quỳ tím & Giấy thử pH', desc_vi: 'Nhúng vào dung dịch để kiểm tra độ pH và đổi màu tức thì.', icon: '📜' },
   ];
 
   const filteredChemicals = CHEMICAL_CATALOG.filter(c => {
@@ -52,7 +56,7 @@ export const SidebarInventory: React.FC = () => {
   });
 
   return (
-    <div className="w-80 h-full bg-white border-r border-slate-200 flex flex-col select-none shadow-xs">
+    <div className="lab-inventory w-80 h-full bg-white border-r border-slate-200 flex flex-col select-none shadow-xs">
       {/* Sidebar Tabs Header */}
       <div className="p-2 border-b border-slate-200 grid grid-cols-4 gap-1 bg-slate-50">
         <button
@@ -119,20 +123,34 @@ export const SidebarInventory: React.FC = () => {
               />
             </div>
             {/* Category pills */}
-            <div className="flex items-center gap-1 overflow-x-auto pb-1 text-[11px]">
-              {['all', 'acid', 'base', 'salt', 'indicator', 'metal'].map(cat => (
+            <div className="flex items-center gap-1 overflow-x-auto pb-1 text-[11px] scrollbar-none">
+              {[
+                { id: 'all', vi: 'Tất cả', en: 'All' },
+                { id: 'acid', vi: 'Axit', en: 'Acids' },
+                { id: 'base', vi: 'Bazơ', en: 'Bases' },
+                { id: 'salt', vi: 'Muối', en: 'Salts' },
+                { id: 'metal', vi: 'Kim loại', en: 'Metals' },
+                { id: 'oxide', vi: 'Oxit & Rắn', en: 'Oxides' },
+                { id: 'indicator', vi: 'Chỉ thị', en: 'Indicators' },
+                { id: 'organic', vi: 'Hữu cơ', en: 'Organics' },
+                { id: 'solvent', vi: 'Dung môi', en: 'Solvents' },
+              ].map(cat => (
                 <button
-                  key={cat}
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`px-2 py-0.5 rounded-full capitalize whitespace-nowrap transition-colors ${
-                    selectedCategory === cat
-                      ? 'bg-blue-100 text-blue-700 font-bold'
+                  key={cat.id}
+                  onClick={() => setSelectedCategory(cat.id)}
+                  className={`px-2 py-0.5 rounded-full whitespace-nowrap transition-colors ${
+                    selectedCategory === cat.id
+                      ? 'bg-blue-600 text-white font-bold shadow-2xs'
                       : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                   }`}
                 >
-                  {cat === 'all' ? (language === 'vi' ? 'Tất cả' : 'All') : cat}
+                  {language === 'vi' ? cat.vi : cat.en}
                 </button>
               ))}
+            </div>
+            <div className="flex items-center justify-between text-[11px] text-slate-400 px-0.5">
+              <span>{language === 'vi' ? `${filteredChemicals.length} chất` : `${filteredChemicals.length} reagents`}</span>
+              <span className="text-[10px] text-slate-400">{language === 'vi' ? 'Kéo hoặc bấm nút +' : 'Drag or click +'}</span>
             </div>
           </div>
 
@@ -187,24 +205,17 @@ export const SidebarInventory: React.FC = () => {
                   {language === 'vi' ? chem.description_vi : chem.description_en}
                 </p>
 
+                <button className="mt-2 text-xs text-teal-700 underline" onClick={()=>window.dispatchEvent(new CustomEvent('chemdex:structure',{detail:{chemical:chem.id}}))}>Xem cấu trúc 3D ↗</button>
                 {/* Quick Add action */}
                 <button
-                  onClick={() => {
-                    if (selectedEquipmentId) {
-                      addChemicalToEquipment(selectedEquipmentId, chem.id, 25);
-                    } else {
-                      // Automatically create a beaker and add chemical
-                      const newId = addEquipment('beaker');
-                      setTimeout(() => addChemicalToEquipment(newId, chem.id, 25), 50);
-                    }
-                  }}
+                  onClick={() => window.dispatchEvent(new CustomEvent('chemdex:dose',{detail:chem.id}))}
                   className="mt-2.5 w-full flex items-center justify-center gap-1 py-1.5 px-3 rounded-lg bg-slate-50 hover:bg-blue-600 hover:text-white text-slate-700 text-xs font-semibold transition-colors"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>
                     {selectedEquipmentId
-                      ? (language === 'vi' ? 'Thêm vào bình đang chọn (+25 mL)' : 'Add to selected vessel')
-                      : (language === 'vi' ? 'Tạo cốc mới với hóa chất này' : 'Create beaker with chemical')}
+                      ? (language === 'vi' ? 'Chọn lượng thêm vào bình' : 'Add to selected vessel')
+                      : (language === 'vi' ? 'Chọn lượng và tạo cốc mới' : 'Create beaker with chemical')}
                   </span>
                 </button>
               </div>
@@ -284,7 +295,7 @@ export const SidebarInventory: React.FC = () => {
                 </div>
 
                 <h4 className="text-xs font-bold text-slate-900 mt-2">
-                  {language === 'vi' ? exp.title_vi : exp.title_en}
+                  {language === 'vi' ? exp.title_vi : exp.title_en}{completedExperiments?.[exp.id] && <span className="ml-2 text-emerald-700 text-xs">✓ Đã hoàn thành</span>}
                 </h4>
                 <p className="text-[11px] text-slate-500 mt-1 line-clamp-2">
                   {language === 'vi' ? exp.description_vi : exp.description_en}

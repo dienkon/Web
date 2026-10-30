@@ -1,3 +1,4 @@
+import { CrumpledPaperAsset, GlassShardsAsset } from '../assets/WasteAssets';
 import React, { useState } from 'react';
 import { PracticalSimulation } from '../../ui/PracticalSimulation';
 import { collectionWork } from '../../../data/practicalWork';
@@ -37,8 +38,8 @@ export function LooseWaste() {
   return <group name="loose-waste-samples">
     {WASTE_SAMPLES.filter(s => !picked.includes(s.id)).map(s => <InteractableItem key={s.id} id={`loose-waste-${s.id}`} position={[...s.position]} label={`Thu gom: ${s.title}`} type="learn" dialogCallback={() => begin(s.id)}>
       <group name={`waste-sample-${s.id}`}>
-        {s.kind === 'sharps' ? [-.1, 0, .1].map((x,i)=><mesh key={x} position={[x,.01,Math.sin(i)*.1]} rotation={[-Math.PI/2,0,i*.7]}><circleGeometry args={[.09,3]}/><meshStandardMaterial color="#7dd3fc" metalness={.4} roughness={.2} side={2}/></mesh>) : <mesh scale={[1,.35,.8]} rotation={[0,.5,0]}><icosahedronGeometry args={[.14,0]}/><meshStandardMaterial color={s.kind === 'chemical' ? '#facc15' : '#f1f5f9'} flatShading roughness={1}/></mesh>}
-        <mesh rotation={[-Math.PI/2,0,0]} position={[0,-.025,0]}><ringGeometry args={[.22,.25,24]}/><meshBasicMaterial color={s.kind === 'sharps' ? '#fb7185' : '#facc15'} toneMapped={false}/></mesh>
+        {s.kind==='sharps'?<GlassShardsAsset/>:<CrumpledPaperAsset contaminated={s.kind==='chemical'}/>}
+        <mesh rotation={[-Math.PI/2,0,0]} position={[0,.001,0]}><ringGeometry args={[.22,.25,24]}/><meshBasicMaterial color={s.kind === 'sharps' ? '#fb7185' : '#facc15'} toneMapped={false}/></mesh>
         <SceneHtml position={[0,.45,0]}><span className="rounded-lg border border-amber-400 bg-slate-100/80 px-2 py-1 text-[10px] text-amber-700 whitespace-nowrap">♻ {s.title}</span></SceneHtml>
       </group>
     </InteractableItem>)}

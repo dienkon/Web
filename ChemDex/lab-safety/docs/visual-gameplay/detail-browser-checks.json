@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "checks": [
+    "closed centrifuge lid covers the full rotor and hides loaded tubes",
+    "all steps and fixed frame verified for detailed model: centrifuge-balance",
+    "no extraction arrows while fan is off",
+    "extraction starts only after fan is enabled",
+    "all steps and fixed frame verified for detailed model: fume",
+    "alcohol flame disappears only after cap covers wick",
+    "all steps and fixed frame verified for detailed model: alcohol-cap",
+    "no runtime exceptions during model detail checks"
+  ],
+  "errors": []
+}

@@ -17,6 +17,7 @@ import { assessProgramConditions } from '../../science/conditions';
 import { identifySpecies } from '../../science/speciesIdentity';
 import { LESSON_PROGRAM_IDS } from '../../lesson/programCompiler';
 import { PrecipMorphology, GasSpecies, GAS_SPECIES_TABLE } from '../catalog/vocab';
+import { aluminumReactionExtent } from '../../science/aluminumHydroxideEquilibrium';
 
 export interface ResolveEnv {
   ignitedProgramId?: string;
@@ -45,6 +46,25 @@ export function canonicalProgramKey(substances: string[]): string {
     .filter(Boolean)
     .sort()
     .join('+');
+}
+
+/**
+ * The authored library is immutable at runtime. Build its exact-key index once
+ * so known reactions resolve immediately without scanning every program.
+ */
+const HANDCRAFTED_BY_KEY = new Map<string, ReactionProgram>();
+const HANDCRAFTED_BY_REACTANT_SET = new Map<string, ReactionProgram[]>();
+for (const program of ALL_HANDCRAFTED_PROGRAMS) {
+  if (LESSON_PROGRAM_IDS.has(program.id)) continue;
+  const reactants = program.chemistry.species.filter(species => species.role === 'reactant').map(species => species.formula);
+  const key = canonicalProgramKey(reactants);
+  if (key && !HANDCRAFTED_BY_KEY.has(key)) HANDCRAFTED_BY_KEY.set(key, program);
+  const setKey = [...new Set(reactants.map(formula => identifySpecies(formula).formula.toLowerCase()))].sort().join('+');
+  if (setKey) HANDCRAFTED_BY_REACTANT_SET.set(setKey, [...(HANDCRAFTED_BY_REACTANT_SET.get(setKey) ?? []), program]);
+}
+
+export function getHandcraftedProgramIndexStats() {
+  return { exactKeys: HANDCRAFTED_BY_KEY.size, reactantSets: HANDCRAFTED_BY_REACTANT_SET.size };
 }
 
 /**
@@ -244,25 +264,9 @@ export async function resolveReactionProgram(
 ): Promise<ResolveResult> {
   const key = canonicalProgramKey(substances);
 
-  // 1. Handcrafted exact match
-  const exact = getProgramById(key);
-  if (exact && !LESSON_PROGRAM_IDS.has(exact.id) && assessProgramConditions(exact, contents, env).ready) {
-    return { program: exact, provenance: 'handcrafted' };
-  }
-
-  // Check any pairwise combinations with exact normalized formulas
+  const handcrafted = findHandcraftedProgram(substances, contents, env);
+  if (handcrafted) return { program: handcrafted, provenance: 'handcrafted' };
   const normInput = substances.map(s => identifySpecies(s).formula.toLowerCase());
-  for (const prog of ALL_HANDCRAFTED_PROGRAMS) {
-    // These programs require explicit lesson conditions (catalyst, ignition,
-    // enzyme, etc.); a free-mixing lookup must not bypass those gates.
-    if (LESSON_PROGRAM_IDS.has(prog.id) || !assessProgramConditions(prog, contents, env).ready) continue;
-    const progSubs = prog.chemistry.species
-      .filter(s => s.role === 'reactant')
-      .map(s => identifySpecies(s.formula).formula.toLowerCase());
-    if (progSubs.length > 0 && progSubs.length === normInput.length && progSubs.every(ps => normInput.includes(ps))) {
-      return { program: prog, provenance: 'handcrafted' };
-    }
-  }
 
   // 2. Rule-derived program
   const ruleDerived = deriveProgramFromRules(substances, env);
@@ -278,6 +282,53 @@ export async function resolveReactionProgram(
     return { program: cached, provenance: 'cache' };
   }
 
+  return resolveRemoteOrFallback(substances, contents, env, key);
+}
+
+/** Read-only local lookup, shared with quantitative aliquot planning. */
+export function findHandcraftedProgram(substances: string[], contents: SubstanceContent[] = [], env: ResolveEnv = {}): ReactionProgram | null {
+  const key = canonicalProgramKey(substances);
+
+  // The same Al salt/base pair can yield gel or dissolved aluminate. Resolve
+  // from the quantitative state before a name-only exact match or cache entry.
+  if ((env.volume_ml ?? 0) > 0 && contents.some(c => c.moles > 0
+    && ['AlCl3', 'Al2(SO4)3', 'Al(OH)3'].includes(identifySpecies(c.formula).formula))) {
+    for (const id of ['alcl3_naoh', 'al2so43_naoh', 'aloh3_naoh', 'alcl3_naoh_excess', 'al2so43_naoh_excess']) {
+      const program = getProgramById(id)!;
+      if (!assessProgramConditions(program, contents, env).ready) continue;
+      const extent = aluminumReactionExtent(id, contents, env.volume_ml!, env.temperature_c ?? 25);
+      if (extent !== undefined && extent !== null && extent > 1e-12) return program;
+    }
+  }
+
+  // 1. Handcrafted exact match
+  const exact = HANDCRAFTED_BY_KEY.get(key) || getProgramById(key);
+  if (exact && assessProgramConditions(exact, contents, env).ready) {
+    return exact;
+  }
+
+  // Check indexed reactant sets instead of scanning the complete library.
+  const normInput = substances.map(s => identifySpecies(s).formula.toLowerCase());
+  const inputWithWater = [...new Set(normInput)].sort().join('+');
+  const inputWithoutWater = [...new Set(normInput.filter(input => input !== 'h2o'))].sort().join('+');
+  const candidates = new Set([
+    ...(HANDCRAFTED_BY_REACTANT_SET.get(inputWithWater) ?? []),
+    ...(HANDCRAFTED_BY_REACTANT_SET.get(inputWithoutWater) ?? []),
+  ]);
+  for (const prog of candidates) {
+    if (!assessProgramConditions(prog, contents, env).ready) continue;
+    const progSubs = prog.chemistry.species
+      .filter(s => s.role === 'reactant')
+      .map(s => identifySpecies(s.formula).formula.toLowerCase());
+    // Tracking stock solvent may be omitted unless the program consumes water.
+    const relevantInput = normInput.filter(input => input !== 'h2o' || progSubs.includes('h2o'));
+    if (progSubs.length === relevantInput.length && progSubs.every(ps => relevantInput.includes(ps))) return prog;
+  }
+
+  return null;
+}
+
+async function resolveRemoteOrFallback(substances: string[], contents: SubstanceContent[], env: ResolveEnv, key: string): Promise<ResolveResult> {
   // 4. AI resolution (Gemini via /api/experiment/mix)
   if (typeof fetch === 'function') {
     try {

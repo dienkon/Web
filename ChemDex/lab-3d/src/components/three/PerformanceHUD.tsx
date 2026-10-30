@@ -62,14 +62,6 @@ export const PerformanceHUD = React.memo(function PerformanceHUD() {
   // Quality has a single owner: the renderer's PerformanceMonitor. A second
   // window RAF feedback loop used to fight it and oscillate between tiers.
 
-  const cycleQuality = () => {
-    if (preference === 'auto') setPreference('ultra');
-    else if (preference === 'ultra') setPreference('high');
-    else if (preference === 'high') setPreference('medium');
-    else if (preference === 'medium') setPreference('low');
-    else if (preference === 'low') setPreference('potato');
-    else setPreference('auto');
-  };
 
   return (
     <div
@@ -102,13 +94,16 @@ export const PerformanceHUD = React.memo(function PerformanceHUD() {
 
         <span className="w-px h-3 bg-slate-700/80" />
 
-        <button
-          onClick={cycleQuality}
-          title="Click to toggle VFX graphics quality (Auto / Ultra / High / Medium / Low / Potato)"
-          className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-sky-400 border border-slate-700/80 transition-colors cursor-pointer"
+        <select
+          aria-label="Chất lượng đồ họa"
+          value={preference}
+          onChange={event=>setPreference(event.target.value as typeof preference)}
+          className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-slate-800 text-sky-300 border border-slate-600 cursor-pointer"
         >
-          {preference === 'auto' ? `Auto (${effectiveTier[0].toUpperCase()})` : preference.toUpperCase()}
-        </button>
+          <option value="auto">Tự động ({effectiveTier})</option>
+          <option value="potato">Tiết kiệm</option><option value="low">Nhẹ</option>
+          <option value="medium">Cân bằng</option><option value="high">Đẹp</option><option value="ultra">Rất đẹp</option>
+        </select>
       </div>
     </div>
   );

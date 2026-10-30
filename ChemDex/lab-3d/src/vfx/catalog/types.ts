@@ -97,6 +97,12 @@ export interface AtomCtx {
 }
 
 export interface LedgerView {
+  reactionProgress?: number; // authoritative chemical extent, not visual timeline time
+  isBoiling?: boolean;
+  evaporationRate_g_s?: number;
+  waterVaporOutflow_g_s?: number;
+  waterVaporTemperature_c?: number;
+  waterMistVisibility?: number;
   time_s: number;
   temperature_c: number;
   pressure_atm: number;
@@ -114,12 +120,7 @@ export interface VesselPatch {
   liquidColor?: string;
   liquidOpacity?: number;
   turbidity?: number;
-  foam_ml?: number;
-  temperature_c?: number;
-  hasGas?: boolean;
-  gasRate?: number;
   gasColor?: string;
-  hasPrecipitate?: boolean;
   precipitateColor?: string;
   precipitateMorphology?: string;
   fumingIntensity?: number;

@@ -1,0 +1,390 @@
+{
+  "count": 58,
+  "checks": [
+    {
+      "id": "cid-962",
+      "formula": "H2O",
+      "atoms": 3,
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7732185&charge=0",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-702",
+      "formula": "C2H6O",
+      "atoms": 9,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/ethanol/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-887",
+      "formula": "CH4O",
+      "atoms": 6,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/methanol/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-180",
+      "formula": "C3H6O",
+      "atoms": 10,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/acetone/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-176",
+      "formula": "C2H4O2",
+      "atoms": 8,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/acetic%20acid/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-222",
+      "formula": "H3N",
+      "atoms": 4,
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7664417&charge=0",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-947",
+      "formula": "N2",
+      "atoms": 2,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/dinitrogen/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-977",
+      "formula": "O2",
+      "atoms": 2,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/dioxygen/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-783",
+      "formula": "H2",
+      "atoms": 2,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/dihydrogen/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-280",
+      "formula": "CO2",
+      "atoms": 3,
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=124389&charge=0",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-281",
+      "formula": "CO",
+      "atoms": 2,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/%5BC-%5D%23%5BO%2B%5D/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-297",
+      "formula": "CH4",
+      "atoms": 5,
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=74828&charge=0",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-6324",
+      "formula": "C2H6",
+      "atoms": 8,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/ethane/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-6325",
+      "formula": "C2H4",
+      "atoms": 6,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/ethylene/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-6326",
+      "formula": "C2H2",
+      "atoms": 4,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/acetylene/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-6334",
+      "formula": "C3H8",
+      "atoms": 11,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/propane/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-8252",
+      "formula": "C3H6",
+      "atoms": 9,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/propylene/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-7843",
+      "formula": "C4H10",
+      "atoms": 14,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/butane/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-6360",
+      "formula": "C4H10",
+      "atoms": 14,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/isobutane/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-241",
+      "formula": "C6H6",
+      "atoms": 12,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/benzene/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-1140",
+      "formula": "C7H8",
+      "atoms": 15,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/toluene/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-996",
+      "formula": "C6H6O",
+      "atoms": 13,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/phenol/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-6115",
+      "formula": "C6H7N",
+      "atoms": 14,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/aniline/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-712",
+      "formula": "CH2O",
+      "atoms": 4,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/formaldehyde/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-177",
+      "formula": "C2H4O",
+      "atoms": 7,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/acetaldehyde/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-284",
+      "formula": "CH2O2",
+      "atoms": 5,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/formic%20acid/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-885",
+      "formula": "C4H8O2",
+      "atoms": 14,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/ethyl%20acetate/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-178",
+      "formula": "C2H5NO",
+      "atoms": 9,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/acetamide/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-1176",
+      "formula": "CH4N2O",
+      "atoms": 8,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/urea/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-5793",
+      "formula": "C6H12O6",
+      "atoms": 24,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/D-glucose/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-5984",
+      "formula": "C6H12O6",
+      "atoms": 24,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/D-fructose/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-5988",
+      "formula": "C12H22O11",
+      "atoms": 45,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/sucrose/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-753",
+      "formula": "C3H8O3",
+      "atoms": 14,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/glycerol/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-784",
+      "formula": "H2O2",
+      "atoms": 4,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/hydrogen%20peroxide/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-248",
+      "formula": "O3",
+      "atoms": 3,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/ozone/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-1119",
+      "formula": "O2S",
+      "atoms": 3,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/sulfur%20dioxide/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-24682",
+      "formula": "O3S",
+      "atoms": 4,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/sulfur%20trioxide/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-948",
+      "formula": "N2O",
+      "atoms": 3,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/nitrous%20oxide/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-313",
+      "formula": "ClH",
+      "atoms": 2,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/hydrogen%20chloride/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-14917",
+      "formula": "FH",
+      "atoms": 2,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/hydrogen%20fluoride/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-402",
+      "formula": "H2S",
+      "atoms": 3,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/hydrogen%20sulfide/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-944",
+      "formula": "HNO3",
+      "atoms": 5,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/nitric%20acid/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-1118",
+      "formula": "H2O4S",
+      "atoms": 7,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/sulfuric%20acid/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-1004",
+      "formula": "H3O4P",
+      "atoms": 8,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/phosphoric%20acid/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-8078",
+      "formula": "C6H12",
+      "atoms": 18,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/cyclohexane/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-931",
+      "formula": "C10H8",
+      "atoms": 18,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/naphthalene/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-2244",
+      "formula": "C9H8O4",
+      "atoms": 21,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/aspirin/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-2519",
+      "formula": "C8H10N4O2",
+      "atoms": 24,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/caffeine/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-769",
+      "formula": "CHO3",
+      "atoms": 5,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/bicarbonate/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-19660",
+      "formula": "CO3",
+      "atoms": 4,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/carbonate/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-1117",
+      "formula": "O4S",
+      "atoms": 5,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/sulfate/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-223",
+      "formula": "H4N",
+      "atoms": 5,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/ammonium/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-961",
+      "formula": "HO",
+      "atoms": 2,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/hydroxide/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-943",
+      "formula": "NO3",
+      "atoms": 4,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/nitrate/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    },
+    {
+      "id": "cid-946",
+      "formula": "NO2",
+      "atoms": 3,
+      "source": "https://cactus.nci.nih.gov/chemical/structure/nitrite/file?format=sdf&get3d=true",
+      "check": "formula-and-finite-coordinates"
+    }
+  ]
+}

@@ -51,10 +51,14 @@
         try {
           var savedTheme = localStorage.getItem('dktest_theme');
           var systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var savedIntensity = localStorage.getItem('dktest_dark_intensity') || 'chrome';
+          document.documentElement.setAttribute('data-dark-intensity', savedIntensity);
           if (savedTheme === 'dark' || ((!savedTheme || savedTheme === 'system') && systemDark)) {
             document.documentElement.classList.add('dark');
+            document.documentElement.style.colorScheme = 'dark';
           } else {
             document.documentElement.classList.remove('dark');
+            document.documentElement.style.colorScheme = 'light';
           }
         } catch (e) {}
 

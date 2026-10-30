@@ -1,0 +1,513 @@
+{
+  "passed": true,
+  "checks": [
+    "finite solid geometry: grip-hand/front",
+    "finite solid geometry: grip-hand/three-quarter",
+    "bottom rests on support plane: grip-hand",
+    "bounded asset draw calls: grip-hand / 10",
+    "finite solid geometry: grip-hand/back",
+    "finite solid geometry: grip-hand/top",
+    "finite solid geometry: bare-grip-hand/front",
+    "finite solid geometry: bare-grip-hand/three-quarter",
+    "bottom rests on support plane: bare-grip-hand",
+    "bounded asset draw calls: bare-grip-hand / 10",
+    "finite solid geometry: bare-grip-hand/back",
+    "finite solid geometry: bare-grip-hand/top",
+    "finite solid geometry: held-pan/front",
+    "finite solid geometry: held-pan/three-quarter",
+    "bottom rests on support plane: held-pan",
+    "bounded asset draw calls: held-pan / 6",
+    "finite solid geometry: held-pan/back",
+    "finite solid geometry: held-pan/top",
+    "finite solid geometry: hand-brush/front",
+    "finite solid geometry: hand-brush/three-quarter",
+    "bottom rests on support plane: hand-brush",
+    "bounded asset draw calls: hand-brush / 4",
+    "finite solid geometry: hand-brush/back",
+    "finite solid geometry: hand-brush/top",
+    "finite solid geometry: extinguisher-nozzle/front",
+    "finite solid geometry: extinguisher-nozzle/three-quarter",
+    "bottom rests on support plane: extinguisher-nozzle",
+    "bounded asset draw calls: extinguisher-nozzle / 2",
+    "finite solid geometry: extinguisher-nozzle/back",
+    "finite solid geometry: extinguisher-nozzle/top",
+    "finite solid geometry: chemical-carrier/front",
+    "finite solid geometry: chemical-carrier/three-quarter",
+    "bottom rests on support plane: chemical-carrier",
+    "bounded asset draw calls: chemical-carrier / 3",
+    "finite solid geometry: chemical-carrier/back",
+    "finite solid geometry: chemical-carrier/top",
+    "finite solid geometry: domestic-carrier/front",
+    "finite solid geometry: domestic-carrier/three-quarter",
+    "bottom rests on support plane: domestic-carrier",
+    "bounded asset draw calls: domestic-carrier / 3",
+    "finite solid geometry: domestic-carrier/back",
+    "finite solid geometry: domestic-carrier/top",
+    "finite solid geometry: sharps-carrier/front",
+    "finite solid geometry: sharps-carrier/three-quarter",
+    "bottom rests on support plane: sharps-carrier",
+    "bounded asset draw calls: sharps-carrier / 10",
+    "finite solid geometry: sharps-carrier/back",
+    "finite solid geometry: sharps-carrier/top",
+    "finite solid geometry: worn-coat/front",
+    "finite solid geometry: worn-coat/three-quarter",
+    "bottom rests on support plane: worn-coat",
+    "bounded asset draw calls: worn-coat / 11",
+    "finite solid geometry: worn-coat/back",
+    "finite solid geometry: worn-coat/top",
+    "finite solid geometry: student-character/front",
+    "finite solid geometry: student-character/three-quarter",
+    "bottom rests on support plane: student-character",
+    "bounded asset draw calls: student-character / 78",
+    "finite solid geometry: student-character/back",
+    "finite solid geometry: student-character/top",
+    "finite solid geometry: teacher-character/front",
+    "finite solid geometry: teacher-character/three-quarter",
+    "bottom rests on support plane: teacher-character",
+    "bounded asset draw calls: teacher-character / 51",
+    "finite solid geometry: teacher-character/back",
+    "finite solid geometry: teacher-character/top",
+    "finite solid geometry: unprepared-character/front",
+    "finite solid geometry: unprepared-character/three-quarter",
+    "bottom rests on support plane: unprepared-character",
+    "bounded asset draw calls: unprepared-character / 42",
+    "finite solid geometry: unprepared-character/back",
+    "finite solid geometry: unprepared-character/top",
+    "finite solid geometry: bun-character/front",
+    "finite solid geometry: bun-character/three-quarter",
+    "bottom rests on support plane: bun-character",
+    "bounded asset draw calls: bun-character / 78",
+    "finite solid geometry: bun-character/back",
+    "finite solid geometry: bun-character/top",
+    "finite solid geometry: braided-character/front",
+    "finite solid geometry: braided-character/three-quarter",
+    "bottom rests on support plane: braided-character",
+    "bounded asset draw calls: braided-character / 81",
+    "finite solid geometry: braided-character/back",
+    "finite solid geometry: braided-character/top",
+    "finite solid geometry: long-hair-character/front",
+    "finite solid geometry: long-hair-character/three-quarter",
+    "bottom rests on support plane: long-hair-character",
+    "bounded asset draw calls: long-hair-character / 42",
+    "finite solid geometry: long-hair-character/back",
+    "finite solid geometry: long-hair-character/top",
+    "no runtime exceptions while rendering all asset studies"
+  ],
+  "errors": [],
+  "snapshots": [
+    {
+      "id": "grip-hand",
+      "min": [
+        -0.052706293780335256,
+        0.002999999195337298,
+        -0.050710347529483064
+      ],
+      "max": [
+        0.03300000037997961,
+        0.08100000080466271,
+        0.023400000482797622
+      ],
+      "size": [
+        0.08570629416031486,
+        0.07800000160932541,
+        0.07411034801228068
+      ],
+      "meshes": 10,
+      "triangles": 2220,
+      "calls": 10,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-grip-hand"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "bare-grip-hand",
+      "min": [
+        -0.052706293780335256,
+        0.002999999195337298,
+        -0.050710347529483064
+      ],
+      "max": [
+        0.03300000037997961,
+        0.08100000080466271,
+        0.023400000482797622
+      ],
+      "size": [
+        0.08570629416031486,
+        0.07800000160932541,
+        0.07411034801228068
+      ],
+      "meshes": 10,
+      "triangles": 2220,
+      "calls": 10,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-grip-hand"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "held-pan",
+      "min": [
+        -0.08500000089406967,
+        -9.499490256914545e-11,
+        -0.23499999955296516
+      ],
+      "max": [
+        0.08500000089406967,
+        0.06907980144023895,
+        0.10250000018626451
+      ],
+      "size": [
+        0.17000000178813934,
+        0.06907980153523385,
+        0.3374999997392297
+      ],
+      "meshes": 6,
+      "triangles": 944,
+      "calls": 6,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-held-pan"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "hand-brush",
+      "min": [
+        -0.06500500440597534,
+        0,
+        -0.17000027000904083
+      ],
+      "max": [
+        0.06500500440597534,
+        0.07764503359794617,
+        0.027499999850988388
+      ],
+      "size": [
+        0.13001000881195068,
+        0.07764503359794617,
+        0.19750026986002922
+      ],
+      "meshes": 4,
+      "triangles": 1956,
+      "calls": 4,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-hand-brush"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "extinguisher-nozzle",
+      "min": [
+        -0.02800000086426735,
+        0,
+        -0.02800000086426735
+      ],
+      "max": [
+        0.02800000086426735,
+        0.11999999731779099,
+        0.02800000086426735
+      ],
+      "size": [
+        0.0560000017285347,
+        0.11999999731779099,
+        0.0560000017285347
+      ],
+      "meshes": 2,
+      "triangles": 768,
+      "calls": 2,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-extinguisher-nozzle"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "chemical-carrier",
+      "min": [
+        -0.06991276144981384,
+        0,
+        -0.0704047679901123
+      ],
+      "max": [
+        0.07170254737138748,
+        0.2199999988079071,
+        0.07100000232458115
+      ],
+      "size": [
+        0.14161530882120132,
+        0.2199999988079071,
+        0.14140477031469345
+      ],
+      "meshes": 3,
+      "triangles": 960,
+      "calls": 3,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-chemical-carrier"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "domestic-carrier",
+      "min": [
+        -0.06991276144981384,
+        0,
+        -0.0704047679901123
+      ],
+      "max": [
+        0.07170254737138748,
+        0.2199999988079071,
+        0.07100000232458115
+      ],
+      "size": [
+        0.14161530882120132,
+        0.2199999988079071,
+        0.14140477031469345
+      ],
+      "meshes": 3,
+      "triangles": 960,
+      "calls": 3,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-domestic-carrier"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "sharps-carrier",
+      "min": [
+        -0.059500000625848766,
+        5.867332227710298e-11,
+        -0.05319999828934669
+      ],
+      "max": [
+        0.059500000625848766,
+        0.20462386310100555,
+        0.05250000208616257
+      ],
+      "size": [
+        0.11900000125169753,
+        0.20462386304233224,
+        0.10570000037550925
+      ],
+      "meshes": 10,
+      "triangles": 1718,
+      "calls": 10,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-sharps-carrier",
+        "asset-held-sharps-box",
+        "countertop-with-openings"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "worn-coat",
+      "min": [
+        -0.2096221148967743,
+        -1.1920928910669204e-8,
+        -0.13859999567270279
+      ],
+      "max": [
+        0.2096221148967743,
+        0.6799999952316285,
+        0.1477063391432166
+      ],
+      "size": [
+        0.4192442297935486,
+        0.6800000071525574,
+        0.2863063348159194
+      ],
+      "meshes": 11,
+      "triangles": 3240,
+      "calls": 11,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-worn-coat"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "student-character",
+      "min": [
+        -0.2908848198618062,
+        -1.862645593320167e-10,
+        -0.2770000000298023
+      ],
+      "max": [
+        0.2908848198618062,
+        1.83700000166893,
+        0.20700000102818011
+      ],
+      "size": [
+        0.5817696397236124,
+        1.8370000018551946,
+        0.4840000010579824
+      ],
+      "meshes": 77,
+      "triangles": 25744,
+      "calls": 78,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-character",
+        "asset-worn-coat",
+        "asset-grip-hand",
+        "asset-grip-hand",
+        "asset-worn-goggles",
+        "asset-worn-mask"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "teacher-character",
+      "min": [
+        -0.2908848198618062,
+        -1.862645593320167e-10,
+        -0.20680987775325776
+      ],
+      "max": [
+        0.2908848198618062,
+        1.83700000166893,
+        0.18833012703433633
+      ],
+      "size": [
+        0.5817696397236124,
+        1.8370000018551946,
+        0.3951400047875941
+      ],
+      "meshes": 51,
+      "triangles": 11120,
+      "calls": 51,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-character",
+        "asset-worn-coat",
+        "asset-grip-hand",
+        "asset-grip-hand"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "unprepared-character",
+      "min": [
+        -0.2908848198618062,
+        -1.862645593320167e-10,
+        -0.2770000000298023
+      ],
+      "max": [
+        0.2908848198618062,
+        1.83700000166893,
+        0.18833012703433633
+      ],
+      "size": [
+        0.5817696397236124,
+        1.8370000018551946,
+        0.4653301270641386
+      ],
+      "meshes": 42,
+      "triangles": 8312,
+      "calls": 42,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-character",
+        "asset-grip-hand",
+        "asset-grip-hand"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "bun-character",
+      "min": [
+        -0.2908848198618062,
+        -1.862645593320167e-10,
+        -0.20680987775325776
+      ],
+      "max": [
+        0.2908848198618062,
+        1.8600000002980233,
+        0.20700000102818011
+      ],
+      "size": [
+        0.5817696397236124,
+        1.8600000004842878,
+        0.4138098787814379
+      ],
+      "meshes": 77,
+      "triangles": 25744,
+      "calls": 78,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-character",
+        "asset-worn-coat",
+        "asset-grip-hand",
+        "asset-grip-hand",
+        "asset-worn-goggles",
+        "asset-worn-mask"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "braided-character",
+      "min": [
+        -0.2908848198618062,
+        -1.862645593320167e-10,
+        -0.20680987775325776
+      ],
+      "max": [
+        0.2908848198618062,
+        1.83700000166893,
+        0.20700000102818011
+      ],
+      "size": [
+        0.5817696397236124,
+        1.8370000018551946,
+        0.4138098787814379
+      ],
+      "meshes": 80,
+      "triangles": 26088,
+      "calls": 81,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-character",
+        "asset-worn-coat",
+        "asset-grip-hand",
+        "asset-grip-hand",
+        "asset-worn-goggles",
+        "asset-worn-mask"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "long-hair-character",
+      "min": [
+        -0.2908848198618062,
+        -1.862645593320167e-10,
+        -0.20680987775325776
+      ],
+      "max": [
+        0.2908848198618062,
+        1.83700000166893,
+        0.18833012703433633
+      ],
+      "size": [
+        0.5817696397236124,
+        1.8370000018551946,
+        0.3951400047875941
+      ],
+      "meshes": 42,
+      "triangles": 8312,
+      "calls": 42,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-character",
+        "asset-grip-hand",
+        "asset-grip-hand"
+      ],
+      "textures": 4
+    }
+  ]
+}

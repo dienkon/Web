@@ -13,11 +13,18 @@ import type { InstrumentKind } from '../src/store/useLabEquipment';
 import { getPostPhaseWork, POST_PHASE_IDS, POST_PHASE_VERSION } from '../src/data/postPhaseWork';
 import { followsSegment, placementAt, practicalScore } from '../src/core/simulation/PracticalEvaluation';
 import { restorePractice, useAdvancedPractice } from '../src/store/useAdvancedPractice';
+import { getSceneVisual, SCENE_VISUALS } from '../src/components/ui/practical/sceneVisuals';
+import { INSTRUMENT_VISUALS } from '../src/components/ui/practical/instrumentVisuals';
+import { ACID_WORK } from '../src/data/acidWork';
+import { HAZARD_LABEL_WORK } from '../src/data/hazardLabelWork';
 
 let steps=0;
 const kinds: InstrumentKind[]=['washBottle','ventilation','gas','blanket','locker','clock','smokeAlarm','balance','volume','titration','heat','wash','storage','glass','ph','hood','workspace','seat','drawer','door','electrical','board','ppe','extinguisher','spillKit','firstAid','shower','mirror','waste'];
-const works=[...Object.values(PRACTICAL_WORK),...POST_PHASE_IDS.map(getPostPhaseWork),collectionWork('Mảnh vỡ',true),collectionWork('Giấy',false),...['chemical','sharps','domestic'].map(disposalWork),...kinds.map(kind=>instrumentWork({id:kind,title:kind,kind,position:[0,0,0]}))];
+const works=[ACID_WORK,HAZARD_LABEL_WORK,...Object.values(PRACTICAL_WORK),...POST_PHASE_IDS.map(getPostPhaseWork),collectionWork('Mảnh vỡ',true),collectionWork('Giấy',false),...['chemical','sharps','domestic'].map(disposalWork),...kinds.map(kind=>instrumentWork({id:kind,title:kind,kind,position:[0,0,0]}))];
 for(const work of works){
+ assert.ok(work.visualId,work.title+' missing visual identity');
+ assert.ok(work.visualId in SCENE_VISUALS||work.visualId in INSTRUMENT_VISUALS,work.title+' has no registered visual profile');
+ assert.equal(getSceneVisual(work).id,work.visualId,work.title+' falls through to a generic scene');
  assert.ok(work.steps.length>=2,work.title);
  const ids=new Set(work.objects.map(o=>o.id));
  assert.equal(ids.size,work.objects.length,work.title+' duplicate props');

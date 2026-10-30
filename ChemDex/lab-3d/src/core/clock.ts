@@ -3,14 +3,24 @@
  * Main Loop Specification (§2):
  * - Fixed physical substep DT_SIM = 1/120 s (~8.33 ms)
  * - Frame dt clamp: min(frameDt, 0.1 s)
- * - Maximum substeps per frame cap (<= 8) to prevent spiral of death
- * - Configurable time scale multiplier (1x, 2x, 5x, 10x, 30x)
+ * - Bounded work per call; retain exceptional backlog instead of dropping it
+ * - Supported application time scale 0.1x–8x
  * - Pausing support
  */
 
+export const MAX_FRAME_SECONDS = 0.1;
+export function acceptedFrameSeconds(frameDt: number): number {
+  return Number.isFinite(frameDt) && frameDt > 0 ? Math.min(frameDt, MAX_FRAME_SECONDS) : 0;
+}
+export function simulationFrameDt(frameDt: number, state: { timeScale: number; isSimulationPaused: boolean }): number {
+  if (state.isSimulationPaused || !Number.isFinite(state.timeScale) || state.timeScale <= 0) return 0;
+  const dt = acceptedFrameSeconds(frameDt) * state.timeScale;
+  return Number.isFinite(dt) ? dt : 0;
+}
+
 export class SimClock {
   public static readonly DT_SIM: number = 1.0 / 120.0; // 120 Hz internal physics substep
-  public static readonly MAX_SUBSTEPS: number = 8;     // Spiral-of-death guard
+  public static readonly MAX_SUBSTEPS: number = 240;   // Retains backlog beyond this work limit
 
   public accumulator: number = 0;
   public timeScale: number = 1.0;
@@ -23,7 +33,7 @@ export class SimClock {
   }
 
   public setTimeScale(scale: number): void {
-    this.timeScale = Math.max(0.1, Math.min(60.0, scale));
+    if (Number.isFinite(scale) && scale >= 0.1 && scale <= 8) this.timeScale = scale;
   }
 
   public setPaused(paused: boolean): void {
@@ -41,24 +51,19 @@ export class SimClock {
    * Returns the number of substeps actually executed in this frame.
    */
   public tick(frameDt: number, onSubstep: (dt: number, totalTime: number) => void): number {
-    if (this.isPaused || frameDt <= 0) return 0;
+    const delta = simulationFrameDt(frameDt, { timeScale: this.timeScale, isSimulationPaused: this.isPaused });
+    if (delta <= 0) return 0;
 
     // Clamp frameDt to 100ms to avoid spiral of death on background tab return
-    const clampedFrameDt = Math.min(frameDt, 0.1);
-    this.accumulator += clampedFrameDt * this.timeScale;
+    this.accumulator += delta;
 
     let stepsExecuted = 0;
-    while (this.accumulator >= SimClock.DT_SIM && stepsExecuted < SimClock.MAX_SUBSTEPS) {
+    while (this.accumulator + 1e-12 >= SimClock.DT_SIM && stepsExecuted < SimClock.MAX_SUBSTEPS) {
       this.totalTicks++;
       this.totalSimTime += SimClock.DT_SIM;
       onSubstep(SimClock.DT_SIM, this.totalSimTime);
-      this.accumulator -= SimClock.DT_SIM;
+      this.accumulator = Math.max(0, this.accumulator - SimClock.DT_SIM);
       stepsExecuted++;
-    }
-
-    // If accumulated time is still excessive, drop remainder
-    if (this.accumulator > SimClock.DT_SIM * 2) {
-      this.accumulator = 0;
     }
 
     return stepsExecuted;

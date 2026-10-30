@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import type { LiquidAliquot } from './aliquot';
 
 export interface InstrumentNotice {
   sequence: number;
@@ -9,26 +8,23 @@ export interface InstrumentNotice {
 }
 
 interface InstrumentState {
-  pipetteSample: LiquidAliquot | null;
   pipettePulse: number;
   pipetteDispensing: boolean;
   balanceTare_g: number;
   notices: InstrumentNotice[];
   sequence: number;
-  setSample: (sample: LiquidAliquot | null, dispensing?: boolean) => void;
+  pulsePipette: (dispensing?: boolean) => void;
   setTare: (mass: number) => void;
   notify: (tool: string, message: string, success: boolean) => void;
 }
 
 export const useInstrumentStore = create<InstrumentState>((set) => ({
-  pipetteSample: null,
   pipettePulse: 0,
   pipetteDispensing: false,
   balanceTare_g: 0,
   notices: [],
   sequence: 0,
-  setSample: (pipetteSample, dispensing = false) => set(state => ({
-    pipetteSample,
+  pulsePipette: (dispensing = false) => set(state => ({
     pipetteDispensing: dispensing,
     pipettePulse: state.pipettePulse + 1,
   })),

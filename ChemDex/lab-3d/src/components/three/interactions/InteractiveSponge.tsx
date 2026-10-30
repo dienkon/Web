@@ -4,7 +4,7 @@ import * as THREE from 'three';
 import { useAppStore } from '../../../store/useAppStore';
 import { labSound } from '../../../utils/audio';
 
-export const InteractiveSponge = React.memo(function InteractiveSponge() {
+export const InteractiveSponge = React.memo(function InteractiveSponge({ preview = false }: { preview?: boolean } = {}) {
   const activeTool = useAppStore(state => state.activeTool);
   const setActiveTool = useAppStore(state => state.setActiveTool);
   const wipeSpillAt = useAppStore(state => state.wipeSpillAt);
@@ -23,6 +23,7 @@ export const InteractiveSponge = React.memo(function InteractiveSponge() {
 
   // Track pointer across workbench
   React.useEffect(() => {
+    if (preview) return;
     const canvas = gl.domElement;
     if (!canvas) return;
 
@@ -80,9 +81,10 @@ export const InteractiveSponge = React.memo(function InteractiveSponge() {
       window.removeEventListener('pointercancel', handlePointerUp);
       window.removeEventListener('blur', handlePointerUp);
     };
-  }, [activeTool, camera, gl, raycaster, tablePlane, intersectPoint, wipeSpillAt]);
+  }, [preview, activeTool, camera, gl, raycaster, tablePlane, intersectPoint, wipeSpillAt]);
 
   useFrame((state, delta) => {
+    if (preview) return;
     if (!groupRef.current) return;
 
     // Smoothly track target position on workbench
@@ -100,7 +102,7 @@ export const InteractiveSponge = React.memo(function InteractiveSponge() {
     }
   });
 
-  if (activeTool !== 'sponge') return null;
+  if (!preview && activeTool !== 'sponge') return null;
 
   return (
     <group ref={groupRef} position={[0, -1.08, 1.2]} renderOrder={10}>

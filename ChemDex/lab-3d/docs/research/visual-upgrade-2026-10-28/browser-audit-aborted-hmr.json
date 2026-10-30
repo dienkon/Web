@@ -1,0 +1,601 @@
+{
+  "checkedAt": "2026-10-28T10:02:03.503Z",
+  "origin": "http://127.0.0.1:6773",
+  "browser": "156.0.8078.48",
+  "sampleMs": 8000,
+  "methodology": "Measurement after the typecheck and test processes finished. Wait for DOM and canvas readiness, not remote network idleness. Fresh browser contexts; local Vite development build; hardware WebGL. Viewport emulation is not physical mobile validation. FrameTelemetry samples, not GPU timer queries; postprocessing draw counts are incomplete. UI screenshots excluded from sampling. Three reaction starts include their settling/completion tails and are not a constant-load stress test.",
+  "scenarios": [
+    {
+      "name": "desktop-auto",
+      "setupResult": null,
+      "start": {
+        "quality": {
+          "preference": "auto",
+          "tier": "medium",
+          "rendererClass": "hardware"
+        },
+        "stats": {
+          "fps": 59,
+          "ms": 16.9,
+          "p95_ms": 19.2,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 60
+        },
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000468B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "canvas": {
+          "width": 832,
+          "height": 907,
+          "rect": {
+            "x": 288,
+            "y": 93,
+            "width": 832,
+            "height": 907
+          }
+        },
+        "viewport": {
+          "width": 1440,
+          "height": 1000,
+          "devicePixelRatio": 1
+        },
+        "horizontalOverflow": false,
+        "panels": {
+          "left": true,
+          "right": true
+        },
+        "vessels": [
+          {
+            "id": "beaker_1",
+            "type": "beaker",
+            "temperature_c": 25,
+            "volume_ml": 0,
+            "gas": false
+          },
+          {
+            "id": "flask_1",
+            "type": "flask",
+            "temperature_c": 25,
+            "volume_ml": 0,
+            "gas": false
+          },
+          {
+            "id": "test_tube_1",
+            "type": "test_tube",
+            "temperature_c": 25,
+            "volume_ml": 0,
+            "gas": false
+          }
+        ],
+        "kinetics": []
+      },
+      "end": {
+        "quality": {
+          "preference": "auto",
+          "tier": "medium",
+          "rendererClass": "hardware"
+        },
+        "stats": {
+          "fps": 58,
+          "ms": 17.2,
+          "p95_ms": 23,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 60
+        },
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000468B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "canvas": {
+          "width": 832,
+          "height": 907,
+          "rect": {
+            "x": 288,
+            "y": 93,
+            "width": 832,
+            "height": 907
+          }
+        },
+        "viewport": {
+          "width": 1440,
+          "height": 1000,
+          "devicePixelRatio": 1
+        },
+        "horizontalOverflow": false,
+        "panels": {
+          "left": true,
+          "right": true
+        },
+        "vessels": [
+          {
+            "id": "beaker_1",
+            "type": "beaker",
+            "temperature_c": 25,
+            "volume_ml": 0,
+            "gas": false
+          },
+          {
+            "id": "flask_1",
+            "type": "flask",
+            "temperature_c": 25,
+            "volume_ml": 0,
+            "gas": false
+          },
+          {
+            "id": "test_tube_1",
+            "type": "test_tube",
+            "temperature_c": 25,
+            "volume_ml": 0,
+            "gas": false
+          }
+        ],
+        "kinetics": []
+      },
+      "readings": [
+        {
+          "fps": 60,
+          "ms": 16.7,
+          "p95_ms": 19,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 60
+        },
+        {
+          "fps": 59,
+          "ms": 16.9,
+          "p95_ms": 22.9,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 60
+        },
+        {
+          "fps": 59,
+          "ms": 17,
+          "p95_ms": 20.6,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 59
+        },
+        {
+          "fps": 61,
+          "ms": 16.5,
+          "p95_ms": 19.8,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 63
+        },
+        {
+          "fps": 59,
+          "ms": 17,
+          "p95_ms": 22.1,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 60
+        },
+        {
+          "fps": 59,
+          "ms": 17,
+          "p95_ms": 19.6,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 61
+        },
+        {
+          "fps": 61,
+          "ms": 16.5,
+          "p95_ms": 19.9,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 62
+        },
+        {
+          "fps": 58,
+          "ms": 17.2,
+          "p95_ms": 23,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 60
+        }
+      ]
+    },
+    {
+      "name": "desktop-high",
+      "setupResult": {
+        "frontType": "MeshPhysicalMaterial",
+        "frontTransmission": 0,
+        "frontOpacity": 0.08,
+        "frontSide": 0
+      },
+      "start": {
+        "quality": {
+          "preference": "high",
+          "tier": "high",
+          "rendererClass": "hardware"
+        },
+        "stats": {
+          "fps": 0,
+          "ms": 0,
+          "p95_ms": 0,
+          "drawCalls": 0,
+          "triangles": 0,
+          "samples": 0
+        },
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000468B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "canvas": {
+          "width": 832,
+          "height": 907,
+          "rect": {
+            "x": 288,
+            "y": 93,
+            "width": 832,
+            "height": 907
+          }
+        },
+        "viewport": {
+          "width": 1440,
+          "height": 1000,
+          "devicePixelRatio": 1
+        },
+        "horizontalOverflow": false,
+        "panels": {
+          "left": true,
+          "right": true
+        },
+        "vessels": [
+          {
+            "id": "beaker_1",
+            "type": "beaker",
+            "temperature_c": 25,
+            "volume_ml": 0,
+            "gas": false
+          },
+          {
+            "id": "flask_1",
+            "type": "flask",
+            "temperature_c": 25,
+            "volume_ml": 0,
+            "gas": false
+          },
+          {
+            "id": "test_tube_1",
+            "type": "test_tube",
+            "temperature_c": 25,
+            "volume_ml": 0,
+            "gas": false
+          }
+        ],
+        "kinetics": []
+      },
+      "end": {
+        "quality": {
+          "preference": "high",
+          "tier": "high",
+          "rendererClass": "hardware"
+        },
+        "stats": {
+          "fps": 35,
+          "ms": 28.6,
+          "p95_ms": 34.5,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 35
+        },
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000468B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "canvas": {
+          "width": 832,
+          "height": 907,
+          "rect": {
+            "x": 288,
+            "y": 93,
+            "width": 832,
+            "height": 907
+          }
+        },
+        "viewport": {
+          "width": 1440,
+          "height": 1000,
+          "devicePixelRatio": 1
+        },
+        "horizontalOverflow": false,
+        "panels": {
+          "left": true,
+          "right": true
+        },
+        "vessels": [
+          {
+            "id": "beaker_1",
+            "type": "beaker",
+            "temperature_c": 25,
+            "volume_ml": 0,
+            "gas": false
+          },
+          {
+            "id": "flask_1",
+            "type": "flask",
+            "temperature_c": 25,
+            "volume_ml": 0,
+            "gas": false
+          },
+          {
+            "id": "test_tube_1",
+            "type": "test_tube",
+            "temperature_c": 25,
+            "volume_ml": 0,
+            "gas": false
+          }
+        ],
+        "kinetics": []
+      },
+      "readings": [
+        {
+          "fps": 36,
+          "ms": 28.2,
+          "p95_ms": 52.5,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 36
+        },
+        {
+          "fps": 35,
+          "ms": 28.8,
+          "p95_ms": 35.8,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 35
+        },
+        {
+          "fps": 34,
+          "ms": 29.2,
+          "p95_ms": 41.8,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 35
+        },
+        {
+          "fps": 34,
+          "ms": 29.7,
+          "p95_ms": 41.1,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 34
+        },
+        {
+          "fps": 35,
+          "ms": 28.5,
+          "p95_ms": 41.1,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 36
+        },
+        {
+          "fps": 34,
+          "ms": 29.3,
+          "p95_ms": 40.7,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 35
+        },
+        {
+          "fps": 35,
+          "ms": 28.6,
+          "p95_ms": 37.9,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 35
+        },
+        {
+          "fps": 35,
+          "ms": 28.6,
+          "p95_ms": 34.5,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 35
+        }
+      ]
+    },
+    {
+      "name": "desktop-ultra",
+      "setupResult": {
+        "frontType": "MeshStandardMaterial",
+        "frontTransmission": 0,
+        "frontOpacity": 0.16,
+        "frontSide": 2
+      },
+      "start": {
+        "quality": {
+          "preference": "ultra",
+          "tier": "ultra",
+          "rendererClass": "hardware"
+        },
+        "stats": {
+          "fps": 0,
+          "ms": 0,
+          "p95_ms": 0,
+          "drawCalls": 0,
+          "triangles": 0,
+          "samples": 0
+        },
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000468B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "canvas": {
+          "width": 832,
+          "height": 907,
+          "rect": {
+            "x": 288,
+            "y": 93,
+            "width": 832,
+            "height": 907
+          }
+        },
+        "viewport": {
+          "width": 1440,
+          "height": 1000,
+          "devicePixelRatio": 1
+        },
+        "horizontalOverflow": false,
+        "panels": {
+          "left": true,
+          "right": true
+        },
+        "vessels": [
+          {
+            "id": "beaker_1",
+            "type": "beaker",
+            "temperature_c": 25,
+            "volume_ml": 0,
+            "gas": false
+          },
+          {
+            "id": "flask_1",
+            "type": "flask",
+            "temperature_c": 25,
+            "volume_ml": 0,
+            "gas": false
+          },
+          {
+            "id": "test_tube_1",
+            "type": "test_tube",
+            "temperature_c": 25,
+            "volume_ml": 0,
+            "gas": false
+          }
+        ],
+        "kinetics": []
+      },
+      "end": {
+        "quality": {
+          "preference": "ultra",
+          "tier": "ultra",
+          "rendererClass": "hardware"
+        },
+        "stats": {
+          "fps": 12,
+          "ms": 80.6,
+          "p95_ms": 159.3,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 13
+        },
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000468B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "canvas": {
+          "width": 832,
+          "height": 907,
+          "rect": {
+            "x": 288,
+            "y": 93,
+            "width": 832,
+            "height": 907
+          }
+        },
+        "viewport": {
+          "width": 1440,
+          "height": 1000,
+          "devicePixelRatio": 1
+        },
+        "horizontalOverflow": false,
+        "panels": {
+          "left": true,
+          "right": true
+        },
+        "vessels": [
+          {
+            "id": "beaker_1",
+            "type": "beaker",
+            "temperature_c": 25,
+            "volume_ml": 0,
+            "gas": false
+          },
+          {
+            "id": "flask_1",
+            "type": "flask",
+            "temperature_c": 25,
+            "volume_ml": 0,
+            "gas": false
+          },
+          {
+            "id": "test_tube_1",
+            "type": "test_tube",
+            "temperature_c": 25,
+            "volume_ml": 0,
+            "gas": false
+          }
+        ],
+        "kinetics": []
+      },
+      "readings": [
+        {
+          "fps": 16,
+          "ms": 62.6,
+          "p95_ms": 128.3,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 16
+        },
+        {
+          "fps": 12,
+          "ms": 81.8,
+          "p95_ms": 159.3,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 13
+        },
+        {
+          "fps": 12,
+          "ms": 81,
+          "p95_ms": 158.6,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 13
+        },
+        {
+          "fps": 12,
+          "ms": 84.1,
+          "p95_ms": 161,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 12
+        },
+        {
+          "fps": 12,
+          "ms": 80.7,
+          "p95_ms": 159.6,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 13
+        },
+        {
+          "fps": 12,
+          "ms": 80.2,
+          "p95_ms": 152.3,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 13
+        },
+        {
+          "fps": 12,
+          "ms": 83.1,
+          "p95_ms": 165.2,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 13
+        },
+        {
+          "fps": 12,
+          "ms": 80.6,
+          "p95_ms": 159.3,
+          "drawCalls": 1,
+          "triangles": 2,
+          "samples": 13
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "device": "harness",
+      "message": "page.evaluate: Execution context was destroyed, most likely because of a navigation.\n    at inspect (D:\\VsCode\\Web\\MyWeb\\ChemDex\\lab-3d\\scripts\\researchLabVisuals.mjs:19:15)\n    at capture (D:\\VsCode\\Web\\MyWeb\\ChemDex\\lab-3d\\scripts\\researchLabVisuals.mjs:47:23)\n    at async file:///D:/VsCode/Web/MyWeb/ChemDex/lab-3d/scripts/researchLabVisuals.mjs:81:3"
+    }
+  ],
+  "consoleErrors": [
+    {
+      "device": "desktop",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    }
+  ]
+}

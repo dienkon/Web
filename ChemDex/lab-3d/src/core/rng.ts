@@ -110,3 +110,10 @@ export class PRNG {
 
 // Global default instance for the simulation
 export const defaultRNG = new PRNG();
+
+/** Stable independent stream per vessel/system, retaining the user-selected seed. */
+export function seedForLabel(label: string, seed = defaultRNG.seed): number {
+  let hash = (2166136261 ^ seed) >>> 0;
+  for (const char of label) hash = Math.imul(hash ^ char.charCodeAt(0), 16777619) >>> 0;
+  return hash;
+}

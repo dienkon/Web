@@ -432,10 +432,14 @@ var PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         try {
           var savedTheme = localStorage.getItem('dktest_theme');
           var systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var savedIntensity = localStorage.getItem('dktest_dark_intensity') || 'chrome';
+          document.documentElement.setAttribute('data-dark-intensity', savedIntensity);
           if (savedTheme === 'dark' || ((!savedTheme || savedTheme === 'system') && systemDark)) {
             document.documentElement.classList.add('dark');
+            document.documentElement.style.colorScheme = 'dark';
           } else {
             document.documentElement.classList.remove('dark');
+            document.documentElement.style.colorScheme = 'light';
           }
         } catch (e) {}
 
@@ -784,14 +788,14 @@ var PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         100% { left: 100%; }
       }
     </style>
-    <script type="module" crossorigin src="/assets/index-BHo_xUNL.js"></script>
+    <script type="module" crossorigin src="/assets/index-fxbY8Tg2.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-react-Cg2vLLvP.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-charts-Dtra7FLy.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-EyAzwTp7.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-C7bFuPwS.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-firebase-BJt7ZhnJ.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-katex-T051Jbj4.js">
     <link rel="stylesheet" crossorigin href="/assets/vendor-katex-Ddr6Z9Sf.css">
-    <link rel="stylesheet" crossorigin href="/assets/index-C6YJgJgR.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-DrYRaXaP.css">
   </head>
 
   <body>
@@ -808,7 +812,6 @@ var PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         <div class="dk-boot-bar"></div>
       </div>
     </div>
-
 
   </body>
 </html>`;

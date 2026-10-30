@@ -319,8 +319,8 @@ export const thermalSteamAtom: EffectAtom = {
   name: 'thermalSteam',
   version: 1,
   category: 'thermal',
-  summary_en: 'Billowing warm water vapor rising above hot liquids.',
-  useWhen: ['Temperature >= 48 °C'],
+  summary_en: 'Condensed water mist above a finite evaporating-water source.',
+  useWhen: ['Finite water vapor forms supersaturated mixtures with surrounding air'],
   avoidWhen: ['Cold liquids'],
   params: {
     steamDensity: { name: 'steamDensity', type: 'number', min: 0.1, max: 2.5, default: 1.0, description: 'Steam density' },
@@ -345,13 +345,13 @@ export const thermalSteamAtom: EffectAtom = {
   update(h, dt, s) {
     if (!h.alive) return;
     h.custom.elapsed += dt;
-    const target = h.custom.steamDensity ?? 1.0;
-    h.custom.steamVigor = Math.min(target, (h.custom.steamVigor || 0) + dt * 0.4);
+    const target = (s.waterVaporOutflow_g_s ?? s.evaporationRate_g_s ?? 0) > 0
+      ? (h.custom.steamDensity ?? 1) * (s.waterMistVisibility ?? 0) : 0;
+    h.custom.steamVigor += (target - h.custom.steamVigor) * (1 - Math.exp(-dt * 0.4));
   },
   writeBack(h, vessel) {
     if (!h.alive) return;
-    vessel.temperature_c = Math.max(vessel.temperature_c || 25, h.custom.temperature_c || 75);
-    vessel.fumingIntensity = Math.max(vessel.fumingIntensity || 0, (h.custom.steamVigor || 0) * 0.6);
+    // Authoritative water evaporation owns mist; this atom supplies no heat or aerosol inventory.
   },
   dispose(h) {
     h.alive = false;

@@ -1,0 +1,20 @@
+{
+  "checkedAt": "2026-10-28T09:54:03.961Z",
+  "origin": "http://127.0.0.1:6773",
+  "browser": "156.0.8078.48",
+  "sampleMs": 8000,
+  "methodology": "Second pass after the typecheck and test processes finished. Fresh browser contexts; local Vite development build; hardware WebGL. Viewport emulation is not physical mobile validation. FrameTelemetry samples, not GPU timer queries; postprocessing draw counts are incomplete. UI screenshots excluded from sampling. Three reaction starts include their settling/completion tails and are not a constant-load stress test.",
+  "scenarios": [],
+  "errors": [
+    {
+      "device": "harness",
+      "message": "page.goto: Timeout 90000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:6773/\", waiting until \"networkidle\"\u001b[22m\n\n    at D:\\VsCode\\Web\\MyWeb\\ChemDex\\lab-3d\\scripts\\researchLabVisuals.mjs:67:14"
+    }
+  ],
+  "consoleErrors": [
+    {
+      "device": "desktop",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    }
+  ]
+}

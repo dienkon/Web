@@ -1,11 +1,13 @@
 /**
  * precipitationPrograms.ts — Precipitation Reaction Programs
  * 
- * Accurately models supersaturation, nucleation, particle morphologies,
- * colors, Stokes settling drag, and bottom sediment bed accumulation.
+ * Declarative appearances and illustrative timelines. Inventory/equilibrium
+ * and physical transport are handled separately; these are not calibrated
+ * nucleation or sedimentation measurements.
  */
 
 import { ReactionProgram } from '../../../shared/programSchema';
+import { aluminumThermochemistry } from './aluminumHydroxidePrograms';
 
 export const PRECIPITATION_PROGRAMS: ReactionProgram[] = [
   // 1. BaCl2 + Na2SO4 -> BaSO4 + 2NaCl
@@ -241,15 +243,14 @@ export const PRECIPITATION_PROGRAMS: ReactionProgram[] = [
     visual: {
       duration_s: 8.5,
       timeline: [
-        { id: 'precip', atom: 'precipitateNucleation', anchor: 'pourPoint', window: [0, 0.4], intensity: 1.2, params: { morphology: 'crystal_plate', color: '#facc15', nucleationRate: 90 } },
-        { id: 'glitter', atom: 'crystalGlitter', anchor: 'bulk', window: [0.1, 0.9], intensity: 1.5, params: { glintFrequency: 12, glintColor: '#fef08a', facetSize_mm: 0.15 } },
+        { id: 'precip', atom: 'precipitateNucleation', anchor: 'pourPoint', window: [0, 0.4], intensity: 1.2, params: { morphology: 'fine_powder', color: '#facc15', nucleationRate: 90 } },
         { id: 'stokes', atom: 'stokesSedimentation', anchor: 'bottom', window: [0.35, 1.0], intensity: 1.3, params: { stokesRadius_um: 12.0, sedimentColor: '#eab308', bedHeight_mm: 7.5 } }
       ],
       after: {
         liquidColor: '#f8fafc',
         liquidOpacity: 0.18,
         turbidity: 0.15,
-        precipitate: { substance: 'PbI2', morphology: 'crystal_plate', color: '#facc15', mass_g: 'fromLedger' },
+        precipitate: { substance: 'PbI2', morphology: 'fine_powder', color: '#facc15', mass_g: 'fromLedger' },
         gasesOffgassed: []
       }
     },
@@ -437,7 +438,7 @@ export const PRECIPITATION_PROGRAMS: ReactionProgram[] = [
       species: [
         { formula: 'FeSO4', role: 'reactant', coeff: 1, phase: 'aq', colorHex: '#a7f3d0' },
         { formula: 'NaOH', role: 'reactant', coeff: 2, phase: 'aq' },
-        { formula: 'Fe(OH)2', role: 'product', coeff: 1, phase: 's', colorHex: '#065f46' }, // Dirty green
+        { formula: 'Fe(OH)2', role: 'product', coeff: 1, phase: 's', colorHex: '#65826a' }, // Dirty green
         { formula: 'Na2SO4', role: 'product', coeff: 1, phase: 'aq' }
       ],
       deltaH_kJ_per_mol: -45.0,
@@ -446,14 +447,14 @@ export const PRECIPITATION_PROGRAMS: ReactionProgram[] = [
     visual: {
       duration_s: 7.0,
       timeline: [
-        { id: 'precip', atom: 'precipitateNucleation', anchor: 'pourPoint', window: [0, 0.45], intensity: 1.2, params: { morphology: 'gel', color: '#065f46', nucleationRate: 80 } },
-        { id: 'stokes', atom: 'stokesSedimentation', anchor: 'bottom', window: [0.35, 1.0], intensity: 1.0, params: { stokesRadius_um: 4.5, sedimentColor: '#064e3b', bedHeight_mm: 6.5 } }
+        { id: 'precip', atom: 'precipitateNucleation', anchor: 'pourPoint', window: [0, 0.45], intensity: 1.2, params: { morphology: 'gel', color: '#65826a', nucleationRate: 80 } },
+        { id: 'stokes', atom: 'stokesSedimentation', anchor: 'bottom', window: [0.35, 1.0], intensity: 1.0, params: { stokesRadius_um: 4.5, sedimentColor: '#65826a', bedHeight_mm: 6.5 } }
       ],
       after: {
         liquidColor: '#d1fae5',
         liquidOpacity: 0.95,
         turbidity: 0.55,
-        precipitate: { substance: 'Fe(OH)2', morphology: 'gel', color: '#065f46', mass_g: 'fromLedger' },
+        precipitate: { substance: 'Fe(OH)2', morphology: 'gel', color: '#65826a', mass_g: 'fromLedger' },
         gasesOffgassed: []
       }
     },
@@ -480,14 +481,13 @@ export const PRECIPITATION_PROGRAMS: ReactionProgram[] = [
         { formula: 'Al(OH)3', role: 'product', coeff: 1, phase: 's', colorHex: '#ffffff' },
         { formula: 'NaCl', role: 'product', coeff: 3, phase: 'aq' }
       ],
-      deltaH_kJ_per_mol: -90.0,
+      ...aluminumThermochemistry('alcl3_naoh'),
       kinetics: { model: 'instant', halfTime_s: 0.15 }
     },
     visual: {
       duration_s: 6.5,
       timeline: [
-        { id: 'precip', atom: 'precipitateNucleation', anchor: 'pourPoint', window: [0, 0.45], intensity: 1.2, params: { morphology: 'gel', color: '#ffffff', nucleationRate: 85 } },
-        { id: 'stokes', atom: 'stokesSedimentation', anchor: 'bottom', window: [0.35, 1.0], intensity: 1.0, params: { stokesRadius_um: 5.5, sedimentColor: '#f1f5f9', bedHeight_mm: 7.0 } }
+        { id: 'mix', atom: 'liquidSwirl', anchor: 'pourPoint', window: [0, 0.6], intensity: 0.4, params: { speed: 0.7, color: '#f8fafc' } }
       ],
       after: {
         liquidColor: '#f8fafc',

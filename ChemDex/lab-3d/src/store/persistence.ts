@@ -1,13 +1,16 @@
-import { VesselState, BurnerState, LabActionHistory } from '../types/chemistry';
+import { VesselState, BurnerState, LabActionHistory, LabMaterialSnapshot } from '../types/chemistry';
+import { normalizeSpillFootprints } from '../engine/spillInventory';
 
 const STORAGE_KEY_VESSELS = 'chemlab_vessels_state_v2';
 const STORAGE_KEY_BURNERS = 'chemlab_burners_state_v2';
 const STORAGE_KEY_HISTORY = 'chemlab_action_history_v2';
+const STORAGE_KEY_PHYSICAL = 'chemlab_physical_state_v3';
 
 export interface PersistedLabState {
   vessels: Record<string, VesselState>;
   burners: Record<string, BurnerState>;
   savedAt: number;
+  materials?: LabMaterialSnapshot;
 }
 
 // Load locally saved state
@@ -15,6 +18,14 @@ export function loadPersistedLabState(): PersistedLabState | null {
   try {
     if (typeof window === 'undefined' || typeof localStorage === 'undefined' || !localStorage) {
       return null;
+    }
+    const physical = localStorage.getItem(STORAGE_KEY_PHYSICAL);
+    if (physical) {
+      const parsed = JSON.parse(physical) as PersistedLabState;
+      if (parsed.vessels && parsed.burners) {
+        if (parsed.materials?.spills) parsed.materials.spills = normalizeSpillFootprints(parsed.materials.spills);
+        return parsed;
+      }
     }
     const rawVessels = localStorage.getItem(STORAGE_KEY_VESSELS);
     const rawBurners = localStorage.getItem(STORAGE_KEY_BURNERS);
@@ -36,14 +47,15 @@ let saveTimer: any = null;
 
 export function debounceSaveLocalState(
   vessels: Record<string, VesselState>, 
-  burners: Record<string, BurnerState>
+  burners: Record<string, BurnerState>,
+  materials?: LabMaterialSnapshot,
 ) {
   if (saveTimer) clearTimeout(saveTimer);
   saveTimer = setTimeout(() => {
     try {
       if (typeof window === 'undefined' || typeof localStorage === 'undefined' || !localStorage) return;
-      localStorage.setItem(STORAGE_KEY_VESSELS, JSON.stringify(vessels));
-      localStorage.setItem(STORAGE_KEY_BURNERS, JSON.stringify(burners));
+      // One atomic record keeps airborne matter and the already depleted source together.
+      localStorage.setItem(STORAGE_KEY_PHYSICAL, JSON.stringify({ vessels, burners, materials, savedAt: Date.now() }));
     } catch (e) {
       console.warn('LocalStorage save error:', e);
     }
@@ -60,7 +72,8 @@ export function pushHistorySnapshot(
   vessels: Record<string, VesselState>,
   burners: Record<string, BurnerState>,
   description_en: string,
-  description_vi: string
+  description_vi: string,
+  materials?: LabMaterialSnapshot,
 ) {
   // If we undid and then did a new action, slice off future
   if (historyPointer < historyStack.length - 1) {
@@ -75,7 +88,8 @@ export function pushHistorySnapshot(
     description_vi,
     snapshot: {
       vessels: JSON.parse(JSON.stringify(vessels)),
-      burners: JSON.parse(JSON.stringify(burners))
+      burners: JSON.parse(JSON.stringify(burners)),
+      ...(materials ? { materials: JSON.parse(JSON.stringify(materials)) } : {})
     }
   };
 

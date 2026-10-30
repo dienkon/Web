@@ -1,0 +1,1700 @@
+{
+  "generatedAt": "2026-10-28T14:50:34.879Z",
+  "stockCount": 94,
+  "productCount": 38,
+  "scope": "Current shelf stock definitions and renderer appearance profiles, not an assertion that all reference-catalog reactions run in 3D.",
+  "limitations": [
+    "RGB and PBR coefficients are illustrative, not measured spectra.",
+    "Crystal meshes represent macroscopic stock habit, not crystallographic unit cells.",
+    "Density and molarity are existing catalog inputs; this audit does not independently certify every numeric value.",
+    "Particle sizes, aggregate shapes, wet-bed packing and all-attached metal deposits remain explicit approximations."
+  ],
+  "stocks": [
+    {
+      "formula": "H2O",
+      "name": "Nước cất",
+      "stockPhase": "l",
+      "molarMass_g_mol": 18.015,
+      "catalogDensity_g_ml": 1,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "HCl (dil)",
+      "name": "Axit Clohiđric (Loãng 1M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 36.46,
+      "catalogDensity_g_ml": 1.02,
+      "catalogConcentration_M": 1,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "H2SO4 (dil)",
+      "name": "Axit Sunfuric (Loãng 1M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 98.079,
+      "catalogDensity_g_ml": 1.06,
+      "catalogConcentration_M": 1,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "H2SO4 (conc)",
+      "name": "Axit Sunfuric (Đặc 98%)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 98.079,
+      "catalogDensity_g_ml": 1.84,
+      "catalogConcentration_M": 18,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "NaOH",
+      "name": "Natri Hiđroxit (1M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 39.997,
+      "catalogDensity_g_ml": 1.04,
+      "catalogConcentration_M": 1,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "Phenolphthalein",
+      "name": "Chỉ thị Phenolphtalein",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 318.32,
+      "catalogDensity_g_ml": 0.95,
+      "catalogConcentration_M": 0.05,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "CuSO4",
+      "name": "Đồng(II) Sunfat (0.5M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 159.609,
+      "catalogDensity_g_ml": 1.05,
+      "catalogConcentration_M": 0.5,
+      "color_sRGB": "#2563eb",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "Fe",
+      "name": "Sắt (Bột mịn)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 55.845,
+      "catalogDensity_g_ml": 7.87,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#73767b",
+      "form": "FILINGS",
+      "material": {
+        "color": "#73767b",
+        "metalness": 0.88,
+        "roughness": 0.48
+      },
+      "unitMeshVolume": 0.9999999961771958
+    },
+    {
+      "formula": "Cu",
+      "name": "Đồng (Phôi kim loại)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 63.546,
+      "catalogDensity_g_ml": 8.96,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#b87346",
+      "form": "TURNINGS",
+      "material": {
+        "color": "#b87346",
+        "metalness": 0.88,
+        "roughness": 0.28
+      },
+      "unitMeshVolume": 1.0000000174293686
+    },
+    {
+      "formula": "Zn",
+      "name": "Kẽm (Hạt kim loại)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 65.38,
+      "catalogDensity_g_ml": 7.14,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#9ca2a5",
+      "form": "GRANULES",
+      "material": {
+        "color": "#9ca2a5",
+        "metalness": 0.88,
+        "roughness": 0.28
+      },
+      "unitMeshVolume": 1.0000000462019756
+    },
+    {
+      "formula": "Mg",
+      "name": "Magiê (Dải kim loại)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 24.305,
+      "catalogDensity_g_ml": 1.74,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#bdc1c4",
+      "form": "RIBBON",
+      "material": {
+        "color": "#bdc1c4",
+        "metalness": 0.88,
+        "roughness": 0.28
+      },
+      "unitMeshVolume": 0.9999999934392304
+    },
+    {
+      "formula": "CaCO3",
+      "name": "Canxi Cacbonat (Đá vôi)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 100.086,
+      "catalogDensity_g_ml": 2.71,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#f8fafc",
+      "form": "POWDER",
+      "material": {
+        "color": "#f8fafc",
+        "metalness": 0,
+        "roughness": 0.93
+      },
+      "unitMeshVolume": 1.000000058427915
+    },
+    {
+      "formula": "NaCl",
+      "name": "Natri Clorua (Muối ăn)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 58.44,
+      "catalogDensity_g_ml": 2.16,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#ffffff",
+      "form": "CUBIC_CRYSTAL",
+      "material": {
+        "color": "#ffffff",
+        "metalness": 0,
+        "roughness": 0.27
+      },
+      "unitMeshVolume": 1
+    },
+    {
+      "formula": "NaNO3",
+      "name": "Natri Nitrat (1M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 84.99,
+      "catalogDensity_g_ml": 1.05,
+      "catalogConcentration_M": 1,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "AgNO3",
+      "name": "Bạc Nitrat (0.1M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 169.87,
+      "catalogDensity_g_ml": 1.02,
+      "catalogConcentration_M": 0.1,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "BaCl2",
+      "name": "Bari Clorua (0.2M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 208.23,
+      "catalogDensity_g_ml": 1.03,
+      "catalogConcentration_M": 0.2,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "Na2SO4",
+      "name": "Natri Sunfat (0.2M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 142.04,
+      "catalogDensity_g_ml": 1.03,
+      "catalogConcentration_M": 0.2,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "Na2CO3",
+      "name": "Natri Cacbonat (0.5M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 105.99,
+      "catalogDensity_g_ml": 1.04,
+      "catalogConcentration_M": 0.5,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "KI",
+      "name": "Kali Iotua (0.5M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 166,
+      "catalogDensity_g_ml": 1.05,
+      "catalogConcentration_M": 0.5,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "Pb(NO3)2",
+      "name": "Chì(II) Nitrat (0.2M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 331.2,
+      "catalogDensity_g_ml": 1.04,
+      "catalogConcentration_M": 0.2,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "H2O2 (30%)",
+      "name": "Oxy già đậm đặc (30%)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 34.015,
+      "catalogDensity_g_ml": 1.11,
+      "catalogConcentration_M": 9.8,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "MnO2",
+      "name": "Mangan Đioxit",
+      "stockPhase": "s",
+      "molarMass_g_mol": 86.94,
+      "catalogDensity_g_ml": 5.03,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#29272a",
+      "form": "POWDER",
+      "material": {
+        "color": "#29272a",
+        "metalness": 0,
+        "roughness": 0.93
+      },
+      "unitMeshVolume": 1.000000058427915
+    },
+    {
+      "formula": "KMnO4",
+      "name": "Kali Pemanganat (Thuốc tím)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 158.034,
+      "catalogDensity_g_ml": 1.01,
+      "catalogConcentration_M": 0.05,
+      "color_sRGB": "#86198f",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "KMnO4 (solid)",
+      "name": "Kali Pemanganat Tinh Thể",
+      "stockPhase": "s",
+      "molarMass_g_mol": 158.034,
+      "catalogDensity_g_ml": 2.7,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#322637",
+      "form": "PRISMATIC_CRYSTAL",
+      "material": {
+        "color": "#322637",
+        "metalness": 0,
+        "roughness": 0.27
+      },
+      "unitMeshVolume": 0.9999999194794527
+    },
+    {
+      "formula": "K2Cr2O7",
+      "name": "Kali Đicromat (0.1M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 294.185,
+      "catalogDensity_g_ml": 1.02,
+      "catalogConcentration_M": 0.1,
+      "color_sRGB": "#ea580c",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "K2Cr2O7 (solid)",
+      "name": "Kali Đicromat Tinh Thể",
+      "stockPhase": "s",
+      "molarMass_g_mol": 294.185,
+      "catalogDensity_g_ml": 2.68,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#d96b28",
+      "form": "TABULAR_CRYSTAL",
+      "material": {
+        "color": "#d96b28",
+        "metalness": 0,
+        "roughness": 0.27
+      },
+      "unitMeshVolume": 1.0000000268263853
+    },
+    {
+      "formula": "NH3",
+      "name": "Dung dịch Amoniac (2M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 17.031,
+      "catalogDensity_g_ml": 0.98,
+      "catalogConcentration_M": 2,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "HNO3 (conc)",
+      "name": "Axit Nitric (Đặc 68%)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 63.01,
+      "catalogDensity_g_ml": 1.41,
+      "catalogConcentration_M": 15,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "I2",
+      "name": "Iốt (Tinh thể rắn)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 253.8,
+      "catalogDensity_g_ml": 4.93,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#302e36",
+      "form": "LUSTROUS_PLATES",
+      "material": {
+        "color": "#302e36",
+        "metalness": 0.35,
+        "roughness": 0.28
+      },
+      "unitMeshVolume": 0.9999999929663438
+    },
+    {
+      "formula": "Na",
+      "name": "Natri (Kim loại kiềm)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 22.99,
+      "catalogDensity_g_ml": 0.971,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#cbd5e1",
+      "form": "PELLET",
+      "material": {
+        "color": "#cbd5e1",
+        "metalness": 0.88,
+        "roughness": 0.28
+      },
+      "unitMeshVolume": 1.0000000332072154
+    },
+    {
+      "formula": "Al",
+      "name": "Nhôm (Lá mỏng)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 26.98,
+      "catalogDensity_g_ml": 2.7,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#c6c9cb",
+      "form": "FOIL",
+      "material": {
+        "color": "#c6c9cb",
+        "metalness": 0.88,
+        "roughness": 0.28
+      },
+      "unitMeshVolume": 1.0000002302964384
+    },
+    {
+      "formula": "C (Carbon)",
+      "name": "Cacbon (Bột than hoạt tính)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 12.011,
+      "catalogDensity_g_ml": 2.2,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#242424",
+      "form": "POWDER",
+      "material": {
+        "color": "#242424",
+        "metalness": 0,
+        "roughness": 0.93
+      },
+      "unitMeshVolume": 1.000000058427915
+    },
+    {
+      "formula": "S",
+      "name": "Lưu huỳnh (Bột vàng)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 32.065,
+      "catalogDensity_g_ml": 2.07,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#ecd967",
+      "form": "POWDER",
+      "material": {
+        "color": "#ecd967",
+        "metalness": 0,
+        "roughness": 0.93
+      },
+      "unitMeshVolume": 1.000000058427915
+    },
+    {
+      "formula": "FeCl3",
+      "name": "Sắt(III) Clorua (0.1M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 162.2,
+      "catalogDensity_g_ml": 1.03,
+      "catalogConcentration_M": 0.1,
+      "color_sRGB": "#d97706",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "KSCN",
+      "name": "Kali Thioxianat (0.1M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 97.18,
+      "catalogDensity_g_ml": 1.02,
+      "catalogConcentration_M": 0.1,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "H2C2O4",
+      "name": "Axit Oxalic (0.1M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 90.03,
+      "catalogDensity_g_ml": 1.01,
+      "catalogConcentration_M": 0.1,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "Na2S2O3",
+      "name": "Natri Thiosunfat (0.1M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 158.11,
+      "catalogDensity_g_ml": 1.02,
+      "catalogConcentration_M": 0.1,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "KIO3",
+      "name": "Kali Iodat (0.05M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 214,
+      "catalogDensity_g_ml": 1.02,
+      "catalogConcentration_M": 0.05,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "NaHSO3",
+      "name": "Natri Bisunfit (0.05M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 104.06,
+      "catalogDensity_g_ml": 1.02,
+      "catalogConcentration_M": 0.05,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "Starch",
+      "name": "Hồ Tinh Bột Chỉ Thị (1%)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 162.14,
+      "catalogDensity_g_ml": 1,
+      "catalogConcentration_M": 0.05,
+      "color_sRGB": "#f8fafc",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "Al2(SO4)3",
+      "name": "Nhôm Sunfat (0.1M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 342.15,
+      "catalogDensity_g_ml": 1.03,
+      "catalogConcentration_M": 0.1,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "Ca(OH)2",
+      "name": "Canxi Hiđroxit (Nước vôi trong)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 74.093,
+      "catalogDensity_g_ml": 1,
+      "catalogConcentration_M": 0.02,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "CaCl2",
+      "name": "Canxi Clorua (0.2M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 110.98,
+      "catalogDensity_g_ml": 1.02,
+      "catalogConcentration_M": 0.2,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "K",
+      "name": "Kali Kim Loại (Viên cắt)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 39.098,
+      "catalogDensity_g_ml": 0.862,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#e2e8f0",
+      "form": "PELLET",
+      "material": {
+        "color": "#e2e8f0",
+        "metalness": 0.88,
+        "roughness": 0.28
+      },
+      "unitMeshVolume": 1.0000000332072154
+    },
+    {
+      "formula": "Mg (ribbon)",
+      "name": "Magie Dải (Ruy-băng)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 24.305,
+      "catalogDensity_g_ml": 1.74,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#bdc1c4",
+      "form": "RIBBON",
+      "material": {
+        "color": "#bdc1c4",
+        "metalness": 0.88,
+        "roughness": 0.28
+      },
+      "unitMeshVolume": 0.9999999934392304
+    },
+    {
+      "formula": "Mg (powder)",
+      "name": "Bột Magie",
+      "stockPhase": "s",
+      "molarMass_g_mol": 24.305,
+      "catalogDensity_g_ml": 1.74,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#94979a",
+      "form": "POWDER",
+      "material": {
+        "color": "#94979a",
+        "metalness": 0.15,
+        "roughness": 0.98
+      },
+      "unitMeshVolume": 1.000000058427915
+    },
+    {
+      "formula": "Zn (granules)",
+      "name": "Kẽm Hạt (Sần sùi)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 65.38,
+      "catalogDensity_g_ml": 7.14,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#9ca2a5",
+      "form": "GRANULES",
+      "material": {
+        "color": "#9ca2a5",
+        "metalness": 0.88,
+        "roughness": 0.28
+      },
+      "unitMeshVolume": 1.0000000462019756
+    },
+    {
+      "formula": "Zn (dust)",
+      "name": "Bột Kẽm Mịn",
+      "stockPhase": "s",
+      "molarMass_g_mol": 65.38,
+      "catalogDensity_g_ml": 7.14,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#737a7e",
+      "form": "POWDER",
+      "material": {
+        "color": "#737a7e",
+        "metalness": 0.15,
+        "roughness": 0.98
+      },
+      "unitMeshVolume": 1.000000058427915
+    },
+    {
+      "formula": "Fe (filings)",
+      "name": "Mạt Sắt Mịn",
+      "stockPhase": "s",
+      "molarMass_g_mol": 55.845,
+      "catalogDensity_g_ml": 7.87,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#62666b",
+      "form": "FILINGS",
+      "material": {
+        "color": "#62666b",
+        "metalness": 0.88,
+        "roughness": 0.48
+      },
+      "unitMeshVolume": 0.9999999961771958
+    },
+    {
+      "formula": "Fe (nail)",
+      "name": "Đinh Sắt Sáng Bóng",
+      "stockPhase": "s",
+      "molarMass_g_mol": 55.845,
+      "catalogDensity_g_ml": 7.87,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#85888c",
+      "form": "NAIL",
+      "material": {
+        "color": "#85888c",
+        "metalness": 0.88,
+        "roughness": 0.28
+      },
+      "unitMeshVolume": 0.9999998898020837
+    },
+    {
+      "formula": "Cu (turnings)",
+      "name": "Đồng Vụn / Dây Đồng Ánh Đỏ",
+      "stockPhase": "s",
+      "molarMass_g_mol": 63.546,
+      "catalogDensity_g_ml": 8.96,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#b87346",
+      "form": "TURNINGS",
+      "material": {
+        "color": "#b87346",
+        "metalness": 0.88,
+        "roughness": 0.28
+      },
+      "unitMeshVolume": 1.0000000174293686
+    },
+    {
+      "formula": "Al (foil)",
+      "name": "Lá Nhôm Mỏng",
+      "stockPhase": "s",
+      "molarMass_g_mol": 26.982,
+      "catalogDensity_g_ml": 2.7,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#c6c9cb",
+      "form": "FOIL",
+      "material": {
+        "color": "#c6c9cb",
+        "metalness": 0.88,
+        "roughness": 0.28
+      },
+      "unitMeshVolume": 1.0000002302964384
+    },
+    {
+      "formula": "I2 (solid)",
+      "name": "Iot Tinh Thể (Tím đen thăng hoa)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 253.808,
+      "catalogDensity_g_ml": 4.93,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#302e36",
+      "form": "LUSTROUS_PLATES",
+      "material": {
+        "color": "#302e36",
+        "metalness": 0.35,
+        "roughness": 0.28
+      },
+      "unitMeshVolume": 0.9999999929663438
+    },
+    {
+      "formula": "K2CrO4",
+      "name": "Kali Cromat (0.2M Vàng Chanh)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 194.19,
+      "catalogDensity_g_ml": 1.03,
+      "catalogConcentration_M": 0.2,
+      "color_sRGB": "#facc15",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "FeSO4",
+      "name": "Sắt(II) Sunfat (0.2M Xanh Lục Nhạt)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 151.91,
+      "catalogDensity_g_ml": 1.03,
+      "catalogConcentration_M": 0.2,
+      "color_sRGB": "#86efac",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "CuCl2",
+      "name": "Đồng(II) Clorua (0.2M Xanh Ngọc)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 134.45,
+      "catalogDensity_g_ml": 1.03,
+      "catalogConcentration_M": 0.2,
+      "color_sRGB": "#06b6d4",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "CoCl2",
+      "name": "Coban(II) Clorua (0.1M Hồng Đào)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 129.84,
+      "catalogDensity_g_ml": 1.02,
+      "catalogConcentration_M": 0.1,
+      "color_sRGB": "#f43f5e",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "NiSO4",
+      "name": "Niken(II) Sunfat (0.1M Xanh Lục Bảo)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 154.75,
+      "catalogDensity_g_ml": 1.02,
+      "catalogConcentration_M": 0.1,
+      "color_sRGB": "#10b981",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "CH3COOH (dil)",
+      "name": "Axit Axetic (Giấm Ăn 1M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 60.052,
+      "catalogDensity_g_ml": 1.01,
+      "catalogConcentration_M": 1,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "CH3COOH (glacial)",
+      "name": "Axit Axetic Băng (Nguyên chất 99.8%)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 60.052,
+      "catalogDensity_g_ml": 1.05,
+      "catalogConcentration_M": 17.4,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "NH3 (aq)",
+      "name": "Dung dịch amoniac (2 M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 17.031,
+      "catalogDensity_g_ml": 0.98,
+      "catalogConcentration_M": 2,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "KOH",
+      "name": "Kali Hiđroxit (1M Kiềm Mạnh)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 56.106,
+      "catalogDensity_g_ml": 1.05,
+      "catalogConcentration_M": 1,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "C2H5OH",
+      "name": "Cồn Etylic 96° (Rượu Etylic)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 46.069,
+      "catalogDensity_g_ml": 0.8,
+      "catalogConcentration_M": 16.5,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "CH3COCH3",
+      "name": "Axeton Tinh Khiết",
+      "stockPhase": "l",
+      "molarMass_g_mol": 58.08,
+      "catalogDensity_g_ml": 0.79,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "C6H12O6",
+      "name": "Đường Glucozơ Tinh Thể",
+      "stockPhase": "s",
+      "molarMass_g_mol": 180.16,
+      "catalogDensity_g_ml": 1.54,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#ffffff",
+      "form": "POWDER",
+      "material": {
+        "color": "#ffffff",
+        "metalness": 0,
+        "roughness": 0.93
+      },
+      "unitMeshVolume": 1.000000058427915
+    },
+    {
+      "formula": "Litmus",
+      "name": "Dung Dịch Quỳ Tím",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 330,
+      "catalogDensity_g_ml": 1,
+      "catalogConcentration_M": 0.01,
+      "color_sRGB": "#7c3aed",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "UniversalIndicator",
+      "name": "Chỉ Thị Vạn Năng (Phổ pH 1-14)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 280,
+      "catalogDensity_g_ml": 0.95,
+      "catalogConcentration_M": 0.02,
+      "color_sRGB": "#22c55e",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "NH4Cl",
+      "name": "Amoni Clorua Tinh Thể Trắng",
+      "stockPhase": "s",
+      "molarMass_g_mol": 53.491,
+      "catalogDensity_g_ml": 1.53,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#ffffff",
+      "form": "POWDER",
+      "material": {
+        "color": "#ffffff",
+        "metalness": 0,
+        "roughness": 0.93
+      },
+      "unitMeshVolume": 1.000000058427915
+    },
+    {
+      "formula": "NH4NO3",
+      "name": "Amoni Nitrat (Tan Thu Nhiệt Rất Lạnh)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 80.043,
+      "catalogDensity_g_ml": 1.72,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#ffffff",
+      "form": "GRANULES",
+      "material": {
+        "color": "#ffffff",
+        "metalness": 0,
+        "roughness": 0.93
+      },
+      "unitMeshVolume": 1.0000000462019756
+    },
+    {
+      "formula": "CaO",
+      "name": "Canxi Oxit (Vôi Sống)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 56.077,
+      "catalogDensity_g_ml": 3.34,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#ffffff",
+      "form": "POWDER",
+      "material": {
+        "color": "#ffffff",
+        "metalness": 0,
+        "roughness": 0.93
+      },
+      "unitMeshVolume": 1.000000058427915
+    },
+    {
+      "formula": "Hexane",
+      "name": "Hexan / Dung Môi Hữu Cơ (C6H14)",
+      "stockPhase": "l",
+      "molarMass_g_mol": 86.18,
+      "catalogDensity_g_ml": 0.66,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "CuSO4·5H2O",
+      "name": "Đồng(II) Sunfat Ngậm Nước (Tinh Thể Lam)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 249.677,
+      "catalogDensity_g_ml": 2.286,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#2589c5",
+      "form": "HYDRATE_CRYSTAL",
+      "material": {
+        "color": "#2589c5",
+        "metalness": 0,
+        "roughness": 0.27
+      },
+      "unitMeshVolume": 0.9999999863451898
+    },
+    {
+      "formula": "Cu(OH)2",
+      "name": "Đồng(II) Hiđroxit (Bột Lam Nhạt)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 97.56,
+      "catalogDensity_g_ml": 3.37,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#38bdf8",
+      "form": "POWDER",
+      "material": {
+        "color": "#38bdf8",
+        "metalness": 0,
+        "roughness": 0.93
+      },
+      "unitMeshVolume": 1.000000058427915
+    },
+    {
+      "formula": "CuO",
+      "name": "Đồng(II) Oxit (Bột Đen Tenorit)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 79.545,
+      "catalogDensity_g_ml": 6.31,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#242225",
+      "form": "POWDER",
+      "material": {
+        "color": "#242225",
+        "metalness": 0,
+        "roughness": 0.93
+      },
+      "unitMeshVolume": 1.000000058427915
+    },
+    {
+      "formula": "CaCO3 (chips)",
+      "name": "Đá Vôi (Đá Marble Hạt)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 100.086,
+      "catalogDensity_g_ml": 2.71,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#f1f5f9",
+      "form": "CHIPS",
+      "material": {
+        "color": "#f1f5f9",
+        "metalness": 0,
+        "roughness": 0.93
+      },
+      "unitMeshVolume": 1.0000000070795663
+    },
+    {
+      "formula": "BaSO4",
+      "name": "Bari Sunfat (Bột Trắng Không Tan)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 233.39,
+      "catalogDensity_g_ml": 4.5,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#ffffff",
+      "form": "POWDER",
+      "material": {
+        "color": "#ffffff",
+        "metalness": 0,
+        "roughness": 0.93
+      },
+      "unitMeshVolume": 1.000000058427915
+    },
+    {
+      "formula": "PbI2",
+      "name": "Chì(II) Iotua (Mưa Vàng Tinh Thể)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 461.01,
+      "catalogDensity_g_ml": 6.16,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#eab308",
+      "form": "POWDER",
+      "material": {
+        "color": "#eab308",
+        "metalness": 0,
+        "roughness": 0.93
+      },
+      "unitMeshVolume": 1.000000058427915
+    },
+    {
+      "formula": "AgCl",
+      "name": "Bạc Clorua (Kết Tủa Trắng Vón)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 143.32,
+      "catalogDensity_g_ml": 5.56,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#ffffff",
+      "form": "POWDER",
+      "material": {
+        "color": "#ffffff",
+        "metalness": 0,
+        "roughness": 0.93
+      },
+      "unitMeshVolume": 1.000000058427915
+    },
+    {
+      "formula": "Fe2O3",
+      "name": "Sắt(III) Oxit (Bột Đỏ Nâu)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 159.69,
+      "catalogDensity_g_ml": 5.24,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#8e3c2e",
+      "form": "POWDER",
+      "material": {
+        "color": "#8e3c2e",
+        "metalness": 0,
+        "roughness": 0.93
+      },
+      "unitMeshVolume": 1.000000058427915
+    },
+    {
+      "formula": "Al(OH)3",
+      "name": "Nhôm Hiđroxit (Bột Trắng Keo)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 78,
+      "catalogDensity_g_ml": 2.42,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#f8fafc",
+      "form": "POWDER",
+      "material": {
+        "color": "#f8fafc",
+        "metalness": 0,
+        "roughness": 0.93
+      },
+      "unitMeshVolume": 1.000000058427915
+    },
+    {
+      "formula": "NaOH (solid)",
+      "name": "Natri Hiđroxit Dạng Viên",
+      "stockPhase": "s",
+      "molarMass_g_mol": 39.997,
+      "catalogDensity_g_ml": 2.13,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#ffffff",
+      "form": "PELLET",
+      "material": {
+        "color": "#ffffff",
+        "metalness": 0,
+        "roughness": 0.93
+      },
+      "unitMeshVolume": 1.0000000332072154
+    },
+    {
+      "formula": "KOH (solid)",
+      "name": "Kali Hiđroxit Dạng Viên",
+      "stockPhase": "s",
+      "molarMass_g_mol": 56.105,
+      "catalogDensity_g_ml": 2.04,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#ffffff",
+      "form": "PELLET",
+      "material": {
+        "color": "#ffffff",
+        "metalness": 0,
+        "roughness": 0.93
+      },
+      "unitMeshVolume": 1.0000000332072154
+    },
+    {
+      "formula": "CoCl2.6H2O",
+      "name": "Coban(II) Clorua Ngậm 6 Nước (Đỏ Hồng)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 237.93,
+      "catalogDensity_g_ml": 1.92,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#be6686",
+      "form": "HYDRATE_CRYSTAL",
+      "material": {
+        "color": "#be6686",
+        "metalness": 0,
+        "roughness": 0.27
+      },
+      "unitMeshVolume": 0.9999999996849444
+    },
+    {
+      "formula": "NiSO4.6H2O",
+      "name": "Niken(II) Sunfat Ngậm 6 Nước (Lục Bảo)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 262.85,
+      "catalogDensity_g_ml": 2.07,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#459f82",
+      "form": "HYDRATE_CRYSTAL",
+      "material": {
+        "color": "#459f82",
+        "metalness": 0,
+        "roughness": 0.27
+      },
+      "unitMeshVolume": 0.9999999326916156
+    },
+    {
+      "formula": "FeSO4.7H2O",
+      "name": "Sắt(II) Sunfat Ngậm 7 Nước (Thanh Phàn)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 278.02,
+      "catalogDensity_g_ml": 1.895,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#a1bd9c",
+      "form": "HYDRATE_CRYSTAL",
+      "material": {
+        "color": "#a1bd9c",
+        "metalness": 0,
+        "roughness": 0.27
+      },
+      "unitMeshVolume": 1.000000032726872
+    },
+    {
+      "formula": "NaHCO3",
+      "name": "Natri Bicarbonat (Bột Nở / Muối Nở)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 84.007,
+      "catalogDensity_g_ml": 2.2,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#ffffff",
+      "form": "POWDER",
+      "material": {
+        "color": "#ffffff",
+        "metalness": 0,
+        "roughness": 0.93
+      },
+      "unitMeshVolume": 1.000000058427915
+    },
+    {
+      "formula": "CuSO4 (solid)",
+      "name": "Đồng(II) sunfat khan (bột trắng)",
+      "stockPhase": "s",
+      "molarMass_g_mol": 159.609,
+      "catalogDensity_g_ml": 3.6,
+      "catalogConcentration_M": null,
+      "color_sRGB": "#f5f3ed",
+      "form": "POWDER",
+      "material": {
+        "color": "#f5f3ed",
+        "metalness": 0,
+        "roughness": 0.93
+      },
+      "unitMeshVolume": 1.000000058427915
+    },
+    {
+      "formula": "CO2(aq)",
+      "name": "Nước hòa tan CO2 tham chiếu (0,01 M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 44.0095,
+      "catalogDensity_g_ml": 1,
+      "catalogConcentration_M": 0.01,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "CH3COOH",
+      "name": "Axit axetic (0,1 M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 60.052,
+      "catalogDensity_g_ml": 1,
+      "catalogConcentration_M": 0.1,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "CH3COONa",
+      "name": "Natri axetat (0,1 M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 82.034,
+      "catalogDensity_g_ml": 1,
+      "catalogConcentration_M": 0.1,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "CH3COOK",
+      "name": "Kali axetat (0,1 M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 98.142,
+      "catalogDensity_g_ml": 1,
+      "catalogConcentration_M": 0.1,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "NH4Cl(aq)",
+      "name": "Amoni clorua dung dịch (0,1 M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 53.491,
+      "catalogDensity_g_ml": 1,
+      "catalogConcentration_M": 0.1,
+      "color_sRGB": "#ffffff",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "Methyl_Orange",
+      "name": "Chỉ thị metyl da cam (0,0001 M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 327.34,
+      "catalogDensity_g_ml": 1,
+      "catalogConcentration_M": 0.0001,
+      "color_sRGB": "#facc15",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    },
+    {
+      "formula": "Bromothymol_Blue",
+      "name": "Chỉ thị bromothymol xanh (0,0001 M)",
+      "stockPhase": "aq",
+      "molarMass_g_mol": 624.4,
+      "catalogDensity_g_ml": 1,
+      "catalogConcentration_M": 0.0001,
+      "color_sRGB": "#22a65a",
+      "form": null,
+      "material": null,
+      "unitMeshVolume": null
+    }
+  ],
+  "products": [
+    {
+      "formula": "PbCl2",
+      "morphology": "fine_powder",
+      "color_sRGB": "#f8fafc",
+      "particleDensity_g_cm3": 5.85,
+      "illustrativePackingFraction": 0.3,
+      "physicalRadiusInput_mm": 0.001,
+      "explicitGlyphRadius_scene": 0.001,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "Ag2S",
+      "morphology": "fine_powder",
+      "color_sRGB": "#242225",
+      "particleDensity_g_cm3": 7.2,
+      "illustrativePackingFraction": 0.2,
+      "physicalRadiusInput_mm": 0.001,
+      "explicitGlyphRadius_scene": 0.001,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "Pb",
+      "morphology": "granular",
+      "color_sRGB": "#8e9397",
+      "particleDensity_g_cm3": 11.34,
+      "illustrativePackingFraction": 0.3,
+      "physicalRadiusInput_mm": 0.01,
+      "explicitGlyphRadius_scene": 0.0015,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "KFe[Fe(CN)6]",
+      "morphology": "fine_powder",
+      "color_sRGB": "#0c4a6e",
+      "particleDensity_g_cm3": 1.9,
+      "illustrativePackingFraction": 0.35,
+      "physicalRadiusInput_mm": 0.00005,
+      "explicitGlyphRadius_scene": 0.001,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "Cu2[Fe(CN)6]",
+      "morphology": "gel_like",
+      "color_sRGB": "#451a03",
+      "particleDensity_g_cm3": 4.5,
+      "illustrativePackingFraction": 0.08,
+      "physicalRadiusInput_mm": 0.001,
+      "explicitGlyphRadius_scene": 0.0015,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "C6H2Br3OH",
+      "morphology": "fine_powder",
+      "color_sRGB": "#f8fafc",
+      "particleDensity_g_cm3": 2.55,
+      "illustrativePackingFraction": 0.35,
+      "physicalRadiusInput_mm": 0.001,
+      "explicitGlyphRadius_scene": 0.001,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "C6H2Br3NH2",
+      "morphology": "fine_powder",
+      "color_sRGB": "#f8fafc",
+      "particleDensity_g_cm3": 2.35,
+      "illustrativePackingFraction": 0.35,
+      "physicalRadiusInput_mm": 0.001,
+      "explicitGlyphRadius_scene": 0.001,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "Ag",
+      "morphology": "granular",
+      "color_sRGB": "#cbd5e1",
+      "particleDensity_g_cm3": 10.5,
+      "illustrativePackingFraction": 0.3,
+      "physicalRadiusInput_mm": 0.01,
+      "explicitGlyphRadius_scene": 0.0015,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "Cu",
+      "morphology": "granular",
+      "color_sRGB": "#b45309",
+      "particleDensity_g_cm3": 8.96,
+      "illustrativePackingFraction": 0.3,
+      "physicalRadiusInput_mm": 0.01,
+      "explicitGlyphRadius_scene": 0.0015,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "BaSO4",
+      "morphology": "fine_powder",
+      "color_sRGB": "#f8fafc",
+      "particleDensity_g_cm3": 4.5,
+      "illustrativePackingFraction": 0.35,
+      "physicalRadiusInput_mm": 0.06,
+      "explicitGlyphRadius_scene": null,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "AgCl",
+      "morphology": "flocculent",
+      "color_sRGB": "#f1f5f9",
+      "particleDensity_g_cm3": 5.56,
+      "illustrativePackingFraction": 0.15,
+      "physicalRadiusInput_mm": 0.12,
+      "explicitGlyphRadius_scene": null,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "AgBr",
+      "morphology": "flocculent",
+      "color_sRGB": "#f5edcd",
+      "particleDensity_g_cm3": 6.47,
+      "illustrativePackingFraction": 0.15,
+      "physicalRadiusInput_mm": 0.12,
+      "explicitGlyphRadius_scene": null,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "AgI",
+      "morphology": "flocculent",
+      "color_sRGB": "#f6e58d",
+      "particleDensity_g_cm3": 5.67,
+      "illustrativePackingFraction": 0.15,
+      "physicalRadiusInput_mm": 0.12,
+      "explicitGlyphRadius_scene": null,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "PbI2",
+      "morphology": "fine_powder",
+      "color_sRGB": "#eab308",
+      "particleDensity_g_cm3": 6.16,
+      "illustrativePackingFraction": 0.3,
+      "physicalRadiusInput_mm": 0.08,
+      "explicitGlyphRadius_scene": null,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "Al(OH)3",
+      "morphology": "gel_like",
+      "color_sRGB": "#f8fafc",
+      "particleDensity_g_cm3": 2.42,
+      "illustrativePackingFraction": 0.08,
+      "physicalRadiusInput_mm": 0.12,
+      "explicitGlyphRadius_scene": null,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "Zn(OH)2",
+      "morphology": "gel_like",
+      "color_sRGB": "#f8fafc",
+      "particleDensity_g_cm3": 3.05,
+      "illustrativePackingFraction": 0.08,
+      "physicalRadiusInput_mm": 0.12,
+      "explicitGlyphRadius_scene": null,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "Mg(OH)2",
+      "morphology": "fine_powder",
+      "color_sRGB": "#f8fafc",
+      "particleDensity_g_cm3": 2.36,
+      "illustrativePackingFraction": 0.1,
+      "physicalRadiusInput_mm": 0.001,
+      "explicitGlyphRadius_scene": 0.001,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "Ca(OH)2",
+      "morphology": "fine_powder",
+      "color_sRGB": "#f8fafc",
+      "particleDensity_g_cm3": 2.24,
+      "illustrativePackingFraction": 0.35,
+      "physicalRadiusInput_mm": 0.001,
+      "explicitGlyphRadius_scene": 0.001,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "Ni(OH)2",
+      "morphology": "gel_like",
+      "color_sRGB": "#65a651",
+      "particleDensity_g_cm3": 4.1,
+      "illustrativePackingFraction": 0.08,
+      "physicalRadiusInput_mm": 0.001,
+      "explicitGlyphRadius_scene": 0.0015,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "Co(OH)2",
+      "morphology": "gel_like",
+      "color_sRGB": "#d68ca9",
+      "particleDensity_g_cm3": 3.597,
+      "illustrativePackingFraction": 0.08,
+      "physicalRadiusInput_mm": 0.001,
+      "explicitGlyphRadius_scene": 0.0015,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "Mn(OH)2",
+      "morphology": "flocculent",
+      "color_sRGB": "#f3eee9",
+      "particleDensity_g_cm3": 3.258,
+      "illustrativePackingFraction": 0.15,
+      "physicalRadiusInput_mm": 0.001,
+      "explicitGlyphRadius_scene": 0.0015,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "Fe(OH)2",
+      "morphology": "gel_like",
+      "color_sRGB": "#a1b39f",
+      "particleDensity_g_cm3": 3.4,
+      "illustrativePackingFraction": 0.1,
+      "physicalRadiusInput_mm": 0.001,
+      "explicitGlyphRadius_scene": 0.0015,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "Cu(OH)2",
+      "morphology": "gel_like",
+      "color_sRGB": "#6eadd2",
+      "particleDensity_g_cm3": 3.37,
+      "illustrativePackingFraction": 0.08,
+      "physicalRadiusInput_mm": 0.28,
+      "explicitGlyphRadius_scene": null,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "Fe(OH)3",
+      "morphology": "flocculent",
+      "color_sRGB": "#9a3412",
+      "particleDensity_g_cm3": 3.4,
+      "illustrativePackingFraction": 0.05,
+      "physicalRadiusInput_mm": 0.25,
+      "explicitGlyphRadius_scene": null,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "CaCO3",
+      "morphology": "granular",
+      "color_sRGB": "#e2e8f0",
+      "particleDensity_g_cm3": 2.71,
+      "illustrativePackingFraction": 0.4,
+      "physicalRadiusInput_mm": 0.15,
+      "explicitGlyphRadius_scene": null,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "CuS",
+      "morphology": "fine_powder",
+      "color_sRGB": "#18181b",
+      "particleDensity_g_cm3": 4.6,
+      "illustrativePackingFraction": 0.2,
+      "physicalRadiusInput_mm": 0.00005,
+      "explicitGlyphRadius_scene": 0.001,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "PbS",
+      "morphology": "fine_powder",
+      "color_sRGB": "#09090b",
+      "particleDensity_g_cm3": 7.6,
+      "illustrativePackingFraction": 0.2,
+      "physicalRadiusInput_mm": 0.0001,
+      "explicitGlyphRadius_scene": 0.001,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "ZnS",
+      "morphology": "fine_powder",
+      "color_sRGB": "#f8fafc",
+      "particleDensity_g_cm3": 4.09,
+      "illustrativePackingFraction": 0.35,
+      "physicalRadiusInput_mm": 0.0001,
+      "explicitGlyphRadius_scene": 0.001,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "Cu2O",
+      "morphology": "fine_powder",
+      "color_sRGB": "#b84326",
+      "particleDensity_g_cm3": 6,
+      "illustrativePackingFraction": 0.35,
+      "physicalRadiusInput_mm": 0.001,
+      "explicitGlyphRadius_scene": 0.001,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "Ag2CrO4",
+      "morphology": "fine_powder",
+      "color_sRGB": "#873727",
+      "particleDensity_g_cm3": 5.62,
+      "illustrativePackingFraction": 0.35,
+      "physicalRadiusInput_mm": 0.001,
+      "explicitGlyphRadius_scene": 0.001,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "BaCrO4",
+      "morphology": "fine_powder",
+      "color_sRGB": "#e8d341",
+      "particleDensity_g_cm3": 4.5,
+      "illustrativePackingFraction": 0.35,
+      "physicalRadiusInput_mm": 0.001,
+      "explicitGlyphRadius_scene": 0.001,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "PbCrO4",
+      "morphology": "fine_powder",
+      "color_sRGB": "#efc62b",
+      "particleDensity_g_cm3": 6.12,
+      "illustrativePackingFraction": 0.35,
+      "physicalRadiusInput_mm": 0.001,
+      "explicitGlyphRadius_scene": 0.001,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "PbSO4",
+      "morphology": "fine_powder",
+      "color_sRGB": "#f8fafc",
+      "particleDensity_g_cm3": 6.2,
+      "illustrativePackingFraction": 0.3,
+      "physicalRadiusInput_mm": 0.001,
+      "explicitGlyphRadius_scene": 0.001,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "CuI",
+      "morphology": "flocculent",
+      "color_sRGB": "#f2f0e9",
+      "particleDensity_g_cm3": 5.62,
+      "illustrativePackingFraction": 0.15,
+      "physicalRadiusInput_mm": 0.001,
+      "explicitGlyphRadius_scene": 0.001,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "BiI3",
+      "morphology": "fine_powder",
+      "color_sRGB": "#18181b",
+      "particleDensity_g_cm3": 5.778,
+      "illustrativePackingFraction": 0.35,
+      "physicalRadiusInput_mm": 0.001,
+      "explicitGlyphRadius_scene": 0.001,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "MnO2",
+      "morphology": "fine_powder",
+      "color_sRGB": "#3c302a",
+      "particleDensity_g_cm3": 5.026,
+      "illustrativePackingFraction": 0.35,
+      "physicalRadiusInput_mm": 0.001,
+      "explicitGlyphRadius_scene": 0.001,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "S",
+      "morphology": "fine_powder",
+      "color_sRGB": "#eee49b",
+      "particleDensity_g_cm3": 2.07,
+      "illustrativePackingFraction": 0.2,
+      "physicalRadiusInput_mm": 0.0001,
+      "explicitGlyphRadius_scene": 0.001,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    },
+    {
+      "formula": "CuO",
+      "morphology": "fine_powder",
+      "color_sRGB": "#0f172a",
+      "particleDensity_g_cm3": 6.31,
+      "illustrativePackingFraction": 0.35,
+      "physicalRadiusInput_mm": 0.08,
+      "explicitGlyphRadius_scene": null,
+      "transportCalibration": "illustrative; no species-specific measured size distribution or settling calibration"
+    }
+  ]
+}

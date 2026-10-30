@@ -111,11 +111,14 @@ describe('Decanting transfers actual phase inventory once', () => {
     const source = vessel('source', [item('H2O', 100, 'l'), item('NaCl', 1, 'aq')]);
     setup(source, { ...empty(), capacity_ml: 10 });
     await useAppStore.getState().pourVessel(source.id, 'target', 20);
-    const state = useAppStore.getState(), spill = Object.values(state.spills)[0];
+    expect(Object.values(useAppStore.getState().spills)).toHaveLength(0);
+    expect(useAppStore.getState().inFlightPours.reduce((sum, p) => sum + p.sample.volume_ml, 0)).toBeCloseTo(10, 10);
+    useAppStore.getState().advancePourTransport(2);
+    const state = useAppStore.getState(), spills = Object.values(state.spills);
     expect(state.vessels[source.id].volume_ml).toBe(80);
     expect(state.vessels.target.volume_ml).toBe(10);
-    expect(spill.volume_ml).toBe(10);
-    expect(state.vessels[source.id].mass_g + state.vessels.target.mass_g + spill.mass_g!).toBeCloseTo(101, 10);
+    expect(spills.reduce((sum, s) => sum + s.volume_ml, 0)).toBeCloseTo(10, 10);
+    expect(state.vessels[source.id].mass_g + state.vessels.target.mass_g + spills.reduce((sum, s) => sum + s.mass_g, 0)).toBeCloseTo(101, 10);
   });
   it('keeps handcrafted reactions beyond the native solver available after a pour', async () => {
     const source = vessel('source', [item('H2O', 100, 'l'), item('Na2S', computeMolarMass('Na2S') * 0.001, 'aq')]);
@@ -144,7 +147,7 @@ describe('Decanting transfers actual phase inventory once', () => {
     setup(source);
     PourController.beginPour({ sourceId: source.id, targetId: 'target', mode: 'ASSIST', requestedVolume_ml: 15 });
     PourController.setTilt(1.25);
-    for (let i = 0; i < 120 && PourController.getSession()?.phase !== 'dripping'; i++) PourController.tick(1 / 60);
+    for (let i = 0; i < 120 && (PourController.getSession()?.phase !== 'dripping' || (PourController.getSession()?.inFlight_ml ?? 0) > 1e-8); i++) PourController.tick(1 / 60);
     const session = PourController.getSession()!;
     expect(session.transferred_ml).toBeCloseTo(15, 8);
     const state = useAppStore.getState();
@@ -166,7 +169,7 @@ describe('Decanting transfers actual phase inventory once', () => {
     setup(source);
     PourController.beginPour({ sourceId: source.id, targetId: null, mode: 'TABLE', requestedVolume_ml: 5 });
     PourController.setTilt(1.4);
-    for (let i = 0; i < 180 && PourController.getSession()?.phase !== 'dripping'; i++) PourController.tick(1 / 60);
+    for (let i = 0; i < 180 && (PourController.getSession()?.phase !== 'dripping' || (PourController.getSession()?.inFlight_ml ?? 0) > 1e-8); i++) PourController.tick(1 / 60);
     const session = PourController.getSession()!;
     expect(session.spilled_ml).toBeCloseTo(5, 8);
     const beforeCommit = useAppStore.getState().vessels[source.id];

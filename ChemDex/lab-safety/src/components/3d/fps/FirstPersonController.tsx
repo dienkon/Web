@@ -6,6 +6,8 @@ import { resolveCapsuleMovement, LAB_BOUNDS } from '../../../core/simulation/Col
 import { spatialSound } from '../../../audio/SpatialSoundEngine';
 import { inputManager } from '../../../systems/input/InputManager';
 import { dispatchInteractionInput } from '../../../systems/input/InteractionBus';
+import {useReducedLabMotion} from '../../../systems/device/useReducedLabMotion';
+import {useCoarsePointer} from '../../../systems/device/useCoarsePointer';
 
 const putAwayCurrentItem = () => {
   const store = useStore.getState();
@@ -23,6 +25,8 @@ const inspectHotbarSlot = (slot: number) => {
 
 export const FirstPersonController: React.FC = () => {
   const { camera, gl } = useThree();
+  const reduced=useReducedLabMotion(),coarse=useCoarsePointer();
+  const cameraEuler=useRef(new THREE.Euler(0,0,0,'YXZ'));
 
   const view = useStore((s) => s.view);
   const cinematic = useStore(s => s.cinematic);
@@ -252,7 +256,7 @@ export const FirstPersonController: React.FC = () => {
       currentVelX.current = 0;
       currentVelZ.current = 0;
       // Keep camera oriented towards current pitch/yaw
-      const euler = new THREE.Euler(pitch.current, yaw.current, 0, 'YXZ');
+      const euler = cameraEuler.current.set(pitch.current,yaw.current,0,'YXZ');
       camera.quaternion.setFromEuler(euler);
       camera.position.set(
         playerCoords.position[0],
@@ -281,10 +285,10 @@ export const FirstPersonController: React.FC = () => {
 
     // Speeds: Crouch = 0.9 m/s, Walk = 1.6 m/s, Run = 3.2 m/s
     const targetEyeH = crouch ? 1.05 : 1.62;
-    currentEyeHeight.current = THREE.MathUtils.lerp(
+    currentEyeHeight.current = THREE.MathUtils.damp(
       currentEyeHeight.current,
       targetEyeH,
-      Math.min(1, frameDelta * 10)
+      10,frameDelta
     );
 
     let moveSpeed = 1.6;
@@ -319,15 +323,15 @@ export const FirstPersonController: React.FC = () => {
 
     // Damped acceleration & deceleration for silky-smooth response (eliminates all stutter)
     const dampSpeed = hasInput ? 18 : 22;
-    currentVelX.current = THREE.MathUtils.lerp(
+    currentVelX.current = THREE.MathUtils.damp(
       currentVelX.current,
       targetVelX,
-      Math.min(1, frameDelta * dampSpeed)
+      dampSpeed,frameDelta
     );
-    currentVelZ.current = THREE.MathUtils.lerp(
+    currentVelZ.current = THREE.MathUtils.damp(
       currentVelZ.current,
       targetVelZ,
-      Math.min(1, frameDelta * dampSpeed)
+      dampSpeed,frameDelta
     );
 
     const currentSpeedSq =
@@ -363,8 +367,8 @@ export const FirstPersonController: React.FC = () => {
       playerCoords.isMoving = actuallyMoved;
 
       // Head bobbing (disabled if reduceMotion is on)
-      if (!settings.reduceMotion) {
-        headBobTimer.current += frameDelta * (shift ? 14 : 9);
+      if (!reduced) {
+        headBobTimer.current += frameDelta * (shift ? 14 : 9)*Math.min(1,Math.sqrt(currentSpeedSq)/moveSpeed);
       }
     } else {
       playerCoords.isMoving = false;
@@ -383,12 +387,12 @@ export const FirstPersonController: React.FC = () => {
 
     // Compute head-bob offset
     let bobY = 0;
-    if (playerCoords.isMoving && !settings.reduceMotion) {
-      bobY = Math.sin(headBobTimer.current) * (shift ? 0.035 : 0.02);
+    if (playerCoords.isMoving && !reduced) {
+      bobY = Math.sin(headBobTimer.current) * (coarse?(shift?.015:.008):(shift?.035:.02));
     }
 
     // Apply orientation and position to Camera
-    const euler = new THREE.Euler(pitch.current, yaw.current, 0, 'YXZ');
+    const euler = cameraEuler.current.set(pitch.current, yaw.current, 0, 'YXZ');
     camera.quaternion.setFromEuler(euler);
     playerCoords.rotationY = yaw.current;
 

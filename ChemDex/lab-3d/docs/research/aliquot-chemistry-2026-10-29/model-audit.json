@@ -1,0 +1,443 @@
+{
+  "node": "v26.7.0",
+  "supportedPrograms": 48,
+  "rows": [
+    {
+      "id": "hcl_naoh",
+      "selected": "hcl_naoh",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.2223948374761
+    },
+    {
+      "id": "h2so4_naoh",
+      "selected": "h2so4_naoh",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 1.1102230246251565e-16,
+      "massError_g": 0,
+      "temperature_c": 25.444789674952197
+    },
+    {
+      "id": "hno3_koh",
+      "selected": "hno3_koh",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.2223948374761
+    },
+    {
+      "id": "h2so4_nh3",
+      "selected": "h2so4_nh3",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.252011373740064
+    },
+    {
+      "id": "hcl_caoh2",
+      "selected": "hcl_caoh2",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.26055175918348
+    },
+    {
+      "id": "h2so4_baoh2",
+      "selected": "h2so4_baoh2",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 1.1102230246251565e-16,
+      "massError_g": 0,
+      "temperature_c": 25.406713240744516
+    },
+    {
+      "id": "hno3_naoh",
+      "selected": "hno3_naoh",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.2223948374761
+    },
+    {
+      "id": "bacl2_na2so4",
+      "selected": "bacl2_na2so4",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 5.551115123125783e-17,
+      "massError_g": 0,
+      "temperature_c": 25.077509687547415
+    },
+    {
+      "id": "bacl2_h2so4",
+      "selected": "bacl2_h2so4",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 1.1102230246251565e-16,
+      "massError_g": 0,
+      "temperature_c": 25.07753376508829
+    },
+    {
+      "id": "agno3_nacl",
+      "selected": "agno3_nacl",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.26041203118826
+    },
+    {
+      "id": "agno3_kbr",
+      "selected": "agno3_kbr",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.336194010867917
+    },
+    {
+      "id": "agno3_ki",
+      "selected": "agno3_ki",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.51712701386722
+    },
+    {
+      "id": "pbno32_ki",
+      "selected": "pbno32_ki",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.147006634681706
+    },
+    {
+      "id": "cacl2_na2co3",
+      "selected": "cacl2_na2co3",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 24.969291947422043
+    },
+    {
+      "id": "cuso4_naoh",
+      "selected": "cuso4_naoh",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 1.1102230246251565e-16,
+      "massError_g": 0,
+      "temperature_c": 25.153254646442928
+    },
+    {
+      "id": "fecl3_naoh",
+      "selected": "fecl3_naoh",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.336599370820146
+    },
+    {
+      "id": "feso4_naoh",
+      "selected": "feso4_naoh",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.046435429050252
+    },
+    {
+      "id": "alcl3_naoh",
+      "selected": "alcl3_naoh",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 6.776263578034403e-21,
+      "massError_g": 0,
+      "temperature_c": 25.017127061294897
+    },
+    {
+      "id": "na2s_cuso4",
+      "selected": "na2s_cuso4",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.954051147227535
+    },
+    {
+      "id": "na2s_pbno32",
+      "selected": "na2s_pbno32",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 5.551115123125783e-17,
+      "massError_g": 0,
+      "temperature_c": 25.839507648183556
+    },
+    {
+      "id": "k2cro4_bacl2",
+      "selected": "k2cro4_bacl2",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.070753245707948
+    },
+    {
+      "id": "k2cro4_agno3",
+      "selected": "k2cro4_agno3",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 5.551115123125783e-17,
+      "massError_g": 0,
+      "temperature_c": 25.242989165073293
+    },
+    {
+      "id": "cl2_kbr",
+      "selected": "cl2_kbr",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.370458891013385
+    },
+    {
+      "id": "fecl3_kscn",
+      "selected": "fecl3_kscn",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.1434034416826
+    },
+    {
+      "id": "k2cr2o7_naoh",
+      "selected": "k2cr2o7_naoh",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.39009719566603
+    },
+    {
+      "id": "k2cro4_h2so4",
+      "selected": "k2cro4_h2so4",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.05469247928617
+    },
+    {
+      "id": "cocl2_hcl",
+      "selected": "cocl2_hcl",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 1.1102230246251565e-16,
+      "massError_g": 0,
+      "temperature_c": 24.936622217675954
+    },
+    {
+      "id": "fecl3_3kscn",
+      "selected": "fecl3_3kscn",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.095602294455066
+    },
+    {
+      "id": "fecl3_k4fecn6",
+      "selected": "fecl3_k4fecn6",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.167304015296367
+    },
+    {
+      "id": "feso4_k3fecn6",
+      "selected": "feso4_k3fecn6",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.112025972370915
+    },
+    {
+      "id": "cuso4_k4fecn6",
+      "selected": "cuso4_k4fecn6",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.08167035260095
+    },
+    {
+      "id": "niso4_naoh",
+      "selected": "niso4_naoh",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.074670036663722
+    },
+    {
+      "id": "znso4_naoh",
+      "selected": "znso4_naoh",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.07000315937224
+    },
+    {
+      "id": "mgcl2_naoh",
+      "selected": "mgcl2_naoh",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 5.551115123125783e-17,
+      "massError_g": 0,
+      "temperature_c": 25.042250917155812
+    },
+    {
+      "id": "bino33_ki",
+      "selected": "bino33_ki",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.10500473905836
+    },
+    {
+      "id": "znso4_na2s",
+      "selected": "znso4_na2s",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.276822073832342
+    },
+    {
+      "id": "agno3_k2cro4",
+      "selected": "agno3_k2cro4",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.100233764752925
+    },
+    {
+      "id": "bacl2_k2cro4",
+      "selected": "bacl2_k2cro4",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.065336282080757
+    },
+    {
+      "id": "pbno32_k2cro4",
+      "selected": "pbno32_k2cro4",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.103181816657422
+    },
+    {
+      "id": "pbno32_na2so4",
+      "selected": "pbno32_na2so4",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.046668772914828
+    },
+    {
+      "id": "cuso4_ki",
+      "selected": "cuso4_ki",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.112005054995585
+    },
+    {
+      "id": "ki_cl2",
+      "selected": "ki_cl2",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.70108349267049
+    },
+    {
+      "id": "kbr_cl2",
+      "selected": "kbr_cl2",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.274168827118295
+    },
+    {
+      "id": "na2s2o3_i2",
+      "selected": "na2s2o3_i2",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.27087316762269
+    },
+    {
+      "id": "feso4_kmno4_h2so4",
+      "selected": "feso4_kmno4_h2so4",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 5.551115123125783e-17,
+      "massError_g": 0,
+      "temperature_c": 27.89215719507764
+    },
+    {
+      "id": "al2so43_naoh",
+      "selected": "al2so43_naoh",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 0,
+      "massError_g": 0,
+      "temperature_c": 25.03428366747999
+    },
+    {
+      "id": "alcl3_naoh_excess",
+      "selected": "alcl3_naoh_excess",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 1.1102230246251565e-16,
+      "massError_g": 0,
+      "temperature_c": 25.014286104956074
+    },
+    {
+      "id": "al2so43_naoh_excess",
+      "selected": "al2so43_naoh_excess",
+      "changed": true,
+      "modelLimit": null,
+      "maxAtomError_mol": 2.710505431213761e-20,
+      "massError_g": 0,
+      "temperature_c": 25.028572223433205
+    }
+  ],
+  "benchmark": {
+    "scope": "CPU only, 24 progressively reacting samples per 1/120 s step; not GPU FPS or renderer",
+    "median_ms": 1.3346999999998843,
+    "p95_ms": 1.805699999999888
+  }
+}

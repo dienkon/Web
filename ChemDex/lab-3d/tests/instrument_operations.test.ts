@@ -21,7 +21,8 @@ function vessel(id: string, x: number, volume = 20): VesselState {
 describe('Shared keyboard and 3D instrument operations', () => {
   beforeEach(() => {
     useAppStore.setState({ vessels: { source: vessel('source', -2), receiver: vessel('receiver', 2, 0) }, vesselIds: ['source', 'receiver'], selectedVesselId: 'source', moveMode: false, activeKinetics: {}, burners: {} });
-    useInstrumentStore.setState({ pipetteSample: null, balanceTare_g: 0, notices: [], sequence: 0 });
+    useAppStore.getState().setPipetteSample(null);
+    useInstrumentStore.setState({ balanceTare_g: 0, notices: [], sequence: 0 });
     useToolDockStore.setState({ positions: {}, dragging: null });
   });
 
@@ -34,8 +35,8 @@ describe('Shared keyboard and 3D instrument operations', () => {
     expect(dispensePipette(2.5).ok).toBe(true);
     expect(useAppStore.getState().vessels.receiver.contents.find(item => item.formula === 'NaCl')?.moles).toBeCloseTo(0.00025, 10);
     const state = useAppStore.getState();
-    expect(state.vessels.source.mass_g + state.vessels.receiver.mass_g + useInstrumentStore.getState().pipetteSample!.mass_g).toBeCloseTo(20, 8);
-    expect(useInstrumentStore.getState().pipetteSample?.volume_ml).toBe(7.5);
+    expect(state.vessels.source.mass_g + state.vessels.receiver.mass_g + state.pipetteSample!.mass_g).toBeCloseTo(20, 8);
+    expect(state.pipetteSample?.volume_ml).toBe(7.5);
   });
 
   it('dispenses finite Studio doses into the explicit target while preserving the selected source', () => {
@@ -43,7 +44,7 @@ describe('Shared keyboard and 3D instrument operations', () => {
     expect(useAppStore.getState().vessels.receiver.volume_ml).toBe(0);
     expect(aspiratePipette(0.12).ok).toBe(true);
     const source = useAppStore.getState().vessels.source;
-    const beforeMass = source.mass_g + useInstrumentStore.getState().pipetteSample!.mass_g;
+    const beforeMass = source.mass_g + useAppStore.getState().pipetteSample!.mass_g;
     for (const expected of [0.05, 0.05, 0.02]) {
       expect(dispensePipette(0.05, 'receiver').transferred_ml).toBeCloseTo(expected, 10);
     }
@@ -58,11 +59,11 @@ describe('Shared keyboard and 3D instrument operations', () => {
 
   it('rejects an invalid explicit target without falling back to the selected vessel', () => {
     expect(aspiratePipette(1).ok).toBe(true);
-    const sample = useInstrumentStore.getState().pipetteSample;
+    const sample = useAppStore.getState().pipetteSample;
     const source = useAppStore.getState().vessels.source;
     expect(dispensePipette(0.05, 'missing').ok).toBe(false);
     expect(dispensePipette(0.05, '').ok).toBe(false);
-    expect(useInstrumentStore.getState().pipetteSample).toBe(sample);
+    expect(useAppStore.getState().pipetteSample).toBe(sample);
     expect(useAppStore.getState().vessels.source).toBe(source);
   });
 
@@ -73,7 +74,7 @@ describe('Shared keyboard and 3D instrument operations', () => {
     expect(aspiratePipette(Number.NaN).ok).toBe(false);
     useAppStore.setState({ vessels: { lesson_vessel_test: vessel('lesson_vessel_test', 0) }, selectedVesselId: 'lesson_vessel_test' });
     expect(aspiratePipette().ok).toBe(false);
-    expect(useInstrumentStore.getState().pipetteSample).toBeNull();
+    expect(useAppStore.getState().pipetteSample).toBeNull();
   });
 
   it('shares TARE and shows a negative reading after the tared vessel is removed', () => {

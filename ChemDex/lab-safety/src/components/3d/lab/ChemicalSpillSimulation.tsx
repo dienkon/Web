@@ -1,3 +1,5 @@
+import { WarningConeAsset } from '../assets/ScenePropAssets';
+import { useReducedLabMotion } from '../../../systems/device/useReducedLabMotion';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
@@ -9,7 +11,7 @@ import { useTaskProximity } from './useTaskProximity';
 import { isSceneInputBlocked } from '../../../systems/input/sceneInput';
 import { useInteractionStore } from '../../../core/InteractionSystem';
 import { interactionBus, INTERACTION_PRIORITY } from '../../../systems/input/InteractionBus';
-const SPILL_POS: [number,number,number]=[2.5,.015,1];
+const SPILL_POS: [number,number,number]=[2.5,.001,1];
 export function ChemicalSpillSimulation(){
  const phase=useStore(s=>s.currentPhase),player=useStore(s=>s.player),tool=useStore(s=>s.activeTool),startTime=useStore(s=>s.startTime);
  const spillState=player.flags.spillStage??'hazard',neutralizeProgress=player.flags.spillProgress??0;
@@ -17,12 +19,13 @@ export function ChemicalSpillSimulation(){
  const vaporPointsRef=useRef<THREE.Points>(null),foamRef=useRef<THREE.Group>(null);
  const isNear=useTaskProximity(SPILL_POS,2.4,['task_spill_neutralize','task_spill_wipe'],false);
  const active=phase===3&&isNear&&tool==='spillKit'&&spillState!=='cleaned';
- const vaporCount=35;
+ const vaporCount=35,reduced=useReducedLabMotion();
  const vaporPositions=useMemo(()=>Float32Array.from({length:vaporCount*3},(_,i)=>i%3===1?Math.random()*.4:(Math.random()-.5)*.9),[]);
  useEffect(()=>setOpen(null),[startTime]);
  useFrame((_,delta)=>{
-  if(phase!==3||isSceneInputBlocked())return;
-  if(vaporPointsRef.current&&(spillState==='hazard'||spillState==='cones_placed')){
+  if(phase!==3||isSceneInputBlocked()||document.hidden)return;
+  delta=Math.min(delta,.05);
+  if(!reduced&&vaporPointsRef.current&&(spillState==='hazard'||spillState==='cones_placed')){
    const attr=vaporPointsRef.current.geometry.attributes.position;for(let i=0;i<vaporCount;i++){attr.array[i*3+1]+=delta*.35;if(attr.array[i*3+1]>.8)attr.array[i*3+1]=.02;}attr.needsUpdate=true;
   }
   if(foamRef.current)foamRef.current.scale.setScalar(.5+neutralizeProgress/200);
@@ -125,59 +128,7 @@ export function ChemicalSpillSimulation(){
         </group>
       )}
 
-      {/* 2. Perimeter Warning Cones (Visible once placed) */}
-      {spillState !== 'hazard' && (
-        <group>
-          {/* Cone 1 */}
-          <group position={[-0.9, 0, -0.6]}>
-            <mesh position={[0, 0.02, 0]}>
-              <boxGeometry args={[0.22, 0.04, 0.22]} />
-              <meshStandardMaterial color="#F59E0B" />
-            </mesh>
-            <mesh position={[0, 0.2, 0]}>
-              <coneGeometry args={[0.09, 0.36, 16]} />
-              <meshStandardMaterial color="#F59E0B" roughness={0.3} />
-            </mesh>
-            {/* Reflective White Stripe */}
-            <mesh position={[0, 0.18, 0]}>
-              <cylinderGeometry args={[0.065, 0.075, 0.08, 16]} />
-              <meshBasicMaterial color="#FFFFFF" />
-            </mesh>
-          </group>
-
-          {/* Cone 2 */}
-          <group position={[0.95, 0, -0.4]}>
-            <mesh position={[0, 0.02, 0]}>
-              <boxGeometry args={[0.22, 0.04, 0.22]} />
-              <meshStandardMaterial color="#F59E0B" />
-            </mesh>
-            <mesh position={[0, 0.2, 0]}>
-              <coneGeometry args={[0.09, 0.36, 16]} />
-              <meshStandardMaterial color="#F59E0B" roughness={0.3} />
-            </mesh>
-            <mesh position={[0, 0.18, 0]}>
-              <cylinderGeometry args={[0.065, 0.075, 0.08, 16]} />
-              <meshBasicMaterial color="#FFFFFF" />
-            </mesh>
-          </group>
-
-          {/* Cone 3 */}
-          <group position={[0, 0, 0.95]}>
-            <mesh position={[0, 0.02, 0]}>
-              <boxGeometry args={[0.22, 0.04, 0.22]} />
-              <meshStandardMaterial color="#F59E0B" />
-            </mesh>
-            <mesh position={[0, 0.2, 0]}>
-              <coneGeometry args={[0.09, 0.36, 16]} />
-              <meshStandardMaterial color="#F59E0B" roughness={0.3} />
-            </mesh>
-            <mesh position={[0, 0.18, 0]}>
-              <cylinderGeometry args={[0.065, 0.075, 0.08, 16]} />
-              <meshBasicMaterial color="#FFFFFF" />
-            </mesh>
-          </group>
-        </group>
-      )}
+      {spillState!=='hazard'&&[[-.9,0,-.6],[.95,0,-.4],[0,0,.95]].map(([x,y,z],i)=><group key={i} position={[x,y,z]}><WarningConeAsset/></group>)}
 
  {open&&<SceneHtml zIndexRange={[1500,0]}><PracticalSimulation key={open} work={PRACTICAL_WORK[open]} initialStep={Math.max(0,Math.min(PRACTICAL_WORK[open].steps.length,Number(open==='spill-neutralize'?player.flags.spillNeutralizeStep:player.flags.spillCollectStep)||0))} onClose={()=>setOpen(null)} onStep={step=>{
   useStore.setState(s=>({player:{...s.player,flags:{...s.player.flags,...(open==='spill-neutralize'?{spillNeutralizeStep:step,spillStage:step>=4?'cones_placed' as const:'hazard' as const,spillProgress:Math.max(0,(step-4)/5*100)}:{spillCollectStep:step})}}}));useStore.getState().saveGame();

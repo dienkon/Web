@@ -1,3 +1,4 @@
+import {useQualityStore,getQualitySettings} from '../../../vfx/quality';
 import React, { useRef, useState, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
@@ -16,11 +17,15 @@ const glassMaterial = new THREE.MeshPhysicalMaterial({
   opacity: 0.82,
 });
 
+const lightweightGlass=new THREE.MeshStandardMaterial({color:'#e6f4ef',transparent:true,opacity:.18,roughness:.12,depthWrite:false});
+
 export const InteractiveBuretteApparatus = React.memo(function InteractiveBuretteApparatus({
   position = LAB_PHYSICS.BURETTE_STAND_POSITION,
 }: {
   position?: [number, number, number];
 }) {
+  const transmission=useQualityStore(state=>getQualitySettings(state.effectiveTier).glassTransmission);
+  const activeGlassMaterial=transmission?glassMaterial:lightweightGlass;
   const burette = useAppStore(state => state.burette);
   const toggleStopcock = useAppStore(state => state.toggleBuretteStopcock);
   const dispenseDrop = useAppStore(state => state.dispenseBuretteDrop);
@@ -129,7 +134,7 @@ export const InteractiveBuretteApparatus = React.memo(function InteractiveBurett
       </group>
 
       {/* Burette Glass Column Body (3.2m scaled) */}
-      <mesh material={glassMaterial} position={[0, 2.0, 0]}>
+      <mesh material={activeGlassMaterial} position={[0, 2.0, 0]}>
         <cylinderGeometry args={[0.085, 0.085, 3.2, 24, 1, true]} />
       </mesh>
 
@@ -205,7 +210,7 @@ export const InteractiveBuretteApparatus = React.memo(function InteractiveBurett
       </group>
 
       {/* Burette Glass Capillary Delivery Tip */}
-      <mesh material={glassMaterial} position={[0, 0.1, 0]}>
+      <mesh material={activeGlassMaterial} position={[0, 0.1, 0]}>
         <cylinderGeometry args={[0.05, 0.015, 0.4, 16]} />
       </mesh>
 

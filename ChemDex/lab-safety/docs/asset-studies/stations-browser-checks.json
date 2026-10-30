@@ -1,0 +1,345 @@
+{
+  "passed": true,
+  "checks": [
+    "finite solid geometry: fume-hood/front",
+    "finite solid geometry: fume-hood/three-quarter",
+    "bottom rests on support plane: fume-hood",
+    "bounded asset draw calls: fume-hood / 49",
+    "finite solid geometry: fume-hood/back",
+    "finite solid geometry: fume-hood/top",
+    "finite solid geometry: fume-hood-open/front",
+    "finite solid geometry: fume-hood-open/three-quarter",
+    "bottom rests on support plane: fume-hood-open",
+    "bounded asset draw calls: fume-hood-open / 49",
+    "finite solid geometry: fume-hood-open/back",
+    "finite solid geometry: fume-hood-open/top",
+    "finite solid geometry: sink-basin/front",
+    "finite solid geometry: sink-basin/three-quarter",
+    "bottom rests on support plane: sink-basin",
+    "bounded asset draw calls: sink-basin / 4",
+    "finite solid geometry: sink-basin/back",
+    "finite solid geometry: sink-basin/top",
+    "finite solid geometry: bench-sink/front",
+    "finite solid geometry: bench-sink/three-quarter",
+    "bottom rests on support plane: bench-sink",
+    "bounded asset draw calls: bench-sink / 9",
+    "finite solid geometry: bench-sink/back",
+    "finite solid geometry: bench-sink/top",
+    "finite solid geometry: faucet/front",
+    "finite solid geometry: faucet/three-quarter",
+    "bottom rests on support plane: faucet",
+    "bounded asset draw calls: faucet / 5",
+    "finite solid geometry: faucet/back",
+    "finite solid geometry: faucet/top",
+    "finite solid geometry: handwash/front",
+    "finite solid geometry: handwash/three-quarter",
+    "bottom rests on support plane: handwash",
+    "bounded asset draw calls: handwash / 59",
+    "finite solid geometry: handwash/back",
+    "finite solid geometry: handwash/top",
+    "finite solid geometry: handwash-running/front",
+    "finite solid geometry: handwash-running/three-quarter",
+    "bottom rests on support plane: handwash-running",
+    "bounded asset draw calls: handwash-running / 64",
+    "finite solid geometry: handwash-running/back",
+    "finite solid geometry: handwash-running/top",
+    "finite solid geometry: soap-dispenser/front",
+    "finite solid geometry: soap-dispenser/three-quarter",
+    "bottom rests on support plane: soap-dispenser",
+    "bounded asset draw calls: soap-dispenser / 8",
+    "finite solid geometry: soap-dispenser/back",
+    "finite solid geometry: soap-dispenser/top",
+    "finite solid geometry: paper-dispenser/front",
+    "finite solid geometry: paper-dispenser/three-quarter",
+    "bottom rests on support plane: paper-dispenser",
+    "bounded asset draw calls: paper-dispenser / 10",
+    "finite solid geometry: paper-dispenser/back",
+    "finite solid geometry: paper-dispenser/top",
+    "no runtime exceptions while rendering all asset studies"
+  ],
+  "errors": [],
+  "snapshots": [
+    {
+      "id": "fume-hood",
+      "min": [
+        -1.2000000476837158,
+        1.341104505225843e-9,
+        -0.550000011920929
+      ],
+      "max": [
+        1.2000000476837158,
+        2.765196152254939,
+        0.6075000008940697
+      ],
+      "size": [
+        2.4000000953674316,
+        2.7651961509138343,
+        1.1575000128149986
+      ],
+      "meshes": 43,
+      "triangles": 11250,
+      "calls": 49,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-fume-hood",
+        "asset-hood-shell",
+        "hood-baffles",
+        "asset-hood-sash",
+        "hood-airflow-monitor",
+        "asset-beaker"
+      ],
+      "textures": 9
+    },
+    {
+      "id": "fume-hood-open",
+      "min": [
+        -1.2000000476837158,
+        1.341104505225843e-9,
+        -0.550000011920929
+      ],
+      "max": [
+        1.2000000476837158,
+        2.765196152254939,
+        0.6075000008940697
+      ],
+      "size": [
+        2.4000000953674316,
+        2.7651961509138343,
+        1.1575000128149986
+      ],
+      "meshes": 43,
+      "triangles": 11250,
+      "calls": 49,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-fume-hood",
+        "asset-hood-shell",
+        "hood-baffles",
+        "asset-hood-sash",
+        "hood-airflow-monitor",
+        "asset-beaker"
+      ],
+      "textures": 9
+    },
+    {
+      "id": "sink-basin",
+      "min": [
+        -0.3499999940395355,
+        -3.108624482185328e-17,
+        -0.2199999988079071
+      ],
+      "max": [
+        0.3499999940395355,
+        0.20600000023841858,
+        0.2199999988079071
+      ],
+      "size": [
+        0.699999988079071,
+        0.2060000002384186,
+        0.4399999976158142
+      ],
+      "meshes": 4,
+      "triangles": 2152,
+      "calls": 4,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-sink-basin",
+        "basin-hollow-shell",
+        "basin-floor-with-drain",
+        "basin-drain-grate"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "bench-sink",
+      "min": [
+        -0.17499999701976776,
+        -2.1138646478860234e-17,
+        -0.16499999910593033
+      ],
+      "max": [
+        0.17499999701976776,
+        0.41022221630811684,
+        0.16499999910593033
+      ],
+      "size": [
+        0.3499999940395355,
+        0.41022221630811684,
+        0.32999999821186066
+      ],
+      "meshes": 9,
+      "triangles": 3924,
+      "calls": 9,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-bench-sink",
+        "asset-sink-basin",
+        "basin-hollow-shell",
+        "basin-floor-with-drain",
+        "basin-drain-grate",
+        "asset-faucet"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "faucet",
+      "min": [
+        -0.028999999165534973,
+        3.8743019036002746e-10,
+        -0.028999999165534973
+      ],
+      "max": [
+        0.028999999165534973,
+        0.3167320191860199,
+        0.17530000008642674
+      ],
+      "size": [
+        0.057999998331069946,
+        0.3167320187985897,
+        0.2042999992519617
+      ],
+      "meshes": 5,
+      "triangles": 1772,
+      "calls": 5,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-faucet"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "handwash",
+      "min": [
+        -1,
+        6.705522526129215e-10,
+        -0.30000001192092896
+      ],
+      "max": [
+        1,
+        1.7300050127506257,
+        0.3159999995008111
+      ],
+      "size": [
+        2,
+        1.7300050120800734,
+        0.6160000114217401
+      ],
+      "meshes": 56,
+      "triangles": 23590,
+      "calls": 59,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-handwash-station",
+        "countertop-with-openings",
+        "asset-sink-basin",
+        "basin-hollow-shell",
+        "basin-floor-with-drain",
+        "basin-drain-grate",
+        "asset-faucet",
+        "asset-sink-basin",
+        "basin-hollow-shell",
+        "basin-floor-with-drain",
+        "basin-drain-grate",
+        "asset-faucet",
+        "asset-soap-dispenser",
+        "asset-soap-dispenser",
+        "asset-paper-dispenser"
+      ],
+      "textures": 7
+    },
+    {
+      "id": "handwash-running",
+      "min": [
+        -1,
+        6.705522526129215e-10,
+        -0.30000001192092896
+      ],
+      "max": [
+        1,
+        1.7300050127506257,
+        0.3159999995008111
+      ],
+      "size": [
+        2,
+        1.7300050120800734,
+        0.6160000114217401
+      ],
+      "meshes": 60,
+      "triangles": 23846,
+      "calls": 64,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-handwash-station",
+        "countertop-with-openings",
+        "asset-sink-basin",
+        "basin-hollow-shell",
+        "basin-floor-with-drain",
+        "basin-drain-grate",
+        "asset-faucet",
+        "faucet-water-flow",
+        "asset-sink-basin",
+        "basin-hollow-shell",
+        "basin-floor-with-drain",
+        "basin-drain-grate",
+        "asset-faucet",
+        "faucet-water-flow",
+        "asset-soap-dispenser",
+        "asset-soap-dispenser",
+        "asset-paper-dispenser"
+      ],
+      "textures": 7
+    },
+    {
+      "id": "soap-dispenser",
+      "min": [
+        -0.07000499963760376,
+        -0.0000050061941146845035,
+        -0.052000000026077034
+      ],
+      "max": [
+        0.07000499963760376,
+        0.22800499988347292,
+        0.0645000001862645
+      ],
+      "size": [
+        0.14000999927520752,
+        0.2280100060775876,
+        0.11650000021234154
+      ],
+      "meshes": 7,
+      "triangles": 2962,
+      "calls": 8,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-soap-dispenser"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "paper-dispenser",
+      "min": [
+        -0.145005002617836,
+        2.384185793236071e-9,
+        -0.06600000005215406
+      ],
+      "max": [
+        0.145005002617836,
+        0.3800050127506256,
+        0.08899965036660433
+      ],
+      "size": [
+        0.290010005235672,
+        0.3800050103664398,
+        0.1549996504187584
+      ],
+      "meshes": 9,
+      "triangles": 5206,
+      "calls": 10,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-paper-dispenser"
+      ],
+      "textures": 5
+    }
+  ]
+}

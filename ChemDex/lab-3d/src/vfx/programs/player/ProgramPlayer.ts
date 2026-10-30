@@ -29,10 +29,17 @@ export interface ProgramPlayerSession {
   progress: number; // 0.0 to 1.0
   isComplete: boolean;
   activeAtoms: Map<string, ActiveAtomInstance>;
+  runKey?: string;
 }
 
 export class ProgramPlayer {
   private sessions: Map<string, ProgramPlayerSession> = new Map();
+
+  public ensureProgram(vesselId: string, program: ReactionProgram, runKey: string, ctx?: Partial<AtomCtx>): ProgramPlayerSession {
+    const current = this.sessions.get(vesselId);
+    if (current?.program.id === program.id && current.runKey === runKey) return current;
+    return this.startProgram(vesselId, program, ctx, runKey);
+  }
 
   /**
    * Starts playback of a ReactionProgram on a target vessel.
@@ -40,7 +47,8 @@ export class ProgramPlayer {
   public startProgram(
     vesselId: string,
     program: ReactionProgram,
-    ctx?: Partial<AtomCtx>
+    ctx?: Partial<AtomCtx>,
+    runKey?: string,
   ): ProgramPlayerSession {
     // If a session is already running for this vessel, clean it up first
     if (this.sessions.has(vesselId)) {
@@ -71,7 +79,8 @@ export class ProgramPlayer {
       elapsed_s: 0,
       progress: 0,
       isComplete: false,
-      activeAtoms: new Map()
+      activeAtoms: new Map(),
+      runKey
     };
 
     this.sessions.set(vesselId, session);
@@ -87,15 +96,23 @@ export class ProgramPlayer {
     ledgerViews?: Record<string, LedgerView>
   ): Record<string, VesselPatch> {
     const patches: Record<string, VesselPatch> = {};
+    if (!Number.isFinite(dt) || dt <= 0) return patches;
 
     for (const [vesselId, session] of this.sessions.entries()) {
       if (session.isComplete) continue;
 
-      const timeScale = session.ctx.timeScale || 1.0;
-      session.elapsed_s += dt * timeScale;
-      session.progress = Math.min(1.0, session.elapsed_s / session.duration_s);
-
       const sView = ledgerViews?.[vesselId] || this.createFallbackLedgerView(session);
+      const timeScale = session.ctx.timeScale ?? 1.0;
+      if (!Number.isFinite(timeScale) || timeScale <= 0) continue;
+      const scaledDt = dt * timeScale;
+      if (sView.reactionProgress !== undefined) {
+        if (!Number.isFinite(sView.reactionProgress) || sView.reactionProgress < 0 || sView.reactionProgress > 1) continue;
+        session.progress = sView.reactionProgress;
+        session.elapsed_s = session.progress * session.duration_s;
+      } else {
+        session.elapsed_s += scaledDt;
+        session.progress = Math.min(1.0, session.elapsed_s / session.duration_s);
+      }
       const patch: VesselPatch = {};
 
       const timeline = session.program.visual?.timeline || [];
@@ -103,7 +120,8 @@ export class ProgramPlayer {
       for (const item of timeline) {
         const [wStart, wEnd] = item.window;
         const thermalAllowed = item.atom === 'endothermicFrost' ? sView.temperature_c <= 0
-          : ['thermalSteam', 'boilingBumping'].includes(item.atom) ? sView.temperature_c >= 90 : true;
+          : item.atom === 'thermalSteam' ? (sView.waterVaporOutflow_g_s ?? sView.evaporationRate_g_s ?? 0) > 0 && (sView.waterMistVisibility ?? 0) > 0
+            : item.atom === 'boilingBumping' ? sView.isBoiling === true && (sView.evaporationRate_g_s ?? 0) > 0 : true;
         const inWindow = thermalAllowed && session.progress >= wStart && session.progress <= wEnd;
 
         if (inWindow) {
@@ -124,7 +142,7 @@ export class ProgramPlayer {
 
           const instance = session.activeAtoms.get(item.id);
           if (instance && instance.handle.alive) {
-            instance.atom.update(instance.handle, dt, sView);
+            instance.atom.update(instance.handle, scaledDt, sView);
             if (instance.atom.writeBack) {
               instance.atom.writeBack(instance.handle, patch);
             }
@@ -204,7 +222,7 @@ export class ProgramPlayer {
       temperature_c: 25.0,
       pressure_atm: 1.0,
       pH: 7.0,
-      turbidity: session.progress * 0.8,
+      turbidity: 0,
       liquidColor: '#ffffff',
       gasHoldup: 0,
       foam_ml: 0,

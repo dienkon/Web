@@ -12,7 +12,9 @@ export function collectSpillWaste(previous: SubstanceContent[], spills: SpillSta
       if (target) {
         target.mass_g += source.mass_g;
         target.moles += source.moles;
-        if (source.volume_ml !== undefined) target.volume_ml = (target.volume_ml ?? 0) + source.volume_ml;
+        for (const key of ['volume_ml', 'initialMass_g', 'initialMoles'] as const) {
+          if (source[key] !== undefined) target[key] = (target[key] ?? 0) + source[key]!;
+        }
       } else contents.push({ ...source, location: 'bulk' });
     }
   }

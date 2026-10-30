@@ -1,0 +1,631 @@
+{
+  "passed": true,
+  "checks": [
+    "finite solid geometry: emergency-shower/front",
+    "finite solid geometry: emergency-shower/three-quarter",
+    "bottom rests on support plane: emergency-shower",
+    "bounded asset draw calls: emergency-shower / 25",
+    "finite solid geometry: emergency-shower/back",
+    "finite solid geometry: emergency-shower/top",
+    "finite solid geometry: emergency-shower-active/front",
+    "finite solid geometry: emergency-shower-active/three-quarter",
+    "bottom rests on support plane: emergency-shower-active",
+    "bounded asset draw calls: emergency-shower-active / 26",
+    "finite solid geometry: emergency-shower-active/back",
+    "finite solid geometry: emergency-shower-active/top",
+    "finite solid geometry: emergency-eyewash-active/front",
+    "finite solid geometry: emergency-eyewash-active/three-quarter",
+    "bottom rests on support plane: emergency-eyewash-active",
+    "bounded asset draw calls: emergency-eyewash-active / 28",
+    "finite solid geometry: emergency-eyewash-active/back",
+    "finite solid geometry: emergency-eyewash-active/top",
+    "finite solid geometry: shower-head/front",
+    "finite solid geometry: shower-head/three-quarter",
+    "bottom rests on support plane: shower-head",
+    "bounded asset draw calls: shower-head / 2",
+    "finite solid geometry: shower-head/back",
+    "finite solid geometry: shower-head/top",
+    "finite solid geometry: eyewash/front",
+    "finite solid geometry: eyewash/three-quarter",
+    "bottom rests on support plane: eyewash",
+    "bounded asset draw calls: eyewash / 13",
+    "finite solid geometry: eyewash/back",
+    "finite solid geometry: eyewash/top",
+    "finite solid geometry: eyewash-active/front",
+    "finite solid geometry: eyewash-active/three-quarter",
+    "bottom rests on support plane: eyewash-active",
+    "bounded asset draw calls: eyewash-active / 16",
+    "finite solid geometry: eyewash-active/back",
+    "finite solid geometry: eyewash-active/top",
+    "finite solid geometry: extinguisher-powder/front",
+    "finite solid geometry: extinguisher-powder/three-quarter",
+    "bottom rests on support plane: extinguisher-powder",
+    "bounded asset draw calls: extinguisher-powder / 17",
+    "finite solid geometry: extinguisher-powder/back",
+    "finite solid geometry: extinguisher-powder/top",
+    "finite solid geometry: extinguisher-co2/front",
+    "finite solid geometry: extinguisher-co2/three-quarter",
+    "bottom rests on support plane: extinguisher-co2",
+    "bounded asset draw calls: extinguisher-co2 / 13",
+    "finite solid geometry: extinguisher-co2/back",
+    "finite solid geometry: extinguisher-co2/top",
+    "finite solid geometry: extinguisher-cabinet/front",
+    "finite solid geometry: extinguisher-cabinet/three-quarter",
+    "bottom rests on support plane: extinguisher-cabinet",
+    "bounded asset draw calls: extinguisher-cabinet / 44",
+    "finite solid geometry: extinguisher-cabinet/back",
+    "finite solid geometry: extinguisher-cabinet/top",
+    "finite solid geometry: extinguisher-cabinet-open/front",
+    "finite solid geometry: extinguisher-cabinet-open/three-quarter",
+    "bottom rests on support plane: extinguisher-cabinet-open",
+    "bounded asset draw calls: extinguisher-cabinet-open / 44",
+    "finite solid geometry: extinguisher-cabinet-open/back",
+    "finite solid geometry: extinguisher-cabinet-open/top",
+    "finite solid geometry: fire-blanket/front",
+    "finite solid geometry: fire-blanket/three-quarter",
+    "bottom rests on support plane: fire-blanket",
+    "bounded asset draw calls: fire-blanket / 9",
+    "finite solid geometry: fire-blanket/back",
+    "finite solid geometry: fire-blanket/top",
+    "finite solid geometry: first-aid/front",
+    "finite solid geometry: first-aid/three-quarter",
+    "bottom rests on support plane: first-aid",
+    "bounded asset draw calls: first-aid / 59",
+    "finite solid geometry: first-aid/back",
+    "finite solid geometry: first-aid/top",
+    "finite solid geometry: first-aid-closed/front",
+    "finite solid geometry: first-aid-closed/three-quarter",
+    "bottom rests on support plane: first-aid-closed",
+    "bounded asset draw calls: first-aid-closed / 59",
+    "finite solid geometry: first-aid-closed/back",
+    "finite solid geometry: first-aid-closed/top",
+    "finite solid geometry: gauze-pack/front",
+    "finite solid geometry: gauze-pack/three-quarter",
+    "bottom rests on support plane: gauze-pack",
+    "bounded asset draw calls: gauze-pack / 4",
+    "finite solid geometry: gauze-pack/back",
+    "finite solid geometry: gauze-pack/top",
+    "finite solid geometry: bandage-roll/front",
+    "finite solid geometry: bandage-roll/three-quarter",
+    "bottom rests on support plane: bandage-roll",
+    "bounded asset draw calls: bandage-roll / 9",
+    "finite solid geometry: bandage-roll/back",
+    "finite solid geometry: bandage-roll/top",
+    "finite solid geometry: spill-cart/front",
+    "finite solid geometry: spill-cart/three-quarter",
+    "bottom rests on support plane: spill-cart",
+    "bounded asset draw calls: spill-cart / 22",
+    "finite solid geometry: spill-cart/back",
+    "finite solid geometry: spill-cart/top",
+    "finite solid geometry: spill-cart-open/front",
+    "finite solid geometry: spill-cart-open/three-quarter",
+    "bottom rests on support plane: spill-cart-open",
+    "bounded asset draw calls: spill-cart-open / 22",
+    "finite solid geometry: spill-cart-open/back",
+    "finite solid geometry: spill-cart-open/top",
+    "finite solid geometry: scoop/front",
+    "finite solid geometry: scoop/three-quarter",
+    "bottom rests on support plane: scoop",
+    "bounded asset draw calls: scoop / 6",
+    "finite solid geometry: scoop/back",
+    "finite solid geometry: scoop/top",
+    "no runtime exceptions while rendering all asset studies"
+  ],
+  "errors": [],
+  "snapshots": [
+    {
+      "id": "emergency-shower",
+      "min": [
+        -0.18000000715255737,
+        -5.2154064053566707e-11,
+        -0.125
+      ],
+      "max": [
+        0.2672054621577263,
+        2.703395128250122,
+        0.9500000059604645
+      ],
+      "size": [
+        0.44720546931028365,
+        2.7033951283022764,
+        1.0750000059604645
+      ],
+      "meshes": 24,
+      "triangles": 13576,
+      "calls": 25,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-emergency-shower",
+        "asset-eyewash",
+        "asset-shower-head",
+        "asset-shower-pull",
+        "asset-shower-pull-rod"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "emergency-shower-active",
+      "min": [
+        -0.18000000715255737,
+        -5.2154064053566707e-11,
+        -0.125
+      ],
+      "max": [
+        0.2600049994885921,
+        2.703395128250122,
+        0.9500000059604645
+      ],
+      "size": [
+        0.4400050066411495,
+        2.7033951283022764,
+        1.0750000059604645
+      ],
+      "meshes": 24,
+      "triangles": 13576,
+      "calls": 26,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-emergency-shower",
+        "asset-eyewash",
+        "asset-shower-head",
+        "asset-shower-pull",
+        "asset-shower-pull-rod",
+        "asset-shower-water"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "emergency-eyewash-active",
+      "min": [
+        -0.18000000715255737,
+        -5.2154064053566707e-11,
+        -0.125
+      ],
+      "max": [
+        0.27556442735584247,
+        2.703395128250122,
+        0.9500000059604645
+      ],
+      "size": [
+        0.45556443450839984,
+        2.7033951283022764,
+        1.0750000059604645
+      ],
+      "meshes": 27,
+      "triangles": 14680,
+      "calls": 28,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-emergency-shower",
+        "asset-eyewash",
+        "asset-eyewash-jets",
+        "asset-shower-head",
+        "asset-shower-pull",
+        "asset-shower-pull-rod"
+      ],
+      "textures": 6
+    },
+    {
+      "id": "shower-head",
+      "min": [
+        -0.15000000596046448,
+        0,
+        -0.15000000596046448
+      ],
+      "max": [
+        0.15000000596046448,
+        0.09000000357627869,
+        0.15000000596046448
+      ],
+      "size": [
+        0.30000001192092896,
+        0.09000000357627869,
+        0.30000001192092896
+      ],
+      "meshes": 2,
+      "triangles": 3456,
+      "calls": 2,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-shower-head"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "eyewash",
+      "min": [
+        -0.18000000715255737,
+        0,
+        -0.18000000715255737
+      ],
+      "max": [
+        0.2600049994885921,
+        0.17250499710440637,
+        0.18000000715255737
+      ],
+      "size": [
+        0.4400050066411495,
+        0.17250499710440637,
+        0.36000001430511475
+      ],
+      "meshes": 12,
+      "triangles": 6246,
+      "calls": 13,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-eyewash"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "eyewash-active",
+      "min": [
+        -0.18000000715255737,
+        0,
+        -0.18000000715255737
+      ],
+      "max": [
+        0.27556442735584247,
+        0.29522892041131854,
+        0.18000000715255737
+      ],
+      "size": [
+        0.45556443450839984,
+        0.29522892041131854,
+        0.36000001430511475
+      ],
+      "meshes": 15,
+      "triangles": 7350,
+      "calls": 16,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-eyewash",
+        "asset-eyewash-jets"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "extinguisher-powder",
+      "min": [
+        -0.07599999755620956,
+        0,
+        -0.07599999755620956
+      ],
+      "max": [
+        0.11850257962942123,
+        0.5240050001591444,
+        0.07699999958276749
+      ],
+      "size": [
+        0.1945025771856308,
+        0.5240050001591444,
+        0.15299999713897705
+      ],
+      "meshes": 17,
+      "triangles": 5692,
+      "calls": 17,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-extinguisher-powder",
+        "extinguisher-pressure-gauge"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "extinguisher-co2",
+      "min": [
+        -0.07599999755620956,
+        0,
+        -0.07599999755620956
+      ],
+      "max": [
+        0.1640000004172325,
+        0.5240050001591444,
+        0.07699999958276749
+      ],
+      "size": [
+        0.23999999797344207,
+        0.5240050001591444,
+        0.15299999713897705
+      ],
+      "meshes": 13,
+      "triangles": 5140,
+      "calls": 13,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-extinguisher-co2"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "extinguisher-cabinet",
+      "min": [
+        -0.28999999961256984,
+        -7.152557379708213e-9,
+        -0.12499999961256981
+      ],
+      "max": [
+        0.28999999961256984,
+        0.8600000071525573,
+        0.15899999994039535
+      ],
+      "size": [
+        0.5799999992251397,
+        0.8600000143051147,
+        0.2839999995529652
+      ],
+      "meshes": 42,
+      "triangles": 11670,
+      "calls": 44,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-extinguisher-cabinet",
+        "asset-extinguisher-powder",
+        "extinguisher-pressure-gauge",
+        "asset-extinguisher-co2",
+        "extinguisher-cabinet-door"
+      ],
+      "textures": 7
+    },
+    {
+      "id": "extinguisher-cabinet-open",
+      "min": [
+        -0.28999999961256984,
+        -7.152557379708213e-9,
+        -0.12499999961256981
+      ],
+      "max": [
+        0.28999999961256984,
+        0.8600000071525573,
+        0.6550671857551561
+      ],
+      "size": [
+        0.5799999992251397,
+        0.8600000143051147,
+        0.7800671853677259
+      ],
+      "meshes": 42,
+      "triangles": 11670,
+      "calls": 44,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-extinguisher-cabinet",
+        "asset-extinguisher-powder",
+        "extinguisher-pressure-gauge",
+        "asset-extinguisher-co2",
+        "extinguisher-cabinet-door"
+      ],
+      "textures": 7
+    },
+    {
+      "id": "fire-blanket",
+      "min": [
+        -0.16500499844551086,
+        1.341104505225843e-9,
+        -0.05250000208616257
+      ],
+      "max": [
+        0.16500499844551086,
+        0.46150500045716764,
+        0.05500000002607703
+      ],
+      "size": [
+        0.33000999689102173,
+        0.46150499911606313,
+        0.10750000211223959
+      ],
+      "meshes": 8,
+      "triangles": 1494,
+      "calls": 9,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-fire-blanket"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "first-aid",
+      "min": [
+        -0.24730415488851842,
+        -0.000005012750625588147,
+        -0.10700000021606684
+      ],
+      "max": [
+        0.24000000037997962,
+        0.5500050127506256,
+        0.5573991561284084
+      ],
+      "size": [
+        0.487304155268498,
+        0.5500100255012512,
+        0.6643991563444752
+      ],
+      "meshes": 53,
+      "triangles": 15130,
+      "calls": 59,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-first-aid-cabinet",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-reagent-bottle",
+        "bottle-cap",
+        "asset-reagent-bottle",
+        "bottle-cap",
+        "asset-gauze-pack",
+        "asset-gauze-pack",
+        "asset-bandage-roll",
+        "first-aid-door"
+      ],
+      "textures": 10
+    },
+    {
+      "id": "first-aid-closed",
+      "min": [
+        -0.2400050014257431,
+        -0.000005012750625588147,
+        -0.10700000021606684
+      ],
+      "max": [
+        0.2400050014257431,
+        0.5500050127506256,
+        0.14699999994039536
+      ],
+      "size": [
+        0.4800100028514862,
+        0.5500100255012512,
+        0.2540000001564622
+      ],
+      "meshes": 53,
+      "triangles": 15130,
+      "calls": 59,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-first-aid-cabinet",
+        "asset-amber-bottle",
+        "bottle-cap",
+        "asset-reagent-bottle",
+        "bottle-cap",
+        "asset-reagent-bottle",
+        "bottle-cap",
+        "asset-gauze-pack",
+        "asset-gauze-pack",
+        "asset-bandage-roll",
+        "first-aid-door"
+      ],
+      "textures": 10
+    },
+    {
+      "id": "gauze-pack",
+      "min": [
+        -0.05500499904155731,
+        -0.000004999883472920144,
+        -0.04249999672174454
+      ],
+      "max": [
+        0.05500499904155731,
+        0.019000000262167305,
+        0.04249999672174454
+      ],
+      "size": [
+        0.11000999808311462,
+        0.019005000145640223,
+        0.08499999344348907
+      ],
+      "meshes": 3,
+      "triangles": 730,
+      "calls": 4,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-gauze-pack"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "bandage-roll",
+      "min": [
+        -0.039000000804662704,
+        -4.749745128457272e-11,
+        -0.039000000804662704
+      ],
+      "max": [
+        0.0625000000745058,
+        0.07000000029802322,
+        0.039000000804662704
+      ],
+      "size": [
+        0.10150000087916851,
+        0.07000000034552067,
+        0.07800000160932541
+      ],
+      "meshes": 9,
+      "triangles": 3180,
+      "calls": 9,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-bandage-roll"
+      ],
+      "textures": 4
+    },
+    {
+      "id": "spill-cart",
+      "min": [
+        -0.26899999380111694,
+        -0.000004999712109564347,
+        -0.26899999380111694
+      ],
+      "max": [
+        0.26899999380111694,
+        0.925865888595581,
+        0.26899999380111694
+      ],
+      "size": [
+        0.5379999876022339,
+        0.9258708883076906,
+        0.5379999876022339
+      ],
+      "meshes": 22,
+      "triangles": 6580,
+      "calls": 22,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-spill-cart",
+        "asset-scoop"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "spill-cart-open",
+      "min": [
+        -0.26899999380111694,
+        -0.000004999712109564347,
+        -0.28439969397902104
+      ],
+      "max": [
+        0.26899999380111694,
+        1.1698302894830062,
+        0.2619999945163727
+      ],
+      "size": [
+        0.5379999876022339,
+        1.1698352891951158,
+        0.5463996884953937
+      ],
+      "meshes": 22,
+      "triangles": 6580,
+      "calls": 22,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-spill-cart",
+        "asset-scoop"
+      ],
+      "textures": 5
+    },
+    {
+      "id": "scoop",
+      "min": [
+        -0.0550000001899898,
+        1.9371509518001373e-10,
+        -0.3119999998807907
+      ],
+      "max": [
+        0.0550000001899898,
+        0.07900208234786987,
+        0.07000000029802322
+      ],
+      "size": [
+        0.1100000003799796,
+        0.07900208215415477,
+        0.3820000001788139
+      ],
+      "meshes": 6,
+      "triangles": 944,
+      "calls": 6,
+      "invalidVertices": 0,
+      "parts": [
+        "asset-scoop"
+      ],
+      "textures": 4
+    }
+  ]
+}

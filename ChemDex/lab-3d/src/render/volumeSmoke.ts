@@ -50,7 +50,7 @@ export function createGasPlumeMaterial(colorHex: string = '#ffffff'): {
         float dist = length(p);
         if (dist > 1.0) discard;
 
-        float alpha = smoothstep(1.0, 0.0, dist) * 0.25 * uDensity;
+        float alpha = (1.0 - smoothstep(0.0, 1.0, dist)) * 0.25 * uDensity;
         gl_FragColor = vec4(uColor, alpha);
       }
     `,

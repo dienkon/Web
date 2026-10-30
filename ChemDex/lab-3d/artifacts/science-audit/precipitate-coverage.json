@@ -1,0 +1,1253 @@
+{
+  "summary": {
+    "declaredPrecipitationPrograms": 43,
+    "dedicatedProfilePrograms": 43,
+    "wrongIdentityFallbacks": 0,
+    "missingSpecies": [],
+    "unsupportedSolidDeclarations": [],
+    "unverifiedSurfaceDeposition": [
+      "zn_agno3",
+      "mg_cuso4"
+    ],
+    "explicitTransportProxies": [
+      "fecl3_k4fecn6",
+      "feso4_k3fecn6",
+      "cuso4_k4fecn6"
+    ]
+  },
+  "rows": [
+    {
+      "reaction": "h2so4_baoh2",
+      "equation": "H2SO4(aq) + Ba(OH)2(aq) -> BaSO4(s) + 2H2O(l)",
+      "substance": "BaSO4",
+      "declaredMorphology": "fine_powder",
+      "physicalProfile": "BaSO4",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "family_context",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "RSC: Testing salts for anions and cations",
+          "url": "https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article",
+          "scope": "experiment"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "bacl2_na2so4",
+      "equation": "BaCl2(aq) + Na2SO4(aq) -> BaSO4(s) + 2NaCl(aq)",
+      "substance": "BaSO4",
+      "declaredMorphology": "fine_powder",
+      "physicalProfile": "BaSO4",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "specific_observation",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "RSC: Testing salts for anions and cations",
+          "url": "https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article",
+          "scope": "experiment"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "bacl2_h2so4",
+      "equation": "BaCl2(aq) + H2SO4(aq) -> BaSO4(s) + 2HCl(aq)",
+      "substance": "BaSO4",
+      "declaredMorphology": "fine_powder",
+      "physicalProfile": "BaSO4",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "specific_observation",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "RSC: Testing salts for anions and cations",
+          "url": "https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article",
+          "scope": "experiment"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "agno3_nacl",
+      "equation": "AgNO3(aq) + NaCl(aq) -> AgCl(s) + NaNO3(aq)",
+      "substance": "AgCl",
+      "declaredMorphology": "curd",
+      "physicalProfile": "AgCl",
+      "physicalMorphology": "flocculent",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "specific_observation",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "RSC: Silver and lead halides",
+          "url": "https://edu.rsc.org/experiments/silver-and-lead-halides/1770.article",
+          "scope": "experiment"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "agno3_kbr",
+      "equation": "AgNO3(aq) + KBr(aq) -> AgBr(s) + KNO3(aq)",
+      "substance": "AgBr",
+      "declaredMorphology": "curd",
+      "physicalProfile": "AgBr",
+      "physicalMorphology": "flocculent",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "specific_observation",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "RSC: Silver and lead halides",
+          "url": "https://edu.rsc.org/experiments/silver-and-lead-halides/1770.article",
+          "scope": "experiment"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "agno3_ki",
+      "equation": "AgNO3(aq) + KI(aq) -> AgI(s) + KNO3(aq)",
+      "substance": "AgI",
+      "declaredMorphology": "curd",
+      "physicalProfile": "AgI",
+      "physicalMorphology": "flocculent",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "specific_observation",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "RSC: Silver and lead halides",
+          "url": "https://edu.rsc.org/experiments/silver-and-lead-halides/1770.article",
+          "scope": "experiment"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "pbno32_ki",
+      "equation": "Pb(NO3)2(aq) + 2KI(aq) -> PbI2(s) + 2KNO3(aq)",
+      "substance": "PbI2",
+      "declaredMorphology": "fine_powder",
+      "physicalProfile": "PbI2",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "specific_observation",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "RSC: Silver and lead halides",
+          "url": "https://edu.rsc.org/experiments/silver-and-lead-halides/1770.article",
+          "scope": "experiment"
+        },
+        {
+          "title": "RSC: Golden rain",
+          "url": "https://edu.rsc.org/exhibition-chemistry/golden-rain/2000048.article",
+          "scope": "experiment"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "cacl2_na2co3",
+      "equation": "CaCl2(aq) + Na2CO3(aq) -> CaCO3(s) + 2NaCl(aq)",
+      "substance": "CaCO3",
+      "declaredMorphology": "fine_powder",
+      "physicalProfile": "CaCO3",
+      "physicalMorphology": "granular",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "family_context",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "RSC: Testing salts for anions and cations",
+          "url": "https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article",
+          "scope": "experiment"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "caoh2_co2",
+      "equation": "Ca(OH)2(aq) + CO2(g) -> CaCO3(s) + H2O(l)",
+      "substance": "CaCO3",
+      "declaredMorphology": "fine_powder",
+      "physicalProfile": "CaCO3",
+      "physicalMorphology": "granular",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "specific_observation",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "Indiana University: Limewater as indicator of carbon dioxide",
+          "url": "https://www.chem.indiana.edu/faculty-research/faculty-resources/chemistry-demos/demo/limewater-as-indicator-of-carbon-dioxide-gas/",
+          "scope": "experiment"
+        },
+        {
+          "title": "RSC: Limestone weathering",
+          "url": "https://edu.rsc.org/resources/limestone-weathering/486.article",
+          "scope": "experiment"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "cuso4_naoh",
+      "equation": "CuSO4(aq) + 2NaOH(aq) -> Cu(OH)2(s) + Na2SO4(aq)",
+      "substance": "Cu(OH)2",
+      "declaredMorphology": "gel",
+      "physicalProfile": "Cu(OH)2",
+      "physicalMorphology": "gel_like",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "specific_observation",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "RSC: Testing salts for anions and cations",
+          "url": "https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article",
+          "scope": "experiment"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "fecl3_naoh",
+      "equation": "FeCl3(aq) + 3NaOH(aq) -> Fe(OH)3(s) + 3NaCl(aq)",
+      "substance": "Fe(OH)3",
+      "declaredMorphology": "floc",
+      "physicalProfile": "Fe(OH)3",
+      "physicalMorphology": "flocculent",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "specific_observation",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "RSC: Testing salts for anions and cations",
+          "url": "https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article",
+          "scope": "experiment"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "feso4_naoh",
+      "equation": "FeSO4(aq) + 2NaOH(aq) -> Fe(OH)2(s) + Na2SO4(aq)",
+      "substance": "Fe(OH)2",
+      "declaredMorphology": "gel",
+      "physicalProfile": "Fe(OH)2",
+      "physicalMorphology": "gel_like",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "specific_observation",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "RSC: Testing salts for anions and cations",
+          "url": "https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article",
+          "scope": "experiment"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "alcl3_naoh",
+      "equation": "AlCl3(aq) + 3NaOH(aq) -> Al(OH)3(s) + 3NaCl(aq)",
+      "substance": "Al(OH)3",
+      "declaredMorphology": "gel",
+      "physicalProfile": "Al(OH)3",
+      "physicalMorphology": "gel_like",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "model_caveat",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "PHREEQC WATEQ4F: amorphous aluminum hydroxide, hydrolysis and sulfate complexes",
+          "url": "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat",
+          "scope": "research"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "na2s_cuso4",
+      "equation": "Na2S(aq) + CuSO4(aq) -> CuS(s) + Na2SO4(aq)",
+      "substance": "CuS",
+      "declaredMorphology": "amorphous_black",
+      "physicalProfile": "CuS",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "family_context",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "University inorganic/organic practical handbook",
+          "url": "https://uou.ac.in/sites/default/files/slm/MSCCH-505L.pdf",
+          "scope": "teaching_text"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "na2s_pbno32",
+      "equation": "Na2S(aq) + Pb(NO3)2(aq) -> PbS(s) + 2NaNO3(aq)",
+      "substance": "PbS",
+      "declaredMorphology": "amorphous_black",
+      "physicalProfile": "PbS",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "family_context",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "University inorganic/organic practical handbook",
+          "url": "https://uou.ac.in/sites/default/files/slm/MSCCH-505L.pdf",
+          "scope": "teaching_text"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "k2cro4_bacl2",
+      "equation": "K2CrO4(aq) + BaCl2(aq) -> BaCrO4(s) + 2KCl(aq)",
+      "substance": "BaCrO4",
+      "declaredMorphology": "fine_powder",
+      "physicalProfile": "BaCrO4",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "family_context",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "University of Washington: Chromate–dichromate equilibrium",
+          "url": "https://chem.washington.edu/lecture-demos/chromate-dichromate-equilibrium",
+          "scope": "experiment"
+        },
+        {
+          "title": "University inorganic/organic practical handbook",
+          "url": "https://uou.ac.in/sites/default/files/slm/MSCCH-505L.pdf",
+          "scope": "teaching_text"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "k2cro4_agno3",
+      "equation": "K2CrO4(aq) + 2AgNO3(aq) -> Ag2CrO4(s) + 2KNO3(aq)",
+      "substance": "Ag2CrO4",
+      "declaredMorphology": "fine_powder",
+      "physicalProfile": "Ag2CrO4",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "family_context",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "University inorganic/organic practical handbook",
+          "url": "https://uou.ac.in/sites/default/files/slm/MSCCH-505L.pdf",
+          "scope": "teaching_text"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "cuoh2_decomp",
+      "equation": "Cu(OH)2(s) -> CuO(s) + H2O(l)",
+      "substance": "CuO",
+      "declaredMorphology": "fine_powder",
+      "physicalProfile": "CuO",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "family_context",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "RSC: Testing salts for anions and cations",
+          "url": "https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article",
+          "scope": "experiment"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "fecl3_k4fecn6",
+      "equation": "FeCl3(aq) + K4[Fe(CN)6](aq) -> KFe[Fe(CN)6](s) + 3KCl(aq)",
+      "substance": "KFe[Fe(CN)6]",
+      "declaredMorphology": "colloid",
+      "physicalProfile": "KFe[Fe(CN)6]",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "uncalibrated_transport",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "specific_observation",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "Perls’ Prussian blue staining and chemistry of Prussian blue and Turnbull blue",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12275683/",
+          "scope": "research"
+        }
+      ],
+      "outstanding": [
+        "Dedicated appearance exists, but transport uses an explicitly unvalidated material/density proxy.",
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "feso4_k3fecn6",
+      "equation": "FeSO4(aq) + K3[Fe(CN)6](aq) -> KFe[Fe(CN)6](s) + K2SO4(aq)",
+      "substance": "KFe[Fe(CN)6]",
+      "declaredMorphology": "colloid",
+      "physicalProfile": "KFe[Fe(CN)6]",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "uncalibrated_transport",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "specific_observation",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "Perls’ Prussian blue staining and chemistry of Prussian blue and Turnbull blue",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12275683/",
+          "scope": "research"
+        }
+      ],
+      "outstanding": [
+        "Dedicated appearance exists, but transport uses an explicitly unvalidated material/density proxy.",
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "cuso4_k4fecn6",
+      "equation": "2CuSO4(aq) + K4[Fe(CN)6](aq) -> Cu2[Fe(CN)6](s) + 2K2SO4(aq)",
+      "substance": "Cu2[Fe(CN)6]",
+      "declaredMorphology": "curd",
+      "physicalProfile": "Cu2[Fe(CN)6]",
+      "physicalMorphology": "gel_like",
+      "dedicatedProfile": true,
+      "transportBasis": "uncalibrated_transport",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "family_context",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "University inorganic/organic practical handbook",
+          "url": "https://uou.ac.in/sites/default/files/slm/MSCCH-505L.pdf",
+          "scope": "teaching_text"
+        }
+      ],
+      "outstanding": [
+        "Dedicated appearance exists, but transport uses an explicitly unvalidated material/density proxy.",
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "niso4_naoh",
+      "equation": "NiSO4(aq) + 2NaOH(aq) -> Ni(OH)2(s) + Na2SO4(aq)",
+      "substance": "Ni(OH)2",
+      "declaredMorphology": "gel",
+      "physicalProfile": "Ni(OH)2",
+      "physicalMorphology": "gel_like",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "family_context",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "Chemguide: Transition-metal chemistry",
+          "url": "https://www.chemguide.co.uk/inorganic/transition/features.html",
+          "scope": "teaching_text"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "cocl2_naoh",
+      "equation": "CoCl2(aq) + 2NaOH(aq) -> Co(OH)2(s) + 2NaCl(aq)",
+      "substance": "Co(OH)2",
+      "declaredMorphology": "gel",
+      "physicalProfile": "Co(OH)2",
+      "physicalMorphology": "gel_like",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "specific_observation",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "Chemguide: Cobalt chemistry",
+          "url": "https://www.chemguide.co.uk/inorganic/transition/cobalt.html",
+          "scope": "teaching_text"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "znso4_naoh",
+      "equation": "ZnSO4(aq) + 2NaOH(aq) -> Zn(OH)2(s) + Na2SO4(aq)",
+      "substance": "Zn(OH)2",
+      "declaredMorphology": "gel",
+      "physicalProfile": "Zn(OH)2",
+      "physicalMorphology": "gel_like",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "specific_observation",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "RSC: Testing salts for anions and cations",
+          "url": "https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article",
+          "scope": "experiment"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "mgcl2_naoh",
+      "equation": "MgCl2(aq) + 2NaOH(aq) -> Mg(OH)2(s) + 2NaCl(aq)",
+      "substance": "Mg(OH)2",
+      "declaredMorphology": "gel",
+      "physicalProfile": "Mg(OH)2",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "specific_observation",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "RSC: Testing salts for anions and cations",
+          "url": "https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article",
+          "scope": "experiment"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "mnso4_naoh",
+      "equation": "MnSO4(aq) + 2NaOH(aq) -> Mn(OH)2(s) + Na2SO4(aq)",
+      "substance": "Mn(OH)2",
+      "declaredMorphology": "floc",
+      "physicalProfile": "Mn(OH)2",
+      "physicalMorphology": "flocculent",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "family_context",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "Chemguide: Transition-metal chemistry",
+          "url": "https://www.chemguide.co.uk/inorganic/transition/features.html",
+          "scope": "teaching_text"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "bino33_ki",
+      "equation": "Bi(NO3)3(aq) + 3KI(aq) -> BiI3(s) + 3KNO3(aq)",
+      "substance": "BiI3",
+      "declaredMorphology": "fine_powder",
+      "physicalProfile": "BiI3",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "model_caveat",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "University inorganic/organic practical handbook",
+          "url": "https://uou.ac.in/sites/default/files/slm/MSCCH-505L.pdf",
+          "scope": "teaching_text"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "znso4_na2s",
+      "equation": "ZnSO4(aq) + Na2S(aq) -> ZnS(s) + Na2SO4(aq)",
+      "substance": "ZnS",
+      "declaredMorphology": "fine_powder",
+      "physicalProfile": "ZnS",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "family_context",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "University inorganic/organic practical handbook",
+          "url": "https://uou.ac.in/sites/default/files/slm/MSCCH-505L.pdf",
+          "scope": "teaching_text"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "agno3_k2cro4",
+      "equation": "2AgNO3(aq) + K2CrO4(aq) -> Ag2CrO4(s) + 2KNO3(aq)",
+      "substance": "Ag2CrO4",
+      "declaredMorphology": "crystal_plate",
+      "physicalProfile": "Ag2CrO4",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "family_context",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "University inorganic/organic practical handbook",
+          "url": "https://uou.ac.in/sites/default/files/slm/MSCCH-505L.pdf",
+          "scope": "teaching_text"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "bacl2_k2cro4",
+      "equation": "BaCl2(aq) + K2CrO4(aq) -> BaCrO4(s) + 2KCl(aq)",
+      "substance": "BaCrO4",
+      "declaredMorphology": "fine_powder",
+      "physicalProfile": "BaCrO4",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "family_context",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "University of Washington: Chromate–dichromate equilibrium",
+          "url": "https://chem.washington.edu/lecture-demos/chromate-dichromate-equilibrium",
+          "scope": "experiment"
+        },
+        {
+          "title": "University inorganic/organic practical handbook",
+          "url": "https://uou.ac.in/sites/default/files/slm/MSCCH-505L.pdf",
+          "scope": "teaching_text"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "pbno32_k2cro4",
+      "equation": "Pb(NO3)2(aq) + K2CrO4(aq) -> PbCrO4(s) + 2KNO3(aq)",
+      "substance": "PbCrO4",
+      "declaredMorphology": "fine_powder",
+      "physicalProfile": "PbCrO4",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "family_context",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "University inorganic/organic practical handbook",
+          "url": "https://uou.ac.in/sites/default/files/slm/MSCCH-505L.pdf",
+          "scope": "teaching_text"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "pbno32_na2so4",
+      "equation": "Pb(NO3)2(aq) + Na2SO4(aq) -> PbSO4(s) + 2NaNO3(aq)",
+      "substance": "PbSO4",
+      "declaredMorphology": "fine_powder",
+      "physicalProfile": "PbSO4",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "family_context",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "RSC: Testing salts for anions and cations",
+          "url": "https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article",
+          "scope": "experiment"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "cuso4_ki",
+      "equation": "2CuSO4(aq) + 4KI(aq) -> 2CuI(s) + I2(aq) + 2K2SO4(aq)",
+      "substance": "CuI",
+      "declaredMorphology": "curd",
+      "physicalProfile": "CuI",
+      "physicalMorphology": "flocculent",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "family_context",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "Chemguide: Transition-metal chemistry",
+          "url": "https://www.chemguide.co.uk/inorganic/transition/features.html",
+          "scope": "teaching_text"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "zn_agno3",
+      "equation": "Zn(s) + 2AgNO3(aq) -> Zn(NO3)2(aq) + 2Ag(s)",
+      "substance": "Ag",
+      "declaredMorphology": "crystal_needle",
+      "physicalProfile": "Ag",
+      "physicalMorphology": "granular",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "metal_surface_displacement",
+      "requiredSubstrates": [
+        "Zn"
+      ],
+      "surfaceAttachmentVerified": false,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "family_context",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "RSC: Displacement reactions of metals",
+          "url": "https://edu.rsc.org/download?ac=513064",
+          "scope": "experiment"
+        }
+      ],
+      "outstanding": [
+        "Requires finite metal coating/dendrites attached to the reacting solid; a bulk particle profile alone is insufficient.",
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "mg_cuso4",
+      "equation": "Mg(s) + CuSO4(aq) -> MgSO4(aq) + Cu(s)",
+      "substance": "Cu",
+      "declaredMorphology": "fine_powder",
+      "physicalProfile": "Cu",
+      "physicalMorphology": "granular",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "metal_surface_displacement",
+      "requiredSubstrates": [
+        "Mg"
+      ],
+      "surfaceAttachmentVerified": false,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "family_context",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "RSC: Displacement reactions of metals",
+          "url": "https://edu.rsc.org/download?ac=513064",
+          "scope": "experiment"
+        }
+      ],
+      "outstanding": [
+        "Requires finite metal coating/dendrites attached to the reacting solid; a bulk particle profile alone is insufficient.",
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "h2o2_kmno4",
+      "equation": "3H2O2(aq) + 2KMnO4(aq) -> 2MnO2(s) + 2KOH(aq) + 3O2(g) + 2H2O(l)",
+      "substance": "MnO2",
+      "declaredMorphology": "fine_powder",
+      "physicalProfile": "MnO2",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "family_context",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "Chemguide: Transition-metal chemistry",
+          "url": "https://www.chemguide.co.uk/inorganic/transition/features.html",
+          "scope": "teaching_text"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "cac2_h2o",
+      "equation": "CaC2(s) + 2H2O(l) -> Ca(OH)2(s) + C2H2(g)",
+      "substance": "Ca(OH)2",
+      "declaredMorphology": "fine_powder",
+      "physicalProfile": "Ca(OH)2",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "family_context",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "RSC: Thermal decomposition of calcium carbonate",
+          "url": "https://edu.rsc.org/experiments/thermal-decomposition-of-calcium-carbonate/704.article",
+          "scope": "experiment"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "phenol_bromine",
+      "equation": "C6H5OH + 3Br2 -> C6H2Br3OH + 3HBr",
+      "substance": "C6H2Br3OH",
+      "declaredMorphology": "fine_powder",
+      "physicalProfile": "C6H2Br3OH",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "specific_observation",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "University of Bristol: Tribromophenol",
+          "url": "https://www.chm.bris.ac.uk/motm/tribromophenol/tbpv.htm",
+          "scope": "teaching_text"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "glucose_cuoh2_hot",
+      "equation": "C6H12O6 + 2Cu(OH)2 + NaOH -> C6H11O7Na + Cu2O + 3H2O",
+      "substance": "Cu2O",
+      "declaredMorphology": "fine_powder",
+      "physicalProfile": "Cu2O",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "specific_observation",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "Polish public education platform: Glucose and fructose",
+          "url": "https://zpe.gov.pl/a/sugars---glucose-and-fructose/D19A4LKCS",
+          "scope": "teaching_text"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "aniline_bromine",
+      "equation": "C6H5NH2 + 3Br2 -> C6H2Br3NH2 + 3HBr",
+      "substance": "C6H2Br3NH2",
+      "declaredMorphology": "fine_powder",
+      "physicalProfile": "C6H2Br3NH2",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "family_context",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "University of Bristol: Tribromophenol",
+          "url": "https://www.chm.bris.ac.uk/motm/tribromophenol/tbpv.htm",
+          "scope": "teaching_text"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "cao_water",
+      "equation": "CaO + H2O -> Ca(OH)2",
+      "substance": "Ca(OH)2",
+      "declaredMorphology": "fine_powder",
+      "physicalProfile": "Ca(OH)2",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "specific_observation",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "RSC: Thermal decomposition of calcium carbonate",
+          "url": "https://edu.rsc.org/experiments/thermal-decomposition-of-calcium-carbonate/704.article",
+          "scope": "experiment"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "thiosulfate_acid_clock",
+      "equation": "Na2S2O3(aq) + 2HCl(aq) -> 2NaCl(aq) + SO2(g) + S(s) + H2O(l)",
+      "substance": "S",
+      "declaredMorphology": "fine_powder",
+      "physicalProfile": "S",
+      "physicalMorphology": "fine_powder",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "family_context",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "RSC: Effect of concentration on reaction rate",
+          "url": "https://edu.rsc.org/experiments/the-effect-of-concentration-on-reaction-rate/743.article",
+          "scope": "experiment"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    },
+    {
+      "reaction": "al2so43_naoh",
+      "equation": "Al2(SO4)3(aq) + 6NaOH(aq) -> 2Al(OH)3(s) + 3Na2SO4(aq)",
+      "substance": "Al(OH)3",
+      "declaredMorphology": "gel",
+      "physicalProfile": "Al(OH)3",
+      "physicalMorphology": "gel_like",
+      "dedicatedProfile": true,
+      "transportBasis": "profile_parameters_not_experimentally_calibrated",
+      "formationRoute": "unclassified_solid_formation",
+      "requiredSubstrates": [],
+      "surfaceAttachmentVerified": null,
+      "identityMismatch": false,
+      "hasMatchingSolidProduct": true,
+      "evidence": "model_caveat",
+      "quantitativeCalibration": "not_validated",
+      "references": [
+        {
+          "title": "PHREEQC WATEQ4F: amorphous aluminum hydroxide, hydrolysis and sulfate complexes",
+          "url": "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat",
+          "scope": "research"
+        }
+      ],
+      "outstanding": [
+        "Nucleation, growth, aggregation and particle-size distribution need reaction-specific validation.",
+        "GPU appearance has not been verified in this continuation."
+      ]
+    }
+  ]
+}

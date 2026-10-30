@@ -1,0 +1,326 @@
+[
+  {
+    "id": "hcl_naoh",
+    "halfTime_s": 0.1,
+    "visual_s": 4,
+    "t95_s": 0.4321928094887363
+  },
+  {
+    "id": "h2so4_naoh",
+    "halfTime_s": 0.1,
+    "visual_s": 5,
+    "t95_s": 0.4321928094887363
+  },
+  {
+    "id": "hno3_koh",
+    "halfTime_s": 0.1,
+    "visual_s": 4,
+    "t95_s": 0.4321928094887363
+  },
+  {
+    "id": "h2so4_nh3",
+    "halfTime_s": 0.2,
+    "visual_s": 4.5,
+    "t95_s": 0.8643856189774726
+  },
+  {
+    "id": "hcl_caoh2",
+    "halfTime_s": 0.2,
+    "visual_s": 4,
+    "t95_s": 0.8643856189774726
+  },
+  {
+    "id": "h2so4_baoh2",
+    "halfTime_s": 0.15,
+    "visual_s": 7,
+    "t95_s": 0.6482892142331044
+  },
+  {
+    "id": "hno3_naoh",
+    "halfTime_s": 0.1,
+    "visual_s": 4,
+    "t95_s": 0.4321928094887363
+  },
+  {
+    "id": "bacl2_na2so4",
+    "halfTime_s": 0.15,
+    "visual_s": 8,
+    "t95_s": 0.6482892142331044
+  },
+  {
+    "id": "bacl2_h2so4",
+    "halfTime_s": 0.15,
+    "visual_s": 7.5,
+    "t95_s": 0.6482892142331044
+  },
+  {
+    "id": "agno3_nacl",
+    "halfTime_s": 0.1,
+    "visual_s": 6.5,
+    "t95_s": 0.4321928094887363
+  },
+  {
+    "id": "agno3_kbr",
+    "halfTime_s": 0.1,
+    "visual_s": 6.5,
+    "t95_s": 0.4321928094887363
+  },
+  {
+    "id": "agno3_ki",
+    "halfTime_s": 0.08,
+    "visual_s": 6.5,
+    "t95_s": 0.345754247590989
+  },
+  {
+    "id": "pbno32_ki",
+    "halfTime_s": 0.2,
+    "visual_s": 8.5,
+    "t95_s": 0.8643856189774726
+  },
+  {
+    "id": "cacl2_na2co3",
+    "halfTime_s": 0.2,
+    "visual_s": 7,
+    "t95_s": 0.8643856189774726
+  },
+  {
+    "id": "cuso4_naoh",
+    "halfTime_s": 0.15,
+    "visual_s": 7,
+    "t95_s": 0.6482892142331044
+  },
+  {
+    "id": "fecl3_naoh",
+    "halfTime_s": 0.1,
+    "visual_s": 7,
+    "t95_s": 0.4321928094887363
+  },
+  {
+    "id": "feso4_naoh",
+    "halfTime_s": 0.2,
+    "visual_s": 7,
+    "t95_s": 0.8643856189774726
+  },
+  {
+    "id": "alcl3_naoh",
+    "halfTime_s": 0.15,
+    "visual_s": 6.5,
+    "t95_s": 0.6482892142331044
+  },
+  {
+    "id": "na2s_cuso4",
+    "halfTime_s": 0.05,
+    "visual_s": 6,
+    "t95_s": 0.21609640474436814
+  },
+  {
+    "id": "na2s_pbno32",
+    "halfTime_s": 0.05,
+    "visual_s": 6,
+    "t95_s": 0.21609640474436814
+  },
+  {
+    "id": "k2cro4_bacl2",
+    "halfTime_s": 0.15,
+    "visual_s": 6.5,
+    "t95_s": 0.6482892142331044
+  },
+  {
+    "id": "k2cro4_agno3",
+    "halfTime_s": 0.1,
+    "visual_s": 6.5,
+    "t95_s": 0.4321928094887363
+  },
+  {
+    "id": "na2co3_hcl",
+    "halfTime_s": 0.4,
+    "visual_s": 5.5,
+    "t95_s": 1.7287712379549451
+  },
+  {
+    "id": "na2so3_hcl",
+    "halfTime_s": 0.3,
+    "visual_s": 6,
+    "t95_s": 1.2965784284662087
+  },
+  {
+    "id": "cl2_kbr",
+    "halfTime_s": 0.1,
+    "visual_s": 4.5,
+    "t95_s": 0.4321928094887363
+  },
+  {
+    "id": "fecl3_kscn",
+    "halfTime_s": 0.05,
+    "visual_s": 4.5,
+    "t95_s": 0.21609640474436814
+  },
+  {
+    "id": "k2cr2o7_naoh",
+    "halfTime_s": 0.1,
+    "visual_s": 4.5,
+    "t95_s": 0.4321928094887363
+  },
+  {
+    "id": "k2cro4_h2so4",
+    "halfTime_s": 0.1,
+    "visual_s": 4.5,
+    "t95_s": 0.4321928094887363
+  },
+  {
+    "id": "water_into_h2so4",
+    "halfTime_s": 0.05,
+    "visual_s": 5.5,
+    "t95_s": 0.21609640474436814
+  },
+  {
+    "id": "naclo_hcl_chlorine",
+    "halfTime_s": 0.3,
+    "visual_s": 7,
+    "t95_s": 1.2965784284662087
+  },
+  {
+    "id": "cocl2_hcl",
+    "halfTime_s": 0.4,
+    "visual_s": 5,
+    "t95_s": 1.7287712379549451
+  },
+  {
+    "id": "fecl3_3kscn",
+    "halfTime_s": 0.1,
+    "visual_s": 5.5,
+    "t95_s": 0.4321928094887363
+  },
+  {
+    "id": "fecl3_k4fecn6",
+    "halfTime_s": 0.1,
+    "visual_s": 7.5,
+    "t95_s": 0.4321928094887363
+  },
+  {
+    "id": "feso4_k3fecn6",
+    "halfTime_s": 0.15,
+    "visual_s": 7,
+    "t95_s": 0.6482892142331044
+  },
+  {
+    "id": "cuso4_k4fecn6",
+    "halfTime_s": 0.2,
+    "visual_s": 7,
+    "t95_s": 0.8643856189774726
+  },
+  {
+    "id": "niso4_naoh",
+    "halfTime_s": 0.2,
+    "visual_s": 7,
+    "t95_s": 0.8643856189774726
+  },
+  {
+    "id": "znso4_naoh",
+    "halfTime_s": 0.2,
+    "visual_s": 6.5,
+    "t95_s": 0.8643856189774726
+  },
+  {
+    "id": "mgcl2_naoh",
+    "halfTime_s": 0.25,
+    "visual_s": 6.5,
+    "t95_s": 1.0804820237218407
+  },
+  {
+    "id": "bino33_ki",
+    "halfTime_s": 0.2,
+    "visual_s": 7,
+    "t95_s": 0.8643856189774726
+  },
+  {
+    "id": "znso4_na2s",
+    "halfTime_s": 0.15,
+    "visual_s": 6.5,
+    "t95_s": 0.6482892142331044
+  },
+  {
+    "id": "agno3_k2cro4",
+    "halfTime_s": 0.15,
+    "visual_s": 6.5,
+    "t95_s": 0.6482892142331044
+  },
+  {
+    "id": "bacl2_k2cro4",
+    "halfTime_s": 0.2,
+    "visual_s": 6.5,
+    "t95_s": 0.8643856189774726
+  },
+  {
+    "id": "pbno32_k2cro4",
+    "halfTime_s": 0.15,
+    "visual_s": 7,
+    "t95_s": 0.6482892142331044
+  },
+  {
+    "id": "pbno32_na2so4",
+    "halfTime_s": 0.2,
+    "visual_s": 6.5,
+    "t95_s": 0.8643856189774726
+  },
+  {
+    "id": "cuso4_ki",
+    "halfTime_s": 0.2,
+    "visual_s": 7,
+    "t95_s": 0.8643856189774726
+  },
+  {
+    "id": "ki_cl2",
+    "halfTime_s": 0.1,
+    "visual_s": 5.5,
+    "t95_s": 0.4321928094887363
+  },
+  {
+    "id": "kbr_cl2",
+    "halfTime_s": 0.15,
+    "visual_s": 5.5,
+    "t95_s": 0.6482892142331044
+  },
+  {
+    "id": "na2s2o3_i2",
+    "halfTime_s": 0.1,
+    "visual_s": 5,
+    "t95_s": 0.4321928094887363
+  },
+  {
+    "id": "feso4_kmno4_h2so4",
+    "halfTime_s": 0.2,
+    "visual_s": 6,
+    "t95_s": 0.8643856189774726
+  },
+  {
+    "id": "nh42so4_naoh",
+    "halfTime_s": 0.4,
+    "visual_s": 6,
+    "t95_s": 1.7287712379549451
+  },
+  {
+    "id": "h2so4_dilution",
+    "halfTime_s": 0.1,
+    "visual_s": 5,
+    "t95_s": 0.4321928094887363
+  },
+  {
+    "id": "al2so43_naoh",
+    "halfTime_s": 0.15,
+    "visual_s": 6.5,
+    "t95_s": 0.6482892142331044
+  },
+  {
+    "id": "alcl3_naoh_excess",
+    "halfTime_s": 0.15,
+    "visual_s": 5,
+    "t95_s": 0.6482892142331044
+  },
+  {
+    "id": "al2so43_naoh_excess",
+    "halfTime_s": 0.15,
+    "visual_s": 5,
+    "t95_s": 0.6482892142331044
+  }
+]

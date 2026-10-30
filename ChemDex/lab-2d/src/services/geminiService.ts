@@ -9,43 +9,25 @@ import { ReactionDefinition } from '../types/chemistry';
 export const LOCAL_STORAGE_API_KEY_NAME = 'chemdex_gemini_api_key';
 export const LOCAL_STORAGE_MODEL_NAME = 'chemdex_gemini_model';
 
-const BACKUP_GEMINI_KEY =
-  'AQ.Ab8RN6KRVoRy4rPxL4R7dK_E1t-uLlShoCBdSabw7AsHCg6pdg';
-
+const BACKUP_GEMINI_KEY = '';
 export function getGeminiApiKey(): string {
-  if (typeof window !== 'undefined') {
-    const localSaved = localStorage.getItem(LOCAL_STORAGE_API_KEY_NAME);
-    if (localSaved && localSaved.trim().length > 5) {
-      return localSaved.trim();
-    }
-  }
-
-  const envVite = (import.meta as any).env?.VITE_GEMINI_API_KEY;
-  if (envVite && typeof envVite === 'string' && envVite.trim().length > 5 && !envVite.includes('placeholder')) {
-    return envVite.trim();
-  }
-
-  const envKey = (import.meta as any).env?.GEMINI_API_KEY;
-  if (envKey && typeof envKey === 'string' && envKey.trim().length > 5 && !envKey.includes('placeholder')) {
-    return envKey.trim();
-  }
-
-  return BACKUP_GEMINI_KEY;
+  if (typeof window !== 'undefined') {try{return sessionStorage.getItem(LOCAL_STORAGE_API_KEY_NAME)?.trim() || '__server__';}catch{}}
+  return '__server__';
 }
 
 export function setGeminiApiKey(key: string): void {
   if (typeof window !== 'undefined') {
     if (key.trim()) {
-      localStorage.setItem(LOCAL_STORAGE_API_KEY_NAME, key.trim());
+      sessionStorage.setItem(LOCAL_STORAGE_API_KEY_NAME, key.trim());
     } else {
-      localStorage.removeItem(LOCAL_STORAGE_API_KEY_NAME);
+      sessionStorage.removeItem(LOCAL_STORAGE_API_KEY_NAME);
     }
   }
 }
 
 export function removeGeminiApiKey(): void {
   if (typeof window !== 'undefined') {
-    localStorage.removeItem(LOCAL_STORAGE_API_KEY_NAME);
+    sessionStorage.removeItem(LOCAL_STORAGE_API_KEY_NAME);
   }
 }
 
@@ -106,10 +88,10 @@ export async function testGeminiApiKey(
 
   for (const model of modelsToTry) {
     try {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+      const url = '/api/gemini/generate';
       const res = await fetch(url, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(apiKey && apiKey !== '__server__' ? {'X-User-Api-Key':apiKey,'X-Gemini-Model':model} : {}) },
         body: JSON.stringify({
           contents: [{ parts: [{ text: 'Ping. Reply JSON: {"ok": true}' }] }],
           generationConfig: { maxOutputTokens: 20 },
@@ -205,14 +187,14 @@ Return JSON strictly following this schema:
 }
 Output ONLY raw valid JSON, no markdown codeblocks, no extra prose.`;
 
-  const models = [getGeminiModel(), 'gemini-2.5-flash', 'gemini-1.5-flash'];
+  const models = [...new Set([getGeminiModel(), 'gemini-2.5-flash'])];
 
   for (const model of models) {
     try {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+      const url = '/api/gemini/generate';
       const res = await fetch(url, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(apiKey && apiKey !== '__server__' ? {'X-User-Api-Key':apiKey,'X-Gemini-Model':model} : {}) },
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],
           generationConfig: {
@@ -311,14 +293,14 @@ Nhiệt độ: ${currentVesselContext.temperature_c.toFixed(1)}°C
 Nhiệm vụ của bạn là giải đáp mọi thắc mắc của học sinh về thí nghiệm hóa học, giải thích phương trình phản ứng, sự chuyển electron (oxi hóa - khử), màu sắc, kết tủa, cân bằng hóa học và an toàn thí nghiệm.
 Trả lời bằng tiếng Việt chuẩn mực, sư phạm, dùng định dạng Markdown đẹp, công thức hóa học rõ ràng (ví dụ H₂SO₄, Cu²⁺, Fe(OH)₃).`;
 
-  const models = [getGeminiModel(), 'gemini-2.5-flash', 'gemini-1.5-flash'];
+  const models = [...new Set([getGeminiModel(), 'gemini-2.5-flash'])];
 
   for (const model of models) {
     try {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+      const url = '/api/gemini/generate';
       const res = await fetch(url, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(apiKey && apiKey !== '__server__' ? {'X-User-Api-Key':apiKey,'X-Gemini-Model':model} : {}) },
         body: JSON.stringify({
           contents: [
             {

@@ -1,0 +1,91 @@
+{
+  "reviewedAt": "2026-10-27",
+  "attribution": "ChemDex: tóm tắt tiếng Việt từ Uses and properties, Royal Society of Chemistry. Xem nguồn ở từng mục.",
+  "elements": {
+    "H": {
+      "headline": "Nguyên tố nhẹ nhất, vai trò lớn trong năng lượng",
+      "applications": [
+        "Nguyên liệu tổng hợp amoniac cho phân bón.",
+        "Nhiên liệu cho pin nhiên liệu hiđro."
+      ],
+      "source": "https://periodic-table.rsc.org/element/1/hydrogen"
+    },
+    "He": {
+      "headline": "Khí hiếm giúp làm lạnh nam châm siêu dẫn",
+      "applications": [
+        "Môi chất làm lạnh cho nam châm trong máy MRI.",
+        "Tạo môi trường trơ trong chế tạo bán dẫn và sợi quang."
+      ],
+      "meltingPoint": null,
+      "meltingPointNote": "Không đông đặc ở áp suất khí quyển; cần áp suất cao để tạo heli rắn.",
+      "source": "https://periodic-table.rsc.org/element/2/helium",
+      "meltingPointSource": "https://physics.aps.org/articles/v5/75"
+    },
+    "Li": {
+      "headline": "Từ khoáng vật đến pin sạc",
+      "applications": [
+        "Thành phần trong pin sạc cho điện thoại, máy tính và xe điện.",
+        "Hợp kim nhôm–liti giúp giảm khối lượng kết cấu."
+      ],
+      "source": "https://periodic-table.rsc.org/element/3/lithium"
+    },
+    "C": {
+      "headline": "Một nguyên tố, nhiều dạng vật liệu",
+      "applications": [
+        "Graphit dùng trong bút chì và chổi than động cơ điện.",
+        "Kim cương công nghiệp dùng cho dụng cụ cắt và khoan."
+      ],
+      "meltingPoint": null,
+      "meltingPointNote": "Ở áp suất khí quyển, cacbon thăng hoa thay vì nóng chảy; giá trị phụ thuộc dạng thù hình và điều kiện đo.",
+      "source": "https://periodic-table.rsc.org/element/6/carbon"
+    },
+    "O": {
+      "headline": "Từ hô hấp đến công nghiệp luyện thép",
+      "applications": [
+        "Oxi được dùng với lượng lớn trong sản xuất thép.",
+        "Dùng trong hàn, cắt kim loại và xử lý nước thải."
+      ],
+      "source": "https://periodic-table.rsc.org/element/8/oxygen"
+    },
+    "Al": {
+      "headline": "Nhẹ, dễ gia công và hữu ích mỗi ngày",
+      "applications": [
+        "Hợp kim nhôm dùng trong máy bay và phương tiện giao thông.",
+        "Dùng cho bao bì, dụng cụ nhà bếp và đường dây truyền tải điện."
+      ],
+      "source": "https://periodic-table.rsc.org/element/13/aluminium"
+    },
+    "Si": {
+      "headline": "Nền tảng của công nghệ vi điện tử",
+      "applications": [
+        "Silic siêu tinh khiết là vật liệu bán dẫn cho vi mạch.",
+        "Silica và silicat là nguyên liệu làm thủy tinh, xi măng và gốm."
+      ],
+      "source": "https://periodic-table.rsc.org/element/14/silicon"
+    },
+    "Fe": {
+      "headline": "Kim loại làm nên những công trình",
+      "applications": [
+        "Nguyên liệu sản xuất thép cho xây dựng và cơ khí.",
+        "Xúc tác trong quá trình Haber tổng hợp amoniac."
+      ],
+      "source": "https://periodic-table.rsc.org/element/26/iron"
+    },
+    "Cu": {
+      "headline": "Kết nối thế giới bằng dây dẫn",
+      "applications": [
+        "Dùng làm dây dẫn điện và các bộ phận động cơ.",
+        "Dùng trong ống dẫn nước và thiết bị trao đổi nhiệt."
+      ],
+      "source": "https://periodic-table.rsc.org/element/29/copper"
+    },
+    "Au": {
+      "headline": "Giá trị còn nằm ở những tiếp điểm điện",
+      "applications": [
+        "Chế tác trang sức và lá vàng trang trí.",
+        "Mạ đầu nối điện để hạn chế ăn mòn và giữ tiếp xúc tốt."
+      ],
+      "source": "https://periodic-table.rsc.org/element/79/gold"
+    }
+  }
+}

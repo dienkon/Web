@@ -112,6 +112,8 @@ function getInitialPreference(): QualityPreference {
 }
 
 interface QualityStoreState {
+  rendererClass: 'unknown' | 'software' | 'hardware';
+  configureRenderer: (renderer: string) => void;
   preference: QualityPreference;
   effectiveTier: QualityTier;
   setPreference: (pref: QualityPreference) => void;
@@ -121,6 +123,15 @@ interface QualityStoreState {
 }
 
 export const useQualityStore = create<QualityStoreState>((set, get) => ({
+  rendererClass: 'unknown',
+  configureRenderer: (renderer) => {
+    const software = /SwiftShader|llvmpipe|software|Microsoft Basic/i.test(renderer);
+    const { preference } = get();
+    set({
+      rendererClass: software ? 'software' : 'hardware',
+      ...(preference === 'auto' && software ? { effectiveTier: 'potato' as const } : {}),
+    });
+  },
   preference: getInitialPreference(),
   effectiveTier: getInitialPreference() === 'auto' ? 'medium' : getInitialPreference() as QualityTier,
   setPreference: (preference: QualityPreference) => {
@@ -128,7 +139,7 @@ export const useQualityStore = create<QualityStoreState>((set, get) => ({
       localStorage.setItem(STORAGE_KEY, preference);
     } catch {}
     if (preference === 'auto') {
-      set({ preference, effectiveTier: 'medium' });
+      set({ preference, effectiveTier: get().rendererClass === 'software' ? 'potato' : 'medium' });
     } else {
       set({ preference, effectiveTier: preference });
     }
@@ -150,8 +161,8 @@ export const useQualityStore = create<QualityStoreState>((set, get) => ({
     }
   },
   handlePerformanceIncline: () => {
-    const { preference, effectiveTier } = get();
-    if (preference !== 'auto') return;
+    const { preference, effectiveTier, rendererClass } = get();
+    if (preference !== 'auto' || rendererClass === 'software') return;
     if (effectiveTier === 'potato') {
       set({ effectiveTier: 'low' });
     } else if (effectiveTier === 'low') {

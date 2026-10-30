@@ -1,0 +1,46 @@
+/* Motion is confined to each working part; the scene, models and UI frame keep
+   their layout. Changes in fluid/door position are driven by gesture state. */
+.practical-body .stirring-surface{position:relative;overflow:hidden;background:transparent}
+.practical-body .stirring-surface>svg{flex:0 0 100%;height:100%;max-height:none}
+.practical-body .stirring-caption{position:absolute;bottom:18px;left:0;right:0;pointer-events:none;padding:0 8px}
+.practical-body .stirring-caption strong{font-size:12px}
+.practical-body .stirring-caption span{font-size:10px}
+.practical-body .stirring-surface>progress{position:absolute;bottom:4px;left:12.5%;margin:0}
+.fx-acid-portion{animation:acid-portion .65s linear infinite}
+@keyframes acid-portion{to{stroke-dashoffset:-16}}
+.fx-hazard-affix{transform-box:fill-box;transform-origin:center;animation:hazard-affix .3s ease-out both}
+@keyframes hazard-affix{from{transform:scale(.88);opacity:.5}to{transform:scale(1);opacity:1}}
+.fx-scale-damping{transform-box:fill-box;transform-origin:center;animation:scale-damping .65s ease-out both}
+@keyframes scale-damping{0%{transform:scaleY(1.2)}45%{transform:scaleY(.65)}100%{transform:scaleY(1)}}
+.fx-titration-drop{animation:titration-drop .9s linear infinite}
+@keyframes titration-drop{0%{transform:translateY(-3px);opacity:0}20%{opacity:.9}100%{transform:translateY(16px);opacity:.1}}
+.fx-electrode-stabilize{animation:electrode-stabilize .8s ease-out both}
+@keyframes electrode-stabilize{from{opacity:.2}to{opacity:1}}
+.fx-probe-rinse{transform-box:fill-box;transform-origin:center;animation:probe-rinse 1.8s ease-out infinite}
+@keyframes probe-rinse{0%{transform:scale(.75);opacity:.8}100%{transform:scale(1.12);opacity:.15}}
+.fx-plate-heating{animation:plate-heating 3s ease-in-out infinite}
+@keyframes plate-heating{0%,100%{stroke-opacity:.5}50%{stroke-opacity:.9}}
+.fx-handwash-flow{animation:handwash-flow .75s linear infinite}
+@keyframes handwash-flow{to{stroke-dashoffset:-28}}
+.fx-wash-jet{animation:wash-jet .45s linear infinite}
+@keyframes wash-jet{to{stroke-dashoffset:-16}}
+.fx-rinse-collection{transform-box:fill-box;transform-origin:center;animation:rinse-collection 1.5s ease-out infinite}
+@keyframes rinse-collection{0%{transform:scale(.85);opacity:.2}60%{opacity:.6}100%{transform:scale(1.08);opacity:.2}}
+.fx-seat-turn{animation:seat-turn 1.2s linear infinite}
+@keyframes seat-turn{to{stroke-dashoffset:-24}}
+.fx-blanket-unfold{transform-box:fill-box;transform-origin:top;animation:blanket-unfold .5s ease-out both}
+@keyframes blanket-unfold{from{transform:scaleY(.35);opacity:.4}to{transform:scaleY(1);opacity:1}}
+.fx-emergency-shower{animation:emergency-shower .6s linear infinite}
+@keyframes emergency-shower{to{stroke-dashoffset:-24}}
+.fx-detector-record{stroke-dasharray:70;animation:detector-record .5s ease-out both}
+@keyframes detector-record{from{stroke-dashoffset:70}to{stroke-dashoffset:0}}
+.fx-can-label{animation:can-label .35s ease-out both}
+@keyframes can-label{from{stroke-opacity:.2}to{stroke-opacity:1}}
+.fx-chemical-lid{animation:chemical-lid .3s ease-out both}
+@keyframes chemical-lid{from{transform:translateY(-5px)}to{transform:translateY(0)}}
+.fx-paper-bin-seal{animation:paper-bin-seal .4s ease-out both}
+@keyframes paper-bin-seal{from{opacity:.2}to{opacity:1}}
+.fx-sharps-slot{animation:sharps-slot .4s ease-out both}
+@keyframes sharps-slot{from{stroke-width:2}to{stroke-width:6}}
+.practical-backdrop[data-reduced-motion=true] [class^=fx-]{animation:none!important}
+@media(prefers-reduced-motion:reduce){.practical-backdrop [class^=fx-]{animation:none!important}}

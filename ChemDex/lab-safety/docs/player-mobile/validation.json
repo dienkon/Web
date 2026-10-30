@@ -1,0 +1,84 @@
+{
+  "passed": true,
+  "browserReports": [
+    {
+      "file": "docs/player-mobile/browser-checks.json",
+      "passed": true,
+      "checks": 56,
+      "errors": 0
+    },
+    {
+      "file": "docs/player-mobile/mobile-controls-checks.json",
+      "passed": true,
+      "checks": 16,
+      "errors": 0
+    },
+    {
+      "file": "docs/asset-studies/held-integration-checks.json",
+      "passed": true,
+      "checks": 16,
+      "errors": 0
+    },
+    {
+      "file": "docs/asset-studies/ppe-integration-checks.json",
+      "passed": true,
+      "checks": 17,
+      "errors": 0
+    },
+    {
+      "file": "docs/asset-studies/architecture-integration-checks.json",
+      "passed": true,
+      "checks": 24,
+      "errors": 0
+    },
+    {
+      "file": "docs/asset-studies/fixture-integration-checks.json",
+      "passed": true,
+      "checks": 24,
+      "errors": 0
+    },
+    {
+      "file": "docs/visual-gameplay/model-browser-checks.json",
+      "passed": true,
+      "checks": 69,
+      "errors": 0
+    },
+    {
+      "file": "docs/practical-review/mobile-ux-checks.json",
+      "passed": true,
+      "checks": 64,
+      "errors": 0
+    },
+    {
+      "file": "docs/practical-review/browser-checks.json",
+      "passed": true,
+      "checks": 36,
+      "errors": 0
+    }
+  ],
+  "browserChecks": 322,
+  "catalog": {
+    "variants": 134,
+    "checks": 805,
+    "refreshedInThisGoal": 13,
+    "newRenders": 52
+  },
+  "core": {
+    "lint": true,
+    "build": true,
+    "academyGames": 44,
+    "academyCases": 72,
+    "practicalWorkflows": 78,
+    "practicalSteps": 421,
+    "hoseReferenceCoordinates": 1428,
+    "hoseUpdates": 1000,
+    "touchPartitions": [
+      1,
+      4,
+      12,
+      30,
+      60,
+      120
+    ]
+  }
+}

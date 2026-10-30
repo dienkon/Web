@@ -3,6 +3,8 @@
  * Unified single source of truth for object physical manipulation bounds.
  */
 
+import { restingVesselHeight } from './vesselRest';
+
 export const TILT_MIN = 0;
 export const TILT_MAX = Math.PI; // 180 degrees = fully inverted
 
@@ -177,5 +179,5 @@ export function clampTilt(vesselType: string | undefined, tiltRad: number): numb
 
 export function clampLift(vesselType: string | undefined, liftY: number): number {
   const limits = getHandleLimits(vesselType);
-  return Math.max(limits.lift[0], Math.min(limits.lift[1], liftY));
+  return Math.max(Math.min(limits.lift[0], restingVesselHeight(vesselType)), Math.min(limits.lift[1], liftY));
 }

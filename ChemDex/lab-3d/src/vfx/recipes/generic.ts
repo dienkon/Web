@@ -2,6 +2,9 @@ import { ReactionVfxRecipe, VfxRecipeLayer } from './reactionVfx';
 import { MixResult } from '../../shared/schemas';
 import { VesselState } from '../../types/chemistry';
 import { normalizeMorphology, toRecipeStyle } from '../catalog/vocab';
+import { GAS_FUME_TABLE } from '../catalog/gasTable';
+import { identifySpecies } from '../../science/speciesIdentity';
+import { waterVisualState } from '../waterVisualState';
 
 /**
  * Derives dynamic procedural VFX recipe from MixResult or VesselState properties
@@ -11,7 +14,15 @@ export function getGenericVfxRecipe(
   vessel?: VesselState | null
 ): ReactionVfxRecipe {
   const hasGas = mixResult?.new_vessel_state?.has_gas ?? vessel?.hasGas ?? false;
-  const gasColor = mixResult?.new_vessel_state?.gas_color ?? vessel?.gasColor ?? '#f1f5f9';
+  const actualGases = vessel?.contents.filter(c => c.phase === 'g' && c.moles > 0)
+    .map(c => identifySpecies(c.formula).formula) ?? [];
+  if (!actualGases.length) actualGases.push(...Object.keys(vessel?.escapedGas_g ?? {})
+    .filter(f => vessel!.escapedGas_g![f] > 0).map(f => identifySpecies(f).formula));
+  // Transparent carrier gas must not hide a known absorbing component.
+  const gasSpecies = actualGases.find(f => f !== 'H2O' && GAS_FUME_TABLE[f]?.visible)
+    ?? actualGases[0];
+  const gasInfo = gasSpecies ? GAS_FUME_TABLE[gasSpecies] : undefined;
+  const gasColor = gasInfo?.colorHex ?? mixResult?.new_vessel_state?.gas_color ?? vessel?.gasColor ?? '#f1f5f9';
 
   const hasPrecipitate = mixResult?.new_vessel_state?.has_precipitate ?? vessel?.hasPrecipitate ?? false;
   const precipitateColor = mixResult?.new_vessel_state?.precipitate_color ?? vessel?.precipitateColor ?? '#cbd5e1';
@@ -22,9 +33,11 @@ export function getGenericVfxRecipe(
   const precipitateMorphologySummary: 'flake' | 'curd' | 'gel' = precipitateStyle === 'gel' ? 'gel' : precipitateStyle === 'flake-gold' ? 'flake' : 'curd';
 
   const isExplosion = mixResult?.new_vessel_state?.is_explosion ?? vessel?.isExplosion ?? false;
-  const temp = vessel?.temperature_c ?? 25;
-  const isBoiling = (mixResult?.new_vessel_state?.is_boiling ?? vessel?.isBoiling ?? false) || temp >= 98;
-  const isHeavyGas = gasColor.toLowerCase().includes('9a3412') || gasColor.toLowerCase().includes('b45309') || gasColor.toLowerCase().includes('brown') || gasColor.toLowerCase().includes('yellow');
+  const water = waterVisualState(vessel);
+  const isBoiling = water.isBoiling;
+  const isHeavyGas = (gasInfo?.densityRatioAir ?? 1) > 1.2;
+  const visibleGas = hasGas && !vessel?.isSealed && !vessel?.isShattered
+    && gasInfo?.visible === true && gasSpecies !== 'H2O';
 
   const layers: VfxRecipeLayer[] = [];
 
@@ -35,11 +48,11 @@ export function getGenericVfxRecipe(
       rate: isBoiling ? 38 : 20,
       color: isBoiling ? '#ffffff' : gasColor,
       emitter: 'bottom',
-      gasType: isBoiling ? 'boil' : 'gas'
+      gasType: isBoiling ? 'boil' : gasSpecies ?? 'gas'
     });
   }
 
-  if (hasGas) {
+  if (visibleGas) {
     layers.push({
       kind: 'gasPlume',
       t: [0.05, 0.95],
@@ -50,11 +63,11 @@ export function getGenericVfxRecipe(
     });
   }
 
-  if (isBoiling || temp >= 48) {
+  if (water.mistRate > 0) {
     layers.push({
       kind: 'steam',
       t: [0.1, 0.95],
-      density: isBoiling ? 0.8 : Math.min(0.55, (temp - 48) / 50)
+      density: water.visibility * Math.min(0.8, water.rate_g_s * 8)
     });
   }
 
@@ -91,11 +104,11 @@ export function getGenericVfxRecipe(
     bubbles: (hasGas || isBoiling) ? {
       rate: isBoiling ? 38 : 18,
       color: isBoiling ? '#ffffff' : gasColor,
-      gasType: isBoiling ? 'boil' : 'gas',
+      gasType: isBoiling ? 'boil' : gasSpecies ?? 'gas',
       emitter: 'bottom'
     } : undefined,
 
-    gasPlume: hasGas ? {
+    gasPlume: visibleGas ? {
       color: gasColor,
       density: isHeavyGas ? 'heavy' : 'neutral',
       rate: isHeavyGas ? 30 : 20,
@@ -103,9 +116,9 @@ export function getGenericVfxRecipe(
       buoyancy: isHeavyGas ? -0.15 : 0.25
     } : undefined,
 
-    steam: (isBoiling || temp >= 48) ? {
+    steam: water.mistRate > 0 ? {
       active: true,
-      rate: isBoiling ? 30 : Math.floor(6 + ((temp - 48) / 50) * 16),
+      rate: water.mistRate,
     } : undefined,
 
     precipitate: hasPrecipitate ? {

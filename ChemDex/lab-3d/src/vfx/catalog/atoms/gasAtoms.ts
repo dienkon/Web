@@ -511,8 +511,6 @@ export const nucleateBubblesAtom: EffectAtom = {
   },
   writeBack(h, vessel) {
     if (!h.alive) return;
-    vessel.hasGas = true;
-    vessel.gasRate = Math.max(vessel.gasRate || 0, h.custom.bubbleRate || 10.0);
   },
   dispose(h) {
     h.alive = false;
@@ -559,9 +557,6 @@ export const effervescenceBurstAtom: EffectAtom = {
   },
   writeBack(h, vessel) {
     if (!h.alive) return;
-    vessel.hasGas = true;
-    vessel.gasRate = Math.max(vessel.gasRate || 0, h.custom.bubbleRate || 35.0);
-    vessel.foam_ml = Math.min(40.0, (vessel.foam_ml || 0) + (h.custom.producedFoam_ml || 0) * 0.1);
   },
   dispose(h) {
     h.alive = false;
@@ -604,7 +599,6 @@ export const buoyantGasPlumeAtom: EffectAtom = {
   },
   writeBack(h, vessel) {
     if (!h.alive) return;
-    vessel.hasGas = true;
     if (h.custom.colorHex) {
       vessel.gasColor = h.custom.colorHex;
     }

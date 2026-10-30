@@ -21,6 +21,10 @@ export const TestTubeSvg: React.FC<TestTubeSvgProps> = ({ equipment, isSelected 
     hasFumes,
     fumeType = 'steam',
     fumeColorHex = '#cbd5e1',
+    isBeingHeated,
+    hasSilverMirror,
+    foamHead_mm = 0,
+    temperature_c = 25.0,
   } = equipment;
 
   const fillRatio = Math.min(1.0, Math.max(0, volume_ml / capacity_ml));
@@ -58,10 +62,38 @@ export const TestTubeSvg: React.FC<TestTubeSvgProps> = ({ equipment, isSelected 
           <path d="M 12 18 L 12 150 Q 12 168 26 168 Q 40 168 40 150 L 40 18 Z" />
         </clipPath>
 
+        {/* Thermal Bottom Radiant Glow */}
+        <radialGradient id={`tubeThermalGlow-${id}`} cx="50%" cy="100%" r="70%">
+          <stop offset="0%" stopColor="#f97316" stopOpacity="0.85" />
+          <stop offset="60%" stopColor="#ea580c" stopOpacity="0.4" />
+          <stop offset="100%" stopColor="#f97316" stopOpacity="0" />
+        </radialGradient>
+
+        {/* Silver Mirror Coating Gradient */}
+        <linearGradient id={`tubeSilverMirror-${id}`} x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#94a3b8" stopOpacity="0.9" />
+          <stop offset="25%" stopColor="#f8fafc" stopOpacity="0.95" />
+          <stop offset="50%" stopColor="#cbd5e1" stopOpacity="0.85" />
+          <stop offset="75%" stopColor="#ffffff" stopOpacity="0.95" />
+          <stop offset="100%" stopColor="#64748b" stopOpacity="0.9" />
+        </linearGradient>
+
         <filter id={`tubeFumeBlur-${id}`} x="-20%" y="-20%" width="140%" height="140%">
           <feGaussianBlur stdDeviation="2.5" />
         </filter>
       </defs>
+
+      {/* Thermal Flame Licking & Heating Glow when positioned over active burner */}
+      {isBeingHeated && (
+        <g className="animate-pulse">
+          <ellipse cx="26" cy="168" rx="20" ry="8" fill={`url(#tubeThermalGlow-${id})`} />
+          {/* Flame tongues licking around round bottom */}
+          <path d="M 12 165 C 6 156, 7 142, 13 134 C 15 144, 16 154, 15 165 Z" fill="#f59e0b" fillOpacity="0.85" />
+          <path d="M 12 165 C 8 157, 9 146, 13 140 C 14 147, 15 155, 14 165 Z" fill="#fef08a" />
+          <path d="M 40 165 C 46 156, 45 142, 39 134 C 37 144, 36 154, 37 165 Z" fill="#f59e0b" fillOpacity="0.85" />
+          <path d="M 40 165 C 44 157, 43 146, 39 140 C 38 147, 37 155, 38 165 Z" fill="#fef08a" />
+        </g>
+      )}
 
       {/* Selection Glow */}
       {isSelected && (
@@ -151,6 +183,37 @@ export const TestTubeSvg: React.FC<TestTubeSvgProps> = ({ equipment, isSelected 
                 <circle cx="24" cy={liquidY + 54} r="2.2" fill="#ffffff" fillOpacity="0.8" />
                 <circle cx="28" cy={liquidY + 76} r="2.8" fill="#ffffff" fillOpacity="0.75" />
                 <circle cx="23" cy={liquidY + 98} r="2" fill="#ffffff" fillOpacity="0.75" />
+              </g>
+            )}
+
+            {/* Frothy Foam Head during gas generation */}
+            {(hasGas || isBoiling || (foamHead_mm && foamHead_mm > 0)) && (
+              <g className="animate-pulse">
+                <ellipse cx="26" cy={liquidY - 1} rx="13" ry="2.8" fill="#ffffff" fillOpacity="0.85" />
+                <circle cx="16" cy={liquidY - 2} r="2.2" fill="#ffffff" fillOpacity="0.9" />
+                <circle cx="21" cy={liquidY - 3} r="2.5" fill="#ffffff" fillOpacity="0.95" />
+                <circle cx="27" cy={liquidY - 3.2} r="2.8" fill="#ffffff" fillOpacity="0.95" />
+                <circle cx="33" cy={liquidY - 2.5} r="2.4" fill="#ffffff" fillOpacity="0.9" />
+                <circle cx="37" cy={liquidY - 1.5} r="1.8" fill="#ffffff" fillOpacity="0.85" />
+              </g>
+            )}
+
+            {/* Specular Silver Mirror Coating (Tollens test inside tube) */}
+            {hasSilverMirror && (
+              <path
+                d="M 12 30 L 12 150 Q 12 168 26 168 Q 40 168 40 150 L 40 30 L 37 30 L 37 148 Q 37 165 26 165 Q 15 165 15 148 L 15 30 Z"
+                fill={`url(#tubeSilverMirror-${id})`}
+                className="drop-shadow-xs"
+              />
+            )}
+
+            {/* Steam Condensation Droplets */}
+            {temperature_c >= 50 && totalLiquidHeight < 100 && (
+              <g fill="#ffffff" fillOpacity="0.75" className="animate-pulse">
+                <circle cx="15" cy="35" r="1.2" />
+                <circle cx="37" cy="42" r="1.4" />
+                <circle cx="16" cy="58" r="1.5" />
+                <circle cx="36" cy="70" r="1.3" />
               </g>
             )}
 

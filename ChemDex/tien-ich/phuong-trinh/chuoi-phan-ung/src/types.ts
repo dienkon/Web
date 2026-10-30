@@ -1,4 +1,12 @@
 export interface ReactionStep {
+  reactionId?: string;
+  from?: string;
+  to?: string;
+  carrier?: string;
+  workup?: string;
+  reagents?: string[];
+  evidence?: { type: string; scope: string; sourceIds: string[] };
+  sourceReferences?: { title: string; url: string; scope: string }[];
   equation: string;
   latex: string;
   latexWithCondition: string;

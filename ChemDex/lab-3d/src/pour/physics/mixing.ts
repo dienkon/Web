@@ -35,7 +35,7 @@ export function transferFluidIncrement(
   overflow_ml: number;
 } {
   const actualDV = Math.max(0, Math.min(source.volume_ml, dV_ml));
-  if (actualDV <= 0.0001) {
+  if (!(actualDV > 0)) {
     return {
       newSource: { ...source },
       newRecipient: { ...recipient },

@@ -1,0 +1,1071 @@
+{
+  "attribution": "Bowserinator and contributors, Periodic-Table-JSON; adapted numeric property subset",
+  "source": "https://github.com/Bowserinator/Periodic-Table-JSON",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+  "retrievedAt": "2026-10-26",
+  "elements": [
+    {
+      "z": 1,
+      "atomicRadius": 25,
+      "ionizationEnergy": 1312,
+      "meltingPoint_K": 13.99,
+      "electronegativity": 2.2,
+      "source": "https://en.wikipedia.org/wiki/Hydrogen",
+      "mass": 1.008
+    },
+    {
+      "z": 2,
+      "atomicRadius": 120,
+      "ionizationEnergy": 2372.3,
+      "meltingPoint_K": 0.95,
+      "electronegativity": null,
+      "source": "https://en.wikipedia.org/wiki/Helium",
+      "mass": 4.0026022
+    },
+    {
+      "z": 3,
+      "atomicRadius": 145,
+      "ionizationEnergy": 520.2,
+      "meltingPoint_K": 453.65,
+      "electronegativity": 0.98,
+      "source": "https://en.wikipedia.org/wiki/Lithium",
+      "mass": 6.94
+    },
+    {
+      "z": 4,
+      "atomicRadius": 105,
+      "ionizationEnergy": 899.5,
+      "meltingPoint_K": 1560,
+      "electronegativity": 1.57,
+      "source": "https://en.wikipedia.org/wiki/Beryllium",
+      "mass": 9.01218315
+    },
+    {
+      "z": 5,
+      "atomicRadius": 85,
+      "ionizationEnergy": 800.6,
+      "meltingPoint_K": 2349,
+      "electronegativity": 2.04,
+      "source": "https://en.wikipedia.org/wiki/Boron",
+      "mass": 10.81
+    },
+    {
+      "z": 6,
+      "atomicRadius": 70,
+      "ionizationEnergy": 1086.5,
+      "meltingPoint_K": 4600,
+      "electronegativity": 2.55,
+      "source": "https://en.wikipedia.org/wiki/Carbon",
+      "mass": 12.011
+    },
+    {
+      "z": 7,
+      "atomicRadius": 65,
+      "ionizationEnergy": 1402.3,
+      "meltingPoint_K": 63.15,
+      "electronegativity": 3.04,
+      "source": "https://en.wikipedia.org/wiki/Nitrogen",
+      "mass": 14.007
+    },
+    {
+      "z": 8,
+      "atomicRadius": 60,
+      "ionizationEnergy": 1313.9,
+      "meltingPoint_K": 54.36,
+      "electronegativity": 3.44,
+      "source": "https://en.wikipedia.org/wiki/Oxygen",
+      "mass": 15.999
+    },
+    {
+      "z": 9,
+      "atomicRadius": 50,
+      "ionizationEnergy": 1681,
+      "meltingPoint_K": 53.48,
+      "electronegativity": 3.98,
+      "source": "https://en.wikipedia.org/wiki/Fluorine",
+      "mass": 18.9984031636
+    },
+    {
+      "z": 10,
+      "atomicRadius": 160,
+      "ionizationEnergy": 2080.7,
+      "meltingPoint_K": 24.56,
+      "electronegativity": null,
+      "source": "https://en.wikipedia.org/wiki/Neon",
+      "mass": 20.17976
+    },
+    {
+      "z": 11,
+      "atomicRadius": 180,
+      "ionizationEnergy": 495.8,
+      "meltingPoint_K": 370.944,
+      "electronegativity": 0.93,
+      "source": "https://en.wikipedia.org/wiki/Sodium",
+      "mass": 22.989769282
+    },
+    {
+      "z": 12,
+      "atomicRadius": 150,
+      "ionizationEnergy": 737.7,
+      "meltingPoint_K": 923,
+      "electronegativity": 1.31,
+      "source": "https://en.wikipedia.org/wiki/Magnesium",
+      "mass": 24.305
+    },
+    {
+      "z": 13,
+      "atomicRadius": 125,
+      "ionizationEnergy": 577.5,
+      "meltingPoint_K": 933.47,
+      "electronegativity": 1.61,
+      "source": "https://en.wikipedia.org/wiki/Aluminium",
+      "mass": 26.98153857
+    },
+    {
+      "z": 14,
+      "atomicRadius": 110,
+      "ionizationEnergy": 786.5,
+      "meltingPoint_K": 1687,
+      "electronegativity": 1.9,
+      "source": "https://en.wikipedia.org/wiki/Silicon",
+      "mass": 28.085
+    },
+    {
+      "z": 15,
+      "atomicRadius": 100,
+      "ionizationEnergy": 1011.8,
+      "meltingPoint_K": 317.3,
+      "electronegativity": 2.19,
+      "source": "https://en.wikipedia.org/wiki/Phosphorus",
+      "mass": 30.9737619985
+    },
+    {
+      "z": 16,
+      "atomicRadius": 100,
+      "ionizationEnergy": 999.6,
+      "meltingPoint_K": 388.36,
+      "electronegativity": 2.58,
+      "source": "https://en.wikipedia.org/wiki/Sulfur",
+      "mass": 32.06
+    },
+    {
+      "z": 17,
+      "atomicRadius": 100,
+      "ionizationEnergy": 1251.2,
+      "meltingPoint_K": 171.6,
+      "electronegativity": 3.16,
+      "source": "https://en.wikipedia.org/wiki/Chlorine",
+      "mass": 35.45
+    },
+    {
+      "z": 18,
+      "atomicRadius": 71,
+      "ionizationEnergy": 1520.6,
+      "meltingPoint_K": 83.81,
+      "electronegativity": null,
+      "source": "https://en.wikipedia.org/wiki/Argon",
+      "mass": 39.9481
+    },
+    {
+      "z": 19,
+      "atomicRadius": 220,
+      "ionizationEnergy": 418.8,
+      "meltingPoint_K": 336.7,
+      "electronegativity": 0.82,
+      "source": "https://en.wikipedia.org/wiki/Potassium",
+      "mass": 39.09831
+    },
+    {
+      "z": 20,
+      "atomicRadius": 180,
+      "ionizationEnergy": 589.8,
+      "meltingPoint_K": 1115,
+      "electronegativity": 1,
+      "source": "https://en.wikipedia.org/wiki/Calcium",
+      "mass": 40.0784
+    },
+    {
+      "z": 21,
+      "atomicRadius": 160,
+      "ionizationEnergy": 633.1,
+      "meltingPoint_K": 1814,
+      "electronegativity": 1.36,
+      "source": "https://en.wikipedia.org/wiki/Scandium",
+      "mass": 44.9559085
+    },
+    {
+      "z": 22,
+      "atomicRadius": 140,
+      "ionizationEnergy": 658.8,
+      "meltingPoint_K": 1941,
+      "electronegativity": 1.54,
+      "source": "https://en.wikipedia.org/wiki/Titanium",
+      "mass": 47.8671
+    },
+    {
+      "z": 23,
+      "atomicRadius": 135,
+      "ionizationEnergy": 650.9,
+      "meltingPoint_K": 2183,
+      "electronegativity": 1.63,
+      "source": "https://en.wikipedia.org/wiki/Vanadium",
+      "mass": 50.94151
+    },
+    {
+      "z": 24,
+      "atomicRadius": 140,
+      "ionizationEnergy": 652.9,
+      "meltingPoint_K": 2180,
+      "electronegativity": 1.66,
+      "source": "https://en.wikipedia.org/wiki/Chromium",
+      "mass": 51.99616
+    },
+    {
+      "z": 25,
+      "atomicRadius": 140,
+      "ionizationEnergy": 717.3,
+      "meltingPoint_K": 1519,
+      "electronegativity": 1.55,
+      "source": "https://en.wikipedia.org/wiki/Manganese",
+      "mass": 54.9380443
+    },
+    {
+      "z": 26,
+      "atomicRadius": 140,
+      "ionizationEnergy": 762.5,
+      "meltingPoint_K": 1811,
+      "electronegativity": 1.83,
+      "source": "https://en.wikipedia.org/wiki/Iron",
+      "mass": 55.8452
+    },
+    {
+      "z": 27,
+      "atomicRadius": 135,
+      "ionizationEnergy": 760.4,
+      "meltingPoint_K": 1768,
+      "electronegativity": 1.88,
+      "source": "https://en.wikipedia.org/wiki/Cobalt",
+      "mass": 58.9331944
+    },
+    {
+      "z": 28,
+      "atomicRadius": 135,
+      "ionizationEnergy": 737.1,
+      "meltingPoint_K": 1728,
+      "electronegativity": 1.91,
+      "source": "https://en.wikipedia.org/wiki/Nickel",
+      "mass": 58.69344
+    },
+    {
+      "z": 29,
+      "atomicRadius": 135,
+      "ionizationEnergy": 745.5,
+      "meltingPoint_K": 1357.77,
+      "electronegativity": 1.9,
+      "source": "https://en.wikipedia.org/wiki/Copper",
+      "mass": 63.5463
+    },
+    {
+      "z": 30,
+      "atomicRadius": 135,
+      "ionizationEnergy": 906.4,
+      "meltingPoint_K": 692.68,
+      "electronegativity": 1.65,
+      "source": "https://en.wikipedia.org/wiki/Zinc",
+      "mass": 65.382
+    },
+    {
+      "z": 31,
+      "atomicRadius": 130,
+      "ionizationEnergy": 578.8,
+      "meltingPoint_K": 302.9146,
+      "electronegativity": 1.81,
+      "source": "https://en.wikipedia.org/wiki/Gallium",
+      "mass": 69.7231
+    },
+    {
+      "z": 32,
+      "atomicRadius": 125,
+      "ionizationEnergy": 762,
+      "meltingPoint_K": 1211.4,
+      "electronegativity": 2.01,
+      "source": "https://en.wikipedia.org/wiki/Germanium",
+      "mass": 72.6308
+    },
+    {
+      "z": 33,
+      "atomicRadius": 115,
+      "ionizationEnergy": 947,
+      "meltingPoint_K": 1090,
+      "electronegativity": 2.18,
+      "source": "https://en.wikipedia.org/wiki/Arsenic",
+      "mass": 74.9215956
+    },
+    {
+      "z": 34,
+      "atomicRadius": 115,
+      "ionizationEnergy": 941,
+      "meltingPoint_K": 494,
+      "electronegativity": 2.55,
+      "source": "https://en.wikipedia.org/wiki/Selenium",
+      "mass": 78.9718
+    },
+    {
+      "z": 35,
+      "atomicRadius": 115,
+      "ionizationEnergy": 1139.9,
+      "meltingPoint_K": 265.8,
+      "electronegativity": 2.96,
+      "source": "https://en.wikipedia.org/wiki/Bromine",
+      "mass": 79.904
+    },
+    {
+      "z": 36,
+      "atomicRadius": null,
+      "ionizationEnergy": 1350.8,
+      "meltingPoint_K": 115.78,
+      "electronegativity": 3,
+      "source": "https://en.wikipedia.org/wiki/Krypton",
+      "mass": 83.7982
+    },
+    {
+      "z": 37,
+      "atomicRadius": 235,
+      "ionizationEnergy": 403,
+      "meltingPoint_K": 312.45,
+      "electronegativity": 0.82,
+      "source": "https://en.wikipedia.org/wiki/Rubidium",
+      "mass": 85.46783
+    },
+    {
+      "z": 38,
+      "atomicRadius": 200,
+      "ionizationEnergy": 549.5,
+      "meltingPoint_K": 1050,
+      "electronegativity": 0.95,
+      "source": "https://en.wikipedia.org/wiki/Strontium",
+      "mass": 87.621
+    },
+    {
+      "z": 39,
+      "atomicRadius": 180,
+      "ionizationEnergy": 600,
+      "meltingPoint_K": 1799,
+      "electronegativity": 1.22,
+      "source": "https://en.wikipedia.org/wiki/Yttrium",
+      "mass": 88.905842
+    },
+    {
+      "z": 40,
+      "atomicRadius": 155,
+      "ionizationEnergy": 640.1,
+      "meltingPoint_K": 2128,
+      "electronegativity": 1.33,
+      "source": "https://en.wikipedia.org/wiki/Zirconium",
+      "mass": 91.2242
+    },
+    {
+      "z": 41,
+      "atomicRadius": 145,
+      "ionizationEnergy": 652.1,
+      "meltingPoint_K": 2750,
+      "electronegativity": 1.6,
+      "source": "https://en.wikipedia.org/wiki/Niobium",
+      "mass": 92.906372
+    },
+    {
+      "z": 42,
+      "atomicRadius": 145,
+      "ionizationEnergy": 684.3,
+      "meltingPoint_K": 2896,
+      "electronegativity": 2.16,
+      "source": "https://en.wikipedia.org/wiki/Molybdenum",
+      "mass": 95.951
+    },
+    {
+      "z": 43,
+      "atomicRadius": 135,
+      "ionizationEnergy": 702,
+      "meltingPoint_K": 2430,
+      "electronegativity": 1.9,
+      "source": "https://en.wikipedia.org/wiki/Technetium",
+      "mass": 98
+    },
+    {
+      "z": 44,
+      "atomicRadius": 130,
+      "ionizationEnergy": 710.2,
+      "meltingPoint_K": 2607,
+      "electronegativity": 2.2,
+      "source": "https://en.wikipedia.org/wiki/Ruthenium",
+      "mass": 101.072
+    },
+    {
+      "z": 45,
+      "atomicRadius": 135,
+      "ionizationEnergy": 719.7,
+      "meltingPoint_K": 2237,
+      "electronegativity": 2.28,
+      "source": "https://en.wikipedia.org/wiki/Rhodium",
+      "mass": 102.905502
+    },
+    {
+      "z": 46,
+      "atomicRadius": 140,
+      "ionizationEnergy": 804.4,
+      "meltingPoint_K": 1828.05,
+      "electronegativity": 2.2,
+      "source": "https://en.wikipedia.org/wiki/Palladium",
+      "mass": 106.421
+    },
+    {
+      "z": 47,
+      "atomicRadius": 160,
+      "ionizationEnergy": 731,
+      "meltingPoint_K": 1234.93,
+      "electronegativity": 1.93,
+      "source": "https://en.wikipedia.org/wiki/Silver",
+      "mass": 107.86822
+    },
+    {
+      "z": 48,
+      "atomicRadius": 155,
+      "ionizationEnergy": 867.8,
+      "meltingPoint_K": 594.22,
+      "electronegativity": 1.69,
+      "source": "https://en.wikipedia.org/wiki/Cadmium",
+      "mass": 112.4144
+    },
+    {
+      "z": 49,
+      "atomicRadius": 155,
+      "ionizationEnergy": 558.3,
+      "meltingPoint_K": 429.7485,
+      "electronegativity": 1.78,
+      "source": "https://en.wikipedia.org/wiki/Indium",
+      "mass": 114.8181
+    },
+    {
+      "z": 50,
+      "atomicRadius": 145,
+      "ionizationEnergy": 708.6,
+      "meltingPoint_K": 505.08,
+      "electronegativity": 1.96,
+      "source": "https://en.wikipedia.org/wiki/Tin",
+      "mass": 118.7107
+    },
+    {
+      "z": 51,
+      "atomicRadius": 145,
+      "ionizationEnergy": 834,
+      "meltingPoint_K": 903.78,
+      "electronegativity": 2.05,
+      "source": "https://en.wikipedia.org/wiki/Antimony",
+      "mass": 121.7601
+    },
+    {
+      "z": 52,
+      "atomicRadius": 140,
+      "ionizationEnergy": 869.3,
+      "meltingPoint_K": 722.66,
+      "electronegativity": 2.1,
+      "source": "https://en.wikipedia.org/wiki/Tellurium",
+      "mass": 127.603
+    },
+    {
+      "z": 53,
+      "atomicRadius": 140,
+      "ionizationEnergy": 1008.4,
+      "meltingPoint_K": 386.85,
+      "electronegativity": 2.66,
+      "source": "https://en.wikipedia.org/wiki/Iodine",
+      "mass": 126.904473
+    },
+    {
+      "z": 54,
+      "atomicRadius": null,
+      "ionizationEnergy": 1170.4,
+      "meltingPoint_K": 161.4,
+      "electronegativity": 2.6,
+      "source": "https://en.wikipedia.org/wiki/Xenon",
+      "mass": 131.2936
+    },
+    {
+      "z": 55,
+      "atomicRadius": 260,
+      "ionizationEnergy": 375.7,
+      "meltingPoint_K": 301.7,
+      "electronegativity": 0.79,
+      "source": "https://en.wikipedia.org/wiki/Cesium",
+      "mass": 132.905451966
+    },
+    {
+      "z": 56,
+      "atomicRadius": 215,
+      "ionizationEnergy": 502.9,
+      "meltingPoint_K": 1000,
+      "electronegativity": 0.89,
+      "source": "https://en.wikipedia.org/wiki/Barium",
+      "mass": 137.3277
+    },
+    {
+      "z": 57,
+      "atomicRadius": 195,
+      "ionizationEnergy": 538.1,
+      "meltingPoint_K": 1193,
+      "electronegativity": 1.1,
+      "source": "https://en.wikipedia.org/wiki/Lanthanum",
+      "mass": 138.905477
+    },
+    {
+      "z": 58,
+      "atomicRadius": 185,
+      "ionizationEnergy": 534.4,
+      "meltingPoint_K": 1068,
+      "electronegativity": 1.12,
+      "source": "https://en.wikipedia.org/wiki/Cerium",
+      "mass": 140.1161
+    },
+    {
+      "z": 59,
+      "atomicRadius": 185,
+      "ionizationEnergy": 527,
+      "meltingPoint_K": 1208,
+      "electronegativity": 1.13,
+      "source": "https://en.wikipedia.org/wiki/Praseodymium",
+      "mass": 140.907662
+    },
+    {
+      "z": 60,
+      "atomicRadius": 185,
+      "ionizationEnergy": 533.1,
+      "meltingPoint_K": 1297,
+      "electronegativity": 1.14,
+      "source": "https://en.wikipedia.org/wiki/Neodymium",
+      "mass": 144.2423
+    },
+    {
+      "z": 61,
+      "atomicRadius": 185,
+      "ionizationEnergy": 540,
+      "meltingPoint_K": 1315,
+      "electronegativity": 1.13,
+      "source": "https://en.wikipedia.org/wiki/Promethium",
+      "mass": 145
+    },
+    {
+      "z": 62,
+      "atomicRadius": 185,
+      "ionizationEnergy": 544.5,
+      "meltingPoint_K": 1345,
+      "electronegativity": 1.17,
+      "source": "https://en.wikipedia.org/wiki/Samarium",
+      "mass": 150.362
+    },
+    {
+      "z": 63,
+      "atomicRadius": 185,
+      "ionizationEnergy": 547.1,
+      "meltingPoint_K": 1099,
+      "electronegativity": 1.2,
+      "source": "https://en.wikipedia.org/wiki/Europium",
+      "mass": 151.9641
+    },
+    {
+      "z": 64,
+      "atomicRadius": 180,
+      "ionizationEnergy": 593.4,
+      "meltingPoint_K": 1585,
+      "electronegativity": 1.2,
+      "source": "https://en.wikipedia.org/wiki/Gadolinium",
+      "mass": 157.253
+    },
+    {
+      "z": 65,
+      "atomicRadius": 175,
+      "ionizationEnergy": 565.8,
+      "meltingPoint_K": 1629,
+      "electronegativity": 1.1,
+      "source": "https://en.wikipedia.org/wiki/Terbium",
+      "mass": 158.925352
+    },
+    {
+      "z": 66,
+      "atomicRadius": 175,
+      "ionizationEnergy": 573,
+      "meltingPoint_K": 1680,
+      "electronegativity": 1.22,
+      "source": "https://en.wikipedia.org/wiki/Dysprosium",
+      "mass": 162.5001
+    },
+    {
+      "z": 67,
+      "atomicRadius": 175,
+      "ionizationEnergy": 581,
+      "meltingPoint_K": 1734,
+      "electronegativity": 1.23,
+      "source": "https://en.wikipedia.org/wiki/Holmium",
+      "mass": 164.930332
+    },
+    {
+      "z": 68,
+      "atomicRadius": 175,
+      "ionizationEnergy": 589.3,
+      "meltingPoint_K": 1802,
+      "electronegativity": 1.24,
+      "source": "https://en.wikipedia.org/wiki/Erbium",
+      "mass": 167.2593
+    },
+    {
+      "z": 69,
+      "atomicRadius": 175,
+      "ionizationEnergy": 596.7,
+      "meltingPoint_K": 1818,
+      "electronegativity": 1.25,
+      "source": "https://en.wikipedia.org/wiki/Thulium",
+      "mass": 168.934222
+    },
+    {
+      "z": 70,
+      "atomicRadius": 175,
+      "ionizationEnergy": 603.4,
+      "meltingPoint_K": 1097,
+      "electronegativity": 1.1,
+      "source": "https://en.wikipedia.org/wiki/Ytterbium",
+      "mass": 173.0451
+    },
+    {
+      "z": 71,
+      "atomicRadius": 175,
+      "ionizationEnergy": 523.5,
+      "meltingPoint_K": 1925,
+      "electronegativity": 1.27,
+      "source": "https://en.wikipedia.org/wiki/Lutetium",
+      "mass": 174.96681
+    },
+    {
+      "z": 72,
+      "atomicRadius": 155,
+      "ionizationEnergy": 658.5,
+      "meltingPoint_K": 2506,
+      "electronegativity": 1.3,
+      "source": "https://en.wikipedia.org/wiki/Hafnium",
+      "mass": 178.492
+    },
+    {
+      "z": 73,
+      "atomicRadius": 145,
+      "ionizationEnergy": 761,
+      "meltingPoint_K": 3290,
+      "electronegativity": 1.5,
+      "source": "https://en.wikipedia.org/wiki/Tantalum",
+      "mass": 180.947882
+    },
+    {
+      "z": 74,
+      "atomicRadius": 135,
+      "ionizationEnergy": 770,
+      "meltingPoint_K": 3695,
+      "electronegativity": 2.36,
+      "source": "https://en.wikipedia.org/wiki/Tungsten",
+      "mass": 183.841
+    },
+    {
+      "z": 75,
+      "atomicRadius": 135,
+      "ionizationEnergy": 760,
+      "meltingPoint_K": 3459,
+      "electronegativity": 1.9,
+      "source": "https://en.wikipedia.org/wiki/Rhenium",
+      "mass": 186.2071
+    },
+    {
+      "z": 76,
+      "atomicRadius": 130,
+      "ionizationEnergy": 840,
+      "meltingPoint_K": 3306,
+      "electronegativity": 2.2,
+      "source": "https://en.wikipedia.org/wiki/Osmium",
+      "mass": 190.233
+    },
+    {
+      "z": 77,
+      "atomicRadius": 135,
+      "ionizationEnergy": 880,
+      "meltingPoint_K": 2719,
+      "electronegativity": 2.2,
+      "source": "https://en.wikipedia.org/wiki/Iridium",
+      "mass": 192.2173
+    },
+    {
+      "z": 78,
+      "atomicRadius": 135,
+      "ionizationEnergy": 870,
+      "meltingPoint_K": 2041.4,
+      "electronegativity": 2.28,
+      "source": "https://en.wikipedia.org/wiki/Platinum",
+      "mass": 195.0849
+    },
+    {
+      "z": 79,
+      "atomicRadius": 135,
+      "ionizationEnergy": 890.1,
+      "meltingPoint_K": 1337.33,
+      "electronegativity": 2.54,
+      "source": "https://en.wikipedia.org/wiki/Gold",
+      "mass": 196.9665695
+    },
+    {
+      "z": 80,
+      "atomicRadius": 150,
+      "ionizationEnergy": 1007.1,
+      "meltingPoint_K": 234.321,
+      "electronegativity": 2,
+      "source": "https://en.wikipedia.org/wiki/Mercury (Element)",
+      "mass": 200.5923
+    },
+    {
+      "z": 81,
+      "atomicRadius": 190,
+      "ionizationEnergy": 589.4,
+      "meltingPoint_K": 577,
+      "electronegativity": 1.62,
+      "source": "https://en.wikipedia.org/wiki/Thallium",
+      "mass": 204.38
+    },
+    {
+      "z": 82,
+      "atomicRadius": 180,
+      "ionizationEnergy": 715.6,
+      "meltingPoint_K": 600.61,
+      "electronegativity": 1.87,
+      "source": "https://en.wikipedia.org/wiki/Lead_(element)",
+      "mass": 207.21
+    },
+    {
+      "z": 83,
+      "atomicRadius": 160,
+      "ionizationEnergy": 703,
+      "meltingPoint_K": 544.7,
+      "electronegativity": 2.02,
+      "source": "https://en.wikipedia.org/wiki/Bismuth",
+      "mass": 208.980401
+    },
+    {
+      "z": 84,
+      "atomicRadius": 190,
+      "ionizationEnergy": 812.1,
+      "meltingPoint_K": 527,
+      "electronegativity": 2,
+      "source": "https://en.wikipedia.org/wiki/Polonium",
+      "mass": 209
+    },
+    {
+      "z": 85,
+      "atomicRadius": null,
+      "ionizationEnergy": 899.003,
+      "meltingPoint_K": 575,
+      "electronegativity": 2.2,
+      "source": "https://en.wikipedia.org/wiki/Astatine",
+      "mass": 210
+    },
+    {
+      "z": 86,
+      "atomicRadius": null,
+      "ionizationEnergy": 1037,
+      "meltingPoint_K": 202,
+      "electronegativity": 2.2,
+      "source": "https://en.wikipedia.org/wiki/Radon",
+      "mass": 222
+    },
+    {
+      "z": 87,
+      "atomicRadius": null,
+      "ionizationEnergy": 380,
+      "meltingPoint_K": 300,
+      "electronegativity": 0.79,
+      "source": "https://en.wikipedia.org/wiki/Francium",
+      "mass": 223
+    },
+    {
+      "z": 88,
+      "atomicRadius": 215,
+      "ionizationEnergy": 509.3,
+      "meltingPoint_K": 1233,
+      "electronegativity": 0.9,
+      "source": "https://en.wikipedia.org/wiki/Radium",
+      "mass": 226
+    },
+    {
+      "z": 89,
+      "atomicRadius": 195,
+      "ionizationEnergy": 499,
+      "meltingPoint_K": 1500,
+      "electronegativity": 1.1,
+      "source": "https://en.wikipedia.org/wiki/Actinium",
+      "mass": 227
+    },
+    {
+      "z": 90,
+      "atomicRadius": 180,
+      "ionizationEnergy": 587,
+      "meltingPoint_K": 2023,
+      "electronegativity": 1.3,
+      "source": "https://en.wikipedia.org/wiki/Thorium",
+      "mass": 232.03774
+    },
+    {
+      "z": 91,
+      "atomicRadius": 180,
+      "ionizationEnergy": 568,
+      "meltingPoint_K": 1841,
+      "electronegativity": 1.5,
+      "source": "https://en.wikipedia.org/wiki/Protactinium",
+      "mass": 231.035882
+    },
+    {
+      "z": 92,
+      "atomicRadius": 175,
+      "ionizationEnergy": 597.6,
+      "meltingPoint_K": 1405.3,
+      "electronegativity": 1.38,
+      "source": "https://en.wikipedia.org/wiki/Uranium",
+      "mass": 238.028913
+    },
+    {
+      "z": 93,
+      "atomicRadius": 175,
+      "ionizationEnergy": 604.5,
+      "meltingPoint_K": 912,
+      "electronegativity": 1.36,
+      "source": "https://en.wikipedia.org/wiki/Neptunium",
+      "mass": 237
+    },
+    {
+      "z": 94,
+      "atomicRadius": 175,
+      "ionizationEnergy": 584.7,
+      "meltingPoint_K": 912.5,
+      "electronegativity": 1.28,
+      "source": "https://en.wikipedia.org/wiki/Plutonium",
+      "mass": 244
+    },
+    {
+      "z": 95,
+      "atomicRadius": 175,
+      "ionizationEnergy": 578,
+      "meltingPoint_K": 1449,
+      "electronegativity": 1.13,
+      "source": "https://en.wikipedia.org/wiki/Americium",
+      "mass": 243
+    },
+    {
+      "z": 96,
+      "atomicRadius": 176,
+      "ionizationEnergy": 581,
+      "meltingPoint_K": 1613,
+      "electronegativity": 1.28,
+      "source": "https://en.wikipedia.org/wiki/Curium",
+      "mass": 247
+    },
+    {
+      "z": 97,
+      "atomicRadius": null,
+      "ionizationEnergy": 601,
+      "meltingPoint_K": 1259,
+      "electronegativity": 1.3,
+      "source": "https://en.wikipedia.org/wiki/Berkelium",
+      "mass": 247
+    },
+    {
+      "z": 98,
+      "atomicRadius": null,
+      "ionizationEnergy": 608,
+      "meltingPoint_K": 1173,
+      "electronegativity": 1.3,
+      "source": "https://en.wikipedia.org/wiki/Californium",
+      "mass": 251
+    },
+    {
+      "z": 99,
+      "atomicRadius": null,
+      "ionizationEnergy": 619,
+      "meltingPoint_K": 1133,
+      "electronegativity": 1.3,
+      "source": "https://en.wikipedia.org/wiki/Einsteinium",
+      "mass": 252
+    },
+    {
+      "z": 100,
+      "atomicRadius": null,
+      "ionizationEnergy": 627,
+      "meltingPoint_K": 1800,
+      "electronegativity": 1.3,
+      "source": "https://en.wikipedia.org/wiki/Fermium",
+      "mass": 257
+    },
+    {
+      "z": 101,
+      "atomicRadius": null,
+      "ionizationEnergy": 635,
+      "meltingPoint_K": 1100,
+      "electronegativity": 1.3,
+      "source": "https://en.wikipedia.org/wiki/Mendelevium",
+      "mass": 258
+    },
+    {
+      "z": 102,
+      "atomicRadius": null,
+      "ionizationEnergy": 642,
+      "meltingPoint_K": 1100,
+      "electronegativity": 1.3,
+      "source": "https://en.wikipedia.org/wiki/Nobelium",
+      "mass": 259
+    },
+    {
+      "z": 103,
+      "atomicRadius": null,
+      "ionizationEnergy": 470,
+      "meltingPoint_K": 1900,
+      "electronegativity": 1.3,
+      "source": "https://en.wikipedia.org/wiki/Lawrencium",
+      "mass": 266
+    },
+    {
+      "z": 104,
+      "atomicRadius": null,
+      "ionizationEnergy": 580,
+      "meltingPoint_K": 2400,
+      "electronegativity": null,
+      "source": "https://en.wikipedia.org/wiki/Rutherfordium",
+      "mass": 267
+    },
+    {
+      "z": 105,
+      "atomicRadius": null,
+      "ionizationEnergy": null,
+      "meltingPoint_K": null,
+      "electronegativity": null,
+      "source": "https://en.wikipedia.org/wiki/Dubnium",
+      "mass": 268
+    },
+    {
+      "z": 106,
+      "atomicRadius": null,
+      "ionizationEnergy": null,
+      "meltingPoint_K": null,
+      "electronegativity": null,
+      "source": "https://en.wikipedia.org/wiki/Seaborgium",
+      "mass": 269
+    },
+    {
+      "z": 107,
+      "atomicRadius": null,
+      "ionizationEnergy": null,
+      "meltingPoint_K": null,
+      "electronegativity": null,
+      "source": "https://en.wikipedia.org/wiki/Bohrium",
+      "mass": 270
+    },
+    {
+      "z": 108,
+      "atomicRadius": null,
+      "ionizationEnergy": null,
+      "meltingPoint_K": null,
+      "electronegativity": null,
+      "source": "https://en.wikipedia.org/wiki/Hassium",
+      "mass": 269
+    },
+    {
+      "z": 109,
+      "atomicRadius": null,
+      "ionizationEnergy": null,
+      "meltingPoint_K": null,
+      "electronegativity": null,
+      "source": "https://en.wikipedia.org/wiki/Meitnerium",
+      "mass": 278
+    },
+    {
+      "z": 110,
+      "atomicRadius": null,
+      "ionizationEnergy": null,
+      "meltingPoint_K": null,
+      "electronegativity": null,
+      "source": "https://en.wikipedia.org/wiki/Darmstadtium",
+      "mass": 281
+    },
+    {
+      "z": 111,
+      "atomicRadius": null,
+      "ionizationEnergy": null,
+      "meltingPoint_K": null,
+      "electronegativity": null,
+      "source": "https://en.wikipedia.org/wiki/Roentgenium",
+      "mass": 282
+    },
+    {
+      "z": 112,
+      "atomicRadius": null,
+      "ionizationEnergy": null,
+      "meltingPoint_K": 283,
+      "electronegativity": null,
+      "source": "https://en.wikipedia.org/wiki/Copernicium",
+      "mass": 285
+    },
+    {
+      "z": 113,
+      "atomicRadius": null,
+      "ionizationEnergy": null,
+      "meltingPoint_K": 700,
+      "electronegativity": null,
+      "source": "https://en.wikipedia.org/wiki/Ununtrium",
+      "mass": 286
+    },
+    {
+      "z": 114,
+      "atomicRadius": null,
+      "ionizationEnergy": null,
+      "meltingPoint_K": 340,
+      "electronegativity": null,
+      "source": "https://en.wikipedia.org/wiki/Flerovium",
+      "mass": 289
+    },
+    {
+      "z": 115,
+      "atomicRadius": null,
+      "ionizationEnergy": null,
+      "meltingPoint_K": 670,
+      "electronegativity": null,
+      "source": "https://en.wikipedia.org/wiki/Ununpentium",
+      "mass": 289
+    },
+    {
+      "z": 116,
+      "atomicRadius": null,
+      "ionizationEnergy": null,
+      "meltingPoint_K": 709,
+      "electronegativity": null,
+      "source": "https://en.wikipedia.org/wiki/Livermorium",
+      "mass": 293
+    },
+    {
+      "z": 117,
+      "atomicRadius": null,
+      "ionizationEnergy": null,
+      "meltingPoint_K": 723,
+      "electronegativity": null,
+      "source": "https://en.wikipedia.org/wiki/Tennessine",
+      "mass": 294
+    },
+    {
+      "z": 118,
+      "atomicRadius": null,
+      "ionizationEnergy": null,
+      "meltingPoint_K": null,
+      "electronegativity": null,
+      "source": "https://en.wikipedia.org/wiki/Oganesson",
+      "mass": 294
+    }
+  ]
+}

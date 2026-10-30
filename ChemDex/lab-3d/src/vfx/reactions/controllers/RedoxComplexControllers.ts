@@ -5,7 +5,7 @@
  * - Reaction 07: Fe + CuSO4 -> FeSO4 + Cu (Copper surface plating directly on iron)
  * - Reaction 14: Cu(OH)2 -> CuO + H2O (Thermal decomposition from hot bottom first, turns black)
  * - Reaction 15: I2(s) <=> I2(g) (Dense purple sublimated vapor & crystal condensation)
- * - Reaction 16: Water + conc. H2SO4 (Safety simulation: local thermal impulse & splatter)
+ * - Reaction 16: Water + conc. H2SO4 (observed dilution; heat/phase and liquid release have separate owners)
  * - Reaction 20: FeCl3 + KSCN -> [Fe(SCN)]2+ (Deep blood-red complex concentration plume)
  * - Reaction 21: KMnO4 + Oxalate (Autocatalytic decolorization with induction lag)
  * - Reaction 22: Cr2O7(2-) + 2OH- <=> 2CrO4(2-) (Orange <-> Yellow equilibrium shift)
@@ -13,7 +13,6 @@
  */
 
 import { ReactionVisualController, ReactionContext, ReactionZone } from '../types';
-import { vfxBus } from '../../bus';
 
 /**
  * 07. Fe + CuSO4 -> Cu Plating
@@ -127,32 +126,20 @@ export class WaterIntoConcH2so4ExplosionController implements ReactionVisualCont
   }
 
   public update(context: ReactionContext): void {
-    const { runtime, dt, addSurfaceImpulse, emitBurst } = context;
+    const { runtime, dt } = context;
+    if (!Number.isFinite(dt) || dt <= 0) return;
     runtime.elapsed += dt;
     runtime.progress = Math.min(1.0, runtime.elapsed / runtime.duration);
 
-    const boiling = context.vessel.isBoiling && context.vessel.temperature_c >= 98;
-    if (boiling && runtime.elapsed < 0.8) {
-      runtime.reactionRate = 1.0;
-      addSurfaceImpulse(0, 0, 0.008, 0.25);
-      if (Math.random() < 0.35) {
-        emitBurst([0, 0.2, 0], 25, '#fee2e2', 2.8);
-      }
-      if (runtime.elapsed <= dt * 1.5) {
-        // Immediate violent ballistic acid eruption arcing onto workbench
-        vfxBus.emit('acid:splatter', {
-          vesselId: context.vessel.id,
-          position: [context.vessel.position[0], context.vessel.position[1] + 0.85, context.vessel.position[2]],
-          count: 12,
-          speed: 1.2,
-          color: '#fca5a5',
-          isAcid: true,
-          substances: ['H2SO4']
-        });
-      }
-    } else {
-      runtime.reactionRate = Math.max(0, 1 - runtime.progress) * 0.25;
-    }
+    // The lumped heat solver can prove boiling, but has no local pressure,
+    // momentum or finite ejected-liquid parcel. Do not turn that flag into
+    // an acid eruption. Real pour/overflow/shatter releases own liquid glyphs;
+    // authoritative boiling/mist owns the thermal appearance.
+    runtime.temperature = context.vessel.temperature_c;
+    runtime.reactionRate = 0;
+    runtime.heatReleaseRate = 0;
+    runtime.surfaceActivity = 0;
+    runtime.gasGenerationRate = 0;
   }
 
   public getReactionZone(): ReactionZone {

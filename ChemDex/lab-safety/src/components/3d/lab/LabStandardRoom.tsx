@@ -25,13 +25,14 @@ import { ChemicalSpillSimulation } from './ChemicalSpillSimulation';
 import { BunsenBurnerStation } from './BunsenBurnerStation';
 import { AdvancedSafetyRounds } from './AdvancedSafetyRounds';
 import { ApparatusDetails } from './ApparatusDetails';
+import {StaticRoomBatch} from './StaticRoomBatch';
 
 export const LabStandardRoom: React.FC = () => {
   const scenarioPhase = useStore(s => s.currentPhase === 5);
   return (
     <group name="lab-room" onClick={handleLabItemClick}>
       {/* 1. Core Architecture (Walls, floor, ceiling, doors A & B) */}
-      <LabBaseRoom />
+      <StaticRoomBatch id="architecture"><LabBaseRoom /></StaticRoomBatch>
       <LabEquipmentController />
 
       {/* 2. Entrance & Preparation (PPE Station, Handwash Sink) */}
@@ -45,7 +46,7 @@ export const LabStandardRoom: React.FC = () => {
       <FirstAidTreatmentStation />
 
       {/* 4. Island Benches (4 benches with Bunsen Burner & Lab Equipment) */}
-      <IslandBenches />
+      <StaticRoomBatch id="benches" key={scenarioPhase?'scenario':'ordinary'}><IslandBenches /></StaticRoomBatch>
       {!scenarioPhase && <ApparatusDetails />}
       {!scenarioPhase && <BunsenBurnerStation />}
 
@@ -63,7 +64,7 @@ export const LabStandardRoom: React.FC = () => {
       <ScenarioWorld />
 
       {/* 8. North Teaching Wall & Ambient Decor */}
-      <LabDecor />
+      <StaticRoomBatch id="decor"><LabDecor /></StaticRoomBatch>
 
       {/* 9. Interactive Task Collider Triggers & Prompt Logic */}
       <InteractiveTasks />

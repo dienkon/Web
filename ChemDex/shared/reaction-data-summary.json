@@ -1,0 +1,28 @@
+{
+  "schema": "chemdex.reaction-summary/1",
+  "catalogVersion": 2,
+  "catalogDigest": "efdbd39114283eedf7926529972be909883dc408eaba83f3c028be44fe276cc6",
+  "reactionCount": 1299,
+  "netIonicCount": 378,
+  "chainCount": 5740,
+  "speciesCount": 325,
+  "families": {
+    "ammonium_base": 33,
+    "amphoteric": 5,
+    "carbonate_acid": 91,
+    "combustion": 29,
+    "displacement": 132,
+    "esterification": 16,
+    "metal_acid": 27,
+    "neutralization": 115,
+    "organic_conversion": 8,
+    "oxide_acid": 106,
+    "precipitation": 601,
+    "redox": 10,
+    "saponification": 48,
+    "sulfide_acid": 12,
+    "sulfite_acid": 15,
+    "synthesis": 22,
+    "thermal": 29
+  }
+}

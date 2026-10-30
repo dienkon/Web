@@ -1,0 +1,1337 @@
+[
+  {
+    "chemicalId": "chem-hcl",
+    "formula": "HCl",
+    "name_vi": "Axit clohiđric",
+    "name_en": "Hydrochloric Acid",
+    "category": "acid",
+    "molarMass": 36.46,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "H₃O⁺",
+      "Cl⁻"
+    ],
+    "componentIds": [],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-h2so4",
+    "formula": "H2SO4",
+    "name_vi": "Axit sunfuric",
+    "name_en": "Sulfuric Acid",
+    "category": "acid",
+    "molarMass": 98.08,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "H₃O⁺",
+      "HSO₄⁻",
+      "SO₄²⁻"
+    ],
+    "componentIds": [
+      "cid-1117"
+    ],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-hno3",
+    "formula": "HNO3",
+    "name_vi": "Axit nitric",
+    "name_en": "Nitric Acid",
+    "category": "acid",
+    "molarMass": 63.01,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "H₃O⁺",
+      "NO₃⁻"
+    ],
+    "componentIds": [
+      "cid-943"
+    ],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-ch3cooh",
+    "formula": "CH3COOH",
+    "name_vi": "Axit axetic (Giấm)",
+    "name_en": "Acetic Acid",
+    "category": "acid",
+    "molarMass": 60.05,
+    "status": "available",
+    "compoundId": "cid-176",
+    "components": [],
+    "componentIds": [],
+    "note": "Cấu trúc phân tử riêng lẻ; trạng thái trong lab có thể chứa dung môi."
+  },
+  {
+    "chemicalId": "chem-naoh",
+    "formula": "NaOH",
+    "name_vi": "Natri hiđroxit (Xút)",
+    "name_en": "Sodium Hydroxide",
+    "category": "base",
+    "molarMass": 39.997,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "Na⁺",
+      "OH⁻"
+    ],
+    "componentIds": [
+      "cid-961"
+    ],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-koh",
+    "formula": "KOH",
+    "name_vi": "Kali hiđroxit",
+    "name_en": "Potassium Hydroxide",
+    "category": "base",
+    "molarMass": 56.11,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "K⁺",
+      "OH⁻"
+    ],
+    "componentIds": [
+      "cid-961"
+    ],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-baoh2",
+    "formula": "Ba(OH)2",
+    "name_vi": "Bari hiđroxit",
+    "name_en": "Barium Hydroxide",
+    "category": "base",
+    "molarMass": 171.34,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-nh3",
+    "formula": "NH3",
+    "name_vi": "Dung dịch Amoniac",
+    "name_en": "Ammonia Solution",
+    "category": "base",
+    "molarMass": 17.03,
+    "status": "available",
+    "compoundId": "cid-222",
+    "components": [],
+    "componentIds": [],
+    "note": "Cấu trúc phân tử riêng lẻ; trạng thái trong lab có thể chứa dung môi."
+  },
+  {
+    "chemicalId": "chem-agno3",
+    "formula": "AgNO3",
+    "name_vi": "Bạc nitrat",
+    "name_en": "Silver Nitrate",
+    "category": "salt",
+    "molarMass": 169.87,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "Ag⁺",
+      "NO₃⁻"
+    ],
+    "componentIds": [
+      "cid-943"
+    ],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-nacl",
+    "formula": "NaCl",
+    "name_vi": "Natri clorua (Muối ăn)",
+    "name_en": "Sodium Chloride",
+    "category": "salt",
+    "molarMass": 58.44,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "Na⁺",
+      "Cl⁻"
+    ],
+    "componentIds": [],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-bacl2",
+    "formula": "BaCl2",
+    "name_vi": "Bari clorua",
+    "name_en": "Barium Chloride",
+    "category": "salt",
+    "molarMass": 208.23,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "Ba²⁺",
+      "Cl⁻"
+    ],
+    "componentIds": [],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-na2so4",
+    "formula": "Na2SO4",
+    "name_vi": "Natri sunfat",
+    "name_en": "Sodium Sulfate",
+    "category": "salt",
+    "molarMass": 142.04,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "Na⁺",
+      "SO₄²⁻"
+    ],
+    "componentIds": [
+      "cid-1117"
+    ],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-cuso4",
+    "formula": "CuSO4",
+    "name_vi": "Đồng(II) sunfat",
+    "name_en": "Copper(II) Sulfate",
+    "category": "salt",
+    "molarMass": 159.61,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "Cu²⁺",
+      "SO₄²⁻"
+    ],
+    "componentIds": [
+      "cid-1117"
+    ],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-fecl3",
+    "formula": "FeCl3",
+    "name_vi": "Sắt(III) clorua",
+    "name_en": "Iron(III) Chloride",
+    "category": "salt",
+    "molarMass": 162.2,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "Fe³⁺",
+      "Cl⁻"
+    ],
+    "componentIds": [],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-feso4",
+    "formula": "FeSO4",
+    "name_vi": "Sắt(II) sunfat",
+    "name_en": "Iron(II) Sulfate",
+    "category": "salt",
+    "molarMass": 151.91,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "Fe²⁺",
+      "SO₄²⁻"
+    ],
+    "componentIds": [
+      "cid-1117"
+    ],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-nahco3",
+    "formula": "NaHCO3",
+    "name_vi": "Natri hiđrocacbonat (Muối nở)",
+    "name_en": "Sodium Bicarbonate",
+    "category": "salt",
+    "molarMass": 84.01,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "Na⁺",
+      "HCO₃⁻"
+    ],
+    "componentIds": [
+      "cid-769"
+    ],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-na2co3",
+    "formula": "Na2CO3",
+    "name_vi": "Natri cacbonat (Soda)",
+    "name_en": "Sodium Carbonate",
+    "category": "salt",
+    "molarMass": 105.99,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "Na⁺",
+      "CO₃²⁻"
+    ],
+    "componentIds": [
+      "cid-19660"
+    ],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-cacl2",
+    "formula": "CaCl2",
+    "name_vi": "Canxi clorua",
+    "name_en": "Calcium Chloride",
+    "category": "salt",
+    "molarMass": 110.98,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "Ca²⁺",
+      "Cl⁻"
+    ],
+    "componentIds": [],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-kmno4",
+    "formula": "KMnO4",
+    "name_vi": "Thuốc tím",
+    "name_en": "Potassium Permanganate",
+    "category": "salt",
+    "molarMass": 158.03,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-zn",
+    "formula": "Zn",
+    "name_vi": "Kẽm kim loại (Hạt/Lá)",
+    "name_en": "Zinc Metal",
+    "category": "metal",
+    "molarMass": 65.38,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-caco3",
+    "formula": "CaCO3",
+    "name_vi": "Canxi cacbonat (Đá vôi)",
+    "name_en": "Calcium Carbonate",
+    "category": "salt",
+    "molarMass": 100.09,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-phenolphthalein",
+    "formula": "Phenolphthalein",
+    "name_vi": "Chỉ thị Phenolphtalein",
+    "name_en": "Phenolphthalein Solution",
+    "category": "indicator",
+    "molarMass": 318.32,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-litmus",
+    "formula": "Litmus",
+    "name_vi": "Dung dịch Quỳ tím",
+    "name_en": "Litmus Solution",
+    "category": "indicator",
+    "molarMass": 330,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-universal-indicator",
+    "formula": "UniversalIndicator",
+    "name_vi": "Chỉ thị vạn năng",
+    "name_en": "Universal Indicator",
+    "category": "indicator",
+    "molarMass": 250,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-caoh2",
+    "formula": "Ca(OH)2",
+    "name_vi": "Nước vôi trong / Canxi hiđroxit",
+    "name_en": "Limewater / Calcium Hydroxide",
+    "category": "base",
+    "molarMass": 74.09,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-fe",
+    "formula": "Fe",
+    "name_vi": "Sắt kim loại (Đinh sắt / Bột)",
+    "name_en": "Iron Metal (Nail / Powder)",
+    "category": "metal",
+    "molarMass": 55.845,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-cu",
+    "formula": "Cu",
+    "name_vi": "Đồng kim loại (Lá đồng / Phoi đồng)",
+    "name_en": "Copper Metal (Sheet / Turnings)",
+    "category": "metal",
+    "molarMass": 63.546,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-al",
+    "formula": "Al",
+    "name_vi": "Nhôm kim loại (Lá nhôm / Vụn)",
+    "name_en": "Aluminium Metal (Foil / Powder)",
+    "category": "metal",
+    "molarMass": 26.98,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-mg",
+    "formula": "Mg",
+    "name_vi": "Dải Magie (Ruy-băng Mg)",
+    "name_en": "Magnesium Ribbon",
+    "category": "metal",
+    "molarMass": 24.305,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-na",
+    "formula": "Na",
+    "name_vi": "Natri kim loại (Mẩu nhỏ)",
+    "name_en": "Sodium Metal (Cut piece)",
+    "category": "metal",
+    "molarMass": 22.99,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-nabr",
+    "formula": "NaBr",
+    "name_vi": "Natri bromua",
+    "name_en": "Sodium Bromide",
+    "category": "salt",
+    "molarMass": 102.89,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "Na⁺",
+      "Br⁻"
+    ],
+    "componentIds": [],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-ki",
+    "formula": "KI",
+    "name_vi": "Kali iotua",
+    "name_en": "Potassium Iodide",
+    "category": "salt",
+    "molarMass": 166,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "K⁺",
+      "I⁻"
+    ],
+    "componentIds": [],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-pbno32",
+    "formula": "Pb(NO3)2",
+    "name_vi": "Chì(II) nitrat",
+    "name_en": "Lead(II) Nitrate",
+    "category": "salt",
+    "molarMass": 331.2,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-alcl3",
+    "formula": "AlCl3",
+    "name_vi": "Nhôm clorua",
+    "name_en": "Aluminium Chloride",
+    "category": "salt",
+    "molarMass": 133.34,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "Al³⁺",
+      "Cl⁻"
+    ],
+    "componentIds": [],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-znso4",
+    "formula": "ZnSO4",
+    "name_vi": "Kẽm sunfat",
+    "name_en": "Zinc Sulfate",
+    "category": "salt",
+    "molarMass": 161.47,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "Zn²⁺",
+      "SO₄²⁻"
+    ],
+    "componentIds": [
+      "cid-1117"
+    ],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-na2s",
+    "formula": "Na2S",
+    "name_vi": "Natri sunfua",
+    "name_en": "Sodium Sulfide",
+    "category": "salt",
+    "molarMass": 78.04,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-na2so3",
+    "formula": "Na2SO3",
+    "name_vi": "Natri sunfit",
+    "name_en": "Sodium Sulfite",
+    "category": "salt",
+    "molarMass": 126.04,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-nh4cl",
+    "formula": "NH4Cl",
+    "name_vi": "Amoni clorua",
+    "name_en": "Ammonium Chloride",
+    "category": "salt",
+    "molarMass": 53.49,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "NH₄⁺",
+      "Cl⁻"
+    ],
+    "componentIds": [
+      "cid-223"
+    ],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-kscn",
+    "formula": "KSCN",
+    "name_vi": "Kali thioxianat",
+    "name_en": "Potassium Thiocyanate",
+    "category": "salt",
+    "molarMass": 97.18,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "K⁺",
+      "SCN⁻"
+    ],
+    "componentIds": [],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-h2o2",
+    "formula": "H2O2",
+    "name_vi": "Oxi già (H2O2 3%)",
+    "name_en": "Hydrogen Peroxide (3%)",
+    "category": "oxide",
+    "molarMass": 34.01,
+    "status": "available",
+    "compoundId": "cid-784",
+    "components": [],
+    "componentIds": [],
+    "note": "Cấu trúc phân tử riêng lẻ; trạng thái trong lab có thể chứa dung môi."
+  },
+  {
+    "chemicalId": "chem-br2",
+    "formula": "Br2",
+    "name_vi": "Nước Brom (Br2)",
+    "name_en": "Bromine Water",
+    "category": "oxide",
+    "molarMass": 159.8,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-i2",
+    "formula": "I2",
+    "name_vi": "Dung dịch Iot",
+    "name_en": "Iodine Solution (Lugol / Tincture)",
+    "category": "oxide",
+    "molarMass": 253.8,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-c2h5oh",
+    "formula": "C2H5OH",
+    "name_vi": "Cồn Etylic / Rượu etylic",
+    "name_en": "Ethanol (Ethyl Alcohol 96°)",
+    "category": "organic",
+    "molarMass": 46.07,
+    "status": "available",
+    "compoundId": "cid-702",
+    "components": [],
+    "componentIds": [],
+    "note": "Cấu trúc phân tử riêng lẻ; trạng thái trong lab có thể chứa dung môi."
+  },
+  {
+    "chemicalId": "chem-c6h12o6",
+    "formula": "C6H12O6",
+    "name_vi": "Dung dịch Glucozơ",
+    "name_en": "Glucose Solution",
+    "category": "organic",
+    "molarMass": 180.16,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-starch",
+    "formula": "TinhBot",
+    "name_vi": "Hồ tinh bột",
+    "name_en": "Starch Solution",
+    "category": "organic",
+    "molarMass": 162.14,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-phenol",
+    "formula": "C6H5OH",
+    "name_vi": "Dung dịch Phenol",
+    "name_en": "Phenol Solution",
+    "category": "organic",
+    "molarMass": 94.11,
+    "status": "available",
+    "compoundId": "cid-996",
+    "components": [],
+    "componentIds": [],
+    "note": "Cấu trúc phân tử riêng lẻ; trạng thái trong lab có thể chứa dung môi."
+  },
+  {
+    "chemicalId": "chem-h3po4",
+    "formula": "H3PO4",
+    "name_vi": "Axit photphoric",
+    "name_en": "Phosphoric Acid",
+    "category": "acid",
+    "molarMass": 97.994,
+    "status": "available",
+    "compoundId": "cid-1004",
+    "components": [],
+    "componentIds": [],
+    "note": "Cấu trúc phân tử riêng lẻ; trạng thái trong lab có thể chứa dung môi."
+  },
+  {
+    "chemicalId": "chem-hf",
+    "formula": "HF",
+    "name_vi": "Axit flohiđric",
+    "name_en": "Hydrofluoric Acid",
+    "category": "acid",
+    "molarMass": 20.006,
+    "status": "available",
+    "compoundId": "cid-14917",
+    "components": [],
+    "componentIds": [],
+    "note": "Cấu trúc phân tử riêng lẻ; trạng thái trong lab có thể chứa dung môi."
+  },
+  {
+    "chemicalId": "chem-h2s",
+    "formula": "H2S",
+    "name_vi": "Dung dịch Hiđro sunfua",
+    "name_en": "Hydrogen Sulfide Solution",
+    "category": "acid",
+    "molarMass": 34.08,
+    "status": "available",
+    "compoundId": "cid-402",
+    "components": [],
+    "componentIds": [],
+    "note": "Cấu trúc phân tử riêng lẻ; trạng thái trong lab có thể chứa dung môi."
+  },
+  {
+    "chemicalId": "chem-h2so3",
+    "formula": "H2SO3",
+    "name_vi": "Axit sunfurơ",
+    "name_en": "Sulfurous Acid",
+    "category": "acid",
+    "molarMass": 82.07,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-hcooh",
+    "formula": "HCOOH",
+    "name_vi": "Axit fomic (Axit kiến)",
+    "name_en": "Formic Acid",
+    "category": "acid",
+    "molarMass": 46.025,
+    "status": "available",
+    "compoundId": "cid-284",
+    "components": [],
+    "componentIds": [],
+    "note": "Cấu trúc phân tử riêng lẻ; trạng thái trong lab có thể chứa dung môi."
+  },
+  {
+    "chemicalId": "chem-mgoh2",
+    "formula": "Mg(OH)2",
+    "name_vi": "Magie hiđroxit",
+    "name_en": "Magnesium Hydroxide",
+    "category": "base",
+    "molarMass": 58.32,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-aloh3",
+    "formula": "Al(OH)3",
+    "name_vi": "Nhôm hiđroxit",
+    "name_en": "Aluminium Hydroxide",
+    "category": "base",
+    "molarMass": 78,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-znoh2",
+    "formula": "Zn(OH)2",
+    "name_vi": "Kẽm hiđroxit",
+    "name_en": "Zinc Hydroxide",
+    "category": "base",
+    "molarMass": 99.42,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-feoh2",
+    "formula": "Fe(OH)2",
+    "name_vi": "Sắt(II) hiđroxit",
+    "name_en": "Iron(II) Hydroxide",
+    "category": "base",
+    "molarMass": 89.86,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-feoh3",
+    "formula": "Fe(OH)3",
+    "name_vi": "Sắt(III) hiđroxit",
+    "name_en": "Iron(III) Hydroxide",
+    "category": "base",
+    "molarMass": 106.87,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-cuoh2",
+    "formula": "Cu(OH)2",
+    "name_vi": "Đồng(II) hiđroxit",
+    "name_en": "Copper(II) Hydroxide",
+    "category": "base",
+    "molarMass": 97.56,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-kcl",
+    "formula": "KCl",
+    "name_vi": "Dung dịch Kali clorua",
+    "name_en": "Potassium Chloride Solution",
+    "category": "salt",
+    "molarMass": 74.55,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "K⁺",
+      "Cl⁻"
+    ],
+    "componentIds": [],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-kno3",
+    "formula": "KNO3",
+    "name_vi": "Kali nitrat (Diêm tiêu)",
+    "name_en": "Potassium Nitrate",
+    "category": "salt",
+    "molarMass": 101.1,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-nano3",
+    "formula": "NaNO3",
+    "name_vi": "Natri nitrat (Diêm tiêu Chile)",
+    "name_en": "Sodium Nitrate",
+    "category": "salt",
+    "molarMass": 84.99,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-fecl2",
+    "formula": "FeCl2",
+    "name_vi": "Dung dịch Sắt(II) clorua",
+    "name_en": "Iron(II) Chloride Solution",
+    "category": "salt",
+    "molarMass": 126.75,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-fe2so43",
+    "formula": "Fe2(SO4)3",
+    "name_vi": "Dung dịch Sắt(III) sunfat",
+    "name_en": "Iron(III) Sulfate Solution",
+    "category": "salt",
+    "molarMass": 399.88,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-cucl2",
+    "formula": "CuCl2",
+    "name_vi": "Dung dịch Đồng(II) clorua",
+    "name_en": "Copper(II) Chloride Solution",
+    "category": "salt",
+    "molarMass": 134.45,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-cuno32",
+    "formula": "Cu(NO3)2",
+    "name_vi": "Dung dịch Đồng(II) nitrat",
+    "name_en": "Copper(II) Nitrate Solution",
+    "category": "salt",
+    "molarMass": 187.56,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-mgso4",
+    "formula": "MgSO4",
+    "name_vi": "Dung dịch Magie sunfat (Muối Epsom)",
+    "name_en": "Magnesium Sulfate Solution",
+    "category": "salt",
+    "molarMass": 120.37,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-mgcl2",
+    "formula": "MgCl2",
+    "name_vi": "Dung dịch Magie clorua",
+    "name_en": "Magnesium Chloride Solution",
+    "category": "salt",
+    "molarMass": 95.21,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-nh4no3",
+    "formula": "NH4NO3",
+    "name_vi": "Amoni nitrat",
+    "name_en": "Ammonium Nitrate",
+    "category": "salt",
+    "molarMass": 80.043,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-nh42so4",
+    "formula": "(NH4)2SO4",
+    "name_vi": "Amoni sunfat (Phân đạm SA)",
+    "name_en": "Ammonium Sulfate",
+    "category": "salt",
+    "molarMass": 132.14,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-na2s2o3",
+    "formula": "Na2S2O3",
+    "name_vi": "Dung dịch Natri thiosulfat",
+    "name_en": "Sodium Thiosulfate Solution",
+    "category": "salt",
+    "molarMass": 158.11,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-k2cr2o7",
+    "formula": "K2Cr2O7",
+    "name_vi": "Dung dịch Kali đicromat",
+    "name_en": "Potassium Dichromate Solution",
+    "category": "salt",
+    "molarMass": 294.185,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-k2cro4",
+    "formula": "K2CrO4",
+    "name_vi": "Dung dịch Kali cromat",
+    "name_en": "Potassium Chromate Solution",
+    "category": "salt",
+    "molarMass": 194.19,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-fes",
+    "formula": "FeS",
+    "name_vi": "Sắt(II) sunfua",
+    "name_en": "Iron(II) Sulfide",
+    "category": "salt",
+    "molarMass": 87.91,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-agcl",
+    "formula": "AgCl",
+    "name_vi": "Bạc clorua",
+    "name_en": "Silver Chloride",
+    "category": "salt",
+    "molarMass": 143.32,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-agbr",
+    "formula": "AgBr",
+    "name_vi": "Bạc bromua",
+    "name_en": "Silver Bromide",
+    "category": "salt",
+    "molarMass": 187.77,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-agi",
+    "formula": "AgI",
+    "name_vi": "Bạc iođua",
+    "name_en": "Silver Iodide",
+    "category": "salt",
+    "molarMass": 234.77,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-pbi2",
+    "formula": "PbI2",
+    "name_vi": "Chì(II) iođua (Mưa vàng)",
+    "name_en": "Lead(II) Iodide (Golden Rain)",
+    "category": "salt",
+    "molarMass": 461.01,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-baso4",
+    "formula": "BaSO4",
+    "name_vi": "Bari sunfat",
+    "name_en": "Barium Sulfate",
+    "category": "salt",
+    "molarMass": 233.39,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-k2co3",
+    "formula": "K2CO3",
+    "name_vi": "Dung dịch Kali cacbonat (Tro bếp)",
+    "name_en": "Potassium Carbonate Solution",
+    "category": "salt",
+    "molarMass": 138.205,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-s",
+    "formula": "S",
+    "name_vi": "Lưu huỳnh bột",
+    "name_en": "Sulfur Powder",
+    "category": "oxide",
+    "molarMass": 32.06,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-c",
+    "formula": "C",
+    "name_vi": "Than hoạt tính / Cacbon",
+    "name_en": "Activated Charcoal",
+    "category": "oxide",
+    "molarMass": 12.011,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-p",
+    "formula": "P",
+    "name_vi": "Photpho đỏ",
+    "name_en": "Red Phosphorus",
+    "category": "oxide",
+    "molarMass": 30.974,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-mno2",
+    "formula": "MnO2",
+    "name_vi": "Mangan đioxit bột",
+    "name_en": "Manganese Dioxide Powder",
+    "category": "oxide",
+    "molarMass": 86.937,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-cuo",
+    "formula": "CuO",
+    "name_vi": "Đồng(II) oxit bột",
+    "name_en": "Copper(II) Oxide Powder",
+    "category": "oxide",
+    "molarMass": 79.545,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-fe2o3",
+    "formula": "Fe2O3",
+    "name_vi": "Sắt(III) oxit (Gỉ sắt)",
+    "name_en": "Iron(III) Oxide (Rust)",
+    "category": "oxide",
+    "molarMass": 159.69,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-cao",
+    "formula": "CaO",
+    "name_vi": "Canxi oxit (Vôi sống)",
+    "name_en": "Calcium Oxide (Quicklime)",
+    "category": "oxide",
+    "molarMass": 56.077,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-methyl-orange",
+    "formula": "Methyl_Orange",
+    "name_vi": "Chỉ thị Methyl da cam",
+    "name_en": "Methyl Orange Indicator",
+    "category": "indicator",
+    "molarMass": 327.33,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-thymolphthalein",
+    "formula": "Thymolphthalein",
+    "name_vi": "Chỉ thị Thymolphthalein",
+    "name_en": "Thymolphthalein Indicator",
+    "category": "indicator",
+    "molarMass": 430.54,
+    "status": "unavailable",
+    "compoundId": null,
+    "components": [],
+    "componentIds": [],
+    "note": "Chưa có mô hình kiểm chứng phù hợp. Muối rắn cần dữ liệu mạng tinh thể; không suy cấu trúc từ công thức."
+  },
+  {
+    "chemicalId": "chem-ch3cooc2h5",
+    "formula": "CH3COOC2H5",
+    "name_vi": "Etyl axetat",
+    "name_en": "Ethyl Acetate",
+    "category": "organic",
+    "molarMass": 88.11,
+    "status": "available",
+    "compoundId": "cid-885",
+    "components": [],
+    "componentIds": [],
+    "note": "Cấu trúc phân tử riêng lẻ; trạng thái trong lab có thể chứa dung môi."
+  },
+  {
+    "chemicalId": "chem-c3h5oh3",
+    "formula": "C3H5(OH)3",
+    "name_vi": "Glixerol (Glixerin)",
+    "name_en": "Glycerol (Glycerin)",
+    "category": "organic",
+    "molarMass": 92.09,
+    "status": "available",
+    "compoundId": "cid-753",
+    "components": [],
+    "componentIds": [],
+    "note": "Cấu trúc phân tử riêng lẻ; trạng thái trong lab có thể chứa dung môi."
+  },
+  {
+    "chemicalId": "chem-ch3cho",
+    "formula": "CH3CHO",
+    "name_vi": "Dung dịch Axetanđehit",
+    "name_en": "Acetaldehyde Solution",
+    "category": "organic",
+    "molarMass": 44.05,
+    "status": "available",
+    "compoundId": "cid-177",
+    "components": [],
+    "componentIds": [],
+    "note": "Cấu trúc phân tử riêng lẻ; trạng thái trong lab có thể chứa dung môi."
+  },
+  {
+    "chemicalId": "chem-h2o",
+    "formula": "H2O",
+    "name_vi": "Nước cất",
+    "name_en": "Distilled Water",
+    "category": "solvent",
+    "molarMass": 18.015,
+    "status": "available",
+    "compoundId": "cid-962",
+    "components": [],
+    "componentIds": [],
+    "note": "Cấu trúc phân tử riêng lẻ; trạng thái trong lab có thể chứa dung môi."
+  },
+  {
+    "chemicalId": "chem-na2hpo4",
+    "formula": "Na2HPO4",
+    "name_vi": "Dung dịch Đinatri hiđrophotphat 0.1 M",
+    "name_en": "Disodium Hydrogen Phosphate 0.1 M",
+    "category": "salt",
+    "molarMass": 141.96,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "Na⁺",
+      "HPO₄²⁻"
+    ],
+    "componentIds": [],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-naf",
+    "formula": "NaF",
+    "name_vi": "Dung dịch Natri florua 0.1 M",
+    "name_en": "Sodium Fluoride Solution 0.1 M",
+    "category": "salt",
+    "molarMass": 41.99,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "Na⁺",
+      "F⁻"
+    ],
+    "componentIds": [],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-ch3coona",
+    "formula": "CH3COONa",
+    "name_vi": "Dung dịch natri axetat 0.1 M",
+    "name_en": "Sodium acetate solution 0.1 M",
+    "category": "salt",
+    "molarMass": 82.034,
+    "status": "components",
+    "compoundId": null,
+    "components": [
+      "Na⁺",
+      "CH₃COO⁻"
+    ],
+    "componentIds": [],
+    "note": "Chất trong dung dịch nước: xem các ion/thành phần, không coi là một phân tử muối riêng lẻ."
+  },
+  {
+    "chemicalId": "chem-co2",
+    "formula": "CO2",
+    "name_vi": "Cacbon đioxit (nạp khí theo khối lượng)",
+    "name_en": "Carbon dioxide (metered gas)",
+    "category": "gas",
+    "molarMass": 44.01,
+    "status": "available",
+    "compoundId": "cid-280",
+    "components": [],
+    "componentIds": [],
+    "note": "Cấu trúc phân tử riêng lẻ; trạng thái trong lab có thể chứa dung môi."
+  }
+]

@@ -8,7 +8,27 @@
  */
 
 import { parseChemicalFormula, computeMolarMass } from './formula';
-import { SubstanceQuantity } from '../../types/chemistry';
+import { SubstanceQuantity, ReactionDefinition } from '../../types/chemistry';
+
+/** AI proposals must pass the same elemental conservation gate as catalog
+ * reactions before they are allowed to modify physical inventories. */
+export function isElementBalancedReaction(reaction: ReactionDefinition): boolean {
+  try {
+    if (!reaction.reactants?.length || !reaction.products?.length || !Number.isFinite(reaction.deltaH_kJ_mol)) return false;
+    const count = (side: ReactionDefinition['reactants']) => {
+      const totals: Record<string, number> = {};
+      for (const species of side) {
+        if (!Number.isFinite(species.coefficient) || species.coefficient <= 0 || !['aq','s','l','g'].includes(species.state)) throw new Error('Invalid species');
+        const atoms = parseChemicalFormula(species.formula);
+        if (!Object.keys(atoms).length || !(computeMolarMass(species.formula) > 0)) throw new Error('Unknown formula');
+        for (const [element, amount] of Object.entries(atoms)) totals[element] = (totals[element] ?? 0) + amount * species.coefficient;
+      }
+      return totals;
+    };
+    const left = count(reaction.reactants), right = count(reaction.products);
+    return [...new Set([...Object.keys(left), ...Object.keys(right)])].every(element => Math.abs((left[element] ?? 0) - (right[element] ?? 0)) < 1e-8);
+  } catch { return false; }
+}
 
 export interface ConservationAudit {
   isConserved: boolean;

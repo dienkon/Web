@@ -56,7 +56,9 @@ export const InteractivePhMeter = React.memo(function InteractivePhMeter() {
     </mesh>
     <Text ref={label} position={[0, 0.55, 0.1]} fontSize={0.065} color="#18362c" anchorX="center" anchorY="middle">pH ---</Text>
     {immersed && <Text position={[0, 0.47, 0.1]} fontSize={0.026} color="#36523a" anchorX="center" anchorY="middle">
-      {vessel.phModel === 'ideal_aqueous_25c' ? 'Mô hình 25 °C' : 'Mô phỏng giản lược'}
+      {vessel.phModel === 'ideal_aqueous_25c' ? 'Mô hình 25 °C'
+        : vessel.phModel === 'ideal_aqueous_temperature' ? `Mô hình ${(vessel.phReferenceTemperature_c ?? vessel.temperature_c).toFixed(1)} °C`
+          : 'Mô phỏng giản lược'}
     </Text>}
     <mesh position={[0, 0.13, 0.095]}>
       <circleGeometry args={[0.045, 12]} />

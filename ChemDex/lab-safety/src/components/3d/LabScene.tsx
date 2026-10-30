@@ -1,7 +1,8 @@
 import React, { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera, useProgress } from '@react-three/drei';
-import { AdaptivePerformance } from '../../systems/performance/AdaptivePerformance';
+import { AdaptivePerformance, initialDpr } from '../../systems/performance/AdaptivePerformance';
+import {useCoarsePointer} from '../../systems/device/useCoarsePointer';
 import * as THREE from 'three';
 import { LabStandardRoom } from './lab/LabStandardRoom';
 import { useStore } from '../../store/useStore';
@@ -41,6 +42,7 @@ const Loader = () => {
 };
 
 export const LabScene: React.FC = () => {
+  const coarse=useCoarsePointer();
   const view = useStore((state) => state.view);
   const cinematic = useStore(s => s.cinematic);
   const settings = useStore((state) => state.settings);
@@ -61,9 +63,9 @@ export const LabScene: React.FC = () => {
       <Canvas
         frameloop="demand"
         shadows={settings.graphicsQuality === 'ultra'}
-        dpr={settings.graphicsQuality === 'potato' ? 0.75 : 1}
+        dpr={initialDpr(settings.graphicsQuality,coarse)}
         gl={{
-          antialias: !['potato', 'low'].includes(settings.graphicsQuality),
+          antialias: !['potato', 'low'].includes(settings.graphicsQuality)&&!(coarse&&settings.graphicsQuality==='auto'),
           powerPreference: 'high-performance',
           toneMapping: THREE.ACESFilmicToneMapping,
           toneMappingExposure: 1.05,

@@ -1,165 +1,175 @@
-/**
- * SodiumWaterController.ts — Dedicated reaction controller for 2Na + 2H2O -> 2NaOH + H2
- * 
- * Satisfies Sections 17.1 - 17.18 and Section 94:
- * - Irregular metallic sodium piece floating at liquid-air interface.
- * - Directional H2 jet recoil impulses driving authentic stochastic skittering.
- * - Thermal accumulation causing melting into a molten silvery sphere at 97.8°C.
- * - Surface depression ripples following movement.
- * - Localized 589nm yellow flame cone during thermal ignition.
- * - Swirling alkaline phenolphthalein trail and smooth consumption to 0%.
- */
-
 import { ReactionVisualController, ReactionContext, ReactionZone } from '../types';
+import { sodiumPelletThermal, sodiumMetalMass } from '../../../science/sodiumWater';
+import { sodiumSurfaceRadius, vesselLiquidSurfaceY } from '../../../science/vesselGeometry';
+import { sodiumPelletRadius, sodiumPelletShape } from '../../geometry/sodiumPellet';
 
+/** Read-only contact dynamics for finite Na/H2O chemistry. Material failure,
+ * burning, gas supply and heat require their own engine budgets; elapsed time
+ * and metal mass alone cannot prescribe ignition, detonation or glass rupture. */
 export class SodiumWaterController implements ReactionVisualController {
   public id = 'sodium_water_reaction';
   public name = 'Sodium + Water Reaction';
 
-  public initialize(context: ReactionContext): void {
-    const { runtime } = context;
+  public initialize({ vessel, runtime }: ReactionContext): void {
+    const radius = sodiumSurfaceRadius(vessel);
+    const initialMass = sodiumMetalMass(vessel);
     runtime.customData = {
-      // Sodium pellet position relative to vessel center [-0.6, 0.6]
-      x: (Math.random() - 0.5) * 0.4,
-      z: (Math.random() - 0.5) * 0.4,
-      vx: (Math.random() - 0.5) * 0.3,
-      vz: (Math.random() - 0.5) * 0.3,
-      angle: Math.random() * Math.PI * 2,
+      x: radius * 0.12,
+      z: -radius * 0.08,
+      vx: 0.14,
+      vz: 0.09,
+      angle: 0.6,
       angularVelocity: 0,
-      mass_fraction: 1.0,
-      meltFactor: 0.0, // 0 = irregular solid, 1 = molten sphere
+      mass_fraction: 1,
+      meltFactor: 0,
       isMolten: false,
-      localTemp_c: 25.0,
+      localTemp_c: vessel.temperature_c,
       isIgnited: false,
-      bubbleTimer: 0,
-      trailPoints: [] as Array<{ x: number; z: number; age: number }>,
+      trailPoints: [],
+      seed: 137,
+      soundTimer: 0,
+      initialMass_g: initialMass,
+      circleAngle: 0.6,
+      circleRadius: radius * 0.45,
+      circleDirection: 1,
+      orbitalSpeed: 3.2,
+      radialPhase: 0,
     };
-
-    runtime.duration = 6.0;
-    runtime.currentColor = '#e0f2fe';
-    runtime.targetColor = '#f43f5e'; // Vibrant alkaline pink with phenolphthalein
-    context.playSound('fizz');
+    runtime.duration = 7;
+    runtime.currentColor = vessel.liquidColor ?? '#f8fafc';
+    runtime.targetColor = runtime.currentColor;
   }
 
   public update(context: ReactionContext): void {
-    const { runtime, dt, addSurfaceImpulse, playSound } = context;
-    runtime.elapsed += dt;
-    runtime.progress = Math.min(1.0, runtime.elapsed / runtime.duration);
-    const data = runtime.customData;
-    if (data.mass_fraction <= 0.01) {
-      runtime.progress = 1.0;
-      runtime.reactionRate = 0.0;
+    const { vessel, runtime, dt } = context;
+    if (!(dt > 0) || !Number.isFinite(dt)) return;
+    if (vessel.isShattered) {
+      runtime.reactionRate = 0;
+      runtime.gasGenerationRate = 0;
+      runtime.surfaceActivity = 0;
+      if (runtime.customData) {
+        runtime.customData.vx = 0;
+        runtime.customData.vz = 0;
+        runtime.customData.isIgnited = false;
+      }
       return;
     }
 
-    // 1. Kinetic rate and heat generation
-    // Exothermic warming: Delta H = -368 kJ/mol proportional to reaction progress
-    data.localTemp_c = Math.min(125.0, 25.0 + Math.min(1.0, runtime.progress / 0.35) * 85.0);
-    runtime.temperature = data.localTemp_c;
+    runtime.elapsed += dt;
+    const data = runtime.customData;
+    const metered = typeof data.chemistryProgress === 'number';
+    runtime.progress = metered ? Math.max(0, Math.min(1, data.chemistryProgress))
+      : Math.min(1, Math.max(runtime.progress, runtime.elapsed / runtime.duration));
+    const mass = sodiumMetalMass(vessel);
+    const initialMass = Math.max(1e-12, data.initialMass_g ?? mass);
+    data.mass_fraction = metered ? Math.min(1, mass / initialMass) : Math.max(0, 1 - runtime.progress);
+    const water = (vessel.contents ?? []).find(item => item.formula === 'H2O' && item.phase !== 'g' && item.phase !== 's');
+    const contact = vessel.volume_ml > 0 && !!water && water.moles > 1e-12;
+    const active = contact && data.mass_fraction > 1e-9 && runtime.progress < 1
+      && (!metered || data.gasMolesPerSecond > 0);
 
-    // Melting transition around mp = 97.8°C
-    if (data.localTemp_c >= 97.8) {
-      data.meltFactor = Math.min(1.0, Math.max(data.meltFactor, (runtime.progress - 0.28) / 0.2));
-    }
-    data.isMolten = data.meltFactor >= 0.5 || data.localTemp_c >= 97.8;
-
-    // Ignition condition: molten sodium + high local heat -> 589nm flame
-    if (data.localTemp_c >= 105.0 && !data.isIgnited && Math.random() < 0.15) {
-      data.isIgnited = true;
-      playSound('ignite');
-    }
-
-    // 2. Procedural Asymmetric H2 Jet Recoil Motion with Leidenfrost Gas Cushion
-    const vesselRadius = 0.55;
-    const currentDist = Math.hypot(data.x, data.z);
-
-    // Directional thrust from hydrogen ejection with chaotic stochastic perturbations
-    // Leidenfrost hydrogen/steam cushion drastically reduces surface skin friction
-    const isVigorous = data.mass_fraction > 0.05;
-    const recoilImpulse = (1.2 + Math.random() * 1.4) * (data.isIgnited ? 1.8 : 1.0) * (data.isMolten ? 1.3 : 0.85);
-    const thrustAngle = data.angle + (Math.random() - 0.5) * 2.1;
-    data.vx += Math.cos(thrustAngle) * recoilImpulse * dt;
-    data.vz += Math.sin(thrustAngle) * recoilImpulse * dt;
-
-    // Fluid drag damping (Reduced by ~70% due to micro-vapor cushion beneath pellet)
-    const effectiveDrag = isVigorous ? 0.85 : 2.6;
-    data.vx *= Math.exp(-effectiveDrag * dt);
-    data.vz *= Math.exp(-effectiveDrag * dt);
-
-    // Tangential moment causing rapid droplet spin
-    data.angularVelocity = (data.angularVelocity || 0) + (Math.random() - 0.5) * 45.0 * dt;
-    data.angularVelocity *= Math.exp(-2.5 * dt);
-    data.angle += data.angularVelocity * dt;
-
-    data.x += data.vx * dt;
-    data.z += data.vz * dt;
-
-    // Boundary collision reflection against beaker wall
-    if (currentDist > vesselRadius) {
-      const nx = data.x / currentDist;
-      const nz = data.z / currentDist;
-      const dot = data.vx * nx + data.vz * nz;
-      if (dot > 0) {
-        data.vx -= 1.85 * dot * nx;
-        data.vz -= 1.85 * dot * nz;
-      }
-      data.x = nx * (vesselRadius - 0.02);
-      data.z = nz * (vesselRadius - 0.02);
-      data.angle = Math.atan2(data.vz, data.vx);
+    const thermal = sodiumPelletThermal(1 - data.mass_fraction, vessel.temperature_c, vessel.environment?.airSpeed_m_s);
+    data.localTemp_c = thermal.temperature_c;
+    data.meltFactor = thermal.meltFactor;
+    data.isMolten = thermal.meltFactor > 0;
+    const burning = active && vessel.hydrogenCombustion?.burning === true
+      && vessel.hydrogenCombustion.power_W > 0;
+    if (burning && !data.isIgnited) context.playSound('ignite');
+    data.isIgnited = burning;
+    runtime.temperature = vessel.temperature_c;
+    const gasMl_s = Math.max(0, data.gasMolesPerSecond ?? 0) * 82.057 * (vessel.temperature_c + 273.15)
+      / (vessel.environment?.pressure_atm ?? 1);
+    runtime.reactionRate = active ? metered ? Math.min(4, gasMl_s / 5) : Math.pow(data.mass_fraction, 2 / 3) : 0;
+    runtime.gasGenerationRate = active ? metered ? Math.min(180, gasMl_s / 0.05)
+      : runtime.reactionRate * 40 / (vessel.environment?.pressure_atm ?? 1) : 0;
+    runtime.surfaceActivity = active ? Math.min(1, 0.35 + runtime.reactionRate * 0.5) : 0;
+    if (!active) {
+      data.vx = 0;
+      data.vz = 0;
+      return;
     }
 
-    // 3. Progressive Consumption & Erosion
-    const consumptionRate = (data.isIgnited ? 0.22 : 0.14) * (1.0 + data.meltFactor * 0.5);
-    data.mass_fraction = Math.max(0, data.mass_fraction - consumptionRate * dt);
-    runtime.progress = 1.0 - data.mass_fraction;
-    runtime.reactionRate = data.mass_fraction * (data.isIgnited ? 1.8 : 1.0);
-    runtime.gasGenerationRate = runtime.reactionRate * 45.0;
-    runtime.surfaceActivity = Math.min(1.0, 0.35 + runtime.reactionRate * 0.5);
+    const radius = sodiumSurfaceRadius(vessel);
 
-    // 4. Local surface depression & ripple impulse
-    const normX = data.x / vesselRadius;
-    const normZ = data.z / vesselRadius;
-    addSurfaceImpulse(normX, normZ, -0.004 * data.mass_fraction, 0.08);
+    // Smooth, energetic circular skittering ("chạy vòng vòng")
+    if (data.circleAngle === undefined) {
+      data.circleAngle = Math.atan2(data.z, data.x) || 0.6;
+      data.circleRadius = Math.hypot(data.x, data.z) || radius * 0.45;
+      data.circleDirection = 1;
+      data.orbitalSpeed = 3.2;
+      data.radialPhase = 0;
+    }
 
-    // 5. Phenolphthalein indicator trail
-    data.trailPoints.push({ x: data.x, z: data.z, age: 0 });
-    data.trailPoints.forEach((p: any) => { p.age += dt; });
-    if (data.trailPoints.length > 40) data.trailPoints.shift();
+    const bodyRadius = sodiumPelletRadius(vessel, mass) * sodiumPelletShape(data.meltFactor).horizontalRadius;
+    const boundary = Math.max(0, radius - bodyRadius);
 
-    // Occasional tiny hydrogen bubble pop and micro-explosions
-    if (data.isIgnited && Math.random() < dt * 6.0) {
-      context.emitSparks([data.x, 0.04, data.z], 4, '#fbbf24');
-      playSound('pop');
-    } else if (Math.random() < dt * 4.5) {
-      playSound('pop');
+    data.orbitalSpeed = (2.8 + 1.8 * data.meltFactor) * (0.8 + 0.4 * Math.max(0.5, runtime.reactionRate));
+    data.circleAngle += data.circleDirection * data.orbitalSpeed * dt;
+    data.radialPhase += dt * 1.6;
+
+    // Organic spiraling: sweeps in wide loops between center and rim
+    const targetRadius = boundary * (0.55 + 0.40 * Math.sin(data.radialPhase));
+    const minR = Math.min(0.005, boundary);
+    data.circleRadius = Math.max(minR, Math.min(boundary, data.circleRadius + (targetRadius - data.circleRadius) * (1 - Math.exp(-dt * 2.5))));
+
+    data.x = Math.cos(data.circleAngle) * data.circleRadius;
+    data.z = Math.sin(data.circleAngle) * data.circleRadius;
+
+    const speed = (0.22 + 0.28 * data.meltFactor) * Math.max(0.6, runtime.reactionRate);
+    data.vx = -Math.sin(data.circleAngle) * speed * data.circleDirection;
+    data.vz = Math.cos(data.circleAngle) * speed * data.circleDirection;
+
+    const distance = Math.hypot(data.x, data.z);
+    if (boundary <= 0) {
+      data.x = 0;
+      data.z = 0;
+      data.circleRadius = 0;
+    } else if (distance > boundary) {
+      data.x = (data.x / distance) * boundary;
+      data.z = (data.z / distance) * boundary;
+      data.circleRadius = boundary;
+    }
+
+    context.addSurfaceImpulse(data.x / radius, data.z / radius, -0.0025 * runtime.reactionRate, 0.06);
+
+    const indicator = (vessel.contents ?? []).some(item => item.formula === 'Phenolphthalein' && item.moles > 1e-12);
+    data.trailPoints = data.trailPoints.filter((point: { age: number }) => (point.age += dt) < 2.2);
+    if (indicator) data.trailPoints.push({ x: data.x, z: data.z, age: 0 });
+    if (data.trailPoints.length > 60) data.trailPoints.shift();
+
+    data.soundTimer += dt;
+    if (data.soundTimer >= 0.4) {
+      context.playSound('sodium_sizzle');
+      data.soundTimer = 0;
     }
   }
 
-  public getReactionZone(context: ReactionContext): ReactionZone {
-    const data = context.runtime.customData;
+  public getReactionZone({ vessel, runtime }: ReactionContext): ReactionZone {
+    const data = runtime.customData ?? {};
     return {
       origin: 'airLiquidInterface',
-      position: [data.x || 0, 0, data.z || 0],
-      radius: 0.04 * (data.mass_fraction || 1.0),
-      direction: [data.vx || 0, 0, data.vz || 0],
+      position: [data.x ?? 0, vesselLiquidSurfaceY(vessel), data.z ?? 0],
+      radius: sodiumPelletRadius(vessel, sodiumMetalMass(vessel))
+        * sodiumPelletShape(data.meltFactor ?? 0).horizontalRadius,
+      direction: [data.vx ?? 0, 0, data.vz ?? 0],
     };
   }
 
-  public updateSurface(context: ReactionContext): void {
-    const { runtime, addSurfaceImpulse } = context;
-    const data = runtime.customData;
-    if (data.mass_fraction > 0.05) {
-      const normX = data.x / 0.6;
-      const normZ = data.z / 0.6;
-      addSurfaceImpulse(normX, normZ, 0.0015 * runtime.reactionRate, 0.06);
-    }
+  public updateSurface({ runtime, vessel, addSurfaceImpulse }: ReactionContext): void {
+    if (runtime.reactionRate <= 0) return;
+    const data = runtime.customData, radius = sodiumSurfaceRadius(vessel);
+    if (!data || !(radius > 0)) return;
+    addSurfaceImpulse((data.x ?? 0) / radius, (data.z ?? 0) / radius, 0.001 * runtime.reactionRate, 0.05);
   }
 
-  public finalize(context: ReactionContext): void {
-    const { runtime } = context;
-    runtime.currentColor = runtime.targetColor;
+  public finalize({ runtime }: ReactionContext): void {
     runtime.reactionRate = 0;
     runtime.gasGenerationRate = 0;
-    context.playSound('fizz');
+    runtime.surfaceActivity = 0;
+    if (runtime.customData) {
+      runtime.customData.isIgnited = false;
+      runtime.customData.vx = 0;
+      runtime.customData.vz = 0;
+    }
   }
 }

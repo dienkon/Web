@@ -13,6 +13,7 @@ const ev=code=>evaluate(`(async()=>{const {useStore,playerCoords}=await import('
 const check=(ok,label)=>{if(!ok)throw Error(label);checks.push(label);console.log('PASS '+label);};
 async function wait(expression,label,timeout=30000){const until=Date.now()+timeout;while(Date.now()<until){if(await evaluate(`Boolean(${expression})`))return;await delay(100);}throw Error('Timeout '+label);}
 async function click(text){const ok=await evaluate(`(()=>{const b=[...document.querySelectorAll('button')].find(b=>!b.disabled&&b.getClientRects().length&&b.textContent.includes(${JSON.stringify(text)}));if(!b)return false;b.click();return true;})()`);if(!ok)throw Error('No button '+text);await delay(100);}
+await send('Page.bringToFront');
 await mkdir('docs/practical-review',{recursive:true});
 async function shot(name){const r=await send('Page.captureScreenshot',{format:'png'});await writeFile(`docs/practical-review/${name}.png`,Buffer.from(r.data,'base64'));}
 async function screenPoint(p){return evaluate(`(()=>{const svg=document.querySelector('[data-practical-simulation] svg');const p=new DOMPoint(${p[0]},${p[1]}).matrixTransform(svg.getScreenCTM());return {x:p.x,y:p.y};})()`);}
@@ -24,7 +25,7 @@ async function aim(position,target,id){
  await wait(`window.__LAB_DEBUG_STATE__?.focusId===${JSON.stringify(id)}`,'focus '+id);
 }
 async function interact(){await ev(`const {dispatchInteractionInput}=await import('/src/systems/input/InteractionBus.ts');dispatchInteractionInput();return true;`);}
-async function perform(work,{from=0,to=work.steps.length,touch=false,initialPlacements=[]}={}){
+async function perform(work,{from=0,to=work.steps.length,touch=false,initialPlacements=[],afterStep}={}){
  const positions=Object.fromEntries(work.objects.map(o=>[o.id,o.at]));
  work.steps.slice(0,from).forEach(s=>{if(s.mode==='drag'||s.mode==='stir')positions[s.object]=s.target;if(s.mode==='trace')positions[s.object]=s.path.at(-1);if(s.mode==='arrange')s.placements.forEach(p=>positions[p.object]=p.target);});
  for(let i=from;i<to;i++){
@@ -52,7 +53,7 @@ async function perform(work,{from=0,to=work.steps.length,touch=false,initialPlac
    await send('Input.dispatchMouseEvent',{type:'mousePressed',...q,button:'left',buttons:1,clickCount:1});await send('Input.dispatchMouseEvent',{type:'mouseReleased',...q,button:'left',buttons:0,clickCount:1});
    await click('Xác nhận vị trí');
   }else{
-   const origin=step.mode==='hold'?step.target:positions[step.object];
+   const origin=step.mode==='hold'?step.target:step.mode==='trace'?step.path[0]:positions[step.object];
    if(touch){
     const start=await screenPoint(origin);await send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{...start,id:1}]});
     for(const p of step.mode==='trace'?step.path:[step.target]){const q=await screenPoint(p);await send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{...q,id:1}]});}
@@ -71,6 +72,7 @@ async function perform(work,{from=0,to=work.steps.length,touch=false,initialPlac
   const text=await evaluate("document.querySelector('.practical-instruction strong')?.textContent");
   if(i+1===work.steps.length){if(!text.includes('Đã hoàn thành'))throw Error(`Step ${i} did not finish ${work.title}: ${text}`);}
   else if(!text.startsWith(`${i+2}/`))throw Error(`Step ${i} failed ${work.title}: ${text}`);
+  await afterStep?.(i+1);
  }
 }
 export {send,evaluate,ev,check,wait,click,shot,screenPoint,mouse,getWork,aim,interact,perform,delay,errors,checks,socket,target,cdp,app};

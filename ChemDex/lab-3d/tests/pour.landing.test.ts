@@ -17,8 +17,8 @@ describe('Pouring Ballistics, Intersections & Landing Suite (§8 & §11.1)', () 
       const targetVessel = {
         id: 'target_beaker',
         position: [0.03, 0.0, 0.0] as [number, number, number],
-        mouthR: 0.035, // 3.5 cm mouth radius
-        mouthY: 0.08,
+        mouthR: beakerProfile.mouthR, // Actual modeled opening
+        mouthY: 1.0,
         liquidSurfaceY: 0.04
       };
 
@@ -61,9 +61,9 @@ describe('Pouring Ballistics, Intersections & Landing Suite (§8 & §11.1)', () 
       // Misaligned target beaker far away
       const farTarget = {
         id: 'far_beaker',
-        position: [0.35, 0.0, 0.0] as [number, number, number],
+        position: [5.0, 0.0, 0.0] as [number, number, number],
         mouthR: 0.035,
-        mouthY: 0.08,
+        mouthY: 1.0,
         liquidSurfaceY: 0.04
       };
 

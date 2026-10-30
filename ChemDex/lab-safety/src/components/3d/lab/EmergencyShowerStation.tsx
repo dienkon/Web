@@ -1,90 +1,33 @@
 import { useTaskProximity } from './useTaskProximity';
-import React, { useState, useRef, useMemo } from 'react';
-import { useFrame } from '@react-three/fiber';
+import React, { useEffect, useRef, useState } from 'react';
 import { SceneHtml as Html } from '../SceneHtml';
-import * as THREE from 'three';
-import { playerCoords, useStore } from '../../../store/useStore';
+import { useStore } from '../../../store/useStore';
 import { soundManager } from '../../../audio/soundManager';
 
-const SHOWER_POS: [number, number, number] = [-9.2, 0, -4.0];
-const WATER_PARTICLES = 160;
+import { EmergencyShowerAsset } from '../assets/EmergencyAssets';
+import { InstancedBoxes } from '../assets/AssetPrimitives';
+import { EMERGENCY_SHOWER_LAYOUT as L } from '../../../data/scene/fixtureLayout';
+const SHOWER_POS=L.position;
 
 export const EmergencyShowerStation: React.FC = () => {
   const [isShowerActive, setIsShowerActive] = useState(false);
   const [isEyewashActive, setIsEyewashActive] = useState(false);
   const startDialog = useStore((s) => s.startDialog);
   const setWaterEffect = useStore((s) => s.setWaterEffect);
+  const guideTimer=useRef<ReturnType<typeof setTimeout>|null>(null);
+  useEffect(()=>()=>{if(guideTimer.current)clearTimeout(guideTimer.current);},[]);
 
-  const showerPointsRef = useRef<THREE.Points>(null);
-  const eyewashPointsRef = useRef<THREE.Points>(null);
-  const pullRodRef = useRef<THREE.Group>(null);
-
-  // Check distance to station
-  const dx = SHOWER_POS[0] - playerCoords.position[0];
-  const dz = SHOWER_POS[2] - playerCoords.position[2];
-  const isNear = useTaskProximity(SHOWER_POS, 2.2, []);
-
-  // Particle buffers for overhead shower
-  const showerParticles = useMemo(() => {
-    const pos = new Float32Array(WATER_PARTICLES * 3);
-    const vel = new Float32Array(WATER_PARTICLES);
-    for (let i = 0; i < WATER_PARTICLES; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 0.4;
-      pos[i * 3 + 1] = Math.random() * 2.4;
-      pos[i * 3 + 2] = 0.4 + (Math.random() - 0.5) * 0.4;
-      vel[i] = 4.0 + Math.random() * 2.5;
-    }
-    return { pos, vel };
-  }, []);
-
-  // Frame update for falling shower water & eyewash jets
-  useFrame((_, delta) => {
-    // Overhead Shower Stream
-    if (isShowerActive && showerPointsRef.current) {
-      const posAttr = showerPointsRef.current.geometry.attributes.position as THREE.BufferAttribute;
-      const arr = posAttr.array as Float32Array;
-
-      for (let i = 0; i < WATER_PARTICLES; i++) {
-        arr[i * 3 + 1] -= showerParticles.vel[i] * delta;
-        // Cone expansion as water falls
-        const fallRatio = Math.max(0, 1 - arr[i * 3 + 1] / 2.4);
-        const radius = 0.08 + fallRatio * 0.45;
-
-        if (arr[i * 3 + 1] <= 0.02) {
-          // Reset to shower head top
-          arr[i * 3 + 1] = 2.4;
-          const angle = Math.random() * Math.PI * 2;
-          const r = Math.random() * 0.1;
-          arr[i * 3] = Math.cos(angle) * r;
-          arr[i * 3 + 2] = 0.4 + Math.sin(angle) * r;
-        } else {
-          // Spread outward
-          arr[i * 3] += (Math.random() - 0.5) * 0.02 * fallRatio;
-          arr[i * 3 + 2] += (Math.random() - 0.5) * 0.02 * fallRatio;
-        }
-      }
-      posAttr.needsUpdate = true;
-    }
-
-    // Pull rod handle animation
-    if (pullRodRef.current) {
-      const targetY = isShowerActive ? -0.15 : 0;
-      pullRodRef.current.position.y = THREE.MathUtils.lerp(
-        pullRodRef.current.position.y,
-        targetY,
-        delta * 12
-      );
-    }
-  });
+  const isNear=useTaskProximity(SHOWER_POS,2.2,[]);
 
   const toggleShower = () => {
+    if(guideTimer.current)clearTimeout(guideTimer.current);
     const next = !isShowerActive;
     setIsShowerActive(next);
     setIsEyewashActive(false);
     setWaterEffect({ active: next, type: 'shower' });
     soundManager.play('water');
     if (next) {
-      setTimeout(() => {
+      guideTimer.current=setTimeout(() => {
         startDialog([
           'QUY TRÌNH TẮM KHẨN CẤP ĐẠT CHUẨN:',
           '1. Lập tức cởi bỏ quần áo nhiễm hóa chất.',
@@ -96,13 +39,14 @@ export const EmergencyShowerStation: React.FC = () => {
   };
 
   const toggleEyewash = () => {
+    if(guideTimer.current)clearTimeout(guideTimer.current);
     const next = !isEyewashActive;
     setIsEyewashActive(next);
     setIsShowerActive(false);
     setWaterEffect({ active: next, type: 'eyewash' });
     soundManager.play('water');
     if (next) {
-      setTimeout(() => {
+      guideTimer.current=setTimeout(() => {
         startDialog([
           'QUY TRÌNH RỬA MẮT KHẨN CẤP ĐẠT CHUẨN:',
           '1. Dùng ngón tay giữ mí mắt luôn mở to.',
@@ -114,57 +58,12 @@ export const EmergencyShowerStation: React.FC = () => {
   };
 
   return (
-    <group userData={{labItem:{title:'Vòi tắm và rửa mắt khẩn cấp',kind:'shower'}}} position={SHOWER_POS}>
-      {/* Overhead Animated Shower Stream */}
-      {isShowerActive && (
-          <group>
-            <points ref={showerPointsRef}>
-              <bufferGeometry>
-                <bufferAttribute
-                  attach="attributes-position"
-                  count={WATER_PARTICLES}
-                  array={showerParticles.pos}
-                  itemSize={3}
-                />
-              </bufferGeometry>
-              <pointsMaterial
-                size={0.06}
-                color="#BAE6FD"
-                transparent
-                opacity={0.65}
-                depthWrite={false}
-                blending={THREE.AdditiveBlending}
-              />
-            </points>
-            {/* Splash Ring on floor grate */}
-            <mesh position={[0, 0.02, 0.4]} rotation={[-Math.PI / 2, 0, 0]}>
-              <ringGeometry args={[0.2, 0.65, 32]} />
-              <meshBasicMaterial color="#38BDF8" transparent opacity={0.4} />
-            </mesh>
-          </group>
-        )}
-
-        {/* Dual Eyewash Parabolic Spray Jets */}
-        {isEyewashActive && (
-          <group position={[0, 1.15, 0.35]}>
-            <mesh position={[-0.05, 0.08, 0]}>
-              <cylinderGeometry args={[0.02, 0.01, 0.16, 12]} />
-              <meshStandardMaterial color="#38BDF8" transparent opacity={0.7} />
-            </mesh>
-            <mesh position={[0.05, 0.08, 0]}>
-              <cylinderGeometry args={[0.02, 0.01, 0.16, 12]} />
-              <meshStandardMaterial color="#38BDF8" transparent opacity={0.7} />
-            </mesh>
-          </group>
-        )}
-
-        {/* Pull Rod Animation Node */}
-        <group ref={pullRodRef} position={[0.4, 2.4 - 0.65, 0.4]}>
-          <mesh position={[0, 0, 0]}>
-            <cylinderGeometry args={[0.006, 0.006, 1.1]} />
-            <meshStandardMaterial color="#EAB308" metalness={0.8} />
-          </mesh>
-        </group>
+    <group userData={{labItem:{title:'Vòi tắm và rửa mắt khẩn cấp',kind:'shower'}}} position={SHOWER_POS} rotation={[0,L.rotationY,0]}>
+      <EmergencyShowerAsset shower={isShowerActive} eyewash={isEyewashActive}/>
+      <group name="shower-floor-area" position={[0,.002,.8]}>
+       <mesh rotation={[-Math.PI/2,0,0]}><ringGeometry args={[.44,.46,48]}/><meshStandardMaterial color="#c6b776" roughness={.8}/></mesh>
+       <InstancedBoxes color="#8ba0a7" parts={Array.from({length:9},(_,i)=>({at:[-.08+i*.02,.002,0],size:[.008,.004,.16]}))}/>
+      </group>
 
         {/* Proximity HTML Interactive Controls */}
         {isNear && (

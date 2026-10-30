@@ -1,8 +1,9 @@
+import {useShallow} from 'zustand/react/shallow';
 import React, { useState } from 'react';
 import { useLabStore } from '../../store/useLabStore';
 import { CHEMICAL_CATALOG } from '../../data/chemicals';
 import { formatFormulaUnicode } from '../../chemistry/core/formula';
-import { Flame, Droplets, Trash2, ArrowRightLeft, Plus, Thermometer, Gauge, Beaker, Sparkles, Loader2 } from 'lucide-react';
+import { Flame, Droplets, Trash2, ArrowRightLeft, Plus, Thermometer, Gauge, Beaker, Sparkles, Loader2, RotateCw, Droplet, Eraser, Lock, Unlock } from 'lucide-react';
 
 export const VesselInspector: React.FC = () => {
   const {
@@ -14,8 +15,12 @@ export const VesselInspector: React.FC = () => {
     openTransferModal,
     triggerGeminiReactionCheck,
     toggleAIAssistant,
+    emptyEquipment,
+    toggleStir,
+    addDistilledWater,
+    toggleSeal,
     language,
-  } = useLabStore();
+  } = useLabStore(useShallow(state => ({equipment: state.equipment,selectedEquipmentId: state.selectedEquipmentId,removeEquipment: state.removeEquipment,toggleHeat: state.toggleHeat,addChemicalToEquipment: state.addChemicalToEquipment,openTransferModal: state.openTransferModal,triggerGeminiReactionCheck: state.triggerGeminiReactionCheck,toggleAIAssistant: state.toggleAIAssistant,emptyEquipment: state.emptyEquipment,toggleStir: state.toggleStir,addDistilledWater: state.addDistilledWater,toggleSeal: state.toggleSeal,language: state.language})));
 
   const [selectedChemicalId, setSelectedChemicalId] = useState<string>('chem-hcl');
   const [addVolume, setAddVolume] = useState<number>(25);
@@ -35,7 +40,7 @@ export const VesselInspector: React.FC = () => {
 
   if (!selectedItem) {
     return (
-      <div className="w-80 h-full bg-white border-l border-slate-200 p-5 flex flex-col justify-center items-center text-center text-slate-400 select-none">
+      <div className="lab-inspector w-80 h-full bg-white border-l border-slate-200 p-5 flex flex-col justify-center items-center text-center text-slate-400 select-none">
         <Beaker className="w-12 h-12 text-slate-300 mb-3" />
         <p className="text-sm font-medium text-slate-600">
           {language === 'vi' ? 'Chưa chọn dụng cụ nào' : 'No equipment selected'}
@@ -52,7 +57,7 @@ export const VesselInspector: React.FC = () => {
   const name = language === 'vi' ? selectedItem.name_vi : selectedItem.name;
 
   return (
-    <div className="w-84 h-full bg-white border-l border-slate-200 flex flex-col select-none shadow-xs">
+    <div className="lab-inspector w-84 h-full bg-white border-l border-slate-200 flex flex-col select-none shadow-xs">
       {/* Header */}
       <div className="p-4 border-b border-slate-200 flex items-center justify-between bg-slate-50/50">
         <div>
@@ -123,6 +128,111 @@ export const VesselInspector: React.FC = () => {
         )}
       </div>
 
+      {/* Live Physical & Thermal Phenomena Badges */}
+      {selectedItem.isContainer && (
+        <div className="px-4 py-2 border-b border-slate-200 bg-slate-50/70 flex flex-wrap gap-1.5 items-center">
+          {selectedItem.isBeingHeated && (
+            <span className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-orange-100 text-orange-800 border border-orange-200 flex items-center gap-1.5 animate-pulse shadow-2xs">
+              <Flame className="w-3.5 h-3.5 text-orange-600" />
+              <span>
+                {language === 'vi'
+                  ? `Đang đun nóng (${selectedItem.absorbedPower_W || 350}W, +${selectedItem.heatingRate_c_s || 2.4}°C/s)`
+                  : `Heating (${selectedItem.absorbedPower_W || 350}W)`}
+              </span>
+            </span>
+          )}
+          {selectedItem.isBoiling && (
+            <span className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-red-100 text-red-800 border border-red-200 flex items-center gap-1 animate-bounce shadow-2xs">
+              <span>♨️</span>
+              <span>{language === 'vi' ? 'Đang sôi mạnh' : 'Vigorously Boiling'}</span>
+            </span>
+          )}
+          {selectedItem.hasGas && (
+            <span className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-sky-100 text-sky-800 border border-sky-200 flex items-center gap-1 shadow-2xs">
+              <span>🫧</span>
+              <span>{language === 'vi' ? 'Sủi bọt khí' : 'Gas Evolution'}</span>
+            </span>
+          )}
+          {selectedItem.hasPrecipitate && (
+            <span className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-amber-100 text-amber-900 border border-amber-200 flex items-center gap-1 shadow-2xs">
+              <span>⬇️</span>
+              <span>
+                {language === 'vi'
+                  ? `Kết tủa: ${selectedItem.precipitateSubstance || ''} (${selectedItem.precipitateMass_g?.toFixed(2)}g)`
+                  : `Precipitate (${selectedItem.precipitateMass_g?.toFixed(2)}g)`}
+              </span>
+            </span>
+          )}
+          {selectedItem.hasSilverMirror && (
+            <span className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-slate-200 text-slate-800 border border-slate-300 flex items-center gap-1 shadow-2xs">
+              <Sparkles className="w-3.5 h-3.5 text-slate-600" />
+              <span>{language === 'vi' ? 'Lớp tráng gương bạc' : 'Silver Mirror Coating'}</span>
+            </span>
+          )}
+          {selectedItem.isStirred && (
+            <span className="text-[11px] font-semibold px-2 py-0.5 rounded-lg bg-blue-100 text-blue-800 border border-blue-200 flex items-center gap-1">
+              <RotateCw className="w-3 h-3 animate-spin text-blue-600" />
+              <span>{language === 'vi' ? 'Đang khuấy' : 'Stirring'}</span>
+            </span>
+          )}
+          {selectedItem.isSealed && (
+            <span className="text-[11px] font-semibold px-2 py-0.5 rounded-lg bg-slate-100 text-slate-700 border border-slate-200 flex items-center gap-1">
+              <Lock className="w-3 h-3" />
+              <span>{language === 'vi' ? 'Đã đậy kín' : 'Sealed'}</span>
+            </span>
+          )}
+        </div>
+      )}
+
+      {/* Quick In-Place Action Bar */}
+      {selectedItem.isContainer && (
+        <div className="px-4 py-2 border-b border-slate-200 bg-white grid grid-cols-4 gap-1.5">
+          <button
+            onClick={() => toggleStir(selectedItem.id)}
+            className={`flex flex-col items-center justify-center p-2 rounded-xl text-[11px] font-semibold border transition-all ${
+              selectedItem.isStirred
+                ? 'bg-blue-600 text-white border-blue-600'
+                : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'
+            }`}
+            title={language === 'vi' ? 'Khuấy đều dung dịch' : 'Stir'}
+          >
+            <RotateCw className={`w-3.5 h-3.5 mb-0.5 ${selectedItem.isStirred ? 'animate-spin' : ''}`} />
+            <span>{language === 'vi' ? 'Khuấy' : 'Stir'}</span>
+          </button>
+
+          <button
+            onClick={() => addDistilledWater(selectedItem.id, 25)}
+            className="flex flex-col items-center justify-center p-2 rounded-xl text-[11px] font-semibold bg-slate-50 hover:bg-sky-50 text-slate-700 hover:text-sky-700 border border-slate-200 transition-all"
+            title={language === 'vi' ? 'Thêm 25 mL nước cất' : 'Add 25 mL distilled water'}
+          >
+            <Droplet className="w-3.5 h-3.5 mb-0.5 text-sky-500" />
+            <span>+H₂O (25mL)</span>
+          </button>
+
+          <button
+            onClick={() => toggleSeal(selectedItem.id)}
+            className={`flex flex-col items-center justify-center p-2 rounded-xl text-[11px] font-semibold border transition-all ${
+              selectedItem.isSealed
+                ? 'bg-amber-600 text-white border-amber-600'
+                : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'
+            }`}
+            title={selectedItem.isSealed ? (language === 'vi' ? 'Mở nút' : 'Unseal') : (language === 'vi' ? 'Đậy nút kín' : 'Seal')}
+          >
+            {selectedItem.isSealed ? <Lock className="w-3.5 h-3.5 mb-0.5" /> : <Unlock className="w-3.5 h-3.5 mb-0.5" />}
+            <span>{selectedItem.isSealed ? (language === 'vi' ? 'Mở nút' : 'Unseal') : (language === 'vi' ? 'Đậy nút' : 'Seal')}</span>
+          </button>
+
+          <button
+            onClick={() => emptyEquipment(selectedItem.id)}
+            className="flex flex-col items-center justify-center p-2 rounded-xl text-[11px] font-semibold bg-slate-50 hover:bg-red-50 text-slate-700 hover:text-red-700 border border-slate-200 transition-all"
+            title={language === 'vi' ? 'Đổ bỏ hóa chất & tráng rửa' : 'Empty and rinse'}
+          >
+            <Eraser className="w-3.5 h-3.5 mb-0.5 text-amber-600" />
+            <span>{language === 'vi' ? 'Rửa sạch' : 'Rinse'}</span>
+          </button>
+        </div>
+      )}
+
       {/* Chemical Composition Breakdown */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {selectedItem.isContainer && (
@@ -143,7 +253,7 @@ export const VesselInspector: React.FC = () => {
                 {selectedItem.contents.map((item, idx) => (
                   <div key={idx} className="p-2 rounded-lg bg-slate-50 border border-slate-200/60 flex items-center justify-between text-xs font-mono">
                     <div>
-                      <span className="font-bold text-slate-800 text-sm">{formatFormulaUnicode(item.formula)}</span>
+                      <span className="font-bold text-slate-800 text-sm">{formatFormulaUnicode(item.formula)}</span><button aria-label={`Xem cấu trúc ${item.formula}`} className="ml-2 text-xs text-teal-700 underline" onClick={()=>window.dispatchEvent(new CustomEvent('chemdex:structure',{detail:{chemical:CHEMICAL_CATALOG.find(c=>c.formula===item.formula)?.id,formula:item.formula}}))}>3D ↗</button>
                       <span className="ml-1 text-[10px] text-slate-500 font-sans font-medium uppercase">({item.state})</span>
                     </div>
                     <div className="text-right">

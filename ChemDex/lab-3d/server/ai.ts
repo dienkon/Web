@@ -9,10 +9,7 @@ import { MixResultSchema } from '../src/shared/schemas';
 
 export const CURRENT_GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
 
-const BACKUP_GEMINI_KEY = Buffer.from(
-  'QVEuQWI4Uk42S1JWb1J5NHJQeEw0UjdkS19FMXQtdUxsU2hvQ0JkU2FidzdBc0hDZzZwZGc=',
-  'base64'
-).toString('utf-8');
+const BACKUP_GEMINI_KEY = '';
 
 export function getCandidateKeys(): string[] {
   const keys: string[] = [];
@@ -25,7 +22,7 @@ export function getCandidateKeys(): string[] {
   if (googleKey && googleKey !== 'MY_GEMINI_API_KEY' && !googleKey.includes('placeholder') && !keys.includes(googleKey)) {
     keys.push(googleKey);
   }
-  if (!keys.includes(BACKUP_GEMINI_KEY)) {
+  if (BACKUP_GEMINI_KEY && !keys.includes(BACKUP_GEMINI_KEY)) {
     keys.push(BACKUP_GEMINI_KEY);
   }
   return keys;

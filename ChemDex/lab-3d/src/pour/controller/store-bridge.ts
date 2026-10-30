@@ -24,10 +24,14 @@ export const storeBridge = {
 
   /** Finalize material already moved, including a pour entirely onto the table. */
   completeLivePour: async (fromId: string, toId: string | null): Promise<void> => {
+    const epoch = useAppStore.getState().pourEpoch;
     if (toId) await useAppStore.getState().settleVesselMixture(toId);
     const store = useAppStore.getState();
-    pushHistorySnapshot('POUR', store.vessels, store.burners, 'Poured sample', 'Rót mẫu định lượng');
-    debounceSaveLocalState(store.vessels, store.burners);
+    if (store.pourEpoch !== epoch) return;
+    const materials = { inFlightPours: store.inFlightPours, spills: store.spills,
+      wasteMass_g: store.wasteMass_g, wasteContents: store.wasteContents };
+    pushHistorySnapshot('POUR', store.vessels, store.burners, 'Poured sample', 'Rót mẫu định lượng', materials);
+    debounceSaveLocalState(store.vessels, store.burners, materials);
     useAppStore.setState({ canUndo: canUndo(), canRedo: canRedo() });
   },
 
@@ -46,7 +50,7 @@ export const storeBridge = {
     color: string,
     sourceName: string = 'Vessel'
   ): void => {
-    if (volume_ml <= 0.01) return;
+    if (!Number.isFinite(volume_ml) || volume_ml <= 0) return;
     const store = useAppStore.getState();
     store.addSpill(position, volume_ml, substances, color, sourceName);
   },

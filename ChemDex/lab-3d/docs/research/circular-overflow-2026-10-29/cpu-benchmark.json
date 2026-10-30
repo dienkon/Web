@@ -1,0 +1,32 @@
+{
+  "node": "v26.7.0",
+  "scope": "CPU geometry update and complete-dose ground transaction; not GPU FPS or before/after equivalence",
+  "geometry": [
+    {
+      "scenario": "1_finite_packets",
+      "packets": 1,
+      "median_ms": 0.24270000000024083,
+      "p95_ms": 0.6268999999997504,
+      "min_ms": 0.22020000000020445,
+      "max_ms": 1.2953999999999724,
+      "triangles": 4032,
+      "batchedBufferBytes": 174080
+    },
+    {
+      "scenario": "24_finite_packets",
+      "packets": 24,
+      "median_ms": 0.8303999999998268,
+      "p95_ms": 2.4092000000000553,
+      "min_ms": 0.713799999999992,
+      "max_ms": 2.9261999999998807,
+      "triangles": 13056,
+      "batchedBufferBytes": 626688
+    }
+  ],
+  "completeDoseDeposition": {
+    "median_ms": 0.20049999999991996,
+    "p95_ms": 0.6817999999998392,
+    "min_ms": 0.1386000000002241,
+    "max_ms": 0.6817999999998392
+  }
+}

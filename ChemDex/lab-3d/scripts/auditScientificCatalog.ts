@@ -57,6 +57,7 @@ const programs = ALL_HANDCRAFTED_PROGRAMS.map(program => {
 
 const deterministic = DETERMINISTIC_REACTIONS.map(reaction => ({
   id: reaction.id, equation: reaction.equation,
+  execution: reaction.equilibriumOnly ? 'finite_phase_equilibrium' : 'stoichiometric_rule',
   ionicBalance: reaction.ionic_equation ? auditDisplayedEquation(reaction.ionic_equation) : [],
   balance: auditEquation(
     Object.entries(reaction.stoichiometry).filter(([, coefficient]) => coefficient > 0).map(([formula, coefficient]) => ({ formula, coefficient })),
@@ -90,9 +91,9 @@ const ionicFailures = [...programs, ...deterministic].filter(record => record.io
 const report = {
   schema: 'chemdex.science-audit/1',
   checkedAt: new Date().toISOString(),
-  scope: 'All 144 program definitions, every deterministic rule, and all 34 lessons. Lesson programs are a subset of the 144, not additional unique experiments.',
+  scope: `All ${programs.length} program definitions, every deterministic rule, and all ${lessons.length} lessons. Lesson programs are a subset of the programs, not additional unique experiments.`,
   claims: { balanceChecked: true, qualitativeLiteratureReview: true, experimentallyValidated: false, realTimeKineticsValidated: false, allSourcesDescribeExactExperiment: false },
-  counts: { programs: programs.length, deterministic: deterministic.length, lessons: lessons.length, dynamicRules: dynamicRules.length, ionicEquations: [...programs, ...deterministic].reduce((sum, record) => sum + record.ionicBalance.length, 0), ionicFailures: ionicFailures.length, nonStoichiometricObservations: programs.filter(row => row.balance === null).length, balanceFailures: failures.length, visualProductMismatches: visualIssues.length },
+  counts: { programs: programs.length, deterministic: deterministic.length, equilibriumOnly: deterministic.filter(record => record.execution === 'finite_phase_equilibrium').length, lessons: lessons.length, dynamicRules: dynamicRules.length, ionicEquations: [...programs, ...deterministic].reduce((sum, record) => sum + record.ionicBalance.length, 0), ionicFailures: ionicFailures.length, nonStoichiometricObservations: programs.filter(row => row.balance === null).length, balanceFailures: failures.length, visualProductMismatches: visualIssues.length },
   programs, deterministic, lessons, dynamicRules,
   referenceLabs: ['chemcollective', 'phet', 'rscLab'].map(key => SCIENCE_REFERENCES[key]),
 };
@@ -106,8 +107,8 @@ const lines = [
   '|---|---|---|---|---|',
 ];
 for (const row of programs) lines.push(`| ${row.id} | ${row.equation.replaceAll('|', '/')} | ${row.balance === null ? 'Quan sát quang học, không giả phản ứng mol' : row.balance.valid ? 'Đạt' : 'Lỗi'} | ${row.finding_vi} | ${row.sourceScope}: ${row.references.map(ref => `[${ref.title}](${ref.url})`).join(', ')} |`);
-lines.push('', '## Quy tắc bộ giải', '', '| ID | Phương trình | Cân bằng |', '|---|---|---|');
-for (const row of deterministic) lines.push(`| ${row.id} | ${row.equation} | ${row.balance.valid ? 'Đạt' : JSON.stringify(row.balance)} |`);
+lines.push('', '## Quy tắc bộ giải', '', '| ID | Phương trình | Cân bằng | Cách xử lý lượng chất |', '|---|---|---|---|');
+for (const row of deterministic) lines.push(`| ${row.id} | ${row.equation} | ${row.balance.valid ? 'Đạt' : JSON.stringify(row.balance)} | ${row.execution} |`);
 lines.push('', '## Nhánh cacbonat tự suy diễn', '', '| ID | Phương trình | Cân bằng |', '|---|---|---|');
 for (const row of dynamicRules) lines.push(`| ${row.id} | ${row.equation} | ${row.balance.valid ? 'Đạt' : JSON.stringify(row.balance)} |`);
 if (visualIssues.length) {

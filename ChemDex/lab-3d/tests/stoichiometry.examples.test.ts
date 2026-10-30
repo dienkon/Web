@@ -369,7 +369,7 @@ describe('Stoichiometry Worked Examples via Conservation Ledger (§5.4 & §11.1)
     const res = applyProgramToLedger(prog!, vessel, 1.0);
     const deltaT = (res.temperature_c || 25.0) - 25.0;
     // The shared model includes a 33.2 J/K vessel heat capacity.
-    expect(deltaT).toBeCloseTo(57_300 * n_each / (100 * 4.184 + 33.2), 9);
+    expect(deltaT).toBeCloseTo(55_830 * n_each / (100 * 4.184 + 33.2), 9);
   });
 
   // Example 9: NH4NO3 Dissolution

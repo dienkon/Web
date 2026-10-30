@@ -1,0 +1,4593 @@
+[
+  {
+    "z": 1,
+    "symbol": "H",
+    "name_vi": "Hiđro",
+    "name_en": "Hydrogen",
+    "mass": 1.008,
+    "period": 1,
+    "group": 1,
+    "category": "reactive_nonmetal",
+    "block": "s",
+    "electronConfig": "1s¹",
+    "electronegativity": 2.2,
+    "oxidationStates": [
+      -1,
+      1
+    ],
+    "oxidationText": "+1, -1",
+    "phase_STP": "gas",
+    "stateNote": "Khí",
+    "meltingPoint": -259,
+    "atomicRadius": 25,
+    "ionizationEnergy": 1312,
+    "xpos": 1,
+    "ypos": 1,
+    "sourceFile": "/data/elements/001_H.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=H"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Hydrogen",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 2,
+    "symbol": "He",
+    "name_vi": "Heli",
+    "name_en": "Helium",
+    "mass": 4.0026,
+    "period": 1,
+    "group": 18,
+    "category": "noble_gas",
+    "block": "s",
+    "electronConfig": "1s²",
+    "electronegativity": null,
+    "oxidationStates": [
+      0
+    ],
+    "oxidationText": "0",
+    "phase_STP": "gas",
+    "stateNote": "Khí",
+    "meltingPoint": null,
+    "atomicRadius": 120,
+    "ionizationEnergy": 2372.3,
+    "xpos": 18,
+    "ypos": 1,
+    "sourceFile": "/data/elements/002_He.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=He"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Helium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024",
+    "meltingPointNote": "Không đông đặc ở áp suất khí quyển; cần áp suất cao để tạo heli rắn.",
+    "meltingPointSource": "https://physics.aps.org/articles/v5/75"
+  },
+  {
+    "z": 3,
+    "symbol": "Li",
+    "name_vi": "Liti",
+    "name_en": "Lithium",
+    "mass": 6.94,
+    "period": 2,
+    "group": 1,
+    "category": "alkali",
+    "block": "s",
+    "electronConfig": "1s² 2s¹",
+    "electronegativity": 0.98,
+    "oxidationStates": [
+      1
+    ],
+    "oxidationText": "+1",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 180.5,
+    "atomicRadius": 145,
+    "ionizationEnergy": 520.2,
+    "xpos": 1,
+    "ypos": 2,
+    "sourceFile": "/data/elements/003_Li.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Li"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Lithium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 4,
+    "symbol": "Be",
+    "name_vi": "Beri",
+    "name_en": "Beryllium",
+    "mass": 9.0122,
+    "period": 2,
+    "group": 2,
+    "category": "alkaline_earth",
+    "block": "s",
+    "electronConfig": "1s² 2s²",
+    "electronegativity": 1.57,
+    "oxidationStates": [
+      2
+    ],
+    "oxidationText": "+2",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1287,
+    "atomicRadius": 105,
+    "ionizationEnergy": 899.5,
+    "xpos": 2,
+    "ypos": 2,
+    "sourceFile": "/data/elements/004_Be.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Be"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Beryllium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 5,
+    "symbol": "B",
+    "name_vi": "Bo",
+    "name_en": "Boron",
+    "mass": 10.81,
+    "period": 2,
+    "group": 13,
+    "category": "metalloid",
+    "block": "p",
+    "electronConfig": "1s² 2s² 2p¹",
+    "electronegativity": 2.04,
+    "oxidationStates": [
+      3
+    ],
+    "oxidationText": "−3, +1, +2, +3",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 2075.85,
+    "atomicRadius": 85,
+    "ionizationEnergy": 800.6,
+    "xpos": 13,
+    "ypos": 2,
+    "sourceFile": "/data/elements/005_B.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=B"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Boron",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 6,
+    "symbol": "C",
+    "name_vi": "Cacbon",
+    "name_en": "Carbon",
+    "mass": 12.011,
+    "period": 2,
+    "group": 14,
+    "category": "reactive_nonmetal",
+    "block": "p",
+    "electronConfig": "1s² 2s² 2p²",
+    "electronegativity": 2.55,
+    "oxidationStates": [
+      -4,
+      -2,
+      2,
+      4
+    ],
+    "oxidationText": "−4, −3, −2, −1, 0, +1, +2, +3, +4",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": null,
+    "atomicRadius": 70,
+    "ionizationEnergy": 1086.5,
+    "xpos": 14,
+    "ypos": 2,
+    "sourceFile": "/data/elements/006_C.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=C"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Carbon",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024",
+    "meltingPointNote": "Ở áp suất khí quyển, cacbon thăng hoa thay vì nóng chảy; giá trị phụ thuộc dạng thù hình và điều kiện đo.",
+    "meltingPointSource": "https://periodic-table.rsc.org/element/6/carbon"
+  },
+  {
+    "z": 7,
+    "symbol": "N",
+    "name_vi": "Nitơ",
+    "name_en": "Nitrogen",
+    "mass": 14.007,
+    "period": 2,
+    "group": 15,
+    "category": "reactive_nonmetal",
+    "block": "p",
+    "electronConfig": "1s² 2s² 2p³",
+    "electronegativity": 3.04,
+    "oxidationStates": [
+      -3,
+      -2,
+      -1,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "oxidationText": "−3, −2, −1, 0, +1, +2, +3, +4, +5",
+    "phase_STP": "gas",
+    "stateNote": null,
+    "meltingPoint": -210,
+    "atomicRadius": 65,
+    "ionizationEnergy": 1402.3,
+    "xpos": 15,
+    "ypos": 2,
+    "sourceFile": "/data/elements/007_N.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=N"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Nitrogen",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 8,
+    "symbol": "O",
+    "name_vi": "Oxi",
+    "name_en": "Oxygen",
+    "mass": 15.999,
+    "period": 2,
+    "group": 16,
+    "category": "reactive_nonmetal",
+    "block": "p",
+    "electronConfig": "1s² 2s² 2p⁴",
+    "electronegativity": 3.44,
+    "oxidationStates": [
+      -2,
+      -1
+    ],
+    "oxidationText": "−2, −1, 0, +1, +2",
+    "phase_STP": "gas",
+    "stateNote": null,
+    "meltingPoint": -218.79,
+    "atomicRadius": 60,
+    "ionizationEnergy": 1313.9,
+    "xpos": 16,
+    "ypos": 2,
+    "sourceFile": "/data/elements/008_O.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=O"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Oxygen",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 9,
+    "symbol": "F",
+    "name_vi": "Flo",
+    "name_en": "Fluorine",
+    "mass": 18.998,
+    "period": 2,
+    "group": 17,
+    "category": "halogen",
+    "block": "p",
+    "electronConfig": "1s² 2s² 2p⁵",
+    "electronegativity": 3.98,
+    "oxidationStates": [
+      -1
+    ],
+    "oxidationText": "−1, 0",
+    "phase_STP": "gas",
+    "stateNote": null,
+    "meltingPoint": -219.67,
+    "atomicRadius": 50,
+    "ionizationEnergy": 1681,
+    "xpos": 17,
+    "ypos": 2,
+    "sourceFile": "/data/elements/009_F.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=F"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Fluorine",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 10,
+    "symbol": "Ne",
+    "name_vi": "Neon",
+    "name_en": "Neon",
+    "mass": 20.18,
+    "period": 2,
+    "group": 18,
+    "category": "noble_gas",
+    "block": "p",
+    "electronConfig": "1s² 2s² 2p⁶",
+    "electronegativity": null,
+    "oxidationStates": [
+      0
+    ],
+    "oxidationText": "0",
+    "phase_STP": "gas",
+    "stateNote": null,
+    "meltingPoint": -248.59,
+    "atomicRadius": 160,
+    "ionizationEnergy": 2080.7,
+    "xpos": 18,
+    "ypos": 2,
+    "sourceFile": "/data/elements/010_Ne.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Ne"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Neon",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 11,
+    "symbol": "Na",
+    "name_vi": "Natri",
+    "name_en": "Sodium",
+    "mass": 22.99,
+    "period": 3,
+    "group": 1,
+    "category": "alkali",
+    "block": "s",
+    "electronConfig": "1s² 2s² 2p⁶ 3s¹",
+    "electronegativity": 0.93,
+    "oxidationStates": [
+      1
+    ],
+    "oxidationText": "+1",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 97.79,
+    "atomicRadius": 180,
+    "ionizationEnergy": 495.8,
+    "xpos": 1,
+    "ypos": 3,
+    "sourceFile": "/data/elements/011_Na.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Na"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Sodium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 12,
+    "symbol": "Mg",
+    "name_vi": "Magie",
+    "name_en": "Magnesium",
+    "mass": 24.305,
+    "period": 3,
+    "group": 2,
+    "category": "alkaline_earth",
+    "block": "s",
+    "electronConfig": "1s² 2s² 2p⁶ 3s²",
+    "electronegativity": 1.31,
+    "oxidationStates": [
+      2
+    ],
+    "oxidationText": "+2",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 650,
+    "atomicRadius": 150,
+    "ionizationEnergy": 737.7,
+    "xpos": 2,
+    "ypos": 3,
+    "sourceFile": "/data/elements/012_Mg.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Mg"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Magnesium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 13,
+    "symbol": "Al",
+    "name_vi": "Nhôm",
+    "name_en": "Aluminium",
+    "mass": 26.982,
+    "period": 3,
+    "group": 13,
+    "category": "post_transition",
+    "block": "p",
+    "electronConfig": "1s² 2s² 2p⁶ 3s² 3p¹",
+    "electronegativity": 1.61,
+    "oxidationStates": [
+      3
+    ],
+    "oxidationText": "+3",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 660.3,
+    "atomicRadius": 125,
+    "ionizationEnergy": 577.5,
+    "xpos": 13,
+    "ypos": 3,
+    "sourceFile": "/data/elements/013_Al.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Al"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Aluminium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 14,
+    "symbol": "Si",
+    "name_vi": "Silic",
+    "name_en": "Silicon",
+    "mass": 28.085,
+    "period": 3,
+    "group": 14,
+    "category": "metalloid",
+    "block": "p",
+    "electronConfig": "1s² 2s² 2p⁶ 3s² 3p²",
+    "electronegativity": 1.9,
+    "oxidationStates": [
+      -4,
+      4
+    ],
+    "oxidationText": "−4, +2, +4",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1413.85,
+    "atomicRadius": 110,
+    "ionizationEnergy": 786.5,
+    "xpos": 14,
+    "ypos": 3,
+    "sourceFile": "/data/elements/014_Si.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Si"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Silicon",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 15,
+    "symbol": "P",
+    "name_vi": "Photpho",
+    "name_en": "Phosphorus",
+    "mass": 30.974,
+    "period": 3,
+    "group": 15,
+    "category": "reactive_nonmetal",
+    "block": "p",
+    "electronConfig": "1s² 2s² 2p⁶ 3s² 3p³",
+    "electronegativity": 2.19,
+    "oxidationStates": [
+      -3,
+      3,
+      5
+    ],
+    "oxidationText": "−3, +1, +3, +5",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 44.15,
+    "atomicRadius": 100,
+    "ionizationEnergy": 1011.8,
+    "xpos": 15,
+    "ypos": 3,
+    "sourceFile": "/data/elements/015_P.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=P"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Phosphorus",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 16,
+    "symbol": "S",
+    "name_vi": "Lưu huỳnh",
+    "name_en": "Sulfur",
+    "mass": 32.06,
+    "period": 3,
+    "group": 16,
+    "category": "reactive_nonmetal",
+    "block": "p",
+    "electronConfig": "1s² 2s² 2p⁶ 3s² 3p⁴",
+    "electronegativity": 2.58,
+    "oxidationStates": [
+      -2,
+      4,
+      6
+    ],
+    "oxidationText": "−2, +2, +4, +6",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 115.21,
+    "atomicRadius": 100,
+    "ionizationEnergy": 999.6,
+    "xpos": 16,
+    "ypos": 3,
+    "sourceFile": "/data/elements/016_S.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=S"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Sulfur",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 17,
+    "symbol": "Cl",
+    "name_vi": "Clo",
+    "name_en": "Chlorine",
+    "mass": 35.45,
+    "period": 3,
+    "group": 17,
+    "category": "halogen",
+    "block": "p",
+    "electronConfig": "1s² 2s² 2p⁶ 3s² 3p⁵",
+    "electronegativity": 3.16,
+    "oxidationStates": [
+      -1,
+      1,
+      3,
+      5,
+      7
+    ],
+    "oxidationText": "−1, +1, +3, +5, +7",
+    "phase_STP": "gas",
+    "stateNote": null,
+    "meltingPoint": -101.5,
+    "atomicRadius": 100,
+    "ionizationEnergy": 1251.2,
+    "xpos": 17,
+    "ypos": 3,
+    "sourceFile": "/data/elements/017_Cl.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Cl"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Chlorine",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 18,
+    "symbol": "Ar",
+    "name_vi": "Argon",
+    "name_en": "Argon",
+    "mass": 39.95,
+    "period": 3,
+    "group": 18,
+    "category": "noble_gas",
+    "block": "p",
+    "electronConfig": "1s² 2s² 2p⁶ 3s² 3p⁶",
+    "electronegativity": null,
+    "oxidationStates": [
+      0
+    ],
+    "oxidationText": "0",
+    "phase_STP": "gas",
+    "stateNote": null,
+    "meltingPoint": -189.34,
+    "atomicRadius": 71,
+    "ionizationEnergy": 1520.6,
+    "xpos": 18,
+    "ypos": 3,
+    "sourceFile": "/data/elements/018_Ar.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Ar"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Argon",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 19,
+    "symbol": "K",
+    "name_vi": "Kali",
+    "name_en": "Potassium",
+    "mass": 39.098,
+    "period": 4,
+    "group": 1,
+    "category": "alkali",
+    "block": "s",
+    "electronConfig": "1s² 2s² 2p⁶ 3s² 3p⁶ 4s¹",
+    "electronegativity": 0.82,
+    "oxidationStates": [
+      1
+    ],
+    "oxidationText": "+1",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 63.38,
+    "atomicRadius": 220,
+    "ionizationEnergy": 418.8,
+    "xpos": 1,
+    "ypos": 4,
+    "sourceFile": "/data/elements/019_K.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=K"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Potassium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 20,
+    "symbol": "Ca",
+    "name_vi": "Canxi",
+    "name_en": "Calcium",
+    "mass": 40.078,
+    "period": 4,
+    "group": 2,
+    "category": "alkaline_earth",
+    "block": "s",
+    "electronConfig": "1s² 2s² 2p⁶ 3s² 3p⁶ 4s²",
+    "electronegativity": 1,
+    "oxidationStates": [
+      2
+    ],
+    "oxidationText": "+2",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 841.85,
+    "atomicRadius": 180,
+    "ionizationEnergy": 589.8,
+    "xpos": 2,
+    "ypos": 4,
+    "sourceFile": "/data/elements/020_Ca.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Ca"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Calcium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 21,
+    "symbol": "Sc",
+    "name_vi": "Scandi",
+    "name_en": "Scandium",
+    "mass": 44.956,
+    "period": 4,
+    "group": 3,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Ar] 3d¹ 4s²",
+    "electronegativity": 1.36,
+    "oxidationStates": [
+      3
+    ],
+    "oxidationText": "+3",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1540.85,
+    "atomicRadius": 160,
+    "ionizationEnergy": 633.1,
+    "xpos": 3,
+    "ypos": 4,
+    "sourceFile": "/data/elements/021_Sc.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Sc"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Scandium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 22,
+    "symbol": "Ti",
+    "name_vi": "Titan",
+    "name_en": "Titanium",
+    "mass": 47.867,
+    "period": 4,
+    "group": 4,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Ar] 3d² 4s²",
+    "electronegativity": 1.54,
+    "oxidationStates": [
+      2,
+      3,
+      4
+    ],
+    "oxidationText": "+2, +3, +4",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1667.85,
+    "atomicRadius": 140,
+    "ionizationEnergy": 658.8,
+    "xpos": 4,
+    "ypos": 4,
+    "sourceFile": "/data/elements/022_Ti.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Ti"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Titanium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 23,
+    "symbol": "V",
+    "name_vi": "Vanadi",
+    "name_en": "Vanadium",
+    "mass": 50.942,
+    "period": 4,
+    "group": 5,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Ar] 3d³ 4s²",
+    "electronegativity": 1.63,
+    "oxidationStates": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "oxidationText": "+2, +3, +4, +5",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1909.85,
+    "atomicRadius": 135,
+    "ionizationEnergy": 650.9,
+    "xpos": 5,
+    "ypos": 4,
+    "sourceFile": "/data/elements/023_V.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=V"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Vanadium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 24,
+    "symbol": "Cr",
+    "name_vi": "Crom",
+    "name_en": "Chromium",
+    "mass": 51.996,
+    "period": 4,
+    "group": 6,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Ar] 3d⁵ 4s¹",
+    "electronegativity": 1.66,
+    "oxidationStates": [
+      2,
+      3,
+      6
+    ],
+    "oxidationText": "−2, −1, 0, +1, +2, +3, +4, +5, +6",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1906.85,
+    "atomicRadius": 140,
+    "ionizationEnergy": 652.9,
+    "xpos": 6,
+    "ypos": 4,
+    "sourceFile": "/data/elements/024_Cr.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Cr"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Chromium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 25,
+    "symbol": "Mn",
+    "name_vi": "Mangan",
+    "name_en": "Manganese",
+    "mass": 54.938,
+    "period": 4,
+    "group": 7,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Ar] 3d⁵ 4s²",
+    "electronegativity": 1.55,
+    "oxidationStates": [
+      2,
+      3,
+      4,
+      6,
+      7
+    ],
+    "oxidationText": "+2, +3, +4, +5, +6, +7",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1245.85,
+    "atomicRadius": 140,
+    "ionizationEnergy": 717.3,
+    "xpos": 7,
+    "ypos": 4,
+    "sourceFile": "/data/elements/025_Mn.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Mn"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Manganese",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 26,
+    "symbol": "Fe",
+    "name_vi": "Sắt",
+    "name_en": "Iron",
+    "mass": 55.845,
+    "period": 4,
+    "group": 8,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Ar] 3d⁶ 4s²",
+    "electronegativity": 1.83,
+    "oxidationStates": [
+      2,
+      3
+    ],
+    "oxidationText": "+2, +3, +6",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1537.85,
+    "atomicRadius": 140,
+    "ionizationEnergy": 762.5,
+    "xpos": 8,
+    "ypos": 4,
+    "sourceFile": "/data/elements/026_Fe.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Fe"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Iron",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 27,
+    "symbol": "Co",
+    "name_vi": "Coban",
+    "name_en": "Cobalt",
+    "mass": 58.933,
+    "period": 4,
+    "group": 9,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Ar] 3d⁷ 4s²",
+    "electronegativity": 1.88,
+    "oxidationStates": [
+      2,
+      3
+    ],
+    "oxidationText": "+2, +3",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1494.85,
+    "atomicRadius": 135,
+    "ionizationEnergy": 760.4,
+    "xpos": 9,
+    "ypos": 4,
+    "sourceFile": "/data/elements/027_Co.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Co"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Cobalt",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 28,
+    "symbol": "Ni",
+    "name_vi": "Niken",
+    "name_en": "Nickel",
+    "mass": 58.693,
+    "period": 4,
+    "group": 10,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Ar] 3d⁸ 4s²",
+    "electronegativity": 1.91,
+    "oxidationStates": [
+      2,
+      3
+    ],
+    "oxidationText": "−1, 0, +1, +2, +3, +4",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1454.85,
+    "atomicRadius": 135,
+    "ionizationEnergy": 737.1,
+    "xpos": 10,
+    "ypos": 4,
+    "sourceFile": "/data/elements/028_Ni.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Ni"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Nickel",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 29,
+    "symbol": "Cu",
+    "name_vi": "Đồng",
+    "name_en": "Copper",
+    "mass": 63.546,
+    "period": 4,
+    "group": 11,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Ar] 3d¹⁰ 4s¹",
+    "electronegativity": 1.9,
+    "oxidationStates": [
+      1,
+      2
+    ],
+    "oxidationText": "+1, +2, +3",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1084.62,
+    "atomicRadius": 135,
+    "ionizationEnergy": 745.5,
+    "xpos": 11,
+    "ypos": 4,
+    "sourceFile": "/data/elements/029_Cu.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Cu"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Copper",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 30,
+    "symbol": "Zn",
+    "name_vi": "Kẽm",
+    "name_en": "Zinc",
+    "mass": 65.38,
+    "period": 4,
+    "group": 12,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Ar] 3d¹⁰ 4s²",
+    "electronegativity": 1.65,
+    "oxidationStates": [
+      2
+    ],
+    "oxidationText": "+2",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 419.53,
+    "atomicRadius": 135,
+    "ionizationEnergy": 906.4,
+    "xpos": 12,
+    "ypos": 4,
+    "sourceFile": "/data/elements/030_Zn.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Zn"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Zinc",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 31,
+    "symbol": "Ga",
+    "name_vi": "Gali",
+    "name_en": "Gallium",
+    "mass": 69.723,
+    "period": 4,
+    "group": 13,
+    "category": "post_transition",
+    "block": "p",
+    "electronConfig": "[Ar] 3d¹⁰ 4s² 4p¹",
+    "electronegativity": 1.81,
+    "oxidationStates": [
+      3
+    ],
+    "oxidationText": "+1, +2, +3",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 29.765,
+    "atomicRadius": 130,
+    "ionizationEnergy": 578.8,
+    "xpos": 13,
+    "ypos": 4,
+    "sourceFile": "/data/elements/031_Ga.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Ga"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Gallium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 32,
+    "symbol": "Ge",
+    "name_vi": "Gecmani",
+    "name_en": "Germanium",
+    "mass": 72.63,
+    "period": 4,
+    "group": 14,
+    "category": "metalloid",
+    "block": "p",
+    "electronConfig": "[Ar] 3d¹⁰ 4s² 4p²",
+    "electronegativity": 2.01,
+    "oxidationStates": [
+      2,
+      4
+    ],
+    "oxidationText": "−4, +2, +4",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 938.25,
+    "atomicRadius": 125,
+    "ionizationEnergy": 762,
+    "xpos": 14,
+    "ypos": 4,
+    "sourceFile": "/data/elements/032_Ge.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Ge"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Germanium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 33,
+    "symbol": "As",
+    "name_vi": "Asen",
+    "name_en": "Arsenic",
+    "mass": 74.922,
+    "period": 4,
+    "group": 15,
+    "category": "metalloid",
+    "block": "p",
+    "electronConfig": "[Ar] 3d¹⁰ 4s² 4p³",
+    "electronegativity": 2.18,
+    "oxidationStates": [
+      -3,
+      3,
+      5
+    ],
+    "oxidationText": "−3, +3, +5",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 816.85,
+    "atomicRadius": 115,
+    "ionizationEnergy": 947,
+    "xpos": 15,
+    "ypos": 4,
+    "sourceFile": "/data/elements/033_As.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=As"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Arsenic",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 34,
+    "symbol": "Se",
+    "name_vi": "Selen",
+    "name_en": "Selenium",
+    "mass": 78.971,
+    "period": 4,
+    "group": 16,
+    "category": "reactive_nonmetal",
+    "block": "p",
+    "electronConfig": "[Ar] 3d¹⁰ 4s² 4p⁴",
+    "electronegativity": 2.55,
+    "oxidationStates": [
+      -2,
+      4,
+      6
+    ],
+    "oxidationText": "−2, +4, +6",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 220.85,
+    "atomicRadius": 115,
+    "ionizationEnergy": 941,
+    "xpos": 16,
+    "ypos": 4,
+    "sourceFile": "/data/elements/034_Se.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Se"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Selenium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 35,
+    "symbol": "Br",
+    "name_vi": "Brom",
+    "name_en": "Bromine",
+    "mass": 79.904,
+    "period": 4,
+    "group": 17,
+    "category": "halogen",
+    "block": "p",
+    "electronConfig": "[Ar] 3d¹⁰ 4s² 4p⁵",
+    "electronegativity": 2.96,
+    "oxidationStates": [
+      -1,
+      1,
+      3,
+      5
+    ],
+    "oxidationText": "−1, +1, +3, +5, +7",
+    "phase_STP": "liquid",
+    "stateNote": null,
+    "meltingPoint": -7.35,
+    "atomicRadius": 115,
+    "ionizationEnergy": 1139.9,
+    "xpos": 17,
+    "ypos": 4,
+    "sourceFile": "/data/elements/035_Br.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Br"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Bromine",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 36,
+    "symbol": "Kr",
+    "name_vi": "Kripton",
+    "name_en": "Krypton",
+    "mass": 83.798,
+    "period": 4,
+    "group": 18,
+    "category": "noble_gas",
+    "block": "p",
+    "electronConfig": "[Ar] 3d¹⁰ 4s² 4p⁶",
+    "electronegativity": 3,
+    "oxidationStates": [
+      0
+    ],
+    "oxidationText": "0, +2",
+    "phase_STP": "gas",
+    "stateNote": null,
+    "meltingPoint": -157.37,
+    "atomicRadius": null,
+    "ionizationEnergy": 1350.8,
+    "xpos": 18,
+    "ypos": 4,
+    "sourceFile": "/data/elements/036_Kr.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Kr"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Krypton",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 37,
+    "symbol": "Rb",
+    "name_vi": "Rubidium",
+    "name_en": "Rubidium",
+    "mass": 85.468,
+    "period": 5,
+    "group": 1,
+    "category": "alkali",
+    "block": "s",
+    "electronConfig": "[Kr] 5s¹",
+    "electronegativity": 0.82,
+    "oxidationStates": [],
+    "oxidationText": "+1",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 39.3,
+    "atomicRadius": 235,
+    "ionizationEnergy": 403,
+    "xpos": 1,
+    "ypos": 5,
+    "sourceFile": "/data/elements/037_Rb.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Rb"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Rubidium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 38,
+    "symbol": "Sr",
+    "name_vi": "Strontium",
+    "name_en": "Strontium",
+    "mass": 87.62,
+    "period": 5,
+    "group": 2,
+    "category": "alkaline_earth",
+    "block": "s",
+    "electronConfig": "[Kr] 5s²",
+    "electronegativity": 0.95,
+    "oxidationStates": [],
+    "oxidationText": "+2",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 776.85,
+    "atomicRadius": 200,
+    "ionizationEnergy": 549.5,
+    "xpos": 2,
+    "ypos": 5,
+    "sourceFile": "/data/elements/038_Sr.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Sr"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Strontium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 39,
+    "symbol": "Y",
+    "name_vi": "Yttrium",
+    "name_en": "Yttrium",
+    "mass": 88.906,
+    "period": 5,
+    "group": 3,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Kr] 4d¹ 5s²",
+    "electronegativity": 1.22,
+    "oxidationStates": [],
+    "oxidationText": "+3",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1525.85,
+    "atomicRadius": 180,
+    "ionizationEnergy": 600,
+    "xpos": 3,
+    "ypos": 5,
+    "sourceFile": "/data/elements/039_Y.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Y"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Yttrium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 40,
+    "symbol": "Zr",
+    "name_vi": "Zirconium",
+    "name_en": "Zirconium",
+    "mass": 91.222,
+    "period": 5,
+    "group": 4,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Kr] 4d² 5s²",
+    "electronegativity": 1.33,
+    "oxidationStates": [],
+    "oxidationText": "+2, +3, +4",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1854.85,
+    "atomicRadius": 155,
+    "ionizationEnergy": 640.1,
+    "xpos": 4,
+    "ypos": 5,
+    "sourceFile": "/data/elements/040_Zr.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Zr"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Zirconium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 41,
+    "symbol": "Nb",
+    "name_vi": "Niobium",
+    "name_en": "Niobium",
+    "mass": 92.906,
+    "period": 5,
+    "group": 5,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Kr] 4d⁴ 5s¹",
+    "electronegativity": 1.6,
+    "oxidationStates": [],
+    "oxidationText": "+2, +3, +4, +5",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 2476.85,
+    "atomicRadius": 145,
+    "ionizationEnergy": 652.1,
+    "xpos": 5,
+    "ypos": 5,
+    "sourceFile": "/data/elements/041_Nb.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Nb"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Niobium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 42,
+    "symbol": "Mo",
+    "name_vi": "Molybdenum",
+    "name_en": "Molybdenum",
+    "mass": 95.95,
+    "period": 5,
+    "group": 6,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Kr] 4d⁵ 5s¹",
+    "electronegativity": 2.16,
+    "oxidationStates": [],
+    "oxidationText": "+2, +3, +4, +5, +6",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 2622.85,
+    "atomicRadius": 145,
+    "ionizationEnergy": 684.3,
+    "xpos": 6,
+    "ypos": 5,
+    "sourceFile": "/data/elements/042_Mo.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Mo"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Molybdenum",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 43,
+    "symbol": "Tc",
+    "name_vi": "Technetium",
+    "name_en": "Technetium",
+    "mass": 98,
+    "period": 5,
+    "group": 7,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": null,
+    "electronegativity": 1.9,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 2156.85,
+    "atomicRadius": 135,
+    "ionizationEnergy": 702,
+    "xpos": 7,
+    "ypos": 5,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Tc"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Technetium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 44,
+    "symbol": "Ru",
+    "name_vi": "Ruthenium",
+    "name_en": "Ruthenium",
+    "mass": 101.07,
+    "period": 5,
+    "group": 8,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Kr] 4d⁷ 5s¹",
+    "electronegativity": 2.2,
+    "oxidationStates": [],
+    "oxidationText": "−2, +2, +3, +4, +6, +8",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 2333.85,
+    "atomicRadius": 130,
+    "ionizationEnergy": 710.2,
+    "xpos": 8,
+    "ypos": 5,
+    "sourceFile": "/data/elements/044_Ru.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Ru"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Ruthenium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 45,
+    "symbol": "Rh",
+    "name_vi": "Rhodium",
+    "name_en": "Rhodium",
+    "mass": 102.91,
+    "period": 5,
+    "group": 9,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Kr] 4d⁸ 5s¹",
+    "electronegativity": 2.28,
+    "oxidationStates": [],
+    "oxidationText": "−1, +1, +2, +3, +4, +5, +6",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1963.85,
+    "atomicRadius": 135,
+    "ionizationEnergy": 719.7,
+    "xpos": 9,
+    "ypos": 5,
+    "sourceFile": "/data/elements/045_Rh.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Rh"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Rhodium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 46,
+    "symbol": "Pd",
+    "name_vi": "Palladium",
+    "name_en": "Palladium",
+    "mass": 106.42,
+    "period": 5,
+    "group": 10,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Kr] 4d¹⁰",
+    "electronegativity": 2.2,
+    "oxidationStates": [],
+    "oxidationText": "+2, +4",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1554.9,
+    "atomicRadius": 140,
+    "ionizationEnergy": 804.4,
+    "xpos": 10,
+    "ypos": 5,
+    "sourceFile": "/data/elements/046_Pd.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Pd"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Palladium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 47,
+    "symbol": "Ag",
+    "name_vi": "Bạc",
+    "name_en": "Silver",
+    "mass": 107.87,
+    "period": 5,
+    "group": 11,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Kr] 4d¹⁰ 5s¹",
+    "electronegativity": 1.93,
+    "oxidationStates": [
+      1
+    ],
+    "oxidationText": "+1, +2, +3",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 961.78,
+    "atomicRadius": 160,
+    "ionizationEnergy": 731,
+    "xpos": 11,
+    "ypos": 5,
+    "sourceFile": "/data/elements/047_Ag.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Ag"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Silver",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 48,
+    "symbol": "Cd",
+    "name_vi": "Cadmium",
+    "name_en": "Cadmium",
+    "mass": 112.41,
+    "period": 5,
+    "group": 12,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Kr] 4d¹⁰ 5s²",
+    "electronegativity": 1.69,
+    "oxidationStates": [],
+    "oxidationText": "+2",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 321.07,
+    "atomicRadius": 155,
+    "ionizationEnergy": 867.8,
+    "xpos": 12,
+    "ypos": 5,
+    "sourceFile": "/data/elements/048_Cd.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Cd"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Cadmium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 49,
+    "symbol": "In",
+    "name_vi": "Indium",
+    "name_en": "Indium",
+    "mass": 114.82,
+    "period": 5,
+    "group": 13,
+    "category": "post_transition",
+    "block": "p",
+    "electronConfig": "[Kr] 4d¹⁰ 5s² 5p¹",
+    "electronegativity": 1.78,
+    "oxidationStates": [],
+    "oxidationText": "+1, +3",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 156.599,
+    "atomicRadius": 155,
+    "ionizationEnergy": 558.3,
+    "xpos": 13,
+    "ypos": 5,
+    "sourceFile": "/data/elements/049_In.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=In"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Indium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 50,
+    "symbol": "Sn",
+    "name_vi": "Tin",
+    "name_en": "Tin",
+    "mass": 118.71,
+    "period": 5,
+    "group": 14,
+    "category": "post_transition",
+    "block": "p",
+    "electronConfig": "[Kr] 4d¹⁰ 5s² 5p²",
+    "electronegativity": 1.96,
+    "oxidationStates": [],
+    "oxidationText": "+2, +4",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 231.93,
+    "atomicRadius": 145,
+    "ionizationEnergy": 708.6,
+    "xpos": 14,
+    "ypos": 5,
+    "sourceFile": "/data/elements/050_Sn.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Sn"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Tin",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 51,
+    "symbol": "Sb",
+    "name_vi": "Antimony",
+    "name_en": "Antimony",
+    "mass": 121.76,
+    "period": 5,
+    "group": 15,
+    "category": "metalloid",
+    "block": "p",
+    "electronConfig": "[Kr] 4d¹⁰ 5s² 5p³",
+    "electronegativity": 2.05,
+    "oxidationStates": [],
+    "oxidationText": "−3, +3, +5",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 630.63,
+    "atomicRadius": 145,
+    "ionizationEnergy": 834,
+    "xpos": 15,
+    "ypos": 5,
+    "sourceFile": "/data/elements/051_Sb.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Sb"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Antimony",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 52,
+    "symbol": "Te",
+    "name_vi": "Tellurium",
+    "name_en": "Tellurium",
+    "mass": 127.6,
+    "period": 5,
+    "group": 16,
+    "category": "metalloid",
+    "block": "p",
+    "electronConfig": "[Kr] 4d¹⁰ 5s² 5p⁴",
+    "electronegativity": 2.1,
+    "oxidationStates": [],
+    "oxidationText": "−2, +2, +4, +6",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 449.51,
+    "atomicRadius": 140,
+    "ionizationEnergy": 869.3,
+    "xpos": 16,
+    "ypos": 5,
+    "sourceFile": "/data/elements/052_Te.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Te"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Tellurium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 53,
+    "symbol": "I",
+    "name_vi": "Iot",
+    "name_en": "Iodine",
+    "mass": 126.9,
+    "period": 5,
+    "group": 17,
+    "category": "halogen",
+    "block": "p",
+    "electronConfig": "[Kr] 4d¹⁰ 5s² 5p⁵",
+    "electronegativity": 2.66,
+    "oxidationStates": [
+      -1,
+      1,
+      5,
+      7
+    ],
+    "oxidationText": "−1, +1, +3, +5, +7",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 113.7,
+    "atomicRadius": 140,
+    "ionizationEnergy": 1008.4,
+    "xpos": 17,
+    "ypos": 5,
+    "sourceFile": "/data/elements/053_I.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=I"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Iodine",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 54,
+    "symbol": "Xe",
+    "name_vi": "Xenon",
+    "name_en": "Xenon",
+    "mass": 131.29,
+    "period": 5,
+    "group": 18,
+    "category": "noble_gas",
+    "block": "p",
+    "electronConfig": "[Kr] 4d¹⁰ 5s² 5p⁶",
+    "electronegativity": 2.6,
+    "oxidationStates": [],
+    "oxidationText": "0, +2, +4, +6, +8",
+    "phase_STP": "gas",
+    "stateNote": null,
+    "meltingPoint": -111.75,
+    "atomicRadius": null,
+    "ionizationEnergy": 1170.4,
+    "xpos": 18,
+    "ypos": 5,
+    "sourceFile": "/data/elements/054_Xe.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Xe"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Xenon",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 55,
+    "symbol": "Cs",
+    "name_vi": "Cesium",
+    "name_en": "Cesium",
+    "mass": 132.91,
+    "period": 6,
+    "group": 1,
+    "category": "alkali",
+    "block": "s",
+    "electronConfig": "[Xe] 6s¹",
+    "electronegativity": 0.79,
+    "oxidationStates": [],
+    "oxidationText": "+1",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 28.55,
+    "atomicRadius": 260,
+    "ionizationEnergy": 375.7,
+    "xpos": 1,
+    "ypos": 6,
+    "sourceFile": "/data/elements/055_Cs.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Cs"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Cesium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 56,
+    "symbol": "Ba",
+    "name_vi": "Bari",
+    "name_en": "Barium",
+    "mass": 137.33,
+    "period": 6,
+    "group": 2,
+    "category": "alkaline_earth",
+    "block": "s",
+    "electronConfig": "[Xe] 6s²",
+    "electronegativity": 0.89,
+    "oxidationStates": [
+      2
+    ],
+    "oxidationText": "+2",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 726.85,
+    "atomicRadius": 215,
+    "ionizationEnergy": 502.9,
+    "xpos": 2,
+    "ypos": 6,
+    "sourceFile": "/data/elements/056_Ba.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Ba"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Barium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 57,
+    "symbol": "La",
+    "name_vi": "Lanthanum",
+    "name_en": "Lanthanum",
+    "mass": 138.91,
+    "period": 6,
+    "group": 3,
+    "category": "lanthanide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.1,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 919.85,
+    "atomicRadius": 195,
+    "ionizationEnergy": 538.1,
+    "xpos": 4,
+    "ypos": 9,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=La"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Lanthanum",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 58,
+    "symbol": "Ce",
+    "name_vi": "Cerium",
+    "name_en": "Cerium",
+    "mass": 140.12,
+    "period": 6,
+    "group": 3,
+    "category": "lanthanide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.12,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 794.85,
+    "atomicRadius": 185,
+    "ionizationEnergy": 534.4,
+    "xpos": 5,
+    "ypos": 9,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Ce"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Cerium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 59,
+    "symbol": "Pr",
+    "name_vi": "Praseodymium",
+    "name_en": "Praseodymium",
+    "mass": 140.91,
+    "period": 6,
+    "group": 3,
+    "category": "lanthanide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.13,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 934.85,
+    "atomicRadius": 185,
+    "ionizationEnergy": 527,
+    "xpos": 6,
+    "ypos": 9,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Pr"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Praseodymium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 60,
+    "symbol": "Nd",
+    "name_vi": "Neodymium",
+    "name_en": "Neodymium",
+    "mass": 144.24,
+    "period": 6,
+    "group": 3,
+    "category": "lanthanide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.14,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1023.85,
+    "atomicRadius": 185,
+    "ionizationEnergy": 533.1,
+    "xpos": 7,
+    "ypos": 9,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Nd"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Neodymium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 61,
+    "symbol": "Pm",
+    "name_vi": "Promethium",
+    "name_en": "Promethium",
+    "mass": 145,
+    "period": 6,
+    "group": 3,
+    "category": "lanthanide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.13,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1041.85,
+    "atomicRadius": 185,
+    "ionizationEnergy": 540,
+    "xpos": 8,
+    "ypos": 9,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Pm"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Promethium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 62,
+    "symbol": "Sm",
+    "name_vi": "Samarium",
+    "name_en": "Samarium",
+    "mass": 150.36,
+    "period": 6,
+    "group": 3,
+    "category": "lanthanide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.17,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1071.85,
+    "atomicRadius": 185,
+    "ionizationEnergy": 544.5,
+    "xpos": 9,
+    "ypos": 9,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Sm"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Samarium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 63,
+    "symbol": "Eu",
+    "name_vi": "Europium",
+    "name_en": "Europium",
+    "mass": 151.96,
+    "period": 6,
+    "group": 3,
+    "category": "lanthanide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.2,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 825.85,
+    "atomicRadius": 185,
+    "ionizationEnergy": 547.1,
+    "xpos": 10,
+    "ypos": 9,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Eu"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Europium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 64,
+    "symbol": "Gd",
+    "name_vi": "Gadolinium",
+    "name_en": "Gadolinium",
+    "mass": 157.25,
+    "period": 6,
+    "group": 3,
+    "category": "lanthanide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.2,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1311.85,
+    "atomicRadius": 180,
+    "ionizationEnergy": 593.4,
+    "xpos": 11,
+    "ypos": 9,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Gd"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Gadolinium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 65,
+    "symbol": "Tb",
+    "name_vi": "Terbium",
+    "name_en": "Terbium",
+    "mass": 158.93,
+    "period": 6,
+    "group": 3,
+    "category": "lanthanide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.1,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1355.85,
+    "atomicRadius": 175,
+    "ionizationEnergy": 565.8,
+    "xpos": 12,
+    "ypos": 9,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Tb"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Terbium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 66,
+    "symbol": "Dy",
+    "name_vi": "Dysprosium",
+    "name_en": "Dysprosium",
+    "mass": 162.5,
+    "period": 6,
+    "group": 3,
+    "category": "lanthanide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.22,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1406.85,
+    "atomicRadius": 175,
+    "ionizationEnergy": 573,
+    "xpos": 13,
+    "ypos": 9,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Dy"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Dysprosium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 67,
+    "symbol": "Ho",
+    "name_vi": "Holmium",
+    "name_en": "Holmium",
+    "mass": 164.93,
+    "period": 6,
+    "group": 3,
+    "category": "lanthanide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.23,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1460.85,
+    "atomicRadius": 175,
+    "ionizationEnergy": 581,
+    "xpos": 14,
+    "ypos": 9,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Ho"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Holmium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 68,
+    "symbol": "Er",
+    "name_vi": "Erbium",
+    "name_en": "Erbium",
+    "mass": 167.26,
+    "period": 6,
+    "group": 3,
+    "category": "lanthanide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.24,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1528.85,
+    "atomicRadius": 175,
+    "ionizationEnergy": 589.3,
+    "xpos": 15,
+    "ypos": 9,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Er"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Erbium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 69,
+    "symbol": "Tm",
+    "name_vi": "Thulium",
+    "name_en": "Thulium",
+    "mass": 168.93,
+    "period": 6,
+    "group": 3,
+    "category": "lanthanide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.25,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1544.85,
+    "atomicRadius": 175,
+    "ionizationEnergy": 596.7,
+    "xpos": 16,
+    "ypos": 9,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Tm"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Thulium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 70,
+    "symbol": "Yb",
+    "name_vi": "Ytterbium",
+    "name_en": "Ytterbium",
+    "mass": 173.05,
+    "period": 6,
+    "group": 3,
+    "category": "lanthanide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.1,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 823.85,
+    "atomicRadius": 175,
+    "ionizationEnergy": 603.4,
+    "xpos": 17,
+    "ypos": 9,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Yb"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Ytterbium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 71,
+    "symbol": "Lu",
+    "name_vi": "Lutetium",
+    "name_en": "Lutetium",
+    "mass": 174.97,
+    "period": 6,
+    "group": 3,
+    "category": "lanthanide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.27,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1651.85,
+    "atomicRadius": 175,
+    "ionizationEnergy": 523.5,
+    "xpos": 18,
+    "ypos": 9,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Lu"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Lutetium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 72,
+    "symbol": "Hf",
+    "name_vi": "Hafnium",
+    "name_en": "Hafnium",
+    "mass": 178.49,
+    "period": 6,
+    "group": 4,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Xe] 4f¹⁴ 5d² 6s²",
+    "electronegativity": 1.3,
+    "oxidationStates": [],
+    "oxidationText": "+2, +3, +4",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 2232.85,
+    "atomicRadius": 155,
+    "ionizationEnergy": 658.5,
+    "xpos": 4,
+    "ypos": 6,
+    "sourceFile": "/data/elements/072_Hf.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Hf"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Hafnium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 73,
+    "symbol": "Ta",
+    "name_vi": "Tantalum",
+    "name_en": "Tantalum",
+    "mass": 180.95,
+    "period": 6,
+    "group": 5,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Xe] 4f¹⁴ 5d³ 6s²",
+    "electronegativity": 1.5,
+    "oxidationStates": [],
+    "oxidationText": "+5",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 3016.85,
+    "atomicRadius": 145,
+    "ionizationEnergy": 761,
+    "xpos": 5,
+    "ypos": 6,
+    "sourceFile": "/data/elements/073_Ta.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Ta"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Tantalum",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 74,
+    "symbol": "W",
+    "name_vi": "Tungsten",
+    "name_en": "Tungsten",
+    "mass": 183.84,
+    "period": 6,
+    "group": 6,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Xe] 4f¹⁴ 5d⁴ 6s²",
+    "electronegativity": 2.36,
+    "oxidationStates": [],
+    "oxidationText": "+2, +3, +4, +5, +6",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 3421.85,
+    "atomicRadius": 135,
+    "ionizationEnergy": 770,
+    "xpos": 6,
+    "ypos": 6,
+    "sourceFile": "/data/elements/074_W.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=W"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Tungsten",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 75,
+    "symbol": "Re",
+    "name_vi": "Rhenium",
+    "name_en": "Rhenium",
+    "mass": 186.21,
+    "period": 6,
+    "group": 7,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Xe] 4f¹⁴ 5d⁵ 6s²",
+    "electronegativity": 1.9,
+    "oxidationStates": [],
+    "oxidationText": "−1, +1, +2, +3, +4, +5, +6, +7",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 3185.85,
+    "atomicRadius": 135,
+    "ionizationEnergy": 760,
+    "xpos": 7,
+    "ypos": 6,
+    "sourceFile": "/data/elements/075_Re.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Re"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Rhenium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 76,
+    "symbol": "Os",
+    "name_vi": "Osmium",
+    "name_en": "Osmium",
+    "mass": 190.23,
+    "period": 6,
+    "group": 8,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Xe] 4f¹⁴ 5d⁶ 6s²",
+    "electronegativity": 2.2,
+    "oxidationStates": [],
+    "oxidationText": "−2, −1, 0, +1, +2, +3, +4, +6, +8",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 3032.85,
+    "atomicRadius": 130,
+    "ionizationEnergy": 840,
+    "xpos": 8,
+    "ypos": 6,
+    "sourceFile": "/data/elements/076_Os.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Os"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Osmium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 77,
+    "symbol": "Ir",
+    "name_vi": "Iridium",
+    "name_en": "Iridium",
+    "mass": 192.22,
+    "period": 6,
+    "group": 9,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Xe] 4f¹⁴ 5d⁷ 6s²",
+    "electronegativity": 2.2,
+    "oxidationStates": [],
+    "oxidationText": "−3, −1, 0, +1, +2, +3, +4, +6",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 2445.85,
+    "atomicRadius": 135,
+    "ionizationEnergy": 880,
+    "xpos": 9,
+    "ypos": 6,
+    "sourceFile": "/data/elements/077_Ir.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Ir"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Iridium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 78,
+    "symbol": "Pt",
+    "name_vi": "Bạch kim",
+    "name_en": "Platinum",
+    "mass": 195.08,
+    "period": 6,
+    "group": 10,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Xe] 4f¹⁴ 5d⁹ 6s¹",
+    "electronegativity": 2.28,
+    "oxidationStates": [
+      2,
+      4
+    ],
+    "oxidationText": "+2, +4",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1768.25,
+    "atomicRadius": 135,
+    "ionizationEnergy": 870,
+    "xpos": 10,
+    "ypos": 6,
+    "sourceFile": "/data/elements/078_Pt.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Pt"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Platinum",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 79,
+    "symbol": "Au",
+    "name_vi": "Vàng",
+    "name_en": "Gold",
+    "mass": 196.97,
+    "period": 6,
+    "group": 11,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Xe] 4f¹⁴ 5d¹⁰ 6s¹",
+    "electronegativity": 2.54,
+    "oxidationStates": [
+      1,
+      3
+    ],
+    "oxidationText": "−1, +1, +3, +5",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1064.18,
+    "atomicRadius": 135,
+    "ionizationEnergy": 890.1,
+    "xpos": 11,
+    "ypos": 6,
+    "sourceFile": "/data/elements/079_Au.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Au"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Gold",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 80,
+    "symbol": "Hg",
+    "name_vi": "Thủy ngân",
+    "name_en": "Mercury",
+    "mass": 200.59,
+    "period": 6,
+    "group": 12,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": "[Xe] 4f¹⁴ 5d¹⁰ 6s²",
+    "electronegativity": 2,
+    "oxidationStates": [
+      1,
+      2
+    ],
+    "oxidationText": "+1, +2",
+    "phase_STP": "liquid",
+    "stateNote": null,
+    "meltingPoint": -38.829,
+    "atomicRadius": 150,
+    "ionizationEnergy": 1007.1,
+    "xpos": 12,
+    "ypos": 6,
+    "sourceFile": "/data/elements/080_Hg.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Hg"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Mercury (Element)",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 81,
+    "symbol": "Tl",
+    "name_vi": "Thallium",
+    "name_en": "Thallium",
+    "mass": 204.38,
+    "period": 6,
+    "group": 13,
+    "category": "post_transition",
+    "block": "p",
+    "electronConfig": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p¹",
+    "electronegativity": 1.62,
+    "oxidationStates": [],
+    "oxidationText": "+1, +3",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 303.85,
+    "atomicRadius": 190,
+    "ionizationEnergy": 589.4,
+    "xpos": 13,
+    "ypos": 6,
+    "sourceFile": "/data/elements/081_Tl.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Tl"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Thallium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 82,
+    "symbol": "Pb",
+    "name_vi": "Chì",
+    "name_en": "Lead",
+    "mass": 207.2,
+    "period": 6,
+    "group": 14,
+    "category": "post_transition",
+    "block": "p",
+    "electronConfig": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p²",
+    "electronegativity": 2.33,
+    "oxidationStates": [
+      2,
+      4
+    ],
+    "oxidationText": "+2, +4",
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 327.46,
+    "atomicRadius": 180,
+    "ionizationEnergy": 715.6,
+    "xpos": 14,
+    "ypos": 6,
+    "sourceFile": "/data/elements/082_Pb.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Pb"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Lead_(element)",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 83,
+    "symbol": "Bi",
+    "name_vi": "Bismuth",
+    "name_en": "Bismuth",
+    "mass": 208.98,
+    "period": 6,
+    "group": 15,
+    "category": "post_transition",
+    "block": "p",
+    "electronConfig": null,
+    "electronegativity": 2.02,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 271.55,
+    "atomicRadius": 160,
+    "ionizationEnergy": 703,
+    "xpos": 15,
+    "ypos": 6,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Bi"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Bismuth",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 84,
+    "symbol": "Po",
+    "name_vi": "Polonium",
+    "name_en": "Polonium",
+    "mass": 209,
+    "period": 6,
+    "group": 16,
+    "category": "metalloid",
+    "block": "p",
+    "electronConfig": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁴",
+    "electronegativity": 2,
+    "oxidationStates": [],
+    "oxidationText": "-2, +2, +4, +6",
+    "phase_STP": "solid",
+    "stateNote": "Rắn",
+    "meltingPoint": 254,
+    "atomicRadius": 190,
+    "ionizationEnergy": 812.1,
+    "xpos": 16,
+    "ypos": 6,
+    "sourceFile": "/data/elements/084_Po.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Po"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Polonium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 85,
+    "symbol": "At",
+    "name_vi": "Astatine",
+    "name_en": "Astatine",
+    "mass": 210,
+    "period": 6,
+    "group": 17,
+    "category": "halogen",
+    "block": "p",
+    "electronConfig": null,
+    "electronegativity": 2.2,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 301.85,
+    "atomicRadius": null,
+    "ionizationEnergy": 899.003,
+    "xpos": 17,
+    "ypos": 6,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=At"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Astatine",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 86,
+    "symbol": "Rn",
+    "name_vi": "Radon",
+    "name_en": "Radon",
+    "mass": 222,
+    "period": 6,
+    "group": 18,
+    "category": "noble_gas",
+    "block": "p",
+    "electronConfig": null,
+    "electronegativity": 2.2,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "gas",
+    "stateNote": null,
+    "meltingPoint": -71.15,
+    "atomicRadius": null,
+    "ionizationEnergy": 1037,
+    "xpos": 18,
+    "ypos": 6,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Rn"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Radon",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 87,
+    "symbol": "Fr",
+    "name_vi": "Francium",
+    "name_en": "Francium",
+    "mass": 223,
+    "period": 7,
+    "group": 1,
+    "category": "alkali",
+    "block": "s",
+    "electronConfig": null,
+    "electronegativity": 0.79,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 26.85,
+    "atomicRadius": null,
+    "ionizationEnergy": 380,
+    "xpos": 1,
+    "ypos": 7,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Fr"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Francium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 88,
+    "symbol": "Ra",
+    "name_vi": "Radium",
+    "name_en": "Radium",
+    "mass": 226,
+    "period": 7,
+    "group": 2,
+    "category": "alkaline_earth",
+    "block": "s",
+    "electronConfig": null,
+    "electronegativity": 0.9,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 959.85,
+    "atomicRadius": 215,
+    "ionizationEnergy": 509.3,
+    "xpos": 2,
+    "ypos": 7,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Ra"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Radium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 89,
+    "symbol": "Ac",
+    "name_vi": "Actinium",
+    "name_en": "Actinium",
+    "mass": 227,
+    "period": 7,
+    "group": 3,
+    "category": "actinide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.1,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1226.85,
+    "atomicRadius": 195,
+    "ionizationEnergy": 499,
+    "xpos": 4,
+    "ypos": 10,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Ac"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Actinium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 90,
+    "symbol": "Th",
+    "name_vi": "Thorium",
+    "name_en": "Thorium",
+    "mass": 232.04,
+    "period": 7,
+    "group": 3,
+    "category": "actinide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.3,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1749.85,
+    "atomicRadius": 180,
+    "ionizationEnergy": 587,
+    "xpos": 5,
+    "ypos": 10,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Th"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Thorium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 91,
+    "symbol": "Pa",
+    "name_vi": "Protactinium",
+    "name_en": "Protactinium",
+    "mass": 231.04,
+    "period": 7,
+    "group": 3,
+    "category": "actinide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.5,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1567.85,
+    "atomicRadius": 180,
+    "ionizationEnergy": 568,
+    "xpos": 6,
+    "ypos": 10,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Pa"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Protactinium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 92,
+    "symbol": "U",
+    "name_vi": "Uranium",
+    "name_en": "Uranium",
+    "mass": 238.03,
+    "period": 7,
+    "group": 3,
+    "category": "actinide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.38,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1132.15,
+    "atomicRadius": 175,
+    "ionizationEnergy": 597.6,
+    "xpos": 7,
+    "ypos": 10,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=U"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Uranium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    },
+    "massSource": "CIAAW2024"
+  },
+  {
+    "z": 93,
+    "symbol": "Np",
+    "name_vi": "Neptunium",
+    "name_en": "Neptunium",
+    "mass": 237,
+    "period": 7,
+    "group": 3,
+    "category": "actinide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.36,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 638.85,
+    "atomicRadius": 175,
+    "ionizationEnergy": 604.5,
+    "xpos": 8,
+    "ypos": 10,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Np"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Neptunium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 94,
+    "symbol": "Pu",
+    "name_vi": "Plutonium",
+    "name_en": "Plutonium",
+    "mass": 244,
+    "period": 7,
+    "group": 3,
+    "category": "actinide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.28,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 639.35,
+    "atomicRadius": 175,
+    "ionizationEnergy": 584.7,
+    "xpos": 9,
+    "ypos": 10,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Pu"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Plutonium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 95,
+    "symbol": "Am",
+    "name_vi": "Americium",
+    "name_en": "Americium",
+    "mass": 243,
+    "period": 7,
+    "group": 3,
+    "category": "actinide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.13,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1175.85,
+    "atomicRadius": 175,
+    "ionizationEnergy": 578,
+    "xpos": 10,
+    "ypos": 10,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Am"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Americium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 96,
+    "symbol": "Cm",
+    "name_vi": "Curium",
+    "name_en": "Curium",
+    "mass": 247,
+    "period": 7,
+    "group": 3,
+    "category": "actinide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.28,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1339.85,
+    "atomicRadius": 176,
+    "ionizationEnergy": 581,
+    "xpos": 11,
+    "ypos": 10,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Cm"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Curium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 97,
+    "symbol": "Bk",
+    "name_vi": "Berkelium",
+    "name_en": "Berkelium",
+    "mass": 247,
+    "period": 7,
+    "group": 3,
+    "category": "actinide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.3,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 985.85,
+    "atomicRadius": null,
+    "ionizationEnergy": 601,
+    "xpos": 12,
+    "ypos": 10,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Bk"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Berkelium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 98,
+    "symbol": "Cf",
+    "name_vi": "Californium",
+    "name_en": "Californium",
+    "mass": 251,
+    "period": 7,
+    "group": 3,
+    "category": "actinide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.3,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 899.85,
+    "atomicRadius": null,
+    "ionizationEnergy": 608,
+    "xpos": 13,
+    "ypos": 10,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Cf"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Californium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 99,
+    "symbol": "Es",
+    "name_vi": "Einsteinium",
+    "name_en": "Einsteinium",
+    "mass": 252,
+    "period": 7,
+    "group": 3,
+    "category": "actinide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.3,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 859.85,
+    "atomicRadius": null,
+    "ionizationEnergy": 619,
+    "xpos": 14,
+    "ypos": 10,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Es"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Einsteinium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 100,
+    "symbol": "Fm",
+    "name_vi": "Fermium",
+    "name_en": "Fermium",
+    "mass": 257,
+    "period": 7,
+    "group": 3,
+    "category": "actinide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.3,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1526.85,
+    "atomicRadius": null,
+    "ionizationEnergy": 627,
+    "xpos": 15,
+    "ypos": 10,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Fm"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Fermium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 101,
+    "symbol": "Md",
+    "name_vi": "Mendelevium",
+    "name_en": "Mendelevium",
+    "mass": 258,
+    "period": 7,
+    "group": 3,
+    "category": "actinide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.3,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 826.85,
+    "atomicRadius": null,
+    "ionizationEnergy": 635,
+    "xpos": 16,
+    "ypos": 10,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Md"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Mendelevium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 102,
+    "symbol": "No",
+    "name_vi": "Nobelium",
+    "name_en": "Nobelium",
+    "mass": 259,
+    "period": 7,
+    "group": 3,
+    "category": "actinide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.3,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 826.85,
+    "atomicRadius": null,
+    "ionizationEnergy": 642,
+    "xpos": 17,
+    "ypos": 10,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=No"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Nobelium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 103,
+    "symbol": "Lr",
+    "name_vi": "Lawrencium",
+    "name_en": "Lawrencium",
+    "mass": 266,
+    "period": 7,
+    "group": 3,
+    "category": "actinide",
+    "block": "f",
+    "electronConfig": null,
+    "electronegativity": 1.3,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "solid",
+    "stateNote": null,
+    "meltingPoint": 1626.85,
+    "atomicRadius": null,
+    "ionizationEnergy": 470,
+    "xpos": 18,
+    "ypos": 10,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Lr"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Lawrencium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 104,
+    "symbol": "Rf",
+    "name_vi": "Rutherfordium",
+    "name_en": "Rutherfordium",
+    "mass": 267,
+    "period": 7,
+    "group": 4,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": null,
+    "electronegativity": null,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "unknown",
+    "stateNote": null,
+    "meltingPoint": 2126.85,
+    "atomicRadius": null,
+    "ionizationEnergy": 580,
+    "xpos": 4,
+    "ypos": 7,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Rf"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Rutherfordium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 105,
+    "symbol": "Db",
+    "name_vi": "Dubnium",
+    "name_en": "Dubnium",
+    "mass": 268,
+    "period": 7,
+    "group": 5,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": null,
+    "electronegativity": null,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "unknown",
+    "stateNote": null,
+    "meltingPoint": null,
+    "atomicRadius": null,
+    "ionizationEnergy": null,
+    "xpos": 5,
+    "ypos": 7,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Db"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Dubnium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 106,
+    "symbol": "Sg",
+    "name_vi": "Seaborgium",
+    "name_en": "Seaborgium",
+    "mass": 269,
+    "period": 7,
+    "group": 6,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": null,
+    "electronegativity": null,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "unknown",
+    "stateNote": null,
+    "meltingPoint": null,
+    "atomicRadius": null,
+    "ionizationEnergy": null,
+    "xpos": 6,
+    "ypos": 7,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Sg"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Seaborgium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 107,
+    "symbol": "Bh",
+    "name_vi": "Bohrium",
+    "name_en": "Bohrium",
+    "mass": 270,
+    "period": 7,
+    "group": 7,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": null,
+    "electronegativity": null,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "unknown",
+    "stateNote": null,
+    "meltingPoint": null,
+    "atomicRadius": null,
+    "ionizationEnergy": null,
+    "xpos": 7,
+    "ypos": 7,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Bh"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Bohrium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 108,
+    "symbol": "Hs",
+    "name_vi": "Hassium",
+    "name_en": "Hassium",
+    "mass": 269,
+    "period": 7,
+    "group": 8,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": null,
+    "electronegativity": null,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "unknown",
+    "stateNote": null,
+    "meltingPoint": null,
+    "atomicRadius": null,
+    "ionizationEnergy": null,
+    "xpos": 8,
+    "ypos": 7,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Hs"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Hassium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 109,
+    "symbol": "Mt",
+    "name_vi": "Meitnerium",
+    "name_en": "Meitnerium",
+    "mass": 278,
+    "period": 7,
+    "group": 9,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": null,
+    "electronegativity": null,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "unknown",
+    "stateNote": null,
+    "meltingPoint": null,
+    "atomicRadius": null,
+    "ionizationEnergy": null,
+    "xpos": 9,
+    "ypos": 7,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Mt"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Meitnerium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 110,
+    "symbol": "Ds",
+    "name_vi": "Darmstadtium",
+    "name_en": "Darmstadtium",
+    "mass": 281,
+    "period": 7,
+    "group": 10,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": null,
+    "electronegativity": null,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "unknown",
+    "stateNote": null,
+    "meltingPoint": null,
+    "atomicRadius": null,
+    "ionizationEnergy": null,
+    "xpos": 10,
+    "ypos": 7,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Ds"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Darmstadtium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 111,
+    "symbol": "Rg",
+    "name_vi": "Roentgenium",
+    "name_en": "Roentgenium",
+    "mass": 282,
+    "period": 7,
+    "group": 11,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": null,
+    "electronegativity": null,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "unknown",
+    "stateNote": null,
+    "meltingPoint": null,
+    "atomicRadius": null,
+    "ionizationEnergy": null,
+    "xpos": 11,
+    "ypos": 7,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Rg"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Roentgenium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 112,
+    "symbol": "Cn",
+    "name_vi": "Copernicium",
+    "name_en": "Copernicium",
+    "mass": 285,
+    "period": 7,
+    "group": 12,
+    "category": "transition_metal",
+    "block": "d",
+    "electronConfig": null,
+    "electronegativity": null,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "unknown",
+    "stateNote": null,
+    "meltingPoint": 9.85,
+    "atomicRadius": null,
+    "ionizationEnergy": null,
+    "xpos": 12,
+    "ypos": 7,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Cn"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Copernicium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 113,
+    "symbol": "Nh",
+    "name_vi": "Nihonium",
+    "name_en": "Nihonium",
+    "mass": 286,
+    "period": 7,
+    "group": 13,
+    "category": "post_transition",
+    "block": "p",
+    "electronConfig": null,
+    "electronegativity": null,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "unknown",
+    "stateNote": null,
+    "meltingPoint": 426.85,
+    "atomicRadius": null,
+    "ionizationEnergy": null,
+    "xpos": 13,
+    "ypos": 7,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Nh"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Ununtrium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 114,
+    "symbol": "Fl",
+    "name_vi": "Flerovium",
+    "name_en": "Flerovium",
+    "mass": 289,
+    "period": 7,
+    "group": 14,
+    "category": "post_transition",
+    "block": "p",
+    "electronConfig": null,
+    "electronegativity": null,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "unknown",
+    "stateNote": null,
+    "meltingPoint": 66.85,
+    "atomicRadius": null,
+    "ionizationEnergy": null,
+    "xpos": 14,
+    "ypos": 7,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Fl"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Flerovium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 115,
+    "symbol": "Mc",
+    "name_vi": "Moscovium",
+    "name_en": "Moscovium",
+    "mass": 289,
+    "period": 7,
+    "group": 15,
+    "category": "post_transition",
+    "block": "p",
+    "electronConfig": null,
+    "electronegativity": null,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "unknown",
+    "stateNote": null,
+    "meltingPoint": 396.85,
+    "atomicRadius": null,
+    "ionizationEnergy": null,
+    "xpos": 15,
+    "ypos": 7,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Mc"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Ununpentium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 116,
+    "symbol": "Lv",
+    "name_vi": "Livermorium",
+    "name_en": "Livermorium",
+    "mass": 293,
+    "period": 7,
+    "group": 16,
+    "category": "post_transition",
+    "block": "p",
+    "electronConfig": null,
+    "electronegativity": null,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "unknown",
+    "stateNote": null,
+    "meltingPoint": 435.85,
+    "atomicRadius": null,
+    "ionizationEnergy": null,
+    "xpos": 16,
+    "ypos": 7,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Lv"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Livermorium",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 117,
+    "symbol": "Ts",
+    "name_vi": "Tennessine",
+    "name_en": "Tennessine",
+    "mass": 294,
+    "period": 7,
+    "group": 17,
+    "category": "halogen",
+    "block": "p",
+    "electronConfig": null,
+    "electronegativity": null,
+    "oxidationStates": [],
+    "oxidationText": null,
+    "phase_STP": "unknown",
+    "stateNote": null,
+    "meltingPoint": 449.85,
+    "atomicRadius": null,
+    "ionizationEnergy": null,
+    "xpos": 17,
+    "ypos": 7,
+    "sourceFile": "/shared/elements.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Ts"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Tennessine",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  },
+  {
+    "z": 118,
+    "symbol": "Og",
+    "name_vi": "Oganesson",
+    "name_en": "Oganesson",
+    "mass": 294,
+    "period": 7,
+    "group": 18,
+    "category": "noble_gas",
+    "block": "p",
+    "electronConfig": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁶",
+    "electronegativity": null,
+    "oxidationStates": [],
+    "oxidationText": "0 (dự đoán)",
+    "phase_STP": "unknown",
+    "stateNote": "Rắn (dự đoán)",
+    "meltingPoint": null,
+    "atomicRadius": null,
+    "ionizationEnergy": null,
+    "xpos": 18,
+    "ypos": 7,
+    "sourceFile": "/data/elements/118_Og.json",
+    "sources": [
+      {
+        "title": "Dữ liệu nguyên tố ChemDex",
+        "url": "/nguyen-to.html?element=Og"
+      }
+    ],
+    "applications": null,
+    "propertySource": {
+      "dataset": "https://github.com/Bowserinator/Periodic-Table-JSON",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original": "https://en.wikipedia.org/wiki/Oganesson",
+      "radiusKind": "empirical",
+      "ionizationEnergyKind": "first"
+    }
+  }
+]

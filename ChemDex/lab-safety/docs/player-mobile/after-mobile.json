@@ -1,0 +1,665 @@
+{
+  "passed": true,
+  "stage": "after",
+  "cpuThrottle": 4,
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/156.0.8078.48",
+    "revision": "@d0c02bfad08ec92a6ffcf989e53cd995e6381a4c",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+    "jsVersion": "15.6.75.19"
+  },
+  "gpu": null,
+  "errors": [],
+  "samples": [
+    {
+      "viewport": {
+        "id": "mobile-844",
+        "width": 844,
+        "height": 390,
+        "dpr": 3,
+        "touch": true
+      },
+      "scene": "room",
+      "timing": {
+        "seconds": 5.073599999988073,
+        "frames": 37,
+        "fps": 7.292652160218973,
+        "p50": 139.5,
+        "p95": 242,
+        "p99": 258.5
+      },
+      "renderer": {
+        "timestamp": 66940.60000000894,
+        "render": {
+          "calls": 809,
+          "triangles": 352304,
+          "points": 40,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1377,
+          "textures": 125
+        },
+        "mirrorUpdates": 2,
+        "shadowEnabled": false,
+        "pixelRatio": 0.75,
+        "visibleFlames": 0,
+        "heldTool": "spillKit"
+      },
+      "glDevice": {
+        "vendor": "Google Inc. (Intel)",
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000468B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "antialias": false
+      },
+      "mirrorUpdates": 0,
+      "positionBefore": [
+        -0.8,
+        0,
+        4.7
+      ],
+      "positionAfter": [
+        -0.8,
+        0,
+        4.7
+      ],
+      "state": {
+        "coarse": true,
+        "touches": 2,
+        "width": 844,
+        "height": 390,
+        "quality": "RUNNING"
+      }
+    },
+    {
+      "viewport": {
+        "id": "mobile-844",
+        "width": 844,
+        "height": 390,
+        "dpr": 3,
+        "touch": true
+      },
+      "scene": "mirror",
+      "timing": {
+        "seconds": 5.04779999999702,
+        "frames": 78,
+        "fps": 15.452276239162813,
+        "p50": 34.400000005960464,
+        "p95": 208.6000000089407,
+        "p99": 311.09999999403954
+      },
+      "renderer": {
+        "timestamp": 76715.20000000298,
+        "render": {
+          "calls": 1675,
+          "triangles": 753386,
+          "points": 40,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1377,
+          "textures": 125
+        },
+        "mirrorUpdates": 34,
+        "shadowEnabled": false,
+        "pixelRatio": 0.7,
+        "visibleFlames": 0,
+        "heldTool": "spillKit"
+      },
+      "glDevice": {
+        "vendor": "Google Inc. (Intel)",
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000468B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "antialias": false
+      },
+      "mirrorUpdates": 27,
+      "positionBefore": [
+        -0.8,
+        0,
+        5.2
+      ],
+      "positionAfter": [
+        -0.8,
+        0,
+        5.2
+      ],
+      "state": {
+        "coarse": true,
+        "touches": 2,
+        "width": 844,
+        "height": 390,
+        "quality": "RUNNING"
+      }
+    },
+    {
+      "viewport": {
+        "id": "mobile-844",
+        "width": 844,
+        "height": 390,
+        "dpr": 3,
+        "touch": true
+      },
+      "scene": "mirror-off-axis",
+      "timing": {
+        "seconds": 5.021699999988079,
+        "frames": 71,
+        "fps": 14.138638309769311,
+        "p50": 36.400000005960464,
+        "p95": 199.79999999701977,
+        "p99": 380.59999999403954
+      },
+      "renderer": {
+        "timestamp": 85998.80000001192,
+        "render": {
+          "calls": 542,
+          "triangles": 253200,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1391,
+          "textures": 130
+        },
+        "mirrorUpdates": 66,
+        "shadowEnabled": false,
+        "pixelRatio": 0.7,
+        "visibleFlames": 0,
+        "heldTool": "spillKit"
+      },
+      "glDevice": {
+        "vendor": "Google Inc. (Intel)",
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000468B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "antialias": false
+      },
+      "mirrorUpdates": 22,
+      "positionBefore": [
+        -0.8,
+        0,
+        5.2
+      ],
+      "positionAfter": [
+        -0.8,
+        0,
+        5.2
+      ],
+      "state": {
+        "coarse": true,
+        "touches": 2,
+        "width": 844,
+        "height": 390,
+        "quality": "RUNNING"
+      }
+    },
+    {
+      "viewport": {
+        "id": "mobile-844",
+        "width": 844,
+        "height": 390,
+        "dpr": 3,
+        "touch": true
+      },
+      "scene": "move-look",
+      "timing": {
+        "seconds": 6.090199999997014,
+        "frames": 83,
+        "fps": 13.628452267584102,
+        "p50": 40.70000000298023,
+        "p95": 282.30000001192093,
+        "p99": 398.5
+      },
+      "renderer": {
+        "timestamp": 106118.90000000596,
+        "render": {
+          "calls": 191,
+          "triangles": 132434,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1391,
+          "textures": 130
+        },
+        "mirrorUpdates": 76,
+        "shadowEnabled": false,
+        "pixelRatio": 0.7,
+        "visibleFlames": 0,
+        "heldTool": "spillKit"
+      },
+      "glDevice": {
+        "vendor": "Google Inc. (Intel)",
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000468B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "antialias": false
+      },
+      "mirrorUpdates": 0,
+      "positionBefore": [
+        -0.8,
+        0,
+        4.7
+      ],
+      "positionAfter": [
+        0.39868251336572175,
+        0,
+        -2.985690446887618
+      ],
+      "state": {
+        "coarse": true,
+        "touches": 2,
+        "width": 844,
+        "height": 390,
+        "quality": "RUNNING"
+      }
+    },
+    {
+      "viewport": {
+        "id": "mobile-740",
+        "width": 740,
+        "height": 360,
+        "dpr": 2,
+        "touch": true
+      },
+      "scene": "room",
+      "timing": {
+        "seconds": 5.064499999994041,
+        "frames": 54,
+        "fps": 10.662454339039103,
+        "p50": 70.29999999701977,
+        "p95": 253.5,
+        "p99": 312.80000001192093
+      },
+      "renderer": {
+        "timestamp": 56039.40000000596,
+        "render": {
+          "calls": 771,
+          "triangles": 335494,
+          "points": 40,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1360,
+          "textures": 125
+        },
+        "mirrorUpdates": 2,
+        "shadowEnabled": false,
+        "pixelRatio": 0.75,
+        "visibleFlames": 0,
+        "heldTool": "spillKit"
+      },
+      "glDevice": {
+        "vendor": "Google Inc. (Intel)",
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000468B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "antialias": false
+      },
+      "mirrorUpdates": 0,
+      "positionBefore": [
+        -0.8,
+        0,
+        4.7
+      ],
+      "positionAfter": [
+        -0.8,
+        0,
+        4.7
+      ],
+      "state": {
+        "coarse": true,
+        "touches": 2,
+        "width": 740,
+        "height": 360,
+        "quality": "RUNNING"
+      }
+    },
+    {
+      "viewport": {
+        "id": "mobile-740",
+        "width": 740,
+        "height": 360,
+        "dpr": 2,
+        "touch": true
+      },
+      "scene": "mirror",
+      "timing": {
+        "seconds": 5.068099999997023,
+        "frames": 56,
+        "fps": 11.04950573193759,
+        "p50": 57.3999999910593,
+        "p95": 294.09999999403954,
+        "p99": 439.70000000298023
+      },
+      "renderer": {
+        "timestamp": 66835.10000000894,
+        "render": {
+          "calls": 1635,
+          "triangles": 736586,
+          "points": 40,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1360,
+          "textures": 125
+        },
+        "mirrorUpdates": 27,
+        "shadowEnabled": false,
+        "pixelRatio": 0.7,
+        "visibleFlames": 0,
+        "heldTool": "spillKit"
+      },
+      "glDevice": {
+        "vendor": "Google Inc. (Intel)",
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000468B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "antialias": false
+      },
+      "mirrorUpdates": 20,
+      "positionBefore": [
+        -0.8,
+        0,
+        5.2
+      ],
+      "positionAfter": [
+        -0.8,
+        0,
+        5.2
+      ],
+      "state": {
+        "coarse": true,
+        "touches": 2,
+        "width": 740,
+        "height": 360,
+        "quality": "RUNNING"
+      }
+    },
+    {
+      "viewport": {
+        "id": "mobile-740",
+        "width": 740,
+        "height": 360,
+        "dpr": 2,
+        "touch": true
+      },
+      "scene": "mirror-off-axis",
+      "timing": {
+        "seconds": 5.216,
+        "frames": 50,
+        "fps": 9.585889570552148,
+        "p50": 56.70000000298023,
+        "p95": 291.09999999403954,
+        "p99": 741.9000000059605
+      },
+      "renderer": {
+        "timestamp": 76552.20000000298,
+        "render": {
+          "calls": 1111,
+          "triangles": 515080,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1377,
+          "textures": 130
+        },
+        "mirrorUpdates": 53,
+        "shadowEnabled": false,
+        "pixelRatio": 0.7,
+        "visibleFlames": 0,
+        "heldTool": "spillKit"
+      },
+      "glDevice": {
+        "vendor": "Google Inc. (Intel)",
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000468B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "antialias": false
+      },
+      "mirrorUpdates": 16,
+      "positionBefore": [
+        -0.8,
+        0,
+        5.2
+      ],
+      "positionAfter": [
+        -0.8,
+        0,
+        5.2
+      ],
+      "state": {
+        "coarse": true,
+        "touches": 2,
+        "width": 740,
+        "height": 360,
+        "quality": "RUNNING"
+      }
+    },
+    {
+      "viewport": {
+        "id": "mobile-740",
+        "width": 740,
+        "height": 360,
+        "dpr": 2,
+        "touch": true
+      },
+      "scene": "move-look",
+      "timing": {
+        "seconds": 6.004800000000003,
+        "frames": 80,
+        "fps": 13.322675193178783,
+        "p50": 36.400000005960464,
+        "p95": 247,
+        "p99": 524.1999999880791
+      },
+      "renderer": {
+        "timestamp": 92609.5,
+        "render": {
+          "calls": 191,
+          "triangles": 132434,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1377,
+          "textures": 130
+        },
+        "mirrorUpdates": 62,
+        "shadowEnabled": false,
+        "pixelRatio": 0.7,
+        "visibleFlames": 0,
+        "heldTool": "spillKit"
+      },
+      "glDevice": {
+        "vendor": "Google Inc. (Intel)",
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000468B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "antialias": false
+      },
+      "mirrorUpdates": 0,
+      "positionBefore": [
+        -0.8,
+        0,
+        4.7
+      ],
+      "positionAfter": [
+        0.47980202105343606,
+        0,
+        -3.5202921427180383
+      ],
+      "state": {
+        "coarse": true,
+        "touches": 2,
+        "width": 740,
+        "height": 360,
+        "quality": "RUNNING"
+      }
+    },
+    {
+      "viewport": {
+        "id": "desktop",
+        "width": 1366,
+        "height": 768,
+        "dpr": 1,
+        "touch": false
+      },
+      "scene": "room",
+      "timing": {
+        "seconds": 5.049899999994042,
+        "frames": 47,
+        "fps": 9.307114992387067,
+        "p50": 98.09999999403954,
+        "p95": 222.69999998807907,
+        "p99": 243.70000000298023
+      },
+      "renderer": {
+        "timestamp": 38464.10000000894,
+        "render": {
+          "calls": 681,
+          "triangles": 296748,
+          "points": 40,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1260,
+          "textures": 121
+        },
+        "mirrorUpdates": 3,
+        "shadowEnabled": false,
+        "pixelRatio": 0.8,
+        "visibleFlames": 0,
+        "heldTool": "spillKit"
+      },
+      "glDevice": {
+        "vendor": "Google Inc. (Intel)",
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000468B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "antialias": true
+      },
+      "mirrorUpdates": 0,
+      "positionBefore": [
+        -0.8,
+        0,
+        4.7
+      ],
+      "positionAfter": [
+        -0.8,
+        0,
+        4.7
+      ],
+      "state": {
+        "coarse": false,
+        "touches": 0,
+        "width": 1366,
+        "height": 768,
+        "quality": "RUNNING"
+      }
+    },
+    {
+      "viewport": {
+        "id": "desktop",
+        "width": 1366,
+        "height": 768,
+        "dpr": 1,
+        "touch": false
+      },
+      "scene": "mirror",
+      "timing": {
+        "seconds": 5.0936999999999975,
+        "frames": 37,
+        "fps": 7.263874982821921,
+        "p50": 83.70000000298023,
+        "p95": 401.40000000596046,
+        "p99": 570.4000000059605
+      },
+      "renderer": {
+        "timestamp": 48515.20000000298,
+        "render": {
+          "calls": 1505,
+          "triangles": 677884,
+          "points": 40,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1260,
+          "textures": 121
+        },
+        "mirrorUpdates": 29,
+        "shadowEnabled": false,
+        "pixelRatio": 0.7,
+        "visibleFlames": 0,
+        "heldTool": "spillKit"
+      },
+      "glDevice": {
+        "vendor": "Google Inc. (Intel)",
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000468B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "antialias": true
+      },
+      "mirrorUpdates": 22,
+      "positionBefore": [
+        -0.8,
+        0,
+        5.2
+      ],
+      "positionAfter": [
+        -0.8,
+        0,
+        5.2
+      ],
+      "state": {
+        "coarse": false,
+        "touches": 0,
+        "width": 1366,
+        "height": 768,
+        "quality": "RUNNING"
+      }
+    },
+    {
+      "viewport": {
+        "id": "desktop",
+        "width": 1366,
+        "height": 768,
+        "dpr": 1,
+        "touch": false
+      },
+      "scene": "mirror-off-axis",
+      "timing": {
+        "seconds": 5.029499999994041,
+        "frames": 39,
+        "fps": 7.754249925449092,
+        "p50": 105.09999999403954,
+        "p95": 347.09999999403954,
+        "p99": 471
+      },
+      "renderer": {
+        "timestamp": 57715.30000001192,
+        "render": {
+          "calls": 997,
+          "triangles": 463946,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1332,
+          "textures": 127
+        },
+        "mirrorUpdates": 61,
+        "shadowEnabled": false,
+        "pixelRatio": 0.7,
+        "visibleFlames": 0,
+        "heldTool": "spillKit"
+      },
+      "glDevice": {
+        "vendor": "Google Inc. (Intel)",
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000468B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "antialias": true
+      },
+      "mirrorUpdates": 19,
+      "positionBefore": [
+        -0.8,
+        0,
+        5.2
+      ],
+      "positionAfter": [
+        -0.8,
+        0,
+        5.2
+      ],
+      "state": {
+        "coarse": false,
+        "touches": 0,
+        "width": 1366,
+        "height": 768,
+        "quality": "RUNNING"
+      }
+    }
+  ]
+}

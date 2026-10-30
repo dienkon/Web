@@ -1,3 +1,4 @@
+import {ADVANCED_EXPERIMENTS} from './advancedExperiments';
 /**
  * Guided Chemistry Experiments Catalog for ChemDex 2D Virtual Laboratory
  * 10 Core Curriculum Experiments with automated step verification based on simulated physical states.
@@ -554,4 +555,256 @@ export const EXPERIMENTS_CATALOG: GuidedExperiment[] = [
       },
     ],
   },
+
+  // 11. Golden Rain Experiment (PbI2 Crystallization)
+  {
+    id: 'exp-golden-rain',
+    title_en: 'Golden Rain Experiment (Lead Iodide Crystallization)',
+    title_vi: 'Thí nghiệm Mưa Vàng (Kết tinh Chì(II) Iođua)',
+    category_en: 'Inorganic Synthesis & Thermochemistry',
+    category_vi: 'Tổng hợp Vô cơ & Nhiệt hóa',
+    difficulty: 'advanced',
+    durationMinutes: 15,
+    description_en: 'Synthesize lead(II) iodide by mixing lead nitrate and potassium iodide, heat over Bunsen burner to dissolve the precipitate, then let cool to observe golden sparkling crystals.',
+    description_vi: 'Tổng hợp chì(II) iođua từ chì nitrat và kali iođua, đun nóng trên ngọn lửa đèn Bunsen để hòa tan kết tủa, sau đó để nguội để chiêm ngưỡng những vảy tinh thể vàng lấp lánh như mưa vàng.',
+    objectives_en: [
+      'Observe double displacement: Pb(NO3)2 + 2KI → PbI2↓ + 2KNO3',
+      'Demonstrate temperature-dependent solubility (solubility increases markedly with heat)',
+      'Observe crystallization of golden hexagonal plates',
+    ],
+    objectives_vi: [
+      'Quan sát phản ứng trao đổi tạo kết tủa: Pb(NO3)2 + 2KI → PbI2↓ + 2KNO3',
+      'Minh họa tính tan phụ thuộc nhiệt độ (độ tan của PbI2 tăng mạnh khi đun nóng)',
+      'Quan sát tinh thể vảy vàng lấp lánh như mưa vàng',
+    ],
+    requiredEquipment: ['erlenmeyer_flask', 'bunsen_burner'],
+    requiredChemicals: ['chem-pbno32', 'chem-ki', 'chem-h2o'],
+    safetyNotes_en: ['Lead compounds are toxic. Do not ingest and handle with gloves.'],
+    safetyNotes_vi: ['Hợp chất chì có độc tính. Sử dụng găng tay và kính bảo hộ khi thao tác.'],
+    steps: [
+      {
+        stepNumber: 1,
+        title_en: 'Prepare Lead Nitrate Solution',
+        title_vi: 'Chuẩn bị dung dịch Chì(II) nitrat',
+        instruction_en: 'Place an Erlenmeyer flask on the workbench and add 30 mL of Pb(NO3)2 solution.',
+        instruction_vi: 'Đặt một bình tam giác lên bàn thí nghiệm và rót vào 30 mL dung dịch Pb(NO3)2.',
+        validationCriteria: {
+          targetEquipment: 'erlenmeyer_flask',
+          requiredFormulas: ['Pb(NO3)2'],
+          minVolume_ml: 25,
+        },
+      },
+      {
+        stepNumber: 2,
+        title_en: 'Precipitate Yellow Lead Iodide',
+        title_vi: 'Tạo kết tủa Chì(II) iođua màu vàng',
+        instruction_en: 'Add 30 mL of KI solution to the flask. Observe the bright yellow PbI2 precipitate forming immediately.',
+        instruction_vi: 'Rót tiếp 30 mL dung dịch KI vào bình. Quan sát xuất hiện ngay kết tủa màu vàng tươi của PbI2.',
+        validationCriteria: {
+          targetEquipment: 'erlenmeyer_flask',
+          requiredFormulas: ['PbI2'],
+          mustHavePrecipitate: true,
+        },
+        theory_vi: 'Phản ứng tạo kết tủa: Pb²⁺ + 2I⁻ → PbI₂↓ (tích số tan Ksp = 7.1 × 10⁻⁹).',
+      },
+      {
+        stepNumber: 3,
+        title_en: 'Heat Over Bunsen Burner to Dissolve',
+        title_vi: 'Đun nóng trên Đèn Bunsen để hòa tan kết tủa',
+        instruction_en: 'Turn on a Bunsen burner and place the flask directly above the flame until heated above 70°C to dissolve the yellow precipitate.',
+        instruction_vi: 'Bật đèn Bunsen và di chuyển bình tam giác vào vùng ngọn lửa để đun nóng trên 70°C, kết tủa vàng sẽ tan dần vào nước nóng.',
+        validationCriteria: {
+          targetEquipment: 'erlenmeyer_flask',
+          minTemp_c: 68.0,
+        },
+        theory_vi: 'Độ tan của PbI2 ở 100°C cao gấp 10 lần ở 20°C. Khi để nguội, tinh thể PbI2 kết tinh thành các vảy vàng óng ánh lấp lánh như mưa vàng!',
+      },
+    ],
+    conclusion_en: 'Lead(II) iodide precipitates as bright yellow solid, dissolves readily in boiling water due to steep temperature-dependent solubility, and crystallizes into breathtaking golden spangles on cooling.',
+    conclusion_vi: 'PbI2 kết tủa màu vàng rực rỡ, tan hoàn toàn trong nước sôi và khi để nguội sẽ kết tinh thành các vảy vàng lấp lánh như cơn mưa vàng tuyệt đẹp.',
+  },
+
+  // 12. Silver Mirror Reaction (Tollens Test)
+  {
+    id: 'exp-silver-mirror',
+    title_en: 'Silver Mirror Reaction (Tollens Test)',
+    title_vi: 'Phản ứng Tráng Bạc (Thuốc thử Tollens)',
+    category_en: 'Organic Chemistry',
+    category_vi: 'Hóa học Hữu cơ',
+    difficulty: 'intermediate',
+    durationMinutes: 12,
+    description_en: 'Prepare ammoniacal silver nitrate (Tollens reagent), add acetaldehyde, and gently warm to coat the inner wall of the test tube with a reflective metallic silver mirror.',
+    description_vi: 'Pha thuốc thử Tollens từ bạc nitrat và amoniac, thêm anđehit axetic và đun nóng nhẹ để tráng một lớp bạc kim loại sáng bóng như gương trên thành ống nghiệm.',
+    objectives_en: [
+      'Understand aldehyde oxidation and silver ion reduction',
+      'Observe metallic silver film deposition on glassware',
+    ],
+    objectives_vi: [
+      'Hiểu phản ứng oxi hóa nhóm chức anđehit và khử ion Ag⁺ về bạc kim loại',
+      'Quan sát lớp tráng gương bạc kim loại sáng loáng bám trên thành thủy tinh',
+    ],
+    requiredEquipment: ['test_tube', 'bunsen_burner'],
+    requiredChemicals: ['chem-agno3', 'chem-nh3', 'chem-ch3cho'],
+    safetyNotes_en: ['Dispose of Tollens reagent promptly after experiment to avoid explosive fulminates.'],
+    safetyNotes_vi: ['Thuốc thử Tollens cần được sử dụng ngay, tránh để lâu ngày.'],
+    steps: [
+      {
+        stepNumber: 1,
+        title_en: 'Add Silver Nitrate',
+        title_vi: 'Cho dung dịch Bạc nitrat',
+        instruction_en: 'Place a test tube on the workbench and add 20 mL of AgNO3 solution.',
+        instruction_vi: 'Đặt một ống nghiệm lên bàn và rót vào 20 mL dung dịch AgNO3.',
+        validationCriteria: {
+          targetEquipment: 'test_tube',
+          requiredFormulas: ['AgNO3'],
+          minVolume_ml: 15,
+        },
+      },
+      {
+        stepNumber: 2,
+        title_en: 'Form Diamminesilver Complex',
+        title_vi: 'Tạo phức Bạc Amoniac',
+        instruction_en: 'Add 15 mL of NH3 to form clear [Ag(NH3)2]⁺ solution (Tollens reagent).',
+        instruction_vi: 'Rót tiếp 15 mL dung dịch NH3 vào để tạo dung dịch phức điamminbạc(I) trong suốt.',
+        validationCriteria: {
+          targetEquipment: 'test_tube',
+          minVolume_ml: 30,
+        },
+      },
+      {
+        stepNumber: 3,
+        title_en: 'Add Acetaldehyde & Warm to Form Silver Mirror',
+        title_vi: 'Thêm Axetanđehit và đun ấm tạo gương bạc',
+        instruction_en: 'Add 10 mL of acetaldehyde (CH3CHO) and hold the test tube above the burner flame to warm above 50°C. Observe the brilliant silver mirror coating the glass!',
+        instruction_vi: 'Thêm 10 mL axetanđehit (CH3CHO) và hơ ống nghiệm trên ngọn lửa đèn Bunsen để đun ấm trên 50°C. Chiêm ngưỡng lớp gương bạc kim loại sáng bóng bám vào thành ống nghiệm!',
+        validationCriteria: {
+          targetEquipment: 'test_tube',
+          minTemp_c: 48.0,
+        },
+        theory_vi: 'Phương trình phản ứng: CH₃CHO + 2[Ag(NH₃)₂]OH → CH₃COONH₄ + 2Ag↓ + 3NH₃ + H₂O. Lớp bạc sinh ra bám đều tạo mặt gương.',
+      },
+    ],
+    conclusion_en: 'Acetaldehyde reduces Tollens reagent to elemental silver, which deposits smoothly on the clean glass surface to form a brilliant reflective silver mirror.',
+    conclusion_vi: 'Axetanđehit đã khử phức bạc amoniac tạo thành bạc kim loại nguyên chất bám đều lên bề mặt thủy tinh thành lớp gương soi sáng bóng.',
+  },
+
+  // 13. Le Chatelier Equilibrium Shift of Iron(III) Thiocyanate
+  {
+    id: 'exp-le-chatelier-thiocyanate',
+    title_en: 'Le Chatelier Shift: Iron(III) Thiocyanate Equilibrium',
+    title_vi: 'Chuyển Dịch Cân Bằng: Sắt(III) Thioxianat',
+    category_en: 'Chemical Equilibrium',
+    category_vi: 'Cân bằng Hóa học',
+    difficulty: 'intermediate',
+    durationMinutes: 10,
+    description_en: 'Demonstrate Le Chatelier principle by forming deep blood-red [Fe(SCN)]²⁺ complex and shifting equilibrium backward by sequestering Fe³⁺ ions.',
+    description_vi: 'Minh họa nguyên lý chuyển dịch cân bằng Lơ Sa-tơ-li-ê (Le Chatelier) qua phản ứng tạo phức đỏ máu [Fe(SCN)]²⁺ và làm mất màu bằng cách che ion Fe³⁺.',
+    objectives_en: [
+      'Observe complex ion formation: Fe³⁺ + SCN⁻ ⇌ [Fe(SCN)]²⁺ (blood-red)',
+      'Apply Le Chatelier principle to predict and confirm directional equilibrium shifts',
+    ],
+    objectives_vi: [
+      'Quan sát phản ứng tạo phức ion Fe³⁺ + SCN⁻ ⇌ [Fe(SCN)]²⁺ màu đỏ máu',
+      'Ứng dụng nguyên lý Le Chatelier để dự đoán và thực nghiệm chiều chuyển dịch cân bằng',
+    ],
+    requiredEquipment: ['test_tube'],
+    requiredChemicals: ['chem-fecl3', 'chem-kscn', 'chem-na2hpo4'],
+    safetyNotes_en: ['Wear eye protection. Dispose of thiocyanate solutions in heavy metal waste.'],
+    safetyNotes_vi: ['Đeo kính bảo hộ, rửa sạch dụng cụ sau khi làm thí nghiệm.'],
+    steps: [
+      {
+        stepNumber: 1,
+        title_en: 'Add Iron(III) Chloride',
+        title_vi: 'Cho dung dịch Sắt(III) clorua',
+        instruction_en: 'Place a test tube on the workbench and add 20 mL of FeCl3 solution.',
+        instruction_vi: 'Đặt ống nghiệm lên bàn và rót vào 20 mL dung dịch FeCl3.',
+        validationCriteria: {
+          targetEquipment: 'test_tube',
+          requiredFormulas: ['FeCl3'],
+          minVolume_ml: 15,
+        },
+      },
+      {
+        stepNumber: 2,
+        title_en: 'Form Blood-Red Iron Thiocyanate Complex',
+        title_vi: 'Tạo phức Sắt Thioxianat màu đỏ máu',
+        instruction_en: 'Add 15 mL of KSCN solution. Observe the sudden appearance of intense blood-red color.',
+        instruction_vi: 'Rót tiếp 15 mL dung dịch KSCN vào. Quan sát dung dịch đổi ngay sang màu đỏ máu đặc trưng.',
+        validationCriteria: {
+          targetEquipment: 'test_tube',
+          requiredFormulas: ['Fe(SCN)3'],
+          minVolume_ml: 30,
+        },
+        theory_vi: 'Phương trình cân bằng: Fe³⁺ (vàng nhạt) + SCN⁻ (không màu) ⇌ [Fe(SCN)]²⁺ (đỏ máu).',
+      },
+      {
+        stepNumber: 3,
+        title_en: 'Shift Equilibrium with Disodium Phosphate',
+        title_vi: 'Chuyển dịch cân bằng với Đinatri hiđrophotphat',
+        instruction_en: 'Add 20 mL of Na2HPO4 solution. The blood-red color fades to light yellow as Fe3+ is sequestered, shifting equilibrium to the left.',
+        instruction_vi: 'Thêm 20 mL dung dịch Na2HPO4 vào. Màu đỏ máu nhạt dần về vàng nhạt do ion Fe³⁺ bị tách khỏi phức, cân bằng chuyển dịch theo chiều nghịch.',
+        validationCriteria: {
+          targetEquipment: 'test_tube',
+          minVolume_ml: 45,
+        },
+        theory_vi: 'Khi thêm HPO₄²⁻, ion Fe³⁺ tạo kết tủa FePO₄ vàng nhạt hoặc phức photphat bền. Nồng độ Fe³⁺ tự do giảm làm cân bằng dịch chuyển sang trái (chiều nghịch) theo Le Chatelier!',
+      },
+    ],
+    conclusion_en: 'The reversible reaction Fe³⁺ + SCN⁻ ⇌ [Fe(SCN)]²⁺ clearly illustrates Le Chatelier principle: removing Fe³⁺ from solution drives the equilibrium backward, bleaching the deep blood-red color.',
+    conclusion_vi: 'Cân bằng thuận nghịch Fe³⁺ + SCN⁻ ⇌ [Fe(SCN)]²⁺ minh họa xuất sắc nguyên lý Le Chatelier: làm giảm nồng độ ion Fe³⁺ làm cân bằng chuyển dịch theo chiều nghịch, làm mất màu đỏ máu.',
+  },
+
+  // 14. Liquid-Liquid Phase Extraction using Separatory Funnel
+  {
+    id: 'exp-phase-extraction',
+    title_en: 'Liquid-Liquid Extraction using Separatory Funnel',
+    title_vi: 'Chiết Tách Pha Lỏng Bằng Phễu Chiết',
+    category_en: 'Separation Techniques',
+    category_vi: 'Kỹ thuật Phân tách',
+    difficulty: 'advanced',
+    durationMinutes: 12,
+    description_en: 'Separate two immiscible liquid layers (dense aqueous phase and light organic ester phase) using a separatory funnel stopcock.',
+    description_vi: 'Chiết tách hai pha chất lỏng không đồng tan (pha nước nặng ở dưới và pha este hữu cơ nhẹ ở trên) bằng khóa phễu chiết quả lê.',
+    objectives_en: [
+      'Master the operation of a laboratory separatory funnel',
+      'Observe liquid-liquid phase boundary and drain the lower phase cleanly',
+    ],
+    objectives_vi: [
+      'Thành thạo thao tác sử dụng phễu chiết quả lê trong phòng thí nghiệm',
+      'Quan sát mặt phân cách pha lỏng và xả tách triệt để pha lỏng phía dưới',
+    ],
+    requiredEquipment: ['separatory_funnel', 'beaker', 'erlenmeyer_flask'],
+    requiredChemicals: ['chem-ch3cooc2h5', 'chem-h2o'],
+    safetyNotes_en: ['Keep organic solvents away from open flames.'],
+    safetyNotes_vi: ['Các este hữu cơ dễ bay hơi, thao tác nơi thoáng khí và tránh xa ngọn lửa trần.'],
+    steps: [
+      {
+        stepNumber: 1,
+        title_en: 'Add Aqueous and Organic Phases to Separatory Funnel',
+        title_vi: 'Cho nước cất và este etyl axetat vào phễu chiết',
+        instruction_en: 'Place a separatory funnel on the workbench, add 50 mL of distilled water and 40 mL of ethyl acetate.',
+        instruction_vi: 'Đặt một phễu chiết lên bàn, rót vào 50 mL nước cất và 40 mL etyl axetat.',
+        validationCriteria: {
+          targetEquipment: 'separatory_funnel',
+          minVolume_ml: 60,
+        },
+        theory_vi: 'Etyl axetat có độ phân cực kém và khối lượng riêng d = 0.90 g/mL (nhẹ hơn nước d = 1.00 g/mL), tạo thành 2 lớp lỏng phân cách rõ rệt.',
+      },
+      {
+        stepNumber: 2,
+        title_en: 'Place Receiving Flask Underneath and Drain Lower Layer',
+        title_vi: 'Đặt bình hứng bên dưới và mở khóa xả pha nước',
+        instruction_en: 'Place an Erlenmeyer flask directly underneath the separatory funnel delivery stem, then click the stopcock to drain the bottom aqueous layer.',
+        instruction_vi: 'Di chuyển một bình tam giác vào vị trí ngay dưới cuống phễu chiết, sau đó nhấp vào khóa phễu để mở và xả lớp nước phía dưới.',
+        validationCriteria: {
+          targetEquipment: 'erlenmeyer_flask',
+          minVolume_ml: 20,
+        },
+        theory_vi: 'Khi xả hết lớp nước phía dưới tới vạch phân cách, khóa phễu chiết lại. Lớp este hữu cơ tinh khiết được giữ lại hoàn toàn trong phễu chiết!',
+      },
+    ],
+    conclusion_en: 'Liquid-liquid extraction efficiently isolates organic compounds based on differential solubility and density separation between immiscible solvents.',
+    conclusion_vi: 'Kỹ thuật chiết lỏng - lỏng phân tách hiệu quả các hợp chất hữu cơ nhờ sự khác biệt về độ tan và khối lượng riêng giữa hai dung môi không trộn lẫn.',
+  },
+  ...ADVANCED_EXPERIMENTS,
 ];

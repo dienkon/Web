@@ -1,5 +1,7 @@
 # Mô Hình Dữ Liệu (Data Model)
 
+Web chính và Lab-2D hiện dùng `shared/elements.json`. Dữ liệu nguyên tử khối chuẩn rút gọn được lưu tại `shared/atomic-weights.json` (84 mục CIAAW 2024: `z`, `symbol`, `value`, `uncertainty`, `text`), áp dụng vào trường `mass` và `massSource` của dữ liệu dùng chung. `shared/element-insights.json` bổ sung ứng dụng và nguồn theo ký hiệu; ghi chú pha được chuyển sang `meltingPointNote`/`meltingPointSource`, không thay thế giá trị thiếu bằng số suy đoán. Xem [quy trình và schema của đợt nâng cấp web chính](MAIN_WEB_UPGRADE.md).
+
 Hệ thống dữ liệu của ChemDex được chia làm hai mảng chính: Dữ liệu Tĩnh (Offline JSON) cho Bảng tuần hoàn, và Dữ liệu Động (Firebase Firestore) cho Đấu trường và Cộng đồng.
 
 ---
@@ -134,3 +136,9 @@ Chứa nội dung các bài viết trên mạng xã hội ChemDex.
 
 ## 3. Kiến trúc CSDL AI Vector (Đang thử nghiệm)
 Tương lai hệ thống sẽ nhúng các bài đăng và tài liệu PDF thành dạng Vector Embeddings (thông qua ChromaDB hoặc Firestore Vector Search) để tối ưu hóa truy vấn Semantic Search cho AI Gemini.
+
+## 4. Kho phản ứng và chuỗi dùng chung
+
+`shared/reaction-catalog.generated.json` dùng schema `chemdex.catalog/2`: 1.299 phương trình phân tử, 378 phương trình ion rút gọn, điều kiện, nguồn theo họ, công thức/pha/hệ số và quan hệ `transfers`. Các mục mở rộng là dữ liệu tham khảo, tách khỏi runtime mô phỏng chuyên biệt.
+
+`shared/reaction-chains.generated.json` dùng schema `chemdex.chains/1`, chứa 5.740 đường nối ba bước, reaction ID và digest catalog nguồn. `shared/reaction-data-summary.json` là số đếm rút gọn; cổng audit đối chiếu lại với dữ liệu thật. Dùng `npm run catalog:build` để cập nhật đồng bộ, `npm run catalog:audit` và `npm run test:reactions` để kiểm tra. Xem [chính sách khoa học và tích hợp](../lab-3d/docs/research/reaction-data-1000plus.vi.md).

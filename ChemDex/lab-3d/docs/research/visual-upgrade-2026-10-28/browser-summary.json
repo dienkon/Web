@@ -1,0 +1,179 @@
+{
+  "checkedAt": "2026-10-28T10:04:08.065Z",
+  "browser": "156.0.8078.48",
+  "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000468B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "errors": [],
+  "consoleErrors": [
+    {
+      "device": "desktop",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "device": "desktop",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    }
+  ],
+  "limitations": "Measurement after typecheck and tests finished, with HMR disabled. No JSON writes until the browser is closed. Wait for DOM and canvas readiness, not remote network idleness. Fresh browser contexts; local Vite development build; hardware WebGL. Viewport emulation is not physical mobile validation. FrameTelemetry samples, not GPU timer queries; postprocessing draw counts are incomplete. UI screenshots excluded from sampling. Three reaction starts include settling/completion tails, not constant-load stress.",
+  "scenarios": [
+    {
+      "name": "desktop-auto",
+      "tierStart": "medium",
+      "tierEnd": "medium",
+      "windows": 8,
+      "fpsMedian": 58,
+      "fpsMin": 36,
+      "fpsMax": 61,
+      "frameMsMedian": 17.35,
+      "largestWindowP95_ms": 52.4,
+      "canvas": {
+        "width": 832,
+        "height": 907,
+        "rect": {
+          "x": 288,
+          "y": 93,
+          "width": 832,
+          "height": 907
+        }
+      },
+      "setup": null
+    },
+    {
+      "name": "desktop-high",
+      "tierStart": "high",
+      "tierEnd": "high",
+      "windows": 8,
+      "fpsMedian": 36,
+      "fpsMin": 34,
+      "fpsMax": 37,
+      "frameMsMedian": 27.5,
+      "largestWindowP95_ms": 43.5,
+      "canvas": {
+        "width": 832,
+        "height": 907,
+        "rect": {
+          "x": 288,
+          "y": 93,
+          "width": 832,
+          "height": 907
+        }
+      },
+      "setup": {
+        "frontType": "MeshPhysicalMaterial",
+        "frontTransmission": 0,
+        "frontOpacity": 0.08,
+        "frontSide": 0
+      }
+    },
+    {
+      "name": "desktop-ultra",
+      "tierStart": "ultra",
+      "tierEnd": "ultra",
+      "windows": 8,
+      "fpsMedian": 13.5,
+      "fpsMin": 13,
+      "fpsMax": 14,
+      "frameMsMedian": 74.1,
+      "largestWindowP95_ms": 228.9,
+      "canvas": {
+        "width": 832,
+        "height": 907,
+        "rect": {
+          "x": 288,
+          "y": 93,
+          "width": 832,
+          "height": 907
+        }
+      },
+      "setup": {
+        "frontType": "MeshStandardMaterial",
+        "frontTransmission": 0,
+        "frontOpacity": 0.16,
+        "frontSide": 2
+      }
+    },
+    {
+      "name": "desktop-three-reactions",
+      "tierStart": "high",
+      "tierEnd": "high",
+      "windows": 8,
+      "fpsMedian": 26,
+      "fpsMin": 23,
+      "fpsMax": 30,
+      "frameMsMedian": 38.5,
+      "largestWindowP95_ms": 90.6,
+      "canvas": {
+        "width": 832,
+        "height": 907,
+        "rect": {
+          "x": 288,
+          "y": 93,
+          "width": 832,
+          "height": 907
+        }
+      },
+      "setup": [
+        {
+          "program": "caco3_hcl",
+          "id": "beaker_1",
+          "started": true
+        },
+        {
+          "program": "zn_cuso4",
+          "id": "studio_sample_1793181896579_w0wshc",
+          "started": true
+        },
+        {
+          "program": "bacl2_na2so4",
+          "id": "studio_sample_1793181896581_60yek6",
+          "started": true
+        }
+      ]
+    },
+    {
+      "name": "mobile-default",
+      "tierStart": "high",
+      "tierEnd": "potato",
+      "windows": 7,
+      "fpsMedian": 75,
+      "fpsMin": 13,
+      "fpsMax": 144,
+      "frameMsMedian": 13.4,
+      "largestWindowP95_ms": 114.2,
+      "canvas": {
+        "width": 292,
+        "height": 516,
+        "rect": {
+          "x": 0,
+          "y": 155,
+          "width": 390,
+          "height": 689
+        }
+      },
+      "setup": null
+    },
+    {
+      "name": "mobile-low-clear",
+      "tierStart": "low",
+      "tierEnd": "low",
+      "windows": 8,
+      "fpsMedian": 144,
+      "fpsMin": 136,
+      "fpsMax": 144,
+      "frameMsMedian": 6.9,
+      "largestWindowP95_ms": 9.6,
+      "canvas": {
+        "width": 390,
+        "height": 689,
+        "rect": {
+          "x": 0,
+          "y": 155,
+          "width": 390,
+          "height": 689
+        }
+      },
+      "setup": {
+        "layout": "Both drawers closed for a clear workbench view"
+      }
+    }
+  ]
+}

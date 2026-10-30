@@ -1,0 +1,520 @@
+{
+  "passed": true,
+  "checks": [
+    "27 named detailed bottles remain in cabinets",
+    "16 five-legged stools remain",
+    "cabinet shares two bottle labels plus two door labels",
+    "cabinet borrows source geometry instead of 9 independent models",
+    "16 named glass beakers remain on rack",
+    "16 beakers share all 3 geometry resources",
+    "16 beakers share graduations and label textures",
+    "actual first practice step opens both cabinet hinges",
+    "closing practice resets both hinges",
+    "Canvas and adaptive quality agree on DPR: potato",
+    "Canvas and adaptive quality agree on DPR: low",
+    "Canvas and adaptive quality agree on DPR: medium",
+    "Canvas and adaptive quality agree on DPR: high",
+    "Canvas and adaptive quality agree on DPR: low",
+    "moving hose retains its GPU geometry",
+    "moving hose updates persistent position buffer",
+    "hose keeps full radial and longitudinal detail",
+    "stationary reduced-motion hose skips buffer uploads",
+    "switching tool removes hose 0",
+    "switching tool removes hose 1",
+    "switching tool removes hose 2",
+    "switching tool removes hose 3",
+    "shared source renders in every lifecycle cycle",
+    "remount cycles release all model resources back to ordinary renderer baseline",
+    "same render resolution before/after: room",
+    "fewer draw calls without removing models: room",
+    "all named model bounds and placements preserved: room",
+    "same render resolution before/after: cabinets-closed",
+    "fewer draw calls without removing models: cabinets-closed",
+    "all named model bounds and placements preserved: cabinets-closed",
+    "same render resolution before/after: cabinets-open",
+    "fewer draw calls without removing models: cabinets-open",
+    "all named model bounds and placements preserved: cabinets-open",
+    "same render resolution before/after: glass-rack",
+    "fewer draw calls without removing models: glass-rack",
+    "all named model bounds and placements preserved: glass-rack",
+    "same render resolution before/after: stools",
+    "fewer draw calls without removing models: stools",
+    "all named model bounds and placements preserved: stools",
+    "same render resolution before/after: held-hose",
+    "fewer draw calls without removing models: held-hose",
+    "all named model bounds and placements preserved: held-hose",
+    "no runtime exceptions during room upgrade checks"
+  ],
+  "errors": [],
+  "snapshots": {
+    "cabinet": {
+      "geometries": [
+        "59f828c7-3211-452a-b5a7-bcf451054134",
+        "183d4d04-4358-47af-9655-813f9974776d",
+        "d8a8ddf2-a6db-4da7-8fac-e96189859c5f",
+        "1e96f3ab-eb92-4470-812c-edd4470bc5be",
+        "379b0e4a-90d5-4b97-9156-d9a18dd5c151",
+        "792919bd-8cae-4deb-a32a-b869fed85e43",
+        "72188d35-1049-439e-ba8c-a12a02af3504",
+        "0d86a790-f085-4c89-b968-cce1205b8f60",
+        "d07f81ee-ec1f-4fba-8f3e-bdf2f8495565",
+        "b1ce7261-0ae9-450e-830f-4a9229b8affc",
+        "ef41c1b3-ef36-4381-a11f-37d636075bec",
+        "558d4828-d574-4e77-a681-6b8460eda798",
+        "451f7460-a0c9-4624-836c-115716d2880e",
+        "0cdd1e28-913f-4af5-8d83-7b4bf1a8b62c",
+        "c4120e3a-182a-40f8-a715-ac5b182f5760",
+        "e4f045c1-cdd8-4be6-a0c7-bcb6a6a1a3b5",
+        "468cc147-ade4-4388-a37a-882c0ff5265f",
+        "21acd695-a070-4b61-9090-4bb884c58a87",
+        "20babd17-90cb-47bd-ad55-26f737ac854f",
+        "22cb326e-f953-42f0-81cb-47d1939a01e6",
+        "2fa57a3f-7676-47a6-a9de-a60e73ea0c24",
+        "aed9d765-2d1f-44ce-94c7-8fb36426ca55",
+        "2da70462-f892-4973-b3ae-5ba273ce83bb",
+        "3bf114c3-5a04-49a2-b499-b5bdbcf8c768",
+        "eed66826-5fa3-4555-9531-07a6b0ef6880",
+        "a27d7207-4980-4f4c-83a0-30141ad42bab",
+        "f7947474-455b-4401-a4ab-950b5323264f",
+        "a51f0874-b053-423e-83a2-b275053d184e",
+        "c6fde6a4-a1b2-4f34-9d42-2bb3fc2dba0f",
+        "4e673730-947a-44cf-8c19-12593441bbce",
+        "a08b598a-cd2f-4ccb-bfb5-3691a79e54ac",
+        "b69679b2-4d47-45a5-872f-6086bb85d208",
+        "2606983c-fcdb-4003-97c1-f0b30feb7b59",
+        "83011001-c1c9-43c7-ad4c-a9856910571d",
+        "51f59107-3f10-47a0-ae18-fe305d564470",
+        "8f3082cc-bd48-4206-a7c9-58e295d649b9",
+        "5fd3b842-eb9f-460f-9d43-cf7a1b39b661",
+        "7f3077e1-6acb-47c0-a629-831fa1debe28",
+        "f52ec93f-a96d-4fa4-a6a1-28f4dba95324",
+        "122cd58d-4552-4286-92c8-50efb713aa46",
+        "8162cc2b-6266-431d-9709-34b2415922e4",
+        "43713d4c-4b80-449b-8a0b-e6e57b40e06f",
+        "08ea71e9-86b0-4acb-8dcc-74e6cbd9805f",
+        "31631889-5917-44cb-9c3a-11bb55824d5d",
+        "3fe8cb0c-baa1-480e-a9bc-4e22cff91ffb",
+        "de4826da-a8e4-46f8-83ea-c48ee28ed16a"
+      ],
+      "materials": [
+        "305a180b-5fe4-4e1f-854b-f83c64daa76b",
+        "94bee1a2-dc04-4362-a320-b67b9f7cd8aa",
+        "694188f5-e419-4eda-91a6-c56f6ce3c0c1",
+        "ce80897c-c775-4c12-90f1-6ffb84335d08",
+        "583ad716-6809-4600-b53e-09bdb8a38c90",
+        "ea59700f-5ea8-424b-bd66-556dcc71b051",
+        "0b69c796-6c09-4413-9b3e-b5fa6532e915",
+        "aea9800b-38a6-4e1a-8a01-6066f393374a",
+        "37adf46a-22f6-4202-9151-cb0344f9cbf2",
+        "bf846ccc-db31-4922-82a4-e9b5290937c1",
+        "e4590e05-17ef-4075-8d32-8ea3d4459f9a",
+        "d524b62f-c40d-4cc5-9b7e-191b2d14bf38",
+        "62ff3395-c521-4e8f-8d57-fd2828c139bc",
+        "90f15a78-047b-41c2-a19c-6f02d7e22ec2",
+        "e4b55d11-f887-4525-8e67-21066aab80dc",
+        "857cb5af-a982-4845-bfee-3fe196cf3281",
+        "533a5a64-5ca9-4d7d-be55-bbf22af436e4",
+        "ce67a2d7-3ac5-4d8e-9cc8-e6cc955aab99",
+        "67107594-49ae-4c13-95bc-7a722b953880",
+        "72d39893-7964-464b-929b-5b75d7ed5de7",
+        "52450f81-06e1-4322-8b8f-403aff52e99a",
+        "89faea6a-7b46-4103-a4f2-4759587f0194",
+        "95c3e876-31c0-4f85-bb1c-9e4d0d319f20",
+        "ffa6b0a5-50c5-4b19-9b71-0bf42f5d9e42",
+        "2511d110-db79-4857-9fa8-65b4b60605ea",
+        "f85effcc-7c62-4e30-9f70-4ec6fd2fbc0b",
+        "a7c052d5-0dba-452b-938b-179bb75bca6a",
+        "ace52516-1366-4f42-ba90-2b467c61f10c",
+        "ef3ee12a-cbc0-432b-a71a-4188730ed4f6",
+        "fa7e4113-74b6-40e1-880f-444bae3c75b6",
+        "b73496ba-0680-455a-8f3b-a2f348f2899d",
+        "b442c56e-77a2-4e83-8df4-a3be7fa82c07",
+        "31b80f32-7200-4d50-bb43-7125d759268a",
+        "b1a1567e-34f1-4725-9212-03c4204e8c3c",
+        "8c6bcfc6-c8de-44a5-9786-ad27ecb8f66c",
+        "5de4e892-a45e-45ac-a612-802be1e65635",
+        "e13d1958-e573-4868-be86-733d68d308e2",
+        "e5439af6-d6ef-421d-98d0-1c33c54f77c2",
+        "a760ade3-181a-41d1-8bde-d9f829b90f1b",
+        "41402f2d-92a9-4e82-aa2f-193455bc7d79",
+        "6104125e-dd6e-408d-9efa-0254feb4bc17",
+        "37d82e64-d203-4435-abdb-283ddc9a24f1",
+        "a820edbf-da24-447a-afd7-3070fe7dd5c6",
+        "2c1a7f6d-aa76-45b7-9672-16683e13c22a",
+        "94b3cd35-115f-4f32-80b3-99da19812835",
+        "1e8b09be-dbde-4fe6-8bed-edd984ebc065"
+      ],
+      "textures": [
+        "19fd4033-a681-4ea9-a865-02facdf5401c",
+        "d1669fc6-8c5b-4175-8574-5233fec8dee0",
+        "3bb76f95-cbac-411e-85d7-a4277ae7308e",
+        "4328a8f3-bf3f-4de7-9aa5-1b12cf97274a"
+      ],
+      "instances": 333,
+      "buffers": [
+        {
+          "geometry": "59f828c7-3211-452a-b5a7-bcf451054134",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "183d4d04-4358-47af-9655-813f9974776d",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "d8a8ddf2-a6db-4da7-8fac-e96189859c5f",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "1e96f3ab-eb92-4470-812c-edd4470bc5be",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "379b0e4a-90d5-4b97-9156-d9a18dd5c151",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "792919bd-8cae-4deb-a32a-b869fed85e43",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "72188d35-1049-439e-ba8c-a12a02af3504",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "0d86a790-f085-4c89-b968-cce1205b8f60",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "d07f81ee-ec1f-4fba-8f3e-bdf2f8495565",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "b1ce7261-0ae9-450e-830f-4a9229b8affc",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "ef41c1b3-ef36-4381-a11f-37d636075bec",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "558d4828-d574-4e77-a681-6b8460eda798",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "451f7460-a0c9-4624-836c-115716d2880e",
+          "vertices": 231,
+          "version": 0,
+          "indices": 1152
+        },
+        {
+          "geometry": "0cdd1e28-913f-4af5-8d83-7b4bf1a8b62c",
+          "vertices": 231,
+          "version": 0,
+          "indices": 1152
+        },
+        {
+          "geometry": "c4120e3a-182a-40f8-a715-ac5b182f5760",
+          "vertices": 231,
+          "version": 0,
+          "indices": 1152
+        },
+        {
+          "geometry": "e4f045c1-cdd8-4be6-a0c7-bcb6a6a1a3b5",
+          "vertices": 148,
+          "version": 0,
+          "indices": 288
+        },
+        {
+          "geometry": "468cc147-ade4-4388-a37a-882c0ff5265f",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "21acd695-a070-4b61-9090-4bb884c58a87",
+          "vertices": 66,
+          "version": 0,
+          "indices": 192
+        },
+        {
+          "geometry": "20babd17-90cb-47bd-ad55-26f737ac854f",
+          "vertices": 784,
+          "version": 0,
+          "indices": 4320
+        },
+        {
+          "geometry": "22cb326e-f953-42f0-81cb-47d1939a01e6",
+          "vertices": 82,
+          "version": 0,
+          "indices": 240
+        },
+        {
+          "geometry": "2fa57a3f-7676-47a6-a9de-a60e73ea0c24",
+          "vertices": 244,
+          "version": 0,
+          "indices": 480
+        },
+        {
+          "geometry": "aed9d765-2d1f-44ce-94c7-8fb36426ca55",
+          "vertices": 42,
+          "version": 0,
+          "indices": 120
+        },
+        {
+          "geometry": "2da70462-f892-4973-b3ae-5ba273ce83bb",
+          "vertices": 231,
+          "version": 0,
+          "indices": 1152
+        },
+        {
+          "geometry": "3bf114c3-5a04-49a2-b499-b5bdbcf8c768",
+          "vertices": 231,
+          "version": 0,
+          "indices": 1152
+        },
+        {
+          "geometry": "eed66826-5fa3-4555-9531-07a6b0ef6880",
+          "vertices": 231,
+          "version": 0,
+          "indices": 1152
+        },
+        {
+          "geometry": "a27d7207-4980-4f4c-83a0-30141ad42bab",
+          "vertices": 148,
+          "version": 0,
+          "indices": 288
+        },
+        {
+          "geometry": "f7947474-455b-4401-a4ab-950b5323264f",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "a51f0874-b053-423e-83a2-b275053d184e",
+          "vertices": 66,
+          "version": 0,
+          "indices": 192
+        },
+        {
+          "geometry": "c6fde6a4-a1b2-4f34-9d42-2bb3fc2dba0f",
+          "vertices": 784,
+          "version": 0,
+          "indices": 4320
+        },
+        {
+          "geometry": "4e673730-947a-44cf-8c19-12593441bbce",
+          "vertices": 82,
+          "version": 0,
+          "indices": 240
+        },
+        {
+          "geometry": "a08b598a-cd2f-4ccb-bfb5-3691a79e54ac",
+          "vertices": 244,
+          "version": 0,
+          "indices": 480
+        },
+        {
+          "geometry": "b69679b2-4d47-45a5-872f-6086bb85d208",
+          "vertices": 42,
+          "version": 0,
+          "indices": 120
+        },
+        {
+          "geometry": "2606983c-fcdb-4003-97c1-f0b30feb7b59",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "83011001-c1c9-43c7-ad4c-a9856910571d",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "51f59107-3f10-47a0-ae18-fe305d564470",
+          "vertices": 4,
+          "version": 0,
+          "indices": 6
+        },
+        {
+          "geometry": "8f3082cc-bd48-4206-a7c9-58e295d649b9",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "5fd3b842-eb9f-460f-9d43-cf7a1b39b661",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "7f3077e1-6acb-47c0-a629-831fa1debe28",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "f52ec93f-a96d-4fa4-a6a1-28f4dba95324",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "122cd58d-4552-4286-92c8-50efb713aa46",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "8162cc2b-6266-431d-9709-34b2415922e4",
+          "vertices": 4,
+          "version": 0,
+          "indices": 6
+        },
+        {
+          "geometry": "43713d4c-4b80-449b-8a0b-e6e57b40e06f",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "08ea71e9-86b0-4acb-8dcc-74e6cbd9805f",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "31631889-5917-44cb-9c3a-11bb55824d5d",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "3fe8cb0c-baa1-480e-a9bc-4e22cff91ffb",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        },
+        {
+          "geometry": "de4826da-a8e4-46f8-83ea-c48ee28ed16a",
+          "vertices": 24,
+          "version": 0,
+          "indices": 36
+        }
+      ]
+    },
+    "hose": {
+      "first": {
+        "geometries": [
+          "47e6cc15-2132-4bab-90d4-6ca19f685ee7"
+        ],
+        "materials": [
+          "11ea514e-b238-4599-8c5d-475217469742"
+        ],
+        "textures": [],
+        "instances": 0,
+        "buffers": [
+          {
+            "geometry": "47e6cc15-2132-4bab-90d4-6ca19f685ee7",
+            "vertices": 119,
+            "version": 16,
+            "indices": 576
+          }
+        ]
+      },
+      "later": {
+        "geometries": [
+          "47e6cc15-2132-4bab-90d4-6ca19f685ee7"
+        ],
+        "materials": [
+          "11ea514e-b238-4599-8c5d-475217469742"
+        ],
+        "textures": [],
+        "instances": 0,
+        "buffers": [
+          {
+            "geometry": "47e6cc15-2132-4bab-90d4-6ca19f685ee7",
+            "vertices": 119,
+            "version": 56,
+            "indices": 576
+          }
+        ]
+      }
+    },
+    "lifecycle": {
+      "baseline": {
+        "geometries": 0,
+        "textures": 1
+      },
+      "cycles": [
+        {
+          "mounted": {
+            "geometries": 10,
+            "textures": 2
+          },
+          "cleared": {
+            "geometries": 0,
+            "textures": 1
+          }
+        },
+        {
+          "mounted": {
+            "geometries": 10,
+            "textures": 2
+          },
+          "cleared": {
+            "geometries": 0,
+            "textures": 1
+          }
+        },
+        {
+          "mounted": {
+            "geometries": 10,
+            "textures": 2
+          },
+          "cleared": {
+            "geometries": 0,
+            "textures": 1
+          }
+        },
+        {
+          "mounted": {
+            "geometries": 10,
+            "textures": 2
+          },
+          "cleared": {
+            "geometries": 0,
+            "textures": 1
+          }
+        }
+      ]
+    }
+  }
+}

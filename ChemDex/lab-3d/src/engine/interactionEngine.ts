@@ -5,7 +5,8 @@ import { VesselState, ChemicalDefinition } from '../types/chemistry';
  * Reusable physical constraint parameters and laboratory geometry dimensions
  */
 export const LAB_PHYSICS = {
-  TABLE_SURFACE_Y: -0.135,
+  TABLE_SURFACE_Y: -1.175,
+  VESSEL_REST_Y: -0.135, // Vessel origin; its glass base is 1.04 units lower.
   BURNER_SURFACE_Y: -0.975,
   BALANCE_PAN_Y: 0.15,
   BALANCE_POSITION: [7.5, -1.175, -2.5] as [number, number, number],
@@ -34,7 +35,7 @@ export const LAB_PHYSICS = {
 export function calculateVesselMass(vessel: VesselState): number {
   const tare = vessel.tare_g ?? LAB_PHYSICS.CONTAINER_TARE_MASS[vessel.type] ?? 80;
   // mass_g includes solvent and solutes; summing contents again double-counts.
-  return tare + Math.max(0, vessel.mass_g);
+  return tare + Math.max(0, vessel.mass_g) + Math.max(0, vessel.wallCoatingMass_g ?? 0) + Math.max(0, vessel.outerWallCoatingMass_g ?? 0);
 }
 
 /**

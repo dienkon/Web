@@ -1,7 +1,7 @@
 import {writeFile} from 'node:fs/promises';
 import {send,evaluate,ev,check,wait,click,shot,mouse,delay,errors,checks,socket,target,cdp,app} from './practical-browser-driver.mjs';
 async function mount(code){
- await evaluate(`(async()=>{window.uxRoot?.unmount();const reactModule=await import('/node_modules/.vite/deps/react.js');const React=reactModule.default??reactModule;const rootModule=await import('/node_modules/.vite/deps/react-dom_client.js');const {createRoot}=rootModule.default??rootModule;let host=document.getElementById('ux-host');if(!host){host=document.createElement('div');host.id='ux-host';document.body.append(host);}window.uxRoot=createRoot(host);${code}})()`);await delay(250);
+ await evaluate(`(async()=>{window.uxRoot?.unmount();const reactModule=await import(performance.getEntriesByType('resource').find(e=>new URL(e.name).pathname==='/node_modules/.vite/deps/react.js').name);const React=reactModule.default??reactModule;const rootModule=await import(performance.getEntriesByType('resource').find(e=>new URL(e.name).pathname==='/node_modules/.vite/deps/react-dom_client.js').name);const {createRoot}=rootModule.default??rootModule;let host=document.getElementById('ux-host');if(!host){host=document.createElement('div');host.id='ux-host';document.body.append(host);}window.uxRoot=createRoot(host);${code}})()`);await delay(250);
 }
 async function fits(selector,label){
  check(await evaluate(`(()=>{const e=document.querySelector(${JSON.stringify(selector)});if(!e)return false;const r=e.getBoundingClientRect();return r.top>=-1&&r.left>=-1&&r.right<=innerWidth+1&&r.bottom<=innerHeight+1&&e.scrollWidth<=e.clientWidth+1;})()`),label);

@@ -52,8 +52,12 @@ describe('Finite reaction and particle lifetimes', () => {
 
   it('uses numerous tiny PbI2 platelets with a bounded instance pool', () => {
     const system = new PrecipitationSystem(550, 'PbI2', new PRNG(41));
-    for (let index = 0; index < 60; index++) system.update(1 / 60, params());
-    expect(system.particles.length).toBeGreaterThan(200);
+    for (let index = 0; index < 60; index++) system.update(1 / 60, { ...params(), formation: 'CRYSTAL_PLATE' });
+    // Some emitted platelets may already have settled; particle pool occupancy
+    // must not prescribe an artificial minimum suspension lifetime.
+    expect(system.emittedCount).toBeGreaterThan(200);
+    expect(system.particles.length).toBeGreaterThan(0);
+    expect(system.representedMass_g).toBeCloseTo(0.2, 10);
     expect(system.particles.length).toBeLessThanOrEqual(550);
     expect(system.particles.every(particle => particle.radius < 0.008)).toBe(true);
   });
