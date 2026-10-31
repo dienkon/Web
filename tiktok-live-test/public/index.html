@@ -70,7 +70,7 @@
       z-index: 1;
       filter: brightness(0.98) contrast(1.06);
       transform-origin: center 40%;
-      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s ease;
+      will-change: transform;
     }
 
     /* HÀO QUANG PHẬT BẢO TỌA TRÊN CAO */
@@ -121,8 +121,8 @@
       z-index: 5;
       pointer-events: none;
       overflow: hidden;
-      transform-origin: center center;
-      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-origin: 50% 50%;
+      will-change: transform;
     }
 
     /* ========================================================
@@ -268,6 +268,140 @@
       color: #d1d5db;
       font-style: italic;
       white-space: nowrap;
+    }
+
+    /* ========================================================
+       BẢNG XẾP HẠNG CÔNG ĐỨC (XU & TIM)
+       Tự động xoay tua hoặc bấm chọn Tab xem Top 3
+       ======================================================== */
+    .leaderboard-widget {
+      position: absolute;
+      top: 138px;
+      left: 10px;
+      width: 146px;
+      background: rgba(8, 22, 14, 0.94);
+      border: 1.5px solid #ca8a04;
+      border-radius: 12px;
+      padding: 5px 6px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.85), inset 0 0 10px rgba(202, 138, 4, 0.2);
+      z-index: 20;
+      pointer-events: auto;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .leaderboard-tabs {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 4px;
+      border-bottom: 1px solid rgba(250, 204, 21, 0.25);
+      padding-bottom: 3px;
+    }
+
+    .leaderboard-tab-btn {
+      flex: 1;
+      font-size: 0.60rem;
+      font-weight: 700;
+      padding: 2px 0;
+      text-align: center;
+      background: rgba(20, 83, 45, 0.6);
+      color: #fef08a;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .leaderboard-tab-btn.active {
+      background: #b45309;
+      color: #fff;
+      border-color: #fde047;
+      box-shadow: 0 0 6px #f59e0b;
+    }
+
+    .leaderboard-list {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .leaderboard-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(15, 38, 22, 0.65);
+      border-radius: 6px;
+      padding: 2px 4px;
+      font-size: 0.60rem;
+      transition: all 0.2s;
+    }
+
+    .leaderboard-rank-icon {
+      font-size: 0.70rem;
+      flex-shrink: 0;
+      width: 14px;
+      text-align: center;
+    }
+
+    .leaderboard-avatar {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1px solid #fde047;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .leaderboard-name {
+      flex: 1;
+      color: #fef08a;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 52px;
+    }
+
+    .leaderboard-val {
+      color: #fef3c7;
+      font-weight: 800;
+      font-size: 0.58rem;
+      white-space: nowrap;
+      text-shadow: 0 0 4px #f59e0b;
+    }
+
+    /* ========================================================
+       CINEMATIC FOCUS MODE: KHI THỰC THI HIỆU ỨNG TẶNG QUÀ
+       Hide hết tất cả các bảng để làm nổi bật nhân vật ở center
+       ======================================================== */
+    .screen-stage.cinematic-focus .top-widgets-container,
+    .screen-stage.cinematic-focus .leaderboard-widget,
+    .screen-stage.cinematic-focus .zen-philosophy-bar,
+    .screen-stage.cinematic-focus .bottom-ticker-container {
+      opacity: 0 !important;
+      pointer-events: none !important;
+      transform: translateY(-16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .top-widgets-container,
+    .leaderboard-widget,
+    .zen-philosophy-bar,
+    .bottom-ticker-container {
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    /* Làm mờ các nhân vật khác để nổi bật nhân vật có hiệu ứng ở trung tâm */
+    .screen-stage.cinematic-focus .worshipper-figure:not(.active-focus) {
+      opacity: 0.18 !important;
+      filter: blur(1.5px) !important;
+      transition: opacity 0.6s ease, filter 0.6s ease;
+    }
+
+    .worshipper-figure.active-focus {
+      opacity: 1 !important;
+      filter: none !important;
+      z-index: 1000 !important;
     }
 
     /* ========================================================
@@ -777,6 +911,15 @@
 
     </div>
 
+    <!-- BẢNG XẾP HẠNG CÔNG ĐỨC (XU & TIM) -->
+    <div class="leaderboard-widget" id="leaderboardWidget">
+      <div class="leaderboard-tabs">
+        <button class="leaderboard-tab-btn active" id="tabCoins" onclick="switchLeaderboardTab('coins')">🏆 Top Xu</button>
+        <button class="leaderboard-tab-btn" id="tabLikes" onclick="switchLeaderboardTab('likes')">💖 Top Tim</button>
+      </div>
+      <div class="leaderboard-list" id="leaderboardList"></div>
+    </div>
+
     <!-- 4. BANNER GIỮA: VÔ THƯỜNG · GIỌNG ĐỌC AI -->
     <div class="zen-philosophy-bar">
       <div class="zen-meta-label">📖 Vô thường · giọng đọc AI</div>
@@ -810,10 +953,12 @@
 
     <div style="font-size:0.7rem; color:#a1a1aa; margin-bottom:4px;">Thử nghiệm sự kiện tương tác chuẩn 3D:</div>
     <div class="sim-grid">
-      <button class="sim-btn" id="simGiftRose">🌹 1 Bông (Zoom + Lời Chúc)</button>
-      <button class="sim-btn" id="simGift5Coin">🕯️ 5 Xu (3 Nén Nhang Chi Tiết)</button>
-      <button class="sim-btn" id="simGift10Rose">🪷 10 Bông (Phi Thăng Tòa Sen)</button>
-      <button class="sim-btn" id="simJoinWorshipper">🚶 Thêm Người Đi Lễ Phật</button>
+      <button class="sim-btn" id="simGiftRose">🌹 1 Bông (1 Xu)</button>
+      <button class="sim-btn" id="simGift5Coin">🕯️ 5 Xu (3 Nén Nhang)</button>
+      <button class="sim-btn" id="simGift10Rose">🪷 10 Bông (10 Xu Phi Thăng)</button>
+      <button class="sim-btn" id="simJoinWorshipper">🚶 Thêm Người Đi Lễ</button>
+      <button class="sim-btn" id="simAddLikes">💖 Thả 50 Tim (BXH Tim)</button>
+      <button class="sim-btn" id="simToggleRank">🏆 Đổi Tab BXH (Xu ⇄ Tim)</button>
     </div>
 
     <div class="obs-toolbar">
@@ -981,6 +1126,105 @@
         ritualOverlay.classList.remove("active");
       }, 5000);
     }
+
+    // ========================================================
+    // 2B. BẢNG XẾP HẠNG CÔNG ĐỨC (XU) VÀ THẢ TIM
+    // Tự động tính data thật khi người xem tặng quà hoặc thả tim
+    // ========================================================
+    const coinLeaderboard = {
+      "user_1": { nickname: "Minh Tuệ", uniqueId: "mtue", avatar: "", score: 68 },
+      "user_2": { nickname: "Diệu Âm", uniqueId: "dam", avatar: "", score: 45 },
+      "user_3": { nickname: "Phúc Lâm", uniqueId: "plam", avatar: "", score: 20 },
+      "user_4": { nickname: "Bảo An", uniqueId: "baoan", avatar: "", score: 10 },
+    };
+
+    const likeLeaderboard = {
+      "user_1": { nickname: "Khánh Linh", uniqueId: "khanhlinh", avatar: "", score: 1850 },
+      "user_2": { nickname: "Quang Minh", uniqueId: "quangminh", avatar: "", score: 1200 },
+      "user_3": { nickname: "Tâm An", uniqueId: "taman", avatar: "", score: 850 },
+      "user_4": { nickname: "Diệu Thiện", uniqueId: "dieuthien", avatar: "", score: 500 },
+    };
+
+    let currentLeaderboardTab = "coins"; // "coins" hoặc "likes"
+
+    function addCoinLeaderboard(user, coins) {
+      const uid = user.uniqueId || user.nickname || "unknown";
+      if (!coinLeaderboard[uid]) {
+        coinLeaderboard[uid] = {
+          nickname: user.nickname || uid,
+          uniqueId: uid,
+          avatar: user.avatar || "",
+          score: 0
+        };
+      }
+      coinLeaderboard[uid].score += coins;
+      renderLeaderboard();
+    }
+
+    function addLikesLeaderboard(user, likes) {
+      const uid = user.uniqueId || user.nickname || "unknown";
+      if (!likeLeaderboard[uid]) {
+        likeLeaderboard[uid] = {
+          nickname: user.nickname || uid,
+          uniqueId: uid,
+          avatar: user.avatar || "",
+          score: 0
+        };
+      }
+      likeLeaderboard[uid].score += likes;
+      renderLeaderboard();
+    }
+
+    function switchLeaderboardTab(tab) {
+      currentLeaderboardTab = tab;
+      updateLeaderboardTabUI();
+      renderLeaderboard();
+    }
+
+    function updateLeaderboardTabUI() {
+      const tabCoins = document.getElementById("tabCoins");
+      const tabLikes = document.getElementById("tabLikes");
+      if (!tabCoins || !tabLikes) return;
+      if (currentLeaderboardTab === "coins") {
+        tabCoins.classList.add("active");
+        tabLikes.classList.remove("active");
+      } else {
+        tabLikes.classList.add("active");
+        tabCoins.classList.remove("active");
+      }
+    }
+
+    function renderLeaderboard() {
+      const listEl = document.getElementById("leaderboardList");
+      if (!listEl) return;
+      const data = currentLeaderboardTab === "coins" ? coinLeaderboard : likeLeaderboard;
+      const sorted = Object.values(data).sort((a, b) => b.score - a.score).slice(0, 3);
+
+      const rankIcons = ["🥇", "🥈", "🥉"];
+      const unit = currentLeaderboardTab === "coins" ? "xu" : "tim";
+
+      listEl.innerHTML = sorted.map((item, idx) => {
+        const avUrl = item.avatar || `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(item.uniqueId)}`;
+        const valStr = item.score >= 1000 ? (item.score / 1000).toFixed(1) + "k" : item.score;
+        return `
+          <div class="leaderboard-item">
+            <span class="leaderboard-rank-icon">${rankIcons[idx] || (idx + 1)}</span>
+            <img class="leaderboard-avatar" src="${avUrl}" onerror="this.src='https://api.dicebear.com/7.x/bottts/svg?seed=user'" />
+            <span class="leaderboard-name">${escapeHtml(item.nickname)}</span>
+            <span class="leaderboard-val">${valStr} ${unit}</span>
+          </div>
+        `;
+      }).join("");
+    }
+
+    // Tự động xoay tua hiển thị giữa Bảng Xu và Bảng Tim mỗi 10 giây
+    setInterval(() => {
+      if (!isZoomedInAction) {
+        currentLeaderboardTab = currentLeaderboardTab === "coins" ? "likes" : "coins";
+        updateLeaderboardTabUI();
+        renderLeaderboard();
+      }
+    }, 10000);
 
     // ========================================================
     // 3. DANH NGÔN VÔ THƯỜNG (LUÂN PHIÊN MỖI 16 GIÂY)
@@ -1385,9 +1629,10 @@
     const stageContainer = document.getElementById("worshippersStage");
     const natureBackdrop = document.getElementById("natureBackdrop");
 
-    // 1) TẶNG BÔNG: ZOOM IN VÔ CHAR ĐÓ + DÁNG DÂNG HOA SEN
-    function onGiftFlower(user) {
-      addLampPointsFromCoins(1);
+    // 1) TẶNG BÔNG: ZOOM IN VÔ CHAR ĐÓ + DÁNG DÂNG HOA SEN (TÍNH THEO XU THẬT)
+    function onGiftFlower(user, coins = 1) {
+      addLampPointsFromCoins(coins);
+      addCoinLeaderboard(user, coins);
       const w = spawnPilgrim(user);
       if (!w || isZoomedInAction) return;
       isZoomedInAction = true;
@@ -1405,13 +1650,13 @@
         `Chúc ${escapeHtml(user.nickname || user.uniqueId)} tâm khai trí sáng, vạn sự hanh thông!`
       ];
       const blessText = blessings[Math.floor(Math.random() * blessings.length)];
-      w.blessingPopup.textContent = blessText;
+      w.blessingPopup.textContent = `${blessText} (+${coins} xu)`;
       w.blessingPopup.classList.add("show");
 
-      postLiveTicker("🌸", escapeHtml(user.nickname || user.uniqueId), "vừa dâng hoa sen tươi thắm cúng dường");
+      postLiveTicker("🌸", escapeHtml(user.nickname || user.uniqueId), `vừa dâng hoa sen tươi thắm (+${coins} xu)`);
 
-      // Zoom in thẳng vô nhân vật đó
-      zoomCameraToCharacter(w, 1.85);
+      // Đưa nhân vật ra CHÍNH GIỮA màn hình, ẩn hết các bảng
+      zoomCameraToCharacter(w, 2.1);
 
       // Giọng đọc AI đọc lời chúc
       speakBlessing(`Nam Mô A Di Đà Phật. ${blessText}`);
@@ -1420,7 +1665,7 @@
       spawnSpamHearts(8);
 
       setTimeout(() => {
-        resetZoomCamera();
+        resetZoomCamera(w);
         w.auraRing.classList.remove("active");
         w.blessingPopup.classList.remove("show");
         w.specialState = null;
@@ -1428,9 +1673,10 @@
       }, 4500);
     }
 
-    // 2) TẶNG 5 XU: DÁNG DÂNG 3 NÉN NHANG PHÁT SÁNG CHI TIẾT
-    function onGift5Coins(user) {
-      addLampPointsFromCoins(5);
+    // 2) TẶNG 5 XU: DÁNG DÂNG 3 NÉN NHANG PHÁT SÁNG CHI TIẾT (TÍNH THEO XU THẬT)
+    function onGift5Coins(user, coins = 5) {
+      addLampPointsFromCoins(coins);
+      addCoinLeaderboard(user, coins);
       const w = spawnPilgrim(user);
       if (!w || isZoomedInAction) return;
       isZoomedInAction = true;
@@ -1443,18 +1689,18 @@
       w.specialState = "incense";
       w.auraRing.classList.add("active");
 
-      w.blessingPopup.textContent = `Thí chủ ${escapeHtml(user.nickname || user.uniqueId)} dâng 3 nén tâm hương cúng dường!`;
+      w.blessingPopup.textContent = `Thí chủ ${escapeHtml(user.nickname || user.uniqueId)} dâng 3 nén tâm hương (+${coins} xu)!`;
       w.blessingPopup.classList.add("show");
 
-      postLiveTicker("🕯️", escapeHtml(user.nickname || user.uniqueId), "thành tâm dâng 3 nén hương trầm thơm ngát");
+      postLiveTicker("🕯️", escapeHtml(user.nickname || user.uniqueId), `thành tâm dâng 3 nén hương trầm thơm ngát (+${coins} xu)`);
 
-      // Zoom in chi tiết cảnh thắp nhang
-      zoomCameraToCharacter(w, 2.15);
+      // Zoom in chi tiết cảnh thắp nhang và đưa ra CENTER màn hình
+      zoomCameraToCharacter(w, 2.25);
 
-      speakBlessing(`Nam Mô A Di Đà Phật. Thí chủ ${user.nickname || user.uniqueId} thành tâm dâng ba nén tâm hương, nguyện cầu gia đạo bình an!`);
+      speakBlessing(`Nam Mô A Di Đà Phật. Thí chủ ${user.nickname || user.uniqueId} thành tâm dâng ba nén tâm hương, cúng dường ${coins} xu, nguyện cầu gia đạo bình an!`);
 
       setTimeout(() => {
-        resetZoomCamera();
+        resetZoomCamera(w);
         w.auraRing.classList.remove("active");
         w.blessingPopup.classList.remove("show");
         w.specialState = null;
@@ -1462,9 +1708,10 @@
       }, 5000);
     }
 
-    // 3) TẶNG 10 BÔNG: DÁNG TỌA THIỀN TRÊN TÒA SEN PHI THĂNG
-    function onGift10FlowersAscension(user) {
-      addLampPointsFromCoins(10);
+    // 3) TẶNG 10 BÔNG: DÁNG TỌA THIỀN TRÊN TÒA SEN PHI THĂNG (TÍNH THEO XU THẬT)
+    function onGift10FlowersAscension(user, coins = 10) {
+      addLampPointsFromCoins(coins);
+      addCoinLeaderboard(user, coins);
       const w = spawnPilgrim(user);
       if (!w || isZoomedInAction) return;
       isZoomedInAction = true;
@@ -1478,21 +1725,21 @@
       w.auraRing.classList.add("active");
       w.isAscended = true;
 
-      w.blessingPopup.textContent = `ĐẮC LIÊN HOA TỌA: ${escapeHtml(user.nickname || user.uniqueId)} PHI THĂNG!`;
+      w.blessingPopup.textContent = `ĐẮC LIÊN HOA TỌA: ${escapeHtml(user.nickname || user.uniqueId)} (+${coins} XU)!`;
       w.blessingPopup.classList.add("show");
 
-      postLiveTicker("🪷", escapeHtml(user.nickname || user.uniqueId), "đắc liên hoa tọa, phi thăng miền an lạc");
+      postLiveTicker("🪷", escapeHtml(user.nickname || user.uniqueId), `đắc liên hoa tọa, phi thăng miền an lạc (+${coins} xu)`);
 
-      // Zoom in và bay lơ lửng
-      zoomCameraToCharacter(w, 1.75);
+      // Zoom in và đưa ra CENTER màn hình
+      zoomCameraToCharacter(w, 1.95);
 
-      speakBlessing(`Nam Mô A Di Đà Phật. Thí chủ ${user.nickname || user.uniqueId} đại công đức vô lượng, đắc liên hoa tọa, phi thăng thanh tịnh an lạc!`);
+      speakBlessing(`Nam Mô A Di Đà Phật. Thí chủ ${user.nickname || user.uniqueId} đại công đức vô lượng, cúng dường ${coins} xu, đắc liên hoa tọa, phi thăng thanh tịnh an lạc!`);
 
       // Mưa tim và cánh sen
       spawnSpamHearts(18);
 
       setTimeout(() => {
-        resetZoomCamera();
+        resetZoomCamera(w);
         w.isAscended = false;
         w.lotusGlow.classList.remove("active");
         w.auraRing.classList.remove("active");
@@ -1503,19 +1750,58 @@
       }, 6500);
     }
 
-    // Thuật toán zoom camera màn hình vào đúng tọa độ của nhân vật
-    function zoomCameraToCharacter(w, scale = 1.85) {
-      const originX = w.currentX;
-      const originY = Math.max(30, w.currentY - 14);
-      stageContainer.style.transformOrigin = `${originX}% ${originY}%`;
-      stageContainer.style.transform = `scale(${scale})`;
-      natureBackdrop.style.transformOrigin = `${originX}% ${originY}%`;
-      natureBackdrop.style.transform = `scale(${scale * 0.94})`;
+    // Thuật toán zoom camera màn hình đưa nhân vật về CHÍNH GIỮA (CENTER) và HIDE TẤT CẢ CÁC BẢNG
+    function zoomCameraToCharacter(w, scale = 2.1) {
+      const screenStage = document.getElementById("screenStage");
+      screenStage.classList.add("cinematic-focus");
+      w.el.classList.add("active-focus");
+
+      // Tính toán phần trăm dịch chuyển để nhân vật nằm ngay CHÍNH GIỮA (CENTER) màn hình:
+      // Mục tiêu trung tâm là X=50%, Y=56% (chừa khoảng trống phía trên cho nhãn và lời chúc)
+      const targetScreenX = 50;
+      const targetScreenY = 56;
+      const xPercent = -(w.currentX - targetScreenX) * scale;
+      const yPercent = -(w.currentY - targetScreenY) * scale;
+
+      gsap.to(stageContainer, {
+        scale: scale,
+        xPercent: xPercent,
+        yPercent: yPercent,
+        transformOrigin: "50% 50%",
+        duration: 1.1,
+        ease: "power2.out"
+      });
+
+      gsap.to(natureBackdrop, {
+        scale: scale * 0.95,
+        xPercent: xPercent * 0.82,
+        yPercent: yPercent * 0.82,
+        transformOrigin: "50% 50%",
+        duration: 1.1,
+        ease: "power2.out"
+      });
     }
 
-    function resetZoomCamera() {
-      stageContainer.style.transform = `scale(1)`;
-      natureBackdrop.style.transform = `scale(1)`;
+    function resetZoomCamera(w) {
+      const screenStage = document.getElementById("screenStage");
+      screenStage.classList.remove("cinematic-focus");
+      if (w && w.el) w.el.classList.remove("active-focus");
+
+      gsap.to(stageContainer, {
+        scale: 1,
+        xPercent: 0,
+        yPercent: 0,
+        duration: 0.9,
+        ease: "power2.inOut"
+      });
+
+      gsap.to(natureBackdrop, {
+        scale: 1,
+        xPercent: 0,
+        yPercent: 0,
+        duration: 0.9,
+        ease: "power2.inOut"
+      });
     }
 
     // ========================================================
@@ -1693,8 +1979,9 @@
 
         case "LIKE":
           spawnPilgrim(msg.data);
-          const likes = Math.min(msg.data.likeCount || 1, 30);
-          spawnSpamHearts(Math.max(4, likes));
+          const likeQty = Math.max(1, msg.data.likeCount || 1);
+          addLikesLeaderboard(msg.data, likeQty);
+          spawnSpamHearts(Math.max(4, Math.min(likeQty, 30)));
           break;
 
         case "JOIN":
@@ -1704,16 +1991,16 @@
           break;
 
         case "GIFT":
-          const coins = msg.data.diamondCount || msg.data.repeatCount || 1;
-          const count = msg.data.repeatCount || 1;
+          const giftCoins = Math.max(1, (msg.data.diamondCount || 1) * (msg.data.repeatCount || 1));
+          const giftRepeat = msg.data.repeatCount || 1;
 
-          // Xử lý thông minh theo các mức quà của user:
-          if (count >= 10 || coins >= 10) {
-            onGift10FlowersAscension(msg.data);
-          } else if (coins === 5 || count === 5) {
-            onGift5Coins(msg.data);
+          // Xử lý thông minh theo giá trị xu thật của món quà:
+          if (giftCoins >= 10 || giftRepeat >= 10) {
+            onGift10FlowersAscension(msg.data, giftCoins);
+          } else if (giftCoins >= 5 || giftRepeat >= 5) {
+            onGift5Coins(msg.data, giftCoins);
           } else {
-            onGiftFlower(msg.data);
+            onGiftFlower(msg.data, giftCoins);
           }
           break;
 
@@ -1753,19 +2040,34 @@
     document.getElementById("simGiftRose").addEventListener("click", () => {
       getAudioCtx();
       const u = testUsers[Math.floor(Math.random() * testUsers.length)];
-      onGiftFlower(u);
+      onGiftFlower(u, 1);
     });
 
     document.getElementById("simGift5Coin").addEventListener("click", () => {
       getAudioCtx();
       const u = testUsers[Math.floor(Math.random() * testUsers.length)];
-      onGift5Coins(u);
+      onGift5Coins(u, 5);
     });
 
     document.getElementById("simGift10Rose").addEventListener("click", () => {
       getAudioCtx();
       const u = testUsers[Math.floor(Math.random() * testUsers.length)];
-      onGift10FlowersAscension(u);
+      onGift10FlowersAscension(u, 10);
+    });
+
+    document.getElementById("simAddLikes").addEventListener("click", () => {
+      getAudioCtx();
+      const u = testUsers[Math.floor(Math.random() * testUsers.length)];
+      addLikesLeaderboard(u, 50);
+      spawnPilgrim(u);
+      spawnSpamHearts(12);
+      postLiveTicker("💖", escapeHtml(u.nickname), "vừa thả 50 đóa sen tim");
+    });
+
+    document.getElementById("simToggleRank").addEventListener("click", () => {
+      currentLeaderboardTab = currentLeaderboardTab === "coins" ? "likes" : "coins";
+      updateLeaderboardTabUI();
+      renderLeaderboard();
     });
 
     document.getElementById("simJoinWorshipper").addEventListener("click", () => {
@@ -1782,8 +2084,9 @@
       playWoodblock(0.95);
     });
 
-    // Khởi tạo các nhân vật chiêm bái ban đầu
+    // Khởi tạo các nhân vật chiêm bái ban đầu & Bảng xếp hạng
     window.addEventListener("DOMContentLoaded", () => {
+      renderLeaderboard();
       const initUsers = [
         { nickname: "Minh Tuệ", uniqueId: "mtue" },
         { nickname: "Diệu Âm", uniqueId: "dam" },
