@@ -341,6 +341,18 @@ wss.on("connection", (ws) => {
   });
 });
 
+// Bắt lỗi nếu cổng 3000 bị chiếm dụng (EADDRINUSE)
+server.on("error", (err) => {
+  if (err.code === "EADDRINUSE") {
+    console.error(`\n❌ [LỖI] Cổng ${PORT} đang bị chiếm dụng (EADDRINUSE).`);
+    console.error(`👉 Có thể bạn đang mở sẵn 1 cửa sổ chạy server khác ở background.`);
+    console.error(`👉 Hãy đóng cửa sổ terminal/node cũ trước khi chạy lại.\n`);
+  } else {
+    console.error("Lỗi server HTTP:", err);
+  }
+  process.exit(1);
+});
+
 // Khởi động server
 server.listen(PORT, () => {
   console.log(`\n======================================================`);
