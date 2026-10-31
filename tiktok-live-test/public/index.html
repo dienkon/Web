@@ -1130,20 +1130,10 @@
     // ========================================================
     // 2B. BẢNG XẾP HẠNG CÔNG ĐỨC (XU) VÀ THẢ TIM
     // Tự động tính data thật khi người xem tặng quà hoặc thả tim
+    // Hoàn toàn không chèn data ảo của bot
     // ========================================================
-    const coinLeaderboard = {
-      "user_1": { nickname: "Minh Tuệ", uniqueId: "mtue", avatar: "", score: 68 },
-      "user_2": { nickname: "Diệu Âm", uniqueId: "dam", avatar: "", score: 45 },
-      "user_3": { nickname: "Phúc Lâm", uniqueId: "plam", avatar: "", score: 20 },
-      "user_4": { nickname: "Bảo An", uniqueId: "baoan", avatar: "", score: 10 },
-    };
-
-    const likeLeaderboard = {
-      "user_1": { nickname: "Khánh Linh", uniqueId: "khanhlinh", avatar: "", score: 1850 },
-      "user_2": { nickname: "Quang Minh", uniqueId: "quangminh", avatar: "", score: 1200 },
-      "user_3": { nickname: "Tâm An", uniqueId: "taman", avatar: "", score: 850 },
-      "user_4": { nickname: "Diệu Thiện", uniqueId: "dieuthien", avatar: "", score: 500 },
-    };
+    const coinLeaderboard = {};
+    const likeLeaderboard = {};
 
     let currentLeaderboardTab = "coins"; // "coins" hoặc "likes"
 
@@ -1202,6 +1192,15 @@
 
       const rankIcons = ["🥇", "🥈", "🥉"];
       const unit = currentLeaderboardTab === "coins" ? "xu" : "tim";
+
+      if (sorted.length === 0) {
+        listEl.innerHTML = `
+          <div style="font-size:0.58rem; color:#a1a1aa; text-align:center; padding: 12px 0; font-style:italic;">
+            ${currentLeaderboardTab === "coins" ? "Chưa có cúng dường" : "Chưa có lượt thả tim"}
+          </div>
+        `;
+        return;
+      }
 
       listEl.innerHTML = sorted.map((item, idx) => {
         const avUrl = item.avatar || `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(item.uniqueId)}`;
@@ -1551,6 +1550,9 @@
         // BƯỚC 1: QUỲ LỄ HƯỚNG VÀO TRONG (kneel)
         drawActionSprite(w, "kneel");
 
+        // Nếu nhân vật đang đợi hoặc đang thực thi hiệu ứng cúng dường, giữ nguyên tư thế quỳ lễ
+        if (w.isReservedForGift || w.specialState) return;
+
         // Quỳ lễ trang nghiêm trong 12 giây
         if (w.stepTimer > 12) {
           w.step = 2; // Đứng dậy xoay người
@@ -1629,125 +1631,175 @@
     const stageContainer = document.getElementById("worshippersStage");
     const natureBackdrop = document.getElementById("natureBackdrop");
 
-    // 1) TẶNG BÔNG: ZOOM IN VÔ CHAR ĐÓ + DÁNG DÂNG HOA SEN (TÍNH THEO XU THẬT)
+    // ========================================================
+    // 8. HÀNG ĐỢI HÀNH LỄ CÔNG ĐỨC (ACTION QUEUE SYSTEM)
+    // Đợi nhân vật đi vào giữa sân chánh điện rồi mới thực thi
+    // Từng hiệu ứng xếp hàng thực hiện tuần tự, êm dịu, không gián đoạn
+    // ========================================================
+    const actionQueue = [];
+    let isActionExecuting = false;
+    const stageContainer = document.getElementById("worshippersStage");
+    const natureBackdrop = document.getElementById("natureBackdrop");
+
+    // Đưa sự kiện cúng dường vào hàng đợi và chuẩn bị nhân vật
+    function enqueueGiftAction(type, user, coins = 1) {
+      // 1. Tích lũy công đức và ghi nhận BXH thật ngay lập tức
+      addLampPointsFromCoins(coins);
+      addCoinLeaderboard(user, coins);
+
+      // 2. Gọi hoặc tìm nhân vật bước vào sân
+      const w = spawnPilgrim(user);
+      w.isReservedForGift = true;
+
+      // Nếu nhân vật đang trên đường đi ra (step 2 hoặc 3), quay lại đi vào trong chánh điện
+      if (w.step === 2 || w.step === 3) {
+        w.step = 0;
+        w.stepTimer = 0;
+      }
+
+      // 3. Đưa vào hàng đợi
+      actionQueue.push({
+        id: Date.now() + "_" + Math.random(),
+        type: type, // "flower" | "incense" | "ascend"
+        user: user,
+        coins: coins,
+        w: w,
+      });
+
+      console.log(`[ACTION QUEUE] Đã nhận sự kiện ${type} (${coins} xu) của ${user.nickname}. Số người chờ: ${actionQueue.length}`);
+    }
+
+    // Tương thích ngược các hàm gọi cũ
     function onGiftFlower(user, coins = 1) {
-      addLampPointsFromCoins(coins);
-      addCoinLeaderboard(user, coins);
-      const w = spawnPilgrim(user);
-      if (!w || isZoomedInAction) return;
-      isZoomedInAction = true;
-
-      playGrandBell();
-      playWoodblock(1.2);
-
-      // Đổi sang dáng dâng hoa sen có hào quang
-      w.specialState = "flower";
-      w.auraRing.classList.add("active");
-
-      const blessings = [
-        `Chúc ${escapeHtml(user.nickname || user.uniqueId)} thân tâm an lạc, vạn sự cát tường!`,
-        `Thí chủ ${escapeHtml(user.nickname || user.uniqueId)} tăng phước tăng thọ, gia đạo bình an!`,
-        `Chúc ${escapeHtml(user.nickname || user.uniqueId)} tâm khai trí sáng, vạn sự hanh thông!`
-      ];
-      const blessText = blessings[Math.floor(Math.random() * blessings.length)];
-      w.blessingPopup.textContent = `${blessText} (+${coins} xu)`;
-      w.blessingPopup.classList.add("show");
-
-      postLiveTicker("🌸", escapeHtml(user.nickname || user.uniqueId), `vừa dâng hoa sen tươi thắm (+${coins} xu)`);
-
-      // Đưa nhân vật ra CHÍNH GIỮA màn hình, ẩn hết các bảng
-      zoomCameraToCharacter(w, 2.1);
-
-      // Giọng đọc AI đọc lời chúc
-      speakBlessing(`Nam Mô A Di Đà Phật. ${blessText}`);
-
-      // Tung cánh sen
-      spawnSpamHearts(8);
-
-      setTimeout(() => {
-        resetZoomCamera(w);
-        w.auraRing.classList.remove("active");
-        w.blessingPopup.classList.remove("show");
-        w.specialState = null;
-        setTimeout(() => isZoomedInAction = false, 1200);
-      }, 4500);
+      enqueueGiftAction("flower", user, coins);
     }
-
-    // 2) TẶNG 5 XU: DÁNG DÂNG 3 NÉN NHANG PHÁT SÁNG CHI TIẾT (TÍNH THEO XU THẬT)
     function onGift5Coins(user, coins = 5) {
-      addLampPointsFromCoins(coins);
-      addCoinLeaderboard(user, coins);
-      const w = spawnPilgrim(user);
-      if (!w || isZoomedInAction) return;
-      isZoomedInAction = true;
-
-      playGrandBell();
-      setTimeout(() => playWoodblock(1.1), 200);
-      setTimeout(() => playWoodblock(1.2), 400);
-
-      // Đổi sang dáng 3 nén nhang
-      w.specialState = "incense";
-      w.auraRing.classList.add("active");
-
-      w.blessingPopup.textContent = `Thí chủ ${escapeHtml(user.nickname || user.uniqueId)} dâng 3 nén tâm hương (+${coins} xu)!`;
-      w.blessingPopup.classList.add("show");
-
-      postLiveTicker("🕯️", escapeHtml(user.nickname || user.uniqueId), `thành tâm dâng 3 nén hương trầm thơm ngát (+${coins} xu)`);
-
-      // Zoom in chi tiết cảnh thắp nhang và đưa ra CENTER màn hình
-      zoomCameraToCharacter(w, 2.25);
-
-      speakBlessing(`Nam Mô A Di Đà Phật. Thí chủ ${user.nickname || user.uniqueId} thành tâm dâng ba nén tâm hương, cúng dường ${coins} xu, nguyện cầu gia đạo bình an!`);
-
-      setTimeout(() => {
-        resetZoomCamera(w);
-        w.auraRing.classList.remove("active");
-        w.blessingPopup.classList.remove("show");
-        w.specialState = null;
-        setTimeout(() => isZoomedInAction = false, 1200);
-      }, 5000);
+      enqueueGiftAction("incense", user, coins);
+    }
+    function onGift10FlowersAscension(user, coins = 10) {
+      enqueueGiftAction("ascend", user, coins);
     }
 
-    // 3) TẶNG 10 BÔNG: DÁNG TỌA THIỀN TRÊN TÒA SEN PHI THĂNG (TÍNH THEO XU THẬT)
-    function onGift10FlowersAscension(user, coins = 10) {
-      addLampPointsFromCoins(coins);
-      addCoinLeaderboard(user, coins);
-      const w = spawnPilgrim(user);
-      if (!w || isZoomedInAction) return;
-      isZoomedInAction = true;
+    // Bộ xử lý hàng đợi: Kiểm tra xem nhân vật đã vào giữa sân chánh điện (bồ đoàn) chưa
+    function processActionQueue() {
+      if (isActionExecuting || actionQueue.length === 0) return;
 
-      playGrandBell();
-      setTimeout(playGrandBell, 800);
+      const currentItem = actionQueue[0];
+      const w = currentItem.w;
 
-      // Đổi sang dáng đài sen phi thăng
-      w.specialState = "ascend";
-      w.lotusGlow.classList.add("active");
-      w.auraRing.classList.add("active");
-      w.isAscended = true;
+      // Tính khoảng cách tới bồ đoàn quỳ lễ ở trung tâm
+      const dx = w.targetSpot.x - w.currentX;
+      const dy = w.targetSpot.y - w.currentY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
 
-      w.blessingPopup.textContent = `ĐẮC LIÊN HOA TỌA: ${escapeHtml(user.nickname || user.uniqueId)} (+${coins} XU)!`;
-      w.blessingPopup.classList.add("show");
+      // ĐỢI NHÂN VẬT ĐI VÀO GIỮA SÂN (step === 1 hoặc khoảng cách < 1.0)
+      if (w.step === 1 || dist < 1.0) {
+        w.currentX = w.targetSpot.x;
+        w.currentY = w.targetSpot.y;
+        w.step = 1;
+        w.stepTimer = 0;
 
-      postLiveTicker("🪷", escapeHtml(user.nickname || user.uniqueId), `đắc liên hoa tọa, phi thăng miền an lạc (+${coins} xu)`);
+        isActionExecuting = true;
+        executeGiftRitual(currentItem);
+      }
+    }
 
-      // Zoom in và đưa ra CENTER màn hình
-      zoomCameraToCharacter(w, 1.95);
+    // Thực thi nghi thức cúng dường khi nhân vật đã an tọa ở trung tâm
+    function executeGiftRitual(item) {
+      const { type, user, coins, w } = item;
 
-      speakBlessing(`Nam Mô A Di Đà Phật. Thí chủ ${user.nickname || user.uniqueId} đại công đức vô lượng, cúng dường ${coins} xu, đắc liên hoa tọa, phi thăng thanh tịnh an lạc!`);
+      if (type === "flower") {
+        playGrandBell();
+        playWoodblock(1.2);
 
-      // Mưa tim và cánh sen
-      spawnSpamHearts(18);
+        w.specialState = "flower";
+        w.auraRing.classList.add("active");
 
+        const blessings = [
+          `Chúc ${escapeHtml(user.nickname || user.uniqueId)} thân tâm an lạc, vạn sự cát tường!`,
+          `Thí chủ ${escapeHtml(user.nickname || user.uniqueId)} tăng phước tăng thọ, gia đạo bình an!`,
+          `Chúc ${escapeHtml(user.nickname || user.uniqueId)} tâm khai trí sáng, vạn sự hanh thông!`
+        ];
+        const blessText = blessings[Math.floor(Math.random() * blessings.length)];
+        w.blessingPopup.textContent = `${blessText} (+${coins} xu)`;
+        w.blessingPopup.classList.add("show");
+
+        postLiveTicker("🌸", escapeHtml(user.nickname || user.uniqueId), `dâng hoa sen cúng dường (+${coins} xu)`);
+
+        // Đưa nhân vật ra CHÍNH GIỮA màn hình, ẩn hết các bảng
+        zoomCameraToCharacter(w, 2.15);
+
+        speakBlessing(`Nam Mô A Di Đà Phật. ${blessText}`);
+        spawnSpamHearts(8);
+
+        setTimeout(() => {
+          finishCurrentAction(w);
+        }, 5000);
+      }
+      else if (type === "incense") {
+        playGrandBell();
+        setTimeout(() => playWoodblock(1.1), 200);
+        setTimeout(() => playWoodblock(1.2), 400);
+
+        w.specialState = "incense";
+        w.auraRing.classList.add("active");
+
+        w.blessingPopup.textContent = `Thí chủ ${escapeHtml(user.nickname || user.uniqueId)} dâng 3 nén tâm hương (+${coins} xu)!`;
+        w.blessingPopup.classList.add("show");
+
+        postLiveTicker("🕯️", escapeHtml(user.nickname || user.uniqueId), `thành tâm dâng 3 nén hương trầm thơm ngát (+${coins} xu)`);
+
+        zoomCameraToCharacter(w, 2.3);
+
+        speakBlessing(`Nam Mô A Di Đà Phật. Thí chủ ${user.nickname || user.uniqueId} thành tâm dâng ba nén tâm hương, cúng dường ${coins} xu, nguyện cầu gia đạo bình an!`);
+
+        setTimeout(() => {
+          finishCurrentAction(w);
+        }, 5500);
+      }
+      else if (type === "ascend") {
+        playGrandBell();
+        setTimeout(playGrandBell, 800);
+
+        w.specialState = "ascend";
+        w.lotusGlow.classList.add("active");
+        w.auraRing.classList.add("active");
+        w.isAscended = true;
+
+        w.blessingPopup.textContent = `ĐẮC LIÊN HOA TỌA: ${escapeHtml(user.nickname || user.uniqueId)} (+${coins} XU)!`;
+        w.blessingPopup.classList.add("show");
+
+        postLiveTicker("🪷", escapeHtml(user.nickname || user.uniqueId), `đắc liên hoa tọa, phi thăng miền an lạc (+${coins} xu)`);
+
+        zoomCameraToCharacter(w, 1.95);
+
+        speakBlessing(`Nam Mô A Di Đà Phật. Thí chủ ${user.nickname || user.uniqueId} đại công đức vô lượng, cúng dường ${coins} xu, đắc liên hoa tọa, phi thăng thanh tịnh an lạc!`);
+
+        spawnSpamHearts(18);
+
+        setTimeout(() => {
+          w.isAscended = false;
+          w.lotusGlow.classList.remove("active");
+          w.el.style.top = `${w.targetSpot.y}%`;
+          finishCurrentAction(w);
+        }, 7000);
+      }
+    }
+
+    function finishCurrentAction(w) {
+      resetZoomCamera(w);
+      w.auraRing.classList.remove("active");
+      w.blessingPopup.classList.remove("show");
+      w.specialState = null;
+      w.isReservedForGift = false;
+
+      // Xóa sự kiện vừa hoàn thành khỏi hàng đợi
+      actionQueue.shift();
+
+      // Khoảng nghỉ tự nhiên (1.2s) trước khi nhận sự kiện tiếp theo
       setTimeout(() => {
-        resetZoomCamera(w);
-        w.isAscended = false;
-        w.lotusGlow.classList.remove("active");
-        w.auraRing.classList.remove("active");
-        w.blessingPopup.classList.remove("show");
-        w.specialState = null;
-        w.el.style.top = `${w.targetSpot.y}%`;
-        setTimeout(() => isZoomedInAction = false, 1200);
-      }, 6500);
+        isActionExecuting = false;
+      }, 1200);
     }
 
     // Thuật toán zoom camera màn hình đưa nhân vật về CHÍNH GIỮA (CENTER) và HIDE TẤT CẢ CÁC BẢNG
@@ -2113,6 +2165,9 @@
       worshippers.forEach((w) => {
         updatePilgrim(w, dt);
       });
+
+      // Xử lý hàng đợi sự kiện cúng dường khi nhân vật đã vào giữa sân
+      processActionQueue();
 
       // Cập nhật các hạt bụi vàng & cánh sen
       renderParticles();
