@@ -1,0 +1,1812 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Cửa Phật Từ Bi - Thắp Đèn Sen & Đi Lễ Niệm Phật Live</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      background-color: #010603;
+      color: #fff;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* OBS / Fullscreen Mode: Phù hợp 100% OBS Browser Source 1080x1920 */
+    body.obs-mode {
+      background: transparent !important;
+    }
+    body.obs-mode .screen-stage {
+      width: 100vw !important;
+      max-width: 100vw !important;
+      height: 100vh !important;
+      border-radius: 0 !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+    body.obs-mode .control-hud {
+      display: none !important;
+    }
+
+    /* Khung dọc TikTok 9:16 (Màn hình chính cho OBS & Stream) */
+    .screen-stage {
+      position: relative;
+      width: 100%;
+      max-width: 450px;
+      height: 100vh;
+      background: #020703;
+      overflow: hidden;
+      box-shadow: 0 0 60px rgba(0, 0, 0, 0.98);
+      border-left: 2px solid #14532d;
+      border-right: 2px solid #14532d;
+    }
+
+    @media (min-width: 900px) {
+      .screen-stage {
+        height: 96vh;
+        border-radius: 20px;
+        border: 2px solid #166534;
+      }
+    }
+
+    /* BỐI CẢNH DÒNG SUỐI THIÊN NHIÊN & TƯỢNG PHẬT TRANG NGHIÊM */
+    .nature-backdrop {
+      position: absolute;
+      inset: 0;
+      background: url('nature-stream-bg.jpg') center top / cover no-repeat;
+      z-index: 1;
+      filter: brightness(0.98) contrast(1.06);
+      transform-origin: center 40%;
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s ease;
+    }
+
+    /* HÀO QUANG PHẬT BẢO TỌA TRÊN CAO */
+    .buddha-halo {
+      position: absolute;
+      top: 14%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(254, 240, 138, 0.35) 0%, rgba(245, 158, 11, 0.2) 45%, transparent 72%);
+      pointer-events: none;
+      z-index: 2;
+      filter: blur(14px);
+      animation: buddhaHaloGlow 4s infinite alternate ease-in-out;
+    }
+
+    @keyframes buddhaHaloGlow {
+      from { transform: translate(-50%, -50%) scale(0.92); opacity: 0.65; }
+      to { transform: translate(-50%, -50%) scale(1.15); opacity: 1; filter: blur(20px); }
+    }
+
+    /* HIỆU ỨNG GỢN NƯỚC SUỐI & HẠT BỤI VÀNG THIÊN NHIÊN */
+    .stream-water-reflection {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 48%;
+      background: linear-gradient(180deg, transparent 0%, rgba(6, 78, 59, 0.15) 30%, rgba(4, 47, 46, 0.45) 100%);
+      pointer-events: none;
+      z-index: 2;
+      mix-blend-mode: overlay;
+    }
+
+    .particles-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* LỚP SÂN THIỀN CHỨA CÁC PHẬT TỬ ĐI VÀO - QUỲ LỄ - XOAY NGƯỜI - ĐI RA */
+    .worshippers-stage {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+      overflow: hidden;
+      transform-origin: center center;
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ========================================================
+       VÙNG A – PHÍA TRÊN: THẮP ĐÈN SEN & THỈNH LỜI CẦU
+       ======================================================== */
+    .top-widgets-container {
+      position: absolute;
+      top: 14px;
+      left: 10px;
+      right: 10px;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    /* 1. BẢNG TRÁI: THẮP ĐÈN SEN (108 ĐÈN) */
+    .widget-box {
+      width: 146px;
+      background: rgba(10, 26, 16, 0.92);
+      border: 1.5px solid #d97706;
+      border-radius: 12px;
+      padding: 6px 8px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.85), inset 0 0 10px rgba(217, 119, 6, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      pointer-events: auto;
+    }
+
+    .widget-header {
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #fef08a;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-family: "Times New Roman", Times, Georgia, serif;
+      margin-bottom: 3px;
+      white-space: nowrap;
+    }
+
+    .lotus-lamp-icon-wrap {
+      width: 32px;
+      height: 32px;
+      background: radial-gradient(circle, #fde047 15%, #b45309 80%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #fef08a;
+      box-shadow: 0 0 10px #f59e0b;
+      margin-bottom: 2px;
+    }
+
+    .lotus-lamp-icon {
+      font-size: 1.15rem;
+      filter: drop-shadow(0 0 4px #fff);
+      animation: gentlePulse 2s infinite alternate ease-in-out;
+    }
+
+    @keyframes gentlePulse {
+      from { transform: scale(0.95); }
+      to { transform: scale(1.12); filter: drop-shadow(0 0 10px #fde047); }
+    }
+
+    .progress-number {
+      font-size: 1.12rem;
+      font-weight: 900;
+      color: #fef08a;
+      letter-spacing: 1px;
+      text-shadow: 0 0 8px #f59e0b;
+      font-family: "Times New Roman", Times, Georgia, serif;
+      margin-bottom: 3px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 7px;
+      background: #0f3d20;
+      border-radius: 9999px;
+      overflow: hidden;
+      border: 1px solid rgba(254, 240, 138, 0.4);
+      margin-bottom: 4px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #f59e0b, #fef08a);
+      border-radius: 9999px;
+      box-shadow: 0 0 8px #fde047;
+      transition: width 0.6s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+
+    .convert-rate-tag {
+      font-size: 0.62rem;
+      color: #fef3c7;
+      line-height: 1.25;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* 2. BẢNG PHẢI: THỈNH LỜI CẦU */
+    .prayer-intent-box {
+      width: 158px;
+    }
+
+    .intent-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px 5px;
+      width: 100%;
+      margin: 4px 0;
+    }
+
+    .intent-item {
+      font-size: 0.64rem;
+      font-weight: 700;
+      color: #fef08a;
+      text-align: center;
+      background: rgba(20, 83, 45, 0.65);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 6px;
+      padding: 2.5px 0;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .intent-item:hover, .intent-item.active-glow {
+      background: #166534;
+      border-color: #fef08a;
+      box-shadow: 0 0 10px #f59e0b, inset 0 0 6px #fde047;
+      transform: scale(1.05);
+      color: #fff;
+    }
+
+    .intent-subtext {
+      font-size: 0.58rem;
+      color: #d1d5db;
+      font-style: italic;
+      white-space: nowrap;
+    }
+
+    /* ========================================================
+       BANNER GIỮA: VÔ THƯỜNG · GIỌNG ĐỌC AI
+       ======================================================== */
+    .zen-philosophy-bar {
+      position: absolute;
+      top: 36%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 86%;
+      background: rgba(10, 26, 16, 0.88);
+      border: 1.5px solid rgba(234, 179, 8, 0.65);
+      border-radius: 12px;
+      padding: 5px 12px;
+      text-align: center;
+      backdrop-filter: blur(6px);
+      z-index: 15;
+      pointer-events: none;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.85);
+    }
+
+    .zen-meta-label {
+      font-size: 0.64rem;
+      color: #fef08a;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .zen-quote-text {
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: #fff;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+      font-family: "Times New Roman", Times, Georgia, serif;
+      letter-spacing: 0.5px;
+      transition: opacity 0.4s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ========================================================
+       VÙNG C – SÂN HÀNH LỄ: NHÂN VẬT CHIBI 2.5D
+       Anchor chân (bottom: 0, left: 50%, transform: translateX(-50%))
+       ======================================================== */
+    .worshipper-figure {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: translate(-50%, -100%);
+      transition: left 0.08s linear, top 0.08s linear;
+      will-change: left, top, transform;
+      pointer-events: none;
+    }
+
+    .figure-sprite-canvas {
+      display: block;
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.85));
+    }
+
+    /* Bồ đoàn đá / cỏ sen quỳ lạy */
+    .figure-cushion {
+      position: absolute;
+      bottom: -4px;
+      width: 42px;
+      height: 13px;
+      background: radial-gradient(ellipse, #b45309 30%, #78350f 70%, #451a03 100%);
+      border: 1.5px solid #fde047;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.85);
+      z-index: -1;
+      transform: scale(0.9);
+    }
+
+    /* Hào quang bừng sáng quanh nhân vật khi tặng bông / cúng dường */
+    .char-aura-ring {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(254, 240, 138, 0.9) 0%, rgba(245, 158, 11, 0.55) 45%, transparent 72%);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 5;
+      transition: opacity 0.5s ease;
+      filter: blur(5px);
+    }
+
+    .char-aura-ring.active {
+      opacity: 1;
+      animation: spinAura 4s linear infinite;
+    }
+
+    @keyframes spinAura {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* Tọa hoa sen phi thăng (hiệu ứng 10 bông) */
+    .char-lotus-aura-glow {
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 110px;
+      height: 50px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(244, 63, 94, 0.85) 0%, rgba(250, 204, 21, 0.6) 60%, transparent 80%);
+      filter: blur(8px);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    .char-lotus-aura-glow.active {
+      opacity: 1;
+      animation: lotusGlowPulse 1.8s infinite alternate ease-in-out;
+    }
+
+    @keyframes lotusGlowPulse {
+      0% { transform: translateX(-50%) scale(0.92); filter: drop-shadow(0 0 8px #f43f5e); }
+      100% { transform: translateX(-50%) scale(1.15); filter: drop-shadow(0 0 20px #facc15) drop-shadow(0 0 35px #f43f5e); }
+    }
+
+    /* Nhãn Avatar + Tên gọn gàng, KHÔNG TRÀN CHỮ */
+    .figure-nametag {
+      position: absolute;
+      top: -24px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      background: rgba(10, 26, 16, 0.94);
+      border: 1.5px solid rgba(250, 204, 21, 0.9);
+      border-radius: 10px;
+      padding: 1px 6px 1px 2px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+      white-space: nowrap;
+      max-width: 85px;
+      z-index: 10;
+    }
+
+    .figure-avatar-img {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid #fde047;
+    }
+
+    .figure-username-text {
+      font-size: 0.58rem;
+      font-weight: 700;
+      color: #fef08a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 60px;
+    }
+
+    /* Banner Lời Chúc Khi Zoom In Nhân Vật */
+    .char-blessing-popup {
+      position: absolute;
+      bottom: 100%;
+      margin-bottom: 26px;
+      background: linear-gradient(135deg, rgba(146, 64, 14, 0.96), rgba(217, 119, 6, 0.96));
+      border: 1.5px solid #fef08a;
+      border-radius: 12px;
+      padding: 5px 12px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #fff;
+      box-shadow: 0 0 22px #f59e0b, 0 4px 12px rgba(0, 0, 0, 0.8);
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateY(10px) scale(0.85);
+      transition: all 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      pointer-events: none;
+      z-index: 60;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+      max-width: 220px;
+      text-align: center;
+    }
+
+    .char-blessing-popup.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Bong bóng chat niệm Phật */
+    .figure-chat-bubble {
+      position: absolute;
+      bottom: 100%;
+      margin-bottom: 26px;
+      background: rgba(255, 255, 255, 0.96);
+      color: #14532d;
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 8px;
+      white-space: nowrap;
+      pointer-events: none;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.6);
+      z-index: 45;
+      max-width: 140px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      animation: bubbleFloat 4s forwards cubic-bezier(0.15, 0.8, 0.25, 1);
+    }
+
+    .figure-chat-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 5px 5px 0;
+      border-style: solid;
+      border-color: rgba(255, 255, 255, 0.96) transparent;
+      display: block;
+      width: 0;
+    }
+
+    @keyframes bubbleFloat {
+      0% { opacity: 0; transform: translateY(0) scale(0.7); }
+      15% { opacity: 1; transform: translateY(-6px) scale(1); }
+      75% { opacity: 1; transform: translateY(-26px) scale(1); }
+      100% { opacity: 0; transform: translateY(-52px) scale(0.85); }
+    }
+
+    /* ========================================================
+       VÙNG D – PHÍA DƯỚI: TICKER THÔNG BÁO LIVESTREAM GỌN GÀNG
+       ======================================================== */
+    .bottom-ticker-container {
+      position: absolute;
+      bottom: 14px;
+      left: 12px;
+      right: 12px;
+      z-index: 25;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .live-ticker-item {
+      background: rgba(10, 26, 16, 0.92);
+      border-left: 3.5px solid #f59e0b;
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 0.72rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(6px);
+      animation: tickerSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .live-ticker-avatar {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid #fde047;
+    }
+
+    .live-ticker-text b {
+      color: #fef08a;
+    }
+
+    @keyframes tickerSlideIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* SPAM TIM BAY */
+    .zen-heart {
+      position: absolute;
+      pointer-events: none;
+      z-index: 45;
+      animation: heartFloatAnim 2.8s forwards ease-out;
+      filter: drop-shadow(0 0 8px rgba(244, 63, 94, 0.85));
+    }
+
+    @keyframes heartFloatAnim {
+      0% { opacity: 1; transform: translate(0, 0) scale(0.6); }
+      50% { opacity: 0.95; transform: translate(var(--dx), -200px) scale(1.3) rotate(var(--rot)); }
+      100% { opacity: 0; transform: translate(var(--dx2), -460px) scale(0.8) rotate(calc(var(--rot) * 2)); }
+    }
+
+    /* ĐẠI HỶ HOÀN THÀNH 108 ĐÈN SEN */
+    .ritual-completion-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, rgba(254, 240, 138, 0.4) 0%, rgba(217, 119, 6, 0.25) 50%, transparent 80%);
+      pointer-events: none;
+      z-index: 50;
+      opacity: 0;
+      transition: opacity 1s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ritual-completion-overlay.active {
+      opacity: 1;
+      animation: flashRitual 5s ease-out forwards;
+    }
+
+    @keyframes flashRitual {
+      0% { opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    .ritual-banner-text {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: #fef08a;
+      text-shadow: 0 0 20px #f59e0b, 0 2px 8px #000;
+      font-family: "Times New Roman", Times, Georgia, serif;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 10px 20px;
+      background: rgba(10, 26, 16, 0.9);
+      border: 2px solid #fde047;
+      border-radius: 16px;
+      box-shadow: 0 0 35px #f59e0b;
+    }
+
+    /* ========================================================
+       BẢNG ĐIỀU KHIỂN & MÔ PHỎNG (CONTROL HUD)
+       Tự động ẩn hoàn toàn khi bật OBS Mode (?obs=1)
+       ======================================================== */
+    .control-hud {
+      position: fixed;
+      bottom: 12px;
+      right: 12px;
+      width: 330px;
+      background: rgba(6, 20, 10, 0.96);
+      border: 1.5px solid #16a34a;
+      border-radius: 14px;
+      padding: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.95);
+      z-index: 100;
+      font-size: 0.82rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .control-title {
+      font-weight: 800;
+      color: #fef08a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      border-bottom: 1px solid rgba(22, 163, 74, 0.4);
+      padding-bottom: 5px;
+    }
+
+    .input-wrap {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .hud-input {
+      flex: 1;
+      background: #14532d;
+      border: 1px solid #16a34a;
+      border-radius: 6px;
+      color: #fff;
+      padding: 5px 8px;
+      font-size: 0.78rem;
+    }
+
+    .hud-btn {
+      background: #dc2626;
+      color: #fff;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .sim-btn {
+      background: #0f2e1b;
+      color: #fef08a;
+      border: 1px solid #16a34a;
+      padding: 6px 8px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      cursor: pointer;
+      text-align: center;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .sim-btn:hover {
+      background: #166534;
+      box-shadow: 0 0 10px #4ade80;
+    }
+
+    .obs-toolbar {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px solid rgba(22, 163, 74, 0.3);
+    }
+
+    .obs-tool-btn {
+      flex: 1;
+      background: #1e3a8a;
+      color: #93c5fd;
+      border: 1px solid #3b82f6;
+      padding: 5px;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      cursor: pointer;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .obs-tool-btn:hover {
+      background: #2563eb;
+      color: #fff;
+    }
+  </style>
+  <script src="gsap.min.js"></script>
+</head>
+<body>
+
+  <!-- MÀN HÌNH TƯƠNG TÁC TIKTOK LIVE 9:16 -->
+  <div class="screen-stage" id="screenStage">
+
+    <!-- 1. BỐI CẢNH DÒNG SUỐI THIÊN NHIÊN & TƯỢNG PHẬT TRANG NGHIÊM -->
+    <div class="nature-backdrop" id="natureBackdrop"></div>
+    <div class="buddha-halo"></div>
+    <div class="stream-water-reflection"></div>
+    <canvas class="particles-canvas" id="particlesCanvas"></canvas>
+
+    <!-- 2. LỚP SÂN THIỀN CHỨA CÁC PHẬT TỬ: ĐI VÀO -> QUỲ HƯỚNG VÀO TRONG -> XOAY LẠI -> ĐI RA -->
+    <div class="worshippers-stage" id="worshippersStage"></div>
+
+    <!-- 3. VÙNG A – PHÍA TRÊN: THẮP ĐÈN SEN & THỈNH LỜI CẦU -->
+    <div class="top-widgets-container">
+      
+      <!-- BẢNG TRÁI: THẮP ĐÈN SEN (1 xu = 1 đèn, 500 tim = 1 đèn, tối đa 108) -->
+      <div class="widget-box">
+        <div class="widget-header">THẮP ĐÈN SEN</div>
+        <div class="lotus-lamp-icon-wrap">
+          <div class="lotus-lamp-icon">🪷</div>
+        </div>
+        <div class="progress-number" id="lotusLampText">0 / 108</div>
+        <div class="progress-track">
+          <div class="progress-fill" id="lotusLampBar" style="width: 0%;"></div>
+        </div>
+        <div class="convert-rate-tag">1 xu = 1 đèn</div>
+        <div class="convert-rate-tag">500 tim = 1 đèn</div>
+      </div>
+
+      <!-- BẢNG PHẢI: THỈNH LỜI CẦU -->
+      <div class="widget-box prayer-intent-box">
+        <div class="widget-header">THỈNH LỜI CẦU</div>
+        <div class="intent-grid">
+          <div class="intent-item" data-wish="bình an" onclick="simulatePrayer('Bình an')">Bình an</div>
+          <div class="intent-item" data-wish="sức khỏe" onclick="simulatePrayer('Sức khỏe')">Sức khỏe</div>
+          <div class="intent-item" data-wish="gia đạo" onclick="simulatePrayer('Gia đạo')">Gia đạo</div>
+          <div class="intent-item" data-wish="tài lộc" onclick="simulatePrayer('Tài lộc')">Tài lộc</div>
+          <div class="intent-item" data-wish="công việc" onclick="simulatePrayer('Công việc')">Công việc</div>
+          <div class="intent-item" data-wish="học hành" onclick="simulatePrayer('Học hành')">Học hành</div>
+          <div class="intent-item" data-wish="tình duyên" onclick="simulatePrayer('Tình duyên')">Tình duyên</div>
+          <div class="intent-item" data-wish="giải hạn" onclick="simulatePrayer('Giải hạn')">Giải hạn</div>
+        </div>
+        <div class="intent-subtext">Gõ từ khóa vào bình luận</div>
+      </div>
+
+    </div>
+
+    <!-- 4. BANNER GIỮA: VÔ THƯỜNG · GIỌNG ĐỌC AI -->
+    <div class="zen-philosophy-bar">
+      <div class="zen-meta-label">📖 Vô thường · giọng đọc AI</div>
+      <div class="zen-quote-text" id="zenQuoteText">Tuổi trẻ rồi cũng qua.</div>
+    </div>
+
+    <!-- 5. VÙNG D – PHÍA DƯỚI: TICKER THÔNG BÁO LIVESTREAM GỌN GÀNG -->
+    <div class="bottom-ticker-container" id="bottomTicker"></div>
+
+    <!-- 6. NGHI THỨC HOÀN THÀNH 108 ĐÈN SEN -->
+    <div class="ritual-completion-overlay" id="ritualOverlay">
+      <div class="ritual-banner-text">
+        ✨ ĐẠI CÔNG ĐỨC VIÊN MÃN ✨<br />
+        <span style="font-size:0.95rem; font-weight:700; color:#fef3c7;">108 ĐÈN SEN TỎA SÁNG CỬA TỪ BI</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BẢNG ĐIỀU KHIỂN & MÔ PHỎNG (SẼ ẨN TRONG OBS NẾU CÓ ?obs=1) -->
+  <div class="control-hud" id="controlHud">
+    <div class="control-title">
+      <span>🌿 Đi Lễ Phật Live Controller</span>
+      <span id="liveStatusText" style="color: #4ade80;">● Sẵn sàng</span>
+    </div>
+
+    <div class="input-wrap">
+      <input type="text" id="streamInput" class="hud-input" placeholder="TikTok username (không có @)" />
+      <button id="btnConnectStream" class="hud-btn">Kết Nối</button>
+    </div>
+
+    <div style="font-size:0.7rem; color:#a1a1aa; margin-bottom:4px;">Thử nghiệm sự kiện tương tác chuẩn 3D:</div>
+    <div class="sim-grid">
+      <button class="sim-btn" id="simGiftRose">🌹 1 Bông (Zoom + Lời Chúc)</button>
+      <button class="sim-btn" id="simGift5Coin">🕯️ 5 Xu (3 Nén Nhang Chi Tiết)</button>
+      <button class="sim-btn" id="simGift10Rose">🪷 10 Bông (Phi Thăng Tòa Sen)</button>
+      <button class="sim-btn" id="simJoinWorshipper">🚶 Thêm Người Đi Lễ Phật</button>
+    </div>
+
+    <div class="obs-toolbar">
+      <button class="obs-tool-btn" id="btnCopyObsLink">📋 Copy Link OBS</button>
+      <button class="obs-tool-btn" id="btnToggleObsMode">👁️ Chế Độ OBS</button>
+    </div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; font-size:0.75rem; color:#a1a1aa;">
+      <span>🔊 Âm thanh chuông, mõ & AI đọc</span>
+      <input type="checkbox" id="soundToggle" checked style="cursor:pointer;" />
+    </div>
+  </div>
+
+  <script>
+    // ========================================================
+    // 0. OBS MODE DETECTION
+    // ========================================================
+    const isObsMode = window.location.search.includes("obs=1") || window.location.pathname.includes("/obs");
+    if (isObsMode) {
+      document.body.classList.add("obs-mode");
+    }
+
+    document.getElementById("btnToggleObsMode").addEventListener("click", () => {
+      document.body.classList.toggle("obs-mode");
+    });
+
+    document.getElementById("btnCopyObsLink").addEventListener("click", () => {
+      const obsUrl = `${window.location.origin}/?obs=1`;
+      navigator.clipboard.writeText(obsUrl).then(() => {
+        alert(`Đã copy link OBS:\n${obsUrl}\n\nDán vào OBS Browser Source (1080 x 1920) để livestream!`);
+      }).catch(() => {
+        prompt("Copy link OBS bên dưới:", obsUrl);
+      });
+    });
+
+    // ========================================================
+    // 1. TỔNG HỢP ÂM THANH MÕ, CHUÔNG ĐỒNG & GIỌNG ĐỌC AI
+    // ========================================================
+    let audioCtx = null;
+    function getAudioCtx() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === "suspended") audioCtx.resume();
+      return audioCtx;
+    }
+
+    function playWoodblock(pitch = 1) {
+      if (!document.getElementById("soundToggle").checked) return;
+      try {
+        const ctx = getAudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const filter = ctx.createBiquadFilter();
+
+        osc.type = "sine";
+        const baseFreq = 780 * pitch;
+        osc.frequency.setValueAtTime(baseFreq, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(baseFreq * 0.45, ctx.currentTime + 0.08);
+
+        filter.type = "bandpass";
+        filter.frequency.setValueAtTime(baseFreq, ctx.currentTime);
+        filter.Q.setValueAtTime(5, ctx.currentTime);
+
+        gain.gain.setValueAtTime(0.7, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.09);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start();
+        osc.stop(ctx.currentTime + 0.1);
+      } catch (e) {}
+    }
+
+    function playGrandBell() {
+      if (!document.getElementById("soundToggle").checked) return;
+      try {
+        const ctx = getAudioCtx();
+        const freqs = [440, 880, 1320, 1760];
+        const now = ctx.currentTime;
+
+        freqs.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = idx % 2 === 0 ? "sine" : "triangle";
+          osc.frequency.setValueAtTime(freq, now);
+
+          const decay = 2.8 / (idx + 1);
+          gain.gain.setValueAtTime(0.35 / (idx + 1), now);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + decay);
+
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start();
+          osc.stop(now + decay);
+        });
+      } catch (e) {}
+    }
+
+    function speakBlessing(text) {
+      if (!document.getElementById("soundToggle").checked) return;
+      if (!("speechSynthesis" in window)) return;
+
+      window.speechSynthesis.cancel();
+      const utt = new SpeechSynthesisUtterance(text);
+      utt.lang = "vi-VN";
+      utt.rate = 1.05;
+      utt.pitch = 0.95;
+
+      const voices = window.speechSynthesis.getVoices();
+      const viVoice = voices.find(v => v.lang.includes("vi") || v.lang.includes("VN"));
+      if (viVoice) utt.voice = viVoice;
+
+      window.speechSynthesis.speak(utt);
+    }
+
+    // ========================================================
+    // 2. LOGIC THẮP ĐÈN SEN (QUY ĐỔI XU & TIM CHUẨN THẬT)
+    // 1 xu = 1 đèn, 500 tim = 1 đèn, Tối đa 108 đèn
+    // ========================================================
+    let totalLamps = 0;
+    let accumulatedLikes = 0;
+    const MAX_LAMPS = 108;
+
+    const lotusLampText = document.getElementById("lotusLampText");
+    const lotusLampBar = document.getElementById("lotusLampBar");
+    const ritualOverlay = document.getElementById("ritualOverlay");
+
+    function addLampPointsFromCoins(coins) {
+      totalLamps += coins;
+      updateLampDisplay();
+    }
+
+    function addLikesForLamp(likesCount) {
+      accumulatedLikes += likesCount;
+      if (accumulatedLikes >= 500) {
+        const lampsEarned = Math.floor(accumulatedLikes / 500);
+        accumulatedLikes = accumulatedLikes % 500;
+        totalLamps += lampsEarned;
+        playWoodblock(1.2);
+        postLiveTicker("🪷", "Đạo tràng", `tích đủ 500 tim: Thắp thêm ${lampsEarned} đèn sen!`);
+      }
+      updateLampDisplay();
+    }
+
+    function updateLampDisplay() {
+      const displayVal = Math.min(totalLamps, MAX_LAMPS);
+      lotusLampText.textContent = `${displayVal} / ${MAX_LAMPS}`;
+      const pct = Math.min(100, Math.round((totalLamps / MAX_LAMPS) * 100));
+      lotusLampBar.style.width = `${pct}%`;
+
+      if (totalLamps >= MAX_LAMPS && !window._lampCelebrated) {
+        window._lampCelebrated = true;
+        triggerGrandRitual();
+      }
+    }
+
+    function triggerGrandRitual() {
+      playGrandBell();
+      setTimeout(playGrandBell, 1000);
+      ritualOverlay.classList.add("active");
+      postLiveTicker("✨", "ĐẠI CÔNG ĐỨC", "108 Đèn Sen Viên Mãn - Hào Quang Phổ Chiếu!");
+      speakBlessing("Nam Mô A Di Đà Phật. Đạo tràng đã thắp đủ 108 ngọn đèn sen, công đức viên mãn, vạn sự cát tường!");
+      setTimeout(() => {
+        ritualOverlay.classList.remove("active");
+      }, 5000);
+    }
+
+    // ========================================================
+    // 3. DANH NGÔN VÔ THƯỜNG (LUÂN PHIÊN MỖI 16 GIÂY)
+    // ========================================================
+    const zenQuotes = [
+      "Tuổi trẻ rồi cũng qua.",
+      "Vạn sự tùy duyên, tâm an vạn sự an.",
+      "Mỗi ngày niệm một câu, lòng an nhiên tự tại.",
+      "Lấy từ bi xóa bỏ hận thù.",
+      "Bình an khởi sinh từ trong tâm ta.",
+      "Biết ơn vạn vật cho ta sự sống.",
+      "Sống trọn vẹn trong từng giây phút hiện tại."
+    ];
+    let quoteIdx = 0;
+    const zenQuoteEl = document.getElementById("zenQuoteText");
+
+    setInterval(() => {
+      quoteIdx = (quoteIdx + 1) % zenQuotes.length;
+      zenQuoteEl.style.opacity = "0";
+      setTimeout(() => {
+        zenQuoteEl.textContent = zenQuotes[quoteIdx];
+        zenQuoteEl.style.opacity = "1";
+      }, 400);
+    }, 16000);
+
+    // ========================================================
+    // 4. PRELOAD TOÀN BỘ 14 SPRITES CHUẨN TỪ 5 ASSETS ĐÃ TÁCH NỀN
+    // Nữ & Nam:
+    //  - walk_back: Bước vào (nhìn sau lưng)
+    //  - kneel: Quỳ lễ hướng vào tượng Phật
+    //  - turn: Quay người lại
+    //  - walk_front: Đi ra ngoài (nhìn thẳng)
+    //  - flower: Dâng hoa sen + hào quang chúc bình an
+    //  - incense: Dâng 3 nén nhang phát sáng + khói nghi ngút
+    //  - ascend: Tọa thiền trên đài sen phi thăng
+    // ========================================================
+    const spriteUrls = {
+      female: {
+        walk_back: "assets/f_walk_back.png",
+        kneel:     "assets/f_kneel.png",
+        turn:      "assets/f_turn.png",
+        walk_front:"assets/f_walk_front.png",
+        flower:    "assets/f_flower.png",
+        incense:   "assets/f_incense.png",
+        ascend:    "assets/f_ascend.png",
+      },
+      male: {
+        walk_back: "assets/m_walk_back.png",
+        kneel:     "assets/m_kneel.png",
+        turn:      "assets/m_turn.png",
+        walk_front:"assets/m_walk_front.png",
+        flower:    "assets/m_flower.png",
+        incense:   "assets/m_incense.png",
+        ascend:    "assets/m_ascend.png",
+      }
+    };
+
+    const loadedSprites = { female: {}, male: {} };
+    let totalLoaded = 0;
+    const totalToLoad = 14;
+
+    Object.keys(spriteUrls).forEach((gender) => {
+      Object.keys(spriteUrls[gender]).forEach((action) => {
+        const img = new Image();
+        img.src = spriteUrls[gender][action];
+        img.onload = () => {
+          loadedSprites[gender][action] = img;
+          totalLoaded++;
+          if (totalLoaded === totalToLoad) {
+            console.log("All 14 character sprites fully loaded!");
+          }
+        };
+      });
+    });
+
+    // ========================================================
+    // 5. HIỆU ỨNG MÔI TRƯỜNG THIỀN CẢNH (HẠT BỤI VÀNG & CÁNH HOA SEN)
+    // ========================================================
+    const particlesCanvas = document.getElementById("particlesCanvas");
+    const pCtx = particlesCanvas.getContext("2d");
+    let particles = [];
+
+    function resizeParticles() {
+      particlesCanvas.width = particlesCanvas.offsetWidth || 450;
+      particlesCanvas.height = particlesCanvas.offsetHeight || 800;
+    }
+    window.addEventListener("resize", resizeParticles);
+    resizeParticles();
+
+    // Khởi tạo các hạt bụi vàng và cánh sen
+    for (let i = 0; i < 35; i++) {
+      particles.push({
+        x: Math.random() * 450,
+        y: Math.random() * 800,
+        radius: Math.random() * 2 + 1,
+        speedX: (Math.random() - 0.5) * 0.4,
+        speedY: -(Math.random() * 0.6 + 0.2), // Trôi lơ lửng lên trong nắng
+        alpha: Math.random() * 0.6 + 0.2,
+        color: Math.random() > 0.4 ? "254, 240, 138" : "245, 158, 11",
+        isPetal: Math.random() > 0.7,
+        rot: Math.random() * Math.PI,
+        rotSpeed: (Math.random() - 0.5) * 0.02
+      });
+    }
+
+    function renderParticles() {
+      pCtx.clearRect(0, 0, particlesCanvas.width, particlesCanvas.height);
+      const w = particlesCanvas.width;
+      const h = particlesCanvas.height;
+
+      particles.forEach((p) => {
+        p.x += p.speedX;
+        p.y += p.speedY;
+        p.rot += p.rotSpeed;
+
+        if (p.y < 0) {
+          p.y = h + 10;
+          p.x = Math.random() * w;
+        }
+        if (p.x < 0) p.x = w;
+        if (p.x > w) p.x = 0;
+
+        if (p.isPetal) {
+          // Vẽ cánh hoa sen nhỏ bay nhẹ
+          pCtx.save();
+          pCtx.translate(p.x, p.y);
+          pCtx.rotate(p.rot);
+          pCtx.fillStyle = `rgba(244, 63, 94, ${p.alpha * 0.8})`;
+          pCtx.beginPath();
+          pCtx.ellipse(0, 0, 4, 7, 0, 0, Math.PI * 2);
+          pCtx.fill();
+          pCtx.restore();
+        } else {
+          // Bụi vàng phát sáng
+          pCtx.fillStyle = `rgba(${p.color}, ${p.alpha})`;
+          pCtx.beginPath();
+          pCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          pCtx.fill();
+        }
+      });
+    }
+
+    // ========================================================
+    // 6. QUẢN LÝ VỊ TRÍ VÀ NHÂN VẬT ĐI LỄ PHẬT
+    // ========================================================
+    const worshippersStage = document.getElementById("worshippersStage");
+    const worshippers = [];
+
+    // Tọa độ bồ đoàn hành lễ trang nghiêm có phân lớp chiều sâu (Y-sorting)
+    const altarSpots = [
+      // Hàng 1 (Gần đài sen, nhỏ hơn):
+      { x: 30, y: 69, scale: 0.76 },
+      { x: 43, y: 68, scale: 0.76 },
+      { x: 57, y: 68, scale: 0.76 },
+      { x: 70, y: 69, scale: 0.76 },
+
+      // Hàng 2 (Trung tâm sân thiền):
+      { x: 22, y: 78, scale: 0.86 },
+      { x: 36, y: 77, scale: 0.86 },
+      { x: 50, y: 76, scale: 0.86 },
+      { x: 64, y: 77, scale: 0.86 },
+      { x: 78, y: 78, scale: 0.86 },
+
+      // Hàng 3 (Gần góc nhìn):
+      { x: 18, y: 88, scale: 0.98 },
+      { x: 34, y: 87, scale: 0.98 },
+      { x: 50, y: 86, scale: 0.98 },
+      { x: 66, y: 87, scale: 0.98 },
+      { x: 82, y: 88, scale: 0.98 },
+    ];
+
+    function spawnPilgrim(user) {
+      let existing = worshippers.find(w => w.user.uniqueId === user.uniqueId);
+      if (existing) {
+        if (existing.step > 1) {
+          existing.step = 1; // Quỳ lễ tiếp nếu đang đi ra
+          existing.stepTimer = 0;
+        }
+        return existing;
+      }
+
+      const gender = Math.random() > 0.5 ? "female" : "male";
+
+      let targetSpot = altarSpots.find(p => !p.occupied);
+      if (!targetSpot) {
+        targetSpot = altarSpots[Math.floor(Math.random() * altarSpots.length)];
+      } else {
+        targetSpot.occupied = true;
+      }
+
+      const el = document.createElement("div");
+      el.className = "worshipper-figure";
+
+      // Bắt đầu bước vào từ mép dưới
+      const startX = 20 + Math.random() * 60;
+      const startY = 104;
+      el.style.left = `${startX}%`;
+      el.style.top = `${startY}%`;
+      el.style.transform = `translate(-50%, -100%) scale(${targetSpot.scale})`;
+      el.style.zIndex = Math.round(startY * 10);
+
+      // Canvas vẽ nhân vật độ phân giải cao
+      const spriteCvs = document.createElement("canvas");
+      spriteCvs.className = "figure-sprite-canvas";
+      spriteCvs.width = 160;
+      spriteCvs.height = 240;
+      spriteCvs.style.width = "65px";
+      spriteCvs.style.height = "98px";
+
+      // Bồ đoàn đá quỳ lạy
+      const cushion = document.createElement("div");
+      cushion.className = "figure-cushion";
+
+      // Vòng hào quang quanh nhân vật (khi tặng bông / xu)
+      const auraRing = document.createElement("div");
+      auraRing.className = "char-aura-ring";
+
+      // Vầng sáng tòa sen (khi phi thăng)
+      const lotusGlow = document.createElement("div");
+      lotusGlow.className = "char-lotus-aura-glow";
+
+      // Nhãn Avatar + Tên gọn gàng, KHÔNG TRÀN CHỮ
+      const nameTag = document.createElement("div");
+      nameTag.className = "figure-nametag";
+      const avUrl = user.avatar || `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(user.uniqueId || user.nickname)}`;
+      nameTag.innerHTML = `
+        <img class="figure-avatar-img" src="${avUrl}" onerror="this.src='https://api.dicebear.com/7.x/bottts/svg?seed=user'" />
+        <span class="figure-username-text">${escapeHtml(user.nickname || user.uniqueId)}</span>
+      `;
+
+      // Popup lời chúc khi zoom
+      const blessingPopup = document.createElement("div");
+      blessingPopup.className = "char-blessing-popup";
+      blessingPopup.textContent = "Thân tâm an lạc, vạn sự cát tường!";
+
+      el.appendChild(spriteCvs);
+      el.appendChild(cushion);
+      el.appendChild(auraRing);
+      el.appendChild(lotusGlow);
+      el.appendChild(nameTag);
+      el.appendChild(blessingPopup);
+      worshippersStage.appendChild(el);
+
+      const pilgrimObj = {
+        user,
+        gender,
+        el,
+        spriteCvs,
+        ctx: spriteCvs.getContext("2d"),
+        auraRing,
+        lotusGlow,
+        blessingPopup,
+        currentX: startX,
+        currentY: startY,
+        targetSpot,
+        step: 0, // 0: Đi vào, 1: Quỳ lễ, 2: Xoay người, 3: Đi ra
+        stepTimer: 0,
+        walkCycle: 0,
+        specialState: null, // "flower", "incense", "ascend", null
+        isAscended: false,
+      };
+
+      worshippers.push(pilgrimObj);
+
+      if (worshippers.length > 20) {
+        const oldest = worshippers.shift();
+        if (oldest.targetSpot) oldest.targetSpot.occupied = false;
+        if (oldest.el.parentNode) oldest.el.remove();
+      }
+
+      return pilgrimObj;
+    }
+
+    // ========================================================
+    // 7. DIỄN HOẠT 4 BƯỚC ĐI VÀ LỄ VỚI 14 SPRITES CHUẨN ĐẸP
+    //  - Bước 0: Đi vào (walk_back)
+    //  - Bước 1: Quỳ lễ hướng vào tượng Phật (kneel)
+    //  - Bước 2: Xoay người lại (turn)
+    //  - Bước 3: Đi ra ngoài (walk_front)
+    // ========================================================
+    function updatePilgrim(w, dt) {
+      w.stepTimer += dt;
+      w.el.style.zIndex = Math.round(w.currentY * 10);
+
+      // Nếu đang trong trạng thái đặc biệt do tặng quà (hoa sen, nhang, phi thăng)
+      if (w.specialState) {
+        drawActionSprite(w, w.specialState);
+
+        if (w.isAscended) {
+          // Phi thăng bồng bềnh trên mây nước
+          w.walkCycle += dt * 2.5;
+          const floatOffset = Math.sin(w.walkCycle) * 12;
+          w.el.style.top = `${w.targetSpot.y - 20 + floatOffset * 0.15}%`;
+        }
+        return;
+      }
+
+      if (w.step === 0) {
+        // BƯỚC 0: ĐI VÀO TRONG (Nhìn từ phía sau - walk_back)
+        w.walkCycle += dt * 8;
+        const bob = Math.abs(Math.sin(w.walkCycle)) * 2.5;
+
+        const dx = w.targetSpot.x - w.currentX;
+        const dy = w.targetSpot.y - w.currentY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist > 0.6) {
+          w.currentX += (dx / dist) * 0.35;
+          w.currentY += (dy / dist) * 0.35;
+          w.el.style.left = `${w.currentX}%`;
+          w.el.style.top = `${w.currentY - bob * 0.15}%`;
+          drawActionSprite(w, "walk_back");
+        } else {
+          // Đến nơi: quỳ lễ trang nghiêm
+          w.currentX = w.targetSpot.x;
+          w.currentY = w.targetSpot.y;
+          w.el.style.left = `${w.currentX}%`;
+          w.el.style.top = `${w.currentY}%`;
+          w.step = 1;
+          w.stepTimer = 0;
+        }
+      } 
+      else if (w.step === 1) {
+        // BƯỚC 1: QUỲ LỄ HƯỚNG VÀO TRONG (kneel)
+        drawActionSprite(w, "kneel");
+
+        // Quỳ lễ trang nghiêm trong 12 giây
+        if (w.stepTimer > 12) {
+          w.step = 2; // Đứng dậy xoay người
+          w.stepTimer = 0;
+        }
+      } 
+      else if (w.step === 2) {
+        // BƯỚC 2: XOAY NGƯỜI LẠI (turn)
+        drawActionSprite(w, "turn");
+
+        if (w.stepTimer > 2.0) {
+          w.step = 3; // Đi ra ngoài
+          w.stepTimer = 0;
+        }
+      } 
+      else if (w.step === 3) {
+        // BƯỚC 3: ĐI RA NGOÀI (Nhìn thẳng về phía trước - walk_front)
+        w.walkCycle += dt * 7;
+        const bob = Math.abs(Math.sin(w.walkCycle)) * 2.5;
+
+        w.currentY += 0.30;
+        w.el.style.top = `${w.currentY - bob * 0.15}%`;
+        drawActionSprite(w, "walk_front");
+
+        // Khi đi khuất khỏi màn hình dưới -> vòng lại bắt đầu lượt đi lễ mới
+        if (w.currentY > 106) {
+          w.currentX = 20 + Math.random() * 60;
+          w.currentY = 104;
+          w.step = 0;
+          w.stepTimer = 0;
+        }
+      }
+    }
+
+    // Vẽ sprite chuẩn lên canvas nhân vật với tỷ lệ và chân cố định
+    function drawActionSprite(w, actionName) {
+      const img = loadedSprites[w.gender]?.[actionName];
+      if (!img || !img.complete) return;
+
+      const cvs = w.spriteCvs;
+      const ctx = w.ctx;
+      ctx.clearRect(0, 0, cvs.width, cvs.height);
+
+      // Kích thước hiển thị phù hợp từng tư thế
+      let targetH = 190;
+      if (actionName === "kneel") targetH = 150;
+      else if (actionName === "flower") targetH = 220;
+      else if (actionName === "incense") targetH = 230;
+      else if (actionName === "ascend") targetH = 235;
+
+      const aspect = img.width / img.height;
+      const targetW = targetH * aspect;
+
+      // Căn chỉnh chân ở mép dưới canvas
+      const posX = (cvs.width - targetW) / 2;
+      const posY = cvs.height - targetH;
+
+      ctx.drawImage(img, posX, posY, targetW, targetH);
+    }
+
+    // ========================================================
+    // 8. TÍNH NĂNG TƯƠNG TÁC ĐẶC BIỆT KHI TẶNG QUÀ
+    // 1) TẶNG 1 BÔNG: ZOOM IN + DÁNG HOA SEN + HÀO QUANG + LỜI CHÚC
+    // 2) TẶNG 5 XU: DÁNG 3 NÉN NHANG CHI TIẾT + ZOOM IN THẮP NHANG
+    // 3) TẶNG 10 BÔNG: DÁNG PHI THĂNG TỌA HOA SEN LƠ LỬNG
+    // ========================================================
+    let isZoomedInAction = false;
+    const stageContainer = document.getElementById("worshippersStage");
+    const natureBackdrop = document.getElementById("natureBackdrop");
+
+    // 1) TẶNG BÔNG: ZOOM IN VÔ CHAR ĐÓ + DÁNG DÂNG HOA SEN
+    function onGiftFlower(user) {
+      addLampPointsFromCoins(1);
+      const w = spawnPilgrim(user);
+      if (!w || isZoomedInAction) return;
+      isZoomedInAction = true;
+
+      playGrandBell();
+      playWoodblock(1.2);
+
+      // Đổi sang dáng dâng hoa sen có hào quang
+      w.specialState = "flower";
+      w.auraRing.classList.add("active");
+
+      const blessings = [
+        `Chúc ${escapeHtml(user.nickname || user.uniqueId)} thân tâm an lạc, vạn sự cát tường!`,
+        `Thí chủ ${escapeHtml(user.nickname || user.uniqueId)} tăng phước tăng thọ, gia đạo bình an!`,
+        `Chúc ${escapeHtml(user.nickname || user.uniqueId)} tâm khai trí sáng, vạn sự hanh thông!`
+      ];
+      const blessText = blessings[Math.floor(Math.random() * blessings.length)];
+      w.blessingPopup.textContent = blessText;
+      w.blessingPopup.classList.add("show");
+
+      postLiveTicker("🌸", escapeHtml(user.nickname || user.uniqueId), "vừa dâng hoa sen tươi thắm cúng dường");
+
+      // Zoom in thẳng vô nhân vật đó
+      zoomCameraToCharacter(w, 1.85);
+
+      // Giọng đọc AI đọc lời chúc
+      speakBlessing(`Nam Mô A Di Đà Phật. ${blessText}`);
+
+      // Tung cánh sen
+      spawnSpamHearts(8);
+
+      setTimeout(() => {
+        resetZoomCamera();
+        w.auraRing.classList.remove("active");
+        w.blessingPopup.classList.remove("show");
+        w.specialState = null;
+        setTimeout(() => isZoomedInAction = false, 1200);
+      }, 4500);
+    }
+
+    // 2) TẶNG 5 XU: DÁNG DÂNG 3 NÉN NHANG PHÁT SÁNG CHI TIẾT
+    function onGift5Coins(user) {
+      addLampPointsFromCoins(5);
+      const w = spawnPilgrim(user);
+      if (!w || isZoomedInAction) return;
+      isZoomedInAction = true;
+
+      playGrandBell();
+      setTimeout(() => playWoodblock(1.1), 200);
+      setTimeout(() => playWoodblock(1.2), 400);
+
+      // Đổi sang dáng 3 nén nhang
+      w.specialState = "incense";
+      w.auraRing.classList.add("active");
+
+      w.blessingPopup.textContent = `Thí chủ ${escapeHtml(user.nickname || user.uniqueId)} dâng 3 nén tâm hương cúng dường!`;
+      w.blessingPopup.classList.add("show");
+
+      postLiveTicker("🕯️", escapeHtml(user.nickname || user.uniqueId), "thành tâm dâng 3 nén hương trầm thơm ngát");
+
+      // Zoom in chi tiết cảnh thắp nhang
+      zoomCameraToCharacter(w, 2.15);
+
+      speakBlessing(`Nam Mô A Di Đà Phật. Thí chủ ${user.nickname || user.uniqueId} thành tâm dâng ba nén tâm hương, nguyện cầu gia đạo bình an!`);
+
+      setTimeout(() => {
+        resetZoomCamera();
+        w.auraRing.classList.remove("active");
+        w.blessingPopup.classList.remove("show");
+        w.specialState = null;
+        setTimeout(() => isZoomedInAction = false, 1200);
+      }, 5000);
+    }
+
+    // 3) TẶNG 10 BÔNG: DÁNG TỌA THIỀN TRÊN TÒA SEN PHI THĂNG
+    function onGift10FlowersAscension(user) {
+      addLampPointsFromCoins(10);
+      const w = spawnPilgrim(user);
+      if (!w || isZoomedInAction) return;
+      isZoomedInAction = true;
+
+      playGrandBell();
+      setTimeout(playGrandBell, 800);
+
+      // Đổi sang dáng đài sen phi thăng
+      w.specialState = "ascend";
+      w.lotusGlow.classList.add("active");
+      w.auraRing.classList.add("active");
+      w.isAscended = true;
+
+      w.blessingPopup.textContent = `ĐẮC LIÊN HOA TỌA: ${escapeHtml(user.nickname || user.uniqueId)} PHI THĂNG!`;
+      w.blessingPopup.classList.add("show");
+
+      postLiveTicker("🪷", escapeHtml(user.nickname || user.uniqueId), "đắc liên hoa tọa, phi thăng miền an lạc");
+
+      // Zoom in và bay lơ lửng
+      zoomCameraToCharacter(w, 1.75);
+
+      speakBlessing(`Nam Mô A Di Đà Phật. Thí chủ ${user.nickname || user.uniqueId} đại công đức vô lượng, đắc liên hoa tọa, phi thăng thanh tịnh an lạc!`);
+
+      // Mưa tim và cánh sen
+      spawnSpamHearts(18);
+
+      setTimeout(() => {
+        resetZoomCamera();
+        w.isAscended = false;
+        w.lotusGlow.classList.remove("active");
+        w.auraRing.classList.remove("active");
+        w.blessingPopup.classList.remove("show");
+        w.specialState = null;
+        w.el.style.top = `${w.targetSpot.y}%`;
+        setTimeout(() => isZoomedInAction = false, 1200);
+      }, 6500);
+    }
+
+    // Thuật toán zoom camera màn hình vào đúng tọa độ của nhân vật
+    function zoomCameraToCharacter(w, scale = 1.85) {
+      const originX = w.currentX;
+      const originY = Math.max(30, w.currentY - 14);
+      stageContainer.style.transformOrigin = `${originX}% ${originY}%`;
+      stageContainer.style.transform = `scale(${scale})`;
+      natureBackdrop.style.transformOrigin = `${originX}% ${originY}%`;
+      natureBackdrop.style.transform = `scale(${scale * 0.94})`;
+    }
+
+    function resetZoomCamera() {
+      stageContainer.style.transform = `scale(1)`;
+      natureBackdrop.style.transform = `scale(1)`;
+    }
+
+    // ========================================================
+    // 9. VÙNG D: TICKER THÔNG BÁO LIVESTREAM GỌN GÀNG
+    // ========================================================
+    const bottomTicker = document.getElementById("bottomTicker");
+
+    function postLiveTicker(icon, name, actionText) {
+      const item = document.createElement("div");
+      item.className = "live-ticker-item";
+      const avUrl = `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(name)}`;
+      item.innerHTML = `
+        <span style="font-size:1rem;">${icon}</span>
+        <img class="live-ticker-avatar" src="${avUrl}" onerror="this.src='https://api.dicebear.com/7.x/bottts/svg?seed=user'" />
+        <span class="live-ticker-text"><b>@${name}</b> ${actionText}</span>
+      `;
+      bottomTicker.appendChild(item);
+
+      setTimeout(() => {
+        if (item.parentNode) item.remove();
+      }, 4200);
+
+      if (bottomTicker.children.length > 3) {
+        bottomTicker.removeChild(bottomTicker.firstElementChild);
+      }
+    }
+
+    // ========================================================
+    // 10. SPAM TIM BAY & CHAT NIỆM PHẬT
+    // ========================================================
+    function spawnSpamHearts(count = 6) {
+      playWoodblock();
+      addLikesForLamp(count);
+
+      const icons = ["❤️", "💖", "🌸", "✨", "🌺", "💕", "🪷"];
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+          const heart = document.createElement("div");
+          heart.className = "zen-heart";
+          heart.textContent = icons[Math.floor(Math.random() * icons.length)];
+          heart.style.fontSize = `${1.2 + Math.random() * 0.8}rem`;
+
+          const startX = 260 + Math.random() * 160;
+          heart.style.left = `${startX}px`;
+          heart.style.bottom = `${40 + Math.random() * 30}px`;
+
+          const dx = (Math.random() - 0.5) * 160;
+          const dx2 = dx * 1.8 + (Math.random() - 0.5) * 120;
+          const rot = (Math.random() - 0.5) * 60;
+
+          heart.style.setProperty("--dx", `${dx}px`);
+          heart.style.setProperty("--dx2", `${dx2}px`);
+          heart.style.setProperty("--rot", `${rot}deg`);
+
+          screenStage.appendChild(heart);
+          setTimeout(() => {
+            if (heart.parentNode) heart.remove();
+          }, 2800);
+        }, i * 65);
+      }
+    }
+
+    function showPrayerChat(user, comment) {
+      const w = worshippers.find(item => item.user.uniqueId === user.uniqueId);
+      const bubble = document.createElement("div");
+      bubble.className = "figure-chat-bubble";
+      bubble.textContent = comment;
+
+      if (w && w.el) {
+        w.el.appendChild(bubble);
+      } else {
+        bubble.style.left = `${25 + Math.random() * 50}%`;
+        bubble.style.bottom = `140px`;
+        screenStage.appendChild(bubble);
+      }
+
+      setTimeout(() => {
+        if (bubble.parentNode) bubble.remove();
+      }, 4000);
+    }
+
+    function escapeHtml(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // ========================================================
+    // 11. BẢNG PHẢI: THỈNH LỜI CẦU TƯƠNG TÁC KHI VIEW BÌNH LUẬN
+    // ========================================================
+    function highlightPrayerIntent(keyword) {
+      const items = document.querySelectorAll(".intent-item");
+      items.forEach((item) => {
+        if (item.getAttribute("data-wish") && keyword.includes(item.getAttribute("data-wish"))) {
+          item.classList.add("active-glow");
+          setTimeout(() => item.classList.remove("active-glow"), 3000);
+        }
+      });
+    }
+
+    window.simulatePrayer = function(prayerName) {
+      getAudioCtx();
+      playWoodblock(1.1);
+      highlightPrayerIntent(prayerName.toLowerCase());
+
+      const user = worshippers[Math.floor(Math.random() * worshippers.length)]?.user || {
+        uniqueId: "phattu_hien",
+        nickname: "Phật Tử Hiền"
+      };
+      showPrayerChat(user, `Cầu xin ${prayerName} cho gia đình 🙏`);
+      postLiveTicker("🙏", escapeHtml(user.nickname), `thỉnh lời cầu: <b>${prayerName}</b>`);
+    };
+
+    // ========================================================
+    // 12. KẾT NỐI WEBSOCKET TIKTOK LIVE SERVER
+    // ========================================================
+    const socket = new WebSocket(`ws://${location.host}`);
+    const liveStatusText = document.getElementById("liveStatusText");
+    const streamInput = document.getElementById("streamInput");
+    const btnConnectStream = document.getElementById("btnConnectStream");
+
+    socket.addEventListener("open", () => {
+      liveStatusText.textContent = "● Sẵn sàng";
+      liveStatusText.style.color = "#4ade80";
+    });
+
+    socket.addEventListener("message", (ev) => {
+      try {
+        const msg = JSON.parse(ev.data);
+        handleStreamEvent(msg);
+      } catch (e) {}
+    });
+
+    function handleStreamEvent(msg) {
+      switch (msg.type) {
+        case "INIT":
+          if (msg.username) streamInput.value = msg.username;
+          if (msg.state === "connected") {
+            liveStatusText.textContent = `● Đang Live (@${msg.username})`;
+            liveStatusText.style.color = "#22c55e";
+          }
+          break;
+
+        case "STATUS":
+          if (msg.state === "connected") {
+            liveStatusText.textContent = `● Đang Live (@${msg.username})`;
+            liveStatusText.style.color = "#22c55e";
+            postLiveTicker("🎉", msg.username, "Đã kết nối thành công phòng livestream");
+          } else if (msg.state === "connecting") {
+            liveStatusText.textContent = "● Đang kết nối...";
+            liveStatusText.style.color = "#facc15";
+          } else if (msg.state === "disconnected") {
+            liveStatusText.textContent = "● Đã ngắt";
+            liveStatusText.style.color = "#ef4444";
+          }
+          break;
+
+        case "CHAT":
+          spawnPilgrim(msg.data);
+          showPrayerChat(msg.data, msg.data.comment);
+
+          const comment = (msg.data.comment || "").toLowerCase();
+          const prayers = ["bình an", "sức khỏe", "gia đạo", "tài lộc", "công việc", "học hành", "tình duyên", "giải hạn"];
+          prayers.forEach(p => {
+            if (comment.includes(p)) {
+              highlightPrayerIntent(p);
+              playWoodblock(1.1);
+              postLiveTicker("🙏", escapeHtml(msg.data.nickname), `thành tâm cầu nguyện: <b>${p}</b>`);
+            }
+          });
+          break;
+
+        case "LIKE":
+          spawnPilgrim(msg.data);
+          const likes = Math.min(msg.data.likeCount || 1, 30);
+          spawnSpamHearts(Math.max(4, likes));
+          break;
+
+        case "JOIN":
+          spawnPilgrim(msg.data);
+          postLiveTicker("🚶", escapeHtml(msg.data.nickname), "bước vào thiền cảnh chiêm bái");
+          playWoodblock(0.95);
+          break;
+
+        case "GIFT":
+          const coins = msg.data.diamondCount || msg.data.repeatCount || 1;
+          const count = msg.data.repeatCount || 1;
+
+          // Xử lý thông minh theo các mức quà của user:
+          if (count >= 10 || coins >= 10) {
+            onGift10FlowersAscension(msg.data);
+          } else if (coins === 5 || count === 5) {
+            onGift5Coins(msg.data);
+          } else {
+            onGiftFlower(msg.data);
+          }
+          break;
+
+        case "FOLLOW":
+          postLiveTicker("⭐", escapeHtml(msg.data.nickname), "đã nhấn follow đạo tràng");
+          playWoodblock(1.2);
+          break;
+
+        case "SHARE":
+          postLiveTicker("🔗", escapeHtml(msg.data.nickname), "đã chia sẻ livestream cửa Phật");
+          break;
+      }
+    }
+
+    btnConnectStream.addEventListener("click", () => {
+      const u = streamInput.value.trim().replace(/^@/, "");
+      if (!u) return;
+      socket.send(JSON.stringify({ type: "SWITCH_USER", username: u }));
+      liveStatusText.textContent = "● Đang chuyển...";
+      liveStatusText.style.color = "#facc15";
+    });
+
+    streamInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") btnConnectStream.click();
+    });
+
+    // ========================================================
+    // 13. CÁC NÚT MÔ PHỎNG SỰ KIỆN TEST
+    // ========================================================
+    const testUsers = [
+      { nickname: "Khánh Linh", uniqueId: "khanhlinh" },
+      { nickname: "Bảo An", uniqueId: "baoan" },
+      { nickname: "Quang Minh", uniqueId: "quangminh" },
+      { nickname: "Diệu Thiện", uniqueId: "dieuthien" },
+    ];
+
+    document.getElementById("simGiftRose").addEventListener("click", () => {
+      getAudioCtx();
+      const u = testUsers[Math.floor(Math.random() * testUsers.length)];
+      onGiftFlower(u);
+    });
+
+    document.getElementById("simGift5Coin").addEventListener("click", () => {
+      getAudioCtx();
+      const u = testUsers[Math.floor(Math.random() * testUsers.length)];
+      onGift5Coins(u);
+    });
+
+    document.getElementById("simGift10Rose").addEventListener("click", () => {
+      getAudioCtx();
+      const u = testUsers[Math.floor(Math.random() * testUsers.length)];
+      onGift10FlowersAscension(u);
+    });
+
+    document.getElementById("simJoinWorshipper").addEventListener("click", () => {
+      getAudioCtx();
+      const names = ["Minh Tuệ", "Diệu Thiện", "Tâm An", "Thanh Tịnh", "Phúc Lâm", "Bảo Vy", "Huệ Tâm", "Văn Hùng"];
+      const n = names[Math.floor(Math.random() * names.length)];
+      const user = {
+        uniqueId: "user_" + Math.floor(Math.random() * 99999),
+        nickname: n,
+        avatar: `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(n)}`
+      };
+      spawnPilgrim(user);
+      postLiveTicker("🚶", n, "bước vào chốn thiền môn");
+      playWoodblock(0.95);
+    });
+
+    // Khởi tạo các nhân vật chiêm bái ban đầu
+    window.addEventListener("DOMContentLoaded", () => {
+      const initUsers = [
+        { nickname: "Minh Tuệ", uniqueId: "mtue" },
+        { nickname: "Diệu Âm", uniqueId: "dam" },
+        { nickname: "Phúc Lâm", uniqueId: "plam" },
+        { nickname: "Thanh Lương", uniqueId: "tluong" },
+      ];
+      initUsers.forEach((u, i) => {
+        setTimeout(() => spawnPilgrim(u), i * 350);
+      });
+    });
+
+    // ========================================================
+    // 14. VÒNG LẶP RENDER ANIMATION 60FPS
+    // ========================================================
+    let lastTime = performance.now();
+
+    function renderLoop(currentTime) {
+      requestAnimationFrame(renderLoop);
+
+      const dt = Math.min((currentTime - lastTime) / 1000, 0.1);
+      lastTime = currentTime;
+
+      // Cập nhật vị trí & trạng thái từng Phật tử
+      worshippers.forEach((w) => {
+        updatePilgrim(w, dt);
+      });
+
+      // Cập nhật các hạt bụi vàng & cánh sen
+      renderParticles();
+    }
+    requestAnimationFrame(renderLoop);
+  </script>
+</body>
+</html>
