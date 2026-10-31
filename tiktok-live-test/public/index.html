@@ -1622,24 +1622,17 @@
     }
 
     // ========================================================
-    // 8. TÍNH NĂNG TƯƠNG TÁC ĐẶC BIỆT KHI TẶNG QUÀ
-    // 1) TẶNG 1 BÔNG: ZOOM IN + DÁNG HOA SEN + HÀO QUANG + LỜI CHÚC
-    // 2) TẶNG 5 XU: DÁNG 3 NÉN NHANG CHI TIẾT + ZOOM IN THẮP NHANG
-    // 3) TẶNG 10 BÔNG: DÁNG PHI THĂNG TỌA HOA SEN LƠ LỬNG
-    // ========================================================
-    let isZoomedInAction = false;
-    const stageContainer = document.getElementById("worshippersStage");
-    const natureBackdrop = document.getElementById("natureBackdrop");
-
     // ========================================================
     // 8. HÀNG ĐỢI HÀNH LỄ CÔNG ĐỨC (ACTION QUEUE SYSTEM)
     // Đợi nhân vật đi vào giữa sân chánh điện rồi mới thực thi
     // Từng hiệu ứng xếp hàng thực hiện tuần tự, êm dịu, không gián đoạn
     // ========================================================
-    const actionQueue = [];
-    let isActionExecuting = false;
+    const screenStage = document.getElementById("screenStage");
     const stageContainer = document.getElementById("worshippersStage");
     const natureBackdrop = document.getElementById("natureBackdrop");
+    const actionQueue = [];
+    let isActionExecuting = false;
+    let isZoomedInAction = false;
 
     // Đưa sự kiện cúng dường vào hàng đợi và chuẩn bị nhân vật
     function enqueueGiftAction(type, user, coins = 1) {
@@ -1804,7 +1797,6 @@
 
     // Thuật toán zoom camera màn hình đưa nhân vật về CHÍNH GIỮA (CENTER) và HIDE TẤT CẢ CÁC BẢNG
     function zoomCameraToCharacter(w, scale = 2.1) {
-      const screenStage = document.getElementById("screenStage");
       screenStage.classList.add("cinematic-focus");
       w.el.classList.add("active-focus");
 
@@ -1835,7 +1827,6 @@
     }
 
     function resetZoomCamera(w) {
-      const screenStage = document.getElementById("screenStage");
       screenStage.classList.remove("cinematic-focus");
       if (w && w.el) w.el.classList.remove("active-focus");
 
