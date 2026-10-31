@@ -1019,22 +1019,22 @@
     // ========================================================
     const spriteUrls = {
       female: {
-        walk_back: "assets/f_walk_back.png",
-        kneel:     "assets/f_kneel.png",
-        turn:      "assets/f_turn.png",
-        walk_front:"assets/f_walk_front.png",
-        flower:    "assets/f_flower.png",
-        incense:   "assets/f_incense.png",
-        ascend:    "assets/f_ascend.png",
+        walk_back: "assets/f_walk_back.png?v=3",
+        kneel:     "assets/f_kneel.png?v=3",
+        turn:      "assets/f_turn.png?v=3",
+        walk_front:"assets/f_walk_front.png?v=3",
+        flower:    "assets/f_flower.png?v=3",
+        incense:   "assets/f_incense.png?v=3",
+        ascend:    "assets/f_ascend.png?v=3",
       },
       male: {
-        walk_back: "assets/m_walk_back.png",
-        kneel:     "assets/m_kneel.png",
-        turn:      "assets/m_turn.png",
-        walk_front:"assets/m_walk_front.png",
-        flower:    "assets/m_flower.png",
-        incense:   "assets/m_incense.png",
-        ascend:    "assets/m_ascend.png",
+        walk_back: "assets/m_walk_back.png?v=3",
+        kneel:     "assets/m_kneel.png?v=3",
+        turn:      "assets/m_turn.png?v=3",
+        walk_front:"assets/m_walk_front.png?v=3",
+        flower:    "assets/m_flower.png?v=3",
+        incense:   "assets/m_incense.png?v=3",
+        ascend:    "assets/m_ascend.png?v=3",
       }
     };
 
@@ -1364,7 +1364,15 @@
       const posX = (cvs.width - targetW) / 2;
       const posY = cvs.height - targetH;
 
+      ctx.save();
+      // Khi quỳ bái lạy (kneel), nhân vật ở nửa sân bên phải (currentX > 50) lật ngược lại
+      // để cả hai bên đều thành kính hướng mặt vào trong tôn tượng Phật ở trung tâm
+      if (actionName === "kneel" && w.currentX > 50) {
+        ctx.translate(cvs.width, 0);
+        ctx.scale(-1, 1);
+      }
       ctx.drawImage(img, posX, posY, targetW, targetH);
+      ctx.restore();
     }
 
     // ========================================================
