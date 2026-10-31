@@ -12,6 +12,50 @@ const PORT = 3000;
 let currentUsername = "dgnl.empireteam"; // Username mặc định (không có @)
 let tiktokLive = null;
 let currentRoomId = null;
+let isConnecting = false;
+
+// Bộ nhớ chống trùng lặp sự kiện (Deduplication Cache)
+const seenMessageIds = new Set();
+const recentEventSignatures = new Map();
+const MAX_SEEN_IDS = 3000;
+const DEDUP_WINDOW_MS = 2500; // 2.5 giây
+
+function getEventMsgId(data) {
+  return data?.common?.msgId || data?.msgId || data?.id || data?.common?.messageId || "";
+}
+
+function isDuplicateEvent(type, data, userInfo, extraKey = "") {
+  // 1. Kiểm tra msgId duy nhất từ TikTok protobuf
+  const msgId = getEventMsgId(data);
+  if (msgId && typeof msgId === "string" && msgId.length > 3) {
+    if (seenMessageIds.has(msgId)) {
+      return true; // Trùng lặp ID gói tin!
+    }
+    seenMessageIds.add(msgId);
+    if (seenMessageIds.size > MAX_SEEN_IDS) {
+      const oldest = seenMessageIds.values().next().value;
+      seenMessageIds.delete(oldest);
+    }
+  }
+
+  // 2. Kiểm tra chữ ký sự kiện trong cửa sổ thời gian ngắn
+  const now = Date.now();
+  const signature = `${type}::${userInfo.uniqueId}::${extraKey}`;
+  const lastTime = recentEventSignatures.get(signature);
+
+  if (recentEventSignatures.size > 2000) {
+    for (const [k, t] of recentEventSignatures.entries()) {
+      if (now - t > 10000) recentEventSignatures.delete(k);
+    }
+  }
+
+  if (lastTime && now - lastTime < DEDUP_WINDOW_MS) {
+    return true; // Trùng lặp sự kiện trong khoảng thời gian ngắn!
+  }
+
+  recentEventSignatures.set(signature, now);
+  return false;
+}
 
 // Khởi tạo HTTP server phục vụ trang web giao diện và static files trong public/
 const server = http.createServer((req, res) => {
@@ -90,30 +134,49 @@ function extractUserInfo(userObj) {
 
 // Kết nối tới TikTok Live
 async function connectToTikTok(targetUsername) {
+  const cleanUsername = (targetUsername || "").trim().replace(/^@/, "");
+  if (!cleanUsername) return;
+
+  // Nếu đang kết nối hoặc đã kết nối với đúng kênh này thì không khởi tạo lại để tránh duplicate listener
+  if (cleanUsername === currentUsername && tiktokLive && (tiktokLive.isConnected || isConnecting)) {
+    console.log(`[TIKTOK] Đang hoặc đã kết nối tới @${cleanUsername}, giữ nguyên phiên làm việc hiện tại.`);
+    return;
+  }
+
+  isConnecting = true;
+  currentUsername = cleanUsername;
+
+  // Dọn dẹp triệt để phiên kết nối cũ trước khi mở phiên mới
   if (tiktokLive) {
     try {
-      tiktokLive.disconnect();
+      tiktokLive.removeAllListeners();
+      await tiktokLive.disconnect();
     } catch (e) {
       // bỏ qua lỗi disconnect cũ
     }
     tiktokLive = null;
   }
 
-  currentUsername = targetUsername.trim().replace(/^@/, "");
+  // Dọn dẹp cache dedup khi chuyển kênh
+  seenMessageIds.clear();
+  recentEventSignatures.clear();
+
   console.log(`\n[TIKTOK] Đang kết nối tới TikTok Live: @${currentUsername}...`);
   broadcast({ type: "STATUS", state: "connecting", username: currentUsername });
 
-  tiktokLive = new TikTokLiveConnection(currentUsername, {
-    processInitialData: true,
+  const activeClient = new TikTokLiveConnection(currentUsername, {
+    processInitialData: false, // TẮT replay batch cũ để tránh trùng lặp ngay khi vừa kết nối
     fetchRoomInfoOnConnect: true,
     enableExtendedGiftInfo: false,
   });
+  tiktokLive = activeClient;
 
   // Lắng nghe bình luận (CHAT)
-  tiktokLive.on(WebcastEvent.CHAT, (data) => {
+  activeClient.on(WebcastEvent.CHAT, (data) => {
+    if (tiktokLive !== activeClient) return; // Bảo vệ stale instance
     const userInfo = extractUserInfo(data?.user);
-    // content chứa tin nhắn văn bản; fallback sang comment nếu có
-    const comment = data?.content || data?.comment || "";
+    const comment = (data?.content || data?.comment || "").trim();
+    if (isDuplicateEvent("CHAT", data, userInfo, comment)) return;
 
     console.log(`[CHAT] ${userInfo.nickname} (@${userInfo.uniqueId}): ${comment}`);
 
@@ -122,17 +185,20 @@ async function connectToTikTok(targetUsername) {
       data: {
         ...userInfo,
         comment,
+        msgId: getEventMsgId(data),
       },
     });
   });
 
   // Lắng nghe quà tặng (GIFT)
-  tiktokLive.on(WebcastEvent.GIFT, (data) => {
+  activeClient.on(WebcastEvent.GIFT, (data) => {
+    if (tiktokLive !== activeClient) return;
     const userInfo = extractUserInfo(data?.user);
     const giftName = data?.giftDetails?.giftName || data?.gift?.name || `Quà #${data?.giftId || ""}`;
     const repeatCount = data?.repeatCount || 1;
-    // Lấy số xu/kim cương thật của quà (diamondCount) hoặc fallback theo repeatCount
     const diamondCount = (data?.gift?.diamondCount || data?.diamondCount || 1) * repeatCount;
+    const giftKey = `${giftName}::${repeatCount}::${data?.groupId || ""}`;
+    if (isDuplicateEvent("GIFT", data, userInfo, giftKey)) return;
 
     console.log(`[GIFT] ${userInfo.nickname} tặng ${giftName} x${repeatCount} (${diamondCount} xu)`);
 
@@ -143,69 +209,94 @@ async function connectToTikTok(targetUsername) {
         giftName,
         repeatCount,
         diamondCount,
+        msgId: getEventMsgId(data),
       },
     });
   });
 
   // Lắng nghe người xem vào phòng (MEMBER / JOIN)
-  tiktokLive.on(WebcastEvent.MEMBER, (data) => {
+  activeClient.on(WebcastEvent.MEMBER, (data) => {
+    if (tiktokLive !== activeClient) return;
     const userInfo = extractUserInfo(data?.user);
+    if (isDuplicateEvent("MEMBER", data, userInfo, "JOIN")) return;
+
     console.log(`[JOIN] ${userInfo.nickname} (@${userInfo.uniqueId}) vào live`);
 
     broadcast({
       type: "JOIN",
-      data: userInfo,
+      data: {
+        ...userInfo,
+        msgId: getEventMsgId(data),
+      },
     });
   });
 
   // Lắng nghe thả tim (LIKE)
-  tiktokLive.on(WebcastEvent.LIKE, (data) => {
+  activeClient.on(WebcastEvent.LIKE, (data) => {
+    if (tiktokLive !== activeClient) return;
     const userInfo = extractUserInfo(data?.user);
     const likeCount = data?.count || data?.likeCount || 1;
+    if (isDuplicateEvent("LIKE", data, userInfo, `${likeCount}`)) return;
 
     broadcast({
       type: "LIKE",
       data: {
         ...userInfo,
         likeCount,
+        msgId: getEventMsgId(data),
       },
     });
   });
 
   // Lắng nghe Follow
-  tiktokLive.on(WebcastEvent.FOLLOW, (data) => {
+  activeClient.on(WebcastEvent.FOLLOW, (data) => {
+    if (tiktokLive !== activeClient) return;
     const userInfo = extractUserInfo(data?.user);
+    if (isDuplicateEvent("FOLLOW", data, userInfo, "FOLLOW")) return;
+
     console.log(`[FOLLOW] ${userInfo.nickname} (@${userInfo.uniqueId}) đã follow`);
 
     broadcast({
       type: "FOLLOW",
-      data: userInfo,
+      data: {
+        ...userInfo,
+        msgId: getEventMsgId(data),
+      },
     });
   });
 
   // Lắng nghe Share
-  tiktokLive.on(WebcastEvent.SHARE, (data) => {
+  activeClient.on(WebcastEvent.SHARE, (data) => {
+    if (tiktokLive !== activeClient) return;
     const userInfo = extractUserInfo(data?.user);
+    if (isDuplicateEvent("SHARE", data, userInfo, "SHARE")) return;
+
     console.log(`[SHARE] ${userInfo.nickname} (@${userInfo.uniqueId}) đã chia sẻ`);
 
     broadcast({
       type: "SHARE",
-      data: userInfo,
+      data: {
+        ...userInfo,
+        msgId: getEventMsgId(data),
+      },
     });
   });
 
-  tiktokLive.on(WebcastEvent.DISCONNECTED, () => {
+  activeClient.on(WebcastEvent.DISCONNECTED, () => {
+    if (tiktokLive !== activeClient) return;
     console.log("[TIKTOK] Đã ngắt kết nối với phòng live.");
     broadcast({ type: "STATUS", state: "disconnected", username: currentUsername });
   });
 
-  tiktokLive.on(WebcastEvent.ERROR, (err) => {
+  activeClient.on(WebcastEvent.ERROR, (err) => {
+    if (tiktokLive !== activeClient) return;
     console.error("[TIKTOK ERROR]", err?.message || err);
     broadcast({ type: "ERROR", message: err?.message || String(err) });
   });
 
   try {
-    const state = await tiktokLive.connect();
+    const state = await activeClient.connect();
+    if (tiktokLive !== activeClient) return;
     currentRoomId = state.roomId;
     console.log(`[TIKTOK] Kết nối thành công! Room ID: ${state.roomId}`);
     broadcast({
@@ -215,11 +306,14 @@ async function connectToTikTok(targetUsername) {
       roomId: state.roomId,
     });
   } catch (err) {
+    if (tiktokLive !== activeClient) return;
     console.error(`[TIKTOK] Kết nối thất bại: ${err?.message || err}`);
     broadcast({
       type: "ERROR",
       message: `Không thể kết nối tới @${currentUsername}. Hãy đảm bảo kênh đang phát livestream!`,
     });
+  } finally {
+    isConnecting = false;
   }
 }
 

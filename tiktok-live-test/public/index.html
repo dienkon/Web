@@ -1981,7 +1981,37 @@
       } catch (e) {}
     });
 
+    // Bộ nhớ chống duplicate ở Client phía trình duyệt
+    const clientSeenIds = new Set();
+    const clientRecentSignatures = new Map();
+    function isClientDuplicate(msg) {
+      if (!msg || !msg.data) return false;
+      const msgId = msg.data.msgId;
+      if (msgId && typeof msgId === "string" && msgId.length > 3) {
+        if (clientSeenIds.has(msgId)) return true;
+        clientSeenIds.add(msgId);
+        if (clientSeenIds.size > 2000) {
+          const oldest = clientSeenIds.values().next().value;
+          clientSeenIds.delete(oldest);
+        }
+      }
+      const now = Date.now();
+      const sig = `${msg.type}::${msg.data.uniqueId || ''}::${msg.data.comment || msg.data.giftName || ''}`;
+      const prev = clientRecentSignatures.get(sig);
+      if (prev && now - prev < 2000) return true;
+      clientRecentSignatures.set(sig, now);
+      if (clientRecentSignatures.size > 1500) {
+        for (const [k, t] of clientRecentSignatures.entries()) {
+          if (now - t > 8000) clientRecentSignatures.delete(k);
+        }
+      }
+      return false;
+    }
+
     function handleStreamEvent(msg) {
+      if (["CHAT", "JOIN", "GIFT", "FOLLOW", "SHARE"].includes(msg.type)) {
+        if (isClientDuplicate(msg)) return;
+      }
       switch (msg.type) {
         case "INIT":
           if (msg.username) streamInput.value = msg.username;
