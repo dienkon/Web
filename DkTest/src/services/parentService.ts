@@ -15,6 +15,7 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { db } from "./firebase/config";
+import { FirestoreCache } from "./firebase/firestoreCache";
 import type { Submission } from "../types";
 import { getActiveSessionForStudent } from "./realtimeProctoringService";
 
@@ -137,6 +138,7 @@ export async function autoLinkChildToParent(
         parentDisplayName: parentDisplayName || cleanParent,
         updatedAt: new Date().toISOString(),
       });
+      FirestoreCache.invalidatePrefix("parent:linked_children:");
       return true;
     }
 
@@ -152,6 +154,7 @@ export async function autoLinkChildToParent(
       createdAt: new Date().toISOString(),
       autoLinked: true,
     });
+    FirestoreCache.invalidatePrefix("parent:linked_children:");
     return true;
   } catch (err) {
     console.error("Error auto-linking child to parent:", err);
@@ -192,6 +195,7 @@ export async function respondToParentLinkRequest(
       status: accept ? "accepted" : "rejected",
       respondedAt: new Date().toISOString(),
     });
+    FirestoreCache.invalidatePrefix("parent:linked_children:");
     return true;
   } catch (err) {
     console.error("Error responding to parent link request:", err);
@@ -205,6 +209,14 @@ export async function respondToParentLinkRequest(
 export async function getLinkedChildrenForParent(parentUsername: string): Promise<LinkedChildInfo[]> {
   try {
     const cleanParent = parentUsername.trim().toLowerCase();
+    if (!cleanParent) return [];
+
+    const cacheKey = `parent:linked_children:${cleanParent}`;
+    const cached = FirestoreCache.get<LinkedChildInfo[]>(cacheKey);
+    if (cached && Array.isArray(cached)) {
+      return cached;
+    }
+
     const q = query(
       collection(db, "parent_link_requests"),
       where("parentUsername", "==", cleanParent),
@@ -285,6 +297,7 @@ export async function getLinkedChildrenForParent(parentUsername: string): Promis
       });
     }
 
+    FirestoreCache.set(cacheKey, children, 60000);
     return children;
   } catch (err) {
     console.error("Error fetching linked children for parent:", err);

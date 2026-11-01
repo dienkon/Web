@@ -240,9 +240,8 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
 
     setLoadingTop(true);
     try {
-      const q = query(collection(db, "exams"), where("status", "==", "published"));
-      const snap = await getDocs(q);
-      const published = snap.docs.map((d) => ({ id: d.id, ...d.data() } as any));
+      const catalog = await getExamsCatalogSummary();
+      const published = (catalog.exams || []).filter((e) => e.status === "published");
 
       // 1. Top 5 Newest (strictly sorted by newest first)
       const newestList = [...published]
@@ -286,19 +285,17 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
 
     setLoadingAll(true);
     try {
-      const conditions: any[] = [where("status", "==", "published")];
-      if (selectedSubjectFilter !== "all") {
-        conditions.push(where("subject", "==", selectedSubjectFilter));
-      }
-      if (selectedGradeFilter !== "all") {
-        conditions.push(where("gradeCategory", "==", selectedGradeFilter));
-      }
-
-      const q = query(collection(db, "exams"), ...conditions);
-      const snap = await getDocs(q);
+      const catalog = await getExamsCatalogSummary();
       if (reqId !== filterRequestIdRef.current) return;
 
-      const rawItems = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
+      let rawItems = (catalog.exams || []).filter((e) => e.status === "published") as unknown as Exam[];
+      if (selectedSubjectFilter !== "all") {
+        rawItems = rawItems.filter((e) => (e as any).subject === selectedSubjectFilter);
+      }
+      if (selectedGradeFilter !== "all") {
+        rawItems = rawItems.filter((e) => (e as any).gradeCategory === selectedGradeFilter);
+      }
+
       rawItems.sort((a, b) => {
         const timeA = getExamTimestampMs(a.updatedAt) || getExamTimestampMs(a.createdAt);
         const timeB = getExamTimestampMs(b.updatedAt) || getExamTimestampMs(b.createdAt);

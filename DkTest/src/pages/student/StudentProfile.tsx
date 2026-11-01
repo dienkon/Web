@@ -24,8 +24,9 @@ import {
   RefreshCw,
   HelpCircle,
 } from "lucide-react";
-import { collection, query, where, getDocs, doc, setDoc } from "firebase/firestore";
+import { collection, query, where, getDocs, doc, setDoc, limit } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
+import { FirestoreCache } from "../../services/firebase/firestoreCache";
 import { uploadImageToCloudinary } from "../../services/cloudinary";
 import { saveStudentProfile } from "../../services/studentService";
 import {
@@ -151,10 +152,20 @@ export default function StudentProfile() {
     if (!targetId) return;
 
     const fetchStats = async () => {
+      const cacheKey = `profile:stats:${targetId}`;
+      const cached = FirestoreCache.get<{ count: number; perfect: boolean; avg: number }>(cacheKey);
+      if (cached) {
+        setExamCount(cached.count);
+        setHasPerfectScore(cached.perfect);
+        setAverageScore(cached.avg);
+        return;
+      }
+
       try {
         const q = query(
           collection(db, "submissions"),
-          where("studentId", "==", targetId)
+          where("studentId", "==", targetId),
+          limit(50)
         );
         const snap = await getDocs(q);
         const count = snap.docs.length;
@@ -170,8 +181,10 @@ export default function StudentProfile() {
           }
         });
 
+        const avg = count > 0 ? Number((totalScore / count).toFixed(1)) : 0;
         setHasPerfectScore(perfect);
-        setAverageScore(count > 0 ? Number((totalScore / count).toFixed(1)) : 0);
+        setAverageScore(avg);
+        FirestoreCache.set(cacheKey, { count, perfect, avg }, 60000);
       } catch (err) {
         console.warn("Error fetching student submissions:", err);
       }

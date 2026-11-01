@@ -15,6 +15,8 @@ import {
   writeBatch,
 } from "firebase/firestore";
 import { db } from "./firebase/config";
+import { FirestoreRepository } from "./firebase/firestoreRepository";
+import { FirestoreCache } from "./firebase/firestoreCache";
 import type { Student, PaginatedResult } from "../types";
 import { deleteStudentActiveSessionsFromRtdb } from "./realtimeProctoringService";
 
@@ -46,6 +48,7 @@ export const saveStudentProfile = async (profile: {
     payload.uid = profile.uid;
   }
   await setDoc(docRef, payload, { merge: true });
+  FirestoreCache.invalidate(`doc:${STUDENTS_COLLECTION}:${docId}`);
 };
 
 export const updateStudent = async (studentId: string, data: Partial<Student>) => {
@@ -55,6 +58,7 @@ export const updateStudent = async (studentId: string, data: Partial<Student>) =
     ...data,
     ...(data.name ? { searchNameLower: data.name.toLowerCase() } : {})
   });
+  FirestoreCache.invalidate(`doc:${STUDENTS_COLLECTION}:${studentId}`);
 };
 
 export const deleteStudent = async (studentId: string) => {
@@ -73,6 +77,7 @@ export const deleteStudent = async (studentId: string) => {
     // 1. Delete student doc
     console.warn(`[Firestore] DELETE (1 doc): ${STUDENTS_COLLECTION}/${studentId}`);
     await deleteDoc(docRef);
+    FirestoreCache.invalidate(`doc:${STUDENTS_COLLECTION}:${studentId}`);
 
     // 2. Cascade delete all submissions of this student
     const subsRef = collection(db, "submissions");
@@ -191,11 +196,9 @@ export const getStudentList = async ({
 };
 
 export const getStudent = async (studentId: string): Promise<Student | null> => {
-  const docRef = doc(db, STUDENTS_COLLECTION, studentId);
-  const snapshot = await getDoc(docRef);
-  console.warn(`[Firestore] READ (1 doc): ${STUDENTS_COLLECTION}/${studentId} (found: ${snapshot.exists()})`);
-  if (snapshot.exists()) {
-    return { id: snapshot.id, ...(snapshot.data() as any) } as Student;
-  }
-  return null;
+  if (!studentId) return null;
+  return FirestoreRepository.getDocument<Student>(STUDENTS_COLLECTION, studentId, {
+    ttlMs: 300000,
+    purpose: "getStudent",
+  });
 };

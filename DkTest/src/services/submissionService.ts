@@ -56,10 +56,39 @@ export const getExamSubmissions = async ({
 };
 
 export const getSubmission = async (submissionId: string): Promise<Submission | null> => {
-  return FirestoreRepository.getDocument<Submission>(SUBMISSIONS_COLLECTION, submissionId, {
-    ttlMs: 180000,
+  if (!submissionId) return null;
+
+  // 1. In-memory cache check (both key styles for maximum compatibility)
+  const cached =
+    FirestoreCache.get<Submission>(`doc:${SUBMISSIONS_COLLECTION}:${submissionId}`) ||
+    FirestoreCache.get<Submission>(`${SUBMISSIONS_COLLECTION}:${submissionId}`);
+  if (cached) return cached;
+
+  // 2. SessionStorage cache check (prevents reading on page refresh or navigation)
+  if (typeof sessionStorage !== "undefined") {
+    try {
+      const stored = sessionStorage.getItem(`submission_${submissionId}`);
+      if (stored) {
+        const parsed = JSON.parse(stored) as Submission;
+        FirestoreCache.set(`doc:${SUBMISSIONS_COLLECTION}:${submissionId}`, parsed, 300000);
+        return parsed;
+      }
+    } catch (_) {}
+  }
+
+  // 3. Fallback to centralized FirestoreRepository
+  const sub = await FirestoreRepository.getDocument<Submission>(SUBMISSIONS_COLLECTION, submissionId, {
+    ttlMs: 300000,
     caller: "submissionService:getSubmission",
   });
+
+  if (sub && typeof sessionStorage !== "undefined") {
+    try {
+      sessionStorage.setItem(`submission_${submissionId}`, JSON.stringify(sub));
+    } catch (_) {}
+  }
+
+  return sub;
 };
 
 const removeUndefinedValues = (obj: any): any => {
@@ -119,8 +148,28 @@ export const createSubmission = async (
     submittedAt: new Date() as any,
   } as Submission;
 
-  // Seed into centralized cache with 5 minutes TTL
+  // Seed into centralized cache with 5 minutes TTL (both doc: prefix and standard key)
+  FirestoreCache.set(`doc:${SUBMISSIONS_COLLECTION}:${docRef.id}`, finalSubObject, 300000);
   FirestoreCache.set(`${SUBMISSIONS_COLLECTION}:${docRef.id}`, finalSubObject, 300000);
+
+  // Save to SessionStorage so instant redirect to ExamResult requires 0 reads
+  if (typeof sessionStorage !== "undefined") {
+    try {
+      sessionStorage.setItem(`submission_${docRef.id}`, JSON.stringify(finalSubObject));
+    } catch (_) {}
+  }
+
+  // Invalidate candidate attempts cache keys
+  const candidateUsername = submissionData.studentUsername || submissionData.studentId;
+  if (candidateUsername && submissionData.examId) {
+    FirestoreCache.invalidate(`attempts:${submissionData.examId}:${candidateUsername}`);
+    FirestoreCache.invalidatePrefix(`exam_attempts_count:${submissionData.examId}`);
+    if (typeof sessionStorage !== "undefined") {
+      try {
+        sessionStorage.removeItem(`exam_attempts_${submissionData.examId}_${candidateUsername}`);
+      } catch (_) {}
+    }
+  }
 
   // Invalidate student history cache and leaderboard cache
   FirestoreCache.invalidatePrefix("history:");

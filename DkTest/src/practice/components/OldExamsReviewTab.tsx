@@ -35,6 +35,8 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
+import { FirestoreCache } from "../../services/firebase/firestoreCache";
+import { getSubmission } from "../../services/submissionService";
 import type { Submission, Exam, Question } from "../../types";
 import { formatDate, getTimestampMillis } from "../../utils/date";
 import {
@@ -109,24 +111,31 @@ export default function OldExamsReviewTab() {
       let fetchedSubs: Submission[] = [];
 
       if (studentUsername) {
-        const q = query(
-          collection(db, "submissions"),
-          where("studentId", "==", studentUsername)
-        );
-        const snap = await getDocs(q);
-        console.warn(
-          `[Firestore] READ_MANY (${snap.size} docs): submissions (loadUserExamHistory for student ${studentUsername})`
-        );
-        fetchedSubs = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
+        const cacheKey = `history:subs:${studentUsername}`;
+        const cached = FirestoreCache.get<Submission[]>(cacheKey);
+        if (cached && Array.isArray(cached)) {
+          fetchedSubs = [...cached];
+        } else {
+          const q = query(
+            collection(db, "submissions"),
+            where("studentId", "==", studentUsername),
+            limit(30)
+          );
+          const snap = await getDocs(q);
+          console.warn(
+            `[Firestore] READ_MANY (${snap.size} docs): submissions (loadUserExamHistory for student ${studentUsername})`
+          );
+          fetchedSubs = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
+          FirestoreCache.set(cacheKey, fetchedSubs, 60000);
+        }
       }
 
-      for (const id of localIds) {
+      for (const id of localIds.slice(0, 10)) {
         if (!fetchedSubs.some((s) => s.id === id)) {
           try {
-            const docSnap = await getDoc(doc(db, "submissions", id));
-            console.warn(`[Firestore] READ (1 doc): submissions/${id}`);
-            if (docSnap.exists()) {
-              fetchedSubs.push({ id: docSnap.id, ...docSnap.data() } as Submission);
+            const sub = await getSubmission(id);
+            if (sub) {
+              fetchedSubs.push(sub);
             }
           } catch {}
         }

@@ -106,11 +106,39 @@ export const getExamList = async ({
 };
 
 export const getExam = async (examId: string, forceRefresh = false): Promise<Exam | null> => {
-  return FirestoreRepository.getDocument<Exam>(EXAMS_COLLECTION, examId, {
-    ttlMs: 30 * 1000,
+  if (!examId) return null;
+  const cacheKey = `doc:${EXAMS_COLLECTION}:${examId}`;
+  const storageKey = `exam_${examId}`;
+
+  if (!forceRefresh) {
+    const mem = FirestoreCache.get<Exam>(cacheKey);
+    if (mem) return mem;
+
+    if (typeof sessionStorage !== "undefined") {
+      try {
+        const stored = sessionStorage.getItem(storageKey);
+        if (stored) {
+          const parsed = JSON.parse(stored) as Exam;
+          FirestoreCache.set(cacheKey, parsed, 10 * 60 * 1000);
+          return parsed;
+        }
+      } catch (_) {}
+    }
+  }
+
+  const fetched = await FirestoreRepository.getDocument<Exam>(EXAMS_COLLECTION, examId, {
+    ttlMs: 10 * 60 * 1000,
     forceRefresh,
     purpose: "getExam",
   });
+
+  if (fetched && typeof sessionStorage !== "undefined") {
+    try {
+      sessionStorage.setItem(storageKey, JSON.stringify(fetched));
+    } catch (_) {}
+  }
+
+  return fetched;
 };
 
 export const createExam = async (examData: Omit<Exam, "id" | "createdAt" | "updatedAt">): Promise<Exam> => {
@@ -157,6 +185,11 @@ export const updateExam = async (examId: string, updates: Partial<Exam>): Promis
   FirestoreCache.invalidatePrefix("doc:exams");
   FirestoreCache.invalidatePrefix("query:exams");
   invalidateHomeTopCache();
+  if (typeof sessionStorage !== "undefined") {
+    try {
+      sessionStorage.removeItem(`exam_${examId}`);
+    } catch (_) {}
+  }
 
   // Sync to 1-read catalog summary (await to guarantee write committed)
   try {
@@ -244,6 +277,11 @@ export const deleteExam = async (examId: string): Promise<void> => {
     FirestoreCache.invalidatePrefix("doc:exams");
     FirestoreCache.invalidatePrefix("query:exams");
     invalidateHomeTopCache();
+    if (typeof sessionStorage !== "undefined") {
+      try {
+        sessionStorage.removeItem(`exam_${examId}`);
+      } catch (_) {}
+    }
 
     // 6. Sync deletion to 1-read catalog summary
     try {

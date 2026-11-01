@@ -5,7 +5,8 @@ import { evaluateQuestionAnswer } from "../utils/attemptAnalytics";
 import { clearActiveExamSession } from "./examSessionService";
 import { getOrCreateStudentFolder } from "./folderService";
 import { sanitizeFirestoreData } from "./learningActivityService";
-import { getExamQuestionsWithCache } from "./examCacheService";
+import { getExamQuestionsWithCache, getExamSectionsWithCache } from "./examCacheService";
+import { getExam } from "./examService";
 
 const EXAMS_COLLECTION = "exams";
 
@@ -143,9 +144,8 @@ export async function createRetakeExam(options: CreateRetakeOptions): Promise<st
 
   if (examId) {
     try {
-      const eDoc = await getDoc(doc(db, EXAMS_COLLECTION, examId));
-      if (eDoc.exists()) {
-        const eData = eDoc.data();
+      const eData = await getExam(examId);
+      if (eData) {
         masterExamData = { ...originalExam, ...eData, id: examId };
         if (masterSections.length === 0 && Array.isArray(eData.sections) && eData.sections.length > 0) {
           masterSections = eData.sections;
@@ -157,14 +157,11 @@ export async function createRetakeExam(options: CreateRetakeOptions): Promise<st
 
     if (masterSections.length === 0) {
       try {
-        const secSnap = await getDocs(
-          query(collection(db, `${EXAMS_COLLECTION}/${examId}/sections`), orderBy("order", "asc"))
-        );
-        if (!secSnap.empty) {
-          masterSections = secSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Section));
-        }
+        masterSections = await getExamSectionsWithCache(examId, masterSections, {
+          caller: "reviewExamService:createRetakeExam",
+        });
       } catch (secErr) {
-        console.warn("Could not fetch sections subcollection:", secErr);
+        console.warn("Could not fetch sections with cache:", secErr);
       }
     }
 

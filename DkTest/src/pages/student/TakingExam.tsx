@@ -579,10 +579,7 @@ export default function TakingExam() {
 
       setLoading(true);
       try {
-        const data = await FirestoreRepository.getDocument<any>("exams", examId, {
-          ttlMs: 3 * 60 * 1000,
-          purpose: "TakingExam load",
-        });
+        const data = ((await getExam(examId)) as any);
         if (!data) {
           showErrorToast("Không tìm thấy bài thi!");
           navigate("/", { replace: true });
