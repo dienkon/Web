@@ -187,17 +187,64 @@ function clearServerRestCache(keyPattern) {
 function getFirebaseApiKey() {
   return process.env.VITE_FIREBASE_API_KEY || process.env.FIREBASE_API_KEY || "AIzaSyDp9p5hkQ6fVEou4znk5YZu81VhgZtM7h4";
 }
-var UNCACHED_COLLECTIONS = /* @__PURE__ */ new Set([
-  "wallets",
-  "deposit_requests",
-  "wallet_transactions",
-  "debt_records",
-  "exam_entitlements",
-  "system_stats",
-  "exams",
-  "users",
-  "notifications"
-]);
+var UNCACHED_COLLECTIONS = /* @__PURE__ */ new Set();
+async function queryFirestoreRestDocs(collectionName, field, value, limitCount = 20, useCache = true, cacheTtlMs = 2e4) {
+  const safeLimit = Math.min(Math.max(limitCount, 1), 100);
+  const cacheKey = `query_${collectionName}_${field}_${JSON.stringify(value)}_${safeLimit}`;
+  const now = Date.now();
+  const shouldCache = useCache && !UNCACHED_COLLECTIONS.has(collectionName);
+  if (shouldCache) {
+    const cached = serverRestCache.get(cacheKey);
+    if (cached && cached.expiresAt > now) {
+      console.log(
+        `[Server Firestore CACHE_HIT: 0 reads] Query: "${collectionName}" WHERE ${field} == ${JSON.stringify(value)} | Cached docs: ${cached.data.length} | TTL: ${Math.round((cached.expiresAt - now) / 1e3)}s`
+      );
+      return cached.data;
+    }
+  }
+  const apiKey = getFirebaseApiKey();
+  const projectId = process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || "exam-fd7a1";
+  const t0 = Date.now();
+  try {
+    const url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents:runQuery?key=${apiKey}`;
+    const structuredQuery = {
+      from: [{ collectionId: collectionName }],
+      where: {
+        fieldFilter: {
+          field: { fieldPath: field },
+          op: "EQUAL",
+          value: encodeFirestoreValue(value)
+        }
+      },
+      limit: safeLimit
+    };
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ structuredQuery })
+    });
+    const elapsed = Date.now() - t0;
+    if (!res.ok) {
+      const errText = await res.text().catch(() => "");
+      console.warn(
+        `[Server Firestore QUERY_FAIL] Collection: "${collectionName}" WHERE ${field} == ${JSON.stringify(value)} | Status: ${res.status} | Elapsed: ${elapsed}ms | Body: ${errText}`
+      );
+      return [];
+    }
+    const raw = await res.json();
+    const docs = (Array.isArray(raw) ? raw : []).filter((row) => row && row.document).map((row) => decodeFirestoreDocument(row.document)).filter(Boolean);
+    console.log(
+      `[Server Firestore QUERY: ${docs.length} docs] Collection: "${collectionName}" WHERE ${field} == ${JSON.stringify(value)} (limit: ${safeLimit}) | Elapsed: ${elapsed}ms`
+    );
+    if (shouldCache) {
+      serverRestCache.set(cacheKey, { data: docs, expiresAt: now + cacheTtlMs });
+    }
+    return docs;
+  } catch (err) {
+    console.error(`[Server Firestore QUERY ERROR] Collection: "${collectionName}":`, err);
+    return [];
+  }
+}
 async function getFirestoreRestDocs(collectionName, pageSize = 50, useCache = true, cacheTtlMs = 2e4) {
   const safePageSize = Math.min(pageSize, 100);
   const cacheKey = `docs_${collectionName}_${safePageSize}`;
@@ -493,9 +540,8 @@ async function getVoucherByCode(rawCode) {
       return { id: snap.docs[0].id, ...snap.docs[0].data() };
     }
   } else {
-    const all = await getFirestoreRestDocs("vouchers", 100, false);
-    const found = (all || []).find((v) => normalizeCode(v.code) === code);
-    if (found) return found;
+    const docs = await queryFirestoreRestDocs("vouchers", "code", code, 1);
+    if (docs.length > 0) return docs[0];
   }
   return null;
 }
@@ -1938,6 +1984,7 @@ var USER_MAP_TTL_MS = 10 * 60 * 1e3;
 function invalidateDebtSummariesCache() {
   debtSummariesCache = null;
 }
+var STUDENT_DETAILS_TTL_MS = 60 * 1e3;
 var cachedDepositRequests = null;
 function invalidateDepositRequestsCache() {
   cachedDepositRequests = null;
@@ -1947,9 +1994,10 @@ async function getStudentTransactions(uid, limitCount = 30) {
     const snap = await adminDb.collection("wallet_transactions").where("uid", "==", uid).orderBy("createdAt", "desc").limit(limitCount).get();
     return snap.docs.map((d) => d.data());
   }
-  const docs = await getFirestoreRestDocs("wallet_transactions", 100);
-  const filtered = docs.filter((d) => d.uid === uid);
-  filtered.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+  const docs = await queryFirestoreRestDocs("wallet_transactions", "uid", uid, limitCount);
+  const filtered = docs.sort(
+    (a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
+  );
   return filtered.slice(0, limitCount);
 }
 async function getStudentDepositRequests(uid, limitCount = 30) {
@@ -1957,9 +2005,10 @@ async function getStudentDepositRequests(uid, limitCount = 30) {
     const snap = await adminDb.collection("deposit_requests").where("uid", "==", uid).orderBy("createdAt", "desc").limit(limitCount).get();
     return snap.docs.map((d) => d.data());
   }
-  const docs = await getFirestoreRestDocs("deposit_requests", 100);
-  const filtered = docs.filter((d) => d.uid === uid);
-  filtered.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+  const docs = await queryFirestoreRestDocs("deposit_requests", "uid", uid, limitCount);
+  const filtered = docs.sort(
+    (a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
+  );
   return filtered.slice(0, limitCount);
 }
 async function getStudentUnpaidDebt(uid) {
@@ -1970,8 +2019,8 @@ async function getStudentUnpaidDebt(uid) {
     const snap = await adminDb.collection("debt_records").where("uid", "==", cleanUid).get();
     debts = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
   } else {
-    const docs = await getFirestoreRestDocs("debt_records", 200);
-    debts = docs.filter((d) => d.uid === cleanUid);
+    const docs = await queryFirestoreRestDocs("debt_records", "uid", cleanUid, 50);
+    debts = docs;
   }
   const unpaid = debts.filter(
     (d) => d.status === "unpaid" || d.status === "partial" || d.remainingVnd && d.remainingVnd > 0

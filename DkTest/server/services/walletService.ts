@@ -2,6 +2,7 @@ import {
   adminDb,
   getFirestoreRestDoc,
   getFirestoreRestDocs,
+  queryFirestoreRestDocs,
   setFirestoreRestDoc,
   clearServerRestCache,
 } from "../firebaseAdmin.js";
@@ -866,6 +867,7 @@ export async function approveDepositRequest(
       invalidateWalletOverviewCache();
       invalidateDebtSummariesCache();
       invalidateDepositRequestsCache();
+      invalidateStudentDetailsCache(reqData.uid);
       updateWalletOverviewAggregates({
         deltaPendingRequestsCount: -1,
         deltaPendingRequestsTotalVnd: -amount,
@@ -930,6 +932,7 @@ export async function approveDepositRequest(
   invalidateWalletOverviewCache();
   invalidateDebtSummariesCache();
   invalidateDepositRequestsCache();
+  invalidateStudentDetailsCache(reqData.uid);
   updateWalletOverviewAggregates({
     deltaPendingRequestsCount: -1,
     deltaPendingRequestsTotalVnd: -amount,
@@ -1753,8 +1756,8 @@ export async function recordManualCashCollection(
   }
 
   // REST fallback mode
-  const allDebts = await getFirestoreRestDocs("debt_records", 100);
-  const studentDebts = (allDebts as DebtRecord[]).filter((d) => d.uid === studentUid && (d.status === "unpaid" || d.status === "partial"));
+  const allDebts = await queryFirestoreRestDocs("debt_records", "uid", studentUid, 50);
+  const studentDebts = (allDebts as DebtRecord[]).filter((d) => d.status === "unpaid" || d.status === "partial");
   studentDebts.sort((a, b) => new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime());
 
   let remainingToAllocate = amount;
@@ -2480,7 +2483,18 @@ export async function getStudentDebtSummaries(options?: {
   return { items: paged, total };
 }
 
-export async function getStudentWalletDetails(studentUid: string): Promise<{
+const studentDetailsCache = new Map<string, { data: any; timestamp: number }>();
+const STUDENT_DETAILS_TTL_MS = 60 * 1000;
+
+export function invalidateStudentDetailsCache(studentUid?: string) {
+  if (studentUid) {
+    studentDetailsCache.delete(studentUid);
+  } else {
+    studentDetailsCache.clear();
+  }
+}
+
+export async function getStudentWalletDetails(studentUid: string, force = false): Promise<{
   wallet: StudentWallet;
   studentProfile?: any;
   transactions: WalletTransaction[];
@@ -2489,6 +2503,13 @@ export async function getStudentWalletDetails(studentUid: string): Promise<{
   debtRecords: DebtRecord[];
 }> {
   if (!studentUid) throw new Error("Chưa chỉ định học sinh.");
+
+  if (!force && studentDetailsCache.has(studentUid)) {
+    const cached = studentDetailsCache.get(studentUid)!;
+    if (Date.now() - cached.timestamp < STUDENT_DETAILS_TTL_MS) {
+      return cached.data;
+    }
+  }
 
   const wallet = await getOrCreateWallet(studentUid);
 
@@ -2550,35 +2571,31 @@ export async function getStudentWalletDetails(studentUid: string): Promise<{
       lastActive: uData?.lastLogin || uData?.updatedAt || wallet.updatedAt,
     };
   } else {
-    // REST fallback mode
-    const [allTxs, allReqs, allEnts, allDebts, uData, sData] = await Promise.all([
-      getFirestoreRestDocs("wallet_transactions", 100),
-      getFirestoreRestDocs("deposit_requests", 100),
-      getFirestoreRestDocs("exam_entitlements", 100),
-      getFirestoreRestDocs("debt_records", 100),
+    // REST fallback mode - Query only this student's records with limits to avoid burning hundreds of reads!
+    const [rawTxs, rawReqs, rawEnts, rawDebts, uData, sData] = await Promise.all([
+      queryFirestoreRestDocs("wallet_transactions", "uid", studentUid, 20),
+      queryFirestoreRestDocs("deposit_requests", "uid", studentUid, 20),
+      queryFirestoreRestDocs("exam_entitlements", "uid", studentUid, 20),
+      queryFirestoreRestDocs("debt_records", "uid", studentUid, 20),
       getFirestoreRestDoc("users", studentUid),
       getFirestoreRestDoc("students", studentUid),
     ]);
 
-    transactions = (allTxs as WalletTransaction[])
-      .filter((t) => t.uid === studentUid)
+    transactions = (rawTxs as WalletTransaction[])
       .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
-      .slice(0, 50);
+      .slice(0, 20);
 
-    depositRequests = (allReqs as DepositRequest[])
-      .filter((r) => r.uid === studentUid)
+    depositRequests = (rawReqs as DepositRequest[])
       .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
-      .slice(0, 50);
+      .slice(0, 20);
 
-    entitlements = (allEnts as ExamEntitlement[])
-      .filter((e) => e.uid === studentUid)
+    entitlements = (rawEnts as ExamEntitlement[])
       .sort((a, b) => new Date(b.grantedAt || 0).getTime() - new Date(a.grantedAt || 0).getTime())
-      .slice(0, 50);
+      .slice(0, 20);
 
-    debtRecords = (allDebts as DebtRecord[])
-      .filter((d) => d.uid === studentUid)
+    debtRecords = (rawDebts as DebtRecord[])
       .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
-      .slice(0, 50);
+      .slice(0, 20);
 
     studentProfile = {
       uid: studentUid,
@@ -2596,7 +2613,7 @@ export async function getStudentWalletDetails(studentUid: string): Promise<{
     };
   }
 
-  return {
+  const result = {
     wallet,
     studentProfile,
     transactions,
@@ -2604,6 +2621,10 @@ export async function getStudentWalletDetails(studentUid: string): Promise<{
     entitlements,
     debtRecords,
   };
+
+  studentDetailsCache.set(studentUid, { data: result, timestamp: Date.now() });
+
+  return result;
 }
 
 let cachedDepositRequests: { data: DepositRequest[]; timestamp: number; cacheKey: string } | null = null;
@@ -2679,9 +2700,10 @@ export async function getStudentTransactions(uid: string, limitCount = 30): Prom
   }
 
   // REST fallback mode
-  const docs = await getFirestoreRestDocs("wallet_transactions", 100);
-  const filtered = (docs as WalletTransaction[]).filter((d) => d.uid === uid);
-  filtered.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+  const docs = await queryFirestoreRestDocs("wallet_transactions", "uid", uid, limitCount);
+  const filtered = (docs as WalletTransaction[]).sort(
+    (a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
+  );
   return filtered.slice(0, limitCount);
 }
 
@@ -2697,9 +2719,10 @@ export async function getStudentDepositRequests(uid: string, limitCount = 30): P
   }
 
   // REST fallback mode
-  const docs = await getFirestoreRestDocs("deposit_requests", 100);
-  const filtered = (docs as DepositRequest[]).filter((d) => d.uid === uid);
-  filtered.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+  const docs = await queryFirestoreRestDocs("deposit_requests", "uid", uid, limitCount);
+  const filtered = (docs as DepositRequest[]).sort(
+    (a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
+  );
   return filtered.slice(0, limitCount);
 }
 
@@ -2742,6 +2765,7 @@ export async function updateStudentWalletProfile(
     await setFirestoreRestDoc("wallets", studentUid, updatedWallet);
   }
 
+  invalidateStudentDetailsCache(studentUid);
   return updatedWallet;
 }
 
@@ -2965,8 +2989,8 @@ export async function getStudentUnpaidDebt(uid: string): Promise<{
       .get();
     debts = snap.docs.map((d) => ({ id: d.id, ...d.data() } as DebtRecord));
   } else {
-    const docs = await getFirestoreRestDocs("debt_records", 200);
-    debts = (docs as DebtRecord[]).filter((d) => d.uid === cleanUid);
+    const docs = await queryFirestoreRestDocs("debt_records", "uid", cleanUid, 50);
+    debts = docs as DebtRecord[];
   }
 
   const unpaid = debts.filter(

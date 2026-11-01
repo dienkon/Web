@@ -17,6 +17,7 @@
 import {
   adminDb,
   getFirestoreRestDocs,
+  queryFirestoreRestDocs,
   getFirestoreRestDoc,
   setFirestoreRestDoc,
   deleteFirestoreRestDoc,
@@ -57,9 +58,8 @@ export async function getVoucherByCode(rawCode: string): Promise<Voucher | null>
       return { id: snap.docs[0].id, ...snap.docs[0].data() } as Voucher;
     }
   } else {
-    const all = await getFirestoreRestDocs("vouchers", 100, false);
-    const found = (all || []).find((v: any) => normalizeCode(v.code) === code);
-    if (found) return found as Voucher;
+    const docs = await queryFirestoreRestDocs("vouchers", "code", code, 1);
+    if (docs.length > 0) return docs[0] as Voucher;
   }
   return null;
 }
@@ -82,7 +82,7 @@ export async function getVouchersList(forceRefresh = false): Promise<Voucher[]> 
     }
   } else {
     // REST fallback mode
-    const docs = await getFirestoreRestDocs("vouchers", 100, false);
+    const docs = await getFirestoreRestDocs("vouchers", 100, true);
     list = (docs || []).map((d) => ({ id: d.id, ...d } as Voucher));
     list.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
   }
@@ -213,7 +213,12 @@ export async function getVoucherUsagesList(voucherId?: string, forceRefresh = fa
       } catch (_) {}
     }
   } else {
-    const docs = await getFirestoreRestDocs("voucher_usages", 200, false);
+    let docs: any[];
+    if (voucherId) {
+      docs = await queryFirestoreRestDocs("voucher_usages", "voucherId", voucherId, 50);
+    } else {
+      docs = await getFirestoreRestDocs("voucher_usages", 50, true);
+    }
     list = (docs || []).map((d: any) => ({ id: d.id, ...d } as VoucherUsage));
     if (voucherId) {
       list = list.filter((u) => u.voucherId === voucherId || (u as any).code === voucherId);

@@ -215,17 +215,85 @@ export function getFirebaseApiKey(): string {
   return process.env.VITE_FIREBASE_API_KEY || process.env.FIREBASE_API_KEY || "AIzaSyDp9p5hkQ6fVEou4znk5YZu81VhgZtM7h4";
 }
 
-const UNCACHED_COLLECTIONS = new Set([
-  "wallets",
-  "deposit_requests",
-  "wallet_transactions",
-  "debt_records",
-  "exam_entitlements",
-  "system_stats",
-  "exams",
-  "users",
-  "notifications",
-]);
+const UNCACHED_COLLECTIONS = new Set<string>();
+
+export async function queryFirestoreRestDocs(
+  collectionName: string,
+  field: string,
+  value: any,
+  limitCount = 20,
+  useCache = true,
+  cacheTtlMs = 20000
+): Promise<any[]> {
+  const safeLimit = Math.min(Math.max(limitCount, 1), 100);
+  const cacheKey = `query_${collectionName}_${field}_${JSON.stringify(value)}_${safeLimit}`;
+  const now = Date.now();
+  const shouldCache = useCache && !UNCACHED_COLLECTIONS.has(collectionName);
+
+  if (shouldCache) {
+    const cached = serverRestCache.get(cacheKey);
+    if (cached && cached.expiresAt > now) {
+      console.log(
+        `[Server Firestore CACHE_HIT: 0 reads] Query: "${collectionName}" WHERE ${field} == ${JSON.stringify(value)} | Cached docs: ${cached.data.length} | TTL: ${Math.round((cached.expiresAt - now) / 1000)}s`
+      );
+      return cached.data;
+    }
+  }
+
+  const apiKey = getFirebaseApiKey();
+  const projectId = process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || "exam-fd7a1";
+  const t0 = Date.now();
+
+  try {
+    const url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents:runQuery?key=${apiKey}`;
+    const structuredQuery: any = {
+      from: [{ collectionId: collectionName }],
+      where: {
+        fieldFilter: {
+          field: { fieldPath: field },
+          op: "EQUAL",
+          value: encodeFirestoreValue(value),
+        },
+      },
+      limit: safeLimit,
+    };
+
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ structuredQuery }),
+    });
+
+    const elapsed = Date.now() - t0;
+
+    if (!res.ok) {
+      const errText = await res.text().catch(() => "");
+      console.warn(
+        `[Server Firestore QUERY_FAIL] Collection: "${collectionName}" WHERE ${field} == ${JSON.stringify(value)} | Status: ${res.status} | Elapsed: ${elapsed}ms | Body: ${errText}`
+      );
+      return [];
+    }
+
+    const raw = await res.json();
+    const docs = (Array.isArray(raw) ? raw : [])
+      .filter((row: any) => row && row.document)
+      .map((row: any) => decodeFirestoreDocument(row.document))
+      .filter(Boolean);
+
+    console.log(
+      `[Server Firestore QUERY: ${docs.length} docs] Collection: "${collectionName}" WHERE ${field} == ${JSON.stringify(value)} (limit: ${safeLimit}) | Elapsed: ${elapsed}ms`
+    );
+
+    if (shouldCache) {
+      serverRestCache.set(cacheKey, { data: docs, expiresAt: now + cacheTtlMs });
+    }
+
+    return docs;
+  } catch (err) {
+    console.error(`[Server Firestore QUERY ERROR] Collection: "${collectionName}":`, err);
+    return [];
+  }
+}
 
 export async function getFirestoreRestDocs(
   collectionName: string,
@@ -370,6 +438,7 @@ export default {
   isConfigured,
   FieldValue,
   getFirestoreRestDocs,
+  queryFirestoreRestDocs,
   getFirestoreRestDoc,
   setFirestoreRestDoc,
   deleteFirestoreRestDoc,

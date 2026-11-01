@@ -381,10 +381,7 @@ async function computeSystemStats() {
 // -------------------------------------------------------------
 adminRouter.get("/stats", async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const force =
-      req.query.force === "true" ||
-      Boolean(req.query._t) ||
-      Boolean(req.headers["cache-control"]?.includes("no-cache"));
+    const force = req.query.force === "true";
 
     // Step 1: Attempt to read the dedicated pre-aggregated document (1 doc read!)
     if (!force) {
@@ -457,10 +454,7 @@ export function invalidateAnalyticsCache() {
 adminRouter.get("/analytics", async (req: AuthenticatedRequest, res: Response) => {
   try {
     const range = (req.query.range as string) || "7d";
-    const force =
-      req.query.force === "true" ||
-      Boolean(req.query._t) ||
-      Boolean(req.headers["cache-control"]?.includes("no-cache"));
+    const force = req.query.force === "true";
 
     // Check memory cache first (0 Firestore reads)
     if (!force && analyticsCache.has(range)) {
@@ -579,10 +573,7 @@ adminRouter.get("/users", async (req: AuthenticatedRequest, res: Response) => {
     const sortField = (req.query.sort as string) || "createdAt";
     const sortOrder = (req.query.order as string) === "asc" ? "asc" : "desc";
 
-    const isNoCache =
-      req.query.force === "true" ||
-      Boolean(req.query._t) ||
-      Boolean(req.headers["cache-control"]?.includes("no-cache"));
+    const isNoCache = req.query.force === "true";
 
     const cacheKey = `${roleFilter}__${statusFilter}`;
     const cached = userListCache.get(cacheKey);
@@ -1691,10 +1682,7 @@ adminRouter.put("/settings", requireSuperAdmin, async (req: AuthenticatedRequest
 // GET /api/admin/wallet/overview
 adminRouter.get("/wallet/overview", async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const force =
-      req.query.force === "true" ||
-      Boolean(req.query._t) ||
-      Boolean(req.headers["cache-control"]?.includes("no-cache"));
+    const force = req.query.force === "true";
     const overview = await getWalletOverview(force);
     return res.json({ success: true, overview });
   } catch (err: any) {
@@ -1706,10 +1694,7 @@ adminRouter.get("/wallet/overview", async (req: AuthenticatedRequest, res: Respo
 adminRouter.get("/wallet/students", async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { search, filterStatus, className, limit, offset } = req.query;
-    const isForce =
-      req.query.force === "true" ||
-      Boolean(req.query._t) ||
-      Boolean(req.headers["cache-control"]?.includes("no-cache"));
+    const isForce = req.query.force === "true";
     const result = await getStudentDebtSummaries({
       search: search as string,
       filterStatus: filterStatus as any,
@@ -1728,7 +1713,8 @@ adminRouter.get("/wallet/students", async (req: AuthenticatedRequest, res: Respo
 adminRouter.get("/wallet/students/:uid/details", async (req: AuthenticatedRequest, res: Response) => {
   try {
     const uid = req.params.uid;
-    const details = await getStudentWalletDetails(uid);
+    const force = req.query.force === "true";
+    const details = await getStudentWalletDetails(uid, force);
     return res.json({ success: true, ...details });
   } catch (err: any) {
     return res.status(500).json({ error: "server_error", message: err.message || String(err) });
@@ -1795,10 +1781,7 @@ adminRouter.patch("/wallet/students/:uid/profile", async (req: AuthenticatedRequ
 adminRouter.get("/wallet/deposit-requests", async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { status, search, limit } = req.query;
-    const isForce =
-      req.query.force === "true" ||
-      Boolean(req.query._t) ||
-      Boolean(req.headers["cache-control"]?.includes("no-cache"));
+    const isForce = req.query.force === "true";
     const requests = await getDepositRequests({
       status: status as string,
       search: search as string,
@@ -2025,10 +2008,7 @@ adminRouter.post("/wallets/:uid/direct-edit", async (req: AuthenticatedRequest, 
 // GET /api/admin/vouchers
 adminRouter.get("/vouchers", async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const force =
-      req.query.force === "true" ||
-      Boolean(req.query._t) ||
-      Boolean(req.headers["cache-control"]?.includes("no-cache"));
+    const force = req.query.force === "true";
     const items = await getVouchersList(force);
     return res.json({ success: true, items });
   } catch (err: any) {
@@ -2039,10 +2019,7 @@ adminRouter.get("/vouchers", async (req: AuthenticatedRequest, res: Response) =>
 // GET /api/admin/vouchers/usages
 adminRouter.get("/vouchers/usages", async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const force =
-      req.query.force === "true" ||
-      Boolean(req.query._t) ||
-      Boolean(req.headers["cache-control"]?.includes("no-cache"));
+    const force = req.query.force === "true";
     const voucherId = (req.query.voucherId as string) || undefined;
     const items = await getVoucherUsagesList(voucherId, force);
     return res.json({ success: true, items, total: items.length });
@@ -2054,10 +2031,7 @@ adminRouter.get("/vouchers/usages", async (req: AuthenticatedRequest, res: Respo
 // GET /api/admin/vouchers/:id/usages
 adminRouter.get("/vouchers/:id/usages", async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const force =
-      req.query.force === "true" ||
-      Boolean(req.query._t) ||
-      Boolean(req.headers["cache-control"]?.includes("no-cache"));
+    const force = req.query.force === "true";
     const id = req.params.id;
     const items = await getVoucherUsagesList(id, force);
     return res.json({ success: true, items, total: items.length });

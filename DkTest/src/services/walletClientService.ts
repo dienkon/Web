@@ -10,6 +10,7 @@ import {
   collection,
   query,
   where,
+  limit,
   type Unsubscribe,
 } from "firebase/firestore";
 import { auth, db } from "./firebase/config";
@@ -167,7 +168,7 @@ export async function getMyDepositRequests(): Promise<DepositRequest[]> {
   const currentUid = getResolvedStudentUid();
   if (currentUid) {
     try {
-      const q = query(collection(db, "deposit_requests"), where("uid", "==", currentUid));
+      const q = query(collection(db, "deposit_requests"), where("uid", "==", currentUid), limit(20));
       const snap = await getDocs(q);
       const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as DepositRequest));
       items.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
@@ -189,7 +190,7 @@ export async function getMyTransactions(): Promise<WalletTransaction[]> {
   const currentUid = getResolvedStudentUid();
   if (currentUid) {
     try {
-      const q = query(collection(db, "wallet_transactions"), where("uid", "==", currentUid));
+      const q = query(collection(db, "wallet_transactions"), where("uid", "==", currentUid), limit(20));
       const snap = await getDocs(q);
       const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as WalletTransaction));
       items.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
@@ -223,7 +224,7 @@ export async function getMyDebtSummary(): Promise<{
   const currentUid = getResolvedStudentUid();
   if (currentUid) {
     try {
-      const q = query(collection(db, "debt_records"), where("uid", "==", currentUid));
+      const q = query(collection(db, "debt_records"), where("uid", "==", currentUid), limit(20));
       const snap = await getDocs(q);
       const allDebts = snap.docs.map((d) => ({ id: d.id, ...d.data() } as DebtRecord));
       const unpaid = allDebts.filter(
@@ -442,9 +443,9 @@ export async function getAdminWalletOverview(force = false): Promise<AdminWallet
     }
 
     const [walletsSnap, reqsSnap, debtsSnap] = await Promise.all([
-      getDocs(collection(db, "wallets")),
-      getDocs(collection(db, "deposit_requests")),
-      getDocs(collection(db, "debt_records")),
+      getDocs(query(collection(db, "wallets"), limit(50))),
+      getDocs(query(collection(db, "deposit_requests"), limit(50))),
+      getDocs(query(collection(db, "debt_records"), limit(50))),
     ]);
 
     let totalWallets = walletsSnap.size;
@@ -520,8 +521,8 @@ export async function getAdminStudentDebtList(params?: {
     if (params?.search) query.set("search", params.search);
     if (params?.filterStatus) query.set("filterStatus", params.filterStatus);
     if (params?.className) query.set("className", params.className);
-    const limit = params?.limit !== undefined ? Math.max(1, Number(params.limit)) : 10;
-    query.set("limit", String(limit));
+    const pageSizeLimit = params?.limit !== undefined ? Math.max(1, Number(params.limit)) : 10;
+    query.set("limit", String(pageSizeLimit));
     if (params?.offset !== undefined) query.set("offset", String(params.offset));
     if (params?.force) query.set("force", "true");
 
@@ -546,9 +547,9 @@ export async function getAdminStudentDebtList(params?: {
       entsSnap = adminDebtFallbackCache.entsSnap;
     } else {
       [walletsSnap, debtsSnap, entsSnap] = await Promise.all([
-        getDocs(collection(db, "wallets")),
-        getDocs(collection(db, "debt_records")),
-        getDocs(collection(db, "exam_entitlements")),
+        getDocs(query(collection(db, "wallets"), limit(50))),
+        getDocs(query(collection(db, "debt_records"), limit(50))),
+        getDocs(query(collection(db, "exam_entitlements"), limit(50))),
       ]);
       adminDebtFallbackCache = {
         walletsSnap,
@@ -622,8 +623,8 @@ export async function getAdminStudentDebtList(params?: {
 
     const total = summaries.length;
     const offset = params?.offset || 0;
-    const limit = params?.limit !== undefined ? Math.max(1, Number(params.limit)) : 10;
-    return { items: summaries.slice(offset, offset + limit), total };
+    const pageLimit = params?.limit !== undefined ? Math.max(1, Number(params.limit)) : 10;
+    return { items: summaries.slice(offset, offset + pageLimit), total };
   } catch (fsErr) {
     console.error("[walletClientService] Direct Firestore fallback for debt list failed:", fsErr);
     return { items: [], total: 0 };
@@ -706,11 +707,15 @@ export async function getAdminDepositRequests(params?: {
 
   // Direct Firestore fallback
   try {
-    const snap = await getDocs(collection(db, "deposit_requests"));
-    let items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as DepositRequest));
+    const safeLimit = params?.limit ? Math.min(params.limit, 50) : 20;
+    let reqQ;
     if (params?.status && params.status !== "all") {
-      items = items.filter((r) => r.status === params.status);
+      reqQ = query(collection(db, "deposit_requests"), where("status", "==", params.status), limit(safeLimit));
+    } else {
+      reqQ = query(collection(db, "deposit_requests"), limit(safeLimit));
     }
+    const snap = await getDocs(reqQ);
+    let items = snap.docs.map((d: any) => ({ id: d.id, ...d.data() } as DepositRequest));
     if (params?.search) {
       const q = params.search.toLowerCase().trim();
       items = items.filter(
@@ -867,7 +872,7 @@ export async function validateVoucherApi(
   // Direct Firestore fallback
   try {
     const cleanCode = String(code || "").trim().toUpperCase();
-    const q = query(collection(db, "vouchers"), where("code", "==", cleanCode));
+    const q = query(collection(db, "vouchers"), where("code", "==", cleanCode), limit(1));
     const snap = await getDocs(q);
     if (snap.empty) {
       return { success: false, valid: false, message: `Mã voucher "${cleanCode}" không tồn tại hoặc đã hết hạn.` };
@@ -1004,7 +1009,7 @@ export async function redeemGiftVoucherApi(code: string): Promise<{
   }
 
   try {
-    const q = query(collection(db, "vouchers"), where("code", "==", cleanCode));
+    const q = query(collection(db, "vouchers"), where("code", "==", cleanCode), limit(1));
     const snap = await getDocs(q);
     if (snap.empty) {
       throw new Error(`Mã quà tặng "${cleanCode}" không tồn tại hoặc đã hết hạn.`);
@@ -1040,7 +1045,8 @@ export async function redeemGiftVoucherApi(code: string): Promise<{
     const usagesQ = query(
       collection(db, "voucher_usages"),
       where("voucherId", "==", voucher.id),
-      where("uid", "==", studentUid)
+      where("uid", "==", studentUid),
+      limit(perUserLimit)
     );
     const usagesSnap = await getDocs(usagesQ);
     if (usagesSnap.size >= perUserLimit) {
@@ -1166,7 +1172,7 @@ export async function getAdminVouchersApi(force = false): Promise<Voucher[]> {
   }
 
   try {
-    const snap = await getDocs(collection(db, "vouchers"));
+    const snap = await getDocs(query(collection(db, "vouchers"), limit(50)));
     const list = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Voucher));
     list.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
     cachedAdminVouchers = { data: list, timestamp: Date.now() };
@@ -1200,9 +1206,9 @@ export async function getAdminVoucherUsagesApi(voucherId?: string, force = false
   try {
     let q;
     if (voucherId) {
-      q = query(collection(db, "voucher_usages"), where("voucherId", "==", voucherId));
+      q = query(collection(db, "voucher_usages"), where("voucherId", "==", voucherId), limit(50));
     } else {
-      q = query(collection(db, "voucher_usages"));
+      q = query(collection(db, "voucher_usages"), limit(50));
     }
     const snap = await getDocs(q);
     const list = snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) } as VoucherUsage));

@@ -187,17 +187,64 @@ function clearServerRestCache(keyPattern) {
 function getFirebaseApiKey() {
   return process.env.VITE_FIREBASE_API_KEY || process.env.FIREBASE_API_KEY || "AIzaSyDp9p5hkQ6fVEou4znk5YZu81VhgZtM7h4";
 }
-var UNCACHED_COLLECTIONS = /* @__PURE__ */ new Set([
-  "wallets",
-  "deposit_requests",
-  "wallet_transactions",
-  "debt_records",
-  "exam_entitlements",
-  "system_stats",
-  "exams",
-  "users",
-  "notifications"
-]);
+var UNCACHED_COLLECTIONS = /* @__PURE__ */ new Set();
+async function queryFirestoreRestDocs(collectionName, field, value, limitCount = 20, useCache = true, cacheTtlMs = 2e4) {
+  const safeLimit = Math.min(Math.max(limitCount, 1), 100);
+  const cacheKey = `query_${collectionName}_${field}_${JSON.stringify(value)}_${safeLimit}`;
+  const now = Date.now();
+  const shouldCache = useCache && !UNCACHED_COLLECTIONS.has(collectionName);
+  if (shouldCache) {
+    const cached = serverRestCache.get(cacheKey);
+    if (cached && cached.expiresAt > now) {
+      console.log(
+        `[Server Firestore CACHE_HIT: 0 reads] Query: "${collectionName}" WHERE ${field} == ${JSON.stringify(value)} | Cached docs: ${cached.data.length} | TTL: ${Math.round((cached.expiresAt - now) / 1e3)}s`
+      );
+      return cached.data;
+    }
+  }
+  const apiKey = getFirebaseApiKey();
+  const projectId = process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || "exam-fd7a1";
+  const t0 = Date.now();
+  try {
+    const url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents:runQuery?key=${apiKey}`;
+    const structuredQuery = {
+      from: [{ collectionId: collectionName }],
+      where: {
+        fieldFilter: {
+          field: { fieldPath: field },
+          op: "EQUAL",
+          value: encodeFirestoreValue(value)
+        }
+      },
+      limit: safeLimit
+    };
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ structuredQuery })
+    });
+    const elapsed = Date.now() - t0;
+    if (!res.ok) {
+      const errText = await res.text().catch(() => "");
+      console.warn(
+        `[Server Firestore QUERY_FAIL] Collection: "${collectionName}" WHERE ${field} == ${JSON.stringify(value)} | Status: ${res.status} | Elapsed: ${elapsed}ms | Body: ${errText}`
+      );
+      return [];
+    }
+    const raw = await res.json();
+    const docs = (Array.isArray(raw) ? raw : []).filter((row) => row && row.document).map((row) => decodeFirestoreDocument(row.document)).filter(Boolean);
+    console.log(
+      `[Server Firestore QUERY: ${docs.length} docs] Collection: "${collectionName}" WHERE ${field} == ${JSON.stringify(value)} (limit: ${safeLimit}) | Elapsed: ${elapsed}ms`
+    );
+    if (shouldCache) {
+      serverRestCache.set(cacheKey, { data: docs, expiresAt: now + cacheTtlMs });
+    }
+    return docs;
+  } catch (err) {
+    console.error(`[Server Firestore QUERY ERROR] Collection: "${collectionName}":`, err);
+    return [];
+  }
+}
 async function getFirestoreRestDocs(collectionName, pageSize = 50, useCache = true, cacheTtlMs = 2e4) {
   const safePageSize = Math.min(pageSize, 100);
   const cacheKey = `docs_${collectionName}_${safePageSize}`;
@@ -550,7 +597,7 @@ async function getVouchersList(forceRefresh = false) {
       list.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
     }
   } else {
-    const docs = await getFirestoreRestDocs("vouchers", 100, false);
+    const docs = await getFirestoreRestDocs("vouchers", 100, true);
     list = (docs || []).map((d) => ({ id: d.id, ...d }));
     list.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
   }
@@ -668,7 +715,12 @@ async function getVoucherUsagesList(voucherId, forceRefresh = false) {
       }
     }
   } else {
-    const docs = await getFirestoreRestDocs("voucher_usages", 200, false);
+    let docs;
+    if (voucherId) {
+      docs = await queryFirestoreRestDocs("voucher_usages", "voucherId", voucherId, 50);
+    } else {
+      docs = await getFirestoreRestDocs("voucher_usages", 50, true);
+    }
     list = (docs || []).map((d) => ({ id: d.id, ...d }));
     if (voucherId) {
       list = list.filter((u) => u.voucherId === voucherId || u.code === voucherId);
@@ -1048,6 +1100,7 @@ async function approveDepositRequest(requestId, adminUid, adminName, externalCol
       invalidateWalletOverviewCache();
       invalidateDebtSummariesCache();
       invalidateDepositRequestsCache();
+      invalidateStudentDetailsCache(reqData2.uid);
       updateWalletOverviewAggregates({
         deltaPendingRequestsCount: -1,
         deltaPendingRequestsTotalVnd: -amount2,
@@ -1106,6 +1159,7 @@ async function approveDepositRequest(requestId, adminUid, adminName, externalCol
   invalidateWalletOverviewCache();
   invalidateDebtSummariesCache();
   invalidateDepositRequestsCache();
+  invalidateStudentDetailsCache(reqData.uid);
   updateWalletOverviewAggregates({
     deltaPendingRequestsCount: -1,
     deltaPendingRequestsTotalVnd: -amount,
@@ -1275,8 +1329,8 @@ async function recordManualCashCollection(adminUid, adminName, studentUid, data)
     });
     return { success: true, debtRecordId: recordId, newBalanceVnd: newBal2 };
   }
-  const allDebts = await getFirestoreRestDocs("debt_records", 100);
-  const studentDebts = allDebts.filter((d) => d.uid === studentUid && (d.status === "unpaid" || d.status === "partial"));
+  const allDebts = await queryFirestoreRestDocs("debt_records", "uid", studentUid, 50);
+  const studentDebts = allDebts.filter((d) => d.status === "unpaid" || d.status === "partial");
   studentDebts.sort((a, b) => new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime());
   let remainingToAllocate = amount;
   for (const debt of studentDebts) {
@@ -1842,8 +1896,23 @@ async function getStudentDebtSummaries(options) {
   const paged = summaries.slice(offset, offset + limitCount);
   return { items: paged, total };
 }
-async function getStudentWalletDetails(studentUid) {
+var studentDetailsCache = /* @__PURE__ */ new Map();
+var STUDENT_DETAILS_TTL_MS = 60 * 1e3;
+function invalidateStudentDetailsCache(studentUid) {
+  if (studentUid) {
+    studentDetailsCache.delete(studentUid);
+  } else {
+    studentDetailsCache.clear();
+  }
+}
+async function getStudentWalletDetails(studentUid, force = false) {
   if (!studentUid) throw new Error("Ch\u01B0a ch\u1EC9 \u0111\u1ECBnh h\u1ECDc sinh.");
+  if (!force && studentDetailsCache.has(studentUid)) {
+    const cached = studentDetailsCache.get(studentUid);
+    if (Date.now() - cached.timestamp < STUDENT_DETAILS_TTL_MS) {
+      return cached.data;
+    }
+  }
   const wallet = await getOrCreateWallet(studentUid);
   let transactions = [];
   let depositRequests = [];
@@ -1880,18 +1949,18 @@ async function getStudentWalletDetails(studentUid) {
       lastActive: uData?.lastLogin || uData?.updatedAt || wallet.updatedAt
     };
   } else {
-    const [allTxs, allReqs, allEnts, allDebts, uData, sData] = await Promise.all([
-      getFirestoreRestDocs("wallet_transactions", 100),
-      getFirestoreRestDocs("deposit_requests", 100),
-      getFirestoreRestDocs("exam_entitlements", 100),
-      getFirestoreRestDocs("debt_records", 100),
+    const [rawTxs, rawReqs, rawEnts, rawDebts, uData, sData] = await Promise.all([
+      queryFirestoreRestDocs("wallet_transactions", "uid", studentUid, 20),
+      queryFirestoreRestDocs("deposit_requests", "uid", studentUid, 20),
+      queryFirestoreRestDocs("exam_entitlements", "uid", studentUid, 20),
+      queryFirestoreRestDocs("debt_records", "uid", studentUid, 20),
       getFirestoreRestDoc("users", studentUid),
       getFirestoreRestDoc("students", studentUid)
     ]);
-    transactions = allTxs.filter((t) => t.uid === studentUid).sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()).slice(0, 50);
-    depositRequests = allReqs.filter((r) => r.uid === studentUid).sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()).slice(0, 50);
-    entitlements = allEnts.filter((e) => e.uid === studentUid).sort((a, b) => new Date(b.grantedAt || 0).getTime() - new Date(a.grantedAt || 0).getTime()).slice(0, 50);
-    debtRecords = allDebts.filter((d) => d.uid === studentUid).sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()).slice(0, 50);
+    transactions = rawTxs.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()).slice(0, 20);
+    depositRequests = rawReqs.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()).slice(0, 20);
+    entitlements = rawEnts.sort((a, b) => new Date(b.grantedAt || 0).getTime() - new Date(a.grantedAt || 0).getTime()).slice(0, 20);
+    debtRecords = rawDebts.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()).slice(0, 20);
     studentProfile = {
       uid: studentUid,
       username: uData?.username || sData?.username || "",
@@ -1907,7 +1976,7 @@ async function getStudentWalletDetails(studentUid) {
       lastActive: uData?.lastLogin || uData?.updatedAt || wallet.updatedAt
     };
   }
-  return {
+  const result = {
     wallet,
     studentProfile,
     transactions,
@@ -1915,6 +1984,8 @@ async function getStudentWalletDetails(studentUid) {
     entitlements,
     debtRecords
   };
+  studentDetailsCache.set(studentUid, { data: result, timestamp: Date.now() });
+  return result;
 }
 var cachedDepositRequests = null;
 function invalidateDepositRequestsCache() {
@@ -1959,9 +2030,10 @@ async function getStudentDepositRequests(uid, limitCount = 30) {
     const snap = await adminDb.collection("deposit_requests").where("uid", "==", uid).orderBy("createdAt", "desc").limit(limitCount).get();
     return snap.docs.map((d) => d.data());
   }
-  const docs = await getFirestoreRestDocs("deposit_requests", 100);
-  const filtered = docs.filter((d) => d.uid === uid);
-  filtered.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+  const docs = await queryFirestoreRestDocs("deposit_requests", "uid", uid, limitCount);
+  const filtered = docs.sort(
+    (a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
+  );
   return filtered.slice(0, limitCount);
 }
 async function updateStudentWalletProfile(studentUid, data) {
@@ -1990,6 +2062,7 @@ async function updateStudentWalletProfile(studentUid, data) {
   } else {
     await setFirestoreRestDoc("wallets", studentUid, updatedWallet);
   }
+  invalidateStudentDetailsCache(studentUid);
   return updatedWallet;
 }
 async function syncStudentsToWallets() {
@@ -2828,7 +2901,7 @@ async function computeSystemStats() {
 }
 adminRouter.get("/stats", async (req, res) => {
   try {
-    const force = req.query.force === "true" || Boolean(req.query._t) || Boolean(req.headers["cache-control"]?.includes("no-cache"));
+    const force = req.query.force === "true";
     if (!force) {
       let overviewDoc = null;
       if (adminDb) {
@@ -2885,7 +2958,7 @@ function invalidateAnalyticsCache() {
 adminRouter.get("/analytics", async (req, res) => {
   try {
     const range = req.query.range || "7d";
-    const force = req.query.force === "true" || Boolean(req.query._t) || Boolean(req.headers["cache-control"]?.includes("no-cache"));
+    const force = req.query.force === "true";
     if (!force && analyticsCache.has(range)) {
       const cached = analyticsCache.get(range);
       if (Date.now() - cached.timestamp < ANALYTICS_TTL_MS) {
@@ -2976,7 +3049,7 @@ adminRouter.get("/users", async (req, res) => {
     const classFilter = req.query.class || "";
     const sortField = req.query.sort || "createdAt";
     const sortOrder = req.query.order === "asc" ? "asc" : "desc";
-    const isNoCache = req.query.force === "true" || Boolean(req.query._t) || Boolean(req.headers["cache-control"]?.includes("no-cache"));
+    const isNoCache = req.query.force === "true";
     const cacheKey = `${roleFilter}__${statusFilter}`;
     const cached = userListCache.get(cacheKey);
     let users = [];
@@ -3916,7 +3989,7 @@ adminRouter.put("/settings", requireSuperAdmin, async (req, res) => {
 });
 adminRouter.get("/wallet/overview", async (req, res) => {
   try {
-    const force = req.query.force === "true" || Boolean(req.query._t) || Boolean(req.headers["cache-control"]?.includes("no-cache"));
+    const force = req.query.force === "true";
     const overview = await getWalletOverview(force);
     return res.json({ success: true, overview });
   } catch (err) {
@@ -3926,7 +3999,7 @@ adminRouter.get("/wallet/overview", async (req, res) => {
 adminRouter.get("/wallet/students", async (req, res) => {
   try {
     const { search, filterStatus, className, limit, offset } = req.query;
-    const isForce = req.query.force === "true" || Boolean(req.query._t) || Boolean(req.headers["cache-control"]?.includes("no-cache"));
+    const isForce = req.query.force === "true";
     const result = await getStudentDebtSummaries({
       search,
       filterStatus,
@@ -3943,7 +4016,8 @@ adminRouter.get("/wallet/students", async (req, res) => {
 adminRouter.get("/wallet/students/:uid/details", async (req, res) => {
   try {
     const uid = req.params.uid;
-    const details = await getStudentWalletDetails(uid);
+    const force = req.query.force === "true";
+    const details = await getStudentWalletDetails(uid, force);
     return res.json({ success: true, ...details });
   } catch (err) {
     return res.status(500).json({ error: "server_error", message: err.message || String(err) });
@@ -4001,7 +4075,7 @@ adminRouter.patch("/wallet/students/:uid/profile", async (req, res) => {
 adminRouter.get("/wallet/deposit-requests", async (req, res) => {
   try {
     const { status, search, limit } = req.query;
-    const isForce = req.query.force === "true" || Boolean(req.query._t) || Boolean(req.headers["cache-control"]?.includes("no-cache"));
+    const isForce = req.query.force === "true";
     const requests = await getDepositRequests({
       status,
       search,
@@ -4191,7 +4265,7 @@ adminRouter.post("/wallets/:uid/direct-edit", async (req, res) => {
 });
 adminRouter.get("/vouchers", async (req, res) => {
   try {
-    const force = req.query.force === "true" || Boolean(req.query._t) || Boolean(req.headers["cache-control"]?.includes("no-cache"));
+    const force = req.query.force === "true";
     const items = await getVouchersList(force);
     return res.json({ success: true, items });
   } catch (err) {
@@ -4200,7 +4274,7 @@ adminRouter.get("/vouchers", async (req, res) => {
 });
 adminRouter.get("/vouchers/usages", async (req, res) => {
   try {
-    const force = req.query.force === "true" || Boolean(req.query._t) || Boolean(req.headers["cache-control"]?.includes("no-cache"));
+    const force = req.query.force === "true";
     const voucherId = req.query.voucherId || void 0;
     const items = await getVoucherUsagesList(voucherId, force);
     return res.json({ success: true, items, total: items.length });
@@ -4210,7 +4284,7 @@ adminRouter.get("/vouchers/usages", async (req, res) => {
 });
 adminRouter.get("/vouchers/:id/usages", async (req, res) => {
   try {
-    const force = req.query.force === "true" || Boolean(req.query._t) || Boolean(req.headers["cache-control"]?.includes("no-cache"));
+    const force = req.query.force === "true";
     const id = req.params.id;
     const items = await getVoucherUsagesList(id, force);
     return res.json({ success: true, items, total: items.length });
