@@ -39,6 +39,7 @@ import { db } from "../../services/firebase/config";
 import { logQueryRead } from "../../utils/firestoreLogger";
 import { FirestoreCache } from "../../services/firebase/firestoreCache";
 import { FirestoreRepository } from "../../services/firebase/firestoreRepository";
+import { getExamQuestionsWithCache, getExamSectionsWithCache } from "../../services/examCacheService";
 import type { Exam, Section, Question } from "../../types";
 import ExamLeaderboard from "../../components/exam/ExamLeaderboard";
 import type { SubExamConfig } from "../../features/sub-exam/types/subExam";
@@ -275,11 +276,9 @@ export default function ExamIntro() {
         const isSubExamAllowed = Boolean(exam?.allowSubExam || exam?.subExamConfig?.enabled);
         if (isSubExamAllowed && questions.length === 0) {
           try {
-            const qs = await FirestoreRepository.getQuery<Question>(
-              `exams/${exam.id}/questions`,
-              query(collection(db, `exams/${exam.id}/questions`), orderBy("order", "asc")),
-              { ttlMs: 180000, caller: "ExamIntro:questions" }
-            );
+            const qs = await getExamQuestionsWithCache(exam.id, (exam as any).questions, {
+              caller: "ExamIntro:questions",
+            });
             setQuestions(qs);
           } catch (e) {}
         }
@@ -405,31 +404,12 @@ export default function ExamIntro() {
 
         const isSubExamAllowed = Boolean(foundExam?.allowSubExam || foundExam?.subExamConfig?.enabled);
         if (isSubExamAllowed && hasEntitlement && foundExam) {
-          let qs: Question[] = Array.isArray((foundExam as any).questions) ? (foundExam as any).questions : [];
-          let ss: Section[] = Array.isArray((foundExam as any).sections) ? (foundExam as any).sections : [];
-
-          if (qs.length === 0) {
-            try {
-              qs = await FirestoreRepository.getQuery<Question>(
-                `exams/${foundExam.id}/questions`,
-                query(collection(db, `exams/${foundExam.id}/questions`), orderBy("order", "asc")),
-                { ttlMs: 180000, caller: "ExamIntro:questions" }
-              );
-            } catch (e) {}
-          }
-
-          if (ss.length === 0) {
-            try {
-              ss = await FirestoreRepository.getQuery<Section>(
-                `exams/${foundExam.id}/sections`,
-                query(collection(db, `exams/${foundExam.id}/sections`), orderBy("order", "asc")),
-                { ttlMs: 180000, caller: "ExamIntro:sections" }
-              );
-            } catch (e) {}
-          }
-
-          qs.sort((a, b) => (a.order || 0) - (b.order || 0));
-          ss.sort((a, b) => (a.order || 0) - (b.order || 0));
+          let qs: Question[] = await getExamQuestionsWithCache(foundExam.id, (foundExam as any).questions, {
+            caller: "ExamIntro:questions",
+          });
+          let ss: Section[] = await getExamSectionsWithCache(foundExam.id, (foundExam as any).sections, {
+            caller: "ExamIntro:sections",
+          });
           setSections(ss);
           setQuestions(qs);
 
@@ -474,7 +454,14 @@ export default function ExamIntro() {
     }
 
     const cacheKey = `attempts:${exam.id}:${candidateUsername}`;
-    const cachedCount = FirestoreCache.get<number>(cacheKey);
+    let cachedCount = FirestoreCache.get<number>(cacheKey);
+    if (cachedCount === null && typeof sessionStorage !== "undefined") {
+      const sVal = sessionStorage.getItem(`exam_attempts_${exam.id}_${candidateUsername}`);
+      if (sVal !== null) {
+        const parsed = parseInt(sVal, 10);
+        if (!isNaN(parsed)) cachedCount = parsed;
+      }
+    }
     if (cachedCount !== null) {
       setAttemptCount(cachedCount);
       return;
@@ -498,6 +485,12 @@ export default function ExamIntro() {
         if (isMounted) {
           setAttemptCount(snap.size);
           FirestoreCache.set(cacheKey, snap.size, 60000);
+          FirestoreCache.set(`exam_attempts_count:${exam.id}:${candidateUsername}`, snap.size, 60000);
+          try {
+            if (typeof sessionStorage !== "undefined") {
+              sessionStorage.setItem(`exam_attempts_${exam.id}_${candidateUsername}`, String(snap.size));
+            }
+          } catch (_) {}
         }
       } catch (err) {
         console.warn("Could not fetch attempt count:", err);

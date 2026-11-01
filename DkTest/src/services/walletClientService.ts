@@ -239,10 +239,47 @@ export async function getMyDebtSummary(): Promise<{
   return { totalDebtVnd: 0, unpaidCount: 0, records: [] };
 }
 
+const clientExamAccessCache = new Map<string, { data: ExamAccessInfo; timestamp: number }>();
+const CLIENT_EXAM_ACCESS_TTL_MS = 60 * 1000;
+
+export function invalidateClientExamAccessCache(examId?: string): void {
+  if (examId) {
+    for (const key of clientExamAccessCache.keys()) {
+      if (key.includes(examId)) {
+        clientExamAccessCache.delete(key);
+      }
+    }
+    if (typeof window !== "undefined" && window.sessionStorage) {
+      try {
+        const prefix = `exam_access_${examId}`;
+        for (let i = sessionStorage.length - 1; i >= 0; i--) {
+          const k = sessionStorage.key(i);
+          if (k && k.startsWith(prefix)) {
+            sessionStorage.removeItem(k);
+          }
+        }
+      } catch (_) {}
+    }
+  } else {
+    clientExamAccessCache.clear();
+    if (typeof window !== "undefined" && window.sessionStorage) {
+      try {
+        for (let i = sessionStorage.length - 1; i >= 0; i--) {
+          const k = sessionStorage.key(i);
+          if (k && k.startsWith("exam_access_")) {
+            sessionStorage.removeItem(k);
+          }
+        }
+      } catch (_) {}
+    }
+  }
+}
+
 export async function checkExamAccess(
   examId: string,
   providedUid?: string,
-  providedUsername?: string
+  providedUsername?: string,
+  force = false
 ): Promise<ExamAccessInfo> {
   let resolvedUid = providedUid || auth.currentUser?.uid || "";
   let resolvedUsername = providedUsername || "";
@@ -259,6 +296,40 @@ export async function checkExamAccess(
       }
     } catch (_) {}
   }
+
+  const cacheKey = `${examId}_${resolvedUid || resolvedUsername || "anon"}`;
+
+  if (!force) {
+    // 1. Check RAM cache
+    const ramEntry = clientExamAccessCache.get(cacheKey);
+    if (ramEntry && Date.now() - ramEntry.timestamp < CLIENT_EXAM_ACCESS_TTL_MS) {
+      return ramEntry.data;
+    }
+
+    // 2. Check sessionStorage
+    if (typeof window !== "undefined" && window.sessionStorage) {
+      try {
+        const raw = sessionStorage.getItem(`exam_access_${cacheKey}`);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && Date.now() - parsed.timestamp < CLIENT_EXAM_ACCESS_TTL_MS) {
+            clientExamAccessCache.set(cacheKey, { data: parsed.data, timestamp: parsed.timestamp });
+            return parsed.data;
+          }
+        }
+      } catch (_) {}
+    }
+  }
+
+  const saveCache = (res: ExamAccessInfo): ExamAccessInfo => {
+    clientExamAccessCache.set(cacheKey, { data: res, timestamp: Date.now() });
+    if (typeof window !== "undefined" && window.sessionStorage) {
+      try {
+        sessionStorage.setItem(`exam_access_${cacheKey}`, JSON.stringify({ data: res, timestamp: Date.now() }));
+      } catch (_) {}
+    }
+    return res;
+  };
 
   const queryParts: string[] = [];
   if (resolvedUid) queryParts.push(`studentUid=${encodeURIComponent(resolvedUid)}`);
@@ -285,7 +356,7 @@ export async function checkExamAccess(
 
   // If API succeeded and found positive balance or access granted, return it
   if (apiResult && (apiResult.hasAccess || apiResult.userBalance > 0)) {
-    return apiResult;
+    return saveCache(apiResult);
   }
 
   // Dual verification: If API returned userBalance === 0 or threw error, check direct Firestore wallet
@@ -308,12 +379,12 @@ export async function checkExamAccess(
         const realBal = Math.max(0, Math.round(Number(wData.balanceVnd) || 0));
         const price = apiResult?.priceVnd || 0;
         if (apiResult) {
-          return {
+          return saveCache({
             ...apiResult,
             userBalance: realBal,
             missingVnd: Math.max(0, price - realBal),
             canUnlock: realBal >= price,
-          };
+          });
         }
       }
     } catch (fsErr) {
@@ -321,7 +392,7 @@ export async function checkExamAccess(
     }
   }
 
-  if (apiResult) return apiResult;
+  if (apiResult) return saveCache(apiResult);
 
   // Ultimate fallback: direct Firestore exam access check
   try {
@@ -347,7 +418,7 @@ export async function checkExamAccess(
         }
       }
 
-      return {
+      return saveCache({
         hasAccess: isFree || hasEntitlement,
         isFree,
         unlocked: hasEntitlement,
@@ -358,11 +429,11 @@ export async function checkExamAccess(
         missingVnd: Math.max(0, price - userBal),
         canUnlock: userBal >= price,
         examTitle: eData.title || "Bài thi",
-      };
+      });
     }
   } catch (_) {}
 
-  return {
+  return saveCache({
     hasAccess: false,
     isFree: false,
     unlocked: false,
@@ -373,7 +444,7 @@ export async function checkExamAccess(
     missingVnd: 0,
     canUnlock: false,
     examTitle: "Bài thi",
-  };
+  });
 }
 
 export async function unlockExam(
@@ -385,6 +456,7 @@ export async function unlockExam(
     idempotencyKey,
     voucherCode,
   });
+  invalidateClientExamAccessCache(examId);
   return res;
 }
 

@@ -1013,11 +1013,7 @@ export async function rejectDepositRequest(
 // 3. EXAM ACCESS & UNLOCK TRANSACTION
 // -------------------------------------------------------------
 
-export async function checkExamAccess(
-  uid: string | null,
-  examId: string,
-  userRole?: string
-): Promise<{
+export interface ExamAccessResult {
   hasAccess: boolean;
   isFree: boolean;
   unlocked: boolean;
@@ -1032,8 +1028,55 @@ export async function checkExamAccess(
   parentExamId?: string;
   parentExamTitle?: string;
   message?: string;
-}> {
+}
+
+const examAccessCache = new Map<string, { data: ExamAccessResult; timestamp: number }>();
+const EXAM_ACCESS_TTL_MS = 60 * 1000; // 60s memory TTL to collapse duplicate checks during exam taking
+
+export function invalidateExamAccessCache(uid?: string, examId?: string): void {
+  if (uid && examId) {
+    for (const key of examAccessCache.keys()) {
+      if (key.includes(examId) && key.includes(uid)) {
+        examAccessCache.delete(key);
+      }
+    }
+  } else if (examId) {
+    for (const key of examAccessCache.keys()) {
+      if (key.includes(examId)) {
+        examAccessCache.delete(key);
+      }
+    }
+  } else if (uid) {
+    for (const key of examAccessCache.keys()) {
+      if (key.startsWith(uid)) {
+        examAccessCache.delete(key);
+      }
+    }
+  } else {
+    examAccessCache.clear();
+  }
+}
+
+export async function checkExamAccess(
+  uid: string | null,
+  examId: string,
+  userRole?: string,
+  force = false
+): Promise<ExamAccessResult> {
   if (!examId) throw new Error("Mã bài thi không hợp lệ.");
+
+  const cacheKey = `${uid || "anon"}_${examId}_${userRole || "student"}`;
+  if (!force && examAccessCache.has(cacheKey)) {
+    const entry = examAccessCache.get(cacheKey)!;
+    if (Date.now() - entry.timestamp < EXAM_ACCESS_TTL_MS) {
+      return entry.data;
+    }
+  }
+
+  const cacheAndReturn = (result: ExamAccessResult): ExamAccessResult => {
+    examAccessCache.set(cacheKey, { data: result, timestamp: Date.now() });
+    return result;
+  };
 
   // Fetch exam metadata
   let examData: Partial<Exam> | null = null;
@@ -1056,7 +1099,7 @@ export async function checkExamAccess(
 
   // Admins always have access
   if (userRole === "admin" || userRole === "super_admin") {
-    return {
+    return cacheAndReturn({
       hasAccess: true,
       isFree,
       unlocked: true,
@@ -1067,7 +1110,7 @@ export async function checkExamAccess(
       missingVnd: 0,
       canUnlock: true,
       examTitle,
-    };
+    });
   }
 
   // ------------------------------------------------------------------
@@ -1116,7 +1159,7 @@ export async function checkExamAccess(
 
     // 1. If derived from paid exams, visitor MUST be authenticated
     if (hasPaidSource && !uid) {
-      return {
+      return cacheAndReturn({
         hasAccess: false,
         isFree: false,
         unlocked: false,
@@ -1129,7 +1172,7 @@ export async function checkExamAccess(
         examTitle,
         rejectionReason: "personal_retake_unauthenticated",
         message: "Vui lòng đăng nhập để truy cập bài làm lại cá nhân.",
-      };
+      });
     }
 
     // 2. Personal Ownership Gate (Chặn thí sinh khác dùng liên kết/mã đề làm lại của nhau)
@@ -1160,7 +1203,7 @@ export async function checkExamAccess(
 
       // If owner is explicitly recorded and neither UID nor username matches:
       if ((creatorUid || allowedUid) && !uidMatches && !usernameMatches) {
-        return {
+        return cacheAndReturn({
           hasAccess: false,
           isFree: false,
           unlocked: false,
@@ -1173,7 +1216,7 @@ export async function checkExamAccess(
           examTitle,
           rejectionReason: "personal_retake_forbidden",
           message: "Đây là bài làm lại cá nhân của thí sinh khác. Bạn không thể sử dụng mã đề hoặc liên kết này.",
-        };
+        });
       }
     }
 
@@ -1193,7 +1236,7 @@ export async function checkExamAccess(
         if (!isParentUnlocked) {
           const wallet = await getOrCreateWallet(uid);
           const userBalance = sanitizeVnd(wallet.balanceVnd);
-          return {
+          return cacheAndReturn({
             hasAccess: false,
             isFree: false,
             unlocked: false,
@@ -1208,13 +1251,13 @@ export async function checkExamAccess(
             parentExamTitle: p.title,
             rejectionReason: "parent_exam_locked",
             message: `Bài thi ôn tập/làm lại này thuộc về đề thi trả phí [${p.title}]. Bạn cần sở hữu đề thi gốc trước khi có thể làm bài!`,
-          };
+          });
         }
       }
     }
 
     // If passed all personal retake verification checks, grant immediate access!
-    return {
+    return cacheAndReturn({
       hasAccess: true,
       isFree: true,
       unlocked: true,
@@ -1226,12 +1269,12 @@ export async function checkExamAccess(
       canUnlock: true,
       examTitle,
       parentExamId: (examData as any).originalExamId,
-    };
+    });
   }
 
   // If free (and not blocked by retake rules), all authenticated students have access
   if (isFree) {
-    return {
+    return cacheAndReturn({
       hasAccess: true,
       isFree: true,
       unlocked: true,
@@ -1242,12 +1285,12 @@ export async function checkExamAccess(
       missingVnd: 0,
       canUnlock: true,
       examTitle,
-    };
+    });
   }
 
   // If paid and unauthenticated
   if (!uid) {
-    return {
+    return cacheAndReturn({
       hasAccess: false,
       isFree: false,
       unlocked: false,
@@ -1258,7 +1301,7 @@ export async function checkExamAccess(
       missingVnd: priceVnd,
       canUnlock: false,
       examTitle,
-    };
+    });
   }
 
   // Check entitlement: document ID format: `${uid}_${examId}`
@@ -1279,7 +1322,7 @@ export async function checkExamAccess(
   const missingVnd = Math.max(0, priceVnd - userBalance);
   const canUnlock = userBalance >= priceVnd;
 
-  return {
+  return cacheAndReturn({
     hasAccess: isUnlocked,
     isFree: false,
     unlocked: isUnlocked,
@@ -1290,7 +1333,7 @@ export async function checkExamAccess(
     missingVnd,
     canUnlock,
     examTitle,
-  };
+  });
 }
 
 export async function unlockExam(
@@ -1499,6 +1542,7 @@ export async function unlockExam(
     }
     invalidateWalletOverviewCache();
     invalidateStudentDetailsCache(uid);
+    invalidateExamAccessCache(uid, examId);
     if (txResult.effectivePrice) {
       updateWalletOverviewAggregates({
         deltaVirtualBalanceVnd: -txResult.effectivePrice,
@@ -1607,6 +1651,7 @@ export async function unlockExam(
 
   invalidateWalletOverviewCache();
   invalidateStudentDetailsCache(uid);
+  invalidateExamAccessCache(uid, examId);
   updateWalletOverviewAggregates({
     deltaVirtualBalanceVnd: -effectivePrice,
     deltaUnlockedSpendingVnd: effectivePrice,
@@ -2023,6 +2068,7 @@ export async function grantOrRevokeExamEntitlement(
   }
 
   invalidateStudentDetailsCache(studentUid);
+  invalidateExamAccessCache(studentUid, examId);
   return { success: true, entitlement };
 }
 

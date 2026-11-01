@@ -5,6 +5,7 @@ import { evaluateQuestionAnswer } from "../utils/attemptAnalytics";
 import { clearActiveExamSession } from "./examSessionService";
 import { getOrCreateStudentFolder } from "./folderService";
 import { sanitizeFirestoreData } from "./learningActivityService";
+import { getExamQuestionsWithCache } from "./examCacheService";
 
 const EXAMS_COLLECTION = "exams";
 
@@ -66,33 +67,10 @@ export function filterQuestionsBySubmission(
  * ensuring the most complete question set is always loaded and no questions are missing.
  */
 export async function getExamQuestionsSafe(examId: string, fallbackQuestions?: Question[]): Promise<Question[]> {
-  let masterQuestions: Question[] = [];
+  const masterQuestions = await getExamQuestionsWithCache(examId, fallbackQuestions, {
+    caller: "reviewExamService:getExamQuestionsSafe",
+  });
 
-  try {
-    const examDoc = await getDoc(doc(db, EXAMS_COLLECTION, examId));
-    console.warn(`[Firestore] READ (1 doc): ${EXAMS_COLLECTION}/${examId} (safe question loader)`);
-    if (examDoc.exists()) {
-      const data = examDoc.data();
-      if (Array.isArray(data.questions) && data.questions.length > 0) {
-        masterQuestions = data.questions as Question[];
-      }
-    }
-
-    // Fallback: Check subcollection if root document questions array is empty
-    if (masterQuestions.length === 0) {
-      const qSnap = await getDocs(collection(db, `${EXAMS_COLLECTION}/${examId}/questions`));
-      console.warn(`[Firestore] READ_MANY (${qSnap.size} docs): ${EXAMS_COLLECTION}/${examId}/questions (subcollection fallback)`);
-      if (!qSnap.empty) {
-        const qs = qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question));
-        qs.sort((a, b) => (a.order || 0) - (b.order || 0));
-        masterQuestions = qs;
-      }
-    }
-  } catch (err) {
-    console.error("Error fetching questions for examId:", examId, err);
-  }
-
-  // If master questions were found, return whichever has the most complete question set
   if (masterQuestions.length > 0) {
     if (fallbackQuestions && fallbackQuestions.length > masterQuestions.length) {
       return fallbackQuestions;

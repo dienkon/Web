@@ -32,6 +32,7 @@ import {
 import { useAuth } from "../../context/AuthContext";
 import { collection, getDocs, doc, getDoc, query, orderBy } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
+import { getExamQuestionsWithCache } from "../../services/examCacheService";
 import { awardJourneyRewardCoins } from "../../services/walletClientService";
 import { recordDailyStreak } from "../../services/gamificationService";
 import { SIEUGIOI_QUESTIONS } from "../../practice/data/sieugioi/sieugioiQuestions";
@@ -164,52 +165,29 @@ export default function ArenaRoomPage() {
 
     const loadQuestions = async () => {
       try {
-        const qRef = collection(db, `exams/${room.examId}/questions`);
-        const qSnap = await getDocs(query(qRef, orderBy("order", "asc")));
+        const rawQs = await getExamQuestionsWithCache(room.examId, null, {
+          caller: "ArenaRoom:loadQuestions",
+        });
 
-        if (!qSnap.empty && isMounted) {
-          const list: QuestionItem[] = qSnap.docs.map((d, idx) => {
-            const data = d.data();
-            const opts = Array.isArray(data.options)
-              ? data.options.map((o: any, oIdx: number) => ({
+        if (rawQs.length > 0 && isMounted) {
+          const list: QuestionItem[] = rawQs.map((q: any, idx: number) => {
+            const opts = Array.isArray(q.options)
+              ? q.options.map((o: any, oIdx: number) => ({
                   id: o.id || `opt_${oIdx}`,
                   text: o.text || o.content || "",
                 }))
               : [];
             return {
-              id: d.id,
-              order: data.order ?? idx + 1,
-              text: data.text || data.prompt || "Câu hỏi trắc nghiệm",
+              id: q.id || `q_${idx}`,
+              order: q.order ?? idx + 1,
+              text: q.text || q.prompt || "Câu hỏi trắc nghiệm",
               options: opts,
-              correctAnswer: data.correctAnswer || "opt_a",
-              explanation: data.explanation,
+              correctAnswer: q.correctAnswer || q.correctOptionIds?.[0] || "opt_a",
+              explanation: q.explanation,
             };
           });
           setQuestions(list);
           return;
-        }
-
-        // Check if questions are inside exam document
-        const examDocSnap = await getDoc(doc(db, "exams", room.examId));
-        if (examDocSnap.exists() && isMounted) {
-          const examData = examDocSnap.data();
-          if (Array.isArray(examData.questions) && examData.questions.length > 0) {
-            const list: QuestionItem[] = examData.questions.map((q: any, idx: number) => ({
-              id: q.id || `q_${idx}`,
-              order: q.order ?? idx + 1,
-              text: q.text || q.prompt || "",
-              options: Array.isArray(q.options)
-                ? q.options.map((o: any, oIdx: number) => ({
-                    id: o.id || `opt_${oIdx}`,
-                    text: o.text || o.content || "",
-                  }))
-                : [],
-              correctAnswer: q.correctAnswer || "opt_a",
-              explanation: q.explanation,
-            }));
-            setQuestions(list);
-            return;
-          }
         }
 
         // Check if examId matches a SieuGioi exam code

@@ -1234,6 +1234,31 @@ async function rejectDepositRequest(requestId, adminUid, adminName, reason) {
   });
   return updated;
 }
+var examAccessCache = /* @__PURE__ */ new Map();
+var EXAM_ACCESS_TTL_MS = 60 * 1e3;
+function invalidateExamAccessCache(uid, examId) {
+  if (uid && examId) {
+    for (const key of examAccessCache.keys()) {
+      if (key.includes(examId) && key.includes(uid)) {
+        examAccessCache.delete(key);
+      }
+    }
+  } else if (examId) {
+    for (const key of examAccessCache.keys()) {
+      if (key.includes(examId)) {
+        examAccessCache.delete(key);
+      }
+    }
+  } else if (uid) {
+    for (const key of examAccessCache.keys()) {
+      if (key.startsWith(uid)) {
+        examAccessCache.delete(key);
+      }
+    }
+  } else {
+    examAccessCache.clear();
+  }
+}
 async function recordManualCashCollection(adminUid, adminName, studentUid, data) {
   const amount = sanitizeVnd(data.amountVnd);
   if (amount <= 0) throw new Error("S\u1ED1 ti\u1EC1n thu ph\u1EA3i l\u1EDBn h\u01A1n 0\u0111.");
@@ -1564,6 +1589,7 @@ async function grantOrRevokeExamEntitlement(adminUid, adminName, studentUid, exa
     await setFirestoreRestDoc("exam_entitlements", entitlementId, entitlement);
   }
   invalidateStudentDetailsCache(studentUid);
+  invalidateExamAccessCache(studentUid, examId);
   return { success: true, entitlement };
 }
 var walletOverviewCache = null;

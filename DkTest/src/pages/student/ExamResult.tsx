@@ -41,6 +41,7 @@ import {
 import { getSubmission } from "../../services/submissionService";
 import { getExam } from "../../services/examService";
 import { getExamSections } from "../../services/sectionService";
+import { getExamQuestionsWithCache, getExamSectionsWithCache } from "../../services/examCacheService";
 import { exportExamToWordFile } from "../../services/wordExportService";
 import { safeShare } from "../../utils/mobileCompat";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
@@ -248,23 +249,15 @@ export default function ExamResult() {
           const examData = await getExam(currentExamId);
           setExam(examData);
           
-          let secs: Section[] = Array.isArray((examData as any)?.sections) ? (examData as any).sections : [];
-          if (!Array.isArray((examData as any)?.sections)) {
-            secs = await getExamSections(currentExamId).catch(() => []);
-          }
-          secs.sort((a,b) => (a.order || 0) - (b.order || 0));
-          setSections(secs || []);
+          let secs: Section[] = await getExamSectionsWithCache(currentExamId, (examData as any)?.sections, {
+            caller: "ExamResult:sections",
+          });
+          setSections(secs);
 
           // 1. Fetch master original questions
-          let masterQs: Question[] = Array.isArray((examData as any)?.questions) ? (examData as any).questions : [];
-          if (!Array.isArray((examData as any)?.questions)) {
-            masterQs = await FirestoreRepository.getQuery<Question>(
-              `exams/${currentExamId}/questions`,
-              query(collection(db, `exams/${currentExamId}/questions`), orderBy("order", "asc")),
-              { ttlMs: 180000, caller: "ExamResult:questions" }
-            );
-          }
-          masterQs.sort((a,b) => (a.order || 0) - (b.order || 0));
+          let masterQs: Question[] = await getExamQuestionsWithCache(currentExamId, (examData as any)?.questions, {
+            caller: "ExamResult:questions",
+          });
 
           // 2. Set shuffled questions from snapshot if exists, or fallback to masterQs
           if (subData.shuffledQuestionsSnapshot && subData.shuffledQuestionsSnapshot.length > 0) {

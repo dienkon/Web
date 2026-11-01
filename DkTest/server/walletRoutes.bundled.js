@@ -1391,8 +1391,44 @@ async function createDepositRequest(uid, amountVnd, idempotencyKey, voucherCode)
   });
   return requestDoc;
 }
-async function checkExamAccess(uid, examId, userRole) {
+var examAccessCache = /* @__PURE__ */ new Map();
+var EXAM_ACCESS_TTL_MS = 60 * 1e3;
+function invalidateExamAccessCache(uid, examId) {
+  if (uid && examId) {
+    for (const key of examAccessCache.keys()) {
+      if (key.includes(examId) && key.includes(uid)) {
+        examAccessCache.delete(key);
+      }
+    }
+  } else if (examId) {
+    for (const key of examAccessCache.keys()) {
+      if (key.includes(examId)) {
+        examAccessCache.delete(key);
+      }
+    }
+  } else if (uid) {
+    for (const key of examAccessCache.keys()) {
+      if (key.startsWith(uid)) {
+        examAccessCache.delete(key);
+      }
+    }
+  } else {
+    examAccessCache.clear();
+  }
+}
+async function checkExamAccess(uid, examId, userRole, force = false) {
   if (!examId) throw new Error("M\xE3 b\xE0i thi kh\xF4ng h\u1EE3p l\u1EC7.");
+  const cacheKey = `${uid || "anon"}_${examId}_${userRole || "student"}`;
+  if (!force && examAccessCache.has(cacheKey)) {
+    const entry = examAccessCache.get(cacheKey);
+    if (Date.now() - entry.timestamp < EXAM_ACCESS_TTL_MS) {
+      return entry.data;
+    }
+  }
+  const cacheAndReturn = (result) => {
+    examAccessCache.set(cacheKey, { data: result, timestamp: Date.now() });
+    return result;
+  };
   let examData = null;
   if (adminDb) {
     const snap = await adminDb.collection("exams").doc(examId).get();
@@ -1409,7 +1445,7 @@ async function checkExamAccess(uid, examId, userRole) {
   const isFree = accessMode === "free" || priceVnd <= 0;
   const examTitle = examData.title || "B\xE0i thi";
   if (userRole === "admin" || userRole === "super_admin") {
-    return {
+    return cacheAndReturn({
       hasAccess: true,
       isFree,
       unlocked: true,
@@ -1420,7 +1456,7 @@ async function checkExamAccess(uid, examId, userRole) {
       missingVnd: 0,
       canUnlock: true,
       examTitle
-    };
+    });
   }
   const isPersonalRetakeExam = Boolean(
     examData.isPersonalRetake === true || examData.isRetake && examData.creatorRole === "student" || examData.isAggregatedReview === true
@@ -1455,7 +1491,7 @@ async function checkExamAccess(uid, examId, userRole) {
       }
     }
     if (hasPaidSource && !uid) {
-      return {
+      return cacheAndReturn({
         hasAccess: false,
         isFree: false,
         unlocked: false,
@@ -1468,7 +1504,7 @@ async function checkExamAccess(uid, examId, userRole) {
         examTitle,
         rejectionReason: "personal_retake_unauthenticated",
         message: "Vui l\xF2ng \u0111\u0103ng nh\u1EADp \u0111\u1EC3 truy c\u1EADp b\xE0i l\xE0m l\u1EA1i c\xE1 nh\xE2n."
-      };
+      });
     }
     const creatorUid = examData.creatorUid;
     const allowedUid = examData.allowedUid;
@@ -1492,7 +1528,7 @@ async function checkExamAccess(uid, examId, userRole) {
         }
       }
       if ((creatorUid || allowedUid) && !uidMatches && !usernameMatches) {
-        return {
+        return cacheAndReturn({
           hasAccess: false,
           isFree: false,
           unlocked: false,
@@ -1505,7 +1541,7 @@ async function checkExamAccess(uid, examId, userRole) {
           examTitle,
           rejectionReason: "personal_retake_forbidden",
           message: "\u0110\xE2y l\xE0 b\xE0i l\xE0m l\u1EA1i c\xE1 nh\xE2n c\u1EE7a th\xED sinh kh\xE1c. B\u1EA1n kh\xF4ng th\u1EC3 s\u1EED d\u1EE5ng m\xE3 \u0111\u1EC1 ho\u1EB7c li\xEAn k\u1EBFt n\xE0y."
-        };
+        });
       }
     }
     if (hasPaidSource && uid) {
@@ -1522,7 +1558,7 @@ async function checkExamAccess(uid, examId, userRole) {
         if (!isParentUnlocked) {
           const wallet2 = await getOrCreateWallet(uid);
           const userBalance2 = sanitizeVnd(wallet2.balanceVnd);
-          return {
+          return cacheAndReturn({
             hasAccess: false,
             isFree: false,
             unlocked: false,
@@ -1537,11 +1573,11 @@ async function checkExamAccess(uid, examId, userRole) {
             parentExamTitle: p.title,
             rejectionReason: "parent_exam_locked",
             message: `B\xE0i thi \xF4n t\u1EADp/l\xE0m l\u1EA1i n\xE0y thu\u1ED9c v\u1EC1 \u0111\u1EC1 thi tr\u1EA3 ph\xED [${p.title}]. B\u1EA1n c\u1EA7n s\u1EDF h\u1EEFu \u0111\u1EC1 thi g\u1ED1c tr\u01B0\u1EDBc khi c\xF3 th\u1EC3 l\xE0m b\xE0i!`
-          };
+          });
         }
       }
     }
-    return {
+    return cacheAndReturn({
       hasAccess: true,
       isFree: true,
       unlocked: true,
@@ -1553,10 +1589,10 @@ async function checkExamAccess(uid, examId, userRole) {
       canUnlock: true,
       examTitle,
       parentExamId: examData.originalExamId
-    };
+    });
   }
   if (isFree) {
-    return {
+    return cacheAndReturn({
       hasAccess: true,
       isFree: true,
       unlocked: true,
@@ -1567,10 +1603,10 @@ async function checkExamAccess(uid, examId, userRole) {
       missingVnd: 0,
       canUnlock: true,
       examTitle
-    };
+    });
   }
   if (!uid) {
-    return {
+    return cacheAndReturn({
       hasAccess: false,
       isFree: false,
       unlocked: false,
@@ -1581,7 +1617,7 @@ async function checkExamAccess(uid, examId, userRole) {
       missingVnd: priceVnd,
       canUnlock: false,
       examTitle
-    };
+    });
   }
   const entitlementId = `${uid}_${examId}`;
   let entitlement = null;
@@ -1596,7 +1632,7 @@ async function checkExamAccess(uid, examId, userRole) {
   const userBalance = sanitizeVnd(wallet.balanceVnd);
   const missingVnd = Math.max(0, priceVnd - userBalance);
   const canUnlock = userBalance >= priceVnd;
-  return {
+  return cacheAndReturn({
     hasAccess: isUnlocked,
     isFree: false,
     unlocked: isUnlocked,
@@ -1607,7 +1643,7 @@ async function checkExamAccess(uid, examId, userRole) {
     missingVnd,
     canUnlock,
     examTitle
-  };
+  });
 }
 async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
   if (!uid) throw new Error("Ch\u01B0a \u0111\u0103ng nh\u1EADp.");
@@ -1775,6 +1811,7 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
     }
     invalidateWalletOverviewCache();
     invalidateStudentDetailsCache(uid);
+    invalidateExamAccessCache(uid, examId);
     if (txResult.effectivePrice) {
       updateWalletOverviewAggregates({
         deltaVirtualBalanceVnd: -txResult.effectivePrice,
@@ -1871,6 +1908,7 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
   }
   invalidateWalletOverviewCache();
   invalidateStudentDetailsCache(uid);
+  invalidateExamAccessCache(uid, examId);
   updateWalletOverviewAggregates({
     deltaVirtualBalanceVnd: -effectivePrice,
     deltaUnlockedSpendingVnd: effectivePrice

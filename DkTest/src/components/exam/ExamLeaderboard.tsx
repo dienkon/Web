@@ -84,14 +84,17 @@ export default function ExamLeaderboard({
           
           setSubmissions(mappedSubmissions);
 
-          // Hydrate / resolve avatars for top participants in background
-          hydrateAvatarsForUsers(
-            top.map((e: any) => ({ userId: e.userId, avatarUrl: e.avatarUrl }))
-          ).then((resolved) => {
-            if (isMounted) {
-              setAvatarMap((prev) => ({ ...prev, ...resolved }));
-            }
-          });
+          // Hydrate / resolve avatars for top participants in background only if any are missing
+          const hasMissingAvatars = top.some((e: any) => !e.avatarUrl);
+          if (hasMissingAvatars) {
+            hydrateAvatarsForUsers(
+              top.map((e: any) => ({ userId: e.userId, avatarUrl: e.avatarUrl }))
+            ).then((resolved) => {
+              if (isMounted) {
+                setAvatarMap((prev) => ({ ...prev, ...resolved }));
+              }
+            });
+          }
         } else {
           setSubmissions([]);
         }

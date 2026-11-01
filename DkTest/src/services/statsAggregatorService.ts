@@ -343,7 +343,7 @@ export async function getExamsCatalogSummary(forceRefresh = false): Promise<Exam
   // Auto-heal fallback: Fetch exams collection, sort, and save to system_stats/exams_summary
   try {
     const t0 = performance.now();
-    const snap = await getDocs(collection(db, "exams"));
+    const snap = await getDocs(query(collection(db, "exams"), limit(100)));
     logQueryRead("exams", snap.size, 100, performance.now() - t0, "Auto-heal exams catalog summary");
 
     const rawExams: ExamSummaryItem[] = snap.docs.map((d) => {

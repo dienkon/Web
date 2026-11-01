@@ -56,6 +56,8 @@ import { collection, getDocs, query, orderBy, getDoc, doc, where, limit } from "
 import { db } from "../../services/firebase/config";
 import { logQueryRead } from "../../utils/firestoreLogger";
 import { FirestoreRepository } from "../../services/firebase/firestoreRepository";
+import { FirestoreCache } from "../../services/firebase/firestoreCache";
+import { getExamQuestionsWithCache, getExamSectionsWithCache } from "../../services/examCacheService";
 import {
   saveActiveExamSession,
   updateActiveExamSessionAnswers,
@@ -725,27 +727,15 @@ export default function TakingExam() {
           } catch (e) {}
         }
 
-        // Fetch questions from document or fallback to subcollection if missing (legacy)
-        let rawQuestions: Question[] = Array.isArray(docQuestions) ? docQuestions : [];
-        if (!Array.isArray(docQuestions) || rawQuestions.length === 0) {
-          console.log("[Firestore] READ_MANY: exams/" + examId + "/questions (fallback)");
-          const qSnap = await getDocs(query(collection(db, `exams/${examId}/questions`)));
-          if (!qSnap.empty) {
-            rawQuestions = qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question));
-          }
-        }
-        rawQuestions.sort((a,b) => (a.order || 0) - (b.order || 0));
+        // Fetch questions with multi-tier cache (RAM -> SessionStorage -> FirestoreRepository)
+        let rawQuestions: Question[] = await getExamQuestionsWithCache(examId, docQuestions, {
+          caller: "TakingExam:questions",
+        });
 
-        // Fetch sections from document or fallback to subcollection if missing (legacy)
-        let rawSections: Section[] = Array.isArray(docSections) ? docSections : [];
-        if (!Array.isArray(docSections) || rawSections.length === 0) {
-          console.log("[Firestore] READ_MANY: exams/" + examId + "/sections (fallback)");
-          const secSnap = await getDocs(query(collection(db, `exams/${examId}/sections`)));
-          if (!secSnap.empty) {
-            rawSections = secSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Section));
-          }
-        }
-        rawSections.sort((a,b) => (a.order || 0) - (b.order || 0));
+        // Fetch sections with multi-tier cache (RAM -> SessionStorage -> FirestoreRepository)
+        let rawSections: Section[] = await getExamSectionsWithCache(examId, docSections, {
+          caller: "TakingExam:sections",
+        });
 
         if (examData.shuffleSections && rawSections.length > 0) {
           const unpinned = shuffleArray(rawSections.filter((s) => !s.pinOrder));
@@ -795,19 +785,43 @@ export default function TakingExam() {
         const isRetakeQuery = urlParams.get("retake") === "true";
         if (examData.maxAttempts && examData.maxAttempts > 0 && !isResuming && !isRetakeQuery) {
           try {
-            const subsRef = collection(db, "submissions");
-            const maxAttLimit = examData.maxAttempts + 1;
-            const t0 = performance.now();
-            const qAttempts = query(
-              subsRef,
-              where("examId", "==", examId),
-              where("studentUsername", "==", studentIdentifier),
-              limit(maxAttLimit)
-            );
-            const subsSnap = await getDocs(qAttempts);
-            logQueryRead("submissions", subsSnap.size, `TakingExam check maxAttempts (${studentIdentifier})`, maxAttLimit, performance.now() - t0);
-            if (subsSnap.size >= examData.maxAttempts) {
-              showErrorToast(`Bạn đã sử dụng hết số lần làm bài quy định (${subsSnap.size}/${examData.maxAttempts} lần)!`);
+            const attemptCacheKey = `exam_attempts_count:${examId}:${studentIdentifier}`;
+            let attemptsCount: number | null = FirestoreCache.get<number>(attemptCacheKey);
+
+            if (attemptsCount === null && typeof sessionStorage !== "undefined") {
+              const sessionVal = sessionStorage.getItem(`exam_attempts_${examId}_${studentIdentifier}`);
+              if (sessionVal !== null) {
+                const parsedVal = parseInt(sessionVal, 10);
+                if (!isNaN(parsedVal)) {
+                  attemptsCount = parsedVal;
+                  FirestoreCache.set(attemptCacheKey, attemptsCount, 60000);
+                }
+              }
+            }
+
+            if (attemptsCount === null) {
+              const subsRef = collection(db, "submissions");
+              const maxAttLimit = examData.maxAttempts + 1;
+              const t0 = performance.now();
+              const qAttempts = query(
+                subsRef,
+                where("examId", "==", examId),
+                where("studentUsername", "==", studentIdentifier),
+                limit(maxAttLimit)
+              );
+              const subsSnap = await getDocs(qAttempts);
+              attemptsCount = subsSnap.size;
+              FirestoreCache.set(attemptCacheKey, attemptsCount, 60000);
+              try {
+                if (typeof sessionStorage !== "undefined") {
+                  sessionStorage.setItem(`exam_attempts_${examId}_${studentIdentifier}`, String(attemptsCount));
+                }
+              } catch (_) {}
+              logQueryRead("submissions", subsSnap.size, `TakingExam check maxAttempts (${studentIdentifier})`, maxAttLimit, performance.now() - t0);
+            }
+
+            if (attemptsCount >= examData.maxAttempts) {
+              showErrorToast(`Bạn đã sử dụng hết số lần làm bài quy định (${attemptsCount}/${examData.maxAttempts} lần)!`);
               navigate(`/student/exam/${examId}`, { replace: true });
               return;
             }
