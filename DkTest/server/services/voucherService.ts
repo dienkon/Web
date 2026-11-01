@@ -21,8 +21,23 @@ import {
   setFirestoreRestDoc,
   deleteFirestoreRestDoc,
 } from "../firebaseAdmin.js";
-import { getOrCreateWallet } from "./walletService.js";
+import { getOrCreateWallet, invalidateWalletOverviewCache } from "./walletService.js";
 import type { Voucher, VoucherType, VoucherUsage, StudentWallet, WalletTransaction } from "../../src/types/index.js";
+
+// In-memory cache for vouchers to avoid repetitive Firestore collection reads
+let cachedVouchersList: { data: Voucher[]; timestamp: number } | null = null;
+const VOUCHERS_TTL_MS = 60 * 1000;
+
+export function invalidateVouchersCache() {
+  cachedVouchersList = null;
+}
+
+const voucherUsagesCache = new Map<string, { data: VoucherUsage[]; timestamp: number }>();
+const USAGES_TTL_MS = 60 * 1000;
+
+export function invalidateVoucherUsagesCache() {
+  voucherUsagesCache.clear();
+}
 
 function normalizeCode(code: string): string {
   return String(code || "").trim().toUpperCase();
@@ -44,24 +59,30 @@ export async function getVoucherByCode(rawCode: string): Promise<Voucher | null>
   return null;
 }
 
-export async function getVouchersList(): Promise<Voucher[]> {
+export async function getVouchersList(forceRefresh = false): Promise<Voucher[]> {
+  if (!forceRefresh && cachedVouchersList && Date.now() - cachedVouchersList.timestamp < VOUCHERS_TTL_MS) {
+    return cachedVouchersList.data;
+  }
+
+  let list: Voucher[] = [];
   if (adminDb) {
     try {
       const snap = await adminDb.collection("vouchers").orderBy("createdAt", "desc").get();
-      return snap.docs.map((d) => ({ id: d.id, ...d.data() } as Voucher));
+      list = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Voucher));
     } catch (err) {
       // If index is missing, fallback without orderBy
       const snap = await adminDb.collection("vouchers").get();
-      const list = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Voucher));
+      list = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Voucher));
       list.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
-      return list;
     }
+  } else {
+    // REST fallback mode
+    const docs = await getFirestoreRestDocs("vouchers", 100, false);
+    list = (docs || []).map((d) => ({ id: d.id, ...d } as Voucher));
+    list.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
   }
 
-  // REST fallback mode
-  const docs = await getFirestoreRestDocs("vouchers", 100, false);
-  const list = (docs || []).map((d) => ({ id: d.id, ...d } as Voucher));
-  list.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+  cachedVouchersList = { data: list, timestamp: Date.now() };
   return list;
 }
 
@@ -111,6 +132,7 @@ export async function createVoucher(data: Partial<Voucher>): Promise<Voucher> {
     await setFirestoreRestDoc("vouchers", id, voucher);
   }
 
+  invalidateVouchersCache();
   return voucher;
 }
 
@@ -125,6 +147,7 @@ export async function updateVoucher(id: string, data: Partial<Voucher>): Promise
     updates.code = normalizeCode(data.code);
   }
 
+  let updatedVoucher: Voucher;
   if (adminDb) {
     const docRef = adminDb.collection("vouchers").doc(id);
     const snap = await docRef.get();
@@ -133,7 +156,7 @@ export async function updateVoucher(id: string, data: Partial<Voucher>): Promise
     }
     await docRef.set(updates, { merge: true });
     const updatedSnap = await docRef.get();
-    return { id, ...updatedSnap.data() } as Voucher;
+    updatedVoucher = { id, ...updatedSnap.data() } as Voucher;
   } else {
     const current = await getFirestoreRestDoc("vouchers", id, false);
     if (!current) {
@@ -141,8 +164,11 @@ export async function updateVoucher(id: string, data: Partial<Voucher>): Promise
     }
     const merged = { ...current, ...updates };
     await setFirestoreRestDoc("vouchers", id, merged);
-    return merged as Voucher;
+    updatedVoucher = merged as Voucher;
   }
+
+  invalidateVouchersCache();
+  return updatedVoucher;
 }
 
 export async function deleteVoucher(id: string): Promise<void> {
@@ -151,9 +177,17 @@ export async function deleteVoucher(id: string): Promise<void> {
   } else {
     await deleteFirestoreRestDoc("vouchers", id);
   }
+  invalidateVouchersCache();
+  invalidateVoucherUsagesCache();
 }
 
-export async function getVoucherUsagesList(voucherId?: string): Promise<VoucherUsage[]> {
+export async function getVoucherUsagesList(voucherId?: string, forceRefresh = false): Promise<VoucherUsage[]> {
+  const cacheKey = voucherId || "__all__";
+  const cached = voucherUsagesCache.get(cacheKey);
+  if (!forceRefresh && cached && Date.now() - cached.timestamp < USAGES_TTL_MS) {
+    return cached.data;
+  }
+
   let list: VoucherUsage[] = [];
   if (adminDb) {
     try {
@@ -161,12 +195,12 @@ export async function getVoucherUsagesList(voucherId?: string): Promise<VoucherU
       if (voucherId) {
         queryRef = queryRef.where("voucherId", "==", voucherId);
       }
-      const snap = await queryRef.limit(500).get();
+      const snap = await queryRef.limit(200).get();
       list = snap.docs.map((d: any) => ({ id: d.id, ...d.data() } as VoucherUsage));
     } catch (err) {
       console.warn("[voucherService] adminDb getVoucherUsagesList query error, fallback without where:", err);
       try {
-        const snap = await adminDb.collection("voucher_usages").limit(500).get();
+        const snap = await adminDb.collection("voucher_usages").limit(200).get();
         list = snap.docs.map((d: any) => ({ id: d.id, ...d.data() } as VoucherUsage));
         if (voucherId) {
           list = list.filter((u) => u.voucherId === voucherId || (u as any).code === voucherId);
@@ -174,7 +208,7 @@ export async function getVoucherUsagesList(voucherId?: string): Promise<VoucherU
       } catch (_) {}
     }
   } else {
-    const docs = await getFirestoreRestDocs("voucher_usages", 500, false);
+    const docs = await getFirestoreRestDocs("voucher_usages", 200, false);
     list = (docs || []).map((d: any) => ({ id: d.id, ...d } as VoucherUsage));
     if (voucherId) {
       list = list.filter((u) => u.voucherId === voucherId || (u as any).code === voucherId);
@@ -188,6 +222,7 @@ export async function getVoucherUsagesList(voucherId?: string): Promise<VoucherU
     return timeB - timeA;
   });
 
+  voucherUsagesCache.set(cacheKey, { data: list, timestamp: Date.now() });
   return list;
 }
 
@@ -507,6 +542,10 @@ export async function redeemGiftVoucher(code: string, uid: string): Promise<{
     };
     await setFirestoreRestDoc("wallet_transactions", txId, txDoc);
   }
+
+  invalidateVouchersCache();
+  invalidateVoucherUsagesCache();
+  invalidateWalletOverviewCache();
 
   return {
     success: true,

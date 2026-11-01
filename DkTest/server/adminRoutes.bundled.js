@@ -517,24 +517,39 @@ async function requireSuperAdmin(req, res, next) {
 }
 
 // server/services/voucherService.ts
+var cachedVouchersList = null;
+var VOUCHERS_TTL_MS = 60 * 1e3;
+function invalidateVouchersCache() {
+  cachedVouchersList = null;
+}
+var voucherUsagesCache = /* @__PURE__ */ new Map();
+var USAGES_TTL_MS = 60 * 1e3;
+function invalidateVoucherUsagesCache() {
+  voucherUsagesCache.clear();
+}
 function normalizeCode(code) {
   return String(code || "").trim().toUpperCase();
 }
-async function getVouchersList() {
+async function getVouchersList(forceRefresh = false) {
+  if (!forceRefresh && cachedVouchersList && Date.now() - cachedVouchersList.timestamp < VOUCHERS_TTL_MS) {
+    return cachedVouchersList.data;
+  }
+  let list = [];
   if (adminDb) {
     try {
       const snap = await adminDb.collection("vouchers").orderBy("createdAt", "desc").get();
-      return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      list = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
     } catch (err) {
       const snap = await adminDb.collection("vouchers").get();
-      const list2 = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-      list2.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
-      return list2;
+      list = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      list.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
     }
+  } else {
+    const docs = await getFirestoreRestDocs("vouchers", 100, false);
+    list = (docs || []).map((d) => ({ id: d.id, ...d }));
+    list.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
   }
-  const docs = await getFirestoreRestDocs("vouchers", 100, false);
-  const list = (docs || []).map((d) => ({ id: d.id, ...d }));
-  list.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+  cachedVouchersList = { data: list, timestamp: Date.now() };
   return list;
 }
 async function createVoucher(data) {
@@ -578,6 +593,7 @@ async function createVoucher(data) {
   } else {
     await setFirestoreRestDoc("vouchers", id, voucher);
   }
+  invalidateVouchersCache();
   return voucher;
 }
 async function updateVoucher(id, data) {
@@ -589,6 +605,7 @@ async function updateVoucher(id, data) {
   if (data.code) {
     updates.code = normalizeCode(data.code);
   }
+  let updatedVoucher;
   if (adminDb) {
     const docRef = adminDb.collection("vouchers").doc(id);
     const snap = await docRef.get();
@@ -597,7 +614,7 @@ async function updateVoucher(id, data) {
     }
     await docRef.set(updates, { merge: true });
     const updatedSnap = await docRef.get();
-    return { id, ...updatedSnap.data() };
+    updatedVoucher = { id, ...updatedSnap.data() };
   } else {
     const current = await getFirestoreRestDoc("vouchers", id, false);
     if (!current) {
@@ -605,8 +622,10 @@ async function updateVoucher(id, data) {
     }
     const merged = { ...current, ...updates };
     await setFirestoreRestDoc("vouchers", id, merged);
-    return merged;
+    updatedVoucher = merged;
   }
+  invalidateVouchersCache();
+  return updatedVoucher;
 }
 async function deleteVoucher(id) {
   if (adminDb) {
@@ -614,8 +633,15 @@ async function deleteVoucher(id) {
   } else {
     await deleteFirestoreRestDoc("vouchers", id);
   }
+  invalidateVouchersCache();
+  invalidateVoucherUsagesCache();
 }
-async function getVoucherUsagesList(voucherId) {
+async function getVoucherUsagesList(voucherId, forceRefresh = false) {
+  const cacheKey = voucherId || "__all__";
+  const cached = voucherUsagesCache.get(cacheKey);
+  if (!forceRefresh && cached && Date.now() - cached.timestamp < USAGES_TTL_MS) {
+    return cached.data;
+  }
   let list = [];
   if (adminDb) {
     try {
@@ -623,12 +649,12 @@ async function getVoucherUsagesList(voucherId) {
       if (voucherId) {
         queryRef = queryRef.where("voucherId", "==", voucherId);
       }
-      const snap = await queryRef.limit(500).get();
+      const snap = await queryRef.limit(200).get();
       list = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
     } catch (err) {
       console.warn("[voucherService] adminDb getVoucherUsagesList query error, fallback without where:", err);
       try {
-        const snap = await adminDb.collection("voucher_usages").limit(500).get();
+        const snap = await adminDb.collection("voucher_usages").limit(200).get();
         list = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
         if (voucherId) {
           list = list.filter((u) => u.voucherId === voucherId || u.code === voucherId);
@@ -637,7 +663,7 @@ async function getVoucherUsagesList(voucherId) {
       }
     }
   } else {
-    const docs = await getFirestoreRestDocs("voucher_usages", 500, false);
+    const docs = await getFirestoreRestDocs("voucher_usages", 200, false);
     list = (docs || []).map((d) => ({ id: d.id, ...d }));
     if (voucherId) {
       list = list.filter((u) => u.voucherId === voucherId || u.code === voucherId);
@@ -648,6 +674,7 @@ async function getVoucherUsagesList(voucherId) {
     const timeB = new Date(b.usedAt || b.createdAt || 0).getTime();
     return timeB - timeA;
   });
+  voucherUsagesCache.set(cacheKey, { data: list, timestamp: Date.now() });
   return list;
 }
 
@@ -1013,6 +1040,8 @@ async function approveDepositRequest(requestId, adminUid, adminName, externalCol
         createdAt: now
       };
       transaction.set(txRef, ledgerEntry2);
+      invalidateWalletOverviewCache();
+      invalidateDebtSummariesCache();
       return {
         success: true,
         newBalanceVnd: newBalance2,
@@ -1061,6 +1090,8 @@ async function approveDepositRequest(requestId, adminUid, adminName, externalCol
     createdAt: now
   };
   await setFirestoreRestDoc("wallet_transactions", txId, ledgerEntry);
+  invalidateWalletOverviewCache();
+  invalidateDebtSummariesCache();
   return { success: true, newBalanceVnd: newBalance, transactionId: txId };
 }
 async function rejectDepositRequest(requestId, adminUid, adminName, reason) {
@@ -1084,6 +1115,7 @@ async function rejectDepositRequest(requestId, adminUid, adminName, reason) {
       processedByName: adminName
     };
     await reqRef.update(updates);
+    invalidateWalletOverviewCache();
     return { ...data2, ...updates };
   }
   const data = await getFirestoreRestDoc("deposit_requests", requestId);
@@ -1100,6 +1132,7 @@ async function rejectDepositRequest(requestId, adminUid, adminName, reason) {
     processedByName: adminName
   };
   await setFirestoreRestDoc("deposit_requests", requestId, updated);
+  invalidateWalletOverviewCache();
   return updated;
 }
 async function recordManualCashCollection(adminUid, adminName, studentUid, data) {
@@ -1201,6 +1234,7 @@ async function recordManualCashCollection(adminUid, adminName, studentUid, data)
     batch.set(debtRef, debtEntry2);
     await batch.commit();
     invalidateDebtSummariesCache();
+    invalidateWalletOverviewCache();
     return { success: true, debtRecordId: recordId, newBalanceVnd: newBal2 };
   }
   const allDebts = await getFirestoreRestDocs("debt_records", 100);
@@ -1282,6 +1316,7 @@ async function recordManualCashCollection(adminUid, adminName, studentUid, data)
   };
   await setFirestoreRestDoc("debt_records", recordId, debtEntry);
   invalidateDebtSummariesCache();
+  invalidateWalletOverviewCache();
   return { success: true, debtRecordId: recordId, newBalanceVnd: newBal };
 }
 async function adjustStudentDebt(adminUid, adminName, studentUid, data) {
@@ -1363,6 +1398,7 @@ async function adjustStudentDebt(adminUid, adminName, studentUid, data) {
     await setFirestoreRestDoc("wallet_transactions", txId, txDoc);
   }
   invalidateDebtSummariesCache();
+  invalidateWalletOverviewCache();
   return { success: true, recordId };
 }
 async function grantOrRevokeExamEntitlement(adminUid, adminName, studentUid, examId, action, reason) {
@@ -1413,7 +1449,37 @@ async function grantOrRevokeExamEntitlement(adminUid, adminName, studentUid, exa
   }
   return { success: true, entitlement };
 }
-async function getWalletOverview() {
+var walletOverviewCache = null;
+var WALLET_OVERVIEW_TTL_MS = 60 * 1e3;
+function invalidateWalletOverviewCache() {
+  walletOverviewCache = null;
+}
+async function getWalletOverview(forceRefresh = false) {
+  if (!forceRefresh && walletOverviewCache && Date.now() - walletOverviewCache.timestamp < WALLET_OVERVIEW_TTL_MS) {
+    return walletOverviewCache.data;
+  }
+  if (!forceRefresh) {
+    try {
+      let overviewDoc = null;
+      if (adminDb) {
+        const snap = await adminDb.collection("system_stats").doc("wallet_overview").get();
+        if (snap.exists) {
+          overviewDoc = snap.data();
+          console.log(`[Server Firestore READ_DOC: 1 doc] system_stats/wallet_overview (pre-aggregated)`);
+        }
+      } else {
+        overviewDoc = await getFirestoreRestDoc("system_stats", "wallet_overview", true, 3e4);
+      }
+      const lastUpdatedMs = overviewDoc?.lastUpdated ? new Date(overviewDoc.lastUpdated).getTime() : 0;
+      const isFresh = Date.now() - lastUpdatedMs < WALLET_OVERVIEW_TTL_MS;
+      if (overviewDoc && typeof overviewDoc.totalWallets === "number" && isFresh) {
+        walletOverviewCache = { data: overviewDoc, timestamp: Date.now() };
+        return overviewDoc;
+      }
+    } catch (e) {
+      console.warn("[walletService] Could not read system_stats/wallet_overview doc:", e);
+    }
+  }
   let totalWallets = 0;
   let totalVirtualBalanceVnd = 0;
   let totalConfirmedCreditedVnd = 0;
@@ -1424,8 +1490,13 @@ async function getWalletOverview() {
   let studentsInDebtCount = 0;
   let recentRequests = [];
   if (adminDb) {
+    try {
+      const countSnap = await adminDb.collection("wallets").count().get();
+      totalWallets = countSnap.data().count;
+    } catch (_) {
+    }
     const walletsSnap = await adminDb.collection("wallets").get();
-    totalWallets = walletsSnap.size;
+    if (!totalWallets) totalWallets = walletsSnap.size;
     walletsSnap.docs.forEach((doc) => {
       const w = doc.data();
       totalVirtualBalanceVnd += sanitizeVnd(w.balanceVnd);
@@ -1483,7 +1554,7 @@ async function getWalletOverview() {
     });
     studentsInDebtCount = studentsInDebtSet.size;
   }
-  return {
+  const freshOverview = {
     totalWallets,
     totalVirtualBalanceVnd,
     totalConfirmedCreditedVnd,
@@ -1492,8 +1563,20 @@ async function getWalletOverview() {
     pendingRequestsCount,
     totalOutstandingDebtVnd,
     studentsInDebtCount,
-    recentRequests
+    recentRequests,
+    lastUpdated: (/* @__PURE__ */ new Date()).toISOString()
   };
+  try {
+    if (adminDb) {
+      await adminDb.collection("system_stats").doc("wallet_overview").set(freshOverview);
+    } else {
+      await setFirestoreRestDoc("system_stats", "wallet_overview", freshOverview);
+    }
+  } catch (err) {
+    console.warn("[walletService] Warning saving system_stats/wallet_overview:", err);
+  }
+  walletOverviewCache = { data: freshOverview, timestamp: Date.now() };
+  return freshOverview;
 }
 var debtSummariesCache = null;
 function invalidateDebtSummariesCache() {
@@ -2027,6 +2110,7 @@ async function adminDirectEditWallet(adminUid, adminName, studentUid, payload) {
     ...updates
   };
   invalidateDebtSummariesCache();
+  invalidateWalletOverviewCache();
   return {
     success: true,
     wallet: updatedWallet,
@@ -2365,6 +2449,15 @@ async function recordAuditLog(actor, action, targetUid, targetType, metadata, re
     console.error("[AuditLog] Failed to record audit log:", err);
   }
 }
+function parseTimestampMs(val) {
+  if (!val) return 0;
+  if (typeof val?.toMillis === "function") return val.toMillis();
+  if (typeof val?.toDate === "function") return val.toDate().getTime();
+  if (val instanceof Date) return val.getTime();
+  if (typeof val === "number") return val;
+  const d = new Date(val);
+  return isNaN(d.getTime()) ? 0 : d.getTime();
+}
 async function computeSystemStats() {
   const now = /* @__PURE__ */ new Date();
   const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString();
@@ -2372,6 +2465,10 @@ async function computeSystemStats() {
   const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1e3).toISOString();
   let usersList = [];
   let totalExams = 0;
+  let totalSubmissions = 0;
+  let submissionsToday = 0;
+  let submissions7Days = 0;
+  let submissions30Days = 0;
   let subList = [];
   let relList = [];
   if (adminDb) {
@@ -2387,8 +2484,28 @@ async function computeSystemStats() {
       totalExams = examsSnap.size;
     }
     const submissionsRef = adminDb.collection("submissions");
-    const subSnap = await submissionsRef.orderBy("submittedAt", "desc").limit(50).get();
-    console.log(`[Server Firestore READ: ${subSnap.size} docs] Collection: "submissions" (limit: 50)`);
+    try {
+      const countSnap = await submissionsRef.count().get();
+      totalSubmissions = countSnap.data().count;
+    } catch (cntErr) {
+      console.warn("[computeSystemStats] Total submissions count() query failed:", cntErr);
+    }
+    try {
+      const todayDate = new Date(todayStart);
+      const sevenDaysDate = new Date(sevenDaysAgo);
+      const thirtyDaysDate = new Date(thirtyDaysAgo);
+      const [todayCountSnap, sevenCountSnap, thirtyCountSnap] = await Promise.all([
+        submissionsRef.where("submittedAt", ">=", todayDate).count().get().catch(() => null),
+        submissionsRef.where("submittedAt", ">=", sevenDaysDate).count().get().catch(() => null),
+        submissionsRef.where("submittedAt", ">=", thirtyDaysDate).count().get().catch(() => null)
+      ]);
+      if (todayCountSnap) submissionsToday = todayCountSnap.data().count;
+      if (sevenCountSnap) submissions7Days = sevenCountSnap.data().count;
+      if (thirtyCountSnap) submissions30Days = thirtyCountSnap.data().count;
+    } catch (_) {
+    }
+    const subSnap = await submissionsRef.orderBy("submittedAt", "desc").limit(200).get();
+    console.log(`[Server Firestore READ: ${subSnap.size} docs] Collection: "submissions" (limit: 200)`);
     subList = subSnap.docs.map((doc) => doc.data());
     try {
       const relSnap = await adminDb.collection("relationships").limit(50).get();
@@ -2400,7 +2517,7 @@ async function computeSystemStats() {
     usersList = await getFirestoreRestDocs("users", 100);
     const examsList = await getFirestoreRestDocs("exams", 50);
     totalExams = examsList.length;
-    subList = await getFirestoreRestDocs("submissions", 50);
+    subList = await getFirestoreRestDocs("submissions", 100);
     relList = await getFirestoreRestDocs("relationships", 50);
   }
   let totalAccounts = 0;
@@ -2440,21 +2557,22 @@ async function computeSystemStats() {
       classDistribution[data.studentClass] = (classDistribution[data.studentClass] || 0) + 1;
     }
   });
-  let totalSubmissions = 0;
-  let submissionsToday = 0;
-  let submissions7Days = 0;
-  let submissions30Days = 0;
   let totalScoreSum = 0;
   let validScoreCount = 0;
   let highestScore = 0;
   let lowestScore = 10;
   const studentTestedSet = /* @__PURE__ */ new Set();
+  const todayMs = new Date(todayStart).getTime();
+  const sevenMs = new Date(sevenDaysAgo).getTime();
+  const thirtyMs = new Date(thirtyDaysAgo).getTime();
+  let subListToday = 0;
+  let subList7 = 0;
+  let subList30 = 0;
   subList.forEach((sub) => {
-    totalSubmissions++;
-    const submittedAt = sub.submittedAt?.toDate ? sub.submittedAt.toDate().toISOString() : typeof sub.submittedAt === "string" ? sub.submittedAt : "";
-    if (submittedAt >= todayStart) submissionsToday++;
-    if (submittedAt >= sevenDaysAgo) submissions7Days++;
-    if (submittedAt >= thirtyDaysAgo) submissions30Days++;
+    const ts = parseTimestampMs(sub.submittedAt);
+    if (ts >= todayMs) subListToday++;
+    if (ts >= sevenMs) subList7++;
+    if (ts >= thirtyMs) subList30++;
     if (typeof sub.score === "number") {
       totalScoreSum += sub.score;
       validScoreCount++;
@@ -2463,6 +2581,24 @@ async function computeSystemStats() {
     }
     if (sub.studentId) studentTestedSet.add(sub.studentId);
   });
+  if (submissionsToday === 0 && subListToday > 0) submissionsToday = subListToday;
+  if (submissions7Days === 0 && subList7 > 0) submissions7Days = subList7;
+  if (submissions30Days === 0 && subList30 > 0) submissions30Days = subList30;
+  if (totalSubmissions === 0) {
+    try {
+      if (adminDb) {
+        const exSnap = await adminDb.collection("exams").get();
+        exSnap.docs.forEach((doc) => {
+          const e = doc.data();
+          totalSubmissions += e.attemptCount || e.submissionsCount || 0;
+        });
+      }
+    } catch (_) {
+    }
+  }
+  if (totalSubmissions < subList.length) {
+    totalSubmissions = subList.length;
+  }
   const averageScore = validScoreCount > 0 ? Number((totalScoreSum / validScoreCount).toFixed(2)) : 0;
   const totalRelationships = relList.length;
   const pendingRelationships = relList.filter((r) => r.status === "pending").length;
@@ -2571,15 +2707,27 @@ adminRouter.post("/stats/rebuild", async (req, res) => {
     return res.status(500).json({ error: "server_error", message: err.message });
   }
 });
+var analyticsCache = /* @__PURE__ */ new Map();
+var ANALYTICS_TTL_MS = 60 * 1e3;
+function invalidateAnalyticsCache() {
+  analyticsCache.clear();
+}
 adminRouter.get("/analytics", async (req, res) => {
   try {
     const range = req.query.range || "7d";
+    const force = req.query.force === "true" || Boolean(req.query._t) || Boolean(req.headers["cache-control"]?.includes("no-cache"));
+    if (!force && analyticsCache.has(range)) {
+      const cached = analyticsCache.get(range);
+      if (Date.now() - cached.timestamp < ANALYTICS_TTL_MS) {
+        return res.json(cached.data);
+      }
+    }
     let days = 7;
     if (range === "30d") days = 30;
     if (range === "90d") days = 90;
     if (range === "1y") days = 365;
     const now = /* @__PURE__ */ new Date();
-    const startDate = new Date(now.getTime() - days * 24 * 60 * 60 * 1e3);
+    const startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() - days, 0, 0, 0, 0);
     const dateBuckets = {};
     for (let i = 0; i <= days; i++) {
       const d = new Date(startDate.getTime() + i * 24 * 60 * 60 * 1e3);
@@ -2590,33 +2738,46 @@ adminRouter.get("/analytics", async (req, res) => {
     let usersList = [];
     let subList = [];
     if (adminDb) {
-      const usersSnap = await adminDb.collection("users").limit(100).get();
-      usersList = usersSnap.docs.map((doc) => doc.data());
-      const subSnap = await adminDb.collection("submissions").limit(100).get();
-      subList = subSnap.docs.map((doc) => doc.data());
+      try {
+        const usersSnap = await adminDb.collection("users").orderBy("createdAt", "desc").limit(500).get();
+        usersList = usersSnap.docs.map((doc) => doc.data());
+      } catch {
+        const usersSnap = await adminDb.collection("users").limit(200).get();
+        usersList = usersSnap.docs.map((doc) => doc.data());
+      }
+      try {
+        const subSnap = await adminDb.collection("submissions").orderBy("submittedAt", "desc").limit(1e3).get();
+        subList = subSnap.docs.map((doc) => doc.data());
+      } catch {
+        const subSnap = await adminDb.collection("submissions").limit(500).get();
+        subList = subSnap.docs.map((doc) => doc.data());
+      }
     } else {
-      usersList = await getFirestoreRestDocs("users", 100, true, 3e4);
-      subList = await getFirestoreRestDocs("submissions", 100, true, 3e4);
+      usersList = await getFirestoreRestDocs("users", 200, true, 3e4);
+      subList = await getFirestoreRestDocs("submissions", 500, true, 3e4);
     }
     usersList.forEach((data) => {
-      if (data.createdAt) {
-        const dStr = new Date(data.createdAt).toISOString().slice(0, 10);
+      const ts = parseTimestampMs(data.createdAt);
+      if (ts) {
+        const dStr = new Date(ts).toISOString().slice(0, 10);
         if (dateBuckets[dStr]) {
           dateBuckets[dStr].newUsers++;
         }
       }
     });
     subList.forEach((data) => {
-      const submittedAt = data.submittedAt?.toDate ? data.submittedAt.toDate().toISOString() : typeof data.submittedAt === "string" ? data.submittedAt : "";
-      if (submittedAt) {
-        const dStr = submittedAt.slice(0, 10);
+      const ts = parseTimestampMs(data.submittedAt);
+      if (ts) {
+        const dStr = new Date(ts).toISOString().slice(0, 10);
         if (dateBuckets[dStr]) {
           dateBuckets[dStr].submissions++;
         }
       }
     });
     const chartData = Object.values(dateBuckets);
-    return res.json({ range, chartData });
+    const result = { range, chartData };
+    analyticsCache.set(range, { data: result, timestamp: Date.now() });
+    return res.json(result);
   } catch (err) {
     console.error("[adminRoutes] /analytics error:", err);
     return res.status(500).json({ error: "server_error", message: err.message });
@@ -3574,7 +3735,8 @@ adminRouter.put("/settings", requireSuperAdmin, async (req, res) => {
 });
 adminRouter.get("/wallet/overview", async (req, res) => {
   try {
-    const overview = await getWalletOverview();
+    const force = req.query.force === "true" || Boolean(req.query._t) || Boolean(req.headers["cache-control"]?.includes("no-cache"));
+    const overview = await getWalletOverview(force);
     return res.json({ success: true, overview });
   } catch (err) {
     return res.status(500).json({ error: "server_error", message: err.message || String(err) });
@@ -3844,7 +4006,8 @@ adminRouter.post("/wallets/:uid/direct-edit", async (req, res) => {
 });
 adminRouter.get("/vouchers", async (req, res) => {
   try {
-    const items = await getVouchersList();
+    const force = req.query.force === "true" || Boolean(req.query._t) || Boolean(req.headers["cache-control"]?.includes("no-cache"));
+    const items = await getVouchersList(force);
     return res.json({ success: true, items });
   } catch (err) {
     return res.status(500).json({ error: "server_error", message: err.message || String(err) });
@@ -3852,8 +4015,9 @@ adminRouter.get("/vouchers", async (req, res) => {
 });
 adminRouter.get("/vouchers/usages", async (req, res) => {
   try {
+    const force = req.query.force === "true" || Boolean(req.query._t) || Boolean(req.headers["cache-control"]?.includes("no-cache"));
     const voucherId = req.query.voucherId || void 0;
-    const items = await getVoucherUsagesList(voucherId);
+    const items = await getVoucherUsagesList(voucherId, force);
     return res.json({ success: true, items, total: items.length });
   } catch (err) {
     return res.status(500).json({ error: "server_error", message: err.message || String(err) });
@@ -3861,8 +4025,9 @@ adminRouter.get("/vouchers/usages", async (req, res) => {
 });
 adminRouter.get("/vouchers/:id/usages", async (req, res) => {
   try {
+    const force = req.query.force === "true" || Boolean(req.query._t) || Boolean(req.headers["cache-control"]?.includes("no-cache"));
     const id = req.params.id;
-    const items = await getVoucherUsagesList(id);
+    const items = await getVoucherUsagesList(id, force);
     return res.json({ success: true, items, total: items.length });
   } catch (err) {
     return res.status(500).json({ error: "server_error", message: err.message || String(err) });
@@ -3920,6 +4085,7 @@ adminRouter.delete("/vouchers/:id", async (req, res) => {
 });
 export {
   adminRouter,
+  invalidateAnalyticsCache,
   invalidateUserListCache
 };
 /**

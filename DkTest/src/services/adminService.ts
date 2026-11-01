@@ -1,12 +1,12 @@
 import { api } from "./apiClient";
 import type { UserProfile, AuditLog, DataHealthReport, SystemSettings } from "../types";
 
-export async function fetchAdminStats() {
-  return await api.get("/api/admin/stats");
+export async function fetchAdminStats(force = false) {
+  return await api.get(`/api/admin/stats${force ? "?force=true" : ""}`);
 }
 
-export async function fetchAdminAnalytics(range = "7d") {
-  return await api.get(`/api/admin/analytics?range=${encodeURIComponent(range)}`);
+export async function fetchAdminAnalytics(range = "7d", force = false) {
+  return await api.get(`/api/admin/analytics?range=${encodeURIComponent(range)}${force ? "&force=true" : ""}`);
 }
 
 export async function fetchAdminUsers(params: {

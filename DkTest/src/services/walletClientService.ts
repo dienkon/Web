@@ -403,16 +403,44 @@ export interface AdminWalletOverview {
   recentRequests: DepositRequest[];
 }
 
-export async function getAdminWalletOverview(): Promise<AdminWalletOverview> {
+let cachedAdminWalletOverview: { data: AdminWalletOverview; timestamp: number } | null = null;
+const CLIENT_WALLET_OVERVIEW_TTL_MS = 45 * 1000;
+
+export function invalidateClientWalletOverviewCache() {
+  cachedAdminWalletOverview = null;
+}
+
+export async function getAdminWalletOverview(force = false): Promise<AdminWalletOverview> {
+  // Step 1: Memory cache check (0 network calls, 0 Firestore reads)
+  if (!force && cachedAdminWalletOverview && Date.now() - cachedAdminWalletOverview.timestamp < CLIENT_WALLET_OVERVIEW_TTL_MS) {
+    return cachedAdminWalletOverview.data;
+  }
+
   try {
-    const res = await api.get<{ success: boolean; overview: AdminWalletOverview }>("/api/admin/wallet/overview");
-    if (res?.overview) return res.overview;
+    const res = await api.get<{ success: boolean; overview: AdminWalletOverview }>(
+      `/api/admin/wallet/overview${force ? "?force=true" : ""}`
+    );
+    if (res?.overview) {
+      cachedAdminWalletOverview = { data: res.overview, timestamp: Date.now() };
+      return res.overview;
+    }
   } catch (err) {
     console.warn("[walletClientService] API getAdminWalletOverview error, attempting direct Firestore query:", err);
   }
 
-  // Direct Firestore fallback
+  // Direct Firestore fallback (Optimized: Check 1 single pre-aggregated document first!)
   try {
+    if (!force) {
+      try {
+        const overviewDocSnap = await getDoc(doc(db, "system_stats", "wallet_overview"));
+        if (overviewDocSnap.exists()) {
+          const overviewData = overviewDocSnap.data() as AdminWalletOverview;
+          cachedAdminWalletOverview = { data: overviewData, timestamp: Date.now() };
+          return overviewData;
+        }
+      } catch (_) {}
+    }
+
     const [walletsSnap, reqsSnap, debtsSnap] = await Promise.all([
       getDocs(collection(db, "wallets")),
       getDocs(collection(db, "deposit_requests")),
@@ -448,7 +476,7 @@ export async function getAdminWalletOverview(): Promise<AdminWalletOverview> {
       }
     });
 
-    return {
+    const result: AdminWalletOverview = {
       totalWallets,
       totalVirtualBalanceVnd,
       totalConfirmedCreditedVnd,
@@ -459,6 +487,9 @@ export async function getAdminWalletOverview(): Promise<AdminWalletOverview> {
       studentsInDebtCount: studentsInDebtSet.size,
       recentRequests: allReqs.slice(0, 10),
     };
+
+    cachedAdminWalletOverview = { data: result, timestamp: Date.now() };
+    return result;
   } catch (fsErr) {
     console.error("[walletClientService] Direct Firestore fallback for overview failed:", fsErr);
     throw new Error("Không thể tải tổng quan ví.");
@@ -1095,10 +1126,33 @@ export async function redeemGiftVoucherApi(code: string): Promise<{
   }
 }
 
-export async function getAdminVouchersApi(): Promise<Voucher[]> {
+let cachedAdminVouchers: { data: Voucher[]; timestamp: number } | null = null;
+const CLIENT_VOUCHERS_TTL_MS = 45 * 1000;
+
+export function invalidateClientVouchersCache() {
+  cachedAdminVouchers = null;
+}
+
+const clientVoucherUsagesCache = new Map<string, { data: VoucherUsage[]; timestamp: number }>();
+const CLIENT_USAGES_TTL_MS = 45 * 1000;
+
+export function invalidateClientVoucherUsagesCache() {
+  clientVoucherUsagesCache.clear();
+}
+
+export async function getAdminVouchersApi(force = false): Promise<Voucher[]> {
+  if (!force && cachedAdminVouchers && Date.now() - cachedAdminVouchers.timestamp < CLIENT_VOUCHERS_TTL_MS) {
+    return cachedAdminVouchers.data;
+  }
+
   try {
-    const res = await api.get<{ success: boolean; items: Voucher[] }>("/api/admin/vouchers");
-    if (Array.isArray(res?.items)) return res.items;
+    const res = await api.get<{ success: boolean; items: Voucher[] }>(
+      `/api/admin/vouchers${force ? "?force=true" : ""}`
+    );
+    if (Array.isArray(res?.items)) {
+      cachedAdminVouchers = { data: res.items, timestamp: Date.now() };
+      return res.items;
+    }
   } catch (err) {
     console.warn("[walletClientService] API getAdminVouchersApi failed, trying direct Firestore query:", err);
   }
@@ -1107,17 +1161,29 @@ export async function getAdminVouchersApi(): Promise<Voucher[]> {
     const snap = await getDocs(collection(db, "vouchers"));
     const list = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Voucher));
     list.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+    cachedAdminVouchers = { data: list, timestamp: Date.now() };
     return list;
   } catch (_) {}
 
   return [];
 }
 
-export async function getAdminVoucherUsagesApi(voucherId?: string): Promise<VoucherUsage[]> {
+export async function getAdminVoucherUsagesApi(voucherId?: string, force = false): Promise<VoucherUsage[]> {
+  const cacheKey = voucherId || "__all__";
+  const cached = clientVoucherUsagesCache.get(cacheKey);
+  if (!force && cached && Date.now() - cached.timestamp < CLIENT_USAGES_TTL_MS) {
+    return cached.data;
+  }
+
   try {
-    const url = voucherId ? `/api/admin/vouchers/${voucherId}/usages` : "/api/admin/vouchers/usages";
+    const url = voucherId
+      ? `/api/admin/vouchers/${voucherId}/usages${force ? "?force=true" : ""}`
+      : `/api/admin/vouchers/usages${force ? "?force=true" : ""}`;
     const res = await api.get<{ success: boolean; items: VoucherUsage[]; total: number }>(url);
-    if (Array.isArray(res?.items)) return res.items;
+    if (Array.isArray(res?.items)) {
+      clientVoucherUsagesCache.set(cacheKey, { data: res.items, timestamp: Date.now() });
+      return res.items;
+    }
   } catch (err) {
     console.warn("[walletClientService] API getAdminVoucherUsagesApi failed, trying direct Firestore query:", err);
   }
@@ -1137,6 +1203,7 @@ export async function getAdminVoucherUsagesApi(voucherId?: string): Promise<Vouc
       const timeB = new Date(b.usedAt || b.createdAt || 0).getTime();
       return timeB - timeA;
     });
+    clientVoucherUsagesCache.set(cacheKey, { data: list, timestamp: Date.now() });
     return list;
   } catch (err: any) {
     console.error("[walletClientService] Direct Firestore voucher_usages failed:", err);
@@ -1150,7 +1217,11 @@ export async function createAdminVoucherApi(data: Partial<Voucher>): Promise<Vou
       "/api/admin/vouchers",
       data
     );
-    if (res?.voucher) return res.voucher;
+    if (res?.voucher) {
+      invalidateClientVouchersCache();
+      invalidateClientWalletOverviewCache();
+      return res.voucher;
+    }
   } catch (err: any) {
     console.warn("[walletClientService] API createAdminVoucherApi failed, trying direct Firestore write:", err);
   }
@@ -1177,7 +1248,10 @@ export async function createAdminVoucherApi(data: Partial<Voucher>): Promise<Vou
     createdAt: now,
     updatedAt: now,
   };
+
   await setDoc(doc(db, "vouchers", id), voucher);
+  invalidateClientVouchersCache();
+  invalidateClientWalletOverviewCache();
   return voucher;
 }
 
@@ -1187,7 +1261,11 @@ export async function updateAdminVoucherApi(id: string, data: Partial<Voucher>):
       `/api/admin/vouchers/${id}`,
       data
     );
-    if (res?.voucher) return res.voucher;
+    if (res?.voucher) {
+      invalidateClientVouchersCache();
+      invalidateClientWalletOverviewCache();
+      return res.voucher;
+    }
   } catch (err: any) {
     console.warn("[walletClientService] API updateAdminVoucherApi failed, trying direct Firestore write:", err);
   }
@@ -1197,6 +1275,8 @@ export async function updateAdminVoucherApi(id: string, data: Partial<Voucher>):
   const updates: any = { ...data, updatedAt: now };
   if (data.code) updates.code = String(data.code).trim().toUpperCase();
   await updateDoc(doc(db, "vouchers", id), updates);
+  invalidateClientVouchersCache();
+  invalidateClientWalletOverviewCache();
   const snap = await getDoc(doc(db, "vouchers", id));
   return { id, ...(snap.data() as any) } as Voucher;
 }
@@ -1204,6 +1284,9 @@ export async function updateAdminVoucherApi(id: string, data: Partial<Voucher>):
 export async function deleteAdminVoucherApi(id: string): Promise<void> {
   try {
     await api.delete(`/api/admin/vouchers/${id}`);
+    invalidateClientVouchersCache();
+    invalidateClientVoucherUsagesCache();
+    invalidateClientWalletOverviewCache();
     return;
   } catch (err: any) {
     console.warn("[walletClientService] API deleteAdminVoucherApi failed, trying direct Firestore delete:", err);
@@ -1211,6 +1294,9 @@ export async function deleteAdminVoucherApi(id: string): Promise<void> {
 
   // Direct Firestore fallback
   await deleteDoc(doc(db, "vouchers", id));
+  invalidateClientVouchersCache();
+  invalidateClientVoucherUsagesCache();
+  invalidateClientWalletOverviewCache();
 }
 
 export async function adminDirectEditWalletApi(

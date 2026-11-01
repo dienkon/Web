@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import {
   Wallet,
   Coins,
@@ -220,10 +220,10 @@ export default function WalletManagement() {
   const [processingEntitlement, setProcessingEntitlement] = useState<boolean>(false);
 
   // Load Overview Data
-  const loadOverview = async () => {
+  const loadOverview = async (force: boolean = false) => {
     try {
       setOverviewLoading(true);
-      const data = await getAdminWalletOverview();
+      const data = await getAdminWalletOverview(force);
       setOverview(data);
     } catch (err: any) {
       console.error("Load overview error:", err);
@@ -275,10 +275,10 @@ export default function WalletManagement() {
   };
 
   // Load Vouchers Data
-  const loadVouchers = async () => {
+  const loadVouchers = async (force: boolean = false) => {
     try {
       setVouchersLoading(true);
-      const list = await getAdminVouchersApi();
+      const list = await getAdminVouchersApi(force);
       setVouchers(list);
     } catch (err: any) {
       console.error("Load vouchers error:", err);
@@ -337,13 +337,13 @@ export default function WalletManagement() {
     }
   };
 
-  const handleViewVoucherUsages = async (v: Voucher) => {
+  const handleViewVoucherUsages = async (v: Voucher, force: boolean = false) => {
     setSelectedVoucherForUsages(v);
     setVoucherUsagesSearch("");
     setVoucherUsagesContextFilter("all");
     try {
       setVoucherUsagesLoading(true);
-      const items = await getAdminVoucherUsagesApi(v.id);
+      const items = await getAdminVoucherUsagesApi(v.id, force);
       setVoucherUsages(items);
     } catch (err: any) {
       console.error("Load voucher usages error:", err);
@@ -353,10 +353,10 @@ export default function WalletManagement() {
     }
   };
 
-  const loadAllVoucherUsages = async () => {
+  const loadAllVoucherUsages = async (force: boolean = false) => {
     try {
       setAllVoucherUsagesLoading(true);
-      const items = await getAdminVoucherUsagesApi();
+      const items = await getAdminVoucherUsagesApi(undefined, force);
       setAllVoucherUsages(items);
     } catch (err: any) {
       console.error("Load all voucher usages error:", err);
@@ -464,7 +464,7 @@ export default function WalletManagement() {
       showSuccessToast(res.message || "Đã cập nhật toàn diện ví học sinh thành công!");
       setEditingWalletStudent(null);
       loadDebts();
-      loadOverview();
+      loadOverview(true);
       if (selectedStudentUid === editingWalletStudent.uid) {
         const refreshed = await getAdminStudentWalletDetails(editingWalletStudent.uid);
         setStudentDetails(refreshed);
@@ -549,7 +549,7 @@ export default function WalletManagement() {
         showSuccessToast(`Đã tạo mã ${payload.code} thành công!`);
       }
       setIsVoucherModalOpen(false);
-      loadVouchers();
+      loadVouchers(true);
     } catch (err: any) {
       console.error("Save voucher error:", err);
       showErrorToast(err.message || "Không thể lưu voucher");
@@ -562,7 +562,7 @@ export default function WalletManagement() {
     try {
       await updateAdminVoucherApi(v.id, { isActive: !v.isActive });
       showSuccessToast(`Đã ${!v.isActive ? "kích hoạt" : "tạm khóa"} voucher ${v.code}`);
-      loadVouchers();
+      loadVouchers(true);
     } catch (err: any) {
       showErrorToast(err.message || "Không thể thay đổi trạng thái voucher");
     }
@@ -575,7 +575,7 @@ export default function WalletManagement() {
       await deleteAdminVoucherApi(deletingVoucher.id);
       showSuccessToast(`Đã xóa voucher ${deletingVoucher.code}`);
       setDeletingVoucher(null);
-      loadVouchers();
+      loadVouchers(true);
     } catch (err: any) {
       showErrorToast(err.message || "Không thể xóa voucher");
     } finally {
@@ -583,19 +583,72 @@ export default function WalletManagement() {
     }
   };
 
+  const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
+  const tabLoadedAtRef = useRef<Record<string, number>>({});
+
+  const handleRefreshAll = async (force: boolean = true) => {
+    try {
+      setIsRefreshing(true);
+      const now = Date.now();
+      tabLoadedAtRef.current = {
+        overview: now,
+        requests: now,
+        debts: now,
+        vouchers: now,
+      };
+      const promises: Promise<any>[] = [loadOverview(force)];
+      if (activeTab === "requests") promises.push(loadRequests());
+      if (activeTab === "debts") promises.push(loadDebts());
+      if (activeTab === "vouchers") {
+        promises.push(loadVouchers(force));
+        if (voucherSubTab === "all_usages") {
+          promises.push(loadAllVoucherUsages(force));
+        }
+      }
+      await Promise.all(promises);
+      showSuccessToast("Đã làm mới dữ liệu ví & voucher thành công!");
+    } catch (err: any) {
+      console.error("Refresh error:", err);
+      showErrorToast(err.message || "Không thể làm mới dữ liệu");
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
+
   useEffect(() => {
     loadOverview();
+    tabLoadedAtRef.current["overview"] = Date.now();
   }, []);
+
+  useEffect(() => {
+    const now = Date.now();
+    const lastLoaded = tabLoadedAtRef.current[activeTab] || 0;
+    const isStale = now - lastLoaded > 45000;
+
+    if (activeTab === "requests") {
+      if (isStale || requests.length === 0) {
+        loadRequests();
+        tabLoadedAtRef.current["requests"] = now;
+      }
+    } else if (activeTab === "debts") {
+      if (isStale || debts.length === 0) {
+        loadDebts();
+        tabLoadedAtRef.current["debts"] = now;
+      }
+    } else if (activeTab === "vouchers") {
+      if (isStale || vouchers.length === 0) {
+        loadVouchers();
+        tabLoadedAtRef.current["vouchers"] = now;
+      }
+    }
+  }, [activeTab]);
 
   useEffect(() => {
     if (activeTab === "requests") {
       loadRequests();
-    } else if (activeTab === "debts") {
-      loadDebts();
-    } else if (activeTab === "vouchers") {
-      loadVouchers();
+      tabLoadedAtRef.current["requests"] = Date.now();
     }
-  }, [activeTab, requestFilter]);
+  }, [requestFilter]);
 
   // Handle Approve Deposit Request
   const handleConfirmApprove = async () => {
@@ -607,7 +660,7 @@ export default function WalletManagement() {
       setApprovingRequest(null);
       setApproveNote("");
       loadRequests();
-      loadOverview();
+      loadOverview(true);
     } catch (err: any) {
       console.error("Approve error:", err);
       showErrorToast(err.message || "Không thể duyệt yêu cầu nạp tiền");
@@ -630,7 +683,7 @@ export default function WalletManagement() {
       setRejectingRequest(null);
       setRejectReason("");
       loadRequests();
-      loadOverview();
+      loadOverview(true);
     } catch (err: any) {
       console.error("Reject error:", err);
       showErrorToast(err.message || "Không thể từ chối yêu cầu nạp");
@@ -660,7 +713,7 @@ export default function WalletManagement() {
       setCollectionNote("");
       setCollectionRefCode("");
       loadDebts();
-      loadOverview();
+      loadOverview(true);
     } catch (err: any) {
       console.error("Collection error:", err);
       showErrorToast(err.message || "Không thể ghi nhận thu tiền");
@@ -691,7 +744,7 @@ export default function WalletManagement() {
       setAdjustingStudent(null);
       setAdjustReason("");
       loadDebts();
-      loadOverview();
+      loadOverview(true);
     } catch (err: any) {
       console.error("Adjust error:", err);
       showErrorToast(err.message || "Không thể điều chỉnh công nợ");
@@ -706,7 +759,7 @@ export default function WalletManagement() {
       setSyncingStudents(true);
       const res = await syncStudentsToWalletsApi();
       showSuccessToast(res.message || "Đồng bộ tài khoản học sinh thành công!");
-      await Promise.all([loadOverview(), loadDebts()]);
+      await Promise.all([loadOverview(true), loadDebts()]);
     } catch (err: any) {
       console.error("Sync students error:", err);
       showErrorToast(err.message || "Không thể đồng bộ tài khoản học sinh");
@@ -839,16 +892,14 @@ export default function WalletManagement() {
           </button>
 
           <button
-            onClick={() => {
-              loadOverview();
-              if (activeTab === "requests") loadRequests();
-              if (activeTab === "debts") loadDebts();
-              if (activeTab === "vouchers") loadVouchers();
-            }}
-            className="flex items-center gap-2 px-3.5 py-2 bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 rounded-xl text-xs font-bold shadow-2xs transition-colors cursor-pointer"
+            type="button"
+            disabled={isRefreshing}
+            onClick={() => handleRefreshAll(true)}
+            className="flex items-center gap-2 px-3.5 py-2 bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 rounded-xl text-xs font-bold shadow-2xs transition-colors cursor-pointer disabled:opacity-50"
+            title="Làm mới dữ liệu ví & voucher ngay lập tức (bỏ qua cache)"
           >
-            <RotateCw className="w-3.5 h-3.5" />
-            <span>Làm mới dữ liệu</span>
+            <RotateCw className={`w-3.5 h-3.5 ${isRefreshing ? "animate-spin text-emerald-600" : ""}`} />
+            <span>{isRefreshing ? "Đang làm mới..." : "Làm mới dữ liệu"}</span>
           </button>
         </div>
       </div>
@@ -1660,7 +1711,7 @@ export default function WalletManagement() {
               {voucherSubTab === "all_usages" ? (
                 <button
                   type="button"
-                  onClick={loadAllVoucherUsages}
+                  onClick={() => loadAllVoucherUsages(true)}
                   disabled={allVoucherUsagesLoading}
                   className="flex items-center gap-1.5 px-3 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-xl text-xs font-bold transition-colors cursor-pointer"
                 >
@@ -1671,7 +1722,7 @@ export default function WalletManagement() {
                 <>
                   <button
                     type="button"
-                    onClick={loadVouchers}
+                    onClick={() => loadVouchers(true)}
                     disabled={vouchersLoading}
                     className="flex items-center gap-1.5 px-3 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-xl text-xs font-bold transition-colors cursor-pointer"
                   >

@@ -849,6 +849,8 @@ export async function approveDepositRequest(
       };
       transaction.set(txRef, ledgerEntry);
 
+      invalidateWalletOverviewCache();
+      invalidateDebtSummariesCache();
       return {
         success: true,
         newBalanceVnd: newBalance,
@@ -904,6 +906,8 @@ export async function approveDepositRequest(
   };
   await setFirestoreRestDoc("wallet_transactions", txId, ledgerEntry);
 
+  invalidateWalletOverviewCache();
+  invalidateDebtSummariesCache();
   return { success: true, newBalanceVnd: newBalance, transactionId: txId };
 }
 
@@ -938,6 +942,7 @@ export async function rejectDepositRequest(
     };
 
     await reqRef.update(updates);
+    invalidateWalletOverviewCache();
     return { ...data, ...updates };
   }
 
@@ -956,6 +961,7 @@ export async function rejectDepositRequest(
     processedByName: adminName,
   };
   await setFirestoreRestDoc("deposit_requests", requestId, updated);
+  invalidateWalletOverviewCache();
   return updated;
 }
 
@@ -1671,6 +1677,7 @@ export async function recordManualCashCollection(
 
     await batch.commit();
     invalidateDebtSummariesCache();
+    invalidateWalletOverviewCache();
     return { success: true, debtRecordId: recordId, newBalanceVnd: newBal };
   }
 
@@ -1761,6 +1768,7 @@ export async function recordManualCashCollection(
   };
   await setFirestoreRestDoc("debt_records", recordId, debtEntry);
   invalidateDebtSummariesCache();
+  invalidateWalletOverviewCache();
 
   return { success: true, debtRecordId: recordId, newBalanceVnd: newBal };
 }
@@ -1861,6 +1869,7 @@ export async function adjustStudentDebt(
   }
 
   invalidateDebtSummariesCache();
+  invalidateWalletOverviewCache();
   return { success: true, recordId };
 }
 
@@ -1931,7 +1940,7 @@ export async function grantOrRevokeExamEntitlement(
 // 5. ADMIN OVERVIEW & DEBT LIST REPORTING
 // -------------------------------------------------------------
 
-export async function getWalletOverview(): Promise<{
+export interface WalletOverviewData {
   totalWallets: number;
   totalVirtualBalanceVnd: number;
   totalConfirmedCreditedVnd: number;
@@ -1941,7 +1950,49 @@ export async function getWalletOverview(): Promise<{
   totalOutstandingDebtVnd: number;
   studentsInDebtCount: number;
   recentRequests: DepositRequest[];
-}> {
+  lastUpdated?: string;
+}
+
+let walletOverviewCache: { data: WalletOverviewData; timestamp: number } | null = null;
+const WALLET_OVERVIEW_TTL_MS = 60 * 1000;
+
+export function invalidateWalletOverviewCache() {
+  walletOverviewCache = null;
+}
+
+export async function getWalletOverview(forceRefresh = false): Promise<WalletOverviewData> {
+  // Step 1: Memory cache check (0 Firestore reads!)
+  if (!forceRefresh && walletOverviewCache && Date.now() - walletOverviewCache.timestamp < WALLET_OVERVIEW_TTL_MS) {
+    return walletOverviewCache.data;
+  }
+
+  // Step 2: Dedicated single pre-aggregated document check (1 doc read!)
+  if (!forceRefresh) {
+    try {
+      let overviewDoc: any = null;
+      if (adminDb) {
+        const snap = await adminDb.collection("system_stats").doc("wallet_overview").get();
+        if (snap.exists) {
+          overviewDoc = snap.data();
+          console.log(`[Server Firestore READ_DOC: 1 doc] system_stats/wallet_overview (pre-aggregated)`);
+        }
+      } else {
+        overviewDoc = await getFirestoreRestDoc("system_stats", "wallet_overview", true, 30000);
+      }
+
+      const lastUpdatedMs = overviewDoc?.lastUpdated ? new Date(overviewDoc.lastUpdated).getTime() : 0;
+      const isFresh = Date.now() - lastUpdatedMs < WALLET_OVERVIEW_TTL_MS;
+
+      if (overviewDoc && typeof overviewDoc.totalWallets === "number" && isFresh) {
+        walletOverviewCache = { data: overviewDoc, timestamp: Date.now() };
+        return overviewDoc;
+      }
+    } catch (e) {
+      console.warn("[walletService] Could not read system_stats/wallet_overview doc:", e);
+    }
+  }
+
+  // Step 3: Compute fresh overview if not fresh or forced
   let totalWallets = 0;
   let totalVirtualBalanceVnd = 0;
   let totalConfirmedCreditedVnd = 0;
@@ -1954,8 +2005,13 @@ export async function getWalletOverview(): Promise<{
 
   if (adminDb) {
     // 1. Wallets aggregate
+    try {
+      const countSnap = await adminDb.collection("wallets").count().get();
+      totalWallets = countSnap.data().count;
+    } catch (_) {}
+
     const walletsSnap = await adminDb.collection("wallets").get();
-    totalWallets = walletsSnap.size;
+    if (!totalWallets) totalWallets = walletsSnap.size;
     walletsSnap.docs.forEach((doc) => {
       const w = doc.data() as StudentWallet;
       totalVirtualBalanceVnd += sanitizeVnd(w.balanceVnd);
@@ -2035,7 +2091,7 @@ export async function getWalletOverview(): Promise<{
     studentsInDebtCount = studentsInDebtSet.size;
   }
 
-  return {
+  const freshOverview: WalletOverviewData = {
     totalWallets,
     totalVirtualBalanceVnd,
     totalConfirmedCreditedVnd,
@@ -2045,7 +2101,22 @@ export async function getWalletOverview(): Promise<{
     totalOutstandingDebtVnd,
     studentsInDebtCount,
     recentRequests,
+    lastUpdated: new Date().toISOString(),
   };
+
+  // Persist to system_stats/wallet_overview so future loads read 1 single doc
+  try {
+    if (adminDb) {
+      await adminDb.collection("system_stats").doc("wallet_overview").set(freshOverview);
+    } else {
+      await setFirestoreRestDoc("system_stats", "wallet_overview", freshOverview);
+    }
+  } catch (err) {
+    console.warn("[walletService] Warning saving system_stats/wallet_overview:", err);
+  }
+
+  walletOverviewCache = { data: freshOverview, timestamp: Date.now() };
+  return freshOverview;
 }
 
 let debtSummariesCache: {
@@ -2809,6 +2880,7 @@ export async function adminDirectEditWallet(
   };
 
   invalidateDebtSummariesCache();
+  invalidateWalletOverviewCache();
   return {
     success: true,
     wallet: updatedWallet,

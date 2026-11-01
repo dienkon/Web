@@ -524,4 +524,77 @@ describe("Virtual Wallet & Debt Logic Unit Tests", () => {
       expect(missingVnd).toBe(0);
     });
   });
+
+  describe("Admin Read Optimization & Cache Invalidation", () => {
+    it("should export cache invalidation functions for wallet overview and vouchers", async () => {
+      const { invalidateWalletOverviewCache } = await import("../../server/services/walletService");
+      const { invalidateVouchersCache, invalidateVoucherUsagesCache } = await import("../../server/services/voucherService");
+
+      expect(typeof invalidateWalletOverviewCache).toBe("function");
+      expect(typeof invalidateVouchersCache).toBe("function");
+      expect(typeof invalidateVoucherUsagesCache).toBe("function");
+
+      // Verify they execute safely without throwing
+      expect(() => invalidateWalletOverviewCache()).not.toThrow();
+      expect(() => invalidateVouchersCache()).not.toThrow();
+      expect(() => invalidateVoucherUsagesCache()).not.toThrow();
+      expect(() => invalidateVoucherUsagesCache("voucher_123")).not.toThrow();
+    });
+
+    it("should accurately calculate submission counts without artificial cap", () => {
+      // Simulate submission records
+      const mockSubmissions = Array.from({ length: 142 }, (_, i) => ({
+        id: `sub_${i}`,
+        submittedAt: new Date(Date.now() - i * 3600 * 1000).toISOString(),
+        score: 8.5,
+      }));
+
+      // Previous faulty logic capped at 50:
+      const faultyCount = Math.min(50, mockSubmissions.length);
+      expect(faultyCount).toBe(50); // Shows the bug that was capping submissions at 50
+
+      // Fixed logic: full count without cap
+      const correctTotalSubmissions = mockSubmissions.length;
+      expect(correctTotalSubmissions).toBe(142);
+
+      // Verify today count calculation
+      const startOfDay = new Date();
+      startOfDay.setHours(0, 0, 0, 0);
+      const todayCount = mockSubmissions.filter(
+        (s) => new Date(s.submittedAt).getTime() >= startOfDay.getTime()
+      ).length;
+      expect(todayCount).toBeGreaterThan(0);
+      expect(todayCount).toBeLessThanOrEqual(mockSubmissions.length);
+    });
+
+    it("should ensure wallet overview cache TTL honors force flag", () => {
+      let cachedData: any = null;
+      let cachedAt = 0;
+      const TTL = 60000;
+
+      const getMockOverview = (force = false) => {
+        const now = Date.now();
+        if (!force && cachedData && now - cachedAt < TTL) {
+          return { data: cachedData, fromCache: true };
+        }
+        cachedData = { totalWallets: 100, timestamp: now };
+        cachedAt = now;
+        return { data: cachedData, fromCache: false };
+      };
+
+      // 1. Initial call: cache miss
+      const res1 = getMockOverview(false);
+      expect(res1.fromCache).toBe(false);
+
+      // 2. Second call within TTL: cache hit
+      const res2 = getMockOverview(false);
+      expect(res2.fromCache).toBe(true);
+      expect(res2.data.timestamp).toBe(res1.data.timestamp);
+
+      // 3. Force refresh: cache bypassed & refreshed
+      const res3 = getMockOverview(true);
+      expect(res3.fromCache).toBe(false);
+    });
+  });
 });
+

@@ -21,6 +21,7 @@ import {
   BarChart2,
   Loader2,
   Award,
+  RotateCw,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -69,13 +70,19 @@ export default function Dashboard() {
     return () => unsub();
   }, []);
 
-  const loadData = async () => {
-    setLoading(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const loadData = async (force: boolean = false) => {
+    if (force) {
+      setIsRefreshing(true);
+    } else {
+      setLoading(true);
+    }
     try {
       // 1. Fetch server aggregated stats (reads single doc system_stats/overview)
       let gotRecentSubmissions = false;
       try {
-        const statsRes = await fetchAdminStats();
+        const statsRes = await fetchAdminStats(force);
         setStats(statsRes);
         if (statsRes?.recentSubmissions && Array.isArray(statsRes.recentSubmissions) && statsRes.recentSubmissions.length > 0) {
           setRecentSubmissions(statsRes.recentSubmissions);
@@ -87,7 +94,7 @@ export default function Dashboard() {
 
       // 2. Fetch analytics charts data
       try {
-        const analyticsRes = await fetchAdminAnalytics(analyticsRange);
+        const analyticsRes = await fetchAdminAnalytics(analyticsRange, force);
         setAnalyticsData(analyticsRes.chartData || []);
       } catch (e) {
         console.warn("Could not fetch analytics charts:", e);
@@ -137,10 +144,15 @@ export default function Dashboard() {
           setRecentSubmissions(recentSubs);
         } catch (e) {}
       }
+
+      if (force) {
+        toast.showToast("Đã làm mới số liệu và biểu đồ thành công!", "success");
+      }
     } catch (err) {
       console.error("[Dashboard] Error loading data:", err);
     } finally {
       setLoading(false);
+      setIsRefreshing(false);
     }
   };
 
@@ -192,6 +204,17 @@ export default function Dashboard() {
               <span>{activeLiveSessions.length} Thí sinh đang thi</span>
             </Link>
           )}
+
+          <button
+            type="button"
+            disabled={isRefreshing}
+            onClick={() => loadData(true)}
+            className="flex items-center gap-1.5 px-3 py-2 bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 rounded-xl text-xs font-bold shadow-2xs transition-all cursor-pointer disabled:opacity-50"
+            title="Làm mới số liệu thống kê và biểu đồ ngay lập tức"
+          >
+            <RotateCw className={`w-3.5 h-3.5 ${isRefreshing ? "animate-spin text-blue-600" : ""}`} />
+            <span>{isRefreshing ? "Đang làm mới..." : "Làm mới"}</span>
+          </button>
 
           <Link
             to="/admin/exams/new"

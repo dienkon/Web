@@ -466,6 +466,16 @@ async function requireAuth(req, res, next) {
 }
 
 // server/services/voucherService.ts
+var cachedVouchersList = null;
+var VOUCHERS_TTL_MS = 60 * 1e3;
+function invalidateVouchersCache() {
+  cachedVouchersList = null;
+}
+var voucherUsagesCache = /* @__PURE__ */ new Map();
+var USAGES_TTL_MS = 60 * 1e3;
+function invalidateVoucherUsagesCache() {
+  voucherUsagesCache.clear();
+}
 function normalizeCode(code) {
   return String(code || "").trim().toUpperCase();
 }
@@ -727,6 +737,9 @@ async function redeemGiftVoucher(code, uid) {
     };
     await setFirestoreRestDoc("wallet_transactions", txId, txDoc);
   }
+  invalidateVouchersCache();
+  invalidateVoucherUsagesCache();
+  invalidateWalletOverviewCache();
   return {
     success: true,
     addedVnd,
@@ -1806,6 +1819,11 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
     });
   }
   return { success: true, newBalanceVnd: newBalance, entitlement };
+}
+var walletOverviewCache = null;
+var WALLET_OVERVIEW_TTL_MS = 60 * 1e3;
+function invalidateWalletOverviewCache() {
+  walletOverviewCache = null;
 }
 async function getStudentTransactions(uid, limitCount = 30) {
   if (adminDb) {
