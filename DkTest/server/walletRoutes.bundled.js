@@ -189,6 +189,9 @@ function getFirebaseApiKey() {
 }
 var UNCACHED_COLLECTIONS = /* @__PURE__ */ new Set();
 async function queryFirestoreRestDocs(collectionName, field, value, limitCount = 20, useCache = true, cacheTtlMs = 2e4) {
+  if (!collectionName || !field || value === void 0) {
+    return [];
+  }
   const safeLimit = Math.min(Math.max(limitCount, 1), 100);
   const cacheKey = `query_${collectionName}_${field}_${JSON.stringify(value)}_${safeLimit}`;
   const now = Date.now();
@@ -242,41 +245,6 @@ async function queryFirestoreRestDocs(collectionName, field, value, limitCount =
     return docs;
   } catch (err) {
     console.error(`[Server Firestore QUERY ERROR] Collection: "${collectionName}":`, err);
-    return [];
-  }
-}
-async function getFirestoreRestDocs(collectionName, pageSize = 50, useCache = true, cacheTtlMs = 2e4) {
-  const safePageSize = Math.min(pageSize, 100);
-  const cacheKey = `docs_${collectionName}_${safePageSize}`;
-  const now = Date.now();
-  const shouldCache = useCache && !UNCACHED_COLLECTIONS.has(collectionName);
-  if (shouldCache) {
-    const cached = serverRestCache.get(cacheKey);
-    if (cached && cached.expiresAt > now) {
-      console.log(`[Server Firestore CACHE_HIT: 0 reads] Collection: "${collectionName}" | Cached docs: ${cached.data.length} | TTL: ${Math.round((cached.expiresAt - now) / 1e3)}s`);
-      return cached.data;
-    }
-  }
-  const apiKey = getFirebaseApiKey();
-  const projectId = process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || "exam-fd7a1";
-  const t0 = Date.now();
-  try {
-    const url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/${collectionName}?key=${apiKey}&pageSize=${safePageSize}`;
-    const res = await fetch(url);
-    const elapsed = Date.now() - t0;
-    if (!res.ok) {
-      console.warn(`[Server Firestore READ_FAIL] Collection: "${collectionName}" | Status: ${res.status} | Elapsed: ${elapsed}ms`);
-      return [];
-    }
-    const data = await res.json();
-    const docs = (data.documents || []).map(decodeFirestoreDocument);
-    console.log(`[Server Firestore READ: ${docs.length} docs] Collection: "${collectionName}" (limit: ${safePageSize}) | Elapsed: ${elapsed}ms`);
-    if (shouldCache) {
-      serverRestCache.set(cacheKey, { data: docs, expiresAt: now + cacheTtlMs });
-    }
-    return docs;
-  } catch (err) {
-    console.error(`[Server Firestore ERROR] Collection: "${collectionName}":`, err);
     return [];
   }
 }
@@ -550,19 +518,7 @@ async function validateVoucher(params) {
   if (!code) {
     return { valid: false, message: "Vui l\xF2ng nh\u1EADp m\xE3 voucher." };
   }
-  let voucher = null;
-  if (adminDb) {
-    const snap = await adminDb.collection("vouchers").where("code", "==", code).limit(1).get();
-    if (!snap.empty) {
-      voucher = { id: snap.docs[0].id, ...snap.docs[0].data() };
-    }
-  } else {
-    const all = await getFirestoreRestDocs("vouchers", 100, false);
-    const found = (all || []).find((v) => normalizeCode(v.code) === code);
-    if (found) {
-      voucher = found;
-    }
-  }
+  const voucher = await getVoucherByCode(code);
   if (!voucher) {
     return { valid: false, message: `M\xE3 voucher "${code}" kh\xF4ng t\u1ED3n t\u1EA1i ho\u1EB7c \u0111\xE3 h\u1EBFt h\u1EA1n.` };
   }
@@ -584,8 +540,8 @@ async function validateVoucher(params) {
       const usagesSnap = await adminDb.collection("voucher_usages").where("voucherId", "==", voucher.id).where("uid", "==", params.uid).get();
       userUsedCount = usagesSnap.size;
     } else {
-      const allUsages = await getFirestoreRestDocs("voucher_usages", 100, false);
-      userUsedCount = (allUsages || []).filter((u) => u.voucherId === voucher.id && u.uid === params.uid).length;
+      const usages = await queryFirestoreRestDocs("voucher_usages", "voucherId", voucher.id, 50);
+      userUsedCount = (usages || []).filter((u) => u.uid === params.uid).length;
     }
     const perUserLimit = voucher.perUserLimit || 1;
     if (userUsedCount >= perUserLimit) {
@@ -791,6 +747,7 @@ async function redeemGiftVoucher(code, uid) {
   invalidateVouchersCache();
   invalidateVoucherUsagesCache();
   invalidateWalletOverviewCache();
+  invalidateStudentDetailsCache(uid);
   updateWalletOverviewAggregates({
     deltaVirtualBalanceVnd: addedVnd,
     deltaConfirmedCreditedVnd: addedVnd
@@ -1424,6 +1381,7 @@ async function createDepositRequest(uid, amountVnd, idempotencyKey, voucherCode)
   invalidateWalletOverviewCache();
   invalidateDebtSummariesCache();
   invalidateDepositRequestsCache();
+  invalidateStudentDetailsCache(uid);
   updateWalletOverviewAggregates({
     deltaVirtualBalanceVnd: totalCreditToAdd,
     deltaConfirmedCreditedVnd: totalCreditToAdd,
@@ -1816,6 +1774,7 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
       invalidateVoucherUsagesCache();
     }
     invalidateWalletOverviewCache();
+    invalidateStudentDetailsCache(uid);
     if (txResult.effectivePrice) {
       updateWalletOverviewAggregates({
         deltaVirtualBalanceVnd: -txResult.effectivePrice,
@@ -1911,6 +1870,7 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
     invalidateVoucherUsagesCache();
   }
   invalidateWalletOverviewCache();
+  invalidateStudentDetailsCache(uid);
   updateWalletOverviewAggregates({
     deltaVirtualBalanceVnd: -effectivePrice,
     deltaUnlockedSpendingVnd: effectivePrice
@@ -1984,10 +1944,18 @@ var USER_MAP_TTL_MS = 10 * 60 * 1e3;
 function invalidateDebtSummariesCache() {
   debtSummariesCache = null;
 }
+var studentDetailsCache = /* @__PURE__ */ new Map();
 var STUDENT_DETAILS_TTL_MS = 60 * 1e3;
-var cachedDepositRequests = null;
+function invalidateStudentDetailsCache(studentUid) {
+  if (studentUid) {
+    studentDetailsCache.delete(studentUid);
+  } else {
+    studentDetailsCache.clear();
+  }
+}
+var depositRequestsCache = /* @__PURE__ */ new Map();
 function invalidateDepositRequestsCache() {
-  cachedDepositRequests = null;
+  depositRequestsCache.clear();
 }
 async function getStudentTransactions(uid, limitCount = 30) {
   if (adminDb) {

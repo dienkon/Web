@@ -631,7 +631,7 @@ export async function getAdminStudentDebtList(params?: {
   }
 }
 
-export async function getAdminStudentWalletDetails(studentUid: string): Promise<{
+export async function getAdminStudentWalletDetails(studentUid: string, force = false): Promise<{
   wallet: StudentWallet;
   studentProfile?: StudentWalletProfileDetail;
   transactions: WalletTransaction[];
@@ -647,7 +647,7 @@ export async function getAdminStudentWalletDetails(studentUid: string): Promise<
     depositRequests: DepositRequest[];
     entitlements: ExamEntitlement[];
     debtRecords: DebtRecord[];
-  }>(`/api/admin/wallet/students/${studentUid}/details`);
+  }>(`/api/admin/wallet/students/${studentUid}/details${force ? "?force=true" : ""}`);
   return res;
 }
 

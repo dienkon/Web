@@ -22,7 +22,12 @@ import {
   setFirestoreRestDoc,
   deleteFirestoreRestDoc,
 } from "../firebaseAdmin.js";
-import { getOrCreateWallet, invalidateWalletOverviewCache, updateWalletOverviewAggregates } from "./walletService.js";
+import {
+  getOrCreateWallet,
+  invalidateWalletOverviewCache,
+  invalidateStudentDetailsCache,
+  updateWalletOverviewAggregates,
+} from "./walletService.js";
 import type { Voucher, VoucherType, VoucherUsage, StudentWallet, WalletTransaction } from "../../src/types/index.js";
 
 // In-memory cache for vouchers to avoid repetitive Firestore collection reads
@@ -98,16 +103,9 @@ export async function createVoucher(data: Partial<Voucher>): Promise<Voucher> {
   }
 
   // Check code uniqueness
-  if (adminDb) {
-    const existing = await adminDb.collection("vouchers").where("code", "==", code).limit(1).get();
-    if (!existing.empty) {
-      throw new Error(`Mã voucher "${code}" đã tồn tại trên hệ thống.`);
-    }
-  } else {
-    const existingList = await getFirestoreRestDocs("vouchers", 100, false);
-    if ((existingList || []).some((v: any) => normalizeCode(v.code) === code)) {
-      throw new Error(`Mã voucher "${code}" đã tồn tại trên hệ thống.`);
-    }
+  const existing = await getVoucherByCode(code);
+  if (existing) {
+    throw new Error(`Mã voucher "${code}" đã tồn tại trên hệ thống.`);
   }
 
   const now = new Date().toISOString();
@@ -257,19 +255,7 @@ export async function validateVoucher(params: {
     return { valid: false, message: "Vui lòng nhập mã voucher." };
   }
 
-  let voucher: Voucher | null = null;
-  if (adminDb) {
-    const snap = await adminDb.collection("vouchers").where("code", "==", code).limit(1).get();
-    if (!snap.empty) {
-      voucher = { id: snap.docs[0].id, ...snap.docs[0].data() } as Voucher;
-    }
-  } else {
-    const all = await getFirestoreRestDocs("vouchers", 100, false);
-    const found = (all || []).find((v: any) => normalizeCode(v.code) === code);
-    if (found) {
-      voucher = found as Voucher;
-    }
-  }
+  const voucher = await getVoucherByCode(code);
 
   if (!voucher) {
     return { valid: false, message: `Mã voucher "${code}" không tồn tại hoặc đã hết hạn.` };
@@ -304,8 +290,8 @@ export async function validateVoucher(params: {
         .get();
       userUsedCount = usagesSnap.size;
     } else {
-      const allUsages = await getFirestoreRestDocs("voucher_usages", 100, false);
-      userUsedCount = (allUsages || []).filter((u: any) => u.voucherId === voucher!.id && u.uid === params.uid).length;
+      const usages = await queryFirestoreRestDocs("voucher_usages", "voucherId", voucher.id, 50);
+      userUsedCount = (usages || []).filter((u: any) => u.uid === params.uid).length;
     }
 
     const perUserLimit = voucher.perUserLimit || 1;
@@ -556,6 +542,7 @@ export async function redeemGiftVoucher(code: string, uid: string): Promise<{
   invalidateVouchersCache();
   invalidateVoucherUsagesCache();
   invalidateWalletOverviewCache();
+  invalidateStudentDetailsCache(uid);
   updateWalletOverviewAggregates({
     deltaVirtualBalanceVnd: addedVnd,
     deltaConfirmedCreditedVnd: addedVnd,

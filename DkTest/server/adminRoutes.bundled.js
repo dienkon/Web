@@ -189,6 +189,9 @@ function getFirebaseApiKey() {
 }
 var UNCACHED_COLLECTIONS = /* @__PURE__ */ new Set();
 async function queryFirestoreRestDocs(collectionName, field, value, limitCount = 20, useCache = true, cacheTtlMs = 2e4) {
+  if (!collectionName || !field || value === void 0) {
+    return [];
+  }
   const safeLimit = Math.min(Math.max(limitCount, 1), 100);
   const cacheKey = `query_${collectionName}_${field}_${JSON.stringify(value)}_${safeLimit}`;
   const now = Date.now();
@@ -582,6 +585,20 @@ function invalidateVoucherUsagesCache(voucherId) {
 function normalizeCode(code) {
   return String(code || "").trim().toUpperCase();
 }
+async function getVoucherByCode(rawCode) {
+  const code = normalizeCode(rawCode);
+  if (!code) return null;
+  if (adminDb) {
+    const snap = await adminDb.collection("vouchers").where("code", "==", code).limit(1).get();
+    if (!snap.empty) {
+      return { id: snap.docs[0].id, ...snap.docs[0].data() };
+    }
+  } else {
+    const docs = await queryFirestoreRestDocs("vouchers", "code", code, 1);
+    if (docs.length > 0) return docs[0];
+  }
+  return null;
+}
 async function getVouchersList(forceRefresh = false) {
   if (!forceRefresh && cachedVouchersList && Date.now() - cachedVouchersList.timestamp < VOUCHERS_TTL_MS) {
     return cachedVouchersList.data;
@@ -609,16 +626,9 @@ async function createVoucher(data) {
   if (!code || code.length < 3) {
     throw new Error("M\xE3 voucher ph\u1EA3i c\xF3 \xEDt nh\u1EA5t 3 k\xFD t\u1EF1 (ch\u1EEF ho\u1EB7c s\u1ED1).");
   }
-  if (adminDb) {
-    const existing = await adminDb.collection("vouchers").where("code", "==", code).limit(1).get();
-    if (!existing.empty) {
-      throw new Error(`M\xE3 voucher "${code}" \u0111\xE3 t\u1ED3n t\u1EA1i tr\xEAn h\u1EC7 th\u1ED1ng.`);
-    }
-  } else {
-    const existingList = await getFirestoreRestDocs("vouchers", 100, false);
-    if ((existingList || []).some((v) => normalizeCode(v.code) === code)) {
-      throw new Error(`M\xE3 voucher "${code}" \u0111\xE3 t\u1ED3n t\u1EA1i tr\xEAn h\u1EC7 th\u1ED1ng.`);
-    }
+  const existing = await getVoucherByCode(code);
+  if (existing) {
+    throw new Error(`M\xE3 voucher "${code}" \u0111\xE3 t\u1ED3n t\u1EA1i tr\xEAn h\u1EC7 th\u1ED1ng.`);
   }
   const now = (/* @__PURE__ */ new Date()).toISOString();
   const id = `vouch_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
@@ -1192,6 +1202,7 @@ async function rejectDepositRequest(requestId, adminUid, adminName, reason) {
     await reqRef.update(updates);
     invalidateWalletOverviewCache();
     invalidateDepositRequestsCache();
+    invalidateStudentDetailsCache(data2.uid);
     updateWalletOverviewAggregates({
       deltaPendingRequestsCount: -1,
       deltaPendingRequestsTotalVnd: -sanitizeVnd(data2.amountVnd)
@@ -1215,6 +1226,7 @@ async function rejectDepositRequest(requestId, adminUid, adminName, reason) {
   await setFirestoreRestDoc("deposit_requests", requestId, updated);
   invalidateWalletOverviewCache();
   invalidateDepositRequestsCache();
+  invalidateStudentDetailsCache(data.uid);
   updateWalletOverviewAggregates({
     deltaPendingRequestsCount: -1,
     deltaPendingRequestsTotalVnd: -sanitizeVnd(data.amountVnd)
@@ -1322,6 +1334,7 @@ async function recordManualCashCollection(adminUid, adminName, studentUid, data)
     await batch.commit();
     invalidateDebtSummariesCache();
     invalidateWalletOverviewCache();
+    invalidateStudentDetailsCache(studentUid);
     updateWalletOverviewAggregates({
       deltaOutstandingDebtVnd: -amount,
       ...data.creditToWallet ? { deltaVirtualBalanceVnd: amount, deltaConfirmedCreditedVnd: amount } : {}
@@ -1409,6 +1422,7 @@ async function recordManualCashCollection(adminUid, adminName, studentUid, data)
   await setFirestoreRestDoc("debt_records", recordId, debtEntry);
   invalidateDebtSummariesCache();
   invalidateWalletOverviewCache();
+  invalidateStudentDetailsCache(studentUid);
   updateWalletOverviewAggregates({
     deltaOutstandingDebtVnd: -amount,
     ...data.creditToWallet ? { deltaVirtualBalanceVnd: amount, deltaConfirmedCreditedVnd: amount } : {}
@@ -1496,6 +1510,7 @@ async function adjustStudentDebt(adminUid, adminName, studentUid, data) {
   }
   invalidateDebtSummariesCache();
   invalidateWalletOverviewCache();
+  invalidateStudentDetailsCache(studentUid);
   updateWalletOverviewAggregates({
     deltaOutstandingDebtVnd: amount * (data.type === "increase" ? 1 : -1)
   }).catch(() => {
@@ -1548,6 +1563,7 @@ async function grantOrRevokeExamEntitlement(adminUid, adminName, studentUid, exa
   } else {
     await setFirestoreRestDoc("exam_entitlements", entitlementId, entitlement);
   }
+  invalidateStudentDetailsCache(studentUid);
   return { success: true, entitlement };
 }
 var walletOverviewCache = null;
@@ -1987,14 +2003,17 @@ async function getStudentWalletDetails(studentUid, force = false) {
   studentDetailsCache.set(studentUid, { data: result, timestamp: Date.now() });
   return result;
 }
-var cachedDepositRequests = null;
+var depositRequestsCache = /* @__PURE__ */ new Map();
 function invalidateDepositRequestsCache() {
-  cachedDepositRequests = null;
+  depositRequestsCache.clear();
 }
 async function getDepositRequests(options) {
   const cacheKey = `${options?.status || "all"}_${options?.search || ""}_${options?.limit || 50}`;
-  if (!options?.force && cachedDepositRequests && cachedDepositRequests.cacheKey === cacheKey && Date.now() - cachedDepositRequests.timestamp < 3e4) {
-    return cachedDepositRequests.data;
+  if (!options?.force && depositRequestsCache.has(cacheKey)) {
+    const cached = depositRequestsCache.get(cacheKey);
+    if (Date.now() - cached.timestamp < 3e4) {
+      return cached.data;
+    }
   }
   let list = [];
   if (adminDb) {
@@ -2006,11 +2025,14 @@ async function getDepositRequests(options) {
     const snap = await q.get();
     list = snap.docs.map((d) => d.data());
   } else {
-    const docs = await getFirestoreRestDocs("deposit_requests", 100);
-    list = docs;
+    const safeLimit = options?.limit ? Math.min(Math.max(options.limit, 1), 100) : 50;
+    let docs;
     if (options?.status && options.status !== "all") {
-      list = list.filter((r) => r.status === options.status);
+      docs = await queryFirestoreRestDocs("deposit_requests", "status", options.status, safeLimit);
+    } else {
+      docs = await getFirestoreRestDocs("deposit_requests", safeLimit);
     }
+    list = docs || [];
     list.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
     if (options?.limit) {
       list = list.slice(0, options.limit);
@@ -2022,7 +2044,7 @@ async function getDepositRequests(options) {
       (r) => (r.studentNameSnapshot || "").toLowerCase().includes(term) || (r.studentClassSnapshot || "").toLowerCase().includes(term) || (r.id || "").toLowerCase().includes(term) || (r.uid || "").toLowerCase().includes(term)
     );
   }
-  cachedDepositRequests = { data: list, timestamp: Date.now(), cacheKey };
+  depositRequestsCache.set(cacheKey, { data: list, timestamp: Date.now() });
   return list;
 }
 async function getStudentDepositRequests(uid, limitCount = 30) {
@@ -2236,6 +2258,11 @@ async function syncStudentsToWallets() {
       }
     }
   }
+  if (createdCount > 0 || updatedCount > 0) {
+    invalidateDebtSummariesCache();
+    invalidateWalletOverviewCache();
+    invalidateStudentDetailsCache();
+  }
   return {
     totalStudents: studentsMap.size,
     createdCount,
@@ -2315,6 +2342,7 @@ async function adminDirectEditWallet(adminUid, adminName, studentUid, payload) {
   };
   invalidateDebtSummariesCache();
   invalidateWalletOverviewCache();
+  invalidateStudentDetailsCache(cleanUid);
   return {
     success: true,
     wallet: updatedWallet,

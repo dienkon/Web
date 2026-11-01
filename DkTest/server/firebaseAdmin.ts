@@ -225,6 +225,9 @@ export async function queryFirestoreRestDocs(
   useCache = true,
   cacheTtlMs = 20000
 ): Promise<any[]> {
+  if (!collectionName || !field || value === undefined) {
+    return [];
+  }
   const safeLimit = Math.min(Math.max(limitCount, 1), 100);
   const cacheKey = `query_${collectionName}_${field}_${JSON.stringify(value)}_${safeLimit}`;
   const now = Date.now();
