@@ -513,6 +513,7 @@ export async function getAdminStudentDebtList(params?: {
   className?: string;
   limit?: number;
   offset?: number;
+  force?: boolean;
 }): Promise<{ items: StudentDebtSummary[]; total: number }> {
   try {
     const query = new URLSearchParams();
@@ -522,6 +523,7 @@ export async function getAdminStudentDebtList(params?: {
     const limit = params?.limit !== undefined ? Math.max(1, Number(params.limit)) : 10;
     query.set("limit", String(limit));
     if (params?.offset !== undefined) query.set("offset", String(params.offset));
+    if (params?.force) query.set("force", "true");
 
     const qs = query.toString();
     const endpoint = `/api/admin/wallet/students${qs ? `?${qs}` : ""}`;
@@ -538,7 +540,7 @@ export async function getAdminStudentDebtList(params?: {
     let debtsSnap: any;
     let entsSnap: any;
 
-    if (adminDebtFallbackCache && now - adminDebtFallbackCache.timestamp < 30000) {
+    if (!params?.force && adminDebtFallbackCache && now - adminDebtFallbackCache.timestamp < 30000) {
       walletsSnap = adminDebtFallbackCache.walletsSnap;
       debtsSnap = adminDebtFallbackCache.debtsSnap;
       entsSnap = adminDebtFallbackCache.entsSnap;
@@ -685,12 +687,14 @@ export async function getAdminDepositRequests(params?: {
   status?: string;
   search?: string;
   limit?: number;
+  force?: boolean;
 }): Promise<DepositRequest[]> {
   try {
     const query = new URLSearchParams();
     if (params?.status) query.set("status", params.status);
     if (params?.search) query.set("search", params.search);
     if (params?.limit) query.set("limit", String(params.limit));
+    if (params?.force) query.set("force", "true");
 
     const qs = query.toString();
     const endpoint = `/api/admin/wallet/deposit-requests${qs ? `?${qs}` : ""}`;
@@ -1109,6 +1113,10 @@ export async function redeemGiftVoucherApi(code: string): Promise<{
       createdAt: now,
     };
     await setDoc(doc(db, "wallet_transactions", txId), txDoc);
+
+    invalidateClientVouchersCache();
+    invalidateClientVoucherUsagesCache();
+    invalidateClientWalletOverviewCache();
 
     return {
       success: true,

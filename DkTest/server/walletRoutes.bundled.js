@@ -473,8 +473,13 @@ function invalidateVouchersCache() {
 }
 var voucherUsagesCache = /* @__PURE__ */ new Map();
 var USAGES_TTL_MS = 60 * 1e3;
-function invalidateVoucherUsagesCache() {
-  voucherUsagesCache.clear();
+function invalidateVoucherUsagesCache(voucherId) {
+  if (voucherId) {
+    voucherUsagesCache.delete(voucherId);
+    voucherUsagesCache.delete("__all__");
+  } else {
+    voucherUsagesCache.clear();
+  }
 }
 function normalizeCode(code) {
   return String(code || "").trim().toUpperCase();
@@ -740,6 +745,11 @@ async function redeemGiftVoucher(code, uid) {
   invalidateVouchersCache();
   invalidateVoucherUsagesCache();
   invalidateWalletOverviewCache();
+  updateWalletOverviewAggregates({
+    deltaVirtualBalanceVnd: addedVnd,
+    deltaConfirmedCreditedVnd: addedVnd
+  }).catch(() => {
+  });
   return {
     success: true,
     addedVnd,
@@ -1361,6 +1371,20 @@ async function createDepositRequest(uid, amountVnd, idempotencyKey, voucherCode)
   }).catch((err) => {
     console.warn("[walletService] L\u1ED7i g\u1EEDi Discord webhook:", err);
   });
+  if (appliedVoucher) {
+    invalidateVouchersCache();
+    invalidateVoucherUsagesCache();
+  }
+  invalidateWalletOverviewCache();
+  invalidateDebtSummariesCache();
+  invalidateDepositRequestsCache();
+  updateWalletOverviewAggregates({
+    deltaVirtualBalanceVnd: totalCreditToAdd,
+    deltaConfirmedCreditedVnd: totalCreditToAdd,
+    deltaOutstandingDebtVnd: cleanAmount,
+    newRecentRequest: requestDoc
+  }).catch(() => {
+  });
   return requestDoc;
 }
 async function checkExamAccess(uid, examId, userRole) {
@@ -1588,7 +1612,7 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
   const now = (/* @__PURE__ */ new Date()).toISOString();
   const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
   if (adminDb) {
-    return await adminDb.runTransaction(async (transaction) => {
+    const txResult = await adminDb.runTransaction(async (transaction) => {
       const examRef = adminDb.collection("exams").doc(examId);
       const examDoc = await transaction.get(examRef);
       if (!examDoc.exists) throw new Error("Kh\xF4ng t\xECm th\u1EA5y b\xE0i thi.");
@@ -1611,7 +1635,7 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
         transaction.set(entRef2, freeEnt, { merge: true });
         const wDoc = await transaction.get(adminDb.collection("wallets").doc(uid));
         const bal = wDoc.exists ? sanitizeVnd(wDoc.data()?.balanceVnd) : 0;
-        return { success: true, newBalanceVnd: bal, entitlement: freeEnt, alreadyUnlocked: true };
+        return { success: true, newBalanceVnd: bal, entitlement: freeEnt, alreadyUnlocked: true, effectivePrice: 0, appliedVoucher: null };
       }
       if (!salesEnabled) {
         throw new Error("B\xE0i thi hi\u1EC7n \u0111ang t\u1EA1m ng\u1EEBng b\xE1n quy\u1EC1n truy c\u1EADp.");
@@ -1623,7 +1647,7 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
         if (entData.status === "active") {
           const wDoc = await transaction.get(adminDb.collection("wallets").doc(uid));
           const bal = wDoc.exists ? sanitizeVnd(wDoc.data()?.balanceVnd) : 0;
-          return { success: true, newBalanceVnd: bal, entitlement: entData, alreadyUnlocked: true };
+          return { success: true, newBalanceVnd: bal, entitlement: entData, alreadyUnlocked: true, effectivePrice: 0, appliedVoucher: null };
         }
       }
       let discountVnd2 = 0;
@@ -1736,9 +1760,29 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
       return {
         success: true,
         newBalanceVnd: newBalance2,
-        entitlement: entitlement2
+        entitlement: entitlement2,
+        effectivePrice: effectivePrice2,
+        appliedVoucher: appliedVoucher2
       };
     });
+    if (txResult.appliedVoucher) {
+      invalidateVouchersCache();
+      invalidateVoucherUsagesCache();
+    }
+    invalidateWalletOverviewCache();
+    if (txResult.effectivePrice) {
+      updateWalletOverviewAggregates({
+        deltaVirtualBalanceVnd: -txResult.effectivePrice,
+        deltaUnlockedSpendingVnd: txResult.effectivePrice
+      }).catch(() => {
+      });
+    }
+    return {
+      success: txResult.success,
+      newBalanceVnd: txResult.newBalanceVnd,
+      entitlement: txResult.entitlement,
+      alreadyUnlocked: txResult.alreadyUnlocked
+    };
   }
   const examData = await getFirestoreRestDoc("exams", examId);
   if (!examData) throw new Error("Kh\xF4ng t\xECm th\u1EA5y b\xE0i thi.");
@@ -1817,13 +1861,86 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
       context: "exam_unlock",
       referenceId: examId
     });
+    invalidateVouchersCache();
+    invalidateVoucherUsagesCache();
   }
+  invalidateWalletOverviewCache();
+  updateWalletOverviewAggregates({
+    deltaVirtualBalanceVnd: -effectivePrice,
+    deltaUnlockedSpendingVnd: effectivePrice
+  }).catch(() => {
+  });
   return { success: true, newBalanceVnd: newBalance, entitlement };
 }
 var walletOverviewCache = null;
 var WALLET_OVERVIEW_TTL_MS = 60 * 1e3;
 function invalidateWalletOverviewCache() {
   walletOverviewCache = null;
+}
+async function updateWalletOverviewAggregates(delta) {
+  walletOverviewCache = null;
+  try {
+    const now = (/* @__PURE__ */ new Date()).toISOString();
+    if (adminDb) {
+      const docRef = adminDb.collection("system_stats").doc("wallet_overview");
+      await adminDb.runTransaction(async (t) => {
+        const snap = await t.get(docRef);
+        if (!snap.exists) return;
+        const current = snap.data();
+        let recent = current.recentRequests || [];
+        if (delta.newRecentRequest) {
+          recent = [delta.newRecentRequest, ...recent.filter((r) => r.id !== delta.newRecentRequest.id)].slice(0, 10);
+        }
+        const updated = {
+          totalWallets: Math.max(0, (current.totalWallets || 0) + (delta.deltaWalletsCount || 0)),
+          totalVirtualBalanceVnd: Math.max(0, (current.totalVirtualBalanceVnd || 0) + (delta.deltaVirtualBalanceVnd || 0)),
+          totalConfirmedCreditedVnd: Math.max(0, (current.totalConfirmedCreditedVnd || 0) + (delta.deltaConfirmedCreditedVnd || 0)),
+          totalUnlockedSpendingVnd: Math.max(0, (current.totalUnlockedSpendingVnd || 0) + (delta.deltaUnlockedSpendingVnd || 0)),
+          pendingRequestsTotalVnd: Math.max(0, (current.pendingRequestsTotalVnd || 0) + (delta.deltaPendingRequestsTotalVnd || 0)),
+          pendingRequestsCount: Math.max(0, (current.pendingRequestsCount || 0) + (delta.deltaPendingRequestsCount || 0)),
+          totalOutstandingDebtVnd: Math.max(0, (current.totalOutstandingDebtVnd || 0) + (delta.deltaOutstandingDebtVnd || 0)),
+          studentsInDebtCount: Math.max(0, (current.studentsInDebtCount || 0) + (delta.deltaStudentsInDebtCount || 0)),
+          recentRequests: recent,
+          lastUpdated: now
+        };
+        t.update(docRef, updated);
+      });
+    } else {
+      const current = await getFirestoreRestDoc("system_stats", "wallet_overview", false);
+      if (current) {
+        let recent = current.recentRequests || [];
+        if (delta.newRecentRequest) {
+          recent = [delta.newRecentRequest, ...recent.filter((r) => r.id !== delta.newRecentRequest.id)].slice(0, 10);
+        }
+        const updated = {
+          ...current,
+          totalWallets: Math.max(0, (current.totalWallets || 0) + (delta.deltaWalletsCount || 0)),
+          totalVirtualBalanceVnd: Math.max(0, (current.totalVirtualBalanceVnd || 0) + (delta.deltaVirtualBalanceVnd || 0)),
+          totalConfirmedCreditedVnd: Math.max(0, (current.totalConfirmedCreditedVnd || 0) + (delta.deltaConfirmedCreditedVnd || 0)),
+          totalUnlockedSpendingVnd: Math.max(0, (current.totalUnlockedSpendingVnd || 0) + (delta.deltaUnlockedSpendingVnd || 0)),
+          pendingRequestsTotalVnd: Math.max(0, (current.pendingRequestsTotalVnd || 0) + (delta.deltaPendingRequestsTotalVnd || 0)),
+          pendingRequestsCount: Math.max(0, (current.pendingRequestsCount || 0) + (delta.deltaPendingRequestsCount || 0)),
+          totalOutstandingDebtVnd: Math.max(0, (current.totalOutstandingDebtVnd || 0) + (delta.deltaOutstandingDebtVnd || 0)),
+          studentsInDebtCount: Math.max(0, (current.studentsInDebtCount || 0) + (delta.deltaStudentsInDebtCount || 0)),
+          recentRequests: recent,
+          lastUpdated: now
+        };
+        await setFirestoreRestDoc("system_stats", "wallet_overview", updated);
+      }
+    }
+  } catch (err) {
+    console.warn("[walletService] Warning updating wallet_overview aggregates:", err);
+  }
+}
+var debtSummariesCache = null;
+var DEBT_SUMMARIES_TTL_MS = 90 * 1e3;
+var USER_MAP_TTL_MS = 10 * 60 * 1e3;
+function invalidateDebtSummariesCache() {
+  debtSummariesCache = null;
+}
+var cachedDepositRequests = null;
+function invalidateDepositRequestsCache() {
+  cachedDepositRequests = null;
 }
 async function getStudentTransactions(uid, limitCount = 30) {
   if (adminDb) {

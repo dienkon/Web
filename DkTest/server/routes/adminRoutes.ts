@@ -92,14 +92,26 @@ async function recordAuditLog(
   }
 }
 
-function parseTimestampMs(val: any): number {
+export function parseTimestampMs(val: any): number {
   if (!val) return 0;
   if (typeof val?.toMillis === "function") return val.toMillis();
   if (typeof val?.toDate === "function") return val.toDate().getTime();
+  if (typeof val?.seconds === "number") return val.seconds * 1000;
+  if (typeof val?._seconds === "number") return val._seconds * 1000;
   if (val instanceof Date) return val.getTime();
-  if (typeof val === "number") return val;
+  if (typeof val === "number") {
+    return val < 1e11 ? val * 1000 : val;
+  }
   const d = new Date(val);
-  return isNaN(d.getTime()) ? 0 : d.getTime();
+  const ms = d.getTime();
+  return isNaN(ms) ? 0 : ms;
+}
+
+export function formatCalendarDateKey(date: Date): string {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
 }
 
 // -------------------------------------------------------------
@@ -107,9 +119,15 @@ function parseTimestampMs(val: any): number {
 // -------------------------------------------------------------
 async function computeSystemStats() {
   const now = new Date();
-  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString();
-  const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString();
-  const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const todayStartMs = today.getTime();
+  const sevenDaysMs = todayStartMs - 6 * 24 * 60 * 60 * 1000;
+  const thirtyDaysMs = todayStartMs - 29 * 24 * 60 * 60 * 1000;
+  const todayKey = formatCalendarDateKey(today);
+
+  const todayStart = new Date(todayStartMs).toISOString();
+  const sevenDaysAgo = new Date(sevenDaysMs).toISOString();
+  const thirtyDaysAgo = new Date(thirtyDaysMs).toISOString();
 
   let usersList: any[] = [];
   let totalExams = 0;
@@ -144,11 +162,28 @@ async function computeSystemStats() {
       console.warn("[computeSystemStats] Total submissions count() query failed:", cntErr);
     }
 
-    // 2. Calculate today, 7-day, and 30-day submission counts using count() queries
+    // 2. Check total attempt counts from system_stats/exams_summary (1 doc read)
     try {
-      const todayDate = new Date(todayStart);
-      const sevenDaysDate = new Date(sevenDaysAgo);
-      const thirtyDaysDate = new Date(thirtyDaysAgo);
+      const exSumSnap = await adminDb.collection("system_stats").doc("exams_summary").get();
+      if (exSumSnap.exists) {
+        const examsSummaryDoc = exSumSnap.data();
+        if (Array.isArray(examsSummaryDoc?.exams)) {
+          let attemptsSum = 0;
+          examsSummaryDoc.exams.forEach((e: any) => {
+            attemptsSum += (e.attemptCount || e.submissionsCount || 0);
+          });
+          if (attemptsSum > totalSubmissions) {
+            totalSubmissions = attemptsSum;
+          }
+        }
+      }
+    } catch (_) {}
+
+    // 3. Calculate today, 7-day, and 30-day submission counts using count() queries
+    try {
+      const todayDate = new Date(todayStartMs);
+      const sevenDaysDate = new Date(sevenDaysMs);
+      const thirtyDaysDate = new Date(thirtyDaysMs);
 
       const [todayCountSnap, sevenCountSnap, thirtyCountSnap] = await Promise.all([
         submissionsRef.where("submittedAt", ">=", todayDate).count().get().catch(() => null),
@@ -280,6 +315,15 @@ async function computeSystemStats() {
   const pendingRelationships = relList.filter((r) => r.status === "pending").length;
 
   return {
+    totalSubmissions,
+    submissionsToday,
+    submissions7Days,
+    submissions30Days,
+    averageScore,
+    totalExams,
+    totalAccounts,
+    activeAccounts,
+    classDistribution,
     userStats: {
       totalAccounts,
       studentAccounts,
@@ -355,11 +399,8 @@ adminRouter.get("/stats", async (req: AuthenticatedRequest, res: Response) => {
         overviewDoc = await getFirestoreRestDoc("system_stats", "overview");
       }
 
-      const lastUpdatedMs = overviewDoc?.lastUpdated ? new Date(overviewDoc.lastUpdated).getTime() : 0;
-      const isFresh = Date.now() - lastUpdatedMs < 60000; // Fresh within 60 seconds
-
-      if (overviewDoc && overviewDoc.userStats && overviewDoc.examStats && isFresh) {
-        console.log(`[Server Stats] Served from dedicated doc "system_stats/overview" (1 doc read / fresh)`);
+      if (overviewDoc && (overviewDoc.userStats || overviewDoc.totalAccounts !== undefined) && (overviewDoc.examStats || overviewDoc.totalSubmissions !== undefined)) {
+        console.log(`[Server Stats] Served from dedicated doc "system_stats/overview" (1 doc read / authoritative)`);
         return res.json(overviewDoc);
       }
     }
@@ -407,7 +448,7 @@ adminRouter.post("/stats/rebuild", async (req: AuthenticatedRequest, res: Respon
 // 2. ANALYTICS CHARTS (Optimized with in-memory cache & newest-first queries)
 // -------------------------------------------------------------
 const analyticsCache = new Map<string, { data: any; timestamp: number }>();
-const ANALYTICS_TTL_MS = 60 * 1000;
+const ANALYTICS_TTL_MS = 180 * 1000;
 
 export function invalidateAnalyticsCache() {
   analyticsCache.clear();
@@ -430,19 +471,28 @@ adminRouter.get("/analytics", async (req: AuthenticatedRequest, res: Response) =
     }
 
     let days = 7;
-    if (range === "30d") days = 30;
-    if (range === "90d") days = 90;
-    if (range === "1y") days = 365;
+    let queryLimitSubs = 300;
+    let queryLimitUsers = 150;
+    if (range === "30d") {
+      days = 30;
+      queryLimitSubs = 600;
+      queryLimitUsers = 300;
+    } else if (range === "90d") {
+      days = 90;
+      queryLimitSubs = 1000;
+      queryLimitUsers = 500;
+    } else if (range === "1y") {
+      days = 365;
+      queryLimitSubs = 1500;
+      queryLimitUsers = 800;
+    }
 
     const now = new Date();
-    // Align start to midnight of startDate
-    const startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() - days, 0, 0, 0, 0);
-
-    // Prepare date buckets (YYYY-MM-DD)
+    // Prepare date buckets strictly based on local calendar dates
     const dateBuckets: Record<string, { date: string; label: string; newUsers: number; submissions: number }> = {};
-    for (let i = 0; i <= days; i++) {
-      const d = new Date(startDate.getTime() + i * 24 * 60 * 60 * 1000);
-      const key = d.toISOString().slice(0, 10);
+    for (let i = days - 1; i >= 0; i--) {
+      const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
+      const key = formatCalendarDateKey(d);
       const label = `${d.getDate()}/${d.getMonth() + 1}`;
       dateBuckets[key] = { date: key, label, newUsers: 0, submissions: 0 };
     }
@@ -453,10 +503,14 @@ adminRouter.get("/analytics", async (req: AuthenticatedRequest, res: Response) =
     if (adminDb) {
       // 1. Fetch recent users ordered by createdAt desc
       try {
-        const usersSnap = await adminDb.collection("users").orderBy("createdAt", "desc").limit(500).get();
+        const usersSnap = await adminDb
+          .collection("users")
+          .orderBy("createdAt", "desc")
+          .limit(queryLimitUsers)
+          .get();
         usersList = usersSnap.docs.map((doc) => doc.data());
       } catch {
-        const usersSnap = await adminDb.collection("users").limit(200).get();
+        const usersSnap = await adminDb.collection("users").limit(100).get();
         usersList = usersSnap.docs.map((doc) => doc.data());
       }
 
@@ -465,36 +519,36 @@ adminRouter.get("/analytics", async (req: AuthenticatedRequest, res: Response) =
         const subSnap = await adminDb
           .collection("submissions")
           .orderBy("submittedAt", "desc")
-          .limit(1000)
+          .limit(queryLimitSubs)
           .get();
         subList = subSnap.docs.map((doc) => doc.data());
       } catch {
-        const subSnap = await adminDb.collection("submissions").limit(500).get();
+        const subSnap = await adminDb.collection("submissions").limit(200).get();
         subList = subSnap.docs.map((doc) => doc.data());
       }
     } else {
-      usersList = await getFirestoreRestDocs("users", 200, true, 30000);
-      subList = await getFirestoreRestDocs("submissions", 500, true, 30000);
+      usersList = await getFirestoreRestDocs("users", queryLimitUsers, true, 30000);
+      subList = await getFirestoreRestDocs("submissions", queryLimitSubs, true, 30000);
     }
 
-    // Populate user registrations
+    // Populate user registrations by local calendar date
     usersList.forEach((data) => {
       const ts = parseTimestampMs(data.createdAt);
       if (ts) {
-        const dStr = new Date(ts).toISOString().slice(0, 10);
-        if (dateBuckets[dStr]) {
-          dateBuckets[dStr].newUsers++;
+        const dKey = formatCalendarDateKey(new Date(ts));
+        if (dateBuckets[dKey]) {
+          dateBuckets[dKey].newUsers++;
         }
       }
     });
 
-    // Populate submissions (lượt làm bài thi chuẩn xác)
+    // Populate submissions by local calendar date (khớp 100% với KPI card và thời gian làm bài)
     subList.forEach((data) => {
       const ts = parseTimestampMs(data.submittedAt);
       if (ts) {
-        const dStr = new Date(ts).toISOString().slice(0, 10);
-        if (dateBuckets[dStr]) {
-          dateBuckets[dStr].submissions++;
+        const dKey = formatCalendarDateKey(new Date(ts));
+        if (dateBuckets[dKey]) {
+          dateBuckets[dKey].submissions++;
         }
       }
     });
@@ -1652,12 +1706,17 @@ adminRouter.get("/wallet/overview", async (req: AuthenticatedRequest, res: Respo
 adminRouter.get("/wallet/students", async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { search, filterStatus, className, limit, offset } = req.query;
+    const isForce =
+      req.query.force === "true" ||
+      Boolean(req.query._t) ||
+      Boolean(req.headers["cache-control"]?.includes("no-cache"));
     const result = await getStudentDebtSummaries({
       search: search as string,
       filterStatus: filterStatus as any,
       className: className as string,
       limit: limit ? Number(limit) : 50,
       offset: offset ? Number(offset) : 0,
+      force: isForce,
     });
     return res.json({ success: true, items: result.items, total: result.total });
   } catch (err: any) {
@@ -1736,10 +1795,15 @@ adminRouter.patch("/wallet/students/:uid/profile", async (req: AuthenticatedRequ
 adminRouter.get("/wallet/deposit-requests", async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { status, search, limit } = req.query;
+    const isForce =
+      req.query.force === "true" ||
+      Boolean(req.query._t) ||
+      Boolean(req.headers["cache-control"]?.includes("no-cache"));
     const requests = await getDepositRequests({
       status: status as string,
       search: search as string,
       limit: limit ? Number(limit) : 50,
+      force: isForce,
     });
     return res.json({ success: true, items: requests });
   } catch (err: any) {

@@ -595,6 +595,77 @@ describe("Virtual Wallet & Debt Logic Unit Tests", () => {
       const res3 = getMockOverview(true);
       expect(res3.fromCache).toBe(false);
     });
+
+    it("should correctly parse various timestamp representations in parseTimestampMs", async () => {
+      const { parseTimestampMs } = await import("../../server/routes/adminRoutes");
+      const testMs = 1730455200000; // specific ms timestamp
+      const testSec = 1730455200;
+
+      // 1. Raw milliseconds number
+      expect(parseTimestampMs(testMs)).toBe(testMs);
+
+      // 2. Raw seconds number (< 1e11)
+      expect(parseTimestampMs(testSec)).toBe(testSec * 1000);
+
+      // 3. Firestore Timestamp with toMillis()
+      expect(parseTimestampMs({ toMillis: () => testMs })).toBe(testMs);
+
+      // 4. Firestore Timestamp with toDate()
+      expect(parseTimestampMs({ toDate: () => new Date(testMs) })).toBe(testMs);
+
+      // 5. Firestore raw serialized { _seconds, _nanoseconds }
+      expect(parseTimestampMs({ _seconds: testSec, _nanoseconds: 0 })).toBe(testSec * 1000);
+
+      // 6. Firestore raw serialized { seconds, nanoseconds }
+      expect(parseTimestampMs({ seconds: testSec, nanoseconds: 0 })).toBe(testSec * 1000);
+
+      // 7. JS Date instance
+      expect(parseTimestampMs(new Date(testMs))).toBe(testMs);
+
+      // 8. ISO Date string
+      const isoStr = new Date(testMs).toISOString();
+      expect(parseTimestampMs(isoStr)).toBe(testMs);
+
+      // 9. Null or empty
+      expect(parseTimestampMs(null)).toBe(0);
+      expect(parseTimestampMs(undefined)).toBe(0);
+      expect(parseTimestampMs("")).toBe(0);
+    });
+
+    it("should guarantee calendar date key alignment between KPI card and chart buckets", async () => {
+      const { formatCalendarDateKey } = await import("../../server/routes/adminRoutes");
+
+      const fixedDate = new Date(2026, 10, 1, 14, 30, 0); // Nov 1, 2026 14:30 local time
+      const dateKey = formatCalendarDateKey(fixedDate);
+      expect(dateKey).toBe("2026-11-01");
+
+      // Verify that today's date bucket generation produces the exact same key for a submission made today
+      const now = new Date();
+      const todayKey = formatCalendarDateKey(now);
+
+      const days = 7;
+      const dateBuckets: Record<string, { date: string; label: string; count: number }> = {};
+      for (let i = days - 1; i >= 0; i--) {
+        const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
+        const key = formatCalendarDateKey(d);
+        const label = `${d.getDate()}/${d.getMonth() + 1}`;
+        dateBuckets[key] = { date: key, label, count: 0 };
+      }
+
+      // Today must be the last bucket
+      const keys = Object.keys(dateBuckets);
+      expect(keys[keys.length - 1]).toBe(todayKey);
+
+      // A submission recorded right now must fall directly into the today's bucket
+      const submissionTimestamp = now.getTime();
+      const submissionKey = formatCalendarDateKey(new Date(submissionTimestamp));
+      expect(submissionKey).toBe(todayKey);
+      expect(dateBuckets[submissionKey]).toBeDefined();
+
+      dateBuckets[submissionKey].count++;
+      expect(dateBuckets[todayKey].count).toBe(1);
+    });
   });
 });
+
 

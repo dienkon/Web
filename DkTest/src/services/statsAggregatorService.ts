@@ -108,14 +108,27 @@ export async function updateGlobalStatsOnSubmission(submission: Partial<Submissi
       const newScoreSum = (data.totalScoreSum || 0) + score;
       const newAvg = Number((newScoreSum / newTotal).toFixed(2));
 
-      await updateDoc(overviewRef, {
+      const updatePayload: Record<string, any> = {
         totalSubmissions: increment(1),
+        submissionsToday: increment(1),
+        submissions7Days: increment(1),
+        submissions30Days: increment(1),
         totalScoreSum: increment(score),
         averageScore: newAvg,
         recentSubmissions: updatedRecent,
         lastUpdated: now,
         updatedBy: "submission_hook",
-      });
+      };
+
+      if ((data as any).examStats) {
+        updatePayload["examStats.totalSubmissions"] = increment(1);
+        updatePayload["examStats.submissionsToday"] = increment(1);
+        updatePayload["examStats.submissions7Days"] = increment(1);
+        updatePayload["examStats.submissions30Days"] = increment(1);
+        updatePayload["examStats.averageScore"] = newAvg;
+      }
+
+      await updateDoc(overviewRef, updatePayload);
       logDocWrite("system_stats", "overview", "UPDATE", "Atomic increment on submission");
 
       // Invalidate memory cache so next read gets fresh data
@@ -123,7 +136,7 @@ export async function updateGlobalStatsOnSubmission(submission: Partial<Submissi
       FirestoreCache.invalidate("doc:system_stats:overview");
     } else {
       // First-time initialization
-      const initialOverview: SystemStatsOverview = {
+      const initialOverview: any = {
         totalSubmissions: 1,
         totalScoreSum: score,
         averageScore: Number(score.toFixed(2)),
@@ -139,6 +152,24 @@ export async function updateGlobalStatsOnSubmission(submission: Partial<Submissi
         submissions30Days: 1,
         recentSubmissions: [recentItem],
         classDistribution: {},
+        examStats: {
+          totalExams: 1,
+          totalSubmissions: 1,
+          submissionsToday: 1,
+          submissions7Days: 1,
+          submissions30Days: 1,
+          averageScore: Number(score.toFixed(2)),
+          highestScore: score,
+          lowestScore: score,
+        },
+        userStats: {
+          totalAccounts: 1,
+          studentAccounts: 1,
+          parentAccounts: 0,
+          teacherAccounts: 0,
+          adminAccounts: 0,
+          activeAccounts: 1,
+        },
         lastUpdated: now,
         updatedBy: "submission_hook_init",
       };

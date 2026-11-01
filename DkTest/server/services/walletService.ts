@@ -17,7 +17,7 @@ import type {
   Voucher,
   VoucherUsage,
 } from "../../src/types/index.js";
-import { validateVoucher } from "./voucherService.js";
+import { validateVoucher, invalidateVouchersCache, invalidateVoucherUsagesCache } from "./voucherService.js";
 
 // Helper to sanitize positive integer VND
 export function sanitizeVnd(val: any): number {
@@ -749,6 +749,20 @@ export async function createDepositRequest(
     console.warn("[walletService] Lỗi gửi Discord webhook:", err);
   });
 
+  if (appliedVoucher) {
+    invalidateVouchersCache();
+    invalidateVoucherUsagesCache();
+  }
+  invalidateWalletOverviewCache();
+  invalidateDebtSummariesCache();
+  invalidateDepositRequestsCache();
+  updateWalletOverviewAggregates({
+    deltaVirtualBalanceVnd: totalCreditToAdd,
+    deltaConfirmedCreditedVnd: totalCreditToAdd,
+    deltaOutstandingDebtVnd: cleanAmount,
+    newRecentRequest: requestDoc,
+  }).catch(() => {});
+
   return requestDoc;
 }
 
@@ -851,6 +865,13 @@ export async function approveDepositRequest(
 
       invalidateWalletOverviewCache();
       invalidateDebtSummariesCache();
+      invalidateDepositRequestsCache();
+      updateWalletOverviewAggregates({
+        deltaPendingRequestsCount: -1,
+        deltaPendingRequestsTotalVnd: -amount,
+        deltaVirtualBalanceVnd: amount,
+        deltaConfirmedCreditedVnd: amount,
+      }).catch(() => {});
       return {
         success: true,
         newBalanceVnd: newBalance,
@@ -908,6 +929,13 @@ export async function approveDepositRequest(
 
   invalidateWalletOverviewCache();
   invalidateDebtSummariesCache();
+  invalidateDepositRequestsCache();
+  updateWalletOverviewAggregates({
+    deltaPendingRequestsCount: -1,
+    deltaPendingRequestsTotalVnd: -amount,
+    deltaVirtualBalanceVnd: amount,
+    deltaConfirmedCreditedVnd: amount,
+  }).catch(() => {});
   return { success: true, newBalanceVnd: newBalance, transactionId: txId };
 }
 
@@ -943,6 +971,11 @@ export async function rejectDepositRequest(
 
     await reqRef.update(updates);
     invalidateWalletOverviewCache();
+    invalidateDepositRequestsCache();
+    updateWalletOverviewAggregates({
+      deltaPendingRequestsCount: -1,
+      deltaPendingRequestsTotalVnd: -sanitizeVnd(data.amountVnd),
+    }).catch(() => {});
     return { ...data, ...updates };
   }
 
@@ -962,6 +995,11 @@ export async function rejectDepositRequest(
   };
   await setFirestoreRestDoc("deposit_requests", requestId, updated);
   invalidateWalletOverviewCache();
+  invalidateDepositRequestsCache();
+  updateWalletOverviewAggregates({
+    deltaPendingRequestsCount: -1,
+    deltaPendingRequestsTotalVnd: -sanitizeVnd(data.amountVnd),
+  }).catch(() => {});
   return updated;
 }
 
@@ -1268,7 +1306,7 @@ export async function unlockExam(
   const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
 
   if (adminDb) {
-    return await adminDb.runTransaction(async (transaction) => {
+    const txResult = await adminDb.runTransaction(async (transaction) => {
       // 1. Read exam
       const examRef = adminDb.collection("exams").doc(examId);
       const examDoc = await transaction.get(examRef);
@@ -1295,7 +1333,7 @@ export async function unlockExam(
         transaction.set(entRef, freeEnt, { merge: true });
         const wDoc = await transaction.get(adminDb.collection("wallets").doc(uid));
         const bal = wDoc.exists ? sanitizeVnd(wDoc.data()?.balanceVnd) : 0;
-        return { success: true, newBalanceVnd: bal, entitlement: freeEnt, alreadyUnlocked: true };
+        return { success: true, newBalanceVnd: bal, entitlement: freeEnt, alreadyUnlocked: true, effectivePrice: 0, appliedVoucher: null };
       }
 
       if (!salesEnabled) {
@@ -1311,7 +1349,7 @@ export async function unlockExam(
           // Idempotent: already unlocked!
           const wDoc = await transaction.get(adminDb.collection("wallets").doc(uid));
           const bal = wDoc.exists ? sanitizeVnd(wDoc.data()?.balanceVnd) : 0;
-          return { success: true, newBalanceVnd: bal, entitlement: entData, alreadyUnlocked: true };
+          return { success: true, newBalanceVnd: bal, entitlement: entData, alreadyUnlocked: true, effectivePrice: 0, appliedVoucher: null };
         }
       }
 
@@ -1444,8 +1482,29 @@ export async function unlockExam(
         success: true,
         newBalanceVnd: newBalance,
         entitlement,
+        effectivePrice,
+        appliedVoucher,
       };
     });
+
+    if (txResult.appliedVoucher) {
+      invalidateVouchersCache();
+      invalidateVoucherUsagesCache();
+    }
+    invalidateWalletOverviewCache();
+    if (txResult.effectivePrice) {
+      updateWalletOverviewAggregates({
+        deltaVirtualBalanceVnd: -txResult.effectivePrice,
+        deltaUnlockedSpendingVnd: txResult.effectivePrice,
+      }).catch(() => {});
+    }
+
+    return {
+      success: txResult.success,
+      newBalanceVnd: txResult.newBalanceVnd,
+      entitlement: txResult.entitlement,
+      alreadyUnlocked: (txResult as any).alreadyUnlocked,
+    };
   }
 
   // REST fallback
@@ -1535,7 +1594,15 @@ export async function unlockExam(
       context: "exam_unlock",
       referenceId: examId,
     });
+    invalidateVouchersCache();
+    invalidateVoucherUsagesCache();
   }
+
+  invalidateWalletOverviewCache();
+  updateWalletOverviewAggregates({
+    deltaVirtualBalanceVnd: -effectivePrice,
+    deltaUnlockedSpendingVnd: effectivePrice,
+  }).catch(() => {});
 
   return { success: true, newBalanceVnd: newBalance, entitlement };
 }
@@ -1678,6 +1745,10 @@ export async function recordManualCashCollection(
     await batch.commit();
     invalidateDebtSummariesCache();
     invalidateWalletOverviewCache();
+    updateWalletOverviewAggregates({
+      deltaOutstandingDebtVnd: -amount,
+      ...(data.creditToWallet ? { deltaVirtualBalanceVnd: amount, deltaConfirmedCreditedVnd: amount } : {}),
+    }).catch(() => {});
     return { success: true, debtRecordId: recordId, newBalanceVnd: newBal };
   }
 
@@ -1769,6 +1840,10 @@ export async function recordManualCashCollection(
   await setFirestoreRestDoc("debt_records", recordId, debtEntry);
   invalidateDebtSummariesCache();
   invalidateWalletOverviewCache();
+  updateWalletOverviewAggregates({
+    deltaOutstandingDebtVnd: -amount,
+    ...(data.creditToWallet ? { deltaVirtualBalanceVnd: amount, deltaConfirmedCreditedVnd: amount } : {}),
+  }).catch(() => {});
 
   return { success: true, debtRecordId: recordId, newBalanceVnd: newBal };
 }
@@ -1870,6 +1945,9 @@ export async function adjustStudentDebt(
 
   invalidateDebtSummariesCache();
   invalidateWalletOverviewCache();
+  updateWalletOverviewAggregates({
+    deltaOutstandingDebtVnd: amount * (data.type === "increase" ? 1 : -1),
+  }).catch(() => {});
   return { success: true, recordId };
 }
 
@@ -1960,6 +2038,75 @@ export function invalidateWalletOverviewCache() {
   walletOverviewCache = null;
 }
 
+export async function updateWalletOverviewAggregates(delta: {
+  deltaVirtualBalanceVnd?: number;
+  deltaConfirmedCreditedVnd?: number;
+  deltaUnlockedSpendingVnd?: number;
+  deltaPendingRequestsTotalVnd?: number;
+  deltaPendingRequestsCount?: number;
+  deltaOutstandingDebtVnd?: number;
+  deltaStudentsInDebtCount?: number;
+  deltaWalletsCount?: number;
+  newRecentRequest?: DepositRequest;
+}): Promise<void> {
+  walletOverviewCache = null;
+
+  try {
+    const now = new Date().toISOString();
+    if (adminDb) {
+      const docRef = adminDb.collection("system_stats").doc("wallet_overview");
+      await adminDb.runTransaction(async (t) => {
+        const snap = await t.get(docRef);
+        if (!snap.exists) return;
+        const current = snap.data() as WalletOverviewData;
+
+        let recent = current.recentRequests || [];
+        if (delta.newRecentRequest) {
+          recent = [delta.newRecentRequest, ...recent.filter((r) => r.id !== delta.newRecentRequest!.id)].slice(0, 10);
+        }
+
+        const updated: Partial<WalletOverviewData> = {
+          totalWallets: Math.max(0, (current.totalWallets || 0) + (delta.deltaWalletsCount || 0)),
+          totalVirtualBalanceVnd: Math.max(0, (current.totalVirtualBalanceVnd || 0) + (delta.deltaVirtualBalanceVnd || 0)),
+          totalConfirmedCreditedVnd: Math.max(0, (current.totalConfirmedCreditedVnd || 0) + (delta.deltaConfirmedCreditedVnd || 0)),
+          totalUnlockedSpendingVnd: Math.max(0, (current.totalUnlockedSpendingVnd || 0) + (delta.deltaUnlockedSpendingVnd || 0)),
+          pendingRequestsTotalVnd: Math.max(0, (current.pendingRequestsTotalVnd || 0) + (delta.deltaPendingRequestsTotalVnd || 0)),
+          pendingRequestsCount: Math.max(0, (current.pendingRequestsCount || 0) + (delta.deltaPendingRequestsCount || 0)),
+          totalOutstandingDebtVnd: Math.max(0, (current.totalOutstandingDebtVnd || 0) + (delta.deltaOutstandingDebtVnd || 0)),
+          studentsInDebtCount: Math.max(0, (current.studentsInDebtCount || 0) + (delta.deltaStudentsInDebtCount || 0)),
+          recentRequests: recent,
+          lastUpdated: now,
+        };
+        t.update(docRef, updated);
+      });
+    } else {
+      const current = await getFirestoreRestDoc("system_stats", "wallet_overview", false);
+      if (current) {
+        let recent = current.recentRequests || [];
+        if (delta.newRecentRequest) {
+          recent = [delta.newRecentRequest, ...recent.filter((r: any) => r.id !== delta.newRecentRequest!.id)].slice(0, 10);
+        }
+        const updated = {
+          ...current,
+          totalWallets: Math.max(0, (current.totalWallets || 0) + (delta.deltaWalletsCount || 0)),
+          totalVirtualBalanceVnd: Math.max(0, (current.totalVirtualBalanceVnd || 0) + (delta.deltaVirtualBalanceVnd || 0)),
+          totalConfirmedCreditedVnd: Math.max(0, (current.totalConfirmedCreditedVnd || 0) + (delta.deltaConfirmedCreditedVnd || 0)),
+          totalUnlockedSpendingVnd: Math.max(0, (current.totalUnlockedSpendingVnd || 0) + (delta.deltaUnlockedSpendingVnd || 0)),
+          pendingRequestsTotalVnd: Math.max(0, (current.pendingRequestsTotalVnd || 0) + (delta.deltaPendingRequestsTotalVnd || 0)),
+          pendingRequestsCount: Math.max(0, (current.pendingRequestsCount || 0) + (delta.deltaPendingRequestsCount || 0)),
+          totalOutstandingDebtVnd: Math.max(0, (current.totalOutstandingDebtVnd || 0) + (delta.deltaOutstandingDebtVnd || 0)),
+          studentsInDebtCount: Math.max(0, (current.studentsInDebtCount || 0) + (delta.deltaStudentsInDebtCount || 0)),
+          recentRequests: recent,
+          lastUpdated: now,
+        };
+        await setFirestoreRestDoc("system_stats", "wallet_overview", updated);
+      }
+    }
+  } catch (err) {
+    console.warn("[walletService] Warning updating wallet_overview aggregates:", err);
+  }
+}
+
 export async function getWalletOverview(forceRefresh = false): Promise<WalletOverviewData> {
   // Step 1: Memory cache check (0 Firestore reads!)
   if (!forceRefresh && walletOverviewCache && Date.now() - walletOverviewCache.timestamp < WALLET_OVERVIEW_TTL_MS) {
@@ -1980,10 +2127,7 @@ export async function getWalletOverview(forceRefresh = false): Promise<WalletOve
         overviewDoc = await getFirestoreRestDoc("system_stats", "wallet_overview", true, 30000);
       }
 
-      const lastUpdatedMs = overviewDoc?.lastUpdated ? new Date(overviewDoc.lastUpdated).getTime() : 0;
-      const isFresh = Date.now() - lastUpdatedMs < WALLET_OVERVIEW_TTL_MS;
-
-      if (overviewDoc && typeof overviewDoc.totalWallets === "number" && isFresh) {
+      if (overviewDoc && typeof overviewDoc.totalWallets === "number") {
         walletOverviewCache = { data: overviewDoc, timestamp: Date.now() };
         return overviewDoc;
       }
@@ -2126,6 +2270,13 @@ let debtSummariesCache: {
   userMap: Map<string, { username: string; email: string; displayName: string }>;
   timestamp: number;
 } | null = null;
+const DEBT_SUMMARIES_TTL_MS = 90 * 1000;
+
+let userMapCache: {
+  map: Map<string, { username: string; email: string; displayName: string }>;
+  timestamp: number;
+} | null = null;
+const USER_MAP_TTL_MS = 10 * 60 * 1000;
 
 export function invalidateDebtSummariesCache() {
   debtSummariesCache = null;
@@ -2137,6 +2288,7 @@ export async function getStudentDebtSummaries(options?: {
   className?: string;
   limit?: number;
   offset?: number;
+  force?: boolean;
 }): Promise<{
   items: StudentDebtSummary[];
   total: number;
@@ -2147,52 +2299,72 @@ export async function getStudentDebtSummaries(options?: {
   let entsList: ExamEntitlement[] = [];
   let userMap = new Map<string, { username: string; email: string; displayName: string }>();
 
-  // In-memory 30s cache to avoid reading all users and wallets on every page turn / search
-  if (debtSummariesCache && now - debtSummariesCache.timestamp < 30000) {
+  // In-memory 90s cache (bypassed when force === true)
+  if (!options?.force && debtSummariesCache && now - debtSummariesCache.timestamp < DEBT_SUMMARIES_TTL_MS) {
     walletsList = debtSummariesCache.walletsList;
     debtsList = debtSummariesCache.debtsList;
     entsList = debtSummariesCache.entsList;
     userMap = debtSummariesCache.userMap;
   } else {
+    let needUsers = true;
+    if (userMapCache && now - userMapCache.timestamp < USER_MAP_TTL_MS) {
+      userMap = userMapCache.map;
+      needUsers = false;
+    }
+
     if (adminDb) {
-      const [walletsSnap, debtsSnap, entsSnap, usersSnap] = await Promise.all([
+      const queries: Promise<any>[] = [
         adminDb.collection("wallets").get(),
         adminDb.collection("debt_records").get(),
         adminDb.collection("exam_entitlements").where("status", "==", "active").get(),
-        adminDb.collection("users").get(),
-      ]);
-      walletsList = walletsSnap.docs.map((d) => d.data() as StudentWallet);
-      debtsList = debtsSnap.docs.map((d) => d.data() as DebtRecord);
-      entsList = entsSnap.docs.map((d) => d.data() as ExamEntitlement);
-      usersSnap.docs.forEach((d) => {
-        const u = d.data();
-        userMap.set(d.id, {
-          username: u.username || "",
-          email: u.email || "",
-          displayName: u.displayName || u.fullName || "",
-        });
-      });
-    } else {
-      // REST fallback mode
-      const [wallets, debts, ents, users] = await Promise.all([
-        getFirestoreRestDocs("wallets", 100),
-        getFirestoreRestDocs("debt_records", 100),
-        getFirestoreRestDocs("exam_entitlements", 100),
-        getFirestoreRestDocs("users", 100),
-      ]);
-      walletsList = wallets as StudentWallet[];
-      debtsList = debts as DebtRecord[];
-      entsList = (ents as ExamEntitlement[]).filter((e) => e.status === "active");
-      (users as any[]).forEach((u) => {
-        const uid = u.id || u.uid;
-        if (uid) {
-          userMap.set(uid, {
+      ];
+      if (needUsers) {
+        queries.push(adminDb.collection("users").get());
+      }
+      const [walletsSnap, debtsSnap, entsSnap, usersSnap] = await Promise.all(queries);
+      walletsList = walletsSnap.docs.map((d: any) => d.data() as StudentWallet);
+      debtsList = debtsSnap.docs.map((d: any) => d.data() as DebtRecord);
+      entsList = entsSnap.docs.map((d: any) => d.data() as ExamEntitlement);
+      if (needUsers && usersSnap) {
+        userMap = new Map();
+        usersSnap.docs.forEach((d: any) => {
+          const u = d.data();
+          userMap.set(d.id, {
             username: u.username || "",
             email: u.email || "",
             displayName: u.displayName || u.fullName || "",
           });
-        }
-      });
+        });
+        userMapCache = { map: userMap, timestamp: now };
+      }
+    } else {
+      // REST fallback mode
+      const queries: Promise<any>[] = [
+        getFirestoreRestDocs("wallets", 100),
+        getFirestoreRestDocs("debt_records", 100),
+        getFirestoreRestDocs("exam_entitlements", 100),
+      ];
+      if (needUsers) {
+        queries.push(getFirestoreRestDocs("users", 100));
+      }
+      const [wallets, debts, ents, users] = await Promise.all(queries);
+      walletsList = wallets as StudentWallet[];
+      debtsList = debts as DebtRecord[];
+      entsList = (ents as ExamEntitlement[]).filter((e) => e.status === "active");
+      if (needUsers && users) {
+        userMap = new Map();
+        (users as any[]).forEach((u) => {
+          const uid = u.id || u.uid;
+          if (uid) {
+            userMap.set(uid, {
+              username: u.username || "",
+              email: u.email || "",
+              displayName: u.displayName || u.fullName || "",
+            });
+          }
+        });
+        userMapCache = { map: userMap, timestamp: now };
+      }
     }
     debtSummariesCache = {
       walletsList,
@@ -2434,11 +2606,28 @@ export async function getStudentWalletDetails(studentUid: string): Promise<{
   };
 }
 
+let cachedDepositRequests: { data: DepositRequest[]; timestamp: number; cacheKey: string } | null = null;
+
+export function invalidateDepositRequestsCache(): void {
+  cachedDepositRequests = null;
+}
+
 export async function getDepositRequests(options?: {
   status?: string;
   search?: string;
   limit?: number;
+  force?: boolean;
 }): Promise<DepositRequest[]> {
+  const cacheKey = `${options?.status || "all"}_${options?.search || ""}_${options?.limit || 50}`;
+  if (
+    !options?.force &&
+    cachedDepositRequests &&
+    cachedDepositRequests.cacheKey === cacheKey &&
+    Date.now() - cachedDepositRequests.timestamp < 30000
+  ) {
+    return cachedDepositRequests.data;
+  }
+
   let list: DepositRequest[] = [];
 
   if (adminDb) {
@@ -2474,6 +2663,7 @@ export async function getDepositRequests(options?: {
     );
   }
 
+  cachedDepositRequests = { data: list, timestamp: Date.now(), cacheKey };
   return list;
 }
 

@@ -295,10 +295,10 @@ export default function Dashboard() {
             </div>
           </div>
           <p className="text-3xl font-black text-slate-900">
-            {stats?.examStats?.totalSubmissions ?? "—"}
+            {stats?.examStats?.totalSubmissions ?? stats?.totalSubmissions ?? "—"}
           </p>
           <div className="text-[11px] text-slate-500 flex items-center gap-1">
-            <span className="text-emerald-600 font-bold">+{stats?.examStats?.submissionsToday || 0}</span>
+            <span className="text-emerald-600 font-bold">+{stats?.examStats?.submissionsToday ?? stats?.submissionsToday ?? 0}</span>
             <span>lượt hôm nay</span>
           </div>
         </div>

@@ -21,7 +21,7 @@ import {
   setFirestoreRestDoc,
   deleteFirestoreRestDoc,
 } from "../firebaseAdmin.js";
-import { getOrCreateWallet, invalidateWalletOverviewCache } from "./walletService.js";
+import { getOrCreateWallet, invalidateWalletOverviewCache, updateWalletOverviewAggregates } from "./walletService.js";
 import type { Voucher, VoucherType, VoucherUsage, StudentWallet, WalletTransaction } from "../../src/types/index.js";
 
 // In-memory cache for vouchers to avoid repetitive Firestore collection reads
@@ -35,8 +35,13 @@ export function invalidateVouchersCache() {
 const voucherUsagesCache = new Map<string, { data: VoucherUsage[]; timestamp: number }>();
 const USAGES_TTL_MS = 60 * 1000;
 
-export function invalidateVoucherUsagesCache() {
-  voucherUsagesCache.clear();
+export function invalidateVoucherUsagesCache(voucherId?: string) {
+  if (voucherId) {
+    voucherUsagesCache.delete(voucherId);
+    voucherUsagesCache.delete("__all__");
+  } else {
+    voucherUsagesCache.clear();
+  }
 }
 
 function normalizeCode(code: string): string {
@@ -546,6 +551,10 @@ export async function redeemGiftVoucher(code: string, uid: string): Promise<{
   invalidateVouchersCache();
   invalidateVoucherUsagesCache();
   invalidateWalletOverviewCache();
+  updateWalletOverviewAggregates({
+    deltaVirtualBalanceVnd: addedVnd,
+    deltaConfirmedCreditedVnd: addedVnd,
+  }).catch(() => {});
 
   return {
     success: true,

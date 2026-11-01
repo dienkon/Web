@@ -234,12 +234,13 @@ export default function WalletManagement() {
   };
 
   // Load Requests Data
-  const loadRequests = async () => {
+  const loadRequests = async (force: boolean = false) => {
     try {
       setRequestsLoading(true);
       const data = await getAdminDepositRequests({
         status: requestFilter !== "all" ? requestFilter : undefined,
         search: requestSearch || undefined,
+        force,
       });
       setRequests(data);
     } catch (err: any) {
@@ -251,7 +252,7 @@ export default function WalletManagement() {
   };
 
   // Load Debts Data (10 students per page for read optimization)
-  const loadDebts = async (page = debtPage) => {
+  const loadDebts = async (page = debtPage, force: boolean = false) => {
     try {
       setDebtsLoading(true);
       const limit = debtPageSize;
@@ -262,6 +263,7 @@ export default function WalletManagement() {
         className: debtClassFilter || undefined,
         limit,
         offset,
+        force,
       });
       setDebts(res.items);
       setDebtTotal(res.total);
@@ -597,8 +599,8 @@ export default function WalletManagement() {
         vouchers: now,
       };
       const promises: Promise<any>[] = [loadOverview(force)];
-      if (activeTab === "requests") promises.push(loadRequests());
-      if (activeTab === "debts") promises.push(loadDebts());
+      if (activeTab === "requests") promises.push(loadRequests(force));
+      if (activeTab === "debts") promises.push(loadDebts(debtPage, force));
       if (activeTab === "vouchers") {
         promises.push(loadVouchers(force));
         if (voucherSubTab === "all_usages") {
@@ -1214,7 +1216,7 @@ export default function WalletManagement() {
               </select>
 
               <button
-                onClick={loadRequests}
+                onClick={() => loadRequests()}
                 className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-colors cursor-pointer"
               >
                 Lọc
