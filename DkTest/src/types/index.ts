@@ -433,6 +433,8 @@ export interface UserProfile {
   pendingEmail?: string | null;
   pendingEmailRequestedAt?: string;
   studentOnboardingStatus?: "pending" | "completed" | "skipped";
+  suspendedReason?: string;
+  lockReason?: string;
 }
 
 export interface StudentProfile {
@@ -785,4 +787,24 @@ export interface AdminWalletEditPayload {
   remainingDebtVnd?: number;
   debtStatus?: "in_debt" | "paid" | "has_credit";
   debtManualOverride?: boolean;
+}
+
+export type AnnouncementType = "info" | "banner" | "promo" | "warning";
+
+export interface SystemAnnouncement {
+  id: string;
+  title: string;
+  content: string;
+  type: AnnouncementType;
+  imageUrl?: string;
+  linkUrl?: string;
+  linkText?: string;
+  targetType: "all" | "specific_users";
+  targetUids?: string[];
+  displayFrequency: "once" | "unlimited" | "custom";
+  maxDisplayCount?: number;
+  isActive: boolean;
+  createdAt: string;
+  createdBy?: string;
+  expiresAt?: string;
 }

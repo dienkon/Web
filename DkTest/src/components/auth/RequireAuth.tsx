@@ -7,6 +7,7 @@ import {
   isStudentAuthenticated,
 } from "../../services/authService";
 import { Loader2, ShieldAlert, Clock, LogOut } from "lucide-react";
+import AccountSuspendedView from "./AccountSuspendedView";
 
 interface RequireAuthProps {
   role: "admin" | "parent" | "student";
@@ -29,26 +30,7 @@ export default function RequireAuth({ role, children }: RequireAuthProps) {
 
   // Account suspended state
   if (isSuspended) {
-    return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white rounded-3xl p-6 sm:p-8 border border-red-200 shadow-xl text-center space-y-4">
-          <div className="w-14 h-14 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mx-auto">
-            <ShieldAlert className="w-7 h-7" />
-          </div>
-          <h2 className="text-xl font-bold text-slate-900">Tài khoản tạm khoá</h2>
-          <p className="text-sm text-slate-600 leading-relaxed">
-            Tài khoản của bạn đã bị tạm khoá hoặc vô hiệu hoá bởi quản trị viên. Vui lòng liên hệ nhà trường hoặc người quản trị để được hỗ trợ.
-          </p>
-          <button
-            onClick={() => logout()}
-            className="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-colors cursor-pointer inline-flex items-center gap-1.5"
-          >
-            <LogOut className="w-4 h-4" />
-            <span>Đăng xuất</span>
-          </button>
-        </div>
-      </div>
-    );
+    return <AccountSuspendedView />;
   }
 
   // Account pending approval state (if enabled)

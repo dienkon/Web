@@ -70,6 +70,7 @@ import { invalidateHomeTopCache } from "../../services/examCacheService";
 import StudentTutorialBanner from "../../features/student-onboarding/StudentTutorialBanner";
 import { StudentAssignmentNotice } from "../../features/assignments/StudentAssignmentNotice";
 import ExamCountdownMainboard from "../../components/home/ExamCountdownMainboard";
+import RecentExamsQuickSlots from "../../components/home/RecentExamsQuickSlots";
 export { invalidateHomeTopCache };
 
 export default function Home() {
@@ -464,6 +465,9 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
           </form>
         </div>
       </div>
+
+      {/* 3 Quick-access Recent Exams Slots */}
+      <RecentExamsQuickSlots />
 
       {/* Student Onboarding Tutorial Banner */}
       <StudentTutorialBanner />

@@ -21,6 +21,15 @@ import {
   HeartHandshake,
   Activity,
   Lock,
+  Wallet,
+  Coins,
+  CreditCard,
+  AlertTriangle,
+  RotateCw,
+  Check,
+  ExternalLink,
+  Receipt,
+  Tag,
 } from "lucide-react";
 import {
   fetchAdminUserDetail,
@@ -30,6 +39,7 @@ import {
   reactivateUserAccount,
   deleteUserAccount,
 } from "../../services/adminService";
+import { getAdminStudentWalletDetails } from "../../services/walletClientService";
 import { unlinkRelationship } from "../../services/relationshipService";
 import type { UserProfile, Submission } from "../../types";
 import { collection, query, where, limit, getDocs } from "firebase/firestore";
@@ -45,9 +55,19 @@ export default function UserDetail() {
 
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<any>(null);
-  const [activeTab, setActiveTab] = useState<"overview" | "profile" | "family" | "exams" | "activity" | "security">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "profile" | "family" | "exams" | "activity" | "security" | "wallet">("overview");
   const [subLimit, setSubLimit] = useState(5);
   const [logLimit, setLogLimit] = useState(5);
+
+  // Wallet details state
+  const [walletData, setWalletData] = useState<any>(null);
+  const [walletLoading, setWalletLoading] = useState(false);
+  const [walletError, setWalletError] = useState<string | null>(null);
+
+  // Suspend modal state with reason
+  const [showSuspendModal, setShowSuspendModal] = useState(false);
+  const [suspendReason, setSuspendReason] = useState("");
+  const [isSubmittingSuspend, setIsSubmittingSuspend] = useState(false);
 
   // Editing state
   const [isEditing, setIsEditing] = useState(false);
@@ -126,9 +146,30 @@ export default function UserDetail() {
     loadUserDetail(subLimit, next);
   };
 
+  const loadWalletData = async (force = false) => {
+    if (!uid) return;
+    setWalletLoading(true);
+    setWalletError(null);
+    try {
+      const res = await getAdminStudentWalletDetails(uid, force);
+      setWalletData(res);
+    } catch (err: any) {
+      console.warn("[UserDetail] loadWalletData error:", err);
+      setWalletError(err.message || "Không thể tải dữ liệu ví học sinh");
+    } finally {
+      setWalletLoading(false);
+    }
+  };
+
   useEffect(() => {
     loadUserDetail(5, 5);
   }, [uid]);
+
+  useEffect(() => {
+    if (activeTab === "wallet" && !walletData && !walletLoading) {
+      loadWalletData();
+    }
+  }, [activeTab, uid]);
 
   const handleSaveProfile = async () => {
     if (!uid) return;
@@ -160,14 +201,25 @@ export default function UserDetail() {
     }
   };
 
-  const handleSuspend = async () => {
+  const handleOpenSuspendModal = () => {
+    setSuspendReason(user?.suspendedReason || user?.lockReason || "");
+    setShowSuspendModal(true);
+  };
+
+  const confirmSuspendAccount = async () => {
     if (!uid) return;
+    const finalReason = suspendReason.trim() || "Tạm khoá theo quyết định của Quản trị viên";
+    setIsSubmittingSuspend(true);
     try {
-      await suspendUserAccount(uid, "Quản trị viên tạm khoá");
-      showSuccessToast("Đã tạm khoá tài khoản!");
+      await suspendUserAccount(uid, finalReason);
+      showSuccessToast("Đã tạm khoá tài khoản thành công!");
+      setShowSuspendModal(false);
+      setSuspendReason("");
       loadUserDetail();
     } catch (err: any) {
-      showErrorToast(err.message);
+      showErrorToast(err.message || "Lỗi khi tạm khoá tài khoản");
+    } finally {
+      setIsSubmittingSuspend(false);
     }
   };
 
@@ -251,7 +303,7 @@ export default function UserDetail() {
 
           {user.accountStatus === "active" ? (
             <button
-              onClick={handleSuspend}
+              onClick={handleOpenSuspendModal}
               className="px-3.5 py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
             >
               <ShieldAlert className="w-4 h-4" />
@@ -312,10 +364,52 @@ export default function UserDetail() {
         </div>
       </div>
 
+      {/* Prominent Suspended Banner if Account is Suspended */}
+      {user.accountStatus === "suspended" && (
+        <div className="bg-gradient-to-r from-red-50 to-rose-50 border border-red-200 rounded-3xl p-5 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex items-start gap-3.5">
+            <div className="p-2.5 bg-red-100 text-red-600 rounded-2xl shrink-0 mt-0.5 shadow-2xs">
+              <ShieldAlert className="w-6 h-6 animate-pulse" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-red-600 text-white">
+                  Tài khoản đang bị tạm khoá
+                </span>
+                <span className="text-[11px] text-red-600 font-medium">
+                  Học sinh bị chặn đăng nhập & thi trực tuyến
+                </span>
+              </div>
+              <p className="text-xs sm:text-sm text-red-950 font-bold mt-1 leading-snug">
+                Lý do khoá: <span className="text-red-700 italic">"{user.suspendedReason || user.lockReason || "Quản trị viên tạm khoá"}"</span>
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 self-end sm:self-center shrink-0">
+            <button
+              type="button"
+              onClick={handleOpenSuspendModal}
+              className="px-3.5 py-2 bg-white hover:bg-red-50 text-red-700 border border-red-200 rounded-xl text-xs font-bold transition-colors cursor-pointer shadow-2xs"
+            >
+              Chỉnh lý do
+            </button>
+            <button
+              type="button"
+              onClick={handleReactivate}
+              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-all shadow-md hover:shadow-lg flex items-center gap-1.5 cursor-pointer"
+            >
+              <CheckCircle2 className="w-4 h-4" />
+              <span>Kích hoạt lại ngay</span>
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Tabs Bar */}
       <div className="flex gap-2 overflow-x-auto border-b border-slate-200 pb-2 text-xs font-bold">
         {[
           { id: "overview", label: "Tổng quan", icon: User },
+          { id: "wallet", label: "Ví & Sổ công nợ", icon: Wallet },
           { id: "profile", label: "Hồ sơ chi tiết", icon: GraduationCap },
           { id: "family", label: `Liên kết gia đình (${relationships.length})`, icon: HeartHandshake },
           { id: "exams", label: `Bài thi đã làm (${submissions.length})`, icon: FileText },
@@ -496,6 +590,285 @@ export default function UserDetail() {
               </div>
             )}
           </div>
+        </div>
+      )}
+
+      {/* Tab: Wallet & Debt */}
+      {activeTab === "wallet" && (
+        <div className="space-y-6">
+          {/* Wallet Header & Controls */}
+          <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="p-3 bg-emerald-100 text-emerald-700 rounded-2xl shrink-0">
+                <Wallet className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-base font-black text-slate-900 flex items-center gap-2">
+                  <span>Ví DkTEST & Sổ Công Nợ Chi Tiết</span>
+                </h3>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Quản lý số dư, lịch sử giao dịch và đối soát công nợ của học sinh {user.displayName || user.email}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 self-stretch sm:self-center">
+              <button
+                type="button"
+                onClick={() => loadWalletData(true)}
+                disabled={walletLoading}
+                className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3.5 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-xl text-xs font-bold transition-colors cursor-pointer disabled:opacity-50"
+                title="Làm mới dữ liệu ví"
+              >
+                <RotateCw className={`w-3.5 h-3.5 ${walletLoading ? "animate-spin text-emerald-600" : ""}`} />
+                <span>{walletLoading ? "Đang tải..." : "Làm mới"}</span>
+              </button>
+
+              <Link
+                to={`/admin/wallet?search=${encodeURIComponent(user.displayName || user.username || user.uid)}`}
+                className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-colors shadow-xs"
+                title="Mở trong trang Quản lý Ví"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span>Mở trong Quản lý Ví</span>
+              </Link>
+            </div>
+          </div>
+
+          {walletLoading && !walletData ? (
+            <div className="bg-white rounded-3xl p-12 text-center text-slate-400 border border-slate-200 space-y-3">
+              <Loader2 className="w-8 h-8 animate-spin mx-auto text-emerald-600" />
+              <p className="text-xs font-bold">Đang tải chi tiết ví và công nợ của học sinh...</p>
+            </div>
+          ) : walletError ? (
+            <div className="bg-white rounded-3xl p-8 text-center border border-red-200 space-y-3">
+              <AlertTriangle className="w-8 h-8 text-red-500 mx-auto" />
+              <p className="text-xs font-bold text-red-600">{walletError}</p>
+              <button
+                type="button"
+                onClick={() => loadWalletData(true)}
+                className="px-4 py-2 bg-red-50 hover:bg-red-100 text-red-700 rounded-xl text-xs font-bold"
+              >
+                Thử lại
+              </button>
+            </div>
+          ) : !walletData?.wallet ? (
+            <div className="bg-white rounded-3xl p-8 text-center text-slate-500 border border-slate-200 space-y-3">
+              <Coins className="w-8 h-8 text-slate-400 mx-auto" />
+              <p className="text-xs font-bold text-slate-700">Chưa tìm thấy dữ liệu ví của học sinh này.</p>
+              <p className="text-xs text-slate-400">Học sinh có thể chưa được đồng bộ tài khoản vào hệ thống ví.</p>
+              <Link
+                to="/admin/wallet"
+                className="inline-block px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-colors"
+              >
+                Đến Quản lý Ví để Đồng bộ
+              </Link>
+            </div>
+          ) : (
+            (() => {
+              const w = walletData.wallet;
+              const remainingDebt =
+                typeof w.remainingDebtVnd === "number"
+                  ? w.remainingDebtVnd
+                  : Math.max(0, (w.totalReceivableVnd || 0) - (w.totalCollectedVnd || 0) - (w.totalAdjustedVnd || 0));
+
+              return (
+                <div className="space-y-6">
+                  {/* Financial Metrics Cards */}
+                  <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
+                    <div className="bg-white p-4 rounded-2xl border border-emerald-200 shadow-2xs space-y-1">
+                      <p className="text-[10px] font-black uppercase tracking-wider text-emerald-600">Số dư ví</p>
+                      <p className="text-lg sm:text-xl font-black text-emerald-700">
+                        {w.balanceVnd.toLocaleString("vi-VN")}đ
+                      </p>
+                      <span className="text-[10px] text-slate-400 block">Khả dụng thanh toán đề</span>
+                    </div>
+
+                    <div className="bg-white p-4 rounded-2xl border border-blue-200 shadow-2xs space-y-1">
+                      <p className="text-[10px] font-black uppercase tracking-wider text-blue-600">Phát sinh phải thu</p>
+                      <p className="text-lg sm:text-xl font-black text-blue-700">
+                        {(w.totalReceivableVnd || 0).toLocaleString("vi-VN")}đ
+                      </p>
+                      <span className="text-[10px] text-slate-400 block">Tổng học phí / dịch vụ</span>
+                    </div>
+
+                    <div className="bg-white p-4 rounded-2xl border border-teal-200 shadow-2xs space-y-1">
+                      <p className="text-[10px] font-black uppercase tracking-wider text-teal-600">Đã thu thực tế</p>
+                      <p className="text-lg sm:text-xl font-black text-teal-700">
+                        {(w.totalCollectedVnd || 0).toLocaleString("vi-VN")}đ
+                      </p>
+                      <span className="text-[10px] text-slate-400 block">Đã thanh toán ngoại tuyến</span>
+                    </div>
+
+                    <div className="bg-white p-4 rounded-2xl border border-purple-200 shadow-2xs space-y-1">
+                      <p className="text-[10px] font-black uppercase tracking-wider text-purple-600">Điều chỉnh công nợ</p>
+                      <p className="text-lg sm:text-xl font-black text-purple-700">
+                        {(w.totalAdjustedVnd || 0).toLocaleString("vi-VN")}đ
+                      </p>
+                      <span className="text-[10px] text-slate-400 block">Miễn giảm / bù trừ</span>
+                    </div>
+
+                    <div className="col-span-2 lg:col-span-1 bg-white p-4 rounded-2xl border border-rose-200 shadow-2xs space-y-1">
+                      <p className="text-[10px] font-black uppercase tracking-wider text-rose-600">Công nợ còn lại</p>
+                      <p className="text-lg sm:text-xl font-black text-rose-700">
+                        {remainingDebt.toLocaleString("vi-VN")}đ
+                      </p>
+                      <div className="flex items-center gap-1 mt-0.5">
+                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                          w.debtStatus === "in_debt" || remainingDebt > 0
+                            ? "bg-rose-100 text-rose-700"
+                            : w.debtStatus === "warning"
+                            ? "bg-amber-100 text-amber-700"
+                            : "bg-emerald-100 text-emerald-700"
+                        }`}>
+                          {remainingDebt > 0 ? "Còn nợ học phí" : "Đã hoàn tất"}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* KYC & Identity Info */}
+                  <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                      <div className={`p-2.5 rounded-xl shrink-0 ${w.isVerified ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"}`}>
+                        <ShieldCheck className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-black text-slate-900">Danh Tính Xác Thực Ví (KYC)</span>
+                          <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                            w.isVerified
+                              ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                              : "bg-amber-50 text-amber-700 border border-amber-200"
+                          }`}>
+                            {w.isVerified ? "Đã xác thực danh tính" : "Chưa xác thực KYC"}
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-500 mt-0.5">
+                          Tên đối soát: <strong className="text-slate-800">{w.verifiedName || w.fullName || "Chưa thiết lập"}</strong>
+                          {w.currentClass && <span> • Lớp: <strong className="text-slate-800">{w.currentClass}</strong></span>}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Entitlements (Đề thi đã mở khóa) */}
+                  <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200 shadow-xs space-y-3">
+                    <h4 className="text-xs font-black uppercase tracking-wider text-slate-900 flex items-center justify-between">
+                      <span className="flex items-center gap-2">
+                        <Lock className="w-4 h-4 text-purple-600" />
+                        <span>Danh Sách Đề Thi Đã Mở Khóa ({walletData.entitlements?.length || 0})</span>
+                      </span>
+                    </h4>
+
+                    {(!walletData.entitlements || walletData.entitlements.length === 0) ? (
+                      <p className="text-xs text-slate-400 italic py-2">Học sinh chưa mở khóa đề thi trả phí nào.</p>
+                    ) : (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
+                        {walletData.entitlements.map((en: any) => (
+                          <div key={en.id || en.examId} className="p-3 bg-purple-50/50 border border-purple-100 rounded-2xl text-xs space-y-1">
+                            <div className="font-bold text-purple-950 truncate" title={en.examTitle || en.examId}>
+                              {en.examTitle || `Đề thi #${en.examId}`}
+                            </div>
+                            <div className="text-[10px] text-purple-600 flex items-center justify-between">
+                              <span>Mã: <code className="font-mono">{en.examId}</code></span>
+                              <span className="font-semibold">{en.grantedAt ? formatDate(en.grantedAt) : "Đã mở"}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Two-column Ledger: Transactions & Cash Collections */}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Wallet Transactions */}
+                    <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200 shadow-xs space-y-3">
+                      <h4 className="text-xs font-black uppercase tracking-wider text-slate-900 flex items-center gap-2">
+                        <Receipt className="w-4 h-4 text-blue-600" />
+                        <span>Lịch Sử Giao Dịch Ví ({walletData.transactions?.length || 0})</span>
+                      </h4>
+
+                      {(!walletData.transactions || walletData.transactions.length === 0) ? (
+                        <p className="text-xs text-slate-400 italic py-4 text-center">Chưa có giao dịch biến động số dư ví.</p>
+                      ) : (
+                        <div className="divide-y divide-slate-100 max-h-72 overflow-y-auto">
+                          {walletData.transactions.map((tx: any) => (
+                            <div key={tx.id} className="py-2.5 flex items-center justify-between text-xs">
+                              <div className="min-w-0 pr-3">
+                                <p className="font-bold text-slate-800 truncate">{tx.note || tx.description || "Giao dịch ví"}</p>
+                                <p className="text-[10px] text-slate-400">{tx.createdAt ? formatDate(tx.createdAt) : "—"}</p>
+                              </div>
+                              <span className={`font-black shrink-0 ${tx.amountVnd > 0 ? "text-emerald-600" : "text-rose-600"}`}>
+                                {tx.amountVnd > 0 ? "+" : ""}{tx.amountVnd.toLocaleString("vi-VN")}đ
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Cash Collection & Debt Adjustments */}
+                    <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200 shadow-xs space-y-3">
+                      <h4 className="text-xs font-black uppercase tracking-wider text-slate-900 flex items-center gap-2">
+                        <Coins className="w-4 h-4 text-amber-600" />
+                        <span>Phiếu Thu & Điều Chỉnh Công Nợ ({walletData.debtRecords?.length || 0})</span>
+                      </h4>
+
+                      {(!walletData.debtRecords || walletData.debtRecords.length === 0) ? (
+                        <p className="text-xs text-slate-400 italic py-4 text-center">Chưa có phiếu thu tiền mặt hoặc điều chỉnh nợ.</p>
+                      ) : (
+                        <div className="divide-y divide-slate-100 max-h-72 overflow-y-auto">
+                          {walletData.debtRecords.map((dr: any) => (
+                            <div key={dr.id} className="py-2.5 flex items-center justify-between text-xs">
+                              <div className="min-w-0 pr-3">
+                                <p className="font-bold text-slate-800 truncate">
+                                  {dr.type === "cash_collection" || dr.type === "manual_receivable" ? "Phiếu thu tiền mặt" : "Điều chỉnh công nợ"}
+                                </p>
+                                <p className="text-[10px] text-slate-400 truncate">{dr.note || dr.reason || "Bản ghi công nợ"} • {dr.createdAt ? formatDate(dr.createdAt) : "—"}</p>
+                              </div>
+                              <span className="font-black text-slate-900 shrink-0">
+                                {dr.amountVnd.toLocaleString("vi-VN")}đ
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Deposit Requests if any */}
+                  {walletData.depositRequests && walletData.depositRequests.length > 0 && (
+                    <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200 shadow-xs space-y-3">
+                      <h4 className="text-xs font-black uppercase tracking-wider text-slate-900 flex items-center gap-2">
+                        <CreditCard className="w-4 h-4 text-indigo-600" />
+                        <span>Yêu Cầu Nạp Tiền Chuyển Khoản ({walletData.depositRequests.length})</span>
+                      </h4>
+
+                      <div className="divide-y divide-slate-100 max-h-60 overflow-y-auto">
+                        {walletData.depositRequests.map((req: any) => (
+                          <div key={req.id} className="py-2.5 flex items-center justify-between text-xs">
+                            <div>
+                              <p className="font-bold text-slate-800">Mã chuyển: {req.transferCode || req.id}</p>
+                              <p className="text-[10px] text-slate-400">{req.createdAt ? formatDate(req.createdAt) : "—"} • {req.paymentMethod || "Ngân hàng"}</p>
+                            </div>
+                            <div className="text-right">
+                              <p className="font-black text-emerald-600">{(req.amountVnd || 0).toLocaleString("vi-VN")}đ</p>
+                              <span className={`inline-block px-2 py-0.5 rounded-full text-[9px] font-bold ${
+                                req.status === "approved" ? "bg-emerald-50 text-emerald-700" : req.status === "rejected" ? "bg-rose-50 text-rose-700" : "bg-amber-50 text-amber-700"
+                              }`}>
+                                {req.status === "approved" ? "Thành công" : req.status === "rejected" ? "Từ chối" : "Đang chờ duyệt"}
+                              </span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })()
+          )}
         </div>
       )}
 
@@ -776,6 +1149,96 @@ export default function UserDetail() {
           onConfirm={handleDelete}
           onCancel={() => setShowDeleteModal(false)}
         />
+      )}
+
+      {/* Suspend Account Modal with Custom Reason */}
+      {showSuspendModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl max-w-lg w-full border border-slate-200 shadow-2xl p-6 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="p-3 bg-red-100 text-red-600 rounded-2xl shrink-0">
+                <ShieldAlert className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-base font-black text-slate-900">
+                  Tạm khoá tài khoản học sinh
+                </h3>
+                <p className="text-xs text-slate-500 font-mono">
+                  {user.displayName || user.email} (UID: {user.uid})
+                </p>
+              </div>
+            </div>
+
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Khi bị tạm khoá, học sinh sẽ không thể đăng nhập hoặc làm bài thi. Hệ thống sẽ hiển thị lý do này cho học sinh trên màn hình thông báo.
+            </p>
+
+            <div className="space-y-2">
+              <label className="block text-xs font-bold text-slate-700">
+                Lý do tạm khoá tài khoản <span className="text-red-500">*</span>
+              </label>
+              <textarea
+                value={suspendReason}
+                onChange={(e) => setSuspendReason(e.target.value)}
+                placeholder="Nhập lý do cụ thể để học sinh biết khi vào web..."
+                rows={3}
+                className="w-full p-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-red-500"
+              />
+
+              {/* Quick suggestions */}
+              <div className="space-y-1.5 pt-1">
+                <span className="text-[11px] font-bold text-slate-400">Gợi ý lý do nhanh:</span>
+                <div className="flex flex-wrap gap-1.5">
+                  {[
+                    "Gian lận trong quá trình làm bài thi",
+                    "Vi phạm quy chế thi trực tuyến",
+                    "Chưa hoàn tất học phí / công nợ quá hạn",
+                    "Theo yêu cầu xác minh từ phụ huynh",
+                    "Tài khoản có dấu hiệu đăng nhập bất thường",
+                  ].map((preset) => (
+                    <button
+                      key={preset}
+                      type="button"
+                      onClick={() => setSuspendReason(preset)}
+                      className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-[11px] font-semibold transition-colors cursor-pointer text-left"
+                    >
+                      + {preset}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-3 border-t border-slate-100 flex items-center justify-end gap-2.5">
+              <button
+                type="button"
+                onClick={() => setShowSuspendModal(false)}
+                disabled={isSubmittingSuspend}
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-colors cursor-pointer"
+              >
+                Hủy bỏ
+              </button>
+              <button
+                type="button"
+                onClick={confirmSuspendAccount}
+                disabled={isSubmittingSuspend}
+                className="px-5 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold transition-all shadow-md hover:shadow-lg flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+              >
+                {isSubmittingSuspend ? (
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    <span>Đang khoá...</span>
+                  </>
+                ) : (
+                  <>
+                    <ShieldAlert className="w-3.5 h-3.5" />
+                    <span>Xác nhận tạm khoá</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

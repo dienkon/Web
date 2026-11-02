@@ -1,15 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Bell, Check, ExternalLink, Info, Award, ShieldAlert, HeartHandshake } from "lucide-react";
+import { Bell, Check, ExternalLink, Info, Award, ShieldAlert, HeartHandshake, Loader2, Send, RotateCw } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import { fetchUserNotifications, markNotificationAsRead } from "../../services/notificationService";
 import type { SystemNotification } from "../../types";
 import { Link } from "react-router-dom";
+import AnnouncementManagerModal from "./AnnouncementManagerModal";
 
 export default function NotificationCenter() {
   const { user, role } = useAuth();
   const [notifications, setNotifications] = useState<SystemNotification[]>([]);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [hasLoaded, setHasLoaded] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
+  const [showAnnouncementModal, setShowAnnouncementModal] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const isAdmin =
@@ -17,24 +21,31 @@ export default function NotificationCenter() {
     role === "super_admin" ||
     Boolean(localStorage.getItem("admin_token") || localStorage.getItem("dktest:admin_token"));
 
-  const loadNotifications = (forceRefresh: boolean = false) => {
+  // Only load on demand when opened, limited to 5 latest items to minimize Firestore reads
+  const loadNotifications = async (forceRefresh: boolean = false) => {
     const targetUid = user?.uid || (isAdmin ? "admin_master" : "");
     if (!targetUid && !isAdmin) return;
 
-    fetchUserNotifications(targetUid, forceRefresh, isAdmin).then((list) => {
+    try {
+      setLoading(true);
+      const list = await fetchUserNotifications(targetUid, forceRefresh, isAdmin, 5);
       setNotifications(list);
       setUnreadCount(list.filter((n) => !n.read).length);
-    });
+      setHasLoaded(true);
+    } catch (err) {
+      console.error("[NotificationCenter] Load error:", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  useEffect(() => {
-    loadNotifications(true);
-    // Poll every 30 seconds for live notification updates
-    const interval = setInterval(() => {
-      loadNotifications(true);
-    }, 30000);
-    return () => clearInterval(interval);
-  }, [user?.uid, role, isAdmin]);
+  const handleToggle = () => {
+    const nextState = !open;
+    setOpen(nextState);
+    if (nextState && !hasLoaded) {
+      loadNotifications(false);
+    }
+  };
 
   // Click outside listener
   useEffect(() => {
@@ -73,9 +84,9 @@ export default function NotificationCenter() {
     <div className="relative" ref={dropdownRef}>
       <button
         type="button"
-        onClick={() => setOpen(!open)}
+        onClick={handleToggle}
         className="relative p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
-        title="Thông báo"
+        title="Thông báo hệ thống"
       >
         <Bell className="w-5 h-5" />
         {unreadCount > 0 && (
@@ -87,19 +98,49 @@ export default function NotificationCenter() {
 
       {open && (
         <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 z-50 overflow-hidden animate-in fade-in duration-150">
-          <div className="px-4 py-3 border-b border-slate-100 flex items-center justify-between">
-            <h4 className="text-xs font-bold text-slate-800">Thông báo ({notifications.length})</h4>
-            {unreadCount > 0 && (
-              <span className="text-[11px] font-semibold text-blue-600">
-                {unreadCount} chưa đọc
-              </span>
-            )}
+          <div className="px-4 py-3 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+            <div>
+              <h4 className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                <span>Thông báo</span>
+                <span className="text-[10px] text-slate-400 font-normal">(5 gần nhất)</span>
+              </h4>
+            </div>
+            <div className="flex items-center gap-1.5">
+              {isAdmin && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    setShowAnnouncementModal(true);
+                  }}
+                  className="px-2 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 text-[10px] font-bold rounded-lg transition-colors flex items-center gap-1 cursor-pointer"
+                  title="Soạn thông báo / Popup gửi học sinh"
+                >
+                  <Send className="w-3 h-3" />
+                  <span>Soạn thông báo</span>
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={() => loadNotifications(true)}
+                disabled={loading}
+                className="p-1 text-slate-400 hover:text-slate-600 rounded-lg transition-colors cursor-pointer"
+                title="Làm mới"
+              >
+                <RotateCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-blue-600" : ""}`} />
+              </button>
+            </div>
           </div>
 
           <div className="max-h-80 overflow-y-auto divide-y divide-slate-100">
-            {notifications.length === 0 ? (
-              <div className="p-6 text-center text-xs text-slate-400">
-                Không có thông báo mới nào
+            {loading && !hasLoaded ? (
+              <div className="p-8 text-center text-xs text-slate-400 flex flex-col items-center justify-center gap-2">
+                <Loader2 className="w-5 h-5 animate-spin text-blue-600" />
+                <span>Đang tải thông báo gần nhất...</span>
+              </div>
+            ) : notifications.length === 0 ? (
+              <div className="p-8 text-center text-xs text-slate-400 italic">
+                Chưa có thông báo nào gần đây.
               </div>
             ) : (
               notifications.map((notif) => (
@@ -137,6 +178,10 @@ export default function NotificationCenter() {
             )}
           </div>
         </div>
+      )}
+
+      {showAnnouncementModal && (
+        <AnnouncementManagerModal onClose={() => setShowAnnouncementModal(false)} />
       )}
     </div>
   );

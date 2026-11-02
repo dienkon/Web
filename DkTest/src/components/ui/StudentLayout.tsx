@@ -26,6 +26,8 @@ import {
 } from "lucide-react";
 import ConfirmModal from "./ConfirmModal";
 import BrandLogo from "./BrandLogo";
+import AnnouncementPopupModal from "./AnnouncementPopupModal";
+import AccountSuspendedView from "../auth/AccountSuspendedView";
 import { hasActiveExamInProgress, clearActiveExamSession } from "../../services/examSessionService";
 import { isAdminAuthenticated, clearStudentSession, clearAdminSession } from "../../services/authService";
 import { useAuth } from "../../context/AuthContext";
@@ -41,7 +43,7 @@ import { TOUR_DATA_IDS } from "../../features/student-onboarding/StudentOnboardi
 function StudentLayoutContent() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { userProfile, role, logout } = useAuth();
+  const { userProfile, role, logout, isSuspended } = useAuth();
   const { triggerAction } = useStudentOnboarding();
   const [studentInfo, setStudentInfo] = useState<{ username?: string; displayName?: string; avatarUrl?: string } | null>(null);
   const [liveAvatar, setLiveAvatar] = useState<string>("");
@@ -184,6 +186,10 @@ function StudentLayoutContent() {
     { to: "/student/profile", label: "Hồ sơ & Avatar", icon: User, tourId: TOUR_DATA_IDS.NAV_PROFILE, actionKey: "click_profile" },
     { to: "/legal-policy", label: "Bản quyền & Pháp lý", icon: ShieldCheck },
   ];
+
+  if (isSuspended) {
+    return <AccountSuspendedView />;
+  }
 
   return (
     <div className="min-h-dvh h-dvh w-full max-w-[100vw] overflow-hidden bg-slate-50 dark:bg-slate-950 font-sans text-slate-900 dark:text-slate-100 flex flex-col transition-colors duration-200">
@@ -864,6 +870,8 @@ function StudentLayoutContent() {
         cancelText="Ở lại"
         variant="danger"
       />
+
+      <AnnouncementPopupModal />
     </div>
   );
 }

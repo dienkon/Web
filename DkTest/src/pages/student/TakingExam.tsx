@@ -1767,6 +1767,23 @@ export default function TakingExam() {
           historyArr.unshift(sub.id);
           localStorage.setItem("student_submission_history", JSON.stringify(historyArr.slice(0, 100)));
         }
+
+        // Also save to recent taken exams list for home quick slots
+        const recentTakenStr = localStorage.getItem("dktest_recent_taken_exams");
+        const recentTakenArr = recentTakenStr ? JSON.parse(recentTakenStr) : [];
+        const newTakenEntry = {
+          id: sub.id,
+          examId,
+          examTitle: exam?.title || "Bài kiểm tra",
+          subject: (exam as any)?.subject || "Khảo thí",
+          score: sub.score,
+          totalScore: 10,
+          submittedAt: Date.now(),
+          status: "completed",
+          examType: (exam as any)?.examType || "quiz",
+        };
+        const updatedTaken = [newTakenEntry, ...recentTakenArr.filter((item: any) => item.examId !== examId)].slice(0, 10);
+        localStorage.setItem("dktest_recent_taken_exams", JSON.stringify(updatedTaken));
       } catch (histErr) {
         console.warn("Could not save local submission history", histErr);
       }
