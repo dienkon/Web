@@ -161,9 +161,20 @@ export default function WalletManagement() {
     balanceVnd: number;
     totalCreditedVnd?: number;
     totalSpentVnd?: number;
+    totalReceivableVnd?: number;
+    totalCollectedVnd?: number;
+    totalAdjustmentsVnd?: number;
+    remainingDebtVnd?: number;
+    debtStatus?: "in_debt" | "paid" | "has_credit";
   } | null>(null);
 
   const [editBalanceVnd, setEditBalanceVnd] = useState<number>(0);
+  const [editTotalReceivableVnd, setEditTotalReceivableVnd] = useState<number>(0);
+  const [editTotalCollectedVnd, setEditTotalCollectedVnd] = useState<number>(0);
+  const [editTotalAdjustmentsVnd, setEditTotalAdjustmentsVnd] = useState<number>(0);
+  const [editRemainingDebtVnd, setEditRemainingDebtVnd] = useState<number>(0);
+  const [editDebtStatus, setEditDebtStatus] = useState<"auto" | "in_debt" | "paid" | "has_credit">("auto");
+  const [editTargetField, setEditTargetField] = useState<string>("all");
   const [editFullName, setEditFullName] = useState<string>("");
   const [editCurrentClass, setEditCurrentClass] = useState<string>("");
   const [editWalletVerifiedName, setEditWalletVerifiedName] = useState<string>("");
@@ -404,7 +415,12 @@ export default function WalletManagement() {
   }, [allVoucherUsages, allUsagesSearch, allUsagesVoucherFilter]);
 
   // Open direct wallet edit modal from debts list
-  const openEditWalletModal = (student: StudentDebtSummary) => {
+  const openEditWalletModal = (student: StudentDebtSummary, targetField: string = "all") => {
+    const recVnd = student.totalReceivableVnd ?? student.totalReceivablesVnd ?? 0;
+    const colVnd = student.totalCollectedVnd ?? 0;
+    const adjVnd = student.totalAdjustmentsVnd ?? student.totalAdjustedVnd ?? 0;
+    const remVnd = student.remainingDebtVnd ?? 0;
+
     setEditingWalletStudent({
       uid: student.uid,
       fullName: student.fullName,
@@ -414,8 +430,19 @@ export default function WalletManagement() {
       balanceVnd: student.balanceVnd,
       totalCreditedVnd: 0,
       totalSpentVnd: 0,
+      totalReceivableVnd: recVnd,
+      totalCollectedVnd: colVnd,
+      totalAdjustmentsVnd: adjVnd,
+      remainingDebtVnd: remVnd,
+      debtStatus: student.debtStatus,
     });
     setEditBalanceVnd(student.balanceVnd || 0);
+    setEditTotalReceivableVnd(recVnd);
+    setEditTotalCollectedVnd(colVnd);
+    setEditTotalAdjustmentsVnd(adjVnd);
+    setEditRemainingDebtVnd(remVnd);
+    setEditDebtStatus(student.debtStatus || "auto");
+    setEditTargetField(targetField);
     setEditFullName(student.fullName || "");
     setEditCurrentClass(student.studentClass || student.currentClass || "");
     setEditWalletVerifiedName(student.verifiedName || student.fullName || "");
@@ -426,9 +453,15 @@ export default function WalletManagement() {
   };
 
   // Open direct wallet edit modal from student details drawer
-  const openEditWalletModalFromDetails = () => {
+  const openEditWalletModalFromDetails = (targetField: string = "all") => {
     if (!studentDetails) return;
     const w = studentDetails.wallet;
+    const matched = debts.find((d) => d.uid === w.uid);
+    const recVnd = matched?.totalReceivableVnd ?? (w as any).totalReceivableVnd ?? 0;
+    const colVnd = matched?.totalCollectedVnd ?? (w as any).totalCollectedVnd ?? 0;
+    const adjVnd = matched?.totalAdjustmentsVnd ?? (w as any).totalAdjustmentsVnd ?? 0;
+    const remVnd = matched?.remainingDebtVnd ?? (w as any).remainingDebtVnd ?? 0;
+
     setEditingWalletStudent({
       uid: w.uid,
       fullName: w.fullName,
@@ -438,8 +471,19 @@ export default function WalletManagement() {
       balanceVnd: w.balanceVnd,
       totalCreditedVnd: w.totalCreditedVnd || 0,
       totalSpentVnd: w.totalSpentVnd || 0,
+      totalReceivableVnd: recVnd,
+      totalCollectedVnd: colVnd,
+      totalAdjustmentsVnd: adjVnd,
+      remainingDebtVnd: remVnd,
+      debtStatus: matched?.debtStatus,
     });
     setEditBalanceVnd(w.balanceVnd || 0);
+    setEditTotalReceivableVnd(recVnd);
+    setEditTotalCollectedVnd(colVnd);
+    setEditTotalAdjustmentsVnd(adjVnd);
+    setEditRemainingDebtVnd(remVnd);
+    setEditDebtStatus(matched?.debtStatus || "auto");
+    setEditTargetField(targetField);
     setEditFullName(w.fullName || "");
     setEditCurrentClass(w.currentClass || "");
     setEditWalletVerifiedName(w.verifiedName || w.fullName || "");
@@ -453,22 +497,35 @@ export default function WalletManagement() {
     if (!editingWalletStudent) return;
     try {
       setSavingDirectEdit(true);
+      const computedDebtStatus =
+        editDebtStatus === "auto"
+          ? editRemainingDebtVnd > 0
+            ? "in_debt"
+            : editBalanceVnd > 0
+            ? "has_credit"
+            : "paid"
+          : editDebtStatus;
+
       const res = await adminDirectEditWalletApi(editingWalletStudent.uid, {
         balanceVnd: Number(editBalanceVnd),
+        totalReceivableVnd: Number(editTotalReceivableVnd),
+        totalCollectedVnd: Number(editTotalCollectedVnd),
+        totalAdjustmentsVnd: Number(editTotalAdjustmentsVnd),
+        remainingDebtVnd: Number(editRemainingDebtVnd),
+        debtStatus: computedDebtStatus,
         fullName: editFullName.trim(),
         currentClass: editCurrentClass.trim(),
         verifiedName: editWalletVerifiedName.trim(),
         isVerified: editWalletIsVerified,
         totalCreditedVnd: Number(editTotalCreditedVnd),
         totalSpentVnd: Number(editTotalSpentVnd),
-        reason: editReason.trim() || "Admin cập nhật ví trực tiếp",
+        reason: editReason.trim() || "Admin cập nhật số dư & chỉ số công nợ trực tiếp",
       });
-      showSuccessToast(res.message || "Đã cập nhật toàn diện ví học sinh thành công!");
+      showSuccessToast(res.message || "Đã cập nhật toàn diện chỉ số ví & công nợ thành công!");
       setEditingWalletStudent(null);
-      loadDebts();
-      loadOverview(true);
+      await Promise.all([loadDebts(debtPage, true), loadOverview(true)]);
       if (selectedStudentUid === editingWalletStudent.uid) {
-        const refreshed = await getAdminStudentWalletDetails(editingWalletStudent.uid);
+        const refreshed = await getAdminStudentWalletDetails(editingWalletStudent.uid, true);
         setStudentDetails(refreshed);
       }
     } catch (err: any) {
@@ -1489,28 +1546,67 @@ export default function WalletManagement() {
                             )}
                           </div>
                         </td>
-                        <td className="px-4 py-3 font-bold text-emerald-700">
-                          {s.balanceVnd.toLocaleString("vi-VN")}đ
+                        <td
+                          className="px-4 py-3 font-bold text-emerald-700 cursor-pointer group hover:bg-emerald-50/50 transition-colors"
+                          onClick={() => openEditWalletModal(s, "balance")}
+                          title="Bấm để chỉnh sửa số dư ví"
+                        >
+                          <div className="flex items-center gap-1.5">
+                            <span>{s.balanceVnd.toLocaleString("vi-VN")}đ</span>
+                            <Edit3 className="w-3 h-3 text-slate-300 group-hover:text-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </div>
                         </td>
-                        <td className="px-4 py-3 text-slate-600">
-                          {(s.totalReceivableVnd ?? s.totalReceivablesVnd ?? 0).toLocaleString("vi-VN")}đ
+                        <td
+                          className="px-4 py-3 text-slate-600 cursor-pointer group hover:bg-slate-100/50 transition-colors"
+                          onClick={() => openEditWalletModal(s, "receivable")}
+                          title="Bấm để chỉnh sửa phát sinh phải thu"
+                        >
+                          <div className="flex items-center gap-1.5">
+                            <span>{(s.totalReceivableVnd ?? s.totalReceivablesVnd ?? 0).toLocaleString("vi-VN")}đ</span>
+                            <Edit3 className="w-3 h-3 text-slate-300 group-hover:text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </div>
                         </td>
-                        <td className="px-4 py-3 text-blue-700 font-semibold">
-                          {s.totalCollectedVnd.toLocaleString("vi-VN")}đ
+                        <td
+                          className="px-4 py-3 text-blue-700 font-semibold cursor-pointer group hover:bg-blue-50/50 transition-colors"
+                          onClick={() => openEditWalletModal(s, "collected")}
+                          title="Bấm để chỉnh sửa đã thu thực tế"
+                        >
+                          <div className="flex items-center gap-1.5">
+                            <span>{s.totalCollectedVnd.toLocaleString("vi-VN")}đ</span>
+                            <Edit3 className="w-3 h-3 text-slate-300 group-hover:text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </div>
                         </td>
-                        <td className="px-4 py-3 text-slate-500">
-                          {(s.totalAdjustmentsVnd ?? s.totalAdjustedVnd ?? 0).toLocaleString("vi-VN")}đ
+                        <td
+                          className="px-4 py-3 text-slate-500 cursor-pointer group hover:bg-slate-100/50 transition-colors"
+                          onClick={() => openEditWalletModal(s, "adjustments")}
+                          title="Bấm để chỉnh sửa khoản điều chỉnh"
+                        >
+                          <div className="flex items-center gap-1.5">
+                            <span>{(s.totalAdjustmentsVnd ?? s.totalAdjustedVnd ?? 0).toLocaleString("vi-VN")}đ</span>
+                            <Edit3 className="w-3 h-3 text-slate-300 group-hover:text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </div>
                         </td>
-                        <td className="px-4 py-3">
-                          <span
-                            className={`font-black text-sm ${
-                              s.remainingDebtVnd > 0 ? "text-rose-600" : "text-slate-400"
-                            }`}
-                          >
-                            {s.remainingDebtVnd.toLocaleString("vi-VN")}đ
-                          </span>
+                        <td
+                          className="px-4 py-3 cursor-pointer group hover:bg-rose-50/50 transition-colors"
+                          onClick={() => openEditWalletModal(s, "remainingDebt")}
+                          title="Bấm để chỉnh sửa công nợ còn lại"
+                        >
+                          <div className="flex items-center gap-1.5">
+                            <span
+                              className={`font-black text-sm ${
+                                s.remainingDebtVnd > 0 ? "text-rose-600" : "text-slate-400"
+                              }`}
+                            >
+                              {s.remainingDebtVnd.toLocaleString("vi-VN")}đ
+                            </span>
+                            <Edit3 className="w-3 h-3 text-slate-300 group-hover:text-rose-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </div>
                         </td>
-                        <td className="px-4 py-3">
+                        <td
+                          className="px-4 py-3 cursor-pointer group hover:bg-slate-100/50 transition-colors"
+                          onClick={() => openEditWalletModal(s, "status")}
+                          title="Bấm để chỉnh sửa tình trạng công nợ"
+                        >
                           <span
                             className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-extrabold ${
                               s.debtStatus === "in_debt"
@@ -1553,9 +1649,9 @@ export default function WalletManagement() {
                               Điều chỉnh
                             </button>
                             <button
-                              onClick={() => openEditWalletModal(s)}
+                              onClick={() => openEditWalletModal(s, "all")}
                               className="p-1 text-slate-400 hover:text-emerald-700 hover:bg-emerald-50 rounded transition-colors cursor-pointer"
-                              title="Chỉnh sửa toàn diện số dư & hồ sơ ví"
+                              title="Chỉnh sửa mọi chỉ số: Số dư, công nợ còn lại, phải thu, đã thu & hồ sơ ví"
                             >
                               <Edit3 className="w-4 h-4" />
                             </button>
@@ -2528,7 +2624,7 @@ export default function WalletManagement() {
                         </span>
                         <button
                           type="button"
-                          onClick={openEditWalletModalFromDetails}
+                          onClick={() => openEditWalletModalFromDetails("all")}
                           className="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-[11px] font-bold shadow-2xs transition-colors cursor-pointer"
                         >
                           <Edit3 className="w-3 h-3" />
@@ -2763,14 +2859,14 @@ export default function WalletManagement() {
         </div>
       )}
 
-      {/* MODAL: DIRECT EDIT WALLET (BALANCE & KYC PROFILE) */}
+      {/* MODAL: DIRECT EDIT WALLET (BALANCE, DEBT INDICATORS & KYC PROFILE) */}
       {editingWalletStudent && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-6 space-y-4 border border-slate-200">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-xl w-full p-6 space-y-4 border border-slate-200 max-h-[92vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-2 border-b border-slate-100">
               <h3 className="text-base font-black text-slate-900 flex items-center gap-2">
-                <Edit3 className="w-5 h-5 text-emerald-600" />
-                <span>Chỉnh Sửa Toàn Diện Hồ Sơ & Số Dư Ví</span>
+                <Sliders className="w-5 h-5 text-emerald-600" />
+                <span>Chỉnh Sửa Toàn Diện Chỉ Số Ví & Công Nợ</span>
               </h3>
               <button
                 type="button"
@@ -2781,31 +2877,217 @@ export default function WalletManagement() {
               </button>
             </div>
 
-            <div className="bg-slate-50 p-3 rounded-xl text-xs space-y-1">
-              <div>Học sinh: <strong>{editingWalletStudent.fullName}</strong></div>
-              <div>UID: <span className="font-mono text-slate-500">{editingWalletStudent.uid}</span></div>
+            <div className="bg-slate-50 p-3 rounded-2xl text-xs flex flex-wrap items-center justify-between gap-2 border border-slate-200/60">
+              <div>
+                Học sinh: <strong className="text-slate-900">{editingWalletStudent.fullName}</strong>
+                {editingWalletStudent.currentClass && (
+                  <span className="ml-1.5 px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-700 font-bold text-[10px]">
+                    Lớp {editingWalletStudent.currentClass}
+                  </span>
+                )}
+              </div>
+              <div className="font-mono text-[11px] text-slate-400">
+                UID: {editingWalletStudent.uid}
+              </div>
             </div>
 
-            <div className="space-y-3">
-              {/* Balance edit */}
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
-                  Số dư ví hiện tại (VNĐ) *
-                </label>
-                <div className="relative">
+            {/* SECTION 1: CÁC CHỈ SỐ TÀI CHÍNH & CÔNG NỢ TRỰC TIẾP TRÊN BẢNG */}
+            <div className="bg-slate-50/80 p-4 rounded-2xl border border-slate-200 space-y-3.5">
+              <div className="flex items-center justify-between pb-1.5 border-b border-slate-200/60">
+                <span className="text-[11px] font-black uppercase tracking-wider text-slate-600 flex items-center gap-1.5">
+                  <DollarSign className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Các chỉ số tài chính trên bảng</span>
+                </span>
+                <span className="text-[10px] text-slate-400 italic">
+                  Admin có thể điều chỉnh mọi chỉ số
+                </span>
+              </div>
+
+              {/* Row 1: Số dư ví & Công nợ còn lại */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                {/* Số dư ví */}
+                <div className={`p-3 rounded-xl border transition-all ${
+                  editTargetField === "balance"
+                    ? "bg-emerald-50/70 border-emerald-400 ring-2 ring-emerald-400/20"
+                    : "bg-white border-slate-200"
+                }`}>
+                  <label className="block text-xs font-bold text-emerald-800 mb-1 flex items-center gap-1">
+                    <Wallet className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Số dư ví hiện tại (VNĐ) *</span>
+                  </label>
                   <input
                     type="number"
                     step="1000"
                     min="0"
                     value={editBalanceVnd}
                     onChange={(e) => setEditBalanceVnd(Math.max(0, parseInt(e.target.value || "0", 10)))}
-                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base font-black text-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg text-base font-black text-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
-                  <div className="text-[11px] font-bold text-slate-400 mt-0.5">
-                    Hiển thị: {Number(editBalanceVnd || 0).toLocaleString("vi-VN")} VNĐ
+                  <div className="text-[11px] font-bold text-slate-400 mt-1">
+                    Hiển thị: {Number(editBalanceVnd || 0).toLocaleString("vi-VN")}đ
+                  </div>
+                </div>
+
+                {/* Công nợ còn lại (prominently styled) */}
+                <div className={`p-3 rounded-xl border transition-all ${
+                  editTargetField === "remainingDebt"
+                    ? "bg-rose-50/80 border-rose-400 ring-2 ring-rose-400/20"
+                    : "bg-rose-50/30 border-rose-200"
+                }`}>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-xs font-black text-rose-700 flex items-center gap-1">
+                      <span>Công nợ còn lại (VNĐ) *</span>
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const calculated = Math.max(0, editTotalReceivableVnd - editTotalCollectedVnd - editTotalAdjustmentsVnd);
+                        setEditRemainingDebtVnd(calculated);
+                      }}
+                      className="text-[10px] text-blue-600 hover:text-blue-800 font-bold hover:underline cursor-pointer"
+                      title="Tính tự động: Phát sinh phải thu - Đã thu thực tế - Điều chỉnh"
+                    >
+                      ⚡ Tự tính theo công thức
+                    </button>
+                  </div>
+                  <input
+                    type="number"
+                    step="1000"
+                    min="0"
+                    value={editRemainingDebtVnd}
+                    onChange={(e) => setEditRemainingDebtVnd(Math.max(0, parseInt(e.target.value || "0", 10)))}
+                    className="w-full p-2 bg-white border border-rose-300 rounded-lg text-base font-black text-rose-600 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                  />
+                  <div className="text-[11px] font-bold text-rose-600 mt-1 flex items-center justify-between">
+                    <span>Hiển thị: {Number(editRemainingDebtVnd || 0).toLocaleString("vi-VN")}đ</span>
+                    {editRemainingDebtVnd === 0 && (
+                      <span className="text-emerald-600 text-[10px] font-bold">✓ Đã xóa sạch nợ</span>
+                    )}
                   </div>
                 </div>
               </div>
+
+              {/* Row 2: Phát sinh phải thu, Đã thu thực tế, Điều chỉnh */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {/* Phát sinh phải thu */}
+                <div className={`p-2.5 rounded-xl border transition-all ${
+                  editTargetField === "receivable"
+                    ? "bg-slate-100 border-slate-400 ring-2 ring-slate-400/20"
+                    : "bg-white border-slate-200"
+                }`}>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    Phát sinh phải thu (VNĐ)
+                  </label>
+                  <input
+                    type="number"
+                    step="1000"
+                    min="0"
+                    value={editTotalReceivableVnd}
+                    onChange={(e) => setEditTotalReceivableVnd(Math.max(0, parseInt(e.target.value || "0", 10)))}
+                    className="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  />
+                  <div className="text-[10px] text-slate-400 mt-0.5">
+                    {Number(editTotalReceivableVnd || 0).toLocaleString("vi-VN")}đ
+                  </div>
+                </div>
+
+                {/* Đã thu thực tế */}
+                <div className={`p-2.5 rounded-xl border transition-all ${
+                  editTargetField === "collected"
+                    ? "bg-blue-50/70 border-blue-400 ring-2 ring-blue-400/20"
+                    : "bg-white border-slate-200"
+                }`}>
+                  <label className="block text-[11px] font-bold text-blue-800 mb-1">
+                    Đã thu thực tế (VNĐ)
+                  </label>
+                  <input
+                    type="number"
+                    step="1000"
+                    min="0"
+                    value={editTotalCollectedVnd}
+                    onChange={(e) => setEditTotalCollectedVnd(Math.max(0, parseInt(e.target.value || "0", 10)))}
+                    className="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-bold text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                  <div className="text-[10px] text-blue-600 mt-0.5">
+                    {Number(editTotalCollectedVnd || 0).toLocaleString("vi-VN")}đ
+                  </div>
+                </div>
+
+                {/* Điều chỉnh */}
+                <div className={`p-2.5 rounded-xl border transition-all ${
+                  editTargetField === "adjustments"
+                    ? "bg-slate-100 border-slate-400 ring-2 ring-slate-400/20"
+                    : "bg-white border-slate-200"
+                }`}>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    Điều chỉnh (VNĐ)
+                  </label>
+                  <input
+                    type="number"
+                    step="1000"
+                    min="0"
+                    value={editTotalAdjustmentsVnd}
+                    onChange={(e) => setEditTotalAdjustmentsVnd(Math.max(0, parseInt(e.target.value || "0", 10)))}
+                    className="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  />
+                  <div className="text-[10px] text-slate-400 mt-0.5">
+                    {Number(editTotalAdjustmentsVnd || 0).toLocaleString("vi-VN")}đ
+                  </div>
+                </div>
+              </div>
+
+              {/* Row 3: Tình trạng công nợ */}
+              <div className="p-3 bg-white rounded-xl border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <div className="w-full sm:w-auto">
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    Tình trạng công nợ
+                  </label>
+                  <select
+                    value={editDebtStatus}
+                    onChange={(e) => setEditDebtStatus(e.target.value as any)}
+                    className="p-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
+                  >
+                    <option value="auto">⚡ Tự động (Theo công nợ còn lại & số dư ví)</option>
+                    <option value="in_debt">Còn nợ (in_debt)</option>
+                    <option value="paid">Đã thu đủ (paid)</option>
+                    <option value="has_credit">Dư tiền (has_credit)</option>
+                  </select>
+                </div>
+
+                <div className="flex items-center gap-2 pt-1 sm:pt-4">
+                  <span className="text-[11px] font-medium text-slate-400">Hiển thị trên bảng:</span>
+                  {(() => {
+                    const st =
+                      editDebtStatus === "auto"
+                        ? editRemainingDebtVnd > 0
+                          ? "in_debt"
+                          : editBalanceVnd > 0
+                          ? "has_credit"
+                          : "paid"
+                        : editDebtStatus;
+                    return (
+                      <span
+                        className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-black ${
+                          st === "in_debt"
+                            ? "bg-rose-50 text-rose-700 border border-rose-200"
+                            : st === "has_credit"
+                            ? "bg-blue-50 text-blue-700 border border-blue-200"
+                            : "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                        }`}
+                      >
+                        {st === "in_debt" ? "Còn nợ" : st === "has_credit" ? "Dư tiền" : "Đã thu đủ"}
+                      </span>
+                    );
+                  })()}
+                </div>
+              </div>
+            </div>
+
+            {/* SECTION 2: THÔNG TIN HỒ SƠ & XÁC THỰC VÍ (KYC) */}
+            <div className="p-4 bg-slate-50/50 rounded-2xl border border-slate-200 space-y-3">
+              <span className="text-[11px] font-black uppercase tracking-wider text-slate-500 block">
+                Thông tin hồ sơ & xác thực ví (KYC)
+              </span>
 
               {/* Verified Name and Verification Checkbox */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -2818,10 +3100,10 @@ export default function WalletManagement() {
                     value={editWalletVerifiedName}
                     onChange={(e) => setEditWalletVerifiedName(e.target.value)}
                     placeholder="Tên thật ví..."
-                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full p-2.5 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
-                <div className="flex items-center pt-6">
+                <div className="flex items-center pt-2 sm:pt-6">
                   <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-700">
                     <input
                       type="checkbox"
@@ -2844,7 +3126,7 @@ export default function WalletManagement() {
                     type="text"
                     value={editFullName}
                     onChange={(e) => setEditFullName(e.target.value)}
-                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full p-2.5 bg-white border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
                 <div>
@@ -2856,7 +3138,7 @@ export default function WalletManagement() {
                     value={editCurrentClass}
                     onChange={(e) => setEditCurrentClass(e.target.value)}
                     placeholder="VD: 12A1"
-                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full p-2.5 bg-white border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
               </div>
@@ -2873,7 +3155,7 @@ export default function WalletManagement() {
                     min="0"
                     value={editTotalCreditedVnd}
                     onChange={(e) => setEditTotalCreditedVnd(Math.max(0, parseInt(e.target.value || "0", 10)))}
-                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full p-2.5 bg-white border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
                 <div>
@@ -2886,31 +3168,31 @@ export default function WalletManagement() {
                     min="0"
                     value={editTotalSpentVnd}
                     onChange={(e) => setEditTotalSpentVnd(Math.max(0, parseInt(e.target.value || "0", 10)))}
-                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full p-2.5 bg-white border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
               </div>
-
-              {/* Note / reason */}
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
-                  Lý do điều chỉnh / Ghi chú đối soát
-                </label>
-                <input
-                  type="text"
-                  value={editReason}
-                  onChange={(e) => setEditReason(e.target.value)}
-                  placeholder="VD: Cập nhật số dư theo thỏa thuận ngoại tuyến..."
-                  className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                />
-              </div>
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-2">
+            {/* Note / reason */}
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1">
+                Lý do điều chỉnh / Ghi chú đối soát
+              </label>
+              <input
+                type="text"
+                value={editReason}
+                onChange={(e) => setEditReason(e.target.value)}
+                placeholder="VD: Cập nhật số dư theo thỏa thuận ngoại tuyến..."
+                className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              />
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
               <button
                 type="button"
                 onClick={() => setEditingWalletStudent(null)}
-                className="px-4 py-2 bg-slate-100 text-slate-700 font-bold text-xs rounded-xl cursor-pointer"
+                className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl cursor-pointer transition-colors"
               >
                 Hủy bỏ
               </button>
@@ -2918,9 +3200,16 @@ export default function WalletManagement() {
                 type="button"
                 disabled={savingDirectEdit}
                 onClick={handleConfirmDirectEditWallet}
-                className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-xs cursor-pointer"
+                className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-xs cursor-pointer transition-colors flex items-center gap-1.5"
               >
-                {savingDirectEdit ? "Đang lưu..." : "Lưu thay đổi ví"}
+                {savingDirectEdit ? (
+                  <>
+                    <RotateCw className="w-3.5 h-3.5 animate-spin" />
+                    <span>Đang lưu...</span>
+                  </>
+                ) : (
+                  <span>Lưu tất cả thay đổi</span>
+                )}
               </button>
             </div>
           </div>

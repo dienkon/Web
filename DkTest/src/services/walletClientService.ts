@@ -631,12 +631,12 @@ export async function getAdminStudentDebtList(params?: {
       };
     }
 
-    const debtByUid = new Map<string, { totalReceivable: number; totalCollected: number; remainingDebt: number }>();
+    const debtByUid = new Map<string, { totalReceivable: number; totalCollected: number; totalAdjusted: number; remainingDebt: number }>();
     debtsSnap.docs.forEach((d: any) => {
       const rec = d.data() as DebtRecord;
       const uid = rec.uid;
       if (!debtByUid.has(uid)) {
-        debtByUid.set(uid, { totalReceivable: 0, totalCollected: 0, remainingDebt: 0 });
+        debtByUid.set(uid, { totalReceivable: 0, totalCollected: 0, totalAdjusted: 0, remainingDebt: 0 });
       }
       const curr = debtByUid.get(uid)!;
       // CRITICAL: Cash collection receipts are payment proofs, NOT receivables!
@@ -644,6 +644,9 @@ export async function getAdminStudentDebtList(params?: {
         curr.totalReceivable += rec.amountVnd || 0;
         curr.totalCollected += rec.collectedVnd || 0;
         curr.remainingDebt += Math.max(0, rec.remainingVnd || 0);
+      }
+      if (rec.type === "adjustment" || (rec as any).adjustedVnd) {
+        curr.totalAdjusted += (rec as any).adjustedVnd || 0;
       }
     });
 
@@ -658,10 +661,35 @@ export async function getAdminStudentDebtList(params?: {
     let summaries: StudentDebtSummary[] = [];
     walletsSnap.docs.forEach((d: any) => {
       const w = d.data() as StudentWallet;
-      const debtInfo = debtByUid.get(w.uid) || { totalReceivable: 0, totalCollected: 0, remainingDebt: 0 };
+      const debtInfo = debtByUid.get(w.uid) || { totalReceivable: 0, totalCollected: 0, totalAdjusted: 0, remainingDebt: 0 };
+      const hasManualDebt = (w as any).debtManualOverride === true || (w as any).remainingDebtVnd !== undefined;
+      const remainingDebtVnd = hasManualDebt && (w as any).remainingDebtVnd !== undefined
+        ? Number((w as any).remainingDebtVnd) || 0
+        : debtInfo.remainingDebt;
+      const totalReceivableVnd = hasManualDebt && (w as any).totalReceivableVnd !== undefined
+        ? Number((w as any).totalReceivableVnd) || 0
+        : (w as any).totalReceivableVnd !== undefined
+        ? Number((w as any).totalReceivableVnd) || 0
+        : debtInfo.totalReceivable;
+      const totalCollectedVnd = hasManualDebt && (w as any).totalCollectedVnd !== undefined
+        ? Number((w as any).totalCollectedVnd) || 0
+        : (w as any).totalCollectedVnd !== undefined
+        ? Number((w as any).totalCollectedVnd) || 0
+        : debtInfo.totalCollected;
+      const totalAdjustmentsVnd = hasManualDebt && (w as any).totalAdjustmentsVnd !== undefined
+        ? Number((w as any).totalAdjustmentsVnd) || 0
+        : (w as any).totalAdjustmentsVnd !== undefined
+        ? Number((w as any).totalAdjustmentsVnd) || 0
+        : debtInfo.totalAdjusted;
+
       let debtStatus: "in_debt" | "paid" | "has_credit" = "paid";
-      if (debtInfo.remainingDebt > 0) debtStatus = "in_debt";
-      else if ((w.balanceVnd || 0) > 0) debtStatus = "has_credit";
+      if ((w as any).debtStatus) {
+        debtStatus = (w as any).debtStatus;
+      } else if (remainingDebtVnd > 0) {
+        debtStatus = "in_debt";
+      } else if ((w.balanceVnd || 0) > 0) {
+        debtStatus = "has_credit";
+      }
 
       summaries.push({
         uid: w.uid,
@@ -669,12 +697,12 @@ export async function getAdminStudentDebtList(params?: {
         studentClass: w.currentClass || "—",
         currentClass: w.currentClass || "—",
         balanceVnd: w.balanceVnd || 0,
-        totalReceivableVnd: debtInfo.totalReceivable,
-        totalReceivablesVnd: debtInfo.totalReceivable,
-        totalCollectedVnd: debtInfo.totalCollected,
-        totalAdjustmentsVnd: 0,
-        totalAdjustedVnd: 0,
-        remainingDebtVnd: debtInfo.remainingDebt,
+        totalReceivableVnd,
+        totalReceivablesVnd: totalReceivableVnd,
+        totalCollectedVnd,
+        totalAdjustmentsVnd,
+        totalAdjustedVnd: totalAdjustmentsVnd,
+        remainingDebtVnd,
         totalPurchasesCount: unlocksByUid.get(w.uid) || 0,
         debtStatus,
         lastActivityAt: w.updatedAt || w.createdAt,
@@ -1436,6 +1464,28 @@ export async function adminDirectEditWalletApi(
     payload.balanceVnd !== undefined ? Math.max(0, Math.round(Number(payload.balanceVnd) || 0)) : prevBal;
   updates.balanceVnd = newBal;
 
+  if (payload.totalReceivableVnd !== undefined) {
+    updates.totalReceivableVnd = Math.max(0, Math.round(Number(payload.totalReceivableVnd) || 0));
+    updates.totalReceivablesVnd = updates.totalReceivableVnd;
+    updates.debtManualOverride = true;
+  }
+  if (payload.totalCollectedVnd !== undefined) {
+    updates.totalCollectedVnd = Math.max(0, Math.round(Number(payload.totalCollectedVnd) || 0));
+    updates.debtManualOverride = true;
+  }
+  if (payload.totalAdjustmentsVnd !== undefined) {
+    updates.totalAdjustmentsVnd = Math.max(0, Math.round(Number(payload.totalAdjustmentsVnd) || 0));
+    updates.totalAdjustedVnd = updates.totalAdjustmentsVnd;
+    updates.debtManualOverride = true;
+  }
+  if (payload.remainingDebtVnd !== undefined) {
+    updates.remainingDebtVnd = Math.max(0, Math.round(Number(payload.remainingDebtVnd) || 0));
+    updates.debtManualOverride = true;
+  }
+  if (payload.debtStatus !== undefined) {
+    updates.debtStatus = payload.debtStatus;
+  }
+
   await setDoc(wRef, { ...currentWallet, ...updates }, { merge: true });
 
   if (newBal !== prevBal) {
@@ -1454,6 +1504,107 @@ export async function adminDirectEditWalletApi(
       createdAt: now,
     };
     await setDoc(doc(db, "wallet_transactions", txId), txDoc);
+  }
+
+  if (payload.remainingDebtVnd !== undefined) {
+    const targetRemaining = Math.max(0, Math.round(Number(payload.remainingDebtVnd) || 0));
+    try {
+      const q = query(collection(db, "debt_records"), where("uid", "==", cleanUid));
+      const debtSnap = await getDocs(q);
+      const unpaidRecords = debtSnap.docs
+        .map((d) => ({ ref: d.ref, id: d.id, data: d.data() as DebtRecord }))
+        .filter(
+          (d) =>
+            d.data.type !== "cash_collection" &&
+            (d.data.status === "unpaid" || d.data.status === "partial" || (d.data.remainingVnd && d.data.remainingVnd > 0))
+        );
+
+      const currentUnpaidSum = unpaidRecords.reduce((sum, d) => sum + (d.data.remainingVnd || 0), 0);
+
+      if (targetRemaining === 0) {
+        for (const d of unpaidRecords) {
+          await setDoc(
+            d.ref,
+            {
+              remainingVnd: 0,
+              status: "paid",
+              updatedAt: now,
+              note: (d.data.note ? d.data.note + " | " : "") + (payload.note || "Admin điều chỉnh xóa công nợ về 0đ"),
+            },
+            { merge: true }
+          );
+        }
+      } else if (unpaidRecords.length > 0) {
+        if (targetRemaining <= currentUnpaidSum) {
+          let remAlloc = targetRemaining;
+          for (const d of unpaidRecords) {
+            const currentRecRem = d.data.remainingVnd || 0;
+            if (remAlloc <= 0) {
+              await setDoc(
+                d.ref,
+                {
+                  remainingVnd: 0,
+                  status: "paid",
+                  updatedAt: now,
+                  note: (d.data.note ? d.data.note + " | " : "") + (payload.note || "Admin điều chỉnh giảm công nợ"),
+                },
+                { merge: true }
+              );
+            } else if (currentRecRem <= remAlloc) {
+              remAlloc -= currentRecRem;
+            } else {
+              const newRem = remAlloc;
+              remAlloc = 0;
+              await setDoc(
+                d.ref,
+                {
+                  remainingVnd: newRem,
+                  status: "partial",
+                  updatedAt: now,
+                  note: (d.data.note ? d.data.note + " | " : "") + (payload.note || "Admin điều chỉnh công nợ"),
+                },
+                { merge: true }
+              );
+            }
+          }
+        } else {
+          const diff = targetRemaining - currentUnpaidSum;
+          const lastRec = unpaidRecords[unpaidRecords.length - 1];
+          await setDoc(
+            lastRec.ref,
+            {
+              remainingVnd: (lastRec.data.remainingVnd || 0) + diff,
+              amountVnd: Math.max(lastRec.data.amountVnd || 0, (lastRec.data.remainingVnd || 0) + diff),
+              status: "partial",
+              updatedAt: now,
+              note: (lastRec.data.note ? lastRec.data.note + " | " : "") + (payload.note || `Admin tăng công nợ +${diff.toLocaleString("vi-VN")}đ`),
+            },
+            { merge: true }
+          );
+        }
+      } else {
+        const debtId = `debt_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+        const newDebtDoc: DebtRecord = {
+          id: debtId,
+          uid: cleanUid,
+          studentNameSnapshot: (updates.fullName || currentWallet.fullName || "").trim(),
+          studentClassSnapshot: (updates.currentClass || currentWallet.currentClass || "").trim(),
+          type: "manual_receivable",
+          amountVnd: targetRemaining,
+          collectedVnd: 0,
+          allocatedVnd: 0,
+          remainingVnd: targetRemaining,
+          adjustedVnd: 0,
+          status: "unpaid",
+          note: payload.note || `Admin thiết lập công nợ trực tiếp: ${targetRemaining.toLocaleString("vi-VN")}đ`,
+          createdAt: now,
+          updatedAt: now,
+        };
+        await setDoc(doc(db, "debt_records", debtId), newDebtDoc);
+      }
+    } catch (debtSyncErr) {
+      console.warn("[walletClientService] Could not sync debt_records in fallback mode:", debtSyncErr);
+    }
   }
 
   invalidateAdminDebtFallbackCache();

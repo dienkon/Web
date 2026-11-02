@@ -2436,13 +2436,13 @@ export async function getStudentDebtSummaries(options?: {
   // Aggregate student debts
   const debtByUid = new Map<
     string,
-    { totalReceivable: number; totalCollected: number; remainingDebt: number }
+    { totalReceivable: number; totalCollected: number; totalAdjusted: number; remainingDebt: number }
   >();
 
   debtsList.forEach((rec) => {
     const uid = rec.uid;
     if (!debtByUid.has(uid)) {
-      debtByUid.set(uid, { totalReceivable: 0, totalCollected: 0, remainingDebt: 0 });
+      debtByUid.set(uid, { totalReceivable: 0, totalCollected: 0, totalAdjusted: 0, remainingDebt: 0 });
     }
     const curr = debtByUid.get(uid)!;
     // CRITICAL: Cash collection receipts are payment proofs, NOT receivables! Only receivables contribute to totalReceivable
@@ -2450,6 +2450,9 @@ export async function getStudentDebtSummaries(options?: {
       curr.totalReceivable += sanitizeVnd(rec.amountVnd);
       curr.totalCollected += sanitizeVnd(rec.collectedVnd);
       curr.remainingDebt += Math.max(0, sanitizeVnd(rec.remainingVnd));
+    }
+    if (rec.type === "adjustment" || (rec as any).adjustedVnd) {
+      curr.totalAdjusted += sanitizeVnd((rec as any).adjustedVnd);
     }
   });
 
@@ -2466,11 +2469,34 @@ export async function getStudentDebtSummaries(options?: {
     const debtInfo = debtByUid.get(w.uid) || {
       totalReceivable: 0,
       totalCollected: 0,
+      totalAdjusted: 0,
       remainingDebt: 0,
     };
 
+    const hasManualDebt = (w as any).debtManualOverride === true || (w as any).remainingDebtVnd !== undefined;
+    const remainingDebtVnd = hasManualDebt && (w as any).remainingDebtVnd !== undefined
+      ? sanitizeVnd((w as any).remainingDebtVnd)
+      : debtInfo.remainingDebt;
+    const totalReceivableVnd = hasManualDebt && (w as any).totalReceivableVnd !== undefined
+      ? sanitizeVnd((w as any).totalReceivableVnd)
+      : (w as any).totalReceivableVnd !== undefined
+      ? sanitizeVnd((w as any).totalReceivableVnd)
+      : debtInfo.totalReceivable;
+    const totalCollectedVnd = hasManualDebt && (w as any).totalCollectedVnd !== undefined
+      ? sanitizeVnd((w as any).totalCollectedVnd)
+      : (w as any).totalCollectedVnd !== undefined
+      ? sanitizeVnd((w as any).totalCollectedVnd)
+      : debtInfo.totalCollected;
+    const totalAdjustmentsVnd = hasManualDebt && (w as any).totalAdjustmentsVnd !== undefined
+      ? sanitizeVnd((w as any).totalAdjustmentsVnd)
+      : (w as any).totalAdjustmentsVnd !== undefined
+      ? sanitizeVnd((w as any).totalAdjustmentsVnd)
+      : debtInfo.totalAdjusted;
+
     let debtStatus: "in_debt" | "paid" | "has_credit" = "paid";
-    if (debtInfo.remainingDebt > 0) {
+    if ((w as any).debtStatus) {
+      debtStatus = (w as any).debtStatus;
+    } else if (remainingDebtVnd > 0) {
       debtStatus = "in_debt";
     } else if (w.balanceVnd > 0) {
       debtStatus = "has_credit";
@@ -2488,12 +2514,12 @@ export async function getStudentDebtSummaries(options?: {
       verifiedName: (w as any).verifiedName || w.fullName || "",
       isVerified: Boolean((w as any).isVerified),
       balanceVnd: sanitizeVnd(w.balanceVnd),
-      totalReceivableVnd: debtInfo.totalReceivable,
-      totalReceivablesVnd: debtInfo.totalReceivable,
-      totalCollectedVnd: debtInfo.totalCollected,
-      totalAdjustmentsVnd: 0,
-      totalAdjustedVnd: 0,
-      remainingDebtVnd: debtInfo.remainingDebt,
+      totalReceivableVnd,
+      totalReceivablesVnd: totalReceivableVnd,
+      totalCollectedVnd,
+      totalAdjustmentsVnd,
+      totalAdjustedVnd: totalAdjustmentsVnd,
+      remainingDebtVnd,
       totalPurchasesCount: unlocksByUid.get(w.uid) || 0,
       debtStatus,
       lastActivityAt: w.updatedAt || w.createdAt,
@@ -3104,6 +3130,35 @@ export async function adminDirectEditWallet(
 
   const balanceChanged = newBalance !== prevBalance;
 
+  const hasDebtEdit =
+    payload.remainingDebtVnd !== undefined ||
+    payload.totalReceivableVnd !== undefined ||
+    payload.totalCollectedVnd !== undefined ||
+    payload.totalAdjustmentsVnd !== undefined ||
+    payload.debtStatus !== undefined;
+
+  if (payload.totalReceivableVnd !== undefined) {
+    (updates as any).totalReceivableVnd = sanitizeVnd(payload.totalReceivableVnd);
+    (updates as any).totalReceivablesVnd = sanitizeVnd(payload.totalReceivableVnd);
+    (updates as any).debtManualOverride = true;
+  }
+  if (payload.totalCollectedVnd !== undefined) {
+    (updates as any).totalCollectedVnd = sanitizeVnd(payload.totalCollectedVnd);
+    (updates as any).debtManualOverride = true;
+  }
+  if (payload.totalAdjustmentsVnd !== undefined) {
+    (updates as any).totalAdjustmentsVnd = sanitizeVnd(payload.totalAdjustmentsVnd);
+    (updates as any).totalAdjustedVnd = sanitizeVnd(payload.totalAdjustmentsVnd);
+    (updates as any).debtManualOverride = true;
+  }
+  if (payload.remainingDebtVnd !== undefined) {
+    (updates as any).remainingDebtVnd = sanitizeVnd(payload.remainingDebtVnd);
+    (updates as any).debtManualOverride = true;
+  }
+  if (payload.debtStatus !== undefined) {
+    (updates as any).debtStatus = payload.debtStatus;
+  }
+
   if (adminDb) {
     const batch = adminDb.batch();
     const wRef = adminDb.collection("wallets").doc(cleanUid);
@@ -3127,6 +3182,127 @@ export async function adminDirectEditWallet(
       batch.set(txRef, txDoc);
     }
 
+    if (hasDebtEdit && payload.remainingDebtVnd !== undefined) {
+      const targetRemaining = sanitizeVnd(payload.remainingDebtVnd);
+      const debtSnap = await adminDb
+        .collection("debt_records")
+        .where("uid", "==", cleanUid)
+        .get();
+      const unpaidRecords = debtSnap.docs
+        .map((d: any) => ({ ref: d.ref, id: d.id, data: d.data() as DebtRecord }))
+        .filter((d: any) =>
+          d.data.type !== "cash_collection" &&
+          (d.data.status === "unpaid" || d.data.status === "partial" || (d.data.remainingVnd && d.data.remainingVnd > 0))
+        );
+
+      const currentUnpaidSum = unpaidRecords.reduce(
+        (sum: number, d: any) => sum + sanitizeVnd(d.data.remainingVnd),
+        0
+      );
+
+      if (targetRemaining === 0) {
+        unpaidRecords.forEach((d: any) => {
+          batch.set(
+            d.ref,
+            {
+              remainingVnd: 0,
+              status: "paid",
+              updatedAt: now,
+              note: (d.data.note ? d.data.note + " | " : "") + (payload.note || "Admin điều chỉnh xóa công nợ về 0đ"),
+            },
+            { merge: true }
+          );
+        });
+      } else if (unpaidRecords.length > 0) {
+        if (targetRemaining <= currentUnpaidSum) {
+          let remAlloc = targetRemaining;
+          unpaidRecords.forEach((d: any) => {
+            const currentRecRem = sanitizeVnd(d.data.remainingVnd);
+            if (remAlloc <= 0) {
+              batch.set(
+                d.ref,
+                {
+                  remainingVnd: 0,
+                  status: "paid",
+                  updatedAt: now,
+                  note: (d.data.note ? d.data.note + " | " : "") + (payload.note || "Admin điều chỉnh giảm công nợ"),
+                },
+                { merge: true }
+              );
+            } else if (currentRecRem <= remAlloc) {
+              remAlloc -= currentRecRem;
+            } else {
+              const newRem = remAlloc;
+              remAlloc = 0;
+              batch.set(
+                d.ref,
+                {
+                  remainingVnd: newRem,
+                  status: "partial",
+                  updatedAt: now,
+                  note: (d.data.note ? d.data.note + " | " : "") + (payload.note || "Admin điều chỉnh công nợ"),
+                },
+                { merge: true }
+              );
+            }
+          });
+        } else {
+          const diff = targetRemaining - currentUnpaidSum;
+          const lastRec = unpaidRecords[unpaidRecords.length - 1];
+          batch.set(
+            lastRec.ref,
+            {
+              remainingVnd: sanitizeVnd(lastRec.data.remainingVnd) + diff,
+              amountVnd: Math.max(
+                sanitizeVnd(lastRec.data.amountVnd),
+                sanitizeVnd(lastRec.data.remainingVnd) + diff
+              ),
+              status: "partial",
+              updatedAt: now,
+              note: (lastRec.data.note ? lastRec.data.note + " | " : "") + (payload.note || `Admin tăng công nợ +${diff.toLocaleString("vi-VN")}đ`),
+            },
+            { merge: true }
+          );
+        }
+      } else {
+        const debtId = `debt_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+        const newDebtRef = adminDb.collection("debt_records").doc(debtId);
+        const newDebtDoc: DebtRecord = {
+          id: debtId,
+          uid: cleanUid,
+          studentNameSnapshot: (updates.fullName || currentWallet.fullName || "").trim(),
+          studentClassSnapshot: (updates.currentClass || currentWallet.currentClass || "").trim(),
+          type: "manual_receivable",
+          amountVnd: targetRemaining,
+          collectedVnd: 0,
+          allocatedVnd: 0,
+          remainingVnd: targetRemaining,
+          adjustedVnd: 0,
+          status: "unpaid",
+          note: payload.note || `Admin thiết lập công nợ trực tiếp: ${targetRemaining.toLocaleString("vi-VN")}đ`,
+          createdAt: now,
+          updatedAt: now,
+        };
+        batch.set(newDebtRef, newDebtDoc);
+      }
+
+      const debtTxId = `tx_debt_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+      const debtTxRef = adminDb.collection("wallet_transactions").doc(debtTxId);
+      const debtTxDoc: WalletTransaction = {
+        id: debtTxId,
+        uid: cleanUid,
+        type: "debt_adjustment",
+        amountVnd: targetRemaining,
+        balanceBeforeVnd: prevBalance,
+        balanceAfterVnd: newBalance,
+        actorUid: adminUid,
+        actorName: adminName,
+        note: payload.note || `Admin cập nhật chỉ số công nợ: Còn lại ${targetRemaining.toLocaleString("vi-VN")}đ`,
+        createdAt: now,
+      };
+      batch.set(debtTxRef, debtTxDoc);
+    }
+
     await batch.commit();
   } else {
     const mergedWallet: StudentWallet = { ...currentWallet, ...updates };
@@ -3147,6 +3323,109 @@ export async function adminDirectEditWallet(
         createdAt: now,
       };
       await setFirestoreRestDoc("wallet_transactions", txId, txDoc);
+    }
+
+    if (hasDebtEdit && payload.remainingDebtVnd !== undefined) {
+      const targetRemaining = sanitizeVnd(payload.remainingDebtVnd);
+      const allDebts = await queryFirestoreRestDocs("debt_records", "uid", cleanUid, 50);
+      const unpaidRecords = (allDebts as DebtRecord[]).filter(
+        (d) =>
+          d.type !== "cash_collection" &&
+          (d.status === "unpaid" || d.status === "partial" || (d.remainingVnd && d.remainingVnd > 0))
+      );
+
+      const currentUnpaidSum = unpaidRecords.reduce(
+        (sum, d) => sum + sanitizeVnd(d.remainingVnd),
+        0
+      );
+
+      if (targetRemaining === 0) {
+        for (const d of unpaidRecords) {
+          await setFirestoreRestDoc("debt_records", d.id, {
+            ...d,
+            remainingVnd: 0,
+            status: "paid",
+            updatedAt: now,
+            note: (d.note ? d.note + " | " : "") + (payload.note || "Admin điều chỉnh xóa công nợ về 0đ"),
+          });
+        }
+      } else if (unpaidRecords.length > 0) {
+        if (targetRemaining <= currentUnpaidSum) {
+          let remAlloc = targetRemaining;
+          for (const d of unpaidRecords) {
+            const currentRecRem = sanitizeVnd(d.remainingVnd);
+            if (remAlloc <= 0) {
+              await setFirestoreRestDoc("debt_records", d.id, {
+                ...d,
+                remainingVnd: 0,
+                status: "paid",
+                updatedAt: now,
+                note: (d.note ? d.note + " | " : "") + (payload.note || "Admin điều chỉnh giảm công nợ"),
+              });
+            } else if (currentRecRem <= remAlloc) {
+              remAlloc -= currentRecRem;
+            } else {
+              const newRem = remAlloc;
+              remAlloc = 0;
+              await setFirestoreRestDoc("debt_records", d.id, {
+                ...d,
+                remainingVnd: newRem,
+                status: "partial",
+                updatedAt: now,
+                note: (d.note ? d.note + " | " : "") + (payload.note || "Admin điều chỉnh công nợ"),
+              });
+            }
+          }
+        } else {
+          const diff = targetRemaining - currentUnpaidSum;
+          const lastRec = unpaidRecords[unpaidRecords.length - 1];
+          await setFirestoreRestDoc("debt_records", lastRec.id, {
+            ...lastRec,
+            remainingVnd: sanitizeVnd(lastRec.remainingVnd) + diff,
+            amountVnd: Math.max(
+              sanitizeVnd(lastRec.amountVnd),
+              sanitizeVnd(lastRec.remainingVnd) + diff
+            ),
+            status: "partial",
+            updatedAt: now,
+            note: (lastRec.note ? lastRec.note + " | " : "") + (payload.note || `Admin tăng công nợ +${diff.toLocaleString("vi-VN")}đ`),
+          });
+        }
+      } else {
+        const debtId = `debt_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+        const newDebtDoc: DebtRecord = {
+          id: debtId,
+          uid: cleanUid,
+          studentNameSnapshot: (updates.fullName || currentWallet.fullName || "").trim(),
+          studentClassSnapshot: (updates.currentClass || currentWallet.currentClass || "").trim(),
+          type: "manual_receivable",
+          amountVnd: targetRemaining,
+          collectedVnd: 0,
+          allocatedVnd: 0,
+          remainingVnd: targetRemaining,
+          adjustedVnd: 0,
+          status: "unpaid",
+          note: payload.note || `Admin thiết lập công nợ trực tiếp: ${targetRemaining.toLocaleString("vi-VN")}đ`,
+          createdAt: now,
+          updatedAt: now,
+        };
+        await setFirestoreRestDoc("debt_records", debtId, newDebtDoc);
+      }
+
+      const debtTxId = `tx_debt_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+      const debtTxDoc: WalletTransaction = {
+        id: debtTxId,
+        uid: cleanUid,
+        type: "debt_adjustment",
+        amountVnd: targetRemaining,
+        balanceBeforeVnd: prevBalance,
+        balanceAfterVnd: newBalance,
+        actorUid: adminUid,
+        actorName: adminName,
+        note: payload.note || `Admin cập nhật chỉ số công nợ: Còn lại ${targetRemaining.toLocaleString("vi-VN")}đ`,
+        createdAt: now,
+      };
+      await setFirestoreRestDoc("wallet_transactions", debtTxId, debtTxDoc);
     }
   }
 

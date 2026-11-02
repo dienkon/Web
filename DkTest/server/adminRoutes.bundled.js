@@ -1863,13 +1863,16 @@ async function getStudentDebtSummaries(options) {
   debtsList.forEach((rec) => {
     const uid = rec.uid;
     if (!debtByUid.has(uid)) {
-      debtByUid.set(uid, { totalReceivable: 0, totalCollected: 0, remainingDebt: 0 });
+      debtByUid.set(uid, { totalReceivable: 0, totalCollected: 0, totalAdjusted: 0, remainingDebt: 0 });
     }
     const curr = debtByUid.get(uid);
     if (rec.type !== "cash_collection") {
       curr.totalReceivable += sanitizeVnd(rec.amountVnd);
       curr.totalCollected += sanitizeVnd(rec.collectedVnd);
       curr.remainingDebt += Math.max(0, sanitizeVnd(rec.remainingVnd));
+    }
+    if (rec.type === "adjustment" || rec.adjustedVnd) {
+      curr.totalAdjusted += sanitizeVnd(rec.adjustedVnd);
     }
   });
   const unlocksByUid = /* @__PURE__ */ new Map();
@@ -1882,10 +1885,18 @@ async function getStudentDebtSummaries(options) {
     const debtInfo = debtByUid.get(w.uid) || {
       totalReceivable: 0,
       totalCollected: 0,
+      totalAdjusted: 0,
       remainingDebt: 0
     };
+    const hasManualDebt = w.debtManualOverride === true || w.remainingDebtVnd !== void 0;
+    const remainingDebtVnd = hasManualDebt && w.remainingDebtVnd !== void 0 ? sanitizeVnd(w.remainingDebtVnd) : debtInfo.remainingDebt;
+    const totalReceivableVnd = hasManualDebt && w.totalReceivableVnd !== void 0 ? sanitizeVnd(w.totalReceivableVnd) : w.totalReceivableVnd !== void 0 ? sanitizeVnd(w.totalReceivableVnd) : debtInfo.totalReceivable;
+    const totalCollectedVnd = hasManualDebt && w.totalCollectedVnd !== void 0 ? sanitizeVnd(w.totalCollectedVnd) : w.totalCollectedVnd !== void 0 ? sanitizeVnd(w.totalCollectedVnd) : debtInfo.totalCollected;
+    const totalAdjustmentsVnd = hasManualDebt && w.totalAdjustmentsVnd !== void 0 ? sanitizeVnd(w.totalAdjustmentsVnd) : w.totalAdjustmentsVnd !== void 0 ? sanitizeVnd(w.totalAdjustmentsVnd) : debtInfo.totalAdjusted;
     let debtStatus = "paid";
-    if (debtInfo.remainingDebt > 0) {
+    if (w.debtStatus) {
+      debtStatus = w.debtStatus;
+    } else if (remainingDebtVnd > 0) {
       debtStatus = "in_debt";
     } else if (w.balanceVnd > 0) {
       debtStatus = "has_credit";
@@ -1901,12 +1912,12 @@ async function getStudentDebtSummaries(options) {
       verifiedName: w.verifiedName || w.fullName || "",
       isVerified: Boolean(w.isVerified),
       balanceVnd: sanitizeVnd(w.balanceVnd),
-      totalReceivableVnd: debtInfo.totalReceivable,
-      totalReceivablesVnd: debtInfo.totalReceivable,
-      totalCollectedVnd: debtInfo.totalCollected,
-      totalAdjustmentsVnd: 0,
-      totalAdjustedVnd: 0,
-      remainingDebtVnd: debtInfo.remainingDebt,
+      totalReceivableVnd,
+      totalReceivablesVnd: totalReceivableVnd,
+      totalCollectedVnd,
+      totalAdjustmentsVnd,
+      totalAdjustedVnd: totalAdjustmentsVnd,
+      remainingDebtVnd,
       totalPurchasesCount: unlocksByUid.get(w.uid) || 0,
       debtStatus,
       lastActivityAt: w.updatedAt || w.createdAt
@@ -2320,6 +2331,28 @@ async function adminDirectEditWallet(adminUid, adminName, studentUid, payload) {
   const newBalance = payload.balanceVnd !== void 0 ? sanitizeVnd(payload.balanceVnd) : prevBalance;
   updates.balanceVnd = newBalance;
   const balanceChanged = newBalance !== prevBalance;
+  const hasDebtEdit = payload.remainingDebtVnd !== void 0 || payload.totalReceivableVnd !== void 0 || payload.totalCollectedVnd !== void 0 || payload.totalAdjustmentsVnd !== void 0 || payload.debtStatus !== void 0;
+  if (payload.totalReceivableVnd !== void 0) {
+    updates.totalReceivableVnd = sanitizeVnd(payload.totalReceivableVnd);
+    updates.totalReceivablesVnd = sanitizeVnd(payload.totalReceivableVnd);
+    updates.debtManualOverride = true;
+  }
+  if (payload.totalCollectedVnd !== void 0) {
+    updates.totalCollectedVnd = sanitizeVnd(payload.totalCollectedVnd);
+    updates.debtManualOverride = true;
+  }
+  if (payload.totalAdjustmentsVnd !== void 0) {
+    updates.totalAdjustmentsVnd = sanitizeVnd(payload.totalAdjustmentsVnd);
+    updates.totalAdjustedVnd = sanitizeVnd(payload.totalAdjustmentsVnd);
+    updates.debtManualOverride = true;
+  }
+  if (payload.remainingDebtVnd !== void 0) {
+    updates.remainingDebtVnd = sanitizeVnd(payload.remainingDebtVnd);
+    updates.debtManualOverride = true;
+  }
+  if (payload.debtStatus !== void 0) {
+    updates.debtStatus = payload.debtStatus;
+  }
   if (adminDb) {
     const batch = adminDb.batch();
     const wRef = adminDb.collection("wallets").doc(cleanUid);
@@ -2341,6 +2374,117 @@ async function adminDirectEditWallet(adminUid, adminName, studentUid, payload) {
       };
       batch.set(txRef, txDoc);
     }
+    if (hasDebtEdit && payload.remainingDebtVnd !== void 0) {
+      const targetRemaining = sanitizeVnd(payload.remainingDebtVnd);
+      const debtSnap = await adminDb.collection("debt_records").where("uid", "==", cleanUid).get();
+      const unpaidRecords = debtSnap.docs.map((d) => ({ ref: d.ref, id: d.id, data: d.data() })).filter(
+        (d) => d.data.type !== "cash_collection" && (d.data.status === "unpaid" || d.data.status === "partial" || d.data.remainingVnd && d.data.remainingVnd > 0)
+      );
+      const currentUnpaidSum = unpaidRecords.reduce(
+        (sum, d) => sum + sanitizeVnd(d.data.remainingVnd),
+        0
+      );
+      if (targetRemaining === 0) {
+        unpaidRecords.forEach((d) => {
+          batch.set(
+            d.ref,
+            {
+              remainingVnd: 0,
+              status: "paid",
+              updatedAt: now,
+              note: (d.data.note ? d.data.note + " | " : "") + (payload.note || "Admin \u0111i\u1EC1u ch\u1EC9nh x\xF3a c\xF4ng n\u1EE3 v\u1EC1 0\u0111")
+            },
+            { merge: true }
+          );
+        });
+      } else if (unpaidRecords.length > 0) {
+        if (targetRemaining <= currentUnpaidSum) {
+          let remAlloc = targetRemaining;
+          unpaidRecords.forEach((d) => {
+            const currentRecRem = sanitizeVnd(d.data.remainingVnd);
+            if (remAlloc <= 0) {
+              batch.set(
+                d.ref,
+                {
+                  remainingVnd: 0,
+                  status: "paid",
+                  updatedAt: now,
+                  note: (d.data.note ? d.data.note + " | " : "") + (payload.note || "Admin \u0111i\u1EC1u ch\u1EC9nh gi\u1EA3m c\xF4ng n\u1EE3")
+                },
+                { merge: true }
+              );
+            } else if (currentRecRem <= remAlloc) {
+              remAlloc -= currentRecRem;
+            } else {
+              const newRem = remAlloc;
+              remAlloc = 0;
+              batch.set(
+                d.ref,
+                {
+                  remainingVnd: newRem,
+                  status: "partial",
+                  updatedAt: now,
+                  note: (d.data.note ? d.data.note + " | " : "") + (payload.note || "Admin \u0111i\u1EC1u ch\u1EC9nh c\xF4ng n\u1EE3")
+                },
+                { merge: true }
+              );
+            }
+          });
+        } else {
+          const diff = targetRemaining - currentUnpaidSum;
+          const lastRec = unpaidRecords[unpaidRecords.length - 1];
+          batch.set(
+            lastRec.ref,
+            {
+              remainingVnd: sanitizeVnd(lastRec.data.remainingVnd) + diff,
+              amountVnd: Math.max(
+                sanitizeVnd(lastRec.data.amountVnd),
+                sanitizeVnd(lastRec.data.remainingVnd) + diff
+              ),
+              status: "partial",
+              updatedAt: now,
+              note: (lastRec.data.note ? lastRec.data.note + " | " : "") + (payload.note || `Admin t\u0103ng c\xF4ng n\u1EE3 +${diff.toLocaleString("vi-VN")}\u0111`)
+            },
+            { merge: true }
+          );
+        }
+      } else {
+        const debtId = `debt_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+        const newDebtRef = adminDb.collection("debt_records").doc(debtId);
+        const newDebtDoc = {
+          id: debtId,
+          uid: cleanUid,
+          studentNameSnapshot: (updates.fullName || currentWallet.fullName || "").trim(),
+          studentClassSnapshot: (updates.currentClass || currentWallet.currentClass || "").trim(),
+          type: "manual_receivable",
+          amountVnd: targetRemaining,
+          collectedVnd: 0,
+          allocatedVnd: 0,
+          remainingVnd: targetRemaining,
+          adjustedVnd: 0,
+          status: "unpaid",
+          note: payload.note || `Admin thi\u1EBFt l\u1EADp c\xF4ng n\u1EE3 tr\u1EF1c ti\u1EBFp: ${targetRemaining.toLocaleString("vi-VN")}\u0111`,
+          createdAt: now,
+          updatedAt: now
+        };
+        batch.set(newDebtRef, newDebtDoc);
+      }
+      const debtTxId = `tx_debt_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+      const debtTxRef = adminDb.collection("wallet_transactions").doc(debtTxId);
+      const debtTxDoc = {
+        id: debtTxId,
+        uid: cleanUid,
+        type: "debt_adjustment",
+        amountVnd: targetRemaining,
+        balanceBeforeVnd: prevBalance,
+        balanceAfterVnd: newBalance,
+        actorUid: adminUid,
+        actorName: adminName,
+        note: payload.note || `Admin c\u1EADp nh\u1EADt ch\u1EC9 s\u1ED1 c\xF4ng n\u1EE3: C\xF2n l\u1EA1i ${targetRemaining.toLocaleString("vi-VN")}\u0111`,
+        createdAt: now
+      };
+      batch.set(debtTxRef, debtTxDoc);
+    }
     await batch.commit();
   } else {
     const mergedWallet = { ...currentWallet, ...updates };
@@ -2360,6 +2504,103 @@ async function adminDirectEditWallet(adminUid, adminName, studentUid, payload) {
         createdAt: now
       };
       await setFirestoreRestDoc("wallet_transactions", txId, txDoc);
+    }
+    if (hasDebtEdit && payload.remainingDebtVnd !== void 0) {
+      const targetRemaining = sanitizeVnd(payload.remainingDebtVnd);
+      const allDebts = await queryFirestoreRestDocs("debt_records", "uid", cleanUid, 50);
+      const unpaidRecords = allDebts.filter(
+        (d) => d.type !== "cash_collection" && (d.status === "unpaid" || d.status === "partial" || d.remainingVnd && d.remainingVnd > 0)
+      );
+      const currentUnpaidSum = unpaidRecords.reduce(
+        (sum, d) => sum + sanitizeVnd(d.remainingVnd),
+        0
+      );
+      if (targetRemaining === 0) {
+        for (const d of unpaidRecords) {
+          await setFirestoreRestDoc("debt_records", d.id, {
+            ...d,
+            remainingVnd: 0,
+            status: "paid",
+            updatedAt: now,
+            note: (d.note ? d.note + " | " : "") + (payload.note || "Admin \u0111i\u1EC1u ch\u1EC9nh x\xF3a c\xF4ng n\u1EE3 v\u1EC1 0\u0111")
+          });
+        }
+      } else if (unpaidRecords.length > 0) {
+        if (targetRemaining <= currentUnpaidSum) {
+          let remAlloc = targetRemaining;
+          for (const d of unpaidRecords) {
+            const currentRecRem = sanitizeVnd(d.remainingVnd);
+            if (remAlloc <= 0) {
+              await setFirestoreRestDoc("debt_records", d.id, {
+                ...d,
+                remainingVnd: 0,
+                status: "paid",
+                updatedAt: now,
+                note: (d.note ? d.note + " | " : "") + (payload.note || "Admin \u0111i\u1EC1u ch\u1EC9nh gi\u1EA3m c\xF4ng n\u1EE3")
+              });
+            } else if (currentRecRem <= remAlloc) {
+              remAlloc -= currentRecRem;
+            } else {
+              const newRem = remAlloc;
+              remAlloc = 0;
+              await setFirestoreRestDoc("debt_records", d.id, {
+                ...d,
+                remainingVnd: newRem,
+                status: "partial",
+                updatedAt: now,
+                note: (d.note ? d.note + " | " : "") + (payload.note || "Admin \u0111i\u1EC1u ch\u1EC9nh c\xF4ng n\u1EE3")
+              });
+            }
+          }
+        } else {
+          const diff = targetRemaining - currentUnpaidSum;
+          const lastRec = unpaidRecords[unpaidRecords.length - 1];
+          await setFirestoreRestDoc("debt_records", lastRec.id, {
+            ...lastRec,
+            remainingVnd: sanitizeVnd(lastRec.remainingVnd) + diff,
+            amountVnd: Math.max(
+              sanitizeVnd(lastRec.amountVnd),
+              sanitizeVnd(lastRec.remainingVnd) + diff
+            ),
+            status: "partial",
+            updatedAt: now,
+            note: (lastRec.note ? lastRec.note + " | " : "") + (payload.note || `Admin t\u0103ng c\xF4ng n\u1EE3 +${diff.toLocaleString("vi-VN")}\u0111`)
+          });
+        }
+      } else {
+        const debtId = `debt_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+        const newDebtDoc = {
+          id: debtId,
+          uid: cleanUid,
+          studentNameSnapshot: (updates.fullName || currentWallet.fullName || "").trim(),
+          studentClassSnapshot: (updates.currentClass || currentWallet.currentClass || "").trim(),
+          type: "manual_receivable",
+          amountVnd: targetRemaining,
+          collectedVnd: 0,
+          allocatedVnd: 0,
+          remainingVnd: targetRemaining,
+          adjustedVnd: 0,
+          status: "unpaid",
+          note: payload.note || `Admin thi\u1EBFt l\u1EADp c\xF4ng n\u1EE3 tr\u1EF1c ti\u1EBFp: ${targetRemaining.toLocaleString("vi-VN")}\u0111`,
+          createdAt: now,
+          updatedAt: now
+        };
+        await setFirestoreRestDoc("debt_records", debtId, newDebtDoc);
+      }
+      const debtTxId = `tx_debt_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+      const debtTxDoc = {
+        id: debtTxId,
+        uid: cleanUid,
+        type: "debt_adjustment",
+        amountVnd: targetRemaining,
+        balanceBeforeVnd: prevBalance,
+        balanceAfterVnd: newBalance,
+        actorUid: adminUid,
+        actorName: adminName,
+        note: payload.note || `Admin c\u1EADp nh\u1EADt ch\u1EC9 s\u1ED1 c\xF4ng n\u1EE3: C\xF2n l\u1EA1i ${targetRemaining.toLocaleString("vi-VN")}\u0111`,
+        createdAt: now
+      };
+      await setFirestoreRestDoc("wallet_transactions", debtTxId, debtTxDoc);
     }
   }
   const updatedWallet = {

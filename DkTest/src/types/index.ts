@@ -586,6 +586,14 @@ export interface StudentWallet {
   isVerified?: boolean; // Đã xác thực danh tính ví hay chưa
   verifiedAt?: any;
   verifiedBy?: string;
+  totalReceivableVnd?: number;
+  totalReceivablesVnd?: number;
+  totalCollectedVnd?: number;
+  totalAdjustmentsVnd?: number;
+  totalAdjustedVnd?: number;
+  remainingDebtVnd?: number;
+  debtStatus?: "in_debt" | "paid" | "has_credit";
+  debtManualOverride?: boolean;
   createdAt: any;
   updatedAt: any;
 }
@@ -771,4 +779,10 @@ export interface AdminWalletEditPayload {
   totalSpentVnd?: number;
   note?: string;
   reason?: string;
+  totalReceivableVnd?: number;
+  totalCollectedVnd?: number;
+  totalAdjustmentsVnd?: number;
+  remainingDebtVnd?: number;
+  debtStatus?: "in_debt" | "paid" | "has_credit";
+  debtManualOverride?: boolean;
 }
