@@ -194,7 +194,7 @@ export default function App() {
   // INPUT STATES
   // =========================================================
 
-  const [chainInput, setChainInput] = useState("");
+  const [chainInput, setChainInput] = useState(() => (new URLSearchParams(window.location.search).get("q") ?? "").slice(0, 300));
   const [startInput, setStartInput] = useState("");
   const [endInput, setEndInput] = useState("");
   const [minStepsInput, setMinStepsInput] = useState(3);

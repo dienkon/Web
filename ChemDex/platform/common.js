@@ -1,3 +1,4 @@
+import { mountSidebar } from './sidebar.js';
 export const normalize = (value) =>
   String(value ?? "")
     .normalize("NFD")
@@ -95,43 +96,10 @@ export function toast(message) {
   setTimeout(() => el.classList.remove("visible"), 4000);
 }
 export function shell(active) {
-  const theme = read("theme", "light");
-  document.documentElement.dataset.theme = theme;
-  document.querySelector("#site-header").innerHTML =
-    `<a class="brand" href="/" aria-label="ChemDex trang chủ"><span class="brand-mark">⌬</span>ChemDex<span class="brand-tag">CHEMISTRY, CONNECTED</span></a><nav aria-label="Điều hướng chính">${[
-      ["/", "Nguyên tố", "elements"],
-      ["/tien-ich/cau-truc-3d/", "Cấu trúc 3D", "structures"],
-      ["/lab-2d/", "Lab 2D", "lab"],
-      ["/lab-3d/", "Lab 3D", "lab3d"],
-      ["/on-tap/", "Ôn tập", "study"],
-      ["/tien-ich/", "Tiện ích", "tools"],
-    ]
-      .map(
-        ([href, label, key]) =>
-          `<a href="${href}" ${key === active ? 'aria-current="page"' : ""}>${label}</a>`,
-      )
-      .join(
-        "",
-      )}</nav><button id="open-search" class="button global-search" aria-label="Tìm kiếm nhanh toàn web" title="Tìm kiếm nhanh (Ctrl+K)"><span aria-hidden="true">⌕</span><span>Tìm nhanh</span><kbd>Ctrl K</kbd></button><button id="theme" class="icon-button" aria-label="Đổi chế độ sáng tối" title="Đổi chế độ sáng tối" aria-pressed="${theme === "dark"}">◐</button>`;
-  const openSearch = async (event) => {
-    const opener = event?.currentTarget instanceof HTMLElement ? event.currentTarget : document.activeElement;
-    try { (await import("./search.js")).openSearch(opener); }
-    catch { toast("Chưa tải được tìm kiếm. Vui lòng thử lại."); }
-  };
-  document.querySelector("#open-search").onclick = openSearch;
-  document.addEventListener("keydown", (event) => {
-    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
-      event.preventDefault();
-      openSearch();
-    }
-  });
-  document.querySelector("#theme").onclick = () => {
-    const value =
-      document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-    document.documentElement.dataset.theme = value;
-    document.querySelector("#theme").setAttribute("aria-pressed", String(value === "dark"));
-    write("theme", value);
-  };
+  mountSidebar();
+  document.body.dataset.page = active;
+  const header = document.querySelector('#site-header');
+  if (header) header.innerHTML = `<span class="shell-breadcrumb">ChemDex <span>/</span> ${{tools:'Tiện ích học tập',structures:'Cấu trúc 3D',study:'Ôn tập hóa học',elements:'Bảng tuần hoàn'}[active] ?? 'Khám phá'}</span><a class="shell-home" href="/">Bảng tuần hoàn ↗</a>`;
 }
 export function focusDialog(dialog, previous = document.activeElement) {
   dialog.showModal();

@@ -1,0 +1,11 @@
+{
+  "Phenolphthalein": {"formula":"C20H14O4","cid":4764,"source":"https://pubchem.ncbi.nlm.nih.gov/compound/4764"},
+  "Thymolphthalein": {"formula":"C28H30O4","cid":31316,"source":"https://pubchem.ncbi.nlm.nih.gov/compound/31316"},
+  "Methyl_Orange": {"formula":"C14H14N3NaO3S","cid":23673835,"source":"https://pubchem.ncbi.nlm.nih.gov/compound/23673835"},
+  "Bromothymol_Blue": {"formula":"C27H28Br2O5S","cid":6450,"source":"https://pubchem.ncbi.nlm.nih.gov/compound/6450"},
+  "Hexane": {"formula":"C6H14","cid":8058,"source":"https://pubchem.ncbi.nlm.nih.gov/compound/8058"},
+  "Starch": {"formula":"C6H10O5","note":"Hiển thị thành phần của một đơn vị lặp C6H10O5. Tinh bột là polyme có độ dài chuỗi thay đổi; đây không phải toàn bộ đại phân tử.","source":"https://www.osha.gov/chemicaldata/734"},
+  "TinhBot": {"formula":"C6H10O5","note":"Hiển thị thành phần của một đơn vị lặp C6H10O5. Hồ tinh bột chứa polyme và nước; không có một phân tử duy nhất đại diện toàn bộ dung dịch.","source":"https://www.osha.gov/chemicaldata/734"},
+  "Litmus": {"formula":"H2O","material":true,"note":"Quỳ tím là hỗn hợp chất màu trong dung dịch. Mô hình đang hiển thị nước làm minh họa dung môi; không phải phân tử quỳ tím và không đại diện toàn bộ hỗn hợp."},
+  "UniversalIndicator": {"formula":"H2O","material":true,"note":"Chỉ thị vạn năng là hỗn hợp nhiều chất chỉ thị và dung môi. Mô hình đang hiển thị nước làm minh họa dung môi; không đại diện toàn bộ thành phần của sản phẩm."}
+}

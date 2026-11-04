@@ -8,12 +8,12 @@
     <script type="importmap">
       {
         "imports": {
-          "three": "https://unpkg.com/three@0.165.0/build/three.module.js",
-          "three/examples/jsm/controls/OrbitControls.js": "https://unpkg.com/three@0.165.0/examples/jsm/controls/OrbitControls.js",
-          "three/examples/jsm/loaders/GLTFLoader.js": "https://unpkg.com/three@0.165.0/examples/jsm/loaders/GLTFLoader.js",
-          "three/examples/jsm/loaders/OBJLoader.js": "https://unpkg.com/three@0.165.0/examples/jsm/loaders/OBJLoader.js",
-          "three/examples/jsm/loaders/FBXLoader.js": "https://unpkg.com/three@0.165.0/examples/jsm/loaders/FBXLoader.js",
-          "three/examples/jsm/loaders/MTLLoader.js": "https://unpkg.com/three@0.165.0/examples/jsm/loaders/MTLLoader.js"
+          "three": "/vendor/three.module.js",
+          "three/examples/jsm/controls/OrbitControls.js": "/vendor/controls/OrbitControls.js",
+          "three/examples/jsm/loaders/GLTFLoader.js": "/vendor/loaders/GLTFLoader.js",
+          "three/examples/jsm/loaders/OBJLoader.js": "/vendor/loaders/OBJLoader.js",
+          "three/examples/jsm/loaders/FBXLoader.js": "/vendor/loaders/FBXLoader.js",
+          "three/examples/jsm/loaders/MTLLoader.js": "/vendor/loaders/MTLLoader.js"
         }
       }
     </script>
@@ -62,129 +62,11 @@
       };
     </script>
     <link rel="stylesheet" href="./css/app.css" />
+    <link rel="stylesheet" href="/platform/sidebar.css" />
+    <script type="module" src="/platform/sidebar.js"></script>
     <script src="https://www.youtube.com/iframe_api"></script>
   </head>
   <body class="flex h-screen text-slate-200 overflow-hidden">
-    <!-- Mobile Overlay -->
-    <div
-      id="mobile-overlay"
-      class="fixed inset-0 bg-black/50 z-40 hidden md:hidden"
-      onclick="toggleSidebar()"
-    ></div>
-
-    <!-- SIDEBAR -->
-    <aside
-      id="sidebar"
-      class="w-64 glass flex flex-col h-full border-r border-slate-700/50 z-50 shrink-0 absolute md:relative transform -translate-x-full md:translate-x-0"
-    >
-      <div
-        class="p-5 flex items-center justify-between border-b border-slate-700/50"
-      >
-        <div class="flex items-center gap-3">
-          <div
-            class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-500/30"
-          >
-            <i class="fa-solid fa-atom"></i>
-          </div>
-          <h1
-            class="font-bold text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300"
-          >
-            ChemDex
-          </h1>
-        </div>
-        <button
-          class="md:hidden text-slate-400 hover:text-white"
-          onclick="toggleSidebar()"
-        >
-          <i class="fa-solid fa-xmark text-xl"></i>
-        </button>
-      </div>
-
-      <nav class="flex-1 py-4 px-3 space-y-1 overflow-y-auto">
-        <button
-          onclick="nav('view-periodic')"
-          class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-300 bg-slate-800 text-white shadow-md active-nav transition-all"
-        >
-          <i class="fa-solid fa-table-cells text-blue-400 w-5"></i
-          ><span class="font-medium">Bảng Tuần Hoàn</span>
-        </button>
-        <a
-          href="/trung-tam/tai-lieu-so"
-          class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
-        >
-          <i class="fa-solid fa-book-open text-emerald-400 w-5"></i>
-          <span class="font-medium">Tài Liệu Số</span>
-        </a>
-
-        <a
-  href="/trung-tam/cong-dong"
-  class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
->
-  <i class="fa-solid fa-users text-sky-400 w-5"></i>
-  <span class="font-medium">Cộng đồng</span>
-</a>
-
-       <a
-  href="./tien-ich/"
-  class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
->
-  <i class="fa-solid fa-toolbox text-blue-400 w-5"></i>
-  <span class="font-medium">Tiện Ích Học Tập</span>
-</a>
-
-        <!-- THÍ NGHIỆM DROPDOWN ACCORDION -->
-        <div class="space-y-1">
-          <button
-            type="button"
-            id="lab-menu-toggle"
-            onclick="toggleLabMenu()"
-            class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all cursor-pointer"
-          >
-            <div class="flex items-center gap-3">
-              <i class="fa-solid fa-flask text-purple-400 w-5"></i>
-              <span class="font-medium">Thí Nghiệm</span>
-            </div>
-            <i id="lab-menu-chevron" class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200"></i>
-          </button>
-          <div
-            id="lab-submenu"
-            class="hidden pl-4 pr-1 py-1 space-y-1 bg-slate-900/40 rounded-xl border border-slate-700/40 transition-all"
-          >
-            <a
-              href="./lab-safety/"
-              class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-emerald-300 hover:text-white hover:bg-emerald-500/20 transition-all font-medium"
-            >
-              <i class="fa-solid fa-shield-halved text-emerald-400 w-4 text-center"></i>
-              <span>An toàn phòng thí nghiệm</span>
-            </a>
-            <a
-              href="./thi-nghiem.html"
-              class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-cyan-300 hover:text-white hover:bg-cyan-500/20 transition-all font-medium"
-            >
-              <i class="fa-solid fa-flask-vial text-cyan-400 w-4 text-center"></i>
-              <span>Lab 2D</span>
-            </a>
-            <a
-              href="./lab-3d/"
-              class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-purple-300 hover:text-white hover:bg-purple-500/20 transition-all font-medium"
-            >
-              <i class="fa-solid fa-cubes text-purple-400 w-4 text-center"></i>
-              <span>Lab 3D</span>
-            </a>
-          </div>
-        </div>
-
-        <a
-  href="./dau-truong/"
-  class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
->
-  <i class="fa-solid fa-trophy text-yellow-400 w-5"></i>
-  <span class="font-medium">Đấu Trường</span>
-</a>
-        
-      </nav>
-    </aside>
-
     <!-- MAIN CONTENT -->
     <main class="flex-1 flex flex-col h-full overflow-hidden relative w-full">
       <!-- TOPBAR -->
@@ -194,8 +76,8 @@
         <div class="flex items-center gap-4 flex-1">
           <button
             id="sidebarToggle"
-            class="md:hidden text-slate-400 hover:text-white"
-            onclick="toggleSidebar()"
+            class="hidden"
+            onclick="window.dispatchEvent(new Event('chemdex:toggle-menu'))"
           >
             <i class="fa-solid fa-bars text-xl"></i>
           </button>

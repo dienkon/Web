@@ -24,6 +24,11 @@ import {
 import { mountMediaBlocks } from "./model-media.js";
 
 const tableContainer = document.getElementById("periodic-table");
+// The original table keeps English labels; search also accepts Vietnamese names.
+const elementSearchNames = await fetch(new URL('../shared/elements.json', import.meta.url))
+  .then(response => response.ok ? response.json() : [])
+  .then(rows => new Map(rows.map(row => [row.symbol, row.name_vi])))
+  .catch(() => new Map());
 const GROUP_LABELS = {
   1: "IA",
   2: "IIA",
@@ -115,7 +120,9 @@ function renderPeriodicTable() {
   allElements.forEach((el) => {
     if (!el.xpos) return;
 
-    const div = document.createElement("div");
+    const div = document.createElement("button");
+    div.type = "button";
+    div.setAttribute("aria-label", `${el.number}, ${el.nameVi}, ${el.symbol}`);
     // Lưu data attr để filter/highlight dễ dàng
     let extraClasses = "";
     if (el.category === "lanthanide") extraClasses = "el-lanthanide hidden-series";
@@ -193,6 +200,7 @@ function nav(viewId) {
 
 function toggleSidebar(forceState) {
   const sidebar = document.getElementById("sidebar");
+  if (!sidebar) return;
   const overlay = document.getElementById("mobile-overlay");
   if (forceState !== undefined) {
     if (forceState) {
@@ -1074,6 +1082,7 @@ function normalizeSearchText(value = "") {
   return String(value)
     .toLowerCase()
     .trim()
+    .replace(/đ/g, "d")
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
 }
@@ -1081,7 +1090,7 @@ function normalizeSearchText(value = "") {
 function getSearchNames(el) {
   return {
     symbol: normalizeSearchText(el.symbol),
-    vi: normalizeSearchText(el.nameVi || ""),
+    vi: normalizeSearchText(`${el.nameVi || ''} ${elementSearchNames.get(el.symbol) ?? ''}`),
     en: normalizeSearchText(el.general?.englishName || el.nameEn || ""),
     number: String(el.number || ""),
   };

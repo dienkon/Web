@@ -26,15 +26,15 @@ export default function CongDongPage() {
           onOpenBookmarks={() => setBookmarksOpen(true)}
         />
 
-        <main className={`flex-1 transition-all duration-300 min-h-screen ${isDesktopSidebarOpen ? 'lg:ml-64' : 'lg:ml-0'}`}>
+        <main className={`flex-1 transition-all duration-300 min-h-screen `}>
           <Header 
             isCommunity={true}
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
-            onOpenMobileMenu={() => setMobileMenuOpen(true)}
+            onOpenMobileMenu={() => window.dispatchEvent(new Event('chemdex:toggle-menu'))}
             onOpenBookmarks={() => setBookmarksOpen(true)}
             onOpenHistory={() => setHistoryOpen(true)}
-            onToggleDesktopSidebar={() => setIsDesktopSidebarOpen(prev => !prev)}
+            onToggleDesktopSidebar={() => window.dispatchEvent(new Event('chemdex:toggle-menu'))}
             isDesktopSidebarOpen={isDesktopSidebarOpen}
           />
           <div className="px-2 sm:px-4 lg:px-6 py-2 sm:py-4 w-full max-w-full mx-auto">

@@ -1,4 +1,5 @@
 import { escape, download, storage } from "./common.js";
+import { generateStructure, toSDF } from '../shared/chemistry/structure-generator.mjs';
 let library;
 async function loadLibrary() {
   library ??= import("3dmol/src/3Dmol.ts");
@@ -16,6 +17,7 @@ export class ChemStructureViewer extends HTMLElement {
     this.querySelector("[data-hydrogen]").onchange = () => this.applyStyle();
     this.querySelector("[data-labels]").onchange = () => this.applyStyle();
     this.querySelector("[data-reset]").onclick = () => {
+      this.fallback?.reset();
       this.selected = [];
       if (this.initialView) this.viewer?.setView(this.initialView);
       else this.viewer?.zoomTo();
@@ -29,9 +31,9 @@ export class ChemStructureViewer extends HTMLElement {
       else panel.requestFullscreen?.().catch(() => {});
     };
     this.querySelector("[data-png]").onclick = () => {
-      if (!this.viewer) return;
+      if (!this.viewer && !this.fallback) return;
       const a = Object.assign(document.createElement("a"), {
-        href: this.viewer.pngURI(),
+        href: this.fallback?.pngURI() ?? this.viewer.pngURI(),
         download: `${this.record?.id ?? "structure"}.png`,
       });
       a.click();
@@ -39,12 +41,13 @@ export class ChemStructureViewer extends HTMLElement {
     this.querySelector("[data-file]").onclick = () => {
       if (this.raw)
         download(
-          `${this.record.id}.${this.record.structure.format}`,
+          `${this.record.id}.${this.rawFormat ?? 'sdf'}`,
           this.raw,
           "chemical/x-mdl-sdfile",
         );
     };
     this.observer = new ResizeObserver(() => {
+      this.fallback?.resize();
       this.viewer?.resize();
       this.viewer?.render();
     });
@@ -62,6 +65,8 @@ export class ChemStructureViewer extends HTMLElement {
     this.ready = false;
   }
   dispose() {
+    this.fallback?.destroy();
+    this.fallback = null;
     this.viewer?.destroy();
     this.querySelector(".canvas-shell")?.replaceChildren();
     this.viewer = null;
@@ -85,44 +90,50 @@ export class ChemStructureViewer extends HTMLElement {
     this.status("Đang tải cấu trúc…");
     this.querySelector(".viewer-source").innerHTML = "";
     try {
-      if (!record.structure)
-        throw new Error("Chất này chưa có dữ liệu cấu trúc phù hợp.");
-      if (record.structure.dimension !== "3d")
-        throw new Error(
-          "Nguồn hiện chỉ có cấu trúc 2D; không có cấu dạng 3D để hiển thị.",
-        );
-      let raw;
+      let raw, generated, source = record.structure;
+      if (!source || source.dimension !== '3d') {
+        generated = generateStructure(record);
+        raw = toSDF(generated, record.name_vi ?? record.formula);
+      }
       try {
-        raw = await storage("structures", "get", record.id);
+        if (!raw) raw = await storage("structures", "get", `${record.id}:${source.url}`);
       } catch {}
       if (!raw) {
-        const response = await fetch(record.structure.url, {
-          signal: controller.signal,
+        try {
+        const response = await fetch(source.url, {
+          signal: AbortSignal.any([controller.signal, AbortSignal.timeout(15000)]),
         });
         if (!response.ok)
           throw new Error(`Không tải được cấu trúc (${response.status}).`);
-        if (record.structure.remote) {
+        if (source.remote) {
           const result = await response.json();
           raw = result.data;
-          record.structure.dimension = result.dimension;
           if (result.dimension !== "3d")
-            throw new Error("Chất này chỉ có dữ liệu cấu trúc 2D.");
+            throw new Error("Nguồn chỉ có tọa độ 2D.");
         } else raw = await response.text();
         if (typeof raw !== "string" || raw.includes("<html"))
           throw new Error("Dữ liệu cấu trúc không hợp lệ.");
         try {
-          await storage("structures", "put", raw, record.id);
+          await storage("structures", "put", raw, `${record.id}:${source.url}`);
         } catch {}
+        } catch(error) {
+          if (controller.signal.aborted) return;
+          generated = generateStructure(record);
+          generated.note = 'Không tải được cấu trúc 3D có nguồn. ' + generated.note;
+          raw = toSDF(generated, record.name_vi ?? record.formula);
+        }
       }
       if (controller.signal.aborted) return;
       const mol = await loadLibrary();
       if (controller.signal.aborted || !this.isConnected) return;
       this.raw = raw;
+      this.rawFormat = generated ? 'sdf' : source.format;
       const shell = this.querySelector(".canvas-shell");
+      try {
       this.viewer = mol.createViewer(shell, {
         backgroundColor:
           document.documentElement.dataset.theme === "dark"
-            ? "#172734"
+            ? "#172235"
             : "#f4f8fa",
         antialias: !this.querySelector("[data-light]").checked,
         upscale: false,
@@ -134,10 +145,10 @@ export class ChemStructureViewer extends HTMLElement {
         ? 1
         : 2;
       this.viewer.resize();
-      this.viewer.addModel(raw, record.structure.format, { keepH: true });
+      this.viewer.addModel(raw, this.rawFormat, { keepH: true });
       this.viewer.setClickable({}, true, (atom) => this.pick(atom));
       this.applyStyle();
-      if (record.kind === "crystal") this.viewer.addUnitCell();
+      if (record.kind === "crystal" && !generated) this.viewer.addUnitCell();
       this.viewer.zoomTo();
       // Axis-aligned reference geometries can otherwise open edge-on (water
       // would look linear). Rotate only the view, never the source coordinates.
@@ -148,13 +159,21 @@ export class ChemStructureViewer extends HTMLElement {
       else if (extents[1] < 1e-5 && Math.max(...extents) > 0) this.viewer.rotate(90, "x");
       this.initialView = this.viewer.getView();
       this.viewer.render();
+      } catch (error) {
+        this.viewer?.destroy(); this.viewer = null; shell.replaceChildren();
+        const { createCanvasViewer, readSDF } = await import('./viewer-canvas.js');
+        if(controller.signal.aborted || !this.isConnected) return;
+        const model = generated ?? (this.rawFormat === 'sdf' ? readSDF(raw) : generateStructure(record));
+        if (!generated && this.rawFormat !== 'sdf') generated=model;
+        this.fallback = createCanvasViewer(shell, model, atom=>this.pick(atom));
+      }
       this.status(
-        record.kind === "crystal"
+        generated ? `${generated.atoms.length} nguyên tử · ${generated.mode === 'ions' ? 'Mô hình nhóm ion 3D' : generated.mode === 'atom' ? 'Nguyên tử 3D' : generated.mode === 'idealized' ? 'Hình học lý tưởng' : 'Mô hình thành phần 3D'} · Kéo để xoay` : record.kind === "crystal"
           ? "Ô mạng tinh thể lý tưởng — không phải một phân tử riêng lẻ."
           : "Kéo để xoay · Cuộn/chụm để thu phóng · Chọn nguyên tử để đo",
       );
       this.querySelector(".viewer-source").innerHTML =
-        `${escape(record.structure.provenance)} · <a href="${escape(record.structure.source)}" target="_blank" rel="noopener noreferrer">Nguồn dữ liệu ↗</a><br>Tọa độ là một cấu dạng tĩnh; không mô tả chuyển động phân tử theo thời gian thực.`;
+        generated ? `<span class="badge">MÔ HÌNH MINH HỌA</span><p>${escape(generated.note)}</p>` : `${escape(source.provenance)} · <a href="${escape(source.source)}" target="_blank" rel="noopener noreferrer">Nguồn dữ liệu ↗</a><br>Tọa độ là một cấu dạng tĩnh; không mô tả chuyển động phân tử theo thời gian thực.`;
     } catch (error) {
       if (controller.signal.aborted) return;
       this.status(
@@ -170,6 +189,10 @@ export class ChemStructureViewer extends HTMLElement {
     }
   }
   applyStyle() {
+    if(this.fallback) {
+      this.fallback.style({style:this.querySelector('[data-style]').value,hydrogen:this.querySelector('[data-hydrogen]').checked,labels:this.querySelector('[data-labels]').checked});
+      return;
+    }
     if (!this.viewer) return;
     const style = this.querySelector("[data-style]").value;
     const atoms = this.querySelector("[data-hydrogen]").checked
@@ -189,7 +212,7 @@ export class ChemStructureViewer extends HTMLElement {
       this.viewer.addPropertyLabels("elem", atoms, {
         fontSize: 12,
         showBackground: false,
-        fontColor: "#18394d",
+        fontColor: "#e2e8f0",
       });
     this.viewer.render();
   }

@@ -1,5 +1,7 @@
 import compounds from "../shared/compounds.json";
 import coverage from "../shared/lab-structure-coverage.json";
+import generatedCatalog from "../shared/structure-catalog.generated.json";
+import { generateStructure, structureFormula } from "../shared/chemistry/structure-generator.mjs";
 import "./viewer.js";
 import {
   shell,
@@ -23,33 +25,14 @@ let query = params.get("q") ?? "",
   favorites = read("favorite-compounds", []),
   compare = [],
   request = null;
-const records = [
-  ...compounds,
-  ...coverage.map((c) => ({
-    ...c,
-    ...(c.status === "available"
-      ? compounds.find((p) => p.id === c.compoundId)
-      : {}),
-    id: c.chemicalId,
-    kind:
-      c.status === "components"
-        ? "components"
-        : c.status === "available"
-          ? (compounds.find((p) => p.id === c.compoundId)?.kind ??
-            "unavailable")
-          : "unavailable",
-    family: c.category === "organic" ? "organic" : "inorganic",
-    lab: true,
-  })),
-];
+const records = [...compounds, ...generatedCatalog];
 document.querySelector("#app").innerHTML =
-  `${embedded ? "" : `<section class="hero"><div><div class="eyebrow">Khám phá hóa học trong không gian</div><h1>Nhìn thấy những liên kết.</h1><p>Khám phá phân tử, ion và mạng tinh thể. Mỗi cấu trúc có nguồn, mỗi góc nhìn mở ra một cách hiểu mới.</p></div><div class="hero-stat"><strong>${compounds.length}</strong><span>CẤU TRÚC TRONG KHO</span></div></section>`}<div class="toolbar panel"><label class="search"><span class="sr-only">Tìm cấu trúc</span><input id="search" type="search" placeholder="Tên chất, công thức hoặc PubChem CID…" value="${escape(query)}"></label><label><span class="sr-only">Loại cấu trúc</span><select id="kind"><option value="">Tất cả cấu trúc</option value="molecule">Phân tử</option><option value="ion">Ion</option><option value="crystal">Tinh thể</option></select></label><label><span class="sr-only">Nhóm chất</span><select id="family"><option value="">Vô cơ & hữu cơ</option value="organic">Hữu cơ</option><option value="inorganic">Vô cơ</option></select></label><label><input type="checkbox" id="lab"> Trong lab</label><label><input type="checkbox" id="favorites"> Yêu thích</label><button class="button primary" id="remote">Tra PubChem ↗</button></div><div class="results-meta"><span id="count" role="status"></span><span>Chọn đúng chất/đồng phân trước khi xem</span></div><div class="catalog-layout"><section class="catalog-list"><div class="cards" id="cards"></div><div id="remote-results"></div></section><section class="panel viewer-panel" id="selected"><div class="empty">Chọn một chất trong thư viện để khám phá cấu trúc.</div></section></div><div id="comparison"></div>`;
+  `${embedded ? "" : `<section class="hero"><div><div class="eyebrow">Khám phá hóa học trong không gian</div><h1>Thế giới hóa học trong tầm tay.</h1><p>Xoay, phóng to và khám phá toàn bộ nguyên tử. Chọn cấu trúc có nguồn hoặc tự tạo mô hình thành phần từ công thức.</p></div><div class="hero-stat"><strong>${records.length}</strong><span>CẤU TRÚC TRONG KHO</span></div></section>`}<div class="toolbar panel"><label class="search"><span class="sr-only">Tìm cấu trúc</span><input id="search" type="search" placeholder="Tên chất, công thức hoặc PubChem CID…" value="${escape(query)}"></label><label><span class="sr-only">Loại cấu trúc</span><select id="kind"><option value="">Tất cả cấu trúc</option value="molecule">Phân tử</option><option value="ion">Ion</option><option value="crystal">Tinh thể</option><option value="components">Nhóm ion</option><option value="composition">Mô hình thành phần</option></select></label><label><span class="sr-only">Nhóm chất</span><select id="family"><option value="">Vô cơ & hữu cơ</option value="organic">Hữu cơ</option><option value="inorganic">Vô cơ</option></select></label><label><input type="checkbox" id="lab"> Trong lab</label><label><input type="checkbox" id="favorites"> Yêu thích</label><button class="button primary" id="remote">Tra PubChem ↗</button><button class="button" id="generate">Tự tạo từ công thức</button></div><div class="results-meta"><span id="count" role="status"></span><span>Chọn đúng chất/đồng phân trước khi xem</span></div><div class="catalog-layout"><section class="catalog-list"><div class="cards" id="cards"></div><div id="remote-results"></div></section><section class="panel viewer-panel" id="selected"><div class="empty">Chọn một chất trong thư viện để khám phá cấu trúc.</div></section></div><div id="comparison"></div>`;
 const $ = (id) => document.getElementById(id);
 function render() {
   const q = normalize(query),
     el = params.get("element");
   const filtered = records.filter((c) => {
-    if (c.lab && !$("lab").checked) return false;
     if (
       $("lab").checked &&
       !c.lab &&
@@ -72,12 +55,12 @@ function render() {
     );
   });
   $("count").textContent =
-    `${filtered.length} kết quả trong kho · ${compounds.filter((c) => c.structure?.dimension === "3d").length} mô hình 3D`;
+    `${filtered.length} kết quả · ${records.filter(c=>c.structure?.dimension === "3d").length} cấu trúc có nguồn · Tự tạo mô hình cho công thức khác`;
   $("cards").innerHTML =
     filtered
       .map(
         (c) =>
-          `<button class="panel compound-card" data-id="${c.id}"><span class="card-top"><span class="badge">${{ molecule: "PHÂN TỬ", ion: "ION", crystal: "TINH THỂ", components: "CÁC THÀNH PHẦN", unavailable: "CHẤT TRONG LAB" }[c.kind]}</span><span class="muted">${favorites.includes(c.id) ? "★" : ""}</span></span><div class="formula">${escape(c.formula)}</div><h2>${escape(c.name_vi)}</h2><p>${escape(c.name_en ?? "")}</p><p>${c.cid ? `CID ${c.cid} · ` : ""}${c.structure?.dimension === "3d" ? "Có cấu trúc 3D" : c.status === "components" ? "Xem thành phần trong dung dịch" : "Xem thông tin"}</p></button>`,
+          `<button class="panel compound-card" data-id="${c.id}"><span class="card-top"><span class="badge">${{ molecule: "PHÂN TỬ", ion: "ION", crystal: "TINH THỂ", components: "NHÓM ION", composition: "THÀNH PHẦN", atom: "NGUYÊN TỬ", unavailable: "CHẤT TRONG LAB" }[c.kind]}</span><span class="muted">${favorites.includes(c.id) ? "★" : ""}</span></span><div class="formula">${escape(c.formula)}</div><h2>${escape(c.name_vi)}</h2><p>${escape(c.name_en ?? "")}</p><p>${c.cid ? `CID ${c.cid} · ` : ""}${c.structure?.dimension === "3d" ? "Có cấu trúc 3D" : c.ions ? "Xem mô hình nhóm ion 3D" : "Xem đủ nguyên tử · Mô hình thành phần 3D"}</p></button>`,
       )
       .join("") ||
     '<div class="panel empty">Không có kết quả trong kho. Thử tên tiếng Anh hoặc tra PubChem.</div>';
@@ -97,6 +80,7 @@ async function open(record) {
     url.searchParams.delete("compound");
     url.searchParams.set("cid", String(record.cid));
   }
+  if (record.id.startsWith("generated-")) { url.searchParams.delete("compound"); url.searchParams.set("formula", record.formula); } else url.searchParams.delete("formula");
   history.replaceState(null, "", url);
   const old = $("selected").querySelector("chem-structure-viewer");
   old?.remove();
@@ -104,7 +88,7 @@ async function open(record) {
     (c) => c.chemicalId === record.id || c.compoundId === record.id,
   );
   $("selected").innerHTML =
-    `<div class="section-label">CẤU TRÚC ĐANG KHÁM PHÁ</div><h2>${escape(record.name_vi ?? record.name_en)}</h2><div class="muted">${escape(record.formula)} ${record.molarMass ? `· ${record.molarMass.toFixed(3)} g/mol` : ""} ${record.cid ? `· CID ${record.cid}` : ""}</div><div class="viewer-toolbar"><button class="button" id="favorite">${favorites.includes(record.id) ? "★ Đã yêu thích" : "☆ Yêu thích"}</button><button class="button" id="compare">+ So sánh</button>${lab ? `<a class="button primary" href="/lab-2d/?chemical=${encodeURIComponent(lab.chemicalId)}" target="${embedded ? "_top" : "_self"}">Mở trong lab ↗</a>` : ""}</div>${record.kind === "components" ? `<div class="atom-readout">${escape(record.note)}</div><p class="muted">Các thành phần: ${escape((record.components ?? []).join(", "))}. Đây là biểu diễn thành phần dung dịch; nồng độ, cân bằng và hydrat hóa chưa được mô hình hóa trong trình xem cấu trúc.</p><div id="components" class="viewer-toolbar"></div>` : record.kind === "unavailable" ? `<div class="empty">${escape(record.note ?? "Chưa có cấu trúc kiểm chứng cho chất này.")}<p>Có thể tra PubChem bằng tên chất hoặc chọn chất khác.</p></div>` : "<chem-structure-viewer></chem-structure-viewer>"}<p class="muted" style="font-size:11px">${record.kind === "ion" ? "Ion được hiển thị riêng; không mô tả đầy đủ lớp dung môi bao quanh." : record.kind === "molecule" ? (record.structure?.coordinateType === "experimental" ? "Cấu trúc thực nghiệm pha khí từ NIST; không đại diện trạng thái dung dịch." : "Cấu dạng tính toán minh họa từ nguồn dữ liệu; không phải phép đo thực nghiệm và không đại diện mọi trạng thái dung dịch.") : ""}</p>`;
+    `<div class="section-label">CẤU TRÚC ĐANG KHÁM PHÁ</div><h2>${escape(record.name_vi ?? record.name_en)}</h2><div class="muted">${escape(record.formula)} ${record.molarMass ? `· ${record.molarMass.toFixed(3)} g/mol` : ""} ${record.cid ? `· CID ${record.cid}` : ""}</div><div class="viewer-toolbar"><button class="button" id="favorite">${favorites.includes(record.id) ? "★ Đã yêu thích" : "☆ Yêu thích"}</button><button class="button" id="compare">+ So sánh</button>${lab ? `<a class="button primary" href="/lab-2d/?chemical=${encodeURIComponent(lab.chemicalId)}" target="${embedded ? "_top" : "_self"}">Mở trong lab ↗</a>` : ""}</div>${record.modelNote ? `<div class="atom-readout">${escape(record.modelNote)}</div>` : ''}${record.note && record.kind === 'components' ? `<p class="muted">${escape(record.note)}</p>` : ''}<chem-structure-viewer></chem-structure-viewer>${record.kind === 'components' ? '<div id="components" class="viewer-toolbar"></div>' : ''}<p class="muted" style="font-size:11px">${record.kind === "ion" ? "Ion được hiển thị riêng; không mô tả đầy đủ lớp dung môi bao quanh." : record.kind === "molecule" ? (record.structure?.coordinateType === "experimental" ? "Cấu trúc thực nghiệm pha khí từ NIST; không đại diện trạng thái dung dịch." : "Cấu dạng tính toán minh họa từ nguồn dữ liệu; không phải phép đo thực nghiệm và không đại diện mọi trạng thái dung dịch.") : ""}</p>`;
   $("favorite").onclick = () => {
     favorites = favorites.includes(record.id)
       ? favorites.filter((id) => id !== record.id)
@@ -250,6 +234,18 @@ $("search").oninput = (e) => {
 for (const id of ["kind", "family", "lab", "favorites"])
   $(id).onchange = render;
 $("remote").onclick = remote;
+function createFromFormula(value) {
+ try {
+  const formula = structureFormula(value);
+  const known = records.find(c=>c.formula === formula && !c.material);
+  if(known) { open(known); return; }
+  const record = {id:'generated-'+formula,formula,name_vi:formula,kind:'composition',family:/C(?![a-z])/.test(formula)&&/H/.test(formula)?'organic':'inorganic'};
+  generateStructure(record);
+  if(!records.some(c=>c.id===record.id)) records.push(record);
+  open(record);
+ } catch(error) { toast('Không tạo được mô hình: '+error.message); }
+}
+$('generate').onclick = () => createFromFormula(query);
 $("search").onkeydown = (e) => {
   if (e.key === "Enter") remote();
 };
@@ -257,7 +253,9 @@ render();
 const chemical = params.get("chemical"),
   id = params.get("compound"),
   cid = params.get("cid");
-if (chemical) {
+if (params.get("formula")) {
+  createFromFormula(params.get("formula"));
+} else if (chemical) {
   $("lab").checked = true;
   render();
   open(records.find((c) => c.id === chemical) ?? compounds[0]);

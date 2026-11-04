@@ -8,27 +8,16 @@ test("legacy laboratory links resolve to the React applications", async ({reques
     expect(new URL(response.url()).pathname,path).toBe(destination);
   }
 });
-test("118 elements, accent-free search, filters and comparison", async ({
-  page,
-}) => {
-  await page.goto("/");
-  await expect(page.locator(".element")).toHaveCount(118);
-  await page.locator("#search").fill("dong");
-  await page.locator("#view").click();
-  await expect(
-    page.getByRole("button", { name: "29, Đồng, Cu", exact: true }),
-  ).toBeVisible();
-  await page.getByRole("button", { name: "29, Đồng, Cu", exact: true }).click();
-  await page.locator("#favorite").click();
-  await page.locator("#compare").click();
-  await expect(page.locator("#comparison")).toContainText("Đồng");
-  await page.locator("#search").fill("");
-  await page.locator("#category").selectOption("noble_gas");
-  await expect(page.locator(".element")).toHaveCount(7);
-  await page.locator("#theme").click();
-  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+test("canonical home retains the original periodic table and element links", async ({page}) => {
+  await page.goto('/');
+  await expect(page.locator('#periodic-table .el-symbol')).toHaveCount(118);
+  await page.locator('#searchInput').fill('dong');
+  await expect(page.locator('#search-results')).toContainText('Cu');
+  await page.keyboard.press('Enter');
+  await expect(page.locator('#detail-hero')).toContainText('Cu');
+  await expect(page).toHaveURL(/[?&]element=Cu/);
   await page.reload();
-  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expect(page.locator('#detail-hero')).toContainText('Cu');
 });
 test("study answers and progress persist", async ({ page }) => {
   await page.goto("/on-tap/");
@@ -44,7 +33,7 @@ test("mobile layout remains within viewport", async ({ page }) => {
   await page.setViewportSize({ width: 360, height: 800 });
   for (const route of ["/", "/tien-ich/", "/on-tap/"]) {
     await page.goto(route);
-    await expect(page.locator("#site-header")).toBeVisible();
+    await expect(page.locator(".cd-mobile-toggle")).toBeVisible();
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth + 1,
@@ -239,6 +228,7 @@ test("all existing applications hydrate with valid local assets", async ({
   ]) {
     await page.goto(route);
     await expect(page.locator("#root")).not.toBeEmpty({ timeout: 30000 });
+    await expect(page.locator('#chemdex-sidebar')).toHaveCount(1);
   }
   expect(missing).toEqual([]);
   expect(errors).toEqual([]);

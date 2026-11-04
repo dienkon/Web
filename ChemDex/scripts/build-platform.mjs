@@ -35,6 +35,7 @@ function run(command, args, cwd = root) {
   if (result.status !== 0) throw new Error(`${command} failed in ${cwd}`);
 }
 run("node", ["scripts/generate-platform-summary.mjs"]);
+run("node", ["scripts/generate-structure-catalog.mjs"]);
 for (const project of projects) {
   if (!process.argv.includes("--static-only")) {
     if (process.env.CI || !fs.existsSync(path.join(project, "node_modules")))
@@ -100,6 +101,12 @@ function copyStatic(directory, relative = "") {
   }
 }
 copyStatic(root);
+fs.mkdirSync(path.join(output, 'vendor'), { recursive: true });
+fs.copyFileSync('node_modules/three/build/three.module.js', path.join(output, 'vendor/three.module.js'));
+await build({
+  entryPoints:['controls/OrbitControls','loaders/GLTFLoader','loaders/OBJLoader','loaders/FBXLoader','loaders/MTLLoader'].map(name=>`node_modules/three/examples/jsm/${name}.js`),
+  bundle:true,format:'esm',external:['three'],outdir:path.join(output,'vendor'),minify:true,
+});
 await build({
   entryPoints: [
     "platform/periodic.js",
@@ -107,6 +114,7 @@ await build({
     "platform/study.js",
     "platform/viewer.js",
     "platform/tools.js",
+    "platform/sidebar.js",
   ],
   bundle: true,
   splitting: true,
@@ -122,7 +130,11 @@ fs.copyFileSync(
   "platform/styles.css",
   path.join(output, "platform/styles.css"),
 );
+fs.copyFileSync("platform/sidebar.css", path.join(output, "platform/sidebar.css"));
+// nguyen-to.html is the canonical home; keep the rich original periodic table.
+fs.copyFileSync(path.join(output, "nguyen-to.html"), path.join(output, "index.html"));
 fs.mkdirSync(path.join(output, "licenses"), { recursive: true });
+fs.copyFileSync("node_modules/three/LICENSE", path.join(output, "licenses/three.txt"));
 fs.copyFileSync(
   "node_modules/3dmol/LICENSE",
   path.join(output, "licenses/3dmol.txt"),
@@ -153,6 +165,14 @@ function cleanHtml(dir) {
           '<link rel="stylesheet" href="/css/utilities.css">',
         )
         .replace(/<script>\s*tailwind\.config\s*=[\s\S]*?<\/script>/g, "");
+      if (!/404|test-3d/.test(e.name)) {
+        if (p.includes(`${path.sep}tien-ich${path.sep}`) && !s.includes('id="app"') && !s.includes('id="root"'))
+          s = s.replace('<body', '<body data-cd-standalone="true"');
+        if (!s.includes('href="/platform/sidebar.css"'))
+          s = s.replace('</head>', '<link rel="stylesheet" href="/platform/sidebar.css"></head>');
+        if (!s.includes('src="/platform/sidebar.js"'))
+          s = s.replace('</body>', '<script type="module" src="/platform/sidebar.js"></script></body>');
+      }
       fs.writeFileSync(p, s);
     }
   }

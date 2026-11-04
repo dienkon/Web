@@ -7,7 +7,7 @@ import { ReaderView } from '../components/ReaderView';
 import { PanelDrawer } from '../components/PanelDrawer';
 import { Toast } from '../components/Toast';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import { libraryDocs, fetchDocFull, getCategoryConfig, DocFull } from '../utils/config';
+import { libraryDocs, fetchDocFull, getCategoryConfig, DocFull, categories } from '../utils/config';
 import { RefreshCw } from 'lucide-react';
 
 export default function App() {
@@ -133,14 +133,14 @@ export default function App() {
             onOpenHistory={() => { setHistoryOpen(true); setMobileMenuOpen(false); }}
             onOpenBookmarks={() => { setBookmarksOpen(true); setMobileMenuOpen(false); }}
           />
-          <main className={`flex-1 transition-all duration-300 min-h-screen ${isDesktopSidebarOpen ? 'lg:ml-64' : 'lg:ml-0'}`}>
+          <main className={`flex-1 transition-all duration-300 min-h-screen `}>
             <Header 
               searchQuery={searchQuery}
               onSearchChange={setSearchQuery}
               onOpenMobileMenu={() => setMobileMenuOpen(true)}
               onOpenBookmarks={() => setBookmarksOpen(true)}
               onOpenHistory={() => setHistoryOpen(true)}
-              onToggleDesktopSidebar={() => setIsDesktopSidebarOpen(prev => !prev)}
+              onToggleDesktopSidebar={() => window.dispatchEvent(new Event('chemdex:toggle-menu'))}
               isDesktopSidebarOpen={isDesktopSidebarOpen}
             />
             <div className="px-4 sm:px-6 lg:px-8 py-8 max-w-7xl mx-auto">
@@ -190,6 +190,10 @@ export default function App() {
                     </div>
                   </div>
 
+                  <div className="flex flex-wrap gap-2 mb-5" aria-label="Lọc danh mục tài liệu">
+                    <button onClick={() => setActiveCategory(null)} aria-pressed={!activeCategory} className="px-3 py-2 rounded-lg border border-slate-600 text-sm">Tất cả</button>
+                    {categories.map(cat => <button key={cat.id} onClick={() => setActiveCategory(cat.id)} aria-pressed={activeCategory===cat.id} className={`px-3 py-2 rounded-lg border text-sm ${activeCategory===cat.id ? 'border-blue-400 bg-blue-500/20 text-blue-200' : 'border-slate-600 text-slate-300'}`}>{cat.label}</button>)}
+                  </div>
                   <LibraryGrid docs={filteredDocs} onDocClick={handleDocClick} bookmarkedIds={bookmarkedIds} onToggleBookmark={toggleBookmark} onTagClick={handleTagClick} />
 
               

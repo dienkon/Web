@@ -14,7 +14,7 @@
     "build": "node scripts/build-platform.mjs",
     "build:static": "node scripts/build-platform.mjs --static-only",
     "build-lab-2d": "npm --prefix lab-2d run build",
-    "test:platform": "node --test tests/platform.test.mjs tests/workspace.test.mjs",
+    "test:platform": "node --test tests/platform.test.mjs tests/workspace.test.mjs tests/structure-generation.test.mjs",
     "test:browser": "playwright test",
     "test:preview": "node scripts/test-preview.mjs",
     "preview": "node scripts/preview.mjs",
@@ -25,7 +25,8 @@
   },
   "dependencies": {
     "@google/genai": "^1.17.0",
-    "3dmol": "2.5.5"
+    "3dmol": "2.5.5",
+    "three": "0.165.0"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",
