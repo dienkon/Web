@@ -1690,6 +1690,243 @@ table.data-table tbody tr:hover {
   }
 }
 
+/* ==========================================================================
+   UPGRADES: DETAILED COMPARISON & SMART ERROR DETECTION
+   ========================================================================== */
+
+/* Topic Card Delete Button */
+.topic-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-topic-del {
+  padding: 3px 6px;
+  border-radius: 4px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-topic-del:hover {
+  background: var(--danger-light);
+  color: var(--danger);
+  border-color: var(--danger-border);
+}
+
+/* Comparison Metric Cards */
+.comp-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.comp-metric-card {
+  background: #FAFBFD;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+}
+
+.comp-metric-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.comp-metric-val {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+/* Shift Matrix (Flipped Correct, Flipped Wrong, Persistent) */
+.shift-matrix-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.shift-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+@media (max-width: 860px) {
+  .shift-cols {
+    grid-template-columns: 1fr;
+  }
+}
+
+.shift-card {
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+
+.shift-card.improved {
+  background: #F0FDF4;
+  border-color: #BBF7D0;
+}
+.shift-card.regressed {
+  background: #FEF2F2;
+  border-color: #FECACA;
+}
+.shift-card.persistent {
+  background: #FFFBEB;
+  border-color: #FDE68A;
+}
+
+.shift-header {
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.shift-card.improved .shift-header { color: #166534; }
+.shift-card.regressed .shift-header { color: #991B1B; }
+.shift-card.persistent .shift-header { color: #92400E; }
+
+.shift-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.shift-pill {
+  font-size: 11.5px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+.shift-pill.improved { background: #DCFCE7; color: #15803D; }
+.shift-pill.regressed { background: #FEE2E2; color: #B91C1C; }
+.shift-pill.persistent { background: #FEF3C7; color: #B45309; }
+
+/* Smart Error Diagnostics */
+.smart-diag-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.smart-diag-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+}
+
+.smart-diag-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.diag-icon-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.diag-icon-box.red { background: var(--danger-light); color: var(--danger); }
+.diag-icon-box.yellow { background: var(--warning-light); color: var(--warning); }
+.diag-icon-box.blue { background: var(--primary-light); color: var(--primary); }
+
+.smart-diag-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.35;
+}
+
+.smart-diag-desc {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+/* Root cause distribution */
+.cause-bar-wrap {
+  margin-bottom: 8px;
+}
+.cause-bar-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 3px;
+}
+.cause-bar-track {
+  width: 100%;
+  height: 6px;
+  background: var(--bg-subtle);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.cause-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+}
+
+/* Actionable Plan Checklist */
+.plan-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  margin-bottom: 6px;
+  font-size: 13px;
+  transition: var(--transition);
+}
+.plan-item:hover {
+  background: var(--bg-subtle);
+  border-color: var(--border-focus);
+}
+.plan-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
 /* Mobile Breakpoints */
 @media (max-width: 768px) {
   aside#sidebar {

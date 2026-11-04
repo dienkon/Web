@@ -267,6 +267,9 @@ def build_index_html():
               <div id="overview-due-list"></div>
             </div>
           </div>
+
+          <!-- Smart Error Detection & Diagnostics -->
+          <div id="overview-smart-diagnostics"></div>
         </section>
 
         <!-- ==========================================
@@ -310,6 +313,11 @@ def build_index_html():
               <option value="needs_review">Cần ôn lại</option>
               <option value="mastered">Đã nắm vững</option>
             </select>
+
+            <button class="btn btn-outline" onclick="UI.restoreDefaultTopics()" title="Khôi phục lại các chuyên đề mặc định nếu bị xóa">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+              <span>Khôi phục mặc định</span>
+            </button>
 
             <button class="btn btn-primary" onclick="UI.openNewTopicForm()">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -575,6 +583,20 @@ def build_index_html():
                   Ứng dụng hoạt động 100% offline, không gửi bất kỳ thông tin nào lên máy chủ bên ngoài.
                 </p>
               </div>
+            </div>
+
+            <!-- Manage Default Topics -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Quản lý danh mục chuyên đề V-ACT</h3>
+              </div>
+              <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">
+                Người dùng có toàn quyền xóa bất kỳ chuyên đề nào (kể cả chuyên đề mặc định). Nếu bạn muốn bổ sung lại các chuyên đề chuẩn V-ACT đã lỡ xóa, hãy nhấn nút bên dưới. Toàn bộ ghi chú, đề thi và chuyên đề tự tạo của bạn đều được bảo lưu nguyên vẹn.
+              </p>
+              <button class="btn btn-secondary" onclick="UI.restoreDefaultTopics()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                Khôi phục danh mục chuyên đề mặc định
+              </button>
             </div>
 
             <!-- Danger Zone -->
@@ -850,9 +872,15 @@ def build_index_html():
           </div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" onclick="UI.closeModal('modal-topic-form')">Hủy</button>
-        <button class="btn btn-primary" onclick="UI.saveTopicForm()">Lưu chuyên đề</button>
+      <div class="modal-footer" style="display:flex; justify-content:space-between; align-items:center;">
+        <button id="btn-delete-topic-modal" type="button" class="btn btn-outline btn-danger" style="display:none;" onclick="UI.confirmDeleteTopic(document.getElementById('topic-form-id').value)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          <span>Xóa chuyên đề này</span>
+        </button>
+        <div style="display:flex; gap:10px; margin-left:auto;">
+          <button class="btn btn-secondary" onclick="UI.closeModal('modal-topic-form')">Hủy</button>
+          <button class="btn btn-primary" onclick="UI.saveTopicForm()">Lưu chuyên đề</button>
+        </div>
       </div>
     </div>
   </div>

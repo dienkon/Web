@@ -1691,6 +1691,243 @@ table.data-table tbody tr:hover {
   }
 }
 
+/* ==========================================================================
+   UPGRADES: DETAILED COMPARISON & SMART ERROR DETECTION
+   ========================================================================== */
+
+/* Topic Card Delete Button */
+.topic-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-topic-del {
+  padding: 3px 6px;
+  border-radius: 4px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-topic-del:hover {
+  background: var(--danger-light);
+  color: var(--danger);
+  border-color: var(--danger-border);
+}
+
+/* Comparison Metric Cards */
+.comp-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.comp-metric-card {
+  background: #FAFBFD;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+}
+
+.comp-metric-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.comp-metric-val {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+/* Shift Matrix (Flipped Correct, Flipped Wrong, Persistent) */
+.shift-matrix-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.shift-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+@media (max-width: 860px) {
+  .shift-cols {
+    grid-template-columns: 1fr;
+  }
+}
+
+.shift-card {
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+
+.shift-card.improved {
+  background: #F0FDF4;
+  border-color: #BBF7D0;
+}
+.shift-card.regressed {
+  background: #FEF2F2;
+  border-color: #FECACA;
+}
+.shift-card.persistent {
+  background: #FFFBEB;
+  border-color: #FDE68A;
+}
+
+.shift-header {
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.shift-card.improved .shift-header { color: #166534; }
+.shift-card.regressed .shift-header { color: #991B1B; }
+.shift-card.persistent .shift-header { color: #92400E; }
+
+.shift-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.shift-pill {
+  font-size: 11.5px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+.shift-pill.improved { background: #DCFCE7; color: #15803D; }
+.shift-pill.regressed { background: #FEE2E2; color: #B91C1C; }
+.shift-pill.persistent { background: #FEF3C7; color: #B45309; }
+
+/* Smart Error Diagnostics */
+.smart-diag-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.smart-diag-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+}
+
+.smart-diag-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.diag-icon-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.diag-icon-box.red { background: var(--danger-light); color: var(--danger); }
+.diag-icon-box.yellow { background: var(--warning-light); color: var(--warning); }
+.diag-icon-box.blue { background: var(--primary-light); color: var(--primary); }
+
+.smart-diag-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.35;
+}
+
+.smart-diag-desc {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+/* Root cause distribution */
+.cause-bar-wrap {
+  margin-bottom: 8px;
+}
+.cause-bar-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 3px;
+}
+.cause-bar-track {
+  width: 100%;
+  height: 6px;
+  background: var(--bg-subtle);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.cause-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+}
+
+/* Actionable Plan Checklist */
+.plan-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  margin-bottom: 6px;
+  font-size: 13px;
+  transition: var(--transition);
+}
+.plan-item:hover {
+  background: var(--bg-subtle);
+  border-color: var(--border-focus);
+}
+.plan-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
 /* Mobile Breakpoints */
 @media (max-width: 768px) {
   aside#sidebar {
@@ -1959,6 +2196,9 @@ table.data-table tbody tr:hover {
               <div id="overview-due-list"></div>
             </div>
           </div>
+
+          <!-- Smart Error Detection & Diagnostics -->
+          <div id="overview-smart-diagnostics"></div>
         </section>
 
         <!-- ==========================================
@@ -2002,6 +2242,11 @@ table.data-table tbody tr:hover {
               <option value="needs_review">Cần ôn lại</option>
               <option value="mastered">Đã nắm vững</option>
             </select>
+
+            <button class="btn btn-outline" onclick="UI.restoreDefaultTopics()" title="Khôi phục lại các chuyên đề mặc định nếu bị xóa">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+              <span>Khôi phục mặc định</span>
+            </button>
 
             <button class="btn btn-primary" onclick="UI.openNewTopicForm()">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -2267,6 +2512,20 @@ table.data-table tbody tr:hover {
                   Ứng dụng hoạt động 100% offline, không gửi bất kỳ thông tin nào lên máy chủ bên ngoài.
                 </p>
               </div>
+            </div>
+
+            <!-- Manage Default Topics -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Quản lý danh mục chuyên đề V-ACT</h3>
+              </div>
+              <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">
+                Người dùng có toàn quyền xóa bất kỳ chuyên đề nào (kể cả chuyên đề mặc định). Nếu bạn muốn bổ sung lại các chuyên đề chuẩn V-ACT đã lỡ xóa, hãy nhấn nút bên dưới. Toàn bộ ghi chú, đề thi và chuyên đề tự tạo của bạn đều được bảo lưu nguyên vẹn.
+              </p>
+              <button class="btn btn-secondary" onclick="UI.restoreDefaultTopics()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                Khôi phục danh mục chuyên đề mặc định
+              </button>
             </div>
 
             <!-- Danger Zone -->
@@ -2542,9 +2801,15 @@ table.data-table tbody tr:hover {
           </div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" onclick="UI.closeModal('modal-topic-form')">Hủy</button>
-        <button class="btn btn-primary" onclick="UI.saveTopicForm()">Lưu chuyên đề</button>
+      <div class="modal-footer" style="display:flex; justify-content:space-between; align-items:center;">
+        <button id="btn-delete-topic-modal" type="button" class="btn btn-outline btn-danger" style="display:none;" onclick="UI.confirmDeleteTopic(document.getElementById('topic-form-id').value)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          <span>Xóa chuyên đề này</span>
+        </button>
+        <div style="display:flex; gap:10px; margin-left:auto;">
+          <button class="btn btn-secondary" onclick="UI.closeModal('modal-topic-form')">Hủy</button>
+          <button class="btn btn-primary" onclick="UI.saveTopicForm()">Lưu chuyên đề</button>
+        </div>
       </div>
     </div>
   </div>
@@ -3135,6 +3400,70 @@ table.data-table tbody tr:hover {
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+    },
+
+    deleteTopic(state, topicId) {
+      if (!Array.isArray(state.topics)) return null;
+      const idx = state.topics.findIndex(t => t.id === topicId);
+      if (idx === -1) return null;
+      const topic = state.topics[idx];
+      state.topics.splice(idx, 1);
+
+      // Safely preserve references in notes (do not delete user notes!)
+      if (Array.isArray(state.notes)) {
+        state.notes.forEach(n => {
+          if (n.topicId === topicId) {
+            n.topicName = topic.name; // preserve text reference
+            n.topicId = null;
+          }
+        });
+      }
+
+      // Safely preserve in exams questions (do not delete exam answers!)
+      if (Array.isArray(state.exams)) {
+        state.exams.forEach(ex => {
+          if (Array.isArray(ex.questions)) {
+            ex.questions.forEach(q => {
+              if (q.topicId === topicId) {
+                q.topicName = topic.name;
+                q.topicId = null;
+              }
+            });
+          }
+        });
+      }
+
+      // Safely preserve in practice sessions
+      if (Array.isArray(state.practiceSessions)) {
+        state.practiceSessions.forEach(p => {
+          if (p.topicId === topicId) {
+            p.topicName = topic.name;
+            p.topicId = null;
+          }
+        });
+      }
+
+      this.logActivity(state, 'topic_deleted', `Xóa chuyên đề: ${topic.name}`, `Môn: ${topic.subjectId}`);
+      this.save(state);
+      return topic;
+    },
+
+    restoreDefaultTopics(state) {
+      const defaults = window.DEFAULT_TOPICS || [];
+      if (!Array.isArray(state.topics)) state.topics = [];
+      const existingIds = new Set(state.topics.map(t => t.id));
+      let count = 0;
+      defaults.forEach(def => {
+        if (!existingIds.has(def.id)) {
+          state.topics.push(JSON.parse(JSON.stringify(def)));
+          count++;
+        }
+      });
+      if (count > 0) {
+        this.logActivity(state, 'topics_restored', 'Khôi phục chuyên đề mặc định', `Đã khôi phục ${count} chuyên đề chuẩn V-ACT.`);
+        this.save(state);
+      }
+      return count;
     }
   };
 
@@ -3407,7 +3736,7 @@ table.data-table tbody tr:hover {
       });
     },
 
-    // Exam comparison
+    // Detailed Exam comparison
     compareExams(examA, examB) {
       const resA = this.calculateExamScore(examA);
       const resB = this.calculateExamScore(examB);
@@ -3424,30 +3753,321 @@ table.data-table tbody tr:hover {
         const correctB = typeof scB.correct === 'number' ? scB.correct : 0;
         const correctDelta = correctB - correctA;
 
+        const accA = Math.round((correctA / 30) * 1000) / 10;
+        const accB = Math.round((correctB / 30) * 1000) / 10;
+        const accDelta = Math.round((accB - accA) * 10) / 10;
+
         return {
           subjectId: sub.id,
           name: sub.name,
+          color: sub.color,
+          badgeClass: sub.badgeClass,
           scoreA,
           scoreB,
           scoreDelta,
           correctA,
           correctB,
-          correctDelta
+          correctDelta,
+          accA,
+          accB,
+          accDelta
         };
       });
+
+      // Science Subgroups (Logic 91-102 vs Deduction 103-120)
+      let logicCorrectA = 0, logicCorrectB = 0;
+      let dedCorrectA = 0, dedCorrectB = 0;
+      if (Array.isArray(examA.questions) && examA.questions.length === 120) {
+        logicCorrectA = examA.questions.slice(90, 102).filter(q => q.status === 'correct').length;
+        dedCorrectA = examA.questions.slice(102, 120).filter(q => q.status === 'correct').length;
+      }
+      if (Array.isArray(examB.questions) && examB.questions.length === 120) {
+        logicCorrectB = examB.questions.slice(90, 102).filter(q => q.status === 'correct').length;
+        dedCorrectB = examB.questions.slice(102, 120).filter(q => q.status === 'correct').length;
+      }
+
+      // Question Shift Matrix (Improved, Regressed, Persistent, Maintained)
+      const shiftMatrix = {
+        improved: [],
+        regressed: [],
+        persistent: [],
+        maintained: 0
+      };
+
+      if (Array.isArray(examA.questions) && Array.isArray(examB.questions) && examA.questions.length === 120 && examB.questions.length === 120) {
+        for (let i = 0; i < 120; i++) {
+          const qA = examA.questions[i];
+          const qB = examB.questions[i];
+          const qNum = i + 1;
+          const sub = SUBJECTS_CONFIG.find(s => s.id === qA.subjectId);
+          const subShort = sub ? sub.shortName : '';
+
+          const isA_correct = qA.status === 'correct';
+          const isB_correct = qB.status === 'correct';
+          const isA_wrong = qA.status === 'wrong';
+          const isB_wrong = qB.status === 'wrong';
+
+          if (!isA_correct && isB_correct) {
+            shiftMatrix.improved.push({ qNum, subShort, topicId: qB.topicId });
+          } else if (isA_correct && !isB_correct) {
+            shiftMatrix.regressed.push({ qNum, subShort, topicId: qB.topicId, reason: qB.errorReason });
+          } else if (isA_wrong && isB_wrong) {
+            shiftMatrix.persistent.push({ qNum, subShort, topicId: qB.topicId, reasonB: qB.errorReason });
+          } else if (isA_correct && isB_correct) {
+            shiftMatrix.maintained++;
+          }
+        }
+      }
+
+      // Error reasons breakdown comparison
+      const reasonsA = {}, reasonsB = {};
+      if (Array.isArray(examA.questions)) {
+        examA.questions.filter(q => q.status === 'wrong').forEach(q => {
+          const r = q.errorReason || 'Khác';
+          reasonsA[r] = (reasonsA[r] || 0) + 1;
+        });
+      }
+      if (Array.isArray(examB.questions)) {
+        examB.questions.filter(q => q.status === 'wrong').forEach(q => {
+          const r = q.errorReason || 'Khác';
+          reasonsB[r] = (reasonsB[r] || 0) + 1;
+        });
+      }
+
+      const allReasons = Array.from(new Set([...Object.keys(reasonsA), ...Object.keys(reasonsB)]));
+      const reasonsComparison = allReasons.map(r => ({
+        reason: r,
+        countA: reasonsA[r] || 0,
+        countB: reasonsB[r] || 0,
+        delta: (reasonsB[r] || 0) - (reasonsA[r] || 0)
+      }));
+
+      const totalScoreDelta = resB.totalScore - resA.totalScore;
+      const pctGrowth = resA.totalScore > 0 ? Math.round(((resB.totalScore - resA.totalScore) / resA.totalScore) * 1000) / 10 : 0;
 
       return {
         examA,
         examB,
         totalScoreA: resA.totalScore,
         totalScoreB: resB.totalScore,
-        totalScoreDelta: resB.totalScore - resA.totalScore,
+        totalScoreDelta,
+        pctGrowth,
         totalCorrectA: resA.totalCorrect,
         totalCorrectB: resB.totalCorrect,
         totalCorrectDelta: resB.totalCorrect - resA.totalCorrect,
+        accuracyA: resA.accuracy,
+        accuracyB: resB.accuracy,
+        accuracyDelta: Math.round((resB.accuracy - resA.accuracy) * 10) / 10,
+        durationA: examA.durationMinutes || 150,
+        durationB: examB.durationMinutes || 150,
         isCompleteA: resA.isComplete,
         isCompleteB: resB.isComplete,
-        subjects: subjectsComp
+        subjects: subjectsComp,
+        subgroups: {
+          logicStats: { correctA: logicCorrectA, correctB: logicCorrectB, delta: logicCorrectB - logicCorrectA },
+          scienceReasoning: { correctA: dedCorrectA, correctB: dedCorrectB, delta: dedCorrectB - dedCorrectA }
+        },
+        shiftMatrix,
+        reasonsComparison
+      };
+    },
+
+    // Smart Error Detection & Diagnostics
+    getSmartDiagnostics(state) {
+      const exams = state.exams || [];
+      const topics = state.topics || [];
+      const notes = state.notes || [];
+
+      // 1. Repeated Chronic Errors across exams
+      const topicMistakesMap = {};
+      exams.forEach(ex => {
+        if (Array.isArray(ex.questions)) {
+          ex.questions.forEach(q => {
+            if (q.status === 'wrong' && q.topicId) {
+              if (!topicMistakesMap[q.topicId]) {
+                topicMistakesMap[q.topicId] = {
+                  exams: new Set(),
+                  count: 0
+                };
+              }
+              topicMistakesMap[q.topicId].exams.add(ex.name);
+              topicMistakesMap[q.topicId].count++;
+            }
+          });
+        }
+      });
+
+      const repeatedErrors = [];
+      Object.keys(topicMistakesMap).forEach(tId => {
+        const data = topicMistakesMap[tId];
+        if (data.exams.size >= 2) {
+          const topic = topics.find(t => t.id === tId);
+          const sub = topic ? SUBJECTS_CONFIG.find(s => s.id === topic.subjectId) : null;
+          repeatedErrors.push({
+            topicId: tId,
+            topicName: topic ? topic.name : tId,
+            subjectId: topic ? topic.subjectId : '',
+            subjectName: sub ? sub.name : '',
+            badgeClass: sub ? sub.badgeClass : 'badge-gray',
+            examCount: data.exams.size,
+            examNames: Array.from(data.exams),
+            totalMistakes: data.count
+          });
+        }
+      });
+      repeatedErrors.sort((a, b) => b.examCount - a.examCount || b.totalMistakes - a.totalMistakes);
+
+      // 2. Root Cause Distribution
+      const causeCounts = {};
+      let totalCauses = 0;
+      exams.forEach(ex => {
+        if (Array.isArray(ex.questions)) {
+          ex.questions.forEach(q => {
+            if (q.status === 'wrong' && q.errorReason) {
+              causeCounts[q.errorReason] = (causeCounts[q.errorReason] || 0) + 1;
+              totalCauses++;
+            }
+          });
+        }
+      });
+      notes.forEach(n => {
+        if (n.type === 'wrong_question' && n.rootCause) {
+          causeCounts[n.rootCause] = (causeCounts[n.rootCause] || 0) + 1;
+          totalCauses++;
+        }
+      });
+
+      const causeColors = {
+        'Đọc sót đề / Bẫy câu chữ': '#E11D48',
+        'Nhầm công thức': '#2563EB',
+        'Hổng kiến thức': '#D97706',
+        'Tính toán ẩu': '#F59E0B',
+        'Thiếu thời gian': '#9333EA',
+        'Khác': '#64748B'
+      };
+
+      const rootCauses = Object.keys(causeCounts).map(name => {
+        const count = causeCounts[name];
+        const pct = totalCauses > 0 ? Math.round((count / totalCauses) * 1000) / 10 : 0;
+        return { name, count, percent: pct, color: causeColors[name] || '#64748B' };
+      }).sort((a, b) => b.count - a.count);
+
+      let topAdvice = null;
+      if (rootCauses.length > 0) {
+        const top = rootCauses[0];
+        if (top.name.includes('Đọc sót đề')) {
+          topAdvice = `Hơn ${top.percent}% lỗi sai do đọc sót đề hoặc bẫy từ ngữ. Hãy gạch chân các từ khóa phủ định ("không", "sai", "ngoại trừ", "chắc chắn") ngay khi đọc đề bài.`;
+        } else if (top.name.includes('Nhầm công thức')) {
+          topAdvice = `Gần ${top.percent}% lỗi sai bắt nguồn từ nhầm công thức. Hãy mở mục Sổ tay công thức và ôn lại ít nhất 5 công thức quan trọng mỗi sáng.`;
+        } else if (top.name.includes('Thiếu thời gian')) {
+          topAdvice = `Thời gian làm bài là rào cản lớn (${top.percent}% lỗi). Áp dụng chiến thuật 1.25 phút/câu; nếu quá 1.5 phút chưa ra hướng hãy tạm đánh dấu câu khó để giải quyết sau.`;
+        } else if (top.name.includes('Hổng kiến thức')) {
+          topAdvice = `Có ${top.percent}% lỗi sai do chưa nắm vững kiến thức nền. Hãy rà soát lại lý thuyết cơ bản trước khi luyện thêm đề mới.`;
+        } else {
+          topAdvice = `Đã phân loại ${totalCauses} lỗi sai. Tiếp tục theo dõi và khắc phục từng nguyên nhân để bứt phá điểm số.`;
+        }
+      }
+
+      // 3. Topic Risk Ranking (0..100)
+      const topicStats = this.getTopicAnalytics(state);
+      const riskRanking = topicStats.map(t => {
+        let score = 0;
+        score += Math.min(40, t.wrongCount * 10);
+        score += Math.max(0, (5 - (t.masteryLevel || 1)) * 6);
+        if (t.priority === 'high') score += 15;
+        else if (t.priority === 'medium') score += 8;
+        if (t.status === 'needs_review') score += 15;
+        else if (t.status === 'not_started') score += 10;
+        else if (t.status === 'in_progress') score += 5;
+
+        return {
+          ...t,
+          riskScore: Math.min(100, Math.round(score)),
+          riskLevel: score >= 55 ? 'high' : (score >= 35 ? 'medium' : 'low')
+        };
+      }).filter(t => t.wrongCount > 0 || t.status === 'needs_review' || t.priority === 'high')
+        .sort((a, b) => b.riskScore - a.riskScore)
+        .slice(0, 5);
+
+      // 4. Fatigue / Rush Analysis across 3 thirds of the test
+      let firstThirdWrong = 0; // Q 1-40
+      let midThirdWrong = 0;   // Q 41-80
+      let lastThirdWrong = 0;  // Q 81-120
+      let totalWrongGraded = 0;
+
+      exams.forEach(ex => {
+        if (Array.isArray(ex.questions) && ex.questions.length === 120) {
+          ex.questions.forEach((q, idx) => {
+            if (q.status === 'wrong') {
+              totalWrongGraded++;
+              if (idx < 40) firstThirdWrong++;
+              else if (idx < 80) midThirdWrong++;
+              else lastThirdWrong++;
+            }
+          });
+        }
+      });
+
+      let fatigueDetected = false;
+      let fatigueNote = '';
+      if (totalWrongGraded >= 15) {
+        const lastPct = Math.round((lastThirdWrong / totalWrongGraded) * 100);
+        if (lastPct >= 42) {
+          fatigueDetected = true;
+          fatigueNote = `Cảnh báo phân bổ thời gian: ${lastPct}% tổng số câu sai rơi vào 40 câu cuối (Câu 81–120). Học sinh thường bị cạn thời gian và giảm tập trung ở phần Tư duy khoa học.`;
+        }
+      }
+
+      // 5. Actionable Smart Daily Study Plan
+      const studyPlan = [];
+      if (repeatedErrors.length > 0) {
+        const topRepeated = repeatedErrors[0];
+        studyPlan.push({
+          id: 'plan_repeated',
+          title: `Ôn trọng tâm chuyên đề "${topRepeated.topicName}" (${topRepeated.subjectName})`,
+          reason: `Mắc sai lầm lặp lại ở ${topRepeated.examCount} đợt thi`,
+          type: 'topic',
+          topicId: topRepeated.topicId
+        });
+      }
+
+      if (riskRanking.length > 0 && (!studyPlan[0] || studyPlan[0].topicId !== riskRanking[0].id)) {
+        const topRisk = riskRanking[0];
+        studyPlan.push({
+          id: 'plan_risk',
+          title: `Rà soát chuyên đề rủi ro cao "${topRisk.name}"`,
+          reason: `Chỉ số rủi ro ${topRisk.riskScore}/100, ghi nhận ${topRisk.wrongCount} lỗi`,
+          type: 'topic',
+          topicId: topRisk.id
+        });
+      }
+
+      const unresolvedWrongNotes = notes.filter(n => n.type === 'wrong_question' && n.reviewStatus === 'not_reviewed');
+      if (unresolvedWrongNotes.length > 0) {
+        const note = unresolvedWrongNotes[0];
+        studyPlan.push({
+          id: 'plan_note',
+          title: `Đọc lại lời giải câu sai: "${note.title}"`,
+          reason: `Chưa ôn lại lần nào sau khi ghi nhận`,
+          type: 'note',
+          noteId: note.id
+        });
+      }
+
+      return {
+        repeatedErrors,
+        rootCauses,
+        topAdvice,
+        riskRanking,
+        fatigue: {
+          detected: fatigueDetected,
+          note: fatigueNote,
+          firstThirdWrong,
+          midThirdWrong,
+          lastThirdWrong,
+          totalWrongGraded
+        },
+        studyPlan
       };
     }
   };
@@ -3653,6 +4273,9 @@ table.data-table tbody tr:hover {
 
       // Render Due Reviews list
       this.renderDueReviews();
+
+      // Render Smart Diagnostics
+      this.renderSmartDiagnostics();
     },
 
     renderScoreTrendChart() {
@@ -3949,6 +4572,253 @@ table.data-table tbody tr:hover {
       container.innerHTML = html;
     },
 
+    renderSmartDiagnostics() {
+      const container = document.getElementById('overview-smart-diagnostics');
+      if (!container) return;
+
+      const diag = AnalyticsEngine.getSmartDiagnostics(this.state);
+      const totalExams = (this.state.exams || []).length;
+
+      if (totalExams === 0) {
+        container.innerHTML = '';
+        return;
+      }
+
+      let repeatedHtml = '';
+      if (diag.repeatedErrors.length === 0) {
+        repeatedHtml = `
+          <div style="padding: 16px; background:#F0FDF4; border:1px solid #BBF7D0; border-radius:8px; display:flex; align-items:center; gap:10px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <div style="font-size:13px; color:#166534;">
+              <strong>Không có lỗi lặp lại kinh niên!</strong> Bạn chưa bị mắc cùng một chuyên đề lỗi ở 2 đợt thi khác nhau.
+            </div>
+          </div>
+        `;
+      } else {
+        repeatedHtml = `
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            ${diag.repeatedErrors.slice(0, 4).map(err => `
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 12px; background:#FEF2F2; border:1px solid #FECACA; border-radius:8px;">
+                <div>
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <strong style="font-size:13px; color:#991B1B;">${escapeHtml(err.topicName)}</strong>
+                    <span class="badge ${err.badgeClass}">${escapeHtml(err.subjectName)}</span>
+                  </div>
+                  <div style="font-size:11.5px; color:#B91C1C; margin-top:2px;">
+                    Lặp lại ở <strong>${err.examCount} đợt thi</strong> (${err.examNames.slice(0, 2).map(escapeHtml).join(', ')}${err.examNames.length > 2 ? '...' : ''}) • Tổng ${err.totalMistakes} câu sai
+                  </div>
+                </div>
+                <button class="btn btn-sm btn-outline" style="border-color:#FCA5A5; color:#991B1B; background:#fff;" onclick="UI.openTopicDetail('${err.topicId}')">Ôn tập</button>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+
+      let causesHtml = '';
+      if (diag.rootCauses.length === 0) {
+        causesHtml = '<p style="font-size:13px; color:var(--text-muted);">Chưa có dữ liệu phân loại nguyên nhân sai.</p>';
+      } else {
+        causesHtml = `
+          <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:14px;">
+            ${diag.rootCauses.map(rc => `
+              <div class="cause-bar-wrap">
+                <div class="cause-bar-header">
+                  <span class="cause-name">${escapeHtml(rc.name)}</span>
+                  <span class="cause-val">${rc.count} lỗi (${rc.percent}%)</span>
+                </div>
+                <div class="cause-bar-track">
+                  <div class="cause-bar-fill" style="width:${rc.percent}%; background:${rc.color};"></div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+          ${diag.topAdvice ? `
+            <div style="background:#EFF6FF; border:1px solid #BFDBFE; border-radius:8px; padding:12px; font-size:12.5px; color:#1E40AF; line-height:1.5;">
+              <strong style="display:flex; align-items:center; gap:5px; margin-bottom:3px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg>
+                Lời khuyên khắc phục:
+              </strong>
+              ${escapeHtml(diag.topAdvice)}
+            </div>
+          ` : ''}
+        `;
+      }
+
+      let riskHtml = '';
+      if (diag.riskRanking.length === 0) {
+        riskHtml = '<p style="font-size:13px; color:var(--text-muted);">Tất cả các chuyên đề đều ở mức an toàn.</p>';
+      } else {
+        riskHtml = `
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            ${diag.riskRanking.map(rk => {
+              const sub = SUBJECTS_CONFIG.find(s => s.id === rk.subjectId);
+              const color = rk.riskLevel === 'high' ? 'var(--danger)' : (rk.riskLevel === 'medium' ? 'var(--warning)' : 'var(--success)');
+              const bg = rk.riskLevel === 'high' ? 'var(--danger-light)' : (rk.riskLevel === 'medium' ? 'var(--warning-light)' : 'var(--success-light)');
+              return `
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:9px 12px; background:#FAFBFD; border:1px solid var(--border); border-radius:8px; cursor:pointer;" onclick="UI.openTopicDetail('${rk.id}')">
+                  <div>
+                    <div style="display:flex; align-items:center; gap:6px;">
+                      <strong style="font-size:13px;">${escapeHtml(rk.name)}</strong>
+                      <span class="badge ${sub ? sub.badgeClass : 'badge-gray'}">${sub ? sub.shortName : ''}</span>
+                    </div>
+                    <div style="font-size:11.5px; color:var(--text-muted); margin-top:2px;">
+                      ${rk.wrongCount} lỗi • Thành thạo: ${rk.masteryLevel}/5 • Ưu tiên: ${rk.priority === 'high' ? 'Cao' : 'Bình thường'}
+                    </div>
+                  </div>
+                  <span class="badge" style="background:${bg}; color:${color}; font-weight:700; font-size:12px;">
+                    Rủi ro: ${rk.riskScore}/100
+                  </span>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+      }
+
+      let fatigueHtml = '';
+      if (diag.fatigue.totalWrongGraded < 15) {
+        fatigueHtml = `
+          <p style="font-size:13px; color:var(--text-muted);">
+            Cần tích lũy ít nhất 15 câu sai từ các đề thi thử để hệ thống phân tích phân bổ thể lực và nhịp độ làm bài 150 phút. (Hiện có ${diag.fatigue.totalWrongGraded} câu sai).
+          </p>
+        `;
+      } else {
+        const p1 = Math.round((diag.fatigue.firstThirdWrong / diag.fatigue.totalWrongGraded) * 100);
+        const p2 = Math.round((diag.fatigue.midThirdWrong / diag.fatigue.totalWrongGraded) * 100);
+        const p3 = Math.round((diag.fatigue.lastThirdWrong / diag.fatigue.totalWrongGraded) * 100);
+
+        fatigueHtml = `
+          <div style="margin-bottom:12px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; text-align:center;">
+              <div style="background:#F8FAFC; border:1px solid var(--border); padding:8px 4px; border-radius:6px;">
+                <div style="font-size:11px; color:var(--text-muted);">Đầu giờ (C1–40)</div>
+                <div style="font-size:16px; font-weight:800; color:var(--text);">${p1}%</div>
+                <div style="font-size:10.5px; color:var(--text-muted);">${diag.fatigue.firstThirdWrong} lỗi</div>
+              </div>
+              <div style="background:#F8FAFC; border:1px solid var(--border); padding:8px 4px; border-radius:6px;">
+                <div style="font-size:11px; color:var(--text-muted);">Giữa giờ (C41–80)</div>
+                <div style="font-size:16px; font-weight:800; color:var(--text);">${p2}%</div>
+                <div style="font-size:10.5px; color:var(--text-muted);">${diag.fatigue.midThirdWrong} lỗi</div>
+              </div>
+              <div style="background:${p3 >= 42 ? '#FEF2F2' : '#F8FAFC'}; border:1px solid ${p3 >= 42 ? '#FECACA' : 'var(--border)'}; padding:8px 4px; border-radius:6px;">
+                <div style="font-size:11px; color:${p3 >= 42 ? '#991B1B' : 'var(--text-muted)'};">Cuối giờ (C81–120)</div>
+                <div style="font-size:16px; font-weight:800; color:${p3 >= 42 ? 'var(--danger)' : 'var(--text)'};">${p3}%</div>
+                <div style="font-size:10.5px; color:${p3 >= 42 ? '#B91C1C' : 'var(--text-muted)'};">${diag.fatigue.lastThirdWrong} lỗi</div>
+              </div>
+            </div>
+          </div>
+          ${diag.fatigue.detected ? `
+            <div style="background:#FEF2F2; border:1px solid #FECACA; border-radius:8px; padding:10px 12px; font-size:12.5px; color:#991B1B; line-height:1.4;">
+              <strong>⚠️ ${escapeHtml(diag.fatigue.note)}</strong>
+            </div>
+          ` : `
+            <div style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:8px; padding:10px 12px; font-size:12.5px; color:#166534;">
+              ✓ Phân bổ lỗi sai đều qua các phần thi. Bạn đang kiểm soát tốt nhịp độ 150 phút.
+            </div>
+          `}
+        `;
+      }
+
+      let planHtml = '';
+      if (diag.studyPlan.length === 0) {
+        planHtml = '<p style="font-size:13px; color:var(--text-muted);">Chưa có mục gợi ý học tập hôm nay.</p>';
+      } else {
+        planHtml = `
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            ${diag.studyPlan.map((item, idx) => `
+              <div class="plan-item" onclick="${item.type === 'topic' ? `UI.openTopicDetail('${item.topicId}')` : `UI.openNoteDetail('${item.noteId}')`}">
+                <div>
+                  <div style="font-size:13px; font-weight:700; color:var(--text);">${idx + 1}. ${escapeHtml(item.title)}</div>
+                  <div style="font-size:11.5px; color:var(--text-muted); margin-top:2px;">${escapeHtml(item.reason)}</div>
+                </div>
+                <button class="btn btn-sm btn-outline" style="white-space:nowrap;">Xem ngay</button>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+
+      container.innerHTML = `
+        <div class="card" style="border-top: 3px solid var(--primary);">
+          <div class="card-header" style="flex-wrap:wrap; gap:8px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:6px; background:#EFF6FF; color:var(--primary);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4"/><path d="m4.93 4.93 2.83 2.83"/><path d="M2 12h4"/><path d="m4.93 19.07 2.83-2.83"/><path d="M12 18v4"/><path d="m19.07 19.07-2.83-2.83"/><path d="M18 12h4"/><path d="m19.07 4.93-2.83 2.83"/></svg>
+              </span>
+              <div>
+                <h3 class="card-title" style="margin-bottom:0;">Chẩn đoán lỗi sai thông minh & Chiến lược bứt phá</h3>
+                <div style="font-size:12px; color:var(--text-muted);">Tự động phát hiện lỗi lặp lại, căn nguyên thất thoát điểm và rủi ro ôn tập</div>
+              </div>
+            </div>
+            <span class="badge badge-blue">AI Analytics</span>
+          </div>
+
+          <div class="smart-diag-grid">
+            <!-- Card 1: Repeated Errors -->
+            <div class="smart-diag-card">
+              <div class="smart-diag-header">
+                <div>
+                  <h4 class="smart-diag-title">Lỗi lặp lại kinh niên</h4>
+                  <p class="smart-diag-desc">Các chuyên đề liên tục mắc lỗi ở ≥ 2 đợt thi</p>
+                </div>
+                <span class="badge ${diag.repeatedErrors.length > 0 ? 'badge-red' : 'badge-green'}">${diag.repeatedErrors.length} chuyên đề</span>
+              </div>
+              ${repeatedHtml}
+            </div>
+
+            <!-- Card 2: Root Causes & Advice -->
+            <div class="smart-diag-card">
+              <div class="smart-diag-header">
+                <div>
+                  <h4 class="smart-diag-title">Căn nguyên lỗi sai & Khắc phục</h4>
+                  <p class="smart-diag-desc">Phân tích lý do mất điểm và giải pháp</p>
+                </div>
+                <span class="badge badge-gray">${diag.rootCauses.reduce((a, c) => a + c.count, 0)} lỗi</span>
+              </div>
+              ${causesHtml}
+            </div>
+
+            <!-- Card 3: Topic Risk Ranking -->
+            <div class="smart-diag-card">
+              <div class="smart-diag-header">
+                <div>
+                  <h4 class="smart-diag-title">Chỉ số rủi ro chuyên đề</h4>
+                  <p class="smart-diag-desc">Đánh giá theo số lỗi, mức thành thạo và ưu tiên</p>
+                </div>
+                <span class="badge badge-yellow">Top rủi ro</span>
+              </div>
+              ${riskHtml}
+            </div>
+
+            <!-- Card 4: Fatigue / Rush -->
+            <div class="smart-diag-card">
+              <div class="smart-diag-header">
+                <div>
+                  <h4 class="smart-diag-title">Phân bổ thể lực 150 phút</h4>
+                  <p class="smart-diag-desc">Tỷ lệ sai sót qua 3 giai đoạn của bài thi</p>
+                </div>
+                <span class="badge ${diag.fatigue.detected ? 'badge-red' : 'badge-green'}">${diag.fatigue.detected ? 'Cần điều chỉnh' : 'Ổn định'}</span>
+              </div>
+              ${fatigueHtml}
+            </div>
+          </div>
+
+          <!-- Daily Smart Action Plan -->
+          <div style="margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <h4 style="font-size:13.5px; font-weight:700; color:var(--text); display:flex; align-items:center; gap:6px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                Kế hoạch hành động khuyến nghị hôm nay
+              </h4>
+              <span style="font-size:11.5px; color:var(--text-muted);">Ưu tiên theo mức độ cấp bách</span>
+            </div>
+            ${planHtml}
+          </div>
+        </div>
+      `;
+    },
+
     // --- 4.2 VIEW: CHUYÊN ĐỀ ÔN TẬP (TOPICS) ---
     renderTopics() {
       const activeSub = this.activeTopicSubject;
@@ -4069,7 +4939,10 @@ table.data-table tbody tr:hover {
           <div class="topic-card-top">
             <div class="topic-card-header">
               <span class="topic-name">${escapeHtml(t.name)}</span>
-              ${statusBadges[t.status] || ''}
+              <div class="topic-card-actions">
+                ${statusBadges[t.status] || ''}
+                <button class="btn-topic-del" onclick="event.stopPropagation(); UI.confirmDeleteTopic('${t.id}')" title="Xóa chuyên đề">&times;</button>
+              </div>
             </div>
             <p class="topic-desc">${escapeHtml(t.description || 'Chưa có mô tả chi tiết.')}</p>
           </div>
@@ -4121,10 +4994,16 @@ table.data-table tbody tr:hover {
               <span class="badge badge-gray" style="margin-left:6px;">${escapeHtml(topic.groupName)}</span>
               <p style="margin-top:8px; font-size:13.5px; color:var(--text-muted); line-height:1.5;">${escapeHtml(topic.description || '')}</p>
             </div>
-            <button class="btn btn-sm btn-outline" onclick="UI.openEditTopicForm('${topic.id}')">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-              Sửa
-            </button>
+            <div style="display:flex; gap:8px;">
+              <button class="btn btn-sm btn-outline" onclick="UI.openEditTopicForm('${topic.id}')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                Sửa
+              </button>
+              <button class="btn btn-sm btn-outline btn-danger" onclick="UI.confirmDeleteTopic('${topic.id}')" title="Xóa chuyên đề">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                Xóa
+              </button>
+            </div>
           </div>
 
           <!-- Quick Status & Mastery Update -->
@@ -5352,45 +6231,284 @@ table.data-table tbody tr:hover {
 
       const comp = AnalyticsEngine.compareExams(examA, examB);
 
-      const renderDelta = (delta) => {
-        if (delta === null) return '--';
-        if (delta > 0) return `<span class="delta-pill pos">+${delta}</span>`;
-        if (delta < 0) return `<span class="delta-pill neg">${delta}</span>`;
-        return `<span class="delta-pill zero">0</span>`;
+      const renderDelta = (delta, unit = '') => {
+        if (delta === null || isNaN(delta)) return '--';
+        if (delta > 0) return `<span class="delta-pill pos">+${delta}${unit}</span>`;
+        if (delta < 0) return `<span class="delta-pill neg">${delta}${unit}</span>`;
+        return `<span class="delta-pill zero">0${unit}</span>`;
       };
 
+      // 1. Grouped Bar Chart SVG (Exam A vs Exam B per subject)
+      const svgW = 640;
+      const svgH = 200;
+      const padL = 45;
+      const padR = 20;
+      const padT = 30;
+      const padB = 35;
+      const graphW = svgW - padL - padR;
+      const graphH = svgH - padT - padB;
+      const groupW = graphW / 4;
+      const barW = 28;
+
+      let svgBars = '';
+      let svgGrid = '';
+
+      // Grid lines (0, 100, 200, 300)
+      [0, 100, 200, 300].forEach(val => {
+        const y = padT + graphH - (val / 300) * graphH;
+        svgGrid += `
+          <line x1="${padL}" y1="${y.toFixed(1)}" x2="${(padL + graphW).toFixed(1)}" y2="${y.toFixed(1)}" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="${val === 0 ? 'none' : '3,3'}"/>
+          <text x="${padL - 8}" y="${(y + 3.5).toFixed(1)}" text-anchor="end" font-size="10" fill="#94A3B8">${val}</text>
+        `;
+      });
+
+      comp.subjects.forEach((s, idx) => {
+        const gX = padL + idx * groupW;
+        const valA = s.scoreA || 0;
+        const valB = s.scoreB || 0;
+        const hA = (valA / 300) * graphH;
+        const hB = (valB / 300) * graphH;
+        const yA = padT + graphH - hA;
+        const yB = padT + graphH - hB;
+        const xA = gX + (groupW / 2) - barW - 4;
+        const xB = gX + (groupW / 2) + 4;
+
+        svgBars += `
+          <!-- Subject: ${s.name} -->
+          <rect x="${xA.toFixed(1)}" y="${yA.toFixed(1)}" width="${barW}" height="${hA.toFixed(1)}" rx="4" fill="#94A3B8" opacity="0.85">
+            <title>${escapeHtml(examA.name)} - ${s.name}: ${valA}đ</title>
+          </rect>
+          <text x="${(xA + barW / 2).toFixed(1)}" y="${(yA - 5).toFixed(1)}" text-anchor="middle" font-size="10.5" font-weight="600" fill="#64748B">${valA}</text>
+
+          <rect x="${xB.toFixed(1)}" y="${yB.toFixed(1)}" width="${barW}" height="${hB.toFixed(1)}" rx="4" fill="${s.color}">
+            <title>${escapeHtml(examB.name)} - ${s.name}: ${valB}đ</title>
+          </rect>
+          <text x="${(xB + barW / 2).toFixed(1)}" y="${(yB - 5).toFixed(1)}" text-anchor="middle" font-size="10.5" font-weight="700" fill="${s.color}">${valB}</text>
+
+          <!-- Group label -->
+          <text x="${(gX + groupW / 2).toFixed(1)}" y="${(padT + graphH + 20).toFixed(1)}" text-anchor="middle" font-size="11.5" font-weight="600" fill="#334155">${escapeHtml(s.name)}</text>
+        `;
+      });
+
+      const chartSvg = `
+        <svg viewBox="0 0 ${svgW} ${svgH}" style="width: 100%; height: auto; max-height: 220px; overflow: visible;">
+          ${svgGrid}
+          ${svgBars}
+        </svg>
+      `;
+
       container.innerHTML = `
-        <div class="table-responsive">
+        <!-- KPI Metrics Comparison Grid -->
+        <div class="comp-metrics-grid">
+          <div class="comp-metric-card">
+            <div class="comp-metric-label">Tổng điểm V-ACT</div>
+            <div class="comp-metric-val">
+              <span>${comp.totalScoreA} → ${comp.totalScoreB}</span>
+              ${renderDelta(comp.totalScoreDelta, 'đ')}
+            </div>
+            <div class="comp-metric-sub">
+              ${comp.pctGrowth >= 0 ? 'Tăng trưởng' : 'Giảm'} <strong>${comp.pctGrowth >= 0 ? '+' : ''}${comp.pctGrowth}%</strong> so với đợt trước
+            </div>
+          </div>
+
+          <div class="comp-metric-card">
+            <div class="comp-metric-label">Số câu đúng</div>
+            <div class="comp-metric-val">
+              <span>${comp.totalCorrectA} → ${comp.totalCorrectB}/120</span>
+              ${renderDelta(comp.totalCorrectDelta, 'c')}
+            </div>
+            <div class="comp-metric-sub">
+              Thay đổi net ${comp.totalCorrectDelta >= 0 ? '+' : ''}${comp.totalCorrectDelta} câu đúng
+            </div>
+          </div>
+
+          <div class="comp-metric-card">
+            <div class="comp-metric-label">Độ chính xác</div>
+            <div class="comp-metric-val">
+              <span>${comp.accuracyA}% → ${comp.accuracyB}%</span>
+              ${renderDelta(comp.accuracyDelta, '%')}
+            </div>
+            <div class="comp-metric-sub">
+              ${comp.accuracyDelta >= 0 ? 'Tăng' : 'Giảm'} ${Math.abs(comp.accuracyDelta)}% toàn bài
+            </div>
+          </div>
+
+          <div class="comp-metric-card">
+            <div class="comp-metric-label">Thời gian làm bài</div>
+            <div class="comp-metric-val">
+              <span>${comp.durationA}p → ${comp.durationB}p</span>
+            </div>
+            <div class="comp-metric-sub">
+              Khung chuẩn: 150 phút
+            </div>
+          </div>
+        </div>
+
+        <!-- Grouped Bar Chart -->
+        <div style="background:#FAFBFD; border:1px solid var(--border); border-radius:10px; padding:16px; margin-bottom:20px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+            <h4 style="font-size:13.5px; font-weight:700; color:var(--text); margin:0;">
+              Biểu đồ đối sánh điểm 4 thành phần (Thang 300)
+            </h4>
+            <div style="display:flex; gap:14px; font-size:12px; align-items:center;">
+              <span style="display:inline-flex; align-items:center; gap:5px;">
+                <span style="display:inline-block; width:12px; height:12px; border-radius:3px; background:#94A3B8;"></span>
+                <span>${escapeHtml(examA.name)}</span>
+              </span>
+              <span style="display:inline-flex; align-items:center; gap:5px;">
+                <span style="display:inline-block; width:12px; height:12px; border-radius:3px; background:var(--primary);"></span>
+                <span>${escapeHtml(examB.name)}</span>
+              </span>
+            </div>
+          </div>
+          ${chartSvg}
+        </div>
+
+        <!-- 4 Subjects Comparison Table -->
+        <div class="table-responsive" style="margin-bottom:20px;">
           <table class="data-table">
             <thead>
               <tr>
-                <th>Thành phần</th>
+                <th>Thành phần môn thi</th>
                 <th>${escapeHtml(examA.name)}</th>
                 <th>${escapeHtml(examB.name)}</th>
                 <th>Thay đổi điểm</th>
                 <th>Thay đổi câu đúng</th>
+                <th>Độ chính xác</th>
               </tr>
             </thead>
             <tbody>
               ${comp.subjects.map(s => `
                 <tr>
-                  <td><strong>${s.name}</strong></td>
-                  <td>${s.scoreA !== null ? `${s.scoreA}đ (${s.correctA}/30)` : `Chưa có điểm (${s.correctA}/30)`}</td>
-                  <td>${s.scoreB !== null ? `${s.scoreB}đ (${s.correctB}/30)` : `Chưa có điểm (${s.correctB}/30)`}</td>
-                  <td>${renderDelta(s.scoreDelta)}</td>
-                  <td>${renderDelta(s.correctDelta)}</td>
+                  <td>
+                    <div style="display:flex; align-items:center; gap:6px;">
+                      <span class="badge ${s.badgeClass}">${s.name}</span>
+                    </div>
+                  </td>
+                  <td>${s.scoreA !== null ? `<strong>${s.scoreA}đ</strong> (${s.correctA}/30)` : `Chưa có điểm (${s.correctA}/30)`}</td>
+                  <td>${s.scoreB !== null ? `<strong>${s.scoreB}đ</strong> (${s.correctB}/30)` : `Chưa có điểm (${s.correctB}/30)`}</td>
+                  <td>${renderDelta(s.scoreDelta, 'đ')}</td>
+                  <td>${renderDelta(s.correctDelta, ' câu')}</td>
+                  <td>${s.accA}% → ${s.accB}% (${renderDelta(s.accDelta, '%')})</td>
                 </tr>
               `).join('')}
-              <tr style="background:#FAFBFD; font-weight:700;">
+
+              <!-- Science Subgroups (Logic vs Scientific Reasoning) -->
+              <tr style="background:#F8FAFC; font-size:12px; color:var(--text-muted);">
+                <td style="padding-left:24px;">↳ <em>TDKH: Logic & Số liệu (C91–102)</em></td>
+                <td>${comp.subgroups.logicStats.correctA}/12 đúng</td>
+                <td>${comp.subgroups.logicStats.correctB}/12 đúng</td>
+                <td>--</td>
+                <td>${renderDelta(comp.subgroups.logicStats.delta, ' câu')}</td>
+                <td>${Math.round((comp.subgroups.logicStats.correctA/12)*100)}% → ${Math.round((comp.subgroups.logicStats.correctB/12)*100)}%</td>
+              </tr>
+              <tr style="background:#F8FAFC; font-size:12px; color:var(--text-muted);">
+                <td style="padding-left:24px;">↳ <em>TDKH: Suy luận khoa học (C103–120)</em></td>
+                <td>${comp.subgroups.scienceReasoning.correctA}/18 đúng</td>
+                <td>${comp.subgroups.scienceReasoning.correctB}/18 đúng</td>
+                <td>--</td>
+                <td>${renderDelta(comp.subgroups.scienceReasoning.delta, ' câu')}</td>
+                <td>${Math.round((comp.subgroups.scienceReasoning.correctA/18)*100)}% → ${Math.round((comp.subgroups.scienceReasoning.correctB/18)*100)}%</td>
+              </tr>
+
+              <!-- Total V-ACT Score Row -->
+              <tr style="background:#FAFBFD; font-weight:800; border-top: 2px solid var(--border);">
                 <td>TỔNG ĐIỂM V-ACT</td>
-                <td>${comp.totalScoreA}/1.200</td>
-                <td>${comp.totalScoreB}/1.200</td>
-                <td>${renderDelta(comp.totalScoreDelta)}</td>
-                <td>${renderDelta(comp.totalCorrectDelta)}</td>
+                <td><strong style="color:var(--primary); font-size:15px;">${comp.totalScoreA}</strong>/1.200 (${comp.totalCorrectA}/120)</td>
+                <td><strong style="color:var(--primary); font-size:15px;">${comp.totalScoreB}</strong>/1.200 (${comp.totalCorrectB}/120)</td>
+                <td>${renderDelta(comp.totalScoreDelta, 'đ')}</td>
+                <td>${renderDelta(comp.totalCorrectDelta, ' câu')}</td>
+                <td>${comp.accuracyA}% → ${comp.accuracyB}% (${renderDelta(comp.accuracyDelta, '%')})</td>
               </tr>
             </tbody>
           </table>
         </div>
+
+        <!-- Question Shift Matrix (Improved, Regressed, Persistent, Maintained) -->
+        <div class="shift-matrix-box">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+            <h4 style="font-size:14px; font-weight:700; margin:0; display:flex; align-items:center; gap:6px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M16 3h5v5"/><path d="M4 20L21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></svg>
+              Ma trận chuyển dịch câu hỏi (120 câu)
+            </h4>
+            <span style="font-size:12px; color:var(--text-muted);">
+              Đã duy trì đúng ổn định cả 2 đợt: <strong style="color:var(--success); font-size:13px;">${comp.shiftMatrix.maintained}/120 câu</strong>
+            </span>
+          </div>
+
+          <div class="shift-cols">
+            <!-- Improved -->
+            <div class="shift-card improved">
+              <div class="shift-header">
+                <span class="shift-title">Cải thiện đúng (+${comp.shiftMatrix.improved.length})</span>
+                <span class="shift-sub">Sai ở đề trước, đã làm đúng ở đề này</span>
+              </div>
+              <div class="shift-pills">
+                ${comp.shiftMatrix.improved.length === 0 ? '<span style="font-size:12px; color:var(--text-muted); font-style:italic;">Không có câu nào</span>' :
+                  comp.shiftMatrix.improved.map(q => `<span class="shift-pill pill-improved" title="Câu ${q.qNum} (${q.subShort})">C${q.qNum} (${q.subShort})</span>`).join('')}
+              </div>
+            </div>
+
+            <!-- Regressed -->
+            <div class="shift-card regressed">
+              <div class="shift-header">
+                <span class="shift-title">Bị thụt lùi (-${comp.shiftMatrix.regressed.length})</span>
+                <span class="shift-sub">Đúng ở đề trước nhưng lại sai ở đề này</span>
+              </div>
+              <div class="shift-pills">
+                ${comp.shiftMatrix.regressed.length === 0 ? '<span style="font-size:12px; color:var(--text-muted); font-style:italic;">Không có câu nào</span>' :
+                  comp.shiftMatrix.regressed.map(q => `<span class="shift-pill pill-regressed" title="Câu ${q.qNum} (${q.subShort}) - ${escapeHtml(q.reason || 'Lỗi')}">C${q.qNum} (${q.subShort})</span>`).join('')}
+              </div>
+            </div>
+
+            <!-- Persistent -->
+            <div class="shift-card persistent">
+              <div class="shift-header">
+                <span class="shift-title">Lỗi dai dẳng (${comp.shiftMatrix.persistent.length})</span>
+                <span class="shift-sub">Làm sai liên tiếp ở cả hai đề thi</span>
+              </div>
+              <div class="shift-pills">
+                ${comp.shiftMatrix.persistent.length === 0 ? '<span style="font-size:12px; color:var(--text-muted); font-style:italic;">Không có câu nào</span>' :
+                  comp.shiftMatrix.persistent.map(q => `<span class="shift-pill pill-persistent" title="Câu ${q.qNum} (${q.subShort})">C${q.qNum} (${q.subShort})</span>`).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Error Causes Shift Comparison -->
+        ${comp.reasonsComparison.length > 0 ? `
+          <div style="margin-top:20px; background:#FAFBFD; border:1px solid var(--border); border-radius:10px; padding:16px;">
+            <h4 style="font-size:13.5px; font-weight:700; color:var(--text); margin-bottom:12px;">
+              Đối chiếu nguyên nhân làm sai câu hỏi
+            </h4>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Nguyên nhân sai</th>
+                    <th>Số lỗi ở ${escapeHtml(examA.name)}</th>
+                    <th>Số lỗi ở ${escapeHtml(examB.name)}</th>
+                    <th>Thay đổi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${comp.reasonsComparison.map(r => `
+                    <tr>
+                      <td><strong>${escapeHtml(r.reason)}</strong></td>
+                      <td>${r.countA} lỗi</td>
+                      <td>${r.countB} lỗi</td>
+                      <td>
+                        ${r.delta < 0 ? `<span class="delta-pill pos">${r.delta} lỗi (Cải thiện)</span>` :
+                          (r.delta > 0 ? `<span class="delta-pill neg">+${r.delta} lỗi (Tăng)</span>` :
+                          `<span class="delta-pill zero">0 (Không đổi)</span>`)}
+                      </td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ` : ''}
       `;
     },
 
@@ -5730,6 +6848,9 @@ table.data-table tbody tr:hover {
       document.getElementById('topic-form-priority').value = topic.priority || 'medium';
       document.getElementById('topic-form-status').value = topic.status || 'not_started';
 
+      const btnDel = document.getElementById('btn-delete-topic-modal');
+      if (btnDel) btnDel.style.display = 'inline-flex';
+
       this.closeModal('modal-topic-detail');
       this.showModal('modal-topic-form');
     },
@@ -5743,6 +6864,9 @@ table.data-table tbody tr:hover {
       document.getElementById('topic-form-desc').value = '';
       document.getElementById('topic-form-priority').value = 'medium';
       document.getElementById('topic-form-status').value = 'not_started';
+
+      const btnDel = document.getElementById('btn-delete-topic-modal');
+      if (btnDel) btnDel.style.display = 'none';
 
       this.showModal('modal-topic-form');
     },
@@ -5798,6 +6922,45 @@ table.data-table tbody tr:hover {
       this.closeModal('modal-topic-form');
       this.renderTopics();
       this.showToast(`Đã lưu chuyên đề "${name}".`, 'success');
+    },
+
+    confirmDeleteTopic(topicId) {
+      const topic = (this.state.topics || []).find(t => t.id === topicId);
+      if (!topic) return;
+
+      const notesCount = (this.state.notes || []).filter(n => n.topicId === topicId).length;
+      const examWrongCount = (this.state.exams || []).reduce((acc, ex) => {
+        return acc + (Array.isArray(ex.questions) ? ex.questions.filter(q => q.topicId === topicId && q.status === 'wrong').length : 0);
+      }, 0);
+
+      let extraNote = '';
+      if (notesCount > 0 || examWrongCount > 0) {
+        extraNote = ` (Có ${notesCount} ghi chú và ${examWrongCount} lỗi thi thử liên quan sẽ được bảo lưu an toàn với tên chuyên đề).`;
+      }
+
+      this.showConfirmDialog(
+        `Xác nhận xóa chuyên đề "${topic.name}"?`,
+        `Bạn có chắc chắn muốn xóa chuyên đề này? Thao tác có thể áp dụng cho mọi chuyên đề (kể cả chuyên đề mặc định ban đầu). Bạn có thể khôi phục các chuyên đề mặc định trong phần Cài đặt bất kỳ lúc nào.${extraNote}`,
+        () => {
+          this.closeModal('modal-topic-detail');
+          this.closeModal('modal-topic-form');
+          StorageService.deleteTopic(this.state, topicId);
+          this.renderTopics();
+          if (this.currentView === 'overview') this.renderOverview();
+          this.showToast(`Đã xóa chuyên đề "${topic.name}".`, 'info');
+        }
+      );
+    },
+
+    restoreDefaultTopics() {
+      const count = StorageService.restoreDefaultTopics(this.state);
+      if (count > 0) {
+        this.renderTopics();
+        if (this.currentView === 'overview') this.renderOverview();
+        this.showToast(`Đã khôi phục thành công ${count} chuyên đề chuẩn V-ACT!`, 'success');
+      } else {
+        this.showToast('Tất cả chuyên đề mặc định đã có đầy đủ trong hệ thống.', 'info');
+      }
     },
 
     // Modal helpers

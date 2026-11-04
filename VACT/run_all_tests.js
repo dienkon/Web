@@ -595,14 +595,169 @@ async function run() {
       record(18, 'Khi LocalStorage phát sinh lỗi/hết quota -> Báo lỗi rõ ràng thay vì giả vờ lưu', false, e.message);
     }
 
+    // TEST 19: Xóa chuyên đề MẶC ĐỊNH (default topic) và bảo lưu ghi chú liên kết an toàn
+    try {
+      const t19 = await cdp.eval(`
+        (() => {
+          const defTopic = UI.state.topics.find(t => t.id === 'top_ma_15');
+          if (!defTopic) return { success: false, reason: 'Topic top_ma_15 not found' };
+
+          UI.state.notes.push({
+            id: 'note_test_preserve',
+            topicId: 'top_ma_15',
+            subjectId: 'math',
+            type: 'formula',
+            title: 'Công thức Xác suất cổ điển P(A)',
+            content: 'P(A) = n(A) / n(Omega)'
+          });
+
+          const initialCount = UI.state.topics.length;
+          StorageService.deleteTopic(UI.state, 'top_ma_15');
+          const postCount = UI.state.topics.length;
+          const topicStillExists = UI.state.topics.some(t => t.id === 'top_ma_15');
+          const linkedNote = UI.state.notes.find(n => n.id === 'note_test_preserve');
+
+          return {
+            success: !topicStillExists && postCount === initialCount - 1 && linkedNote && linkedNote.topicName === 'Xác suất' && linkedNote.topicId === null,
+            initialCount,
+            postCount,
+            linkedNotePreserved: !!(linkedNote && linkedNote.topicName === 'Xác suất')
+          };
+        })()
+      `);
+      record(19, 'Cho phép xóa cả chuyên đề mặc định -> Ghi chú và câu sai liên kết được bảo lưu an toàn', t19.success, `Topics: ${t19.initialCount} -> ${t19.postCount}, Note preserved: ${t19.linkedNotePreserved}`);
+    } catch (e) {
+      record(19, 'Cho phép xóa cả chuyên đề mặc định -> Ghi chú và câu sai liên kết được bảo lưu an toàn', false, e.message);
+    }
+
+    // TEST 20: Khôi phục danh mục chuyên đề mặc định
+    try {
+      const t20 = await cdp.eval(`
+        (() => {
+          const restoredCount = StorageService.restoreDefaultTopics(UI.state);
+          const restoredTopic = UI.state.topics.find(t => t.id === 'top_ma_15');
+          return {
+            success: restoredCount >= 1 && !!restoredTopic,
+            restoredCount,
+            totalTopics: UI.state.topics.length
+          };
+        })()
+      `);
+      record(20, 'Khôi phục chuyên đề mặc định -> Tự bổ sung các chuyên đề bị xóa mà không mất dữ liệu', t20.success, `Restored: ${t20.restoredCount}, Total: ${t20.totalTopics}`);
+    } catch (e) {
+      record(20, 'Khôi phục chuyên đề mặc định -> Tự bổ sung các chuyên đề bị xóa mà không mất dữ liệu', false, e.message);
+    }
+
+    // TEST 21: So sánh chi tiết đợt thi (SVG chart, Science subgroups, Ma trận chuyển dịch)
+    try {
+      const t21 = await cdp.eval(`
+        (() => {
+          const q1 = [], q2 = [];
+          for (let i = 1; i <= 120; i++) {
+            let subId = 'vietnamese';
+            if (i > 30 && i <= 60) subId = 'english';
+            else if (i > 60 && i <= 90) subId = 'math';
+            else if (i > 90) subId = 'science';
+
+            let st1 = 'correct', err1 = null, top1 = null;
+            let st2 = 'correct', err2 = null, top2 = null;
+
+            if (i === 1) { st1 = 'wrong'; err1 = 'Đọc sót đề / Bẫy câu chữ'; top1 = 'top_tv_01'; st2 = 'correct'; top2 = 'top_tv_01'; } // Improved
+            if (i === 35) { st1 = 'correct'; st2 = 'wrong'; err2 = 'Nhầm công thức'; top2 = 'top_en_05'; } // Regressed
+            if (i === 72) { st1 = 'wrong'; err1 = 'Tính toán ẩu'; top1 = 'top_ma_15'; st2 = 'wrong'; err2 = 'Tính toán ẩu'; top2 = 'top_ma_15'; } // Persistent
+            if (i > 90 && i <= 102 && i > 98) { st1 = 'wrong'; }
+            if (i === 102) { st2 = 'wrong'; } // Logic delta = 11 - 8 = 3
+            if (i > 102 && i <= 120 && i > 114) { st1 = 'wrong'; }
+
+            q1.push({ qNum: i, subjectId: subId, status: st1, errorReason: err1, topicId: top1 });
+            q2.push({ qNum: i, subjectId: subId, status: st2, errorReason: err2, topicId: top2 });
+          }
+
+          const ex1 = {
+            id: 'ex_test_comp_a',
+            name: 'Đợt 1 Ban Đầu',
+            date: '2026-03-01',
+            scores: { vietnamese: { correct: 29, score: 260 }, english: { correct: 30, score: 280 }, math: { correct: 29, score: 250 }, science: { correct: 20, score: 190 } },
+            questions: q1
+          };
+          const ex2 = {
+            id: 'ex_test_comp_b',
+            name: 'Đợt 2 Tiến Bộ',
+            date: '2026-03-15',
+            scores: { vietnamese: { correct: 30, score: 290 }, english: { correct: 29, score: 270 }, math: { correct: 29, score: 275 }, science: { correct: 28, score: 255 } },
+            questions: q2
+          };
+
+          UI.state.exams = [ex1, ex2];
+          StorageService.save(UI.state);
+
+          const comp = AnalyticsEngine.compareExams(ex1, ex2);
+          UI.navigate('analytics');
+          document.getElementById('comp-exam-a').value = 'ex_test_comp_a';
+          document.getElementById('comp-exam-b').value = 'ex_test_comp_b';
+          UI.updateExamComparison();
+
+          const compHtml = document.getElementById('exam-comparison-result').innerHTML;
+          const hasImp = comp.shiftMatrix.improved.some(q => q.qNum === 1);
+          const hasReg = comp.shiftMatrix.regressed.some(q => q.qNum === 35);
+          const hasPer = comp.shiftMatrix.persistent.some(q => q.qNum === 72);
+          const hasSvg = compHtml.includes('<svg') && compHtml.includes('rect');
+          const hasShiftUI = compHtml.includes('shift-matrix-box') && compHtml.includes('pill-improved');
+
+          return {
+            success: hasImp && hasReg && hasPer && hasSvg && hasShiftUI && comp.subgroups.logicStats.delta === 3,
+            hasImp,
+            hasReg,
+            hasPer,
+            hasSvg,
+            hasShiftUI,
+            logicDelta: comp.subgroups.logicStats.delta
+          };
+        })()
+      `);
+      record(21, 'So sánh chi tiết đợt thi -> Biểu đồ cột SVG, Phân nhóm Tư duy KH, Ma trận chuyển dịch', t21.success, `Improved: ${t21.hasImp}, Regressed: ${t21.hasReg}, Persistent: ${t21.hasPer}, Chart: ${t21.hasSvg}`);
+    } catch (e) {
+      record(21, 'So sánh chi tiết đợt thi -> Biểu đồ cột SVG, Phân nhóm Tư duy KH, Ma trận chuyển dịch', false, e.message);
+    }
+
+    // TEST 22: Chẩn đoán lỗi sai thông minh (Lỗi kinh niên lặp lại, Căn nguyên, Rủi ro, Thể lực, Kế hoạch ôn)
+    try {
+      const t22 = await cdp.eval(`
+        (() => {
+          const diag = AnalyticsEngine.getSmartDiagnostics(UI.state);
+          UI.navigate('overview');
+          const diagHtml = document.getElementById('overview-smart-diagnostics').innerHTML;
+
+          const repeatedFound = diag.repeatedErrors.some(r => r.topicId === 'top_ma_15');
+          const rootCausesFound = diag.rootCauses.length > 0;
+          const adviceValid = typeof diag.topAdvice === 'string' && diag.topAdvice.length > 10;
+          const riskRankingValid = diag.riskRanking.length > 0;
+          const studyPlanValid = diag.studyPlan.length > 0;
+          const uiRendered = diagHtml.includes('smart-diag-card') && diagHtml.includes('Lỗi lặp lại kinh niên');
+
+          return {
+            success: repeatedFound && rootCausesFound && adviceValid && riskRankingValid && studyPlanValid && uiRendered,
+            repeatedFound,
+            rootCausesCount: diag.rootCauses.length,
+            studyPlanCount: diag.studyPlan.length,
+            topRisk: diag.riskRanking[0]?.riskScore,
+            uiRendered
+          };
+        })()
+      `);
+      record(22, 'Chẩn đoán lỗi sai thông minh -> Tự detect lỗi lặp lại kinh niên, căn nguyên, rủi ro và kế hoạch ôn', t22.success, `Chronic repeated: ${t22.repeatedFound}, Causes: ${t22.rootCausesCount}, Study plan: ${t22.studyPlanCount}, UI: ${t22.uiRendered}`);
+    } catch (e) {
+      record(22, 'Chẩn đoán lỗi sai thông minh -> Tự detect lỗi lặp lại kinh niên, căn nguyên, rủi ro và kế hoạch ôn', false, e.message);
+    }
+
     console.log('\n--- SUMMARY RESULTS ---');
     const totalPassed = results.filter(r => r.passed).length;
     console.log(`Passed: ${totalPassed} / ${results.length}`);
 
-    if (totalPassed === 18) {
-      console.log('🎉 ALL 18 MANDATORY TESTS PASSED PERFECTLY!');
+    if (totalPassed === 22) {
+      console.log('🎉 ALL 22 TESTS (INCLUDING ALL ENHANCED FEATURES) PASSED PERFECTLY!');
     } else {
-      console.log(`⚠️ ${18 - totalPassed} tests failed.`);
+      console.log(`⚠️ ${22 - totalPassed} tests failed.`);
     }
 
   } catch (err) {

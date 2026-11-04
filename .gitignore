@@ -1,1 +1,4 @@
 Misc/tiktok_live/.env
+.chrome-*-profile/
+__pycache__/
+
