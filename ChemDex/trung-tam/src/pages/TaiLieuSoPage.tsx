@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Sidebar } from '../components/Sidebar';
 import { DustBackground } from '../components/DustBackground';
 import { Header } from '../components/Header';
@@ -37,6 +37,9 @@ export default function App() {
   };
 
   const handleDocClick = async (id: string) => {
+    const url = new URL(window.location.href);
+    url.searchParams.set('doc', id);
+    window.history.replaceState(null, '', url);
     // Add to history (front)
     setHistoryIds(prev => {
       const newHistory = [id, ...prev.filter(x => x !== id)].slice(0, 50);
@@ -61,6 +64,11 @@ export default function App() {
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    const docId = new URLSearchParams(window.location.search).get('doc');
+    if (docId && libraryDocs.some(doc => doc.id === docId)) void handleDocClick(docId);
+  }, []);
 
   const toggleBookmark = (id: string) => {
     setBookmarkedIds(prev => {
@@ -211,6 +219,9 @@ export default function App() {
         <ReaderView 
           doc={currentDoc} 
           onBack={() => {
+            const url = new URL(window.location.href);
+            url.searchParams.delete('doc');
+            window.history.replaceState(null, '', url);
             setCurrentView('library');
             setCurrentDoc(null);
             setCurrentDocId(null);

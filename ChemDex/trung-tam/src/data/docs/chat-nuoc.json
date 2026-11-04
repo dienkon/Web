@@ -1,0 +1,15 @@
+{
+  "id": "chat-nuoc",
+  "title": "Nước — hành trình của một hạt muối",
+  "author": "ChemDex · Biên soạn học liệu",
+  "category": "hopchat",
+  "summary": "Thả một hạt muối vào nước và khuấy, ta không còn nhìn thấy hạt rắn. Nhưng vật chất không biến mất: các ion đã phân tán trong dung dịch. Nếu loại nước bằng quá trình bay hơi phù hợp, muối có thể kết tinh trở lại. Câu chuyện nhỏ này nối ba khái niệm thường học rời nhau: hòa tan, bảo toàn vật chất và kết tinh.",
+  "image": "/assets/icon/logo.png",
+  "tags": [
+    "H2O",
+    "Câu chuyện hóa học",
+    "Hợp chất"
+  ],
+  "content": "## Câu chuyện: một hạt muối biến mất\n\nThả một hạt muối vào nước và khuấy, ta không còn nhìn thấy hạt rắn. Nhưng vật chất không biến mất: các ion đã phân tán trong dung dịch. Nếu loại nước bằng quá trình bay hơi phù hợp, muối có thể kết tinh trở lại. Câu chuyện nhỏ này nối ba khái niệm thường học rời nhau: hòa tan, bảo toàn vật chất và kết tinh.\n\nNước thường được gọi là “dung môi vạn năng”, nhưng tên gọi đó không có nghĩa nước hòa tan mọi thứ. Dầu là ví dụ quen thuộc cho giới hạn ấy. Bài học quan trọng hơn một biệt danh là phải xem tương tác giữa chất tan và dung môi. [USGS giải thích vai trò dung môi của nước](https://www.usgs.gov/water-science-school/science/water-qa-why-water-universal-solvent).\n\n## Hồ sơ nhanh\n\n| Đại lượng | Thông tin | Cách hiểu |\n|---|---|---|\n| Công thức | H₂O | Hai H và một O trong một phân tử |\n| Khối lượng mol | 18,015 g/mol | Dùng khi đổi khối lượng sang lượng chất |\n| Hình học phân tử | Gấp khúc | Không phải ba nguyên tử nằm trên một đường thẳng |\n| Liên kết trong phân tử | Cộng hóa trị O–H | Phân biệt với liên kết hydrogen giữa các phân tử |\n\n## Từ cấu trúc đến tính chất\n\nPhân tử nước có phân bố điện tích không đều. Khi tương tác với ion của chất tan, các phân tử nước có thể định hướng theo điện tích. Tuy nhiên, khả năng hòa tan còn phụ thuộc sự cạnh tranh với tương tác trong chất tan; không thể kết luận rằng mọi hợp chất ion đều tan mạnh.\n\n> **Điểm cần phân biệt:** mô hình một phân tử H₂O cho biết hình học của phân tử. Nó chưa mô tả cả mạng liên kết hydrogen của nước lỏng.\n\n## Một phép tính cụ thể\n\nVới 36,030 g nước: **n = m/M = 36,030 / 18,015 = 2,000 mol**. Đại lượng “mol phân tử nước” khác với “mol nguyên tử”: lượng mẫu này chứa 4,000 mol nguyên tử H và 2,000 mol nguyên tử O.\n\n## Tự kiểm tra\n\n1. Sau khi muối tan, vì sao không thể kết luận muối đã biến thành nước?\n2. Trong 1 mol H₂O có bao nhiêu mol nguyên tử H?\n3. Mô hình H₂O riêng lẻ có thể hiện đầy đủ nước lỏng không?\n\n<details><summary>Gợi ý trả lời</summary>\n\nMuối tồn tại dưới dạng các thành phần phân tán; 1 mol H₂O chứa 2 mol H; mô hình đơn phân tử không mô tả toàn bộ tương tác giữa các phân tử trong chất lỏng.\n\n</details>\n\n## Nguồn và bước khám phá tiếp\n\n- [PubChem — Water, CID 962](https://pubchem.ncbi.nlm.nih.gov/compound/962): định danh và hồ sơ dữ liệu.\n- [USGS — Water as a solvent](https://www.usgs.gov/water-science-school/science/water-qa-why-water-universal-solvent): giải thích tính dung môi.\n- [Mở cấu trúc H₂O trong ChemDex](/tien-ich/cau-truc-3d/?compound=cid-962).\n",
+  "chemicalFormula": "H₂O"
+}

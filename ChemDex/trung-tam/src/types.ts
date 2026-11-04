@@ -21,6 +21,7 @@ export interface DocMeta {
 
 export interface DocFull extends DocMeta {
   content: string;
+  chemicalFormula?: string;
 }
 
 export interface AppState {

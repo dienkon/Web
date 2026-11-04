@@ -33,6 +33,16 @@ export const viewerLifecyclePlugin = {
         let source = await fs.readFile(path, "utf8");
         const replacements = [
           [
+            '        var scaleFactor = (this.CAMERA_Z - this.rotationGroup.position.z) * 0.85;',
+            `        // Normalize modern wheel events: up/pinch-out zooms in.
+        if (typeof ev.deltaY === 'number') {
+            const pixels = ev.deltaY * (ev.deltaMode === 1 ? 16 : ev.deltaMode === 2 ? this.HEIGHT : 1);
+            this.zoom(Math.exp(-Math.max(-240, Math.min(240, pixels)) * 0.001));
+            return;
+        }
+        var scaleFactor = (this.CAMERA_Z - this.rotationGroup.position.z) * 0.85;`,
+          ],
+          [
             "document.body.addEventListener('mouseup', this._handleMouseUp.bind(this));",
             "this.releaseGlobalListeners ??= []; const mouseUp = this._handleMouseUp.bind(this); document.body.addEventListener('mouseup', mouseUp); this.releaseGlobalListeners.push(() => document.body.removeEventListener('mouseup', mouseUp));",
           ],

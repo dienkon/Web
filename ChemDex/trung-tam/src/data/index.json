@@ -168,5 +168,44 @@
       "Template",
       "Mẫu"
     ]
+  },
+  {
+    "id": "chat-nuoc",
+    "title": "Nước — hành trình của một hạt muối",
+    "author": "ChemDex · Biên soạn học liệu",
+    "category": "hopchat",
+    "summary": "Thả một hạt muối vào nước và khuấy, ta không còn nhìn thấy hạt rắn. Nhưng vật chất không biến mất: các ion đã phân tán trong dung dịch. Nếu loại nước bằng quá trình bay hơi phù hợp, muối có thể kết tinh trở lại. Câu chuyện nhỏ này nối ba khái niệm thường học rời nhau: hòa tan, bảo toàn vật chất và kết tinh.",
+    "image": "/assets/icon/logo.png",
+    "tags": [
+      "H2O",
+      "Câu chuyện hóa học",
+      "Hợp chất"
+    ]
+  },
+  {
+    "id": "chat-amoniac",
+    "title": "Amoniac — từ không khí đến câu chuyện phân bón",
+    "author": "ChemDex · Biên soạn học liệu",
+    "category": "hopchat",
+    "summary": "Không khí chứa nitrogen, nhưng có sẵn một nguyên tố không đồng nghĩa với việc dễ chuyển nó thành sản phẩm hữu ích. Tổng hợp amoniac đặt ra một bài toán thực tế: làm sao kết hợp nitrogen với hydrogen với tốc độ và hiệu suất phù hợp?",
+    "image": "/assets/icon/logo.png",
+    "tags": [
+      "NH3",
+      "Câu chuyện hóa học",
+      "Hợp chất"
+    ]
+  },
+  {
+    "id": "chat-natri-clorua",
+    "title": "Natri clorua — một công thức, hai trạng thái rất khác",
+    "author": "ChemDex · Biên soạn học liệu",
+    "category": "hopchat",
+    "summary": "Một hạt muối ăn có thể nhìn như một vật đơn giản. Khi chuyển từ trạng thái rắn sang dung dịch, điều thay đổi quan trọng là cách các thành phần sắp xếp và chuyển động. Trong tinh thể, các ion thuộc một mạng có trật tự; trong dung dịch, chúng được phân tán và tương tác với dung môi.",
+    "image": "/assets/icon/logo.png",
+    "tags": [
+      "NaCl",
+      "Câu chuyện hóa học",
+      "Hợp chất"
+    ]
   }
 ]

@@ -133,3 +133,19 @@ test('standalone utilities receive the same sidebar and slate palette',async({pa
   await page.getByRole('dialog').getByRole('searchbox').fill('H2O');
   await expect(page.locator('.search-result').first()).toContainText('Nước');
 });
+
+test('wheel up zooms in and wheel down zooms out without scrolling the page',async({page})=>{
+  await page.goto('/tien-ich/cau-truc-3d/?compound=cid-962');
+  await expect(page.locator('.viewer-status')).toContainText('Kéo để xoay');
+  const viewer=page.locator('chem-structure-viewer');
+  const distance=()=>viewer.evaluate(el=>el.viewer.getView()[3]);
+  const before=await distance();
+  await page.locator('chem-structure-viewer canvas').hover();
+  const scroll=await page.evaluate(()=>scrollY);
+  await page.mouse.wheel(0,-120);
+  await expect.poll(distance).toBeGreaterThan(before);
+  const closer=await distance();
+  await page.mouse.wheel(0,120);
+  await expect.poll(distance).toBeLessThan(closer);
+  expect(await page.evaluate(()=>scrollY)).toBe(scroll);
+});

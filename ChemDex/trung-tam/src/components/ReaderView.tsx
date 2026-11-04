@@ -24,6 +24,8 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
   if (!doc) return null;
 
   const catConfig = getCategoryConfig(doc.category);
+  const headingId = (text: string) => text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g,'d').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  const sections = doc.content.split('\n').filter(line=>/^## /.test(line)).map(line=>line.slice(3).trim());
 
   const handlePrint = () => {
     window.print();
@@ -162,19 +164,26 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
           </div>
         </header>
 
-        <div className="w-full h-[300px] sm:h-[400px] md:h-[500px] rounded-2xl overflow-hidden mb-12 bg-slate-800 no-print">
+        {doc.chemicalFormula ? <div className="mb-10 flex min-h-48 items-center justify-between gap-6 rounded-2xl border border-cyan-700/40 bg-gradient-to-br from-slate-900 to-blue-950 p-8 no-print">
+          <div><p className="mb-3 text-xs uppercase tracking-widest text-cyan-300">Hồ sơ chất · Câu chuyện hóa học</p><strong className="font-mono text-5xl text-white">{doc.chemicalFormula}</strong></div>
+          <span className="text-6xl text-cyan-500/40" aria-hidden="true">⚛</span>
+        </div> : <div className="w-full h-[300px] sm:h-[400px] md:h-[500px] rounded-2xl overflow-hidden mb-12 bg-slate-800 no-print">
           <img 
             src={doc.image} 
             alt={doc.title} 
             className="w-full h-full object-cover"
           />
-        </div>
+        </div>}
 
+        {sections.length > 0 && <nav aria-label="Mục lục bài viết" className="mb-8 rounded-2xl border border-slate-700 bg-slate-900/40 p-5 no-print">
+          <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-cyan-300">Trong bài viết này</h2>
+          <ol className="grid gap-2 sm:grid-cols-2">{sections.map((title,index)=><li key={title}><a className="text-sm text-slate-300 hover:text-cyan-300" href={'#'+headingId(title)}>{index+1}. {title}</a></li>)}</ol>
+        </nav>}
         <article className={`markdown-body ${fontClasses[fontSize]}`}>
           <div className="text-xl text-slate-300 mb-8 font-medium leading-relaxed italic border-l-4 border-slate-700 pl-6">
             {doc.summary}
           </div>
-          <Markdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>{doc.content}</Markdown>
+          <Markdown components={{h2: ({children}) => <h2 id={headingId(String(children))} className="scroll-mt-24">{children}</h2>}} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>{doc.content}</Markdown>
         </article>
         
         {/* Tags */}
