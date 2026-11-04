@@ -3,8 +3,8 @@ import * as THREE from 'three';
 /** Smooth irregular glyph for hydrated flocs, not a resolved polymer/gel mesh.
  * Kept inside radius 0.9 so existing finite-particle containment also bounds it.
  */
-export function createGelGeometry(): THREE.BufferGeometry {
-  const geometry = new THREE.IcosahedronGeometry(1, 2);
+export function createGelGeometry(detail = 2): THREE.BufferGeometry {
+  const geometry = new THREE.IcosahedronGeometry(1, detail);
   const positions = geometry.getAttribute('position');
   for (let i = 0; i < positions.count; i++) {
     const x = positions.getX(i), y = positions.getY(i), z = positions.getZ(i);

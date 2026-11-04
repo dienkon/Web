@@ -739,7 +739,7 @@ export default function App() {
           <TargetRecognitionHUD />
 
           {/* 3D Scene Viewport */}
-          <div className="flex-1 relative z-0">
+          <div className="flex-1 min-h-0 min-w-0 relative z-0">
             <ErrorBoundary onReset={() => useAppStore.getState().resetWorkbench()}>
               <LabScene />
             </ErrorBoundary>

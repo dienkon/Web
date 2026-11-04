@@ -73,6 +73,8 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
   const scratchQuat = useMemo(() => new THREE.Quaternion(), []);
   const inverseBodyQuat = useMemo(() => new THREE.Quaternion(), []);
   const scratchMat4 = useMemo(() => new THREE.Matrix4(), []);
+  const bodyMatrix = useMemo(() => new THREE.Matrix4(), []);
+  const bodyRotation = useMemo(() => new THREE.Matrix4(), []);
 
   // Initialize all instanced matrices to scale 0 at (0, -9999, 0)
   const zeroInstances = (mesh: THREE.InstancedMesh | null, maxCount: number) => {
@@ -122,8 +124,8 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
     const agitation = agitationOverride === undefined ? vesselAgitation(vessel, app) : agitationOverride;
 
     groupRef.current?.updateWorldMatrix(true, false);
-    const bodyMatrix = groupRef.current?.matrixWorld.clone();
-    if (bodyMatrix) inverseBodyQuat.setFromRotationMatrix(new THREE.Matrix4().extractRotation(bodyMatrix)).invert();
+    if (groupRef.current) bodyMatrix.copy(groupRef.current.matrixWorld);
+    inverseBodyQuat.setFromRotationMatrix(bodyRotation.extractRotation(bodyMatrix)).invert();
 
     // Step physical simulation using this frame's rendered body, not the
     // stored resting pose while the pour controller is lifting/tilting it.

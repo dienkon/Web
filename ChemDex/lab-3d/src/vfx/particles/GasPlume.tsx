@@ -5,7 +5,7 @@ import { useQualityStore, QUALITY_CONFIGS } from '../quality';
 import { getSoftParticleTexture } from '../textures';
 import { useAppStore } from '../../store/useAppStore';
 import { simulationFrameDt } from '../../core/clock';
-import { roomGasClouds, representativeGasOpacity, type GasCloudSource } from '../../simulation/effects/GasCloudRepository';
+import { roomGasClouds, representativeGasOpacity, sampleGasCloudParticles, type GasCloudSource } from '../../simulation/effects/GasCloudRepository';
 import { createInstancedMistMaterial, mistParticleAppearance } from '../../simulation/render/mistAppearance';
 import { gasVisualState } from '../gasVisualState';
 import { GAS_FUME_TABLE } from '../catalog/gasTable';
@@ -58,18 +58,20 @@ function GasCloudLayer({ species }: { species: string }) {
   useEffect(() => () => material.dispose(), [material]);
   useFrame(frame => {
     const target = mesh.current; if (!target) return;
-    const particles = [...roomGasClouds.clouds.values()].filter(c => c.species === species).flatMap(c => c.system.particles);
-    const count = Math.min(maximum, particles.length);
-    target.count = count; target.visible = count > 0; if (!count) return;
-    target.parent?.updateWorldMatrix(true, false);
-    target.matrix.copy(target.parent?.matrixWorld ?? new THREE.Matrix4()).invert(); target.updateWorldMatrix(false, false);
-    const opacity = geometry.getAttribute('aMistOpacity') as THREE.InstancedBufferAttribute, weight = particles.length / count;
-    for (let i = 0; i < count; i++) {
-      const p = particles[Math.floor(i * weight)], appearance = mistParticleAppearance(p);
+    const opacity = geometry.getAttribute('aMistOpacity') as THREE.InstancedBufferAttribute;
+    const count = sampleGasCloudParticles(roomGasClouds.clouds, species, maximum, (p, i, weight) => {
+      const appearance = mistParticleAppearance(p);
       scratch.position.set(p.x, p.y, p.z); scratch.quaternion.copy(frame.camera.quaternion);
       scratch.scale.setScalar(appearance.diameter); scratch.updateMatrix(); target.setMatrixAt(i, scratch.matrix);
       opacity.setX(i, representativeGasOpacity(appearance.opacity, weight));
-    }
+    });
+    target.count = count; target.visible = count > 0; if (!count) return;
+    target.parent?.updateWorldMatrix(true, false);
+    if (target.parent) target.matrix.copy(target.parent.matrixWorld).invert();
+    else target.matrix.identity();
+    target.updateWorldMatrix(false, false);
+    target.instanceMatrix.clearUpdateRanges(); target.instanceMatrix.addUpdateRange(0, count * 16);
+    opacity.clearUpdateRanges(); opacity.addUpdateRange(0, count);
     target.instanceMatrix.needsUpdate = true; opacity.needsUpdate = true;
   }, FRAME_ORDER.particles);
   return <instancedMesh ref={mesh} name={`gas_clouds_${species}`} matrixAutoUpdate={false}

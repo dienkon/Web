@@ -6,6 +6,7 @@ import { getPrecipitateProfile } from '../core/SimulationConfig';
 import { FRAME_ORDER } from '../core/frameOrder';
 import { createPrecipitateGeometry } from './precipitateGeometry';
 import { useAppStore } from '../../store/useAppStore';
+import { useQualityStore } from '../../vfx/quality';
 
 /** One material/geometry batch per species: a new reaction cannot recolor or
  * reshape the representative particles of an older product in the same cup. */
@@ -16,7 +17,8 @@ export function PrecipitateParticleLayer({ vesselId, system, formation, capacity
   const uploaded = useRef<{ mesh: THREE.InstancedMesh; particles: unknown; count: number; time: number; profile: unknown } | undefined>(undefined);
   const profile = getPrecipitateProfile(system.profile.id, formation);
   const morphology = profile.morphology;
-  const geometry = useMemo(() => createPrecipitateGeometry(profile), [profile.id, morphology]);
+  const reduced = useQualityStore(state => state.effectiveTier === 'low' || state.effectiveTier === 'potato');
+  const geometry = useMemo(() => createPrecipitateGeometry(profile, reduced ? 'reduced' : 'full'), [profile.id, morphology, reduced]);
   useEffect(() => () => geometry.dispose(), [geometry]);
   const scratch = useMemo(() => ({ position: new THREE.Vector3(), scale: new THREE.Vector3(),
     quaternion: new THREE.Quaternion(), euler: new THREE.Euler(), matrix: new THREE.Matrix4() }), []);

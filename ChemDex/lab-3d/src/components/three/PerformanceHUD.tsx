@@ -59,8 +59,7 @@ export const PerformanceHUD = React.memo(function PerformanceHUD() {
   const effectiveTier = useQualityStore(state => state.effectiveTier);
   const setPreference = useQualityStore(state => state.setPreference);
 
-  // Quality has a single owner: the renderer's PerformanceMonitor. A second
-  // window RAF feedback loop used to fight it and oscillate between tiers.
+  // Quality feedback shares the complete-frame telemetry sampling window.
 
 
   return (

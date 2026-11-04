@@ -120,11 +120,15 @@ export class ParticlePool {
 
     // Ensure all unspawned instance matrices are zeroed out on initial frame
     if (!this.initializedMeshes.has(mesh)) {
-      this.clear(mesh);
+      // Bursts can arrive before the first frame. Initializing GPU state must
+      // not discard those live particles or restart their lifetime.
+      mesh.count = 0;
+      mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
       this.initializedMeshes.add(mesh);
     }
 
     if (this.liveCount === 0) {
+      mesh.count = 0;
       if (mesh.visible) {
         mesh.visible = false;
       }
@@ -147,17 +151,6 @@ export class ParticlePool {
         this.freeIndices.push(i);
         this.liveCount = Math.max(0, this.liveCount - 1);
 
-        // Hide instance by scaling to zero
-        ParticlePool.scratchPos.set(0, -9999, 0);
-        ParticlePool.scratchScale.set(0, 0, 0);
-        ParticlePool.scratchQuat.identity();
-        ParticlePool.scratchMat4.compose(
-          ParticlePool.scratchPos,
-          ParticlePool.scratchQuat,
-          ParticlePool.scratchScale
-        );
-        mesh.setMatrixAt(i, ParticlePool.scratchMat4);
-        updatedInstances++;
         continue;
       }
 
@@ -168,16 +161,6 @@ export class ParticlePool {
         this.freeIndices.push(i);
         this.liveCount = Math.max(0, this.liveCount - 1);
 
-        ParticlePool.scratchPos.set(0, -9999, 0);
-        ParticlePool.scratchScale.set(0, 0, 0);
-        ParticlePool.scratchQuat.identity();
-        ParticlePool.scratchMat4.compose(
-          ParticlePool.scratchPos,
-          ParticlePool.scratchQuat,
-          ParticlePool.scratchScale
-        );
-        mesh.setMatrixAt(i, ParticlePool.scratchMat4);
-        updatedInstances++;
         continue;
       }
 
@@ -209,23 +192,28 @@ export class ParticlePool {
         ParticlePool.scratchQuat,
         ParticlePool.scratchScale
       );
-      mesh.setMatrixAt(i, ParticlePool.scratchMat4);
+      mesh.setMatrixAt(updatedInstances, ParticlePool.scratchMat4);
 
       if (mesh.instanceColor) {
         ParticlePool.scratchColor.setRGB(p.r, p.g, p.b);
-        mesh.setColorAt(i, ParticlePool.scratchColor);
+        mesh.setColorAt(updatedInstances, ParticlePool.scratchColor);
       }
       updatedInstances++;
     }
 
     if (updatedInstances > 0) {
+      mesh.instanceMatrix.clearUpdateRanges();
+      mesh.instanceMatrix.addUpdateRange(0, updatedInstances * 16);
       mesh.instanceMatrix.needsUpdate = true;
       if (mesh.instanceColor) {
+        mesh.instanceColor.clearUpdateRanges();
+        mesh.instanceColor.addUpdateRange(0, updatedInstances * 3);
         mesh.instanceColor.needsUpdate = true;
       }
     }
 
-    mesh.visible = this.liveCount > 0;
+    mesh.count = updatedInstances;
+    mesh.visible = updatedInstances > 0;
   }
 
   public clear(mesh?: THREE.InstancedMesh): void {
@@ -249,6 +237,7 @@ export class ParticlePool {
       }
     }
     if (mesh) {
+      mesh.count = 0;
       mesh.instanceMatrix.needsUpdate = true;
       mesh.visible = false;
     }

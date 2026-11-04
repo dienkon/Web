@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useCallback, useState } from 'react';
 import { useAppStore } from '../store/useAppStore';
+import { useShallow } from 'zustand/react/shallow';
 import { LabEnvironmentControls } from './LabEnvironmentControls';
 import { 
   Undo2, Redo2, Move, Pause, Play, 
@@ -37,7 +38,20 @@ export function WorkbenchToolbar() {
     soundEnabled,
     toggleSound,
     resetWorkbench
-  } = useAppStore();
+  } = useAppStore(useShallow(state => ({
+    language: state.language, setLanguage: state.setLanguage,
+    labMode: state.labMode, setLabMode: state.setLabMode,
+    isPresentationMode: state.isPresentationMode, setPresentationMode: state.setPresentationMode,
+    setLabReportOpen: state.setLabReportOpen,
+    isSimulationPaused: state.isSimulationPaused, setSimulationPaused: state.setSimulationPaused,
+    cameraPreset: state.cameraPreset, setCameraPreset: state.setCameraPreset,
+    isScreenLocked: state.isScreenLocked, toggleScreenLock: state.toggleScreenLock,
+    moveMode: state.moveMode, setMoveMode: state.setMoveMode,
+    canUndo: state.canUndo, canRedo: state.canRedo, undo: state.undo, redo: state.redo,
+    timeScale: state.timeScale, setTimeScale: state.setTimeScale,
+    soundEnabled: state.soundEnabled, toggleSound: state.toggleSound,
+    resetWorkbench: state.resetWorkbench,
+  })));
 
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
 

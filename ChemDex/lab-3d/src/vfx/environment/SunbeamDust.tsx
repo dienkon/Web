@@ -32,7 +32,7 @@ export const SunbeamDust = React.memo(function SunbeamDust() {
   }, [particleCount]);
 
   useFrame((state) => {
-    if (!pointsRef.current || effectiveTier === 'low') return;
+    if (!pointsRef.current || effectiveTier === 'low' || effectiveTier === 'potato') return;
     const geom = pointsRef.current.geometry;
     const posAttr = geom.getAttribute('position') as THREE.BufferAttribute;
     if (!posAttr) return;
@@ -55,7 +55,7 @@ export const SunbeamDust = React.memo(function SunbeamDust() {
     posAttr.needsUpdate = true;
   });
 
-  if (effectiveTier === 'low') return null;
+  if (effectiveTier === 'low' || effectiveTier === 'potato') return null;
 
   return (
     <points ref={pointsRef}>

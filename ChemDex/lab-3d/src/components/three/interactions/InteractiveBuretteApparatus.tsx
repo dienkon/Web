@@ -1,5 +1,6 @@
 import {useQualityStore,getQualitySettings} from '../../../vfx/quality';
-import React, { useRef, useState, useMemo } from 'react';
+import React, { useRef, useState } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useAppStore } from '../../../store/useAppStore';
@@ -29,8 +30,6 @@ export const InteractiveBuretteApparatus = React.memo(function InteractiveBurett
   const burette = useAppStore(state => state.burette);
   const toggleStopcock = useAppStore(state => state.toggleBuretteStopcock);
   const dispenseDrop = useAppStore(state => state.dispenseBuretteDrop);
-  const vessels = useAppStore(state => state.vessels);
-  const selectedVesselId = useAppStore(state => state.selectedVesselId);
   const dock = useToolDock('burette', burette.position || position, next => useAppStore.getState().updateBurette({ position: next }));
   const standPos = dock.position;
 
@@ -45,19 +44,19 @@ export const InteractiveBuretteApparatus = React.memo(function InteractiveBurett
   }
 
   // Find vessel directly beneath burette tip (around [0, 0, 0] relative to stand or world position)
-  const targetVessel = useMemo(() => {
+  const targetVessel = useAppStore(useShallow(state => {
     const tipWorldX = standPos[0];
     const tipWorldZ = standPos[2];
-    for (const v of Object.values(vessels)) {
+    for (const v of Object.values(state.vessels)) {
       if (v.id.startsWith('lesson_vessel_') || v.isLocked || v.isShattered || v.volume_ml >= v.capacity_ml || v.capacity_ml <= 0 || ['retort_stand', 'retort_clamp', 'stopper', 'test_tube_rack', 'tongs'].includes(v.type)) continue;
       const dx = v.position[0] - tipWorldX;
       const dz = v.position[2] - tipWorldZ;
       if (Math.hypot(dx, dz) < 0.6) {
-        return v;
+        return { id: v.id, position: v.position };
       }
     }
     return null;
-  }, [vessels, standPos, selectedVesselId]);
+  }));
 
   const fillRatio = Math.max(0, Math.min(1.0, burette.currentVolume_ml / burette.maxVolume_ml));
   const isDispensing = burette.isDispensing && burette.currentVolume_ml > 0;

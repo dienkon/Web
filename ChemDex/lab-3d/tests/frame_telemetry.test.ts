@@ -2,12 +2,13 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 
 const harness = vi.hoisted(() => ({ frame: null as null | ((state: unknown, dt: number) => void),
   after: null as null | (() => void), priority: 0, cleanups: [] as (() => void)[],
+  canvas: new EventTarget(),
   info: { autoReset: true, render: { calls: 0, triangles: 0 }, reset() { this.render.calls = 0; this.render.triangles = 0; } } }));
 vi.mock('react', async () => ({ ...await vi.importActual('react'),
   useRef: (current: unknown) => ({ current }),
   useEffect: (effect: () => (() => void)) => { harness.cleanups.push(effect()); } }));
 vi.mock('@react-three/fiber', () => ({
-  useThree: (selector: (state: unknown) => unknown) => selector({ gl: { info: harness.info } }),
+  useThree: (selector: (state: unknown) => unknown) => selector({ gl: { info: harness.info, domElement: harness.canvas } }),
   useFrame: (frame: typeof harness.frame, priority: number) => { harness.frame = frame; harness.priority = priority; },
   addAfterEffect: (after: typeof harness.after) => { harness.after = after; return () => { harness.after = null; }; },
 }));
@@ -15,6 +16,18 @@ import { FrameTelemetry, useFrameStats } from '../src/render/FrameTelemetry';
 const original = useFrameStats.getState();
 afterEach(() => { harness.cleanups.splice(0).forEach(cleanup => cleanup()); vi.unstubAllGlobals(); useFrameStats.setState(original); });
 describe('Complete-frame telemetry', () => {
+  it('restores complete-pass counters and discards stale samples after context recovery', () => {
+    vi.stubGlobal('document', { hidden: false });
+    FrameTelemetry();
+    harness.frame!({}, 0.5); harness.after!();
+    harness.info.autoReset = true;
+    harness.canvas.dispatchEvent(new Event('webglcontextrestored'));
+    expect(harness.info.autoReset).toBe(false);
+    harness.frame!({}, 0.5); harness.after!();
+    expect(useFrameStats.getState().samples).toBe(0);
+    harness.frame!({}, 0.5); harness.after!();
+    expect(useFrameStats.getState().samples).toBe(2);
+  });
   it('counts scene and postprocessing together, without accumulating previous frames', () => {
     vi.stubGlobal('document', { hidden: false });
     FrameTelemetry();

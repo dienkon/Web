@@ -1,0 +1,319 @@
+{
+  "errors": [],
+  "consoleErrors": [],
+  "readings": [
+    {
+      "fps": 23,
+      "ms": 44.3,
+      "p95_ms": 75.1,
+      "drawCalls": 233,
+      "triangles": 102486,
+      "samples": 23,
+      "tier": "low",
+      "geometries": 136,
+      "textures": 22
+    },
+    {
+      "fps": 35,
+      "ms": 28.8,
+      "p95_ms": 52.7,
+      "drawCalls": 233,
+      "triangles": 102198,
+      "samples": 35,
+      "tier": "low",
+      "geometries": 136,
+      "textures": 22
+    },
+    {
+      "fps": 30,
+      "ms": 33.7,
+      "p95_ms": 52.6,
+      "drawCalls": 233,
+      "triangles": 102198,
+      "samples": 30,
+      "tier": "low",
+      "geometries": 136,
+      "textures": 22
+    },
+    {
+      "fps": 38,
+      "ms": 26.6,
+      "p95_ms": 51.9,
+      "drawCalls": 232,
+      "triangles": 101222,
+      "samples": 38,
+      "tier": "low",
+      "geometries": 136,
+      "textures": 22
+    },
+    {
+      "fps": 39,
+      "ms": 25.8,
+      "p95_ms": 48.9,
+      "drawCalls": 232,
+      "triangles": 101218,
+      "samples": 39,
+      "tier": "low",
+      "geometries": 136,
+      "textures": 22
+    },
+    {
+      "fps": 31,
+      "ms": 32.5,
+      "p95_ms": 112.9,
+      "drawCalls": 428,
+      "triangles": 170779,
+      "samples": 31,
+      "tier": "medium",
+      "geometries": 143,
+      "textures": 42
+    },
+    {
+      "fps": 15,
+      "ms": 67.3,
+      "p95_ms": 90.3,
+      "drawCalls": 409,
+      "triangles": 170529,
+      "samples": 16,
+      "tier": "high",
+      "geometries": 144,
+      "textures": 51
+    },
+    {
+      "fps": 10,
+      "ms": 103.4,
+      "p95_ms": 187.1,
+      "drawCalls": 518,
+      "triangles": 223934,
+      "samples": 11,
+      "tier": "ultra",
+      "geometries": 146,
+      "textures": 63
+    },
+    {
+      "fps": 44,
+      "ms": 22.9,
+      "p95_ms": 29.6,
+      "drawCalls": 232,
+      "triangles": 101226,
+      "samples": 44,
+      "tier": "low",
+      "geometries": 143,
+      "textures": 30
+    },
+    {
+      "fps": 44,
+      "ms": 22.9,
+      "p95_ms": 29.6,
+      "drawCalls": 232,
+      "triangles": 101226,
+      "samples": 44,
+      "tier": "potato",
+      "geometries": 143,
+      "textures": 30
+    },
+    {
+      "fps": 23,
+      "ms": 43.1,
+      "p95_ms": 48.2,
+      "drawCalls": 407,
+      "triangles": 170527,
+      "samples": 24,
+      "tier": "medium",
+      "geometries": 147,
+      "textures": 50
+    },
+    {
+      "fps": 16,
+      "ms": 60.6,
+      "p95_ms": 67.5,
+      "drawCalls": 409,
+      "triangles": 170529,
+      "samples": 17,
+      "tier": "high",
+      "geometries": 148,
+      "textures": 59
+    },
+    {
+      "fps": 45,
+      "ms": 22.1,
+      "p95_ms": 27.2,
+      "drawCalls": 232,
+      "triangles": 101226,
+      "samples": 46,
+      "tier": "low",
+      "geometries": 145,
+      "textures": 36
+    },
+    {
+      "fps": 24,
+      "ms": 41.8,
+      "p95_ms": 46.3,
+      "drawCalls": 407,
+      "triangles": 170527,
+      "samples": 24,
+      "tier": "medium",
+      "geometries": 149,
+      "textures": 56
+    },
+    {
+      "fps": 16,
+      "ms": 61.3,
+      "p95_ms": 69.2,
+      "drawCalls": 409,
+      "triangles": 170529,
+      "samples": 17,
+      "tier": "high",
+      "geometries": 150,
+      "textures": 65
+    },
+    {
+      "fps": 40,
+      "ms": 24.8,
+      "p95_ms": 30.2,
+      "drawCalls": 232,
+      "triangles": 101226,
+      "samples": 41,
+      "tier": "low",
+      "geometries": 147,
+      "textures": 42
+    }
+  ],
+  "setup": {
+    "ids": [
+      "studio_sample_1793793863331_ttjwiq",
+      "studio_sample_1793793863402_9pg24d",
+      "studio_sample_1793793863405_syk648"
+    ],
+    "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000468B) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+  },
+  "cpuHotspots": [
+    [
+      "exports.jsxDEV (http://127.0.0.1:6773/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=786515e6:239)",
+      344
+    ],
+    [
+      "at (http://127.0.0.1:6773/src/science/ferricHydroxidePrecipitation.ts:43)",
+      147
+    ],
+    [
+      "getParameters (http://127.0.0.1:6773/node_modules/.vite/deps/chunk-6KIVSC5H.js?v=786515e6:36625)",
+      139
+    ],
+    [
+      "(idle) (:0)",
+      109
+    ],
+    [
+      "getProgram (http://127.0.0.1:6773/node_modules/.vite/deps/chunk-6KIVSC5H.js?v=786515e6:42772)",
+      99
+    ],
+    [
+      "(program) (:0)",
+      81
+    ],
+    [
+      "identifySpecies (http://127.0.0.1:6773/src/science/speciesIdentity.ts:2)",
+      65
+    ],
+    [
+      "lo (http://127.0.0.1:6773/node_modules/.vite/deps/chunk-SGYJ4EA6.js?v=786515e6:2579)",
+      60
+    ],
+    [
+      "run (:0)",
+      55
+    ],
+    [
+      "exports.createElement (http://127.0.0.1:6773/node_modules/.vite/deps/chunk-3YAUSPWS.js?v=786515e6:761)",
+      53
+    ],
+    [
+      "createClippedSedimentGeometry (http://127.0.0.1:6773/src/simulation/effects/clippedSedimentGeometry.ts:3)",
+      51
+    ],
+    [
+      "(garbage collector) (:0)",
+      48
+    ],
+    [
+      "WebGLRenderer.renderBufferDirect (http://127.0.0.1:6773/node_modules/.vite/deps/chunk-6KIVSC5H.js?v=786515e6:42312)",
+      45
+    ],
+    [
+      "setProgram (http://127.0.0.1:6773/node_modules/.vite/deps/chunk-6KIVSC5H.js?v=786515e6:42875)",
+      45
+    ],
+    [
+      "waterSaturationPressurePa (http://127.0.0.1:6773/src/science/waterSaturation.ts:1)",
+      44
+    ],
+    [
+      "getProgramCacheKey (http://127.0.0.1:6773/node_modules/.vite/deps/chunk-6KIVSC5H.js?v=786515e6:36846)",
+      41
+    ],
+    [
+      "bindVertexArray (:0)",
+      34
+    ],
+    [
+      "transportWallBeads (http://127.0.0.1:6773/src/engine/wallDropletTransport.ts:15)",
+      32
+    ],
+    [
+      "chlorideState (http://127.0.0.1:6773/src/science/ferricHydroxidePrecipitation.ts:48)",
+      31
+    ],
+    [
+      "ReactElement (http://127.0.0.1:6773/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=786515e6:127)",
+      31
+    ],
+    [
+      "bubbleMechanicalRadius (http://127.0.0.1:6773/src/science/bubblePhase.ts:5)",
+      29
+    ],
+    [
+      "uniformMatrix4fv (:0)",
+      27
+    ],
+    [
+      "refreshUniformsCommon (http://127.0.0.1:6773/node_modules/.vite/deps/chunk-6KIVSC5H.js?v=786515e6:40881)",
+      27
+    ],
+    [
+      "createTask (:0)",
+      24
+    ],
+    [
+      "Rn (http://127.0.0.1:6773/node_modules/.vite/deps/chunk-SGYJ4EA6.js?v=786515e6:2508)",
+      21
+    ]
+  ],
+  "historyStable": true,
+  "largeCanvas": {
+    "width": 2280,
+    "height": 1227
+  },
+  "auto": {
+    "tier": "potato",
+    "fps": 54,
+    "ms": 18.7,
+    "p95_ms": 24.7,
+    "drawCalls": 141,
+    "triangles": 93636,
+    "samples": 54
+  },
+  "contextRecovery": "restored",
+  "recovered": {
+    "tier": "potato",
+    "frameloop": 1,
+    "fps": 66,
+    "ms": 15.3,
+    "p95_ms": 20.3,
+    "drawCalls": 141,
+    "triangles": 93636,
+    "samples": 66,
+    "historyStable": true
+  },
+  "contextLost": false
+}

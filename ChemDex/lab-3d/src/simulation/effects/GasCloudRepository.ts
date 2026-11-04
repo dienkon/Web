@@ -1,5 +1,6 @@
 import { GasPlumeSystem, type GasPlumeInput } from './GasPlumeSystem';
 import { PRNG, seedForLabel } from '../../core/rng';
+import type { PhysicalEvaporationParticle } from '../core/SimulationTypes';
 
 export interface GasCloudSource {
   vesselId: string; revision: number; receipt: object; seconds: number;
@@ -71,6 +72,34 @@ export class GasCloudRepository {
   }
 }
 export const roomGasClouds = new GasCloudRepository();
+
+/** Uniform drawing samples across all sources, without flattening every cloud
+ * into temporary arrays for every species on every animation frame. */
+export function sampleGasCloudParticles(
+  clouds: ReadonlyMap<string, Pick<GasCloud, 'species' | 'system'>>,
+  species: string,
+  maximum: number,
+  visit: (particle: PhysicalEvaporationParticle, index: number, weight: number) => void,
+): number {
+  if (!Number.isFinite(maximum) || maximum < 1) return 0;
+  let total = 0;
+  for (const cloud of clouds.values()) if (cloud.species === species) total += cloud.system.particles.length;
+  const count = Math.min(Math.floor(maximum), total);
+  if (!count) return 0;
+  const weight = total / count;
+  let offset = 0, index = 0;
+  for (const cloud of clouds.values()) {
+    if (cloud.species !== species) continue;
+    const particles = cloud.system.particles;
+    while (index < count && Math.floor(index * weight) < offset + particles.length) {
+      visit(particles[Math.floor(index * weight) - offset], index, weight);
+      index++;
+    }
+    offset += particles.length;
+    if (index === count) break;
+  }
+  return count;
+}
 
 /** Optical drawing weight only; not a calibrated gas concentration. */
 export function representativeGasOpacity(opacity: number, weight: number) {

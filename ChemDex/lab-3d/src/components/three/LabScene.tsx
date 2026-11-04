@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import { FRAME_ORDER } from '../../simulation/core/frameOrder';
-import { ContactShadows, Grid, Environment, Lightformer, PerformanceMonitor } from '@react-three/drei';
+import { Grid, Environment, Lightformer } from '@react-three/drei';
+import { ContactShadows } from '../../render/ContactShadows';
 import * as THREE from 'three';
 import { PostFX } from '../../vfx/post/PostFX';
 import { useQualityStore, getQualitySettings, QualityTier } from '../../vfx/quality';
@@ -46,6 +47,7 @@ import { LAB_PHYSICS } from '../../engine/interactionEngine';
 import { restingVesselHeight } from '../../handling/vesselRest';
 import { FrameTelemetry } from '../../render/FrameTelemetry';
 import { RenderActivity } from '../../render/RenderActivity';
+import { useRenderDpr } from '../../render/renderResolution';
 import { LessonScene } from '../../lesson/LessonScene';
 
 function DragDropRaycaster() {
@@ -299,6 +301,63 @@ const SceneBurner = React.memo(function SceneBurner({ id }: { id: string }) {
   );
 });
 
+// Capture the static laboratory once. Quality changes reuse its environment map.
+const LaboratoryEnvironment = React.memo(function LaboratoryEnvironment() {
+  const gl = useThree(state => state.gl);
+  const [epoch, setEpoch] = React.useState(0);
+  useEffect(() => {
+    const restore = () => setEpoch(value => value + 1);
+    gl.domElement.addEventListener('webglcontextrestored', restore);
+    return () => gl.domElement.removeEventListener('webglcontextrestored', restore);
+  }, [gl]);
+  return (
+    <Environment key={epoch} resolution={128} frames={1}>
+      {/* Main overhead softbox */}
+      <Lightformer
+        form="rect"
+        intensity={3.0}
+        color="#fffaf0"
+        position={[0, 8, 0]}
+        scale={[14, 10, 1]}
+        target={[0, 0, 0]}
+      />
+      {/* Dual longitudinal fluorescent strips for authentic glassware reflection streaks */}
+      <Lightformer
+        form="rect"
+        intensity={2.5}
+        color="#ffffff"
+        position={[-8, 4, 3]}
+        scale={[0.6, 8, 1]}
+        rotation={[0, Math.PI / 3, 0]}
+      />
+      <Lightformer
+        form="rect"
+        intensity={2.2}
+        color="#f0f9ff"
+        position={[8, 4, 3]}
+        scale={[0.6, 8, 1]}
+        rotation={[0, -Math.PI / 3, 0]}
+      />
+      {/* Pale window sky light */}
+      <Lightformer
+        form="rect"
+        intensity={1.8}
+        color="#bae6fd"
+        position={[-10, 6, -5]}
+        scale={[8, 6, 1]}
+      />
+      {/* Dark zone behind camera for glassware refraction contrast */}
+      <Lightformer
+        form="rect"
+        intensity={0.0}
+        color="#020617"
+        position={[0, 4, 15]}
+        scale={[16, 10, 1]}
+      />
+    </Environment>
+  );
+});
+
 function SceneEnvironmentSetup({ tier }: { tier: QualityTier }) {
   const { scene, gl } = useThree();
   const settings = getQualitySettings(tier);
@@ -529,8 +588,6 @@ export function LabScene() {
   
 
   const effectiveTier = useQualityStore(state => state.effectiveTier);
-  const handlePerformanceDecline = useQualityStore(state => state.handlePerformanceDecline);
-  const handlePerformanceIncline = useQualityStore(state => state.handlePerformanceIncline);
   const qualitySettings = getQualitySettings(effectiveTier);
 
   // Procedural environment textures
@@ -589,6 +646,7 @@ export function LabScene() {
   }), []);
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const renderDpr = useRenderDpr(containerRef, effectiveTier);
 
   // Non-passive wheel listener for smooth parameter adjustment & camera zoom without warnings
   useEffect(() => {
@@ -657,7 +715,7 @@ export function LabScene() {
 
       <Canvas 
         shadows={qualitySettings.shadowBudget > 0 ? 'percentage' : false}
-        dpr={[Math.min(1, qualitySettings.dprMax), qualitySettings.dprMax]}
+        dpr={renderDpr}
         camera={{ position: [0, 5.2, 12], fov: 45, near: 0.1, far: 120 }}
         gl={{
           antialias: false,
@@ -680,61 +738,11 @@ export function LabScene() {
         }}
         onContextMenu={(e) => e.preventDefault()}
       >
-        <PerformanceMonitor
-          bounds={() => [55, 65]}
-          flipflops={3}
-          onFallback={() => { if (useQualityStore.getState().preference === 'auto') useQualityStore.getState().setEffectiveTier('potato'); }}
-          onDecline={handlePerformanceDecline}
-          onIncline={handlePerformanceIncline}
-        />
         <SceneEnvironmentSetup tier={effectiveTier} />
         <RenderActivity />
 
         {/* Procedural Laboratory Environment with fluorescent tube reflections */}
-        <Environment resolution={qualitySettings.glassTransmission ? 256 : 64} frames={1}>
-          {/* Main overhead softbox */}
-          <Lightformer
-            form="rect"
-            intensity={3.0}
-            color="#fffaf0"
-            position={[0, 8, 0]}
-            scale={[14, 10, 1]}
-            target={[0, 0, 0]}
-          />
-          {/* Dual longitudinal fluorescent strips for authentic glassware reflection streaks */}
-          <Lightformer
-            form="rect"
-            intensity={2.5}
-            color="#ffffff"
-            position={[-8, 4, 3]}
-            scale={[0.6, 8, 1]}
-            rotation={[0, Math.PI / 3, 0]}
-          />
-          <Lightformer
-            form="rect"
-            intensity={2.2}
-            color="#f0f9ff"
-            position={[8, 4, 3]}
-            scale={[0.6, 8, 1]}
-            rotation={[0, -Math.PI / 3, 0]}
-          />
-          {/* Pale window sky light */}
-          <Lightformer
-            form="rect"
-            intensity={1.8}
-            color="#bae6fd"
-            position={[-10, 6, -5]}
-            scale={[8, 6, 1]}
-          />
-          {/* Dark zone behind camera for glassware refraction contrast */}
-          <Lightformer
-            form="rect"
-            intensity={0.0}
-            color="#020617"
-            position={[0, 4, 15]}
-            scale={[16, 10, 1]}
-          />
-        </Environment>
+        <LaboratoryEnvironment />
 
         {/* Directional & shadow illumination - Pure Clean Laboratory Lighting */}
         <ambientLight intensity={0.5} color="#f8fafc" />
@@ -920,16 +928,8 @@ export function LabScene() {
         {/* Burette Apparatus */}
         <BuretteApparatus position={[5.0, 0.0, 1.5]} />
 
-        {qualitySettings.shadowBudget > 0 && (
-          <ContactShadows 
-            position={[0, -1.16, 0]} 
-            opacity={0.65} 
-            scale={24} 
-            blur={1.8} 
-            far={4.5} 
-            color="#0f172a" 
-            resolution={qualitySettings.shadowBudget} 
-          />
+        {qualitySettings.shadowBudget >= 512 && (
+          <ContactShadows resolution={qualitySettings.shadowBudget} />
         )}
         
         {/* Realistic Workbench Spills & Overflows */}

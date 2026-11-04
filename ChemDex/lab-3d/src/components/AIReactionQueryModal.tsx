@@ -12,8 +12,8 @@ interface AIReactionQueryModalProps {
 }
 
 export function AIReactionQueryModal({ isOpen, onClose, vesselId }: AIReactionQueryModalProps) {
-  const { vessels, language } = useAppStore();
-  const vessel = vessels[vesselId];
+  const language = useAppStore(state => state.language);
+  const vessel = useAppStore(state => isOpen ? state.vessels[vesselId] : undefined);
 
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<any>(null);

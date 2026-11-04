@@ -34,6 +34,10 @@ export const Sparks = React.memo(function Sparks({
   const sparkTexture = useMemo(() => getSparkTexture(), []);
   const spawnTimer = useRef(0);
   const sparkColor = useMemo(() => new THREE.Color(color), [color]);
+  const emission = useRef({ origin, sparkColor, multiplier });
+  emission.current.origin = origin;
+  emission.current.sparkColor = sparkColor;
+  emission.current.multiplier = multiplier;
 
   useEffect(() => {
     return () => {
@@ -43,6 +47,7 @@ export const Sparks = React.memo(function Sparks({
 
   // Burst trigger if burstCount > 0
   useEffect(() => {
+    const { origin, sparkColor, multiplier } = emission.current;
     if (burstCount > 0 && active) {
       const countToSpawn = Math.floor(burstCount * multiplier);
       for (let i = 0; i < countToSpawn; i++) {
@@ -73,7 +78,7 @@ export const Sparks = React.memo(function Sparks({
         });
       }
     }
-  }, [burstCount, active, multiplier, origin, pool, sparkColor]);
+  }, [burstCount, active, pool]);
 
   useFrame((_, delta) => {
     if (!meshRef.current) return;

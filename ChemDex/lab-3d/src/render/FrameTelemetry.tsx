@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { addAfterEffect, useFrame, useThree } from '@react-three/fiber';
 import { create } from 'zustand';
+import { AdaptiveQualityController } from './adaptiveQuality';
+import { useQualityStore } from '../vfx/quality';
 
 interface FrameStats {
   fps: number;
@@ -28,18 +30,42 @@ export function FrameTelemetry() {
   const count = useRef(0);
   const elapsed = useRef(0);
   const publish = useRef(false);
+  const qualityController = useRef(new AdaptiveQualityController());
   useEffect(() => {
     const autoReset = gl.info.autoReset;
     gl.info.autoReset = false;
+    const resetWindow = () => {
+      count.current = 0; elapsed.current = 0; publish.current = false;
+      qualityController.current.reset();
+    };
+    const restoreCounters = () => {
+      // Three replaces renderer.info when rebuilding a lost WebGL context.
+      gl.info.autoReset = false;
+      resetWindow();
+    };
+    document.addEventListener?.('visibilitychange', resetWindow);
+    gl.domElement?.addEventListener('webglcontextrestored', restoreCounters);
     const unsubscribe = addAfterEffect(() => {
       if (!publish.current) return;
       publish.current = false;
-      useFrameStats.setState({ ...summarizeFrames(samples.current, count.current),
+      const summary = summarizeFrames(samples.current, count.current);
+      useFrameStats.setState({ ...summary,
         drawCalls: gl.info.render.calls, triangles: gl.info.render.triangles });
+      const quality = useQualityStore.getState();
+      if (quality.preference === 'auto' && quality.rendererClass !== 'software') {
+        const adjustment = qualityController.current.sample(summary, quality.effectiveTier);
+        if (adjustment === 'decline') quality.handlePerformanceDecline();
+        if (adjustment === 'incline') quality.handlePerformanceIncline();
+      } else qualityController.current.reset();
       count.current = 0;
       elapsed.current = 0;
     });
-    return () => { unsubscribe(); gl.info.autoReset = autoReset; gl.info.reset(); };
+    return () => {
+      unsubscribe();
+      document.removeEventListener?.('visibilitychange', resetWindow);
+      gl.domElement?.removeEventListener('webglcontextrestored', restoreCounters);
+      gl.info.autoReset = autoReset; gl.info.reset();
+    };
   }, [gl]);
   useFrame((_, delta) => {
     // Negative priority leaves rendering to R3F/the composer. Reset before
@@ -47,7 +73,11 @@ export function FrameTelemetry() {
     // the scene, shadows and other passes from the HUD.
     gl.info.reset();
     publish.current = false;
-    if (document.hidden) { count.current = 0; elapsed.current = 0; return; }
+    if (document.hidden) {
+      count.current = 0; elapsed.current = 0;
+      qualityController.current.reset();
+      return;
+    }
     if (!Number.isFinite(delta) || delta <= 0) return;
     samples.current[count.current++] = delta * 1000;
     elapsed.current += delta;
