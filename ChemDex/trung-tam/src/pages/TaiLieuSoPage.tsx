@@ -9,6 +9,7 @@ import { Toast } from '../components/Toast';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { libraryDocs, fetchDocFull, getCategoryConfig, DocFull, categories } from '../utils/config';
 import { RefreshCw } from 'lucide-react';
+import { matchesLibraryDoc } from '../utils/librarySearch';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<'library' | 'reader' | 'community'>('library');
@@ -86,12 +87,7 @@ export default function App() {
   const filteredDocs = useMemo(() => {
     return libraryDocs.filter(doc => {
       const matchCat = activeCategory ? doc.category === activeCategory : true;
-      const query = searchQuery.toLowerCase();
-      const matchSearch = query 
-        ? doc.title.toLowerCase().includes(query) || 
-          doc.author.toLowerCase().includes(query) ||
-          doc.tags.some(t => t.toLowerCase().includes(query))
-        : true;
+      const matchSearch = matchesLibraryDoc(doc, searchQuery);
       return matchCat && matchSearch;
     });
   }, [activeCategory, searchQuery]);

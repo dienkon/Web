@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { DocMeta, getCategoryConfig } from '../utils/config';
 import { DocCard } from './DocCard';
 import { motion } from 'motion/react';
@@ -12,6 +12,11 @@ interface LibraryGridProps {
 }
 
 export function LibraryGrid({ docs, onDocClick, bookmarkedIds, onToggleBookmark, onTagClick }: LibraryGridProps) {
+  // Reset the batch when the ordered result identities change, without losing
+  // the user's position when a bookmark is toggled.
+  const resultKey=docs.map(doc=>doc.id).join('|');
+  const [batch,setBatch]=useState({key:resultKey,count:24});
+  const visibleCount=batch.key===resultKey?batch.count:24;
   if (docs.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center">
@@ -25,14 +30,16 @@ export function LibraryGrid({ docs, onDocClick, bookmarkedIds, onToggleBookmark,
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-12">
-      {docs.map((doc, index) => (
+    <section aria-label="Kết quả thư viện">
+    <p className="mb-4 text-sm text-slate-400" role="status">{docs.length} tài liệu · Đang hiển thị {Math.min(visibleCount,docs.length)}</p>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-6">
+      {docs.slice(0,visibleCount).map((doc, index) => (
         <motion.div
           key={doc.id}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5, delay: index * 0.05 }}
+          transition={{ duration: 0.3, delay: (index % 3) * 0.04 }}
           className="h-full"
         >
           <DocCard 
@@ -48,5 +55,7 @@ export function LibraryGrid({ docs, onDocClick, bookmarkedIds, onToggleBookmark,
         </motion.div>
       ))}
     </div>
+    {visibleCount<docs.length && <button className="mb-10 rounded-xl border border-slate-600 bg-slate-800 px-5 py-3 text-sm text-cyan-300" onClick={()=>setBatch({key:resultKey,count:visibleCount+24})}>Xem thêm tài liệu ({docs.length-visibleCount})</button>}
+    </section>
   );
 }

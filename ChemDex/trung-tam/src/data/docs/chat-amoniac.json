@@ -3,7 +3,7 @@
   "title": "Amoniac — từ không khí đến câu chuyện phân bón",
   "author": "ChemDex · Biên soạn học liệu",
   "category": "hopchat",
-  "summary": "Không khí chứa nitrogen, nhưng có sẵn một nguyên tố không đồng nghĩa với việc dễ chuyển nó thành sản phẩm hữu ích. Tổng hợp amoniac đặt ra một bài toán thực tế: làm sao kết hợp nitrogen với hydrogen với tốc độ và hiệu suất phù hợp?",
+  "summary": "Từ tổng hợp nitrogen và hydrogen đến bài toán cân bằng, xúc tác và sản xuất phân bón.",
   "image": "/assets/icon/logo.png",
   "tags": [
     "NH3",
@@ -11,5 +11,13 @@
     "Hợp chất"
   ],
   "content": "## Câu chuyện: đưa nitrogen từ không khí vào hợp chất\n\nKhông khí chứa nitrogen, nhưng có sẵn một nguyên tố không đồng nghĩa với việc dễ chuyển nó thành sản phẩm hữu ích. Tổng hợp amoniac đặt ra một bài toán thực tế: làm sao kết hợp nitrogen với hydrogen với tốc độ và hiệu suất phù hợp?\n\nFritz Haber được trao giải Nobel Hóa học năm 1918 cho công trình tổng hợp amoniac từ các nguyên tố. Từ kết quả nghiên cứu đến sản xuất công nghiệp còn là hành trình phát triển xúc tác, thiết bị và kỹ thuật áp suất cao. Amoniac trở thành mắt xích quan trọng trong sản xuất phân bón. Lịch sử này cho thấy một phương trình ngắn có thể ẩn phía sau cả hệ thống kỹ thuật. [Nguồn Nobel](https://www.nobelprize.org/prizes/chemistry/1918/haber/facts/).\n\n## Hồ sơ nhanh\n\n| Mục | Thông tin | Điều cần nhớ |\n|---|---|---|\n| Công thức | NH₃ | Ba H quanh một N |\n| Khối lượng mol | Khoảng 17,031 g/mol | Phân biệt với ion NH₄⁺ |\n| Hình học | Chóp tam giác | Cặp electron tự do góp phần quyết định hình học |\n| Trong nước | Có cân bằng với NH₄⁺ và OH⁻ | Không coi toàn bộ NH₃ đã chuyển hết thành ion |\n\n## Phương trình và bài toán công nghệ\n\n**N₂ + 3H₂ ⇌ 2NH₃**\n\nĐây là phản ứng thuận nghịch. Khi học về quy trình, cần xét đồng thời cân bằng và tốc độ phản ứng: điều kiện thuận lợi về cân bằng chưa chắc cho tốc độ sản xuất tốt. Xúc tác giúp thay đổi tốc độ đạt cân bằng; nó không tự làm thay đổi hằng số cân bằng ở cùng nhiệt độ.\n\n> **Một phương trình, hai cách đọc:** hệ số 1 : 3 : 2 là tỉ lệ lượng chất phản ứng và sản phẩm. Nó không phải cam kết rằng mọi hỗn hợp ban đầu đều phản ứng hoàn toàn.\n\n## Trong dung dịch: NH₃ khác NH₄⁺\n\n**NH₃ + H₂O ⇌ NH₄⁺ + OH⁻**\n\nNH₃ nhận proton từ nước. Vì là cân bằng, việc tính pH cần biết lượng chất, nồng độ và dữ liệu cân bằng phù hợp. Chỉ biết công thức NH₃ chưa đủ để gán một giá trị pH duy nhất cho mọi dung dịch.\n\n## Bài toán tự kiểm tra\n\nNếu có 1 mol N₂ và 2 mol H₂, giới hạn lý thuyết của lượng NH₃ là bao nhiêu, giả sử chỉ xét phản ứng tổng hợp trên và chuyển hóa tối đa?\n\n<details><summary>Xem lời giải</summary>\n\nHydrogen là chất giới hạn: 2 mol H₂ chỉ tương ứng 2/3 mol N₂. Giới hạn NH₃ là 4/3 mol. Đây là giới hạn tỉ lượng; lượng thực tế còn phụ thuộc cân bằng và chuyển hóa của quá trình.\n\n</details>\n\n## Nguồn và bước khám phá tiếp\n\n- [Nobel — Fritz Haber](https://www.nobelprize.org/prizes/chemistry/1918/haber/facts/): giải thưởng và ý nghĩa tổng hợp amoniac.\n- [Nobel — tiểu sử Haber](https://www.nobelprize.org/prizes/chemistry/1918/haber/biographical/): bối cảnh xúc tác và công nghệ áp suất cao.\n- [PubChem — Ammonia, CID 222](https://pubchem.ncbi.nlm.nih.gov/compound/222): định danh chất.\n- [Khám phá mô hình NH₃](/tien-ich/cau-truc-3d/?compound=cid-222).\n",
-  "chemicalFormula": "NH₃"
+  "chemicalFormula": "NH₃",
+  "aliases": [
+    "amoniac",
+    "ammonia"
+  ],
+  "substanceIds": [
+    "cid-222",
+    "chem-nh3"
+  ]
 }

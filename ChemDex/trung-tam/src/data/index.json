@@ -174,12 +174,21 @@
     "title": "Nước — hành trình của một hạt muối",
     "author": "ChemDex · Biên soạn học liệu",
     "category": "hopchat",
-    "summary": "Thả một hạt muối vào nước và khuấy, ta không còn nhìn thấy hạt rắn. Nhưng vật chất không biến mất: các ion đã phân tán trong dung dịch. Nếu loại nước bằng quá trình bay hơi phù hợp, muối có thể kết tinh trở lại. Câu chuyện nhỏ này nối ba khái niệm thường học rời nhau: hòa tan, bảo toàn vật chất và kết tinh.",
+    "summary": "Theo dấu một hạt muối hòa tan để phân biệt tương tác phân tử, dung dịch và bảo toàn vật chất.",
     "image": "/assets/icon/logo.png",
     "tags": [
       "H2O",
       "Câu chuyện hóa học",
       "Hợp chất"
+    ],
+    "chemicalFormula": "H₂O",
+    "aliases": [
+      "nước",
+      "water"
+    ],
+    "substanceIds": [
+      "cid-962",
+      "chem-h2o"
     ]
   },
   {
@@ -187,12 +196,21 @@
     "title": "Amoniac — từ không khí đến câu chuyện phân bón",
     "author": "ChemDex · Biên soạn học liệu",
     "category": "hopchat",
-    "summary": "Không khí chứa nitrogen, nhưng có sẵn một nguyên tố không đồng nghĩa với việc dễ chuyển nó thành sản phẩm hữu ích. Tổng hợp amoniac đặt ra một bài toán thực tế: làm sao kết hợp nitrogen với hydrogen với tốc độ và hiệu suất phù hợp?",
+    "summary": "Từ tổng hợp nitrogen và hydrogen đến bài toán cân bằng, xúc tác và sản xuất phân bón.",
     "image": "/assets/icon/logo.png",
     "tags": [
       "NH3",
       "Câu chuyện hóa học",
       "Hợp chất"
+    ],
+    "chemicalFormula": "NH₃",
+    "aliases": [
+      "amoniac",
+      "ammonia"
+    ],
+    "substanceIds": [
+      "cid-222",
+      "chem-nh3"
     ]
   },
   {
@@ -200,12 +218,90 @@
     "title": "Natri clorua — một công thức, hai trạng thái rất khác",
     "author": "ChemDex · Biên soạn học liệu",
     "category": "hopchat",
-    "summary": "Một hạt muối ăn có thể nhìn như một vật đơn giản. Khi chuyển từ trạng thái rắn sang dung dịch, điều thay đổi quan trọng là cách các thành phần sắp xếp và chuyển động. Trong tinh thể, các ion thuộc một mạng có trật tự; trong dung dịch, chúng được phân tán và tương tác với dung môi.",
+    "summary": "Khám phá sự khác biệt giữa mạng ion rắn và dung dịch, qua công thức NaCl quen thuộc.",
     "image": "/assets/icon/logo.png",
     "tags": [
       "NaCl",
       "Câu chuyện hóa học",
       "Hợp chất"
+    ],
+    "chemicalFormula": "NaCl",
+    "aliases": [
+      "natri clorua",
+      "sodium chloride",
+      "muối ăn"
+    ],
+    "substanceIds": [
+      "crystal-nacl",
+      "chem-nacl"
+    ]
+  },
+  {
+    "id": "chat-etanol",
+    "title": "Etanol — câu chuyện từ đường đến phân tử có nhóm OH",
+    "author": "ChemDex · Biên soạn học liệu",
+    "category": "hopchat",
+    "summary": "Đọc câu chuyện lên men để hiểu nhóm OH, đồng phân và sự khác biệt giữa phản ứng với tách chất.",
+    "image": "/assets/icon/logo.png",
+    "tags": [
+      "C₂H₅OH",
+      "Câu chuyện hóa học",
+      "Hợp chất"
+    ],
+    "chemicalFormula": "C₂H₅OH",
+    "aliases": [
+      "etanol",
+      "ethanol",
+      "rượu etylic"
+    ],
+    "substanceIds": [
+      "cid-702",
+      "chem-c2h5oh"
+    ]
+  },
+  {
+    "id": "chat-carbon-dioxide",
+    "title": "Carbon dioxide — từ bọt khí đến cân bằng trong đại dương",
+    "author": "ChemDex · Biên soạn học liệu",
+    "category": "hopchat",
+    "summary": "Kết nối phân tử CO₂ với các cân bằng carbon vô cơ và ý nghĩa của acid hóa đại dương.",
+    "image": "/assets/icon/logo.png",
+    "tags": [
+      "CO₂",
+      "Câu chuyện hóa học",
+      "Hợp chất"
+    ],
+    "chemicalFormula": "CO₂",
+    "aliases": [
+      "carbon dioxide",
+      "cacbon dioxit",
+      "khí cacbonic"
+    ],
+    "substanceIds": [
+      "cid-280",
+      "chem-co2"
+    ]
+  },
+  {
+    "id": "chat-metan",
+    "title": "Metan — một phân tử nhỏ trong hai câu chuyện năng lượng và khí hậu",
+    "author": "ChemDex · Biên soạn học liệu",
+    "category": "hopchat",
+    "summary": "Khám phá hình học tứ diện, giới hạn của phương trình cháy và hai vai trò của methane trong năng lượng và khí hậu.",
+    "image": "/assets/icon/logo.png",
+    "tags": [
+      "CH₄",
+      "Câu chuyện hóa học",
+      "Hợp chất"
+    ],
+    "chemicalFormula": "CH₄",
+    "aliases": [
+      "metan",
+      "methane",
+      "khí thiên nhiên"
+    ],
+    "substanceIds": [
+      "cid-297"
     ]
   }
 ]

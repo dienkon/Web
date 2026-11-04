@@ -1,0 +1,23 @@
+{
+  "id": "chat-metan",
+  "title": "Metan — một phân tử nhỏ trong hai câu chuyện năng lượng và khí hậu",
+  "author": "ChemDex · Biên soạn học liệu",
+  "category": "hopchat",
+  "summary": "Khám phá hình học tứ diện, giới hạn của phương trình cháy và hai vai trò của methane trong năng lượng và khí hậu.",
+  "image": "/assets/icon/logo.png",
+  "tags": [
+    "CH₄",
+    "Câu chuyện hóa học",
+    "Hợp chất"
+  ],
+  "chemicalFormula": "CH₄",
+  "aliases": [
+    "metan",
+    "methane",
+    "khí thiên nhiên"
+  ],
+  "substanceIds": [
+    "cid-297"
+  ],
+  "content": "## Câu chuyện: cùng một chất, hai vai trò cần phân biệt\n\nMethane xuất hiện trong câu chuyện sử dụng nhiên liệu, nhưng cũng được nghiên cứu như một khí nhà kính. EPA giải thích rằng methane trong khí quyển có ảnh hưởng đến hệ khí hậu; NASA mô tả cả các nguồn phát thải do hoạt động con người lẫn các quá trình tự nhiên. Vì thế, chỉ nói “methane là nhiên liệu” chưa mô tả hết vai trò của nó.\n\nĐiểm thú vị về hóa học là phải phân biệt hai quá trình: methane phản ứng tạo sản phẩm mới trong quá trình cháy, và methane đi vào khí quyển khi chưa bị chuyển hóa. Đây không phải cùng một con đường của vật chất, dù xuất phát từ cùng phân tử CH₄.\n\n## Hồ sơ phân tử\n\n| Mục | Dữ kiện | Cách đọc |\n|---|---|---|\n| Công thức | CH₄ | Một C liên kết với bốn H |\n| Khối lượng mol | Khoảng 16,043 g/mol | Dùng trong tính toán lượng chất |\n| Họ hợp chất | Alkane đơn giản nhất | Hydrocarbon chỉ gồm C và H |\n| Hình học lý tưởng | Tứ diện | Hình vẽ chữ thập trên giấy không phải hình học phẳng |\n\n## Từ hình vẽ 2D đến mô hình 3D\n\nBốn liên kết C–H có thể được vẽ trên mặt giấy để biểu diễn cách nối, nhưng cách đặt các nét vẽ không phải bằng chứng rằng methane phẳng. Mô hình tứ diện giúp phân biệt sơ đồ liên kết với hình học không gian. Góc tứ diện lý tưởng khoảng 109,5° là một mốc hình học; không nên coi mọi ảnh chụp mô hình có phối cảnh là một thước đo góc trực tiếp.\n\n## Phản ứng cháy: đọc đủ điều kiện\n\n**CH₄ + 2O₂ → CO₂ + 2H₂O**\n\nPhương trình này biểu diễn cháy hoàn toàn. Nếu bài toán không bảo đảm điều kiện phù hợp cho cháy hoàn toàn, không được mặc định rằng carbon chỉ đi vào CO₂. Trong tính toán lý thuyết của phản ứng trên, mỗi mol methane cần 2 mol oxygen và tạo 1 mol CO₂.\n\n> **Không đồng nhất tên sản phẩm:** methane CH₄, carbon monoxide CO và carbon dioxide CO₂ là ba chất khác nhau, dù các công thức đều có carbon.\n\n## Ví dụ tỉ lượng\n\nCho 0,50 mol CH₄ và 0,75 mol O₂. Nếu chỉ xét phương trình cháy hoàn toàn đã viết, oxygen là chất giới hạn. Tối đa 0,375 mol CH₄ phản ứng và 0,375 mol CO₂ tạo thành. Lượng CH₄ chưa phản ứng theo mô hình bài toán là 0,125 mol; phép tính này không phải mô phỏng đầy đủ một đám cháy thiếu oxygen trong thực tế.\n\n## Tự kiểm tra\n\nVì sao không thể dùng phương trình cháy hoàn toàn để kết luận mọi điều kiện đốt methane đều chỉ tạo CO₂? Khi chỉ có 1 mol O₂, theo phương trình trên tối đa bao nhiêu mol CH₄ có thể phản ứng?\n\n<details><summary>Gợi ý trả lời</summary>\n\nPhương trình gắn với giả thiết cháy hoàn toàn. Nếu chỉ xét phương trình ấy, 1 mol O₂ tương ứng tối đa 0,5 mol CH₄; diễn biến thực còn phụ thuộc điều kiện của hệ.\n\n</details>\n\n## Nguồn và khám phá tiếp\n\n- [EPA — Importance of methane](https://www.epa.gov/gmi/importance-methane): vai trò của methane trong khí quyển.\n- [NASA — Methane earth indicator](https://science.nasa.gov/earth/explore/earth-indicators/methane/): bối cảnh nguồn phát thải tự nhiên và do con người.\n- [PubChem — Methane, CID 297](https://pubchem.ncbi.nlm.nih.gov/compound/297): định danh chất.\n- [Khám phá hình học CH₄](/tien-ich/cau-truc-3d/?compound=cid-297).\n"
+}

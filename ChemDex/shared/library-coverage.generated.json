@@ -1,0 +1,3256 @@
+{
+  "schema": "chemdex.library-coverage/1",
+  "scope": "Mọi định danh trong kho cấu trúc hiện tại; nhiều định danh có thể cùng một chất. Có bài liên kết không đồng nghĩa nội dung đã được đối chiếu độc lập.",
+  "subjectCount": 498,
+  "documentCount": 19,
+  "linkedSubjectCount": 21,
+  "missingSubjectCount": 477,
+  "errors": [],
+  "articles": [
+    {
+      "id": "001_H",
+      "title": "Hydrogen (H) - Nguyên tố đầu tiên",
+      "subjectIds": [
+        "atom-H"
+      ],
+      "sections": 7,
+      "characters": 6864,
+      "externalSources": []
+    },
+    {
+      "id": "002_He",
+      "title": "Helium (He) - Khí hiếm nhẹ nhất",
+      "subjectIds": [
+        "atom-He"
+      ],
+      "sections": 2,
+      "characters": 803,
+      "externalSources": []
+    },
+    {
+      "id": "003_Li",
+      "title": "Lithium (Li) - Kim loại nhẹ nhất",
+      "subjectIds": [
+        "formula-Li"
+      ],
+      "sections": 2,
+      "characters": 805,
+      "externalSources": []
+    },
+    {
+      "id": "004_C",
+      "title": "Carbon (C) - Cột sống của sự sống",
+      "subjectIds": [
+        "chem-c"
+      ],
+      "sections": 2,
+      "characters": 882,
+      "externalSources": []
+    },
+    {
+      "id": "005_N",
+      "title": "Nitrogen (N) - Khí duy trì sự sống thực vật",
+      "subjectIds": [
+        "atom-N"
+      ],
+      "sections": 2,
+      "characters": 865,
+      "externalSources": []
+    },
+    {
+      "id": "006_O",
+      "title": "Oxygen (O) - Hơi thở của Trái Đất",
+      "subjectIds": [
+        "atom-O"
+      ],
+      "sections": 2,
+      "characters": 823,
+      "externalSources": []
+    },
+    {
+      "id": "007_Na",
+      "title": "Sodium (Na) - Kim loại mạnh mẽ",
+      "subjectIds": [
+        "chem-na"
+      ],
+      "sections": 2,
+      "characters": 743,
+      "externalSources": []
+    },
+    {
+      "id": "008_Fe",
+      "title": "Iron (Fe) - Kỷ nguyên đồ sắt",
+      "subjectIds": [
+        "chem-fe"
+      ],
+      "sections": 2,
+      "characters": 787,
+      "externalSources": []
+    },
+    {
+      "id": "009_Cu",
+      "title": "Copper (Cu) - Dòng chảy năng lượng",
+      "subjectIds": [
+        "chem-cu"
+      ],
+      "sections": 2,
+      "characters": 764,
+      "externalSources": []
+    },
+    {
+      "id": "010_Ag",
+      "title": "Silver (Ag) - Vẻ đẹp và tính diệt khuẩn",
+      "subjectIds": [
+        "formula-Ag"
+      ],
+      "sections": 2,
+      "characters": 763,
+      "externalSources": []
+    },
+    {
+      "id": "011_HistoryPT",
+      "title": "Sự ra đời của Bảng Tuần Hoàn",
+      "subjectIds": [],
+      "sections": 3,
+      "characters": 1361,
+      "externalSources": []
+    },
+    {
+      "id": "012_SafetyRules",
+      "title": "Quy Tắc An Toàn Phòng Thí Nghiệm",
+      "subjectIds": [],
+      "sections": 4,
+      "characters": 1601,
+      "externalSources": []
+    },
+    {
+      "id": "013_HTML_Sample",
+      "title": "Mẫu Bài Viết Đầy Đủ Định Dạng HTML",
+      "subjectIds": [],
+      "sections": 6,
+      "characters": 2921,
+      "externalSources": [
+        "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&q=80&w=800",
+        "https://chem-dex.vercel.app/",
+        "https://www.youtube.com/embed/dQw4w9WgXcQ"
+      ]
+    },
+    {
+      "id": "chat-nuoc",
+      "title": "Nước — hành trình của một hạt muối",
+      "subjectIds": [
+        "cid-962",
+        "chem-h2o"
+      ],
+      "sections": 6,
+      "characters": 2507,
+      "externalSources": [
+        "https://www.usgs.gov/water-science-school/science/water-qa-why-water-universal-solvent",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/962"
+      ]
+    },
+    {
+      "id": "chat-amoniac",
+      "title": "Amoniac — từ không khí đến câu chuyện phân bón",
+      "subjectIds": [
+        "cid-222",
+        "chem-nh3"
+      ],
+      "sections": 6,
+      "characters": 2689,
+      "externalSources": [
+        "https://www.nobelprize.org/prizes/chemistry/1918/haber/facts/",
+        "https://www.nobelprize.org/prizes/chemistry/1918/haber/biographical/",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/222"
+      ]
+    },
+    {
+      "id": "chat-natri-clorua",
+      "title": "Natri clorua — một công thức, hai trạng thái rất khác",
+      "subjectIds": [
+        "crystal-nacl",
+        "chem-nacl"
+      ],
+      "sections": 7,
+      "characters": 2836,
+      "externalSources": [
+        "https://pubchem.ncbi.nlm.nih.gov/compound/5234"
+      ]
+    },
+    {
+      "id": "chat-etanol",
+      "title": "Etanol — câu chuyện từ đường đến phân tử có nhóm OH",
+      "subjectIds": [
+        "cid-702",
+        "chem-c2h5oh"
+      ],
+      "sections": 6,
+      "characters": 2541,
+      "externalSources": [
+        "https://pubs.acs.org/doi/full/10.1021/bk-2015-1189.ch001",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/702"
+      ]
+    },
+    {
+      "id": "chat-carbon-dioxide",
+      "title": "Carbon dioxide — từ bọt khí đến cân bằng trong đại dương",
+      "subjectIds": [
+        "cid-280",
+        "chem-co2"
+      ],
+      "sections": 6,
+      "characters": 2686,
+      "externalSources": [
+        "https://oceanservice.noaa.gov/facts/acidification.html",
+        "https://oceanacidification.noaa.gov/what-is-ocean-acidification/",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/280"
+      ]
+    },
+    {
+      "id": "chat-metan",
+      "title": "Metan — một phân tử nhỏ trong hai câu chuyện năng lượng và khí hậu",
+      "subjectIds": [
+        "cid-297"
+      ],
+      "sections": 7,
+      "characters": 3026,
+      "externalSources": [
+        "https://www.epa.gov/gmi/importance-methane",
+        "https://science.nasa.gov/earth/explore/earth-indicators/methane/",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/297"
+      ]
+    }
+  ],
+  "subjects": [
+    {
+      "id": "cid-962",
+      "formula": "H2O",
+      "name": "Nước",
+      "articleIds": [
+        "chat-nuoc"
+      ]
+    },
+    {
+      "id": "cid-702",
+      "formula": "C2H6O",
+      "name": "Etanol",
+      "articleIds": [
+        "chat-etanol"
+      ]
+    },
+    {
+      "id": "cid-887",
+      "formula": "CH4O",
+      "name": "Metanol",
+      "articleIds": []
+    },
+    {
+      "id": "cid-180",
+      "formula": "C3H6O",
+      "name": "Axeton",
+      "articleIds": []
+    },
+    {
+      "id": "cid-176",
+      "formula": "C2H4O2",
+      "name": "Axit axetic",
+      "articleIds": []
+    },
+    {
+      "id": "cid-222",
+      "formula": "H3N",
+      "name": "Amoniac",
+      "articleIds": [
+        "chat-amoniac"
+      ]
+    },
+    {
+      "id": "cid-947",
+      "formula": "N2",
+      "name": "Nitơ",
+      "articleIds": []
+    },
+    {
+      "id": "cid-977",
+      "formula": "O2",
+      "name": "Oxi",
+      "articleIds": []
+    },
+    {
+      "id": "cid-783",
+      "formula": "H2",
+      "name": "Hiđro",
+      "articleIds": []
+    },
+    {
+      "id": "cid-280",
+      "formula": "CO2",
+      "name": "Cacbon đioxit",
+      "articleIds": [
+        "chat-carbon-dioxide"
+      ]
+    },
+    {
+      "id": "cid-281",
+      "formula": "CO",
+      "name": "Cacbon monoxit",
+      "articleIds": []
+    },
+    {
+      "id": "cid-297",
+      "formula": "CH4",
+      "name": "Metan",
+      "articleIds": [
+        "chat-metan"
+      ]
+    },
+    {
+      "id": "cid-6324",
+      "formula": "C2H6",
+      "name": "Etan",
+      "articleIds": []
+    },
+    {
+      "id": "cid-6325",
+      "formula": "C2H4",
+      "name": "Eten",
+      "articleIds": []
+    },
+    {
+      "id": "cid-6326",
+      "formula": "C2H2",
+      "name": "Axetilen",
+      "articleIds": []
+    },
+    {
+      "id": "cid-6334",
+      "formula": "C3H8",
+      "name": "Propan",
+      "articleIds": []
+    },
+    {
+      "id": "cid-8252",
+      "formula": "C3H6",
+      "name": "Propen",
+      "articleIds": []
+    },
+    {
+      "id": "cid-7843",
+      "formula": "C4H10",
+      "name": "Butan",
+      "articleIds": []
+    },
+    {
+      "id": "cid-6360",
+      "formula": "C4H10",
+      "name": "Isobutan",
+      "articleIds": []
+    },
+    {
+      "id": "cid-241",
+      "formula": "C6H6",
+      "name": "Benzen",
+      "articleIds": []
+    },
+    {
+      "id": "cid-1140",
+      "formula": "C7H8",
+      "name": "Toluen",
+      "articleIds": []
+    },
+    {
+      "id": "cid-996",
+      "formula": "C6H6O",
+      "name": "Phenol",
+      "articleIds": []
+    },
+    {
+      "id": "cid-6115",
+      "formula": "C6H7N",
+      "name": "Anilin",
+      "articleIds": []
+    },
+    {
+      "id": "cid-712",
+      "formula": "CH2O",
+      "name": "Fomanđehit",
+      "articleIds": []
+    },
+    {
+      "id": "cid-177",
+      "formula": "C2H4O",
+      "name": "Axetanđehit",
+      "articleIds": []
+    },
+    {
+      "id": "cid-284",
+      "formula": "CH2O2",
+      "name": "Axit fomic",
+      "articleIds": []
+    },
+    {
+      "id": "cid-885",
+      "formula": "C4H8O2",
+      "name": "Etyl axetat",
+      "articleIds": []
+    },
+    {
+      "id": "cid-178",
+      "formula": "C2H5NO",
+      "name": "Axetamit",
+      "articleIds": []
+    },
+    {
+      "id": "cid-1176",
+      "formula": "CH4N2O",
+      "name": "Urê",
+      "articleIds": []
+    },
+    {
+      "id": "cid-5793",
+      "formula": "C6H12O6",
+      "name": "Glucozơ",
+      "articleIds": []
+    },
+    {
+      "id": "cid-5984",
+      "formula": "C6H12O6",
+      "name": "Fructozơ",
+      "articleIds": []
+    },
+    {
+      "id": "cid-5988",
+      "formula": "C12H22O11",
+      "name": "Saccarozơ",
+      "articleIds": []
+    },
+    {
+      "id": "cid-753",
+      "formula": "C3H8O3",
+      "name": "Glixerol",
+      "articleIds": []
+    },
+    {
+      "id": "cid-784",
+      "formula": "H2O2",
+      "name": "Hiđro peoxit",
+      "articleIds": []
+    },
+    {
+      "id": "cid-248",
+      "formula": "O3",
+      "name": "Ozon",
+      "articleIds": []
+    },
+    {
+      "id": "cid-1119",
+      "formula": "O2S",
+      "name": "Lưu huỳnh đioxit",
+      "articleIds": []
+    },
+    {
+      "id": "cid-24682",
+      "formula": "O3S",
+      "name": "Lưu huỳnh trioxit",
+      "articleIds": []
+    },
+    {
+      "id": "cid-948",
+      "formula": "N2O",
+      "name": "Đinitơ monoxit",
+      "articleIds": []
+    },
+    {
+      "id": "cid-313",
+      "formula": "ClH",
+      "name": "Hiđro clorua",
+      "articleIds": []
+    },
+    {
+      "id": "cid-14917",
+      "formula": "FH",
+      "name": "Hiđro florua",
+      "articleIds": []
+    },
+    {
+      "id": "cid-402",
+      "formula": "H2S",
+      "name": "Hiđro sunfua",
+      "articleIds": []
+    },
+    {
+      "id": "cid-944",
+      "formula": "HNO3",
+      "name": "Axit nitric",
+      "articleIds": []
+    },
+    {
+      "id": "cid-1118",
+      "formula": "H2O4S",
+      "name": "Axit sulfuric",
+      "articleIds": []
+    },
+    {
+      "id": "cid-1004",
+      "formula": "H3O4P",
+      "name": "Axit phosphoric",
+      "articleIds": []
+    },
+    {
+      "id": "cid-8078",
+      "formula": "C6H12",
+      "name": "Xiclohexan",
+      "articleIds": []
+    },
+    {
+      "id": "cid-931",
+      "formula": "C10H8",
+      "name": "Naphtalen",
+      "articleIds": []
+    },
+    {
+      "id": "cid-2244",
+      "formula": "C9H8O4",
+      "name": "Aspirin",
+      "articleIds": []
+    },
+    {
+      "id": "cid-2519",
+      "formula": "C8H10N4O2",
+      "name": "Cafein",
+      "articleIds": []
+    },
+    {
+      "id": "cid-769",
+      "formula": "CHO3",
+      "name": "Ion hiđrocacbonat",
+      "articleIds": []
+    },
+    {
+      "id": "cid-19660",
+      "formula": "CO3",
+      "name": "Ion cacbonat",
+      "articleIds": []
+    },
+    {
+      "id": "cid-1117",
+      "formula": "O4S",
+      "name": "Ion sunfat",
+      "articleIds": []
+    },
+    {
+      "id": "cid-223",
+      "formula": "H4N",
+      "name": "Ion amoni",
+      "articleIds": []
+    },
+    {
+      "id": "cid-961",
+      "formula": "HO",
+      "name": "Ion hiđroxit",
+      "articleIds": []
+    },
+    {
+      "id": "cid-943",
+      "formula": "NO3",
+      "name": "Ion nitrat",
+      "articleIds": []
+    },
+    {
+      "id": "cid-946",
+      "formula": "NO2",
+      "name": "Ion nitrit",
+      "articleIds": []
+    },
+    {
+      "id": "crystal-nacl",
+      "formula": "NaCl",
+      "name": "Tinh thể natri clorua",
+      "articleIds": [
+        "chat-natri-clorua"
+      ]
+    },
+    {
+      "id": "crystal-cscl",
+      "formula": "CsCl",
+      "name": "Tinh thể xesi clorua",
+      "articleIds": []
+    },
+    {
+      "id": "crystal-caf2",
+      "formula": "CaF2",
+      "name": "Tinh thể canxi florua",
+      "articleIds": []
+    },
+    {
+      "id": "chem-hcl",
+      "formula": "HCl",
+      "name": "Axit clohiđric",
+      "articleIds": []
+    },
+    {
+      "id": "chem-h2so4",
+      "formula": "H2SO4",
+      "name": "Axit sunfuric",
+      "articleIds": []
+    },
+    {
+      "id": "chem-hno3",
+      "formula": "HNO3",
+      "name": "Axit nitric",
+      "articleIds": []
+    },
+    {
+      "id": "chem-ch3cooh",
+      "formula": "CH3COOH",
+      "name": "Axit axetic (Giấm)",
+      "articleIds": []
+    },
+    {
+      "id": "chem-naoh",
+      "formula": "NaOH",
+      "name": "Natri hiđroxit (Xút)",
+      "articleIds": []
+    },
+    {
+      "id": "chem-koh",
+      "formula": "KOH",
+      "name": "Kali hiđroxit",
+      "articleIds": []
+    },
+    {
+      "id": "chem-baoh2",
+      "formula": "Ba(OH)2",
+      "name": "Bari hiđroxit",
+      "articleIds": []
+    },
+    {
+      "id": "chem-nh3",
+      "formula": "NH3",
+      "name": "Dung dịch Amoniac",
+      "articleIds": [
+        "chat-amoniac"
+      ]
+    },
+    {
+      "id": "chem-agno3",
+      "formula": "AgNO3",
+      "name": "Bạc nitrat",
+      "articleIds": []
+    },
+    {
+      "id": "chem-nacl",
+      "formula": "NaCl",
+      "name": "Natri clorua (Muối ăn)",
+      "articleIds": [
+        "chat-natri-clorua"
+      ]
+    },
+    {
+      "id": "chem-bacl2",
+      "formula": "BaCl2",
+      "name": "Bari clorua",
+      "articleIds": []
+    },
+    {
+      "id": "chem-na2so4",
+      "formula": "Na2SO4",
+      "name": "Natri sunfat",
+      "articleIds": []
+    },
+    {
+      "id": "chem-cuso4",
+      "formula": "CuSO4",
+      "name": "Đồng(II) sunfat",
+      "articleIds": []
+    },
+    {
+      "id": "chem-fecl3",
+      "formula": "FeCl3",
+      "name": "Sắt(III) clorua",
+      "articleIds": []
+    },
+    {
+      "id": "chem-feso4",
+      "formula": "FeSO4",
+      "name": "Sắt(II) sunfat",
+      "articleIds": []
+    },
+    {
+      "id": "chem-nahco3",
+      "formula": "NaHCO3",
+      "name": "Natri hiđrocacbonat (Muối nở)",
+      "articleIds": []
+    },
+    {
+      "id": "chem-na2co3",
+      "formula": "Na2CO3",
+      "name": "Natri cacbonat (Soda)",
+      "articleIds": []
+    },
+    {
+      "id": "chem-cacl2",
+      "formula": "CaCl2",
+      "name": "Canxi clorua",
+      "articleIds": []
+    },
+    {
+      "id": "chem-kmno4",
+      "formula": "KMnO4",
+      "name": "Thuốc tím",
+      "articleIds": []
+    },
+    {
+      "id": "chem-zn",
+      "formula": "Zn",
+      "name": "Kẽm kim loại (Hạt/Lá)",
+      "articleIds": []
+    },
+    {
+      "id": "chem-caco3",
+      "formula": "CaCO3",
+      "name": "Canxi cacbonat (Đá vôi)",
+      "articleIds": []
+    },
+    {
+      "id": "chem-phenolphthalein",
+      "formula": "C20H14O4",
+      "name": "Chỉ thị Phenolphtalein",
+      "articleIds": []
+    },
+    {
+      "id": "chem-litmus",
+      "formula": "H2O",
+      "name": "Dung dịch Quỳ tím",
+      "articleIds": []
+    },
+    {
+      "id": "chem-universal-indicator",
+      "formula": "H2O",
+      "name": "Chỉ thị vạn năng",
+      "articleIds": []
+    },
+    {
+      "id": "chem-caoh2",
+      "formula": "Ca(OH)2",
+      "name": "Nước vôi trong / Canxi hiđroxit",
+      "articleIds": []
+    },
+    {
+      "id": "chem-fe",
+      "formula": "Fe",
+      "name": "Sắt kim loại (Đinh sắt / Bột)",
+      "articleIds": [
+        "008_Fe"
+      ]
+    },
+    {
+      "id": "chem-cu",
+      "formula": "Cu",
+      "name": "Đồng kim loại (Lá đồng / Phoi đồng)",
+      "articleIds": [
+        "009_Cu"
+      ]
+    },
+    {
+      "id": "chem-al",
+      "formula": "Al",
+      "name": "Nhôm kim loại (Lá nhôm / Vụn)",
+      "articleIds": []
+    },
+    {
+      "id": "chem-mg",
+      "formula": "Mg",
+      "name": "Dải Magie (Ruy-băng Mg)",
+      "articleIds": []
+    },
+    {
+      "id": "chem-na",
+      "formula": "Na",
+      "name": "Natri kim loại (Mẩu nhỏ)",
+      "articleIds": [
+        "007_Na"
+      ]
+    },
+    {
+      "id": "chem-nabr",
+      "formula": "NaBr",
+      "name": "Natri bromua",
+      "articleIds": []
+    },
+    {
+      "id": "chem-ki",
+      "formula": "KI",
+      "name": "Kali iotua",
+      "articleIds": []
+    },
+    {
+      "id": "chem-pbno32",
+      "formula": "Pb(NO3)2",
+      "name": "Chì(II) nitrat",
+      "articleIds": []
+    },
+    {
+      "id": "chem-alcl3",
+      "formula": "AlCl3",
+      "name": "Nhôm clorua",
+      "articleIds": []
+    },
+    {
+      "id": "chem-znso4",
+      "formula": "ZnSO4",
+      "name": "Kẽm sunfat",
+      "articleIds": []
+    },
+    {
+      "id": "chem-na2s",
+      "formula": "Na2S",
+      "name": "Natri sunfua",
+      "articleIds": []
+    },
+    {
+      "id": "chem-na2so3",
+      "formula": "Na2SO3",
+      "name": "Natri sunfit",
+      "articleIds": []
+    },
+    {
+      "id": "chem-nh4cl",
+      "formula": "NH4Cl",
+      "name": "Amoni clorua",
+      "articleIds": []
+    },
+    {
+      "id": "chem-kscn",
+      "formula": "KSCN",
+      "name": "Kali thioxianat",
+      "articleIds": []
+    },
+    {
+      "id": "chem-h2o2",
+      "formula": "H2O2",
+      "name": "Oxi già (H2O2 3%)",
+      "articleIds": []
+    },
+    {
+      "id": "chem-br2",
+      "formula": "Br2",
+      "name": "Nước Brom (Br2)",
+      "articleIds": []
+    },
+    {
+      "id": "chem-i2",
+      "formula": "I2",
+      "name": "Dung dịch Iot",
+      "articleIds": []
+    },
+    {
+      "id": "chem-c2h5oh",
+      "formula": "C2H5OH",
+      "name": "Cồn Etylic / Rượu etylic",
+      "articleIds": [
+        "chat-etanol"
+      ]
+    },
+    {
+      "id": "chem-c6h12o6",
+      "formula": "C6H12O6",
+      "name": "Dung dịch Glucozơ",
+      "articleIds": []
+    },
+    {
+      "id": "chem-starch",
+      "formula": "C6H10O5",
+      "name": "Hồ tinh bột",
+      "articleIds": []
+    },
+    {
+      "id": "chem-phenol",
+      "formula": "C6H5OH",
+      "name": "Dung dịch Phenol",
+      "articleIds": []
+    },
+    {
+      "id": "chem-h3po4",
+      "formula": "H3PO4",
+      "name": "Axit photphoric",
+      "articleIds": []
+    },
+    {
+      "id": "chem-hf",
+      "formula": "HF",
+      "name": "Axit flohiđric",
+      "articleIds": []
+    },
+    {
+      "id": "chem-h2s",
+      "formula": "H2S",
+      "name": "Dung dịch Hiđro sunfua",
+      "articleIds": []
+    },
+    {
+      "id": "chem-h2so3",
+      "formula": "H2SO3",
+      "name": "Axit sunfurơ",
+      "articleIds": []
+    },
+    {
+      "id": "chem-hcooh",
+      "formula": "HCOOH",
+      "name": "Axit fomic (Axit kiến)",
+      "articleIds": []
+    },
+    {
+      "id": "chem-mgoh2",
+      "formula": "Mg(OH)2",
+      "name": "Magie hiđroxit",
+      "articleIds": []
+    },
+    {
+      "id": "chem-aloh3",
+      "formula": "Al(OH)3",
+      "name": "Nhôm hiđroxit",
+      "articleIds": []
+    },
+    {
+      "id": "chem-znoh2",
+      "formula": "Zn(OH)2",
+      "name": "Kẽm hiđroxit",
+      "articleIds": []
+    },
+    {
+      "id": "chem-feoh2",
+      "formula": "Fe(OH)2",
+      "name": "Sắt(II) hiđroxit",
+      "articleIds": []
+    },
+    {
+      "id": "chem-feoh3",
+      "formula": "Fe(OH)3",
+      "name": "Sắt(III) hiđroxit",
+      "articleIds": []
+    },
+    {
+      "id": "chem-cuoh2",
+      "formula": "Cu(OH)2",
+      "name": "Đồng(II) hiđroxit",
+      "articleIds": []
+    },
+    {
+      "id": "chem-kcl",
+      "formula": "KCl",
+      "name": "Dung dịch Kali clorua",
+      "articleIds": []
+    },
+    {
+      "id": "chem-kno3",
+      "formula": "KNO3",
+      "name": "Kali nitrat (Diêm tiêu)",
+      "articleIds": []
+    },
+    {
+      "id": "chem-nano3",
+      "formula": "NaNO3",
+      "name": "Natri nitrat (Diêm tiêu Chile)",
+      "articleIds": []
+    },
+    {
+      "id": "chem-fecl2",
+      "formula": "FeCl2",
+      "name": "Dung dịch Sắt(II) clorua",
+      "articleIds": []
+    },
+    {
+      "id": "chem-fe2so43",
+      "formula": "Fe2(SO4)3",
+      "name": "Dung dịch Sắt(III) sunfat",
+      "articleIds": []
+    },
+    {
+      "id": "chem-cucl2",
+      "formula": "CuCl2",
+      "name": "Dung dịch Đồng(II) clorua",
+      "articleIds": []
+    },
+    {
+      "id": "chem-cuno32",
+      "formula": "Cu(NO3)2",
+      "name": "Dung dịch Đồng(II) nitrat",
+      "articleIds": []
+    },
+    {
+      "id": "chem-mgso4",
+      "formula": "MgSO4",
+      "name": "Dung dịch Magie sunfat (Muối Epsom)",
+      "articleIds": []
+    },
+    {
+      "id": "chem-mgcl2",
+      "formula": "MgCl2",
+      "name": "Dung dịch Magie clorua",
+      "articleIds": []
+    },
+    {
+      "id": "chem-nh4no3",
+      "formula": "NH4NO3",
+      "name": "Amoni nitrat",
+      "articleIds": []
+    },
+    {
+      "id": "chem-nh42so4",
+      "formula": "(NH4)2SO4",
+      "name": "Amoni sunfat (Phân đạm SA)",
+      "articleIds": []
+    },
+    {
+      "id": "chem-na2s2o3",
+      "formula": "Na2S2O3",
+      "name": "Dung dịch Natri thiosulfat",
+      "articleIds": []
+    },
+    {
+      "id": "chem-k2cr2o7",
+      "formula": "K2Cr2O7",
+      "name": "Dung dịch Kali đicromat",
+      "articleIds": []
+    },
+    {
+      "id": "chem-k2cro4",
+      "formula": "K2CrO4",
+      "name": "Dung dịch Kali cromat",
+      "articleIds": []
+    },
+    {
+      "id": "chem-fes",
+      "formula": "FeS",
+      "name": "Sắt(II) sunfua",
+      "articleIds": []
+    },
+    {
+      "id": "chem-agcl",
+      "formula": "AgCl",
+      "name": "Bạc clorua",
+      "articleIds": []
+    },
+    {
+      "id": "chem-agbr",
+      "formula": "AgBr",
+      "name": "Bạc bromua",
+      "articleIds": []
+    },
+    {
+      "id": "chem-agi",
+      "formula": "AgI",
+      "name": "Bạc iođua",
+      "articleIds": []
+    },
+    {
+      "id": "chem-pbi2",
+      "formula": "PbI2",
+      "name": "Chì(II) iođua (Mưa vàng)",
+      "articleIds": []
+    },
+    {
+      "id": "chem-baso4",
+      "formula": "BaSO4",
+      "name": "Bari sunfat",
+      "articleIds": []
+    },
+    {
+      "id": "chem-k2co3",
+      "formula": "K2CO3",
+      "name": "Dung dịch Kali cacbonat (Tro bếp)",
+      "articleIds": []
+    },
+    {
+      "id": "chem-s",
+      "formula": "S",
+      "name": "Lưu huỳnh bột",
+      "articleIds": []
+    },
+    {
+      "id": "chem-c",
+      "formula": "C",
+      "name": "Than hoạt tính / Cacbon",
+      "articleIds": [
+        "004_C"
+      ]
+    },
+    {
+      "id": "chem-p",
+      "formula": "P",
+      "name": "Photpho đỏ",
+      "articleIds": []
+    },
+    {
+      "id": "chem-mno2",
+      "formula": "MnO2",
+      "name": "Mangan đioxit bột",
+      "articleIds": []
+    },
+    {
+      "id": "chem-cuo",
+      "formula": "CuO",
+      "name": "Đồng(II) oxit bột",
+      "articleIds": []
+    },
+    {
+      "id": "chem-fe2o3",
+      "formula": "Fe2O3",
+      "name": "Sắt(III) oxit (Gỉ sắt)",
+      "articleIds": []
+    },
+    {
+      "id": "chem-cao",
+      "formula": "CaO",
+      "name": "Canxi oxit (Vôi sống)",
+      "articleIds": []
+    },
+    {
+      "id": "chem-methyl-orange",
+      "formula": "C14H14N3NaO3S",
+      "name": "Chỉ thị Methyl da cam",
+      "articleIds": []
+    },
+    {
+      "id": "chem-thymolphthalein",
+      "formula": "C28H30O4",
+      "name": "Chỉ thị Thymolphthalein",
+      "articleIds": []
+    },
+    {
+      "id": "chem-ch3cooc2h5",
+      "formula": "CH3COOC2H5",
+      "name": "Etyl axetat",
+      "articleIds": []
+    },
+    {
+      "id": "chem-c3h5oh3",
+      "formula": "C3H5(OH)3",
+      "name": "Glixerol (Glixerin)",
+      "articleIds": []
+    },
+    {
+      "id": "chem-ch3cho",
+      "formula": "CH3CHO",
+      "name": "Dung dịch Axetanđehit",
+      "articleIds": []
+    },
+    {
+      "id": "chem-h2o",
+      "formula": "H2O",
+      "name": "Nước cất",
+      "articleIds": [
+        "chat-nuoc"
+      ]
+    },
+    {
+      "id": "chem-na2hpo4",
+      "formula": "Na2HPO4",
+      "name": "Dung dịch Đinatri hiđrophotphat 0.1 M",
+      "articleIds": []
+    },
+    {
+      "id": "chem-naf",
+      "formula": "NaF",
+      "name": "Dung dịch Natri florua 0.1 M",
+      "articleIds": []
+    },
+    {
+      "id": "chem-ch3coona",
+      "formula": "CH3COONa",
+      "name": "Dung dịch natri axetat 0.1 M",
+      "articleIds": []
+    },
+    {
+      "id": "chem-co2",
+      "formula": "CO2",
+      "name": "Cacbon đioxit (nạp khí theo khối lượng)",
+      "articleIds": [
+        "chat-carbon-dioxide"
+      ]
+    },
+    {
+      "id": "formula-Ag",
+      "formula": "Ag",
+      "name": "Ag",
+      "articleIds": [
+        "010_Ag"
+      ]
+    },
+    {
+      "id": "formula-Ag2CO3",
+      "formula": "Ag2CO3",
+      "name": "bạc cacbonat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Ag2CrO4",
+      "formula": "Ag2CrO4",
+      "name": "bạc cromat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Ag2O",
+      "formula": "Ag2O",
+      "name": "Ag2O",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Ag3PO4",
+      "formula": "Ag3PO4",
+      "name": "bạc photphat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Al(NO3)3",
+      "formula": "Al(NO3)3",
+      "name": "nhôm nitrat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Al2(SO4)3",
+      "formula": "Al2(SO4)3",
+      "name": "nhôm sunfat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Al2O3",
+      "formula": "Al2O3",
+      "name": "Al2O3",
+      "articleIds": []
+    },
+    {
+      "id": "formula-AlBr3",
+      "formula": "AlBr3",
+      "name": "nhôm bromua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-AlI3",
+      "formula": "AlI3",
+      "name": "nhôm iodua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Ba(CH3COO)2",
+      "formula": "Ba(CH3COO)2",
+      "name": "bari axetat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Ba(HCOO)2",
+      "formula": "Ba(HCOO)2",
+      "name": "bari fomat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Ba(NO3)2",
+      "formula": "Ba(NO3)2",
+      "name": "bari nitrat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Ba3(PO4)2",
+      "formula": "Ba3(PO4)2",
+      "name": "bari photphat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-BaBr2",
+      "formula": "BaBr2",
+      "name": "bari bromua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-BaC2O4",
+      "formula": "BaC2O4",
+      "name": "bari oxalat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-BaCO3",
+      "formula": "BaCO3",
+      "name": "bari cacbonat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-BaCrO4",
+      "formula": "BaCrO4",
+      "name": "bari cromat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-BaF2",
+      "formula": "BaF2",
+      "name": "bari florua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-BaI2",
+      "formula": "BaI2",
+      "name": "bari iodua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-BaO",
+      "formula": "BaO",
+      "name": "BaO",
+      "articleIds": []
+    },
+    {
+      "id": "formula-BaSO3",
+      "formula": "BaSO3",
+      "name": "bari sunfit",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C2H5COOC2H5",
+      "formula": "C2H5COOC2H5",
+      "name": "C2H5COOC2H5",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C2H5COOC3H7",
+      "formula": "C2H5COOC3H7",
+      "name": "C2H5COOC3H7",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C2H5COOC4H9",
+      "formula": "C2H5COOC4H9",
+      "name": "C2H5COOC4H9",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C2H5COOCH3",
+      "formula": "C2H5COOCH3",
+      "name": "C2H5COOCH3",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C2H5COOH",
+      "formula": "C2H5COOH",
+      "name": "C2H5COOH",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C2H5COOK",
+      "formula": "C2H5COOK",
+      "name": "C2H5COOK",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C2H5COOLi",
+      "formula": "C2H5COOLi",
+      "name": "C2H5COOLi",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C2H5COONa",
+      "formula": "C2H5COONa",
+      "name": "C2H5COONa",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C3H4",
+      "formula": "C3H4",
+      "name": "C3H4",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C3H7COOC2H5",
+      "formula": "C3H7COOC2H5",
+      "name": "C3H7COOC2H5",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C3H7COOC3H7",
+      "formula": "C3H7COOC3H7",
+      "name": "C3H7COOC3H7",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C3H7COOC4H9",
+      "formula": "C3H7COOC4H9",
+      "name": "C3H7COOC4H9",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C3H7COOCH3",
+      "formula": "C3H7COOCH3",
+      "name": "C3H7COOCH3",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C3H7COOH",
+      "formula": "C3H7COOH",
+      "name": "C3H7COOH",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C3H7COOK",
+      "formula": "C3H7COOK",
+      "name": "C3H7COOK",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C3H7COOLi",
+      "formula": "C3H7COOLi",
+      "name": "C3H7COOLi",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C3H7COONa",
+      "formula": "C3H7COONa",
+      "name": "C3H7COONa",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C4H6",
+      "formula": "C4H6",
+      "name": "C4H6",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C4H8",
+      "formula": "C4H8",
+      "name": "C4H8",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C5H10",
+      "formula": "C5H10",
+      "name": "C5H10",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C5H12",
+      "formula": "C5H12",
+      "name": "C5H12",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C5H8",
+      "formula": "C5H8",
+      "name": "C5H8",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C6H14",
+      "formula": "C6H14",
+      "name": "C6H14",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C7H14",
+      "formula": "C7H14",
+      "name": "C7H14",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C7H16",
+      "formula": "C7H16",
+      "name": "C7H16",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C8H16",
+      "formula": "C8H16",
+      "name": "C8H16",
+      "articleIds": []
+    },
+    {
+      "id": "formula-C8H18",
+      "formula": "C8H18",
+      "name": "C8H18",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Ca",
+      "formula": "Ca",
+      "name": "Ca",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Ca(CH3COO)2",
+      "formula": "Ca(CH3COO)2",
+      "name": "canxi axetat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Ca(HCOO)2",
+      "formula": "Ca(HCOO)2",
+      "name": "canxi fomat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Ca(NO3)2",
+      "formula": "Ca(NO3)2",
+      "name": "canxi nitrat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Ca3(PO4)2",
+      "formula": "Ca3(PO4)2",
+      "name": "canxi photphat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CaBr2",
+      "formula": "CaBr2",
+      "name": "canxi bromua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CaC2O4",
+      "formula": "CaC2O4",
+      "name": "canxi oxalat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CaI2",
+      "formula": "CaI2",
+      "name": "canxi iodua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CaSO3",
+      "formula": "CaSO3",
+      "name": "canxi sunfit",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Cd",
+      "formula": "Cd",
+      "name": "Cd",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Cd(CH3COO)2",
+      "formula": "Cd(CH3COO)2",
+      "name": "cadimi axetat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Cd(HCOO)2",
+      "formula": "Cd(HCOO)2",
+      "name": "cadimi fomat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Cd(NO3)2",
+      "formula": "Cd(NO3)2",
+      "name": "cadimi nitrat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Cd(OH)2",
+      "formula": "Cd(OH)2",
+      "name": "cadimi hiđroxit",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CdBr2",
+      "formula": "CdBr2",
+      "name": "cadimi bromua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CdC2O4",
+      "formula": "CdC2O4",
+      "name": "cadimi oxalat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CdCl2",
+      "formula": "CdCl2",
+      "name": "cadimi clorua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CdCO3",
+      "formula": "CdCO3",
+      "name": "cadimi cacbonat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CdI2",
+      "formula": "CdI2",
+      "name": "cadimi iodua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CdO",
+      "formula": "CdO",
+      "name": "CdO",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CdS",
+      "formula": "CdS",
+      "name": "cadimi sunfua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CdSO4",
+      "formula": "CdSO4",
+      "name": "cadimi sunfat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CH3CH2CH2CH2OH",
+      "formula": "CH3CH2CH2CH2OH",
+      "name": "CH3CH2CH2CH2OH",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CH3CH2CH2OH",
+      "formula": "CH3CH2CH2OH",
+      "name": "CH3CH2CH2OH",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CH3COOAg",
+      "formula": "CH3COOAg",
+      "name": "bạc axetat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CH3COOC3H7",
+      "formula": "CH3COOC3H7",
+      "name": "CH3COOC3H7",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CH3COOC4H9",
+      "formula": "CH3COOC4H9",
+      "name": "CH3COOC4H9",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CH3COOCH3",
+      "formula": "CH3COOCH3",
+      "name": "CH3COOCH3",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CH3COOK",
+      "formula": "CH3COOK",
+      "name": "kali axetat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CH3COOLi",
+      "formula": "CH3COOLi",
+      "name": "liti axetat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CH3OH",
+      "formula": "CH3OH",
+      "name": "CH3OH",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Cl2",
+      "formula": "Cl2",
+      "name": "Cl2",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Co",
+      "formula": "Co",
+      "name": "Co",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Co(CH3COO)2",
+      "formula": "Co(CH3COO)2",
+      "name": "coban(II) axetat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Co(HCOO)2",
+      "formula": "Co(HCOO)2",
+      "name": "coban(II) fomat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Co(NO3)2",
+      "formula": "Co(NO3)2",
+      "name": "coban(II) nitrat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Co(OH)2",
+      "formula": "Co(OH)2",
+      "name": "coban(II) hiđroxit",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CoBr2",
+      "formula": "CoBr2",
+      "name": "coban(II) bromua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CoC2O4",
+      "formula": "CoC2O4",
+      "name": "coban(II) oxalat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CoCl2",
+      "formula": "CoCl2",
+      "name": "coban(II) clorua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CoI2",
+      "formula": "CoI2",
+      "name": "coban(II) iodua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CoO",
+      "formula": "CoO",
+      "name": "CoO",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CoS",
+      "formula": "CoS",
+      "name": "coban(II) sunfua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CoSO4",
+      "formula": "CoSO4",
+      "name": "coban(II) sunfat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Cr(NO3)3",
+      "formula": "Cr(NO3)3",
+      "name": "crom(III) nitrat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Cr(OH)3",
+      "formula": "Cr(OH)3",
+      "name": "crom(III) hiđroxit",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Cr2(SO4)3",
+      "formula": "Cr2(SO4)3",
+      "name": "crom(III) sunfat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Cr2O3",
+      "formula": "Cr2O3",
+      "name": "Cr2O3",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CrBr3",
+      "formula": "CrBr3",
+      "name": "crom(III) bromua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CrCl3",
+      "formula": "CrCl3",
+      "name": "crom(III) clorua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CrI3",
+      "formula": "CrI3",
+      "name": "crom(III) iodua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Cu(CH3COO)2",
+      "formula": "Cu(CH3COO)2",
+      "name": "đồng(II) axetat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CuBr2",
+      "formula": "CuBr2",
+      "name": "đồng(II) bromua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CuC2O4",
+      "formula": "CuC2O4",
+      "name": "đồng(II) oxalat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-CuS",
+      "formula": "CuS",
+      "name": "đồng(II) sunfua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Fe(CH3COO)2",
+      "formula": "Fe(CH3COO)2",
+      "name": "sắt(II) axetat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Fe(HCOO)2",
+      "formula": "Fe(HCOO)2",
+      "name": "sắt(II) fomat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Fe(NO3)2",
+      "formula": "Fe(NO3)2",
+      "name": "sắt(II) nitrat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Fe(NO3)3",
+      "formula": "Fe(NO3)3",
+      "name": "sắt(III) nitrat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-FeBr2",
+      "formula": "FeBr2",
+      "name": "sắt(II) bromua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-FeBr3",
+      "formula": "FeBr3",
+      "name": "sắt(III) bromua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-FeC2O4",
+      "formula": "FeC2O4",
+      "name": "sắt(II) oxalat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-FeCO3",
+      "formula": "FeCO3",
+      "name": "sắt(II) cacbonat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-FeI2",
+      "formula": "FeI2",
+      "name": "sắt(II) iodua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-FeO",
+      "formula": "FeO",
+      "name": "FeO",
+      "articleIds": []
+    },
+    {
+      "id": "formula-HBr",
+      "formula": "HBr",
+      "name": "HBr",
+      "articleIds": []
+    },
+    {
+      "id": "formula-HCOOC2H5",
+      "formula": "HCOOC2H5",
+      "name": "HCOOC2H5",
+      "articleIds": []
+    },
+    {
+      "id": "formula-HCOOC3H7",
+      "formula": "HCOOC3H7",
+      "name": "HCOOC3H7",
+      "articleIds": []
+    },
+    {
+      "id": "formula-HCOOC4H9",
+      "formula": "HCOOC4H9",
+      "name": "HCOOC4H9",
+      "articleIds": []
+    },
+    {
+      "id": "formula-HCOOCH3",
+      "formula": "HCOOCH3",
+      "name": "HCOOCH3",
+      "articleIds": []
+    },
+    {
+      "id": "formula-HCOOK",
+      "formula": "HCOOK",
+      "name": "kali fomat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-HCOOLi",
+      "formula": "HCOOLi",
+      "name": "liti fomat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-HCOONa",
+      "formula": "HCOONa",
+      "name": "natri fomat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-HI",
+      "formula": "HI",
+      "name": "HI",
+      "articleIds": []
+    },
+    {
+      "id": "formula-K",
+      "formula": "K",
+      "name": "K",
+      "articleIds": []
+    },
+    {
+      "id": "formula-K2C2O4",
+      "formula": "K2C2O4",
+      "name": "kali oxalat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-K2O",
+      "formula": "K2O",
+      "name": "K2O",
+      "articleIds": []
+    },
+    {
+      "id": "formula-K2S",
+      "formula": "K2S",
+      "name": "kali sunfua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-K2SO3",
+      "formula": "K2SO3",
+      "name": "kali sunfit",
+      "articleIds": []
+    },
+    {
+      "id": "formula-K2SO4",
+      "formula": "K2SO4",
+      "name": "kali sunfat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-K3PO4",
+      "formula": "K3PO4",
+      "name": "kali photphat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-KBr",
+      "formula": "KBr",
+      "name": "kali bromua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-KF",
+      "formula": "KF",
+      "name": "kali florua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-KHCO3",
+      "formula": "KHCO3",
+      "name": "kali hiđrocacbonat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-KNO2",
+      "formula": "KNO2",
+      "name": "KNO2",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Li",
+      "formula": "Li",
+      "name": "Li",
+      "articleIds": [
+        "003_Li"
+      ]
+    },
+    {
+      "id": "formula-Li2CO3",
+      "formula": "Li2CO3",
+      "name": "liti cacbonat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Li2O",
+      "formula": "Li2O",
+      "name": "Li2O",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Li2SO4",
+      "formula": "Li2SO4",
+      "name": "liti sunfat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-LiBr",
+      "formula": "LiBr",
+      "name": "liti bromua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-LiCl",
+      "formula": "LiCl",
+      "name": "liti clorua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-LiF",
+      "formula": "LiF",
+      "name": "liti florua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-LiI",
+      "formula": "LiI",
+      "name": "liti iodua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-LiNO3",
+      "formula": "LiNO3",
+      "name": "liti nitrat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-LiOH",
+      "formula": "LiOH",
+      "name": "liti hiđroxit",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Mg(CH3COO)2",
+      "formula": "Mg(CH3COO)2",
+      "name": "magie axetat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Mg(HCOO)2",
+      "formula": "Mg(HCOO)2",
+      "name": "magie fomat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Mg(NO3)2",
+      "formula": "Mg(NO3)2",
+      "name": "magie nitrat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-MgBr2",
+      "formula": "MgBr2",
+      "name": "magie bromua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-MgC2O4",
+      "formula": "MgC2O4",
+      "name": "magie oxalat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-MgCO3",
+      "formula": "MgCO3",
+      "name": "magie cacbonat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-MgF2",
+      "formula": "MgF2",
+      "name": "magie florua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-MgI2",
+      "formula": "MgI2",
+      "name": "magie iodua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-MgO",
+      "formula": "MgO",
+      "name": "MgO",
+      "articleIds": []
+    },
+    {
+      "id": "formula-MgSO3",
+      "formula": "MgSO3",
+      "name": "magie sunfit",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Mn",
+      "formula": "Mn",
+      "name": "Mn",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Mn(CH3COO)2",
+      "formula": "Mn(CH3COO)2",
+      "name": "mangan(II) axetat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Mn(HCOO)2",
+      "formula": "Mn(HCOO)2",
+      "name": "mangan(II) fomat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Mn(NO3)2",
+      "formula": "Mn(NO3)2",
+      "name": "mangan(II) nitrat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Mn(OH)2",
+      "formula": "Mn(OH)2",
+      "name": "mangan(II) hiđroxit",
+      "articleIds": []
+    },
+    {
+      "id": "formula-MnBr2",
+      "formula": "MnBr2",
+      "name": "mangan(II) bromua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-MnC2O4",
+      "formula": "MnC2O4",
+      "name": "mangan(II) oxalat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-MnCl2",
+      "formula": "MnCl2",
+      "name": "mangan(II) clorua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-MnCO3",
+      "formula": "MnCO3",
+      "name": "mangan(II) cacbonat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-MnI2",
+      "formula": "MnI2",
+      "name": "mangan(II) iodua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-MnO",
+      "formula": "MnO",
+      "name": "MnO",
+      "articleIds": []
+    },
+    {
+      "id": "formula-MnS",
+      "formula": "MnS",
+      "name": "mangan(II) sunfua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-MnSO4",
+      "formula": "MnSO4",
+      "name": "mangan(II) sunfat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Na2C2O4",
+      "formula": "Na2C2O4",
+      "name": "natri oxalat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Na2CrO4",
+      "formula": "Na2CrO4",
+      "name": "natri cromat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Na2O",
+      "formula": "Na2O",
+      "name": "Na2O",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Na2Zn(OH)4",
+      "formula": "Na2Zn(OH)4",
+      "name": "Na2Zn(OH)4",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Na3PO4",
+      "formula": "Na3PO4",
+      "name": "natri photphat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-NaAl(OH)4",
+      "formula": "NaAl(OH)4",
+      "name": "NaAl(OH)4",
+      "articleIds": []
+    },
+    {
+      "id": "formula-NaAlO2",
+      "formula": "NaAlO2",
+      "name": "NaAlO2",
+      "articleIds": []
+    },
+    {
+      "id": "formula-NaI",
+      "formula": "NaI",
+      "name": "natri iodua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-NaNO2",
+      "formula": "NaNO2",
+      "name": "NaNO2",
+      "articleIds": []
+    },
+    {
+      "id": "formula-NH4Br",
+      "formula": "NH4Br",
+      "name": "amoni bromua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-NH4CH3COO",
+      "formula": "NH4CH3COO",
+      "name": "amoni axetat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-NH4I",
+      "formula": "NH4I",
+      "name": "amoni iodua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Ni",
+      "formula": "Ni",
+      "name": "Ni",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Ni(CH3COO)2",
+      "formula": "Ni(CH3COO)2",
+      "name": "niken(II) axetat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Ni(HCOO)2",
+      "formula": "Ni(HCOO)2",
+      "name": "niken(II) fomat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Ni(NO3)2",
+      "formula": "Ni(NO3)2",
+      "name": "niken(II) nitrat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Ni(OH)2",
+      "formula": "Ni(OH)2",
+      "name": "niken(II) hiđroxit",
+      "articleIds": []
+    },
+    {
+      "id": "formula-NiBr2",
+      "formula": "NiBr2",
+      "name": "niken(II) bromua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-NiC2O4",
+      "formula": "NiC2O4",
+      "name": "niken(II) oxalat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-NiCl2",
+      "formula": "NiCl2",
+      "name": "niken(II) clorua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-NiI2",
+      "formula": "NiI2",
+      "name": "niken(II) iodua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-NiO",
+      "formula": "NiO",
+      "name": "NiO",
+      "articleIds": []
+    },
+    {
+      "id": "formula-NiS",
+      "formula": "NiS",
+      "name": "niken(II) sunfua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-NiSO4",
+      "formula": "NiSO4",
+      "name": "niken(II) sunfat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-NO",
+      "formula": "NO",
+      "name": "NO",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Pb",
+      "formula": "Pb",
+      "name": "Pb",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Pb(CH3COO)2",
+      "formula": "Pb(CH3COO)2",
+      "name": "chì(II) axetat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Pb(HCOO)2",
+      "formula": "Pb(HCOO)2",
+      "name": "chì(II) fomat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Pb(OH)2",
+      "formula": "Pb(OH)2",
+      "name": "chì(II) hiđroxit",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Pb3(PO4)2",
+      "formula": "Pb3(PO4)2",
+      "name": "chì(II) photphat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-PbBr2",
+      "formula": "PbBr2",
+      "name": "chì(II) bromua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-PbC2O4",
+      "formula": "PbC2O4",
+      "name": "chì(II) oxalat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-PbCl2",
+      "formula": "PbCl2",
+      "name": "chì(II) clorua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-PbCO3",
+      "formula": "PbCO3",
+      "name": "chì(II) cacbonat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-PbCrO4",
+      "formula": "PbCrO4",
+      "name": "chì(II) cromat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-PbF2",
+      "formula": "PbF2",
+      "name": "chì(II) florua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-PbO",
+      "formula": "PbO",
+      "name": "PbO",
+      "articleIds": []
+    },
+    {
+      "id": "formula-PbSO4",
+      "formula": "PbSO4",
+      "name": "chì(II) sunfat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Sn",
+      "formula": "Sn",
+      "name": "Sn",
+      "articleIds": []
+    },
+    {
+      "id": "formula-SnBr2",
+      "formula": "SnBr2",
+      "name": "thiếc(II) bromua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-SnCl2",
+      "formula": "SnCl2",
+      "name": "thiếc(II) clorua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-SnSO4",
+      "formula": "SnSO4",
+      "name": "thiếc(II) sunfat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-SO2",
+      "formula": "SO2",
+      "name": "SO2",
+      "articleIds": []
+    },
+    {
+      "id": "formula-SO3",
+      "formula": "SO3",
+      "name": "SO3",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Sr(CH3COO)2",
+      "formula": "Sr(CH3COO)2",
+      "name": "stronti axetat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Sr(HCOO)2",
+      "formula": "Sr(HCOO)2",
+      "name": "stronti fomat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Sr(NO3)2",
+      "formula": "Sr(NO3)2",
+      "name": "stronti nitrat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Sr(OH)2",
+      "formula": "Sr(OH)2",
+      "name": "stronti hiđroxit",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Sr3(PO4)2",
+      "formula": "Sr3(PO4)2",
+      "name": "stronti photphat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-SrBr2",
+      "formula": "SrBr2",
+      "name": "stronti bromua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-SrC2O4",
+      "formula": "SrC2O4",
+      "name": "stronti oxalat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-SrCl2",
+      "formula": "SrCl2",
+      "name": "stronti clorua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-SrCO3",
+      "formula": "SrCO3",
+      "name": "stronti cacbonat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-SrF2",
+      "formula": "SrF2",
+      "name": "stronti florua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-SrI2",
+      "formula": "SrI2",
+      "name": "stronti iodua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-SrO",
+      "formula": "SrO",
+      "name": "SrO",
+      "articleIds": []
+    },
+    {
+      "id": "formula-SrSO3",
+      "formula": "SrSO3",
+      "name": "stronti sunfit",
+      "articleIds": []
+    },
+    {
+      "id": "formula-SrSO4",
+      "formula": "SrSO4",
+      "name": "stronti sunfat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Zn(CH3COO)2",
+      "formula": "Zn(CH3COO)2",
+      "name": "kẽm axetat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Zn(HCOO)2",
+      "formula": "Zn(HCOO)2",
+      "name": "kẽm fomat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-Zn(NO3)2",
+      "formula": "Zn(NO3)2",
+      "name": "kẽm nitrat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-ZnBr2",
+      "formula": "ZnBr2",
+      "name": "kẽm bromua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-ZnC2O4",
+      "formula": "ZnC2O4",
+      "name": "kẽm oxalat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-ZnCl2",
+      "formula": "ZnCl2",
+      "name": "kẽm clorua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-ZnCO3",
+      "formula": "ZnCO3",
+      "name": "kẽm cacbonat",
+      "articleIds": []
+    },
+    {
+      "id": "formula-ZnI2",
+      "formula": "ZnI2",
+      "name": "kẽm iodua",
+      "articleIds": []
+    },
+    {
+      "id": "formula-ZnO",
+      "formula": "ZnO",
+      "name": "ZnO",
+      "articleIds": []
+    },
+    {
+      "id": "formula-ZnS",
+      "formula": "ZnS",
+      "name": "kẽm sunfua",
+      "articleIds": []
+    },
+    {
+      "id": "lab3d-330",
+      "formula": "H2C2O4",
+      "name": "Axit Oxalic (0.1M)",
+      "articleIds": []
+    },
+    {
+      "id": "lab3d-331",
+      "formula": "KIO3",
+      "name": "Kali Iodat (0.05M)",
+      "articleIds": []
+    },
+    {
+      "id": "lab3d-332",
+      "formula": "NaHSO3",
+      "name": "Natri Bisunfit (0.05M)",
+      "articleIds": []
+    },
+    {
+      "id": "lab3d-333",
+      "formula": "C6H10O5",
+      "name": "Hồ Tinh Bột Chỉ Thị (1%)",
+      "articleIds": []
+    },
+    {
+      "id": "lab3d-334",
+      "formula": "CH3COCH3",
+      "name": "Axeton Tinh Khiết",
+      "articleIds": []
+    },
+    {
+      "id": "lab3d-335",
+      "formula": "C6H14",
+      "name": "Hexan / Dung Môi Hữu Cơ (C6H14)",
+      "articleIds": []
+    },
+    {
+      "id": "lab3d-336",
+      "formula": "CuSO4·5H2O",
+      "name": "Đồng(II) Sunfat Ngậm Nước (Tinh Thể Lam)",
+      "articleIds": []
+    },
+    {
+      "id": "lab3d-337",
+      "formula": "CoCl2.6H2O",
+      "name": "Coban(II) Clorua Ngậm 6 Nước (Đỏ Hồng)",
+      "articleIds": []
+    },
+    {
+      "id": "lab3d-338",
+      "formula": "NiSO4.6H2O",
+      "name": "Niken(II) Sunfat Ngậm 6 Nước (Lục Bảo)",
+      "articleIds": []
+    },
+    {
+      "id": "lab3d-339",
+      "formula": "FeSO4.7H2O",
+      "name": "Sắt(II) Sunfat Ngậm 7 Nước (Thanh Phàn)",
+      "articleIds": []
+    },
+    {
+      "id": "lab3d-340",
+      "formula": "C27H28Br2O5S",
+      "name": "Chỉ thị bromothymol xanh (0,0001 M)",
+      "articleIds": []
+    },
+    {
+      "id": "atom-H",
+      "formula": "H",
+      "name": "Hiđro",
+      "articleIds": [
+        "001_H"
+      ]
+    },
+    {
+      "id": "atom-He",
+      "formula": "He",
+      "name": "Heli",
+      "articleIds": [
+        "002_He"
+      ]
+    },
+    {
+      "id": "atom-Be",
+      "formula": "Be",
+      "name": "Beri",
+      "articleIds": []
+    },
+    {
+      "id": "atom-B",
+      "formula": "B",
+      "name": "Bo",
+      "articleIds": []
+    },
+    {
+      "id": "atom-N",
+      "formula": "N",
+      "name": "Nitơ",
+      "articleIds": [
+        "005_N"
+      ]
+    },
+    {
+      "id": "atom-O",
+      "formula": "O",
+      "name": "Oxi",
+      "articleIds": [
+        "006_O"
+      ]
+    },
+    {
+      "id": "atom-F",
+      "formula": "F",
+      "name": "Flo",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Ne",
+      "formula": "Ne",
+      "name": "Neon",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Si",
+      "formula": "Si",
+      "name": "Silic",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Cl",
+      "formula": "Cl",
+      "name": "Clo",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Ar",
+      "formula": "Ar",
+      "name": "Argon",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Sc",
+      "formula": "Sc",
+      "name": "Scandi",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Ti",
+      "formula": "Ti",
+      "name": "Titan",
+      "articleIds": []
+    },
+    {
+      "id": "atom-V",
+      "formula": "V",
+      "name": "Vanadi",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Cr",
+      "formula": "Cr",
+      "name": "Crom",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Ga",
+      "formula": "Ga",
+      "name": "Gali",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Ge",
+      "formula": "Ge",
+      "name": "Gecmani",
+      "articleIds": []
+    },
+    {
+      "id": "atom-As",
+      "formula": "As",
+      "name": "Asen",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Se",
+      "formula": "Se",
+      "name": "Selen",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Br",
+      "formula": "Br",
+      "name": "Brom",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Kr",
+      "formula": "Kr",
+      "name": "Kripton",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Rb",
+      "formula": "Rb",
+      "name": "Rubidium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Sr",
+      "formula": "Sr",
+      "name": "Strontium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Y",
+      "formula": "Y",
+      "name": "Yttrium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Zr",
+      "formula": "Zr",
+      "name": "Zirconium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Nb",
+      "formula": "Nb",
+      "name": "Niobium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Mo",
+      "formula": "Mo",
+      "name": "Molybdenum",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Tc",
+      "formula": "Tc",
+      "name": "Technetium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Ru",
+      "formula": "Ru",
+      "name": "Ruthenium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Rh",
+      "formula": "Rh",
+      "name": "Rhodium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Pd",
+      "formula": "Pd",
+      "name": "Palladium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-In",
+      "formula": "In",
+      "name": "Indium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Sb",
+      "formula": "Sb",
+      "name": "Antimony",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Te",
+      "formula": "Te",
+      "name": "Tellurium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-I",
+      "formula": "I",
+      "name": "Iot",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Xe",
+      "formula": "Xe",
+      "name": "Xenon",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Cs",
+      "formula": "Cs",
+      "name": "Cesium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Ba",
+      "formula": "Ba",
+      "name": "Bari",
+      "articleIds": []
+    },
+    {
+      "id": "atom-La",
+      "formula": "La",
+      "name": "Lanthanum",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Ce",
+      "formula": "Ce",
+      "name": "Cerium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Pr",
+      "formula": "Pr",
+      "name": "Praseodymium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Nd",
+      "formula": "Nd",
+      "name": "Neodymium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Pm",
+      "formula": "Pm",
+      "name": "Promethium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Sm",
+      "formula": "Sm",
+      "name": "Samarium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Eu",
+      "formula": "Eu",
+      "name": "Europium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Gd",
+      "formula": "Gd",
+      "name": "Gadolinium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Tb",
+      "formula": "Tb",
+      "name": "Terbium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Dy",
+      "formula": "Dy",
+      "name": "Dysprosium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Ho",
+      "formula": "Ho",
+      "name": "Holmium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Er",
+      "formula": "Er",
+      "name": "Erbium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Tm",
+      "formula": "Tm",
+      "name": "Thulium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Yb",
+      "formula": "Yb",
+      "name": "Ytterbium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Lu",
+      "formula": "Lu",
+      "name": "Lutetium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Hf",
+      "formula": "Hf",
+      "name": "Hafnium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Ta",
+      "formula": "Ta",
+      "name": "Tantalum",
+      "articleIds": []
+    },
+    {
+      "id": "atom-W",
+      "formula": "W",
+      "name": "Tungsten",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Re",
+      "formula": "Re",
+      "name": "Rhenium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Os",
+      "formula": "Os",
+      "name": "Osmium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Ir",
+      "formula": "Ir",
+      "name": "Iridium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Pt",
+      "formula": "Pt",
+      "name": "Bạch kim",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Au",
+      "formula": "Au",
+      "name": "Vàng",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Hg",
+      "formula": "Hg",
+      "name": "Thủy ngân",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Tl",
+      "formula": "Tl",
+      "name": "Thallium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Bi",
+      "formula": "Bi",
+      "name": "Bismuth",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Po",
+      "formula": "Po",
+      "name": "Polonium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-At",
+      "formula": "At",
+      "name": "Astatine",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Rn",
+      "formula": "Rn",
+      "name": "Radon",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Fr",
+      "formula": "Fr",
+      "name": "Francium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Ra",
+      "formula": "Ra",
+      "name": "Radium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Ac",
+      "formula": "Ac",
+      "name": "Actinium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Th",
+      "formula": "Th",
+      "name": "Thorium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Pa",
+      "formula": "Pa",
+      "name": "Protactinium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-U",
+      "formula": "U",
+      "name": "Uranium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Np",
+      "formula": "Np",
+      "name": "Neptunium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Pu",
+      "formula": "Pu",
+      "name": "Plutonium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Am",
+      "formula": "Am",
+      "name": "Americium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Cm",
+      "formula": "Cm",
+      "name": "Curium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Bk",
+      "formula": "Bk",
+      "name": "Berkelium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Cf",
+      "formula": "Cf",
+      "name": "Californium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Es",
+      "formula": "Es",
+      "name": "Einsteinium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Fm",
+      "formula": "Fm",
+      "name": "Fermium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Md",
+      "formula": "Md",
+      "name": "Mendelevium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-No",
+      "formula": "No",
+      "name": "Nobelium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Lr",
+      "formula": "Lr",
+      "name": "Lawrencium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Rf",
+      "formula": "Rf",
+      "name": "Rutherfordium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Db",
+      "formula": "Db",
+      "name": "Dubnium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Sg",
+      "formula": "Sg",
+      "name": "Seaborgium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Bh",
+      "formula": "Bh",
+      "name": "Bohrium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Hs",
+      "formula": "Hs",
+      "name": "Hassium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Mt",
+      "formula": "Mt",
+      "name": "Meitnerium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Ds",
+      "formula": "Ds",
+      "name": "Darmstadtium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Rg",
+      "formula": "Rg",
+      "name": "Roentgenium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Cn",
+      "formula": "Cn",
+      "name": "Copernicium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Nh",
+      "formula": "Nh",
+      "name": "Nihonium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Fl",
+      "formula": "Fl",
+      "name": "Flerovium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Mc",
+      "formula": "Mc",
+      "name": "Moscovium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Lv",
+      "formula": "Lv",
+      "name": "Livermorium",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Ts",
+      "formula": "Ts",
+      "name": "Tennessine",
+      "articleIds": []
+    },
+    {
+      "id": "atom-Og",
+      "formula": "Og",
+      "name": "Oganesson",
+      "articleIds": []
+    }
+  ]
+}

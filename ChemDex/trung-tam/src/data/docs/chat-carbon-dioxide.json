@@ -1,0 +1,24 @@
+{
+  "id": "chat-carbon-dioxide",
+  "title": "Carbon dioxide — từ bọt khí đến cân bằng trong đại dương",
+  "author": "ChemDex · Biên soạn học liệu",
+  "category": "hopchat",
+  "summary": "Kết nối phân tử CO₂ với các cân bằng carbon vô cơ và ý nghĩa của acid hóa đại dương.",
+  "image": "/assets/icon/logo.png",
+  "tags": [
+    "CO₂",
+    "Câu chuyện hóa học",
+    "Hợp chất"
+  ],
+  "chemicalFormula": "CO₂",
+  "aliases": [
+    "carbon dioxide",
+    "cacbon dioxit",
+    "khí cacbonic"
+  ],
+  "substanceIds": [
+    "cid-280",
+    "chem-co2"
+  ],
+  "content": "## Câu chuyện: khí đi vào nước nhưng ảnh hưởng không dừng ở hòa tan\n\nMột lượng CO₂ đi vào nước có thể kéo theo thay đổi trong hệ cân bằng hóa học. Ở quy mô đại dương, NOAA giải thích rằng hấp thụ carbon dioxide từ khí quyển làm thay đổi hóa học nước biển và có thể hạ pH. Đây là ví dụ rõ ràng cho việc một phân tử khí liên hệ được với bài học cân bằng trong lớp và một quá trình môi trường có quy mô rất lớn.\n\n“Acid hóa” nói về chiều thay đổi pH, không tự động có nghĩa toàn bộ nước biển đã trở thành dung dịch có pH dưới 7. Cần đọc giá trị pH, điều kiện mẫu và diễn biến theo thời gian, thay vì suy luận chỉ từ tên quá trình.\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện | Điểm phân biệt |\n|---|---|---|\n| Công thức | CO₂ | Khác carbon monoxide CO |\n| Khối lượng mol | Khoảng 44,009 g/mol | Một C và hai O |\n| Hình học phân tử | Thẳng | Hai nguyên tử O ở hai phía của C |\n| Trong nước | Có nhiều dạng carbon vô cơ liên hệ bằng cân bằng | Không đồng nhất CO₂ với toàn bộ bicarbonate |\n\n## Một hệ gồm nhiều cân bằng\n\n**CO₂(aq) + H₂O ⇌ H₂CO₃**\n\n**H₂CO₃ ⇌ H⁺ + HCO₃⁻**\n\n**HCO₃⁻ ⇌ H⁺ + CO₃²⁻**\n\nCác phương trình trên là biểu diễn học tập của những quan hệ cân bằng, không phải tuyên bố rằng mọi phân tử CO₂ đều chuyển hết thành carbonic acid. Khi tính pH hoặc tỉ lệ các dạng carbon, còn phải xác định nhiệt độ, thành phần dung dịch và dữ liệu cân bằng thích hợp. Nước biển không thể được thay bằng một cốc nước tinh khiết mà vẫn giữ nguyên mọi kết luận định lượng.\n\n> **Cấu trúc và hệ hóa học:** trình xem một phân tử CO₂ giúp hiểu hình học. Nó không tự mô phỏng toàn bộ cân bằng carbon vô cơ trong đại dương.\n\n## Bài toán theo nguyên tử carbon\n\nTrong 0,25 mol CO₂ có 0,25 mol nguyên tử C và 0,50 mol nguyên tử O. Nếu chỉ thay đổi dạng tồn tại của carbon qua các cân bằng mà không thêm hoặc mất carbon khỏi hệ, tổng lượng carbon vẫn được bảo toàn.\n\n## Tự kiểm tra\n\nVì sao câu “pH giảm” chưa đủ để kết luận “pH dưới 7”? Một mẫu có carbon vô cơ hòa tan có nhất thiết chỉ chứa CO₂ không?\n\n<details><summary>Gợi ý trả lời</summary>\n\npH có thể giảm từ một giá trị lớn hơn 7 xuống một giá trị vẫn lớn hơn 7. Carbon vô cơ hòa tan có thể phân bố giữa CO₂ và các dạng liên hệ bằng cân bằng; cần dữ liệu điều kiện mẫu để tính tỉ lệ.\n\n</details>\n\n## Nguồn và khám phá tiếp\n\n- [NOAA — What is ocean acidification?](https://oceanservice.noaa.gov/facts/acidification.html): giải thích hiện tượng và chiều thay đổi pH.\n- [NOAA — Ocean acidification program](https://oceanacidification.noaa.gov/what-is-ocean-acidification/): bối cảnh hóa học môi trường.\n- [PubChem — Carbon dioxide, CID 280](https://pubchem.ncbi.nlm.nih.gov/compound/280): định danh chất.\n- [Mở mô hình CO₂](/tien-ich/cau-truc-3d/?compound=cid-280).\n"
+}

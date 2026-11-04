@@ -36,6 +36,7 @@ function run(command, args, cwd = root) {
 }
 run("node", ["scripts/generate-platform-summary.mjs"]);
 run("node", ["scripts/generate-structure-catalog.mjs"]);
+run("node", ["scripts/audit-library.mjs"]);
 for (const project of projects) {
   if (!process.argv.includes("--static-only")) {
     if (process.env.CI || !fs.existsSync(path.join(project, "node_modules")))

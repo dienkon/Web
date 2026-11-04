@@ -1,0 +1,24 @@
+{
+  "id": "chat-etanol",
+  "title": "Etanol — câu chuyện từ đường đến phân tử có nhóm OH",
+  "author": "ChemDex · Biên soạn học liệu",
+  "category": "hopchat",
+  "summary": "Đọc câu chuyện lên men để hiểu nhóm OH, đồng phân và sự khác biệt giữa phản ứng với tách chất.",
+  "image": "/assets/icon/logo.png",
+  "tags": [
+    "C₂H₅OH",
+    "Câu chuyện hóa học",
+    "Hợp chất"
+  ],
+  "chemicalFormula": "C₂H₅OH",
+  "aliases": [
+    "etanol",
+    "ethanol",
+    "rượu etylic"
+  ],
+  "substanceIds": [
+    "cid-702",
+    "chem-c2h5oh"
+  ],
+  "content": "## Câu chuyện: một nguyên liệu, nhiều sản phẩm\n\nTrong lên men rượu, đường được chuyển hóa thành ethanol và carbon dioxide. Nhìn vào phương trình tổng quát, ta dễ tưởng sản phẩm chỉ có hai chất tinh khiết. Thực tế, môi trường lên men còn chứa nước và các thành phần khác; nguồn ACS nhấn mạnh rằng các sản phẩm phụ với lượng nhỏ cũng có thể ảnh hưởng đặc tính của hỗn hợp. Câu chuyện ethanol vì thế nối sinh học với hai bài học hóa học: phương trình tổng quát không phải danh sách đầy đủ thành phần của một mẫu thực, và phản ứng khác với quá trình tách chất.\n\n## Hồ sơ phân tử\n\n| Mục | Dữ kiện | Ý nghĩa |\n|---|---|---|\n| Công thức phân tử | C₂H₆O | Chưa đủ để chọn đồng phân |\n| Công thức cấu tạo thu gọn | CH₃CH₂OH | Chỉ rõ nhóm hydroxyl gắn vào mạch carbon |\n| Khối lượng mol | Khoảng 46,069 g/mol | Dùng cho bài toán lượng chất |\n| Nhóm chức | Alcohol | Không nhầm với ether có cùng công thức phân tử |\n\n## Từ nhóm OH đến nhận diện đồng phân\n\nEthanol và dimethyl ether có cùng công thức tổng quát C₂H₆O nhưng khác cách nối các nguyên tử. Vì vậy, khi tìm mô hình 3D, tên chất hoặc định danh CID quan trọng hơn việc chỉ đếm nguyên tử. Nhóm O–H của ethanol tạo ra khả năng tương tác khác với một nguyên tử oxygen nằm giữa hai nhóm methyl của ether.\n\n> **Đọc mô hình đúng:** một cấu dạng ethanol là một cách sắp xếp trong không gian của cùng cấu trúc liên kết. Đổi cấu dạng không có nghĩa đã biến ethanol thành ether.\n\n## Phương trình và phép tính\n\n**C₆H₁₂O₆ → 2C₂H₅OH + 2CO₂**\n\nĐây là phương trình tổng quát cho lên men glucose tạo ethanol, không phải hướng dẫn thực hành. Nếu xét giới hạn tỉ lượng của 1 mol glucose, lượng ethanol tối đa theo phương trình là 2 mol, tương ứng khoảng 92,138 g. Hiệu suất thực tế và thành phần hỗn hợp không được quyết định chỉ bởi các hệ số này.\n\n## Tự kiểm tra\n\nMột mẫu có công thức C₂H₆O đã đủ để khẳng định là ethanol chưa? Vì sao việc ethanol được tạo ra trong hỗn hợp không đồng nghĩa đã thu được ethanol tinh khiết?\n\n<details><summary>Gợi ý trả lời</summary>\n\nChưa: cần biết cách nối nguyên tử hoặc định danh cụ thể để phân biệt đồng phân. Sản phẩm phản ứng có thể cùng tồn tại với dung môi và các thành phần khác; tách và nhận diện chất là những bước riêng.\n\n</details>\n\n## Nguồn và khám phá tiếp\n\n- [ACS — Ethanol and Education](https://pubs.acs.org/doi/full/10.1021/bk-2015-1189.ch001): bối cảnh lên men và thành phần hỗn hợp.\n- [PubChem — Ethanol, CID 702](https://pubchem.ncbi.nlm.nih.gov/compound/702): định danh và cấu trúc.\n- [Xem đúng mô hình ethanol](/tien-ich/cau-truc-3d/?compound=cid-702).\n"
+}

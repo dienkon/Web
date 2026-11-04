@@ -17,11 +17,13 @@ export interface DocMeta {
   summary: string;
   image: string;
   tags: string[];
+  chemicalFormula?: string;
+  aliases?: string[];
+  substanceIds?: string[];
 }
 
 export interface DocFull extends DocMeta {
   content: string;
-  chemicalFormula?: string;
 }
 
 export interface AppState {

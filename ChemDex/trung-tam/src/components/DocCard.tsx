@@ -19,12 +19,12 @@ export function DocCard({ doc, onClick, isBookmarked, onToggleBookmark, onTagCli
       onClick={onClick}
     >
       <div className="relative aspect-[4/3] w-full rounded-xl bg-slate-900 overflow-hidden">
-        <img 
+        {doc.chemicalFormula ? <div className="flex h-full items-center justify-center bg-gradient-to-br from-slate-950 to-blue-950"><span className="font-mono text-5xl text-cyan-200">{doc.chemicalFormula}</span></div> : <img
           src={doc.image} 
           alt={doc.title} 
           className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-transform duration-700 group-hover:scale-105"
           loading="lazy"
-        />
+        />}
         <div className="absolute inset-0 bg-gradient-to-t from-[#1E293B] via-transparent to-transparent opacity-60"></div>
         
         {catConfig && (
@@ -38,6 +38,7 @@ export function DocCard({ doc, onClick, isBookmarked, onToggleBookmark, onTagCli
         <button 
           className="absolute top-3 right-3 p-2 rounded-full bg-slate-900/50 backdrop-blur-md text-white hover:bg-slate-800 transition-colors z-10"
           onClick={onToggleBookmark}
+          aria-label={`${isBookmarked ? 'Bỏ lưu' : 'Lưu'} ${doc.title}`}
         >
           {isBookmarked ? (
             <BookmarkCheck size={18} className="text-yellow-500 fill-yellow-500/20" />
@@ -48,7 +49,7 @@ export function DocCard({ doc, onClick, isBookmarked, onToggleBookmark, onTagCli
       </div>
       
       <div className="flex flex-col flex-1">
-        <h3 className="font-bold text-white group-hover:text-blue-400 transition-colors truncate mb-1">
+        <h3 className="font-bold text-white group-hover:text-blue-400 transition-colors line-clamp-2 mb-1" title={doc.title}>
           {doc.title}
         </h3>
         <p className="text-xs text-slate-500 mb-3">{doc.author} • {Math.ceil(doc.summary.length / 50)} phút đọc</p>
