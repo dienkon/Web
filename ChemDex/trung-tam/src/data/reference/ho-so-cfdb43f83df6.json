@@ -1,0 +1,35 @@
+{
+  "id": "ho-so-cfdb43f83df6",
+  "title": "Tin (Sn) — hồ sơ nguyên tố và hành trình khám phá",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "nguyento",
+  "summary": "Theo dấu Sn qua kim loại và axit; đọc thành phần, điều kiện và bài tính riêng của Tin.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "Sn",
+  "tags": [
+    "Nguyên tố",
+    "Sn",
+    "Kim loại và axit"
+  ],
+  "aliases": [
+    "Sn"
+  ],
+  "substanceIds": [
+    "formula-Sn"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 5,
+  "chemicalEvidence": {
+    "formula": "Sn",
+    "representativeId": "formula-Sn",
+    "counts": {
+      "Sn": 1
+    },
+    "mass": 118.71,
+    "material": false,
+    "reactionIds": [
+      "rx_dc19ec19ca975db1"
+    ]
+  },
+  "content": "## Câu chuyện: hành trình của Tin\n\nTin là một trong những kim loại được con người sử dụng từ thời cổ đại. Việc kết hợp Tin với Copper tạo ra Bronze, mở đầu cho thời kỳ Đồ Đồng. Ký hiệu Sn bắt nguồn từ tên Latin Stannum.\n\n**Người/nhóm được ghi trong dữ liệu:** Không xác định — Tin đã được con người biết đến từ thời cổ đại.. **Mốc ghi nhận:** Khoảng 3000 TCN. \n\n*Phần lịch sử được chuyển từ bài nguyên tố ChemDex hiện có; liên kết nguồn đối chiếu nằm cuối bài.*\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | Sn |\n| Tên tiếng Anh | Tin |\n| Loại biểu diễn | Nguyên tử |\n| Khối lượng tính từ bảng nguyên tử | 118,71 g/mol |\n| Số hiệu nguyên tử | 50 |\n| Nhóm / chu kỳ | 14 / 5 |\n| Cấu hình electron | [Kr] 4d¹⁰ 5s² 5p² |\n| Số oxi hóa được ghi | +2, +4 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Sn | Tin | 1 | 118,71 |\n\nTổng phép đếm là **1 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Cấu trúc và những vai trò được ghi nhận\n\n- **Hàn:** Tin là thành phần quan trọng trong nhiều loại vật liệu hàn, đặc biệt trong ngành điện tử.\n- **Mạ kim loại:** Tin được dùng để phủ lên thép nhằm chống ăn mòn, đặc biệt trong sản xuất hộp đựng thực phẩm.\n- **Hợp kim:** Tin được sử dụng trong Bronze, Solder và nhiều hợp kim khác.\n- **Bao bì thực phẩm:** Thép mạ Tin được sử dụng để sản xuất một số loại hộp đựng thực phẩm.\n- **Kính:** Tin oxide được sử dụng trong một số loại kính và lớp phủ dẫn điện.\n- **Hóa chất:** Các hợp chất Organotin được sử dụng trong một số ứng dụng công nghiệp.\n\nCác mô tả ứng dụng được chuyển từ dữ liệu nguyên tố ChemDex hiện có; không suy rằng mọi hợp chất chứa nguyên tố này có cùng tính chất.\n\n## Những ngã rẽ phản ứng cụ thể\n\n### 1. Kim loại và axit\n\n**Sn(s) + 2HBr(aq) → SnBr2(aq) + H2(g)**\n\n- **Điều kiện:** HBr loãng, bề mặt kim loại hoạt động; tốc độ tùy kim loại, có thể cần làm ấm.\n- **Điều được mô tả:** Kim loại tan và H2 không màu thoát ra khi phản ứng diễn ra.\n- **Giải thích:** Kim loại khử H+ của axit không oxi hóa thành H2; không mở rộng sang Cu, Ag hoặc acid oxi hóa.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành. Thế điện cực không xác định tốc độ; oxide/thụ động hóa có thể làm chậm.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n- [OpenStax Chemistry 2e, 17.3 — Electrode and Cell Potentials](https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials) — Chiều phản ứng oxi hóa khử theo thế điện cực; không tự suy ra động học hoặc bỏ qua thụ động hóa.\n\n## Bài tính: một mẫu Tin theo đơn vị công thức\n\nGiả sử xét **0,100 mol** Sn theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 118,71 = 118,71 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 118,71 = 11,871 g**.\n3. Theo công thức, lượng nguyên tử Sn tương ứng là **1 × 0,100 = 0,1 mol nguyên tử Sn**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Với mẫu đồng vị cụ thể cần thay đúng khối lượng đồng vị.\n\n## Tự kiểm tra và lời giải\n\n1. Trong Sn, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Tên chất đứng ở phía nào của phương trình đầu tiên? Điều kiện phản ứng có thể bỏ qua không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, Sn có 1 nguyên tử trong đơn vị công thức. Tin nằm ở phía chất phản ứng của ví dụ đầu. Điều kiện và loại bằng chứng phải được đọc cùng phương trình.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Tin](/tien-ich/cau-truc-3d/?compound=formula-Sn)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu nguyên tố ChemDex](/data/elements/050_Sn.json)\n- [CIAAW — khối lượng nguyên tử chuẩn](https://ciaaw.org/abridged-atomic-weights.htm)\n\n\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

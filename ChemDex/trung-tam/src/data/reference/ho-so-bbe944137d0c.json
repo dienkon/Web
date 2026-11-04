@@ -1,0 +1,33 @@
+{
+  "id": "ho-so-bbe944137d0c",
+  "title": "Cesium (Cs) — hồ sơ nguyên tố và hành trình khám phá",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "nguyento",
+  "summary": "Hồ sơ Cesium: Cs, 1 nguyên tử trong đơn vị công thức; đối chiếu danh tính, dữ liệu cấu trúc và cách đọc những giới hạn của mô hình.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "Cs",
+  "tags": [
+    "Nguyên tố",
+    "Cs"
+  ],
+  "aliases": [
+    "Cesium",
+    "Cs"
+  ],
+  "substanceIds": [
+    "atom-Cs"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 4,
+  "chemicalEvidence": {
+    "formula": "Cs",
+    "representativeId": "atom-Cs",
+    "counts": {
+      "Cs": 1
+    },
+    "mass": 132.91,
+    "material": false,
+    "reactionIds": []
+  },
+  "content": "## Câu chuyện: hành trình của Cesium\n\nCesium được phát hiện năm 1860 bằng phương pháp quang phổ khi Robert Bunsen và Gustav Kirchhoff phân tích nước khoáng. Họ quan sát thấy hai vạch phổ màu xanh đặc trưng, từ đó xác định sự tồn tại của nguyên tố mới. Tên Cesium bắt nguồn từ tiếng Latin caesius, nghĩa là “xanh da trời”.\n\n**Người/nhóm được ghi trong dữ liệu:** Robert Bunsen và Gustav Kirchhoff. **Mốc ghi nhận:** 1860. \n\n*Phần lịch sử được chuyển từ bài nguyên tố ChemDex hiện có; liên kết nguồn đối chiếu nằm cuối bài.*\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | Cs |\n| Tên tiếng Anh | Cesium |\n| Loại biểu diễn | Nguyên tử |\n| Khối lượng tính từ bảng nguyên tử | 132,91 g/mol |\n| Số hiệu nguyên tử | 55 |\n| Nhóm / chu kỳ | 1 / 6 |\n| Cấu hình electron | [Xe] 6s¹ |\n| Số oxi hóa được ghi | +1 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Cs | Cesium | 1 | 132,91 |\n\nTổng phép đếm là **1 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Cấu trúc và những vai trò được ghi nhận\n\n- **Đồng hồ nguyên tử:** Cesium-133 được sử dụng để định nghĩa đơn vị giây trong hệ SI thông qua tần số chuyển tiếp nguyên tử.\n- **GPS và viễn thông:** Đồng hồ nguyên tử Cesium được sử dụng trong các hệ thống cần đo thời gian cực kỳ chính xác.\n- **Thiết bị quang điện:** Cesium được sử dụng trong một số tế bào quang điện và vật liệu quang điện.\n- **Khoan giếng:** Một số hợp chất Cesium như Cesium formate được sử dụng trong dung dịch có tỷ trọng cao cho ngành dầu khí.\n- **Nghiên cứu khoa học:** Cesium được sử dụng trong các thí nghiệm vật lý nguyên tử và quang học lượng tử.\n\nCác mô tả ứng dụng được chuyển từ dữ liệu nguyên tố ChemDex hiện có; không suy rằng mọi hợp chất chứa nguyên tố này có cùng tính chất.\n\n## Bài tính: một mẫu Cesium theo đơn vị công thức\n\nGiả sử xét **0,100 mol** Cs theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 132,91 = 132,91 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 132,91 = 13,291 g**.\n3. Theo công thức, lượng nguyên tử Cs tương ứng là **1 × 0,100 = 0,1 mol nguyên tử Cs**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Với mẫu đồng vị cụ thể cần thay đúng khối lượng đồng vị.\n\n## Tự kiểm tra và lời giải\n\n1. Trong Cs, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Một công thức hoặc một mô hình tĩnh có đủ chứng minh mọi tính chất của mẫu thực không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, Cs có 1 nguyên tử trong đơn vị công thức. Không. Cần phân biệt danh tính, cấu trúc, pha, điều kiện và thành phần thực của mẫu.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Cesium](/tien-ich/cau-truc-3d/?compound=atom-Cs)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu nguyên tố ChemDex](/data/elements/055_Cs.json)\n- [CIAAW — khối lượng nguyên tử chuẩn](https://ciaaw.org/abridged-atomic-weights.htm)\n\n\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

@@ -1,0 +1,40 @@
+{
+  "id": "ho-so-f5866d7dfd1a",
+  "title": "Cacbon (C) — hồ sơ nguyên tố và hành trình khám phá",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "nguyento",
+  "summary": "Theo dấu C qua tổng hợp; đọc thành phần, điều kiện và bài tính riêng của Cacbon.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "C",
+  "tags": [
+    "Nguyên tố",
+    "C",
+    "Tổng hợp"
+  ],
+  "aliases": [
+    "Than hoạt tính / Cacbon",
+    "Activated Charcoal",
+    "C",
+    "C (Carbon)",
+    "Cacbon (Bột than hoạt tính)",
+    "Carbon (Powder)"
+  ],
+  "substanceIds": [
+    "chem-c"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 5,
+  "chemicalEvidence": {
+    "formula": "C",
+    "representativeId": "chem-c",
+    "counts": {
+      "C": 1
+    },
+    "mass": 12.011,
+    "material": false,
+    "reactionIds": [
+      "rx_96d6a72bd28a4549"
+    ]
+  },
+  "content": "## Câu chuyện: hành trình của Cacbon\n\nCarbon đã được con người biết đến từ thời cổ đại dưới dạng than, muội than và kim cương. Carbon được công nhận là một nguyên tố hóa học vào cuối thế kỷ XVIII. Antoine Lavoisier đã xác định Carbon là một nguyên tố và nghiên cứu quá trình Carbon cháy tạo thành khí Carbon dioxide.\n\n**Người/nhóm được ghi trong dữ liệu:** Không xác định một cá nhân cụ thể. **Mốc ghi nhận:** Thời cổ đại. \n\n*Phần lịch sử được chuyển từ bài nguyên tố ChemDex hiện có; liên kết nguồn đối chiếu nằm cuối bài.*\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | C |\n| Tên tiếng Anh | Activated Charcoal |\n| Loại biểu diễn | Nguyên tử |\n| Khối lượng tính từ bảng nguyên tử | 12,011 g/mol |\n| Số hiệu nguyên tử | 6 |\n| Nhóm / chu kỳ | 14 / 2 |\n| Cấu hình electron | 1s² 2s² 2p² |\n| Số oxi hóa được ghi | −4, −3, −2, −1, 0, +1, +2, +3, +4 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| C | Cacbon | 1 | 12,011 |\n\nTổng phép đếm là **1 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Cấu trúc và những vai trò được ghi nhận\n\n- **Nhiên liệu:** Than và các nhiên liệu chứa Carbon được sử dụng để sản xuất nhiệt và năng lượng.\n- **Luyện kim:** Carbon và than cốc được sử dụng trong sản xuất Iron và Steel.\n- **Điện cực:** Graphite được sử dụng làm điện cực nhờ khả năng dẫn điện và chịu nhiệt tốt.\n- **Bút chì:** Graphite được sử dụng trong lõi bút chì.\n- **Vật liệu cứng:** Kim cương được sử dụng để cắt, mài và gia công các vật liệu cứng.\n- **Lọc và hấp phụ:** Activated carbon được sử dụng để hấp phụ các chất trong xử lý nước và không khí.\n- **Sản xuất vật liệu:** Carbon black được sử dụng trong sản xuất cao su, mực in và nhiều vật liệu khác.\n- **Công nghệ cao:** Graphene, Carbon nanotube và fullerene được nghiên cứu và ứng dụng trong điện tử, vật liệu và công nghệ nano.\n\nCác mô tả ứng dụng được chuyển từ dữ liệu nguyên tố ChemDex hiện có; không suy rằng mọi hợp chất chứa nguyên tố này có cùng tính chất.\n\n## Những ngã rẽ phản ứng cụ thể\n\n### 1. Tổng hợp\n\n**C(s) + O2(g) → CO2(g)**\n\n- **Điều kiện:** Mồi cháy, O2 dư; cháy hoàn toàn.\n- **Điều được mô tả:** Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n- **Giải thích:** Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** established-transformation\n- [OpenStax Chemistry 2e, 4.1 — Writing and Balancing Chemical Equations](https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations) — Cân bằng và cháy hoàn toàn trong O2 dư; không mô tả sản phẩm khi thiếu oxy.\n\n## Bài tính: một mẫu Cacbon theo đơn vị công thức\n\nGiả sử xét **0,100 mol** C theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 12,011 = 12,011 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 12,011 = 1,2011 g**.\n3. Theo công thức, lượng nguyên tử C tương ứng là **1 × 0,100 = 0,1 mol nguyên tử C**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Với mẫu đồng vị cụ thể cần thay đúng khối lượng đồng vị.\n\n## Tự kiểm tra và lời giải\n\n1. Trong C, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Tên chất đứng ở phía nào của phương trình đầu tiên? Điều kiện phản ứng có thể bỏ qua không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, C có 1 nguyên tử trong đơn vị công thức. Cacbon nằm ở phía chất phản ứng của ví dụ đầu. Điều kiện và loại bằng chứng phải được đọc cùng phương trình.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Cacbon](/tien-ich/cau-truc-3d/?compound=chem-c)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu nguyên tố ChemDex](/data/elements/006_C.json)\n- [CIAAW — khối lượng nguyên tử chuẩn](https://ciaaw.org/abridged-atomic-weights.htm)\n\n\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

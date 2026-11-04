@@ -1,0 +1,38 @@
+{
+  "id": "ho-so-4bf49036a8c0",
+  "title": "C3H7COONa — đọc cấu trúc, lần theo sự chuyển hóa",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "hopchat",
+  "summary": "Theo dấu C3H7COONa qua thủy phân este trong kiềm; đọc thành phần, điều kiện và bài tính riêng của C3H7COONa.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "C₃H₇COONa",
+  "tags": [
+    "Hồ sơ chất",
+    "C3H7COONa",
+    "Thủy phân este trong kiềm"
+  ],
+  "aliases": [
+    "C3H7COONa"
+  ],
+  "substanceIds": [
+    "formula-C3H7COONa"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 5,
+  "chemicalEvidence": {
+    "formula": "C3H7COONa",
+    "representativeId": "formula-C3H7COONa",
+    "counts": {
+      "C": 4,
+      "H": 7,
+      "O": 2,
+      "Na": 1
+    },
+    "mass": 110.088,
+    "material": false,
+    "reactionIds": [
+      "rx_467085efbc1c6e1e"
+    ]
+  },
+  "content": "## Câu chuyện: khi C3H7COONa xuất hiện ở phía sản phẩm\n\nBắt đầu từ một câu hỏi cụ thể: những chất nào có thể được biểu diễn như tiền chất tạo C3H7COONa? Một trường hợp trong danh mục là:\n\n**C3H7COOC2H5(l) + NaOH(aq) → C3H7COONa(aq) + C2H5OH(aq)**\n\nTrong trường hợp này, C3H7COONa được đọc ở phía sản phẩm. Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2. Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n\nCâu chuyện chưa kết thúc ở phương trình: Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha.. Điểm cần theo dõi là danh tính chất, trạng thái ghi trong ngoặc và tỉ lệ hệ số, thay vì chỉ ghi nhớ tên phản ứng.\n\n> Trường hợp này được xây dựng theo quy tắc họ phản ứng. Cân bằng nguyên tử không tự chứng minh phản ứng đã được kiểm chứng thực nghiệm riêng cho mọi điều kiện.\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | C3H7COONa |\n| Tên tiếng Anh | Chưa ghi |\n| Loại biểu diễn | Các nhóm ion |\n| Khối lượng tính từ bảng nguyên tử | 110,088 g/mol |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| C | Cacbon | 4 | 48,044 |\n| H | Hiđro | 7 | 7,056 |\n| O | Oxi | 2 | 31,998 |\n| Na | Natri | 1 | 22,99 |\n\nTổng phép đếm là **14 nguyên tử** trong đơn vị được mô tả. Với chất ion hoặc tinh thể, cần nói rõ “đơn vị công thức”, tránh gọi phép đếm này là kích thước của một phân tử rời.\n\n## Từ công thức đến các nhóm ion\n\n| Nhóm | Điện tích | Số nhóm theo công thức |\n|---|---:|---:|\n| Na | +1 | 1 |\n| C3H7COO | -1 | 1 |\n\nTổng điện tích tính theo các nhóm trên là **0**. Phép cộng điện tích giúp kiểm tra tỉ lệ công thức; không xác định nồng độ, mức phân li, cân bằng hay lớp dung môi của mẫu thực.\n\n## Những ngã rẽ phản ứng cụ thể\n\n### 1. Thủy phân este trong kiềm\n\n**C3H7COOC2H5(l) + NaOH(aq) → C3H7COONa(aq) + C2H5OH(aq)**\n\n- **Điều kiện:** Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha.\n- **Điều được mô tả:** Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n- **Giải thích:** Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Organic Chemistry — Chemistry of Esters](https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters) — Họ este hóa, thủy phân và xà phòng hóa; đồng phân được xác định bằng công thức cấu tạo thu gọn.\n\n## Bài tính: một mẫu C3H7COONa theo đơn vị công thức\n\nGiả sử xét **0,100 mol** C3H7COONa theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 4 × 12,011 + 7 × 1,008 + 2 × 15,999 + 1 × 22,99 = 110,088 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 110,088 = 11,0088 g**.\n3. Theo công thức, lượng nguyên tử C tương ứng là **4 × 0,100 = 0,4 mol nguyên tử C**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Nếu mẫu chứa dung môi, tạp chất hoặc phần nước kết tinh chưa được ghi trong công thức, phải điều chỉnh mô hình bài toán.\n\n## Tự kiểm tra và lời giải\n\n1. Trong C3H7COONa, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Tên chất đứng ở phía nào của phương trình đầu tiên? Điều kiện phản ứng có thể bỏ qua không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, H có 7 nguyên tử trong đơn vị công thức. C3H7COONa nằm ở phía sản phẩm của ví dụ đầu. Điều kiện và loại bằng chứng phải được đọc cùng phương trình.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình C3H7COONa](/tien-ich/cau-truc-3d/?compound=formula-C3H7COONa)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu chất trong danh mục phản ứng ChemDex](/shared/reaction-catalog.generated.json)\n\nTỉ lệ công thức không đồng nghĩa một phân tử riêng lẻ; biểu diễn nhóm ion và ô mạng cần được phân biệt. Không suy đồng phân hay cấu hình lập thể chỉ từ công thức tổng quát. Tên và định danh chất quyết định mô hình cần chọn.\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

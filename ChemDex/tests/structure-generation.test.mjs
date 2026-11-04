@@ -15,6 +15,8 @@ test('every lab identity remains addressable, including indicators and mixtures'
     assert.equal(r.structure,undefined);
     assert.equal(r.molarMass,null);
   }
+  assert.ok(!catalog.find(r=>r.id==='chem-litmus').aliases.includes('Distilled Water'));
+  assert.ok(catalog.find(r=>r.id==='chem-h2o').aliases.includes('Distilled Water'));
 });
 test('generated representations retain every atom of every catalog formula',()=>{
   for(const r of catalog){

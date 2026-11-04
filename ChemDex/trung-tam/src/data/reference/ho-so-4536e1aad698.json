@@ -1,0 +1,45 @@
+{
+  "id": "ho-so-4536e1aad698",
+  "title": "Natri sunfat — đọc cấu trúc, lần theo sự chuyển hóa",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "hopchat",
+  "summary": "Theo dấu Na2SO4 qua muối amoni và kiềm, cacbonat và axit, axit – bazơ; đọc thành phần, điều kiện và bài tính riêng của Natri sunfat.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "Na₂SO₄",
+  "tags": [
+    "Hồ sơ chất",
+    "Na2SO4",
+    "Muối amoni và kiềm",
+    "Cacbonat và axit",
+    "Axit – bazơ"
+  ],
+  "aliases": [
+    "Natri sunfat",
+    "Sodium Sulfate",
+    "Na2SO4",
+    "Natri Sunfat (0.2M)",
+    "Sodium Sulfate (0.2M)"
+  ],
+  "substanceIds": [
+    "chem-na2so4"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 7,
+  "chemicalEvidence": {
+    "formula": "Na2SO4",
+    "representativeId": "chem-na2so4",
+    "counts": {
+      "Na": 2,
+      "S": 1,
+      "O": 4
+    },
+    "mass": 142.036,
+    "material": false,
+    "reactionIds": [
+      "rx_b3ae6709d992f3e6",
+      "rx_ff1db34e785d032d",
+      "rx_ac0605d3a5d232cc"
+    ]
+  },
+  "content": "## Câu chuyện: khi Natri sunfat xuất hiện ở phía sản phẩm\n\nBắt đầu từ một câu hỏi cụ thể: những chất nào có thể được biểu diễn như tiền chất tạo Na2SO4? Một trường hợp trong danh mục là:\n\n**(NH4)2SO4(aq) + 2NaOH(aq) → Na2SO4(aq) + 2NH3(g) + 2H2O(l)**\n\nTrong trường hợp này, Natri sunfat được đọc ở phía sản phẩm. NH4+ nhường proton cho OH−, tạo NH3 và nước. NH3 không màu thoát ra khi làm ấm.\n\nCâu chuyện chưa kết thúc ở phương trình: Kiềm đủ; làm ấm để NH3 thoát khỏi dung dịch; không dùng mùi nhận biết.. Điểm cần theo dõi là danh tính chất, trạng thái ghi trong ngoặc và tỉ lệ hệ số, thay vì chỉ ghi nhớ tên phản ứng.\n\n> Trường hợp này được xây dựng theo quy tắc họ phản ứng. Cân bằng nguyên tử không tự chứng minh phản ứng đã được kiểm chứng thực nghiệm riêng cho mọi điều kiện.\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | Na2SO4 |\n| Tên tiếng Anh | Sodium Sulfate |\n| Loại biểu diễn | Các nhóm ion |\n| Khối lượng tính từ bảng nguyên tử | 142,036 g/mol |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Na | Natri | 2 | 45,98 |\n| S | Lưu huỳnh | 1 | 32,06 |\n| O | Oxi | 4 | 63,996 |\n\nTổng phép đếm là **7 nguyên tử** trong đơn vị được mô tả. Với chất ion hoặc tinh thể, cần nói rõ “đơn vị công thức”, tránh gọi phép đếm này là kích thước của một phân tử rời.\n\n## Từ công thức đến các nhóm ion\n\n| Nhóm | Điện tích | Số nhóm theo công thức |\n|---|---:|---:|\n| Na | +1 | 2 |\n| SO4 | -2 | 1 |\n\nTổng điện tích tính theo các nhóm trên là **0**. Phép cộng điện tích giúp kiểm tra tỉ lệ công thức; không xác định nồng độ, mức phân li, cân bằng hay lớp dung môi của mẫu thực.\n\n## Những ngã rẽ phản ứng cụ thể\n\n### 1. Muối amoni và kiềm\n\n**(NH4)2SO4(aq) + 2NaOH(aq) → Na2SO4(aq) + 2NH3(g) + 2H2O(l)**\n\n- **Điều kiện:** Kiềm đủ; làm ấm để NH3 thoát khỏi dung dịch; không dùng mùi nhận biết.\n- **Điều được mô tả:** NH3 không màu thoát ra khi làm ấm.\n- **Giải thích:** NH4+ nhường proton cho OH−, tạo NH3 và nước.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n\n### 2. Cacbonat và axit\n\n**2NaHCO3(aq) + H2SO4(aq) → Na2SO4(aq) + 2CO2(g) + 2H2O(l)**\n\n- **Điều kiện:** Dung dịch nước; acid đủ và CO2 thoát ra.\n- **Điều được mô tả:** Sủi bọt CO2 không màu.\n- **Giải thích:** Mỗi ion bicarbonate tiêu thụ một proton, tạo một CO2.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n\n### 3. Axit – bazơ\n\n**2NaOH(aq) + H2SO4(aq) → Na2SO4(aq) + 2H2O(l)**\n\n- **Điều kiện:** Axit H2SO4 loãng; lượng axit đủ để trung hòa hoàn toàn.\n- **Điều được mô tả:** Rắn có thể tan dần hoặc pH thay đổi; màu tùy ion và nồng độ. Không có chỉ thị thì không tự xuất hiện màu hồng.\n- **Giải thích:** Axit tiêu thụ nhóm bazơ/oxit tạo muối và nước; hệ số theo đương lượng, không gán nhiệt chung cho mọi axit.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành. Phương trình là trung hòa hoàn toàn; acid dư có thể tạo muối acid.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n- [OpenStax Chemistry 2e, 14.7 — Acid-Base Titrations](https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations) — Trung hòa axit–bazơ, lượng đương lượng và vai trò chỉ thị.\n\n## Bài tính: một mẫu Natri sunfat theo đơn vị công thức\n\nGiả sử xét **0,100 mol** Na2SO4 theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 2 × 22,99 + 1 × 32,06 + 4 × 15,999 = 142,036 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 142,036 = 14,2036 g**.\n3. Theo công thức, lượng nguyên tử Na tương ứng là **2 × 0,100 = 0,2 mol nguyên tử Na**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Nếu mẫu chứa dung môi, tạp chất hoặc phần nước kết tinh chưa được ghi trong công thức, phải điều chỉnh mô hình bài toán.\n\n## Tự kiểm tra và lời giải\n\n1. Trong Na2SO4, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Tên chất đứng ở phía nào của phương trình đầu tiên? Điều kiện phản ứng có thể bỏ qua không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, O có 4 nguyên tử trong đơn vị công thức. Natri sunfat nằm ở phía sản phẩm của ví dụ đầu. Điều kiện và loại bằng chứng phải được đọc cùng phương trình.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Natri sunfat](/tien-ich/cau-truc-3d/?compound=chem-na2so4)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu chất trong danh mục phản ứng ChemDex](/shared/reaction-catalog.generated.json)\n\nTỉ lệ công thức không đồng nghĩa một phân tử riêng lẻ; biểu diễn nhóm ion và ô mạng cần được phân biệt.\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

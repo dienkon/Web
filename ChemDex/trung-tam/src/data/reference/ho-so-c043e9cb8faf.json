@@ -1,0 +1,37 @@
+{
+  "id": "ho-so-c043e9cb8faf",
+  "title": "Cadmium (Cd) — hồ sơ nguyên tố và hành trình khám phá",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "nguyento",
+  "summary": "Theo dấu Cd qua kim loại đẩy kim loại, kim loại và axit; đọc thành phần, điều kiện và bài tính riêng của Cadmium.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "Cd",
+  "tags": [
+    "Nguyên tố",
+    "Cd",
+    "Kim loại đẩy kim loại",
+    "Kim loại và axit"
+  ],
+  "aliases": [
+    "Cd"
+  ],
+  "substanceIds": [
+    "formula-Cd"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 6,
+  "chemicalEvidence": {
+    "formula": "Cd",
+    "representativeId": "formula-Cd",
+    "counts": {
+      "Cd": 1
+    },
+    "mass": 112.41,
+    "material": false,
+    "reactionIds": [
+      "rx_bd97e2b06123a76b",
+      "rx_4a1aa4ed03dcb796"
+    ]
+  },
+  "content": "## Câu chuyện: hành trình của Cadmium\n\nNăm 1817, Friedrich Stromeyer phát hiện Cadmium khi nghiên cứu Zinc carbonate. Ông nhận thấy một số mẫu Zinc oxide có màu vàng bất thường và xác định nguyên nhân là do một nguyên tố mới. Tên Cadmium bắt nguồn từ cadmia, tên cổ của Zinc carbonate.\n\n**Người/nhóm được ghi trong dữ liệu:** Friedrich Stromeyer. **Mốc ghi nhận:** 1817. \n\n*Phần lịch sử được chuyển từ bài nguyên tố ChemDex hiện có; liên kết nguồn đối chiếu nằm cuối bài.*\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | Cd |\n| Tên tiếng Anh | Cadmium |\n| Loại biểu diễn | Nguyên tử |\n| Khối lượng tính từ bảng nguyên tử | 112,41 g/mol |\n| Số hiệu nguyên tử | 48 |\n| Nhóm / chu kỳ | 12 / 5 |\n| Cấu hình electron | [Kr] 4d¹⁰ 5s² |\n| Số oxi hóa được ghi | +2 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Cd | Cadmium | 1 | 112,41 |\n\nTổng phép đếm là **1 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Cấu trúc và những vai trò được ghi nhận\n\n- **Pin Nickel-Cadmium:** Cadmium từng được sử dụng rộng rãi trong pin Ni-Cd có khả năng sạc lại.\n- **Mạ kim loại:** Cadmium được dùng để tạo lớp phủ bảo vệ một số kim loại khỏi ăn mòn.\n- **Chất màu:** Cadmium sulfide và Cadmium selenide từng được sử dụng để tạo các sắc tố vàng, cam và đỏ.\n- **Vật liệu bán dẫn:** Một số hợp chất Cadmium như CdTe được sử dụng trong công nghệ bán dẫn và pin mặt trời.\n- **Hợp kim:** Cadmium được sử dụng trong một số hợp kim và vật liệu hàn chuyên dụng.\n\nCác mô tả ứng dụng được chuyển từ dữ liệu nguyên tố ChemDex hiện có; không suy rằng mọi hợp chất chứa nguyên tố này có cùng tính chất.\n\n## Những ngã rẽ phản ứng cụ thể\n\n### 1. Kim loại đẩy kim loại\n\n**Cd(s) + 2AgNO3(aq) → Cd(NO3)2(aq) + 2Ag(s)**\n\n- **Điều kiện:** Dung dịch muối không acid hóa mạnh; bề mặt kim loại hoạt động, không có ligand chi phối; chiều thuận theo thế điện cực.\n- **Điều được mô tả:** Có thể xuất hiện Ag bám trên kim loại; tốc độ/hình thái phụ thuộc bề mặt.\n- **Giải thích:** Cặp Cd/Ag có chênh lệch thế chuẩn thuận lợi; bảo toàn electron và ion đối.\n- **Giới hạn:** Có chất chứa Cd; dữ liệu học tập, cần quy trình và xử lý chất thải chuyên biệt khi thực nghiệm. Chiều nhiệt động không bảo đảm tốc độ hoặc độ chọn lọc trong mọi điều kiện.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 17.3 — Electrode and Cell Potentials](https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials) — Chiều phản ứng oxi hóa khử theo thế điện cực; không tự suy ra động học hoặc bỏ qua thụ động hóa.\n\n### 2. Kim loại và axit\n\n**Cd(s) + 2HBr(aq) → CdBr2(aq) + H2(g)**\n\n- **Điều kiện:** HBr loãng, bề mặt kim loại hoạt động; tốc độ tùy kim loại, có thể cần làm ấm.\n- **Điều được mô tả:** Kim loại tan và H2 không màu thoát ra khi phản ứng diễn ra.\n- **Giải thích:** Kim loại khử H+ của axit không oxi hóa thành H2; không mở rộng sang Cu, Ag hoặc acid oxi hóa.\n- **Giới hạn:** Có chất chứa Cd; dữ liệu học tập, cần quy trình và xử lý chất thải chuyên biệt khi thực nghiệm. Thế điện cực không xác định tốc độ; oxide/thụ động hóa có thể làm chậm.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n- [OpenStax Chemistry 2e, 17.3 — Electrode and Cell Potentials](https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials) — Chiều phản ứng oxi hóa khử theo thế điện cực; không tự suy ra động học hoặc bỏ qua thụ động hóa.\n\n## Bài tính: một mẫu Cadmium theo đơn vị công thức\n\nGiả sử xét **0,100 mol** Cd theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 112,41 = 112,41 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 112,41 = 11,241 g**.\n3. Theo công thức, lượng nguyên tử Cd tương ứng là **1 × 0,100 = 0,1 mol nguyên tử Cd**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Với mẫu đồng vị cụ thể cần thay đúng khối lượng đồng vị.\n\n## Tự kiểm tra và lời giải\n\n1. Trong Cd, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Tên chất đứng ở phía nào của phương trình đầu tiên? Điều kiện phản ứng có thể bỏ qua không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, Cd có 1 nguyên tử trong đơn vị công thức. Cadmium nằm ở phía chất phản ứng của ví dụ đầu. Điều kiện và loại bằng chứng phải được đọc cùng phương trình.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Cadmium](/tien-ich/cau-truc-3d/?compound=formula-Cd)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu nguyên tố ChemDex](/data/elements/048_Cd.json)\n- [CIAAW — khối lượng nguyên tử chuẩn](https://ciaaw.org/abridged-atomic-weights.htm)\n\n\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

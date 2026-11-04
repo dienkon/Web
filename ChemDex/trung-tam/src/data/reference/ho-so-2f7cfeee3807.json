@@ -1,0 +1,34 @@
+{
+  "id": "ho-so-2f7cfeee3807",
+  "title": "Crom (Cr) — hồ sơ nguyên tố và hành trình khám phá",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "nguyento",
+  "summary": "Hồ sơ Crom: Cr, 1 nguyên tử trong đơn vị công thức; đối chiếu danh tính, dữ liệu cấu trúc và cách đọc những giới hạn của mô hình.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "Cr",
+  "tags": [
+    "Nguyên tố",
+    "Cr"
+  ],
+  "aliases": [
+    "Crom",
+    "Chromium",
+    "Cr"
+  ],
+  "substanceIds": [
+    "atom-Cr"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 4,
+  "chemicalEvidence": {
+    "formula": "Cr",
+    "representativeId": "atom-Cr",
+    "counts": {
+      "Cr": 1
+    },
+    "mass": 51.996,
+    "material": false,
+    "reactionIds": []
+  },
+  "content": "## Câu chuyện: hành trình của Crom\n\nNăm 1797, Louis Nicolas Vauquelin nghiên cứu khoáng vật crocoite và phát hiện một oxide mới. Năm 1798, ông điều chế được Chromium kim loại từ oxide này. Chromium được đặt tên từ tiếng Hy Lạp chrōma, có nghĩa là “màu sắc”, do các hợp chất Chromium thường có màu sắc đa dạng.\n\n**Người/nhóm được ghi trong dữ liệu:** Louis Nicolas Vauquelin. **Mốc ghi nhận:** 1797. \n\n*Phần lịch sử được chuyển từ bài nguyên tố ChemDex hiện có; liên kết nguồn đối chiếu nằm cuối bài.*\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | Cr |\n| Tên tiếng Anh | Chromium |\n| Loại biểu diễn | Nguyên tử |\n| Khối lượng tính từ bảng nguyên tử | 51,996 g/mol |\n| Số hiệu nguyên tử | 24 |\n| Nhóm / chu kỳ | 6 / 4 |\n| Cấu hình electron | [Ar] 3d⁵ 4s¹ |\n| Số oxi hóa được ghi | −2, −1, 0, +1, +2, +3, +4, +5, +6 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Cr | Crom | 1 | 51,996 |\n\nTổng phép đếm là **1 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Cấu trúc và những vai trò được ghi nhận\n\n- **Sản xuất thép không gỉ:** Chromium là thành phần quan trọng của Stainless steel, giúp tăng khả năng chống ăn mòn.\n- **Mạ Chromium:** Chromium được dùng để tạo lớp phủ sáng bóng, cứng và chống ăn mòn trên bề mặt kim loại.\n- **Hợp kim:** Chromium được sử dụng trong nhiều hợp kim chịu nhiệt và chịu ăn mòn.\n- **Chất màu:** Một số Chromium compounds được sử dụng làm pigment màu xanh, vàng, cam và xanh lục.\n- **Vật liệu chịu nhiệt:** Một số Chromium compounds được sử dụng trong vật liệu chịu nhiệt và gốm.\n- **Công nghiệp hóa chất:** Chromium compounds được sử dụng trong nhiều quá trình hóa học và sản xuất vật liệu.\n\nCác mô tả ứng dụng được chuyển từ dữ liệu nguyên tố ChemDex hiện có; không suy rằng mọi hợp chất chứa nguyên tố này có cùng tính chất.\n\n## Bài tính: một mẫu Crom theo đơn vị công thức\n\nGiả sử xét **0,100 mol** Cr theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 51,996 = 51,996 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 51,996 = 5,1996 g**.\n3. Theo công thức, lượng nguyên tử Cr tương ứng là **1 × 0,100 = 0,1 mol nguyên tử Cr**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Với mẫu đồng vị cụ thể cần thay đúng khối lượng đồng vị.\n\n## Tự kiểm tra và lời giải\n\n1. Trong Cr, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Một công thức hoặc một mô hình tĩnh có đủ chứng minh mọi tính chất của mẫu thực không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, Cr có 1 nguyên tử trong đơn vị công thức. Không. Cần phân biệt danh tính, cấu trúc, pha, điều kiện và thành phần thực của mẫu.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Crom](/tien-ich/cau-truc-3d/?compound=atom-Cr)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu nguyên tố ChemDex](/data/elements/024_Cr.json)\n- [CIAAW — khối lượng nguyên tử chuẩn](https://ciaaw.org/abridged-atomic-weights.htm)\n\n\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

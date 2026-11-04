@@ -1,0 +1,34 @@
+{
+  "id": "ho-so-020fbc33b499",
+  "title": "Thủy ngân (Hg) — hồ sơ nguyên tố và hành trình khám phá",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "nguyento",
+  "summary": "Hồ sơ Thủy ngân: Hg, 1 nguyên tử trong đơn vị công thức; đối chiếu danh tính, dữ liệu cấu trúc và cách đọc những giới hạn của mô hình.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "Hg",
+  "tags": [
+    "Nguyên tố",
+    "Hg"
+  ],
+  "aliases": [
+    "Thủy ngân",
+    "Mercury",
+    "Hg"
+  ],
+  "substanceIds": [
+    "atom-Hg"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 5,
+  "chemicalEvidence": {
+    "formula": "Hg",
+    "representativeId": "atom-Hg",
+    "counts": {
+      "Hg": 1
+    },
+    "mass": 200.59,
+    "material": false,
+    "reactionIds": []
+  },
+  "content": "## Câu chuyện: hành trình của Thủy ngân\n\nMercury là một trong những nguyên tố đã được con người biết đến từ thời cổ đại. Các vật thể chứa Mercury đã được tìm thấy trong những di tích cổ. Người Hy Lạp và La Mã đã biết đến và sử dụng Mercury trong nhiều mục đích khác nhau. Tên Mercury trong tiếng Anh bắt nguồn từ tên vị thần Mercury của La Mã, còn ký hiệu Hg bắt nguồn từ tên Latin Hydrargyrum, có nghĩa gần với “bạc lỏng”.\n\n**Người/nhóm được ghi trong dữ liệu:** Không xác định — Mercury đã được con người biết đến từ thời cổ đại.. **Mốc ghi nhận:** Thời cổ đại. \n\n*Phần lịch sử được chuyển từ bài nguyên tố ChemDex hiện có; liên kết nguồn đối chiếu nằm cuối bài.*\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | Hg |\n| Tên tiếng Anh | Mercury |\n| Loại biểu diễn | Nguyên tử |\n| Khối lượng tính từ bảng nguyên tử | 200,59 g/mol |\n| Số hiệu nguyên tử | 80 |\n| Nhóm / chu kỳ | 12 / 6 |\n| Cấu hình electron | [Xe] 4f¹⁴ 5d¹⁰ 6s² |\n| Số oxi hóa được ghi | +1, +2 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Hg | Thủy ngân | 1 | 200,59 |\n\nTổng phép đếm là **1 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Cấu trúc và những vai trò được ghi nhận\n\n- **Thiết bị đo:** Mercury từng được sử dụng rộng rãi trong nhiệt kế, áp kế và các thiết bị đo áp suất.\n- **Đèn Mercury:** Mercury được sử dụng trong một số loại đèn phóng điện và đèn huỳnh quang.\n- **Công nghiệp hóa chất:** Một số hợp chất Mercury được sử dụng làm chất xúc tác hoặc nguyên liệu trong các quá trình hóa học.\n- **Điện hóa:** Mercury từng được sử dụng trong một số loại điện cực và pin.\n- **Khai thác Gold:** Mercury từng được sử dụng để tạo hỗn hống với Gold trong quá trình khai thác và tinh chế Gold, nhưng phương pháp này gây ô nhiễm nghiêm trọng và nguy hiểm.\n- **Lưu ý:** Do Mercury và nhiều hợp chất của nó có độc tính cao, việc sử dụng Mercury ngày nay đã bị hạn chế hoặc thay thế trong nhiều lĩnh vực.\n\nCác mô tả ứng dụng được chuyển từ dữ liệu nguyên tố ChemDex hiện có; không suy rằng mọi hợp chất chứa nguyên tố này có cùng tính chất.\n\n## Bài tính: một mẫu Thủy ngân theo đơn vị công thức\n\nGiả sử xét **0,100 mol** Hg theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 200,59 = 200,59 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 200,59 = 20,059 g**.\n3. Theo công thức, lượng nguyên tử Hg tương ứng là **1 × 0,100 = 0,1 mol nguyên tử Hg**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Với mẫu đồng vị cụ thể cần thay đúng khối lượng đồng vị.\n\n## Tự kiểm tra và lời giải\n\n1. Trong Hg, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Một công thức hoặc một mô hình tĩnh có đủ chứng minh mọi tính chất của mẫu thực không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, Hg có 1 nguyên tử trong đơn vị công thức. Không. Cần phân biệt danh tính, cấu trúc, pha, điều kiện và thành phần thực của mẫu.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Thủy ngân](/tien-ich/cau-truc-3d/?compound=atom-Hg)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu nguyên tố ChemDex](/data/elements/080_Hg.json)\n- [CIAAW — khối lượng nguyên tử chuẩn](https://ciaaw.org/abridged-atomic-weights.htm)\n\n\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

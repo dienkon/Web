@@ -908,9 +908,6 @@
     "family": "inorganic",
     "aliases": [
       "Litmus",
-      "H2O",
-      "Nước cất",
-      "Distilled Water",
       "Litmus",
       "Dung Dịch Quỳ Tím",
       "Litmus Solution (Neutral Violet)"
@@ -3019,7 +3016,10 @@
     "cid": 962,
     "atomCount": 3,
     "aliases": [
-      "H2O"
+      "H2O",
+      "H2O",
+      "Nước cất",
+      "Distilled Water"
     ]
   },
   {

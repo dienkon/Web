@@ -1,0 +1,36 @@
+{
+  "id": "ho-so-6a99b1e855e6",
+  "title": "Saccarozơ — đọc cấu trúc, lần theo sự chuyển hóa",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "hopchat",
+  "summary": "Hồ sơ Saccarozơ: C12H22O11, 45 nguyên tử trong đơn vị công thức; đối chiếu danh tính, dữ liệu cấu trúc và cách đọc những giới hạn của mô hình.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "C₁₂H₂₂O₁₁",
+  "tags": [
+    "Hồ sơ chất",
+    "C12H22O11"
+  ],
+  "aliases": [
+    "Saccarozơ",
+    "sucrose",
+    "C12H22O11"
+  ],
+  "substanceIds": [
+    "cid-5988"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 4,
+  "chemicalEvidence": {
+    "formula": "C12H22O11",
+    "representativeId": "cid-5988",
+    "counts": {
+      "C": 12,
+      "H": 22,
+      "O": 11
+    },
+    "mass": 342.297,
+    "material": false,
+    "reactionIds": []
+  },
+  "content": "## Câu chuyện: đọc danh tính của Saccarozơ\n\nĐiểm xuất phát là C12H22O11: 12 C, 22 H, 11 O. Những con số ấy là dấu vết đầu tiên để lần theo danh tính Saccarozơ, nhưng chưa kể hết cách các thành phần sắp xếp trong không gian.\n\nĐịnh danh CID 5988 giúp chọn đúng hồ sơ sucrose thay vì lựa chọn chỉ theo số nguyên tử. Trong mô hình hiện tại có 45 nguyên tử của đơn vị công thức được biểu diễn. Hãy so sánh bảng thành phần với cấu trúc, rồi phân biệt thông tin được xác định bằng phép đếm với thông tin cần có nguồn tọa độ hoặc dữ liệu liên kết.\n\nKhông suy đồng phân hay cấu hình lập thể chỉ từ công thức tổng quát. Tên và định danh chất quyết định mô hình cần chọn.\n\nMô hình có dữ liệu từ NCI/CADD CACTVS computed coordinates. Một tệp tọa độ không tự mô tả mọi trạng thái dung dịch hoặc chuyển động nhiệt của chất.\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | C12H22O11 |\n| Tên tiếng Anh | sucrose |\n| Loại biểu diễn | Công thức chất |\n| Khối lượng tính từ bảng nguyên tử | 342,297 g/mol |\n| PubChem CID | 5988 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| C | Cacbon | 12 | 144,132 |\n| H | Hiđro | 22 | 22,176 |\n| O | Oxi | 11 | 175,989 |\n\nTổng phép đếm là **45 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Bài tính: một mẫu Saccarozơ theo đơn vị công thức\n\nGiả sử xét **0,100 mol** C12H22O11 theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 12 × 12,011 + 22 × 1,008 + 11 × 15,999 = 342,297 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 342,297 = 34,2297 g**.\n3. Theo công thức, lượng nguyên tử C tương ứng là **12 × 0,100 = 1,2 mol nguyên tử C**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Nếu mẫu chứa dung môi, tạp chất hoặc phần nước kết tinh chưa được ghi trong công thức, phải điều chỉnh mô hình bài toán.\n\n## Tự kiểm tra và lời giải\n\n1. Trong C12H22O11, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Một công thức hoặc một mô hình tĩnh có đủ chứng minh mọi tính chất của mẫu thực không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, H có 22 nguyên tử trong đơn vị công thức. Không. Cần phân biệt danh tính, cấu trúc, pha, điều kiện và thành phần thực của mẫu.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Saccarozơ](/tien-ich/cau-truc-3d/?compound=cid-5988)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Nguồn tọa độ: NCI/CADD CACTVS computed coordinates](https://cactus.nci.nih.gov/chemical/structure/sucrose/file?format=sdf&get3d=true)\n- [PubChem CID 5988 — đối chiếu danh tính](https://pubchem.ncbi.nlm.nih.gov/compound/5988)\n\nKhông suy đồng phân hay cấu hình lập thể chỉ từ công thức tổng quát. Tên và định danh chất quyết định mô hình cần chọn.\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

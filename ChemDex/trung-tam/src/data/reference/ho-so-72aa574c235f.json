@@ -1,0 +1,37 @@
+{
+  "id": "ho-so-72aa574c235f",
+  "title": "Niken(II) Sunfat Ngậm 6 Nước (Lục Bảo) — đọc cấu trúc, lần theo sự chuyển hóa",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "hopchat",
+  "summary": "Hồ sơ Niken(II) Sunfat Ngậm 6 Nước (Lục Bảo): NiSO4.6H2O, 24 nguyên tử trong đơn vị công thức; đối chiếu danh tính, dữ liệu cấu trúc và cách đọc những giới hạn của mô hình.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "NiSO₄·6H₂O",
+  "tags": [
+    "Hồ sơ chất",
+    "NiSO4.6H2O"
+  ],
+  "aliases": [
+    "Niken(II) Sunfat Ngậm 6 Nước (Lục Bảo)",
+    "Nickel(II) Sulfate Hexahydrate",
+    "NiSO4.6H2O"
+  ],
+  "substanceIds": [
+    "lab3d-338"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 4,
+  "chemicalEvidence": {
+    "formula": "NiSO4.6H2O",
+    "representativeId": "lab3d-338",
+    "counts": {
+      "Ni": 1,
+      "S": 1,
+      "O": 10,
+      "H": 12
+    },
+    "mass": 262.839,
+    "material": false,
+    "reactionIds": []
+  },
+  "content": "## Câu chuyện: đọc danh tính của Niken(II) Sunfat Ngậm 6 Nước (Lục Bảo)\n\nĐiểm xuất phát là NiSO4.6H2O: 1 Ni, 1 S, 10 O, 12 H. Những con số ấy là dấu vết đầu tiên để lần theo danh tính Niken(II) Sunfat Ngậm 6 Nước (Lục Bảo), nhưng chưa kể hết cách các thành phần sắp xếp trong không gian.\n\nTrong mô hình hiện tại có 24 nguyên tử của đơn vị công thức được biểu diễn. Hãy so sánh bảng thành phần với cấu trúc, rồi phân biệt thông tin được xác định bằng phép đếm với thông tin cần có nguồn tọa độ hoặc dữ liệu liên kết.\n\n\n\nChưa có tọa độ kiểm chứng riêng trong kho. Trình xem vẫn có thể biểu diễn thành phần để học tập; vị trí minh họa không được coi là kết quả đo.\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | NiSO4.6H2O |\n| Tên tiếng Anh | Nickel(II) Sulfate Hexahydrate |\n| Loại biểu diễn | Công thức chất |\n| Khối lượng tính từ bảng nguyên tử | 262,839 g/mol |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Ni | Niken | 1 | 58,693 |\n| S | Lưu huỳnh | 1 | 32,06 |\n| O | Oxi | 10 | 159,99 |\n| H | Hiđro | 12 | 12,096 |\n\nTổng phép đếm là **24 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Bài tính: một mẫu Niken(II) Sunfat Ngậm 6 Nước (Lục Bảo) theo đơn vị công thức\n\nGiả sử xét **0,100 mol** NiSO4.6H2O theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 58,693 + 1 × 32,06 + 10 × 15,999 + 12 × 1,008 = 262,839 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 262,839 = 26,2839 g**.\n3. Theo công thức, lượng nguyên tử O tương ứng là **10 × 0,100 = 1 mol nguyên tử O**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Nếu mẫu chứa dung môi, tạp chất hoặc phần nước kết tinh chưa được ghi trong công thức, phải điều chỉnh mô hình bài toán.\n\n## Tự kiểm tra và lời giải\n\n1. Trong NiSO4.6H2O, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Một công thức hoặc một mô hình tĩnh có đủ chứng minh mọi tính chất của mẫu thực không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, H có 12 nguyên tử trong đơn vị công thức. Không. Cần phân biệt danh tính, cấu trúc, pha, điều kiện và thành phần thực của mẫu.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Niken(II) Sunfat Ngậm 6 Nước (Lục Bảo)](/tien-ich/cau-truc-3d/?compound=lab3d-338)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu chất trong danh mục phản ứng ChemDex](/shared/reaction-catalog.generated.json)\n\n\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

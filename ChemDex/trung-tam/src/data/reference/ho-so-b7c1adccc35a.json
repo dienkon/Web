@@ -1,0 +1,37 @@
+{
+  "id": "ho-so-b7c1adccc35a",
+  "title": "Chỉ thị vạn năng — đọc cấu trúc, lần theo sự chuyển hóa",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "hopchat",
+  "summary": "Hồ sơ Chỉ thị vạn năng: cách phân biệt tên vật liệu, thành phần đại diện và giới hạn của mô hình; không có một công thức phân tử duy nhất cho cả hỗn hợp.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "Hỗn hợp",
+  "tags": [
+    "Vật liệu / hỗn hợp",
+    "UniversalIndicator"
+  ],
+  "aliases": [
+    "Chỉ thị vạn năng",
+    "Universal Indicator",
+    "UniversalIndicator",
+    "Chỉ Thị Vạn Năng (Phổ pH 1-14)",
+    "Universal Indicator Solution"
+  ],
+  "substanceIds": [
+    "chem-universal-indicator"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 4,
+  "chemicalEvidence": {
+    "formula": "H2O",
+    "representativeId": "chem-universal-indicator",
+    "counts": {
+      "H": 2,
+      "O": 1
+    },
+    "mass": null,
+    "material": true,
+    "reactionIds": []
+  },
+  "content": "## Câu chuyện: đọc danh tính của Chỉ thị vạn năng\n\nTên Chỉ thị vạn năng mô tả vật liệu hoặc hỗn hợp; công thức H2O trong mô hình chỉ đại diện một thành phần hay đơn vị cấu tạo.\n\nTrong mô hình hiện tại có 3 nguyên tử của đơn vị công thức được biểu diễn. Hãy so sánh bảng thành phần với cấu trúc, rồi phân biệt thông tin được xác định bằng phép đếm với thông tin cần có nguồn tọa độ hoặc dữ liệu liên kết.\n\nChỉ thị vạn năng là hỗn hợp nhiều chất chỉ thị và dung môi. Mô hình đang hiển thị nước làm minh họa dung môi; không đại diện toàn bộ thành phần của sản phẩm.\n\nChưa có tọa độ kiểm chứng riêng trong kho. Trình xem vẫn có thể biểu diễn thành phần để học tập; vị trí minh họa không được coi là kết quả đo.\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | H2O — chỉ là đại diện |\n| Tên tiếng Anh | Universal Indicator |\n| Loại biểu diễn | Thành phần/đơn vị lặp |\n| Khối lượng tính từ bảng nguyên tử | Không áp dụng / thiếu dữ liệu |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| H | Hiđro | 2 | 2,016 |\n| O | Oxi | 1 | 15,999 |\n\nTổng phép đếm là **3 nguyên tử** trong đơn vị được mô tả. Đây là phép đếm của thành phần/đơn vị minh họa, không phải số nguyên tử của cả mẫu vật liệu.\n\n## Vì sao không gán một khối lượng mol duy nhất?\n\nChỉ thị vạn năng đang được mô tả như hỗn hợp hoặc polyme có đơn vị đại diện. Dùng khối lượng của H2O cho cả vật liệu sẽ đánh đồng thành phần minh họa với toàn bộ mẫu. Cần biết thành phần, độ dài chuỗi hoặc quy ước cụ thể trước khi tính.\n\n## Tự kiểm tra và lời giải\n\n1. Trong H2O, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Một công thức hoặc một mô hình tĩnh có đủ chứng minh mọi tính chất của mẫu thực không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, H có 2 nguyên tử trong đơn vị công thức. Không. Cần phân biệt danh tính, cấu trúc, pha, điều kiện và thành phần thực của mẫu.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Chỉ thị vạn năng](/tien-ich/cau-truc-3d/?compound=chem-universal-indicator)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu chất trong danh mục phản ứng ChemDex](/shared/reaction-catalog.generated.json)\n\nChỉ thị vạn năng là hỗn hợp nhiều chất chỉ thị và dung môi. Mô hình đang hiển thị nước làm minh họa dung môi; không đại diện toàn bộ thành phần của sản phẩm.\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

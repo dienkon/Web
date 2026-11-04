@@ -1,0 +1,35 @@
+{
+  "id": "ho-so-fb874bab573b",
+  "title": "Canxi (Ca) — hồ sơ nguyên tố và hành trình khám phá",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "nguyento",
+  "summary": "Theo dấu Ca qua tổng hợp; đọc thành phần, điều kiện và bài tính riêng của Canxi.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "Ca",
+  "tags": [
+    "Nguyên tố",
+    "Ca",
+    "Tổng hợp"
+  ],
+  "aliases": [
+    "Ca"
+  ],
+  "substanceIds": [
+    "formula-Ca"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 5,
+  "chemicalEvidence": {
+    "formula": "Ca",
+    "representativeId": "formula-Ca",
+    "counts": {
+      "Ca": 1
+    },
+    "mass": 40.078,
+    "material": false,
+    "reactionIds": [
+      "rx_b8138deb596b6a36"
+    ]
+  },
+  "content": "## Câu chuyện: hành trình của Canxi\n\nNăm 1808, Humphry Davy điều chế được Calcium kim loại bằng phương pháp điện phân hỗn hợp nóng chảy chứa Calcium oxide và Mercury(II) oxide. Sau đó ông loại Mercury để thu được Calcium.\n\n**Người/nhóm được ghi trong dữ liệu:** Humphry Davy. **Mốc ghi nhận:** 1808. \n\n*Phần lịch sử được chuyển từ bài nguyên tố ChemDex hiện có; liên kết nguồn đối chiếu nằm cuối bài.*\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | Ca |\n| Tên tiếng Anh | Calcium |\n| Loại biểu diễn | Nguyên tử |\n| Khối lượng tính từ bảng nguyên tử | 40,078 g/mol |\n| Số hiệu nguyên tử | 20 |\n| Nhóm / chu kỳ | 2 / 4 |\n| Cấu hình electron | 1s² 2s² 2p⁶ 3s² 3p⁶ 4s² |\n| Số oxi hóa được ghi | +2 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Ca | Canxi | 1 | 40,078 |\n\nTổng phép đếm là **1 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Cấu trúc và những vai trò được ghi nhận\n\n- **Xây dựng:** Calcium compounds như Calcium carbonate và Calcium oxide được sử dụng rộng rãi trong sản xuất xi măng, vôi và vật liệu xây dựng.\n- **Luyện kim:** Calcium được sử dụng làm chất khử và chất loại bỏ một số tạp chất trong luyện kim.\n- **Sản xuất hợp kim:** Calcium được sử dụng trong một số hợp kim đặc biệt.\n- **Xử lý nước:** Calcium hydroxide được sử dụng để điều chỉnh pH và xử lý nước.\n- **Nông nghiệp:** Calcium compounds được sử dụng để cải thiện đất và điều chỉnh độ acid của đất.\n- **Sinh học:** Ca²⁺ đóng vai trò quan trọng trong xương, răng, co cơ, truyền tín hiệu tế bào và đông máu.\n- **Sản xuất hóa chất:** Calcium là nguyên liệu để sản xuất nhiều Calcium compounds.\n\nCác mô tả ứng dụng được chuyển từ dữ liệu nguyên tố ChemDex hiện có; không suy rằng mọi hợp chất chứa nguyên tố này có cùng tính chất.\n\n## Những ngã rẽ phản ứng cụ thể\n\n### 1. Tổng hợp\n\n**Ca(s) + 2H2O(l) → Ca(OH)2(s) + H2(g)**\n\n- **Điều kiện:** Kim loại calcium và nước; sản phẩm có thể là huyền phù khi vượt độ tan.\n- **Điều được mô tả:** Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n- **Giải thích:** Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** established-transformation\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n\n## Bài tính: một mẫu Canxi theo đơn vị công thức\n\nGiả sử xét **0,100 mol** Ca theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 40,078 = 40,078 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 40,078 = 4,0078 g**.\n3. Theo công thức, lượng nguyên tử Ca tương ứng là **1 × 0,100 = 0,1 mol nguyên tử Ca**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Với mẫu đồng vị cụ thể cần thay đúng khối lượng đồng vị.\n\n## Tự kiểm tra và lời giải\n\n1. Trong Ca, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Tên chất đứng ở phía nào của phương trình đầu tiên? Điều kiện phản ứng có thể bỏ qua không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, Ca có 1 nguyên tử trong đơn vị công thức. Canxi nằm ở phía chất phản ứng của ví dụ đầu. Điều kiện và loại bằng chứng phải được đọc cùng phương trình.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Canxi](/tien-ich/cau-truc-3d/?compound=formula-Ca)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu nguyên tố ChemDex](/data/elements/020_Ca.json)\n- [CIAAW — khối lượng nguyên tử chuẩn](https://ciaaw.org/abridged-atomic-weights.htm)\n\n\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

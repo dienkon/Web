@@ -1,0 +1,40 @@
+{
+  "id": "ho-so-618553f213a0",
+  "title": "HBr — đọc cấu trúc, lần theo sự chuyển hóa",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "hopchat",
+  "summary": "Theo dấu HBr qua cacbonat và axit, kim loại và axit, axit – bazơ; đọc thành phần, điều kiện và bài tính riêng của HBr.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "HBr",
+  "tags": [
+    "Hồ sơ chất",
+    "HBr",
+    "Cacbonat và axit",
+    "Kim loại và axit",
+    "Axit – bazơ"
+  ],
+  "aliases": [
+    "HBr"
+  ],
+  "substanceIds": [
+    "formula-HBr"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 7,
+  "chemicalEvidence": {
+    "formula": "HBr",
+    "representativeId": "formula-HBr",
+    "counts": {
+      "H": 1,
+      "Br": 1
+    },
+    "mass": 80.91199999999999,
+    "material": false,
+    "reactionIds": [
+      "rx_9d3cfc0732753022",
+      "rx_c71697f1a1d9ff39",
+      "rx_f7c041fa35522104"
+    ]
+  },
+  "content": "## Câu chuyện: khi HBr tham gia phản ứng\n\nBắt đầu từ một câu hỏi cụ thể: từ HBr, các nguyên tử sẽ phân bố vào sản phẩm như thế nào sau chuyển hóa? Một trường hợp trong danh mục là:\n\n**BaCO3(s) + 2HBr(aq) → BaBr2(aq) + CO2(g) + H2O(l)**\n\nTrong trường hợp này, HBr được đọc ở phía chất phản ứng. Proton chuyển carbonate thành CO2 và nước; giữ đủ ion đối trong muối sản phẩm. Có bọt CO2 không màu tại vùng tiếp xúc.\n\nCâu chuyện chưa kết thúc ở phương trình: Axit đủ, CO2 thoát khỏi hệ; không có lớp muối ít tan chặn bề mặt.. Điểm cần theo dõi là danh tính chất, trạng thái ghi trong ngoặc và tỉ lệ hệ số, thay vì chỉ ghi nhớ tên phản ứng.\n\n> Trường hợp này được xây dựng theo quy tắc họ phản ứng. Cân bằng nguyên tử không tự chứng minh phản ứng đã được kiểm chứng thực nghiệm riêng cho mọi điều kiện.\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | HBr |\n| Tên tiếng Anh | Chưa ghi |\n| Loại biểu diễn | Các nhóm ion |\n| Khối lượng tính từ bảng nguyên tử | 80,912 g/mol |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| H | Hiđro | 1 | 1,008 |\n| Br | Brom | 1 | 79,904 |\n\nTổng phép đếm là **2 nguyên tử** trong đơn vị được mô tả. Với chất ion hoặc tinh thể, cần nói rõ “đơn vị công thức”, tránh gọi phép đếm này là kích thước của một phân tử rời.\n\n## Từ công thức đến các nhóm ion\n\n| Nhóm | Điện tích | Số nhóm theo công thức |\n|---|---:|---:|\n| H | +1 | 1 |\n| Br | -1 | 1 |\n\nTổng điện tích tính theo các nhóm trên là **0**. Phép cộng điện tích giúp kiểm tra tỉ lệ công thức; không xác định nồng độ, mức phân li, cân bằng hay lớp dung môi của mẫu thực.\n\n## Những ngã rẽ phản ứng cụ thể\n\n### 1. Cacbonat và axit\n\n**BaCO3(s) + 2HBr(aq) → BaBr2(aq) + CO2(g) + H2O(l)**\n\n- **Điều kiện:** Axit đủ, CO2 thoát khỏi hệ; không có lớp muối ít tan chặn bề mặt.\n- **Điều được mô tả:** Có bọt CO2 không màu tại vùng tiếp xúc.\n- **Giải thích:** Proton chuyển carbonate thành CO2 và nước; giữ đủ ion đối trong muối sản phẩm.\n- **Giới hạn:** Có chất chứa Ba; dữ liệu học tập, cần quy trình và xử lý chất thải chuyên biệt khi thực nghiệm.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n\n### 2. Kim loại và axit\n\n**2Al(s) + 6HBr(aq) → 2AlBr3(aq) + 3H2(g)**\n\n- **Điều kiện:** HBr loãng, bề mặt kim loại hoạt động; tốc độ tùy kim loại, có thể cần làm ấm.\n- **Điều được mô tả:** Kim loại tan và H2 không màu thoát ra khi phản ứng diễn ra.\n- **Giải thích:** Kim loại khử H+ của axit không oxi hóa thành H2; không mở rộng sang Cu, Ag hoặc acid oxi hóa.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành. Thế điện cực không xác định tốc độ; oxide/thụ động hóa có thể làm chậm.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n- [OpenStax Chemistry 2e, 17.3 — Electrode and Cell Potentials](https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials) — Chiều phản ứng oxi hóa khử theo thế điện cực; không tự suy ra động học hoặc bỏ qua thụ động hóa.\n\n### 3. Axit – bazơ\n\n**Al(OH)3(s) + 3HBr(aq) → AlBr3(aq) + 3H2O(l)**\n\n- **Điều kiện:** Axit HBr; lượng axit đủ để trung hòa hoàn toàn. Có thể cần làm ấm; tốc độ tùy mẫu rắn.\n- **Điều được mô tả:** Rắn có thể tan dần hoặc pH thay đổi; màu tùy ion và nồng độ. Không có chỉ thị thì không tự xuất hiện màu hồng.\n- **Giải thích:** Axit tiêu thụ nhóm bazơ/oxit tạo muối và nước; hệ số theo đương lượng, không gán nhiệt chung cho mọi axit.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n- [OpenStax Chemistry 2e, 14.7 — Acid-Base Titrations](https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations) — Trung hòa axit–bazơ, lượng đương lượng và vai trò chỉ thị.\n\n## Bài tính: một mẫu HBr theo đơn vị công thức\n\nGiả sử xét **0,100 mol** HBr theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 1,008 + 1 × 79,904 = 80,912 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 80,912 = 8,0912 g**.\n3. Theo công thức, lượng nguyên tử H tương ứng là **1 × 0,100 = 0,1 mol nguyên tử H**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Nếu mẫu chứa dung môi, tạp chất hoặc phần nước kết tinh chưa được ghi trong công thức, phải điều chỉnh mô hình bài toán.\n\n## Tự kiểm tra và lời giải\n\n1. Trong HBr, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Tên chất đứng ở phía nào của phương trình đầu tiên? Điều kiện phản ứng có thể bỏ qua không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, H có 1 nguyên tử; Br có 1 nguyên tử trong đơn vị công thức. HBr nằm ở phía chất phản ứng của ví dụ đầu. Điều kiện và loại bằng chứng phải được đọc cùng phương trình.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình HBr](/tien-ich/cau-truc-3d/?compound=formula-HBr)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu chất trong danh mục phản ứng ChemDex](/shared/reaction-catalog.generated.json)\n\nTỉ lệ công thức không đồng nghĩa một phân tử riêng lẻ; biểu diễn nhóm ion và ô mạng cần được phân biệt.\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

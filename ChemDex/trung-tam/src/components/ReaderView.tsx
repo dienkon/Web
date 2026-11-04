@@ -160,13 +160,13 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
           <div className="flex items-center gap-4 text-slate-400 text-sm">
             <span className="font-medium text-slate-300">{doc.author}</span>
             <span>•</span>
-            <span>{Math.ceil(doc.content.length / 1000)} phút đọc</span>
+            <span>{doc.readingMinutes ?? Math.ceil(doc.content.length / 1000)} phút đọc</span>
           </div>
         </header>
 
         {doc.chemicalFormula ? <div className="mb-10 flex min-h-48 items-center justify-between gap-6 rounded-2xl border border-cyan-700/40 bg-gradient-to-br from-slate-900 to-blue-950 p-8 no-print">
-          <div><p className="mb-3 text-xs uppercase tracking-widest text-cyan-300">Hồ sơ chất · Câu chuyện hóa học</p><strong className="font-mono text-5xl text-white">{doc.chemicalFormula}</strong></div>
-          <span className="text-6xl text-cyan-500/40" aria-hidden="true">⚛</span>
+          <div className="min-w-0 flex-1"><p className="mb-3 text-xs uppercase tracking-widest text-cyan-300">Hồ sơ chất · Câu chuyện hóa học</p><strong data-chemical-formula className="block break-all font-mono text-3xl text-white sm:text-5xl">{doc.chemicalFormula}</strong></div>
+          <span className="hidden text-6xl text-cyan-500/40 sm:block" aria-hidden="true">⚛</span>
         </div> : <div className="w-full h-[300px] sm:h-[400px] md:h-[500px] rounded-2xl overflow-hidden mb-12 bg-slate-800 no-print">
           <img 
             src={doc.image} 
@@ -179,6 +179,7 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
           <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-cyan-300">Trong bài viết này</h2>
           <ol className="grid gap-2 sm:grid-cols-2">{sections.map((title,index)=><li key={title}><a className="text-sm text-slate-300 hover:text-cyan-300" href={'#'+headingId(title)}>{index+1}. {title}</a></li>)}</ol>
         </nav>}
+        {doc.documentKind === 'reference' && <p className="mb-6 rounded-xl border border-slate-700 bg-slate-900/50 p-4 text-sm leading-relaxed text-slate-300">Hồ sơ tổng hợp từ dữ liệu ChemDex. Bài ghi rõ nguồn, điều kiện và giới hạn của mô hình; các phương trình theo quy tắc họ phản ứng cần được đọc cùng phạm vi áp dụng.</p>}
         <article className={`markdown-body ${fontClasses[fontSize]}`}>
           <div className="text-xl text-slate-300 mb-8 font-medium leading-relaxed italic border-l-4 border-slate-700 pl-6">
             {doc.summary}

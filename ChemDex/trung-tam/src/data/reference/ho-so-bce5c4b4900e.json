@@ -1,0 +1,34 @@
+{
+  "id": "ho-so-bce5c4b4900e",
+  "title": "Selen (Se) — hồ sơ nguyên tố và hành trình khám phá",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "nguyento",
+  "summary": "Hồ sơ Selen: Se, 1 nguyên tử trong đơn vị công thức; đối chiếu danh tính, dữ liệu cấu trúc và cách đọc những giới hạn của mô hình.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "Se",
+  "tags": [
+    "Nguyên tố",
+    "Se"
+  ],
+  "aliases": [
+    "Selen",
+    "Selenium",
+    "Se"
+  ],
+  "substanceIds": [
+    "atom-Se"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 4,
+  "chemicalEvidence": {
+    "formula": "Se",
+    "representativeId": "atom-Se",
+    "counts": {
+      "Se": 1
+    },
+    "mass": 78.971,
+    "material": false,
+    "reactionIds": []
+  },
+  "content": "## Câu chuyện: hành trình của Selen\n\nNăm 1817, Jöns Jacob Berzelius phát hiện Selenium khi nghiên cứu một chất cặn trong quá trình sản xuất Sulfuric acid. Ban đầu, ông cho rằng đó là Tellurium, nhưng sau khi nghiên cứu thêm, ông xác định đây là một nguyên tố mới. Tên Selenium bắt nguồn từ tiếng Hy Lạp Selene, nghĩa là Mặt Trăng.\n\n**Người/nhóm được ghi trong dữ liệu:** Jöns Jacob Berzelius và Johan Gottlieb Gahn. **Mốc ghi nhận:** 1817. \n\n*Phần lịch sử được chuyển từ bài nguyên tố ChemDex hiện có; liên kết nguồn đối chiếu nằm cuối bài.*\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | Se |\n| Tên tiếng Anh | Selenium |\n| Loại biểu diễn | Nguyên tử |\n| Khối lượng tính từ bảng nguyên tử | 78,971 g/mol |\n| Số hiệu nguyên tử | 34 |\n| Nhóm / chu kỳ | 16 / 4 |\n| Cấu hình electron | [Ar] 3d¹⁰ 4s² 4p⁴ |\n| Số oxi hóa được ghi | −2, +4, +6 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Se | Selen | 1 | 78,971 |\n\nTổng phép đếm là **1 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Cấu trúc và những vai trò được ghi nhận\n\n- **Điện tử:** Selenium có tính quang dẫn nên từng được sử dụng trong một số thiết bị quang điện.\n- **Kính:** Selenium compounds được sử dụng để khử màu hoặc tạo màu cho thủy tinh.\n- **Pigment:** Một số Selenium compounds được sử dụng để tạo pigment màu đỏ.\n- **Solar cells:** Selenium được sử dụng trong một số vật liệu quang điện và công nghệ tế bào mặt trời.\n- **Luyện kim:** Selenium được thêm vào một số hợp kim để cải thiện khả năng gia công.\n- **Nông nghiệp:** Selenium là nguyên tố vi lượng cần thiết với một số sinh vật, nhưng lượng quá cao có thể gây độc.\n- **Công nghiệp hóa chất:** Selenium compounds được sử dụng trong một số quá trình tổng hợp hóa học.\n\nCác mô tả ứng dụng được chuyển từ dữ liệu nguyên tố ChemDex hiện có; không suy rằng mọi hợp chất chứa nguyên tố này có cùng tính chất.\n\n## Bài tính: một mẫu Selen theo đơn vị công thức\n\nGiả sử xét **0,100 mol** Se theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 78,971 = 78,971 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 78,971 = 7,8971 g**.\n3. Theo công thức, lượng nguyên tử Se tương ứng là **1 × 0,100 = 0,1 mol nguyên tử Se**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Với mẫu đồng vị cụ thể cần thay đúng khối lượng đồng vị.\n\n## Tự kiểm tra và lời giải\n\n1. Trong Se, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Một công thức hoặc một mô hình tĩnh có đủ chứng minh mọi tính chất của mẫu thực không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, Se có 1 nguyên tử trong đơn vị công thức. Không. Cần phân biệt danh tính, cấu trúc, pha, điều kiện và thành phần thực của mẫu.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Selen](/tien-ich/cau-truc-3d/?compound=atom-Se)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu nguyên tố ChemDex](/data/elements/034_Se.json)\n- [CIAAW — khối lượng nguyên tử chuẩn](https://ciaaw.org/abridged-atomic-weights.htm)\n\n\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

@@ -1,0 +1,34 @@
+{
+  "id": "ho-so-5cd11749f3bc",
+  "title": "Heli (He) — hồ sơ nguyên tố và hành trình khám phá",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "nguyento",
+  "summary": "Hồ sơ Heli: He, 1 nguyên tử trong đơn vị công thức; đối chiếu danh tính, dữ liệu cấu trúc và cách đọc những giới hạn của mô hình.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "He",
+  "tags": [
+    "Nguyên tố",
+    "He"
+  ],
+  "aliases": [
+    "Heli",
+    "Helium",
+    "He"
+  ],
+  "substanceIds": [
+    "atom-He"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 5,
+  "chemicalEvidence": {
+    "formula": "He",
+    "representativeId": "atom-He",
+    "counts": {
+      "He": 1
+    },
+    "mass": 4.0026,
+    "material": false,
+    "reactionIds": []
+  },
+  "content": "## Câu chuyện: hành trình của Heli\n\nNăm 1868, nhà thiên văn học người Pháp Jules Janssen đã ghi nhận một vạch quang phổ màu vàng chưa từng biết đến trong một lần quan sát nhật thực toàn phần tại Ấn Độ. Cùng năm đó, Norman Lockyer người Anh cũng quan sát thấy vạch này và đặt tên cho nguyên tố mới là 'Helium' theo tiếng Hy Lạp 'Helios' nghĩa là Mặt Trời. Đến năm 1895, nhà hóa học Sir William Ramsay lần đầu tiên cô lập được Helium trên Trái Đất khi xử lý quặng cleveite với axit, xác nhận nó là một nguyên tố thực sự hiện diện trên hành tinh của chúng ta.\n\n**Người/nhóm được ghi trong dữ liệu:** Jules Janssen, Norman Lockyer. **Mốc ghi nhận:** 1868. \n\n*Phần lịch sử được chuyển từ bài nguyên tố ChemDex hiện có; liên kết nguồn đối chiếu nằm cuối bài.*\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | He |\n| Tên tiếng Anh | Helium |\n| Loại biểu diễn | Nguyên tử |\n| Khối lượng tính từ bảng nguyên tử | 4,0026 g/mol |\n| Số hiệu nguyên tử | 2 |\n| Nhóm / chu kỳ | 18 / 1 |\n| Cấu hình electron | 1s² |\n| Số oxi hóa được ghi | 0 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| He | Heli | 1 | 4,0026 |\n\nTổng phép đếm là **1 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Cấu trúc và những vai trò được ghi nhận\n\n- **Công nghệ Cryogenic (Làm lạnh sâu):** Đây là ứng dụng lớn nhất của Helium. Heli lỏng (ở -269°C) được dùng để làm mát các nam châm siêu dẫn cực mạnh, đặc biệt là trong máy quét MRI y tế, máy gia tốc hạt (như CERN) và các thiết bị quang phổ NMR.\n- **Khí bay cho khinh khí cầu:** Với tính chất cực nhẹ và hoàn toàn không bắt lửa, Helium là giải pháp an toàn tuyệt đối thay thế cho Hydrogen để bơm vào bóng bay dự báo thời tiết, khinh khí cầu và tàu lượn (blimps).\n- **Môi trường hàn bảo vệ (Khí trơ):** Trong công nghiệp luyện kim và hàn hồ quang (như hàn TIG/MIG), Helium được sử dụng làm khí bảo vệ để ngăn kim loại nóng chảy phản ứng với Oxygen hoặc Nitrogen trong không khí, đặc biệt khi hàn nhôm hoặc thép không gỉ.\n- **Phát hiện rò rỉ (Leak Detection):** Nhờ kích thước nguyên tử cực kỳ nhỏ gọn, Helium có khả năng khuếch tán qua cả những khe nứt siêu nhỏ, do đó nó được dùng trong các máy phổ khối lượng dò rò rỉ để kiểm tra chân không hoặc đường ống dẫn.\n- **Khí nén tạo áp suất:** Helium được sử dụng trong ngành không gian vũ trụ để đẩy nhiên liệu lỏng (như hydro lỏng) vào buồng đốt tên lửa vì nó không hóa lỏng ở nhiệt độ của nhiên liệu và không gây phản ứng cháy nổ.\n- **Hỗn hợp khí lặn sâu:** Thợ lặn chuyên nghiệp thường thở bằng 'Trimix' hoặc 'Heliox' (hỗn hợp Helium và Oxygen). Helium thay thế Nitrogen để tránh hiện tượng 'say nitơ' và hội chứng giảm áp nguy hiểm ở dưới đáy biển sâu.\n- **Làm mát lò phản ứng hạt nhân:** Trong một số hệ thống lò phản ứng hạt nhân thế hệ mới (như lò phản ứng làm mát bằng khí), Helium được dùng làm chất tải nhiệt vì nó không có khả năng trở thành chất phóng xạ khi bị neutron bắn phá.\n\nCác mô tả ứng dụng được chuyển từ dữ liệu nguyên tố ChemDex hiện có; không suy rằng mọi hợp chất chứa nguyên tố này có cùng tính chất.\n\n## Bài tính: một mẫu Heli theo đơn vị công thức\n\nGiả sử xét **0,100 mol** He theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 4,0026 = 4,0026 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 4,0026 = 0,40026 g**.\n3. Theo công thức, lượng nguyên tử He tương ứng là **1 × 0,100 = 0,1 mol nguyên tử He**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Với mẫu đồng vị cụ thể cần thay đúng khối lượng đồng vị.\n\n## Tự kiểm tra và lời giải\n\n1. Trong He, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Một công thức hoặc một mô hình tĩnh có đủ chứng minh mọi tính chất của mẫu thực không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, He có 1 nguyên tử trong đơn vị công thức. Không. Cần phân biệt danh tính, cấu trúc, pha, điều kiện và thành phần thực của mẫu.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Heli](/tien-ich/cau-truc-3d/?compound=atom-He)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu nguyên tố ChemDex](/data/elements/002_He.json)\n- [CIAAW — khối lượng nguyên tử chuẩn](https://ciaaw.org/abridged-atomic-weights.htm)\n\n\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

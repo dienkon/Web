@@ -1,0 +1,35 @@
+{
+  "id": "ho-so-08def58d5bdd",
+  "title": "Tinh thể xesi clorua — đọc cấu trúc, lần theo sự chuyển hóa",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "hopchat",
+  "summary": "Hồ sơ Tinh thể xesi clorua: CsCl, 2 nguyên tử trong đơn vị công thức; đối chiếu danh tính, dữ liệu cấu trúc và cách đọc những giới hạn của mô hình.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "CsCl",
+  "tags": [
+    "Hồ sơ chất",
+    "CsCl"
+  ],
+  "aliases": [
+    "Tinh thể xesi clorua",
+    "Cesium chloride",
+    "CsCl"
+  ],
+  "substanceIds": [
+    "crystal-cscl"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 4,
+  "chemicalEvidence": {
+    "formula": "CsCl",
+    "representativeId": "crystal-cscl",
+    "counts": {
+      "Cs": 1,
+      "Cl": 1
+    },
+    "mass": 168.36,
+    "material": false,
+    "reactionIds": []
+  },
+  "content": "## Câu chuyện: đọc danh tính của Tinh thể xesi clorua\n\nĐiểm xuất phát là CsCl: 1 Cs, 1 Cl. Những con số ấy là dấu vết đầu tiên để lần theo danh tính Tinh thể xesi clorua, nhưng chưa kể hết cách các thành phần sắp xếp trong không gian.\n\nTrong mô hình hiện tại có 2 nguyên tử của đơn vị công thức được biểu diễn. Hãy so sánh bảng thành phần với cấu trúc, rồi phân biệt thông tin được xác định bằng phép đếm với thông tin cần có nguồn tọa độ hoặc dữ liệu liên kết.\n\nTỉ lệ công thức không đồng nghĩa một phân tử riêng lẻ; biểu diễn nhóm ion và ô mạng cần được phân biệt.\n\nMô hình có dữ liệu từ Ideal conventional unit cell reconstructed from published lattice parameters (University of Potsdam / cited crystallographic literature). Một tệp tọa độ không tự mô tả mọi trạng thái dung dịch hoặc chuyển động nhiệt của chất.\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | CsCl |\n| Tên tiếng Anh | Cesium chloride |\n| Loại biểu diễn | Tinh thể |\n| Khối lượng tính từ bảng nguyên tử | 168,36 g/mol |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Cs | Cesium | 1 | 132,91 |\n| Cl | Clo | 1 | 35,45 |\n\nTổng phép đếm là **2 nguyên tử** trong đơn vị được mô tả. Với chất ion hoặc tinh thể, cần nói rõ “đơn vị công thức”, tránh gọi phép đếm này là kích thước của một phân tử rời.\n\n## Bài tính: một mẫu Tinh thể xesi clorua theo đơn vị công thức\n\nGiả sử xét **0,100 mol** CsCl theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 132,91 + 1 × 35,45 = 168,36 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 168,36 = 16,836 g**.\n3. Theo công thức, lượng nguyên tử Cs tương ứng là **1 × 0,100 = 0,1 mol nguyên tử Cs**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Nếu mẫu chứa dung môi, tạp chất hoặc phần nước kết tinh chưa được ghi trong công thức, phải điều chỉnh mô hình bài toán.\n\n## Tự kiểm tra và lời giải\n\n1. Trong CsCl, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Một công thức hoặc một mô hình tĩnh có đủ chứng minh mọi tính chất của mẫu thực không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, Cs có 1 nguyên tử; Cl có 1 nguyên tử trong đơn vị công thức. Không. Cần phân biệt danh tính, cấu trúc, pha, điều kiện và thành phần thực của mẫu.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Tinh thể xesi clorua](/tien-ich/cau-truc-3d/?compound=crystal-cscl)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Nguồn tọa độ: Ideal conventional unit cell reconstructed from published lattice parameters (University of Potsdam / cited crystallographic literature)](https://www.uni-potsdam.de/en/crystallography/lehre/merge-cube-lehre-mit-erweiterter-realtitaet/strukturdatenbank/salze)\n\nTỉ lệ công thức không đồng nghĩa một phân tử riêng lẻ; biểu diễn nhóm ion và ô mạng cần được phân biệt.\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

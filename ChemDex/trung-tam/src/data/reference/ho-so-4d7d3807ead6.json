@@ -1,0 +1,33 @@
+{
+  "id": "ho-so-4d7d3807ead6",
+  "title": "Molybdenum (Mo) — hồ sơ nguyên tố và hành trình khám phá",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "nguyento",
+  "summary": "Hồ sơ Molybdenum: Mo, 1 nguyên tử trong đơn vị công thức; đối chiếu danh tính, dữ liệu cấu trúc và cách đọc những giới hạn của mô hình.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "Mo",
+  "tags": [
+    "Nguyên tố",
+    "Mo"
+  ],
+  "aliases": [
+    "Molybdenum",
+    "Mo"
+  ],
+  "substanceIds": [
+    "atom-Mo"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 4,
+  "chemicalEvidence": {
+    "formula": "Mo",
+    "representativeId": "atom-Mo",
+    "counts": {
+      "Mo": 1
+    },
+    "mass": 95.95,
+    "material": false,
+    "reactionIds": []
+  },
+  "content": "## Câu chuyện: hành trình của Molybdenum\n\nNăm 1778, Carl Wilhelm Scheele xác định rằng Molybdenite (MoS₂) không phải là hợp chất của Lead như từng nghĩ mà chứa một nguyên tố mới. Đến năm 1781, Peter Jacob Hjelm điều chế được Molybdenum kim loại tương đối tinh khiết.\n\n**Người/nhóm được ghi trong dữ liệu:** Carl Wilhelm Scheele. **Mốc ghi nhận:** 1778. \n\n*Phần lịch sử được chuyển từ bài nguyên tố ChemDex hiện có; liên kết nguồn đối chiếu nằm cuối bài.*\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | Mo |\n| Tên tiếng Anh | Molybdenum |\n| Loại biểu diễn | Nguyên tử |\n| Khối lượng tính từ bảng nguyên tử | 95,95 g/mol |\n| Số hiệu nguyên tử | 42 |\n| Nhóm / chu kỳ | 6 / 5 |\n| Cấu hình electron | [Kr] 4d⁵ 5s¹ |\n| Số oxi hóa được ghi | +2, +3, +4, +5, +6 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Mo | Molybdenum | 1 | 95,95 |\n\nTổng phép đếm là **1 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Cấu trúc và những vai trò được ghi nhận\n\n- **Thép hợp kim:** Molybdenum được thêm vào thép để tăng độ cứng, độ bền và khả năng chịu nhiệt.\n- **Hợp kim chịu nhiệt:** Dùng trong các bộ phận phải làm việc ở nhiệt độ cao.\n- **Công nghiệp dầu khí:** Một số Molybdenum compounds được sử dụng làm chất xúc tác trong quá trình lọc dầu.\n- **Chất bôi trơn:** Molybdenum disulfide (MoS₂) là chất bôi trơn rắn, hoạt động tốt ở nhiệt độ và áp suất cao.\n- **Điện tử:** Molybdenum được sử dụng trong một số linh kiện và vật liệu điện tử.\n- **Kính và vật liệu:** Molybdenum được sử dụng trong điện cực, vật liệu chịu nhiệt và một số thiết bị công nghiệp.\n- **Sinh học:** Molybdenum là nguyên tố vi lượng cần thiết cho nhiều sinh vật và là thành phần của một số enzyme.\n\nCác mô tả ứng dụng được chuyển từ dữ liệu nguyên tố ChemDex hiện có; không suy rằng mọi hợp chất chứa nguyên tố này có cùng tính chất.\n\n## Bài tính: một mẫu Molybdenum theo đơn vị công thức\n\nGiả sử xét **0,100 mol** Mo theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 95,95 = 95,95 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 95,95 = 9,595 g**.\n3. Theo công thức, lượng nguyên tử Mo tương ứng là **1 × 0,100 = 0,1 mol nguyên tử Mo**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Với mẫu đồng vị cụ thể cần thay đúng khối lượng đồng vị.\n\n## Tự kiểm tra và lời giải\n\n1. Trong Mo, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Một công thức hoặc một mô hình tĩnh có đủ chứng minh mọi tính chất của mẫu thực không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, Mo có 1 nguyên tử trong đơn vị công thức. Không. Cần phân biệt danh tính, cấu trúc, pha, điều kiện và thành phần thực của mẫu.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Molybdenum](/tien-ich/cau-truc-3d/?compound=atom-Mo)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu nguyên tố ChemDex](/data/elements/042_Mo.json)\n- [CIAAW — khối lượng nguyên tử chuẩn](https://ciaaw.org/abridged-atomic-weights.htm)\n\n\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

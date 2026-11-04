@@ -1,0 +1,33 @@
+{
+  "id": "ho-so-aa7bd26abad0",
+  "title": "Argon (Ar) — hồ sơ nguyên tố và hành trình khám phá",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "nguyento",
+  "summary": "Hồ sơ Argon: Ar, 1 nguyên tử trong đơn vị công thức; đối chiếu danh tính, dữ liệu cấu trúc và cách đọc những giới hạn của mô hình.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "Ar",
+  "tags": [
+    "Nguyên tố",
+    "Ar"
+  ],
+  "aliases": [
+    "Argon",
+    "Ar"
+  ],
+  "substanceIds": [
+    "atom-Ar"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 4,
+  "chemicalEvidence": {
+    "formula": "Ar",
+    "representativeId": "atom-Ar",
+    "counts": {
+      "Ar": 1
+    },
+    "mass": 39.95,
+    "material": false,
+    "reactionIds": []
+  },
+  "content": "## Câu chuyện: hành trình của Argon\n\nNăm 1894, Lord Rayleigh và William Ramsay phát hiện Argon khi nghiên cứu Nitrogen trong không khí. Họ nhận thấy Nitrogen thu được từ không khí có khối lượng lớn hơn Nitrogen được điều chế từ các hợp chất hóa học. Sau đó, họ xác định sự tồn tại của một khí mới và đặt tên là Argon.\n\n**Người/nhóm được ghi trong dữ liệu:** Lord Rayleigh và William Ramsay. **Mốc ghi nhận:** 1894. \n\n*Phần lịch sử được chuyển từ bài nguyên tố ChemDex hiện có; liên kết nguồn đối chiếu nằm cuối bài.*\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | Ar |\n| Tên tiếng Anh | Argon |\n| Loại biểu diễn | Nguyên tử |\n| Khối lượng tính từ bảng nguyên tử | 39,95 g/mol |\n| Số hiệu nguyên tử | 18 |\n| Nhóm / chu kỳ | 18 / 3 |\n| Cấu hình electron | 1s² 2s² 2p⁶ 3s² 3p⁶ |\n| Số oxi hóa được ghi | 0 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Ar | Argon | 1 | 39,95 |\n\nTổng phép đếm là **1 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Cấu trúc và những vai trò được ghi nhận\n\n- **Hàn:** Argon được sử dụng làm khí bảo vệ trong hàn hồ quang để ngăn kim loại nóng chảy tiếp xúc với Oxygen và Nitrogen trong không khí.\n- **Công nghiệp luyện kim:** Dùng làm môi trường khí trơ trong một số quá trình xử lý kim loại.\n- **Bóng đèn:** Argon được sử dụng trong bóng đèn sợi đốt để hạn chế sự oxy hóa của dây tóc.\n- **Sản xuất chất bán dẫn:** Được sử dụng làm khí bảo vệ trong quá trình sản xuất Silicon và các linh kiện điện tử.\n- **Cửa sổ cách nhiệt:** Argon được bơm vào giữa các lớp kính để cải thiện khả năng cách nhiệt.\n- **Laser:** Argon được sử dụng trong một số loại laser khí.\n\nCác mô tả ứng dụng được chuyển từ dữ liệu nguyên tố ChemDex hiện có; không suy rằng mọi hợp chất chứa nguyên tố này có cùng tính chất.\n\n## Bài tính: một mẫu Argon theo đơn vị công thức\n\nGiả sử xét **0,100 mol** Ar theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 39,95 = 39,95 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 39,95 = 3,995 g**.\n3. Theo công thức, lượng nguyên tử Ar tương ứng là **1 × 0,100 = 0,1 mol nguyên tử Ar**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Với mẫu đồng vị cụ thể cần thay đúng khối lượng đồng vị.\n\n## Tự kiểm tra và lời giải\n\n1. Trong Ar, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Một công thức hoặc một mô hình tĩnh có đủ chứng minh mọi tính chất của mẫu thực không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, Ar có 1 nguyên tử trong đơn vị công thức. Không. Cần phân biệt danh tính, cấu trúc, pha, điều kiện và thành phần thực của mẫu.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Argon](/tien-ich/cau-truc-3d/?compound=atom-Ar)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu nguyên tố ChemDex](/data/elements/018_Ar.json)\n- [CIAAW — khối lượng nguyên tử chuẩn](https://ciaaw.org/abridged-atomic-weights.htm)\n\n\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

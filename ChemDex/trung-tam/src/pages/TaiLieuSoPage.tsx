@@ -9,7 +9,7 @@ import { Toast } from '../components/Toast';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { libraryDocs, fetchDocFull, getCategoryConfig, DocFull, categories } from '../utils/config';
 import { RefreshCw } from 'lucide-react';
-import { matchesLibraryDoc } from '../utils/librarySearch';
+import { filterLibraryDocs } from '../utils/librarySearch';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<'library' | 'reader' | 'community'>('library');
@@ -85,11 +85,7 @@ export default function App() {
 
   // Filter docs
   const filteredDocs = useMemo(() => {
-    return libraryDocs.filter(doc => {
-      const matchCat = activeCategory ? doc.category === activeCategory : true;
-      const matchSearch = matchesLibraryDoc(doc, searchQuery);
-      return matchCat && matchSearch;
-    });
+    return filterLibraryDocs(libraryDocs.filter(doc=>!activeCategory||doc.category===activeCategory),searchQuery);
   }, [activeCategory, searchQuery]);
 
   const handleTagClick = (tag: string) => {

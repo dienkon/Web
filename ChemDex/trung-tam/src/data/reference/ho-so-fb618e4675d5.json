@@ -1,0 +1,33 @@
+{
+  "id": "ho-so-fb618e4675d5",
+  "title": "Hafnium (Hf) — hồ sơ nguyên tố và hành trình khám phá",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "nguyento",
+  "summary": "Hồ sơ Hafnium: Hf, 1 nguyên tử trong đơn vị công thức; đối chiếu danh tính, dữ liệu cấu trúc và cách đọc những giới hạn của mô hình.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "Hf",
+  "tags": [
+    "Nguyên tố",
+    "Hf"
+  ],
+  "aliases": [
+    "Hafnium",
+    "Hf"
+  ],
+  "substanceIds": [
+    "atom-Hf"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 4,
+  "chemicalEvidence": {
+    "formula": "Hf",
+    "representativeId": "atom-Hf",
+    "counts": {
+      "Hf": 1
+    },
+    "mass": 178.49,
+    "material": false,
+    "reactionIds": []
+  },
+  "content": "## Câu chuyện: hành trình của Hafnium\n\nHafnium được phát hiện khi Dirk Coster và George de Hevesy phân tích Zirconium bằng phương pháp tia X. Họ xác định được một nguyên tố mới nằm cùng nhóm với Zirconium. Tên Hafnium bắt nguồn từ Hafnia, tên Latin của Copenhagen.\n\n**Người/nhóm được ghi trong dữ liệu:** Dirk Coster và George de Hevesy. **Mốc ghi nhận:** 1923. \n\n*Phần lịch sử được chuyển từ bài nguyên tố ChemDex hiện có; liên kết nguồn đối chiếu nằm cuối bài.*\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | Hf |\n| Tên tiếng Anh | Hafnium |\n| Loại biểu diễn | Nguyên tử |\n| Khối lượng tính từ bảng nguyên tử | 178,49 g/mol |\n| Số hiệu nguyên tử | 72 |\n| Nhóm / chu kỳ | 4 / 6 |\n| Cấu hình electron | [Xe] 4f¹⁴ 5d² 6s² |\n| Số oxi hóa được ghi | +2, +3, +4 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Hf | Hafnium | 1 | 178,49 |\n\nTổng phép đếm là **1 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Cấu trúc và những vai trò được ghi nhận\n\n- **Thanh điều khiển lò phản ứng hạt nhân:** Hafnium hấp thụ neutron rất mạnh nên được sử dụng trong một số hệ thống điều khiển lò phản ứng hạt nhân.\n- **Công nghệ bán dẫn:** Hafnium dioxide (HfO₂) được sử dụng làm vật liệu điện môi có hằng số điện môi cao trong linh kiện bán dẫn.\n- **Hợp kim chịu nhiệt:** Hafnium được thêm vào một số hợp kim để tăng khả năng chịu nhiệt và độ bền.\n- **Động cơ hàng không:** Một số hợp kim chứa Hafnium được sử dụng trong các bộ phận chịu nhiệt cao.\n- **Hafnium carbide:** HfC có nhiệt độ nóng chảy cực cao, phù hợp cho các ứng dụng vật liệu chịu nhiệt đặc biệt.\n\nCác mô tả ứng dụng được chuyển từ dữ liệu nguyên tố ChemDex hiện có; không suy rằng mọi hợp chất chứa nguyên tố này có cùng tính chất.\n\n## Bài tính: một mẫu Hafnium theo đơn vị công thức\n\nGiả sử xét **0,100 mol** Hf theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 178,49 = 178,49 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 178,49 = 17,849 g**.\n3. Theo công thức, lượng nguyên tử Hf tương ứng là **1 × 0,100 = 0,1 mol nguyên tử Hf**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Với mẫu đồng vị cụ thể cần thay đúng khối lượng đồng vị.\n\n## Tự kiểm tra và lời giải\n\n1. Trong Hf, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Một công thức hoặc một mô hình tĩnh có đủ chứng minh mọi tính chất của mẫu thực không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, Hf có 1 nguyên tử trong đơn vị công thức. Không. Cần phân biệt danh tính, cấu trúc, pha, điều kiện và thành phần thực của mẫu.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Hafnium](/tien-ich/cau-truc-3d/?compound=atom-Hf)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu nguyên tố ChemDex](/data/elements/072_Hf.json)\n- [CIAAW — khối lượng nguyên tử chuẩn](https://ciaaw.org/abridged-atomic-weights.htm)\n\n\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

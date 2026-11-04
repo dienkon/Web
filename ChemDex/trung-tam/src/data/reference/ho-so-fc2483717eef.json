@@ -1,0 +1,33 @@
+{
+  "id": "ho-so-fc2483717eef",
+  "title": "Copernicium (Cn) — đọc dấu vết từ cấu trúc nguyên tử",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "nguyento",
+  "summary": "Hồ sơ Copernicium: Cn, 1 nguyên tử trong đơn vị công thức; đối chiếu danh tính, dữ liệu cấu trúc và cách đọc những giới hạn của mô hình.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "Cn",
+  "tags": [
+    "Nguyên tố",
+    "Cn"
+  ],
+  "aliases": [
+    "Copernicium",
+    "Cn"
+  ],
+  "substanceIds": [
+    "atom-Cn"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 3,
+  "chemicalEvidence": {
+    "formula": "Cn",
+    "representativeId": "atom-Cn",
+    "counts": {
+      "Cn": 1
+    },
+    "mass": 285,
+    "material": false,
+    "reactionIds": []
+  },
+  "content": "## Câu chuyện: đọc danh tính của Copernicium\n\nĐiểm xuất phát là Cn: 1 Cn. Những con số ấy là dấu vết đầu tiên để lần theo danh tính Copernicium, nhưng chưa kể hết cách các thành phần sắp xếp trong không gian.\n\nVới số hiệu 112, nguyên tử trung hòa Cn có 112 proton và 112 electron. Cấu hình chưa được ghi trong dữ liệu là bước tiếp theo khi đọc cấu trúc electron.\n\n\n\nChưa có tọa độ kiểm chứng riêng trong kho. Trình xem vẫn có thể biểu diễn thành phần để học tập; vị trí minh họa không được coi là kết quả đo.\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | Cn |\n| Tên tiếng Anh | Copernicium |\n| Loại biểu diễn | Nguyên tử |\n| Khối lượng tính từ bảng nguyên tử | 285 g/mol |\n| Số hiệu nguyên tử | 112 |\n| Nhóm / chu kỳ | 12 / 7 |\n| Cấu hình electron | Chưa ghi |\n| Số oxi hóa được ghi | Chưa ghi |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Cn | Copernicium | 1 | 285 |\n\nTổng phép đếm là **1 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Bài tính: một mẫu Copernicium theo đơn vị công thức\n\nGiả sử xét **0,100 mol** Cn theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 285 = 285 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 285 = 28,5 g**.\n3. Theo công thức, lượng nguyên tử Cn tương ứng là **1 × 0,100 = 0,1 mol nguyên tử Cn**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Với mẫu đồng vị cụ thể cần thay đúng khối lượng đồng vị.\n\n## Tự kiểm tra và lời giải\n\n1. Trong Cn, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Một công thức hoặc một mô hình tĩnh có đủ chứng minh mọi tính chất của mẫu thực không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, Cn có 1 nguyên tử trong đơn vị công thức. Không. Cần phân biệt danh tính, cấu trúc, pha, điều kiện và thành phần thực của mẫu.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Copernicium](/tien-ich/cau-truc-3d/?compound=atom-Cn)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu nguyên tố ChemDex](/shared/elements.json)\n\n\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

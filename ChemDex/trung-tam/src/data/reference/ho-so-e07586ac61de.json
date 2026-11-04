@@ -1,0 +1,35 @@
+{
+  "id": "ho-so-e07586ac61de",
+  "title": "Liti (Li) — hồ sơ nguyên tố và hành trình khám phá",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "nguyento",
+  "summary": "Theo dấu Li qua tổng hợp; đọc thành phần, điều kiện và bài tính riêng của Liti.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "Li",
+  "tags": [
+    "Nguyên tố",
+    "Li",
+    "Tổng hợp"
+  ],
+  "aliases": [
+    "Li"
+  ],
+  "substanceIds": [
+    "formula-Li"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 6,
+  "chemicalEvidence": {
+    "formula": "Li",
+    "representativeId": "formula-Li",
+    "counts": {
+      "Li": 1
+    },
+    "mass": 6.94,
+    "material": false,
+    "reactionIds": [
+      "rx_dd7f76e665e241c3"
+    ]
+  },
+  "content": "## Câu chuyện: hành trình của Liti\n\nJohan August Arfwedson, một hóa học gia Thụy Điển, phát hiện liti vào năm 1817 khi phân tích khoáng lepidolite. Ông phát hiện một chất lạ không phải là natrium hay kali, và đặt tên là 'lithium' từ tiếng Hy Lạp 'lithos' (đá) vì nó được tìm thấy trong các loại đá. William Thomas Brande đã lần đầu tiên phát tích Li bằng điện phân vào năm 1821.\n\n**Mốc ghi nhận:** 1817. \n\n*Phần lịch sử được chuyển từ bài nguyên tố ChemDex hiện có; liên kết nguồn đối chiếu nằm cuối bài.*\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | Li |\n| Tên tiếng Anh | Lithium |\n| Loại biểu diễn | Nguyên tử |\n| Khối lượng tính từ bảng nguyên tử | 6,94 g/mol |\n| Số hiệu nguyên tử | 3 |\n| Nhóm / chu kỳ | 1 / 2 |\n| Cấu hình electron | 1s² 2s¹ |\n| Số oxi hóa được ghi | +1 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Li | Liti | 1 | 6,94 |\n\nTổng phép đếm là **1 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Cấu trúc và những vai trò được ghi nhận\n\n- **Pin Lithium (Lithium Batteries):** Liti được sử dụng rộng rãi trong pin lithium-ion, là nguồn năng lượng chính cho điện thoại di động, laptop, ô tô điện và nhiều thiết bị công nghệ. Pin lithium có mật độ năng lượng cao, tuổi thọ dài và hiệu suất tốt.\n- **Dược phẩm - Điều trị bệnh tâm thần:** Muối liti (đặc biệt là lithium carbonate và lithium citrate) được dùng trong y học để điều trị chứng rối loạn lưỡng cực (bipolar disorder) và trầm cảm. Đây là một trong những ứng dụng dược phẩm quan trọng nhất của liti, giúp cân bằng hóa chất trong não.\n- **Hợp kim nhẹ (Lightweight Alloys):** Liti được thêm vào các hợp kim nhôm và magiê để tạo ra các vật liệu nhẹ, bền nhưng vẫn rất mạnh. Những hợp kim này được sử dụng trong ngành hàng không (máy bay), tàu vũ trụ, và các phương tiện giao thông hiện đại.\n- **Kính và Gốm (Glass & Ceramics):** Cacbonate liti được sử dụng trong sản xuất kính và gốm, đặc biệt là trong các loại kính chuyên dụng có điểm nóng chảy thấp. Li₂O cải thiện tính chất quang học của kính.\n- **Tuyl chế tạo (Welding & Brazing):** Muối liti được dùng trong thuốc hàn và xuyên lực để cải thiện khả năng chảy và độ bền của các đường hàn. Nó giảm nhiệt độ cần thiết và cải thiện chất lượng hàn.\n- **Dầu mỡ (Lubricants & Grease):** Stearate Liti được sử dụng làm cơ sở cho dầu mỡ chuyên dụng. Những loại dầu mỡ này có khả năng chịu nhiệt cao và bền lâu, được dùng trong các ứng dụng công nghiệp khắt khe.\n- **Lạnh tập trung (Air Conditioning & Refrigeration):** Bromide liti (LiBr) được sử dụng làm chất hấp thụ trong các hệ thống làm lạnh hấp thụ, giúp chuyển đổi năng lượng và làm mát một cách hiệu quả.\n\nCác mô tả ứng dụng được chuyển từ dữ liệu nguyên tố ChemDex hiện có; không suy rằng mọi hợp chất chứa nguyên tố này có cùng tính chất.\n\n## Những ngã rẽ phản ứng cụ thể\n\n### 1. Tổng hợp\n\n**2Li(s) + 2H2O(l) → 2LiOH(aq) + H2(g)**\n\n- **Điều kiện:** Kim loại kiềm tiếp xúc nước; chỉ dùng mô tả học tập, không mặc định có lửa/nổ.\n- **Điều được mô tả:** Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n- **Giải thích:** Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** established-transformation\n- [University of Washington — Alkali Metals in Water](https://chem.washington.edu/lecture-demos/activity-series-alkali-metals-water) — Kim loại kiềm, nước, khí H2 và chỉ thị; màu hồng yêu cầu phenolphthalein.\n\n## Bài tính: một mẫu Liti theo đơn vị công thức\n\nGiả sử xét **0,100 mol** Li theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 6,94 = 6,94 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 6,94 = 0,694 g**.\n3. Theo công thức, lượng nguyên tử Li tương ứng là **1 × 0,100 = 0,1 mol nguyên tử Li**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Với mẫu đồng vị cụ thể cần thay đúng khối lượng đồng vị.\n\n## Tự kiểm tra và lời giải\n\n1. Trong Li, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Tên chất đứng ở phía nào của phương trình đầu tiên? Điều kiện phản ứng có thể bỏ qua không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, Li có 1 nguyên tử trong đơn vị công thức. Liti nằm ở phía chất phản ứng của ví dụ đầu. Điều kiện và loại bằng chứng phải được đọc cùng phương trình.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Liti](/tien-ich/cau-truc-3d/?compound=formula-Li)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu nguyên tố ChemDex](/data/elements/003_Li.json)\n- [CIAAW — khối lượng nguyên tử chuẩn](https://ciaaw.org/abridged-atomic-weights.htm)\n\n\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

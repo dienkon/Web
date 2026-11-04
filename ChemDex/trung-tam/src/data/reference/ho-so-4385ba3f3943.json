@@ -1,0 +1,41 @@
+{
+  "id": "ho-so-4385ba3f3943",
+  "title": "CH3CH2CH2CH2OH — đọc cấu trúc, lần theo sự chuyển hóa",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "hopchat",
+  "summary": "Theo dấu CH3CH2CH2CH2OH qua cháy hoàn toàn, este hóa, thủy phân este trong kiềm; đọc thành phần, điều kiện và bài tính riêng của CH3CH2CH2CH2OH.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "CH₃CH₂CH₂CH₂OH",
+  "tags": [
+    "Hồ sơ chất",
+    "CH3CH2CH2CH2OH",
+    "Cháy hoàn toàn",
+    "Este hóa",
+    "Thủy phân este trong kiềm"
+  ],
+  "aliases": [
+    "CH3CH2CH2CH2OH"
+  ],
+  "substanceIds": [
+    "formula-CH3CH2CH2CH2OH"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 7,
+  "chemicalEvidence": {
+    "formula": "CH3CH2CH2CH2OH",
+    "representativeId": "formula-CH3CH2CH2CH2OH",
+    "counts": {
+      "C": 4,
+      "H": 10,
+      "O": 1
+    },
+    "mass": 74.12299999999999,
+    "material": false,
+    "reactionIds": [
+      "rx_14876df58dd7402c",
+      "rx_f425cd4de7d07576",
+      "rx_9346c34d84147617"
+    ]
+  },
+  "content": "## Câu chuyện: khi CH3CH2CH2CH2OH tham gia phản ứng\n\nBắt đầu từ một câu hỏi cụ thể: từ CH3CH2CH2CH2OH, các nguyên tử sẽ phân bố vào sản phẩm như thế nào sau chuyển hóa? Một trường hợp trong danh mục là:\n\n**CH3CH2CH2CH2OH(l) + 6O2(g) → 4CO2(g) + 5H2O(g)**\n\nTrong trường hợp này, CH3CH2CH2CH2OH được đọc ở phía chất phản ứng. Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ. Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n\nCâu chuyện chưa kết thúc ở phương trình: Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử.. Điểm cần theo dõi là danh tính chất, trạng thái ghi trong ngoặc và tỉ lệ hệ số, thay vì chỉ ghi nhớ tên phản ứng.\n\n> Trường hợp này được xây dựng theo quy tắc họ phản ứng. Cân bằng nguyên tử không tự chứng minh phản ứng đã được kiểm chứng thực nghiệm riêng cho mọi điều kiện.\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | CH3CH2CH2CH2OH |\n| Tên tiếng Anh | Chưa ghi |\n| Loại biểu diễn | Công thức chất |\n| Khối lượng tính từ bảng nguyên tử | 74,123 g/mol |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| C | Cacbon | 4 | 48,044 |\n| H | Hiđro | 10 | 10,08 |\n| O | Oxi | 1 | 15,999 |\n\nTổng phép đếm là **15 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Những ngã rẽ phản ứng cụ thể\n\n### 1. Cháy hoàn toàn\n\n**CH3CH2CH2CH2OH(l) + 6O2(g) → 4CO2(g) + 5H2O(g)**\n\n- **Điều kiện:** Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử.\n- **Điều được mô tả:** Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n- **Giải thích:** Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành. Với alkene/alkyne, chất đại diện là mạch thẳng có liên kết bội ở đầu mạch; không gộp dữ liệu nhiệt hoặc pha của mọi đồng phân.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 4.1 — Writing and Balancing Chemical Equations](https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations) — Cân bằng và cháy hoàn toàn trong O2 dư; không mô tả sản phẩm khi thiếu oxy.\n\n### 2. Este hóa\n\n**C2H5COOH(l) + CH3CH2CH2CH2OH(l) ⇌ C2H5COOC4H9(l) + H2O(l)**\n\n- **Điều kiện:** Alcohol và acid mạch thẳng đã chỉ rõ; xúc tác acid, làm ấm; cân bằng, tách nước hoặc dùng chất dư để tăng chuyển hóa.\n- **Điều được mô tả:** Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n- **Giải thích:** Nhóm carboxyl và alcohol tạo este; phương trình cân bằng không khẳng định chuyển hóa 100%.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành. Nhóm alkyl chỉ mạch thẳng; không bao gồm đồng phân nhánh.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Organic Chemistry — Chemistry of Esters](https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters) — Họ este hóa, thủy phân và xà phòng hóa; đồng phân được xác định bằng công thức cấu tạo thu gọn.\n\n### 3. Thủy phân este trong kiềm\n\n**C2H5COOC4H9(l) + KOH(aq) → C2H5COOK(aq) + CH3CH2CH2CH2OH(aq)**\n\n- **Điều kiện:** Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha.\n- **Điều được mô tả:** Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n- **Giải thích:** Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Organic Chemistry — Chemistry of Esters](https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters) — Họ este hóa, thủy phân và xà phòng hóa; đồng phân được xác định bằng công thức cấu tạo thu gọn.\n\n## Bài tính: một mẫu CH3CH2CH2CH2OH theo đơn vị công thức\n\nGiả sử xét **0,100 mol** CH3CH2CH2CH2OH theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 4 × 12,011 + 10 × 1,008 + 1 × 15,999 = 74,123 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 74,123 = 7,4123 g**.\n3. Theo công thức, lượng nguyên tử C tương ứng là **4 × 0,100 = 0,4 mol nguyên tử C**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Nếu mẫu chứa dung môi, tạp chất hoặc phần nước kết tinh chưa được ghi trong công thức, phải điều chỉnh mô hình bài toán.\n\n## Tự kiểm tra và lời giải\n\n1. Trong CH3CH2CH2CH2OH, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Tên chất đứng ở phía nào của phương trình đầu tiên? Điều kiện phản ứng có thể bỏ qua không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, H có 10 nguyên tử trong đơn vị công thức. CH3CH2CH2CH2OH nằm ở phía chất phản ứng của ví dụ đầu. Điều kiện và loại bằng chứng phải được đọc cùng phương trình.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình CH3CH2CH2CH2OH](/tien-ich/cau-truc-3d/?compound=formula-CH3CH2CH2CH2OH)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu chất trong danh mục phản ứng ChemDex](/shared/reaction-catalog.generated.json)\n\nKhông suy đồng phân hay cấu hình lập thể chỉ từ công thức tổng quát. Tên và định danh chất quyết định mô hình cần chọn.\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

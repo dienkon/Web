@@ -1,0 +1,44 @@
+{
+  "id": "ho-so-56ad59251327",
+  "title": "Đồng(II) oxit bột — đọc cấu trúc, lần theo sự chuyển hóa",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "hopchat",
+  "summary": "Theo dấu CuO qua chuyển hóa hữu cơ, oxit và axit, oxi hóa – khử; đọc thành phần, điều kiện và bài tính riêng của Đồng(II) oxit bột.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "CuO",
+  "tags": [
+    "Hồ sơ chất",
+    "CuO",
+    "Chuyển hóa hữu cơ",
+    "Oxit và axit",
+    "Oxi hóa – khử"
+  ],
+  "aliases": [
+    "Đồng(II) oxit bột",
+    "Copper(II) Oxide Powder",
+    "CuO",
+    "Đồng(II) Oxit (Bột Đen Tenorit)",
+    "Copper(II) Oxide (Tenorite Black Powder)"
+  ],
+  "substanceIds": [
+    "chem-cuo"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 6,
+  "chemicalEvidence": {
+    "formula": "CuO",
+    "representativeId": "chem-cuo",
+    "counts": {
+      "Cu": 1,
+      "O": 1
+    },
+    "mass": 79.545,
+    "material": false,
+    "reactionIds": [
+      "rx_21c127de0631b561",
+      "rx_63f2d0fe8bfe87f9",
+      "rx_77a807df65214fb3"
+    ]
+  },
+  "content": "## Câu chuyện: khi Đồng(II) oxit bột tham gia phản ứng\n\nBắt đầu từ một câu hỏi cụ thể: từ CuO, các nguyên tử sẽ phân bố vào sản phẩm như thế nào sau chuyển hóa? Một trường hợp trong danh mục là:\n\n**C2H5OH(g) + CuO(s) → CH3CHO(g) + Cu(s) + H2O(g)**\n\nTrong trường hợp này, Đồng(II) oxit bột được đọc ở phía chất phản ứng. Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng. Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n\nCâu chuyện chưa kết thúc ở phương trình: Đun nóng alcohol với CuO.. Điểm cần theo dõi là danh tính chất, trạng thái ghi trong ngoặc và tỉ lệ hệ số, thay vì chỉ ghi nhớ tên phản ứng.\n\n> Xem nguồn của phương trình và phạm vi áp dụng bên dưới.\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | CuO |\n| Tên tiếng Anh | Copper(II) Oxide Powder |\n| Loại biểu diễn | Công thức chất |\n| Khối lượng tính từ bảng nguyên tử | 79,545 g/mol |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Cu | Đồng | 1 | 63,546 |\n| O | Oxi | 1 | 15,999 |\n\nTổng phép đếm là **2 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Những ngã rẽ phản ứng cụ thể\n\n### 1. Chuyển hóa hữu cơ\n\n**C2H5OH(g) + CuO(s) → CH3CHO(g) + Cu(s) + H2O(g)**\n\n- **Điều kiện:** Đun nóng alcohol với CuO.\n- **Điều được mô tả:** Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n- **Giải thích:** Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** established-transformation\n- [OpenStax Organic Chemistry — Reactions of Alcohols](https://openstax.org/books/organic-chemistry/pages/17-6-reactions-of-alcohols) — Biến đổi nhóm chức alcohol; điều kiện quyết định sản phẩm, không tự áp dụng cho mọi đồng phân.\n\n### 2. Oxit và axit\n\n**CuO(s) + 2CH3COOH(aq) → Cu(CH3COO)2(aq) + H2O(l)**\n\n- **Điều kiện:** Axit CH3COOH; lượng axit đủ để trung hòa hoàn toàn. Có thể cần làm ấm; tốc độ tùy mẫu rắn.\n- **Điều được mô tả:** Rắn có thể tan dần hoặc pH thay đổi; màu tùy ion và nồng độ. Không có chỉ thị thì không tự xuất hiện màu hồng.\n- **Giải thích:** Axit tiêu thụ nhóm bazơ/oxit tạo muối và nước; hệ số theo đương lượng, không gán nhiệt chung cho mọi axit.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n- [OpenStax Chemistry 2e, 14.7 — Acid-Base Titrations](https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations) — Trung hòa axit–bazơ, lượng đương lượng và vai trò chỉ thị.\n\n### 3. Oxi hóa – khử\n\n**CuO(s) + CO(g) → Cu(s) + CO2(g)**\n\n- **Điều kiện:** Đun nóng; CO là khí độc, chỉ dùng làm mô tả học tập.\n- **Điều được mô tả:** Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n- **Giải thích:** Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** established-transformation\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n\n## Bài tính: một mẫu Đồng(II) oxit bột theo đơn vị công thức\n\nGiả sử xét **0,100 mol** CuO theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 63,546 + 1 × 15,999 = 79,545 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 79,545 = 7,9545 g**.\n3. Theo công thức, lượng nguyên tử Cu tương ứng là **1 × 0,100 = 0,1 mol nguyên tử Cu**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Nếu mẫu chứa dung môi, tạp chất hoặc phần nước kết tinh chưa được ghi trong công thức, phải điều chỉnh mô hình bài toán.\n\n## Tự kiểm tra và lời giải\n\n1. Trong CuO, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Tên chất đứng ở phía nào của phương trình đầu tiên? Điều kiện phản ứng có thể bỏ qua không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, Cu có 1 nguyên tử; O có 1 nguyên tử trong đơn vị công thức. Đồng(II) oxit bột nằm ở phía chất phản ứng của ví dụ đầu. Điều kiện và loại bằng chứng phải được đọc cùng phương trình.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Đồng(II) oxit bột](/tien-ich/cau-truc-3d/?compound=chem-cuo)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu chất trong danh mục phản ứng ChemDex](/shared/reaction-catalog.generated.json)\n\n\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

@@ -1,0 +1,39 @@
+{
+  "id": "ho-so-96d2128ffdd4",
+  "title": "crom(III) clorua — đọc cấu trúc, lần theo sự chuyển hóa",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "hopchat",
+  "summary": "Theo dấu CrCl3 qua axit – bazơ, kết tủa; đọc thành phần, điều kiện và bài tính riêng của crom(III) clorua.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "CrCl₃",
+  "tags": [
+    "Hồ sơ chất",
+    "CrCl3",
+    "Axit – bazơ",
+    "Kết tủa"
+  ],
+  "aliases": [
+    "crom(III) clorua",
+    "CrCl3"
+  ],
+  "substanceIds": [
+    "formula-CrCl3"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 7,
+  "chemicalEvidence": {
+    "formula": "CrCl3",
+    "representativeId": "formula-CrCl3",
+    "counts": {
+      "Cr": 1,
+      "Cl": 3
+    },
+    "mass": 158.346,
+    "material": false,
+    "reactionIds": [
+      "rx_cd02efe56a86da81",
+      "rx_917d96f139c0f4ba"
+    ]
+  },
+  "content": "## Câu chuyện: khi crom(III) clorua xuất hiện ở phía sản phẩm\n\nBắt đầu từ một câu hỏi cụ thể: những chất nào có thể được biểu diễn như tiền chất tạo CrCl3? Một trường hợp trong danh mục là:\n\n**Cr(OH)3(s) + 3HCl(aq) → CrCl3(aq) + 3H2O(l)**\n\nTrong trường hợp này, crom(III) clorua được đọc ở phía sản phẩm. Axit tiêu thụ nhóm bazơ/oxit tạo muối và nước; hệ số theo đương lượng, không gán nhiệt chung cho mọi axit. Rắn có thể tan dần hoặc pH thay đổi; màu tùy ion và nồng độ. Không có chỉ thị thì không tự xuất hiện màu hồng.\n\nCâu chuyện chưa kết thúc ở phương trình: Axit HCl; lượng axit đủ để trung hòa hoàn toàn. Có thể cần làm ấm; tốc độ tùy mẫu rắn.. Điểm cần theo dõi là danh tính chất, trạng thái ghi trong ngoặc và tỉ lệ hệ số, thay vì chỉ ghi nhớ tên phản ứng.\n\n> Trường hợp này được xây dựng theo quy tắc họ phản ứng. Cân bằng nguyên tử không tự chứng minh phản ứng đã được kiểm chứng thực nghiệm riêng cho mọi điều kiện.\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | CrCl3 |\n| Tên tiếng Anh | Chưa ghi |\n| Loại biểu diễn | Các nhóm ion |\n| Khối lượng tính từ bảng nguyên tử | 158,346 g/mol |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Cr | Crom | 1 | 51,996 |\n| Cl | Clo | 3 | 106,35 |\n\nTổng phép đếm là **4 nguyên tử** trong đơn vị được mô tả. Với chất ion hoặc tinh thể, cần nói rõ “đơn vị công thức”, tránh gọi phép đếm này là kích thước của một phân tử rời.\n\n## Từ công thức đến các nhóm ion\n\n| Nhóm | Điện tích | Số nhóm theo công thức |\n|---|---:|---:|\n| Cr | +3 | 1 |\n| Cl | -1 | 3 |\n\nTổng điện tích tính theo các nhóm trên là **0**. Phép cộng điện tích giúp kiểm tra tỉ lệ công thức; không xác định nồng độ, mức phân li, cân bằng hay lớp dung môi của mẫu thực.\n\n## Những ngã rẽ phản ứng cụ thể\n\n### 1. Axit – bazơ\n\n**Cr(OH)3(s) + 3HCl(aq) → CrCl3(aq) + 3H2O(l)**\n\n- **Điều kiện:** Axit HCl; lượng axit đủ để trung hòa hoàn toàn. Có thể cần làm ấm; tốc độ tùy mẫu rắn.\n- **Điều được mô tả:** Rắn có thể tan dần hoặc pH thay đổi; màu tùy ion và nồng độ. Không có chỉ thị thì không tự xuất hiện màu hồng.\n- **Giải thích:** Axit tiêu thụ nhóm bazơ/oxit tạo muối và nước; hệ số theo đương lượng, không gán nhiệt chung cho mọi axit.\n- **Giới hạn:** Có chất chứa Cr; dữ liệu học tập, cần quy trình và xử lý chất thải chuyên biệt khi thực nghiệm.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n- [OpenStax Chemistry 2e, 14.7 — Acid-Base Titrations](https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations) — Trung hòa axit–bazơ, lượng đương lượng và vai trò chỉ thị.\n\n### 2. Kết tủa\n\n**CrCl3(aq) + 3KOH(aq) → Cr(OH)3(s) + 3KCl(aq)**\n\n- **Điều kiện:** Dung dịch nước; lượng ion đủ để Q > Ksp. Kiềm được thêm có kiểm soát, không dư mạnh.\n- **Điều được mô tả:** Có thể tạo kết tủa Cr(OH)3 khi quá bão hòa; độ đục và tốc độ lắng chưa được hiệu chuẩn.\n- **Giải thích:** Ion Cr(3+) kết hợp với OH(1−) tạo pha ít tan; ion đối được giữ trong KCl.\n- **Giới hạn:** Có chất chứa Cr; dữ liệu học tập, cần quy trình và xử lý chất thải chuyên biệt khi thực nghiệm. Kiềm dư có thể hòa tan pha lưỡng tính; phương trình không áp dụng cho mọi tỷ lệ. Pha rắn dùng công thức quy ước không ghi nước hydrat; chưa xác định đa hình hoặc thành phần hydrat.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n- [Purdue University — Solubility and Complex-Ion Equilibria](https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/soluble.php) — Quy tắc độ tan và ngoại lệ; cần Q > Ksp ở điều kiện mẫu để kết tủa thực sự xuất hiện.\n- [OpenStax Chemistry 2e, 15.1 — Precipitation and Dissolution](https://openstax.org/books/chemistry-2e/pages/15-1-precipitation-and-dissolution) — Tích số tan, ion chung, điều kiện tạo và hòa tan pha rắn.\n\n## Bài tính: một mẫu crom(III) clorua theo đơn vị công thức\n\nGiả sử xét **0,100 mol** CrCl3 theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 51,996 + 3 × 35,45 = 158,346 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 158,346 = 15,8346 g**.\n3. Theo công thức, lượng nguyên tử Cl tương ứng là **3 × 0,100 = 0,3 mol nguyên tử Cl**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Nếu mẫu chứa dung môi, tạp chất hoặc phần nước kết tinh chưa được ghi trong công thức, phải điều chỉnh mô hình bài toán.\n\n## Tự kiểm tra và lời giải\n\n1. Trong CrCl3, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Tên chất đứng ở phía nào của phương trình đầu tiên? Điều kiện phản ứng có thể bỏ qua không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, Cl có 3 nguyên tử trong đơn vị công thức. crom(III) clorua nằm ở phía sản phẩm của ví dụ đầu. Điều kiện và loại bằng chứng phải được đọc cùng phương trình.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình crom(III) clorua](/tien-ich/cau-truc-3d/?compound=formula-CrCl3)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu chất trong danh mục phản ứng ChemDex](/shared/reaction-catalog.generated.json)\n\nTỉ lệ công thức không đồng nghĩa một phân tử riêng lẻ; biểu diễn nhóm ion và ô mạng cần được phân biệt.\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

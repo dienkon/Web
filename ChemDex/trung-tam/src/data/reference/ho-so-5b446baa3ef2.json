@@ -1,0 +1,35 @@
+{
+  "id": "ho-so-5b446baa3ef2",
+  "title": "Naphtalen — đọc cấu trúc, lần theo sự chuyển hóa",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "hopchat",
+  "summary": "Hồ sơ Naphtalen: C10H8, 18 nguyên tử trong đơn vị công thức; đối chiếu danh tính, dữ liệu cấu trúc và cách đọc những giới hạn của mô hình.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "C₁₀H₈",
+  "tags": [
+    "Hồ sơ chất",
+    "C10H8"
+  ],
+  "aliases": [
+    "Naphtalen",
+    "naphthalene",
+    "C10H8"
+  ],
+  "substanceIds": [
+    "cid-931"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 4,
+  "chemicalEvidence": {
+    "formula": "C10H8",
+    "representativeId": "cid-931",
+    "counts": {
+      "C": 10,
+      "H": 8
+    },
+    "mass": 128.17399999999998,
+    "material": false,
+    "reactionIds": []
+  },
+  "content": "## Câu chuyện: đọc danh tính của Naphtalen\n\nĐiểm xuất phát là C10H8: 10 C, 8 H. Những con số ấy là dấu vết đầu tiên để lần theo danh tính Naphtalen, nhưng chưa kể hết cách các thành phần sắp xếp trong không gian.\n\nĐịnh danh CID 931 giúp chọn đúng hồ sơ naphthalene thay vì lựa chọn chỉ theo số nguyên tử. Trong mô hình hiện tại có 18 nguyên tử của đơn vị công thức được biểu diễn. Hãy so sánh bảng thành phần với cấu trúc, rồi phân biệt thông tin được xác định bằng phép đếm với thông tin cần có nguồn tọa độ hoặc dữ liệu liên kết.\n\nKhông suy đồng phân hay cấu hình lập thể chỉ từ công thức tổng quát. Tên và định danh chất quyết định mô hình cần chọn.\n\nMô hình có dữ liệu từ NCI/CADD CACTVS computed coordinates. Một tệp tọa độ không tự mô tả mọi trạng thái dung dịch hoặc chuyển động nhiệt của chất.\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | C10H8 |\n| Tên tiếng Anh | naphthalene |\n| Loại biểu diễn | Công thức chất |\n| Khối lượng tính từ bảng nguyên tử | 128,174 g/mol |\n| PubChem CID | 931 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| C | Cacbon | 10 | 120,11 |\n| H | Hiđro | 8 | 8,064 |\n\nTổng phép đếm là **18 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Bài tính: một mẫu Naphtalen theo đơn vị công thức\n\nGiả sử xét **0,100 mol** C10H8 theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 10 × 12,011 + 8 × 1,008 = 128,174 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 128,174 = 12,8174 g**.\n3. Theo công thức, lượng nguyên tử C tương ứng là **10 × 0,100 = 1 mol nguyên tử C**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Nếu mẫu chứa dung môi, tạp chất hoặc phần nước kết tinh chưa được ghi trong công thức, phải điều chỉnh mô hình bài toán.\n\n## Tự kiểm tra và lời giải\n\n1. Trong C10H8, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Một công thức hoặc một mô hình tĩnh có đủ chứng minh mọi tính chất của mẫu thực không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, C có 10 nguyên tử trong đơn vị công thức. Không. Cần phân biệt danh tính, cấu trúc, pha, điều kiện và thành phần thực của mẫu.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Naphtalen](/tien-ich/cau-truc-3d/?compound=cid-931)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Nguồn tọa độ: NCI/CADD CACTVS computed coordinates](https://cactus.nci.nih.gov/chemical/structure/naphthalene/file?format=sdf&get3d=true)\n- [PubChem CID 931 — đối chiếu danh tính](https://pubchem.ncbi.nlm.nih.gov/compound/931)\n\nKhông suy đồng phân hay cấu hình lập thể chỉ từ công thức tổng quát. Tên và định danh chất quyết định mô hình cần chọn.\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

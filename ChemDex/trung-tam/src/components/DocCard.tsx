@@ -19,7 +19,7 @@ export function DocCard({ doc, onClick, isBookmarked, onToggleBookmark, onTagCli
       onClick={onClick}
     >
       <div className="relative aspect-[4/3] w-full rounded-xl bg-slate-900 overflow-hidden">
-        {doc.chemicalFormula ? <div className="flex h-full items-center justify-center bg-gradient-to-br from-slate-950 to-blue-950"><span className="font-mono text-5xl text-cyan-200">{doc.chemicalFormula}</span></div> : <img
+        {doc.chemicalFormula ? <div className="flex h-full items-center justify-center bg-gradient-to-br from-slate-950 to-blue-950 px-4"><span className="break-all text-center font-mono text-4xl text-cyan-200">{doc.chemicalFormula}</span></div> : <img
           src={doc.image} 
           alt={doc.title} 
           className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-transform duration-700 group-hover:scale-105"
@@ -52,7 +52,7 @@ export function DocCard({ doc, onClick, isBookmarked, onToggleBookmark, onTagCli
         <h3 className="font-bold text-white group-hover:text-blue-400 transition-colors line-clamp-2 mb-1" title={doc.title}>
           {doc.title}
         </h3>
-        <p className="text-xs text-slate-500 mb-3">{doc.author} • {Math.ceil(doc.summary.length / 50)} phút đọc</p>
+        <p className="text-xs text-slate-500 mb-3">{doc.author} • {doc.readingMinutes ?? Math.ceil(doc.summary.length / 50)} phút đọc</p>
         <p className="text-sm text-slate-400 line-clamp-2 leading-relaxed flex-1">
           {doc.summary}
         </p>

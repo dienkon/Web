@@ -1,0 +1,42 @@
+{
+  "id": "ho-so-aab6108d3106",
+  "title": "Dung dịch Sắt(II) clorua — đọc cấu trúc, lần theo sự chuyển hóa",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "hopchat",
+  "summary": "Theo dấu FeCl2 qua cacbonat và axit, kim loại đẩy kim loại, kim loại và axit; đọc thành phần, điều kiện và bài tính riêng của Dung dịch Sắt(II) clorua.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "FeCl₂",
+  "tags": [
+    "Hồ sơ chất",
+    "FeCl2",
+    "Cacbonat và axit",
+    "Kim loại đẩy kim loại",
+    "Kim loại và axit"
+  ],
+  "aliases": [
+    "Dung dịch Sắt(II) clorua",
+    "Iron(II) Chloride Solution",
+    "FeCl2"
+  ],
+  "substanceIds": [
+    "chem-fecl2"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 7,
+  "chemicalEvidence": {
+    "formula": "FeCl2",
+    "representativeId": "chem-fecl2",
+    "counts": {
+      "Fe": 1,
+      "Cl": 2
+    },
+    "mass": 126.745,
+    "material": false,
+    "reactionIds": [
+      "rx_a09b46c492fe7658",
+      "rx_9a9251bcf08a80f8",
+      "rx_0bb3505fce3d0def"
+    ]
+  },
+  "content": "## Câu chuyện: khi Dung dịch Sắt(II) clorua xuất hiện ở phía sản phẩm\n\nBắt đầu từ một câu hỏi cụ thể: những chất nào có thể được biểu diễn như tiền chất tạo FeCl2? Một trường hợp trong danh mục là:\n\n**FeCO3(s) + 2HCl(aq) → FeCl2(aq) + CO2(g) + H2O(l)**\n\nTrong trường hợp này, Dung dịch Sắt(II) clorua được đọc ở phía sản phẩm. Proton chuyển carbonate thành CO2 và nước; giữ đủ ion đối trong muối sản phẩm. Có bọt CO2 không màu tại vùng tiếp xúc.\n\nCâu chuyện chưa kết thúc ở phương trình: Axit đủ, CO2 thoát khỏi hệ; không có lớp muối ít tan chặn bề mặt.. Điểm cần theo dõi là danh tính chất, trạng thái ghi trong ngoặc và tỉ lệ hệ số, thay vì chỉ ghi nhớ tên phản ứng.\n\n> Trường hợp này được xây dựng theo quy tắc họ phản ứng. Cân bằng nguyên tử không tự chứng minh phản ứng đã được kiểm chứng thực nghiệm riêng cho mọi điều kiện.\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | FeCl2 |\n| Tên tiếng Anh | Iron(II) Chloride Solution |\n| Loại biểu diễn | Các nhóm ion |\n| Khối lượng tính từ bảng nguyên tử | 126,745 g/mol |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Fe | Sắt | 1 | 55,845 |\n| Cl | Clo | 2 | 70,9 |\n\nTổng phép đếm là **3 nguyên tử** trong đơn vị được mô tả. Với chất ion hoặc tinh thể, cần nói rõ “đơn vị công thức”, tránh gọi phép đếm này là kích thước của một phân tử rời.\n\n## Từ công thức đến các nhóm ion\n\n| Nhóm | Điện tích | Số nhóm theo công thức |\n|---|---:|---:|\n| Fe | +2 | 1 |\n| Cl | -1 | 2 |\n\nTổng điện tích tính theo các nhóm trên là **0**. Phép cộng điện tích giúp kiểm tra tỉ lệ công thức; không xác định nồng độ, mức phân li, cân bằng hay lớp dung môi của mẫu thực.\n\n## Những ngã rẽ phản ứng cụ thể\n\n### 1. Cacbonat và axit\n\n**FeCO3(s) + 2HCl(aq) → FeCl2(aq) + CO2(g) + H2O(l)**\n\n- **Điều kiện:** Axit đủ, CO2 thoát khỏi hệ; không có lớp muối ít tan chặn bề mặt.\n- **Điều được mô tả:** Có bọt CO2 không màu tại vùng tiếp xúc.\n- **Giải thích:** Proton chuyển carbonate thành CO2 và nước; giữ đủ ion đối trong muối sản phẩm.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n\n### 2. Kim loại đẩy kim loại\n\n**Fe(s) + CoCl2(aq) → FeCl2(aq) + Co(s)**\n\n- **Điều kiện:** Dung dịch muối không acid hóa mạnh; bề mặt kim loại hoạt động, không có ligand chi phối; chiều thuận theo thế điện cực.\n- **Điều được mô tả:** Có thể xuất hiện Co bám trên kim loại; tốc độ/hình thái phụ thuộc bề mặt.\n- **Giải thích:** Cặp Fe/Co có chênh lệch thế chuẩn thuận lợi; bảo toàn electron và ion đối.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành. Chiều nhiệt động không bảo đảm tốc độ hoặc độ chọn lọc trong mọi điều kiện.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 17.3 — Electrode and Cell Potentials](https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials) — Chiều phản ứng oxi hóa khử theo thế điện cực; không tự suy ra động học hoặc bỏ qua thụ động hóa.\n\n### 3. Kim loại và axit\n\n**Fe(s) + 2HCl(aq) → FeCl2(aq) + H2(g)**\n\n- **Điều kiện:** HCl loãng, bề mặt kim loại hoạt động; tốc độ tùy kim loại, có thể cần làm ấm.\n- **Điều được mô tả:** Kim loại tan và H2 không màu thoát ra khi phản ứng diễn ra.\n- **Giải thích:** Kim loại khử H+ của axit không oxi hóa thành H2; không mở rộng sang Cu, Ag hoặc acid oxi hóa.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành. Thế điện cực không xác định tốc độ; oxide/thụ động hóa có thể làm chậm.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n- [OpenStax Chemistry 2e, 17.3 — Electrode and Cell Potentials](https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials) — Chiều phản ứng oxi hóa khử theo thế điện cực; không tự suy ra động học hoặc bỏ qua thụ động hóa.\n\n## Bài tính: một mẫu Dung dịch Sắt(II) clorua theo đơn vị công thức\n\nGiả sử xét **0,100 mol** FeCl2 theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 55,845 + 2 × 35,45 = 126,745 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 126,745 = 12,6745 g**.\n3. Theo công thức, lượng nguyên tử Cl tương ứng là **2 × 0,100 = 0,2 mol nguyên tử Cl**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Nếu mẫu chứa dung môi, tạp chất hoặc phần nước kết tinh chưa được ghi trong công thức, phải điều chỉnh mô hình bài toán.\n\n## Tự kiểm tra và lời giải\n\n1. Trong FeCl2, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Tên chất đứng ở phía nào của phương trình đầu tiên? Điều kiện phản ứng có thể bỏ qua không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, Cl có 2 nguyên tử trong đơn vị công thức. Dung dịch Sắt(II) clorua nằm ở phía sản phẩm của ví dụ đầu. Điều kiện và loại bằng chứng phải được đọc cùng phương trình.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Dung dịch Sắt(II) clorua](/tien-ich/cau-truc-3d/?compound=chem-fecl2)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu chất trong danh mục phản ứng ChemDex](/shared/reaction-catalog.generated.json)\n\nTỉ lệ công thức không đồng nghĩa một phân tử riêng lẻ; biểu diễn nhóm ion và ô mạng cần được phân biệt.\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

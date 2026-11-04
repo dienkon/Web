@@ -20,6 +20,8 @@ export interface DocMeta {
   chemicalFormula?: string;
   aliases?: string[];
   substanceIds?: string[];
+  documentKind?: string;
+  readingMinutes?: number;
 }
 
 export interface DocFull extends DocMeta {

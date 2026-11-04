@@ -1,0 +1,39 @@
+{
+  "id": "ho-so-237ee5ea3e4f",
+  "title": "Chỉ thị bromothymol xanh (0,0001 M) — đọc cấu trúc, lần theo sự chuyển hóa",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "hopchat",
+  "summary": "Hồ sơ Chỉ thị bromothymol xanh (0,0001 M): C27H28Br2O5S, 63 nguyên tử trong đơn vị công thức; đối chiếu danh tính, dữ liệu cấu trúc và cách đọc những giới hạn của mô hình.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "C₂₇H₂₈Br₂O₅S",
+  "tags": [
+    "Hồ sơ chất",
+    "C27H28Br2O5S"
+  ],
+  "aliases": [
+    "Chỉ thị bromothymol xanh (0,0001 M)",
+    "Bromothymol blue indicator (0.0001 M)",
+    "C27H28Br2O5S",
+    "Bromothymol_Blue"
+  ],
+  "substanceIds": [
+    "lab3d-340"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 4,
+  "chemicalEvidence": {
+    "formula": "C27H28Br2O5S",
+    "representativeId": "lab3d-340",
+    "counts": {
+      "C": 27,
+      "H": 28,
+      "Br": 2,
+      "O": 5,
+      "S": 1
+    },
+    "mass": 624.384,
+    "material": false,
+    "reactionIds": []
+  },
+  "content": "## Câu chuyện: đọc danh tính của Chỉ thị bromothymol xanh (0,0001 M)\n\nĐiểm xuất phát là C27H28Br2O5S: 27 C, 28 H, 2 Br, 5 O, 1 S. Những con số ấy là dấu vết đầu tiên để lần theo danh tính Chỉ thị bromothymol xanh (0,0001 M), nhưng chưa kể hết cách các thành phần sắp xếp trong không gian.\n\nĐịnh danh CID 6450 giúp chọn đúng hồ sơ Bromothymol blue indicator (0.0001 M) thay vì lựa chọn chỉ theo số nguyên tử. Trong mô hình hiện tại có 63 nguyên tử của đơn vị công thức được biểu diễn. Hãy so sánh bảng thành phần với cấu trúc, rồi phân biệt thông tin được xác định bằng phép đếm với thông tin cần có nguồn tọa độ hoặc dữ liệu liên kết.\n\nKhông suy đồng phân hay cấu hình lập thể chỉ từ công thức tổng quát. Tên và định danh chất quyết định mô hình cần chọn.\n\nMô hình có dữ liệu từ PubChem computed 3D conformer. Một tệp tọa độ không tự mô tả mọi trạng thái dung dịch hoặc chuyển động nhiệt của chất.\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | C27H28Br2O5S |\n| Tên tiếng Anh | Bromothymol blue indicator (0.0001 M) |\n| Loại biểu diễn | Công thức chất |\n| Khối lượng tính từ bảng nguyên tử | 624,384 g/mol |\n| PubChem CID | 6450 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| C | Cacbon | 27 | 324,297 |\n| H | Hiđro | 28 | 28,224 |\n| Br | Brom | 2 | 159,808 |\n| O | Oxi | 5 | 79,995 |\n| S | Lưu huỳnh | 1 | 32,06 |\n\nTổng phép đếm là **63 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Bài tính: một mẫu Chỉ thị bromothymol xanh (0,0001 M) theo đơn vị công thức\n\nGiả sử xét **0,100 mol** C27H28Br2O5S theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 27 × 12,011 + 28 × 1,008 + 2 × 79,904 + 5 × 15,999 + 1 × 32,06 = 624,384 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 624,384 = 62,4384 g**.\n3. Theo công thức, lượng nguyên tử C tương ứng là **27 × 0,100 = 2,7 mol nguyên tử C**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Nếu mẫu chứa dung môi, tạp chất hoặc phần nước kết tinh chưa được ghi trong công thức, phải điều chỉnh mô hình bài toán.\n\n## Tự kiểm tra và lời giải\n\n1. Trong C27H28Br2O5S, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Một công thức hoặc một mô hình tĩnh có đủ chứng minh mọi tính chất của mẫu thực không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, H có 28 nguyên tử trong đơn vị công thức. Không. Cần phân biệt danh tính, cấu trúc, pha, điều kiện và thành phần thực của mẫu.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Chỉ thị bromothymol xanh (0,0001 M)](/tien-ich/cau-truc-3d/?compound=lab3d-340)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Nguồn tọa độ: PubChem computed 3D conformer](https://pubchem.ncbi.nlm.nih.gov/compound/6450)\n- [PubChem CID 6450 — đối chiếu danh tính](https://pubchem.ncbi.nlm.nih.gov/compound/6450)\n- [Nguồn định danh bổ sung](https://pubchem.ncbi.nlm.nih.gov/compound/6450)\n\nKhông suy đồng phân hay cấu hình lập thể chỉ từ công thức tổng quát. Tên và định danh chất quyết định mô hình cần chọn.\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

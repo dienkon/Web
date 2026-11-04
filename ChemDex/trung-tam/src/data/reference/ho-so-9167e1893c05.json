@@ -1,0 +1,39 @@
+{
+  "id": "ho-so-9167e1893c05",
+  "title": "HCOOC4H9 — đọc cấu trúc, lần theo sự chuyển hóa",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "hopchat",
+  "summary": "Theo dấu HCOOC4H9 qua este hóa, thủy phân este trong kiềm; đọc thành phần, điều kiện và bài tính riêng của HCOOC4H9.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "HCOOC₄H₉",
+  "tags": [
+    "Hồ sơ chất",
+    "HCOOC4H9",
+    "Este hóa",
+    "Thủy phân este trong kiềm"
+  ],
+  "aliases": [
+    "HCOOC4H9"
+  ],
+  "substanceIds": [
+    "formula-HCOOC4H9"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 6,
+  "chemicalEvidence": {
+    "formula": "HCOOC4H9",
+    "representativeId": "formula-HCOOC4H9",
+    "counts": {
+      "H": 10,
+      "C": 5,
+      "O": 2
+    },
+    "mass": 102.133,
+    "material": false,
+    "reactionIds": [
+      "rx_5f075cf047e55fb1",
+      "rx_2840cb45f5777cc1"
+    ]
+  },
+  "content": "## Câu chuyện: khi HCOOC4H9 xuất hiện ở phía sản phẩm\n\nBắt đầu từ một câu hỏi cụ thể: những chất nào có thể được biểu diễn như tiền chất tạo HCOOC4H9? Một trường hợp trong danh mục là:\n\n**HCOOH(l) + CH3CH2CH2CH2OH(l) ⇌ HCOOC4H9(l) + H2O(l)**\n\nTrong trường hợp này, HCOOC4H9 được đọc ở phía sản phẩm. Nhóm carboxyl và alcohol tạo este; phương trình cân bằng không khẳng định chuyển hóa 100%. Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n\nCâu chuyện chưa kết thúc ở phương trình: Alcohol và acid mạch thẳng đã chỉ rõ; xúc tác acid, làm ấm; cân bằng, tách nước hoặc dùng chất dư để tăng chuyển hóa.. Điểm cần theo dõi là danh tính chất, trạng thái ghi trong ngoặc và tỉ lệ hệ số, thay vì chỉ ghi nhớ tên phản ứng.\n\n> Trường hợp này được xây dựng theo quy tắc họ phản ứng. Cân bằng nguyên tử không tự chứng minh phản ứng đã được kiểm chứng thực nghiệm riêng cho mọi điều kiện.\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | HCOOC4H9 |\n| Tên tiếng Anh | Chưa ghi |\n| Loại biểu diễn | Công thức chất |\n| Khối lượng tính từ bảng nguyên tử | 102,133 g/mol |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| H | Hiđro | 10 | 10,08 |\n| C | Cacbon | 5 | 60,055 |\n| O | Oxi | 2 | 31,998 |\n\nTổng phép đếm là **17 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Những ngã rẽ phản ứng cụ thể\n\n### 1. Este hóa\n\n**HCOOH(l) + CH3CH2CH2CH2OH(l) ⇌ HCOOC4H9(l) + H2O(l)**\n\n- **Điều kiện:** Alcohol và acid mạch thẳng đã chỉ rõ; xúc tác acid, làm ấm; cân bằng, tách nước hoặc dùng chất dư để tăng chuyển hóa.\n- **Điều được mô tả:** Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n- **Giải thích:** Nhóm carboxyl và alcohol tạo este; phương trình cân bằng không khẳng định chuyển hóa 100%.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành. Nhóm alkyl chỉ mạch thẳng; không bao gồm đồng phân nhánh.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Organic Chemistry — Chemistry of Esters](https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters) — Họ este hóa, thủy phân và xà phòng hóa; đồng phân được xác định bằng công thức cấu tạo thu gọn.\n\n### 2. Thủy phân este trong kiềm\n\n**HCOOC4H9(l) + KOH(aq) → HCOOK(aq) + CH3CH2CH2CH2OH(aq)**\n\n- **Điều kiện:** Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha.\n- **Điều được mô tả:** Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n- **Giải thích:** Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Organic Chemistry — Chemistry of Esters](https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters) — Họ este hóa, thủy phân và xà phòng hóa; đồng phân được xác định bằng công thức cấu tạo thu gọn.\n\n## Bài tính: một mẫu HCOOC4H9 theo đơn vị công thức\n\nGiả sử xét **0,100 mol** HCOOC4H9 theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 10 × 1,008 + 5 × 12,011 + 2 × 15,999 = 102,133 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 102,133 = 10,2133 g**.\n3. Theo công thức, lượng nguyên tử H tương ứng là **10 × 0,100 = 1 mol nguyên tử H**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Nếu mẫu chứa dung môi, tạp chất hoặc phần nước kết tinh chưa được ghi trong công thức, phải điều chỉnh mô hình bài toán.\n\n## Tự kiểm tra và lời giải\n\n1. Trong HCOOC4H9, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Tên chất đứng ở phía nào của phương trình đầu tiên? Điều kiện phản ứng có thể bỏ qua không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, H có 10 nguyên tử trong đơn vị công thức. HCOOC4H9 nằm ở phía sản phẩm của ví dụ đầu. Điều kiện và loại bằng chứng phải được đọc cùng phương trình.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình HCOOC4H9](/tien-ich/cau-truc-3d/?compound=formula-HCOOC4H9)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu chất trong danh mục phản ứng ChemDex](/shared/reaction-catalog.generated.json)\n\nKhông suy đồng phân hay cấu hình lập thể chỉ từ công thức tổng quát. Tên và định danh chất quyết định mô hình cần chọn.\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

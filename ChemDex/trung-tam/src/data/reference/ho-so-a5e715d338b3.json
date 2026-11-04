@@ -1,0 +1,43 @@
+{
+  "id": "ho-so-a5e715d338b3",
+  "title": "Kẽm hiđroxit — đọc cấu trúc, lần theo sự chuyển hóa",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "hopchat",
+  "summary": "Theo dấu Zn(OH)2 qua chất lưỡng tính, axit – bazơ, kết tủa; đọc thành phần, điều kiện và bài tính riêng của Kẽm hiđroxit.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "Zn(OH)₂",
+  "tags": [
+    "Hồ sơ chất",
+    "Zn(OH)2",
+    "Chất lưỡng tính",
+    "Axit – bazơ",
+    "Kết tủa"
+  ],
+  "aliases": [
+    "Kẽm hiđroxit",
+    "Zinc Hydroxide",
+    "Zn(OH)2"
+  ],
+  "substanceIds": [
+    "chem-znoh2"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 8,
+  "chemicalEvidence": {
+    "formula": "Zn(OH)2",
+    "representativeId": "chem-znoh2",
+    "counts": {
+      "Zn": 1,
+      "O": 2,
+      "H": 2
+    },
+    "mass": 99.394,
+    "material": false,
+    "reactionIds": [
+      "rx_55e90724b361ff3b",
+      "rx_4c5db0566d75526f",
+      "rx_27de13a3a6b34f6e"
+    ]
+  },
+  "content": "## Câu chuyện: khi Kẽm hiđroxit xuất hiện ở phía sản phẩm\n\nBắt đầu từ một câu hỏi cụ thể: những chất nào có thể được biểu diễn như tiền chất tạo Zn(OH)2? Một trường hợp trong danh mục là:\n\n**Na2Zn(OH)4(aq) + 2HCl(aq) → Zn(OH)2(s) + 2NaCl(aq) + 2H2O(l)**\n\nTrong trường hợp này, Kẽm hiđroxit được đọc ở phía sản phẩm. Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng. Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n\nCâu chuyện chưa kết thúc ở phương trình: Thêm acid có kiểm soát đến vùng kết tủa; acid dư làm tan tiếp.. Điểm cần theo dõi là danh tính chất, trạng thái ghi trong ngoặc và tỉ lệ hệ số, thay vì chỉ ghi nhớ tên phản ứng.\n\n> Xem nguồn của phương trình và phạm vi áp dụng bên dưới.\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | Zn(OH)2 |\n| Tên tiếng Anh | Zinc Hydroxide |\n| Loại biểu diễn | Các nhóm ion |\n| Khối lượng tính từ bảng nguyên tử | 99,394 g/mol |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Zn | Kẽm | 1 | 65,38 |\n| O | Oxi | 2 | 31,998 |\n| H | Hiđro | 2 | 2,016 |\n\nTổng phép đếm là **5 nguyên tử** trong đơn vị được mô tả. Với chất ion hoặc tinh thể, cần nói rõ “đơn vị công thức”, tránh gọi phép đếm này là kích thước của một phân tử rời.\n\n## Từ công thức đến các nhóm ion\n\n| Nhóm | Điện tích | Số nhóm theo công thức |\n|---|---:|---:|\n| Zn | +2 | 1 |\n| OH | -1 | 2 |\n\nTổng điện tích tính theo các nhóm trên là **0**. Phép cộng điện tích giúp kiểm tra tỉ lệ công thức; không xác định nồng độ, mức phân li, cân bằng hay lớp dung môi của mẫu thực.\n\n## Những ngã rẽ phản ứng cụ thể\n\n### 1. Chất lưỡng tính\n\n**Na2Zn(OH)4(aq) + 2HCl(aq) → Zn(OH)2(s) + 2NaCl(aq) + 2H2O(l)**\n\n- **Điều kiện:** Thêm acid có kiểm soát đến vùng kết tủa; acid dư làm tan tiếp.\n- **Điều được mô tả:** Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n- **Giải thích:** Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** established-transformation\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n\n### 2. Axit – bazơ\n\n**Zn(OH)2(s) + 2CH3COOH(aq) → Zn(CH3COO)2(aq) + 2H2O(l)**\n\n- **Điều kiện:** Axit CH3COOH; lượng axit đủ để trung hòa hoàn toàn.\n- **Điều được mô tả:** Rắn có thể tan dần hoặc pH thay đổi; màu tùy ion và nồng độ. Không có chỉ thị thì không tự xuất hiện màu hồng.\n- **Giải thích:** Axit tiêu thụ nhóm bazơ/oxit tạo muối và nước; hệ số theo đương lượng, không gán nhiệt chung cho mọi axit.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n- [OpenStax Chemistry 2e, 14.7 — Acid-Base Titrations](https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations) — Trung hòa axit–bazơ, lượng đương lượng và vai trò chỉ thị.\n\n### 3. Kết tủa\n\n**Zn(CH3COO)2(aq) + 2KOH(aq) → Zn(OH)2(s) + 2CH3COOK(aq)**\n\n- **Điều kiện:** Dung dịch nước; lượng ion đủ để Q > Ksp. Kiềm được thêm có kiểm soát, không dư mạnh.\n- **Điều được mô tả:** Có thể tạo kết tủa Zn(OH)2 khi quá bão hòa; độ đục và tốc độ lắng chưa được hiệu chuẩn.\n- **Giải thích:** Ion Zn(2+) kết hợp với OH(1−) tạo pha ít tan; ion đối được giữ trong CH3COOK.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành. Kiềm dư có thể hòa tan pha lưỡng tính; phương trình không áp dụng cho mọi tỷ lệ. Pha rắn dùng công thức quy ước không ghi nước hydrat; chưa xác định đa hình hoặc thành phần hydrat.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n- [Purdue University — Solubility and Complex-Ion Equilibria](https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/soluble.php) — Quy tắc độ tan và ngoại lệ; cần Q > Ksp ở điều kiện mẫu để kết tủa thực sự xuất hiện.\n- [OpenStax Chemistry 2e, 15.1 — Precipitation and Dissolution](https://openstax.org/books/chemistry-2e/pages/15-1-precipitation-and-dissolution) — Tích số tan, ion chung, điều kiện tạo và hòa tan pha rắn.\n\n## Bài tính: một mẫu Kẽm hiđroxit theo đơn vị công thức\n\nGiả sử xét **0,100 mol** Zn(OH)2 theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 65,38 + 2 × 15,999 + 2 × 1,008 = 99,394 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 99,394 = 9,9394 g**.\n3. Theo công thức, lượng nguyên tử O tương ứng là **2 × 0,100 = 0,2 mol nguyên tử O**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Nếu mẫu chứa dung môi, tạp chất hoặc phần nước kết tinh chưa được ghi trong công thức, phải điều chỉnh mô hình bài toán.\n\n## Tự kiểm tra và lời giải\n\n1. Trong Zn(OH)2, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Tên chất đứng ở phía nào của phương trình đầu tiên? Điều kiện phản ứng có thể bỏ qua không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, O có 2 nguyên tử; H có 2 nguyên tử trong đơn vị công thức. Kẽm hiđroxit nằm ở phía sản phẩm của ví dụ đầu. Điều kiện và loại bằng chứng phải được đọc cùng phương trình.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Kẽm hiđroxit](/tien-ich/cau-truc-3d/?compound=chem-znoh2)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu chất trong danh mục phản ứng ChemDex](/shared/reaction-catalog.generated.json)\n\nTỉ lệ công thức không đồng nghĩa một phân tử riêng lẻ; biểu diễn nhóm ion và ô mạng cần được phân biệt.\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

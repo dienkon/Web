@@ -36,7 +36,7 @@ for(const c of coverage) add({...c,id:c.chemicalId,lab:true});
 for(const s of species) if(![...curated,...records].some(c=>c.formula===s.formula)) add({...s,id:`formula-${s.formula}`,name_vi:s.name_vi??s.formula});
 for(const s of CHEMICAL_DATABASE) {
   let formula;try{formula=identities[s.formula]?.formula??structureFormula(s.formula);compositionKey(formula);}catch{rejected.push({formula:s.formula,reason:'Nhãn vật liệu hoặc hỗn hợp, không phải công thức phân tử xác định.'});continue;}
-  const existing=records.find(c=> identities[s.formula] ? c.aliases.includes(s.formula) : c.formula===formula);
+  const existing=records.find(c=> identities[s.formula] ? c.aliases.includes(s.formula) : !c.material && c.formula===formula);
   if(existing) {existing.aliases.push(s.formula,s.name_vi,s.name_en);existing.lab=true;continue;}
   add({...s,id:`lab3d-${records.length}`,name_vi:s.name_vi,name_en:s.name_en,lab:true});
 }

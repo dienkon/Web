@@ -1,0 +1,44 @@
+{
+  "id": "ho-so-4fd95536f2a7",
+  "title": "niken(II) sunfat — đọc cấu trúc, lần theo sự chuyển hóa",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "hopchat",
+  "summary": "Theo dấu NiSO4 qua kim loại đẩy kim loại, kim loại và axit, axit – bazơ; đọc thành phần, điều kiện và bài tính riêng của niken(II) sunfat.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "NiSO₄",
+  "tags": [
+    "Hồ sơ chất",
+    "NiSO4",
+    "Kim loại đẩy kim loại",
+    "Kim loại và axit",
+    "Axit – bazơ"
+  ],
+  "aliases": [
+    "niken(II) sunfat",
+    "NiSO4",
+    "Niken(II) Sunfat (0.1M Xanh Lục Bảo)",
+    "Nickel(II) Sulfate (0.1M)"
+  ],
+  "substanceIds": [
+    "formula-NiSO4"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 7,
+  "chemicalEvidence": {
+    "formula": "NiSO4",
+    "representativeId": "formula-NiSO4",
+    "counts": {
+      "Ni": 1,
+      "S": 1,
+      "O": 4
+    },
+    "mass": 154.749,
+    "material": false,
+    "reactionIds": [
+      "rx_11284c63cdfc7de6",
+      "rx_b60b632064cb2887",
+      "rx_1815a5a3c80ab5b7"
+    ]
+  },
+  "content": "## Câu chuyện: khi niken(II) sunfat tham gia phản ứng\n\nBắt đầu từ một câu hỏi cụ thể: từ NiSO4, các nguyên tử sẽ phân bố vào sản phẩm như thế nào sau chuyển hóa? Một trường hợp trong danh mục là:\n\n**Cd(s) + NiSO4(aq) → CdSO4(aq) + Ni(s)**\n\nTrong trường hợp này, niken(II) sunfat được đọc ở phía chất phản ứng. Cặp Cd/Ni có chênh lệch thế chuẩn thuận lợi; bảo toàn electron và ion đối. Có thể xuất hiện Ni bám trên kim loại; tốc độ/hình thái phụ thuộc bề mặt.\n\nCâu chuyện chưa kết thúc ở phương trình: Dung dịch muối không acid hóa mạnh; bề mặt kim loại hoạt động, không có ligand chi phối; chiều thuận theo thế điện cực.. Điểm cần theo dõi là danh tính chất, trạng thái ghi trong ngoặc và tỉ lệ hệ số, thay vì chỉ ghi nhớ tên phản ứng.\n\n> Trường hợp này được xây dựng theo quy tắc họ phản ứng. Cân bằng nguyên tử không tự chứng minh phản ứng đã được kiểm chứng thực nghiệm riêng cho mọi điều kiện.\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | NiSO4 |\n| Tên tiếng Anh | Chưa ghi |\n| Loại biểu diễn | Các nhóm ion |\n| Khối lượng tính từ bảng nguyên tử | 154,749 g/mol |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Ni | Niken | 1 | 58,693 |\n| S | Lưu huỳnh | 1 | 32,06 |\n| O | Oxi | 4 | 63,996 |\n\nTổng phép đếm là **6 nguyên tử** trong đơn vị được mô tả. Với chất ion hoặc tinh thể, cần nói rõ “đơn vị công thức”, tránh gọi phép đếm này là kích thước của một phân tử rời.\n\n## Từ công thức đến các nhóm ion\n\n| Nhóm | Điện tích | Số nhóm theo công thức |\n|---|---:|---:|\n| Ni | +2 | 1 |\n| SO4 | -2 | 1 |\n\nTổng điện tích tính theo các nhóm trên là **0**. Phép cộng điện tích giúp kiểm tra tỉ lệ công thức; không xác định nồng độ, mức phân li, cân bằng hay lớp dung môi của mẫu thực.\n\n## Những ngã rẽ phản ứng cụ thể\n\n### 1. Kim loại đẩy kim loại\n\n**Cd(s) + NiSO4(aq) → CdSO4(aq) + Ni(s)**\n\n- **Điều kiện:** Dung dịch muối không acid hóa mạnh; bề mặt kim loại hoạt động, không có ligand chi phối; chiều thuận theo thế điện cực.\n- **Điều được mô tả:** Có thể xuất hiện Ni bám trên kim loại; tốc độ/hình thái phụ thuộc bề mặt.\n- **Giải thích:** Cặp Cd/Ni có chênh lệch thế chuẩn thuận lợi; bảo toàn electron và ion đối.\n- **Giới hạn:** Có chất chứa Cd; dữ liệu học tập, cần quy trình và xử lý chất thải chuyên biệt khi thực nghiệm. Chiều nhiệt động không bảo đảm tốc độ hoặc độ chọn lọc trong mọi điều kiện.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 17.3 — Electrode and Cell Potentials](https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials) — Chiều phản ứng oxi hóa khử theo thế điện cực; không tự suy ra động học hoặc bỏ qua thụ động hóa.\n\n### 2. Kim loại và axit\n\n**Ni(s) + H2SO4(aq) → NiSO4(aq) + H2(g)**\n\n- **Điều kiện:** H2SO4 loãng, bề mặt kim loại hoạt động; tốc độ tùy kim loại, có thể cần làm ấm.\n- **Điều được mô tả:** Kim loại tan và H2 không màu thoát ra khi phản ứng diễn ra.\n- **Giải thích:** Kim loại khử H+ của axit không oxi hóa thành H2; không mở rộng sang Cu, Ag hoặc acid oxi hóa.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành. Thế điện cực không xác định tốc độ; oxide/thụ động hóa có thể làm chậm.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n- [OpenStax Chemistry 2e, 17.3 — Electrode and Cell Potentials](https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials) — Chiều phản ứng oxi hóa khử theo thế điện cực; không tự suy ra động học hoặc bỏ qua thụ động hóa.\n\n### 3. Axit – bazơ\n\n**Ni(OH)2(s) + H2SO4(aq) → NiSO4(aq) + 2H2O(l)**\n\n- **Điều kiện:** Axit H2SO4 loãng; lượng axit đủ để trung hòa hoàn toàn.\n- **Điều được mô tả:** Rắn có thể tan dần hoặc pH thay đổi; màu tùy ion và nồng độ. Không có chỉ thị thì không tự xuất hiện màu hồng.\n- **Giải thích:** Axit tiêu thụ nhóm bazơ/oxit tạo muối và nước; hệ số theo đương lượng, không gán nhiệt chung cho mọi axit.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành. Phương trình là trung hòa hoàn toàn; acid dư có thể tạo muối acid.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n- [OpenStax Chemistry 2e, 14.7 — Acid-Base Titrations](https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations) — Trung hòa axit–bazơ, lượng đương lượng và vai trò chỉ thị.\n\n## Bài tính: một mẫu niken(II) sunfat theo đơn vị công thức\n\nGiả sử xét **0,100 mol** NiSO4 theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 58,693 + 1 × 32,06 + 4 × 15,999 = 154,749 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 154,749 = 15,4749 g**.\n3. Theo công thức, lượng nguyên tử O tương ứng là **4 × 0,100 = 0,4 mol nguyên tử O**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Nếu mẫu chứa dung môi, tạp chất hoặc phần nước kết tinh chưa được ghi trong công thức, phải điều chỉnh mô hình bài toán.\n\n## Tự kiểm tra và lời giải\n\n1. Trong NiSO4, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Tên chất đứng ở phía nào của phương trình đầu tiên? Điều kiện phản ứng có thể bỏ qua không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, O có 4 nguyên tử trong đơn vị công thức. niken(II) sunfat nằm ở phía chất phản ứng của ví dụ đầu. Điều kiện và loại bằng chứng phải được đọc cùng phương trình.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình niken(II) sunfat](/tien-ich/cau-truc-3d/?compound=formula-NiSO4)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu chất trong danh mục phản ứng ChemDex](/shared/reaction-catalog.generated.json)\n\nTỉ lệ công thức không đồng nghĩa một phân tử riêng lẻ; biểu diễn nhóm ion và ô mạng cần được phân biệt.\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

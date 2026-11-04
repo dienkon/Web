@@ -1,0 +1,34 @@
+{
+  "id": "ho-so-907f9222f383",
+  "title": "Flo (F) — hồ sơ nguyên tố và hành trình khám phá",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "nguyento",
+  "summary": "Hồ sơ Flo: F, 1 nguyên tử trong đơn vị công thức; đối chiếu danh tính, dữ liệu cấu trúc và cách đọc những giới hạn của mô hình.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "F",
+  "tags": [
+    "Nguyên tố",
+    "F"
+  ],
+  "aliases": [
+    "Flo",
+    "Fluorine",
+    "F"
+  ],
+  "substanceIds": [
+    "atom-F"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 4,
+  "chemicalEvidence": {
+    "formula": "F",
+    "representativeId": "atom-F",
+    "counts": {
+      "F": 1
+    },
+    "mass": 18.998,
+    "material": false,
+    "reactionIds": []
+  },
+  "content": "## Câu chuyện: hành trình của Flo\n\nFluorine là nguyên tố rất khó cô lập do tính Oxy hóa cực mạnh. Năm 1886, Henri Moissan lần đầu tiên điều chế được Fluorine dạng đơn chất bằng phương pháp điện phân hỗn hợp Hydrogen fluoride và Potassium fluoride nóng chảy. Ông được trao giải Nobel Hóa học năm 1906 cho công trình nghiên cứu Fluorine.\n\n**Người/nhóm được ghi trong dữ liệu:** Henri Moissan. **Mốc ghi nhận:** 1886. \n\n*Phần lịch sử được chuyển từ bài nguyên tố ChemDex hiện có; liên kết nguồn đối chiếu nằm cuối bài.*\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | F |\n| Tên tiếng Anh | Fluorine |\n| Loại biểu diễn | Nguyên tử |\n| Khối lượng tính từ bảng nguyên tử | 18,998 g/mol |\n| Số hiệu nguyên tử | 9 |\n| Nhóm / chu kỳ | 17 / 2 |\n| Cấu hình electron | 1s² 2s² 2p⁵ |\n| Số oxi hóa được ghi | −1, 0 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| F | Flo | 1 | 18,998 |\n\nTổng phép đếm là **1 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Cấu trúc và những vai trò được ghi nhận\n\n- **Sản xuất Fluoride:** Fluorine được sử dụng để sản xuất nhiều hợp chất Fluoride.\n- **Công nghiệp hạt nhân:** Một số hợp chất Fluorine, đặc biệt Uranium hexafluoride (UF₆), được sử dụng trong quá trình xử lý và làm giàu Uranium.\n- **Vật liệu chống dính:** Fluorine được sử dụng để sản xuất các polymer chứa Fluorine như PTFE.\n- **Công nghiệp hóa chất:** Sản xuất nhiều hợp chất Fluorine dùng trong hóa chất và vật liệu kỹ thuật.\n- **Y học:** ¹⁸F được sử dụng trong Positron Emission Tomography (PET) để tạo các chất đánh dấu phóng xạ.\n- **Kem đánh răng:** Fluoride compounds như Sodium fluoride được sử dụng để giúp bảo vệ men răng.\n- **Làm lạnh:** Một số hợp chất Fluorine được sử dụng làm môi chất lạnh.\n\nCác mô tả ứng dụng được chuyển từ dữ liệu nguyên tố ChemDex hiện có; không suy rằng mọi hợp chất chứa nguyên tố này có cùng tính chất.\n\n## Bài tính: một mẫu Flo theo đơn vị công thức\n\nGiả sử xét **0,100 mol** F theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 18,998 = 18,998 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 18,998 = 1,8998 g**.\n3. Theo công thức, lượng nguyên tử F tương ứng là **1 × 0,100 = 0,1 mol nguyên tử F**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Với mẫu đồng vị cụ thể cần thay đúng khối lượng đồng vị.\n\n## Tự kiểm tra và lời giải\n\n1. Trong F, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Một công thức hoặc một mô hình tĩnh có đủ chứng minh mọi tính chất của mẫu thực không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, F có 1 nguyên tử trong đơn vị công thức. Không. Cần phân biệt danh tính, cấu trúc, pha, điều kiện và thành phần thực của mẫu.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Flo](/tien-ich/cau-truc-3d/?compound=atom-F)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu nguyên tố ChemDex](/data/elements/009_F.json)\n- [CIAAW — khối lượng nguyên tử chuẩn](https://ciaaw.org/abridged-atomic-weights.htm)\n\n\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

@@ -1,0 +1,33 @@
+{
+  "id": "ho-so-c80edf66a700",
+  "title": "Strontium (Sr) — hồ sơ nguyên tố và hành trình khám phá",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "nguyento",
+  "summary": "Hồ sơ Strontium: Sr, 1 nguyên tử trong đơn vị công thức; đối chiếu danh tính, dữ liệu cấu trúc và cách đọc những giới hạn của mô hình.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "Sr",
+  "tags": [
+    "Nguyên tố",
+    "Sr"
+  ],
+  "aliases": [
+    "Strontium",
+    "Sr"
+  ],
+  "substanceIds": [
+    "atom-Sr"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 4,
+  "chemicalEvidence": {
+    "formula": "Sr",
+    "representativeId": "atom-Sr",
+    "counts": {
+      "Sr": 1
+    },
+    "mass": 87.62,
+    "material": false,
+    "reactionIds": []
+  },
+  "content": "## Câu chuyện: hành trình của Strontium\n\nNăm 1790, Adair Crawford nhận ra một khoáng vật được tìm thấy gần Strontian, Scotland có tính chất khác với các hợp chất Barium đã biết. Đến năm 1808, Humphry Davy lần đầu tiên cô lập được Strontium kim loại bằng phương pháp điện phân.\n\n**Người/nhóm được ghi trong dữ liệu:** Adair Crawford. **Mốc ghi nhận:** 1790. \n\n*Phần lịch sử được chuyển từ bài nguyên tố ChemDex hiện có; liên kết nguồn đối chiếu nằm cuối bài.*\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | Sr |\n| Tên tiếng Anh | Strontium |\n| Loại biểu diễn | Nguyên tử |\n| Khối lượng tính từ bảng nguyên tử | 87,62 g/mol |\n| Số hiệu nguyên tử | 38 |\n| Nhóm / chu kỳ | 2 / 5 |\n| Cấu hình electron | [Kr] 5s² |\n| Số oxi hóa được ghi | +2 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Sr | Strontium | 1 | 87,62 |\n\nTổng phép đếm là **1 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Cấu trúc và những vai trò được ghi nhận\n\n- **Pháo hoa:** Strontium compounds tạo màu đỏ đặc trưng trong pháo hoa và pháo sáng.\n- **Tín hiệu cảnh báo:** Một số Strontium compounds được sử dụng trong pháo sáng và thiết bị tín hiệu.\n- **Nam châm Ferrite:** Strontium ferrite được sử dụng để sản xuất nam châm Ferrite.\n- **Gốm:** Một số Strontium compounds được sử dụng trong vật liệu gốm và điện tử.\n- **Kính:** Strontium được sử dụng trong một số loại kính chuyên dụng.\n- **Y học:** Một số Strontium compounds/radioisotopes có ứng dụng trong nghiên cứu và y học dưới sự kiểm soát chuyên môn.\n\nCác mô tả ứng dụng được chuyển từ dữ liệu nguyên tố ChemDex hiện có; không suy rằng mọi hợp chất chứa nguyên tố này có cùng tính chất.\n\n## Bài tính: một mẫu Strontium theo đơn vị công thức\n\nGiả sử xét **0,100 mol** Sr theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 87,62 = 87,62 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 87,62 = 8,762 g**.\n3. Theo công thức, lượng nguyên tử Sr tương ứng là **1 × 0,100 = 0,1 mol nguyên tử Sr**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Với mẫu đồng vị cụ thể cần thay đúng khối lượng đồng vị.\n\n## Tự kiểm tra và lời giải\n\n1. Trong Sr, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Một công thức hoặc một mô hình tĩnh có đủ chứng minh mọi tính chất của mẫu thực không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, Sr có 1 nguyên tử trong đơn vị công thức. Không. Cần phân biệt danh tính, cấu trúc, pha, điều kiện và thành phần thực của mẫu.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Strontium](/tien-ich/cau-truc-3d/?compound=atom-Sr)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu nguyên tố ChemDex](/data/elements/038_Sr.json)\n- [CIAAW — khối lượng nguyên tử chuẩn](https://ciaaw.org/abridged-atomic-weights.htm)\n\n\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

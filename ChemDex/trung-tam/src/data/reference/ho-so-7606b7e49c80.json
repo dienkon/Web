@@ -1,0 +1,48 @@
+{
+  "id": "ho-so-7606b7e49c80",
+  "title": "Axit nitric — đọc cấu trúc, lần theo sự chuyển hóa",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "hopchat",
+  "summary": "Theo dấu HNO3 qua cacbonat và axit, axit – bazơ, oxit và axit; đọc thành phần, điều kiện và bài tính riêng của Axit nitric.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "HNO₃",
+  "tags": [
+    "Hồ sơ chất",
+    "HNO3",
+    "Cacbonat và axit",
+    "Axit – bazơ",
+    "Oxit và axit"
+  ],
+  "aliases": [
+    "Axit nitric",
+    "nitric acid",
+    "HNO3",
+    "Nitric Acid",
+    "HNO3 (conc)",
+    "Axit Nitric (Đặc 68%)",
+    "Nitric Acid (Conc 68%)"
+  ],
+  "substanceIds": [
+    "cid-944",
+    "chem-hno3"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 7,
+  "chemicalEvidence": {
+    "formula": "HNO3",
+    "representativeId": "cid-944",
+    "counts": {
+      "H": 1,
+      "N": 1,
+      "O": 3
+    },
+    "mass": 63.012,
+    "material": false,
+    "reactionIds": [
+      "rx_be6a3b24d8533286",
+      "rx_f6e85d3d17a75094",
+      "rx_dc661f241dfcd96b"
+    ]
+  },
+  "content": "## Câu chuyện: khi Axit nitric tham gia phản ứng\n\nBắt đầu từ một câu hỏi cụ thể: từ HNO3, các nguyên tử sẽ phân bố vào sản phẩm như thế nào sau chuyển hóa? Một trường hợp trong danh mục là:\n\n**Ag2CO3(s) + 2HNO3(aq) → 2AgNO3(aq) + CO2(g) + H2O(l)**\n\nTrong trường hợp này, Axit nitric được đọc ở phía chất phản ứng. Proton chuyển carbonate thành CO2 và nước; giữ đủ ion đối trong muối sản phẩm. Có bọt CO2 không màu tại vùng tiếp xúc.\n\nCâu chuyện chưa kết thúc ở phương trình: Axit đủ, CO2 thoát khỏi hệ; không có lớp muối ít tan chặn bề mặt.. Điểm cần theo dõi là danh tính chất, trạng thái ghi trong ngoặc và tỉ lệ hệ số, thay vì chỉ ghi nhớ tên phản ứng.\n\n> Trường hợp này được xây dựng theo quy tắc họ phản ứng. Cân bằng nguyên tử không tự chứng minh phản ứng đã được kiểm chứng thực nghiệm riêng cho mọi điều kiện.\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | HNO3 |\n| Tên tiếng Anh | nitric acid |\n| Loại biểu diễn | Các nhóm ion |\n| Khối lượng tính từ bảng nguyên tử | 63,012 g/mol |\n| PubChem CID | 944 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| H | Hiđro | 1 | 1,008 |\n| N | Nitơ | 1 | 14,007 |\n| O | Oxi | 3 | 47,997 |\n\nTổng phép đếm là **5 nguyên tử** trong đơn vị được mô tả. Với chất ion hoặc tinh thể, cần nói rõ “đơn vị công thức”, tránh gọi phép đếm này là kích thước của một phân tử rời.\n\n## Từ công thức đến các nhóm ion\n\n| Nhóm | Điện tích | Số nhóm theo công thức |\n|---|---:|---:|\n| H | +1 | 1 |\n| NO3 | -1 | 1 |\n\nTổng điện tích tính theo các nhóm trên là **0**. Phép cộng điện tích giúp kiểm tra tỉ lệ công thức; không xác định nồng độ, mức phân li, cân bằng hay lớp dung môi của mẫu thực.\n\n## Những ngã rẽ phản ứng cụ thể\n\n### 1. Cacbonat và axit\n\n**Ag2CO3(s) + 2HNO3(aq) → 2AgNO3(aq) + CO2(g) + H2O(l)**\n\n- **Điều kiện:** Axit đủ, CO2 thoát khỏi hệ; không có lớp muối ít tan chặn bề mặt.\n- **Điều được mô tả:** Có bọt CO2 không màu tại vùng tiếp xúc.\n- **Giải thích:** Proton chuyển carbonate thành CO2 và nước; giữ đủ ion đối trong muối sản phẩm.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n\n### 2. Axit – bazơ\n\n**Al(OH)3(s) + 3HNO3(aq) → Al(NO3)3(aq) + 3H2O(l)**\n\n- **Điều kiện:** Axit HNO3; lượng axit đủ để trung hòa hoàn toàn. Có thể cần làm ấm; tốc độ tùy mẫu rắn.\n- **Điều được mô tả:** Rắn có thể tan dần hoặc pH thay đổi; màu tùy ion và nồng độ. Không có chỉ thị thì không tự xuất hiện màu hồng.\n- **Giải thích:** Axit tiêu thụ nhóm bazơ/oxit tạo muối và nước; hệ số theo đương lượng, không gán nhiệt chung cho mọi axit.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n- [OpenStax Chemistry 2e, 14.7 — Acid-Base Titrations](https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations) — Trung hòa axit–bazơ, lượng đương lượng và vai trò chỉ thị.\n\n### 3. Oxit và axit\n\n**Ag2O(s) + 2HNO3(aq) → 2AgNO3(aq) + H2O(l)**\n\n- **Điều kiện:** Axit HNO3; lượng axit đủ để trung hòa hoàn toàn. Có thể cần làm ấm; tốc độ tùy mẫu rắn.\n- **Điều được mô tả:** Rắn có thể tan dần hoặc pH thay đổi; màu tùy ion và nồng độ. Không có chỉ thị thì không tự xuất hiện màu hồng.\n- **Giải thích:** Axit tiêu thụ nhóm bazơ/oxit tạo muối và nước; hệ số theo đương lượng, không gán nhiệt chung cho mọi axit.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n- [OpenStax Chemistry 2e, 14.7 — Acid-Base Titrations](https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations) — Trung hòa axit–bazơ, lượng đương lượng và vai trò chỉ thị.\n\n## Bài tính: một mẫu Axit nitric theo đơn vị công thức\n\nGiả sử xét **0,100 mol** HNO3 theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 1,008 + 1 × 14,007 + 3 × 15,999 = 63,012 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 63,012 = 6,3012 g**.\n3. Theo công thức, lượng nguyên tử O tương ứng là **3 × 0,100 = 0,3 mol nguyên tử O**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Nếu mẫu chứa dung môi, tạp chất hoặc phần nước kết tinh chưa được ghi trong công thức, phải điều chỉnh mô hình bài toán.\n\n## Tự kiểm tra và lời giải\n\n1. Trong HNO3, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Tên chất đứng ở phía nào của phương trình đầu tiên? Điều kiện phản ứng có thể bỏ qua không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, O có 3 nguyên tử trong đơn vị công thức. Axit nitric nằm ở phía chất phản ứng của ví dụ đầu. Điều kiện và loại bằng chứng phải được đọc cùng phương trình.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Axit nitric](/tien-ich/cau-truc-3d/?compound=cid-944)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Nguồn tọa độ: NCI/CADD CACTVS computed coordinates](https://cactus.nci.nih.gov/chemical/structure/nitric%20acid/file?format=sdf&get3d=true)\n- [PubChem CID 944 — đối chiếu danh tính](https://pubchem.ncbi.nlm.nih.gov/compound/944)\n\nTỉ lệ công thức không đồng nghĩa một phân tử riêng lẻ; biểu diễn nhóm ion và ô mạng cần được phân biệt.\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

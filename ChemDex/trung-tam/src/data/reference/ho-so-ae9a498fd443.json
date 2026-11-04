@@ -1,0 +1,49 @@
+{
+  "id": "ho-so-ae9a498fd443",
+  "title": "Kẽm (Zn) — hồ sơ nguyên tố và hành trình khám phá",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "nguyento",
+  "summary": "Theo dấu Zn qua kim loại đẩy kim loại, kim loại và axit, tổng hợp; đọc thành phần, điều kiện và bài tính riêng của Kẽm.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "Zn",
+  "tags": [
+    "Nguyên tố",
+    "Zn",
+    "Kim loại đẩy kim loại",
+    "Kim loại và axit",
+    "Tổng hợp"
+  ],
+  "aliases": [
+    "Kẽm kim loại (Hạt/Lá)",
+    "Zinc Metal",
+    "Zn",
+    "Kẽm (Hạt kim loại)",
+    "Zinc (Granules)",
+    "Zn (granules)",
+    "Kẽm Hạt (Sần sùi)",
+    "Zinc Granules (Kẽm hạt)",
+    "Zn (dust)",
+    "Bột Kẽm Mịn",
+    "Zinc Dust (Bột kẽm)"
+  ],
+  "substanceIds": [
+    "chem-zn"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 7,
+  "chemicalEvidence": {
+    "formula": "Zn",
+    "representativeId": "chem-zn",
+    "counts": {
+      "Zn": 1
+    },
+    "mass": 65.38,
+    "material": false,
+    "reactionIds": [
+      "rx_795c29d8952bc7d4",
+      "rx_d557d626f3c2f066",
+      "rx_adabe1adc8a0de19"
+    ]
+  },
+  "content": "## Câu chuyện: hành trình của Kẽm\n\nZinc compounds đã được sử dụng từ thời cổ đại, đặc biệt trong sản xuất Brass. Zinc kim loại được sản xuất ở quy mô đáng kể tại Ấn Độ vào khoảng thế kỷ XII–XIII. Sau đó, kỹ thuật sản xuất Zinc được truyền sang Trung Quốc và châu Âu. Tên Zinc trong tiếng Anh bắt nguồn từ tiếng Đức Zink.\n\n**Người/nhóm được ghi trong dữ liệu:** Không xác định chính xác. Zinc đã được sử dụng từ thời cổ đại; Zinc kim loại được điều chế và sử dụng rộng rãi ở Ấn Độ.. **Mốc ghi nhận:** Khoảng thế kỷ XII–XIII. \n\n*Phần lịch sử được chuyển từ bài nguyên tố ChemDex hiện có; liên kết nguồn đối chiếu nằm cuối bài.*\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | Zn |\n| Tên tiếng Anh | Zinc Metal |\n| Loại biểu diễn | Nguyên tử |\n| Khối lượng tính từ bảng nguyên tử | 65,38 g/mol |\n| Số hiệu nguyên tử | 30 |\n| Nhóm / chu kỳ | 12 / 4 |\n| Cấu hình electron | [Ar] 3d¹⁰ 4s² |\n| Số oxi hóa được ghi | +2 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Zn | Kẽm | 1 | 65,38 |\n\nTổng phép đếm là **1 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Cấu trúc và những vai trò được ghi nhận\n\n- **Mạ Zinc:** Zinc được dùng để mạ lên Iron và Steel nhằm bảo vệ kim loại khỏi ăn mòn, gọi là Galvanization.\n- **Sản xuất Brass:** Zinc được sử dụng cùng Copper để tạo Brass.\n- **Pin:** Zinc được sử dụng làm điện cực trong nhiều loại pin, như Zinc–carbon và Alkaline batteries.\n- **Đúc hợp kim:** Zinc alloys được sử dụng để chế tạo nhiều chi tiết có hình dạng phức tạp.\n- **Sản xuất Zinc oxide:** ZnO được sử dụng trong cao su, gốm, sơn và nhiều sản phẩm công nghiệp.\n- **Nông nghiệp:** Một số Zinc compounds được sử dụng làm nguồn Zinc trong phân bón.\n- **Sinh học:** Zinc là nguyên tố vi lượng cần thiết cho nhiều enzyme và quá trình sinh học.\n\nCác mô tả ứng dụng được chuyển từ dữ liệu nguyên tố ChemDex hiện có; không suy rằng mọi hợp chất chứa nguyên tố này có cùng tính chất.\n\n## Những ngã rẽ phản ứng cụ thể\n\n### 1. Kim loại đẩy kim loại\n\n**Mg(s) + Zn(CH3COO)2(aq) → Mg(CH3COO)2(aq) + Zn(s)**\n\n- **Điều kiện:** Dung dịch muối không acid hóa mạnh; bề mặt kim loại hoạt động, không có ligand chi phối; chiều thuận theo thế điện cực.\n- **Điều được mô tả:** Có thể xuất hiện Zn bám trên kim loại; tốc độ/hình thái phụ thuộc bề mặt.\n- **Giải thích:** Cặp Mg/Zn có chênh lệch thế chuẩn thuận lợi; bảo toàn electron và ion đối.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành. Chiều nhiệt động không bảo đảm tốc độ hoặc độ chọn lọc trong mọi điều kiện.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 17.3 — Electrode and Cell Potentials](https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials) — Chiều phản ứng oxi hóa khử theo thế điện cực; không tự suy ra động học hoặc bỏ qua thụ động hóa.\n\n### 2. Kim loại và axit\n\n**Zn(s) + 2HBr(aq) → ZnBr2(aq) + H2(g)**\n\n- **Điều kiện:** HBr loãng, bề mặt kim loại hoạt động; tốc độ tùy kim loại, có thể cần làm ấm.\n- **Điều được mô tả:** Kim loại tan và H2 không màu thoát ra khi phản ứng diễn ra.\n- **Giải thích:** Kim loại khử H+ của axit không oxi hóa thành H2; không mở rộng sang Cu, Ag hoặc acid oxi hóa.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành. Thế điện cực không xác định tốc độ; oxide/thụ động hóa có thể làm chậm.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n- [OpenStax Chemistry 2e, 17.3 — Electrode and Cell Potentials](https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials) — Chiều phản ứng oxi hóa khử theo thế điện cực; không tự suy ra động học hoặc bỏ qua thụ động hóa.\n\n### 3. Tổng hợp\n\n**2Zn(s) + O2(g) → 2ZnO(s)**\n\n- **Điều kiện:** Đun nóng trong O2 đủ.\n- **Điều được mô tả:** Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n- **Giải thích:** Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** established-transformation\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n\n## Bài tính: một mẫu Kẽm theo đơn vị công thức\n\nGiả sử xét **0,100 mol** Zn theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 65,38 = 65,38 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 65,38 = 6,538 g**.\n3. Theo công thức, lượng nguyên tử Zn tương ứng là **1 × 0,100 = 0,1 mol nguyên tử Zn**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Với mẫu đồng vị cụ thể cần thay đúng khối lượng đồng vị.\n\n## Tự kiểm tra và lời giải\n\n1. Trong Zn, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Tên chất đứng ở phía nào của phương trình đầu tiên? Điều kiện phản ứng có thể bỏ qua không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, Zn có 1 nguyên tử trong đơn vị công thức. Kẽm nằm ở phía sản phẩm của ví dụ đầu. Điều kiện và loại bằng chứng phải được đọc cùng phương trình.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Kẽm](/tien-ich/cau-truc-3d/?compound=chem-zn)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu nguyên tố ChemDex](/data/elements/030_Zn.json)\n- [CIAAW — khối lượng nguyên tử chuẩn](https://ciaaw.org/abridged-atomic-weights.htm)\n\n\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

@@ -1,0 +1,39 @@
+{
+  "id": "ho-so-bd92542764e0",
+  "title": "Fructozơ — đọc cấu trúc, lần theo sự chuyển hóa",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "hopchat",
+  "summary": "Theo dấu C6H12O6 qua chuyển hóa hữu cơ; đọc thành phần, điều kiện và bài tính riêng của Fructozơ.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "C₆H₁₂O₆",
+  "tags": [
+    "Hồ sơ chất",
+    "C6H12O6",
+    "Chuyển hóa hữu cơ"
+  ],
+  "aliases": [
+    "Fructozơ",
+    "D-fructose",
+    "C6H12O6"
+  ],
+  "substanceIds": [
+    "cid-5984"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 5,
+  "chemicalEvidence": {
+    "formula": "C6H12O6",
+    "representativeId": "cid-5984",
+    "counts": {
+      "C": 6,
+      "H": 12,
+      "O": 6
+    },
+    "mass": 180.156,
+    "material": false,
+    "reactionIds": [
+      "rx_d01bc9854656b97f"
+    ]
+  },
+  "content": "## Câu chuyện: khi Fructozơ tham gia phản ứng\n\nBắt đầu từ một câu hỏi cụ thể: từ C6H12O6, các nguyên tử sẽ phân bố vào sản phẩm như thế nào sau chuyển hóa? Một trường hợp trong danh mục là:\n\n**C6H12O6(aq) → 2C2H5OH(aq) + 2CO2(g)**\n\nTrong trường hợp này, Fructozơ được đọc ở phía chất phản ứng. Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng. Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n\nCâu chuyện chưa kết thúc ở phương trình: Lên men với enzyme/vi sinh vật phù hợp, ít O2; quá trình sinh học có thời gian thực dài.. Điểm cần theo dõi là danh tính chất, trạng thái ghi trong ngoặc và tỉ lệ hệ số, thay vì chỉ ghi nhớ tên phản ứng.\n\n> Xem nguồn của phương trình và phạm vi áp dụng bên dưới.\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | C6H12O6 |\n| Tên tiếng Anh | D-fructose |\n| Loại biểu diễn | Công thức chất |\n| Khối lượng tính từ bảng nguyên tử | 180,156 g/mol |\n| PubChem CID | 5984 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| C | Cacbon | 6 | 72,066 |\n| H | Hiđro | 12 | 12,096 |\n| O | Oxi | 6 | 95,994 |\n\nTổng phép đếm là **24 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Những ngã rẽ phản ứng cụ thể\n\n### 1. Chuyển hóa hữu cơ\n\n**C6H12O6(aq) → 2C2H5OH(aq) + 2CO2(g)**\n\n- **Điều kiện:** Lên men với enzyme/vi sinh vật phù hợp, ít O2; quá trình sinh học có thời gian thực dài.\n- **Điều được mô tả:** Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n- **Giải thích:** Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** established-transformation\n- [OpenStax Organic Chemistry — Reactions of Alcohols](https://openstax.org/books/organic-chemistry/pages/17-6-reactions-of-alcohols) — Biến đổi nhóm chức alcohol; điều kiện quyết định sản phẩm, không tự áp dụng cho mọi đồng phân.\n\n## Bài tính: một mẫu Fructozơ theo đơn vị công thức\n\nGiả sử xét **0,100 mol** C6H12O6 theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 6 × 12,011 + 12 × 1,008 + 6 × 15,999 = 180,156 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 180,156 = 18,0156 g**.\n3. Theo công thức, lượng nguyên tử C tương ứng là **6 × 0,100 = 0,6 mol nguyên tử C**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Nếu mẫu chứa dung môi, tạp chất hoặc phần nước kết tinh chưa được ghi trong công thức, phải điều chỉnh mô hình bài toán.\n\n## Tự kiểm tra và lời giải\n\n1. Trong C6H12O6, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Tên chất đứng ở phía nào của phương trình đầu tiên? Điều kiện phản ứng có thể bỏ qua không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, H có 12 nguyên tử trong đơn vị công thức. Fructozơ nằm ở phía chất phản ứng của ví dụ đầu. Điều kiện và loại bằng chứng phải được đọc cùng phương trình.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Fructozơ](/tien-ich/cau-truc-3d/?compound=cid-5984)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Nguồn tọa độ: NCI/CADD CACTVS computed coordinates](https://cactus.nci.nih.gov/chemical/structure/D-fructose/file?format=sdf&get3d=true)\n- [PubChem CID 5984 — đối chiếu danh tính](https://pubchem.ncbi.nlm.nih.gov/compound/5984)\n\nKhông suy đồng phân hay cấu hình lập thể chỉ từ công thức tổng quát. Tên và định danh chất quyết định mô hình cần chọn.\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

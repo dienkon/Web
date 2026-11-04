@@ -1,0 +1,49 @@
+{
+  "id": "ho-so-477d89b32048",
+  "title": "Magie (Mg) — hồ sơ nguyên tố và hành trình khám phá",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "nguyento",
+  "summary": "Theo dấu Mg qua kim loại đẩy kim loại, kim loại và axit, tổng hợp; đọc thành phần, điều kiện và bài tính riêng của Magie.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "Mg",
+  "tags": [
+    "Nguyên tố",
+    "Mg",
+    "Kim loại đẩy kim loại",
+    "Kim loại và axit",
+    "Tổng hợp"
+  ],
+  "aliases": [
+    "Dải Magie (Ruy-băng Mg)",
+    "Magnesium Ribbon",
+    "Mg",
+    "Magiê (Dải kim loại)",
+    "Magnesium (Ribbon)",
+    "Mg (ribbon)",
+    "Magie Dải (Ruy-băng)",
+    "Magnesium Ribbon (Dải kim loại)",
+    "Mg (powder)",
+    "Bột Magie",
+    "Magnesium Powder"
+  ],
+  "substanceIds": [
+    "chem-mg"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 7,
+  "chemicalEvidence": {
+    "formula": "Mg",
+    "representativeId": "chem-mg",
+    "counts": {
+      "Mg": 1
+    },
+    "mass": 24.305,
+    "material": false,
+    "reactionIds": [
+      "rx_3b7ec587bc9dc466",
+      "rx_e107275e27e4e8c4",
+      "rx_382849b7ad494a07"
+    ]
+  },
+  "content": "## Câu chuyện: hành trình của Magie\n\nNăm 1755, Joseph Black phân biệt Magnesium compounds với Calcium compounds và xác định Magnesium là một thành phần riêng biệt. Đến năm 1808, Humphry Davy cô lập được Magnesium ở dạng kim loại bằng phương pháp điện hóa.\n\n**Người/nhóm được ghi trong dữ liệu:** Joseph Black. **Mốc ghi nhận:** 1755. \n\n*Phần lịch sử được chuyển từ bài nguyên tố ChemDex hiện có; liên kết nguồn đối chiếu nằm cuối bài.*\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | Mg |\n| Tên tiếng Anh | Magnesium Ribbon |\n| Loại biểu diễn | Nguyên tử |\n| Khối lượng tính từ bảng nguyên tử | 24,305 g/mol |\n| Số hiệu nguyên tử | 12 |\n| Nhóm / chu kỳ | 2 / 3 |\n| Cấu hình electron | 1s² 2s² 2p⁶ 3s² |\n| Số oxi hóa được ghi | +2 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Mg | Magie | 1 | 24,305 |\n\nTổng phép đếm là **1 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Cấu trúc và những vai trò được ghi nhận\n\n- **Hợp kim:** Magnesium được sử dụng để sản xuất các hợp kim nhẹ cho phương tiện và thiết bị kỹ thuật.\n- **Hàng không:** Hợp kim Magnesium được sử dụng trong một số bộ phận cần giảm khối lượng.\n- **Pháo sáng và tín hiệu:** Magnesium tạo ánh sáng trắng mạnh khi cháy nên được sử dụng trong một số loại pháo sáng và thiết bị tín hiệu.\n- **Luyện kim:** Magnesium được sử dụng làm chất khử và trong quá trình sản xuất một số kim loại.\n- **Công nghiệp hóa chất:** Dùng để sản xuất nhiều Magnesium compounds.\n- **Bảo vệ chống ăn mòn:** Magnesium có thể được sử dụng làm anode hy sinh trong một số hệ thống bảo vệ kim loại.\n- **Vật liệu:** Magnesium và hợp kim của nó được sử dụng trong các sản phẩm yêu cầu vật liệu nhẹ.\n\nCác mô tả ứng dụng được chuyển từ dữ liệu nguyên tố ChemDex hiện có; không suy rằng mọi hợp chất chứa nguyên tố này có cùng tính chất.\n\n## Những ngã rẽ phản ứng cụ thể\n\n### 1. Kim loại đẩy kim loại\n\n**Mg(s) + 2AgNO3(aq) → Mg(NO3)2(aq) + 2Ag(s)**\n\n- **Điều kiện:** Dung dịch muối không acid hóa mạnh; bề mặt kim loại hoạt động, không có ligand chi phối; chiều thuận theo thế điện cực.\n- **Điều được mô tả:** Có thể xuất hiện Ag bám trên kim loại; tốc độ/hình thái phụ thuộc bề mặt.\n- **Giải thích:** Cặp Mg/Ag có chênh lệch thế chuẩn thuận lợi; bảo toàn electron và ion đối.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành. Chiều nhiệt động không bảo đảm tốc độ hoặc độ chọn lọc trong mọi điều kiện.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 17.3 — Electrode and Cell Potentials](https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials) — Chiều phản ứng oxi hóa khử theo thế điện cực; không tự suy ra động học hoặc bỏ qua thụ động hóa.\n\n### 2. Kim loại và axit\n\n**Mg(s) + 2HBr(aq) → MgBr2(aq) + H2(g)**\n\n- **Điều kiện:** HBr loãng, bề mặt kim loại hoạt động; tốc độ tùy kim loại, có thể cần làm ấm.\n- **Điều được mô tả:** Kim loại tan và H2 không màu thoát ra khi phản ứng diễn ra.\n- **Giải thích:** Kim loại khử H+ của axit không oxi hóa thành H2; không mở rộng sang Cu, Ag hoặc acid oxi hóa.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành. Thế điện cực không xác định tốc độ; oxide/thụ động hóa có thể làm chậm.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n- [OpenStax Chemistry 2e, 17.3 — Electrode and Cell Potentials](https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials) — Chiều phản ứng oxi hóa khử theo thế điện cực; không tự suy ra động học hoặc bỏ qua thụ động hóa.\n\n### 3. Tổng hợp\n\n**2Mg(s) + O2(g) → 2MgO(s)**\n\n- **Điều kiện:** Mồi cháy, O2 đủ; sản phẩm trong không khí còn có thể chứa nitride.\n- **Điều được mô tả:** Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n- **Giải thích:** Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** established-transformation\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n\n## Bài tính: một mẫu Magie theo đơn vị công thức\n\nGiả sử xét **0,100 mol** Mg theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 24,305 = 24,305 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 24,305 = 2,4305 g**.\n3. Theo công thức, lượng nguyên tử Mg tương ứng là **1 × 0,100 = 0,1 mol nguyên tử Mg**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Với mẫu đồng vị cụ thể cần thay đúng khối lượng đồng vị.\n\n## Tự kiểm tra và lời giải\n\n1. Trong Mg, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Tên chất đứng ở phía nào của phương trình đầu tiên? Điều kiện phản ứng có thể bỏ qua không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, Mg có 1 nguyên tử trong đơn vị công thức. Magie nằm ở phía chất phản ứng của ví dụ đầu. Điều kiện và loại bằng chứng phải được đọc cùng phương trình.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Magie](/tien-ich/cau-truc-3d/?compound=chem-mg)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu nguyên tố ChemDex](/data/elements/012_Mg.json)\n- [CIAAW — khối lượng nguyên tử chuẩn](https://ciaaw.org/abridged-atomic-weights.htm)\n\n\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

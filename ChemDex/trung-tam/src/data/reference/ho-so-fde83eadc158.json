@@ -1,0 +1,46 @@
+{
+  "id": "ho-so-fde83eadc158",
+  "title": "Đồng (Cu) — hồ sơ nguyên tố và hành trình khám phá",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "nguyento",
+  "summary": "Theo dấu Cu qua kim loại đẩy kim loại, chuyển hóa hữu cơ, oxi hóa – khử; đọc thành phần, điều kiện và bài tính riêng của Đồng.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "Cu",
+  "tags": [
+    "Nguyên tố",
+    "Cu",
+    "Kim loại đẩy kim loại",
+    "Chuyển hóa hữu cơ",
+    "Oxi hóa – khử"
+  ],
+  "aliases": [
+    "Đồng kim loại (Lá đồng / Phoi đồng)",
+    "Copper Metal (Sheet / Turnings)",
+    "Cu",
+    "Đồng (Phôi kim loại)",
+    "Copper (Turnings/Foil)",
+    "Cu (turnings)",
+    "Đồng Vụn / Dây Đồng Ánh Đỏ",
+    "Copper Turnings / Wire (Vụn đồng)"
+  ],
+  "substanceIds": [
+    "chem-cu"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 7,
+  "chemicalEvidence": {
+    "formula": "Cu",
+    "representativeId": "chem-cu",
+    "counts": {
+      "Cu": 1
+    },
+    "mass": 63.546,
+    "material": false,
+    "reactionIds": [
+      "rx_28a3c93bad1735fc",
+      "rx_21c127de0631b561",
+      "rx_cf38b28eb9a783ea"
+    ]
+  },
+  "content": "## Câu chuyện: hành trình của Đồng\n\nCopper là một trong những kim loại đầu tiên được con người khai thác và sử dụng. Copper tự nhiên có thể được tìm thấy dưới dạng kim loại tự do, nên con người có thể sử dụng nó trước khi phát triển kỹ thuật luyện kim phức tạp. Sau này, việc kết hợp Copper với Tin tạo ra Bronze, mở đầu cho thời kỳ Bronze Age.\n\n**Người/nhóm được ghi trong dữ liệu:** Không xác định — Copper đã được con người biết đến từ thời cổ đại.. **Mốc ghi nhận:** Khoảng 9000 TCN. \n\n*Phần lịch sử được chuyển từ bài nguyên tố ChemDex hiện có; liên kết nguồn đối chiếu nằm cuối bài.*\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | Cu |\n| Tên tiếng Anh | Copper Metal (Sheet / Turnings) |\n| Loại biểu diễn | Nguyên tử |\n| Khối lượng tính từ bảng nguyên tử | 63,546 g/mol |\n| Số hiệu nguyên tử | 29 |\n| Nhóm / chu kỳ | 11 / 4 |\n| Cấu hình electron | [Ar] 3d¹⁰ 4s¹ |\n| Số oxi hóa được ghi | +1, +2, +3 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Cu | Đồng | 1 | 63,546 |\n\nTổng phép đếm là **1 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Cấu trúc và những vai trò được ghi nhận\n\n- **Dây điện:** Copper được sử dụng rộng rãi trong dây dẫn điện nhờ độ dẫn điện cao.\n- **Thiết bị điện tử:** Được sử dụng trong mạch điện, động cơ, máy phát điện và các linh kiện điện.\n- **Truyền nhiệt:** Copper được dùng trong bộ tản nhiệt, hệ thống trao đổi nhiệt và thiết bị làm lạnh.\n- **Xây dựng:** Được sử dụng trong đường ống, mái và các bộ phận của công trình.\n- **Hợp kim:** Copper là thành phần chính của Bronze và Brass.\n- **Tiền xu:** Copper và các hợp kim của nó được sử dụng trong sản xuất tiền xu.\n- **Công nghiệp hóa chất:** Copper compounds như Copper sulfate được sử dụng trong nhiều ứng dụng hóa học và nông nghiệp.\n\nCác mô tả ứng dụng được chuyển từ dữ liệu nguyên tố ChemDex hiện có; không suy rằng mọi hợp chất chứa nguyên tố này có cùng tính chất.\n\n## Những ngã rẽ phản ứng cụ thể\n\n### 1. Kim loại đẩy kim loại\n\n**Cd(s) + Cu(CH3COO)2(aq) → Cd(CH3COO)2(aq) + Cu(s)**\n\n- **Điều kiện:** Dung dịch muối không acid hóa mạnh; bề mặt kim loại hoạt động, không có ligand chi phối; chiều thuận theo thế điện cực.\n- **Điều được mô tả:** Có thể xuất hiện Cu bám trên kim loại; tốc độ/hình thái phụ thuộc bề mặt.\n- **Giải thích:** Cặp Cd/Cu có chênh lệch thế chuẩn thuận lợi; bảo toàn electron và ion đối.\n- **Giới hạn:** Có chất chứa Cd; dữ liệu học tập, cần quy trình và xử lý chất thải chuyên biệt khi thực nghiệm. Chiều nhiệt động không bảo đảm tốc độ hoặc độ chọn lọc trong mọi điều kiện.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 17.3 — Electrode and Cell Potentials](https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials) — Chiều phản ứng oxi hóa khử theo thế điện cực; không tự suy ra động học hoặc bỏ qua thụ động hóa.\n\n### 2. Chuyển hóa hữu cơ\n\n**C2H5OH(g) + CuO(s) → CH3CHO(g) + Cu(s) + H2O(g)**\n\n- **Điều kiện:** Đun nóng alcohol với CuO.\n- **Điều được mô tả:** Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n- **Giải thích:** Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** established-transformation\n- [OpenStax Organic Chemistry — Reactions of Alcohols](https://openstax.org/books/organic-chemistry/pages/17-6-reactions-of-alcohols) — Biến đổi nhóm chức alcohol; điều kiện quyết định sản phẩm, không tự áp dụng cho mọi đồng phân.\n\n### 3. Oxi hóa – khử\n\n**3Cu(s) + 8HNO3(aq) → 3Cu(NO3)2(aq) + 2NO(g) + 4H2O(l)**\n\n- **Điều kiện:** HNO3 loãng; sản phẩm NO có thể tiếp tục bị O2 trong không khí oxy hóa.\n- **Điều được mô tả:** Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n- **Giải thích:** Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** established-transformation\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n\n## Bài tính: một mẫu Đồng theo đơn vị công thức\n\nGiả sử xét **0,100 mol** Cu theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 63,546 = 63,546 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 63,546 = 6,3546 g**.\n3. Theo công thức, lượng nguyên tử Cu tương ứng là **1 × 0,100 = 0,1 mol nguyên tử Cu**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Với mẫu đồng vị cụ thể cần thay đúng khối lượng đồng vị.\n\n## Tự kiểm tra và lời giải\n\n1. Trong Cu, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Tên chất đứng ở phía nào của phương trình đầu tiên? Điều kiện phản ứng có thể bỏ qua không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, Cu có 1 nguyên tử trong đơn vị công thức. Đồng nằm ở phía sản phẩm của ví dụ đầu. Điều kiện và loại bằng chứng phải được đọc cùng phương trình.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Đồng](/tien-ich/cau-truc-3d/?compound=chem-cu)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu nguyên tố ChemDex](/data/elements/029_Cu.json)\n- [CIAAW — khối lượng nguyên tử chuẩn](https://ciaaw.org/abridged-atomic-weights.htm)\n\n\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

@@ -1,0 +1,40 @@
+{
+  "id": "ho-so-b2eec96d0a4c",
+  "title": "Al2O3 — đọc cấu trúc, lần theo sự chuyển hóa",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "hopchat",
+  "summary": "Theo dấu Al2O3 qua oxit và axit, tổng hợp, nhiệt phân; đọc thành phần, điều kiện và bài tính riêng của Al2O3.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "Al₂O₃",
+  "tags": [
+    "Hồ sơ chất",
+    "Al2O3",
+    "Oxit và axit",
+    "Tổng hợp",
+    "Nhiệt phân"
+  ],
+  "aliases": [
+    "Al2O3"
+  ],
+  "substanceIds": [
+    "formula-Al2O3"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 7,
+  "chemicalEvidence": {
+    "formula": "Al2O3",
+    "representativeId": "formula-Al2O3",
+    "counts": {
+      "Al": 2,
+      "O": 3
+    },
+    "mass": 101.961,
+    "material": false,
+    "reactionIds": [
+      "rx_61bdf3451d782a4a",
+      "rx_cf3475b2358bc93b",
+      "rx_e1818c41aad647a7"
+    ]
+  },
+  "content": "## Câu chuyện: khi Al2O3 tham gia phản ứng\n\nBắt đầu từ một câu hỏi cụ thể: từ Al2O3, các nguyên tử sẽ phân bố vào sản phẩm như thế nào sau chuyển hóa? Một trường hợp trong danh mục là:\n\n**Al2O3(s) + 3H2SO4(aq) → Al2(SO4)3(aq) + 3H2O(l)**\n\nTrong trường hợp này, Al2O3 được đọc ở phía chất phản ứng. Axit tiêu thụ nhóm bazơ/oxit tạo muối và nước; hệ số theo đương lượng, không gán nhiệt chung cho mọi axit. Rắn có thể tan dần hoặc pH thay đổi; màu tùy ion và nồng độ. Không có chỉ thị thì không tự xuất hiện màu hồng.\n\nCâu chuyện chưa kết thúc ở phương trình: Axit H2SO4 loãng; lượng axit đủ để trung hòa hoàn toàn. Có thể cần làm ấm; tốc độ tùy mẫu rắn.. Điểm cần theo dõi là danh tính chất, trạng thái ghi trong ngoặc và tỉ lệ hệ số, thay vì chỉ ghi nhớ tên phản ứng.\n\n> Trường hợp này được xây dựng theo quy tắc họ phản ứng. Cân bằng nguyên tử không tự chứng minh phản ứng đã được kiểm chứng thực nghiệm riêng cho mọi điều kiện.\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | Al2O3 |\n| Tên tiếng Anh | Chưa ghi |\n| Loại biểu diễn | Công thức chất |\n| Khối lượng tính từ bảng nguyên tử | 101,961 g/mol |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Al | Nhôm | 2 | 53,964 |\n| O | Oxi | 3 | 47,997 |\n\nTổng phép đếm là **5 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Những ngã rẽ phản ứng cụ thể\n\n### 1. Oxit và axit\n\n**Al2O3(s) + 3H2SO4(aq) → Al2(SO4)3(aq) + 3H2O(l)**\n\n- **Điều kiện:** Axit H2SO4 loãng; lượng axit đủ để trung hòa hoàn toàn. Có thể cần làm ấm; tốc độ tùy mẫu rắn.\n- **Điều được mô tả:** Rắn có thể tan dần hoặc pH thay đổi; màu tùy ion và nồng độ. Không có chỉ thị thì không tự xuất hiện màu hồng.\n- **Giải thích:** Axit tiêu thụ nhóm bazơ/oxit tạo muối và nước; hệ số theo đương lượng, không gán nhiệt chung cho mọi axit.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành. Phương trình là trung hòa hoàn toàn; acid dư có thể tạo muối acid.\n- **Loại bằng chứng:** Quy tắc họ phản ứng; chưa phải xác nhận riêng từng hệ.\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n- [OpenStax Chemistry 2e, 14.7 — Acid-Base Titrations](https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations) — Trung hòa axit–bazơ, lượng đương lượng và vai trò chỉ thị.\n\n### 2. Tổng hợp\n\n**4Al(s) + 3O2(g) → 2Al2O3(s)**\n\n- **Điều kiện:** Mồi cháy hoặc oxy hóa ở điều kiện phù hợp; màng oxide có thể gây thụ động hóa.\n- **Điều được mô tả:** Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n- **Giải thích:** Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** established-transformation\n- [OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions](https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions) — Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình.\n\n### 3. Nhiệt phân\n\n**2Al(OH)3(s) → Al2O3(s) + 3H2O(g)**\n\n- **Điều kiện:** Đun nóng làm mất nước; công thức hydroxide dùng quy ước không ghi nước hydrat.\n- **Điều được mô tả:** Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.\n- **Giải thích:** Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.\n- **Giới hạn:** Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.\n- **Loại bằng chứng:** established-transformation\n- [OpenStax Chemistry 2e, 18.9 — Compounds of Oxygen](https://openstax.org/books/chemistry-2e/pages/18-9-occurrence-preparation-and-compounds-of-oxygen) — Oxit, hydroxide và các cách điều chế oxy; không gán cùng điều kiện nhiệt cho mọi chất.\n\n## Bài tính: một mẫu Al2O3 theo đơn vị công thức\n\nGiả sử xét **0,100 mol** Al2O3 theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 2 × 26,982 + 3 × 15,999 = 101,961 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 101,961 = 10,1961 g**.\n3. Theo công thức, lượng nguyên tử Al tương ứng là **2 × 0,100 = 0,2 mol nguyên tử Al**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Nếu mẫu chứa dung môi, tạp chất hoặc phần nước kết tinh chưa được ghi trong công thức, phải điều chỉnh mô hình bài toán.\n\n## Tự kiểm tra và lời giải\n\n1. Trong Al2O3, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Tên chất đứng ở phía nào của phương trình đầu tiên? Điều kiện phản ứng có thể bỏ qua không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, O có 3 nguyên tử trong đơn vị công thức. Al2O3 nằm ở phía chất phản ứng của ví dụ đầu. Điều kiện và loại bằng chứng phải được đọc cùng phương trình.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Al2O3](/tien-ich/cau-truc-3d/?compound=formula-Al2O3)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu chất trong danh mục phản ứng ChemDex](/shared/reaction-catalog.generated.json)\n\n\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

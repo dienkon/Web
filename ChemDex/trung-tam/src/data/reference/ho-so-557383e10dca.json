@@ -1,0 +1,34 @@
+{
+  "id": "ho-so-557383e10dca",
+  "title": "Nitơ (N) — hồ sơ nguyên tố và hành trình khám phá",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "nguyento",
+  "summary": "Hồ sơ Nitơ: N, 1 nguyên tử trong đơn vị công thức; đối chiếu danh tính, dữ liệu cấu trúc và cách đọc những giới hạn của mô hình.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "N",
+  "tags": [
+    "Nguyên tố",
+    "N"
+  ],
+  "aliases": [
+    "Nitơ",
+    "Nitrogen",
+    "N"
+  ],
+  "substanceIds": [
+    "atom-N"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 4,
+  "chemicalEvidence": {
+    "formula": "N",
+    "representativeId": "atom-N",
+    "counts": {
+      "N": 1
+    },
+    "mass": 14.007,
+    "material": false,
+    "reactionIds": []
+  },
+  "content": "## Câu chuyện: hành trình của Nitơ\n\nNăm 1772, Daniel Rutherford nghiên cứu phần không khí còn lại sau khi Oxygen bị loại bỏ và xác định đây là một loại khí không duy trì sự cháy và sự hô hấp. Nitrogen sau đó được nghiên cứu sâu hơn bởi các nhà hóa học khác. Tên Nitrogen được Antoine Lavoisier sử dụng, bắt nguồn từ khả năng tạo Nitrogen compounds trong tự nhiên.\n\n**Người/nhóm được ghi trong dữ liệu:** Daniel Rutherford. **Mốc ghi nhận:** 1772. \n\n*Phần lịch sử được chuyển từ bài nguyên tố ChemDex hiện có; liên kết nguồn đối chiếu nằm cuối bài.*\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | N |\n| Tên tiếng Anh | Nitrogen |\n| Loại biểu diễn | Nguyên tử |\n| Khối lượng tính từ bảng nguyên tử | 14,007 g/mol |\n| Số hiệu nguyên tử | 7 |\n| Nhóm / chu kỳ | 15 / 2 |\n| Cấu hình electron | 1s² 2s² 2p³ |\n| Số oxi hóa được ghi | −3, −2, −1, 0, +1, +2, +3, +4, +5 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| N | Nitơ | 1 | 14,007 |\n\nTổng phép đếm là **1 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Cấu trúc và những vai trò được ghi nhận\n\n- **Sản xuất Ammonia:** Nitrogen là nguyên liệu chính trong quy trình Haber-Bosch.\n- **Sản xuất phân bón:** Các hợp chất Nitrogen được sử dụng rộng rãi trong sản xuất phân bón.\n- **Bảo quản thực phẩm:** Nitrogen được sử dụng để tạo môi trường khí trơ, giúp hạn chế quá trình Oxy hóa.\n- **Công nghiệp điện tử:** Nitrogen được sử dụng làm khí bảo vệ trong một số quá trình sản xuất linh kiện.\n- **Luyện kim:** Nitrogen được sử dụng trong một số quá trình xử lý và sản xuất kim loại.\n- **Nitrogen lỏng:** Được sử dụng để làm lạnh, bảo quản mẫu sinh học và trong nhiều ứng dụng nhiệt độ thấp.\n- **Công nghiệp hóa chất:** Nitrogen được sử dụng làm khí trơ trong các quy trình cần hạn chế phản ứng với Oxygen.\n- **Nghiên cứu khoa học:** ¹⁵N được sử dụng để nghiên cứu các quá trình sinh học, hóa học và chu trình Nitrogen.\n\nCác mô tả ứng dụng được chuyển từ dữ liệu nguyên tố ChemDex hiện có; không suy rằng mọi hợp chất chứa nguyên tố này có cùng tính chất.\n\n## Bài tính: một mẫu Nitơ theo đơn vị công thức\n\nGiả sử xét **0,100 mol** N theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 14,007 = 14,007 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 14,007 = 1,4007 g**.\n3. Theo công thức, lượng nguyên tử N tương ứng là **1 × 0,100 = 0,1 mol nguyên tử N**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Với mẫu đồng vị cụ thể cần thay đúng khối lượng đồng vị.\n\n## Tự kiểm tra và lời giải\n\n1. Trong N, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Một công thức hoặc một mô hình tĩnh có đủ chứng minh mọi tính chất của mẫu thực không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, N có 1 nguyên tử trong đơn vị công thức. Không. Cần phân biệt danh tính, cấu trúc, pha, điều kiện và thành phần thực của mẫu.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Nitơ](/tien-ich/cau-truc-3d/?compound=atom-N)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu nguyên tố ChemDex](/data/elements/007_N.json)\n- [CIAAW — khối lượng nguyên tử chuẩn](https://ciaaw.org/abridged-atomic-weights.htm)\n\n\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}

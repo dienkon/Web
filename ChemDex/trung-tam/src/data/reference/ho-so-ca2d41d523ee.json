@@ -1,0 +1,33 @@
+{
+  "id": "ho-so-ca2d41d523ee",
+  "title": "Thallium (Tl) — hồ sơ nguyên tố và hành trình khám phá",
+  "author": "ChemDex · Hồ sơ tổng hợp",
+  "category": "nguyento",
+  "summary": "Hồ sơ Thallium: Tl, 1 nguyên tử trong đơn vị công thức; đối chiếu danh tính, dữ liệu cấu trúc và cách đọc những giới hạn của mô hình.",
+  "image": "/assets/icon/logo.png",
+  "chemicalFormula": "Tl",
+  "tags": [
+    "Nguyên tố",
+    "Tl"
+  ],
+  "aliases": [
+    "Thallium",
+    "Tl"
+  ],
+  "substanceIds": [
+    "atom-Tl"
+  ],
+  "documentKind": "reference",
+  "readingMinutes": 4,
+  "chemicalEvidence": {
+    "formula": "Tl",
+    "representativeId": "atom-Tl",
+    "counts": {
+      "Tl": 1
+    },
+    "mass": 204.38,
+    "material": false,
+    "reactionIds": []
+  },
+  "content": "## Câu chuyện: hành trình của Thallium\n\nThallium được William Crookes phát hiện vào năm 1861 khi phân tích cặn còn lại từ quá trình sản xuất Sulfuric acid. Ông nhận ra một vạch phổ màu xanh lục mới và đặt tên nguyên tố là Thallium, bắt nguồn từ tiếng Hy Lạp thallos, nghĩa là “chồi non” hoặc “cành xanh”.\n\n**Người/nhóm được ghi trong dữ liệu:** William Crookes. **Mốc ghi nhận:** 1861. \n\n*Phần lịch sử được chuyển từ bài nguyên tố ChemDex hiện có; liên kết nguồn đối chiếu nằm cuối bài.*\n\n## Hồ sơ nhanh\n\n| Mục | Dữ kiện |\n|---|---|\n| Công thức đọc trong hồ sơ | Tl |\n| Tên tiếng Anh | Thallium |\n| Loại biểu diễn | Nguyên tử |\n| Khối lượng tính từ bảng nguyên tử | 204,38 g/mol |\n| Số hiệu nguyên tử | 81 |\n| Nhóm / chu kỳ | 13 / 6 |\n| Cấu hình electron | [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p¹ |\n| Số oxi hóa được ghi | +1, +3 |\n\nGiá trị khối lượng ở đây được tính từ bảng nguyên tử ChemDex và làm tròn để học tập; không thay thế chứng nhận phân tích mẫu. Với nguyên tố không có khối lượng nguyên tử chuẩn, cần xác định đồng vị khi làm phép tính chính xác.\n\n## Lần theo thành phần nguyên tử\n\n| Nguyên tố | Tên | Số nguyên tử trong đơn vị công thức | Đóng góp khối lượng tính toán |\n|---|---|---:|---:|\n| Tl | Thallium | 1 | 204,38 |\n\nTổng phép đếm là **1 nguyên tử** trong đơn vị được mô tả. Phép đếm không tự xác định thứ tự liên kết hoặc cấu dạng.\n\n## Cấu trúc và những vai trò được ghi nhận\n\n- **Điện tử:** Một số hợp chất Thallium được sử dụng trong vật liệu bán dẫn và quang điện.\n- **Quang học:** Thallium được sử dụng trong một số loại kính có chiết suất cao.\n- **Thiết bị phát hiện bức xạ:** Một số tinh thể chứa Thallium, như Sodium iodide activated with Thallium [NaI(Tl)], được sử dụng trong detector bức xạ.\n- **Nghiên cứu:** Một số đồng vị phóng xạ của Thallium được sử dụng trong nghiên cứu và y học hạt nhân.\n- **Nhiệt kế:** Một số hợp kim Thallium từng được nghiên cứu và sử dụng trong các ứng dụng nhiệt độ thấp.\n\nCác mô tả ứng dụng được chuyển từ dữ liệu nguyên tố ChemDex hiện có; không suy rằng mọi hợp chất chứa nguyên tố này có cùng tính chất.\n\n## Bài tính: một mẫu Thallium theo đơn vị công thức\n\nGiả sử xét **0,100 mol** Tl theo đúng đơn vị công thức và giả thiết chất tinh khiết của bài toán.\n\n1. Tính khối lượng mol: **M = 1 × 204,38 = 204,38 g/mol**.\n2. Tính khối lượng mẫu: **m = nM = 0,100 × 204,38 = 20,438 g**.\n3. Theo công thức, lượng nguyên tử Tl tương ứng là **1 × 0,100 = 0,1 mol nguyên tử Tl**.\n\nĐây là phép tính từ công thức, không phải nồng độ của một chai hóa chất hay lượng có sẵn trong lab. Với mẫu đồng vị cụ thể cần thay đúng khối lượng đồng vị.\n\n## Tự kiểm tra và lời giải\n\n1. Trong Tl, nguyên tố nào có số lượng lớn nhất theo phép đếm công thức?\n2. Một công thức hoặc một mô hình tĩnh có đủ chứng minh mọi tính chất của mẫu thực không?\n\n<details><summary>Mở lời giải và cách suy luận</summary>\n\nTheo bảng thành phần, Tl có 1 nguyên tử trong đơn vị công thức. Không. Cần phân biệt danh tính, cấu trúc, pha, điều kiện và thành phần thực của mẫu.\n\n</details>\n\n## Nguồn, phạm vi và bước tiếp theo\n\n- [Kho mô hình Thallium](/tien-ich/cau-truc-3d/?compound=atom-Tl)\n- [Bảng nguyên tử dùng cho phép tính](/shared/elements.json)\n- [Dữ liệu nguyên tố ChemDex](/data/elements/081_Tl.json)\n- [CIAAW — khối lượng nguyên tử chuẩn](https://ciaaw.org/abridged-atomic-weights.htm)\n\n\n\nHồ sơ này được tổng hợp từ dữ liệu cấu trúc, bảng nguyên tố và các phản ứng đã có trong ChemDex. Các phép đếm và bài tính có thể kiểm tra lại từ công thức. Câu chuyện phản ứng là diễn giải học tập của trường hợp được nêu, không phải sự kiện lịch sử được dựng thêm. Những dữ kiện chưa có nguồn hoặc điều kiện cụ thể được giữ ở phạm vi mô tả hiện có."
+}
