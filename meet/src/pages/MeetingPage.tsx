@@ -7,6 +7,7 @@ import { AnswerPanel } from '../components/classroom/AnswerPanel';
 import { QuestionBanner } from '../components/classroom/QuestionBanner';
 import { ChatPanel } from '../components/chat/ChatPanel';
 import { ParticipantsPanel } from '../components/participants/ParticipantsPanel';
+import { ClassroomPanel } from '../components/classroom/ClassroomPanel';
 import { HostControlsModal } from '../components/controls/HostControlsModal';
 import { ToastContainer } from '../components/ui/Toast';
 
@@ -16,6 +17,7 @@ import { useWebRTC } from '../hooks/useWebRTC';
 import { useSocket } from '../hooks/useSocket';
 import { useParticipants } from '../hooks/useParticipants';
 import { useClassroom } from '../hooks/useClassroom';
+import { socketService } from '../services/socket';
 import { Participant } from '../types/meeting';
 
 export const MeetingPage: React.FC = () => {
@@ -33,7 +35,6 @@ export const MeetingPage: React.FC = () => {
     pinnedParticipantId,
     setRoomInfo,
     resetMeeting,
-    addToast,
   } = useMeetingStore();
 
   const { currentQuestion, selectedAnswer, questionLocked } = useClassroomStore();
@@ -44,9 +45,11 @@ export const MeetingPage: React.FC = () => {
   // Custom Hooks
   const {
     localStream,
+    initLocalStream,
     toggleAudio,
     toggleVideo,
     toggleScreenShare,
+    stopAllMedia,
     audioEnabled,
     videoEnabled,
     isScreenSharing,
@@ -57,16 +60,34 @@ export const MeetingPage: React.FC = () => {
   const { participantsList, activeSpeaker } = useParticipants();
   const { submitAnswer } = useClassroom();
 
-  // Initial Sync
+  // Initial Sync & Name recovery
   useEffect(() => {
-    if (!userName) {
+    let name = userName;
+    if (!name) {
+      const storedName = localStorage.getItem('meetclass_user_name');
+      if (storedName) {
+        useMeetingStore.getState().setUserName(storedName);
+        name = storedName;
+      }
+    }
+
+    if (!name) {
       navigate(`/join/${roomCode}`);
       return;
     }
     setRoomInfo(roomId, roomCode, isHost);
-  }, [userName, roomCode]);
+  }, [userName, roomCode, roomId, isHost, navigate, setRoomInfo]);
+
+  // Ensure media stream is active on mount
+  useEffect(() => {
+    if (!localStream || !localStream.getTracks().some((t) => t.readyState === 'live')) {
+      initLocalStream();
+    }
+  }, [initLocalStream, localStream]);
 
   // Construct local participant object
+  const isLocalSpeaking = activeSpeakerId === 'local_user' || activeSpeakerId === socketService.id;
+
   const localParticipant: Participant = {
     id: 'local_user',
     name: userName || 'Bạn',
@@ -74,12 +95,14 @@ export const MeetingPage: React.FC = () => {
     audioEnabled,
     videoEnabled,
     isHost,
-    isSpeaking: activeSpeakerId === 'local_user',
+    isSpeaking: isLocalSpeaking,
   };
 
   const handleLeave = () => {
     if (window.confirm('Bạn có muốn rời khỏi cuộc họp?')) {
+      stopAllMedia();
       resetMeeting();
+      socketService.disconnect();
       navigate('/');
     }
   };
@@ -93,7 +116,7 @@ export const MeetingPage: React.FC = () => {
 
       {/* Main Workspace Area (Video Grid + Side Panel) */}
       <div className="flex-1 flex overflow-hidden relative">
-        {/* Question Banner Overlay (Section 15) */}
+        {/* Question Banner Overlay */}
         <QuestionBanner question={currentQuestion} />
 
         {/* Video Canvas Grid */}
@@ -102,7 +125,7 @@ export const MeetingPage: React.FC = () => {
             <VideoGrid
               participants={participantsList}
               localParticipant={localParticipant}
-              activeSpeakerId={activeSpeaker?.id || null}
+              activeSpeakerId={activeSpeaker?.id || (isLocalSpeaking ? 'local_user' : null)}
               pinnedParticipantId={pinnedParticipantId}
               isScreenSharing={isScreenSharing}
               screenStream={useMeetingStore.getState().screenStream}
@@ -110,7 +133,7 @@ export const MeetingPage: React.FC = () => {
             />
           </div>
 
-          {/* Interactive Answer Panel (A/B/C/D) - Floating above controls for students */}
+          {/* Interactive Answer Panel (A/B/C/D) - Floating above bottom controls for students */}
           {currentQuestion && (
             <div className="p-3 z-30 pointer-events-auto">
               <AnswerPanel
@@ -123,7 +146,7 @@ export const MeetingPage: React.FC = () => {
           )}
         </div>
 
-        {/* Side Panels (Chat / Participants) */}
+        {/* Side Panels (Chat / Participants / Interactive Classroom) */}
         {activePanel === 'chat' && <ChatPanel onClose={() => setActivePanel('none')} />}
         {activePanel === 'participants' && (
           <ParticipantsPanel
@@ -131,6 +154,9 @@ export const MeetingPage: React.FC = () => {
             localParticipant={localParticipant}
             onClose={() => setActivePanel('none')}
           />
+        )}
+        {activePanel === 'classroom' && (
+          <ClassroomPanel onClose={() => setActivePanel('none')} />
         )}
       </div>
 

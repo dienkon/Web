@@ -17,7 +17,7 @@ export function useSocket() {
     setParticipants,
     addChatMessage,
     addToast,
-    localStream,
+    setActiveSpeaker,
     setAudioEnabled,
   } = useMeetingStore();
 
@@ -27,7 +27,6 @@ export function useSocket() {
     setQuestionLocked,
     setStatistics,
     setAnswersList,
-    addOrUpdateUserAnswer,
     resetQuestionState,
   } = useClassroomStore();
 
@@ -38,6 +37,28 @@ export function useSocket() {
     setConnectionState('connected');
 
     const { userName, isHost } = useMeetingStore.getState();
+
+    // Helper: Initialize RTCPeerConnection with current local stream
+    const initPeerConnection = async (targetId: string, isInitiator: boolean) => {
+      const currentStream = useMeetingStore.getState().localStream;
+      webRTCManager.createPeerConnection(
+        targetId,
+        currentStream,
+        (remoteStream) => {
+          updateParticipant(targetId, { stream: remoteStream });
+        },
+        (candidate) => {
+          socketService.emit('webrtc:ice-candidate', { targetId, candidate });
+        }
+      );
+
+      if (isInitiator) {
+        const offer = await webRTCManager.createOffer(targetId);
+        if (offer) {
+          socketService.emit('webrtc:offer', { targetId, offer });
+        }
+      }
+    };
 
     // 1. Room Joined Callback
     const handleRoomJoined = (data: {
@@ -72,27 +93,6 @@ export function useSocket() {
       });
     };
 
-    // Helper: Initialize RTCPeerConnection
-    const initPeerConnection = async (targetId: string, isInitiator: boolean) => {
-      const pc = webRTCManager.createPeerConnection(
-        targetId,
-        localStream,
-        (remoteStream) => {
-          updateParticipant(targetId, { stream: remoteStream });
-        },
-        (candidate) => {
-          socketService.emit('webrtc:ice-candidate', { targetId, candidate });
-        }
-      );
-
-      if (isInitiator) {
-        const offer = await webRTCManager.createOffer(targetId);
-        if (offer) {
-          socketService.emit('webrtc:offer', { targetId, offer });
-        }
-      }
-    };
-
     // 2. Participant Joined
     const handleParticipantJoined = ({ participant }: { participant: Participant }) => {
       addParticipant(participant);
@@ -113,11 +113,25 @@ export function useSocket() {
       updateParticipant(participant.id, participant);
     };
 
-    // 5. WebRTC Offer / Answer / ICE
+    // 5. Active Speaker Remote Indicator
+    const handleSpeakerActive = ({ userId, isSpeaking }: { userId: string; isSpeaking: boolean }) => {
+      const myId = socketService.id || useMeetingStore.getState().myParticipantId;
+      if (userId === myId) return;
+      if (isSpeaking) {
+        setActiveSpeaker(userId);
+      } else {
+        const currentSpeaker = useMeetingStore.getState().activeSpeakerId;
+        if (currentSpeaker === userId) {
+          setActiveSpeaker(null);
+        }
+      }
+    };
+
+    // 6. WebRTC Offer / Answer / ICE
     const handleOffer = async ({ senderId, offer }: { senderId: string; offer: RTCSessionDescriptionInit }) => {
       const answer = await webRTCManager.handleOffer(senderId, offer);
       if (answer) {
-        socket.emit('webrtc:answer', { targetId: senderId, answer });
+        socketService.emit('webrtc:answer', { targetId: senderId, answer });
       }
     };
 
@@ -129,12 +143,12 @@ export function useSocket() {
       await webRTCManager.addIceCandidate(senderId, candidate);
     };
 
-    // 6. Chat Message
+    // 7. Chat Message
     const handleChatMessage = (msg: ChatMessage) => {
       addChatMessage(msg);
     };
 
-    // 7. Classroom Q&A Events
+    // 8. Classroom Q&A Events
     const handleQuestionStarted = ({ question, statistics }: { question: Question; statistics: AnswerStatistics }) => {
       setCurrentQuestion(question);
       setSelectedAnswer(null);
@@ -155,7 +169,8 @@ export function useSocket() {
       setStatistics(statistics);
       setAnswersList(answers);
 
-      if (latestAnswer && latestAnswer.userId === socket.id) {
+      const myId = socketService.id || useMeetingStore.getState().myParticipantId;
+      if (latestAnswer && latestAnswer.userId === myId) {
         setSelectedAnswer(latestAnswer.answer);
       }
     };
@@ -172,14 +187,16 @@ export function useSocket() {
       addToast('🔄 Giáo viên đã reset câu hỏi. Bạn có thể trả lời lại!', 'info');
     };
 
-    // 8. Host Actions
+    // 9. Host Actions
     const handleMutedByHost = () => {
-      if (localStream) {
-        const audioTrack = localStream.getAudioTracks()[0];
+      const stream = useMeetingStore.getState().localStream;
+      if (stream) {
+        const audioTrack = stream.getAudioTracks()[0];
         if (audioTrack) audioTrack.enabled = false;
       }
       setAudioEnabled(false);
       socketService.emit('media:toggle', { type: 'audio', enabled: false });
+      socketService.emit('speaker:active', { isSpeaking: false });
       addToast('Bạn đã bị giáo viên tắt micro', 'warning');
     };
 
@@ -195,6 +212,7 @@ export function useSocket() {
     socketService.on('participant:joined', handleParticipantJoined);
     socketService.on('participant:left', handleParticipantLeft);
     socketService.on('participant:updated', handleParticipantUpdated);
+    socketService.on('speaker:active', handleSpeakerActive);
 
     socketService.on('webrtc:offer', handleOffer);
     socketService.on('webrtc:answer', handleAnswer);
@@ -222,6 +240,7 @@ export function useSocket() {
       socketService.off('participant:joined', handleParticipantJoined);
       socketService.off('participant:left', handleParticipantLeft);
       socketService.off('participant:updated', handleParticipantUpdated);
+      socketService.off('speaker:active', handleSpeakerActive);
 
       socketService.off('webrtc:offer', handleOffer);
       socketService.off('webrtc:answer', handleAnswer);
@@ -237,5 +256,5 @@ export function useSocket() {
       socketService.off('host:muted-by-host', handleMutedByHost);
       socketService.off('host:removed-by-host', handleRemovedByHost);
     };
-  }, [roomId, localStream]);
+  }, [roomId]);
 }

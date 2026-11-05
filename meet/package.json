@@ -4,7 +4,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "npx vite",
+    "dev": "concurrently -n \"SERVER,CLIENT\" -c \"blue,green\" \"npm --prefix server run dev\" \"npx vite\"",
+    "dev:client": "npx vite",
+    "dev:server": "npm --prefix server run dev",
     "build": "npx vite build",
     "preview": "npx vite preview",
     "server": "npm --prefix server run dev"
@@ -27,6 +29,7 @@
     "@vercel/node": "^5.1.8",
     "@vitejs/plugin-react": "^4.7.0",
     "autoprefixer": "^10.4.20",
+    "concurrently": "^10.0.6",
     "postcss": "^8.5.1",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.9.3",

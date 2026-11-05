@@ -66,11 +66,19 @@ export class WebRTCManager {
       });
     }
 
-    // Receive remote tracks
+    // Receive remote tracks safely
     pc.ontrack = (event) => {
-      event.streams[0].getTracks().forEach((track) => {
-        remoteStream.addTrack(track);
-      });
+      if (event.streams && event.streams[0]) {
+        event.streams[0].getTracks().forEach((track) => {
+          if (!remoteStream.getTracks().find((t) => t.id === track.id)) {
+            remoteStream.addTrack(track);
+          }
+        });
+      } else if (event.track) {
+        if (!remoteStream.getTracks().find((t) => t.id === event.track.id)) {
+          remoteStream.addTrack(event.track);
+        }
+      }
       onTrack(remoteStream);
     };
 
@@ -154,6 +162,27 @@ export class WebRTCManager {
       }
       this.pendingCandidates.get(peerId)!.push(candidate);
     }
+  }
+
+  public updateLocalStream(newStream: MediaStream | null): void {
+    if (!newStream) return;
+    this.peerConnections.forEach((pc, peerId) => {
+      newStream.getTracks().forEach((track) => {
+        const senders = pc.getSenders();
+        const existingSender = senders.find((s) => s.track?.kind === track.kind);
+        if (existingSender) {
+          existingSender.replaceTrack(track).catch((err) => {
+            console.warn(`[WebRTC] replaceTrack error for peer ${peerId}:`, err);
+          });
+        } else {
+          try {
+            pc.addTrack(track, newStream);
+          } catch (err) {
+            console.warn(`[WebRTC] addTrack error for peer ${peerId}:`, err);
+          }
+        }
+      });
+    });
   }
 
   public replaceVideoTrack(peerId: string, newTrack: MediaStreamTrack | null): void {

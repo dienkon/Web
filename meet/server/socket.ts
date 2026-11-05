@@ -56,6 +56,12 @@ export function setupSocketHandlers(io: Server) {
       }
     });
 
+    // 2b. Speaker Active (Audio level threshold)
+    socket.on('speaker:active', ({ isSpeaking }: { isSpeaking: boolean }) => {
+      if (!currentRoomId || !currentUserId) return;
+      socket.to(currentRoomId).emit('speaker:active', { userId: currentUserId, isSpeaking });
+    });
+
     // 3. WebRTC Signaling (Offer, Answer, ICE Candidate)
     socket.on('webrtc:offer', ({ targetId, offer }: { targetId: string; offer: RTCSessionDescriptionInit }) => {
       io.to(targetId).emit('webrtc:offer', { senderId: socket.id, offer });

@@ -14,7 +14,9 @@ export const JoinPage: React.FC = () => {
   const roomId = `ROOM-${roomCode}`;
 
   const { userName, setUserName, setRoomInfo, isHost } = useMeetingStore();
-  const [nameInput, setNameInput] = useState(userName || '');
+  const [nameInput, setNameInput] = useState(
+    userName || (typeof localStorage !== 'undefined' ? localStorage.getItem('meetclass_user_name') || '' : '')
+  );
 
   const {
     localStream,
@@ -28,12 +30,15 @@ export const JoinPage: React.FC = () => {
   useEffect(() => {
     // Initialize stream preview on mount
     initLocalStream();
-  }, []);
+  }, [initLocalStream]);
 
   const handleJoinSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const finalName = nameInput.trim() || 'Học sinh';
     setUserName(finalName);
+    try {
+      localStorage.setItem('meetclass_user_name', finalName);
+    } catch {}
     setRoomInfo(roomId, roomCode, isHost);
 
     navigate(`/meeting/${roomCode}`);

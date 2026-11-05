@@ -56,7 +56,9 @@ export const ParticipantItem: React.FC<ParticipantItemProps> = ({ participant, i
               {participant.name} {isLocal && '(Bạn)'}
             </span>
             {participant.isHost && (
-              <Crown className="w-3.5 h-3.5 text-amber-400 shrink-0" title="Giáo viên / Host" />
+              <span title="Giáo viên / Host">
+                <Crown className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+              </span>
             )}
           </div>
 

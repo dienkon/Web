@@ -9,8 +9,8 @@ interface AnswerStatisticsProps {
   answersList: UserAnswer[];
   questionLocked: boolean;
   isHost: boolean;
-  onLock: () => void;
-  onReset: () => void;
+  onLock?: () => void;
+  onReset?: () => void;
 }
 
 export const AnswerStatistics: React.FC<AnswerStatisticsProps> = ({
@@ -46,26 +46,30 @@ export const AnswerStatistics: React.FC<AnswerStatisticsProps> = ({
           </span>
         </div>
 
-        {isHost && (
+        {isHost && (onLock || onReset) && (
           <div className="flex items-center gap-2">
-            <Button
-              variant={questionLocked ? 'subtle' : 'dark'}
-              size="sm"
-              onClick={onLock}
-              className="gap-1 text-xs"
-            >
-              {questionLocked ? <Unlock className="w-3.5 h-3.5" /> : <Lock className="w-3.5 h-3.5" />}
-              {questionLocked ? 'Mở lại' : 'Khóa'}
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={onReset}
-              className="gap-1 text-xs text-amber-400 hover:text-amber-300 border-amber-500/30"
-            >
-              <RotateCcw className="w-3.5 h-3.5" />
-              Reset
-            </Button>
+            {onLock && (
+              <Button
+                variant={questionLocked ? 'subtle' : 'dark'}
+                size="sm"
+                onClick={onLock}
+                className="gap-1 text-xs"
+              >
+                {questionLocked ? <Unlock className="w-3.5 h-3.5" /> : <Lock className="w-3.5 h-3.5" />}
+                {questionLocked ? 'Mở lại' : 'Khóa'}
+              </Button>
+            )}
+            {onReset && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={onReset}
+                className="gap-1 text-xs text-amber-400 hover:text-amber-300 border-amber-500/30"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                Reset
+              </Button>
+            )}
           </div>
         )}
       </div>
