@@ -143,6 +143,16 @@
     ClipboardStudio.init();
     PenKeyboard.init();
     PenTools.init();
+    document.addEventListener("fullscreenchange", () => {
+      const active = !!document.fullscreenElement,
+        b = document.getElementById("fullscreen-toggle");
+      b.setAttribute("aria-pressed", String(active));
+      b.title = active ? "Thoát toàn màn hình" : "Toàn màn hình";
+      b.setAttribute("aria-label", b.title);
+      b.textContent = active ? "⤢" : "⛶";
+      b.classList.toggle("active", active);
+      Renderer.resize();
+    });
     document.addEventListener("statechange", stateChanged);
     document.addEventListener("click", (e) => {
       const b = e.target.closest("[data-action]");
@@ -153,7 +163,9 @@
       if (
         !e.target.closest(".popover") &&
         !e.target.closest("#toolbar") &&
-        !e.target.closest("#pen-keyboard,#pen-dock,#selection-tools") &&
+        !e.target.closest(
+          "#pen-keyboard,#pen-dock,#selection-tools,#geometry-toolbar",
+        ) &&
         !e.target.closest(".page-more")
       )
         closePopover();
@@ -1007,6 +1019,22 @@
         [
           ["P / E / S", "Bút / Tẩy / Chọn"],
           ["G / H / C", "Đồ thị / Hình học / Máy tính"],
+          [
+            "Giao điểm",
+            "Dựng & đo → Giao điểm, rồi chạm hai đường thẳng trong hình đang chọn.",
+          ],
+          [
+            "Trọng tâm",
+            "Chọn ba đỉnh để dựng G; dùng Nối điểm để nối một đỉnh với G.",
+          ],
+          [
+            "Trang nối liền",
+            "Cuộn xuống cuối tự thêm trang; viết và kéo hình qua ranh giới trang. Tối đa 300 trang/sổ tay.",
+          ],
+          [
+            "Toàn màn hình",
+            "Nút ⛶ trên thanh công cụ bật / thoát toàn màn hình bằng bút.",
+          ],
           ["Ctrl+S / Ctrl+O", "Tải bản sao / Mở tệp"],
           ["Ctrl+Z / Ctrl+Y", "Hoàn tác / Làm lại"],
           [
@@ -1184,11 +1212,12 @@
       case "fit":
         return fit();
       case "fullscreen":
-        if (document.fullscreenElement) document.exitFullscreen();
-        else
-          document.documentElement
-            .requestFullscreen()
-            .catch(() => toast("Dùng F11 để bật toàn màn hình."));
+        (document.fullscreenElement
+          ? document.exitFullscreen()
+          : document.documentElement.requestFullscreen()
+        ).catch(() =>
+          toast("Trình duyệt chưa cho phép toàn màn hình trong cửa sổ này."),
+        );
         return;
       case "help":
         return help();

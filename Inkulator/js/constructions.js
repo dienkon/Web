@@ -11,7 +11,35 @@
     angle: 3,
     circumcircle: 3,
     section: 3,
+    intersection: 4,
+    centroid: 3,
+    median: 3,
+    bisector: 3,
   };
+  function intersection(A, B, C, D) {
+    const u = G.sub(B, A),
+      v = G.sub(D, C),
+      w = G.sub(C, A),
+      aa = G.dot(u, u),
+      bb = G.dot(v, v),
+      ab = G.dot(u, v),
+      den = aa * bb - ab * ab;
+    if (aa < EPS * EPS || bb < EPS * EPS)
+      throw Error("Không xác định được đường qua hai điểm trùng nhau.");
+    if (Math.abs(den) <= 1e-12 * aa * bb)
+      throw Error(
+        "Hai đường song song hoặc trùng nhau; không có giao điểm duy nhất.",
+      );
+    const wu = G.dot(w, u),
+      wv = G.dot(w, v),
+      t = (wu * bb - wv * ab) / den,
+      s = (wu * ab - wv * aa) / den,
+      P = G.add(A, G.scale(u, t)),
+      Q = G.add(C, G.scale(v, s));
+    if (G.norm(G.sub(P, Q)) > 1e-7 * Math.max(1, Math.sqrt(aa), Math.sqrt(bb)))
+      throw Error("Hai đường chéo nhau trong không gian, không có giao điểm.");
+    return G.mid(P, Q);
+  }
   function section(model, A, B, C) {
     const normal = G.cross(G.sub(B, A), G.sub(C, A)),
       length = G.norm(normal);
@@ -118,6 +146,66 @@
           item.point = G.mid(p[0], p[1]);
           named("c:" + c.id, c.label || "M", item.point);
         }
+        if (c.type === "intersection") {
+          item.point = intersection(...p);
+          named("c:" + c.id, c.label || "I", item.point);
+        }
+        if (["centroid", "median", "bisector"].includes(c.type)) {
+          const u = G.sub(p[1], p[0]),
+            v = G.sub(p[2], p[0]),
+            cross =
+              u.length === 2
+                ? Math.abs(u[0] * v[1] - u[1] * v[0])
+                : G.norm(G.cross(u, v));
+          if (
+            G.norm(u) < EPS ||
+            G.norm(v) < EPS ||
+            cross <= EPS * G.norm(u) * G.norm(v)
+          )
+            throw Error("Ba điểm thẳng hàng; hãy chọn một tam giác.");
+        }
+        if (c.type === "centroid") {
+          item.point = G.scale(G.add(G.add(p[0], p[1]), p[2]), 1 / 3);
+          item.medians = p.map((P, i) => [
+            P,
+            G.mid(p[(i + 1) % 3], p[(i + 2) % 3]),
+          ]);
+          item.medians.forEach((pair, i) => {
+            const key = "c:" + c.id + ":M" + i;
+            named(key, "", pair[1]);
+            points.get(key).internal = true;
+          });
+          named("c:" + c.id, c.label || "G", item.point);
+        }
+        if (c.type === "median" || c.type === "bisector") {
+          if (c.type === "median") {
+            item.foot = G.mid(p[1], p[2]);
+            item.endpoints = [p[0], item.foot];
+            item.endpointRefs = [c.refs[0], "c:" + c.id];
+          } else {
+            const a = G.norm(G.sub(p[0], p[1])),
+              b = G.norm(G.sub(p[2], p[1]));
+            if (a < EPS || b < EPS)
+              throw Error("Phân giác cần hai cạnh khác không.");
+            const u = G.scale(G.sub(p[0], p[1]), 1 / a),
+              v = G.scale(G.sub(p[2], p[1]), 1 / b);
+            if (G.norm(G.add(u, v)) < EPS)
+              throw Error(
+                "Góc bẹt không xác định phân giác trong của tam giác.",
+              );
+            item.foot = G.scale(
+              G.add(G.scale(p[0], b), G.scale(p[2], a)),
+              1 / (a + b),
+            );
+            item.endpoints = [p[1], item.foot];
+            item.endpointRefs = [c.refs[1], "c:" + c.id];
+          }
+          named(
+            "c:" + c.id,
+            c.label || (c.type === "median" ? "M" : "D"),
+            item.foot,
+          );
+        }
         if (["segment", "measure"].includes(c.type)) {
           item.length = G.norm(G.sub(p[1], p[0]));
           if (item.length < EPS) throw Error("Hai điểm trùng nhau.");
@@ -138,6 +226,12 @@
           if (den < EPS) throw Error("Hai điểm của đường thẳng trùng nhau.");
           if (c.type === "parallel") {
             item.endpoints = [G.sub(p[2], ab), G.add(p[2], ab)];
+            item.endpointRefs = ["c:" + c.id + ":A", "c:" + c.id + ":B"];
+            item.endpoints.forEach((P, i) => {
+              const key = item.endpointRefs[i];
+              named(key, "", P);
+              points.get(key).internal = true;
+            });
           } else {
             item.foot = G.add(
               p[0],
@@ -149,6 +243,7 @@
               );
             item.endpoints = [p[2], item.foot];
             named("c:" + c.id, c.label || "H", item.foot);
+            item.endpointRefs = [c.refs[2], "c:" + c.id];
           }
         }
         if (c.type === "circumcircle") {
@@ -228,11 +323,27 @@
     for (const c of data.constructions) {
       if (c.refs.some((r) => !known.has(r)))
         throw Error("Phép dựng có tham chiếu vòng hoặc điểm chưa tồn tại.");
-      if (["midpoint", "perpendicular", "circumcircle"].includes(c.type))
+      if (
+        [
+          "midpoint",
+          "perpendicular",
+          "circumcircle",
+          "intersection",
+          "centroid",
+          "median",
+          "bisector",
+        ].includes(c.type)
+      )
         known.add("c:" + c.id);
+      if (c.type === "parallel") {
+        known.add("c:" + c.id + ":A");
+        known.add("c:" + c.id + ":B");
+      }
+      if (c.type === "centroid")
+        for (let i = 0; i < 3; i++) known.add("c:" + c.id + ":M" + i);
       if (c.type === "section")
         for (let i = 0; i < 40; i++) known.add("c:" + c.id + ":" + i);
     }
   }
-  root.Constructions = { operations, section, build, validate };
+  root.Constructions = { operations, section, intersection, build, validate };
 })(typeof window !== "undefined" ? window : globalThis);

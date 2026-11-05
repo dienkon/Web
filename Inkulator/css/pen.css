@@ -352,6 +352,47 @@ body.dark #clipboard-receiver {
   border-radius: 10px;
   min-height: 42px;
 }
+#fullscreen-toggle {
+  flex: 0 0 30px;
+  font-size: 23px;
+  padding: 0;
+}
+.geo-menu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(105px, 1fr));
+  gap: 5px;
+  max-width: 290px;
+}
+.geo-menu-grid button {
+  padding: 10px 8px;
+  text-align: left;
+  border: 1px solid var(--line);
+  font-size: 12px;
+  min-height: 36px;
+}
+.geometry-instruction:empty {
+  display: none;
+}
+.geo-details summary {
+  cursor: pointer;
+  color: var(--accent);
+  padding: 8px 0;
+  font-size: 11px;
+}
+.geo-details > select {
+  width: 100%;
+}
+@media (max-width: 700px) {
+  .toolbar {
+    gap: 2px;
+    padding: 0 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .toolbar::-webkit-scrollbar {
+    display: none;
+  }
+}
 .canvas-navigation #page-counter {
   width: auto;
   min-width: 42px;

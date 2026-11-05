@@ -38,6 +38,7 @@
     touchInk: false,
     smartShape: false,
     animations: true,
+    autoPages: true,
   };
   const state = {
     notebooks: [notebook()],
@@ -730,7 +731,13 @@
         ? Math.min(Math.max(0, lib.pageIndex), book().pages.length - 1)
         : 0;
       if (lib.settings) {
-        for (const k of ["theme", "touchInk", "smartShape", "animations"])
+        for (const k of [
+          "theme",
+          "touchInk",
+          "smartShape",
+          "animations",
+          "autoPages",
+        ])
           if (typeof lib.settings[k] === typeof defaults[k])
             state.settings[k] = lib.settings[k];
         for (const k of [

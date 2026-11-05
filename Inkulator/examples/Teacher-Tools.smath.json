@@ -1,0 +1,326 @@
+{
+  "format": "scrble-math",
+  "version": 1,
+  "notebook": {
+    "id": "08eea8e6-7669-44ba-a1f8-eb7422a21df3",
+    "title": "Giao điểm & Trọng tâm",
+    "folder": "",
+    "created": "2026-11-05T12:43:25.709Z",
+    "modified": "2026-11-05T12:43:25.709Z",
+    "pages": [
+      {
+        "id": "8866df4a-4cbf-41d9-a6a9-0ffed90f676e",
+        "title": "Dựng điểm, nối hình · các điểm tự cập nhật",
+        "paper": "blank",
+        "width": 1400,
+        "height": 1000,
+        "showTitle": true,
+        "objects": [
+          {
+            "id": "c4a1cee8-107d-4c34-bb27-2498fcd73945",
+            "type": "geometry",
+            "position": {
+              "x": 70,
+              "y": 160
+            },
+            "size": {
+              "w": 570,
+              "h": 560
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#111111",
+              "width": 2.6,
+              "opacity": 1
+            },
+            "zIndex": 0,
+            "locked": false,
+            "visible": true,
+            "layer": "geometry",
+            "data": {
+              "kind": "triangle",
+              "points": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  6,
+                  0
+                ],
+                [
+                  1.8,
+                  4.5
+                ]
+              ],
+              "labels": true,
+              "measures": false,
+              "aux": [],
+              "unit": "đv",
+              "frame": [
+                -1,
+                7,
+                -1,
+                6
+              ],
+              "fillOpacity": 0,
+              "constructions": [
+                {
+                  "id": "centroid-demo",
+                  "type": "centroid",
+                  "refs": [
+                    "v:0",
+                    "v:1",
+                    "v:2"
+                  ],
+                  "label": "G",
+                  "showMedians": true
+                },
+                {
+                  "id": "connect-G",
+                  "type": "segment",
+                  "refs": [
+                    "v:0",
+                    "c:centroid-demo"
+                  ],
+                  "lineMode": "auto"
+                }
+              ]
+            }
+          },
+          {
+            "id": "349201f5-0b4e-404f-bd8e-31ad6a58a5f1",
+            "type": "geometry",
+            "position": {
+              "x": 740,
+              "y": 175
+            },
+            "size": {
+              "w": 500,
+              "h": 520
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#111111",
+              "width": 2.6,
+              "opacity": 1
+            },
+            "zIndex": 0,
+            "locked": false,
+            "visible": true,
+            "layer": "geometry",
+            "data": {
+              "kind": "rectangle",
+              "points": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  5,
+                  0
+                ],
+                [
+                  5,
+                  4
+                ],
+                [
+                  0,
+                  4
+                ]
+              ],
+              "labels": true,
+              "measures": false,
+              "aux": [],
+              "unit": "đv",
+              "frame": [
+                -1,
+                6,
+                -1,
+                5
+              ],
+              "fillOpacity": 0,
+              "constructions": [
+                {
+                  "id": "AC-demo",
+                  "type": "segment",
+                  "refs": [
+                    "v:0",
+                    "v:2"
+                  ]
+                },
+                {
+                  "id": "BD-demo",
+                  "type": "segment",
+                  "refs": [
+                    "v:1",
+                    "v:3"
+                  ]
+                },
+                {
+                  "id": "intersection-demo",
+                  "type": "intersection",
+                  "refs": [
+                    "v:0",
+                    "v:2",
+                    "v:1",
+                    "v:3"
+                  ],
+                  "label": "I"
+                }
+              ]
+            }
+          },
+          {
+            "id": "e89cd88b-1a07-4d47-986c-d7f4974445cf",
+            "type": "text",
+            "position": {
+              "x": 140,
+              "y": 740
+            },
+            "size": {
+              "w": 460,
+              "h": 42
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#27836d",
+              "width": 1,
+              "opacity": 1
+            },
+            "zIndex": 0,
+            "locked": false,
+            "visible": true,
+            "layer": "annotation",
+            "data": {
+              "text": "TRỌNG TÂM G",
+              "fontSize": 19,
+              "fontFamily": "Segoe UI"
+            }
+          },
+          {
+            "id": "65f3d2a0-3c3f-4a38-95d7-d2df6463ed3b",
+            "type": "text",
+            "position": {
+              "x": 140,
+              "y": 782
+            },
+            "size": {
+              "w": 520,
+              "h": 42
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#27836d",
+              "width": 1,
+              "opacity": 1
+            },
+            "zIndex": 0,
+            "locked": false,
+            "visible": true,
+            "layer": "annotation",
+            "data": {
+              "text": "G cập nhật theo A, B, C; AG nối tới điểm G.",
+              "fontSize": 19,
+              "fontFamily": "Segoe UI"
+            }
+          },
+          {
+            "id": "16660105-4978-454e-9348-2da5285c5aba",
+            "type": "text",
+            "position": {
+              "x": 800,
+              "y": 740
+            },
+            "size": {
+              "w": 480,
+              "h": 42
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#27836d",
+              "width": 1,
+              "opacity": 1
+            },
+            "zIndex": 0,
+            "locked": false,
+            "visible": true,
+            "layer": "annotation",
+            "data": {
+              "text": "GIAO ĐIỂM HAI ĐƯỜNG",
+              "fontSize": 19,
+              "fontFamily": "Segoe UI"
+            }
+          },
+          {
+            "id": "659fee37-a0aa-4eac-8a82-f2d90d3fb0d1",
+            "type": "text",
+            "position": {
+              "x": 800,
+              "y": 782
+            },
+            "size": {
+              "w": 480,
+              "h": 42
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#27836d",
+              "width": 1,
+              "opacity": 1
+            },
+            "zIndex": 0,
+            "locked": false,
+            "visible": true,
+            "layer": "annotation",
+            "data": {
+              "text": "I = AC ∩ BD · tọa độ tính từ hình thật.",
+              "fontSize": 19,
+              "fontFamily": "Segoe UI"
+            }
+          }
+        ],
+        "layers": [
+          {
+            "id": "image",
+            "visible": true,
+            "locked": false
+          },
+          {
+            "id": "geometry",
+            "visible": true,
+            "locked": false
+          },
+          {
+            "id": "graph",
+            "visible": true,
+            "locked": false
+          },
+          {
+            "id": "ink",
+            "visible": true,
+            "locked": false
+          },
+          {
+            "id": "annotation",
+            "visible": true,
+            "locked": false
+          }
+        ]
+      }
+    ]
+  },
+  "settings": {
+    "theme": "light",
+    "gridSize": 25,
+    "smoothing": 0.5,
+    "penSensitivity": 1,
+    "autosave": 1200,
+    "historyLimit": 60,
+    "touchInk": false,
+    "smartShape": false,
+    "animations": true,
+    "autoPages": true
+  },
+  "assets": {}
+}

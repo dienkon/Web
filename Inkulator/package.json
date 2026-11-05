@@ -1,6 +1,6 @@
 {
   "name": "scrble-math-studio",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "private": true,
   "description": "Offline mathematical notebook — open index.html directly",
   "scripts": {
@@ -11,7 +11,8 @@
     "vendor:build": "node scripts/build-vendor.cjs",
     "package": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package.ps1",
     "test:pen": "node tests/pen-browser-tests.cjs",
-    "test:pdf": "node tests/pdf-flow-browser-tests.cjs"
+    "test:pdf": "node tests/pdf-flow-browser-tests.cjs",
+    "test:notebook": "node tests/notebook-browser-tests.cjs"
   },
   "devDependencies": {
     "esbuild": "0.28.2",

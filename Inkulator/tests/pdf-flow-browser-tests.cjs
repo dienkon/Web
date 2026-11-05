@@ -56,6 +56,10 @@ const pass = (s) => {
       });
       await page.goto(pathToFileURL(path.join(root, "index.html")).href);
       await page.waitForFunction(() => window.Scrble);
+      // Fixed PDF-page counts here; automatic extension is covered by the notebook suite.
+      await page.evaluate(() => {
+        Store.state.settings.autoPages = false;
+      });
       await page.locator("#pdf-file").setInputFiles(file);
       await page.locator("#pdf-range").waitFor();
       assert.equal(await page.locator("#pdf-range").inputValue(), "1-34");
@@ -158,7 +162,7 @@ const pass = (s) => {
               .getContext("2d")
               .getImageData(
                 Math.round(380 * d),
-                Math.round(306 * d),
+                Math.round(292 * d),
                 1,
                 1,
               ).data;

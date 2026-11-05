@@ -167,6 +167,7 @@
       start: p,
       last: p,
       before: Store.snapshot(),
+      pageIndex: S().pageIndex,
       client: { x: e.clientX, y: e.clientY },
       viewport: { ...S().viewport },
       moved: false,
@@ -341,6 +342,7 @@
           pressure(item),
         ]);
       }
+      if (g.mode !== "laser") root.PageFlow?.ensureInk(g.points, g.pageIndex);
     }
     if (g.mode === "move") {
       const dx = p.x - g.start.x,
@@ -525,10 +527,15 @@
     if (g.mode === "move" && !g.moved && g.toggleId)
       S().selection = S().selection.filter((id) => id !== g.toggleId);
     if (["pen", "highlighter"].includes(g.mode)) {
-      let o = strokeFrom(g.points, g.mode);
-      if (S().settings.smartShape && g.mode === "pen")
-        o = recognize(o, g.points) || o;
-      Store.current().objects.push(o);
+      PageFlow.ensureInk(g.points, g.pageIndex);
+      const parts = PageFlow.splitInk(g.points, g.pageIndex);
+      for (const part of parts) {
+        let o = strokeFrom(part.points, g.mode);
+        if (parts.length === 1 && S().settings.smartShape && g.mode === "pen")
+          o = recognize(o, part.points) || o;
+        o.zIndex = part.page.objects.length;
+        part.page.objects.push(o);
+      }
     }
     if (g.mode === "laser") {
       laser = { points: g.points, time: performance.now() };
@@ -570,8 +577,15 @@
           ),
       );
     }
+    const movedIds =
+        g.mode === "move" && g.moved ? g.originals.map((o) => o.id) : [],
+      destination = movedIds.length
+        ? PageFlow.moveAcross(movedIds, g.pageIndex)
+        : null;
     Store.commit(g.before);
-    if (g.mode === "pan") root.PageFlow?.settle();
+    if (destination !== null) PageFlow.selectMoved(destination, movedIds);
+    if (g.mode === "pan")
+      root.PageFlow?.settle({ extend: S().viewport.y < g.viewport.y });
     cursor();
     if (
       ["vertex", "rotate3d", "resize", "move"].includes(g.mode) &&
@@ -840,7 +854,7 @@
     } else {
       v.x -= e.deltaX;
       v.y -= e.deltaY;
-      root.PageFlow?.settle();
+      root.PageFlow?.settle({ extend: e.deltaY > 0 });
       Renderer.request();
     }
   }

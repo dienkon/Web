@@ -10,6 +10,10 @@
     circumcircle: "Tròn qua 3 điểm",
     section: "Thiết diện",
     orbit: "Xoay 3D",
+    intersection: "Giao điểm",
+    centroid: "Trọng tâm",
+    median: "Trung tuyến",
+    bisector: "Phân giác",
   };
   let interaction = null,
     hovered = null;
@@ -34,7 +38,9 @@
   }
   function points(o) {
     const result = Constructions.build(o),
-      all = [...result.points.values()].filter((p) => !p.aliasOf),
+      all = [...result.points.values()].filter(
+        (p) => !p.aliasOf && !p.internal,
+      ),
       screen = project(
         o,
         all.map((p) => p.coords),
@@ -55,10 +61,99 @@
     }
     return best;
   }
+  function lines(o) {
+    const r = Constructions.build(o),
+      found = [],
+      seen = new Set();
+    const add = (refs, label) => {
+      const a = r.points.get(refs[0]),
+        b = r.points.get(refs[1]);
+      if (!a || !b || Geometry.norm(Geometry.sub(a.coords, b.coords)) < 1e-8)
+        return;
+      const key = refs.slice().sort().join("|");
+      if (seen.has(key)) return;
+      seen.add(key);
+      const local = project(o, [a.coords, b.coords]);
+      found.push({
+        key,
+        refs,
+        label: label || a.label + b.label,
+        local,
+        world: local.map((p) => Renderer.worldPoint(o, { x: p[0], y: p[1] })),
+      });
+    };
+    const n =
+      o.type === "solid" ? r.model.vertices.length : o.data.points.length;
+    const edges =
+      o.type === "solid"
+        ? r.model.edges
+        : ["circle", "incircle", "circumcircle"].includes(o.data.kind) &&
+            n !== 3
+          ? []
+          : Array.from({ length: n }, (_, i) => [i, (i + 1) % n]);
+    edges.forEach(([a, b]) => add(["v:" + a, "v:" + b]));
+    (o.data.aux || []).forEach((a) => {
+      if (a.type === "segment") add(["v:" + a.a, "v:" + a.b]);
+    });
+    if (r.points.has("base:M")) add(["v:0", "base:M"]);
+    if (r.points.has("base:H")) add(["v:0", "base:H"]);
+    if (r.points.has("base:G"))
+      for (let i = 0; i < 3; i++) add(["v:" + i, "base:G"]);
+    for (const item of r.items) {
+      if (["segment", "measure"].includes(item.type)) add(item.refs);
+      if (item.endpointRefs)
+        add(
+          item.endpointRefs,
+          item.type === "parallel"
+            ? "Song song qua " + r.points.get(item.refs[2]).label
+            : undefined,
+        );
+      if (item.type === "centroid" && item.showMedians !== false)
+        item.refs.forEach((ref, i) =>
+          add(
+            [ref, "c:" + item.id + ":M" + i],
+            r.points.get(ref).label + " · trung tuyến",
+          ),
+        );
+      if (item.type === "section")
+        item.points.forEach((_, i) =>
+          add([
+            "c:" + item.id + ":" + i,
+            "c:" + item.id + ":" + ((i + 1) % item.points.length),
+          ]),
+        );
+    }
+    return found;
+  }
+  function nearestLine(o, p) {
+    let best = null;
+    for (const line of lines(o)) {
+      const [a, b] = line.world,
+        dx = b.x - a.x,
+        dy = b.y - a.y,
+        n = dx * dx + dy * dy;
+      const t = n
+        ? Math.max(0, Math.min(1, ((p.x - a.x) * dx + (p.y - a.y) * dy) / n))
+        : 0;
+      const distance = Math.hypot(p.x - a.x - t * dx, p.y - a.y - t * dy);
+      if (
+        distance < 16 / Store.state.viewport.zoom &&
+        (!best || distance < best.distance)
+      )
+        best = { ...line, distance };
+    }
+    return best;
+  }
   function status() {
     if (!interaction) return "Chọn công cụ rồi nhấp các điểm trên hình.";
     if (interaction.mode === "orbit")
       return "Kéo hình để chỉnh góc nhìn. Thả chuột để giữ hình tĩnh.";
+    if (interaction.mode === "intersection" && interaction.linePicks?.length)
+      return (
+        "Đã chọn " + interaction.linePicks[0].label + " · chạm đường thứ hai"
+      );
+    if (interaction.mode === "intersection" && !interaction.picked.length)
+      return "Chạm 2 đường để lấy giao điểm · hoặc chọn lần lượt A, B, C, D";
     const o = target(),
       all = o ? Constructions.build(o).points : new Map(),
       picked = interaction.picked.map((k) => all.get(k)?.label || "?");
@@ -73,10 +168,15 @@
       (["parallel", "perpendicular"].includes(interaction.mode)
         ? " (2 điểm của đường, rồi điểm đi qua)"
         : "") +
-      (interaction.mode === "angle" ? " (đỉnh góc ở điểm thứ hai)" : "")
+      (["angle", "bisector"].includes(interaction.mode)
+        ? " (đỉnh góc ở điểm thứ hai)"
+        : interaction.mode === "median"
+          ? " (đỉnh xuất phát chọn trước)"
+          : "")
     );
   }
   function setMode(mode, o = target()) {
+    o = Store.current().objects.find((item) => item.id === o?.id);
     if (!o || o.locked) return App.toast("Chọn một hình học chưa khóa.");
     if (mode === "orbit" && o.data.projection === "oblique")
       Store.transaction(() => {
@@ -117,9 +217,27 @@
   function pick(key) {
     const o = target();
     if (!o || !interaction || interaction.mode === "orbit") return;
-    if (interaction.picked.includes(key))
+    if (interaction.picked.includes(key) && interaction.mode !== "intersection")
       return App.toast("Chọn các điểm khác nhau.");
     interaction.picked.push(key);
+    completePicked();
+  }
+  function pickLine(key) {
+    const o = target();
+    if (!o || interaction?.mode !== "intersection") return;
+    const line = lines(o).find((l) => l.key === key);
+    if (!line) return;
+    interaction.linePicks = interaction.linePicks || [];
+    if (interaction.linePicks.some((l) => l.key === key))
+      return App.toast("Chọn một đường khác.");
+    if (!interaction.linePicks.length) interaction.picked = [];
+    interaction.linePicks.push(line);
+    interaction.picked.push(...line.refs);
+    completePicked();
+  }
+  function completePicked() {
+    const o = target();
+    if (!o || !interaction) return;
     if (
       interaction.picked.length === Constructions.operations[interaction.mode]
     ) {
@@ -130,17 +248,34 @@
         lineMode: interaction.lineMode || "auto",
         dashed: interaction.lineMode === "dashed",
         showMeasure: interaction.mode === "measure",
+        ...(interaction.mode === "centroid" ? { showMedians: true } : {}),
       };
       const labels = new Set(
         [...Constructions.build(o).points.values()].map((p) => p.label),
       );
-      if (["midpoint", "perpendicular", "circumcircle"].includes(c.type)) {
+      if (
+        [
+          "midpoint",
+          "perpendicular",
+          "circumcircle",
+          "intersection",
+          "centroid",
+          "median",
+          "bisector",
+        ].includes(c.type)
+      ) {
         const candidates =
-          c.type === "perpendicular"
-            ? ["H", "K", "L", "T"]
-            : c.type === "circumcircle"
-              ? ["O", "I", "J"]
-              : ["M", "N", "P", "Q", "R"];
+          c.type === "centroid"
+            ? ["G", "G₁", "G₂"]
+            : c.type === "intersection"
+              ? ["I", "J", "K", "T"]
+              : c.type === "bisector"
+                ? ["D", "E", "F", "T"]
+                : c.type === "perpendicular"
+                  ? ["H", "K", "L", "T"]
+                  : c.type === "circumcircle"
+                    ? ["O", "I", "J"]
+                    : ["M", "N", "P", "Q", "R"];
         c.label =
           candidates.find((s) => !labels.has(s)) ||
           "M" + (o.data.constructions?.length || 0);
@@ -154,6 +289,7 @@
       const result = Constructions.build(temporary),
         warning = result.warnings.find((w) => w.id === c.id);
       interaction.picked = [];
+      interaction.linePicks = [];
       if (warning) {
         App.toast(warning.message, 5000);
         renderToolbar();
@@ -195,9 +331,21 @@
       cancel();
       return false;
     }
+    if (interaction.mode === "intersection") {
+      const line = nearestLine(o, p);
+      if (line) {
+        pickLine(line.key);
+        return true;
+      }
+    }
     const hit = nearest(o, p);
     if (hit) pick(hit.key);
-    else App.toast("Nhấp gần đỉnh hoặc điểm phụ; con trỏ sẽ tự bắt điểm.");
+    else
+      App.toast(
+        interaction.mode === "intersection"
+          ? "Chạm gần đường trên hình, hoặc chọn đường từ danh sách."
+          : "Nhấp gần đỉnh hoặc điểm phụ; con trỏ sẽ tự bắt điểm.",
+      );
     return true;
   }
   function hover(p) {
@@ -209,7 +357,8 @@
       }
       return;
     }
-    const next = nearest(o, p);
+    const next =
+      interaction.mode === "intersection" ? nearestLine(o, p) : nearest(o, p);
     if (next?.key !== hovered?.key) {
       hovered = next;
       Renderer.request();
@@ -309,11 +458,11 @@
       ctx.setLineDash([]);
     };
     const spatial = o.type === "solid" ? SolidView.forObject(o) : null;
-    const modelLine = (A, B, item) => {
+    const modelLine = (A, B, item, width = Math.max(2, o.style.width)) => {
       const mode = item.lineMode || (item.dashed ? "dashed" : "auto");
       if (spatial)
         SolidView.trace(ctx, spatial.segments(A, B), {
-          width: Math.max(2, o.style.width),
+          width,
           hiddenEdges: o.data.hiddenEdges !== false,
           mode,
         });
@@ -339,6 +488,14 @@
             locations,
           );
         }
+      }
+      if (["median", "bisector"].includes(item.type))
+        modelLine(...item.endpoints, item);
+      if (item.type === "centroid" && item.showMedians !== false) {
+        ctx.save();
+        ctx.lineWidth = Math.max(1.7, o.style.width * 0.7);
+        item.medians.forEach((pair) => modelLine(...pair, item, ctx.lineWidth));
+        ctx.restore();
       }
       if (["parallel", "perpendicular"].includes(item.type)) {
         const pp = project(o, item.endpoints);
@@ -433,6 +590,7 @@
     all.forEach((p, i) => {
       if (
         p.aliasOf ||
+        p.internal ||
         !p.derived ||
         p.key.startsWith("legacy:") ||
         p.key === "base:M"
@@ -453,6 +611,21 @@
     const pts = points(o),
       zoom = Store.state.viewport.zoom;
     ctx.save();
+    if (interaction.mode === "intersection") {
+      const selected = new Set((interaction.linePicks || []).map((l) => l.key));
+      for (const line of lines(o))
+        if (selected.has(line.key) || hovered?.key === line.key) {
+          ctx.strokeStyle = selected.has(line.key) ? "#b67a2f" : "#187d68";
+          ctx.lineWidth = 5 / zoom;
+          ctx.globalAlpha = 0.55;
+          ctx.setLineDash([]);
+          ctx.beginPath();
+          ctx.moveTo(line.world[0].x, line.world[0].y);
+          ctx.lineTo(line.world[1].x, line.world[1].y);
+          ctx.stroke();
+        }
+      ctx.globalAlpha = 1;
+    }
     for (const p of pts) {
       const selected = interaction.picked.includes(p.key),
         hover = hovered?.key === p.key;
@@ -513,7 +686,7 @@
     }
     bar.hidden = false;
     const solid = o.type === "solid",
-      keys =
+      available =
         solid &&
         ["sphere", "cylinder", "cone", "cone-frustum"].includes(o.data.kind)
           ? ["orbit"]
@@ -524,8 +697,17 @@
               "perpendicular",
               "parallel",
               "angle",
+              "intersection",
+              "centroid",
+              "median",
+              "bisector",
               ...(solid ? ["section", "orbit"] : ["circumcircle"]),
-            ];
+            ],
+      keys =
+        available.length === 1
+          ? available
+          : ["segment", "midpoint", "centroid", ...(solid ? ["orbit"] : [])],
+      extras = available.filter((k) => !keys.includes(k));
     bar.innerHTML =
       '<div class="geometry-toolbar-buttons">' +
       keys
@@ -542,17 +724,66 @@
             "</button>",
         )
         .join("") +
+      (extras.length
+        ? '<button id="geo-more" class="' +
+          (extras.includes(interaction?.mode) ? "active" : "") +
+          '" aria-haspopup="true">' +
+          App.escape(
+            extras.includes(interaction?.mode)
+              ? titles[interaction.mode]
+              : "Dựng & đo",
+          ) +
+          " ▾</button>"
+        : "") +
       '<button id="geo-finish" title="Thoát công cụ dựng">✓ Xong</button>' +
-      (interaction && interaction.mode !== "orbit"
+      (interaction &&
+      [
+        "segment",
+        "measure",
+        "parallel",
+        "perpendicular",
+        "median",
+        "bisector",
+        "section",
+        "circumcircle",
+      ].includes(interaction.mode)
         ? '<select id="geo-inline-line-mode" aria-label="Kiểu nét đường nối"><option value="auto">Nét tự động</option><option value="solid">Luôn nét liền</option><option value="dashed">Luôn nét đứt</option></select>'
         : "") +
       '</div><div class="geometry-instruction">' +
-      App.escape(status()) +
+      (interaction ? App.escape(status()) : "") +
       "</div>";
     bar
       .querySelectorAll("[data-geo-mode]")
       .forEach((b) => (b.onclick = () => setMode(b.dataset.geoMode, o)));
     bar.querySelector("#geo-finish").onclick = cancel;
+    const more = bar.querySelector("#geo-more");
+    if (more)
+      more.onclick = () => {
+        const popover = App.popover(
+          more,
+          '<h3>Dựng hình & đo</h3><div class="geo-menu-grid">' +
+            extras
+              .map(
+                (k) =>
+                  '<button data-geo-mode="' +
+                  k +
+                  '" class="' +
+                  (interaction?.mode === k ? "active" : "") +
+                  '">' +
+                  titles[k] +
+                  "</button>",
+              )
+              .join("") +
+            "</div>",
+        );
+        popover.querySelectorAll("[data-geo-mode]").forEach(
+          (b) =>
+            (b.onclick = () => {
+              App.closePopover();
+              setMode(b.dataset.geoMode, o);
+            }),
+        );
+      };
     const lineChoice = bar.querySelector("#geo-inline-line-mode");
     if (lineChoice) {
       lineChoice.value = interaction.lineMode || "auto";
@@ -581,7 +812,7 @@
     const box = document.createElement("section");
     box.className = "teacher-card";
     box.innerHTML =
-      '<div class="teacher-card-title">DỰNG HÌNH THÔNG MINH <span>Bắt điểm</span></div><p class="hint">Chọn công cụ ở thanh nổi, rồi nhấp các đỉnh / trung điểm trên hình. Có thể chọn điểm từ danh sách khi các đỉnh chồng nhau.</p><select id="geo-point-choice" aria-label="Điểm để dựng">' +
+      '<div class="teacher-card-title">DỰNG HÌNH <span>Bắt điểm</span></div><details class="geo-details"><summary>Điểm, đường & phép dựng</summary><p class="hint">Dùng danh sách khi các đỉnh hoặc đường chồng nhau.</p><select id="geo-point-choice" aria-label="Điểm để dựng">' +
       points(o)
         .map(
           (p) =>
@@ -599,8 +830,28 @@
         ? '<div class="tiny-buttons" style="margin-top:12px"><button data-camera="standard">Góc chuẩn</button><button data-camera="front">Mặt trước</button><button data-camera="top">Nhìn từ trên</button></div><label class="field-row"><input id="geo-section-fill" type="checkbox" ' +
           (o.data.sectionFill ? "checked" : "") +
           "><span>Tô nhẹ thiết diện</span></label>"
-        : "");
+        : "") +
+      "</details>";
     host.prepend(box);
+    const lineList = document.createElement("div");
+    lineList.innerHTML =
+      '<label class="field"><span>Giao điểm · chọn hai đường</span><select id="geo-line-choice" aria-label="Đường để lấy giao điểm">' +
+      lines(o)
+        .map(
+          (l) =>
+            '<option value="' +
+            App.escape(l.key) +
+            '">' +
+            App.escape(l.label) +
+            "</option>",
+        )
+        .join("") +
+      '</select></label><button id="geo-pick-line" class="secondary full">Chọn đường này</button>';
+    box.querySelector("#geo-pick-list").after(lineList);
+    box.querySelector("#geo-pick-line").onclick = () => {
+      if (interaction?.mode !== "intersection") setMode("intersection", o);
+      pickLine(box.querySelector("#geo-line-choice").value);
+    };
     box.querySelector("#geo-pick-list").onclick = () => {
       if (!interaction || interaction.objectId !== o.id)
         return App.toast("Chọn công cụ ở thanh dựng hình trước.");
@@ -692,6 +943,7 @@
   root.TeacherGeometry = {
     init,
     points,
+    lines,
     project,
     setMode,
     pick,

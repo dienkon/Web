@@ -142,4 +142,131 @@ test("Projection of added points uses the original camera frame", () => {
     close(p[1], withExtra.points[i][1]);
   });
 });
+test("Intersections of two lines are exact and update with their endpoints", () => {
+  const o = {
+    type: "geometry",
+    data: {
+      kind: "square",
+      points: [
+        [0, 0],
+        [4, 0],
+        [4, 4],
+        [0, 4],
+      ],
+      constructions: [
+        {
+          id: "I",
+          type: "intersection",
+          refs: ["v:0", "v:2", "v:1", "v:3"],
+          label: "I",
+        },
+      ],
+    },
+  };
+  Constructions.validate(o.data);
+  let r = Constructions.build(o);
+  assert.deepEqual(r.points.get("c:I").coords, [2, 2]);
+  o.data.points[2] = [8, 4];
+  r = Constructions.build(o);
+  close(r.points.get("c:I").coords[0], 8 / 3);
+  close(r.points.get("c:I").coords[1], 4 / 3);
+});
+test("3D line intersections reject projected crossings of skew lines", () => {
+  assert.deepEqual(
+    Constructions.intersection([0, 0, 0], [4, 4, 4], [0, 4, 0], [4, 0, 4]),
+    [2, 2, 2],
+  );
+  assert.throws(
+    () =>
+      Constructions.intersection([0, 0, 0], [4, 4, 4], [0, 4, 1], [4, 0, 1]),
+    /chéo nhau/,
+  );
+});
+test("Parallel, coincident and zero-length lines do not invent intersection points", () => {
+  assert.throws(
+    () => Constructions.intersection([0, 0], [4, 0], [0, 1], [4, 1]),
+    /song song/,
+  );
+  assert.throws(
+    () => Constructions.intersection([0, 0], [4, 0], [1, 0], [6, 0]),
+    /trùng nhau/,
+  );
+  assert.throws(
+    () => Constructions.intersection([0, 0], [0, 0], [0, 1], [4, 1]),
+    /trùng nhau/,
+  );
+});
+test("Centroids are dependent points usable by connecting segments", () => {
+  const o = flat();
+  o.data.points = [
+    [0, 0],
+    [6, 0],
+    [0, 3],
+  ];
+  o.data.constructions = [
+    { id: "G", type: "centroid", refs: ["v:0", "v:1", "v:2"], label: "G" },
+    { id: "AG", type: "segment", refs: ["v:0", "c:G"] },
+  ];
+  Constructions.validate(o.data);
+  let r = Constructions.build(o);
+  assert.deepEqual(r.points.get("c:G").coords, [2, 1]);
+  assert.equal(r.items[0].medians.length, 3);
+  close(r.items[1].length, Math.sqrt(5));
+  o.data.points[1] = [9, 0];
+  r = Constructions.build(o);
+  assert.deepEqual(r.points.get("c:G").coords, [3, 1]);
+  o.data.points[2] = [3, 0];
+  assert.match(Constructions.build(o).warnings[0].message, /thẳng hàng/);
+});
+test("Medians and internal angle bisectors use actual triangle coordinates", () => {
+  const o = flat();
+  o.data.points = [
+    [4, 0],
+    [0, 0],
+    [0, 3],
+  ];
+  o.data.constructions = [
+    { id: "M", type: "median", refs: ["v:0", "v:1", "v:2"] },
+    { id: "D", type: "bisector", refs: ["v:0", "v:1", "v:2"] },
+  ];
+  const r = Constructions.build(o);
+  assert.deepEqual(r.points.get("c:M").coords, [0, 1.5]);
+  const d = r.points.get("c:D").coords;
+  close(d[0], 12 / 7);
+  close(d[1], 12 / 7);
+  const u = Geometry.sub(o.data.points[0], o.data.points[1]),
+    v = Geometry.sub(o.data.points[2], o.data.points[1]);
+  close(
+    Geometry.dot(u, d) / Geometry.norm(u),
+    Geometry.dot(v, d) / Geometry.norm(v),
+  );
+});
+test("Intersections can depend on constructed parallel lines and survive validation", () => {
+  const o = {
+    type: "geometry",
+    data: {
+      kind: "square",
+      points: [
+        [0, 0],
+        [4, 0],
+        [4, 4],
+        [0, 4],
+      ],
+      constructions: [
+        { id: "p", type: "parallel", refs: ["v:0", "v:1", "v:3"] },
+        {
+          id: "I",
+          type: "intersection",
+          refs: ["c:p:A", "c:p:B", "v:0", "v:2"],
+        },
+      ],
+    },
+  };
+  Constructions.validate(o.data);
+  assert.deepEqual(Constructions.build(o).points.get("c:I").coords, [4, 4]);
+  o.data.points[3] = [0, 6];
+  assert.deepEqual(Constructions.build(o).points.get("c:I").coords, [6, 6]);
+  o.data.constructions.reverse();
+  assert.throws(() => Constructions.validate(o.data), /tham chiếu/);
+});
 console.log(count + " construction tests passed.");

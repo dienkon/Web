@@ -9,19 +9,34 @@
 
 ## Kết quả đã chạy
 
-| Bộ kiểm thử                         | Kết quả                                                                          |
-| ----------------------------------- | -------------------------------------------------------------------------------- |
-| `npm test`                          | **43/43** nhóm đạt: 21 toán/dữ liệu, 10 dựng hình và 12 xét nét khuất/phép chiếu |
-| `npm run test:browser`              | **34/34** kiểm tra đạt, 17 trên Chrome và 17 trên Edge                           |
-| `npm run test:advanced`             | **14/14** nhóm kiểm tra đạt trên Chrome                                          |
-| `npm run test:studio`               | **32/32** kiểm tra công thức/hình học/ảnh/PDF, 16 trên Chrome và 16 trên Edge                       |
-| `npm run test:pen`                  | **34/34** kiểm tra bút/clipboard/3D, 17 trên Chrome và 17 trên Edge              |
-| `npm run test:pdf`                  | **24/24** kiểm tra PDF cuộn liên tục, 12 trên Chrome và 12 trên Edge; DPR 2      |
-| `node --check` tất cả tệp `js/*.js` | Không có lỗi cú pháp                                                             |
-| Các luồng browser ở trên            | **0 lỗi JavaScript, 0 request HTTP/HTTPS**                                       |
-| `node tests/package-smoke.cjs`      | Mở bản đóng gói offline trên Chrome/Edge; lưu tệp thủ công khi chặn localStorage |
+| Bộ kiểm thử                         | Kết quả                                                                                                      |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `npm test`                          | **49/49** nhóm đạt: 21 toán/dữ liệu, 16 dựng hình và 12 xét nét khuất/phép chiếu                             |
+| `npm run test:browser`              | **34/34** kiểm tra đạt, 17 trên Chrome và 17 trên Edge                                                       |
+| `npm run test:advanced`             | **14/14** nhóm kiểm tra đạt trên Chrome                                                                      |
+| `npm run test:studio`               | **32/32** kiểm tra công thức/hình học/ảnh/PDF, 16 trên Chrome và 16 trên Edge                                |
+| `npm run test:pen`                  | **34/34** kiểm tra bút/clipboard/3D, 17 trên Chrome và 17 trên Edge                                          |
+| `npm run test:pdf`                  | **24/24** kiểm tra PDF cuộn liên tục, 12 trên Chrome và 12 trên Edge; DPR 2                                  |
+| `npm run test:notebook`             | **22/22** kiểm tra trang nối liền, tự thêm trang, giao điểm/trọng tâm và fullscreen, 11 trên mỗi Chrome/Edge |
+| `node --check` tất cả tệp `js/*.js` | Không có lỗi cú pháp                                                                                         |
+| Các luồng browser ở trên            | **0 lỗi JavaScript, 0 request HTTP/HTTPS**                                                                   |
+| `node tests/package-smoke.cjs`      | Mở bản đóng gói offline trên Chrome/Edge; lưu tệp thủ công khi chặn localStorage                             |
 
 Đây là số nhóm kiểm thử của các script, không phải lời xác nhận hoàn thành toàn bộ đặc tả mở rộng.
+
+### Cập nhật 1.4 · dựng điểm phụ và trang tự nối
+
+- Giao điểm của hai đường chéo hình vuông là (2,2), cập nhật đúng khi kéo đỉnh. Đối chiếu giao hai đường trong không gian, từ chối đường chéo nhau, song song/trùng nhau và đoạn dùng hai điểm trùng nhau.
+- Trọng tâm G phụ thuộc ba đỉnh; nối AG dùng tham chiếu tới G, tự cập nhật. Trung tuyến đi qua trung điểm cạnh đối diện; chân phân giác chia cạnh theo đúng tỷ lệ hai cạnh. Các điểm/đường dựng tiếp từ một đường song song vẫn hợp lệ qua JSON và kiểm tra tham chiếu.
+- Chạm bằng sự kiện bút tin cậy lên hai đường chéo để dựng I, chọn ba đỉnh dựng G, nối G, kéo đỉnh bằng bút rồi kiểm tra lại tọa độ. Dựng trung tuyến/phân giác bằng menu và reload offline giữ đúng toàn bộ định nghĩa.
+- Thanh hình học phẳng mặc định không quá 6 nút, công cụ thêm nằm trong menu Dựng & đo. Bảng điểm/đường trong thuộc tính thu gọn được.
+- Sổ tay thường mặc định cuộn nối liền, không có khoảng trống giữa hai trang. Cuộn xuống tự thêm trang cùng khổ/giấy; 50 lần render không tạo thêm trang. Có nút bút tắt tự thêm trang, lựa chọn giữ qua reload.
+- Một nét bút đi qua ranh giới trang được lưu thành các phần có tọa độ và áp lực khớp nhau tại ranh giới. Một lần Undo xóa toàn bộ nét, Redo giữ ID. Khi nét bút đi xuống hết trang cuối, Undo/Redo bao gồm cả trang mới.
+- Kéo đối tượng qua ranh giới chuyển nó sang trang kế, giữ ID, vị trí toàn cục và Undo/Redo. Phần dữ liệu ngoài khổ giấy theo chiều ngang vẫn không tự tạo trang ngang.
+- Nút header thực sự vào/thoát Fullscreen API qua thao tác bút trên Chrome/Edge headless. Kiểm tra DOM fullscreen, nhãn và aria-pressed theo sự kiện fullscreenchange; màn hình hẹp không tràn chiều ngang.
+- Các luồng trên offline: không lỗi JavaScript, không tài nguyên thất bại, không request HTTP/HTTPS. Bộ PDF cố định 34 trang tắt tự thêm trang trong fixture để kiểm tra riêng nội dung PDF; tự nối trang mặc định được kiểm tra ở bộ notebook.
+
+Ảnh đã xem: [geometry-tools.png](geometry-tools.png), [geometry-menu.png](geometry-menu.png), [joined-pages.png](joined-pages.png). Fullscreen trên mọi cấu hình phần cứng/chính sách Windows chưa được chứng nhận.
 
 ### Cập nhật 1.3 · ảnh gốc, bỏ thanh thừa, phép chiếu và PDF liên tục
 
@@ -141,6 +156,7 @@ npm run test:advanced
 npm run test:studio
 npm run test:pen
 npm run test:pdf
+npm run test:notebook
 ```
 
 Các script browser cần Chrome/Edge đã được cài đặt. Không cần chạy máy chủ. Ảnh và tệp kiểm chứng nằm trong `test-results/` sau khi chạy; không đóng gói chúng như nội dung học của người dùng.

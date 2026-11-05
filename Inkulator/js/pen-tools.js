@@ -124,6 +124,18 @@
         }
         Store.emit();
       };
+    const auto = document.createElement("label");
+    auto.className = "field-row";
+    auto.innerHTML =
+      '<input id="pen-auto-pages" type="checkbox" ' +
+      (s.settings.autoPages !== false ? "checked" : "") +
+      "><span>Cuộn tới cuối tự thêm trang</span>";
+    box.querySelector("#pen-snap").closest("label").after(auto);
+    auto.querySelector("input").onchange = (e) => {
+      s.settings.autoPages = e.target.checked;
+      Store.save();
+      Store.emit();
+    };
   }
   function transform(anchor) {
     const objects = Store.selected().filter((o) => !o.locked);

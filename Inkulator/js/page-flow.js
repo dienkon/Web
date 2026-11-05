@@ -1,13 +1,11 @@
 (function (root) {
   "use strict";
-  const GAP = 24,
+  const GAP = 0,
     PAD = 20;
   let bar,
     expected = 0;
   function enabled() {
-    return Store.book().pages.some((p) =>
-      p.objects.some((o) => o.type === "pdf"),
-    );
+    return true;
   }
   function layout() {
     const pages = Store.book().pages,
@@ -73,8 +71,176 @@
     );
     if (target) reanchor(target.index, l);
   }
-  function settle() {
+  function appendUntil(bottom, record = true) {
+    if (Store.state.settings.autoPages === false) return 0;
+    let l = layout(),
+      added = 0;
+    const append = () => {
+      while (
+        l.height <= bottom &&
+        Store.book().pages.length < 300 &&
+        added < 10
+      ) {
+        const last = Store.book().pages.at(-1),
+          page = Store.page();
+        Object.assign(page, {
+          paper: last.paper,
+          width: last.width,
+          height: last.height,
+          showTitle: false,
+        });
+        Store.book().pages.push(page);
+        added++;
+        l = layout();
+      }
+    };
+    if (l.height > bottom || Store.book().pages.length >= 300) return 0;
+    if (record) Store.transaction(append);
+    else {
+      append();
+      if (added) Store.emit();
+    }
+    return added;
+  }
+  function ensureInk(points, index) {
+    const origin = layout().items[index];
+    if (!origin) return;
+    appendUntil(origin.y + Math.max(...points.map((p) => p[1])) + 0.001, false);
+  }
+  function splitInk(points, index) {
+    const l = layout(),
+      origin = l.items[index],
+      parts = [];
+    if (!origin || !points.length) return parts;
+    const global = points.map((p) => [
+      p[0] + origin.x,
+      p[1] + origin.y,
+      p[2] ?? 0.5,
+    ]);
+    if (points.length === 1) {
+      const P = global[0],
+        item = l.items.find(
+          (t) =>
+            P[0] >= t.x &&
+            P[0] <= t.x + t.page.width &&
+            P[1] >= t.y &&
+            (P[1] < t.y + t.page.height ||
+              (t.index === l.items.length - 1 && P[1] <= t.y + t.page.height)),
+        );
+      if (item)
+        parts.push({
+          page: item.page,
+          index: item.index,
+          points: [[P[0] - item.x, P[1] - item.y, P[2]]],
+        });
+      return parts;
+    }
+    for (let i = 1; i < global.length; i++) {
+      const A = global[i - 1],
+        B = global[i],
+        intervals = [];
+      for (const item of l.items) {
+        if (
+          Math.max(A[1], B[1]) < item.y ||
+          Math.min(A[1], B[1]) > item.y + item.page.height
+        )
+          continue;
+        let low = 0,
+          high = 1;
+        for (let axis = 0; axis < 2; axis++) {
+          const min = axis ? item.y : item.x,
+            max = min + (axis ? item.page.height : item.page.width),
+            delta = B[axis] - A[axis];
+          if (Math.abs(delta) < 1e-10) {
+            if (A[axis] < min || A[axis] > max) {
+              high = -1;
+              break;
+            }
+          } else {
+            const a = (min - A[axis]) / delta,
+              b = (max - A[axis]) / delta;
+            low = Math.max(low, Math.min(a, b));
+            high = Math.min(high, Math.max(a, b));
+          }
+        }
+        if (high - low <= 1e-10) continue;
+        const at = (t) => [
+          A[0] + (B[0] - A[0]) * t - item.x,
+          A[1] + (B[1] - A[1]) * t - item.y,
+          A[2] + (B[2] - A[2]) * t,
+        ];
+        intervals.push({
+          page: item.page,
+          index: item.index,
+          points: [at(low), at(high)],
+          t: low,
+        });
+      }
+      intervals.sort((a, b) => a.t - b.t);
+      for (const piece of intervals) {
+        const last = parts.at(-1),
+          P = last?.points.at(-1),
+          Q = piece.points[0];
+        if (
+          last?.index === piece.index &&
+          Math.hypot(P[0] - Q[0], P[1] - Q[1]) < 1e-7
+        )
+          last.points.push(piece.points[1]);
+        else parts.push(piece);
+      }
+    }
+    return parts;
+  }
+  function moveAcross(ids, index) {
+    let l = layout(),
+      origin = l.items[index];
+    if (!origin) return null;
+    const objects = origin.page.objects.filter((o) => ids.includes(o.id));
+    if (!objects.length) return null;
+    appendUntil(
+      origin.y +
+        Math.max(...objects.map((o) => o.position.y + o.size.h / 2)) +
+        0.001,
+      false,
+    );
+    l = layout();
+    let destination = null;
+    for (const o of objects) {
+      const x = origin.x + o.position.x + o.size.w / 2,
+        y = origin.y + o.position.y + o.size.h / 2,
+        target = l.items.find(
+          (t) =>
+            x >= t.x &&
+            x <= t.x + t.page.width &&
+            y >= t.y &&
+            y < t.y + t.page.height,
+        );
+      if (!target || target.index === index) continue;
+      origin.page.objects = origin.page.objects.filter((p) => p.id !== o.id);
+      o.position.x += origin.x - target.x;
+      o.position.y += origin.y - target.y;
+      o.zIndex = target.page.objects.length;
+      target.page.objects.push(o);
+      destination ??= target.index;
+    }
+    return destination;
+  }
+  function selectMoved(index, ids) {
+    reanchor(index);
+    Store.state.selection = Store.current()
+      .objects.filter((o) => ids.includes(o.id))
+      .map((o) => o.id);
+    Store.emit();
+  }
+  function settle({ extend = false } = {}) {
     if (!enabled() || root.CanvasEngine?.interacting) return;
+    if (extend) {
+      const l = layout(),
+        v = Store.state.viewport,
+        a = l.items[Store.state.pageIndex],
+        margin = Math.min(200, (Renderer.area.clientHeight / v.zoom) * 0.2);
+      appendUntil(a.y + (Renderer.area.clientHeight - v.y) / v.zoom + margin);
+    }
     const l = layout(),
       v = Store.state.viewport,
       a = l.items[Store.state.pageIndex],
@@ -128,11 +294,12 @@
     bar = document.getElementById("document-scroll");
     bar.addEventListener("scroll", () => {
       if (bar.hidden || Math.abs(bar.scrollTop - expected) < 0.5) return;
+      const downward = bar.scrollTop > expected;
       CanvasEngine.cancelActive();
       const l = layout(),
         v = Store.state.viewport;
       v.y = l.items[Store.state.pageIndex].y * v.zoom + PAD - bar.scrollTop;
-      settle();
+      settle({ extend: downward });
       Renderer.request();
     });
     document.addEventListener("statechange", update);
@@ -147,5 +314,10 @@
     settle,
     update,
     go,
+    appendUntil,
+    ensureInk,
+    splitInk,
+    moveAcross,
+    selectMoved,
   };
 })(window);

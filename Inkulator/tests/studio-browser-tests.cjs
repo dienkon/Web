@@ -93,8 +93,13 @@ const pass = (s) => {
       );
       const selectedId = await page.evaluate(() => Store.selected()[0].id);
       await page.locator('[data-action="close-panel"]').click();
-      const selectMode = async (mode) =>
-          page.locator('[data-geo-mode="' + mode + '"]').click(),
+      const selectMode = async (mode) => {
+          if (
+            !(await page.locator('[data-geo-mode="' + mode + '"]').isVisible())
+          )
+            await page.locator("#geo-more").click();
+          await page.locator('[data-geo-mode="' + mode + '"]').click();
+        },
         point = async (key) => {
           const p = await page.evaluate((key) => {
             const o = Store.selected()[0],

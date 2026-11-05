@@ -1,4 +1,4 @@
-# SCRBLE MATH STUDIO · 1.3
+# SCRBLE MATH STUDIO · 1.4
 
 Sổ tay Toán học ngoại tuyến cho Windows, lấy cảm hứng bố cục từ ảnh Scrble Ink được cung cấp. Giao diện và tài sản tự thiết kế; không phải sản phẩm của Scrble, GeoGebra hay Casio.
 
@@ -12,10 +12,20 @@ Sổ tay Toán học ngoại tuyến cho Windows, lấy cảm hứng bố cục 
 
 Tất cả script, CSS, icon và thư viện nằm trong thư mục sản phẩm. Bản chạy dùng script cổ điển, không cần ES module từ file://, CDN, service worker hoặc tải font mạng. PDF.js được bundle cùng phần xử lý worker để chạy trên luồng chính, nhận font/CMap/decoder từ dữ liệu nhúng; không tạo worker từ đường dẫn file://. Công thức dùng SVG glyph có sẵn, không tải font ngoài.
 
-## Điểm mới 1.3 · ảnh gốc, góc nhìn chuẩn và đọc PDF liên tục
+## Điểm mới 1.4 · giao điểm, trọng tâm và trang nối liền
+
+- **Giao điểm hai đường:** chọn hình → **Dựng & đo → Giao điểm** rồi chạm hai cạnh/đường đã dựng. Có tô sáng đường đang chọn. Dùng danh sách **Điểm, đường & phép dựng** trong thuộc tính nếu đường chồng nhau. Hỗ trợ đường nối, đường chéo, đường song song/vuông góc, trung tuyến và cạnh thiết diện trong cùng hình; giao của đường thẳng kéo dài cũng được tính.
+- **Trọng tâm và nối tới G:** chọn **Trọng tâm**, chạm ba đỉnh của tam giác cần xét. G và ba trung tuyến cập nhật theo đỉnh. Dùng **Nối điểm** để nối bất kỳ đỉnh/điểm phụ tới G. Có thêm **Trung tuyến** (chọn đỉnh xuất phát trước) và **Phân giác** (đỉnh góc là điểm thứ hai).
+- Giao điểm, trung điểm, trọng tâm và chân đường phụ đều là dữ liệu phụ thuộc, dùng tiếp để nối hoặc dựng hình và giữ khi lưu/mở. Đường song song/trùng nhau hoặc hai đường chéo nhau trong không gian có thông báo, không tạo giao điểm giả từ hình chiếu. Công cụ giao điểm hiện áp dụng cho đường thẳng trong hình đang chọn, chưa tính giao với đường tròn hoặc nét viết tự do.
+- **Thanh dựng hình gọn:** chỉ giữ Nối điểm, Trung điểm, Trọng tâm, Dựng & đo, Xoay 3D khi phù hợp và Xong. Các công cụ khác nằm trong menu; danh sách quản lý phép dựng trong thuộc tính có thể thu gọn.
+- **Mọi trang nối sát nhau:** sổ tay thường và PDF cùng cuộn liên tục. Khi kéo/bánh xe/thanh cuộn xuống gần cuối, ứng dụng tự nối thêm trang trắng cùng khổ và kiểu giấy. Không tạo trang chỉ vì render, phóng to/thu nhỏ hoặc mở toàn màn hình. Có thể tắt **Cuộn tới cuối tự thêm trang** trong thanh bút **⋯**; tùy chọn được nhớ. Giới hạn 300 trang/sổ tay.
+- **Viết xuyên trang:** một nét bút đi qua ranh giới giữ tọa độ, áp lực và được lưu đúng từng trang. Undo/Redo xử lý cả lần viết, kể cả trang vừa tạo khi viết xuống cuối. Kéo ảnh/hình sang trang kế chuyển đối tượng sang trang đó, giữ ID và dữ liệu chỉnh sửa.
+- **Toàn màn hình trên header:** nút **⛶** luôn có trên thanh công cụ, chạm lại để thoát; trạng thái và nhãn nút cập nhật khi trình duyệt thoát toàn màn hình.
+
+## Các tính năng từ 1.3 · ảnh gốc, góc nhìn chuẩn và PDF
 
 - **Ảnh gốc mặc định:** Ctrl+V, Dán ảnh và Chọn ảnh đều giữ nguyên dữ liệu màu, nền, alpha và độ phân giải của tệp. Đổi kích thước trên trang không làm mất bản gốc. Nhấp đúp ảnh nếu muốn chủ động áp dụng nét đen / nền trong suốt.
-- **Bỏ thanh tiêu đề và footer:** phần công cụ còn 79 px; bỏ chế độ F8. Trạng thái lưu nằm dưới tên sổ tay, số trang và nút trước/sau nằm trong cụm điều hướng nhỏ trên vùng giấy. Hướng dẫn và toàn màn hình nằm trong menu.
+- **Bỏ thanh tiêu đề và footer:** phần công cụ còn 79 px; bỏ chế độ F8. Trạng thái lưu nằm dưới tên sổ tay, số trang và nút trước/sau nằm trong cụm điều hướng nhỏ trên vùng giấy. Hướng dẫn nằm trong menu; toàn màn hình có nút trên thanh công cụ.
 - **Góc hình học kiểu sách giáo khoa:** hình hộp, lập phương, chóp và lăng trụ chèn mới có cạnh đáy nằm ngang, cạnh đứng thẳng và chiều sâu xiên. Nét khuất xét theo đúng phép chiếu. Chọn **Xoay 3D** để chuyển sang góc nhìn xoay tự do; **Góc nhìn gốc / Góc chuẩn** trở về kiểu sách giáo khoa. Dữ liệu tọa độ và số đo vẫn giữ nguyên.
 - **Cuộn PDF nối tiếp:** dùng bánh xe, công cụ **Kéo trang**, thanh cuộn bên phải hoặc nút trang trước/sau. Hai trang ở ranh giới có thể cùng hiện; chạm viết lên trang nào thì nét được lưu vào trang đó.
 - **Độ nét PDF theo vùng đang xem:** lấy chi tiết từ PDF gốc theo zoom và mật độ điểm ảnh màn hình. Chỉ dựng những vùng đang nhìn, có bộ nhớ đệm và hủy phần tải đã rời màn hình. PDF ảnh quét vẫn phụ thuộc độ nét nguồn. Tài liệu tối đa 40 MB; nhập dải trang trong giới hạn 300 trang của sổ tay, không còn giới hạn 30 trang/lần.
@@ -139,6 +149,8 @@ Mở **examples/Teacher-Geometry.smath.json** để xem cấu hình tam giác c�
 
 Mở **examples/Solid-Geometry.smath.json** để xem khối hộp, cầu, trụ, chóp, nón và nón cụt với nét khuất tự động. Chọn hình → **Xoay 3D** để kiểm tra các góc nhìn; **Di chuyển** để kéo vị trí.
 
+Mở **examples/Teacher-Tools.smath.json** để thử trọng tâm G của tam giác, nối tới G và giao điểm I của hai đường chéo. Kéo đỉnh rồi quan sát các điểm phụ cập nhật.
+
 ## Kiểm thử
 
 Đã kiểm thử tự động trên **Windows, Google Chrome và Microsoft Edge**, mở bằng `file://` với mạng của browser context bị chặn. Không phát sinh HTTP/HTTPS trong các luồng đã kiểm tra. Xem [docs/TEST-REPORT.md](docs/TEST-REPORT.md) để biết chi tiết và phần chưa kiểm thử bằng phần cứng thật.
@@ -153,6 +165,7 @@ npm run test:advanced
 npm run test:studio
 npm run test:pen
 npm run test:pdf
+npm run test:notebook
 npm run vendor:build  # chỉ cần nếu dựng lại thư viện từ dependency
 npm run package
 ```

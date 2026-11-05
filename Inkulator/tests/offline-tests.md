@@ -13,6 +13,14 @@
 
 Danh sách này là hướng dẫn nghiệm thu thủ công, **không phải khẳng định đã kiểm thử phần cứng thật**. Xem docs/TEST-REPORT.md để biết kiểm tra tự động thực sự đã chạy.
 
+## Bản 1.4
+
+- Dùng bút chọn **Kéo trang**, kéo lên tới cuối giấy: trang mới tự nối bên dưới, cùng khổ và kiểu giấy. Viết một nét qua ranh giới; thử Undo/Redo và kéo một ảnh/hình sang trang kế.
+- Chọn hình chữ nhật có hai đường chéo → **Dựng & đo → Giao điểm** → chạm từng đường. Kéo đỉnh kiểm tra I vẫn là giao điểm thật. Thử đường song song hoặc hai đường chéo nhau trong 3D để kiểm tra thông báo.
+- **Trọng tâm** → chọn ba đỉnh → **Nối điểm** → chọn một đỉnh và G. Thử Trung tuyến/Phân giác trong menu. Mở sổ mẫu **Teacher-Tools.smath.json** để xem định nghĩa dựng sẵn.
+- Chạm nút **⛶** bên phải header để vào toàn màn hình, chạm lại để thoát. Chỉ cần bút, không cần F11.
+- Mở **⋯** trên thanh bút, tắt **Cuộn tới cuối tự thêm trang** khi muốn giới hạn số trang; mở lại ứng dụng để kiểm tra tùy chọn được nhớ.
+
 ## Bản 1.1
 
 - Chọn Tài liệu PDF → Chọn PDF, nhập 1–3 trang từ máy. Viết/highlight và chèn công thức phía trên; xuất PDF, mở lại để kiểm tra độ nét và lớp chữ gốc. Thử PDF nguồn có trang ngang hoặc trang xoay.
