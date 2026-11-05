@@ -26,6 +26,7 @@
     created: new Date().toISOString(),
     modified: new Date().toISOString(),
     pages: [page()],
+    assets: {},
   });
   const defaults = {
     theme: "light",
@@ -44,7 +45,7 @@
     pageIndex: 0,
     tool: "pen",
     pen: "ballpoint",
-    color: "#263b32",
+    color: "#111111",
     width: 2.5,
     opacity: 1,
     eraser: "partial",
@@ -79,16 +80,15 @@
     if (root.document) root.document.dispatchEvent(new Event("statechange"));
   }
   function transaction(fn) {
-    const before = JSON.stringify(book());
+    const before = snapshot();
     fn();
-    const after = JSON.stringify(book());
+    const after = snapshot();
     if (after === before) {
       emit();
       return false;
     }
     state.history.push(before);
-    if (state.history.length > state.settings.historyLimit)
-      state.history.shift();
+    trimHistory();
     state.future = [];
     book().modified = new Date().toISOString();
     state.dirty = true;
@@ -97,11 +97,10 @@
     return true;
   }
   function commit(before) {
-    const after = JSON.stringify(book());
+    const after = snapshot();
     if (after !== before) {
       state.history.push(before);
-      if (state.history.length > state.settings.historyLimit)
-        state.history.shift();
+      trimHistory();
       state.future = [];
       book().modified = new Date().toISOString();
       state.dirty = true;
@@ -111,14 +110,22 @@
   }
   function undo() {
     if (!state.history.length) return;
-    state.future.push(JSON.stringify(book()));
-    state.notebooks[state.active] = JSON.parse(state.history.pop());
+    state.future.push(snapshot());
+    trimHistory();
+    state.notebooks[state.active] = {
+      ...JSON.parse(state.history.pop()),
+      assets: book().assets || {},
+    };
     afterHistory();
   }
   function redo() {
     if (!state.future.length) return;
-    state.history.push(JSON.stringify(book()));
-    state.notebooks[state.active] = JSON.parse(state.future.pop());
+    state.history.push(snapshot());
+    trimHistory();
+    state.notebooks[state.active] = {
+      ...JSON.parse(state.future.pop()),
+      assets: book().assets || {},
+    };
     afterHistory();
   }
   function afterHistory() {
@@ -127,6 +134,20 @@
     state.dirty = true;
     emit();
     scheduleSave();
+  }
+  function snapshot() {
+    const { assets, ...content } = book();
+    return JSON.stringify(content);
+  }
+  function trimHistory() {
+    for (const list of [state.history, state.future]) {
+      let size = list.reduce((n, s) => n + s.length, 0);
+      while (
+        list.length > 1 &&
+        (list.length > state.settings.historyLimit || size > 16e6)
+      )
+        size -= list.shift().length;
+    }
   }
   function object(type, data = {}, opts = {}) {
     const layer = {
@@ -137,6 +158,8 @@
       graph: "graph",
       text: "annotation",
       image: "image",
+      pdf: "image",
+      formula: "annotation",
       group: "annotation",
     }[type];
     return {
@@ -212,7 +235,47 @@
       "text",
       "image",
       "group",
+      "pdf",
+      "formula",
     ]);
+    const assets = value.assets || n.assets || {};
+    if (
+      !assets ||
+      typeof assets !== "object" ||
+      Array.isArray(assets) ||
+      Object.keys(assets).length > 100
+    )
+      throw Error("Tài nguyên tài liệu không hợp lệ.");
+    const cleanAssets = Object.create(null);
+    let assetSize = 0;
+    for (const [id, a] of Object.entries(assets)) {
+      if (
+        !/^[A-Za-z0-9_-]{1,100}$/.test(id) ||
+        ["__proto__", "constructor", "prototype"].includes(id) ||
+        !a ||
+        a.type !== "application/pdf" ||
+        typeof a.name !== "string" ||
+        a.name.length > 250 ||
+        !Number.isInteger(a.pages) ||
+        a.pages < 1 ||
+        a.pages > 10000 ||
+        typeof a.data !== "string" ||
+        !/^data:application\/pdf;base64,[A-Za-z0-9+/=]+$/.test(a.data) ||
+        a.data.length > 56e6
+      )
+        throw Error("PDF nhúng không hợp lệ.");
+      assetSize += a.data.length;
+      if (assetSize > 80e6)
+        throw Error(
+          "Tài liệu chứa quá nhiều PDF. Hãy chia thành nhiều sổ tay.",
+        );
+      cleanAssets[id] = {
+        type: a.type,
+        name: a.name,
+        pages: a.pages,
+        data: a.data,
+      };
+    }
     let total = 0,
       points = 0;
     function boundedNum(v, min, max) {
@@ -300,6 +363,41 @@
           throw Error("Khối không hợp lệ.");
         root.Geometry.mesh(d.kind, d.params);
       }
+      if (
+        ["geometry", "solid"].includes(o.type) &&
+        d.constructions !== undefined
+      ) {
+        if (!root.Constructions) throw Error("Bộ dựng hình chưa sẵn sàng.");
+        root.Constructions.validate(d, o.type === "solid");
+      }
+      if (o.type === "formula") {
+        if (
+          typeof d.text !== "string" ||
+          d.text.length > 4000 ||
+          typeof d.tex !== "string" ||
+          d.tex.length > 12000 ||
+          !boundedNum(d.fontSize, 12, 72) ||
+          /\\(?:require|href|url|includegraphics|html|class|style|cssId|def|gdef|newcommand|renewcommand|catcode|input|write|special)\b/i.test(
+            d.tex,
+          )
+        )
+          throw Error("Công thức không hợp lệ.");
+      }
+      if (o.type === "pdf") {
+        const a = cleanAssets[d.assetId];
+        if (
+          !a ||
+          !Number.isInteger(d.pageNumber) ||
+          d.pageNumber < 1 ||
+          d.pageNumber > a.pages ||
+          ![0, 90, 180, 270].includes(d.pageRotation) ||
+          (d.preview !== undefined &&
+            (typeof d.preview !== "string" ||
+              !/^data:image\/png;base64,[A-Za-z0-9+/=]+$/.test(d.preview) ||
+              d.preview.length > 12e6))
+        )
+          throw Error("Trang PDF hoặc PDF gốc không hợp lệ.");
+      }
       if (o.type === "graph") {
         if (
           !Array.isArray(d.expressions) ||
@@ -346,6 +444,16 @@
           d.src.length > 8e6)
       )
         throw Error("Chỉ nhận ảnh PNG, JPEG, WebP nhúng cục bộ.");
+      if (
+        o.type === "image" &&
+        d.originalSrc !== undefined &&
+        (typeof d.originalSrc !== "string" ||
+          !/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+$/.test(
+            d.originalSrc,
+          ) ||
+          d.originalSrc.length > 8e6)
+      )
+        throw Error("Ảnh gốc không hợp lệ.");
       if (
         o.type === "stroke" &&
         d.baseSize &&
@@ -505,6 +613,7 @@
           ? n.modified
           : new Date().toISOString(),
       folder: typeof n.folder === "string" ? n.folder.slice(0, 100) : "",
+      assets: cleanAssets,
       pages: n.pages.map((p) => {
         if (
           typeof p.title !== "string" ||
@@ -550,12 +659,15 @@
     return result;
   }
   function envelope(n = book()) {
+    const notebook = clone(n),
+      assets = notebook.assets || {};
+    delete notebook.assets;
     return {
       format: "scrble-math",
       version: 1,
-      notebook: clone(n),
+      notebook,
       settings: clone(state.settings),
-      assets: {},
+      assets,
     };
   }
   let timer;
@@ -664,6 +776,7 @@
     }
   }
   root.Store = {
+    snapshot,
     state,
     uid,
     clone,

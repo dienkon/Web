@@ -23,11 +23,20 @@
     canvas.addEventListener("dblclick", doubleClick);
     canvas.addEventListener("contextmenu", context);
     canvas.addEventListener("dragover", (e) => {
+      if ([...e.dataTransfer.types].includes("Files")) e.preventDefault();
       if (e.dataTransfer.types.includes("application/x-scrble-shape"))
         e.preventDefault();
     });
     canvas.addEventListener("drop", (e) => {
       e.preventDefault();
+      if (e.dataTransfer.files.length) {
+        const file = e.dataTransfer.files[0];
+        if (file.type === "application/pdf" || /\.pdf$/i.test(file.name))
+          PDFStudio.importFile(file);
+        else if (file.type.startsWith("image/")) Exporter.importImage(file);
+        else Exporter.importFile(file);
+        return;
+      }
       try {
         const data = JSON.parse(
           e.dataTransfer.getData("application/x-scrble-shape"),
@@ -139,12 +148,13 @@
     )
       mode = "pan";
     if (e.button === 5 || e.buttons === 32) mode = "eraser";
+    if (mode === "select" && root.TeacherGeometry?.handleDown(e, p)) return;
     gesture = {
       mode,
       pointerId: e.pointerId,
       start: p,
       last: p,
-      before: JSON.stringify(Store.book()),
+      before: Store.snapshot(),
       client: { x: e.clientX, y: e.clientY },
       viewport: { ...S().viewport },
       moved: false,
@@ -200,7 +210,12 @@
             S().selection = S().selection.filter((id) => id !== o.id);
           else S().selection.push(o.id);
         } else if (!already) S().selection = [o.id];
-        if (o.type === "solid" && o.data.live && already && !e.altKey) {
+        if (
+          o.type === "solid" &&
+          (o.data.live || root.TeacherGeometry?.orbit) &&
+          already &&
+          !e.altKey
+        ) {
           const q = Renderer.localPoint(o, p),
             border =
               q.x < 20 ||
@@ -277,6 +292,7 @@
       return;
     }
     const p = Renderer.clientPoint(e);
+    root.TeacherGeometry?.hover(p);
     document.getElementById("cursor-status").textContent =
       Math.round(p.x) + ", " + Math.round(p.y);
     if (!gesture || gesture.pointerId !== e.pointerId) return;
@@ -315,7 +331,12 @@
         q = Renderer.localPoint(g.original, p),
         w = Math.max(35, q.x),
         h =
-          e.shiftKey || o.type === "group"
+          e.shiftKey ||
+          o.type === "group" ||
+          (!e.altKey &&
+            (["pdf", "image", "formula", "graph"].includes(o.type) ||
+              (o.type === "shape" &&
+                ["circle", "square"].includes(o.data.kind))))
             ? (w * g.original.size.h) / g.original.size.w
             : Math.max(35, q.y);
       const anchor = Renderer.worldPoint(g.original, { x: 0, y: 0 }),
@@ -335,7 +356,11 @@
     if (g.mode === "vertex") {
       const q = Renderer.localPoint(g.object, p),
         v = Renderer.unflatPoint(g.object, q);
-      setVertex(g.object, g.vertex, v);
+      setVertex(
+        g.object,
+        g.vertex,
+        e.shiftKey ? v.map((x) => Math.round(x * 2) / 2) : v,
+      );
     }
     if (g.mode === "rotate3d")
       g.object.data.rotation = [
@@ -504,7 +529,10 @@
   function rollback() {
     if (gesture?.before) {
       const saved = JSON.parse(gesture.before);
-      Store.state.notebooks[Store.state.active] = saved;
+      Store.state.notebooks[Store.state.active] = {
+        ...saved,
+        assets: Store.book().assets || {},
+      };
     }
     gesture = null;
     Renderer.request();
@@ -777,6 +805,7 @@
     App.updateZoom();
   }
   function doubleClick(e) {
+    if (root.TeacherGeometry?.active) return;
     const o = hit(Renderer.clientPoint(e));
     if (!o) return;
     S().selection = [o.id];

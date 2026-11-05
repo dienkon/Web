@@ -66,19 +66,19 @@
             kind,
             params: { a: 4, b: 3, h: 6 },
             rotation: [-0.45, -0.55],
-            live: true,
-            faces: true,
+            live: false,
+            faces: false,
             edges: true,
             hiddenEdges: true,
             labels: true,
-            faceColor: "#438b73",
-            faceOpacity: 0.13,
+            faceColor: "#111111",
+            faceOpacity: 0,
             aux: [],
           }
-        : Geometry.flat(kind),
+        : { ...Geometry.flat(kind), fillOpacity: 0 },
       {
         size: { w: solid ? 370 : 340, h: solid ? 320 : 300 },
-        style: { color: "#355f4c", width: 1.8, opacity: 1 },
+        style: { color: "#111111", width: 2.6, opacity: 1 },
       },
     );
   }
@@ -89,7 +89,7 @@
     geometry(solid ? "solid" : "geometry");
     App.toast(
       solid
-        ? "Đã chèn khối 3D. Kéo bên trong khối đã chọn để xoay."
+        ? "Đã chèn hình chiếu tĩnh, nét đen rõ. Chọn Xoay 3D để chỉnh góc nhìn."
         : "Đã chèn hình. Kéo các nút tròn để thay đổi đỉnh.",
     );
   }
@@ -123,6 +123,13 @@
       fields.innerHTML =
         '<div class="field-row">' +
         ["a", "b", "h"]
+          .filter(
+            (k) =>
+              k === "a" ||
+              (k === "b" && ["box", "cone-frustum"].includes(d.kind)) ||
+              (k === "h" &&
+                !["cube", "tetrahedron", "sphere", "axes"].includes(d.kind)),
+          )
           .map(
             (k) =>
               '<label class="field"><span>' +
@@ -134,7 +141,7 @@
               '"></label>',
           )
           .join("") +
-        '</div><label class="field"><span>Độ trong suốt mặt</span><input id="face-opacity" type="range" min="0" max="1" step=".02" value="' +
+        '</div><label class="field"><span>Độ đục mặt · 0 = nền trong suốt</span><input id="face-opacity" type="range" min="0" max="1" step=".02" value="' +
         d.faceOpacity +
         '"></label><label class="field-row"><span>Màu mặt</span><input id="face-color" type="color" value="' +
         (d.faceColor || "#438b73") +
@@ -207,7 +214,13 @@
       button.textContent = label;
       button.classList.toggle("active", !!d[key]);
       button.onclick = () => {
-        Store.transaction(() => (d[key] = !d[key]));
+        Store.transaction(() => {
+          d[key] = !d[key];
+          if (key === "faces" && d.faces && !d.faceOpacity)
+            d.faceOpacity = 0.12;
+        });
+        if (key === "faces")
+          document.getElementById("face-opacity").value = d.faceOpacity;
         button.classList.toggle("active", !!d[key]);
       };
       toggles.append(button);
@@ -437,6 +450,7 @@
         }
       };
     }
+    root.TeacherGeometry?.mountPanel(o);
   }
   function paper() {
     const p = Store.current();
@@ -608,6 +622,41 @@
       sign: "x | −∞ | 1 | 2 | +∞\nf(x) | + | 0 | − | 0 | +",
       values: "x | −2 | −1 | 0 | 1 | 2\nf(x) | 4 | 1 | 0 | 1 | 4",
     };
+    const composer = document.createElement("section");
+    composer.className = "formula-card";
+    composer.innerHTML =
+      '<h3 style="margin-top:0">Công thức đẹp · tự nhận dạng</h3><textarea id="formula-quick" rows="3" aria-label="Công thức tự định dạng">f(x)=(x^2+1)/(x-2)</textarea><div id="formula-quick-preview" class="formula-preview"></div><button class="primary full" id="formula-quick-insert">Chèn công thức đã dàn</button><div class="tiny-buttons" style="margin-top:10px"><button data-latex-sample="fraction">Phân số / căn</button><button data-latex-sample="integral">Tích phân</button><button data-latex-sample="system">Hệ phương trình</button><button data-latex-sample="matrix">Ma trận</button></div>';
+    el().prepend(composer);
+    const quick = document.getElementById("formula-quick"),
+      updateQuick = () => {
+        document.getElementById("formula-quick-insert").disabled =
+          !Formulas.preview(
+            document.getElementById("formula-quick-preview"),
+            quick.value,
+          );
+      };
+    quick.oninput = updateQuick;
+    document.getElementById("formula-quick-insert").onclick = () => {
+      try {
+        Formulas.insert(quick.value);
+      } catch (e) {
+        App.toast(e.message);
+      }
+    };
+    const samples = {
+      fraction: "f(x)=sqrt(x^2+1)/(x-2)",
+      integral: "\\int_0^1 x^2\\,dx=\\frac{1}{3}",
+      system: "\\begin{cases}x+y=3\\\\2x-y=0\\end{cases}",
+      matrix: "\\begin{pmatrix}1&2\\\\3&4\\end{pmatrix}",
+    };
+    composer.querySelectorAll("[data-latex-sample]").forEach(
+      (b) =>
+        (b.onclick = () => {
+          quick.value = samples[b.dataset.latexSample];
+          updateQuick();
+        }),
+    );
+    updateQuick();
     document.getElementById("math-template").onchange = (e) => {
       document.getElementById("math-entry").value = templates[e.target.value];
       document.getElementById("math-entry-label").textContent =

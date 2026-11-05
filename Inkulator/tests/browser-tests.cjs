@@ -206,6 +206,11 @@ const log = (name) => {
       const rotation = await page.evaluate(() =>
         Store.selected()[0].data.rotation.slice(),
       );
+      assert.equal(
+        await page.evaluate(() => Store.selected()[0].data.live),
+        false,
+      );
+      await page.locator('[data-geo-mode="orbit"]').click();
       const center = await page.evaluate(() => {
         const o = Store.selected()[0],
           r = Renderer.area.getBoundingClientRect();
@@ -285,13 +290,11 @@ const log = (name) => {
       const beforeCount = await page.evaluate(
         () => Store.state.notebooks.length,
       );
-      await page
-        .locator("#open-file")
-        .setInputFiles({
-          name: "invalid.smath.json",
-          mimeType: "application/json",
-          buffer: Buffer.from('{"format":"scrble-math","version":999}'),
-        });
+      await page.locator("#open-file").setInputFiles({
+        name: "invalid.smath.json",
+        mimeType: "application/json",
+        buffer: Buffer.from('{"format":"scrble-math","version":999}'),
+      });
       assert.equal(
         await page.evaluate(() => Store.state.notebooks.length),
         beforeCount,

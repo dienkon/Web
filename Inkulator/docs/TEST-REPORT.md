@@ -11,14 +11,33 @@
 
 | Bộ kiểm thử                         | Kết quả                                                                          |
 | ----------------------------------- | -------------------------------------------------------------------------------- |
-| `npm test`                          | **21/21** nhóm kiểm tra đạt                                                      |
+| `npm test`                          | **31/31** nhóm đạt: 21 toán/dữ liệu và 10 dựng hình phụ thuộc / thiết diện       |
 | `npm run test:browser`              | **34/34** kiểm tra đạt, 17 trên Chrome và 17 trên Edge                           |
 | `npm run test:advanced`             | **14/14** nhóm kiểm tra đạt trên Chrome                                          |
+| `npm run test:studio`               | **32/32** kiểm tra bản 1.1, 16 trên Chrome và 16 trên Edge                       |
 | `node --check` tất cả tệp `js/*.js` | Không có lỗi cú pháp                                                             |
 | Các luồng browser ở trên            | **0 lỗi JavaScript, 0 request HTTP/HTTPS**                                       |
 | `node tests/package-smoke.cjs`      | Mở bản đóng gói offline trên Chrome/Edge; lưu tệp thủ công khi chặn localStorage |
 
 Đây là số nhóm kiểm thử của các script, không phải lời xác nhận hoàn thành toàn bộ đặc tả mở rộng.
+
+### Cập nhật 1.1 · hình học, PDF, công thức và header
+
+- Đo chiều cao vùng header **104 px**; F8 giảm còn 40 px và trở lại được.
+- Hình học mới có nét đen #111111, rộng 2.6 px, opacity nét 1; nền mặt trong suốt và khối 3D mặc định tĩnh.
+- Nhấp chuột gần đỉnh để bắt điểm, dựng trung điểm rồi nối tới trung điểm đó. Điểm phụ thay đổi đúng khi sửa tọa độ và Undo giữ phép dựng.
+- Kiểm tra hình chiếu đường vuông góc trong không gian, đường song song, góc 90°, khoảng cách đường chéo lập phương, đường tròn qua ba điểm.
+- Thiết diện lập phương qua mặt phẳng đường chéo có 4 đỉnh và diện tích 16√2 khi a=4; qua 3 trung điểm cạnh qua A có 3 đỉnh và diện tích 2√3. Đổi a=8 cập nhật diện tích 8√3.
+- Từ chối tham chiếu vòng/điểm chưa tồn tại và báo ba điểm thẳng hàng thay vì vẽ thiết diện giả.
+- Công thức `f(x)=sqrt(x^2+1)/(x-2)` được nhận dạng thành TeX có căn/phân số, dựng SVG rồi sửa được thành tích phân. Chặn TeX chứa liên kết ngoài; lỗi cú pháp có thông báo.
+- Nhập PDF 2 trang có font, chữ và đường vector, trong đó một trang nguồn có `/Rotate=90`. Mỗi trang thành một trang sổ tay, giữ đúng tỷ lệ và khóa nền để viết.
+- PDF gốc chỉ nằm một lần trong assets; nét bút và công thức là đối tượng riêng. JSON roundtrip và reload offline giữ PDF gốc, hình/công thức, trang và ID.
+- Xuất sổ tay 3 trang ra PDF; dùng PDF.js trích xuất lại được chữ **OFFLINE MATH LESSON 1** từ trang nguồn đã ghép chú thích. Như vậy nguồn không bị biến hoàn toàn thành ảnh. Đã render và xem trang xoay sau xuất để đối chiếu hướng.
+- Trích xuất lớp văn bản PDF; từ chối tệp giả PDF, dải trang sai và đối tượng PDF thiếu nguồn mà không thay đổi nội dung hiện tại.
+- Ảnh bản vẽ mặc định có pixel nền alpha=0, pixel nét RGBA=(17,17,17,255); giữ ảnh gốc và khôi phục màu được.
+- Các luồng trên chạy trong `file://`, browser context offline: **không lỗi JavaScript, không request HTTP/HTTPS, không tài nguyên cục bộ tải thất bại**.
+
+Ảnh xem trực tiếp: [teacher-workspace.png](teacher-workspace.png), [pdf-workspace.png](pdf-workspace.png).
 
 ### Toán học và dữ liệu
 
@@ -79,7 +98,8 @@
 - Hộp thoại máy in vật lý, fullscreen ở mọi cấu hình Windows và chính sách doanh nghiệp.
 - Toàn bộ tổ hợp menu/hình dạng/Smart Shape và mọi công thức đầu vào có thể có. README nêu phạm vi triển khai; chỉ các kiểm tra được liệt kê ở báo cáo này được xác nhận đã chạy.
 - Khả năng lưu vĩnh viễn, quota tùy trình duyệt hoặc phục hồi khi người dùng xóa dữ liệu. Tệp tải thủ công là phương án sao lưu chủ động.
-- Nhập PDF, CAS, OCR, thiết diện/giao tuyến 3D tổng quát, tiếng Anh và các tính năng chưa có trong README không được đánh dấu hoàn thành.
+- Chưa kiểm thử mọi biến thể PDF, tài liệu rất lớn, font hiếm hoặc phục hồi PDF hỏng; ICC/prepress chuyên nghiệp không được cam kết. PDF có mật khẩu cần mở khóa trước.
+- CAS, OCR chữ viết tay/ảnh quét, giao tuyến/thiết diện ngoài phạm vi khối đa diện, sửa từng ký tự nguồn PDF, tiếng Anh và các tính năng chưa có trong README không được đánh dấu hoàn thành.
 
 ## Chạy lại
 
@@ -88,6 +108,7 @@ npm ci --ignore-scripts
 npm test
 npm run test:browser
 npm run test:advanced
+npm run test:studio
 ```
 
 Các script browser cần Chrome/Edge đã được cài đặt. Không cần chạy máy chủ. Ảnh và tệp kiểm chứng nằm trong `test-results/` sau khi chạy; không đóng gói chúng như nội dung học của người dùng.

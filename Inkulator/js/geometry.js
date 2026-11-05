@@ -449,14 +449,18 @@
     rotation = [-0.45, -0.55],
     width = 300,
     height = 260,
+    frameVertices = vertices,
   ) {
     const center = [0, 1, 2].map(
       (i) =>
-        (Math.min(...vertices.map((v) => v[i])) +
-          Math.max(...vertices.map((v) => v[i]))) /
+        (Math.min(...frameVertices.map((v) => v[i])) +
+          Math.max(...frameVertices.map((v) => v[i]))) /
         2,
     );
-    const extent = Math.max(...vertices.map((v) => norm(sub(v, center))), 0.01),
+    const extent = Math.max(
+        ...frameVertices.map((v) => norm(sub(v, center))),
+        0.01,
+      ),
       s = (Math.min(width, height) * 0.36) / extent;
     const [rx, ry] = rotation;
     const rotated = vertices.map((v) => {

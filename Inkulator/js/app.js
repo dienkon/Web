@@ -41,6 +41,8 @@
     layers: ["LAYER MANAGER", "Quản lý lớp"],
     settings: ["PREFERENCES", "Cài đặt"],
     math: ["MATH TOOLS", "Công cụ toán"],
+    pdf: ["PDF WORKSPACE", "Tài liệu PDF"],
+    image: ["CLEAN DIAGRAM", "Chỉnh ảnh / tách nền"],
   };
   let toastTimer = 0,
     pagesVisible = true,
@@ -108,7 +110,7 @@
       button("pan", "Kéo trang", "tool", 'data-tool="pan"');
     const colors = document.getElementById("colors");
     for (const color of [
-      "#263b32",
+      "#111111",
       "#27836d",
       "#4782c4",
       "#d86560",
@@ -135,6 +137,7 @@
       widthPopover(e.currentTarget);
     Renderer.init();
     CanvasEngine.init();
+    TeacherGeometry.init();
     document.addEventListener("statechange", stateChanged);
     document.addEventListener("click", (e) => {
       const b = e.target.closest("[data-action]");
@@ -169,6 +172,10 @@
       if (e.target.files[0]) Exporter.importImage(e.target.files[0]);
       e.target.value = "";
     };
+    document.getElementById("pdf-file").onchange = (e) => {
+      if (e.target.files[0]) PDFStudio.importFile(e.target.files[0]);
+      e.target.value = "";
+    };
     window.addEventListener("beforeunload", (e) => {
       if (Store.state.dirty && !Store.save()) {
         e.preventDefault();
@@ -191,6 +198,10 @@
       Calculator,
       Renderer,
       CanvasEngine,
+      TeacherGeometry,
+      Constructions,
+      PDFStudio,
+      Formulas,
     };
   }
   function stateChanged() {
@@ -436,6 +447,9 @@
         ["export-pdf", "Xuất sổ tay · PDF", ""],
         ["print", "In sổ tay", ""],
         ["image", "Chèn ảnh", ""],
+        ["import-pdf", "Chèn PDF từ máy", ""],
+        ["formula", "Soạn công thức đẹp", ""],
+        ["focus", "Không gian tập trung", "F8"],
         ["copy", "Sao chép đối tượng", "Ctrl+C"],
         ["paste", "Dán đối tượng", "Ctrl+V"],
         ["help", "Hướng dẫn và giới hạn", "?"],
@@ -455,6 +469,7 @@
   }
   function setTool(tool) {
     CanvasEngine.cancelActive();
+    if (tool !== "select") root.TeacherGeometry?.cancel();
     if (tool === "eraser" && Store.state.tool === "eraser") {
       const anchor = document.querySelector('[data-tool="eraser"]');
       const el = popover(
@@ -609,6 +624,8 @@
     document.getElementById("panel-eyebrow").textContent = names[id][0];
     document.getElementById("panel-title").textContent = names[id][1];
     if (id === "graph") Graph.panel(obj);
+    else if (id === "pdf") PDFStudio.panel();
+    else if (id === "image" && obj) ImageStudio.panel(obj);
     else if (id === "geometry" || id === "solid") Panels.geometry(id);
     else Panels[id]();
     document
@@ -680,6 +697,8 @@
       .replace(/\^3/g, "³");
   }
   async function editText(o, p = null) {
+    if (root.Formulas && !o?.data.table && !o?.data.layout)
+      return Formulas.textEditor(o, p);
     const r = await dialog(
       o ? "Chỉnh sửa nội dung" : "Chèn văn bản",
       '<label class="field"><span>Nội dung (hỗ trợ ký hiệu Unicode, LaTeX cơ bản)</span><textarea name="text" rows="7" maxlength="20000">' +
@@ -733,6 +752,9 @@
     else if (o.type === "solid" || o.type === "geometry")
       openPanel(o.type === "solid" ? "solid" : "geometry");
     else if (o.type === "text") editText(o);
+    else if (o.type === "formula") Formulas.textEditor(o);
+    else if (o.type === "pdf") openPanel("pdf");
+    else if (o.type === "image") openPanel("image", o);
     else
       toast(
         "Dùng nút vuông để đổi kích thước; dùng thanh công cụ để đổi màu, độ dày hoặc xoay.",
@@ -753,6 +775,13 @@
       '<button data-action="lock">' +
       (selected.every((o) => o.locked) ? "Mở khóa" : "Khóa") +
       "</button>";
+    if (
+      selected.length === 1 &&
+      selected[0].type === "text" &&
+      Formulas.detect(selected[0].data.text)
+    )
+      el.innerHTML +=
+        '<button data-action="format-selection">ƒx Dàn công thức</button>';
   }
   function copy() {
     Store.state.clipboard = Store.clone(Store.selected());
@@ -946,7 +975,7 @@
         ]
           .map(([a, b]) => "<tr><td>" + a + "</td><td>" + b + "</td></tr>")
           .join("") +
-        '</table><p class="hint">Giới hạn: chưa nhập PDF, chưa có CAS đại số đầy đủ, nhận dạng chữ viết, thiết diện 3D tùy ý hay dựng hình bằng mọi ràng buộc. Khảo sát số có dung sai; kiểm tra miền xác định trước khi tích phân. Xem README để biết phạm vi và kết quả kiểm thử.</p>',
+        '</table><p class="hint">PDF: chèn tài liệu để viết / highlight, giữ bản gốc khi xuất; chưa sửa trực tiếp từng ký tự. Công thức: tự dàn biểu thức gõ hoặc LaTeX, chưa nhận dạng toàn bộ chữ viết tay. Thiết diện hỗ trợ khối đa diện qua 3 điểm. Khảo sát số có dung sai; kiểm tra miền xác định trước khi tích phân.</p>',
       "Đã hiểu",
     );
   }
@@ -1040,6 +1069,19 @@
         return help();
       case "image":
         return document.getElementById("image-file").click();
+      case "import-pdf":
+        return document.getElementById("pdf-file").click();
+      case "formula":
+        return Formulas.textEditor(null, null, true);
+      case "format-selection": {
+        const o = Store.selected()[0];
+        if (o) return Formulas.textEditor(o, null, true);
+        return;
+      }
+      case "focus":
+        document.body.classList.toggle("focus-mode");
+        Renderer.resize();
+        return;
       case "export-png":
         return Exporter.png();
       case "export-svg":
@@ -1150,12 +1192,17 @@
       if (key === "r") action = "ruler";
       if (key === "?") action = "help";
       if (key === "escape") {
+        TeacherGeometry.cancel();
         CanvasEngine.cancelActive();
         Store.state.selection = [];
         closePanel();
         closePopover();
         Store.emit();
       }
+    }
+    if (e.key === "F8") {
+      e.preventDefault();
+      dispatch("focus", {});
     }
     if (action) {
       e.preventDefault();

@@ -1,0 +1,402 @@
+/* Compact desktop chrome and tools designed for the classroom. */
+:root {
+  --title-height: 25px;
+  --toolbar-height: 45px;
+  --tabs-height: 34px;
+  --status-height: 26px;
+}
+.titlebar {
+  height: var(--title-height);
+  padding: 0 14px;
+  font-size: 9px;
+}
+.brand-icon {
+  width: 18px;
+  height: 18px;
+  font-size: 22px;
+  border-radius: 5px;
+  line-height: 14px;
+}
+.offline {
+  font-size: 7px;
+  padding: 2px 5px;
+}
+.title-actions button {
+  font-size: 10px;
+  padding: 2px 6px;
+}
+.toolbar {
+  height: var(--toolbar-height);
+  gap: 9px;
+  padding: 0 12px;
+}
+.icon-button {
+  width: 30px;
+  height: 30px;
+}
+.icon-button svg {
+  width: 19px;
+  height: 19px;
+}
+.toolbar-group {
+  gap: 2px;
+}
+.toolbar-group + .toolbar-group {
+  padding-left: 8px;
+}
+.document-meta input {
+  font-size: 12px;
+  padding: 1px;
+  width: 205px;
+}
+.document-meta span {
+  font-size: 9px;
+  margin-top: 1px;
+}
+.swatch {
+  width: 19px;
+  height: 19px;
+  border-width: 4px;
+}
+.colors {
+  gap: 5px;
+}
+.width-button {
+  height: 30px;
+  gap: 3px;
+}
+.width-button small {
+  font-size: 8px;
+}
+.workspace-tabs {
+  height: var(--tabs-height);
+  gap: 6px;
+  padding: 0 12px;
+}
+.workspace-tabs button {
+  height: 27px;
+  font-size: 10px;
+  padding: 0 8px;
+  gap: 5px;
+}
+.tab-symbol {
+  font-size: 17px;
+}
+.statusbar {
+  height: var(--status-height);
+  font-size: 9px;
+}
+#workspace {
+  height: calc(
+    100dvh - var(--title-height) - var(--toolbar-height) - var(--tabs-height) -
+      var(--status-height)
+  );
+}
+.panel {
+  padding: 19px 20px;
+}
+.panel-heading {
+  margin-bottom: 18px;
+}
+.panel-heading h2 {
+  font-size: 17px;
+}
+.pages-sidebar {
+  padding-top: 16px;
+}
+.geometry-toolbar {
+  position: absolute;
+  bottom: 68px;
+  left: 14px;
+  max-width: calc(100% - 28px);
+  background: var(--surface);
+  border: 1px solid #cbdcd2;
+  border-radius: 10px;
+  box-shadow: 0 5px 22px #24372c12;
+  padding: 7px 9px;
+  z-index: 5;
+}
+.geometry-toolbar-buttons {
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+}
+.geometry-toolbar button {
+  font-size: 10px;
+  padding: 7px 9px;
+  border: 1px solid transparent;
+}
+.geometry-toolbar button.active {
+  border-color: #a1c8b7;
+  background: #edf6f1;
+}
+.geometry-instruction {
+  color: #70897a;
+  font-size: 10px;
+  padding: 6px 8px 3px;
+  line-height: 1.4;
+}
+.teacher-card {
+  padding: 13px;
+  border: 1px solid #d8e7de;
+  border-radius: 8px;
+  background: #f7faf7;
+  margin-bottom: 22px;
+}
+.teacher-card-title {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.teacher-card-title span {
+  font-size: 8px;
+  font-weight: 400;
+  color: #187d68;
+  border: 1px solid #c3dccd;
+  padding: 1px 5px;
+  border-radius: 3px;
+  letter-spacing: 0;
+}
+.teacher-card > select {
+  width: 100%;
+  font-size: 11px;
+}
+.construction-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-top: 1px solid #dfe9e2;
+  padding: 8px 0;
+  font-size: 11px;
+}
+.construction-row span {
+  flex: 1;
+}
+.construction-row small {
+  display: block;
+  font-size: 10px;
+  margin-top: 4px;
+}
+.construction-row button {
+  font-size: 18px;
+  width: 24px;
+}
+.formula-preview {
+  min-height: 100px;
+  border: 1px dashed #cbdcd2;
+  border-radius: 8px;
+  background: #fbfdfb;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  color: #718377;
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+.formula-preview img {
+  max-width: 100%;
+  height: auto;
+  max-height: 300px;
+}
+.formula-card {
+  margin-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 20px;
+}
+.formula-card textarea {
+  font-family: Consolas, monospace;
+  font-size: 12px;
+}
+.pdf-import-summary {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  margin: 18px 0 20px;
+}
+.pdf-import-summary img {
+  width: 100px;
+  height: 130px;
+  object-fit: contain;
+  background: #f6f7f4;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+}
+.pdf-import-summary b {
+  display: block;
+  overflow-wrap: anywhere;
+}
+.pdf-import-summary p {
+  font-size: 11px;
+  color: #859487;
+  margin: 10px 0;
+}
+.badge {
+  display: inline-block;
+  color: #187d68;
+  border: 1px solid #d5e5db;
+  background: #edf6ef;
+  border-radius: 4px;
+  font-size: 9px;
+  padding: 4px 6px;
+}
+#pdf-text-result textarea {
+  margin-top: 18px;
+  font-size: 12px;
+}
+body.focus-mode {
+  --title-height: 0px;
+  --tabs-height: 0px;
+  --toolbar-height: 40px;
+}
+body.focus-mode .titlebar,
+body.focus-mode .workspace-tabs {
+  display: none;
+}
+body.dark .teacher-card,
+body.dark .formula-preview {
+  background: #24352b;
+}
+.image-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.image-comparison figure {
+  margin: 0;
+}
+.image-comparison img {
+  width: 100%;
+  height: 125px;
+  object-fit: contain;
+  border: 1px solid var(--line);
+  background-image:
+    linear-gradient(45deg, #edf0ed 25%, transparent 25%),
+    linear-gradient(-45deg, #edf0ed 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #edf0ed 75%),
+    linear-gradient(-45deg, transparent 75%, #edf0ed 75%);
+  background-size: 16px 16px;
+  background-position:
+    0 0,
+    0 8px,
+    8px -8px,
+    -8px 0;
+}
+.image-comparison figcaption {
+  font-size: 10px;
+  color: var(--muted);
+  padding: 6px 0;
+}
+@media (min-width: 1600px) {
+  .toolbar {
+    gap: 15px;
+  }
+  .icon-button {
+    width: 34px;
+  }
+  .document-meta input {
+    width: 260px;
+  }
+  .colors {
+    gap: 8px;
+  }
+}
+@media (max-width: 1200px) {
+  .document-meta input {
+    width: 150px;
+  }
+  .toolbar {
+    gap: 6px;
+  }
+  .toolbar-group + .toolbar-group {
+    padding-left: 5px;
+  }
+  .colors {
+    gap: 2px;
+  }
+  .workspace-tabs {
+    gap: 3px;
+  }
+  .workspace-tabs button {
+    padding: 0 6px;
+  }
+  .pages-sidebar {
+    width: 155px;
+  }
+}
+@media (max-width: 950px) {
+  .document-meta input {
+    width: 112px;
+  }
+  .document-meta {
+    min-width: 90px;
+  }
+  .workspace-tabs {
+    gap: 0;
+  }
+  .workspace-tabs button {
+    padding: 0 5px;
+    font-size: 9px;
+  }
+  .workspace-tabs button[data-panel="math"] {
+    display: none;
+  }
+  .geometry-toolbar {
+    bottom: 74px;
+  }
+  .geometry-toolbar button {
+    padding: 6px;
+    font-size: 9px;
+  }
+}
+@media (max-width: 700px) {
+  .panel {
+    top: calc(var(--title-height) + var(--toolbar-height) + var(--tabs-height));
+    bottom: var(--status-height);
+  }
+  .toolbar {
+    padding: 0 8px;
+    gap: 5px;
+  }
+  .workspace-tabs {
+    padding: 0 6px;
+    justify-content: space-between;
+  }
+  .workspace-tabs button {
+    font-size: 0;
+    width: 31px;
+    padding: 0 6px;
+  }
+  .workspace-tabs button .tab-symbol {
+    font-size: 19px;
+  }
+  .workspace-tabs .tab-spacer {
+    display: none;
+  }
+  .geometry-toolbar {
+    bottom: 92px;
+    left: 6px;
+    max-width: calc(100% - 12px);
+    padding: 5px;
+  }
+  .geometry-toolbar-buttons {
+    gap: 0;
+  }
+  .geometry-toolbar button {
+    font-size: 9px;
+    padding: 5px;
+  }
+  .geometry-instruction {
+    font-size: 9px;
+  }
+  .title-actions button:first-child {
+    display: none;
+  }
+  #selection-tools {
+    max-width: calc(100% - 155px);
+  }
+}

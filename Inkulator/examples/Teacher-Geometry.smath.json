@@ -1,0 +1,368 @@
+{
+  "format": "scrble-math",
+  "version": 1,
+  "notebook": {
+    "id": "f967cd30-7e08-47c0-9c77-1371288169ee",
+    "title": "Dựng hình thông minh · Sổ tay giáo viên",
+    "folder": "",
+    "created": "2026-11-05T04:57:29.525Z",
+    "modified": "2026-11-05T04:57:29.526Z",
+    "pages": [
+      {
+        "id": "44c0f960-69a5-4f8b-a978-10900408449b",
+        "title": "Trung điểm, đường cao & thiết diện",
+        "paper": "grid",
+        "width": 1200,
+        "height": 1700,
+        "showTitle": true,
+        "objects": [
+          {
+            "id": "cb9e9ecc-92e1-464f-903d-54d8cbd3be47",
+            "type": "text",
+            "position": {
+              "x": 60,
+              "y": 155
+            },
+            "size": {
+              "w": 540,
+              "h": 40
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#111111",
+              "width": 2.6,
+              "opacity": 1
+            },
+            "zIndex": 0,
+            "locked": false,
+            "visible": true,
+            "layer": "annotation",
+            "data": {
+              "text": "01  HÌNH PHẲNG · PHỤ THUỘC THEO ĐỊNH NGHĨA",
+              "fontSize": 14,
+              "baseWidth": 540
+            }
+          },
+          {
+            "id": "faf8bbf2-6dec-49f7-87ab-8332cae881a3",
+            "type": "geometry",
+            "position": {
+              "x": 40,
+              "y": 230
+            },
+            "size": {
+              "w": 530,
+              "h": 410
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#111111",
+              "width": 2.6,
+              "opacity": 1
+            },
+            "zIndex": 1,
+            "locked": false,
+            "visible": true,
+            "layer": "geometry",
+            "data": {
+              "kind": "triangle",
+              "points": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  5,
+                  0
+                ],
+                [
+                  1.6,
+                  4
+                ]
+              ],
+              "labels": true,
+              "measures": false,
+              "aux": [],
+              "unit": "đv",
+              "frame": [
+                -1,
+                7,
+                -1,
+                6
+              ],
+              "fillOpacity": 0,
+              "constructions": [
+                {
+                  "id": "midBC",
+                  "type": "midpoint",
+                  "refs": [
+                    "v:1",
+                    "v:2"
+                  ],
+                  "label": "M"
+                },
+                {
+                  "id": "lineAM",
+                  "type": "segment",
+                  "refs": [
+                    "v:0",
+                    "c:midBC"
+                  ]
+                },
+                {
+                  "id": "height",
+                  "type": "perpendicular",
+                  "refs": [
+                    "v:0",
+                    "v:1",
+                    "v:2"
+                  ],
+                  "label": "H",
+                  "dashed": true
+                },
+                {
+                  "id": "angle",
+                  "type": "angle",
+                  "refs": [
+                    "v:0",
+                    "v:1",
+                    "v:2"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "id": "826f79e2-1136-4d95-aeb7-45acae20643f",
+            "type": "text",
+            "position": {
+              "x": 60,
+              "y": 670
+            },
+            "size": {
+              "w": 540,
+              "h": 80
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#111111",
+              "width": 2.6,
+              "opacity": 1
+            },
+            "zIndex": 2,
+            "locked": false,
+            "visible": true,
+            "layer": "annotation",
+            "data": {
+              "text": "M là trung điểm BC; CH ⊥ AB.\nKéo một đỉnh: hình và số đo tự cập nhật.",
+              "fontSize": 18,
+              "baseWidth": 540
+            }
+          },
+          {
+            "id": "709a80bc-cdf3-4c51-bd73-00ec7ed8b6db",
+            "type": "text",
+            "position": {
+              "x": 650,
+              "y": 155
+            },
+            "size": {
+              "w": 520,
+              "h": 40
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#111111",
+              "width": 2.6,
+              "opacity": 1
+            },
+            "zIndex": 3,
+            "locked": false,
+            "visible": true,
+            "layer": "annotation",
+            "data": {
+              "text": "02  KHÔNG GIAN · THIẾT DIỆN QUA 3 ĐIỂM",
+              "fontSize": 14,
+              "baseWidth": 520
+            }
+          },
+          {
+            "id": "e78d6989-dd19-4f94-84cc-9f71af3f6ca5",
+            "type": "solid",
+            "position": {
+              "x": 620,
+              "y": 240
+            },
+            "size": {
+              "w": 530,
+              "h": 390
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#111111",
+              "width": 2.6,
+              "opacity": 1
+            },
+            "zIndex": 4,
+            "locked": false,
+            "visible": true,
+            "layer": "geometry",
+            "data": {
+              "kind": "cube",
+              "params": {
+                "a": 4,
+                "b": 4,
+                "h": 4
+              },
+              "rotation": [
+                -0.45,
+                -0.55
+              ],
+              "live": false,
+              "faces": false,
+              "edges": true,
+              "hiddenEdges": true,
+              "labels": true,
+              "faceColor": "#111111",
+              "faceOpacity": 0,
+              "aux": [],
+              "sectionFill": true,
+              "constructions": [
+                {
+                  "id": "M",
+                  "type": "midpoint",
+                  "refs": [
+                    "v:0",
+                    "v:1"
+                  ],
+                  "label": "M"
+                },
+                {
+                  "id": "N",
+                  "type": "midpoint",
+                  "refs": [
+                    "v:0",
+                    "v:3"
+                  ],
+                  "label": "N"
+                },
+                {
+                  "id": "P",
+                  "type": "midpoint",
+                  "refs": [
+                    "v:0",
+                    "v:4"
+                  ],
+                  "label": "P"
+                },
+                {
+                  "id": "plane",
+                  "type": "section",
+                  "refs": [
+                    "c:M",
+                    "c:N",
+                    "c:P"
+                  ],
+                  "label": "Q"
+                }
+              ]
+            }
+          },
+          {
+            "id": "b071a4cc-bc4b-41fa-89ea-8d356a8d5b38",
+            "type": "text",
+            "position": {
+              "x": 650,
+              "y": 670
+            },
+            "size": {
+              "w": 520,
+              "h": 80
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#111111",
+              "width": 2.6,
+              "opacity": 1
+            },
+            "zIndex": 5,
+            "locked": false,
+            "visible": true,
+            "layer": "annotation",
+            "data": {
+              "text": "M, N, P là trung điểm 3 cạnh qua A.\nMặt phẳng (MNP) cắt khối theo tam giác đều.",
+              "fontSize": 18,
+              "baseWidth": 520
+            }
+          },
+          {
+            "id": "b8093be8-34e7-4477-ad32-e8a62e241c24",
+            "type": "formula",
+            "position": {
+              "x": 120,
+              "y": 825
+            },
+            "size": {
+              "w": 950,
+              "h": 70
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#111111",
+              "width": 2.6,
+              "opacity": 1
+            },
+            "zIndex": 6,
+            "locked": false,
+            "visible": true,
+            "layer": "annotation",
+            "data": {
+              "text": "S_{MNP}=2\\sqrt{3},\\quad V_{ABCD.A^{\\prime}B^{\\prime}C^{\\prime}D^{\\prime}}=64",
+              "tex": "S_{MNP}=2\\sqrt{3},\\quad V_{ABCD.A^{\\prime}B^{\\prime}C^{\\prime}D^{\\prime}}=64",
+              "fontSize": 25
+            }
+          }
+        ],
+        "layers": [
+          {
+            "id": "image",
+            "visible": true,
+            "locked": false
+          },
+          {
+            "id": "geometry",
+            "visible": true,
+            "locked": false
+          },
+          {
+            "id": "graph",
+            "visible": true,
+            "locked": false
+          },
+          {
+            "id": "ink",
+            "visible": true,
+            "locked": false
+          },
+          {
+            "id": "annotation",
+            "visible": true,
+            "locked": false
+          }
+        ]
+      }
+    ]
+  },
+  "settings": {
+    "theme": "light",
+    "gridSize": 25,
+    "smoothing": 0.5,
+    "penSensitivity": 1,
+    "autosave": 1200,
+    "historyLimit": 60,
+    "touchInk": false,
+    "smartShape": false,
+    "animations": true
+  },
+  "assets": {}
+}

@@ -1,6 +1,6 @@
 (function (root) {
   "use strict";
-  const palette = ["#268772", "#cd6961", "#5e80bd", "#b7963c", "#9a72b6"];
+  const palette = ["#111111", "#cd6961", "#5e80bd", "#b7963c", "#9a72b6"];
   const cache = new Map(),
     compiled = new Map();
   let editing = null,
@@ -14,6 +14,7 @@
       params: { a: 1, b: 0, c: 0 },
       markers: [],
       axes: true,
+      transparent: true,
       tangent: null,
       shade: null,
     };
@@ -57,7 +58,7 @@
     ctx.rect(0, 0, w, h);
     ctx.clip();
     ctx.fillStyle = "#fff";
-    ctx.fillRect(0, 0, w, h);
+    if (!data.transparent) ctx.fillRect(0, 0, w, h);
     const gx = step(v.xmax - v.xmin),
       gy = step(v.ymax - v.ymin);
     ctx.strokeStyle = "#e9eeea";
@@ -111,7 +112,7 @@
       }
       const fn = (x) => item.fn({ ...params, x });
       ctx.strokeStyle = e.color;
-      ctx.lineWidth = 1.9;
+      ctx.lineWidth = 2.5;
       ctx.beginPath();
       if (item.implicit) {
         const n = 65,
@@ -434,6 +435,7 @@
     document.getElementById("graph-insert").disabled = errors.length > 0;
     const ctx = preview.getContext("2d");
     ctx.setTransform(2, 0, 0, 2, 0, 0);
+    ctx.clearRect(0, 0, 300, 240);
     draw(ctx, draft, 300, 240);
   }
   function insert() {
@@ -448,6 +450,7 @@
           Store.object("graph", Store.clone(draft), {
             position: App.insertPosition(440, 330),
             size: { w: 440, h: 330 },
+            style: { color: "#111111", width: 2.6, opacity: 1 },
           }),
         );
       App.toast(

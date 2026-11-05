@@ -227,6 +227,7 @@
     return [(p.x - 25) / s + b[0], b[3] - (p.y - 25) / s];
   }
   function geometry(ctx, o) {
+    const labelBoxes = [];
     const d = o.data,
       p = d.points.map((p) => flatPoint(o, p)),
       G = Geometry;
@@ -254,15 +255,20 @@
       ctx.beginPath();
       p.forEach((a, i) => (i ? ctx.lineTo(...a) : ctx.moveTo(...a)));
       ctx.closePath();
-      ctx.fillStyle = o.style.color + "09";
-      ctx.fill();
+      if (o.data.fillOpacity > 0) {
+        ctx.save();
+        ctx.globalAlpha *= o.data.fillOpacity;
+        ctx.fillStyle = o.style.color;
+        ctx.fill();
+        ctx.restore();
+      }
       ctx.stroke();
     }
     if (p.length === 3) {
       const t = G.triangleData(d.points);
       ctx.save();
-      ctx.strokeStyle = "#729b8d";
-      ctx.lineWidth = 1.3;
+      ctx.strokeStyle = o.style.color;
+      ctx.lineWidth = Math.max(1.8, o.style.width * 0.85);
       if (d.kind === "median" || d.kind === "centroid") {
         line(p[0], flatPoint(o, t.midpoint), true);
         if (d.kind === "centroid") {
@@ -317,12 +323,19 @@
       ctx.arc(...a, 2.4, 0, Math.PI * 2);
       ctx.fill();
       if (d.labels) {
-        ctx.font = "italic 16px Georgia";
-        ctx.fillText(
-          String.fromCharCode(65 + i),
-          a[0] - 5,
-          a[1] + (a[1] > o.size.h * 0.5 ? 20 : -10),
-        );
+        if (root.TeacherGeometry)
+          TeacherGeometry.drawLabel(
+            ctx,
+            String.fromCharCode(65 + i),
+            a,
+            [o.size.w / 2, o.size.h / 2],
+            labelBoxes,
+            p,
+          );
+        else {
+          ctx.font = "italic 18px Georgia";
+          ctx.fillText(String.fromCharCode(65 + i), a[0] + 8, a[1] - 10);
+        }
       }
       if (d.measures && d.kind !== "circle") {
         const next = p[(i + 1) % p.length],
@@ -337,6 +350,7 @@
     });
   }
   function solid(ctx, o) {
+    const labelBoxes = [];
     const d = o.data,
       model = Geometry.mesh(d.kind, d.params),
       pr = Geometry.project(model.vertices, d.rotation, o.size.w, o.size.h),
@@ -348,7 +362,7 @@
       );
       return n[1] < 0;
     });
-    if (d.faces !== false) {
+    if (d.faces !== false || Number.isInteger(d.selectedFace)) {
       const sorted = model.faces
         .map((f, i) => ({
           f,
@@ -357,6 +371,7 @@
         }))
         .sort((a, b) => b.z - a.z);
       for (const { f, i } of sorted) {
+        if (d.faces === false && i !== d.selectedFace) continue;
         if (!front[i]) continue;
         ctx.save();
         ctx.globalAlpha *=
@@ -382,8 +397,10 @@
         );
         if (hidden && d.hiddenEdges === false) return;
         ctx.save();
-        ctx.globalAlpha *= hidden ? 0.4 : 1;
-        ctx.lineWidth = hidden ? 1 : 1.6;
+        ctx.globalAlpha *= hidden ? 0.9 : 1;
+        ctx.lineWidth = hidden
+          ? Math.max(1.7, o.style.width * 0.8)
+          : Math.max(2.2, o.style.width);
         ctx.setLineDash(hidden ? [5, 5] : []);
         ctx.beginPath();
         ctx.moveTo(...p[a]);
@@ -399,7 +416,16 @@
         ctx.beginPath();
         ctx.arc(...q, 2, 0, Math.PI * 2);
         ctx.fill();
-        ctx.fillText(model.labels[i] || "", q[0] + 6, q[1] - 6);
+        if (root.TeacherGeometry)
+          TeacherGeometry.drawLabel(
+            ctx,
+            model.labels[i] || "",
+            q,
+            [o.size.w / 2, o.size.h / 2],
+            labelBoxes,
+            p,
+          );
+        else ctx.fillText(model.labels[i] || "", q[0] + 6, q[1] - 6);
       });
     }
     const projectExtra = (v) => {
@@ -410,9 +436,9 @@
     };
     for (const aux of d.aux || []) {
       ctx.save();
-      ctx.strokeStyle = "#c27b47";
-      ctx.fillStyle = "#c27b47";
-      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = o.style.color;
+      ctx.fillStyle = o.style.color;
+      ctx.lineWidth = Math.max(1.8, o.style.width * 0.85);
       ctx.setLineDash([6, 4]);
       let a, b;
       if (aux.type === "segment") {
@@ -521,15 +547,23 @@
         break;
       case "geometry":
         geometry(ctx, o);
+        root.TeacherGeometry?.draw(ctx, o);
         break;
       case "solid":
         solid(ctx, o);
+        root.TeacherGeometry?.draw(ctx, o);
         break;
       case "graph":
         root.Graph.drawObject(ctx, o);
         break;
       case "text":
         text(ctx, o);
+        break;
+      case "formula":
+        root.Formulas?.draw(ctx, o);
+        break;
+      case "pdf":
+        root.PDFStudio?.draw(ctx, o);
         break;
       case "image": {
         let img = imageCache.get(o.data.src);
@@ -645,6 +679,7 @@
     viewport(ic);
     objects(ic, p);
     root.CanvasEngine?.drawOverlay(ic);
+    root.TeacherGeometry?.drawOverlay(ic);
     drawSelection(ic);
     if (state().ruler) drawRuler(ic);
     updateTitle();
@@ -703,15 +738,17 @@
       c.fillText(p.title, 50, 80);
     }
   }
-  function pageCanvas(p, scale = 1) {
+  function pageCanvas(p, scale = 1, options = {}) {
     const c = document.createElement("canvas");
     c.width = p.width * scale;
     c.height = p.height * scale;
     const ctx = c.getContext("2d");
     ctx.scale(scale, scale);
-    drawPaper(ctx, p, { x: 0, y: 0, w: p.width, h: p.height });
-    objects(ctx, p);
-    if (p.showTitle && p.title) {
+    if (options.background !== false)
+      drawPaper(ctx, p, { x: 0, y: 0, w: p.width, h: p.height });
+    if (options.objects) options.objects.forEach((o) => drawObject(ctx, o));
+    else if (!options.backgroundOnly) objects(ctx, p);
+    if (p.showTitle && p.title && !options.omitTitle) {
       ctx.fillStyle = p.paper === "dark" ? "#d7e3d9" : "#314f41";
       ctx.font = "25px Segoe UI";
       ctx.fillText(p.title, 70, 88);
@@ -729,6 +766,9 @@
   async function awaitImages(p) {
     const visit = async (o) => {
       if (o.type === "group") return Promise.all(o.data.children.map(visit));
+      if (o.type === "formula") return root.Formulas?.prepare(o);
+      if (o.type === "pdf")
+        return root.PDFStudio?.prepare(o, Math.max(o.size.w, o.size.h) * 2);
       if (o.type !== "image") return;
       let img = imageCache.get(o.data.src);
       if (img?.complete && img.naturalWidth) return;

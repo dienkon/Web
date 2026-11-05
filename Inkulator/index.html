@@ -11,6 +11,7 @@
     <title>SCRBLE MATH STUDIO — Sổ tay toán học</title>
     <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/studio.css" />
   </head>
   <body>
     <header class="titlebar">
@@ -19,6 +20,9 @@
         ><span class="offline"><i></i> NGOẠI TUYẾN</span>
       </div>
       <div class="title-actions">
+        <button data-action="focus" title="Không gian tập trung (F8)">
+          Tập trung <kbd>F8</kbd>
+        </button>
         <button data-action="help">Hướng dẫn <kbd>?</kbd></button
         ><button
           data-action="fullscreen"
@@ -49,6 +53,8 @@
       <button data-action="pages" id="pages-toggle">
         ☷ <span>Trang sổ tay</span></button
       ><span class="tab-divider"></span
+      ><button data-action="panel" data-panel="pdf">
+        <span class="tab-symbol">▧</span> Tài liệu PDF</button
       ><button data-action="panel" data-panel="graph">
         <span class="tab-symbol">⌁</span> Đồ thị</button
       ><button data-action="panel" data-panel="geometry">
@@ -59,6 +65,9 @@
         <span class="tab-symbol">▦</span> Máy tính</button
       ><button data-action="panel" data-panel="math">
         <span class="tab-symbol">ƒ</span> Công cụ toán
+      </button>
+      <button data-action="formula">
+        <span class="tab-symbol">ƒx</span> Công thức
       </button>
       <div class="tab-spacer"></div>
       <button data-action="panel" data-panel="paper">
@@ -98,6 +107,7 @@
           >
         </div>
         <div id="selection-tools" hidden></div>
+        <div id="geometry-toolbar" class="geometry-toolbar" hidden></div>
         <div id="canvas-context" hidden></div>
         <div class="canvas-navigation">
           <button data-action="fit" title="Vừa trang">⌖</button><span></span
@@ -145,16 +155,25 @@
       accept="image/png,image/jpeg,image/webp"
       hidden
     />
+    <input type="file" id="pdf-file" accept="application/pdf,.pdf" hidden />
     <script src="vendor/math.js"></script>
     <script src="vendor/pdf-lib.js"></script>
+    <script src="vendor/pdfjs-assets.js"></script>
+    <script src="vendor/pdfjs.js"></script>
+    <script src="vendor/math-typesetter.js"></script>
     <script src="js/math-engine.js"></script>
     <script src="js/geometry.js"></script>
+    <script src="js/constructions.js"></script>
     <script src="js/state.js"></script>
     <script src="js/renderer.js"></script>
+    <script src="js/formulas.js"></script>
+    <script src="js/pdf.js"></script>
+    <script src="js/images.js"></script>
     <script src="js/graph.js"></script>
     <script src="js/calculator.js"></script>
     <script src="js/panels.js"></script>
     <script src="js/canvas.js"></script>
+    <script src="js/teacher.js"></script>
     <script src="js/export.js"></script>
     <script src="js/app.js"></script>
   </body>

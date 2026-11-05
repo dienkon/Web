@@ -12,3 +12,12 @@
 10. Mở DevTools → Network trước khi thao tác. Không có request HTTP/HTTPS; không có tệp tài nguyên cục bộ bị thiếu. Nếu lưu tự động bị chặn, thanh trạng thái phải báo cần lưu thủ công và Ctrl+S vẫn tải được tệp.
 
 Danh sách này là hướng dẫn nghiệm thu thủ công, **không phải khẳng định đã kiểm thử phần cứng thật**. Xem docs/TEST-REPORT.md để biết kiểm tra tự động thực sự đã chạy.
+
+## Bản 1.1
+
+- Chọn Tài liệu PDF → Chọn PDF, nhập 1–3 trang từ máy. Viết/highlight và chèn công thức phía trên; xuất PDF, mở lại để kiểm tra độ nét và lớp chữ gốc. Thử PDF nguồn có trang ngang hoặc trang xoay.
+- Chọn tam giác → Trung điểm → nhấp B/C, rồi Nối điểm → nhấp A/M. Kéo B và kiểm tra M, AM cập nhật. Thử Undo/Redo.
+- Chèn lập phương: hình mặc định tĩnh, đen đậm, mặt trong suốt. Chọn Xoay 3D khi cần. Dựng 3 trung điểm cạnh qua A, chọn Thiết diện rồi nhấp các trung điểm; đổi a và kiểm tra diện tích.
+- Nhập `f(x)=sqrt(x^2+1)/(x-2)` vào Công thức, kiểm tra căn/phân số và sửa bằng nhấp đúp. Công thức viết tay chưa được tự OCR.
+- Chèn ảnh bản vẽ nền trắng: kiểm tra nét đen và nền trong suốt. Nhấp đúp → Khôi phục ảnh màu gốc để dùng với ảnh chụp.
+- F8 bật/tắt không gian tập trung. Khi cửa sổ 1366×768, thanh đầu thông thường chỉ cao 104 px.

@@ -48,7 +48,8 @@
   }
   async function importFile(file) {
     try {
-      if (file.size > 16 * 1024 * 1024) throw Error("Tệp nhập tối đa 16 MB.");
+      if (file.size > 100 * 1024 * 1024)
+        throw Error("Tệp dự án nhập tối đa 100 MB.");
       const raw = await file.text();
       let data;
       try {
@@ -109,12 +110,24 @@
       });
       const w = Math.min(600, img.naturalWidth),
         h = (w * img.naturalHeight) / img.naturalWidth;
+      const cleaned = await ImageStudio.process(src);
       Store.add(
         Store.object(
           "image",
-          { src },
-          { position: App.insertPosition(w, h), size: { w, h } },
+          {
+            src: cleaned.src,
+            originalSrc: src,
+            processing: { threshold: 195, bold: 1 },
+          },
+          {
+            position: App.insertPosition(w, h),
+            size: { w, h },
+            style: { color: "#111111", width: 2.6, opacity: 1 },
+          },
         ),
+      );
+      App.toast(
+        "Đã chèn bản vẽ nét đen, nền trong suốt. Nhấp đúp để đổi về ảnh màu gốc.",
       );
     } catch (e) {
       App.toast(e.message);
@@ -149,8 +162,16 @@
       const doc = await PDFLib.PDFDocument.create();
       doc.setTitle(Store.book().title);
       doc.setCreator("SCRBLE MATH STUDIO — Offline");
+      const sourceCache = new Map();
       for (const p of Store.book().pages) {
         await Renderer.awaitImages(p);
+        if (p.objects.some((o) => o.type === "pdf" && o.visible !== false)) {
+          const base = r.size === "A3" ? [841.89, 1190.55] : [595.28, 841.89],
+            size = p.width > p.height ? [base[1], base[0]] : base,
+            page = doc.addPage(size);
+          await PDFStudio.exportVectorPage(doc, page, p, size, sourceCache);
+          continue;
+        }
         const scale = Math.min(1.5, 2400 / Math.max(p.width, p.height)),
           c = Renderer.pageCanvas(p, scale),
           img = await doc.embedPng(c.toDataURL("image/png"));
