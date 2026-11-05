@@ -129,6 +129,9 @@ export function useSocket() {
 
     // 6. WebRTC Offer / Answer / ICE
     const handleOffer = async ({ senderId, offer }: { senderId: string; offer: RTCSessionDescriptionInit }) => {
+      if (!webRTCManager.hasPeerConnection(senderId)) {
+        await initPeerConnection(senderId, false);
+      }
       const answer = await webRTCManager.handleOffer(senderId, offer);
       if (answer) {
         socketService.emit('webrtc:answer', { targetId: senderId, answer });

@@ -120,9 +120,22 @@ export const useMeetingStore = create<MeetingState>((set, get) => ({
   updateParticipant: (participantId, updates) =>
     set((state) => {
       const existing = state.participants.get(participantId);
-      if (!existing) return state;
       const updatedMap = new Map(state.participants);
-      updatedMap.set(participantId, { ...existing, ...updates });
+      if (existing) {
+        updatedMap.set(participantId, { ...existing, ...updates });
+      } else {
+        const fallback: Participant = {
+          id: participantId,
+          name: 'Người tham gia',
+          audioEnabled: true,
+          videoEnabled: true,
+          isHost: false,
+          isSpeaking: false,
+          joinedAt: Date.now(),
+          ...updates,
+        };
+        updatedMap.set(participantId, fallback);
+      }
       return { participants: updatedMap };
     }),
 

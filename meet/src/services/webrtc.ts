@@ -46,6 +46,10 @@ export class WebRTCManager {
   private peerConnections: Map<string, RTCPeerConnection> = new Map();
   private pendingCandidates: Map<string, RTCIceCandidateInit[]> = new Map();
 
+  public hasPeerConnection(peerId: string): boolean {
+    return this.peerConnections.has(peerId);
+  }
+
   public createPeerConnection(
     peerId: string,
     localStream: MediaStream | null,
@@ -62,22 +66,45 @@ export class WebRTCManager {
     // Add local tracks to peer connection
     if (localStream) {
       localStream.getTracks().forEach((track) => {
-        pc.addTrack(track, localStream);
+        try {
+          pc.addTrack(track, localStream);
+        } catch (e) {
+          console.warn('[WebRTC] addTrack error:', e);
+        }
       });
+    }
+
+    // Always ensure transceivers exist with sendrecv direction so channels are negotiated
+    try {
+      const senders = pc.getSenders();
+      if (!senders.some((s) => s.track?.kind === 'audio')) {
+        pc.addTransceiver('audio', { direction: 'sendrecv' });
+      }
+      if (!senders.some((s) => s.track?.kind === 'video')) {
+        pc.addTransceiver('video', { direction: 'sendrecv' });
+      }
+    } catch (e) {
+      console.warn('[WebRTC] addTransceiver warning:', e);
     }
 
     // Receive remote tracks safely
     pc.ontrack = (event) => {
+      const track = event.track;
+      if (track) {
+        if (!remoteStream.getTracks().some((t) => t.id === track.id)) {
+          remoteStream.addTrack(track);
+        }
+        track.onunmute = () => {
+          onTrack(remoteStream);
+        };
+      }
+
       if (event.streams && event.streams[0]) {
-        event.streams[0].getTracks().forEach((track) => {
-          if (!remoteStream.getTracks().find((t) => t.id === track.id)) {
-            remoteStream.addTrack(track);
+        event.streams[0].getTracks().forEach((t) => {
+          if (!remoteStream.getTracks().some((existing) => existing.id === t.id)) {
+            remoteStream.addTrack(t);
           }
         });
-      } else if (event.track) {
-        if (!remoteStream.getTracks().find((t) => t.id === event.track.id)) {
-          remoteStream.addTrack(event.track);
-        }
       }
       onTrack(remoteStream);
     };
@@ -126,6 +153,15 @@ export class WebRTCManager {
     const pc = this.peerConnections.get(peerId);
     if (!pc) return null;
     try {
+      // Perfect negotiation / glare avoidance: rollback if we have an outstanding local offer
+      if (pc.signalingState === 'have-local-offer') {
+        try {
+          await pc.setLocalDescription({ type: 'rollback' });
+        } catch (rollbackErr) {
+          console.warn('[WebRTC] Rollback error:', rollbackErr);
+        }
+      }
+
       await pc.setRemoteDescription(new RTCSessionDescription(offer));
       const answer = await pc.createAnswer();
       await pc.setLocalDescription(answer);
@@ -168,10 +204,12 @@ export class WebRTCManager {
     if (!newStream) return;
     this.peerConnections.forEach((pc, peerId) => {
       newStream.getTracks().forEach((track) => {
-        const senders = pc.getSenders();
-        const existingSender = senders.find((s) => s.track?.kind === track.kind);
-        if (existingSender) {
-          existingSender.replaceTrack(track).catch((err) => {
+        const transceivers = pc.getTransceivers();
+        const matchingTransceiver = transceivers.find(
+          (t) => t.sender.track?.kind === track.kind || t.receiver.track?.kind === track.kind
+        );
+        if (matchingTransceiver && matchingTransceiver.sender) {
+          matchingTransceiver.sender.replaceTrack(track).catch((err) => {
             console.warn(`[WebRTC] replaceTrack error for peer ${peerId}:`, err);
           });
         } else {
@@ -185,13 +223,34 @@ export class WebRTCManager {
     });
   }
 
+  public replaceTrack(kind: 'audio' | 'video', newTrack: MediaStreamTrack | null): void {
+    this.peerConnections.forEach((pc, peerId) => {
+      const transceivers = pc.getTransceivers();
+      const transceiver = transceivers.find(
+        (t) => t.sender.track?.kind === kind || t.receiver.track?.kind === kind
+      );
+      if (transceiver && transceiver.sender) {
+        transceiver.sender.replaceTrack(newTrack).catch((err) => {
+          console.warn(`[WebRTC] replaceTrack error for ${kind} with peer ${peerId}:`, err);
+        });
+      } else {
+        const senders = pc.getSenders();
+        const sender = senders.find((s) => s.track?.kind === kind);
+        if (sender) {
+          sender.replaceTrack(newTrack).catch(console.warn);
+        } else if (newTrack) {
+          try {
+            pc.addTrack(newTrack);
+          } catch (e) {
+            console.warn(`[WebRTC] addTrack fallback error for ${kind}:`, e);
+          }
+        }
+      }
+    });
+  }
+
   public replaceVideoTrack(peerId: string, newTrack: MediaStreamTrack | null): void {
-    const pc = this.peerConnections.get(peerId);
-    if (!pc) return;
-    const sender = pc.getSenders().find((s) => s.track?.kind === 'video');
-    if (sender) {
-      sender.replaceTrack(newTrack).catch(console.error);
-    }
+    this.replaceTrack('video', newTrack);
   }
 
   public closePeerConnection(peerId: string): void {

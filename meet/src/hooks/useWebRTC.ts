@@ -194,95 +194,143 @@ export function useWebRTC() {
 
   // Toggle Audio Track Mute
   const toggleAudio = useCallback(async () => {
-    const stream = useMeetingStore.getState().localStream;
-    if (!stream) {
+    let stream = useMeetingStore.getState().localStream;
+    let audioTrack = stream?.getAudioTracks()[0];
+
+    // Check if we need to obtain a new audio track:
+    // Either no stream, no audio track in stream, or the audio track has ended
+    const needsNewAudioTrack = !stream || !audioTrack || audioTrack.readyState === 'ended';
+
+    if (needsNewAudioTrack) {
       try {
-        const newStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        setLocalStream(newStream);
+        const audioStream = await navigator.mediaDevices.getUserMedia({
+          audio: {
+            echoCancellation: true,
+            noiseSuppression: true,
+            autoGainControl: true,
+          },
+        });
+        const newTrack = audioStream.getAudioTracks()[0];
+        if (!newTrack) {
+          addToast('Không tìm thấy thiết bị micro trên máy của bạn', 'warning');
+          return;
+        }
+
+        if (stream) {
+          const activeStream = stream;
+          // Remove old ended audio tracks if any
+          activeStream.getAudioTracks().forEach((oldTrack) => {
+            try {
+              oldTrack.stop();
+              activeStream.removeTrack(oldTrack);
+            } catch (e) {}
+          });
+          activeStream.addTrack(newTrack);
+        } else {
+          stream = audioStream;
+          setLocalStream(stream);
+        }
+
         setAudioEnabled(true);
-        setupAudioAnalyser(newStream);
-        webRTCManager.updateLocalStream(newStream);
+        setupAudioAnalyser(stream);
+        webRTCManager.replaceTrack('audio', newTrack);
         socketService.emit('media:toggle', { type: 'audio', enabled: true });
         addToast('Đã bật micro thành công', 'success');
         return;
       } catch (err: any) {
+        console.warn('[WebRTC] Request mic error:', err);
         if (err.name === 'NotAllowedError') {
-          addToast('Vui lòng cấp quyền Micro trên thanh địa chỉ trình duyệt', 'warning');
+          addToast('Vui lòng cho phép quyền Micro trên trình duyệt', 'warning');
         } else {
-          addToast('Không thể kích hoạt micro: thiết bị đang bận', 'error');
+          addToast('Không thể bật micro: thiết bị đang bận hoặc không hỗ trợ', 'error');
         }
         return;
       }
     }
-    const audioTrack = stream.getAudioTracks()[0];
-    if (audioTrack) {
-      const newStatus = !audioEnabled;
-      audioTrack.enabled = newStatus;
-      setAudioEnabled(newStatus);
 
-      if (!newStatus) {
-        isSpeakingRef.current = false;
-        const currentSpeaker = useMeetingStore.getState().activeSpeakerId;
-        if (currentSpeaker === 'local_user' || currentSpeaker === socketService.id) {
-          setActiveSpeaker(null);
-        }
-        socketService.emit('speaker:active', { isSpeaking: false });
-      }
+    // Toggle existing valid audio track
+    const newStatus = !audioEnabled;
+    audioTrack.enabled = newStatus;
+    setAudioEnabled(newStatus);
 
-      socketService.emit('media:toggle', { type: 'audio', enabled: newStatus });
-      addToast(newStatus ? 'Đã bật micro' : 'Đã tắt micro', 'info');
+    if (newStatus) {
+      webRTCManager.replaceTrack('audio', audioTrack);
     } else {
-      addToast('Không tìm thấy thiết bị micro', 'warning');
+      isSpeakingRef.current = false;
+      const currentSpeaker = useMeetingStore.getState().activeSpeakerId;
+      if (currentSpeaker === 'local_user' || currentSpeaker === socketService.id) {
+        setActiveSpeaker(null);
+      }
+      socketService.emit('speaker:active', { isSpeaking: false });
     }
+
+    socketService.emit('media:toggle', { type: 'audio', enabled: newStatus });
+    addToast(newStatus ? 'Đã bật micro' : 'Đã tắt micro', 'info');
   }, [audioEnabled, setAudioEnabled, addToast, setupAudioAnalyser, setLocalStream, setActiveSpeaker]);
 
   // Toggle Video Track Mute
   const toggleVideo = useCallback(async () => {
-    const stream = useMeetingStore.getState().localStream;
-    if (!stream) {
+    let stream = useMeetingStore.getState().localStream;
+    let videoTrack = stream?.getVideoTracks()[0];
+
+    const needsNewVideoTrack = !stream || !videoTrack || videoTrack.readyState === 'ended';
+
+    if (needsNewVideoTrack) {
       try {
-        const newStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: audioEnabled });
-        setLocalStream(newStream);
+        const videoStream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+            facingMode: 'user',
+          },
+        });
+        const newTrack = videoStream.getVideoTracks()[0];
+        if (!newTrack) {
+          addToast('Không tìm thấy thiết bị camera trên máy của bạn', 'warning');
+          return;
+        }
+
+        if (stream) {
+          const activeStream = stream;
+          activeStream.getVideoTracks().forEach((oldTrack) => {
+            try {
+              oldTrack.stop();
+              activeStream.removeTrack(oldTrack);
+            } catch (e) {}
+          });
+          activeStream.addTrack(newTrack);
+        } else {
+          stream = videoStream;
+          setLocalStream(stream);
+        }
+
         setVideoEnabled(true);
-        setupAudioAnalyser(newStream);
-        webRTCManager.updateLocalStream(newStream);
+        webRTCManager.replaceTrack('video', newTrack);
         socketService.emit('media:toggle', { type: 'video', enabled: true });
         addToast('Đã bật camera thành công', 'success');
         return;
       } catch (err: any) {
+        console.warn('[WebRTC] Request camera error:', err);
         if (err.name === 'NotAllowedError') {
-          addToast('Vui lòng cấp quyền Máy ảnh trên thanh địa chỉ trình duyệt', 'warning');
+          addToast('Vui lòng cho phép quyền Camera trên trình duyệt', 'warning');
         } else {
-          addToast('Không thể kích hoạt camera: thiết bị đang bận', 'error');
+          addToast('Không thể bật camera: thiết bị đang bận hoặc không hỗ trợ', 'error');
         }
         return;
       }
     }
-    const videoTrack = stream.getVideoTracks()[0];
-    if (videoTrack) {
-      const newStatus = !videoEnabled;
-      videoTrack.enabled = newStatus;
-      setVideoEnabled(newStatus);
 
-      socketService.emit('media:toggle', { type: 'video', enabled: newStatus });
-      addToast(newStatus ? 'Đã bật camera' : 'Đã tắt camera', 'info');
-    } else if (!videoEnabled) {
-      // User initially had audio-only, now turning camera on
-      try {
-        const newVideoStream = await navigator.mediaDevices.getUserMedia({ video: true });
-        const newTrack = newVideoStream.getVideoTracks()[0];
-        if (newTrack) {
-          stream.addTrack(newTrack);
-          setVideoEnabled(true);
-          webRTCManager.updateLocalStream(stream);
-          socketService.emit('media:toggle', { type: 'video', enabled: true });
-          addToast('Đã bật camera', 'info');
-        }
-      } catch (err) {
-        addToast('Không thể bật camera: thiết bị không sẵn sàng', 'error');
-      }
+    const newStatus = !videoEnabled;
+    videoTrack.enabled = newStatus;
+    setVideoEnabled(newStatus);
+
+    if (newStatus) {
+      webRTCManager.replaceTrack('video', videoTrack);
     }
-  }, [videoEnabled, setVideoEnabled, addToast, audioEnabled, setLocalStream, setupAudioAnalyser]);
+
+    socketService.emit('media:toggle', { type: 'video', enabled: newStatus });
+    addToast(newStatus ? 'Đã bật camera' : 'Đã tắt camera', 'info');
+  }, [videoEnabled, setVideoEnabled, addToast, setLocalStream]);
 
   // Toggle Screen Share
   const toggleScreenShare = useCallback(async () => {

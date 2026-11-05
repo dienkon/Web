@@ -9,6 +9,7 @@ import { ChatPanel } from '../components/chat/ChatPanel';
 import { ParticipantsPanel } from '../components/participants/ParticipantsPanel';
 import { ClassroomPanel } from '../components/classroom/ClassroomPanel';
 import { HostControlsModal } from '../components/controls/HostControlsModal';
+import { RemoteAudioContainer } from '../components/meeting/RemoteAudioContainer';
 import { ToastContainer } from '../components/ui/Toast';
 
 import { useMeetingStore } from '../store/meetingStore';
@@ -110,6 +111,7 @@ export const MeetingPage: React.FC = () => {
   return (
     <div className="w-screen h-screen bg-[#121212] flex flex-col overflow-hidden select-none relative">
       <ToastContainer />
+      <RemoteAudioContainer participants={participantsList} />
 
       {/* Header */}
       <RoomHeader />

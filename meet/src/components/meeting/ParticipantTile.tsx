@@ -18,27 +18,19 @@ export const ParticipantTile: React.FC<ParticipantTileProps> = ({
   isActiveSpeaker = false,
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const audioRef = useRef<HTMLAudioElement>(null);
   const { setPinnedParticipant } = useMeetingStore();
 
-  // Attach video stream
+  // Attach video stream (video element is always muted to satisfy mobile autoplay policies;
+  // remote audio is managed globally by RemoteAudioContainer)
   useEffect(() => {
     if (videoRef.current && participant.stream) {
       videoRef.current.srcObject = participant.stream;
     }
   }, [participant.stream, participant.videoEnabled]);
 
-  // Attach audio stream for remote participants so audio ALWAYS plays even if camera is off
-  useEffect(() => {
-    if (audioRef.current && participant.stream && !isLocal) {
-      audioRef.current.srcObject = participant.stream;
-      audioRef.current.play().catch(() => {});
-    }
-  }, [participant.stream, isLocal, participant.audioEnabled]);
-
   // Extract initial letter for avatar
   const initialLetter = participant.name ? participant.name.trim().charAt(0).toUpperCase() : '?';
-  const showVideo = Boolean(participant.videoEnabled && participant.stream);
+  const showVideo = Boolean(participant.videoEnabled && participant.stream && participant.stream.getVideoTracks().length > 0);
 
   return (
     <div
@@ -49,15 +41,12 @@ export const ParticipantTile: React.FC<ParticipantTileProps> = ({
           : 'border-gray-800 hover:border-gray-700'
       )}
     >
-      {/* Remote Audio Element: Guarantees audio playback even when camera is off */}
-      {!isLocal && <audio ref={audioRef} autoPlay playsInline />}
-
-      {/* Video Element */}
+      {/* Video Element (always muted; remote audio plays from persistent RemoteAudioContainer) */}
       <video
         ref={videoRef}
         autoPlay
         playsInline
-        muted={isLocal}
+        muted={true}
         className={clsx(
           'w-full h-full object-cover',
           isLocal && 'scale-x-[-1]',
