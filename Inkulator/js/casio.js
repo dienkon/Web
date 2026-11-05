@@ -54,11 +54,16 @@
     win.setAttribute("aria-label", "Máy tính Casio fx-580VN X");
     win.innerHTML = '<header class="casio-heading"><strong>Casio fx-580VN X</strong><nav><button data-casio="smaller" title="Thu nhỏ kích thước">−</button><button data-casio="larger" title="Tăng kích thước">+</button><button data-casio="pin" title="Ghim vị trí" aria-pressed="false">⌖</button><button data-casio="minimize" title="Thu gọn / mở lại">▁</button><button data-casio="maximize" title="Phóng to / khôi phục">⛶</button><button data-casio="close" title="Đóng">×</button></nav></header><iframe id="casio-frame" title="Casio fx-580VN X ngoại tuyến" sandbox="allow-scripts allow-downloads"></iframe><footer class="casio-footer"><button data-casio="result" title="Chèn biểu thức và kết quả vào trang">Chèn kết quả</button><button data-casio="lcd" title="Chèn ảnh màn hình Casio vào trang">Chèn ảnh LCD</button><button data-casio="tools" title="Mở công cụ tính toán và đồ thị của sổ tay">Công cụ sổ tay</button></footer><div class="casio-resize" title="Kéo để đổi kích thước" aria-label="Đổi kích thước Casio"></div>';
     document.body.append(win);
+    const miniLabels={result:'=',lcd:'▣',tools:'ƒx'};
+    win.querySelectorAll('button').forEach(button=>{
+      button.setAttribute('aria-label',button.title);
+      if(miniLabels[button.dataset.casio])button.textContent=miniLabels[button.dataset.casio];
+    });
     const loading=document.createElement('div');
     loading.className='casio-loading';loading.setAttribute('role','status');loading.textContent='Đang mở Casio…';win.append(loading);
     frame = win.querySelector("iframe");
     frame.src = "vendor/casio-fx580vnx/runtime.html#" + token;
-    const h = Math.min(810, innerHeight - 24), w = Math.min(innerWidth, Math.max(330, Math.min(420, h * 0.56)));
+    const h = Math.min(810, innerHeight - 24), w = Math.min(innerWidth, Math.max(300, Math.min(360, h * 0.43)));
     rect({ left: innerWidth - w - 16, top: Math.min(85, innerHeight - h), width: w, height: h });
     gesture(win.querySelector("header"), false);
     gesture(win.querySelector(".casio-resize"), true);

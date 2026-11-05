@@ -14,6 +14,8 @@ Tất cả script, CSS, icon và thư viện nằm trong thư mục sản phẩm
 
 ## Điểm mới 1.5 · Casio fx-580VN X ngoại tuyến
 
+Bố cục Casio được thu gọn: thanh nút mini, bỏ bóng/nền thừa quanh thân máy; màn hình LCD phụ ghim sát phía trên máy. Các nút `=`, `▣`, `ƒx` ở chân cửa sổ lần lượt chèn kết quả, chèn ảnh LCD và mở công cụ sổ tay. Bản chỉnh bố cục này không chạy lại kiểm thử hoặc chụp ảnh theo yêu cầu.
+
 - Nhấn **Máy tính** trên thanh công cụ (hoặc C) để mở Casio ngay trong sổ tay. Kéo tiêu đề để di chuyển, kéo góc phải dưới hoặc chạm **− / +** để đổi kích thước; có ghim vị trí, thu gọn, phóng to và đóng. Đóng/mở lại giữ chế độ, biểu thức và bộ nhớ trong phiên. Có thể thao tác bằng các phím trên thân máy với bút cảm ứng.
 - Giữ nguyên bộ tính toán, giao diện máy, LCD và đủ 12 menu của [Tikz-Physics/casio-fx580vnx](https://github.com/Tikz-Physics/casio-fx580vnx), chốt commit `b180a74e8a900b56f73914e74d98956605e75142`. Các chức năng mô phỏng và giới hạn toán học theo repo này; không khẳng định tương đương tuyệt đối phần cứng Casio.
 - **Chèn kết quả** đưa biểu thức/kết quả hoặc nội dung LCD của chế độ đang dùng vào trang. **Chèn ảnh LCD** lấy PNG 768 × 290 từ bộ dựng ảnh gốc; ảnh được chọn sẵn, kéo/đổi kích thước như ảnh thường. Nút camera của Casio sao chép/tải PNG; khi clipboard bị chặn sẽ tải PNG thay thế. **Công cụ sổ tay** mở bộ tính toán/đồ thị trước đây; nút Casio trong đó trở về máy Casio.

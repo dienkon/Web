@@ -15,3 +15,33 @@ body {
 #popup-detach-btn {
   display: none !important;
 }
+/* Show the machine itself, with a mini utility strip and no presentation backdrop. */
+html, body, .emulator-app, .emulator-workspace { background:#fff; }
+.emulator-header { padding:0; }
+.emulator-toolbar { height:24px; padding:1px 3px; gap:1px; flex-wrap:nowrap; justify-content:flex-start; }
+.tb-btn, .tb-btn-update { width:21px; height:21px; padding:0; border-radius:2px; }
+.tb-btn svg, .tb-btn-update svg { width:13px; height:13px; }
+.tb-btn-update { background:none; border-color:transparent; }
+#tb-btn-update span { display:none; }
+.tb-separator { height:12px; margin:0 1px; }
+.tb-zoom-select { height:19px; font-size:10px; max-width:42px; }
+.emulator-workspace { container-type:size; padding:0; }
+.calc-container:not(.slim-mode) {
+  width:min(116cqw, 52.5cqh) !important;
+  height:auto !important;
+  aspect-ratio:644 / 1250;
+  max-width:none; max-height:none; margin:0 !important; flex-shrink:0;
+}
+.calc-container, .calculator-outer { filter:none; }
+body.popup-display-open .calc-container { margin:0 !important; transition:none; }
+/* The enlarged LCD is docked directly above the machine, in the same window. */
+#emulator-popup-display {
+  position:relative !important; left:auto !important; top:auto !important;
+  width:100% !important; height:auto !important; flex-shrink:0;
+  border:0; border-bottom:1px solid #ddd; border-radius:0; box-shadow:none;
+}
+#emulator-popup-display .window-titlebar { height:21px; padding:0 4px; font-size:10px; cursor:default; }
+#emulator-popup-display .popup-toolbar { height:22px; }
+#emulator-popup-display .popup-display-body { flex:none; height:auto; }
+#popup-resize-handle { display:none; }
+body.popup-display-open .calc-container:not(.slim-mode) { height:auto !important; margin:0 !important; transform:none !important; }

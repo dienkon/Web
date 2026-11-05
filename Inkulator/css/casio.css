@@ -108,3 +108,13 @@
 .casio-window.pinned .casio-heading {
   cursor: default;
 }
+/* Compact emulator chrome; preserve the original calculator key layout. */
+.casio-window { background:#fff; border-radius:5px; box-shadow:0 4px 18px #142c3528; }
+.casio-heading { padding:1px 4px; gap:2px; }
+.casio-heading strong { font-size:11px; }
+.casio-heading nav { gap:0; }
+.casio-window button { min-width:23px; min-height:23px; padding:0 3px; font-size:12px; border-radius:2px; }
+.casio-window iframe { background:#fff; }
+.casio-footer { flex-wrap:nowrap; padding:0 20px 0 3px; gap:2px; }
+.casio-footer button { flex:0 0 25px; font-size:13px; }
+.casio-loading { inset:26px 0 24px; background:#fff; }

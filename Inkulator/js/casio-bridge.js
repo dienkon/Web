@@ -35,6 +35,13 @@
       }
     };
     ui.openAppWindow = () => send("maximize");
+    const workspace=document.getElementById('emulator-workspace');
+    workspace.before(ui.popupWindow);
+    ui.positionPopupDisplay=()=>{
+      if(!ui.isPopupOpen)return;
+      ui.setPopupZoom(Math.max(.4,(document.documentElement.clientWidth-8)/384));
+    };
+    window.addEventListener('resize',()=>ui.positionPopupDisplay());
     ui.checkForAppUpdate = () => ui.showCustomModal("Casio ngoại tuyến", "<p>Bản Casio được đóng gói cùng sổ tay, không kiểm tra hoặc tải cập nhật qua mạng.</p><p>Nguồn: Tikz-Physics/casio-fx580vnx · " + document.documentElement.dataset.upstreamCommit + "</p>");
     const update = document.getElementById("tb-btn-update");
     if (update) {
