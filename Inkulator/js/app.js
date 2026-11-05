@@ -1,0 +1,1190 @@
+(function (root) {
+  "use strict";
+  const icons = {
+    menu: "M3 6h18M3 12h18M3 18h18",
+    new: "M14 2H5v20h14V7zM14 2v6h6M8 15h8M12 11v8",
+    open: "M3 7h7l2 2h9l-3 11H3zM3 7V4h7l2 3h7v2",
+    save: "M4 3h14l3 3v15H3V3zM7 3v7h10V3M7 21v-7h10v7",
+    undo: "M8 4L3 9l5 5M3 9h11a7 7 0 0 1 0 14",
+    redo: "M16 4l5 5-5 5M21 9H10a7 7 0 0 0 0 14",
+    copy: "M8 8h13v13H8zM16 8V3H3v13h5",
+    paste: "M8 5H4v17h16V5h-4M8 3h8v5H8zM8 12h8M8 16h8",
+    settings: "M5 3v18M12 3v18M19 3v18M2 8h6M9 16h6M16 10h6",
+    pen: "M4 17L16 3l5 5L8 21H3zM14 5l5 5M4 17l4 4",
+    highlighter: "M4 16L14 4l6 5-10 12zM4 16l6 5M2 22h11",
+    eraser: "M3 14L14 3l8 8L11 22H9zM8 9l8 8M11 22h11",
+    select: "M5 2l14 12-7 1-3 7z",
+    lasso:
+      "M8 18c-7-1-8-12 2-15 9-3 15 5 10 11-3 4-11 4-14 0-4-5 3-7 4-3 2 5-2 10-6 12",
+    shape: "M4 4h16v16H4z",
+    text: "M3 4h18M12 4v17M8 21h8",
+    pan: "M5 11V7a2 2 0 0 1 4 0V4a2 2 0 0 1 4 0v2a2 2 0 0 1 4 0v4a2 2 0 0 1 4 0v6l-5 6H9l-7-8a2 2 0 0 1 3-3l4 4V7",
+    ruler: "M3 16L16 3l6 6L9 22zM7 12l3 3M11 8l3 3M15 4l3 3",
+    image: "M3 3h18v18H3zM3 17l6-6 5 5 3-3 4 4M16 7h.01",
+  };
+  const tools = {
+    pen: "Bút bi",
+    highlighter: "Bút đánh dấu",
+    eraser: "Tẩy",
+    select: "Chọn / di chuyển",
+    lasso: "Khoanh vùng",
+    shape: "Hình dạng",
+    text: "Văn bản",
+    pan: "Kéo trang",
+    laser: "Bút laser",
+  };
+  const names = {
+    graph: ["GRAPH STUDIO", "Đồ thị hàm số"],
+    geometry: ["GEOMETRY LIBRARY", "Hình học phẳng"],
+    solid: ["SPATIAL GEOMETRY", "Hình học không gian"],
+    paper: ["YOUR WORKSPACE", "Kiểu giấy"],
+    layers: ["LAYER MANAGER", "Quản lý lớp"],
+    settings: ["PREFERENCES", "Cài đặt"],
+    math: ["MATH TOOLS", "Công cụ toán"],
+  };
+  let toastTimer = 0,
+    pagesVisible = true,
+    refreshTimer = 0;
+  const escape = (s) =>
+    String(s).replace(
+      /[&<>"']/g,
+      (c) =>
+        ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;",
+        })[c],
+    );
+  const svg = (id) =>
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' +
+    icons[id] +
+    '"/></svg>';
+  function button(icon, label, action, extra = "") {
+    return (
+      '<button class="icon-button" data-action="' +
+      action +
+      '" title="' +
+      label +
+      '" aria-label="' +
+      label +
+      '" ' +
+      extra +
+      ">" +
+      svg(icon) +
+      "</button>"
+    );
+  }
+  function init() {
+    Store.load();
+    document.body.classList.toggle(
+      "dark",
+      Store.state.settings.theme === "dark",
+    );
+    document.getElementById("file-tools").innerHTML =
+      button("menu", "Menu sổ tay", "menu") +
+      button("new", "Sổ tay mới (Ctrl+N)", "new") +
+      button("open", "Mở tệp (Ctrl+O)", "open") +
+      button("save", "Lưu tệp (Ctrl+S)", "save") +
+      button("undo", "Hoàn tác (Ctrl+Z)", "undo") +
+      button("redo", "Làm lại (Ctrl+Y)", "redo") +
+      button("settings", "Cài đặt", "panel", 'data-panel="settings"');
+    document.getElementById("ink-tools").innerHTML =
+      button("pen", "Bút viết (P)", "tool", 'data-tool="pen"') +
+      button("highlighter", "Đánh dấu", "tool", 'data-tool="highlighter"') +
+      button(
+        "eraser",
+        "Tẩy (E) · nhấp lại để chọn kiểu tẩy",
+        "tool",
+        'data-tool="eraser"',
+      ) +
+      button("select", "Chọn (S)", "tool", 'data-tool="select"') +
+      button("lasso", "Khoanh vùng", "tool", 'data-tool="lasso"');
+    document.getElementById("object-tools").innerHTML =
+      button("shape", "Hình dạng", "shapes") +
+      button("text", "Chèn văn bản", "tool", 'data-tool="text"') +
+      button("ruler", "Thước (R)", "ruler") +
+      button("pan", "Kéo trang", "tool", 'data-tool="pan"');
+    const colors = document.getElementById("colors");
+    for (const color of [
+      "#263b32",
+      "#27836d",
+      "#4782c4",
+      "#d86560",
+      "#d6aa43",
+      "#9473b6",
+    ]) {
+      const b = document.createElement("button");
+      b.className = "swatch";
+      b.style.backgroundColor = color;
+      b.dataset.color = color;
+      b.title = "Màu " + color;
+      b.setAttribute("aria-label", b.title);
+      b.onclick = () => setColor(color);
+      colors.append(b);
+    }
+    const custom = document.createElement("button");
+    custom.className = "swatch";
+    custom.style.background =
+      "conic-gradient(#d86560,#d6aa43,#27836d,#4782c4,#9473b6,#d86560)";
+    custom.title = "Chọn màu khác";
+    custom.onclick = () => widthPopover(custom);
+    colors.append(custom);
+    document.getElementById("width-button").onclick = (e) =>
+      widthPopover(e.currentTarget);
+    Renderer.init();
+    CanvasEngine.init();
+    document.addEventListener("statechange", stateChanged);
+    document.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-action]");
+      if (b) {
+        dispatch(b.dataset.action, b);
+        document.getElementById("canvas-context").hidden = true;
+      }
+      if (
+        !e.target.closest(".popover") &&
+        !e.target.closest("#toolbar") &&
+        !e.target.closest(".page-more")
+      )
+        closePopover();
+      if (!e.target.closest("#canvas-context"))
+        document.getElementById("canvas-context").hidden = true;
+    });
+    document.addEventListener("keydown", keyDown);
+    document.getElementById("notebook-title").onchange = (e) => {
+      const title =
+        e.target.value.trim().slice(0, 300) || "Sổ tay chưa đặt tên";
+      Store.transaction(() => (Store.book().title = title));
+    };
+    document.getElementById("page-title-input").onchange = (e) =>
+      Store.transaction(
+        () => (Store.current().title = e.target.value.slice(0, 300)),
+      );
+    document.getElementById("open-file").onchange = (e) => {
+      if (e.target.files[0]) Exporter.importFile(e.target.files[0]);
+      e.target.value = "";
+    };
+    document.getElementById("image-file").onchange = (e) => {
+      if (e.target.files[0]) Exporter.importImage(e.target.files[0]);
+      e.target.value = "";
+    };
+    window.addEventListener("beforeunload", (e) => {
+      if (Store.state.dirty && !Store.save()) {
+        e.preventDefault();
+        e.returnValue = "";
+      }
+    });
+    window.addEventListener("pagehide", () => Store.save());
+    stateChanged();
+    if (Store.state.loadError) toast(Store.state.loadError, 12000);
+    else if (!Store.state.storageAvailable)
+      toast(
+        "Trình duyệt chặn lưu tự động. Hãy dùng Ctrl+S để tải bản sao lưu.",
+        9000,
+      );
+    root.Scrble = {
+      Store,
+      MathEngine,
+      Geometry,
+      Graph,
+      Calculator,
+      Renderer,
+      CanvasEngine,
+    };
+  }
+  function stateChanged() {
+    Renderer.request();
+    const s = Store.state;
+    const title = document.getElementById("notebook-title");
+    if (document.activeElement !== title) title.value = Store.book().title;
+    document.title = Store.book().title + " — SCRBLE MATH STUDIO";
+    document
+      .querySelectorAll("[data-tool]")
+      .forEach((b) => b.classList.toggle("active", b.dataset.tool === s.tool));
+    document
+      .querySelectorAll("[data-color]")
+      .forEach((b) =>
+        b.classList.toggle("active", b.dataset.color === s.color),
+      );
+    document
+      .querySelectorAll('[data-action="undo"]')
+      .forEach((b) => (b.disabled = !s.history.length));
+    document
+      .querySelectorAll('[data-action="redo"]')
+      .forEach((b) => (b.disabled = !s.future.length));
+    document.getElementById("tool-status").textContent =
+      s.tool === "pen"
+        ? {
+            ballpoint: "Bút bi",
+            fountain: "Bút mực",
+            pencil: "Bút chì",
+            marker: "Bút lông",
+          }[s.pen] || "Bút"
+        : tools[s.tool];
+    document.getElementById("pen-status").textContent =
+      s.width + " px · " + Math.round(s.opacity * 100) + "%";
+    document.getElementById("width-label").textContent = s.width;
+    document.getElementById("width-dot").style.background = s.color;
+    document.getElementById("width-dot").style.width =
+      Math.min(12, s.width + 2) + "px";
+    document.getElementById("width-dot").style.height =
+      Math.min(12, s.width + 2) + "px";
+    document.getElementById("page-status").textContent =
+      "Trang " + (s.pageIndex + 1) + " / " + Store.book().pages.length;
+    updateSaveState();
+    updateZoom();
+    selectionUI();
+    clearTimeout(refreshTimer);
+    refreshTimer = setTimeout(renderPages, 70);
+  }
+  function updateSaveState() {
+    const s = Store.state;
+    document.getElementById("save-state").textContent = !s.storageAvailable
+      ? "Cần lưu tệp thủ công"
+      : s.dirty
+        ? "Đang chờ lưu…"
+        : "Đã lưu trên thiết bị";
+    document.getElementById("storage-status").textContent = s.storageAvailable
+      ? "● Dữ liệu chỉ ở thiết bị này"
+      : "⚠ Ctrl+S để lưu tệp";
+  }
+  function updateZoom() {
+    document.getElementById("zoom-button").textContent =
+      Math.round(Store.state.viewport.zoom * 100) + "%";
+  }
+  function renderPages() {
+    const list = document.getElementById("page-list");
+    list.replaceChildren();
+    Store.book().pages.forEach((p, i) => {
+      const b = document.createElement("div");
+      b.className =
+        "page-card" + (i === Store.state.pageIndex ? " active" : "");
+      b.tabIndex = 0;
+      b.setAttribute("role", "button");
+      b.setAttribute(
+        "aria-label",
+        "Trang " + (i + 1) + ": " + (p.title || "Chưa đặt tiêu đề"),
+      );
+      const c = document.createElement("canvas");
+      c.className = "page-thumb";
+      b.append(c);
+      Renderer.thumbnail(c, p);
+      const label = document.createElement("div");
+      label.className = "page-card-label";
+      const title = document.createElement("span");
+      title.textContent = p.title || "Trang " + (i + 1);
+      const number = document.createElement("small");
+      number.textContent = String(i + 1).padStart(2, "0");
+      label.append(title, number);
+      b.append(label);
+      const more = document.createElement("button");
+      more.className = "page-more";
+      more.textContent = "···";
+      more.title = "Tùy chọn trang";
+      more.onclick = (e) => {
+        e.stopPropagation();
+        pageMenu(i, more);
+      };
+      b.append(more);
+      b.onclick = () => {
+        CanvasEngine.cancelActive();
+        Store.switchPage(i);
+        closePanel();
+      };
+      b.onkeydown = (e) => {
+        if (e.key === "Enter") b.click();
+      };
+      b.draggable = true;
+      b.ondragstart = (e) =>
+        e.dataTransfer.setData("application/x-scrble-page", i);
+      b.ondragover = (e) => e.preventDefault();
+      b.ondrop = (e) => {
+        e.preventDefault();
+        const from = Number(
+          e.dataTransfer.getData("application/x-scrble-page"),
+        );
+        if (
+          !Number.isInteger(from) ||
+          from < 0 ||
+          from >= Store.book().pages.length ||
+          from === i
+        )
+          return;
+        const currentId = Store.current().id;
+        Store.transaction(() => {
+          const a = Store.book().pages;
+          const [p] = a.splice(from, 1);
+          a.splice(i, 0, p);
+          Store.state.pageIndex = a.findIndex((p) => p.id === currentId);
+        });
+      };
+      list.append(b);
+    });
+  }
+  function pageMenu(index, anchor) {
+    popover(
+      anchor,
+      [
+        ["page-rename", "Đổi tiêu đề"],
+        ["page-duplicate", "Nhân bản trang"],
+        ["page-up", "Đưa lên"],
+        ["page-down", "Đưa xuống"],
+        ["page-delete", "Xóa trang"],
+      ]
+        .map(
+          ([action, label]) =>
+            '<button class="menu-item" data-action="' +
+            action +
+            '" data-index="' +
+            index +
+            '">' +
+            label +
+            "</button>",
+        )
+        .join(""),
+    );
+  }
+  async function pageAction(action, index) {
+    const p = Store.book().pages[index];
+    if (!p) return;
+    if (action === "page-rename") {
+      const r = await dialog(
+        "Đổi tiêu đề trang",
+        '<label class="field"><span>Tiêu đề</span><input name="title" maxlength="300" value="' +
+          escape(p.title) +
+          '"></label>',
+      );
+      if (r) Store.transaction(() => (p.title = r.title));
+    }
+    if (action === "page-duplicate")
+      Store.transaction(() => {
+        const copy = Store.clone(p);
+        copy.id = Store.uid();
+        copy.title = p.title ? p.title + " (bản sao)" : "";
+        copy.objects.forEach((o) => (o.id = Store.uid()));
+        Store.book().pages.splice(index + 1, 0, copy);
+        Store.state.pageIndex = index + 1;
+        Store.state.selection = [];
+      });
+    if (action === "page-delete") {
+      if (Store.book().pages.length === 1)
+        return toast("Sổ tay phải có ít nhất một trang.");
+      const r = await dialog(
+        "Xóa trang?",
+        "<p>Trang “" +
+          escape(p.title || String(index + 1)) +
+          "” sẽ bị xóa. Có thể hoàn tác bằng Ctrl+Z.</p>",
+        "Xóa trang",
+      );
+      if (r)
+        Store.transaction(() => {
+          Store.book().pages.splice(index, 1);
+          Store.state.pageIndex = Math.min(
+            Store.state.pageIndex,
+            Store.book().pages.length - 1,
+          );
+          Store.state.selection = [];
+        });
+    }
+    if (action === "page-up" || action === "page-down") {
+      const j = index + (action === "page-up" ? -1 : 1),
+        arr = Store.book().pages;
+      if (j < 0 || j >= arr.length) return;
+      const active = Store.current().id;
+      Store.transaction(() => {
+        [arr[index], arr[j]] = [arr[j], arr[index]];
+        Store.state.pageIndex = arr.findIndex((p) => p.id === active);
+      });
+    }
+    closePopover();
+  }
+  function toast(text, ms = 3500) {
+    const el = document.getElementById("toast");
+    el.textContent = text;
+    el.classList.add("visible");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove("visible"), ms);
+  }
+  function popover(anchor, html) {
+    const el = document.getElementById("popover");
+    el.innerHTML = html;
+    el.hidden = false;
+    const r = anchor.getBoundingClientRect();
+    el.style.top =
+      Math.min(innerHeight - el.offsetHeight - 40, r.bottom + 10) + "px";
+    el.style.left =
+      Math.max(10, Math.min(innerWidth - el.offsetWidth - 12, r.left)) + "px";
+    el.style.right = "auto";
+    return el;
+  }
+  function closePopover() {
+    document.getElementById("popover").hidden = true;
+  }
+  function menu(anchor) {
+    popover(
+      anchor,
+      [
+        ["new", "Sổ tay mới", "Ctrl+N"],
+        ["library", "Thư viện sổ tay", ""],
+        ["open", "Mở tệp .smath.json", "Ctrl+O"],
+        ["save", "Lưu sổ tay thành tệp", "Ctrl+S"],
+        ["snapshot", "Lưu bản snapshot", ""],
+        ["backup-all", "Sao lưu tất cả sổ tay", ""],
+        ["export-png", "Xuất trang · PNG", ""],
+        ["export-svg", "Xuất trang · SVG", ""],
+        ["export-pdf", "Xuất sổ tay · PDF", ""],
+        ["print", "In sổ tay", ""],
+        ["image", "Chèn ảnh", ""],
+        ["copy", "Sao chép đối tượng", "Ctrl+C"],
+        ["paste", "Dán đối tượng", "Ctrl+V"],
+        ["help", "Hướng dẫn và giới hạn", "?"],
+      ]
+        .map(
+          ([a, t, k]) =>
+            '<button class="menu-item" data-action="' +
+            a +
+            '">' +
+            t +
+            "<small>" +
+            k +
+            "</small></button>",
+        )
+        .join(""),
+    );
+  }
+  function setTool(tool) {
+    CanvasEngine.cancelActive();
+    if (tool === "eraser" && Store.state.tool === "eraser") {
+      const anchor = document.querySelector('[data-tool="eraser"]');
+      const el = popover(
+        anchor,
+        "<h3>Kiểu tẩy</h3>" +
+          [
+            ["partial", "Tẩy một phần nét"],
+            ["stroke", "Tẩy toàn bộ nét"],
+            ["rectangle", "Tẩy vùng chữ nhật"],
+          ]
+            .map(
+              ([id, name]) =>
+                '<button class="menu-item ' +
+                (Store.state.eraser === id ? "active" : "") +
+                '" data-eraser="' +
+                id +
+                '">' +
+                name +
+                "</button>",
+            )
+            .join(""),
+      );
+      el.querySelectorAll("[data-eraser]").forEach(
+        (b) =>
+          (b.onclick = () => {
+            Store.state.eraser = b.dataset.eraser;
+            closePopover();
+          }),
+      );
+      return;
+    }
+    Store.state.tool = tool;
+    if (!["select", "lasso"].includes(tool)) Store.state.selection = [];
+    CanvasEngine.cursor();
+    Store.emit();
+  }
+  function setColor(color) {
+    Store.state.color = color;
+    if (Store.selected().length)
+      Store.transaction(() =>
+        Store.selected()
+          .filter((o) => !o.locked)
+          .forEach((o) => (o.style.color = color)),
+      );
+    else Store.emit();
+  }
+  function widthPopover(anchor) {
+    const s = Store.state;
+    const el = popover(
+      anchor,
+      '<h3>Thiết lập bút</h3><label class="field"><span>Loại bút</span><select id="pen-type"><option value="ballpoint">Bút bi · nét đều</option><option value="fountain">Bút mực · áp lực</option><option value="pencil">Bút chì</option><option value="marker">Bút lông</option></select></label><label class="field"><span>Độ dày <output id="pen-width-output">' +
+        s.width +
+        '</output> px</span><input id="pen-width" type="range" min=".5" max="25" step=".5" value="' +
+        s.width +
+        '"></label><label class="field"><span>Độ trong suốt</span><input id="pen-opacity" type="range" min=".1" max="1" step=".05" value="' +
+        s.opacity +
+        '"></label><label class="field-row"><span>Màu tùy chọn</span><input id="pen-color" type="color" value="' +
+        s.color +
+        '"></label><button class="menu-item" id="laser-tool">Bút laser tạm thời</button>',
+    );
+    document.getElementById("pen-type").value = s.pen;
+    document.getElementById("pen-type").onchange = (e) => {
+      const presets = s.settings.penPresets || {};
+      presets[s.pen] = { color: s.color, width: s.width, opacity: s.opacity };
+      s.pen = e.target.value;
+      const next = presets[s.pen];
+      if (next) {
+        s.color = next.color;
+        s.width = next.width;
+        s.opacity = next.opacity;
+      }
+      s.settings.penPresets = presets;
+      Store.scheduleSave();
+      setTool("pen");
+      widthPopover(anchor);
+    };
+    document.getElementById("pen-width").oninput = (e) => {
+      s.width = Number(e.target.value);
+      document.getElementById("pen-width-output").textContent = s.width;
+      Store.emit();
+    };
+    document.getElementById("pen-width").onchange = () => {
+      if (Store.selected().length)
+        Store.transaction(() =>
+          Store.selected()
+            .filter((o) => !o.locked)
+            .forEach((o) => (o.style.width = s.width)),
+        );
+    };
+    document.getElementById("pen-opacity").oninput = (e) => {
+      s.opacity = Number(e.target.value);
+      Store.emit();
+    };
+    document.getElementById("pen-opacity").onchange = () => {
+      if (Store.selected().length)
+        Store.transaction(() =>
+          Store.selected()
+            .filter((o) => !o.locked)
+            .forEach((o) => (o.style.opacity = s.opacity)),
+        );
+    };
+    document.getElementById("pen-color").oninput = (e) =>
+      setColor(e.target.value);
+    document.getElementById("laser-tool").onclick = () => {
+      setTool("laser");
+      closePopover();
+    };
+  }
+  function shapes(anchor) {
+    const el = popover(
+      anchor,
+      "<h3>Hình dạng</h3>" +
+        [
+          ["line", "Đoạn thẳng"],
+          ["ray", "Tia"],
+          ["arrow", "Mũi tên"],
+          ["dashed", "Nét đứt"],
+          ["rectangle", "Chữ nhật"],
+          ["square", "Hình vuông"],
+          ["circle", "Hình tròn"],
+          ["ellipse", "Elip"],
+          ["triangle", "Tam giác"],
+          ["polygon", "Lục giác"],
+          ["curve", "Đường cong Bézier"],
+        ]
+          .map(
+            ([id, name]) =>
+              '<button class="menu-item" data-shape="' +
+              id +
+              '">' +
+              name +
+              "</button>",
+          )
+          .join("") +
+        '<p class="hint">Giữ Shift để khóa góc hoặc tỷ lệ.</p>',
+    );
+    el.querySelectorAll("[data-shape]").forEach(
+      (b) =>
+        (b.onclick = () => {
+          Store.state.shape = b.dataset.shape;
+          setTool("shape");
+          closePopover();
+        }),
+    );
+  }
+  function openPanel(id, obj = null) {
+    CanvasEngine.cancelActive();
+    const panel = document.getElementById("panel");
+    if (!names[id]) return;
+    Store.state.panel = id;
+    panel.hidden = false;
+    document.getElementById("panel-eyebrow").textContent = names[id][0];
+    document.getElementById("panel-title").textContent = names[id][1];
+    if (id === "graph") Graph.panel(obj);
+    else if (id === "geometry" || id === "solid") Panels.geometry(id);
+    else Panels[id]();
+    document
+      .querySelectorAll('[data-action="panel"]')
+      .forEach((b) => b.classList.toggle("active", b.dataset.panel === id));
+  }
+  function closePanel() {
+    document.getElementById("panel").hidden = true;
+    Store.state.panel = null;
+    document
+      .querySelectorAll('[data-action="panel"]')
+      .forEach((b) => b.classList.remove("active"));
+  }
+  function refreshGeometry() {
+    if (["geometry", "solid"].includes(Store.state.panel))
+      Panels.geometry(Store.state.panel);
+  }
+  function insertPosition(w = 350, h = 280) {
+    const v = Store.state.viewport,
+      area = Renderer.area;
+    return {
+      x: Math.max(20, (area.clientWidth / 2 - v.x) / v.zoom - w / 2),
+      y: Math.max(160, (area.clientHeight / 2 - v.y) / v.zoom - h / 2),
+    };
+  }
+  function insertText(text, math = false) {
+    const lines = text.split("\n"),
+      fontSize = math ? 18 : 22,
+      w = Math.max(
+        180,
+        Math.min(
+          850,
+          Math.max(...lines.map((l) => l.length)) * fontSize * 0.62,
+        ),
+      ),
+      h = Math.max(40, lines.length * fontSize * 1.5);
+    Store.add(
+      Store.object(
+        "text",
+        { text: latex(text), math, fontSize, baseWidth: w },
+        { position: insertPosition(w, h), size: { w, h } },
+      ),
+    );
+  }
+  function latex(t) {
+    return t
+      .replace(
+        /\\(pi|alpha|beta|theta|infty|int|sum|sqrt|times|cdot|leq|geq|neq|perp|parallel)\b/g,
+        (_, k) =>
+          ({
+            pi: "π",
+            alpha: "α",
+            beta: "β",
+            theta: "θ",
+            infty: "∞",
+            int: "∫",
+            sum: "Σ",
+            sqrt: "√",
+            times: "×",
+            cdot: "·",
+            leq: "≤",
+            geq: "≥",
+            neq: "≠",
+            perp: "⊥",
+            parallel: "∥",
+          })[k],
+      )
+      .replace(/\^2/g, "²")
+      .replace(/\^3/g, "³");
+  }
+  async function editText(o, p = null) {
+    const r = await dialog(
+      o ? "Chỉnh sửa nội dung" : "Chèn văn bản",
+      '<label class="field"><span>Nội dung (hỗ trợ ký hiệu Unicode, LaTeX cơ bản)</span><textarea name="text" rows="7" maxlength="20000">' +
+        escape(o?.data.text || "") +
+        '</textarea></label><label class="field"><span>Cỡ chữ</span><input type="number" name="fontSize" min="10" max="72" value="' +
+        (o?.data.fontSize || 22) +
+        '"></label>',
+      "Chèn / cập nhật",
+    );
+    if (!r || !r.text.trim()) return;
+    const fontSize = Math.max(10, Math.min(72, Number(r.fontSize) || 22));
+    if (o)
+      Store.transaction(() => {
+        o.data.text = latex(r.text);
+        o.data.fontSize = fontSize;
+        if (o.data.table)
+          o.data.table = r.text
+            .split("\n")
+            .map((row) => row.split("|").map((c) => c.trim()));
+        if (o.data.layout?.kind === "fraction") {
+          const parts = r.text.split("\n");
+          o.data.layout.top = parts[0] || "";
+          o.data.layout.bottom = parts[1] || "";
+        }
+        if (o.data.layout?.kind === "sqrt") o.data.layout.value = r.text;
+      });
+    else {
+      const lines = r.text.split("\n"),
+        w = Math.max(
+          180,
+          Math.min(
+            750,
+            Math.max(...lines.map((l) => l.length)) * fontSize * 0.62,
+          ),
+        ),
+        h = lines.length * fontSize * 1.5;
+      Store.add(
+        Store.object(
+          "text",
+          { text: latex(r.text), fontSize, baseWidth: w },
+          {
+            position: p ? { x: p.x, y: p.y } : insertPosition(w, h),
+            size: { w, h },
+          },
+        ),
+      );
+    }
+  }
+  function editObject(o) {
+    if (o.type === "graph") openPanel("graph", o);
+    else if (o.type === "solid" || o.type === "geometry")
+      openPanel(o.type === "solid" ? "solid" : "geometry");
+    else if (o.type === "text") editText(o);
+    else
+      toast(
+        "Dùng nút vuông để đổi kích thước; dùng thanh công cụ để đổi màu, độ dày hoặc xoay.",
+      );
+  }
+  function selectionUI() {
+    const el = document.getElementById("selection-tools"),
+      selected = Store.selected();
+    el.hidden = !selected.length;
+    if (!selected.length) return;
+    el.innerHTML =
+      '<button data-action="edit-selection" title="Chỉnh sửa">✎</button><button data-action="copy" title="Sao chép">Sao chép</button><button data-action="delete" title="Xóa">Xóa</button><button data-action="rotate-left" title="Xoay −15°">↶</button><button data-action="rotate-right" title="Xoay +15°">↷</button><button data-action="scale-down" title="Thu nhỏ 10%">−</button><button data-action="scale-up" title="Phóng to 10%">+</button>' +
+      (selected.length > 1
+        ? '<button data-action="group">Nhóm</button>'
+        : selected[0].type === "group"
+          ? '<button data-action="ungroup">Bỏ nhóm</button>'
+          : "") +
+      '<button data-action="lock">' +
+      (selected.every((o) => o.locked) ? "Mở khóa" : "Khóa") +
+      "</button>";
+  }
+  function copy() {
+    Store.state.clipboard = Store.clone(Store.selected());
+    if (Store.state.clipboard.length)
+      toast(
+        "Đã sao chép " +
+          Store.state.clipboard.length +
+          " đối tượng trong ứng dụng.",
+      );
+  }
+  function paste() {
+    if (!Store.state.clipboard.length)
+      return toast("Bộ nhớ sao chép trong ứng dụng đang trống.");
+    const copies = Store.clone(Store.state.clipboard);
+    copies.forEach((o) => {
+      o.id = Store.uid();
+      o.position.x += 25;
+      o.position.y += 25;
+      o.locked = false;
+      o.zIndex = Store.current().objects.length + copies.indexOf(o);
+    });
+    Store.transaction(() => Store.current().objects.push(...copies));
+    Store.state.clipboard = Store.clone(copies);
+    Store.state.selection = copies.map((o) => o.id);
+    Store.state.tool = "select";
+    Store.emit();
+  }
+  function remove() {
+    const ids = Store.selected()
+      .filter((o) => !o.locked)
+      .map((o) => o.id);
+    Store.transaction(() => {
+      Store.current().objects = Store.current().objects.filter(
+        (o) => !ids.includes(o.id),
+      );
+      Store.state.selection = [];
+    });
+  }
+  function group() {
+    const objects = Store.selected().filter((o) => !o.locked);
+    if (objects.length < 2) return;
+    const corners = objects.flatMap((o) =>
+        [
+          { x: 0, y: 0 },
+          { x: o.size.w, y: 0 },
+          { x: o.size.w, y: o.size.h },
+          { x: 0, y: o.size.h },
+        ].map((q) => Renderer.worldPoint(o, q)),
+      ),
+      minX = Math.min(...corners.map((p) => p.x)),
+      minY = Math.min(...corners.map((p) => p.y)),
+      w = Math.max(...corners.map((p) => p.x)) - minX,
+      h = Math.max(...corners.map((p) => p.y)) - minY;
+    const children = Store.clone(objects);
+    children.forEach((o) => {
+      o.position.x -= minX;
+      o.position.y -= minY;
+    });
+    const g = Store.object(
+        "group",
+        { children, originalSize: { w, h } },
+        { position: { x: minX, y: minY }, size: { w, h } },
+      ),
+      ids = objects.map((o) => o.id);
+    Store.transaction(() => {
+      Store.current().objects = Store.current().objects.filter(
+        (o) => !ids.includes(o.id),
+      );
+      Store.current().objects.push(g);
+      Store.state.selection = [g.id];
+    });
+  }
+  function ungroup() {
+    const g = Store.selected()[0];
+    if (!g || g.type !== "group" || g.locked) return;
+    const scale = g.size.w / g.data.originalSize.w,
+      children = Store.clone(g.data.children);
+    children.forEach((o) => {
+      const center = Renderer.worldPoint(g, {
+        x: (o.position.x + o.size.w / 2) * scale,
+        y: (o.position.y + o.size.h / 2) * scale,
+      });
+      o.size.w *= scale;
+      o.size.h *= scale;
+      o.position = { x: center.x - o.size.w / 2, y: center.y - o.size.h / 2 };
+      o.rotation += g.rotation;
+      o.id = Store.uid();
+    });
+    Store.transaction(() => {
+      Store.current().objects = Store.current().objects.filter(
+        (o) => o.id !== g.id,
+      );
+      Store.current().objects.push(...children);
+      Store.state.selection = children.map((o) => o.id);
+    });
+  }
+  async function newNotebook() {
+    const r = await dialog(
+      "Tạo sổ tay mới",
+      '<label class="field"><span>Tên sổ tay</span><input name="title" value="Sổ tay Toán học" maxlength="300" required></label><label class="field"><span>Thư mục (tùy chọn)</span><input name="folder" maxlength="100" placeholder="Ví dụ: Toán 12"></label>',
+      "Tạo sổ tay",
+    );
+    if (r) {
+      Store.save();
+      const n = Store.notebook(r.title.trim() || "Sổ tay mới");
+      n.folder = r.folder;
+      Store.state.notebooks.push(n);
+      Store.switchBook(Store.state.notebooks.length - 1);
+      closePanel();
+    }
+  }
+  async function library() {
+    const r = await dialog(
+      "Thư viện sổ tay",
+      '<label class="field"><span>Tìm theo tên / thư mục</span><input id="library-search" autocomplete="off"></label><div id="notebook-library">' +
+        Store.state.notebooks
+          .map(
+            (n, i) =>
+              '<button type="button" class="menu-item" data-book="' +
+              i +
+              '"><span>' +
+              escape(n.title) +
+              '<small style="display:block;margin-top:5px">' +
+              escape(n.folder || "Chưa phân thư mục") +
+              " · " +
+              n.pages.length +
+              " trang</small></span><small>" +
+              (i === Store.state.active ? "Đang mở" : "Mở →") +
+              "</small></button>",
+          )
+          .join("") +
+        "</div>",
+      "Đóng",
+    );
+    return r;
+  }
+  function dialog(title, html, confirm = "Xác nhận") {
+    const d = document.getElementById("dialog");
+    if (d.open) d.close("cancel");
+    document.getElementById("dialog-content").innerHTML =
+      "<h2>" + escape(title) + "</h2>" + html;
+    document.getElementById("dialog-confirm").textContent = confirm;
+    d.returnValue = "";
+    return new Promise((resolve) => {
+      const close = () => {
+        d.removeEventListener("close", close);
+        resolve(
+          d.returnValue === "ok"
+            ? Object.fromEntries(new FormData(d.querySelector("form")))
+            : null,
+        );
+      };
+      d.addEventListener("close", close);
+      d.showModal();
+      const search = document.getElementById("library-search");
+      if (search) {
+        search.oninput = () => {
+          const q = search.value.toLocaleLowerCase();
+          d.querySelectorAll("[data-book]").forEach(
+            (b) => (b.hidden = !b.textContent.toLocaleLowerCase().includes(q)),
+          );
+        };
+        d.querySelectorAll("[data-book]").forEach(
+          (b) =>
+            (b.onclick = () => {
+              Store.save();
+              Store.switchBook(Number(b.dataset.book));
+              closePanel();
+              d.close("cancel");
+            }),
+        );
+      }
+    });
+  }
+  function help() {
+    dialog(
+      "Không gian toán học của bạn",
+      '<p class="hint">SCRBLE MATH STUDIO hoạt động hoàn toàn trên thiết bị, kể cả khi mở trực tiếp index.html. Hãy lưu bản sao .smath.json để bảo vệ bài học.</p><table class="help-table">' +
+        [
+          ["P / E / S", "Bút / Tẩy / Chọn"],
+          ["G / H / C", "Đồ thị / Hình học / Máy tính"],
+          ["Ctrl+S / Ctrl+O", "Tải bản sao / Mở tệp"],
+          ["Ctrl+Z / Ctrl+Y", "Hoàn tác / Làm lại"],
+          ["Ctrl+C / X / V", "Sao chép / Cắt / Dán trong ứng dụng"],
+          ["Space + kéo", "Kéo trang"],
+          ["Ctrl + lăn chuột", "Zoom tại vị trí con trỏ"],
+          ["Shift khi vẽ hình", "Khóa góc / tỷ lệ"],
+          ["Khối 3D đã chọn", "Kéo giữa hình để xoay; Alt+kéo để di chuyển"],
+          ["Nhấp đúp", "Sửa đồ thị, hình học hoặc văn bản"],
+          ["Delete / Esc", "Xóa chọn / Hủy thao tác"],
+        ]
+          .map(([a, b]) => "<tr><td>" + a + "</td><td>" + b + "</td></tr>")
+          .join("") +
+        '</table><p class="hint">Giới hạn: chưa nhập PDF, chưa có CAS đại số đầy đủ, nhận dạng chữ viết, thiết diện 3D tùy ý hay dựng hình bằng mọi ràng buộc. Khảo sát số có dung sai; kiểm tra miền xác định trước khi tích phân. Xem README để biết phạm vi và kết quả kiểm thử.</p>',
+      "Đã hiểu",
+    );
+  }
+  function fit() {
+    const p = Store.current(),
+      z = Math.min(
+        (Renderer.area.clientWidth - 60) / p.width,
+        (Renderer.area.clientHeight - 60) / p.height,
+      );
+    Store.state.viewport = { x: 30, y: 30, zoom: Math.max(0.2, z) };
+    Renderer.request();
+    updateZoom();
+  }
+  function dispatch(action, b) {
+    if (action.startsWith("page-"))
+      return pageAction(action, Number(b.dataset.index));
+    switch (action) {
+      case "menu":
+        return menu(b);
+      case "new":
+        return newNotebook();
+      case "open":
+        return document.getElementById("open-file").click();
+      case "save":
+        return Exporter.project();
+      case "snapshot":
+        return Exporter.project(true);
+      case "backup-all":
+        return Exporter.backupAll();
+      case "undo":
+        CanvasEngine.cancelActive();
+        return Store.undo();
+      case "redo":
+        CanvasEngine.cancelActive();
+        return Store.redo();
+      case "copy":
+        return copy();
+      case "paste":
+        return paste();
+      case "cut":
+        copy();
+        return remove();
+      case "delete":
+        return remove();
+      case "tool":
+        return setTool(b.dataset.tool);
+      case "shapes":
+        return shapes(b);
+      case "panel":
+        return openPanel(b.dataset.panel);
+      case "close-panel":
+        return closePanel();
+      case "calculator":
+        return Calculator.open();
+      case "pages":
+        pagesVisible = !pagesVisible;
+        document.getElementById("pages-sidebar").hidden = !pagesVisible;
+        return;
+      case "add-page":
+        Store.transaction(() => {
+          Store.book().pages.push(Store.page());
+          Store.state.pageIndex = Store.book().pages.length - 1;
+          Store.state.selection = [];
+          Store.state.viewport = { x: 0, y: 0, zoom: 1 };
+        });
+        return;
+      case "ruler":
+        Store.state.ruler = !Store.state.ruler;
+        Renderer.request();
+        b.classList.toggle("active", Store.state.ruler);
+        return;
+      case "zoom-in":
+        return CanvasEngine.zoomAt(Store.state.viewport.zoom * 1.15);
+      case "zoom-out":
+        return CanvasEngine.zoomAt(Store.state.viewport.zoom / 1.15);
+      case "reset-zoom":
+        Store.state.viewport = { x: 0, y: 0, zoom: 1 };
+        Renderer.request();
+        updateZoom();
+        return;
+      case "fit":
+        return fit();
+      case "fullscreen":
+        if (document.fullscreenElement) document.exitFullscreen();
+        else
+          document.documentElement
+            .requestFullscreen()
+            .catch(() => toast("Dùng F11 để bật toàn màn hình."));
+        return;
+      case "help":
+        return help();
+      case "image":
+        return document.getElementById("image-file").click();
+      case "export-png":
+        return Exporter.png();
+      case "export-svg":
+        return Exporter.svg();
+      case "export-pdf":
+        return Exporter.pdf();
+      case "print":
+        return Exporter.print();
+      case "edit-selection":
+        if (Store.selected()[0]) return editObject(Store.selected()[0]);
+        return;
+      case "rotate-left":
+      case "rotate-right":
+        return Store.transaction(() =>
+          Store.selected()
+            .filter((o) => !o.locked)
+            .forEach(
+              (o) => (o.rotation += action === "rotate-left" ? -15 : 15),
+            ),
+        );
+      case "scale-up":
+      case "scale-down": {
+        const f = action === "scale-up" ? 1.1 : 1 / 1.1;
+        return Store.transaction(() =>
+          Store.selected()
+            .filter((o) => !o.locked)
+            .forEach((o) => {
+              o.size.w *= f;
+              o.size.h *= f;
+            }),
+        );
+      }
+      case "group":
+        return group();
+      case "ungroup":
+        return ungroup();
+      case "lock": {
+        const selected = Store.selected(),
+          lock = !selected.every((o) => o.locked);
+        return Store.transaction(() =>
+          selected.forEach((o) => (o.locked = lock)),
+        );
+      }
+      case "front":
+      case "back":
+        return Store.transaction(() =>
+          Store.selected()
+            .filter((o) => !o.locked)
+            .forEach(
+              (o) =>
+                (o.zIndex =
+                  action === "front"
+                    ? Math.max(
+                        ...Store.current().objects.map((o) => o.zIndex),
+                      ) + 1
+                    : Math.min(
+                        ...Store.current().objects.map((o) => o.zIndex),
+                      ) - 1),
+            ),
+        );
+      case "library":
+        return library();
+    }
+  }
+  function isEditing(t) {
+    return !!t.closest?.('input,textarea,select,[contenteditable="true"]');
+  }
+  function keyDown(e) {
+    if (isEditing(e.target) || document.getElementById("dialog").open) return;
+    const key = e.key.toLowerCase(),
+      ctrl = e.ctrlKey || e.metaKey;
+    let action = null;
+    if (ctrl) {
+      action = {
+        n: "new",
+        o: "open",
+        s: "save",
+        z: e.shiftKey ? "redo" : "undo",
+        y: "redo",
+        c: "copy",
+        v: "paste",
+        x: "cut",
+      }[key];
+      if (key === "a") {
+        e.preventDefault();
+        Store.state.selection = Store.current()
+          .objects.filter(
+            (o) =>
+              !o.locked &&
+              o.visible !== false &&
+              Store.current().layers.some(
+                (l) => l.id === o.layer && l.visible && !l.locked,
+              ),
+          )
+          .map((o) => o.id);
+        Store.state.tool = "select";
+        Store.emit();
+        return;
+      }
+    } else {
+      if (key === "delete" || key === "backspace") action = "delete";
+      if (key === "p") setTool("pen");
+      if (key === "e") setTool("eraser");
+      if (key === "s") setTool("select");
+      if (key === "g") openPanel("graph");
+      if (key === "h") openPanel("geometry");
+      if (key === "c") Calculator.open();
+      if (key === "r") action = "ruler";
+      if (key === "?") action = "help";
+      if (key === "escape") {
+        CanvasEngine.cancelActive();
+        Store.state.selection = [];
+        closePanel();
+        closePopover();
+        Store.emit();
+      }
+    }
+    if (action) {
+      e.preventDefault();
+      dispatch(
+        action,
+        document.querySelector('[data-action="' + action + '"]') || {},
+      );
+    }
+  }
+  root.App = {
+    init,
+    escape,
+    toast,
+    popover,
+    closePopover,
+    setTool,
+    setColor,
+    openPanel,
+    closePanel,
+    refreshGeometry,
+    insertPosition,
+    insertText,
+    editText,
+    editObject,
+    dialog,
+    isEditing,
+    updateSaveState,
+    updateZoom,
+    dispatch,
+  };
+  document.addEventListener("DOMContentLoaded", init);
+})(window);

@@ -1,0 +1,93 @@
+# Báo cáo kiểm thử · 05/11/2026
+
+## Môi trường thực tế
+
+- Windows; Google Chrome **156.0.8078.80**, Microsoft Edge **156.0.4314.58**.
+- Playwright 1.56.1, chế độ headless; mở trực tiếp URL **file:///…/index.html**.
+- Context được đặt `offline: true` trước khi mở ứng dụng, ghi lại mọi request HTTP/HTTPS và mọi `pageerror`.
+- Độ phân giải kiểm tra: 1920×1080, 1600×1000, 1440×960, 1366×900, **1366×768**, 390×844.
+
+## Kết quả đã chạy
+
+| Bộ kiểm thử                         | Kết quả                                                                          |
+| ----------------------------------- | -------------------------------------------------------------------------------- |
+| `npm test`                          | **21/21** nhóm kiểm tra đạt                                                      |
+| `npm run test:browser`              | **34/34** kiểm tra đạt, 17 trên Chrome và 17 trên Edge                           |
+| `npm run test:advanced`             | **14/14** nhóm kiểm tra đạt trên Chrome                                          |
+| `node --check` tất cả tệp `js/*.js` | Không có lỗi cú pháp                                                             |
+| Các luồng browser ở trên            | **0 lỗi JavaScript, 0 request HTTP/HTTPS**                                       |
+| `node tests/package-smoke.cjs`      | Mở bản đóng gói offline trên Chrome/Edge; lưu tệp thủ công khi chặn localStorage |
+
+Đây là số nhóm kiểm thử của các script, không phải lời xác nhận hoàn thành toàn bộ đặc tả mở rộng.
+
+### Toán học và dữ liệu
+
+- Phân số **1/2+1/3=5/6**, 2¹⁰=1024, độ ưu tiên toán tử và nhân ngầm.
+- DEG/RAD: sin(30)=0.5 ở DEG, cos(60)=0.5 ở DEG, sin(π/6)=0.5 ở RAD; độ tường minh 30°.
+- **5!=120**, **C(5,2)=10**, hoán vị/GCD.
+- Không gán biểu diễn hữu tỉ chính xác cho sqrt(2), lượng giác hoặc lũy thừa phân số.
+- **x²−5x+6=0 có nghiệm 2,3**; bậc ba, nghiệm phức và phương trình suy biến.
+- **det([[1,2],[3,4]])=−2**, nghịch đảo, norm/dot/cross và môđun phức.
+- **x²−4 có nghiệm Ox −2 và 2**, đạo hàm số, Newton có hội tụ/không hội tụ.
+- Tích phân đa thức và sin; đổi cận đổi dấu; từ chối tích phân có cực nằm lệch điểm lấy mẫu.
+- Hàm tham số và hàm từng đoạn; không nhận cực của 1/(x−2) làm nghiệm.
+- Cấm gán, truy cập thuộc tính, gọi hàm không trong whitelist, block/mã lệnh; giới hạn AST, số mũ và ma trận.
+- **Lập phương a=3: V=27, S=54**; **chóp SA⊥đáy, AB=4, SA=6: V=32** và vuông góc theo tọa độ.
+- Tất cả 13 mẫu khối có tọa độ/chiếu hữu hạn và phép đo dương; tất cả 18 mẫu phẳng có tọa độ và diện tích hợp lệ.
+- Trung điểm, nội tiếp/diện tích tam giác tính theo tọa độ, cập nhật khi đổi đỉnh.
+- Roundtrip JSON giữ loại đối tượng/dữ liệu/biến đổi; phục hồi localStorage giữ ID và ngày tạo.
+- Từ chối phiên bản không hỗ trợ, tọa độ không hữu hạn, bảng lỗi và tham chiếu đường phụ lỗi.
+- Undo/Redo kiểm tra dữ liệu vị trí và kiểu nét.
+
+### Tương tác trên Chrome và Edge
+
+- Vẽ nét bằng sự kiện chuột thực của trình duyệt, lưu hơn 20 mẫu liên tiếp.
+- Đổi màu tạo nét có dữ liệu màu tương ứng.
+- Tẩy một phần chia nét; Undo trả lại đúng ID/dữ liệu nét ban đầu và Redo chia lại.
+- Ctrl+A, kéo nhiều đối tượng, nhóm và bỏ nhóm.
+- Nhập công thức, khảo sát nghiệm, chèn đồ thị; nhấp đúp sửa công thức đã chèn.
+- Kéo đỉnh tam giác trung tuyến, dữ liệu tọa độ thay đổi.
+- Kéo xoay khối 3D làm thay đổi hai góc mô hình; đổi a=3 trả V=27, chèn trung điểm.
+- Máy tính chuyển DEG/RAD, phân số chính xác và đưa kết quả vào trang.
+- Tải `.smath.json`, nhập lại và so số đối tượng; reload khôi phục localStorage.
+- Nhập phiên bản lỗi không thay đổi số sổ tay.
+- PDF thật có header và được pdf-lib đọc lại đúng số trang; SVG chứa path vector.
+- Các kích thước màn hình mục tiêu không làm tràn chiều rộng document.
+
+### Các luồng nâng cao trên Chrome
+
+- UI EQUATION: đa thức, hệ có nghiệm duy nhất/vô số nghiệm/vô nghiệm.
+- SOLVE, TABLE, STATISTICS và hồi quy tuyến tính; MATRIX/VECTOR/COMPLEX thực thi biểu thức.
+- Slider tham số giữ dữ liệu sau khi chèn; đồ thị ẩn đường tròn vượt qua kiểm tra schema.
+- Bắt các lệnh lineTo của renderer để kiểm tra không có đoạn nối dốc qua x=2 ở 1/(x−2).
+- Gửi sự kiện bút qua Chrome DevTools Protocol với áp lực 0.2/0.4/0.8; dữ liệu nét giữ mức áp lực khác nhau.
+- Tẩy một phần nét đã xoay 30° và co giãn khác nhau theo hai trục; các đoạn còn lại giữ đúng góc, tỷ lệ và độ dày bút.
+- Chèn phân số cấu trúc và bảng biến thiên có dữ liệu từng ô.
+- Lưu phép dựng đường song song/vuông góc theo đỉnh; đường cao hình chóp, góc vectơ và chọn mặt.
+- Khóa đối tượng rồi mở lại trong panel lớp.
+- Nhập ảnh cục bộ, xuất PNG; PDF nhiều trang được đọc lại với đúng **2 trang**.
+- Mở sổ tay mẫu, chụp ảnh và kiểm tra không có lỗi JS hoặc yêu cầu HTTP/HTTPS.
+
+## Kiểm tra bằng mắt
+
+Đã xem ảnh chụp trang trống, trang mẫu có đồ thị và chóp, cùng bố cục màn hình hẹp. Vùng giấy, thanh công cụ, thanh trang và đối tượng hiển thị đúng trên các ảnh đã xem. Ảnh minh họa [preview.png](preview.png) được chụp trực tiếp từ ứng dụng.
+
+## Chưa được chứng nhận bằng các test trên
+
+- Bút stylus/màn hình cảm ứng thật, palm rejection ở nhiều thiết bị, đa chạm và pinch trên phần cứng thật. Sự kiện áp lực mô phỏng không thay thế kiểm thử phần cứng.
+- Chất lượng nét ở mọi tốc độ viết; phiên dùng nhiều giờ; hiệu năng tài liệu hàng chục nghìn nét; mọi góc nhìn của mọi mô hình.
+- Hộp thoại máy in vật lý, fullscreen ở mọi cấu hình Windows và chính sách doanh nghiệp.
+- Toàn bộ tổ hợp menu/hình dạng/Smart Shape và mọi công thức đầu vào có thể có. README nêu phạm vi triển khai; chỉ các kiểm tra được liệt kê ở báo cáo này được xác nhận đã chạy.
+- Khả năng lưu vĩnh viễn, quota tùy trình duyệt hoặc phục hồi khi người dùng xóa dữ liệu. Tệp tải thủ công là phương án sao lưu chủ động.
+- Nhập PDF, CAS, OCR, thiết diện/giao tuyến 3D tổng quát, tiếng Anh và các tính năng chưa có trong README không được đánh dấu hoàn thành.
+
+## Chạy lại
+
+```powershell
+npm ci --ignore-scripts
+npm test
+npm run test:browser
+npm run test:advanced
+```
+
+Các script browser cần Chrome/Edge đã được cài đặt. Không cần chạy máy chủ. Ảnh và tệp kiểm chứng nằm trong `test-results/` sau khi chạy; không đóng gói chúng như nội dung học của người dùng.

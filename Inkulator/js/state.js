@@ -1,0 +1,691 @@
+(function (root) {
+  "use strict";
+  const uid = () =>
+    root.crypto?.randomUUID?.() ||
+    "id-" + Date.now().toString(36) + "-" + ++uid.counter;
+  uid.counter = 0;
+  const clone = (x) => JSON.parse(JSON.stringify(x));
+  const page = (title = "") => ({
+    id: uid(),
+    title,
+    paper: "grid",
+    width: 1200,
+    height: 1700,
+    showTitle: true,
+    objects: [],
+    layers: ["image", "geometry", "graph", "ink", "annotation"].map((id) => ({
+      id,
+      visible: true,
+      locked: false,
+    })),
+  });
+  const notebook = (title = "Sổ tay Toán học") => ({
+    id: uid(),
+    title,
+    folder: "",
+    created: new Date().toISOString(),
+    modified: new Date().toISOString(),
+    pages: [page()],
+  });
+  const defaults = {
+    theme: "light",
+    gridSize: 25,
+    smoothing: 0.5,
+    penSensitivity: 1,
+    autosave: 1200,
+    historyLimit: 60,
+    touchInk: false,
+    smartShape: false,
+    animations: true,
+  };
+  const state = {
+    notebooks: [notebook()],
+    active: 0,
+    pageIndex: 0,
+    tool: "pen",
+    pen: "ballpoint",
+    color: "#263b32",
+    width: 2.5,
+    opacity: 1,
+    eraser: "partial",
+    shape: "line",
+    selection: [],
+    history: [],
+    future: [],
+    viewport: { x: 0, y: 0, zoom: 1 },
+    settings: { ...defaults },
+    storageAvailable: true,
+    panel: null,
+    clipboard: [],
+    ruler: false,
+    protractor: false,
+    dirty: false,
+  };
+  function book() {
+    return state.notebooks[state.active];
+  }
+  function current() {
+    return book().pages[state.pageIndex];
+  }
+  function emit() {
+    const p = current();
+    state.selection = state.selection.filter((id) =>
+      p.objects.some(
+        (o) =>
+          o.id === id &&
+          p.layers.some((l) => l.id === o.layer && l.visible && !l.locked),
+      ),
+    );
+    if (root.document) root.document.dispatchEvent(new Event("statechange"));
+  }
+  function transaction(fn) {
+    const before = JSON.stringify(book());
+    fn();
+    const after = JSON.stringify(book());
+    if (after === before) {
+      emit();
+      return false;
+    }
+    state.history.push(before);
+    if (state.history.length > state.settings.historyLimit)
+      state.history.shift();
+    state.future = [];
+    book().modified = new Date().toISOString();
+    state.dirty = true;
+    emit();
+    scheduleSave();
+    return true;
+  }
+  function commit(before) {
+    const after = JSON.stringify(book());
+    if (after !== before) {
+      state.history.push(before);
+      if (state.history.length > state.settings.historyLimit)
+        state.history.shift();
+      state.future = [];
+      book().modified = new Date().toISOString();
+      state.dirty = true;
+      scheduleSave();
+    }
+    emit();
+  }
+  function undo() {
+    if (!state.history.length) return;
+    state.future.push(JSON.stringify(book()));
+    state.notebooks[state.active] = JSON.parse(state.history.pop());
+    afterHistory();
+  }
+  function redo() {
+    if (!state.future.length) return;
+    state.history.push(JSON.stringify(book()));
+    state.notebooks[state.active] = JSON.parse(state.future.pop());
+    afterHistory();
+  }
+  function afterHistory() {
+    state.pageIndex = Math.min(state.pageIndex, book().pages.length - 1);
+    state.selection = [];
+    state.dirty = true;
+    emit();
+    scheduleSave();
+  }
+  function object(type, data = {}, opts = {}) {
+    const layer = {
+      stroke: "ink",
+      shape: "geometry",
+      geometry: "geometry",
+      solid: "geometry",
+      graph: "graph",
+      text: "annotation",
+      image: "image",
+      group: "annotation",
+    }[type];
+    return {
+      id: uid(),
+      type,
+      position: { x: 150, y: 180 },
+      size: { w: 350, h: 280 },
+      rotation: 0,
+      style: { color: state.color, width: state.width, opacity: state.opacity },
+      zIndex: current().objects.length,
+      locked: false,
+      visible: true,
+      layer,
+      data,
+      ...opts,
+    };
+  }
+  function add(obj) {
+    transaction(() => current().objects.push(obj));
+    state.selection = [obj.id];
+    if (root.App) root.App.setTool("select");
+    return obj;
+  }
+  function selected() {
+    return current().objects.filter((o) => state.selection.includes(o.id));
+  }
+  function clearHistory() {
+    state.history = [];
+    state.future = [];
+    state.selection = [];
+  }
+  function switchPage(i) {
+    state.pageIndex = Math.max(0, Math.min(i, book().pages.length - 1));
+    state.selection = [];
+    state.viewport = { x: 0, y: 0, zoom: 1 };
+    emit();
+    scheduleSave();
+  }
+  function switchBook(i) {
+    state.active = i;
+    state.pageIndex = 0;
+    clearHistory();
+    state.viewport = { x: 0, y: 0, zoom: 1 };
+    emit();
+    scheduleSave();
+  }
+  const colors = /^#[0-9a-fA-F]{3,8}$/;
+  function validate(value, preserveIds = false) {
+    if (!value || value.format !== "scrble-math")
+      throw Error("Không phải tệp .smath.json hợp lệ.");
+    if (value.version !== 1)
+      throw Error(
+        "Chỉ hỗ trợ định dạng phiên bản 1. Không thay đổi dữ liệu hiện tại.",
+      );
+    const n = value.notebook;
+    if (
+      !n ||
+      typeof n.title !== "string" ||
+      n.title.length > 300 ||
+      !Array.isArray(n.pages) ||
+      n.pages.length < 1 ||
+      n.pages.length > 300
+    )
+      throw Error(
+        "Sổ tay hoặc danh sách trang không hợp lệ (tối đa 300 trang).",
+      );
+    const types = new Set([
+      "stroke",
+      "shape",
+      "geometry",
+      "solid",
+      "graph",
+      "text",
+      "image",
+      "group",
+    ]);
+    let total = 0,
+      points = 0;
+    function boundedNum(v, min, max) {
+      return (
+        typeof v === "number" && Number.isFinite(v) && v >= min && v <= max
+      );
+    }
+    function clean(o, depth = 0) {
+      if (!o || !types.has(o.type) || depth > 4 || ++total > 15000)
+        throw Error("Đối tượng không hợp lệ hoặc tài liệu quá lớn.");
+      if (
+        !o.position ||
+        !boundedNum(o.position.x, -1e6, 1e6) ||
+        !boundedNum(o.position.y, -1e6, 1e6) ||
+        !o.size ||
+        !boundedNum(o.size.w, 0.001, 1e5) ||
+        !boundedNum(o.size.h, 0.001, 1e5) ||
+        !boundedNum(o.rotation || 0, -1e5, 1e5)
+      )
+        throw Error("Tọa độ đối tượng không hợp lệ.");
+      if (
+        !o.style ||
+        !colors.test(o.style.color) ||
+        !boundedNum(o.style.width, 0.1, 100) ||
+        !boundedNum(o.style.opacity, 0, 1)
+      )
+        throw Error("Kiểu nét không hợp lệ.");
+      const d = o.data;
+      if (!d || typeof d !== "object") throw Error("Thiếu dữ liệu đối tượng.");
+      if (o.type === "stroke") {
+        if (!Array.isArray(d.points) || d.points.length > 50000)
+          throw Error("Nét quá lớn.");
+        points += d.points.length;
+        if (points > 500000) throw Error("Tài liệu quá nhiều điểm.");
+        if (
+          d.points.some(
+            (p) =>
+              !Array.isArray(p) ||
+              p.length < 2 ||
+              p.length > 3 ||
+              p.some((v) => !boundedNum(v, -1e6, 1e6)),
+          )
+        )
+          throw Error("Điểm bút không hợp lệ.");
+      }
+      if (
+        o.type === "shape" &&
+        ![
+          "line",
+          "ray",
+          "arrow",
+          "dashed",
+          "rectangle",
+          "square",
+          "circle",
+          "ellipse",
+          "triangle",
+          "polygon",
+          "curve",
+        ].includes(d.kind)
+      )
+        throw Error("Hình chưa hỗ trợ.");
+      if (o.type === "geometry") {
+        if (
+          !root.Geometry.flatCatalog.some(([k]) => k === d.kind) ||
+          !Array.isArray(d.points) ||
+          d.points.length < 2 ||
+          d.points.length > 16 ||
+          d.points.some(
+            (p) =>
+              !Array.isArray(p) ||
+              p.length !== 2 ||
+              p.some((x) => !boundedNum(x, -10000, 10000)),
+          )
+        )
+          throw Error("Hình học phẳng không hợp lệ.");
+      }
+      if (o.type === "solid") {
+        if (
+          !root.Geometry.solidCatalog.some(([k]) => k === d.kind) ||
+          !Array.isArray(d.rotation) ||
+          d.rotation.length !== 2 ||
+          d.rotation.some((x) => !boundedNum(x, -1e5, 1e5))
+        )
+          throw Error("Khối không hợp lệ.");
+        root.Geometry.mesh(d.kind, d.params);
+      }
+      if (o.type === "graph") {
+        if (
+          !Array.isArray(d.expressions) ||
+          d.expressions.length < 1 ||
+          d.expressions.length > 8 ||
+          d.expressions.some(
+            (e) => typeof e.text !== "string" || !colors.test(e.color),
+          )
+        )
+          throw Error("Đồ thị không hợp lệ.");
+        d.expressions.forEach((e) => {
+          const parts = e.text.split("=");
+          if (parts.length > 2) throw Error("Phương trình không hợp lệ.");
+          root.MathEngine.parse(
+            parts.length === 2 && !/^(y|[a-z]\(x\))\s*=/.test(e.text)
+              ? "(" + parts[0] + ")-(" + parts[1] + ")"
+              : e.text,
+          );
+        });
+        if (
+          !d.view ||
+          !["xmin", "xmax", "ymin", "ymax"].every((k) =>
+            boundedNum(d.view[k], -1e8, 1e8),
+          ) ||
+          d.view.xmax <= d.view.xmin ||
+          d.view.ymax <= d.view.ymin
+        )
+          throw Error("Khoảng nhìn không hợp lệ.");
+        if (
+          d.params &&
+          Object.values(d.params).some((v) => !boundedNum(v, -1e6, 1e6))
+        )
+          throw Error("Tham số không hợp lệ.");
+      }
+      if (
+        o.type === "text" &&
+        (typeof d.text !== "string" || d.text.length > 20000)
+      )
+        throw Error("Văn bản không hợp lệ.");
+      if (
+        o.type === "image" &&
+        (typeof d.src !== "string" ||
+          !/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+$/.test(d.src) ||
+          d.src.length > 8e6)
+      )
+        throw Error("Chỉ nhận ảnh PNG, JPEG, WebP nhúng cục bộ.");
+      if (
+        o.type === "stroke" &&
+        d.baseSize &&
+        (!boundedNum(d.baseSize.w, 0.001, 1e5) ||
+          !boundedNum(d.baseSize.h, 0.001, 1e5))
+      )
+        throw Error("Kích thước nét không hợp lệ.");
+      if (
+        o.type === "geometry" &&
+        d.frame &&
+        (!Array.isArray(d.frame) ||
+          d.frame.length !== 4 ||
+          d.frame.some((v) => !boundedNum(v, -1e5, 1e5)) ||
+          d.frame[1] <= d.frame[0] ||
+          d.frame[3] <= d.frame[2])
+      )
+        throw Error("Khung hình không hợp lệ.");
+      if (["geometry", "solid"].includes(o.type)) {
+        const count =
+          o.type === "geometry"
+            ? d.points.length
+            : root.Geometry.mesh(d.kind, d.params).vertices.length;
+        if (d.aux === undefined) d.aux = [];
+        if (
+          !Array.isArray(d.aux) ||
+          d.aux.length > 200 ||
+          d.aux.some(
+            (a) =>
+              !a ||
+              ![
+                "segment",
+                "midpoint",
+                "height",
+                "parallel",
+                "perpendicular",
+              ].includes(a.type) ||
+              (a.type !== "height" &&
+                (!Number.isInteger(a.a) ||
+                  !Number.isInteger(a.b) ||
+                  a.a < 0 ||
+                  a.b < 0 ||
+                  a.a >= count ||
+                  a.b >= count ||
+                  a.a === a.b)) ||
+              (["parallel", "perpendicular"].includes(a.type) &&
+                (!Number.isInteger(a.c) || a.c < 0 || a.c >= count)),
+          )
+        )
+          throw Error("Đường phụ không hợp lệ.");
+      }
+      if (
+        o.type === "solid" &&
+        ((d.faceColor !== undefined && !colors.test(d.faceColor)) ||
+          (d.faceOpacity !== undefined && !boundedNum(d.faceOpacity, 0, 1)))
+      )
+        throw Error("Kiểu mặt không hợp lệ.");
+      if (o.type === "text") {
+        if (d.fontSize !== undefined && !boundedNum(d.fontSize, 5, 200))
+          throw Error("Cỡ chữ không hợp lệ.");
+        if (d.baseWidth !== undefined && !boundedNum(d.baseWidth, 0.01, 1e5))
+          throw Error("Kích thước chữ không hợp lệ.");
+        if (
+          d.table &&
+          (!Array.isArray(d.table) ||
+            !d.table.length ||
+            d.table.length > 100 ||
+            d.table.some(
+              (r) =>
+                !Array.isArray(r) ||
+                !r.length ||
+                r.length > 30 ||
+                r.some((c) => typeof c !== "string" || c.length > 300),
+            ))
+        )
+          throw Error("Bảng không hợp lệ.");
+        if (
+          d.layout &&
+          (!["fraction", "sqrt"].includes(d.layout.kind) ||
+            (d.layout.kind === "fraction" &&
+              (typeof d.layout.top !== "string" ||
+                typeof d.layout.bottom !== "string")) ||
+            (d.layout.kind === "sqrt" && typeof d.layout.value !== "string"))
+        )
+          throw Error("Công thức không hợp lệ.");
+      }
+      if (o.type === "graph") {
+        if (
+          d.markers &&
+          (!Array.isArray(d.markers) ||
+            d.markers.length > 100 ||
+            d.markers.some(
+              (p) =>
+                !p ||
+                !boundedNum(p.x, -1e10, 1e10) ||
+                !boundedNum(p.y, -1e10, 1e10),
+            ))
+        )
+          throw Error("Điểm đánh dấu không hợp lệ.");
+        if (
+          d.tangent &&
+          !["x", "y", "slope"].every((k) =>
+            boundedNum(d.tangent[k], -1e12, 1e12),
+          )
+        )
+          throw Error("Tiếp tuyến không hợp lệ.");
+        if (
+          d.shade &&
+          !["a", "b"].every((k) => boundedNum(d.shade[k], -1e8, 1e8))
+        )
+          throw Error("Khoảng tô không hợp lệ.");
+      }
+      if (o.type === "group") {
+        if (
+          !Array.isArray(d.children) ||
+          d.children.length > 500 ||
+          !d.originalSize ||
+          !boundedNum(d.originalSize.w, 0.001, 1e5) ||
+          !boundedNum(d.originalSize.h, 0.001, 1e5)
+        )
+          throw Error("Nhóm không hợp lệ.");
+        d.children = d.children.map((c) => clean(c, depth + 1));
+      }
+      const result = {
+        id:
+          preserveIds && typeof o.id === "string" ? o.id.slice(0, 100) : uid(),
+        type: o.type,
+        position: { ...o.position },
+        size: { ...o.size },
+        rotation: o.rotation || 0,
+        style: {
+          color: o.style.color,
+          width: o.style.width,
+          opacity: o.style.opacity,
+        },
+        zIndex: boundedNum(o.zIndex, -1e9, 1e9) ? o.zIndex : total,
+        locked: !!o.locked,
+        visible: o.visible !== false,
+        layer: ["ink", "geometry", "graph", "image", "annotation"].includes(
+          o.layer,
+        )
+          ? o.layer
+          : "annotation",
+        data: clone(d),
+      };
+      return result;
+    }
+    const result = {
+      ...notebook(n.title),
+      id: preserveIds && typeof n.id === "string" ? n.id.slice(0, 100) : uid(),
+      created:
+        typeof n.created === "string" && Number.isFinite(Date.parse(n.created))
+          ? n.created
+          : new Date().toISOString(),
+      modified:
+        typeof n.modified === "string" &&
+        Number.isFinite(Date.parse(n.modified))
+          ? n.modified
+          : new Date().toISOString(),
+      folder: typeof n.folder === "string" ? n.folder.slice(0, 100) : "",
+      pages: n.pages.map((p) => {
+        if (
+          typeof p.title !== "string" ||
+          p.title.length > 300 ||
+          !Array.isArray(p.objects) ||
+          !boundedNum(p.width, 100, 10000) ||
+          !boundedNum(p.height, 100, 20000)
+        )
+          throw Error("Trang không hợp lệ.");
+        const cleanPage = page(p.title);
+        if (preserveIds && typeof p.id === "string")
+          cleanPage.id = p.id.slice(0, 100);
+        cleanPage.width = p.width;
+        cleanPage.height = p.height;
+        cleanPage.paper = [
+          "blank",
+          "grid",
+          "large",
+          "lines",
+          "dots",
+          "axes",
+          "dark",
+        ].includes(p.paper)
+          ? p.paper
+          : "grid";
+        cleanPage.showTitle = p.showTitle !== false;
+        cleanPage.objects = p.objects.map((o) => clean(o));
+        if (Array.isArray(p.layers) && p.layers.length === 5) {
+          const ids = p.layers.map((l) => l.id);
+          if (
+            new Set(ids).size === 5 &&
+            ids.every((id) => cleanPage.layers.some((l) => l.id === id))
+          )
+            cleanPage.layers = p.layers.map((l) => ({
+              id: l.id,
+              visible: l.visible !== false,
+              locked: !!l.locked,
+            }));
+        }
+        return cleanPage;
+      }),
+    };
+    return result;
+  }
+  function envelope(n = book()) {
+    return {
+      format: "scrble-math",
+      version: 1,
+      notebook: clone(n),
+      settings: clone(state.settings),
+      assets: {},
+    };
+  }
+  let timer;
+  function scheduleSave() {
+    clearTimeout(timer);
+    timer = setTimeout(save, state.settings.autosave);
+  }
+  function save() {
+    try {
+      if (state.loadError) throw Error("Giữ nguyên bản lưu lỗi để phục hồi.");
+      const data = JSON.stringify({
+        format: "scrble-math-library",
+        version: 1,
+        notebooks: state.notebooks,
+        active: state.active,
+        pageIndex: state.pageIndex,
+        settings: state.settings,
+      });
+      if (data.length > 8e6) throw Error("Quota");
+      localStorage.setItem("scrble-math-library-v1", data);
+      state.storageAvailable = true;
+      state.dirty = false;
+    } catch (_) {
+      state.storageAvailable = false;
+    }
+    if (root.App) root.App.updateSaveState();
+    return state.storageAvailable;
+  }
+  function load() {
+    try {
+      localStorage.setItem("scrble-probe", "1");
+      localStorage.removeItem("scrble-probe");
+      const raw = localStorage.getItem("scrble-math-library-v1");
+      if (!raw) return;
+      const lib = JSON.parse(raw);
+      if (
+        lib.version !== 1 ||
+        !Array.isArray(lib.notebooks) ||
+        !lib.notebooks.length ||
+        lib.notebooks.length > 100
+      )
+        throw Error("Invalid library");
+      const books = lib.notebooks.map((n) =>
+        validate({ format: "scrble-math", version: 1, notebook: n }, true),
+      );
+      state.notebooks = books;
+      state.active = Number.isInteger(lib.active)
+        ? Math.min(Math.max(0, lib.active), books.length - 1)
+        : 0;
+      state.pageIndex = Number.isInteger(lib.pageIndex)
+        ? Math.min(Math.max(0, lib.pageIndex), book().pages.length - 1)
+        : 0;
+      if (lib.settings) {
+        for (const k of ["theme", "touchInk", "smartShape", "animations"])
+          if (typeof lib.settings[k] === typeof defaults[k])
+            state.settings[k] = lib.settings[k];
+        for (const k of [
+          "gridSize",
+          "smoothing",
+          "penSensitivity",
+          "autosave",
+          "historyLimit",
+        ])
+          if (Number.isFinite(lib.settings[k]))
+            state.settings[k] = lib.settings[k];
+        state.settings.gridSize = Math.max(
+          10,
+          Math.min(100, state.settings.gridSize),
+        );
+        state.settings.autosave = Math.max(
+          500,
+          Math.min(30000, state.settings.autosave),
+        );
+        state.settings.historyLimit = Math.max(
+          10,
+          Math.min(100, state.settings.historyLimit),
+        );
+        if (
+          lib.settings.penPresets &&
+          typeof lib.settings.penPresets === "object"
+        ) {
+          const valid = {};
+          for (const k of ["ballpoint", "fountain", "pencil", "marker"]) {
+            const p = lib.settings.penPresets[k];
+            if (
+              p &&
+              colors.test(p.color) &&
+              Number.isFinite(p.width) &&
+              p.width >= 0.5 &&
+              p.width <= 25 &&
+              Number.isFinite(p.opacity) &&
+              p.opacity >= 0.1 &&
+              p.opacity <= 1
+            )
+              valid[k] = p;
+          }
+          state.settings.penPresets = valid;
+        }
+      }
+    } catch (error) {
+      state.storageAvailable = false;
+      state.loadError =
+        "Không khôi phục được lưu trữ: " +
+        error.message +
+        ". Dữ liệu cũ được giữ nguyên; hãy mở bản sao lưu .smath.json.";
+    }
+  }
+  root.Store = {
+    state,
+    uid,
+    clone,
+    page,
+    notebook,
+    book,
+    current,
+    emit,
+    transaction,
+    commit,
+    undo,
+    redo,
+    object,
+    add,
+    selected,
+    clearHistory,
+    switchPage,
+    switchBook,
+    validate,
+    envelope,
+    scheduleSave,
+    save,
+    load,
+  };
+})(typeof window !== "undefined" ? window : globalThis);

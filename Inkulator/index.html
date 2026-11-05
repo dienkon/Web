@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="Sổ tay toán học chạy hoàn toàn ngoại tuyến"
+    />
+    <title>SCRBLE MATH STUDIO — Sổ tay toán học</title>
+    <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body>
+    <header class="titlebar">
+      <div class="brand">
+        <span class="brand-icon">∿</span> SCRBLE <b>MATH STUDIO</b
+        ><span class="offline"><i></i> NGOẠI TUYẾN</span>
+      </div>
+      <div class="title-actions">
+        <button data-action="help">Hướng dẫn <kbd>?</kbd></button
+        ><button
+          data-action="fullscreen"
+          aria-label="Toàn màn hình"
+          title="Toàn màn hình"
+        >
+          ⛶
+        </button>
+      </div>
+    </header>
+    <div class="toolbar" id="toolbar">
+      <div class="toolbar-group" id="file-tools"></div>
+      <div class="document-meta">
+        <input
+          id="notebook-title"
+          aria-label="Tên sổ tay"
+          value="Sổ tay Toán học"
+        /><span id="save-state">Đã lưu trên thiết bị</span>
+      </div>
+      <div class="toolbar-group ink-tools" id="ink-tools"></div>
+      <div class="toolbar-group colors" id="colors"></div>
+      <button class="width-button" id="width-button" title="Thiết lập nét bút">
+        <span id="width-dot"></span><small id="width-label">2.5</small>
+      </button>
+      <div class="toolbar-group" id="object-tools"></div>
+    </div>
+    <nav class="workspace-tabs">
+      <button data-action="pages" id="pages-toggle">
+        ☷ <span>Trang sổ tay</span></button
+      ><span class="tab-divider"></span
+      ><button data-action="panel" data-panel="graph">
+        <span class="tab-symbol">⌁</span> Đồ thị</button
+      ><button data-action="panel" data-panel="geometry">
+        <span class="tab-symbol">△</span> Hình học 2D</button
+      ><button data-action="panel" data-panel="solid">
+        <span class="tab-symbol">⬡</span> Không gian 3D</button
+      ><button data-action="calculator">
+        <span class="tab-symbol">▦</span> Máy tính</button
+      ><button data-action="panel" data-panel="math">
+        <span class="tab-symbol">ƒ</span> Công cụ toán
+      </button>
+      <div class="tab-spacer"></div>
+      <button data-action="panel" data-panel="paper">
+        ▤ <span>Kiểu giấy</span></button
+      ><button data-action="panel" data-panel="layers">
+        ▱ <span>Lớp</span>
+      </button>
+    </nav>
+    <main id="workspace">
+      <aside class="pages-sidebar" id="pages-sidebar">
+        <div class="sidebar-heading">
+          <span>TRANG SỔ TAY</span
+          ><button data-action="add-page" title="Thêm trang">+</button>
+        </div>
+        <div id="page-list"></div>
+        <button class="add-page" data-action="add-page">
+          + Thêm trang mới
+        </button>
+        <div class="sidebar-foot">
+          <span class="little-dot"></span> Lưu trên thiết bị của bạn
+        </div>
+      </aside>
+      <section id="canvas-area" aria-label="Vùng viết sổ tay">
+        <canvas id="paper-canvas"></canvas
+        ><canvas id="ink-canvas" aria-label="Trang viết tay"></canvas>
+        <div id="page-title">
+          <small>TIÊU ĐỀ</small
+          ><input
+            id="page-title-input"
+            aria-label="Tiêu đề trang"
+            placeholder="Nhập tiêu đề trang…"
+          />
+        </div>
+        <div id="welcome-hint">
+          Một trang mới, một ý tưởng mới.<span
+            >Viết bằng bút hoặc khám phá các công cụ toán phía trên.</span
+          >
+        </div>
+        <div id="selection-tools" hidden></div>
+        <div id="canvas-context" hidden></div>
+        <div class="canvas-navigation">
+          <button data-action="fit" title="Vừa trang">⌖</button><span></span
+          ><button data-action="zoom-out" title="Thu nhỏ">−</button
+          ><button id="zoom-button" data-action="reset-zoom">100%</button
+          ><button data-action="zoom-in" title="Phóng to">+</button>
+        </div>
+      </section>
+      <aside id="panel" class="panel" hidden>
+        <div class="panel-heading">
+          <div>
+            <small id="panel-eyebrow">MATH WORKSPACE</small>
+            <h2 id="panel-title"></h2>
+          </div>
+          <button data-action="close-panel" title="Đóng bảng">×</button>
+        </div>
+        <div id="panel-content"></div>
+      </aside>
+    </main>
+    <footer class="statusbar">
+      <span id="tool-status">Bút bi</span><span class="status-divider"></span
+      ><span id="pen-status">2.5 px</span><span id="cursor-status"></span>
+      <div class="tab-spacer"></div>
+      <span id="page-status">Trang 1 / 1</span
+      ><span class="status-divider"></span
+      ><span id="storage-status"><i></i> Dữ liệu chỉ ở thiết bị này</span>
+    </footer>
+    <div id="toast" role="status" aria-live="polite"></div>
+    <div id="popover" class="popover" hidden></div>
+    <div id="calculator" class="calculator" hidden></div>
+    <dialog id="dialog">
+      <form method="dialog">
+        <div id="dialog-content"></div>
+        <div class="dialog-actions">
+          <button value="cancel">Đóng</button
+          ><button id="dialog-confirm" value="ok" class="primary">
+            Xác nhận
+          </button>
+        </div>
+      </form>
+    </dialog>
+    <input type="file" id="open-file" accept=".json,.smath.json" hidden /><input
+      type="file"
+      id="image-file"
+      accept="image/png,image/jpeg,image/webp"
+      hidden
+    />
+    <script src="vendor/math.js"></script>
+    <script src="vendor/pdf-lib.js"></script>
+    <script src="js/math-engine.js"></script>
+    <script src="js/geometry.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/renderer.js"></script>
+    <script src="js/graph.js"></script>
+    <script src="js/calculator.js"></script>
+    <script src="js/panels.js"></script>
+    <script src="js/canvas.js"></script>
+    <script src="js/export.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

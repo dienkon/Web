@@ -1,0 +1,366 @@
+{
+  "format": "scrble-math",
+  "version": 1,
+  "notebook": {
+    "id": "891a06ac-c8d4-42bd-9a59-4e4efbff0d8f",
+    "title": "Toán 12 · Đạo hàm & không gian",
+    "folder": "Bài học mẫu",
+    "created": "2026-11-05T04:18:18.799Z",
+    "modified": "2026-11-05T04:18:18.800Z",
+    "pages": [
+      {
+        "id": "535facc5-ff54-48b7-8d3b-4561f0f0879e",
+        "title": "Khảo sát hàm số & hình học không gian",
+        "paper": "grid",
+        "width": 1200,
+        "height": 1700,
+        "showTitle": true,
+        "objects": [
+          {
+            "id": "10b4f2e3-f44b-413b-8966-8e597b51ad2a",
+            "type": "text",
+            "position": {
+              "x": 60,
+              "y": 160
+            },
+            "size": {
+              "w": 550,
+              "h": 40
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#7b9383",
+              "width": 2,
+              "opacity": 1
+            },
+            "zIndex": 0,
+            "locked": false,
+            "visible": true,
+            "layer": "annotation",
+            "data": {
+              "text": "01   KHẢO SÁT HÀM SỐ",
+              "math": true,
+              "fontSize": 15,
+              "baseWidth": 550
+            }
+          },
+          {
+            "id": "833257e0-52f4-485d-b8b8-e203f8528289",
+            "type": "text",
+            "position": {
+              "x": 60,
+              "y": 205
+            },
+            "size": {
+              "w": 500,
+              "h": 45
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#2b5d46",
+              "width": 2,
+              "opacity": 1
+            },
+            "zIndex": 1,
+            "locked": false,
+            "visible": true,
+            "layer": "annotation",
+            "data": {
+              "text": "f(x) = x³ − 3x",
+              "math": true,
+              "fontSize": 28,
+              "baseWidth": 500
+            }
+          },
+          {
+            "id": "0bb63af4-5bfc-405c-b2f8-38ee8012772d",
+            "type": "graph",
+            "position": {
+              "x": 60,
+              "y": 275
+            },
+            "size": {
+              "w": 550,
+              "h": 340
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#263b32",
+              "width": 2.5,
+              "opacity": 1
+            },
+            "zIndex": 2,
+            "locked": false,
+            "visible": true,
+            "layer": "graph",
+            "data": {
+              "expressions": [
+                {
+                  "text": "x^3-3x",
+                  "color": "#27836d",
+                  "visible": true
+                },
+                {
+                  "text": "x",
+                  "color": "#cd8370",
+                  "visible": true
+                }
+              ],
+              "view": {
+                "xmin": -3.5,
+                "xmax": 3.5,
+                "ymin": -4,
+                "ymax": 4
+              },
+              "params": {},
+              "markers": [
+                {
+                  "x": -1,
+                  "y": 2
+                },
+                {
+                  "x": 1,
+                  "y": -2
+                }
+              ],
+              "axes": true,
+              "tangent": null,
+              "shade": null
+            }
+          },
+          {
+            "id": "eeb86a27-0e1f-42e9-9f7f-51462b8d184a",
+            "type": "text",
+            "position": {
+              "x": 60,
+              "y": 650
+            },
+            "size": {
+              "w": 560,
+              "h": 85
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#536b5d",
+              "width": 2,
+              "opacity": 1
+            },
+            "zIndex": 3,
+            "locked": false,
+            "visible": true,
+            "layer": "annotation",
+            "data": {
+              "text": "f′(x) = 3x² − 3 = 0  ⇔  x = ±1\nCực đại: (−1; 2) · Cực tiểu: (1; −2)",
+              "math": true,
+              "fontSize": 19,
+              "baseWidth": 560
+            }
+          },
+          {
+            "id": "5826bddb-5b46-4efc-8617-b646287deb9d",
+            "type": "text",
+            "position": {
+              "x": 685,
+              "y": 160
+            },
+            "size": {
+              "w": 450,
+              "h": 40
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#7b9383",
+              "width": 2,
+              "opacity": 1
+            },
+            "zIndex": 4,
+            "locked": false,
+            "visible": true,
+            "layer": "annotation",
+            "data": {
+              "text": "02   CHÓP S.ABCD · SA ⊥ ĐÁY",
+              "math": true,
+              "fontSize": 15,
+              "baseWidth": 450
+            }
+          },
+          {
+            "id": "08969214-1c5a-4e59-b6da-00d9a71e3c93",
+            "type": "text",
+            "position": {
+              "x": 685,
+              "y": 205
+            },
+            "size": {
+              "w": 400,
+              "h": 45
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#2b5d46",
+              "width": 2,
+              "opacity": 1
+            },
+            "zIndex": 5,
+            "locked": false,
+            "visible": true,
+            "layer": "annotation",
+            "data": {
+              "text": "AB = 4; SA = 6",
+              "math": true,
+              "fontSize": 25,
+              "baseWidth": 400
+            }
+          },
+          {
+            "id": "730b372c-b6d8-42d5-8c74-a8a9b04e84fc",
+            "type": "solid",
+            "position": {
+              "x": 670,
+              "y": 275
+            },
+            "size": {
+              "w": 470,
+              "h": 340
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#426b54",
+              "width": 1.8,
+              "opacity": 1
+            },
+            "zIndex": 6,
+            "locked": false,
+            "visible": true,
+            "layer": "geometry",
+            "data": {
+              "kind": "right-pyramid",
+              "params": {
+                "a": 4,
+                "b": 3,
+                "h": 6
+              },
+              "rotation": [
+                -0.32,
+                -0.7
+              ],
+              "live": true,
+              "faces": true,
+              "edges": true,
+              "hiddenEdges": true,
+              "labels": true,
+              "faceColor": "#438b73",
+              "faceOpacity": 0.11,
+              "aux": [
+                {
+                  "type": "height"
+                },
+                {
+                  "type": "midpoint",
+                  "a": 1,
+                  "b": 2,
+                  "label": "M"
+                }
+              ]
+            }
+          },
+          {
+            "id": "50fdb509-c48e-4ff4-ab7e-77b1396750ad",
+            "type": "text",
+            "position": {
+              "x": 685,
+              "y": 650
+            },
+            "size": {
+              "w": 430,
+              "h": 85
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#536b5d",
+              "width": 2,
+              "opacity": 1
+            },
+            "zIndex": 7,
+            "locked": false,
+            "visible": true,
+            "layer": "annotation",
+            "data": {
+              "text": "V = ⅓ · Sđáy · h\n   = ⅓ · 4² · 6 = 32 đv³",
+              "math": true,
+              "fontSize": 21,
+              "baseWidth": 430
+            }
+          },
+          {
+            "id": "92bf8e07-f4a9-4ace-9393-76c36f039fd8",
+            "type": "text",
+            "position": {
+              "x": 60,
+              "y": 825
+            },
+            "size": {
+              "w": 1060,
+              "h": 100
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#718b79",
+              "width": 2,
+              "opacity": 1
+            },
+            "zIndex": 8,
+            "locked": false,
+            "visible": true,
+            "layer": "annotation",
+            "data": {
+              "text": "Ghi nhớ: đạo hàm cho biết chiều biến thiên của hàm số.\nVới hình chóp, xác định đúng đường cao trước khi tính thể tích.",
+              "math": true,
+              "fontSize": 20,
+              "baseWidth": 1060
+            }
+          }
+        ],
+        "layers": [
+          {
+            "id": "image",
+            "visible": true,
+            "locked": false
+          },
+          {
+            "id": "geometry",
+            "visible": true,
+            "locked": false
+          },
+          {
+            "id": "graph",
+            "visible": true,
+            "locked": false
+          },
+          {
+            "id": "ink",
+            "visible": true,
+            "locked": false
+          },
+          {
+            "id": "annotation",
+            "visible": true,
+            "locked": false
+          }
+        ]
+      }
+    ]
+  },
+  "settings": {
+    "theme": "light",
+    "gridSize": 25,
+    "smoothing": 0.5,
+    "penSensitivity": 1,
+    "autosave": 1200,
+    "historyLimit": 60,
+    "touchInk": false,
+    "smartShape": false,
+    "animations": true
+  },
+  "assets": {}
+}
