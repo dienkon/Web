@@ -120,16 +120,14 @@
         ),
         w = img.naturalWidth * scale,
         h = img.naturalHeight * scale;
-      const cleaned = await ImageStudio.process(src);
       if (Store.book().id !== notebookId || Store.current().id !== pageId)
         throw Error("Trang đã thay đổi trong lúc xử lý ảnh. Hãy chèn lại ảnh.");
       const object = Store.add(
         Store.object(
           "image",
           {
-            src: cleaned.src,
+            src,
             originalSrc: src,
-            processing: { threshold: 195, bold: 1 },
           },
           {
             position: App.insertPosition(w, h),
@@ -141,7 +139,7 @@
       Store.state.transformMode = "move";
       Store.emit();
       App.toast(
-        "Đã chèn bản vẽ nét đen, nền trong suốt. Nhấp đúp để đổi về ảnh màu gốc.",
+        "Đã chèn ảnh gốc. Kéo để di chuyển; dùng nút góc để đổi kích thước.",
       );
       return object;
     } catch (e) {

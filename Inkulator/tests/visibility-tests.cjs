@@ -22,6 +22,56 @@ test("Standard cube view has 3 hidden edges meeting at rear vertex A", () => {
   assert.ok(v.planes[1].front);
   assert.ok(!v.planes[0].front);
 });
+test("Textbook defaults keep a base edge horizontal, heights vertical and rear D hidden", () => {
+  const v = V.create(
+    "cube",
+    { a: 4, b: 3, h: 6 },
+    G.defaultRotation("cube"),
+    400,
+    350,
+    "oblique",
+  );
+  close(v.pr.points[0][1], v.pr.points[1][1]);
+  close(v.pr.points[2][1], v.pr.points[3][1]);
+  close(v.pr.points[0][0], v.pr.points[4][0]);
+  assert.deepEqual(
+    v.edges
+      .filter((e) => e.hidden)
+      .map((e) => e.indices.join("-"))
+      .sort(),
+    ["0-3", "2-3", "3-7"],
+  );
+  for (const kind of [
+    "cube",
+    "box",
+    "pyramid",
+    "right-pyramid",
+    "tetrahedron",
+    "tri-prism",
+    "hex-prism",
+    "frustum",
+  ]) {
+    const view = V.create(
+      kind,
+      { a: 4, b: 3, h: 6 },
+      G.defaultRotation(kind),
+      400,
+      350,
+      G.defaultProjection(kind),
+    );
+    assert.ok(
+      view.edges.some((e) => {
+        const [a, b] = e.indices;
+        return (
+          Math.abs(view.model.vertices[a][2]) < 1e-7 &&
+          Math.abs(view.model.vertices[b][2]) < 1e-7 &&
+          Math.abs(e.a[1] - e.b[1]) < 1e-7
+        );
+      }),
+      kind,
+    );
+  }
+});
 test("Coordinate axes have no opaque faces and remain solid at every angle", () => {
   for (const rotation of [
     [-0.45, -0.55],
@@ -69,48 +119,50 @@ function triangleHit(origin, dir, A, B, C) {
   return G.dot(e2, q) / det > 1e-7;
 }
 test("Visibility matches independent ray/triangle intersections over many rotations", () => {
-  for (const kind of [
-    "cube",
-    "box",
-    "pyramid",
-    "right-pyramid",
-    "tetrahedron",
-    "tri-prism",
-    "hex-prism",
-    "frustum",
-  ])
-    for (let i = 0; i < 18; i++) {
-      const view = V.create(
-          kind,
-          { a: 4, b: 3, h: 6 },
-          [-1.1 + i * 0.131, -2.6 + i * 0.317],
-          400,
-          350,
-        ),
-        model = view.model;
-      for (let j = 0; j < 7; j++) {
-        const point = [-0.35 + j * 0.83, 0.27 + j * 0.41, -0.24 + j * 0.77],
-          oracle = model.faces.some((f) => {
-            for (let k = 1; k < f.length - 1; k++)
-              if (
-                triangleHit(
-                  point,
-                  view.viewDirection,
-                  model.vertices[f[0]],
-                  model.vertices[f[k]],
-                  model.vertices[f[k + 1]],
+  for (const projection of ["orthographic", "oblique"])
+    for (const kind of [
+      "cube",
+      "box",
+      "pyramid",
+      "right-pyramid",
+      "tetrahedron",
+      "tri-prism",
+      "hex-prism",
+      "frustum",
+    ])
+      for (let i = 0; i < 18; i++) {
+        const view = V.create(
+            kind,
+            { a: 4, b: 3, h: 6 },
+            [-1.1 + i * 0.131, -2.6 + i * 0.317],
+            400,
+            350,
+            projection,
+          ),
+          model = view.model;
+        for (let j = 0; j < 7; j++) {
+          const point = [-0.35 + j * 0.83, 0.27 + j * 0.41, -0.24 + j * 0.77],
+            oracle = model.faces.some((f) => {
+              for (let k = 1; k < f.length - 1; k++)
+                if (
+                  triangleHit(
+                    point,
+                    view.viewDirection,
+                    model.vertices[f[0]],
+                    model.vertices[f[k]],
+                    model.vertices[f[k + 1]],
+                  )
                 )
-              )
-                return true;
-            return false;
-          });
-        assert.equal(
-          view.hiddenAt(point),
-          oracle,
-          kind + " rotation " + i + " point " + j,
-        );
+                  return true;
+              return false;
+            });
+          assert.equal(
+            view.hiddenAt(point),
+            oracle,
+            kind + " rotation " + i + " point " + j,
+          );
+        }
       }
-    }
 });
 test("Outward face orientation is stable for every mesh, even if winding is reversed", () => {
   for (const [kind] of G.solidCatalog) {

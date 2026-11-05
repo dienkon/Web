@@ -48,16 +48,33 @@
     }
     return lo.slice(0, -1).concat(hi.slice(0, -1));
   }
-  function create(kind, params, rotation, width, height) {
+  function create(
+    kind,
+    params,
+    rotation,
+    width,
+    height,
+    projection = "orthographic",
+  ) {
     const model = G.mesh(kind, params),
       faces = outwardFaces(model.vertices, model.faces),
-      pr = G.project(model.vertices, rotation, width, height),
+      pr = G.project(
+        model.vertices,
+        rotation,
+        width,
+        height,
+        model.vertices,
+        projection,
+      ),
       extent = Math.max(1, ...model.vertices.map((p) => G.norm(p))),
       eps = extent * 1e-8,
       planes = faces.map((f) => {
         const raw = normal(pr.rotated, f),
           length = G.norm(raw),
-          n = length > eps ? G.scale(raw, 1 / length) : [0, 0, 0];
+          n =
+            length > eps
+              ? G.scale(raw, (projection === "oblique" ? -1 : 1) / length)
+              : [0, 0, 0];
         return {
           face: f,
           n,
@@ -67,17 +84,7 @@
           depth: f.reduce((s, i) => s + pr.depths[i], 0) / f.length,
         };
       });
-    const [rx, ry] = rotation,
-      cx = Math.cos(rx),
-      sx = Math.sin(rx),
-      cy = Math.cos(ry),
-      sy = Math.sin(ry);
-    const camera = (p) => {
-        const [x, y, z] = G.sub(p, pr.center),
-          xx = x * cy + y * sy,
-          yy = -x * sy + y * cy;
-        return [xx, yy * cx - z * sx, yy * sx + z * cx];
-      },
+    const camera = (p) => G.camera(G.sub(p, pr.center), rotation, projection),
       screen = (p) => {
         const v = camera(p);
         return [width / 2 + v[0] * pr.scale, height / 2 - v[2] * pr.scale];
@@ -178,11 +185,19 @@
       }
       return result;
     }
-    const viewDirection = [
-      -Math.sin(rotation[1]) * Math.cos(rotation[0]),
-      Math.cos(rotation[1]) * Math.cos(rotation[0]),
-      -Math.sin(rotation[0]),
-    ];
+    const angle = rotation[1] + 0.55;
+    const viewDirection =
+      projection === "oblique"
+        ? [
+            0.55 * Math.cos(angle) - Math.sin(angle),
+            -0.55 * Math.sin(angle) - Math.cos(angle),
+            0.35,
+          ]
+        : [
+            -Math.sin(rotation[1]) * Math.cos(rotation[0]),
+            Math.cos(rotation[1]) * Math.cos(rotation[0]),
+            -Math.sin(rotation[0]),
+          ];
     return {
       kind,
       params,
@@ -209,6 +224,7 @@
         o.data.kind,
         o.data.params,
         o.data.rotation,
+        o.data.projection,
         o.size.w,
         o.size.h,
       ]),
@@ -220,6 +236,7 @@
       o.data.rotation,
       o.size.w,
       o.size.h,
+      o.data.projection,
     );
     cache.set(o, { key, view });
     return view;

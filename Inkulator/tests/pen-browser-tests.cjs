@@ -153,6 +153,10 @@ const pass = (s) => {
         "image",
       );
       assert.equal(
+        await page.evaluate(() => Store.selected()[0].data.src),
+        fixture,
+      );
+      assert.equal(
         await page.evaluate(() => Store.state.transformMode),
         "move",
       );

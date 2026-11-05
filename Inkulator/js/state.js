@@ -359,6 +359,11 @@
       }
       if (o.type === "solid") {
         if (
+          d.projection !== undefined &&
+          !["orthographic", "oblique"].includes(d.projection)
+        )
+          throw Error("Phép chiếu không hợp lệ.");
+        if (
           !root.Geometry.solidCatalog.some(([k]) => k === d.kind) ||
           !Array.isArray(d.rotation) ||
           d.rotation.length !== 2 ||

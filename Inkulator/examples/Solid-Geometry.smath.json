@@ -58,7 +58,8 @@
               "aux": [],
               "showHeight": false,
               "showRadius": false,
-              "center": false
+              "center": false,
+              "projection": "oblique"
             }
           },
           {
@@ -130,7 +131,8 @@
               "aux": [],
               "showHeight": false,
               "showRadius": true,
-              "center": true
+              "center": true,
+              "projection": "orthographic"
             }
           },
           {
@@ -202,7 +204,8 @@
               "aux": [],
               "showHeight": true,
               "showRadius": true,
-              "center": true
+              "center": true,
+              "projection": "orthographic"
             }
           },
           {
@@ -274,7 +277,8 @@
               "aux": [],
               "showHeight": true,
               "showRadius": true,
-              "center": true
+              "center": true,
+              "projection": "oblique"
             }
           },
           {
@@ -346,7 +350,8 @@
               "aux": [],
               "showHeight": true,
               "showRadius": true,
-              "center": true
+              "center": true,
+              "projection": "orthographic"
             }
           },
           {
@@ -418,7 +423,8 @@
               "aux": [],
               "showHeight": true,
               "showRadius": true,
-              "center": true
+              "center": true,
+              "projection": "orthographic"
             }
           },
           {

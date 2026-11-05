@@ -527,6 +527,8 @@
   }
   function render() {
     if (!area) return;
+    if (root.PageFlow?.enabled()) return renderFlow();
+    root.PageFlow?.update();
     const v = state().viewport,
       w = area.clientWidth,
       h = area.clientHeight,
@@ -563,12 +565,60 @@
     ic.setTransform(1, 0, 0, 1, 0, 0);
     ic.clearRect(0, 0, ink.width, ink.height);
     viewport(ic);
+    root.PDFTiles?.beginFrame();
     objects(ic, p);
+    root.PDFTiles?.endFrame();
     root.CanvasEngine?.drawOverlay(ic);
     root.TeacherGeometry?.drawOverlay(ic);
     drawSelection(ic);
     if (state().ruler) drawRuler(ic);
     updateTitle();
+  }
+  function renderFlow() {
+    const pages = PageFlow.visible(),
+      v = state().viewport;
+    for (const [ctx, c] of [
+      [pc, paper],
+      [ic, ink],
+    ]) {
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, c.width, c.height);
+    }
+    pc.fillStyle = "#e9eeeb";
+    pc.fillRect(0, 0, paper.width, paper.height);
+    root.PDFTiles?.beginFrame();
+    for (const item of pages) {
+      viewport(pc);
+      pc.save();
+      pc.translate(item.x, item.y);
+      drawPaper(pc, item.page, {
+        x: 0,
+        y: 0,
+        w: item.page.width,
+        h: item.page.height,
+      });
+      pc.strokeStyle = "#cbd5cf";
+      pc.lineWidth = 1 / v.zoom;
+      pc.strokeRect(0, 0, item.page.width, item.page.height);
+      pc.restore();
+      viewport(ic);
+      ic.save();
+      ic.translate(item.x, item.y);
+      ic.beginPath();
+      ic.rect(0, 0, item.page.width, item.page.height);
+      ic.clip();
+      objects(ic, item.page);
+      ic.restore();
+    }
+    root.PDFTiles?.endFrame();
+    viewport(ic);
+    root.CanvasEngine?.drawOverlay(ic);
+    root.TeacherGeometry?.drawOverlay(ic);
+    drawSelection(ic);
+    if (state().ruler) drawRuler(ic);
+    lastPaperKey = "";
+    updateTitle();
+    PageFlow.update();
   }
   function drawRuler(ctx) {
     ctx.save();

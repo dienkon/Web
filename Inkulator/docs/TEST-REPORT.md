@@ -11,16 +11,31 @@
 
 | Bộ kiểm thử                         | Kết quả                                                                          |
 | ----------------------------------- | -------------------------------------------------------------------------------- |
-| `npm test`                          | **42/42** nhóm đạt: 21 toán/dữ liệu, 10 dựng hình và 11 xét nét khuất            |
+| `npm test`                          | **43/43** nhóm đạt: 21 toán/dữ liệu, 10 dựng hình và 12 xét nét khuất/phép chiếu |
 | `npm run test:browser`              | **34/34** kiểm tra đạt, 17 trên Chrome và 17 trên Edge                           |
 | `npm run test:advanced`             | **14/14** nhóm kiểm tra đạt trên Chrome                                          |
-| `npm run test:studio`               | **32/32** kiểm tra bản 1.1, 16 trên Chrome và 16 trên Edge                       |
+| `npm run test:studio`               | **32/32** kiểm tra công thức/hình học/ảnh/PDF, 16 trên Chrome và 16 trên Edge                       |
 | `npm run test:pen`                  | **34/34** kiểm tra bút/clipboard/3D, 17 trên Chrome và 17 trên Edge              |
+| `npm run test:pdf`                  | **24/24** kiểm tra PDF cuộn liên tục, 12 trên Chrome và 12 trên Edge; DPR 2      |
 | `node --check` tất cả tệp `js/*.js` | Không có lỗi cú pháp                                                             |
 | Các luồng browser ở trên            | **0 lỗi JavaScript, 0 request HTTP/HTTPS**                                       |
 | `node tests/package-smoke.cjs`      | Mở bản đóng gói offline trên Chrome/Edge; lưu tệp thủ công khi chặn localStorage |
 
 Đây là số nhóm kiểm thử của các script, không phải lời xác nhận hoàn thành toàn bộ đặc tả mở rộng.
+
+### Cập nhật 1.3 · ảnh gốc, bỏ thanh thừa, phép chiếu và PDF liên tục
+
+- Ảnh dán có `src` trùng dữ liệu PNG nguồn; giữ pixel trắng RGBA=(255,255,255,255) và nét xám (119,119,119,255). Xử lý đen/trong suốt chỉ chạy khi nhấn Áp dụng; Khôi phục trả lại nguồn gốc.
+- Vùng giấy bắt đầu tại y=79, không có DOM titlebar/footer hoặc nút chế độ tập trung. F8 không đổi bố cục. Trạng thái lưu còn dưới tên sổ tay và số trang nằm trong cụm điều hướng.
+- Hình hộp mới có AB/CD nằm ngang, cạnh đứng thẳng, ba cạnh khuất gặp tại D theo góc kiểu sách giáo khoa. Kiểm tra một cạnh đáy ngang cho 8 mẫu đa diện. Pháp tuyến/ray che khuất được đối chiếu bằng giao tia–tam giác độc lập cho cả phép chiếu trực giao và xiên.
+- PDF 34 trang được nhập trong một lần, chỉ lưu một ảnh xem trước. Trang xa chưa có tile. Cuộn bằng sự kiện bánh xe thật đổi trang đang đọc, có nội dung cả hai phía của ranh giới trang.
+- Dùng sự kiện bút tin cậy chạm trang kế bên đang hiển thị: nét chỉ nằm ở trang đó. Nét vẫn đúng sau điều hướng trước/sau và reload offline.
+- Tại zoom 400%, DPR 2, kiểm tra tile ở tỷ lệ 16 pixel/đơn vị PDF, vượt giới hạn toàn trang 4096 px cũ. So pixel vùng màu nguồn với vị trí màn hình được tính độc lập qua PDF viewport; lặp với trang xoay 90° ở tỷ lệ 12.
+- Thanh cuộn tài liệu tới trang cuối tải được trang 34. Bộ nhớ tile trong các lượt kiểm tra không vượt 24×1024² pixel. Hệ thống bỏ việc dựng vùng đã rời màn hình và ưu tiên giữ vùng còn nhìn thấy; màn hình cực lớn có thể cần cache hiển thị lớn hơn mục tiêu này.
+- Chuyển trang/zoom nhanh 50 lần: tối đa hai tác vụ dựng tile đồng thời, có hủy tác vụ cũ và khôi phục đúng pixel vùng đang xem. PDF scan 5500×5500 pixel (30,25 megapixel) vẫn render được; không bị bỏ hình bởi giới hạn 30 megapixel cũ.
+- Toàn bộ luồng trên chạy trong file://, context offline, không lỗi JavaScript, không request HTTP/HTTPS hoặc tài nguyên cục bộ thất bại. Các bộ kiểm thử đồ thị, công thức, xuất PDF và thao tác bút trước đây tiếp tục đạt.
+
+Ảnh giao diện hiện tại: [solid-workspace.png](solid-workspace.png), [pdf-continuous.png](pdf-continuous.png).
 
 ### Cập nhật 1.2 · clipboard, bút và nét khuất
 
@@ -38,7 +53,7 @@
 
 ### Cập nhật 1.1 · hình học, PDF, công thức và header
 
-- Đo chiều cao vùng header **104 px**; F8 giảm còn 40 px và trở lại được.
+- Bản hiện tại có hai hàng công cụ tổng **79 px**, bỏ titlebar/footer và F8.
 - Hình học mới có nét đen #111111, rộng 2.6 px, opacity nét 1; nền mặt trong suốt và khối 3D mặc định tĩnh.
 - Nhấp chuột gần đỉnh để bắt điểm, dựng trung điểm rồi nối tới trung điểm đó. Điểm phụ thay đổi đúng khi sửa tọa độ và Undo giữ phép dựng.
 - Kiểm tra hình chiếu đường vuông góc trong không gian, đường song song, góc 90°, khoảng cách đường chéo lập phương, đường tròn qua ba điểm.
@@ -49,7 +64,7 @@
 - PDF gốc chỉ nằm một lần trong assets; nét bút và công thức là đối tượng riêng. JSON roundtrip và reload offline giữ PDF gốc, hình/công thức, trang và ID.
 - Xuất sổ tay 3 trang ra PDF; dùng PDF.js trích xuất lại được chữ **OFFLINE MATH LESSON 1** từ trang nguồn đã ghép chú thích. Như vậy nguồn không bị biến hoàn toàn thành ảnh. Đã render và xem trang xoay sau xuất để đối chiếu hướng.
 - Trích xuất lớp văn bản PDF; từ chối tệp giả PDF, dải trang sai và đối tượng PDF thiếu nguồn mà không thay đổi nội dung hiện tại.
-- Ảnh bản vẽ mặc định có pixel nền alpha=0, pixel nét RGBA=(17,17,17,255); giữ ảnh gốc và khôi phục màu được.
+- Ảnh mặc định giữ pixel gốc. Khi chọn xử lý bản vẽ, nền có alpha=0 và nét RGBA=(17,17,17,255); giữ ảnh gốc và khôi phục màu được.
 - Các luồng trên chạy trong `file://`, browser context offline: **không lỗi JavaScript, không request HTTP/HTTPS, không tài nguyên cục bộ tải thất bại**.
 
 Ảnh xem trực tiếp: [teacher-workspace.png](teacher-workspace.png), [pdf-workspace.png](pdf-workspace.png).
@@ -125,6 +140,7 @@ npm run test:browser
 npm run test:advanced
 npm run test:studio
 npm run test:pen
+npm run test:pdf
 ```
 
 Các script browser cần Chrome/Edge đã được cài đặt. Không cần chạy máy chủ. Ảnh và tệp kiểm chứng nằm trong `test-results/` sau khi chạy; không đóng gói chúng như nội dung học của người dùng.

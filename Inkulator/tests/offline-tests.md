@@ -9,7 +9,7 @@
 7. Tính `1/2+1/3`, `sin(30)` trong DEG và `sin(pi/6)` trong RAD; chèn kết quả vào trang.
 8. Ctrl+S tải bản sao, đóng trình duyệt, mở lại index.html. Mở tệp .smath.json và kiểm tra sửa tiếp được đồ thị/hình học.
 9. Thêm trang, xuất PDF A4/A3, mở PDF bằng trình đọc cục bộ; kiểm tra nội dung trong viền không bị cắt, đúng số trang.
-10. Mở DevTools → Network trước khi thao tác. Không có request HTTP/HTTPS; không có tệp tài nguyên cục bộ bị thiếu. Nếu lưu tự động bị chặn, thanh trạng thái phải báo cần lưu thủ công và Ctrl+S vẫn tải được tệp.
+10. Mở DevTools → Network trước khi thao tác. Không có request HTTP/HTTPS; không có tệp tài nguyên cục bộ bị thiếu. Nếu lưu tự động bị chặn, dòng dưới tên sổ tay phải báo cần lưu thủ công và Ctrl+S vẫn tải được tệp.
 
 Danh sách này là hướng dẫn nghiệm thu thủ công, **không phải khẳng định đã kiểm thử phần cứng thật**. Xem docs/TEST-REPORT.md để biết kiểm tra tự động thực sự đã chạy.
 
@@ -19,5 +19,5 @@ Danh sách này là hướng dẫn nghiệm thu thủ công, **không phải kh�
 - Chọn tam giác → Trung điểm → nhấp B/C, rồi Nối điểm → nhấp A/M. Kéo B và kiểm tra M, AM cập nhật. Thử Undo/Redo.
 - Chèn lập phương: hình mặc định tĩnh, đen đậm, mặt trong suốt. Chọn Xoay 3D khi cần. Dựng 3 trung điểm cạnh qua A, chọn Thiết diện rồi nhấp các trung điểm; đổi a và kiểm tra diện tích.
 - Nhập `f(x)=sqrt(x^2+1)/(x-2)` vào Công thức, kiểm tra căn/phân số và sửa bằng nhấp đúp. Công thức viết tay chưa được tự OCR.
-- Chèn ảnh bản vẽ nền trắng: kiểm tra nét đen và nền trong suốt. Nhấp đúp → Khôi phục ảnh màu gốc để dùng với ảnh chụp.
-- F8 bật/tắt không gian tập trung. Khi cửa sổ 1366×768, thanh đầu thông thường chỉ cao 104 px.
+- Dán ảnh có màu bằng Ctrl+V / Dán ảnh: kiểm tra giữ nguyên màu, nền và độ nét. Nhấp đúp → Áp dụng nét đen / nền trong suốt khi cần; sau đó Khôi phục ảnh màu gốc.
+- Không còn thanh tiêu đề F8 hoặc footer. Thanh công cụ cao 79 px. Hình hộp/chóp mới có cạnh đáy nằm ngang. Cuộn qua nhiều trang PDF, zoom lớn, thử viết lên trang thứ hai khi cả hai trang cùng hiện.

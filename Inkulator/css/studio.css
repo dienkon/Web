@@ -1,9 +1,9 @@
 /* Compact desktop chrome and tools designed for the classroom. */
 :root {
-  --title-height: 25px;
+  --title-height: 0px;
   --toolbar-height: 45px;
   --tabs-height: 34px;
-  --status-height: 26px;
+  --status-height: 0px;
 }
 .titlebar {
   height: var(--title-height);
@@ -247,15 +247,6 @@
 #pdf-text-result textarea {
   margin-top: 18px;
   font-size: 12px;
-}
-body.focus-mode {
-  --title-height: 0px;
-  --tabs-height: 0px;
-  --toolbar-height: 40px;
-}
-body.focus-mode .titlebar,
-body.focus-mode .workspace-tabs {
-  display: none;
 }
 body.dark .teacher-card,
 body.dark .formula-preview {

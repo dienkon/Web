@@ -29,6 +29,7 @@
       o.size.w,
       o.size.h,
       model.vertices,
+      o.data.projection,
     ).points;
   }
   function points(o) {
@@ -77,6 +78,10 @@
   }
   function setMode(mode, o = target()) {
     if (!o || o.locked) return App.toast("Chọn một hình học chưa khóa.");
+    if (mode === "orbit" && o.data.projection === "oblique")
+      Store.transaction(() => {
+        o.data.projection = "orthographic";
+      });
     if (o.type === "solid" && mode === "circumcircle") return;
     if (o.type === "geometry" && ["section", "orbit"].includes(mode)) return;
     if (
@@ -663,14 +668,17 @@
     box.querySelectorAll("[data-camera]").forEach(
       (b) =>
         (b.onclick = () =>
-          Store.transaction(
-            () =>
-              (o.data.rotation = {
-                standard: [-0.45, -0.55],
-                front: [0, 0],
-                top: [-Math.PI / 2, 0],
-              }[b.dataset.camera]),
-          )),
+          Store.transaction(() => {
+            o.data.projection =
+              b.dataset.camera === "standard"
+                ? Geometry.defaultProjection(o.data.kind)
+                : "orthographic";
+            o.data.rotation = {
+              standard: Geometry.defaultRotation(o.data.kind),
+              front: [0, 0],
+              top: [-Math.PI / 2, 0],
+            }[b.dataset.camera];
+          })),
     );
     box
       .querySelector("#geo-section-fill")

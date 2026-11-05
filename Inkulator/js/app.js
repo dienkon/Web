@@ -46,7 +46,8 @@
   };
   let toastTimer = 0,
     pagesVisible = true,
-    refreshTimer = 0;
+    refreshTimer = 0,
+    thumbObserver;
   const escape = (s) =>
     String(s).replace(
       /[&<>"']/g,
@@ -136,6 +137,7 @@
     document.getElementById("width-button").onclick = (e) =>
       widthPopover(e.currentTarget);
     Renderer.init();
+    PageFlow.init();
     CanvasEngine.init();
     TeacherGeometry.init();
     ClipboardStudio.init();
@@ -228,7 +230,8 @@
     document
       .querySelectorAll('[data-action="redo"]')
       .forEach((b) => (b.disabled = !s.future.length));
-    document.getElementById("tool-status").textContent =
+    document.getElementById("ink-canvas").setAttribute(
+      "aria-label",
       s.tool === "pen"
         ? {
             ballpoint: "Bút bi",
@@ -236,17 +239,16 @@
             pencil: "Bút chì",
             marker: "Bút lông",
           }[s.pen] || "Bút"
-        : tools[s.tool];
-    document.getElementById("pen-status").textContent =
-      s.width + " px · " + Math.round(s.opacity * 100) + "%";
+        : tools[s.tool],
+    );
     document.getElementById("width-label").textContent = s.width;
     document.getElementById("width-dot").style.background = s.color;
     document.getElementById("width-dot").style.width =
       Math.min(12, s.width + 2) + "px";
     document.getElementById("width-dot").style.height =
       Math.min(12, s.width + 2) + "px";
-    document.getElementById("page-status").textContent =
-      "Trang " + (s.pageIndex + 1) + " / " + Store.book().pages.length;
+    document.getElementById("page-counter").textContent =
+      s.pageIndex + 1 + " / " + Store.book().pages.length;
     updateSaveState();
     updateZoom();
     selectionUI();
@@ -263,9 +265,6 @@
       : s.dirty
         ? "Đang chờ lưu…"
         : "Đã lưu trên thiết bị";
-    document.getElementById("storage-status").textContent = s.storageAvailable
-      ? "● Dữ liệu chỉ ở thiết bị này"
-      : "⚠ Ctrl+S để lưu tệp";
   }
   function updateZoom() {
     document.getElementById("zoom-button").textContent =
@@ -273,6 +272,28 @@
   }
   function renderPages() {
     const list = document.getElementById("page-list");
+    thumbObserver?.disconnect();
+    thumbObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries)
+          if (entry.isIntersecting) {
+            const c = entry.target,
+              p = c.notebookPage;
+            thumbObserver.unobserve(c);
+            Renderer.thumbnail(c, p);
+            const pdfs = p.objects.filter((o) => o.type === "pdf");
+            const ready = pdfs.length
+              ? Promise.all(pdfs.map((o) => PDFStudio.prepare(o, 500)))
+              : Renderer.awaitImages(p);
+            ready
+              .then(() => {
+                if (c.isConnected) Renderer.thumbnail(c, p);
+              })
+              .catch(() => {});
+          }
+      },
+      { root: document.getElementById("page-list") },
+    );
     list.replaceChildren();
     Store.book().pages.forEach((p, i) => {
       const b = document.createElement("div");
@@ -287,7 +308,9 @@
       const c = document.createElement("canvas");
       c.className = "page-thumb";
       b.append(c);
-      Renderer.thumbnail(c, p);
+      c.width = c.height = 1;
+      c.notebookPage = p;
+      thumbObserver.observe(c);
       const label = document.createElement("div");
       label.className = "page-card-label";
       const title = document.createElement("span");
@@ -456,7 +479,7 @@
         ["image", "Chèn ảnh", ""],
         ["import-pdf", "Chèn PDF từ máy", ""],
         ["formula", "Soạn công thức đẹp", ""],
-        ["focus", "Không gian tập trung", "F8"],
+        ["fullscreen", "Toàn màn hình", ""],
         ["copy", "Sao chép đối tượng", "Ctrl+C"],
         ["paste", "Dán ảnh / văn bản / đối tượng", "Ctrl+V"],
         ["paste-image", "Dán ảnh từ bộ nhớ đệm", ""],
@@ -1180,10 +1203,11 @@
         if (o) return Formulas.textEditor(o, null, true);
         return;
       }
-      case "focus":
-        document.body.classList.toggle("focus-mode");
-        Renderer.resize();
-        return;
+      case "previous-page":
+      case "next-page":
+        return PageFlow.go(
+          Store.state.pageIndex + (action === "next-page" ? 1 : -1),
+        );
       case "export-png":
         return Exporter.png();
       case "export-svg":
@@ -1309,10 +1333,6 @@
         closePopover();
         Store.emit();
       }
-    }
-    if (e.key === "F8") {
-      e.preventDefault();
-      dispatch("focus", {});
     }
     if (action) {
       e.preventDefault();

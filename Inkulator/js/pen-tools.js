@@ -109,7 +109,7 @@
           (s.aspectLocked ? "checked" : "") +
           '><span>Giữ tỷ lệ khi đổi kích thước</span></label><label class="field-row"><input id="pen-snap" type="checkbox" ' +
           (s.geometrySnap ? "checked" : "") +
-          '><span>Bắt tọa độ đỉnh 0.5 / góc 15°</span></label><button class="menu-item" data-action="transform-selection">Vị trí, kích thước & xoay…</button><button class="menu-item" data-action="pen-keyboard">Bàn phím Toán / tiếng Việt</button><button class="menu-item" data-action="image">Chọn ảnh từ máy…</button><button class="menu-item" data-action="focus">Bật/tắt không gian tập trung</button>',
+          '><span>Bắt tọa độ đỉnh 0.5 / góc 15°</span></label><button class="menu-item" data-action="transform-selection">Vị trí, kích thước & xoay…</button><button class="menu-item" data-action="pen-keyboard">Bàn phím Toán / tiếng Việt</button><button class="menu-item" data-action="image">Chọn ảnh từ máy…</button>',
       );
     for (const [id, key] of [
       ["pen-multiselect", "multiSelect"],

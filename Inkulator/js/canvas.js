@@ -39,6 +39,7 @@
     });
     canvas.addEventListener("drop", (e) => {
       e.preventDefault();
+      root.PageFlow?.activateAt(e.clientX, e.clientY);
       if (e.dataTransfer.files.length) {
         const file = e.dataTransfer.files[0];
         if (file.type === "application/pdf" || /\.pdf$/i.test(file.name))
@@ -149,6 +150,7 @@
       return;
     }
     if (e.pointerType === "pen") penActive = true;
+    if (!gesture) root.PageFlow?.activateAt(e.clientX, e.clientY);
     const p = Renderer.clientPoint(e);
     let mode = S().tool;
     if (
@@ -317,8 +319,6 @@
     }
     const p = Renderer.clientPoint(e);
     root.TeacherGeometry?.hover(p);
-    document.getElementById("cursor-status").textContent =
-      Math.round(p.x) + ", " + Math.round(p.y);
     if (!gesture || gesture.pointerId !== e.pointerId) return;
     const g = gesture;
     g.last = p;
@@ -516,6 +516,7 @@
     if (pinch) {
       if (pointers.size < 2) pinch = null;
       gesture = null;
+      root.PageFlow?.settle();
       return;
     }
     if (!gesture || gesture.pointerId !== e.pointerId) return;
@@ -570,6 +571,7 @@
       );
     }
     Store.commit(g.before);
+    if (g.mode === "pan") root.PageFlow?.settle();
     cursor();
     if (
       ["vertex", "rotate3d", "resize", "move"].includes(g.mode) &&
@@ -838,6 +840,7 @@
     } else {
       v.x -= e.deltaX;
       v.y -= e.deltaY;
+      root.PageFlow?.settle();
       Renderer.request();
     }
   }
@@ -852,6 +855,7 @@
     v.zoom = Math.max(0.2, Math.min(4, z));
     v.x = x - wx * v.zoom;
     v.y = y - wy * v.zoom;
+    root.PageFlow?.settle();
     Renderer.request();
     App.updateZoom();
   }
@@ -942,6 +946,9 @@
           : "crosshair";
   }
   root.CanvasEngine = {
+    get interacting() {
+      return !!gesture || !!pinch;
+    },
     get penActive() {
       return penActive;
     },

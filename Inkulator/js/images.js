@@ -48,7 +48,7 @@
   function panel(o) {
     const el = document.getElementById("panel-content");
     el.innerHTML =
-      '<p class="hint">Mặc định bản vẽ được chuyển thành nét đen đậm, nền trắng thành trong suốt. Có thể khôi phục màu gốc với ảnh chụp.</p><div class="image-comparison"><figure><img id="image-original" alt="Ảnh gốc"><figcaption>Ảnh gốc</figcaption></figure><figure><img id="image-processed" alt="Ảnh hiện tại"><figcaption>Trên trang</figcaption></figure></div><label class="field"><span>Ngưỡng tách nét</span><input type="range" id="image-threshold" min="100" max="230" value="' +
+      '<p class="hint">Ảnh chèn giữ nguyên màu, nền và độ phân giải gốc. Chỉ áp dụng nét đen / nền trong suốt khi bạn muốn xử lý bản vẽ.</p><div class="image-comparison"><figure><img id="image-original" alt="Ảnh gốc"><figcaption>Ảnh gốc</figcaption></figure><figure><img id="image-processed" alt="Ảnh hiện tại"><figcaption>Trên trang</figcaption></figure></div><label class="field"><span>Ngưỡng tách nét</span><input type="range" id="image-threshold" min="100" max="230" value="' +
       (o.data.processing?.threshold || 195) +
       '"></label><label class="field"><span>Làm đậm nét</span><select id="image-bold"><option value="0">Giữ độ dày</option><option value="1" selected>Đậm vừa · 1 px</option><option value="2">Đậm rõ · 2 px</option></select></label><button class="primary full" id="image-clean">Áp dụng nét đen / nền trong suốt</button><button class="secondary full" id="image-restore">Khôi phục ảnh màu gốc</button>';
     document.getElementById("image-original").src =

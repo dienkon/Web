@@ -65,7 +65,8 @@
         ? {
             kind,
             params: { a: 4, b: 3, h: 6 },
-            rotation: [-0.45, -0.55],
+            rotation: Geometry.defaultRotation(kind),
+            projection: Geometry.defaultProjection(kind),
             live: false,
             faces: false,
             edges: true,
@@ -277,14 +278,20 @@
       const reset = document.createElement("button");
       reset.textContent = "Góc nhìn gốc";
       reset.onclick = () =>
-        Store.transaction(() => (d.rotation = [-0.45, -0.55]));
+        Store.transaction(() => {
+          d.rotation = Geometry.defaultRotation(d.kind);
+          d.projection = Geometry.defaultProjection(d.kind);
+        });
       toggles.append(reset);
       const staticButton = document.createElement("button");
       staticButton.textContent = d.live
         ? "Chuyển hình chiếu tĩnh"
         : "Bật Live 3D";
       staticButton.onclick = () => {
-        Store.transaction(() => (d.live = !d.live));
+        Store.transaction(() => {
+          d.live = !d.live;
+          if (d.live) d.projection = "orthographic";
+        });
         geometry("solid");
       };
       toggles.append(staticButton);

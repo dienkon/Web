@@ -15,25 +15,6 @@
     <link rel="stylesheet" href="css/pen.css" />
   </head>
   <body>
-    <header class="titlebar">
-      <div class="brand">
-        <span class="brand-icon">∿</span> SCRBLE <b>MATH STUDIO</b
-        ><span class="offline"><i></i> NGOẠI TUYẾN</span>
-      </div>
-      <div class="title-actions">
-        <button data-action="focus" title="Không gian tập trung (F8)">
-          Tập trung <kbd>F8</kbd>
-        </button>
-        <button data-action="help">Hướng dẫn <kbd>?</kbd></button
-        ><button
-          data-action="fullscreen"
-          aria-label="Toàn màn hình"
-          title="Toàn màn hình"
-        >
-          ⛶
-        </button>
-      </div>
-    </header>
     <div class="toolbar" id="toolbar">
       <div class="toolbar-group" id="file-tools"></div>
       <div class="document-meta">
@@ -119,9 +100,20 @@
           aria-label="Thanh thao tác bút"
         ></div>
         <div id="canvas-context" hidden></div>
+        <div
+          id="document-scroll"
+          hidden
+          aria-label="Cuộn các trang tài liệu"
+          tabindex="0"
+        >
+          <div></div>
+        </div>
         <div class="canvas-navigation">
-          <button data-action="fit" title="Vừa trang">⌖</button><span></span
-          ><button data-action="zoom-out" title="Thu nhỏ">−</button
+          <button data-action="previous-page" title="Trang trước">‹</button
+          ><span id="page-counter" aria-live="polite">1 / 1</span
+          ><button data-action="next-page" title="Trang sau">›</button
+          ><span></span> <button data-action="fit" title="Vừa trang">⌖</button
+          ><span></span><button data-action="zoom-out" title="Thu nhỏ">−</button
           ><button id="zoom-button" data-action="reset-zoom">100%</button
           ><button data-action="zoom-in" title="Phóng to">+</button>
         </div>
@@ -137,14 +129,6 @@
         <div id="panel-content"></div>
       </aside>
     </main>
-    <footer class="statusbar">
-      <span id="tool-status">Bút bi</span><span class="status-divider"></span
-      ><span id="pen-status">2.5 px</span><span id="cursor-status"></span>
-      <div class="tab-spacer"></div>
-      <span id="page-status">Trang 1 / 1</span
-      ><span class="status-divider"></span
-      ><span id="storage-status"><i></i> Dữ liệu chỉ ở thiết bị này</span>
-    </footer>
     <div id="toast" role="status" aria-live="polite"></div>
     <div id="popover" class="popover" hidden></div>
     <div id="calculator" class="calculator" hidden></div>
@@ -190,9 +174,11 @@
     <script src="js/solid-drawing.js"></script>
     <script src="js/constructions.js"></script>
     <script src="js/state.js"></script>
+    <script src="js/page-flow.js"></script>
     <script src="js/renderer.js"></script>
     <script src="js/formulas.js"></script>
     <script src="js/pdf.js"></script>
+    <script src="js/pdf-tiles.js"></script>
     <script src="js/images.js"></script>
     <script src="js/graph.js"></script>
     <script src="js/calculator.js"></script>

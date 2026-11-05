@@ -64,16 +64,20 @@ const pass = (s) => {
       await page.waitForFunction(() => window.Scrble);
       assert.equal(
         await page.evaluate(() => Renderer.area.getBoundingClientRect().top),
-        104,
+        79,
       );
       await page.keyboard.press("F8");
-      assert.ok(
-        (await page.evaluate(
-          () => Renderer.area.getBoundingClientRect().top,
-        )) <= 40,
+      assert.equal(
+        await page.evaluate(() => Renderer.area.getBoundingClientRect().top),
+        79,
       );
-      await page.keyboard.press("F8");
-      pass(channel + ": compact header and reversible focus mode");
+      assert.equal(
+        await page
+          .locator('.titlebar,.statusbar,[data-action="focus"]')
+          .count(),
+        0,
+      );
+      pass(channel + ": compact workspace without titlebar, footer or F8 mode");
       await page.locator('.workspace-tabs [data-panel="geometry"]').click();
       await page
         .getByRole("button", { name: "Tam giác ABC", exact: true })
@@ -430,8 +434,8 @@ const pass = (s) => {
           hasOriginal: !!o.data.originalSrc,
         };
       });
-      assert.equal(cleaned.background[3], 0);
-      assert.deepEqual(cleaned.line, [17, 17, 17, 255]);
+      assert.deepEqual(cleaned.background, [255, 255, 255, 255]);
+      assert.deepEqual(cleaned.line, [119, 119, 119, 255]);
       assert.ok(cleaned.hasOriginal);
       assert.equal(cleaned.opacity, 1);
       const corner = await page.evaluate(() => {
@@ -455,6 +459,12 @@ const pass = (s) => {
         }),
       );
       await page.evaluate(() => App.editObject(Store.selected()[0]));
+      await page.locator("#image-clean").click();
+      await page.waitForFunction(() => !!Store.selected()[0].data.processing);
+      assert.notEqual(
+        await page.evaluate(() => Store.selected()[0].data.src),
+        src,
+      );
       await page.locator("#image-restore").click();
       assert.ok(
         await page.evaluate(
@@ -466,7 +476,7 @@ const pass = (s) => {
       await page.locator('[data-action="close-panel"]').click();
       pass(
         channel +
-          ": image diagrams default to bold black on transparent background, original colors recoverable",
+          ": images retain original pixels by default; black/transparent processing remains optional",
       );
       const counts = await page.evaluate(() => ({
         pages: Store.book().pages.length,

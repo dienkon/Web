@@ -1,4 +1,4 @@
-# SCRBLE MATH STUDIO · 1.2
+# SCRBLE MATH STUDIO · 1.3
 
 Sổ tay Toán học ngoại tuyến cho Windows, lấy cảm hứng bố cục từ ảnh Scrble Ink được cung cấp. Giao diện và tài sản tự thiết kế; không phải sản phẩm của Scrble, GeoGebra hay Casio.
 
@@ -12,13 +12,21 @@ Sổ tay Toán học ngoại tuyến cho Windows, lấy cảm hứng bố cục 
 
 Tất cả script, CSS, icon và thư viện nằm trong thư mục sản phẩm. Bản chạy dùng script cổ điển, không cần ES module từ file://, CDN, service worker hoặc tải font mạng. PDF.js được bundle cùng phần xử lý worker để chạy trên luồng chính, nhận font/CMap/decoder từ dữ liệu nhúng; không tạo worker từ đường dẫn file://. Công thức dùng SVG glyph có sẵn, không tải font ngoài.
 
-## Điểm mới 1.2 · dùng bằng một cây bút
+## Điểm mới 1.3 · ảnh gốc, góc nhìn chuẩn và đọc PDF liên tục
 
-- **Ctrl+V / Dán ảnh:** dán ảnh chụp từ clipboard Windows bằng Ctrl+V hoặc nút **Dán ảnh** trên header/thanh bút. Ảnh được chọn sẵn, chuyển về chế độ di chuyển, giữ bản gốc và mặc định xử lý nét đen đậm trên nền trong.
+- **Ảnh gốc mặc định:** Ctrl+V, Dán ảnh và Chọn ảnh đều giữ nguyên dữ liệu màu, nền, alpha và độ phân giải của tệp. Đổi kích thước trên trang không làm mất bản gốc. Nhấp đúp ảnh nếu muốn chủ động áp dụng nét đen / nền trong suốt.
+- **Bỏ thanh tiêu đề và footer:** phần công cụ còn 79 px; bỏ chế độ F8. Trạng thái lưu nằm dưới tên sổ tay, số trang và nút trước/sau nằm trong cụm điều hướng nhỏ trên vùng giấy. Hướng dẫn và toàn màn hình nằm trong menu.
+- **Góc hình học kiểu sách giáo khoa:** hình hộp, lập phương, chóp và lăng trụ chèn mới có cạnh đáy nằm ngang, cạnh đứng thẳng và chiều sâu xiên. Nét khuất xét theo đúng phép chiếu. Chọn **Xoay 3D** để chuyển sang góc nhìn xoay tự do; **Góc nhìn gốc / Góc chuẩn** trở về kiểu sách giáo khoa. Dữ liệu tọa độ và số đo vẫn giữ nguyên.
+- **Cuộn PDF nối tiếp:** dùng bánh xe, công cụ **Kéo trang**, thanh cuộn bên phải hoặc nút trang trước/sau. Hai trang ở ranh giới có thể cùng hiện; chạm viết lên trang nào thì nét được lưu vào trang đó.
+- **Độ nét PDF theo vùng đang xem:** lấy chi tiết từ PDF gốc theo zoom và mật độ điểm ảnh màn hình. Chỉ dựng những vùng đang nhìn, có bộ nhớ đệm và hủy phần tải đã rời màn hình. PDF ảnh quét vẫn phụ thuộc độ nét nguồn. Tài liệu tối đa 40 MB; nhập dải trang trong giới hạn 300 trang của sổ tay, không còn giới hạn 30 trang/lần.
+
+## Các tiện ích bút từ 1.2
+
+- **Ctrl+V / Dán ảnh:** dán ảnh chụp từ clipboard Windows bằng Ctrl+V hoặc nút **Dán ảnh** trên thanh công cụ/thanh bút. Ảnh giữ nguyên bản gốc, được chọn sẵn và chuyển về chế độ di chuyển.
 - **Kéo, đổi kích thước:** bốn nút góc lớn giữ tỷ lệ; có nút xoay 2D. Chọn **Kích thước** để nhập rộng/cao/X/Y, tăng giảm 10%, xoay 15° hoặc đưa hình vào giữa vùng nhìn. Tùy chọn giữ tỷ lệ cho phép đổi kích thước tự do bằng bút.
 - **Nét khuất 3D:** xét che khuất theo tọa độ và góc nhìn hiện tại. Khối hộp ở góc nhìn mặc định có đúng ba cạnh khuất gặp nhau tại đỉnh sau. Đường nối, đường chéo, đường cao và thiết diện tự chia nét liền/nét đứt; có thể chọn thủ công **Tự động / Liền / Đứt** khi dựng.
 - **Hình cầu mới:** đường bao tròn sạch, xích đạo liền phía trước/đứt phía sau, tâm O và bán kính r; bật thêm kinh tuyến khi cần. Trụ/nón/nón cụt dùng đường tròn đáy và đường sinh tiếp tuyến, bỏ lưới cạnh rối.
-- **Thanh bút kéo được:** bút, tẩy, chọn, kéo trang, lasso, dán ảnh, bàn phím và tùy chọn. Chạm **⋯** để chọn nhiều bằng từng lần chạm, chọn tất cả, sao chép/dán/xóa, giữ tỷ lệ, bắt tọa độ/góc, bỏ chọn hoặc bật chế độ tập trung. Kéo dấu **⋮** để di chuyển thanh; chạm để thu gọn.
+- **Thanh bút kéo được:** bút, tẩy, chọn, kéo trang, lasso, dán ảnh, bàn phím và tùy chọn. Chạm **⋯** để chọn nhiều bằng từng lần chạm, chọn tất cả, sao chép/dán/xóa, giữ tỷ lệ, bắt tọa độ/góc và bỏ chọn. Kéo dấu **⋮** để di chuyển thanh; chạm để thu gọn.
 - **Bàn phím trên màn hình:** tự mở khi dùng bút chạm ô nhập; nút **⌨** mở thủ công, kể cả trong hộp thoại. Có Toán, số, ABC, ký tự LaTeX và tiếng Việt; dấu thanh áp vào nguyên âm gần nhất trước con trỏ. Có chọn hết, xóa, di chuyển con trỏ, ô tiếp và Enter. Các trường số có thể nhập số âm/thập phân mà không cần phím vật lý.
 - **Di chuyển / Xoay 3D riêng:** các nút trên thanh chọn cho phép chuyển rõ ràng giữa kéo hình và xoay khối, không cần giữ Alt. Nút menu trang luôn hiện khi dùng bút; lưu, Undo/Redo, mở tệp và xuất đều có nút trên giao diện.
 
@@ -26,13 +34,13 @@ Tất cả script, CSS, icon và thư viện nằm trong thư mục sản phẩm
 
 ## Các tính năng từ 1.1 · dành cho giáo viên
 
-- **Header gọn:** tổng phần đầu giảm từ 151 xuống 104 px; F8 bật/tắt chế độ tập trung, chỉ giữ thanh công cụ 40 px.
+- **Header gọn:** bản hiện tại giữ hai hàng công cụ cao tổng cộng 79 px, không có thanh tiêu đề hoặc footer.
 - **Nét đen, rõ, nền trong:** hình học mới dùng nét đen 2.6 px, độ đục nét 100%, bỏ màu tô mặt. Hình 3D chèn mặc định là hình chiếu tĩnh để không xoay ngoài ý muốn; chọn **Xoay 3D** khi muốn chỉnh góc nhìn. Có thể bật Live 3D trong thuộc tính.
 - **Bắt điểm thông minh:** chọn hình rồi dùng thanh nổi Nối điểm / Trung điểm / Đo cạnh / Vuông góc / Song song / Đo góc. Con trỏ bắt vào đỉnh, trung điểm và điểm phụ; nối tới trung điểm cũng giữ đúng định nghĩa khi kéo đỉnh. Shift khi kéo đỉnh 2D bắt tọa độ theo bước 0.5.
 - **Thiết diện thật:** với khối đa diện, chọn Thiết diện rồi chọn 3 điểm không thẳng hàng, kể cả trung điểm mới dựng. Thuật toán cắt cạnh khối bằng mặt phẳng và sắp xếp đa giác; diện tích theo tọa độ, cập nhật khi đổi a/b/h. Có nút tô nhẹ thiết diện và các góc nhìn chuẩn.
 - **PDF từ máy:** nhấn Tài liệu PDF → Chọn PDF, hoặc thả tệp vào vùng viết; chọn dải trang, rồi viết/highlight/chèn hình và công thức trên lớp riêng. Giữ bản PDF gốc để zoom, xuất lại và tải nguồn. Khi xuất PDF, các trang PDF nguồn giữ nội dung vector và lớp chữ, chú thích được ghép phía trên theo thứ tự lớp.
 - **Công thức đẹp:** nhấn Công thức hoặc gõ một biểu thức vào công cụ văn bản. Ví dụ `f(x)=sqrt(x^2+1)/(x-2)` được nhận dạng và dàn thành căn/phân số thật, có xem trước. Hỗ trợ LaTeX như `\frac`, `\int`, `\begin{cases}`, ma trận. Nhấp đúp để sửa; công thức lưu nguồn và dựng SVG khi hiển thị.
-- **Ảnh bản vẽ:** chèn ảnh mặc định tách nền trắng thành trong suốt, chuyển nét thành đen và làm đậm. Ảnh gốc vẫn được giữ; nhấp đúp để chỉnh ngưỡng/độ đậm hoặc khôi phục màu gốc cho ảnh chụp.
+- **Ảnh bản vẽ:** mặc định giữ nguyên ảnh gốc; nhấp đúp để chọn tách nền trắng, chuyển nét thành đen và làm đậm. Có thể khôi phục ảnh gốc sau khi xử lý.
 - PDF, ảnh, đồ thị và công thức mặc định giữ tỷ lệ khi kéo đổi kích thước để tránh méo chữ/hình. Giữ Alt trong lúc kéo nút đổi kích thước nếu cần biến đổi tự do.
 
 **Cách dùng nhanh:** chọn tam giác → Trung điểm → nhấp B, C → Nối điểm → nhấp A, M. Với lập phương, dựng 3 trung điểm cạnh qua A rồi chọn Thiết diện và nhấp 3 trung điểm. Điểm bị chồng khi chiếu có thể chọn từ danh sách trong panel.
@@ -71,7 +79,7 @@ Tất cả script, CSS, icon và thư viện nằm trong thư mục sản phẩm
 - Kéo đỉnh tam giác thường, sửa tọa độ, hiện tên/số đo; trung điểm, trung tuyến, đường cao và các tâm được tính lại theo định nghĩa. Có nối đỉnh, trung điểm, song song/vuông góc qua đỉnh.
 - Tam giác đều/cân/vuông, vuông/chữ nhật có thao tác giữ ràng buộc cơ bản. Với hình bình hành/thoi/thang và đa giác đều, kéo nút đỉnh **tịnh tiến cả hình** để giữ mẫu; chưa có bộ giải ràng buộc tổng quát hoặc nhập độ dài/góc tùy ý.
 - 13 mô hình không gian: lập phương, hộp chữ nhật, chóp đáy vuông, chóp SA vuông góc đáy, tứ diện đều, lăng trụ tam giác/lục giác, chóp cụt, trụ, nón, nón cụt, cầu và Oxyz.
-- **Bộ dựng 3D bằng phần mềm**: đỉnh/mặt/cạnh là dữ liệu tọa độ thực 3 chiều, xoay bằng ma trận, chiếu trực giao lên Canvas 2D, xét che khuất bằng tia nhìn và mặt khối. Không cần WebGL. Mặt tròn xoay có lưới xấp xỉ cho dữ liệu mặt; nét vẽ dùng đường bao, cung và đường sinh tính riêng.
+- **Bộ dựng 3D bằng phần mềm**: đỉnh/mặt/cạnh là dữ liệu tọa độ thực 3 chiều, xoay bằng ma trận, chiếu xiên kiểu sách giáo khoa hoặc trực giao lên Canvas 2D, xét che khuất bằng tia nhìn và mặt khối. Không cần WebGL. Mặt tròn xoay có lưới xấp xỉ cho dữ liệu mặt; nét vẽ dùng đường bao, cung và đường sinh tính riêng.
 - Khối mới mặc định tĩnh. Chọn **Xoay 3D** trên thanh nổi để kéo chỉnh góc nhìn, hoặc bật Live 3D để kéo bên trong xoay trực tiếp; **Alt+kéo** hoặc kéo gần biên để di chuyển. Thay đổi a/b/h, mặt/cạnh/cạnh khuất, nhãn, màu và độ trong suốt. Live 3D hoặc hình chiếu tĩnh giữ góc nhìn. Cả hai chế độ đều giữ dữ liệu gốc trong JSON.
 - Nối đỉnh, trung điểm và đường cao cho các khối chóp hỗ trợ; chọn mặt bằng danh sách, chọn hai đỉnh để đo khoảng cách. Diện tích mặt, toàn phần, thể tích và khoảng cách điểm–mặt phẳng tính theo tọa độ, không theo pixel. Panel vectơ hỗ trợ tích vô hướng/có hướng, góc và kiểm tra song song/vuông góc có dung sai.
 - Ví dụ chóp SA ⊥ (ABCD), AB=4, SA=6 có V=32; lập phương a=3 có V=27, S=54.
@@ -90,12 +98,12 @@ Chưa có chọn cạnh/mặt bằng ray-casting trực tiếp, mặt phẳng t�
 
 ## Lưu, phục hồi và xuất
 
-- Tự động lưu thư viện trong **localStorage** khi được phép, mặc định sau 1.2 giây. Thanh trạng thái báo thành công hoặc yêu cầu tải tệp thủ công. Sổ tay/trang/đối tượng giữ ID khi phục hồi cục bộ.
+- Tự động lưu thư viện trong **localStorage** khi được phép, mặc định sau 1.2 giây. Dòng dưới tên sổ tay báo thành công hoặc yêu cầu tải tệp thủ công. Sổ tay/trang/đối tượng giữ ID khi phục hồi cục bộ.
 - **Ctrl+S** tải `.smath.json` gồm toàn bộ dữ liệu gốc; đây là bản sao lưu có thể chỉnh sửa. Menu có snapshot ghi ngày giờ và sao lưu toàn bộ thư viện.
 - **Ctrl+O** nhập sổ tay hoặc bản sao lưu thư viện. Import tạo sổ tay mới, không ghi đè sổ đang mở. Kiểm tra phiên bản, kiểu đối tượng, tọa độ, tham chiếu đường phụ, ảnh và kích thước. Tệp lỗi bị từ chối trước khi thay đổi thư viện. Định dạng hiện tại **version 1**; các phiên bản khác bị từ chối rõ ràng, chưa có migration do chưa có phiên bản schema trước.
 - Xuất PNG, SVG và PDF nhiều trang A4/A3; in qua trình duyệt. SVG giữ nét bút/hình học/văn bản dạng vector; đồ thị/ảnh được nhúng raster. Trang PDF nguồn được nhúng lại dạng vector với lớp chữ có thể trích xuất; các đối tượng chú thích được raster độ phân giải cao. Với trang sổ tay thông thường, PDF vẫn dùng ảnh độ phân giải cao cho nội dung tự tạo.
 - Xuất/in **chỉ nội dung trong ranh giới trang**. Chọn khổ phù hợp hoặc di chuyển/thu nhỏ đối tượng trước khi xuất; nội dung ngoài trang vẫn tồn tại trong JSON.
-- Chèn ảnh PNG/JPEG/WebP tối đa 5 MB, giữ bản gốc và bản xử lý nét đen/nền trong suốt. PDF tối đa 40 MB, chọn tối đa 30 trang mỗi lần; có xem trước, chọn dải trang, giữ tỉ lệ, xoay trang và trích xuất văn bản. PDF khóa bằng mật khẩu cần mở khóa trước khi nhập. Chưa có OCR ảnh quét hoặc sửa văn bản gốc trong PDF.
+- Chèn ảnh PNG/JPEG/WebP tối đa 5 MB, mặc định nguyên bản và có xử lý nét đen/nền trong suốt tùy chọn. PDF tối đa 40 MB, trong giới hạn 300 trang/sổ tay; có cuộn liên tục, chọn dải trang, giữ tỉ lệ, xoay trang và trích xuất văn bản. PDF khóa bằng mật khẩu cần mở khóa trước khi nhập. Chưa có OCR ảnh quét hoặc sửa văn bản gốc trong PDF.
 
 ### Những điều cần biết về `file://`
 
@@ -119,7 +127,6 @@ Nếu dữ liệu tự lưu bị lỗi hoặc khác phiên bản, ứng dụng b
 | Ctrl + lăn chuột | Zoom tại con trỏ                              |
 | Shift + vẽ hình  | Khóa góc hoặc tỷ lệ                           |
 | Esc              | Hủy thao tác, bỏ chọn, đóng panel             |
-| F8               | Bật/tắt chế độ tập trung                      |
 | F11              | Toàn màn hình do trình duyệt quản lý          |
 
 Phím tắt trang không chạy trong input/textarea/select/hộp thoại. Ctrl+V hỗ trợ ảnh/văn bản từ clipboard hệ điều hành; sao chép/dán đối tượng dùng dữ liệu nội bộ trong phiên.
@@ -145,6 +152,7 @@ npm run test:browser
 npm run test:advanced
 npm run test:studio
 npm run test:pen
+npm run test:pdf
 npm run vendor:build  # chỉ cần nếu dựng lại thư viện từ dependency
 npm run package
 ```
@@ -173,6 +181,8 @@ js/constructions.js        Điểm phụ thuộc, hình chiếu, góc và thiế
 js/teacher.js              Bắt điểm, chọn điểm và thao tác dựng trực tiếp
 js/formulas.js             Nhận dạng biểu thức gõ và SVG công thức
 js/pdf.js                  PDF.js offline, cache, nhập và xuất vector
+js/pdf-tiles.js            Dựng vùng PDF đang xem ở độ nét theo màn hình
+js/page-flow.js            Cuộn nối tiếp trang và xác định trang đang viết
 js/images.js               Tách nền / làm đậm bản vẽ và phục hồi ảnh gốc
 js/calculator.js           Máy tính, bộ nhớ và các chế độ
 js/panels.js               Thư viện, thuộc tính, giấy/lớp/công cụ toán

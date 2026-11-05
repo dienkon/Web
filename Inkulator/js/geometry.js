@@ -465,12 +465,47 @@
         return { formula: "Hệ trục tọa độ trực chuẩn" };
     }
   }
+  function defaultProjection(kind) {
+    return ["sphere", "cylinder", "cone", "cone-frustum", "axes"].includes(kind)
+      ? "orthographic"
+      : "oblique";
+  }
+  function defaultRotation(kind) {
+    // Prism rings retain their original coordinates; align the view instead.
+    return [
+      -0.45,
+      -0.55 +
+        (kind === "tri-prism"
+          ? -Math.PI / 12
+          : kind === "hex-prism"
+            ? -Math.PI / 4
+            : 0),
+    ];
+  }
+  function camera(point, rotation, projection = "orthographic") {
+    const [x, y, z] = point;
+    if (projection === "oblique") {
+      const a = rotation[1] + 0.55,
+        u = x * Math.cos(a) - y * Math.sin(a),
+        v = x * Math.sin(a) + y * Math.cos(a);
+      return [u + 0.55 * v, -v, z + 0.35 * v];
+    }
+    const [rx, ry] = rotation,
+      xx = x * Math.cos(ry) + y * Math.sin(ry),
+      yy = -x * Math.sin(ry) + y * Math.cos(ry);
+    return [
+      xx,
+      yy * Math.cos(rx) - z * Math.sin(rx),
+      yy * Math.sin(rx) + z * Math.cos(rx),
+    ];
+  }
   function project(
     vertices,
     rotation = [-0.45, -0.55],
     width = 300,
     height = 260,
     frameVertices = vertices,
+    projection = "orthographic",
   ) {
     const center = [0, 1, 2].map(
       (i) =>
@@ -483,17 +518,9 @@
         0.01,
       ),
       s = (Math.min(width, height) * 0.36) / extent;
-    const [rx, ry] = rotation;
-    const rotated = vertices.map((v) => {
-      let [x, y, z] = sub(v, center);
-      let xx = x * Math.cos(ry) + y * Math.sin(ry),
-        yy = -x * Math.sin(ry) + y * Math.cos(ry);
-      return [
-        xx,
-        yy * Math.cos(rx) - z * Math.sin(rx),
-        yy * Math.sin(rx) + z * Math.cos(rx),
-      ];
-    });
+    const rotated = vertices.map((v) =>
+      camera(sub(v, center), rotation, projection),
+    );
     return {
       points: rotated.map((v) => [width / 2 + v[0] * s, height / 2 - v[2] * s]),
       depths: rotated.map((v) => v[1]),
@@ -511,6 +538,9 @@
     mesh,
     solidMeasurements,
     project,
+    camera,
+    defaultProjection,
+    defaultRotation,
     sub,
     add,
     scale,

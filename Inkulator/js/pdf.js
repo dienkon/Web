@@ -37,7 +37,8 @@
       isEvalSupported: false,
       useWorkerFetch: false,
       useWasm: true,
-      maxImageSize: 30000000,
+      // Large scans must be resized by PDF.js rather than silently omitted.
+      maxImageSize: -1,
       canvasMaxAreaInBytes: 67108864,
       useSystemFonts: true,
       enableXfa: false,
@@ -115,7 +116,7 @@
     );
   }
   async function prepare(o, maxSize = 2400) {
-    const size = Math.min(4096, Math.max(1000, Math.ceil(maxSize / 500) * 500)),
+    const size = Math.min(4096, Math.max(500, Math.ceil(maxSize / 500) * 500)),
       key = cacheKey(o, size);
     if (renders.has(key)) return renders.get(key);
     if (pending.has(key)) return pending.get(key);
@@ -133,7 +134,7 @@
           [...renders.values()].reduce(
             (n, c) => n + c.width * c.height,
             canvas.width * canvas.height,
-          ) > 32000000)
+          ) > 12000000)
       ) {
         const old = renders.keys().next().value;
         renders.get(old).width = renders.get(old).height = 1;
@@ -152,6 +153,7 @@
   }
   const previewImages = new Map();
   function draw(ctx, o) {
+    const screen = ctx.canvas?.id === "ink-canvas";
     const zoom = ctx.getTransform
         ? Math.hypot(ctx.getTransform().a, ctx.getTransform().b)
         : 1,
@@ -194,7 +196,11 @@
           previewImages.set(o.data.preview, image);
         }
       }
-      if (target > (o.data.previewSize || 1600))
+      if (
+        !screen &&
+        !ctx.canvas?.classList.contains("page-thumb") &&
+        (!image || target > (o.data.previewSize || 700))
+      )
         prepare(o, target).catch((e) => {
           if (!errorsShown.has(o.id)) {
             errorsShown.add(o.id);
@@ -208,6 +214,14 @@
         (image.complete && image.naturalWidth))
     )
       ctx.drawImage(image, 0, 0, o.size.w, o.size.h);
+    else {
+      ctx.fillStyle = "#fff";
+      ctx.fillRect(0, 0, o.size.w, o.size.h);
+      ctx.fillStyle = "#86978e";
+      ctx.font = "16px Segoe UI";
+      ctx.fillText("Trang " + o.data.pageNumber + " · Đang tải PDF…", 30, 55);
+    }
+    if (screen) root.PDFTiles?.draw(ctx, o);
   }
   function parseRange(text, count) {
     const result = new Set();
@@ -216,11 +230,11 @@
       if (!m) throw Error("Khoảng trang chưa đúng. Ví dụ: 1-3, 5.");
       const a = Number(m[1]),
         b = Number(m[2] || m[1]);
-      if (a < 1 || b < a || b > count || b - a > 29)
-        throw Error("Chọn trang hợp lệ, tối đa 30 trang mỗi lần nhập.");
+      if (a < 1 || b < a || b > count || b - a > 299)
+        throw Error("Chọn trang hợp lệ, tối đa 300 trang.");
       for (let i = a; i <= b; i++) result.add(i);
     }
-    if (!result.size || result.size > 30) throw Error("Chọn 1–30 trang.");
+    if (!result.size || result.size > 300) throw Error("Chọn 1–300 trang.");
     return [...result].sort((a, b) => a - b);
   }
   async function importFile(file) {
@@ -258,9 +272,11 @@
           doc.numPages +
           " trang · " +
           (file.size / 1024 / 1024).toFixed(1) +
-          ' MB</p><span class="badge">Xử lý hoàn toàn offline</span></div></div><label class="field"><span>Trang cần nhập · tối đa 30 trang / lần</span><input name="range" id="pdf-range" value="1' +
-          (doc.numPages > 1 ? "-" + Math.min(doc.numPages, 30) : "") +
-          '" required></label><label class="field"><span>Cách chèn</span><select name="placement"><option value="pages">Mỗi trang PDF → một trang sổ tay mới</option><option value="current">Chèn 1 trang PDF vào trang đang mở</option></select></label><label class="field"><span>Độ nét bản xem trước</span><select name="quality"><option value="2400">Cao · 2400 px, giữ PDF gốc để zoom / xuất</option><option value="1600">Gọn nhẹ · 1600 px</option></select></label><p class="hint">Nền PDF được khóa để viết, highlight và chèn công thức lên trên. PDF gốc được giữ nguyên để xuất lại rõ nét; đây không phải trình sửa từng ký tự trong PDF.</p>',
+          ' MB</p><span class="badge">Xử lý hoàn toàn offline</span></div></div><label class="field"><span>Trang cần nhập · sổ tay tối đa 300 trang</span><input name="range" id="pdf-range" value="1' +
+          (doc.numPages > 1
+            ? "-" + Math.min(doc.numPages, 300 - Store.book().pages.length)
+            : "") +
+          '" required></label><label class="field"><span>Cách chèn</span><select name="placement"><option value="pages">Mỗi trang PDF → một trang sổ tay mới</option><option value="current">Chèn 1 trang PDF vào trang đang mở</option></select></label><p class="hint">Cuộn liên tục qua các trang. Phần đang xem tự tải từ PDF gốc theo mức zoom và độ nét màn hình.</p><p class="hint">Nền PDF được khóa để viết, highlight và chèn công thức lên trên. PDF gốc được giữ nguyên để xuất lại rõ nét; đây không phải trình sửa từng ký tự trong PDF.</p>',
         "Chèn PDF",
       );
       if (!selected) return;
@@ -282,12 +298,6 @@
         App.toast("Đang dựng PDF " + (i + 1) + " / " + pages.length + "…");
         const source = await doc.getPage(num),
           v = source.getViewport({ scale: 1 }),
-          canvas = await raster(
-            doc,
-            num,
-            source.rotate,
-            Number(selected.quality),
-          ),
           w = 1200,
           h = (1200 * v.height) / v.width;
         if (h > 10000 || h < 100)
@@ -299,8 +309,8 @@
             pageNumber: num,
             pageRotation: source.rotate,
             sourceRotation: source.rotate,
-            previewSize: Number(selected.quality),
-            preview: canvas.toDataURL("image/png"),
+            previewSize: 700,
+            ...(num === 1 ? { preview } : {}),
             sourceName: file.name.slice(0, 250),
           },
           o = Store.object("pdf", d, {
@@ -317,13 +327,22 @@
         p.objects = [o];
         created.push(p);
         objects.push(o);
-        canvas.width = canvas.height = 1;
       }
       if (Store.book().id !== notebookId)
         throw Error("Sổ tay đã thay đổi trong khi nhập. Hãy nhập lại PDF.");
-      const sourceSize=Object.values(Store.book().assets||{}).reduce((n,a)=>n+a.data.length,0)+a.data.length;
-      if(sourceSize>80e6||sourceSize+Store.snapshot().length+JSON.stringify(created).length>90e6)
-        throw Error('Sổ tay quá lớn để sao lưu và mở lại an toàn. Hãy tạo sổ tay mới hoặc chọn ít trang PDF hơn. Nội dung hiện tại được giữ nguyên.');
+      const sourceSize =
+        Object.values(Store.book().assets || {}).reduce(
+          (n, a) => n + a.data.length,
+          0,
+        ) + a.data.length;
+      if (
+        sourceSize > 80e6 ||
+        sourceSize + Store.snapshot().length + JSON.stringify(created).length >
+          90e6
+      )
+        throw Error(
+          "Sổ tay quá lớn để sao lưu và mở lại an toàn. Hãy tạo sổ tay mới hoặc chọn ít trang PDF hơn. Nội dung hiện tại được giữ nguyên.",
+        );
       Store.transaction(() => {
         Store.book().assets = Store.book().assets || {};
         Store.book().assets[key] = a;
