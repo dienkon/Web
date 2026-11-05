@@ -1,0 +1,17 @@
+html,
+body {
+  background: #f6f8f6;
+}
+.emulator-header {
+  box-shadow: none !important;
+}
+.emulator-toolbar {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+#tb-btn-update span {
+  font-size: 10px;
+}
+#popup-detach-btn {
+  display: none !important;
+}

@@ -1,0 +1,22 @@
+{
+  "repository": "https://github.com/Tikz-Physics/casio-fx580vnx",
+  "commit": "b180a74e8a900b56f73914e74d98956605e75142",
+  "files": {
+    "Casio_fx-580VN_X.html": "0e5d42588fa0cd076b3b0e700ba748541e024ed55d3b78ecb169434325a76386",
+    "Casio_fx-580VN_X_Emulator.zip": "4c470687b19059a0f8733855331449cfe616e25e74945a527150851258b77a58",
+    "Chay_May_Tinh_Casio.bat": "544b4ac445e1c7857cf7f3113e7fbed7dcd3c8ee8737cfec57ee37dd706fe917",
+    "Chia_Se_Cho_iPad_iPhone.bat": "f1f7678ab85e1d39a25252de9a2f04197d4bfdf8be9043c8930f4212c7adf8bb",
+    "HUONG_DAN_SU_DUNG.txt": "ea0da22474d1688282205e9e2e275c2d6d55f9392b5296105bb4fad86253ce38",
+    "README.md": "a4f3d2970c43b6d06a36c00465803c322b2fe5bff1b6191e43522c337bfba964",
+    "fonts/ClassWizXDisplay-Regular.otf": "32f6ed76d607a3a88fd44c26d97a852fd25f7a9f72c034a3508321a997d16f4c",
+    "fonts/ClassWizXDisplay-Regular.ttf": "ec954f2aa9f91a3d4a9ef7845767c3fecafcc09a531699e9671a33c1a5f9f1b5",
+    "fonts/ClassWizXDisplay-Regular.woff": "1fd50dbc7b46621a2beb1c1074b53173bfa19b8e70410ecc5cf6bf48e2bb081c",
+    "fonts/ClassWizXDisplay-Regular.woff2": "56c16c35b03ceb3f0d933d996d3093375a8d299cb845dc33b7455c3575e27ebf",
+    "fonts/OFL.txt": "5498397a55f096b66bc60bc632b4be6f595c859e587236e31162821bdb6bea9b",
+    "fonts/README.pdf": "93c22098df351ca4047c06c24f42095c6a18b8f7eb357b86306979f8482c3a6c",
+    "icons/icon-192.png": "774211fe4f49e32e7f121f7fd2ebe39fb3ada314509d7be8d96bf0cfeeb49502",
+    "icons/icon-512.png": "ecc14e83bc4fa9988915ff815e6c9ba8a1775757b539fdee5eeadba7d888f4ea",
+    "index.html": "0e5d42588fa0cd076b3b0e700ba748541e024ed55d3b78ecb169434325a76386",
+    "manifest.json": "aca0c53193f77e03779bae25cca3745376d88ae4ff629c2482e17a9fe0a39106"
+  }
+}

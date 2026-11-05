@@ -48,6 +48,11 @@
       '</select><button id="calc-angle">' +
       model.angle +
       '</button><button id="calc-sd">S⇔D</button></div><div id="calc-mode-content"></div><div class="calc-history" id="calc-history"></div></div>';
+    const casio = document.createElement("button");
+    casio.textContent = "Casio";
+    casio.title = "Mở Casio fx-580VN X";
+    casio.onclick = () => root.CasioStudio.open();
+    win.querySelector(".calc-heading span").prepend(casio);
     win.querySelector("#calc-close").onclick = () => (win.hidden = true);
     win.querySelector("#calc-min").onclick = () =>
       win.classList.toggle("minimized");

@@ -38,6 +38,25 @@ const { pathToFileURL } = require("node:url");
       );
       await page.locator('.workspace-tabs [data-panel="solid"]').click();
       assert.equal(await page.locator(".library-item").count(), 13);
+      await page.locator('.workspace-tabs [data-action="calculator"]').click();
+      const casio = page.frameLocator("#casio-frame");
+      await casio.locator("#btn-1").waitFor();
+      await page.waitForFunction(()=>document.getElementById('casio-calculator').dataset.ready==='true');
+      for (const key of ["1", "add", "1", "EQUALS"])
+        await casio.locator('[data-key="' + key + '"]').click();
+      const frame = page.frames().find((f) => f.url().includes("/runtime.html"));
+      assert.equal(await frame.evaluate(() => casioApp.displayResult), "2");
+      const win=page.locator('#casio-calculator');
+      const size=await win.evaluate(el=>[el.style.width,el.style.height]);
+      await page.locator('[data-casio="minimize"]').click();
+      await win.evaluate(el=>el.style.top='700px');
+      await page.locator('[data-casio="minimize"]').click();
+      const restored=await win.boundingBox();
+      assert.ok(restored.y+restored.height<=768);
+      assert.deepEqual(await win.evaluate(el=>[el.style.width,el.style.height]),size);
+      const count = await page.evaluate(() => Store.current().objects.length);
+      await page.locator('[data-casio="lcd"]').click();
+      await page.waitForFunction((n) => Store.current().objects.length === n + 1 && Store.current().objects.at(-1).type === "image", count);
       assert.deepEqual(errors, []);
       assert.deepEqual(failed, []);
       console.log(

@@ -1,0 +1,3 @@
+# Preserve the exact upstream snapshot and generated runtime hashes on Windows.
+vendor/casio-fx580vnx/upstream/** -text
+vendor/casio-fx580vnx/runtime.html -text

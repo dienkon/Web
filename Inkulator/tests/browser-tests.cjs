@@ -244,6 +244,7 @@ const log = (name) => {
           ": actual 3D rotation, model dimensions, volume and auxiliary midpoint",
       );
       await page.locator('.workspace-tabs [data-action="calculator"]').click();
+      await page.locator('[data-casio="tools"]').click();
       await page.locator("#calc-input").fill("sin(30)");
       await page.locator("#calc-input").press("Enter");
       assert.equal(await page.locator("#calc-result").textContent(), "0.5");

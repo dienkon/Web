@@ -214,6 +214,7 @@
       Geometry,
       Graph,
       Calculator,
+      CasioStudio,
       Renderer,
       CanvasEngine,
       TeacherGeometry,
@@ -1182,7 +1183,9 @@
       case "close-panel":
         return closePanel();
       case "calculator":
-        return Calculator.open();
+        return CasioStudio.open();
+      case "calculator-tools":
+        return CasioStudio.tools();
       case "pages":
         pagesVisible = !pagesVisible;
         document.getElementById("pages-sidebar").hidden = !pagesVisible;
@@ -1351,7 +1354,7 @@
       if (key === "s") setTool("select");
       if (key === "g") openPanel("graph");
       if (key === "h") openPanel("geometry");
-      if (key === "c") Calculator.open();
+      if (key === "c") CasioStudio.open();
       if (key === "r") action = "ruler";
       if (key === "?") action = "help";
       if (key === "escape") {

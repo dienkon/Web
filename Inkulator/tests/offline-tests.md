@@ -13,6 +13,12 @@
 
 Danh sách này là hướng dẫn nghiệm thu thủ công, **không phải khẳng định đã kiểm thử phần cứng thật**. Xem docs/TEST-REPORT.md để biết kiểm tra tự động thực sự đã chạy.
 
+## Bản 1.5 · Casio trong sổ tay
+
+- Nhấn **Máy tính**: thấy Casio gốc, chạm MENU mở các chế độ và thử tính bằng phím trên thân máy. Kéo tiêu đề, kéo góc phải dưới, thử **− / +**, ghim, thu gọn, phóng to. Đóng/mở lại vẫn giữ phép tính và chế độ trong phiên.
+- Nhấn **Chèn kết quả**, **Chèn ảnh LCD**; ảnh được chọn sẵn để kéo/đổi kích thước. Camera tải PNG khi không cấp quyền clipboard. **Công cụ sổ tay** vẫn mở được các tiện ích trước đây.
+- Tắt Internet trước khi mở. Thử font LCD, ảnh thân máy, màn hình phụ, nhật ký phím, âm thanh. Nút **Offline** chỉ hiện thông tin bản đóng gói, không tải cập nhật.
+
 ## Bản 1.4
 
 - Dùng bút chọn **Kéo trang**, kéo lên tới cuối giấy: trang mới tự nối bên dưới, cùng khổ và kiểu giấy. Viết một nét qua ranh giới; thử Undo/Redo và kéo một ảnh/hình sang trang kế.

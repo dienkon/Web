@@ -1,6 +1,6 @@
-# SCRBLE MATH STUDIO · 1.4
+# SCRBLE MATH STUDIO · 1.5
 
-Sổ tay Toán học ngoại tuyến cho Windows, lấy cảm hứng bố cục từ ảnh Scrble Ink được cung cấp. Giao diện và tài sản tự thiết kế; không phải sản phẩm của Scrble, GeoGebra hay Casio.
+Sổ tay Toán học ngoại tuyến cho Windows, lấy cảm hứng bố cục từ ảnh Scrble Ink được cung cấp. Phần Casio tích hợp source của Tikz-Physics, ghi nguồn riêng bên dưới; không phải sản phẩm chính thức của Scrble, GeoGebra hay Casio.
 
 ## Mở ứng dụng
 
@@ -12,7 +12,15 @@ Sổ tay Toán học ngoại tuyến cho Windows, lấy cảm hứng bố cục 
 
 Tất cả script, CSS, icon và thư viện nằm trong thư mục sản phẩm. Bản chạy dùng script cổ điển, không cần ES module từ file://, CDN, service worker hoặc tải font mạng. PDF.js được bundle cùng phần xử lý worker để chạy trên luồng chính, nhận font/CMap/decoder từ dữ liệu nhúng; không tạo worker từ đường dẫn file://. Công thức dùng SVG glyph có sẵn, không tải font ngoài.
 
-## Điểm mới 1.4 · giao điểm, trọng tâm và trang nối liền
+## Điểm mới 1.5 · Casio fx-580VN X ngoại tuyến
+
+- Nhấn **Máy tính** trên thanh công cụ (hoặc C) để mở Casio ngay trong sổ tay. Kéo tiêu đề để di chuyển, kéo góc phải dưới hoặc chạm **− / +** để đổi kích thước; có ghim vị trí, thu gọn, phóng to và đóng. Đóng/mở lại giữ chế độ, biểu thức và bộ nhớ trong phiên. Có thể thao tác bằng các phím trên thân máy với bút cảm ứng.
+- Giữ nguyên bộ tính toán, giao diện máy, LCD và đủ 12 menu của [Tikz-Physics/casio-fx580vnx](https://github.com/Tikz-Physics/casio-fx580vnx), chốt commit `b180a74e8a900b56f73914e74d98956605e75142`. Các chức năng mô phỏng và giới hạn toán học theo repo này; không khẳng định tương đương tuyệt đối phần cứng Casio.
+- **Chèn kết quả** đưa biểu thức/kết quả hoặc nội dung LCD của chế độ đang dùng vào trang. **Chèn ảnh LCD** lấy PNG 768 × 290 từ bộ dựng ảnh gốc; ảnh được chọn sẵn, kéo/đổi kích thước như ảnh thường. Nút camera của Casio sao chép/tải PNG; khi clipboard bị chặn sẽ tải PNG thay thế. **Công cụ sổ tay** mở bộ tính toán/đồ thị trước đây; nút Casio trong đó trở về máy Casio.
+- Source, hình máy và font đều đóng gói cục bộ. Nút cập nhật được đổi thành thông tin **Offline**, không tìm bản mới trên mạng. Casio chạy trong iframe cô lập, không dùng chung bộ tính toán hoặc phím tắt với trang viết. Các tiện ích màn hình LCD phụ, zoom, nhật ký phím và âm thanh của repo vẫn nằm trên thanh bên trong cửa sổ.
+- Toàn bộ 16 tệp được Git quản lý ở bản nguồn nằm nguyên vẹn trong `vendor/casio-fx580vnx/upstream/`, gồm HTML, ZIP nguồn, font, icon, tài liệu và launcher gốc. Ứng dụng không chạy các tệp BAT. `UPSTREAM.json` lưu SHA-256 từng tệp; `BUILD.json` lưu hash phần tính toán và bản chạy. Chạy `npm run vendor:casio` để dựng lại bản nhúng; script xác minh source và bảo đảm JavaScript gốc không bị sửa. Xem [ghi nguồn và giấy phép font](vendor/casio-fx580vnx/NOTICE.md).
+
+## Các tính năng từ 1.4 · giao điểm, trọng tâm và trang nối liền
 
 - **Giao điểm hai đường:** chọn hình → **Dựng & đo → Giao điểm** rồi chạm hai cạnh/đường đã dựng. Có tô sáng đường đang chọn. Dùng danh sách **Điểm, đường & phép dựng** trong thuộc tính nếu đường chồng nhau. Hỗ trợ đường nối, đường chéo, đường song song/vuông góc, trung tuyến và cạnh thiết diện trong cùng hình; giao của đường thẳng kéo dài cũng được tính.
 - **Trọng tâm và nối tới G:** chọn **Trọng tâm**, chạm ba đỉnh của tam giác cần xét. G và ba trung tuyến cập nhật theo đỉnh. Dùng **Nối điểm** để nối bất kỳ đỉnh/điểm phụ tới G. Có thêm **Trung tuyến** (chọn đỉnh xuất phát trước) và **Phân giác** (đỉnh góc là điểm thứ hai).
@@ -166,6 +174,7 @@ npm run test:studio
 npm run test:pen
 npm run test:pdf
 npm run test:notebook
+npm run test:casio   # đối chiếu 12 menu với source gốc, cửa sổ và ảnh LCD
 npm run vendor:build  # chỉ cần nếu dựng lại thư viện từ dependency
 npm run package
 ```

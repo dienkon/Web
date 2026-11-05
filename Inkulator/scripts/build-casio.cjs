@@ -1,0 +1,20 @@
+const fs = require("node:fs"), path = require("node:path"), crypto = require("node:crypto"), assert = require("node:assert/strict");
+const root = path.resolve(__dirname, ".."), folder = path.join(root, "vendor/casio-fx580vnx"), upstream = path.join(folder, "upstream");
+const provenance = JSON.parse(fs.readFileSync(path.join(folder, "UPSTREAM.json"), "utf8"));
+const sha = (data) => crypto.createHash("sha256").update(data).digest("hex");
+for (const [file, hash] of Object.entries(provenance.files)) assert.equal(sha(fs.readFileSync(path.join(upstream, file))), hash, "Upstream snapshot changed: " + file);
+const source = fs.readFileSync(path.join(upstream, "index.html"), "utf8"), core = source.match(/<script>([\s\S]*?)<\/script>/)[1];
+let runtime = source.replace('<html lang="vi">', '<html lang="vi" data-upstream-commit="' + provenance.commit + '">').replace(/url\(['"]fonts\/([^'"]+)['"]\)/g, (_, font) => {
+  const mime = font.endsWith(".woff2") ? "font/woff2" : font.endsWith(".woff") ? "font/woff" : "font/ttf";
+  return "url('data:" + mime + ";base64," + fs.readFileSync(path.join(upstream, "fonts", font)).toString("base64") + "')";
+});
+const csp = "default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval'; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; media-src data: blob:; connect-src 'none'; base-uri 'none'; form-action 'none'";
+runtime = runtime.replace('<meta charset="UTF-8">', '<meta charset="UTF-8">\n<meta http-equiv="Content-Security-Policy" content="' + csp + '">');
+const css = fs.readFileSync(path.join(root, "css/casio-embed.css"), "utf8").replace(/\r\n/g,"\n"), bridge = fs.readFileSync(path.join(root, "js/casio-bridge.js"), "utf8").replace(/\r\n/g,"\n");
+runtime = runtime.replace("</head>", () => "<style>\n" + css + "\n</style>\n</head>");
+const bodyEnd = runtime.lastIndexOf("</body>");
+runtime = runtime.slice(0, bodyEnd) + "<script>\n" + bridge + "\n<\/script>\n" + runtime.slice(bodyEnd);
+assert.equal(sha(runtime.match(/<script>([\s\S]*?)<\/script>/)[1]), sha(core), "The upstream calculator script must remain byte-for-byte identical");
+fs.writeFileSync(path.join(folder, "runtime.html"), runtime);
+fs.writeFileSync(path.join(folder, "BUILD.json"), JSON.stringify({ repository: provenance.repository, commit: provenance.commit, coreScriptSha256: sha(core), runtimeSha256: sha(runtime), network: "disabled", fontFiles: "embedded; original font license retained in upstream/fonts/OFL.txt" }, null, 2) + "\n");
+console.log("Built offline Casio runtime from " + provenance.commit + "; calculator script unchanged.");

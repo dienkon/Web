@@ -38,7 +38,7 @@ const pass = (s) => {
       await page.locator("#advanced-evaluate").click();
       return page.locator("#advanced-output").textContent();
     };
-    await action("calculator");
+    await action("calculator-tools");
     assert.match(await calc("EQUATION", "1,-5,6"), /x1 ≈ 2\nx2 ≈ 3/);
     await page.locator("#equation-type").selectOption("system");
     await page.locator("#advanced-input").fill("[[1,1],[2,-1]]");

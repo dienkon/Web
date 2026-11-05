@@ -1,0 +1,110 @@
+.casio-window {
+  position: fixed;
+  z-index: 45;
+  display: flex;
+  flex-direction: column;
+  background: #f6f8f6;
+  border: 1px solid #9caaa2;
+  border-radius: 12px;
+  box-shadow: 0 10px 45px #142c3540;
+  overflow: hidden;
+  min-width: 290px;
+  min-height: 210px;
+}
+.casio-window[hidden] {
+  display: none;
+}
+.casio-window:not([data-ready]) iframe { visibility:hidden; }
+.casio-loading { position:absolute;inset:42px 0 40px;display:grid;place-items:center;background:#f6f8f6;color:#496557;font:14px 'Segoe UI',sans-serif; }
+.casio-window.minimized .casio-loading {display:none;}
+.casio-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 4px 6px;
+  background: #e5eee8;
+  cursor: move;
+  touch-action: none;
+  user-select: none;
+}
+.casio-heading strong {
+  font: 600 12px "Segoe UI", sans-serif;
+  white-space: nowrap;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.casio-heading nav {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+.casio-window button {
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: #173d30;
+  min-width: 30px;
+  min-height: 32px;
+  font: 14px "Segoe UI", sans-serif;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.casio-window button:hover,
+.casio-window button[aria-pressed=true] {
+  background: #c7dbce;
+}
+.casio-window iframe {
+  border: 0;
+  display: block;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  background: #f6f8f6;
+}
+.casio-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 3px 24px 3px 4px;
+  border-top: 1px solid #d9e3dc;
+}
+.casio-footer button {
+  font-size: 11px;
+  flex: 1;
+  white-space: nowrap;
+}
+.casio-resize {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 25px;
+  height: 25px;
+  touch-action: none;
+  cursor: nwse-resize;
+  background:
+    linear-gradient(
+      135deg,
+      transparent 60%,
+      #6b8b7c 61%,
+      transparent 66%,
+      transparent 75%,
+      #6b8b7c 76%,
+      transparent 81%);
+}
+.casio-window.adjusting iframe {
+  pointer-events: none;
+}
+.casio-window.minimized {
+  min-height: 0 !important;
+  height: auto !important;
+}
+.casio-window.minimized iframe,
+.casio-window.minimized .casio-footer,
+.casio-window.minimized .casio-resize {
+  display: none;
+}
+.casio-window.pinned .casio-heading {
+  cursor: default;
+}

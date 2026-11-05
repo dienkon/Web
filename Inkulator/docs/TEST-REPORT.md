@@ -18,11 +18,24 @@
 | `npm run test:pen`                  | **34/34** kiểm tra bút/clipboard/3D, 17 trên Chrome và 17 trên Edge                                          |
 | `npm run test:pdf`                  | **24/24** kiểm tra PDF cuộn liên tục, 12 trên Chrome và 12 trên Edge; DPR 2                                  |
 | `npm run test:notebook`             | **22/22** kiểm tra trang nối liền, tự thêm trang, giao điểm/trọng tâm và fullscreen, 11 trên mỗi Chrome/Edge |
+| `npm run test:casio`                | **38/38** kiểm tra Casio: 12 menu đối chiếu source gốc, cửa sổ, bàn phím, bộ nhớ và ảnh LCD trên Chrome/Edge |
 | `node --check` tất cả tệp `js/*.js` | Không có lỗi cú pháp                                                                                         |
 | Các luồng browser ở trên            | **0 lỗi JavaScript, 0 request HTTP/HTTPS**                                                                   |
 | `node tests/package-smoke.cjs`      | Mở bản đóng gói offline trên Chrome/Edge; lưu tệp thủ công khi chặn localStorage                             |
 
 Đây là số nhóm kiểm thử của các script, không phải lời xác nhận hoàn thành toàn bộ đặc tả mở rộng.
+
+### Cập nhật 1.5 · tích hợp Casio từ source gốc
+
+- Đối chiếu SHA-256 toàn bộ 16 tệp với Git blob tại commit `b180a74e8a900b56f73914e74d98956605e75142` của Tikz-Physics/casio-fx580vnx. Giữ nguyên HTML, ZIP, font và tài liệu; không chuyển đổi xuống dòng của bản nguồn. Bộ dựng kiểm tra lại hash từng tệp và hash JavaScript tính toán gốc trong runtime.
+- Mở trực tiếp file:// với mạng bị tắt trên Chrome/Edge. Thân máy, font LCD và các menu hiện đúng; không lỗi JavaScript, không request HTTP/HTTPS hoặc tài nguyên cục bộ thất bại. Đợi bộ tính toán/font khởi tạo xong rồi mới cho thao tác phím.
+- Mở đủ 12 menu bằng phím trên máy. Đưa cùng chuỗi phím vào bản gốc và bản nhúng, đối chiếu chế độ, trạng thái, biểu thức, kết quả và chữ LCD. Các fixture gồm sin(30), số phức, chuyển cơ số, nhập ma trận/vector, thống kê, phân phối, bảng hàm, phương trình bậc hai, bất phương trình, tỷ số và bảng tính; đây là kiểm tra tương thích các trường hợp đã chọn, không chứng nhận mọi phép tính của phần cứng Casio.
+- Dùng sự kiện bút tin cậy để kéo/đổi kích thước cửa sổ. Kiểm tra ghim, thu gọn, phóng to, đóng/mở giữ iframe và dữ liệu. Đổi kích thước màn hình khi cửa sổ ẩn/thu gọn giữ kích thước đã chọn; màn hình 390 × 844 vẫn truy cập được nút đóng.
+- Phím bàn phím trong iframe tính 12+3=15 và không đổi công cụ sổ tay; STO giữ A=15. Nhật ký phím, màn hình LCD phụ và zoom hoạt động. Bản nhúng không truy cập được Store của trang mẹ; thông điệp sai nguồn/token không chèn đối tượng.
+- Chèn kết quả thật và PNG LCD 768 × 290 vào trang. Camera xuất PNG có chữ ký ảnh hợp lệ. Clipboard được giả lập trong kiểm thử để không thay đổi clipboard Windows; khi quyền ghi bị từ chối vẫn tải PNG. Nút Offline hiện thông tin bản đóng gói và không gọi mạng.
+- Smoke test bản đóng gói mở Casio, tính 1+1=2, chèn ảnh LCD; khôi phục từ trạng thái thu gọn ở cuối màn hình vẫn nằm trong vùng nhìn. Bộ tính toán/đồ thị trước đây tiếp tục chạy qua nút Công cụ sổ tay.
+
+Ảnh đã xem: [casio-workspace.png](casio-workspace.png). Source và phạm vi bản gốc được ghi tại [NOTICE.md](../vendor/casio-fx580vnx/NOTICE.md).
 
 ### Cập nhật 1.4 · dựng điểm phụ và trang tự nối
 
