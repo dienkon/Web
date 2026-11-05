@@ -2,7 +2,7 @@
   "repository": "https://github.com/Tikz-Physics/casio-fx580vnx",
   "commit": "b180a74e8a900b56f73914e74d98956605e75142",
   "coreScriptSha256": "c1d160522fa3dab348d702d3e6412ed7706792cc31f8e7637385a11d28fcc1fa",
-  "runtimeSha256": "4db27370d1ec1dfdfa4a504c5bbf234aea17829b715555c421007acf5de23413",
+  "runtimeSha256": "29e197a56d8a6290733937b53ab870f1526f5772ea51ac81ca40d5b0064c6a5c",
   "network": "disabled",
   "fontFiles": "embedded; original font license retained in upstream/fonts/OFL.txt"
 }

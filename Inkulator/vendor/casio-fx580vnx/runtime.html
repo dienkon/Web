@@ -1640,6 +1640,20 @@ body.popup-display-open .calc-container { margin:0 !important; transition:none; 
 #emulator-popup-display .popup-display-body { flex:none; height:auto; }
 #popup-resize-handle { display:none; }
 body.popup-display-open .calc-container:not(.slim-mode) { height:auto !important; margin:0 !important; transform:none !important; }
+/* Custom modes mix fixed pixel sizes with scaled fonts upstream. Lay them out
+   on one logical LCD surface, then scale the whole view uniformly. */
+.lcd-screen-overlay .lcd-custom-view {
+  --lcd-scale:1 !important;
+  width:384px !important;
+  height:120px !important;
+  left:3px;
+  top:calc(14% + 1px);
+  padding:2px 4px;
+  transform:scale(var(--casio-custom-fit, 1));
+  transform-origin:top left;
+  flex-shrink:0;
+}
+.popup-lcd .lcd-custom-view { --casio-custom-fit:1; }
 
 </style>
 </head>
@@ -11191,6 +11205,15 @@ window.CASIO_BUILD_VERSION = 'v2.5.9 (2026-09-20)';
       send("error", { message: "Không khởi tạo được Casio." });
       return;
     }
+    const fitCustomLcd=()=>{
+      const lcd=ui.lcdScreen;
+      if(!lcd||!lcd.clientWidth)return;
+      const scale=Math.min((lcd.clientWidth-6)/384,(lcd.clientHeight*.86-4)/120);
+      lcd.style.setProperty('--casio-custom-fit',Math.max(.05,scale));
+    };
+    const lcdFitObserver=new ResizeObserver(fitCustomLcd);
+    lcdFitObserver.observe(ui.lcdScreen);
+    fitCustomLcd();
     try {
       Object.defineProperty(navigator, "clipboard", { configurable: true, value: void 0 });
     } catch (_) {

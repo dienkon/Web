@@ -10,6 +10,15 @@
       send("error", { message: "Không khởi tạo được Casio." });
       return;
     }
+    const fitCustomLcd=()=>{
+      const lcd=ui.lcdScreen;
+      if(!lcd||!lcd.clientWidth)return;
+      const scale=Math.min((lcd.clientWidth-6)/384,(lcd.clientHeight*.86-4)/120);
+      lcd.style.setProperty('--casio-custom-fit',Math.max(.05,scale));
+    };
+    const lcdFitObserver=new ResizeObserver(fitCustomLcd);
+    lcdFitObserver.observe(ui.lcdScreen);
+    fitCustomLcd();
     try {
       Object.defineProperty(navigator, "clipboard", { configurable: true, value: void 0 });
     } catch (_) {
