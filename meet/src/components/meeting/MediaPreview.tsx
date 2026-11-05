@@ -44,7 +44,12 @@ export const MediaPreview: React.FC<MediaPreviewProps> = ({
           <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-600 to-indigo-800 flex items-center justify-center text-white text-4xl font-bold shadow-2xl border-2 border-blue-400/40 mb-3">
             {initialLetter}
           </div>
-          <span className="text-gray-300 font-medium">{userName || 'Xem trước thiết bị'}</span>
+          <span className="text-gray-200 font-medium text-sm">{userName || 'Xem trước thiết bị'}</span>
+          {!stream && (
+            <span className="text-[11px] text-amber-400/90 mt-1 max-w-xs">
+              Chưa bật camera / micro. Bấm icon bên dưới để cấp quyền.
+            </span>
+          )}
         </div>
       )}
 

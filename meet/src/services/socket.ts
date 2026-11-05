@@ -1,25 +1,29 @@
 import { io, Socket } from 'socket.io-client';
+import { GlobalSocketService } from './globalSocket';
 import { MockSocketService } from './mockSocket';
 
-export type ConnectionMode = 'socket-io' | 'vercel-serverless' | 'local-mock';
+export type ConnectionMode = 'socket-io' | 'global-cloud' | 'local-mock';
 
 type Listener = (...args: any[]) => void;
+type AnySocket = Socket | GlobalSocketService | MockSocketService;
 
 class SocketService {
-  private activeSocket: Socket | MockSocketService | null = null;
-  public connectionMode: ConnectionMode = 'local-mock';
+  private activeSocket: AnySocket | null = null;
+  public connectionMode: ConnectionMode = 'global-cloud';
   private listeners: Map<string, Listener[]> = new Map();
   private lastJoinPayload: any = null;
-  private serverlessPollingTimer: any = null;
 
   public connect(): SocketService {
     if (this.activeSocket) return this;
 
     const envUrl = import.meta.env.VITE_SERVER_URL;
-    const isVercelHost = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+    const isLocalhost =
+      typeof window !== 'undefined' &&
+      (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 
-    // If explicit external server URL provided
-    const targetUrl = envUrl || (isVercelHost ? undefined : 'http://localhost:5000');
+    // If explicit external server URL provided (e.g. Render/Railway URL)
+    const hasExternalServer = Boolean(envUrl && !envUrl.includes('localhost') && !envUrl.includes('127.0.0.1'));
+    const targetUrl = hasExternalServer ? envUrl : isLocalhost ? (envUrl || 'http://localhost:5000') : undefined;
 
     if (targetUrl) {
       try {
@@ -37,9 +41,9 @@ class SocketService {
         });
 
         realSocket.on('connect_error', () => {
-          if (this.connectionMode !== 'local-mock' && this.connectionMode !== 'vercel-serverless') {
-            console.warn('[MeetClass Socket] Standalone Socket.IO server unreachable. Transitioning to Vercel Serverless / Local Sync mode.');
-            this.switchToFallback(isVercelHost);
+          if (this.connectionMode !== 'global-cloud' && this.connectionMode !== 'local-mock') {
+            console.warn('[MeetClass Socket] Standalone Socket.IO server unreachable. Transitioning to Global Cloud Realtime mode.');
+            this.switchToGlobalCloud();
           }
         });
 
@@ -47,27 +51,27 @@ class SocketService {
         this.rebindListeners();
         return this;
       } catch (err) {
-        console.warn('[MeetClass Socket] Socket.IO initialization error. Using fallback mode.', err);
+        console.warn('[MeetClass Socket] Socket.IO initialization error. Using Global Cloud mode.', err);
       }
     }
 
-    // Default Fallback
-    this.switchToFallback(isVercelHost);
+    // Default for Vercel / Cloud deployments: Zero-config Global Realtime Cloud
+    this.switchToGlobalCloud();
     return this;
   }
 
-  private switchToFallback(isVercelHost: boolean) {
+  private switchToGlobalCloud() {
     if (this.activeSocket && 'disconnect' in this.activeSocket) {
       try {
         this.activeSocket.disconnect();
       } catch (e) {}
     }
 
-    this.connectionMode = isVercelHost ? 'vercel-serverless' : 'local-mock';
-    this.activeSocket = new MockSocketService();
+    this.connectionMode = 'global-cloud';
+    console.log('[MeetClass Socket] Active mode: Global Cloud Realtime (Worldwide P2P)');
+    this.activeSocket = new GlobalSocketService();
     this.rebindListeners();
 
-    // Automatically re-join room if payload exists
     if (this.lastJoinPayload) {
       setTimeout(() => {
         this.activeSocket?.emit('room:join', this.lastJoinPayload);
@@ -123,7 +127,7 @@ class SocketService {
     return this.activeSocket?.id;
   }
 
-  public getSocket(): Socket | MockSocketService | null {
+  public getSocket(): AnySocket | null {
     return this.activeSocket;
   }
 
@@ -131,10 +135,6 @@ class SocketService {
     if (this.activeSocket) {
       this.activeSocket.disconnect();
       this.activeSocket = null;
-    }
-    if (this.serverlessPollingTimer) {
-      clearInterval(this.serverlessPollingTimer);
-      this.serverlessPollingTimer = null;
     }
     this.listeners.clear();
     this.lastJoinPayload = null;

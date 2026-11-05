@@ -12,8 +12,8 @@ export const RoomHeader: React.FC = () => {
   const modeLabel =
     mode === 'socket-io'
       ? 'Socket.IO Server'
-      : mode === 'vercel-serverless'
-      ? 'Vercel Realtime'
+      : mode === 'global-cloud'
+      ? 'Global Cloud Realtime'
       : 'Local Broadcast Sync';
 
   const copyRoomLink = () => {
@@ -65,7 +65,7 @@ export const RoomHeader: React.FC = () => {
         )}
 
         <div className="flex items-center gap-1.5 px-3 py-1 bg-[#202124] rounded-full border border-gray-700 text-xs font-medium text-gray-300" title={`Chế độ kết nối: ${modeLabel}`}>
-          {mode === 'vercel-serverless' ? (
+          {mode === 'global-cloud' ? (
             <Zap className="w-3.5 h-3.5 text-blue-400" />
           ) : (
             <Signal className={`w-3.5 h-3.5 ${mode === 'socket-io' ? 'text-emerald-400' : 'text-amber-400'}`} />
