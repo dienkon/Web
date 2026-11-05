@@ -298,7 +298,6 @@
         break;
       }
       case "cylinder":
-      case "cone":
       case "cone-frustum": {
         const n = 40;
         vertices = [
@@ -317,9 +316,22 @@
         ];
         break;
       }
+      case "cone": {
+        const n = 40;
+        // Retain legacy vertex indices for saved auxiliary points. Only vertex n
+        // participates as the apex of the surface; the remaining aliases have no edges.
+        vertices = [...ring(n, a, 0), ...ring(n, 0, h)];
+        faces = [
+          Array.from({ length: n }, (_, i) => n - 1 - i),
+          ...Array.from({ length: n }, (_, i) => [i, (i + 1) % n, n]),
+        ];
+        break;
+      }
       case "sphere": {
         const lat = 16,
           lon = 28;
+        // Keep the original index -> coordinate mapping in saved notebooks.
+        // Pole aliases remain addressable, but each cap uses one pole vertex.
         for (let j = 0; j <= lat; j++)
           for (let i = 0; i < lon; i++)
             vertices.push([
@@ -331,14 +343,23 @@
                 Math.sin((i * 2 * Math.PI) / lon),
               a * Math.cos((j * Math.PI) / lat),
             ]);
-        for (let j = 0; j < lat; j++)
+        const south = lat * lon;
+        for (let i = 0; i < lon; i++)
+          faces.push([0, lon + i, lon + ((i + 1) % lon)]);
+        for (let j = 0; j < lat - 2; j++)
           for (let i = 0; i < lon; i++)
             faces.push([
-              j * lon + i,
-              j * lon + ((i + 1) % lon),
-              (j + 1) * lon + ((i + 1) % lon),
               (j + 1) * lon + i,
+              (j + 2) * lon + i,
+              (j + 2) * lon + ((i + 1) % lon),
+              (j + 1) * lon + ((i + 1) % lon),
             ]);
+        for (let i = 0; i < lon; i++)
+          faces.push([
+            (lat - 1) * lon + i,
+            south,
+            (lat - 1) * lon + ((i + 1) % lon),
+          ]);
         break;
       }
       case "axes":
@@ -478,6 +499,7 @@
       depths: rotated.map((v) => v[1]),
       rotated,
       scale: s,
+      center,
     };
   }
   root.Geometry = {

@@ -10,6 +10,16 @@
   const pointers = new Map();
   const S = () => Store.state,
     dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+  function selectionHandles(o) {
+    const z = S().viewport.zoom;
+    return [
+      { key: "tl", x: 0, y: 0 },
+      { key: "tr", x: o.size.w, y: 0 },
+      { key: "br", x: o.size.w, y: o.size.h },
+      { key: "bl", x: 0, y: o.size.h },
+      { key: "rotate", x: o.size.w / 2, y: -28 / z },
+    ];
+  }
   function init() {
     canvas = document.getElementById("ink-canvas");
     canvas.addEventListener("pointerdown", down);
@@ -183,10 +193,24 @@
         if (!layerEditable(o)) continue;
         const q = Renderer.localPoint(o, p),
           tolerance = 12 / S().viewport.zoom;
-        if (dist(q, { x: o.size.w, y: o.size.h }) < tolerance) {
-          gesture.mode = "resize";
+        const handle = selectionHandles(o).find(
+          (h) => dist(q, h) < tolerance + 4 / S().viewport.zoom,
+        );
+        if (handle) {
+          gesture.mode = handle.key === "rotate" ? "rotate2d" : "resize";
+          gesture.handle = handle.key;
           gesture.object = o;
           gesture.original = Store.clone(o);
+          if (handle.key === "rotate") {
+            gesture.center = Renderer.worldPoint(o, {
+              x: o.size.w / 2,
+              y: o.size.h / 2,
+            });
+            gesture.startAngle = Math.atan2(
+              p.y - gesture.center.y,
+              p.x - gesture.center.x,
+            );
+          }
           return;
         }
         if (o.type === "geometry") {
@@ -205,15 +229,15 @@
       const o = hit(p);
       if (o) {
         const already = S().selection.includes(o.id);
-        if (e.shiftKey) {
-          if (already)
-            S().selection = S().selection.filter((id) => id !== o.id);
+        if (e.shiftKey || S().multiSelect) {
+          if (already) gesture.toggleId = o.id;
           else S().selection.push(o.id);
         } else if (!already) S().selection = [o.id];
         if (
           o.type === "solid" &&
           (o.data.live || root.TeacherGeometry?.orbit) &&
           already &&
+          S().transformMode !== "move" &&
           !e.altKey
         ) {
           const q = Renderer.localPoint(o, p),
@@ -235,7 +259,7 @@
         }));
         Store.emit();
       } else {
-        if (!e.shiftKey) S().selection = [];
+        if (!e.shiftKey && !S().multiSelect) S().selection = [];
         gesture.mode = "lasso";
         gesture.points = [p];
         Store.emit();
@@ -244,7 +268,7 @@
     }
     if (mode === "lasso") {
       gesture.points = [p];
-      if (!e.shiftKey) S().selection = [];
+      if (!e.shiftKey && !S().multiSelect) S().selection = [];
       return;
     }
     if (mode === "eraser") {
@@ -329,29 +353,52 @@
     if (g.mode === "resize") {
       const o = g.object,
         q = Renderer.localPoint(g.original, p),
-        w = Math.max(35, q.x),
-        h =
-          e.shiftKey ||
-          o.type === "group" ||
-          (!e.altKey &&
-            (["pdf", "image", "formula", "graph"].includes(o.type) ||
-              (o.type === "shape" &&
-                ["circle", "square"].includes(o.data.kind))))
-            ? (w * g.original.size.h) / g.original.size.w
-            : Math.max(35, q.y);
-      const anchor = Renderer.worldPoint(g.original, { x: 0, y: 0 }),
-        rot = (o.rotation * Math.PI) / 180;
+        left = g.handle.includes("l"),
+        top = g.handle.startsWith("t"),
+        ow = g.original.size.w,
+        oh = g.original.size.h,
+        anchorLocal = { x: left ? ow : 0, y: top ? oh : 0 },
+        anchor = Renderer.worldPoint(g.original, anchorLocal),
+        dx = left ? ow - q.x : q.x,
+        dy = top ? oh - q.y : q.y,
+        keep =
+          o.type === "group" || e.shiftKey || (!e.altKey && S().aspectLocked);
+      let w = Math.max(20, dx),
+        h = Math.max(20, dy);
+      if (keep) {
+        const ratio = Math.max(
+          20 / Math.min(ow, oh),
+          (dx * ow + dy * oh) / (ow * ow + oh * oh),
+        );
+        w = ow * ratio;
+        h = oh * ratio;
+      }
+      const rot = (o.rotation * Math.PI) / 180,
+        ax = left ? w : 0,
+        ay = top ? h : 0,
+        localCenter = { x: w / 2 - ax, y: h / 2 - ay };
       o.size = { w, h };
       o.position = {
         x:
-          anchor.x -
-          w / 2 +
-          ((w / 2) * Math.cos(rot) - (h / 2) * Math.sin(rot)),
+          anchor.x +
+          localCenter.x * Math.cos(rot) -
+          localCenter.y * Math.sin(rot) -
+          w / 2,
         y:
-          anchor.y -
-          h / 2 +
-          ((w / 2) * Math.sin(rot) + (h / 2) * Math.cos(rot)),
+          anchor.y +
+          localCenter.x * Math.sin(rot) +
+          localCenter.y * Math.cos(rot) -
+          h / 2,
       };
+    }
+    if (g.mode === "rotate2d") {
+      let angle =
+        g.original.rotation +
+        ((Math.atan2(p.y - g.center.y, p.x - g.center.x) - g.startAngle) *
+          180) /
+          Math.PI;
+      if (e.shiftKey || S().geometrySnap) angle = Math.round(angle / 15) * 15;
+      g.object.rotation = angle;
     }
     if (g.mode === "vertex") {
       const q = Renderer.localPoint(g.object, p),
@@ -359,7 +406,9 @@
       setVertex(
         g.object,
         g.vertex,
-        e.shiftKey ? v.map((x) => Math.round(x * 2) / 2) : v,
+        e.shiftKey || S().geometrySnap
+          ? v.map((x) => Math.round(x * 2) / 2)
+          : v,
       );
     }
     if (g.mode === "rotate3d")
@@ -472,6 +521,8 @@
     if (!gesture || gesture.pointerId !== e.pointerId) return;
     const g = gesture;
     gesture = null;
+    if (g.mode === "move" && !g.moved && g.toggleId)
+      S().selection = S().selection.filter((id) => id !== g.toggleId);
     if (["pen", "highlighter"].includes(g.mode)) {
       let o = strokeFrom(g.points, g.mode);
       if (S().settings.smartShape && g.mode === "pen")
@@ -891,6 +942,10 @@
           : "crosshair";
   }
   root.CanvasEngine = {
+    get penActive() {
+      return penActive;
+    },
+    selectionHandles,
     init,
     hit,
     setVertex,

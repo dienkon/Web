@@ -91,6 +91,8 @@
   }
   async function importImage(file) {
     try {
+      const notebookId = Store.book().id,
+        pageId = Store.current().id;
       if (
         !["image/png", "image/jpeg", "image/webp"].includes(file.type) ||
         file.size > 5 * 1024 * 1024
@@ -108,10 +110,20 @@
         img.onerror = () => reject(Error("Ảnh không hợp lệ."));
         img.src = src;
       });
-      const w = Math.min(600, img.naturalWidth),
-        h = (w * img.naturalHeight) / img.naturalWidth;
+      const zoom = Store.state.viewport.zoom,
+        scale = Math.min(
+          1,
+          Math.min(600, (Renderer.area.clientWidth / zoom) * 0.72) /
+            img.naturalWidth,
+          Math.min(650, (Renderer.area.clientHeight / zoom) * 0.72) /
+            img.naturalHeight,
+        ),
+        w = img.naturalWidth * scale,
+        h = img.naturalHeight * scale;
       const cleaned = await ImageStudio.process(src);
-      Store.add(
+      if (Store.book().id !== notebookId || Store.current().id !== pageId)
+        throw Error("Trang đã thay đổi trong lúc xử lý ảnh. Hãy chèn lại ảnh.");
+      const object = Store.add(
         Store.object(
           "image",
           {
@@ -126,11 +138,15 @@
           },
         ),
       );
+      Store.state.transformMode = "move";
+      Store.emit();
       App.toast(
         "Đã chèn bản vẽ nét đen, nền trong suốt. Nhấp đúp để đổi về ảnh màu gốc.",
       );
+      return object;
     } catch (e) {
       App.toast(e.message);
+      return null;
     }
   }
   async function png() {

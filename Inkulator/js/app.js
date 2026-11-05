@@ -138,6 +138,9 @@
     Renderer.init();
     CanvasEngine.init();
     TeacherGeometry.init();
+    ClipboardStudio.init();
+    PenKeyboard.init();
+    PenTools.init();
     document.addEventListener("statechange", stateChanged);
     document.addEventListener("click", (e) => {
       const b = e.target.closest("[data-action]");
@@ -148,6 +151,7 @@
       if (
         !e.target.closest(".popover") &&
         !e.target.closest("#toolbar") &&
+        !e.target.closest("#pen-keyboard,#pen-dock,#selection-tools") &&
         !e.target.closest(".page-more")
       )
         closePopover();
@@ -246,6 +250,9 @@
     updateSaveState();
     updateZoom();
     selectionUI();
+    document
+      .querySelectorAll('[data-action="move-selection"]')
+      .forEach((b) => b.classList.toggle("active", s.transformMode === "move"));
     clearTimeout(refreshTimer);
     refreshTimer = setTimeout(renderPages, 70);
   }
@@ -451,7 +458,11 @@
         ["formula", "Soạn công thức đẹp", ""],
         ["focus", "Không gian tập trung", "F8"],
         ["copy", "Sao chép đối tượng", "Ctrl+C"],
-        ["paste", "Dán đối tượng", "Ctrl+V"],
+        ["paste", "Dán ảnh / văn bản / đối tượng", "Ctrl+V"],
+        ["paste-image", "Dán ảnh từ bộ nhớ đệm", ""],
+        ["select-all", "Chọn tất cả đối tượng", ""],
+        ["pen-options", "Thao tác bằng bút…", ""],
+        ["pen-keyboard", "Bàn phím trên màn hình", ""],
         ["help", "Hướng dẫn và giới hạn", "?"],
       ]
         .map(
@@ -470,6 +481,7 @@
   function setTool(tool) {
     CanvasEngine.cancelActive();
     if (tool !== "select") root.TeacherGeometry?.cancel();
+    if (tool !== "select") Store.state.transformMode = "auto";
     if (tool === "eraser" && Store.state.tool === "eraser") {
       const anchor = document.querySelector('[data-tool="eraser"]');
       const el = popover(
@@ -633,6 +645,7 @@
       .forEach((b) => b.classList.toggle("active", b.dataset.panel === id));
   }
   function closePanel() {
+    if (root.PenKeyboard?.target?.closest("#panel")) PenKeyboard.hide();
     document.getElementById("panel").hidden = true;
     Store.state.panel = null;
     document
@@ -775,6 +788,12 @@
       '<button data-action="lock">' +
       (selected.every((o) => o.locked) ? "Mở khóa" : "Khóa") +
       "</button>";
+    el.innerHTML =
+      '<button data-action="move-selection" title="Kéo di chuyển, không xoay">✥ Di chuyển</button><button data-action="transform-selection" title="Vị trí / kích thước">⤢ Kích thước</button>' +
+      (selected[0].type === "solid"
+        ? '<button data-action="orbit-selection">⟳ Xoay 3D</button>'
+        : "") +
+      el.innerHTML;
     if (
       selected.length === 1 &&
       selected[0].type === "text" &&
@@ -785,12 +804,14 @@
   }
   function copy() {
     Store.state.clipboard = Store.clone(Store.selected());
-    if (Store.state.clipboard.length)
+    if (Store.state.clipboard.length) {
+      ClipboardStudio.markInternal();
       toast(
         "Đã sao chép " +
           Store.state.clipboard.length +
           " đối tượng trong ứng dụng.",
       );
+    }
   }
   function paste() {
     if (!Store.state.clipboard.length)
@@ -965,11 +986,33 @@
           ["G / H / C", "Đồ thị / Hình học / Máy tính"],
           ["Ctrl+S / Ctrl+O", "Tải bản sao / Mở tệp"],
           ["Ctrl+Z / Ctrl+Y", "Hoàn tác / Làm lại"],
-          ["Ctrl+C / X / V", "Sao chép / Cắt / Dán trong ứng dụng"],
+          [
+            "Ctrl+C / X / V",
+            "Sao chép / Cắt / Dán ảnh, văn bản hoặc đối tượng",
+          ],
+          [
+            "Dán ảnh",
+            "Nút ở header hoặc thanh bút; ảnh chọn sẵn để kéo / đổi cỡ",
+          ],
+          [
+            "Thanh bút ⋯",
+            "Chọn nhiều, giữ tỷ lệ, bắt tọa độ, sao chép và bỏ chọn",
+          ],
+          [
+            "Bàn phím ⌨",
+            "Toán / ABC / số / tiếng Việt; tự mở khi bút chạm ô nhập",
+          ],
           ["Space + kéo", "Kéo trang"],
           ["Ctrl + lăn chuột", "Zoom tại vị trí con trỏ"],
           ["Shift khi vẽ hình", "Khóa góc / tỷ lệ"],
-          ["Khối 3D đã chọn", "Kéo giữa hình để xoay; Alt+kéo để di chuyển"],
+          [
+            "Khối 3D đã chọn",
+            "Nút Xoay 3D / Di chuyển; nét khuất tự cập nhật theo góc nhìn",
+          ],
+          [
+            "Kích thước",
+            "Bốn nút góc hoặc nhập rộng / cao / vị trí bằng bàn phím bút",
+          ],
           ["Nhấp đúp", "Sửa đồ thị, hình học hoặc văn bản"],
           ["Delete / Esc", "Xóa chọn / Hủy thao tác"],
         ]
@@ -990,6 +1033,18 @@
     updateZoom();
   }
   function dispatch(action, b) {
+    if (
+      [
+        "tool",
+        "move-selection",
+        "select-all",
+        "finish-action",
+        "image",
+        "paste-image",
+        "import-pdf",
+      ].includes(action)
+    )
+      PenKeyboard.hide();
     if (action.startsWith("page-"))
       return pageAction(action, Number(b.dataset.index));
     switch (action) {
@@ -1014,7 +1069,54 @@
       case "copy":
         return copy();
       case "paste":
-        return paste();
+        return ClipboardStudio.read();
+      case "paste-image":
+        return ClipboardStudio.read({ imagesOnly: true });
+      case "pen-keyboard":
+        return PenKeyboard.visible ? PenKeyboard.hide() : PenKeyboard.show();
+      case "pen-options":
+        return PenTools.options(
+          b?.getBoundingClientRect
+            ? b
+            : document.querySelector('[data-action="pen-options"]'),
+        );
+      case "toggle-dock":
+        document.getElementById("pen-dock").classList.toggle("collapsed");
+        return;
+      case "transform-selection":
+        return PenTools.transform(b?.getBoundingClientRect ? b : null);
+      case "move-selection":
+        TeacherGeometry.cancel();
+        Store.state.transformMode = "move";
+        setTool("select");
+        return;
+      case "orbit-selection":
+        if (Store.selected()[0]?.type === "solid")
+          TeacherGeometry.setMode("orbit", Store.selected()[0]);
+        return;
+      case "select-all":
+        TeacherGeometry.cancel();
+        setTool("select");
+        Store.state.selection = Store.current()
+          .objects.filter(
+            (o) =>
+              !o.locked &&
+              o.visible !== false &&
+              Store.current().layers.some(
+                (l) => l.id === o.layer && l.visible && !l.locked,
+              ),
+          )
+          .map((o) => o.id);
+        Store.emit();
+        return;
+      case "finish-action":
+        TeacherGeometry.cancel();
+        CanvasEngine.cancelActive();
+        Store.state.selection = [];
+        closePanel();
+        closePopover();
+        Store.emit();
+        return;
       case "cut":
         copy();
         return remove();
@@ -1155,6 +1257,14 @@
       ctrl = e.ctrlKey || e.metaKey;
     let action = null;
     if (ctrl) {
+      if (key === "v") {
+        ClipboardStudio.nativeKey();
+        return;
+      }
+      if (key === "c") {
+        copy();
+        return;
+      }
       action = {
         n: "new",
         o: "open",
@@ -1213,6 +1323,7 @@
     }
   }
   root.App = {
+    pasteInternal: paste,
     init,
     escape,
     toast,

@@ -12,6 +12,7 @@
     <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/studio.css" />
+    <link rel="stylesheet" href="css/pen.css" />
   </head>
   <body>
     <header class="titlebar">
@@ -53,6 +54,10 @@
       <button data-action="pages" id="pages-toggle">
         ☷ <span>Trang sổ tay</span></button
       ><span class="tab-divider"></span
+      ><button data-action="paste-image" title="Dán ảnh từ bộ nhớ đệm">
+        <span class="tab-symbol">▣</span> Dán ảnh</button
+      ><button data-action="image" title="Chèn ảnh từ máy">
+        <span class="tab-symbol">▧</span> Ảnh</button
       ><button data-action="panel" data-panel="pdf">
         <span class="tab-symbol">▧</span> Tài liệu PDF</button
       ><button data-action="panel" data-panel="graph">
@@ -108,6 +113,11 @@
         </div>
         <div id="selection-tools" hidden></div>
         <div id="geometry-toolbar" class="geometry-toolbar" hidden></div>
+        <div
+          id="pen-dock"
+          class="pen-dock"
+          aria-label="Thanh thao tác bút"
+        ></div>
         <div id="canvas-context" hidden></div>
         <div class="canvas-navigation">
           <button data-action="fit" title="Vừa trang">⌖</button><span></span
@@ -138,10 +148,23 @@
     <div id="toast" role="status" aria-live="polite"></div>
     <div id="popover" class="popover" hidden></div>
     <div id="calculator" class="calculator" hidden></div>
+    <div
+      id="pen-keyboard"
+      class="pen-keyboard"
+      hidden
+      aria-label="Bàn phím trên màn hình"
+    ></div>
     <dialog id="dialog">
       <form method="dialog">
         <div id="dialog-content"></div>
         <div class="dialog-actions">
+          <button
+            type="button"
+            data-action="pen-keyboard"
+            title="Bàn phím trên màn hình"
+          >
+            ⌨ Bàn phím
+          </button>
           <button value="cancel">Đóng</button
           ><button id="dialog-confirm" value="ok" class="primary">
             Xác nhận
@@ -163,6 +186,8 @@
     <script src="vendor/math-typesetter.js"></script>
     <script src="js/math-engine.js"></script>
     <script src="js/geometry.js"></script>
+    <script src="js/solid-view.js"></script>
+    <script src="js/solid-drawing.js"></script>
     <script src="js/constructions.js"></script>
     <script src="js/state.js"></script>
     <script src="js/renderer.js"></script>
@@ -175,6 +200,9 @@
     <script src="js/canvas.js"></script>
     <script src="js/teacher.js"></script>
     <script src="js/export.js"></script>
+    <script src="js/clipboard.js"></script>
+    <script src="js/pen-keyboard.js"></script>
+    <script src="js/pen-tools.js"></script>
     <script src="js/app.js"></script>
   </body>
 </html>

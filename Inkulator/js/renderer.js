@@ -350,125 +350,7 @@
     });
   }
   function solid(ctx, o) {
-    const labelBoxes = [];
-    const d = o.data,
-      model = Geometry.mesh(d.kind, d.params),
-      pr = Geometry.project(model.vertices, d.rotation, o.size.w, o.size.h),
-      p = pr.points;
-    const front = model.faces.map((f) => {
-      const n = Geometry.cross(
-        Geometry.sub(pr.rotated[f[1]], pr.rotated[f[0]]),
-        Geometry.sub(pr.rotated[f[2]], pr.rotated[f[0]]),
-      );
-      return n[1] < 0;
-    });
-    if (d.faces !== false || Number.isInteger(d.selectedFace)) {
-      const sorted = model.faces
-        .map((f, i) => ({
-          f,
-          i,
-          z: f.reduce((s, j) => s + pr.depths[j], 0) / f.length,
-        }))
-        .sort((a, b) => b.z - a.z);
-      for (const { f, i } of sorted) {
-        if (d.faces === false && i !== d.selectedFace) continue;
-        if (!front[i]) continue;
-        ctx.save();
-        ctx.globalAlpha *=
-          i === d.selectedFace ? 0.32 : (d.faceOpacity ?? 0.12);
-        ctx.fillStyle =
-          i === d.selectedFace ? "#d5a35b" : d.faceColor || o.style.color;
-        ctx.beginPath();
-        f.forEach((j, k) => (k ? ctx.lineTo(...p[j]) : ctx.moveTo(...p[j])));
-        ctx.closePath();
-        ctx.fill();
-        ctx.restore();
-      }
-    }
-    if (d.edges !== false) {
-      model.edges.forEach(([a, b], i) => {
-        if (
-          ["sphere", "cylinder", "cone", "cone-frustum"].includes(d.kind) &&
-          i % 3 !== 0
-        )
-          return;
-        const hidden = !model.faces.some(
-          (f, j) => front[j] && f.includes(a) && f.includes(b),
-        );
-        if (hidden && d.hiddenEdges === false) return;
-        ctx.save();
-        ctx.globalAlpha *= hidden ? 0.9 : 1;
-        ctx.lineWidth = hidden
-          ? Math.max(1.7, o.style.width * 0.8)
-          : Math.max(2.2, o.style.width);
-        ctx.setLineDash(hidden ? [5, 5] : []);
-        ctx.beginPath();
-        ctx.moveTo(...p[a]);
-        ctx.lineTo(...p[b]);
-        ctx.stroke();
-        ctx.restore();
-      });
-    }
-    if (d.labels !== false && model.labels.length) {
-      ctx.font = "italic 15px Georgia";
-      ctx.fillStyle = o.style.color;
-      p.forEach((q, i) => {
-        ctx.beginPath();
-        ctx.arc(...q, 2, 0, Math.PI * 2);
-        ctx.fill();
-        if (root.TeacherGeometry)
-          TeacherGeometry.drawLabel(
-            ctx,
-            model.labels[i] || "",
-            q,
-            [o.size.w / 2, o.size.h / 2],
-            labelBoxes,
-            p,
-          );
-        else ctx.fillText(model.labels[i] || "", q[0] + 6, q[1] - 6);
-      });
-    }
-    const projectExtra = (v) => {
-      const all = [...model.vertices, v];
-      return Geometry.project(all, d.rotation, o.size.w, o.size.h).points.at(
-        -1,
-      );
-    };
-    for (const aux of d.aux || []) {
-      ctx.save();
-      ctx.strokeStyle = o.style.color;
-      ctx.fillStyle = o.style.color;
-      ctx.lineWidth = Math.max(1.8, o.style.width * 0.85);
-      ctx.setLineDash([6, 4]);
-      let a, b;
-      if (aux.type === "segment") {
-        a = p[aux.a];
-        b = p[aux.b];
-      }
-      if (aux.type === "height") {
-        const top = model.vertices.at(-1);
-        a = p.at(-1);
-        b = projectExtra([top[0], top[1], 0]);
-      }
-      if (aux.type === "midpoint") {
-        const q = [
-          (p[aux.a][0] + p[aux.b][0]) / 2,
-          (p[aux.a][1] + p[aux.b][1]) / 2,
-        ];
-        ctx.beginPath();
-        ctx.arc(...q, 3, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.font = "italic 14px Georgia";
-        ctx.fillText(aux.label || "M", q[0] + 5, q[1] - 5);
-      }
-      if (a && b) {
-        ctx.beginPath();
-        ctx.moveTo(...a);
-        ctx.lineTo(...b);
-        ctx.stroke();
-      }
-      ctx.restore();
-    }
+    SolidDrawing.draw(ctx, o);
   }
   function text(ctx, o) {
     ctx.fillStyle = o.style.color;
@@ -613,18 +495,22 @@
       );
       ctx.setLineDash([]);
       if (!o.locked) {
-        ctx.fillRect(
-          o.size.w - 4 / zoom,
-          o.size.h - 4 / zoom,
-          8 / zoom,
-          8 / zoom,
-        );
-        ctx.strokeRect(
-          o.size.w - 4 / zoom,
-          o.size.h - 4 / zoom,
-          8 / zoom,
-          8 / zoom,
-        );
+        ctx.beginPath();
+        ctx.moveTo(o.size.w / 2, 0);
+        ctx.lineTo(o.size.w / 2, -22 / zoom);
+        ctx.stroke();
+        for (const h of CanvasEngine.selectionHandles(o)) {
+          ctx.beginPath();
+          ctx.arc(
+            h.x,
+            h.y,
+            (h.key === "rotate" ? 6 : 5.5) / zoom,
+            0,
+            Math.PI * 2,
+          );
+          ctx.fill();
+          ctx.stroke();
+        }
         if (o.type === "geometry") {
           o.data.points.forEach((p) => {
             const q = flatPoint(o, p);

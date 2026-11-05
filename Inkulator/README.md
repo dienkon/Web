@@ -1,4 +1,4 @@
-# SCRBLE MATH STUDIO · 1.1
+# SCRBLE MATH STUDIO · 1.2
 
 Sổ tay Toán học ngoại tuyến cho Windows, lấy cảm hứng bố cục từ ảnh Scrble Ink được cung cấp. Giao diện và tài sản tự thiết kế; không phải sản phẩm của Scrble, GeoGebra hay Casio.
 
@@ -12,7 +12,19 @@ Sổ tay Toán học ngoại tuyến cho Windows, lấy cảm hứng bố cục 
 
 Tất cả script, CSS, icon và thư viện nằm trong thư mục sản phẩm. Bản chạy dùng script cổ điển, không cần ES module từ file://, CDN, service worker hoặc tải font mạng. PDF.js được bundle cùng phần xử lý worker để chạy trên luồng chính, nhận font/CMap/decoder từ dữ liệu nhúng; không tạo worker từ đường dẫn file://. Công thức dùng SVG glyph có sẵn, không tải font ngoài.
 
-## Điểm mới 1.1 · dành cho giáo viên
+## Điểm mới 1.2 · dùng bằng một cây bút
+
+- **Ctrl+V / Dán ảnh:** dán ảnh chụp từ clipboard Windows bằng Ctrl+V hoặc nút **Dán ảnh** trên header/thanh bút. Ảnh được chọn sẵn, chuyển về chế độ di chuyển, giữ bản gốc và mặc định xử lý nét đen đậm trên nền trong.
+- **Kéo, đổi kích thước:** bốn nút góc lớn giữ tỷ lệ; có nút xoay 2D. Chọn **Kích thước** để nhập rộng/cao/X/Y, tăng giảm 10%, xoay 15° hoặc đưa hình vào giữa vùng nhìn. Tùy chọn giữ tỷ lệ cho phép đổi kích thước tự do bằng bút.
+- **Nét khuất 3D:** xét che khuất theo tọa độ và góc nhìn hiện tại. Khối hộp ở góc nhìn mặc định có đúng ba cạnh khuất gặp nhau tại đỉnh sau. Đường nối, đường chéo, đường cao và thiết diện tự chia nét liền/nét đứt; có thể chọn thủ công **Tự động / Liền / Đứt** khi dựng.
+- **Hình cầu mới:** đường bao tròn sạch, xích đạo liền phía trước/đứt phía sau, tâm O và bán kính r; bật thêm kinh tuyến khi cần. Trụ/nón/nón cụt dùng đường tròn đáy và đường sinh tiếp tuyến, bỏ lưới cạnh rối.
+- **Thanh bút kéo được:** bút, tẩy, chọn, kéo trang, lasso, dán ảnh, bàn phím và tùy chọn. Chạm **⋯** để chọn nhiều bằng từng lần chạm, chọn tất cả, sao chép/dán/xóa, giữ tỷ lệ, bắt tọa độ/góc, bỏ chọn hoặc bật chế độ tập trung. Kéo dấu **⋮** để di chuyển thanh; chạm để thu gọn.
+- **Bàn phím trên màn hình:** tự mở khi dùng bút chạm ô nhập; nút **⌨** mở thủ công, kể cả trong hộp thoại. Có Toán, số, ABC, ký tự LaTeX và tiếng Việt; dấu thanh áp vào nguyên âm gần nhất trước con trỏ. Có chọn hết, xóa, di chuyển con trỏ, ô tiếp và Enter. Các trường số có thể nhập số âm/thập phân mà không cần phím vật lý.
+- **Di chuyển / Xoay 3D riêng:** các nút trên thanh chọn cho phép chuyển rõ ràng giữa kéo hình và xoay khối, không cần giữ Alt. Nút menu trang luôn hiện khi dùng bút; lưu, Undo/Redo, mở tệp và xuất đều có nút trên giao diện.
+
+**Clipboard cục bộ:** quyền đọc clipboard phụ thuộc trình duyệt/chính sách Windows. Nếu nút Dán ảnh bị chặn, hộp thoại có ô chạm giữ → **Dán** và nút **Chọn ảnh trong máy**. Ctrl+V vẫn dùng sự kiện dán gốc của trình duyệt. Sao chép đối tượng trong ứng dụng dùng dữ liệu nội bộ của phiên; không xuất nét bút thành ảnh vào clipboard hệ điều hành.
+
+## Các tính năng từ 1.1 · dành cho giáo viên
 
 - **Header gọn:** tổng phần đầu giảm từ 151 xuống 104 px; F8 bật/tắt chế độ tập trung, chỉ giữ thanh công cụ 40 px.
 - **Nét đen, rõ, nền trong:** hình học mới dùng nét đen 2.6 px, độ đục nét 100%, bỏ màu tô mặt. Hình 3D chèn mặc định là hình chiếu tĩnh để không xoay ngoài ý muốn; chọn **Xoay 3D** khi muốn chỉnh góc nhìn. Có thể bật Live 3D trong thuộc tính.
@@ -59,7 +71,7 @@ Tất cả script, CSS, icon và thư viện nằm trong thư mục sản phẩm
 - Kéo đỉnh tam giác thường, sửa tọa độ, hiện tên/số đo; trung điểm, trung tuyến, đường cao và các tâm được tính lại theo định nghĩa. Có nối đỉnh, trung điểm, song song/vuông góc qua đỉnh.
 - Tam giác đều/cân/vuông, vuông/chữ nhật có thao tác giữ ràng buộc cơ bản. Với hình bình hành/thoi/thang và đa giác đều, kéo nút đỉnh **tịnh tiến cả hình** để giữ mẫu; chưa có bộ giải ràng buộc tổng quát hoặc nhập độ dài/góc tùy ý.
 - 13 mô hình không gian: lập phương, hộp chữ nhật, chóp đáy vuông, chóp SA vuông góc đáy, tứ diện đều, lăng trụ tam giác/lục giác, chóp cụt, trụ, nón, nón cụt, cầu và Oxyz.
-- **Bộ dựng 3D bằng phần mềm**: đỉnh/mặt/cạnh là dữ liệu tọa độ thực 3 chiều, xoay bằng ma trận, chiếu trực giao lên Canvas 2D, xét hướng mặt và cạnh khuất. Không dùng hoạt ảnh CSS; không cần WebGL. Mặt tròn xoay dùng lưới đa diện xấp xỉ.
+- **Bộ dựng 3D bằng phần mềm**: đỉnh/mặt/cạnh là dữ liệu tọa độ thực 3 chiều, xoay bằng ma trận, chiếu trực giao lên Canvas 2D, xét che khuất bằng tia nhìn và mặt khối. Không cần WebGL. Mặt tròn xoay có lưới xấp xỉ cho dữ liệu mặt; nét vẽ dùng đường bao, cung và đường sinh tính riêng.
 - Khối mới mặc định tĩnh. Chọn **Xoay 3D** trên thanh nổi để kéo chỉnh góc nhìn, hoặc bật Live 3D để kéo bên trong xoay trực tiếp; **Alt+kéo** hoặc kéo gần biên để di chuyển. Thay đổi a/b/h, mặt/cạnh/cạnh khuất, nhãn, màu và độ trong suốt. Live 3D hoặc hình chiếu tĩnh giữ góc nhìn. Cả hai chế độ đều giữ dữ liệu gốc trong JSON.
 - Nối đỉnh, trung điểm và đường cao cho các khối chóp hỗ trợ; chọn mặt bằng danh sách, chọn hai đỉnh để đo khoảng cách. Diện tích mặt, toàn phần, thể tích và khoảng cách điểm–mặt phẳng tính theo tọa độ, không theo pixel. Panel vectơ hỗ trợ tích vô hướng/có hướng, góc và kiểm tra song song/vuông góc có dung sai.
 - Ví dụ chóp SA ⊥ (ABCD), AB=4, SA=6 có V=32; lập phương a=3 có V=27, S=54.
@@ -110,13 +122,15 @@ Nếu dữ liệu tự lưu bị lỗi hoặc khác phiên bản, ứng dụng b
 | F8               | Bật/tắt chế độ tập trung                      |
 | F11              | Toàn màn hình do trình duyệt quản lý          |
 
-Phím tắt trang không chạy trong input/textarea/select/hộp thoại. Clipboard hiện là nội bộ ứng dụng, không trao đổi nét bút với clipboard Windows.
+Phím tắt trang không chạy trong input/textarea/select/hộp thoại. Ctrl+V hỗ trợ ảnh/văn bản từ clipboard hệ điều hành; sao chép/dán đối tượng dùng dữ liệu nội bộ trong phiên.
 
 ## Ví dụ đi kèm
 
 Mở **examples/Toan-12.smath.json** qua Ctrl+O. Trang mẫu có đồ thị `x³−3x`, các điểm cực trị, hình chóp thật có thể xoay và ghi chú thể tích. Nội dung mẫu là đối tượng chỉnh sửa được, không phải ảnh chụp.
 
 Mở **examples/Teacher-Geometry.smath.json** để xem cấu hình tam giác có điểm phụ, góc, đường cao và thiết diện qua ba trung điểm của lập phương. Các phép dựng là dữ liệu phụ thuộc có thể chỉnh sửa.
+
+Mở **examples/Solid-Geometry.smath.json** để xem khối hộp, cầu, trụ, chóp, nón và nón cụt với nét khuất tự động. Chọn hình → **Xoay 3D** để kiểm tra các góc nhìn; **Di chuyển** để kéo vị trí.
 
 ## Kiểm thử
 
@@ -130,6 +144,7 @@ npm test
 npm run test:browser
 npm run test:advanced
 npm run test:studio
+npm run test:pen
 npm run vendor:build  # chỉ cần nếu dựng lại thư viện từ dependency
 npm run package
 ```
@@ -142,12 +157,18 @@ Browser tests dùng Chrome/Edge đã cài, không chạy localhost. Các tệp m
 index.html                 Điểm vào; dùng script cục bộ cổ điển
 css/main.css               Giao diện, panel, giấy, máy tính, in
 css/studio.css             Header gọn, thanh dựng hình, PDF và công thức
+css/pen.css                Thanh bút, bàn phím và các nút chạm
 js/state.js                State, giao dịch, schema và localStorage
 js/canvas.js               Pointer Events, vẽ, chọn, biến đổi, tẩy
 js/renderer.js             Render trang, bút, hình học và lớp phủ
 js/math-engine.js          Diễn giải AST với danh sách cú pháp cho phép
 js/graph.js                Lấy mẫu, đồ thị, khảo sát và panel
 js/geometry.js             Tọa độ, lưới 3D, phép chiếu và phép đo
+js/solid-view.js           Tia nhìn, nét khuất và đường bao khối tròn
+js/solid-drawing.js        Nét vẽ và nhãn hình học không gian
+js/clipboard.js            Dán ảnh/văn bản và clipboard nội bộ
+js/pen-tools.js            Thanh bút, chọn nhiều và chỉnh kích thước
+js/pen-keyboard.js         Bàn phím Toán / số / tiếng Việt
 js/constructions.js        Điểm phụ thuộc, hình chiếu, góc và thiết diện
 js/teacher.js              Bắt điểm, chọn điểm và thao tác dựng trực tiếp
 js/formulas.js             Nhận dạng biểu thức gõ và SVG công thức

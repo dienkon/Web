@@ -90,7 +90,13 @@
     interaction =
       interaction?.mode === mode && interaction.objectId === o.id
         ? null
-        : { mode, objectId: o.id, picked: [], dashed: false };
+        : {
+            mode,
+            objectId: o.id,
+            picked: [],
+            lineMode: interaction?.lineMode || "auto",
+          };
+    Store.state.transformMode = mode === "orbit" ? "orbit" : "auto";
     Store.state.geometryInteraction = interaction;
     hovered = null;
     renderToolbar();
@@ -116,7 +122,8 @@
         id: Store.uid(),
         type: interaction.mode,
         refs: [...interaction.picked],
-        dashed: interaction.dashed,
+        lineMode: interaction.lineMode || "auto",
+        dashed: interaction.lineMode === "dashed",
         showMeasure: interaction.mode === "measure",
       };
       const labels = new Set(
@@ -203,7 +210,15 @@
       Renderer.request();
     }
   }
-  function drawLabel(ctx, text, q, center, occupied = [], others = []) {
+  function drawLabel(
+    ctx,
+    text,
+    q,
+    center,
+    occupied = [],
+    others = [],
+    edges = [],
+  ) {
     ctx.save();
     ctx.font = "italic 18px Georgia";
     ctx.textBaseline = "alphabetic";
@@ -239,7 +254,26 @@
             p[1] > box.y - 3 &&
             p[1] < box.y + box.h + 3,
         ).length,
-        score = overlap * 100 + cover * 80;
+        crossings = edges.filter(({ a, b }) => {
+          let low = 0,
+            high = 1;
+          for (let axis = 0; axis < 2; axis++) {
+            const min = (axis ? box.y : box.x) - 2,
+              max = min + (axis ? box.h : box.w) + 4,
+              delta = b[axis] - a[axis];
+            if (Math.abs(delta) < 1e-9) {
+              if (a[axis] < min || a[axis] > max) return false;
+            } else {
+              const t0 = (min - a[axis]) / delta,
+                t1 = (max - a[axis]) / delta;
+              low = Math.max(low, Math.min(t0, t1));
+              high = Math.min(high, Math.max(t0, t1));
+              if (high < low) return false;
+            }
+          }
+          return true;
+        }).length,
+        score = overlap * 100 + cover * 80 + crossings * 25;
       if (!choice || score < choice.score) choice = { box, ox, oy, score };
     }
     occupied.push(choice.box);
@@ -251,6 +285,7 @@
     ctx.restore();
   }
   function draw(ctx, o) {
+    if (o.type === "solid" && !o.data.constructions?.length) return;
     const result = Constructions.build(o),
       all = [...result.points.values()],
       locations = project(
@@ -268,6 +303,17 @@
       ctx.stroke();
       ctx.setLineDash([]);
     };
+    const spatial = o.type === "solid" ? SolidView.forObject(o) : null;
+    const modelLine = (A, B, item) => {
+      const mode = item.lineMode || (item.dashed ? "dashed" : "auto");
+      if (spatial)
+        SolidView.trace(ctx, spatial.segments(A, B), {
+          width: Math.max(2, o.style.width),
+          hiddenEdges: o.data.hiddenEdges !== false,
+          mode,
+        });
+      else line(...project(o, [A, B]), mode === "dashed");
+    };
     ctx.save();
     ctx.strokeStyle = o.style.color;
     ctx.fillStyle = o.style.color;
@@ -276,7 +322,7 @@
     for (const item of result.items) {
       const q = item.refs.map((k) => map.get(k));
       if (["segment", "measure"].includes(item.type)) {
-        line(...q, item.dashed);
+        modelLine(...item.coords, item);
         if (item.showMeasure || item.type === "measure") {
           const m = [(q[0][0] + q[1][0]) / 2, (q[0][1] + q[1][1]) / 2];
           drawLabel(
@@ -291,7 +337,7 @@
       }
       if (["parallel", "perpendicular"].includes(item.type)) {
         const pp = project(o, item.endpoints);
-        line(...pp, item.dashed);
+        modelLine(...item.endpoints, item);
         if (item.type === "perpendicular" && o.type === "geometry") {
           const foot = pp[1],
             ab = Geometry.sub(q[1], q[0]),
@@ -361,7 +407,21 @@
           ctx.fillStyle = "#d4a35c30";
           ctx.fill();
         }
-        ctx.stroke();
+        if (spatial) {
+          const edges = [];
+          for (let i = 0; i < item.points.length; i++)
+            edges.push(
+              ...spatial.segments(
+                item.points[i],
+                item.points[(i + 1) % item.points.length],
+              ),
+            );
+          SolidView.trace(ctx, edges, {
+            width: Math.max(3, o.style.width + 1),
+            hiddenEdges: o.data.hiddenEdges !== false,
+            mode: item.lineMode || "auto",
+          });
+        } else ctx.stroke();
         ctx.restore();
       }
     }
@@ -448,15 +508,19 @@
     }
     bar.hidden = false;
     const solid = o.type === "solid",
-      keys = [
-        "segment",
-        "midpoint",
-        "measure",
-        "perpendicular",
-        "parallel",
-        "angle",
-        ...(solid ? ["section", "orbit"] : ["circumcircle"]),
-      ];
+      keys =
+        solid &&
+        ["sphere", "cylinder", "cone", "cone-frustum"].includes(o.data.kind)
+          ? ["orbit"]
+          : [
+              "segment",
+              "midpoint",
+              "measure",
+              "perpendicular",
+              "parallel",
+              "angle",
+              ...(solid ? ["section", "orbit"] : ["circumcircle"]),
+            ];
     bar.innerHTML =
       '<div class="geometry-toolbar-buttons">' +
       keys
@@ -473,17 +537,42 @@
             "</button>",
         )
         .join("") +
-      '<button id="geo-finish" title="Thoát công cụ dựng">✓ Xong</button></div><div class="geometry-instruction">' +
+      '<button id="geo-finish" title="Thoát công cụ dựng">✓ Xong</button>' +
+      (interaction && interaction.mode !== "orbit"
+        ? '<select id="geo-inline-line-mode" aria-label="Kiểu nét đường nối"><option value="auto">Nét tự động</option><option value="solid">Luôn nét liền</option><option value="dashed">Luôn nét đứt</option></select>'
+        : "") +
+      '</div><div class="geometry-instruction">' +
       App.escape(status()) +
       "</div>";
     bar
       .querySelectorAll("[data-geo-mode]")
       .forEach((b) => (b.onclick = () => setMode(b.dataset.geoMode, o)));
     bar.querySelector("#geo-finish").onclick = cancel;
+    const lineChoice = bar.querySelector("#geo-inline-line-mode");
+    if (lineChoice) {
+      lineChoice.value = interaction.lineMode || "auto";
+      lineChoice.onchange = (e) => {
+        interaction.lineMode = e.target.value;
+      };
+    }
   }
   function mountPanel(o) {
     const host = document.getElementById("geometry-properties");
     if (!host) return;
+    if (
+      o.type === "solid" &&
+      ["sphere", "cylinder", "cone", "cone-frustum"].includes(o.data.kind)
+    ) {
+      const card = document.createElement("section");
+      card.className = "teacher-card";
+      card.innerHTML =
+        '<div class="teacher-card-title">HÌNH TRÒN XOAY <span>Nét khuất tự động</span></div><p class="hint">Kéo để xoay bằng công cụ riêng; thông số r / h dùng đơn vị toán học. Đường bao, vành tròn và đường sinh được giữ rõ nét.</p><div class="tiny-buttons"><button id="round-orbit">Xoay 3D bằng bút</button><button data-action="move-selection">Di chuyển hình</button><button id="round-camera">Góc nhìn chuẩn</button></div>';
+      host.prepend(card);
+      card.querySelector("#round-orbit").onclick = () => setMode("orbit", o);
+      card.querySelector("#round-camera").onclick = () =>
+        Store.transaction(() => (o.data.rotation = [-0.45, -0.55]));
+      return;
+    }
     const box = document.createElement("section");
     box.className = "teacher-card";
     box.innerHTML =
@@ -500,9 +589,7 @@
             ")</option>",
         )
         .join("") +
-      '</select><button id="geo-pick-list" class="secondary full">Chọn điểm này cho phép dựng</button><label class="field-row"><input id="geo-dashed" type="checkbox" ' +
-      (interaction?.dashed ? "checked" : "") +
-      '><span>Đường phụ nét đứt</span></label><div id="geo-construction-list"></div><button id="geo-clean-style" class="secondary full">Nét đen đậm · nền trong suốt</button>' +
+      '</select><button id="geo-pick-list" class="secondary full">Chọn điểm này cho phép dựng</button><label class="field"><span>Kiểu nét cho đường nối mới</span><select id="geo-line-mode"><option value="auto">Tự động · thấy = liền, khuất = đứt</option><option value="solid">Luôn nét liền</option><option value="dashed">Luôn nét đứt</option></select></label><div id="geo-construction-list"></div><button id="geo-clean-style" class="secondary full">Nét đen đậm · nền trong suốt</button>' +
       (o.type === "solid"
         ? '<div class="tiny-buttons" style="margin-top:12px"><button data-camera="standard">Góc chuẩn</button><button data-camera="front">Mặt trước</button><button data-camera="top">Nhìn từ trên</button></div><label class="field-row"><input id="geo-section-fill" type="checkbox" ' +
           (o.data.sectionFill ? "checked" : "") +
@@ -514,8 +601,9 @@
         return App.toast("Chọn công cụ ở thanh dựng hình trước.");
       pick(box.querySelector("#geo-point-choice").value);
     };
-    box.querySelector("#geo-dashed").onchange = (e) => {
-      if (interaction) interaction.dashed = e.target.checked;
+    box.querySelector("#geo-line-mode").value = interaction?.lineMode || "auto";
+    box.querySelector("#geo-line-mode").onchange = (e) => {
+      if (interaction) interaction.lineMode = e.target.value;
     };
     box.querySelector("#geo-clean-style").onclick = () =>
       Store.transaction(() => {

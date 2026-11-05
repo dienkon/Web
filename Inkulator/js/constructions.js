@@ -194,6 +194,8 @@
         typeof c.id !== "string" ||
         c.id.length > 80 ||
         ids.has(c.id) ||
+        (c.lineMode !== undefined &&
+          !["auto", "solid", "dashed"].includes(c.lineMode)) ||
         !operations[c.type] ||
         !Array.isArray(c.refs) ||
         c.refs.length !== operations[c.type] ||

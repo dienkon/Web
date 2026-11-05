@@ -11,15 +11,30 @@
 
 | Bộ kiểm thử                         | Kết quả                                                                          |
 | ----------------------------------- | -------------------------------------------------------------------------------- |
-| `npm test`                          | **31/31** nhóm đạt: 21 toán/dữ liệu và 10 dựng hình phụ thuộc / thiết diện       |
+| `npm test`                          | **42/42** nhóm đạt: 21 toán/dữ liệu, 10 dựng hình và 11 xét nét khuất            |
 | `npm run test:browser`              | **34/34** kiểm tra đạt, 17 trên Chrome và 17 trên Edge                           |
 | `npm run test:advanced`             | **14/14** nhóm kiểm tra đạt trên Chrome                                          |
 | `npm run test:studio`               | **32/32** kiểm tra bản 1.1, 16 trên Chrome và 16 trên Edge                       |
+| `npm run test:pen`                  | **34/34** kiểm tra bút/clipboard/3D, 17 trên Chrome và 17 trên Edge              |
 | `node --check` tất cả tệp `js/*.js` | Không có lỗi cú pháp                                                             |
 | Các luồng browser ở trên            | **0 lỗi JavaScript, 0 request HTTP/HTTPS**                                       |
 | `node tests/package-smoke.cjs`      | Mở bản đóng gói offline trên Chrome/Edge; lưu tệp thủ công khi chặn localStorage |
 
 Đây là số nhóm kiểm thử của các script, không phải lời xác nhận hoàn thành toàn bộ đặc tả mở rộng.
+
+### Cập nhật 1.2 · clipboard, bút và nét khuất
+
+- Dán PNG thật qua nút Dán ảnh; sự kiện Ctrl+V không bị preventDefault và sự kiện paste có ảnh chèn đúng một đối tượng. Ảnh chọn sẵn ở chế độ di chuyển.
+- Gửi sự kiện bút tin cậy qua Chrome DevTools Protocol để kéo ảnh, kéo góc giữ tỷ lệ, nhập rộng=300 bằng bàn phím số trên màn hình, chọn nhiều bằng chạm, nhóm/bỏ nhóm và sao chép/dán đối tượng.
+- API clipboard bị từ chối vẫn mở ô dán gốc; sự kiện paste ảnh vào ô này nhập được ảnh và đóng hộp thoại. **Clipboard được giả lập riêng trong context kiểm thử, không đọc/ghi clipboard Windows của người dùng.** Chưa kiểm chứng hộp xin quyền clipboard trên mọi cấu hình Windows.
+- Nhập `x^2+1` và chèn công thức hoàn toàn bằng nút bút; nhập tên sổ tay “Toán” qua ABC và dấu tiếng Việt. Modal giữ nút xác nhận trong vùng có thể chạm khi bàn phím mở.
+- Nút Xoay 3D làm đổi góc; nút Di chuyển chỉ đổi vị trí, không cần Alt. Nối A–C ở đáy lập phương lưu `lineMode:auto` và được xét khuất.
+- Hình hộp ở góc mặc định có đúng ba cạnh khuất qua A; nhìn từ trên thấy mặt trên. Đường đi phía sau khối được tách thành liền/đứt/liền tại biên hình chiếu. Kết quả được đối chiếu với bộ giao tia–tam giác độc lập trên 8 loại đa diện × 18 góc × 7 điểm.
+- Đảo thứ tự đỉnh mặt vẫn hướng pháp tuyến ra ngoài. Hệ trục không có mặt che nên cả ba trục luôn liền. Mặt cầu có một đỉnh mỗi cực, cạnh không suy biến, topology kín; giữ các chỉ số đỉnh trùng cũ làm điểm tham chiếu để sổ tay trước đây vẫn mở đúng tọa độ. Nón giữ tương thích các chỉ số đỉnh cũ và bỏ cạnh suy biến ở chóp.
+- Hình cầu dùng đường bao tròn, xích đạo chia hai nửa trước/sau; đo pixel canvas xác nhận cung sau có khoảng trống nét đứt, cung trước liên tục. Trụ/nón/nón cụt chỉ có vòng đáy và hai đường sinh tiếp tuyến ở góc nhìn kiểm tra.
+- Lặp dựng/render 100 trạng thái góc/khối không phát sinh lỗi. Luồng bút chạy offline trên Chrome/Edge, gồm Undo/Redo và tải tệp thật; không lỗi JavaScript, tài nguyên thất bại hoặc request HTTP/HTTPS.
+
+Ảnh đã xem trực tiếp: [solid-workspace.png](solid-workspace.png), [pen-keyboard.png](pen-keyboard.png). Sự kiện bút trình duyệt không thay thế kiểm tra stylus/màn hình vật lý.
 
 ### Cập nhật 1.1 · hình học, PDF, công thức và header
 
@@ -109,6 +124,7 @@ npm test
 npm run test:browser
 npm run test:advanced
 npm run test:studio
+npm run test:pen
 ```
 
 Các script browser cần Chrome/Edge đã được cài đặt. Không cần chạy máy chủ. Ảnh và tệp kiểm chứng nằm trong `test-results/` sau khi chạy; không đóng gói chúng như nội dung học của người dùng.

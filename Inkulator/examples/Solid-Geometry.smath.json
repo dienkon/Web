@@ -1,0 +1,494 @@
+{
+  "format": "scrble-math",
+  "version": 1,
+  "notebook": {
+    "id": "7760e50c-c10e-46bf-8522-b1e235497901",
+    "title": "Hình học không gian · nét khuất & khối tròn",
+    "folder": "",
+    "created": "2026-11-05T11:26:58.881Z",
+    "modified": "2026-11-05T11:26:58.882Z",
+    "pages": [
+      {
+        "id": "d444b8aa-4f9f-4cb4-8e3a-863de3c54692",
+        "title": "Đường nét rõ · mô hình 3D có thể chỉnh sửa",
+        "paper": "blank",
+        "width": 1200,
+        "height": 1700,
+        "showTitle": true,
+        "objects": [
+          {
+            "id": "dbb1d95f-3c8c-42c9-ba0b-aba148c92094",
+            "type": "solid",
+            "position": {
+              "x": 55,
+              "y": 170
+            },
+            "size": {
+              "w": 340,
+              "h": 290
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#111111",
+              "width": 2.6,
+              "opacity": 1
+            },
+            "zIndex": 0,
+            "locked": false,
+            "visible": true,
+            "layer": "geometry",
+            "data": {
+              "kind": "cube",
+              "params": {
+                "a": 4,
+                "b": 3,
+                "h": 6
+              },
+              "rotation": [
+                -0.45,
+                -0.55
+              ],
+              "live": false,
+              "faces": false,
+              "edges": true,
+              "hiddenEdges": true,
+              "labels": true,
+              "faceColor": "#111111",
+              "faceOpacity": 0,
+              "aux": [],
+              "showHeight": false,
+              "showRadius": false,
+              "center": false
+            }
+          },
+          {
+            "id": "c2fc0de4-4732-406c-8955-0bfd60970ad6",
+            "type": "text",
+            "position": {
+              "x": 155,
+              "y": 460
+            },
+            "size": {
+              "w": 230,
+              "h": 35
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#27836d",
+              "width": 1,
+              "opacity": 1
+            },
+            "zIndex": 0,
+            "locked": false,
+            "visible": true,
+            "layer": "annotation",
+            "data": {
+              "text": "Hình lập phương",
+              "fontSize": 16,
+              "fontFamily": "Segoe UI"
+            }
+          },
+          {
+            "id": "0092fd43-e5d3-468b-a1cd-38f21b4aad2e",
+            "type": "solid",
+            "position": {
+              "x": 435,
+              "y": 170
+            },
+            "size": {
+              "w": 340,
+              "h": 290
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#111111",
+              "width": 2.6,
+              "opacity": 1
+            },
+            "zIndex": 0,
+            "locked": false,
+            "visible": true,
+            "layer": "geometry",
+            "data": {
+              "kind": "sphere",
+              "params": {
+                "a": 4,
+                "b": 3,
+                "h": 6
+              },
+              "rotation": [
+                -0.45,
+                -0.55
+              ],
+              "live": false,
+              "faces": false,
+              "edges": true,
+              "hiddenEdges": true,
+              "labels": true,
+              "faceColor": "#111111",
+              "faceOpacity": 0,
+              "aux": [],
+              "showHeight": false,
+              "showRadius": true,
+              "center": true
+            }
+          },
+          {
+            "id": "237d2b35-660b-49fa-acf5-174db7e5efab",
+            "type": "text",
+            "position": {
+              "x": 535,
+              "y": 460
+            },
+            "size": {
+              "w": 230,
+              "h": 35
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#27836d",
+              "width": 1,
+              "opacity": 1
+            },
+            "zIndex": 0,
+            "locked": false,
+            "visible": true,
+            "layer": "annotation",
+            "data": {
+              "text": "Hình cầu",
+              "fontSize": 16,
+              "fontFamily": "Segoe UI"
+            }
+          },
+          {
+            "id": "e8c40881-9986-4346-972a-7c72c7c61c6e",
+            "type": "solid",
+            "position": {
+              "x": 815,
+              "y": 170
+            },
+            "size": {
+              "w": 340,
+              "h": 290
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#111111",
+              "width": 2.6,
+              "opacity": 1
+            },
+            "zIndex": 0,
+            "locked": false,
+            "visible": true,
+            "layer": "geometry",
+            "data": {
+              "kind": "cylinder",
+              "params": {
+                "a": 4,
+                "b": 3,
+                "h": 6
+              },
+              "rotation": [
+                -0.45,
+                -0.55
+              ],
+              "live": false,
+              "faces": false,
+              "edges": true,
+              "hiddenEdges": true,
+              "labels": true,
+              "faceColor": "#111111",
+              "faceOpacity": 0,
+              "aux": [],
+              "showHeight": true,
+              "showRadius": true,
+              "center": true
+            }
+          },
+          {
+            "id": "a036dd09-9d24-4a0c-98c8-86061ff811b9",
+            "type": "text",
+            "position": {
+              "x": 915,
+              "y": 460
+            },
+            "size": {
+              "w": 230,
+              "h": 35
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#27836d",
+              "width": 1,
+              "opacity": 1
+            },
+            "zIndex": 0,
+            "locked": false,
+            "visible": true,
+            "layer": "annotation",
+            "data": {
+              "text": "Hình trụ",
+              "fontSize": 16,
+              "fontFamily": "Segoe UI"
+            }
+          },
+          {
+            "id": "7cb3d43c-6644-44ae-95fa-f5ce2ec1c104",
+            "type": "solid",
+            "position": {
+              "x": 55,
+              "y": 500
+            },
+            "size": {
+              "w": 340,
+              "h": 290
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#111111",
+              "width": 2.6,
+              "opacity": 1
+            },
+            "zIndex": 0,
+            "locked": false,
+            "visible": true,
+            "layer": "geometry",
+            "data": {
+              "kind": "right-pyramid",
+              "params": {
+                "a": 4,
+                "b": 3,
+                "h": 6
+              },
+              "rotation": [
+                -0.45,
+                -0.55
+              ],
+              "live": false,
+              "faces": false,
+              "edges": true,
+              "hiddenEdges": true,
+              "labels": true,
+              "faceColor": "#111111",
+              "faceOpacity": 0,
+              "aux": [],
+              "showHeight": true,
+              "showRadius": true,
+              "center": true
+            }
+          },
+          {
+            "id": "607a88e4-6884-49e1-94fe-af64db8abb79",
+            "type": "text",
+            "position": {
+              "x": 155,
+              "y": 790
+            },
+            "size": {
+              "w": 230,
+              "h": 35
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#27836d",
+              "width": 1,
+              "opacity": 1
+            },
+            "zIndex": 0,
+            "locked": false,
+            "visible": true,
+            "layer": "annotation",
+            "data": {
+              "text": "Chóp SA ⊥ đáy",
+              "fontSize": 16,
+              "fontFamily": "Segoe UI"
+            }
+          },
+          {
+            "id": "367bd97c-bfa5-46c7-b9eb-dff266a7370e",
+            "type": "solid",
+            "position": {
+              "x": 435,
+              "y": 500
+            },
+            "size": {
+              "w": 340,
+              "h": 290
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#111111",
+              "width": 2.6,
+              "opacity": 1
+            },
+            "zIndex": 0,
+            "locked": false,
+            "visible": true,
+            "layer": "geometry",
+            "data": {
+              "kind": "cone",
+              "params": {
+                "a": 4,
+                "b": 3,
+                "h": 6
+              },
+              "rotation": [
+                -0.45,
+                -0.55
+              ],
+              "live": false,
+              "faces": false,
+              "edges": true,
+              "hiddenEdges": true,
+              "labels": true,
+              "faceColor": "#111111",
+              "faceOpacity": 0,
+              "aux": [],
+              "showHeight": true,
+              "showRadius": true,
+              "center": true
+            }
+          },
+          {
+            "id": "f802dfcc-7596-4447-80dc-8a6c07ed58cd",
+            "type": "text",
+            "position": {
+              "x": 535,
+              "y": 790
+            },
+            "size": {
+              "w": 230,
+              "h": 35
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#27836d",
+              "width": 1,
+              "opacity": 1
+            },
+            "zIndex": 0,
+            "locked": false,
+            "visible": true,
+            "layer": "annotation",
+            "data": {
+              "text": "Hình nón",
+              "fontSize": 16,
+              "fontFamily": "Segoe UI"
+            }
+          },
+          {
+            "id": "c2f03483-396e-4928-8573-3cbd3941e3ca",
+            "type": "solid",
+            "position": {
+              "x": 815,
+              "y": 500
+            },
+            "size": {
+              "w": 340,
+              "h": 290
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#111111",
+              "width": 2.6,
+              "opacity": 1
+            },
+            "zIndex": 0,
+            "locked": false,
+            "visible": true,
+            "layer": "geometry",
+            "data": {
+              "kind": "cone-frustum",
+              "params": {
+                "a": 4,
+                "b": 3,
+                "h": 6
+              },
+              "rotation": [
+                -0.45,
+                -0.55
+              ],
+              "live": false,
+              "faces": false,
+              "edges": true,
+              "hiddenEdges": true,
+              "labels": true,
+              "faceColor": "#111111",
+              "faceOpacity": 0,
+              "aux": [],
+              "showHeight": true,
+              "showRadius": true,
+              "center": true
+            }
+          },
+          {
+            "id": "a548022d-61db-41d1-bd6b-e457aedb5618",
+            "type": "text",
+            "position": {
+              "x": 915,
+              "y": 790
+            },
+            "size": {
+              "w": 230,
+              "h": 35
+            },
+            "rotation": 0,
+            "style": {
+              "color": "#27836d",
+              "width": 1,
+              "opacity": 1
+            },
+            "zIndex": 0,
+            "locked": false,
+            "visible": true,
+            "layer": "annotation",
+            "data": {
+              "text": "Hình nón cụt",
+              "fontSize": 16,
+              "fontFamily": "Segoe UI"
+            }
+          }
+        ],
+        "layers": [
+          {
+            "id": "image",
+            "visible": true,
+            "locked": false
+          },
+          {
+            "id": "geometry",
+            "visible": true,
+            "locked": false
+          },
+          {
+            "id": "graph",
+            "visible": true,
+            "locked": false
+          },
+          {
+            "id": "ink",
+            "visible": true,
+            "locked": false
+          },
+          {
+            "id": "annotation",
+            "visible": true,
+            "locked": false
+          }
+        ]
+      }
+    ]
+  },
+  "settings": {
+    "theme": "light",
+    "gridSize": 25,
+    "smoothing": 0.5,
+    "penSensitivity": 1,
+    "autosave": 1200,
+    "historyLimit": 60,
+    "touchInk": false,
+    "smartShape": false,
+    "animations": true
+  },
+  "assets": {}
+}

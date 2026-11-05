@@ -97,6 +97,8 @@
     const solid = o.type === "solid",
       d = o.data,
       G = Geometry;
+    const round =
+      solid && ["sphere", "cylinder", "cone", "cone-frustum"].includes(d.kind);
     const catalog = solid ? G.solidCatalog : G.flatCatalog,
       name = catalog.find(([k]) => k === d.kind)?.[1] || "Hình học";
     const box = document.getElementById("geometry-properties");
@@ -109,7 +111,9 @@
           ? "Live 3D · mô hình tọa độ; kéo để xoay."
           : "Hình chiếu tĩnh · giữ nguyên góc nhìn."
         : "Đỉnh và đường phụ dùng tọa độ toán học. Đơn vị tùy chọn.") +
-      '</p><div id="geometry-fields"></div><div id="geometry-measurement" class="result-box"></div><div class="tiny-buttons" id="geometry-toggles"></div><h3>Dựng đường phụ</h3><div class="field-row"><select id="aux-a" aria-label="Đỉnh đầu"></select><select id="aux-b" aria-label="Đỉnh cuối"></select></div><div class="tiny-buttons"><button id="aux-segment">Nối hai đỉnh</button><button id="aux-midpoint">Trung điểm</button>' +
+      '</p><div id="geometry-fields"></div><div id="geometry-measurement" class="result-box"></div><div class="tiny-buttons" id="geometry-toggles"></div><div ' +
+      (round ? "hidden" : "") +
+      '><h3>Dựng đường phụ</h3><div class="field-row"><select id="aux-a" aria-label="Đỉnh đầu"></select><select id="aux-b" aria-label="Đỉnh cuối"></select></div><div class="tiny-buttons"><button id="aux-segment">Nối hai đỉnh</button><button id="aux-midpoint">Trung điểm</button>' +
       (solid && ["pyramid", "right-pyramid", "tetrahedron"].includes(d.kind)
         ? '<button id="aux-height">Đường cao</button>'
         : "") +
@@ -117,9 +121,47 @@
       (solid
         ? '<label class="field"><span>Chọn mặt để khảo sát</span><select id="face-select"></select></label><div id="face-measurement" class="hint"></div>'
         : "") +
-      '<div class="panel-divider"></div>';
+      '</div><div class="panel-divider"></div>';
     const fields = document.getElementById("geometry-fields");
     if (solid) {
+      if (["sphere", "cylinder", "cone", "cone-frustum"].includes(d.kind)) {
+        const card = document.createElement("div");
+        card.className = "round-controls";
+        card.innerHTML =
+          "<h3>Hình tròn xoay rõ nét</h3>" +
+          [
+            ["showRadius", "Hiện bán kính r"],
+            ...(d.kind === "sphere"
+              ? [
+                  ["equator", "Đường xích đạo"],
+                  ["meridian", "Một đường kinh tuyến"],
+                ]
+              : [["showHeight", "Hiện đường cao h"]]),
+          ]
+            .map(
+              ([key, label]) =>
+                '<label class="field-row"><input type="checkbox" data-round="' +
+                key +
+                '" ' +
+                ((d[key] ?? (d.kind === "sphere" && key !== "meridian"))
+                  ? "checked"
+                  : "") +
+                "><span>" +
+                label +
+                "</span></label>",
+            )
+            .join("");
+        fields.before(card);
+        card
+          .querySelectorAll("[data-round]")
+          .forEach(
+            (input) =>
+              (input.onchange = () =>
+                Store.transaction(
+                  () => (d[input.dataset.round] = input.checked),
+                )),
+          );
+      }
       fields.innerHTML =
         '<div class="field-row">' +
         ["a", "b", "h"]
@@ -133,7 +175,13 @@
           .map(
             (k) =>
               '<label class="field"><span>' +
-              k +
+              (round && k === "a"
+                ? d.kind === "cone-frustum"
+                  ? "R"
+                  : "r"
+                : round && k === "b"
+                  ? "r"
+                  : k) +
               '</span><input type="number" data-dimension="' +
               k +
               '" min="0.01" max="10000" step="any" value="' +
@@ -407,6 +455,7 @@
       const extra = document.createElement("div");
       extra.innerHTML =
         '<h3>Vectơ theo tọa độ</h3><p class="hint">u = AB theo hai đỉnh đã chọn. Nhập v để tính tích và góc; không dùng tọa độ pixel.</p><label class="field"><span>v = (x, y, z)</span><input id="vector-v" value="0, 0, 1"></label><button class="secondary full" id="vector-measure">Tính u · v, u × v và góc</button><div id="vector-result" class="result-box" hidden></div>';
+      extra.hidden = round;
       box.append(extra);
       document.getElementById("vector-measure").onclick = () => {
         try {
