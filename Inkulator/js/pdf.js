@@ -169,7 +169,8 @@
         ),
       ),
       key = cacheKey(o, target);
-    let image = renders.get(key);
+    let image =
+      o._cachedRenderKey === key ? o._cachedRenderImage : renders.get(key);
     if (!image) {
       let best = 0;
       for (const [k, c] of renders)
@@ -211,6 +212,10 @@
             App.toast("PDF: " + e.message, 7000);
           }
         });
+    }
+    if (image) {
+      o._cachedRenderKey = key;
+      o._cachedRenderImage = image;
     }
     ctx.save();
     if (typeof o.style?.opacity === "number") {

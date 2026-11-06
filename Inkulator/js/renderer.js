@@ -135,12 +135,29 @@
       ctx.fill();
       return;
     }
+    if (o.data.pen !== "fountain") {
+      ctx.lineWidth = width;
+      ctx.beginPath();
+      ctx.moveTo(p[0][0], p[0][1]);
+      if (p.length === 2) {
+        ctx.lineTo(p[1][0], p[1][1]);
+      } else {
+        ctx.lineTo((p[0][0] + p[1][0]) / 2, (p[0][1] + p[1][1]) / 2);
+        for (let i = 1; i < p.length - 1; i++) {
+          const xc = (p[i][0] + p[i + 1][0]) / 2;
+          const yc = (p[i][1] + p[i + 1][1]) / 2;
+          ctx.quadraticCurveTo(p[i][0], p[i][1], xc, yc);
+        }
+        ctx.lineTo(p[p.length - 1][0], p[p.length - 1][1]);
+      }
+      ctx.stroke();
+      return;
+    }
     for (let i = 1; i < p.length; i++) {
       const prev = p[i - 1],
-        cur = p[i],
-        next = p[Math.min(i + 1, p.length - 1)];
+        cur = p[i];
       ctx.lineWidth =
-        width * (o.data.pen === "fountain" ? 0.25 + 1.5 * (cur[2] || 0.5) : 1);
+        width * (0.25 + 1.5 * (cur[2] || 0.5));
       ctx.beginPath();
       if (i === 1) ctx.moveTo(prev[0], prev[1]);
       else ctx.moveTo((p[i - 2][0] + prev[0]) / 2, (p[i - 2][1] + prev[1]) / 2);
@@ -597,13 +614,39 @@
     }
     ctx.restore();
   }
+  function getLayerObjects(p) {
+    if (
+      p._layerCache &&
+      p._layerCacheVersion === p.objects.length &&
+      typeof p._layerCache === "object"
+    ) {
+      return p._layerCache;
+    }
+    const map = {};
+    for (let i = 0; i < p.layers.length; i++) {
+      const l = p.layers[i];
+      if (l.visible) map[l.id] = [];
+    }
+    for (let i = 0; i < p.objects.length; i++) {
+      const o = p.objects[i];
+      const arr = map[o.layer];
+      if (arr) arr.push(o);
+    }
+    for (const key in map) {
+      map[key].sort((a, b) => (a.zIndex || 0) - (b.zIndex || 0));
+    }
+    p._layerCache = map;
+    p._layerCacheVersion = p.objects.length;
+    return map;
+  }
   function objects(ctx, p) {
-    for (const layer of p.layers) {
+    const layerMap = getLayerObjects(p);
+    for (let i = 0; i < p.layers.length; i++) {
+      const layer = p.layers[i];
       if (!layer.visible) continue;
-      p.objects
-        .filter((o) => o.layer === layer.id)
-        .sort((a, b) => a.zIndex - b.zIndex)
-        .forEach((o) => drawObject(ctx, o));
+      const list = layerMap[layer.id];
+      if (!list) continue;
+      for (let j = 0; j < list.length; j++) drawObject(ctx, list[j]);
     }
   }
   function drawSelection(ctx) {
@@ -706,30 +749,33 @@
   function renderFlow() {
     const pages = PageFlow.visible(),
       v = state().viewport;
-    for (const [ctx, c] of [
-      [pc, paper],
-      [ic, ink],
-    ]) {
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.clearRect(0, 0, c.width, c.height);
+    const flowPaperKey = `${pages.map((p) => `${p.index}:${p.x}:${p.y}:${p.page.paper}:${p.page.width}:${p.page.height}`).join(",")}|${v.x}|${v.y}|${v.zoom}|${paper.width}|${paper.height}|${state().settings.gridSize}`;
+    if (flowPaperKey !== lastPaperKey) {
+      pc.setTransform(1, 0, 0, 1, 0, 0);
+      pc.clearRect(0, 0, paper.width, paper.height);
+      pc.fillStyle = "#e9eeeb";
+      pc.fillRect(0, 0, paper.width, paper.height);
+      for (const item of pages) {
+        viewport(pc);
+        pc.save();
+        pc.translate(item.x, item.y);
+        drawPaper(pc, item.page, {
+          x: 0,
+          y: 0,
+          w: item.page.width,
+          h: item.page.height,
+        });
+        pc.strokeStyle = "#cbd5cf";
+        pc.lineWidth = 1 / v.zoom;
+        pc.strokeRect(0, 0, item.page.width, item.page.height);
+        pc.restore();
+      }
+      lastPaperKey = flowPaperKey;
     }
-    pc.fillStyle = "#e9eeeb";
-    pc.fillRect(0, 0, paper.width, paper.height);
+    ic.setTransform(1, 0, 0, 1, 0, 0);
+    ic.clearRect(0, 0, ink.width, ink.height);
     root.PDFTiles?.beginFrame();
     for (const item of pages) {
-      viewport(pc);
-      pc.save();
-      pc.translate(item.x, item.y);
-      drawPaper(pc, item.page, {
-        x: 0,
-        y: 0,
-        w: item.page.width,
-        h: item.page.height,
-      });
-      pc.strokeStyle = "#cbd5cf";
-      pc.lineWidth = 1 / v.zoom;
-      pc.strokeRect(0, 0, item.page.width, item.page.height);
-      pc.restore();
       viewport(ic);
       ic.save();
       ic.translate(item.x, item.y);
@@ -745,7 +791,6 @@
     root.TeacherGeometry?.drawOverlay(ic);
     drawSelection(ic);
     if (state().ruler) drawRuler(ic);
-    lastPaperKey = "";
     updateTitle();
     PageFlow.update();
   }

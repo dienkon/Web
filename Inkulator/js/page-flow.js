@@ -3,20 +3,44 @@
   const GAP = 0,
     PAD = 20;
   let bar,
-    expected = 0;
+    expected = 0,
+    cachedLayout = null,
+    cachedLayoutBookId = "",
+    cachedLayoutVersion = 0,
+    lastUpdateState = "";
   function enabled() {
     return true;
   }
+  function invalidateLayout() {
+    cachedLayout = null;
+    lastUpdateState = "";
+  }
   function layout() {
-    const pages = Store.book().pages,
-      width = Math.max(...pages.map((p) => p.width));
+    const book = Store.book();
+    const pages = book.pages;
+    if (
+      cachedLayout &&
+      cachedLayoutBookId === book.id &&
+      cachedLayoutVersion === pages.length &&
+      cachedLayout.items[0]?.page === pages[0]
+    ) {
+      return cachedLayout;
+    }
+    let width = 0;
+    for (let i = 0; i < pages.length; i++) {
+      if (pages[i].width > width) width = pages[i].width;
+    }
     let y = 0;
-    const items = pages.map((page, index) => {
-      const item = { page, index, x: (width - page.width) / 2, y };
+    const items = new Array(pages.length);
+    for (let i = 0; i < pages.length; i++) {
+      const page = pages[i];
+      items[i] = { page, index: i, x: (width - page.width) / 2, y };
       y += page.height + GAP;
-      return item;
-    });
-    return { items, height: y - GAP, width };
+    }
+    cachedLayout = { items, height: y - GAP, width };
+    cachedLayoutBookId = book.id;
+    cachedLayoutVersion = pages.length;
+    return cachedLayout;
   }
   function reanchor(index, l = layout()) {
     const state = Store.state;
@@ -73,6 +97,7 @@
   }
   function appendUntil(bottom, record = true) {
     if (Store.state.settings.autoPages === false) return 0;
+    invalidateLayout();
     let l = layout(),
       added = 0;
     const append = () => {
@@ -91,6 +116,7 @@
         });
         Store.book().pages.push(page);
         added++;
+        invalidateLayout();
         l = layout();
       }
     };
@@ -103,9 +129,18 @@
     return added;
   }
   function ensureInk(points, index) {
-    const origin = layout().items[index];
+    if (!points || !points.length) return;
+    const l = layout();
+    const origin = l.items[index];
     if (!origin) return;
-    appendUntil(origin.y + Math.max(...points.map((p) => p[1])) + 0.001, false);
+    const lastPoint = points[points.length - 1];
+    if (lastPoint && lastPoint[1] <= origin.page.height) return;
+    let maxY = 0;
+    for (let i = 0; i < points.length; i++) {
+      if (points[i][1] > maxY) maxY = points[i][1];
+    }
+    if (origin.y + maxY <= l.height) return;
+    appendUntil(origin.y + maxY + 0.001, false);
   }
   function splitInk(points, index) {
     const l = layout(),
@@ -263,13 +298,18 @@
   function update() {
     if (!bar) return;
     bar.hidden = !enabled();
-    document.querySelector('[data-action="previous-page"]').disabled =
-      Store.state.pageIndex === 0;
-    document.querySelector('[data-action="next-page"]').disabled =
-      Store.state.pageIndex === Store.book().pages.length - 1;
     if (bar.hidden) return;
+    const book = Store.book();
     const l = layout(),
       v = Store.state.viewport;
+    const stateKey = `${Store.state.pageIndex}|${book.pages.length}|${v.x}|${v.y}|${v.zoom}|${l.height}`;
+    if (stateKey === lastUpdateState) return;
+    lastUpdateState = stateKey;
+    const prevBtn = document.querySelector('[data-action="previous-page"]');
+    if (prevBtn) prevBtn.disabled = Store.state.pageIndex === 0;
+    const nextBtn = document.querySelector('[data-action="next-page"]');
+    if (nextBtn)
+      nextBtn.disabled = Store.state.pageIndex === book.pages.length - 1;
     bar.firstElementChild.style.height = l.height * v.zoom + 2 * PAD + "px";
     expected = Math.max(
       0,
@@ -302,7 +342,10 @@
       settle({ extend: downward });
       Renderer.request();
     });
-    document.addEventListener("statechange", update);
+    document.addEventListener("statechange", () => {
+      invalidateLayout();
+      update();
+    });
     update();
   }
   root.PageFlow = {

@@ -612,14 +612,32 @@
     cursor();
   }
   function strokeFrom(points, mode = "pen", style = null, pen = null) {
-    const minX = Math.min(...points.map((p) => p[0])),
-      minY = Math.min(...points.map((p) => p[1])),
-      w = Math.max(0.1, Math.max(...points.map((p) => p[0])) - minX),
-      h = Math.max(0.1, Math.max(...points.map((p) => p[1])) - minY);
+    let minX = Infinity,
+      minY = Infinity,
+      maxX = -Infinity,
+      maxY = -Infinity;
+    for (let i = 0; i < points.length; i++) {
+      const x = points[i][0],
+        y = points[i][1];
+      if (x < minX) minX = x;
+      if (x > maxX) maxX = x;
+      if (y < minY) minY = y;
+      if (y > maxY) maxY = y;
+    }
+    if (!isFinite(minX)) {
+      minX = minY = 0;
+      maxX = maxY = 0.1;
+    }
+    const w = Math.max(0.1, maxX - minX),
+      h = Math.max(0.1, maxY - minY);
+    const pts = new Array(points.length);
+    for (let i = 0; i < points.length; i++) {
+      pts[i] = [points[i][0] - minX, points[i][1] - minY, points[i][2] ?? 0.5];
+    }
     return Store.object(
       "stroke",
       {
-        points: points.map((p) => [p[0] - minX, p[1] - minY, p[2] ?? 0.5]),
+        points: pts,
         pen: pen || (mode === "highlighter" ? "highlighter" : S().pen),
         baseSize: { w, h },
       },
@@ -683,9 +701,19 @@
   function erase(p) {
     const radius = Math.max(8, S().width * 3) / S().viewport.zoom,
       objects = Store.current().objects,
-      result = [];
+      result = [],
+      pad = radius + 2;
     for (const o of objects) {
       if (o.type !== "stroke" || !layerEditable(o)) {
+        result.push(o);
+        continue;
+      }
+      if (
+        p.x < o.position.x - pad ||
+        p.x > o.position.x + o.size.w + pad ||
+        p.y < o.position.y - pad ||
+        p.y > o.position.y + o.size.h + pad
+      ) {
         result.push(o);
         continue;
       }
@@ -914,19 +942,68 @@
     menu.style.top =
       Math.min(e.clientY, innerHeight - menu.offsetHeight - 35) + "px";
   }
+  function drawActiveStroke(ctx, points, mode, isLaserFade = false) {
+    if (!points || !points.length) return;
+    const isLaser = mode === "laser" || isLaserFade;
+    const penType = isLaser ? "pen" : mode === "highlighter" ? "highlighter" : S().pen;
+    const color = isLaser ? "#ef6559" : S().color;
+    const width = (mode === "highlighter" ? Math.max(15, S().width) : S().width) * (penType === "marker" ? 2 : 1);
+    let alpha = (penType === "highlighter" ? 0.28 : penType === "pencil" ? 0.7 : 1) * (S().opacity ?? 1);
+    if (isLaserFade) alpha *= 0.6;
+
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.globalAlpha = Math.max(0.05, Math.min(1, alpha));
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    if (points.length === 1) {
+      ctx.beginPath();
+      ctx.arc(points[0][0], points[0][1], width / 2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+      return;
+    }
+
+    if (penType !== "fountain") {
+      ctx.lineWidth = width;
+      ctx.beginPath();
+      ctx.moveTo(points[0][0], points[0][1]);
+      if (points.length === 2) {
+        ctx.lineTo(points[1][0], points[1][1]);
+      } else {
+        ctx.lineTo((points[0][0] + points[1][0]) / 2, (points[0][1] + points[1][1]) / 2);
+        for (let i = 1; i < points.length - 1; i++) {
+          const xc = (points[i][0] + points[i + 1][0]) / 2;
+          const yc = (points[i][1] + points[i + 1][1]) / 2;
+          ctx.quadraticCurveTo(points[i][0], points[i][1], xc, yc);
+        }
+        ctx.lineTo(points[points.length - 1][0], points[points.length - 1][1]);
+      }
+      ctx.stroke();
+    } else {
+      for (let i = 1; i < points.length; i++) {
+        const prev = points[i - 1], cur = points[i];
+        ctx.lineWidth = width * (0.25 + 1.5 * (cur[2] || 0.5));
+        ctx.beginPath();
+        if (i === 1) ctx.moveTo(prev[0], prev[1]);
+        else ctx.moveTo((points[i - 2][0] + prev[0]) / 2, (points[i - 2][1] + prev[1]) / 2);
+        ctx.quadraticCurveTo(prev[0], prev[1], (cur[0] + prev[0]) / 2, (cur[1] + prev[1]) / 2);
+        if (i === points.length - 1) ctx.lineTo(cur[0], cur[1]);
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
   function drawOverlay(ctx) {
     const g = gesture;
     ctx.save();
     if (g?.points && ["pen", "highlighter", "laser"].includes(g.mode)) {
-      const o = strokeFrom(g.points, g.mode === "laser" ? "pen" : g.mode);
-      if (g.mode === "laser") o.style.color = "#ef6559";
-      Renderer.drawObject(ctx, o);
+      drawActiveStroke(ctx, g.points, g.mode);
     }
     if (laser) {
-      const o = strokeFrom(laser.points);
-      o.style.color = "#ef6559";
-      o.style.opacity = 0.6;
-      Renderer.drawObject(ctx, o);
+      drawActiveStroke(ctx, laser.points, "laser", true);
     }
     if (g?.mode === "shape" && g.draft) Renderer.drawObject(ctx, g.draft);
     if (g?.mode === "lasso" && g.points) {
