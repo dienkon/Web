@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-17T03:49:36.479Z",
+  "checkedAt": "2026-11-06T14:37:56.512Z",
   "scope": "Every authored preset identifier, including aliases; not a real-lab dosing protocol.",
   "solventBasis": "Residual already-declared sample mass is materialized as water only for the authored aqueous presets.",
   "counts": {
@@ -517,14 +517,14 @@
           "id": "beaker_2",
           "name": "Beaker 2 (Sodium Na)",
           "volume_ml": 0,
-          "mass_g": 1,
-          "trackedMass_g": 1,
+          "mass_g": 0.1,
+          "trackedMass_g": 0.1,
           "waterMass_g": 0,
           "contents": [
             {
               "formula": "Na",
-              "moles": 0.04349717268377556,
-              "mass_g": 1,
+              "moles": 0.004349717268377556,
+              "mass_g": 0.1,
               "phase": "s",
               "amountBasis": "formula_unit"
             }

@@ -989,8 +989,12 @@ export const VfxGallery: React.FC = () => {
                         {program && (
                           <div className="flex items-center justify-between text-[9px] font-mono text-slate-500">
                             <span className="truncate max-w-[240px] text-blue-600 font-medium">{program.chemistry.equation}</span>
-                            <span className={(program.chemistry.deltaH_kJ_per_mol ?? 0) < 0 ? 'text-rose-600 font-bold' : 'text-blue-600'}>
-                              {program.chemistry.deltaH_kJ_per_mol != null ? 'ΔH: ' + program.chemistry.deltaH_kJ_per_mol + ' kJ/mol' : 'ΔH: —'}
+                            <span title={program.chemistry.deltaHSourceUrls?.length ? program.chemistry.deltaHNote_vi
+                              : 'Ước tính của mô hình; chưa đối chiếu nguồn nhiệt hóa học.'}
+                              className={program.chemistry.deltaH_kJ_per_mol == null ? 'text-slate-400'
+                                : program.chemistry.deltaH_kJ_per_mol < 0 ? 'text-rose-600 font-bold' : 'text-blue-600'}>
+                              {program.chemistry.deltaH_kJ_per_mol != null
+                                ? `${program.chemistry.deltaHSourceUrls?.length ? 'ΔH°: ' : 'ΔH ≈ '}${program.chemistry.deltaH_kJ_per_mol} kJ/mol` : 'ΔH: —'}
                             </span>
                           </div>
                         )}
@@ -1170,7 +1174,7 @@ export const VfxGallery: React.FC = () => {
                                   <span className="text-amber-600 font-semibold">{prog.visual.duration_s}s</span>
                                 </div>
                                 <div>
-                                  <span className="text-slate-500">ΔH theo phương trình: </span>
+                                  <span className="text-slate-500">{prog.chemistry.deltaHSourceUrls?.length ? 'ΔH° tham chiếu: ' : 'ΔH ước tính: '}</span>
                                   <span className={prog.chemistry.deltaH_kJ_per_mol && prog.chemistry.deltaH_kJ_per_mol < 0 ? 'text-rose-600 font-bold' : 'text-blue-600 font-semibold'}>
                                     {prog.chemistry.deltaH_kJ_per_mol == null ? 'Chưa có dữ liệu' : `${prog.chemistry.deltaH_kJ_per_mol} kJ/mol phản ứng`}
                                   </span>

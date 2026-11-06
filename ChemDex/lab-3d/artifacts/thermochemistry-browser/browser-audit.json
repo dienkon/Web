@@ -1,0 +1,51 @@
+{
+  "errors": [],
+  "shaderErrors": [],
+  "samples": [
+    {
+      "programId": "mgcl2_naoh",
+      "initialTemperature_c": 25,
+      "finalTemperature_c": 24.990858472940324,
+      "appliedHeat_J": -1.4494997618748962,
+      "initialMass_g": 30,
+      "finalMass_g": 30,
+      "progress": 0.65,
+      "color": "#ffffff",
+      "hasPrecipitate": true
+    },
+    {
+      "programId": "cuso4_naoh",
+      "initialTemperature_c": 25,
+      "finalTemperature_c": 25.226125755802283,
+      "appliedHeat_J": 35.83070057200417,
+      "initialMass_g": 30,
+      "finalMass_g": 30,
+      "progress": 0.65,
+      "color": "#d0f0fe",
+      "hasPrecipitate": true
+    },
+    {
+      "programId": "agcl_nh3",
+      "initialTemperature_c": 25,
+      "finalTemperature_c": 24.962865259072995,
+      "appliedHeat_J": -5.908500000000001,
+      "initialMass_g": 30.143318,
+      "finalMass_g": 30.143318,
+      "progress": 0.65,
+      "color": "#f8fafc",
+      "hasPrecipitate": false
+    },
+    {
+      "programId": "fecl3_ki",
+      "initialTemperature_c": 25,
+      "finalTemperature_c": 24.78794732862903,
+      "appliedHeat_J": -33.657000000000004,
+      "initialMass_g": 30,
+      "finalMass_g": 30,
+      "progress": 0.65,
+      "color": "#eba84c",
+      "hasPrecipitate": false
+    }
+  ],
+  "legacyEstimateLabelVisible": true
+}

@@ -8,6 +8,7 @@ const OPENSTAX = 'https://openstax.org/books/chemistry-2e/pages/g-standard-therm
 const TEXAS = 'https://ch301.cm.utexas.edu/worksheets13/thermo/enthalpy-wkst-KEY.pdf';
 const HESS = 'https://chemlab.truman.edu/formationnote/';
 const UCONN = 'https://chemphys.uconn.edu/~chem12x/127fall2004/exam_3.html';
+const NBS = 'https://srd.nist.gov/JPCRD/jpcrdS2Vol11.pdf';
 type Datum = { value: number; source: string };
 const data = (values: Record<string, number>, source: string): Record<string, Datum> =>
   Object.fromEntries(Object.entries(values).map(([key, value]) => [key, { value, source }]));
@@ -42,6 +43,37 @@ const FORMATION: Record<string, Datum> = {
   // example. Use the explicitly identified calcite reference here.
   ...data({ 'CaCO3|s': -1206.9 }, TEXAS),
   ...data({ 'NaHCO3|s': -947.7, 'Na2CO3|s': -1130.8 }, UCONN),
+  // NIST SRD 69 condensed-phase tables: retain the stated solid phase and
+  // reference value, rather than a similarly named gas or molten material.
+  ...data({ 'MgO|s': -601.60 }, 'https://webbook.nist.gov/cgi/cbook.cgi?ID=C1309484&Mask=2'),
+  ...data({ 'Cu(OH)2|s': -450.37 }, 'https://webbook.nist.gov/cgi/cbook.cgi?ID=C20427592&Mask=2'),
+  ...data({ 'Mg(OH)2|s': -924.66 }, 'https://webbook.nist.gov/cgi/cbook.cgi?ID=C1309428&Mask=2'),
+  ...data({ 'NaOH|s': -425.93 }, 'https://webbook.nist.gov/cgi/cbook.cgi?ID=C1310732&Mask=2'),
+  ...data({ 'CaCl2|s': -795.80 }, 'https://webbook.nist.gov/cgi/cbook.cgi?ID=C10043524&Mask=2'),
+  // NBS Tables (1982), visually checked at the linked PDF pages. Use the
+  // 298.15 K enthalpy column, not the adjacent Gibbs energy or 0 K columns.
+  ...data({ 'AgBr|s': -100.37 }, NBS + '#page=168'),
+  ...data({ 'AgI|s': -61.84 }, NBS + '#page=169'),
+  ...data({ 'PbI2|s': -175.48, 'PbSO4|s': -919.94 }, NBS + '#page=128'),
+  ...data({ 'Ag2CrO4|s': -731.74, 'PbCrO4|s': -930.9 }, NBS + '#page=208'),
+  // The table explicitly identifies this Zn(OH)2 as precipitated material.
+  ...data({ 'Zn(OH)2|s': -642.2 }, NBS + '#page=146'),
+  ...data({ 'NH3|aq': -80.29, 'NO2-|aq': -104.6 }, NBS + '#page=72'),
+  // Undissociated aqueous phosphoric acid; do not replace it by 3H+ + PO4.
+  ...data({ 'H3PO4|aq': -1288.34 }, NBS + '#page=82'),
+  ...data({ 'PO4^3-|aq': -1277.4 }, NBS + '#page=81'),
+  ...data({ 'Cl2|aq': -23.4, 'ClO-|aq': -107.1 }, NBS + '#page=55'),
+  ...data({ 'Br2|aq': -2.59 }, NBS + '#page=58'),
+  ...data({ 'I2|aq': 22.6 }, NBS + '#page=60'),
+  ...data({ 'CuI|s': -67.8 }, NBS + '#page=163'),
+  ...data({ 'SO3^2-|aq': -635.5, 'S4O6^2-|aq': -1224.2 }, NBS + '#page=65'),
+  ...data({ 'BaCrO4|s': -1446.0 }, NBS + '#page=296'),
+  // Crystalline MnO2 standard reference; precipitated Mn(OH)2 reference.
+  // These are not concentration/age-dependent calorimetry of a fresh gel.
+  ...data({ 'MnO2|s': -520.03, 'Mn(OH)2|s': -695.4 }, NBS + '#page=199'),
+  ...data({ '[Ag(NH3)2]+|aq': -111.29 }, NBS + '#page=170'),
+  ...data({ '[Ag(S2O3)2]^3-|aq': -1285.7 }, NBS + '#page=169'),
+  ...data({ 'H2O2|aq': -190.75 }, 'https://atct.anl.gov/Thermochemical%20Data/version%201.122/reaction/?c1=-1&c2=1&species_number%5B%5D=1155&species_number%5B%5D=847'),
 };
 
 // Explicit dissociation only. No regex that guesses the charge of an unknown
@@ -55,9 +87,12 @@ const AQUEOUS_IONS: Record<string, Record<string, number>> = {
   NaCl: { 'Na+': 1, 'Cl-': 1 }, KCl: { 'K+': 1, 'Cl-': 1 }, KBr: { 'K+': 1, 'Br-': 1 },
   KI: { 'K+': 1, 'I-': 1 }, NaI: { 'Na+': 1, 'I-': 1 },
   NaNO3: { 'Na+': 1, 'NO3-': 1 }, KNO3: { 'K+': 1, 'NO3-': 1 },
+  NaNO2: { 'Na+': 1, 'NO2-': 1 }, NaClO: { 'Na+': 1, 'ClO-': 1 },
+  Na3PO4: { 'Na+': 3, 'PO4^3-': 1 },
   Na2SO4: { 'Na+': 2, 'SO4^2-': 1 }, K2SO4: { 'K+': 2, 'SO4^2-': 1 },
   NaHSO4: { 'Na+': 1, 'HSO4-': 1 }, KHSO4: { 'K+': 1, 'HSO4-': 1 },
   Na2CO3: { 'Na+': 2, 'CO3^2-': 1 }, NaHCO3: { 'Na+': 1, 'HCO3-': 1 },
+  Na2SO3: { 'Na+': 2, 'SO3^2-': 1 }, Na2S4O6: { 'Na+': 2, 'S4O6^2-': 1 },
   CaCl2: { 'Ca^2+': 1, 'Cl-': 2 }, BaCl2: { 'Ba^2+': 1, 'Cl-': 2 },
   MgCl2: { 'Mg^2+': 1, 'Cl-': 2 }, ZnCl2: { 'Zn^2+': 1, 'Cl-': 2 },
   CuCl2: { 'Cu^2+': 1, 'Cl-': 2 }, FeCl2: { 'Fe^2+': 1, 'Cl-': 2 },
@@ -75,6 +110,8 @@ const AQUEOUS_IONS: Record<string, Record<string, number>> = {
   Na2S: { 'Na+': 2, 'S^2-': 1 }, Na2S2O3: { 'Na+': 2, 'S2O3^2-': 1 },
   KMnO4: { 'K+': 1, 'MnO4-': 1 }, K2CrO4: { 'K+': 2, 'CrO4^2-': 1 },
   Na2CrO4: { 'Na+': 2, 'CrO4^2-': 1 }, K2Cr2O7: { 'K+': 2, 'Cr2O7^2-': 1 },
+  '[Ag(NH3)2]Cl': { '[Ag(NH3)2]+': 1, 'Cl-': 1 },
+  'Na3[Ag(S2O3)2]': { 'Na+': 3, '[Ag(S2O3)2]^3-': 1 },
 };
 const ELEMENT_REFERENCES = new Set(['Na|s', 'K|s', 'Li|s', 'Ca|s', 'Mg|s', 'Zn|s', 'Fe|s',
   'Cu|s', 'Ag|s', 'Al|s', 'Pb|s', 'S|s', 'S8|s', 'C|s', 'I2|s', 'Br2|l',

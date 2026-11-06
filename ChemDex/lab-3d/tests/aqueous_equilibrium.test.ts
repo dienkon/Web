@@ -209,7 +209,12 @@ describe('Titration and indicator rendering follow the current sample', () => {
     const input = [sample('NH4Cl', 0.01), sample('NaOH', 0.005)];
     const result = executeMultiStepReactions(input, input.map(item => item.formula), 100, 25, false);
     expect(result.updatedContents.find(item => item.formula === 'NH3')?.moles).toBeCloseTo(0.005, 12);
-    expect(result.finalPh).toBeCloseTo(14 + Math.log10(1.8e-5), 2);
+    // The sourced NH4+(aq) + OH-(aq) -> NH3(aq) + H2O(l) heat
+    // changes the sample temperature. At half-neutralization, compare to
+    // pKa at that temperature rather than the fixed 25 C reference.
+    expect(result.finalTemperature_c).toBeGreaterThan(25);
+    const ammoniumKa = aqueousConstantsAtTemperature(result.finalTemperature_c)!.ammoniumKa;
+    expect(result.finalPh).toBeCloseTo(-Math.log10(ammoniumKa), 2);
     expect(result.hasGas).toBe(false);
   });
 
