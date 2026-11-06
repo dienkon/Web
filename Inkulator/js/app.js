@@ -993,12 +993,20 @@
     const r = await dialog("Thư viện sổ tay", html, "Đóng");
     return r;
   }
-  function dialog(title, html, confirm = "Xác nhận") {
+  function promptConfirm(message) {
+    try {
+      if (typeof window !== "undefined" && typeof window.confirm === "function") {
+        return window.confirm(message);
+      }
+    } catch (_) {}
+    return true;
+  }
+  function dialog(title, html, confirmLabel = "Xác nhận") {
     const d = document.getElementById("dialog");
     if (d.open) d.close("cancel");
     document.getElementById("dialog-content").innerHTML =
       "<h2>" + escape(title) + "</h2>" + html;
-    document.getElementById("dialog-confirm").textContent = confirm;
+    document.getElementById("dialog-confirm").textContent = confirmLabel;
     d.returnValue = "";
     return new Promise((resolve) => {
       const close = () => {
@@ -1028,7 +1036,7 @@
             const idx = Number(b.dataset.deleteBook);
             const targetNb = Store.state.notebooks[idx];
             if (!targetNb) return;
-            const ok = confirm(
+            const ok = promptConfirm(
               'Bạn có chắc muốn xóa sổ tay "' +
                 targetNb.title +
                 '"?\nToàn bộ trang và tài nguyên của sổ tay này sẽ bị xóa khỏi bộ nhớ thiết bị.',
@@ -1070,7 +1078,7 @@
               return toast("Thư viện hiện chỉ có 1 sổ tay.");
             }
             const count = Store.state.notebooks.length - 1;
-            const ok = confirm(
+            const ok = promptConfirm(
               "Dọn dẹp thư viện?\nSẽ xóa " +
                 count +
                 ' sổ tay cũ khác để giải phóng bộ nhớ và tăng tốc độ vẽ tối đa, chỉ giữ lại sổ tay đang mở "' +

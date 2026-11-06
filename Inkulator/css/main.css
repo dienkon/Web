@@ -399,7 +399,8 @@ small {
   min-width: 0;
 }
 #paper-canvas,
-#ink-canvas {
+#ink-canvas,
+#overlay-canvas {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -407,6 +408,9 @@ small {
 }
 #ink-canvas {
   touch-action: none;
+}
+#overlay-canvas {
+  pointer-events: none;
 }
 #page-title {
   position: absolute;

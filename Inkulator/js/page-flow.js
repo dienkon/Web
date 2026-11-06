@@ -147,6 +147,20 @@
       origin = l.items[index],
       parts = [];
     if (!origin || !points.length) return parts;
+    let withinOrigin = true;
+    const pw = origin.page.width,
+      ph = origin.page.height;
+    for (let i = 0; i < points.length; i++) {
+      const x = points[i][0],
+        y = points[i][1];
+      if (x < 0 || x > pw || y < 0 || y > ph) {
+        withinOrigin = false;
+        break;
+      }
+    }
+    if (withinOrigin) {
+      return [{ page: origin.page, index: origin.index, points }];
+    }
     const global = points.map((p) => [
       p[0] + origin.x,
       p[1] + origin.y,

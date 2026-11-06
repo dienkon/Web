@@ -1,39 +1,52 @@
 (function (root) {
   "use strict";
   const imageCache = new Map();
+  const layerCache = new WeakMap();
   let paper,
     ink,
+    overlay,
     pc,
     ic,
+    oc,
     area,
     dpr = 1,
     frame = 0,
-    lastPaperKey = "",
-    committedInkCanvas = null,
-    committedInkCtx = null,
-    committedInkValid = false;
-  function invalidateCommittedInk() {
-    committedInkValid = false;
-  }
+    overlayFrame = 0,
+    lastPaperKey = "";
   const state = () => Store.state;
   function init() {
     area = document.getElementById("canvas-area");
     paper = document.getElementById("paper-canvas");
     ink = document.getElementById("ink-canvas");
+    overlay = document.getElementById("overlay-canvas");
+    if (!overlay && area) {
+      overlay = document.createElement("canvas");
+      overlay.id = "overlay-canvas";
+      overlay.style.position = "absolute";
+      overlay.style.inset = "0";
+      overlay.style.width = "100%";
+      overlay.style.height = "100%";
+      overlay.style.pointerEvents = "none";
+      area.appendChild(overlay);
+    }
     pc = paper.getContext("2d");
     ic = ink.getContext("2d");
+    oc = overlay ? overlay.getContext("2d") : null;
     new ResizeObserver(resize).observe(area);
     resize();
   }
   function resize() {
     const r = area.getBoundingClientRect();
     dpr = Math.min(devicePixelRatio || 1, 3);
-    for (const c of [paper, ink]) {
-      c.width = Math.round(r.width * dpr);
-      c.height = Math.round(r.height * dpr);
+    for (const c of [paper, ink, overlay]) {
+      if (c) {
+        c.width = Math.round(r.width * dpr);
+        c.height = Math.round(r.height * dpr);
+      }
     }
     lastPaperKey = "";
     request();
+    requestOverlay();
   }
   function request() {
     if (!frame)
@@ -41,6 +54,21 @@
         frame = 0;
         render();
       });
+  }
+  function requestOverlay() {
+    if (!overlayFrame)
+      overlayFrame = requestAnimationFrame(() => {
+        overlayFrame = 0;
+        renderOverlay();
+      });
+  }
+  function renderOverlay() {
+    if (!oc || !overlay) return;
+    oc.setTransform(1, 0, 0, 1, 0, 0);
+    oc.clearRect(0, 0, overlay.width, overlay.height);
+    viewport(oc);
+    root.CanvasEngine?.drawOverlay(oc);
+    root.TeacherGeometry?.drawOverlay(oc);
   }
   function viewport(ctx) {
     const v = state().viewport;
@@ -621,12 +649,9 @@
     ctx.restore();
   }
   function getLayerObjects(p) {
-    if (
-      p._layerCache &&
-      p._layerCacheVersion === p.objects.length &&
-      typeof p._layerCache === "object"
-    ) {
-      return p._layerCache;
+    const cached = layerCache.get(p);
+    if (cached && cached.version === p.objects.length) {
+      return cached.map;
     }
     const map = {};
     for (let i = 0; i < p.layers.length; i++) {
@@ -641,8 +666,7 @@
     for (const key in map) {
       map[key].sort((a, b) => (a.zIndex || 0) - (b.zIndex || 0));
     }
-    p._layerCache = map;
-    p._layerCacheVersion = p.objects.length;
+    layerCache.set(p, { version: p.objects.length, map });
     return map;
   }
   function objects(ctx, p) {
@@ -746,11 +770,10 @@
     root.PDFTiles?.beginFrame();
     objects(ic, p);
     root.PDFTiles?.endFrame();
-    root.CanvasEngine?.drawOverlay(ic);
-    root.TeacherGeometry?.drawOverlay(ic);
     drawSelection(ic);
     if (state().ruler) drawRuler(ic);
     updateTitle();
+    renderOverlay();
   }
   function renderFlow() {
     const pages = PageFlow.visible(),
@@ -778,55 +801,28 @@
       }
       lastPaperKey = flowPaperKey;
     }
-    const drawing = root.CanvasEngine?.isDrawing?.();
-    if (drawing && committedInkValid && committedInkCanvas) {
-      ic.setTransform(1, 0, 0, 1, 0, 0);
-      ic.clearRect(0, 0, ink.width, ink.height);
-      ic.drawImage(committedInkCanvas, 0, 0);
-    } else {
-      if (!committedInkCanvas) {
-        committedInkCanvas = document.createElement("canvas");
-        committedInkCtx = committedInkCanvas.getContext("2d");
-      }
-      if (
-        committedInkCanvas.width !== ink.width ||
-        committedInkCanvas.height !== ink.height
-      ) {
-        committedInkCanvas.width = ink.width;
-        committedInkCanvas.height = ink.height;
-      }
-      committedInkCtx.setTransform(1, 0, 0, 1, 0, 0);
-      committedInkCtx.clearRect(
-        0,
-        0,
-        committedInkCanvas.width,
-        committedInkCanvas.height,
-      );
-      root.PDFTiles?.beginFrame();
-      for (const item of pages) {
-        viewport(committedInkCtx);
-        committedInkCtx.save();
-        committedInkCtx.translate(item.x, item.y);
-        committedInkCtx.beginPath();
-        committedInkCtx.rect(0, 0, item.page.width, item.page.height);
-        committedInkCtx.clip();
-        objects(committedInkCtx, item.page);
-        committedInkCtx.restore();
-      }
-      root.PDFTiles?.endFrame();
 
-      ic.setTransform(1, 0, 0, 1, 0, 0);
-      ic.clearRect(0, 0, ink.width, ink.height);
-      ic.drawImage(committedInkCanvas, 0, 0);
-      committedInkValid = drawing;
+    ic.setTransform(1, 0, 0, 1, 0, 0);
+    ic.clearRect(0, 0, ink.width, ink.height);
+    root.PDFTiles?.beginFrame();
+    for (const item of pages) {
+      viewport(ic);
+      ic.save();
+      ic.translate(item.x, item.y);
+      ic.beginPath();
+      ic.rect(0, 0, item.page.width, item.page.height);
+      ic.clip();
+      objects(ic, item.page);
+      ic.restore();
     }
+    root.PDFTiles?.endFrame();
+
     viewport(ic);
-    root.CanvasEngine?.drawOverlay(ic);
-    root.TeacherGeometry?.drawOverlay(ic);
     drawSelection(ic);
     if (state().ruler) drawRuler(ic);
     updateTitle();
     PageFlow.update();
+    renderOverlay();
   }
   function drawRuler(ctx) {
     ctx.save();
@@ -932,8 +928,10 @@
     init,
     resize,
     request,
+    requestOverlay,
     render,
-    invalidateCommittedInk,
+    renderOverlay,
+    invalidateCommittedInk: () => {},
     drawObject,
     objects,
     drawPaper,

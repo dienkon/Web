@@ -430,7 +430,11 @@
       g.prevErase = p;
     }
     if (g.mode === "shape") g.draft = shapeFrom(g.start, p, e.shiftKey);
-    Renderer.request();
+    if (isDrawing()) {
+      Renderer.requestOverlay();
+    } else {
+      Renderer.request();
+    }
   }
   function setVertex(o, index, point) {
     const d = o.data,
@@ -518,12 +522,14 @@
     if (pinch) {
       if (pointers.size < 2) pinch = null;
       gesture = null;
+      root.Renderer?.renderOverlay?.();
       root.PageFlow?.settle();
       return;
     }
     if (!gesture || gesture.pointerId !== e.pointerId) return;
     const g = gesture;
     gesture = null;
+    root.Renderer?.renderOverlay?.();
     if (g.mode === "move" && !g.moved && g.toggleId)
       S().selection = S().selection.filter((id) => id !== g.toggleId);
     if (["pen", "highlighter"].includes(g.mode)) {
@@ -603,6 +609,7 @@
       };
     }
     gesture = null;
+    root.Renderer?.renderOverlay?.();
     Renderer.request();
   }
   function cancel(e) {
@@ -610,7 +617,7 @@
     pinch = null;
     if (gesture?.pointerId === e.pointerId) rollback();
     penActive = false;
-    root.Renderer?.invalidateCommittedInk?.();
+    root.Renderer?.renderOverlay?.();
     cursor();
   }
   function strokeFrom(points, mode = "pen", style = null, pen = null) {
@@ -1040,7 +1047,8 @@
   }
   function isDrawing() {
     return !!(
-      gesture && ["pen", "highlighter", "laser"].includes(gesture.mode)
+      gesture &&
+      ["pen", "highlighter", "laser", "shape", "lasso"].includes(gesture.mode)
     );
   }
   root.CanvasEngine = {
