@@ -8,7 +8,13 @@
     area,
     dpr = 1,
     frame = 0,
-    lastPaperKey = "";
+    lastPaperKey = "",
+    committedInkCanvas = null,
+    committedInkCtx = null,
+    committedInkValid = false;
+  function invalidateCommittedInk() {
+    committedInkValid = false;
+  }
   const state = () => Store.state;
   function init() {
     area = document.getElementById("canvas-area");
@@ -772,20 +778,48 @@
       }
       lastPaperKey = flowPaperKey;
     }
-    ic.setTransform(1, 0, 0, 1, 0, 0);
-    ic.clearRect(0, 0, ink.width, ink.height);
-    root.PDFTiles?.beginFrame();
-    for (const item of pages) {
-      viewport(ic);
-      ic.save();
-      ic.translate(item.x, item.y);
-      ic.beginPath();
-      ic.rect(0, 0, item.page.width, item.page.height);
-      ic.clip();
-      objects(ic, item.page);
-      ic.restore();
+    const drawing = root.CanvasEngine?.isDrawing?.();
+    if (drawing && committedInkValid && committedInkCanvas) {
+      ic.setTransform(1, 0, 0, 1, 0, 0);
+      ic.clearRect(0, 0, ink.width, ink.height);
+      ic.drawImage(committedInkCanvas, 0, 0);
+    } else {
+      if (!committedInkCanvas) {
+        committedInkCanvas = document.createElement("canvas");
+        committedInkCtx = committedInkCanvas.getContext("2d");
+      }
+      if (
+        committedInkCanvas.width !== ink.width ||
+        committedInkCanvas.height !== ink.height
+      ) {
+        committedInkCanvas.width = ink.width;
+        committedInkCanvas.height = ink.height;
+      }
+      committedInkCtx.setTransform(1, 0, 0, 1, 0, 0);
+      committedInkCtx.clearRect(
+        0,
+        0,
+        committedInkCanvas.width,
+        committedInkCanvas.height,
+      );
+      root.PDFTiles?.beginFrame();
+      for (const item of pages) {
+        viewport(committedInkCtx);
+        committedInkCtx.save();
+        committedInkCtx.translate(item.x, item.y);
+        committedInkCtx.beginPath();
+        committedInkCtx.rect(0, 0, item.page.width, item.page.height);
+        committedInkCtx.clip();
+        objects(committedInkCtx, item.page);
+        committedInkCtx.restore();
+      }
+      root.PDFTiles?.endFrame();
+
+      ic.setTransform(1, 0, 0, 1, 0, 0);
+      ic.clearRect(0, 0, ink.width, ink.height);
+      ic.drawImage(committedInkCanvas, 0, 0);
+      committedInkValid = drawing;
     }
-    root.PDFTiles?.endFrame();
     viewport(ic);
     root.CanvasEngine?.drawOverlay(ic);
     root.TeacherGeometry?.drawOverlay(ic);
@@ -899,6 +933,7 @@
     resize,
     request,
     render,
+    invalidateCommittedInk,
     drawObject,
     objects,
     drawPaper,

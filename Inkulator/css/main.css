@@ -968,6 +968,25 @@ dialog h2 {
 .dialog-actions button {
   padding: 9px 18px;
 }
+.library-card {
+  transition: all 0.15s ease;
+}
+.library-card:hover {
+  background: var(--surface-hover, #f0f4f2) !important;
+}
+.btn-delete-book {
+  transition: all 0.15s ease;
+}
+.btn-delete-book:hover {
+  background: #d86560 !important;
+  color: #fff !important;
+  border-color: #d86560 !important;
+}
+.btn-open-book:hover {
+  background: #308e74 !important;
+  color: #fff !important;
+  border-color: #308e74 !important;
+}
 .help-table {
   border-collapse: collapse;
   width: 100%;

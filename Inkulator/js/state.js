@@ -84,8 +84,19 @@
     );
     if (root.document) root.document.dispatchEvent(new Event("statechange"));
   }
+  let cachedSnapshot = null;
+  function invalidateSnapshot() {
+    cachedSnapshot = null;
+  }
+  function snapshot() {
+    if (cachedSnapshot !== null) return cachedSnapshot;
+    const { assets, ...content } = book();
+    cachedSnapshot = JSON.stringify(content);
+    return cachedSnapshot;
+  }
   function transaction(fn) {
     const before = snapshot();
+    invalidateSnapshot();
     fn();
     const after = snapshot();
     if (after === before) {
@@ -102,6 +113,7 @@
     return true;
   }
   function commit(before) {
+    invalidateSnapshot();
     const after = snapshot();
     if (after !== before) {
       state.history.push(before);
@@ -137,12 +149,9 @@
     state.pageIndex = Math.min(state.pageIndex, book().pages.length - 1);
     state.selection = [];
     state.dirty = true;
+    invalidateSnapshot();
     emit();
     scheduleSave();
-  }
-  function snapshot() {
-    const { assets, ...content } = book();
-    return JSON.stringify(content);
   }
   function trimHistory() {
     for (const list of [state.history, state.future]) {
@@ -204,12 +213,41 @@
     scheduleSave();
   }
   function switchBook(i) {
-    state.active = i;
+    state.active = Math.max(0, Math.min(i, state.notebooks.length - 1));
     state.pageIndex = 0;
     clearHistory();
+    invalidateSnapshot();
     state.viewport = { x: 0, y: 0, zoom: 1 };
     emit();
     scheduleSave();
+  }
+  function deleteBook(index) {
+    if (index < 0 || index >= state.notebooks.length) return false;
+    const removed = state.notebooks[index];
+    if (removed && removed.assets) {
+      for (const id of Object.keys(removed.assets)) {
+        AssetStorage.remove(id);
+      }
+    }
+    if (state.notebooks.length <= 1) {
+      state.notebooks = [notebook()];
+      state.active = 0;
+    } else {
+      state.notebooks.splice(index, 1);
+      if (state.active === index) {
+        state.active = Math.max(0, index - 1);
+      } else if (state.active > index) {
+        state.active--;
+      }
+    }
+    state.pageIndex = 0;
+    clearHistory();
+    invalidateSnapshot();
+    state.viewport = { x: 0, y: 0, zoom: 1 };
+    state.dirty = true;
+    emit();
+    save();
+    return true;
   }
   const colors = /^#[0-9a-fA-F]{3,8}$/;
   const AssetStorage = {
@@ -918,6 +956,7 @@
     clearHistory,
     switchPage,
     switchBook,
+    deleteBook,
     validate,
     envelope,
     scheduleSave,

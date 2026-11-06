@@ -235,4 +235,22 @@ test("Unified history covers objects, styles and pages", () => {
   S.redo();
   assert.equal(S.current().objects[0].position.x, 100);
 });
+test("Store: deleteBook removes notebooks and resets empty book when deleting last", () => {
+  const nb1 = S.notebook();
+  nb1.title = "Book 1";
+  const nb2 = S.notebook();
+  nb2.title = "Book 2";
+  S.state.notebooks = [nb1, nb2];
+  S.state.active = 1;
+  assert.equal(S.state.notebooks.length, 2);
+  const ok = S.deleteBook(1);
+  assert.equal(ok, true);
+  assert.equal(S.state.notebooks.length, 1);
+  assert.equal(S.state.active, 0);
+  assert.equal(S.book().title, "Book 1");
+  const ok2 = S.deleteBook(0);
+  assert.equal(ok2, true);
+  assert.equal(S.state.notebooks.length, 1);
+  assert.equal(S.book().title, "Sổ tay Toán học");
+});
 console.log(`\n${passed} tests passed.`);

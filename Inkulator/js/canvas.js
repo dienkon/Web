@@ -319,7 +319,7 @@
       return;
     }
     const p = Renderer.clientPoint(e);
-    root.TeacherGeometry?.hover(p);
+    if (!gesture) root.TeacherGeometry?.hover(p);
     if (!gesture || gesture.pointerId !== e.pointerId) return;
     const g = gesture;
     g.last = p;
@@ -583,6 +583,7 @@
         ? PageFlow.moveAcross(movedIds, g.pageIndex)
         : null;
     Store.commit(g.before);
+    root.Renderer?.invalidateCommittedInk?.();
     if (destination !== null) PageFlow.selectMoved(destination, movedIds);
     if (g.mode === "pan")
       root.PageFlow?.settle({ extend: S().viewport.y < g.viewport.y });
@@ -609,6 +610,7 @@
     pinch = null;
     if (gesture?.pointerId === e.pointerId) rollback();
     penActive = false;
+    root.Renderer?.invalidateCommittedInk?.();
     cursor();
   }
   function strokeFrom(points, mode = "pen", style = null, pen = null) {
@@ -1036,6 +1038,11 @@
           ? "grab"
           : "crosshair";
   }
+  function isDrawing() {
+    return !!(
+      gesture && ["pen", "highlighter", "laser"].includes(gesture.mode)
+    );
+  }
   root.CanvasEngine = {
     get interacting() {
       return !!gesture || !!pinch;
@@ -1043,6 +1050,7 @@
     get penActive() {
       return penActive;
     },
+    isDrawing,
     selectionHandles,
     init,
     hit,

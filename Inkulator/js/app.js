@@ -950,29 +950,47 @@
       closePanel();
     }
   }
+  function renderLibraryCards() {
+    return Store.state.notebooks
+      .map(
+        (n, i) =>
+          '<div class="library-card' +
+          (i === Store.state.active ? " active" : "") +
+          '" data-card="' +
+          i +
+          '" style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:' +
+          (i === Store.state.active ? "#308e7414" : "#f9fbfa") +
+          ";border:1px solid " +
+          (i === Store.state.active ? "#308e74" : "#e0e7e3") +
+          ';border-radius:8px;margin-bottom:8px;"><div class="library-info" data-book="' +
+          i +
+          '" style="flex:1;text-align:left;cursor:pointer;"><b style="display:block;font-size:14px;color:' +
+          (i === Store.state.active ? "#1c614f" : "inherit") +
+          ';">' +
+          escape(n.title) +
+          (i === Store.state.active
+            ? ' <span style="font-size:11px;font-weight:normal;padding:2px 6px;background:#308e74;color:#fff;border-radius:4px;margin-left:6px;">Đang mở</span>'
+            : "") +
+          '</b><small style="color:#728a7e;font-size:12px;">' +
+          escape(n.folder || "Chưa phân thư mục") +
+          " · " +
+          n.pages.length +
+          ' trang</small></div><div class="library-actions" style="display:flex;gap:6px;align-items:center;"><button type="button" class="btn-open-book" data-book="' +
+          i +
+          '" style="padding:6px 12px;border:1px solid #c7d5ca;border-radius:6px;background:#fff;cursor:pointer;font-size:12px;">' +
+          (i === Store.state.active ? "Đang mở" : "Mở →") +
+          '</button><button type="button" class="btn-delete-book" data-delete-book="' +
+          i +
+          '" title="Xóa sổ tay này" style="padding:6px 10px;border:1px solid #f2c8c5;border-radius:6px;background:#fdf2f0;color:#c85550;cursor:pointer;font-size:12px;">🗑 Xóa</button></div></div>',
+      )
+      .join("");
+  }
   async function library() {
-    const r = await dialog(
-      "Thư viện sổ tay",
-      '<label class="field"><span>Tìm theo tên / thư mục</span><input id="library-search" autocomplete="off"></label><div id="notebook-library">' +
-        Store.state.notebooks
-          .map(
-            (n, i) =>
-              '<button type="button" class="menu-item" data-book="' +
-              i +
-              '"><span>' +
-              escape(n.title) +
-              '<small style="display:block;margin-top:5px">' +
-              escape(n.folder || "Chưa phân thư mục") +
-              " · " +
-              n.pages.length +
-              " trang</small></span><small>" +
-              (i === Store.state.active ? "Đang mở" : "Mở →") +
-              "</small></button>",
-          )
-          .join("") +
-        "</div>",
-      "Đóng",
-    );
+    const html =
+      '<div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;"><label class="field" style="flex:1;margin:0;"><span>Tìm theo tên / thư mục</span><input id="library-search" autocomplete="off"></label><button id="library-new" type="button" style="padding:8px 14px;font-size:13px;background:#308e74;color:#fff;border:none;border-radius:6px;cursor:pointer;align-self:flex-end;">+ Sổ tay mới</button><button id="library-cleanup" type="button" title="Xóa tất cả sổ tay cũ khác để giải phóng bộ nhớ" style="padding:8px 12px;font-size:13px;background:#fdf2f0;color:#c85550;border:1px solid #f2c8c5;border-radius:6px;cursor:pointer;align-self:flex-end;">🧹 Dọn dẹp</button></div><div id="notebook-library" style="max-height:55vh;overflow-y:auto;padding-right:4px;">' +
+      renderLibraryCards() +
+      "</div>";
+    const r = await dialog("Thư viện sổ tay", html, "Đóng");
     return r;
   }
   function dialog(title, html, confirm = "Xác nhận") {
@@ -994,13 +1012,7 @@
       d.addEventListener("close", close);
       d.showModal();
       const search = document.getElementById("library-search");
-      if (search) {
-        search.oninput = () => {
-          const q = search.value.toLocaleLowerCase();
-          d.querySelectorAll("[data-book]").forEach(
-            (b) => (b.hidden = !b.textContent.toLocaleLowerCase().includes(q)),
-          );
-        };
+      const bindLibraryEvents = () => {
         d.querySelectorAll("[data-book]").forEach(
           (b) =>
             (b.onclick = () => {
@@ -1010,6 +1022,84 @@
               d.close("cancel");
             }),
         );
+        d.querySelectorAll("[data-delete-book]").forEach((b) => {
+          b.onclick = (e) => {
+            e.stopPropagation();
+            const idx = Number(b.dataset.deleteBook);
+            const targetNb = Store.state.notebooks[idx];
+            if (!targetNb) return;
+            const ok = confirm(
+              'Bạn có chắc muốn xóa sổ tay "' +
+                targetNb.title +
+                '"?\nToàn bộ trang và tài nguyên của sổ tay này sẽ bị xóa khỏi bộ nhớ thiết bị.',
+            );
+            if (!ok) return;
+            Store.deleteBook(idx);
+            toast('Đã xóa sổ tay "' + targetNb.title + '".');
+            const libContainer = document.getElementById("notebook-library");
+            if (libContainer) {
+              libContainer.innerHTML = renderLibraryCards();
+              bindLibraryEvents();
+            }
+          };
+        });
+      };
+      if (search) {
+        search.oninput = () => {
+          const q = search.value.toLocaleLowerCase();
+          d.querySelectorAll(".library-card, [data-book]").forEach((b) => {
+            b.hidden = !b.textContent.toLocaleLowerCase().includes(q);
+          });
+        };
+        const btnNew = document.getElementById("library-new");
+        if (btnNew) {
+          btnNew.onclick = () => {
+            const nb = Store.notebook();
+            nb.title = "Sổ tay " + (Store.state.notebooks.length + 1);
+            Store.state.notebooks.push(nb);
+            Store.switchBook(Store.state.notebooks.length - 1);
+            closePanel();
+            d.close("cancel");
+            toast("Đã tạo sổ tay mới.");
+          };
+        }
+        const btnCleanup = document.getElementById("library-cleanup");
+        if (btnCleanup) {
+          btnCleanup.onclick = () => {
+            if (Store.state.notebooks.length <= 1) {
+              return toast("Thư viện hiện chỉ có 1 sổ tay.");
+            }
+            const count = Store.state.notebooks.length - 1;
+            const ok = confirm(
+              "Dọn dẹp thư viện?\nSẽ xóa " +
+                count +
+                ' sổ tay cũ khác để giải phóng bộ nhớ và tăng tốc độ vẽ tối đa, chỉ giữ lại sổ tay đang mở "' +
+                Store.book().title +
+                '".',
+            );
+            if (!ok) return;
+            const current = Store.book();
+            for (let i = 0; i < Store.state.notebooks.length; i++) {
+              if (i !== Store.state.active) {
+                const nb = Store.state.notebooks[i];
+                if (nb && nb.assets) {
+                  for (const id of Object.keys(nb.assets))
+                    AssetStorage.remove(id);
+                }
+              }
+            }
+            Store.state.notebooks = [current];
+            Store.state.active = 0;
+            Store.save();
+            toast("Đã dọn dẹp " + count + " sổ tay cũ.");
+            const libContainer = document.getElementById("notebook-library");
+            if (libContainer) {
+              libContainer.innerHTML = renderLibraryCards();
+              bindLibraryEvents();
+            }
+          };
+        }
+        bindLibraryEvents();
       }
     });
   }
