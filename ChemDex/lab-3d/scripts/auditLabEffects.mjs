@@ -51,10 +51,12 @@ try {
   await page.waitForTimeout(500);
   const foam = await meshSnapshot(`finite-foam-${id}`);
   assert(foam?.visible && foam.count > 0, 'Retained foam must remain visible after chemistry retires');
+  const foamVolume = await meshSnapshot(`foam_volume_${id}`);
+  assert(foamVolume?.visible, 'The retained gas must render its scattering envelope as well as cell glyphs');
   await page.waitForTimeout(700);
   const pausedFoam = await meshSnapshot(`finite-foam-${id}`);
   assert.deepEqual(pausedFoam.matrices, foam.matrices, 'Pause must freeze foam geometry');
-  report.phases.push({ name: 'retained-foam-pause', visible: foam.visible, count: foam.count, frozen: true });
+  report.phases.push({ name: 'retained-foam-pause', visible: foam.visible, count: foam.count, frozen: true, volumeRendered: true });
   await page.screenshot({ path: path.join(output, '01-retained-foam.png') });
   await page.evaluate(async id => {
     const { useAppStore: store } = await import('/src/store/useAppStore.ts');

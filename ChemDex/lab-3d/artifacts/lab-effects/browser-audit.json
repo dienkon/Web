@@ -6,7 +6,8 @@
       "name": "retained-foam-pause",
       "visible": true,
       "count": 24,
-      "frozen": true
+      "frozen": true,
+      "volumeRendered": true
     },
     {
       "name": "tilted-foam",
@@ -27,44 +28,44 @@
       "spills": [
         {
           "volume": 30,
-          "mass": 30.097138848924544,
+          "mass": 30.092355092229635,
           "contents": [
             {
               "formula": "CaCO3",
               "phase": "s",
-              "moles": 0.0009330329915368075,
+              "moles": 0.0008243334824612564,
               "initialMoles": 0.001,
-              "mass_g": 0.09338353999095292
+              "mass_g": 0.08250424092561731
             },
             {
               "formula": "HCl",
               "phase": "aq",
-              "moles": 0.001866065983073615,
+              "moles": 0.0016486669649225128,
               "initialMoles": 0.002,
-              "mass_g": 0.06803303361089787,
-              "concentration_M": 0.06220219943578717
+              "mass_g": 0.06010710020714498,
+              "concentration_M": 0.0549555654974171
             },
             {
               "formula": "H2O",
               "phase": "l",
-              "mass_g": 29.928290410657464,
-              "moles": 1.6612983852710221,
-              "concentration_M": 55.37661284236741
+              "mass_g": 29.930248632313457,
+              "moles": 1.6614070847800975,
+              "concentration_M": 55.38023615933658
             },
             {
               "formula": "CaCl2",
-              "moles": 0.00006696700846319259,
-              "mass_g": 0.0074318646652281875,
-              "concentration_M": 0.002232233615439753,
+              "moles": 0.00017566651753874363,
+              "mass_g": 0.019495118783414693,
+              "concentration_M": 0.005855550584624788,
               "state": "aq",
               "phase": "aq"
             }
           ],
-          "gasRate": 0.0003290333738803813
+          "gasRate": 0.00028869335254339223
         }
       ],
       "escaped": {
-        "CO2": 0.0029471510754566425
+        "CO2": 0.007730907770362568
       }
     }
   ]
