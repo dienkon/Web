@@ -4,16 +4,16 @@ import { vesselWorldDimensions } from '../science/vesselScale';
 import { LAB_PHYSICS } from './interactionEngine';
 import { sameMolecularFormula } from '../science/speciesIdentity';
 import type { LiquidAliquot } from '../handling/aliquot';
-import { mixColorBeerLambert } from '../pour/physics/mixing';
+import { blendLiquidOptics, liquidOptics, type LiquidOptics } from '../pour/physics/mixing';
 import { findChemical } from '../data/chemicals';
 
-function mergedColor(samples: { color: string; volume_ml: number }[]) {
-  let color = '#ffffff', volume = 0;
+function mergedAppearance(samples: { color: string; volume_ml: number; optics?: LiquidOptics }[]) {
+  let optics = liquidOptics('#ffffff'), volume = 0;
   for (const sample of samples) {
-    color = mixColorBeerLambert(color, volume, sample.color, sample.volume_ml);
+    optics = blendLiquidOptics(optics, volume, liquidOptics(sample.color, sample.optics), sample.volume_ml);
     volume += sample.volume_ml;
   }
-  return color;
+  return { color: optics.hex, optics };
 }
 
 function mergedThermal(samples: { mass_g: number; temperature_c?: number; escapedGas_g?: Record<string, number> }[]) {
@@ -105,6 +105,7 @@ function aggregateContents(groups: (SubstanceContent[] | undefined)[], totalVolu
 export function mergeWorkbenchSpill(
   spills: Record<string, SpillState>, pos: [number, number, number], volume_ml: number,
   substances: string[], color: string, sourceName?: string, actualMass_g?: number, contents?: SubstanceContent[], temperature_c = 25,
+  optics?: LiquidOptics,
 ): Record<string, SpillState> {
   if (!Number.isFinite(volume_ml) || volume_ml < 0 || pos.some(n => !Number.isFinite(n))
     || (volume_ml === 0 && !(actualMass_g !== undefined && actualMass_g > 0))
@@ -137,7 +138,7 @@ export function mergeWorkbenchSpill(
     for (const member of members) delete result[member.key];
     result[primary.key] = { ...primary.spill, contents: aggregateContents([...members.map(c => c.spill.contents), contents], totalVol),
       position: [coordinate(0), primary.spill.position[1], coordinate(2)], volume_ml: totalVol, mass_g: totalMass,
-      color: mergedColor([...members.map(c => c.spill), { color, volume_ml }]),
+      ...mergedAppearance([...members.map(c => c.spill), { color, volume_ml, optics }]),
       ...mergedThermal([...members.map(c => c.spill), { mass_g: addedMass, temperature_c }]),
       radius: calculateSpillRadius(totalVol), substances: [...new Set([...members.flatMap(c => c.spill.substances), ...substances])].sort(),
       isHazard: hazardous(substances) || members.some(c => c.spill.isHazard), timestamp: Date.now() };
@@ -146,7 +147,7 @@ export function mergeWorkbenchSpill(
   }
   const id = `spill_${Date.now()}_${++spillSequence}`;
   const created: SpillState = { id, position: [pos[0], pos[1] < -0.5 ? pos[1] : -1.155, pos[2]],
-    substances: [...substances], color: color || '#38bdf8', volume_ml, mass_g: addedMass, temperature_c,
+    substances: [...substances], color: color || '#38bdf8', optics: liquidOptics(color || '#38bdf8', optics), volume_ml, mass_g: addedMass, temperature_c,
     radius: incoming.radius, isHazard: hazardous(substances),
     contents: contents?.map(item => ({ ...item })), sourceVesselName: sourceName, timestamp: Date.now() };
   footprintCache.set(created, { volume_ml, radius: incoming.radius });
@@ -167,7 +168,7 @@ export function mergeWorkbenchSpillBatch(spills: Record<string, SpillState>, pos
   for (const position of positions) {
     const id = `spill_${Date.now()}_${++spillSequence}`;
     const spill: SpillState = { id, position: [...position], volume_ml, mass_g, radius: calculateSpillRadius(volume_ml),
-      substances: [...sample.substances], color: sample.color, temperature_c: sample.temperature_c, sourceVesselName: sourceName, timestamp: Date.now(),
+      substances: [...sample.substances], color: sample.color, optics: liquidOptics(sample.color, sample.optics), temperature_c: sample.temperature_c, sourceVesselName: sourceName, timestamp: Date.now(),
       isHazard: hazardous(sample.substances), contents: sample.contents.map(c => ({ ...c,
         moles: c.moles / positions.length, mass_g: c.mass_g / positions.length,
         ...(c.volume_ml !== undefined ? { volume_ml: c.volume_ml / positions.length } : {}),
@@ -198,7 +199,7 @@ export function mergeWorkbenchSpillBatch(spills: Record<string, SpillState>, pos
       const coordinate = (axis: 0 | 2) => members.reduce((sum, n) => sum + n.spill.position[axis]
         * (totalMass > 0 ? n.spill.mass_g : n.spill.volume_ml), 0) / weight;
       const spill: SpillState = { ...primary.spill, volume_ml: totalVolume, mass_g: totalMass, radius: calculateSpillRadius(totalVolume),
-        color: mergedColor(members.map(n => n.spill)),
+        ...mergedAppearance(members.map(n => n.spill)),
         ...mergedThermal(members.map(n => n.spill)),
         position: [coordinate(0), primary.spill.position[1], coordinate(2)], timestamp: Date.now(),
         contents: aggregateContents(members.map(n => n.spill.contents), totalVolume),

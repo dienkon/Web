@@ -1,6 +1,7 @@
 import type { VesselState } from '../types/chemistry';
 import type { LiquidAliquot } from '../handling/aliquot';
-import { withdrawAliquot, dispenseAliquot } from '../handling/aliquot';
+import { withdrawAliquot } from '../handling/aliquot';
+import { receivePourAliquot } from '../handling/pourReceiver';
 import { refreshFlowInventory, solidContent } from './funnelFlow';
 import type { MobileSolidInventory } from '../science/suspensionTransport';
 
@@ -9,6 +10,8 @@ const RECEIVERS = new Set(['beaker', 'flask', 'test_tube', 'cylinder', 'volumetr
 
 export interface LiquidTransferReceipt {
   moved_ml: number;
+  /** Net liquid volume retained by receiver. Can be negative when incoming
+   * suspended solids displace more resident liquid than the feed adds. */
   accepted_ml: number;
   spilled_ml: number;
 }
@@ -41,10 +44,10 @@ export function decantLiquid(source: VesselState, receiver: VesselState | null, 
   let accepted_ml = 0;
   let failureReason: string | undefined;
   if (receiver) {
-    const dispensed = dispenseAliquot(receiver, withdrawn.sample, withdrawn.sample.volume_ml);
+    const dispensed = receivePourAliquot(receiver, withdrawn.sample);
     target = { ...refreshFlowInventory(dispensed.vessel), hasGas: false, gasRate: 0, isExplosion: false };
-    remainder = dispensed.sample;
-    accepted_ml = dispensed.dispensed_ml;
+    remainder = dispensed.spill;
+    accepted_ml = dispensed.accepted_ml;
     failureReason = dispensed.failureReason;
   }
   let remaining = { ...refreshFlowInventory(withdrawn.vessel), hasGas: false, gasRate: 0, isExplosion: false };

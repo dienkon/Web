@@ -54,5 +54,5 @@
 ### Phần cần tiếp tục
 
 - Các giới hạn khoa học của vòng trước vẫn áp dụng. Đã xử lý các đường rót nóng và giá trị đo mặc định nêu ở trên; chưa coi đây là kiểm chứng mọi dây chuyền lọc/đun hoặc mọi hóa chất trong danh mục.
-- Rót quá đầy hiện chỉ trộn phần còn sức chứa; phần vượt sức chứa đi theo dòng nhập ra ngoài. Cần rà tiếp trao đổi dung dịch trong bình đầy để phần tràn mang thành phần và màu của hỗn hợp khi phù hợp, đồng thời bảo toàn từng chất và phản ứng trên cả hai nhánh. Không dùng ảnh test tràn hiện tại để khẳng định đã giải khuấy trộn thủy động lực học.
+- Vấn đề phần tràn đi nguyên theo dòng nhập đã được xử lý ở [vòng trao đổi dung dịch trong bình đầy](overflow-mixing-2026-11-06.vi.md). Vòng đó bổ sung kiểm tra phản ứng tiếp tục trên nhánh tràn và tràn thứ cấp do kết tủa mới hình thành. Mô hình trộn đều vẫn không phải solver thủy động lực học.
 - Mục tiêu toàn phòng thí nghiệm vẫn đang thực hiện.

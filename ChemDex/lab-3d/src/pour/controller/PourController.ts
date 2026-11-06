@@ -40,18 +40,19 @@ class PourControllerClass {
     if (this.activeSession?.mixingZone) this.activeSession.mixingZone.active = false;
     for (const arrival of arrivals) {
       const { parcel, sample, accepted_ml, spilled_ml } = arrival;
+      const contacted = arrival.contacted_ml ?? accepted_ml;
       const flow = sample.volume_ml / dt;
       if (this.activeSession?.id === parcel.sessionId) {
         this.activeSession.transferred_ml += accepted_ml;
         this.activeSession.spilled_ml += spilled_ml;
-        if (accepted_ml > 0 && parcel.trajectory.detailKind === 'liquid') {
+        if (contacted > 0 && parcel.trajectory.detailKind === 'liquid') {
           this.activeSession.mixingZone = { active: true, point: parcel.trajectory.impactPos,
             radius: 0.08, intensity: Math.min(1, flow / 40), color: sample.color };
         }
       }
-      if (accepted_ml > 0 && parcel.trajectory.detailKind === 'liquid') {
+      if (contacted > 0 && parcel.trajectory.detailKind === 'liquid') {
         vfxBus.emit('pour:impact', { position: parcel.trajectory.impactPos,
-          color: sample.color, flowRate: accepted_ml / dt });
+          color: sample.color, flowRate: contacted / dt });
       }
       // Rim overflow already has a wall-cascade receipt. An incoming stream
       // touching the liquid inside a full receiver does not prove an eruption.

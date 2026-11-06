@@ -9,6 +9,7 @@ import { LAB_PHYSICS } from './interactionEngine';
 
 let sequence = 0;
 export interface OverflowRelease {
+  optics?: LiquidAliquot['optics'];
   /** Internal stock handoff, committed with its displaced-fluid receipt.
    * This object is not serialized into the transport plan. */
   retainedReceiver?: VesselState;

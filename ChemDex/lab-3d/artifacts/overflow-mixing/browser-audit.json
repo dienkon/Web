@@ -1,0 +1,47 @@
+{
+  "errors": [],
+  "shaderErrors": [],
+  "phases": [
+    {
+      "name": "mixed-color-overflow",
+      "tankColor": "#775fcd",
+      "outsideColors": [
+        "#7573d9"
+      ],
+      "tank_ml": 100,
+      "copperOutside_g": 0.8273548923042352,
+      "permanganateOutside_g": 0.052733100092465686,
+      "copperTank_g": 2.3648251076957667,
+      "outside_ml": 29.99999999999996
+    },
+    {
+      "name": "reactive-snapshot",
+      "tank_ml": 99.73756847934554,
+      "occupied_ml": 99.99995168008311,
+      "copperOutside_g": 0.5905760557486883,
+      "hydroxideOutside_g": 0.006014600192166995,
+      "productOutside_g": 0.08403325842841661,
+      "reaction": "cuso4_naoh_precipitate",
+      "outside_ml": 20.26237352867401
+    },
+    {
+      "name": "reactive-full-tank-pause",
+      "tank_ml": 99.73756847934554,
+      "occupied_ml": 99.99995168008311,
+      "copperOutside_g": 0.5905760557486883,
+      "hydroxideOutside_g": 0.006014600192166995,
+      "productOutside_g": 0.08403325842841661,
+      "reaction": "cuso4_naoh_precipitate",
+      "outside_ml": 20.26237352867401,
+      "frozen": true
+    },
+    {
+      "name": "effluent-precipitate-reaches-workbench",
+      "product_g": 0.09135633485599888,
+      "spillColors": [
+        "#1072f4"
+      ],
+      "tankHasPrecipitate": true
+    }
+  ]
+}

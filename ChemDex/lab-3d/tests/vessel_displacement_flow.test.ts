@@ -112,21 +112,25 @@ describe('Displaced free surface and finite liquid discharge', () => {
     const projected = withdrawAliquot(v, flow.excessVolume_ml, mobile);
     expect(occupiedLiquidVolume(projected.vessel)).toBeCloseTo(flow.retainedGrossVolume_ml, 9);
   });
-  it('partitions one suspended sample into receiver capacity and spill with the same composition', () => {
+  it('exchanges a mobile suspended dose with a nearly full receiver and displaces resident water', () => {
     const source = vessel(80, [item('CuS', 1, 's', true)]), target = { ...vessel(99.98), id: 'target', position: [0, -0.135, 0] as [number, number, number] };
     const mobile = { CuS: { inventoryMass_g: 1, suspendedMass_g: 1 } }, angle = 1.2;
     const result = stepPourSimulation({ sourceId: source.id, targetId: target.id, sourcePos: [0, 3, 0], tilt: angle,
       isStreaming: true, totalTransferred_ml: 0, totalSpilled_ml: 0, lastFlowRate: 0, assist: 'high' },
       { source: asSim(source), target: asSim(target) }, 100, 0, Infinity, mobile);
     const moved = source.volume_ml - result.updatedSource.volume_ml;
-    expect(result.nextSession.totalTransferred_ml).toBeGreaterThan(0);
     const density = getPrecipitateProfile('CuS').particleDensity_g_cm3;
-    const expectedAccepted = 0.02 / (1 + 1 / (80 * density));
+    // A mixed batch retains carrier and incoming mobile particles in the same
+    // fraction. Its final occupied volume is L + (moved/80)*L/(99.98+moved)/rho.
+    const finalLiquid = 100 / (1 + moved / (80 * density * (99.98 + moved)));
+    const expectedAccepted = finalLiquid - 99.98, retainedSolid = moved / 80 * finalLiquid / (99.98 + moved);
     expect(result.nextSession.totalTransferred_ml).toBeCloseTo(expectedAccepted, 8);
-    expect(result.updatedTarget!.contents!.find(c => c.formula === 'CuS')!.mass_g).toBeCloseTo(expectedAccepted / 80, 10);
+    expect(occupiedLiquidVolume({ ...target, ...result.updatedTarget!, type: target.type,
+      contents: result.updatedTarget!.contents ?? [] })).toBeCloseTo(100, 8);
+    expect(result.updatedTarget!.contents!.find(c => c.formula === 'CuS')!.mass_g).toBeCloseTo(retainedSolid, 10);
     expect(result.updatedSource.contents!.find(c => c.formula === 'CuS')!.mass_g).toBeCloseTo(1 - moved / 80, 10);
     expect(result.nextSession.totalSpilled_ml + result.nextSession.totalTransferred_ml).toBeCloseTo(moved, 10);
-    const spillMass = result.nextSession.totalSpilled_ml * (1 + 1 / 80);
+    const spillMass = result.nextSession.totalSpilled_ml + moved / 80 - retainedSolid;
     expect(result.updatedSource.mass_g + result.updatedTarget!.mass_g + spillMass).toBeCloseTo(source.mass_g + target.mass_g, 8);
   });
   it('treats stale sampling authorization as retained sediment, without creating a dose', () => {

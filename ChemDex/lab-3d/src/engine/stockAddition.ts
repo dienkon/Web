@@ -1,6 +1,7 @@
 import type { ChemicalDefinition, SubstanceContent, VesselState } from '../types/chemistry';
 import { isImmiscibleOrganic } from '../data/chemicals';
-import { dispenseAliquot, withdrawAliquot, type LiquidAliquot } from '../handling/aliquot';
+import { withdrawAliquot, type LiquidAliquot } from '../handling/aliquot';
+import { receivePourAliquot } from '../handling/pourReceiver';
 import { solidDisplacementAtSurface } from '../handling/solidOccupancy';
 import { refreshFlowInventory } from './funnelFlow';
 
@@ -39,10 +40,10 @@ export function prepareStockAddition(input: VesselState, chemical: ChemicalDefin
   if (chemical.type === 'gas') throw new Error('Cấp khí cần đường dẫn khí; không được quy đổi khí thành dung dịch.');
   if (chemical.type === 'liquid') {
     const incoming = stockLiquidAliquot(chemical, formula, amount, temperature_c);
-    const transfer = dispenseAliquot(input, incoming, amount);
+    const transfer = receivePourAliquot(input, incoming);
     return { vessel: refreshFlowInventory(transfer.vessel), incoming,
-      acceptedAmount: transfer.dispensed_ml,
-      spill: transfer.sample.volume_ml > 1e-12 ? transfer.sample : undefined };
+      acceptedAmount: transfer.accepted_ml, contactedAmount: transfer.contacted_ml,
+      spill: transfer.spill.volume_ml > 1e-12 ? transfer.spill : undefined };
   }
   if (!Number.isFinite(chemical.molarMass) || chemical.molarMass <= 0) return null;
   const contents = input.contents.map(item => ({ ...item }));
@@ -62,5 +63,5 @@ export function prepareStockAddition(input: VesselState, chemical: ChemicalDefin
   const excess = Math.min(input.volume_ml, Math.max(0, input.volume_ml + displaced - input.capacity_ml));
   const drained = withdrawAliquot(withSolid, excess);
   return { vessel: refreshFlowInventory(drained.vessel), incoming: undefined,
-    acceptedAmount: amount, spill: excess > 1e-12 ? drained.sample : undefined };
+    acceptedAmount: amount, contactedAmount: amount, spill: excess > 1e-12 ? drained.sample : undefined };
 }

@@ -106,7 +106,9 @@ describe('Finite exterior overflow: rim → wall → air → ground', () => {
     expect(groundVolume()).toBeCloseTo(10, 10); conserved(before);
     const salt = Object.values(useAppStore.getState().spills).flatMap(s => s.contents ?? [])
       .filter(c => c.formula === 'NaCl').reduce((sum, c) => sum + c.mass_g, 0);
-    expect(salt).toBeCloseTo(0.2, 12);
+    // Half the finite effluent packet, after homogeneous through-flow: most
+    // incoming salt is still in the tank instead of bypassing it unchanged.
+    expect(salt).toBeCloseTo((0.4 - 2 * -Math.expm1(-0.2)) / 2, 12);
     useAppStore.getState().advancePourTransport(1);
     expect(groundVolume()).toBeCloseTo(20, 10); expect(useAppStore.getState().inFlightPours).toHaveLength(0); conserved(before);
   });

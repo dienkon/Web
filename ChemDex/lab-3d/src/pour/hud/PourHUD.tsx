@@ -41,7 +41,7 @@ export const PourHUD = React.memo(function PourHUD() {
         {/* Volume Transferred */}
         <div className="flex flex-col items-center border-l border-slate-800 pl-4">
           <span className="text-[10px] uppercase tracking-wider text-slate-400">
-            {lang === 'vi' ? 'Đã nhận' : 'Received'}
+            {lang === 'vi' ? 'ΔV trong bình' : 'Tank ΔV'}
           </span>
           <span className="text-base font-bold font-mono text-cyan-400">
             {transferred} <span className="text-xs font-normal text-slate-400">mL</span>

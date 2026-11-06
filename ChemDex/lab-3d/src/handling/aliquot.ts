@@ -3,10 +3,11 @@ import { availableLiquidVolume, occupiedLiquidVolume } from './solidOccupancy';
 import type { MobileSolidInventory } from '../science/suspensionTransport';
 import { precipitateComponents, isSuspensionRow, withLegacyPrecipitateOrigins } from '../science/precipitateInventory';
 import { identifySpecies, sameMolecularFormula } from '../science/speciesIdentity';
-import { mixColorBeerLambert } from '../pour/physics/mixing';
+import { blendLiquidOptics, liquidOptics, type LiquidOptics } from '../pour/physics/mixing';
 import { liquidContactFailure } from './liquidContact';
 
 export interface LiquidAliquot {
+  optics?: LiquidOptics;
   reactionProgramId?: string | null;
   contactChemistryLimit?: 'phase_boundary';
   organicVolume_ml?: number;
@@ -21,7 +22,7 @@ export interface LiquidAliquot {
 
 const solid = (content: SubstanceContent) => ['s', 'solid'].includes(content.phase ?? content.state ?? identifySpecies(content.formula).phase ?? '');
 const gas = (content: SubstanceContent) => ['g', 'gas'].includes(content.phase ?? content.state ?? identifySpecies(content.formula).phase ?? '');
-function refreshPrecipitateSummary(vessel: VesselState): VesselState {
+export function refreshPrecipitateSummary(vessel: VesselState): VesselState {
   const components = precipitateComponents(vessel.contents, vessel.precipitateSubstance);
   const active = components.find(c => vessel.precipitateSubstance && sameMolecularFormula(c.formula, vessel.precipitateSubstance)) ?? components[0];
   return { ...vessel, hasPrecipitate: components.length > 0,
@@ -70,9 +71,45 @@ export function withdrawAliquot(vessel: VesselState, requested_ml: number, mobil
     vessel: movedSolidMass > 0 ? refreshPrecipitateSummary(source) : source,
     sample: { volume_ml: volume, mass_g: mass, temperature_c: vessel.temperature_c,
       ...(vessel.immiscibleOrganicVolume_ml ? { organicVolume_ml: vessel.immiscibleOrganicVolume_ml * fraction, organicColor: vessel.immiscibleOrganicColor } : {}),
-      color: vessel.liquidColor ?? '#f8fafc', contents,
+      color: vessel.liquidColor ?? '#f8fafc', optics: liquidOptics(vessel.liquidColor ?? '#f8fafc', vessel.liquidOptics), contents,
       substances: contents.length ? contents.map(c => c.formula) : [...vessel.substances] },
   };
+}
+
+function mergeContents(vessel: VesselState, sample: LiquidAliquot, fraction: number) {
+  const contents = vessel.contents.map(content => ({ ...content }));
+  for (const entry of sample.contents) {
+    const source = { ...entry, phase: entry.phase ?? identifySpecies(entry.formula).phase ?? undefined };
+    const target = contents.find(content => content.formula === source.formula && content.phase === source.phase
+      && content.liquidLayer === source.liquidLayer && content.location === source.location
+      && content.solidOrigin === source.solidOrigin && content.precipitateFormation === source.precipitateFormation);
+    if (target) {
+      target.moles += source.moles * fraction;
+      target.mass_g += source.mass_g * fraction;
+      if (source.volume_ml !== undefined) target.volume_ml = (target.volume_ml ?? 0) + source.volume_ml * fraction;
+    } else contents.push({ ...source, moles: source.moles * fraction, mass_g: source.mass_g * fraction,
+      ...(source.volume_ml !== undefined ? { volume_ml: source.volume_ml * fraction } : {}) });
+  }
+  return contents;
+}
+
+/** Internal material merge. The pouring receiver must resolve overflow before
+ * publishing this potentially overfilled intermediate; never resize its glass. */
+export function mergeLiquidDose(vessel: VesselState, sample: LiquidAliquot, volume: number): VesselState {
+  const fraction = volume / sample.volume_ml, mass = sample.mass_g * fraction;
+  const contents = mergeContents(vessel, sample, fraction);
+  const totalMass = vessel.mass_g + mass, totalVolume = vessel.volume_ml + volume;
+  const organic = sample.organicVolume_ml ?? 0, heldOrganic = vessel.immiscibleOrganicVolume_ml ?? 0;
+  const optics = blendLiquidOptics(liquidOptics(vessel.liquidColor ?? '#f8fafc', vessel.liquidOptics),
+    Math.max(0, vessel.volume_ml - heldOrganic), liquidOptics(sample.color, sample.optics), Math.max(0, volume - organic * fraction));
+  for (const content of contents) {
+    if (!solid(content)) content.concentration_M = totalVolume > 0 ? content.moles / (totalVolume / 1000) : 0;
+  }
+  return { ...vessel, volume_ml: totalVolume, volume: totalVolume / vessel.capacity_ml,
+    ...(organic > 0 ? { immiscibleOrganicVolume_ml: heldOrganic + organic * fraction, immiscibleOrganicColor: sample.organicColor } : {}),
+    mass_g: totalMass, contents, substances: [...new Set([...vessel.substances, ...sample.substances])],
+    liquidColor: optics.hex, liquidOptics: optics,
+    temperature_c: totalMass > 0 ? (vessel.mass_g * vessel.temperature_c + mass * sample.temperature_c) / totalMass : vessel.temperature_c };
 }
 
 export function dispenseAliquot(vessel: VesselState, sample: LiquidAliquot, requested_ml: number): {
@@ -84,25 +121,10 @@ export function dispenseAliquot(vessel: VesselState, sample: LiquidAliquot, requ
     return { vessel, sample, dispensed_ml: 0 };
   const incomingSolidMass = sample.contents.filter(solid).reduce((s, c) => s + c.mass_g, 0);
   const incomingDensity = sample.volume_ml > 0 ? Math.max(0, sample.mass_g - incomingSolidMass) / sample.volume_ml : 1;
-  const mergeAt = (fraction: number) => {
-    const contents = vessel.contents.map(content => ({ ...content }));
-    for (const entry of sample.contents) {
-      const source = { ...entry, phase: entry.phase ?? identifySpecies(entry.formula).phase ?? undefined };
-      const target = contents.find(content => content.formula === source.formula && content.phase === source.phase
-        && content.liquidLayer === source.liquidLayer && content.location === source.location
-        && content.solidOrigin === source.solidOrigin && content.precipitateFormation === source.precipitateFormation);
-      if (target) {
-        target.moles += source.moles * fraction;
-        target.mass_g += source.mass_g * fraction;
-      } else contents.push({ ...source, moles: source.moles * fraction, mass_g: source.mass_g * fraction,
-        ...(source.volume_ml !== undefined ? { volume_ml: source.volume_ml * fraction } : {}) });
-    }
-    return contents;
-  };
   let volume = Number.isFinite(requested_ml) ? Math.max(0, Math.min(requested_ml, sample.volume_ml, availableLiquidVolume(vessel, incomingDensity))) : 0;
   if (incomingSolidMass > 0 && volume > 0 && sample.volume_ml > 0) {
     const fits = (added: number) => occupiedLiquidVolume({ ...vessel, volume_ml: vessel.volume_ml + added,
-      contents: mergeAt(added / sample.volume_ml) }) + Math.max(0, vessel.wallCoating_ml ?? 0) <= vessel.capacity_ml;
+      contents: mergeContents(vessel, sample, added / sample.volume_ml) }) + Math.max(0, vessel.wallCoating_ml ?? 0) <= vessel.capacity_ml;
     if (!fits(volume)) {
       let low = 0, high = volume;
       for (let i = 0; i < 40; i++) {
@@ -115,20 +137,7 @@ export function dispenseAliquot(vessel: VesselState, sample: LiquidAliquot, requ
   const fraction = sample.volume_ml > 0 ? volume / sample.volume_ml : 0;
   if (!(volume > 0)) return { vessel, sample, dispensed_ml: 0 };
   const mass = sample.mass_g * fraction;
-  const contents = mergeAt(fraction);
-  const totalMass = vessel.mass_g + mass;
-  const totalVolume = vessel.volume_ml + volume;
-  for (const content of contents) {
-    if (!solid(content)) content.concentration_M = totalVolume > 0 ? content.moles / (totalVolume / 1000) : 0;
-  }
-  const receiver: VesselState = { ...vessel, volume_ml: totalVolume, volume: totalVolume / vessel.capacity_ml,
-      ...(sample.organicVolume_ml ? { immiscibleOrganicVolume_ml: (vessel.immiscibleOrganicVolume_ml ?? 0) + sample.organicVolume_ml * fraction, immiscibleOrganicColor: sample.organicColor } : {}),
-      mass_g: totalMass, contents,
-      substances: volume > 0 ? [...new Set([...vessel.substances, ...sample.substances])] : vessel.substances,
-      liquidColor: volume > 0 && !(sample.organicVolume_ml || vessel.immiscibleOrganicVolume_ml)
-        ? mixColorBeerLambert(vessel.liquidColor ?? '#f8fafc', vessel.volume_ml, sample.color, volume)
-        : vessel.volume_ml > 0 ? vessel.liquidColor : sample.color,
-      temperature_c: totalMass > 0 ? (vessel.mass_g * vessel.temperature_c + mass * sample.temperature_c) / totalMass : vessel.temperature_c };
+  const receiver = mergeLiquidDose(vessel, sample, volume);
   return {
     vessel: incomingSolidMass > 0 && volume > 0 ? refreshPrecipitateSummary(receiver) : receiver,
     sample: { ...sample, volume_ml: sample.volume_ml - volume, mass_g: sample.mass_g - mass,

@@ -4,6 +4,7 @@ export const CONTACT_SCENARIOS = [
   { id: 'sodium_small', label: 'Na nhỏ · chạy ngẫu nhiên' },
   { id: 'sodium_large', label: 'Na lớn · nổ khi tiếp xúc' },
   { id: 'color_overflow', label: 'Pha màu · rót tràn' },
+  { id: 'reactive_overflow', label: 'Bình đầy · tràn kết tủa' },
   { id: 'spill_precipitate', label: 'Đổ ra bàn · tạo kết tủa' },
   { id: 'spill_gas', label: 'Đổ ra bàn · sinh khí' },
   { id: 'glass_break', label: 'Vỡ bình · giữ đủ lượng chất' },
@@ -48,6 +49,12 @@ export async function runContactScenario(id: string, scenario: ContactScenarioId
   if (!store.prepareStudioWaterSample(id)) return useAppStore.getState().mixError ?? 'Bình không phù hợp.';
   store.cleanSpills();
   store.setSimulationPaused(false);
+  if (scenario === 'reactive_overflow') {
+    const sample = useAppStore.getState().vessels[id];
+    await store.mixSubstances(id, 'CuSO4', sample.capacity_ml - sample.volume_ml);
+    await store.mixSubstances(id, 'NaOH', sample.capacity_ml * 0.2);
+    return 'NaOH đi vào bình CuSO₄ đầy: hỗn hợp trao đổi qua miệng bình; kết tủa xanh tiếp tục hình thành trong phần tràn và trên bàn.';
+  }
   if (scenario === 'thermal_shock') {
     const sample = useAppStore.getState().vessels[id];
     store.transferLiquidContinuous(id, null, sample.volume_ml, [sample.position[0] + 0.65, -1.175, sample.position[2]]);

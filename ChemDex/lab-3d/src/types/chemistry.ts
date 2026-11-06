@@ -88,6 +88,7 @@ export type VesselType =
   | 'hot_plate';
 
 export interface VesselState {
+  liquidOptics?: import('../pour/physics/mixing').LiquidOptics;
   stirringIntensity?: number; // 0..1 operational control; not a measured shear rate
   bubbleInterfaceMobility?: import('../science/bubbleRise').BubbleInterfaceMobility;
   gasFlux?: import('../engine/gasFlux').GasFlux;
@@ -269,6 +270,7 @@ export interface BurnerState {
 }
 
 export interface SpillState {
+  optics?: import('../pour/physics/mixing').LiquidOptics;
   reactionProgramId?: string;
   temperature_c?: number;
   escapedGas_g?: Record<string, number>;

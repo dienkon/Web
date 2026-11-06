@@ -35,6 +35,7 @@ export interface PourParcel {
 export interface PourArrival {
   parcel: PourParcel;
   sample: LiquidAliquot;
+  contacted_ml?: number;
   accepted_ml: number;
   spilled_ml: number;
 }

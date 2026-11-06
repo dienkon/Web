@@ -129,7 +129,7 @@ export const SimulationDebugPanel = React.memo(function SimulationDebugPanel() {
                   <span className="text-cyan-300 font-bold">{session.flow_ml_s.toFixed(2)} mL/s</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-400">Đã chuyển (Transferred):</span>
+                  <span className="text-slate-400">ΔV dung dịch trong bình:</span>
                   <span className="text-amber-300 font-bold">{session.transferred_ml.toFixed(1)} mL</span>
                 </div>
                 <div className="flex justify-between">

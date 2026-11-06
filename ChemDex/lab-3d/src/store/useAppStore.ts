@@ -39,6 +39,7 @@ import { LESSON_PROGRAM_IDS } from '../lesson/programCompiler';
 import { collectSpillWaste } from '../engine/wasteInventory';
 import { resolveMixture } from '../engine/resolveMixture';
 import { dispenseAliquot, type LiquidAliquot } from '../handling/aliquot';
+import { receivePourAliquot, drainVesselOverflow } from '../handling/pourReceiver';
 import { reactAliquotMixture } from '../engine/aliquotReaction';
 import { projectEscapedGas } from '../engine/gasInventory';
 import { stepWorkbenchSpills } from '../engine/spillChemistry';
@@ -2172,6 +2173,26 @@ export const useAppStore = create<AppState>((set, get) => {
           vaporEnergyBudgets.get(id), vaporTemperatureBudgets.get(id));
         newVessels[id] = { ...final, ...projectAqueousSolution(final) };
       }
+      const displacementOverflows: VfxEventMap['vessel:overflow'][] = [];
+      for (const [id, current] of Object.entries(newVessels)) {
+        if (id.startsWith('lesson_vessel_') || !canReceivePour(current) || Math.abs(current.rotationZ ?? 0) > 1e-6) continue;
+        const drained = drainVesselOverflow(current, mobileSolidInventory(current, SimulationEngine.findManager(id)));
+        if (!(drained.spill.volume_ml > 0)) continue;
+        const retained = refreshFlowInventory(drained.vessel);
+        const parcel = createOverflowParcel(retained, drained.spill, { duration_s: effectiveDt, sourceId: id, sourceName: current.name });
+        if (!parcel) continue;
+        newVessels[id] = { ...retained,
+          outerWallCoating_ml: (retained.outerWallCoating_ml ?? 0) + (parcel.stage === 'overflow' ? parcel.sample.volume_ml : 0),
+          outerWallCoatingMass_g: (retained.outerWallCoatingMass_g ?? 0) + (parcel.stage === 'overflow' ? parcel.sample.mass_g : 0) };
+        const active = newKinetics[id];
+        const continued = active?.initialVesselBaseline
+          ? continueReactionAfterOutflow(active, newVessels[id], state.language) : active;
+        delete newKinetics[id]; delete newPending[id]; delete newDissolving[id];
+        if (continued) newKinetics[id] = continued;
+        funnelParcels.push(parcel); vesselsUpdated = true;
+        displacementOverflows.push({ vesselId: id, volume_ml: parcel.sample.volume_ml,
+          color: parcel.sample.color, substances: parcel.sample.substances, angle: -(current.rotationY ?? 0), transported: true });
+      }
       const kineticsCountChanged = Object.keys(newKinetics).length !== Object.keys(state.activeKinetics).length;
       for (const [id, vessel] of Object.entries(newVessels)) {
         if (vessel.recentPourContact?.remaining_s !== undefined && vessel.recentPourContact.remaining_s > 0) {
@@ -2204,6 +2225,7 @@ export const useAppStore = create<AppState>((set, get) => {
       }
       // Failure consumes the committed, already-reacted sample. Calling it
       // before the frame commit would restore the broken vessel's old contents.
+      for (const event of displacementOverflows) vfxBus.emit('vessel:overflow', event);
       for (const [id, kinetics] of Object.entries(state.activeKinetics)) {
         const baseline = kinetics.initialVesselBaseline;
         if (isSodiumWaterReaction(kinetics.reactionId) && baseline
@@ -2279,7 +2301,8 @@ export const useAppStore = create<AppState>((set, get) => {
         const parcel = createOverflowParcel(overflowingVessel, { volume_ml,
           mass_g: actualMass_g ?? (contents?.length ? contents.reduce((sum, c) => sum + c.mass_g, 0) : volume_ml),
           temperature_c: release?.temperature_c ?? overflowingVessel.temperature_c ?? useLabEnvironment.getState().conditions.temperature_c,
-          color: color || overflowingVessel.liquidColor || '#f8fafc', substances, contents: contents ?? [] }, { ...release, sourceName });
+          color: color || overflowingVessel.liquidColor || '#f8fafc', optics: release?.optics,
+          substances, contents: contents ?? [] }, { ...release, sourceName });
         if (!parcel) return;
         set({ inFlightPours: [...state.inFlightPours, parcel],
           ...(parcel.stage === 'overflow' || release?.retainedReceiver ? { vessels: { ...state.vessels, [overflowingVessel.id]: {
@@ -2296,7 +2319,7 @@ export const useAppStore = create<AppState>((set, get) => {
       const deposition = overflowingVessel && !overflowingVessel.isShattered && volume_ml > 0
         ? overflowLandingPosition(overflowingVessel) : pos;
       const spills = mergeWorkbenchSpill(previous, deposition, volume_ml, substances, color, sourceName, actualMass_g, contents,
-        release?.temperature_c ?? useLabEnvironment.getState().conditions.temperature_c);
+        release?.temperature_c ?? useLabEnvironment.getState().conditions.temperature_c, release?.optics);
       if (spills === previous) return;
       set({ spills });
       if (overflowingVessel && !overflowingVessel.isShattered && volume_ml > 0) {
@@ -2695,7 +2718,7 @@ export const useAppStore = create<AppState>((set, get) => {
         delete updatedDissolving[id];
 
         const spills = mergeWorkbenchSpill(s.spills, v.position, released.spill.volume_ml,
-          released.spill.substances, liquidColor, v.name, released.spill.mass_g, released.spill.contents, v.temperature_c);
+          released.spill.substances, liquidColor, v.name, released.spill.mass_g, released.spill.contents, v.temperature_c, v.liquidOptics);
         if ((released.spill.volume_ml > 0 || released.spill.mass_g > 0) && spills === s.spills) return s;
         committed = true;
         return { 
@@ -3417,15 +3440,15 @@ export const useAppStore = create<AppState>((set, get) => {
       };
       for (const id of Object.keys(vessels)) syncCoating(id);
       const receive = (parcel: PourParcel, contact: typeof parcel.sample, alreadyInside = false) => {
-        let accepted_ml = 0, spill = contact;
+        let accepted_ml = 0, contacted_ml = 0, spill = contact;
         const target = parcel.targetId ? vessels[parcel.targetId] : null;
         if (target && parcel.trajectory.landingKind === 'inside' && parcel.trajectory.targetVesselId === target.id
           && canReceivePour(alreadyInside ? { ...target, isSealed: false } : target) && !target.id.startsWith('lesson_vessel_')) {
           // An inner film already crossed the mouth before any stopper was applied.
-          const dispensed = dispenseAliquot(alreadyInside ? { ...target, isSealed: false } : target, contact, contact.volume_ml);
+          const dispensed = receivePourAliquot(alreadyInside ? { ...target, isSealed: false } : target, contact);
           if (alreadyInside) dispensed.vessel = { ...dispensed.vessel, isSealed: target.isSealed };
-          accepted_ml = dispensed.dispensed_ml; spill = dispensed.sample;
-          if (accepted_ml > 0) {
+          accepted_ml = dispensed.accepted_ml; contacted_ml = dispensed.contacted_ml; spill = dispensed.spill;
+          if (dispensed.contacted_ml > 0) {
             const heated = Object.values(state.burners).some(b => b.isOn
               && Math.hypot(b.position[0] - target.position[0], b.position[2] - target.position[2]) < 1.5);
             if (dispensed.failureReason) contactFailures.set(target.id, dispensed.failureReason);
@@ -3441,7 +3464,7 @@ export const useAppStore = create<AppState>((set, get) => {
             } }; lastMixResult = reacted.mixResult; changedVessels = true;
           }
         }
-        return { accepted_ml, spill };
+        return { accepted_ml, contacted_ml, spill };
       };
       const recordSpill = (parcel: PourParcel, spill: typeof parcel.sample) => {
         if (spill.volume_ml <= 0) return;
@@ -3466,7 +3489,7 @@ export const useAppStore = create<AppState>((set, get) => {
         const deposition = parcel.targetId && parcel.trajectory.landingKind === 'inside' && vessels[parcel.targetId]
           ? overflowLandingPosition(vessels[parcel.targetId]) : [point[0], LAB_PHYSICS.TABLE_SURFACE_Y, point[2]] as [number, number, number];
         spills = mergeWorkbenchSpill(spills, deposition,
-          spill.volume_ml, spill.substances, spill.color, parcel.sourceName, spill.mass_g, spill.contents, spill.temperature_c);
+          spill.volume_ml, spill.substances, spill.color, parcel.sourceName, spill.mass_g, spill.contents, spill.temperature_c, spill.optics);
       };
       // Existing wall liquid moves first. A newly wetted interval begins moving next step.
       const ordered = [...state.inFlightPours.filter(p => p.stage === 'wall'), ...state.inFlightPours.filter(p => p.stage !== 'wall')];
@@ -3482,7 +3505,7 @@ export const useAppStore = create<AppState>((set, get) => {
               const sites = overflowImpactSites(next.parcel), portion = scalePourSample(sample, 1 / sites.length);
               spills = sites.length > 1 ? mergeWorkbenchSpillBatch(spills, sites, sample, next.parcel.sourceName)
                 : mergeWorkbenchSpill(spills, sites[0], sample.volume_ml, sample.substances, sample.color,
-                  next.parcel.sourceName, sample.mass_g, sample.contents, sample.temperature_c);
+                  next.parcel.sourceName, sample.mass_g, sample.contents, sample.temperature_c, sample.optics);
               for (const position of sites) {
                 groundEvents.push({ position, volume_ml: portion.volume_ml, color: portion.color });
               }
@@ -3505,13 +3528,13 @@ export const useAppStore = create<AppState>((set, get) => {
           if (contact) {
             const receipt = receive(parcel, contact, true);
             recordSpill(parcel, receipt.spill);
-            arrivals.push({ parcel, sample: contact, accepted_ml: receipt.accepted_ml, spilled_ml: receipt.spill.volume_ml });
+            arrivals.push({ parcel, sample: contact, accepted_ml: receipt.accepted_ml, contacted_ml: receipt.contacted_ml, spilled_ml: receipt.spill.volume_ml });
           }
           continue;
         }
         const { parcel, contact } = advancePourParcel(original, dt, target);
         if (contact) {
-          let accepted_ml = 0, spill = contact;
+          let accepted_ml = 0, contacted_ml = 0, spill = contact;
           if (target && canReceivePour(target) && parcel.trajectory.landingKind === 'inside'
             && parcel.trajectory.targetVesselId === target.id && parcel.trajectory.detailKind === 'wall_inner') {
             const space = availableLiquidVolume(target, contact.mass_g / contact.volume_ml);
@@ -3526,10 +3549,10 @@ export const useAppStore = create<AppState>((set, get) => {
             }
           } else {
             const receipt = receive(parcel, contact);
-            accepted_ml = receipt.accepted_ml; spill = receipt.spill;
+            accepted_ml = receipt.accepted_ml; contacted_ml = receipt.contacted_ml; spill = receipt.spill;
           }
           recordSpill(parcel, spill);
-          arrivals.push({ parcel, sample: contact, accepted_ml, spilled_ml: spill.volume_ml });
+          arrivals.push({ parcel, sample: contact, accepted_ml, contacted_ml, spilled_ml: spill.volume_ml });
         }
         if (parcel.arrivedFraction < 1) remaining.push(parcel);
       }
@@ -3579,7 +3602,7 @@ export const useAppStore = create<AppState>((set, get) => {
       const ground = transfer.spill && !to ? mergeWorkbenchSpill(state.spills,
         dropPos ?? [from.position[0], LAB_PHYSICS.TABLE_SURFACE_Y, from.position[2]], transfer.spill.volume_ml,
         transfer.spill.substances, transfer.spill.color, from.name, transfer.spill.mass_g, transfer.spill.contents,
-        transfer.spill.temperature_c) : state.spills;
+        transfer.spill.temperature_c, transfer.spill.optics) : state.spills;
       if (transfer.spill && !to && ground === state.spills) return EMPTY_LIQUID_TRANSFER;
       set(s => {
         const activeKinetics = { ...s.activeKinetics }, pendingReactions = { ...s.pendingReactions }, dissolvingSubstances = { ...s.dissolvingSubstances };
@@ -3594,7 +3617,7 @@ export const useAppStore = create<AppState>((set, get) => {
           const pending = findPendingReaction(vessel.substances, vessel.temperature_c, false, s.language);
           if (pending) pendingReactions[vessel.id] = { ...pending, vesselId: vessel.id };
         }
-        const target = reacted?.vessel && transfer.accepted_ml > 0 ? { ...reacted.vessel,
+        const target = reacted?.vessel && transfer.moved_ml > 0 ? { ...reacted.vessel,
           recentPourContact: { point: [0, 0, 0] as [number, number, number], remaining_s: 1.5,
             expiresAt_ms: Date.now() + 1500, color: from.liquidColor } } : reacted?.vessel;
         const retained = target && overflow ? { ...target,
@@ -3820,7 +3843,7 @@ export const useAppStore = create<AppState>((set, get) => {
       }
       if (!prepared) return;
       const isSolid = chemData.type === 'solid';
-      const stockFailure = prepared.incoming && liquidContactFailure(original, prepared.incoming, prepared.acceptedAmount);
+      const stockFailure = prepared.incoming && liquidContactFailure(original, prepared.incoming, prepared.contactedAmount);
       if (!isSolid && stockFailure) {
         // Breaking the receiver cannot erase the incoming dose.
         const dose = prepared.incoming!;
@@ -3833,10 +3856,10 @@ export const useAppStore = create<AppState>((set, get) => {
         const spill = prepared.spill;
         // The retained stock and displaced solvent share one observable commit.
         get().addSpill(original.position, spill.volume_ml, spill.substances, spill.color,
-          original.name, spill.mass_g, spill.contents, targetId, { temperature_c: spill.temperature_c,
-            retainedReceiver: prepared.acceptedAmount > 0 ? prepared.vessel : undefined });
+          original.name, spill.mass_g, spill.contents, targetId, { temperature_c: spill.temperature_c, optics: spill.optics,
+            retainedReceiver: prepared.contactedAmount > 0 ? prepared.vessel : undefined });
       }
-      if (prepared.acceptedAmount <= 0) return;
+      if (prepared.contactedAmount <= 0) return;
       const vessel = { ...prepared.vessel, outerWallCoating_ml: get().vessels[targetId].outerWallCoating_ml,
         outerWallCoatingMass_g: get().vessels[targetId].outerWallCoatingMass_g,
         ...(!isSolid ? { recentPourContact: { point: [0, 0, 0] as [number, number, number],

@@ -8,6 +8,21 @@ export interface SubstanceContent {
   mass_g: number;
 }
 
+/** Keep unrounded absorbance across transport steps; invalidate it whenever
+ * chemistry or a specimen replacement assigns a different display color. */
+export interface LiquidOptics { hex: string; absorbance: [number, number, number] }
+export function liquidOptics(hex: string, saved?: LiquidOptics): LiquidOptics {
+  return saved?.hex === hex && Array.isArray(saved.absorbance) && saved.absorbance.length === 3
+    && saved.absorbance.every(c => Number.isFinite(c) && c >= 0) ? saved : { hex,
+    absorbance: hexToLinear(hex || '#ffffff').map(c => -Math.log(Math.max(1e-4, c))) as [number, number, number] };
+}
+export function blendLiquidOptics(a: LiquidOptics, va: number, b: LiquidOptics, vb: number): LiquidOptics {
+  if (!(va > 0)) return b;
+  if (!(vb > 0)) return a;
+  const absorbance = a.absorbance.map((x, i) => (x * va + b.absorbance[i] * vb) / (va + vb)) as [number, number, number];
+  return { hex: linearToHex(absorbance.map(x => Math.exp(-x)) as [number, number, number]), absorbance };
+}
+
 export interface MixingState {
   volume_ml: number;
   mass_g: number;

@@ -59,13 +59,15 @@ describe('Stock overflow preserves actual phases and inventory', () => {
     expect(result.spill!.contents.find(entry => entry.formula === 'NaCl')!.mass_g).toBeCloseTo(0.01, 12);
     conserved([...input.contents, item('Cu', 8.96, findChemical('Cu').molarMass, 's')], [...result.vessel.contents, ...result.spill!.contents]);
   });
-  it('splits solution overflow with the stock density, solute and solvent', () => {
+  it('fills then exchanges mixed solution at the brim with conserved solute and solvent', () => {
     const input = vessel(99), chemical = findChemical('HCl');
     const result = prepareStockAddition(input, chemical, 'HCl', 10, 25)!;
     expect(result.acceptedAmount).toBe(1);
     expect(result.spill!.volume_ml).toBe(9);
-    expect(result.spill!.mass_g).toBeCloseTo(9 * 1.02, 12);
-    expect(result.spill!.contents.find(entry => entry.formula === 'HCl')!.moles).toBeCloseTo(0.009, 12);
+    const retainedHCl = 0.001 * Math.exp(-9 / 100) + 0.1 * -Math.expm1(-9 / 100);
+    expect(result.vessel.contents.find(entry => entry.formula === 'HCl')!.moles).toBeCloseTo(retainedHCl, 12);
+    expect(result.spill!.contents.find(entry => entry.formula === 'HCl')!.moles).toBeCloseTo(0.01 - retainedHCl, 12);
+    expect(result.spill!.mass_g).toBeGreaterThan(9); expect(result.spill!.mass_g).toBeLessThan(9 * 1.02);
     conserved([...input.contents, ...result.incoming!.contents], [...result.vessel.contents, ...result.spill!.contents]);
   });
   it('allows later pouring only into space left by the solid, including through shared aliquot transfers', () => {
@@ -99,7 +101,7 @@ describe('Stock overflow preserves actual phases and inventory', () => {
     expect(prepareStockAddition({ ...vessel(), isSealed: true }, findChemical('Cu'), 'Cu', 1, 25)).toBeNull();
     expect(() => stockLiquidAliquot({ ...findChemical('NaOH'), defaultConcentration: 1000 }, 'NaOH', 1, 25)).toThrow();
   });
-  it('records only actual overflow and does not start a reaction with rejected stock', async () => {
+  it('exchanges a real stock dose into a full vessel without inventing a reaction in water alone', async () => {
     const input = vessel();
     useAppStore.setState({ vessels: { [input.id]: input }, burners: {}, spills: {}, activeKinetics: {}, pendingReactions: {} });
     await useAppStore.getState().mixSubstances(input.id, 'HCl', 10);
@@ -107,11 +109,13 @@ describe('Stock overflow preserves actual phases and inventory', () => {
     expect(useAppStore.getState().inFlightPours[0].sample.volume_ml).toBeCloseTo(10, 10);
     useAppStore.getState().advancePourTransport(2);
     const state = useAppStore.getState(), spills = Object.values(state.spills);
-    expect(state.vessels[input.id].contents).toEqual(input.contents);
-    expect(state.vessels[input.id].mass_g).toBe(input.mass_g);
+    const retainedHCl = 0.1 * -Math.expm1(-0.1);
+    expect(state.vessels[input.id].volume_ml).toBeCloseTo(100, 10);
+    expect(state.vessels[input.id].contents.find(c => c.formula === 'HCl')!.moles).toBeCloseTo(retainedHCl, 12);
     expect(state.activeKinetics[input.id]).toBeUndefined();
-    expect(spills.reduce((sum, s) => sum + s.mass_g, 0)).toBeCloseTo(10.2, 10);
-    expect(spills.flatMap(s => s.contents ?? []).filter(c => c.formula === 'HCl').reduce((sum, c) => sum + c.moles, 0)).toBeCloseTo(0.01, 10);
+    expect(spills.reduce((sum, s) => sum + s.mass_g, 0) + state.vessels[input.id].mass_g).toBeCloseTo(110.2, 10);
+    expect(spills.flatMap(s => s.contents ?? []).filter(c => c.formula === 'HCl').reduce((sum, c) => sum + c.moles, 0))
+      .toBeCloseTo(0.01 - retainedHCl, 10);
   });
   it('keeps tracked stock solvent while resolving a precipitation reagent pair', async () => {
     const ca = stockLiquidAliquot(findChemical('CaCl2'), 'CaCl2', 50, 25);

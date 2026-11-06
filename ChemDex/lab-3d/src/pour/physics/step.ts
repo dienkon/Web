@@ -8,7 +8,8 @@ import { LAB_PHYSICS } from '../../engine/interactionEngine';
 import type { SubstanceContent, VesselState } from '../../types/chemistry';
 import { availableLiquidVolume, liquidInventoryMass } from '../../handling/solidOccupancy';
 import { decantLiquid } from '../../engine/decantTransfer';
-import { dispenseAliquot } from '../../handling/aliquot';
+import { receivePourAliquot } from '../../handling/pourReceiver';
+import { scalePourSample } from '../../engine/pourTransport';
 import { refreshFlowInventory } from '../../engine/funnelFlow';
 import type { MobileSolidInventory } from '../../science/suspensionTransport';
 
@@ -219,11 +220,11 @@ export function stepPourSimulation(
       // twice would reuse a stale suspension snapshot for the splash share.
       const released = decantLiquid(snapshot(source), null, actualDV, mobileSolids);
       if (!released?.spill) return stopped();
-      const into = dispenseAliquot(snapshot(target), released.spill, targetIntakeDV);
+      const into = receivePourAliquot(snapshot(target), scalePourSample(released.spill, targetIntakeDV / released.spill.volume_ml));
       const receiver = refreshFlowInventory(into.vessel);
       newSourceVessel = { ...source, ...released.source, colorHex: source.colorHex };
       newTargetVessel = { ...target, ...receiver, colorHex: receiver.liquidColor ?? target.colorHex };
-      accepted_ml = into.dispensed_ml;
+      accepted_ml = into.accepted_ml;
       spilled_ml = released.moved_ml - accepted_ml;
     }
 

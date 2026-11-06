@@ -823,7 +823,7 @@ export const VfxGallery: React.FC = () => {
                         <span className="text-blue-600 font-bold">{pourSession.flow_ml_s.toFixed(2)} mL/s</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-slate-500">Đã chuyển:</span>
+                        <span className="text-slate-500">ΔV dung dịch trong bình:</span>
                         <span className="text-amber-600 font-bold">{pourSession.transferred_ml.toFixed(1)} mL</span>
                       </div>
                       <div className="flex justify-between">
