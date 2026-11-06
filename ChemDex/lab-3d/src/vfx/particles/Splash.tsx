@@ -2,8 +2,13 @@ import React, { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { ParticlePool, ParticleState } from './ParticlePool';
+import { particleOpacityShader } from './particleOpacity';
 import { useQualityStore, QUALITY_CONFIGS } from '../quality';
 import { vfxBus } from '../bus';
+import { simulationFrameDt } from '../../core/clock';
+import { useAppStore } from '../../store/useAppStore';
+import { advanceSplatterFlight } from '../../science/splatterFlight';
+import { LAB_PHYSICS } from '../../engine/interactionEngine';
 
 export interface SplashProps {
   color?: string;
@@ -71,19 +76,14 @@ export const Splash = React.memo(function Splash({
 
   useFrame((_, delta) => {
     if (!meshRef.current) return;
-    const dt = Math.min(delta, 0.05);
+    const dt = simulationFrameDt(delta, useAppStore.getState());
 
     pool.update(dt, (p: ParticleState) => {
-      // Ballistic gravity
-      p.vy += -9.8 * dt;
-
-      // Die if it falls below workbench table surface
-      if (p.y <= -1.16) {
-        return false;
-      }
-
-      return true;
-    }, meshRef.current);
+      p.alpha = 0.95 * Math.max(0, 1 - p.age / p.life);
+      const flight = advanceSplatterFlight(p, dt, LAB_PHYSICS.TABLE_SURFACE_Y);
+      Object.assign(p, { x: flight.x, y: flight.y, z: flight.z, vx: flight.vx, vy: flight.vy, vz: flight.vz });
+      return !flight.hit;
+    }, meshRef.current, undefined, false);
   });
 
   return (
@@ -95,8 +95,8 @@ export const Splash = React.memo(function Splash({
       visible={false}
     >
       <dodecahedronGeometry args={[0.75, 0]} />
-      <meshStandardMaterial
-        color={splashColor}
+      <meshStandardMaterial onBeforeCompile={particleOpacityShader}
+        color="#ffffff"
         roughness={0.1}
         metalness={0.1}
         transparent

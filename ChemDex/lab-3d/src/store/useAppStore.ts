@@ -92,6 +92,7 @@ import { reactionReplayProgress } from '../engine/reactionProgress';
 import { advanceAqueousContactProgress } from '../engine/contactKinetics';
 import { measureGasFlux } from '../engine/gasFlux';
 import { supportsWaterSurface } from '../science/waterSurface';
+import { pourContactRemaining } from '../science/pourContactActivity';
 import { reactionSimulationEngine } from '../vfx/reactions/ReactionSimulationEngine';
 import { kineticsEngine } from '../simulation/chemistry/KineticsEngine';
 import { programPlayer } from '../vfx/programs/player/ProgramPlayer';
@@ -1604,7 +1605,8 @@ export const useAppStore = create<AppState>((set, get) => {
 
       // Fast exit if simulation state has no ongoing physical or chemical dynamics
       if (
-        !hasActiveKinetics && !hasAliquotReaction && !Object.keys(state.spills).length &&
+        !hasActiveKinetics && !hasAliquotReaction && !Object.keys(state.spills).length
+        && !Object.values(state.vessels).some(v => pourContactRemaining(v.recentPourContact) > 0) &&
         !hasPendingReactions && 
         !anyBurnerOn && !anyHotPlateOn && !anyFlameEmission &&
         !anyVesselHot && 
@@ -2168,6 +2170,13 @@ export const useAppStore = create<AppState>((set, get) => {
         newVessels[id] = { ...final, ...projectAqueousSolution(final) };
       }
       const kineticsCountChanged = Object.keys(newKinetics).length !== Object.keys(state.activeKinetics).length;
+      for (const [id, vessel] of Object.entries(newVessels)) {
+        if (vessel.recentPourContact?.remaining_s !== undefined && vessel.recentPourContact.remaining_s > 0) {
+          newVessels[id] = { ...vessel, recentPourContact: { ...vessel.recentPourContact,
+            remaining_s: Math.max(0, vessel.recentPourContact.remaining_s - effectiveDt) } };
+          vesselsUpdated = true;
+        }
+      }
       const spillStep = stepWorkbenchSpills(get().spills, effectiveDt), advancedSpills = spillStep.spills;
       const workbenchEscapedGas_g = { ...get().workbenchEscapedGas_g };
       for (const [formula, grams] of Object.entries(spillStep.escapedGas_g))
@@ -3404,7 +3413,7 @@ export const useAppStore = create<AppState>((set, get) => {
             const pending = findPendingReaction(reacted.vessel.substances, reacted.vessel.temperature_c, heated, state.language);
             if (pending) pendingReactions[target.id] = { ...pending, vesselId: target.id };
             vessels[target.id] = { ...reacted.vessel, recentPourContact: {
-              point: pourContactLocal(parcel, target), expiresAt_ms: Date.now() + 1500, color: contact.color,
+              point: pourContactLocal(parcel, target), expiresAt_ms: Date.now() + 1500, remaining_s: 1.5, color: contact.color,
             } }; lastMixResult = reacted.mixResult; changedVessels = true;
           }
         }
@@ -3554,7 +3563,9 @@ export const useAppStore = create<AppState>((set, get) => {
           const pending = findPendingReaction(vessel.substances, vessel.temperature_c, false, s.language);
           if (pending) pendingReactions[vessel.id] = { ...pending, vesselId: vessel.id };
         }
-        const target = reacted?.vessel;
+        const target = reacted?.vessel && transfer.accepted_ml > 0 ? { ...reacted.vessel,
+          recentPourContact: { point: [0, 0, 0] as [number, number, number], remaining_s: 1.5,
+            expiresAt_ms: Date.now() + 1500, color: from.liquidColor } } : reacted?.vessel;
         const retained = target && overflow ? { ...target,
           outerWallCoating_ml: (target.outerWallCoating_ml ?? 0) + (overflow.stage === 'overflow' ? overflow.sample.volume_ml : 0),
           outerWallCoatingMass_g: (target.outerWallCoatingMass_g ?? 0) + (overflow.stage === 'overflow' ? overflow.sample.mass_g : 0) } : target;
@@ -3795,7 +3806,7 @@ export const useAppStore = create<AppState>((set, get) => {
       const vessel = { ...prepared.vessel, outerWallCoating_ml: get().vessels[targetId].outerWallCoating_ml,
         outerWallCoatingMass_g: get().vessels[targetId].outerWallCoatingMass_g,
         ...(!isSolid ? { recentPourContact: { point: [0, 0, 0] as [number, number, number],
-          expiresAt_ms: Date.now() + 1500, color: prepared.incoming?.color } } : {}) };
+          expiresAt_ms: Date.now() + 1500, remaining_s: 1.5, color: prepared.incoming?.color } } : {}) };
       const burners = Object.values(get().burners);
       const isHeated = burners.some(b => b.isOn && Math.hypot(b.position[0] - vessel.position[0], b.position[2] - vessel.position[2]) < 1.5);
       vfxBus.emit('surface:ripple', { x: vessel.position[0], z: vessel.position[2], vesselId: targetId, intensity: 0.95 });

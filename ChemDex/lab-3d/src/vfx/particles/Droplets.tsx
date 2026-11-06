@@ -2,6 +2,7 @@ import React, { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { ParticlePool, ParticleState } from './ParticlePool';
+import { particleOpacityShader } from './particleOpacity';
 import { useQualityStore, QUALITY_CONFIGS } from '../quality';
 
 export interface DropletsProps {
@@ -107,8 +108,8 @@ export const Droplets = React.memo(function Droplets({
       visible={false}
     >
       <sphereGeometry args={[1, 6, 6]} />
-      <meshStandardMaterial
-        color={dropletColor}
+      <meshStandardMaterial onBeforeCompile={particleOpacityShader}
+        color="#ffffff"
         roughness={0.1}
         metalness={0.1}
         transparent

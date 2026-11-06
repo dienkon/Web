@@ -84,7 +84,7 @@ export class ParticlePool {
     p.vx = init.vx ?? 0;
     p.vy = init.vy ?? 0;
     p.vz = init.vz ?? 0;
-    p.age = 0;
+    p.age = Number.isFinite(init.age) ? init.age! : 0;
     p.life = init.life ?? 1.0;
     p.baseSize = init.baseSize ?? (init.size ?? 0.05);
     p.size = init.size ?? p.baseSize;
@@ -114,7 +114,8 @@ export class ParticlePool {
     dt: number,
     updater: (p: ParticleState, dt: number) => boolean,
     mesh: THREE.InstancedMesh,
-    camera?: THREE.Camera
+    camera?: THREE.Camera,
+    integratePosition = true,
   ): void {
     if (!mesh) return;
 
@@ -135,7 +136,15 @@ export class ParticlePool {
       return;
     }
 
-    if (dt <= 0) return;
+    // Pausing stops simulation, but camera billboarding and newly queued
+    // action-time bursts can still upload their current geometry.
+    const step = Number.isFinite(dt) && dt > 0 ? dt : 0;
+    let opacity = mesh.geometry.getAttribute('instanceOpacity') as THREE.InstancedBufferAttribute | undefined;
+    if (!opacity || opacity.count !== this.maxCount) {
+      opacity = new THREE.InstancedBufferAttribute(new Float32Array(this.maxCount), 1);
+      opacity.setUsage(THREE.DynamicDrawUsage);
+      mesh.geometry.setAttribute('instanceOpacity', opacity);
+    }
 
     let updatedInstances = 0;
     const count = this.particles.length;
@@ -144,7 +153,10 @@ export class ParticlePool {
       const p = this.particles[i];
       if (p.life <= 0) continue;
 
-      p.age += dt;
+      const previousAge = p.age;
+      p.age += step;
+      if (p.age < 0) continue;
+      const particleStep = previousAge < 0 ? Math.max(0, p.age) : step;
       if (p.age >= p.life) {
         // Particle died
         p.life = 0;
@@ -155,7 +167,7 @@ export class ParticlePool {
       }
 
       // Run custom per-particle physics & simulation logic
-      const alive = updater(p, dt);
+      const alive = particleStep > 0 ? updater(p, particleStep) : true;
       if (!alive) {
         p.life = 0;
         this.freeIndices.push(i);
@@ -165,12 +177,14 @@ export class ParticlePool {
       }
 
       // Update position & rotation
-      p.x += p.vx * dt;
-      p.y += p.vy * dt;
-      p.z += p.vz * dt;
-      p.rotX += p.vRotX * dt;
-      p.rotY += p.vRotY * dt;
-      p.rotZ += p.vRotZ * dt;
+      if (integratePosition) {
+        p.x += p.vx * particleStep;
+        p.y += p.vy * particleStep;
+        p.z += p.vz * particleStep;
+      }
+      p.rotX += p.vRotX * particleStep;
+      p.rotY += p.vRotY * particleStep;
+      p.rotZ += p.vRotZ * particleStep;
 
       // Compose matrix: billboard to camera if camera is provided
       ParticlePool.scratchPos.set(p.x, p.y, p.z);
@@ -194,10 +208,9 @@ export class ParticlePool {
       );
       mesh.setMatrixAt(updatedInstances, ParticlePool.scratchMat4);
 
-      if (mesh.instanceColor) {
-        ParticlePool.scratchColor.setRGB(p.r, p.g, p.b);
-        mesh.setColorAt(updatedInstances, ParticlePool.scratchColor);
-      }
+      ParticlePool.scratchColor.setRGB(p.r, p.g, p.b);
+      mesh.setColorAt(updatedInstances, ParticlePool.scratchColor);
+      opacity.setX(updatedInstances, Number.isFinite(p.alpha) ? Math.max(0, Math.min(1, p.alpha)) : 0);
       updatedInstances++;
     }
 
@@ -205,6 +218,9 @@ export class ParticlePool {
       mesh.instanceMatrix.clearUpdateRanges();
       mesh.instanceMatrix.addUpdateRange(0, updatedInstances * 16);
       mesh.instanceMatrix.needsUpdate = true;
+      opacity.clearUpdateRanges();
+      opacity.addUpdateRange(0, updatedInstances);
+      opacity.needsUpdate = true;
       if (mesh.instanceColor) {
         mesh.instanceColor.clearUpdateRanges();
         mesh.instanceColor.addUpdateRange(0, updatedInstances * 3);

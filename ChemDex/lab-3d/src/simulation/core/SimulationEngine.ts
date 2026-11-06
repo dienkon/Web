@@ -5,6 +5,7 @@ import { sameMolecularFormula, identifySpecies } from '../../science/speciesIden
 import { VesselState } from '../../types/chemistry';
 import { getVesselProfile } from '../../pour/physics/profiles';
 import { vesselLiquidSurfaceY } from '../../science/vesselGeometry';
+import { pourContactRemaining } from '../../science/pourContactActivity';
 import { vesselLocalToWorld } from '../../science/vesselScale';
 import { liquidSurfaceVolume } from '../../engine/waterPhase';
 import { liquidInventoryMass } from '../../handling/solidOccupancy';
@@ -302,7 +303,7 @@ export class VesselSimulationManager {
       sharedSedimentThickness: this.sedimentBed.thickness,
       sharedSedimentPlane,
       withdrawnSuspension_g: Math.max(0, outflow - previouslyApplied),
-      entryPoint: vessel.recentPourContact && vessel.recentPourContact.expiresAt_ms > Date.now()
+      entryPoint: vessel.recentPourContact && pourContactRemaining(vessel.recentPourContact) > 0
         && vessel.recentPourContact.point.every(Number.isFinite) ? vessel.recentPourContact.point : undefined,
       agitation,
       heatPower_W,

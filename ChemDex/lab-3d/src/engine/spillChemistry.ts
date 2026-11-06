@@ -1,18 +1,30 @@
 import type { SpillState, VesselState } from '../types/chemistry';
 import { findHandcraftedProgram } from '../vfx/programs/resolver';
-import { aqueousContactHalfTime } from './contactKinetics';
 import { applyProgramToLedger, computeMolarMass } from './ledger';
 import { projectAqueousSolution } from './aqueousProjection';
 import { sodiumReactionDuration, sodiumWaterContact } from '../science/sodiumWater';
-import { getProgramById } from '../vfx/programs/library';
+import { getProgramById, ALL_HANDCRAFTED_PROGRAMS } from '../vfx/programs/library';
 import { aqueousBoilingPoint } from './thermalState';
 import { assessProgramConditions } from '../science/conditions';
+import type { ReactionProgram } from '../shared/programSchema';
+import { sameMolecularFormula } from '../science/speciesIdentity';
+
+function contactHalfTime(program: ReactionProgram): number | null {
+  const chemistry = program.chemistry, rate = chemistry.kinetics;
+  if (program.provenance === 'fallback' || !rate || !(rate.halfTime_s > 0) || !Number.isFinite(rate.halfTime_s)
+    || !['instant', 'surface_limited', 'first_order'].includes(rate.model)
+    || ['indicator', 'emission', 'dilution'].includes(chemistry.representation ?? '')) return null;
+  const reactants = chemistry.species.filter(s => s.role === 'reactant');
+  return reactants.length && reactants.every(s => ['aq', 'l', 's'].includes(s.phase)) ? rate.halfTime_s : null;
+}
+const contactPrograms = ALL_HANDCRAFTED_PROGRAMS.filter(p => contactHalfTime(p) !== null);
 
 /** An open puddle has no glass heat capacity or sealed headspace. Resolve only
  * authored contact chemistry; never infer heating/ignition from a VFX preset. */
 export function stepSpillChemistry(spill: SpillState, dt: number): SpillState {
   if (!(dt > 0) || !Number.isFinite(dt)) return spill;
-  if (!(spill.volume_ml > 0) || !spill.contents?.length || spill.contents.some(c => c.liquidLayer === 'organic'))
+  if (!(spill.volume_ml > 0) || !spill.contents?.length || spill.contents.some(c => c.liquidLayer === 'organic')
+    || !spill.contents.some(c => sameMolecularFormula(c.formula, 'H2O') && c.phase === 'l' && c.moles > 1e-12))
     return spill.gasRate_mol_s ? { ...spill, gasRate_mol_s: 0 } : spill;
   const reference: VesselState = { id: spill.id, name: 'Workbench spill', type: 'beaker',
     position: spill.position, rotationY: 0, isLocked: false, capacity_ml: spill.volume_ml,
@@ -23,11 +35,13 @@ export function stepSpillChemistry(spill: SpillState, dt: number): SpillState {
   const sodium = sodiumWaterContact(reference);
   const environment = { temperature_c: reference.temperature_c, volume_ml: spill.volume_ml, isHeated: false, isSealed: false };
   const preferred = spill.reactionProgramId ? getProgramById(spill.reactionProgramId) : undefined;
-  const program = sodium ? getProgramById('na_h2o') : findHandcraftedProgram(spill.substances, spill.contents, environment)
+  const exact = findHandcraftedProgram(spill.substances, spill.contents, environment);
+  const ready = (p: ReactionProgram) => contactHalfTime(p) !== null && assessProgramConditions(p, spill.contents!, environment).ready;
+  const program = sodium ? getProgramById('na_h2o') : exact && ready(exact) ? exact
     // Products entering the inventory must not invalidate the reactant-set
     // lookup after its first frame. Continue the verified contact while ready.
-    ?? (preferred && assessProgramConditions(preferred, spill.contents, environment).ready ? preferred : undefined);
-  const halfTime = program ? aqueousContactHalfTime({ program }) : null;
+    : preferred && ready(preferred) ? preferred : contactPrograms.find(ready);
+  const halfTime = program ? contactHalfTime(program) : null;
   if (!program || program.provenance === 'fallback' || (!sodium && halfTime === null))
     return spill.gasRate_mol_s || spill.reactionProgramId ? { ...spill, gasRate_mol_s: 0, reactionProgramId: undefined } : spill;
   const progress = sodium ? Math.min(1, dt / sodiumReactionDuration(reference)) : -Math.expm1(-Math.LN2 * dt / halfTime!);

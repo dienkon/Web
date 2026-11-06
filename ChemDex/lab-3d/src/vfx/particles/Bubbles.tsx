@@ -2,6 +2,7 @@ import React, { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { ParticlePool, ParticleState } from './ParticlePool';
+import { particleOpacityShader } from './particleOpacity';
 import { useQualityStore, QUALITY_CONFIGS } from '../quality';
 import { getBubbleSpriteTexture } from '../textures';
 import { vfxBus } from '../bus';
@@ -170,9 +171,9 @@ export const Bubbles = React.memo(function Bubbles({
       visible={false}
     >
       <planeGeometry args={[1, 1]} />
-      <meshBasicMaterial
+      <meshBasicMaterial onBeforeCompile={particleOpacityShader}
         map={bubbleTexture}
-        color={bubbleColor}
+        color="#ffffff"
         transparent
         opacity={0.85}
         depthWrite={false}

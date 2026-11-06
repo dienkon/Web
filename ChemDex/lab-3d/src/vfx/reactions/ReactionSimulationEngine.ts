@@ -15,6 +15,17 @@ import { useAppStore } from '../../store/useAppStore';
 import { gasVisualState } from '../gasVisualState';
 import { vfxBus } from '../bus';
 import { labSound } from '../../utils/audio';
+import { vesselLocalToWorld } from '../../science/vesselScale';
+import { renderedVesselBody } from '../../simulation/render/vesselBodyFrames';
+import type { VesselState } from '../../types/chemistry';
+
+function contactWorldPosition(vessel: VesselState, point: [number, number, number]): [number, number, number] {
+  const body = renderedVesselBody(vessel.id);
+  if (!body) return vesselLocalToWorld(vessel, point);
+  const e = body.matrixWorld.elements, [x, y, z] = point;
+  return [e[0] * x + e[4] * y + e[8] * z + e[12], e[1] * x + e[5] * y + e[9] * z + e[13],
+    e[2] * x + e[6] * y + e[10] * z + e[14]];
+}
 
 export class ReactionSimulationEngine {
   private static instance: ReactionSimulationEngine | null = null;
@@ -241,7 +252,7 @@ export class ReactionSimulationEngine {
       emitBurst: (pos, count, color = '#ffffff', speed = 1.5) => {
         vfxBus.emit('particle:burst', {
           vesselId: vessel.id,
-          position: [vessel.position[0] + pos[0], vessel.position[1] + pos[1], vessel.position[2] + pos[2]],
+          position: contactWorldPosition(vessel, pos),
           count,
           color,
           speed,
@@ -250,7 +261,7 @@ export class ReactionSimulationEngine {
       emitSparks: (pos, count, color = '#f59e0b') => {
         // Distinct sparks event on bus (fixing F5)
         vfxBus.emit('sparks', {
-          position: [vessel.position[0] + pos[0], vessel.position[1] + pos[1], vessel.position[2] + pos[2]],
+          position: contactWorldPosition(vessel, pos),
           count,
           color,
           speed: 3.5,

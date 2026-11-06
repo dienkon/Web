@@ -19,6 +19,7 @@ export const WorkbenchSpills = React.memo(function WorkbenchSpills() {
 function SpillPuddle({ spill }: { spill: SpillState }) {
   const material = useRef<THREE.MeshPhysicalMaterial>(null);
   const targetColor = useMemo(() => new THREE.Color(), []);
+  const initialColor = useRef(spill.color || '#f8fafc');
   useFrame((_, delta) => {
     const dt = simulationFrameDt(delta, useAppStore.getState());
     material.current?.color.lerp(targetColor.set(spill.color || '#f8fafc'), 1 - Math.exp(-dt * 5));
@@ -33,7 +34,7 @@ function SpillPuddle({ spill }: { spill: SpillState }) {
     <SpilledSolids spill={spill} />
     <SpillReactionBubbles spill={spill} drop={drop} />
     {geometry && <mesh geometry={geometry} receiveShadow>
-      <meshPhysicalMaterial ref={material} transparent opacity={0.88}
+      <meshPhysicalMaterial ref={material} color={initialColor.current} transparent opacity={0.88}
         roughness={0.03} transmission={0.86} ior={1.333} clearcoat={1} clearcoatRoughness={0.02}
         depthWrite={false} />
     </mesh>}

@@ -23,6 +23,7 @@ import { metalAcidProgressRate, metalAcidMaximumExtent } from '../engine/metalAc
 import { waterVisualState } from './waterVisualState';
 import { SimulationEngine } from '../simulation/core/SimulationEngine';
 import { gasVisualState } from './gasVisualState';
+import { LAB_PHYSICS } from '../engine/interactionEngine';
 
 // Expanding shockwave ripple on table surface
 interface ShockwaveSlot {
@@ -48,6 +49,7 @@ export const VfxDirector = React.memo(function VfxDirector() {
   const flashLightRef = useRef<THREE.PointLight>(null);
   const flashIntensityRef = useRef(0);
   const flashColorRef = useRef(new THREE.Color('#fffbeb'));
+  const flashPositionRef = useRef(new THREE.Vector3());
 
   // Pre-allocated shockwave pool for zero-allocation table ripples
   const shockwavesPool = useRef<ShockwaveSlot[]>([
@@ -64,6 +66,7 @@ export const VfxDirector = React.memo(function VfxDirector() {
     const unsubExplosion = vfxBus.on('explosion', (e) => {
       flashIntensityRef.current = 4.0;
       flashColorRef.current.set(e.color || '#fee2e2');
+      flashPositionRef.current.set(...e.position);
 
       // Spawn shockwave ring in an available slot
       const slot = shockwavesPool.current.find(s => !s.active) || shockwavesPool.current[0];
@@ -83,6 +86,7 @@ export const VfxDirector = React.memo(function VfxDirector() {
     const unsubSparks = vfxBus.on('sparks', (e) => {
       flashIntensityRef.current = Math.max(flashIntensityRef.current, 1.8);
       if (e.color) flashColorRef.current.set(e.color);
+      flashPositionRef.current.set(...e.position);
     });
 
     return () => {
@@ -183,6 +187,7 @@ export const VfxDirector = React.memo(function VfxDirector() {
         flashIntensityRef.current = Math.max(0, flashIntensityRef.current - dt * 6.0);
         flashLightRef.current.intensity = flashIntensityRef.current * 4.5;
         flashLightRef.current.color.copy(flashColorRef.current);
+        flashLightRef.current.position.copy(flashPositionRef.current);
         flashLightRef.current.visible = true;
       } else {
         flashLightRef.current.visible = false;
@@ -219,6 +224,7 @@ export const VfxDirector = React.memo(function VfxDirector() {
       <GasClouds />
       {/* Global Splash listener for liquid impacts */}
       <Splash />
+      <Sparks active={false} listenToEvents />
 
       {/* Global Ballistic Acid Splatter System with Visible Trajectory Arcs & Workbench Landings */}
       <AcidSplatter />
@@ -269,7 +275,7 @@ export const VfxDirector = React.memo(function VfxDirector() {
         const hasLiquid = (vessel.volume_ml ?? 0) > 0.5;
         const measuredGas = gasVisualState(vessel);
         const isHotOrActive = (hasLiquid && vessel.isBoiling) || (hasLiquid && vessel.hasGas)
-          || (hasLiquid && vessel.hasPrecipitate) || vessel.isExplosion || waterVisualState(vessel).mistRate > 0;
+          || (hasLiquid && (vessel.hasPrecipitate || (vessel.foam_ml ?? 0) > 0.05)) || vessel.isExplosion || waterVisualState(vessel).mistRate > 0;
         const rawRecipe: ReactionVfxRecipe | null = kinetics?.reactionId 
           ? getReactionVfxRecipe(kinetics.reactionId)
           : (kinetics ? getGenericVfxRecipe(null, vessel) : (isHotOrActive ? getGenericVfxRecipe(null, vessel) : null));
@@ -328,9 +334,10 @@ export const VfxDirector = React.memo(function VfxDirector() {
                 conditional reaction/source tree. */}
 
             {/* Declarative Sparks & Energetic Micro-Flashes */}
-            {(emission.running && (activeRecipe.sparks?.active || !!simRuntime?.customData?.hasSparks)) && (
+            {(reactionIsEmitting(kinetics) && (activeRecipe.sparks?.active || !!simRuntime?.customData?.hasSparks)) && (
               <Sparks
                 origin={[0, liquidTopY - pos[1], 0]}
+                groundY={LAB_PHYSICS.TABLE_SURFACE_Y - pos[1]}
                 rate={activeRecipe.sparks?.rate || 30}
                 burstCount={activeRecipe.sparks?.burstCount || 15}
                 color={activeRecipe.sparks?.color || (simRuntime?.customData?.sparkColor as string) || '#f59e0b'}
@@ -340,14 +347,11 @@ export const VfxDirector = React.memo(function VfxDirector() {
 
             {/* 6. Foam */}
             {((vessel.foam_ml && vessel.foam_ml > 0.05) || effectiveFoamRate > 0) && (
-              <Foam
+              <VesselEffectsFrame vessel={vessel}><Foam
                 vesselId={vesselId}
-                surfaceY={liquidTopY - pos[1]}
-                vesselTopY={mouthY - pos[1]}
-                radius={worldProfile.r(vesselWorldLiquidSurfaceY(vessel))}
                 capacity_ml={vessel.capacity_ml}
                 active={true}
-              />
+              /></VesselEffectsFrame>
             )}
 
             {/* 7. Special Effect: Endothermic Frost */}

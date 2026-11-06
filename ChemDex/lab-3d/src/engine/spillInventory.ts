@@ -5,6 +5,7 @@ import { LAB_PHYSICS } from './interactionEngine';
 import { sameMolecularFormula } from '../science/speciesIdentity';
 import type { LiquidAliquot } from '../handling/aliquot';
 import { mixColorBeerLambert } from '../pour/physics/mixing';
+import { findChemical } from '../data/chemicals';
 
 function mergedColor(samples: { color: string; volume_ml: number }[]) {
   let color = '#ffffff', volume = 0;
@@ -31,7 +32,7 @@ export function overflowLandingPosition(vessel: Pick<VesselState, 'type' | 'capa
 }
 
 let spillSequence = 0;
-const hazardous = (substances: string[]) => substances.some(sub => ['H2SO4', 'HCl', 'HNO3', 'NaOH', 'BaCl2'].some(h => sub.includes(h)));
+const hazardous = (substances: string[]) => substances.some(sub => findChemical(sub).hazards.length > 0);
 const footprintCache = new WeakMap<SpillState, { volume_ml: number; radius: number }>();
 function currentRadius(spill: SpillState): number {
   const cached = footprintCache.get(spill);
@@ -67,7 +68,10 @@ function liquidFamily(spill: Footprint): string | undefined {
 /** Contact eligibility, not a microscopic bridge-growth or miscibility model. */
 function footprintsTouch(a: Footprint, b: Footprint): boolean {
   const distance = Math.hypot(a.position[0] - b.position[0], a.position[2] - b.position[2]);
-  if ((a.volume_ml > 0) !== (b.volume_ml > 0)) return false;
+  if ((a.volume_ml > 0) !== (b.volume_ml > 0)) {
+    const wet = a.volume_ml > 0 ? a : b;
+    return wet.radius > 0 && distance <= wet.radius + 1e-10;
+  }
   if (a.volume_ml === 0) return distance <= 1e-10; // dry point inventory: no invented wet capture radius
   if (!(a.radius > 0 && b.radius > 0)) return false;
   return distance <= a.radius + b.radius + 1e-10;
@@ -96,7 +100,8 @@ function aggregateContents(groups: (SubstanceContent[] | undefined)[], totalVolu
 
 /** Pure quasistatic inventory merge. Only the connected contact component of
  * the arriving footprint can join; unknown liquids still assume compatibility.
- * Explicitly distinct liquid layers and dry/wet deposits stay separate. */
+ * Explicitly distinct liquid layers stay separate. A dry point inventory is
+ * wetted only when the arriving liquid's actual footprint reaches that point. */
 export function mergeWorkbenchSpill(
   spills: Record<string, SpillState>, pos: [number, number, number], volume_ml: number,
   substances: string[], color: string, sourceName?: string, actualMass_g?: number, contents?: SubstanceContent[], temperature_c = 25,

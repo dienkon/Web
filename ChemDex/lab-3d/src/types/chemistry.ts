@@ -129,7 +129,7 @@ export interface VesselState {
   // Mirrors of exterior parcels for weighing only; material stays in inFlightPours.
   outerWallCoating_ml?: number;
   outerWallCoatingMass_g?: number;
-  recentPourContact?: { point: [number, number, number]; expiresAt_ms: number; color?: string };
+  recentPourContact?: { point: [number, number, number]; expiresAt_ms: number; remaining_s?: number; color?: string };
   bodyRevision?: number;
   tare_g?: number; // tare weight of empty vessel in grams
   density_g_ml?: number; // density in g/mL (default ~1.0)

@@ -1,5 +1,6 @@
 import type { VesselState } from '../types/chemistry';
 import { sameMolecularFormula } from '../science/speciesIdentity';
+import { ambientGasPressure, headspaceVolumeMl, IDEAL_GAS_R_L_ATM } from './headspacePressure';
 
 export const FOAM_SURFACTANT = 'C12H25NaO4S';
 // Illustrative retention/drainage parameters, not measured detergent kinetics.
@@ -38,8 +39,11 @@ export function stepFoamInventory(current: VesselState, previous: VesselState, d
   const capture = enabled ? RETENTION_FRACTION * Math.min(1, surfactant / (liquidWater * 0.005)) : 0;
   const uniformSupply = elapsed > 0 ? -Math.expm1(-elapsed / DRAIN_TIME_S) * DRAIN_TIME_S / elapsed : 0;
   let retained = enabled ? previousAvailable * decay + Math.max(0, difference) * capture * uniformSupply : 0;
-  const molarVolume_ml = 0.082057 * Math.max(1, current.temperature_c + 273.15) * 1000;
-  const headspace_ml = Math.max(0, current.capacity_ml - current.volume_ml);
+  const pressure_atm = ambientGasPressure(current);
+  if (!(pressure_atm > 0) || !Number.isFinite(pressure_atm) || !Number.isFinite(current.temperature_c)
+    || current.temperature_c <= -273.15) return null;
+  const molarVolume_ml = IDEAL_GAS_R_L_ATM * (current.temperature_c + 273.15) * 1000 / pressure_atm;
+  const headspace_ml = Math.max(0, headspaceVolumeMl(current));
   // Excess gas vents; no liquid spill is fabricated from gas volume.
   retained = Math.min(retained, grossCurrent, headspace_ml / molarVolume_ml * OXYGEN_MOLAR_MASS);
   if (retained < EPS_MASS_G) retained = 0;

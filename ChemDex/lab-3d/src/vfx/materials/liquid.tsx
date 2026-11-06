@@ -24,6 +24,7 @@ import { liquidGeometry, liquidLevelForVolume, vesselInterior } from '../../scie
 import { isSodiumWaterReaction } from '../../science/sodiumWater';
 import { currentMixedPrecipitateTurbidity } from '../../simulation/render/precipitateTurbidity';
 import { supernatantColor } from '../../science/supernatantAppearance';
+import { pourContactRemaining } from '../../science/pourContactActivity';
 import { liquidOpacity } from '../../science/liquidOptics';
 import { createLiquidVolumeGeometry, liquidMeshLayout, liquidMeshOrigin } from './liquidGeometry';
 
@@ -34,6 +35,7 @@ interface LiquidProps {
   volumeOverride_ml?: number;
   bottomVolume_ml?: number;
   colorOverride?: string;
+  appearance?: 'solution' | 'foam';
 }
 
 // Scratch transforms reused between animation frames.
@@ -52,8 +54,10 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
   volumeOverride_ml,
   bottomVolume_ml = 0,
   colorOverride,
+  appearance = 'solution',
 }: LiquidProps) {
   const baseY = liquidGeometry(vesselType).floorY;
+  const colorSampleRevision = useRef(-1);
   const initialColor = useMemo(() => {
     const vessel = useAppStore.getState().vessels[vesselId];
     return colorOverride || (vessel && supernatantColor(vessel.contents, vessel.volume_ml))
@@ -146,10 +150,10 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
   const liquidMaterial = useMemo(() => {
     const mat = new THREE.MeshPhysicalMaterial({
       color: new THREE.Color(initialColor),
-      roughness: 0.08,
+      roughness: appearance === 'foam' ? 0.8 : 0.08,
       metalness: 0,
       specularIntensity: 0.9,
-      clearcoat: 0.8,
+      clearcoat: appearance === 'foam' ? 0.15 : 0.8,
       clearcoatRoughness: 0.06,
       transparent: true,
       opacity: 0.12,
@@ -281,13 +285,13 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     };
 
     return mat;
-  }, [clippingPlane, bottomPlane, uniforms, initialColor]);
+  }, [clippingPlane, bottomPlane, uniforms, initialColor, appearance]);
 
   // Meniscus Surface Disk Material
   const meniscusMaterial = useMemo(() => {
     const mat = new THREE.MeshPhysicalMaterial({
       color: new THREE.Color(initialColor),
-      roughness: 0.06,
+      roughness: appearance === 'foam' ? 0.75 : 0.06,
       metalness: 0,
       specularIntensity: 0.95,
       clearcoat: 0.9,
@@ -392,7 +396,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     };
 
     return mat;
-  }, [uniforms, initialColor]);
+  }, [uniforms, initialColor, appearance]);
 
   useEffect(() => () => { liquidMaterial.dispose(); meniscusMaterial.dispose(); },
     [liquidMaterial, meniscusMaterial]);
@@ -462,7 +466,14 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     const dissolvedColor = supernatantColor(vessel.contents, vessel.volume_ml);
     const liquidColorHex = colorOverride || dissolvedColor || vessel.liquidColor || '#38bdf8';
     _scratchTargetColor.set(liquidColorHex);
-    uniforms.uLiquidColor.value.lerp(_scratchTargetColor, frameSmoothing(0.1, dt));
+    const replacedSample = colorSampleRevision.current !== (vessel.effectSampleRevision ?? 0);
+    if (replacedSample) {
+      colorSampleRevision.current = vessel.effectSampleRevision ?? 0;
+      uniforms.uLiquidColor.value.copy(_scratchTargetColor);
+      uniforms.uMixingStrength.value = 0;
+      uniforms.uHasActiveReaction.value = 0;
+      uniforms.uTurbidity.value = 0;
+    } else uniforms.uLiquidColor.value.lerp(_scratchTargetColor, frameSmoothing(0.1, dt));
     liquidMaterial.color.copy(uniforms.uLiquidColor.value);
     liquidMaterial.attenuationColor.copy(uniforms.uLiquidColor.value);
     meniscusMaterial.color.copy(uniforms.uLiquidColor.value);
@@ -474,7 +485,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       ? vessel.turbidity
       : (vessel.hasPrecipitate ? 0.85 : 0.0);
     const suspensionTurbidity = simMgr ? currentMixedPrecipitateTurbidity(vessel, simMgr) : null;
-    uniforms.uSuspensionColor.value.set(suspensionTurbidity !== null
+    uniforms.uSuspensionColor.value.set(appearance === 'foam' ? liquidColorHex : suspensionTurbidity !== null
       ? simMgr!.suspensionColor : liquidColorHex);
     if (suspensionTurbidity !== null) targetTurbidity = suspensionTurbidity;
     if (suspensionTurbidity === null && simRuntime && simRuntime.progress < 1.0) {
@@ -485,9 +496,11 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
         targetTurbidity = Math.max(targetTurbidity, simRuntime.turbidity);
       }
     }
-    uniforms.uTurbidity.value = THREE.MathUtils.lerp(uniforms.uTurbidity.value, targetTurbidity, 1 - Math.exp(-5 * dt));
-    liquidMaterial.opacity = liquidOpacity(liquidColorHex, uniforms.uTurbidity.value);
-    meniscusMaterial.opacity = liquidOpacity(liquidColorHex, uniforms.uTurbidity.value, true);
+    if (appearance === 'foam') targetTurbidity = 0.85;
+    uniforms.uTurbidity.value = replacedSample || appearance === 'foam' ? targetTurbidity
+      : THREE.MathUtils.lerp(uniforms.uTurbidity.value, targetTurbidity, 1 - Math.exp(-5 * dt));
+    liquidMaterial.opacity = appearance === 'foam' ? 0.72 : liquidOpacity(liquidColorHex, uniforms.uTurbidity.value);
+    meniscusMaterial.opacity = appearance === 'foam' ? 0.8 : liquidOpacity(liquidColorHex, uniforms.uTurbidity.value, true);
 
     // Dynamic Boiling intensity from thermal phase & physical bubble engine
     // Latent-heat/pressure-aware thermal state owns boiling. Temperature alone
@@ -550,7 +563,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       _scratchTargetColor.set(session.mixingZone.color);
       uniforms.uMixingColor.value.lerp(_scratchTargetColor, frameSmoothing(0.2, dt));
       uniforms.uMixingStrength.value = THREE.MathUtils.lerp(uniforms.uMixingStrength.value, session.mixingZone.intensity, frameSmoothing(0.25, dt));
-    } else if (vessel.recentPourContact?.color && vessel.recentPourContact.expiresAt_ms > Date.now()) {
+    } else if (vessel.recentPourContact?.color && pourContactRemaining(vessel.recentPourContact) > 0) {
       const point = vessel.recentPourContact.point;
       // Stored contact coordinates are vessel-local; the shader uses world coordinates.
       _scratchPos.set(point[0], fillY, point[2]);
@@ -558,7 +571,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       uniforms.uMixingPoint.value.copy(_scratchPos);
       uniforms.uMixingRadius.value = Math.max(0.04, surfaceR * 0.45);
       uniforms.uMixingColor.value.set(vessel.recentPourContact.color);
-      uniforms.uMixingStrength.value = 0.65 * Math.min(1, (vessel.recentPourContact.expiresAt_ms - Date.now()) / 1500);
+      uniforms.uMixingStrength.value = 0.65 * Math.min(1, pourContactRemaining(vessel.recentPourContact) / 1.5);
     } else {
       uniforms.uMixingStrength.value = THREE.MathUtils.lerp(uniforms.uMixingStrength.value, 0.0, frameSmoothing(0.08, dt));
     }
@@ -566,7 +579,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     // 1b. Downward convective color dispersion from active reaction kinetics
     const kinetics = useAppStore.getState().activeKinetics[vesselId];
     uniforms.uBaseY.value = baseY;
-    if (kinetics && kinetics.progress < 1.0) {
+    if (kinetics && kinetics.progress < 1.0 && !colorOverride) {
       const rxId = (kinetics.reactionId || '').toLowerCase();
       let effectiveShaderProgress = kinetics.progress;
       if (rxId.includes('iodine_clock') || rxId.includes('kio3+nahso3')) {
@@ -688,7 +701,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       {/* Liquid Body Mesh with Clipping Plane */}
       <mesh
         ref={liquidMeshRef}
-        name={`liquid_volume_${vesselId}`}
+        name={`${appearance === 'foam' ? 'foam' : 'liquid'}_volume_${vesselId}`}
         position={[0, baseY, 0]}
         geometry={innerGeom}
         material={liquidMaterial}
@@ -698,7 +711,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       {/* Surface Meniscus Disc */}
       <mesh
         ref={meniscusMeshRef}
-        name={`liquid_surface_${vesselId}`}
+        name={`${appearance === 'foam' ? 'foam' : 'liquid'}_surface_${vesselId}`}
         material={meniscusMaterial}
         renderOrder={3}
       >

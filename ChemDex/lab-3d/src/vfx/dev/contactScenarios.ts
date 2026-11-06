@@ -7,6 +7,8 @@ export const CONTACT_SCENARIOS = [
   { id: 'spill_precipitate', label: 'Đổ ra bàn · tạo kết tủa' },
   { id: 'spill_gas', label: 'Đổ ra bàn · sinh khí' },
   { id: 'glass_break', label: 'Vỡ bình · giữ đủ lượng chất' },
+  { id: 'oxygen_foam', label: 'Bọt O₂ · thử Pause' },
+  { id: 'wet_carbonate', label: 'Rắn khô · gặp axit' },
 ] as const;
 export type ContactScenarioId = typeof CONTACT_SCENARIOS[number]['id'];
 
@@ -17,6 +19,22 @@ export async function runContactScenario(id: string, scenario: ContactScenarioId
   const store = useAppStore.getState(), vessel = store.vessels[id];
   if (!vessel || vessel.isShattered) return 'Chọn bình nguyên vẹn hoặc thay bình đã vỡ.';
   store.setSimulationPaused(false);
+  if (scenario === 'oxygen_foam') {
+    if (!store.prepareStudioProgram('h2o2_mno2', 'oxygen_foam', id)) return useAppStore.getState().mixError ?? 'Bình không phù hợp.';
+    store.cleanSpills(); store.runStudioProgram(id);
+    return 'O₂ được giữ trong màng bọt có chất hoạt động bề mặt; thử Pause hoặc nghiêng bình để kiểm tra.';
+  }
+  if (scenario === 'wet_carbonate') {
+    if (!store.prepareStudioProgram('caco3_hcl', undefined, id)) return useAppStore.getState().mixError ?? 'Bình không phù hợp.';
+    store.cleanSpills();
+    const sample = useAppStore.getState().vessels[id], solids = sample.contents.filter(c => c.phase === 's');
+    const contents = sample.contents.filter(c => c.phase !== 's'), dryMass = solids.reduce((sum, c) => sum + c.mass_g, 0);
+    const position: [number, number, number] = [sample.position[0] + 0.65, -1.175, sample.position[2]];
+    store.setVesselState(id, { contents, substances: contents.map(c => c.formula), mass_g: sample.mass_g - dryMass }, 'withdrawal');
+    store.addSpill(position, 0, solids.map(c => c.formula), '#f8fafc', sample.name, dryMass, solids);
+    store.transferLiquidContinuous(id, null, sample.volume_ml, position);
+    return 'Axit đã làm ướt CaCO₃ khô trên bàn; khí CO₂ và phần rắn còn lại tính từ lượng chất thực.';
+  }
   if (scenario === 'spill_precipitate' || scenario === 'spill_gas') {
     if (!store.prepareStudioProgram(scenario === 'spill_precipitate' ? 'cuso4_naoh' : 'na2co3_hcl', undefined, id))
       return useAppStore.getState().mixError ?? 'Bình không phù hợp với mẫu.';

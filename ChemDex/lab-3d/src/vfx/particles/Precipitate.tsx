@@ -2,6 +2,7 @@ import React, { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { ParticlePool, ParticleState } from './ParticlePool';
+import { particleOpacityShader } from './particleOpacity';
 import { useQualityStore, QUALITY_CONFIGS } from '../quality';
 import { useAppStore } from '../../store/useAppStore';
 import { PRNG } from '../../core/rng';
@@ -256,8 +257,8 @@ export const Precipitate = React.memo(function Precipitate({
         // Fine faceted powder grains (BaSO4)
         <dodecahedronGeometry args={[0.45, 0]} />
       )}
-      <meshStandardMaterial
-        color={particleColor}
+      <meshStandardMaterial onBeforeCompile={particleOpacityShader}
+        color="#ffffff"
         roughness={isCrystalline ? 0.12 : (isMetallic ? 0.25 : (isGel ? 0.45 : 0.88))}
         metalness={isCrystalline ? 0.92 : (isMetallic ? 0.85 : 0.05)}
         transparent

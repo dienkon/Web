@@ -4,6 +4,9 @@ import * as THREE from 'three';
 import { useQualityStore, QUALITY_CONFIGS } from '../quality';
 import { useAppStore } from '../../store/useAppStore';
 import { getBubbleSpriteTexture } from '../textures';
+import { simulationFrameDt } from '../../core/clock';
+import { foamLayer, foamGlyph } from '../geometry/foamLayer';
+import { RealisticLiquid } from '../materials/liquid';
 
 export interface FoamProps {
   vesselId: string;
@@ -25,6 +28,13 @@ export const Foam = React.memo(function Foam({
   active = true,
 }: FoamProps) {
   const meshRef = useRef<THREE.InstancedMesh>(null);
+  const specimen = useAppStore(s => s.vessels[vesselId]);
+  const filledLayer = useMemo(() => specimen && active ? foamLayer(specimen) : null, [specimen, active]);
+  const simulationTime = useRef(0);
+  const sampleRevision = useRef(-1);
+  const glyphScratch = useMemo(() => ({ x: 0, y: 0, z: 0, radius: 0 }), []);
+  const envelope = useRef({ sample: null as unknown, x: NaN, y: NaN, z: NaN,
+    layer: null as ReturnType<typeof foamLayer> });
   const effectiveTier = useQualityStore((state) => state.effectiveTier);
   const multiplier = QUALITY_CONFIGS[effectiveTier].particleMultiplier;
   const bubbleTexture = useMemo(() => getBubbleSpriteTexture(128), []);
@@ -35,24 +45,10 @@ export const Foam = React.memo(function Foam({
     return Math.max(16, Math.floor(base * multiplier));
   }, [effectiveTier, multiplier]);
 
-  // Persistent pseudo-random positions for the foam cluster
-  const clusterData = useMemo(() => {
-    return Array.from({ length: count }, (_, i) => {
-      const angle = (i * 2.39996); // Golden angle
-      const rRatio = Math.sqrt((i + 1) / count);
-      return {
-        rRatio,
-        angle,
-        // Realistic fine cellular froth bubbles
-        baseScale: 0.035 + (i % 4) * 0.012,
-        verticalPhase: (i % 7) * 0.4,
-        speed: 1.5 + (i % 3) * 0.5,
-      };
-    });
-  }, [count]);
-
   const scratchPos = useMemo(() => new THREE.Vector3(), []);
   const scratchQuat = useMemo(() => new THREE.Quaternion(), []);
+  const bodyQuaternion = useMemo(() => new THREE.Quaternion(), []);
+  const localUp = useMemo(() => new THREE.Vector3(), []);
   const scratchScale = useMemo(() => new THREE.Vector3(), []);
   const scratchMat4 = useMemo(() => new THREE.Matrix4(), []);
   const foamColor = useMemo(() => new THREE.Color(), []);
@@ -74,7 +70,7 @@ export const Foam = React.memo(function Foam({
     }
   }, [count, scratchMat4, scratchPos, scratchQuat, scratchScale]);
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     if (!meshRef.current) return;
     if (!active) { meshRef.current.visible = false; return; }
 
@@ -97,40 +93,29 @@ export const Foam = React.memo(function Foam({
 
     meshRef.current.visible = true;
 
-    // Calculate foam column height based on foam_ml
-    const cap = vessel?.capacity_ml || capacity_ml;
-    const foamVolumeRatio = Math.min(3.0, foamMl / Math.max(1, cap));
-    const columnHeight = foamVolumeRatio * 1.2;
-
-    const time = state.clock.getElapsedTime();
+    meshRef.current.getWorldQuaternion(bodyQuaternion).invert();
+    localUp.set(0, 1, 0).applyQuaternion(bodyQuaternion);
+    const cached = envelope.current;
+    if (cached.sample !== vessel || Math.abs(cached.x - localUp.x) > 1e-8 || Math.abs(cached.y - localUp.y) > 1e-8
+      || Math.abs(cached.z - localUp.z) > 1e-8) {
+      cached.sample = vessel; cached.x = localUp.x; cached.y = localUp.y; cached.z = localUp.z;
+      cached.layer = foamLayer(vessel, [localUp.x, localUp.y, localUp.z]);
+    }
+    const layer = cached.layer;
+    if (!layer) { meshRef.current.visible = false; return; }
+    const revision = vessel.effectSampleRevision ?? 0;
+    if (sampleRevision.current !== revision) { sampleRevision.current = revision; simulationTime.current = 0; }
+    simulationTime.current += simulationFrameDt(delta, useAppStore.getState());
+    const time = simulationTime.current;
     const colorKey = vessel.liquidColor || liquidColor;
     const recolor = lastColor.current !== colorKey;
     if (recolor) foamColor.set(colorKey).lerp(white, 0.88);
-    scratchQuat.copy(state.camera.quaternion);
+    scratchQuat.copy(bodyQuaternion).multiply(state.camera.quaternion);
 
     for (let i = 0; i < count; i++) {
-      const d = clusterData[i];
-      const hFrac = (i / count);
-      let y = surfaceY + hFrac * columnHeight + Math.sin(time * d.speed + d.verticalPhase) * 0.015;
-
-      let r = d.rRatio * radius;
-
-      // Overflow behavior: if foam rises above vesselTopY, spill outwards and down
-      if (y > vesselTopY) {
-        const overflow = y - vesselTopY;
-        r = radius + overflow * 0.35; // Expands outward
-        y = vesselTopY - overflow * 0.5; // Cascades downward outside
-      }
-
-      scratchPos.set(
-        Math.cos(d.angle) * r,
-        y,
-        Math.sin(d.angle) * r
-      );
-
-      const wobbleScale = d.baseScale * (1.0 + Math.sin(time * 3.0 + i) * 0.08);
-      scratchScale.set(wobbleScale, wobbleScale, 1.0);
-
+      const glyph = foamGlyph(layer, i, count, time, glyphScratch);
+      scratchPos.set(glyph.x, glyph.y, glyph.z);
+      scratchScale.set(glyph.radius, glyph.radius, glyph.radius);
       scratchMat4.compose(scratchPos, scratchQuat, scratchScale);
       meshRef.current.setMatrixAt(i, scratchMat4);
       if (recolor) meshRef.current.setColorAt(i, foamColor);
@@ -143,23 +128,27 @@ export const Foam = React.memo(function Foam({
     lastColor.current = colorKey;
   });
 
-  return (
+  return <group>
+    {filledLayer && specimen && <RealisticLiquid vesselId={vesselId} vesselType={specimen.type} capacity_ml={specimen.capacity_ml}
+      volumeOverride_ml={filledLayer.baseVolume + filledLayer.gasVolume} bottomVolume_ml={filledLayer.baseVolume}
+      colorOverride="#f1f5f9" appearance="foam" />}
     <instancedMesh
       ref={meshRef}
       args={[undefined, undefined, count]}
       frustumCulled={false}
       renderOrder={4}
+      name={`finite-foam-${vesselId}`}
       visible={false}
     >
       <planeGeometry args={[1, 1]} />
       <meshBasicMaterial
         map={bubbleTexture}
-        color={foamColor}
+        color="#ffffff"
         transparent
         opacity={0.65}
         depthWrite={false}
         side={THREE.DoubleSide}
       />
     </instancedMesh>
-  );
+  </group>;
 });

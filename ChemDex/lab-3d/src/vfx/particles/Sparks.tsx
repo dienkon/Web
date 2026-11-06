@@ -2,8 +2,15 @@ import React, { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { ParticlePool, ParticleState } from './ParticlePool';
+import { particleOpacityShader } from './particleOpacity';
 import { useQualityStore, QUALITY_CONFIGS } from '../quality';
 import { getSparkTexture } from '../textures';
+import { PRNG } from '../../core/rng';
+import { simulationFrameDt } from '../../core/clock';
+import { useAppStore } from '../../store/useAppStore';
+import { advanceSplatterFlight } from '../../science/splatterFlight';
+import { LAB_PHYSICS } from '../../engine/interactionEngine';
+import { vfxBus } from '../bus';
 
 export interface SparksProps {
   origin?: [number, number, number];
@@ -11,6 +18,8 @@ export interface SparksProps {
   burstCount?: number;
   color?: string;
   active?: boolean;
+  listenToEvents?: boolean;
+  groundY?: number;
 }
 
 export const Sparks = React.memo(function Sparks({
@@ -19,7 +28,10 @@ export const Sparks = React.memo(function Sparks({
   burstCount = 0,
   color = '#fbbf24',
   active = true,
+  listenToEvents = false,
+  groundY = LAB_PHYSICS.TABLE_SURFACE_Y,
 }: SparksProps) {
+  const rng = useMemo(() => new PRNG(), []);
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const effectiveTier = useQualityStore((state) => state.effectiveTier);
   const multiplier = QUALITY_CONFIGS[effectiveTier].particleMultiplier;
@@ -45,21 +57,37 @@ export const Sparks = React.memo(function Sparks({
     };
   }, [pool]);
 
+  useEffect(() => {
+    if (!listenToEvents) return;
+    return vfxBus.on('sparks', event => {
+      const tint = new THREE.Color(event.color || '#fbbf24');
+      const count = Math.min(maxCount, Math.max(0, Math.floor(event.count * multiplier)));
+      for (let i = 0; i < count; i++) {
+        const angle = rng.next() * Math.PI * 2, elevation = 0.3 + rng.next() * 0.7;
+        const speed = (event.speed ?? 16) * (0.6 + rng.next() * 0.8);
+        pool.spawn({ x: event.position[0], y: event.position[1], z: event.position[2],
+          vx: Math.cos(angle) * speed * (1 - elevation), vy: speed * elevation,
+          vz: Math.sin(angle) * speed * (1 - elevation), baseSize: 0.025 + rng.next() * 0.025,
+          life: 0.25 + rng.next() * 0.25, r: tint.r, g: tint.g, b: tint.b });
+      }
+    });
+  }, [listenToEvents, pool, maxCount, multiplier, rng]);
+
   // Burst trigger if burstCount > 0
   useEffect(() => {
     const { origin, sparkColor, multiplier } = emission.current;
     if (burstCount > 0 && active) {
       const countToSpawn = Math.floor(burstCount * multiplier);
       for (let i = 0; i < countToSpawn; i++) {
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.random() * (Math.PI * 0.45); // Upward hemisphere cone
-        const speed = 2.0 + Math.random() * 3.5;
+        const theta = rng.next() * Math.PI * 2;
+        const phi = rng.next() * (Math.PI * 0.45); // Upward hemisphere cone
+        const speed = 2.0 + rng.next() * 3.5;
 
         const vx = Math.cos(theta) * Math.sin(phi) * speed;
         const vy = Math.cos(phi) * speed * 1.2;
         const vz = Math.sin(theta) * Math.sin(phi) * speed;
 
-        const baseSize = 0.04 + Math.random() * 0.035;
+        const baseSize = 0.04 + rng.next() * 0.035;
 
         pool.spawn({
           x: origin[0],
@@ -70,7 +98,7 @@ export const Sparks = React.memo(function Sparks({
           vz,
           baseSize,
           size: baseSize,
-          life: 0.35 + Math.random() * 0.35,
+          life: 0.35 + rng.next() * 0.35,
           r: sparkColor.r,
           g: sparkColor.g,
           b: sparkColor.b,
@@ -80,9 +108,9 @@ export const Sparks = React.memo(function Sparks({
     }
   }, [burstCount, active, pool]);
 
-  useFrame((_, delta) => {
+  useFrame((frame, delta) => {
     if (!meshRef.current) return;
-    const dt = Math.min(delta, 0.05);
+    const dt = simulationFrameDt(delta, useAppStore.getState());
 
     // Continuous emission
     if (active && rate > 0) {
@@ -91,26 +119,27 @@ export const Sparks = React.memo(function Sparks({
       while (spawnTimer.current >= 1.0) {
         spawnTimer.current -= 1.0;
 
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.random() * (Math.PI * 0.4);
-        const speed = 1.8 + Math.random() * 2.8;
+        const theta = rng.next() * Math.PI * 2;
+        const phi = rng.next() * (Math.PI * 0.4);
+        const speed = 1.8 + rng.next() * 2.8;
 
         const vx = Math.cos(theta) * Math.sin(phi) * speed;
         const vy = Math.cos(phi) * speed;
         const vz = Math.sin(theta) * Math.sin(phi) * speed;
 
-        const baseSize = 0.035 + Math.random() * 0.025;
+        const baseSize = 0.035 + rng.next() * 0.025;
 
         pool.spawn({
-          x: origin[0] + (Math.random() - 0.5) * 0.05,
+          age: spawnTimer.current / (rate * multiplier) - dt,
+          x: origin[0] + (rng.next() - 0.5) * 0.05,
           y: origin[1],
-          z: origin[2] + (Math.random() - 0.5) * 0.05,
+          z: origin[2] + (rng.next() - 0.5) * 0.05,
           vx,
           vy,
           vz,
           baseSize,
           size: baseSize,
-          life: 0.3 + Math.random() * 0.25,
+          life: 0.3 + rng.next() * 0.25,
           r: sparkColor.r,
           g: sparkColor.g,
           b: sparkColor.b,
@@ -119,21 +148,13 @@ export const Sparks = React.memo(function Sparks({
       }
     }
 
-    pool.update(dt, (p: ParticleState) => {
-      // Strong gravity and air resistance
-      p.vy += -14.0 * dt;
-      p.vx *= 0.96;
-      p.vz *= 0.96;
-
-      // Orient spark towards velocity direction
-      const angle = Math.atan2(p.vy, Math.sqrt(p.vx * p.vx + p.vz * p.vz));
-      p.rotZ = angle;
-
-      if (p.y <= -1.02) {
-        return false;
-      }
-      return true;
-    }, meshRef.current);
+    pool.update(dt, (p: ParticleState, particleDt) => {
+      p.alpha = Math.sqrt(Math.max(0, 1 - p.age / p.life));
+      const flight = advanceSplatterFlight(p, particleDt, groundY);
+      Object.assign(p, { x: flight.x, y: flight.y, z: flight.z, vx: flight.vx, vy: flight.vy, vz: flight.vz });
+      p.rotZ = Math.atan2(p.vy, Math.hypot(p.vx, p.vz));
+      return !flight.hit;
+    }, meshRef.current, frame.camera, false);
   });
 
   return (
@@ -142,11 +163,12 @@ export const Sparks = React.memo(function Sparks({
       args={[undefined, undefined, maxCount]}
       frustumCulled={false}
       renderOrder={7}
+      name={listenToEvents ? 'reaction-event-sparks' : 'reaction-continuous-sparks'}
     >
       <planeGeometry args={[1.5, 0.4]} />
-      <meshBasicMaterial
+      <meshBasicMaterial onBeforeCompile={particleOpacityShader}
         map={sparkTexture}
-        color={sparkColor}
+        color="#ffffff"
         transparent
         opacity={1.0}
         blending={THREE.AdditiveBlending}

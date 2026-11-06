@@ -1,0 +1,71 @@
+{
+  "errors": [],
+  "shaderErrors": [],
+  "phases": [
+    {
+      "name": "retained-foam-pause",
+      "visible": true,
+      "count": 24,
+      "frozen": true
+    },
+    {
+      "name": "tilted-foam",
+      "visible": true
+    },
+    {
+      "name": "paused-specimen-replacement",
+      "color": "b8e6fb"
+    },
+    {
+      "name": "event-sparks",
+      "count": 8,
+      "distinctColors": true,
+      "opacityUploaded": true
+    },
+    {
+      "name": "dry-solid-wetting",
+      "spills": [
+        {
+          "volume": 30,
+          "mass": 30.097138848924544,
+          "contents": [
+            {
+              "formula": "CaCO3",
+              "phase": "s",
+              "moles": 0.0009330329915368075,
+              "initialMoles": 0.001,
+              "mass_g": 0.09338353999095292
+            },
+            {
+              "formula": "HCl",
+              "phase": "aq",
+              "moles": 0.001866065983073615,
+              "initialMoles": 0.002,
+              "mass_g": 0.06803303361089787,
+              "concentration_M": 0.06220219943578717
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.928290410657464,
+              "moles": 1.6612983852710221,
+              "concentration_M": 55.37661284236741
+            },
+            {
+              "formula": "CaCl2",
+              "moles": 0.00006696700846319259,
+              "mass_g": 0.0074318646652281875,
+              "concentration_M": 0.002232233615439753,
+              "state": "aq",
+              "phase": "aq"
+            }
+          ],
+          "gasRate": 0.0003290333738803813
+        }
+      ],
+      "escaped": {
+        "CO2": 0.0029471510754566425
+      }
+    }
+  ]
+}

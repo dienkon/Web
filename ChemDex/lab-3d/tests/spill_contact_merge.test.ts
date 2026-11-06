@@ -76,11 +76,15 @@ describe('Contact-based quasistatic spill merge', () => {
     expect(result.a.mass_g * result.a.position[0]).toBeCloseTo(2 * 0.1, 12);
     expect(result.a.volume_ml).toBe(2);
   });
-  it('keeps a dry solid deposit separate from a wet footprint even at the same location', () => {
+  it('wets a dry point inventory only when the physical wet footprint reaches it', () => {
     const dry = spill('dry', 0, 0, { mass_g: 1, contents: [{ formula: 'Cu', phase: 's', mass_g: 1, moles: 1 / 63.546 }], substances: ['Cu'] });
     const result = arrive({ dry }, 0);
-    expect(Object.keys(result)).toHaveLength(2); expect(result.dry).toBe(dry);
-    expect(result.dry.radius).toBe(0); expect(total(result).mass).toBeCloseTo(1.001, 12);
+    expect(Object.keys(result)).toHaveLength(1);
+    expect(result.dry.volume_ml).toBeCloseTo(0.001, 12); expect(total(result).mass).toBeCloseTo(1.001, 12);
+    expect(result.dry.contents!.find(c => c.formula === 'Cu')!.phase).toBe('s');
+    expect(dry.radius).toBe(0); expect(dry.volume_ml).toBe(0);
+    const outside = arrive({ dry }, calculateSpillRadius(0.001) + 0.001);
+    expect(Object.keys(outside)).toHaveLength(2); expect(outside.dry).toBe(dry);
   });
   it('merges coincident dry point inventories without giving nearby powder a wet capture disk', () => {
     const dry = spill('dry', 0, 0, { mass_g: 1, contents: [{ formula: 'Cu', phase: 's', mass_g: 1, moles: 1 / 63.546 }], substances: ['Cu'] });
