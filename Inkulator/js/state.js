@@ -33,7 +33,7 @@
     gridSize: 25,
     smoothing: 0.5,
     penSensitivity: 1,
-    autosave: 1200,
+    autosave: 2000,
     historyLimit: 60,
     touchInk: false,
     smartShape: false,
@@ -786,6 +786,10 @@
     timer = setTimeout(save, state.settings.autosave);
   }
   function save() {
+    if (root.CanvasEngine?.interacting) {
+      scheduleSave();
+      return state.storageAvailable;
+    }
     try {
       if (state.loadError) throw Error("Giữ nguyên bản lưu lỗi để phục hồi.");
       for (const nb of state.notebooks) {
@@ -799,10 +803,10 @@
         }
       }
       const notebooksToStore = state.notebooks.map((nb) => {
-        const copy = clone(nb);
-        if (copy.assets) {
-          const stripped = {};
-          for (const [id, a] of Object.entries(copy.assets)) {
+        let stripped = nb.assets;
+        if (nb.assets) {
+          stripped = {};
+          for (const [id, a] of Object.entries(nb.assets)) {
             if (a.inIDB || (a.data && a.data.length > 50000)) {
               stripped[id] = {
                 type: a.type,
@@ -815,9 +819,11 @@
               stripped[id] = a;
             }
           }
-          copy.assets = stripped;
         }
-        return copy;
+        return {
+          ...nb,
+          assets: stripped,
+        };
       });
       const data = JSON.stringify({
         format: "scrble-math-library",
@@ -900,7 +906,7 @@
         );
         state.settings.autosave = Math.max(
           500,
-          Math.min(30000, state.settings.autosave),
+          Math.min(60000, state.settings.autosave),
         );
         state.settings.historyLimit = Math.max(
           10,

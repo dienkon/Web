@@ -639,7 +639,7 @@
       s.smoothing +
       '"></label><label class="field"><span>Độ nhạy áp lực</span><input id="setting-pressure" type="range" min=".3" max="2" step=".1" value="' +
       s.penSensitivity +
-      '"></label><label class="field"><span>Tự động lưu (giây)</span><input id="setting-save" type="number" min=".5" max="30" step=".5" value="' +
+      '"></label><label class="field"><span>Tự động lưu (giây)</span><input id="setting-save" type="number" min="1" max="300" step="1" value="' +
       s.autosave / 1000 +
       '"></label><label class="field"><span>Giới hạn Undo</span><input id="setting-history" type="number" min="10" max="100" value="' +
       s.historyLimit +
@@ -661,7 +661,7 @@
     for (const [id, key, min, max, mul] of [
       ["smoothing", "smoothing", 0, 0.85, 1],
       ["pressure", "penSensitivity", 0.3, 2, 1],
-      ["save", "autosave", 500, 30000, 1000],
+      ["save", "autosave", 1000, 300000, 1000],
       ["history", "historyLimit", 10, 100, 1],
     ])
       document.getElementById("setting-" + id).onchange = (e) => {
