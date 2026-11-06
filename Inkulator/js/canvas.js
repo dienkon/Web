@@ -551,8 +551,20 @@
         Renderer.request();
       }, 1200);
     }
-    if (g.mode === "shape" && g.moved && g.draft)
-      Store.current().objects.push(g.draft);
+    if (g.mode === "shape") {
+      const obj =
+        g.moved && g.draft
+          ? g.draft
+          : shapeFrom(
+              g.start,
+              { x: g.start.x + 120, y: g.start.y + 120 },
+              false,
+            );
+      if (obj) {
+        Store.current().objects.push(obj);
+        S().selection = [obj.id];
+      }
+    }
     if (g.mode === "lasso" && g.points.length > 2) {
       const polygon = g.points;
       for (const o of Store.current().objects) {
@@ -672,26 +684,57 @@
   function shapeFrom(a, b, shift) {
     let dx = b.x - a.x,
       dy = b.y - a.y;
-    const kind = S().shape;
-    if (shift && ["line", "arrow", "ray", "dashed"].includes(kind)) {
+    const kind = S().shape || "rectangle";
+    const filled = !!S().shapeFilled;
+    const isLineLike = [
+      "line",
+      "arrow",
+      "double-arrow",
+      "ray",
+      "dashed",
+      "dotted",
+    ].includes(kind);
+
+    if (shift && isLineLike) {
       const angle =
-          (Math.round(Math.atan2(dy, dx) / (Math.PI / 4)) * Math.PI) / 4,
-        len = Math.hypot(dx, dy);
+        (Math.round(Math.atan2(dy, dx) / (Math.PI / 12)) * Math.PI) / 12;
+      const len = Math.hypot(dx, dy);
       b = { x: a.x + Math.cos(angle) * len, y: a.y + Math.sin(angle) * len };
-    }
-    if (shift || ["square", "circle"].includes(kind)) {
-      if (!["line", "arrow", "ray", "dashed", "curve"].includes(kind)) {
+      dx = b.x - a.x;
+      dy = b.y - a.y;
+    } else if (
+      shift ||
+      [
+        "square",
+        "circle",
+        "star",
+        "pentagon",
+        "hexagon",
+        "heptagon",
+        "octagon",
+        "decagon",
+      ].includes(kind)
+    ) {
+      if (!isLineLike && kind !== "curve") {
         const side = Math.max(Math.abs(dx), Math.abs(dy));
         b = {
           x: a.x + Math.sign(dx || 1) * side,
           y: a.y + Math.sign(dy || 1) * side,
         };
+        dx = b.x - a.x;
+        dy = b.y - a.y;
       }
     }
     const r = rect(a, b);
     return Store.object(
       "shape",
-      { kind, flip: (b.x - a.x) * (b.y - a.y) < 0 },
+      {
+        kind,
+        filled,
+        dirX: Math.sign(dx || 1),
+        dirY: Math.sign(dy || 1),
+        flip: (b.x - a.x) * (b.y - a.y) < 0,
+      },
       { position: { x: r.x, y: r.y }, size: { w: r.w, h: r.h } },
     );
   }

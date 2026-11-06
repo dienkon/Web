@@ -216,48 +216,153 @@
         break;
       case "circle":
       case "ellipse":
-        ctx.ellipse(w / 2, h / 2, w / 2, h / 2, 0, 0, Math.PI * 2);
+        ctx.ellipse(
+          w / 2,
+          h / 2,
+          Math.max(0.1, w / 2),
+          Math.max(0.1, h / 2),
+          0,
+          0,
+          Math.PI * 2,
+        );
         break;
+      case "pill": {
+        const r = Math.min(w, h) / 2;
+        if (w >= h) {
+          ctx.moveTo(r, 0);
+          ctx.lineTo(w - r, 0);
+          ctx.arc(w - r, r, r, -Math.PI / 2, Math.PI / 2);
+          ctx.lineTo(r, h);
+          ctx.arc(r, h - r, r, Math.PI / 2, (3 * Math.PI) / 2);
+        } else {
+          ctx.moveTo(0, r);
+          ctx.lineTo(0, h - r);
+          ctx.arc(r, h - r, r, Math.PI / 2, Math.PI);
+          ctx.lineTo(w, h - r);
+          ctx.arc(r, r, r, 0, -Math.PI / 2);
+        }
+        ctx.closePath();
+        break;
+      }
       case "triangle":
         ctx.moveTo(w / 2, 0);
         ctx.lineTo(w, h);
         ctx.lineTo(0, h);
         ctx.closePath();
         break;
+      case "triangle-right":
+        ctx.moveTo(0, 0);
+        ctx.lineTo(w, h / 2);
+        ctx.lineTo(0, h);
+        ctx.closePath();
+        break;
+      case "right-triangle":
+        ctx.moveTo(0, 0);
+        ctx.lineTo(0, h);
+        ctx.lineTo(w, h);
+        ctx.closePath();
+        break;
+      case "diamond":
+        ctx.moveTo(w / 2, 0);
+        ctx.lineTo(w, h / 2);
+        ctx.lineTo(w / 2, h);
+        ctx.lineTo(0, h / 2);
+        ctx.closePath();
+        break;
+      case "pentagon":
+      case "hexagon":
       case "polygon":
-        for (let i = 0; i < 6; i++) {
-          const x = w / 2 + (w / 2) * Math.cos((i * Math.PI) / 3),
-            y = h / 2 + (h / 2) * Math.sin((i * Math.PI) / 3);
+      case "heptagon":
+      case "octagon":
+      case "decagon": {
+        const sides =
+          {
+            pentagon: 5,
+            hexagon: 6,
+            polygon: 6,
+            heptagon: 7,
+            octagon: 8,
+            decagon: 10,
+          }[d.kind] || 6;
+        const cx = w / 2,
+          cy = h / 2,
+          rx = w / 2,
+          ry = h / 2;
+        for (let i = 0; i < sides; i++) {
+          const ang = -Math.PI / 2 + (i * 2 * Math.PI) / sides;
+          const x = cx + rx * Math.cos(ang),
+            y = cy + ry * Math.sin(ang);
           i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
         }
         ctx.closePath();
         break;
+      }
+      case "star": {
+        const cx = w / 2,
+          cy = h / 2,
+          rx = w / 2,
+          ry = h / 2;
+        const irx = rx * 0.382,
+          iry = ry * 0.382;
+        for (let i = 0; i < 10; i++) {
+          const ang = -Math.PI / 2 + (i * Math.PI) / 5;
+          const rX = i % 2 === 0 ? rx : irx;
+          const rY = i % 2 === 0 ? ry : iry;
+          const x = cx + rX * Math.cos(ang),
+            y = cy + rY * Math.sin(ang);
+          i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+        }
+        ctx.closePath();
+        break;
+      }
       case "curve":
         ctx.moveTo(0, h);
         ctx.bezierCurveTo(w * 0.2, -h * 0.5, w * 0.8, h * 1.5, w, 0);
         break;
       default: {
-        const flip = d.flip,
-          sy = flip ? h : 0,
-          ey = flip ? 0 : h;
-        ctx.moveTo(0, sy);
-        ctx.lineTo(w, ey);
-        if (d.kind === "dashed") ctx.setLineDash([8, 6]);
-        if (d.kind === "arrow" || d.kind === "ray") {
-          const angle = Math.atan2(ey - sy, w),
-            s = 12;
+        const sx = (d.dirX ?? 1) >= 0 ? 0 : w;
+        const sy = (d.dirY ?? 1) >= 0 ? 0 : h;
+        const ex = (d.dirX ?? 1) >= 0 ? w : 0;
+        const ey = (d.dirY ?? 1) >= 0 ? h : 0;
+        ctx.moveTo(sx, sy);
+        ctx.lineTo(ex, ey);
+        if (d.kind === "dashed") ctx.setLineDash([10, 7]);
+        else if (d.kind === "dotted") ctx.setLineDash([2, 5]);
+
+        const drawArrowHead = (tipX, tipY, fromX, fromY) => {
+          const ang = Math.atan2(tipY - fromY, tipX - fromX);
+          const s = Math.max(10, Math.min(26, (o.style.width || 2) * 5 + 6));
           ctx.moveTo(
-            w - s * Math.cos(angle - 0.45),
-            ey - s * Math.sin(angle - 0.45),
+            tipX - s * Math.cos(ang - 0.45),
+            tipY - s * Math.sin(ang - 0.45),
           );
-          ctx.lineTo(w, ey);
+          ctx.lineTo(tipX, tipY);
           ctx.lineTo(
-            w - s * Math.cos(angle + 0.45),
-            ey - s * Math.sin(angle + 0.45),
+            tipX - s * Math.cos(ang + 0.45),
+            tipY - s * Math.sin(ang + 0.45),
           );
+        };
+        if (
+          d.kind === "arrow" ||
+          d.kind === "double-arrow" ||
+          d.kind === "ray"
+        ) {
+          drawArrowHead(ex, ey, sx, sy);
+        }
+        if (d.kind === "double-arrow") {
+          drawArrowHead(sx, sy, ex, ey);
+        }
+        if (d.kind === "ray") {
+          const dotRadius = Math.max(3, (o.style.width || 2) * 1.4);
+          ctx.moveTo(sx + dotRadius, sy);
+          ctx.arc(sx, sy, dotRadius, 0, Math.PI * 2);
         }
         break;
       }
+    }
+    if (d.filled) {
+      ctx.fillStyle = o.style.color;
+      ctx.fill();
     }
     ctx.stroke();
     ctx.setLineDash([]);

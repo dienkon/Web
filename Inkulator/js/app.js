@@ -105,7 +105,7 @@
       button("select", "Chọn (S)", "tool", 'data-tool="select"') +
       button("lasso", "Khoanh vùng", "tool", 'data-tool="lasso"');
     document.getElementById("object-tools").innerHTML =
-      button("shape", "Hình dạng", "shapes") +
+      button("shape", "Hình dạng", "shapes", 'id="shape-tool-btn" data-tool="shape"') +
       button("text", "Chèn văn bản", "tool", 'data-tool="text"') +
       button("ruler", "Thước (R)", "ruler") +
       button("pan", "Kéo trang", "tool", 'data-tool="pan"');
@@ -143,6 +143,7 @@
     ClipboardStudio.init();
     PenKeyboard.init();
     PenTools.init();
+    updateShapeButton();
     document.addEventListener("fullscreenchange", () => {
       const active = !!document.fullscreenElement,
         b = document.getElementById("fullscreen-toggle");
@@ -268,6 +269,7 @@
     document
       .querySelectorAll('[data-action="move-selection"]')
       .forEach((b) => b.classList.toggle("active", s.transformMode === "move"));
+    updateShapeButton();
     clearTimeout(refreshTimer);
     refreshTimer = setTimeout(renderPages, 70);
   }
@@ -473,7 +475,9 @@
     return el;
   }
   function closePopover() {
-    document.getElementById("popover").hidden = true;
+    const el = document.getElementById("popover");
+    el.hidden = true;
+    el.classList.remove("shape-popover");
   }
   function menu(anchor) {
     popover(
@@ -626,42 +630,126 @@
       closePopover();
     };
   }
+  const shapeItems = [
+    // Row 1: Text & Lines
+    { id: "text", action: "text", title: "Chèn văn bản (T)", svg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M5 4h14v3h-5.5v13h-3V7H5V4z"/></svg>' },
+    { id: "line", kind: "line", filled: false, title: "Đoạn thẳng", svg: '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="19" x2="19" y2="5"/></svg>' },
+    { id: "dashed", kind: "dashed", filled: false, title: "Nét đứt", svg: '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="3.5 3"><line x1="5" y1="19" x2="19" y2="5"/></svg>' },
+    { id: "dotted", kind: "dotted", filled: false, title: "Nét chấm", svg: '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="0.1 4"><line x1="5" y1="19" x2="19" y2="5"/></svg>' },
+    { id: "arrow", kind: "arrow", filled: false, title: "Mũi tên", svg: '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"><line x1="18" y1="6" x2="6" y2="18"/><polyline points="14 18 6 18 6 10"/></svg>' },
+    { id: "double-arrow", kind: "double-arrow", filled: false, title: "Mũi tên 2 đầu", svg: '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"><line x1="6" y1="18" x2="18" y2="6"/><polyline points="11 6 18 6 18 13"/><polyline points="13 18 6 18 6 11"/></svg>' },
+    { id: "ray", kind: "ray", filled: false, title: "Tia (gốc điểm)", svg: '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"><circle cx="6" cy="18" r="2.5" fill="none" stroke-width="2"/><line x1="8" y1="16" x2="18" y2="6"/><polyline points="13 6 18 6 18 11"/></svg>' },
+
+    // Row 2: Outlined Basic Shapes
+    { id: "circle", kind: "circle", filled: false, title: "Hình tròn", svg: '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="8"/></svg>' },
+    { id: "ellipse", kind: "ellipse", filled: false, title: "Elip / Bầu dục", svg: '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none"><ellipse cx="12" cy="12" rx="9" ry="5.5"/></svg>' },
+    { id: "pill", kind: "pill", filled: false, title: "Hình viên thuốc / Bo góc", svg: '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="7" width="18" height="10" rx="5" ry="5"/></svg>' },
+    { id: "rectangle", kind: "rectangle", filled: false, title: "Hình vuông / chữ nhật", svg: '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none"><rect x="4" y="4" width="16" height="16" rx="1"/></svg>' },
+    { id: "triangle-right", kind: "triangle-right", filled: false, title: "Tam giác hướng phải", svg: '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"><polygon points="6 4 20 12 6 20"/></svg>' },
+    { id: "triangle", kind: "triangle", filled: false, title: "Tam giác đều / cân", svg: '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"><polygon points="12 4 21 20 3 20"/></svg>' },
+    { id: "right-triangle", kind: "right-triangle", filled: false, title: "Tam giác vuông", svg: '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"><polygon points="5 4 5 20 20 20"/></svg>' },
+
+    // Row 3: Outlined Polygons & Star
+    { id: "diamond", kind: "diamond", filled: false, title: "Hình thoi", svg: '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"><polygon points="12 3 21 12 12 21 3 12"/></svg>' },
+    { id: "pentagon", kind: "pentagon", filled: false, title: "Ngũ giác (5 cạnh)", svg: '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"><polygon points="12 3 21 9.5 17.5 20 6.5 20 3 9.5"/></svg>' },
+    { id: "hexagon", kind: "hexagon", filled: false, title: "Lục giác (6 cạnh)", svg: '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"><polygon points="12 3 20 7.5 20 16.5 12 21 4 16.5 4 7.5"/></svg>' },
+    { id: "heptagon", kind: "heptagon", filled: false, title: "Thất giác (7 cạnh)", svg: '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"><polygon points="12 3 19.8 6.8 21.6 15.3 16.2 21 7.8 21 2.4 15.3 4.2 6.8"/></svg>' },
+    { id: "octagon", kind: "octagon", filled: false, title: "Bát giác (8 cạnh)", svg: '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"><polygon points="8.5 3 15.5 3 21 8.5 21 15.5 15.5 21 8.5 21 3 15.5 3 8.5"/></svg>' },
+    { id: "decagon", kind: "decagon", filled: false, title: "Thập giác (10 cạnh)", svg: '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" fill="none"><polygon points="12 3 17.3 4.7 20.8 9.1 21.2 14.7 18.3 19.3 13.5 21 8.5 21 3.7 19.3 2.8 14.7 3.2 9.1 6.7 4.7"/></svg>' },
+    { id: "star", kind: "star", filled: false, title: "Ngôi sao 5 cánh", svg: '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"><polygon points="12 2 15 8.5 22 9.3 17 14 18.5 21 12 17.3 5.5 21 7 14 2 9.3 9 8.5"/></svg>' },
+
+    // Row 4: Filled Basic Shapes
+    { id: "circle-filled", kind: "circle", filled: true, title: "Hình tròn đặc", svg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><circle cx="12" cy="12" r="8"/></svg>' },
+    { id: "ellipse-filled", kind: "ellipse", filled: true, title: "Elip đặc", svg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><ellipse cx="12" cy="12" rx="9" ry="5.5"/></svg>' },
+    { id: "pill-filled", kind: "pill", filled: true, title: "Hình viên thuốc đặc", svg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><rect x="3" y="7" width="18" height="10" rx="5" ry="5"/></svg>' },
+    { id: "rectangle-filled", kind: "rectangle", filled: true, title: "Hình vuông / chữ nhật đặc", svg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><rect x="4" y="4" width="16" height="16" rx="1"/></svg>' },
+    { id: "triangle-right-filled", kind: "triangle-right", filled: true, title: "Tam giác hướng phải đặc", svg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><polygon points="6 4 20 12 6 20"/></svg>' },
+    { id: "triangle-filled", kind: "triangle", filled: true, title: "Tam giác đặc", svg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><polygon points="12 4 21 20 3 20"/></svg>' },
+    { id: "right-triangle-filled", kind: "right-triangle", filled: true, title: "Tam giác vuông đặc", svg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><polygon points="5 4 5 20 20 20"/></svg>' },
+
+    // Row 5: Filled Polygons & Star
+    { id: "diamond-filled", kind: "diamond", filled: true, title: "Hình thoi đặc", svg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><polygon points="12 3 21 12 12 21 3 12"/></svg>' },
+    { id: "pentagon-filled", kind: "pentagon", filled: true, title: "Ngũ giác đặc", svg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><polygon points="12 3 21 9.5 17.5 20 6.5 20 3 9.5"/></svg>' },
+    { id: "hexagon-filled", kind: "hexagon", filled: true, title: "Lục giác đặc", svg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><polygon points="12 3 20 7.5 20 16.5 12 21 4 16.5 4 7.5"/></svg>' },
+    { id: "heptagon-filled", kind: "heptagon", filled: true, title: "Thất giác đặc", svg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><polygon points="12 3 19.8 6.8 21.6 15.3 16.2 21 7.8 21 2.4 15.3 4.2 6.8"/></svg>' },
+    { id: "octagon-filled", kind: "octagon", filled: true, title: "Bát giác đặc", svg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><polygon points="8.5 3 15.5 3 21 8.5 21 15.5 15.5 21 8.5 21 3 15.5 3 8.5"/></svg>' },
+    { id: "decagon-filled", kind: "decagon", filled: true, title: "Thập giác đặc", svg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><polygon points="12 3 17.3 4.7 20.8 9.1 21.2 14.7 18.3 19.3 13.5 21 8.5 21 3.7 19.3 2.8 14.7 3.2 9.1 6.7 4.7"/></svg>' },
+    { id: "star-filled", kind: "star", filled: true, title: "Ngôi sao đặc", svg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><polygon points="12 2 15 8.5 22 9.3 17 14 18.5 21 12 17.3 5.5 21 7 14 2 9.3 9 8.5"/></svg>' },
+  ];
+  function updateShapeButton() {
+    const btn =
+      document.getElementById("shape-tool-btn") ||
+      document.querySelector('[data-action="shapes"]');
+    if (!btn) return;
+    const curKind = Store.state.shape || "rectangle";
+    const curFilled = !!Store.state.shapeFilled;
+    const active = Store.state.tool === "shape";
+    btn.classList.toggle("active", active);
+    const item =
+      shapeItems.find(
+        (s) => s.kind === curKind && !!s.filled === curFilled,
+      ) ||
+      shapeItems.find((s) => s.kind === curKind) ||
+      shapeItems[10];
+    if (item && item.svg) {
+      btn.innerHTML = item.svg;
+    }
+  }
   function shapes(anchor) {
+    const curKind = Store.state.shape || "rectangle";
+    const curFilled = !!Store.state.shapeFilled;
+    const isText = Store.state.tool === "text";
+
+    const gridHtml = shapeItems
+      .map((item) => {
+        let isSelected = false;
+        if (item.action === "text") {
+          isSelected = isText;
+        } else {
+          isSelected =
+            !isText && item.kind === curKind && !!item.filled === curFilled;
+        }
+        return (
+          '<button class="shape-palette-btn' +
+          (isSelected ? " selected" : "") +
+          '" data-shape="' +
+          item.id +
+          '"' +
+          (item.action ? ' data-shape-action="' + item.action + '"' : "") +
+          (item.kind ? ' data-shape-kind="' + item.kind + '"' : "") +
+          (item.filled !== undefined
+            ? ' data-shape-filled="' + item.filled + '"'
+            : "") +
+          ' title="' +
+          item.title +
+          '" aria-label="' +
+          item.title +
+          '">' +
+          item.svg +
+          "</button>"
+        );
+      })
+      .join("");
+
     const el = popover(
       anchor,
-      "<h3>Hình dạng</h3>" +
-        [
-          ["line", "Đoạn thẳng"],
-          ["ray", "Tia"],
-          ["arrow", "Mũi tên"],
-          ["dashed", "Nét đứt"],
-          ["rectangle", "Chữ nhật"],
-          ["square", "Hình vuông"],
-          ["circle", "Hình tròn"],
-          ["ellipse", "Elip"],
-          ["triangle", "Tam giác"],
-          ["polygon", "Lục giác"],
-          ["curve", "Đường cong Bézier"],
-        ]
-          .map(
-            ([id, name]) =>
-              '<button class="menu-item" data-shape="' +
-              id +
-              '">' +
-              name +
-              "</button>",
-          )
-          .join("") +
-        '<p class="hint">Giữ Shift để khóa góc hoặc tỷ lệ.</p>',
+      '<div class="shape-palette-grid">' + gridHtml + "</div>",
     );
-    el.querySelectorAll("[data-shape]").forEach(
-      (b) =>
-        (b.onclick = () => {
-          Store.state.shape = b.dataset.shape;
+    el.classList.add("shape-popover");
+
+    el.querySelectorAll(".shape-palette-btn").forEach((btn) => {
+      btn.onclick = () => {
+        if (btn.dataset.shapeAction === "text") {
+          setTool("text");
+        } else {
+          Store.state.shape = btn.dataset.shapeKind || "rectangle";
+          Store.state.shapeFilled = btn.dataset.shapeFilled === "true";
           setTool("shape");
-          closePopover();
-        }),
-    );
+        }
+        updateShapeButton();
+        closePopover();
+      };
+    });
   }
   function openPanel(id, obj = null) {
     CanvasEngine.cancelActive();
