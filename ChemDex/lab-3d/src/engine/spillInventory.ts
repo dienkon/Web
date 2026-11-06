@@ -6,6 +6,7 @@ import { sameMolecularFormula } from '../science/speciesIdentity';
 import type { LiquidAliquot } from '../handling/aliquot';
 import { blendLiquidOptics, liquidOptics, type LiquidOptics } from '../pour/physics/mixing';
 import { findChemical } from '../data/chemicals';
+import { sampleHeatCapacity } from './thermalState';
 
 function mergedAppearance(samples: { color: string; volume_ml: number; optics?: LiquidOptics }[]) {
   let optics = liquidOptics('#ffffff'), volume = 0;
@@ -16,12 +17,20 @@ function mergedAppearance(samples: { color: string; volume_ml: number; optics?: 
   return { color: optics.hex, optics };
 }
 
-function mergedThermal(samples: { mass_g: number; temperature_c?: number; escapedGas_g?: Record<string, number> }[]) {
+function mergedThermal(samples: (Pick<SpillState, 'mass_g'> & Partial<SpillState>)[]) {
   const mass = samples.reduce((s, c) => s + c.mass_g, 0), escapedGas_g: Record<string, number> = {};
+  const capacities = samples.map(c => sampleHeatCapacity({ mass_g: c.mass_g, volume_ml: c.volume_ml ?? c.mass_g,
+    contents: c.contents }, 0));
+  const capacity = capacities.reduce((s, c) => s + c, 0);
   for (const c of samples) for (const [formula, grams] of Object.entries(c.escapedGas_g ?? {}))
     escapedGas_g[formula] = (escapedGas_g[formula] ?? 0) + grams;
-  return { temperature_c: mass > 0 ? samples.reduce((s, c) => s + c.mass_g * (c.temperature_c ?? 25), 0) / mass : 25,
-    escapedGas_g, gasRate_mol_s: 0, chemistryLimit: undefined };
+  const sum = (field: 'reactionHeat_J' | 'thermalVaporEnthalpy_J' | 'thermalVaporSensibleEnthalpy_J' | 'thermalEnergyOutsideModel_J') =>
+    samples.some(c => c[field] !== undefined) ? samples.reduce((s, c) => s + (c[field] ?? 0), 0) : undefined;
+  return { temperature_c: capacity > 0 ? samples.reduce((s, c, i) => s + capacities[i] * (c.temperature_c ?? 25), 0) / capacity
+    : mass > 0 ? samples.reduce((s, c) => s + c.mass_g * (c.temperature_c ?? 25), 0) / mass : 25,
+    escapedGas_g, gasRate_mol_s: 0, vaporRate_g_s: 0, chemistryLimit: undefined, thermalModelLimit: undefined,
+    reactionHeat_J: sum('reactionHeat_J'), thermalVaporEnthalpy_J: sum('thermalVaporEnthalpy_J'),
+    thermalVaporSensibleEnthalpy_J: sum('thermalVaporSensibleEnthalpy_J'), thermalEnergyOutsideModel_J: sum('thermalEnergyOutsideModel_J') };
 }
 
 /** Snapshot a local-spout overflow landing location into world coordinates.
@@ -139,7 +148,7 @@ export function mergeWorkbenchSpill(
     result[primary.key] = { ...primary.spill, contents: aggregateContents([...members.map(c => c.spill.contents), contents], totalVol),
       position: [coordinate(0), primary.spill.position[1], coordinate(2)], volume_ml: totalVol, mass_g: totalMass,
       ...mergedAppearance([...members.map(c => c.spill), { color, volume_ml, optics }]),
-      ...mergedThermal([...members.map(c => c.spill), { mass_g: addedMass, temperature_c }]),
+      ...mergedThermal([...members.map(c => c.spill), { mass_g: addedMass, volume_ml, contents, temperature_c }]),
       radius: calculateSpillRadius(totalVol), substances: [...new Set([...members.flatMap(c => c.spill.substances), ...substances])].sort(),
       isHazard: hazardous(substances) || members.some(c => c.spill.isHazard), timestamp: Date.now() };
     footprintCache.set(result[primary.key], { volume_ml: totalVol, radius: result[primary.key].radius });

@@ -1,0 +1,38 @@
+{
+  "errors": [],
+  "shaderErrors": [],
+  "phases": [
+    {
+      "name": "hot-precipitation-crosses-boiling-and-pauses",
+      "atmosphereWater_g": 0.014562006973140078,
+      "mass_g": 29.98543799302686,
+      "precipitate_g": 0.09192121428127661,
+      "heat_J": 51.953011023673554,
+      "vaporEnthalpy_J": 38.95425154046662,
+      "temperatures_c": [
+        100.0281002615917
+      ],
+      "vaporRates_g_s": [
+        0.007715148011473278
+      ],
+      "limits": [
+        null
+      ],
+      "vaporMeshes": [
+        {
+          "name": "water-vapor:spill_1793976914611_1",
+          "visible": true,
+          "instances": 1
+        }
+      ],
+      "pauseVerified": true
+    },
+    {
+      "name": "cleanup-preserves-atmosphere-and-liquid-mass",
+      "atmosphereBefore_g": 0.015809595689873175,
+      "atmosphereAfter_g": 0.015809595689873175,
+      "waste_g": 29.984190404310134,
+      "spills": 0
+    }
+  ]
+}

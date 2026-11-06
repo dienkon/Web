@@ -2,14 +2,18 @@ import type { VesselState } from '../types/chemistry';
 import { DEFAULT_LAB_ENVIRONMENT } from '../science/labEnvironment';
 import { waterPlumeState } from '../science/moistAirFog';
 
-const cache = new WeakMap<VesselState, { key: string; value: {
+export type WaterVaporSource = Pick<VesselState, 'volume_ml' | 'temperature_c'> & Partial<Pick<VesselState,
+  'isShattered' | 'isSealed' | 'isBoiling' | 'environment' | 'effectsEnvironment' | 'waterVaporTemperature_c'
+  | 'evaporationRate_g_s' | 'waterVaporOutflow_g_s' | 'waterVaporSpecificEnthalpy_J_g' | 'waterVaporPartialPressure_Pa'>>;
+
+const cache = new WeakMap<WaterVaporSource, { key: string; value: {
   rate_g_s: number; isBoiling: boolean; mistRate: number; visibility: number;
   sourceTemperature_c: number; plumeStatus: string;
 } }>();
 
 /** Phase state and a finite water supply authorize visuals. Temperature alone
  * cannot prove boiling or white mist. This projection never changes physics. */
-export function waterVisualState(vessel?: VesselState | null) {
+export function waterVisualState(vessel?: WaterVaporSource | null) {
   const env = { ...DEFAULT_LAB_ENVIRONMENT, ...vessel?.environment, ...vessel?.effectsEnvironment };
   const sourceTemperature_c = vessel?.waterVaporTemperature_c ?? vessel?.temperature_c ?? env.temperature_c;
   const key = [vessel?.isShattered, vessel?.isSealed, vessel?.volume_ml, vessel?.isBoiling,

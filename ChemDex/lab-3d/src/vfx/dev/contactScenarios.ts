@@ -1,4 +1,6 @@
 import { useAppStore } from '../../store/useAppStore';
+import { useLabEnvironment } from '../../store/useLabEnvironment';
+import { aqueousBoilingPoint } from '../../engine/thermalState';
 
 export const CONTACT_SCENARIOS = [
   { id: 'sodium_small', label: 'Na nhỏ · chạy ngẫu nhiên' },
@@ -7,6 +9,7 @@ export const CONTACT_SCENARIOS = [
   { id: 'reactive_overflow', label: 'Bình đầy · tràn kết tủa' },
   { id: 'spill_precipitate', label: 'Đổ ra bàn · tạo kết tủa' },
   { id: 'spill_gas', label: 'Đổ ra bàn · sinh khí' },
+  { id: 'spill_boiling', label: 'Vũng nóng · phản ứng/sôi' },
   { id: 'glass_break', label: 'Vỡ bình · giữ đủ lượng chất' },
   { id: 'thermal_shock', label: 'Kính nóng · nước lạnh' },
   { id: 'oxygen_foam', label: 'Bọt O₂ · thử Pause' },
@@ -37,14 +40,22 @@ export async function runContactScenario(id: string, scenario: ContactScenarioId
     store.transferLiquidContinuous(id, null, sample.volume_ml, position);
     return 'Axit đã làm ướt CaCO₃ khô trên bàn; khí CO₂ và phần rắn còn lại tính từ lượng chất thực.';
   }
-  if (scenario === 'spill_precipitate' || scenario === 'spill_gas') {
-    if (!store.prepareStudioProgram(scenario === 'spill_precipitate' ? 'cuso4_naoh' : 'na2co3_hcl', undefined, id))
+  if (scenario === 'spill_precipitate' || scenario === 'spill_gas' || scenario === 'spill_boiling') {
+    if (!store.prepareStudioProgram(scenario === 'spill_gas' ? 'na2co3_hcl' : 'cuso4_naoh', undefined, id))
       return useAppStore.getState().mixError ?? 'Bình không phù hợp với mẫu.';
     store.cleanSpills();
+    if (scenario === 'spill_boiling') {
+      const sample = useAppStore.getState().vessels[id];
+      const boiling = aqueousBoilingPoint({ contents: sample.contents, volume_ml: sample.volume_ml,
+        environment: useLabEnvironment.getState().conditions });
+      store.setVesselState(id, { temperature_c: boiling - 0.2 });
+    }
     const sample = useAppStore.getState().vessels[id];
     const receipt = store.transferLiquidContinuous(id, null, sample.volume_ml,
       [sample.position[0] + 0.65, -1.175, sample.position[2]]);
-    return receipt.moved_ml > 0 ? 'Đã rót mẫu ra bàn; màu và phản ứng tiếp tục từ lượng chất đã rót.' : 'Không rót được mẫu.';
+    return receipt.moved_ml > 0 ? scenario === 'spill_boiling'
+      ? 'Mẫu ảo nóng gần sôi: nhiệt kết tủa đi vào nóng lên và bay hơi; nước thoát ra được trừ khỏi vũng và ghi vào khí quyển.'
+      : 'Đã rót mẫu ra bàn; màu và phản ứng tiếp tục từ lượng chất đã rót.' : 'Không rót được mẫu.';
   }
   if (!store.prepareStudioWaterSample(id)) return useAppStore.getState().mixError ?? 'Bình không phù hợp.';
   store.cleanSpills();

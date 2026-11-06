@@ -16,23 +16,23 @@ export function waterPhaseMasses(vessel: Pick<VesselState, 'contents'>) {
 
 /** Pure condensed water only. No invented 0 °C freezing point for salt/acid mixtures.
  * Constant heat capacities and phase equilibrium; no supercooling or ice nucleation. */
-export function equilibrateWaterIce(vessel: VesselState, heat_J: number) {
+export function equilibrateWaterIce(vessel: VesselState, heat_J: number, containerHeatCapacity_J_K = VESSEL_HEAT_CAPACITY_J_K) {
   const nonempty = vessel.contents.filter(item => item.moles > 1e-12 && item.mass_g > 0);
   if (!nonempty.length || nonempty.some(item => !sameMolecularFormula(item.formula, 'H2O')
     || !['l', 's'].includes(item.phase ?? item.state ?? 'l')) || vessel.isSealed) return null;
   const { liquid_g, ice_g } = waterPhaseMasses(vessel);
   if (ice_g === 0 && vessel.temperature_c >= 0 && heat_J >= 0) return null;
   const total = liquid_g + ice_g;
-  const initialCapacity = VESSEL_HEAT_CAPACITY_J_K + liquid_g * WATER_CP_J_G_K + ice_g * ICE_CP_J_G_K;
+  const initialCapacity = containerHeatCapacity_J_K + liquid_g * WATER_CP_J_G_K + ice_g * ICE_CP_J_G_K;
   const enthalpy = initialCapacity * vessel.temperature_c - ice_g * WATER_FUSION_J_G + heat_J;
-  const minimum = -273.15 * (VESSEL_HEAT_CAPACITY_J_K + total * ICE_CP_J_G_K) - total * WATER_FUSION_J_G;
+  const minimum = -273.15 * (containerHeatCapacity_J_K + total * ICE_CP_J_G_K) - total * WATER_FUSION_J_G;
   const represented = Math.max(minimum, enthalpy);
   const outsideModel_J = enthalpy - represented;
   let temperature_c = 0, frozen = 0;
-  if (represented >= 0) temperature_c = represented / (VESSEL_HEAT_CAPACITY_J_K + total * WATER_CP_J_G_K);
+  if (represented >= 0) temperature_c = represented / (containerHeatCapacity_J_K + total * WATER_CP_J_G_K);
   else if (represented <= -total * WATER_FUSION_J_G) {
     frozen = total;
-    temperature_c = (represented + total * WATER_FUSION_J_G) / (VESSEL_HEAT_CAPACITY_J_K + total * ICE_CP_J_G_K);
+    temperature_c = (represented + total * WATER_FUSION_J_G) / (containerHeatCapacity_J_K + total * ICE_CP_J_G_K);
   } else frozen = -represented / WATER_FUSION_J_G;
   const liquid = Math.max(0, total - frozen);
   const totalMoles = nonempty.reduce((sum, item) => sum + item.moles, 0);

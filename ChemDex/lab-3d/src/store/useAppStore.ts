@@ -2201,7 +2201,7 @@ export const useAppStore = create<AppState>((set, get) => {
           vesselsUpdated = true;
         }
       }
-      const spillStep = stepWorkbenchSpills(get().spills, effectiveDt), advancedSpills = spillStep.spills;
+      const spillStep = stepWorkbenchSpills(get().spills, effectiveDt, environment), advancedSpills = spillStep.spills;
       const workbenchEscapedGas_g = { ...get().workbenchEscapedGas_g };
       for (const [formula, grams] of Object.entries(spillStep.escapedGas_g))
         workbenchEscapedGas_g[formula] = (workbenchEscapedGas_g[formula] ?? 0) + grams;

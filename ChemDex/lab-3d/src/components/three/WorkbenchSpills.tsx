@@ -10,6 +10,9 @@ import { solveSessileDrop } from '../../science/sessileDrop';
 import type { SessileDropShape } from '../../science/sessileDrop';
 import { METERS_PER_SCENE_UNIT } from '../../science/sceneUnits';
 import { createSpillGeometry } from '../../pour/render/spillGeometry';
+import { Steam } from '../../vfx/particles/Steam';
+import { waterVisualState } from '../../vfx/waterVisualState';
+import { useLabEnvironment } from '../../store/useLabEnvironment';
 
 export const WorkbenchSpills = React.memo(function WorkbenchSpills() {
   const spills = useAppStore(state => state.spills);
@@ -17,6 +20,10 @@ export const WorkbenchSpills = React.memo(function WorkbenchSpills() {
 });
 
 function SpillPuddle({ spill }: { spill: SpillState }) {
+  const environment = useLabEnvironment(s => s.conditions);
+  const vapor = useMemo(() => waterVisualState({ volume_ml: spill.volume_ml, temperature_c: spill.temperature_c ?? 25,
+    evaporationRate_g_s: spill.vaporRate_g_s ?? 0, isBoiling: (spill.vaporRate_g_s ?? 0) > 0, environment }),
+    [spill.volume_ml, spill.temperature_c, spill.vaporRate_g_s, environment]);
   const material = useRef<THREE.MeshPhysicalMaterial>(null);
   const targetColor = useMemo(() => new THREE.Color(), []);
   const initialColor = useRef(spill.color || '#f8fafc');
@@ -32,7 +39,9 @@ function SpillPuddle({ spill }: { spill: SpillState }) {
 
   return <group position={position}>
     <SpilledSolids spill={spill} />
-    <SpillReactionBubbles spill={spill} drop={drop} />
+    <SpillReactionBubbles spill={spill} drop={drop} pressure_atm={environment.pressure_atm} />
+    {(spill.thermalVaporEnthalpy_J ?? 0) > 0 && <Steam vesselId={spill.id}
+      surfaceY={(drop?.height_m ?? 0) / METERS_PER_SCENE_UNIT} radius={spill.radius} sourceState={vapor} />}
     {geometry && <mesh geometry={geometry} receiveShadow>
       <meshPhysicalMaterial ref={material} color={initialColor.current} transparent opacity={0.88}
         roughness={0.03} transmission={0.86} ior={1.333} clearcoat={1} clearcoatRoughness={0.02}
@@ -42,14 +51,15 @@ function SpillPuddle({ spill }: { spill: SpillState }) {
 }
 
 /** Bounded packets of generated gas, with no source after chemistry stops. */
-function SpillReactionBubbles({ spill, drop }: { spill: SpillState; drop: SessileDropShape | null }) {
+function SpillReactionBubbles({ spill, drop, pressure_atm }: { spill: SpillState; drop: SessileDropShape | null; pressure_atm: number }) {
   const mesh = useRef<THREE.InstancedMesh>(null);
   const transform = useMemo(() => new THREE.Object3D(), []);
   const pool = useRef({ credit: 0, serial: 0, particles: Array.from({ length: 16 }, () => ({ age: 1, x: 0, z: 0, y: 0 })) });
   useFrame((_, delta) => {
     if (!mesh.current) return;
     const dt = simulationFrameDt(delta, useAppStore.getState()), p = pool.current;
-    const ml_s = Math.max(0, spill.gasRate_mol_s ?? 0) * 82.057 * ((spill.temperature_c ?? 25) + 273.15);
+    const ml_s = (Math.max(0, spill.gasRate_mol_s ?? 0) + Math.max(0, spill.vaporRate_g_s ?? 0) / 18.015)
+      * 82.057 * ((spill.temperature_c ?? 25) + 273.15) / pressure_atm;
     p.credit = ml_s > 0 ? Math.min(16, p.credit + ml_s * dt / 0.05) : 0;
     for (let i = 0; i < p.particles.length; i++) {
       const bubble = p.particles[i]; bubble.age += dt;

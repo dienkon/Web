@@ -41,6 +41,22 @@ type StudioTab = 'reactions' | 'simulation' | 'programs' | 'atoms' | 'morphology
 
 export { PRECIPITATE_MORPHOLOGIES } from '../../engine/studioMorphology';
 
+function WorkbenchReactionReadout() {
+  const spills = useAppStore(s => s.spills);
+  const escaped = useAppStore(s => s.workbenchEscapedGas_g);
+  const pools = Object.values(spills), vapor = escaped.H2O ?? 0;
+  if (!pools.length && !(vapor > 0)) return null;
+  const total = pools.reduce((s, p) => ({ mass: s.mass + p.mass_g, volume: s.volume + p.volume_ml,
+    heat: s.heat + (p.reactionHeat_J ?? 0), rate: s.rate + (p.vaporRate_g_s ?? 0),
+    limits: s.limits + (p.chemistryLimit ? 1 : 0) }), { mass: 0, volume: 0, heat: 0, rate: 0, limits: 0 });
+  return <div aria-label="Phản ứng trên bàn" className="mt-2 rounded border border-blue-100 bg-blue-50/50 p-2 text-[10px] text-slate-600">
+    <p>Trên bàn: {pools.length} vũng · {total.volume.toFixed(3)} mL · {total.mass.toFixed(4)} g</p>
+    <p>Nhiệt phản ứng đã cấp: {total.heat.toFixed(2)} J · Hơi nước: {total.rate.toFixed(4)} g/s</p>
+    <p>H₂O thoát vào khí quyển (tích lũy): {vapor.toFixed(4)} g</p>
+    {total.limits > 0 && <p className="text-amber-700">Giới hạn mô hình chuyển pha: {total.limits} vũng.</p>}
+  </div>;
+}
+
 export const VfxGallery: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
@@ -444,6 +460,7 @@ export const VfxGallery: React.FC = () => {
               {targetVessel?.isShattered && <button className="mt-2 rounded border px-2 py-1"
                 onClick={() => useAppStore.getState().replaceShatteredVessel(targetVessel.id)}>Thay bình đã vỡ</button>}
               <p className="mt-1 text-[10px] text-slate-500">Mỗi test thay mẫu trong bình đích và lau vũng cũ trên bàn vào thùng chất thải. Nổ Na là mô hình minh họa, phụ thuộc lượng Na và nước.</p>
+              <WorkbenchReactionReadout />
             </details>
             {/* Target Vessel & Simulation Clock Controls */}
             <div className="flex items-center justify-between gap-2">

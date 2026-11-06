@@ -270,6 +270,13 @@ export interface BurnerState {
 }
 
 export interface SpillState {
+  /** Cumulative heat receipts; escaped water belongs to the atmosphere ledger. */
+  reactionHeat_J?: number;
+  thermalVaporEnthalpy_J?: number;
+  thermalVaporSensibleEnthalpy_J?: number;
+  thermalEnergyOutsideModel_J?: number;
+  thermalModelLimit?: string;
+  vaporRate_g_s?: number;
   optics?: import('../pour/physics/mixing').LiquidOptics;
   reactionProgramId?: string;
   temperature_c?: number;

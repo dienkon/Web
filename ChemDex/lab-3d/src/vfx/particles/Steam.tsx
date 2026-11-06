@@ -15,6 +15,8 @@ export interface SteamProps {
   radius?: number;
   temperature_c?: number;
   active?: boolean;
+  /** A metered non-vessel source, such as an uncontained puddle. */
+  sourceState?: ReturnType<typeof waterVisualState>;
 }
 
 export const Steam = React.memo(function Steam({
@@ -24,6 +26,7 @@ export const Steam = React.memo(function Steam({
   radius = 0.45,
   temperature_c,
   active = true,
+  sourceState,
 }: SteamProps) {
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const effectiveTier = useQualityStore((state) => state.effectiveTier);
@@ -55,13 +58,12 @@ export const Steam = React.memo(function Steam({
     const dt = simulationFrameDt(delta, simulation);
 
     const vessel = useAppStore.getState().vessels[vesselId];
-    if (!vessel || vessel.isShattered || (vessel.volume_ml ?? 0) <= 0.5) {
+    if (!sourceState && (!vessel || vessel.isShattered || (vessel.volume_ml ?? 0) <= 0.5)) {
       pool.clear(meshRef.current);
       return;
     }
 
-    const currentTemp = temperature_c ?? (vessel?.temperature_c || 25);
-    const water = waterVisualState(vessel);
+    const water = sourceState ?? waterVisualState(vessel);
     const isBoiling = water.isBoiling;
 
     // Only finite water vapor that can condense in the surrounding air is visible.
@@ -133,6 +135,7 @@ export const Steam = React.memo(function Steam({
 
   return (
     <instancedMesh
+      name={`water-vapor:${vesselId}`}
       ref={meshRef}
       args={[undefined, undefined, maxCount]}
       frustumCulled={false}
