@@ -1,6 +1,6 @@
 {
   "schema": "chemdex.studio-atom-contexts/1",
-  "checkedAt": "2026-10-17T04:43:12.275Z",
+  "checkedAt": "2026-11-06T15:43:13.075Z",
   "scope": "Program contexts and supported controls, not validation of every independent atom renderer or gallery parameter.",
   "atomCount": 175,
   "presetCount": 350,
@@ -9,10 +9,11 @@
     "flame": 3,
     "ripple": 2,
     "stir": 2,
-    "heating": 10,
+    "heating": 12,
     "audio": 4,
     "ice_water": 1,
-    "inspect": 259
+    "camera_shake": 4,
+    "inspect": 253
   },
   "entries": [
     {
@@ -89,8 +90,8 @@
       "action": {
         "kind": "program",
         "programId": "phenolphthalein_naoh",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "HIn(colorless) + OH-(aq) -> In-(magenta) + H2O(l)"
     },
@@ -102,8 +103,8 @@
       "action": {
         "kind": "program",
         "programId": "bromothymol_blue_base",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "HIn(yellow/green) + OH-(aq) -> In-(deep blue) + H2O(l)"
     },
@@ -115,8 +116,8 @@
       "action": {
         "kind": "program",
         "programId": "kmno4_oxalic",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "2KMnO4(aq) + 5H2C2O4(aq) + 3H2SO4(aq) -> K2SO4(aq) + 2MnSO4(aq) + 10CO2(g) + 8H2O(l)"
     },
@@ -128,8 +129,8 @@
       "action": {
         "kind": "program",
         "programId": "na2s2o3_i2",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "2Na2S2O3(aq) + I2(aq) -> Na2S4O6(aq) + 2NaI(aq)"
     },
@@ -185,8 +186,8 @@
       "action": {
         "kind": "program",
         "programId": "bacl2_na2so4",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "BaCl2(aq) + Na2SO4(aq) -> BaSO4(s) + 2NaCl(aq)"
     },
@@ -198,8 +199,8 @@
       "action": {
         "kind": "program",
         "programId": "thiosulfate_acid_clock",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Na2S2O3(aq) + 2HCl(aq) -> 2NaCl(aq) + SO2(g) + S(s) + H2O(l)"
     },
@@ -255,8 +256,8 @@
       "action": {
         "kind": "program",
         "programId": "cocl2_hcl",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "[Co(H2O)6]2+(aq) + 4Cl-(aq) <-> [CoCl4]2-(aq) + 6H2O(l)"
     },
@@ -279,8 +280,8 @@
       "action": {
         "kind": "program",
         "programId": "k2cr2o7_naoh",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "K2Cr2O7(aq) + 2NaOH(aq) <-> K2CrO4(aq) + Na2CrO4(aq) + H2O(l)"
     },
@@ -292,8 +293,8 @@
       "action": {
         "kind": "program",
         "programId": "fecl3_kscn",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "FeCl3(aq) + KSCN(aq) <-> [Fe(SCN)]Cl2(aq) + KCl(aq)"
     },
@@ -459,8 +460,8 @@
       "action": {
         "kind": "program",
         "programId": "kmno4_oxalic",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "2KMnO4(aq) + 5H2C2O4(aq) + 3H2SO4(aq) -> K2SO4(aq) + 2MnSO4(aq) + 10CO2(g) + 8H2O(l)"
     },
@@ -472,8 +473,8 @@
       "action": {
         "kind": "program",
         "programId": "na2s2o3_i2",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "2Na2S2O3(aq) + I2(aq) -> Na2S4O6(aq) + 2NaI(aq)"
     },
@@ -485,8 +486,8 @@
       "action": {
         "kind": "program",
         "programId": "bacl2_na2so4",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "BaCl2(aq) + Na2SO4(aq) -> BaSO4(s) + 2NaCl(aq)"
     },
@@ -498,8 +499,8 @@
       "action": {
         "kind": "program",
         "programId": "thiosulfate_acid_clock",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Na2S2O3(aq) + 2HCl(aq) -> 2NaCl(aq) + SO2(g) + S(s) + H2O(l)"
     },
@@ -577,8 +578,8 @@
       "action": {
         "kind": "program",
         "programId": "caco3_hcl",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "CaCO3(s) + 2HCl(aq) -> CaCl2(aq) + H2O(l) + CO2(g)"
     },
@@ -645,8 +646,8 @@
       "action": {
         "kind": "program",
         "programId": "zn_hcl",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Zn(s) + 2HCl(aq) -> ZnCl2(aq) + H2(g)"
     },
@@ -658,8 +659,8 @@
       "action": {
         "kind": "program",
         "programId": "caco3_hcl",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "CaCO3(s) + 2HCl(aq) -> CaCl2(aq) + H2O(l) + CO2(g)"
     },
@@ -716,7 +717,7 @@
         "kind": "program",
         "programId": "h2o2_mno2",
         "variant": "oxygen_foam",
-        "label": "Tạo mẫu O2 có chất giữ bọt",
+        "label": "Thay mẫu O2 trong bình đích",
         "note": "Mẫu ảo H2O2/MnO2 có SDS trong kho chất. Bọt dùng lượng O2 sinh ra thật; chưa mô phỏng cột bọt tràn mang theo dịch."
       },
       "equation": "2H2O2(aq) -> 2H2O(l) + O2(g)"
@@ -894,8 +895,8 @@
       "action": {
         "kind": "program",
         "programId": "caoh2_co2",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Ca(OH)2(aq) + CO2(g) -> CaCO3(s) + H2O(l)"
     },
@@ -1092,9 +1093,9 @@
       "presetIndex": 0,
       "title": "Acid Headspace Fume",
       "action": {
-        "kind": "inspect",
-        "label": "Xem điều kiện và giới hạn",
-        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+        "kind": "heating",
+        "label": "Điều khiển nguồn nhiệt",
+        "note": "Đặt mẫu lên bếp và cấp nhiệt; không bật sôi hoặc ép màu gốm phát sáng từ preset."
       }
     },
     {
@@ -1103,9 +1104,9 @@
       "presetIndex": 1,
       "title": "Faint Headspace Haze",
       "action": {
-        "kind": "inspect",
-        "label": "Xem điều kiện và giới hạn",
-        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+        "kind": "heating",
+        "label": "Điều khiển nguồn nhiệt",
+        "note": "Đặt mẫu lên bếp và cấp nhiệt; không bật sôi hoặc ép màu gốm phát sáng từ preset."
       }
     },
     {
@@ -1314,8 +1315,8 @@
       "action": {
         "kind": "program",
         "programId": "cu_hno3_conc",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Cu(s) + 4HNO3(conc) -> Cu(NO3)2(aq) + 2NO2(g) + 2H2O(l)"
     },
@@ -1327,8 +1328,8 @@
       "action": {
         "kind": "program",
         "programId": "cu_hno3_conc",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Cu(s) + 4HNO3(conc) -> Cu(NO3)2(aq) + 2NO2(g) + 2H2O(l)"
     },
@@ -1406,8 +1407,8 @@
       "action": {
         "kind": "program",
         "programId": "mg_o2_burn",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "2Mg(s) + O2(g) -> 2MgO(s)"
     },
@@ -1419,8 +1420,8 @@
       "action": {
         "kind": "program",
         "programId": "mg_o2_burn",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "2Mg(s) + O2(g) -> 2MgO(s)"
     },
@@ -1608,8 +1609,8 @@
       "action": {
         "kind": "program",
         "programId": "bacl2_na2so4",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "BaCl2(aq) + Na2SO4(aq) -> BaSO4(s) + 2NaCl(aq)"
     },
@@ -1621,8 +1622,8 @@
       "action": {
         "kind": "program",
         "programId": "cacl2_na2co3",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "CaCl2(aq) + Na2CO3(aq) -> CaCO3(s) + 2NaCl(aq)"
     },
@@ -1634,8 +1635,8 @@
       "action": {
         "kind": "program",
         "programId": "agno3_nacl",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "AgNO3(aq) + NaCl(aq) -> AgCl(s) + NaNO3(aq)"
     },
@@ -1647,8 +1648,8 @@
       "action": {
         "kind": "program",
         "programId": "agno3_kbr",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "AgNO3(aq) + KBr(aq) -> AgBr(s) + KNO3(aq)"
     },
@@ -1660,8 +1661,8 @@
       "action": {
         "kind": "program",
         "programId": "fecl3_naoh",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "FeCl3(aq) + 3NaOH(aq) -> Fe(OH)3(s) + 3NaCl(aq)"
     },
@@ -1684,8 +1685,8 @@
       "action": {
         "kind": "program",
         "programId": "cuso4_naoh",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "CuSO4(aq) + 2NaOH(aq) -> Cu(OH)2(s) + Na2SO4(aq)"
     },
@@ -1697,8 +1698,8 @@
       "action": {
         "kind": "program",
         "programId": "cuoh2_decomp",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Cu(OH)2(s) -> CuO(s) + H2O(l)"
     },
@@ -1710,8 +1711,8 @@
       "action": {
         "kind": "program",
         "programId": "alcl3_naoh",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "AlCl3(aq) + 3NaOH(aq) -> Al(OH)3(s) + 3NaCl(aq)"
     },
@@ -1723,8 +1724,8 @@
       "action": {
         "kind": "program",
         "programId": "aloh3_naoh",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Al(OH)3(s) + NaOH(aq) -> Na[Al(OH)4](aq)"
     },
@@ -1736,8 +1737,8 @@
       "action": {
         "kind": "program",
         "programId": "pbno32_ki",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Pb(NO3)2(aq) + 2KI(aq) -> PbI2(s) + 2KNO3(aq)"
     },
@@ -1749,8 +1750,8 @@
       "action": {
         "kind": "program",
         "programId": "pbno32_ki",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Pb(NO3)2(aq) + 2KI(aq) -> PbI2(s) + 2KNO3(aq)"
     },
@@ -1762,8 +1763,8 @@
       "action": {
         "kind": "program",
         "programId": "na2s_cuso4",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Na2S(aq) + CuSO4(aq) -> CuS(s) + Na2SO4(aq)"
     },
@@ -1775,8 +1776,8 @@
       "action": {
         "kind": "program",
         "programId": "na2s_pbno32",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Na2S(aq) + Pb(NO3)2(aq) -> PbS(s) + 2NaNO3(aq)"
     },
@@ -1788,8 +1789,8 @@
       "action": {
         "kind": "program",
         "programId": "pbno32_k2cro4",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Pb(NO3)2(aq) + K2CrO4(aq) -> PbCrO4(s) + 2KNO3(aq)"
     },
@@ -1812,8 +1813,8 @@
       "action": {
         "kind": "program",
         "programId": "thiosulfate_acid_clock",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Na2S2O3(aq) + 2HCl(aq) -> 2NaCl(aq) + SO2(g) + S(s) + H2O(l)"
     },
@@ -1825,8 +1826,8 @@
       "action": {
         "kind": "program",
         "programId": "thiosulfate_acid_clock",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Na2S2O3(aq) + 2HCl(aq) -> 2NaCl(aq) + SO2(g) + S(s) + H2O(l)"
     },
@@ -1948,8 +1949,8 @@
       "action": {
         "kind": "program",
         "programId": "cu_agno3",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Cu(s) + 2AgNO3(aq) -> Cu(NO3)2(aq) + 2Ag(s)"
     },
@@ -1994,8 +1995,8 @@
       "action": {
         "kind": "program",
         "programId": "fe_cuso4",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Fe(s) + CuSO4(aq) -> FeSO4(aq) + Cu(s)"
     },
@@ -2007,8 +2008,8 @@
       "action": {
         "kind": "program",
         "programId": "fe_cuso4",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Fe(s) + CuSO4(aq) -> FeSO4(aq) + Cu(s)"
     },
@@ -2196,8 +2197,8 @@
       "action": {
         "kind": "program",
         "programId": "cuso4_nh3",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "CuSO4(aq) + 4NH3(aq) -> [Cu(NH3)4]SO4(aq)"
     },
@@ -2209,8 +2210,8 @@
       "action": {
         "kind": "program",
         "programId": "agcl_nh3",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "AgCl(s) + 2NH3(aq) -> [Ag(NH3)2]Cl(aq)"
     },
@@ -2266,8 +2267,8 @@
       "action": {
         "kind": "program",
         "programId": "agno3_nacl",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "AgNO3(aq) + NaCl(aq) -> AgCl(s) + NaNO3(aq)"
     },
@@ -2279,8 +2280,8 @@
       "action": {
         "kind": "program",
         "programId": "cuso4_naoh",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "CuSO4(aq) + 2NaOH(aq) -> Cu(OH)2(s) + Na2SO4(aq)"
     },
@@ -2336,8 +2337,8 @@
       "action": {
         "kind": "program",
         "programId": "cu_agno3",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Cu(s) + 2AgNO3(aq) -> Cu(NO3)2(aq) + 2Ag(s)"
     },
@@ -2382,8 +2383,8 @@
       "action": {
         "kind": "program",
         "programId": "zn_hcl",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Zn(s) + 2HCl(aq) -> ZnCl2(aq) + H2(g)"
     },
@@ -2395,8 +2396,8 @@
       "action": {
         "kind": "program",
         "programId": "caco3_hcl",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "CaCO3(s) + 2HCl(aq) -> CaCl2(aq) + H2O(l) + CO2(g)"
     },
@@ -2408,8 +2409,8 @@
       "action": {
         "kind": "program",
         "programId": "zn_hcl",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Zn(s) + 2HCl(aq) -> ZnCl2(aq) + H2(g)"
     },
@@ -2421,8 +2422,8 @@
       "action": {
         "kind": "program",
         "programId": "mg_hcl",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Mg(s) + 2HCl(aq) -> MgCl2(aq) + H2(g)"
     },
@@ -2434,8 +2435,8 @@
       "action": {
         "kind": "program",
         "programId": "fe_hcl",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Fe(s) + 2HCl(aq) -> FeCl2(aq) + H2(g)"
     },
@@ -2524,8 +2525,8 @@
       "action": {
         "kind": "program",
         "programId": "al_naoh_h2",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "2Al(s) + 2NaOH(aq) + 2H2O(l) -> 2NaAlO2(aq) + 3H2(g)"
     },
@@ -2537,8 +2538,8 @@
       "action": {
         "kind": "program",
         "programId": "al_naoh_h2",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "2Al(s) + 2NaOH(aq) + 2H2O(l) -> 2NaAlO2(aq) + 3H2(g)"
     },
@@ -2572,8 +2573,8 @@
       "action": {
         "kind": "program",
         "programId": "cu_hno3_conc",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Cu(s) + 4HNO3(conc) -> Cu(NO3)2(aq) + 2NO2(g) + 2H2O(l)"
     },
@@ -2585,8 +2586,8 @@
       "action": {
         "kind": "program",
         "programId": "cu_hno3_dil",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "3Cu(s) + 8HNO3(dil) -> 3Cu(NO3)2(aq) + 2NO(g) + 4H2O(l)"
     },
@@ -2686,8 +2687,8 @@
       "action": {
         "kind": "program",
         "programId": "mg_o2_burn",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "2Mg(s) + O2(g) -> 2MgO(s)"
     },
@@ -2699,8 +2700,8 @@
       "action": {
         "kind": "program",
         "programId": "mg_o2_burn",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "2Mg(s) + O2(g) -> 2MgO(s)"
     },
@@ -2712,8 +2713,8 @@
       "action": {
         "kind": "program",
         "programId": "zn_hcl",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Zn(s) + 2HCl(aq) -> ZnCl2(aq) + H2(g)"
     },
@@ -2725,8 +2726,8 @@
       "action": {
         "kind": "program",
         "programId": "zn_hcl",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Zn(s) + 2HCl(aq) -> ZnCl2(aq) + H2(g)"
     },
@@ -2847,8 +2848,8 @@
       "title": "Floating Ice Cube Melting",
       "action": {
         "kind": "ice_water",
-        "label": "Tạo mẫu nước–đá",
-        "note": "Mẫu riêng 20 g nước và 5 g đá ở 0 °C. Nhiệt làm tan lượng đá hữu hạn trước khi làm ấm toàn bộ nước; chưa có bể làm lạnh cho bình khác."
+        "label": "Thay mẫu nước–đá trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu 20 g nước và 5 g đá ở 0 °C. Nhiệt làm tan lượng đá hữu hạn trước khi làm ấm toàn bộ nước; chưa có bể làm lạnh cho bình khác."
       }
     },
     {
@@ -2892,8 +2893,8 @@
       "action": {
         "kind": "program",
         "programId": "naoh_dissolution",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "NaOH(s) -> NaOH(aq)"
     },
@@ -2905,8 +2906,8 @@
       "action": {
         "kind": "program",
         "programId": "nh4no3_dissolution",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "NH4NO3(s) -> NH4NO3(aq)"
     },
@@ -2918,8 +2919,8 @@
       "action": {
         "kind": "program",
         "programId": "water_into_h2so4",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "H2SO4(conc) + H2O(l) -> H2SO4(aq) + H2O(l)"
     },
@@ -2931,8 +2932,8 @@
       "action": {
         "kind": "program",
         "programId": "h2so4_dilution",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "H2SO4(l) + H2O(l) -> H2SO4(aq) + H2O(l)"
     },
@@ -2966,8 +2967,8 @@
       "action": {
         "kind": "program",
         "programId": "i2_sublimation",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "I2(s) + heat -> I2(g)"
     },
@@ -3477,8 +3478,8 @@
       "action": {
         "kind": "program",
         "programId": "iodine_clock",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "IO3-(aq) + 3HSO3-(aq) -> I-(aq) + 3SO4(2-)(aq) + 3H+(aq)"
     },
@@ -3501,8 +3502,8 @@
       "action": {
         "kind": "program",
         "programId": "thiosulfate_acid_clock",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "Na2S2O3(aq) + 2HCl(aq) -> 2NaCl(aq) + SO2(g) + S(s) + H2O(l)"
     },
@@ -3613,8 +3614,8 @@
       "action": {
         "kind": "program",
         "programId": "h2o2_mno2",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "2H2O2(aq) -> 2H2O(l) + O2(g)"
     },
@@ -3637,8 +3638,8 @@
       "action": {
         "kind": "program",
         "programId": "kmno4_na2c2o4_titration",
-        "label": "Tạo mẫu phản ứng liên quan",
-        "note": "Mẫu riêng chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
+        "label": "Thay mẫu và chạy trong bình đích",
+        "note": "Thay mẫu trong bình đích; mẫu chạy theo lượng chất và điều kiện của chương trình. Các tham số hạt, thời gian, tuổi cặn và hình học trong preset chưa tự được áp vào mẫu này."
       },
       "equation": "2KMnO4(aq) + 5Na2C2O4(aq) + 8H2SO4(aq) -> K2SO4(aq) + 2MnSO4(aq) + 5Na2SO4(aq) + 10CO2(g) + 8H2O(l)"
     },
@@ -3703,9 +3704,11 @@
       "presetIndex": 0,
       "title": "Violent Detonation Shock",
       "action": {
-        "kind": "inspect",
-        "label": "Xem điều kiện và giới hạn",
-        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+        "kind": "camera_shake",
+        "intensity": 1.8,
+        "decay_s": 1,
+        "label": "Rung camera · giữ nguyên mẫu",
+        "note": "Chỉ rung khung nhìn; không kích hoạt nổ, chớp, khí hoặc mảnh kính. Theo đồng hồ Pause/Resume và tùy chọn giảm chuyển động."
       }
     },
     {
@@ -3714,9 +3717,11 @@
       "presetIndex": 1,
       "title": "Subtle Pop Jolt",
       "action": {
-        "kind": "inspect",
-        "label": "Xem điều kiện và giới hạn",
-        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+        "kind": "camera_shake",
+        "intensity": 0.4,
+        "decay_s": 0.3,
+        "label": "Rung camera · giữ nguyên mẫu",
+        "note": "Chỉ rung khung nhìn; không kích hoạt nổ, chớp, khí hoặc mảnh kính. Theo đồng hồ Pause/Resume và tùy chọn giảm chuyển động."
       }
     },
     {
@@ -3813,9 +3818,11 @@
       "presetIndex": 0,
       "title": "Subtle Pop Jolt",
       "action": {
-        "kind": "inspect",
-        "label": "Xem điều kiện và giới hạn",
-        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+        "kind": "camera_shake",
+        "intensity": 0.3,
+        "decay_s": 0.3,
+        "label": "Rung camera · giữ nguyên mẫu",
+        "note": "Chỉ rung khung nhìn; không kích hoạt nổ, chớp, khí hoặc mảnh kính. Theo đồng hồ Pause/Resume và tùy chọn giảm chuyển động."
       }
     },
     {
@@ -3824,9 +3831,11 @@
       "presetIndex": 1,
       "title": "Violent Detonation Shock",
       "action": {
-        "kind": "inspect",
-        "label": "Xem điều kiện và giới hạn",
-        "note": "Hiệu ứng này chưa có đường chạy định lượng phù hợp với preset. Xem thông số tham khảo; không tự tạo khí, cặn, màu hoặc thể tích trong bình."
+        "kind": "camera_shake",
+        "intensity": 1.5,
+        "decay_s": 0.9,
+        "label": "Rung camera · giữ nguyên mẫu",
+        "note": "Chỉ rung khung nhìn; không kích hoạt nổ, chớp, khí hoặc mảnh kính. Theo đồng hồ Pause/Resume và tùy chọn giảm chuyển động."
       }
     },
     {
@@ -3926,7 +3935,7 @@
         "kind": "program",
         "programId": "h2o2_mno2",
         "variant": "oxygen_foam",
-        "label": "Tạo mẫu O2 có chất giữ bọt",
+        "label": "Thay mẫu O2 trong bình đích",
         "note": "Mẫu ảo H2O2/MnO2 có SDS trong kho chất. Bọt dùng lượng O2 sinh ra thật; chưa mô phỏng cột bọt tràn mang theo dịch."
       },
       "equation": "2H2O2(aq) -> 2H2O(l) + O2(g)"

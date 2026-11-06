@@ -1,4 +1,5 @@
 export interface VfxEventMap {
+  'camera:shake': { intensity: number; decay_s?: number };
   'vessel:sample-reset': { vesselId: string };
   'reaction:start': { vesselId: string; reactionId?: string; mixResult?: any };
   'reaction:end': { vesselId: string; reactionId?: string };
@@ -18,6 +19,9 @@ export interface VfxEventMap {
     intensity: number;
   };
   'explosion': {
+    kind?: 'fragmentation' | 'pressure' | 'combustion';
+    /** Explicit emitted light budget; mechanical rupture alone has none. */
+    radiantEnergy_J?: number;
     vesselId: string;
     position: [number, number, number];
     intensity: number;

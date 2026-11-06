@@ -1,0 +1,54 @@
+{
+  "errors": [],
+  "shaderErrors": [],
+  "phases": [
+    {
+      "name": "camera-preview-after-preset-settles",
+      "physicalPoseAndTargetUnchanged": true,
+      "pauseVerified": true,
+      "bursts": 0,
+      "sparks": 0,
+      "flash": false
+    },
+    {
+      "name": "decay-restores-projection-and-reduced-motion-suppresses-overlay",
+      "poseRestored": true,
+      "reducedMotionVerified": true
+    },
+    {
+      "name": "native-bulk-sodium-rupture-with-zero-oxygen",
+      "shattered": true,
+      "oxygenFraction": 0,
+      "bursts": [
+        {
+          "vesselId": "beaker_1793979941812_s5d3d",
+          "position": [
+            0,
+            -0.135,
+            0
+          ],
+          "intensity": 1,
+          "kind": "fragmentation",
+          "liquidColor": "#f8fafc",
+          "substances": [
+            "H2O",
+            "Na",
+            "NaOH"
+          ],
+          "isAcid": false,
+          "isDangerous": true
+        }
+      ],
+      "sparks": [],
+      "flashVisible": false,
+      "flashIntensity": 0,
+      "liveSparkInstances": 0,
+      "spillMass_g": 50.77167100377608
+    },
+    {
+      "name": "explicit-synthetic-radiant-packet-can-illuminate",
+      "rendererContractOnly": true,
+      "visible": true
+    }
+  ]
+}

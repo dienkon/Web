@@ -8,7 +8,7 @@ const entries = EFFECT_ATOM_CATALOG.flatMap(atom => atom.gallery.map((preset, in
   return { atom: atom.name, category: atom.category, presetIndex: index, title: preset.title,
     action, equation: action.kind === 'program' ? getProgramById(action.programId)?.chemistry.equation : undefined };
 }));
-const counts = Object.fromEntries(['program', 'flame', 'ripple', 'stir', 'heating', 'audio', 'ice_water', 'inspect']
+const counts = Object.fromEntries(['program', 'flame', 'ripple', 'stir', 'heating', 'audio', 'ice_water', 'camera_shake', 'inspect']
   .map(kind => [kind, entries.filter(entry => entry.action.kind === kind).length]));
 mkdirSync('artifacts/science-audit', { recursive: true });
 writeFileSync('artifacts/science-audit/studio-atom-contexts.json', JSON.stringify({

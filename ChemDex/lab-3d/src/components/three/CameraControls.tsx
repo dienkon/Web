@@ -6,6 +6,8 @@ import * as THREE from 'three';
 import { useAppStore } from '../../store/useAppStore';
 import { vfxBus } from '../../vfx/bus';
 import { useToolDockStore } from '../../handling/toolDock';
+import { simulationFrameDt } from '../../core/clock';
+import { CameraShakeProjection, createCameraShake, kickCameraShake, stepCameraShake } from '../../vfx/cameraShake';
 
 export interface CameraControlsProps {
   /** Enable or disable orbit rotation */
@@ -72,17 +74,21 @@ export const CameraControls = React.memo(function CameraControls({
   const targetCamPos = useRef(new THREE.Vector3(0, 5, 12));
   const targetLookAt = useRef(new THREE.Vector3(0, 0, 0));
   const isTransitioning = useRef(false);
-  const trauma = useRef(0);
+  const shakeState = useRef(createCameraShake());
+  const shakeProjection = useRef(new CameraShakeProjection());
 
   useEffect(() => {
     const unsubExplosion = vfxBus.on('explosion', (e) => {
-      trauma.current = Math.min(1.0, trauma.current + (e.intensity || 0.85));
+      kickCameraShake(shakeState.current, e.intensity, 0.6);
     });
+    const unsubShake = vfxBus.on('camera:shake', e => kickCameraShake(shakeState.current, e.intensity, e.decay_s));
 
     return () => {
       unsubExplosion();
+      unsubShake();
+      shakeProjection.current.restore(camera);
     };
-  }, []);
+  }, [camera]);
 
   // Synchronize target camera coordinates with store camera preset or focus position
   useEffect(() => {
@@ -123,43 +129,31 @@ export const CameraControls = React.memo(function CameraControls({
     }
   }, [cameraPreset, cameraFocusPosition]);
 
-  // Smooth frame interpolation when transitioning between presets
+  // Remove only the viewport overlay before OrbitControls updates at priority -1.
+  useFrame(() => shakeProjection.current.restore(camera), -2);
+
+  // Preset interpolation and impulse rendering are independent.
   useFrame((_, delta) => {
-    if (!isTransitioning.current) return;
+    if (isTransitioning.current) {
+      const posDistSq = camera.position.distanceToSquared(targetCamPos.current);
+      const targetDistSq = controlsRef.current
+        ? controlsRef.current.target.distanceToSquared(targetLookAt.current)
+        : 0;
 
-    const posDistSq = camera.position.distanceToSquared(targetCamPos.current);
-    const targetDistSq = controlsRef.current
-      ? controlsRef.current.target.distanceToSquared(targetLookAt.current)
-      : 0;
-
-    if (posDistSq > 0.0001 || targetDistSq > 0.0001) {
-      const step = Math.min(delta * 4.5, 0.25);
-      camera.position.lerp(targetCamPos.current, step);
-      if (controlsRef.current) {
-        controlsRef.current.target.lerp(targetLookAt.current, step);
-        controlsRef.current.update();
+      if (posDistSq > 0.0001 || targetDistSq > 0.0001) {
+        const step = Math.min(delta * 4.5, 0.25);
+        camera.position.lerp(targetCamPos.current, step);
+        if (controlsRef.current) {
+          controlsRef.current.target.lerp(targetLookAt.current, step);
+          controlsRef.current.update();
+        }
+      } else {
+        isTransitioning.current = false;
       }
-    } else {
-      isTransitioning.current = false;
     }
-
-    // Trauma-based camera shake with quadratic decay (respects prefers-reduced-motion)
     const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (trauma.current > 0.001) {
-      if (!prefersReducedMotion) {
-        const shake = trauma.current * trauma.current;
-        const time = performance.now() * 0.001;
-        const shakeX = (Math.sin(time * 38.0) * 0.16 + (Math.random() - 0.5) * 0.06) * shake;
-        const shakeY = (Math.cos(time * 32.0) * 0.14 + (Math.random() - 0.5) * 0.06) * shake;
-        const shakeRotZ = Math.sin(time * 26.0) * 0.035 * shake;
-
-        camera.position.x += shakeX;
-        camera.position.y += shakeY;
-        camera.rotation.z += shakeRotZ;
-      }
-
-      trauma.current = Math.max(0, trauma.current - delta * 1.8);
-    }
+    const shake = stepCameraShake(shakeState.current, simulationFrameDt(delta, useAppStore.getState()), !!prefersReducedMotion);
+    shakeProjection.current.apply(camera, shake);
   });
 
   // Auto-lock controls while actively pouring, dragging a vessel in 3D space, or when screen is locked

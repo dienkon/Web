@@ -420,7 +420,7 @@ export interface AppState {
   toggleLockVessel: (id: string) => void;
   rotateVessel: (id: string, angleDeltaRad?: number) => void;
   focusVessel: (id: string) => void;
-  shatterVessel: (id: string, reason?: string) => void;
+  shatterVessel: (id: string, reason?: string, kind?: 'fragmentation' | 'pressure') => void;
   replaceShatteredVessel: (id: string) => void;
   grindMortar: (id: string) => void;
   toggleStopcock: (id: string) => void;
@@ -2231,7 +2231,7 @@ export const useAppStore = create<AppState>((set, get) => {
         if (isSodiumWaterReaction(kinetics.reactionId) && baseline
           && sodiumContactRegime(baseline) === 'disruptive'
           && sodiumMetalMass(get().vessels[id] ?? baseline) < sodiumMetalMass(baseline)) {
-          get().shatterVessel(id, 'Sodium-water contact explosion (illustrative fragmentation model)');
+          get().shatterVessel(id, 'Sodium-water contact explosion (illustrative fragmentation model)', 'fragmentation');
         }
       }
       if (preparedSample && hasAliquotReaction && get().pipetteSample === heldSample) {
@@ -2657,13 +2657,13 @@ export const useAppStore = create<AppState>((set, get) => {
       }
     },
 
-    shatterVessel: (id, reason = 'Thermal shock & overpressure') => {
+    shatterVessel: (id, reason = 'Glass failure', kind) => {
       const v = get().vessels[id];
       if (!v || v.isShattered) return;
       if (![v.volume_ml, v.mass_g, v.wallCondensation?.inner_g ?? 0, v.wallCondensation?.outer_g ?? 0,
         ...v.position].every(Number.isFinite) || v.volume_ml < 0 || v.mass_g < 0
         || (v.wallCondensation?.inner_g ?? 0) < 0 || (v.wallCondensation?.outer_g ?? 0) < 0) return;
-      const isExplosionReason = reason.toLowerCase().includes('nổ')
+      const isExplosionReason = !!kind || reason.toLowerCase().includes('nổ')
         || reason.toLowerCase().includes('explosion')
         || reason.toLowerCase().includes('overpressure');
       const liquidColor = v.liquidColor || v.precipitateColor || '#38bdf8';
@@ -2746,10 +2746,8 @@ export const useAppStore = create<AppState>((set, get) => {
       if (isExplosionReason) {
         labSound.playExplosion();
         labSound.playBumpingSurge();
-        vfxBus.emit('explosion', { vesselId: id, position: v.position, intensity: 1, color: '#f59e0b',
+        vfxBus.emit('explosion', { vesselId: id, position: v.position, intensity: 1, kind: kind ?? 'pressure',
           liquidColor, substances: vesselSubstances, isAcid: isAcidLiquid, isDangerous: true });
-        vfxBus.emit('sparks', { position: [v.position[0], v.position[1] + 0.35, v.position[2]],
-          count: 50, color: '#fbbf24', speed: 4.8 });
         const mouthY = v.position[1] + (v.position[1] < 0 ? 0.85 : 0.45);
         if (released.spill.volume_ml > 0) vfxBus.emit('acid:splatter', {
           vesselId: id, position: [v.position[0], mouthY, v.position[2]],

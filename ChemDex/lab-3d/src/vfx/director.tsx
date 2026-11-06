@@ -64,9 +64,12 @@ export const VfxDirector = React.memo(function VfxDirector() {
   // Listen to explosion events on the bus
   useEffect(() => {
     const unsubExplosion = vfxBus.on('explosion', (e) => {
-      flashIntensityRef.current = 4.0;
-      flashColorRef.current.set(e.color || '#fee2e2');
-      flashPositionRef.current.set(...e.position);
+      // Mechanical rupture is not evidence for luminous combustion.
+      if (e.kind === 'combustion' && Number.isFinite(e.radiantEnergy_J) && e.radiantEnergy_J! > 0) {
+        flashIntensityRef.current = Math.min(4, Math.sqrt(e.radiantEnergy_J! / 10));
+        flashColorRef.current.set(e.color || '#fee2e2');
+        flashPositionRef.current.set(...e.position);
+      }
 
       // Spawn shockwave ring in an available slot
       const slot = shockwavesPool.current.find(s => !s.active) || shockwavesPool.current[0];
@@ -231,6 +234,7 @@ export const VfxDirector = React.memo(function VfxDirector() {
 
       {/* Dynamic Flash Light for exothermic flares & explosions */}
       <pointLight
+        name="reaction-radiant-flash"
         ref={flashLightRef}
         position={[0, 2.8, 1]}
         intensity={0}
@@ -242,6 +246,7 @@ export const VfxDirector = React.memo(function VfxDirector() {
       {/* Reusable Shockwave Rings on Workbench Table Surface */}
       {[0, 1, 2, 3].map(i => (
         <mesh
+          name={`rupture-impulse:${i}`}
           key={i}
           ref={el => { shockwaveMeshRefs.current[i] = el; }}
           rotation={[-Math.PI / 2, 0, 0]}

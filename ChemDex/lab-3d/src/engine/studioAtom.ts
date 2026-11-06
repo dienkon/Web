@@ -52,6 +52,7 @@ const PROGRAM_CONTEXTS: Record<string, readonly (string | null)[]> = {
 };
 
 export type StudioAtomAction =
+  | { kind: 'camera_shake'; intensity: number; decay_s: number; label: string; note: string }
   | { kind: 'program'; programId: string; variant?: 'oxygen_foam'; label: string; note: string }
   | { kind: 'flame'; element: string; label: string; note: string }
   | { kind: 'ripple' | 'stir' | 'heating' | 'audio' | 'ice_water'; label: string; note: string }
@@ -60,6 +61,13 @@ export type StudioAtomAction =
 export function studioAtomAction(atom: EffectAtom, index: number): StudioAtomAction {
   if (!Number.isInteger(index) || index < 0 || index >= atom.gallery.length) return {
     kind: 'inspect', label: 'Xem điều kiện', note: 'Preset không tồn tại; không thay đổi mẫu.' };
+  if (['cameraShake', 'cameraTraumaShake'].includes(atom.name)) {
+    const p = atom.gallery[index].params;
+    return { kind: 'camera_shake', intensity: Number.isFinite(p.intensity) ? Math.max(0, Math.min(2.5, p.intensity)) : 0.8,
+      decay_s: Number.isFinite(p.decay_s) ? Math.max(0.1, Math.min(3, p.decay_s)) : 0.6,
+      label: 'Rung camera · giữ nguyên mẫu',
+      note: 'Chỉ rung khung nhìn; không kích hoạt nổ, chớp, khí hoặc mảnh kính. Theo đồng hồ Pause/Resume và tùy chọn giảm chuyển động.' };
+  }
   const programId = PROGRAM_CONTEXTS[atom.name]?.[index];
   if (atom.name === 'iceMeltShrink' && index === 0) return { kind: 'ice_water', label: 'Thay mẫu nước–đá trong bình đích',
     note: 'Thay mẫu trong bình đích; mẫu 20 g nước và 5 g đá ở 0 °C. Nhiệt làm tan lượng đá hữu hạn trước khi làm ấm toàn bộ nước; chưa có bể làm lạnh cho bình khác.' };
@@ -84,6 +92,10 @@ export function studioAtomAction(atom: EffectAtom, index: number): StudioAtomAct
 export function runStudioAtomContext(atom: EffectAtom, index: number, targetId?: string) {
   const action = studioAtomAction(atom, index);
   const store = useAppStore.getState();
+  if (action.kind === 'camera_shake') {
+    vfxBus.emit('camera:shake', { intensity: action.intensity, decay_s: action.decay_s });
+    return { action, ok: true, message: action.note };
+  }
   if (action.kind === 'ice_water') {
     const vesselId = store.prepareStudioIceSample(targetId ?? "");
     return { action, ok: !!vesselId, vesselId: vesselId ?? undefined, message: action.note };

@@ -23,12 +23,7 @@ export const cameraTraumaShakeAtom: EffectAtom = {
   budget: { shaderCost: 1 },
   anchorsAllowed: ['bulk', 'outside'],
   mount(ctx, p) {
-    vfxBus.emit('explosion', {
-      vesselId: ctx.vesselId,
-      position: ctx.position,
-      intensity: p.intensity || 1.0,
-      isDangerous: true
-    });
+    vfxBus.emit('camera:shake', { intensity: p.intensity ?? 1, decay_s: p.decay_s ?? 0.8 });
     return { atom: 'cameraTraumaShake', instanceId: `traumashake_${Date.now()}`, alive: true, custom: { ...p } };
   },
   update() {},
@@ -156,12 +151,7 @@ export const cameraShakeAtom: EffectAtom = {
   budget: { shaderCost: 1 },
   anchorsAllowed: ['bulk', 'outside'],
   mount(ctx, p) {
-    vfxBus.emit('explosion', {
-      vesselId: ctx.vesselId,
-      position: ctx.position,
-      intensity: p.intensity || 1.0,
-      isDangerous: true
-    });
+    vfxBus.emit('camera:shake', { intensity: p.intensity ?? 0.8, decay_s: p.decay_s ?? 0.6 });
     return { atom: 'cameraShake', instanceId: `shake_${Date.now()}`, alive: true, custom: { ...p } };
   },
   update() {},
