@@ -97,7 +97,9 @@
         });
     }
     if (!rounded && d.labels !== false)
-      v.model.labels.forEach((name, i) => point(p[i], name));
+      v.model.labels.forEach((name, i) =>
+        point(p[i], d.vertexLabels?.[i] || name),
+      );
     if (rounded) {
       if (d.kind === "cone") point(v.screen([0, 0, d.params.h]), "S");
       if (d.center) point(v.screen([0, 0, 0]), "O");

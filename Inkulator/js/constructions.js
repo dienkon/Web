@@ -15,6 +15,13 @@
     centroid: 3,
     median: 3,
     bisector: 3,
+    rightAngle: 3,
+    equalTick: 2,
+    parallelArrow: 2,
+    altitude: 3,
+    orthocenter: 3,
+    incenter: 3,
+    highlightPlane: 3,
   };
   function intersection(A, B, C, D) {
     const u = G.sub(B, A),
@@ -106,7 +113,8 @@
     vertices.forEach((p, i) =>
       named(
         "v:" + i,
-        solid ? model.labels[i] || "P" + (i + 1) : String.fromCharCode(65 + i),
+        d.vertexLabels?.[i] ||
+          (solid ? model.labels[i] || "P" + (i + 1) : String.fromCharCode(65 + i)),
         p,
         false,
       ),
@@ -271,6 +279,78 @@
             if (same) points.get(key).aliasOf = same.key;
           });
         }
+        if (c.type === "rightAngle") {
+          const u = G.sub(p[0], p[1]),
+            v = G.sub(p[2], p[1]),
+            nu = G.norm(u),
+            nv = G.norm(v);
+          if (nu < EPS || nv < EPS) throw Error("Điểm cạnh góc vuông trùng đỉnh.");
+          item.vertex = p[1];
+          item.a = p[0];
+          item.c = p[2];
+          item.angle =
+            (Math.acos(Math.max(-1, Math.min(1, G.dot(u, v) / (nu * nv)))) *
+              180) /
+            Math.PI;
+        }
+        if (c.type === "equalTick") {
+          item.length = G.norm(G.sub(p[1], p[0]));
+          if (item.length < EPS) throw Error("Hai điểm trùng nhau.");
+          item.endpoints = [p[0], p[1]];
+          item.tickCount = c.tickCount || 1;
+        }
+        if (c.type === "parallelArrow") {
+          item.length = G.norm(G.sub(p[1], p[0]));
+          if (item.length < EPS) throw Error("Hai điểm trùng nhau.");
+          item.endpoints = [p[0], p[1]];
+          item.arrowCount = c.arrowCount || 1;
+        }
+        if (c.type === "altitude") {
+          const bc = G.sub(p[2], p[1]),
+            den = G.dot(bc, bc);
+          if (den < EPS) throw Error("Cạnh đáy không xác định.");
+          item.foot = G.add(
+            p[1],
+            G.scale(bc, G.dot(G.sub(p[0], p[1]), bc) / den),
+          );
+          item.endpoints = [p[0], item.foot];
+          item.endpointRefs = [c.refs[0], "c:" + c.id];
+          named("c:" + c.id, c.label || "H", item.foot);
+        }
+        if (c.type === "orthocenter") {
+          const bc = G.sub(p[2], p[1]),
+            denA = G.dot(bc, bc),
+            ca = G.sub(p[0], p[2]),
+            denB = G.dot(ca, ca);
+          if (denA < EPS || denB < EPS) throw Error("Tam giác không hợp lệ.");
+          const Ha = G.add(
+              p[1],
+              G.scale(bc, G.dot(G.sub(p[0], p[1]), bc) / denA),
+            ),
+            Hb = G.add(
+              p[2],
+              G.scale(ca, G.dot(G.sub(p[1], p[2]), ca) / denB),
+            );
+          item.point = intersection(p[0], Ha, p[1], Hb);
+          item.altitudes = [
+            [p[0], Ha],
+            [p[1], Hb],
+          ];
+          named("c:" + c.id, c.label || "H", item.point);
+        }
+        if (c.type === "incenter") {
+          if (solid) throw Error("Đường tròn nội tiếp hỗ trợ hình phẳng.");
+          const t = G.triangleData(p);
+          if (!t.incenter || !Number.isFinite(t.inradius))
+            throw Error("Ba điểm thẳng hàng.");
+          item.center = t.incenter;
+          item.radius = t.inradius;
+          named("c:" + c.id, c.label || "I", item.center);
+        }
+        if (c.type === "highlightPlane") {
+          item.points = p;
+          item.color = c.color || "#e8b84b30";
+        }
         items.push(item);
       } catch (e) {
         warnings.push({ id: c.id, message: e.message });
@@ -332,6 +412,9 @@
           "centroid",
           "median",
           "bisector",
+          "altitude",
+          "orthocenter",
+          "incenter",
         ].includes(c.type)
       )
         known.add("c:" + c.id);

@@ -249,8 +249,136 @@
       );
       ctx.stroke();
     };
-    if (d.kind === "circle") {
-      circle(d.points[0], G.norm(G.sub(d.points[1], d.points[0])));
+    if (d.kind === "circle" || d.kind === "trig-circle") {
+      const r = G.norm(G.sub(d.points[1], d.points[0]));
+      circle(d.points[0], r);
+      if (d.kind === "trig-circle") {
+        const c = flatPoint(o, d.points[0]),
+          rx = r * Math.abs(flatPoint(o, [1, 0])[0] - flatPoint(o, [0, 0])[0]);
+        ctx.save();
+        ctx.strokeStyle = o.style.color;
+        ctx.lineWidth = 1.3;
+        // Cos axis (horizontal)
+        ctx.beginPath();
+        ctx.moveTo(c[0] - rx * 1.25, c[1]);
+        ctx.lineTo(c[0] + rx * 1.25, c[1]);
+        ctx.stroke();
+        // Arrow for cos
+        ctx.beginPath();
+        ctx.moveTo(c[0] + rx * 1.25 - 6, c[1] - 4);
+        ctx.lineTo(c[0] + rx * 1.25, c[1]);
+        ctx.lineTo(c[0] + rx * 1.25 - 6, c[1] + 4);
+        ctx.stroke();
+        // Sin axis (vertical)
+        ctx.beginPath();
+        ctx.moveTo(c[0], c[1] + rx * 1.25);
+        ctx.lineTo(c[0], c[1] - rx * 1.25);
+        ctx.stroke();
+        // Arrow for sin
+        ctx.beginPath();
+        ctx.moveTo(c[0] - 4, c[1] - rx * 1.25 + 6);
+        ctx.lineTo(c[0], c[1] - rx * 1.25);
+        ctx.lineTo(c[0] + 4, c[1] - rx * 1.25 + 6);
+        ctx.stroke();
+        // Axis labels
+        ctx.font = "italic 14px Georgia";
+        ctx.fillStyle = o.style.color;
+        ctx.fillText("cos", c[0] + rx * 1.26 + 2, c[1] + 4);
+        ctx.fillText("sin", c[0] - 14, c[1] - rx * 1.26 - 4);
+        ctx.fillText("O", c[0] - 14, c[1] + 14);
+        // Special angles on unit circle
+        const angles = [
+          [0, "0"],
+          [Math.PI / 6, "π/6 (30°)"],
+          [Math.PI / 4, "π/4 (45°)"],
+          [Math.PI / 3, "π/3 (60°)"],
+          [Math.PI / 2, "π/2 (90°)"],
+          [(2 * Math.PI) / 3, "2π/3"],
+          [(3 * Math.PI) / 4, "3π/4"],
+          [(5 * Math.PI) / 6, "5π/6"],
+          [Math.PI, "π (180°)"],
+          [(3 * Math.PI) / 2, "3π/2 (270°)"],
+        ];
+        ctx.font = "11px Segoe UI";
+        for (const [ang, label] of angles) {
+          const px = c[0] + rx * Math.cos(ang),
+            py = c[1] - rx * Math.sin(ang);
+          ctx.beginPath();
+          ctx.arc(px, py, 2.8, 0, Math.PI * 2);
+          ctx.fill();
+          if (
+            [
+              "0",
+              "π/6 (30°)",
+              "π/4 (45°)",
+              "π/3 (60°)",
+              "π/2 (90°)",
+              "π (180°)",
+              "3π/2 (270°)",
+            ].includes(label)
+          ) {
+            const tx = c[0] + (rx + 18) * Math.cos(ang),
+              ty = c[1] - (rx + 18) * Math.sin(ang);
+            ctx.fillText(label, tx - 12, ty + 4);
+          }
+        }
+        ctx.restore();
+      }
+    } else if (d.kind === "cartesian-oxy") {
+      const c = flatPoint(o, [0, 0]);
+      ctx.save();
+      // Grid
+      ctx.strokeStyle = "#82998a33";
+      ctx.lineWidth = 0.8;
+      for (let i = -4; i <= 4; i++) {
+        const x = flatPoint(o, [i, 0])[0],
+          y = flatPoint(o, [0, i])[1];
+        ctx.beginPath();
+        ctx.moveTo(x, flatPoint(o, [0, -4.2])[1]);
+        ctx.lineTo(x, flatPoint(o, [0, 4.2])[1]);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(flatPoint(o, [-4.2, 0])[0], y);
+        ctx.lineTo(flatPoint(o, [4.2, 0])[0], y);
+        ctx.stroke();
+      }
+      // Main axes
+      ctx.strokeStyle = o.style.color;
+      ctx.lineWidth = 1.8;
+      // Ox
+      ctx.beginPath();
+      ctx.moveTo(flatPoint(o, [-4.6, 0])[0], c[1]);
+      ctx.lineTo(flatPoint(o, [4.6, 0])[0], c[1]);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(flatPoint(o, [4.6, 0])[0] - 6, c[1] - 4);
+      ctx.lineTo(flatPoint(o, [4.6, 0])[0], c[1]);
+      ctx.lineTo(flatPoint(o, [4.6, 0])[0] - 6, c[1] + 4);
+      ctx.stroke();
+      // Oy
+      ctx.beginPath();
+      ctx.moveTo(c[0], flatPoint(o, [0, -4.6])[1]);
+      ctx.lineTo(c[0], flatPoint(o, [0, 4.6])[1]);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(c[0] - 4, flatPoint(o, [0, 4.6])[1] + 6);
+      ctx.lineTo(c[0], flatPoint(o, [0, 4.6])[1]);
+      ctx.lineTo(c[0] + 4, flatPoint(o, [0, 4.6])[1] + 6);
+      ctx.stroke();
+      // Labels and numbers
+      ctx.font = "italic 14px Georgia";
+      ctx.fillStyle = o.style.color;
+      ctx.fillText("x", flatPoint(o, [4.6, 0])[0] + 4, c[1] + 4);
+      ctx.fillText("y", c[0] + 6, flatPoint(o, [0, 4.6])[1] - 4);
+      ctx.fillText("O", c[0] - 14, c[1] + 14);
+      ctx.font = "10px Segoe UI";
+      for (let i = -4; i <= 4; i++) {
+        if (i !== 0) {
+          ctx.fillText(String(i), flatPoint(o, [i, 0])[0] - 3, c[1] + 13);
+          ctx.fillText(String(i), c[0] - 16, flatPoint(o, [0, i])[1] + 4);
+        }
+      }
+      ctx.restore();
     } else {
       ctx.beginPath();
       p.forEach((a, i) => (i ? ctx.lineTo(...a) : ctx.moveTo(...a)));
@@ -323,10 +451,11 @@
       ctx.arc(...a, 2.4, 0, Math.PI * 2);
       ctx.fill();
       if (d.labels) {
+        const vName = d.vertexLabels?.[i] || String.fromCharCode(65 + i);
         if (root.TeacherGeometry)
           TeacherGeometry.drawLabel(
             ctx,
-            String.fromCharCode(65 + i),
+            vName,
             a,
             [o.size.w / 2, o.size.h / 2],
             labelBoxes,
@@ -334,7 +463,7 @@
           );
         else {
           ctx.font = "italic 18px Georgia";
-          ctx.fillText(String.fromCharCode(65 + i), a[0] + 8, a[1] - 10);
+          ctx.fillText(vName, a[0] + 8, a[1] - 10);
         }
       }
       if (d.measures && d.kind !== "circle") {

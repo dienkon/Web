@@ -115,7 +115,15 @@
       '</p><div id="geometry-fields"></div><div id="geometry-measurement" class="result-box"></div><div class="tiny-buttons" id="geometry-toggles"></div><div ' +
       (round ? "hidden" : "") +
       '><h3>Dựng đường phụ</h3><div class="field-row"><select id="aux-a" aria-label="Đỉnh đầu"></select><select id="aux-b" aria-label="Đỉnh cuối"></select></div><div class="tiny-buttons"><button id="aux-segment">Nối hai đỉnh</button><button id="aux-midpoint">Trung điểm</button>' +
-      (solid && ["pyramid", "right-pyramid", "tetrahedron"].includes(d.kind)
+      (solid &&
+      [
+        "pyramid",
+        "right-pyramid",
+        "s-abc-right",
+        "tri-pyramid",
+        "s-abcd-rec",
+        "tetrahedron",
+      ].includes(d.kind)
         ? '<button id="aux-height">Đường cao</button>'
         : "") +
       '<button id="aux-clear">Xóa đường phụ</button></div><div id="coordinate-measurement" class="hint" style="margin-top:12px"></div>' +
@@ -169,7 +177,10 @@
           .filter(
             (k) =>
               k === "a" ||
-              (k === "b" && ["box", "cone-frustum"].includes(d.kind)) ||
+              (k === "b" &&
+                ["box", "cone-frustum", "s-abc-right", "s-abcd-rec"].includes(
+                  d.kind,
+                )) ||
               (k === "h" &&
                 !["cube", "tetrahedron", "sphere", "axes"].includes(d.kind)),
           )

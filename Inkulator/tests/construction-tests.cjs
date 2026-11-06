@@ -269,4 +269,67 @@ test("Intersections can depend on constructed parallel lines and survive validat
   o.data.constructions.reverse();
   assert.throws(() => Constructions.validate(o.data), /tham chiếu/);
 });
+test("Teacher geometry: rightAngle, equalTick, parallelArrow, and altitude", () => {
+  const o = flat();
+  o.data.constructions = [
+    { id: "ra", type: "rightAngle", refs: ["v:1", "v:0", "v:2"] },
+    { id: "eq", type: "equalTick", refs: ["v:0", "v:1"], tickCount: 2 },
+    { id: "pa", type: "parallelArrow", refs: ["v:0", "v:1"], arrowCount: 1 },
+    { id: "alt", type: "altitude", refs: ["v:2", "v:0", "v:1"] },
+  ];
+  Constructions.validate(o.data);
+  const r = Constructions.build(o);
+  assert.equal(r.warnings.length, 0);
+  assert.equal(r.items[0].type, "rightAngle");
+  assert.equal(r.items[1].tickCount, 2);
+  assert.equal(r.items[2].arrowCount, 1);
+  const foot = r.points.get("c:alt").coords;
+  close(foot[1], 0); // Foot on horizontal base [0,0] to [5,0]
+});
+test("Teacher geometry: orthocenter and incenter", () => {
+  const o = {
+    type: "geometry",
+    data: {
+      kind: "right",
+      points: [
+        [0, 0],
+        [4, 0],
+        [0, 3],
+      ],
+      constructions: [
+        { id: "ortho", type: "orthocenter", refs: ["v:0", "v:1", "v:2"] },
+        { id: "inc", type: "incenter", refs: ["v:0", "v:1", "v:2"] },
+      ],
+    },
+  };
+  Constructions.validate(o.data);
+  const r = Constructions.build(o);
+  assert.equal(r.warnings.length, 0);
+  // Orthocenter of right triangle at right-angle vertex [0, 0]
+  assert.deepEqual(r.points.get("c:ortho").coords, [0, 0]);
+  // Incenter of 3-4-5 right triangle at [1, 1]
+  close(r.points.get("c:inc").coords[0], 1);
+  close(r.points.get("c:inc").coords[1], 1);
+});
+test("Teacher geometry: custom vertex labels and solid S.ABC pyramid", () => {
+  const o = {
+    type: "solid",
+    data: {
+      kind: "s-abc-right",
+      params: { a: 4, b: 3, h: 5 },
+      vertexLabels: { 0: "A", 1: "B", 2: "C", 3: "S" },
+      constructions: [
+        { id: "M", type: "midpoint", refs: ["v:1", "v:2"], label: "M" },
+        { id: "AM", type: "segment", refs: ["v:0", "c:M"] },
+      ],
+    },
+  };
+  Constructions.validate(o.data, true);
+  const r = Constructions.build(o);
+  assert.equal(r.warnings.length, 0);
+  assert.equal(r.points.get("v:3").label, "S");
+  assert.deepEqual(r.points.get("c:M").coords, [2, 1.5, 0]);
+  const m = Geometry.solidMeasurements("s-abc-right", o.data.params);
+  close(m.volume, 10); // (1/2 * 4 * 3) * 5 / 3 = 10
+});
 console.log(count + " construction tests passed.");

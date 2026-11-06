@@ -212,6 +212,68 @@
     scheduleSave();
   }
   const colors = /^#[0-9a-fA-F]{3,8}$/;
+  const AssetStorage = {
+    dbPromise: null,
+    getDB() {
+      if (this.dbPromise) return this.dbPromise;
+      if (typeof indexedDB === "undefined") return Promise.resolve(null);
+      this.dbPromise = new Promise((resolve) => {
+        try {
+          const req = indexedDB.open("scrble-assets-db", 1);
+          req.onupgradeneeded = (e) => {
+            const db = e.target.result;
+            if (!db.objectStoreNames.contains("assets")) {
+              db.createObjectStore("assets");
+            }
+          };
+          req.onsuccess = () => resolve(req.result);
+          req.onerror = () => resolve(null);
+        } catch (_) {
+          resolve(null);
+        }
+      });
+      return this.dbPromise;
+    },
+    async put(id, data) {
+      if (!id || !data) return;
+      try {
+        const db = await this.getDB();
+        if (!db) return;
+        return new Promise((resolve) => {
+          const tx = db.transaction("assets", "readwrite");
+          tx.objectStore("assets").put(data, id);
+          tx.oncomplete = () => resolve(true);
+          tx.onerror = () => resolve(false);
+        });
+      } catch (_) {}
+    },
+    async get(id) {
+      if (!id) return null;
+      try {
+        const db = await this.getDB();
+        if (!db) return null;
+        return new Promise((resolve) => {
+          const tx = db.transaction("assets", "readonly");
+          const req = tx.objectStore("assets").get(id);
+          req.onsuccess = () => resolve(req.result || null);
+          req.onerror = () => resolve(null);
+        });
+      } catch (_) {
+        return null;
+      }
+    },
+    async remove(id) {
+      if (!id) return;
+      try {
+        const db = await this.getDB();
+        if (!db) return;
+        const tx = db.transaction("assets", "readwrite");
+        tx.objectStore("assets").delete(id);
+      } catch (_) {}
+    },
+  };
+  root.AssetStorage = AssetStorage;
+
   function validate(value, preserveIds = false) {
     if (!value || value.format !== "scrble-math")
       throw Error("Không phải tệp .smath.json hợp lệ.");
@@ -226,10 +288,10 @@
       n.title.length > 300 ||
       !Array.isArray(n.pages) ||
       n.pages.length < 1 ||
-      n.pages.length > 300
+      n.pages.length > 100000
     )
       throw Error(
-        "Sổ tay hoặc danh sách trang không hợp lệ (tối đa 300 trang).",
+        "Sổ tay hoặc danh sách trang không hợp lệ.",
       );
     const types = new Set([
       "stroke",
@@ -248,11 +310,10 @@
       !assets ||
       typeof assets !== "object" ||
       Array.isArray(assets) ||
-      Object.keys(assets).length > 100
+      Object.keys(assets).length > 500
     )
       throw Error("Tài nguyên tài liệu không hợp lệ.");
     const cleanAssets = Object.create(null);
-    let assetSize = 0;
     for (const [id, a] of Object.entries(assets)) {
       if (
         !/^[A-Za-z0-9_-]{1,100}$/.test(id) ||
@@ -263,22 +324,23 @@
         a.name.length > 250 ||
         !Number.isInteger(a.pages) ||
         a.pages < 1 ||
-        a.pages > 10000 ||
-        typeof a.data !== "string" ||
-        !/^data:application\/pdf;base64,[A-Za-z0-9+/=]+$/.test(a.data) ||
-        a.data.length > 56e6
+        a.pages > 100000
       )
         throw Error("PDF nhúng không hợp lệ.");
-      assetSize += a.data.length;
-      if (assetSize > 80e6)
-        throw Error(
-          "Tài liệu chứa quá nhiều PDF. Hãy chia thành nhiều sổ tay.",
-        );
+      if (a.data !== undefined) {
+        if (
+          typeof a.data !== "string" ||
+          !/^data:application\/pdf;base64,[A-Za-z0-9+/=]+$/.test(a.data)
+        )
+          throw Error("PDF nhúng không hợp lệ.");
+      }
       cleanAssets[id] = {
         type: a.type,
         name: a.name,
         pages: a.pages,
-        data: a.data,
+        ...(a.data ? { data: a.data } : {}),
+        ...(a.inIDB ? { inIDB: true } : {}),
+        ...(a.preview ? { preview: a.preview } : {}),
       };
     }
     let total = 0,
@@ -688,10 +750,41 @@
   function save() {
     try {
       if (state.loadError) throw Error("Giữ nguyên bản lưu lỗi để phục hồi.");
+      for (const nb of state.notebooks) {
+        if (nb.assets) {
+          for (const [id, a] of Object.entries(nb.assets)) {
+            if (a.data && a.data.length > 50000) {
+              AssetStorage.put(id, a.data);
+              a.inIDB = true;
+            }
+          }
+        }
+      }
+      const notebooksToStore = state.notebooks.map((nb) => {
+        const copy = clone(nb);
+        if (copy.assets) {
+          const stripped = {};
+          for (const [id, a] of Object.entries(copy.assets)) {
+            if (a.inIDB || (a.data && a.data.length > 50000)) {
+              stripped[id] = {
+                type: a.type,
+                name: a.name,
+                pages: a.pages,
+                inIDB: true,
+                ...(a.preview ? { preview: a.preview } : {}),
+              };
+            } else {
+              stripped[id] = a;
+            }
+          }
+          copy.assets = stripped;
+        }
+        return copy;
+      });
       const data = JSON.stringify({
         format: "scrble-math-library",
         version: 1,
-        notebooks: state.notebooks,
+        notebooks: notebooksToStore,
         active: state.active,
         pageIndex: state.pageIndex,
         settings: state.settings,
@@ -724,6 +817,20 @@
         validate({ format: "scrble-math", version: 1, notebook: n }, true),
       );
       state.notebooks = books;
+      for (const b of state.notebooks) {
+        if (b.assets) {
+          for (const [id, a] of Object.entries(b.assets)) {
+            if (!a.data && a.inIDB) {
+              AssetStorage.get(id).then((val) => {
+                if (val) {
+                  a.data = val;
+                  if (root.Renderer) root.Renderer.request();
+                }
+              }).catch(() => {});
+            }
+          }
+        }
+      }
       state.active = Number.isInteger(lib.active)
         ? Math.min(Math.max(0, lib.active), books.length - 1)
         : 0;

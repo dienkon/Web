@@ -16,14 +16,18 @@
     ["equilateral", "Tam giác đều"],
     ["isosceles", "Tam giác cân"],
     ["right", "Tam giác vuông"],
+    ["right-isosceles", "Tam giác vuông cân"],
     ["square", "Hình vuông"],
     ["rectangle", "Hình chữ nhật"],
     ["parallelogram", "Hình bình hành"],
     ["rhombus", "Hình thoi"],
     ["trapezoid", "Hình thang cân"],
+    ["right-trapezoid", "Hình thang vuông"],
     ["pentagon", "Ngũ giác đều"],
     ["hexagon", "Lục giác đều"],
     ["circle", "Đường tròn"],
+    ["trig-circle", "Đường tròn lượng giác"],
+    ["cartesian-oxy", "Hệ trục tọa độ Oxy"],
     ["median", "Tam giác · trung tuyến"],
     ["altitude", "Tam giác · đường cao"],
     ["bisector", "Tam giác · phân giác"],
@@ -36,6 +40,9 @@
     ["box", "Hình hộp chữ nhật"],
     ["pyramid", "Chóp đáy vuông"],
     ["right-pyramid", "Chóp SA ⊥ đáy"],
+    ["s-abc-right", "Chóp S.ABC (SA ⊥ đáy)"],
+    ["tri-pyramid", "Chóp tam giác đều"],
+    ["s-abcd-rec", "Chóp S.ABCD đáy chữ nhật"],
     ["tetrahedron", "Tứ diện đều"],
     ["tri-prism", "Lăng trụ tam giác"],
     ["hex-prism", "Lăng trụ lục giác"],
@@ -105,6 +112,21 @@
           [0, 4],
         ];
         break;
+      case "right-isosceles":
+        points = [
+          [0, 4],
+          [0, 0],
+          [4, 0],
+        ];
+        break;
+      case "right-trapezoid":
+        points = [
+          [0, 3],
+          [4, 3],
+          [6, 0],
+          [0, 0],
+        ];
+        break;
       case "equilateral":
         points = [
           [0, 0],
@@ -120,9 +142,18 @@
         ];
         break;
       case "circle":
+      case "trig-circle":
         points = [
           [0, 0],
           [3, 0],
+        ];
+        break;
+      case "cartesian-oxy":
+        points = [
+          [-4, -4],
+          [4, -4],
+          [4, 4],
+          [-4, 4],
         ];
         break;
       default:
@@ -139,14 +170,36 @@
       measures: false,
       aux: [],
       unit: "đv",
-      frame: kind === "circle" ? [-4, 4, -4, 4] : [-1, 7, -1, 6],
+      frame:
+        kind === "circle" || kind === "trig-circle"
+          ? [-4, 4, -4, 4]
+          : kind === "cartesian-oxy"
+            ? [-5, 5, -5, 5]
+            : [-1, 7, -1, 6],
     };
   }
   function flatMeasurements(data) {
     const p = data.points;
-    if (data.kind === "circle") {
+    if (data.kind === "circle" || data.kind === "trig-circle") {
       const r = norm(sub(p[1], p[0]));
-      return { radius: r, perimeter: 2 * Math.PI * r, area: Math.PI * r * r };
+      return {
+        radius: r,
+        perimeter: 2 * Math.PI * r,
+        area: Math.PI * r * r,
+        formula:
+          data.kind === "trig-circle"
+            ? "Vòng tròn lượng giác đơn vị R=1 (r=" +
+              r.toFixed(1) +
+              "); x=cos α, y=sin α"
+            : undefined,
+      };
+    }
+    if (data.kind === "cartesian-oxy") {
+      return {
+        perimeter: 32,
+        area: 64,
+        formula: "Hệ trục Oxy trực chuẩn: hoành độ Ox, tung độ Oy",
+      };
     }
     return {
       perimeter: p.reduce(
@@ -257,6 +310,53 @@
           [3, 0, 4],
         ];
         labels = ["A", "B", "C", "D", "S"];
+        break;
+      case "s-abcd-rec":
+        vertices = [
+          [0, 0, 0],
+          [a, 0, 0],
+          [a, b, 0],
+          [0, b, 0],
+          [0, 0, h],
+        ];
+        faces = [
+          [0, 3, 2, 1],
+          [0, 1, 4],
+          [1, 2, 4],
+          [2, 3, 4],
+          [3, 0, 4],
+        ];
+        labels = ["A", "B", "C", "D", "S"];
+        break;
+      case "s-abc-right":
+        vertices = [
+          [0, 0, 0],
+          [a, 0, 0],
+          [0, b, 0],
+          [0, 0, h],
+        ];
+        faces = [
+          [0, 2, 1],
+          [0, 1, 3],
+          [0, 3, 2],
+          [1, 2, 3],
+        ];
+        labels = ["A", "B", "C", "S"];
+        break;
+      case "tri-pyramid":
+        vertices = [
+          [0, 0, 0],
+          [a, 0, 0],
+          [a / 2, (a * Math.sqrt(3)) / 2, 0],
+          [a / 2, (a * Math.sqrt(3)) / 6, h],
+        ];
+        faces = [
+          [0, 2, 1],
+          [0, 1, 3],
+          [1, 2, 3],
+          [2, 0, 3],
+        ];
+        labels = ["A", "B", "C", "S"];
         break;
       case "tetrahedron":
         vertices = [
@@ -411,6 +511,35 @@
           area: a * a + a * h + a * Math.hypot(a, h),
           formula: "V = a²h/3; SA ⊥ (ABCD), SA = h",
         };
+      case "s-abcd-rec":
+        return {
+          volume: (a * b * h) / 3,
+          area:
+            a * b +
+            (a * h) / 2 +
+            (b * h) / 2 +
+            (b * Math.hypot(a, h)) / 2 +
+            (a * Math.hypot(b, h)) / 2,
+          formula: "Đáy ABCD chữ nhật, SA ⊥ (ABCD); V = abh/3",
+        };
+      case "s-abc-right": {
+        const baseArea = (a * b) / 2;
+        const hyp = norm(cross([-a, b, 0], [-a, 0, h])) / 2;
+        return {
+          volume: (baseArea * h) / 3,
+          area: baseArea + (a * h) / 2 + (b * h) / 2 + hyp,
+          formula: "Đáy ABC vuông tại A, SA ⊥ (ABC); V = abh/6",
+        };
+      }
+      case "tri-pyramid": {
+        const triBase = (Math.sqrt(3) * a * a) / 4;
+        const slantHeight = Math.hypot(h, (a * Math.sqrt(3)) / 6);
+        return {
+          volume: (triBase * h) / 3,
+          area: triBase + 3 * (a * slantHeight) / 2,
+          formula: "Chóp tam giác đều; V = a²h√3/12",
+        };
+      }
       case "tetrahedron":
         return {
           volume: a ** 3 / (6 * Math.sqrt(2)),

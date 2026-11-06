@@ -14,6 +14,13 @@
     centroid: "Trọng tâm",
     median: "Trung tuyến",
     bisector: "Phân giác",
+    rightAngle: "Góc vuông ∟",
+    equalTick: "Bằng nhau =",
+    parallelArrow: "Song song //",
+    altitude: "Đường cao AH",
+    orthocenter: "Trực tâm H",
+    incenter: "Tâm nội tiếp I",
+    highlightPlane: "Tô mặt phẳng",
   };
   let interaction = null,
     hovered = null;
@@ -168,11 +175,15 @@
       (["parallel", "perpendicular"].includes(interaction.mode)
         ? " (2 điểm của đường, rồi điểm đi qua)"
         : "") +
-      (["angle", "bisector"].includes(interaction.mode)
+      (["angle", "bisector", "rightAngle"].includes(interaction.mode)
         ? " (đỉnh góc ở điểm thứ hai)"
-        : interaction.mode === "median"
-          ? " (đỉnh xuất phát chọn trước)"
-          : "")
+        : interaction.mode === "altitude"
+          ? " (đỉnh A chọn trước, rồi 2 điểm đáy B, C)"
+          : interaction.mode === "median"
+            ? " (đỉnh xuất phát chọn trước)"
+            : ["equalTick", "parallelArrow"].includes(interaction.mode)
+              ? " (chọn 2 điểm của đoạn thẳng)"
+              : "")
     );
   }
   function setMode(mode, o = target()) {
@@ -262,6 +273,9 @@
           "centroid",
           "median",
           "bisector",
+          "altitude",
+          "orthocenter",
+          "incenter",
         ].includes(c.type)
       ) {
         const candidates =
@@ -271,9 +285,9 @@
               ? ["I", "J", "K", "T"]
               : c.type === "bisector"
                 ? ["D", "E", "F", "T"]
-                : c.type === "perpendicular"
+                : ["perpendicular", "altitude", "orthocenter"].includes(c.type)
                   ? ["H", "K", "L", "T"]
-                  : c.type === "circumcircle"
+                  : c.type === "circumcircle" || c.type === "incenter"
                     ? ["O", "I", "J"]
                     : ["M", "N", "P", "Q", "R"];
         c.label =
@@ -473,7 +487,10 @@
     ctx.fillStyle = o.style.color;
     ctx.lineWidth = Math.max(2, o.style.width);
     ctx.globalAlpha = o.style.opacity ?? 1;
-    for (const item of result.items) {
+    const maxStep =
+      typeof o.data.currentStep === "number" ? o.data.currentStep : Infinity;
+    for (const [idx, item] of result.items.entries()) {
+      if (idx >= maxStep) break;
       const q = item.refs.map((k) => map.get(k));
       if (["segment", "measure"].includes(item.type)) {
         modelLine(...item.coords, item);
@@ -488,6 +505,169 @@
             locations,
           );
         }
+      }
+      if (item.type === "rightAngle") {
+        const [a, b, c] = q;
+        if (a && b && c) {
+          const d1 = [a[0] - b[0], a[1] - b[1]],
+            d2 = [c[0] - b[0], c[1] - b[1]],
+            n1 = Math.hypot(...d1),
+            n2 = Math.hypot(...d2);
+          if (n1 > 0 && n2 > 0) {
+            const sz = Math.min(14, n1 * 0.35, n2 * 0.35),
+              u = [d1[0] * (sz / n1), d1[1] * (sz / n1)],
+              v = [d2[0] * (sz / n2), d2[1] * (sz / n2)];
+            ctx.save();
+            ctx.lineWidth = Math.max(1.8, o.style.width * 0.85);
+            ctx.beginPath();
+            ctx.moveTo(b[0] + u[0], b[1] + u[1]);
+            ctx.lineTo(b[0] + u[0] + v[0], b[1] + u[1] + v[1]);
+            ctx.lineTo(b[0] + v[0], b[1] + v[1]);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(
+              b[0] + (u[0] + v[0]) * 0.45,
+              b[1] + (u[1] + v[1]) * 0.45,
+              1.6,
+              0,
+              Math.PI * 2,
+            );
+            ctx.fill();
+            ctx.restore();
+          }
+        }
+      }
+      if (item.type === "equalTick") {
+        const [a, b] = q;
+        if (a && b) {
+          const mid = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2],
+            dx = b[0] - a[0],
+            dy = b[1] - a[1],
+            len = Math.hypot(dx, dy);
+          if (len > 0) {
+            const ux = dx / len,
+              uy = dy / len,
+              px = -uy,
+              py = ux,
+              tickLen = 6,
+              cnt = item.tickCount || 1;
+            ctx.save();
+            ctx.lineWidth = Math.max(1.8, o.style.width * 0.9);
+            if (cnt === 1) {
+              ctx.beginPath();
+              ctx.moveTo(mid[0] - px * tickLen, mid[1] - py * tickLen);
+              ctx.lineTo(mid[0] + px * tickLen, mid[1] + py * tickLen);
+              ctx.stroke();
+            } else if (cnt === 2) {
+              for (const off of [-2.5, 2.5]) {
+                const mx = mid[0] + ux * off,
+                  my = mid[1] + uy * off;
+                ctx.beginPath();
+                ctx.moveTo(mx - px * tickLen, my - py * tickLen);
+                ctx.lineTo(mx + px * tickLen, my + py * tickLen);
+                ctx.stroke();
+              }
+            } else {
+              const sz = 4.5;
+              ctx.beginPath();
+              ctx.moveTo(mid[0] - px * sz - ux * sz, mid[1] - py * sz - uy * sz);
+              ctx.lineTo(mid[0] + px * sz + ux * sz, mid[1] + py * sz + uy * sz);
+              ctx.moveTo(mid[0] - px * sz + ux * sz, mid[1] - py * sz + uy * sz);
+              ctx.lineTo(mid[0] + px * sz - ux * sz, mid[1] + py * sz - uy * sz);
+              ctx.stroke();
+            }
+            ctx.restore();
+          }
+        }
+      }
+      if (item.type === "parallelArrow") {
+        const [a, b] = q;
+        if (a && b) {
+          const mid = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2],
+            dx = b[0] - a[0],
+            dy = b[1] - a[1],
+            len = Math.hypot(dx, dy);
+          if (len > 0) {
+            const ux = dx / len,
+              uy = dy / len,
+              px = -uy,
+              py = ux,
+              arrowSz = 6.5;
+            ctx.save();
+            ctx.lineWidth = Math.max(1.8, o.style.width * 0.85);
+            ctx.beginPath();
+            ctx.moveTo(
+              mid[0] - ux * arrowSz + px * arrowSz,
+              mid[1] - uy * arrowSz + py * arrowSz,
+            );
+            ctx.lineTo(mid[0] + ux * arrowSz, mid[1] + uy * arrowSz);
+            ctx.lineTo(
+              mid[0] - ux * arrowSz - px * arrowSz,
+              mid[1] - uy * arrowSz - py * arrowSz,
+            );
+            ctx.stroke();
+            ctx.restore();
+          }
+        }
+      }
+      if (item.type === "altitude") {
+        modelLine(...item.endpoints, item);
+        const pp = project(o, item.endpoints);
+        const foot = pp[1],
+          apex = pp[0],
+          baseP = map.get(item.refs[1]),
+          baseQ = map.get(item.refs[2]);
+        if (foot && baseP && baseQ) {
+          const ab = [baseQ[0] - baseP[0], baseQ[1] - baseP[1]],
+            side = [apex[0] - foot[0], apex[1] - foot[1]],
+            na = Math.hypot(...ab),
+            ns = Math.hypot(...side);
+          if (na > 0 && ns > 0) {
+            const u = [ab[0] * (10 / na), ab[1] * (10 / na)],
+              v = [side[0] * (10 / ns), side[1] * (10 / ns)];
+            ctx.save();
+            ctx.lineWidth = Math.max(1.5, o.style.width * 0.75);
+            ctx.beginPath();
+            ctx.moveTo(foot[0] + u[0], foot[1] + u[1]);
+            ctx.lineTo(foot[0] + u[0] + v[0], foot[1] + u[1] + v[1]);
+            ctx.lineTo(foot[0] + v[0], foot[1] + v[1]);
+            ctx.stroke();
+            ctx.restore();
+          }
+        }
+      }
+      if (item.type === "orthocenter") {
+        ctx.save();
+        ctx.lineWidth = Math.max(1.6, o.style.width * 0.7);
+        item.altitudes.forEach((pair) =>
+          modelLine(...pair, item, ctx.lineWidth),
+        );
+        ctx.restore();
+      }
+      if (item.type === "incenter") {
+        const [c, rp] = project(o, [
+          item.center,
+          [item.center[0] + item.radius, item.center[1]],
+        ]);
+        ctx.setLineDash(item.dashed ? [8, 5] : []);
+        ctx.beginPath();
+        ctx.arc(...c, Math.hypot(rp[0] - c[0], rp[1] - c[1]), 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+      if (item.type === "highlightPlane") {
+        const pp = project(o, item.points);
+        ctx.save();
+        ctx.fillStyle = item.color || "#e8b84b35";
+        ctx.beginPath();
+        pp.forEach((p, i) => (i ? ctx.lineTo(...p) : ctx.moveTo(...p)));
+        ctx.closePath();
+        ctx.fill();
+        ctx.strokeStyle = "#b67a2f";
+        ctx.lineWidth = Math.max(1.5, o.style.width * 0.75);
+        ctx.setLineDash([5, 4]);
+        ctx.stroke();
+        ctx.restore();
       }
       if (["median", "bisector"].includes(item.type))
         modelLine(...item.endpoints, item);
@@ -693,21 +873,46 @@
           : [
               "segment",
               "midpoint",
-              "measure",
+              "altitude",
+              "rightAngle",
+              "equalTick",
+              "parallelArrow",
               "perpendicular",
               "parallel",
               "angle",
+              "measure",
               "intersection",
               "centroid",
+              "orthocenter",
               "median",
               "bisector",
-              ...(solid ? ["section", "orbit"] : ["circumcircle"]),
+              "highlightPlane",
+              ...(solid ? ["section", "orbit"] : ["incenter", "circumcircle"]),
             ],
       keys =
         available.length === 1
           ? available
-          : ["segment", "midpoint", "centroid", ...(solid ? ["orbit"] : [])],
+          : ["segment", "midpoint", ...(solid ? ["orbit"] : ["centroid"])],
       extras = available.filter((k) => !keys.includes(k));
+    const totalSteps = (o.data.constructions || []).length;
+    const curStep =
+      typeof o.data.currentStep === "number" ? o.data.currentStep : totalSteps;
+    const stepper =
+      totalSteps > 0
+        ? '<div class="geometry-stepper" style="display:inline-flex;align-items:center;gap:4px;margin-left:8px;padding-left:8px;border-left:1px solid #c2d2c8;">' +
+          '<span style="font-size:11px;color:#2f5344;font-weight:600">BƯỚC GIẢNG:</span>' +
+          '<span id="geo-step-prev" role="button" tabindex="0" class="stepper-btn" style="cursor:pointer;padding:2px 6px;border-radius:4px;background:#e2ece6" title="Bước giảng trước">⏮</span>' +
+          '<span style="font-size:12px;font-weight:600;min-width:38px;text-align:center">' +
+          Math.min(curStep, totalSteps) +
+          "/" +
+          totalSteps +
+          "</span>" +
+          '<span id="geo-step-next" role="button" tabindex="0" class="stepper-btn" style="cursor:pointer;padding:2px 6px;border-radius:4px;background:#e2ece6" title="Bước giảng sau">⏭</span>' +
+          '<span id="geo-step-all" role="button" tabindex="0" class="stepper-btn ' +
+          (typeof o.data.currentStep !== "number" ? "active" : "") +
+          '" style="cursor:pointer;padding:2px 6px;border-radius:4px;background:#e2ece6" title="Hiện toàn bộ hình">Hiện hết</span>' +
+          "</div>"
+        : "";
     bar.innerHTML =
       '<div class="geometry-toolbar-buttons">' +
       keys
@@ -731,10 +936,11 @@
           App.escape(
             extras.includes(interaction?.mode)
               ? titles[interaction.mode]
-              : "Dựng & đo",
+              : "Thêm công cụ",
           ) +
           " ▾</button>"
         : "") +
+      stepper +
       '<button id="geo-finish" title="Thoát công cụ dựng">✓ Xong</button>' +
       (interaction &&
       [
@@ -744,6 +950,7 @@
         "perpendicular",
         "median",
         "bisector",
+        "altitude",
         "section",
         "circumcircle",
       ].includes(interaction.mode)
@@ -756,6 +963,43 @@
       .querySelectorAll("[data-geo-mode]")
       .forEach((b) => (b.onclick = () => setMode(b.dataset.geoMode, o)));
     bar.querySelector("#geo-finish").onclick = cancel;
+    const prevBtn = bar.querySelector("#geo-step-prev");
+    if (prevBtn)
+      prevBtn.onclick = () => {
+        Store.transaction(() => {
+          o.data.currentStep = Math.max(
+            1,
+            (typeof o.data.currentStep === "number"
+              ? o.data.currentStep
+              : totalSteps) - 1,
+          );
+        });
+        renderToolbar();
+        Renderer.request();
+      };
+    const nextBtn = bar.querySelector("#geo-step-next");
+    if (nextBtn)
+      nextBtn.onclick = () => {
+        Store.transaction(() => {
+          o.data.currentStep = Math.min(
+            totalSteps,
+            (typeof o.data.currentStep === "number"
+              ? o.data.currentStep
+              : 0) + 1,
+          );
+        });
+        renderToolbar();
+        Renderer.request();
+      };
+    const allBtn = bar.querySelector("#geo-step-all");
+    if (allBtn)
+      allBtn.onclick = () => {
+        Store.transaction(() => {
+          delete o.data.currentStep;
+        });
+        renderToolbar();
+        Renderer.request();
+      };
     const more = bar.querySelector("#geo-more");
     if (more)
       more.onclick = () => {
@@ -809,10 +1053,30 @@
         Store.transaction(() => (o.data.rotation = [-0.45, -0.55]));
       return;
     }
+    const vList = points(o).filter((p) => !p.derived);
+    const renameHtml =
+      vList.length > 0
+        ? '<div style="margin:8px 0;padding:8px;background:var(--bg-accent,#f0f7f4);border-radius:6px;">' +
+          '<span style="font-size:12px;font-weight:600;color:var(--text-primary,#203328)">Đổi tên đỉnh hình học:</span>' +
+          '<div style="margin-top:5px;display:flex;gap:6px">' +
+          '<select id="geo-rename-select" style="flex:1">' +
+          vList
+            .map(
+              (p, idx) =>
+                '<option value="' + idx + '">' + App.escape(p.label) + "</option>",
+            )
+            .join("") +
+          '</select>' +
+          '<input id="geo-rename-input" placeholder="Tên mới" style="width:75px">' +
+          '<button id="geo-rename-btn" class="secondary" style="padding:2px 8px">Lưu</button>' +
+          "</div></div>"
+        : "";
     const box = document.createElement("section");
     box.className = "teacher-card";
     box.innerHTML =
-      '<div class="teacher-card-title">DỰNG HÌNH <span>Bắt điểm</span></div><details class="geo-details"><summary>Điểm, đường & phép dựng</summary><p class="hint">Dùng danh sách khi các đỉnh hoặc đường chồng nhau.</p><select id="geo-point-choice" aria-label="Điểm để dựng">' +
+      '<div class="teacher-card-title">DỰNG HÌNH <span>Bắt điểm</span></div>' +
+      renameHtml +
+      '<details class="geo-details"><summary>Điểm, đường & phép dựng</summary><p class="hint">Dùng danh sách khi các đỉnh hoặc đường chồng nhau.</p><select id="geo-point-choice" aria-label="Điểm để dựng">' +
       points(o)
         .map(
           (p) =>
@@ -833,6 +1097,22 @@
         : "") +
       "</details>";
     host.prepend(box);
+    const renameBtn = box.querySelector("#geo-rename-btn");
+    if (renameBtn) {
+      renameBtn.onclick = () => {
+        const idx = Number(box.querySelector("#geo-rename-select").value);
+        const val = box.querySelector("#geo-rename-input").value.trim();
+        if (!val) return App.toast("Nhập tên mới cho đỉnh.");
+        Store.transaction(() => {
+          o.data.vertexLabels = o.data.vertexLabels || {};
+          o.data.vertexLabels[idx] = val;
+        });
+        App.toast("Đã đổi tên đỉnh thành " + val);
+        mountPanel(o);
+        renderToolbar();
+        Renderer.request();
+      };
+    }
     const lineList = document.createElement("div");
     lineList.innerHTML =
       '<label class="field"><span>Giao điểm · chọn hai đường</span><select id="geo-line-choice" aria-label="Đường để lấy giao điểm">' +

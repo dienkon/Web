@@ -79,7 +79,11 @@
   async function getDocument(o) {
     const key = Store.book().id + "|" + o.data.assetId;
     if (documents.has(key)) return documents.get(key);
-    const a = asset(o);
+    let a = asset(o);
+    if (!a.data && a.inIDB && root.AssetStorage) {
+      const val = await root.AssetStorage.get(o.data.assetId);
+      if (val) a.data = val;
+    }
     return open(bytes(a), key);
   }
   async function raster(doc, pageNumber, rotation, maxSize = 2200) {
@@ -208,6 +212,10 @@
           }
         });
     }
+    ctx.save();
+    if (typeof o.style?.opacity === "number") {
+      ctx.globalAlpha = Math.max(0.05, Math.min(1, o.style.opacity));
+    }
     if (
       image &&
       (image instanceof HTMLCanvasElement ||
@@ -222,6 +230,7 @@
       ctx.fillText("Trang " + o.data.pageNumber + " · Đang tải PDF…", 30, 55);
     }
     if (screen) root.PDFTiles?.draw(ctx, o);
+    ctx.restore();
   }
   function parseRange(text, count) {
     const result = new Set();
@@ -230,11 +239,11 @@
       if (!m) throw Error("Khoảng trang chưa đúng. Ví dụ: 1-3, 5.");
       const a = Number(m[1]),
         b = Number(m[2] || m[1]);
-      if (a < 1 || b < a || b > count || b - a > 299)
-        throw Error("Chọn trang hợp lệ, tối đa 300 trang.");
+      if (a < 1 || b < a || b > count)
+        throw Error("Chọn trang hợp lệ (từ 1 đến " + count + ").");
       for (let i = a; i <= b; i++) result.add(i);
     }
-    if (!result.size || result.size > 300) throw Error("Chọn 1–300 trang.");
+    if (!result.size) throw Error("Hãy chọn ít nhất 1 trang.");
     return [...result].sort((a, b) => a - b);
   }
   async function importFile(file) {
@@ -242,12 +251,11 @@
     importing = true;
     let key;
     try {
-      if (file.size > 40 * 1024 * 1024) throw Error("PDF tối đa 40 MB.");
       const data = new Uint8Array(await file.arrayBuffer());
       if (!new TextDecoder().decode(data.slice(0, 1024)).includes("%PDF-"))
         throw Error("Tệp không có nội dung PDF hợp lệ.");
       key = Store.uid();
-      App.toast("Đang đọc PDF trên thiết bị…");
+      App.toast("Đang đọc PDF (" + (file.size / (1024 * 1024)).toFixed(1) + " MB)…");
       let doc;
       try {
         doc = await open(data, key);
@@ -272,30 +280,34 @@
           doc.numPages +
           " trang · " +
           (file.size / 1024 / 1024).toFixed(1) +
-          ' MB</p><span class="badge">Xử lý hoàn toàn offline</span></div></div><label class="field"><span>Trang cần nhập · sổ tay tối đa 300 trang</span><input name="range" id="pdf-range" value="1' +
+          ' MB</p><span class="badge">Không giới hạn dung lượng · Offline</span></div></div><label class="field"><span>Trang cần nhập</span><input name="range" id="pdf-range" value="1' +
           (doc.numPages > 1
-            ? "-" + Math.min(doc.numPages, 300 - Store.book().pages.length)
+            ? "-" + doc.numPages
             : "") +
-          '" required></label><label class="field"><span>Cách chèn</span><select name="placement"><option value="pages">Mỗi trang PDF → một trang sổ tay mới</option><option value="current">Chèn 1 trang PDF vào trang đang mở</option></select></label><p class="hint">Cuộn liên tục qua các trang. Phần đang xem tự tải từ PDF gốc theo mức zoom và độ nét màn hình.</p><p class="hint">Nền PDF được khóa để viết, highlight và chèn công thức lên trên. PDF gốc được giữ nguyên để xuất lại rõ nét; đây không phải trình sửa từng ký tự trong PDF.</p>',
+          '" required></label><label class="field"><span>Cách chèn</span><select name="placement"><option value="pages">Mỗi trang PDF → một trang sổ tay mới</option><option value="current">Chèn 1 trang PDF vào trang đang mở</option></select></label><p class="hint">Cuộn liên tục qua các trang. Hỗ trợ tài liệu dung lượng lớn, xử lý mượt mà theo viewport.</p><p class="hint">Nền PDF được khóa để viết, highlight và chèn hình học đồ nét lên trên.</p>',
         "Chèn PDF",
       );
       if (!selected) return;
       const pages = parseRange(selected.range, doc.numPages);
       if (selected.placement === "current" && pages.length !== 1)
         throw Error("Chế độ chèn vào trang hiện tại cần chọn đúng 1 trang.");
-      if (Store.book().pages.length + pages.length > 300)
-        throw Error("Sổ tay tối đa 300 trang.");
       const notebookId = Store.book().id,
         created = [],
         objects = [];
+      const base64Data = "data:application/pdf;base64," + base64(data);
       const a = {
         type: "application/pdf",
         name: file.name.slice(0, 250),
-        data: "data:application/pdf;base64," + base64(data),
+        data: base64Data,
         pages: doc.numPages,
+        inIDB: true,
       };
+      if (root.AssetStorage) {
+        root.AssetStorage.put(key, base64Data).catch(() => {});
+      }
       for (const [i, num] of pages.entries()) {
-        App.toast("Đang dựng PDF " + (i + 1) + " / " + pages.length + "…");
+        if (pages.length > 5 && i % 5 === 0)
+          App.toast("Đang dựng PDF " + (i + 1) + " / " + pages.length + "…");
         const source = await doc.getPage(num),
           v = source.getViewport({ scale: 1 }),
           w = 1200,
@@ -330,19 +342,6 @@
       }
       if (Store.book().id !== notebookId)
         throw Error("Sổ tay đã thay đổi trong khi nhập. Hãy nhập lại PDF.");
-      const sourceSize =
-        Object.values(Store.book().assets || {}).reduce(
-          (n, a) => n + a.data.length,
-          0,
-        ) + a.data.length;
-      if (
-        sourceSize > 80e6 ||
-        sourceSize + Store.snapshot().length + JSON.stringify(created).length >
-          90e6
-      )
-        throw Error(
-          "Sổ tay quá lớn để sao lưu và mở lại an toàn. Hãy tạo sổ tay mới hoặc chọn ít trang PDF hơn. Nội dung hiện tại được giữ nguyên.",
-        );
       Store.transaction(() => {
         Store.book().assets = Store.book().assets || {};
         Store.book().assets[key] = a;
@@ -381,7 +380,7 @@
       App.toast(
         "Đã chèn " +
           pages.length +
-          " trang PDF. Viết trực tiếp lên tài liệu; Ctrl+S để sao lưu.",
+          " trang PDF không giới hạn. Có thể dùng bút hoặc hình học đồ trực tiếp lên bài toán!",
         6000,
       );
       return true;
@@ -398,14 +397,72 @@
       Store.current().objects.find((o) => o.type === "pdf")
     );
   }
+  function toggleTraceMode(o = currentPDF()) {
+    if (!o) return App.toast("Chọn hoặc mở một trang PDF để đồ hình.");
+    Store.transaction(() => {
+      const isDimmed = (o.style.opacity ?? 1) < 0.85;
+      o.style.opacity = isDimmed ? 1 : 0.5;
+      o.locked = true;
+    });
+    if ((o.style.opacity ?? 1) < 0.85) {
+      App.setTool("pen");
+      App.toast("✏️ Đã bật chế độ đồ hình: Nền PDF làm mờ 50% và khóa cố định, chuyển sang bút để viết giải hoặc đồ lại nét!", 5000);
+    } else {
+      App.toast("Đã tắt chế độ đồ hình (Nền PDF khôi phục 100% độ nét).", 4000);
+    }
+    Store.emit();
+    panel();
+    Renderer.request();
+  }
+  function setOpacity(o, val) {
+    if (!o) return;
+    Store.transaction(() => {
+      o.style.opacity = val;
+    });
+    Store.emit();
+    panel();
+    Renderer.request();
+  }
+  async function snipDiagram(o = currentPDF()) {
+    if (!o) return App.toast("Không tìm thấy trang PDF.");
+    try {
+      App.toast("Đang trích xuất hình vẽ bài toán…");
+      const doc = await getDocument(o),
+        canvas = await raster(doc, o.data.pageNumber, o.data.pageRotation, 1800),
+        dataUrl = canvas.toDataURL("image/png");
+      canvas.width = canvas.height = 1;
+      const imgObj = Store.object(
+        "image",
+        {
+          src: dataUrl,
+          title: "Hình trích từ PDF trang " + o.data.pageNumber,
+        },
+        {
+          position: App.insertPosition(500, 400),
+          size: { w: 500, h: 400 },
+          style: { color: "#111111", width: 2, opacity: 1 },
+        },
+      );
+      Store.transaction(() => {
+        Store.current().objects.push(imgObj);
+        Store.state.selection = [imgObj.id];
+      });
+      App.toast("Đã tạo vùng hình học độc lập từ PDF để giáo viên giảng bài và đồ nét!", 5000);
+      Store.emit();
+    } catch (e) {
+      App.toast("Lỗi trích xuất: " + e.message);
+    }
+  }
   function panel() {
     const el = document.getElementById("panel-content"),
       o = currentPDF();
     el.innerHTML =
-      '<button class="primary full" data-action="import-pdf">+ Chọn PDF từ máy</button><p class="hint">Viết, highlight, chèn hình và công thức trên lớp riêng. PDF gốc không bị tẩy hoặc ghi đè.</p>';
+      '<button class="primary full" data-action="import-pdf">+ Chọn PDF từ máy (Không giới hạn dung lượng)</button><p class="hint">Viết, highlight, chèn hình và công thức trên lớp riêng. Hỗ trợ đồ hình trực tiếp lên trang PDF.</p>';
     if (!o) return;
     const a = asset(o),
-      card = document.createElement("div");
+      card = document.createElement("div"),
+      curOp = o.style.opacity ?? 1,
+      isTracing = curOp < 0.85;
     card.innerHTML =
       '<div class="panel-divider"></div><h3>' +
       App.escape(a.name) +
@@ -413,10 +470,26 @@
       o.data.pageNumber +
       " / " +
       a.pages +
-      ' · nét gốc được giữ khi xuất PDF</p><div class="tiny-buttons"><button id="pdf-unlock">' +
+      ' · Không giới hạn kích thước · Nét gốc vector</p><div class="teacher-card" style="margin-bottom:12px;background:var(--bg-accent,#f0f7f4);padding:10px;border-radius:8px"><div class="teacher-card-title" style="font-weight:600;margin-bottom:6px">CHẾ ĐỘ ĐỒ HÌNH TRÊN PDF</div><button id="pdf-trace-toggle" class="primary full" style="margin-bottom:8px">' +
+      (isTracing ? "✓ Đang ở Chế độ đồ hình (Nhấp để tắt)" : "✏️ Bật Chế độ đồ hình (Mờ nền để vẽ đè)") +
+      '</button><div class="tiny-buttons"><span style="font-size:12px;align-self:center">Độ mờ nền:</span><button id="pdf-op-100" class="' +
+      (curOp >= 0.95 ? "active" : "") +
+      '">100%</button><button id="pdf-op-70" class="' +
+      (curOp >= 0.65 && curOp < 0.85 ? "active" : "") +
+      '">70%</button><button id="pdf-op-50" class="' +
+      (curOp >= 0.45 && curOp < 0.65 ? "active" : "") +
+      '">50%</button><button id="pdf-op-30" class="' +
+      (curOp < 0.45 ? "active" : "") +
+      '">30%</button></div><button id="pdf-snip" class="secondary full" style="margin-top:8px">✂️ Trích xuất hình bài toán ra khung vẽ độc lập</button></div><div class="tiny-buttons"><button id="pdf-unlock">' +
       (o.locked ? "Mở khóa để di chuyển" : "Khóa nền để ghi chú") +
       '</button><button id="pdf-rotate">Xoay trang 90°</button><button id="pdf-original">Tải PDF gốc</button></div><button id="pdf-text" class="secondary full">Trích xuất văn bản để chỉnh sửa</button><div id="pdf-text-result" hidden><textarea id="pdf-extracted" rows="10" aria-label="Văn bản trích xuất"></textarea><div class="field-row"><button id="pdf-insert-text" class="secondary">Chèn văn bản</button><button id="pdf-format-text" class="secondary">Dàn công thức</button></div></div>';
     el.append(card);
+    document.getElementById("pdf-trace-toggle").onclick = () => toggleTraceMode(o);
+    document.getElementById("pdf-op-100").onclick = () => setOpacity(o, 1.0);
+    document.getElementById("pdf-op-70").onclick = () => setOpacity(o, 0.7);
+    document.getElementById("pdf-op-50").onclick = () => setOpacity(o, 0.5);
+    document.getElementById("pdf-op-30").onclick = () => setOpacity(o, 0.3);
+    document.getElementById("pdf-snip").onclick = () => snipDiagram(o);
     document.getElementById("pdf-unlock").onclick = () => {
       Store.transaction(() => (o.locked = !o.locked));
       Store.state.selection = o.locked ? [] : [o.id];
@@ -566,5 +639,8 @@
     importFile,
     panel,
     exportVectorPage,
+    toggleTraceMode,
+    setOpacity,
+    snipDiagram,
   };
 })(window);
