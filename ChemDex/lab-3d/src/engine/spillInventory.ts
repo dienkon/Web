@@ -29,6 +29,7 @@ function mergedThermal(samples: (Pick<SpillState, 'mass_g'> & Partial<SpillState
   return { temperature_c: capacity > 0 ? samples.reduce((s, c, i) => s + capacities[i] * (c.temperature_c ?? 25), 0) / capacity
     : mass > 0 ? samples.reduce((s, c) => s + c.mass_g * (c.temperature_c ?? 25), 0) / mass : 25,
     escapedGas_g, gasRate_mol_s: 0, vaporRate_g_s: 0, chemistryLimit: undefined, thermalModelLimit: undefined,
+    sodiumContact: undefined,
     reactionHeat_J: sum('reactionHeat_J'), thermalVaporEnthalpy_J: sum('thermalVaporEnthalpy_J'),
     thermalVaporSensibleEnthalpy_J: sum('thermalVaporSensibleEnthalpy_J'), thermalEnergyOutsideModel_J: sum('thermalEnergyOutsideModel_J') };
 }

@@ -2,7 +2,7 @@ import type { SpillState, VesselState } from '../types/chemistry';
 import { findHandcraftedProgram } from '../vfx/programs/resolver';
 import { applyProgramToLedger, computeMolarMass } from './ledger';
 import { projectAqueousSolution } from './aqueousProjection';
-import { sodiumReactionDuration, sodiumWaterContact } from '../science/sodiumWater';
+import { sodiumReactionDuration, sodiumWaterContact, sodiumMetalMass, sodiumContactRegime, SODIUM_MOLAR_MASS } from '../science/sodiumWater';
 import { getProgramById, ALL_HANDCRAFTED_PROGRAMS } from '../vfx/programs/library';
 import { applyThermalEnergy, sampleHeatCapacity } from './thermalState';
 import { aqueousWaterBoundary } from '../science/aqueousWaterBoundary';
@@ -20,6 +20,24 @@ function contactHalfTime(program: ReactionProgram): number | null {
   return reactants.length && reactants.every(s => ['aq', 'l', 's'].includes(s.phase)) ? rate.halfTime_s : null;
 }
 const contactPrograms = ALL_HANDCRAFTED_PROGRAMS.filter(p => contactHalfTime(p) !== null);
+
+function sodiumContactStep(spill: SpillState, reference: VesselState, dt: number) {
+  const metal = sodiumMetalMass(reference);
+  const water = reference.contents.filter(c => c.formula === 'H2O' && c.phase === 'l')
+    .reduce((sum, c) => sum + c.moles * SODIUM_MOLAR_MASS, 0);
+  const previous = spill.sodiumContact;
+  const valid = previous && [previous.initialMetal_g, previous.reactiveMetal_g, previous.duration_s, previous.elapsed_s].every(Number.isFinite)
+    && previous.initialMetal_g >= metal - 1e-10 && previous.reactiveMetal_g > 0
+    && previous.initialMetal_g - metal <= previous.reactiveMetal_g + 1e-10
+    && previous.reactiveMetal_g <= previous.initialMetal_g && previous.duration_s > 0 && previous.elapsed_s >= 0
+    && previous.elapsed_s <= previous.duration_s && ['skitter', 'disruptive'].includes(previous.regime);
+  const contact = valid ? previous : { initialMetal_g: metal, reactiveMetal_g: Math.min(metal, water),
+    duration_s: sodiumReactionDuration(reference), elapsed_s: 0, regime: sodiumContactRegime(reference) };
+  const elapsed_s = Math.min(contact.duration_s, contact.elapsed_s + dt);
+  const consumed = Math.max(0, contact.initialMetal_g - metal);
+  const target = contact.reactiveMetal_g * elapsed_s / contact.duration_s;
+  return { contact: { ...contact, elapsed_s }, progress: Math.min(1, Math.max(0, target - consumed) / Math.max(1e-12, Math.min(metal, water))) };
+}
 
 /** An open puddle has no glass heat capacity or sealed headspace. Resolve only
  * authored contact chemistry; never infer heating/ignition from a VFX preset. */
@@ -50,7 +68,8 @@ export function stepSpillChemistry(spill: SpillState, dt: number, room: LabEnvir
   if (!program || program.provenance === 'fallback' || (!sodium && halfTime === null))
     return spill.gasRate_mol_s || spill.vaporRate_g_s || spill.reactionProgramId
       ? { ...spill, gasRate_mol_s: 0, vaporRate_g_s: 0, reactionProgramId: undefined } : spill;
-  const progress = sodium ? Math.min(1, dt / sodiumReactionDuration(reference)) : -Math.expm1(-Math.LN2 * dt / halfTime!);
+  const sodiumStep = sodium ? sodiumContactStep(spill, reference, dt) : null;
+  const progress = sodiumStep ? sodiumStep.progress : -Math.expm1(-Math.LN2 * dt / halfTime!);
   const next = applyProgramToLedger(program, reference, progress, { deferThermal: true });
   const heat = next.programHeatApplied_J ?? 0;
   const reacted = { ...reference, ...next }, boundary = aqueousWaterBoundary(reacted);
@@ -71,6 +90,7 @@ export function stepSpillChemistry(spill: SpillState, dt: number, room: LabEnvir
   const escapedGas_g = { ...next.escapedGas_g };
   if (thermal.evaporatedStep_g > 0) escapedGas_g.H2O = (escapedGas_g.H2O ?? 0) + thermal.evaporatedStep_g;
   return { ...spill, reactionProgramId: program.id, contents, substances: [...new Set(contents.filter(c => c.moles > 1e-12).map(c => c.formula))],
+    sodiumContact: sodiumStep?.contact ?? spill.sodiumContact,
     volume_ml: projected.volume_ml, mass_g: projected.mass_g,
     temperature_c, color: projectAqueousSolution(projected)?.liquidColor ?? next.liquidColor ?? spill.color,
     escapedGas_g, gasRate_mol_s: gasMoles / dt, vaporRate_g_s: thermal.evaporatedStep_g / dt,

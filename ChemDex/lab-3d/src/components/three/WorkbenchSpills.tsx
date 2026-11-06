@@ -13,6 +13,9 @@ import { createSpillGeometry } from '../../pour/render/spillGeometry';
 import { Steam } from '../../vfx/particles/Steam';
 import { waterVisualState } from '../../vfx/waterVisualState';
 import { useLabEnvironment } from '../../store/useLabEnvironment';
+import { SpilledSodium, type SpillSodiumContactPoint } from './SpilledSodium';
+import { spillSurfaceY } from '../../vfx/geometry/spillSodium';
+import { sodiumMetalMass } from '../../science/sodiumWater';
 
 export const WorkbenchSpills = React.memo(function WorkbenchSpills() {
   const spills = useAppStore(state => state.spills);
@@ -20,6 +23,7 @@ export const WorkbenchSpills = React.memo(function WorkbenchSpills() {
 });
 
 function SpillPuddle({ spill }: { spill: SpillState }) {
+  const sodiumContact = useRef<SpillSodiumContactPoint>({ active: false, x: 0, y: 0, z: 0, radius: 0 });
   const environment = useLabEnvironment(s => s.conditions);
   const vapor = useMemo(() => waterVisualState({ volume_ml: spill.volume_ml, temperature_c: spill.temperature_c ?? 25,
     evaporationRate_g_s: spill.vaporRate_g_s ?? 0, isBoiling: (spill.vaporRate_g_s ?? 0) > 0, environment }),
@@ -39,7 +43,9 @@ function SpillPuddle({ spill }: { spill: SpillState }) {
 
   return <group position={position}>
     <SpilledSolids spill={spill} />
-    <SpillReactionBubbles spill={spill} drop={drop} pressure_atm={environment.pressure_atm} />
+    {sodiumMetalMass({ contents: spill.contents ?? [] }) > 1e-10 && <SpilledSodium spill={spill} drop={drop}
+      contact={sodiumContact} airSpeed_m_s={environment.airSpeed_m_s} />}
+    <SpillReactionBubbles spill={spill} drop={drop} pressure_atm={environment.pressure_atm} contact={sodiumContact} />
     {(spill.thermalVaporEnthalpy_J ?? 0) > 0 && <Steam vesselId={spill.id}
       surfaceY={(drop?.height_m ?? 0) / METERS_PER_SCENE_UNIT} radius={spill.radius} sourceState={vapor} />}
     {geometry && <mesh geometry={geometry} receiveShadow>
@@ -51,7 +57,8 @@ function SpillPuddle({ spill }: { spill: SpillState }) {
 }
 
 /** Bounded packets of generated gas, with no source after chemistry stops. */
-function SpillReactionBubbles({ spill, drop, pressure_atm }: { spill: SpillState; drop: SessileDropShape | null; pressure_atm: number }) {
+function SpillReactionBubbles({ spill, drop, pressure_atm, contact }: { spill: SpillState; drop: SessileDropShape | null;
+  pressure_atm: number; contact: React.MutableRefObject<SpillSodiumContactPoint> }) {
   const mesh = useRef<THREE.InstancedMesh>(null);
   const transform = useMemo(() => new THREE.Object3D(), []);
   const pool = useRef({ credit: 0, serial: 0, particles: Array.from({ length: 16 }, () => ({ age: 1, x: 0, z: 0, y: 0 })) });
@@ -65,13 +72,14 @@ function SpillReactionBubbles({ spill, drop, pressure_atm }: { spill: SpillState
       const bubble = p.particles[i]; bubble.age += dt;
       if (bubble.age >= 0.4 && p.credit >= 1 && dt > 0) {
         p.credit--; const n = p.serial++, angle = n * 2.399963;
-        const r = Math.sqrt(((n * 0.618034) % 1)) * spill.radius * 0.7;
-        bubble.x = Math.cos(angle) * r; bubble.z = Math.sin(angle) * r; bubble.age = 0;
-        const profile = drop?.profile ?? [], radius_m = r * METERS_PER_SCENE_UNIT;
-        const index = profile.findIndex(point => point.radius_m >= radius_m);
-        const a = profile[Math.max(0, index - 1)], b = profile[Math.max(0, index)];
-        const fraction = a && b && b.radius_m > a.radius_m ? (radius_m - a.radius_m) / (b.radius_m - a.radius_m) : 0;
-        bubble.y = a && b ? (a.height_m + (b.height_m - a.height_m) * fraction) / METERS_PER_SCENE_UNIT : 0;
+        const source = contact.current;
+        // A final accepted packet can outlive the exhausted pellet for one
+        // store interval; keep that packet at the last metal contact point.
+        const local = spill.reactionProgramId === 'na_h2o' && (source.active || !!spill.sodiumContact);
+        const r = Math.sqrt(((n * 0.618034) % 1)) * (local ? source.radius : spill.radius * 0.7);
+        bubble.x = (local ? source.x : 0) + Math.cos(angle) * r;
+        bubble.z = (local ? source.z : 0) + Math.sin(angle) * r; bubble.age = 0;
+        bubble.y = spillSurfaceY(drop, bubble.x, bubble.z);
       }
       const life = Math.min(1, bubble.age / 0.4);
       transform.position.set(bubble.x, bubble.y + 0.006 + life * 0.03, bubble.z);
@@ -80,7 +88,7 @@ function SpillReactionBubbles({ spill, drop, pressure_atm }: { spill: SpillState
     }
     mesh.current.instanceMatrix.needsUpdate = true;
   });
-  return <instancedMesh ref={mesh} args={[undefined, undefined, 16]} frustumCulled={false}>
+  return <instancedMesh name={`spill-bubbles:${spill.id}`} ref={mesh} args={[undefined, undefined, 16]} frustumCulled={false}>
     <sphereGeometry args={[1, 8, 6]} />
     <meshPhysicalMaterial color="#f8fafc" transparent opacity={0.45} roughness={0.05} depthWrite={false} />
   </instancedMesh>;

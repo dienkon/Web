@@ -7,7 +7,9 @@ import type { SpillState } from '../../types/chemistry';
 export function SpilledSolids({ spill }: { spill: SpillState }) {
   const mesh = useRef<THREE.InstancedMesh>(null);
   const grains = useMemo(() => {
+    // Sodium has one mass-scaled pellet renderer; do not draw a second pile.
     const solids = (spill.contents ?? []).filter(item => item.mass_g > 0
+      && !(item.formula === 'Na' && (item.phase ?? item.state ?? 's') === 's')
       && (item.phase === 's' || item.state === 's' || item.state === 'solid'));
     const mass = solids.reduce((sum, item) => sum + item.mass_g, 0);
     const dryUnspecifiedMass = spill.volume_ml === 0 && !spill.contents?.length ? spill.mass_g : 0;

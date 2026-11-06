@@ -36,6 +36,7 @@ import { SimulationEngine } from '../../simulation/core/SimulationEngine';
 import { PourController } from '../../pour/controller/PourController';
 import { PourSessionState } from '../../pour/controller/modes';
 import { kineticsEngine, ReactionProgressState } from '../../simulation/chemistry/KineticsEngine';
+import { sodiumMetalMass } from '../../science/sodiumWater';
 
 type StudioTab = 'reactions' | 'simulation' | 'programs' | 'atoms' | 'morphology' | 'physics' | 'flames' | 'telemetry';
 
@@ -45,7 +46,9 @@ function WorkbenchReactionReadout() {
   const spills = useAppStore(s => s.spills);
   const escaped = useAppStore(s => s.workbenchEscapedGas_g);
   const pools = Object.values(spills), vapor = escaped.H2O ?? 0;
-  if (!pools.length && !(vapor > 0)) return null;
+  const sodium = pools.reduce((sum, p) => sum + sodiumMetalMass({ contents: p.contents ?? [] }), 0);
+  const hydrogen = escaped.H2 ?? 0;
+  if (!pools.length && !(vapor > 0) && !(hydrogen > 0)) return null;
   const total = pools.reduce((s, p) => ({ mass: s.mass + p.mass_g, volume: s.volume + p.volume_ml,
     heat: s.heat + (p.reactionHeat_J ?? 0), rate: s.rate + (p.vaporRate_g_s ?? 0),
     limits: s.limits + (p.chemistryLimit ? 1 : 0) }), { mass: 0, volume: 0, heat: 0, rate: 0, limits: 0 });
@@ -53,6 +56,7 @@ function WorkbenchReactionReadout() {
     <p>Trên bàn: {pools.length} vũng · {total.volume.toFixed(3)} mL · {total.mass.toFixed(4)} g</p>
     <p>Nhiệt phản ứng đã cấp: {total.heat.toFixed(2)} J · Hơi nước: {total.rate.toFixed(4)} g/s</p>
     <p>H₂O thoát vào khí quyển (tích lũy): {vapor.toFixed(4)} g</p>
+    {(sodium > 0 || hydrogen > 0) && <p>Na còn: {sodium.toFixed(4)} g · H₂ thoát (tích lũy): {hydrogen.toFixed(6)} g</p>}
     {total.limits > 0 && <p className="text-amber-700">Giới hạn mô hình chuyển pha: {total.limits} vũng.</p>}
   </div>;
 }

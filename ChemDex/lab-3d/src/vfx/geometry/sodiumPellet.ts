@@ -90,6 +90,21 @@ export function sodiumPelletRadius(vessel: Pick<VesselState, 'type' | 'capacity_
   return Math.cbrt(solidSceneVolume(vessel, Math.max(0, mass_g) / SODIUM_DENSITY_G_ML) / UNIT_VOLUME);
 }
 
+/** Waterline of this volume-normalized mesh, shared by vessels and puddles. */
+export function sodiumPelletWaterline(shape: SodiumPelletShape, densityRatio: number): number {
+  const ratio = Math.max(0, Math.min(1, densityRatio));
+  if (shape.densityRatio !== ratio) {
+    let low = shape.bottom, high = shape.top;
+    for (let i = 0; i < 22; i++) {
+      const plane = (low + high) / 2;
+      if (submergedPelletVolume(shape.positions, plane) / shape.volume < ratio) low = plane;
+      else high = plane;
+    }
+    shape.waterline = (low + high) / 2; shape.densityRatio = ratio;
+  }
+  return shape.waterline!;
+}
+
 export function sodiumPelletPlacement(vessel: VesselState, mass_g: number, melt: number) {
   const shape = sodiumPelletShape(melt), radius = sodiumPelletRadius(vessel, mass_g);
   const floor = liquidGeometry(vessel.type).floorY, surface = vesselLiquidSurfaceY(vessel);
@@ -98,17 +113,7 @@ export function sodiumPelletPlacement(vessel: VesselState, mass_g: number, melt:
   let centerY = floor - shape.bottom * radius;
   if (water) {
     const density = liquidInventoryMass(vessel) / vessel.volume_ml;
-    const ratio = Math.max(0, Math.min(1, SODIUM_DENSITY_G_ML / Math.max(1e-9, density)));
-    if (shape.densityRatio !== ratio) {
-      let low = shape.bottom, high = shape.top;
-      for (let i = 0; i < 22; i++) {
-        const plane = (low + high) / 2;
-        if (submergedPelletVolume(shape.positions, plane) / shape.volume < ratio) low = plane;
-        else high = plane;
-      }
-      shape.waterline = (low + high) / 2; shape.densityRatio = ratio;
-    }
-    centerY = Math.max(centerY, surface - shape.waterline! * radius);
+    centerY = Math.max(centerY, surface - sodiumPelletWaterline(shape, SODIUM_DENSITY_G_ML / Math.max(1e-9, density)) * radius);
   }
   return { shape, radius, centerY, surface, floor, hasWater: water,
     horizontalRadius: shape.horizontalRadius * radius, bottomY: centerY + shape.bottom * radius };

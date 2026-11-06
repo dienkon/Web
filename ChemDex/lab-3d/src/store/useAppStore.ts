@@ -2760,9 +2760,10 @@ export const useAppStore = create<AppState>((set, get) => {
 
     replaceShatteredVessel: (id) => {
       const v = get().vessels[id];
-      if (!v) return;
+      if (!v?.isShattered) return;
       labSound.playGlassClink();
       set(s => {
+        if (s.vessels[id] !== v || !v.isShattered) return s;
         const updatedVessel: VesselState = {
           ...v,
           bodyRevision: (v.bodyRevision ?? 0) + 1,
@@ -2773,7 +2774,22 @@ export const useAppStore = create<AppState>((set, get) => {
           volume_ml: 0,
           volume: 0,
           mass_g: 0,
-          temperature_c: 25,
+          temperature_c: useLabEnvironment.getState().conditions.temperature_c,
+          environment: useLabEnvironment.getState().conditions,
+          effectsEnvironment: undefined,
+          effectSampleRevision: (v.effectSampleRevision ?? 0) + 1,
+          studioProgramId: undefined, studioSpecimenVariant: undefined, ignitedProgramId: undefined,
+          programHeatApplied_J: 0, gasReplayBlocked: false,
+          effectHeatInput_W: 0, effectHeatHandle: undefined,
+          thermalHeatingPower_W: 0, hydrogenCombustion: undefined, gasFlux: undefined,
+          recentPourContact: undefined, liquidOptics: undefined, liquidColor: undefined,
+          isBoiling: false, boilingIntensity: 0, hasGas: false, gasRate: 0,
+          hasPrecipitate: false, precipitateAmount_g: 0, precipitateSubstance: undefined,
+          precipitateColor: undefined, precipitateMorphology: undefined, foam_ml: 0,
+          isSealed: false, sealedHeadspace: undefined, internalPressureModel: 'ambient',
+          internalPressure_atm: useLabEnvironment.getState().conditions.pressure_atm,
+          stopcockOpen: false, isFiltrating: false, fumingIntensity: 0, iceVolume_ml: 0,
+          thermalModelLimit: undefined, residues: [],
           ph: 7.0,
           stainIntensity: 0,
           condensationMist: 0,

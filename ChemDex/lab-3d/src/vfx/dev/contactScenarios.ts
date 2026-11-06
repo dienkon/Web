@@ -5,6 +5,7 @@ import { aqueousBoilingPoint } from '../../engine/thermalState';
 export const CONTACT_SCENARIOS = [
   { id: 'sodium_small', label: 'Na nhỏ · chạy ngẫu nhiên' },
   { id: 'sodium_large', label: 'Na lớn · nổ khi tiếp xúc' },
+  { id: 'sodium_spill', label: 'Na · tiếp tục sau vỡ bình' },
   { id: 'color_overflow', label: 'Pha màu · rót tràn' },
   { id: 'reactive_overflow', label: 'Bình đầy · tràn kết tủa' },
   { id: 'spill_precipitate', label: 'Đổ ra bàn · tạo kết tủa' },
@@ -60,6 +61,11 @@ export async function runContactScenario(id: string, scenario: ContactScenarioId
   if (!store.prepareStudioWaterSample(id)) return useAppStore.getState().mixError ?? 'Bình không phù hợp.';
   store.cleanSpills();
   store.setSimulationPaused(false);
+  if (scenario === 'sodium_spill') {
+    await store.mixSubstances(id, 'Na', 0.1);
+    store.shatterVessel(id, 'Mechanical impact (Studio sodium spill test)');
+    return 'Bình đã vỡ; Na còn thật trong vũng tiếp tục chạy ngẫu nhiên và sinh H₂. Thử Pause, sau đó thay bình để kiểm tra lại.';
+  }
   if (scenario === 'reactive_overflow') {
     const sample = useAppStore.getState().vessels[id];
     await store.mixSubstances(id, 'CuSO4', sample.capacity_ml - sample.volume_ml);

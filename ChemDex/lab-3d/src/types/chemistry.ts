@@ -270,6 +270,9 @@ export interface BurnerState {
 }
 
 export interface SpillState {
+  /** One illustrative sodium contact run, invalidated when another dose merges. */
+  sodiumContact?: { initialMetal_g: number; reactiveMetal_g: number; duration_s: number; elapsed_s: number;
+    regime: 'skitter' | 'disruptive' };
   /** Cumulative heat receipts; escaped water belongs to the atmosphere ledger. */
   reactionHeat_J?: number;
   thermalVaporEnthalpy_J?: number;
