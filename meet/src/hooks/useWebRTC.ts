@@ -226,6 +226,8 @@ export function useWebRTC() {
             } catch (e) {}
           });
           activeStream.addTrack(newTrack);
+          stream = new MediaStream(activeStream.getTracks());
+          setLocalStream(stream);
         } else {
           stream = audioStream;
           setLocalStream(stream);
@@ -299,6 +301,8 @@ export function useWebRTC() {
             } catch (e) {}
           });
           activeStream.addTrack(newTrack);
+          stream = new MediaStream(activeStream.getTracks());
+          setLocalStream(stream);
         } else {
           stream = videoStream;
           setLocalStream(stream);

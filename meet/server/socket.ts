@@ -9,7 +9,13 @@ export function setupSocketHandlers(io: Server) {
     let currentUserId: string | null = null;
 
     // 1. Join Room
-    socket.on('room:join', ({ roomId, userName, isHost }: { roomId: string; userName: string; isHost?: boolean }) => {
+    socket.on('room:join', ({ roomId, userName, isHost, audioEnabled, videoEnabled }: {
+      roomId: string;
+      userName: string;
+      isHost?: boolean;
+      audioEnabled?: boolean;
+      videoEnabled?: boolean;
+    }) => {
       const room = roomManager.getRoom(roomId) || roomManager.createRoom(roomId, roomId, socket.id, true);
       currentRoomId = room.id;
       currentUserId = socket.id;
@@ -18,8 +24,8 @@ export function setupSocketHandlers(io: Server) {
         id: socket.id,
         socketId: socket.id,
         name: userName || 'Khách',
-        audioEnabled: true,
-        videoEnabled: true,
+        audioEnabled: audioEnabled !== undefined ? audioEnabled : true,
+        videoEnabled: videoEnabled !== undefined ? videoEnabled : true,
         isHost: isHost || room.participants.size === 0,
         isSpeaking: false,
         joinedAt: Date.now(),

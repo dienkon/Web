@@ -88,6 +88,10 @@ export class WebRTCManager {
     }
 
     // Receive remote tracks safely
+    const notifyStream = () => {
+      onTrack(new MediaStream(remoteStream.getTracks()));
+    };
+
     pc.ontrack = (event) => {
       const track = event.track;
       if (track) {
@@ -95,7 +99,10 @@ export class WebRTCManager {
           remoteStream.addTrack(track);
         }
         track.onunmute = () => {
-          onTrack(remoteStream);
+          notifyStream();
+        };
+        track.onended = () => {
+          notifyStream();
         };
       }
 
@@ -104,9 +111,15 @@ export class WebRTCManager {
           if (!remoteStream.getTracks().some((existing) => existing.id === t.id)) {
             remoteStream.addTrack(t);
           }
+          t.onunmute = () => {
+            notifyStream();
+          };
+          t.onended = () => {
+            notifyStream();
+          };
         });
       }
-      onTrack(remoteStream);
+      notifyStream();
     };
 
     // Emit ICE candidates
@@ -209,6 +222,9 @@ export class WebRTCManager {
           (t) => t.sender.track?.kind === track.kind || t.receiver.track?.kind === track.kind
         );
         if (matchingTransceiver && matchingTransceiver.sender) {
+          if (matchingTransceiver.direction === 'recvonly' || matchingTransceiver.direction === 'inactive') {
+            matchingTransceiver.direction = 'sendrecv';
+          }
           matchingTransceiver.sender.replaceTrack(track).catch((err) => {
             console.warn(`[WebRTC] replaceTrack error for peer ${peerId}:`, err);
           });
@@ -230,6 +246,9 @@ export class WebRTCManager {
         (t) => t.sender.track?.kind === kind || t.receiver.track?.kind === kind
       );
       if (transceiver && transceiver.sender) {
+        if (newTrack && (transceiver.direction === 'recvonly' || transceiver.direction === 'inactive')) {
+          transceiver.direction = 'sendrecv';
+        }
         transceiver.sender.replaceTrack(newTrack).catch((err) => {
           console.warn(`[WebRTC] replaceTrack error for ${kind} with peer ${peerId}:`, err);
         });

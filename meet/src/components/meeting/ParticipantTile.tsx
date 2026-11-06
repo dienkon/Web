@@ -20,17 +20,38 @@ export const ParticipantTile: React.FC<ParticipantTileProps> = ({
   const videoRef = useRef<HTMLVideoElement>(null);
   const { setPinnedParticipant } = useMeetingStore();
 
-  // Attach video stream (video element is always muted to satisfy mobile autoplay policies;
-  // remote audio is managed globally by RemoteAudioContainer)
+  const showVideo = Boolean(
+    participant.videoEnabled &&
+      participant.stream &&
+      participant.stream.getVideoTracks().length > 0 &&
+      participant.stream.getVideoTracks().some((t) => t.readyState === 'live')
+  );
+
+  // Attach and play video stream
+  // For local user: muted={true} prevents hearing your own echo.
+  // For remote users: muted={false} allows audio to play directly from the active tile!
+  // When camera is off, opacity-0 keeps audio decoding active and enables instant video resume.
   useEffect(() => {
-    if (videoRef.current && participant.stream) {
-      videoRef.current.srcObject = participant.stream;
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (participant.stream) {
+      if (video.srcObject !== participant.stream) {
+        video.srcObject = participant.stream;
+      }
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((err) => {
+          console.debug('[ParticipantTile] play warning:', err?.message || err);
+        });
+      }
+    } else {
+      video.srcObject = null;
     }
-  }, [participant.stream, participant.videoEnabled]);
+  }, [participant.stream, participant.videoEnabled, showVideo]);
 
   // Extract initial letter for avatar
   const initialLetter = participant.name ? participant.name.trim().charAt(0).toUpperCase() : '?';
-  const showVideo = Boolean(participant.videoEnabled && participant.stream && participant.stream.getVideoTracks().length > 0);
 
   return (
     <div
@@ -41,22 +62,25 @@ export const ParticipantTile: React.FC<ParticipantTileProps> = ({
           : 'border-gray-800 hover:border-gray-700'
       )}
     >
-      {/* Video Element (always muted; remote audio plays from persistent RemoteAudioContainer) */}
+      {/* Video Element */}
       <video
         ref={videoRef}
         autoPlay
         playsInline
-        muted={true}
+        muted={isLocal}
+        onLoadedMetadata={() => {
+          videoRef.current?.play().catch(() => {});
+        }}
         className={clsx(
-          'w-full h-full object-cover',
+          'w-full h-full object-cover transition-opacity duration-200',
           isLocal && 'scale-x-[-1]',
-          !showVideo && 'hidden'
+          !showVideo ? 'opacity-0 pointer-events-none absolute inset-0' : 'opacity-100'
         )}
       />
 
       {/* Avatar Fallback when camera is disabled */}
       {!showVideo && (
-        <div className="flex flex-col items-center justify-center p-6 text-center animate-fade-in">
+        <div className="flex flex-col items-center justify-center p-6 text-center animate-fade-in z-0">
           <div
             className={clsx(
               'w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-blue-600 to-indigo-800 flex items-center justify-center text-white text-3xl sm:text-4xl md:text-5xl font-bold shadow-xl border-2 transition-all',

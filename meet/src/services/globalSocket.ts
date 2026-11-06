@@ -333,7 +333,7 @@ export class GlobalSocketService {
 
   public emit(event: string, payload?: any) {
     if (event === 'room:join') {
-      const { roomId, userName, isHost } = payload;
+      const { roomId, userName, isHost, audioEnabled, videoEnabled } = payload;
       this.roomId = roomId;
       this.roomCode = roomId.toUpperCase().replace(/^ROOM-/, '');
       this.currentTopic = `meetclass/v2/rooms/${this.roomCode}`;
@@ -342,8 +342,8 @@ export class GlobalSocketService {
         const myParticipant: Participant = {
           id: this.id,
           name: userName || 'Khách',
-          audioEnabled: true,
-          videoEnabled: true,
+          audioEnabled: audioEnabled !== undefined ? audioEnabled : true,
+          videoEnabled: videoEnabled !== undefined ? videoEnabled : true,
           isHost: Boolean(isHost),
           isSpeaking: false,
           joinedAt: Date.now(),

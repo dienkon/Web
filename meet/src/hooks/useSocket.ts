@@ -232,10 +232,13 @@ export function useSocket() {
     socketService.on('host:removed-by-host', handleRemovedByHost);
 
     // Emit room:join event now that listeners are bound
+    const state = useMeetingStore.getState();
     socketService.emit('room:join', {
       roomId,
       userName: userName || 'Học sinh',
       isHost: isHost || false,
+      audioEnabled: state.audioEnabled,
+      videoEnabled: state.videoEnabled,
     });
 
     return () => {
