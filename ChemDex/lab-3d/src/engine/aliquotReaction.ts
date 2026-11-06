@@ -7,6 +7,7 @@ import { planMetalAcid } from './metalAcidPlan';
 import { planVerifiedContact } from './verifiedContactPlan';
 import { withLegacyPrecipitateOrigins } from '../science/precipitateInventory';
 import { planAluminumMaterialReaction } from './aluminumMaterialProgress';
+import { solutionIndicatorColor } from '../science/indicatorAppearance';
 
 /** One chemistry path for already-metered liquid samples. Reagent molarity is
  * taken from the sample ledger, never reconstructed from a stock bottle. */
@@ -25,7 +26,7 @@ export function reactAliquotMixture(vessel: VesselState, language: Language, isH
   if (!reaction || !chemistry.combinedMixResult) return {
     vessel: { ...vessel, phModel: chemistry.phModel, phReferenceTemperature_c: chemistry.phReferenceTemperature_c,
       ...(chemistry.phModel ? { ph: chemistry.finalPh, phModel: chemistry.phModel,
-      liquidColor: chemistry.finalLiquidColor } : {}) },
+      liquidColor: solutionIndicatorColor(vessel.contents, chemistry.finalPh) ?? vessel.liquidColor } : {}) },
     mixResult: null, kinetics: null as ActiveKineticsState | null,
   };
   const aluminum = planAluminumMaterialReaction(vessel, chemistry);

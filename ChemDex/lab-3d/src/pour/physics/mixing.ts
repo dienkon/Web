@@ -145,7 +145,9 @@ export function transferFluidIncrement(
  * Converts sRGB hex (#rrggbb) to linear RGB [0..1]
  */
 function hexToLinear(hex: string): [number, number, number] {
-  const cleanHex = hex.replace('#', '');
+  let cleanHex = hex.replace('#', '');
+  if (/^[0-9a-f]{3}$/i.test(cleanHex)) cleanHex = cleanHex.split('').map(c => c + c).join('');
+  if (!/^[0-9a-f]{6}$/i.test(cleanHex)) cleanHex = 'ffffff';
   const r = parseInt(cleanHex.substring(0, 2), 16) / 255;
   const g = parseInt(cleanHex.substring(2, 4), 16) / 255;
   const b = parseInt(cleanHex.substring(4, 6), 16) / 255;
@@ -183,8 +185,8 @@ export function mixColorBeerLambert(
   hex2: string,
   v2: number
 ): string {
-  if (v1 <= 0.001) return hex2;
-  if (v2 <= 0.001) return hex1;
+  if (!(v1 > 0)) return hex2;
+  if (!(v2 > 0) || hex1 === hex2) return hex1;
 
   const rgb1 = hexToLinear(hex1 || '#ffffff');
   const rgb2 = hexToLinear(hex2 || '#ffffff');

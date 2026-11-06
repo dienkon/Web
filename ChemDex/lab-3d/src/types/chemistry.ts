@@ -129,7 +129,7 @@ export interface VesselState {
   // Mirrors of exterior parcels for weighing only; material stays in inFlightPours.
   outerWallCoating_ml?: number;
   outerWallCoatingMass_g?: number;
-  recentPourContact?: { point: [number, number, number]; expiresAt_ms: number };
+  recentPourContact?: { point: [number, number, number]; expiresAt_ms: number; color?: string };
   bodyRevision?: number;
   tare_g?: number; // tare weight of empty vessel in grams
   density_g_ml?: number; // density in g/mL (default ~1.0)
@@ -269,6 +269,11 @@ export interface BurnerState {
 }
 
 export interface SpillState {
+  reactionProgramId?: string;
+  temperature_c?: number;
+  escapedGas_g?: Record<string, number>;
+  gasRate_mol_s?: number;
+  chemistryLimit?: 'phase_boundary';
   contents?: SubstanceContent[];
   id: string;
   position: [number, number, number]; // [x, y, z] on workbench
@@ -327,6 +332,7 @@ export interface ReactionRecord {
 }
 
 export interface LabMaterialSnapshot {
+  workbenchEscapedGas_g?: Record<string, number>;
   pipetteSample?: import('../handling/aliquot').LiquidAliquot | null;
   glassDebris?: import('../damage/Shards').ShardSnapshot;
   inFlightPours: import('../engine/pourTransport').PourParcel[];

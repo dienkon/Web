@@ -20,9 +20,21 @@ export function sodiumWaterContact(vessel: VesselState): boolean {
     && vessel.contents.some(item => item.formula === 'H2O' && item.moles > 1e-12 && (!item.phase || item.phase === 'l'));
 }
 
+/** Deliberately conservative teaching scenario, NOT a universal explosion
+ * threshold. Interface fragmentation can be violent without oxygen; available
+ * water and metal jointly limit it. See docs/research/contact-effects.vi.md. */
+export function sodiumContactRegime(vessel: VesselState): 'skitter' | 'disruptive' {
+  if (!sodiumWaterContact(vessel)) return 'skitter';
+  const waterMoles = vessel.contents.filter(c => c.formula === 'H2O' && (c.phase ?? 'l') === 'l')
+    .reduce((sum, c) => sum + Math.max(0, c.moles), 0);
+  const reactiveMass = Math.min(sodiumMetalMass(vessel), waterMoles * SODIUM_MOLAR_MASS);
+  return reactiveMass >= 0.5 ? 'disruptive' : 'skitter';
+}
+
 /** Visual timescale, not a measured kinetic constant: surface/volume scaling,
  * faster contact reaction in warmer water. Chemistry still limits every mole. */
 export function sodiumReactionDuration(vessel: VesselState): number {
+  if (sodiumContactRegime(vessel) === 'disruptive') return 0.25;
   const mass = vessel.contents.filter(item => item.formula === 'Na' && (!item.phase || item.phase === 's'))
     .reduce((sum, item) => sum + item.mass_g, 0);
   const temperatureFactor = Math.exp((vessel.temperature_c - 25) * 0.025);

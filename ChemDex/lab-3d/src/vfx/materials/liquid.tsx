@@ -550,6 +550,15 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       _scratchTargetColor.set(session.mixingZone.color);
       uniforms.uMixingColor.value.lerp(_scratchTargetColor, frameSmoothing(0.2, dt));
       uniforms.uMixingStrength.value = THREE.MathUtils.lerp(uniforms.uMixingStrength.value, session.mixingZone.intensity, frameSmoothing(0.25, dt));
+    } else if (vessel.recentPourContact?.color && vessel.recentPourContact.expiresAt_ms > Date.now()) {
+      const point = vessel.recentPourContact.point;
+      // Stored contact coordinates are vessel-local; the shader uses world coordinates.
+      _scratchPos.set(point[0], fillY, point[2]);
+      meshGroupRef.current.localToWorld(_scratchPos);
+      uniforms.uMixingPoint.value.copy(_scratchPos);
+      uniforms.uMixingRadius.value = Math.max(0.04, surfaceR * 0.45);
+      uniforms.uMixingColor.value.set(vessel.recentPourContact.color);
+      uniforms.uMixingStrength.value = 0.65 * Math.min(1, (vessel.recentPourContact.expiresAt_ms - Date.now()) / 1500);
     } else {
       uniforms.uMixingStrength.value = THREE.MathUtils.lerp(uniforms.uMixingStrength.value, 0.0, frameSmoothing(0.08, dt));
     }

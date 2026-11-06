@@ -1,5 +1,6 @@
 import { ReactionVisualController, ReactionContext, ReactionZone } from '../types';
-import { sodiumPelletThermal, sodiumMetalMass } from '../../../science/sodiumWater';
+import { sodiumPelletThermal, sodiumMetalMass, sodiumContactRegime } from '../../../science/sodiumWater';
+import { createSodiumMotion, stepSodiumMotion } from '../../../science/sodiumMotion';
 import { sodiumSurfaceRadius, vesselLiquidSurfaceY } from '../../../science/vesselGeometry';
 import { sodiumPelletRadius, sodiumPelletShape } from '../../geometry/sodiumPellet';
 
@@ -11,13 +12,9 @@ export class SodiumWaterController implements ReactionVisualController {
   public name = 'Sodium + Water Reaction';
 
   public initialize({ vessel, runtime }: ReactionContext): void {
-    const radius = sodiumSurfaceRadius(vessel);
     const initialMass = sodiumMetalMass(vessel);
     runtime.customData = {
-      x: radius * 0.12,
-      z: -radius * 0.08,
-      vx: 0.14,
-      vz: 0.09,
+      x: 0, z: 0, vx: 0, vz: 0,
       angle: 0.6,
       angularVelocity: 0,
       mass_fraction: 1,
@@ -29,11 +26,8 @@ export class SodiumWaterController implements ReactionVisualController {
       seed: 137,
       soundTimer: 0,
       initialMass_g: initialMass,
-      circleAngle: 0.6,
-      circleRadius: radius * 0.45,
-      circleDirection: 1,
-      orbitalSpeed: 3.2,
-      radialPhase: 0,
+      motion: createSodiumMotion(`${vessel.id}:${vessel.effectSampleRevision ?? 0}:${initialMass}`),
+      contactRegime: sodiumContactRegime(vessel),
     };
     runtime.duration = 7;
     runtime.currentColor = vessel.liquidColor ?? '#f8fafc';
@@ -91,45 +85,14 @@ export class SodiumWaterController implements ReactionVisualController {
 
     const radius = sodiumSurfaceRadius(vessel);
 
-    // Smooth, energetic circular skittering ("chạy vòng vòng")
-    if (data.circleAngle === undefined) {
-      data.circleAngle = Math.atan2(data.z, data.x) || 0.6;
-      data.circleRadius = Math.hypot(data.x, data.z) || radius * 0.45;
-      data.circleDirection = 1;
-      data.orbitalSpeed = 3.2;
-      data.radialPhase = 0;
-    }
-
     const bodyRadius = sodiumPelletRadius(vessel, mass) * sodiumPelletShape(data.meltFactor).horizontalRadius;
     const boundary = Math.max(0, radius - bodyRadius);
-
-    data.orbitalSpeed = (2.8 + 1.8 * data.meltFactor) * (0.8 + 0.4 * Math.max(0.5, runtime.reactionRate));
-    data.circleAngle += data.circleDirection * data.orbitalSpeed * dt;
-    data.radialPhase += dt * 1.6;
-
-    // Organic spiraling: sweeps in wide loops between center and rim
-    const targetRadius = boundary * (0.55 + 0.40 * Math.sin(data.radialPhase));
-    const minR = Math.min(0.005, boundary);
-    data.circleRadius = Math.max(minR, Math.min(boundary, data.circleRadius + (targetRadius - data.circleRadius) * (1 - Math.exp(-dt * 2.5))));
-
-    data.x = Math.cos(data.circleAngle) * data.circleRadius;
-    data.z = Math.sin(data.circleAngle) * data.circleRadius;
-
-    const speed = (0.22 + 0.28 * data.meltFactor) * Math.max(0.6, runtime.reactionRate);
-    data.vx = -Math.sin(data.circleAngle) * speed * data.circleDirection;
-    data.vz = Math.cos(data.circleAngle) * speed * data.circleDirection;
-
-    const distance = Math.hypot(data.x, data.z);
-    if (boundary <= 0) {
-      data.x = 0;
-      data.z = 0;
-      data.circleRadius = 0;
-    } else if (distance > boundary) {
-      data.x = (data.x / distance) * boundary;
-      data.z = (data.z / distance) * boundary;
-      data.circleRadius = boundary;
-    }
-
+    const motion = data.motion ??= createSodiumMotion(vessel.id);
+    if (data.contactRegime === 'disruptive') {
+      motion.vx = motion.vz = 0;
+    } else stepSodiumMotion(motion, dt, boundary, 0.6 + data.meltFactor * 0.5);
+    data.x = motion.x; data.z = motion.z;
+    data.vx = motion.vx; data.vz = motion.vz;
     context.addSurfaceImpulse(data.x / radius, data.z / radius, -0.0025 * runtime.reactionRate, 0.06);
 
     const indicator = (vessel.contents ?? []).some(item => item.formula === 'Phenolphthalein' && item.moles > 1e-12);

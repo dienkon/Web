@@ -3,6 +3,7 @@ import { availableLiquidVolume, occupiedLiquidVolume } from './solidOccupancy';
 import type { MobileSolidInventory } from '../science/suspensionTransport';
 import { precipitateComponents, isSuspensionRow, withLegacyPrecipitateOrigins } from '../science/precipitateInventory';
 import { identifySpecies, sameMolecularFormula } from '../science/speciesIdentity';
+import { mixColorBeerLambert } from '../pour/physics/mixing';
 
 export interface LiquidAliquot {
   reactionProgramId?: string | null;
@@ -116,7 +117,9 @@ export function dispenseAliquot(vessel: VesselState, sample: LiquidAliquot, requ
       ...(sample.organicVolume_ml ? { immiscibleOrganicVolume_ml: (vessel.immiscibleOrganicVolume_ml ?? 0) + sample.organicVolume_ml * fraction, immiscibleOrganicColor: sample.organicColor } : {}),
       mass_g: totalMass, contents,
       substances: volume > 0 ? [...new Set([...vessel.substances, ...sample.substances])] : vessel.substances,
-      liquidColor: vessel.volume_ml > 0 ? vessel.liquidColor : sample.color,
+      liquidColor: volume > 0 && !(sample.organicVolume_ml || vessel.immiscibleOrganicVolume_ml)
+        ? mixColorBeerLambert(vessel.liquidColor ?? '#f8fafc', vessel.volume_ml, sample.color, volume)
+        : vessel.volume_ml > 0 ? vessel.liquidColor : sample.color,
       temperature_c: totalMass > 0 ? (vessel.mass_g * vessel.temperature_c + mass * sample.temperature_c) / totalMass : vessel.temperature_c };
   return {
     vessel: incomingSolidMass > 0 && volume > 0 ? refreshPrecipitateSummary(receiver) : receiver,

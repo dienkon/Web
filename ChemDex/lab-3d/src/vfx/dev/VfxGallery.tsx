@@ -6,6 +6,7 @@ import { SUBSTANCE_DATABASE } from '../../chem/substances';
 import { vfxBus } from '../bus';
 import { effects } from '../vesselEffects';
 import { runBasicPhysicalScenario } from './basicScenarios';
+import { CONTACT_SCENARIOS, runContactScenario } from './contactScenarios';
 import { labSound } from '../../utils/audio';
 import { proceduralAudio } from '../../audio/procedural';
 import { LegacyAdapter } from '../../adapters/legacy';
@@ -55,6 +56,7 @@ export const VfxGallery: React.FC = () => {
   const [programCategoryFilter, setProgramCategoryFilter] = useState<string>('all');
   const [overflowSourceId, setOverflowSourceId] = useState('');
   const [atomNotice, setAtomNotice] = useState('');
+  const [contactTestBusy, setContactTestBusy] = useState(false);
   const [selectedAtomName, setSelectedAtomName] = useState<string | null>(null);
   const [atomCategoryFilter, setAtomCategoryFilter] = useState<string>('all');
 
@@ -425,12 +427,31 @@ export const VfxGallery: React.FC = () => {
           <div className="p-3 bg-slate-50/90 border-b border-slate-200/80 space-y-2.5">
             <p className="text-[10px] text-slate-600">Mọi hiệu ứng dùng cùng bình đích. Nút “Thay mẫu” thay lượng chất trong bình này.</p>
             {atomNotice && <p role="status" className="text-[11px] text-blue-700">{atomNotice}</p>}
+            <details className="rounded-lg border border-blue-200 bg-white p-2 text-[11px]" open>
+              <summary className="cursor-pointer font-bold text-blue-800">Test nhanh · Pha màu / Na / Vỡ bình</summary>
+              <div className="mt-2 grid grid-cols-2 gap-1.5">
+                {CONTACT_SCENARIOS.map(scenario => <button key={scenario.id}
+                  disabled={contactTestBusy || !targetVessel || targetVessel.isShattered}
+                  className="rounded border border-blue-200 p-1.5 text-left hover:bg-blue-50 disabled:opacity-40"
+                  onClick={async () => {
+                    const id = requireTarget(); if (!id) return;
+                    setContactTestBusy(true);
+                    try { setAtomNotice(await runContactScenario(id, scenario.id)); }
+                    catch (error) { setAtomNotice(error instanceof Error ? error.message : 'Không chạy được mẫu.'); }
+                    finally { setContactTestBusy(false); }
+                  }}>{scenario.label}</button>)}
+              </div>
+              {targetVessel?.isShattered && <button className="mt-2 rounded border px-2 py-1"
+                onClick={() => useAppStore.getState().replaceShatteredVessel(targetVessel.id)}>Thay bình đã vỡ</button>}
+              <p className="mt-1 text-[10px] text-slate-500">Mỗi test thay mẫu trong bình đích và lau vũng cũ trên bàn vào thùng chất thải. Nổ Na là mô hình minh họa, phụ thuộc lượng Na và nước.</p>
+            </details>
             {/* Target Vessel & Simulation Clock Controls */}
             <div className="flex items-center justify-between gap-2">
               {/* Target Vessel Selector */}
               <div className="flex items-center gap-1.5 flex-1 max-w-[200px]">
                 <Beaker size={13} className="text-blue-600 shrink-0" />
                 <select
+                  aria-label="Bình đích VFX Studio"
                   value={selectedVesselId || ''}
                   onChange={(e) => setSelectedVesselId(e.target.value)}
                   className="bg-white text-slate-800 rounded-lg px-2 py-1 text-[11px] border border-slate-200 font-medium truncate w-full shadow-2xs focus:border-blue-500 focus:outline-none"

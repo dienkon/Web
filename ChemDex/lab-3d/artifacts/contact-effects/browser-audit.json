@@ -1,0 +1,215 @@
+{
+  "errors": [],
+  "phases": [
+    {
+      "name": "01-small-sodium",
+      "shattered": false,
+      "color": "#f8fafc",
+      "contents": [
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "mass_g": 49.994357897005,
+          "moles": 2.7751517011937272,
+          "concentration_M": 55.503083925570756
+        },
+        {
+          "formula": "Na",
+          "phase": "s",
+          "mass_g": 0.09285714285714285,
+          "moles": 0.004039023177779159,
+          "initialMass_g": 0.1,
+          "initialMoles": 0.004349717268377556
+        },
+        {
+          "formula": "NaOH",
+          "moles": 0.00031069409059839687,
+          "mass_g": 0.01242683154166408,
+          "concentration_M": 0.006213887398122572,
+          "state": "aq",
+          "phase": "aq"
+        }
+      ],
+      "volume_ml": 49.999955051047145,
+      "reactionId": "na_h2o",
+      "spills": [],
+      "atmosphere": {},
+      "flying": 0
+    },
+    {
+      "name": "02-large-sodium-breakage",
+      "shattered": true,
+      "contents": [],
+      "volume_ml": 0,
+      "spills": [
+        {
+          "color": "#f8fafc",
+          "volume_ml": 49.999991107231786,
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 49.73684518923539,
+              "moles": 2.7608573516089585,
+              "concentration_M": 55.21715685284671,
+              "location": "bulk"
+            },
+            {
+              "formula": "Na",
+              "phase": "s",
+              "mass_g": 0.4641840324875324,
+              "moles": 0.020190693018161482,
+              "initialMass_g": 0.8,
+              "initialMoles": 0.034797738147020446,
+              "location": "bulk"
+            },
+            {
+              "formula": "NaOH",
+              "moles": 0.014607045128858964,
+              "mass_g": 0.584237984018972,
+              "concentration_M": 0.2921409545360152,
+              "state": "aq",
+              "phase": "aq",
+              "location": "bulk"
+            }
+          ],
+          "gasRate_mol_s": 0.0011437618926484713
+        }
+      ],
+      "atmosphere": {
+        "H2": 0.0006934534690111907
+      },
+      "flying": 0
+    },
+    {
+      "name": "03-color-overflow",
+      "shattered": false,
+      "color": "#738de7",
+      "contents": [
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "mass_g": 98.828803,
+          "moles": 5.48591745767416,
+          "concentration_M": 54.859174576741594
+        },
+        {
+          "formula": "CuSO4",
+          "phase": "aq",
+          "moles": 0.02,
+          "mass_g": 3.1921800000000005,
+          "volume_ml": 40,
+          "concentration_M": 0.19999999999999998
+        },
+        {
+          "formula": "KMnO4",
+          "phase": "aq",
+          "moles": 0.0005,
+          "mass_g": 0.079017,
+          "volume_ml": 10,
+          "concentration_M": 0.005
+        }
+      ],
+      "volume_ml": 100,
+      "spills": [
+        {
+          "color": "#86198f",
+          "volume_ml": 29.99999999999996,
+          "contents": [
+            {
+              "formula": "KMnO4",
+              "phase": "aq",
+              "moles": 0.0014999999999999979,
+              "mass_g": 0.23705099999999946,
+              "volume_ml": 29.99999999999996,
+              "concentration_M": 0.049999999999999996
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 30.06294899999998,
+              "moles": 1.6687731890091573
+            }
+          ],
+          "gasRate_mol_s": 0
+        }
+      ],
+      "atmosphere": {
+        "H2": 0.0028610543109695527
+      },
+      "flying": 0
+    },
+    {
+      "name": "04-spill-gas",
+      "shattered": false,
+      "contents": [
+        {
+          "formula": "Na2CO3",
+          "phase": "aq",
+          "moles": 0,
+          "initialMoles": 0.001,
+          "mass_g": 0
+        },
+        {
+          "formula": "HCl",
+          "phase": "aq",
+          "moles": 0,
+          "initialMoles": 0.002,
+          "mass_g": 0
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "mass_g": 0,
+          "moles": 0
+        }
+      ],
+      "volume_ml": 0,
+      "spills": [
+        {
+          "color": "#ffffff",
+          "volume_ml": 30,
+          "contents": [
+            {
+              "formula": "Na2CO3",
+              "phase": "aq",
+              "moles": 0.0002624746503568024,
+              "initialMoles": 0.001,
+              "mass_g": 0.027819163242016772,
+              "concentration_M": 0.008749155011893413
+            },
+            {
+              "formula": "HCl",
+              "phase": "aq",
+              "moles": 0.0005249493007136048,
+              "initialMoles": 0.002,
+              "mass_g": 0.019138601605416604,
+              "concentration_M": 0.017498310023786826
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.834382519173825,
+              "moles": 1.6560856241561934,
+              "concentration_M": 55.202854138539784
+            },
+            {
+              "formula": "NaCl",
+              "moles": 0.0014750506992863954,
+              "mass_g": 0.08620196286629694,
+              "concentration_M": 0.04916835664287985,
+              "state": "aq",
+              "phase": "aq"
+            }
+          ],
+          "gasRate_mol_s": 0.0004812688416059109
+        }
+      ],
+      "atmosphere": {
+        "H2": 0.0028610543109695527,
+        "CO2": 0.03245775311244748
+      },
+      "flying": 0
+    }
+  ]
+}

@@ -7,6 +7,8 @@ import { useAppStore } from '../../store/useAppStore';
 import { reactionSimulationEngine } from '../../vfx/reactions/ReactionSimulationEngine';
 import { isSodiumWaterReaction, sodiumPelletThermal, sodiumMetalMass } from '../../science/sodiumWater';
 import { sodiumSurfaceRadius } from '../../science/vesselGeometry';
+import { createSodiumMotion, stepSodiumMotion } from '../../science/sodiumMotion';
+import { sodiumContactRegime } from '../../science/sodiumWater';
 import { applySodiumPelletShape, sodiumPelletPlacement } from '../../vfx/geometry/sodiumPellet';
 import { sodiumWaterGasMolesPerSecond } from '../../engine/sodiumWaterPlan';
 import { createProceduralFlameMaterial } from '../../vfx/materials/flameShader';
@@ -26,6 +28,8 @@ export function SodiumWaterPellet({ vesselId }: { vesselId: string }) {
   const flame = useRef<THREE.Mesh>(null);
   const light = useRef<THREE.PointLight>(null);
   const motion = useRef({ x: 0, z: 0, time: 0, lastDrop: 0, lastSound: 0,
+    recoil: createSodiumMotion(vesselId),
+    sampleRevision: -1,
     gasCredit: 0, nextBubble: 0,
     gas: Array.from({ length: BUBBLE_COUNT }, () => ({ x: 0, z: 0, y: 0, size: 0, age: 0, life: 0 })),
     points: [] as { x: number; z: number; age: number }[] });
@@ -58,6 +62,12 @@ export function SodiumWaterPellet({ vesselId }: { vesselId: string }) {
     const paused = state.isSimulationPaused;
     const dt = simulationFrameDt(delta, state);
     const m = motion.current;
+    if (m.sampleRevision !== (v.effectSampleRevision ?? 0)) {
+      m.sampleRevision = v.effectSampleRevision ?? 0;
+      m.recoil = createSodiumMotion(`${vesselId}:${m.sampleRevision}`);
+      m.x = m.z = 0; m.points = []; m.gasCredit = 0;
+      for (const bubble of m.gas) bubble.life = 0;
+    }
     m.time += dt;
     const initialMass = kinetics?.initialVesselBaseline ? sodiumMetalMass(kinetics.initialVesselBaseline) : mass;
     const reactedFraction = initialMass > 0 ? Math.max(0, Math.min(1, 1 - mass / initialMass)) : 0;
@@ -72,12 +82,9 @@ export function SodiumWaterPellet({ vesselId }: { vesselId: string }) {
       m.x = data.x;
       m.z = data.z;
     } else if (active && hasWater) {
-      // Autonomous orbital skittering fallback ("chạy vòng vòng")
-      const orbitSpeed = (3.2 + melt * 1.8);
-      const orbitAngle = m.time * orbitSpeed;
-      const breathingRadius = maxRadius * (0.55 + 0.38 * Math.sin(m.time * 1.5));
-      m.x = Math.cos(orbitAngle) * breathingRadius;
-      m.z = Math.sin(orbitAngle) * breathingRadius;
+      if (sodiumContactRegime(kinetics?.initialVesselBaseline ?? v) !== 'disruptive')
+        stepSodiumMotion(m.recoil, dt, maxRadius, 0.6 + melt * 0.5);
+      m.x = m.recoil.x; m.z = m.recoil.z;
     } else if (!hasWater) {
       m.x = 0;
       m.z = 0;

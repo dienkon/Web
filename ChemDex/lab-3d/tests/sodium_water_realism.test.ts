@@ -113,9 +113,9 @@ describe('Sodium contact uses finite progressive chemistry', () => {
     expect(sample.volume_ml).toBeCloseTo(30, 3);
     expect(moles(sample, 'H2O')).toBeGreaterThan(moles(sample, 'Na') * 100);
   });
-  it('warmer water accelerates the visual timescale and a larger piece takes longer', () => {
+  it('warmer water accelerates contact and bulk doses enter the disruptive scenario promptly', () => {
     expect(sodiumReactionDuration(specimen({ temperature_c: 50 }))).toBeLessThan(sodiumReactionDuration(specimen()));
-    expect(sodiumReactionDuration(specimen({ contents: [amount('Na', 0.8, 's'), amount('H2O', 50, 'l')] }))).toBeGreaterThan(sodiumReactionDuration(specimen()));
+    expect(sodiumReactionDuration(specimen({ contents: [amount('Na', 0.8, 's'), amount('H2O', 50, 'l')] }))).toBeLessThan(0.5);
   });
   it('updates the live store progressively and retires emission at completion', () => {
     const v = specimen(), plan = planSodiumWater(v, 'vi')!;
@@ -291,7 +291,7 @@ describe('Contact geometry and laboratory environment', () => {
   });
 });
 
-describe('Pellet contact motion does not prescribe vessel failure from mass', () => {
+describe('Contact regimes and finite vessel failure', () => {
   it('a small sodium piece follows contact motion without inventing vessel failure', () => {
     const v = specimen({
       id: 'small_na_vessel',
@@ -309,11 +309,12 @@ describe('Pellet contact motion does not prescribe vessel failure from mass', ()
 
     expect(runtime.customData.hasExploded).toBeUndefined();
     expect(runtime.customData.isOversized).toBeUndefined();
-    expect(runtime.customData.circleRadius).toBeGreaterThan(0);
+    expect(Math.hypot(runtime.customData.x, runtime.customData.z)).toBeGreaterThan(0);
+    expect(runtime.customData.circleRadius).toBeUndefined();
     expect(useAppStore.getState().vessels[v.id].isShattered).toBeFalsy();
   });
 
-  it('a larger sodium piece does not imply a timed detonation or fabricate spills', () => {
+  it('disrupts a bulk sodium-water contact promptly and conserves the released inventory', () => {
     const v = specimen({
       id: 'big_na_vessel',
       contents: [amount('Na', 0.8, 's'), amount('H2O', 50, 'l')],
@@ -330,22 +331,19 @@ describe('Pellet contact motion does not prescribe vessel failure from mass', ()
       isSimulationPaused: false,
     });
 
-    // Advance physical chemistry beyond the old hard-coded detonation time.
-    for (let i = 0; i < 30; i++) {
-      useAppStore.getState().tickSimulation(0.05);
-      if (useAppStore.getState().vessels[v.id]?.isShattered) break;
-    }
+    useAppStore.getState().tickSimulation(0.05);
 
     const state = useAppStore.getState();
     const current = state.vessels[v.id];
-    expect(current.isShattered).toBeFalsy();
-    expect(current.shatterReason).toBeUndefined();
-    expect(state.activeKinetics[v.id]).toBeDefined();
-    expect(current.contents.find(c => c.formula === 'Na')!.mass_g).toBeLessThan(0.8);
+    expect(current.isShattered).toBe(true);
+    expect(current.shatterReason).toContain('contact explosion');
+    expect(state.activeKinetics[v.id]).toBeUndefined();
+    expect(current.contents).toEqual([]);
     expect(current.escapedGas_g?.H2).toBeGreaterThan(0);
-    expect(current.hydrogenCombustion?.burning).toBe(false);
-    expect(Object.values(state.spills)).toHaveLength(0);
-    expect(current.mass_g + Object.values(current.escapedGas_g ?? {}).reduce((sum, g) => sum + g, 0)
+    expect(current.hydrogenCombustion).toBeUndefined();
+    expect(Object.values(state.spills)).toHaveLength(1);
+    const spillMass = Object.values(state.spills).reduce((sum, spill) => sum + spill.mass_g, 0);
+    expect(current.mass_g + spillMass + Object.values(current.escapedGas_g ?? {}).reduce((sum, g) => sum + g, 0)
       + (current.evaporated_ml ?? 0) - (current.wallCondensation?.returned_g ?? 0)).toBeCloseTo(50.8, 8);
 
   });
