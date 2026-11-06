@@ -5,6 +5,8 @@ import * as THREE from 'three';
 import { useAppStore } from '../../../store/useAppStore';
 import { useToolDock } from '../../../handling/toolDock';
 import { instrumentHome } from '../../../handling/instrumentCatalog';
+import { readSample } from '../../../handling/instrumentReadings';
+import { simulationFrameDt } from '../../../core/clock';
 
 /** Aqueous pH probe: the displayed value approaches the solution's chemistry
  * state. A dry probe has no valid pH measurement, rather than reading pH 7. */
@@ -16,21 +18,24 @@ export const InteractivePhMeter = React.memo(function InteractivePhMeter() {
   const label = useRef<any>(null);
   const target = useRef(new THREE.Vector3());
   const reading = useRef<number | null>(null);
-  const immersed = active && vessel && vessel.volume_ml > 0.05 && vessel.capacity_ml > 0;
+  const observation = readSample(vessel);
+  const immersed = active && vessel && observation.phPoint !== null;
 
   useFrame((_, delta) => {
     if (!group.current) return;
+    const dt = simulationFrameDt(delta, useAppStore.getState());
     if (immersed) {
-      target.current.set(vessel.position[0] - 0.18, vessel.position[1] + 0.9, vessel.position[2] + 0.1);
-      const equilibrium = Math.max(0, Math.min(14, vessel.ph));
-      reading.current = reading.current === null ? equilibrium
-        : reading.current + (equilibrium - reading.current) * (1 - Math.exp(-delta / 1.2));
+      const point = observation.phPoint!;
+      target.current.set(point[0], point[1] + 0.68, point[2]);
+      const equilibrium = observation.ph;
+      reading.current = equilibrium === null ? null : reading.current === null ? equilibrium
+        : reading.current + (equilibrium - reading.current) * (1 - Math.exp(-dt / 1.2));
     } else {
       target.current.set(...dock.position);
       reading.current = null;
     }
     group.current.position.lerp(target.current, 1 - Math.exp(-delta * 8));
-    group.current.rotation.set(immersed ? 0 : -Math.PI / 2, 0, immersed ? 0.08 : 0);
+    group.current.rotation.set(immersed ? 0 : -Math.PI / 2, 0, 0);
     if (label.current) {
       const text = reading.current === null ? 'pH ---' : `pH ${reading.current.toFixed(2)}`;
       if (label.current.text !== text) label.current.text = text;
@@ -54,11 +59,11 @@ export const InteractivePhMeter = React.memo(function InteractivePhMeter() {
       <planeGeometry args={[0.31, 0.22]} />
       <meshBasicMaterial color="#d9edce" />
     </mesh>
-    <Text ref={label} position={[0, 0.55, 0.1]} fontSize={0.065} color="#18362c" anchorX="center" anchorY="middle">pH ---</Text>
+    <Text ref={label} name="ph-probe-reading" position={[0, 0.55, 0.1]} fontSize={0.065} color="#18362c" anchorX="center" anchorY="middle">pH ---</Text>
     {immersed && <Text position={[0, 0.47, 0.1]} fontSize={0.026} color="#36523a" anchorX="center" anchorY="middle">
-      {vessel.phModel === 'ideal_aqueous_25c' ? 'Mô hình 25 °C'
-        : vessel.phModel === 'ideal_aqueous_temperature' ? `Mô hình ${(vessel.phReferenceTemperature_c ?? vessel.temperature_c).toFixed(1)} °C`
-          : 'Mô phỏng giản lược'}
+      {observation.basis === 'ideal_aqueous_25c' ? 'Mô hình 25 °C'
+        : observation.basis === 'ideal_aqueous_temperature' ? `Mô hình ${observation.referenceTemperature_c!.toFixed(1)} °C`
+          : observation.basis === 'scenario' ? 'Điều kiện kịch bản' : 'Chưa có mô hình pH'}
     </Text>}
     <mesh position={[0, 0.13, 0.095]}>
       <circleGeometry args={[0.045, 12]} />

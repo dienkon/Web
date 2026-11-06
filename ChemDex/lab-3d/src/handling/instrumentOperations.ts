@@ -31,6 +31,8 @@ export function resolveInstrumentTarget(): VesselState | null {
 export function instrumentTargetProblem(tool: InstrumentId, vessel: VesselState | null): string | null {
   if (!vessel) return 'Chọn một bình trên bàn trước.';
   if (vessel.isShattered) return 'Bình đã vỡ; hãy chọn bình nguyên vẹn.';
+  if (vessel.isSealed && ['pipette', 'burette', 'ph_meter', 'thermometer', 'stirring_rod', 'spatula'].includes(tool))
+    return 'Mở nút bình trước khi đưa đầu dụng cụ hoặc hóa chất vào.';
   if (vessel.capacity_ml <= 0) return 'Dụng cụ đang chọn không phải bình chứa mẫu.';
   if (vessel.isLocked) return 'Bình đang khóa thao tác.';
   if (isLessonVessel(vessel.id) && !getInstrument(tool).allowsLesson) {
@@ -75,11 +77,14 @@ export function dispensePipette(requested_ml = 2.5, targetId?: string): Instrume
   if (transfer.dispensed_ml <= 0) return result('pipette', false, 'Bình nhận đã đầy.');
   const heated = Object.values(state.burners).some(burner => burner.isOn
     && Math.hypot(burner.position[0] - receiver.position[0], burner.position[2] - receiver.position[2]) < 1.5);
-  const reacted = reactAliquotMixture(transfer.vessel, state.language, heated);
+  const reacted = transfer.failureReason ? { vessel: transfer.vessel, kinetics: null, mixResult: null }
+    : reactAliquotMixture(transfer.vessel, state.language, heated);
   state.commitPipetteTransfer({ vessel: reacted.vessel, sample: transfer.sample, withdrawal: false,
-    kinetics: reacted.kinetics, mixResult: reacted.mixResult });
+    kinetics: reacted.kinetics, mixResult: reacted.mixResult, failureReason: transfer.failureReason });
   state.setActiveTool('pipette');
-  return result('pipette', true, `Đã nhả ${transfer.dispensed_ml.toFixed(3)} mL vào ${receiver.name}.`, transfer.dispensed_ml);
+  return result('pipette', true, transfer.failureReason
+    ? `Đã nhả ${transfer.dispensed_ml.toFixed(3)} mL; bình bị sốc nhiệt và mẫu chuyển ra bàn.`
+    : `Đã nhả ${transfer.dispensed_ml.toFixed(3)} mL vào ${receiver.name}.`, transfer.dispensed_ml);
 }
 
 export function positionInstrument(id: InstrumentId, position: ToolPosition): InstrumentResult {
@@ -154,7 +159,7 @@ export function alignSelectedVessel(tool: 'balance' | 'burette'): InstrumentResu
 export function buretteReceiver(): VesselState | null {
   const position = currentInstrumentPosition('burette');
   return Object.values(useAppStore.getState().vessels)
-    .filter(vessel => vessel.capacity_ml > 0 && !vessel.isShattered && !isLessonVessel(vessel.id))
+    .filter(vessel => vessel.capacity_ml > 0 && !vessel.isShattered && !vessel.isSealed && !isLessonVessel(vessel.id))
     .find(vessel => Math.hypot(vessel.position[0] - position[0], vessel.position[2] - position[2]) < 0.6) ?? null;
 }
 

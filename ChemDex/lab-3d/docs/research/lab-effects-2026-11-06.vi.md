@@ -30,3 +30,29 @@
 - Phản ứng trên bàn vẫn giới hạn trong miền pha lỏng được hỗ trợ; chưa có solver nhiệt–bay hơi đầy đủ cho vũng, cháy dung môi trên bàn hoặc tất cả hoạt độ ở nồng độ cao.
 - Cần rà tiếp các đường tiếp nhận chất lỏng khi bình quá nóng, điều kiện của thao tác dùng pipette/burette/lọc/đun liên hoàn và các chỗ UI còn hiện giá trị đo mặc định khi mô hình chưa có kết quả. Các kiểm chứng hiệu ứng ở vòng này không thay cho kiểm chứng các đường đó.
 - Mục tiêu nâng cấp toàn phòng thí nghiệm tiếp tục **đang thực hiện**; không dùng test xanh của vòng này để khẳng định toàn bộ mô hình đã chuẩn thực nghiệm.
+
+## Vòng tiếp theo: tiếp nhận chất lỏng và dụng cụ đo
+
+- Kiểm tra sốc nhiệt tại lúc chất lỏng thực sự chạm kính, trước khi nhiệt độ được hòa trung bình. Rót kho, rót liên tục, mẫu đang bay, màng thành trong, pipette và burette dùng cùng tiêu chí. Liều rót được ghi nhận trước khi vỡ; chất lỏng, chất rắn và giọt đang trên đường đi không bị nhân đôi hoặc mất khỏi sổ lượng chất. Liều bằng không, chất lỏng đã ấm, bình đang ướt và dụng cụ không phải kính không thỏa tiêu chí này.
+- Tiêu chí kế thừa (`T kính ≥ 180 °C`, gần khô `≤ 2 mL`, chênh lệch `≥ 130 K`) vẫn **chỉ là mô hình minh họa**. Chưa giải gradient nhiệt/ứng suất hoặc độ bền của từng loại kính; không coi các giá trị này là giới hạn vật liệu thực nghiệm.
+- Bình bị nút kín không nhận mẫu qua pipette/burette và không cho đầu đo xuyên nút. Màng lỏng đã vượt miệng trước khi đóng nút vẫn thuộc phía trong bình và được tiếp tục thu nhận.
+- Mỗi giọt burette có cả chất tan và dung môi. Nồng độ M do người dùng đặt đi cùng giả thiết mật độ dung dịch `1 g/mL`, không dùng mật độ của một chai kho khác nồng độ. Từ chối nồng độ vô hạn/âm, lượng chất tan vượt tổng khối lượng và thuốc thử kim loại nguyên tố/khí.
+- Burette tự động dùng đồng hồ mô phỏng, dừng khi Pause, đo đúng lưu lượng ở 10/30/60/120 FPS và 1×/4×/8× trong test. Có xử lý giọt cuối nhỏ hơn 0,05 mL và không tích lũy lượt nhả bị từ chối thành một đợt bùng sau đó. Giữ quy ước dụng cụ hiện có: mở khóa khi không có bình nhận không nhả vật chất; hình tia nước cũng không hiện trong trường hợp đó.
+- Tia pipette/burette dùng tọa độ thế giới, không bị cộng pose của dụng cụ lần hai. Chiều dài jet, màu, lưu lượng và mặt tiếp nhận lấy từ trạng thái hiện tại; chuyển động của hạt/ripple dùng thời gian mô phỏng. Những glyph giọt nhỏ này vẫn là hiệu ứng minh họa, không phải các kho vật chất độc lập.
+- HUD, bảng bình và dụng cụ đọc cùng thành phần hiện tại, kể cả khi Pause. Không dùng mặc định pH 7 cho mẫu dầu, khô, quá nông, bị nút hoặc đã vỡ; số không hợp lệ được hiện `---`/`—`. Đầu dò được đặt theo mặt dung dịch và kích thước bình, có kiểm tra ngập cả bóng đo. Cân gồm cả nước ngưng trên hai phía thành kính.
+- pH hỗ trợ trong miền cân bằng đã khai báo và nhiệt độ mô hình; không suy ra pH chỉ từ tên chất hoặc ép số vào khoảng 0–14. pH bài học là điều kiện kịch bản riêng. Nhiệt độ trên HUD là trạng thái mẫu, còn LCD 3D có độ trễ theo đồng hồ mô phỏng.
+- Đồ thị chuẩn độ cộng thể tích theo từng bình, không nối điểm của hai bình khác nhau. Số đo không hỗ trợ để trống; bỏ nhãn điểm tương đương pH 7 cố định.
+- Studio bổ sung nút **Kính nóng · nước lạnh**: chuyển nước mẫu cũ vào kho chất thải, đặt mẫu kính khô nóng, cấp đúng 10 mL nước qua đường rót kho đang sử dụng.
+
+### Bằng chứng của vòng dụng cụ
+
+- `tests/lab_transfer_measurements.test.ts`: 19 trường hợp kiểm tra liên kết giữa giao dịch vật chất, phá hủy, dung môi, đồng hồ và số đo. Sửa fixture rót nóng cũ để có lượng nước nguồn thật thay vì chỉ gán một giá trị thể tích không có contents.
+- Toàn bộ suite cuối vòng: **199 file / 2.406 test đạt**; `npm run lint` và `npm run build` đạt, còn cảnh báo bundle lớn của Vite.
+- `scripts/auditLabInstruments.mjs`: Chrome xác nhận HUD khi không chọn bình; CuSO₄ vừa thay khi Pause có pH mô hình 4,99; dầu/khô/nút không có số pH; bóng đo ngập thật; nhiệt kế và tia nước dừng theo Pause; burette dời vị trí vẫn nhắm đúng bình, nhả theo 4× và bảo toàn khối lượng kể cả phần nước bay hơi; pipette gây vỡ kính nóng; nút test sốc nhiệt thật của Studio. Không có lỗi JavaScript hoặc shader. Báo cáo/ảnh: `artifacts/lab-instruments/`.
+- Chạy lại `auditContactEffects.mjs` và `auditLabEffects.mjs`: Na nhỏ/lớn, màu–tràn, khí ngoài bình, bọt giữ lại khi Pause/nghiêng, thay mẫu và sparks tiếp tục đạt.
+
+### Phần cần tiếp tục
+
+- Các giới hạn khoa học của vòng trước vẫn áp dụng. Đã xử lý các đường rót nóng và giá trị đo mặc định nêu ở trên; chưa coi đây là kiểm chứng mọi dây chuyền lọc/đun hoặc mọi hóa chất trong danh mục.
+- Rót quá đầy hiện chỉ trộn phần còn sức chứa; phần vượt sức chứa đi theo dòng nhập ra ngoài. Cần rà tiếp trao đổi dung dịch trong bình đầy để phần tràn mang thành phần và màu của hỗn hợp khi phù hợp, đồng thời bảo toàn từng chất và phản ứng trên cả hai nhánh. Không dùng ảnh test tràn hiện tại để khẳng định đã giải khuấy trộn thủy động lực học.
+- Mục tiêu toàn phòng thí nghiệm vẫn đang thực hiện.

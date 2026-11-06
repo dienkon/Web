@@ -1,8 +1,12 @@
 import React, { useRef, useMemo } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { createPortal, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
+import { simulationFrameDt } from '../../../core/clock';
+import { useAppStore } from '../../../store/useAppStore';
+import { SCENE_GRAVITY, streamRadiusForFlow } from '../../../science/sceneUnits';
 
 interface ContinuousLiquidStreamProps {
+  name?: string;
   fromPos: [number, number, number];
   toPos: [number, number, number];
   color: string;
@@ -18,6 +22,7 @@ const _streamMid = new THREE.Vector3();
 const _streamLerp = new THREE.Vector3();
 
 export const ContinuousLiquidStream = React.memo(function ContinuousLiquidStream({
+  name = 'continuous-liquid-stream',
   fromPos,
   toPos,
   color,
@@ -25,7 +30,9 @@ export const ContinuousLiquidStream = React.memo(function ContinuousLiquidStream
   thickness = 0.045,
   active,
 }: ContinuousLiquidStreamProps) {
+  const scene = useThree(state => state.scene);
   const groupRef = useRef<THREE.Group>(null);
+  const simulationTime = useRef(0);
   const streamMeshRef = useRef<THREE.Mesh>(null);
   const splashInstancedRef = useRef<THREE.InstancedMesh>(null);
   const dropletInstancedRef = useRef<THREE.InstancedMesh>(null);
@@ -60,14 +67,15 @@ export const ContinuousLiquidStream = React.memo(function ContinuousLiquidStream
 
   useFrame((state, delta) => {
     if (!groupRef.current) return;
-    if (!active || flowRate <= 0.1) {
+    if (!active || !Number.isFinite(flowRate) || flowRate <= 0) {
       groupRef.current.visible = false;
       return;
     }
     groupRef.current.visible = true;
 
-    const time = state.clock.elapsedTime;
-    const dt = Math.min(delta, 0.05);
+    const dt = simulationFrameDt(delta, useAppStore.getState());
+    simulationTime.current += dt;
+    const time = simulationTime.current;
 
     // Reuse pre-allocated vectors
     _streamStart.set(fromPos[0], fromPos[1], fromPos[2]);
@@ -85,10 +93,10 @@ export const ContinuousLiquidStream = React.memo(function ContinuousLiquidStream
       streamMeshRef.current.rotateX(Math.PI / 2);
 
       // Jet wobble & dynamic thickness based on flow rate (Rayleigh-Plateau contraction)
-      const wobble = Math.sin(time * 30) * 0.004;
-      const normalizedRate = Math.min(1.0, flowRate / 30);
-      const streamRad = thickness * (0.65 + 0.35 * normalizedRate) + wobble;
-      streamMeshRef.current.scale.set(streamRad, distance * 0.48, streamRad);
+      const speed = Math.sqrt(2 * SCENE_GRAVITY * Math.max(0.005, (_streamStart.y - _streamEnd.y) / 2));
+      const radius = Math.min(thickness, streamRadiusForFlow(flowRate, speed));
+      const streamRad = radius * (1 + Math.sin(time * 30) * 0.08);
+      streamMeshRef.current.scale.set(streamRad, distance, streamRad);
     }
 
     // Impact surface ripple pulsation
@@ -147,10 +155,12 @@ export const ContinuousLiquidStream = React.memo(function ContinuousLiquidStream
     }
   });
 
-  return (
-    <group ref={groupRef}>
+  // Endpoints are world coordinates, including when the instrument is moved.
+  // Render at the scene root so its tool parent's pose is not applied twice.
+  return createPortal(
+    <group ref={groupRef} name={name}>
       {/* Central continuous fluid jet column */}
-      <mesh ref={streamMeshRef}>
+      <mesh ref={streamMeshRef} name={`${name}-jet`}>
         <cylinderGeometry args={[1, 0.7, 1, 16, 8, true]} />
         <meshPhysicalMaterial
           color={color}
@@ -166,7 +176,7 @@ export const ContinuousLiquidStream = React.memo(function ContinuousLiquidStream
       </mesh>
 
       {/* Surface impact ripple ring */}
-      <mesh ref={rippleMeshRef} rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh ref={rippleMeshRef} name={`${name}-ripple`} rotation={[-Math.PI / 2, 0, 0]}>
         <ringGeometry args={[0.04, 0.08, 24]} />
         <meshBasicMaterial
           color={color}
@@ -201,6 +211,6 @@ export const ContinuousLiquidStream = React.memo(function ContinuousLiquidStream
           depthWrite={false}
         />
       </instancedMesh>
-    </group>
+    </group>, scene
   );
 });

@@ -1,4 +1,5 @@
 import { solutionAcidity } from '../science/aqueousTemperature';
+import { readSample } from '../handling/instrumentReadings';
 import React, { useState } from 'react';
 import { useAppStore, getChemical } from '../store/useAppStore';
 import { 
@@ -123,8 +124,9 @@ export function VesselInspector() {
 
   // Acidity follows the neutral point at the model temperature. pH alone
   // does not establish whether the acid/base is intrinsically strong or weak.
-  const acidity = (ph: number) => vessel.phModel
-    ? solutionAcidity(ph, vessel.phReferenceTemperature_c ?? 25) : null;
+  const observation = readSample(vessel), measuredPh = observation.ph ?? NaN;
+  const acidity = (ph: number) => observation.referenceTemperature_c !== null
+    ? solutionAcidity(ph, observation.referenceTemperature_c) : null;
   const getPHColor = (ph: number) => {
     const state = acidity(ph);
     if (state === 'neutral') return 'bg-emerald-500/15 text-emerald-800 border-emerald-300';
@@ -137,7 +139,8 @@ export function VesselInspector() {
     if (state === 'neutral') return t('Neutral at model temperature', 'Trung tính ở nhiệt độ mô hình');
     if (state === 'acidic') return t('Acidic solution', 'Dung dịch có tính axit');
     if (state === 'basic') return t('Basic solution', 'Dung dịch có tính kiềm');
-    return t('Simplified pH', 'pH giản lược');
+    return observation.basis === 'scenario' ? t('Scenario pH', 'pH điều kiện kịch bản')
+      : t('pH unavailable', 'Chưa có số đo pH');
   };
 
   const handleCoolDown = () => {
@@ -326,9 +329,9 @@ export function VesselInspector() {
           pH Value
         </span>
         <div className="flex items-center gap-2">
-          <span className="text-xs font-bold font-mono text-slate-800">{formatPH(vessel.ph)}</span>
-          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${getPHColor(vessel.ph)}`}>
-            {getPHLabel(vessel.ph)}
+          <span className="text-xs font-bold font-mono text-slate-800" title={observation.reason}>{formatPH(measuredPh)}</span>
+          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${getPHColor(measuredPh)}`}>
+            {getPHLabel(measuredPh)}
           </span>
         </div>
       </div>

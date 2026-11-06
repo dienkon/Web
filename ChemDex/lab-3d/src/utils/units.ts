@@ -62,19 +62,19 @@ export function formatMeasurement(value: number, unit: string, precision: number
 }
 
 export function formatTemperature(value_c: number, unit: 'C' | 'F' | 'K' = 'C'): string {
-  if (isNaN(value_c) || !isFinite(value_c)) return '25.0°C';
+  if (!Number.isFinite(value_c)) return unit === 'K' ? '— K' : unit === 'F' ? '—°F' : '—°C';
   if (unit === 'F') return `${((value_c * 9) / 5 + 32).toFixed(1)}°F`;
   if (unit === 'K') return `${(value_c + 273.15).toFixed(1)} K`;
   return `${value_c.toFixed(1)}°C`;
 }
 
 export function formatPH(value: number): string {
-  if (isNaN(value) || !isFinite(value)) return '7.00';
-  return Math.min(14, Math.max(0, value)).toFixed(2);
+  if (!Number.isFinite(value)) return '---';
+  return value.toFixed(2);
 }
 
 export function formatMass(value_g: number, unit: 'g' | 'mg' | 'kg' = 'g'): string {
-  if (isNaN(value_g) || !isFinite(value_g)) return '0.00 g';
+  if (!Number.isFinite(value_g)) return `— ${unit}`;
   if (unit === 'mg') return `${(value_g * 1000).toFixed(1)} mg`;
   if (unit === 'kg') return `${(value_g / 1000).toFixed(3)} kg`;
   return `${value_g.toFixed(2)} g`;

@@ -39,16 +39,18 @@ export function decantLiquid(source: VesselState, receiver: VesselState | null, 
   let remainder: LiquidAliquot = withdrawn.sample;
   let target: VesselState | undefined;
   let accepted_ml = 0;
+  let failureReason: string | undefined;
   if (receiver) {
     const dispensed = dispenseAliquot(receiver, withdrawn.sample, withdrawn.sample.volume_ml);
     target = { ...refreshFlowInventory(dispensed.vessel), hasGas: false, gasRate: 0, isExplosion: false };
     remainder = dispensed.sample;
     accepted_ml = dispensed.dispensed_ml;
+    failureReason = dispensed.failureReason;
   }
   let remaining = { ...refreshFlowInventory(withdrawn.vessel), hasGas: false, gasRate: 0, isExplosion: false };
   if (remaining.volume_ml <= 1e-12) remaining = { ...remaining, liquidColor: undefined,
     isBoiling: false, boilingIntensity: 0, foam_ml: 0 };
-  return { source: remaining, receiver: target, accepted_ml,
+  return { source: remaining, receiver: target, accepted_ml, failureReason,
     moved_ml: withdrawn.sample.volume_ml,
     spill: remainder.volume_ml > 0 ? remainder : undefined };
 }

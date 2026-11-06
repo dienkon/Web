@@ -5,6 +5,14 @@ import { useInstrumentStore } from './instrumentState';
 import { balanceOccupant, balanceReading, buretteReceiver, resolveInstrumentTarget } from './instrumentOperations';
 import { lessonRuntime } from '../lesson/runtime';
 import { neutralPhAtTemperature } from '../science/aqueousTemperature';
+import { sampleMeasurement } from '../science/sampleMeasurement';
+import type { VesselState } from '../types/chemistry';
+
+export function readSample(vessel: VesselState | null | undefined) {
+  const scenarioPh = vessel && isLessonVessel(vessel.id)
+    ? lessonRuntime.list().find(session => session.vesselId === vessel.id)?.environment.pH : undefined;
+  return sampleMeasurement(vessel, scenarioPh);
+}
 
 export interface InstrumentReading {
   value: string;
@@ -61,34 +69,34 @@ export function readInstrument(id: InstrumentId): InstrumentReading {
       };
     }
     case 'thermometer':
+      const measured = readSample(target);
       return {
-        value: target ? target.temperature_c.toFixed(2) : '—',
+        value: measured.thermometerPoint && measured.temperature_c !== null ? measured.temperature_c.toFixed(2) : '—',
         unit: '°C',
-        valid: Boolean(target),
-        context: target?.name ?? 'Chọn bình cần đo',
+        valid: measured.thermometerPoint !== null && measured.temperature_c !== null,
+        context: measured.thermometerPoint ? target!.name : 'Đầu đo chưa ngập trong dung dịch của bình mở',
         details: [{ label: 'Giá trị', value: 'Nhiệt độ trạng thái mẫu; đầu đo 3D có độ trễ' }],
       };
     case 'ph_meter': {
       const lesson = target && isLessonVessel(target.id)
         ? lessonRuntime.list().find(session => session.vesselId === target.id)
         : null;
-      const valid = Boolean(target && target.volume_ml > 0.05 && target.capacity_ml > 0);
-      const pH = lesson?.environment.pH ?? target?.ph ?? 7;
+      const observation = readSample(target), valid = observation.ph !== null;
       return {
-        value: valid ? Math.max(0, Math.min(14, pH)).toFixed(2) : '---',
+        value: observation.ph !== null ? observation.ph.toFixed(2) : '---',
         unit: 'pH',
         valid,
-        context: valid ? target!.name : 'Đầu đo chưa có pha dung dịch',
+        context: valid ? target!.name : observation.reason,
         details: [{
           label: 'Cơ sở',
           value: lesson ? 'pH điều kiện kịch bản; không suy ra từ cân bằng axit–bazơ'
-            : target?.phModel === 'ideal_aqueous_25c'
+            : observation.basis === 'ideal_aqueous_25c'
               ? 'Cân bằng điện tích dung dịch lý tưởng; hằng số ở 25 °C, chưa hiệu chỉnh hoạt độ/nhiệt độ'
-              : target?.phModel === 'ideal_aqueous_temperature'
-                ? `Cân bằng dung dịch lý tưởng; hằng số tại ${(target.phReferenceTemperature_c ?? target.temperature_c).toFixed(1)} °C, chưa hiệu chỉnh hoạt độ`
-              : 'Trạng thái pH giản lược; hệ này chưa có bộ cân bằng đầy đủ',
-        }, ...(!lesson && target?.phModel ? [{ label: 'Mốc trung tính',
-          value: `pH ${neutralPhAtTemperature(target.phReferenceTemperature_c ?? 25)?.toFixed(2) ?? '---'} theo nhiệt độ của mô hình` }] : [])],
+              : observation.basis === 'ideal_aqueous_temperature'
+                ? `Cân bằng dung dịch lý tưởng; hằng số tại ${observation.referenceTemperature_c!.toFixed(1)} °C, chưa hiệu chỉnh hoạt độ`
+              : observation.reason,
+        }, ...(!lesson && observation.basis ? [{ label: 'Mốc trung tính',
+          value: `pH ${neutralPhAtTemperature(observation.referenceTemperature_c ?? 25)?.toFixed(2) ?? '---'} theo nhiệt độ của mô hình` }] : [])],
       };
     }
     case 'stirring_rod':

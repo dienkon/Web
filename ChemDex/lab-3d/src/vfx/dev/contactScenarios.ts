@@ -7,6 +7,7 @@ export const CONTACT_SCENARIOS = [
   { id: 'spill_precipitate', label: 'Đổ ra bàn · tạo kết tủa' },
   { id: 'spill_gas', label: 'Đổ ra bàn · sinh khí' },
   { id: 'glass_break', label: 'Vỡ bình · giữ đủ lượng chất' },
+  { id: 'thermal_shock', label: 'Kính nóng · nước lạnh' },
   { id: 'oxygen_foam', label: 'Bọt O₂ · thử Pause' },
   { id: 'wet_carbonate', label: 'Rắn khô · gặp axit' },
 ] as const;
@@ -47,6 +48,16 @@ export async function runContactScenario(id: string, scenario: ContactScenarioId
   if (!store.prepareStudioWaterSample(id)) return useAppStore.getState().mixError ?? 'Bình không phù hợp.';
   store.cleanSpills();
   store.setSimulationPaused(false);
+  if (scenario === 'thermal_shock') {
+    const sample = useAppStore.getState().vessels[id];
+    store.transferLiquidContinuous(id, null, sample.volume_ml, [sample.position[0] + 0.65, -1.175, sample.position[2]]);
+    store.cleanSpills();
+    store.setVesselState(id, { temperature_c: 210 });
+    await store.mixSubstances(id, 'H2O', 10);
+    return useAppStore.getState().vessels[id].isShattered
+      ? 'Nước lạnh đã chạm kính nóng: bình vỡ, liều 10 mL chuyển ra bàn. Tiêu chí sốc nhiệt là mô hình minh họa.'
+      : 'Loại dụng cụ này không dùng tiêu chí sốc nhiệt của kính; thử với beaker hoặc ống nghiệm.';
+  }
   if (scenario === 'glass_break') {
     await store.mixSubstances(id, 'CuSO4', 10);
     store.shatterVessel(id, 'Mechanical impact (Studio test)');

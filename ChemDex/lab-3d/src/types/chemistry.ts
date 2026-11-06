@@ -307,8 +307,9 @@ export interface MeasurementTool {
 }
 
 export interface TitrationPoint {
+  vesselId?: string;
   volumeAdded_ml: number;
-  ph: number;
+  ph: number | null;
   color: string;
   temperature_c: number;
   timestamp: number;

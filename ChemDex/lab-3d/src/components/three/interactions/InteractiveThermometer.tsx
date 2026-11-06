@@ -6,6 +6,9 @@ import { useAppStore } from '../../../store/useAppStore';
 import { updateThermalResponse } from '../../../engine/interactionEngine';
 import { useToolDock } from '../../../handling/toolDock';
 import { instrumentHome } from '../../../handling/instrumentCatalog';
+import { readSample } from '../../../handling/instrumentReadings';
+import { useLabEnvironment } from '../../../store/useLabEnvironment';
+import { simulationFrameDt } from '../../../core/clock';
 
 const stemGlassMaterial = new THREE.MeshPhysicalMaterial({
   roughness: 0.08,
@@ -32,29 +35,30 @@ export const InteractiveThermometer = React.memo(function InteractiveThermometer
   const groupRef = useRef<THREE.Group>(null);
   const textRef = useRef<any>(null);
   const fluidColumnRef = useRef<THREE.Mesh>(null);
-  const currentTempRef = useRef(25.0);
+  const ambient = useLabEnvironment(s => s.conditions.temperature_c);
+  const currentTempRef = useRef(ambient);
 
   const isActive = activeTool === 'thermometer' && !dock.moveMode;
+  const observation = readSample(targetVessel);
 
   useFrame((_, delta) => {
     if (!groupRef.current) return;
+    const dt = simulationFrameDt(delta, useAppStore.getState());
 
-    if (isActive && targetVessel) {
+    if (isActive && targetVessel && observation.thermometerPoint && observation.temperature_c !== null) {
       // Immerse thermometer bulb into the vessel's liquid
-      const immersionY = targetVessel.position[1] + 0.35;
+      const point = observation.thermometerPoint;
       const targetPos = animationTarget.current.set(
-        targetVessel.position[0] + 0.2,
-        immersionY + 0.8,
-        targetVessel.position[2] + 0.1
+        point[0], point[1] + 0.75, point[2]
       );
       groupRef.current.position.lerp(targetPos, 1 - Math.exp(-delta * 8));
-      groupRef.current.rotation.set(0.12, 0, -0.15);
+      groupRef.current.rotation.set(0, 0, 0);
 
       // Newton cooling / heating curve
       currentTempRef.current = updateThermalResponse(
         currentTempRef.current,
-        targetVessel.temperature_c,
-        delta,
+        observation.temperature_c,
+        dt,
         1.8
       );
     } else {
@@ -63,11 +67,11 @@ export const InteractiveThermometer = React.memo(function InteractiveThermometer
       groupRef.current.position.lerp(restPos, 1 - Math.exp(-delta * 8));
       groupRef.current.rotation.set(-Math.PI / 2, 0, 0);
 
-      // Cool back down to room ambient temperature (25°C)
+      // The room control, not a fixed 25 C fallback, sets the dry probe's environment.
       currentTempRef.current = updateThermalResponse(
         currentTempRef.current,
-        25.0,
-        delta,
+        ambient,
+        dt,
         3.0
       );
     }
@@ -143,13 +147,14 @@ export const InteractiveThermometer = React.memo(function InteractiveThermometer
       {/* Live Temperature Text */}
       <Text
         ref={textRef}
+        name="thermometer-probe-reading"
         position={[0, 1.35, 0.065]}
         fontSize={0.075}
         color="#ffffff"
         anchorX="center"
         anchorY="middle"
       >
-        25.0°C
+        {`${ambient.toFixed(1)}°C`}
       </Text>
     </group>
   );

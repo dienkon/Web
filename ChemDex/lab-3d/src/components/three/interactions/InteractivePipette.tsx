@@ -1,4 +1,5 @@
 import React, { useRef, useState, useMemo } from 'react';
+import { simulationFrameDt } from '../../../core/clock';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useAppStore } from '../../../store/useAppStore';
@@ -66,7 +67,7 @@ export const InteractivePipette = React.memo(function InteractivePipette({
       setIsDispensing(dispensing);
     }
     if (pulseTime.current > 0) {
-      pulseTime.current -= delta;
+      pulseTime.current -= simulationFrameDt(delta, useAppStore.getState());
       if (pulseTime.current <= 0) {
         setIsBulbSqueezed(false);
         setIsDispensing(false);
@@ -162,6 +163,7 @@ export const InteractivePipette = React.memo(function InteractivePipette({
 
       {/* Dispensing Droplet Stream */}
       <ContinuousLiquidStream
+        name="pipette-stream"
         fromPos={streamFrom}
         toPos={streamTo}
         color={pipetteColor}

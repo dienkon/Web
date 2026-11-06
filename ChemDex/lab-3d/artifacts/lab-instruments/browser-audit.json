@@ -1,0 +1,64 @@
+{
+  "errors": [],
+  "shaderErrors": [],
+  "phases": [
+    {
+      "name": "no-selection",
+      "unavailableReadings": true
+    },
+    {
+      "name": "fresh-copper-while-paused",
+      "ph": 4.989056743127909,
+      "lcd": "pH 4.99",
+      "immersed": true
+    },
+    {
+      "name": "oil-has-no-ph",
+      "unavailableReadings": true
+    },
+    {
+      "name": "dry-has-no-ph",
+      "unavailableReadings": true
+    },
+    {
+      "name": "sealed-has-no-ph",
+      "unavailableReadings": true
+    },
+    {
+      "name": "thermometer-immersion-pause",
+      "immersed": true,
+      "frozen": true
+    },
+    {
+      "name": "burette-receipt",
+      "moved_ml": 3.550000000000022,
+      "simulationSeconds": 3.5815999999940393,
+      "receiver_ml": 53.549989221964715,
+      "inventoryMass_g": 53.54998922196481,
+      "vesselMass_g": 53.549989221964715,
+      "evaporated_ml": 0.000010778035079776358,
+      "releasedWater_g": 0.000010778035079776358,
+      "wallWater_g": 0,
+      "validHistory": true
+    },
+    {
+      "name": "burette-clock-inventory-world-frame",
+      "paused": true,
+      "aligned": true,
+      "moved_ml": 3.550000000000022,
+      "simulationSeconds": 3.5815999999940393,
+      "massBalanced": true
+    },
+    {
+      "name": "pipette-hot-glass-breakage",
+      "ok": true,
+      "shattered": true,
+      "spill_g": 1,
+      "remainder_g": 1
+    },
+    {
+      "name": "studio-hot-glass-quick-button",
+      "shattered": true
+    }
+  ]
+}

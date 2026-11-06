@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppStore } from '../store/useAppStore';
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine } from 'recharts';
+import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import { Droplet, Play, Square, RotateCcw } from 'lucide-react';
 
 export function TitrationPanel() {
@@ -15,6 +15,7 @@ export function TitrationPanel() {
 
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
   const targetId = selectedVesselId || Object.keys(vessels)[0];
+  const targetHistory = titrationHistory.filter(point => point.vesselId === targetId);
 
   return (
     <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 space-y-4">
@@ -75,24 +76,23 @@ export function TitrationPanel() {
       <div>
         <div className="flex justify-between items-center mb-1">
           <span className="text-[10px] uppercase font-bold text-slate-400">{t('pH Titration Curve', 'Đường cong chuẩn độ pH')}</span>
-          <span className="text-[10px] text-slate-500 font-mono">{titrationHistory.length} {t('points recorded', 'điểm đo')}</span>
+          <span className="text-[10px] text-slate-500 font-mono">{targetHistory.length} {t('points recorded for selected vessel', 'điểm cho bình đang chọn')}</span>
         </div>
         <div className="h-44 w-full bg-slate-50/60 rounded-lg border border-slate-100 p-1">
-          {titrationHistory.length === 0 ? (
+          {targetHistory.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-xs text-slate-400">
               <p>{t('Add drops from burette to start plotting curve.', 'Nhỏ từng giọt từ buret để vẽ đường cong chuẩn độ.')}</p>
             </div>
           ) : (
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={titrationHistory} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+              <LineChart data={targetHistory} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                 <XAxis dataKey="volumeAdded_ml" tick={{ fontSize: 10 }} unit="mL" />
-                <YAxis domain={[0, 14]} ticks={[0, 2, 4, 6, 7, 8, 10, 12, 14]} tick={{ fontSize: 10 }} />
+                <YAxis domain={['auto', 'auto']} tick={{ fontSize: 10 }} />
                 <Tooltip 
-                  formatter={(val: any) => [`pH ${Number(val).toFixed(2)}`, 'pH']} 
+                  formatter={(val: any) => [val == null ? '---' : `pH ${Number(val).toFixed(2)}`, 'pH']}
                   labelFormatter={(lbl) => `V = ${lbl} mL`} 
                 />
-                <ReferenceLine y={7} stroke="#94a3b8" strokeDasharray="3 3" label={{ value: 'Equivalence pH 7', fill: '#94a3b8', fontSize: 9 }} />
                 <Line 
                   type="monotone" 
                   dataKey="ph" 
@@ -105,6 +105,7 @@ export function TitrationPanel() {
             </ResponsiveContainer>
           )}
         </div>
+        <p className="text-[10px] text-slate-500 mt-1">{t('Model pH at sample temperature; gaps mean no supported immersed reading.', 'pH mô hình theo nhiệt độ mẫu; chỗ trống là chưa có số đo ngập đầu dò được hỗ trợ.')}</p>
       </div>
     </div>
   );

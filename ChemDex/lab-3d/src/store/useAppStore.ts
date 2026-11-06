@@ -69,6 +69,9 @@ import { useLabEnvironment } from './useLabEnvironment';
 import { restingVesselHeight } from '../handling/vesselRest';
 import { AnimatedDoseQueue, releaseDoseAmount, type AnimatedStockDose } from '../engine/animatedDose';
 import { prepareStockAddition } from '../engine/stockAddition';
+import { buretteAliquot } from '../handling/buretteAliquot';
+import { liquidContactFailure } from '../handling/liquidContact';
+import { sampleMeasurement } from '../science/sampleMeasurement';
 import { planMetalAcid, advanceMetalAcidProgress } from '../engine/metalAcidPlan';
 import { planVerifiedContact } from '../engine/verifiedContactPlan';
 import { advancePourParcel, scalePourSample, pourContactLocal, type PourParcel, type PourArrival } from '../engine/pourTransport';
@@ -313,7 +316,7 @@ export interface AppState {
   pipetteSample: LiquidAliquot | null;
   setPipetteSample: (sample: LiquidAliquot | null) => void;
   commitPipetteTransfer: (change: { vessel: VesselState; sample: LiquidAliquot; withdrawal: boolean;
-    kinetics?: ActiveKineticsState | null; mixResult?: MixResult | null }) => void;
+    kinetics?: ActiveKineticsState | null; mixResult?: MixResult | null; failureReason?: string }) => void;
   language: Language;
   setLanguage: (lang: Language) => void;
 
@@ -2246,7 +2249,7 @@ export const useAppStore = create<AppState>((set, get) => {
       set({ pipetteSample: sample ? prepareAliquotContact(sample) : null });
       debounceSaveLocalState(get().vessels, get().burners);
     },
-    commitPipetteTransfer: ({ vessel, sample, withdrawal, kinetics, mixResult }) => {
+    commitPipetteTransfer: ({ vessel, sample, withdrawal, kinetics, mixResult, failureReason }) => {
       set(s => {
         const activeKinetics = { ...s.activeKinetics }, pendingReactions = { ...s.pendingReactions }, dissolvingSubstances = { ...s.dissolvingSubstances };
         const continued = withdrawal ? continueReactionAfterOutflow(s.activeKinetics[vessel.id], vessel, s.language) : kinetics;
@@ -2260,6 +2263,7 @@ export const useAppStore = create<AppState>((set, get) => {
           pipetteSample: sample.volume_ml === 0 && sample.mass_g === 0 ? null : sample, activeKinetics, pendingReactions, dissolvingSubstances,
           ...(mixResult !== undefined ? { lastMixResult: mixResult } : {}) };
       });
+      if (!withdrawal && failureReason) get().shatterVessel(vessel.id, failureReason);
       useInstrumentStore.getState().pulsePipette(!withdrawal);
       debounceSaveLocalState(get().vessels, get().burners);
     },
@@ -3209,36 +3213,50 @@ export const useAppStore = create<AppState>((set, get) => {
       const state = get();
       const burette = state.burette;
       const receiver = state.vessels[targetVesselId];
-      if (!receiver || receiver.id.startsWith('lesson_vessel_') || receiver.isLocked || receiver.isShattered || burette.currentVolume_ml <= 0) return;
+      if (!receiver || receiver.id.startsWith('lesson_vessel_') || receiver.isLocked || receiver.isSealed || receiver.isShattered
+        || !Number.isFinite(burette.currentVolume_ml) || burette.currentVolume_ml <= 0) return;
       const chemical = getChemical(burette.reagentFormula);
       if (!chemical || !Number.isFinite(burette.concentration_M) || burette.concentration_M < 0) return;
       const dropVol = Math.min(0.05, burette.currentVolume_ml);
-      const moles = burette.concentration_M * dropVol / 1000;
-      const transfer = dispenseAliquot(receiver, { volume_ml: dropVol, mass_g: dropVol,
-        temperature_c: 25, color: chemical.color, substances: [burette.reagentFormula],
-        contents: [{ formula: burette.reagentFormula, moles, mass_g: moles * chemical.molarMass, phase: 'aq' }],
-      }, dropVol);
+      const sample = buretteAliquot(chemical, burette.reagentFormula, burette.concentration_M, dropVol,
+        useLabEnvironment.getState().conditions.temperature_c);
+      if (!sample) return;
+      const transfer = dispenseAliquot(receiver, sample, dropVol);
       if (transfer.dispensed_ml <= 0) return;
       const newVol = Math.max(0, burette.currentVolume_ml - transfer.dispensed_ml);
       const isHeated = Object.values(state.burners).some(b => b.isOn && Math.hypot(b.position[0] - receiver.position[0], b.position[2] - receiver.position[2]) < 1.5);
-      const reacted = reactAliquotMixture(transfer.vessel, state.language, isHeated);
-      set(current => ({ burette: { ...current.burette, currentVolume_ml: newVol,
+      const reacted = transfer.failureReason ? { vessel: transfer.vessel, kinetics: null, mixResult: null }
+        : reactAliquotMixture(transfer.vessel, state.language, isHeated);
+      set(current => {
+        const activeKinetics = { ...current.activeKinetics }, pendingReactions = { ...current.pendingReactions },
+          dissolvingSubstances = { ...current.dissolvingSubstances };
+        delete activeKinetics[targetVesselId]; delete pendingReactions[targetVesselId]; delete dissolvingSubstances[targetVesselId];
+        if (reacted.kinetics) activeKinetics[targetVesselId] = reacted.kinetics;
+        const pending = reacted.kinetics ? null : findPendingReaction(reacted.vessel.substances, reacted.vessel.temperature_c, isHeated, current.language);
+        if (pending) pendingReactions[targetVesselId] = { ...pending, vesselId: targetVesselId };
+        return { burette: { ...current.burette, currentVolume_ml: newVol,
         isDispensing: newVol > 1e-8 && current.burette.isDispensing },
         vessels: { ...current.vessels, [targetVesselId]: reacted.vessel },
-        ...(reacted.kinetics ? { lastMixResult: reacted.mixResult,
-          activeKinetics: { ...current.activeKinetics, [targetVesselId]: reacted.kinetics } } : {}),
-      }));
+        activeKinetics, pendingReactions, dissolvingSubstances, lastMixResult: reacted.mixResult };
+      });
+      if (transfer.failureReason) {
+        get().shatterVessel(targetVesselId, transfer.failureReason);
+        return;
+      }
 
       // Record titration history
       const target = get().vessels[targetVesselId];
       if (target) {
-        const volAdded = Number(((get().titrationHistory.at(-1)?.volumeAdded_ml ?? 0) + transfer.dispensed_ml).toFixed(3));
+        const previous = get().titrationHistory.filter(point => point.vesselId === targetVesselId).at(-1);
+        const volAdded = Number(((previous?.volumeAdded_ml ?? 0) + transfer.dispensed_ml).toFixed(3));
+        const measurement = sampleMeasurement(target);
         set(s => ({
           titrationHistory: [
             ...s.titrationHistory,
             {
+              vesselId: targetVesselId,
               volumeAdded_ml: volAdded,
-              ph: target.ph,
+              ph: measurement.ph,
               color: target.liquidColor || '#ffffff',
               temperature_c: target.temperature_c,
               timestamp: Date.now()
@@ -3381,6 +3399,7 @@ export const useAppStore = create<AppState>((set, get) => {
       const arrivals: PourArrival[] = [], remaining: PourParcel[] = [];
       const overflowEvents: VfxEventMap['vessel:overflow'][] = [];
       const groundEvents: VfxEventMap['spill:impact'][] = [];
+      const contactFailures = new Map<string, string>();
       const vessels = { ...state.vessels }, activeKinetics = { ...state.activeKinetics },
         pendingReactions = { ...state.pendingReactions }, dissolvingSubstances = { ...state.dissolvingSubstances };
       let spills = state.spills, lastMixResult = state.lastMixResult, changedVessels = false;
@@ -3402,12 +3421,17 @@ export const useAppStore = create<AppState>((set, get) => {
         const target = parcel.targetId ? vessels[parcel.targetId] : null;
         if (target && parcel.trajectory.landingKind === 'inside' && parcel.trajectory.targetVesselId === target.id
           && canReceivePour(alreadyInside ? { ...target, isSealed: false } : target) && !target.id.startsWith('lesson_vessel_')) {
-          const dispensed = dispenseAliquot(target, contact, contact.volume_ml);
+          // An inner film already crossed the mouth before any stopper was applied.
+          const dispensed = dispenseAliquot(alreadyInside ? { ...target, isSealed: false } : target, contact, contact.volume_ml);
+          if (alreadyInside) dispensed.vessel = { ...dispensed.vessel, isSealed: target.isSealed };
           accepted_ml = dispensed.dispensed_ml; spill = dispensed.sample;
           if (accepted_ml > 0) {
             const heated = Object.values(state.burners).some(b => b.isOn
               && Math.hypot(b.position[0] - target.position[0], b.position[2] - target.position[2]) < 1.5);
-            const reacted = reactAliquotMixture(refreshFlowInventory(dispensed.vessel), state.language, heated);
+            if (dispensed.failureReason) contactFailures.set(target.id, dispensed.failureReason);
+            const received = refreshFlowInventory(dispensed.vessel);
+            const reacted = contactFailures.has(target.id) ? { vessel: received, kinetics: null, mixResult: null }
+              : reactAliquotMixture(received, state.language, heated);
             delete activeKinetics[target.id]; delete pendingReactions[target.id]; delete dissolvingSubstances[target.id];
             if (reacted.kinetics) activeKinetics[target.id] = reacted.kinetics;
             const pending = findPendingReaction(reacted.vessel.substances, reacted.vessel.temperature_c, heated, state.language);
@@ -3495,6 +3519,8 @@ export const useAppStore = create<AppState>((set, get) => {
             const held = scalePourSample(contact, fraction);
             const film = createWallFilm(parcel, held, target);
             if (film) {
+              const failure = liquidContactFailure(target, held, held.volume_ml);
+              if (failure) contactFailures.set(target.id, failure);
               remaining.push(film); changeCoating(target.id, held.volume_ml, held.mass_g); syncCoating(target.id);
               spill = scalePourSample(contact, 1 - fraction);
             }
@@ -3525,7 +3551,11 @@ export const useAppStore = create<AppState>((set, get) => {
         activeKinetics: changedVessels ? activeKinetics : state.activeKinetics,
         pendingReactions: changedVessels ? pendingReactions : state.pendingReactions,
         dissolvingSubstances: changedVessels ? dissolvingSubstances : state.dissolvingSubstances, lastMixResult });
-      for (const event of overflowEvents) vfxBus.emit('vessel:overflow', event);
+      for (const [id, reason] of contactFailures) get().shatterVessel(id, reason);
+      for (const arrival of arrivals) if (arrival.parcel.targetId && contactFailures.has(arrival.parcel.targetId)) {
+        arrival.spilled_ml += arrival.accepted_ml; arrival.accepted_ml = 0;
+      }
+      for (const event of overflowEvents) if (!contactFailures.has(event.vesselId)) vfxBus.emit('vessel:overflow', event);
       for (const event of groundEvents) vfxBus.emit('spill:impact', event);
       for (const arrival of arrivals) if (arrival.spilled_ml > 0) ppeService.handleChemicalSplash(arrival.sample.substances, arrival.sample.color);
       debounceSaveLocalState(get().vessels, get().burners);
@@ -3541,7 +3571,8 @@ export const useAppStore = create<AppState>((set, get) => {
       if (!transfer) return EMPTY_LIQUID_TRANSFER;
       const burners = Object.values(state.burners);
       const isHeated = !!to && burners.some(b => b.isOn && Math.hypot(b.position[0] - to.position[0], b.position[2] - to.position[2]) < 1.5);
-      const reacted = transfer.receiver ? reactAliquotMixture(transfer.receiver, state.language, isHeated) : null;
+      const reacted = transfer.receiver ? transfer.failureReason ? { vessel: transfer.receiver, kinetics: null, mixResult: null }
+        : reactAliquotMixture(transfer.receiver, state.language, isHeated) : null;
       const overflow = transfer.spill && to ? createOverflowParcel(reacted?.vessel ?? to, transfer.spill,
         { sourceId: fromId, sourceName: from.name, temperature_c: transfer.spill.temperature_c }) : null;
       if (transfer.spill && to && !overflow) return EMPTY_LIQUID_TRANSFER;
@@ -3573,11 +3604,13 @@ export const useAppStore = create<AppState>((set, get) => {
           inFlightPours: overflow ? [...s.inFlightPours, overflow] : s.inFlightPours, spills: ground,
           activeKinetics, pendingReactions, dissolvingSubstances, lastMixResult: reacted?.mixResult ?? null };
       });
-      if (overflow && toId) vfxBus.emit('vessel:overflow', { vesselId: toId, volume_ml: overflow.sample.volume_ml,
+      if (transfer.failureReason && toId) get().shatterVessel(toId, transfer.failureReason);
+      if (overflow && toId && !transfer.failureReason) vfxBus.emit('vessel:overflow', { vesselId: toId, volume_ml: overflow.sample.volume_ml,
         color: overflow.sample.color, substances: overflow.sample.substances, angle: -(to?.rotationY ?? 0), transported: true });
       if (transfer.spill && !to) ppeService.handleChemicalSplash(transfer.spill.substances, transfer.spill.color);
       debounceSaveLocalState(get().vessels, get().burners);
-      return { moved_ml: transfer.moved_ml, accepted_ml: transfer.accepted_ml, spilled_ml: transfer.spill?.volume_ml ?? 0 };
+      return transfer.failureReason ? { moved_ml: transfer.moved_ml, accepted_ml: 0, spilled_ml: transfer.moved_ml }
+        : { moved_ml: transfer.moved_ml, accepted_ml: transfer.accepted_ml, spilled_ml: transfer.spill?.volume_ml ?? 0 };
     },
 
     settleVesselMixture: async (id) => {
@@ -3787,12 +3820,13 @@ export const useAppStore = create<AppState>((set, get) => {
       }
       if (!prepared) return;
       const isSolid = chemData.type === 'solid';
-      if (!isSolid && original.temperature_c >= 180 && original.volume_ml <= 2) {
+      const stockFailure = prepared.incoming && liquidContactFailure(original, prepared.incoming, prepared.acceptedAmount);
+      if (!isSolid && stockFailure) {
         // Breaking the receiver cannot erase the incoming dose.
         const dose = prepared.incoming!;
         get().addSpill(original.position, dose.volume_ml, dose.substances, dose.color,
           original.name, dose.mass_g, dose.contents);
-        get().shatterVessel(targetId, 'Thermal Shock: Cold liquid poured into dry superheated glassware (>180°C)');
+        get().shatterVessel(targetId, stockFailure);
         return;
       }
       if (prepared.spill) {
@@ -4188,11 +4222,6 @@ export const useAppStore = create<AppState>((set, get) => {
       if (!from || !to || fromId === toId || from.isSealed || to.isSealed || from.isShattered || to.isShattered) return;
       const requested = customAmount_ml ?? from.volume_ml;
       if (!Number.isFinite(requested) || requested <= 0) return;
-      if (to.temperature_c >= 180 && to.volume_ml <= 2 && to.temperature_c - from.temperature_c >= 130) {
-        get().transferLiquidContinuous(fromId, toId, requested);
-        get().shatterVessel(toId, 'Thermal Shock: Cold liquid poured into dry hot glassware (>180°C)');
-        return;
-      }
       get().transferLiquidContinuous(fromId, toId, requested);
       if (get().vessels[fromId] === from) return;
       labSound.playPour();

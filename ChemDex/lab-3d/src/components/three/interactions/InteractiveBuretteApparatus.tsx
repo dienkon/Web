@@ -8,6 +8,10 @@ import { LAB_PHYSICS } from '../../../engine/interactionEngine';
 import { ContinuousLiquidStream } from './ContinuousLiquidStream';
 import { labSound } from '../../../utils/audio';
 import { useToolDock } from '../../../handling/toolDock';
+import { simulationFrameDt } from '../../../core/clock';
+import { BuretteFlowClock } from '../../../handling/buretteFlow';
+import { vesselWorldLiquidSurfaceY } from '../../../science/vesselGeometry';
+import { findChemical } from '../../../data/chemicals';
 
 const glassMaterial = new THREE.MeshPhysicalMaterial({
   roughness: 0.05,
@@ -35,7 +39,7 @@ export const InteractiveBuretteApparatus = React.memo(function InteractiveBurett
 
   const [valveAngle, setValveAngle] = useState(burette.isDispensing ? Math.PI / 2 : 0);
   const [isValveHovered, setIsValveHovered] = useState(false);
-  const dropTimerRef = useRef(0);
+  const dropClock = useRef(new BuretteFlowClock());
 
   // Synchronize valveAngle if burette.isDispensing changes from external button
   const targetValveAngle = burette.isDispensing ? Math.PI / 2 : 0;
@@ -48,11 +52,11 @@ export const InteractiveBuretteApparatus = React.memo(function InteractiveBurett
     const tipWorldX = standPos[0];
     const tipWorldZ = standPos[2];
     for (const v of Object.values(state.vessels)) {
-      if (v.id.startsWith('lesson_vessel_') || v.isLocked || v.isShattered || v.volume_ml >= v.capacity_ml || v.capacity_ml <= 0 || ['retort_stand', 'retort_clamp', 'stopper', 'test_tube_rack', 'tongs'].includes(v.type)) continue;
+      if (v.id.startsWith('lesson_vessel_') || v.isLocked || v.isSealed || v.isShattered || v.volume_ml >= v.capacity_ml || v.capacity_ml <= 0 || ['retort_stand', 'retort_clamp', 'stopper', 'test_tube_rack', 'tongs'].includes(v.type)) continue;
       const dx = v.position[0] - tipWorldX;
       const dz = v.position[2] - tipWorldZ;
       if (Math.hypot(dx, dz) < 0.6) {
-        return { id: v.id, position: v.position };
+        return { id: v.id, position: v.position, surfaceY: vesselWorldLiquidSurfaceY(v) };
       }
     }
     return null;
@@ -64,20 +68,19 @@ export const InteractiveBuretteApparatus = React.memo(function InteractiveBurett
   // Stream positions
   const streamFromPos: [number, number, number] = [standPos[0], standPos[1] + 0.1, standPos[2]];
   const streamToPos: [number, number, number] = targetVessel
-    ? [targetVessel.position[0], targetVessel.position[1] + 0.35, targetVessel.position[2]]
+    ? [targetVessel.position[0], targetVessel.position[1] + targetVessel.surfaceY, targetVessel.position[2]]
     : [standPos[0], standPos[1] - 0.9, standPos[2]];
 
   useFrame((_, delta) => {
-    if (isDispensing && targetVessel && burette.flowRate_ml_s > 0) {
-      dropTimerRef.current += delta;
-      const interval = 0.05 / burette.flowRate_ml_s;
-      let emitted = 0;
-      while (dropTimerRef.current >= interval && emitted++ < 4) {
-        dropTimerRef.current -= interval;
-        dispenseDrop(targetVessel.id);
-        labSound.playDrop();
-      }
-    } else dropTimerRef.current = 0;
+    const state = useAppStore.getState(), dt = simulationFrameDt(delta, state);
+    dropClock.current.step(dt, isDispensing && !!targetVessel, burette.flowRate_ml_s, state.burette.currentVolume_ml, () => {
+      if (!targetVessel) return 0;
+      const before = useAppStore.getState().burette.currentVolume_ml;
+      dispenseDrop(targetVessel.id);
+      const moved = before - useAppStore.getState().burette.currentVolume_ml;
+      if (moved > 0) labSound.playDrop();
+      return moved;
+    });
   });
 
   const handleStopcockClick = (e: any) => {
@@ -215,12 +218,13 @@ export const InteractiveBuretteApparatus = React.memo(function InteractiveBurett
 
       {/* Falling Continuous Droplet Stream onto Vessel Below */}
       <ContinuousLiquidStream
+        name="burette-stream"
         fromPos={streamFromPos}
         toPos={streamToPos}
-        color="#e0f2fe"
-        flowRate={isDispensing ? 18 : 0}
+        color={findChemical(burette.reagentFormula).color}
+        flowRate={isDispensing ? burette.flowRate_ml_s : 0}
         thickness={0.02}
-        active={isDispensing}
+        active={isDispensing && !!targetVessel}
       />
     </group>
   );

@@ -244,6 +244,8 @@ describe('Physical Mechanisms & Store Actions', () => {
 
     store.setVesselState(sourceId, {
       volume_ml: 25,
+      mass_g: 25,
+      contents: [{ formula: 'H2O', phase: 'l', mass_g: 25, moles: 25 / 18.015 }],
       substances: ['H2O'],
       liquidColor: '#38bdf8'
     });

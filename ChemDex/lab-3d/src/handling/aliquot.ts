@@ -4,6 +4,7 @@ import type { MobileSolidInventory } from '../science/suspensionTransport';
 import { precipitateComponents, isSuspensionRow, withLegacyPrecipitateOrigins } from '../science/precipitateInventory';
 import { identifySpecies, sameMolecularFormula } from '../science/speciesIdentity';
 import { mixColorBeerLambert } from '../pour/physics/mixing';
+import { liquidContactFailure } from './liquidContact';
 
 export interface LiquidAliquot {
   reactionProgramId?: string | null;
@@ -74,7 +75,13 @@ export function withdrawAliquot(vessel: VesselState, requested_ml: number, mobil
   };
 }
 
-export function dispenseAliquot(vessel: VesselState, sample: LiquidAliquot, requested_ml: number) {
+export function dispenseAliquot(vessel: VesselState, sample: LiquidAliquot, requested_ml: number): {
+  vessel: VesselState; sample: LiquidAliquot; dispensed_ml: number; failureReason?: string;
+} {
+  if (vessel.isShattered || vessel.isSealed || !(vessel.capacity_ml > 0) || !Number.isFinite(vessel.capacity_ml)
+    || !(requested_ml > 0) || !Number.isFinite(requested_ml)
+    || !(sample.volume_ml > 0) || !Number.isFinite(sample.volume_ml) || !Number.isFinite(sample.mass_g) || sample.mass_g < 0)
+    return { vessel, sample, dispensed_ml: 0 };
   const incomingSolidMass = sample.contents.filter(solid).reduce((s, c) => s + c.mass_g, 0);
   const incomingDensity = sample.volume_ml > 0 ? Math.max(0, sample.mass_g - incomingSolidMass) / sample.volume_ml : 1;
   const mergeAt = (fraction: number) => {
@@ -106,6 +113,7 @@ export function dispenseAliquot(vessel: VesselState, sample: LiquidAliquot, requ
     }
   }
   const fraction = sample.volume_ml > 0 ? volume / sample.volume_ml : 0;
+  if (!(volume > 0)) return { vessel, sample, dispensed_ml: 0 };
   const mass = sample.mass_g * fraction;
   const contents = mergeAt(fraction);
   const totalMass = vessel.mass_g + mass;
@@ -128,5 +136,6 @@ export function dispenseAliquot(vessel: VesselState, sample: LiquidAliquot, requ
       contents: sample.contents.map(content => ({ ...content, moles: content.moles * (1 - fraction), mass_g: content.mass_g * (1 - fraction),
         ...(content.volume_ml !== undefined ? { volume_ml: content.volume_ml * (1 - fraction) } : {}) })) },
     dispensed_ml: volume,
+    failureReason: liquidContactFailure(vessel, sample, volume),
   };
 }
