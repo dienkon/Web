@@ -35,14 +35,54 @@ try {
     }
     await page.getByRole('button', { name: 'Đo vận tốc lắng', exact: true }).click();
     await page.evaluate(async () => (await import('/src/store/useAppStore.ts')).useAppStore.getState().setSimulationPaused(false));
-    await page.waitForFunction(() => {
+    try { await page.waitForFunction(() => {
       const snapshot = window.physicsAuditStore.getState().snapshot;
       return snapshot?.experiments?.length === 6 && snapshot.experiments.every(e => e.time_s > 0.25);
-    }, undefined, { timeout: 60000 });
+    }, undefined, { timeout: 30000 }); } catch (error) {
+      const diagnostic = await page.evaluate(async () => {
+        const s = window.physicsAuditStore.getState(), app = (await import('/src/store/useAppStore.ts')).useAppStore.getState();
+        return { enabled: s.enabled, status: s.status, error: s.error, requested: s.experiments.map(e => e.id),
+          actual: s.snapshot?.experiments?.map(e => ({ id: e.id, time_s: e.time_s })), tick: s.snapshot?.tick, paused: app.isSimulationPaused };
+      });
+      console.log(JSON.stringify({ fixtureDiagnostic: diagnostic })); report.errors.push(JSON.stringify(diagnostic)); throw error;
+    }
     const measured = await page.evaluate(() => window.physicsAuditStore.getState().snapshot.experiments.map(e => ({ kind: e.kind, values: e.values })));
     for (const e of measured) if (!Object.values(e.values).every(Number.isFinite)) throw new Error(`Non-finite measurement ${e.kind}`);
     report.checks.push({ viewport, experiments: measured, pass: true });
     await page.screenshot({ path: resolve(output, `physics-${viewport.width}.png`) });
+    const saved = await page.evaluate(async () => {
+      const { useAppStore: app } = await import('/src/store/useAppStore.ts');
+      const { debounceSaveLocalState } = await import('/src/store/persistence.ts');
+      const s = app.getState();
+      debounceSaveLocalState(s.vessels, s.burners, { inFlightPours: s.inFlightPours, spills: s.spills,
+        wasteMass_g: s.wasteMass_g, wasteContents: s.wasteContents, workbenchEscapedGas_g: s.workbenchEscapedGas_g, pipetteSample: s.pipetteSample });
+      return { objects: window.physicsAuditStore.getState().expansions.length, tick: window.physicsAuditStore.getState().snapshot.tick };
+    });
+    await page.waitForFunction(minTick => {
+      const raw = localStorage.getItem('chemlab_physical_state_v4');
+      const physical = raw && JSON.parse(raw).materials?.physics;
+      return physical?.expansions.length === 5 && physical.tick >= minTick && physical.experiments?.length === 6;
+    }, saved.tick, { timeout: 15000 });
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    await page.evaluate(async () => { window.physicsAuditStore = (await import('/src/physical/usePhysicsStore.ts')).usePhysicsStore; });
+    try { await page.waitForFunction(() => {
+      const s = window.physicsAuditStore.getState();
+      return s.enabled && s.status === 'running' && s.snapshot?.objects.length >= 8 && s.snapshot?.experiments?.length === 6;
+    }, undefined, { timeout: 30000 }); } catch (error) {
+      const diagnostic = await page.evaluate(async () => {
+        const s = window.physicsAuditStore.getState(), saved = JSON.parse(localStorage.getItem('chemlab_physical_state_v4'));
+        const { isReferenceExperiment } = await import('/src/physical/ReferenceExperiments.ts');
+        return { enabled: s.enabled, status: s.status, error: s.error, expansions: s.expansions.length,
+          objects: s.snapshot?.objects.length, experiments: s.snapshot?.experiments?.length,
+          savedEnabled: saved?.materials?.physics?.enabled, savedExperiments: saved?.materials?.physics?.experiments?.map(e => ({ kind: e.kind, valid: isReferenceExperiment(e) })),
+          savedExpansionCount: saved?.materials?.physics?.expansions?.length };
+      });
+      console.log(JSON.stringify({ diagnostic })); report.errors.push(JSON.stringify(diagnostic)); throw error;
+    }
+    const restored = await page.evaluate(() => ({ objects: window.physicsAuditStore.getState().expansions.length,
+      tick: window.physicsAuditStore.getState().snapshot.tick }));
+    if (restored.objects !== saved.objects || restored.tick < saved.tick) throw new Error('Physics save/reload lost objects or time');
+    report.checks.push({ viewport, saved, restored, pass: true });
     report.viewports.push(viewport);
     await context.close();
   }

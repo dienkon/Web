@@ -16,6 +16,8 @@
     "studio:audit": "tsx scripts/auditStudioSamples.ts",
     "studio:atoms:audit": "tsx scripts/auditStudioAtomContexts.ts",
     "thermo:audit": "tsx scripts/auditThermochemistry.ts",
+    "physics:audit": "tsx scripts/auditPhysicalCoverage.ts",
+    "physics:benchmark": "tsx scripts/benchmarkPhysicalRuntime.ts",
     "lint": "tsc --noEmit",
     "test": "vitest run"
   },

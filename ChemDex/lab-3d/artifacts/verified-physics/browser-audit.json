@@ -1,0 +1,225 @@
+{
+  "errors": [],
+  "checks": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "before": {
+        "tick": 4,
+        "bodies": 3,
+        "status": "running"
+      },
+      "pauseTick": 8,
+      "pass": true
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "experiments": [
+        {
+          "kind": "force_meter",
+          "values": {
+            "mass_kg": 0.0026999999999999997,
+            "displaced_m3": 0.000001,
+            "weight_N": 0.026477954999999994,
+            "reading_N": 0.016688956969999995
+          }
+        },
+        {
+          "kind": "pressure_sensor",
+          "values": {
+            "amount_mol": 0.001,
+            "volume_m3": 0.000025,
+            "temperature_K": 293.15,
+            "pressure_Pa": 97495.38865866799
+          }
+        },
+        {
+          "kind": "pipette_bulb",
+          "values": {
+            "bulb_m3": 0.00001,
+            "stroke_m3": 0.000003,
+            "sample_m3": 0.0000015309285674436197,
+            "source_m3": 0.00001846907143255638,
+            "area_m2": 0.00007853981633974483,
+            "resistance_Pas_m3": 4082515276.2388253,
+            "air_mol": 0.00029099837838820314,
+            "pressure_Pa": 83748.85082128845
+          }
+        },
+        {
+          "kind": "water_bath",
+          "values": {
+            "bath_K": 293.16274278604897,
+            "sample_K": 293.1500125563329,
+            "bath_mass_kg": 0.5,
+            "sample_mass_kg": 0.1,
+            "setpoint_K": 333.15,
+            "power_W": 100,
+            "electrical_J": 26.666666666666657,
+            "loss_J": 0.0035046823727175602,
+            "sampleHeat_J": 0.0052535698194534
+          }
+        },
+        {
+          "kind": "gas_collector",
+          "values": {
+            "source_mol": 0.0019897412112470586,
+            "collected_mol": 0.000010258788752941774,
+            "sourceVolume_m3": 0.00001,
+            "capacity_m3": 0.0001,
+            "gasVolume_m3": 2.4630046110348043e-7,
+            "jarWater_m3": 0.00009975369953889653,
+            "tankWater_m3": 0.0005002463004611035,
+            "pressure_Pa": 101520.7799606
+          }
+        },
+        {
+          "kind": "viscosity",
+          "values": {
+            "velocity_m_s": 0.0000925313648813484,
+            "displacement_m": 0.000024673645434953167,
+            "radius_m": 0.000005,
+            "particleDensity_kg_m3": 2700,
+            "reynolds": 0.0009218044752950297
+          }
+        }
+      ],
+      "pass": true
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "saved": {
+        "objects": 5,
+        "tick": 40
+      },
+      "restored": {
+        "objects": 5,
+        "tick": 44
+      },
+      "pass": true
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "before": {
+        "tick": 4,
+        "bodies": 3,
+        "status": "running"
+      },
+      "pauseTick": 8,
+      "pass": true
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "experiments": [
+        {
+          "kind": "force_meter",
+          "values": {
+            "mass_kg": 0.0026999999999999997,
+            "displaced_m3": 0.000001,
+            "weight_N": 0.026477954999999994,
+            "reading_N": 0.016688956969999995
+          }
+        },
+        {
+          "kind": "pressure_sensor",
+          "values": {
+            "amount_mol": 0.001,
+            "volume_m3": 0.000025,
+            "temperature_K": 293.15,
+            "pressure_Pa": 97495.38865866799
+          }
+        },
+        {
+          "kind": "pipette_bulb",
+          "values": {
+            "bulb_m3": 0.00001,
+            "stroke_m3": 0.000003,
+            "sample_m3": 0.0000015309285674436197,
+            "source_m3": 0.00001846907143255638,
+            "area_m2": 0.00007853981633974483,
+            "resistance_Pas_m3": 4082515276.2388253,
+            "air_mol": 0.00029099837838820314,
+            "pressure_Pa": 83748.85082128845
+          }
+        },
+        {
+          "kind": "water_bath",
+          "values": {
+            "bath_K": 293.16274278604897,
+            "sample_K": 293.1500125563329,
+            "bath_mass_kg": 0.5,
+            "sample_mass_kg": 0.1,
+            "setpoint_K": 333.15,
+            "power_W": 100,
+            "electrical_J": 26.666666666666657,
+            "loss_J": 0.0035046823727175602,
+            "sampleHeat_J": 0.0052535698194534
+          }
+        },
+        {
+          "kind": "gas_collector",
+          "values": {
+            "source_mol": 0.0019897412112470586,
+            "collected_mol": 0.000010258788752941774,
+            "sourceVolume_m3": 0.00001,
+            "capacity_m3": 0.0001,
+            "gasVolume_m3": 2.4630046110348043e-7,
+            "jarWater_m3": 0.00009975369953889653,
+            "tankWater_m3": 0.0005002463004611035,
+            "pressure_Pa": 101520.7799606
+          }
+        },
+        {
+          "kind": "viscosity",
+          "values": {
+            "velocity_m_s": 0.0000925313648813484,
+            "displacement_m": 0.000024673645434953167,
+            "radius_m": 0.000005,
+            "particleDensity_kg_m3": 2700,
+            "reynolds": 0.0009218044752950297
+          }
+        }
+      ],
+      "pass": true
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "saved": {
+        "objects": 5,
+        "tick": 40
+      },
+      "restored": {
+        "objects": 5,
+        "tick": 52
+      },
+      "pass": true
+    }
+  ],
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "width": 390,
+      "height": 844
+    }
+  ]
+}

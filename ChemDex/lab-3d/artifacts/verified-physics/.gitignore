@@ -1,0 +1,8 @@
+# Local diagnostic captures, not acceptance evidence.
+profile/
+tuned/
+tuned-cylinder/
+*.cpuprofile
+protocol-*
+debug.png
+runtime-cpu-before.json

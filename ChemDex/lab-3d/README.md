@@ -19,6 +19,12 @@ View your app in AI Studio: https://ai.studio/apps/615b7b6b-733d-472b-ae02-99247
 3. Run the app:
    `npm run dev`
 
+## Vật lí có kiểm chứng — bản thử nghiệm
+
+Mở **Vật lí** trên thanh công cụ để bật runtime Rapier trong Worker, xem 184 hồ sơ vật thể/chất và dùng bàn kiểm chứng lực, áp suất, hút pipet, bể nhiệt, thu khí, độ nhớt và nóng chảy băng. Nhánh mới tắt mặc định: tải lớn, hình học phụ kiện và hiệu chuẩn thực nghiệm còn chưa đạt đủ tiêu chí nghiệm thu.
+
+[Báo cáo triển khai và giới hạn](docs/research/verified-physics.vi.md). Chạy `npm run physics:audit` để tạo bảng bao phủ, `npm run physics:benchmark` để đo CPU; audit giao diện bằng `node scripts/auditVerifiedPhysics.mjs` khi Vite chạy ở cổng 6773.
+
 ## Kho phản ứng và chuỗi có nguồn
 
 Trong lab, mở **Bài học → Kho mở rộng & chuỗi** để tra 1.299 phương trình, 378 phương trình ion rút gọn và 5.740 chuỗi mẫu ba bước. Mỗi bước có điều kiện, chất bổ sung và nguồn đối chiếu theo họ phản ứng. Các mục tra cứu được phân biệt với bài mô phỏng có runtime riêng.

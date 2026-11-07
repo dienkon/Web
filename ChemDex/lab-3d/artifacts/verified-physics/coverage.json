@@ -1,0 +1,5171 @@
+{
+  "count": 184,
+  "counts": {
+    "vessel": 15,
+    "tool": 24,
+    "sample": 7,
+    "chemical": 94,
+    "product": 38,
+    "environment": 6
+  },
+  "entries": [
+    {
+      "id": "vessel:beaker:250",
+      "name": "beaker",
+      "kind": "vessel",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "tilt",
+        "containment",
+        "transfer",
+        "thermal",
+        "damage"
+      ],
+      "validation": {
+        "id": "vessel:beaker",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "vessel_world_scale",
+          "hollow_collider",
+          "free_fall",
+          "mass_properties"
+        ],
+        "limitations": [
+          "Tare is a legacy estimate; shell geometry follows the application, not a manufacturer.",
+          "Wedge tessellation and apparatus accessories need independent contact audit."
+        ]
+      }
+    },
+    {
+      "id": "vessel:flask:250",
+      "name": "flask",
+      "kind": "vessel",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "tilt",
+        "containment",
+        "transfer",
+        "thermal",
+        "damage"
+      ],
+      "validation": {
+        "id": "vessel:flask",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "vessel_world_scale",
+          "hollow_collider",
+          "free_fall",
+          "mass_properties"
+        ],
+        "limitations": [
+          "Tare is a legacy estimate; shell geometry follows the application, not a manufacturer.",
+          "Wedge tessellation and apparatus accessories need independent contact audit."
+        ]
+      }
+    },
+    {
+      "id": "vessel:cylinder:100",
+      "name": "cylinder",
+      "kind": "vessel",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "tilt",
+        "containment",
+        "transfer",
+        "thermal",
+        "damage"
+      ],
+      "validation": {
+        "id": "vessel:cylinder",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "vessel_world_scale",
+          "hollow_collider",
+          "free_fall",
+          "mass_properties"
+        ],
+        "limitations": [
+          "Tare is a legacy estimate; shell geometry follows the application, not a manufacturer.",
+          "Wedge tessellation and apparatus accessories need independent contact audit."
+        ]
+      }
+    },
+    {
+      "id": "vessel:test_tube:50",
+      "name": "test_tube",
+      "kind": "vessel",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "tilt",
+        "containment",
+        "transfer",
+        "thermal",
+        "damage"
+      ],
+      "validation": {
+        "id": "vessel:test_tube",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "vessel_world_scale",
+          "hollow_collider",
+          "free_fall",
+          "mass_properties"
+        ],
+        "limitations": [
+          "Tare is a legacy estimate; shell geometry follows the application, not a manufacturer.",
+          "Wedge tessellation and apparatus accessories need independent contact audit."
+        ]
+      }
+    },
+    {
+      "id": "vessel:watch_glass:40",
+      "name": "watch_glass",
+      "kind": "vessel",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "tilt",
+        "containment",
+        "transfer",
+        "thermal",
+        "damage"
+      ],
+      "validation": {
+        "id": "vessel:watch_glass",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "vessel_world_scale",
+          "hollow_collider",
+          "free_fall",
+          "mass_properties"
+        ],
+        "limitations": [
+          "Tare is a legacy estimate; shell geometry follows the application, not a manufacturer.",
+          "Wedge tessellation and apparatus accessories need independent contact audit."
+        ]
+      }
+    },
+    {
+      "id": "vessel:evaporating_dish:100",
+      "name": "evaporating_dish",
+      "kind": "vessel",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "tilt",
+        "containment",
+        "transfer",
+        "thermal",
+        "damage"
+      ],
+      "validation": {
+        "id": "vessel:evaporating_dish",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "vessel_world_scale",
+          "hollow_collider",
+          "free_fall",
+          "mass_properties"
+        ],
+        "limitations": [
+          "Tare is a legacy estimate; shell geometry follows the application, not a manufacturer.",
+          "Wedge tessellation and apparatus accessories need independent contact audit."
+        ]
+      }
+    },
+    {
+      "id": "vessel:crucible:50",
+      "name": "crucible",
+      "kind": "vessel",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "tilt",
+        "containment",
+        "transfer",
+        "thermal",
+        "damage"
+      ],
+      "validation": {
+        "id": "vessel:crucible",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "vessel_world_scale",
+          "hollow_collider",
+          "free_fall",
+          "mass_properties"
+        ],
+        "limitations": [
+          "Tare is a legacy estimate; shell geometry follows the application, not a manufacturer.",
+          "Wedge tessellation and apparatus accessories need independent contact audit."
+        ]
+      }
+    },
+    {
+      "id": "vessel:petri_dish:60",
+      "name": "petri_dish",
+      "kind": "vessel",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "tilt",
+        "containment",
+        "transfer",
+        "thermal",
+        "damage"
+      ],
+      "validation": {
+        "id": "vessel:petri_dish",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "vessel_world_scale",
+          "hollow_collider",
+          "free_fall",
+          "mass_properties"
+        ],
+        "limitations": [
+          "Tare is a legacy estimate; shell geometry follows the application, not a manufacturer.",
+          "Wedge tessellation and apparatus accessories need independent contact audit."
+        ]
+      }
+    },
+    {
+      "id": "vessel:volumetric_flask:100",
+      "name": "volumetric_flask",
+      "kind": "vessel",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "tilt",
+        "containment",
+        "transfer",
+        "thermal",
+        "damage"
+      ],
+      "validation": {
+        "id": "vessel:volumetric_flask",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "vessel_world_scale",
+          "hollow_collider",
+          "free_fall",
+          "mass_properties"
+        ],
+        "limitations": [
+          "Tare is a legacy estimate; shell geometry follows the application, not a manufacturer.",
+          "Wedge tessellation and apparatus accessories need independent contact audit."
+        ]
+      }
+    },
+    {
+      "id": "vessel:separatory_funnel:150",
+      "name": "separatory_funnel",
+      "kind": "vessel",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "tilt",
+        "containment",
+        "transfer",
+        "thermal",
+        "damage"
+      ],
+      "validation": {
+        "id": "vessel:separatory_funnel",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "vessel_world_scale",
+          "hollow_collider",
+          "free_fall",
+          "mass_properties"
+        ],
+        "limitations": [
+          "Tare is a legacy estimate; shell geometry follows the application, not a manufacturer.",
+          "Wedge tessellation and apparatus accessories need independent contact audit."
+        ]
+      }
+    },
+    {
+      "id": "vessel:filter_funnel:75",
+      "name": "filter_funnel",
+      "kind": "vessel",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "tilt",
+        "containment",
+        "transfer",
+        "thermal",
+        "damage"
+      ],
+      "validation": {
+        "id": "vessel:filter_funnel",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "vessel_world_scale",
+          "hollow_collider",
+          "free_fall",
+          "mass_properties"
+        ],
+        "limitations": [
+          "Tare is a legacy estimate; shell geometry follows the application, not a manufacturer.",
+          "Wedge tessellation and apparatus accessories need independent contact audit."
+        ]
+      }
+    },
+    {
+      "id": "vessel:mortar_pestle:80",
+      "name": "mortar_pestle",
+      "kind": "vessel",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "tilt",
+        "containment",
+        "transfer",
+        "thermal",
+        "damage"
+      ],
+      "validation": {
+        "id": "vessel:mortar_pestle",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "vessel_world_scale",
+          "hollow_collider",
+          "free_fall",
+          "mass_properties"
+        ],
+        "limitations": [
+          "Tare is a legacy estimate; shell geometry follows the application, not a manufacturer.",
+          "Wedge tessellation and apparatus accessories need independent contact audit."
+        ]
+      }
+    },
+    {
+      "id": "vessel:condenser:120",
+      "name": "condenser",
+      "kind": "vessel",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "tilt",
+        "containment",
+        "transfer",
+        "thermal",
+        "damage"
+      ],
+      "validation": {
+        "id": "vessel:condenser",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "vessel_world_scale",
+          "hollow_collider",
+          "free_fall",
+          "mass_properties"
+        ],
+        "limitations": [
+          "Tare is a legacy estimate; shell geometry follows the application, not a manufacturer.",
+          "Wedge tessellation and apparatus accessories need independent contact audit."
+        ]
+      }
+    },
+    {
+      "id": "vessel:wash_bottle:250",
+      "name": "wash_bottle",
+      "kind": "vessel",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "tilt",
+        "containment",
+        "transfer",
+        "thermal",
+        "damage"
+      ],
+      "validation": {
+        "id": "vessel:wash_bottle",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "vessel_world_scale",
+          "hollow_collider",
+          "free_fall",
+          "mass_properties"
+        ],
+        "limitations": [
+          "Tare is a legacy estimate; shell geometry follows the application, not a manufacturer.",
+          "Wedge tessellation and apparatus accessories need independent contact audit."
+        ]
+      }
+    },
+    {
+      "id": "vessel:burette:50",
+      "name": "burette",
+      "kind": "vessel",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "tilt",
+        "containment",
+        "transfer",
+        "thermal",
+        "damage"
+      ],
+      "validation": {
+        "id": "vessel:burette",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "vessel_world_scale",
+          "hollow_collider",
+          "free_fall",
+          "mass_properties"
+        ],
+        "limitations": [
+          "Tare is a legacy estimate; shell geometry follows the application, not a manufacturer.",
+          "Wedge tessellation and apparatus accessories need independent contact audit."
+        ]
+      }
+    },
+    {
+      "id": "tool:test_tube_rack",
+      "name": "test_tube_rack",
+      "kind": "tool",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "contact",
+        "measurement"
+      ],
+      "validation": {
+        "id": "tool:test_tube_rack",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Bounding box proxy: not contact-validated against rendered apparatus.",
+          "Dimensions, mass, calibration and mechanical interfaces need a selected instrument specification."
+        ]
+      }
+    },
+    {
+      "id": "tool:tongs",
+      "name": "tongs",
+      "kind": "tool",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "contact",
+        "measurement"
+      ],
+      "validation": {
+        "id": "tool:tongs",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Bounding box proxy: not contact-validated against rendered apparatus.",
+          "Dimensions, mass, calibration and mechanical interfaces need a selected instrument specification."
+        ]
+      }
+    },
+    {
+      "id": "tool:retort_stand",
+      "name": "retort_stand",
+      "kind": "tool",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "contact",
+        "measurement"
+      ],
+      "validation": {
+        "id": "tool:retort_stand",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Bounding box proxy: not contact-validated against rendered apparatus.",
+          "Dimensions, mass, calibration and mechanical interfaces need a selected instrument specification."
+        ]
+      }
+    },
+    {
+      "id": "tool:retort_clamp",
+      "name": "retort_clamp",
+      "kind": "tool",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "contact",
+        "measurement"
+      ],
+      "validation": {
+        "id": "tool:retort_clamp",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Bounding box proxy: not contact-validated against rendered apparatus.",
+          "Dimensions, mass, calibration and mechanical interfaces need a selected instrument specification."
+        ]
+      }
+    },
+    {
+      "id": "tool:stopper",
+      "name": "stopper",
+      "kind": "tool",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "contact",
+        "measurement"
+      ],
+      "validation": {
+        "id": "tool:stopper",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Bounding box proxy: not contact-validated against rendered apparatus.",
+          "Dimensions, mass, calibration and mechanical interfaces need a selected instrument specification."
+        ]
+      }
+    },
+    {
+      "id": "tool:pneumatic_trough",
+      "name": "pneumatic_trough",
+      "kind": "tool",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "contact",
+        "measurement"
+      ],
+      "validation": {
+        "id": "tool:pneumatic_trough",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Bounding box proxy: not contact-validated against rendered apparatus.",
+          "Dimensions, mass, calibration and mechanical interfaces need a selected instrument specification."
+        ]
+      }
+    },
+    {
+      "id": "tool:hot_plate",
+      "name": "hot_plate",
+      "kind": "tool",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "contact",
+        "measurement"
+      ],
+      "validation": {
+        "id": "tool:hot_plate",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Bounding box proxy: not contact-validated against rendered apparatus.",
+          "Dimensions, mass, calibration and mechanical interfaces need a selected instrument specification."
+        ]
+      }
+    },
+    {
+      "id": "tool:pipette",
+      "name": "pipette",
+      "kind": "tool",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "contact",
+        "measurement"
+      ],
+      "validation": {
+        "id": "tool:pipette",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Bounding box proxy: not contact-validated against rendered apparatus.",
+          "Dimensions, mass, calibration and mechanical interfaces need a selected instrument specification."
+        ]
+      }
+    },
+    {
+      "id": "tool:balance",
+      "name": "balance",
+      "kind": "tool",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "contact",
+        "measurement"
+      ],
+      "validation": {
+        "id": "tool:balance",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Bounding box proxy: not contact-validated against rendered apparatus.",
+          "Dimensions, mass, calibration and mechanical interfaces need a selected instrument specification."
+        ]
+      }
+    },
+    {
+      "id": "tool:thermometer",
+      "name": "thermometer",
+      "kind": "tool",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "contact",
+        "measurement"
+      ],
+      "validation": {
+        "id": "tool:thermometer",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Bounding box proxy: not contact-validated against rendered apparatus.",
+          "Dimensions, mass, calibration and mechanical interfaces need a selected instrument specification."
+        ]
+      }
+    },
+    {
+      "id": "tool:ph_meter",
+      "name": "ph_meter",
+      "kind": "tool",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "contact",
+        "measurement"
+      ],
+      "validation": {
+        "id": "tool:ph_meter",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Bounding box proxy: not contact-validated against rendered apparatus.",
+          "Dimensions, mass, calibration and mechanical interfaces need a selected instrument specification."
+        ]
+      }
+    },
+    {
+      "id": "tool:stirring_rod",
+      "name": "stirring_rod",
+      "kind": "tool",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "contact",
+        "measurement"
+      ],
+      "validation": {
+        "id": "tool:stirring_rod",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Bounding box proxy: not contact-validated against rendered apparatus.",
+          "Dimensions, mass, calibration and mechanical interfaces need a selected instrument specification."
+        ]
+      }
+    },
+    {
+      "id": "tool:spatula",
+      "name": "spatula",
+      "kind": "tool",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "contact",
+        "measurement"
+      ],
+      "validation": {
+        "id": "tool:spatula",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Bounding box proxy: not contact-validated against rendered apparatus.",
+          "Dimensions, mass, calibration and mechanical interfaces need a selected instrument specification."
+        ]
+      }
+    },
+    {
+      "id": "tool:sponge",
+      "name": "sponge",
+      "kind": "tool",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "contact",
+        "measurement"
+      ],
+      "validation": {
+        "id": "tool:sponge",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Bounding box proxy: not contact-validated against rendered apparatus.",
+          "Dimensions, mass, calibration and mechanical interfaces need a selected instrument specification."
+        ]
+      }
+    },
+    {
+      "id": "tool:alcohol_burner",
+      "name": "alcohol_burner",
+      "kind": "tool",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "contact",
+        "measurement"
+      ],
+      "validation": {
+        "id": "tool:alcohol_burner",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Bounding box proxy: not contact-validated against rendered apparatus.",
+          "Dimensions, mass, calibration and mechanical interfaces need a selected instrument specification."
+        ]
+      }
+    },
+    {
+      "id": "tool:bunsen_burner",
+      "name": "bunsen_burner",
+      "kind": "tool",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "contact",
+        "measurement"
+      ],
+      "validation": {
+        "id": "tool:bunsen_burner",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Bounding box proxy: not contact-validated against rendered apparatus.",
+          "Dimensions, mass, calibration and mechanical interfaces need a selected instrument specification."
+        ]
+      }
+    },
+    {
+      "id": "tool:cork_stopper",
+      "name": "cork_stopper",
+      "kind": "tool",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "contact",
+        "measurement"
+      ],
+      "validation": {
+        "id": "tool:cork_stopper",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Bounding box proxy: not contact-validated against rendered apparatus.",
+          "Dimensions, mass, calibration and mechanical interfaces need a selected instrument specification."
+        ]
+      }
+    },
+    {
+      "id": "tool:reagent_bottle",
+      "name": "reagent_bottle",
+      "kind": "tool",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "contact",
+        "measurement"
+      ],
+      "validation": {
+        "id": "tool:reagent_bottle",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Bounding box proxy: not contact-validated against rendered apparatus.",
+          "Dimensions, mass, calibration and mechanical interfaces need a selected instrument specification."
+        ]
+      }
+    },
+    {
+      "id": "tool:amber_bottle",
+      "name": "amber_bottle",
+      "kind": "tool",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "contact",
+        "measurement"
+      ],
+      "validation": {
+        "id": "tool:amber_bottle",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Bounding box proxy: not contact-validated against rendered apparatus.",
+          "Dimensions, mass, calibration and mechanical interfaces need a selected instrument specification."
+        ]
+      }
+    },
+    {
+      "id": "tool:force_meter",
+      "name": "force_meter",
+      "kind": "tool",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "contact",
+        "measurement"
+      ],
+      "validation": {
+        "id": "tool:force_meter",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Bounding box proxy: not contact-validated against rendered apparatus.",
+          "Dimensions, mass, calibration and mechanical interfaces need a selected instrument specification."
+        ]
+      }
+    },
+    {
+      "id": "tool:pressure_sensor",
+      "name": "pressure_sensor",
+      "kind": "tool",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "contact",
+        "measurement"
+      ],
+      "validation": {
+        "id": "tool:pressure_sensor",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Bounding box proxy: not contact-validated against rendered apparatus.",
+          "Dimensions, mass, calibration and mechanical interfaces need a selected instrument specification."
+        ]
+      }
+    },
+    {
+      "id": "tool:pipette_bulb",
+      "name": "pipette_bulb",
+      "kind": "tool",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "contact",
+        "measurement"
+      ],
+      "validation": {
+        "id": "tool:pipette_bulb",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Bounding box proxy: not contact-validated against rendered apparatus.",
+          "Dimensions, mass, calibration and mechanical interfaces need a selected instrument specification."
+        ]
+      }
+    },
+    {
+      "id": "tool:water_bath",
+      "name": "water_bath",
+      "kind": "tool",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "contact",
+        "measurement"
+      ],
+      "validation": {
+        "id": "tool:water_bath",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Bounding box proxy: not contact-validated against rendered apparatus.",
+          "Dimensions, mass, calibration and mechanical interfaces need a selected instrument specification."
+        ]
+      }
+    },
+    {
+      "id": "tool:gas_collector",
+      "name": "gas_collector",
+      "kind": "tool",
+      "behaviors": [
+        "gravity",
+        "collision",
+        "grip",
+        "contact",
+        "measurement"
+      ],
+      "validation": {
+        "id": "tool:gas_collector",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Bounding box proxy: not contact-validated against rendered apparatus.",
+          "Dimensions, mass, calibration and mechanical interfaces need a selected instrument specification."
+        ]
+      }
+    },
+    {
+      "id": "sample:borosilicate:0.000001",
+      "name": "Thủy tinh borosilicate",
+      "kind": "sample",
+      "behaviors": [
+        "gravity",
+        "buoyancy",
+        "drag",
+        "thermal",
+        "phase"
+      ],
+      "validation": {
+        "id": "material:borosilicate",
+        "status": "estimated",
+        "sourceUrls": [
+          "https://www.schott.com/en-us/products/borofloat/technical-details"
+        ],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "sample:steel:0.000001",
+      "name": "Thép — cấp vật liệu tham chiếu",
+      "kind": "sample",
+      "behaviors": [
+        "gravity",
+        "buoyancy",
+        "drag",
+        "thermal",
+        "phase"
+      ],
+      "validation": {
+        "id": "material:steel",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "sample:aluminum:0.000001",
+      "name": "Nhôm",
+      "kind": "sample",
+      "behaviors": [
+        "gravity",
+        "buoyancy",
+        "drag",
+        "thermal",
+        "phase"
+      ],
+      "validation": {
+        "id": "material:aluminum",
+        "status": "estimated",
+        "sourceUrls": [
+          "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7429905"
+        ],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "sample:polyethylene:0.000001",
+      "name": "Polyethylene — cấp tham chiếu",
+      "kind": "sample",
+      "behaviors": [
+        "gravity",
+        "buoyancy",
+        "drag",
+        "thermal",
+        "phase"
+      ],
+      "validation": {
+        "id": "material:polyethylene",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "sample:glycerol:0.000001",
+      "name": "Glycerol nguyên chất — 20 °C",
+      "kind": "sample",
+      "behaviors": [
+        "gravity",
+        "buoyancy",
+        "drag",
+        "thermal",
+        "phase"
+      ],
+      "validation": {
+        "id": "material:glycerol",
+        "status": "estimated",
+        "sourceUrls": [
+          "https://webbook.nist.gov/cgi/cbook.cgi?ID=C56815"
+        ],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "sample:silicone_oil:0.000001",
+      "name": "Dầu silicone 100 cSt — 25 °C",
+      "kind": "sample",
+      "behaviors": [
+        "gravity",
+        "buoyancy",
+        "drag",
+        "thermal",
+        "phase"
+      ],
+      "validation": {
+        "id": "material:silicone_oil",
+        "status": "estimated",
+        "sourceUrls": [
+          "https://www.dow.com/en-us/pdp.xiameter-pmx-200-silicone-fluid-100-cst.01013190z.html"
+        ],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "sample:ice:0.000001",
+      "name": "Băng nước",
+      "kind": "sample",
+      "behaviors": [
+        "gravity",
+        "buoyancy",
+        "drag",
+        "thermal",
+        "phase"
+      ],
+      "validation": {
+        "id": "material:ice",
+        "status": "estimated",
+        "sourceUrls": [
+          "https://nvlpubs.nist.gov/nistpubs/jres/23/jresv23n6p643_A1b.pdf",
+          "https://iapws.org/documents/release"
+        ],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:H2O",
+      "name": "Nước cất",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:H2O",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:HCl (dil)",
+      "name": "Axit Clohiđric (Loãng 1M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:HCl (dil)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:H2SO4 (dil)",
+      "name": "Axit Sunfuric (Loãng 1M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:H2SO4 (dil)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:H2SO4 (conc)",
+      "name": "Axit Sunfuric (Đặc 98%)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:H2SO4 (conc)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:NaOH",
+      "name": "Natri Hiđroxit (1M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:NaOH",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Phenolphthalein",
+      "name": "Chỉ thị Phenolphtalein",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Phenolphthalein",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:CuSO4",
+      "name": "Đồng(II) Sunfat (0.5M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:CuSO4",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Fe",
+      "name": "Sắt (Bột mịn)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Fe",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Cu",
+      "name": "Đồng (Phôi kim loại)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Cu",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Zn",
+      "name": "Kẽm (Hạt kim loại)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Zn",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Mg",
+      "name": "Magiê (Dải kim loại)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Mg",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:CaCO3",
+      "name": "Canxi Cacbonat (Đá vôi)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:CaCO3",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:NaCl",
+      "name": "Natri Clorua (Muối ăn)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:NaCl",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:NaNO3",
+      "name": "Natri Nitrat (1M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:NaNO3",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:AgNO3",
+      "name": "Bạc Nitrat (0.1M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:AgNO3",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:BaCl2",
+      "name": "Bari Clorua (0.2M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:BaCl2",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Na2SO4",
+      "name": "Natri Sunfat (0.2M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Na2SO4",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Na2CO3",
+      "name": "Natri Cacbonat (0.5M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Na2CO3",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:KI",
+      "name": "Kali Iotua (0.5M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:KI",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Pb(NO3)2",
+      "name": "Chì(II) Nitrat (0.2M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Pb(NO3)2",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:H2O2 (30%)",
+      "name": "Oxy già đậm đặc (30%)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:H2O2 (30%)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:MnO2",
+      "name": "Mangan Đioxit",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:MnO2",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:KMnO4",
+      "name": "Kali Pemanganat (Thuốc tím)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:KMnO4",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:KMnO4 (solid)",
+      "name": "Kali Pemanganat Tinh Thể",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:KMnO4 (solid)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:K2Cr2O7",
+      "name": "Kali Đicromat (0.1M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:K2Cr2O7",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:K2Cr2O7 (solid)",
+      "name": "Kali Đicromat Tinh Thể",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:K2Cr2O7 (solid)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:NH3",
+      "name": "Dung dịch Amoniac (2M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:NH3",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:HNO3 (conc)",
+      "name": "Axit Nitric (Đặc 68%)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:HNO3 (conc)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:I2",
+      "name": "Iốt (Tinh thể rắn)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:I2",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Na",
+      "name": "Natri (Kim loại kiềm)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Na",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Al",
+      "name": "Nhôm (Lá mỏng)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Al",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:C (Carbon)",
+      "name": "Cacbon (Bột than hoạt tính)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:C (Carbon)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:S",
+      "name": "Lưu huỳnh (Bột vàng)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:S",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:FeCl3",
+      "name": "Sắt(III) Clorua (0.1M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:FeCl3",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:KSCN",
+      "name": "Kali Thioxianat (0.1M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:KSCN",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:H2C2O4",
+      "name": "Axit Oxalic (0.1M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:H2C2O4",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Na2S2O3",
+      "name": "Natri Thiosunfat (0.1M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Na2S2O3",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:KIO3",
+      "name": "Kali Iodat (0.05M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:KIO3",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:NaHSO3",
+      "name": "Natri Bisunfit (0.05M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:NaHSO3",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Starch",
+      "name": "Hồ Tinh Bột Chỉ Thị (1%)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Starch",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Al2(SO4)3",
+      "name": "Nhôm Sunfat (0.1M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Al2(SO4)3",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Ca(OH)2",
+      "name": "Canxi Hiđroxit (Nước vôi trong)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Ca(OH)2",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:CaCl2",
+      "name": "Canxi Clorua (0.2M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:CaCl2",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:K",
+      "name": "Kali Kim Loại (Viên cắt)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:K",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Mg (ribbon)",
+      "name": "Magie Dải (Ruy-băng)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Mg (ribbon)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Mg (powder)",
+      "name": "Bột Magie",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Mg (powder)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Zn (granules)",
+      "name": "Kẽm Hạt (Sần sùi)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Zn (granules)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Zn (dust)",
+      "name": "Bột Kẽm Mịn",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Zn (dust)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Fe (filings)",
+      "name": "Mạt Sắt Mịn",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Fe (filings)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Fe (nail)",
+      "name": "Đinh Sắt Sáng Bóng",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Fe (nail)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Cu (turnings)",
+      "name": "Đồng Vụn / Dây Đồng Ánh Đỏ",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Cu (turnings)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Al (foil)",
+      "name": "Lá Nhôm Mỏng",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Al (foil)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:I2 (solid)",
+      "name": "Iot Tinh Thể (Tím đen thăng hoa)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:I2 (solid)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:K2CrO4",
+      "name": "Kali Cromat (0.2M Vàng Chanh)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:K2CrO4",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:FeSO4",
+      "name": "Sắt(II) Sunfat (0.2M Xanh Lục Nhạt)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:FeSO4",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:CuCl2",
+      "name": "Đồng(II) Clorua (0.2M Xanh Ngọc)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:CuCl2",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:CoCl2",
+      "name": "Coban(II) Clorua (0.1M Hồng Đào)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:CoCl2",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:NiSO4",
+      "name": "Niken(II) Sunfat (0.1M Xanh Lục Bảo)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:NiSO4",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:CH3COOH (dil)",
+      "name": "Axit Axetic (Giấm Ăn 1M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:CH3COOH (dil)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:CH3COOH (glacial)",
+      "name": "Axit Axetic Băng (Nguyên chất 99.8%)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:CH3COOH (glacial)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:NH3 (aq)",
+      "name": "Dung dịch amoniac (2 M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:NH3 (aq)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:KOH",
+      "name": "Kali Hiđroxit (1M Kiềm Mạnh)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:KOH",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:C2H5OH",
+      "name": "Cồn Etylic 96° (Rượu Etylic)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:C2H5OH",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:CH3COCH3",
+      "name": "Axeton Tinh Khiết",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:CH3COCH3",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:C6H12O6",
+      "name": "Đường Glucozơ Tinh Thể",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:C6H12O6",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Litmus",
+      "name": "Dung Dịch Quỳ Tím",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Litmus",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:UniversalIndicator",
+      "name": "Chỉ Thị Vạn Năng (Phổ pH 1-14)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:UniversalIndicator",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:NH4Cl",
+      "name": "Amoni Clorua Tinh Thể Trắng",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:NH4Cl",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:NH4NO3",
+      "name": "Amoni Nitrat (Tan Thu Nhiệt Rất Lạnh)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:NH4NO3",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:CaO",
+      "name": "Canxi Oxit (Vôi Sống)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:CaO",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Hexane",
+      "name": "Hexan / Dung Môi Hữu Cơ (C6H14)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Hexane",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:CuSO4·5H2O",
+      "name": "Đồng(II) Sunfat Ngậm Nước (Tinh Thể Lam)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:CuSO4·5H2O",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Cu(OH)2",
+      "name": "Đồng(II) Hiđroxit (Bột Lam Nhạt)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Cu(OH)2",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:CuO",
+      "name": "Đồng(II) Oxit (Bột Đen Tenorit)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:CuO",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:CaCO3 (chips)",
+      "name": "Đá Vôi (Đá Marble Hạt)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:CaCO3 (chips)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:BaSO4",
+      "name": "Bari Sunfat (Bột Trắng Không Tan)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:BaSO4",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:PbI2",
+      "name": "Chì(II) Iotua (Mưa Vàng Tinh Thể)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:PbI2",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:AgCl",
+      "name": "Bạc Clorua (Kết Tủa Trắng Vón)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:AgCl",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Fe2O3",
+      "name": "Sắt(III) Oxit (Bột Đỏ Nâu)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Fe2O3",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Al(OH)3",
+      "name": "Nhôm Hiđroxit (Bột Trắng Keo)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Al(OH)3",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:NaOH (solid)",
+      "name": "Natri Hiđroxit Dạng Viên",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:NaOH (solid)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:KOH (solid)",
+      "name": "Kali Hiđroxit Dạng Viên",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:KOH (solid)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:CoCl2.6H2O",
+      "name": "Coban(II) Clorua Ngậm 6 Nước (Đỏ Hồng)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:CoCl2.6H2O",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:NiSO4.6H2O",
+      "name": "Niken(II) Sunfat Ngậm 6 Nước (Lục Bảo)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:NiSO4.6H2O",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:FeSO4.7H2O",
+      "name": "Sắt(II) Sunfat Ngậm 7 Nước (Thanh Phàn)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:FeSO4.7H2O",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:NaHCO3",
+      "name": "Natri Bicarbonat (Bột Nở / Muối Nở)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:NaHCO3",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:CuSO4 (solid)",
+      "name": "Đồng(II) sunfat khan (bột trắng)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:CuSO4 (solid)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:CO2(aq)",
+      "name": "Nước hòa tan CO2 tham chiếu (0,01 M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:CO2(aq)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:CH3COOH",
+      "name": "Axit axetic (0,1 M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:CH3COOH",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:CH3COONa",
+      "name": "Natri axetat (0,1 M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:CH3COONa",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:CH3COOK",
+      "name": "Kali axetat (0,1 M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:CH3COOK",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:NH4Cl(aq)",
+      "name": "Amoni clorua dung dịch (0,1 M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:NH4Cl(aq)",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Methyl_Orange",
+      "name": "Chỉ thị metyl da cam (0,0001 M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Methyl_Orange",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "stock:Bromothymol_Blue",
+      "name": "Chỉ thị bromothymol xanh (0,0001 M)",
+      "kind": "chemical",
+      "behaviors": [
+        "phase",
+        "inventory",
+        "transport",
+        "appearance",
+        "chemistry"
+      ],
+      "validation": {
+        "id": "stock:Bromothymol_Blue",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "product:PbCl2",
+      "name": "PbCl2",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:PbCl2",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:Ag2S",
+      "name": "Ag2S",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:Ag2S",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:Pb",
+      "name": "Pb",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:Pb",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:KFe[Fe(CN)6]",
+      "name": "KFe[Fe(CN)6]",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:KFe[Fe(CN)6]",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:Cu2[Fe(CN)6]",
+      "name": "Cu2[Fe(CN)6]",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:Cu2[Fe(CN)6]",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:C6H2Br3OH",
+      "name": "C6H2Br3OH",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:C6H2Br3OH",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:C6H2Br3NH2",
+      "name": "C6H2Br3NH2",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:C6H2Br3NH2",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:Ag",
+      "name": "Ag",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:Ag",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:Cu",
+      "name": "Cu",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:Cu",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:BaSO4",
+      "name": "BaSO4",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:BaSO4",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:AgCl",
+      "name": "AgCl",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:AgCl",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:AgBr",
+      "name": "AgBr",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:AgBr",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:AgI",
+      "name": "AgI",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:AgI",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:PbI2",
+      "name": "PbI2",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:PbI2",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:Al(OH)3",
+      "name": "Al(OH)3",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:Al(OH)3",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:Zn(OH)2",
+      "name": "Zn(OH)2",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:Zn(OH)2",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:Mg(OH)2",
+      "name": "Mg(OH)2",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:Mg(OH)2",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:Ca(OH)2",
+      "name": "Ca(OH)2",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:Ca(OH)2",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:Ni(OH)2",
+      "name": "Ni(OH)2",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:Ni(OH)2",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:Co(OH)2",
+      "name": "Co(OH)2",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:Co(OH)2",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:Mn(OH)2",
+      "name": "Mn(OH)2",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:Mn(OH)2",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:Fe(OH)2",
+      "name": "Fe(OH)2",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:Fe(OH)2",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:Cu(OH)2",
+      "name": "Cu(OH)2",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:Cu(OH)2",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:Fe(OH)3",
+      "name": "Fe(OH)3",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:Fe(OH)3",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:CaCO3",
+      "name": "CaCO3",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:CaCO3",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:CuS",
+      "name": "CuS",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:CuS",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:PbS",
+      "name": "PbS",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:PbS",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:ZnS",
+      "name": "ZnS",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:ZnS",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:Cu2O",
+      "name": "Cu2O",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:Cu2O",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:Ag2CrO4",
+      "name": "Ag2CrO4",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:Ag2CrO4",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:BaCrO4",
+      "name": "BaCrO4",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:BaCrO4",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:PbCrO4",
+      "name": "PbCrO4",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:PbCrO4",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:PbSO4",
+      "name": "PbSO4",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:PbSO4",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:CuI",
+      "name": "CuI",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:CuI",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:BiI3",
+      "name": "BiI3",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:BiI3",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:MnO2",
+      "name": "MnO2",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:MnO2",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:S",
+      "name": "S",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:S",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "product:CuO",
+      "name": "CuO",
+      "kind": "product",
+      "behaviors": [
+        "precipitation",
+        "sedimentation",
+        "suspension",
+        "transport"
+      ],
+      "validation": {
+        "id": "product:CuO",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Transport model: uncalibrated_transport",
+          "No independent experimental calibration."
+        ]
+      }
+    },
+    {
+      "id": "scene:table",
+      "name": "table",
+      "kind": "environment",
+      "behaviors": [
+        "fixed",
+        "support",
+        "collision"
+      ],
+      "validation": {
+        "id": "scene:table",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "scene:floor",
+      "name": "floor",
+      "kind": "environment",
+      "behaviors": [
+        "fixed",
+        "support",
+        "collision"
+      ],
+      "validation": {
+        "id": "scene:floor",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "scene:cabinet",
+      "name": "cabinet",
+      "kind": "environment",
+      "behaviors": [
+        "fixed",
+        "support",
+        "collision"
+      ],
+      "validation": {
+        "id": "scene:cabinet",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "scene:shelf",
+      "name": "shelf",
+      "kind": "environment",
+      "behaviors": [
+        "fixed",
+        "support",
+        "collision"
+      ],
+      "validation": {
+        "id": "scene:shelf",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "scene:window",
+      "name": "window",
+      "kind": "environment",
+      "behaviors": [
+        "fixed",
+        "support",
+        "collision"
+      ],
+      "validation": {
+        "id": "scene:window",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    },
+    {
+      "id": "scene:wall",
+      "name": "wall",
+      "kind": "environment",
+      "behaviors": [
+        "fixed",
+        "support",
+        "collision"
+      ],
+      "validation": {
+        "id": "scene:wall",
+        "status": "estimated",
+        "sourceUrls": [],
+        "domain": "Reference conditions near 293.15 K, 101325 Pa; not a fitted apparatus model",
+        "scenarios": [
+          "mass",
+          "geometry",
+          "contact",
+          "thermal"
+        ],
+        "limitations": [
+          "Friction, restitution and generic material grades are estimates.",
+          "Source properties do not certify an apparatus or a dynamic experiment."
+        ]
+      }
+    }
+  ]
+}
