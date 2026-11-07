@@ -12,6 +12,7 @@
     "test": "node scripts/test-academy-core.mjs",
     "test:practical": "node scripts/test-practical-core.mjs",
     "test:practical:browser": "node scripts/test-practical-browser.mjs",
+    "test:assets:browser": "node scripts/test-public-assets-browser.mjs",
     "test:advanced:browser": "node scripts/test-advanced-practice-browser.mjs",
     "test:academy:browser": "node scripts/test-academy-browser.mjs"
   },

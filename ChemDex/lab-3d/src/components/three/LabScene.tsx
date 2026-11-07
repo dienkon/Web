@@ -594,7 +594,11 @@ export function LabScene() {
   const { map: tileMap, normal: tileNormal } = useMemo(() => getLaboratoryTileTexture(), []);
   const skyMap = useMemo(() => getSkyGradientTexture(), []);
   const sunbeamMap = useMemo(() => getSunbeamTexture(), []);
-  const noiseNormalMap = useMemo(() => getNoiseTexture(256, 256), []);
+  const noiseNormalMap = useMemo(() => {
+    const texture = getNoiseTexture(256, 256);
+    texture.repeat.set(8, 4);
+    return texture;
+  }, []);
 
   const touchRecognizer = useMemo(() => new TouchGestureRecognizer({
     onTiltChange: (deltaRad) => {
@@ -783,9 +787,9 @@ export function LabScene() {
         {/* High-Contrast Realistic Matte Slate Laboratory Workbench (Bàn thí nghiệm màu đen xám chống hóa chất chuẩn) */}
         <group position={[0, -1.35, 0]}>
           {/* Main Worktop Slab: Solid Chemical-Resistant Dark Slate Epoxy Resin */}
-          <mesh 
-            receiveShadow 
-            castShadow 
+          <mesh
+            receiveShadow
+            castShadow
             position={[0, 0, 0]}
             onPointerDown={(e) => {
               const state = useAppStore.getState();
@@ -809,8 +813,11 @@ export function LabScene() {
             {/* Authentic Non-glare Monochromatic Chemical-Resistant Solid Phenolic Resin Workbench Top */}
             <meshStandardMaterial 
               color="#1e293b" 
-              roughness={0.42} 
-              metalness={0.06} 
+              roughness={0.34}
+              metalness={0.08}
+              normalMap={noiseNormalMap}
+              normalScale={new THREE.Vector2(0.08, 0.08)}
+              envMapIntensity={0.55}
             />
           </mesh>
           {/* Front Protective Stainless Steel Edge Trim */}
@@ -856,10 +863,11 @@ export function LabScene() {
             <planeGeometry args={[44, 20]} />
             <meshStandardMaterial 
               map={tileMap} 
-              normalMap={tileNormal} 
-              normalScale={new THREE.Vector2(0.3, 0.3)} 
-              roughness={0.25} 
-              metalness={0.05} 
+              normalMap={tileNormal}
+              normalScale={new THREE.Vector2(0.3, 0.3)}
+              roughness={0.3}
+              metalness={0.04}
+              envMapIntensity={0.7}
             />
           </mesh>
           

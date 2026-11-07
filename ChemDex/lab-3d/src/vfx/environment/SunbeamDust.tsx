@@ -1,14 +1,12 @@
 import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { useQualityStore } from '../quality';
+import { useQualityStore, getQualitySettings } from '../quality';
 
 export const SunbeamDust = React.memo(function SunbeamDust() {
   const effectiveTier = useQualityStore((state) => state.effectiveTier);
   const pointsRef = useRef<THREE.Points>(null);
-
-  // 60 particles floating within the window sunbeam cone
-  const particleCount = 50;
+  const particleCount = Math.round(getQualitySettings(effectiveTier).particleMultiplier * 50);
 
   const [positions, initialPositions] = useMemo(() => {
     const pos = new Float32Array(particleCount * 3);

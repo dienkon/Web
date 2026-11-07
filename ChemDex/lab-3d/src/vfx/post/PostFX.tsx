@@ -27,10 +27,10 @@ export const PostFX = React.memo(function PostFX() {
       {settings.useBloom && (
         <Bloom
           mipmapBlur
-          luminanceThreshold={1.0}
-          luminanceSmoothing={0.2}
-          intensity={0.55}
-          radius={0.7}
+          luminanceThreshold={1.15}
+          luminanceSmoothing={0.28}
+          intensity={0.42}
+          radius={0.55}
         />
       )}
       {settings.useSMAA && <SMAA />}

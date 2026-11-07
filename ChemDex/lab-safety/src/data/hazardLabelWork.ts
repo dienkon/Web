@@ -1,4 +1,5 @@
 import {drag,type PracticalWork} from './practicalWork';
+import { publicAsset } from '../utils/publicAsset';
 const SYMBOLS = [
   { id: 'toxic', name: 'Độc tính cấp', image: '/SYMBOLS-IMG/bien-bao-chat-doc-cap-tinh.png', description: 'Gây độc tính cấp tính nguy hiểm đến tính mạng nếu nuốt phải, hít phải hoặc tiếp xúc qua da.' },
   { id: 'flammable', name: 'Dễ cháy', image: '/SYMBOLS-IMG/bien-bao-de-chay.png', description: 'Chất dễ cháy. Cần tránh xa nguồn nhiệt, tia lửa hoặc ngọn lửa trần.' },
@@ -15,6 +16,6 @@ const SYMBOLS = [
 export const HAZARD_LABEL_WORK: PracticalWork = {
  visualId:'instrument-hazard-labels',
  title:'Đối chiếu biểu tượng cảnh báo trong phòng thí nghiệm',
- objects: SYMBOLS.map((s,i)=>({id:s.id,label:s.name,model:'label',at:[220,240],image:s.image,fromStep:i,untilStep:i+1})),
+ objects: SYMBOLS.map((s,i)=>({id:s.id,label:s.name,model:'label',at:[220,240],image:publicAsset(s.image),fromStep:i,untilStep:i+1})),
  steps: SYMBOLS.map(s=>drag(s.id,[650,240],`Gắn biểu tượng: ${s.name}`,s.description)),
 };

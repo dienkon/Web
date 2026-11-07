@@ -4,11 +4,12 @@ import * as THREE from 'three';
 import { PlayerModel } from '../PlayerModel';
 import { useStore } from '../../../store/useStore';
 import type { CharacterProfile, PlayerState } from '../../../types';
+import { publicAsset } from '../../../utils/publicAsset';
 interface Props { position?: [number,number,number]; rotationY?: number; scale?: number; }
 const PROFILE: CharacterProfile = {name:'Thầy giáo',gender:'male',skinTone:'#e0ac83',hairStyle:'short',hairColor:'#475569',shirtColor:'#3b82a0'};
 const PLAYER: PlayerState = {equipment:{hasGoggles:false,hasLabCoat:true,hasGloves:false,hasMask:false,hairTied:true,hasClosedShoes:true},inventory:{},flags:{}};
 export function DetailedTeacher({scale=0.88}: Props) {
-  const {scene}=useGLTF('/teacher.glb');
+  const {scene}=useGLTF(publicAsset('teacher.glb'));
   const clone=useMemo(()=>{const c=scene.clone(true);c.traverse(child=>{if((child as THREE.Mesh).isMesh){child.castShadow=true;child.receiveShadow=true;}});return c;},[scene]);
   return <primitive name="asset-imported-teacher" object={clone} position={[0,scale,0]} scale={scale} />;
 }

@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import { AssetLabel, GlassSurface, InstancedBoxes, Pipe, Ring, Solid } from './AssetPrimitives';
 import { roundedOpening } from './StationAssets';
 import { useReducedLabMotion } from '../../../systems/device/useReducedLabMotion';
+import { publicAsset } from '../../../utils/publicAsset';
 
 export function DoorAsset(){
  const shape=useMemo(()=>{const s=roundedOpening(0,1.18,.96,2.32,.008);s.holes.push(roundedOpening(0,1.5,.32,.75,.025));return s;},[]);
@@ -128,7 +129,7 @@ export function BoardFrame({width,height,children}:{width:number;height:number;c
 
 const GHS=[['Độc tính cấp','chat-doc-cap-tinh'],['Dễ cháy','de-chay'],['Ăn mòn','chat-an-mon'],['Dễ nổ','chat-no'],['Oxy hóa','chat-oxy-hoa'],['Môi trường','chat-nguy-hiem-moi-truong'],['Sức khỏe','nguy-hiem-suc-khoe-lau-dai'],['Kích ứng','nguy-hai'],['Khí nén','khi-nen']];
 export function GHSBoardAsset(){
- const textures=useTexture(GHS.map(g=>'/SYMBOLS-IMG/bien-bao-'+g[1]+'.png'));
+ const textures=useTexture(GHS.map(g=>publicAsset('SYMBOLS-IMG/bien-bao-'+g[1]+'.png')));
  return <group name="asset-ghs-board" userData={{assetId:'ghs-board'}}><BoardFrame width={2.8} height={1.6}>
   <AssetLabel lines={['BIỂU TƯỢNG CẢNH BÁO GHS']} size={[2.55,.13]} at={[0,1.48,.027]} paper={null}/>
   {GHS.map(([label],i)=><group key={label} position={[(i%3-1)*.82,1.17-Math.floor(i/3)*.42,.027]}>

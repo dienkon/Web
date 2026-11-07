@@ -1,4 +1,3 @@
-# main.py
 from __future__ import annotations
 
 import asyncio
@@ -23,7 +22,7 @@ from TikTokLive.events import (
     ShareEvent,
 )
 
-USERNAME = "cophamlieu.fatima0208"
+USERNAME = "dgnl.empireteam"
 STATS_FILE = Path("tiktok_stats.json")
 REPORT_EVERY_SECONDS = 60
 
