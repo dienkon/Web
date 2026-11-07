@@ -662,7 +662,7 @@
       ["smoothing", "smoothing", 0, 0.85, 1],
       ["pressure", "penSensitivity", 0.3, 2, 1],
       ["save", "autosave", 1000, 300000, 1000],
-      ["history", "historyLimit", 10, 100, 1],
+      ["history", "historyLimit", 10, 2000, 1],
     ])
       document.getElementById("setting-" + id).onchange = (e) => {
         s[key] = Math.max(

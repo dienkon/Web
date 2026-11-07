@@ -332,4 +332,40 @@ test("Teacher geometry: custom vertex labels and solid S.ABC pyramid", () => {
   const m = Geometry.solidMeasurements("s-abc-right", o.data.params);
   close(m.volume, 10); // (1/2 * 4 * 3) * 5 / 3 = 10
 });
+test("Perpendicular bisector is exact, dependent and usable as a line", () => {
+  const o = flat();
+  o.data.points = [[0, 0], [6, 2], [1, 5]];
+  o.data.constructions = [
+    { id: "b", type: "perpendicularBisector", refs: ["v:0", "v:1"] },
+    { id: "i", type: "intersection", refs: ["c:b:A", "c:b:B", "v:0", "v:1"] },
+  ];
+  Constructions.validate(o.data, false);
+  let r = Constructions.build(o);
+  assert.deepEqual(r.warnings, []);
+  assert.deepEqual(r.points.get("c:i").coords, [3, 1]);
+  const [a,b] = r.items[0].endpoints;
+  close(Geometry.dot(Geometry.sub(b,a), [6,2]),0);
+  o.data.points[1] = [8, 4];
+  r = Constructions.build(o);
+  assert.deepEqual(r.points.get("c:b").coords, [4, 2]);
+});
+test("Center-point circle and central reflection preserve mathematical definitions", () => {
+  const o = flat();
+  o.data.points = [[1, 2], [4, 6], [0, 0]];
+  o.data.constructions = [
+    { id:"r", type:"reflectPoint", refs:["v:1","v:0"] },
+    { id:"c", type:"circleCenter", refs:["v:0","c:r"] },
+  ];
+  Constructions.validate(o.data,false);
+  const r = Constructions.build(o);
+  assert.deepEqual(r.warnings,[]);
+  assert.deepEqual(r.points.get("c:r").coords,[-2,-2]);
+  assert.deepEqual(r.items[1].center,[1,2]);
+  close(r.items[1].radius,5);
+  o.data.points[1] = [1,2];
+  assert.ok(Constructions.build(o).warnings.some(w => w.id === "c"));
+  const solid = cube();
+  solid.data.constructions = [{id:"b",type:"perpendicularBisector",refs:["v:0","v:1"]}];
+  assert.equal(Constructions.build(solid).warnings.length,1);
+});
 console.log(count + " construction tests passed.");

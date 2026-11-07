@@ -363,6 +363,7 @@
     update();
   }
   root.PageFlow = {
+    invalidateLayout,
     init,
     enabled,
     layout,

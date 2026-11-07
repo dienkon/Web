@@ -7,7 +7,9 @@
     laser = null,
     laserTimer = 0,
     pinch = null;
+  let lastPenTime = -Infinity;
   const pointers = new Map();
+  const activePaths = new WeakMap();
   const S = () => Store.state,
     dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
   function selectionHandles(o) {
@@ -75,7 +77,7 @@
     });
     window.addEventListener("blur", () => {
       space = false;
-      if (gesture) cancel({ pointerId: gesture.pointerId });
+      if (gesture) root.CanvasEngine.finishActive();
       pointers.clear();
     });
   }
@@ -129,11 +131,18 @@
     if (e.button === 2) return;
     document.getElementById("canvas-context").hidden = true;
     App.closePopover();
-    if (penActive && e.pointerType === "touch") return;
+    if (e.pointerType === "touch" && (penActive || performance.now() - lastPenTime < 450)) return;
+    // A palm or another pointer must never replace an unfinished pen stroke.
+    if (gesture && e.pointerType !== "touch" && !(e.pointerType === "pen" && gesture.pointerType === "touch")) return;
+    if (e.pointerType === "pen" && (gesture || pinch)) {
+      if (gesture) rollback();
+      pointers.clear();
+      pinch = null;
+    }
     canvas.setPointerCapture(e.pointerId);
     pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
     if (e.pointerType === "touch" && pointers.size === 2) {
-      if (gesture?.before) rollback();
+      if (gesture) rollback();
       const pp = [...pointers.values()],
         r = Renderer.area.getBoundingClientRect(),
         cx = (pp[0].x + pp[1].x) / 2 - r.left,
@@ -149,7 +158,10 @@
       gesture = null;
       return;
     }
-    if (e.pointerType === "pen") penActive = true;
+    if (e.pointerType === "pen") {
+      penActive = true;
+      lastPenTime = performance.now();
+    }
     if (!gesture) root.PageFlow?.activateAt(e.clientX, e.clientY);
     const p = Renderer.clientPoint(e);
     let mode = S().tool;
@@ -163,10 +175,12 @@
     if (mode === "select" && root.TeacherGeometry?.handleDown(e, p)) return;
     gesture = {
       mode,
+      pointerType: e.pointerType,
       pointerId: e.pointerId,
       start: p,
       last: p,
-      before: Store.snapshot(),
+      before: ["pen", "highlighter", "laser", "pan"].includes(mode) ? null : Store.snapshot(),
+      inkToken: ["pen", "highlighter"].includes(mode) ? Store.beginInk() : null,
       pageIndex: S().pageIndex,
       client: { x: e.clientX, y: e.clientY },
       viewport: { ...S().viewport },
@@ -188,6 +202,7 @@
         return App.toast("Lớp Nét bút đang khóa hoặc ẩn.");
       }
       gesture.points = [[p.x, p.y, pressure(e)]];
+      Renderer.requestOverlay();
       return;
     }
     if (mode === "select") {
@@ -229,7 +244,12 @@
           }
         }
       }
-      const o = hit(p);
+      const explicit = S().transformMode !== "auto" && selected.find((o) => {
+        if (!layerEditable(o)) return false;
+        const q = Renderer.localPoint(o, p);
+        return q.x >= 0 && q.y >= 0 && q.x <= o.size.w && q.y <= o.size.h;
+      });
+      const o = explicit || hit(p);
       if (o) {
         const already = S().selection.includes(o.id);
         if (e.shiftKey || S().multiSelect) {
@@ -298,6 +318,7 @@
     );
   }
   function move(e) {
+    if (e.pointerType === "pen") lastPenTime = performance.now();
     if (pointers.has(e.pointerId))
       pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
     if (pinch && pointers.size === 2) {
@@ -517,8 +538,16 @@
     p[index] = point;
   }
   function up(e) {
+    if (gesture?.pointerId === e.pointerId && ["pen", "highlighter", "laser"].includes(gesture.mode)) {
+      const p = Renderer.clientPoint(e), prev = gesture.points.at(-1);
+      if (Math.hypot(p.x - prev[0], p.y - prev[1]) > 0.1)
+        gesture.points.push([p.x, p.y, prev[2]]);
+    }
     pointers.delete(e.pointerId);
-    if (e.pointerType === "pen") penActive = false;
+    if (e.pointerType === "pen") {
+      penActive = false;
+      lastPenTime = performance.now();
+    }
     if (pinch) {
       if (pointers.size < 2) pinch = null;
       gesture = null;
@@ -535,12 +564,14 @@
     if (["pen", "highlighter"].includes(g.mode)) {
       PageFlow.ensureInk(g.points, g.pageIndex);
       const parts = PageFlow.splitInk(g.points, g.pageIndex);
+      g.additions = [];
       for (const part of parts) {
         let o = strokeFrom(part.points, g.mode);
         if (parts.length === 1 && S().settings.smartShape && g.mode === "pen")
           o = recognize(o, part.points) || o;
         o.zIndex = part.page.objects.length;
         part.page.objects.push(o);
+        g.additions.push({ pageId: part.page.id, object: o });
       }
     }
     if (g.mode === "laser") {
@@ -600,7 +631,9 @@
       destination = movedIds.length
         ? PageFlow.moveAcross(movedIds, g.pageIndex)
         : null;
-    Store.commit(g.before);
+    if (g.inkToken) Store.commitInk(g.inkToken, g.additions);
+    else if (g.before) Store.commit(g.before);
+    else Renderer.request();
     root.Renderer?.invalidateCommittedInk?.();
     if (destination !== null) PageFlow.selectMoved(destination, movedIds);
     if (g.mode === "pan")
@@ -613,18 +646,22 @@
       App.refreshGeometry();
   }
   function rollback() {
+    if (gesture?.inkToken) Store.cancelInk(gesture.inkToken);
     if (gesture?.before) {
       const saved = JSON.parse(gesture.before);
       Store.state.notebooks[Store.state.active] = {
         ...saved,
         assets: Store.book().assets || {},
       };
+      Store.invalidateSnapshot();
+      root.PageFlow?.invalidateLayout();
     }
     gesture = null;
     root.Renderer?.renderOverlay?.();
     Renderer.request();
   }
   function cancel(e) {
+    if (gesture?.pointerId !== e.pointerId && !pointers.has(e.pointerId)) return;
     pointers.delete(e.pointerId);
     pinch = null;
     if (gesture?.pointerId === e.pointerId) rollback();
@@ -954,6 +991,9 @@
     App.updateZoom();
   }
   function doubleClick(e) {
+    // Dots and short pen strokes generate native dblclick events too.
+    // Editing is an explicit action in selection mode only.
+    if (S().tool !== "select") { e.preventDefault(); return; }
     if (root.TeacherGeometry?.active) return;
     const o = hit(Renderer.clientPoint(e));
     if (!o) return;
@@ -962,6 +1002,7 @@
   }
   function context(e) {
     e.preventDefault();
+    if (!["select", "pan"].includes(S().tool)) return;
     const o = hit(Renderer.clientPoint(e));
     if (o) {
       if (!S().selection.includes(o.id)) S().selection = [o.id];
@@ -1020,20 +1061,24 @@
 
     if (penType !== "fountain") {
       ctx.lineWidth = width;
-      ctx.beginPath();
-      ctx.moveTo(points[0][0], points[0][1]);
-      if (points.length === 2) {
-        ctx.lineTo(points[1][0], points[1][1]);
-      } else {
-        ctx.lineTo((points[0][0] + points[1][0]) / 2, (points[0][1] + points[1][1]) / 2);
-        for (let i = 1; i < points.length - 1; i++) {
-          const xc = (points[i][0] + points[i + 1][0]) / 2;
-          const yc = (points[i][1] + points[i + 1][1]) / 2;
-          ctx.quadraticCurveTo(points[i][0], points[i][1], xc, yc);
-        }
-        ctx.lineTo(points[points.length - 1][0], points[points.length - 1][1]);
+      let cached = activePaths.get(points);
+      if (!cached) {
+        const path = new Path2D();
+        path.moveTo(points[0][0], points[0][1]);
+        cached = { path, next: 1, started: false };
+        activePaths.set(points, cached);
       }
-      ctx.stroke();
+      if (points.length > 2 && !cached.started) {
+        cached.path.lineTo((points[0][0] + points[1][0]) / 2, (points[0][1] + points[1][1]) / 2);
+        cached.started = true;
+      }
+      for (; cached.next < points.length - 1; cached.next++) {
+        const a = points[cached.next], b = points[cached.next + 1];
+        cached.path.quadraticCurveTo(a[0], a[1], (a[0] + b[0]) / 2, (a[1] + b[1]) / 2);
+      }
+      const preview = new Path2D(cached.path), end = points.at(-1);
+      preview.lineTo(end[0], end[1]);
+      ctx.stroke(preview);
     } else {
       for (let i = 1; i < points.length; i++) {
         const prev = points[i - 1], cur = points[i];
@@ -1111,6 +1156,16 @@
     cursor,
     cancelActive() {
       if (gesture) cancel({ pointerId: gesture.pointerId });
+    },
+    finishActive() {
+      if (gesture) {
+        const r = Renderer.area.getBoundingClientRect(), v = S().viewport, p = gesture.last;
+        up({ pointerId: gesture.pointerId, pointerType: gesture.pointerType,
+          clientX: r.left + v.x + p.x * v.zoom, clientY: r.top + v.y + p.y * v.zoom });
+      }
+      pointers.clear();
+      pinch = null;
+      penActive = false;
     },
   };
 })(window);

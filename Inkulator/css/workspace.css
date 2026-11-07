@@ -1,0 +1,56 @@
+/* Pen-first controls, with no animations in the writing surface. */
+:root { --tabs-height: 42px; }
+#workspace { position: relative; }
+.workspace-tabs { gap: 5px; overflow-x: auto; scrollbar-width: none; }
+.workspace-tabs button {
+  width: 36px; min-width: 36px; height: 34px; padding: 7px;
+  display: inline-flex; justify-content: center; align-items: center;
+  border-radius: 8px; flex-shrink: 0;
+}
+.workspace-tabs button svg {
+  width: 21px; height: 21px; fill: none; stroke: currentColor;
+  stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
+}
+.workspace-tabs button.active { background: var(--accent-soft, #e2f0e9); color: var(--accent); }
+.pages-sidebar { position: relative; width: 158px; padding: 12px 12px 8px; }
+.sidebar-heading { letter-spacing: .5px; margin-bottom: 10px; }
+.page-card { margin-bottom: 10px; }
+#panel.panel {
+  position: absolute; z-index: 15; right: 10px; top: 10px; bottom: 60px;
+  width: 310px; max-width: calc(100% - 60px); padding: 14px;
+  border: 1px solid var(--line); border-radius: 12px;
+  box-shadow: 0 6px 28px #183d2720; overflow: visible;
+  display: flex; flex-direction: column;
+}
+#panel[hidden] { display: none; }
+#panel-content { overflow-y: auto; overscroll-behavior: contain; min-height: 0; padding: 0 5px 16px 0; }
+.panel-heading { margin-bottom: 12px; flex-shrink: 0; }
+.panel-heading small { display: none; }
+.panel-heading h2 { margin: 0; font-size: 16px; }
+.panel .field { margin-bottom: 12px; gap: 5px; }
+.panel .hint { line-height: 1.6; }
+.panel-grip { position: absolute; top: 0; bottom: 0; width: 16px; z-index: 5; cursor: ew-resize; touch-action: none; }
+.grip-left { right: -8px; }
+.grip-right { left: -8px; }
+.panel-grip::after { content: ""; position: absolute; top: 42%; height: 44px; width: 4px; left: 6px; border-radius: 4px; background: #9baea2; }
+.panel-grip:hover::after, .panel-grip:focus-visible::after { background: var(--accent); }
+#panel-reopen { position: absolute; right: 0; top: 45%; z-index: 14; width: 26px; height: 60px; border: 1px solid var(--line); border-radius: 10px 0 0 10px; background: var(--surface); color: var(--accent); font-size: 24px; }
+#ink-canvas { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+@media (pointer: coarse) {
+  .icon-button { min-width: 34px; min-height: 36px; }
+  .toolbar { gap: 5px; }
+  #panel button { min-height: 34px; }
+}
+@media (max-width: 950px) {
+  .workspace-tabs button[data-panel="math"] { display: inline-flex; }
+  .document-meta input { width: 105px; }
+}
+@media (max-width: 700px) {
+  .workspace-tabs { justify-content: flex-start; padding: 0 6px; }
+  .workspace-tabs #pages-toggle { display: inline-flex; }
+  #panel.panel { right: 6px; top: 6px; bottom: 64px; }
+  .document-meta { display: none; }
+  .toolbar { overflow-x: auto; scrollbar-width: none; flex-wrap: nowrap; }
+  .toolbar > * { flex-shrink: 0; }
+}
+@media print { .panel-grip, #panel-reopen { display: none !important; } }

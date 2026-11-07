@@ -1,9 +1,15 @@
 {
   "name": "scrble-math-studio",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "private": true,
-  "description": "Offline mathematical notebook — open index.html directly",
+  "description": "Offline mathematical notebook for Windows and pen tablets",
+  "main": "desktop/main.cjs",
+  "author": "Inkulator",
   "scripts": {
+    "start": "electron .",
+    "desktop:build": "node scripts/build-casio.cjs && electron-builder --win nsis --x64 --publish never",
+    "test:desktop": "node tests/desktop-tests.cjs",
+    "test:performance": "node tests/ink-performance-tests.cjs",
     "test": "node tests/math-tests.cjs && node tests/construction-tests.cjs && node tests/visibility-tests.cjs",
     "test:browser": "node tests/browser-tests.cjs",
     "test:advanced": "node tests/advanced-browser-tests.cjs",
@@ -17,10 +23,53 @@
     "vendor:casio": "node scripts/build-casio.cjs",
     "test:casio": "node scripts/build-casio.cjs && node tests/casio-browser-tests.cjs"
   },
+  "build": {
+    "appId": "vn.inkulator.studio",
+    "productName": "Inkulator",
+    "artifactName": "Inkulator-Setup-${version}-${arch}.${ext}",
+    "directories": {
+      "output": "dist/desktop"
+    },
+    "files": [
+      "desktop/**",
+      "index.html",
+      "js/**",
+      "css/**",
+      "assets/**",
+      "vendor/**",
+      "examples/**",
+      "package.json",
+      "README.md",
+      "!vendor/casio-fx580vnx/upstream/**",
+      "!vendor/casio-fx580vnx/runtime/source/**"
+    ],
+    "asar": true,
+    "npmRebuild": false,
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico",
+      "executableName": "Inkulator",
+      "signExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": false,
+      "packElevateHelper": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Inkulator",
+      "deleteAppDataOnUninstall": false,
+      "runAfterFinish": true
+    }
+  },
   "devDependencies": {
+    "electron": "45.2.3",
+    "electron-builder": "26.18.0",
     "esbuild": "0.28.2",
     "mathjax-full": "3.2.2",
-    "mathjs": "15.1.0",
+    "mathjs": "15.2.0",
     "pdf-lib": "1.17.1",
     "pdfjs-dist": "6.5.438",
     "playwright": "1.56.1"

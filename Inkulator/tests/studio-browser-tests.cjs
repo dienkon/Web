@@ -64,12 +64,12 @@ const pass = (s) => {
       await page.waitForFunction(() => window.Scrble);
       assert.equal(
         await page.evaluate(() => Renderer.area.getBoundingClientRect().top),
-        79,
+        87,
       );
       await page.keyboard.press("F8");
       assert.equal(
         await page.evaluate(() => Renderer.area.getBoundingClientRect().top),
-        79,
+        87,
       );
       assert.equal(
         await page

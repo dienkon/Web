@@ -5,6 +5,9 @@
   const operations = {
     segment: 2,
     midpoint: 2,
+    perpendicularBisector: 2,
+    circleCenter: 2,
+    reflectPoint: 2,
     measure: 2,
     perpendicular: 3,
     parallel: 3,
@@ -153,6 +156,30 @@
         if (c.type === "midpoint") {
           item.point = G.mid(p[0], p[1]);
           named("c:" + c.id, c.label || "M", item.point);
+        }
+        if (c.type === "perpendicularBisector") {
+          if (solid) throw Error("Trung trực hiện áp dụng cho hình phẳng.");
+          const ab = G.sub(p[1], p[0]), len = G.norm(ab);
+          if (len < EPS) throw Error("Trung trực cần hai điểm phân biệt.");
+          item.point = G.mid(p[0], p[1]);
+          const normal = [-ab[1], ab[0]];
+          item.endpoints = [G.sub(item.point, normal), G.add(item.point, normal)];
+          item.endpointRefs = ["c:" + c.id + ":A", "c:" + c.id + ":B"];
+          named("c:" + c.id, c.label || "M", item.point);
+          item.endpoints.forEach((P, i) => {
+            named(item.endpointRefs[i], "", P);
+            points.get(item.endpointRefs[i]).internal = true;
+          });
+        }
+        if (c.type === "circleCenter") {
+          if (solid) throw Error("Đường tròn tâm–điểm hiện áp dụng cho hình phẳng.");
+          item.center = p[0];
+          item.radius = G.norm(G.sub(p[1], p[0]));
+          if (item.radius < EPS) throw Error("Bán kính phải lớn hơn không.");
+        }
+        if (c.type === "reflectPoint") {
+          item.point = G.sub(G.scale(p[1], 2), p[0]);
+          named("c:" + c.id, c.label || "P′", item.point);
         }
         if (c.type === "intersection") {
           item.point = intersection(...p);
@@ -406,6 +433,8 @@
       if (
         [
           "midpoint",
+          "perpendicularBisector",
+          "reflectPoint",
           "perpendicular",
           "circumcircle",
           "intersection",
@@ -418,7 +447,7 @@
         ].includes(c.type)
       )
         known.add("c:" + c.id);
-      if (c.type === "parallel") {
+      if (["parallel", "perpendicularBisector"].includes(c.type)) {
         known.add("c:" + c.id + ":A");
         known.add("c:" + c.id + ":B");
       }

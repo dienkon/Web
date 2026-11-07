@@ -33,8 +33,10 @@
     gridSize: 25,
     smoothing: 0.5,
     penSensitivity: 1,
-    autosave: 2000,
-    historyLimit: 60,
+    autosave: 30000,
+    historyLimit: 500,
+    performance: "auto",
+    inkPerformanceV2: true,
     touchInk: false,
     smartShape: false,
     animations: true,
@@ -108,6 +110,7 @@
     trimHistory();
     state.future = [];
     book().modified = new Date().toISOString();
+    invalidateSnapshot();
     state.dirty = true;
     emit();
     scheduleSave();
@@ -121,6 +124,7 @@
       trimHistory();
       state.future = [];
       book().modified = new Date().toISOString();
+      invalidateSnapshot();
       state.dirty = true;
       scheduleSave();
     }
@@ -128,6 +132,14 @@
   }
   function undo() {
     if (!state.history.length) return;
+    if (state.history.at(-1)?.kind === "ink") {
+      const entry = state.history.pop();
+      applyInk(entry, false);
+      state.future.push(entry);
+      trimHistory();
+      afterHistory();
+      return;
+    }
     state.future.push(snapshot());
     trimHistory();
     state.notebooks[state.active] = {
@@ -138,6 +150,14 @@
   }
   function redo() {
     if (!state.future.length) return;
+    if (state.future.at(-1)?.kind === "ink") {
+      const entry = state.future.pop();
+      applyInk(entry, true);
+      state.history.push(entry);
+      trimHistory();
+      afterHistory();
+      return;
+    }
     state.history.push(snapshot());
     trimHistory();
     state.notebooks[state.active] = {
@@ -156,13 +176,61 @@
   }
   function trimHistory() {
     for (const list of [state.history, state.future]) {
-      let size = list.reduce((n, s) => n + s.length, 0);
+      const bytes = (entry) => typeof entry === "string" ? entry.length : entry.bytes;
+      let size = list.reduce((n, entry) => n + bytes(entry), 0);
       while (
         list.length > 1 &&
-        (list.length > state.settings.historyLimit || size > 16e6)
+        (list.length > state.settings.historyLimit || size > 32e6)
       )
-        size -= list.shift().length;
+        size -= bytes(list.shift());
     }
+  }
+  // Ink history holds only the new objects, never a copy of the whole notebook.
+  // Clone at the boundary so subsequent transforms cannot alter the undo entry.
+  function beginInk() {
+    return { pageCount: book().pages.length, pageIndex: state.pageIndex };
+  }
+  function cancelInk(token) {
+    book().pages.splice(token.pageCount);
+    state.pageIndex = token.pageIndex;
+    invalidateSnapshot();
+    root.PageFlow?.invalidateLayout();
+  }
+  function commitInk(token, additions) {
+    if (!additions.length && book().pages.length === token.pageCount) return;
+    const entry = {
+      kind: "ink",
+      additions: clone(additions),
+      pages: book().pages.slice(token.pageCount).map((p) => clone({ ...p, objects: [] })),
+      beforeIndex: token.pageIndex,
+      afterIndex: state.pageIndex,
+    };
+    entry.bytes = JSON.stringify(entry).length;
+    state.history.push(entry);
+    state.future = [];
+    trimHistory();
+    invalidateSnapshot();
+    book().modified = new Date().toISOString();
+    state.dirty = true;
+    emit();
+    scheduleSave();
+  }
+  function applyInk(entry, forward) {
+    if (forward) {
+      book().pages.push(...clone(entry.pages));
+      for (const { pageId, object } of entry.additions) {
+        const p = book().pages.find((p) => p.id === pageId);
+        if (p) p.objects.push(clone(object));
+      }
+    } else {
+      const ids = new Set(entry.additions.map((a) => a.object.id));
+      const pages = new Set(entry.pages.map((p) => p.id));
+      for (const p of book().pages) p.objects = p.objects.filter((o) => !ids.has(o.id));
+      book().pages = book().pages.filter((p) => !pages.has(p.id));
+    }
+    state.pageIndex = forward ? entry.afterIndex : entry.beforeIndex;
+    book().modified = new Date().toISOString();
+    root.PageFlow?.invalidateLayout();
   }
   function object(type, data = {}, opts = {}) {
     const layer = {
@@ -793,10 +861,17 @@
       assets,
     };
   }
-  let timer;
+  let timer, idleSave;
   function scheduleSave() {
     clearTimeout(timer);
-    timer = setTimeout(save, state.settings.autosave);
+    if (idleSave && root.cancelIdleCallback) root.cancelIdleCallback(idleSave);
+    timer = setTimeout(() => {
+      if (root.CanvasEngine?.interacting) return scheduleSave();
+      if (root.requestIdleCallback)
+        idleSave = root.requestIdleCallback(() => { idleSave = 0; save(); }, { timeout: 3000 });
+      else save();
+    }, state.settings.autosave);
+    timer.unref?.();
   }
   function save() {
     if (root.CanvasEngine?.interacting) {
@@ -848,6 +923,7 @@
       });
       if (data.length > 8e6) throw Error("Quota");
       localStorage.setItem("scrble-math-library-v1", data);
+      root.InkulatorDesktop?.flush().catch(() => {});
       state.storageAvailable = true;
       state.dirty = false;
     } catch (_) {
@@ -901,6 +977,7 @@
           "smartShape",
           "animations",
           "autoPages",
+          "performance",
         ])
           if (typeof lib.settings[k] === typeof defaults[k])
             state.settings[k] = lib.settings[k];
@@ -918,13 +995,21 @@
           Math.min(100, state.settings.gridSize),
         );
         state.settings.autosave = Math.max(
-          500,
-          Math.min(60000, state.settings.autosave),
+          1000,
+          Math.min(300000, state.settings.autosave),
         );
         state.settings.historyLimit = Math.max(
           10,
-          Math.min(100, state.settings.historyLimit),
+          Math.min(2000, state.settings.historyLimit),
         );
+        if (!["auto", "economy", "quality"].includes(state.settings.performance))
+          state.settings.performance = "auto";
+        // Upgrade old defaults once; keep user preferences on subsequent launches.
+        if (!lib.settings.inkPerformanceV2) {
+          if (state.settings.autosave <= 2000) state.settings.autosave = defaults.autosave;
+          if (state.settings.historyLimit <= 60) state.settings.historyLimit = defaults.historyLimit;
+        }
+        state.settings.inkPerformanceV2 = true;
         if (
           lib.settings.penPresets &&
           typeof lib.settings.penPresets === "object"
@@ -967,6 +1052,10 @@
     emit,
     transaction,
     commit,
+    beginInk,
+    commitInk,
+    cancelInk,
+    invalidateSnapshot,
     undo,
     redo,
     object,

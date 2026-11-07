@@ -3,6 +3,9 @@
   const titles = {
     segment: "Nối điểm",
     midpoint: "Trung điểm",
+    perpendicularBisector: "Trung trực",
+    circleCenter: "Tròn tâm–điểm",
+    reflectPoint: "Đối xứng qua tâm",
     measure: "Đo cạnh",
     perpendicular: "Vuông góc",
     parallel: "Song song",
@@ -174,6 +177,8 @@
       " điểm" +
       (["parallel", "perpendicular"].includes(interaction.mode)
         ? " (2 điểm của đường, rồi điểm đi qua)"
+        : interaction.mode === "circleCenter" ? " (chọn tâm trước, rồi điểm trên đường tròn)"
+        : interaction.mode === "reflectPoint" ? " (chọn điểm cần đối xứng trước, rồi tâm)"
         : "") +
       (["angle", "bisector", "rightAngle"].includes(interaction.mode)
         ? " (đỉnh góc ở điểm thứ hai)"
@@ -193,7 +198,7 @@
       Store.transaction(() => {
         o.data.projection = "orthographic";
       });
-    if (o.type === "solid" && mode === "circumcircle") return;
+    if (o.type === "solid" && ["circumcircle", "circleCenter", "perpendicularBisector"].includes(mode)) return;
     if (o.type === "geometry" && ["section", "orbit"].includes(mode)) return;
     if (
       o.type === "solid" &&
@@ -267,6 +272,8 @@
       if (
         [
           "midpoint",
+          "perpendicularBisector",
+          "reflectPoint",
           "perpendicular",
           "circumcircle",
           "intersection",
@@ -279,7 +286,7 @@
         ].includes(c.type)
       ) {
         const candidates =
-          c.type === "centroid"
+          c.type === "reflectPoint" ? ["P′", "Q′", "R′"] : c.type === "centroid"
             ? ["G", "G₁", "G₂"]
             : c.type === "intersection"
               ? ["I", "J", "K", "T"]
@@ -669,7 +676,7 @@
         ctx.stroke();
         ctx.restore();
       }
-      if (["median", "bisector"].includes(item.type))
+      if (["median", "bisector", "perpendicularBisector"].includes(item.type))
         modelLine(...item.endpoints, item);
       if (item.type === "centroid" && item.showMedians !== false) {
         ctx.save();
@@ -727,7 +734,7 @@
           locations,
         );
       }
-      if (item.type === "circumcircle") {
+      if (["circumcircle", "circleCenter"].includes(item.type)) {
         const [c, rp] = project(o, [
           item.center,
           [item.center[0] + item.radius, item.center[1]],
@@ -887,7 +894,8 @@
               "median",
               "bisector",
               "highlightPlane",
-              ...(solid ? ["section", "orbit"] : ["incenter", "circumcircle"]),
+              "reflectPoint",
+              ...(solid ? ["section", "orbit"] : ["incenter", "circumcircle", "perpendicularBisector", "circleCenter"]),
             ],
       keys =
         available.length === 1
@@ -953,6 +961,8 @@
         "altitude",
         "section",
         "circumcircle",
+        "perpendicularBisector",
+        "circleCenter",
       ].includes(interaction.mode)
         ? '<select id="geo-inline-line-mode" aria-label="Kiểu nét đường nối"><option value="auto">Nét tự động</option><option value="solid">Luôn nét liền</option><option value="dashed">Luôn nét đứt</option></select>'
         : "") +

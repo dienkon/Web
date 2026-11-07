@@ -1,8 +1,14 @@
-# SCRBLE MATH STUDIO · 1.5
+# Inkulator · 1.6
 
 Sổ tay Toán học ngoại tuyến cho Windows, lấy cảm hứng bố cục từ ảnh Scrble Ink được cung cấp. Phần Casio tích hợp source của Tikz-Physics, ghi nguồn riêng bên dưới; không phải sản phẩm chính thức của Scrble, GeoGebra hay Casio.
 
 ## Mở ứng dụng
+
+**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-1.6.0-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Sổ tay tự lưu trong hồ sơ ứng dụng của người dùng Windows; gỡ cài đặt giữ lại dữ liệu. Bộ cài cá nhân chưa ký số.
+
+**Bản web và iPad:** bản web vẫn chạy từ `index.html` trên máy tính. Trên iPad, phục vụ toàn bộ thư mục ứng dụng qua HTTP/HTTPS rồi mở bằng Safari; iPad không chạy tệp `.exe`. Không có máy chủ nào được triển khai tự động. Bản Windows và trình duyệt có kho lưu riêng; dùng **Ctrl+S / Mở tệp** để chuyển sổ tay giữa các bản.
+
+Nếu dùng bản ZIP trên máy tính:
 
 1. Giải nén **SCRBLE-MATH-STUDIO.zip** bằng “Extract All”.
 2. Mở thư mục **SCRBLE-MATH-STUDIO** vừa giải nén.
@@ -11,6 +17,18 @@ Sổ tay Toán học ngoại tuyến cho Windows, lấy cảm hứng bố cục 
 **Không cần Internet, Node.js, npm, Python, máy chủ, đăng nhập hoặc API key để sử dụng.** Không mở index.html ngay bên trong cửa sổ xem ZIP; cần giải nén toàn bộ thư mục để các tệp đi cùng được đọc đúng.
 
 Tất cả script, CSS, icon và thư viện nằm trong thư mục sản phẩm. Bản chạy dùng script cổ điển, không cần ES module từ file://, CDN, service worker hoặc tải font mạng. PDF.js được bundle cùng phần xử lý worker để chạy trên luồng chính, nhận font/CMap/decoder từ dữ liệu nhúng; không tạo worker từ đường dẫn file://. Công thức dùng SVG glyph có sẵn, không tải font ngoài.
+
+## Điểm mới 1.6 · bộ cài, bút và giao diện gọn
+
+- Bộ cài Windows `.exe`, shortcut Desktop/Start Menu, lựa chọn thư mục cài và trình gỡ cài đặt. Dữ liệu giữ qua lần khởi động lại; toàn bộ thư viện và Casio đóng gói ngoại tuyến.
+- Nhấp đúp khi đang viết không mở thuộc tính hoặc chọn nét nữa. Muốn chỉnh đối tượng, chuyển sang **Chọn** trước. Bút được ưu tiên hơn ngón tay; bỏ qua chạm lòng bàn tay khi đang viết và trong 450 ms sau lần dùng bút. Giữ điểm cuối khi nhấc bút, hoàn tất nét khi chuyển ứng dụng.
+- Nét đang viết có lớp phủ riêng và đường cong được cập nhật nối tiếp. Nét đã lưu dùng cache Path2D; bỏ qua nét ngoài vùng nhìn. Chế độ **Tự động / Máy yếu / Độ nét cao** giới hạn mật độ và số pixel canvas để giảm bộ nhớ trên Retina. Thumbnail chờ tạm ngưng viết mới cập nhật.
+- Undo nét bút chỉ lưu đối tượng mới, giữ cả nét xuyên trang và trang tự thêm. Mặc định **500 bước**, có thể đặt **10–2.000** trong Cài đặt; giới hạn bộ nhớ vẫn áp dụng. Các thay đổi đối tượng khác tiếp tục dùng snapshot và tương thích Undo/Redo nét bút.
+- Autosave mặc định **30 giây sau thao tác cuối**, chỉnh được **1–300 giây**; đợi luồng rảnh, không lưu giữa nét. Lưu thêm khi chuyển ứng dụng/đóng cửa sổ. Thiết lập mặc định cũ 2 giây/60 Undo được nâng cấp một lần.
+- Hai hàng công cụ 87 px, hàng chèn dùng icon SVG có tên truy cập và tooltip. Bảng công cụ nổi rộng mặc định 310 px, kéo vạch mép để đổi độ rộng; kéo về mép để thu gọn, bấm **‹** để mở lại. Danh sách trang cũng kéo đổi rộng/thu gọn được. Phím mũi tên trên vạch điều chỉnh hỗ trợ bàn phím.
+- Dựng & đo bổ sung **Trung trực**, **Tròn tâm–điểm** và **Đối xứng qua tâm**. Tọa độ phụ thuộc cập nhật khi kéo đỉnh, dùng tiếp cho phép dựng và giữ khi lưu/mở. Trung trực và đường tròn áp dụng cho 2D; đối xứng tâm dùng được trong 2D/3D.
+
+Đã kiểm tra Chrome, Edge, WebKit với kích thước iPad và bản desktop đóng gói. Chưa đo độ trễ Apple Pencil trên iPad thật; không cam kết mọi thiết bị hoặc mọi tài liệu đều đạt 60 fps. Xem [báo cáo bản 1.6](docs/RELEASE-1.6.md).
 
 ## Điểm mới 1.5 · Casio fx-580VN X ngoại tuyến
 
@@ -54,7 +72,7 @@ Bố cục Casio được thu gọn: thanh nút mini, bỏ bóng/nền thừa qu
 
 ## Các tính năng từ 1.1 · dành cho giáo viên
 
-- **Header gọn:** bản hiện tại giữ hai hàng công cụ cao tổng cộng 79 px, không có thanh tiêu đề hoặc footer.
+- **Header gọn:** bản 1.6 giữ hai hàng công cụ cao tổng cộng 87 px với icon dễ chạm, không có thanh tiêu đề hoặc footer trong vùng ứng dụng.
 - **Nét đen, rõ, nền trong:** hình học mới dùng nét đen 2.6 px, độ đục nét 100%, bỏ màu tô mặt. Hình 3D chèn mặc định là hình chiếu tĩnh để không xoay ngoài ý muốn; chọn **Xoay 3D** khi muốn chỉnh góc nhìn. Có thể bật Live 3D trong thuộc tính.
 - **Bắt điểm thông minh:** chọn hình rồi dùng thanh nổi Nối điểm / Trung điểm / Đo cạnh / Vuông góc / Song song / Đo góc. Con trỏ bắt vào đỉnh, trung điểm và điểm phụ; nối tới trung điểm cũng giữ đúng định nghĩa khi kéo đỉnh. Shift khi kéo đỉnh 2D bắt tọa độ theo bước 0.5.
 - **Thiết diện thật:** với khối đa diện, chọn Thiết diện rồi chọn 3 điểm không thẳng hàng, kể cả trung điểm mới dựng. Thuật toán cắt cạnh khối bằng mặt phẳng và sắp xếp đa giác; diện tích theo tọa độ, cập nhật khi đổi a/b/h. Có nút tô nhẹ thiết diện và các góc nhìn chuẩn.
@@ -118,7 +136,7 @@ Chưa có chọn cạnh/mặt bằng ray-casting trực tiếp, mặt phẳng t�
 
 ## Lưu, phục hồi và xuất
 
-- Tự động lưu thư viện trong **localStorage** khi được phép, mặc định sau 1.2 giây. Dòng dưới tên sổ tay báo thành công hoặc yêu cầu tải tệp thủ công. Sổ tay/trang/đối tượng giữ ID khi phục hồi cục bộ.
+- Tự động lưu thư viện trong **localStorage** khi được phép, mặc định sau 30 giây tạm ngưng thao tác và khi chuyển ứng dụng. Dòng dưới tên sổ tay báo thành công hoặc yêu cầu tải tệp thủ công. Sổ tay/trang/đối tượng giữ ID khi phục hồi cục bộ.
 - **Ctrl+S** tải `.smath.json` gồm toàn bộ dữ liệu gốc; đây là bản sao lưu có thể chỉnh sửa. Menu có snapshot ghi ngày giờ và sao lưu toàn bộ thư viện.
 - **Ctrl+O** nhập sổ tay hoặc bản sao lưu thư viện. Import tạo sổ tay mới, không ghi đè sổ đang mở. Kiểm tra phiên bản, kiểu đối tượng, tọa độ, tham chiếu đường phụ, ảnh và kích thước. Tệp lỗi bị từ chối trước khi thay đổi thư viện. Định dạng hiện tại **version 1**; các phiên bản khác bị từ chối rõ ràng, chưa có migration do chưa có phiên bản schema trước.
 - Xuất PNG, SVG và PDF nhiều trang A4/A3; in qua trình duyệt. SVG giữ nét bút/hình học/văn bản dạng vector; đồ thị/ảnh được nhúng raster. Trang PDF nguồn được nhúng lại dạng vector với lớp chữ có thể trích xuất; các đối tượng chú thích được raster độ phân giải cao. Với trang sổ tay thông thường, PDF vẫn dùng ảnh độ phân giải cao cho nội dung tự tạo.
@@ -177,6 +195,11 @@ npm run test:pen
 npm run test:pdf
 npm run test:notebook
 npm run test:casio   # đối chiếu 12 menu với source gốc, cửa sổ và ảnh LCD
+npm run test:desktop
+npx playwright install webkit
+npm run test:performance
+npm start           # chạy cửa sổ desktop khi phát triển
+npm run desktop:build # dựng bộ cài Windows x64 trong dist/desktop
 npm run vendor:build  # chỉ cần nếu dựng lại thư viện từ dependency
 npm run package
 ```
@@ -220,8 +243,8 @@ scripts/                   Sinh ví dụ và đóng gói ZIP
 docs/                      Báo cáo kiểm thử
 ```
 
-Tách dữ liệu trang với trạng thái tương tác; mọi đối tượng có chung position/size/rotation/style/layer. Lịch sử lưu snapshot nội dung, dùng chung PDF gốc và giới hạn thêm 16 triệu ký tự cho mỗi ngăn Undo/Redo để tránh tăng bộ nhớ không kiểm soát; sổ tay lớn có thể có ít bước Undo hơn cấu hình. Nền giấy được cache riêng; đồ thị có cache raster; thao tác Canvas được gom qua requestAnimationFrame. Chưa có benchmark bảo đảm tốc độ cho tài liệu rất lớn hoặc thời gian sử dụng hàng giờ.
+Tách dữ liệu trang với trạng thái tương tác; mọi đối tượng có chung position/size/rotation/style/layer. Lịch sử nét bút lưu từng phần bổ sung; các thay đổi khác dùng snapshot nội dung và dùng chung PDF gốc. Mỗi ngăn Undo/Redo có giới hạn 32 triệu ký tự dữ liệu (giữ tối thiểu bước cuối), nên sổ tay lớn có thể có ít bước Undo hơn cấu hình. Nền giấy được cache riêng; đồ thị có cache raster; nét có cache Path2D; thao tác Canvas được gom qua requestAnimationFrame. Benchmark bản 1.6 là phép đo có giới hạn, chưa kiểm tra tài liệu rất lớn hoặc thời gian sử dụng hàng giờ.
 
 Biểu thức người dùng được parse bởi math.js và **diễn giải AST theo danh sách cho phép**, không dùng `eval()`/`new Function()`, không chạy HTML/JS từ tài liệu. Cú pháp, độ sâu, số node, giai thừa, số mũ, ma trận và vòng tính số được giới hạn. Dữ liệu học tập không gửi lên mạng.
 
-Thư viện đóng gói: **math.js 15.1.0** (Apache-2.0), **pdf-lib 1.17.1** (MIT), **PDF.js 6.5.438** (Apache-2.0), **MathJax SVG 3.2.2** (Apache-2.0); giấy phép nằm trong `vendor/`. Playwright chỉ là dependency phát triển, không được tải khi mở ứng dụng.
+Thư viện đóng gói: **math.js 15.2.0** (Apache-2.0), **pdf-lib 1.17.1** (MIT), **PDF.js 6.5.438** (Apache-2.0), **MathJax SVG 3.2.2** (Apache-2.0); giấy phép nằm trong `vendor/`. Bản desktop dùng Electron 45.2.3; electron-builder và Playwright chỉ dùng khi phát triển/đóng gói. Cấu hình bộ cài theo [electron-builder NSIS](https://www.electron.build/docs/nsis/); cửa sổ desktop bật sandbox và context isolation theo [hướng dẫn Electron](https://www.electronjs.org/docs/latest/tutorial/security).

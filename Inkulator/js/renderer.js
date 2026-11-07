@@ -1,7 +1,8 @@
 (function (root) {
   "use strict";
   const imageCache = new Map();
-  const layerCache = new WeakMap();
+  let layerCache = new WeakMap();
+  const strokePaths = new WeakMap();
   let paper,
     ink,
     overlay,
@@ -33,11 +34,16 @@
     ic = ink.getContext("2d");
     oc = overlay ? overlay.getContext("2d") : null;
     new ResizeObserver(resize).observe(area);
+    document.addEventListener("statechange", () => { layerCache = new WeakMap(); });
     resize();
   }
   function resize() {
     const r = area.getBoundingClientRect();
-    dpr = Math.min(devicePixelRatio || 1, 3);
+    const mode = state().settings.performance;
+    const weakDevice = navigator.deviceMemory <= 4 || navigator.hardwareConcurrency <= 4;
+    const cap = mode === "quality" ? 3 : mode === "economy" || weakDevice ? 1.5 : 2;
+    const pixelBudget = mode === "economy" ? 2.5e6 : 5e6;
+    dpr = Math.max(1, Math.min(devicePixelRatio || 1, cap, Math.sqrt(pixelBudget / Math.max(1, r.width * r.height))));
     for (const c of [paper, ink, overlay]) {
       if (c) {
         c.width = Math.round(r.width * dpr);
@@ -171,20 +177,26 @@
     }
     if (o.data.pen !== "fountain") {
       ctx.lineWidth = width;
-      ctx.beginPath();
-      ctx.moveTo(p[0][0], p[0][1]);
+      const cached = strokePaths.get(o.data);
+      if (cached && cached.points === p && cached.length === p.length) {
+        ctx.stroke(cached.path);
+        return;
+      }
+      const path = new Path2D();
+      path.moveTo(p[0][0], p[0][1]);
       if (p.length === 2) {
-        ctx.lineTo(p[1][0], p[1][1]);
+        path.lineTo(p[1][0], p[1][1]);
       } else {
-        ctx.lineTo((p[0][0] + p[1][0]) / 2, (p[0][1] + p[1][1]) / 2);
+        path.lineTo((p[0][0] + p[1][0]) / 2, (p[0][1] + p[1][1]) / 2);
         for (let i = 1; i < p.length - 1; i++) {
           const xc = (p[i][0] + p[i + 1][0]) / 2;
           const yc = (p[i][1] + p[i + 1][1]) / 2;
-          ctx.quadraticCurveTo(p[i][0], p[i][1], xc, yc);
+          path.quadraticCurveTo(p[i][0], p[i][1], xc, yc);
         }
-        ctx.lineTo(p[p.length - 1][0], p[p.length - 1][1]);
+        path.lineTo(p[p.length - 1][0], p[p.length - 1][1]);
       }
-      ctx.stroke();
+      strokePaths.set(o.data, { path, points: p, length: p.length });
+      ctx.stroke(path);
       return;
     }
     for (let i = 1; i < p.length; i++) {
@@ -755,7 +767,7 @@
   }
   function getLayerObjects(p) {
     const cached = layerCache.get(p);
-    if (cached && cached.version === p.objects.length) {
+    if (cached && cached.objects === p.objects && cached.version === p.objects.length) {
       return cached.map;
     }
     const map = {};
@@ -771,17 +783,30 @@
     for (const key in map) {
       map[key].sort((a, b) => (a.zIndex || 0) - (b.zIndex || 0));
     }
-    layerCache.set(p, { version: p.objects.length, map });
+    layerCache.set(p, { objects: p.objects, version: p.objects.length, map });
     return map;
   }
   function objects(ctx, p) {
     const layerMap = getLayerObjects(p);
+    // Exports and thumbnails draw the full page, regardless of the viewport.
+    const t = ctx === ic ? ctx.getTransform() : null;
+    const bounds = t ? { x: -t.e / t.a, y: -t.f / t.d,
+      w: ink.width / t.a, h: ink.height / t.d } : null;
     for (let i = 0; i < p.layers.length; i++) {
       const layer = p.layers[i];
       if (!layer.visible) continue;
       const list = layerMap[layer.id];
       if (!list) continue;
-      for (let j = 0; j < list.length; j++) drawObject(ctx, list[j]);
+      for (let j = 0; j < list.length; j++) {
+        const o = list[j];
+        if (bounds && o.type === "stroke") {
+          const radius = Math.hypot(o.size.w, o.size.h) / 2 + o.style.width * 3;
+          const x = o.position.x + o.size.w / 2, y = o.position.y + o.size.h / 2;
+          if (x + radius < bounds.x || x - radius > bounds.x + bounds.w ||
+              y + radius < bounds.y || y - radius > bounds.y + bounds.h) continue;
+        }
+        drawObject(ctx, o);
+      }
     }
   }
   function drawSelection(ctx) {
@@ -1036,7 +1061,7 @@
     requestOverlay,
     render,
     renderOverlay,
-    invalidateCommittedInk: () => {},
+    invalidateCommittedInk: () => { layerCache = new WeakMap(); },
     drawObject,
     objects,
     drawPaper,

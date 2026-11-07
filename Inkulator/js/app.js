@@ -143,6 +143,7 @@
     ClipboardStudio.init();
     PenKeyboard.init();
     PenTools.init();
+    WorkspaceUI.init();
     updateShapeButton();
     document.addEventListener("fullscreenchange", () => {
       const active = !!document.fullscreenElement,
@@ -196,13 +197,21 @@
       e.target.value = "";
     };
     window.addEventListener("beforeunload", (e) => {
+      CanvasEngine.finishActive();
       if (Store.state.dirty && !Store.save()) {
         e.preventDefault();
         e.returnValue = "";
       }
     });
     window.addEventListener("pagehide", () => Store.save());
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") {
+        CanvasEngine.finishActive();
+        Store.save();
+      }
+    });
     stateChanged();
+    renderPages();
     if (Store.state.loadError) toast(Store.state.loadError, 12000);
     else if (!Store.state.storageAvailable)
       toast(
@@ -229,7 +238,7 @@
     const s = Store.state;
     const title = document.getElementById("notebook-title");
     if (document.activeElement !== title) title.value = Store.book().title;
-    document.title = Store.book().title + " — SCRBLE MATH STUDIO";
+    document.title = Store.book().title + " — Inkulator";
     document
       .querySelectorAll("[data-tool]")
       .forEach((b) => b.classList.toggle("active", b.dataset.tool === s.tool));
@@ -271,7 +280,7 @@
       .forEach((b) => b.classList.toggle("active", s.transformMode === "move"));
     updateShapeButton();
     clearTimeout(refreshTimer);
-    refreshTimer = setTimeout(renderPages, 70);
+    refreshTimer = setTimeout(renderPages, 1000);
   }
   function updateSaveState() {
     const s = Store.state;
@@ -286,6 +295,11 @@
       Math.round(Store.state.viewport.zoom * 100) + "%";
   }
   function renderPages() {
+    if (document.getElementById("pages-sidebar").hidden) return;
+    if (CanvasEngine.interacting) {
+      refreshTimer = setTimeout(renderPages, 1000);
+      return;
+    }
     const list = document.getElementById("page-list");
     thumbObserver?.disconnect();
     thumbObserver = new IntersectionObserver(
@@ -756,6 +770,7 @@
     const panel = document.getElementById("panel");
     if (!names[id]) return;
     Store.state.panel = id;
+    WorkspaceUI.rememberPanel(id);
     panel.hidden = false;
     document.getElementById("panel-eyebrow").textContent = names[id][0];
     document.getElementById("panel-title").textContent = names[id][1];
@@ -764,6 +779,7 @@
     else if (id === "image" && obj) ImageStudio.panel(obj);
     else if (id === "geometry" || id === "solid") Panels.geometry(id);
     else Panels[id]();
+    if (id === "settings") WorkspaceUI.settings();
     document
       .querySelectorAll('[data-action="panel"]')
       .forEach((b) => b.classList.toggle("active", b.dataset.panel === id));
@@ -1375,6 +1391,7 @@
       case "pages":
         pagesVisible = !pagesVisible;
         document.getElementById("pages-sidebar").hidden = !pagesVisible;
+        if (pagesVisible) renderPages();
         return;
       case "add-page":
         Store.transaction(() => {

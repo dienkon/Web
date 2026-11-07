@@ -37,7 +37,7 @@ const { pathToFileURL } = require("node:url");
         "5/6",
       );
       await page.locator('.workspace-tabs [data-panel="solid"]').click();
-      assert.equal(await page.locator(".library-item").count(), 13);
+      assert.equal(await page.locator(".library-item").count(), 16);
       await page.locator('.workspace-tabs [data-action="calculator"]').click();
       const casio = page.frameLocator("#casio-frame");
       await casio.locator("#btn-1").waitFor();
@@ -45,6 +45,7 @@ const { pathToFileURL } = require("node:url");
       for (const key of ["1", "add", "1", "EQUALS"])
         await casio.locator('[data-key="' + key + '"]').click();
       const frame = page.frames().find((f) => f.url().includes("/runtime.html"));
+      await frame.waitForFunction(() => casioApp.displayResult === "2");
       assert.equal(await frame.evaluate(() => casioApp.displayResult), "2");
       const win=page.locator('#casio-calculator');
       const size=await win.evaluate(el=>[el.style.width,el.style.height]);

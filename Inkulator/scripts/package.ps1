@@ -5,7 +5,7 @@ $productRoot = [IO.Path]::GetFullPath((Join-Path $distRoot 'SCRBLE-MATH-STUDIO')
 if (-not $productRoot.StartsWith($projectRoot + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) { throw 'Package target is outside the project.' }
 if (Test-Path -LiteralPath $productRoot) { Remove-Item -LiteralPath $productRoot -Recurse -Force }
 New-Item -ItemType Directory -Path $productRoot -Force | Out-Null
-foreach ($name in @('index.html','README.md','package.json','package-lock.json','css','js','assets','vendor','tests','scripts','examples','docs')) {
+foreach ($name in @('index.html','README.md','package.json','package-lock.json','css','js','assets','vendor','desktop','tests','scripts','examples','docs')) {
   $sourcePath = Join-Path $projectRoot $name
   if (Test-Path -LiteralPath $sourcePath) { Copy-Item -LiteralPath $sourcePath -Destination $productRoot -Recurse }
 }
