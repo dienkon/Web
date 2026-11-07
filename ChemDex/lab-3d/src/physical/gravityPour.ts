@@ -51,6 +51,10 @@ export function gravityPour(vessel: VesselState, others: readonly VesselState[],
   const plane = overTable && lipWorld.y >= LAB_GEOMETRY.tableTop_scene ? LAB_GEOMETRY.tableTop_scene : LAB_GEOMETRY.floor_scene;
   const start = lipWorld.toArray() as [number, number, number], speed = velocity.toArray() as [number, number, number];
   let trajectory = traceLaunchedStream(start, speed, null, plane);
+  if (plane === LAB_GEOMETRY.tableTop_scene && (Math.abs(trajectory.impactPos[0]) > LAB_GEOMETRY.tableHalfWidth_scene
+    || Math.abs(trajectory.impactPos[2]) > LAB_GEOMETRY.tableHalfDepth_scene)) {
+    trajectory = traceLaunchedStream(start, speed, null, LAB_GEOMETRY.floor_scene);
+  }
   for (const target of others) {
     if (target.id === vessel.id || !canReceivePour(target) || Math.abs(target.rotationZ ?? 0) > 1e-4) continue;
     const p = getWorldVesselProfile(target.type, target.capacity_ml);

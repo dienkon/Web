@@ -1,5 +1,6 @@
 import { LAB_PHYSICS } from '../engine/interactionEngine';
 import { advanceSplatterFlight } from '../science/splatterFlight';
+import { LAB_GEOMETRY } from '../core/labGeometry';
 
 /**
  * CHEMDEX LAB - Procedural Glass Shards & Fracture Pool (K4.2 & K4.4)
@@ -143,8 +144,8 @@ export class ShardManager {
   /**
    * Physics tick for flying shards (gravity, bounce, settle).
    */
-  public update(dt: number, tableY: number = LAB_PHYSICS.TABLE_SURFACE_Y): boolean {
-    if (!Number.isFinite(dt) || dt <= 0 || !Number.isFinite(tableY)) return false;
+  public update(dt: number, tableY?: number): boolean {
+    if (!Number.isFinite(dt) || dt <= 0 || (tableY !== undefined && !Number.isFinite(tableY))) return false;
     let newlySettled = false;
     for (const s of this.shards) {
       if (s.isSettled || s.isCleaned) continue;
@@ -152,8 +153,11 @@ export class ShardManager {
       // Exact ballistic segments and impact times, with bounded microscopic
       // chatter. Restitution/friction are explicit visual assumptions.
       for (let impact = 0; impact < 24 && remaining > 1e-12; impact++) {
-        const p = advanceSplatterFlight({ x: s.position[0], y: s.position[1], z: s.position[2],
-          vx: s.velocity[0], vy: s.velocity[1], vz: s.velocity[2] }, remaining, tableY);
+        const point = { x: s.position[0], y: s.position[1], z: s.position[2], vx: s.velocity[0], vy: s.velocity[1], vz: s.velocity[2] };
+        const table = advanceSplatterFlight(point, remaining, tableY ?? LAB_GEOMETRY.tableTop_scene);
+        const hitsTable = point.y >= LAB_GEOMETRY.tableTop_scene && table.hit
+          && Math.abs(table.x) <= LAB_GEOMETRY.tableHalfWidth_scene && Math.abs(table.z) <= LAB_GEOMETRY.tableHalfDepth_scene;
+        const p = tableY !== undefined || hitsTable ? table : advanceSplatterFlight(point, remaining, LAB_GEOMETRY.floor_scene);
         s.position = [p.x, p.y, p.z];
         s.velocity = [p.vx, p.vy, p.vz];
         for (let axis = 0; axis < 3; axis++) s.rotation[axis] += s.angularVelocity[axis] * p.elapsed_s;

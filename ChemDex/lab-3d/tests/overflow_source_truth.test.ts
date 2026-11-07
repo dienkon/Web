@@ -54,7 +54,7 @@ describe('Overflow/splatter requires an identified, finite liquid release', () =
         [{ formula: 'H2O', phase: 'l', mass_g: 2, moles: 2 / 18.015 }]);
       frame(); const spill = Object.values(useAppStore.getState().spills)[0];
       expect(seen).toEqual([]); expect(group.visible).toBe(false); expect(labSound.playOverflow).not.toHaveBeenCalled();
-      expect(spill.position).toEqual([0.8, -1.155, 0]); expect(spill.volume_ml).toBe(2);
+      expect(spill.position).toEqual([0.8, -1.175, 0]); expect(spill.volume_ml).toBe(2); // Canonical bench contact anchor.
       expect(useAppStore.getState().vessels.a).toBe(a); expect(useAppStore.getState().vessels.b).toBe(b);
     } finally { stop(); }
   });

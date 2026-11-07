@@ -17,11 +17,12 @@ import { debounceSaveLocalState } from '../store/persistence';
 import { vesselTareG } from '../core/labGeometry';
 import { shardManager } from '../damage/Shards';
 import { gravityPour } from './gravityPour';
+import { PhysicsRequestClock } from './PhysicsRequestClock';
 
 /** Only the bridge mutates persisted poses; renderers read/interpolate them. */
 export function PhysicsScene() {
   const enabled = usePhysicsStore(s => s.enabled), revision = usePhysicsStore(s => s.revision);
-  const client = useRef<PhysicsClient | null>(null), busy = useRef(false), pending = useRef(0);
+  const client = useRef<PhysicsClient | null>(null), busy = useRef(false), requestClock = useRef(new PhysicsRequestClock());
   const held = useRef(new Set<string>()), lastPositions = useRef(new Map<string, string>());
   const ready = useRef(false), generation = useRef(0);
   const targets = useRef(new Map<string, { position: [number, number, number]; rotation: Quat }>());
@@ -30,7 +31,7 @@ export function PhysicsScene() {
   useEffect(() => {
     if (!enabled) return;
     const epoch = ++generation.current;
-    ready.current = false; pending.current = 0; busy.current = false; held.current.clear(); lastPositions.current.clear(); targets.current.clear();
+    ready.current = false; requestClock.current.reset(); busy.current = false; held.current.clear(); lastPositions.current.clear(); targets.current.clear();
     experimentInputs.current.clear();
     const accept = (snapshot: SimulationSnapshot) => {
       if (epoch !== generation.current || revision !== usePhysicsStore.getState().revision || !usePhysicsStore.getState().enabled) return;
@@ -92,8 +93,8 @@ export function PhysicsScene() {
   useFrame((_, delta) => {
     const c = client.current, app = useAppStore.getState(), ui = usePhysicsStore.getState();
     if (!enabled || !ready.current || !c || ui.status === 'error') return;
-    if (!app.isSimulationPaused) pending.current += acceptedFrameSeconds(delta);
-    if (busy.current || (pending.current < 1 / 30 && !app.isSimulationPaused && ui.snapshot)) return;
+    requestClock.current.accumulate(acceptedFrameSeconds(delta), app.isSimulationPaused);
+    if (busy.current || (!requestClock.current.ready && !app.isSimulationPaused && ui.snapshot)) return;
     const inputs = Object.values(app.vessels).map(inputFromVessel).filter(v => v !== null);
     inputs.push(...ui.expansions);
     const commands: SimulationCommand[] = [c.command({ kind: 'sync', bodies: inputs })];
@@ -124,13 +125,7 @@ export function PhysicsScene() {
     }
     for (const id of held.current) if (!nextHeld.has(id)) commands.push(c.command({ kind: 'release', id }));
     held.current = nextHeld;
-    let seconds = app.isSimulationPaused ? 0 : pending.current;
-    pending.current = 0;
-    do {
-      const slice = Math.min(0.1, seconds);
-      commands.push(c.command({ kind: 'advance', seconds: slice, timeScale: app.timeScale, paused: app.isSimulationPaused }));
-      seconds -= slice;
-    } while (seconds > 1e-9);
+    commands.push(c.command({ kind: 'advance', seconds: requestClock.current.take(), timeScale: app.timeScale, paused: app.isSimulationPaused }));
     busy.current = true;
     c.batch(commands).catch(() => {}).finally(() => { if (client.current === c) busy.current = false; });
   }, -3.5);

@@ -1,6 +1,6 @@
 import RAPIER from '@dimforge/rapier3d-compat';
 import { CONSTANTS } from '../core/units';
-import { LAB_GEOMETRY } from '../core/labGeometry';
+import { LAB_GEOMETRY, CABINET_CENTER_Y_SCENE, CABINET_HEIGHT_SCENE } from '../core/labGeometry';
 import { sceneToMeters } from '../science/sceneUnits';
 import { materialProperties } from './materials';
 import type { PhysicalBodyInput, SimulationCommand, SimulationSnapshot, Vec3, Quat } from './types';
@@ -26,6 +26,7 @@ export interface RuntimeSave {
   joints: [string, number][]; tick: number; accumulator_s: number; sequence: number; seed: number;
   experiments?: ReferenceExperiment[];
   contacts?: [string, [string, number][]][];
+  contactPairs?: [string, [string, string]][];
 }
 
 /** Pure SI simulation. No React, DOM, wall clock or rendering quality input. */
@@ -35,6 +36,7 @@ export class PhysicsRuntime {
   private bodies = new Map<string, Body>();
   private colliderOwner = new Map<number, string>();
   private contacts = new Map<string, Map<string, number>>();
+  private contactPairs = new Map<string, [string, string]>();
   private pending: SimulationCommand[] = [];
   private accumulator = 0;
   private tickCount = 0;
@@ -64,7 +66,11 @@ export class PhysicsRuntime {
         sceneToMeters(LAB_GEOMETRY.tableThickness_scene / 2), sceneToMeters(LAB_GEOMETRY.tableHalfDepth_scene))
         .setTranslation(0, sceneToMeters(LAB_GEOMETRY.tableTop_scene - LAB_GEOMETRY.tableThickness_scene / 2), 0);
       const floor = RAPIER.ColliderDesc.cuboid(10, 0.05, 10).setTranslation(0, sceneToMeters(LAB_GEOMETRY.floor_scene) - 0.05, 0);
-      for (const [name, desc] of [['bench', table], ['stone_floor', floor]] as const) {
+      const cabinet = RAPIER.ColliderDesc.cuboid(sceneToMeters(15.8), sceneToMeters(CABINET_HEIGHT_SCENE / 2), sceneToMeters(6.4))
+        .setTranslation(0, sceneToMeters(CABINET_CENTER_Y_SCENE), sceneToMeters(-0.2));
+      const shelf = RAPIER.ColliderDesc.cuboid(sceneToMeters(3.75), sceneToMeters(0.1), sceneToMeters(0.6))
+        .setTranslation(sceneToMeters(-9), sceneToMeters(2.2), sceneToMeters(-6));
+      for (const [name, desc] of [['bench', table], ['bench', cabinet], ['bench', shelf], ['stone_floor', floor]] as const) {
         const collider = this.world.createCollider(desc.setFriction(0.65).setActiveEvents(RAPIER.ActiveEvents.COLLISION_EVENTS));
         this.colliderOwner.set(collider.handle, name);
       }
@@ -139,12 +145,14 @@ export class PhysicsRuntime {
     for (const [id, entry] of this.bodies) if (!ids.has(id)) {
       for (let i = 0; i < entry.body.numColliders(); i++) this.colliderOwner.delete(entry.body.collider(i).handle);
       this.world.removeRigidBody(entry.body); this.bodies.delete(id); this.contacts.delete(id);
+      this.forgetContacts(id);
     }
     for (const input of [...inputs].sort((a, b) => a.id.localeCompare(b.id, 'en'))) {
       let entry = this.bodies.get(input.id);
       if (entry && entry.input.definition.id !== input.definition.id) {
         for (let i = 0; i < entry.body.numColliders(); i++) this.colliderOwner.delete(entry.body.collider(i).handle);
         this.world.removeRigidBody(entry.body); this.bodies.delete(input.id); entry = undefined;
+        this.forgetContacts(input.id);
       }
       if (!entry) {
         const d = input.definition;
@@ -187,6 +195,12 @@ export class PhysicsRuntime {
     entry.body.setAdditionalMassProperties(total, vector(com), vector(inertia), { x: 0, y: 0, z: 0, w: 1 }, true);
     entry.body.recomputeMassPropertiesFromColliders();
   }
+  private forgetContacts(id: string) {
+    this.contacts.delete(id);
+    for (const counts of this.contacts.values()) counts.delete(id);
+    for (const [key, owners] of this.contactPairs) if (owners.includes(id)) this.contactPairs.delete(key);
+    this.fluidLevels.delete(id);
+  }
   private step() {
     for (const [id, experiment] of this.experiments) this.experiments.set(id, stepReferenceExperiment(experiment, DT));
     const before = new Map<string, { velocity: Vec3; mass: number }>();
@@ -212,8 +226,12 @@ export class PhysicsRuntime {
     this.stepFluids();
     this.world.step(this.events);
     this.events.drainCollisionEvents((a, b, started) => {
-      const ia = this.colliderOwner.get(a), ib = this.colliderOwner.get(b);
+      const key = a < b ? `${a}:${b}` : `${b}:${a}`;
+      const known = this.contactPairs.get(key);
+      if (started && known || !started && !known) return;
+      const ia = known?.[0] ?? this.colliderOwner.get(a), ib = known?.[1] ?? this.colliderOwner.get(b);
       if (!ia || !ib || ia === ib) return;
+      if (started) this.contactPairs.set(key, [ia, ib]); else this.contactPairs.delete(key);
       for (const [id, other] of [[ia, ib], [ib, ia]]) {
         let set = this.contacts.get(id); if (!set) this.contacts.set(id, set = new Map());
         const count = Math.max(0, (set.get(other) ?? 0) + (started ? 1 : -1));
@@ -306,7 +324,8 @@ export class PhysicsRuntime {
       targets: [...this.bodies].filter(([, e]) => !!e.target).map(([id, e]) => [id, structuredClone(e.target!)]),
       joints: [...this.bodies].filter(([, e]) => !!e.joint).map(([id, e]) => [id, e.joint!.handle]),
       tick: this.tickCount, accumulator_s: this.accumulator, sequence: this.sequence, seed: this.seed,
-      experiments: structuredClone([...this.experiments.values()]), contacts: [...this.contacts].map(([id, c]) => [id, [...c]]) };
+      experiments: structuredClone([...this.experiments.values()]), contacts: [...this.contacts].map(([id, c]) => [id, [...c]]),
+      contactPairs: [...this.contactPairs] };
   }
   restore(saved: RuntimeSave) {
     if (saved.version !== 1 || saved.rapierVersion !== RAPIER.version() || !Number.isSafeInteger(saved.tick) || saved.tick < 0
@@ -332,6 +351,7 @@ export class PhysicsRuntime {
     this.accumulator = saved.accumulator_s; this.sequence = saved.sequence; this.seed = saved.seed;
     this.experiments = new Map((saved.experiments ?? []).map(e => [e.id, structuredClone(e)]));
     this.contacts = new Map((saved.contacts ?? []).map(([id, c]) => [id, new Map(c)]));
+    this.contactPairs = new Map(saved.contactPairs ?? []);
   }
   free() { this.events.free(); this.world.free(); this.bodies.clear(); }
 }

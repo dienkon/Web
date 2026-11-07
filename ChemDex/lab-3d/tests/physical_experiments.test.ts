@@ -11,6 +11,17 @@ const simulate = (kind: ExperimentKind, seconds: number, options = {}) => {
 };
 afterEach(() => { usePhysicsStore.setState({ enabled: false }); restorePhysicalLab(); });
 describe('New instruments have finite controlled measurement scenarios', () => {
+  it('does not erase restored or newly queued experiments during worker initialization/remount', () => {
+    const experiment = simulate('pipette_bulb', 1);
+    experiment.id = 'pipette_bulb:default';
+    usePhysicsStore.setState({ experiments: [experiment], snapshot: { version: 1, tick: 120, seed: 17,
+      sequence: 0, time_s: 1, backlog_s: 0, objects: [], impacts: [], experiments: [] } });
+    expect(capturePhysicalLab().experiments).toEqual([experiment]);
+    usePhysicsStore.setState({ snapshot: { ...usePhysicsStore.getState().snapshot!, experiments: [experiment] } });
+    usePhysicsStore.getState().startExperiment('pipette_bulb');
+    const queued = usePhysicsStore.getState().experiments.find(e => e.id === 'pipette_bulb:default')!;
+    expect(capturePhysicalLab().experiments?.find(e => e.id === queued.id)?.time_s).toBe(0);
+  });
   it('force meter agrees with weight minus displaced fluid force for all solid references', () => {
     for (const material of ['borosilicate', 'steel', 'aluminum', 'polyethylene']) {
       const e = createReferenceExperiment('force', 'force_meter', { material, liquid: 'water' });

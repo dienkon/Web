@@ -51,6 +51,7 @@ import { useRenderDpr } from '../../render/renderResolution';
 import { LessonScene } from '../../lesson/LessonScene';
 import { PhysicsScene } from '../../physical/PhysicsScene';
 import { physicalEffectsRuntime } from '../../simulation/core/PhysicalEffectsRuntime';
+import { LAB_GEOMETRY, CABINET_CENTER_Y_SCENE, CABINET_HEIGHT_SCENE } from '../../core/labGeometry';
 
 function DragDropRaycaster() {
   const { camera, gl } = useThree();
@@ -833,8 +834,8 @@ export function LabScene() {
             <meshPhysicalMaterial color="#475569" roughness={0.25} metalness={0.8} clearcoat={0.3} />
           </mesh>
           {/* Under-counter Clean Laboratory Cabinetry */}
-          <mesh position={[0, -2.2, -0.2]} receiveShadow>
-            <boxGeometry args={[31.6, 4.0, 12.8]} />
+          <mesh position={[0, CABINET_CENTER_Y_SCENE + 1.35, -0.2]} receiveShadow>
+            <boxGeometry args={[31.6, CABINET_HEIGHT_SCENE, 12.8]} />
             <meshStandardMaterial color="#182230" roughness={0.45} metalness={0.15} />
           </mesh>
           {/* Cabinet Handles with authentic metallic highlight */}
@@ -924,6 +925,10 @@ export function LabScene() {
         </group>
         
         {/* Reagent Shelf */}
+        <mesh position={[0, LAB_GEOMETRY.floor_scene, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+          <planeGeometry args={[80, 80]} />
+          <meshStandardMaterial color="#d5dce4" roughness={0.85} />
+        </mesh>
         <mesh position={[-9, 2.2, -6.0]} receiveShadow castShadow>
           <boxGeometry args={[7.5, 0.2, 1.2]} />
           <meshStandardMaterial color="#e2e8f0" roughness={0.35} metalness={0.4} />

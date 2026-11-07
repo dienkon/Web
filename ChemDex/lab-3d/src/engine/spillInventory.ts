@@ -1,4 +1,5 @@
 import type { SpillState, SubstanceContent, VesselState } from '../types/chemistry';
+import { supportPlaneScene } from '../core/labGeometry';
 import { calculateSpillRadius } from '../science/overflowPhysics';
 import { vesselWorldDimensions } from '../science/vesselScale';
 import { LAB_PHYSICS } from './interactionEngine';
@@ -77,6 +78,7 @@ function liquidFamily(spill: Footprint): string | undefined {
 
 /** Contact eligibility, not a microscopic bridge-growth or miscibility model. */
 function footprintsTouch(a: Footprint, b: Footprint): boolean {
+  if (supportPlaneScene(a.position) !== supportPlaneScene(b.position)) return false;
   const distance = Math.hypot(a.position[0] - b.position[0], a.position[2] - b.position[2]);
   if ((a.volume_ml > 0) !== (b.volume_ml > 0)) {
     const wet = a.volume_ml > 0 ? a : b;
@@ -156,7 +158,7 @@ export function mergeWorkbenchSpill(
     return result;
   }
   const id = `spill_${Date.now()}_${++spillSequence}`;
-  const created: SpillState = { id, position: [pos[0], pos[1] < -0.5 ? pos[1] : -1.155, pos[2]],
+  const created: SpillState = { id, position: [pos[0], supportPlaneScene(pos), pos[2]],
     substances: [...substances], color: color || '#38bdf8', optics: liquidOptics(color || '#38bdf8', optics), volume_ml, mass_g: addedMass, temperature_c,
     radius: incoming.radius, isHazard: hazardous(substances),
     contents: contents?.map(item => ({ ...item })), sourceVesselName: sourceName, timestamp: Date.now() };
@@ -177,7 +179,7 @@ export function mergeWorkbenchSpillBatch(spills: Record<string, SpillState>, pos
   let nodes = Object.entries(spills).sort(([a], [b]) => a.localeCompare(b)).map(([key, spill]) => ({ key, spill, active: false }));
   for (const position of positions) {
     const id = `spill_${Date.now()}_${++spillSequence}`;
-    const spill: SpillState = { id, position: [...position], volume_ml, mass_g, radius: calculateSpillRadius(volume_ml),
+    const spill: SpillState = { id, position: [position[0], supportPlaneScene(position), position[2]], volume_ml, mass_g, radius: calculateSpillRadius(volume_ml),
       substances: [...sample.substances], color: sample.color, optics: liquidOptics(sample.color, sample.optics), temperature_c: sample.temperature_c, sourceVesselName: sourceName, timestamp: Date.now(),
       isHazard: hazardous(sample.substances), contents: sample.contents.map(c => ({ ...c,
         moles: c.moles / positions.length, mass_g: c.mass_g / positions.length,

@@ -15,6 +15,7 @@ export const AUXILIARY_IDS = ['test_tube_rack', 'tongs', 'retort_stand', 'retort
   'alcohol_burner', 'bunsen_burner', 'cork_stopper', 'reagent_bottle', 'amber_bottle'] as const;
 export const EXPANSION_TOOLS = ['force_meter', 'pressure_sensor', 'pipette_bulb', 'water_bath', 'gas_collector'] as const;
 export const SAMPLE_IDS = ['borosilicate', 'steel', 'aluminum', 'polyethylene', 'glycerol', 'silicone_oil', 'ice'] as const;
+export const SHELL_SECTORS = 32; // Inscribed circular section error < 0.65%.
 
 /** Wall wedges follow the SAME contour and affine scale as the rendered glass.
  * Every wedge is convex, but the collection leaves the reservoir hollow. */
@@ -39,21 +40,21 @@ export function vesselDefinition(type: string, capacity_ml = VESSEL_PROFILES[typ
         colliders.push({ kind: 'cylinder', radius_m: ro0 * length, halfHeight_m: (high - low) * length / 2,
           center_m: [0, (ySI(low) + ySI(high)) / 2, 0] });
       } else {
-      // One convex frustum for a solid bottom avoids 24 coincident support
+      // One convex frustum for a solid bottom avoids coincident support
       // manifolds. This is the SAME polygonal solid, with no filled reservoir.
       const vertices_m: number[] = [];
-      for (const [y, r] of [[low, ro0], [high, ro1]]) for (let sector = 0; sector < 24; sector++) {
-        const theta = sector * Math.PI / 12;
+      for (const [y, r] of [[low, ro0], [high, ro1]]) for (let sector = 0; sector < SHELL_SECTORS; sector++) {
+        const theta = sector * 2 * Math.PI / SHELL_SECTORS;
         vertices_m.push(r * Math.cos(theta) * length, ySI(y), r * Math.sin(theta) * length);
       }
       colliders.push({ kind: 'hull', vertices_m });
       }
     } else {
-    for (let sector = 0; sector < 24; sector++) {
+    for (let sector = 0; sector < SHELL_SECTORS; sector++) {
       const vertices_m: number[] = [];
       for (const [y, ro, ri] of [[low, ro0, ri0], [high, ro1, ri1]]) {
         for (const r of [Math.min(ri, ro), ro]) for (const edge of [sector, sector + 1]) {
-          const theta = edge * Math.PI / 12;
+          const theta = edge * 2 * Math.PI / SHELL_SECTORS;
           vertices_m.push(r * Math.cos(theta) * length, ySI(y), r * Math.sin(theta) * length);
         }
       }

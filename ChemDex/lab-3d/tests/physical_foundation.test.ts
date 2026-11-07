@@ -1,12 +1,16 @@
 import { describe, it, expect } from 'vitest';
-import { coverageInventory, vesselDefinition, VESSEL_IDS, sampleDefinition } from '../src/physical/catalog';
+import { coverageInventory, vesselDefinition, VESSEL_IDS, sampleDefinition, SHELL_SECTORS } from '../src/physical/catalog';
 import { MATERIALS } from '../src/physical/materials';
 import { HeldObjectController } from '../src/handling/HeldObjectController';
 import { sceneToMeters, scenePointToSI, siPointToScene } from '../src/science/sceneUnits';
 import { CONSTANTS } from '../src/core/units';
-import { vesselTareG } from '../src/core/labGeometry';
+import { LAB_GEOMETRY, vesselTareG } from '../src/core/labGeometry';
 
 describe('Physical foundation with explicit units and provenance', () => {
+  it('uses the same physical bench-to-floor height rather than treating a vessel origin as the table', () => {
+    expect(sceneToMeters(LAB_GEOMETRY.tableTop_scene - LAB_GEOMETRY.floor_scene)).toBeCloseTo(0.9, 12);
+    expect(LAB_GEOMETRY.tableTop_scene).not.toBe(LAB_GEOMETRY.defaultVesselOrigin_scene);
+  });
   it('matches SI free fall before contact and preserves release momentum', () => {
     const c = new HeldObjectController('body', 'beaker', [0, 10, 0]);
     c.state.velocity = [2, 0, -1]; c.release();
@@ -36,6 +40,7 @@ describe('Physical foundation with explicit units and provenance', () => {
       : c.kind === 'cylinder' && c.radius_m > 0 && c.halfHeight_m > 0 && c.center_m.every(Number.isFinite))).toBe(true);
   });
   it('samples derive mass and inertia from their real volume, not display particle count', () => {
+    expect(1 - SHELL_SECTORS * Math.sin(2 * Math.PI / SHELL_SECTORS) / (2 * Math.PI)).toBeLessThan(0.01);
     const d = sampleDefinition('aluminum', 8e-6);
     expect(d.mass_kg).toBeCloseTo(0.0216, 12);
     expect(d.dimensions_m).toEqual([0.02, 0.02, 0.02]);

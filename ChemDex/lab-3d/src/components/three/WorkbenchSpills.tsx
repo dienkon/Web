@@ -6,6 +6,7 @@ import { useAppStore } from '../../store/useAppStore';
 import type { SpillState } from '../../types/chemistry';
 import { SpilledSolids } from './SpilledSolids';
 import { LAB_PHYSICS } from '../../engine/interactionEngine';
+import { supportPlaneScene } from '../../core/labGeometry';
 import { solveSessileDrop } from '../../science/sessileDrop';
 import type { SessileDropShape } from '../../science/sessileDrop';
 import { METERS_PER_SCENE_UNIT } from '../../science/sceneUnits';
@@ -36,7 +37,7 @@ function SpillPuddle({ spill }: { spill: SpillState }) {
     material.current?.color.lerp(targetColor.set(spill.color || '#f8fafc'), 1 - Math.exp(-dt * 5));
   });
   // Deposition coordinates belong to the inventory, including after remount.
-  const position: [number, number, number] = [spill.position[0], LAB_PHYSICS.TABLE_SURFACE_Y + 0.001, spill.position[2]];
+  const position: [number, number, number] = [spill.position[0], supportPlaneScene(spill.position) + 0.001, spill.position[2]];
   const drop = useMemo(() => solveSessileDrop(spill.volume_ml), [spill.volume_ml]);
   const geometry = useMemo(() => drop ? createSpillGeometry(drop) : null, [drop]);
   useEffect(() => () => geometry?.dispose(), [geometry]);

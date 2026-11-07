@@ -16,7 +16,8 @@ export const usePhysicsStore = create<PhysicsUIState>((set) => ({
   receivedAt: 0, expansions: [], revision: 0, resumeTick: 0, seed: 17, experiments: [],
   startExperiment: (kind, options = {}) => set(s => {
     const id = `${kind}:${options.liquid ?? 'default'}`;
-    return { experiments: [...s.experiments.filter(e => e.id !== id), createReferenceExperiment(id, kind, options)] };
+    const run_revision = Number(s.experiments.find(e => e.id === id)?.parameters.run_revision ?? 0) + 1;
+    return { experiments: [...s.experiments.filter(e => e.id !== id), createReferenceExperiment(id, kind, { ...options, run_revision })] };
   }),
   setEnabled: enabled => set(s => {
     if (enabled === s.enabled) return s;
@@ -32,8 +33,13 @@ export const usePhysicsStore = create<PhysicsUIState>((set) => ({
 
 export function capturePhysicalLab(): PhysicalLabSave {
   const s = usePhysicsStore.getState();
+  const results = new Map((s.snapshot?.experiments ?? []).map(e => [e.id, e]));
+  const experiments = s.experiments.map(config => {
+    const result = results.get(config.id);
+    return result && JSON.stringify(result.parameters) === JSON.stringify(config.parameters) ? result : config;
+  });
   return { version: 1, enabled: s.enabled, tick: s.snapshot?.tick ?? s.resumeTick, seed: s.seed,
-    experiments: structuredClone(s.snapshot?.experiments ?? s.experiments),
+    experiments: structuredClone(experiments),
     expansions: s.expansions.map(input => {
       const pose = s.snapshot?.objects.find(o => o.id === input.id);
       return pose ? { ...input, position_m: [...pose.position_m], rotation: [...pose.rotation], velocity_m_s: [...pose.velocity_m_s],
