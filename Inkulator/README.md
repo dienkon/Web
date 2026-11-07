@@ -1,10 +1,10 @@
-# Inkulator · 1.7
+# Inkulator · 1.8
 
 Sổ tay Toán học ngoại tuyến cho Windows, lấy cảm hứng bố cục từ ảnh Scrble Ink được cung cấp. Phần Casio tích hợp source của Tikz-Physics, ghi nguồn riêng bên dưới; không phải sản phẩm chính thức của Scrble, GeoGebra hay Casio.
 
 ## Mở ứng dụng
 
-**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-1.7.0-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Sổ tay tự lưu trong hồ sơ ứng dụng của người dùng Windows; gỡ cài đặt giữ lại dữ liệu. Bộ cài cá nhân chưa ký số.
+**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-1.8.0-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Sổ tay tự lưu trong hồ sơ ứng dụng của người dùng Windows; gỡ cài đặt giữ lại dữ liệu. Bộ cài cá nhân chưa ký số.
 
 **Bản web và iPad:** bản web vẫn chạy từ `index.html` trên máy tính. Trên iPad, phục vụ toàn bộ thư mục ứng dụng qua HTTP/HTTPS rồi mở bằng Safari; iPad không chạy tệp `.exe`. Không có máy chủ nào được triển khai tự động. Bản Windows và trình duyệt có kho lưu riêng; dùng **Ctrl+S / Mở tệp** để chuyển sổ tay giữa các bản.
 
@@ -17,6 +17,17 @@ Nếu dùng bản ZIP trên máy tính:
 **Không cần Internet, Node.js, npm, Python, máy chủ, đăng nhập hoặc API key để sử dụng.** Không mở index.html ngay bên trong cửa sổ xem ZIP; cần giải nén toàn bộ thư mục để các tệp đi cùng được đọc đúng.
 
 Tất cả script, CSS, icon và thư viện nằm trong thư mục sản phẩm. Bản chạy dùng script cổ điển, không cần ES module từ file://, CDN, service worker hoặc tải font mạng. PDF.js được bundle cùng phần xử lý worker để chạy trên luồng chính, nhận font/CMap/decoder từ dữ liệu nhúng; không tạo worker từ đường dẫn file://. Công thức dùng SVG glyph có sẵn, không tải font ngoài.
+
+## Điểm mới 1.8 · chụp vùng, trang cân giữa và công cụ tròn
+
+- **Chụp vùng** trên thanh trên hoặc thanh bút → kéo hình chữ nhật trên trang viết → nhấc bút → **Dán ảnh**. Ảnh PNG lấy giấy, hình, công thức và nét viết; bỏ khung chọn và các bảng điều khiển. Kéo theo hướng nào cũng được; Esc hoặc nút × để hủy. Thao tác chụp không thay đổi sổ tay; dán ảnh hỗ trợ Undo/Redo.
+- Bản Windows tự lưu mỗi ảnh trong thư mục `captures` thuộc hồ sơ ứng dụng và sao chép vào clipboard Windows. Khi clipboard bị chặn, ảnh vẫn sẵn để dán trong ứng dụng. Bản web giữ ảnh gần nhất trong IndexedDB. Khay nhỏ **Dán ảnh chụp** cho phép dán lại sau khi mở ứng dụng; nút **↓** tải PNG ra thư mục người dùng chọn. Tính năng chụp nội dung trang đang nhìn thấy.
+- Mở sổ, chuyển trang, thêm trang và nhập trang PDF đều mặc định **vừa cả trang**, cân giữa vùng viết. Nút **↔** chuyển sang vừa chiều rộng. Đổi kích thước cửa sổ hoặc danh sách trang sẽ tự căn lại; khi đã zoom/kéo trang thủ công, ứng dụng giữ mức zoom đó.
+- Chọn hình → chạm nút tròn xanh sát hình để mở/thu vòng công cụ. Các nút tròn dành cho di chuyển, xoay 3D, nối điểm, trung điểm, đổi tên, hướng nhìn, công cụ khác và xóa. Chọn công cụ xong vòng tự thu; nút ✓ kết thúc phép dựng.
+- **⋯** chia thành **Dựng hình / Đo / Ký hiệu / Chỉnh hình**. Chỉnh hình có phóng vừa hình, nhân bản, ẩn/hiện tên điểm, xóa nét dựng cuối, xóa phép dựng thêm, ẩn/hiện nét khuất và đổi màu nhanh. Kích thước, sao chép, khóa và thuộc tính vẫn truy cập được bằng bút.
+- Trung điểm, chia cạnh, đo độ dài: chạm vào giữa cạnh để chọn cả hai đầu. Dựng song song/vuông góc: chạm cạnh rồi chọn điểm đi qua. Chạm gần đỉnh vẫn chọn riêng từng điểm như trước.
+
+Chạy `npm run test:capture-layout` để kiểm tra chụp, dán, lưu ảnh, căn trang và vòng công cụ. [Báo cáo 1.8](docs/RELEASE-1.8.md).
 
 ## Điểm mới 1.7 · hình học dành cho bút cảm ứng
 

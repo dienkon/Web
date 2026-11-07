@@ -5,6 +5,7 @@
     pages: "M4 3h16v18H4zM8 7h8M8 11h8M8 15h5",
     "paste-image": "M8 5H4v17h16V5h-4M8 3h8v5H8zM8 13h8M12 10v8",
     image: "M3 3h18v18H3zM3 17l6-6 5 5 3-3 4 4M16 7h.01",
+    capture: "M8 3H3v5M16 3h5v5M21 16v5h-5M8 21H3v-5M7 7h10v10H7z",
     pdf: "M5 2h9l5 5v15H5zM14 2v6h6M8 12h8M8 16h6",
     graph: "M3 3v18h18M5 16c4-17 9 8 15-10",
     geometry: "M12 3L2 21h20zM12 3v18",

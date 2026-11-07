@@ -42,6 +42,7 @@ else {
       if (answer === 1) event.preventDefault();
     });
     mainWindow.once("ready-to-show", () => mainWindow.show());
+    require("./capture.cjs")(mainWindow);
     mainWindow.loadFile(entry);
     ipcMain.handle("inkulator:flush", async (event) => {
       if (event.sender !== mainWindow.webContents || event.senderFrame !== mainWindow.webContents.mainFrame) return false;

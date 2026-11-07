@@ -93,8 +93,9 @@ const pass = (s) => {
           ),
         );
       const mode = async (key) => {
-        if (!(await page.locator('[data-geo-mode="' + key + '"]').isVisible()))
-          await tap("#geo-more");
+        if(await page.locator("#geo-hub").getAttribute("aria-expanded")==="false")await tap("#geo-hub");
+        if (!(await page.locator('[data-geo-mode="' + key + '"]').first().isVisible()))
+          {await tap("#geo-more");const tab=await page.evaluate(k=>GeometryControls.categoryFor(k),key);await tap('[data-geo-tab="'+tab+'"]');}
         await tap('[data-geo-mode="' + key + '"]');
       };
       assert.equal(
@@ -138,7 +139,7 @@ const pass = (s) => {
           ": header fullscreen button enters and exits actual browser fullscreen through pen taps",
       );
       await page.mouse.move(850, 500);
-      await page.mouse.wheel(0, 1200);
+      await page.mouse.wheel(0, await page.evaluate(()=>Store.current().height*.4*Store.state.viewport.zoom));
       await page.waitForFunction(() => Store.book().pages.length === 2);
       const joined = await page.evaluate(() =>
         PageFlow.layout().items.map((p) => ({
@@ -358,7 +359,7 @@ const pass = (s) => {
         Store.state.selection = [o.id];
         Store.emit();
       });
-      assert.ok((await page.locator("#geometry-toolbar button").count()) <= 6);
+      assert.ok((await page.locator("#geometry-toolbar button:visible").count()) <= 2);
       assert.equal(
         await page
           .locator('#geometry-toolbar [data-geo-mode="intersection"]')

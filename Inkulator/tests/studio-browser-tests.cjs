@@ -94,11 +94,13 @@ const pass = (s) => {
       const selectedId = await page.evaluate(() => Store.selected()[0].id);
       await page.locator('[data-action="close-panel"]').click();
       const selectMode = async (mode) => {
+          if(await page.locator("#geo-hub").getAttribute("aria-expanded")==="false")await page.locator("#geo-hub").click();
           if (
-            !(await page.locator('[data-geo-mode="' + mode + '"]').isVisible())
+            !(await page.locator('[data-geo-mode="' + mode + '"]').first().isVisible())
           )
-            await page.locator("#geo-more").click();
-          await page.locator('[data-geo-mode="' + mode + '"]').click();
+            {await page.locator("#geo-more").click();const tab=await page.evaluate(k=>GeometryControls.categoryFor(k),mode);await page.locator('[data-geo-tab="'+tab+'"]').click();}
+          await page.locator('[data-geo-mode="' + mode + '"]').first().click();
+          assert.equal(await page.evaluate(()=>TeacherGeometry.active?.mode),mode);
         },
         point = async (key) => {
           const p = await page.evaluate((key) => {

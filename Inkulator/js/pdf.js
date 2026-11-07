@@ -354,14 +354,7 @@
           Store.book().pages.push(...created);
           Store.state.pageIndex = Store.book().pages.length - created.length;
           Store.state.selection = [];
-          Store.state.viewport = {
-            x: 20,
-            y: 20,
-            zoom: Math.min(
-              1,
-              (Renderer.area.clientWidth - 40) / created[0].width,
-            ),
-          };
+          PageFlow.fit("page");
         } else {
           const o = objects[0],
             scale = Math.min(

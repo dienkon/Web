@@ -39,7 +39,7 @@
     hovered = null;
   function target() {
     return (
-      Store.current().objects.find((o) => o.id === interaction?.objectId) ||
+      Store.current().objects.find((o) => o.id === interaction?.objectId && Store.state.selection.includes(o.id)) ||
       Store.selected().find((o) => ["geometry", "solid"].includes(o.type))
     );
   }
@@ -213,6 +213,7 @@
     );
   }
   function setMode(mode, o = target()) {
+    root.GeometryControls?.collapse();
     o = Store.current().objects.find((item) => item.id === o?.id);
     if (!o || o.locked) return App.toast("Chọn một hình học chưa khóa.");
     if (mode === "orbit" && o.data.projection === "oblique")
@@ -392,6 +393,10 @@
       }
     }
     const hit = nearest(o, p);
+    if(!hit && interaction.picked.length===0 && ["midpoint","dividePoint","measure","perpendicular","parallel"].includes(interaction.mode)) {
+      const edge=nearestLine(o,p);
+      if(edge) {interaction.picked=[...edge.refs];completePicked();return true;}
+    }
     if (hit) pick(hit.key);
     else
       App.toast(
@@ -433,6 +438,7 @@
     pop.querySelector("#geo-apply-name").onclick=()=>apply(pop.querySelector("#geo-custom-name").value);
   }
   function positionTools() {
+    if(root.GeometryControls) return GeometryControls.position();
     const selected=Store.selected(), one=selected.length===1 && ["solid","geometry"].includes(selected[0].type);
     const bars=[document.getElementById("selection-tools"),document.getElementById("geometry-toolbar")];
     for(const bar of bars) {
@@ -965,6 +971,7 @@
     const bar = document.getElementById("geometry-toolbar");
     if (!bar) return;
     const o = target();
+    if(interaction && o && interaction.objectId!==o.id) {interaction=null;hovered=null;Store.state.geometryInteraction=null;}
     if (
       !o ||
       o.locked ||
@@ -1123,6 +1130,7 @@
         interaction.lineMode = e.target.value;
       };
     }
+    root.GeometryControls?.enhance(bar,o,available,titles,interaction);
   }
   function mountPanel(o) {
     const host = document.getElementById("geometry-properties");

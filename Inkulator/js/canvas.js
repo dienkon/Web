@@ -187,6 +187,7 @@
       moved: false,
     };
     if (mode === "pan") {
+      S().viewMode = "manual";
       canvas.style.cursor = "grabbing";
       return;
     }
@@ -323,6 +324,7 @@
     if (pointers.has(e.pointerId))
       pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
     if (pinch && pointers.size === 2) {
+      S().viewMode = "manual";
       const pp = [...pointers.values()],
         r = Renderer.area.getBoundingClientRect(),
         z = Math.max(
@@ -977,6 +979,7 @@
   }
   function wheel(e) {
     e.preventDefault();
+    S().viewMode = "manual";
     const v = S().viewport;
     if (e.ctrlKey) {
       const r = Renderer.area.getBoundingClientRect(),
@@ -995,6 +998,7 @@
     x = Renderer.area.clientWidth / 2,
     y = Renderer.area.clientHeight / 2,
   ) {
+    S().viewMode = "manual";
     const v = S().viewport,
       wx = (x - v.x) / v.zoom,
       wy = (y - v.y) / v.zoom;

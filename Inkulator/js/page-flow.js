@@ -334,21 +334,36 @@
   }
   function go(index) {
     if (index < 0 || index >= Store.book().pages.length) return;
-    const v = { ...Store.state.viewport };
+    const v = { ...Store.state.viewport }, mode = Store.state.viewMode;
     finishUI();
     CanvasEngine.cancelActive();
     TeacherGeometry.cancel();
     Store.switchPage(index);
-    if (enabled()) {
+    if (enabled() && mode === "manual") {
       Store.state.viewport = { x: v.x, y: PAD, zoom: v.zoom };
+      Store.state.viewMode = "manual";
       Store.emit();
-    }
+    } else fit(mode || "page");
+  }
+  function fit(mode = "page") {
+    if (!root.Renderer?.area) return;
+    const area = Renderer.area, p = Store.current(), w = area.clientWidth, h = area.clientHeight;
+    if (!w || !h) return;
+    const z = Math.max(.1, Math.min(4, (w - 48) / p.width,
+      mode === "width" ? 4 : (h - 88) / p.height));
+    Store.state.viewMode = mode;
+    Store.state.viewport = { x: (w - p.width*z) / 2,
+      y: mode === "width" ? PAD : Math.max(PAD, (h - 48 - p.height*z) / 2), zoom: z };
+    update();
+    root.App?.updateZoom();
+    Renderer.request();
   }
   function init() {
     bar = document.getElementById("document-scroll");
     bar.addEventListener("scroll", () => {
       if (bar.hidden || Math.abs(bar.scrollTop - expected) < 0.5) return;
       const downward = bar.scrollTop > expected;
+      Store.state.viewMode = "manual";
       CanvasEngine.cancelActive();
       const l = layout(),
         v = Store.state.viewport;
@@ -364,6 +379,7 @@
   }
   root.PageFlow = {
     invalidateLayout,
+    fit,
     init,
     enabled,
     layout,

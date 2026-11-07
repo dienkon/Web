@@ -62,6 +62,7 @@
     history: [],
     future: [],
     viewport: { x: 0, y: 0, zoom: 1 },
+    viewMode: "page",
     settings: { ...defaults },
     storageAvailable: true,
     panel: null,
@@ -278,6 +279,7 @@
     state.pageIndex = Math.max(0, Math.min(i, book().pages.length - 1));
     state.selection = [];
     state.viewport = { x: 0, y: 0, zoom: 1 };
+    root.PageFlow?.fit?.("page");
     emit();
     scheduleSave();
   }
@@ -287,6 +289,7 @@
     clearHistory();
     invalidateSnapshot();
     state.viewport = { x: 0, y: 0, zoom: 1 };
+    root.PageFlow?.fit?.("page");
     emit();
     scheduleSave();
   }
@@ -314,6 +317,7 @@
     invalidateSnapshot();
     state.viewport = { x: 0, y: 0, zoom: 1 };
     state.dirty = true;
+    root.PageFlow?.fit?.("page");
     emit();
     save();
     return true;

@@ -72,6 +72,10 @@ const pass = (s) => {
           force: down ? 0.65 : 0,
         });
       const tap = async (selector) => {
+        const geometric=await page.evaluate(()=>Store.selected().length===1&&["solid","geometry"].includes(Store.selected()[0].type));
+        if(geometric && selector.includes('#selection-tools [data-action="orbit-selection"]'))selector='#geometry-toolbar [data-geo-mode="orbit"]';
+        if(geometric && selector.includes('#selection-tools [data-action="move-selection"]'))selector='#geometry-toolbar [data-action="move-selection"]';
+        if(geometric && (selector.includes("geometry-toolbar") || selector.includes("data-geo-mode")) && !await page.locator(selector).first().isVisible())await tap("#geo-hub");
         const el = page.locator(selector).first();
         await el
           .waitFor({ state: "visible", timeout: 7000 })
@@ -84,6 +88,10 @@ const pass = (s) => {
                 keyboardHidden: document.getElementById("pen-keyboard").hidden,
                 dialog: document.getElementById("dialog").open,
                 penActive: CanvasEngine.penActive,
+                hub:document.getElementById("geo-hub")?.getAttribute("aria-expanded"),
+                geoHidden:document.getElementById("geometry-toolbar").hidden,
+                selected:Store.selected().map(o=>o.type),
+                mode:TeacherGeometry.active?.mode,
               })),
             );
             await page.screenshot({

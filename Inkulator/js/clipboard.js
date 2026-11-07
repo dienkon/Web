@@ -5,6 +5,7 @@
     queue = Promise.resolve(),
     lastPasteEvent = 0;
   function markInternal() {
+    root.CaptureStudio?.releasePreference();
     copyToken = "SCRBLE-MATH-STUDIO:" + Store.uid();
     if (navigator.clipboard?.writeText)
       navigator.clipboard.writeText(copyToken).catch(() => {});
@@ -21,10 +22,10 @@
     setTimeout(() => {
       if (
         tick === lastPasteEvent &&
-        Store.state.clipboard.length &&
+        (Store.state.clipboard.length || root.CaptureStudio?.preferred) &&
         !document.getElementById("dialog").open
       )
-        App.pasteInternal();
+        root.CaptureStudio?.preferred ? CaptureStudio.paste() : App.pasteInternal();
     }, 220);
   }
   function editing(target) {
@@ -45,6 +46,7 @@
         ...[...data.files].filter((f) => f.type.startsWith("image/")),
       );
     if (images.length) {
+      root.CaptureStudio?.releasePreference();
       e.preventDefault();
       if (receiver) document.getElementById("dialog").close("cancel");
       images.slice(0, 8).forEach(insertFile);
@@ -79,6 +81,7 @@
     }
   }
   async function read({ imagesOnly = false } = {}) {
+    if(root.CaptureStudio?.preferred) return CaptureStudio.paste();
     try {
       if (!navigator.clipboard?.read)
         throw Error("Trình duyệt không hỗ trợ đọc ảnh từ bộ nhớ đệm.");
@@ -112,6 +115,7 @@
       App.toast("Bộ nhớ đệm chưa có ảnh. Sao chép ảnh hoặc chọn tệp từ máy.");
       return fallback();
     } catch (_) {
+      if(root.CaptureStudio?.latest && (imagesOnly || !Store.state.clipboard.length)) return CaptureStudio.paste();
       if (!imagesOnly && Store.state.clipboard.length)
         return App.pasteInternal();
       return fallback();

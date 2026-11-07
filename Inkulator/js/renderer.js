@@ -51,6 +51,7 @@
       }
     }
     lastPaperKey = "";
+    if (state().viewMode !== "manual") root.PageFlow?.fit?.(state().viewMode || "page");
     request();
     requestOverlay();
   }

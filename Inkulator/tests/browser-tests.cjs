@@ -30,8 +30,14 @@ const log = (name) => {
       await page.goto(url);
       await page.waitForFunction(() => window.Scrble);
       await page.screenshot({ path: path.join(out, channel + "-blank.png") });
-      assert.equal(await page.title(), "Sổ tay Toán học — SCRBLE MATH STUDIO");
+      assert.equal(await page.title(), "Sổ tay Toán học — Inkulator");
       log(channel + ": file:// loads with networking offline");
+      // Fixed-coordinate interaction fixtures use a manual 1:1 viewport.
+      await page.evaluate(() => {
+        Store.state.viewMode = "manual";
+        Store.state.viewport = { x: 0, y: 0, zoom: 1 };
+        Store.emit();
+      });
       const draw = async (points) => {
         await page.mouse.move(...points[0]);
         await page.mouse.down();
@@ -201,7 +207,7 @@ const log = (name) => {
       );
       await page.locator('.workspace-tabs [data-panel="solid"]').click();
       await page
-        .getByRole("button", { name: "Hình lập phương", exact: true })
+        .getByRole("button", { name: /^Hình lập phương/ })
         .click();
       const rotation = await page.evaluate(() =>
         Store.selected()[0].data.rotation.slice(),
@@ -210,6 +216,7 @@ const log = (name) => {
         await page.evaluate(() => Store.selected()[0].data.live),
         false,
       );
+      await page.locator('#geo-hub').click();
       await page.locator('[data-geo-mode="orbit"]').click();
       const center = await page.evaluate(() => {
         const o = Store.selected()[0],

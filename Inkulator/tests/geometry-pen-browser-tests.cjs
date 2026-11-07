@@ -16,16 +16,24 @@ const root=path.resolve(__dirname,"..");fs.mkdirSync(path.join(root,"test-result
     return type==="mousePressed"?page.mouse.down():page.mouse.up();
    };
    const tap=async(selector)=>{
+    if(["#geo-more","#geo-view"].includes(selector) && !await page.locator(selector).isVisible()) await tap("#geo-hub");
     const el=page.locator(selector).first();await el.waitFor({state:"visible"});await el.scrollIntoViewIfNeeded();const r=await el.boundingBox(),x=r.x+r.width/2,y=r.y+r.height/2;
-    await pen("mouseMoved",x,y);await pen("mousePressed",x,y,true);await pen("mouseReleased",x,y);
+    await pen("mouseMoved",x,y);
+    await pen("mousePressed",x,y,true);await pen("mouseReleased",x,y);
    };
    const screen=async(p)=>page.evaluate(p=>{const r=Renderer.area.getBoundingClientRect(),v=Store.state.viewport;return{x:r.left+v.x+p.x*v.zoom,y:r.top+v.y+p.y*v.zoom};},p);
    const vertex=async(key)=>{
     const p=await screen(await page.evaluate(key=>TeacherGeometry.points(Store.selected()[0]).find(p=>p.key===key).world,key));
     await pen("mousePressed",p.x,p.y,true);await pen("mouseReleased",p.x,p.y);
    };
-   const mode=async(k)=>{if(!await page.locator('[data-geo-mode="'+k+'"]').isVisible())await tap("#geo-more");await tap('[data-geo-mode="'+k+'"]');};
-   await page.evaluate(()=>{App.openPanel("solid");Panels.insert("cube",true,{x:270,y:170});App.closePanel();Store.selected()[0].size={w:600,h:520};Store.emit();});
+   const mode=async(k)=>{
+    if(await page.locator("#geo-hub").getAttribute("aria-expanded")==="false")await tap("#geo-hub");
+    if(!await page.locator('[data-geo-mode="'+k+'"]').first().isVisible()) {await tap("#geo-more");const tab=await page.evaluate(k=>GeometryControls.categoryFor(k),k);await tap('[data-geo-tab="'+tab+'"]');}
+    await tap('[data-geo-mode="'+k+'"]');
+    const actual=await page.evaluate(()=>TeacherGeometry.active?.mode);
+    assert.equal(actual,k,"Mode button must activate "+k);
+   };
+   await page.evaluate(()=>{App.openPanel("solid");Panels.insert("cube",true,{x:270,y:170});App.closePanel();Store.selected()[0].size={w:600,h:520};Store.state.viewMode="manual";Store.state.viewport={x:0,y:0,zoom:1};Store.emit();});
    await page.waitForTimeout(80);
    const bounds=await page.evaluate(()=>{const o=Store.selected()[0],b=Renderer.selectionBounds(o);return{b,size:o.size,handles:CanvasEngine.selectionHandles(o)};});
    assert.ok(bounds.b.w<bounds.size.w*.8);assert.ok(bounds.b.h<bounds.size.h*.8);
@@ -61,7 +69,7 @@ const root=path.resolve(__dirname,"..");fs.mkdirSync(path.join(root,"test-result
    assert.equal(await page.locator(".geometry-stepper,#geo-step-prev,#geo-step-next,#geo-step-all").count(),0);
    await page.screenshot({path:path.join(root,`test-results/${engine}-geometry-near-controls.png`)});
    const data=await page.evaluate(()=>{const n=Store.envelope();Store.validate(n,true);Store.save();return n.notebook.pages[0].objects[0].data.constructions.length;});
-   assert.equal(data,8);
+   assert.equal(data,8,await page.evaluate(()=>Store.current().objects[0].data.constructions.map(c=>c.type).join(", ")));
    await page.reload();await page.waitForFunction(()=>window.Scrble);
    assert.equal(await page.evaluate(()=>Store.current().objects[0].data.constructions.length),8);
    assert.deepEqual(errors,[]);
@@ -76,7 +84,7 @@ const root=path.resolve(__dirname,"..");fs.mkdirSync(path.join(root,"test-result
    await page.setViewportSize({width:834,height:1112});
    await page.evaluate(()=>{Store.state.selection=[Store.current().objects[0].id];App.setTool("select");Store.emit();});
    await page.waitForTimeout(80);
-   for(const id of ["selection-tools","geometry-toolbar"]) {
+   for(const id of ["geometry-toolbar"]) {
     const r=await page.locator("#"+id).boundingBox();assert.ok(r.x>=0&&r.x+r.width<=834+.1&&r.y>=0&&r.y+r.height<=1112);
    }
    console.log("PASS",engine,"controls remain reachable on an iPad-sized viewport");

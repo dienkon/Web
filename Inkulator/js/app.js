@@ -144,6 +144,7 @@
     PenKeyboard.init();
     PenTools.init();
     WorkspaceUI.init();
+    CaptureStudio.init();
     updateShapeButton();
     document.addEventListener("fullscreenchange", () => {
       const active = !!document.fullscreenElement,
@@ -481,11 +482,15 @@
     const el = document.getElementById("popover");
     el.innerHTML = html;
     el.hidden = false;
+    el.scrollTop = 0;
+    el.style.left = "12px";
+    el.style.right = "auto";
+    el.style.maxWidth = Math.max(200,innerWidth-24)+"px";
     const r = anchor.getBoundingClientRect();
-    el.style.top =
-      Math.min(innerHeight - el.offsetHeight - 40, r.bottom + 10) + "px";
     el.style.left =
       Math.max(10, Math.min(innerWidth - el.offsetWidth - 12, r.left)) + "px";
+    el.style.top =
+      Math.max(12,Math.min(innerHeight - el.offsetHeight - 24, r.bottom + 10)) + "px";
     el.style.right = "auto";
     return el;
   }
@@ -1278,14 +1283,7 @@
     );
   }
   function fit() {
-    const p = Store.current(),
-      z = Math.min(
-        (Renderer.area.clientWidth - 60) / p.width,
-        (Renderer.area.clientHeight - 60) / p.height,
-      );
-    Store.state.viewport = { x: 30, y: 30, zoom: Math.max(0.2, z) };
-    Renderer.request();
-    updateZoom();
+    PageFlow.fit("page");
   }
   function dispatch(action, b) {
     if (
@@ -1327,6 +1325,12 @@
         return ClipboardStudio.read();
       case "paste-image":
         return ClipboardStudio.read({ imagesOnly: true });
+      case "capture":
+        return CaptureStudio.start();
+      case "paste-capture":
+        return CaptureStudio.paste();
+      case "download-capture":
+        return CaptureStudio.download();
       case "pen-keyboard":
         return PenKeyboard.visible ? PenKeyboard.hide() : PenKeyboard.show();
       case "pen-options":
@@ -1400,6 +1404,7 @@
           Store.state.pageIndex = Store.book().pages.length - 1;
           Store.state.selection = [];
           Store.state.viewport = { x: 0, y: 0, zoom: 1 };
+          PageFlow.fit("page");
         });
         return;
       case "ruler":
@@ -1412,12 +1417,15 @@
       case "zoom-out":
         return CanvasEngine.zoomAt(Store.state.viewport.zoom / 1.15);
       case "reset-zoom":
-        Store.state.viewport = { x: 0, y: 0, zoom: 1 };
+        Store.state.viewMode = "manual";
+        Store.state.viewport = { x: (Renderer.area.clientWidth - Store.current().width) / 2, y: 20, zoom: 1 };
         Renderer.request();
         updateZoom();
         return;
       case "fit":
         return fit();
+      case "fit-width":
+        return PageFlow.fit("width");
       case "fullscreen":
         (document.fullscreenElement
           ? document.exitFullscreen()
