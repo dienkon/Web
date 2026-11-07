@@ -60,9 +60,9 @@
       }
       ctx.restore();
     }
-    return { canvas, w, h };
+    return { canvas, w, h, viewport:v,bookId:Store.book().id,pageId:Store.current().id };
   }
-  async function start() {
+  async function start(options = {}) {
     if(active || preparing) return;
     CanvasEngine.finishActive(); TeacherGeometry.cancel(); App.closePopover(); PenKeyboard.hide();
     const generation = ++serial, bookId = Store.book().id;
@@ -77,7 +77,7 @@
       overlay.setAttribute("aria-label", "Kéo hình chữ nhật để chụp trang viết");
       overlay.innerHTML = '<div class="capture-guide">Kéo để chụp vùng · Esc để hủy <button id="capture-cancel" type="button">×</button></div><div class="capture-box" hidden></div>';
       overlay.prepend(shot.canvas); Renderer.area.append(overlay);
-      active = { overlay, shot, start: null, pointerId: null };
+      active = { overlay, shot, start: null, pointerId: null, callback:typeof options.onCapture==="function"?options.onCapture:null };
       const point = e => { const r = overlay.getBoundingClientRect(); return {x:Math.max(0,Math.min(shot.w,e.clientX-r.left)),y:Math.max(0,Math.min(shot.h,e.clientY-r.top))}; };
       const box = overlay.querySelector(".capture-box");
       const rect = p => ({x:Math.min(active.start.x,p.x),y:Math.min(active.start.y,p.y),w:Math.abs(p.x-active.start.x),h:Math.abs(p.y-active.start.y)});
@@ -104,13 +104,17 @@
     finally { preparing=false; }
   }
   async function finish(rect) {
-    const { shot } = active, source=shot.canvas;
+    const { shot, callback } = active, source=shot.canvas;
     const sx=source.width/shot.w, sy=source.height/shot.h;
     const output=document.createElement("canvas");
     output.width=Math.max(1,Math.round(rect.w*sx)); output.height=Math.max(1,Math.round(rect.h*sy));
     output.getContext("2d").drawImage(source,rect.x*sx,rect.y*sy,rect.w*sx,rect.h*sy,0,0,output.width,output.height);
     const src=output.toDataURL("image/png");
     if(src.length>7e6) { cancel();throw Error("Vùng chụp quá lớn. Hãy khoanh nhỏ hơn."); }
+    if(callback){
+      const v=shot.viewport,region={src,rect,bookId:shot.bookId,pageId:shot.pageId,world:{x:(rect.x-v.x)/v.zoom,y:(rect.y-v.y)/v.zoom,w:rect.w/v.zoom,h:rect.h/v.zoom}};
+      cancel();await callback(region);return;
+    }
     latest={src,name:"Inkulator-Capture-"+new Date().toISOString().replace(/[:.]/g,"-")+".png"};
     preferred=true; updateTray(); cancel();
     let saved;

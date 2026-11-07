@@ -18,7 +18,7 @@ else {
     session.defaultSession.setPermissionRequestHandler((_wc, permission, callback) => {
       callback(permission === "clipboard-sanitized-write" || permission === "clipboard-read");
     });
-    // This notebook works entirely offline, including its embedded calculator.
+    // Renderer stays offline. Explicit Gemini requests use the narrow main-process bridge.
     session.defaultSession.webRequest.onBeforeRequest({ urls: ["http://*/*", "https://*/*", "ws://*/*", "wss://*/*"] }, (_details, callback) => callback({ cancel: true }));
     mainWindow = new BrowserWindow({
       width: 1360, height: 900, minWidth: 640, minHeight: 480,
@@ -43,6 +43,29 @@ else {
     });
     mainWindow.once("ready-to-show", () => mainWindow.show());
     require("./capture.cjs")(mainWindow);
+    require("./document-files.cjs")(mainWindow);
+    require("./gemini.cjs")(mainWindow);
+    require("./native-calculators.cjs")(mainWindow);
+    let allowClose=false,preparingClose=false,closeTimer;
+    const failedClose=()=>{
+      clearTimeout(closeTimer);preparingClose=false;
+      const choice=dialog.showMessageBoxSync(mainWindow,{type:"warning",title:"Tài liệu chưa lưu xong",message:"Chưa hoàn tất ghi tài liệu trên máy. Quay lại để kiểm tra hoặc xuất bản snapshot trước khi đóng.",buttons:["Quay lại","Đóng ứng dụng"],defaultId:0,cancelId:0});
+      if(choice===1){allowClose=true;mainWindow.close();}
+    };
+    mainWindow.on("close",event=>{
+      if(allowClose)return;
+      event.preventDefault();
+      if(preparingClose)return;
+      preparingClose=true;
+      mainWindow.webContents.send("inkulator:prepare-close");
+      closeTimer=setTimeout(failedClose,20000);
+    });
+    ipcMain.on("inkulator:close-ready",(event,ok)=>{
+      if(event.sender!==mainWindow.webContents||event.senderFrame!==mainWindow.webContents.mainFrame||!preparingClose)return;
+      preparingClose=false;
+      clearTimeout(closeTimer);
+      if(ok===true){allowClose=true;mainWindow.close();}else failedClose();
+    });
     mainWindow.loadFile(entry);
     ipcMain.handle("inkulator:flush", async (event) => {
       if (event.sender !== mainWindow.webContents || event.senderFrame !== mainWindow.webContents.mainFrame) return false;

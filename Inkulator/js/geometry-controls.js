@@ -1,6 +1,6 @@
 (function(root) {
   "use strict";
-  let open=false, objectId="", lastTab="construct";
+  let open=false, objectId="", lastTab="construct",manualPosition=null;
   const icons={move:"✥",orbit:"⟳",segment:"╱",midpoint:"•",rename:"Aa",view:"▱",more:"⋯",finish:"✓",delete:"⌫",circumcircle:"◯",properties:"⚙"};
   const measure=new Set(["measure","angle","distancePlane","linePlaneAngle","planeAngle","commonPerpendicular"]);
   const marks=new Set(["rightAngle","equalTick","parallelArrow","highlightPlane"]);
@@ -16,7 +16,7 @@
     return round(node,icon,title);
   }
   function enhance(bar,o,available,titles,interaction) {
-    if(objectId!==o.id) {objectId=o.id;open=false;lastTab="construct";}
+    if(objectId!==o.id) {objectId=o.id;open=false;lastTab="construct";manualPosition=null;}
     const modeButton=mode=>{
       let node=bar.querySelector('[data-geo-mode="'+mode+'"]');
       if(!node && available.includes(mode)) {
@@ -38,6 +38,12 @@
     const hub=document.createElement("button");hub.id="geo-hub";
     round(hub,interaction ? icons[interaction.mode] || "△" : o.type==="solid"?"⬡":"△","Mở / thu gọn công cụ hình học");
     hub.setAttribute("aria-expanded",String(open));hub.onclick=()=>{open=!open;enhanceFromState();};
+    hub.title="Chạm mở công cụ · kéo để dời khỏi hình";
+    let drag=null,suppressClick=false;
+    hub.onpointerdown=e=>{if(e.button!==0)return;drag={x:e.clientX,y:e.clientY,left:parseFloat(bar.style.left)||0,top:parseFloat(bar.style.top)||0};hub.setPointerCapture(e.pointerId);};
+    hub.onpointermove=e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.hypot(dx,dy)<8&&!suppressClick)return;suppressClick=true;manualPosition={x:drag.left+dx,y:drag.top+dy};position();};
+    hub.onpointerup=()=>{drag=null;};hub.onpointercancel=()=>{drag=null;suppressClick=false;};
+    hub.onclick=()=>{if(suppressClick){suppressClick=false;return;}open=!open;enhanceFromState();};
     const wheel=document.createElement("div");wheel.className="geo-wheel";wheel.hidden=!open;
     ring.forEach((node,i)=>{
       const angle=(-90+i*360/ring.length)*Math.PI/180;
@@ -115,12 +121,20 @@
     const corners=[{x:b.x,y:b.y},{x:b.x+b.w,y:b.y},{x:b.x+b.w,y:b.y+b.h},{x:b.x,y:b.y+b.h}].map(p=>Renderer.worldPoint(o,p));
     const xs=corners.map(p=>p.x*v.zoom+v.x),ys=corners.map(p=>p.y*v.zoom+v.y);
     const left=Math.min(...xs),right=Math.max(...xs),top=Math.min(...ys),bottom=Math.max(...ys),size=open?188:52;
-    let x=right+22,y=(top+bottom-size)/2;
-    if(x+size>area.clientWidth-16) x=left-size-22;
-    if(x<56) {x=(left+right-size)/2;y=bottom+38;}
+    // Reserve space for vertex names, corner handles and the rotation handle.
+    const gap=62,midX=(left+right-size)/2,midY=(top+bottom-size)/2;
+    const avoid={x:left-gap,y:top-gap,w:right-left+gap*2,h:bottom-top+gap*2};
+    const clamp=p=>({x:Math.max(68,Math.min(p.x,area.clientWidth-size-18)),y:Math.max(16,Math.min(p.y,area.clientHeight-size-68))});
+    const overlap=(a,b)=>Math.max(0,Math.min(a.x+a.w,b.x+b.w)-Math.max(a.x,b.x))*Math.max(0,Math.min(a.y+a.h,b.y+b.h)-Math.max(a.y,b.y));
+    const candidates=[{x:right+gap,y:midY},{x:left-size-gap,y:midY},{x:midX,y:bottom+gap},{x:midX,y:top-size-gap},{x:area.clientWidth-size-18,y:16},{x:68,y:16}].map(clamp);
+    const dock=document.getElementById("pen-dock")?.getBoundingClientRect(),areaRect=area.getBoundingClientRect();
+    const obstruction=dock?{x:dock.left-areaRect.left,y:dock.top-areaRect.top,w:dock.width,h:dock.height}:null;
+    const score=p=>overlap({...p,w:size,h:size},avoid)*10+(obstruction?overlap({...p,w:size,h:size},obstruction)*20:0);
+    const chosen=manualPosition?clamp(manualPosition):candidates.reduce((best,p)=>score(p)<score(best)?p:best,candidates[0]);
+    let x=chosen.x,y=chosen.y;
     const bubble=bar.querySelector(".geo-step-bubble");
     const extra=bubble && !bubble.hidden ? bubble.offsetHeight+12 : 0;
-    x=Math.max(56,Math.min(x,area.clientWidth-size-16));y=Math.max(12,Math.min(y,area.clientHeight-size-extra-60));
+    x=Math.max(68,Math.min(x,area.clientWidth-size-16));y=Math.max(12,Math.min(y,area.clientHeight-size-60));
     bar.style.left=x+"px";bar.style.top=y+"px";bar.style.bottom="auto";
     if(bubble) {
       const width=Math.min(260,area.clientWidth-80);bubble.style.width=width+"px";

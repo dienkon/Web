@@ -1,6 +1,6 @@
 {
   "name": "scrble-math-studio",
-  "version": "1.8.0",
+  "version": "1.9.1",
   "private": true,
   "description": "Offline mathematical notebook for Windows and pen tablets",
   "main": "desktop/main.cjs",
@@ -12,6 +12,8 @@
     "test:performance": "node tests/ink-performance-tests.cjs",
     "test:geometry-pen": "node tests/geometry-pen-browser-tests.cjs",
     "test:capture-layout": "node tests/capture-layout-browser-tests.cjs",
+    "test:teaching": "node tests/gemini-core-tests.cjs && node tests/teaching-desktop-tests.cjs",
+    "test:teaching-browser": "node tests/teaching-browser-tests.cjs",
     "test": "node tests/math-tests.cjs && node tests/construction-tests.cjs && node tests/visibility-tests.cjs",
     "test:browser": "node tests/browser-tests.cjs",
     "test:advanced": "node tests/advanced-browser-tests.cjs",
@@ -46,6 +48,7 @@
       "!vendor/casio-fx580vnx/runtime/source/**"
     ],
     "asar": true,
+    "asarUnpack": ["desktop/native-window.ps1"],
     "npmRebuild": false,
     "win": {
       "target": "nsis",

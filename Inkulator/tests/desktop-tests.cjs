@@ -4,7 +4,8 @@ const fs = require("node:fs");
 const path = require("node:path");
 const root = path.resolve(__dirname, "..");
 fs.mkdirSync(path.join(root, "test-results"), { recursive: true });
-const profile = fs.mkdtempSync(path.join(root, "test-results/desktop-profile-"));
+const profileRoot=process.env.INKULATOR_TEST_PROFILE_ROOT||path.join(root,"test-results");fs.mkdirSync(profileRoot,{recursive:true});
+const profile = fs.mkdtempSync(path.join(profileRoot, "desktop-profile-"));
 const executablePath = process.argv[2] && path.resolve(process.argv[2]);
 const options = {
   ...(executablePath ? { executablePath, args: [] } : { args: [root] }),

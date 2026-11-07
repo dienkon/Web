@@ -21,6 +21,7 @@
   }
   function project(snapshot = false) {
     Store.save();
+    if(root.InkulatorDesktop?.documents&&!snapshot)return DocumentFiles.flush().then(()=>App.toast("Đã lưu tài liệu trên máy.")).catch(e=>App.toast(e.message,7000));
     const stamp = snapshot
       ? "-" + new Date().toISOString().replace(/[:.]/g, "-")
       : "";

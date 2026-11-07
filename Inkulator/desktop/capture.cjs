@@ -1,6 +1,7 @@
 "use strict";
 const { app, ipcMain, nativeImage, clipboard, ClipboardItem } = require("electron");
 const fs = require("node:fs/promises"), path = require("node:path");
+const replaceFile=require("./replace-file.cjs");
 module.exports = function installCapture(mainWindow) {
   const folder=path.join(app.getPath("userData"),"captures");
   const trusted=event=>event.sender===mainWindow.webContents && event.senderFrame===mainWindow.webContents.mainFrame;
@@ -17,7 +18,7 @@ module.exports = function installCapture(mainWindow) {
       const name="Inkulator-Capture-"+new Date().toISOString().replace(/[:.]/g,"-")+"-"+(++serial)+".png";
       await fs.writeFile(path.join(folder,name),png,{flag:"wx"});
       await fs.writeFile(path.join(folder,"latest.tmp"),png);
-      await fs.rename(path.join(folder,"latest.tmp"),path.join(folder,"latest.png"));
+      await replaceFile(path.join(folder,"latest.tmp"),path.join(folder,"latest.png"));
       return {name,width:size.width,height:size.height,copied};
     };
     writes=writes.catch(()=>{}).then(save);

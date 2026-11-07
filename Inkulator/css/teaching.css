@@ -1,0 +1,28 @@
+.native-calculator-row { display:block; border-top:1px solid var(--line); padding:12px 0; }
+.native-calculator-row strong,.native-calculator-row small { display:block; }
+.native-calculator-row small { font-size:10px; opacity:.7; overflow-wrap:anywhere; margin:6px 0; }
+.native-calculator-row button { padding:9px; min-height:38px; }
+.document-file-row { width:100%; display:block; text-align:left; min-height:42px; border-top:1px solid var(--line); overflow-wrap:anywhere; }
+#local-file-list { max-height:60vh; overflow:auto; }
+#ai-region-wheel { position:absolute; width:224px; height:224px; border:1px solid var(--line); border-radius:50%; background:var(--surface); box-shadow:0 6px 26px #133e3325; z-index:25; touch-action:none; }
+#ai-region-wheel > button { position:absolute; transform:translate(-50%,-50%); width:66px; height:58px; border:1px solid var(--line); border-radius:26px; background:var(--surface); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:3px; }
+#ai-region-wheel button span { font-size:22px; color:#197d68; }
+#ai-region-wheel button small { font-size:9px; }
+#ai-region-wheel > .ai-wheel-center { left:50%; top:50%; width:44px; height:44px; background:#197d68; color:white; font-size:24px; }
+.teaching-ai { position:fixed; right:14px; top:100px; bottom:60px; width:min(410px,calc(100vw - 28px)); border:1px solid var(--line); border-radius:18px; background:var(--surface); box-shadow:0 6px 32px #133e332b; z-index:45; display:flex; flex-direction:column; }
+.teaching-ai[hidden] { display:none; }
+.teaching-ai header { display:flex; align-items:center; justify-content:space-between; padding:8px 15px; border-bottom:1px solid var(--line); }
+.teaching-ai header button { font-size:25px; width:40px; height:40px; }
+#ai-status { padding:10px 16px; font-size:12px; color:var(--text); background:#197d6810; }
+#ai-result { padding:12px 16px; overflow:auto; flex:1; min-height:0; overflow-wrap:anywhere; }
+#ai-result p { font-size:13px; line-height:1.6; white-space:pre-wrap; }
+#ai-result h3 { font-size:17px; }
+#ai-result h4 { font-size:14px; margin-bottom:6px; }
+#ai-result > button { display:block; width:100%; min-height:42px; padding:10px; border:1px solid var(--line); border-radius:12px; margin:8px 0; }
+#ai-result textarea { width:100%; box-sizing:border-box; }
+#ai-result canvas { max-width:100%; }
+.ai-source-image { max-width:100%; max-height:160px; object-fit:contain; border:1px solid var(--line); border-radius:8px; }
+.teaching-ai footer { padding:8px 16px; border-top:1px solid var(--line); }
+.ai-settings { margin-top:18px; padding-top:12px; border-top:1px solid var(--line); }
+.geometry-toolbar.radial-geometry #geo-hub { touch-action:none; cursor:grab; }
+.geometry-toolbar.radial-geometry #geo-hub:active { cursor:grabbing; }

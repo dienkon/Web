@@ -41,6 +41,7 @@
     smartShape: false,
     animations: true,
     autoPages: true,
+    handwritingAI: false,
   };
   const state = {
     notebooks: [notebook()],
@@ -215,6 +216,7 @@
     state.dirty = true;
     emit();
     scheduleSave();
+    if(root.document)root.document.dispatchEvent(new CustomEvent("inkcommitted",{detail:additions}));
   }
   function applyInk(entry, forward) {
     if (forward) {
@@ -934,6 +936,7 @@
       state.storageAvailable = false;
     }
     if (root.App) root.App.updateSaveState();
+    root.DocumentFiles?.sync();
     return state.storageAvailable;
   }
   function load() {
@@ -982,6 +985,7 @@
           "animations",
           "autoPages",
           "performance",
+          "handwritingAI",
         ])
           if (typeof lib.settings[k] === typeof defaults[k])
             state.settings[k] = lib.settings[k];

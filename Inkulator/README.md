@@ -1,10 +1,10 @@
-# Inkulator · 1.8
+# Inkulator · 1.9.1
 
 Sổ tay Toán học ngoại tuyến cho Windows, lấy cảm hứng bố cục từ ảnh Scrble Ink được cung cấp. Phần Casio tích hợp source của Tikz-Physics, ghi nguồn riêng bên dưới; không phải sản phẩm chính thức của Scrble, GeoGebra hay Casio.
 
 ## Mở ứng dụng
 
-**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-1.8.0-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Sổ tay tự lưu trong hồ sơ ứng dụng của người dùng Windows; gỡ cài đặt giữ lại dữ liệu. Bộ cài cá nhân chưa ký số.
+**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-1.9.1-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Tài liệu tự lưu thành tệp trong **Documents / Inkulator**; thư viện trình duyệt được giữ làm bản đệm. Bộ cài cá nhân chưa ký số.
 
 **Bản web và iPad:** bản web vẫn chạy từ `index.html` trên máy tính. Trên iPad, phục vụ toàn bộ thư mục ứng dụng qua HTTP/HTTPS rồi mở bằng Safari; iPad không chạy tệp `.exe`. Không có máy chủ nào được triển khai tự động. Bản Windows và trình duyệt có kho lưu riêng; dùng **Ctrl+S / Mở tệp** để chuyển sổ tay giữa các bản.
 
@@ -14,9 +14,21 @@ Nếu dùng bản ZIP trên máy tính:
 2. Mở thư mục **SCRBLE-MATH-STUDIO** vừa giải nén.
 3. Nhấp đúp **index.html**, chọn Chrome hoặc Microsoft Edge.
 
-**Không cần Internet, Node.js, npm, Python, máy chủ, đăng nhập hoặc API key để sử dụng.** Không mở index.html ngay bên trong cửa sổ xem ZIP; cần giải nén toàn bộ thư mục để các tệp đi cùng được đọc đúng.
+**Viết, vẽ, tính toán và lưu tài liệu dùng ngoại tuyến, không cần API key.** Trợ lý Gemini là tính năng tùy chọn cần Internet và khóa API riêng. Không mở index.html ngay bên trong cửa sổ xem ZIP; cần giải nén toàn bộ thư mục để các tệp đi cùng được đọc đúng.
 
 Tất cả script, CSS, icon và thư viện nằm trong thư mục sản phẩm. Bản chạy dùng script cổ điển, không cần ES module từ file://, CDN, service worker hoặc tải font mạng. PDF.js được bundle cùng phần xử lý worker để chạy trên luồng chính, nhận font/CMap/decoder từ dữ liệu nhúng; không tạo worker từ đường dẫn file://. Công thức dùng SVG glyph có sẵn, không tải font ngoài.
+
+## Điểm mới 1.9 · tài liệu trên máy và trợ lý Toán 12
+
+- **Lưu như tài liệu:** bản Windows tự tạo tệp `.smath.json` cho mỗi sổ trong **Documents / Inkulator / Tai lieu**, tên tệp có tên sổ và mã riêng. Autosave dùng khoảng chờ đã cài, ghi tệp tạm rồi thay thế tệp chính; giữ tối đa 10 bản trước trong **Khoi phuc**. PDF gốc trong IndexedDB được nhúng vào tệp để mở lại độc lập. Đóng cửa sổ đợi ghi xong tài liệu, gồm cả nét vừa viết. Bộ nhớ trình duyệt đầy vẫn có thể lưu tệp trên máy.
+- **Ctrl+S** lưu ngay, **Ctrl+Shift+S / Lưu thành…** chọn tệp khác và tiếp tục tự lưu vào tệp đó. Nút **Tài liệu trên máy** trên thanh trên mở danh sách, tệp khác, thư mục lưu và các phiên bản khôi phục. Khi bộ nhớ trình duyệt trống, ứng dụng khôi phục từ những tệp đã ghi. Bản web tiếp tục có nút tải tệp và bộ nhớ trình duyệt.
+- **Máy tính 580 / 880:** nút máy tính có mũi tên mở bộ chọn. Có bản 580 web ngoại tuyến, **fx-580VN X Windows** và **880BTG BITEX Windows**. Hai máy Windows dùng EXE và DLL đã cài trên máy, mở bằng cửa sổ gốc, đưa cửa sổ đang chạy ra trước và có nút **Chèn ảnh máy**. Mặc định tìm trong hai thư mục `D:\Apps` đã cấu hình; **Chọn EXE…** đổi vị trí. Bộ cài Inkulator không đóng gói các chương trình giả lập thương mại này; bản iPad dùng máy tính web.
+- **Vòng công cụ hình học** chừa vùng tên đỉnh/tay nắm, tìm chỗ trống quanh hình. Kéo nút xanh để đặt ở vị trí thuận tay; chạm để mở vòng.
+- **✦ Khoanh vùng AI:** kéo hình chữ nhật trên trang, rồi chọn **Giải bài / Gợi ý / Đẹp công thức / Vẽ hình / Kiểm tra bài / Bài tương tự**. Chỉ ảnh vùng đã chọn được gửi tới Gemini khi chọn tác vụ. Kết quả có bản xem trước, sửa LaTeX và chèn vào trang. Hình gợi ý dùng mô hình hình học chỉnh sửa được; lời giải dài được chia trang trong một bước Undo. Các bài/gợi ý hướng tới chương trình lớp 12.
+- **Nhận diện viết tay** trong Cài đặt **mặc định tắt**. Khi bật và có Internet, chờ dừng bút rồi nhận diện nhóm nét vừa viết. Xem/sửa LaTeX trước khi **Thay nét trong vùng bằng công thức**; Undo lấy lại nét gốc. Ứng dụng từ chối thay nếu nét gốc đã đổi. Nhận diện có thể sai; không bảo đảm 100% độ chính xác.
+- **Gemini 3.5 Flash-Lite:** thêm/đổi/xóa khóa và kiểm tra kết nối trong Cài đặt. Windows mã hóa khóa bằng `safeStorage`/DPAPI trong hồ sơ ứng dụng; khóa không nằm trong mã nguồn, bộ cài hoặc tệp sổ tay. Bản web/iPad giữ khóa trong bộ nhớ của phiên, xóa khi tải lại/đóng trang. Ngoại tuyến không gửi yêu cầu; có hủy, thử lại và thông báo hạn mức/lỗi kết nối. Tính phí theo tài khoản API của người dùng.
+
+Chạy `npm run test:teaching` và `npm run test:teaching-browser`; xem [báo cáo 1.9](docs/RELEASE-1.9.md).
 
 ## Điểm mới 1.8 · chụp vùng, trang cân giữa và công cụ tròn
 

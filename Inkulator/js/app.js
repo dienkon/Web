@@ -145,6 +145,9 @@
     PenTools.init();
     WorkspaceUI.init();
     CaptureStudio.init();
+    NativeCalculators.init();
+    TeachingAI.init();
+    DocumentFiles.init().catch(error=>toast("Lưu tài liệu: "+error.message,7000));
     updateShapeButton();
     document.addEventListener("fullscreenchange", () => {
       const active = !!document.fullscreenElement,
@@ -166,6 +169,7 @@
       if (
         !e.target.closest(".popover") &&
         !e.target.closest("#toolbar") &&
+        !e.target.closest('[data-action="calculator-models"]') &&
         !e.target.closest(
           "#pen-keyboard,#pen-dock,#selection-tools,#geometry-toolbar",
         ) &&
@@ -199,6 +203,7 @@
       e.target.value = "";
     };
     window.addEventListener("beforeunload", (e) => {
+      if(root.InkulatorDesktop?.documents)return;
       CanvasEngine.finishActive();
       if (Store.state.dirty && !Store.save()) {
         e.preventDefault();
@@ -291,6 +296,7 @@
       : s.dirty
         ? "Đang chờ lưu…"
         : "Đã lưu trên thiết bị";
+    if(root.InkulatorDesktop?.documents&&root.DocumentFiles?.status)document.getElementById("save-state").textContent=s.dirty&&DocumentFiles.status==="Đã lưu tệp trên máy"?"Đang chờ lưu…":DocumentFiles.status;
   }
   function updateZoom() {
     document.getElementById("zoom-button").textContent =
@@ -507,6 +513,7 @@
         ["library", "Thư viện sổ tay", ""],
         ["open", "Mở tệp .smath.json", "Ctrl+O"],
         ["save", "Lưu sổ tay thành tệp", "Ctrl+S"],
+        ...(root.InkulatorDesktop?.documents?[["save-as","Lưu thành…","Ctrl+Shift+S"],["local-documents","Tài liệu trên máy",""]]:[]),
         ["snapshot", "Lưu bản snapshot", ""],
         ["backup-all", "Sao lưu tất cả sổ tay", ""],
         ["export-png", "Xuất trang · PNG", ""],
@@ -786,6 +793,7 @@
     else if (id === "geometry" || id === "solid") Panels.geometry(id);
     else Panels[id]();
     if (id === "settings") WorkspaceUI.settings();
+    if (id === "settings") TeachingAI.settings();
     document
       .querySelectorAll('[data-action="panel"]')
       .forEach((b) => b.classList.toggle("active", b.dataset.panel === id));
@@ -1306,9 +1314,18 @@
       case "new":
         return newNotebook();
       case "open":
+        if(root.InkulatorDesktop?.documents)return DocumentFiles.open().catch(e=>toast(e.message));
         return document.getElementById("open-file").click();
       case "save":
         return Exporter.project();
+      case "save-as":
+        return DocumentFiles.saveAs().catch(e=>toast(e.message));
+      case "local-documents":
+        return DocumentFiles.panel().catch(e=>toast(e.message));
+      case "ai-region":
+        return TeachingAI.start();
+      case "calculator-models":
+        return NativeCalculators.panel(b);
       case "snapshot":
         return Exporter.project(true);
       case "backup-all":
@@ -1536,7 +1553,7 @@
       action = {
         n: "new",
         o: "open",
-        s: "save",
+        s: e.shiftKey&&root.InkulatorDesktop?.documents?"save-as":"save",
         z: e.shiftKey ? "redo" : "undo",
         y: "redo",
         c: "copy",
