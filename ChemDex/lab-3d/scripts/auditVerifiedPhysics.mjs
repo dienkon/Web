@@ -30,6 +30,18 @@ try {
     const after = await page.evaluate(() => window.physicsAuditStore.getState().snapshot.tick);
     if (after !== frozen) throw new Error('Physics advanced while paused');
     report.checks.push({ viewport, before, pauseTick: after, pass: after === frozen });
+    for (const name of ['Lực kế', 'Cảm biến áp suất', 'Bóng hút pipet', 'Bể điều nhiệt', 'Bình thu khí chia độ']) {
+      await page.getByRole('dialog').getByRole('button', { name: new RegExp(name) }).click();
+    }
+    await page.getByRole('button', { name: 'Đo vận tốc lắng', exact: true }).click();
+    await page.evaluate(async () => (await import('/src/store/useAppStore.ts')).useAppStore.getState().setSimulationPaused(false));
+    await page.waitForFunction(() => {
+      const snapshot = window.physicsAuditStore.getState().snapshot;
+      return snapshot?.experiments?.length === 6 && snapshot.experiments.every(e => e.time_s > 0.25);
+    }, undefined, { timeout: 60000 });
+    const measured = await page.evaluate(() => window.physicsAuditStore.getState().snapshot.experiments.map(e => ({ kind: e.kind, values: e.values })));
+    for (const e of measured) if (!Object.values(e.values).every(Number.isFinite)) throw new Error(`Non-finite measurement ${e.kind}`);
+    report.checks.push({ viewport, experiments: measured, pass: true });
     await page.screenshot({ path: resolve(output, `physics-${viewport.width}.png`) });
     report.viewports.push(viewport);
     await context.close();

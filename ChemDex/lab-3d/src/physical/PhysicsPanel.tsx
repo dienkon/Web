@@ -5,6 +5,9 @@ import { coverageInventory, SAMPLE_IDS, sampleDefinition, EXPANSION_TOOLS, toolD
 import { useAppStore } from '../store/useAppStore';
 import { scenePointToSI } from '../science/sceneUnits';
 import { materialProperties } from './materials';
+import { ReferenceMeasurements } from './ReferenceMeasurements';
+import { LAB_GEOMETRY } from '../core/labGeometry';
+import { metersToScene } from '../science/sceneUnits';
 
 let nextObject = 0;
 const TOOL_NAMES: Record<string, string> = { force_meter: 'Lực kế', pressure_sensor: 'Cảm biến áp suất',
@@ -16,9 +19,16 @@ export function PhysicsPanel() {
   const inventory = useMemo(coverageInventory, []);
   const add = (id: string, sample: boolean) => {
     const app = useAppStore.getState(), target = app.selectedVesselId ? app.vessels[app.selectedVesselId] : undefined;
+    if (id === 'glycerol' || id === 'silicone_oil') { state.startExperiment('viscosity', { liquid: id }); return; }
+    if (id === 'ice') { app.prepareStudioIceSample(); state.startExperiment('ice'); return; }
+    if (!sample) state.startExperiment(id as typeof EXPANSION_TOOLS[number]);
     const definition = sample ? sampleDefinition(id) : toolDefinition(id);
-    const center: [number, number, number] = target ? [target.position[0], target.position[1] + 3.5, target.position[2]] : [0, 3, 0];
-    state.addExpansion({ id: `physical_${id}_${++nextObject}`, definition, position_m: scenePointToSI(center), rotation: [0, 0, 0, 1],
+    const center: [number, number, number] = !sample
+      ? [-12 + EXPANSION_TOOLS.indexOf(id as typeof EXPANSION_TOOLS[number]) * 5, LAB_GEOMETRY.tableTop_scene + metersToScene(definition.dimensions_m[1] / 2 + 0.003), 4]
+      : target ? [target.position[0], target.position[1] + 3.5, target.position[2]] : [0, 3, 0];
+    let objectId: string;
+    do { objectId = `physical_${id}_${++nextObject}`; } while (state.expansions.some(e => e.id === objectId));
+    state.addExpansion({ id: objectId, definition, position_m: scenePointToSI(center), rotation: [0, 0, 0, 1],
       contentsMass_kg: 0, temperature_K: id === 'ice' ? 263.15 : 293.15, locked: false });
   };
   return <>
@@ -39,13 +49,14 @@ export function PhysicsPanel() {
           <button className="pb-2 font-semibold" onClick={() => setTab('coverage')}>Hồ sơ ({inventory.length})</button></div>
         {tab === 'objects' ? <>
           <p className="text-sm mb-3">Mẫu rắn được thả phía trên bình đang chọn. Có thể tạm dừng để bố trí.</p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">{SAMPLE_IDS.map(id => <button key={id} disabled={!state.enabled || ['glycerol', 'silicone_oil'].includes(id)}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">{SAMPLE_IDS.map(id => <button key={id} disabled={!state.enabled}
             onClick={() => add(id, true)} className="border rounded-lg p-3 text-left text-sm hover:bg-slate-50 disabled:opacity-40">
-            {materialProperties(id).name}<span className="block text-xs text-slate-500">{['glycerol', 'silicone_oil'].includes(id) ? 'Mẫu lỏng — xem phép đo' : 'Mẫu 1 cm³'}</span></button>)}</div>
+            {materialProperties(id).name}<span className="block text-xs text-slate-500">{['glycerol', 'silicone_oil'].includes(id) ? 'Đo vận tốc lắng trong mẫu lỏng' : id === 'ice' ? 'Tạo mẫu nước–đá và đo nhiệt' : 'Mẫu 1 cm³'}</span></button>)}</div>
           <h3 className="font-semibold mt-4 mb-2">Dụng cụ bổ sung</h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">{EXPANSION_TOOLS.map(id => <button key={id} disabled={!state.enabled} onClick={() => add(id, false)}
             className="border rounded-lg p-3 text-left text-sm hover:bg-slate-50 disabled:opacity-40">{TOOL_NAMES[id]}<span className="block text-xs text-slate-500">Hình bao tham chiếu</span></button>)}</div>
           <button onClick={state.clearExpansions} className="mt-4 text-sm underline">Thu dọn mẫu bổ sung</button>
+          <ReferenceMeasurements />
         </> : <>
           <input aria-label="Tìm hồ sơ vật lí" placeholder="Tìm vật thể, công thức…" value={search} onChange={e => setSearch(e.target.value)} className="border rounded p-2 w-full mb-3 text-sm" />
           <div className="space-y-2">{inventory.filter(e => `${e.id} ${e.name}`.toLocaleLowerCase('vi').includes(search.toLocaleLowerCase('vi'))).map(e => <details key={e.id} className="border rounded p-2 text-sm">
