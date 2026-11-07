@@ -1,0 +1,212 @@
+{
+  "capturedAt": "2026-11-07T18:16:37.018Z",
+  "baseURL": "http://127.0.0.1:4173",
+  "screens": [
+    {
+      "file": "element.webp",
+      "route": "/nguyen-to.html?element=Cu",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "chatbot.webp",
+      "route": "/nguyen-to.html?element=Cu",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "search.webp",
+      "route": "/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "tools.webp",
+      "route": "/tien-ich/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "structures.webp",
+      "route": "/tien-ich/cau-truc-3d/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "lab-2d.webp",
+      "route": "/lab-2d/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "lab-3d.webp",
+      "route": "/lab-3d/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "lab-safety.webp",
+      "route": "/lab-safety/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "library.webp",
+      "route": "/trung-tam/tai-lieu-so/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "study.webp",
+      "route": "/on-tap/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "arena.webp",
+      "route": "/dau-truong/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "editor.webp",
+      "route": "/data-editor.html",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "nhan-dien-pthh-thong-minh.webp",
+      "route": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "chuoi-phan-ung.webp",
+      "route": "/tien-ich/phuong-trinh/chuoi-phan-ung/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "so-oxi-hoa.webp",
+      "route": "/tien-ich/phuong-trinh/so-oxi-hoa/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "phuong-trinh-ion-rut-gon.webp",
+      "route": "/tien-ich/phuong-trinh/phuong-trinh-ion-rut-gon/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "tinh-theo-phuong-trinh.webp",
+      "route": "/tien-ich/phuong-trinh/tinh-theo-phuong-trinh/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "chuyen-doi-luong-chat.webp",
+      "route": "/tien-ich/dai-cuong/chuyen-doi-luong-chat/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "tinh-toan-dung-dich.webp",
+      "route": "/tien-ich/dai-cuong/tinh-toan-dung-dich/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "hieu-suat-phan-ung.webp",
+      "route": "/tien-ich/dai-cuong/hieu-suat-phan-ung/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "tinh-ph.webp",
+      "route": "/tien-ich/hoa-ly/tinh-ph/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "can-bang-hoa-hoc.webp",
+      "route": "/tien-ich/hoa-ly/can-bang-hoa-hoc/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "nhiet-dong-luc-hoc.webp",
+      "route": "/tien-ich/hoa-ly/nhiet-dong-luc-hoc/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "dong-hoa-hoc.webp",
+      "route": "/tien-ich/hoa-ly/dong-hoa-hoc/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "dien-hoa-hoc.webp",
+      "route": "/tien-ich/hoa-ly/dien-hoa-hoc/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "quang-pho.webp",
+      "route": "/tien-ich/hoa-ly/quang-pho/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "tinh-tan.webp",
+      "route": "/tien-ich/tra-cuu/tinh-tan/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "day-dien-hoa.webp",
+      "route": "/tien-ich/tra-cuu/day-dien-hoa/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "mau-sac-nhan-biet.webp",
+      "route": "/tien-ich/tra-cuu/mau-sac-nhan-biet/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "danh-phap-huu-co.webp",
+      "route": "/tien-ich/tra-cuu/danh-phap-huu-co/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "dieu-kien-phan-ung.webp",
+      "route": "/tien-ich/tra-cuu/dieu-kien-phan-ung/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "doc-danh-phap.webp",
+      "route": "/tien-ich/tra-cuu/doc-danh-phap/",
+      "viewport": "1440x960",
+      "status": 200
+    },
+    {
+      "file": "periodic.webp",
+      "route": "/",
+      "viewport": "1920x1080",
+      "status": 200,
+      "capturedAt": "2026-11-07T18:15:35.224Z"
+    },
+    {
+      "file": "community.webp",
+      "route": "/trung-tam/cong-dong/",
+      "viewport": "1440x960",
+      "status": 200,
+      "capturedAt": "2026-11-07T18:16:36.559Z"
+    }
+  ]
+}
