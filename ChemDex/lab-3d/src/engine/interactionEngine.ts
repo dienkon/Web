@@ -1,12 +1,13 @@
 import * as THREE from 'three';
+import { LAB_GEOMETRY, VESSEL_TARE_G, vesselTareG } from '../core/labGeometry';
 import { VesselState, ChemicalDefinition } from '../types/chemistry';
 
 /**
  * Reusable physical constraint parameters and laboratory geometry dimensions
  */
 export const LAB_PHYSICS = {
-  TABLE_SURFACE_Y: -1.175,
-  VESSEL_REST_Y: -0.135, // Vessel origin; its glass base is 1.04 units lower.
+  TABLE_SURFACE_Y: LAB_GEOMETRY.tableTop_scene,
+  VESSEL_REST_Y: LAB_GEOMETRY.defaultVesselOrigin_scene,
   BURNER_SURFACE_Y: -0.975,
   BALANCE_PAN_Y: 0.15,
   BALANCE_POSITION: [7.5, -1.175, -2.5] as [number, number, number],
@@ -20,20 +21,14 @@ export const LAB_PHYSICS = {
     minZ: -5.5,
     maxZ: 5.5,
   },
-  CONTAINER_TARE_MASS: {
-    beaker: 85.0,
-    flask: 120.0,
-    test_tube: 25.0,
-    cylinder: 110.0,
-    burette: 150.0,
-  } as Record<string, number>,
+  CONTAINER_TARE_MASS: VESSEL_TARE_G,
 };
 
 /**
  * Calculate the exact mass of a container on the balance (Tare + Liquids + Dissolved Solids)
  */
 export function calculateVesselMass(vessel: VesselState): number {
-  const tare = vessel.tare_g ?? LAB_PHYSICS.CONTAINER_TARE_MASS[vessel.type] ?? 80;
+  const tare = vesselTareG(vessel.type, vessel.tare_g);
   // mass_g includes solvent and solutes; summing contents again double-counts.
   return tare + Math.max(0, vessel.mass_g) + Math.max(0, vessel.wallCoatingMass_g ?? 0) + Math.max(0, vessel.outerWallCoatingMass_g ?? 0)
     + Math.max(0, vessel.wallCondensation?.inner_g ?? 0) + Math.max(0, vessel.wallCondensation?.outer_g ?? 0);

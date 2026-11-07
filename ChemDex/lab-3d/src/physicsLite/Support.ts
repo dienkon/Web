@@ -5,6 +5,7 @@
  */
 
 import { getVesselProfile } from '../pour/physics/profiles';
+import { vesselTareG } from '../core/labGeometry';
 
 export interface StabilityResult {
   isStable: boolean;
@@ -25,7 +26,7 @@ export function calculateVesselStability(
   hasCorkRingOrRack: boolean = false
 ): StabilityResult {
   const profile = getVesselProfile(type);
-  const emptyGlassMass_g = profile.capacity_ml * 0.45; // ~110g for 250ml beaker
+  const emptyGlassMass_g = vesselTareG(type);
   const liquidMass_g = liquidVolume_ml * liquidDensity_g_ml;
   const totalMass_g = emptyGlassMass_g + liquidMass_g;
 

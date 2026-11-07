@@ -1,9 +1,19 @@
 /** Global world scale. Model-local glassware uses vesselBodyTransform to
  * make its reservoir capacity agree with this same length/volume scale. */
+import { CONSTANTS } from '../core/units';
 export const METERS_PER_SCENE_UNIT = 0.035;
 export const CENTIMETERS_PER_SCENE_UNIT = METERS_PER_SCENE_UNIT * 100;
-export const GRAVITY_M_S2 = 9.8;
+export const GRAVITY_M_S2 = CONSTANTS.g;
 export const SCENE_GRAVITY = GRAVITY_M_S2 / METERS_PER_SCENE_UNIT;
+
+export const sceneToMeters = (value: number): number => value * METERS_PER_SCENE_UNIT;
+export const metersToScene = (value: number): number => value / METERS_PER_SCENE_UNIT;
+export function scenePointToSI(point: readonly number[]): [number, number, number] {
+  return [sceneToMeters(point[0]), sceneToMeters(point[1]), sceneToMeters(point[2])];
+}
+export function siPointToScene(point: readonly number[]): [number, number, number] {
+  return [metersToScene(point[0]), metersToScene(point[1]), metersToScene(point[2])];
+}
 
 /** A shared model may be instanced at different physical sizes. Profiles use
  * cm per MODEL-local unit; free flight continues to use world units above. */

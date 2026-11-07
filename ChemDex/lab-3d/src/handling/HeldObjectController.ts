@@ -6,6 +6,8 @@
 
 import { GripKind } from './gripPoints';
 import { clampLift, clampTilt } from './limits';
+import { SCENE_GRAVITY, metersToScene } from '../science/sceneUnits';
+import { restingVesselHeight } from './vesselRest';
 
 export type HandlingPhase = 'idle' | 'hover' | 'grabbing' | 'carrying' | 'placing' | 'released';
 
@@ -29,11 +31,12 @@ export interface HeldObjectState {
 
 export class HeldObjectController {
   public state: HeldObjectState;
-  private readonly maxSpeed: number = 1.5; // max hand speed in scene units/s (~1.5 m/s)
+  private readonly maxSpeed: number = metersToScene(1.5);
   private readonly omega: number = 18.0;   // natural frequency of critically damped spring
-  private readonly tableY: number = -0.135; // table surface height
+  private readonly tableY: number;
 
   constructor(id: string, type: string, initialPos: [number, number, number] = [0, -0.135, 0]) {
+    this.tableY = restingVesselHeight(type);
     this.state = {
       id,
       type,
@@ -107,7 +110,7 @@ export class HeldObjectController {
    * f = -2 * omega * v - omega^2 * (x - x_target)
    */
   public update(dt: number): void {
-    if (dt <= 0) return;
+    if (!Number.isFinite(dt) || dt <= 0) return;
     const clampedDt = Math.min(dt, 0.1); // Prevent explosion at frame spikes
 
     if (this.state.held) {
@@ -134,9 +137,10 @@ export class HeldObjectController {
     } else if (this.state.phase === 'released') {
       // Gravity fall if released above table
       if (this.state.position[1] > this.tableY) {
-        const gravity = -9.8;
-        this.state.velocity[1] += gravity * clampedDt;
-        this.state.position[1] += this.state.velocity[1] * clampedDt;
+        this.state.position[0] += this.state.velocity[0] * clampedDt;
+        this.state.position[2] += this.state.velocity[2] * clampedDt;
+        this.state.position[1] += this.state.velocity[1] * clampedDt - 0.5 * SCENE_GRAVITY * clampedDt ** 2;
+        this.state.velocity[1] -= SCENE_GRAVITY * clampedDt;
 
         // Table contact bounce / settle
         if (this.state.position[1] <= this.tableY) {

@@ -4,6 +4,7 @@ import { RigidBodyLite, TABLE_TOP_Y, FLOOR_Y } from '../src/physicsLite/RigidBod
 import { willVesselTip, calculateVesselStability } from '../src/physicsLite/Support';
 import { shardManager, MAX_ACTIVE_SHARDS } from '../src/damage/Shards';
 import { PuddleSimulator } from '../src/damage/Puddle';
+import { metersToScene } from '../src/science/sceneUnits';
 
 describe('Physics World Lite: Friction, Sliding & Edge Falls (K5.1 - K5.4)', () => {
   it('stops a pushed beaker faster on dry bench than on wet bench due to friction', () => {
@@ -30,7 +31,7 @@ describe('Physics World Lite: Friction, Sliding & Edge Falls (K5.1 - K5.4)', () 
 
     // Wet surface must slide significantly further than dry surface
     expect(wetDist).toBeGreaterThan(dryDist * 1.5);
-    expect(dryDist).toBeLessThan(0.05); // Stops within a few cm
+    expect(dryDist).toBeLessThan(metersToScene(0.05)); // Scene displacement converted from 5 cm.
   });
 
   it('correctly assesses tipping criteria for tall cylinder vs stable beaker', () => {

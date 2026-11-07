@@ -4,15 +4,19 @@
  * friction (dry vs wet bench), and floor impacts without heavy physics engines.
  */
 
+import { LAB_GEOMETRY } from '../core/labGeometry';
+import { SCENE_GRAVITY, metersToScene, sceneToMeters } from '../science/sceneUnits';
+
 export interface MaterialPairProperties {
   friction: number;
   restitution: number;
 }
 
-export const TABLE_TOP_Y = -0.135;
-export const TABLE_HALF_WIDTH = 16.0;  // X bounds: [-16, 16]
-export const TABLE_HALF_DEPTH = 6.75;  // Z bounds: [-6.75, 6.75]
-export const FLOOR_Y = -2.5;
+/** Legacy body-origin heights, NOT the geometric support planes. */
+export const TABLE_TOP_Y = LAB_GEOMETRY.defaultVesselOrigin_scene;
+export const TABLE_HALF_WIDTH = LAB_GEOMETRY.tableHalfWidth_scene;
+export const TABLE_HALF_DEPTH = LAB_GEOMETRY.tableHalfDepth_scene;
+export const FLOOR_Y = LAB_GEOMETRY.floor_scene + (TABLE_TOP_Y - LAB_GEOMETRY.tableTop_scene);
 
 export interface RigidBodyState {
   id: string;
@@ -31,7 +35,7 @@ export interface RigidBodyState {
 
 export class RigidBodyLite {
   public state: RigidBodyState;
-  private readonly gravity: number = -9.8; // m/s^2
+  private readonly gravity: number = -SCENE_GRAVITY;
 
   constructor(
     id: string,
@@ -56,9 +60,10 @@ export class RigidBodyLite {
   }
 
   public applyImpulse(impulse: [number, number, number]): void {
-    this.state.velocity[0] += impulse[0] / this.state.mass_kg;
-    this.state.velocity[1] += impulse[1] / this.state.mass_kg;
-    this.state.velocity[2] += impulse[2] / this.state.mass_kg;
+    if (!impulse.every(Number.isFinite) || !(this.state.mass_kg > 0)) return;
+    this.state.velocity[0] += metersToScene(impulse[0] / this.state.mass_kg);
+    this.state.velocity[1] += metersToScene(impulse[1] / this.state.mass_kg);
+    this.state.velocity[2] += metersToScene(impulse[2] / this.state.mass_kg);
   }
 
   public setWetSurface(wet: boolean): void {
@@ -70,6 +75,7 @@ export class RigidBodyLite {
    * Fully deterministic: zero Math.random() or Date.now().
    */
   public step(dt: number): { hasLandedOnFloor: boolean; impactEnergy_J: number } {
+    if (!Number.isFinite(dt) || dt <= 0) return { hasLandedOnFloor: false, impactEnergy_J: 0 };
     let hasLandedOnFloor = false;
     let impactEnergy_J = 0;
 
@@ -82,7 +88,7 @@ export class RigidBodyLite {
       if (y > TABLE_TOP_Y) {
         // Free fall towards table
         this.state.velocity[1] += this.gravity * dt;
-        this.state.fallDistance_m += Math.abs(this.state.velocity[1] * dt);
+        this.state.fallDistance_m += sceneToMeters(Math.abs(this.state.velocity[1] * dt));
         this.state.isGrounded = false;
       } else {
         // Resting / sliding on table
@@ -112,18 +118,18 @@ export class RigidBodyLite {
       this.state.isOnTable = false;
       if (y > FLOOR_Y) {
         this.state.velocity[1] += this.gravity * dt;
-        this.state.fallDistance_m += Math.abs(this.state.velocity[1] * dt);
+        this.state.fallDistance_m += sceneToMeters(Math.abs(this.state.velocity[1] * dt));
         this.state.isGrounded = false;
       } else {
         // Impact on floor
         this.state.position[1] = FLOOR_Y;
-        const vImpact = Math.abs(this.state.velocity[1]);
+        const vImpact = sceneToMeters(Math.abs(this.state.velocity[1]));
         impactEnergy_J = 0.5 * this.state.mass_kg * vImpact * vImpact;
 
         this.state.velocity = [0, 0, 0];
         this.state.isGrounded = true;
+        hasLandedOnFloor = !this.state.isOnFloor;
         this.state.isOnFloor = true;
-        hasLandedOnFloor = true;
       }
     }
 
