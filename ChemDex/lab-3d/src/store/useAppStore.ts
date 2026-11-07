@@ -84,6 +84,7 @@ import { mobileSolidInventory } from '../science/suspensionTransport';
 import { SimulationEngine } from '../simulation/core/SimulationEngine';
 import { refreshFlowInventory } from '../engine/funnelFlow';
 import type { LabMaterialSnapshot } from '../types/chemistry';
+import { capturePhysicalLab, restorePhysicalLab } from '../physical/usePhysicsStore';
 import { LAB_PHYSICS } from '../engine/interactionEngine';
 import { mergeWorkbenchSpill, mergeWorkbenchSpillBatch, overflowLandingPosition, normalizeSpillFootprints } from '../engine/spillInventory';
 import { collectSpillPatch } from '../engine/spillCleanup';
@@ -139,7 +140,7 @@ function prepareStudioSpecimen(get: () => AppState, set: (patch: Partial<AppStat
     delete activeKinetics[id]; delete pendingReactions[id]; delete dissolvingSubstances[id];
     const vessels = { ...live.vessels, [id]: vessel };
     const materials = { inFlightPours: live.inFlightPours, spills: live.spills, wasteMass_g: live.wasteMass_g, wasteContents: live.wasteContents, workbenchEscapedGas_g: live.workbenchEscapedGas_g,
-      pipetteSample: live.pipetteSample };
+      pipetteSample: live.pipetteSample, physics: capturePhysicalLab() };
     persistHistorySnapshot('ADD_VESSEL', vessels, live.burners, 'Prepared virtual specimen', 'Chuẩn bị mẫu Studio', materials);
     persistLabState(vessels, live.burners, materials);
     set({ vessels, vesselIds: Object.keys(vessels), selectedVesselId: id, activeKinetics,
@@ -541,6 +542,7 @@ export interface AppState {
 // Initialize cache and try loading local saved state
 initReactionCache();
 const persisted = loadPersistedLabState();
+if (persisted?.materials?.physics) restorePhysicalLab(persisted.materials.physics);
 
 // Preserve saved assembly heights so funnels remain aligned with their receivers.
 const sanitizedVessels: Record<string, VesselState> = {};
@@ -602,7 +604,7 @@ export const useAppStore = create<AppState>((set, get) => {
     const s = get();
     return { inFlightPours: s.inFlightPours, spills: s.spills, wasteMass_g: s.wasteMass_g, wasteContents: s.wasteContents, workbenchEscapedGas_g: s.workbenchEscapedGas_g,
       pipetteSample: s.pipetteSample,
-      glassDebris: shardManager.snapshot() };
+      glassDebris: shardManager.snapshot(), physics: capturePhysicalLab() };
   };
   const debounceSaveLocalState = (vessels: Record<string, VesselState>, burners: Record<string, BurnerState>) =>
     persistLabState(vessels, burners, materials());
@@ -3792,6 +3794,7 @@ export const useAppStore = create<AppState>((set, get) => {
       const prev = stepUndo();
       if (prev) {
         shardManager.restoreLabSnapshot(prev.snapshot.materials?.glassDebris, prev.snapshot.vessels);
+        restorePhysicalLab(prev.snapshot.materials?.physics);
         set({
           vessels: prev.snapshot.vessels,
           vesselIds: Object.keys(prev.snapshot.vessels),
@@ -3814,6 +3817,7 @@ export const useAppStore = create<AppState>((set, get) => {
       const next = stepRedo();
       if (next) {
         shardManager.restoreLabSnapshot(next.snapshot.materials?.glassDebris, next.snapshot.vessels);
+        restorePhysicalLab(next.snapshot.materials?.physics);
         set({
           vessels: next.snapshot.vessels,
           vesselIds: Object.keys(next.snapshot.vessels),
@@ -4271,6 +4275,7 @@ export const useAppStore = create<AppState>((set, get) => {
     },
 
     resetWorkbench: () => {
+      restorePhysicalLab();
       shardManager.restoreSnapshot();
       set({
         inFlightPours: [], pourEpoch: get().pourEpoch + 1, isPouring: false,

@@ -1,4 +1,3 @@
-import { simulationFrameDt } from '../../core/clock';
 import React, { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
@@ -13,6 +12,7 @@ import { useAppStore } from '../../store/useAppStore';
 import { PrecipitateParticleLayer } from './PrecipitateParticleLayer';
 import { vesselAgitation } from '../../science/stirring';
 import { createInstancedMistMaterial, mistParticleAppearance } from './mistAppearance';
+import { physicalEffectsRuntime } from '../core/PhysicalEffectsRuntime';
 
 export interface PhysicalSimulationRendererProps {
   vesselId: string;
@@ -75,6 +75,23 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
   const scratchMat4 = useMemo(() => new THREE.Matrix4(), []);
   const bodyMatrix = useMemo(() => new THREE.Matrix4(), []);
   const bodyRotation = useMemo(() => new THREE.Matrix4(), []);
+  const forcing = useRef({ agitationOverride, reactionGasRate, reactionPrecipitateActive, reactionPrecipitateSubstance });
+  forcing.current = { agitationOverride, reactionGasRate, reactionPrecipitateActive, reactionPrecipitateSubstance };
+  useEffect(() => physicalEffectsRuntime.register(vesselId, dt => {
+    const app = useAppStore.getState(), vessel = app.vessels[vesselId];
+    if (!vessel || vessel.isShattered) return;
+    groupRef.current?.updateWorldMatrix(true, false);
+    const f = forcing.current;
+    mgr.step(vessel, dt, {
+      bodyMatrixWorld: groupRef.current?.matrixWorld.elements,
+      thermalStateAuthoritative: true,
+      heatPower_W: vessel.thermalHeatingPower_W ?? 0,
+      agitation: f.agitationOverride === undefined ? vesselAgitation(vessel, app) : f.agitationOverride,
+      reactionGasRate: f.reactionGasRate,
+      reactionPrecipitateActive: f.reactionPrecipitateActive,
+      reactionPrecipitateSubstance: f.reactionPrecipitateSubstance,
+    });
+  }), [mgr, vesselId]);
 
   // Initialize all instanced matrices to scale 0 at (0, -9999, 0)
   const zeroInstances = (mesh: THREE.InstancedMesh | null, maxCount: number) => {
@@ -103,9 +120,7 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
     };
   }, [mgr, vesselId]);
 
-  useFrame((state, delta) => {
-    const app = useAppStore.getState();
-    const dt = simulationFrameDt(delta, app);
+  useFrame((state) => {
     const vessel = useAppStore.getState().vessels[vesselId];
     if (!vessel || vessel.isShattered || (vessel.volume_ml ?? 0) <= 0.2) {
       if (vessel?.isShattered) {
@@ -116,28 +131,11 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
       if (!vessel || vessel.isShattered) return;
     }
 
-    // The store already allocates finite burner/hotplate/virtual-source heat.
-    // Read the last accepted mean input; flame temperature is not power.
-    const heatPower_W = vessel.thermalHeatingPower_W ?? 0;
-
-    // Check stirring rod agitation
-    const agitation = agitationOverride === undefined ? vesselAgitation(vessel, app) : agitationOverride;
-
     groupRef.current?.updateWorldMatrix(true, false);
     if (groupRef.current) bodyMatrix.copy(groupRef.current.matrixWorld);
     inverseBodyQuat.setFromRotationMatrix(bodyRotation.extractRotation(bodyMatrix)).invert();
 
-    // Step physical simulation using this frame's rendered body, not the
-    // stored resting pose while the pour controller is lifting/tilting it.
-    if (dt > 0) mgr.step(vessel, dt, {
-      bodyMatrixWorld: bodyMatrix?.elements,
-      thermalStateAuthoritative: true,
-      heatPower_W,
-      agitation,
-      reactionGasRate,
-      reactionPrecipitateActive,
-      reactionPrecipitateSubstance
-    });
+    // Quantitative steps ran in PhysicalEffectsRuntime before this upload.
 
     const cam = state.camera;
 

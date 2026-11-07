@@ -29,7 +29,7 @@ describe('Shard ballistic anchors', () => {
     const start = structuredClone(s), dt = 0.1;
     manager.update(dt, -100);
     expect((s.position[1] - start.position[1] - start.velocity[1] * dt) * METERS_PER_SCENE_UNIT)
-      .toBeCloseTo(-0.5 * 9.8 * dt ** 2, 12);
+      .toBeCloseTo(-0.5 * 9.80665 * dt ** 2, 12);
     const energy = (p: typeof s) => p.velocity.reduce((sum, v) => sum + v * v, 0) / 2 + SCENE_GRAVITY * p.position[1];
     expect(energy(s)).toBeCloseTo(energy(start), 9);
   });

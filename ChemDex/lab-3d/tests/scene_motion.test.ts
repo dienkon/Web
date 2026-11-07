@@ -18,7 +18,7 @@ function endpoint(result: ReturnType<typeof calculateStreamBallistics>) {
 }
 describe('Scene coordinates retain SI flight and volume units', () => {
   it('takes the physical free-fall time over one meter and keeps small-height roots stable', () => {
-    expect(fallingContactTime(1 / METERS_PER_SCENE_UNIT)).toBeCloseTo(Math.sqrt(2 / 9.8), 12);
+    expect(fallingContactTime(1 / METERS_PER_SCENE_UNIT)).toBeCloseTo(Math.sqrt(2 / 9.80665), 12);
     expect(descendingFlightTime(1, -1e6, 0)).toBeCloseTo(1e-6, 12);
     expect(descendingFlightTime(0, 0, 1)).toBeNull();
     expect(descendingFlightTime(NaN, 0, 0)).toBeNull();
@@ -26,7 +26,7 @@ describe('Scene coordinates retain SI flight and volume units', () => {
   it('uses Torricelli speed in meters per second before conversion to scene velocity', () => {
     const result = calculateStreamBallistics([0, 3, 0], -0.8, nozzle, 2, null, -1.175);
     const speed_m_s = Math.hypot(...result.exitVel) * METERS_PER_SCENE_UNIT;
-    expect(speed_m_s ** 2 / (2 * 9.8)).toBeCloseTo(0.02, 12);
+    expect(speed_m_s ** 2 / (2 * 9.80665)).toBeCloseTo(0.02, 12);
     endpoint(result);
   });
   it('retains Q=A*v across stream narrowing and the actual volume of a nominal drop', () => {

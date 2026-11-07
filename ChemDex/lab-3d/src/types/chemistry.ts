@@ -88,6 +88,9 @@ export type VesselType =
   | 'hot_plate';
 
 export interface VesselState {
+  dynamicSolids?: import('../physical/types').DynamicSolid[];
+  dynamicLoad_g?: number;
+  viscosity_mPa_s?: number;
   /** SI mechanical state persisted atomically with the specimen inventory. */
   physicalMotion?: { rotation: import('../physical/types').Quat; velocity_m_s: import('../physical/types').Vec3;
     angularVelocity_rad_s: import('../physical/types').Vec3; tick: number };
@@ -348,6 +351,7 @@ export interface ReactionRecord {
 }
 
 export interface LabMaterialSnapshot {
+  physics?: import('../physical/types').PhysicalLabSave;
   workbenchEscapedGas_g?: Record<string, number>;
   pipetteSample?: import('../handling/aliquot').LiquidAliquot | null;
   glassDebris?: import('../damage/Shards').ShardSnapshot;

@@ -41,7 +41,7 @@ export class PhysicsClient {
       this.worker.postMessage({ ...data, requestId });
     });
   }
-  initialize(seed: number) { return this.send({ kind: 'initialize', seed }); }
+  initialize(seed: number, initialTick = 0) { return this.send({ kind: 'initialize', seed, initialTick }); }
   command(data: CommandData): SimulationCommand { return { ...data, sequence: ++this.sequence, tick: this.tick } as SimulationCommand; }
   batch(commands: SimulationCommand[]) { return this.send({ kind: 'commands', commands }); }
   async save(): Promise<RuntimeSave> {

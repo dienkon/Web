@@ -36,6 +36,12 @@ vi.mock('../src/vfx/textures', () => ({
 import { PhysicalSimulationRenderer } from '../src/simulation/render/PhysicalSimulationRenderer';
 import { effects } from '../src/vfx/vesselEffects';
 import { DEFAULT_LAB_ENVIRONMENT } from '../src/science/labEnvironment';
+import { physicalEffectsRuntime } from '../src/simulation/core/PhysicalEffectsRuntime';
+function advanceFrame() {
+  const s = useAppStore.getState();
+  physicalEffectsRuntime.advance(1 / 120, s.isSimulationPaused, s.timeScale);
+  harness.frame!({}, 1 / 120);
+}
 
 const original = useAppStore.getState();
 const sample = (patch: Partial<VesselState> = {}): VesselState => ({
@@ -56,37 +62,37 @@ function mount(v = sample()) {
 }
 afterEach(() => {
   harness.cleanups.splice(0).forEach(cleanup => cleanup()); harness.frame = null;
-  SimulationEngine.clearAll(); useAppStore.setState(original, true); vi.restoreAllMocks();
+  physicalEffectsRuntime.reset(); SimulationEngine.clearAll(); useAppStore.setState(original, true); vi.restoreAllMocks();
 });
 
 describe('Renderer reads the accepted thermal ledger on its vessel', () => {
   it('uses the live metered input even when lamp flags and flame temperature disagree', () => {
     const spy = mount(sample({ thermalHeatingPower_W: 120, thermalHeatingEnergy_J: 50 }));
     const before = JSON.stringify(useAppStore.getState().vessels.a);
-    harness.frame!({}, 1 / 60);
+    advanceFrame();
     expect(spy.mock.calls[0][2]).toMatchObject({ heatPower_W: 120, thermalStateAuthoritative: true });
     expect(JSON.stringify(useAppStore.getState().vessels.a)).toBe(before);
     useAppStore.getState().setVesselState('a', { thermalHeatingPower_W: 0 });
-    harness.frame!({}, 1 / 60);
+    advanceFrame();
     expect(spy.mock.calls[1][2]).toMatchObject({ heatPower_W: 0, thermalStateAuthoritative: true });
-    useAppStore.setState({ isSimulationPaused: true }); harness.frame!({}, 1 / 60);
+    useAppStore.setState({ isSimulationPaused: true }); advanceFrame();
     expect(spy).toHaveBeenCalledTimes(2);
   });
   it('does not invent input watts for a legacy state that has no measured heater packet', () => {
-    const spy = mount(); harness.frame!({}, 1 / 60);
+    const spy = mount(); advanceFrame();
     expect(spy.mock.calls[0][2]).toMatchObject({ heatPower_W: 0, thermalStateAuthoritative: true });
   });
   it('stirs only the selected vessel while the stirring rod is active', () => {
     const spy = mount();
     useAppStore.setState({ activeTool: 'stirring_rod', selectedVesselId: 'a' });
-    harness.frame!({},1/60);
+    advanceFrame();
     expect(spy.mock.calls[0][2]?.agitation).toBe(0.65);
     useAppStore.setState({ selectedVesselId: 'another-vessel' });
-    harness.frame!({},1/60);
+    advanceFrame();
     expect(spy.mock.calls[1][2]?.agitation).toBe(0);
     useAppStore.setState({ activeTool: 'none', stirringVesselId: 'a' });
     useAppStore.getState().setVesselState('a', { stirringIntensity: 0.3 });
-    harness.frame!({}, 1 / 60);
+    advanceFrame();
     expect(spy.mock.calls[2][2]?.agitation).toBe(0.3);
     expect(useAppStore.getState().vesselIds).toEqual(['a']);
   });
@@ -97,12 +103,12 @@ describe('Renderer reads the accepted thermal ledger on its vessel', () => {
     expect(effects.forVessel('a').setEnvironment({ temperature_c: 40, airSpeed_m_s: 0.8,
       relativeHumidity: 0.9 }).ok).toBe(true);
     const snapshot = JSON.stringify(useAppStore.getState().vessels.a);
-    harness.frame!({}, 1 / 60);
+    advanceFrame();
     expect(mist.mock.calls[0][1]).toMatchObject({ ambient_c: 40, airflowVector: [0.8, 0, 0], relativeHumidity: 0.9 });
     expect(JSON.stringify(useAppStore.getState().vessels.a)).toBe(snapshot);
     expect(useAppStore.getState().vesselIds).toEqual(['a']);
     expect(effects.forVessel('a').setEnvironment({ temperature_c: 15, airSpeed_m_s: 0 }).ok).toBe(true);
-    harness.frame!({}, 1 / 60);
+    advanceFrame();
     expect(mist.mock.calls[1][1]).toMatchObject({ ambient_c: 15, airflowVector: [0, 0, 0] });
   });
 });

@@ -9,10 +9,13 @@ import { getWorldVesselProfile } from '../pour/physics/profiles';
 import { solveLevel } from '../pour/physics/retained';
 import { METERS_PER_SCENE_UNIT } from '../science/sceneUnits';
 import { submergedBoxVolume, buoyancyForce_N, viscousDragImpulse } from './fluids';
+import { stepReferenceExperiment, isReferenceExperiment, type ReferenceExperiment } from './ReferenceExperiments';
+import { liquidLevelForVolume } from '../science/vesselDimensions';
+import { vesselBodyTransform } from '../science/vesselScale';
 
 const DT = 1 / 120;
 const vector = (v: readonly number[]) => ({ x: v[0], y: v[1], z: v[2] });
-const rotation = (q: Quat) => ({ x: q[0], y: q[1], z: q[2], w: q[3] });
+const rotation = (q: Quat) => { const length = Math.hypot(...q); return { x: q[0] / length, y: q[1] / length, z: q[2] / length, w: q[3] / length }; };
 const tuple = (v: { x: number; y: number; z: number }): Vec3 => [v.x, v.y, v.z];
 const finite = (v: readonly number[]) => v.every(Number.isFinite);
 let initialized: Promise<void> | undefined;
@@ -21,6 +24,8 @@ export interface RuntimeSave {
   version: 1; rapierVersion: string; world: number[]; inputs: PhysicalBodyInput[];
   handles: [string, number][]; targets: [string, { position: Vec3; rotation: Quat }][];
   joints: [string, number][]; tick: number; accumulator_s: number; sequence: number; seed: number;
+  experiments?: ReferenceExperiment[];
+  contacts?: [string, [string, number][]][];
 }
 
 /** Pure SI simulation. No React, DOM, wall clock or rendering quality input. */
@@ -29,24 +34,29 @@ export class PhysicsRuntime {
   private events: RAPIER.EventQueue;
   private bodies = new Map<string, Body>();
   private colliderOwner = new Map<number, string>();
-  private contacts = new Map<string, Set<string>>();
+  private contacts = new Map<string, Map<string, number>>();
   private pending: SimulationCommand[] = [];
   private accumulator = 0;
   private tickCount = 0;
   private sequence = 0;
   private impacts: SimulationSnapshot['impacts'] = [];
   private fluidForces: NonNullable<SimulationSnapshot['fluidForces']> = [];
+  private experiments = new Map<string, ReferenceExperiment>();
+  private fluidLevels = new Map<string, number>();
 
-  static async create(seed = 1, environment = true) {
+  static async create(seed = 1, environment = true, initialTick = 0) {
     await (initialized ??= RAPIER.init());
-    return new PhysicsRuntime(seed, environment);
+    if (!Number.isSafeInteger(initialTick) || initialTick < 0) throw new Error('Invalid initial tick');
+    const r = new PhysicsRuntime(seed, environment); r.tickCount = initialTick; return r;
   }
   private constructor(private seed: number, environment: boolean) {
     this.world = new RAPIER.World({ x: 0, y: -CONSTANTS.g, z: 0 });
     this.world.timestep = DT;
     this.world.integrationParameters.normalizedAllowedLinearError = 0.00001;
+    // Keep enough predictive distance for the millimetre-thin bottom. A 50 µm
+    // band missed the high-speed thin-shell regression even with CCD enabled.
     this.world.integrationParameters.normalizedPredictionDistance = 0.001;
-    this.world.integrationParameters.numSolverIterations = 12;
+    this.world.integrationParameters.numSolverIterations = 10;
     this.world.integrationParameters.maxCcdSubsteps = 4;
     this.events = new RAPIER.EventQueue(true);
     if (environment) {
@@ -88,6 +98,10 @@ export class PhysicsRuntime {
     while (this.pending.length && this.pending[0].tick <= this.tickCount) {
       const c = this.pending.shift()!;
       if (c.kind === 'sync') this.sync(c.bodies);
+      else if (c.kind === 'experiment') {
+        if (!isReferenceExperiment(c.experiment)) throw new Error('Invalid reference experiment');
+        this.experiments.set(c.experiment.id, structuredClone(c.experiment));
+      }
       else if ('id' in c) {
         const entry = this.bodies.get(c.id);
         if (!entry) continue;
@@ -115,7 +129,9 @@ export class PhysicsRuntime {
   private sync(inputs: PhysicalBodyInput[]) {
     if (new Set(inputs.map(i => i.id)).size !== inputs.length) throw new Error('Duplicate physical body');
     for (const input of inputs) {
-      if (!input.id || !finite(input.position_m) || !finite(input.rotation) || !Number.isFinite(input.temperature_K)
+      if (!input.id || input.position_m.length !== 3 || input.rotation.length !== 4 || !finite(input.position_m) || !finite(input.rotation)
+        || Math.hypot(...input.rotation) < 1e-6 || !Number.isFinite(input.temperature_K) || input.temperature_K < 0
+        || (input.contentsCOM_m && (!finite(input.contentsCOM_m) || input.contentsCOM_m.length !== 3))
         || !(input.definition.mass_kg > 0) || !(input.contentsMass_kg >= 0) || !Number.isFinite(input.contentsMass_kg)
         || !finite(input.definition.inertia_kg_m2) || input.definition.inertia_kg_m2.some(v => v <= 0)) throw new Error('Invalid body input');
     }
@@ -143,6 +159,7 @@ export class PhysicsRuntime {
             let collider: RAPIER.ColliderDesc | null;
             if (shape.kind === 'box') collider = RAPIER.ColliderDesc.cuboid(...shape.halfExtents_m).setTranslation(...shape.center_m);
             else if (shape.kind === 'ball') collider = RAPIER.ColliderDesc.ball(shape.radius_m).setTranslation(...shape.center_m);
+            else if (shape.kind === 'cylinder') collider = RAPIER.ColliderDesc.cylinder(shape.halfHeight_m, shape.radius_m).setTranslation(...shape.center_m);
             else collider = RAPIER.ColliderDesc.convexHull(new Float32Array(shape.vertices_m));
             if (!collider) throw new Error(`Degenerate collider: ${d.id}`);
             const actual = this.world.createCollider(collider.setDensity(0).setFriction(material.friction)
@@ -154,7 +171,8 @@ export class PhysicsRuntime {
         this.updateMass(entry, input);
       } else {
         const old = entry.input;
-        if (old.contentsMass_kg !== input.contentsMass_kg || JSON.stringify(old.contentsCOM_m) !== JSON.stringify(input.contentsCOM_m)) this.updateMass(entry, input);
+        if (old.definition.mass_kg !== input.definition.mass_kg || old.contentsMass_kg !== input.contentsMass_kg
+          || JSON.stringify(old.contentsCOM_m) !== JSON.stringify(input.contentsCOM_m)) this.updateMass(entry, input);
         if (old.locked !== input.locked) entry.body.setBodyType(input.locked || input.definition.fixed ? RAPIER.RigidBodyType.Fixed : RAPIER.RigidBodyType.Dynamic, true);
         entry.input = input;
       }
@@ -170,6 +188,7 @@ export class PhysicsRuntime {
     entry.body.recomputeMassPropertiesFromColliders();
   }
   private step() {
+    for (const [id, experiment] of this.experiments) this.experiments.set(id, stepReferenceExperiment(experiment, DT));
     const before = new Map<string, { velocity: Vec3; mass: number }>();
     for (const [id, entry] of this.bodies) {
       const b = entry.body;
@@ -196,10 +215,9 @@ export class PhysicsRuntime {
       const ia = this.colliderOwner.get(a), ib = this.colliderOwner.get(b);
       if (!ia || !ib || ia === ib) return;
       for (const [id, other] of [[ia, ib], [ib, ia]]) {
-        let set = this.contacts.get(id); if (!set) this.contacts.set(id, set = new Set());
-        // Rebuilt from actual contact pairs in snapshot, so one stopped wedge
-        // cannot clear another active wedge of the same compound object.
-        if (started) set.add(other);
+        let set = this.contacts.get(id); if (!set) this.contacts.set(id, set = new Map());
+        const count = Math.max(0, (set.get(other) ?? 0) + (started ? 1 : -1));
+        if (count) set.set(other, count); else set.delete(other);
         const body = before.get(id);
         if (started && body && (other === 'bench' || other === 'stone_floor')) {
           const energy = 0.5 * body.mass * body.velocity[1] ** 2;
@@ -221,6 +239,10 @@ export class PhysicsRuntime {
       const inverse = new Quaternion(vq.x, vq.y, vq.z, vq.w).invert();
       const up = new Vector3(0, 1, 0).applyQuaternion(inverse);
       const tilt = Math.atan2(Math.hypot(up.x, up.z), up.y);
+      const transform = vesselBodyTransform({ type: fluid.vesselType, capacity_ml: fluid.capacity_ml });
+      const surface = (volume_ml: number) => tilt < 1e-8
+        ? (liquidLevelForVolume(fluid.vesselType, volume_ml, fluid.capacity_ml) * transform.scale + transform.offsetY) * METERS_PER_SCENE_UNIT + vp.y
+        : solveLevel(profile, tilt, volume_ml).c * METERS_PER_SCENE_UNIT + vp.y;
       const inside = samples.filter(sample => {
         const p = sample.body.translation();
         const local = new Vector3(p.x - vp.x, p.y - vp.y, p.z - vp.z).applyQuaternion(inverse).multiplyScalar(1 / METERS_PER_SCENE_UNIT);
@@ -230,21 +252,28 @@ export class PhysicsRuntime {
       });
       if (!inside.length) continue;
       const base_ml = Math.min(fluid.capacity_ml, fluid.volume_m3 * 1e6);
-      let level = solveLevel(profile, tilt, base_ml).c * METERS_PER_SCENE_UNIT + vp.y;
+      let level = this.fluidLevels.get(ownerId) ?? surface(base_ml);
       // Fixed point for displacement; the existing transport engine owns any overflow.
       for (let i = 0; i < 8; i++) {
         const displaced = inside.reduce((sum, sample) => {
           const p = sample.body.translation(), q = sample.body.rotation();
           return sum + submergedBoxVolume(sample.input.definition.dimensions_m, tuple(p), [q.x, q.y, q.z, q.w], level);
         }, 0);
-        const next = solveLevel(profile, tilt, Math.min(fluid.capacity_ml, base_ml + displaced * 1e6)).c * METERS_PER_SCENE_UNIT + vp.y;
+        const next = surface(Math.min(fluid.capacity_ml, base_ml + displaced * 1e6));
         if (Math.abs(next - level) < 1e-8) { level = next; break; }
         level = next;
       }
+      this.fluidLevels.set(ownerId, level);
       for (const sample of inside) {
         const d = sample.input.definition, p = sample.body.translation(), q = sample.body.rotation();
         const volume = d.dimensions_m[0] * d.dimensions_m[1] * d.dimensions_m[2];
         const submerged = submergedBoxVolume(d.dimensions_m, tuple(p), [q.x, q.y, q.z, q.w], level);
+        const relativePosition = new Vector3(p.x - vp.x, p.y - vp.y, p.z - vp.z).applyQuaternion(inverse);
+        const relativeRotation = inverse.clone().multiply(new Quaternion(q.x, q.y, q.z, q.w));
+        const solid = { id: sample.input.id, dimensions_m: d.dimensions_m,
+          position_m: relativePosition.toArray() as Vec3, rotation: relativeRotation.toArray() as Quat };
+        this.fluidForces.push({ id: sample.input.id, ownerId, displaced_m3: submerged,
+          buoyancy_N: buoyancyForce_N(fluid.density_kg_m3, submerged), solid });
         if (!(submerged > 0)) continue;
         const buoyancy = buoyancyForce_N(fluid.density_kg_m3, submerged);
         sample.body.addForce({ x: 0, y: buoyancy, z: 0 }, true);
@@ -256,20 +285,18 @@ export class PhysicsRuntime {
           vessel.body.addForceAtPoint({ x: 0, y: -buoyancy, z: 0 }, p, true);
           vessel.body.applyImpulseAtPoint(vector(impulse.map(v => -v)), p, true);
         }
-        this.fluidForces.push({ id: sample.input.id, ownerId, displaced_m3: submerged, buoyancy_N: buoyancy });
       }
     }
   }
   snapshot(): SimulationSnapshot {
     return { version: 1, tick: this.tickCount, time_s: this.tickCount * DT, seed: this.seed, sequence: this.sequence,
-      backlog_s: this.accumulator, impacts: this.impacts.splice(0), fluidForces: structuredClone(this.fluidForces), objects: [...this.bodies].map(([id, entry]) => {
-        const b = entry.body, q = b.rotation(), contacts = new Set<string>();
-        for (let i = 0; i < b.numColliders(); i++) this.world.contactPairsWith(b.collider(i), collider => {
-          const owner = this.colliderOwner.get(collider.handle); if (owner && owner !== id) contacts.add(owner);
-        });
+      backlog_s: this.accumulator, impacts: this.impacts.splice(0), fluidForces: structuredClone(this.fluidForces),
+      experiments: structuredClone([...this.experiments.values()]), objects: [...this.bodies].map(([id, entry]) => {
+        const b = entry.body, q = b.rotation();
+        const contacts = [...(this.contacts.get(id)?.keys() ?? [])].filter(owner => this.bodies.has(owner) || owner === 'bench' || owner === 'stone_floor');
         return { id, definitionId: entry.input.definition.id, position_m: tuple(b.translation()), rotation: [q.x, q.y, q.z, q.w],
           velocity_m_s: tuple(b.linvel()), angularVelocity_rad_s: tuple(b.angvel()), temperature_K: entry.input.temperature_K,
-          contacts: [...contacts].sort(), attachments: entry.joint ? ['joint'] : [], damage: 'intact', held: !!entry.target, sleeping: b.isSleeping() };
+          contacts: contacts.sort(), attachments: entry.joint ? ['joint'] : [], damage: 'intact', held: !!entry.target, sleeping: b.isSleeping() };
       }) };
   }
   save(): RuntimeSave {
@@ -278,7 +305,8 @@ export class PhysicsRuntime {
       inputs: structuredClone([...this.bodies.values()].map(e => e.input)), handles: [...this.bodies].map(([id, e]) => [id, e.body.handle]),
       targets: [...this.bodies].filter(([, e]) => !!e.target).map(([id, e]) => [id, structuredClone(e.target!)]),
       joints: [...this.bodies].filter(([, e]) => !!e.joint).map(([id, e]) => [id, e.joint!.handle]),
-      tick: this.tickCount, accumulator_s: this.accumulator, sequence: this.sequence, seed: this.seed };
+      tick: this.tickCount, accumulator_s: this.accumulator, sequence: this.sequence, seed: this.seed,
+      experiments: structuredClone([...this.experiments.values()]), contacts: [...this.contacts].map(([id, c]) => [id, [...c]]) };
   }
   restore(saved: RuntimeSave) {
     if (saved.version !== 1 || saved.rapierVersion !== RAPIER.version() || !Number.isSafeInteger(saved.tick) || saved.tick < 0
@@ -302,6 +330,8 @@ export class PhysicsRuntime {
     });
     this.pending = []; this.impacts = []; this.contacts.clear(); this.tickCount = saved.tick;
     this.accumulator = saved.accumulator_s; this.sequence = saved.sequence; this.seed = saved.seed;
+    this.experiments = new Map((saved.experiments ?? []).map(e => [e.id, structuredClone(e)]));
+    this.contacts = new Map((saved.contacts ?? []).map(([id, c]) => [id, new Map(c)]));
   }
   free() { this.events.free(); this.world.free(); this.bodies.clear(); }
 }

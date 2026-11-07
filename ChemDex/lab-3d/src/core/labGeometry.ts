@@ -17,5 +17,5 @@ export const VESSEL_TARE_G: Readonly<Record<string, number>> = {
 
 /** Legacy tare values are estimates, not manufacturer measurements. */
 export function vesselTareG(type: string, explicit?: number): number {
-  return Number.isFinite(explicit) && explicit! > 0 ? explicit! : VESSEL_TARE_G[type] ?? 80;
+  return Number.isFinite(explicit) && explicit! >= 0 ? explicit! : VESSEL_TARE_G[type] ?? 80;
 }

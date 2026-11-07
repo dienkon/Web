@@ -27,7 +27,7 @@ export function inputFromVessel(v: VesselState): PhysicalBodyInput | null {
   const contentsY = ((floor + level) / 2 * transform.scale + transform.offsetY) * METERS_PER_SCENE_UNIT;
   return { id: v.id, definition, position_m: scenePointToSI(v.position), rotation: v.physicalMotion?.rotation ?? q.toArray() as Quat,
     velocity_m_s: v.physicalMotion?.velocity_m_s, angularVelocity_rad_s: v.physicalMotion?.angularVelocity_rad_s,
-    contentsMass_kg: Math.max(0, calculateVesselMass(v) / 1000 - definition.mass_kg), contentsCOM_m: [0, contentsY, 0],
+    contentsMass_kg: Math.max(0, (calculateVesselMass(v) - (v.dynamicLoad_g ?? 0)) / 1000 - definition.mass_kg), contentsCOM_m: [0, contentsY, 0],
     fluid: v.volume_ml > 0 ? { volume_m3: v.volume_ml * 1e-6, density_kg_m3: (v.density_g_ml ?? 1) * 1000,
       viscosity_Pas: (v.viscosity_mPa_s ?? 1) * 0.001, vesselType: v.type, capacity_ml: v.capacity_ml } : undefined,
     temperature_K: v.temperature_c + 273.15, locked: v.isLocked };

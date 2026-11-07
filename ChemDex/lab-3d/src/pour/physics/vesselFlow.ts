@@ -13,7 +13,7 @@ export interface VesselFlowResult extends FlowResult {
   surfaceVolume_ml: number;
   retainedLiquidVolume_ml: number;
   retainedGrossVolume_ml: number;
-  displacementBasis: 'liquid-only' | 'upright-compact-reference' | 'stock-mesh-envelope-reference';
+  displacementBasis: 'liquid-only' | 'upright-compact-reference' | 'stock-mesh-envelope-reference' | 'dynamic-solid-reference';
 }
 
 /** Dense separated stock meshes use their actual tilted halfspace immersion.

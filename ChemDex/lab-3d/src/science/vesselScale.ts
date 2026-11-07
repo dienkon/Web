@@ -2,9 +2,10 @@ import type { VesselState } from '../types/chemistry';
 import { vesselInterior } from './vesselDimensions';
 import { vesselOuterDimensions, vesselContours } from './vesselContours';
 import { CENTIMETERS_PER_SCENE_UNIT, METERS_PER_SCENE_UNIT } from './sceneUnits';
+import { Quaternion, Vector3 } from 'three';
 
 type SizedVessel = { type: string; capacity_ml: number };
-type PosedVessel = SizedVessel & Pick<VesselState, 'position' | 'rotationY' | 'rotationZ'>;
+type PosedVessel = SizedVessel & Pick<VesselState, 'position' | 'rotationY' | 'rotationZ'> & Partial<Pick<VesselState, 'physicalMotion'>>;
 
 /** Model-local coordinates remain convenient for shared meshes/particles.
  * This affine transform gives them one physical world scale. Anchor the
@@ -20,6 +21,10 @@ export function vesselBodyTransform(v: SizedVessel) {
 export function vesselLocalToWorld(v: PosedVessel, point: readonly [number, number, number]): [number, number, number] {
   const { scale, offsetY } = vesselBodyTransform(v), tilt = v.rotationZ ?? 0, yaw = v.rotationY ?? 0;
   const x = point[0] * scale, y = point[1] * scale + offsetY, z = point[2] * scale;
+  if (v.physicalMotion) {
+    const p = new Vector3(x, y, z).applyQuaternion(new Quaternion(...v.physicalMotion.rotation));
+    return [v.position[0] + p.x, v.position[1] + p.y, v.position[2] + p.z];
+  }
   const rx = x * Math.cos(tilt) - y * Math.sin(tilt), ry = x * Math.sin(tilt) + y * Math.cos(tilt);
   return [v.position[0] + rx * Math.cos(yaw) + z * Math.sin(yaw), v.position[1] + ry,
     v.position[2] - rx * Math.sin(yaw) + z * Math.cos(yaw)];
@@ -28,6 +33,10 @@ export function vesselLocalToWorld(v: PosedVessel, point: readonly [number, numb
 export function vesselWorldToLocal(v: PosedVessel, point: readonly [number, number, number]): [number, number, number] {
   const { scale, offsetY } = vesselBodyTransform(v), tilt = v.rotationZ ?? 0, yaw = v.rotationY ?? 0;
   const dx = point[0] - v.position[0], dy = point[1] - v.position[1], dz = point[2] - v.position[2];
+  if (v.physicalMotion) {
+    const p = new Vector3(dx, dy, dz).applyQuaternion(new Quaternion(...v.physicalMotion.rotation).invert());
+    return [p.x / scale, (p.y - offsetY) / scale, p.z / scale];
+  }
   const x = dx * Math.cos(yaw) - dz * Math.sin(yaw), z = dx * Math.sin(yaw) + dz * Math.cos(yaw);
   return [(x * Math.cos(tilt) + dy * Math.sin(tilt)) / scale,
     (-x * Math.sin(tilt) + dy * Math.cos(tilt) - offsetY) / scale, z / scale];

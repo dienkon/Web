@@ -9,7 +9,7 @@ import { solveLevel, retainedVolume } from '../src/pour/physics/retained';
 describe('SI discharge and detached overflow drops', () => {
   it('recovers theoretical h^(3/2), width and area scaling without rate clamps', () => {
     const q = rectangularWeirDischarge(0.01, 0.02);
-    expect(q).toBeCloseTo(0.62 * 2 / 3 * Math.sqrt(19.6) * 0.01 * 0.02 ** 1.5, 16);
+    expect(q).toBeCloseTo(0.62 * 2 / 3 * Math.sqrt(2 * 9.80665) * 0.01 * 0.02 ** 1.5, 16);
     expect(rectangularWeirDischarge(0.02, 0.08) / q).toBeCloseTo(16, 12);
     expect(circularOrificeDischarge(0.002, 0.04) / circularOrificeDischarge(0.001, 0.01)).toBeCloseTo(8, 12);
   });
@@ -33,13 +33,13 @@ describe('SI discharge and detached overflow drops', () => {
     const profile = getVesselProfile('beaker'), volume = 200;
     const c = solveLevel(profile, Math.PI, volume).c;
     const head_m = (c + profile.lipLocal[1]) * profile.sceneScale / 100;
-    const expected = 0.62 * Math.PI * (profile.mouthR * profile.sceneScale / 100) ** 2 * Math.sqrt(19.6 * head_m) * 1e6;
+    const expected = 0.62 * Math.PI * (profile.mouthR * profile.sceneScale / 100) ** 2 * Math.sqrt(2 * 9.80665 * head_m) * 1e6;
     expect(calculateWeirFlow(profile, volume, Math.PI).flowRate_ml_s).toBeCloseTo(expected, 8);
   });
   it('matches a one-metre free fall and gives the same positions at every sample rate', () => {
     const from = 1 / METERS_PER_SCENE_UNIT;
     const flight = overflowDropFlight(from, 0, 0)!;
-    expect(flight.flightTime_s).toBeCloseTo(Math.sqrt(2 / 9.8), 14);
+    expect(flight.flightTime_s).toBeCloseTo(Math.sqrt(2 / 9.80665), 14);
     for (const fps of [30, 60, 120]) {
       const pose = overflowDropFlight(from, 0, (fps / 5) / fps)!;
       expect(pose.y).toBeCloseTo(from - 0.5 * SCENE_GRAVITY * 0.2 ** 2, 13);

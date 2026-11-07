@@ -12,7 +12,7 @@ import { segArea } from '../pour/physics/roundPlaneVolume';
 export interface PortFlux { flow_ml_s: number; wetArea_model2: number; speed_m_s: number }
 export interface FunnelDischarge {
   basis: 'vented-inertial-port-reference';
-  displacementBasis: 'stock-mesh-envelope-reference' | 'liquid-only-reference';
+  displacementBasis: 'stock-mesh-envelope-reference' | 'dynamic-solid-reference' | 'liquid-only-reference';
   aqueous: PortFlux; organic: PortFlux; total_ml_s: number;
   portY: number; outletY: number; radius: number; lowerOffset: number; topOffset: number;
   normal: Point3; coefficient: number;

@@ -50,6 +50,7 @@ import { RenderActivity } from '../../render/RenderActivity';
 import { useRenderDpr } from '../../render/renderResolution';
 import { LessonScene } from '../../lesson/LessonScene';
 import { PhysicsScene } from '../../physical/PhysicsScene';
+import { physicalEffectsRuntime } from '../../simulation/core/PhysicalEffectsRuntime';
 
 function DragDropRaycaster() {
   const { camera, gl } = useThree();
@@ -384,6 +385,10 @@ function SimulationTicker() {
     const state = useAppStore.getState();
     PourController.tick(delta, state.vessels as any, state.isSimulationPaused, state.timeScale);
   }, FRAME_ORDER.chemistry);
+  useFrame((_, delta) => {
+    const state = useAppStore.getState();
+    physicalEffectsRuntime.advance(delta, state.isSimulationPaused, state.timeScale);
+  }, FRAME_ORDER.physics - 0.1);
   return null;
 }
 

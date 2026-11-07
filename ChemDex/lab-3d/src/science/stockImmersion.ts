@@ -7,12 +7,13 @@ import { solidSceneVolume, vesselInterior } from './vesselDimensions';
 import { isSuspensionRow } from './precipitateInventory';
 import { phaseVolumes, phaseDensities } from './liquidLayers';
 import { compileSolid, clippedSolidVolume, type CompiledSolid, type Point3, type SolidClipPlane } from './clippedSolidVolume';
+import { dynamicImmersion } from '../physical/dynamicImmersion';
 
 export type StockImmersionVessel = Pick<VesselState, 'type' | 'capacity_ml' | 'volume_ml' | 'contents'>
-  & Partial<Pick<VesselState, 'isSealed' | 'isPulverized' | 'precipitateSubstance' | 'immiscibleOrganicVolume_ml'>>;
+  & Partial<Pick<VesselState, 'isSealed' | 'isPulverized' | 'precipitateSubstance' | 'immiscibleOrganicVolume_ml' | 'dynamicSolids'>>;
 interface ImmersedPiece extends StockSolidPiece { inverse: Matrix4; factor: number; inside: number; mesh: CompiledSolid }
 export interface StockImmersion {
-  basis: 'stock-mesh-envelope-reference';
+  basis: 'stock-mesh-envelope-reference' | 'dynamic-solid-reference';
   insideVolume_ml: number;
   displacementMl(normal: Point3, offset: number): number;
 }
@@ -56,7 +57,18 @@ function wetPiece(piece: ImmersedPiece, n: Point3, c: number, top: number): numb
  * mesh immersion. Powders, buoyant pieces, precipitates, alkali/ice, custom
  * filter supports and overlapping/unresolved groups explicitly return null.
  * Static pose is still an envelope reference, not force/contact dynamics. */
+const combinedDynamicModels = new WeakMap<object, { staticModel: StockImmersion | null; result: StockImmersion }>();
 export function stockImmersion(vessel: StockImmersionVessel, liquidDensity = 1): StockImmersion | null {
+  const fixed = staticStockImmersion(vessel, liquidDensity);
+  if (!vessel.dynamicSolids?.length) return fixed;
+  const cached = combinedDynamicModels.get(vessel.dynamicSolids);
+  if (cached?.staticModel === fixed) return cached.result;
+  const dynamic = dynamicImmersion(vessel)!;
+  const result: StockImmersion = { basis: 'dynamic-solid-reference', insideVolume_ml: dynamic.insideVolume_ml + (fixed?.insideVolume_ml ?? 0),
+    displacementMl: (n, c) => dynamic.displacementMl(n, c) + (fixed?.displacementMl(n, c) ?? 0) };
+  combinedDynamicModels.set(vessel.dynamicSolids, { staticModel: fixed, result }); return result;
+}
+function staticStockImmersion(vessel: StockImmersionVessel, liquidDensity = 1): StockImmersion | null {
   if (!(vessel.capacity_ml > 0) || vessel.isPulverized || vessel.type === 'filter_funnel') return null;
   // Dense static stocks must sink through BOTH phases. An averaged density
   // can incorrectly certify a piece that floats at their interface.

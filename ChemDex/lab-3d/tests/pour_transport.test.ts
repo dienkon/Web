@@ -279,9 +279,9 @@ describe('Finite material in a pouring stream', () => {
     // The average of a complete circular ring is its ballistic center.
     const center = (ring: number) => Array.from({ length: 12 }, (_, i) => positions.getY(ring * 13 + i))
       .reduce((sum, n) => sum + n, 0) / 12;
-    // Independent SI conversion: 3.5 cm/scene, g = 9.8 m/s².
-    expect(center(0)).toBeCloseTo(6 - 0.5 * (9.8 / 0.035) * 0.05 ** 2, 5);
-    expect(center(4)).toBeCloseTo(6 - 0.5 * (9.8 / 0.035) * 0.15 ** 2, 5);
+    // Independent SI conversion: 3.5 cm/scene, g = 9.80665 m/s².
+    expect(center(0)).toBeCloseTo(6 - 0.5 * (9.80665 / 0.035) * 0.05 ** 2, 5);
+    expect(center(4)).toBeCloseTo(6 - 0.5 * (9.80665 / 0.035) * 0.15 ** 2, 5);
     geometry.update([]);
     expect(geometry.drawRange.count).toBe(0);
     geometry.dispose();

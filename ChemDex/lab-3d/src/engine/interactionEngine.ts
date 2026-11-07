@@ -31,7 +31,8 @@ export function calculateVesselMass(vessel: VesselState): number {
   const tare = vesselTareG(vessel.type, vessel.tare_g);
   // mass_g includes solvent and solutes; summing contents again double-counts.
   return tare + Math.max(0, vessel.mass_g) + Math.max(0, vessel.wallCoatingMass_g ?? 0) + Math.max(0, vessel.outerWallCoatingMass_g ?? 0)
-    + Math.max(0, vessel.wallCondensation?.inner_g ?? 0) + Math.max(0, vessel.wallCondensation?.outer_g ?? 0);
+    + Math.max(0, vessel.wallCondensation?.inner_g ?? 0) + Math.max(0, vessel.wallCondensation?.outer_g ?? 0)
+    + Math.max(0, vessel.dynamicLoad_g ?? 0);
 }
 
 /**

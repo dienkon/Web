@@ -34,6 +34,21 @@ export function vesselDefinition(type: string, capacity_ml = VESSEL_PROFILES[typ
     const inner = (y: number) => y < interior.floorY ? 0 : contourRadius(interior.points, y);
     const ro0 = contourRadius(contours.outer, low), ro1 = contourRadius(contours.outer, high);
     const ri0 = low < interior.floorY ? 0 : inner(low), ri1 = high <= interior.floorY ? 0 : inner(high);
+    if (ri0 === 0 && ri1 === 0 && Math.max(ro0, ro1) > 0) {
+      if (Math.abs(ro0 - ro1) < 1e-10) {
+        colliders.push({ kind: 'cylinder', radius_m: ro0 * length, halfHeight_m: (high - low) * length / 2,
+          center_m: [0, (ySI(low) + ySI(high)) / 2, 0] });
+      } else {
+      // One convex frustum for a solid bottom avoids 24 coincident support
+      // manifolds. This is the SAME polygonal solid, with no filled reservoir.
+      const vertices_m: number[] = [];
+      for (const [y, r] of [[low, ro0], [high, ro1]]) for (let sector = 0; sector < 24; sector++) {
+        const theta = sector * Math.PI / 12;
+        vertices_m.push(r * Math.cos(theta) * length, ySI(y), r * Math.sin(theta) * length);
+      }
+      colliders.push({ kind: 'hull', vertices_m });
+      }
+    } else {
     for (let sector = 0; sector < 24; sector++) {
       const vertices_m: number[] = [];
       for (const [y, ro, ri] of [[low, ro0, ri0], [high, ro1, ri1]]) {
@@ -43,6 +58,7 @@ export function vesselDefinition(type: string, capacity_ml = VESSEL_PROFILES[typ
         }
       }
       if (Math.max(ro0 - ri0, ro1 - ri1) > 1e-8) colliders.push({ kind: 'hull', vertices_m });
+    }
     }
     // Midpoint integration independent of tessellation for mass properties.
     for (let j = 0; j < 16; j++) {

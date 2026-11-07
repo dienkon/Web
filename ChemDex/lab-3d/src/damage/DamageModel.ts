@@ -4,6 +4,7 @@
  * for laboratory glassware, porcelain, plastic, and metal.
  */
 
+import { CONSTANTS } from '../core/units';
 export type VesselMaterial = 'borosilicate' | 'soda-lime' | 'plastic' | 'porcelain' | 'metal';
 
 export interface MaterialSpec {
@@ -101,7 +102,7 @@ export function evaluateDropImpact(
     };
   }
 
-  const g = 9.8;
+  const g = CONSTANTS.g;
   const vImpact = Math.sqrt(2 * g * Math.max(0, fallHeight_m));
   const rawEnergy_J = 0.5 * mass_kg * vImpact * vImpact;
 

@@ -4,6 +4,7 @@ export type ValidationStatus = 'unverified' | 'estimated' | 'analytic' | 'experi
 export type MatterPhase = 'solid' | 'liquid' | 'gas';
 export type Dispersion = 'bulk' | 'solution' | 'suspension' | 'gel' | 'foam' | 'sediment';
 export type MatterLocation = 'vessel' | 'tool' | 'flight' | 'wall' | 'spill' | 'escaped' | 'waste';
+export interface DynamicSolid { id: string; dimensions_m: Vec3; position_m: Vec3; rotation: Quat }
 export interface ValidationRecord {
   id: string; status: ValidationStatus; sourceUrls: string[]; domain: string;
   scenarios: string[]; limitations: string[]; relativeTolerance?: number;
@@ -17,6 +18,7 @@ export interface MaterialPropertyModel {
 export type ColliderShape =
   | { kind: 'box'; halfExtents_m: Vec3; center_m: Vec3 }
   | { kind: 'ball'; radius_m: number; center_m: Vec3 }
+  | { kind: 'cylinder'; radius_m: number; halfHeight_m: number; center_m: Vec3 }
   | { kind: 'hull'; vertices_m: number[] };
 export interface PhysicalObjectDefinition {
   id: string; name: string; category: 'vessel' | 'tool' | 'apparatus' | 'sample' | 'environment';
@@ -51,15 +53,22 @@ export type SimulationCommand = { sequence: number; tick: number } & (
   | { kind: 'release'; id: string }
   | { kind: 'attach'; id: string; otherId: string; anchor_m: Vec3; otherAnchor_m: Vec3 }
   | { kind: 'detach'; id: string }
+  | { kind: 'experiment'; experiment: import('./ReferenceExperiments').ReferenceExperiment }
   | { kind: 'advance'; seconds: number; paused: boolean; timeScale: number }
 );
 export interface SimulationSnapshot {
   version: 1; tick: number; time_s: number; seed: number; sequence: number;
   objects: PhysicalObjectState[]; impacts: { id: string; energy_J: number; surface: 'bench' | 'stone_floor' }[];
   backlog_s: number;
-  fluidForces?: { id: string; ownerId: string; displaced_m3: number; buoyancy_N: number }[];
+  fluidForces?: { id: string; ownerId: string; displaced_m3: number; buoyancy_N: number; solid?: DynamicSolid }[];
+  experiments?: import('./ReferenceExperiments').ReferenceExperiment[];
 }
 export interface PhysicalSave {
   version: 1; snapshot: SimulationSnapshot; inventory: MatterInventory;
   definitions: PhysicalObjectDefinition[];
+}
+export interface PhysicalLabSave {
+  version: 1; enabled: boolean; tick: number; seed: number;
+  expansions: PhysicalBodyInput[];
+  experiments?: import('./ReferenceExperiments').ReferenceExperiment[];
 }

@@ -32,7 +32,8 @@ describe('Physical foundation with explicit units and provenance', () => {
     expect(d.colliders.length).toBeGreaterThan(24);
     expect(d.dimensions_m.every(v => v > 0 && Number.isFinite(v))).toBe(true);
     expect(d.inertia_kg_m2.every(v => v > 0 && Number.isFinite(v))).toBe(true);
-    expect(d.colliders.every(c => c.kind === 'hull' && c.vertices_m.every(Number.isFinite))).toBe(true);
+    expect(d.colliders.every(c => c.kind === 'hull' ? c.vertices_m.every(Number.isFinite)
+      : c.kind === 'cylinder' && c.radius_m > 0 && c.halfHeight_m > 0 && c.center_m.every(Number.isFinite))).toBe(true);
   });
   it('samples derive mass and inertia from their real volume, not display particle count', () => {
     const d = sampleDefinition('aluminum', 8e-6);

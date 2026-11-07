@@ -115,7 +115,7 @@ export function occupiedLiquidVolume(vessel: OccupancyVessel): number {
 export function availableLiquidVolume(vessel: OccupancyVessel, incomingDensity = 1): number {
   const held = Math.max(0, vessel.wallCoating_ml ?? 0);
   const nominal = Math.max(0, vessel.capacity_ml - vessel.volume_ml - held);
-  if (!bodies(vessel).length || nominal === 0) return nominal;
+  if ((!bodies(vessel).length && !vessel.dynamicSolids?.length) || nominal === 0) return nominal;
   const mass = liquidInventoryMass(vessel);
   let low = 0, high = nominal;
   const fits = (added: number) => {

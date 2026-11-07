@@ -2,7 +2,7 @@ import { PhysicsRuntime, type RuntimeSave } from './PhysicsRuntime';
 import type { SimulationCommand } from './types';
 
 type Request = { requestId: number } & (
-  | { kind: 'initialize'; seed: number }
+  | { kind: 'initialize'; seed: number; initialTick: number }
   | { kind: 'commands'; commands: SimulationCommand[] }
   | { kind: 'save' }
   | { kind: 'restore'; save: RuntimeSave }
@@ -14,7 +14,7 @@ scope.onmessage = event => {
   queue = queue.then(async () => {
     const r = event.data;
     try {
-      if (r.kind === 'initialize') { runtime?.free(); runtime = await PhysicsRuntime.create(r.seed); }
+      if (r.kind === 'initialize') { runtime?.free(); runtime = await PhysicsRuntime.create(r.seed, true, r.initialTick); }
       if (!runtime) throw new Error('Physics worker has not initialized');
       if (r.kind === 'save') { scope.postMessage({ requestId: r.requestId, kind: 'save', save: runtime.save() }); return; }
       if (r.kind === 'restore') runtime.restore(r.save);

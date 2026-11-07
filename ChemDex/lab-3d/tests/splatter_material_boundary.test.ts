@@ -42,7 +42,7 @@ describe('Splatter ballistic transport', () => {
   it('falls the correct SI distance and preserves ballistic energy', () => {
     const point = { x: 0, y: 10, z: 0, vx: 2, vy: 0, vz: 1 };
     const result = advanceSplatterFlight(point, 0.1, -100);
-    expect((point.y - result.y) * METERS_PER_SCENE_UNIT).toBeCloseTo(0.5 * 9.8 * 0.1 ** 2, 12);
+    expect((point.y - result.y) * METERS_PER_SCENE_UNIT).toBeCloseTo(0.5 * 9.80665 * 0.1 ** 2, 12);
     expect(result.x).toBeCloseTo(0.2, 12);
     const energy = (p: typeof point) => (p.vx ** 2 + p.vy ** 2 + p.vz ** 2) / 2 + SCENE_GRAVITY * p.y;
     expect(energy(result)).toBeCloseTo(energy(point), 9);

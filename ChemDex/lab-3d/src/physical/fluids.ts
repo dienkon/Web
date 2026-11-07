@@ -1,17 +1,48 @@
-import { BoxGeometry, Matrix4, Quaternion, Vector3 } from 'three';
+import { BoxGeometry, Quaternion, Vector3 } from 'three';
 import { compileSolid, clippedSolidVolume, type CompiledSolid } from '../science/clippedSolidVolume';
 import { CONSTANTS } from '../core/units';
 import type { Quat, Vec3 } from './types';
 
 const cubes = new Map<string, CompiledSolid>();
-/** Exact clipped volume of an oriented box, separate from its display scale. */
-export function submergedBoxVolume(dimensions_m: Vec3, position_m: Vec3, rotation: Quat, surfaceY_m: number): number {
+export function compiledBox(dimensions_m: Vec3): CompiledSolid {
   const key = dimensions_m.join(':');
   let mesh = cubes.get(key);
   if (!mesh) {
     const g = new BoxGeometry(...dimensions_m); mesh = compileSolid(g); g.dispose();
     if (cubes.size > 128) cubes.clear(); cubes.set(key, mesh);
   }
+  return mesh;
+}
+/** Exact clipped volume of an oriented box, separate from its display scale. */
+export function submergedBoxVolume(dimensions_m: Vec3, position_m: Vec3, rotation: Quat, surfaceY_m: number): number {
+  // Volume under a plane equals the CDF of a sum of up to three uniforms.
+  // Inclusion/exclusion integrates the clipped parallelepiped analytically;
+  // ill-conditioned near-parallel orientations retain the mesh oracle path.
+  const [x, y, z, w] = rotation;
+  const projected = [Math.abs(2 * (x * y + z * w)) * dimensions_m[0],
+    Math.abs(1 - 2 * (x * x + z * z)) * dimensions_m[1],
+    Math.abs(2 * (y * z - x * w)) * dimensions_m[2]];
+  const width = projected.reduce((sum, a) => sum + a, 0), height = surfaceY_m - position_m[1];
+  const total = dimensions_m[0] * dimensions_m[1] * dimensions_m[2];
+  if (height <= -width / 2) return 0;
+  if (height >= width / 2) return total;
+  if (Math.abs(height) < 1e-16) return total / 2;
+  const axes = projected.filter(a => a > width * 1e-12);
+  const largest = Math.max(...axes), smallest = Math.min(...axes);
+  if (axes.length === 1 || smallest / largest >= 1e-5) {
+    const a = axes.map(value => value / largest), n = a.length;
+    const s = (width / 2 - Math.abs(height)) / largest;
+    let sum = 0;
+    for (let mask = 0; mask < (1 << n); mask++) {
+      let shifted = s, parity = 1;
+      for (let i = 0; i < n; i++) if (mask & (1 << i)) { shifted -= a[i]; parity = -parity; }
+      sum += parity * Math.max(0, shifted) ** n;
+    }
+    const factorial = n === 3 ? 6 : n === 2 ? 2 : 1;
+    const fraction = Math.max(0, Math.min(0.5, sum / (factorial * a.reduce((product, value) => product * value, 1))));
+    return total * (height > 0 ? 1 - fraction : fraction);
+  }
+  const mesh = compiledBox(dimensions_m);
   const inverse = new Quaternion(...rotation).normalize().invert();
   const normal = new Vector3(0, 1, 0).applyQuaternion(inverse);
   const offset = surfaceY_m - position_m[1];

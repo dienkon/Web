@@ -1,10 +1,12 @@
 import { VesselState, BurnerState, LabActionHistory, LabMaterialSnapshot } from '../types/chemistry';
 import { normalizeSpillFootprints } from '../engine/spillInventory';
+import { capturePhysicalLab } from '../physical/usePhysicsStore';
 
 const STORAGE_KEY_VESSELS = 'chemlab_vessels_state_v2';
 const STORAGE_KEY_BURNERS = 'chemlab_burners_state_v2';
 const STORAGE_KEY_HISTORY = 'chemlab_action_history_v2';
-const STORAGE_KEY_PHYSICAL = 'chemlab_physical_state_v3';
+const STORAGE_KEY_PHYSICAL = 'chemlab_physical_state_v4';
+const STORAGE_KEY_PHYSICAL_LEGACY = 'chemlab_physical_state_v3';
 
 export interface PersistedLabState {
   vessels: Record<string, VesselState>;
@@ -19,7 +21,7 @@ export function loadPersistedLabState(): PersistedLabState | null {
     if (typeof window === 'undefined' || typeof localStorage === 'undefined' || !localStorage) {
       return null;
     }
-    const physical = localStorage.getItem(STORAGE_KEY_PHYSICAL);
+    const physical = localStorage.getItem(STORAGE_KEY_PHYSICAL) ?? localStorage.getItem(STORAGE_KEY_PHYSICAL_LEGACY);
     if (physical) {
       const parsed = JSON.parse(physical) as PersistedLabState;
       if (parsed.vessels && parsed.burners) {
@@ -50,12 +52,13 @@ export function debounceSaveLocalState(
   burners: Record<string, BurnerState>,
   materials?: LabMaterialSnapshot,
 ) {
+  const completeMaterials = materials ? { ...materials, physics: materials.physics ?? capturePhysicalLab() } : materials;
   if (saveTimer) clearTimeout(saveTimer);
   saveTimer = setTimeout(() => {
     try {
       if (typeof window === 'undefined' || typeof localStorage === 'undefined' || !localStorage) return;
       // One atomic record keeps airborne matter and the already depleted source together.
-      localStorage.setItem(STORAGE_KEY_PHYSICAL, JSON.stringify({ vessels, burners, materials, savedAt: Date.now() }));
+      localStorage.setItem(STORAGE_KEY_PHYSICAL, JSON.stringify({ vessels, burners, materials: completeMaterials, savedAt: Date.now() }));
     } catch (e) {
       console.warn('LocalStorage save error:', e);
     }
@@ -89,7 +92,7 @@ export function pushHistorySnapshot(
     snapshot: {
       vessels: JSON.parse(JSON.stringify(vessels)),
       burners: JSON.parse(JSON.stringify(burners)),
-      ...(materials ? { materials: JSON.parse(JSON.stringify(materials)) } : {})
+      ...(materials ? { materials: JSON.parse(JSON.stringify({ ...materials, physics: materials.physics ?? capturePhysicalLab() })) } : {})
     }
   };
 
