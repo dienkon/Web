@@ -81,6 +81,7 @@
   }
   function init() {
     Store.load();
+    DocumentFiles.loadPreferences();
     document.body.classList.toggle(
       "dark",
       Store.state.settings.theme === "dark",
@@ -112,11 +113,11 @@
     const colors = document.getElementById("colors");
     for (const color of [
       "#111111",
-      "#27836d",
-      "#4782c4",
-      "#d86560",
-      "#d6aa43",
-      "#9473b6",
+      "#008000",
+      "#0070c0",
+      "#c00000",
+      "#ffc000",
+      "#7030a0",
     ]) {
       const b = document.createElement("button");
       b.className = "swatch";
@@ -130,7 +131,7 @@
     const custom = document.createElement("button");
     custom.className = "swatch";
     custom.style.background =
-      "conic-gradient(#d86560,#d6aa43,#27836d,#4782c4,#9473b6,#d86560)";
+      "conic-gradient(#c00000,#ffc000,#008000,#0070c0,#7030a0,#c00000)";
     custom.title = "Chọn màu khác";
     custom.onclick = () => widthPopover(custom);
     colors.append(custom);
@@ -147,6 +148,7 @@
     CaptureStudio.init();
     NativeCalculators.init();
     TeachingAI.init();
+    ColorIcons.init();
     DocumentFiles.init().catch(error=>toast("Lưu tài liệu: "+error.message,7000));
     updateShapeButton();
     document.addEventListener("fullscreenchange", () => {
@@ -794,6 +796,7 @@
     else Panels[id]();
     if (id === "settings") WorkspaceUI.settings();
     if (id === "settings") TeachingAI.settings();
+    if (id === "settings") DocumentFiles.settings().catch(e=>toast(e.message));
     document
       .querySelectorAll('[data-action="panel"]')
       .forEach((b) => b.classList.toggle("active", b.dataset.panel === id));

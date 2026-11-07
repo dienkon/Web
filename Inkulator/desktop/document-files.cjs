@@ -1,79 +1,53 @@
 "use strict";
-const {app,dialog,ipcMain,shell}=require("electron");
-const fs=require("node:fs/promises"),path=require("node:path"),crypto=require("node:crypto");
-const replaceFile=require("./replace-file.cjs");
+const {app,dialog,ipcMain,shell}=require("electron"),fs=require("node:fs/promises"),path=require("node:path"),crypto=require("node:crypto"),pkg=require("./library-package.cjs");
 module.exports=function installDocuments(win){
-  const trusted=e=>e.sender===win.webContents&&e.senderFrame===win.webContents.mainFrame;
-  const root=process.env.INKULATOR_TEST_PROFILE?path.join(app.getPath("userData"),"Documents"):path.join(app.getPath("documents"),"Inkulator");
-  const indexPath=path.join(app.getPath("userData"),"document-index.json");
-  let queue=Promise.resolve(),index={files:{},recent:[]};const pendingOpens=new Map();
-  const ready=(async()=>{
-    for(const file of [indexPath,indexPath+".bak"]){try{const value=JSON.parse(await fs.readFile(file,"utf8"));if(value.files&&Array.isArray(value.recent)){index=value;return;}}catch{}}
-    const folder=path.join(root,"Tai lieu"),names=(await fs.readdir(folder).catch(()=>[])).filter(name=>name.endsWith(".smath.json")).slice(0,300);
-    for(const name of names){try{const file=path.join(folder,name),stat=await fs.stat(file);if(stat.size>100*1024*1024)continue;const data=validate(await fs.readFile(file,"utf8")),n=data.notebook;index.files[n.id]=file;index.recent.push({id:n.id,title:String(n.title||"Sổ tay").slice(0,300),file,modified:n.modified});}catch{}}
-  })();
-  async function atomic(file,content){
-    await fs.mkdir(path.dirname(file),{recursive:true});
-    const temp=file+"."+crypto.randomBytes(6).toString("hex")+".tmp";
-    try{await fs.writeFile(temp,content,"utf8");const handle=await fs.open(temp,"r+");try{await handle.sync();}finally{await handle.close();}if(file===indexPath)await fs.copyFile(indexPath,indexPath+".bak").catch(e=>{if(e.code!=="ENOENT")throw e;});await replaceFile(temp,file);}finally{await fs.unlink(temp).catch(()=>{});}
+ const profile=app.getPath("userData"),defaultRoot=process.env.INKULATOR_TEST_PROFILE?path.join(profile,"Documents"):path.join(app.getPath("documents"),"Inkulator");
+ let index={sequence:0,root:defaultRoot,files:{},recent:[]},queue=Promise.resolve();const pending=new Map();
+ const slots=[path.join(profile,"documents-2.a"),path.join(profile,"documents-2.b")];
+ const ready=(async()=>{
+  const versions=[];for(const file of slots){try{const v=await pkg.unpack(await fs.readFile(file));if(v.files&&Array.isArray(v.recent)&&path.isAbsolute(v.root))versions.push(v);}catch{}}
+  if(versions.length){index=versions.sort((a,b)=>b.sequence-a.sequence)[0];return;}
+  for(const file of ["document-index.json","document-index.json.bak"]){try{const old=JSON.parse(await fs.readFile(path.join(profile,file),"utf8"));if(old.files&&Array.isArray(old.recent)){index.files=old.files;index.recent=old.recent;break;}}catch{}}
+  if(!index.recent.length)await scan(path.join(index.root,"Tai lieu"),0);
+ })();
+ async function scan(folder,depth){if(depth>4||index.recent.length>=300)return;for(const item of await fs.readdir(folder,{withFileTypes:true}).catch(()=>[])){if(item.isSymbolicLink())continue;const file=path.join(folder,item.name);if(item.isDirectory())await scan(file,depth+1);else if(item.name==="book.ink"){try{const m=await pkg.readManifest(folder);index.files[m.id]=file;index.recent.push({id:m.id,title:m.title,file,modified:m.modified});}catch{}}else if(item.name.endsWith(".smath.json")){try{const d=pkg.parse(await fs.readFile(file,"utf8")),n=d.notebook;if(!index.files[n.id]){index.files[n.id]=file;index.recent.push({id:n.id,title:n.title,file,modified:n.modified});}}catch{}}}}
+ async function persist(){index.sequence++;await pkg.flushed(slots[index.sequence%2],await pkg.packed(index));}
+ function enqueue(fn){const result=queue.catch(()=>{}).then(()=>ready).then(fn);queue=result;return result;}
+ function handle(name,fn){ipcMain.handle("inkulator:documents-"+name,(e,arg)=>{if(e.sender!==win.webContents||e.senderFrame!==win.webContents.mainFrame)throw Error("Nguồn tài liệu không hợp lệ.");return enqueue(()=>fn(arg));});}
+ function defaultFolder(n,root=index.root){const group=String(n.folder||"So tay").split(/[\\/]/).filter(p=>p&&p!==".."&&p!==".").slice(0,3).map(pkg.safeName);return path.join(root,"Tai lieu",...group,pkg.safeName(n.title)+"-"+n.id.slice(0,8));}
+ async function write(raw,previews={},parent){const data=pkg.parse(raw),n=data.notebook,existing=index.files[n.id];let folder;
+  let movedFrom=null;
+  if(parent)folder=path.join(parent,pkg.safeName(n.title)+"-"+n.id.slice(0,8));else if(existing&&existing.endsWith(".ink")){folder=path.dirname(existing);const m=await pkg.readManifest(folder),owned=path.resolve(index.root,'Tai lieu')+path.sep;if(path.resolve(folder).startsWith(owned)&&(m.title!==n.title||m.notebook.folder!==n.folder)){const target=defaultFolder(n);if(path.resolve(target)!==path.resolve(folder)){const previous=await pkg.readManifest(target).catch(()=>null);if(previous&&previous.id!==n.id)throw Error('Thư mục đích chứa tài liệu khác.');await fs.cp(folder,target,{recursive:true,errorOnExist:!previous,force:false});movedFrom=folder;folder=target;}}}else folder=defaultFolder(n);
+  const result=await pkg.write(folder,data,previews);index.files[n.id]=result.file;index.recent=[{id:n.id,title:n.title,file:result.file,modified:n.modified},...index.recent.filter(i=>i.id!==n.id)].slice(0,300);await persist();
+  if(movedFrom){const source=await fs.realpath(movedFrom),destination=await fs.realpath(folder),base=await fs.realpath(path.join(index.root,'Tai lieu'));if(source.startsWith(base+path.sep)&&destination.startsWith(base+path.sep)&&source!==destination&&(await pkg.readManifest(movedFrom)).id===n.id)await fs.rm(source,{recursive:true,force:true});}
+  return {...result,folder:index.root};
+ }
+ async function readFile(file){const stat=await fs.stat(file);if(stat.size>240e6)throw Error("Tệp quá lớn.");const bytes=await fs.readFile(file);
+  if(file.toLowerCase().endsWith(".json"))return pkg.parse(bytes.toString("utf8"));
+  if(bytes[0]===0x50&&bytes[1]===0x4b){
+   const {unzipSync}=require("./archive.cjs");let total=0,count=0;const files=unzipSync(new Uint8Array(bytes),{filter:f=>{if(++count>15000||(total+=f.originalSize)>240e6||f.name.includes("\\")||f.name.startsWith("/")||f.name.split("/").includes(".."))throw Error("Gói nhập quá lớn hoặc đường dẫn không an toàn.");return !f.name.endsWith("/");}});
+   const temp=path.join(profile,"imports",crypto.randomUUID());await fs.mkdir(temp,{recursive:true});
+   try{for(const [name,value]of Object.entries(files)){const target=pkg.inside(temp,name);await fs.mkdir(path.dirname(target),{recursive:true});await fs.writeFile(target,value);}return await pkg.read(temp);}finally{const base=path.resolve(profile,"imports")+path.sep;if(path.resolve(temp).startsWith(base))await fs.rm(temp,{recursive:true,force:true});}
   }
-  function validate(raw){
-    if(typeof raw!=="string"||Buffer.byteLength(raw)>100*1024*1024)throw Error("Tệp sổ tay tối đa 100 MB.");
-    const data=JSON.parse(raw);
-    if(data.format!=="scrble-math"||data.version!==1||!data.notebook||!/^[\w-]{1,100}$/.test(data.notebook.id)||!Array.isArray(data.notebook.pages)||data.notebook.pages.length<1||data.notebook.pages.length>300)throw Error("Tệp sổ tay không hợp lệ.");
-    return data;
-  }
-  async function write(raw,file){
-    const data=validate(raw),id=data.notebook.id;
-    const name=String(data.notebook.title||"So tay").replace(/[<>:\"/\\|?*\x00-\x1f]/g,"_").slice(0,80);
-    file=file||index.files[id]||path.join(root,"Tai lieu",name+"-"+id.slice(0,8)+".smath.json");
-    if(!path.isAbsolute(file)||!file.toLowerCase().endsWith(".smath.json"))throw Error("Đường dẫn tài liệu không hợp lệ.");
-    const previous=await fs.readFile(file,"utf8").catch(e=>{if(e.code!=="ENOENT")throw e;return null;});
-    if(previous!==raw){
-      if(previous){
-        const token=crypto.createHash("sha256").update(file).digest("hex").slice(0,16),backup=path.join(root,"Khoi phuc",token);
-        await fs.mkdir(backup,{recursive:true});await atomic(path.join(backup,Date.now()+".smath.json"),previous);
-        const names=(await fs.readdir(backup)).filter(n=>/^\d+\.smath\.json$/.test(n)).sort();
-        for(const name of names.slice(0,-10))await fs.unlink(path.join(backup,name));
-      }
-      await atomic(file,raw);
-    }
-    index.files[id]=file;
-    index.recent=[{id,title:String(data.notebook.title||"Sổ tay").slice(0,300),file,modified:data.notebook.modified},...index.recent.filter(item=>item.id!==id)].slice(0,300);
-    await atomic(indexPath,JSON.stringify(index));
-    return {id,file,title:data.notebook.title,folder:root};
-  }
-  function enqueue(task){const result=queue.catch(()=>{}).then(()=>ready).then(task);queue=result;return result;}
-  function handler(name,fn){ipcMain.handle("inkulator:documents-"+name,(e,arg)=>{if(!trusted(e))throw Error("Nguồn tài liệu không hợp lệ.");return fn(arg);});}
-  handler("save",arg=>enqueue(async()=>{
-    if(!arg||typeof arg!=="object")throw Error("Thiếu tài liệu.");validate(arg.raw);
-    let file;
-    if(arg.saveAs){const d=await dialog.showSaveDialog(win,{title:"Lưu sổ tay trên máy",defaultPath:path.join(root,(String(JSON.parse(arg.raw).notebook.title||"So tay").replace(/[<>:\"/\\|?*\x00-\x1f]/g,"_").slice(0,90))+".smath.json"),filters:[{name:"Sổ tay Inkulator",extensions:["smath.json"]}]});if(d.canceled)return null;file=d.filePath;}
-    return write(arg.raw,file);
-  }));
-  handler("list",()=>enqueue(async()=>({folder:root,items:index.recent})));
-  handler("open",id=>enqueue(async()=>{
-    let file=index.files[id];
-    if(id===undefined||id===null){const d=await dialog.showOpenDialog(win,{title:"Mở sổ tay trên máy",defaultPath:root,properties:["openFile"],filters:[{name:"Sổ tay Inkulator",extensions:["json"]}]});if(d.canceled)return null;file=d.filePaths[0];}
-    if(!file)throw Error("Không tìm thấy tài liệu.");
-    const stat=await fs.stat(file);if(stat.size>100*1024*1024)throw Error("Tệp tối đa 100 MB.");
-    const raw=await fs.readFile(file,"utf8"),data=validate(raw),token=crypto.randomBytes(20).toString("hex");
-    pendingOpens.set(token,{id:data.notebook.id,file,created:Date.now()});
-    for(const [key,value]of pendingOpens)if(Date.now()-value.created>600000)pendingOpens.delete(key);
-    return {raw,file,token};
-  }));
-  handler("accept",token=>enqueue(async()=>{const value=pendingOpens.get(token);if(!value)throw Error("Phiên mở tài liệu đã hết hạn.");pendingOpens.delete(token);index.files[value.id]=value.file;await atomic(indexPath,JSON.stringify(index));return true;}));
-  handler("folder",()=>enqueue(async()=>{await fs.mkdir(root,{recursive:true});const error=await shell.openPath(root);if(error)throw Error(error);return true;}));
-  handler("recovery",id=>enqueue(async()=>{
-    const file=index.files[id];if(!file)return [];
-    const token=crypto.createHash("sha256").update(file).digest("hex").slice(0,16),folder=path.join(root,"Khoi phuc",token);
-    return (await fs.readdir(folder).catch(()=>[])).filter(n=>/^\d+\.smath\.json$/.test(n)).sort().reverse().map(name=>({stamp:Number(name.split(".")[0]),name}));
-  }));
-  handler("restore",arg=>enqueue(async()=>{
-    const file=index.files[arg?.id];if(!file||!/^\d+\.smath\.json$/.test(arg?.name||""))throw Error("Bản khôi phục không hợp lệ.");
-    const token=crypto.createHash("sha256").update(file).digest("hex").slice(0,16);
-    const raw=await fs.readFile(path.join(root,"Khoi phuc",token,arg.name),"utf8");validate(raw);return {raw,file};
-  }));
-  handler("flush",()=>queue.catch(()=>{}));
-  return {flush:()=>queue.catch(()=>{})};
+  return pkg.read(path.dirname(file));
+ }
+ handle("save",async arg=>{if(!arg||typeof arg!=="object")throw Error("Thiếu tài liệu.");pkg.parse(arg.raw);let parent;if(arg.saveAs){const d=await dialog.showOpenDialog(win,{title:"Chọn thư mục lưu bản sao sổ tay",defaultPath:index.root,properties:["openDirectory","createDirectory"]});if(d.canceled)return null;parent=d.filePaths[0];}return write(arg.raw,arg.previews||{},parent);});
+ handle("list",()=>({folder:index.root,items:index.recent,format:"inkulator-package-v2"}));
+ handle('backupCache',async raw=>{if(typeof raw!=='string'||raw.length>16e6)throw Error('Bản đệm quá lớn.');const file=path.join(profile,'LegacyCache',pkg.hash(Buffer.from(raw))+'.ink-cache');await fs.mkdir(path.dirname(file),{recursive:true});try{await fs.access(file);}catch{await pkg.flushed(file,await pkg.packed({format:'legacy-browser-cache',raw}));}return true;});
+ handle("open",async id=>{let file=index.files[id];if(id===undefined||id===null){const d=await dialog.showOpenDialog(win,{title:"Mở sổ tay Inkulator",defaultPath:index.root,properties:["openFile"],filters:[{name:"Tài liệu Inkulator",extensions:["ink","json"]}]});if(d.canceled)return null;file=d.filePaths[0];}if(!file)throw Error("Không tìm thấy tài liệu.");const data=await readFile(file),token=crypto.randomUUID();pending.set(token,{data,file,created:Date.now()});for(const [k,v]of pending)if(Date.now()-v.created>600000)pending.delete(k);return {raw:JSON.stringify(data),file,token};});
+ handle("accept",async token=>{const item=pending.get(token);if(!item)throw Error("Phiên mở đã hết hạn.");pending.delete(token);let file=item.file;if(!file.endsWith("book.ink")&&!file.endsWith("book.recovery.ink")){const saved=await write(JSON.stringify(item.data));file=saved.file;}index.files[item.data.notebook.id]=file;await persist();return true;});
+ handle("folder",async()=>{await fs.mkdir(index.root,{recursive:true});const error=await shell.openPath(index.root);if(error)throw Error(error);return true;});
+ handle("location",async()=>{
+  const choice=await dialog.showOpenDialog(win,{title:"Chọn nơi lưu thư viện Inkulator",defaultPath:index.root,properties:["openDirectory","createDirectory"]});if(choice.canceled)return null;
+  const selected=path.resolve(choice.filePaths[0]);if(selected===path.resolve(index.root))return {folder:index.root};
+  const source=[...index.recent],oldRoot=index.root,oldFiles={...index.files},oldRecent=[...index.recent];index.root=selected;
+  try{for(const item of source){const data=await readFile(item.file),previews={};if(item.file.endsWith('.ink')){const m=await pkg.readManifest(path.dirname(item.file));for(const page of m.pages)if(page.preview){previews[page.id]='data:image/png;base64,'+(await fs.readFile(pkg.inside(path.dirname(item.file),page.preview))).toString('base64');}}delete index.files[item.id];await write(JSON.stringify(data),previews);}await persist();return {folder:index.root,oldFolder:oldRoot,copied:source.length};}
+  catch(e){index.root=oldRoot;index.files=oldFiles;index.recent=oldRecent;await persist();throw e;}
+ });
+ handle("recovery",async id=>{const file=index.files[id];if(!file?.endsWith('.ink'))return [];const folder=path.join(path.dirname(file),"History");const list=[];for(const name of(await fs.readdir(folder).catch(()=>[])).filter(n=>/^\d+\.ink$/.test(n)).sort().reverse()){const m=await pkg.unpack(await fs.readFile(path.join(folder,name)));list.push({name,stamp:Date.parse(m.modified)||Date.now()});}return list;});
+ handle("restore",async arg=>{const file=index.files[arg?.id];if(!file?.endsWith('.ink')||!/^\d+\.ink$/.test(arg.name))throw Error("Bản khôi phục không hợp lệ.");const folder=path.dirname(file),m=await pkg.unpack(await fs.readFile(path.join(folder,"History",arg.name)));return {raw:JSON.stringify(await pkg.read(folder,m)),file};});
+ handle("export",async id=>{const file=index.files[id];if(!file?.endsWith('.ink'))throw Error("Lưu tài liệu trước khi xuất gói.");const folder=path.dirname(file),m=await pkg.readManifest(folder);const d=await dialog.showSaveDialog(win,{title:"Xuất gói tài liệu đầy đủ",defaultPath:path.join(index.root,pkg.safeName(m.title)+'.ink'),filters:[{name:"Gói Inkulator",extensions:["ink"]}]});if(d.canceled)return null;
+  const files={"book.ink":new Uint8Array(await pkg.packed(m))},refs=new Set([...m.pages.map(p=>p.file),...Object.keys(m.media),...m.pages.map(p=>p.preview).filter(Boolean)]);for(const ref of refs)files[ref]=new Uint8Array(await fs.readFile(pkg.inside(folder,ref)));const {zipSync}=require("./archive.cjs");await pkg.flushed(d.filePath,Buffer.from(zipSync(files,{level:5})));return {file:d.filePath};});
+ handle("flush",()=>true);
+ return {flush:()=>queue.catch(()=>{})};
 };

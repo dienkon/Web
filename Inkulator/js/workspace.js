@@ -114,7 +114,7 @@
     hint.textContent = "Nhấp đúp chỉ sửa đối tượng khi dùng công cụ Chọn. Undo lưu riêng từng nét; lịch sử có giới hạn bộ nhớ. Tự lưu khi tạm ngưng viết và khi chuyển ứng dụng.";
     label.after(hint);
     if(root.InkulatorDesktop?.documents){
-      const disk=document.createElement("p");disk.className="hint";disk.textContent="Tài liệu tự lưu thành tệp trong Documents / Inkulator; mỗi tệp giữ 10 phiên bản khôi phục. Ctrl+S lưu ngay, Ctrl+Shift+S lưu thành tệp khác. Thư viện trình duyệt là bản đệm.";hint.after(disk);
+      const disk=document.createElement("p");disk.className="hint";disk.textContent="Mỗi sổ có thư mục riêng, ảnh/PDF gốc và ảnh PNG xem trước. Dữ liệu nét được nén để sửa tiếp; giữ 10 phiên bản khôi phục. Đổi nơi lưu thư viện ở mục Tài liệu trên máy bên dưới.";hint.after(disk);
       for(const [text,action]of [["Tài liệu trên máy","local-documents"],["Lưu thành…","save-as"]]){const b=document.createElement("button");b.className="secondary full";b.textContent=text;b.dataset.action=action;disk.after(b);}
     }
   }

@@ -41,7 +41,7 @@
     smartShape: false,
     animations: true,
     autoPages: true,
-    handwritingAI: false,
+    handwritingOCR: false,
   };
   const state = {
     notebooks: [notebook()],
@@ -884,6 +884,11 @@
       scheduleSave();
       return state.storageAvailable;
     }
+    if(root.InkulatorDesktop?.documents&&root.DocumentFiles?.initialized){
+      try{localStorage.setItem('inkulator-device-v2',JSON.stringify({settings:state.settings,activeId:book().id,pageIndex:state.pageIndex}));}catch{}
+      state.storageAvailable=true;
+      root.DocumentFiles.sync();root.App?.updateSaveState();return state.storageAvailable;
+    }
     try {
       if (state.loadError) throw Error("Giữ nguyên bản lưu lỗi để phục hồi.");
       for (const nb of state.notebooks) {
@@ -985,7 +990,7 @@
           "animations",
           "autoPages",
           "performance",
-          "handwritingAI",
+          "handwritingOCR",
         ])
           if (typeof lib.settings[k] === typeof defaults[k])
             state.settings[k] = lib.settings[k];

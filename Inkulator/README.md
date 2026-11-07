@@ -1,10 +1,10 @@
-# Inkulator · 1.9.1
+# Inkulator · 2.0.1
 
 Sổ tay Toán học ngoại tuyến cho Windows, lấy cảm hứng bố cục từ ảnh Scrble Ink được cung cấp. Phần Casio tích hợp source của Tikz-Physics, ghi nguồn riêng bên dưới; không phải sản phẩm chính thức của Scrble, GeoGebra hay Casio.
 
 ## Mở ứng dụng
 
-**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-1.9.1-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Tài liệu tự lưu thành tệp trong **Documents / Inkulator**; thư viện trình duyệt được giữ làm bản đệm. Bộ cài cá nhân chưa ký số.
+**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-2.0.1-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Tài liệu tự lưu thành tệp trong **Documents / Inkulator**; bộ đệm cũ được sao lưu nén khi chuyển đổi, ứng dụng mở bản mới nhất trên ổ đĩa. Bộ cài cá nhân chưa ký số.
 
 **Bản web và iPad:** bản web vẫn chạy từ `index.html` trên máy tính. Trên iPad, phục vụ toàn bộ thư mục ứng dụng qua HTTP/HTTPS rồi mở bằng Safari; iPad không chạy tệp `.exe`. Không có máy chủ nào được triển khai tự động. Bản Windows và trình duyệt có kho lưu riêng; dùng **Ctrl+S / Mở tệp** để chuyển sổ tay giữa các bản.
 
@@ -18,7 +18,20 @@ Nếu dùng bản ZIP trên máy tính:
 
 Tất cả script, CSS, icon và thư viện nằm trong thư mục sản phẩm. Bản chạy dùng script cổ điển, không cần ES module từ file://, CDN, service worker hoặc tải font mạng. PDF.js được bundle cùng phần xử lý worker để chạy trên luồng chính, nhận font/CMap/decoder từ dữ liệu nhúng; không tạo worker từ đường dẫn file://. Công thức dùng SVG glyph có sẵn, không tải font ngoài.
 
-## Điểm mới 1.9 · tài liệu trên máy và trợ lý Toán 12
+## Điểm mới 2.0 · gói tài liệu, máy tính đi kèm và OCR cục bộ
+
+- Bộ cài có sẵn **hai bộ giả lập Windows gốc 580 và 880**, EXE/DLL và tài liệu đi kèm. Cài Inkulator sẽ cài luôn các tài nguyên đó, tạo lối tắt trong Start Menu / Inkulator; không cần giữ hai thư mục D:\Apps để mở máy. Đây là các bộ nhị phân gốc được cung cấp, không phải mã nguồn Casio để biên dịch. Cơ chế giấy phép của chương trình gốc vẫn áp dụng.
+- **Thư viện có tổ chức:** mỗi sổ là một thư mục trong `Tai lieu / nhóm sổ / tên sổ–mã`. Đổi tên/nhóm sổ cập nhật thư mục. `Images` giữ nguyên byte ảnh PNG/JPEG/WebP; `PDF` giữ PDF gốc; `Pages` giữ nét/hình chỉnh sửa được dạng nén; `Previews` có PNG trang đã xem; `History` giữ 10 phiên bản nội dung. Ảnh/PDF trùng nhau dùng chung trong từng sổ. Ảnh xem trước là dữ liệu dẫn xuất, không nhân mười bản theo lịch sử.
+- **Cài đặt → Tài liệu trên máy → Đổi nơi lưu thư viện…** chọn thư mục khác, sao chép và kiểm tra tài liệu; giữ bản ở nơi cũ. **Lưu thành…** chọn thư mục lưu bản sổ riêng. **Lưu bản snapshot** xuất gói `.ink` ZIP có đầy đủ tài nguyên để chuyển máy; mở được cả `.ink` và `.smath.json` cũ. Sổ cũ tự chuyển sang gói mới khi lưu; tệp JSON cũ vẫn được giữ.
+- Danh mục và manifest dùng hai bản có checksum, ghi trực tiếp vào từng bản và phục hồi khi ghi dở; đường lưu mới không dùng rename, xử lý trường hợp EXDEV của hồ sơ Windows chuyển hướng. Ghi xong tài nguyên mới cập nhật manifest. Nét viết vẫn sửa/Undo bình thường; ảnh/PDF gốc không bị chuyển thành JSON base64 trên ổ đĩa.
+- **Chụp vùng:** làm mờ/tối toàn cửa sổ; vùng kéo được hiện sáng, rõ. Ảnh chụp dựng PDF riêng theo yêu cầu, không làm trống cache PDF đang hiển thị. PNG chứa đúng PDF, nét và hình; bỏ bảng điều khiển. Công cụ **Chọn** kéo hình chữ nhật để chọn nhiều đối tượng; công cụ lasso vẫn chọn tự do.
+- Icon ảnh màu đúng chức năng, gồm PDF đỏ, máy tính, ảnh, camera, bút, tẩy và hình học. Các icon tải từ Microsoft Fluent/vscode-icons có ghi nguồn và giấy phép, kết hợp SVG riêng. Bảng màu bút dùng đỏ đậm `#C00000`, xanh `#0070C0`, xanh lá `#008000`, vàng `#FFC000`, tím `#7030A0`.
+- **Gemini** dùng khóa mặc định theo cấu hình bản cài, không cần nhập lại. Khóa riêng có thể thay trong Cài đặt hoặc trở về khóa mặc định. Đã kiểm tra yêu cầu thật từ vùng PDF. Khóa mặc định đi cùng tài nguyên bộ cài theo yêu cầu; đây không phải bí mật không thể trích xuất khỏi chương trình. Khóa đang sử dụng được mã hóa trong hồ sơ Windows. Gemini vẫn cần Internet và hạn mức tài khoản.
+- **OCR viết tay tách khỏi Gemini:** CoMER/ink-on và ONNX Runtime chạy bằng Web Worker trên CPU, có đầy đủ model/WASM trong bộ cài. Không cần mạng, API key, Python hoặc tải model lần đầu. Mặc định tắt; bật nhận diện cục bộ trong Cài đặt hoặc khoanh vùng và chọn Đẹp công thức. Xem/sửa LaTeX, chọn cách đọc khác và Undo khi thay nét. Model nhận diện thống kê, không phải cơ sở dữ liệu bao phủ tuyệt đối mọi chữ viết; chưa bảo đảm đúng 100%.
+
+[Thay đổi và kiểm tra bản 2.0](docs/RELEASE-2.0.md).
+
+## Lịch sử bản 1.9 · tài liệu trên máy và trợ lý Toán 12
 
 - **Lưu như tài liệu:** bản Windows tự tạo tệp `.smath.json` cho mỗi sổ trong **Documents / Inkulator / Tai lieu**, tên tệp có tên sổ và mã riêng. Autosave dùng khoảng chờ đã cài, ghi tệp tạm rồi thay thế tệp chính; giữ tối đa 10 bản trước trong **Khoi phuc**. PDF gốc trong IndexedDB được nhúng vào tệp để mở lại độc lập. Đóng cửa sổ đợi ghi xong tài liệu, gồm cả nét vừa viết. Bộ nhớ trình duyệt đầy vẫn có thể lưu tệp trên máy.
 - **Ctrl+S** lưu ngay, **Ctrl+Shift+S / Lưu thành…** chọn tệp khác và tiếp tục tự lưu vào tệp đó. Nút **Tài liệu trên máy** trên thanh trên mở danh sách, tệp khác, thư mục lưu và các phiên bản khôi phục. Khi bộ nhớ trình duyệt trống, ứng dụng khôi phục từ những tệp đã ghi. Bản web tiếp tục có nút tải tệp và bộ nhớ trình duyệt.

@@ -156,6 +156,7 @@
     }
   }
   const previewImages = new Map();
+  async function snapshotImage(o,size=2000){const doc=await getDocument(o);return raster(doc,o.data.pageNumber,o.data.pageRotation,Math.max(500,Math.min(3200,size)));}
   function draw(ctx, o) {
     const screen = ctx.canvas?.id === "ink-canvas";
     const zoom = ctx.getTransform
@@ -632,6 +633,7 @@
     getDocument,
     raster,
     prepare,
+    snapshotImage,
     draw,
     parseRange,
     importFile,

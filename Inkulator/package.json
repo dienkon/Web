@@ -1,19 +1,19 @@
 {
   "name": "scrble-math-studio",
-  "version": "1.9.1",
+  "version": "2.0.1",
   "private": true,
   "description": "Offline mathematical notebook for Windows and pen tablets",
   "main": "desktop/main.cjs",
   "author": "Inkulator",
   "scripts": {
     "start": "electron .",
-    "desktop:build": "node scripts/build-casio.cjs && electron-builder --win nsis --x64 --publish never",
+    "desktop:build": "node scripts/build-casio.cjs && node scripts/build-runtime.cjs && node scripts/preflight-desktop.cjs && electron-builder --win nsis --x64 --publish never",
     "test:desktop": "node tests/desktop-tests.cjs",
     "test:performance": "node tests/ink-performance-tests.cjs",
     "test:geometry-pen": "node tests/geometry-pen-browser-tests.cjs",
     "test:capture-layout": "node tests/capture-layout-browser-tests.cjs",
-    "test:teaching": "node tests/gemini-core-tests.cjs && node tests/teaching-desktop-tests.cjs",
-    "test:teaching-browser": "node tests/teaching-browser-tests.cjs",
+    "test:teaching": "node tests/gemini-core-tests.cjs && node tests/library-v2-tests.cjs",
+    "test:teaching-browser": "node tests/offline-ocr-browser-tests.cjs",
     "test": "node tests/math-tests.cjs && node tests/construction-tests.cjs && node tests/visibility-tests.cjs",
     "test:browser": "node tests/browser-tests.cjs",
     "test:advanced": "node tests/advanced-browser-tests.cjs",
@@ -25,7 +25,11 @@
     "test:pdf": "node tests/pdf-flow-browser-tests.cjs",
     "test:notebook": "node tests/notebook-browser-tests.cjs",
     "vendor:casio": "node scripts/build-casio.cjs",
-    "test:casio": "node scripts/build-casio.cjs && node tests/casio-browser-tests.cjs"
+    "test:casio": "node scripts/build-casio.cjs && node tests/casio-browser-tests.cjs",
+    "test:ocr": "node tests/offline-ocr-browser-tests.cjs",
+    "test:library-v2": "node tests/library-v2-tests.cjs",
+    "test:capture-v2": "node tests/capture-pdf-v2-tests.cjs",
+    "test:desktop-v2": "node tests/desktop-v2-tests.cjs"
   },
   "build": {
     "appId": "vn.inkulator.studio",
@@ -45,10 +49,13 @@
       "package.json",
       "README.md",
       "!vendor/casio-fx580vnx/upstream/**",
-      "!vendor/casio-fx580vnx/runtime/source/**"
+      "!vendor/casio-fx580vnx/runtime/source/**",
+      "!vendor/ink-on/upstream/**"
     ],
     "asar": true,
-    "asarUnpack": ["desktop/native-window.ps1"],
+    "asarUnpack": [
+      "desktop/native-window.ps1"
+    ],
     "npmRebuild": false,
     "win": {
       "target": "nsis",
@@ -66,15 +73,28 @@
       "createStartMenuShortcut": true,
       "shortcutName": "Inkulator",
       "deleteAppDataOnUninstall": false,
-      "runAfterFinish": true
-    }
+      "runAfterFinish": true,
+      "include": "desktop/installer.nsh"
+    },
+    "extraResources": [
+      {
+        "from": ".local/emulators",
+        "to": "emulators"
+      },
+      {
+        "from": ".local/runtime-key",
+        "to": "configuration/default-key.dat"
+      }
+    ]
   },
   "devDependencies": {
     "electron": "45.2.3",
     "electron-builder": "26.18.0",
     "esbuild": "0.28.2",
+    "fflate": "0.8.2",
     "mathjax-full": "3.2.2",
     "mathjs": "15.2.0",
+    "onnxruntime-web": "1.24.2",
     "pdf-lib": "1.17.1",
     "pdfjs-dist": "6.5.438",
     "playwright": "1.56.1"

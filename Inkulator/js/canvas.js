@@ -285,8 +285,7 @@
         Store.emit();
       } else {
         if (!e.shiftKey && !S().multiSelect) S().selection = [];
-        gesture.mode = "lasso";
-        gesture.points = [p];
+        gesture.mode = "marquee";
         Store.emit();
       }
       return;
@@ -612,6 +611,11 @@
         Store.current().objects.push(obj);
         S().selection = [obj.id];
       }
+    }
+    if (g.mode === "marquee") {
+      const box=rect(g.start,g.last);
+      if(box.w+box.h>8/S().viewport.zoom)for(const o of Store.current().objects){if(!layerEditable(o))continue;const b=Renderer.selectionBounds(o),points=[{x:b.x,y:b.y},{x:b.x+b.w,y:b.y},{x:b.x+b.w,y:b.y+b.h},{x:b.x,y:b.y+b.h}].map(p=>Renderer.worldPoint(o,p));const xs=points.map(p=>p.x),ys=points.map(p=>p.y);if(Math.max(...xs)>=box.x&&Math.min(...xs)<=box.x+box.w&&Math.max(...ys)>=box.y&&Math.min(...ys)<=box.y+box.h)S().selection.push(o.id);}
+      S().selection=[...new Set(S().selection)];
     }
     if (g.mode === "lasso" && g.points.length > 2) {
       const polygon = g.points;
@@ -1122,6 +1126,7 @@
       drawActiveStroke(ctx, laser.points, "laser", true);
     }
     if (g?.mode === "shape" && g.draft) Renderer.drawObject(ctx, g.draft);
+    if(g?.mode==='marquee'){const b=rect(g.start,g.last);ctx.fillStyle='#0070c018';ctx.strokeStyle='#0070c0';ctx.lineWidth=1.5/S().viewport.zoom;ctx.setLineDash([6/S().viewport.zoom,4/S().viewport.zoom]);ctx.fillRect(b.x,b.y,b.w,b.h);ctx.strokeRect(b.x,b.y,b.w,b.h);ctx.setLineDash([]);}
     if (g?.mode === "lasso" && g.points) {
       ctx.strokeStyle = "#39967c";
       ctx.fillStyle = "#3394770b";

@@ -9,18 +9,16 @@
     b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3zM20 2v4M18 4h4"/></svg>';
     document.querySelector('.workspace-tabs [data-action="capture"]').after(b);
     document.addEventListener("inkcommitted",event=>{
-      if(!Store.state.settings.handwritingAI||!bridge()||navigator.onLine===false)return;
+      if(!Store.state.settings.handwritingOCR)return;
       clearTimeout(inkTimer);
       for(const item of event.detail||[])if(item.object.type==="stroke")inkBatch.push({bookId:Store.book().id,pageId:item.pageId,id:item.object.id});
       inkTimer=setTimeout(autoRecognize,2600);
     });
     document.addEventListener("keydown",e=>{if(e.key==="Escape"){document.getElementById("ai-region-wheel")?.remove();}});
-    window.addEventListener("offline",()=>{document.getElementById("ai-region-wheel")?.remove();if(busy)cancel();});
+    window.addEventListener("offline",()=>{document.getElementById("ai-region-wheel")?.remove();if(busy&&!root.LocalMathOCR?.busy)cancel();});
   }
   function start(){
     if(busy)return App.toast("Đang xử lý vùng trước. Có thể hủy trong bảng AI.");
-    if(!bridge())return App.toast("Trợ lý Gemini hiện dùng trên bản cài Windows. Các công cụ vẽ vẫn hoạt động ngoại tuyến.");
-    if(navigator.onLine===false)return App.toast("Đang ngoại tuyến. Có Internet rồi có thể dùng trợ lý; nét viết vẫn giữ nguyên.");
     document.getElementById("ai-region-wheel")?.remove();
     CaptureStudio.start({onCapture:showWheel});
   }
@@ -30,8 +28,8 @@
     const wheel=document.createElement("section");wheel.id="ai-region-wheel";wheel.setAttribute("aria-label","Thao tác với vùng đã khoanh");
     const title=document.createElement("button");title.className="ai-wheel-center";title.textContent="×";title.title="Bỏ vùng chọn";title.onclick=()=>wheel.remove();wheel.append(title);
     Object.keys(names).forEach((action,i)=>{
-      const b=document.createElement("button"),angle=(-90+i*60)*Math.PI/180;b.dataset.aiAction=action;b.title=names[action];b.innerHTML='<span aria-hidden="true">'+icons[action]+'</span><small>'+names[action]+'</small>';
-      b.style.left=(112+76*Math.cos(angle))+"px";b.style.top=(112+76*Math.sin(angle))+"px";b.onclick=()=>{wheel.remove();ask(action,value);};wheel.append(b);
+      const b=document.createElement("button"),angle=(-90+i*60)*Math.PI/180;b.dataset.aiAction=action;b.title=names[action];b.disabled=action!=="latex"&&navigator.onLine===false;b.innerHTML='<span aria-hidden="true">'+icons[action]+'</span><small>'+names[action]+'</small>';
+      b.style.left=(112+76*Math.cos(angle))+"px";b.style.top=(112+76*Math.sin(angle))+"px";b.onclick=()=>{wheel.remove();action==="latex"?recognizeLocal(value):ask(action,value);};wheel.append(b);
     });
     const area=Renderer.area,r=value.rect;let x=r.x+r.w+24,y=r.y+r.h/2-112;
     if(x+224>area.clientWidth-12)x=r.x-248;
@@ -45,11 +43,12 @@
     document.body.append(panel);panel.querySelector("#ai-close").onclick=()=>{if(busy)cancel();panel.hidden=true;};panel.querySelector("#ai-cancel").onclick=cancel;return panel;
   }
   async function ask(action,value){
+    if(action==='latex')return recognizeLocal(value);
     if(busy)return;
     if(!bridge())return App.toast("Cần bản Windows để dùng Gemini.");
     if(navigator.onLine===false)return App.toast("Không có Internet. Vùng viết được giữ nguyên.");
     const current=++generation;region=value;result=null;busy=true;
-    const panel=createPanel();panel.hidden=false;
+    const panel=createPanel();panel.hidden=false;panel.querySelector('header strong').textContent='Trợ lý Toán 12 · Gemini';
     const status=panel.querySelector("#ai-status"),content=panel.querySelector("#ai-result");status.textContent="Đang "+names[action].toLowerCase()+" · Gemini 3.5 Flash-Lite…";content.replaceChildren();
     const image=document.createElement("img");image.className="ai-source-image";image.src=value.src;image.alt="Vùng được gửi tới Gemini";content.append(image);
     panel.querySelector("#ai-cancel").hidden=false;panel.querySelector("#ai-retry").hidden=true;
@@ -59,7 +58,17 @@
     }catch(error){if(generation===current){status.textContent=error.message;panel.querySelector("#ai-retry").hidden=false;panel.querySelector("#ai-retry").onclick=()=>ask(action,value);}}
     finally{if(generation===current){busy=false;panel.querySelector("#ai-cancel").hidden=true;}}
   }
-  function cancel(){generation++;busy=false;bridge()?.cancel().catch(()=>{});const status=document.getElementById("ai-status");if(status)status.textContent="Đã hủy. Vùng viết được giữ nguyên.";const button=document.getElementById("ai-cancel");if(button)button.hidden=true;}
+  async function recognizeLocal(value,objects){
+    if(busy)return;const current=++generation;busy=true;region=value;result=null;
+    const panel=createPanel();panel.hidden=false;panel.querySelector('header strong').textContent='Công thức · OCR cục bộ';const status=panel.querySelector('#ai-status'),content=panel.querySelector('#ai-result');content.replaceChildren();status.textContent='Đang đọc công thức trên thiết bị · không gửi dữ liệu qua mạng…';panel.querySelector('#ai-cancel').hidden=false;panel.querySelector('#ai-retry').hidden=true;
+    try{if(!objects&&value.inkIds?.length&&Store.book().id===value.bookId){const page=Store.book().pages.find(p=>p.id===value.pageId);objects=page?.objects.filter(o=>value.inkIds.includes(o.id)&&o.type==='stroke');}
+      const answer=objects?.length?await LocalMathOCR.recognizeStrokes(objects):await LocalMathOCR.recognizeImage(value.src);if(generation!==current)return;
+      result={title:'Công thức đã nhận diện',latex:answer.latex,transcription:'',explanation:'CoMER chạy cục bộ. Kiểm tra ký hiệu và số mũ trước khi thay nét.',steps:[],warnings:[],diagrams:[]};status.textContent='OCR cục bộ · '+answer.milliseconds+' ms';renderResult(content,result,value,'latex');
+      if(answer.candidates?.length>1){const select=document.createElement('select');select.setAttribute('aria-label','Các cách đọc khác');for(const tex of [...new Set(answer.candidates)]){const opt=document.createElement('option');opt.value=tex;opt.textContent=tex;select.append(opt);}select.onchange=()=>{const field=content.querySelector('#ai-latex');field.value=select.value;field.dispatchEvent(new Event('input'));};content.prepend(select);}
+    }catch(error){if(generation===current){status.textContent=error.message;panel.querySelector('#ai-retry').hidden=false;panel.querySelector('#ai-retry').onclick=()=>recognizeLocal(value,objects);}}
+    finally{if(generation===current){busy=false;panel.querySelector('#ai-cancel').hidden=true;}}
+  }
+  function cancel(){generation++;busy=false;root.LocalMathOCR?.cancel();bridge()?.cancel().catch(()=>{});const status=document.getElementById("ai-status");if(status)status.textContent="Đã hủy. Vùng viết được giữ nguyên.";const button=document.getElementById("ai-cancel");if(button)button.hidden=true;}
   function destination(value,source=false){
     if(Store.book().id!==value.bookId)throw Error("Đã chuyển sổ tay. Trở về sổ chứa vùng đã khoanh trước khi chèn.");
     const index=Store.book().pages.findIndex(p=>p.id===value.pageId);if(index<0)throw Error("Trang nguồn đã bị xóa.");
@@ -108,7 +117,7 @@
     Store.transaction(()=>{Store.book().pages.splice(startIndex+1,0,...newPages);for(const entry of entries)entry.page.objects.push(entry.object);Store.state.selection=entries.filter(entry=>entry.page===page).map(entry=>entry.object.id);});PageFlow.fit("page");App.setTool("select");App.toast("Đã chèn nội dung"+(newPages.length?" và thêm "+newPages.length+" trang":"")+". Có thể Undo.");
   }
   async function autoRecognize(){
-    if(!Store.state.settings.handwritingAI||navigator.onLine===false){inkBatch=[];return;}
+    if(!Store.state.settings.handwritingOCR){inkBatch=[];return;}
     if(busy||CanvasEngine.interacting){inkTimer=setTimeout(autoRecognize,1500);return;}
     const batch=inkBatch;inkBatch=[];if(!batch.length)return;
     if(batch.some(item=>item.bookId!==Store.book().id||item.pageId!==Store.current().id))return;
@@ -117,18 +126,18 @@
     if(w>2200||h>2200)return;
     const scale=Math.min(2,1600/Math.max(w,h)),c=document.createElement("canvas");c.width=Math.ceil(Math.max(20,w)*scale);c.height=Math.ceil(Math.max(20,h)*scale);const ctx=c.getContext("2d");ctx.fillStyle="white";ctx.fillRect(0,0,c.width,c.height);ctx.scale(scale,scale);ctx.translate(-x,-y);objects.forEach(o=>Renderer.drawObject(ctx,o));
     if(!autoNotice){App.toast("Đang nhận diện công thức. Kiểm tra bản dàn trước khi thay nét.");autoNotice=true;}
-    await ask("latex",{src:c.toDataURL("image/png"),bookId:Store.book().id,pageId:Store.current().id,world:{x,y,w,h},inkIds:objects.map(o=>o.id),fingerprints:Object.fromEntries(objects.map(o=>[o.id,JSON.stringify(o)]))});
+    await recognizeLocal({src:c.toDataURL("image/png"),bookId:Store.book().id,pageId:Store.current().id,world:{x,y,w,h},inkIds:objects.map(o=>o.id),fingerprints:Object.fromEntries(objects.map(o=>[o.id,JSON.stringify(o)]))},objects);
   }
   async function settings(){
     const host=document.getElementById("panel-content"),section=document.createElement("section");section.className="ai-settings";
-    section.innerHTML='<h3>Gemini · trợ lý Toán 12</h3><label class="field-row"><input id="setting-handwriting-ai" type="checkbox"><span>Nhận diện công thức viết tay khi dừng bút</span></label><p class="hint">Mặc định tắt. Khi bật và có Internet, vùng nét vừa viết được gửi tới Google để nhận diện; xem và sửa LaTeX trước khi thay nét. Công cụ khoanh vùng chỉ gửi vùng bạn chọn khi bấm một tác vụ.</p><label class="field"><span>Model</span><input readonly value="gemini-3.5-flash-lite"></label><label class="field"><span>Khóa API Gemini</span><input id="gemini-key" type="password" autocomplete="off" placeholder="Nhập khóa mới để thay đổi"></label><div class="tiny-buttons"><button id="gemini-key-save">Lưu khóa</button><button id="gemini-key-check">Kiểm tra kết nối</button><button id="gemini-key-remove">Xóa khóa</button></div><p id="gemini-key-status" class="hint" role="status"></p>';
-    host.append(section);section.querySelector("#setting-handwriting-ai").checked=!!Store.state.settings.handwritingAI;
-    section.querySelector("#setting-handwriting-ai").onchange=e=>{Store.state.settings.handwritingAI=e.target.checked;clearTimeout(inkTimer);inkBatch=[];Store.scheduleSave();};
+    section.innerHTML='<h3>Công thức · OCR cục bộ</h3><label class="field-row"><input id="setting-handwriting-ai" type="checkbox"><span>Nhận diện công thức viết tay cục bộ khi dừng bút</span></label><p class="hint">Mặc định tắt. OCR CoMER chạy ngay trên thiết bị, dùng mô hình có sẵn trong bộ cài; không gửi nét viết lên Gemini, không cần Internet. Xem và sửa LaTeX trước khi thay nét. Các tác vụ Giải bài/Gợi ý/Vẽ hình vẫn dùng Gemini khi có mạng.</p><h3>Gemini · trợ lý Toán 12</h3><label class="field"><span>Model</span><input readonly value="gemini-3.5-flash-lite"></label><label class="field"><span>Khóa API Gemini</span><input id="gemini-key" type="password" autocomplete="off" placeholder="Nhập khóa mới để thay đổi"></label><div class="tiny-buttons"><button id="gemini-key-save">Lưu khóa</button><button id="gemini-key-check">Kiểm tra kết nối</button><button id="gemini-key-remove">Về khóa mặc định</button></div><p id="gemini-key-status" class="hint" role="status"></p>';
+    host.append(section);section.querySelector("#setting-handwriting-ai").checked=!!Store.state.settings.handwritingOCR;
+    section.querySelector("#setting-handwriting-ai").onchange=e=>{Store.state.settings.handwritingOCR=e.target.checked;if(e.target.checked)LocalMathOCR.init().catch(error=>App.toast(error.message));clearTimeout(inkTimer);inkBatch=[];Store.scheduleSave();};
     const status=section.querySelector("#gemini-key-status"),input=section.querySelector("#gemini-key");
     if(!bridge()){status.textContent="Cấu hình khóa trên bản Windows; khóa không nằm trong tệp sổ tay.";section.querySelectorAll("button").forEach(b=>b.disabled=true);return;}
-    const update=async()=>{const s=await bridge().status();status.textContent=s.configured?(root.InkulatorDesktop?.gemini?"Đã có khóa, được mã hóa trên máy này.":"Đã có khóa trong phiên này; đóng/tải lại trang sẽ xóa khóa."):"Chưa có khóa API.";};
+    const update=async()=>{const s=await bridge().status();status.textContent=s.configured?(s.usesDefault?"Khóa mặc định đã sẵn sàng; có thể dùng ngay.":root.InkulatorDesktop?.gemini?"Đã có khóa, được mã hóa trên máy này.":"Đã có khóa trong phiên này; đóng/tải lại trang sẽ xóa khóa."):"Chưa có khóa API.";};
     for(const [id,fn] of [["save",async()=>{if(!input.value.trim())throw Error("Nhập khóa trước khi lưu.");await bridge().key(input.value.trim());input.value="";await update();}],["remove",async()=>{await bridge().key("");input.value="";await update();}],["check",async()=>{status.textContent="Đang kiểm tra…";await bridge().check();status.textContent="Kết nối Gemini 3.5 Flash-Lite thành công.";}]])section.querySelector("#gemini-key-"+id).onclick=async()=>{try{await fn();}catch(e){status.textContent=e.message;}};
     update().catch(e=>status.textContent=e.message);
   }
-  root.TeachingAI={init,start,settings,ask,showWheel,replaceInk,makeDiagram,insertAnswer,get busy(){return busy;},get result(){return result;}};
+  root.TeachingAI={init,start,settings,ask,recognizeLocal,showWheel,replaceInk,makeDiagram,insertAnswer,get busy(){return busy;},get result(){return result;}};
 })(window);

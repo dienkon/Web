@@ -43,7 +43,7 @@
     const pages = PageFlow.visible(), v = { ...Store.state.viewport };
     const w = Renderer.area.clientWidth, h = Renderer.area.clientHeight;
     const scale = Math.max(1, Math.min(devicePixelRatio || 1, 2, Math.sqrt(5e6 / (w*h))));
-    await Promise.all(pages.map(item => Renderer.awaitImages(item.page)));
+    await Promise.all(pages.map(item => Renderer.awaitImages(item.page,{pdf:false})));
     const canvas = document.createElement("canvas");
     canvas.width = Math.round(w*scale); canvas.height = Math.round(h*scale);
     const ctx = canvas.getContext("2d");
@@ -53,15 +53,19 @@
       ctx.save(); ctx.translate(item.x,item.y);
       ctx.beginPath(); ctx.rect(0,0,item.page.width,item.page.height); ctx.clip();
       Renderer.drawPaper(ctx,item.page,{x:0,y:0,w:item.page.width,h:item.page.height});
-      Renderer.objects(ctx,item.page);
+      const images=await pdfImages(item.page,scale*v.zoom);
+      Renderer.objects(ctx,item.page,{pdfImages:images});
+      for(const c of images.values())c.width=c.height=1;
       if(item.page.showTitle && item.page.title) {
         ctx.fillStyle=item.page.paper === "dark" ? "#d7e3d9" : "#314f41";
         ctx.font="25px Segoe UI"; ctx.fillText(item.page.title,70,88);
       }
       ctx.restore();
     }
-    return { canvas, w, h, viewport:v,bookId:Store.book().id,pageId:Store.current().id };
+    return { canvas, w, h, viewport:v,bookId:Store.book().id,pageId:Store.current().id,areaRect:Renderer.area.getBoundingClientRect().toJSON() };
   }
+  async function pdfImages(page,scale){const images=new Map();async function visit(o){if(o.visible===false)return;if(o.type==='pdf')images.set(o.id,await PDFStudio.snapshotImage(o,Math.max(o.size.w,o.size.h)*scale));if(o.type==='group')for(const child of o.data.children)await visit(child);}for(const o of page.objects)if(page.layers.some(l=>l.id===o.layer&&l.visible))await visit(o);return images;}
+  async function pageImage(page){if(CanvasEngine.interacting)return null;const budget=Store.state.settings.performance==='economy'?1e6:3e6,scale=Math.min(1,Math.sqrt(budget/(page.width*page.height)));await Renderer.awaitImages(page,{pdf:false});const images=await pdfImages(page,scale);if(CanvasEngine.interacting){for(const c of images.values())c.width=c.height=1;return null;}const canvas=Renderer.pageCanvas(page,scale,{pdfImages:images});const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));if(!blob)throw Error('Không tạo được PNG xem trước.');const src=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(blob);});for(const c of images.values())c.width=c.height=1;canvas.width=canvas.height=1;return src;}
   async function start(options = {}) {
     if(active || preparing) return;
     CanvasEngine.finishActive(); TeacherGeometry.cancel(); App.closePopover(); PenKeyboard.hide();
@@ -76,9 +80,12 @@
       overlay.id = "capture-overlay";
       overlay.setAttribute("aria-label", "Kéo hình chữ nhật để chụp trang viết");
       overlay.innerHTML = '<div class="capture-guide">Kéo để chụp vùng · Esc để hủy <button id="capture-cancel" type="button">×</button></div><div class="capture-box" hidden></div>';
-      overlay.prepend(shot.canvas); Renderer.area.append(overlay);
+      const r=shot.areaRect;
+      shot.canvas.className='capture-frozen';Object.assign(shot.canvas.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});
+      const reveal=document.createElement('canvas');reveal.className='capture-reveal';reveal.width=shot.canvas.width;reveal.height=shot.canvas.height;reveal.getContext('2d').drawImage(shot.canvas,0,0);Object.assign(reveal.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});reveal.hidden=true;
+      overlay.prepend(shot.canvas,reveal); document.body.append(overlay);
       active = { overlay, shot, start: null, pointerId: null, callback:typeof options.onCapture==="function"?options.onCapture:null };
-      const point = e => { const r = overlay.getBoundingClientRect(); return {x:Math.max(0,Math.min(shot.w,e.clientX-r.left)),y:Math.max(0,Math.min(shot.h,e.clientY-r.top))}; };
+      const point = e => ({x:Math.max(0,Math.min(shot.w,e.clientX-r.left)),y:Math.max(0,Math.min(shot.h,e.clientY-r.top))});
       const box = overlay.querySelector(".capture-box");
       const rect = p => ({x:Math.min(active.start.x,p.x),y:Math.min(active.start.y,p.y),w:Math.abs(p.x-active.start.x),h:Math.abs(p.y-active.start.y)});
       overlay.querySelector("#capture-cancel").onclick = cancel;
@@ -90,12 +97,12 @@
       };
       overlay.onpointermove = e => {
         if(!active?.start || active.pointerId !== e.pointerId) return;
-        const r=rect(point(e)); Object.assign(box.style,{left:r.x+"px",top:r.y+"px",width:r.w+"px",height:r.h+"px"});
+        const b=rect(point(e)); Object.assign(box.style,{left:(b.x+r.left)+"px",top:(b.y+r.top)+"px",width:b.w+"px",height:b.h+"px"});reveal.hidden=false;reveal.style.clipPath='inset('+b.y+'px '+(shot.w-b.x-b.w)+'px '+(shot.h-b.y-b.h)+'px '+b.x+'px)';
       };
       overlay.onpointerup = e => {
         if(!active?.start || active.pointerId !== e.pointerId) return;
         const r=rect(point(e));
-        if(r.w<6 || r.h<6) { active.start=null;box.hidden=true;return App.toast("Kéo một vùng lớn hơn để chụp."); }
+        if(r.w<6 || r.h<6) { active.start=null;box.hidden=true;reveal.hidden=true;return App.toast("Kéo một vùng lớn hơn để chụp."); }
         finish(r).catch(error=>App.toast("Không lưu được ảnh chụp: "+error.message));
       };
       overlay.onpointercancel = cancel;
@@ -136,5 +143,5 @@
     if(!latest) return;
     Exporter.download(await (await fetch(latest.src)).blob(),latest.name,"image/png");
   }
-  root.CaptureStudio={init,start,cancel,paste,download,releasePreference(){preferred=false;},get preferred(){return preferred;},get latest(){return latest;},get active(){return !!active || preparing;}};
+  root.CaptureStudio={init,start,cancel,paste,download,pageImage,releasePreference(){preferred=false;},get preferred(){return preferred;},get latest(){return latest;},get active(){return !!active || preparing;}};
 })(window);

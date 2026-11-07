@@ -709,7 +709,7 @@
       .split("\n")
       .forEach((line, i) => ctx.fillText(line, 0, i * font * 1.5, width));
   }
-  function drawObject(ctx, o) {
+  function drawObject(ctx, o, options = {}) {
     if (o.visible === false) return;
     ctx.save();
     transform(ctx, o);
@@ -744,7 +744,8 @@
         root.Formulas?.draw(ctx, o);
         break;
       case "pdf":
-        root.PDFStudio?.draw(ctx, o);
+        if(options.pdfImages?.has(o.id))ctx.drawImage(options.pdfImages.get(o.id),0,0,o.size.w,o.size.h);
+        else root.PDFStudio?.draw(ctx, o);
         break;
       case "image": {
         let img = imageCache.get(o.data.src);
@@ -761,7 +762,7 @@
       case "group": {
         const s = o.data.originalSize;
         ctx.scale(o.size.w / s.w, o.size.h / s.h);
-        o.data.children.forEach((child) => drawObject(ctx, child));
+        o.data.children.forEach((child) => drawObject(ctx, child, options));
         break;
       }
     }
@@ -788,7 +789,7 @@
     layerCache.set(p, { objects: p.objects, version: p.objects.length, map });
     return map;
   }
-  function objects(ctx, p) {
+  function objects(ctx, p, options = {}) {
     const layerMap = getLayerObjects(p);
     // Exports and thumbnails draw the full page, regardless of the viewport.
     const t = ctx === ic ? ctx.getTransform() : null;
@@ -807,7 +808,7 @@
           if (x + radius < bounds.x || x - radius > bounds.x + bounds.w ||
               y + radius < bounds.y || y - radius > bounds.y + bounds.h) continue;
         }
-        drawObject(ctx, o);
+        drawObject(ctx, o, options);
       }
     }
   }
@@ -1036,8 +1037,8 @@
     ctx.scale(scale, scale);
     if (options.background !== false)
       drawPaper(ctx, p, { x: 0, y: 0, w: p.width, h: p.height });
-    if (options.objects) options.objects.forEach((o) => drawObject(ctx, o));
-    else if (!options.backgroundOnly) objects(ctx, p);
+    if (options.objects) options.objects.forEach((o) => drawObject(ctx, o, options));
+    else if (!options.backgroundOnly) objects(ctx, p, options);
     if (p.showTitle && p.title && !options.omitTitle) {
       ctx.fillStyle = p.paper === "dark" ? "#d7e3d9" : "#314f41";
       ctx.font = "25px Segoe UI";
@@ -1053,11 +1054,11 @@
       y: (e.clientY - r.top - v.y) / v.zoom,
     };
   }
-  async function awaitImages(p) {
+  async function awaitImages(p, options = {}) {
     const visit = async (o) => {
       if (o.type === "group") return Promise.all(o.data.children.map(visit));
       if (o.type === "formula") return root.Formulas?.prepare(o);
-      if (o.type === "pdf")
+      if (o.type === "pdf" && options.pdf !== false)
         return root.PDFStudio?.prepare(o, Math.max(o.size.w, o.size.h) * 2);
       if (o.type !== "image") return;
       let img = imageCache.get(o.data.src);

@@ -26,3 +26,14 @@
 .ai-settings { margin-top:18px; padding-top:12px; border-top:1px solid var(--line); }
 .geometry-toolbar.radial-geometry #geo-hub { touch-action:none; cursor:grab; }
 .geometry-toolbar.radial-geometry #geo-hub:active { cursor:grabbing; }
+#capture-overlay { position:fixed; inset:0; z-index:2000; background:#122b366b; backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px); }
+#capture-overlay > canvas { position:absolute; inset:auto; pointer-events:none; }
+#capture-overlay .capture-frozen { filter:brightness(.55) blur(1px); }
+#capture-overlay .capture-reveal { filter:none; }
+#capture-overlay .capture-reveal[hidden] { display:none; }
+#capture-overlay .capture-box { box-shadow:none; background:transparent; border:2px solid #00b8ff; }
+#capture-overlay .capture-guide { position:fixed; z-index:3; }
+img[data-color-icon] { width:24px; height:24px; object-fit:contain; pointer-events:none; flex-shrink:0; }
+#pen-dock img[data-color-icon] { width:25px; height:25px; }
+.workspace-tabs img[data-color-icon] { width:26px; height:26px; }
+#library-path { font-size:12px; }

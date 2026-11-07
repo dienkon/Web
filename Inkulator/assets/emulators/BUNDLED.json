@@ -1,0 +1,170 @@
+{
+  "description": "Original user-provided emulator distributions; executables and DLLs installed as resources. Microsoft VC++ 2010 x86 dependencies are deployed app-locally.",
+  "files": {
+    "580": [
+      {
+        "name": "Activation.pdf",
+        "size": 1782341,
+        "sha256": "23e0705ea2c1c93492d8287f1fe1f6cd3a90557b68867f470924cad37b044b96"
+      },
+      {
+        "name": "ActivationFx.dll",
+        "size": 1494016,
+        "sha256": "653d95a2fb2fe62261fd78faca7d9e32f5f21046e47e05cee87fffa97d9334db"
+      },
+      {
+        "name": "CLASSWIZ_P20.dll",
+        "size": 2431488,
+        "sha256": "ab5fd1837fb4b25b0bfbf2e71dadc47d4c17ab06ff5e81c6e98423d29151a79e"
+      },
+      {
+        "name": "EmulatorUsersGuide.pdf",
+        "size": 1141238,
+        "sha256": "9c0d897d07ccc4645fa5df649e6dc30b66ca86e52d5585a8fd6ea33cc05a1895"
+      },
+      {
+        "name": "fx-580VN X Emulator.exe",
+        "size": 1559552,
+        "sha256": "5151c404610e723095807dfc9c5769315f5d44b528d2b03ca3052f6cd8d16b3a"
+      },
+      {
+        "name": "fx-580VN X Emulator.lic",
+        "size": 135,
+        "sha256": "2af51cc945a26060e498a2d17371697f14006c4392d2f20e76d0c218578435d7"
+      },
+      {
+        "name": "libcurl.dll",
+        "size": 285696,
+        "sha256": "7e346863f3f157ca1cc60bf73109068ba5841bf719007f193c41d9dc7c0011dd"
+      },
+      {
+        "name": "libeay32.dll",
+        "size": 1214976,
+        "sha256": "b27f629f7a76a59cfd1e07899613555f2174edda5358884d26ea03aaba0003d3"
+      },
+      {
+        "name": "License.rtf",
+        "size": 164430,
+        "sha256": "9fb2c57294278aeb4241553f54799b2149bf2d11965027c8aba7a85ea89054c0"
+      },
+      {
+        "name": "opencv_core2410.dll",
+        "size": 2072064,
+        "sha256": "155f2907e26396174f1a2351a83a27747049401d481989901acbc2c28acbbf89"
+      },
+      {
+        "name": "opencv_highgui2410.dll",
+        "size": 2079232,
+        "sha256": "33e1867aa2502409e19531940f47d464fbc82c9d512f417ecc5d46432d91ddfd"
+      },
+      {
+        "name": "opencv_imgproc2410.dll",
+        "size": 1909760,
+        "sha256": "7a48136bd2b09a6c5530390e4f5123a2cebe92ec30779b482cc4b8aac603e8f5"
+      },
+      {
+        "name": "SimU8.dll",
+        "size": 1668096,
+        "sha256": "634051b2dd8f93663d618ac1a4370f5bdaec8de5f23d938c9915abb429ff4cbf"
+      },
+      {
+        "name": "SimU8engine.dll",
+        "size": 46592,
+        "sha256": "b2d9ba345a0dbbed569c1e4a67cdfbf066fca7e1bbcc1b6aeb53ad22371d5105"
+      },
+      {
+        "name": "ssleay32.dll",
+        "size": 274944,
+        "sha256": "05f15af784d0baa3ff93b82c623a5eac196291921418dc8d5b898c82cc076392"
+      }
+    ],
+    "880": [
+      {
+        "name": "ClassWizEmulator.exe",
+        "size": 5904384,
+        "sha256": "859da7d9dd9d9420f4226e0c16a2ff0729e45dccb4360cf6208e40e9c89b9c5e"
+      },
+      {
+        "name": "CLASSWIZ_SAMPLE.dll",
+        "size": 4989952,
+        "sha256": "8f38cdbb3de0132eb874a1744ec50a0f97a85056c4d91dfdcf55e675ebe027bb"
+      },
+      {
+        "name": "opencv_core2410.dll",
+        "size": 2072064,
+        "sha256": "155f2907e26396174f1a2351a83a27747049401d481989901acbc2c28acbbf89"
+      },
+      {
+        "name": "opencv_highgui2410.dll",
+        "size": 2079232,
+        "sha256": "33e1867aa2502409e19531940f47d464fbc82c9d512f417ecc5d46432d91ddfd"
+      },
+      {
+        "name": "opencv_imgproc2410.dll",
+        "size": 1909760,
+        "sha256": "7a48136bd2b09a6c5530390e4f5123a2cebe92ec30779b482cc4b8aac603e8f5"
+      },
+      {
+        "name": "SimU8.dll",
+        "size": 1666560,
+        "sha256": "5add2a644bcf86ef6c7aa53b8b2dff27fd2861a65bdaed3a6d781388aa38d5f5"
+      },
+      {
+        "name": "SimU8engine.dll",
+        "size": 53248,
+        "sha256": "db3dd41928c07cab75f2f665c61d912607edd5950e0c58a92cf36f5ec84bfaf0"
+      },
+      {
+        "name": "www.gvhieu.com.txt",
+        "size": 35,
+        "sha256": "def363366fb9b87d2e3b869f731561c32d68a77983a8eee5c7432c2868ff9a2c"
+      }
+    ]
+  },
+  "runtimes": {
+    "580": [
+      {
+        "name": "mfc100u.dll",
+        "size": 4422992,
+        "sha256": "24bb6838defd491df5460a88bed2d70b903a2156c49fb63e214e2c77251eca71"
+      },
+      {
+        "name": "mfc100.dll",
+        "size": 4397384,
+        "sha256": "496e1a21645abaa90fa544c025e6f0de1cbcbd5d060007a8a9e2fb5787655d0e"
+      },
+      {
+        "name": "msvcr100.dll",
+        "size": 773968,
+        "sha256": "60c06e0fa4449314da3a0a87c1a9d9577df99226f943637e06f61188e5862efa"
+      },
+      {
+        "name": "msvcp100.dll",
+        "size": 421200,
+        "sha256": "d769fafa2b3232de9fa7153212ba287f68e745257f1c00fafb511e7a02de7adf"
+      }
+    ],
+    "880": [
+      {
+        "name": "mfc100u.dll",
+        "size": 4422992,
+        "sha256": "24bb6838defd491df5460a88bed2d70b903a2156c49fb63e214e2c77251eca71"
+      },
+      {
+        "name": "mfc100.dll",
+        "size": 4397384,
+        "sha256": "496e1a21645abaa90fa544c025e6f0de1cbcbd5d060007a8a9e2fb5787655d0e"
+      },
+      {
+        "name": "msvcr100.dll",
+        "size": 773968,
+        "sha256": "60c06e0fa4449314da3a0a87c1a9d9577df99226f943637e06f61188e5862efa"
+      },
+      {
+        "name": "msvcp100.dll",
+        "size": 421200,
+        "sha256": "d769fafa2b3232de9fa7153212ba287f68e745257f1c00fafb511e7a02de7adf"
+      }
+    ]
+  }
+}

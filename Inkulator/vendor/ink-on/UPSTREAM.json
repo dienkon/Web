@@ -1,0 +1,66 @@
+{
+  "repo": "https://github.com/kimseungdae/ink-on",
+  "commit": "2585994ee11fe2ed98065c555c4aae8ee9096209",
+  "files": [
+    {
+      "path": "LICENSE",
+      "size": 10762,
+      "sha256": "2b5d696225da7b4f127b88d055695165e50f7ec62a485d52b4745cf8e87dac67"
+    },
+    {
+      "path": "README.md",
+      "size": 33299,
+      "sha256": "c065d74e50b7774bdbe70c57f9509945fd85c38b33bf8b739b37284229339bdf"
+    },
+    {
+      "path": "public/models/comer/decoder_int8.onnx",
+      "size": 4118047,
+      "sha256": "658901d81ca3aa4b62b0da262e8fe67ebcfdac19cfb52ca2cfd076bebd481088"
+    },
+    {
+      "path": "public/models/comer/encoder_int8.onnx",
+      "size": 3460779,
+      "sha256": "272f17c7b120db61db6cd8d77e695d0139144044abd57d9b23284435a5d916fa"
+    },
+    {
+      "path": "public/models/comer/vocab.json",
+      "size": 3697,
+      "sha256": "1d75cbbea3bed558683d7e9c3b3c72069ef2143a155d5f8c610f85a281af000c"
+    },
+    {
+      "path": "src/core/index.ts",
+      "size": 567,
+      "sha256": "53c651f85541352bb7134ce97791ad2d5ca3bbbc835d49c5c18e8c06b250f4ee"
+    },
+    {
+      "path": "src/core/inference.ts",
+      "size": 12916,
+      "sha256": "594496dabb8d03b1f59591632af46ae1226a8bb0ef67ebf4143b14dea9fb7f3a"
+    },
+    {
+      "path": "src/core/inference.worker.ts",
+      "size": 9281,
+      "sha256": "2169afe8bc3c0560be5b5519736f655a89fd45ea318397c81bb8a8a4344a6ace"
+    },
+    {
+      "path": "src/core/latex-repair.ts",
+      "size": 4173,
+      "sha256": "8b84112e9a3958f318676fb15152600d69a33581d0892b5117e70047c6fd1645"
+    },
+    {
+      "path": "src/core/model-cache.ts",
+      "size": 1563,
+      "sha256": "e82a6ad4d95d0f82d3d1eae6550f825dec6553ea37c70a9090c1df8a180e003f"
+    },
+    {
+      "path": "src/core/preprocessing.ts",
+      "size": 7047,
+      "sha256": "7ab8e8168a966488a68db707d2d5e589eb975247297d3506db14773fef0c8bc6"
+    },
+    {
+      "path": "src/core/tokenizer.ts",
+      "size": 899,
+      "sha256": "7a744f3c11992c30d8165e8f2b32007b16314d563f459cbf6a39e54b370bcaed"
+    }
+  ]
+}
