@@ -6,6 +6,16 @@
     perpendicularBisector: "Trung trực",
     circleCenter: "Tròn tâm–điểm",
     reflectPoint: "Đối xứng qua tâm",
+    dividePoint: "Điểm chia cạnh",
+    linePlane: "Giao đường–mặt",
+    planePlane: "Giao hai mặt phẳng",
+    projectPlane: "Chiếu lên mặt phẳng",
+    distancePlane: "Khoảng cách điểm–mặt",
+    linePlaneAngle: "Góc đường–mặt",
+    planeAngle: "Góc hai mặt phẳng",
+    commonPerpendicular: "Vuông góc chung",
+    tangent: "Tiếp tuyến đường tròn",
+    rename: "Đổi tên điểm",
     measure: "Đo cạnh",
     perpendicular: "Vuông góc",
     parallel: "Song song",
@@ -167,7 +177,18 @@
     const o = target(),
       all = o ? Constructions.build(o).points : new Map(),
       picked = interaction.picked.map((k) => all.get(k)?.label || "?");
-    const n = Constructions.operations[interaction.mode];
+    const n = interaction.mode === "rename" ? 1 : Constructions.operations[interaction.mode];
+    const stage = {
+      linePlane: interaction.picked.length < 2 ? "Chọn 2 điểm của đường" : "Chọn 3 điểm của mặt phẳng",
+      linePlaneAngle: interaction.picked.length < 2 ? "Chọn 2 điểm của đường" : "Chọn 3 điểm của mặt phẳng",
+      planePlane: interaction.picked.length < 3 ? "Chọn 3 điểm của mặt thứ nhất" : "Chọn 3 điểm của mặt thứ hai",
+      planeAngle: interaction.picked.length < 3 ? "Chọn 3 điểm của mặt thứ nhất" : "Chọn 3 điểm của mặt thứ hai",
+      projectPlane: interaction.picked.length < 1 ? "Chọn điểm cần chiếu" : "Chọn 3 điểm của mặt phẳng",
+      distancePlane: interaction.picked.length < 1 ? "Chọn điểm cần đo khoảng cách" : "Chọn 3 điểm của mặt phẳng",
+      tangent: "Chọn tâm O → điểm trên đường tròn → điểm kẻ tiếp tuyến",
+      commonPerpendicular: interaction.picked.length < 2 ? "Chọn 2 điểm đường thứ nhất" : "Chọn 2 điểm đường thứ hai",
+    }[interaction.mode];
+    if(stage) return stage + " · " + interaction.picked.length + "/" + n;
     return (
       titles[interaction.mode] +
       " · " +
@@ -216,6 +237,7 @@
             objectId: o.id,
             picked: [],
             lineMode: interaction?.lineMode || "auto",
+            ratio: 0.5,
           };
     Store.state.transformMode = mode === "orbit" ? "orbit" : "auto";
     Store.state.geometryInteraction = interaction;
@@ -233,7 +255,8 @@
   function pick(key) {
     const o = target();
     if (!o || !interaction || interaction.mode === "orbit") return;
-    if (interaction.picked.includes(key) && interaction.mode !== "intersection")
+    if (interaction.mode === "rename") return renamePoint(o,key);
+    if (interaction.picked.includes(key) && !["intersection","linePlane","linePlaneAngle","planePlane","planeAngle","projectPlane","distancePlane","commonPerpendicular","tangent"].includes(interaction.mode))
       return App.toast("Chọn các điểm khác nhau.");
     interaction.picked.push(key);
     completePicked();
@@ -265,6 +288,7 @@
         dashed: interaction.lineMode === "dashed",
         showMeasure: interaction.mode === "measure",
         ...(interaction.mode === "centroid" ? { showMedians: true } : {}),
+        ...(interaction.mode === "dividePoint" ? { ratio: interaction.ratio || 0.5 } : {}),
       };
       const labels = new Set(
         [...Constructions.build(o).points.values()].map((p) => p.label),
@@ -274,6 +298,10 @@
           "midpoint",
           "perpendicularBisector",
           "reflectPoint",
+          "dividePoint",
+          "linePlane",
+          "projectPlane",
+          "distancePlane",
           "perpendicular",
           "circumcircle",
           "intersection",
@@ -332,7 +360,7 @@
               " đỉnh · S ≈ " +
               MathEngine.format(item.area) +
               " đv²"
-          : c.type === "angle"
+          : item.angle !== undefined
             ? "Góc ≈ " + MathEngine.format(item.angle) + "°"
             : "Đã dựng " +
               titles[c.type].toLocaleLowerCase() +
@@ -340,6 +368,10 @@
       );
       if (["geometry", "solid"].includes(Store.state.panel))
         App.refreshGeometry();
+      if(c.type === "dividePoint") {
+        interaction.lastConstruction = c.id;
+        interaction.ratio = c.ratio;
+      }
     }
     renderToolbar();
     Renderer.request();
@@ -368,6 +400,58 @@
           : "Nhấp gần đỉnh hoặc điểm phụ; con trỏ sẽ tự bắt điểm.",
       );
     return true;
+  }
+  function renamePoint(o,key) {
+    const point=Constructions.build(o).points.get(key);
+    if(!point || point.internal) return;
+    const anchor=document.querySelector('[data-geo-mode="rename"]') || document.getElementById("geo-more");
+    const names=[..."ABCDEFGHIJKLMNOPQRSTUVWXYZ", "A′","B′","C′","D′","S′"];
+    const pop=App.popover(anchor,'<h3>Đổi tên '+App.escape(point.label)+'</h3><div class="geo-name-grid">'+names.map(n=>'<button data-point-name="'+n+'">'+n+'</button>').join('')+'</div><label class="field"><span>Tên khác</span><input id="geo-custom-name" maxlength="16" aria-label="Tên điểm"></label><button id="geo-apply-name" class="primary full">Đặt tên</button>');
+    const apply=(name)=>{
+      name=name.trim().slice(0,16);
+      if(!name) return;
+      const built=Constructions.build(o);
+      if([...built.points.values()].some(p=>p.key!==key && p.label===name)) return App.toast("Tên này đã có trên hình. Hãy chọn tên khác.");
+      Store.transaction(()=>{
+        if(key.startsWith("v:")) {
+          o.data.vertexLabels=o.data.vertexLabels || {};
+          o.data.vertexLabels[Number(key.slice(2))]=name;
+        } else {
+          const c=(o.data.constructions || []).find(c=>key==="c:"+c.id || key.startsWith("c:"+c.id+":"));
+          if(c) {
+            if(key.endsWith(":K") || key.endsWith(":T2")) c.secondLabel=name;
+            else c.label=name;
+          }
+        }
+      });
+      App.closePopover();
+      root.PenKeyboard?.hide();
+      if(["geometry","solid"].includes(Store.state.panel)) App.refreshGeometry();
+    };
+    pop.querySelectorAll("[data-point-name]").forEach(b=>b.onclick=()=>apply(b.dataset.pointName));
+    pop.querySelector("#geo-custom-name").value=point.label;
+    pop.querySelector("#geo-apply-name").onclick=()=>apply(pop.querySelector("#geo-custom-name").value);
+  }
+  function positionTools() {
+    const selected=Store.selected(), one=selected.length===1 && ["solid","geometry"].includes(selected[0].type);
+    const bars=[document.getElementById("selection-tools"),document.getElementById("geometry-toolbar")];
+    for(const bar of bars) {
+      bar.classList.toggle("near-geometry",!!one);
+      if(!one) { bar.style.left="";bar.style.top="";bar.style.bottom=""; }
+    }
+    if(!one) return;
+    const o=selected[0],b=Renderer.selectionBounds(o),v=Store.state.viewport,area=Renderer.area;
+    const corners=[{x:b.x,y:b.y},{x:b.x+b.w,y:b.y},{x:b.x+b.w,y:b.y+b.h},{x:b.x,y:b.y+b.h}].map(p=>Renderer.worldPoint(o,p));
+    const left=Math.min(...corners.map(p=>p.x*v.zoom+v.x));
+    const top=Math.min(...corners.map(p=>p.y*v.zoom+v.y));
+    const bottom=Math.max(...corners.map(p=>p.y*v.zoom+v.y));
+    for(let i=0;i<bars.length;i++) {
+      const bar=bars[i]; if(bar.hidden) continue;
+      const x=Math.max(52,Math.min(left,area.clientWidth-bar.offsetWidth-12));
+      const y=i ? (bottom+38+bar.offsetHeight<area.clientHeight-54 ? bottom+38 : top-bar.offsetHeight-98) : top-bar.offsetHeight-48;
+      bar.style.left=x+"px"; bar.style.top=Math.max(8,Math.min(y,area.clientHeight-bar.offsetHeight-54))+"px";
+      bar.style.bottom="auto";
+    }
   }
   function hover(p) {
     const o = target();
@@ -494,11 +578,32 @@
     ctx.fillStyle = o.style.color;
     ctx.lineWidth = Math.max(2, o.style.width);
     ctx.globalAlpha = o.style.opacity ?? 1;
-    const maxStep =
-      typeof o.data.currentStep === "number" ? o.data.currentStep : Infinity;
-    for (const [idx, item] of result.items.entries()) {
-      if (idx >= maxStep) break;
+    for (const item of result.items) {
       const q = item.refs.map((k) => map.get(k));
+      if (["linePlane","planePlane","projectPlane","distancePlane","commonPerpendicular","linePlaneAngle","planeAngle"].includes(item.type)) {
+        ctx.save();
+        const planes=item.planes || (item.planePoints ? [item.planePoints] : []);
+        planes.forEach((plane,i)=>{
+          const pp=project(o,plane);
+          ctx.fillStyle=i ? "#5b89c51c" : "#d6a2491c";
+          ctx.beginPath();pp.forEach((p,j)=>j ? ctx.lineTo(...p) : ctx.moveTo(...p));ctx.closePath();ctx.fill();
+        });
+        ctx.strokeStyle=item.type === "planePlane" ? "#b43d37" : o.style.color;
+        ctx.fillStyle=o.style.color;
+        if(item.endpoints) modelLine(...item.endpoints,item);
+        if(item.type === "linePlaneAngle") modelLine(item.coords[0],item.coords[1],item);
+        const value=item.angle !== undefined ? Number(item.angle.toFixed(2))+"°" : item.length !== undefined ? "d = "+Number(item.length.toFixed(3)) : "";
+        if(value) {
+          const labelCoords=item.endpoints ? Geometry.mid(...item.endpoints) : item.coords.reduce((sum,p)=>Geometry.add(sum,Geometry.scale(p,1/item.coords.length)),[0,0,0]);
+          drawLabel(ctx,value,project(o,[labelCoords])[0],center,occupied,locations);
+        }
+        ctx.restore();
+      }
+      if(item.type === "tangent") {
+        for(const pair of item.pairs) modelLine(...pair,item);
+        const [c,r]=project(o,[item.coords[0],item.coords[1]]);
+        ctx.save();ctx.setLineDash([4,4]);ctx.beginPath();ctx.arc(...c,Math.hypot(r[0]-c[0],r[1]-c[1]),0,Math.PI*2);ctx.stroke();ctx.restore();
+      }
       if (["segment", "measure"].includes(item.type)) {
         modelLine(...item.coords, item);
         if (item.showMeasure || item.type === "measure") {
@@ -783,6 +888,7 @@
         p.key === "base:M"
       )
         return;
+      if(all.some(other=>!other.derived && Geometry.norm(Geometry.sub(other.coords,p.coords))<1e-8)) return;
       const q = locations[i];
       ctx.beginPath();
       ctx.arc(...q, 3.1, 0, Math.PI * 2);
@@ -895,32 +1001,15 @@
               "bisector",
               "highlightPlane",
               "reflectPoint",
-              ...(solid ? ["section", "orbit"] : ["incenter", "circumcircle", "perpendicularBisector", "circleCenter"]),
+              "dividePoint",
+              "rename",
+              ...(solid ? ["section", "orbit", "linePlane","planePlane","projectPlane","distancePlane","linePlaneAngle","planeAngle","commonPerpendicular"] : ["incenter", "circumcircle", "perpendicularBisector", "circleCenter","tangent"]),
             ],
       keys =
         available.length === 1
           ? available
-          : ["segment", "midpoint", ...(solid ? ["orbit"] : ["centroid"])],
+          : ["segment", "midpoint", ...(solid ? ["orbit"] : ["centroid"]), "rename"],
       extras = available.filter((k) => !keys.includes(k));
-    const totalSteps = (o.data.constructions || []).length;
-    const curStep =
-      typeof o.data.currentStep === "number" ? o.data.currentStep : totalSteps;
-    const stepper =
-      totalSteps > 0
-        ? '<div class="geometry-stepper" style="display:inline-flex;align-items:center;gap:4px;margin-left:8px;padding-left:8px;border-left:1px solid #c2d2c8;">' +
-          '<span style="font-size:11px;color:#2f5344;font-weight:600">BƯỚC GIẢNG:</span>' +
-          '<span id="geo-step-prev" role="button" tabindex="0" class="stepper-btn" style="cursor:pointer;padding:2px 6px;border-radius:4px;background:#e2ece6" title="Bước giảng trước">⏮</span>' +
-          '<span style="font-size:12px;font-weight:600;min-width:38px;text-align:center">' +
-          Math.min(curStep, totalSteps) +
-          "/" +
-          totalSteps +
-          "</span>" +
-          '<span id="geo-step-next" role="button" tabindex="0" class="stepper-btn" style="cursor:pointer;padding:2px 6px;border-radius:4px;background:#e2ece6" title="Bước giảng sau">⏭</span>' +
-          '<span id="geo-step-all" role="button" tabindex="0" class="stepper-btn ' +
-          (typeof o.data.currentStep !== "number" ? "active" : "") +
-          '" style="cursor:pointer;padding:2px 6px;border-radius:4px;background:#e2ece6" title="Hiện toàn bộ hình">Hiện hết</span>' +
-          "</div>"
-        : "";
     bar.innerHTML =
       '<div class="geometry-toolbar-buttons">' +
       keys
@@ -948,8 +1037,8 @@
           ) +
           " ▾</button>"
         : "") +
-      stepper +
       '<button id="geo-finish" title="Thoát công cụ dựng">✓ Xong</button>' +
+      (solid ? '<button id="geo-view" title="Chọn hướng nhìn hình">▱ Hướng nhìn</button>' : '') +
       (interaction &&
       [
         "segment",
@@ -969,47 +1058,36 @@
       '</div><div class="geometry-instruction">' +
       (interaction ? App.escape(status()) : "") +
       "</div>";
+    if(interaction?.mode === "dividePoint") {
+      const row=document.createElement("div"); row.className="geo-ratio-controls";
+      row.innerHTML='<span>AM/AB</span><button data-ratio="0.3333333333333333">⅓</button><button data-ratio="0.5">½</button><button data-ratio="0.6666666666666666">⅔</button><input type="range" min=".05" max=".95" step=".01" aria-label="Tỉ lệ điểm trên cạnh"><output></output>';
+      const slider=row.querySelector("input"),out=row.querySelector("output");
+      slider.value=interaction.ratio || .5; out.textContent=Number(slider.value).toFixed(2);
+      let before=null;
+      const preview=(value)=>{
+        interaction.ratio=value; out.textContent=value.toFixed(2); slider.value=value;
+        const last=(o.data.constructions||[]).find(c=>c.id===interaction.lastConstruction);
+        if(last) { before=before || Store.snapshot(); last.ratio=value; Renderer.request(); }
+      };
+      const commit=()=>{if(before) {Store.commit(before);before=null;} };
+      slider.oninput=()=>preview(Number(slider.value));slider.onchange=commit;
+      row.querySelectorAll("[data-ratio]").forEach(b=>b.onclick=()=>{preview(Number(b.dataset.ratio));commit();});
+      bar.append(row);
+    }
+    const viewButton=bar.querySelector("#geo-view");
+    if(viewButton) viewButton.onclick=()=>{
+      const options=Geometry.textbookViews(o.data.kind);
+      const pop=App.popover(viewButton,'<h3>Hướng nhìn bài tập</h3><div class="geo-menu-grid">'+options.map(v=>'<button data-view="'+v.id+'">'+v.title+'</button>').join('')+'</div>');
+      pop.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>{
+        const view=options.find(v=>v.id===b.dataset.view);
+        cancel(); Store.transaction(()=>{o.data.rotation=[...view.rotation];o.data.projection=view.projection;o.data.live=false;});
+        App.closePopover();
+      });
+    };
     bar
       .querySelectorAll("[data-geo-mode]")
       .forEach((b) => (b.onclick = () => setMode(b.dataset.geoMode, o)));
     bar.querySelector("#geo-finish").onclick = cancel;
-    const prevBtn = bar.querySelector("#geo-step-prev");
-    if (prevBtn)
-      prevBtn.onclick = () => {
-        Store.transaction(() => {
-          o.data.currentStep = Math.max(
-            1,
-            (typeof o.data.currentStep === "number"
-              ? o.data.currentStep
-              : totalSteps) - 1,
-          );
-        });
-        renderToolbar();
-        Renderer.request();
-      };
-    const nextBtn = bar.querySelector("#geo-step-next");
-    if (nextBtn)
-      nextBtn.onclick = () => {
-        Store.transaction(() => {
-          o.data.currentStep = Math.min(
-            totalSteps,
-            (typeof o.data.currentStep === "number"
-              ? o.data.currentStep
-              : 0) + 1,
-          );
-        });
-        renderToolbar();
-        Renderer.request();
-      };
-    const allBtn = bar.querySelector("#geo-step-all");
-    if (allBtn)
-      allBtn.onclick = () => {
-        Store.transaction(() => {
-          delete o.data.currentStep;
-        });
-        renderToolbar();
-        Renderer.request();
-      };
     const more = bar.querySelector("#geo-more");
     if (more)
       more.onclick = () => {
@@ -1245,6 +1323,7 @@
     drawLabel,
     mountPanel,
     renderToolbar,
+    positionTools,
     get active() {
       return interaction;
     },

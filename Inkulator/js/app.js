@@ -168,7 +168,8 @@
         !e.target.closest(
           "#pen-keyboard,#pen-dock,#selection-tools,#geometry-toolbar",
         ) &&
-        !e.target.closest(".page-more")
+        !e.target.closest(".page-more") &&
+        !(e.target.id === "ink-canvas" && TeacherGeometry.active?.mode === "rename")
       )
         closePopover();
       if (!e.target.closest("#canvas-context"))

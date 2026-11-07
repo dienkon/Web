@@ -75,6 +75,7 @@
     viewport(oc);
     root.CanvasEngine?.drawOverlay(oc);
     root.TeacherGeometry?.drawOverlay(oc);
+    root.TeacherGeometry?.positionTools?.();
   }
   function viewport(ctx) {
     const v = state().viewport;
@@ -816,20 +817,21 @@
     ctx.lineWidth = 1 / zoom;
     ctx.fillStyle = "#fff";
     for (const o of Store.selected()) {
+      const b = selectionBounds(o);
       ctx.save();
       transform(ctx, o);
       ctx.setLineDash([5 / zoom, 4 / zoom]);
       ctx.strokeRect(
-        -5 / zoom,
-        -5 / zoom,
-        o.size.w + 10 / zoom,
-        o.size.h + 10 / zoom,
+        b.x - 5 / zoom,
+        b.y - 5 / zoom,
+        b.w + 10 / zoom,
+        b.h + 10 / zoom,
       );
       ctx.setLineDash([]);
       if (!o.locked) {
         ctx.beginPath();
-        ctx.moveTo(o.size.w / 2, 0);
-        ctx.lineTo(o.size.w / 2, -22 / zoom);
+        ctx.moveTo(b.x + b.w / 2, b.y);
+        ctx.lineTo(b.x + b.w / 2, b.y - 22 / zoom);
         ctx.stroke();
         for (const h of CanvasEngine.selectionHandles(o)) {
           ctx.beginPath();
@@ -856,6 +858,23 @@
       ctx.restore();
     }
     ctx.restore();
+  }
+  function selectionBounds(o) {
+    if (o.type !== "solid") return { x: 0, y: 0, w: o.size.w, h: o.size.h };
+    const view = SolidView.forObject(o), pts = [...view.pr.points];
+    if (["sphere", "cone", "cylinder", "cone-frustum"].includes(o.data.kind)) {
+      const round = SolidView.roundSegments(view, o.data);
+      for (const s of [...round.outline, ...round.curves]) pts.push(s.a, s.b);
+    }
+    if (o.data.constructions?.length) {
+      const result = Constructions.build(o);
+      for (const p of result.points.values()) pts.push(view.screen(p.coords));
+      for (const item of result.items)
+        for (const p of item.endpoints || item.points || []) pts.push(view.screen(p));
+    }
+    const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+    const x = Math.min(...xs), y = Math.min(...ys);
+    return { x, y, w: Math.max(1, Math.max(...xs) - x), h: Math.max(1, Math.max(...ys) - y) };
   }
   function render() {
     if (!area) return;
@@ -1055,6 +1074,7 @@
     await Promise.all(p.objects.map(visit));
   }
   root.Renderer = {
+    selectionBounds,
     init,
     resize,
     request,

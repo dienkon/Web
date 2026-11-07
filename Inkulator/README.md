@@ -1,10 +1,10 @@
-# Inkulator · 1.6
+# Inkulator · 1.7
 
 Sổ tay Toán học ngoại tuyến cho Windows, lấy cảm hứng bố cục từ ảnh Scrble Ink được cung cấp. Phần Casio tích hợp source của Tikz-Physics, ghi nguồn riêng bên dưới; không phải sản phẩm chính thức của Scrble, GeoGebra hay Casio.
 
 ## Mở ứng dụng
 
-**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-1.6.0-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Sổ tay tự lưu trong hồ sơ ứng dụng của người dùng Windows; gỡ cài đặt giữ lại dữ liệu. Bộ cài cá nhân chưa ký số.
+**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-1.7.0-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Sổ tay tự lưu trong hồ sơ ứng dụng của người dùng Windows; gỡ cài đặt giữ lại dữ liệu. Bộ cài cá nhân chưa ký số.
 
 **Bản web và iPad:** bản web vẫn chạy từ `index.html` trên máy tính. Trên iPad, phục vụ toàn bộ thư mục ứng dụng qua HTTP/HTTPS rồi mở bằng Safari; iPad không chạy tệp `.exe`. Không có máy chủ nào được triển khai tự động. Bản Windows và trình duyệt có kho lưu riêng; dùng **Ctrl+S / Mở tệp** để chuyển sổ tay giữa các bản.
 
@@ -17,6 +17,19 @@ Nếu dùng bản ZIP trên máy tính:
 **Không cần Internet, Node.js, npm, Python, máy chủ, đăng nhập hoặc API key để sử dụng.** Không mở index.html ngay bên trong cửa sổ xem ZIP; cần giải nén toàn bộ thư mục để các tệp đi cùng được đọc đúng.
 
 Tất cả script, CSS, icon và thư viện nằm trong thư mục sản phẩm. Bản chạy dùng script cổ điển, không cần ES module từ file://, CDN, service worker hoặc tải font mạng. PDF.js được bundle cùng phần xử lý worker để chạy trên luồng chính, nhận font/CMap/decoder từ dữ liệu nhúng; không tạo worker từ đường dẫn file://. Công thức dùng SVG glyph có sẵn, không tải font ngoài.
+
+## Điểm mới 1.7 · hình học dành cho bút cảm ứng
+
+- Khung chọn và tay nắm của khối 3D bám theo hình chiếu thực, gồm cả đường dựng thêm. Kéo góc giữ đúng góc đối diện và tỷ lệ hình. Hai thanh thao tác nằm gần hình, theo khi kéo/zoom và được giới hạn trong màn hình.
+- Bỏ toàn bộ cụm **Bước giảng**, nút hiện từng bước và việc ẩn nét theo `currentStep` của tệp cũ. Mở sổ cũ sẽ hiện đầy đủ phép dựng.
+- Thêm **Giao đường–mặt**, **Giao hai mặt phẳng**, **Chiếu lên mặt phẳng**, **Khoảng cách điểm–mặt**, **Góc đường–mặt**, **Góc hai mặt phẳng**, **Vuông góc chung**, **Điểm chia cạnh** và **Tiếp tuyến đường tròn**. Tính bằng tọa độ, có kiểm tra suy biến, lưu/mở và cập nhật theo kích thước khối. Không tính giao giả từ hình chiếu.
+- Chọn điểm bằng cách chạm bút, có hướng dẫn thứ tự; có thể chọn lại đỉnh chung khi dựng hai mặt. Điểm chia cạnh có nút ⅓, ½, ⅔ và thanh trượt tỉ lệ; một lần điều chỉnh tạo một bước Undo.
+- **Đổi tên điểm**: chạm điểm rồi chạm chữ trong bảng tên, hoặc dùng bàn phím trên màn hình. Nhãn tại các điểm trùng đỉnh được gộp, ví dụ `A=H`.
+- **Hướng nhìn** có mẫu bài tập với cạnh đáy ngang, đổi hướng đáy, phối cảnh, chính diện, nhìn từ trên. Hình mới vẫn tĩnh, cạnh thấy liền/cạnh khuất đứt. Thư viện ghi thêm ký hiệu khối và giả thiết để dễ chọn.
+
+Tham khảo trực tiếp [hướng dẫn hình học Mathvera](https://mathvera.com/vi/huong-dan/#hinh-khong-gian), [tài liệu dạy hình không gian GeoGebra](https://www.geogebra.org/resource/n3unZ5Vg/p9TqufE9Fekx1eG1/material-n3unZ5Vg.pdf) và [đề minh họa Toán được công bố trên cổng Chính phủ](https://xaydungchinhsach.chinhphu.vn/de-thi-minh-hoa-mon-toan-tot-nghiep-thpt-tu-nam-2025-119231229180528163.htm). Bản này tập trung các công cụ dựng hình; chưa có toàn bộ tính năng của Mathvera như hình khai triển, tách thiết diện thành hình thật hoặc mặt cầu ngoại tiếp khối tùy ý.
+
+Chạy `npm run test:geometry-pen` để kiểm tra khung sát hình, kéo góc, dựng hình/đổi tên bằng bút, hướng nhìn và lưu/mở. Có thể thêm WebKit bằng `INKULATOR_WEBKIT_EXECUTABLE` trỏ tới binary Playwright phù hợp. [Báo cáo 1.7](docs/RELEASE-1.7.md).
 
 ## Điểm mới 1.6 · bộ cài, bút và giao diện gọn
 

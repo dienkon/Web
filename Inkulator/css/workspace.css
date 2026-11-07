@@ -54,3 +54,18 @@
   .toolbar > * { flex-shrink: 0; }
 }
 @media print { .panel-grip, #panel-reopen { display: none !important; } }
+.geometry-toolbar.near-geometry, #selection-tools.near-geometry {
+  max-width: calc(100% - 70px); z-index: 8;
+}
+.geometry-toolbar.near-geometry { width: max-content; padding: 5px; }
+.geometry-toolbar.near-geometry button, #selection-tools.near-geometry button {
+  min-height: 34px; min-width: 34px; padding: 6px 8px; font-size: 11px;
+}
+.geometry-instruction:empty { display: none; }
+.geo-menu-grid { grid-template-columns: repeat(2,minmax(0,1fr)); max-height: 55dvh; overflow-y: auto; }
+.geo-menu-grid button { min-height: 42px; text-align: left; padding: 8px 10px; }
+.geo-name-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 4px; }
+.geo-name-grid button { min-width: 36px; min-height: 38px; background: var(--bg); border-radius: 6px; }
+.geo-ratio-controls { display: flex; align-items: center; gap: 5px; padding: 5px; font-size: 11px; }
+.geo-ratio-controls input { width: 120px; min-width: 55px; }
+.solid-notation { font-size: 10px; line-height: 1.4; color: #61786b; display: block; padding: 3px 4px; }

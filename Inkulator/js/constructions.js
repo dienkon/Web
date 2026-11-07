@@ -8,6 +8,15 @@
     perpendicularBisector: 2,
     circleCenter: 2,
     reflectPoint: 2,
+    dividePoint: 2,
+    linePlane: 5,
+    planePlane: 6,
+    projectPlane: 4,
+    distancePlane: 4,
+    linePlaneAngle: 5,
+    planeAngle: 6,
+    commonPerpendicular: 4,
+    tangent: 3,
     measure: 2,
     perpendicular: 3,
     parallel: 3,
@@ -101,6 +110,13 @@
         ) / 2;
     return { points, normal: n, area };
   }
+  function plane(A, B, C) {
+    if (A.length !== 3) throw Error("Phép dựng này cần hình không gian.");
+    const u = G.sub(B,A), v = G.sub(C,A), n = G.cross(u,v), length = G.norm(n);
+    if (length <= EPS * Math.max(1, G.norm(u)*G.norm(v)))
+      throw Error("Ba điểm thẳng hàng hoặc trùng nhau; chưa xác định được mặt phẳng.");
+    return G.scale(n,1/length);
+  }
   function build(o) {
     const solid = o.type === "solid",
       d = o.data,
@@ -180,6 +196,82 @@
         if (c.type === "reflectPoint") {
           item.point = G.sub(G.scale(p[1], 2), p[0]);
           named("c:" + c.id, c.label || "P′", item.point);
+        }
+        if (c.type === "dividePoint") {
+          const t = c.ratio ?? 0.5;
+          if (!Number.isFinite(t) || t <= 0 || t >= 1) throw Error("Tỉ lệ phải nằm giữa 0 và 1.");
+          if (G.norm(G.sub(p[1],p[0])) < EPS) throw Error("Chọn hai đầu cạnh phân biệt.");
+          item.point = G.add(p[0],G.scale(G.sub(p[1],p[0]),t));
+          named("c:"+c.id,c.label || "M",item.point);
+        }
+        if (["projectPlane","distancePlane"].includes(c.type)) {
+          const n = plane(p[1],p[2],p[3]);
+          const signed = G.dot(n,G.sub(p[0],p[1]));
+          item.point = G.sub(p[0],G.scale(n,signed));
+          item.length = Math.abs(signed);
+          item.endpoints = [p[0],item.point];
+          item.endpointRefs = [c.refs[0],"c:"+c.id];
+          item.planePoints = p.slice(1);
+          named("c:"+c.id,c.label || "H",item.point);
+        }
+        if (["linePlane","linePlaneAngle"].includes(c.type)) {
+          const n = plane(p[2],p[3],p[4]), u = G.sub(p[1],p[0]), length = G.norm(u);
+          if (length < EPS) throw Error("Đường thẳng cần hai điểm phân biệt.");
+          const den = G.dot(n,u);
+          item.planePoints = p.slice(2);
+          if (c.type === "linePlaneAngle") {
+            item.angle = Math.asin(Math.min(1,Math.abs(den)/length))*180/Math.PI;
+          } else {
+            if (Math.abs(den) <= EPS*length) throw Error("Đường song song hoặc nằm trong mặt phẳng; không có một giao điểm duy nhất.");
+            item.point = G.add(p[0],G.scale(u,G.dot(n,G.sub(p[2],p[0]))/den));
+            item.endpoints = [p[0],item.point];
+            item.endpointRefs = [c.refs[0],"c:"+c.id];
+            named("c:"+c.id,c.label || "I",item.point);
+          }
+        }
+        if (["planePlane","planeAngle"].includes(c.type)) {
+          const n1 = plane(p[0],p[1],p[2]), n2 = plane(p[3],p[4],p[5]);
+          item.planes = [p.slice(0,3),p.slice(3)];
+          if (c.type === "planeAngle") {
+            item.angle = Math.acos(Math.min(1,Math.abs(G.dot(n1,n2))))*180/Math.PI;
+          } else {
+            const u = G.cross(n1,n2), den = G.dot(u,u);
+            if (den <= EPS*EPS) throw Error("Hai mặt phẳng song song hoặc trùng nhau; không có giao tuyến duy nhất.");
+            const d1 = G.dot(n1,p[0]), d2 = G.dot(n2,p[3]);
+            const point = G.scale(G.add(G.scale(G.cross(n2,u),d1),G.scale(G.cross(u,n1),d2)),1/den);
+            const center = G.scale(p.reduce((a,b)=>G.add(a,b),[0,0,0]),1/6);
+            const nearest = G.add(point,G.scale(u,G.dot(G.sub(center,point),u)/den));
+            const radius = Math.max(1,...model.vertices.map(v=>G.norm(G.sub(v,center))))*1.15;
+            const direction = G.scale(u,radius/Math.sqrt(den));
+            item.endpoints = [G.sub(nearest,direction),G.add(nearest,direction)];
+            item.endpointRefs = ["c:"+c.id+":A","c:"+c.id+":B"];
+            item.endpoints.forEach((P,i)=>{named(item.endpointRefs[i],"",P);points.get(item.endpointRefs[i]).internal=true;});
+          }
+        }
+        if (c.type === "commonPerpendicular") {
+          if (!solid) throw Error("Vuông góc chung áp dụng cho hai đường chéo nhau trong không gian.");
+          const u=G.sub(p[1],p[0]),v=G.sub(p[3],p[2]),w=G.sub(p[2],p[0]);
+          const aa=G.dot(u,u),bb=G.dot(v,v),ab=G.dot(u,v),den=aa*bb-ab*ab;
+          if (aa<EPS*EPS || bb<EPS*EPS || Math.abs(den)<=1e-12*aa*bb) throw Error("Chọn hai đường khác không và không song song.");
+          const wu=G.dot(w,u),wv=G.dot(w,v);
+          const H=G.add(p[0],G.scale(u,(wu*bb-wv*ab)/den));
+          const K=G.add(p[2],G.scale(v,(wu*ab-wv*aa)/den));
+          item.length=G.norm(G.sub(K,H));
+          if(item.length<EPS) throw Error("Hai đường cắt nhau; khoảng cách bằng 0, không có đoạn vuông góc chung khác không.");
+          item.endpoints=[H,K]; item.endpointRefs=["c:"+c.id+":H","c:"+c.id+":K"];
+          named(item.endpointRefs[0],c.label || "H",H); named(item.endpointRefs[1],c.secondLabel || "K",K);
+        }
+        if (c.type === "tangent") {
+          if(solid) throw Error("Tiếp tuyến đường tròn áp dụng cho hình phẳng.");
+          const radius=G.norm(G.sub(p[1],p[0])),u=G.sub(p[2],p[0]),d2=G.dot(u,u);
+          if(radius<EPS || d2<radius*radius*(1-1e-10)) throw Error("Bán kính phải dương và điểm tiếp tuyến phải nằm trên hoặc ngoài đường tròn.");
+          const foot=G.add(p[0],G.scale(u,radius*radius/d2));
+          const k=radius*Math.sqrt(Math.max(0,d2-radius*radius))/d2;
+          const perp=[-u[1],u[0]];
+          item.tangentPoints=[G.add(foot,G.scale(perp,k)),G.sub(foot,G.scale(perp,k))];
+          item.pairs=item.tangentPoints.map(T=>[p[2],T]);
+          if(k<EPS) { item.tangentPoints=item.tangentPoints.slice(0,1); item.pairs=[[G.sub(p[2],perp),G.add(p[2],perp)]]; }
+          item.tangentPoints.forEach((T,i)=>named("c:"+c.id+":T"+(i+1),i ? c.secondLabel || "T₂" : c.label || "T₁",T));
         }
         if (c.type === "intersection") {
           item.point = intersection(...p);
@@ -402,6 +494,8 @@
         !Array.isArray(c.refs) ||
         c.refs.length !== operations[c.type] ||
         c.refs.some((r) => typeof r !== "string" || r.length > 100) ||
+        (c.ratio !== undefined && (!Number.isFinite(c.ratio) || c.ratio <= 0 || c.ratio >= 1)) ||
+        (c.secondLabel !== undefined && (typeof c.secondLabel !== "string" || c.secondLabel.length > 16)) ||
         (c.label !== undefined &&
           (typeof c.label !== "string" || c.label.length > 16))
       )
@@ -435,6 +529,10 @@
           "midpoint",
           "perpendicularBisector",
           "reflectPoint",
+          "dividePoint",
+          "linePlane",
+          "projectPlane",
+          "distancePlane",
           "perpendicular",
           "circumcircle",
           "intersection",
@@ -451,6 +549,9 @@
         known.add("c:" + c.id + ":A");
         known.add("c:" + c.id + ":B");
       }
+      if(c.type === "planePlane") for(const suffix of [":A",":B"]) known.add("c:"+c.id+suffix);
+      if(c.type === "commonPerpendicular") for(const suffix of [":H",":K"]) known.add("c:"+c.id+suffix);
+      if(c.type === "tangent") for(const suffix of [":T1",":T2"]) known.add("c:"+c.id+suffix);
       if (c.type === "centroid")
         for (let i = 0; i < 3; i++) known.add("c:" + c.id + ":M" + i);
       if (c.type === "section")

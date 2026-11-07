@@ -1,6 +1,6 @@
 {
   "name": "scrble-math-studio",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "private": true,
   "description": "Offline mathematical notebook for Windows and pen tablets",
   "main": "desktop/main.cjs",
@@ -10,6 +10,7 @@
     "desktop:build": "node scripts/build-casio.cjs && electron-builder --win nsis --x64 --publish never",
     "test:desktop": "node tests/desktop-tests.cjs",
     "test:performance": "node tests/ink-performance-tests.cjs",
+    "test:geometry-pen": "node tests/geometry-pen-browser-tests.cjs",
     "test": "node tests/math-tests.cjs && node tests/construction-tests.cjs && node tests/visibility-tests.cjs",
     "test:browser": "node tests/browser-tests.cjs",
     "test:advanced": "node tests/advanced-browser-tests.cjs",

@@ -13,13 +13,13 @@
   const S = () => Store.state,
     dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
   function selectionHandles(o) {
-    const z = S().viewport.zoom;
+    const z = S().viewport.zoom, b = Renderer.selectionBounds(o);
     return [
-      { key: "tl", x: 0, y: 0 },
-      { key: "tr", x: o.size.w, y: 0 },
-      { key: "br", x: o.size.w, y: o.size.h },
-      { key: "bl", x: 0, y: o.size.h },
-      { key: "rotate", x: o.size.w / 2, y: -28 / z },
+      { key: "tl", x: b.x, y: b.y },
+      { key: "tr", x: b.x + b.w, y: b.y },
+      { key: "br", x: b.x + b.w, y: b.y + b.h },
+      { key: "bl", x: b.x, y: b.y + b.h },
+      { key: "rotate", x: b.x + b.w / 2, y: b.y - 28 / z },
     ];
   }
   function init() {
@@ -219,6 +219,7 @@
           gesture.handle = handle.key;
           gesture.object = o;
           gesture.original = Store.clone(o);
+          gesture.bounds = Renderer.selectionBounds(o);
           if (handle.key === "rotate") {
             gesture.center = Renderer.worldPoint(o, {
               x: o.size.w / 2,
@@ -373,7 +374,21 @@
         if (o && layerEditable(o)) o.position = { x: a.x + dx, y: a.y + dy };
       });
     }
-    if (g.mode === "resize") {
+    if (g.mode === "resize" && g.object.type === "solid") {
+      const o = g.object, a = g.original, b = g.bounds;
+      const q = Renderer.localPoint(a, p), left = g.handle.includes("l"), top = g.handle.startsWith("t");
+      const localAnchor = { x: left ? b.x + b.w : b.x, y: top ? b.y + b.h : b.y };
+      const anchor = Renderer.worldPoint(a, localAnchor);
+      const dx = (q.x - localAnchor.x) * (left ? -1 : 1);
+      const dy = (q.y - localAnchor.y) * (top ? -1 : 1);
+      const k = Math.max(20 / Math.min(a.size.w, a.size.h), (dx * b.w + dy * b.h) / (b.w*b.w + b.h*b.h));
+      o.size = { w: a.size.w * k, h: a.size.h * k };
+      const angle = a.rotation * Math.PI / 180;
+      const cx = o.size.w / 2 - localAnchor.x * k, cy = o.size.h / 2 - localAnchor.y * k;
+      o.position = { x: anchor.x + cx*Math.cos(angle) - cy*Math.sin(angle) - o.size.w/2,
+        y: anchor.y + cx*Math.sin(angle) + cy*Math.cos(angle) - o.size.h/2 };
+    }
+    if (g.mode === "resize" && g.object.type !== "solid") {
       const o = g.object,
         q = Renderer.localPoint(g.original, p),
         left = g.handle.includes("l"),

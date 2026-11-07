@@ -44,6 +44,12 @@
       const label = document.createElement("span");
       label.textContent = name;
       b.append(canvas, label);
+      if(solid) {
+        const caption=document.createElement("small");
+        caption.className="solid-notation";
+        caption.textContent={cube:"ABCD.A′B′C′D′",box:"ABCD.A′B′C′D′",pyramid:"S.ABCD · S trên tâm đáy","right-pyramid":"S.ABCD · SA ⟂ đáy","s-abcd-rec":"S.ABCD · đáy chữ nhật","s-abc-right":"S.ABC · SA ⟂ (ABC)","tri-pyramid":"S.ABC · đáy tam giác đều",tetrahedron:"S.ABC · mọi cạnh bằng nhau","tri-prism":"ABC.A′B′C′","hex-prism":"ABCDEF.A′B′C′D′E′F′",cylinder:"Hai đáy elip · trục đứng",cone:"Đỉnh S · tâm đáy O",sphere:"Tâm O · bán kính r"}[kind] || "Nét khuất tự động";
+        b.append(caption);b.title=name+" · "+caption.textContent;
+      }
       const o = makeGeometry(kind, solid);
       o.position = { x: 0, y: 0 };
       o.size = { w: 188, h: 150 };

@@ -96,10 +96,13 @@
           hiddenEdges: d.hiddenEdges !== false,
         });
     }
-    if (!rounded && d.labels !== false)
-      v.model.labels.forEach((name, i) =>
-        point(p[i], d.vertexLabels?.[i] || name),
-      );
+    if (!rounded && d.labels !== false) {
+      const built=d.constructions?.length ? Constructions.build(o) : null;
+      v.model.labels.forEach((name,i)=>{
+        const extra=built ? [...built.points.values()].filter(q=>q.derived && !q.internal && !q.aliasOf && G.norm(G.sub(q.coords,v.model.vertices[i]))<1e-8).map(q=>q.label) : [];
+        point(p[i],[d.vertexLabels?.[i] || name,...new Set(extra)].join("="));
+      });
+    }
     if (rounded) {
       if (d.kind === "cone") point(v.screen([0, 0, d.params.h]), "S");
       if (d.center) point(v.screen([0, 0, 0]), "O");

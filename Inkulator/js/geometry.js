@@ -628,6 +628,15 @@
       yy * Math.sin(rx) + z * Math.cos(rx),
     ];
   }
+  function textbookViews(kind) {
+    return [
+      {id:"standard",title:"Bài tập · cạnh đáy ngang",rotation:defaultRotation(kind),projection:defaultProjection(kind)},
+      {id:"alternate",title:"Đổi hướng đáy",rotation:[-.45,Math.PI/2-.55],projection:"oblique"},
+      {id:"spatial",title:"Phối cảnh dễ nhìn",rotation:[-.55,-.65],projection:"orthographic"},
+      {id:"front",title:"Nhìn chính diện",rotation:[0,0],projection:"orthographic"},
+      {id:"top",title:"Nhìn từ trên",rotation:[-Math.PI/2,0],projection:"orthographic"},
+    ];
+  }
   function project(
     vertices,
     rotation = [-0.45, -0.55],
@@ -670,6 +679,7 @@
     camera,
     defaultProjection,
     defaultRotation,
+    textbookViews,
     sub,
     add,
     scale,

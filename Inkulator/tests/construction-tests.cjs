@@ -368,4 +368,52 @@ test("Center-point circle and central reflection preserve mathematical definitio
   solid.data.constructions = [{id:"b",type:"perpendicularBisector",refs:["v:0","v:1"]}];
   assert.equal(Constructions.build(solid).warnings.length,1);
 });
+test("Line-plane intersection, projection and distance use 3D coordinates",()=>{
+  const o=cube();
+  o.data.constructions=[
+    {id:"i",type:"linePlane",refs:["v:4","v:0","v:0","v:1","v:2"]},
+    {id:"h",type:"projectPlane",refs:["v:6","v:0","v:1","v:2"]},
+    {id:"d",type:"distancePlane",refs:["v:6","v:0","v:1","v:2"]},
+    {id:"s",type:"segment",refs:["c:h","v:4"]},
+  ];
+  Constructions.validate(o.data,true);
+  let r=Constructions.build(o);assert.deepEqual(r.warnings,[]);
+  assert.deepEqual(r.points.get("c:i").coords,[0,0,0]);
+  assert.deepEqual(r.points.get("c:h").coords,[4,4,0]);close(r.items[2].length,4);
+  o.data.params.a=7;r=Constructions.build(o);close(r.items[2].length,7);
+});
+test("Plane-plane intersection and spatial angles remain exact",()=>{
+  const o=cube();
+  o.data.constructions=[
+    {id:"p",type:"planePlane",refs:["v:0","v:1","v:2","v:0","v:1","v:4"]},
+    {id:"a",type:"planeAngle",refs:["v:0","v:1","v:2","v:0","v:1","v:4"]},
+    {id:"l",type:"linePlaneAngle",refs:["v:0","v:6","v:0","v:1","v:2"]},
+    {id:"m",type:"midpoint",refs:["c:p:A","c:p:B"]},
+  ];
+  Constructions.validate(o.data,true);const r=Constructions.build(o);assert.deepEqual(r.warnings,[]);
+  for(const P of r.items[0].endpoints) {close(P[1],0);close(P[2],0);}
+  close(r.items[1].angle,90);close(r.items[2].angle,Math.asin(1/Math.sqrt(3))*180/Math.PI);
+});
+test("Common perpendicular is orthogonal to both skew lines",()=>{
+  const o=cube();o.data.constructions=[{id:"k",type:"commonPerpendicular",refs:["v:0","v:1","v:6","v:2"]}];
+  Constructions.validate(o.data,true);const r=Constructions.build(o);assert.deepEqual(r.warnings,[]);
+  const [H,K]=r.items[0].endpoints,w=Geometry.sub(K,H);close(r.items[0].length,4);
+  close(Geometry.dot(w,[4,0,0]),0);close(Geometry.dot(w,[0,0,4]),0);
+});
+test("Division points and circle tangents stay dependent",()=>{
+  const o=flat();o.data.points=[[0,0],[2,0],[4,0]];
+  o.data.constructions=[{id:"m",type:"dividePoint",refs:["v:0","v:2"],ratio:1/3},{id:"t",type:"tangent",refs:["v:0","v:1","v:2"]}];
+  Constructions.validate(o.data);let r=Constructions.build(o);assert.deepEqual(r.warnings,[]);
+  close(r.points.get("c:m").coords[0],4/3);
+  for(const T of r.items[1].tangentPoints) {close(Geometry.norm(T),2);close(Geometry.dot(T,Geometry.sub([4,0],T)),0);}
+  o.data.points[2]=[8,0];r=Constructions.build(o);close(r.points.get("c:m").coords[0],8/3);
+});
+test("Advanced constructions reject degeneracies and corrupt ratios",()=>{
+  const o=cube();o.data.constructions=[
+    {id:"p",type:"planePlane",refs:["v:0","v:1","v:2","v:4","v:5","v:6"]},
+    {id:"l",type:"linePlane",refs:["v:4","v:5","v:0","v:1","v:2"]},
+    {id:"h",type:"projectPlane",refs:["v:6","v:0","v:0","v:1"]},
+  ];assert.equal(Constructions.build(o).warnings.length,3);
+  o.data.constructions=[{id:"m",type:"dividePoint",refs:["v:0","v:1"],ratio:NaN}];assert.throws(()=>Constructions.validate(o.data,true));
+});
 console.log(count + " construction tests passed.");
