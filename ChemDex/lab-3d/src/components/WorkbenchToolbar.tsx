@@ -1,4 +1,5 @@
 import React, { lazy, Suspense, useCallback, useState } from 'react';
+import { PhysicsPanel } from '../physical/PhysicsPanel';
 import { useAppStore } from '../store/useAppStore';
 import { useShallow } from 'zustand/react/shallow';
 import { LabEnvironmentControls } from './LabEnvironmentControls';
@@ -58,6 +59,7 @@ export function WorkbenchToolbar() {
   return (
     <div className="flex items-center justify-between px-3.5 py-1.5 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs z-20 shrink-0 gap-2">
       {/* Left: Mode Selection (Icon-prioritized with subtle text) */}
+      <PhysicsPanel />
       <div className="flex items-center gap-1 bg-slate-100/90 p-0.5 rounded-lg border border-slate-200/60">
         <button
           onClick={() => { setLabMode('free'); setPresentationMode(false); }}

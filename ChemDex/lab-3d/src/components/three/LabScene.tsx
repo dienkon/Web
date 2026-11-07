@@ -49,6 +49,7 @@ import { FrameTelemetry } from '../../render/FrameTelemetry';
 import { RenderActivity } from '../../render/RenderActivity';
 import { useRenderDpr } from '../../render/renderResolution';
 import { LessonScene } from '../../lesson/LessonScene';
+import { PhysicsScene } from '../../physical/PhysicsScene';
 
 function DragDropRaycaster() {
   const { camera, gl } = useThree();
@@ -743,6 +744,7 @@ export function LabScene() {
         onContextMenu={(e) => e.preventDefault()}
       >
         <SceneEnvironmentSetup tier={effectiveTier} />
+        <PhysicsScene />
         <RenderActivity />
 
         {/* Procedural Laboratory Environment with fluorescent tube reflections */}

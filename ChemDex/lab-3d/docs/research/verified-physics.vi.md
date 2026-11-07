@@ -11,7 +11,7 @@ Baseline trước thay đổi: 2.470/2.470 test qua (`artifacts/verified-physics
 | Mốc | Nội dung | Trạng thái |
 |---|---|---|
 | 1 | Kiểm kê, đơn vị, hồ sơ vật thể, nguồn và giới hạn | Đã có registry và audit; kiểm chứng vật thể tiếp tục ở mốc 2 |
-| 2 | Runtime Worker/Rapier, tiếp xúc, cầm/thả, liên kết | Đang triển khai |
+| 2 | Runtime Worker/Rapier, tiếp xúc, cầm/thả, liên kết | Có đường chạy thử nghiệm; chưa bật mặc định |
 | 3 | Kho chất, lực đẩy, dòng vận chuyển, quần thể có trọng số | Chưa nghiệm thu |
 | 4 | Nhiệt, pha, khí và hóa học liên thông | Chưa nghiệm thu |
 | 5 | Hai gói dụng cụ và mẫu mới | Đã có hồ sơ; chưa nghiệm thu thao tác |
@@ -40,3 +40,13 @@ npx vitest run tests/physical_foundation.test.ts tests/held_object_controller.te
 ```
 
 Không ghi đè các artifact hiệu năng lịch sử. Báo cáo mới nằm dưới `artifacts/verified-physics`.
+
+## Runtime cơ học
+
+Rapier 0.21.0 được khóa trong lockfile và tải trong Worker riêng khi bật mục **Vật lí**. UI gửi lệnh có thứ tự; 120 tick/s độc lập FPS. Khối lượng vỏ và mẫu được cộng đúng một lần, trọng tâm/quán tính cập nhật khi lượng mẫu thay đổi. Collider thủy tinh là shell nêm rỗng theo contour dùng chung; phụ kiện mới vẫn là hình bao ước lượng và được ghi rõ trong giao diện.
+
+Vật được giữ bằng lực lò xo có giới hạn; lực và mômen được bỏ khi thả nhưng vận tốc được giữ. CCD bật cho thân động. Joint cầu có API attach/detach ở runtime. Snapshot WASM có version và bản Rapier; khôi phục được kiểm tra bằng trajectory và byte snapshot giống nhau. Pose/vận tốc SI của bình được lưu cùng mẫu trong record hiện hữu.
+
+10 test runtime qua: rơi tự do sai số dưới 1% ở fixture, bước 120 Hz qua 20/30/60/120 FPS, miệng rỗng/đáy bình, pause, thứ tự lệnh, lưu/khôi phục và không cộng khối lượng lặp. Audit Chrome desktop 1440×1000 và viewport cảm ứng 390×844 bật Worker và kiểm tra pause không tăng tick; không có page error. Viewport điện thoại trên Chrome desktop không thay thế đo trên điện thoại thật hoặc Safari.
+
+Chưa chứng nhận hiệu năng 20 bình/50 mảnh hoặc sức bền thực nghiệm; hình bao dụng cụ, trọng tâm chất lỏng khi dao động và va chạm của phụ kiện cần kiểm chứng tiếp. Các phần hóa học/nhiệt hiện có chưa chuyển toàn bộ vào Worker. Giữ feature flag tắt mặc định cho đến khi vượt đủ nghiệm thu.

@@ -88,6 +88,9 @@ export type VesselType =
   | 'hot_plate';
 
 export interface VesselState {
+  /** SI mechanical state persisted atomically with the specimen inventory. */
+  physicalMotion?: { rotation: import('../physical/types').Quat; velocity_m_s: import('../physical/types').Vec3;
+    angularVelocity_rad_s: import('../physical/types').Vec3; tick: number };
   liquidOptics?: import('../pour/physics/mixing').LiquidOptics;
   stirringIntensity?: number; // 0..1 operational control; not a measured shear rate
   bubbleInterfaceMobility?: import('../science/bubbleRise').BubbleInterfaceMobility;

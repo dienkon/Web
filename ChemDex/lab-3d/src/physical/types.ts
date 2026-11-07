@@ -41,6 +41,8 @@ export interface MatterInventory { revision: number; parcels: MatterParcel[] }
 export interface PhysicalBodyInput {
   id: string; definition: PhysicalObjectDefinition; position_m: Vec3; rotation: Quat;
   contentsMass_kg: number; contentsCOM_m?: Vec3; temperature_K: number; locked: boolean;
+  velocity_m_s?: Vec3; angularVelocity_rad_s?: Vec3;
+  fluid?: { volume_m3: number; density_kg_m3: number; viscosity_Pas: number; vesselType: string; capacity_ml: number };
 }
 export type SimulationCommand = { sequence: number; tick: number } & (
   | { kind: 'sync'; bodies: PhysicalBodyInput[] }
@@ -55,6 +57,7 @@ export interface SimulationSnapshot {
   version: 1; tick: number; time_s: number; seed: number; sequence: number;
   objects: PhysicalObjectState[]; impacts: { id: string; energy_J: number; surface: 'bench' | 'stone_floor' }[];
   backlog_s: number;
+  fluidForces?: { id: string; ownerId: string; displaced_m3: number; buoyancy_N: number }[];
 }
 export interface PhysicalSave {
   version: 1; snapshot: SimulationSnapshot; inventory: MatterInventory;

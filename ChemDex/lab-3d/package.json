@@ -20,6 +20,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@dimforge/rapier3d-compat": "0.21.0",
     "@google/genai": "^2.4.0",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.1",
