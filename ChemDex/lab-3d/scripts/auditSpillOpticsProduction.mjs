@@ -24,7 +24,7 @@ try {
       for (const Type of [window.WebGLRenderingContext, window.WebGL2RenderingContext]) if (Type) {
         const source = Type.prototype.shaderSource, compile = Type.prototype.compileShader;
         Type.prototype.shaderSource = function(shader, text) {
-          if (text.includes('vSpillHeight')) sources.set(shader, { absorption: text.includes('uSpillAbsorption'), refraction: text.includes('vec3 spillRay') });
+          if (text.includes('vSpillHeight')) sources.set(shader, { absorption: text.includes('uSpillAbsorption'), refraction: /#define USE_TRANSMISSION\b/.test(text) && text.includes('uSpillMaxPath') });
           return source.call(this, shader, text);
         };
         Type.prototype.compileShader = function(shader) { compile.call(this, shader);

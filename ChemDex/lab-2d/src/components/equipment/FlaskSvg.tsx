@@ -1,5 +1,6 @@
 import React from 'react';
 import { EquipmentState } from '../../types/equipment';
+import { VesselPhysicsOverlay } from '../vfx/VesselPhysicsOverlay';
 
 interface FlaskSvgProps {
   equipment: EquipmentState;
@@ -332,6 +333,24 @@ export const FlaskSvg: React.FC<FlaskSvgProps> = ({ equipment, isSelected }) => 
       </g>
 
       {/* Flask Glass Body */}
+      <VesselPhysicsOverlay
+        equipment={equipment}
+        innerX={18}
+        innerY={24}
+        innerWidth={114}
+        innerHeight={140}
+        liquidSurfaceY={liquidY}
+        liquidHeight={totalLiquidHeight}
+        clipPathId={`flaskClip-${id}`}
+      />
+      {equipment.isSealed && (
+        <g>
+          <polygon points="59,12 91,12 88,26 62,26" fill="#78350f" stroke="#451a03" strokeWidth="1.5" />
+          <text x="75" y="9" textAnchor="middle" fontSize="7.5" fontWeight="bold" fill="#fbbf24" fontFamily="monospace">
+            {(equipment.internalPressure_atm ?? 1.0).toFixed(2)} atm
+          </text>
+        </g>
+      )}
       <path
         d="M 61 24 L 61 64 L 18 156 Q 16 164 26 164 L 124 164 Q 134 164 132 156 L 89 64 L 89 24"
         fill={`url(#flaskGlass-${id})`}

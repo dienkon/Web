@@ -1,0 +1,132 @@
+const n="ho-so-90ad5ae2066a",h="Magie hiđroxit (Mg(OH)₂) — Phóng sự từ chiếc bình chưng cổ điển đến mô hình liên kết không gian 3D",t="Phóng Viên Phòng Thí Nghiệm & Lịch Sử Khoa Học · ChemDex",i="hopchat",c="Bài báo chuyên đề khắc họa chân dung hóa học của Magie hiđroxit (Mg(OH)₂): câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",g="/assets/library/ionic-crystal.svg",a="Mg(OH)₂",u=["Câu chuyện hợp chất","Mg(OH)2","Kết tủa","Kết tủa"],o=["Magie hiđroxit","Magnesium Hydroxide","Mg(OH)2"],r=["chem-mgoh2"],m="reference",p=16,e={formula:"Mg(OH)2",representativeId:"chem-mgoh2",counts:{Mg:1,O:2,H:2},mass:58.318999999999996,material:!1,reactionIds:["rx_4d6165c72946da34","rx_799b4e90ed9e60f1","rx_d84b3e42306a62ab","rx_a93bf55ef36e6882"]},s=`## Câu chuyện: Từ những quan sát thực nghiệm đầu tiên đến danh pháp quốc tế của Magie hiđroxit (Mg(OH)₂)
+
+Trong thế giới hóa học, không một công thức nào ra đời từ sự ngẫu nhiên. Sự hiện diện của **Magie hiđroxit (Mg(OH)₂)** trên các trang sách giáo khoa và cơ sở dữ liệu quốc tế hôm nay là kết quả của hàng trăm phép thử nghiệm, những cuộc tranh luận học thuật nảy lửa tại châu Âu thế kỷ XVIII–XIX và sự ra đời của lý thuyết liên kết hóa học hiện đại.
+
+Theo hồ sơ bách khoa trực tuyến từ [Wikipedia Tiếng Việt — Magnesi hydroxide](https://vi.wikipedia.org/wiki/Magnesi_hydroxide), bản chất và lịch sử của chất này được ghi nhận cụ thể như sau: Magnesi hydroxide là một hợp chất vô cơ với công thức hóa học Mg(OH)2. Nó có mặt trong tự nhiên trong khoáng chất brucit. Nó là một chất rắn màu trắng với độ hòa tan thấp trong nước (Ksp = 5.61×10−12). Magnesi hydroxide là một thành phần phổ biến của các thuốc kháng acid, như sữa magnesi, cũng như các thuốc nhuận tràng.
+
+Tư liệu bách khoa quốc tế tại [Wikipedia — Magnesium hydroxide](https://en.wikipedia.org/wiki/Magnesium_hydroxide) bổ sung thêm góc nhìn lịch sử và danh pháp quốc tế: *“Magnesium hydroxide is an inorganic compound with the chemical formula Mg(OH)2. It occurs in nature as the mineral brucite. It is a white solid with low solubility in water (Ksp = 5.61×10−12). Magnesium hydroxide is a common component of antacids, such as milk of magnesia.”* — phản ánh vai trò quan trọng của **Magie hiđroxit (Mg(OH)₂)** trong hệ thống phân loại hóa chất chuẩn IUPAC và thực tiễn phòng thí nghiệm toàn cầu.
+
+Nhóm hiđroxit (**OH⁻**) là nhân vật trung tâm của lý thuyết axit–bazơ trong lịch sử hóa học. Từ thời cổ đại, con người đã biết ngâm tro thực vật (*al-qali*) và trộn với vôi tôi để tạo ra các dung dịch kiềm ăn da dùng nấu xà phòng. Đến năm 1884–1887, nhà bác học Thụy Điển **Svante Arrhenius** đã đưa ra thuyết điện li mang tính cách mạng (Giải Nobel Hóa học 1903), chứng minh rằng mọi tính chất đặc trưng của bazơ đều bắt nguồn từ sự hiện diện và tương tác của nhóm nguyên tử liên kết cộng hóa trị phân cực **—O—H** mang điện tích âm.
+
+Để hiểu trọn vẹn cội nguồn của hợp chất, cần lần theo lịch sử khám phá từng nguyên tố tạo nên nó:
+
+- **Nhánh nguyên tố Magie (Mg)**: Dấu ấn lịch sử phát hiện do **Joseph Black** tìm ra (mốc thời gian: **1755**). Năm 1755, Joseph Black phân biệt Magnesium compounds với Calcium compounds và xác định Magnesium là một thành phần riêng biệt. Đến năm 1808, Humphry Davy cô lập được Magnesium ở dạng kim loại bằng phương pháp điện hóa. Nguồn khoáng vật tự nhiên tiêu biểu của nguyên tố này gồm: *Magnesite, Dolomite, Brucite, Carnallite, nước biển và một số khoáng vật Silicate*.
+- **Nhánh nguyên tố Oxi (O)**: Dấu ấn lịch sử phát hiện do **Joseph Priestley và Carl Wilhelm Scheele** tìm ra (mốc thời gian: **1774**). Năm 1774, Joseph Priestley điều chế được Oxygen bằng cách nung Mercury(II) oxide và công bố kết quả. Carl Wilhelm Scheele cũng điều chế được Oxygen độc lập trước đó, khoảng năm 1772, nhưng công trình của ông được công bố sau. Antoine Lavoisier sau đó xác định vai trò của Oxygen trong sự cháy và hô hấp, đồng thời đặt tên Oxygen.
+- **Nhánh nguyên tố Hiđro (H)**: Dấu ấn lịch sử phát hiện do **Henry Cavendish** tìm ra (mốc thời gian: **1766**). Năm 1766, Henry Cavendish nghiên cứu loại khí sinh ra khi kim loại tác dụng với axit và xác định đây là một chất hoàn toàn mới. Antoine Lavoisier sau đó đặt tên là Hydrogen, nghĩa là 'sinh ra nước'. Nguồn khoáng vật tự nhiên tiêu biểu của nguyên tố này gồm: *Nước biển, Nước ngọt, Dầu mỏ, Khí thiên nhiên, Sinh khối*.
+
+![Khởi nguyên lịch sử và hành trình khám phá Magie hiđroxit (Mg(OH)₂)](/assets/library/lab-synthesis.svg)
+*Hình 1. Bối cảnh lịch sử phát hiện, nguồn gốc tự nhiên và tiến trình định danh khoa học của Magie hiđroxit (Mg(OH)₂).*
+
+## Lần theo thành phần nguyên tử: Trật tự vi mô và góc nhìn cấu trúc 3D của Magie hiđroxit
+
+Để hiểu vì sao **Magie hiđroxit (Mg(OH)₂)** lại mang những tính chất vật lý và hóa học đặc thù, chúng ta cần đi sâu vào "bản thiết kế hình học" của chất này. Một đơn vị công thức **Mg(OH)₂** được liên kết chặt chẽ từ **5 nguyên tử** thuộc **3 nguyên tố hóa học**:
+
+- **Nguyên tố Magie (Mg)**: Góp mặt **1 nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử Magie phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **Magie hiđroxit**.
+- **Nguyên tố Oxi (O)**: Góp mặt **2 nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử Oxi phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **Magie hiđroxit**.
+- **Nguyên tố Hiđro (H)**: Góp mặt **2 nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử Hiđro phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **Magie hiđroxit**.
+
+Về hình thái liên kết không gian, **Magie hiđroxit (Mg(OH)₂)** là một công trình kiến trúc phối trí tinh vi. Giữa các cụm ion mang điện tích trái dấu gồm **1× Mg và 2× OH** tồn tại lực tương tác tĩnh điện đối xứng trong không gian 3 chiều; trong khi đó, ngay bên trong từng nhóm ion đa nguyên tử, các nguyên tử lại liên kết cộng hóa trị chặt chẽ. Sự hòa quyện kép này tạo nên những khối tinh thể sắc cạnh lấp lánh dưới ánh sáng, đồng thời cho phép chất dễ dàng hòa nhập vào thế giới dung môi khi gặp nước.
+
+![Kiến trúc liên kết không gian 3 chiều của Magie hiđroxit (Mg(OH)₂)](/assets/library/ionic-crystal.svg)
+*Hình 2. Mô phỏng trực quan sự phân bố đám mây electron, góc liên kết và trật tự phối trí không gian 3D của Magie hiđroxit (Mg(OH)₂).*
+
+| Chỉ tiêu nhận diện & Cấu trúc 3D | Tư liệu xác thực từ hệ thống ChemDex |
+|---|---|
+| Tên chất & Danh pháp quốc tế | **Magie hiđroxit** (Magnesium Hydroxide) |
+| Công thức hóa học thực nghiệm | **Mg(OH)₂**  |
+| Hình thái không gian 3 chiều | Mạng phối trí tinh thể ion & gốc liên kết |
+| Quy mô cấu trúc vi mô | **5 nguyên tử** (1× Mg, 2× O, 2× H) |
+| Trạng thái & Sắc thái nhận diện | Rắn / Dung dịch thực nghiệm |
+| Phòng quan sát 3D tương tác | [Mở mô hình xoay 360° và kiểm tra góc liên kết](/tien-ich/cau-truc-3d/?compound=chem-mgoh2) |
+
+Người đọc có thể trực tiếp xoay mô hình 360°, bật/tắt nhãn nguyên tử và kiểm tra độ dài từng liên kết (tính bằng đơn vị Ångström) của chất này tại [Phòng quan sát Cấu trúc & Liên kết 3D — Magie hiđroxit](/tien-ich/cau-truc-3d/?compound=chem-mgoh2).
+
+## Từ công thức đến các nhóm ion: Sự phân li, hydrat hóa và dẫn điện trong dung dịch
+
+Một trong những bước ngoặt vĩ đại nhất của hóa học lý thuyết thế kỷ XIX–XX — gắn liền với công trình của **Michael Faraday** (1834) về định luật điện phân, **Svante Arrhenius** (1884) về thuyết điện li và **William Lawrence Bragg** (1913) về nhiễu xạ tia X tinh thể — là sự phân biệt rạch ròi giữa công thức thực nghiệm trên giấy và trạng thái tồn tại thực tế của các hợp chất ion như **Magie hiđroxit (Mg(OH)₂)**.
+
+Trong trạng thái tinh thể rắn hoặc mô hình phối trí chuẩn, công thức **Mg(OH)2** biểu diễn tỷ lệ tối giản đảm bảo tính trung hòa điện hoàn hảo giữa các thành phần: **1 nhóm Mg kết hợp với 2 nhóm OH**. Khi đưa **Magie hiđroxit** tiếp xúc với dung môi phân cực mạnh như nước, các phân tử dung môi sẽ quay đầu mang điện tích trái dấu về phía các ion trên bề mặt mạng tinh thể. Năng lượng hydrat hóa giải phóng ra đủ sức thắng lực hút tĩnh điện mạng lưới, tách rời các cation và anion thành các hạt mang điện chuyển động tự do được bao bọc bởi lớp vỏ solvat hóa:
+
+- **Quá trình phân li các thành phần ion**: Mỗi đơn vị công thức Mg(OH)₂ giải phóng **1 ion/nhóm Mg** cùng **2 ion/nhóm OH**, cho phép dung dịch dẫn điện và tham gia tức thời vào các phản ứng trao đổi ion trong thời gian chỉ vài phần triệu giây.
+- **Ý nghĩa trong mô phỏng 3D và Phòng thí nghiệm ảo**: Thay vì coi Mg(OH)₂ là một khối cứng nhắc bất biến, việc nhận diện rõ các tiểu phân **Mg, OH** giúp người học giải thích trọn vẹn màu sắc dung dịch, hiện tượng kết tủa khi gặp thuốc thử đặc hiệu, cũng như sự thay đổi độ dẫn điện và pH của môi trường.
+
+## Kịch bản trong ống nghiệm: Cơ chế hình thành và chuỗi phản ứng của Magie hiđroxit
+
+Trong cơ sở dữ liệu phản ứng thực nghiệm của ChemDex (với **23 phương trình** có sự góp mặt của **Mg(OH)₂**, trong đó có **15 con đường tổng hợp/tạo thành** và **8 con đường chuyển hóa**), hành trình ra đời và biến đổi của chất này được minh chứng qua các kịch bản tiêu biểu sau:
+
+### Con đường hình thành & điều chế #1 (Kết tủa)
+
+Phương trình hóa học cân bằng chuẩn xác:
+
+\`Mg(CH3COO)2(aq) + 2KOH(aq) → Mg(OH)2(s) + 2CH3COOK(aq)\`
+
+- **Bản chất & Cơ chế phản ứng**: Ion Mg(2+) kết hợp với OH(1−) tạo pha ít tan; ion đối được giữ trong CH3COOK.
+- **Điều kiện thực hiện**: Dung dịch nước; lượng ion đủ để Q > Ksp..
+- **Hiện tượng quan sát thực nghiệm**: Có thể tạo kết tủa Mg(OH)2 khi quá bão hòa; độ đục và tốc độ lắng chưa được hiệu chuẩn..
+- **Phương trình ion rút gọn**: \`Mg(CH3COO)2(aq) + 2KOH(aq) → Mg(OH)2(s) + 2CH3COOK(aq)\` (Trạng thái pha: \`Mg(CH3COO)2(aq) + 2KOH(aq) → Mg(OH)2(s) + 2CH3COOK(aq)\`).
+
+### Con đường hình thành & điều chế #2 (Kết tủa)
+
+Phương trình hóa học cân bằng chuẩn xác:
+
+\`Mg(CH3COO)2(aq) + 2LiOH(aq) → Mg(OH)2(s) + 2CH3COOLi(aq)\`
+
+- **Bản chất & Cơ chế phản ứng**: Ion Mg(2+) kết hợp với OH(1−) tạo pha ít tan; ion đối được giữ trong CH3COOLi.
+- **Điều kiện thực hiện**: Dung dịch nước; lượng ion đủ để Q > Ksp..
+- **Hiện tượng quan sát thực nghiệm**: Có thể tạo kết tủa Mg(OH)2 khi quá bão hòa; độ đục và tốc độ lắng chưa được hiệu chuẩn..
+- **Phương trình ion rút gọn**: \`Mg(CH3COO)2(aq) + 2LiOH(aq) → Mg(OH)2(s) + 2CH3COOLi(aq)\` (Trạng thái pha: \`Mg(CH3COO)2(aq) + 2LiOH(aq) → Mg(OH)2(s) + 2CH3COOLi(aq)\`).
+
+### Con đường phản ứng & chuyển hóa #3 (Axit – bazơ)
+
+Phương trình hóa học cân bằng chuẩn xác:
+
+\`Mg(OH)2(s) + 2CH3COOH(aq) → Mg(CH3COO)2(aq) + 2H2O(l)\`
+
+- **Bản chất & Cơ chế phản ứng**: Axit tiêu thụ nhóm bazơ/oxit tạo muối và nước; hệ số theo đương lượng, không gán nhiệt chung cho mọi axit.
+- **Điều kiện thực hiện**: Axit CH3COOH; lượng axit đủ để trung hòa hoàn toàn..
+- **Hiện tượng quan sát thực nghiệm**: Rắn có thể tan dần hoặc pH thay đổi; màu tùy ion và nồng độ. Không có chỉ thị thì không tự xuất hiện màu hồng..
+- **Phương trình ion rút gọn**: \`Mg(OH)2(s) + 2CH3COOH(aq) → Mg(CH3COO)2(aq) + 2H2O(l)\` (Trạng thái pha: \`Mg(OH)2(s) + 2CH3COOH(aq) → Mg(CH3COO)2(aq) + 2H2O(l)\`).
+
+### Con đường phản ứng & chuyển hóa #4 (Nhiệt phân)
+
+Phương trình hóa học cân bằng chuẩn xác:
+
+\`Mg(OH)2(s) → MgO(s) + H2O(g)\`
+
+- **Bản chất & Cơ chế phản ứng**: Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.
+- **Điều kiện thực hiện**: Đun nóng làm mất nước; công thức hydroxide dùng quy ước không ghi nước hydrat..
+- **Hiện tượng quan sát thực nghiệm**: Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần..
+- **Phương trình ion rút gọn**: \`Mg(OH)2(s) → MgO(s) + H2O(g)\` (Trạng thái pha: \`Mg(OH)2(s) → MgO(s) + H2O(g)\`).
+
+## Sứ mệnh thực tiễn và vai trò của Magie hiđroxit trong nền văn minh hiện đại
+
+Trong dòng chảy của nền văn minh kỹ thuật và ứng dụng thực tiễn, **Magie hiđroxit (Mg(OH)₂)** giữ vai trò không thể thay thế trên nhiều phương diện đời sống:
+
+- **Trong y học, đời sống & sản xuất công nghiệp**: Tùy thuộc vào bản tính phản ứng và tính chất bề mặt của **Mg(OH)₂**, chất này tham gia vào các chu trình xử lý môi trường, làm chất xúc tác chuyển hóa, sản xuất vật liệu tiên tiến hoặc làm nguyên liệu tổng hợp các chế phẩm có giá trị cao.
+- **Trong nghiên cứu học thuật & thực nghiệm phân tích**: Là nhân vật trung tâm trong các thí nghiệm chuẩn hóa, giúp các nhà nghiên cứu kiểm chứng cơ chế phản ứng và nhận diện sự hiện diện của các hợp chất đồng hành.
+- **Trong thế giới giáo dục trực quan**: Đóng vai trò là vật mẫu điển hình kết nối trực quan giữa công thức trên giấy và thực tế tại [Phòng thí nghiệm ChemDex](/lab-2d/) cùng [Không gian Cấu trúc 3D](/tien-ich/cau-truc-3d/?compound=chem-mgoh2).
+
+### Câu chuyện lịch sử ứng dụng & Bài học kinh nghiệm thực hành
+
+Lịch sử ứng dụng của **Magie hiđroxit (Mg(OH)₂)** là một minh chứng sống động cho thấy sự am hiểu về bản chất chất hóa học có thể biến những vật chất thô sơ trong tự nhiên thành công cụ phục vụ đời sống con người. Trải qua hàng thế kỷ thực nghiệm — từ những phát hiện ngẫu nhiên trong xưởng nhuộm, mỏ quặng cho đến các dây chuyền tổng hợp hiện đại — bài học cốt lõi mà các thế hệ tiền bối để lại là luôn tôn trọng tính nết tự nhiên của chất: kiểm soát cẩn trọng nhiệt độ, môi trường tiếp xúc và trang bị đầy đủ phương tiện bảo hộ để phát huy tối đa giá trị hữu ích đồng thời ngăn ngừa mọi rủi ro tiềm ẩn trong thao tác.
+
+## Câu hỏi suy ngẫm & Tự kiểm tra kiến thức
+
+1. Dựa vào câu chuyện lịch sử và hành trình khám phá **Magie hiđroxit (Mg(OH)₂)**, nguyên nhân vì sao tên gọi và phương pháp điều chế ban đầu của chất này lại phản ánh hoàn cảnh văn hóa và kỹ thuật của thời đại phát hiện ra nó?
+2. Trong phương trình hóa học \`Mg(CH3COO)2(aq) + 2KOH(aq) → Mg(OH)2(s) + 2CH3COOK(aq)\`, hiện tượng thực nghiệm quan sát được hé lộ điều gì về tính cách hóa học của **Mg(OH)₂** khi tương tác với các chất xung quanh?
+
+<details><summary>Xem phân tích và lời giải chi tiết</summary>
+
+- **Giải đáp câu 1:** Tên gọi và phương pháp tiếp cận đầu tiên của Mg(OH)₂ bắt nguồn trực tiếp từ nguồn khoáng sản tự nhiên hoặc hiện tượng quan sát bằng mắt thường của các nhà thực nghiệm thời kỳ đó. Chỉ khi kỹ thuật phân tích và mô hình liên kết không gian phát triển, nhân loại mới hiểu trọn vẹn bản chất cấu tạo của chất.
+- **Giải đáp câu 2:** Phương trình phản ứng phản ánh sự tái sắp xếp liên kết: hiện tượng Có thể tạo kết tủa Mg(OH)2 khi quá bão hòa; độ đục và tốc độ lắng chưa được hiệu chuẩn. là bằng chứng vĩ mô cho thấy các nguyên tử đã đổi chỗ cho nhau để tạo thành cấu trúc mới bền vững hơn.
+
+</details>
+
+## Nguồn tư liệu khoa học & Khám phá tiếp theo
+
+- [Phòng quan sát Cấu trúc & Liên kết 3D tương tác — Magie hiđroxit (Mg(OH)₂)](/tien-ich/cau-truc-3d/?compound=chem-mgoh2)
+- [Bách khoa toàn thư Wikipedia Tiếng Việt — Magnesi hydroxide](https://vi.wikipedia.org/wiki/Magnesi_hydroxide)
+- [Wikipedia Quốc tế — Magnesium hydroxide](https://en.wikipedia.org/wiki/Magnesium_hydroxide)
+- [Danh mục hệ thống phản ứng & hợp chất ChemDex](/shared/reaction-catalog.generated.json)
+
+Bài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tổng hợp từ tư liệu lịch sử bách khoa trực tuyến, hồ sơ cấu trúc không gian 3 chiều và cơ sở dữ liệu phản ứng thực nghiệm, mang lại cái nhìn toàn diện về hành trình ra đời, cấu tạo vi mô và ứng dụng của **Magie hiđroxit (Mg(OH)₂)**.`,l={id:n,title:h,author:t,category:i,summary:c,image:g,chemicalFormula:a,tags:u,aliases:o,substanceIds:r,documentKind:m,readingMinutes:16,chemicalEvidence:e,content:s};export{o as aliases,t as author,i as category,e as chemicalEvidence,a as chemicalFormula,s as content,l as default,m as documentKind,n as id,g as image,p as readingMinutes,r as substanceIds,c as summary,u as tags,h as title};

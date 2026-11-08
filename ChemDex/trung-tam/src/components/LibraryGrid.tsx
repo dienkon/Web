@@ -31,7 +31,7 @@ export function LibraryGrid({ docs, onDocClick, bookmarkedIds, onToggleBookmark,
 
   return (
     <section aria-label="Kết quả thư viện">
-    <p className="mb-4 text-sm text-slate-400" role="status">{docs.length} tài liệu · Đang hiển thị {Math.min(visibleCount,docs.length)}</p>
+    <p className="mb-4 text-sm font-semibold text-slate-600" role="status">{docs.length} tài liệu · Đang hiển thị {Math.min(visibleCount,docs.length)}</p>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-6">
       {docs.slice(0,visibleCount).map((doc, index) => (
         <motion.div
@@ -55,7 +55,7 @@ export function LibraryGrid({ docs, onDocClick, bookmarkedIds, onToggleBookmark,
         </motion.div>
       ))}
     </div>
-    {visibleCount<docs.length && <button className="mb-10 rounded-xl border border-slate-600 bg-slate-800 px-5 py-3 text-sm text-cyan-300" onClick={()=>setBatch({key:resultKey,count:visibleCount+24})}>Xem thêm tài liệu ({docs.length-visibleCount})</button>}
+    {visibleCount<docs.length && <button className="mb-10 rounded-xl border border-sky-300 bg-gradient-to-r from-sky-600 to-teal-600 hover:from-sky-500 hover:to-teal-500 px-6 py-3.5 text-sm font-extrabold text-white shadow-md hover:shadow-lg transition-all cursor-pointer" onClick={()=>setBatch({key:resultKey,count:visibleCount+24})}>Xem thêm tài liệu ({docs.length-visibleCount})</button>}
     </section>
   );
 }

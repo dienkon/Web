@@ -26,7 +26,9 @@ export function Header({
   isDesktopSidebarOpen = true
 }: HeaderProps) {
   const [isLight, setIsLight] = useState(() => {
-    return localStorage.getItem('theme') === 'light';
+    const docTheme = localStorage.getItem('chemdex_doc_theme');
+    if (docTheme) return docTheme === 'light';
+    return true;
   });
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [notifications, setNotifications] = useState<any[]>([]);
@@ -36,9 +38,11 @@ export function Header({
     if (isLight) {
       document.body.classList.add('light-mode');
       localStorage.setItem('theme', 'light');
+      localStorage.setItem('chemdex_doc_theme', 'light');
     } else {
       document.body.classList.remove('light-mode');
       localStorage.setItem('theme', 'dark');
+      localStorage.setItem('chemdex_doc_theme', 'dark');
     }
   }, [isLight]);
 

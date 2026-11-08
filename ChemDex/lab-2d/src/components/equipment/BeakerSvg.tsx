@@ -1,5 +1,6 @@
 import React from 'react';
 import { EquipmentState } from '../../types/equipment';
+import { VesselPhysicsOverlay } from '../vfx/VesselPhysicsOverlay';
 
 interface BeakerSvgProps {
   equipment: EquipmentState;
@@ -412,6 +413,24 @@ export const BeakerSvg: React.FC<BeakerSvgProps> = ({ equipment, isSelected }) =
       />
 
       {/* Main Beaker Glass Walls */}
+      <VesselPhysicsOverlay
+        equipment={equipment}
+        innerX={22}
+        innerY={22}
+        innerWidth={96}
+        innerHeight={122}
+        liquidSurfaceY={liquidY}
+        liquidHeight={totalLiquidHeight}
+        clipPathId={`beakerClip-${id}`}
+      />
+      {equipment.isSealed && (
+        <g>
+          <polygon points="20,16 120,16 116,25 24,25" fill="#78350f" stroke="#451a03" strokeWidth="1.5" />
+          <text x="70" y="12" textAnchor="middle" fontSize="7.5" fontWeight="bold" fill="#fbbf24" fontFamily="monospace">
+            {(equipment.internalPressure_atm ?? 1.0).toFixed(2)} atm
+          </text>
+        </g>
+      )}
       <path
         d="M 16 18 L 22 22 L 22 136 Q 22 144 32 144 L 108 144 Q 118 144 118 136 L 118 22 L 122 18"
         fill={`url(#beakerGlass-${id})`}

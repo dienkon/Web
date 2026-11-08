@@ -17,6 +17,15 @@ test('library metadata, files and explicit chemical identities stay in sync',()=
 });
 test('every primary subject article is substantive, structured, sourced and includes an explained answer',()=>{
   const links=JSON.parse(fs.readFileSync('shared/library-links.generated.json','utf8'));
+  const authors=new Set();
+  for(const meta of docs){
+    const folder=meta.documentKind==='reference'?'reference':'docs';
+    const article=JSON.parse(fs.readFileSync(`trung-tam/src/data/${folder}/${meta.id}.json`,'utf8'));
+    const wordCount=article.content.trim().split(/\s+/).length;
+    assert.ok(wordCount>=1000,`${meta.id} has only ${wordCount} words (expected >= 1000)`);
+    authors.add(article.author);
+  }
+  assert.ok(authors.size>=6,'articles must use multiple distinct journalistic voices/authors');
   for(const id of new Set(Object.values(links))){
     const meta=docs.find(doc=>doc.id===id);assert.ok(meta,id);
     const folder=meta.documentKind==='reference'?'reference':'docs';

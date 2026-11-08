@@ -849,8 +849,8 @@
     "aliases": [
       "CaCO3",
       "CaCO3",
-      "Canxi Cacbonat (Đá vôi)",
-      "Calcium Carbonate (Limestone/Marble)",
+      "Canxi Cacbonat (Bột)",
+      "Calcium Carbonate (Powder)",
       "CaCO3 (chips)",
       "Đá Vôi (Đá Marble Hạt)",
       "Marble Chips (Limestone Stones)"
@@ -1000,7 +1000,7 @@
       "Fe",
       "Fe",
       "Sắt (Bột mịn)",
-      "Iron (Filings/Powder)",
+      "Iron (Fine Powder)",
       "Fe (filings)",
       "Mạt Sắt Mịn",
       "Iron Filings (Mạt sắt mịn)",
@@ -1029,8 +1029,8 @@
     "aliases": [
       "Cu",
       "Cu",
-      "Đồng (Phôi kim loại)",
-      "Copper (Turnings/Foil)",
+      "Đồng Kim Loại",
+      "Copper Metal",
       "Cu (turnings)",
       "Đồng Vụn / Dây Đồng Ánh Đỏ",
       "Copper Turnings / Wire (Vụn đồng)"
@@ -2613,8 +2613,8 @@
     "aliases": [
       "PbI2",
       "PbI2",
-      "Chì(II) Iotua (Mưa Vàng Tinh Thể)",
-      "Lead(II) Iodide (Golden Crystals)"
+      "Chì(II) Iotua (Chất Rắn Vàng)",
+      "Lead(II) Iodide (Yellow Solid)"
     ],
     "atomCount": 3
   },
@@ -2951,12 +2951,21 @@
     "note": "Cấu trúc phân tử riêng lẻ; trạng thái trong lab có thể chứa dung môi.",
     "id": "chem-c3h5oh3",
     "lab": true,
-    "kind": "composition",
+    "kind": "molecule",
     "family": "organic",
+    "structure": {
+      "format": "sdf",
+      "url": "/shared/structures/753.sdf",
+      "dimension": "3d",
+      "provenance": "NCI/CADD CACTVS computed coordinates",
+      "retrievedAt": "2026-10-26",
+      "source": "https://cactus.nci.nih.gov/chemical/structure/glycerol/file?format=sdf&get3d=true"
+    },
+    "cid": 753,
+    "atomCount": 14,
     "aliases": [
       "C3H5(OH)3"
-    ],
-    "atomCount": 14
+    ]
   },
   {
     "chemicalId": "chem-ch3cho",

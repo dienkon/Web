@@ -3,6 +3,7 @@ import { solveSessileDrop } from '../science/sessileDrop';
 import { puddleOverlapFraction } from '../science/puddleOverlap';
 import { METERS_PER_SCENE_UNIT } from '../science/sceneUnits';
 import { calculateSpillRadius } from '../science/overflowPhysics';
+import { scaleSpillSuspension } from '../science/spillSuspension';
 
 function splitContent(source: SubstanceContent, fraction: number) {
   const removed = { ...source }, remaining = { ...source };
@@ -30,8 +31,9 @@ export function collectSpillPatch(spill: SpillState, pos: readonly number[], rad
   const volume_ml = spill.volume_ml * fraction, mass_g = spill.mass_g * fraction;
   const retainedVolume = spill.volume_ml - volume_ml;
   return { fraction,
-    collected: { ...spill, volume_ml, mass_g, radius: calculateSpillRadius(volume_ml), contents: pieces?.map(p => p.removed) },
+    collected: { ...spill, volume_ml, mass_g, radius: calculateSpillRadius(volume_ml), contents: pieces?.map(p => p.removed),
+      suspension: scaleSpillSuspension(spill.suspension, fraction) },
     remaining: { ...spill, volume_ml: retainedVolume, mass_g: spill.mass_g - mass_g,
-      radius: calculateSpillRadius(retainedVolume), contents: pieces?.map(p => p.remaining) },
+      radius: calculateSpillRadius(retainedVolume), contents: pieces?.map(p => p.remaining), suspension: scaleSpillSuspension(spill.suspension, 1 - fraction) },
   };
 }

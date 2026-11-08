@@ -1,181 +1,194 @@
 [
   {
     "id": "001_H",
-    "title": "Hydrogen (H) - Nguyên tố đầu tiên",
-    "author": "ChemDex Team",
+    "title": "Hydrogen (H) — Biên niên sử nguyên tố đầu tiên thắp sáng các vì sao",
+    "author": "Ban Biên Tập Biên Niên Sử Hóa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Khám phá nguyên tố nhẹ nhất và phổ biến nhất trong vũ trụ, nền tảng của nước và sự sống.",
-    "image": "https://images.unsplash.com/photo-1633526543814-9718c8922b7a?auto=format&fit=crop&q=80&w=800",
+    "summary": "Biên niên sử nguyên tố đầu tiên của vũ trụ: từ những hạt vật chất nguyên thủy sau Vụ Nổ Lớn, thí nghiệm bình eudiometer của Henry Cavendish năm 1766 đến chiếc nòng súng nung đỏ của Lavoisier và nền kinh tế năng lượng sạch.",
+    "image": "/assets/library/cosmic-origin.svg",
     "tags": [
       "Phi kim",
       "Khí",
       "Năng lượng",
       "Nguyên tử"
-    ]
+    ],
+    "readingMinutes": 7
   },
   {
     "id": "002_He",
-    "title": "Helium (He) - Khí hiếm nhẹ nhất",
-    "author": "Dr. Minh Vu",
+    "title": "Heli (He) — Từ vạch quang phổ thần Mặt Trời đến ngọn gió lượng tử siêu lỏng",
+    "author": "Chuyên San Khảo Cổ & Địa Hóa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Khí hiếm nhẹ nhất, không cháy, được dùng nhiều trong y tế, làm lạnh và nghiên cứu khoa học.",
+    "summary": "Ký sự về nguyên tố Heli: phát hiện huyền thoại trên vành nhật hoa Mặt Trời trong nhật thực năm 1868 trước khi tìm thấy trên Trái Đất, hành trình cô lập của William Ramsay và hiện tượng kỳ ảo siêu lỏng không ma sát.",
     "image": "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?auto=format&fit=crop&q=80&w=800",
     "tags": [
       "Khí hiếm",
       "Bóng bay",
       "Làm lạnh"
-    ]
+    ],
+    "readingMinutes": 8
   },
   {
     "id": "003_Li",
-    "title": "Lithium (Li) - Kim loại nhẹ nhất",
-    "author": "ChemDex Team",
+    "title": "Liti (Li) — Viên đá quý trên đảo Utö và trái tim của cuộc cách mạng pin năng lượng",
+    "author": "Tạp Chí Công Nghệ Hóa Chất & Vật Liệu · ChemDex",
     "category": "nguyento",
-    "summary": "Kim loại kiềm nhẹ nhất, cốt lõi của công nghệ pin sạc hiện đại và xe điện.",
+    "summary": "Hành trình của Liti: từ hòn đá petalite trên hòn đảo Thụy Điển năm 1817, cuộc điện phân của Humphry Davy đến phát minh pin Li-ion đoạt giải Nobel biến đổi toàn bộ thế giới di động hiện đại.",
     "image": "https://images.unsplash.com/photo-1620283085068-5aab14e76d33?auto=format&fit=crop&q=80&w=800",
     "tags": [
       "Kim loại kiềm",
       "Pin Lithium",
       "Năng lượng"
-    ]
+    ],
+    "readingMinutes": 7
   },
   {
     "id": "004_C",
-    "title": "Carbon (C) - Cột sống của sự sống",
-    "author": "GS. Phạm V.",
+    "title": "Carbon (C) — Từ mẩu than hang động nguyên thủy, giấc mơ Kekulé đến kỷ nguyên vật liệu Graphene",
+    "author": "Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",
     "category": "nguyento",
-    "summary": "Nguyên tố có khả năng tạo ra vô số hợp chất phức tạp, nền tảng của hóa học hữu cơ và sinh học.",
+    "summary": "Khám phá biên niên sử của nguyên tố trung tâm của sự sống: thí nghiệm đốt kim cương của Lavoisier, giấc mơ con rắn cắn đuôi Ouroboros của Kekulé đến cuộc săn tìm quả bóng Buckyball C₆₀ và tấm màng Graphene một nguyên tử.",
     "image": "https://images.unsplash.com/photo-1587310065842-83ffb246a482?auto=format&fit=crop&q=80&w=800",
     "tags": [
       "Phi kim",
       "Kim cương",
       "Hữu cơ"
-    ]
+    ],
+    "readingMinutes": 8
   },
   {
     "id": "005_N",
-    "title": "Nitrogen (N) - Khí duy trì sự sống thực vật",
-    "author": "ThS. Hoàng T.",
+    "title": "Nitơ (N) — Từ \"chất khí cướp sự sống\" của Lavoisier đến nguồn đạm nuôi sống nhân loại",
+    "author": "Phóng Viên Phòng Thí Nghiệm & Lịch Sử Khoa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Chiếm 78% bầu khí quyển, Nitrogen vô cùng quan trọng đối với thực vật và công nghiệp phân bón.",
+    "summary": "Phóng sự lịch sử về Nitơ: thí nghiệm chuột thở của Daniel Rutherford năm 1772, danh pháp Azote đầy định kiến của Lavoisier và cuộc bẻ gãy liên kết ba kỳ vĩ trong tháp tổng hợp công nghiệp.",
     "image": "https://images.unsplash.com/photo-1534063879986-773a4d8dbbd3?auto=format&fit=crop&q=80&w=800",
     "tags": [
       "Khí quyển",
       "Phân bón",
       "Phi kim"
-    ]
+    ],
+    "readingMinutes": 8
   },
   {
     "id": "006_O",
-    "title": "Oxygen (O) - Hơi thở của Trái Đất",
-    "author": "Dr. Minh Vu",
+    "title": "Oxy (O) — Cuộc tranh hùng giữa Scheele, Priestley và ngọn đuốc cách mạng của Lavoisier",
+    "author": "Chuyên Mục Di Sản Thực Nghiệm Thế Giới · ChemDex",
     "category": "nguyento",
-    "summary": "Nguyên tố duy trì sự cháy và sự sống, chất oxi hóa mạnh mẽ và quan trọng nhất.",
+    "summary": "Biên niên sử về dưỡng khí của sự sống: cuộc chạy đua kịch tính giữa Carl Wilhelm Scheele và Joseph Priestley, cái chết của thuyết nhiệt chất phlogiston và sự ra đời của nền hóa học định lượng hiện đại.",
     "image": "https://images.unsplash.com/photo-1516629080649-74e2d3122c19?auto=format&fit=crop&q=80&w=800",
     "tags": [
       "Khí quyển",
       "Sự sống",
       "Oxi hóa"
-    ]
+    ],
+    "readingMinutes": 8
   },
   {
     "id": "007_Na",
-    "title": "Sodium (Na) - Kim loại mạnh mẽ",
-    "author": "ChemDex Team",
+    "title": "Natri (Na) — Điệu nhảy bốc lửa trong phòng lab của Humphry Davy và giọt kim loại cắt được bằng dao",
+    "author": "Ban Biên Tập Biên Niên Sử Hóa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Kim loại kiềm phản ứng mãnh liệt với nước, thành phần chính của muối ăn hàng ngày.",
+    "summary": "Ký sự về Natri: từ muối tro thực vật natron ở Ai Cập cổ đại đến đêm thí nghiệm điên rồ năm 1807 khi Humphry Davy nhảy múa sung sướng khi nhìn thấy những giọt kim loại sáng bạc bốc cháy.",
     "image": "https://images.unsplash.com/photo-1606822452097-f542fa79075e?auto=format&fit=crop&q=80&w=800",
     "tags": [
       "Kim loại kiềm",
       "Muối",
       "Phản ứng mạnh"
-    ]
+    ],
+    "readingMinutes": 8
   },
   {
     "id": "008_Fe",
-    "title": "Iron (Fe) - Kỷ nguyên đồ sắt",
-    "author": "TS. Nguyễn K.",
+    "title": "Sắt (Fe) — Từ thanh đoản kiếm thiên thạch của Pharaon Tutankhamun đến dòng máu đỏ trong tim",
+    "author": "Chuyên San Khảo Cổ & Địa Hóa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Kim loại chuyển tiếp phổ biến nhất, nền tảng của ngành công nghiệp luyện kim và xây dựng.",
+    "summary": "Khám phá lịch sử đồ sắt: thanh kiếm rèn từ thiên thạch ngoài vũ trụ của vua Tutankhamun, cuộc cách mạng lò cao luyện kim và nguyên tử sắt giữ nhịp thở trong phân tử hemoglobin của máu người.",
     "image": "https://images.unsplash.com/photo-1535813547-99c456a41d4a?auto=format&fit=crop&q=80&w=800",
     "tags": [
       "Kim loại chuyển tiếp",
       "Từ tính",
       "Xây dựng"
-    ]
+    ],
+    "readingMinutes": 7
   },
   {
     "id": "009_Cu",
-    "title": "Copper (Cu) - Dòng chảy năng lượng",
-    "author": "ChemDex Team",
+    "title": "Đồng (Cu) — Ngọn lửa đảo Cyprus, bình ắc quy Daniell và mạch máu dẫn truyền điện năng",
+    "author": "Tạp Chí Công Nghệ Hóa Chất & Vật Liệu · ChemDex",
     "category": "nguyento",
-    "summary": "Kim loại màu đỏ cam dẫn điện cực tốt, linh hồn của các thiết bị điện tử và truyền tải điện.",
+    "summary": "Biên niên sử về kim loại Đồng: từ thời kỳ Đồ Đồng khai sinh văn minh, hòn đảo Cyprus huyền thoại đến những cuộn dây đồng của Faraday mở màn cho kỷ nguyên điện khí hóa toàn cầu.",
     "image": "https://images.unsplash.com/photo-1601058268499-e52658b8bb88?auto=format&fit=crop&q=80&w=800",
     "tags": [
       "Kim loại chuyển tiếp",
       "Dẫn điện",
       "Hợp kim"
-    ]
+    ],
+    "readingMinutes": 9
   },
   {
     "id": "010_Ag",
-    "title": "Silver (Ag) - Vẻ đẹp và tính diệt khuẩn",
-    "author": "ThS. Trần Lê",
+    "title": "Bạc (Ag) — Ánh trăng kim loại, chiến thuyền Salamis và khoảnh khắc bắt giữ ánh sáng trong nhiếp ảnh",
+    "author": "Chuyên Mục Di Sản Thực Nghiệm Thế Giới · ChemDex",
     "category": "nguyento",
-    "summary": "Kim loại quý có độ dẫn điện, dẫn nhiệt cao nhất và khả năng kháng khuẩn tự nhiên tuyệt vời.",
+    "summary": "Ký sự lịch sử về Bạc: mỏ bạc Laurion cứu nguy nền dân chủ Athens cổ đại, hiện tượng kháng khuẩn oligodynamic và cuộc cách mạng quang hóa giữ lại hình ảnh đầu tiên trong lịch sử.",
     "image": "https://images.unsplash.com/photo-1622323869279-d2b380bf9d4c?auto=format&fit=crop&q=80&w=800",
     "tags": [
       "Kim loại quý",
       "Trang sức",
       "Kháng khuẩn"
-    ]
+    ],
+    "readingMinutes": 9
   },
   {
     "id": "011_HistoryPT",
-    "title": "Sự ra đời của Bảng Tuần Hoàn",
-    "author": "Dmitri Mendeleev Foundation",
+    "title": "Biên niên sử Bảng tuần hoàn — Cuộc chơi bài solitaire huyền thoại của Dmitri Mendeleev",
+    "author": "Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",
     "category": "tieusu",
-    "summary": "Câu chuyện lịch sử về cách Mendeleev sắp xếp các nguyên tố và dự đoán thành công những nguyên tố chưa được khám phá.",
-    "image": "https://images.unsplash.com/photo-1574689049814-7e040b2a343b?auto=format&fit=crop&q=80&w=800",
+    "summary": "Toàn cảnh lịch sử khám phá quy luật tuần hoàn: từ bộ ba Döbereiner, hình xoắn ốc Chancourtois, định luật bát âm Newlands đến đêm mất ngủ ngày 17/2/1869 khi Mendeleev sắp xếp những quân bài hóa học tiên tri tương lai.",
+    "image": "/assets/library/cosmic-origin.svg",
     "tags": [
       "Lịch sử",
       "Mendeleev",
       "Định luật tuần hoàn"
-    ]
+    ],
+    "readingMinutes": 7
   },
   {
     "id": "012_SafetyRules",
-    "title": "Quy Tắc An Toàn Phòng Thí Nghiệm",
-    "author": "Safety Council",
+    "title": "Bài học xương máu trong phòng thí nghiệm — Từ bi kịch của Scheele đến chuẩn an toàn GHS hiện đại",
+    "author": "Phóng Viên Phòng Thí Nghiệm & Lịch Sử Khoa Học · ChemDex",
     "category": "khainiem",
-    "summary": "Bộ quy tắc sống còn khi làm việc với hóa chất, dụng cụ thủy tinh và thiết bị phân tích.",
-    "image": "https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&q=80&w=800",
+    "summary": "Ký sự về lịch sử an toàn hóa chất: cái chết thương tâm ở tuổi 43 của Carl Wilhelm Scheele do nếm hóa chất, vụ nổ suýt làm mù mắt Humphry Davy và hệ thống quy ước an toàn bảo vệ sinh mạng trong phòng lab.",
+    "image": "/assets/library/lab-synthesis.svg",
     "tags": [
       "An toàn",
       "Thực hành",
       "Cấp cứu"
-    ]
+    ],
+    "readingMinutes": 7
   },
   {
     "id": "013_HTML_Sample",
-    "title": "Mẫu Bài Viết Đầy Đủ Định Dạng HTML",
-    "author": "ChemDex Team",
+    "title": "Nghệ thuật trực quan hóa phân tử — Từ khối cầu gỗ Dalton đến không gian mô phỏng 3D tương tác",
+    "author": "Ban Biên Tập Biên Niên Sử Hóa Học · ChemDex",
     "category": "khainiem",
-    "summary": "Tài liệu mẫu chứa đầy đủ các loại định dạng HTML, bảng biểu, hình ảnh, video, và liên kết để làm template.",
-    "image": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=800",
+    "summary": "Lịch sử hình ảnh hóa thế giới vi mô: từ ký hiệu giả kim huyền bí, những quả cầu gỗ croquet của Hofmann (1865), mô hình không gian CPK của Linus Pauling đến công nghệ kết xuất 3D WebGL thế kỷ XXI.",
+    "image": "/assets/library/covalent-bonds.svg",
     "tags": [
       "HTML",
       "Template",
       "Mẫu"
-    ]
+    ],
+    "readingMinutes": 7
   },
   {
     "id": "chat-nuoc",
-    "title": "Nước — hành trình của một hạt muối",
-    "author": "ChemDex · Biên soạn học liệu",
+    "title": "Nước (H₂O) — Cội nguồn từ bụi băng vũ trụ, thí nghiệm Cavendish đến vũ điệu liên kết của sự sống",
+    "author": "Ban Biên Tập Biên Niên Sử Hóa Học · ChemDex",
     "category": "hopchat",
-    "summary": "Theo dấu một hạt muối hòa tan để phân biệt tương tác phân tử, dung dịch và bảo toàn vật chất.",
-    "image": "/assets/icon/logo.png",
+    "summary": "Phóng sự lịch sử và khoa học về Nước (H₂O): từ sự ngưng tụ trong tinh vân liên sao, thí nghiệm lịch sử của Henry Cavendish & Antoine Lavoisier (1781–1783), nghịch lý tỷ trọng nuôi dưỡng sự sống đến bí ẩn bông tuyết 6 cánh của Johannes Kepler.",
+    "image": "/assets/library/lab-synthesis.svg",
     "tags": [
       "H2O",
       "Câu chuyện hóa học",
@@ -189,15 +202,16 @@
     "substanceIds": [
       "cid-962",
       "chem-h2o"
-    ]
+    ],
+    "readingMinutes": 13
   },
   {
     "id": "chat-amoniac",
-    "title": "Amoniac — từ không khí đến câu chuyện phân bón",
-    "author": "ChemDex · Biên soạn học liệu",
+    "title": "Amoniac (NH₃) — Từ muối đền thờ thần Ammon cổ đại đến kỳ tích Haber–Bosch làm thay đổi nhân khẩu học toàn cầu",
+    "author": "Tạp Chí Công Nghệ Hóa Chất & Vật Liệu · ChemDex",
     "category": "hopchat",
-    "summary": "Từ tổng hợp nitrogen và hydrogen đến bài toán cân bằng, xúc tác và sản xuất phân bón.",
-    "image": "/assets/icon/logo.png",
+    "summary": "Biên niên sử lẫy lừng về Amoniac (NH₃): từ những tinh thể muối huyền bí ở ốc đảo Siwa Ai Cập, thí nghiệm chậu thủy ngân của Joseph Priestley (1774) đến lò phản ứng cao áp nuôi sống một nửa nhân loại.",
+    "image": "/assets/library/industrial-reactor.svg",
     "tags": [
       "NH3",
       "Câu chuyện hóa học",
@@ -211,15 +225,16 @@
     "substanceIds": [
       "cid-222",
       "chem-nh3"
-    ]
+    ],
+    "readingMinutes": 12
   },
   {
     "id": "chat-natri-clorua",
-    "title": "Natri clorua — một công thức, hai trạng thái rất khác",
-    "author": "ChemDex · Biên soạn học liệu",
+    "title": "Natri clorua (NaCl) — Ký sự từ những con đường muối cổ đại đến phép nhiễu xạ tia X tinh thể đầu tiên của loài người",
+    "author": "Chuyên San Khảo Cổ & Địa Hóa Học · ChemDex",
     "category": "hopchat",
-    "summary": "Khám phá sự khác biệt giữa mạng ion rắn và dung dịch, qua công thức NaCl quen thuộc.",
-    "image": "/assets/icon/logo.png",
+    "summary": "Ký sự khoa học về Natri clorua (NaCl): từ sự hình thành các đại dương nguyên thủy, giá trị tiền tệ salarium thời La Mã, cuộc điện phân lịch sử của Humphry Davy (1807) đến cuộc cách mạng nhiễu xạ tia X giải mã mạng tinh thể 3 chiều của cha con nhà Bragg (1913).",
+    "image": "/assets/library/ionic-crystal.svg",
     "tags": [
       "NaCl",
       "Câu chuyện hóa học",
@@ -234,15 +249,16 @@
     "substanceIds": [
       "crystal-nacl",
       "chem-nacl"
-    ]
+    ],
+    "readingMinutes": 11
   },
   {
     "id": "chat-etanol",
-    "title": "Etanol — câu chuyện từ đường đến phân tử có nhóm OH",
-    "author": "ChemDex · Biên soạn học liệu",
+    "title": "Etanol (C₂H₅OH) — Hành trình 9.000 năm từ bình gốm lên men cổ đại đến cuộc cách mạng Hóa học Lập thể",
+    "author": "Chuyên Mục Di Sản Thực Nghiệm Thế Giới · ChemDex",
     "category": "hopchat",
-    "summary": "Đọc câu chuyện lên men để hiểu nhóm OH, đồng phân và sự khác biệt giữa phản ứng với tách chất.",
-    "image": "/assets/icon/logo.png",
+    "summary": "Biên niên sử riêng của Etanol (C₂H₅OH): từ dấu tích lên men 7000 năm TCN tại Giả Hồ, chiếc bình chưng al-ambiq của các học giả Ả Rập, cồn tuyệt đối của Lowitz (1796) đến kiến trúc nhóm chức hydroxyl —OH định hướng không gian 3 chiều.",
+    "image": "/assets/library/organic-genesis.svg",
     "tags": [
       "C₂H₅OH",
       "Câu chuyện hóa học",
@@ -257,15 +273,16 @@
     "substanceIds": [
       "cid-702",
       "chem-c2h5oh"
-    ]
+    ],
+    "readingMinutes": 10
   },
   {
     "id": "chat-carbon-dioxide",
-    "title": "Carbon dioxide — từ bọt khí đến cân bằng trong đại dương",
-    "author": "ChemDex · Biên soạn học liệu",
+    "title": "Carbon dioxide (CO₂) — Từ chất khí \"sylvestre\" của Van Helmont đến nhịp thở của khí quyển và đại dương",
+    "author": "Phóng Viên Phòng Thí Nghiệm & Lịch Sử Khoa Học · ChemDex",
     "category": "hopchat",
-    "summary": "Kết nối phân tử CO₂ với các cân bằng carbon vô cơ và ý nghĩa của acid hóa đại dương.",
-    "image": "/assets/icon/logo.png",
+    "summary": "Phóng sự lịch sử và khoa học về Carbon dioxide (CO₂): khám phá Jan Baptist van Helmont sáng tạo ra khái niệm \"chất khí\" (1640), chiếc cân định lượng đá vôi của Joseph Black (1754), thí nghiệm đốt kim cương của Lavoisier và chu trình carbon toàn cầu.",
+    "image": "/assets/library/acid-base-world.svg",
     "tags": [
       "CO₂",
       "Câu chuyện hóa học",
@@ -280,15 +297,16 @@
     "substanceIds": [
       "cid-280",
       "chem-co2"
-    ]
+    ],
+    "readingMinutes": 10
   },
   {
     "id": "chat-metan",
-    "title": "Metan — một phân tử nhỏ trong hai câu chuyện năng lượng và khí hậu",
-    "author": "ChemDex · Biên soạn học liệu",
+    "title": "Metan (CH₄) — Từ những bọt khí đầm lầy hồ Maggiore của Volta đến cuộc cách mạng Hóa học Lập thể 3 chiều",
+    "author": "Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",
     "category": "hopchat",
-    "summary": "Khám phá hình học tứ diện, giới hạn của phương trình cháy và hai vai trò của methane trong năng lượng và khí hậu.",
-    "image": "/assets/icon/logo.png",
+    "summary": "Bài báo chuyên khảo về Metan (CH₄): tái hiện chuyến chèo thuyền mùa thu năm 1776 của Alessandro Volta, chiếc đèn an toàn cứu mạng thợ mỏ của Humphry Davy và phát kiến vĩ đại của Van 't Hoff về nguyên tử Carbon tứ diện trong không gian 3 chiều (1874).",
+    "image": "/assets/library/organic-genesis.svg",
     "tags": [
       "CH₄",
       "Câu chuyện hóa học",
@@ -302,6 +320,7 @@
     ],
     "substanceIds": [
       "cid-297"
-    ]
+    ],
+    "readingMinutes": 11
   }
 ]

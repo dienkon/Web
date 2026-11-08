@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#db2777"/>
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fef08a" stop-opacity="1"/>
+      <stop offset="65%" stop-color="#f59e0b" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="phGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="30%" stop-color="#f59e0b"/>
+      <stop offset="50%" stop-color="#10b981"/>
+      <stop offset="75%" stop-color="#0ea5e9"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" rx="24" fill="url(#bg)"/>
+  <circle cx="710" cy="65" r="170" fill="#ffffff" opacity="0.07"/>
+  <circle cx="130" cy="390" r="200" fill="#ffffff" opacity="0.06"/>
+  <g transform="translate(48, 108)">
+    <text x="0" y="0" fill="#fde047" font-family="system-ui, sans-serif" font-weight="800" font-size="11" letter-spacing="0.8">DUNG DỊCH ĐIỆN LI · AXIT, BAZƠ &amp; CHỈ THỊ MÀU</text>
+    <text x="0" y="38" fill="#ffffff" font-family="system-ui, sans-serif" font-weight="800" font-size="24">
+      <tspan x="0" dy="0">Sự Phân Li Trong Nước &amp;</tspan><tspan x="0" dy="32">Sắc Màu Hóa Học</tspan>
+    </text>
+    <text x="0" y="138" fill="#e0f2fe" font-family="system-ui, sans-serif" font-weight="500" font-size="13.5" opacity="0.95">
+      <tspan x="0" dy="0">Trao đổi proton H⁺ và nhóm OH⁻ làm biến</tspan><tspan x="0" dy="21">đổi cấu trúc điện tử, tạo nên dải pH và</tspan><tspan x="0" dy="21">những sắc màu nhận biết sống động.</tspan>
+    </text>
+  </g>
+  <rect x="435" y="54" width="320" height="342" rx="22" fill="#0f172a" fill-opacity="0.26" stroke="#ffffff" stroke-opacity="0.24" stroke-width="1.5"/>
+  
+      <rect x="480" y="158" width="230" height="34" rx="17" fill="url(#phGrad)" stroke="#ffffff" stroke-width="2"/>
+      <circle cx="527" cy="254" r="23" fill="#f43f5e" stroke="#ffffff" stroke-width="2.5"/>
+      <circle cx="595" cy="254" r="23" fill="#10b981" stroke="#ffffff" stroke-width="2.5"/>
+      <circle cx="663" cy="254" r="23" fill="#3b82f6" stroke="#ffffff" stroke-width="2.5"/>
+      <text x="527" y="259" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-weight="800" font-size="12.5">H₃O⁺</text>
+      <text x="595" y="259" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-weight="800" font-size="12.5">pH 7</text>
+      <text x="663" y="259" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-weight="800" font-size="12.5">OH⁻</text>
+      <text x="595" y="340" text-anchor="middle" fill="#fce7f3" font-family="sans-serif" font-weight="700" font-size="12.5">Cân bằng proton, hydrat hóa &amp; chuyển màu chỉ thị</text>
+    
+</svg>

@@ -180,4 +180,24 @@ function cleanHtml(dir) {
   }
 }
 cleanHtml(output);
+
+// Keep static workspace copies of trung-tam HTML & assets in sync with dist so local static servers never serve stale bundles
+if (fs.existsSync(path.join(output, "trung-tam/index.html"))) {
+  const ttHtml = path.join(output, "trung-tam/index.html");
+  for (const dest of [
+    "trung-tam/index.html",
+    "trung-tam/tai-lieu-so/index.html",
+    "trung-tam/cong-dong/index.html",
+  ]) {
+    fs.mkdirSync(path.dirname(path.join(root, dest)), { recursive: true });
+    fs.copyFileSync(ttHtml, path.join(root, dest));
+  }
+  const ttAssetsOut = path.join(output, "trung-tam/assets");
+  const ttAssetsLocal = path.join(root, "trung-tam/assets");
+  if (fs.existsSync(ttAssetsOut)) {
+    fs.rmSync(ttAssetsLocal, { recursive: true, force: true });
+    fs.cpSync(ttAssetsOut, ttAssetsLocal, { recursive: true });
+  }
+}
+
 console.log("Production output ready: dist (source files preserved)");

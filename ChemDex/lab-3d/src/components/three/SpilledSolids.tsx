@@ -1,15 +1,24 @@
 import React, { useLayoutEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
-import { findChemical } from '../../data/chemicals';
+import { findChemical, getSolidMorphology } from '../../data/chemicals';
 import type { SpillState } from '../../types/chemistry';
+import { PowderDeposit, weightedSpillColor } from './SpillPrecipitateBed';
 
 /** A bounded, static instanced deposit; no perpetual particle emitter or per-frame allocation. */
 export function SpilledSolids({ spill }: { spill: SpillState }) {
   const mesh = useRef<THREE.InstancedMesh>(null);
+  const powder = useMemo(() => {
+    const rows = (spill.contents ?? []).filter(c => c.mass_g > 0 && c.solidOrigin !== 'precipitate'
+      && (c.phase === 's' || c.state === 's') && getSolidMorphology(c.formula) === 'POWDER' && findChemical(c.formula)?.density > 0);
+    return { volume_m3: rows.reduce((s, c) => s + c.mass_g / findChemical(c.formula).density! * 1e-6 / 0.55, 0),
+      color: weightedSpillColor(rows.map(c => ({ color: findChemical(c.formula).color, weight: c.mass_g }))) };
+  }, [spill.contents]);
   const grains = useMemo(() => {
     // Sodium has one mass-scaled pellet renderer; do not draw a second pile.
     const solids = (spill.contents ?? []).filter(item => item.mass_g > 0
       && !(item.formula === 'Na' && (item.phase ?? item.state ?? 's') === 's')
+      && item.solidOrigin !== 'precipitate'
+      && !(getSolidMorphology(item.formula) === 'POWDER' && findChemical(item.formula)?.density > 0)
       && (item.phase === 's' || item.state === 's' || item.state === 'solid'));
     const mass = solids.reduce((sum, item) => sum + item.mass_g, 0);
     const dryUnspecifiedMass = spill.volume_ml === 0 && !spill.contents?.length ? spill.mass_g : 0;
@@ -47,9 +56,11 @@ export function SpilledSolids({ spill }: { spill: SpillState }) {
     mesh.current.instanceMatrix.needsUpdate = true;
     if (mesh.current.instanceColor) mesh.current.instanceColor.needsUpdate = true;
   }, [grains]);
-  if (!grains.length) return null;
-  return <instancedMesh ref={mesh} args={[undefined, undefined, grains.length]} receiveShadow>
+  return <group>
+    <PowderDeposit id={spill.id} bulkVolume_m3={powder.volume_m3} color={powder.color} />
+    {grains.length > 0 && <instancedMesh ref={mesh} args={[undefined, undefined, grains.length]} receiveShadow>
     <dodecahedronGeometry args={[1, 0]} />
     <meshStandardMaterial roughness={0.8} />
-  </instancedMesh>;
+  </instancedMesh>}
+  </group>;
 }

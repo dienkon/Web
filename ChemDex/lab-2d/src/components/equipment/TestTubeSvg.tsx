@@ -1,5 +1,6 @@
 import React from 'react';
 import { EquipmentState } from '../../types/equipment';
+import { VesselPhysicsOverlay } from '../vfx/VesselPhysicsOverlay';
 
 interface TestTubeSvgProps {
   equipment: EquipmentState;
@@ -229,6 +230,24 @@ export const TestTubeSvg: React.FC<TestTubeSvgProps> = ({ equipment, isSelected 
       </g>
 
       {/* Test Tube Glass Body with Rounded Bottom */}
+      <VesselPhysicsOverlay
+        equipment={equipment}
+        innerX={12}
+        innerY={18}
+        innerWidth={28}
+        innerHeight={150}
+        liquidSurfaceY={liquidY}
+        liquidHeight={totalLiquidHeight}
+        clipPathId={`tubeClip-${id}`}
+      />
+      {equipment.isSealed && (
+        <g>
+          <polygon points="10,8 42,8 39,20 13,20" fill="#78350f" stroke="#451a03" strokeWidth="1.2" />
+          <text x="26" y="5" textAnchor="middle" fontSize="6.5" fontWeight="bold" fill="#fbbf24" fontFamily="monospace">
+            {(equipment.internalPressure_atm ?? 1.0).toFixed(2)}atm
+          </text>
+        </g>
+      )}
       <path
         d="M 12 18 L 12 150 Q 12 168 26 168 Q 40 168 40 150 L 40 18"
         fill={`url(#tubeGlass-${id})`}

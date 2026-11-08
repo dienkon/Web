@@ -1,0 +1,101 @@
+const n="ho-so-9cf9be011cc0",h="Hiđro sunfua (H₂S) — Từ khám phá học thuật đến quy trình điều chế và cấu trúc 3D thực tế",t="Tạp Chí Công Nghệ Hóa Chất & Vật Liệu · ChemDex",i="hopchat",c="Chuyên đề báo chí về Hiđro sunfua (H₂S): tái hiện lịch sử phát hiện, cơ chế tạo thành liên kết hóa học và vai trò trong công nghiệp – phòng lab.",g="/assets/library/covalent-bonds.svg",m="H₂S",u=["Câu chuyện hợp chất","H2S","Sunfua và axit","Sunfua và axit"],a=["Hiđro sunfua","hydrogen sulfide","H2S","Dung dịch Hiđro sunfua","Hydrogen Sulfide Solution"],r=["cid-402","chem-h2s"],o="reference",l=12,s={formula:"H2S",representativeId:"cid-402",counts:{H:2,S:1},mass:34.076,material:!1,reactionIds:["rx_9935207818d85497","rx_7a454d7350d0d94b"]},e=`## Câu chuyện: Hành trình lịch sử đưa Hiđro sunfua (H₂S) từ bí ẩn tự nhiên thành tri thức nhân loại
+
+Mỗi chất hóa học đều có một "tiểu sử" riêng biệt không trộn lẫn. Với **Hiđro sunfua (H₂S)**, câu chuyện ấy bắt đầu từ khoảnh khắc con người nhận ra rằng thế giới vật chất xung quanh được lắp ghép từ những đơn vị nguyên tử tuân theo quy luật tỷ lượng tuyệt đối và hình học không gian tinh vi.
+
+Theo hồ sơ bách khoa trực tuyến từ [Wikipedia Tiếng Việt — H2S](https://vi.wikipedia.org/wiki/H2S), bản chất và lịch sử của chất này được ghi nhận cụ thể như sau: H2S có thể là: H2S, công thức hóa học của Hydro sulfide. Radar H2S, Radar đầu tiên được sử dụng trong Chiến tranh thế giới thứ hai.
+
+Tư liệu bách khoa quốc tế tại [Wikipedia — Hydrogen sulfide](https://en.wikipedia.org/wiki/Hydrogen_sulfide) bổ sung thêm góc nhìn lịch sử và danh pháp quốc tế: *“Hydrogen sulfide (preferred IUPAC name and American English) or hydrogen sulphide (Commonwealth English) is a chemical compound with the formula H2S. It is a colorless, toxic, and flammable hydrogen chalcogenide gas. Trace amounts in the ambient atmosphere have a characteristic foul odor of rotten eggs. Swedish chemist Carl Wilhelm Scheele is credited with having discovered the chemical composition of purified hydrogen sulfide in 1777. Hydrogen sulfide is toxic to humans and most other animals by inhibiting cellular respiration in a manner similar to hydrogen cyanide. When it is inhaled or its salts are ingested in high amounts, damage to org”* — phản ánh vai trò quan trọng của **Hiđro sunfua (H₂S)** trong hệ thống phân loại hóa chất chuẩn IUPAC và thực tiễn phòng thí nghiệm toàn cầu.
+
+Họ hợp chất sunfua (**S²⁻**) là một trong những dạng tồn tại cổ xưa nhất của các nguyên tố trong lớp vỏ Trái Đất. Từ hàng tỷ năm trước, trong các mạch nhiệt dịch dưới đáy đại dương và miệng núi lửa, lưu huỳnh đã kết hợp trực tiếp với các kim loại để kiến tạo nên những vỉa quặng sunfua lấp lánh như pyrit, galen, sphalerit hay thần sa. Trong lịch sử hóa học phân tích thế kỷ XVIII–XIX, nhà hóa học Thụy Điển **Carl Wilhelm Scheele** (1777) và **Claude Louis Berthollet** (1798) đã giải mã bản chất của hiđro sunfua và dùng phản ứng kết tủa màu đặc trưng của các muối sunfua làm nền tảng cho hệ thống phân tích định tính cation kinh điển.
+
+Để hiểu trọn vẹn cội nguồn của hợp chất, cần lần theo lịch sử khám phá từng nguyên tố tạo nên nó:
+
+- **Nhánh nguyên tố Hiđro (H)**: Dấu ấn lịch sử phát hiện do **Henry Cavendish** tìm ra (mốc thời gian: **1766**). Năm 1766, Henry Cavendish nghiên cứu loại khí sinh ra khi kim loại tác dụng với axit và xác định đây là một chất hoàn toàn mới. Antoine Lavoisier sau đó đặt tên là Hydrogen, nghĩa là 'sinh ra nước'. Nguồn khoáng vật tự nhiên tiêu biểu của nguyên tố này gồm: *Nước biển, Nước ngọt, Dầu mỏ, Khí thiên nhiên, Sinh khối*.
+- **Nhánh nguyên tố Lưu huỳnh (S)**: Dấu ấn lịch sử phát hiện do **Đã được biết đến từ thời cổ đại** tìm ra (mốc thời gian: **Không xác định**). Sulfur đã được con người biết đến và sử dụng từ thời cổ đại. Các nền văn minh cổ đã sử dụng Sulfur trong y học, tôn giáo và các hoạt động khác. Đến cuối thế kỷ XVIII, Antoine Lavoisier xác định Sulfur là một nguyên tố hóa học chứ không phải hợp chất. Nguồn khoáng vật tự nhiên tiêu biểu của nguyên tố này gồm: *Mỏ Sulfur tự nhiên, khu vực núi lửa, khoáng vật Sulfide và Sulfate, dầu mỏ và khí tự nhiên*.
+
+![Khởi nguyên lịch sử và hành trình khám phá Hiđro sunfua (H₂S)](/assets/library/lab-synthesis.svg)
+*Hình 1. Bối cảnh lịch sử phát hiện, nguồn gốc tự nhiên và tiến trình định danh khoa học của Hiđro sunfua (H₂S).*
+
+## Lần theo thành phần nguyên tử: Giải mã bộ khung liên kết và cá tính hình học của Hiđro sunfua
+
+Để hiểu vì sao **Hiđro sunfua (H₂S)** lại mang những tính chất vật lý và hóa học đặc thù, chúng ta cần đi sâu vào "bản thiết kế hình học" của chất này. Một đơn vị công thức **H₂S** được liên kết chặt chẽ từ **3 nguyên tử** thuộc **2 nguyên tố hóa học**:
+
+- **Nguyên tố Hiđro (H)**: Góp mặt **2 nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử Hiđro phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **Hiđro sunfua**.
+- **Nguyên tố Lưu huỳnh (S)**: Góp mặt **1 nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử Lưu huỳnh phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **Hiđro sunfua**.
+
+Về kiến trúc hình học phân tử, trong mỗi đơn vị của **Hiđro sunfua (H₂S)**, các nguyên tử sắp xếp theo một trật tự không gian tinh tế để triệt tiêu các lực cản trở và đạt trạng thái cân bằng thế năng cực tiểu. Góc liên kết và khoảng cách giữa các tâm nguyên tử tạo nên một hình khối 3 chiều đặc thù, biến chất thành một nhân vật hóa học có cá tính rõ rệt trong thế giới tự nhiên.
+
+![Kiến trúc liên kết không gian 3 chiều của Hiđro sunfua (H₂S)](/assets/library/covalent-bonds.svg)
+*Hình 2. Mô phỏng trực quan sự phân bố đám mây electron, góc liên kết và trật tự phối trí không gian 3D của Hiđro sunfua (H₂S).*
+
+| Chỉ tiêu nhận diện & Cấu trúc 3D | Tư liệu xác thực từ hệ thống ChemDex |
+|---|---|
+| Tên chất & Danh pháp quốc tế | **Hiđro sunfua** (hydrogen sulfide) |
+| Công thức hóa học thực nghiệm | **H₂S**  |
+| Hình thái không gian 3 chiều | Kiến trúc phân tử vô cơ liên kết cộng hóa trị |
+| Quy mô cấu trúc vi mô | **3 nguyên tử** (2× H, 1× S) |
+| Trạng thái & Sắc thái nhận diện | Rắn / Dung dịch thực nghiệm |
+| Phòng quan sát 3D tương tác | [Mở mô hình xoay 360° và kiểm tra góc liên kết](/tien-ich/cau-truc-3d/?compound=cid-402) |
+
+Người đọc có thể trực tiếp xoay mô hình 360°, bật/tắt nhãn nguyên tử và kiểm tra độ dài từng liên kết (tính bằng đơn vị Ångström) của chất này tại [Phòng quan sát Cấu trúc & Liên kết 3D — Hiđro sunfua](/tien-ich/cau-truc-3d/?compound=cid-402).
+
+## Con đường khai sinh hợp chất: Phương pháp điều chế và phản ứng đặc trưng của Hiđro sunfua
+
+Trong cơ sở dữ liệu phản ứng thực nghiệm của ChemDex (với **12 phương trình** có sự góp mặt của **H₂S**, trong đó có **12 con đường tổng hợp/tạo thành** và **0 con đường chuyển hóa**), hành trình ra đời và biến đổi của chất này được minh chứng qua các kịch bản tiêu biểu sau:
+
+### Con đường hình thành & điều chế #1 (Sunfua và axit)
+
+Phương trình hóa học cân bằng chuẩn xác:
+
+\`FeS(s) + 2HBr(aq) → FeBr2(aq) + H2S(g)\`
+
+- **Bản chất & Cơ chế phản ứng**: Acid hóa S tạo H2S; không dùng cùng phương trình cho HNO3 hoặc H2SO4 đặc.
+- **Điều kiện thực hiện**: Axit không oxi hóa ở dạng loãng; khí độc yêu cầu hệ chuyên dụng, chỉ dùng làm mô tả học tập..
+- **Hiện tượng quan sát thực nghiệm**: Sinh khí H2S; không dùng mùi để nhận biết..
+- **Phương trình ion rút gọn**: \`FeS(s) + 2HBr(aq) → FeBr2(aq) + H2S(g)\` (Trạng thái pha: \`FeS(s) + 2HBr(aq) → FeBr2(aq) + H2S(g)\`).
+
+### Con đường hình thành & điều chế #2 (Sunfua và axit)
+
+Phương trình hóa học cân bằng chuẩn xác:
+
+\`FeS(s) + 2HCl(aq) → FeCl2(aq) + H2S(g)\`
+
+- **Bản chất & Cơ chế phản ứng**: Acid hóa S tạo H2S; không dùng cùng phương trình cho HNO3 hoặc H2SO4 đặc.
+- **Điều kiện thực hiện**: Axit không oxi hóa ở dạng loãng; khí độc yêu cầu hệ chuyên dụng, chỉ dùng làm mô tả học tập..
+- **Hiện tượng quan sát thực nghiệm**: Sinh khí H2S; không dùng mùi để nhận biết..
+- **Phương trình ion rút gọn**: \`FeS(s) + 2HCl(aq) → FeCl2(aq) + H2S(g)\` (Trạng thái pha: \`FeS(s) + 2HCl(aq) → FeCl2(aq) + H2S(g)\`).
+
+## Bức tranh ứng dụng thực tế, giá trị kinh tế và kinh nghiệm thực hành với Hiđro sunfua
+
+Trong dòng chảy của nền văn minh kỹ thuật và ứng dụng thực tiễn, **Hiđro sunfua (H₂S)** giữ vai trò không thể thay thế trên nhiều phương diện đời sống:
+
+- **Trong y học, đời sống & sản xuất công nghiệp**: Tùy thuộc vào bản tính phản ứng và tính chất bề mặt của **H₂S**, chất này tham gia vào các chu trình xử lý môi trường, làm chất xúc tác chuyển hóa, sản xuất vật liệu tiên tiến hoặc làm nguyên liệu tổng hợp các chế phẩm có giá trị cao.
+- **Trong nghiên cứu học thuật & thực nghiệm phân tích**: Là nhân vật trung tâm trong các thí nghiệm chuẩn hóa, giúp các nhà nghiên cứu kiểm chứng cơ chế phản ứng và nhận diện sự hiện diện của các hợp chất đồng hành.
+- **Trong thế giới giáo dục trực quan**: Đóng vai trò là vật mẫu điển hình kết nối trực quan giữa công thức trên giấy và thực tế tại [Phòng thí nghiệm ChemDex](/lab-2d/) cùng [Không gian Cấu trúc 3D](/tien-ich/cau-truc-3d/?compound=cid-402).
+
+### Câu chuyện lịch sử ứng dụng & Bài học kinh nghiệm thực hành
+
+Lịch sử ứng dụng của **Hiđro sunfua (H₂S)** là một minh chứng sống động cho thấy sự am hiểu về bản chất chất hóa học có thể biến những vật chất thô sơ trong tự nhiên thành công cụ phục vụ đời sống con người. Trải qua hàng thế kỷ thực nghiệm — từ những phát hiện ngẫu nhiên trong xưởng nhuộm, mỏ quặng cho đến các dây chuyền tổng hợp hiện đại — bài học cốt lõi mà các thế hệ tiền bối để lại là luôn tôn trọng tính nết tự nhiên của chất: kiểm soát cẩn trọng nhiệt độ, môi trường tiếp xúc và trang bị đầy đủ phương tiện bảo hộ để phát huy tối đa giá trị hữu ích đồng thời ngăn ngừa mọi rủi ro tiềm ẩn trong thao tác.
+
+## Câu hỏi suy ngẫm & Tự kiểm tra kiến thức
+
+1. Dựa vào câu chuyện lịch sử và hành trình khám phá **Hiđro sunfua (H₂S)**, nguyên nhân vì sao tên gọi và phương pháp điều chế ban đầu của chất này lại phản ánh hoàn cảnh văn hóa và kỹ thuật của thời đại phát hiện ra nó?
+2. Trong phương trình hóa học \`FeS(s) + 2HBr(aq) → FeBr2(aq) + H2S(g)\`, hiện tượng thực nghiệm quan sát được hé lộ điều gì về tính cách hóa học của **H₂S** khi tương tác với các chất xung quanh?
+
+<details><summary>Xem phân tích và lời giải chi tiết</summary>
+
+- **Giải đáp câu 1:** Tên gọi và phương pháp tiếp cận đầu tiên của H₂S bắt nguồn trực tiếp từ nguồn khoáng sản tự nhiên hoặc hiện tượng quan sát bằng mắt thường của các nhà thực nghiệm thời kỳ đó. Chỉ khi kỹ thuật phân tích và mô hình liên kết không gian phát triển, nhân loại mới hiểu trọn vẹn bản chất cấu tạo của chất.
+- **Giải đáp câu 2:** Phương trình phản ứng phản ánh sự tái sắp xếp liên kết: hiện tượng Sinh khí H2S; không dùng mùi để nhận biết. là bằng chứng vĩ mô cho thấy các nguyên tử đã đổi chỗ cho nhau để tạo thành cấu trúc mới bền vững hơn.
+
+</details>
+
+## Nguồn tư liệu khoa học & Khám phá tiếp theo
+
+- [Phòng quan sát Cấu trúc & Liên kết 3D tương tác — Hiđro sunfua (H₂S)](/tien-ich/cau-truc-3d/?compound=cid-402)
+- [Bách khoa toàn thư Wikipedia Tiếng Việt — H2S](https://vi.wikipedia.org/wiki/H2S)
+- [Wikipedia Quốc tế — Hydrogen sulfide](https://en.wikipedia.org/wiki/Hydrogen_sulfide)
+- [Tệp tọa độ không gian 3D chuẩn (SDF)](/shared/structures/402.sdf)
+- [Nguồn cấu trúc gốc đã kiểm chứng](https://cactus.nci.nih.gov/chemical/structure/hydrogen%20sulfide/file?format=sdf&get3d=true)
+- [Hồ sơ hợp chất quốc tế PubChem CID 402](https://pubchem.ncbi.nlm.nih.gov/compound/402)
+
+Bài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tổng hợp từ tư liệu lịch sử bách khoa trực tuyến, hồ sơ cấu trúc không gian 3 chiều và cơ sở dữ liệu phản ứng thực nghiệm, mang lại cái nhìn toàn diện về hành trình ra đời, cấu tạo vi mô và ứng dụng của **Hiđro sunfua (H₂S)**.`,d={id:n,title:h,author:t,category:i,summary:c,image:g,chemicalFormula:"H₂S",tags:u,aliases:a,substanceIds:r,documentKind:o,readingMinutes:12,chemicalEvidence:s,content:e};export{a as aliases,t as author,i as category,s as chemicalEvidence,m as chemicalFormula,e as content,d as default,o as documentKind,n as id,g as image,l as readingMinutes,r as substanceIds,c as summary,u as tags,h as title};

@@ -2,7 +2,12 @@
  * Equipment and Glassware Domain Types
  */
 
-import { PhysicalState, SubstanceQuantity, PrecipitateMorphology } from './chemistry';
+import {
+  SubstanceQuantity,
+  PrecipitateMorphology,
+  SolidChunkItem,
+  PrecipitateLayerState,
+} from './chemistry';
 
 export type EquipmentType =
   | 'beaker'
@@ -26,7 +31,22 @@ export type EquipmentType =
   | 'wash_bottle'
   | 'test_tube_rack'
   | 'separatory_funnel'
-  | 'ph_paper';
+  | 'ph_paper'
+  | 'sponge';
+
+export interface EvaporativeStainState {
+  colorHex: string;
+  height_mm: number;
+  formula: string;
+  opacity: number;
+}
+
+export interface MeniscusWaveState {
+  angle_deg: number;
+  angularVelocity_deg_s: number;
+  rippleAmplitude_px: number;
+  vortexDepth_px: number;
+}
 
 export interface EquipmentState {
   id: string;
@@ -56,6 +76,8 @@ export interface EquipmentState {
   precipitateSubstance?: string;
   precipitateMass_g?: number;
   precipitateMorphology?: PrecipitateMorphology;
+  precipitateLayers?: PrecipitateLayerState[];
+  solidChunks?: SolidChunkItem[];
   isBoiling?: boolean;
   boilingIntensity?: number; // 0..1, drives bubble vigor
   hasGas?: boolean;
@@ -79,7 +101,6 @@ export interface EquipmentState {
   absorbedPower_W?: number;
   heatingRate_c_s?: number;
   flameTestColorHex?: string; // Characteristic flame test emission color when heated over flame
-
 
   // Mixing / stirring
   isStirred?: boolean;
@@ -105,11 +126,29 @@ export interface EquipmentState {
   pourTargetId?: string;
   pourRate_ml_s?: number; // realistic ~10-15 mL/s manual pour
   pourSpillFraction?: number; // fraction of stream missing target → puddle
+  tilt_deg?: number; // Current vessel tilt angle during manual/continuous pour
 
-  // Damage & realism
+  // Damage, headspace pressure & lab realism (lab-3d parity)
   isShattered?: boolean;
   isSealed?: boolean;
   isTipped?: boolean;
+  internalPressure_atm?: number; // Headspace pressure via PV = nRT
+  freeGasMoles?: number; // Trapped evolved gas moles when stoppered
+  corkPoppedAt?: number; // Timestamp of recent cork pop for VFX
+  crackSeverity?: number; // 0..1 thermal/pressure stress micro-cracks before shatter
+  wallCondensation?: number; // 0..1 inner glass condensation droplets above hot liquid
+  evaporativeStain?: EvaporativeStainState;
+  superheat_c?: number; // Degrees of superheating above boiling point when unstirred
+  bumpingIntensity?: number; // 0..1 bumping surge intensity
+  hasSublimation?: boolean;
+  sublimationColorHex?: string;
+  sublimationFrostProgress?: number; // 0..1 upper wall frost crystals (e.g. I2)
+  meniscusWave?: MeniscusWaveState;
+  activeControllerIds?: string[];
+
+  // Tool cross-contamination tracking
+  lastContactFormula?: string;
+  isContaminated?: boolean;
 
   // Operational locks
   isLocked?: boolean;
@@ -123,7 +162,7 @@ export interface EquipmentState {
   isDrainingSeparatory?: boolean;
 }
 
-/** A spill puddle on the workbench surface. */
+/** A spill puddle on the workbench surface with full chemical inventory. */
 export interface SpillPuddle {
   id: string;
   x: number;
@@ -131,8 +170,14 @@ export interface SpillPuddle {
   colorHex: string;
   volume_ml: number;
   formula: string;
+  contents?: SubstanceQuantity[];
+  temperature_c?: number;
   ph?: number;
   isNeutralized?: boolean;
+  isEffervescing?: boolean;
+  hasFumes?: boolean;
+  fumeColorHex?: string;
+  hasGlassShards?: boolean;
   radius_px?: number;
   timestamp: number;
 }

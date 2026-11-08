@@ -1162,74 +1162,241 @@ kbd { font: 500 10px system-ui, sans-serif; border: 1px solid var(--line); borde
 }
 
 /* Shared slate/blue interface, matching the canonical periodic table. */
-.chemdex-shell #site-header { min-height:64px; padding:14px 26px; background:#1e293b; gap:16px; }
-.shell-breadcrumb { font-size:12px; color:#94a3b8; }
+.chemdex-shell #site-header { min-height:64px; padding:14px 26px; background:rgba(15, 23, 42, 0.88); backdrop-filter:blur(12px); border-bottom:1px solid #334155; gap:16px; }
+.shell-breadcrumb { font-size:12px; font-weight:600; color:#94a3b8; }
 .shell-breadcrumb > span { padding:0 10px; color:#475569; }
-.shell-home { font-size:11px; margin-left:auto; color:#7dd3fc; }
+.shell-home { font-size:11px; font-weight:600; margin-left:auto; color:#38bdf8; }
 .chemdex-shell .page { max-width:1600px; padding:28px; margin:0 auto; }
-.chemdex-shell .panel { background:linear-gradient(135deg,#243246,#1e293b); border-color:#3b4a60; box-shadow:0 4px 16px #0f172a18; }
-.chemdex-shell .button.primary { color:white; border-color:#3b82f6; background:linear-gradient(110deg,#3b82f6,#06b6d4); }
-.chemdex-shell input,.chemdex-shell select { background:#334155; color:#e2e8f0; border-color:#475569; }
-.chemdex-shell input::placeholder { color:#94a3b8; }
-.chemdex-shell .badge { color:#7dd3fc; background:#0ea5e916; }
-.tools-heading { margin-bottom:22px; }
-.tools-heading .eyebrow { color:#64748b; font-size:9px; letter-spacing:2px; }
-.tools-heading h1 { font-size:26px; font-weight:800; letter-spacing:-.6px; margin:5px 0; }
-.tools-heading p { margin:0; font-size:12px; color:#94a3b8; }
-.tools-toolbar { padding:0; border-radius:9px; margin-bottom:14px; }
-.tools-toolbar .search { display:flex; align-items:center; gap:12px; width:100%; padding:0 14px; }
-.tools-toolbar .search svg { width:20px; height:20px; color:#94a3b8; flex-shrink:0; }
+.chemdex-shell .panel { background:linear-gradient(145deg,#1e293b,#172033); border-color:#334155; box-shadow:0 10px 28px -10px rgba(2, 6, 23, 0.55); }
+.chemdex-shell .button.primary { color:white; border-color:#0ea5e9; background:linear-gradient(115deg,#2563eb,#06b6d4); box-shadow:0 4px 14px rgba(6, 182, 212, 0.28); }
+.chemdex-shell input,.chemdex-shell select { background:#0f172a; color:#f1f5f9; border-color:#334155; }
+.chemdex-shell input:focus,.chemdex-shell select:focus { border-color:#38bdf8; }
+.chemdex-shell input::placeholder { color:#64748b; }
+.chemdex-shell .badge { color:#7dd3fc; background:rgba(14, 165, 233, 0.14); border:1px solid rgba(56, 189, 248, 0.25); padding:3px 8px; border-radius:999px; font-size:10px; font-weight:700; letter-spacing:0.5px; }
+
+/* Utilities Hub (/tien-ich/) */
+.tools-heading {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:24px;
+  margin-bottom:22px;
+  padding:24px 28px;
+  border-radius:16px;
+  border:1px solid rgba(56, 189, 248, 0.22);
+  background:
+    radial-gradient(circle at 92% 18%, rgba(6, 182, 212, 0.2), transparent 45%),
+    radial-gradient(circle at 12% 85%, rgba(59, 130, 246, 0.16), transparent 50%),
+    linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  box-shadow:0 12px 32px -12px rgba(2, 6, 23, 0.6);
+}
+.tools-heading-main { max-width:760px; }
+.tools-heading .eyebrow { color:#38bdf8; font-size:10px; letter-spacing:2px; }
+.tools-heading h1 { font-size:clamp(24px, 2.6vw, 34px); font-weight:800; letter-spacing:-.8px; margin:8px 0; color:#f8fafc; }
+.tools-heading p { margin:0; font-size:13px; color:#cbd5e1; line-height:1.65; }
+.tools-hero-stats { display:flex; gap:12px; flex-shrink:0; }
+.tools-stat-pill {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  min-width:118px;
+  padding:14px 16px;
+  border-radius:14px;
+  background:rgba(15, 23, 42, 0.65);
+  border:1px solid rgba(148, 163, 184, 0.18);
+  text-align:center;
+}
+.tools-stat-pill strong { font-size:24px; font-weight:800; color:#38bdf8; line-height:1.15; }
+.tools-stat-pill span { font-size:9px; font-weight:700; letter-spacing:1px; color:#94a3b8; margin-top:4px; }
+
+.tools-toolbar { padding:4px; border-radius:12px; margin-bottom:16px; border:1px solid #334155; background:#152033; }
+.tools-toolbar .search { display:flex; align-items:center; gap:12px; width:100%; padding:0 16px; }
+.tools-toolbar .search svg { width:20px; height:20px; color:#38bdf8; flex-shrink:0; }
 .tools-toolbar .search::before { content:none; }
-.tools-toolbar input { background:transparent; min-height:45px; border:0; padding:8px 0; width:100%; font-size:12px; }
-.tool-categories { gap:7px; margin-bottom:20px; }
-.tool-categories .button { min-height:31px; padding:5px 12px; font-size:11px; color:#cbd5e1; border-color:#47556980; background:#1e293b; }
-.tool-categories .button[aria-pressed=true] { background:linear-gradient(110deg,#3b82f6,#06b6d4); color:#fff; border-color:transparent; }
+.tools-toolbar input { background:transparent; min-height:46px; border:0; padding:8px 0; width:100%; font-size:13.5px; color:#f8fafc; }
+
+.tool-categories { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:22px; }
+.tool-categories .button { min-height:36px; padding:6px 15px; font-size:12px; font-weight:600; color:#cbd5e1; border-color:#334155; background:#1e293b; border-radius:999px; transition:all .18s ease; }
+.tool-categories .button:hover { border-color:#38bdf8; color:#f8fafc; }
+.tool-categories .button[aria-pressed=true] { background:linear-gradient(115deg,#2563eb,#06b6d4); color:#fff; border-color:transparent; box-shadow:0 4px 14px rgba(6, 182, 212, 0.3); }
 .favorite-filter { cursor:pointer; }
-.favorite-filter input { accent-color:#38bdf8; width:13px; height:13px; }
-.quick-tools { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:22px; }
-.quick-tool { position:relative; padding:20px; border-radius:10px; }
-.quick-tool h2 { font-size:14px; font-weight:700; margin:0 42px 12px 0; }
-.quick-tool input { width:100%; border:1px solid #475569; border-radius:6px; padding:8px 10px; font-size:13px; }
-.quick-tool-icon { position:absolute; right:18px; top:15px; width:34px; height:34px; display:grid; place-items:center; color:#94a3b8; background:#334155; border-radius:9px; }
-.quick-tool-icon svg { width:23px; height:23px; }
-.quick-tool-actions { display:flex; align-items:center; gap:12px; justify-content:space-between; margin-top:12px; }
-.quick-tool-actions .button { min-height:32px; font-size:12px; padding:5px 13px; border-radius:6px; }
-.quick-tool-actions a,.quick-tool-actions > span { font-size:10px; color:#94a3b8; }
-#balance-result { display:block; font-size:13px; color:#67e8f9; margin-top:10px; overflow-wrap:anywhere; }
+.favorite-filter input { accent-color:#38bdf8; width:14px; height:14px; }
+
+.quick-tools { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:24px; }
+.quick-tool { position:relative; padding:22px; border-radius:16px; border:1px solid #334155; display:flex; flex-direction:column; gap:10px; }
+.quick-tool-balance { background:radial-gradient(circle at 100% 0%, rgba(14, 165, 233, 0.14), transparent 55%), linear-gradient(145deg,#1e293b,#131c2e); }
+.quick-tool-chain { background:radial-gradient(circle at 100% 0%, rgba(168, 85, 247, 0.14), transparent 55%), linear-gradient(145deg,#1e293b,#131c2e); }
+.quick-tool-head { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+.quick-tool-badge { display:inline-block; font-size:9px; font-weight:800; letter-spacing:1.3px; color:#38bdf8; margin-bottom:3px; }
+.quick-tool-chain .quick-tool-badge { color:#c084fc; }
+.quick-tool h2 { font-size:16px; font-weight:800; margin:0; color:#f8fafc; }
+.quick-tool input { width:100%; border:1px solid #475569; background:#0f172a; border-radius:10px; padding:11px 14px; font-size:13.5px; font-family:ui-monospace, SFMono-Regular, Menlo, monospace; color:#f8fafc; }
+.quick-tool-icon { width:40px; height:40px; display:grid; place-items:center; color:#38bdf8; background:rgba(56, 189, 248, 0.12); border:1px solid rgba(56, 189, 248, 0.25); border-radius:11px; flex-shrink:0; }
+.quick-tool-chain .quick-tool-icon { color:#c084fc; background:rgba(192, 132, 252, 0.12); border-color:rgba(192, 132, 252, 0.25); }
+.quick-tool-icon svg { width:22px; height:22px; }
+.quick-presets { display:flex; align-items:center; gap:6px; flex-wrap:wrap; font-size:11px; color:#94a3b8; }
+.preset-chip { border:1px solid #334155; background:rgba(15, 23, 42, 0.65); color:#cbd5e1; border-radius:999px; padding:3px 10px; font-size:11px; font-weight:600; transition:all .15s; }
+.preset-chip:hover { border-color:#38bdf8; color:#38bdf8; background:rgba(56, 189, 248, 0.1); }
+.quick-tool-actions { display:flex; align-items:center; gap:12px; justify-content:space-between; margin-top:4px; flex-wrap:wrap; }
+.quick-tool-actions .button { min-height:36px; font-size:12.5px; padding:6px 16px; border-radius:9px; }
+.quick-tool-links { display:flex; gap:14px; align-items:center; }
+.quick-tool-actions a,.quick-tool-actions > span { font-size:11.5px; font-weight:600; color:#94a3b8; }
+.quick-tool-actions a:hover { color:#38bdf8; }
+#balance-result { display:block; font-size:14px; font-weight:700; font-family:ui-monospace, SFMono-Regular, Menlo, monospace; color:#67e8f9; background:rgba(6, 182, 212, 0.1); border:1px solid rgba(6, 182, 212, 0.3); padding:10px 14px; border-radius:10px; margin-top:4px; overflow-wrap:anywhere; }
 #balance-result:empty { display:none; }
+
 .chemdex-shell .tools-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
-.chemdex-shell .tool-card { position:relative; display:flex; gap:16px; padding:18px; border-radius:10px; min-height:164px; }
-.chemdex-shell .tool-card:hover { transform:translateY(-2px); border-color:#60a5fa; }
-.chemdex-shell .tool-mark { display:grid; place-items:center; flex-shrink:0; width:48px; height:48px; color:#6ee7b7; border:1px solid #34d39955; background:radial-gradient(at 20% 15%,#34d39970,#064e3b70); border-radius:10px; font-size:27px; }
-.chemdex-shell [data-tool-group="Bảng tra cứu"] .tool-mark { color:#fcd34d; border-color:#fbbf2455; background:radial-gradient(at 20% 15%,#fbbf2470,#713f1270); }
-.chemdex-shell [data-tool-group="Mô hình 3D"] .tool-mark { color:#d8b4fe; border-color:#c084fc55; background:radial-gradient(at 20% 15%,#c084fc70,#581c8770); }
-.chemdex-shell [data-tool-group="Phương trình & Phản ứng"] .tool-mark { color:#f9a8d4; border-color:#f472b655; background:radial-gradient(at 20% 15%,#f472b670,#83184370); }
-.chemdex-shell .tool-main-link { min-height:0; flex:1; min-width:0; padding-right:6px; }
-.chemdex-shell .tool-card h2 { font-size:14px; line-height:1.5; margin:0 12px 8px 0; }
-.chemdex-shell .tool-card p { font-size:11px; line-height:1.7; margin:0 0 12px; }
-.chemdex-shell .tool-open { display:inline-flex; align-self:flex-start; gap:12px; padding:4px 9px; font-size:10px; border:1px solid #47556988; color:#e2e8f0; background:#334155; border-radius:6px; }
-.chemdex-shell .tool-star { position:absolute; top:8px; right:7px; min-height:22px; padding:0 4px; font-size:16px; background:transparent; }
-.chemdex-shell .hero { padding:0 0 24px; }
-.chemdex-shell .hero h1 { font-size:28px; letter-spacing:-.6px; }
-.chemdex-shell .hero p { max-width:650px; font-size:12px; }
-.chemdex-shell .catalog-layout { grid-template-columns:minmax(260px,.85fr) minmax(0,1.5fr); gap:20px; align-items:start; }
-.chemdex-shell .catalog-list { min-width:0; max-height:calc(100dvh - 290px); overflow:auto; padding-right:6px; }
-.chemdex-shell .catalog-list .cards { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
-.chemdex-shell .compound-card { padding:14px; text-align:left; }
-.chemdex-shell .compound-card h2 { font-size:13px; }
-.chemdex-shell .compound-card .formula { font-size:21px; overflow-wrap:anywhere; }
-.chemdex-shell .compound-card p { font-size:10px; }
-.chemdex-shell .viewer-panel { position:sticky; top:16px; min-width:0; }
-.chemdex-shell .canvas-shell { height:420px; background:#172235; }
-.chemdex-shell .viewer-panel:fullscreen { padding:24px; background:#1e293b; overflow:auto; }
-.chemdex-shell .viewer-panel:fullscreen .canvas-shell { height:calc(100dvh - 265px); min-height:260px; }
-.chemdex-shell chem-structure-viewer:fullscreen { padding:20px; background:#1e293b; }
-.chemdex-shell chem-structure-viewer:fullscreen .canvas-shell { height:calc(100dvh - 220px); }
-.chemdex-shell .viewer-toolbar { gap:7px; flex-wrap:wrap; }
-.chemdex-shell .viewer-toolbar .button,.chemdex-shell .viewer-toolbar select { font-size:11px; padding:6px 9px; min-height:32px; }
-.chemdex-shell .viewer-toolbar label { font-size:11px; }
+.chemdex-shell .tool-card {
+  position:relative;
+  display:flex;
+  gap:16px;
+  padding:20px;
+  border-radius:14px;
+  min-height:172px;
+  border:1px solid #334155;
+  background:linear-gradient(155deg,#1e293b 0%,#131c2e 100%);
+  transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.chemdex-shell .tool-card.is-pinned { border-color:rgba(250, 204, 21, 0.45); }
+.chemdex-shell .tool-card:hover { transform:translateY(-3px); border-color:#38bdf8; box-shadow:0 14px 30px -10px rgba(14, 165, 233, 0.22); }
+.chemdex-shell .tool-mark {
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+  width:52px;
+  height:52px;
+  color:#6ee7b7;
+  border:1px solid rgba(52, 211, 153, 0.35);
+  background:radial-gradient(circle at 25% 20%,rgba(52, 211, 153, 0.35),rgba(6, 78, 59, 0.55));
+  border-radius:13px;
+  font-size:20px;
+  font-weight:800;
+}
+.chemdex-shell [data-tool-group="Bảng tra cứu"] .tool-mark { color:#fcd34d; border-color:rgba(251, 191, 36, 0.35); background:radial-gradient(circle at 25% 20%,rgba(251, 191, 36, 0.35),rgba(113, 63, 18, 0.55)); }
+.chemdex-shell [data-tool-group="Mô hình 3D"] .tool-mark { color:#d8b4fe; border-color:rgba(192, 132, 252, 0.35); background:radial-gradient(circle at 25% 20%,rgba(192, 132, 252, 0.35),rgba(88, 28, 135, 0.55)); }
+.chemdex-shell [data-tool-group="Phương trình & Phản ứng"] .tool-mark { color:#f9a8d4; border-color:rgba(244, 114, 182, 0.35); background:radial-gradient(circle at 25% 20%,rgba(244, 114, 182, 0.35),rgba(131, 24, 67, 0.55)); }
+.chemdex-shell [data-tool-group="Thực hành & Ôn tập"] .tool-mark { color:#7dd3fc; border-color:rgba(56, 189, 248, 0.35); background:radial-gradient(circle at 25% 20%,rgba(56, 189, 248, 0.35),rgba(12, 74, 110, 0.55)); }
+.tool-group-pill {
+  display:inline-block;
+  align-self:flex-start;
+  font-size:9.5px;
+  font-weight:700;
+  letter-spacing:0.6px;
+  text-transform:uppercase;
+  color:#94a3b8;
+  margin-bottom:4px;
+}
+.chemdex-shell .tool-main-link { min-height:0; flex:1; min-width:0; padding-right:8px; display:flex; flex-direction:column; }
+.chemdex-shell .tool-card h2 { font-size:15.5px; font-weight:800; line-height:1.4; margin:0 18px 6px 0; color:#f8fafc; }
+.chemdex-shell .tool-card p { font-size:12px; line-height:1.65; margin:0 0 14px; color:#94a3b8; }
+.chemdex-shell .tool-open { display:inline-flex; align-self:flex-start; gap:10px; padding:5px 11px; font-size:11px; font-weight:700; border:1px solid rgba(56, 189, 248, 0.3); color:#7dd3fc; background:rgba(14, 165, 233, 0.1); border-radius:8px; margin-top:auto; transition:all .15s; }
+.chemdex-shell .tool-card:hover .tool-open { background:#0ea5e9; color:#fff; border-color:#0ea5e9; }
+.chemdex-shell .tool-star { position:absolute; top:10px; right:10px; min-height:28px; padding:2px 6px; font-size:17px; background:transparent; }
+
+/* 3D Structure Studio (/tien-ich/cau-truc-3d/) */
+.structure-hero {
+  padding:24px 28px !important;
+  border-radius:16px;
+  border:1px solid rgba(56, 189, 248, 0.24);
+  background:
+    radial-gradient(circle at 88% 20%, rgba(168, 85, 247, 0.2), transparent 45%),
+    radial-gradient(circle at 15% 80%, rgba(6, 182, 212, 0.18), transparent 50%),
+    linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  margin-bottom:20px;
+}
+.structure-hero h1 { font-size:clamp(24px, 2.5vw, 32px) !important; letter-spacing:-.7px; color:#f8fafc; margin:6px 0 8px; }
+.structure-hero p { max-width:720px; font-size:13px !important; color:#cbd5e1; line-height:1.6; }
+.structure-hero-stat {
+  background:rgba(15, 23, 42, 0.65);
+  border:1px solid rgba(56, 189, 248, 0.25);
+  border-radius:14px;
+  padding:16px 22px;
+  text-align:center;
+}
+.hero-stat-sub { font-size:10px; color:#38bdf8; margin-top:4px; font-weight:600; }
+.showcase-strip { display:flex; align-items:center; gap:7px; flex-wrap:wrap; margin-top:14px; }
+.showcase-label { font-size:11px; font-weight:700; color:#94a3b8; margin-right:2px; }
+.showcase-chip {
+  border:1px solid rgba(56, 189, 248, 0.3);
+  background:rgba(15, 23, 42, 0.7);
+  color:#e2e8f0;
+  border-radius:999px;
+  padding:5px 12px;
+  font-size:11.5px;
+  font-weight:600;
+  transition:all .15s;
+}
+.showcase-chip:hover { border-color:#38bdf8; background:rgba(14, 165, 233, 0.2); color:#fff; transform:translateY(-1px); }
+
+.chemdex-shell .catalog-layout { grid-template-columns:minmax(310px,.9fr) minmax(0,1.55fr); gap:20px; align-items:start; }
+.chemdex-shell .catalog-list { min-width:0; max-height:calc(100dvh - 250px); overflow:auto; padding-right:6px; }
+.chemdex-shell .catalog-list .cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.chemdex-shell .compound-card {
+  padding:15px;
+  text-align:left;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  border:1px solid #334155;
+  background:linear-gradient(155deg,#1e293b,#141e30);
+  transition:all .16s ease;
+}
+.chemdex-shell .compound-card:hover { border-color:#38bdf8; transform:translateY(-2px); }
+.chemdex-shell .compound-card.active {
+  border-color:#38bdf8;
+  background:radial-gradient(circle at 90% 10%, rgba(56, 189, 248, 0.18), transparent 60%), linear-gradient(155deg,#1e293b,#0f172a);
+  box-shadow:0 0 0 1px rgba(56, 189, 248, 0.35), 0 10px 24px -8px rgba(14, 165, 233, 0.3);
+}
+.card-top { display:flex; align-items:center; justify-content:space-between; gap:6px; margin-bottom:4px; }
+.card-top-right { display:inline-flex; align-items:center; gap:6px; }
+.family-pill { font-size:9.5px; font-weight:600; color:#94a3b8; background:rgba(148, 163, 184, 0.12); padding:2px 7px; border-radius:999px; }
+.fav-star { color:#facc15; font-size:13px; }
+.kind-badge-crystal { color:#c084fc !important; background:rgba(192, 132, 252, 0.15) !important; border-color:rgba(192, 132, 252, 0.3) !important; }
+.kind-badge-components { color:#34d399 !important; background:rgba(52, 211, 153, 0.14) !important; border-color:rgba(52, 211, 153, 0.3) !important; }
+.kind-badge-ion { color:#fbbf24 !important; background:rgba(251, 191, 36, 0.14) !important; border-color:rgba(251, 191, 36, 0.3) !important; }
+.chemdex-shell .compound-card h2 { font-size:13.5px; font-weight:700; margin:2px 0 0; color:#f8fafc; }
+.chemdex-shell .compound-card .formula { font-size:20px; font-weight:800; color:#38bdf8; font-family:ui-monospace, SFMono-Regular, Menlo, monospace; overflow-wrap:anywhere; line-height:1.25; }
+.chemdex-shell .compound-card p { font-size:10.5px; margin:0; color:#94a3b8; }
+.compound-card-footer { margin-top:auto; padding-top:6px; border-top:1px solid rgba(51, 65, 85, 0.65); font-size:10px; color:#94a3b8; }
+
+.chemdex-shell .viewer-panel { position:sticky; top:16px; min-width:0; padding:20px; }
+.viewer-header-card { margin-bottom:12px; padding-bottom:12px; border-bottom:1px solid #334155; }
+.viewer-header-top { display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:6px; }
+.viewer-header-card h2 { font-size:22px; font-weight:800; margin:4px 0; color:#f8fafc; }
+.viewer-meta-chips { display:flex; gap:6px; flex-wrap:wrap; }
+.meta-chip { font-size:10.5px; font-weight:700; padding:3px 9px; border-radius:999px; background:#0f172a; border:1px solid #334155; color:#cbd5e1; }
+.meta-chip.formula-chip { color:#38bdf8; border-color:rgba(56, 189, 248, 0.4); background:rgba(14, 165, 233, 0.12); font-family:ui-monospace, SFMono-Regular, Menlo, monospace; }
+.viewer-actions-bar { margin-top:10px; }
+
+.chemdex-shell .canvas-shell { height:430px; background:#0f172a; border-radius:12px; border:1px solid #334155; overflow:hidden; margin:10px 0; position:relative; }
+.viewer-bond-panel { margin:10px 0; padding:12px 14px; border-radius:12px; background:rgba(15, 23, 42, 0.72); border:1px solid #334155; }
+.bond-inspector-grid { display:grid; grid-template-columns:minmax(180px, 0.85fr) minmax(240px, 1.4fr); gap:14px; align-items:start; }
+.bond-inspector-title { font-size:9.5px; font-weight:800; letter-spacing:1.1px; color:#94a3b8; margin-bottom:7px; }
+.cpk-pill-list, .bond-order-summary, .bond-pair-list { display:flex; gap:6px; flex-wrap:wrap; }
+.bond-pair-list { margin-top:7px; }
+.cpk-pill { display:inline-flex; align-items:center; gap:6px; padding:3px 9px; border-radius:999px; background:#1e293b; border:1px solid #334155; font-size:11px; color:#e2e8f0; }
+.cpk-dot { width:10px; height:10px; border-radius:50%; box-shadow:0 0 6px rgba(255,255,255,0.25); }
+.bond-stat-tag { font-size:10.5px; padding:3px 9px; border-radius:7px; background:#1e293b; border:1px solid #334155; color:#cbd5e1; }
+.bond-stat-tag.double { border-color:rgba(56, 189, 248, 0.4); color:#7dd3fc; background:rgba(14, 165, 233, 0.1); }
+.bond-stat-tag.triple { border-color:rgba(192, 132, 252, 0.45); color:#d8b4fe; background:rgba(168, 85, 247, 0.12); }
+.bond-pair-chip { display:inline-flex; align-items:center; gap:5px; font-size:11px; font-family:ui-monospace, SFMono-Regular, Menlo, monospace; padding:3px 9px; border-radius:7px; background:#0f172a; border:1px solid #334155; color:#f1f5f9; }
+.bond-pair-chip[data-order="2"] { border-color:rgba(56, 189, 248, 0.4); }
+.bond-pair-chip[data-order="3"] { border-color:rgba(192, 132, 252, 0.45); }
+.bond-pair-chip small { color:#38bdf8; font-size:10px; }
+
+.chemdex-shell .viewer-panel:fullscreen { padding:24px; background:#0f172a; overflow:auto; }
+.chemdex-shell .viewer-panel:fullscreen .canvas-shell { height:calc(100dvh - 310px); min-height:260px; }
+.chemdex-shell chem-structure-viewer:fullscreen { padding:20px; background:#0f172a; }
+.chemdex-shell chem-structure-viewer:fullscreen .canvas-shell { height:calc(100dvh - 240px); }
+.chemdex-shell .viewer-toolbar { display:flex; align-items:center; gap:7px; flex-wrap:wrap; }
+.chemdex-shell .viewer-toolbar .button,.chemdex-shell .viewer-toolbar select { font-size:11px; padding:6px 10px; min-height:32px; }
+.chemdex-shell .viewer-toolbar label { font-size:11px; display:inline-flex; align-items:center; gap:5px; }
+.viewer-status { font-size:12px; font-weight:600; color:#7dd3fc; margin:6px 0 4px; }
+.atom-readout { font-size:11.5px; color:#cbd5e1; padding:8px 12px; border-radius:8px; background:rgba(15, 23, 42, 0.55); border:1px solid #334155; margin:6px 0; }
+.viewer-source { font-size:11px; color:#94a3b8; margin-top:8px; }
 .chemdex-shell footer { color:#64748b; font-size:9px; padding:18px 28px; }
 .chemdex-shell #quick-search { background:#1e293b; border-color:#475569; color:#e2e8f0; }
 .chemdex-shell .search-result:hover { background:#334155; }
-@media(max-width:1100px) { .chemdex-shell .tools-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .chemdex-shell .catalog-list .cards { grid-template-columns:1fr; } }
-@media(max-width:767px) { .chemdex-shell #site-header { min-height:48px; padding:12px 16px; } .chemdex-shell .page { padding:20px 16px; } .tools-heading h1 { font-size:23px; } .quick-tools { grid-template-columns:1fr; } .chemdex-shell .tools-grid { grid-template-columns:1fr; } .chemdex-shell .catalog-layout { grid-template-columns:1fr; } .chemdex-shell .catalog-list { max-height:320px; } .chemdex-shell .catalog-list .cards { grid-template-columns:repeat(2,minmax(0,1fr)); } .chemdex-shell .viewer-panel { position:static; } .chemdex-shell .canvas-shell { height:340px; } .shell-home { display:none; } .chemdex-shell .hero h1 { font-size:24px; } .chemdex-shell .hero-stat { display:none; } .chemdex-shell .toolbar .search { min-width:0; flex-basis:100%; } }
+@media(max-width:1100px) { .chemdex-shell .tools-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .chemdex-shell .catalog-list .cards { grid-template-columns:1fr; } .bond-inspector-grid { grid-template-columns:1fr; } .tools-heading { flex-direction:column; align-items:flex-start; } }
+@media(max-width:767px) { .chemdex-shell #site-header { min-height:48px; padding:12px 16px; } .chemdex-shell .page { padding:20px 16px; } .tools-heading { padding:18px; } .tools-heading h1 { font-size:22px; } .tools-hero-stats { width:100%; display:grid; grid-template-columns:repeat(3,1fr); gap:8px; } .tools-stat-pill { min-width:0; padding:10px 6px; } .tools-stat-pill strong { font-size:18px; } .quick-tools { grid-template-columns:1fr; } .chemdex-shell .tools-grid { grid-template-columns:1fr; } .chemdex-shell .catalog-layout { grid-template-columns:1fr; } .chemdex-shell .catalog-list { max-height:320px; } .chemdex-shell .catalog-list .cards { grid-template-columns:repeat(2,minmax(0,1fr)); } .chemdex-shell .viewer-panel { position:static; padding:14px; } .chemdex-shell .canvas-shell { height:340px; } .shell-home { display:none; } .chemdex-shell .hero h1 { font-size:22px; } .chemdex-shell .hero-stat { display:none; } .chemdex-shell .toolbar .search { min-width:0; flex-basis:100%; } }

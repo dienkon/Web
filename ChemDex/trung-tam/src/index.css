@@ -177,20 +177,347 @@ body {
   background-color: rgba(255, 255, 255, 0.02);
 }
 .markdown-body img {
+  width: 100%;
   border-radius: 1rem;
-  margin: 2rem 0;
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  margin: 1.75rem 0 0.65rem 0;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  background-color: #ffffff;
+  box-shadow: 0 12px 32px -12px rgba(2, 132, 199, 0.18);
+}
+
+.markdown-body a {
+  color: #0284c7;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.markdown-body details {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(14, 165, 233, 0.35);
+  background: linear-gradient(135deg, rgba(240, 249, 255, 0.9), rgba(240, 253, 250, 0.85));
+  color: #0f172a;
+}
+
+.markdown-body details summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #0369a1;
+  margin-bottom: 0.5rem;
+}
+
+/* Universal White-Background Prose Safety Rule (prevents white-on-white text) */
+.bg-white.markdown-body,
+.bg-white .markdown-body,
+article.bg-white {
+  color: #1e293b !important;
+}
+.bg-white.markdown-body h1,
+.bg-white .markdown-body h1,
+article.bg-white h1,
+.bg-white.markdown-body h2,
+.bg-white .markdown-body h2,
+article.bg-white h2,
+.bg-white.markdown-body h3,
+.bg-white .markdown-body h3,
+article.bg-white h3,
+.bg-white.markdown-body strong,
+.bg-white .markdown-body strong,
+article.bg-white strong {
+  color: #0f172a !important;
+}
+.bg-white.markdown-body h2,
+.bg-white .markdown-body h2,
+article.bg-white h2 {
+  color: #0369a1 !important;
+  border-bottom: 2px solid #e0f2fe !important;
+}
+.bg-white.markdown-body h3,
+.bg-white .markdown-body h3,
+article.bg-white h3 {
+  color: #0f766e !important;
+}
+.bg-white.markdown-body p,
+.bg-white .markdown-body p,
+article.bg-white p,
+.bg-white.markdown-body li,
+.bg-white .markdown-body li,
+article.bg-white li {
+  color: #334155 !important;
+}
+
+/* ==========================================================================
+   READER VIEW THEME SYSTEM (Guaranteed 100% Contrast in Light and Dark modes)
+   ========================================================================== */
+
+/* Dark Mode (Default when body does not have .light-mode) */
+.reader-container {
+  background-color: #0f172a;
+  color: #e2e8f0;
+}
+.reader-toolbar {
+  background-color: rgba(15, 23, 42, 0.95);
+  border-bottom: 1px solid rgba(51, 65, 85, 0.8);
+  color: #cbd5e1;
+}
+.reader-title {
+  color: #f8fafc !important;
+}
+.reader-meta {
+  color: #94a3b8 !important;
+}
+.reader-meta .meta-author {
+  color: #2dd4bf !important;
+}
+.reader-meta .meta-3d-link {
+  color: #38bdf8 !important;
+}
+.reader-formula-card {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
+  border: 1px solid rgba(56, 189, 248, 0.35);
+}
+.reader-formula-title {
+  color: #38bdf8 !important;
+}
+.reader-formula-text {
+  background-color: rgba(15, 23, 42, 0.9);
+  color: #38bdf8 !important;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+.reader-toc-card {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8));
+  border: 1px solid rgba(51, 65, 85, 0.8);
+}
+.reader-toc-title {
+  color: #38bdf8 !important;
+}
+.reader-toc-link {
+  color: #cbd5e1 !important;
+}
+.reader-toc-link:hover {
+  color: #38bdf8 !important;
+}
+.reader-article-card {
+  background-color: #1e293b !important;
+  border: 1px solid rgba(51, 65, 85, 0.9) !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+}
+.reader-summary-box {
+  background-color: rgba(13, 148, 136, 0.15) !important;
+  border-left: 4px solid #14b8a6 !important;
+  color: #ccfbf1 !important;
+}
+.reader-article-card.markdown-body {
+  color: #cbd5e1 !important;
+}
+.reader-article-card.markdown-body h1 {
+  color: #f8fafc !important;
+}
+.reader-article-card.markdown-body h2 {
+  color: #38bdf8 !important;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.25) !important;
+}
+.reader-article-card.markdown-body h3 {
+  color: #2dd4bf !important;
+}
+.reader-article-card.markdown-body p,
+.reader-article-card.markdown-body li {
+  color: #cbd5e1 !important;
+}
+.reader-article-card.markdown-body strong {
+  color: #ffffff !important;
+}
+.reader-article-card.markdown-body a {
+  color: #38bdf8 !important;
+}
+.reader-article-card.markdown-body pre {
+  background-color: rgba(15, 23, 42, 0.9) !important;
+  border: 1px solid rgba(51, 65, 85, 0.8) !important;
+}
+.reader-article-card.markdown-body code {
+  background-color: rgba(15, 23, 42, 0.8) !important;
+  color: #38bdf8 !important;
+}
+.reader-article-card.markdown-body table th {
+  background-color: rgba(15, 23, 42, 0.95) !important;
+  color: #38bdf8 !important;
+  border: 1px solid rgba(51, 65, 85, 0.8) !important;
+}
+.reader-article-card.markdown-body table td {
+  border: 1px solid rgba(51, 65, 85, 0.6) !important;
+  color: #cbd5e1 !important;
+}
+.reader-article-card.markdown-body table tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+}
+.reader-article-card.markdown-body details {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.85)) !important;
+  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+  color: #e2e8f0 !important;
+}
+.reader-article-card.markdown-body details summary {
+  color: #38bdf8 !important;
+}
+.reader-tags button {
+  background-color: rgba(30, 41, 59, 0.8) !important;
+  border: 1px solid rgba(51, 65, 85, 0.8) !important;
+  color: #94a3b8 !important;
+}
+.reader-tags button:hover {
+  background-color: rgba(51, 65, 85, 0.8) !important;
+  color: #f8fafc !important;
+}
+.reader-suggestions {
+  background-color: rgba(30, 41, 59, 0.5) !important;
+  border: 1px solid rgba(51, 65, 85, 0.8) !important;
+}
+.reader-suggestions h3 {
+  color: #f8fafc !important;
 }
 
 /* Light Mode Overrides */
 .light-mode {
+  background: linear-gradient(180deg, #f0f9ff 0%, #f8fafc 45%, #fefce8 100%) !important;
+  color: #0f172a !important;
+}
+
+.light-mode .reader-container {
+  background: linear-gradient(180deg, #f0f9ff 0%, #f8fafc 45%, #fefce8 100%) !important;
+  color: #0f172a !important;
+}
+.light-mode .reader-toolbar {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  color: #334155 !important;
+}
+.light-mode .reader-toolbar button {
+  color: #475569 !important;
+}
+.light-mode .reader-toolbar button:hover {
+  color: #0f172a !important;
   background-color: #f1f5f9 !important;
+}
+.light-mode .reader-title {
+  color: #0f172a !important;
+}
+.light-mode .reader-meta {
+  color: #475569 !important;
+}
+.light-mode .reader-meta .meta-author {
+  color: #0f766e !important;
+}
+.light-mode .reader-meta .meta-3d-link {
+  color: #0284c7 !important;
+}
+.light-mode .reader-formula-card {
+  background: linear-gradient(135deg, #f0f9ff, #ffffff 50%, #fefce8) !important;
+  border: 1px solid #bae6fd !important;
+}
+.light-mode .reader-formula-title {
+  color: #0f766e !important;
+}
+.light-mode .reader-formula-text {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  color: #0369a1 !important;
+  border: 1px solid #bae6fd !important;
+}
+.light-mode .reader-toc-card {
+  background: linear-gradient(to right, rgba(240, 249, 255, 0.95), rgba(240, 253, 250, 0.7), #ffffff) !important;
+  border: 1px solid #bae6fd !important;
+}
+.light-mode .reader-toc-title {
+  color: #0369a1 !important;
+}
+.light-mode .reader-toc-link {
+  color: #334155 !important;
+}
+.light-mode .reader-toc-link:hover {
+  color: #0284c7 !important;
+}
+.light-mode .reader-article-card {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05) !important;
+}
+.light-mode .reader-summary-box {
+  background-color: rgba(204, 251, 241, 0.45) !important;
+  border-left: 4px solid #14b8a6 !important;
+  color: #134e4a !important;
+}
+.light-mode .reader-article-card.markdown-body {
+  color: #1e293b !important;
+}
+.light-mode .reader-article-card.markdown-body h1 {
+  color: #0f172a !important;
+}
+.light-mode .reader-article-card.markdown-body h2 {
+  color: #0369a1 !important;
+  border-bottom: 2px solid #e0f2fe !important;
+}
+.light-mode .reader-article-card.markdown-body h3 {
+  color: #0f766e !important;
+}
+.light-mode .reader-article-card.markdown-body p,
+.light-mode .reader-article-card.markdown-body li {
+  color: #334155 !important;
+}
+.light-mode .reader-article-card.markdown-body strong {
+  color: #0f172a !important;
+}
+.light-mode .reader-article-card.markdown-body a {
+  color: #0284c7 !important;
+}
+.light-mode .reader-article-card.markdown-body pre {
+  background-color: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+}
+.light-mode .reader-article-card.markdown-body code {
+  background-color: #f1f5f9 !important;
+  color: #0284c7 !important;
+}
+.light-mode .reader-article-card.markdown-body table th {
+  background-color: #e0f2fe !important;
+  color: #0369a1 !important;
+  border: 1px solid #bae6fd !important;
+}
+.light-mode .reader-article-card.markdown-body table td {
+  border: 1px solid #e2e8f0 !important;
+  color: #334155 !important;
+}
+.light-mode .reader-article-card.markdown-body table tr:nth-child(even) {
+  background-color: #f8fafc !important;
+}
+.light-mode .reader-article-card.markdown-body details {
+  background: linear-gradient(135deg, rgba(240, 249, 255, 0.9), rgba(240, 253, 250, 0.85)) !important;
+  border: 1px solid rgba(14, 165, 233, 0.35) !important;
+  color: #0f172a !important;
+}
+.light-mode .reader-article-card.markdown-body details summary {
+  color: #0369a1 !important;
+}
+.light-mode .reader-tags button {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #475569 !important;
+}
+.light-mode .reader-tags button:hover {
+  background-color: #f1f5f9 !important;
+  color: #0284c7 !important;
+  border-color: #bae6fd !important;
+}
+.light-mode .reader-suggestions {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+}
+.light-mode .reader-suggestions h3 {
   color: #0f172a !important;
 }
 
 .light-mode main,
 .light-mode body {
-  background-color: #f1f5f9 !important;
+  background: transparent !important;
 }
 
 /* Background level conversions */
@@ -325,8 +652,23 @@ body {
 .light-mode .markdown-body strong {
   color: #0f172a !important;
 }
+.light-mode .markdown-body h2 {
+  color: #0369a1 !important;
+  border-bottom: 2px solid #e0f2fe !important;
+  padding-bottom: 0.6rem;
+}
+.light-mode .markdown-body h3 {
+  color: #0f766e !important;
+}
 .light-mode .markdown-body {
-  color: #334155 !important;
+  color: #1e293b !important;
+}
+.light-mode .markdown-body th {
+  background-color: #e0f2fe !important;
+  color: #0369a1 !important;
+}
+.light-mode .markdown-body tr:nth-child(even) {
+  background-color: #f8fafc !important;
 }
 
 .light-mode .markdown-body pre {
@@ -394,8 +736,8 @@ body {
     -webkit-overflow-scrolling: touch;
     border-radius: 0.75rem;
     padding: 0.5rem;
-    background-color: rgba(15, 23, 42, 0.8) !important;
-    border: 1px solid rgba(51, 65, 85, 0.7) !important;
+    background-color: #f8fafc !important;
+    border: 1px solid #cbd5e1 !important;
     margin-top: 0.5rem !important;
     margin-bottom: 0.5rem !important;
     scrollbar-width: none !important; /* Firefox */

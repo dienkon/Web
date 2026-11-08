@@ -8,6 +8,7 @@ import type { LiquidAliquot } from '../handling/aliquot';
 import { blendLiquidOptics, liquidOptics, type LiquidOptics } from '../pour/physics/mixing';
 import { findChemical } from '../data/chemicals';
 import { sampleHeatCapacity } from './thermalState';
+import { mergeSpillSuspensions } from '../science/spillSuspension';
 
 function mergedAppearance(samples: { color: string; volume_ml: number; optics?: LiquidOptics }[]) {
   let optics = liquidOptics('#ffffff'), volume = 0;
@@ -30,7 +31,7 @@ function mergedThermal(samples: (Pick<SpillState, 'mass_g'> & Partial<SpillState
   return { temperature_c: capacity > 0 ? samples.reduce((s, c, i) => s + capacities[i] * (c.temperature_c ?? 25), 0) / capacity
     : mass > 0 ? samples.reduce((s, c) => s + c.mass_g * (c.temperature_c ?? 25), 0) / mass : 25,
     escapedGas_g, gasRate_mol_s: 0, vaporRate_g_s: 0, chemistryLimit: undefined, thermalModelLimit: undefined,
-    sodiumContact: undefined,
+    sodiumContact: undefined, suspension: mergeSpillSuspensions(samples),
     reactionHeat_J: sum('reactionHeat_J'), thermalVaporEnthalpy_J: sum('thermalVaporEnthalpy_J'),
     thermalVaporSensibleEnthalpy_J: sum('thermalVaporSensibleEnthalpy_J'), thermalEnergyOutsideModel_J: sum('thermalEnergyOutsideModel_J') };
 }
@@ -153,7 +154,8 @@ export function mergeWorkbenchSpill(
     result[primary.key] = { ...primary.spill, contents: aggregateContents([...members.map(c => c.spill.contents), contents], totalVol),
       position: [coordinate(0), primary.spill.position[1], coordinate(2)], volume_ml: totalVol, mass_g: totalMass,
       ...mergedAppearance([...members.map(c => c.spill), { color, volume_ml, optics }]),
-      ...mergedThermal([...members.map(c => c.spill), { mass_g: addedMass, volume_ml, contents, temperature_c }]),
+      ...mergedThermal([...members.map(c => c.spill), { mass_g: addedMass, volume_ml, contents, temperature_c,
+        suspension: mergeSpillSuspensions([{ contents, fresh: true }]) }]),
       radius: calculateSpillRadius(totalVol), substances: [...new Set([...members.flatMap(c => c.spill.substances), ...substances])].sort(),
       isHazard: hazardous(substances) || members.some(c => c.spill.isHazard), timestamp: Date.now() };
     footprintCache.set(result[primary.key], { volume_ml: totalVol, radius: result[primary.key].radius });
@@ -163,7 +165,7 @@ export function mergeWorkbenchSpill(
   const created: SpillState = { id, position: [pos[0], supportPlaneScene(pos), pos[2]],
     substances: [...substances], color: color || '#38bdf8', optics: liquidOptics(color || '#38bdf8', optics), volume_ml, mass_g: addedMass, temperature_c,
     radius: incoming.radius, isHazard: hazardous(substances),
-    contents: contents?.map(item => ({ ...item })), sourceVesselName: sourceName, timestamp: Date.now() };
+    contents: contents?.map(item => ({ ...item })), suspension: mergeSpillSuspensions([{ contents, fresh: true }]), sourceVesselName: sourceName, timestamp: Date.now() };
   footprintCache.set(created, { volume_ml, radius: incoming.radius });
   return { ...spills, [id]: created };
 }
@@ -188,6 +190,7 @@ export function mergeWorkbenchSpillBatch(spills: Record<string, SpillState>, pos
         ...(c.volume_ml !== undefined ? { volume_ml: c.volume_ml / positions.length } : {}),
         ...(c.initialMass_g !== undefined ? { initialMass_g: c.initialMass_g / positions.length } : {}),
         ...(c.initialMoles !== undefined ? { initialMoles: c.initialMoles / positions.length } : {}) })) };
+    spill.suspension = mergeSpillSuspensions([{ contents: spill.contents, fresh: true }]);
     nodes.push({ key: id, spill, active: true });
   }
   for (;;) {

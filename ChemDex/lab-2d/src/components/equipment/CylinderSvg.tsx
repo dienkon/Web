@@ -1,5 +1,6 @@
 import React from 'react';
 import { EquipmentState } from '../../types/equipment';
+import { VesselPhysicsOverlay } from '../vfx/VesselPhysicsOverlay';
 
 interface CylinderSvgProps {
   equipment: EquipmentState;
@@ -116,6 +117,16 @@ export const CylinderSvg: React.FC<CylinderSvgProps> = ({ equipment, isSelected 
       </g>
 
       {/* Cylinder Glass Tube Body */}
+      <VesselPhysicsOverlay
+        equipment={equipment}
+        innerX={20}
+        innerY={24}
+        innerWidth={30}
+        innerHeight={170}
+        liquidSurfaceY={liquidY}
+        liquidHeight={liquidHeight}
+        clipPathId={`cylClip-${id}`}
+      />
       <rect
         x="20"
         y="24"

@@ -279,6 +279,7 @@ export interface BurnerState {
 }
 
 export interface SpillState {
+  suspension?: import('../science/spillSuspension').SpillSuspensionState;
   /** Finite gas-production sites in world scene coordinates, derived by chemistry. */
   solidContactSites?: { grainId: string; position: [number, number, number]; weight: number }[];
   stockMotion?: import('../physical/stockTypes').StockSpillPose;

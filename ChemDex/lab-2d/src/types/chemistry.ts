@@ -36,7 +36,70 @@ export type PrecipitateMorphology =
   | 'plates'
   | 'powder'
   | 'granular'
-  | 'crystalline';
+  | 'crystalline'
+  | 'gelatinous'
+  | 'flocculent'
+  | 'colloidal';
+
+export type SolidMorphology =
+  | 'granule'
+  | 'nail'
+  | 'ribbon'
+  | 'pellet'
+  | 'crystal'
+  | 'powder'
+  | 'chip'
+  | 'wire';
+
+export type ReactionArchetype =
+  | 'acid_base_neutralization'
+  | 'precipitation'
+  | 'amphoteric_dissolution'
+  | 'complexation'
+  | 'gas_evolution'
+  | 'metal_displacement'
+  | 'alkali_water_violent'
+  | 'redox_autocatalytic'
+  | 'iodine_clock'
+  | 'thermal_decomposition'
+  | 'sublimation'
+  | 'combustion_flash'
+  | 'conc_acid_dilution_hazard'
+  | 'vapor_interface_smoke'
+  | 'esterification_phase'
+  | 'silver_mirror'
+  | 'physical_mixing';
+
+export type ResolutionTier =
+  | 'handcrafted'
+  | 'rule-derived'
+  | 'cached'
+  | 'ai-synthesized'
+  | 'fallback';
+
+export interface SolidChunkItem {
+  id: string;
+  formula: string;
+  morphology: SolidMorphology;
+  colorHex: string;
+  mass_g: number;
+  initialMass_g: number;
+  xNormalized: number; // 0.15 .. 0.85 across vessel bottom
+  coatingColorHex?: string; // e.g., #b85d3b copper plating on Fe nail / Zn granule
+  coatingProgress?: number; // 0..1
+  isFloating?: boolean; // e.g., Na or K floating on meniscus
+}
+
+export interface PrecipitateLayerState {
+  formula: string;
+  colorHex: string;
+  mass_g: number;
+  morphology: PrecipitateMorphology;
+  turbidity: number; // 0..1 suspended cloudiness
+  sedimentHeight_mm: number; // settled bed thickness at bottom
+  settlingVelocity_mm_s: number; // Stokes settling speed
+  redissolveProgress?: number; // 0..1 when dissolving in excess NH3 or OH-
+}
 
 export interface ChemicalDefinition {
   id: string;
@@ -90,6 +153,8 @@ export interface ReactionDefinition {
   };
   requiresHeating?: boolean;
   minTemp_c?: number;
+  archetype?: ReactionArchetype;
+  controllerId?: string;
   visual: {
     precipitate?: {
       formula: string;
@@ -108,6 +173,11 @@ export interface ReactionDefinition {
     flame?: {
       colorHex: string;
     };
+    surfacePlating?: {
+      substrateFormula: string;
+      coatingFormula: string;
+      coatingColorHex: string;
+    };
   };
   observable_en: string;
   observable_vi: string;
@@ -121,12 +191,16 @@ export interface ReactionExecutionRecord {
   name_en?: string;
   name_vi?: string;
   equation: string;
+  ionic_equation?: string;
   extent_moles: number; // xi
   heatReleased_J: number;
   limitingReactant: string;
   excessReactants: Record<string, number>; // formula -> remaining moles
   observable_en: string;
   observable_vi: string;
+  tier?: ResolutionTier;
+  archetype?: ReactionArchetype;
+  controllerId?: string;
 }
 
 export interface SimulationResult {
@@ -142,11 +216,14 @@ export interface SimulationResult {
     mass_g: number;
     morphology: PrecipitateMorphology;
   };
+  precipitateLayers?: PrecipitateLayerState[];
+  solidChunks?: SolidChunkItem[];
   hasGas: boolean;
   gasInfo?: {
     formula: string;
     molesReleased: number;
     effervescenceSpeed: 'slow' | 'vigorous' | 'instant';
+    colorHex?: string;
   };
   isBoiling: boolean;
   isExplosion: boolean;
@@ -163,5 +240,13 @@ export interface SimulationResult {
   foamHead_mm?: number; // Evolving gas foam head height on meniscus
   flameTestColorHex?: string; // Characteristic emission flame test color
   hasSilverMirror?: boolean; // Tollen's test metallic silver reflective mirror coating
+  activeControllerIds?: string[]; // Visual controllers triggered by this reaction pass
+  surfacePlating?: {
+    substrateFormula: string;
+    coatingFormula: string;
+    coatingColorHex: string;
+    progress: number;
+  };
+  hasSublimation?: boolean;
+  sublimationColorHex?: string;
 }
-

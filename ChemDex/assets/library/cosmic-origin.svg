@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#312e81"/>
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fef08a" stop-opacity="1"/>
+      <stop offset="65%" stop-color="#f59e0b" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="phGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="30%" stop-color="#f59e0b"/>
+      <stop offset="50%" stop-color="#10b981"/>
+      <stop offset="75%" stop-color="#0ea5e9"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" rx="24" fill="url(#bg)"/>
+  <circle cx="710" cy="65" r="170" fill="#ffffff" opacity="0.07"/>
+  <circle cx="130" cy="390" r="200" fill="#ffffff" opacity="0.06"/>
+  <g transform="translate(48, 108)">
+    <text x="0" y="0" fill="#fde047" font-family="system-ui, sans-serif" font-weight="800" font-size="11" letter-spacing="0.8">KHỞI NGUYÊN NGUYÊN TỐ · TỔNG HỢP HẠT NHÂN</text>
+    <text x="0" y="38" fill="#ffffff" font-family="system-ui, sans-serif" font-weight="800" font-size="24">
+      <tspan x="0" dy="0">Từ Bụi Sao Vũ Trụ Đến</tspan><tspan x="0" dy="32">Nguyên Tử Đầu Tiên</tspan>
+    </text>
+    <text x="0" y="138" fill="#e0f2fe" font-family="system-ui, sans-serif" font-weight="500" font-size="13.5" opacity="0.95">
+      <tspan x="0" dy="0">Quá trình nhiệt hạch trong lòng các ngôi</tspan><tspan x="0" dy="21">sao kiến tạo nên hạt nhân nguyên tử</tspan><tspan x="0" dy="21">trước khi bồi tụ thành hành tinh.</tspan>
+    </text>
+  </g>
+  <rect x="435" y="54" width="320" height="342" rx="22" fill="#0f172a" fill-opacity="0.26" stroke="#ffffff" stroke-opacity="0.24" stroke-width="1.5"/>
+  
+      <circle cx="595" cy="205" r="74" fill="url(#sunGlow)" opacity="0.95"/>
+      <circle cx="595" cy="205" r="42" fill="#fef08a"/>
+      <ellipse cx="595" cy="205" rx="118" ry="42" fill="none" stroke="#7dd3fc" stroke-width="2" stroke-dasharray="6 5" transform="rotate(-22 595 205)"/>
+      <ellipse cx="595" cy="205" rx="118" ry="42" fill="none" stroke="#fde047" stroke-width="2" stroke-dasharray="6 5" transform="rotate(35 595 205)"/>
+      <circle cx="495" cy="162" r="10" fill="#38bdf8"/>
+      <circle cx="692" cy="246" r="12" fill="#f472b6"/>
+      <circle cx="640" cy="138" r="8" fill="#34d399"/>
+      <text x="595" y="211" text-anchor="middle" fill="#78350f" font-family="sans-serif" font-weight="800" font-size="16">H → He → Z</text>
+      <text x="595" y="340" text-anchor="middle" fill="#e0f2fe" font-family="sans-serif" font-weight="700" font-size="12.5">Lò phản ứng nhiệt hạch sao &amp; Siêu tân tinh</text>
+    
+</svg>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fef08a" stop-opacity="1"/>
+      <stop offset="65%" stop-color="#f59e0b" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="phGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="30%" stop-color="#f59e0b"/>
+      <stop offset="50%" stop-color="#10b981"/>
+      <stop offset="75%" stop-color="#0ea5e9"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" rx="24" fill="url(#bg)"/>
+  <circle cx="710" cy="65" r="170" fill="#ffffff" opacity="0.07"/>
+  <circle cx="130" cy="390" r="200" fill="#ffffff" opacity="0.06"/>
+  <g transform="translate(48, 108)">
+    <text x="0" y="0" fill="#ffffff" font-family="system-ui, sans-serif" font-weight="800" font-size="11" letter-spacing="0.8">CÔNG NGHỆ HÓA HỌC · TỔNG HỢP CÔNG NGHIỆP</text>
+    <text x="0" y="38" fill="#ffffff" font-family="system-ui, sans-serif" font-weight="800" font-size="24">
+      <tspan x="0" dy="0">Từ Thí Nghiệm Nhỏ Đến</tspan><tspan x="0" dy="32">Tháp Tổng Hợp Công</tspan><tspan x="0" dy="32">Nghiệp</tspan>
+    </text>
+    <text x="0" y="138" fill="#e0f2fe" font-family="system-ui, sans-serif" font-weight="500" font-size="13.5" opacity="0.95">
+      <tspan x="0" dy="0">Nhiệt độ, áp suất cao và chất xúc tác</tspan><tspan x="0" dy="21">chọn lọc biến các phản ứng hóa học thành</tspan><tspan x="0" dy="21">trụ cột sản xuất.</tspan>
+    </text>
+  </g>
+  <rect x="435" y="54" width="320" height="342" rx="22" fill="#0f172a" fill-opacity="0.26" stroke="#ffffff" stroke-opacity="0.24" stroke-width="1.5"/>
+  
+      <rect x="500" y="128" width="75" height="155" rx="14" fill="#fef3c7" fill-opacity="0.25" stroke="#ffffff" stroke-width="3"/>
+      <rect x="615" y="155" width="75" height="128" rx="14" fill="#bae6fd" fill-opacity="0.28" stroke="#ffffff" stroke-width="3"/>
+      <path d="M575 178 L615 178 M575 238 L615 238" stroke="#fde047" stroke-width="4"/>
+      <circle cx="537" cy="198" r="20" fill="#f59e0b"/>
+      <circle cx="652" cy="218" r="20" fill="#10b981"/>
+      <text x="537" y="203" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-weight="800" font-size="10.5">XÚC TÁC</text>
+      <text x="652" y="223" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-weight="800" font-size="10">SẢN PHẨM</text>
+      <text x="595" y="340" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-weight="700" font-size="12.5">Quy trình xúc tác, nhiệt luyện &amp; tổng hợp</text>
+    
+</svg>

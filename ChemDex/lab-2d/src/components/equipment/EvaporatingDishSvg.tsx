@@ -1,5 +1,6 @@
 import React from 'react';
 import { EquipmentState } from '../../types/equipment';
+import { VesselPhysicsOverlay } from '../vfx/VesselPhysicsOverlay';
 
 interface EvaporatingDishSvgProps {
   equipment: EquipmentState;
@@ -194,6 +195,15 @@ export const EvaporatingDishSvg: React.FC<EvaporatingDishSvgProps> = ({ equipmen
       )}
 
       {/* Porcelain Glaze Specular Highlight on Outer Front Rim */}
+      <VesselPhysicsOverlay
+        equipment={equipment}
+        innerX={20}
+        innerY={18}
+        innerWidth={90}
+        innerHeight={46}
+        liquidSurfaceY={liquidY}
+        liquidHeight={Math.max(0, 62 - liquidY)}
+      />
       <path
         d="M20,26 C32,46 50,55 65,55 C80,55 98,46 110,26"
         fill="none"

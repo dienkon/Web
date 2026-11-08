@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0f766e"/>
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fef08a" stop-opacity="1"/>
+      <stop offset="65%" stop-color="#f59e0b" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="phGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="30%" stop-color="#f59e0b"/>
+      <stop offset="50%" stop-color="#10b981"/>
+      <stop offset="75%" stop-color="#0ea5e9"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" rx="24" fill="url(#bg)"/>
+  <circle cx="710" cy="65" r="170" fill="#ffffff" opacity="0.07"/>
+  <circle cx="130" cy="390" r="200" fill="#ffffff" opacity="0.06"/>
+  <g transform="translate(48, 108)">
+    <text x="0" y="0" fill="#7dd3fc" font-family="system-ui, sans-serif" font-weight="800" font-size="11" letter-spacing="0.8">LIÊN KẾT CỘNG HÓA TRỊ · HÌNH HỌC VSEPR 3D</text>
+    <text x="0" y="38" fill="#ffffff" font-family="system-ui, sans-serif" font-weight="800" font-size="24">
+      <tspan x="0" dy="0">Bản Thiết Kế Góc Liên</tspan><tspan x="0" dy="32">Kết &amp; Đám Mây Electron</tspan>
+    </text>
+    <text x="0" y="138" fill="#e0f2fe" font-family="system-ui, sans-serif" font-weight="500" font-size="13.5" opacity="0.95">
+      <tspan x="0" dy="0">Các nguyên tử góp chung cặp electron hóa</tspan><tspan x="0" dy="21">trị, định hình nên liên kết đơn, đôi, ba</tspan><tspan x="0" dy="21">và cấu trúc không gian đặc trưng.</tspan>
+    </text>
+  </g>
+  <rect x="435" y="54" width="320" height="342" rx="22" fill="#0f172a" fill-opacity="0.26" stroke="#ffffff" stroke-opacity="0.24" stroke-width="1.5"/>
+  
+      <line x1="595" y1="204" x2="595" y2="118" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
+      <line x1="595" y1="204" x2="510" y2="262" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
+      <line x1="590" y1="199" x2="675" y2="257" stroke="#fde047" stroke-width="4" stroke-linecap="round"/>
+      <line x1="600" y1="211" x2="685" y2="269" stroke="#fde047" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="595" cy="204" r="28" fill="#3b82f6" stroke="#ffffff" stroke-width="3"/>
+      <circle cx="595" cy="118" r="19" fill="#ef4444" stroke="#ffffff" stroke-width="2"/>
+      <circle cx="510" cy="262" r="19" fill="#ef4444" stroke="#ffffff" stroke-width="2"/>
+      <circle cx="680" cy="263" r="20" fill="#ef4444" stroke="#fde047" stroke-width="2.5"/>
+      <text x="595" y="340" text-anchor="middle" fill="#e0f2fe" font-family="sans-serif" font-weight="700" font-size="12.5">Lai hóa obitan, độ dài liên kết (Å) &amp; góc hóa trị</text>
+    
+</svg>

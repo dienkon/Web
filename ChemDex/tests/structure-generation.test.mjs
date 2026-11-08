@@ -42,23 +42,29 @@ test('hydrates, nested groups, Unicode subscripts and all 118 elements are suppo
   const all=[...json('shared/compounds.json'),...catalog];
   for(const e of json('shared/elements.json'))assert.ok(all.some(r=>r.formula===e.symbol),e.symbol);
 });
-test('composition fallback never invents bonds or silently selects an organic isomer',()=>{
-  const model=generateStructure({formula:'C4H10'});
-  assert.equal(model.mode,'composition');assert.equal(model.bonds.length,0);
+test('every multi-atom catalog substance generates realistic 3D bonds while preserving isomer provenance',()=>{
   for(const r of catalog.filter(r=>['HCOOCH3','CH3OCH3','C6H12'].includes(r.formula)))assert.equal(r.structure,undefined,r.formula);
+  for(const r of catalog.filter(r=>r.atomCount>1)){
+    const model=generateStructure(r);
+    assert.ok(model.bonds.length>=model.atoms.length-1,`${r.id} (${r.formula}) must be fully bonded`);
+  }
+  const butane=generateStructure({formula:'C4H10'});
+  assert.equal(butane.mode,'idealized');assert.equal(butane.bonds.length,13);
   const salt=catalog.find(r=>r.formula==='Al2(SO4)3');
-  const ionic=generateStructure(salt);assert.equal(ionic.mode,'ions');assert.equal(ionic.atoms.length,17);
+  const ionic=generateStructure(salt);assert.equal(ionic.mode,'ions');assert.equal(ionic.atoms.length,17);assert.ok(ionic.bonds.length>=16);
 });
 test('large valid models export every atom using V3000; invalid input fails safely',()=>{
   const m=generateStructure({formula:'C1000H1000'}),sdf=toSDF(m);
   assert.match(sdf,/COUNTS 2000 0/);assert.match(sdf,/M  V30 2000 H /);
   for(const formula of ['C1001H1000','Xx2','<img src=x onerror=alert(1)>','Na(OH',''])assert.throws(()=>generateStructure({formula}));
 });
-test('recognized VSEPR families generate a bonded spatial model without assuming organic topology',()=>{
+test('recognized VSEPR and organic families generate bonded spatial models with accurate bond orders',()=>{
   for(const formula of ['SF6','PCl5','XeF4','BF3','ClF3','NH3']){
     const model=generateStructure({formula});
     assert.equal(model.mode,'idealized',formula);
     assert.equal(model.bonds.length,model.atoms.length-1);
   }
-  assert.equal(generateStructure({formula:'C4H10'}).mode,'composition');
+  assert.ok(generateStructure({formula:'CO2'}).bonds.every(b=>b.order===2));
+  assert.ok(generateStructure({formula:'N2'}).bonds.some(b=>b.order===3));
+  assert.ok(generateStructure({formula:'C3H4'}).bonds.some(b=>b.order===3));
 });

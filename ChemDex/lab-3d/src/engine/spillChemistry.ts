@@ -11,6 +11,7 @@ import { assessProgramConditions } from '../science/conditions';
 import type { ReactionProgram } from '../shared/programSchema';
 import { identifySpecies, sameMolecularFormula } from '../science/speciesIdentity';
 import { assignWetStock, combineWetStock, splitWetStock } from './spillStockContact';
+import { stepSpillSuspension } from '../science/spillSuspension';
 
 function contactHalfTime(program: ReactionProgram): number | null {
   const chemistry = program.chemistry, rate = chemistry.kinetics;
@@ -132,6 +133,7 @@ export function stepWorkbenchSpills(spills: Record<string, SpillState>, dt: numb
       next = stepSpillChemistry(spill, dt, room);
       if (next.solidContactSites) next = { ...next, solidContactSites: undefined };
     }
+    next = stepSpillSuspension(spill, next, dt);
     // The store's atmosphere ledger outlives wiping/removing a puddle. Move the
     // receipt once; do not leave a second copy attached to the liquid sample.
     if (Object.values(next.escapedGas_g ?? {}).some(g => g > 0)) {

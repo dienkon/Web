@@ -14,7 +14,7 @@ function add(row) {
     const formula=identity?.formula ?? structureFormula(row.formula), key=compositionKey(formula);
     const exact=curated.filter(c=>structureFormula(c.formula)===formula);
     const candidates=exact.length ? exact : curated.filter(c=>compositionKey(c.formula)===key);
-    const condensed={CH3COOH:'cid-176',C2H5OH:'cid-702',CH3OH:'cid-887',CH3COCH3:'cid-180',C6H5OH:'cid-996',C6H5NH2:'cid-6115',HCHO:'cid-712',CH3CHO:'cid-177',HCOOH:'cid-284',CH3COOC2H5:'cid-885'};
+    const condensed={CH3COOH:'cid-176',C2H5OH:'cid-702',CH3OH:'cid-887',CH3COCH3:'cid-180',C6H5OH:'cid-996',C6H5NH2:'cid-6115',HCHO:'cid-712',CH3CHO:'cid-177',HCOOH:'cid-284',CH3COOC2H5:'cid-885','C3H5(OH)3':'cid-753'};
     const named=candidates.find(c=>c.name_vi===row.name_vi || c.name_en===row.name_en || c.id===condensed[formula] || c.aliases?.includes(row.formula));
     // Organic sum formulas cannot distinguish isomers. Never silently attach
     // acetic-acid coordinates to methyl formate, or cyclohexane to a hexene.

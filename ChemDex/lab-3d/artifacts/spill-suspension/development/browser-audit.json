@@ -1,0 +1,341 @@
+{
+  "errors": [],
+  "consoleErrors": [],
+  "cases": [
+    {
+      "tier": "low",
+      "mobile": false,
+      "fresh": {
+        "mass_g": 41.263130800000006,
+        "pools": [
+          {
+            "id": "cloud-0",
+            "suspended_g": 0.00922447064841046,
+            "settled_g": 0.010826861483761076,
+            "scattering_per_m": 81.17534170601205,
+            "bedVolume_m3": 4.015898176469242e-8,
+            "cohorts": [
+              1
+            ],
+            "bedVisible": true
+          },
+          {
+            "id": "cloud-1",
+            "suspended_g": 0.0069135370033573396,
+            "settled_g": 0.010686580197264352,
+            "scattering_per_m": 63.604540430887525,
+            "bedVolume_m3": 6.286223645449618e-8,
+            "cohorts": [
+              1
+            ],
+            "bedVisible": true
+          },
+          {
+            "id": "cloud-2",
+            "suspended_g": 0.013901334241242885,
+            "settled_g": 0.02148814411876925,
+            "scattering_per_m": 125.11200817118595,
+            "bedVolume_m3": 2.5765160813872002e-8,
+            "cohorts": [
+              1
+            ],
+            "bedVisible": true
+          },
+          {
+            "id": "cloud-3",
+            "suspended_g": 0.013228620183721774,
+            "settled_g": 0.013502611701875208,
+            "scattering_per_m": 112.44327156163507,
+            "bedVolume_m3": 7.3066080637852855e-9,
+            "cohorts": [
+              1
+            ],
+            "bedVisible": true
+          }
+        ],
+        "powder": "ConeGeometry",
+        "buffers": 366,
+        "losses": 0
+      },
+      "settled": {
+        "mass_g": 41.263130800000006,
+        "pools": [
+          {
+            "id": "cloud-0",
+            "suspended_g": 0.00021609756707809472,
+            "settled_g": 0.029003768864463965,
+            "scattering_per_m": 1.9016585902872336,
+            "bedVolume_m3": 1.0758074504623131e-7,
+            "cohorts": [
+              1
+            ],
+            "bedVisible": true
+          },
+          {
+            "id": "cloud-1",
+            "suspended_g": 0.000016362380208981286,
+            "settled_g": 0.02135575224865434,
+            "scattering_per_m": 0.15053389792262784,
+            "bedVolume_m3": 1.2562207205090788e-7,
+            "cohorts": [
+              1
+            ],
+            "bedVisible": true
+          },
+          {
+            "id": "cloud-2",
+            "suspended_g": 0.000032890533853260906,
+            "settled_g": 0.042940901536066674,
+            "scattering_per_m": 0.29601480467934815,
+            "bedVolume_m3": 5.1487891530055966e-8,
+            "cohorts": [
+              1
+            ],
+            "bedVisible": true
+          },
+          {
+            "id": "cloud-3",
+            "suspended_g": 0.0009934679534463128,
+            "settled_g": 0.044785200941108334,
+            "scattering_per_m": 8.444477604293658,
+            "bedVolume_m3": 2.423441609367334e-8,
+            "cohorts": [
+              1
+            ],
+            "bedVisible": true
+          }
+        ],
+        "powder": "ConeGeometry",
+        "buffers": 366,
+        "losses": 0
+      },
+      "paused": true,
+      "checkpointRestored": true
+    },
+    {
+      "tier": "high",
+      "mobile": false,
+      "fresh": {
+        "mass_g": 41.263130800000006,
+        "pools": [
+          {
+            "id": "cloud-0",
+            "suspended_g": 0.005929507000194342,
+            "settled_g": 0.010826861483761076,
+            "scattering_per_m": 52.1796616017102,
+            "bedVolume_m3": 4.015898176469242e-8,
+            "cohorts": [
+              1
+            ],
+            "bedVisible": true
+          },
+          {
+            "id": "cloud-1",
+            "suspended_g": 0.004716590413363593,
+            "settled_g": 0.010686580197264352,
+            "scattering_per_m": 43.39263180294506,
+            "bedVolume_m3": 6.286223645449618e-8,
+            "cohorts": [
+              1
+            ],
+            "bedVisible": true
+          },
+          {
+            "id": "cloud-2",
+            "suspended_g": 0.009483843043491168,
+            "settled_g": 0.02148814411876925,
+            "scattering_per_m": 85.35458739142051,
+            "bedVolume_m3": 2.5765160813872002e-8,
+            "cohorts": [
+              1
+            ],
+            "bedVisible": true
+          },
+          {
+            "id": "cloud-3",
+            "suspended_g": 0.008233499655968746,
+            "settled_g": 0.013502611701875208,
+            "scattering_per_m": 69.98474707573433,
+            "bedVolume_m3": 7.3066080637852855e-9,
+            "cohorts": [
+              1
+            ],
+            "bedVisible": true
+          }
+        ],
+        "powder": "ConeGeometry",
+        "buffers": 450,
+        "losses": 0
+      },
+      "settled": {
+        "mass_g": 41.263130800000006,
+        "pools": [
+          {
+            "id": "cloud-0",
+            "suspended_g": 0.00017629422652899393,
+            "settled_g": 0.02907152982543966,
+            "scattering_per_m": 1.5513891934551465,
+            "bedVolume_m3": 1.0783208392225393e-7,
+            "cohorts": [
+              1
+            ],
+            "bedVisible": true
+          },
+          {
+            "id": "cloud-1",
+            "suspended_g": 0.00001079627006216749,
+            "settled_g": 0.021362203309777672,
+            "scattering_per_m": 0.09932568457194091,
+            "bedVolume_m3": 1.256600194692804e-7,
+            "cohorts": [
+              1
+            ],
+            "bedVisible": true
+          },
+          {
+            "id": "cloud-2",
+            "suspended_g": 0.000021693403353457985,
+            "settled_g": 0.04295387755636931,
+            "scattering_per_m": 0.19524063018112187,
+            "bedVolume_m3": 5.150345030739726e-8,
+            "cohorts": [
+              1
+            ],
+            "bedVisible": true
+          },
+          {
+            "id": "cloud-3",
+            "suspended_g": 0.0009181256660332898,
+            "settled_g": 0.04505709074253373,
+            "scattering_per_m": 7.804068161282964,
+            "bedVolume_m3": 2.4381542609596175e-8,
+            "cohorts": [
+              1
+            ],
+            "bedVisible": true
+          }
+        ],
+        "powder": "ConeGeometry",
+        "buffers": 450,
+        "losses": 0
+      },
+      "paused": true,
+      "checkpointRestored": true
+    },
+    {
+      "tier": "low",
+      "mobile": true,
+      "fresh": {
+        "mass_g": 41.263130800000006,
+        "pools": [
+          {
+            "id": "cloud-0",
+            "suspended_g": 0.006438022170078038,
+            "settled_g": 0.008007667099488172,
+            "scattering_per_m": 56.654595096686734,
+            "bedVolume_m3": 2.970202930077215e-8,
+            "cohorts": [
+              1
+            ],
+            "bedVisible": true
+          },
+          {
+            "id": "cloud-1",
+            "suspended_g": 0.005530576520158495,
+            "settled_g": 0.008143277867991398,
+            "scattering_per_m": 50.881303985458146,
+            "bedVolume_m3": 4.790163451759645e-8,
+            "cohorts": [
+              1
+            ],
+            "bedVisible": true
+          },
+          {
+            "id": "cloud-2",
+            "suspended_g": 0.011120597640242511,
+            "settled_g": 0.016374174450249027,
+            "scattering_per_m": 100.0853787621826,
+            "bedVolume_m3": 1.9633302698140323e-8,
+            "cohorts": [
+              1
+            ],
+            "bedVisible": true
+          },
+          {
+            "id": "cloud-3",
+            "suspended_g": 0.008600969963893187,
+            "settled_g": 0.00983042185915067,
+            "scattering_per_m": 73.10824469309209,
+            "bedVolume_m3": 5.3194923480252545e-9,
+            "cohorts": [
+              1
+            ],
+            "bedVisible": true
+          }
+        ],
+        "powder": "ConeGeometry",
+        "buffers": 326,
+        "losses": 0
+      },
+      "settled": {
+        "mass_g": 41.263130800000006,
+        "pools": [
+          {
+            "id": "cloud-0",
+            "suspended_g": 0.0014354335769925335,
+            "settled_g": 0.02743691843417964,
+            "scattering_per_m": 12.631815477534294,
+            "bedVolume_m3": 1.0176898528998384e-7,
+            "cohorts": [
+              1
+            ],
+            "bedVisible": true
+          },
+          {
+            "id": "cloud-1",
+            "suspended_g": 0.0002996502413078958,
+            "settled_g": 0.02104104978951106,
+            "scattering_per_m": 2.7567822200326413,
+            "bedVolume_m3": 1.2377088111477092e-7,
+            "cohorts": [
+              1
+            ],
+            "bedVisible": true
+          },
+          {
+            "id": "cloud-2",
+            "suspended_g": 0.0006024475412508487,
+            "settled_g": 0.04230819097041807,
+            "scattering_per_m": 5.422027871257639,
+            "bedVolume_m3": 5.072924576788737e-8,
+            "cohorts": [
+              1
+            ],
+            "bedVisible": true
+          },
+          {
+            "id": "cloud-3",
+            "suspended_g": 0.003950106273507489,
+            "settled_g": 0.0403541551910476,
+            "scattering_per_m": 33.57590332481366,
+            "bedVolume_m3": 2.1836664064419692e-8,
+            "cohorts": [
+              1
+            ],
+            "bedVisible": true
+          }
+        ],
+        "powder": "ConeGeometry",
+        "buffers": 326,
+        "losses": 0
+      },
+      "paused": true,
+      "checkpointRestored": true
+    }
+  ],
+  "churn": {
+    "cycles": 30,
+    "before": 366,
+    "after": 366
+  }
+}

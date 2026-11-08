@@ -15,9 +15,13 @@ import { computeMolarMass } from '../chemistry/core/formula';
 import { soundEngine } from '../services/soundEngine';
 import { generateReactionFromGemini } from '../services/geminiService';
 import { REACTION_DATABASE } from '../chemistry/reactions/reactionDatabase';
-import { stepVesselThermal, burnerHeatToVessel, hotPlateHeatToVessel, probeDipCoupling, separatoryFunnelDrain } from '../engine/simulationTick';
-import {isElementBalancedReaction} from '../chemistry/core/ledger';
+import { stepVesselThermal, burnerHeatToVessel, hotPlateHeatToVessel, probeDipCoupling, separatoryFunnelDrain, aqueousBoilingPoint } from '../engine/simulationTick';
+import { isElementBalancedReaction } from '../chemistry/core/ledger';
 import { getIndicatorColor } from '../chemistry/equilibrium/acidBase';
+import { reactionRuntime2D } from '../vfx/ReactionRuntime2D';
+import { stepVesselPressureAndDamage } from '../engine/headspacePressure2D';
+import { stepSpillPuddles, neutralizeSpillWithNaHCO3 } from '../engine/spillChemistry2D';
+import { PPEState2D, DEFAULT_PPE_STATE, SafetyViolationAlert, checkAcidDilutionHazard, evaluateWorkbenchSafety } from '../engine/safetyEngine2D';
 
 export type LabSnapshot = Pick<LabStoreState, 'equipment' | 'selectedEquipmentId' | 'activeMode' | 'activeExperiment' | 'currentStepIndex' | 'stepCompleted' | 'history' | 'spillPuddles' | 'studentNotes'>;
 
@@ -62,8 +66,13 @@ export interface LabStoreState {
   } | null;
   spillPuddles: SpillPuddle[];
   isQuizModalOpen: boolean;
+  ppe: PPEState2D;
+  safetyAlerts: SafetyViolationAlert[];
 
   // Actions
+  togglePpe: (item: keyof PPEState2D) => void;
+  dismissSafetyAlert: (id: string) => void;
+  neutralizeSpill: (id: string) => void;
   setLanguage: (lang: 'vi' | 'en') => void;
   setActiveMode: (mode: 'free' | 'guided') => void;
   setActiveSidebarTab: (tab: 'chemicals' | 'equipment' | 'experiments' | 'safety') => void;
@@ -149,6 +158,7 @@ const EQUIPMENT_SPECS: Record<
   test_tube_rack: { name: 'Test Tube Rack', name_vi: 'Giá để ống nghiệm', capacity_ml: 0, width: 200, height: 110, tare_g: 120.0, isContainer: false },
   separatory_funnel: { name: '250 mL Separatory Funnel', name_vi: 'Phễu chiết quả lê 250 mL', capacity_ml: 250, width: 130, height: 260, tare_g: 140.0, isContainer: true },
   ph_paper: { name: 'Universal pH Indicator Paper Strip', name_vi: 'Giấy quỳ tím & chỉ thị pH', capacity_ml: 0, width: 24, height: 120, tare_g: 2.0, isContainer: false },
+  sponge: { name: 'Lab Cleaning Sponge', name_vi: 'Bọt biển lau hóa chất tràn', capacity_ml: 0, width: 56, height: 38, tare_g: 12.0, isContainer: false },
 };
 
 export function captureSnapshot(state: LabStoreState): LabSnapshot {
@@ -191,7 +201,24 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
   draggedChemicalId: null,
   activePourVfx: null,
   spillPuddles: [],
+  ppe: { ...DEFAULT_PPE_STATE },
+  safetyAlerts: [],
 
+  togglePpe: (item) => {
+    soundEngine.click();
+    set(s => ({
+      ppe: { ...s.ppe, [item]: !s.ppe[item] },
+    }));
+  },
+  dismissSafetyAlert: (id) => set(s => ({
+    safetyAlerts: s.safetyAlerts.filter(a => a.id !== id),
+  })),
+  neutralizeSpill: (id) => {
+    soundEngine.fizz(1.0);
+    set(s => ({
+      spillPuddles: s.spillPuddles.map(p => (p.id === id ? neutralizeSpillWithNaHCO3(p, 2.5) : p)),
+    }));
+  },
   setLanguage: (lang) => set({ language: lang }),
   setActiveMode: (mode) => set({ activeMode: mode }),
   setActiveSidebarTab: (tab) => set({ activeSidebarTab: tab }),
@@ -482,20 +509,42 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
       if (solvent) { solvent.mass_g += solventMass; solvent.moles += waterMoles; }
       else newContents.push({formula:'H2O',moles:waterMoles,mass_g:solventMass,state:'l'});
     }
+    // Check acid dilution safety hazard (pouring water into concentrated H2SO4)
+    const acidDilutionAlert = checkAcidDilutionHazard(chem.formula, eq);
+    if (acidDilutionAlert) {
+      soundEngine.playWarningAlarm();
+      reactionRuntime2D.triggerController(eq, 'water_into_conc_h2so4_explosion');
+      set(s => ({ safetyAlerts: [...s.safetyAlerts.slice(-4), acidDilutionAlert] }));
+    }
+
     // Run deterministic chemistry calculation engine
-    const simResult = runSimulationCycle(newContents, newVolume, eq.temperature_c, eq.isOn || false);
+    const simResult = runSimulationCycle(newContents, newVolume, eq.temperature_c, eq.isOn || false, !eq.isSealed);
 
     // Compute updated total mass = vessel tare + liquid/solids
     const totalContentMass = simResult.updatedContents.reduce((sum, c) => sum + c.mass_g, 0);
     const newTotalMass = (eq.tare_g || 0) + totalContentMass;
 
-    // Trigger instant procedural audio feedback
+    // Trigger instant procedural audio feedback & dedicated 2D visual controllers
+    if (simResult.activeControllerIds?.length) {
+      const hasPhenol = newContents.some(c => c.formula.toLowerCase().includes('phenolphthalein'));
+      for (const cid of simResult.activeControllerIds) {
+        reactionRuntime2D.triggerController(eq, cid, {
+          hasPhenolphthalein: hasPhenol,
+          targetColorHex: simResult.finalLiquidColorHex,
+        });
+      }
+    }
+
     if (simResult.reactionsOccurred.length > 0) {
-      if (simResult.hasGas) {
+      if (simResult.isExplosion) {
+        soundEngine.playExplosion(1.0);
+      } else if (simResult.hasGas) {
         soundEngine.fizz(1.3);
       } else {
         soundEngine.success();
       }
+    } else if (!isLiquid) {
+      soundEngine.playSolidDrop();
     } else {
       soundEngine.pour(0.4);
     }
@@ -532,8 +581,10 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
           precipitateSubstance: simResult.precipitateInfo?.formula,
           precipitateMass_g: simResult.precipitateInfo?.mass_g,
           precipitateMorphology: simResult.precipitateInfo?.morphology,
+          precipitateLayers: simResult.precipitateLayers,
+          solidChunks: simResult.solidChunks,
           hasGas: simResult.hasGas,
-          gasColorHex: '#ffffff',
+          gasColorHex: simResult.gasInfo?.colorHex || '#ffffff',
           effervescenceSpeed: simResult.gasInfo?.effervescenceSpeed,
           isBoiling: simResult.isBoiling,
           hasPhaseSeparation: simResult.hasPhaseSeparation,
@@ -545,6 +596,9 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
           turbidity: simResult.turbidity,
           foamHead_mm: simResult.foamHead_mm,
           hasSilverMirror: simResult.hasSilverMirror || eq.hasSilverMirror,
+          hasSublimation: simResult.hasSublimation || eq.hasSublimation,
+          sublimationColorHex: simResult.sublimationColorHex || eq.sublimationColorHex,
+          activeControllerIds: simResult.activeControllerIds,
         },
       },
       history: [
@@ -631,13 +685,48 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
       }
     }
 
+    // Check if pouring water into concentrated H2SO4
+    const primarySourceFormula = src.contents[0]?.formula || 'H2O';
+    const acidDilutionAlert = checkAcidDilutionHazard(primarySourceFormula, tgt);
+    if (acidDilutionAlert) {
+      soundEngine.playWarningAlarm();
+      reactionRuntime2D.triggerController(tgt, 'water_into_conc_h2so4_explosion');
+      set(s => ({ safetyAlerts: [...s.safetyAlerts.slice(-4), acidDilutionAlert] }));
+    }
+
+    // Overflow spill check when pouring more than target capacity
+    const overflow_ml = Math.max(0, tgt.volume_ml + transferVol - tgt.capacity_ml);
+    if (overflow_ml > 0.2) {
+      get().addSpillPuddle(
+        tgt.x + tgt.width / 2,
+        tgt.y + tgt.height - 4,
+        overflow_ml,
+        src.liquidColorHex || '#38bdf8',
+        primarySourceFormula,
+        src.ph
+      );
+    }
+
     // Run reaction engine on target vessel
-    const tgtSim = runSimulationCycle(mergedTgtContents, newTgtVol, tgt.temperature_c, tgt.isOn || false);
+    const tgtSim = runSimulationCycle(mergedTgtContents, newTgtVol, tgt.temperature_c, tgt.isOn || false, !tgt.isSealed);
     const tgtMass = (tgt.tare_g || 0) + tgtSim.updatedContents.reduce((s, c) => s + c.mass_g, 0);
+
+    // Trigger dedicated 2D visual controllers
+    if (tgtSim.activeControllerIds?.length) {
+      const hasPhenol = mergedTgtContents.some(c => c.formula.toLowerCase().includes('phenolphthalein'));
+      for (const cid of tgtSim.activeControllerIds) {
+        reactionRuntime2D.triggerController(tgt, cid, {
+          hasPhenolphthalein: hasPhenol,
+          targetColorHex: tgtSim.finalLiquidColorHex,
+        });
+      }
+    }
 
     // Audio feedback
     if (tgtSim.reactionsOccurred.length > 0) {
-      if (tgtSim.hasGas) {
+      if (tgtSim.isExplosion) {
+        soundEngine.playExplosion(1.0);
+      } else if (tgtSim.hasGas) {
         soundEngine.fizz(1.3);
       } else {
         soundEngine.success();
@@ -685,6 +774,8 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
           precipitateSubstance: tgtSim.precipitateInfo?.formula,
           precipitateMass_g: tgtSim.precipitateInfo?.mass_g,
           precipitateMorphology: tgtSim.precipitateInfo?.morphology,
+          precipitateLayers: tgtSim.precipitateLayers,
+          solidChunks: tgtSim.solidChunks,
           hasGas: tgtSim.hasGas,
           effervescenceSpeed: tgtSim.gasInfo?.effervescenceSpeed,
           isBoiling: tgtSim.isBoiling,
@@ -694,6 +785,12 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
           hasFumes: tgtSim.hasFumes,
           fumeType: tgtSim.fumeType,
           fumeColorHex: tgtSim.fumeColorHex,
+          turbidity: tgtSim.turbidity,
+          foamHead_mm: tgtSim.foamHead_mm,
+          hasSilverMirror: tgtSim.hasSilverMirror || tgt.hasSilverMirror,
+          hasSublimation: tgtSim.hasSublimation || tgt.hasSublimation,
+          sublimationColorHex: tgtSim.sublimationColorHex || tgt.sublimationColorHex,
+          activeControllerIds: tgtSim.activeControllerIds,
         },
       },
       isTransferModalOpen: false,
@@ -1403,9 +1500,82 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
       }
     }
 
-    if (hasChanged) {
-      set({ equipment: nextEquipment });
+    // 7. Process Headspace Pressure (PV=nRT), Cork Pop, Thermal Shock Glass Shatter, Condensation & Bumping
+    const newlyCreatedSpills: SpillPuddle[] = [];
+    for (const eq of Object.values(nextEquipment)) {
+      if (!eq.isContainer) continue;
+      const prevEq = currentEquipment[eq.id] || eq;
+      const bp = aqueousBoilingPoint(eq.contents, eq.volume_ml);
+      const phys = stepVesselPressureAndDamage(eq, dt, prevEq.temperature_c, bp);
+
+      if (phys.corkPopped) {
+        soundEngine.playCorkPop();
+        hasChanged = true;
+      }
+      if (phys.isShattered && !prevEq.isShattered) {
+        reactionRuntime2D.triggerGlassShatter(eq);
+        hasChanged = true;
+        if (phys.spillCreated) newlyCreatedSpills.push(phys.spillCreated);
+      }
+      if (phys.bumpingIntensity > 0.3) {
+        soundEngine.playBumpingSurge();
+      }
+
+      if (
+        Math.abs((eq.internalPressure_atm ?? 1.0) - phys.internalPressure_atm) > 0.01 ||
+        eq.isSealed !== phys.isSealed ||
+        eq.isShattered !== phys.isShattered ||
+        Math.abs((eq.wallCondensation ?? 0) - phys.wallCondensation) > 0.02
+      ) {
+        hasChanged = true;
+        nextEquipment[eq.id] = {
+          ...eq,
+          internalPressure_atm: phys.internalPressure_atm,
+          freeGasMoles: phys.freeGasMoles,
+          isSealed: phys.isSealed,
+          isShattered: phys.isShattered,
+          wallCondensation: phys.wallCondensation,
+          bumpingIntensity: phys.bumpingIntensity,
+          superheat_c: phys.superheat_c,
+          evaporativeStain: phys.evaporativeStain ?? eq.evaporativeStain,
+          volume_ml: phys.isShattered ? 0 : eq.volume_ml,
+          contents: phys.isShattered ? [] : eq.contents,
+        };
+      }
+    }
+
+    // 8. Step 60Hz Particle & Reaction Visual Controllers Runtime
+    reactionRuntime2D.stepAll(Object.values(nextEquipment), dt);
+
+    // 9. Process Sponge Wiping & Active Spill Puddle Chemistry on Workbench
+    let currentSpills = [...get().spillPuddles, ...newlyCreatedSpills];
+    const sponges = Object.values(nextEquipment).filter(e => e.type === 'sponge');
+    if (sponges.length > 0 && currentSpills.length > 0) {
+      const beforeCount = currentSpills.length;
+      currentSpills = currentSpills.filter(sp => {
+        const wiped = sponges.some(
+          s => Math.hypot(s.x + s.width / 2 - sp.x, s.y + s.height / 2 - sp.y) < (sp.radius_px ?? 35) + 28
+        );
+        return !wiped;
+      });
+      if (currentSpills.length < beforeCount) {
+        soundEngine.playSpongeWipe();
+      }
+    }
+    const steppedSpills = stepSpillPuddles(currentSpills, dt);
+
+    // 10. Evaluate Workbench PPE & Safety Rules
+    const activeSafetyAlerts = evaluateWorkbenchSafety(Object.values(nextEquipment), get().ppe);
+
+    if (hasChanged || newlyCreatedSpills.length > 0 || steppedSpills.length !== get().spillPuddles.length) {
+      set({
+        equipment: nextEquipment,
+        spillPuddles: steppedSpills,
+        safetyAlerts: activeSafetyAlerts.length > 0 ? activeSafetyAlerts : get().safetyAlerts,
+      });
       get().checkStepProgress();
+    } else if (steppedSpills !== get().spillPuddles) {
+      set({ spillPuddles: steppedSpills });
     }
   },
 

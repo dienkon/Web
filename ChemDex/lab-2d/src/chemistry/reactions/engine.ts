@@ -1,19 +1,24 @@
 /**
- * Deterministic Stoichiometric and Equilibrium Reaction Engine
+ * Deterministic Stoichiometric, Multi-Stage Equilibrium, and Instant Rule-Derived Reaction Engine
  * Core scientific simulator strictly decoupled from UI and animation.
+ * Achieves full parity with lab-3d's 5-tier reaction resolution architecture.
  */
 
 import {
   SubstanceQuantity,
   SimulationResult,
   ReactionExecutionRecord,
-  PrecipitateMorphology,
 } from '../../types/chemistry';
 import { getReactionCandidates, REACTION_DATABASE } from './reactionDatabase';
 import { normalizeFormula, computeMolarMass } from '../core/formula';
-import { calculateSolutionPh, getIndicatorColor, IndicatorType } from '../equilibrium/acidBase';
+import { calculateSolutionPh, getIndicatorColor } from '../equilibrium/acidBase';
 import { calculateReactionDeltaT } from '../thermodynamics/calorimetry';
 import { calculateBeerLambertColor } from '../core/ledger';
+import {
+  resolveInstantRulesAndEquilibria,
+  buildPhysicalSolidAndPrecipitateStates,
+  resolveControllerIdForReaction,
+} from './instantRuleSolver';
 
 export function runSimulationCycle(
   initialContents: SubstanceQuantity[],
@@ -33,17 +38,21 @@ export function runSimulationCycle(
   let temp_c = currentTemp_c;
   let isBoiling = false;
   let hasGasOccurred = false;
-  let gasInfoFinal: { formula: string; molesReleased: number; effervescenceSpeed: 'slow' | 'vigorous' | 'instant' } | undefined = undefined;
+  let gasInfoFinal = undefined as SimulationResult['gasInfo'];
 
-  // Maximum passes to prevent infinite cycles
-  const MAX_CYCLES = 5;
+  // Maximum passes to prevent infinite cycles while supporting multi-stage cascades
+  // (e.g. CuSO4 + 2NH3 -> Cu(OH)2, then Cu(OH)2 + 4NH3 -> [Cu(NH3)4]2+)
+  const MAX_CYCLES = 6;
   let cycle = 0;
 
-  const candidateFormulas = workingContents.filter(content => content.moles > 1e-6).map(content => content.formula);
-  const candidateReactions = getReactionCandidates(candidateFormulas);
   while (cycle < MAX_CYCLES) {
     cycle++;
     let matchedReactionThisPass = false;
+
+    const candidateFormulas = workingContents
+      .filter(content => content.moles > 1e-6)
+      .map(content => content.formula);
+    const candidateReactions = getReactionCandidates(candidateFormulas);
 
     for (const rx of candidateReactions) {
       // Check temperature / heating prerequisites
@@ -103,6 +112,7 @@ export function runSimulationCycle(
         if (existing) {
           existing.moles += molesAdded;
           existing.mass_g = existing.moles * molarMass;
+          existing.state = p.state;
           if (p.state === 'aq' && volume_ml > 0) {
             existing.concentration_M = existing.moles / (volume_ml / 1000.0);
           }
@@ -116,13 +126,15 @@ export function runSimulationCycle(
           });
         }
 
-        // Handle gas emission from open vessel
+        // Handle gas emission
         if (p.state === 'g') {
           hasGasOccurred = true;
+          const prevMoles = gasInfoFinal ? gasInfoFinal.molesReleased : 0;
           gasInfoFinal = {
             formula: p.formula,
-            molesReleased: molesAdded,
+            molesReleased: prevMoles + molesAdded,
             effervescenceSpeed: rx.visual.gas?.effervescenceSpeed || 'vigorous',
+            colorHex: rx.visual.gas?.colorHex,
           };
 
           if (isOpenVessel) {
@@ -142,17 +154,25 @@ export function runSimulationCycle(
       temp_c = thermalResult.finalTemp_c;
       if (thermalResult.isBoiling) isBoiling = true;
 
+      const controllerId =
+        rx.controllerId ||
+        resolveControllerIdForReaction(rx.id, rx.visual.gas?.formula, rx.visual.precipitate?.formula);
+
       reactionsOccurred.push({
         reactionId: rx.id,
         name_en: rx.name_en,
         name_vi: rx.name_vi,
         equation: rx.equation,
+        ionic_equation: rx.ionic_equation,
         extent_moles: Math.round(xi * 100000) / 100000,
         heatReleased_J: thermalResult.heatReleased_J,
         limitingReactant: limitingReactantFormula,
         excessReactants,
         observable_en: rx.observable_en,
         observable_vi: rx.observable_vi,
+        tier: 'handcrafted',
+        archetype: rx.archetype,
+        controllerId,
       });
 
       matchedReactionThisPass = true;
@@ -162,11 +182,24 @@ export function runSimulationCycle(
     if (!matchedReactionThisPass) break;
   }
 
-  // --- INSTANT HEURISTIC RULE-BASED SOLVER ---
-  // If no predefined reaction was matched, but multiple active reagents meet,
-  // resolve instantly by fundamental inorganic chemistry rules (Acid-Base, Precipitation, Gas evolution).
-  if (reactionsOccurred.length === 0 && workingContents.length >= 2) {
-    // 1. General Acid-Base Neutralization
+  // --- TIER 1 MULTI-STAGE EQUILIBRIA & TIER 2 INSTANT RULE-DERIVED SOLVER ---
+  const ruleOutput = resolveInstantRulesAndEquilibria(
+    workingContents,
+    reactionsOccurred,
+    volume_ml,
+    temp_c,
+    isHeated,
+    isOpenVessel
+  );
+  temp_c = ruleOutput.temperature_c;
+  if (ruleOutput.isBoiling) isBoiling = true;
+  if (ruleOutput.hasGas && ruleOutput.gasInfo) {
+    hasGasOccurred = true;
+    gasInfoFinal = ruleOutput.gasInfo;
+  }
+
+  // Also keep general acid-base neutralization fallback if still no reaction matched
+  if (ruleOutput.reactionsOccurred.length === 0 && workingContents.length >= 2) {
     const acidFormulas: Record<string, { norm: string; protons: number; conjugate: string }> = {
       'HCL': { norm: 'HCL', protons: 1, conjugate: 'CL' },
       'HNO3': { norm: 'HNO3', protons: 1, conjugate: 'NO3' },
@@ -199,24 +232,24 @@ export function runSimulationCycle(
         baseItem.moles = Math.max(0, baseItem.moles - extentM / bInfo.hydroxides);
         baseItem.mass_g = baseItem.moles * computeMolarMass(baseItem.formula);
 
-        // Water produced
         const waterItem = workingContents.find(c => normalizeFormula(c.formula) === 'H2O');
         if (waterItem) {
           waterItem.moles += extentM;
           waterItem.mass_g = waterItem.moles * 18.015;
         }
 
-        // Exothermic neutralization DeltaH = -57.1 kJ/mol H+
         const solutionMass = Math.max(10.0, volume_ml);
         const thermalResult = calculateReactionDeltaT(extentM, -57.1, solutionMass, temp_c);
         temp_c = thermalResult.finalTemp_c;
         if (thermalResult.isBoiling) isBoiling = true;
 
-        reactionsOccurred.push({
+        ruleOutput.activeControllerIds.push('neutralization_thermal_schlieren');
+        ruleOutput.reactionsOccurred.push({
           reactionId: `rx_heuristic_neutralization_${Date.now()}`,
           name_en: `Neutralization of ${acidItem.formula} and ${baseItem.formula}`,
           name_vi: `Phản ứng trung hòa giữa ${acidItem.formula} và ${baseItem.formula}`,
           equation: `${acidItem.formula} + ${baseItem.formula} → Muối + H₂O`,
+          ionic_equation: 'H⁺(aq) + OH⁻(aq) → H₂O(l)',
           extent_moles: Math.round(extentM * 10000) / 10000,
           heatReleased_J: thermalResult.heatReleased_J,
           limitingReactant: availableH < availableOH ? acidItem.formula : baseItem.formula,
@@ -226,6 +259,9 @@ export function runSimulationCycle(
           },
           observable_en: `Exothermic neutralization between ${acidItem.formula} and ${baseItem.formula}.`,
           observable_vi: `Phản ứng trung hòa tỏa nhiệt giữa ${acidItem.formula} và ${baseItem.formula}.`,
+          tier: 'rule-derived',
+          archetype: 'acid_base_neutralization',
+          controllerId: 'neutralization_thermal_schlieren',
         });
       }
     }
@@ -247,26 +283,39 @@ export function runSimulationCycle(
   // Calculate final solution pH
   const finalPh = calculateSolutionPh(updatedContents, volume_ml);
 
-  // Check precipitate existence among solid products
+  // Check precipitate existence among solid products (excluding discrete metal chunks)
   let hasPrecipitate = false;
-  let precipitateInfo: SimulationResult['precipitateInfo'] = undefined;
+  let precipitateInfo: SimulationResult['precipitateInfo'] = ruleOutput.precipitateOverride;
 
-  for (const item of updatedContents) {
-    if (item.state === 's' && item.mass_g > 0.001) {
-      hasPrecipitate = true;
-      // Find matching visual morphology from database
-      const matchedRx = REACTION_DATABASE.find(r =>
-        r.products.some(p => p.state === 's' && normalizeFormula(p.formula) === normalizeFormula(item.formula))
-      );
-      precipitateInfo = {
-        formula: item.formula,
-        colorHex: matchedRx?.visual.precipitate?.colorHex || '#ffffff',
-        mass_g: item.mass_g,
-        morphology: matchedRx?.visual.precipitate?.morphology || 'powder',
-      };
-      break;
+  if (!precipitateInfo) {
+    for (const item of updatedContents) {
+      const norm = normalizeFormula(item.formula);
+      if (['FE', 'ZN', 'MG', 'CU', 'AL', 'NA', 'K', 'CA'].includes(norm)) continue;
+      if (item.state === 's' && item.mass_g > 0.001) {
+        hasPrecipitate = true;
+        const matchedRx = REACTION_DATABASE.find(r =>
+          r.products.some(p => p.state === 's' && normalizeFormula(p.formula) === norm)
+        );
+        precipitateInfo = {
+          formula: item.formula,
+          colorHex: matchedRx?.visual.precipitate?.colorHex || '#ffffff',
+          mass_g: item.mass_g,
+          morphology: matchedRx?.visual.precipitate?.morphology || 'powder',
+        };
+        break;
+      }
     }
+  } else {
+    hasPrecipitate = true;
   }
+
+  // Build physical solid chunks (Fe nail, Zn granule, Mg ribbon, CaCO3 chips, Na/K floating pellets)
+  // and Stokes-settling precipitate layers
+  const { solidChunks, precipitateLayers } = buildPhysicalSolidAndPrecipitateStates(
+    updatedContents,
+    ruleOutput.surfacePlating,
+    precipitateInfo
+  );
 
   // Determine liquid color (taking indicators, complexes, redox, and thermochromism into account)
   let finalLiquidColorHex = calculateBeerLambertColor(updatedContents, volume_ml, '#f8fafc');
@@ -274,7 +323,9 @@ export function runSimulationCycle(
   const hasPhenol = initialContents.some(c => c.formula.toLowerCase().includes('phenolphthalein'));
   const hasLitmus = initialContents.some(c => c.formula.toLowerCase().includes('litmus'));
   const hasUniversal = initialContents.some(c => c.formula.toLowerCase().includes('universal'));
-  const hasMethylOrange = initialContents.some(c => c.formula.toLowerCase().includes('methyl_orange') || c.formula.toLowerCase().includes('methyl'));
+  const hasMethylOrange = initialContents.some(
+    c => c.formula.toLowerCase().includes('methyl_orange') || c.formula.toLowerCase().includes('methyl')
+  );
   const hasThymolphthalein = initialContents.some(c => c.formula.toLowerCase().includes('thymolphthalein'));
 
   if (hasPhenol) {
@@ -291,13 +342,14 @@ export function runSimulationCycle(
 
   // Starch-Iodine complex thermochromism
   const hasStarch = updatedContents.some(c => c.formula.toLowerCase().includes('starch') && c.moles > 1e-5);
-  const hasIodine = updatedContents.some(c => (c.formula.toUpperCase() === 'I2' || c.formula.toUpperCase() === 'I3-') && c.moles > 1e-5);
+  const hasIodine = updatedContents.some(
+    c => (c.formula.toUpperCase() === 'I2' || c.formula.toUpperCase() === 'I3-') && c.moles > 1e-5
+  );
   if (hasStarch && hasIodine) {
     if (temp_c >= 60.0) {
-      // Reversible thermal dissociation of helical amylose-iodine complex
-      finalLiquidColorHex = '#fef08a'; // Pale yellow free iodine
+      finalLiquidColorHex = '#fef08a'; // Pale yellow free iodine upon thermal dissociation
     } else {
-      finalLiquidColorHex = '#1e1b4b'; // Deep dark blue-black complex
+      finalLiquidColorHex = '#1e1b4b'; // Deep midnight blue-black complex
     }
   }
 
@@ -321,6 +373,11 @@ export function runSimulationCycle(
     finalLiquidColorHex = '#2563eb'; // Deep blue
   }
 
+  // Emerald green solution when Cu reacts with conc. HNO3
+  if (ruleOutput.reactionsOccurred.some(r => r.reactionId.includes('cu_hno3'))) {
+    finalLiquidColorHex = '#059669'; // Emerald green Cu(NO3)2 in conc. acid
+  }
+
   // Permanganate deep purple color if KMnO4 remains
   const kmno4Item = updatedContents.find(c => normalizeFormula(c.formula) === 'KMNO4' && c.moles > 1e-5);
   if (kmno4Item) {
@@ -328,8 +385,12 @@ export function runSimulationCycle(
   }
 
   // Dichromate / Chromate pH equilibrium color
-  const cr2o7Item = updatedContents.find(c => normalizeFormula(c.formula) === 'K2CR2O7' || c.formula.includes('Cr2O7'));
-  const cro4Item = updatedContents.find(c => normalizeFormula(c.formula) === 'K2CRO4' || c.formula.includes('CrO4'));
+  const cr2o7Item = updatedContents.find(
+    c => normalizeFormula(c.formula) === 'K2CR2O7' || c.formula.includes('Cr2O7')
+  );
+  const cro4Item = updatedContents.find(
+    c => normalizeFormula(c.formula) === 'K2CRO4' || c.formula.includes('CrO4')
+  );
   if (cr2o7Item && finalPh < 6.5) {
     finalLiquidColorHex = '#ea580c'; // Orange dichromate
   } else if (cro4Item || (cr2o7Item && finalPh >= 6.5)) {
@@ -340,7 +401,9 @@ export function runSimulationCycle(
   let flameTestColorHex: string | undefined = undefined;
   const hasCu = updatedContents.some(c => c.formula.toUpperCase().includes('CU') && c.moles > 1e-5);
   const hasNa = updatedContents.some(c => c.formula.toUpperCase().includes('NA') && c.moles > 1e-5);
-  const hasK = updatedContents.some(c => c.formula.toUpperCase().includes('K') && c.moles > 1e-5 && normalizeFormula(c.formula) !== 'H2O');
+  const hasK = updatedContents.some(
+    c => c.formula.toUpperCase().includes('K') && c.moles > 1e-5 && normalizeFormula(c.formula) !== 'H2O'
+  );
   const hasBa = updatedContents.some(c => c.formula.toUpperCase().includes('BA') && c.moles > 1e-5);
   const hasCa = updatedContents.some(c => c.formula.toUpperCase().includes('CA') && c.moles > 1e-5);
 
@@ -363,7 +426,7 @@ export function runSimulationCycle(
   }
   const hasColloidalSulfur = updatedContents.some(c => normalizeFormula(c.formula) === 'S' && c.state === 's');
   if (hasColloidalSulfur) {
-    turbidity = Math.max(turbidity, 0.9);
+    turbidity = Math.max(turbidity, 0.92);
   }
 
   // Foam head / froth height (mm) on meniscus
@@ -377,7 +440,9 @@ export function runSimulationCycle(
   }
 
   // Tollen's test silver mirror coat
-  const hasSilverMirror = reactionsOccurred.some(r => r.reactionId.includes('silver_mirror') || r.reactionId.includes('tollens'));
+  const hasSilverMirror = ruleOutput.reactionsOccurred.some(
+    r => r.reactionId.includes('silver_mirror') || r.reactionId.includes('tollens')
+  );
 
   // Check for immiscible phase separation (e.g. ester layer floating on water)
   const esterItem = updatedContents.find(
@@ -385,7 +450,7 @@ export function runSimulationCycle(
   );
   const hasPhaseSeparation = Boolean(esterItem && esterItem.mass_g > 0.05 && volume_ml > 5);
   const organicLayerVolume_ml = hasPhaseSeparation
-    ? Math.max(3, Math.min(volume_ml * 0.45, (esterItem!.mass_g / 0.9)))
+    ? Math.max(3, Math.min(volume_ml * 0.45, esterItem!.mass_g / 0.9))
     : undefined;
 
   // Check for fumes / smoke effects
@@ -393,11 +458,15 @@ export function runSimulationCycle(
   let fumeType: 'steam' | 'no2' | 'nh4cl' | 'iodine' | undefined = undefined;
   let fumeColorHex = '#cbd5e1';
 
-  if (gasInfoFinal?.formula === 'NO2') {
+  if (ruleOutput.hasSublimation) {
+    hasFumes = true;
+    fumeType = 'iodine';
+    fumeColorHex = ruleOutput.sublimationColorHex || '#9333ea';
+  } else if (gasInfoFinal?.formula === 'NO2') {
     hasFumes = true;
     fumeType = 'no2';
     fumeColorHex = '#b45309'; // Red-brown NO2 gas
-  } else if (reactionsOccurred.some(r => r.reactionId === 'rx_nh3_hcl_smoke')) {
+  } else if (ruleOutput.reactionsOccurred.some(r => r.reactionId === 'rx_nh3_hcl_smoke')) {
     hasFumes = true;
     fumeType = 'nh4cl';
     fumeColorHex = '#ffffff'; // Dense white smoke
@@ -407,19 +476,33 @@ export function runSimulationCycle(
     fumeColorHex = '#e2e8f0'; // Steam wisps
   }
 
+  const isExplosion =
+    Boolean(ruleOutput.isExplosion) ||
+    ruleOutput.reactionsOccurred.some(
+      r => r.reactionId === 'rx_na_water_reaction' || r.reactionId === 'rx_sodium_water_pyrotechnic'
+    );
+  const isDangerous =
+    Boolean(ruleOutput.isDangerous) ||
+    isExplosion ||
+    ruleOutput.reactionsOccurred.some(r => r.reactionId.includes('dangerous') || r.reactionId.includes('na_water'));
+
   return {
-    reactionsOccurred,
+    reactionsOccurred: ruleOutput.reactionsOccurred,
     updatedContents,
     finalTemperature_c: temp_c,
     finalPh,
     finalLiquidColorHex,
     hasPrecipitate,
     precipitateInfo,
+    precipitateLayers,
+    solidChunks,
     hasGas: hasGasOccurred,
     gasInfo: gasInfoFinal,
     isBoiling,
-    isExplosion: reactionsOccurred.some(r => r.reactionId === 'rx_na_water_reaction'),
-    isDangerous: reactionsOccurred.some(r => r.reactionId.includes('dangerous') || r.reactionId.includes('na_water')),
+    isExplosion,
+    isDangerous,
+    warning_en: ruleOutput.warning_en,
+    warning_vi: ruleOutput.warning_vi,
     hasPhaseSeparation,
     organicLayerVolume_ml,
     organicLayerColorHex: '#f8fafc',
@@ -430,6 +513,9 @@ export function runSimulationCycle(
     foamHead_mm,
     flameTestColorHex,
     hasSilverMirror,
+    activeControllerIds: ruleOutput.activeControllerIds,
+    surfacePlating: ruleOutput.surfacePlating,
+    hasSublimation: ruleOutput.hasSublimation,
+    sublimationColorHex: ruleOutput.sublimationColorHex,
   };
 }
-

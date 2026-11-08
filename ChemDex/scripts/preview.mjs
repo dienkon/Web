@@ -1,11 +1,23 @@
 import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
+import { spawnSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
 import { build } from "esbuild";
 const root = path.resolve(import.meta.dirname, ".."),
   output = path.join(root, "dist"),
   port = Number(process.env.PORT) || 4173;
+if (
+  process.argv.includes("--rebuild") ||
+  !fs.existsSync(path.join(output, "index.html"))
+) {
+  const res = spawnSync(
+    process.execPath,
+    [path.join(root, "scripts/build-platform.mjs"), "--static-only"],
+    { cwd: root, stdio: "inherit" },
+  );
+  if (res.status !== 0) process.exit(res.status ?? 1);
+}
 const mime = {
   ".html": "text/html; charset=utf-8",
   ".js": "text/javascript; charset=utf-8",
@@ -75,6 +87,11 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(307, { Location: pathname === "/lab" ? "/lab-3d/" : pathname.replace(/^\/lab/, "/lab-3d") });
       return res.end();
     }
+    if (pathname === "/tai-lieu-so" || pathname.startsWith("/tai-lieu-so/")) {
+      const target = pathname.replace(/^\/tai-lieu-so\/?/, "/trung-tam/tai-lieu-so/") + (new URL(req.url, "http://localhost").search);
+      res.writeHead(302, { Location: target });
+      return res.end();
+    }
     let file = path.resolve(output, "." + pathname);
     if (file !== output && !file.startsWith(output + path.sep)) {
       res.writeHead(403);
@@ -101,6 +118,11 @@ const server = http.createServer(async (req, res) => {
     res.end(JSON.stringify({ error: "Preview request failed" }));
   }
 });
-server.listen(port, "127.0.0.1", () =>
-  console.log(`ChemDex preview http://127.0.0.1:${port}`),
-);
+server.listen(port, "127.0.0.1", () => {
+  console.log(`ChemDex preview http://127.0.0.1:${port}`);
+  console.log(`  • Bảng tuần hoàn : http://127.0.0.1:${port}/`);
+  console.log(`  • Trung tâm Tiện ích : http://127.0.0.1:${port}/tien-ich/`);
+  console.log(`  • Cấu trúc 3D : http://127.0.0.1:${port}/tien-ich/cau-truc-3d/`);
+  console.log(`  • Tài liệu số : http://127.0.0.1:${port}/trung-tam/tai-lieu-so/`);
+  console.log(`  • Phòng lab 2D / 3D : http://127.0.0.1:${port}/lab-2d/ | http://127.0.0.1:${port}/lab-3d/`);
+});

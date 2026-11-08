@@ -67,6 +67,12 @@ export default function App() {
   };
 
   useEffect(() => {
+    const docTheme = localStorage.getItem('chemdex_doc_theme');
+    if (docTheme === 'dark') {
+      document.body.classList.remove('light-mode');
+    } else {
+      document.body.classList.add('light-mode');
+    }
     const docId = new URLSearchParams(window.location.search).get('doc');
     if (docId && libraryDocs.some(doc => doc.id === docId)) void handleDocClick(docId);
   }, []);
@@ -147,52 +153,69 @@ export default function App() {
               
                 {/* Hero Section */}
                   {!searchQuery && !activeCategory && (
-                    <div className="relative h-auto md:h-80 w-full rounded-3xl overflow-hidden shadow-2xl group border border-slate-700/30 mb-12 flex flex-col md:flex-row">
-                      <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/80 to-transparent z-10 hidden md:block"></div>
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent z-10 md:hidden"></div>
-                      <div className="absolute inset-0 bg-blue-900/20 mix-blend-overlay"></div>
-                      
-                      <div className="p-8 md:p-12 flex-1 relative z-20 flex flex-col justify-center">
-                        <span className="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 border border-blue-500/30 text-xs font-bold uppercase tracking-wider rounded-full w-fit mb-4">
-                          Tài liệu nổi bật
-                        </span>
-                        <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
-                          <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500">Hóa Học Số</span>
+                    <div className="relative w-full rounded-3xl overflow-hidden shadow-xl group border border-sky-200/80 mb-10 flex flex-col lg:flex-row bg-gradient-to-br from-sky-50 via-white to-amber-50/70">
+                      <div className="p-7 sm:p-10 lg:p-12 flex-1 relative z-20 flex flex-col justify-center">
+                        <div className="flex flex-wrap items-center gap-2 mb-4">
+                          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-gradient-to-r from-sky-500 to-teal-500 text-white text-xs font-extrabold uppercase tracking-wider rounded-full shadow-sm">
+                            ✦ Tạp Chí Hóa Học Số
+                          </span>
+                          <span className="inline-block px-3 py-1 bg-amber-100 text-amber-800 border border-amber-300/80 text-xs font-bold rounded-full">
+                            Chuyên đề: Sự ra đời của các chất
+                          </span>
+                        </div>
+                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 leading-tight tracking-tight">
+                          Biên Niên Sử &amp; Câu Chuyện <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 via-teal-600 to-emerald-600">Khởi Nguyên Hóa Học</span>
                         </h2>
-                        <p className="text-slate-400 max-w-md mb-8 leading-relaxed text-lg">
-                          Lưu trữ, tìm kiếm và nghiên cứu các tài liệu hóa học chất lượng cao với giao diện hiện đại và trải nghiệm đọc tuyệt vời.
+                        <p className="text-slate-600 max-w-2xl mb-6 leading-relaxed text-base sm:text-lg">
+                          Mỗi nguyên tố và hợp chất đều ẩn chứa một câu chuyện kỳ vĩ — từ lò phản ứng hạt nhân trong lòng các vì sao, những vỉa khoáng vật cổ xưa, đến khoảnh khắc lóe sáng trong phòng thí nghiệm. Khám phá hơn 480 bài báo khoa học giàu hình ảnh minh họa.
                         </p>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="text-xs font-bold uppercase tracking-wider text-slate-500 mr-1">Kỳ báo tiêu điểm:</span>
+                          {[
+                            { id: 'chat-nuoc', label: '💧 Nước (H₂O)' },
+                            { id: 'chat-natri-clorua', label: '🧂 Muối ăn (NaCl)' },
+                            { id: 'chat-amoniac', label: '🌾 Amoniac (NH₃)' },
+                            { id: 'chat-etanol', label: '🍷 Etanol (C₂H₅OH)' },
+                            { id: '001_H', label: '☀️ Hiđro (H)' },
+                          ].map((featured) => (
+                            <button
+                              key={featured.id}
+                              type="button"
+                              onClick={() => void handleDocClick(featured.id)}
+                              className="px-3 py-1.5 rounded-xl bg-white hover:bg-sky-50 text-sky-800 border border-sky-200/90 shadow-xs text-xs font-bold transition-all hover:-translate-y-0.5 cursor-pointer"
+                            >
+                              {featured.label}
+                            </button>
+                          ))}
+                        </div>
                       </div>
                       
-                      <div className="w-full md:w-1/2 h-64 md:h-full relative z-0 md:z-0 absolute top-0 right-0">
+                      <div className="w-full lg:w-[45%] relative p-4 sm:p-6 flex items-center justify-center bg-gradient-to-br from-sky-100/70 via-teal-50/50 to-amber-100/60">
                         <img 
-                          src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=800" 
-                          alt="Hero" 
-                          className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity"
+                          src="/assets/library/cosmic-origin.svg" 
+                          alt="Minh họa Tạp chí Hóa Học Số — Sự ra đời của các nguyên tố và hợp chất" 
+                          className="w-full aspect-[16/9] object-contain rounded-2xl shadow-lg border border-white/80 group-hover:scale-[1.02] transition-transform duration-500"
                         />
                       </div>
                     </div>
                   )}
 
                   {/* Library Grid Header */}
-                  <div className="flex items-center justify-between mb-8">
-                    <h3 className="text-xl font-bold text-white flex items-center gap-3">
-                      <svg className="w-6 h-6 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                      {activeCatConfig ? activeCatConfig.label : (searchQuery ? 'Kết quả tìm kiếm' : 'Khám phá Thư viện')}
-                      {searchQuery && <span className="text-slate-400 text-sm ml-2 font-normal">Từ khóa: "{searchQuery}"</span>}
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-xl font-extrabold text-slate-900 flex items-center gap-3">
+                      <svg className="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                      {activeCatConfig ? activeCatConfig.label : (searchQuery ? 'Kết quả tìm kiếm' : 'Chuyên mục Bài báo & Hồ sơ Chất')}
+                      {searchQuery && <span className="text-slate-500 text-sm ml-2 font-normal">Từ khóa: "{searchQuery}"</span>}
                     </h3>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm text-slate-500 hidden sm:block">Sắp xếp theo:</span>
-                      <select className="bg-transparent text-sm font-semibold text-slate-300 outline-none cursor-pointer">
-                        <option>Mới nhất</option>
-                        <option>Phổ biến nhất</option>
-                      </select>
+                      <span className="text-sm text-slate-500 hidden sm:block">Chế độ:</span>
+                      <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-teal-50 text-teal-700 border border-teal-200">Bài báo khoa học có minh họa</span>
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap gap-2 mb-5" aria-label="Lọc danh mục tài liệu">
-                    <button onClick={() => setActiveCategory(null)} aria-pressed={!activeCategory} className="px-3 py-2 rounded-lg border border-slate-600 text-sm">Tất cả</button>
-                    {categories.map(cat => <button key={cat.id} onClick={() => setActiveCategory(cat.id)} aria-pressed={activeCategory===cat.id} className={`px-3 py-2 rounded-lg border text-sm ${activeCategory===cat.id ? 'border-blue-400 bg-blue-500/20 text-blue-200' : 'border-slate-600 text-slate-300'}`}>{cat.label}</button>)}
+                  <div className="flex flex-wrap gap-2.5 mb-6" aria-label="Lọc danh mục tài liệu">
+                    <button onClick={() => setActiveCategory(null)} aria-pressed={!activeCategory} className={`px-4 py-2 rounded-xl border text-sm font-bold transition-all cursor-pointer ${!activeCategory ? 'border-sky-500 bg-sky-600 text-white shadow-sm' : 'border-slate-300 bg-white text-slate-700 hover:border-sky-300 hover:bg-sky-50'}`}>Tất cả</button>
+                    {categories.map(cat => <button key={cat.id} onClick={() => setActiveCategory(cat.id)} aria-pressed={activeCategory===cat.id} className={`px-4 py-2 rounded-xl border text-sm font-bold transition-all cursor-pointer ${activeCategory===cat.id ? 'border-sky-500 bg-sky-600 text-white shadow-sm' : 'border-slate-300 bg-white text-slate-700 hover:border-sky-300 hover:bg-sky-50'}`}>{cat.label}</button>)}
                   </div>
                   <LibraryGrid docs={filteredDocs} onDocClick={handleDocClick} bookmarkedIds={bookmarkedIds} onToggleBookmark={toggleBookmark} onTagClick={handleTagClick} />
 

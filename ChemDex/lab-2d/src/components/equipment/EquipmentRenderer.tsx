@@ -117,6 +117,18 @@ export const EquipmentRenderer: React.FC<EquipmentRendererProps> = ({
         );
       case 'ph_paper':
         return <PhPaperSvg equipment={equipment} isSelected={isSelected} />;
+      case 'sponge':
+        return (
+          <svg viewBox="0 0 60 40" width={equipment.width} height={equipment.height} className="drop-shadow-md select-none">
+            <rect x="4" y="8" width="52" height="26" rx="7" fill="#facc15" stroke="#ca8a04" strokeWidth="2" />
+            <rect x="4" y="8" width="52" height="7" rx="4" fill="#16a34a" />
+            <circle cx="16" cy="22" r="2.2" fill="#ca8a04" opacity="0.65" />
+            <circle cx="28" cy="26" r="2.8" fill="#ca8a04" opacity="0.65" />
+            <circle cx="42" cy="21" r="2.0" fill="#ca8a04" opacity="0.65" />
+            <circle cx="35" cy="19" r="1.6" fill="#ca8a04" opacity="0.65" />
+            <circle cx="22" cy="28" r="1.8" fill="#ca8a04" opacity="0.65" />
+          </svg>
+        );
       default:
         return <BeakerSvg equipment={equipment} isSelected={isSelected} />;
     }
@@ -289,7 +301,18 @@ export const EquipmentRenderer: React.FC<EquipmentRendererProps> = ({
               {equipment.isSealed && (
                 <span className="text-[10px] font-semibold px-1.5 py-0.2 rounded-full bg-slate-100 text-slate-700 border border-slate-200 flex items-center gap-0.5">
                   <span>🔒</span>
-                  <span>{language === 'vi' ? 'Đậy kín' : 'Sealed'}</span>
+                  <span>
+                    {language === 'vi' ? 'Đậy kín' : 'Sealed'}{' '}
+                    {equipment.internalPressure_atm && equipment.internalPressure_atm > 1.02
+                      ? `(${equipment.internalPressure_atm.toFixed(2)} atm)`
+                      : ''}
+                  </span>
+                </span>
+              )}
+              {equipment.isShattered && (
+                <span className="text-[10px] font-bold px-2 py-0.2 rounded-full bg-rose-600 text-white border border-rose-400 animate-pulse flex items-center gap-0.5 shadow-xs">
+                  <span>💥</span>
+                  <span>{language === 'vi' ? 'Đã nổ vỡ!' : 'Shattered!'}</span>
                 </span>
               )}
             </div>

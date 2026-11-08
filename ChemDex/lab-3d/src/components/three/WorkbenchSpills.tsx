@@ -21,6 +21,8 @@ import { sodiumMetalMass } from '../../science/sodiumWater';
 import { useQualityStore, getQualitySettings } from '../../vfx/quality';
 import { spillAbsorptionPerMeter } from '../../science/spillOptics';
 import { createSpillOpticalMaterials } from '../../vfx/materials/spillOpticalMaterial';
+import { spillSuspensionAppearance } from '../../science/spillSuspension';
+import { SpillPrecipitateBed, weightedSpillColor } from './SpillPrecipitateBed';
 
 export const WorkbenchSpills = React.memo(function WorkbenchSpills() {
   const spills = useAppStore(state => state.spills);
@@ -39,19 +41,23 @@ function SpillPuddle({ spill }: { spill: SpillState }) {
   const position: [number, number, number] = [spill.position[0], supportPlaneScene(spill.position) + 0.001, spill.position[2]];
   const drop = useMemo(() => solveSessileDrop(spill.volume_ml), [spill.volume_ml]);
   const geometry = useMemo(() => drop ? createSpillGeometry(drop) : null, [drop]);
+  const appearance = useMemo(() => spillSuspensionAppearance(spill), [spill.contents, spill.suspension, spill.volume_ml]);
   useLayoutEffect(() => optical.update(spillAbsorptionPerMeter(spill.color || '#ffffff', spill.optics),
-    drop ? 2 * Math.hypot(drop.radius_m, drop.height_m) : 0), [optical, spill.color, spill.optics, drop]);
+    drop ? 2 * Math.hypot(drop.radius_m, drop.height_m) : 0, appearance.scattering_per_m, weightedSpillColor(appearance.cloud)),
+  [optical, spill.color, spill.optics, drop, appearance]);
   useEffect(() => () => optical.dispose(), [optical]);
   useEffect(() => () => geometry?.dispose(), [geometry]);
 
   return <group position={position}>
     <SpilledSolids spill={spill} />
+    <SpillPrecipitateBed id={spill.id} appearance={appearance} drop={drop} geometry={geometry} />
     {sodiumMetalMass({ contents: spill.contents ?? [] }) > 1e-10 && <SpilledSodium spill={spill} drop={drop}
       contact={sodiumContact} airSpeed_m_s={environment.airSpeed_m_s} />}
     <SpillReactionBubbles spill={spill} drop={drop} pressure_atm={environment.pressure_atm} contact={sodiumContact} />
     {(spill.thermalVaporEnthalpy_J ?? 0) > 0 && <Steam vesselId={spill.id}
       surfaceY={(drop?.height_m ?? 0) / METERS_PER_SCENE_UNIT} radius={spill.radius} sourceState={vapor} />}
-    {geometry && <mesh name={`spill-optics:${spill.id}`} geometry={geometry} material={optical.volume} renderOrder={refractive ? 0 : -2} />}
+    {geometry && <mesh name={`spill-optics:${spill.id}`} geometry={geometry} material={optical.volume} renderOrder={refractive ? 0 : -3} />}
+    {geometry && optical.cloudMaterial && appearance.scattering_per_m > 0 && <mesh name={`spill-cloud:${spill.id}`} geometry={geometry} material={optical.cloudMaterial} renderOrder={-2} />}
     {geometry && optical.reflection && <mesh name={`spill-optics:reflection:${spill.id}`} geometry={geometry} material={optical.reflection} renderOrder={-1} />}
   </group>;
 }

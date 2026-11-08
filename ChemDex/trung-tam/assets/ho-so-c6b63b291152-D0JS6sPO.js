@@ -1,0 +1,123 @@
+const n="ho-so-c6b63b291152",h="Axit axetic (C₂H₄O₂) — Ký sự từ vỉa khoáng vật tự nhiên đến kiến trúc phân tử chuẩn xác",t="Chuyên San Khảo Cổ & Địa Hóa Học · ChemDex",c="hopchat",i="Ký sự điều tra nguồn gốc địa hóa và lịch sử phát hiện Axit axetic (C₂H₄O₂): từ khoáng vật tự nhiên, cấu trúc tinh thể 3D đến quy trình tổng hợp công nghiệp.",g="/assets/library/organic-genesis.svg",a="C₂H₄O₂",u=["Câu chuyện hợp chất","C2H4O2","Chuyển hóa hữu cơ","Cacbonat và axit"],o=["Axit axetic","acetic acid","C2H4O2","Axit axetic (Giấm)","Acetic Acid","CH3COOH","CH3COOH (dil)","Axit Axetic (Giấm Ăn 1M)","Acetic Acid (Dilute, 1M / Vinegar)","CH3COOH (glacial)","Axit Axetic Băng (Nguyên chất 99.8%)","Glacial Acetic Acid (17.4M, 99.8%)","Axit axetic (0,1 M)","Acetic acid solution (0.1 M)"],r=["cid-176","chem-ch3cooh"],e="reference",l=15,m={formula:"C2H4O2",representativeId:"cid-176",counts:{C:2,H:4,O:2},mass:60.052,material:!1,reactionIds:["rx_0b7d3f13fa5a0878","rx_cd5af20c9fcd4eb4","rx_915dd15cbe3f8170","rx_5f6915b35c044987"]},s=`## Câu chuyện: Dấu vết địa hóa và lịch sử phát hiện Axit axetic (C₂H₄O₂) trong dòng chảy khoa học
+
+Trước khi xuất hiện trong các lọ hóa chất có nhãn mác chuẩn xác của phòng thí nghiệm thế kỷ XXI, **Axit axetic (C₂H₄O₂)** đã trải qua một lịch sử kiến tạo lâu dài trong tự nhiên và trong chính tư duy thực nghiệm của loài người. Mỗi nguyên tử tạo nên hợp chất này đều mang theo ký ức của những biến đổi địa chất và nhiệt động lực học sâu sắc.
+
+Theo hồ sơ bách khoa trực tuyến từ [Wikipedia Tiếng Việt — Acid acetic](https://vi.wikipedia.org/wiki/Acid_acetic), bản chất và lịch sử của chất này được ghi nhận cụ thể như sau: Acid acetic, hay acid ethanoic là một chất lỏng không màu và là acid hợp chất hữu cơ với công thức hóa học CH3COOH (cũng viết là CH3CO2H, C2H4O2, hoặc HC2H3O2). Giấm có tối thiểu 4% acid acetic theo thể tích. Điều đó khiến acid acetic là thành phần chính trong giấm ngoài nước. Acid acetic là acid carboxylic đơn giản thứ hai (sau acid fomic). Nó là một hóa chất công nghiệp và thuốc thử quan trọng, được sử dụng chủ yếu trong sản xuất cellulose acetat cho phim ảnh, polyvinyl acetat làm keo dán gỗ, sợi tổng hợp và vải. Trong các hộ gia đình, acid acetic pha loãng thường được sử dụng trong chất tẩy cặn. Trong ngành công nghiệp thực phẩm, acid acetic được kiểm soát bởi mã phụ gia thực phẩm E260 như một chất điều chỉnh độ acid và như một loại gia vị. Trong hóa sinh, nhóm acethyl, có nguồn gốc từ acid acetic, là cơ bản của mọi dạng sống. Khi liên kết với coenzymer A, nó là trung tâm của quá trình chuyển hóa carbohydrate và chất béo. Nhu cầu toàn thế giới về acid acetic là khoảng 6,5 triệu tấn mỗi năm, trong đó khoảng 1,5 triệu tấn được đáp ứng bằng cách tái chế; phần còn lại được sản xuất từ methanol. Giấm chủ yếu là acid acetic loãng, thường được tạo ra bằng quá trình lên men và quá trình oxy hóa ethanol sau đó.
+
+Gốc axetat (**CH₃COO⁻**) bắt nguồn từ axit axetic trong giấm ăn (*acetum* trong tiếng Latinh) — loại axit hữu cơ đầu tiên mà nhân loại biết đến từ hơn 5.000 năm trước khi rượu vang lên men tiếp xúc với không khí. Vào thế kỷ VIII, nhà giả kim **Jabir ibn Hayyan** đã chưng cất giấm để thu axit axetic đậm đặc; năm 1700 **Georg Ernst Stahl** tách được axit axetic băng tinh khiết, và năm 1845 nhà hóa học Đức **Hermann Kolbe** đã tổng hợp thành công axit axetic hoàn toàn từ các chất vô cơ (CS₂), đánh sập thuyết "lực sống" (*vitalism*) và mở đường cho việc tổng hợp toàn bộ họ muối và este axetat hiện đại.
+
+Để hiểu trọn vẹn cội nguồn của hợp chất, cần lần theo lịch sử khám phá từng nguyên tố tạo nên nó:
+
+- **Nhánh nguyên tố Cacbon (C)**: Dấu ấn lịch sử phát hiện (mốc thời gian: **Thời cổ đại**). Carbon đã được con người biết đến từ thời cổ đại dưới dạng than, muội than và kim cương. Carbon được công nhận là một nguyên tố hóa học vào cuối thế kỷ XVIII. Antoine Lavoisier đã xác định Carbon là một nguyên tố và nghiên cứu quá trình Carbon cháy tạo thành khí Carbon dioxide. Nguồn khoáng vật tự nhiên tiêu biểu của nguyên tố này gồm: *Than đá, dầu mỏ, khí tự nhiên, đá carbonate, khí quyển, sinh vật và các vật chất hữu cơ*.
+- **Nhánh nguyên tố Hiđro (H)**: Dấu ấn lịch sử phát hiện do **Henry Cavendish** tìm ra (mốc thời gian: **1766**). Năm 1766, Henry Cavendish nghiên cứu loại khí sinh ra khi kim loại tác dụng với axit và xác định đây là một chất hoàn toàn mới. Antoine Lavoisier sau đó đặt tên là Hydrogen, nghĩa là 'sinh ra nước'. Nguồn khoáng vật tự nhiên tiêu biểu của nguyên tố này gồm: *Nước biển, Nước ngọt, Dầu mỏ, Khí thiên nhiên, Sinh khối*.
+- **Nhánh nguyên tố Oxi (O)**: Dấu ấn lịch sử phát hiện do **Joseph Priestley và Carl Wilhelm Scheele** tìm ra (mốc thời gian: **1774**). Năm 1774, Joseph Priestley điều chế được Oxygen bằng cách nung Mercury(II) oxide và công bố kết quả. Carl Wilhelm Scheele cũng điều chế được Oxygen độc lập trước đó, khoảng năm 1772, nhưng công trình của ông được công bố sau. Antoine Lavoisier sau đó xác định vai trò của Oxygen trong sự cháy và hô hấp, đồng thời đặt tên Oxygen.
+
+![Khởi nguyên lịch sử và hành trình khám phá Axit axetic (C₂H₄O₂)](/assets/library/organic-genesis.svg)
+*Hình 1. Bối cảnh lịch sử phát hiện, nguồn gốc tự nhiên và tiến trình định danh khoa học của Axit axetic (C₂H₄O₂).*
+
+## Lần theo thành phần nguyên tử: Bản thiết kế hình học 3 chiều và tương tác không gian trong Axit axetic
+
+Để hiểu vì sao **Axit axetic (C₂H₄O₂)** lại mang những tính chất vật lý và hóa học đặc thù, chúng ta cần đi sâu vào "bản thiết kế hình học" của chất này. Một đơn vị công thức **C₂H₄O₂** được liên kết chặt chẽ từ **8 nguyên tử** thuộc **3 nguyên tố hóa học**:
+
+- **Nguyên tố Cacbon (C)**: Góp mặt **2 nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử Cacbon phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **Axit axetic**.
+- **Nguyên tố Hiđro (H)**: Góp mặt **4 nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử Hiđro phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **Axit axetic**.
+- **Nguyên tố Oxi (O)**: Góp mặt **2 nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử Oxi phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **Axit axetic**.
+
+Về kiến trúc hình học phân tử, **Axit axetic (C₂H₄O₂)** sở hữu bộ khung nguyên tử Carbon uốn lượn uyển chuyển trong không gian 3 chiều. Tùy thuộc vào cách các nguyên tử liên kết với nhau (dạng chuỗi dài mềm mại, phân nhánh hay khép vòng đối xứng), mật độ phân tử được phân bố tạo nên những "cánh tay phản ứng" đặc trưng, quyết định hương vị, độ bay hơi và khả năng hòa tan độc đáo của phân tử hữu cơ này.
+
+![Kiến trúc liên kết không gian 3 chiều của Axit axetic (C₂H₄O₂)](/assets/library/organic-genesis.svg)
+*Hình 2. Mô phỏng trực quan sự phân bố đám mây electron, góc liên kết và trật tự phối trí không gian 3D của Axit axetic (C₂H₄O₂).*
+
+| Chỉ tiêu nhận diện & Cấu trúc 3D | Tư liệu xác thực từ hệ thống ChemDex |
+|---|---|
+| Tên chất & Danh pháp quốc tế | **Axit axetic** (acetic acid) |
+| Công thức hóa học thực nghiệm | **C₂H₄O₂**  |
+| Hình thái không gian 3 chiều | Khung phân tử hữu cơ định hướng không gian |
+| Quy mô cấu trúc vi mô | **8 nguyên tử** (2× C, 4× H, 2× O) |
+| Trạng thái & Sắc thái nhận diện | Rắn / Dung dịch thực nghiệm |
+| Phòng quan sát 3D tương tác | [Mở mô hình xoay 360° và kiểm tra góc liên kết](/tien-ich/cau-truc-3d/?compound=cid-176) |
+
+Người đọc có thể trực tiếp xoay mô hình 360°, bật/tắt nhãn nguyên tử và kiểm tra độ dài từng liên kết (tính bằng đơn vị Ångström) của chất này tại [Phòng quan sát Cấu trúc & Liên kết 3D — Axit axetic](/tien-ich/cau-truc-3d/?compound=cid-176).
+
+## Nghệ thuật tổng hợp hóa học: Các phương trình khai sinh và biến đổi Axit axetic
+
+Trong cơ sở dữ liệu phản ứng thực nghiệm của ChemDex (với **53 phương trình** có sự góp mặt của **C₂H₄O₂**, trong đó có **1 con đường tổng hợp/tạo thành** và **52 con đường chuyển hóa**), hành trình ra đời và biến đổi của chất này được minh chứng qua các kịch bản tiêu biểu sau:
+
+### Con đường hình thành & điều chế #1 (Chuyển hóa hữu cơ)
+
+Phương trình hóa học cân bằng chuẩn xác:
+
+\`2CH3CHO(l) + O2(g) → 2CH3COOH(l)\`
+
+- **Bản chất & Cơ chế phản ứng**: Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.
+- **Điều kiện thực hiện**: Oxy hóa aldehyde trong điều kiện thích hợp; phương trình tổng quát..
+- **Hiện tượng quan sát thực nghiệm**: Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần..
+- **Phương trình ion rút gọn**: \`2CH3CHO(l) + O2(g) → 2CH3COOH(l)\` (Trạng thái pha: \`2CH3CHO(l) + O2(g) → 2CH3COOH(l)\`).
+
+### Con đường phản ứng & chuyển hóa #2 (Cacbonat và axit)
+
+Phương trình hóa học cân bằng chuẩn xác:
+
+\`Ag2CO3(s) + 2CH3COOH(aq) → 2CH3COOAg(aq) + CO2(g) + H2O(l)\`
+
+- **Bản chất & Cơ chế phản ứng**: Proton chuyển carbonate thành CO2 và nước; giữ đủ ion đối trong muối sản phẩm.
+- **Điều kiện thực hiện**: Axit đủ, CO2 thoát khỏi hệ; không có lớp muối ít tan chặn bề mặt..
+- **Hiện tượng quan sát thực nghiệm**: Có bọt CO2 không màu tại vùng tiếp xúc..
+- **Phương trình ion rút gọn**: \`Ag2CO3(s) + 2CH3COOH(aq) → 2CH3COOAg(aq) + CO2(g) + H2O(l)\` (Trạng thái pha: \`Ag2CO3(s) + 2CH3COOH(aq) → 2CH3COOAg(aq) + CO2(g) + H2O(l)\`).
+
+### Con đường phản ứng & chuyển hóa #3 (Cháy hoàn toàn)
+
+Phương trình hóa học cân bằng chuẩn xác:
+
+\`CH3COOH(l) + 2O2(g) → 2CO2(g) + 2H2O(g)\`
+
+- **Bản chất & Cơ chế phản ứng**: Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.
+- **Điều kiện thực hiện**: Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử..
+- **Hiện tượng quan sát thực nghiệm**: Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần..
+- **Phương trình ion rút gọn**: \`CH3COOH(l) + 2O2(g) → 2CO2(g) + 2H2O(g)\` (Trạng thái pha: \`CH3COOH(l) + 2O2(g) → 2CO2(g) + 2H2O(g)\`).
+
+### Con đường phản ứng & chuyển hóa #4 (Este hóa)
+
+Phương trình hóa học cân bằng chuẩn xác:
+
+\`CH3COOH(l) + C2H5OH(l) ⇌ CH3COOC2H5(l) + H2O(l)\`
+
+- **Bản chất & Cơ chế phản ứng**: Nhóm carboxyl và alcohol tạo este; phương trình cân bằng không khẳng định chuyển hóa 100%.
+- **Điều kiện thực hiện**: Alcohol và acid mạch thẳng đã chỉ rõ; xúc tác acid, làm ấm; cân bằng, tách nước hoặc dùng chất dư để tăng chuyển hóa..
+- **Hiện tượng quan sát thực nghiệm**: Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần..
+- **Phương trình ion rút gọn**: \`CH3COOH(l) + C2H5OH(l) ⇌ CH3COOC2H5(l) + H2O(l)\` (Trạng thái pha: \`CH3COOH(l) + C2H5OH(l) ⇌ CH3COOC2H5(l) + H2O(l)\`).
+
+## Hành trình bước ra đời sống: Giá trị thực tiễn và di sản văn minh của Axit axetic
+
+Trong dòng chảy của nền văn minh kỹ thuật và ứng dụng thực tiễn, **Axit axetic (C₂H₄O₂)** giữ vai trò không thể thay thế trên nhiều phương diện đời sống:
+
+- **Trong y học, đời sống & sản xuất công nghiệp**: Tùy thuộc vào bản tính phản ứng và tính chất bề mặt của **C₂H₄O₂**, chất này tham gia vào các chu trình xử lý môi trường, làm chất xúc tác chuyển hóa, sản xuất vật liệu tiên tiến hoặc làm nguyên liệu tổng hợp các chế phẩm có giá trị cao.
+- **Trong nghiên cứu học thuật & thực nghiệm phân tích**: Là nhân vật trung tâm trong các thí nghiệm chuẩn hóa, giúp các nhà nghiên cứu kiểm chứng cơ chế phản ứng và nhận diện sự hiện diện của các hợp chất đồng hành.
+- **Trong thế giới giáo dục trực quan**: Đóng vai trò là vật mẫu điển hình kết nối trực quan giữa công thức trên giấy và thực tế tại [Phòng thí nghiệm ChemDex](/lab-2d/) cùng [Không gian Cấu trúc 3D](/tien-ich/cau-truc-3d/?compound=cid-176).
+
+### Câu chuyện lịch sử ứng dụng & Bài học kinh nghiệm thực hành
+
+Lịch sử ứng dụng của **Axit axetic (C₂H₄O₂)** là một minh chứng sống động cho thấy sự am hiểu về bản chất chất hóa học có thể biến những vật chất thô sơ trong tự nhiên thành công cụ phục vụ đời sống con người. Trải qua hàng thế kỷ thực nghiệm — từ những phát hiện ngẫu nhiên trong xưởng nhuộm, mỏ quặng cho đến các dây chuyền tổng hợp hiện đại — bài học cốt lõi mà các thế hệ tiền bối để lại là luôn tôn trọng tính nết tự nhiên của chất: kiểm soát cẩn trọng nhiệt độ, môi trường tiếp xúc và trang bị đầy đủ phương tiện bảo hộ để phát huy tối đa giá trị hữu ích đồng thời ngăn ngừa mọi rủi ro tiềm ẩn trong thao tác.
+
+## Câu hỏi suy ngẫm & Tự kiểm tra kiến thức
+
+1. Dựa vào câu chuyện lịch sử và hành trình khám phá **Axit axetic (C₂H₄O₂)**, nguyên nhân vì sao tên gọi và phương pháp điều chế ban đầu của chất này lại phản ánh hoàn cảnh văn hóa và kỹ thuật của thời đại phát hiện ra nó?
+2. Trong phương trình hóa học \`2CH3CHO(l) + O2(g) → 2CH3COOH(l)\`, hiện tượng thực nghiệm quan sát được hé lộ điều gì về tính cách hóa học của **C₂H₄O₂** khi tương tác với các chất xung quanh?
+
+<details><summary>Xem phân tích và lời giải chi tiết</summary>
+
+- **Giải đáp câu 1:** Tên gọi và phương pháp tiếp cận đầu tiên của C₂H₄O₂ bắt nguồn trực tiếp từ nguồn khoáng sản tự nhiên hoặc hiện tượng quan sát bằng mắt thường của các nhà thực nghiệm thời kỳ đó. Chỉ khi kỹ thuật phân tích và mô hình liên kết không gian phát triển, nhân loại mới hiểu trọn vẹn bản chất cấu tạo của chất.
+- **Giải đáp câu 2:** Phương trình phản ứng phản ánh sự tái sắp xếp liên kết: hiện tượng Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần. là bằng chứng vĩ mô cho thấy các nguyên tử đã đổi chỗ cho nhau để tạo thành cấu trúc mới bền vững hơn.
+
+</details>
+
+## Nguồn tư liệu khoa học & Khám phá tiếp theo
+
+- [Phòng quan sát Cấu trúc & Liên kết 3D tương tác — Axit axetic (C₂H₄O₂)](/tien-ich/cau-truc-3d/?compound=cid-176)
+- [Bách khoa toàn thư Wikipedia Tiếng Việt — Acid acetic](https://vi.wikipedia.org/wiki/Acid_acetic)
+- [Wikipedia Quốc tế — Acetic acid](https://en.wikipedia.org/wiki/Acetic_acid)
+- [Tệp tọa độ không gian 3D chuẩn (SDF)](/shared/structures/176.sdf)
+- [Nguồn cấu trúc gốc đã kiểm chứng](https://cactus.nci.nih.gov/chemical/structure/acetic%20acid/file?format=sdf&get3d=true)
+- [Hồ sơ hợp chất quốc tế PubChem CID 176](https://pubchem.ncbi.nlm.nih.gov/compound/176)
+
+Bài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tổng hợp từ tư liệu lịch sử bách khoa trực tuyến, hồ sơ cấu trúc không gian 3 chiều và cơ sở dữ liệu phản ứng thực nghiệm, mang lại cái nhìn toàn diện về hành trình ra đời, cấu tạo vi mô và ứng dụng của **Axit axetic (C₂H₄O₂)**.`,p={id:n,title:h,author:t,category:c,summary:i,image:g,chemicalFormula:a,tags:u,aliases:o,substanceIds:r,documentKind:e,readingMinutes:15,chemicalEvidence:m,content:s};export{o as aliases,t as author,c as category,m as chemicalEvidence,a as chemicalFormula,s as content,p as default,e as documentKind,n as id,g as image,l as readingMinutes,r as substanceIds,i as summary,u as tags,h as title};

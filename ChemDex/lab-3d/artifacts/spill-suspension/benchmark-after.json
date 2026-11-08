@@ -1,0 +1,9 @@
+{
+  "scenario": "100 puddles, 24 suspended cohorts each, 120 analytical model steps after 10 warm-up steps",
+  "webglIncluded": false,
+  "browserFpsVerified": false,
+  "average_ms": 1.1098500000000016,
+  "p95_ms": 1.8832000000000448,
+  "maximum_ms": 3.6207999999999743,
+  "maxCohorts": 24
+}

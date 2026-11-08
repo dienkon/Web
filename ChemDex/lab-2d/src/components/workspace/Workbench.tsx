@@ -3,8 +3,10 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useLabStore } from '../../store/useLabStore';
 import { EquipmentRenderer } from '../equipment/EquipmentRenderer';
 import { PourStreamVfx } from '../vfx/PourStreamVfx';
+import { SafetyPpeBar } from './SafetyPpeBar';
 import { EquipmentType } from '../../types/equipment';
 import { soundEngine } from '../../services/soundEngine';
+import { reactionRuntime2D } from '../../vfx/ReactionRuntime2D';
 
 export const Workbench: React.FC = () => {
   const {
@@ -27,14 +29,35 @@ export const Workbench: React.FC = () => {
     triggerDirectPour,
     spillPuddles,
     cleanSpill,
-  } = useLabStore(useShallow(state => ({equipment: state.equipment,selectedEquipmentId: state.selectedEquipmentId,selectEquipment: state.selectEquipment,updatePosition: state.updatePosition,toggleHeat: state.toggleHeat,tareEquipment: state.tareEquipment,toggleBuretteStopcock: state.toggleBuretteStopcock,tickSimulation: state.tickSimulation,language: state.language,activePourVfx: state.activePourVfx,draggedChemicalId: state.draggedChemicalId,setDraggedChemicalId: state.setDraggedChemicalId,addChemicalToEquipment: state.addChemicalToEquipment,addEquipment: state.addEquipment,removeEquipment: state.removeEquipment,toggleStir: state.toggleStir,triggerDirectPour: state.triggerDirectPour,spillPuddles: state.spillPuddles,cleanSpill: state.cleanSpill})));
+    neutralizeSpill,
+  } = useLabStore(useShallow(state => ({equipment: state.equipment,selectedEquipmentId: state.selectedEquipmentId,selectEquipment: state.selectEquipment,updatePosition: state.updatePosition,toggleHeat: state.toggleHeat,tareEquipment: state.tareEquipment,toggleBuretteStopcock: state.toggleBuretteStopcock,tickSimulation: state.tickSimulation,language: state.language,activePourVfx: state.activePourVfx,draggedChemicalId: state.draggedChemicalId,setDraggedChemicalId: state.setDraggedChemicalId,addChemicalToEquipment: state.addChemicalToEquipment,addEquipment: state.addEquipment,removeEquipment: state.removeEquipment,toggleStir: state.toggleStir,triggerDirectPour: state.triggerDirectPour,spillPuddles: state.spillPuddles,cleanSpill: state.cleanSpill,neutralizeSpill: state.neutralizeSpill})));
 
-  // Continuous simulation loop (thermal heat transfer, burette dropwise titration, boiling)
+  // 60Hz Fixed-Timestep Physics & Reaction Visual Runtime + Store Simulation Loop
   useEffect(() => {
-    const timer = setInterval(() => {
-      if (!document.hidden) tickSimulation(0.25);
-    }, 250);
-    return () => clearInterval(timer);
+    let rafId = 0;
+    let lastTime = performance.now();
+    let storeAccum = 0;
+
+    const frame = (now: number) => {
+      const dt = Math.min(0.05, Math.max(0.001, (now - lastTime) / 1000));
+      lastTime = now;
+
+      if (!document.hidden && !useLabStore.getState().simulationPaused) {
+        // Step 60Hz particle & meniscus physics directly every animation frame
+        reactionRuntime2D.stepAll(Object.values(useLabStore.getState().equipment), dt);
+
+        // Step store thermodynamics, pressure, titration & spills at 12.5 Hz (every 80ms)
+        storeAccum += dt;
+        if (storeAccum >= 0.08) {
+          tickSimulation(storeAccum);
+          storeAccum = 0;
+        }
+      }
+      rafId = requestAnimationFrame(frame);
+    };
+
+    rafId = requestAnimationFrame(frame);
+    return () => cancelAnimationFrame(rafId);
   }, [tickSimulation]);
 
   const workbenchRef = useRef<HTMLDivElement>(null);
@@ -367,6 +390,9 @@ export const Workbench: React.FC = () => {
         </div>
       )}
 
+      {/* PPE & Safety Violation HUD Bar */}
+      <SafetyPpeBar />
+
       {/* Active Pouring Fluid Arc VFX */}
       {activePourVfx && (
         <PourStreamVfx
@@ -378,7 +404,7 @@ export const Workbench: React.FC = () => {
         />
       )}
 
-      {/* Chemical Spill Puddles on Workbench Tabletop */}
+      {/* Chemical Spill Puddles on Workbench Tabletop (with active chemistry & neutralization) */}
       {spillPuddles.map(puddle => (
         <div
           key={puddle.id}
@@ -391,9 +417,13 @@ export const Workbench: React.FC = () => {
           onClick={(e) => {
             e.stopPropagation();
             cleanSpill(puddle.id);
-            soundEngine.pour(0.3);
+            soundEngine.playSpongeWipe();
           }}
-          title={language === 'vi' ? `Vết đổ ${puddle.formula} (${puddle.volume_ml.toFixed(1)} mL) - Bấm để lau dọn` : `Spill ${puddle.formula} - Click to clean`}
+          title={
+            language === 'vi'
+              ? `Vết tràn ${puddle.formula} (${puddle.volume_ml.toFixed(1)} mL, pH ${(puddle.ph ?? 7).toFixed(1)}) - Bấm để lau dọn`
+              : `Spill ${puddle.formula} (${puddle.volume_ml.toFixed(1)} mL, pH ${(puddle.ph ?? 7).toFixed(1)}) - Click to clean`
+          }
         >
           <svg
             width={puddle.radius_px ? puddle.radius_px * 2.2 : 60}
@@ -405,7 +435,9 @@ export const Workbench: React.FC = () => {
             <path
               d="M 25,30 C 15,20 30,10 50,12 C 70,14 85,22 80,35 C 75,48 55,52 35,48 C 15,44 18,35 25,30 Z"
               fill={puddle.colorHex || '#94a3b8'}
-              fillOpacity="0.75"
+              fillOpacity="0.78"
+              stroke={puddle.isNeutralized ? '#10b981' : '#475569'}
+              strokeWidth="1"
             />
             {/* Glossy specular reflection */}
             <path
@@ -413,9 +445,37 @@ export const Workbench: React.FC = () => {
               fill="#ffffff"
               fillOpacity="0.5"
             />
+            {/* Active effervescence bubbles when spill is reacting or being neutralized */}
+            {puddle.isEffervescing && (
+              <g className="animate-bounce" fill="#ffffff" fillOpacity="0.85">
+                <circle cx="42" cy="28" r="3" />
+                <circle cx="55" cy="24" r="3.5" />
+                <circle cx="62" cy="32" r="2.5" />
+                <circle cx="48" cy="35" r="2.2" />
+              </g>
+            )}
+            {/* Broken glass shards inside puddle if caused by vessel shatter */}
+            {puddle.hasGlassShards && (
+              <g stroke="#e2e8f0" strokeWidth="1" fill="#f8fafc" fillOpacity="0.8">
+                <polygon points="36,34 44,30 41,39" />
+                <polygon points="58,28 66,32 60,37" />
+                <polygon points="48,22 53,26 46,27" />
+              </g>
+            )}
           </svg>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-900/90 text-white text-[9px] px-2 py-0.5 rounded-full whitespace-nowrap border border-slate-700 pointer-events-none shadow-md">
-            🧽 {language === 'vi' ? 'Lau dọn' : 'Clean'}
+          <div className="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 bg-slate-900/95 text-white text-[9px] px-2 py-0.5 rounded-full whitespace-nowrap border border-slate-700 shadow-md z-30">
+            <span>🧽 {language === 'vi' ? 'Lau' : 'Wipe'}</span>
+            {puddle.ph !== undefined && (puddle.ph < 5.5 || puddle.ph > 8.5) && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  neutralizeSpill(puddle.id);
+                }}
+                className="ml-1 px-1.5 py-0.2 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-semibold cursor-pointer"
+              >
+                +NaHCO₃
+              </button>
+            )}
           </div>
         </div>
       ))}

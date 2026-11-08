@@ -601,6 +601,7 @@ let _stockDoseId = 0;
 
 export const useAppStore = create<AppState>((set, get) => {
   let stirringSequence = 0;
+  let lastSpillCheckpoint = -Infinity;
   const materials = (): LabMaterialSnapshot => {
     const s = get();
     return { inFlightPours: s.inFlightPours, spills: s.spills, wasteMass_g: s.wasteMass_g, wasteContents: s.wasteContents, workbenchEscapedGas_g: s.workbenchEscapedGas_g,
@@ -1547,7 +1548,10 @@ export const useAppStore = create<AppState>((set, get) => {
     isPresentationMode: false,
     setPresentationMode: (val) => set({ isPresentationMode: val, leftSidebarOpen: !val, rightSidebarOpen: !val }),
     isSimulationPaused: false,
-    setSimulationPaused: (val) => set({ isSimulationPaused: val }),
+    setSimulationPaused: (val) => {
+      set({ isSimulationPaused: val });
+      if (val) debounceSaveLocalState(get().vessels, get().burners);
+    },
     cameraPreset: 'perspective',
     setCameraPreset: (preset) => set({ cameraPreset: preset }),
     cameraFocusPosition: null,
@@ -2209,6 +2213,7 @@ export const useAppStore = create<AppState>((set, get) => {
         }
       }
       const spillStep = stepWorkbenchSpills(get().spills, effectiveDt, environment), advancedSpills = spillStep.spills;
+      const spillChanged = advancedSpills !== get().spills;
       const workbenchEscapedGas_g = { ...get().workbenchEscapedGas_g };
       for (const [formula, grams] of Object.entries(spillStep.escapedGas_g))
         workbenchEscapedGas_g[formula] = (workbenchEscapedGas_g[formula] ?? 0) + grams;
@@ -2229,6 +2234,10 @@ export const useAppStore = create<AppState>((set, get) => {
           pendingReactions: newPending,
           dissolvingSubstances: newDissolving
         });
+        if (spillChanged && now - lastSpillCheckpoint >= 2000) {
+          lastSpillCheckpoint = now;
+          debounceSaveLocalState(get().vessels, get().burners);
+        }
       }
       // Failure consumes the committed, already-reacted sample. Calling it
       // before the frame commit would restore the broken vessel's old contents.
