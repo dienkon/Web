@@ -32,7 +32,8 @@ import {
   type QueryDocumentSnapshot,
   type DocumentData,
 } from "firebase/firestore";
-import { db } from "../../services/firebase/config";
+import { auth, db } from "../../services/firebase/config";
+import { offlineStore } from '../../services/offline/store';
 import type { Submission, Exam } from "../../types";
 import { formatDate, getTimestampMillis } from "../../utils/date";
 import RetakeModal from "../../components/exam/RetakeModal";
@@ -79,6 +80,12 @@ export default function StudentHistory() {
   const loadInitialHistory = async (explicitUsername?: string) => {
     setLoading(true);
     try {
+      if (navigator.onLine === false && auth.currentUser) {
+        const local = await offlineStore.listSubmissions(auth.currentUser.uid);
+        setSubmissions(local.sort((a, b) => b.savedAt - a.savedAt).map((s) => s.submission));
+        setHasMore(false);
+        return;
+      }
       const infoStr = localStorage.getItem("student_info");
       let studentUsername = explicitUsername || "";
       if (!studentUsername && infoStr) {

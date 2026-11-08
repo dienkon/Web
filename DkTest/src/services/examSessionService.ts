@@ -46,6 +46,10 @@ export interface ActiveExamSession {
 
 const GLOBAL_ACTIVE_SESSION_KEY = "dktest:session:active";
 const LEGACY_GLOBAL_KEY = "active_exam_session";
+const memorySessions = new Map<string, ActiveExamSession>();
+export function hydrateActiveExamSession(session: ActiveExamSession) {
+  memorySessions.set(`${session.studentUsername}:${session.examId}`, session);
+}
 
 export function getStudentIdentifier(): string {
   try {
@@ -152,6 +156,7 @@ export function saveActiveExamSession(data: {
   };
 
   try {
+    hydrateActiveExamSession(session);
     const serialized = JSON.stringify(session);
     localStorage.setItem(GLOBAL_ACTIVE_SESSION_KEY, serialized);
     localStorage.setItem(LEGACY_GLOBAL_KEY, serialized);
@@ -190,6 +195,7 @@ export function updateActiveExamSessionAnswers(
       if (extra?.warnings !== undefined) current.warnings = extra.warnings;
       if (extra?.questionTiming !== undefined) current.questionTiming = extra.questionTiming;
       current.updatedAt = Date.now();
+      hydrateActiveExamSession(current);
 
       const serialized = JSON.stringify(current);
       localStorage.setItem(GLOBAL_ACTIVE_SESSION_KEY, serialized);
@@ -280,6 +286,7 @@ export function updateActiveExamSessionStatus(
 
     current.status = newStatus;
     current.updatedAt = now;
+    hydrateActiveExamSession(current);
 
     const serialized = JSON.stringify(current);
     localStorage.setItem(GLOBAL_ACTIVE_SESSION_KEY, serialized);
@@ -300,6 +307,7 @@ export function updateActiveExamSessionStatus(
 export function getActiveExamSession(examId?: string): ActiveExamSession | null {
   try {
     const studentUsername = getStudentIdentifier();
+    const memory = examId ? memorySessions.get(`${studentUsername}:${examId}`) : undefined;
     let sessionStr =
       localStorage.getItem(GLOBAL_ACTIVE_SESSION_KEY) ||
       localStorage.getItem(LEGACY_GLOBAL_KEY);
@@ -313,9 +321,11 @@ export function getActiveExamSession(examId?: string): ActiveExamSession | null 
       }
     }
 
+    if (memory) sessionStr = JSON.stringify(memory);
     if (!sessionStr) return null;
 
     const session: ActiveExamSession = JSON.parse(sessionStr);
+    if (session.studentUsername !== studentUsername) return null;
     if (!session || !session.examId) {
       return null;
     }
@@ -341,7 +351,7 @@ export function getActiveExamSession(examId?: string): ActiveExamSession | null 
     session.startTime = (typeof session.startTime === "number" && !isNaN(session.startTime) && session.startTime > 0)
       ? session.startTime
       : Date.now();
-    session.durationMinutes = session.durationMinutes || 45;
+    session.durationMinutes = session.durationMinutes ?? 45;
 
     const normalizedStatus = normalizeSessionStatus(session.status);
 
@@ -361,7 +371,7 @@ export function getActiveExamSession(examId?: string): ActiveExamSession | null 
       submittedAt: session.submittedAt,
     });
 
-    if (remainingSeconds <= 0 && normalizedStatus === "taking") {
+    if (session.durationMinutes > 0 && remainingSeconds <= 0 && normalizedStatus === "taking") {
       session.status = "expired";
       localStorage.setItem(GLOBAL_ACTIVE_SESSION_KEY, JSON.stringify(session));
       return session;
@@ -375,16 +385,17 @@ export function getActiveExamSession(examId?: string): ActiveExamSession | null 
   }
 }
 
-export function hasActiveExamInProgress(examId?: string): ActiveExamSession | null {
+export function hasActiveExamInProgress(examId?: string, includeExpired = false): ActiveExamSession | null {
   const session = getActiveExamSession(examId);
   if (!session) return null;
 
   session.startTime = (typeof session.startTime === "number" && !isNaN(session.startTime) && session.startTime > 0)
     ? session.startTime
     : Date.now();
-  session.durationMinutes = session.durationMinutes || 45;
+  session.durationMinutes = session.durationMinutes ?? 45;
 
   const normalizedStatus = normalizeSessionStatus(session.status);
+  if (normalizedStatus === 'expired' && includeExpired) return session;
   // Terminal statuses are definitely not in progress
   if (["submitted", "suspended", "expired"].includes(normalizedStatus)) {
     return null;
@@ -398,7 +409,7 @@ export function hasActiveExamInProgress(examId?: string): ActiveExamSession | nu
       isPaused: !!session.isPaused,
       pauseStartedAt: session.pauseStartedAt,
     });
-    if (remaining > 0 || session.isPaused) {
+    if (remaining > 0 || session.isPaused || session.durationMinutes === 0) {
       return session;
     }
   }
@@ -412,6 +423,7 @@ export function hasActiveExamInProgress(examId?: string): ActiveExamSession | nu
 export function clearActiveExamSession(examId?: string, username?: string) {
   try {
     const studentUsername = username || getStudentIdentifier();
+    if (examId) memorySessions.delete(`${studentUsername}:${examId}`);
     localStorage.removeItem(GLOBAL_ACTIVE_SESSION_KEY);
     localStorage.removeItem(LEGACY_GLOBAL_KEY);
     if (examId) {
@@ -422,26 +434,7 @@ export function clearActiveExamSession(examId?: string, username?: string) {
       localStorage.removeItem(`dktest_temp_answers_${examId}_${studentUsername}`);
       localStorage.removeItem(`dktest_temp_answers_${examId}`);
 
-      // Thoroughly scan and remove any lingering keys related to this examId
-      try {
-        const keysToRemove: string[] = [];
-        for (let i = 0; i < localStorage.length; i++) {
-          const key = localStorage.key(i);
-          if (
-            key &&
-            (key.startsWith(`attemptSnapshot_${examId}`) ||
-              key.startsWith(`dktest_temp_answers_${examId}`) ||
-              key.startsWith(`exam_startTime_${examId}`) ||
-              key.startsWith(`active_exam_${examId}`) ||
-              key.startsWith(`dktest:session:${examId}`))
-          ) {
-            keysToRemove.push(key);
-          }
-        }
-        keysToRemove.forEach((k) => localStorage.removeItem(k));
-      } catch (scanErr) {
-        // Safe fallback for restricted storage environments
-      }
+      // Other students' private drafts for the same exam must remain intact.
     }
   } catch (e) {
     console.warn("Error clearing active exam session:", e);

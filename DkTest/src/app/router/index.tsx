@@ -6,6 +6,9 @@ import RequireAuth from "../../components/auth/RequireAuth";
 import { RouteErrorBoundary } from "../../components/common/RouteErrorBoundary";
 import { PageLoadingFallback } from "../../components/common/PageLoadingFallback";
 import { lazyWithRetry } from "../../utils/lazyWithRetry";
+import { isNativeAndroid } from '../../services/offline/sync';
+import OnlineOnly from '../../components/common/OnlineOnly';
+const OfflineLibrary = lazyWithRetry(() => import('../../pages/student/OfflineLibrary'), 'OfflineLibrary');
 
 // Helper to wrap lazy routes with Suspense fallback
 function withSuspense(Component: React.ComponentType<any>, label?: string) {
@@ -248,7 +251,7 @@ const router = createBrowserRouter([
     errorElement: <RouteErrorBoundary />,
     element: (
       <RequireAuth role="admin">
-        <AdminLayout />
+        <OnlineOnly><AdminLayout /></OnlineOnly>
       </RequireAuth>
     ),
     children: [
@@ -309,7 +312,8 @@ const router = createBrowserRouter([
     errorElement: <RouteErrorBoundary />,
     element: <StudentLayout />,
     children: [
-      { path: "", element: withSuspense(Home, "Đang tải trang chủ đề thi...") },
+      { path: "", element: isNativeAndroid() ? <Navigate to="/student/offline" replace /> : withSuspense(Home, "Đang tải trang chủ đề thi...") },
+      { path: "student/offline", element: withSuspense(OfflineLibrary, "Đang mở kho đề trên máy...") },
       { path: "exams", element: withSuspense(Home, "Đang tải danh sách đề thi...") },
       { path: "journey", element: withSuspense(LearningJourney, "Đang tải bản đồ hành trình...") },
       { path: "student/journey", element: withSuspense(LearningJourney, "Đang tải bản đồ hành trình...") },
@@ -329,7 +333,7 @@ const router = createBrowserRouter([
       { path: "student/community", element: withSuspense(Community, "Đang tải cộng đồng...") },
       { path: "student/chat", element: withSuspense(GlobalWorldChatPage, "Đang mở Kênh Thế Giới...") },
       { path: "chat", element: withSuspense(GlobalWorldChatPage, "Đang mở Kênh Thế Giới...") },
-      { path: "student/ai-tutor", element: withSuspense(AiTutorPage, "Đang kết nối Gia sư AI...") },
+      { path: "student/ai-tutor", element: <OnlineOnly>{withSuspense(AiTutorPage, "Đang kết nối Gia sư AI...")}</OnlineOnly> },
       { path: "student/wallet", element: withSuspense(StudentWallet, "Đang tải Ví DkTEST...") },
       { path: "wallet", element: withSuspense(StudentWallet, "Đang tải Ví DkTEST...") },
       { path: "voucher/:code", element: withSuspense(StudentWallet, "Đang nạp Voucher DkTEST...") },

@@ -45,6 +45,17 @@ import { reportError } from "./services/errorReporter";
 import { isChunkLoadError, triggerChunkRecovery } from "./utils/lazyWithRetry";
 import "./index.css";
 import "katex/dist/katex.min.css";
+import { isNativeAndroid } from './services/offline/sync';
+import { getApiBaseUrl } from './services/apiClient';
+
+if (isNativeAndroid()) {
+  // Older features still call fetch('/api/...') directly; route them to the real server.
+  const originalFetch = window.fetch.bind(window);
+  window.fetch = (input, init) => {
+    if (typeof input === 'string' && input.startsWith('/api/')) input = getApiBaseUrl() + input;
+    return originalFetch(input, init);
+  };
+}
 
 // Global JavaScript error listener
 window.addEventListener("error", (event) => {

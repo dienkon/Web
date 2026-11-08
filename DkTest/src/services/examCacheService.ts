@@ -3,6 +3,7 @@ import { db } from "./firebase/config";
 import { FirestoreCache } from "./firebase/firestoreCache";
 import { FirestoreRepository } from "./firebase/firestoreRepository";
 import type { Question, Section } from "../types";
+import { loadOfflineExam, prefersOfflineExam } from './offline/exams';
 
 /**
  * Invalidates home page cached queries for top attempted, newest, and filter lists.
@@ -48,6 +49,11 @@ export async function getExamQuestionsWithCache(
   options: { forceRefresh?: boolean; caller?: string } = {}
 ): Promise<Question[]> {
   if (!examId) return [];
+
+  if (prefersOfflineExam()) {
+    const pack = await loadOfflineExam(examId);
+    if (pack) return [...pack.questions].sort((a, b) => (a.order || 0) - (b.order || 0));
+  }
 
   const cacheKey = `exams/${examId}/questions`;
   const storageKey = `exam_questions_${examId}`;
@@ -121,6 +127,11 @@ export async function getExamSectionsWithCache(
   options: { forceRefresh?: boolean; caller?: string } = {}
 ): Promise<Section[]> {
   if (!examId) return [];
+
+  if (prefersOfflineExam()) {
+    const pack = await loadOfflineExam(examId);
+    if (pack) return [...pack.sections].sort((a, b) => (a.order || 0) - (b.order || 0));
+  }
 
   const cacheKey = `exams/${examId}/sections`;
   const storageKey = `exam_sections_${examId}`;

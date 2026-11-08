@@ -2,6 +2,10 @@
 
 DkTEST is a modern, clean, and minimalist examination system built with React, Vite, Tailwind CSS, and Firebase.
 
+## Android APK và đề thi offline
+
+Chạy `npm run android:apk` để tạo `releases/DkTEST-debug.apk`. Thí sinh đăng nhập và tải đề một lần khi có mạng, sau đó có thể đóng/mở app, bắt đầu bài mới, tiếp tục bài nháp và nộp bài offline. Android tự đồng bộ bài chờ khi có mạng. Xem [hướng dẫn Android/offline](docs/android-offline.md) để cài đặt, build, kiểm tra và biết phạm vi hỗ trợ.
+
 ## JSON Format
 
 DkTEST features a robust **JSON Exam Import/Export Engine** designed to handle full exam data, question banks, and individual sections safely and efficiently. The JSON format is considered a primary exchange format for DkTEST.

@@ -23,5 +23,5 @@
     "allowImportingTsExtensions": true,
     "noEmit": true
   },
-  "exclude": ["repo", "dist", "node_modules", "scratch"]
+  "exclude": ["repo", "dist", "dist-mobile", "android", "node_modules", "scratch"]
 }

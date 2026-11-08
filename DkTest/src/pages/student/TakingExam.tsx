@@ -65,6 +65,7 @@ import {
   getActiveExamSession,
   clearActiveExamSession,
   hasActiveExamInProgress,
+  hydrateActiveExamSession,
 } from "../../services/examSessionService";
 import {
   ExamSessionStatus,
@@ -79,6 +80,10 @@ import InteractiveFillBlankText from "../../components/exam/InteractiveFillBlank
 import InteractiveMatchingBoard from "../../components/exam/InteractiveMatchingBoard";
 import ExamPreExamSolutionPreviewModal from "../../components/exam/ExamPreExamSolutionPreviewModal";
 import { useToast } from "../../components/ui/ToastNotification";
+import { isNativeAndroid } from '../../services/offline/sync';
+import { prefersOfflineExam } from '../../services/offline/exams';
+import { resolveOfflineUrl } from '../../services/offline/media';
+import { offlineStore, type OfflineDraft } from '../../services/offline/store';
 
 function shuffleArray<T>(array: T[]): T[] {
   const arr = [...array];
@@ -201,6 +206,7 @@ export default function TakingExam() {
 
   const startTimeRef = useRef<number>(Date.now());
   const attemptIdRef = useRef<string>("");
+  const recoveredDraftRef = useRef<OfflineDraft | undefined>(undefined);
   const sessionIdRef = useRef<string>((() => {
     try {
       const sInfo = localStorage.getItem("current_student_session") || localStorage.getItem("student_info");
@@ -339,6 +345,7 @@ export default function TakingExam() {
 
   // Realtime Active Session Sync to RTDB (100% PURE RTDB - ZERO FIRESTORE WRITES)
   const syncCurrentSession = async (force: boolean = false) => {
+    if (!navigator.onLine) return;
     if (!examId || loading || !exam || !isSessionActiveRef.current || isSubmittingRef.current) return;
 
     const now = Date.now();
@@ -472,6 +479,7 @@ export default function TakingExam() {
 
   // Clean unmount (Directive 19: Do NOT delete RTDB session on unmount)
   useEffect(() => {
+    isSessionActiveRef.current = true;
     return () => {
       isSessionActiveRef.current = false;
       if (screenIntervalRef.current) clearInterval(screenIntervalRef.current);
@@ -567,8 +575,10 @@ export default function TakingExam() {
   }, [loading, exam, isPaused, isSuspended, isScreenSharing]);
 
   useEffect(() => {
+    let active = true;
     const loadExamAndPrepare = async () => {
       if (!examId) return;
+      isSessionActiveRef.current = true;
 
       // 1. Enforce Student Login Authentication
       const authRole = localStorage.getItem("auth_role");
@@ -581,7 +591,22 @@ export default function TakingExam() {
 
       setLoading(true);
       try {
+        if (auth.currentUser && (isNativeAndroid() || prefersOfflineExam())) {
+          const draft = await offlineStore.getDraft(auth.currentUser.uid, examId);
+          if (!active) return;
+          const current = getActiveExamSession(examId);
+          if (draft && (!current || draft.session.updatedAt >= current.updatedAt)) {
+            const submitted = await offlineStore.getSubmission(draft.session.submissionId || `sub_${draft.session.attemptId}`);
+            if (submitted) {
+              navigate(`/student/exam/${examId}/result/${submitted.id}?offline=1`, { replace: true });
+              return;
+            }
+            recoveredDraftRef.current = draft;
+            hydrateActiveExamSession(draft.session);
+          }
+        }
         const data = ((await getExam(examId)) as any);
+        if (!active) return;
         if (!data) {
           showErrorToast("Không tìm thấy bài thi!");
           navigate("/", { replace: true });
@@ -681,7 +706,7 @@ export default function TakingExam() {
         }
 
         // 2. Kiểm tra xác thực quyền truy cập từ Server (Backend Gate)
-        if (isPaid || isPersonalRetake) {
+        if ((isPaid || isPersonalRetake) && !(examData as any)._offlineDownloaded) {
           try {
             const { checkExamAccess } = await import("../../services/walletClientService");
             const access = await checkExamAccess(examId);
@@ -730,11 +755,13 @@ export default function TakingExam() {
         let rawQuestions: Question[] = await getExamQuestionsWithCache(examId, docQuestions, {
           caller: "TakingExam:questions",
         });
+        if (!active) return;
 
         // Fetch sections with multi-tier cache (RAM -> SessionStorage -> FirestoreRepository)
         let rawSections: Section[] = await getExamSectionsWithCache(examId, docSections, {
           caller: "TakingExam:sections",
         });
+        if (!active) return;
 
         if (examData.shuffleSections && rawSections.length > 0) {
           const unpinned = shuffleArray(rawSections.filter((s) => !s.pinOrder));
@@ -749,7 +776,7 @@ export default function TakingExam() {
         const snapshotKey = `attemptSnapshot_${examId}_${studentIdentifier}`;
 
         // Check active in-progress session (authoritative resume vs fresh attempt)
-        const inProgressSession = hasActiveExamInProgress(examId);
+        const inProgressSession = hasActiveExamInProgress(examId, true);
         const isResuming = !!inProgressSession;
 
         if (isResuming && inProgressSession) {
@@ -774,7 +801,7 @@ export default function TakingExam() {
           return;
         }
 
-        if (examData.closeTime && new Date(examData.closeTime).getTime() <= Date.now()) {
+        if (examData.closeTime && new Date(examData.closeTime).getTime() <= Date.now() && !isResuming) {
           showErrorToast("Bài thi đã kết thúc thời gian làm bài (đã đóng đề)!");
           navigate(`/student/exam/${examId}`, { replace: true });
           return;
@@ -785,7 +812,8 @@ export default function TakingExam() {
         if (examData.maxAttempts && examData.maxAttempts > 0 && !isResuming && !isRetakeQuery) {
           try {
             const attemptCacheKey = `exam_attempts_count:${examId}:${studentIdentifier}`;
-            let attemptsCount: number | null = FirestoreCache.get<number>(attemptCacheKey);
+            let attemptsCount: number | null = (examData as any)._offlineDownloaded
+              ? (examData as any)._offlineAttemptsUsed : FirestoreCache.get<number>(attemptCacheKey);
 
             if (attemptsCount === null && typeof sessionStorage !== "undefined") {
               const sessionVal = sessionStorage.getItem(`exam_attempts_${examId}_${studentIdentifier}`);
@@ -839,6 +867,7 @@ export default function TakingExam() {
             const snapshotStr = localStorage.getItem(snapshotKey);
             if (snapshotStr) activeSnapshot = JSON.parse(snapshotStr);
           } catch (e) {}
+          if (recoveredDraftRef.current) activeSnapshot = recoveredDraftRef.current.snapshot;
         }
 
         const isSubExamAttempt = Boolean(
@@ -984,7 +1013,7 @@ export default function TakingExam() {
             createdAt: Date.now(),
             answers: {},
           };
-          localStorage.setItem(snapshotKey, JSON.stringify(newSnapshot));
+          try { localStorage.setItem(snapshotKey, JSON.stringify(newSnapshot)); } catch { /* IndexedDB stores the full frozen attempt below. */ }
           try {
             localStorage.removeItem(`custom_sub_exam_config_${examId}`);
           } catch {}
@@ -1017,7 +1046,7 @@ export default function TakingExam() {
             }
           } catch (e) {}
 
-          const finalRestoredAnswers = (localAnswers && Object.keys(localAnswers).length > 0)
+          const finalRestoredAnswers = recoveredDraftRef.current ? recoveredDraftRef.current.session.answers : (localAnswers && Object.keys(localAnswers).length > 0)
             ? localAnswers
             : (inProgressSession.answers && Object.keys(inProgressSession.answers).length > 0)
               ? inProgressSession.answers
@@ -1147,7 +1176,7 @@ export default function TakingExam() {
             return safe;
           });
 
-          await syncRealtimeSession({
+          if (navigator.onLine) void syncRealtimeSession({
             sessionId: freshSessId,
             attemptId: attemptIdRef.current || freshSessId,
             examId: examId || "",
@@ -1168,22 +1197,27 @@ export default function TakingExam() {
             activeQuestionIdx: 0,
             shuffledQuestions: sanitizedQuestionsForLive,
             questionOrder: allQuestions.map((q) => q.id),
-          });
+          }).catch((error) => console.warn('Live sync pending:', error));
         } catch (sErr) {
           console.warn("Initial syncRealtimeSession warning:", sErr);
         }
 
       } catch (err) {
         console.error("Lỗi khi chuẩn bị phòng thi:", err);
+        showErrorToast((err as Error)?.message || 'Không mở được đề. Hãy kiểm tra bản tải trong kho offline.');
+        navigate('/student/offline', { replace: true });
       } finally {
+        if (active) {
         setLoading(false);
         setTimeout(() => {
           syncCurrentSession(true);
         }, 100);
+        }
       }
     };
 
     loadExamAndPrepare();
+    return () => { active = false; };
   }, [examId, navigate]);
 
   // Authoritative timer countdown & auto-submit when remaining time expires (Directive 9 & 10)
@@ -1256,6 +1290,15 @@ export default function TakingExam() {
         warnings,
         questionTiming: questionTimingRef.current,
       });
+
+      if (auth.currentUser && (isNativeAndroid() || prefersOfflineExam())) {
+        const current = getActiveExamSession(examId);
+        if (current) void offlineStore.saveDraft({
+          key: `${auth.currentUser.uid}:${examId}`, uid: auth.currentUser.uid, examId,
+          session: current,
+          snapshot: { shuffledQuestions: questions, configSnapshot: subExamConfigUsedRef.current, isSubExam: isSubExamUsedRef.current },
+        }).catch(() => showErrorToast('Không lưu được bài nháp vào thiết bị. Kiểm tra dung lượng máy và nộp bài để lưu vào hàng đợi.'));
+      }
 
       // Also persist answers into attemptSnapshot
       try {
@@ -1705,6 +1748,8 @@ export default function TakingExam() {
         submissionId
       );
 
+      // Online extras must never hold the local acknowledgement or result screen hostage.
+      if (!isNativeAndroid() && !prefersOfflineExam()) {
       // Record mastery if retake
       if ((exam.isRetake || exam.isAggregatedReview) && correctQuestionIds && correctQuestionIds.length > 0) {
         try {
@@ -1753,12 +1798,14 @@ export default function TakingExam() {
       } catch (sessErr) {
         console.warn("Could not remove session from RTDB on submit:", sessErr);
       }
+      }
 
       // Update active exam session status to submitted
       updateActiveExamSessionStatus(examId, "submitted", { submissionId: sub.id });
 
       // Thoroughly clear all cached answers, attempt snapshot, and timer for this exam
       clearActiveExamSession(examId, studentUsername);
+      if (auth.currentUser) await offlineStore.deleteDraft(auth.currentUser.uid, examId);
       setSessionStatus("submitted");
 
       // Save submission ID to local submission history
@@ -1790,7 +1837,7 @@ export default function TakingExam() {
         console.warn("Could not save local submission history", histErr);
       }
 
-      navigate(`/student/exam/${examId}/result/${sub.id}`, { replace: true });
+      navigate(`/student/exam/${examId}/result/${sub.id}${isNativeAndroid() || prefersOfflineExam() ? '?offline=1' : ''}`, { replace: true });
     } catch (err: any) {
       console.error("Lỗi khi nộp bài:", err);
       const errMsg = err?.message || "Không thể hoàn tất nộp bài. Bài làm của bạn vẫn được bảo toàn.";
@@ -2504,7 +2551,7 @@ export default function TakingExam() {
         <div className="fixed top-16 left-0 right-0 z-[105] bg-amber-500 text-white px-4 py-2 shadow-md flex items-center justify-center animate-in slide-in-from-top duration-200">
           <div className="flex items-center gap-2 text-xs font-bold">
             <AlertTriangle className="w-4 h-4 shrink-0 animate-pulse text-amber-100" />
-            <span>Mất kết nối Internet tạm thời! Đừng lo lắng, câu trả lời của bạn vẫn được lưu an toàn trên máy này. Hãy tiếp tục làm bài, hệ thống sẽ tự động đồng bộ khi có mạng.</span>
+            <span>Đang làm bài offline. Câu trả lời lưu trên thiết bị. Bạn có thể nộp bài ngay; ứng dụng sẽ tự gửi bài khi có mạng.</span>
           </div>
         </div>
       )}
@@ -2514,7 +2561,7 @@ export default function TakingExam() {
         <div className="fixed top-16 left-0 right-0 z-[105] bg-emerald-600 text-white px-4 py-2 shadow-md flex items-center justify-center animate-in slide-in-from-top duration-200">
           <div className="flex items-center gap-2 text-xs font-bold">
             <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-100" />
-            <span>Đã kết nối Internet trở lại! Đã đồng bộ an toàn dữ liệu bài thi với máy chủ.</span>
+            <span>Đã kết nối Internet trở lại. Ứng dụng đang kiểm tra và gửi các bài còn chờ đồng bộ.</span>
           </div>
         </div>
       )}

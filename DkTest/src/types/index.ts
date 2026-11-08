@@ -325,6 +325,7 @@ export interface AiAnalysisCache {
 }
 
 export interface Submission {
+  studentUid?: string;
   id: string;
   attemptId?: string;
   submissionReason?: "manual" | "timeout" | "admin_force" | "suspended";

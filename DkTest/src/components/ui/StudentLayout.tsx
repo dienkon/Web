@@ -115,9 +115,9 @@ function StudentLayoutContent() {
 
         // Fetch fresh avatar and profile from Firestore to ensure permanent sync
         const username = parsed.username || parsed.name || parsed.displayName;
-        if (username) {
+        if (username && navigator.onLine) {
           import("../../services/studentService").then(({ getStudent }) => {
-            getStudent(username).then((studentDoc) => {
+            return getStudent(username).then((studentDoc) => {
               if (studentDoc && studentDoc.avatarUrl) {
                 const updated = {
                   ...parsed,
@@ -128,7 +128,7 @@ function StudentLayoutContent() {
                 localStorage.setItem("student_info", JSON.stringify(updated));
               }
             });
-          });
+          }).catch(() => {});
         }
       } catch (e) {
         // ignore
@@ -173,6 +173,7 @@ function StudentLayoutContent() {
   const hideStudentNav = isTakingExam || isExamResult;
 
   const navItems = [
+    { to: "/student/offline", label: "Đề thi offline", icon: BookOpen },
     { to: "/", label: "Đề thi", icon: BookOpen, tourId: TOUR_DATA_IDS.NAV_EXAMS, actionKey: "click_exams" },
     { to: "/journey", label: "Hành trình", icon: MapPin, iconColor: "text-emerald-500", actionKey: "click_journey" },
     { to: "/student/arena", label: "Đấu Trường", icon: Swords, iconColor: "text-amber-500", actionKey: "click_arena" },

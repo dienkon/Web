@@ -12,6 +12,7 @@ import {
   Radio,
 } from "lucide-react";
 import type { ExamAudioConfig } from "../../types";
+import { resolveOfflineUrl } from '../../services/offline/media';
 
 interface Props {
   config: ExamAudioConfig;
@@ -154,7 +155,7 @@ export default function ExamAudioPlayer({ config, examId, studentUsername = "stu
       {/* Hidden native audio element */}
       <audio
         ref={audioRef}
-        src={config.url}
+        src={resolveOfflineUrl(config.url)}
         preload="metadata"
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}

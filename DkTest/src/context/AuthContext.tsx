@@ -18,6 +18,15 @@ import { auth, db } from "../services/firebase/config";
 import { FirestoreCache } from "../services/firebase/firestoreCache";
 import type { UserProfile, UserRole, AccountStatus } from "../types";
 import { STORAGE_KEYS, setStoredItem, removeStoredItem } from "../utils/storage";
+import { clearNativeSyncSession, enableNativeSyncSession } from '../services/offline/sync';
+import { clearOfflineMedia } from '../services/offline/media';
+
+function savedStudentProfile(uid: string): UserProfile | null {
+  try {
+    const profile = JSON.parse(localStorage.getItem(`dktest_offline_profile_${uid}`) || 'null');
+    return profile?.uid === uid && profile?.role === 'student' ? profile : null;
+  } catch { return null; }
+}
 import {
   claimUsernameApi,
   loginWithUsernameApi,
@@ -78,6 +87,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // Sync legacy localStorage keys to ensure complete backward compatibility with older components
   const syncLegacyStorage = (profile: UserProfile | null) => {
+    if (profile?.role === 'student') {
+      localStorage.setItem(`dktest_offline_profile_${profile.uid}`, JSON.stringify(profile));
+    }
     if (!profile) {
       if (isAdminAuthenticated()) {
         return;
@@ -140,6 +152,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     intendedRole?: "student" | "parent",
     extraFields?: Record<string, any>
   ): Promise<UserProfile> => {
+    const saved = savedStudentProfile(firebaseUser.uid);
+    if (!navigator.onLine && saved) {
+      syncLegacyStorage(saved);
+      return saved;
+    }
     const userRef = doc(db, "users", firebaseUser.uid);
     const userSnap = await getDoc(userRef);
 
@@ -325,6 +342,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
       if (currentUser) {
+        enableNativeSyncSession(currentUser.uid);
+        const saved = savedStudentProfile(currentUser.uid);
+        if (saved) {
+          setUserProfile(saved);
+          syncLegacyStorage(saved);
+          setLoading(false);
+          setAuthInitialized(true);
+        }
         try {
           // Race profile fetch against a 3.5s timeout to prevent hanging on slow 3G/4G
           const profilePromise = fetchOrCreateProfile(currentUser);
@@ -342,7 +367,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 createdAt: new Date().toISOString(),
                 updatedAt: new Date().toISOString(),
               };
-              resolve(basicProfile);
+              resolve(saved || basicProfile);
             }, 3500);
           });
 
@@ -569,6 +594,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const logout = async (): Promise<void> => {
+    await clearNativeSyncSession();
+    clearOfflineMedia();
     try {
       await signOut(auth);
     } catch (e) {}

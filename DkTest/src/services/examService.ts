@@ -15,6 +15,7 @@ import {
 } from "./statsAggregatorService";
 
 import { invalidateHomeTopCache } from "./examCacheService";
+import { prefersOfflineExam, loadOfflineExam, countOfflineAttempts } from './offline/exams';
 
 export const getExamList = async ({
   pageSize = 10,
@@ -107,6 +108,11 @@ export const getExamList = async ({
 
 export const getExam = async (examId: string, forceRefresh = false): Promise<Exam | null> => {
   if (!examId) return null;
+  if (prefersOfflineExam() && !forceRefresh) {
+    const pack = await loadOfflineExam(examId);
+    if (pack) return { ...pack.exam, questions: pack.questions, sections: pack.sections, _offlineDownloaded: true, _offlineAttemptsUsed: await countOfflineAttempts(pack) } as Exam;
+    if (!navigator.onLine) throw new Error('Đề chưa được tải về máy. Kết nối mạng để tải đề trước.');
+  }
   const cacheKey = `doc:${EXAMS_COLLECTION}:${examId}`;
   const storageKey = `exam_${examId}`;
 

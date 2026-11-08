@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import confetti from "canvas-confetti";
+import { resolveOfflineUrl } from '../../services/offline/media';
+import OfflineSubmissionNotice from '../../components/student/OfflineSubmissionNotice';
+import { useOnline } from '../../hooks/useOnline';
 import {
   Trophy,
   Clock,
@@ -68,6 +71,7 @@ import { useToast } from "../../components/ui/ToastNotification";
 import QuestionMapNavigator from "../../components/exam/QuestionMapNavigator";
 
 export default function ExamResult() {
+  const online = useOnline();
   const { examId, submissionId } = useParams<{ examId: string; submissionId: string }>();
   const navigate = useNavigate();
   const { error: showErrorToast, success: showSuccessToast } = useToast();
@@ -491,6 +495,7 @@ export default function ExamResult() {
   return (
     <div className="min-h-screen bg-slate-50/70 py-8 px-4 font-sans print:bg-white print:p-0">
       <div className="max-w-4xl w-full mx-auto space-y-6">
+        <OfflineSubmissionNotice id={submissionId} />
 
         {/* Top Navigation Bar with Back & Word Export - Sticky for easy access */}
         <div className="sticky top-2 z-40 flex items-center justify-between print:hidden flex-wrap gap-2 bg-white/95 backdrop-blur-md border border-slate-200/80 p-2.5 rounded-2xl shadow-sm transition-all">
@@ -958,7 +963,7 @@ export default function ExamResult() {
             </button>
           </div>
 
-          {showAiAnalysis ? (
+          {showAiAnalysis && online ? (
             <AiAnalyticsWidget 
               examId={examId || submission.examId} 
               currentSubmission={submission}
@@ -1481,7 +1486,7 @@ export default function ExamResult() {
                           <Headphones className="w-4 h-4 text-indigo-600" />
                           <span>{q.audioConfig?.title || "Audio bài nghe của câu hỏi"}</span>
                         </div>
-                        <audio controls src={q.audioConfig?.url || q.audioUrl || ""} className="w-full h-8 rounded-lg" />
+                        <audio controls src={resolveOfflineUrl(q.audioConfig?.url || q.audioUrl || "")} className="w-full h-8 rounded-lg" />
                       </div>
                     )}
 
@@ -2036,12 +2041,12 @@ export default function ExamResult() {
         />
 
         {/* AI Tutor Chat Widget */}
-        <AiTutorChat
+        {online && <AiTutorChat
           examTitle={exam?.title}
           questionContext={aiQuestionContext}
           autoPrompt={autoAiPrompt}
           onClearAutoPrompt={() => setAutoAiPrompt(null)}
-        />
+        />}
       </div>
     </div>
   );

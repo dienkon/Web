@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { resolveOfflineContent } from '../../../services/offline/media';
 import katex from "katex";
 import { renderDiscordCodeBlock } from "../../../utils/codeHighlighter";
 import { renderBBTToHtml } from "../../math-draw/bbtRenderer";
@@ -980,6 +981,7 @@ export function mountHtmlWidgets(container: HTMLElement) {
  */
 export function renderMarkdownWithLatex(rawText: string): string {
   if (!rawText) return "";
+  rawText = resolveOfflineContent(rawText);
 
   // 0. Extract and protect RAW blocks FIRST using tokenizer state machine
   const { text: textWithoutRaw, rawBlocks } = extractRawBlocks(rawText);

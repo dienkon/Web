@@ -53,6 +53,7 @@ export async function apiClient<T = any>(
   endpoint: string,
   options: RequestOptions = {}
 ): Promise<T> {
+  if (typeof navigator !== 'undefined' && navigator.onLine === false) throw new ApiError('Chức năng này cần kết nối mạng. Bạn vẫn có thể làm các đề đã tải trong kho offline.', 0);
   const { requiresAuth = true, timeoutMs = 20000, headers = {}, ...customConfig } = options;
 
   const baseUrl = getApiBaseUrl();

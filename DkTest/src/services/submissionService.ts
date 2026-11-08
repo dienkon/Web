@@ -2,6 +2,7 @@ import {
   collection,
   doc,
   getDoc,
+  getDocFromServer,
   getDocs,
   query,
   limit,
@@ -12,7 +13,10 @@ import {
   where,
   serverTimestamp,
 } from "firebase/firestore";
-import { db } from "./firebase/config";
+import { auth, db } from "./firebase/config";
+import { offlineStore } from './offline/store';
+import { queueSubmission, isNativeAndroid } from './offline/sync';
+import { prefersOfflineExam } from './offline/exams';
 import type { Submission, PaginatedResult, AiAnalysisCache } from "../types";
 import { logDocRead, logQueryRead, logDocWrite } from "../utils/firestoreLogger";
 import { updateGlobalStatsOnSubmission } from "./statsAggregatorService";
@@ -57,6 +61,23 @@ export const getExamSubmissions = async ({
 
 export const getSubmission = async (submissionId: string): Promise<Submission | null> => {
   if (!submissionId) return null;
+  const local = typeof indexedDB !== 'undefined' ? await offlineStore.getSubmission(submissionId).catch(() => undefined) : undefined;
+  if (local && auth.currentUser?.uid === local.uid) {
+    if (local.state === 'synced' && navigator.onLine) {
+      try {
+        const fresh = await Promise.race([
+          getDocFromServer(doc(db, SUBMISSIONS_COLLECTION, submissionId)),
+          new Promise<never>((_, reject) => setTimeout(() => reject(new Error('offline')), 3500)),
+        ]);
+        if (fresh.exists()) {
+          const submission = { ...fresh.data(), id: fresh.id } as Submission;
+          await offlineStore.refreshSubmission(submissionId, submission);
+          return submission;
+        }
+      } catch { /* Keep the last saved result available during unreliable connectivity. */ }
+    }
+    return local.submission;
+  }
 
   // 1. In-memory cache check (both key styles for maximum compatibility)
   const cached =
@@ -117,6 +138,15 @@ export const createSubmission = async (
 
   const docRef = subId ? doc(db, SUBMISSIONS_COLLECTION, subId) : doc(collection(db, SUBMISSIONS_COLLECTION));
 
+  if (isNativeAndroid() || prefersOfflineExam()) {
+    const local = removeUndefinedValues({
+      ...submissionData, id: docRef.id, attemptId: submissionData.attemptId || docRef.id,
+      studentUid: auth.currentUser?.uid,
+      submittedAt: { seconds: Math.floor(Date.now() / 1000), nanoseconds: 0 },
+    }) as Submission;
+    return queueSubmission(local);
+  }
+
   // In-memory idempotency check: avoid duplicate writes without incurring an extra Firestore read
   if (subId) {
     const cachedSub = FirestoreCache.get<Submission>(`${SUBMISSIONS_COLLECTION}:${subId}`);
@@ -127,6 +157,7 @@ export const createSubmission = async (
 
   const sanitized = removeUndefinedValues({
     ...submissionData,
+    studentUid: auth.currentUser?.uid,
     attemptId: submissionData.attemptId || docRef.id,
   });
   const newSubmission = {

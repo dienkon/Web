@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Loader2 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import { getFriendlyAuthErrorMessage } from "../../utils/authErrors";
+import { isNativeAndroid } from '../../services/offline/sync';
 
 interface GoogleLoginButtonProps {
   intendedRole?: "student" | "parent";
@@ -38,6 +39,8 @@ export default function GoogleLoginButton({
       setLoading(false);
     }
   };
+
+  if (isNativeAndroid()) return <p className="text-xs text-slate-500 text-center">Trên Android, đăng nhập bằng tên tài khoản hoặc email và mật khẩu. Với tài khoản Google, hãy đặt mật khẩu trên website trước.</p>;
 
   return (
     <button

@@ -1,6 +1,12 @@
 node_modules/
 build/
 dist/
+dist-mobile/
+releases/
+test-results/
+playwright-report/
+*.keystore
+*.jks
 coverage/
 .DS_Store
 *.log
