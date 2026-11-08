@@ -32,90 +32,12 @@ walletRouter.use((_req, res, next) => {
 // PUBLIC / AUTHENTICATED EXAM ACCESS CHECK
 // -------------------------------------------------------------
 // GET /api/exams/:examId/access
-walletRouter.get("/exams/:examId/access", async (req: AuthenticatedRequest, res: Response) => {
+walletRouter.get("/exams/:examId/access", requireAuth, async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const examId = req.params.examId;
-    const authHeader = req.headers.authorization;
-    let uid: string | null = null;
-    let role: string | undefined = undefined;
-
-    // Optional auth check without failing unauthenticated visitors
-    if (authHeader && authHeader.startsWith("Bearer ")) {
-      const token = authHeader.split("Bearer ")[1]?.trim();
-      if (token) {
-        const configuredAdminKey = process.env.ADMIN_SECRET_KEY || process.env.DK_ADMIN_MASTER_KEY || "dk_admin_master_secret_2026";
-        if (token === configuredAdminKey || token.startsWith("dk_admin_")) {
-          uid = "admin_master";
-          role = "admin";
-        } else {
-          try {
-            if (adminAuth) {
-              const decoded = await adminAuth.verifyIdToken(token);
-              uid = decoded.uid;
-              role = (decoded.role as string) || (decoded.admin ? "admin" : "student");
-            } else {
-              const parts = token.split(".");
-              if (parts.length === 3) {
-                const payload = JSON.parse(Buffer.from(parts[1], "base64").toString("utf-8"));
-                uid = payload.user_id || payload.sub || null;
-                role = payload.role || undefined;
-              }
-            }
-          } catch (e) {
-            // Optional auth parse error - continue unauthenticated
-          }
-        }
-      }
-    }
-
-    // Fallback to student identity headers or query params if Bearer token was not present or didn't resolve UID
-    if (!uid) {
-      const headerUid = (req.headers["x-student-uid"] as string)?.trim();
-      const queryUid = (req.query.studentUid as string)?.trim();
-      const headerUsername = (req.headers["x-student-username"] as string)?.trim();
-      const queryUsername = (req.query.studentUsername as string)?.trim();
-
-      if (headerUid || queryUid) {
-        uid = headerUid || queryUid;
-        role = role || "student";
-      } else if (headerUsername || queryUsername) {
-        const uName = (headerUsername || queryUsername).toLowerCase();
-        if (adminDb) {
-          try {
-            const uSnap = await adminDb.collection("usernames").doc(uName).get();
-            if (uSnap.exists && uSnap.data()?.uid) {
-              uid = uSnap.data()!.uid;
-            } else {
-              const uQuery = await adminDb.collection("users").where("usernameNormalized", "==", uName).limit(1).get();
-              if (!uQuery.empty) {
-                uid = uQuery.docs[0].id;
-              } else {
-                uid = uName;
-              }
-            }
-          } catch (_) {
-            uid = uName;
-          }
-        } else {
-          try {
-            const uDoc = await getFirestoreRestDoc("usernames", uName);
-            if (uDoc?.uid) {
-              uid = uDoc.uid;
-            } else {
-              uid = uName;
-            }
-          } catch (_) {
-            uid = uName;
-          }
-        }
-        role = role || "student";
-      }
-    }
-
-    const result = await checkExamAccess(uid, examId, role);
+    const result = await checkExamAccess(req.user!.uid, req.params.examId, req.user!.role);
     return res.json({ success: true, ...result });
   } catch (err: any) {
-    return res.status(400).json({ error: "access_check_error", message: err.message || String(err) });
+    return res.status(400).json({ error: "access_check_error", message: err.message || "Không kiểm tra được quyền truy cập." });
   }
 });
 

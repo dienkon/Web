@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+def dkRelease = new groovy.json.JsonSlurper().parse(rootProject.file('../release.json'))
 
 android {
     namespace = "vn.dktest.student"
@@ -7,8 +8,8 @@ android {
         applicationId "vn.dktest.student"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.8.26-offline"
+        versionCode dkRelease.androidVersionCode
+        versionName "${dkRelease.version}-${dkRelease.channel}"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.

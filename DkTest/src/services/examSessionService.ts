@@ -53,17 +53,17 @@ export function hydrateActiveExamSession(session: ActiveExamSession) {
 
 export function getStudentIdentifier(): string {
   try {
-    const currentSessionStr = localStorage.getItem("current_student_session");
-    if (currentSessionStr) {
-      const parsed = JSON.parse(currentSessionStr);
-      if (parsed.username || parsed.code) return parsed.username || parsed.code;
-    }
     const studentInfoStr =
       localStorage.getItem("dktest:auth:student_info") ||
       localStorage.getItem("student_info");
     if (studentInfoStr) {
       const parsed = JSON.parse(studentInfoStr);
       return parsed.username || parsed.displayName || "student";
+    }
+    const currentSessionStr = localStorage.getItem("current_student_session");
+    if (currentSessionStr) {
+      const parsed = JSON.parse(currentSessionStr);
+      if (parsed.username || parsed.code) return parsed.username || parsed.code;
     }
   } catch (e) {}
   return "student";

@@ -8,6 +8,9 @@ import { PageLoadingFallback } from "../../components/common/PageLoadingFallback
 import { lazyWithRetry } from "../../utils/lazyWithRetry";
 import { isNativeAndroid } from '../../services/offline/sync';
 import OnlineOnly from '../../components/common/OnlineOnly';
+import MobileLanding from '../../components/student/MobileLanding';
+const MobileOnline = lazyWithRetry(() => import('../../pages/student/MobileOnline'), 'MobileOnline');
+const OfflineExamSetup = lazyWithRetry(() => import('../../pages/student/OfflineExamSetup'), 'OfflineExamSetup');
 const OfflineLibrary = lazyWithRetry(() => import('../../pages/student/OfflineLibrary'), 'OfflineLibrary');
 
 // Helper to wrap lazy routes with Suspense fallback
@@ -312,9 +315,11 @@ const router = createBrowserRouter([
     errorElement: <RouteErrorBoundary />,
     element: <StudentLayout />,
     children: [
-      { path: "", element: isNativeAndroid() ? <Navigate to="/student/offline" replace /> : withSuspense(Home, "Đang tải trang chủ đề thi...") },
+      { path: "", element: isNativeAndroid() ? <MobileLanding /> : withSuspense(Home, "Đang tải trang chủ đề thi...") },
+      { path: "student/online", element: withSuspense(MobileOnline, "Đang mở đề thi Online...") },
+      { path: "student/offline/exam/:examId", element: withSuspense(OfflineExamSetup, "Đang mở thiết lập offline...") },
       { path: "student/offline", element: withSuspense(OfflineLibrary, "Đang mở kho đề trên máy...") },
-      { path: "exams", element: withSuspense(Home, "Đang tải danh sách đề thi...") },
+      { path: "exams", element: isNativeAndroid() ? <MobileLanding /> : withSuspense(Home, "Đang tải danh sách đề thi...") },
       { path: "journey", element: withSuspense(LearningJourney, "Đang tải bản đồ hành trình...") },
       { path: "student/journey", element: withSuspense(LearningJourney, "Đang tải bản đồ hành trình...") },
       { path: "arena", element: withSuspense(ArenaLobby, "Đang vào Sảnh Đấu Trường...") },

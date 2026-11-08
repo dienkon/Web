@@ -76,50 +76,8 @@ export async function apiClient<T = any>(
 
   if (requiresAuth) {
     const token = await getAuthToken();
-    const adminToken = localStorage.getItem("admin_token") || localStorage.getItem("dktest:admin_token");
-    const isAdminRoute = cleanEndpoint.startsWith("/api/admin");
-
-    if (isAdminRoute && adminToken) {
-      // Prioritize adminToken when accessing dedicated admin routes
-      requestHeaders["Authorization"] = `Bearer ${adminToken}`;
-      requestHeaders["X-Admin-Token"] = adminToken;
-      requestHeaders["X-Auth-Role"] = "admin";
-    } else {
-      // Non-admin routes (student wallet, exams, profile, etc.)
-      if (token) {
-        requestHeaders["Authorization"] = `Bearer ${token}`;
-      } else if (isAdminRoute && adminToken) {
-        requestHeaders["Authorization"] = `Bearer ${adminToken}`;
-      }
-
-      // Attach student identity if available from local session (crucial for wallet / exam access when token is loading or in saved session)
-      try {
-        const sInfoStr =
-          localStorage.getItem("student_info") ||
-          localStorage.getItem("dktest:auth:student_info") ||
-          localStorage.getItem("current_student_session");
-        if (sInfoStr) {
-          const sInfo = JSON.parse(sInfoStr);
-          const sUid = sInfo.uid || sInfo.id || sInfo.studentId;
-          const sUsername = sInfo.username || sInfo.studentUsername || sInfo.displayName;
-          if (sUid && !requestHeaders["X-Student-Uid"]) {
-            requestHeaders["X-Student-Uid"] = String(sUid);
-          }
-          if (sUsername && !requestHeaders["X-Student-Username"]) {
-            requestHeaders["X-Student-Username"] = String(sUsername);
-          }
-          if (!requestHeaders["Authorization"] && (sUid || sUsername)) {
-            requestHeaders["Authorization"] = `Bearer student_${encodeURIComponent(String(sUid || sUsername))}`;
-          }
-        }
-      } catch (_) {}
-
-      // STRICT ISOLATION: Never leak X-Admin-Token or force admin role on student/general endpoints!
-      const authRole = localStorage.getItem("auth_role") || localStorage.getItem("dktest:auth_role");
-      if (authRole && authRole !== "admin") {
-        requestHeaders["X-Auth-Role"] = authRole;
-      }
-    }
+    if (!token) throw new ApiError("Cần đăng nhập lại bằng tài khoản Firebase để thực hiện thao tác này.", 401);
+    requestHeaders["Authorization"] = "Bearer " + token;
   }
 
   const controller = new AbortController();

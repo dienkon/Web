@@ -36,7 +36,7 @@ import { useToast } from "../../components/ui/ToastNotification";
 import { safeShare } from "../../utils/mobileCompat";
 import { getExam } from "../../services/examService";
 import { collection, getDocs, query, where, orderBy, limit } from "firebase/firestore";
-import { db } from "../../services/firebase/config";
+import { auth, db } from "../../services/firebase/config";
 import { logQueryRead } from "../../utils/firestoreLogger";
 import { FirestoreCache } from "../../services/firebase/firestoreCache";
 import { FirestoreRepository } from "../../services/firebase/firestoreRepository";
@@ -58,6 +58,9 @@ import {
 } from "../../services/walletClientService";
 import type { StudentWallet } from "../../types";
 import { useAuth } from "../../context/AuthContext";
+import OfflineDownloadButton from '../../components/student/OfflineDownloadButton';
+import { isNativeAndroid } from '../../services/offline/sync';
+import { isPaidExam, requireOfflineDownloadAccess } from '../../services/offline/access';
 
 export default function ExamIntro() {
   const { examId } = useParams<{ examId: string }>();
@@ -181,6 +184,7 @@ export default function ExamIntro() {
 
   // Real-time wallet sync to guarantee student never sees 0 VND when they have balance
   useEffect(() => {
+    if (isNativeAndroid() && !showUnlockModal) return;
     let resolvedUid = user?.uid || currentUser?.uid;
     if (!resolvedUid) {
       try {
@@ -200,12 +204,13 @@ export default function ExamIntro() {
       })
       .catch(() => {});
 
+    if (isNativeAndroid()) return;
     const unsub = subscribeMyWallet(resolvedUid, (liveWallet) => {
       if (liveWallet) setStudentWallet(liveWallet);
     });
 
     return () => unsub();
-  }, [user?.uid, currentUser?.uid]);
+  }, [user?.uid, currentUser?.uid, showUnlockModal]);
 
   // Synchronize live wallet balance into accessInfo state immediately
   useEffect(() => {
@@ -235,9 +240,16 @@ export default function ExamIntro() {
     });
   }, [studentWallet, exam]);
 
-  const loadExamAccess = async (targetExamId: string) => {
+  const loadExamAccess = async (targetExamId: string, metadata?: Exam) => {
     try {
       setCheckingAccess(true);
+      const target = metadata || exam;
+      if (isNativeAndroid() && target) {
+        let hasAccess = false;
+        try { if (auth.currentUser) { await requireOfflineDownloadAccess(auth.currentUser.uid, target); hasAccess = true; } } catch { /* Deny paid/personal access until a fresh entitlement is confirmed. */ }
+        const res: ExamAccessInfo = { hasAccess, isFree: !isPaidExam(target), unlocked: hasAccess, priceVnd: target.priceVnd || 0, accessMode: isPaidExam(target) ? 'paid' : 'free', salesEnabled: target.salesEnabled !== false, userBalance: 0, missingVnd: target.priceVnd || 0, canUnlock: false, examTitle: target.title };
+        setAccessInfo(res); return res;
+      }
       const activeUid = user?.uid || currentUser?.uid;
       const activeUsername = userProfile?.username || studentCode;
       const res = await checkExamAccess(targetExamId, activeUid, activeUsername);
@@ -424,7 +436,7 @@ export default function ExamIntro() {
         // Check paid entitlement before loading any questions to prevent unauthorized content leakage
         let hasEntitlement = true;
         if (foundExam) {
-          const access = await loadExamAccess(foundExam.id);
+          const access = await loadExamAccess(foundExam.id, foundExam);
           hasEntitlement = access ? access.hasAccess : (foundExam.accessMode !== "paid");
         }
 
@@ -550,7 +562,7 @@ export default function ExamIntro() {
   const isPersonalRetakeForbidden = Boolean(accessInfo && !accessInfo.hasAccess && accessInfo.rejectionReason === "personal_retake_forbidden");
   const isParentExamLocked = Boolean(accessInfo && !accessInfo.hasAccess && accessInfo.rejectionReason === "parent_exam_locked");
   const isPaidLocked = !!(
-    (exam?.accessMode === "paid" || isParentExamLocked || isPersonalRetakeForbidden) &&
+    ((exam && isPaidExam(exam)) || isParentExamLocked || isPersonalRetakeForbidden) &&
     accessInfo &&
     !accessInfo.hasAccess
   );
@@ -1153,6 +1165,7 @@ export default function ExamIntro() {
               );
             })()}
 
+            <OfflineDownloadButton exam={exam} refreshKey={unlockSuccessMsg} />
             {/* Schedule Info (Open & Close Times) if configured */}
             {(exam.openTime || exam.closeTime) && (
               <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200/80 flex flex-col sm:flex-row items-center justify-around gap-2 text-xs font-medium">

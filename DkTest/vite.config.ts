@@ -1,11 +1,13 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import { readFileSync } from 'node:fs';
 import { defineConfig, loadEnv } from 'vite';
 
 export default defineConfig(({ mode }) => {
   const mobile = mode === 'mobile';
   const env = loadEnv(mode, process.cwd(), 'VITE_');
+  const release = JSON.parse(readFileSync(path.resolve(__dirname, 'release.json'), 'utf8'));
   return {
     plugins: [react(), tailwindcss(), ...(mobile ? [{
       name: 'dktest-android-viewport',
@@ -13,7 +15,7 @@ export default defineConfig(({ mode }) => {
     }] : [])],
     define: {
       'process.env': {},
-      '__DK_APP_VERSION__': JSON.stringify('1.8.26'),
+      '__DK_APP_VERSION__': JSON.stringify(release.version),
       '__DK_BUILD_TIME__': JSON.stringify(new Date().toISOString()),
       ...(mobile ? {
         'process.env.NODE_ENV': JSON.stringify('production'),

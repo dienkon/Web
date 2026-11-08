@@ -506,7 +506,7 @@ export async function checkExamAccess(
     if (examSnap.exists()) {
       const eData = examSnap.data() as any;
       const price = Math.max(0, Math.round(Number(eData.priceVnd) || 0));
-      const isFree = (eData.accessMode || "free") === "free" || price <= 0;
+      const isFree = eData.accessMode !== "paid" && price <= 0;
       let hasEntitlement = false;
 
       if (resolvedUid) {

@@ -7,12 +7,13 @@ import { countOfflineAttempts, downloadOfflineExam } from './exams';
 const mocks = vi.hoisted(() => ({ user: { uid: 'a' } as any, getDoc: vi.fn(), getDocs: vi.fn(), access: vi.fn() }));
 vi.mock('../firebase/config', () => ({ auth: { get currentUser() { return mocks.user; } }, db: {} }));
 vi.mock('../apiClient', () => ({ getApiBaseUrl: () => 'https://dktest.test' }));
-vi.mock('../walletClientService', () => ({ checkExamAccess: mocks.access }));
+vi.mock('./access', () => ({ requireOfflineDownloadAccess: mocks.access }));
 vi.mock('firebase/firestore', () => ({
   doc: (_db: any, _collection: any, id: any) => id,
   collection: (_db: any, path: any) => path,
   query: (...args: any[]) => args,
   where: (...args: any[]) => args,
+  limit: (value: number) => ['limit', value],
   getDocFromServer: mocks.getDoc,
   getDocsFromServer: mocks.getDocs,
 }));
@@ -53,7 +54,7 @@ describe('online preparation for a true offline cold start', () => {
   });
   it('does not download paid content without a successful online access check', async () => {
     mocks.getDoc.mockResolvedValueOnce({ id: 'exam', exists: () => true, data: () => ({ priceVnd: 10000, status: 'published' }) });
-    mocks.access.mockResolvedValueOnce({ hasAccess: false, message: 'Cần mở khóa' });
+    mocks.access.mockRejectedValueOnce(new Error('Cần mở khóa'));
     await expect(downloadOfflineExam('exam')).rejects.toThrow('Cần mở khóa');
     expect(mocks.getDocs).not.toHaveBeenCalled();
     expect(await offlineStore.getExam('a', 'exam')).toBeUndefined();
@@ -71,5 +72,23 @@ describe('online preparation for a true offline cold start', () => {
     await offlineStore.enqueue({ id: 'one', uid: 'a', state: 'synced', savedAt: 1, submission: { examId: 'exam' } as any });
     await offlineStore.enqueue({ id: 'two', uid: 'a', state: 'pending', savedAt: 2, submission: { examId: 'exam' } as any });
     expect(await countOfflineAttempts(pack)).toBe(2);
+  });
+  it('downloads an embedded unlimited-attempt exam without reading question, section or submission collections', async () => {
+    mocks.getDoc.mockResolvedValueOnce({ id: 'exam', exists: () => true, data: () => ({ status: 'published', maxAttempts: 0, questions: [{ id: 'q1', text: 'Embedded question' }], sections: [{ id: 's1', title: 'Embedded section' }] }) });
+    await downloadOfflineExam('exam');
+    expect(mocks.getDoc).toHaveBeenCalledTimes(1);
+    expect(mocks.getDocs).not.toHaveBeenCalled();
+    expect((await offlineStore.getExam('a', 'exam'))?.questions).toHaveLength(1);
+  });
+  it('bounds attempt history by both authenticated UID and exam instead of scanning the student history', async () => {
+    await downloadOfflineExam('exam');
+    expect(mocks.getDocs).toHaveBeenCalledWith(['submissions', ['studentUid', '==', 'a'], ['examId', '==', 'exam'], ['limit', 3]]);
+  });
+  it('preserves legacy subcollection sections when an empty embedded array is only a placeholder', async () => {
+    mocks.getDoc.mockResolvedValueOnce({ id: 'exam', exists: () => true, data: () => ({ status: 'published', maxAttempts: 0, questions: [{ id: 'q1', text: 'Question' }], sections: [] }) });
+    mocks.getDocs.mockResolvedValueOnce({ docs: [{ id: 's1', data: () => ({ title: 'Actual section' }) }] });
+    await downloadOfflineExam('exam');
+    expect(mocks.getDocs).toHaveBeenCalledExactlyOnceWith('exams/exam/sections');
+    expect((await offlineStore.getExam('a', 'exam'))?.sections[0].title).toBe('Actual section');
   });
 });

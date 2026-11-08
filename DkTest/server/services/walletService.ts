@@ -1108,7 +1108,7 @@ export async function checkExamAccess(
   const accessMode = (examData.accessMode as "free" | "paid") || "free";
   const priceVnd = sanitizeVnd(examData.priceVnd);
   const salesEnabled = examData.salesEnabled !== false;
-  const isFree = accessMode === "free" || priceVnd <= 0;
+  const isFree = accessMode !== "paid" && priceVnd <= 0;
   const examTitle = examData.title || "Bài thi";
 
   // Admins always have access
@@ -1380,7 +1380,7 @@ export async function unlockExam(
       const priceVnd = sanitizeVnd(examData.priceVnd);
       const salesEnabled = examData.salesEnabled !== false;
 
-      if (accessMode === "free" || priceVnd <= 0) {
+      if (accessMode !== "paid" && priceVnd <= 0) {
         // Free exam doesn't require payment, create entitlement record for free
         const entRef = adminDb.collection("exam_entitlements").doc(entitlementId);
         const freeEnt: ExamEntitlement = {

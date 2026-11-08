@@ -68,7 +68,8 @@ export default function StudentSubExamConfig({
         <label className="relative inline-flex items-center cursor-pointer">
           <input
             type="checkbox"
-            className="sr-only peer"
+            aria-label="Bật đề con"
+            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer peer"
             checked={useSubExam}
             onChange={(e) => {
               const checked = e.target.checked;
@@ -88,6 +89,7 @@ export default function StudentSubExamConfig({
               Phương thức tạo đề con
             </label>
             <select
+              aria-label="Phương thức tạo đề con"
               className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-500"
               value={currentConfig.selectionMode}
               onChange={(e) => updateConfig({ selectionMode: e.target.value as any })}
@@ -114,6 +116,7 @@ export default function StudentSubExamConfig({
               <div className="flex items-center gap-2 shrink-0">
                 <input
                   type="number"
+                  aria-label="Tổng số câu hỏi đề con"
                   min="1"
                   max={questions.length}
                   className="w-32 px-3.5 py-2 bg-purple-50/50 border border-purple-300 rounded-xl text-xs font-bold text-purple-950 focus:outline-none focus:ring-2 focus:ring-purple-500 text-center"

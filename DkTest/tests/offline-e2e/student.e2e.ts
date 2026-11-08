@@ -1,11 +1,9 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { loadEnv } from 'vite';
 
-test('cold offline launch, new attempt, draft resume, offline submit and result reload', async ({ page }) => {
-  const errors: string[] = [];
-  page.on('pageerror', (error) => errors.push(error.message));
+async function seedStudent(page: Page) {
   // Local assets emulate APK-bundled resources. Every external request is blocked.
   await page.route('**/*', async (route) => {
     if (new URL(route.request().url()).hostname !== '127.0.0.1') return route.abort('internetdisconnected');
@@ -57,7 +55,7 @@ test('cold offline launch, new attempt, draft resume, offline submit and result 
     const pixel = Uint8Array.from(atob('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII='), (v) => v.charCodeAt(0));
     const pack = {
       key: `${uid}:offline-fixture`, uid,
-      exam: { id: 'offline-fixture', title: 'Bài kiểm tra offline', code: 'OFF001', status: 'published', timeLimit: 30, duration: 30, shuffleQuestions: false, shuffleOptions: false, allowSubExam: false, maxAttempts: 0, showResults: true, showDetails: true, antiCheatEnabled: false, createdAt: null, updatedAt: null },
+      exam: { id: 'offline-fixture', title: 'Bài kiểm tra offline', code: 'OFF001', status: 'published', timeLimit: 30, duration: 30, shuffleQuestions: false, shuffleOptions: false, allowSubExam: true, maxAttempts: 0, showResults: true, showDetails: true, antiCheatEnabled: false, createdAt: null, updatedAt: null },
       questions: [
         { id: 'q1', type: 'single_choice', text: 'Hai cộng hai bằng bao nhiêu? ![hình offline](https://offline.test/image.png)', options: [{ id: 'a', text: 'Bốn' }, { id: 'b', text: 'Năm' }], correctOptionIds: ['a'], order: 1, points: 1 },
         { id: 'q2', type: 'short_answer', text: 'Điền số ba', acceptedAnswers: ['3'], order: 2, points: 1 },
@@ -69,11 +67,19 @@ test('cold offline launch, new attempt, draft resume, offline submit and result 
     });
     offlineDb.close();
   }, { apiKey: env.VITE_FIREBASE_API_KEY || 'AIzaSyDp9p5hkQ6fVEou4znk5YZu81VhgZtM7h4', projectId: env.VITE_FIREBASE_PROJECT_ID || 'exam-fd7a1' });
+}
+
+test('cold offline launch, new attempt, draft resume, offline submit and result reload', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await seedStudent(page);
   await page.addInitScript(() => Object.defineProperty(navigator, 'onLine', { configurable: true, get: () => false }));
   await page.goto('/student/offline');
   await expect(page.getByRole('heading', { name: 'Đề thi trên máy' })).toBeVisible({ timeout: 20000 });
   await expect(page.getByText('Bài kiểm tra offline', { exact: true })).toBeVisible();
-  await page.getByRole('link', { name: 'Mở / tiếp tục làm bài' }).click();
+  await page.getByRole('link', { name: 'Thiết lập / tiếp tục làm bài' }).click();
+  await expect(page.getByText('Cấu hình Đề thi con (Sub-Exam)', { exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Bắt đầu làm bài offline' }).click();
   await expect(page.getByText('Hai cộng hai bằng bao nhiêu?', { exact: false })).toBeVisible({ timeout: 20000 });
   await expect(page.locator('img[alt="hình offline"]')).toHaveJSProperty('naturalWidth', 1);
   await page.getByText('Bốn', { exact: true }).click();
@@ -101,5 +107,56 @@ test('cold offline launch, new attempt, draft resume, offline submit and result 
   await page.screenshot({ path: 'test-results/offline-result.png', fullPage: true });
   await page.goto('/student/offline');
   await expect(page.getByText('1 bài chờ đồng bộ')).toBeVisible({ timeout: 20000 });
+  await page.getByRole('link', { name: 'Thiết lập / tiếp tục làm bài' }).click();
+  await page.getByRole('checkbox', { name: 'Bật đề con' }).check();
+  await page.getByRole('combobox', { name: 'Phương thức tạo đề con' }).selectOption('random_total');
+  await page.getByRole('spinbutton', { name: 'Tổng số câu hỏi đề con' }).fill('1');
+  await expect(page.getByText('Bài sẽ có 1 câu hỏi.', { exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Bắt đầu làm bài offline' }).click();
+  await expect(page.locator('[id^="q-card-"]')).toHaveCount(1);
+  await page.reload();
+  await expect(page.locator('[id^="q-card-"]')).toHaveCount(1);
+  expect(errors).toEqual([]);
+});
+
+test('Android routing defaults online, keeps offline tab local and switches on connectivity changes', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await seedStudent(page);
+  await page.evaluate(() => {
+    localStorage.setItem('dktest_mobile_catalog_v2_offline-ui-student', JSON.stringify({ savedAt: Date.now(), items: Array.from({ length: 5 }, (_, i) => ({ id: `latest-${i}`, title: `Đề mới ${i + 1}`, code: `NEW${i + 1}`, status: 'published', accessMode: 'free' })) }));
+  });
+  // Exercise Android-only routing with an explicit bridge double, never claim device coverage.
+  await page.addInitScript(() => {
+    const win = window as any;
+    win.CapacitorCustomPlatform = { name: 'android' };
+    const methods = (names: string[]) => names.map((name) => ({ name, rtype: 'promise' }));
+    win.Capacitor = {
+      PluginHeaders: [
+        { name: 'OfflineSync', methods: methods(['setSession', 'clearSession', 'enqueue', 'status', 'schedule']) },
+        ...['App', 'Network'].map((name) => ({ name, methods: [{ name: 'addListener', rtype: 'callback' }, ...methods(['removeListener'])] })),
+      ],
+      nativePromise: async (_plugin: string, method: string) => method === 'status' ? { items: [] } : {},
+      nativeCallback: async () => 'test-listener',
+    };
+    Object.defineProperty(navigator, 'onLine', { configurable: true, get: () => sessionStorage.getItem('test-connectivity') !== 'offline' });
+  });
+  await page.goto('/');
+  await expect(page).toHaveURL(/\/student\/online$/);
+  await expect(page.getByRole('region', { name: '5 đề vừa chỉnh sửa' }).getByRole('article')).toHaveCount(5);
+  await page.getByRole('navigation', { name: 'Chế độ đề thi' }).getByRole('link', { name: 'Offline', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Đề thi trên máy' })).toBeVisible();
+  await expect(page.getByRole('article')).toHaveCount(1);
+  await expect(page.getByText('Đề mới 1', { exact: true })).toHaveCount(0);
+  await page.reload();
+  await expect(page.getByRole('heading', { name: 'Đề thi trên máy' })).toBeVisible();
+  await page.evaluate(() => { sessionStorage.setItem('test-connectivity', 'offline'); window.dispatchEvent(new Event('offline')); });
+  await page.goto('/');
+  await expect(page).toHaveURL(/\/student\/offline$/);
+  await expect(page.getByText('Bài kiểm tra offline', { exact: true })).toBeVisible();
+  await page.evaluate(() => { sessionStorage.removeItem('test-connectivity'); window.dispatchEvent(new Event('online')); });
+  await expect(page).toHaveURL(/\/student\/online$/);
+  await expect(page.getByRole('region', { name: '5 đề vừa chỉnh sửa' }).getByRole('article')).toHaveCount(5);
+  await page.screenshot({ path: 'test-results/mobile-online.png', fullPage: true });
   expect(errors).toEqual([]);
 });

@@ -17,7 +17,11 @@
     "android:sync": "npm run build:mobile && cap sync android",
     "android:apk": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-android.ps1",
     "test:offline": "vitest run src/services/offline",
-    "test:android-ui": "playwright test --config playwright.offline.config.ts"
+    "test:android-ui": "playwright test --config playwright.offline.config.ts",
+    "check:release": "node scripts/check-release.mjs",
+    "test:rules": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/test-rules.ps1",
+    "prebuild": "npm run check:release",
+    "migrate:paid-content": "tsx scripts/migrate-paid-exam-content.ts"
   },
   "dependencies": {
     "@capacitor/android": "^8.6.0",
@@ -68,6 +72,7 @@
   },
   "devDependencies": {
     "@capacitor/cli": "^8.6.0",
+    "@firebase/rules-unit-testing": "^5.0.2",
     "@playwright/test": "^1.65.0",
     "@resvg/resvg-js": "^2.6.2",
     "@types/express": "^4.17.21",
@@ -79,6 +84,7 @@
     "autoprefixer": "^10.4.21",
     "esbuild": "^0.25.0",
     "fake-indexeddb": "^6.2.7",
+    "firebase-tools": "^15.35.0",
     "jpeg-js": "^0.4.4",
     "tailwindcss": "^4.1.14",
     "tsx": "^4.21.0",

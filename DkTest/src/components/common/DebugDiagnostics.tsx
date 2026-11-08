@@ -5,6 +5,8 @@ import { safeCopyText } from "../../utils/mobileCompat";
 import { auth, db } from "../../services/firebase/config";
 import { X, Copy, Check, Trash2, RefreshCw, Cpu, Database, Wifi, ShieldAlert } from "lucide-react";
 
+declare const __DK_APP_VERSION__: string;
+
 export function DebugDiagnostics() {
   const [isOpen, setIsOpen] = useState(false);
   const [logs, setLogs] = useState<StructuredErrorLog[]>([]);
@@ -62,7 +64,7 @@ export function DebugDiagnostics() {
 
   const handleCopyReport = async () => {
     const report = {
-      appVersion: "1.8.26",
+      appVersion: __DK_APP_VERSION__,
       buildId: import.meta.env?.VITE_BUILD_ID || "stable-production",
       url: window.location.href,
       pathname: window.location.pathname,
@@ -108,7 +110,7 @@ export function DebugDiagnostics() {
             </div>
             <div>
               <div className="font-bold text-white text-sm">DkTEST Live Diagnostics</div>
-              <div className="text-[10px] text-slate-400">Build v1.8.26 • Mobile Chrome Android Guard</div>
+              <div className="text-[10px] text-slate-400">Build v{__DK_APP_VERSION__} • Mobile Chrome Android Guard</div>
             </div>
           </div>
           <button

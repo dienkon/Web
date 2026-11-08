@@ -17,8 +17,8 @@ service cloud.firestore {
     
     function isAdmin() {
       return isAuthenticated() && (
-        request.auth.token.role == 'admin' ||
-        request.auth.token.role == 'super_admin' ||
+        request.auth.token.get('role', '') == 'admin' ||
+        request.auth.token.get('role', '') == 'super_admin' ||
         (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
          getUserData().role in ['admin', 'super_admin'])
       );
@@ -26,20 +26,35 @@ service cloud.firestore {
     
     function isSuperAdmin() {
       return isAuthenticated() && (
-        request.auth.token.role == 'super_admin' ||
+        request.auth.token.get('role', '') == 'super_admin' ||
         (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
          getUserData().role == 'super_admin')
       );
     }
 
+    function mayReadExamContent(examId) {
+      let exam = get(/databases/$(database)/documents/exams/$(examId)).data;
+      let entitlementPath = /databases/$(database)/documents/exam_entitlements/$(request.auth.uid + '_' + examId);
+      return isAuthenticated() && (isAdmin() || (
+        getUserData().get('accountStatus', 'active') == 'active'
+        && (!(exam.get('isPersonalRetake', false) || exam.get('isAggregatedReview', false))
+          || exam.get('creatorUid', '') == request.auth.uid || exam.get('allowedUid', '') == request.auth.uid || exam.get('ownerId', '') == request.auth.uid)
+        && ((exam.get('accessMode', 'free') != 'paid' && exam.get('priceVnd', 0) <= 0)
+          || (exists(entitlementPath) && get(entitlementPath).data.uid == request.auth.uid
+            && get(entitlementPath).data.examId == examId && get(entitlementPath).data.status == 'active'))
+      ));
+    }
+
     // 1. User Profiles
     match /users/{userId} {
       allow read: if isAuthenticated();
-      allow create: if isAuthenticated() && (isOwner(userId) || isAdmin());
+      allow create: if isAdmin() || (isOwner(userId)
+        && request.resource.data.get('role', 'student') in ['student', 'parent']
+        && request.resource.data.get('accountStatus', 'active') in ['active', 'pending']);
       // Regular users cannot modify role, status, or emailVerified directly
       allow update: if isAdmin() || (
         isOwner(userId) && 
-        !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'status', 'emailVerified'])
+        !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'status', 'accountStatus', 'emailVerified', 'uid'])
       );
       allow delete: if isSuperAdmin();
     }
@@ -54,8 +69,7 @@ service cloud.firestore {
       );
       allow update: if isAuthenticated() && (
         isOwner(studentId) || 
-        resource.data.uid == request.auth.uid || 
-        request.resource.data.uid == request.auth.uid || 
+        (resource.data.uid == request.auth.uid && request.resource.data.uid == resource.data.uid) ||
         isAdmin()
       );
       allow delete: if isAdmin();
@@ -112,15 +126,18 @@ service cloud.firestore {
     // 5. Exams & Subcollections (Questions, Sections)
     match /exams/{examId} {
       allow read: if isAuthenticated() || resource.data.status == 'published' || !('status' in resource.data) || resource.data.status == null;
-      allow write: if isAdmin();
+      // Public catalogue documents must not embed private paid exam banks.
+      allow write: if isAdmin() && (request.method == 'delete'
+        || (request.resource.data.get('accessMode', 'free') != 'paid' && request.resource.data.get('priceVnd', 0) <= 0)
+        || (request.resource.data.get('questions', []).size() == 0 && request.resource.data.get('sections', []).size() == 0));
 
       match /questions/{questionId} {
-        allow read: if isAuthenticated();
+        allow read: if isAuthenticated() && mayReadExamContent(examId);
         allow write: if isAdmin();
       }
 
       match /sections/{sectionId} {
-        allow read: if isAuthenticated();
+        allow read: if isAuthenticated() && mayReadExamContent(examId);
         allow write: if isAdmin();
       }
     }
@@ -137,11 +154,9 @@ service cloud.firestore {
         request.resource.data.studentUid == request.auth.uid ||
         request.resource.data.studentId == request.auth.uid
       );
-      allow update: if isAuthenticated() && (
-        isAdmin() ||
-        resource.data.studentUid == request.auth.uid ||
-        resource.data.studentId == request.auth.uid
-      );
+      allow update: if isAdmin() || (isAuthenticated()
+        && (resource.data.get('studentUid', '') == request.auth.uid || resource.data.get('studentId', '') == request.auth.uid)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['aiAnalysis']));
       allow delete: if isAdmin();
     }
 
@@ -248,23 +263,28 @@ service cloud.firestore {
 
     // 15. Virtual Wallet & Ledgers (Phần E & B)
     match /wallets/{userId} {
-      allow read, write: if true;
+      allow read: if isOwner(userId) || isAdmin();
+      allow write: if isAdmin();
     }
 
     match /wallet_transactions/{txId} {
-      allow read, write: if true;
+      allow read: if isAdmin() || (isAuthenticated() && resource.data.uid == request.auth.uid);
+      allow write: if isAdmin();
     }
 
     match /deposit_requests/{reqId} {
-      allow read, write: if true;
+      allow read: if isAdmin() || (isAuthenticated() && resource.data.uid == request.auth.uid);
+      allow write: if isAdmin();
     }
 
     match /exam_entitlements/{entId} {
-      allow read, write: if true;
+      allow read: if isAdmin() || (isAuthenticated() && resource.data.uid == request.auth.uid);
+      allow write: if isAdmin();
     }
 
     match /debt_records/{recId} {
-      allow read, write: if true;
+      allow read: if isAdmin() || (isAuthenticated() && resource.data.uid == request.auth.uid);
+      allow write: if isAdmin();
     }
 
     // 16. System Stats
@@ -336,6 +356,9 @@ service cloud.firestore {
         && getAfter(/databases/$(database)/documents/code_studio_shares/$(request.resource.data.shareId)).data.customSlug == name;
     }
     // Default deny for anything else
+    match /exam_content_migration_backups/{examId} {
+      allow read, write: if isAdmin();
+    }
     match /{document=**} {
       allow read, write: if false;
     }

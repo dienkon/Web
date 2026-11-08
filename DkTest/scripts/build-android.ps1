@@ -24,12 +24,13 @@ try {
 New-Item -ItemType Directory -Path "$projectRoot/releases" -Force | Out-Null
 $variant = if ($Release) { 'release' } else { 'debug' }
 $source = if ($Release) { 'app-release-unsigned.apk' } else { 'app-debug.apk' }
-$destination = "$projectRoot/releases/DkTEST-$variant.apk"
+$releaseInfo = Get-Content -LiteralPath "$projectRoot/release.json" -Raw | ConvertFrom-Json
+$destination = "$projectRoot/releases/DkTEST-$($releaseInfo.version)-$variant.apk"
 Copy-Item -LiteralPath "$projectRoot/android/app/build/outputs/apk/$variant/$source" -Destination $destination -Force
 $digest = [System.Security.Cryptography.SHA256]::Create()
 $apkStream = [System.IO.File]::OpenRead($destination)
 try { $apkHash = [BitConverter]::ToString($digest.ComputeHash($apkStream)).Replace('-', '').ToLowerInvariant() }
 finally { $apkStream.Dispose(); $digest.Dispose() }
-[System.IO.File]::WriteAllText("$destination.sha256", "$apkHash  DkTEST-$variant.apk`n")
+[System.IO.File]::WriteAllText("$destination.sha256", "$apkHash  DkTEST-$($releaseInfo.version)-$variant.apk`n")
 Write-Output "SHA256: $apkHash"
 Write-Output "APK: $destination"

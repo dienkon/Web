@@ -4,7 +4,11 @@ DkTEST is a modern, clean, and minimalist examination system built with React, V
 
 ## Android APK và đề thi offline
 
-Chạy `npm run android:apk` để tạo `releases/DkTEST-debug.apk`. Thí sinh đăng nhập và tải đề một lần khi có mạng, sau đó có thể đóng/mở app, bắt đầu bài mới, tiếp tục bài nháp và nộp bài offline. Android tự đồng bộ bài chờ khi có mạng. Xem [hướng dẫn Android/offline](docs/android-offline.md) để cài đặt, build, kiểm tra và biết phạm vi hỗ trợ.
+Phiên bản hiện tại: **1.8.27**, Android `versionCode=2`. Xem [changelog](CHANGELOG.md) và [audit phiên bản](docs/audits/1.8.27.md).
+
+Chạy `npm run android:apk` để tạo `releases/DkTEST-1.8.27-debug.apk`. Có mạng: app mặc định ở Online, chỉ tải 5 đề đã phát hành vừa chỉnh sửa. Trong thông tin đề, nút tải xuất hiện khi có quyền (đề trả phí phải được mua/cấp quyền). Offline: chỉ đọc đề đã tải trên máy, có thiết lập đề con như online và tự đồng bộ bài nộp khi nối mạng. Xem [hướng dẫn](docs/android-offline.md). Mọi cải tiến tiếp theo cần tăng version, cập nhật changelog và có audit chi tiết theo [AGENTS.md](AGENTS.md).
+
+Trước khi phân phối rộng, cần triển khai backend, rules/indexes và chuyển câu hỏi nhúng của đề trả phí legacy theo [audit](docs/audits/1.8.27.md#deployment-prerequisites). Các bước production này chưa thực hiện vì Firebase CLI chưa đăng nhập. Có công cụ dry-run/backup `npm run migrate:paid-content`, đã kiểm tra bằng emulator. APK hiện là bản debug; chưa kiểm thử trên điện thoại thật.
 
 ## JSON Format
 

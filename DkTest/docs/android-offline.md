@@ -2,20 +2,20 @@
 
 ## File cài đặt
 
-`releases/DkTEST-debug.apk` là APK cài thử, có chữ ký debug do Android SDK tạo. Hỗ trợ Android 7.0 (API 24) trở lên và Android System WebView cập nhật. Mã ứng dụng: `vn.dktest.student`. Chưa phải bản phát hành Google Play.
+`releases/DkTEST-1.8.27-debug.apk` là APK cài thử, có chữ ký debug do Android SDK tạo; versionCode 2, có thể cài cập nhật trên bản debug trước cùng khóa ký. Hỗ trợ Android 7.0 (API 24) trở lên và Android System WebView cập nhật. Mã ứng dụng: `vn.dktest.student`. Chưa phải bản phát hành Google Play. [Audit 1.8.27](audits/1.8.27.md) ghi rõ giới hạn và các bước deploy rules/indexes/backend.
 
 Giao diện, các trang được tải chậm, font toán học, máy tính và tài nguyên trong `public/` đều được đóng gói trong APK. Không cấu hình `server.url`, không cần tải website để khởi động.
 
 ## Cách dùng cho thí sinh
 
 1. Cài APK, mở app và đăng nhập một lần khi có mạng bằng tên tài khoản/email và mật khẩu. Tài khoản chỉ dùng Google cần đặt mật khẩu trên website trước; OAuth Google native chưa được cấu hình trong bản này.
-2. Vào **Đề thi offline**, chọn **Tải về máy**. Có thể nhập mã đề hoặc ID đề. Chờ thông báo đã tải đủ câu hỏi và tài nguyên. Đề trả phí/cá nhân được kiểm tra quyền truy cập khi tải.
-3. Tắt Wi-Fi/dữ liệu di động, đóng rồi mở app. Các đề đã tải vẫn xuất hiện trong **Đề thi trên máy**, có thể bắt đầu bài mới hoặc tiếp tục bài đang làm.
+2. Có mạng: app mặc định mở **Online**, chỉ tải 5 đề đã phát hành vừa chỉnh sửa. Mở **Xem thông tin đề**, chọn **Tải đề về máy** khi nút xuất hiện. Đề trả phí phải có quyền mua/cấp quyền đang hoạt động. Chờ tải đầy đủ tài nguyên; không tự tải ngân hàng câu hỏi từ màn hình danh sách.
+3. Tắt mạng, đóng/mở app để vào **Offline**. Tab chỉ đọc đề đã tải trong máy. Chọn **Thiết lập / tiếp tục làm bài**; nếu đề cho phép tạo đề con, chọn cách bốc câu, số câu, phần thi như online rồi bắt đầu. Bài đang làm tiếp tục với cấu hình đã đóng băng.
 4. Đáp án, câu hỏi đã xáo trộn, thứ tự đáp án, thời điểm bắt đầu và thời gian còn lại được giữ trên máy. Bài hết giờ lúc app đóng được tiếp tục xử lý nộp khi mở lại, không tạo bài mới để đặt lại đồng hồ.
 5. Nộp bài khi offline để xem kết quả tạm tính. App hiển thị **Đã nộp và lưu bài trên thiết bị**, cùng số bài chờ gửi. Tự luận cần giáo viên chấm giữ trạng thái chờ chấm.
 6. Khi có mạng, app tự gửi. Chỉ chuyển sang **Máy chủ đã nhận** sau phản hồi xác nhận. Không cần nộp lại. Sau khi đồng bộ, mở kết quả khi có mạng sẽ lấy điểm giáo viên đã chấm và giữ bản đó để xem offline.
 
-Đề chưa từng tải và đề mới được giáo viên thêm sau lần tải cuối cần mạng để lấy về. Dùng **Cập nhật đề** khi muốn lấy phiên bản mới. Bản tải cũ chỉ được thay sau khi tải mới thành công hoàn toàn. AI, cộng đồng, đấu trường, ví và quản trị vẫn cần mạng; phạm vi offline là tài khoản thí sinh và các đề đã tải.
+Đề chưa tải cần mạng để lấy về. Tải lại trong trang thông tin đề để cập nhật gói đã lưu; tab Offline không tự cập nhật. Catalogue được cache theo tài khoản 5 phút, có nút **Làm mới** và ô tìm mã đề (truy vấn tối đa 1 kết quả). Bản gói cũ chỉ được thay sau khi tải mới hoàn tất. AI, cộng đồng, đấu trường, ví và quản trị vẫn cần mạng.
 
 Đề có liên kết website bên ngoài, tài nguyên bị lỗi hoặc tệp trả về HTML sẽ không được báo tải thành công. Tệp đính kèm được lưu cùng đề, nhưng các định dạng cần ứng dụng đọc riêng vẫn cần trình đọc tương ứng. Không dùng công cụ chạy code trên máy chủ khi offline.
 
@@ -41,7 +41,7 @@ npm ci
 npm run android:apk
 ```
 
-Script build Vite với mode `mobile`, đồng bộ tài nguyên bằng Capacitor và chạy Gradle `assembleDebug`; APK được chép vào `releases/DkTEST-debug.apk` kèm SHA-256. Build mobile tách khỏi `dist/` dùng cho website/server. Không đưa APK, SDK, khóa ký hoặc tài nguyên sinh ra vào Git.
+Script build Vite với mode `mobile`, đồng bộ tài nguyên bằng Capacitor và chạy Gradle `assembleDebug`; APK được chép vào `releases/DkTEST-1.8.27-debug.apk` kèm tệp `.sha256`. Tên file lấy theo `release.json`. Build mobile tách khỏi `dist/` dùng cho website/server. Không đưa APK, SDK, khóa ký hoặc tài nguyên sinh ra vào Git.
 
 API trực tuyến mặc định là `https://dk-test-v3.vercel.app`. Đổi bằng `VITE_MOBILE_API_URL` trong `.env.mobile.local` khi cần. Cấu hình Firebase dùng các biến `VITE_FIREBASE_*` hiện có. Không đóng gói biến môi trường server hay service-account private key.
 
@@ -51,14 +51,16 @@ API trực tuyến mặc định là `https://dk-test-v3.vercel.app`. Đổi b�
 
 ```powershell
 npm run lint
+npm run check:release
 npm run test:offline
+npm run test:rules
 npm run build:mobile
 npm run test:android-ui
 cd android
 ./gradlew.bat testDebugUnitTest
 ```
 
-Các test offline kiểm tra tải đủ media, lỗi tải không làm hỏng bản cũ, quyền đề trả phí, đổi tài khoản, lưu bền, hàng đợi, gửi lại, lỗi quyền và không ghi đè sau khi mất ACK. Playwright chạy bundle production với khung hình điện thoại; toàn bộ request ra ngoài bị chặn, chỉ phục vụ tài nguyên đóng gói để mô phỏng APK. Test kiểm tra mở offline từ đầu, bài mới, ảnh offline, khôi phục nháp, nộp, mở lại kết quả và hàng đợi. Test Java kiểm tra chính payload Firestore của tác vụ nền.
+Các test offline kiểm tra truy vấn 5 đề/cache, tải đủ media, lỗi tải không làm hỏng bản cũ, quyền đề trả phí, đổi tài khoản, lưu bền, hàng đợi, gửi lại, lỗi quyền và không ghi đè sau khi mất ACK. Playwright chạy bundle production với khung hình điện thoại; toàn bộ request ra ngoài bị chặn, chỉ phục vụ tài nguyên đóng gói để mô phỏng APK. Test kiểm tra mở offline từ đầu, bài mới, ảnh offline, khôi phục nháp, nộp, mở lại kết quả, hàng đợi và cấu hình đề con. Test thứ hai dùng bridge giả để kiểm tra route Android Online/Offline và cache 5 đề khi thay đổi kết nối. Test rules/migration chạy project demo trên emulator; test Java kiểm tra payload Firestore của tác vụ nền.
 
 Chưa xác nhận trên điện thoại Android thật trong môi trường phát triển này. Trước khi phân phối rộng, thử trên máy thật với tài khoản thí sinh: tải đề có hình/âm thanh, bật chế độ máy bay, đóng/mở app, nộp, nối mạng và đối chiếu ID bài trong quản trị; thử thêm chạy nền, khởi động lại máy và tự luận chờ chấm.
 

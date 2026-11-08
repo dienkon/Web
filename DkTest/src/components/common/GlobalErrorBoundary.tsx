@@ -2,6 +2,8 @@ import React, { Component, ErrorInfo, ReactNode } from "react";
 import { reportError } from "../../services/errorReporter";
 import { isChunkLoadError, triggerChunkRecovery } from "../../utils/lazyWithRetry";
 
+declare const __DK_APP_VERSION__: string;
+
 interface Props {
   children: ReactNode;
 }
@@ -165,7 +167,7 @@ export class GlobalErrorBoundary extends Component<Props, State> {
 
             {/* Build Version info */}
             <div className="text-[11px] text-slate-500 font-medium">
-              DkTEST v1.8.26 • Safe Boot Mode
+              DkTEST v{__DK_APP_VERSION__} • Safe Boot Mode
             </div>
 
             {/* Technical details toggle in dev or debug mode */}

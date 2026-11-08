@@ -1,295 +1,55 @@
-import type { Request, Response, NextFunction } from "express";
-import { adminAuth, adminDb, getFirestoreRestDoc } from "../firebaseAdmin.js";
+import type { Request, Response, NextFunction } from 'express';
+import { adminAuth, adminDb, decodeFirestoreDocument, getFirebaseApiKey } from '../firebaseAdmin.js';
 
-export interface AuthenticatedUser {
-  uid: string;
-  email?: string;
-  role: string;
-  displayName?: string;
-  accountStatus?: string;
-}
+export interface AuthenticatedUser { uid: string; email?: string; role: string; displayName?: string; accountStatus?: string; }
+export interface AuthenticatedRequest extends Request { user?: AuthenticatedUser; }
 
-export interface AuthenticatedRequest extends Request {
-  user?: AuthenticatedUser;
-}
-
-/**
- * Middleware requiring a valid Firebase ID Token or Admin Token in Authorization: Bearer <token>
- */
-export async function requireAuth(
-  req: AuthenticatedRequest,
-  res: Response,
-  next: NextFunction
-) {
-  if (req.method === "OPTIONS") {
-    return next();
-  }
-
-  const isAdminRoute = Boolean(
-    req.baseUrl?.startsWith("/api/admin") ||
-    req.originalUrl?.startsWith("/api/admin") ||
-    req.path?.startsWith("/api/admin")
-  );
-
-  // 1. Check for dedicated Admin Token in header with configured secret key or admin session token ONLY on admin routes
-  const configuredAdminKey = process.env.ADMIN_SECRET_KEY || process.env.DK_ADMIN_MASTER_KEY || "dk_admin_master_secret_2026";
-  const adminHeaderToken = (req.headers["x-admin-token"] as string) || "";
-  const clientAuthRole = (req.headers["x-auth-role"] as string) || "";
-  
-  const isValidAdminHeader = Boolean(
-    (configuredAdminKey && adminHeaderToken && adminHeaderToken === configuredAdminKey) ||
-    (adminHeaderToken && adminHeaderToken.startsWith("dk_admin_"))
-  );
-
-  if (isAdminRoute && isValidAdminHeader) {
-    req.user = {
-      uid: "admin_master",
-      email: process.env.SUPER_ADMIN_DEFAULT_EMAIL || "duongthanhdien3456@gmail.com",
-      role: "super_admin",
-      displayName: "Quản trị viên Hệ thống",
-      accountStatus: "active",
-    };
-    return next();
-  }
-
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    // Fallback to student identity headers or query parameters if Bearer token was not provided
-    const studentUid = (req.headers["x-student-uid"] as string)?.trim() || (req.query.studentUid as string)?.trim();
-    const studentUsername = (req.headers["x-student-username"] as string)?.trim() || (req.query.studentUsername as string)?.trim();
-    if (studentUid || studentUsername) {
-      req.user = {
-        uid: studentUid || studentUsername,
-        displayName: studentUsername || "Học sinh",
-        role: "student",
-        accountStatus: "active",
-      };
-      return next();
-    }
-
-    return res.status(401).json({
-      error: "unauthorized",
-      message: "Yêu cầu đăng nhập để tiếp tục (thiếu Bearer token).",
-    });
-  }
-
-  const idToken = authHeader.split("Bearer ")[1].trim();
-  if (!idToken) {
-    return res.status(401).json({
-      error: "unauthorized",
-      message: "Token đăng nhập không hợp lệ.",
-    });
-  }
-
-  // Handle student session fallback token
-  if (idToken.startsWith("student_")) {
-    const sUid = decodeURIComponent(idToken.slice(8));
-    const sUsername = (req.headers["x-student-username"] as string)?.trim() || "";
-    req.user = {
-      uid: sUid,
-      displayName: sUsername || "Học sinh",
-      role: "student",
-      accountStatus: "active",
-    };
-    return next();
-  }
-
-  // 2. Check if Bearer token matches dedicated admin secret key or client-issued admin token ONLY on admin routes
-  const isValidBearerAdmin = Boolean(
-    (configuredAdminKey && idToken === configuredAdminKey) ||
-    (idToken && idToken.startsWith("dk_admin_"))
-  );
-
-  if (isAdminRoute && isValidBearerAdmin) {
-    req.user = {
-      uid: "admin_master",
-      email: process.env.SUPER_ADMIN_DEFAULT_EMAIL || "duongthanhdien3456@gmail.com",
-      role: "super_admin",
-      displayName: "Quản trị viên Hệ thống",
-      accountStatus: "active",
-    };
-    return next();
-  }
-
+// Headers, usernames, query parameters and decoded-but-unverified JWTs are never identity.
+export async function requireAuth(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+  if (req.method === 'OPTIONS') return next();
+  const token = /^Bearer\s+(\S+)$/i.exec(req.headers.authorization || '')?.[1];
+  if (!token || /^(student_|dk_admin_)/.test(token)) return res.status(401).json({ error: 'unauthorized', message: 'Cần đăng nhập bằng tài khoản Firebase hợp lệ.' });
   try {
-    let uid = "";
-    let email = "";
-    let displayName = "";
-    let role = "";
-    let accountStatus = "active";
-
+    let identity: { uid: string; email?: string; name?: string; role?: string; accountStatus?: string };
     if (adminAuth) {
-      const decodedToken = await adminAuth.verifyIdToken(idToken);
-      uid = decodedToken.uid;
-      email = decodedToken.email || "";
-      displayName = decodedToken.name || "";
-      role = (decodedToken.role as string) || "";
-      accountStatus = (decodedToken.accountStatus as string) || "active";
+      const decoded = await adminAuth.verifyIdToken(token);
+      identity = { uid: decoded.uid, email: decoded.email, name: decoded.name, role: decoded.role as string, accountStatus: decoded.accountStatus as string };
     } else {
-      // In development when Admin SDK is not connected to a service account,
-      // decode payload from the JWT
-      const parts = idToken.split(".");
-      if (parts.length === 3) {
-        const payload = JSON.parse(Buffer.from(parts[1], "base64").toString("utf-8"));
-        uid = payload.user_id || payload.sub || "dev_user";
-        email = payload.email || "";
-        displayName = payload.name || "";
-        role = payload.role || "";
-      } else {
-        return res.status(401).json({
-          error: "unauthorized",
-          message: "Không thể xác thực danh tính.",
-        });
-      }
-    }
-
-    // 3. If role is not in token claims, fetch user profile from Firestore!
-    if (!role && uid) {
-      if (adminDb) {
-        try {
-          const userDoc = await adminDb.collection("users").doc(uid).get();
-          if (userDoc.exists) {
-            const data = userDoc.data();
-            role = data?.role || "";
-            accountStatus = data?.accountStatus || "active";
-            if (!displayName && data?.displayName) displayName = data.displayName;
-          }
-        } catch (dbErr) {
-          console.warn("[requireAuth] Could not fetch user doc from Firestore:", dbErr);
-        }
-      } else {
-        try {
-          const userData = await getFirestoreRestDoc("users", uid);
-          if (userData) {
-            role = userData.role || "";
-            accountStatus = userData.accountStatus || "active";
-            if (!displayName && userData.displayName) displayName = userData.displayName;
-          }
-        } catch (restErr) {
-          console.warn("[requireAuth] Could not fetch user doc via Firestore REST fallback:", restErr);
-        }
-      }
-    }
-
-    const envSuperAdmins = (process.env.SUPER_ADMIN_EMAILS || "")
-      .split(",")
-      .map((e) => e.trim().toLowerCase())
-      .filter(Boolean);
-    const VERIFIED_SUPER_ADMIN_EMAILS = new Set([
-      ...envSuperAdmins,
-      "admin@dktest.edu.vn",
-      "admin@dktest.local",
-      "duongthanhdien3456@gmail.com",
-      "dienkon@gmail.com",
-    ]);
-
-    const lowerEmail = (email || "").toLowerCase().trim();
-    if (VERIFIED_SUPER_ADMIN_EMAILS.has(lowerEmail)) {
-      role = "super_admin";
-    } else if (isAdminRoute && (adminHeaderToken.startsWith("dk_admin_") || clientAuthRole === "admin")) {
-      // If client is operating under an active admin session, escalate to admin ONLY on admin routes
-      role = role === "super_admin" ? "super_admin" : "admin";
-    } else if (!role) {
-      role = "student";
-    }
-
-    req.user = {
-      uid,
-      email,
-      role: role || "student",
-      displayName,
-      accountStatus,
-    };
-
-    if (accountStatus === "suspended" || accountStatus === "disabled" || accountStatus === "deleted") {
-      return res.status(403).json({
-        error: "account_suspended",
-        message: "Tài khoản của bạn đã bị tạm khoá hoặc vô hiệu hoá. Vui lòng liên hệ quản trị viên.",
+      // Google verifies the token even when service-account credentials are unavailable.
+      const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${encodeURIComponent(getFirebaseApiKey())}`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ idToken: token }), signal: AbortSignal.timeout(10000),
       });
+      if (!response.ok) throw new Error('invalid_token');
+      const account = (await response.json()).users?.[0];
+      if (!account?.localId || account.disabled) throw new Error('invalid_token');
+      identity = { uid: account.localId, email: account.email, name: account.displayName };
     }
-
-    return next();
-  } catch (err: any) {
-    // If token verification failed, check if student identity headers or query parameters are available as fallback
-    const studentUid = (req.headers["x-student-uid"] as string)?.trim() || (req.query.studentUid as string)?.trim();
-    const studentUsername = (req.headers["x-student-username"] as string)?.trim() || (req.query.studentUsername as string)?.trim();
-    if (studentUid || studentUsername) {
-      req.user = {
-        uid: studentUid || studentUsername,
-        displayName: studentUsername || "Học sinh",
-        role: "student",
-        accountStatus: "active",
-      };
-      return next();
-    }
-
-    console.error("[requireAuth] Token verification failed:", err?.message || err);
-    return res.status(401).json({
-      error: "invalid_token",
-      message: "Phiên đăng nhập đã hết hạn hoặc không hợp lệ. Vui lòng đăng nhập lại.",
-    });
-  }
-}
-
-/**
- * Middleware requiring Admin or Super Admin role
- */
-export async function requireAdmin(
-  req: AuthenticatedRequest,
-  res: Response,
-  next: NextFunction
-) {
-  // First ensure user is authenticated
-  if (!req.user) {
-    return requireAuth(req, res, () => {
-      checkAdminPermission(req, res, next);
-    });
-  }
-  return checkAdminPermission(req, res, next);
-}
-
-function checkAdminPermission(
-  req: AuthenticatedRequest,
-  res: Response,
-  next: NextFunction
-) {
-  const role = req.user?.role;
-  if (role === "admin" || role === "super_admin") {
-    return next();
-  }
-
-  return res.status(403).json({
-    error: "permission_denied",
-    message: "Bạn không có quyền quản trị để thực hiện thao tác này.",
-  });
-}
-
-/**
- * Middleware requiring Super Admin role
- */
-export async function requireSuperAdmin(
-  req: AuthenticatedRequest,
-  res: Response,
-  next: NextFunction
-) {
-  if (!req.user) {
-    return requireAuth(req, res, () => {
-      if (req.user?.role === "super_admin" || req.user?.role === "admin") {
-        return next();
-      }
-      return res.status(403).json({
-        error: "permission_denied",
-        message: "Chỉ Super Admin mới có quyền thực hiện thao tác này.",
+    let profile: Record<string, any> | null = null;
+    if (adminDb) {
+      const snapshot = await adminDb.collection('users').doc(identity.uid).get();
+      profile = snapshot.exists ? snapshot.data()! : null;
+    } else {
+      const project = process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || 'exam-fd7a1';
+      const response = await fetch(`https://firestore.googleapis.com/v1/projects/${project}/databases/(default)/documents/users/${encodeURIComponent(identity.uid)}`, {
+        headers: { Authorization: `Bearer ${token}` }, signal: AbortSignal.timeout(10000),
       });
-    });
-  }
-
-  if (req.user.role === "super_admin" || req.user.role === "admin") {
+      if (response.ok) profile = decodeFirestoreDocument(await response.json());
+      else if (response.status !== 404) throw new Error('profile_unavailable');
+    }
+    const status = profile?.accountStatus || identity.accountStatus || 'active';
+    if (['suspended', 'disabled', 'deleted'].includes(status)) return res.status(403).json({ error: 'account_suspended', message: 'Tài khoản đã bị vô hiệu hóa.' });
+    req.user = { uid: identity.uid, email: identity.email, role: profile?.role || identity.role || 'student', displayName: profile?.displayName || identity.name, accountStatus: status };
     return next();
+  } catch {
+    return res.status(401).json({ error: 'invalid_token', message: 'Không xác minh được phiên đăng nhập. Vui lòng đăng nhập lại.' });
   }
+}
 
-  return res.status(403).json({
-    error: "permission_denied",
-    message: "Chỉ Super Admin mới có quyền thực hiện thao tác này.",
-  });
+export async function requireAdmin(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+  const check = () => ['admin', 'super_admin'].includes(req.user?.role || '') ? next() : res.status(403).json({ error: 'permission_denied', message: 'Bạn không có quyền quản trị.' });
+  return req.user ? check() : requireAuth(req, res, check);
+}
+export async function requireSuperAdmin(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+  const check = () => req.user?.role === 'super_admin' ? next() : res.status(403).json({ error: 'permission_denied', message: 'Chỉ Super Admin có quyền thực hiện thao tác này.' });
+  return req.user ? check() : requireAuth(req, res, check);
 }

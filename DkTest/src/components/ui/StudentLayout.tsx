@@ -31,6 +31,8 @@ import AccountSuspendedView from "../auth/AccountSuspendedView";
 import { hasActiveExamInProgress, clearActiveExamSession } from "../../services/examSessionService";
 import { isAdminAuthenticated, clearStudentSession, clearAdminSession } from "../../services/authService";
 import { useAuth } from "../../context/AuthContext";
+import { isNativeAndroid } from '../../services/offline/sync';
+import { useOnline } from '../../hooks/useOnline';
 import UserAvatar from "../common/UserAvatar";
 import ThemeToggle from "./ThemeToggle";
 import { subscribeToAvatarUpdates } from "../../utils/avatarSync";
@@ -43,6 +45,10 @@ import { TOUR_DATA_IDS } from "../../features/student-onboarding/StudentOnboardi
 function StudentLayoutContent() {
   const navigate = useNavigate();
   const location = useLocation();
+  const online = useOnline();
+  useEffect(() => {
+    if (isNativeAndroid() && !online && (['/', '/exams', '/student/online'].includes(location.pathname) || /^\/(?:student\/)?exam\/[^/]+$/.test(location.pathname))) navigate('/student/offline', { replace: true });
+  }, [online, location.pathname, navigate]);
   const { userProfile, role, logout, isSuspended } = useAuth();
   const { triggerAction } = useStudentOnboarding();
   const [studentInfo, setStudentInfo] = useState<{ username?: string; displayName?: string; avatarUrl?: string } | null>(null);
@@ -115,7 +121,7 @@ function StudentLayoutContent() {
 
         // Fetch fresh avatar and profile from Firestore to ensure permanent sync
         const username = parsed.username || parsed.name || parsed.displayName;
-        if (username && navigator.onLine) {
+        if (username && navigator.onLine && !isNativeAndroid()) {
           import("../../services/studentService").then(({ getStudent }) => {
             return getStudent(username).then((studentDoc) => {
               if (studentDoc && studentDoc.avatarUrl) {
@@ -173,6 +179,7 @@ function StudentLayoutContent() {
   const hideStudentNav = isTakingExam || isExamResult;
 
   const navItems = [
+    { to: "/student/online", label: "Đề thi Online", icon: BookOpen },
     { to: "/student/offline", label: "Đề thi offline", icon: BookOpen },
     { to: "/", label: "Đề thi", icon: BookOpen, tourId: TOUR_DATA_IDS.NAV_EXAMS, actionKey: "click_exams" },
     { to: "/journey", label: "Hành trình", icon: MapPin, iconColor: "text-emerald-500", actionKey: "click_journey" },
@@ -872,7 +879,7 @@ function StudentLayoutContent() {
         variant="danger"
       />
 
-      <AnnouncementPopupModal />
+      {!isNativeAndroid() && <AnnouncementPopupModal />}
     </div>
   );
 }

@@ -940,6 +940,7 @@ export default function TakingExam() {
             const storedConfigStr = localStorage.getItem(`custom_sub_exam_config_${examId}`);
             if (storedConfigStr) {
               const storedConfig = JSON.parse(storedConfigStr);
+              if (storedConfig.ownerUid && storedConfig.ownerUid !== auth.currentUser?.uid) throw new Error('Cấu hình thuộc tài khoản khác.');
               if (storedConfig.useSubExam !== undefined) {
                 useSubExam = Boolean(storedConfig.useSubExam);
               }
