@@ -28,6 +28,8 @@ import { pourContactRemaining } from '../../science/pourContactActivity';
 import { liquidOpacity, suspensionColorWeight } from '../../science/liquidOptics';
 import { createLiquidVolumeGeometry, liquidMeshLayout, liquidMeshOrigin } from './liquidGeometry';
 import { LIQUID_SURFACE_GLSL } from './liquidSurfaceShader';
+import { FOAM_CELL_DIAMETER_M, shadeFoamCells } from './foamAppearance';
+import { metersPerModelUnit } from '../../science/sceneUnits';
 
 interface LiquidProps {
   vesselId: string;
@@ -119,6 +121,8 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     uFillY: { value: baseY },
     uBaseY: { value: baseY },
     uSurfaceRadius: { value: 0.5 },
+    uFoamCellScale: { value: metersPerModelUnit(getVesselProfile(vesselType, capacity_ml)) / FOAM_CELL_DIAMETER_M },
+    uFoamCapRadius: { value: 0.5 },
     uSurfaceWaveLimit: { value: 0 },
     uWorldToVessel: { value: new THREE.Matrix4() },
     uBodyPlane: { value: new THREE.Vector4(0, 1, 0, 0) },
@@ -145,7 +149,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     uReactionProgress: { value: 0.0 },
     uReactionInitialColor: { value: new THREE.Color('#38bdf8') },
     uReactionTargetColor: { value: new THREE.Color('#38bdf8') },
-  }), [baseY, vesselType, initialColor]);
+  }), [baseY, vesselType, initialColor, capacity_ml]);
 
   // Liquid Material with physical absorption, clearcoat, and turbidity
   const liquidMaterial = useMemo(() => {
@@ -164,7 +168,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       depthWrite: false,
     });
 
-    mat.customProgramCacheKey = () => 'chemlab_realistic_liquid_v4_local_clip';
+    mat.customProgramCacheKey = () => `chemlab_realistic_liquid_v5_${appearance}`;
 
     mat.onBeforeCompile = (shader) => {
       shader.uniforms.uTime = uniforms.uTime;
@@ -272,7 +276,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
         }
 
         // Turbidity Tyndall scattering for precipitates (BaSO4, AgCl, Cu(OH)2, PbI2)
-        if (uTurbidity > 0.01) {
+        if (${appearance === 'foam' ? 'false' : 'uTurbidity > 0.01'}) {
           vec3 milkyScattering = uSuspensionColor;
           float depthFactor = clamp((uFillY - vesselPosition.y) * 1.5, 0.0, 1.0);
           gl_FragColor.rgb = mix(gl_FragColor.rgb, milkyScattering, uTurbidity * 0.75 * depthFactor);
@@ -283,6 +287,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
         #include <tonemapping_fragment>
         `
       );
+      if (appearance === 'foam') shadeFoamCells(shader, uniforms.uFoamCellScale, uniforms.uFoamCapRadius, false);
     };
 
     return mat;
@@ -370,8 +375,9 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
         transformed.z += liquidSurfaceHeight(position.xy);
         `
       );
+      if (appearance === 'foam') shadeFoamCells(shader, uniforms.uFoamCellScale, uniforms.uFoamCapRadius, true);
     };
-    mat.customProgramCacheKey = () => 'chemlab_meniscus_height_normal_v1';
+    mat.customProgramCacheKey = () => `chemlab_meniscus_height_normal_v2_${appearance}`;
 
     return mat;
   }, [uniforms, initialColor, appearance]);
@@ -656,6 +662,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
         const interior = vesselInterior(vesselType);
         const capRadius = tilt < 1e-8 ? surfaceR : Math.hypot(interior.maximumRadius, Math.max(Math.abs(interior.floorY), Math.abs(interior.topY)));
         meniscusMeshRef.current.scale.set(capRadius, capRadius, 1.0);
+        uniforms.uFoamCapRadius.value = capRadius;
 
         // World up (0, 1, 0) transformed into local container space
         _scratchQuat.setFromUnitVectors(new THREE.Vector3(0, 0, 1), localUpNormal);

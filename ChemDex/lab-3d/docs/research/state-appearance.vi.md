@@ -24,6 +24,8 @@ Audit hình ảnh dùng một số packet quang học được gieo có kiểm s
 
 Viewport cảm ứng là Chrome desktop giả lập, không thay thử điện thoại thật. Bộ kiểm tra này không đo FPS/GPU hay nghiệm thu hiệu năng toàn lab. Mục tiêu nâng cấp hiệu ứng còn tiếp tục: cấu trúc bọt xốp, hình ảnh chuyển pha/rắn và tương tác ánh sáng của các trạng thái cần kiểm tra thêm trên thiết bị thật.
 
+Đợt bọt, băng tan và vật rắn tiếp theo được ghi tại [foam-ice-appearance.vi.md](foam-ice-appearance.vi.md).
+
 ```powershell
 node scripts/auditStateAppearance.mjs
 $env:TILTED_PARTICLE_AUDIT_OUTPUT='artifacts/state-appearance/tilted'

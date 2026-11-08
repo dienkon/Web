@@ -1,0 +1,421 @@
+{
+  "method": "Real finite O2 foam specimen, phase solver heat increments and rendered mesh volumes. Hydrate/copper stocks are authored finite inventories. Desktop Chrome with touch viewport emulation, not a phone benchmark.",
+  "errors": [],
+  "consoleErrors": [],
+  "cases": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "initial": {
+        "iceMass": 5,
+        "materialVolume": 0.30946169359585474,
+        "expectedVolume": 0.30946169359585396,
+        "surface_ml": 24.999999999999996,
+        "icePosition": [
+          0,
+          -0.6501579343332597,
+          0
+        ],
+        "iceFinish": {
+          "roughness": 0.09,
+          "clearcoat": 0.55
+        },
+        "foam_ml": 6.339978543734477,
+        "foamShader": "chemlab_realistic_liquid_v5_foam",
+        "stocks": [
+          {
+            "type": "MeshPhysicalMaterial",
+            "metalness": 0,
+            "anisotropy": 0,
+            "flatShading": true,
+            "volume": 0.12413664611872183
+          },
+          {
+            "type": "MeshPhysicalMaterial",
+            "metalness": 0.88,
+            "anisotropy": 0,
+            "flatShading": false,
+            "volume": 0.01266858808158027
+          }
+        ],
+        "waterMass": 25,
+        "foamMass": 0.008265390976387363,
+        "inventory": "[[{\"formula\":\"H2O2\",\"phase\":\"aq\",\"moles\":0.00039999999999999996,\"initialMoles\":0.002,\"mass_g\":0.0136056,\"concentration_M\":0.013333333333333332},{\"formula\":\"MnO2\",\"phase\":\"s\",\"moles\":0.00001,\"initialMoles\":0.00001,\"mass_g\":0.0008693600000000001},{\"formula\":\"C12H25NaO4S\",\"phase\":\"aq\",\"mass_g\":0.2,\"moles\":0.0006935341808321024,\"concentration_M\":0.023117806027736748},{\"formula\":\"H2O\",\"phase\":\"l\",\"mass_g\":29.760796,\"moles\":1.652000888148765,\"concentration_M\":55.066696271625496},{\"formula\":\"O2\",\"phase\":\"g\",\"location\":\"foam\",\"moles\":0.00025830961236287777,\"mass_g\":0.008265390976387363}],[{\"formula\":\"H2O\",\"phase\":\"l\",\"mass_g\":20,\"moles\":1.1101859561476548},{\"formula\":\"H2O\",\"phase\":\"s\",\"mass_g\":5,\"moles\":0.2775464890369137}],[{\"formula\":\"CuSO4·5H2O\",\"phase\":\"s\",\"mass_g\":5,\"moles\":0.020025873428469582,\"initialMass_g\":5}],[{\"formula\":\"Cu (turnings)\",\"phase\":\"s\",\"mass_g\":2,\"moles\":0.031473263462688444,\"initialMass_g\":2}]]"
+      },
+      "half": {
+        "iceMass": 2.5,
+        "materialVolume": 0.15473084679792734,
+        "expectedVolume": 0.15473084679792698,
+        "surface_ml": 25,
+        "icePosition": [
+          0,
+          -0.6140229446105967,
+          0
+        ],
+        "iceFinish": {
+          "roughness": 0.09,
+          "clearcoat": 0.55
+        },
+        "foam_ml": 6.339978543734477,
+        "foamShader": "chemlab_realistic_liquid_v5_foam",
+        "stocks": [
+          {
+            "type": "MeshPhysicalMaterial",
+            "metalness": 0,
+            "anisotropy": 0,
+            "flatShading": true,
+            "volume": 0.12413664611872183
+          },
+          {
+            "type": "MeshPhysicalMaterial",
+            "metalness": 0.88,
+            "anisotropy": 0,
+            "flatShading": false,
+            "volume": 0.01266858808158027
+          }
+        ],
+        "waterMass": 25,
+        "foamMass": 0.008265390976387363,
+        "inventory": "[[{\"formula\":\"H2O2\",\"phase\":\"aq\",\"moles\":0.00039999999999999996,\"initialMoles\":0.002,\"mass_g\":0.0136056,\"concentration_M\":0.013333333333333332},{\"formula\":\"MnO2\",\"phase\":\"s\",\"moles\":0.00001,\"initialMoles\":0.00001,\"mass_g\":0.0008693600000000001},{\"formula\":\"C12H25NaO4S\",\"phase\":\"aq\",\"mass_g\":0.2,\"moles\":0.0006935341808321024,\"concentration_M\":0.023117806027736748},{\"formula\":\"H2O\",\"phase\":\"l\",\"mass_g\":29.760796,\"moles\":1.652000888148765,\"concentration_M\":55.066696271625496},{\"formula\":\"O2\",\"phase\":\"g\",\"location\":\"foam\",\"moles\":0.00025830961236287777,\"mass_g\":0.008265390976387363}],[{\"formula\":\"H2O\",\"phase\":\"l\",\"mass_g\":22.5,\"moles\":1.2489592006661117},{\"formula\":\"H2O\",\"phase\":\"s\",\"mass_g\":2.5,\"moles\":0.13877324451845685}],[{\"formula\":\"CuSO4·5H2O\",\"phase\":\"s\",\"mass_g\":5,\"moles\":0.020025873428469582,\"initialMass_g\":5}],[{\"formula\":\"Cu (turnings)\",\"phase\":\"s\",\"mass_g\":2,\"moles\":0.031473263462688444,\"initialMass_g\":2}]]"
+      },
+      "quality": {
+        "iceMass": 2.5,
+        "materialVolume": 0.15473084679792734,
+        "expectedVolume": 0.15473084679792698,
+        "surface_ml": 25,
+        "icePosition": [
+          0,
+          -0.6140229446105967,
+          0
+        ],
+        "iceFinish": {
+          "roughness": 0.09,
+          "clearcoat": 0.55
+        },
+        "foam_ml": 6.339978543734477,
+        "foamShader": "chemlab_realistic_liquid_v5_foam",
+        "stocks": [
+          {
+            "type": "MeshPhysicalMaterial",
+            "metalness": 0,
+            "anisotropy": 0,
+            "flatShading": true,
+            "volume": 0.12413664611872183
+          },
+          {
+            "type": "MeshPhysicalMaterial",
+            "metalness": 0.88,
+            "anisotropy": 0.35,
+            "flatShading": false,
+            "volume": 0.01266858808158027
+          }
+        ],
+        "waterMass": 25,
+        "foamMass": 0.008265390976387363,
+        "inventory": "[[{\"formula\":\"H2O2\",\"phase\":\"aq\",\"moles\":0.00039999999999999996,\"initialMoles\":0.002,\"mass_g\":0.0136056,\"concentration_M\":0.013333333333333332},{\"formula\":\"MnO2\",\"phase\":\"s\",\"moles\":0.00001,\"initialMoles\":0.00001,\"mass_g\":0.0008693600000000001},{\"formula\":\"C12H25NaO4S\",\"phase\":\"aq\",\"mass_g\":0.2,\"moles\":0.0006935341808321024,\"concentration_M\":0.023117806027736748},{\"formula\":\"H2O\",\"phase\":\"l\",\"mass_g\":29.760796,\"moles\":1.652000888148765,\"concentration_M\":55.066696271625496},{\"formula\":\"O2\",\"phase\":\"g\",\"location\":\"foam\",\"moles\":0.00025830961236287777,\"mass_g\":0.008265390976387363}],[{\"formula\":\"H2O\",\"phase\":\"l\",\"mass_g\":22.5,\"moles\":1.2489592006661117},{\"formula\":\"H2O\",\"phase\":\"s\",\"mass_g\":2.5,\"moles\":0.13877324451845685}],[{\"formula\":\"CuSO4·5H2O\",\"phase\":\"s\",\"mass_g\":5,\"moles\":0.020025873428469582,\"initialMass_g\":5}],[{\"formula\":\"Cu (turnings)\",\"phase\":\"s\",\"mass_g\":2,\"moles\":0.031473263462688444,\"initialMass_g\":2}]]"
+      },
+      "melted": {
+        "iceMass": 0,
+        "materialVolume": 0,
+        "expectedVolume": 0,
+        "surface_ml": 25,
+        "iceFinish": null,
+        "foam_ml": 6.339978543734477,
+        "foamShader": "chemlab_realistic_liquid_v5_foam",
+        "stocks": [
+          {
+            "type": "MeshPhysicalMaterial",
+            "metalness": 0,
+            "anisotropy": 0,
+            "flatShading": true,
+            "volume": 0.12413664611872183
+          },
+          {
+            "type": "MeshPhysicalMaterial",
+            "metalness": 0.88,
+            "anisotropy": 0.35,
+            "flatShading": false,
+            "volume": 0.01266858808158027
+          }
+        ],
+        "waterMass": 25,
+        "foamMass": 0.008265390976387363,
+        "inventory": "[[{\"formula\":\"H2O2\",\"phase\":\"aq\",\"moles\":0.00039999999999999996,\"initialMoles\":0.002,\"mass_g\":0.0136056,\"concentration_M\":0.013333333333333332},{\"formula\":\"MnO2\",\"phase\":\"s\",\"moles\":0.00001,\"initialMoles\":0.00001,\"mass_g\":0.0008693600000000001},{\"formula\":\"C12H25NaO4S\",\"phase\":\"aq\",\"mass_g\":0.2,\"moles\":0.0006935341808321024,\"concentration_M\":0.023117806027736748},{\"formula\":\"H2O\",\"phase\":\"l\",\"mass_g\":29.760796,\"moles\":1.652000888148765,\"concentration_M\":55.066696271625496},{\"formula\":\"O2\",\"phase\":\"g\",\"location\":\"foam\",\"moles\":0.00025830961236287777,\"mass_g\":0.008265390976387363}],[{\"formula\":\"H2O\",\"phase\":\"l\",\"mass_g\":25,\"moles\":1.3877324451845687}],[{\"formula\":\"CuSO4·5H2O\",\"phase\":\"s\",\"mass_g\":5,\"moles\":0.020025873428469582,\"initialMass_g\":5}],[{\"formula\":\"Cu (turnings)\",\"phase\":\"s\",\"mass_g\":2,\"moles\":0.031473263462688444,\"initialMass_g\":2}]]"
+      },
+      "drained": {
+        "iceMass": 0,
+        "materialVolume": 0,
+        "expectedVolume": 0,
+        "surface_ml": 25,
+        "iceFinish": null,
+        "foam_ml": 2.9947938091558535,
+        "foamShader": "chemlab_realistic_liquid_v5_foam",
+        "stocks": [
+          {
+            "type": "MeshPhysicalMaterial",
+            "metalness": 0,
+            "anisotropy": 0,
+            "flatShading": true,
+            "volume": 0.12413664611872183
+          },
+          {
+            "type": "MeshPhysicalMaterial",
+            "metalness": 0.88,
+            "anisotropy": 0.35,
+            "flatShading": false,
+            "volume": 0.01266858808158027
+          }
+        ],
+        "waterMass": 25,
+        "foamMass": 0.003904294242572788,
+        "inventory": "[[{\"formula\":\"H2O2\",\"phase\":\"aq\",\"moles\":0.00039999999999999996,\"initialMoles\":0.002,\"mass_g\":0.0136056,\"concentration_M\":0.013333333333333332},{\"formula\":\"MnO2\",\"phase\":\"s\",\"moles\":0.00001,\"initialMoles\":0.00001,\"mass_g\":0.0008693600000000001},{\"formula\":\"C12H25NaO4S\",\"phase\":\"aq\",\"mass_g\":0.2,\"moles\":0.0006935341808321024,\"concentration_M\":0.023117806027736748},{\"formula\":\"H2O\",\"phase\":\"l\",\"mass_g\":29.760796,\"moles\":1.652000888148765,\"concentration_M\":55.066696271625496},{\"formula\":\"O2\",\"phase\":\"g\",\"location\":\"foam\",\"moles\":0.00012201682113172035,\"mass_g\":0.003904294242572788}],[{\"formula\":\"H2O\",\"phase\":\"l\",\"mass_g\":25,\"moles\":1.3877324451845687}],[{\"formula\":\"CuSO4·5H2O\",\"phase\":\"s\",\"mass_g\":5,\"moles\":0.020025873428469582,\"initialMass_g\":5}],[{\"formula\":\"Cu (turnings)\",\"phase\":\"s\",\"mass_g\":2,\"moles\":0.031473263462688444,\"initialMass_g\":2}]]"
+      },
+      "replaced": {
+        "iceMass": 5,
+        "materialVolume": 0.30946169359585474,
+        "expectedVolume": 0.30946169359585396,
+        "surface_ml": 24.999999999999996,
+        "icePosition": [
+          0,
+          -0.6501579343332597,
+          0
+        ],
+        "iceFinish": {
+          "roughness": 0.09,
+          "clearcoat": 0.55
+        },
+        "foam_ml": 2.9947938091558535,
+        "foamShader": "chemlab_realistic_liquid_v5_foam",
+        "stocks": [
+          {
+            "type": "MeshPhysicalMaterial",
+            "metalness": 0,
+            "anisotropy": 0,
+            "flatShading": true,
+            "volume": 0.12413664611872183
+          },
+          {
+            "type": "MeshPhysicalMaterial",
+            "metalness": 0.88,
+            "anisotropy": 0.35,
+            "flatShading": false,
+            "volume": 0.01266858808158027
+          }
+        ],
+        "waterMass": 25,
+        "foamMass": 0.003904294242572788,
+        "inventory": "[[{\"formula\":\"H2O2\",\"phase\":\"aq\",\"moles\":0.00039999999999999996,\"initialMoles\":0.002,\"mass_g\":0.0136056,\"concentration_M\":0.013333333333333332},{\"formula\":\"MnO2\",\"phase\":\"s\",\"moles\":0.00001,\"initialMoles\":0.00001,\"mass_g\":0.0008693600000000001},{\"formula\":\"C12H25NaO4S\",\"phase\":\"aq\",\"mass_g\":0.2,\"moles\":0.0006935341808321024,\"concentration_M\":0.023117806027736748},{\"formula\":\"H2O\",\"phase\":\"l\",\"mass_g\":29.760796,\"moles\":1.652000888148765,\"concentration_M\":55.066696271625496},{\"formula\":\"O2\",\"phase\":\"g\",\"location\":\"foam\",\"moles\":0.00012201682113172035,\"mass_g\":0.003904294242572788}],[{\"formula\":\"H2O\",\"phase\":\"l\",\"mass_g\":20,\"moles\":1.1101859561476548},{\"formula\":\"H2O\",\"phase\":\"s\",\"mass_g\":5,\"moles\":0.2775464890369137}],[{\"formula\":\"CuSO4·5H2O\",\"phase\":\"s\",\"mass_g\":5,\"moles\":0.020025873428469582,\"initialMass_g\":5}],[{\"formula\":\"Cu (turnings)\",\"phase\":\"s\",\"mass_g\":2,\"moles\":0.031473263462688444,\"initialMass_g\":2}]]"
+      },
+      "pass": true
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "initial": {
+        "iceMass": 5,
+        "materialVolume": 0.30946169359585474,
+        "expectedVolume": 0.30946169359585396,
+        "surface_ml": 24.999999999999996,
+        "icePosition": [
+          0,
+          -0.6501579343332597,
+          0
+        ],
+        "iceFinish": {
+          "roughness": 0.09,
+          "clearcoat": 0.55
+        },
+        "foam_ml": 6.339978543734477,
+        "foamShader": "chemlab_realistic_liquid_v5_foam",
+        "stocks": [
+          {
+            "type": "MeshPhysicalMaterial",
+            "metalness": 0,
+            "anisotropy": 0,
+            "flatShading": true,
+            "volume": 0.12413664611872183
+          },
+          {
+            "type": "MeshPhysicalMaterial",
+            "metalness": 0.88,
+            "anisotropy": 0,
+            "flatShading": false,
+            "volume": 0.01266858808158027
+          }
+        ],
+        "waterMass": 25,
+        "foamMass": 0.008265390976387363,
+        "inventory": "[[{\"formula\":\"H2O2\",\"phase\":\"aq\",\"moles\":0.00039999999999999996,\"initialMoles\":0.002,\"mass_g\":0.0136056,\"concentration_M\":0.013333333333333332},{\"formula\":\"MnO2\",\"phase\":\"s\",\"moles\":0.00001,\"initialMoles\":0.00001,\"mass_g\":0.0008693600000000001},{\"formula\":\"C12H25NaO4S\",\"phase\":\"aq\",\"mass_g\":0.2,\"moles\":0.0006935341808321024,\"concentration_M\":0.023117806027736748},{\"formula\":\"H2O\",\"phase\":\"l\",\"mass_g\":29.760796,\"moles\":1.652000888148765,\"concentration_M\":55.066696271625496},{\"formula\":\"O2\",\"phase\":\"g\",\"location\":\"foam\",\"moles\":0.00025830961236287777,\"mass_g\":0.008265390976387363}],[{\"formula\":\"H2O\",\"phase\":\"l\",\"mass_g\":20,\"moles\":1.1101859561476548},{\"formula\":\"H2O\",\"phase\":\"s\",\"mass_g\":5,\"moles\":0.2775464890369137}],[{\"formula\":\"CuSO4·5H2O\",\"phase\":\"s\",\"mass_g\":5,\"moles\":0.020025873428469582,\"initialMass_g\":5}],[{\"formula\":\"Cu (turnings)\",\"phase\":\"s\",\"mass_g\":2,\"moles\":0.031473263462688444,\"initialMass_g\":2}]]"
+      },
+      "half": {
+        "iceMass": 2.5,
+        "materialVolume": 0.15473084679792734,
+        "expectedVolume": 0.15473084679792698,
+        "surface_ml": 25,
+        "icePosition": [
+          0,
+          -0.6140229446105967,
+          0
+        ],
+        "iceFinish": {
+          "roughness": 0.09,
+          "clearcoat": 0.55
+        },
+        "foam_ml": 6.339978543734477,
+        "foamShader": "chemlab_realistic_liquid_v5_foam",
+        "stocks": [
+          {
+            "type": "MeshPhysicalMaterial",
+            "metalness": 0,
+            "anisotropy": 0,
+            "flatShading": true,
+            "volume": 0.12413664611872183
+          },
+          {
+            "type": "MeshPhysicalMaterial",
+            "metalness": 0.88,
+            "anisotropy": 0,
+            "flatShading": false,
+            "volume": 0.01266858808158027
+          }
+        ],
+        "waterMass": 25,
+        "foamMass": 0.008265390976387363,
+        "inventory": "[[{\"formula\":\"H2O2\",\"phase\":\"aq\",\"moles\":0.00039999999999999996,\"initialMoles\":0.002,\"mass_g\":0.0136056,\"concentration_M\":0.013333333333333332},{\"formula\":\"MnO2\",\"phase\":\"s\",\"moles\":0.00001,\"initialMoles\":0.00001,\"mass_g\":0.0008693600000000001},{\"formula\":\"C12H25NaO4S\",\"phase\":\"aq\",\"mass_g\":0.2,\"moles\":0.0006935341808321024,\"concentration_M\":0.023117806027736748},{\"formula\":\"H2O\",\"phase\":\"l\",\"mass_g\":29.760796,\"moles\":1.652000888148765,\"concentration_M\":55.066696271625496},{\"formula\":\"O2\",\"phase\":\"g\",\"location\":\"foam\",\"moles\":0.00025830961236287777,\"mass_g\":0.008265390976387363}],[{\"formula\":\"H2O\",\"phase\":\"l\",\"mass_g\":22.5,\"moles\":1.2489592006661117},{\"formula\":\"H2O\",\"phase\":\"s\",\"mass_g\":2.5,\"moles\":0.13877324451845685}],[{\"formula\":\"CuSO4·5H2O\",\"phase\":\"s\",\"mass_g\":5,\"moles\":0.020025873428469582,\"initialMass_g\":5}],[{\"formula\":\"Cu (turnings)\",\"phase\":\"s\",\"mass_g\":2,\"moles\":0.031473263462688444,\"initialMass_g\":2}]]"
+      },
+      "quality": {
+        "iceMass": 2.5,
+        "materialVolume": 0.15473084679792734,
+        "expectedVolume": 0.15473084679792698,
+        "surface_ml": 25,
+        "icePosition": [
+          0,
+          -0.6140229446105967,
+          0
+        ],
+        "iceFinish": {
+          "roughness": 0.09,
+          "clearcoat": 0.55
+        },
+        "foam_ml": 6.339978543734477,
+        "foamShader": "chemlab_realistic_liquid_v5_foam",
+        "stocks": [
+          {
+            "type": "MeshPhysicalMaterial",
+            "metalness": 0,
+            "anisotropy": 0,
+            "flatShading": true,
+            "volume": 0.12413664611872183
+          },
+          {
+            "type": "MeshPhysicalMaterial",
+            "metalness": 0.88,
+            "anisotropy": 0.35,
+            "flatShading": false,
+            "volume": 0.01266858808158027
+          }
+        ],
+        "waterMass": 25,
+        "foamMass": 0.008265390976387363,
+        "inventory": "[[{\"formula\":\"H2O2\",\"phase\":\"aq\",\"moles\":0.00039999999999999996,\"initialMoles\":0.002,\"mass_g\":0.0136056,\"concentration_M\":0.013333333333333332},{\"formula\":\"MnO2\",\"phase\":\"s\",\"moles\":0.00001,\"initialMoles\":0.00001,\"mass_g\":0.0008693600000000001},{\"formula\":\"C12H25NaO4S\",\"phase\":\"aq\",\"mass_g\":0.2,\"moles\":0.0006935341808321024,\"concentration_M\":0.023117806027736748},{\"formula\":\"H2O\",\"phase\":\"l\",\"mass_g\":29.760796,\"moles\":1.652000888148765,\"concentration_M\":55.066696271625496},{\"formula\":\"O2\",\"phase\":\"g\",\"location\":\"foam\",\"moles\":0.00025830961236287777,\"mass_g\":0.008265390976387363}],[{\"formula\":\"H2O\",\"phase\":\"l\",\"mass_g\":22.5,\"moles\":1.2489592006661117},{\"formula\":\"H2O\",\"phase\":\"s\",\"mass_g\":2.5,\"moles\":0.13877324451845685}],[{\"formula\":\"CuSO4·5H2O\",\"phase\":\"s\",\"mass_g\":5,\"moles\":0.020025873428469582,\"initialMass_g\":5}],[{\"formula\":\"Cu (turnings)\",\"phase\":\"s\",\"mass_g\":2,\"moles\":0.031473263462688444,\"initialMass_g\":2}]]"
+      },
+      "melted": {
+        "iceMass": 0,
+        "materialVolume": 0,
+        "expectedVolume": 0,
+        "surface_ml": 25,
+        "iceFinish": null,
+        "foam_ml": 6.339978543734477,
+        "foamShader": "chemlab_realistic_liquid_v5_foam",
+        "stocks": [
+          {
+            "type": "MeshPhysicalMaterial",
+            "metalness": 0,
+            "anisotropy": 0,
+            "flatShading": true,
+            "volume": 0.12413664611872183
+          },
+          {
+            "type": "MeshPhysicalMaterial",
+            "metalness": 0.88,
+            "anisotropy": 0.35,
+            "flatShading": false,
+            "volume": 0.01266858808158027
+          }
+        ],
+        "waterMass": 25,
+        "foamMass": 0.008265390976387363,
+        "inventory": "[[{\"formula\":\"H2O2\",\"phase\":\"aq\",\"moles\":0.00039999999999999996,\"initialMoles\":0.002,\"mass_g\":0.0136056,\"concentration_M\":0.013333333333333332},{\"formula\":\"MnO2\",\"phase\":\"s\",\"moles\":0.00001,\"initialMoles\":0.00001,\"mass_g\":0.0008693600000000001},{\"formula\":\"C12H25NaO4S\",\"phase\":\"aq\",\"mass_g\":0.2,\"moles\":0.0006935341808321024,\"concentration_M\":0.023117806027736748},{\"formula\":\"H2O\",\"phase\":\"l\",\"mass_g\":29.760796,\"moles\":1.652000888148765,\"concentration_M\":55.066696271625496},{\"formula\":\"O2\",\"phase\":\"g\",\"location\":\"foam\",\"moles\":0.00025830961236287777,\"mass_g\":0.008265390976387363}],[{\"formula\":\"H2O\",\"phase\":\"l\",\"mass_g\":25,\"moles\":1.3877324451845687}],[{\"formula\":\"CuSO4·5H2O\",\"phase\":\"s\",\"mass_g\":5,\"moles\":0.020025873428469582,\"initialMass_g\":5}],[{\"formula\":\"Cu (turnings)\",\"phase\":\"s\",\"mass_g\":2,\"moles\":0.031473263462688444,\"initialMass_g\":2}]]"
+      },
+      "drained": {
+        "iceMass": 0,
+        "materialVolume": 0,
+        "expectedVolume": 0,
+        "surface_ml": 25,
+        "iceFinish": null,
+        "foam_ml": 2.9947938091558535,
+        "foamShader": "chemlab_realistic_liquid_v5_foam",
+        "stocks": [
+          {
+            "type": "MeshPhysicalMaterial",
+            "metalness": 0,
+            "anisotropy": 0,
+            "flatShading": true,
+            "volume": 0.12413664611872183
+          },
+          {
+            "type": "MeshPhysicalMaterial",
+            "metalness": 0.88,
+            "anisotropy": 0.35,
+            "flatShading": false,
+            "volume": 0.01266858808158027
+          }
+        ],
+        "waterMass": 25,
+        "foamMass": 0.003904294242572788,
+        "inventory": "[[{\"formula\":\"H2O2\",\"phase\":\"aq\",\"moles\":0.00039999999999999996,\"initialMoles\":0.002,\"mass_g\":0.0136056,\"concentration_M\":0.013333333333333332},{\"formula\":\"MnO2\",\"phase\":\"s\",\"moles\":0.00001,\"initialMoles\":0.00001,\"mass_g\":0.0008693600000000001},{\"formula\":\"C12H25NaO4S\",\"phase\":\"aq\",\"mass_g\":0.2,\"moles\":0.0006935341808321024,\"concentration_M\":0.023117806027736748},{\"formula\":\"H2O\",\"phase\":\"l\",\"mass_g\":29.760796,\"moles\":1.652000888148765,\"concentration_M\":55.066696271625496},{\"formula\":\"O2\",\"phase\":\"g\",\"location\":\"foam\",\"moles\":0.00012201682113172035,\"mass_g\":0.003904294242572788}],[{\"formula\":\"H2O\",\"phase\":\"l\",\"mass_g\":25,\"moles\":1.3877324451845687}],[{\"formula\":\"CuSO4·5H2O\",\"phase\":\"s\",\"mass_g\":5,\"moles\":0.020025873428469582,\"initialMass_g\":5}],[{\"formula\":\"Cu (turnings)\",\"phase\":\"s\",\"mass_g\":2,\"moles\":0.031473263462688444,\"initialMass_g\":2}]]"
+      },
+      "replaced": {
+        "iceMass": 5,
+        "materialVolume": 0.30946169359585474,
+        "expectedVolume": 0.30946169359585396,
+        "surface_ml": 24.999999999999996,
+        "icePosition": [
+          0,
+          -0.6501579343332597,
+          0
+        ],
+        "iceFinish": {
+          "roughness": 0.09,
+          "clearcoat": 0.55
+        },
+        "foam_ml": 2.9947938091558535,
+        "foamShader": "chemlab_realistic_liquid_v5_foam",
+        "stocks": [
+          {
+            "type": "MeshPhysicalMaterial",
+            "metalness": 0,
+            "anisotropy": 0,
+            "flatShading": true,
+            "volume": 0.12413664611872183
+          },
+          {
+            "type": "MeshPhysicalMaterial",
+            "metalness": 0.88,
+            "anisotropy": 0.35,
+            "flatShading": false,
+            "volume": 0.01266858808158027
+          }
+        ],
+        "waterMass": 25,
+        "foamMass": 0.003904294242572788,
+        "inventory": "[[{\"formula\":\"H2O2\",\"phase\":\"aq\",\"moles\":0.00039999999999999996,\"initialMoles\":0.002,\"mass_g\":0.0136056,\"concentration_M\":0.013333333333333332},{\"formula\":\"MnO2\",\"phase\":\"s\",\"moles\":0.00001,\"initialMoles\":0.00001,\"mass_g\":0.0008693600000000001},{\"formula\":\"C12H25NaO4S\",\"phase\":\"aq\",\"mass_g\":0.2,\"moles\":0.0006935341808321024,\"concentration_M\":0.023117806027736748},{\"formula\":\"H2O\",\"phase\":\"l\",\"mass_g\":29.760796,\"moles\":1.652000888148765,\"concentration_M\":55.066696271625496},{\"formula\":\"O2\",\"phase\":\"g\",\"location\":\"foam\",\"moles\":0.00012201682113172035,\"mass_g\":0.003904294242572788}],[{\"formula\":\"H2O\",\"phase\":\"l\",\"mass_g\":20,\"moles\":1.1101859561476548},{\"formula\":\"H2O\",\"phase\":\"s\",\"mass_g\":5,\"moles\":0.2775464890369137}],[{\"formula\":\"CuSO4·5H2O\",\"phase\":\"s\",\"mass_g\":5,\"moles\":0.020025873428469582,\"initialMass_g\":5}],[{\"formula\":\"Cu (turnings)\",\"phase\":\"s\",\"mass_g\":2,\"moles\":0.031473263462688444,\"initialMass_g\":2}]]"
+      },
+      "pass": true
+    }
+  ]
+}

@@ -30,6 +30,8 @@ export const Foam = React.memo(function Foam({
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const specimen = useAppStore(s => s.vessels[vesselId]);
   const filledLayer = useMemo(() => specimen && active ? foamLayer(specimen) : null, [specimen, active]);
+  const foamTint = useMemo(() => `#${new THREE.Color(specimen?.liquidColor || liquidColor)
+    .lerp(new THREE.Color('#ffffff'), 0.88).getHexString()}`, [specimen?.liquidColor, liquidColor]);
   const simulationTime = useRef(0);
   const sampleRevision = useRef(-1);
   const glyphScratch = useMemo(() => ({ x: 0, y: 0, z: 0, radius: 0 }), []);
@@ -115,7 +117,7 @@ export const Foam = React.memo(function Foam({
     for (let i = 0; i < count; i++) {
       const glyph = foamGlyph(layer, i, count, time, glyphScratch);
       scratchPos.set(glyph.x, glyph.y, glyph.z);
-      scratchScale.set(glyph.radius, glyph.radius, glyph.radius);
+      scratchScale.setScalar(glyph.radius * 2);
       scratchMat4.compose(scratchPos, scratchQuat, scratchScale);
       meshRef.current.setMatrixAt(i, scratchMat4);
       if (recolor) meshRef.current.setColorAt(i, foamColor);
@@ -131,7 +133,7 @@ export const Foam = React.memo(function Foam({
   return <group>
     {filledLayer && specimen && <RealisticLiquid vesselId={vesselId} vesselType={specimen.type} capacity_ml={specimen.capacity_ml}
       volumeOverride_ml={filledLayer.baseVolume + filledLayer.gasVolume} bottomVolume_ml={filledLayer.baseVolume}
-      colorOverride="#f1f5f9" appearance="foam" />}
+      colorOverride={foamTint} appearance="foam" />}
     <instancedMesh
       ref={meshRef}
       args={[undefined, undefined, count]}

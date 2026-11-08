@@ -6,7 +6,7 @@ import { labSound } from '../../utils/audio';
 import { solidInventoryFraction } from '../../engine/solidInventory';
 import { reactionSimulationEngine } from '../../vfx/reactions/ReactionSimulationEngine';
 import { waterPhaseMasses } from '../../engine/waterPhase';
-import { liquidGeometry, solidBlockDimensions } from '../../science/vesselDimensions';
+import { liquidGeometry } from '../../science/vesselDimensions';
 import { vesselLiquidSurfaceY } from '../../science/vesselGeometry';
 import { ICE_DENSITY_G_ML } from '../../engine/waterProperties';
 import { SodiumWaterPellet } from './SodiumWaterPellet';
@@ -22,6 +22,10 @@ import { simulationFrameDt } from '../../core/clock';
 import { sameMolecularFormula } from '../../science/speciesIdentity';
 import { createPrecipitateGeometry } from '../../simulation/render/precipitateGeometry';
 import { getNoiseTexture } from '../../vfx/textures';
+import { iceShape, iceBlockDimensions, iceCenterY } from '../../science/iceShape';
+import { iceSurfaceFinish, shadeIceInterior } from '../../vfx/materials/iceAppearance';
+import { useQualityStore } from '../../vfx/quality';
+import { vesselBodyTransform } from '../../science/vesselScale';
 
 // Shared scratch objects for zero-allocation per-frame transforms
 const _dummyMat4 = new THREE.Matrix4();
@@ -101,16 +105,20 @@ export const SolidContentsRenderer = React.memo(function SolidContentsRenderer({
 
 function WaterIceMesh({ vesselId }: { vesselId: string }) {
   const vessel = useAppStore(state => state.vessels[vesselId]);
+  const reduced = useQualityStore(s => s.effectiveTier === 'low' || s.effectiveTier === 'potato');
   if (!vessel || vessel.isShattered) return null;
-  const { ice_g } = waterPhaseMasses(vessel);
+  const { ice_g, liquid_g } = waterPhaseMasses(vessel);
   if (ice_g <= 1e-10) return null;
-  const chunk = solidBlockDimensions(vessel, ice_g / ICE_DENSITY_G_ML);
+  const chunk = iceBlockDimensions(vessel, ice_g / ICE_DENSITY_G_ML);
   const surface = vesselLiquidSurfaceY(vessel);
-  const y = Math.max(chunk.floorY + chunk.height / 2, surface + chunk.height * (0.5 - ICE_DENSITY_G_ML));
-  return <mesh name="water-ice" position={[0, y, 0]} scale={[chunk.width, chunk.height, chunk.width]} castShadow>
-    <boxGeometry args={[1, 1, 1]} />
-    <meshPhysicalMaterial color="#dbeef5" transmission={0.55} opacity={0.65} transparent
-      roughness={0.15} thickness={0.4} ior={1.31} depthWrite={false} />
+  const y = iceCenterY(vessel, ice_g / ICE_DENSITY_G_ML, surface);
+  const finish = iceSurfaceFinish(vessel.temperature_c, liquid_g);
+  return <mesh name="water-ice" position={[0, y, 0]} scale={[chunk.width, chunk.height, chunk.width]}
+    geometry={iceShape().geometry} castShadow>
+    <meshPhysicalMaterial color="#dbeef5" transmission={reduced ? 0 : 0.62} opacity={reduced ? 0.62 : 0.8} transparent
+      roughness={finish.roughness} clearcoat={finish.clearcoat} clearcoatRoughness={finish.clearcoatRoughness}
+      thickness={Math.min(chunk.width, chunk.height) * vesselBodyTransform(vessel).scale} ior={1.31}
+      depthWrite={false} onBeforeCompile={shadeIceInterior} customProgramCacheKey={() => 'ice-interior-v1'} />
   </mesh>;
 }
 
@@ -438,6 +446,7 @@ export const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
   vesselId, substance, vesselRadius, baseY, isStirring,
 }: SolidSubstanceMeshProps) {
   const vessel = useAppStore(state => state.vessels[vesselId]);
+  const reduced = useQualityStore(s => s.effectiveTier === 'low' || s.effectiveTier === 'potato');
   const stockChemical = getChemical(substance);
   const chemical = stockChemical?.type === 'solid' ? stockChemical : getChemical(`${substance} (s)`);
   const rows = vessel?.contents.filter(c => c.formula === substance && c.phase === 's'
@@ -529,7 +538,9 @@ export const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
       <meshStandardMaterial color={color} roughness={material.roughness} metalness={material.metalness}
         bumpMap={grainTexture} bumpScale={0.003} />
     </mesh> : <instancedMesh ref={chunksRef} name={`stock_solid_${vesselId}_${substance}`} args={[geometry, undefined, count]} renderOrder={3}>
-      <meshStandardMaterial color={color} roughness={material.roughness} metalness={material.metalness} />
+      <meshPhysicalMaterial color={color} roughness={material.roughness} metalness={material.metalness}
+        specularIntensity={material.specularIntensity} anisotropy={reduced ? 0 : material.anisotropy}
+        flatShading={material.flatShading} />
     </instancedMesh>}
     {!powder && attachment && depositGeometry && <instancedMesh ref={depositRef}
       name={`stock_coating_${vesselId}_${substance}`}

@@ -1,7 +1,8 @@
 import type { SubstanceContent, VesselState } from '../types/chemistry';
 import { CHEMICAL_DATABASE } from '../data/chemicals';
 import { sameMolecularFormula } from '../science/speciesIdentity';
-import { liquidGeometry, liquidLevelForVolume, solidSceneVolume, solidBlockDimensions } from '../science/vesselDimensions';
+import { liquidGeometry, liquidLevelForVolume, solidSceneVolume } from '../science/vesselDimensions';
+import { iceGroundedDisplacementMl } from '../science/iceShape';
 import { ICE_DENSITY_G_ML } from '../engine/waterProperties';
 import { getPrecipitateProfile } from '../simulation/core/SimulationConfig';
 import { stockImmersion, type StockImmersionVessel } from '../science/stockImmersion';
@@ -38,7 +39,7 @@ function bodies(vessel: OccupancyVessel) {
 }
 
 /** Dense certified stock layouts use actual mesh immersion below this upright
- * surface. Other solids retain the compact-sphere / ice-slab buoyancy reference:
+ * surface. Other solids retain the compact-sphere / rounded-ice buoyancy reference:
  * floating material displaces m/rho_liquid, fully submerged material V_solid.
  * Powder packing, trapped air and wetting remain unresolved. Unknown solid
  * densities are left unestimated.
@@ -58,9 +59,7 @@ export function solidDisplacementAtSurface(vessel: OccupancyVessel, surfaceVolum
     const worldVolume = body.volume_ml * worldPerMl;
     let immersed: number;
     if (body.ice) {
-      const chunk = solidBlockDimensions(vessel, body.volume_ml);
-      const immersedDepth = Math.max(0, depth + floorY - chunk.floorY);
-      immersed = Math.min(worldVolume, chunk.width * chunk.width * immersedDepth) / worldPerMl;
+      immersed = iceGroundedDisplacementMl(vessel, body.volume_ml, depth + floorY);
     } else {
       const r = Math.cbrt(3 * worldVolume / (4 * Math.PI));
       const d = Math.min(2 * r, depth);

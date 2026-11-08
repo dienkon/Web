@@ -1,0 +1,14 @@
+{
+  "method": "Production bundle, native toolbar/checkbox/palette clicks. No dev imports or simulation API injection. Checks boot, ice creation, persistence and console errors; numerical mesh validation is in auditFoamIce.",
+  "errors": [],
+  "consoleErrors": [],
+  "savedIce": [
+    {
+      "name": "Mẫu ảo: 20 g nước + 5 g đá",
+      "ice_g": 5,
+      "liquid_ml": 20,
+      "temperature_c": 0
+    }
+  ],
+  "pass": true
+}

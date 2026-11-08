@@ -53,6 +53,11 @@ export function stockSolidMaterial(chemical: ChemicalDefinition | undefined, mor
     metalness: metal ? (morphology === 'POWDER' ? 0.15 : 0.88) : iodine ? 0.35 : 0,
     roughness: metal ? (morphology === 'POWDER' ? 0.98 : morphology === 'FILINGS' ? 0.48 : 0.28)
       : iodine ? 0.28 : crystal ? 0.27 : 0.93,
+    // Qualitative surface finish: rolled/drawn metal can have directional
+    // highlights. No film or emission is invented for a dry ionic crystal.
+    anisotropy: metal && ['NAIL', 'FOIL', 'RIBBON', 'TURNINGS', 'FILINGS'].includes(morphology) ? 0.35 : 0,
+    specularIntensity: crystal ? 0.9 : 0.5,
+    flatShading: crystal || iodine,
   };
 }
 
