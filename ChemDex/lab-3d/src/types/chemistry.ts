@@ -279,6 +279,8 @@ export interface BurnerState {
 }
 
 export interface SpillState {
+  /** Finite gas-production sites in world scene coordinates, derived by chemistry. */
+  solidContactSites?: { grainId: string; position: [number, number, number]; weight: number }[];
   stockMotion?: import('../physical/stockTypes').StockSpillPose;
   /** One illustrative sodium contact run, invalidated when another dose merges. */
   sodiumContact?: { initialMetal_g: number; reactiveMetal_g: number; duration_s: number; elapsed_s: number;

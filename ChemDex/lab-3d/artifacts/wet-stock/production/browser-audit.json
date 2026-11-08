@@ -1,0 +1,76 @@
+{
+  "errors": [],
+  "consoleErrors": [],
+  "cases": [
+    {
+      "mobile": false,
+      "workerInputs": [
+        {
+          "mass_g": 0.08,
+          "restores": 8,
+          "count": 8
+        },
+        {
+          "mass_g": 0.08,
+          "restores": 0,
+          "count": 8
+        },
+        {
+          "mass_g": 0.07976533003372067,
+          "restores": 0,
+          "count": 8
+        },
+        {
+          "mass_g": 0.07976533003372067,
+          "restores": 0,
+          "count": 8
+        },
+        {
+          "mass_g": 0.07898556087012652,
+          "restores": 0,
+          "count": 8
+        },
+        {
+          "mass_g": 0.07822846597084619,
+          "restores": 0,
+          "count": 8
+        }
+      ]
+    },
+    {
+      "mobile": true,
+      "workerInputs": [
+        {
+          "mass_g": 0.08,
+          "restores": 8,
+          "count": 8
+        },
+        {
+          "mass_g": 0.08,
+          "restores": 0,
+          "count": 8
+        },
+        {
+          "mass_g": 0.0797215771485055,
+          "restores": 0,
+          "count": 8
+        },
+        {
+          "mass_g": 0.0797215771485055,
+          "restores": 0,
+          "count": 8
+        },
+        {
+          "mass_g": 0.07897460064551409,
+          "restores": 0,
+          "count": 8
+        },
+        {
+          "mass_g": 0.07897460064551409,
+          "restores": 0,
+          "count": 8
+        }
+      ]
+    }
+  ]
+}

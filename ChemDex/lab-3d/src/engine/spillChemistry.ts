@@ -9,7 +9,8 @@ import { aqueousWaterBoundary } from '../science/aqueousWaterBoundary';
 import { DEFAULT_LAB_ENVIRONMENT, type LabEnvironment } from '../science/labEnvironment';
 import { assessProgramConditions } from '../science/conditions';
 import type { ReactionProgram } from '../shared/programSchema';
-import { sameMolecularFormula } from '../science/speciesIdentity';
+import { identifySpecies, sameMolecularFormula } from '../science/speciesIdentity';
+import { assignWetStock, combineWetStock, splitWetStock } from './spillStockContact';
 
 function contactHalfTime(program: ReactionProgram): number | null {
   const chemistry = program.chemistry, rate = chemistry.kinetics;
@@ -41,7 +42,8 @@ function sodiumContactStep(spill: SpillState, reference: VesselState, dt: number
 
 /** An open puddle has no glass heat capacity or sealed headspace. Resolve only
  * authored contact chemistry; never infer heating/ignition from a VFX preset. */
-export function stepSpillChemistry(spill: SpillState, dt: number, room: LabEnvironment = DEFAULT_LAB_ENVIRONMENT): SpillState {
+export function stepSpillChemistry(spill: SpillState, dt: number, room: LabEnvironment = DEFAULT_LAB_ENVIRONMENT,
+  solidContactFractions?: Map<string, number>): SpillState {
   if (!(dt > 0) || !Number.isFinite(dt)) return spill;
   if (!(spill.volume_ml > 0) || !spill.contents?.length || spill.contents.some(c => c.liquidLayer === 'organic')
     || !spill.contents.some(c => sameMolecularFormula(c.formula, 'H2O') && c.phase === 'l' && c.moles > 1e-12))
@@ -69,7 +71,9 @@ export function stepSpillChemistry(spill: SpillState, dt: number, room: LabEnvir
     return spill.gasRate_mol_s || spill.vaporRate_g_s || spill.reactionProgramId
       ? { ...spill, gasRate_mol_s: 0, vaporRate_g_s: 0, reactionProgramId: undefined } : spill;
   const sodiumStep = sodium ? sodiumContactStep(spill, reference, dt) : null;
-  const progress = sodiumStep ? sodiumStep.progress : -Math.expm1(-Math.LN2 * dt / halfTime!);
+  const wetFraction = Math.min(1, ...program.chemistry.species.filter(s => s.role === 'reactant' && s.phase === 's')
+    .map(s => solidContactFractions?.get(identifySpecies(s.formula).formula.toLowerCase()) ?? 1));
+  const progress = sodiumStep ? sodiumStep.progress : -Math.expm1(-Math.LN2 * dt * wetFraction / halfTime!);
   const next = applyProgramToLedger(program, reference, progress, { deferThermal: true });
   const heat = next.programHeatApplied_J ?? 0;
   const reacted = { ...reference, ...next }, boundary = aqueousWaterBoundary(reacted);
@@ -107,10 +111,27 @@ function stoppedSources(spill: SpillState): SpillState {
 }
 
 export function stepWorkbenchSpills(spills: Record<string, SpillState>, dt: number, room: LabEnvironment = DEFAULT_LAB_ENVIRONMENT) {
+  if (!(dt > 0) || !Number.isFinite(dt)) return { spills, escapedGas_g: {} as Record<string, number> };
   let result = spills;
   const escapedGas_g: Record<string, number> = {};
+  const contacts = assignWetStock(spills), assigned = new Set([...contacts.values()].flat().map(w => w.grain.id));
   for (const [id, spill] of Object.entries(spills)) {
-    let next = stepSpillChemistry(spill, dt, room);
+    if (assigned.has(id)) continue;
+    const wet = contacts.get(id);
+    let next: SpillState;
+    if (wet?.length) {
+      const { sample, fractions } = combineWetStock(spill, wet);
+      const split = splitWetStock(spill, wet, sample, stepSpillChemistry(sample, dt, room, fractions));
+      next = split.pool;
+      for (const grain of split.grains) {
+        if (grain === spills[grain.id]) continue;
+        if (result === spills) result = { ...spills };
+        if (grain.mass_g > 0) result[grain.id] = grain; else delete result[grain.id];
+      }
+    } else {
+      next = stepSpillChemistry(spill, dt, room);
+      if (next.solidContactSites) next = { ...next, solidContactSites: undefined };
+    }
     // The store's atmosphere ledger outlives wiping/removing a puddle. Move the
     // receipt once; do not leave a second copy attached to the liquid sample.
     if (Object.values(next.escapedGas_g ?? {}).some(g => g > 0)) {

@@ -20,7 +20,7 @@ export function publishStockPresentation(poses: StockGrainPose[], interval: numb
 export function presentedStockPose(pose: StockGrainPose, now = performance.now()): StockGrainPose {
   const frame = frames.get(pose.id);
   // Undo/restore can replace the canonical object before a Worker reply arrives.
-  if (!frame || frame.pose !== pose || !(frame.interval > 0)) return pose;
+  if (!frame || (frame.pose !== pose && (frame.pose.position_m !== pose.position_m || frame.pose.rotation !== pose.rotation)) || !(frame.interval > 0)) return pose;
   const alpha = Math.min(1, Math.max(0, (now - frame.received) / (frame.interval * 1000)));
   if (alpha >= 1) return pose;
   const previous = frame.previous;

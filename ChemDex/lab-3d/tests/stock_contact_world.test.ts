@@ -23,6 +23,20 @@ const laboratory = (): StockContainerInput => ({ id: 'fixture', shapeKey: 'none'
     vertices: Array.from(cube.getAttribute('position').array), seed: [{ position_m: [0, 1, 0], rotation: [0, 0, 0, 1] }] }] });
 
 describe('finite stock contacts, independent of drawing', () => {
+  it('shrinks a spill at its current trajectory, and restores explicit saved spill poses while paused', async () => {
+    const r = await create(), v = laboratory(), group = v.groups[0];
+    r.sync({ ...empty, containers: [v] });
+    const p = r.snapshot().grains[0].pose, spill = { ...p, vesselId: v.id, group };
+    r.markEscaped([p.id]); r.sync({ ...empty, spills: [spill] }); r.advance(0.1, false);
+    const current = r.snapshot().grains[0].pose;
+    r.sync({ ...empty, spills: [{ ...spill, mass_g: 0.5 }] });
+    const shrunk = r.snapshot().grains[0].pose;
+    expect(shrunk.position_m).toEqual(current.position_m); expect(shrunk.velocity_m_s).toEqual(current.velocity_m_s);
+    expect(shrunk.mass_g).toBe(0.5);
+    r.sync({ ...empty, spills: [{ ...spill, restore: true }] });
+    expect(r.snapshot().grains[0].pose.position_m).toEqual(p.position_m);
+    expect(r.advance(0.2, true).grains[0].pose.position_m).toEqual(p.position_m);
+  });
   it('matches free fall and preserves the same 120 physical ticks at 20/30/60/120 FPS', async () => {
     const results = [];
     for (const fps of [20, 30, 60, 120]) {

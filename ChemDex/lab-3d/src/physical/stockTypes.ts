@@ -22,7 +22,7 @@ export interface StockContainerInput {
   cavity?: { points: [number, number][] };
   fluid?: { normal: Vec3; offset_m: number; density_kg_m3: number; viscosity_Pas: number };
 }
-export interface StockSpillPose extends StockGrainPose { vesselId: string; group?: StockGroupInput }
+export interface StockSpillPose extends StockGrainPose { vesselId: string; group?: StockGroupInput; restore?: boolean }
 export interface StockWorldInput { containers: StockContainerInput[]; contacts: StockContactReceipt[]; spills: StockSpillPose[] }
 export interface StockBoundaryFrame {
   seconds: number;

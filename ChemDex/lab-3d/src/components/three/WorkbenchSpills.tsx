@@ -81,6 +81,13 @@ function SpillReactionBubbles({ spill, drop, pressure_atm, contact }: { spill: S
         const r = Math.sqrt(((n * 0.618034) % 1)) * (local ? source.radius : spill.radius * 0.7);
         bubble.x = (local ? source.x : 0) + Math.cos(angle) * r;
         bubble.z = (local ? source.z : 0) + Math.sin(angle) * r; bubble.age = 0;
+        const sites = spill.solidContactSites;
+        if ((spill.gasRate_mol_s ?? 0) > 0 && sites?.length) {
+          let weight = ((n * 0.61803398875) % 1) * sites.reduce((s, site) => s + site.weight, 0);
+          let site = sites[sites.length - 1];
+          for (const candidate of sites) { weight -= candidate.weight; if (weight <= 0) { site = candidate; break; } }
+          bubble.x = site.position[0] - spill.position[0]; bubble.z = site.position[2] - spill.position[2];
+        }
         bubble.y = spillSurfaceY(drop, bubble.x, bubble.z);
       }
       const life = Math.min(1, bubble.age / 0.4);

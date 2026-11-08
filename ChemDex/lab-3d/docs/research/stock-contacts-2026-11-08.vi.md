@@ -55,8 +55,9 @@ giữ pose và vận tốc của phần còn lại. Mảnh vượt khỏi khoang
 inventory tràn có ID riêng, trừ đúng khối lượng và số mol khỏi nguồn. Nếu mảnh
 chạm bên trong bình nhận mở, cùng ID chuyển sang bình nhận qua pipeline hóa
 học hiện có. Dọn tràn xóa đúng vật chất khỏi Worker. Các inventory mảnh tràn
-không gộp theo dấu chân chất lỏng để tránh đánh mất pose riêng; tiếp xúc hóa
-học giữa mảnh trên bàn với vũng tràn chưa được ghép vào mô hình này.
+không gộp theo dấu chân chất lỏng để tránh đánh mất pose riêng. Tiếp xúc hóa
+học giữa mảnh và vũng nước được nối bằng mẫu phản ứng tạm, giữ riêng lượng
+chất chưa tiêu hao của từng mảnh; xem [mô hình và giới hạn tiếp xúc ướt](wet-stock-contacts-2026-11-08.vi.md).
 
 Pose, vận tốc và ID được lưu cùng kho chất và chất thải. Bridge từ chối kết
 quả đang bay về nếu snapshot đã được thay bằng Undo/Redo hoặc khôi phục mẫu.

@@ -171,8 +171,14 @@ export class StockWorld {
     const spilled = new Set(input.spills.map(p => p.id));
     for (const p of input.spills) {
       let g = this.grains.get(p.id);
-      if (g && Math.abs(g.pose.mass_g - p.mass_g) > 1e-10) { this.world.removeRigidBody(g.body); this.grains.delete(p.id); g = undefined; }
-      if (!g && p.group && p.mass_g > 1e-12) { this.create(p.vesselId, p.group, p.mass_g, p.position_m, p.rotation, p.velocity_m_s, p.angularVelocity_rad_s, p); g = this.grains.get(p.id); }
+      // Chemistry can reduce mass while this Worker advances old boundary
+      // samples. Rebuild at the CURRENT pose, unless explicitly restoring a save.
+      let current = p;
+      if (g && (p.restore || Math.abs(g.pose.mass_g - p.mass_g) > 1e-10)) {
+        if (!p.restore) current = { ...p, ...this.pose(g), mass_g: p.mass_g };
+        this.world.removeRigidBody(g.body); this.grains.delete(p.id); g = undefined;
+      }
+      if (!g && p.group && p.mass_g > 0) { this.create(p.vesselId, p.group, p.mass_g, current.position_m, current.rotation, current.velocity_m_s, current.angularVelocity_rad_s, current); g = this.grains.get(p.id); }
       if (g) g.escaped = true;
     }
     for (const [id, g] of this.grains) {
