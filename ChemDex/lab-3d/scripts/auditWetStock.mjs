@@ -3,10 +3,11 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 const production = process.env.WET_STOCK_PRODUCTION === '1';
-const output = resolve('artifacts/wet-stock', production ? 'production' : 'development');
+const output = resolve(process.env.WET_STOCK_OUTPUT ?? 'artifacts/wet-stock', production ? 'production' : 'development');
 await mkdir(output, { recursive: true });
 const report = { errors: [], consoleErrors: [], cases: [] };
-const fixture = production ? await readFile(resolve('artifacts/wet-stock/fixture.json'), 'utf8') : null;
+const fixturePath = resolve(process.env.WET_STOCK_OUTPUT ?? 'artifacts/wet-stock', 'fixture.json');
+const fixture = production ? await readFile(fixturePath, 'utf8') : null;
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
 try {
   for (const mobile of [false, true]) {
@@ -70,7 +71,7 @@ try {
         return JSON.stringify({ vessels: {}, burners: {}, savedAt: Date.now(), materials: { spills, inFlightPours: [],
           wasteMass_g: 0, wasteContents: [], workbenchEscapedGas_g: {} } });
       });
-      if (!mobile) await writeFile(resolve('artifacts/wet-stock/fixture.json'), record);
+      if (!mobile) await writeFile(fixturePath, record);
       await page.waitForFunction(() => !!window.wetStockAudit.root.scene.getObjectByName('escaped_stock:1'));
       await page.evaluate(async mobile => {
         const { _roots } = await import('/node_modules/.vite/deps/@react-three_fiber.js');

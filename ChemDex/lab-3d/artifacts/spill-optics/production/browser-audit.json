@@ -1,0 +1,126 @@
+{
+  "errors": [],
+  "consoleErrors": [],
+  "cases": [
+    {
+      "tier": "low",
+      "mobile": false,
+      "qualityChangedThroughUI": true,
+      "panelsClosedThroughUI": true,
+      "canvasWidth": 1440,
+      "compiled": [
+        {
+          "absorption": false,
+          "refraction": false,
+          "valid": true
+        },
+        {
+          "absorption": true,
+          "refraction": false,
+          "valid": true
+        },
+        {
+          "absorption": false,
+          "refraction": false,
+          "valid": true
+        },
+        {
+          "absorption": false,
+          "refraction": true,
+          "valid": true
+        },
+        {
+          "absorption": false,
+          "refraction": false,
+          "valid": true
+        },
+        {
+          "absorption": true,
+          "refraction": false,
+          "valid": true
+        }
+      ],
+      "losses": 0
+    },
+    {
+      "tier": "high",
+      "mobile": false,
+      "qualityChangedThroughUI": true,
+      "panelsClosedThroughUI": true,
+      "canvasWidth": 1440,
+      "compiled": [
+        {
+          "absorption": false,
+          "refraction": false,
+          "valid": true
+        },
+        {
+          "absorption": false,
+          "refraction": true,
+          "valid": true
+        },
+        {
+          "absorption": false,
+          "refraction": false,
+          "valid": true
+        },
+        {
+          "absorption": true,
+          "refraction": false,
+          "valid": true
+        },
+        {
+          "absorption": false,
+          "refraction": false,
+          "valid": true
+        },
+        {
+          "absorption": false,
+          "refraction": true,
+          "valid": true
+        }
+      ],
+      "losses": 0
+    },
+    {
+      "tier": "low",
+      "mobile": true,
+      "qualityChangedThroughUI": true,
+      "panelsClosedThroughUI": true,
+      "canvasWidth": 430,
+      "compiled": [
+        {
+          "absorption": false,
+          "refraction": false,
+          "valid": true
+        },
+        {
+          "absorption": true,
+          "refraction": false,
+          "valid": true
+        },
+        {
+          "absorption": false,
+          "refraction": false,
+          "valid": true
+        },
+        {
+          "absorption": false,
+          "refraction": true,
+          "valid": true
+        },
+        {
+          "absorption": false,
+          "refraction": false,
+          "valid": true
+        },
+        {
+          "absorption": true,
+          "refraction": false,
+          "valid": true
+        }
+      ],
+      "losses": 0
+    }
+  ]
+}

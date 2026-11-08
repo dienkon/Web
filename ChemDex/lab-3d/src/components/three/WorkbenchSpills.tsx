@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { simulationFrameDt } from '../../core/clock';
@@ -18,6 +18,9 @@ import { SpilledSodium, type SpillSodiumContactPoint } from './SpilledSodium';
 import { StockSpillGrain } from './StockSpillGrain';
 import { spillSurfaceY } from '../../vfx/geometry/spillSodium';
 import { sodiumMetalMass } from '../../science/sodiumWater';
+import { useQualityStore, getQualitySettings } from '../../vfx/quality';
+import { spillAbsorptionPerMeter } from '../../science/spillOptics';
+import { createSpillOpticalMaterials } from '../../vfx/materials/spillOpticalMaterial';
 
 export const WorkbenchSpills = React.memo(function WorkbenchSpills() {
   const spills = useAppStore(state => state.spills);
@@ -30,17 +33,15 @@ function SpillPuddle({ spill }: { spill: SpillState }) {
   const vapor = useMemo(() => waterVisualState({ volume_ml: spill.volume_ml, temperature_c: spill.temperature_c ?? 25,
     evaporationRate_g_s: spill.vaporRate_g_s ?? 0, isBoiling: (spill.vaporRate_g_s ?? 0) > 0, environment }),
     [spill.volume_ml, spill.temperature_c, spill.vaporRate_g_s, environment]);
-  const material = useRef<THREE.MeshPhysicalMaterial>(null);
-  const targetColor = useMemo(() => new THREE.Color(), []);
-  const initialColor = useRef(spill.color || '#f8fafc');
-  useFrame((_, delta) => {
-    const dt = simulationFrameDt(delta, useAppStore.getState());
-    material.current?.color.lerp(targetColor.set(spill.color || '#f8fafc'), 1 - Math.exp(-dt * 5));
-  });
+  const refractive = useQualityStore(s => getQualitySettings(s.effectiveTier).glassTransmission);
+  const optical = useMemo(() => createSpillOpticalMaterials(refractive), [refractive]);
   // Deposition coordinates belong to the inventory, including after remount.
   const position: [number, number, number] = [spill.position[0], supportPlaneScene(spill.position) + 0.001, spill.position[2]];
   const drop = useMemo(() => solveSessileDrop(spill.volume_ml), [spill.volume_ml]);
   const geometry = useMemo(() => drop ? createSpillGeometry(drop) : null, [drop]);
+  useLayoutEffect(() => optical.update(spillAbsorptionPerMeter(spill.color || '#ffffff', spill.optics),
+    drop ? 2 * Math.hypot(drop.radius_m, drop.height_m) : 0), [optical, spill.color, spill.optics, drop]);
+  useEffect(() => () => optical.dispose(), [optical]);
   useEffect(() => () => geometry?.dispose(), [geometry]);
 
   return <group position={position}>
@@ -50,11 +51,8 @@ function SpillPuddle({ spill }: { spill: SpillState }) {
     <SpillReactionBubbles spill={spill} drop={drop} pressure_atm={environment.pressure_atm} contact={sodiumContact} />
     {(spill.thermalVaporEnthalpy_J ?? 0) > 0 && <Steam vesselId={spill.id}
       surfaceY={(drop?.height_m ?? 0) / METERS_PER_SCENE_UNIT} radius={spill.radius} sourceState={vapor} />}
-    {geometry && <mesh geometry={geometry} receiveShadow>
-      <meshPhysicalMaterial ref={material} color={initialColor.current} transparent opacity={0.88}
-        roughness={0.03} transmission={0.86} ior={1.333} clearcoat={1} clearcoatRoughness={0.02}
-        depthWrite={false} />
-    </mesh>}
+    {geometry && <mesh name={`spill-optics:${spill.id}`} geometry={geometry} material={optical.volume} renderOrder={refractive ? 0 : -2} />}
+    {geometry && optical.reflection && <mesh name={`spill-optics:reflection:${spill.id}`} geometry={geometry} material={optical.reflection} renderOrder={-1} />}
   </group>;
 }
 
