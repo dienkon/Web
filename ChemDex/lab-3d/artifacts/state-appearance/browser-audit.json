@@ -1,0 +1,281 @@
+{
+  "method": "Controlled authored inventories and retained optical packets in the real app. No claim of a reaction route or experimental calibration.",
+  "errors": [],
+  "consoleErrors": [],
+  "cases": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "first": {
+        "samples": [
+          {
+            "formula": "Cu(OH)2",
+            "solidCount": 14,
+            "radiusError": 3.8965244225641626e-10,
+            "bubbleOpacity": [
+              0.8799999952316284,
+              0.4399999976158142,
+              0
+            ],
+            "mistStructure": [
+              7,
+              0.5
+            ],
+            "surfaceShader": "chemlab_meniscus_height_normal_v1",
+            "surfaceColor": "aecce2",
+            "turbidity": 0.27517288236340254,
+            "suspensionColor": "#6eadd2",
+            "bedMass_g": 0.004615384615384615,
+            "materialMetalness": 0
+          },
+          {
+            "formula": "Fe(OH)3",
+            "solidCount": 16,
+            "radiusError": 4.980084261640982e-10,
+            "bubbleOpacity": [
+              0.8799999952316284,
+              0.4399999976158142,
+              0
+            ],
+            "mistStructure": [
+              7,
+              0.5
+            ],
+            "surfaceShader": "chemlab_meniscus_height_normal_v1",
+            "surfaceColor": "c09d9a",
+            "turbidity": 0.2876808022311086,
+            "suspensionColor": "#9a3412",
+            "bedMass_g": 0,
+            "materialMetalness": 0
+          },
+          {
+            "formula": "PbI2",
+            "solidCount": 58,
+            "radiusError": 2.0623404893560515e-10,
+            "bubbleOpacity": [
+              0.8799999952316284,
+              0.4399999976158142,
+              0
+            ],
+            "mistStructure": [
+              7,
+              0.5
+            ],
+            "surfaceShader": "chemlab_meniscus_height_normal_v1",
+            "surfaceColor": "f4e8d7",
+            "turbidity": 0.07817384605523903,
+            "suspensionColor": "#eab308",
+            "bedMass_g": 0.01615384615384615,
+            "materialMetalness": 0
+          }
+        ],
+        "pausedUnchanged": true
+      },
+      "quality": {
+        "samples": [
+          {
+            "formula": "Cu(OH)2",
+            "solidCount": 14,
+            "radiusError": 3.8965244225641626e-10,
+            "bubbleOpacity": [
+              0.8799999952316284,
+              0.4399999976158142,
+              0
+            ],
+            "mistStructure": [
+              7,
+              0.5
+            ],
+            "surfaceShader": "chemlab_meniscus_height_normal_v1",
+            "surfaceColor": "aecce2",
+            "turbidity": 0.27517288236340254,
+            "suspensionColor": "#6eadd2",
+            "bedMass_g": 0.004615384615384615,
+            "materialMetalness": 0
+          },
+          {
+            "formula": "Fe(OH)3",
+            "solidCount": 16,
+            "radiusError": 4.980084261640982e-10,
+            "bubbleOpacity": [
+              0.8799999952316284,
+              0.4399999976158142,
+              0
+            ],
+            "mistStructure": [
+              7,
+              0.5
+            ],
+            "surfaceShader": "chemlab_meniscus_height_normal_v1",
+            "surfaceColor": "c09d9a",
+            "turbidity": 0.2876808022311086,
+            "suspensionColor": "#9a3412",
+            "bedMass_g": 0,
+            "materialMetalness": 0
+          },
+          {
+            "formula": "PbI2",
+            "solidCount": 58,
+            "radiusError": 2.0623404893560515e-10,
+            "bubbleOpacity": [
+              0.8799999952316284,
+              0.4399999976158142,
+              0
+            ],
+            "mistStructure": [
+              7,
+              0.5
+            ],
+            "surfaceShader": "chemlab_meniscus_height_normal_v1",
+            "surfaceColor": "f4e8d7",
+            "turbidity": 0.07817384605523903,
+            "suspensionColor": "#eab308",
+            "bedMass_g": 0.01615384615384615,
+            "materialMetalness": 0
+          }
+        ],
+        "pausedUnchanged": true
+      },
+      "pass": true
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "first": {
+        "samples": [
+          {
+            "formula": "Cu(OH)2",
+            "solidCount": 14,
+            "radiusError": 3.8965244225641626e-10,
+            "bubbleOpacity": [
+              0.8799999952316284,
+              0.4399999976158142,
+              0
+            ],
+            "mistStructure": [
+              7,
+              0.5
+            ],
+            "surfaceShader": "chemlab_meniscus_height_normal_v1",
+            "surfaceColor": "aecce2",
+            "turbidity": 0.27517288236340254,
+            "suspensionColor": "#6eadd2",
+            "bedMass_g": 0.004615384615384615,
+            "materialMetalness": 0
+          },
+          {
+            "formula": "Fe(OH)3",
+            "solidCount": 16,
+            "radiusError": 4.980084261640982e-10,
+            "bubbleOpacity": [
+              0.8799999952316284,
+              0.4399999976158142,
+              0
+            ],
+            "mistStructure": [
+              7,
+              0.5
+            ],
+            "surfaceShader": "chemlab_meniscus_height_normal_v1",
+            "surfaceColor": "c09d9a",
+            "turbidity": 0.2876808022311086,
+            "suspensionColor": "#9a3412",
+            "bedMass_g": 0,
+            "materialMetalness": 0
+          },
+          {
+            "formula": "PbI2",
+            "solidCount": 58,
+            "radiusError": 2.0623404893560515e-10,
+            "bubbleOpacity": [
+              0.8799999952316284,
+              0.4399999976158142,
+              0
+            ],
+            "mistStructure": [
+              7,
+              0.5
+            ],
+            "surfaceShader": "chemlab_meniscus_height_normal_v1",
+            "surfaceColor": "f4e8d7",
+            "turbidity": 0.07817384605523903,
+            "suspensionColor": "#eab308",
+            "bedMass_g": 0.01615384615384615,
+            "materialMetalness": 0
+          }
+        ],
+        "pausedUnchanged": true
+      },
+      "quality": {
+        "samples": [
+          {
+            "formula": "Cu(OH)2",
+            "solidCount": 14,
+            "radiusError": 3.8965244225641626e-10,
+            "bubbleOpacity": [
+              0.8799999952316284,
+              0.4399999976158142,
+              0
+            ],
+            "mistStructure": [
+              7,
+              0.5
+            ],
+            "surfaceShader": "chemlab_meniscus_height_normal_v1",
+            "surfaceColor": "aecce2",
+            "turbidity": 0.27517288236340254,
+            "suspensionColor": "#6eadd2",
+            "bedMass_g": 0.004615384615384615,
+            "materialMetalness": 0
+          },
+          {
+            "formula": "Fe(OH)3",
+            "solidCount": 16,
+            "radiusError": 4.980084261640982e-10,
+            "bubbleOpacity": [
+              0.8799999952316284,
+              0.4399999976158142,
+              0
+            ],
+            "mistStructure": [
+              7,
+              0.5
+            ],
+            "surfaceShader": "chemlab_meniscus_height_normal_v1",
+            "surfaceColor": "c09d9a",
+            "turbidity": 0.2876808022311086,
+            "suspensionColor": "#9a3412",
+            "bedMass_g": 0,
+            "materialMetalness": 0
+          },
+          {
+            "formula": "PbI2",
+            "solidCount": 58,
+            "radiusError": 2.0623404893560515e-10,
+            "bubbleOpacity": [
+              0.8799999952316284,
+              0.4399999976158142,
+              0
+            ],
+            "mistStructure": [
+              7,
+              0.5
+            ],
+            "surfaceShader": "chemlab_meniscus_height_normal_v1",
+            "surfaceColor": "f4e8d7",
+            "turbidity": 0.07817384605523903,
+            "suspensionColor": "#eab308",
+            "bedMass_g": 0.01615384615384615,
+            "materialMetalness": 0
+          }
+        ],
+        "pausedUnchanged": true
+      },
+      "pass": true
+    }
+  ]
+}

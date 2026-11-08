@@ -10,3 +10,12 @@ export function liquidOpacity(hex: string, turbidity: number, surface = false): 
   const scattering = Math.min(1, Math.max(0, Number.isFinite(turbidity) ? turbidity : 0));
   return clear + (0.96 - clear) * scattering;
 }
+
+/** Match color weights to the same alpha budget. Mixing opaque white water
+ * into a pigment and then reducing alpha dilutes its chroma twice. This is
+ * an alpha-compositing approximation, not measured spectral scattering. */
+export function suspensionColorWeight(hex: string, turbidity: number, surface = false): number {
+  const fraction = Math.min(1, Math.max(0, Number.isFinite(turbidity) ? turbidity : 0));
+  const total = liquidOpacity(hex, fraction, surface);
+  return total > 0 ? 0.96 * fraction / total : 0;
+}

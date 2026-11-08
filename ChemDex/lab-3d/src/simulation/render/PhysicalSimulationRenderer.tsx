@@ -13,6 +13,7 @@ import { PrecipitateParticleLayer } from './PrecipitateParticleLayer';
 import { vesselAgitation } from '../../science/stirring';
 import { createInstancedMistMaterial, mistParticleAppearance } from './mistAppearance';
 import { physicalEffectsRuntime } from '../core/PhysicalEffectsRuntime';
+import { bubbleOpacity, withParticleOpacity } from './particleAppearance';
 
 export interface PhysicalSimulationRendererProps {
   vesselId: string;
@@ -62,9 +63,20 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
   const vaporGeometry = useMemo(() => {
     const geometry = new THREE.PlaneGeometry(1, 1);
     geometry.setAttribute('aMistOpacity', new THREE.InstancedBufferAttribute(new Float32Array(mgr.evaporationSystem.maxParticles), 1));
+    geometry.setAttribute('aMistStructure', new THREE.InstancedBufferAttribute(new Float32Array(mgr.evaporationSystem.maxParticles * 2), 2));
     return geometry;
   }, [mgr]);
   const vaporMaterial = useMemo(() => createInstancedMistMaterial(vaporTexture), [vaporTexture]);
+  const bubbleGeometry = useMemo(() => {
+    const geometry = new THREE.PlaneGeometry(1, 1);
+    geometry.setAttribute('aParticleOpacity', new THREE.InstancedBufferAttribute(new Float32Array(mgr.boilingSystem.maxBubbles), 1));
+    return geometry;
+  }, [mgr]);
+  const bubbleMaterial = useMemo(() => withParticleOpacity(new THREE.MeshBasicMaterial({
+    map: bubbleTexture, color: '#f8fafc', transparent: true, opacity: 1, depthWrite: false, side: THREE.DoubleSide,
+  })), [bubbleTexture]);
+  useEffect(() => () => { bubbleGeometry.dispose(); }, [bubbleGeometry]);
+  useEffect(() => () => { bubbleMaterial.dispose(); }, [bubbleMaterial]);
   useEffect(() => () => { vaporGeometry.dispose(); }, [vaporGeometry]);
   useEffect(() => () => { vaporMaterial.dispose(); }, [vaporMaterial]);
 
@@ -154,6 +166,7 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
         for (let i = 0; i < bList.length; i++) {
           if (i < bList.length) {
             const b = bList[i];
+            (bubbleGeometry.getAttribute('aParticleOpacity') as THREE.InstancedBufferAttribute).setX(i, bubbleOpacity(b));
             scratchPos.set(b.x, b.y, b.z);
             scratchQuat.copy(inverseBodyQuat).multiply(cam.quaternion);
 
@@ -173,6 +186,7 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
           }
         }
         bubbleMeshRef.current.instanceMatrix.needsUpdate = true;
+        bubbleGeometry.getAttribute('aParticleOpacity').needsUpdate = true;
       }
     }
 
@@ -200,6 +214,7 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
             const appearance = mistParticleAppearance(e);
             scratchScale.setScalar(appearance.diameter);
             (vaporGeometry.getAttribute('aMistOpacity') as THREE.InstancedBufferAttribute).setX(i, appearance.opacity);
+            (vaporGeometry.getAttribute('aMistStructure') as THREE.InstancedBufferAttribute).setXY(i, e.curlSeed, e.age);
 
             scratchMat4.compose(scratchPos, scratchQuat, scratchScale);
             evaporationMeshRef.current.setMatrixAt(i, scratchMat4);
@@ -212,6 +227,7 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
         }
         evaporationMeshRef.current.instanceMatrix.needsUpdate = true;
         vaporGeometry.getAttribute('aMistOpacity').needsUpdate = true;
+        vaporGeometry.getAttribute('aMistStructure').needsUpdate = true;
       }
     }
   }, FRAME_ORDER.physics);
@@ -223,20 +239,13 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
         ref={bubbleMeshRef}
         name={`physical_bubbles_${vesselId}`}
         args={[undefined, undefined, mgr.boilingSystem.maxBubbles]}
+        geometry={bubbleGeometry}
+        material={bubbleMaterial}
+        dispose={null}
         frustumCulled={false}
         renderOrder={5}
         visible={false}
-      >
-        <planeGeometry args={[1, 1]} />
-        <meshBasicMaterial
-          map={bubbleTexture}
-          color="#f8fafc"
-          transparent
-          opacity={0.88}
-          depthWrite={false}
-          side={THREE.DoubleSide}
-        />
-      </instancedMesh>
+      />
 
       {components.map(([formula, formation]) => <PrecipitateParticleLayer key={formula} vesselId={vesselId}
         system={mgr.getPrecipitationSystem(formula)} formation={formation ?? undefined}

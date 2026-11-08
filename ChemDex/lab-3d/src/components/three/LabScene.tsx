@@ -6,7 +6,8 @@ import { ContactShadows } from '../../render/ContactShadows';
 import * as THREE from 'three';
 import { PostFX } from '../../vfx/post/PostFX';
 import { useQualityStore, getQualitySettings, QualityTier } from '../../vfx/quality';
-import { getLaboratoryTileTexture, getSkyGradientTexture, getSunbeamTexture, getNoiseTexture } from '../../vfx/textures';
+import { getLaboratoryTileTexture, getSkyGradientTexture, getSunbeamTexture } from '../../vfx/textures';
+import { getBenchNormalTexture } from '../../vfx/materials/benchNormal';
 import { SunbeamDust } from '../../vfx/environment/SunbeamDust';
 import { 
   Beaker, Flask, TestTube, GraduatedCylinder, WatchGlass, EvaporatingDish, Crucible, PetriDish, 
@@ -601,11 +602,7 @@ export function LabScene() {
   const { map: tileMap, normal: tileNormal } = useMemo(() => getLaboratoryTileTexture(), []);
   const skyMap = useMemo(() => getSkyGradientTexture(), []);
   const sunbeamMap = useMemo(() => getSunbeamTexture(), []);
-  const noiseNormalMap = useMemo(() => {
-    const texture = getNoiseTexture(256, 256);
-    texture.repeat.set(8, 4);
-    return texture;
-  }, []);
+  const noiseNormalMap = useMemo(() => getBenchNormalTexture(), []);
 
   const touchRecognizer = useMemo(() => new TouchGestureRecognizer({
     onTiltChange: (deltaRad) => {

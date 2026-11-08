@@ -7,6 +7,7 @@ import { FRAME_ORDER } from '../core/frameOrder';
 import { createPrecipitateGeometry } from './precipitateGeometry';
 import { useAppStore } from '../../store/useAppStore';
 import { useQualityStore } from '../../vfx/quality';
+import { precipitateOpacity, precipitateFinish, withParticleOpacity } from './particleAppearance';
 
 /** One material/geometry batch per species: a new reaction cannot recolor or
  * reshape the representative particles of an older product in the same cup. */
@@ -14,12 +15,20 @@ export function PrecipitateParticleLayer({ vesselId, system, formation, capacity
   vesselId: string; system: PrecipitationSystem; formation?: string; capacity: number;
 }) {
   const mesh = useRef<THREE.InstancedMesh>(null);
-  const uploaded = useRef<{ mesh: THREE.InstancedMesh; particles: unknown; count: number; time: number; profile: unknown } | undefined>(undefined);
+  const uploaded = useRef<{ mesh: THREE.InstancedMesh; geometry: THREE.BufferGeometry; particles: unknown; count: number; time: number; profile: unknown } | undefined>(undefined);
   const profile = getPrecipitateProfile(system.profile.id, formation);
   const morphology = profile.morphology;
   const reduced = useQualityStore(state => state.effectiveTier === 'low' || state.effectiveTier === 'potato');
-  const geometry = useMemo(() => createPrecipitateGeometry(profile, reduced ? 'reduced' : 'full'), [profile.id, morphology, reduced]);
+  const geometry = useMemo(() => {
+    const result = createPrecipitateGeometry(profile, reduced ? 'reduced' : 'full');
+    result.setAttribute('aParticleOpacity', new THREE.InstancedBufferAttribute(new Float32Array(capacity), 1));
+    return result;
+  }, [profile.id, morphology, reduced, capacity]);
+  const material = useMemo(() => withParticleOpacity(new THREE.MeshPhysicalMaterial({
+    ...precipitateFinish(profile), color: profile.color, transparent: true, opacity: 1, depthWrite: false,
+  })), [profile.id, morphology]);
   useEffect(() => () => geometry.dispose(), [geometry]);
+  useEffect(() => () => material.dispose(), [material]);
   const scratch = useMemo(() => ({ position: new THREE.Vector3(), scale: new THREE.Vector3(),
     quaternion: new THREE.Quaternion(), euler: new THREE.Euler(), matrix: new THREE.Matrix4() }), []);
 
@@ -34,12 +43,13 @@ export function PrecipitateParticleLayer({ vesselId, system, formation, capacity
     mesh.current.count = Math.min(capacity, particles.length);
     if (!particles.length) return;
     const last = uploaded.current;
-    if (app.isSimulationPaused && last?.mesh === mesh.current && last.particles === particles
+    if (app.isSimulationPaused && last?.mesh === mesh.current && last.geometry === geometry && last.particles === particles
       && last.count === mesh.current.count && last.time === system.integratedTime_s && last.profile === system.profile) return;
     const material = mesh.current.material as THREE.MeshPhysicalMaterial;
     material.color.set(system.profile.color);
     material.roughness = system.profile.roughness;
     material.metalness = system.profile.metalness ?? 0;
+    material.specularIntensity = system.profile.specularReflectivity;
     for (let i = 0; i < mesh.current.count; i++) {
       const p = particles[i];
       scratch.position.set(p.x, p.y, p.z);
@@ -50,18 +60,18 @@ export function PrecipitateParticleLayer({ vesselId, system, formation, capacity
         scratch.euler.set(p.brownianSeed, p.brownianSeed * 2.4, p.brownianSeed * 0.7);
         scratch.quaternion.setFromEuler(scratch.euler);
       }
-      scratch.scale.setScalar(p.radius * 2);
+      // Geometry fits the unit ball. A radius, rather than a diameter, keeps
+      // every aggregate inside the envelope used by the contact solver.
+      scratch.scale.setScalar(p.radius);
+      (geometry.getAttribute('aParticleOpacity') as THREE.InstancedBufferAttribute).setX(i, precipitateOpacity(p, system.profile));
       scratch.matrix.compose(scratch.position, scratch.quaternion, scratch.scale);
       mesh.current.setMatrixAt(i, scratch.matrix);
     }
     mesh.current.instanceMatrix.needsUpdate = true;
-    uploaded.current = { mesh: mesh.current, particles, count: mesh.current.count, time: system.integratedTime_s, profile: system.profile };
+    geometry.getAttribute('aParticleOpacity').needsUpdate = true;
+    uploaded.current = { mesh: mesh.current, geometry, particles, count: mesh.current.count, time: system.integratedTime_s, profile: system.profile };
   }, FRAME_ORDER.particles);
 
-  return <instancedMesh ref={mesh} name={`physical_precipitate_${vesselId}_${system.profile.id}`} args={[undefined, undefined, capacity]} frustumCulled={false} renderOrder={4} visible={false}>
-    <primitive object={geometry} attach="geometry" />
-    <meshPhysicalMaterial clearcoat={morphology === 'crystalline' ? 1 : 0} clearcoatRoughness={0.08}
-      color={system.profile.color} roughness={system.profile.roughness} metalness={system.profile.metalness ?? 0}
-      transparent opacity={morphology === 'gel_like' ? 0.62 : 0.92} depthWrite={false} />
-  </instancedMesh>;
+  return <instancedMesh ref={mesh} name={`physical_precipitate_${vesselId}_${system.profile.id}`} args={[undefined, undefined, capacity]}
+    geometry={geometry} material={material} dispose={null} frustumCulled={false} renderOrder={4} visible={false} />;
 }

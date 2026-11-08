@@ -25,8 +25,9 @@ import { isSodiumWaterReaction } from '../../science/sodiumWater';
 import { currentMixedPrecipitateTurbidity } from '../../simulation/render/precipitateTurbidity';
 import { supernatantColor } from '../../science/supernatantAppearance';
 import { pourContactRemaining } from '../../science/pourContactActivity';
-import { liquidOpacity } from '../../science/liquidOptics';
+import { liquidOpacity, suspensionColorWeight } from '../../science/liquidOptics';
 import { createLiquidVolumeGeometry, liquidMeshLayout, liquidMeshOrigin } from './liquidGeometry';
+import { LIQUID_SURFACE_GLSL } from './liquidSurfaceShader';
 
 interface LiquidProps {
   vesselId: string;
@@ -326,8 +327,14 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
         uniform float uSloshAngle;
         uniform float uPourAgitation;
         ${NOISE_GLSL}
+        ${LIQUID_SURFACE_GLSL}
         ${shader.vertexShader}
       `;
+
+      shader.vertexShader = shader.vertexShader.replace('#include <beginnormal_vertex>', `
+        #include <beginnormal_vertex>
+        objectNormal = liquidSurfaceNormal(position.xy);
+      `);
 
       shader.vertexShader = shader.vertexShader.replace('#include <worldpos_vertex>', `
         #include <worldpos_vertex>
@@ -360,40 +367,11 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
         '#include <begin_vertex>',
         `
         #include <begin_vertex>
-        // Surface waves + climbing meniscus edge
-        float distFromCenter = length(position.xy);
-        float normDist = clamp(distFromCenter, 0.0, 1.0);
-
-        // Meniscus climbs up ~2.5% at the glass wall boundary
-        float meniscusClimb = pow(normDist, 5.0) * 0.024;
-        transformed.z += meniscusClimb;
-
-        // Physical slosh motion waves & ripples when moving the container
-        if (uSloshSpeed > 0.001) {
-          float ripple = sin(normDist * 26.0 - uTime * 15.0) * (1.0 - normDist) * min(0.045, uSloshSpeed * 0.1);
-          float angle = atan(position.y, position.x);
-          float transverse = cos(angle - uSloshAngle) * normDist * min(0.05, uSloshSpeed * 0.12);
-          transformed.z += ripple + transverse;
-        }
-
-        // Pouring inflow agitation ripples (when liquid is rising)
-        if (uPourAgitation > 0.01) {
-          float pourWave = sin(normDist * 32.0 - uTime * 18.0) * (1.0 - normDist) * uPourAgitation * 0.035;
-          transformed.z += pourWave;
-        }
-
-        // Boiling/effervescence wave displacement & dynamic bubble burst ripples
-        if (uBoilingIntensity > 0.05 || uDynamicRipple > 0.01) {
-          float totalAgitation = uBoilingIntensity + uDynamicRipple * 0.8;
-          float wave = snoise(vec3(position.xy * 8.0, uTime * 6.0)) * totalAgitation * 0.035;
-          transformed.z += wave;
-        }
-        // Optical deformation has no inventory. Bound its amplitude by the
-        // available depth, so it vanishes with a thin remaining layer.
-        transformed.z = position.z + clamp(transformed.z - position.z, -uSurfaceWaveLimit, uSurfaceWaveLimit);
+        transformed.z += liquidSurfaceHeight(position.xy);
         `
       );
     };
+    mat.customProgramCacheKey = () => 'chemlab_meniscus_height_normal_v1';
 
     return mat;
   }, [uniforms, initialColor, appearance]);
@@ -497,8 +475,13 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       }
     }
     if (appearance === 'foam') targetTurbidity = 0.85;
-    uniforms.uTurbidity.value = replacedSample || appearance === 'foam' ? targetTurbidity
+    uniforms.uTurbidity.value = isPaused || replacedSample || appearance === 'foam' ? targetTurbidity
       : THREE.MathUtils.lerp(uniforms.uTurbidity.value, targetTurbidity, 1 - Math.exp(-5 * dt));
+    // Suspended solids scatter at the free surface too. Leaving its material
+    // white makes brown/cyan/yellow suspensions look capped with opaque milk.
+    // Keep the dissolved absorption color separate from this optical mixture.
+    liquidMaterial.color.lerp(uniforms.uSuspensionColor.value, suspensionColorWeight(liquidColorHex, uniforms.uTurbidity.value));
+    meniscusMaterial.color.lerp(uniforms.uSuspensionColor.value, suspensionColorWeight(liquidColorHex, uniforms.uTurbidity.value, true));
     liquidMaterial.opacity = appearance === 'foam' ? 0.72 : liquidOpacity(liquidColorHex, uniforms.uTurbidity.value);
     meniscusMaterial.opacity = appearance === 'foam' ? 0.8 : liquidOpacity(liquidColorHex, uniforms.uTurbidity.value, true);
 

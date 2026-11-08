@@ -16,12 +16,25 @@ export function createInstancedMistMaterial(texture: THREE.Texture): THREE.MeshB
     opacity: 1, depthWrite: false, side: THREE.DoubleSide });
   material.onBeforeCompile = shader => {
     shader.vertexShader = shader.vertexShader.replace('#include <common>',
-      '#include <common>\nattribute float aMistOpacity;\nvarying float vMistOpacity;')
-      .replace('#include <begin_vertex>', '#include <begin_vertex>\nvMistOpacity = aMistOpacity;');
+      '#include <common>\nattribute float aMistOpacity;\nattribute vec2 aMistStructure;\nvarying float vMistOpacity;\nvarying vec2 vMistStructure;')
+      .replace('#include <begin_vertex>', '#include <begin_vertex>\nvMistOpacity = aMistOpacity;\nvMistStructure = aMistStructure;');
     shader.fragmentShader = shader.fragmentShader.replace('#include <common>',
-      '#include <common>\nvarying float vMistOpacity;')
-      .replace('#include <alphamap_fragment>', '#include <alphamap_fragment>\ndiffuseColor.a *= clamp(vMistOpacity, 0.0, 1.0);');
+      `#include <common>
+      varying float vMistOpacity;
+      varying vec2 vMistStructure;
+      float mistHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+      float mistNoise(vec2 p) {
+        vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
+        return mix(mix(mistHash(i), mistHash(i + vec2(1.0, 0.0)), f.x),
+          mix(mistHash(i + vec2(0.0, 1.0)), mistHash(i + vec2(1.0)), f.x), f.y);
+      }`)
+      .replace('#include <alphamap_fragment>', `#include <alphamap_fragment>
+        // A bounded optical density pattern carried by each retained puff.
+        // Age is simulation time: pause and time scale cannot drift the noise.
+        vec2 mistPoint = vMapUv * 3.8 + vec2(vMistStructure.x * 7.3, -vMistStructure.y * 0.35);
+        float density = 0.62 + 0.38 * mistNoise(mistPoint);
+        diffuseColor.a *= clamp(vMistOpacity, 0.0, 1.0) * density;`);
   };
-  material.customProgramCacheKey = () => 'instanced-water-mist-opacity-v1';
+  material.customProgramCacheKey = () => 'instanced-water-mist-structure-v2';
   return material;
 }
