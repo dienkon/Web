@@ -108,10 +108,10 @@ export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
   },
   {
     formula: 'Fe',
-    name_en: 'Iron (Filings/Powder)',
+    name_en: 'Iron (Fine Powder)',
     name_vi: 'Sắt (Bột mịn)',
     type: 'solid',
-    solidMorphology: 'FILINGS',
+    solidMorphology: 'POWDER',
     color: '#475569',
     molarMass: 55.845,
     density: 7.87,
@@ -715,7 +715,7 @@ export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
     name_en: 'Iron Nail (Đinh sắt bóng)',
     name_vi: 'Đinh Sắt Sáng Bóng',
     type: 'solid',
-    solidMorphology: 'FILINGS',
+    solidMorphology: 'NAIL',
     category: 'metal',
     color: '#475569',
     molarMass: 55.845,
@@ -1401,11 +1401,13 @@ export function getSolidMorphology(substance: string): SolidMorphology {
     return chem.solidMorphology;
   }
   const s = substance.toLowerCase();
+  if (s.includes('powder') || s.includes('dust') || s.includes('bột')) return 'POWDER';
   if (s.includes('nail')) return 'NAIL';
   if (s.includes('foil') || s === 'al') return 'FOIL';
   if (s.includes('ribbon') || s === 'mg') return 'RIBBON';
   if (s.includes('turning') || s.includes('wire') || s === 'cu') return 'TURNINGS';
-  if (s.includes('filing') || s.includes('nail') || s === 'fe') return 'FILINGS';
+  if (s.includes('filing')) return 'FILINGS';
+  if (s === 'fe') return 'POWDER';
   if (s.includes('granule') || s === 'zn') return 'GRANULES';
   if (
     s.includes('pellet') || 

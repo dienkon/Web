@@ -37,6 +37,7 @@ import { PourController } from '../../pour/controller/PourController';
 import { PourSessionState } from '../../pour/controller/modes';
 import { kineticsEngine, ReactionProgressState } from '../../simulation/chemistry/KineticsEngine';
 import { sodiumMetalMass } from '../../science/sodiumWater';
+import { useStudioSnapshot } from './useStudioSnapshot';
 
 type StudioTab = 'reactions' | 'simulation' | 'programs' | 'atoms' | 'morphology' | 'physics' | 'flames' | 'telemetry';
 
@@ -115,9 +116,10 @@ export const VfxGallery: React.FC = () => {
     timeScale,
     setTimeScale,
     language
-  } = useAppStore(state => isVisible ? state : null) ?? useAppStore.getState();
+  } = useStudioSnapshot(isVisible);
 
   const { preference, setPreference, effectiveTier } = useQualityStore(state => isVisible ? state : null) ?? useQualityStore.getState();
+  const readablePrecipitates = useQualityStore(state => state.readablePrecipitates);
 
   // Auto-detect ?vfx=1 in URL or maintain open state
   useEffect(() => {
@@ -149,7 +151,7 @@ export const VfxGallery: React.FC = () => {
       unsub();
       clearInterval(interval);
     };
-  }, [isVisible, selectedVesselId, vessels]);
+  }, [isVisible, selectedVesselId]);
 
   const requireTarget = (): string | null => {
     if (selectedVesselId && useAppStore.getState().vessels[selectedVesselId]) return selectedVesselId;
@@ -433,6 +435,7 @@ export const VfxGallery: React.FC = () => {
           </button>
           <button
             onClick={() => setIsVisible(false)}
+            aria-label="Đóng Studio"
             className="p-1.5 hover:bg-slate-100 rounded-lg text-slate-500 hover:text-slate-800 border border-slate-200"
           >
             <X size={14} />
@@ -1397,8 +1400,14 @@ export const VfxGallery: React.FC = () => {
                     </span>
                   </div>
                   <p className="text-[10px] text-slate-500 leading-relaxed">
-                    Tạo mẫu riêng có kho chất định lượng. Bảy mẫu chạy phản ứng tạo chất rắn; thạch cao là mẫu có sẵn. Hình dạng hạt chưa được hiệu chuẩn thực nghiệm.
+                    Mỗi hình thái có một mẫu riêng với lượng chất hữu hạn. Bấm lại để xem mẫu đang có; dùng Sao bình khi cần thêm bản khác.
                   </p>
+                  <label className="flex items-center gap-2 text-[11px] text-slate-700">
+                    <input type="checkbox" checked={readablePrecipitates}
+                      onChange={e => useQualityStore.getState().setReadablePrecipitates(e.target.checked)} />
+                    Phóng đại cụm keo để quan sát
+                  </label>
+                  <p className="text-[10px] text-slate-500">Chỉ phóng đại hình ảnh cụm nhỏ; lượng chất và tốc độ lắng giữ nguyên.</p>
                 </div>
 
                 <div className="grid grid-cols-1 gap-2">
@@ -1426,16 +1435,19 @@ export const VfxGallery: React.FC = () => {
                         <button
                           onClick={() => {
                             const store = useAppStore.getState();
+                            const exists = Object.values(store.vessels).some(v => v.studioMorphologyType === morph.type && !v.isShattered);
                             const id = store.prepareStudioMorphology(morph.type, requireTarget() ?? "");
                             if (!id) return;
                             setSelectedVesselId(id);
+                            store.focusVessel(id);
                             setActiveTestId(morph.programId);
-                            if (morph.programId) store.runStudioProgram(id);
+                            if (morph.programId && !exists) store.runStudioProgram(id);
                           }}
                           className="px-2.5 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-[10px] font-bold flex items-center gap-1 transition-colors shadow-2xs"
                         >
                           <Play size={10} />
-                          <span>{morph.programId ? 'Tạo mẫu và chạy' : 'Tạo mẫu có sẵn'}</span>
+                          <span>{Object.values(vessels).some(v => v.studioMorphologyType === morph.type && !v.isShattered)
+                            ? 'Xem mẫu đang có' : morph.programId ? 'Tạo mẫu và chạy' : 'Tạo mẫu có sẵn'}</span>
                         </button>
                       </div>
 

@@ -64,7 +64,7 @@ export function createStockSolidGeometry(morphology: SolidMorphology, formula = 
       g = new THREE.ExtrudeGeometry(wire, { extrudePath: path, steps: 32, curveSegments: 8, bevelEnabled: false });
       g.center(); break;
     }
-    case 'FILINGS': g = new THREE.BoxGeometry(0.06, 0.6, 0.035); break;
+    case 'FILINGS': g = new THREE.BoxGeometry(0.14, 0.23, 0.065); break;
     case 'PELLET': g = new THREE.SphereGeometry(0.55, 12, 8); break;
     case 'CUBIC_CRYSTAL': g = new THREE.BoxGeometry(0.85, 0.85, 0.85); break;
     case 'PRISMATIC_CRYSTAL': g = new THREE.OctahedronGeometry(0.7); g.scale(0.42, 1.8, 0.65); break;

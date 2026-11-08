@@ -1,0 +1,18 @@
+{
+  "errors": [],
+  "consoleErrors": [],
+  "cases": [
+    {
+      "mobile": false,
+      "previewClicks": 20,
+      "losses": 0,
+      "canvas": 1
+    },
+    {
+      "mobile": true,
+      "previewClicks": 20,
+      "losses": 0,
+      "canvas": 1
+    }
+  ]
+}

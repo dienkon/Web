@@ -209,6 +209,8 @@ export interface VesselState {
   flowReceiverId?: string;
   washTargetId?: string | null;
   studioProgramId?: string;
+  /** Reopen the same morphology specimen on repeated preview clicks. */
+  studioMorphologyType?: string;
   programHeatApplied_J?: number; // Cumulative program heat already delivered, for baseline replay only.
   studioSpecimenVariant?: 'oxygen_foam';
   ignitedProgramId?: string; // Transient initiation token; consumed when a run captures its baseline.

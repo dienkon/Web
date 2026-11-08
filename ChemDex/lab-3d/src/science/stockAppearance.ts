@@ -16,12 +16,12 @@ export const COLORLESS_STOCKS = new Set([
 ]);
 
 export const STOCK_FORM_OVERRIDES: Readonly<Record<string, SolidMorphology>> = {
-  'Fe (nail)': 'NAIL', 'Al': 'FOIL', 'Al (foil)': 'FOIL',
+  'Fe': 'POWDER', 'Fe (nail)': 'NAIL', 'Al': 'FOIL', 'Al (foil)': 'FOIL',
 };
 
 const solidColors: Readonly<Record<string, string>> = {
   I2: '#302e36', 'I2 (solid)': '#302e36',
-  Fe: '#73767b', 'Fe (filings)': '#62666b', 'Fe (nail)': '#85888c',
+  Fe: '#4a4f54', 'Fe (filings)': '#62666b', 'Fe (nail)': '#85888c',
   Cu: '#b87346', 'Cu (turnings)': '#b87346',
   Mg: '#bdc1c4', 'Mg (ribbon)': '#bdc1c4', 'Mg (powder)': '#94979a',
   Al: '#c6c9cb', 'Al (foil)': '#c6c9cb',

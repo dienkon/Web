@@ -51,6 +51,8 @@ export class PrecipitationSystem {
   public cloudiness = 0; // 0 (clear) to 1.0 (opaque)
   public lastInputMass_g: number | null = null;
   public carrierMode: SuspensionCarrierMode | null = null;
+  /** Read-only bounds for visual glyph enlargement; never a second solver. */
+  public renderBounds?: ParticleBounds;
 
   private spawnTimer = 0;
   private nextId = 1;
@@ -178,6 +180,7 @@ export class PrecipitationSystem {
     this.pendingSteps = [];
     this.acceptedTime_s = this.integratedTime_s = 0;
     this.carrierMode = null;
+    this.renderBounds = undefined;
     this.rng.reset();
   }
 
@@ -229,6 +232,7 @@ export class PrecipitationSystem {
   }
 
   private step(dt: number, params: PrecipitationSimulationParams): void {
+    this.renderBounds = params;
     const METERS_PER_SCENE_UNIT = metersPerModelUnit(params.vesselProfile);
     const up = params.surfacePlane?.normal ?? [0, 1, 0];
     this.carrierMode = params.carrierMode ?? (params.volume_ml===0?'dry-residue':'liquid');

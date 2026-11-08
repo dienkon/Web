@@ -112,6 +112,8 @@ function getInitialPreference(): QualityPreference {
 }
 
 interface QualityStoreState {
+  readablePrecipitates: boolean;
+  setReadablePrecipitates: (enabled: boolean) => void;
   rendererClass: 'unknown' | 'software' | 'hardware';
   configureRenderer: (renderer: string) => void;
   preference: QualityPreference;
@@ -123,6 +125,8 @@ interface QualityStoreState {
 }
 
 export const useQualityStore = create<QualityStoreState>((set, get) => ({
+  readablePrecipitates: true,
+  setReadablePrecipitates: readablePrecipitates => set({ readablePrecipitates }),
   rendererClass: 'unknown',
   configureRenderer: (renderer) => {
     const software = /SwiftShader|llvmpipe|software|Microsoft Basic/i.test(renderer);

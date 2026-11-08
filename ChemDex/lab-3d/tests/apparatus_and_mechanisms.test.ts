@@ -273,7 +273,7 @@ describe('Authentic Solid Chemical Morphologies & Interactive Apparatus Usabilit
     // Metals & physical mechanical states
     expect(getSolidMorphology('Mg')).toBe('RIBBON');
     expect(getSolidMorphology('Cu')).toBe('TURNINGS');
-    expect(getSolidMorphology('Fe')).toBe('FILINGS');
+    expect(getSolidMorphology('Fe')).toBe('POWDER');
     expect(getSolidMorphology('Zn')).toBe('GRANULES');
     expect(getSolidMorphology('Al')).toBe('FOIL');
     expect(getSolidMorphology('Al (foil)')).toBe('FOIL');

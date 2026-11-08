@@ -3150,8 +3150,11 @@ export const useAppStore = create<AppState>((set, get) => {
     prepareStudioMorphology: (type, targetId) => {
       const entry = PRECIPITATE_MORPHOLOGIES.find(item => item.type === type);
       if (!entry) return null;
-      if (entry.programId) return get().prepareStudioProgram(entry.programId, undefined, targetId);
-      return prepareStudioSpecimen(get, set, targetId, 'studio_morphology', shell => createStudioMorphologySample(type, shell));
+      const existing = Object.values(get().vessels).find(v => v.studioMorphologyType === type && !v.isShattered);
+      if (existing) { set({ selectedVesselId: existing.id, rightSidebarOpen: true }); return existing.id; }
+      return prepareStudioSpecimen(get, set, targetId, 'studio_morphology', shell => ({
+        ...createStudioMorphologySample(type, shell), studioMorphologyType: type,
+      }));
     },
 
     runStudioProgram: (vesselId) => {

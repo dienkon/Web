@@ -164,8 +164,9 @@ describe('Performance Smoke Benchmark (§11.1)', () => {
     const maxFrameTime = Math.max(...frameTimes);
     frameTimes.sort((a, b) => a - b);
     const p95FrameTime = frameTimes[Math.floor(frameTimes.length * 0.95)];
-    mkdirSync('artifacts/science-audit', { recursive: true });
-    writeFileSync('artifacts/science-audit/headless-performance.json', JSON.stringify({
+    const outputDir = process.env.LAB_PERFORMANCE_OUTPUT ?? 'artifacts/science-audit';
+    mkdirSync(outputDir, { recursive: true });
+    writeFileSync(`${outputDir}/headless-performance.json`, JSON.stringify({
       checkedAt: new Date().toISOString(),
       scenario: 'Three vessel logic/physics, high tier, 120 steps at dt=1/60',
       webglRenderingIncluded: false,

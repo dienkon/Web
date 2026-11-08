@@ -1,0 +1,186 @@
+{
+  "errors": [],
+  "consoleErrors": [],
+  "samples": [
+    {
+      "phase": "eight-specimens",
+      "cups": 8,
+      "glyphs": 43,
+      "layers": [
+        {
+          "name": "physical_precipitate_stress_reference_AgCl",
+          "count": 0
+        },
+        {
+          "name": "physical_precipitate_studio_morphology_1794118715082_i8ben2_BaSO4",
+          "count": 0
+        },
+        {
+          "name": "physical_precipitate_studio_morphology_1794118715086_sedmsm_Fe(OH)3",
+          "count": 0
+        },
+        {
+          "name": "physical_precipitate_studio_morphology_1794118715138_rbrhs4_Cu(OH)2",
+          "count": 0
+        },
+        {
+          "name": "physical_precipitate_studio_morphology_1794118715146_civcbb_PbI2",
+          "count": 0
+        },
+        {
+          "name": "physical_precipitate_studio_morphology_1794118715147_tmsi9a_CaSO4·2H2O",
+          "count": 0
+        },
+        {
+          "name": "physical_precipitate_studio_morphology_1794118715148_t407hz_CaCO3",
+          "count": 0
+        },
+        {
+          "name": "physical_precipitate_studio_morphology_1794118715150_2pvfaa_Cu",
+          "count": 43
+        }
+      ],
+      "geometries": 133,
+      "buffers": {
+        "created": 1160,
+        "deleted": 620,
+        "live": 540
+      },
+      "losses": 0,
+      "masses": [
+        [
+          "stress_reference",
+          29.99987671789314
+        ],
+        [
+          "studio_morphology_1794118715082_i8ben2",
+          29.999990975830467
+        ],
+        [
+          "studio_morphology_1794118715086_sedmsm",
+          29.99974101196077
+        ],
+        [
+          "studio_morphology_1794118715138_rbrhs4",
+          29.999745540606483
+        ],
+        [
+          "studio_morphology_1794118715146_civcbb",
+          29.999990724912912
+        ],
+        [
+          "studio_morphology_1794118715147_tmsi9a",
+          30.4997547278781
+        ],
+        [
+          "studio_morphology_1794118715148_t407hz",
+          29.99999123667586
+        ],
+        [
+          "studio_morphology_1794118715150_2pvfaa",
+          30.05557180770248
+        ]
+      ]
+    },
+    {
+      "phase": "after-40-species-switches",
+      "cups": 8,
+      "glyphs": 2,
+      "layers": [
+        {
+          "name": "physical_precipitate_stress_reference_AgCl",
+          "count": 0
+        },
+        {
+          "name": "physical_precipitate_studio_morphology_1794118715082_i8ben2_BaSO4",
+          "count": 0
+        },
+        {
+          "name": "physical_precipitate_studio_morphology_1794118715086_sedmsm_Fe(OH)3",
+          "count": 0
+        },
+        {
+          "name": "physical_precipitate_studio_morphology_1794118715138_rbrhs4_Cu(OH)2",
+          "count": 0
+        },
+        {
+          "name": "physical_precipitate_studio_morphology_1794118715146_civcbb_PbI2",
+          "count": 2
+        },
+        {
+          "name": "physical_precipitate_studio_morphology_1794118715147_tmsi9a_CaSO4·2H2O",
+          "count": 0
+        },
+        {
+          "name": "physical_precipitate_studio_morphology_1794118715148_t407hz_CaCO3",
+          "count": 0
+        },
+        {
+          "name": "physical_precipitate_studio_morphology_1794118715150_2pvfaa_Cu",
+          "count": 0
+        }
+      ],
+      "geometries": 134,
+      "buffers": {
+        "created": 3081,
+        "deleted": 2536,
+        "live": 545
+      },
+      "losses": 0,
+      "masses": [
+        [
+          "stress_reference",
+          30.499817424294122
+        ],
+        [
+          "studio_morphology_1794118715082_i8ben2",
+          29.999990975830467
+        ],
+        [
+          "studio_morphology_1794118715086_sedmsm",
+          29.998774328805368
+        ],
+        [
+          "studio_morphology_1794118715138_rbrhs4",
+          29.998795471581236
+        ],
+        [
+          "studio_morphology_1794118715146_civcbb",
+          29.999990724912912
+        ],
+        [
+          "studio_morphology_1794118715147_tmsi9a",
+          30.498838419818163
+        ],
+        [
+          "studio_morphology_1794118715148_t407hz",
+          29.99999123667586
+        ],
+        [
+          "studio_morphology_1794118715150_2pvfaa",
+          30.05455280136408
+        ]
+      ]
+    }
+  ],
+  "repeatedClicks": {
+    "clicks": 60,
+    "count": 1,
+    "buffers": {
+      "created": 293,
+      "deleted": 0,
+      "live": 293
+    },
+    "losses": 0
+  },
+  "readabilityPreservesPhysics": true,
+  "bufferGrowth": 5,
+  "leakControl": false,
+  "iron": {
+    "mass_g": 5,
+    "allPowder": true,
+    "carriers": 28,
+    "powderMesh": true
+  },
+  "mobile": true
+}

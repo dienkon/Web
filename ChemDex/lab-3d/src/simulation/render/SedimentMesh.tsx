@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { SedimentBedState } from '../core/SimulationTypes';
@@ -6,6 +6,7 @@ import { useAppStore } from '../../store/useAppStore';
 import { vesselInterior } from '../../science/vesselDimensions';
 import { createSedimentGeometry } from '../effects/sedimentGeometry';
 import { createClippedSedimentGeometry } from '../effects/clippedSedimentGeometry';
+import { getNoiseTexture } from '../../vfx/textures';
 
 export interface SedimentMeshProps {
   vesselId: string;
@@ -27,6 +28,7 @@ export const SedimentMesh = React.memo(function SedimentMesh({
   const colorObj = useRef(new THREE.Color('#f8fafc'));
   const geometryRef = useRef<THREE.BufferGeometry | null>(null);
   const geometryKey = useRef('');
+  const texture = useMemo(() => getNoiseTexture(128, 128), []);
   useEffect(() => () => geometryRef.current?.dispose(), []);
 
   useFrame(() => {
@@ -45,7 +47,9 @@ export const SedimentMesh = React.memo(function SedimentMesh({
     const plane = sedimentBed?.surfacePlane;
     const key = plane ? `${vessel.type}:${plane.normal.join(':')}:${plane.offset}` : `${vessel.type}:${thickness}`;
     if (key !== geometryKey.current) {
-      const geometry = plane ? createClippedSedimentGeometry(vessel.type, plane) : createSedimentGeometry(vessel.type, floor + thickness);
+      const geometry = plane && (plane.normal[1] <= 0 || Math.hypot(plane.normal[0], plane.normal[2]) > 1e-8)
+        ? createClippedSedimentGeometry(vessel.type, plane)
+        : createSedimentGeometry(vessel.type, plane ? plane.offset / plane.normal[1] : floor + thickness);
       geometryRef.current?.dispose();
       geometryRef.current = geometry;
       meshRef.current.geometry = geometry;
@@ -70,6 +74,8 @@ export const SedimentMesh = React.memo(function SedimentMesh({
         color="#f8fafc"
         roughness={0.85}
         metalness={0.08}
+        bumpMap={texture}
+        bumpScale={0.003}
         transparent
         opacity={0.96}
         depthWrite={false}

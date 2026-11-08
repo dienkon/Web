@@ -14,6 +14,7 @@ import { vesselAgitation } from '../../science/stirring';
 import { createInstancedMistMaterial, mistParticleAppearance } from './mistAppearance';
 import { physicalEffectsRuntime } from '../core/PhysicalEffectsRuntime';
 import { bubbleOpacity, withParticleOpacity } from './particleAppearance';
+import { activePrecipitateVessels, precipitateSceneBudget } from './precipitateBudget';
 
 export interface PhysicalSimulationRendererProps {
   vesselId: string;
@@ -50,8 +51,9 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
   const components = useMemo(() => JSON.parse(componentSignature) as [string, string | null][], [componentSignature]);
   const effectiveTier = useQualityStore((state) => state.effectiveTier);
   const mgr = useMemo(() => SimulationEngine.getManager(vesselId, effectiveTier), [vesselId, effectiveTier]);
-  const precipitateBudget = effectiveTier === 'high' || effectiveTier === 'ultra' ? 900
-    : effectiveTier === 'medium' ? 550 : effectiveTier === 'low' ? 260 : 120;
+  const activePrecipitates = useAppStore(state => activePrecipitateVessels(state.vessels));
+  const budget = precipitateSceneBudget(effectiveTier, activePrecipitates);
+  const precipitateBudget = Math.max(components.length, budget.physical);
   useEffect(() => mgr.setPrecipitateBudget(precipitateBudget), [mgr, precipitateBudget]);
 
   const bubbleMeshRef = useRef<THREE.InstancedMesh>(null);
@@ -241,7 +243,6 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
         args={[undefined, undefined, mgr.boilingSystem.maxBubbles]}
         geometry={bubbleGeometry}
         material={bubbleMaterial}
-        dispose={null}
         frustumCulled={false}
         renderOrder={5}
         visible={false}
@@ -249,7 +250,7 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
 
       {components.map(([formula, formation]) => <PrecipitateParticleLayer key={formula} vesselId={vesselId}
         system={mgr.getPrecipitationSystem(formula)} formation={formation ?? undefined}
-        capacity={Math.ceil(precipitateBudget / Math.max(1, components.length))} />)}
+        capacity={Math.ceil(budget.visible / Math.max(1, components.length))} />)}
 
       {/* 3. Bottom Sediment Bed Mesh */}
       <SedimentMesh
@@ -267,7 +268,6 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
         args={[undefined, undefined, mgr.evaporationSystem.maxParticles]}
         geometry={vaporGeometry}
         material={vaporMaterial}
-        dispose={null}
         frustumCulled={false}
         renderOrder={6}
         visible={false}

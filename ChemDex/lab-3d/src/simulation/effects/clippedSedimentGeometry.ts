@@ -52,14 +52,23 @@ export function createClippedSedimentGeometry(type: string, plane: LiquidPlane, 
     for (let i = 0; i < loop.length; i++) {
       const first = (i + 1) % loop.length, edge = loop[first].clone().sub(loop[i]), length = edge.length(), chain = [i, first];
       if (!(length > 0)) continue;
+      let lastProjection = 1;
       for (let step = 2; step < loop.length; step++) {
         const j = (i + step) % loop.length, offset = loop[j].clone().sub(loop[i]);
-        if (new THREE.Vector3().crossVectors(offset, edge).length() > 1e-7 * length || offset.dot(edge) <= 0) break;
+        const projection = offset.dot(edge) / (length * length);
+        if (new THREE.Vector3().crossVectors(offset, edge).length() > 1e-7 * length || projection <= lastProjection + 1e-10) break;
+        lastProjection = projection;
         chain.push(j); boundaryChains.set(`${i}:${j}`, [...chain]); boundaryChains.set(`${j}:${i}`, [...chain].reverse());
       }
     }
+    const processed = new Set<string>();
     while (work.length) {
       const tri = work.pop()!; let split = false;
+      const identity = [...tri].sort((a, b) => a - b).join(':');
+      if (processed.has(identity)) continue;
+      processed.add(identity);
+      const a = projected[tri[0]], b = projected[tri[1]], c = projected[tri[2]];
+      if (Math.abs((b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x)) < 1e-20) continue;
       for (let e = 0; e < 3; e++) {
         const chain = boundaryChains.get(`${tri[e]}:${tri[(e + 1) % 3]}`); if (!chain) continue;
         for (let k = 1; k < chain.length; k++) work.push([chain[k - 1], chain[k], tri[(e + 2) % 3]]);
