@@ -7,7 +7,7 @@ export const MOBILE_CATALOG_TTL = 5 * 60 * 1000;
 const inFlight = new Map<string, Promise<Exam[]>>();
 
 // Only public metadata is kept in the small persistent cache; never questions/passwords.
-const CATALOG_FIELDS = ['title', 'code', 'subject', 'gradeCategory', 'status', 'updatedAt', 'createdAt', 'accessMode', 'priceVnd', 'timeLimit', 'duration', 'questionCount', 'totalQuestions'] as const;
+const CATALOG_FIELDS = ['title', 'code', 'subject', 'gradeCategory', 'status', 'updatedAt', 'createdAt', 'accessMode', 'priceVnd', 'timeLimit', 'duration', 'questionCount', 'totalQuestions', 'description', 'examType', 'type', 'attemptCount', 'submissionsCount'] as const;
 export function catalogMetadata(id: string, value: Record<string, any>): Exam {
   return Object.fromEntries([['id', id], ...CATALOG_FIELDS.filter((key) => value[key] !== undefined).map((key) => [key, value[key]])]) as unknown as Exam;
 }

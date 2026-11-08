@@ -56,6 +56,10 @@ import {
 import { FirestoreCache } from "../../services/firebase/firestoreCache";
 import { getExamsCatalogSummary, getExamTimestampMs } from "../../services/statsAggregatorService";
 import { getExamList } from "../../services/examService";
+import { useAuth } from '../../context/AuthContext';
+import { getRecentMobileExams } from '../../services/offline/catalog';
+import MobileExamTabs from '../../components/student/MobileExamTabs';
+import { parseExamEntry, type ExamEntry } from '../../utils/examInvite';
 
 const isExamPublished = (e: any): boolean => {
   if (!e) return false;
@@ -80,9 +84,10 @@ import ExamCountdownMainboard from "../../components/home/ExamCountdownMainboard
 import RecentExamsQuickSlots from "../../components/home/RecentExamsQuickSlots";
 export { invalidateHomeTopCache };
 
-export default function Home() {
+export default function Home({ mobileOnline = false }: { mobileOnline?: boolean }) {
   const navigate = useNavigate();
   const location = useLocation();
+  const { user, loading: authLoading } = useAuth();
   const [examCode, setExamCode] = useState("");
   const [studentInfo, setStudentInfo] = useState<{ username: string; displayName: string } | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -91,6 +96,7 @@ export default function Home() {
 
   // Tabs: "most_attempted" | "newest" | "all"
   const [activeTab, setActiveTab] = useState<"most_attempted" | "newest" | "all">(() => {
+    if (mobileOnline) return 'newest';
     if (location.pathname === "/exams") return "all";
     return "most_attempted";
   });
@@ -220,9 +226,21 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
       setIsAdmin(false);
     }
 
-    loadTopExams();
-    loadPublicFolderData(null);
-  }, []);
+  }, [user?.uid, authLoading]);
+
+  useEffect(() => {
+    if (!mobileOnline) {
+      loadTopExams();
+      loadPublicFolderData(null);
+    }
+  }, [mobileOnline]);
+
+  useEffect(() => {
+    if (mobileOnline && !authLoading) {
+      setIsLoggedIn(!!user);
+      void loadTopExams();
+    }
+  }, [mobileOnline, authLoading, user?.uid]);
 
   useEffect(() => {
     if (activeTab === "all") {
@@ -236,7 +254,17 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
     }
   }, [activeTab, catalogViewMode]);
 
-  const loadTopExams = async () => {
+  const loadTopExams = async (force = false) => {
+    if (mobileOnline) {
+      setLoadingTop(true);
+      try {
+        const recent = await getRecentMobileExams(force);
+        setTopNewestExams(recent);
+        setTopAttemptedExams([...recent].sort((a, b) => (b.attemptCount || 0) - (a.attemptCount || 0)));
+      } catch { setSearchError('Chưa tải được 5 đề mới nhất. Hãy làm mới hoặc mở tab Offline.'); }
+      finally { setLoadingTop(false); }
+      return;
+    }
     const cachedAttempted = FirestoreCache.get<Exam[]>("home:top:attempted");
     const cachedNewest = FirestoreCache.get<Exam[]>("home:top:newest");
     if (cachedAttempted && cachedNewest) {
@@ -412,13 +440,13 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
     return () => observer.disconnect();
   }, [activeTab, hasMoreAll, loadingMoreAll, loadingAll, allCursor]);
 
-  const handleStartExamFlow = (examIdOrCode: string) => {
+  const handleStartExamFlow = (examIdOrCode: string, codeExam = false) => {
     const allKnown = [...topAttemptedExams, ...topNewestExams, ...allExams];
     const found = allKnown.find(
       (ex) => ex.id === examIdOrCode || ex.code?.toUpperCase() === examIdOrCode.toUpperCase()
     );
-    if ((found as any)?.examType === "code" || (found as any)?.type === "code") {
-      navigate(`/code-exam/${found?.id || examIdOrCode}`);
+    if (codeExam || (found as any)?.examType === "code" || (found as any)?.type === "code") {
+      navigate(`/code-exam/${encodeURIComponent(found?.id || examIdOrCode)}`);
       return;
     }
     if (!isLoggedIn) {
@@ -426,29 +454,34 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
       setShowAuthModal(true);
       return;
     }
-    navigate(`/student/exam/${examIdOrCode}`);
+    navigate(`/student/exam/${encodeURIComponent(examIdOrCode)}`);
+  };
+
+  const openExamEntry = (entry: ExamEntry | null) => {
+    setSearchError("");
+    if (!entry) {
+      setSearchError('Mã đề hoặc liên kết mời không hợp lệ. Hãy nhập mã hoặc dán link đề thi.');
+      return;
+    }
+
+    const trimmed = entry.value;
+    const allKnown = [...topAttemptedExams, ...topNewestExams, ...allExams, ...folderExams];
+    const found = allKnown.find(
+      (ex) => ex.id === trimmed || (entry.kind === 'code' && ex.code?.toUpperCase() === trimmed.toUpperCase())
+    );
+
+    const codeToUse = found ? found.id : trimmed;
+    handleStartExamFlow(codeToUse, entry.kind === 'code-exam');
   };
 
   const handleTakeExamCode = (e: React.FormEvent) => {
     e.preventDefault();
-    setSearchError("");
-    const trimmed = examCode.trim();
-    if (!trimmed) {
-      setSearchError("Vui lòng nhập mã bài thi hoặc chọn đề thi từ danh sách bên dưới!");
-      return;
-    }
-
-    const allKnown = [...topAttemptedExams, ...topNewestExams, ...allExams];
-    const found = allKnown.find(
-      (ex) => ex.id === trimmed || ex.code?.toUpperCase() === trimmed.toUpperCase()
-    );
-
-    const codeToUse = found ? found.id : trimmed;
-    handleStartExamFlow(codeToUse);
+    openExamEntry(parseExamEntry(examCode));
   };
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-10 max-w-6xl mx-auto">
+      {mobileOnline && <div><MobileExamTabs /><button type="button" disabled={loadingTop || !user} className="text-blue-600 text-sm font-semibold disabled:opacity-40" onClick={() => void loadTopExams(true)}>Làm mới đề mới nhất</button></div>}
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-blue-700 via-indigo-700 to-slate-900 rounded-3xl p-6 sm:p-12 text-white shadow-2xl relative overflow-hidden">
         <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
@@ -473,12 +506,21 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
                 <Search className="w-5 h-5 text-slate-400 shrink-0 mr-2" />
                 <input
                   type="text"
+                  aria-label="Mã đề hoặc link mời"
                   value={examCode}
                   onChange={(e) => {
                     setExamCode(e.target.value);
                     if (searchError) setSearchError("");
                   }}
-                  placeholder="Nhập mã bài thi (Vd: GK1, TOAN12...)"
+                  placeholder="Nhập mã đề hoặc dán link mời..."
+                  onPaste={(event) => {
+                    const pasted = event.clipboardData.getData('text').trim();
+                    if (/^(https?:\/\/|www\.|\/)/i.test(pasted)) {
+                      event.preventDefault();
+                      setExamCode(pasted);
+                      openExamEntry(parseExamEntry(pasted));
+                    }
+                  }}
                   className="w-full py-2 text-slate-800 font-semibold placeholder:text-slate-400 placeholder:font-normal text-sm focus:outline-none bg-transparent"
                 />
               </div>
@@ -500,7 +542,7 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
       </div>
 
       {/* 3 Quick-access Recent Exams Slots */}
-      <RecentExamsQuickSlots />
+      <RecentExamsQuickSlots localOnly={mobileOnline} />
 
       {/* Student Onboarding Tutorial Banner */}
       <StudentTutorialBanner />
@@ -790,7 +832,7 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
               }`}
             >
               <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-              <span>Nhiều lượt làm nhất (Top 5)</span>
+              <span>{mobileOnline ? 'Lượt làm trong 5 đề mới' : 'Nhiều lượt làm nhất (Top 5)'}</span>
             </button>
 
             <button
@@ -1077,9 +1119,10 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
                 <h3 className="font-bold text-slate-700 text-sm">Chưa có bài thi mới nào được xuất bản</h3>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div role="region" className="grid grid-cols-1 md:grid-cols-2 gap-4" aria-label="5 đề vừa chỉnh sửa">
                 {topNewestExams.map((exam) => (
                   <div
+                    role="article"
                     key={exam.id}
                     className="bg-white rounded-3xl border border-slate-200 p-5 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group space-y-3"
                   >

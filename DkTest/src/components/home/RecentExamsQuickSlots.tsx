@@ -34,7 +34,7 @@ export interface RecentExamItem {
   examType?: string;
 }
 
-export default function RecentExamsQuickSlots() {
+export default function RecentExamsQuickSlots({ localOnly = false }: { localOnly?: boolean }) {
   const navigate = useNavigate();
   const { user, userProfile } = useAuth();
   const [items, setItems] = useState<RecentExamItem[]>([]);
@@ -93,7 +93,7 @@ export default function RecentExamsQuickSlots() {
           } catch (_) {}
         }
 
-        if (foundList.length < 3 && user?.uid) {
+        if (!localOnly && foundList.length < 3 && user?.uid) {
           try {
             const q = query(
               collection(db, "submissions"),
@@ -147,7 +147,7 @@ export default function RecentExamsQuickSlots() {
     return () => {
       isMounted = false;
     };
-  }, [user?.uid, userProfile?.username]);
+  }, [user?.uid, userProfile?.username, localOnly]);
 
   const handleEmptySlotClick = () => {
     const catalogEl = document.getElementById("exams-catalog") || document.getElementById("exams-section");

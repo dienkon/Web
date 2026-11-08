@@ -7,6 +7,7 @@ import { hasActiveExamInProgress, hydrateActiveExamSession } from '../../service
 import StudentSubExamConfig from '../../features/sub-exam/components/StudentSubExamConfig';
 import { buildSubExamAttempt } from '../../features/sub-exam/engine/buildSubExamAttempt';
 import type { SubExamConfig } from '../../features/sub-exam/types/subExam';
+import CopyExamCode from '../../components/exam/CopyExamCode';
 
 export default function OfflineExamSetup() {
   const { examId = '' } = useParams();
@@ -39,7 +40,7 @@ export default function OfflineExamSetup() {
   if (loading) return <p className="p-6">Đang mở tài khoản…</p>;
   if (!user || userProfile?.role !== 'student') return <div className="p-6"><Link to="/login">Đăng nhập tài khoản đã tải đề</Link></div>;
   return <main className="p-4 sm:p-6 max-w-4xl mx-auto space-y-5 pb-24"><Link className="text-blue-600" to="/student/offline">← Đề thi trên máy</Link><h1 className="font-bold text-2xl">{pack?.exam.title || 'Thiết lập bài thi offline'}</h1>{error && <p role="alert" className="text-red-600">{error}</p>}
-    {pack && <><p>{pack.questions.length} câu trong ngân hàng · {pack.exam.timeLimit || pack.exam.duration ? `${pack.exam.timeLimit || pack.exam.duration} phút` : 'Không giới hạn thời gian'}</p>
+    {pack && <><CopyExamCode code={pack.exam.code} className="rounded-lg bg-blue-50 text-blue-700 px-3 py-2 text-sm font-semibold" /><p>{pack.questions.length} câu trong ngân hàng · {pack.exam.timeLimit || pack.exam.duration ? `${pack.exam.timeLimit || pack.exam.duration} phút` : 'Không giới hạn thời gian'}</p>
       {resuming ? <p className="bg-amber-50 text-amber-900 p-4 rounded-xl">Bạn có bài đang làm. Đề con, thứ tự câu hỏi và đồng hồ được giữ nguyên khi tiếp tục.</p> : <>
         {(pack.exam.allowSubExam || pack.exam.subExamConfig?.enabled) && <StudentSubExamConfig useSubExam={useSubExam} setUseSubExam={setUseSubExam} config={config} setConfig={setConfig} questions={pack.questions} sections={pack.sections} />}
         <p role="status">Bài sẽ có {selectedCount} câu hỏi.</p>

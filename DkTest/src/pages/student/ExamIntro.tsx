@@ -33,7 +33,9 @@ import {
   Eye,
 } from "lucide-react";
 import { useToast } from "../../components/ui/ToastNotification";
-import { safeShare } from "../../utils/mobileCompat";
+import { safeShare, safeCopyText } from "../../utils/mobileCompat";
+import CopyExamCode from '../../components/exam/CopyExamCode';
+import { getApiBaseUrl } from '../../services/apiClient';
 import { getExam } from "../../services/examService";
 import { collection, getDocs, query, where, orderBy, limit } from "firebase/firestore";
 import { auth, db } from "../../services/firebase/config";
@@ -164,7 +166,8 @@ export default function ExamIntro() {
 
   const handleShareExam = async () => {
     if (!canShowExamUrl()) return;
-    const url = `${window.location.origin}/student/exam/${examId}`;
+    const origin = isNativeAndroid() ? getApiBaseUrl() || 'https://dk-test-v3.vercel.app' : window.location.origin;
+    const url = `${origin}/student/exam/${encodeURIComponent(exam?.id || examId || '')}`;
     const shared = await safeShare({
       title: exam ? `Đề thi: ${exam.title}` : "Đề thi DkTEST",
       text: exam ? `Tham gia làm bài thi ${exam.title} trên DkTEST!` : "Tham gia làm bài thi trên DkTEST!",
@@ -172,7 +175,7 @@ export default function ExamIntro() {
     });
     if (!shared) {
       try {
-        await navigator.clipboard.writeText(url);
+        if (!await safeCopyText(url)) throw new Error('clipboard_unavailable');
         setCopiedLink(true);
         setTimeout(() => setCopiedLink(false), 2500);
         showToastSuccess("Đã sao chép link đề thi! Khi gửi qua Zalo, link sẽ tự động hiển thị thẻ xem trước có tên, môn, thời gian và số câu hỏi.");
@@ -704,9 +707,7 @@ export default function ExamIntro() {
           <div className="bg-gradient-to-r from-blue-700 to-indigo-800 p-6 lg:p-8 text-white">
             <div className="flex items-center justify-between gap-2 mb-3">
               <div className="flex items-center gap-2">
-                <span className="text-[11px] font-mono font-bold bg-white/20 px-2.5 py-0.5 rounded-full backdrop-blur-xs">
-                  MÃ BÀI: {exam.code}
-                </span>
+                <CopyExamCode code={exam.code} className="text-[11px] font-mono font-bold bg-white/20 hover:bg-white/30 px-2.5 py-1 rounded-full backdrop-blur-xs" />
                 <span className="text-[11px] font-bold bg-emerald-500/30 text-emerald-100 px-2.5 py-0.5 rounded-full">
                   SẴN SÀNG THI
                 </span>

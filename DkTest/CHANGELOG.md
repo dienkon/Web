@@ -1,5 +1,13 @@
 # DkTEST changelog
 
+## 1.8.29 — 2026-11-08 (Android versionCode 4)
+
+- Online trong app dùng trực tiếp trang chủ web: banner, công cụ, countdown, bộ lọc, thư mục và thẻ đề; giữ tab Offline riêng. Khi mở Online vẫn chỉ truy vấn 5 đề vừa chỉnh sửa, cache theo UID 5 phút; các kho/thư mục chỉ tải khi chọn.
+- Bấm mã đề ở trang chuẩn bị thi để sao chép, dùng chung cho web/app và thiết lập offline; có phản hồi sao chép và fallback WebView.
+- Ô mã đề nhận mã hoặc link mời; dán link hợp lệ tự tách ID/mã rồi mở thông tin đề nội bộ. Hỗ trợ URL đề, query invitation và hash route; chặn input không hợp lệ, không điều hướng tới website bên ngoài.
+- Link chia sẻ tạo từ app dùng địa chỉ website thật thay vì `localhost`.
+- Kiểm tra gọn và audit: [1.8.29](docs/audits/1.8.29.md).
+
 ## 1.8.28 — 2026-11-08 (Android versionCode 3)
 
 - Bỏ nút, state và modal xem trước lời giải khỏi màn hình đang làm bài dùng chung cho web và Android, kể cả khi giáo viên bật `allowPreviewSolutionBeforeExam`.

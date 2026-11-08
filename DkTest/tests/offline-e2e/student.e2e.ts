@@ -73,12 +73,17 @@ test('cold offline launch, new attempt, draft resume, offline submit and result 
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   await seedStudent(page);
-  await page.addInitScript(() => Object.defineProperty(navigator, 'onLine', { configurable: true, get: () => false }));
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'onLine', { configurable: true, get: () => false });
+    Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText: async (value: string) => { (window as any).__copiedExamCode = value; } } });
+  });
   await page.goto('/student/offline');
   await expect(page.getByRole('heading', { name: 'Đề thi trên máy' })).toBeVisible({ timeout: 20000 });
   await expect(page.getByText('Bài kiểm tra offline', { exact: true })).toBeVisible();
   await page.getByRole('link', { name: 'Thiết lập / tiếp tục làm bài' }).click();
   await expect(page.getByText('Cấu hình Đề thi con (Sub-Exam)', { exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Sao chép mã đề OFF001' }).click();
+  await expect.poll(() => page.evaluate(() => (window as any).__copiedExamCode)).toBe('OFF001');
   await page.getByRole('button', { name: 'Bắt đầu làm bài offline' }).click();
   await expect(page.getByText('Hai cộng hai bằng bao nhiêu?', { exact: false })).toBeVisible({ timeout: 20000 });
   await expect(page.getByTitle('Xem trước đề gốc & lời giải chi tiết chuẩn do giáo viên cho phép')).toHaveCount(0);
@@ -145,6 +150,7 @@ test('Android routing defaults online, keeps offline tab local and switches on c
   });
   await page.goto('/');
   await expect(page).toHaveURL(/\/student\/online$/);
+  await expect(page.getByRole('heading', { name: 'Cổng Thi Thông Minh & Chống Gian Lận' })).toBeVisible();
   await expect(page.getByRole('region', { name: '5 đề vừa chỉnh sửa' }).getByRole('article')).toHaveCount(5);
   await page.getByRole('navigation', { name: 'Chế độ đề thi' }).getByRole('link', { name: 'Offline', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Đề thi trên máy' })).toBeVisible();
@@ -160,5 +166,29 @@ test('Android routing defaults online, keeps offline tab local and switches on c
   await expect(page).toHaveURL(/\/student\/online$/);
   await expect(page.getByRole('region', { name: '5 đề vừa chỉnh sửa' }).getByRole('article')).toHaveCount(5);
   await page.screenshot({ path: 'test-results/mobile-online.png', fullPage: true });
+  await page.getByRole('textbox', { name: 'Mã đề hoặc link mời' }).evaluate((input) => {
+    const data = new DataTransfer();
+    data.setData('text/plain', 'https://dk-test-v3.vercel.app/student/exam/offline-fixture?utm_source=zalo');
+    input.dispatchEvent(new ClipboardEvent('paste', { clipboardData: data, bubbles: true, cancelable: true }));
+  });
+  await expect(page).toHaveURL(/\/student\/exam\/offline-fixture$/);
   expect(errors).toEqual([]);
+});
+
+test('web homepage accepts an invite link on paste and rejects non-exam links', async ({ page }) => {
+  await seedStudent(page);
+  await page.addInitScript(() => Object.defineProperty(navigator, 'onLine', { configurable: true, get: () => false }));
+  await page.goto('/');
+  await expect(page.getByRole('heading', { name: 'Cổng Thi Thông Minh & Chống Gian Lận' })).toBeVisible();
+  await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('student_info') || '{}').uid)).toBe('offline-ui-student');
+  const entry = page.getByRole('textbox', { name: 'Mã đề hoặc link mời' });
+  await entry.fill('https://example.test/login');
+  await page.getByRole('button', { name: 'Vào thi ngay', exact: true }).click();
+  await expect(page.getByText('Mã đề hoặc liên kết mời không hợp lệ. Hãy nhập mã hoặc dán link đề thi.')).toBeVisible();
+  await entry.evaluate((input) => {
+    const data = new DataTransfer();
+    data.setData('text/plain', 'https://dk-test-v3.vercel.app/student/exam/offline-fixture');
+    input.dispatchEvent(new ClipboardEvent('paste', { clipboardData: data, bubbles: true, cancelable: true }));
+  });
+  await expect(page).toHaveURL(/\/student\/exam\/offline-fixture$/);
 });
