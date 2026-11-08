@@ -335,14 +335,25 @@ export async function getExamsCatalogSummary(forceRefresh = false): Promise<Exam
     if (snap.exists()) {
       const data = snap.data() as ExamsCatalogSummary;
       if (Array.isArray(data.exams) && data.exams.length > 0) {
-        // Ensure robust sorting by newest first
-        data.exams.sort((a, b) => {
-          const timeA = getExamTimestampMs(a.updatedAt) || getExamTimestampMs(a.createdAt);
-          const timeB = getExamTimestampMs(b.updatedAt) || getExamTimestampMs(b.createdAt);
-          return timeB - timeA;
-        });
-        FirestoreCache.set(cacheKey, data, 60 * 1000);
-        return data;
+        // Filter out test artifacts
+        const validExams = data.exams.filter((e) => !e.id?.startsWith("test_") && !e.id?.startsWith("mock_"));
+        const publishedCount = validExams.filter(
+          (e) => e.status === "published" || (!e.status && (e.status as any) !== "draft" && (e.status as any) !== "unlisted")
+        ).length;
+
+        // Only return if we have a healthy catalog; if too few published exams, auto-heal from collection
+        if (publishedCount >= 5) {
+          // Ensure robust sorting by newest first
+          validExams.sort((a, b) => {
+            const timeA = getExamTimestampMs(a.updatedAt) || getExamTimestampMs(a.createdAt);
+            const timeB = getExamTimestampMs(b.updatedAt) || getExamTimestampMs(b.createdAt);
+            return timeB - timeA;
+          });
+          data.exams = validExams;
+          data.totalCount = validExams.length;
+          FirestoreCache.set(cacheKey, data, 60 * 1000);
+          return data;
+        }
       }
     }
   } catch (err) {
@@ -409,6 +420,9 @@ export async function syncExamToCatalogSummary(
   exam: Partial<ExamSummaryItem> & { id: string },
   action: "upsert" | "delete"
 ): Promise<void> {
+  if (exam.id && (exam.id.startsWith("test_") || exam.id.startsWith("mock_"))) {
+    return;
+  }
   const cacheKey = "doc:system_stats:exams_summary";
   FirestoreCache.invalidate(cacheKey);
 

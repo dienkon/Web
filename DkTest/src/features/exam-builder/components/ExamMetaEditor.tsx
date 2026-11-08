@@ -1003,6 +1003,48 @@ export default function ExamMetaEditor() {
               </span>
             </div>
           </div>
+
+          {/* Ô RIÊNG 4: Bật/Tắt Cho xem trước đề gốc & lời giải chi tiết trước khi thi */}
+          <div className={`p-4 rounded-2xl border-2 transition-all flex flex-col justify-between gap-3 ${
+            !!state.examMeta.allowPreviewSolutionBeforeExam
+              ? "bg-amber-50/50 border-amber-400/80 shadow-2xs"
+              : "bg-slate-50/60 border-slate-200 opacity-80"
+          }`}>
+            <div className="flex items-start justify-between gap-3">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <Eye className={`w-4 h-4 ${!!state.examMeta.allowPreviewSolutionBeforeExam ? "text-amber-600" : "text-slate-400"}`} />
+                  <span className="text-xs font-black text-slate-900">
+                    Xem Trước Đề & Lời Giải Chi Tiết
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-600 leading-relaxed font-medium">
+                  Cho phép thí sinh xem trước đề gốc chuẩn và toàn bộ lời giải chi tiết trước khi bấm bắt đầu làm bài.
+                </p>
+              </div>
+
+              <label className="relative inline-flex items-center cursor-pointer shrink-0 mt-0.5">
+                <input
+                  type="checkbox"
+                  checked={!!state.examMeta.allowPreviewSolutionBeforeExam}
+                  onChange={(e) => actions.setExamMeta({ allowPreviewSolutionBeforeExam: e.target.checked })}
+                  className="sr-only peer"
+                />
+                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-600"></div>
+              </label>
+            </div>
+
+            <div className="flex items-center justify-between pt-2 border-t border-slate-200/60 text-[10px] font-bold">
+              <span className="text-slate-500 uppercase">Trạng thái xem trước:</span>
+              <span className={`px-2 py-0.5 rounded-full ${
+                !!state.examMeta.allowPreviewSolutionBeforeExam
+                  ? "bg-amber-100 text-amber-900"
+                  : "bg-slate-200 text-slate-700"
+              }`}>
+                {!!state.examMeta.allowPreviewSolutionBeforeExam ? "✓ ĐANG CHO XEM TRƯỚC LỜI GIẢI" : "✕ ĐÃ TẮT XEM TRƯỚC"}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 

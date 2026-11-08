@@ -251,11 +251,11 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
       const catalog = await getExamsCatalogSummary();
       let published = (catalog.exams || []).filter(isExamPublished);
 
-      // Direct fallback if catalog has no published exams
-      if (published.length === 0) {
+      // Direct fallback if catalog has fewer than 5 published exams
+      if (published.length < 5) {
         try {
-          const directExams = await getExamList({ pageSize: 20 });
-          if (directExams && directExams.items && directExams.items.length > 0) {
+          const directExams = await getExamList({ pageSize: 30 });
+          if (directExams && directExams.items && directExams.items.length > published.length) {
             published = directExams.items.filter(isExamPublished) as any;
           }
         } catch (fallbackErr) {
@@ -310,11 +310,11 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
 
       let rawItems = (catalog.exams || []).filter(isExamPublished) as unknown as Exam[];
 
-      // Direct fallback if catalog has no published exams
-      if (rawItems.length === 0) {
+      // Direct fallback if catalog has fewer than 5 published exams
+      if (rawItems.length < 5) {
         try {
           const directRes = await getExamList({ pageSize: 50 });
-          if (directRes && directRes.items) {
+          if (directRes && directRes.items && directRes.items.length > rawItems.length) {
             rawItems = directRes.items.filter(isExamPublished);
           }
         } catch (fallbackErr) {
