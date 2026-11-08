@@ -1917,7 +1917,7 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
   return { success: true, newBalanceVnd: newBalance, entitlement };
 }
 var walletOverviewCache = null;
-var WALLET_OVERVIEW_TTL_MS = 60 * 1e3;
+var WALLET_OVERVIEW_TTL_MS = 180 * 1e3;
 function invalidateWalletOverviewCache() {
   walletOverviewCache = null;
 }
@@ -1977,7 +1977,7 @@ async function updateWalletOverviewAggregates(delta) {
   }
 }
 var debtSummariesCache = null;
-var DEBT_SUMMARIES_TTL_MS = 90 * 1e3;
+var DEBT_SUMMARIES_TTL_MS = 180 * 1e3;
 var USER_MAP_TTL_MS = 10 * 60 * 1e3;
 function invalidateDebtSummariesCache() {
   debtSummariesCache = null;

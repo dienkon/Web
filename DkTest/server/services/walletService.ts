@@ -2090,7 +2090,7 @@ export interface WalletOverviewData {
 }
 
 let walletOverviewCache: { data: WalletOverviewData; timestamp: number } | null = null;
-const WALLET_OVERVIEW_TTL_MS = 60 * 1000;
+const WALLET_OVERVIEW_TTL_MS = 180 * 1000;
 
 export function invalidateWalletOverviewCache() {
   walletOverviewCache = null;
@@ -2328,7 +2328,7 @@ let debtSummariesCache: {
   userMap: Map<string, { username: string; email: string; displayName: string }>;
   timestamp: number;
 } | null = null;
-const DEBT_SUMMARIES_TTL_MS = 90 * 1000;
+const DEBT_SUMMARIES_TTL_MS = 180 * 1000;
 
 let userMapCache: {
   map: Map<string, { username: string; email: string; displayName: string }>;

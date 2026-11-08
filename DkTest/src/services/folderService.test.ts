@@ -17,6 +17,7 @@ vi.mock("firebase/firestore", () => {
     })),
     query: vi.fn((_coll, ...conditions) => ({ _query: true, conditions })),
     where: vi.fn((field, op, val) => ({ field, op, val })),
+    limit: vi.fn((n) => ({ _limit: n })),
   };
 });
 

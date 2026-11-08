@@ -12,6 +12,7 @@ import {
   deleteDoc,
   query,
   where,
+  orderBy,
   limit,
 } from "firebase/firestore";
 import { db } from "./firebase/config";
@@ -37,8 +38,14 @@ export async function createAnnouncement(
 
 export async function getAnnouncements(): Promise<SystemAnnouncement[]> {
   try {
-    const q = query(collection(db, ANNOUNCEMENT_COLLECTION), limit(50));
-    const snap = await getDocs(q);
+    let snap;
+    try {
+      const q = query(collection(db, ANNOUNCEMENT_COLLECTION), orderBy("createdAt", "desc"), limit(50));
+      snap = await getDocs(q);
+    } catch {
+      const fallbackQ = query(collection(db, ANNOUNCEMENT_COLLECTION), limit(50));
+      snap = await getDocs(fallbackQ);
+    }
     const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as SystemAnnouncement));
     items.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
     return items;
@@ -74,12 +81,23 @@ export async function getActiveAnnouncementsForUser(
     cacheKey,
     async () => {
       try {
-        const q = query(
-          collection(db, ANNOUNCEMENT_COLLECTION),
-          where("isActive", "==", true),
-          limit(20)
-        );
-        const snap = await getDocs(q);
+        let snap;
+        try {
+          const q = query(
+            collection(db, ANNOUNCEMENT_COLLECTION),
+            where("isActive", "==", true),
+            orderBy("createdAt", "desc"),
+            limit(20)
+          );
+          snap = await getDocs(q);
+        } catch {
+          const fallbackQ = query(
+            collection(db, ANNOUNCEMENT_COLLECTION),
+            where("isActive", "==", true),
+            limit(30)
+          );
+          snap = await getDocs(fallbackQ);
+        }
         const now = Date.now();
         const items = snap.docs
           .map((d) => ({ id: d.id, ...d.data() } as SystemAnnouncement))

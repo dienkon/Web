@@ -98,6 +98,11 @@ export async function updateGlobalStatsOnSubmission(submission: Partial<Submissi
     const snap = await getDoc(overviewRef);
     logDocRead("system_stats", "overview", performance.now() - t0, "Pre-check before atomic update");
 
+    // Compute Vietnam calendar date key (UTC+7) so every attempt increments that exact calendar day
+    const dateObj = new Date();
+    const vnDate = new Date(dateObj.getTime() + 7 * 60 * 60 * 1000);
+    const todayVnKey = `${vnDate.getUTCFullYear()}-${String(vnDate.getUTCMonth() + 1).padStart(2, "0")}-${String(vnDate.getUTCDate()).padStart(2, "0")}`;
+
     if (snap.exists()) {
       const data = snap.data() as SystemStatsOverview;
       const currentRecent = Array.isArray(data.recentSubmissions) ? data.recentSubmissions : [];
@@ -113,6 +118,7 @@ export async function updateGlobalStatsOnSubmission(submission: Partial<Submissi
         submissionsToday: increment(1),
         submissions7Days: increment(1),
         submissions30Days: increment(1),
+        [`dailySubmissions.${todayVnKey}`]: increment(1),
         totalScoreSum: increment(score),
         averageScore: newAvg,
         recentSubmissions: updatedRecent,
@@ -150,6 +156,9 @@ export async function updateGlobalStatsOnSubmission(submission: Partial<Submissi
         submissionsToday: 1,
         submissions7Days: 1,
         submissions30Days: 1,
+        dailySubmissions: {
+          [todayVnKey]: 1,
+        },
         recentSubmissions: [recentItem],
         classDistribution: {},
         examStats: {
@@ -311,7 +320,7 @@ export async function getExamsCatalogSummary(forceRefresh = false): Promise<Exam
   const cacheKey = "doc:system_stats:exams_summary";
   if (!forceRefresh) {
     const cached = FirestoreCache.get<ExamsCatalogSummary>(cacheKey);
-    if (cached && Array.isArray(cached.exams)) {
+    if (cached && Array.isArray(cached.exams) && cached.exams.length > 0) {
       logCacheHit("Exams Catalog Summary Cache");
       return cached;
     }
@@ -325,7 +334,7 @@ export async function getExamsCatalogSummary(forceRefresh = false): Promise<Exam
 
     if (snap.exists()) {
       const data = snap.data() as ExamsCatalogSummary;
-      if (Array.isArray(data.exams)) {
+      if (Array.isArray(data.exams) && data.exams.length > 0) {
         // Ensure robust sorting by newest first
         data.exams.sort((a, b) => {
           const timeA = getExamTimestampMs(a.updatedAt) || getExamTimestampMs(a.createdAt);

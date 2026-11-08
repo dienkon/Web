@@ -57,3 +57,25 @@ export function getTimestampMillis(val: any): number {
   }
   return 0;
 }
+
+/**
+ * Returns user-friendly relative time in Vietnamese (e.g. "Vừa xong", "5 phút trước", "Hôm qua lúc 14:20")
+ */
+export function formatRelativeTime(val: any): string {
+  const ms = getTimestampMillis(val);
+  if (!ms) return "";
+  const diffSec = Math.floor((Date.now() - ms) / 1000);
+  if (diffSec < 60) return "Vừa xong";
+  const diffMin = Math.floor(diffSec / 60);
+  if (diffMin < 60) return `${diffMin} phút trước`;
+  const diffHours = Math.floor(diffMin / 60);
+  if (diffHours < 24) return `${diffHours} giờ trước`;
+  const diffDays = Math.floor(diffHours / 24);
+  if (diffDays === 1) {
+    const d = new Date(ms);
+    const timeStr = `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+    return `Hôm qua ${timeStr}`;
+  }
+  if (diffDays < 7) return `${diffDays} ngày trước`;
+  return formatDate(val, false);
+}

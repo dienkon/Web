@@ -22,6 +22,8 @@ export default function ExamEditor({ isNew }: { isNew?: boolean }) {
     shuffleOptions: false,
     showResults: true,
     showDetails: true,
+    showExamUrl: true,
+    allowPreviewSolutionBeforeExam: false,
     allowSubExam: false,
     maxAttempts: 1,
     status: "draft",
@@ -248,6 +250,23 @@ export default function ExamEditor({ isNew }: { isNew?: boolean }) {
               />
               <span className="text-slate-700 font-medium">Hiển thị link/URL bài thi & nút chia sẻ</span>
             </label>
+
+            <div className="p-3.5 bg-blue-50/70 border border-blue-200 rounded-xl space-y-1">
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input 
+                  type="checkbox" 
+                  checked={exam.allowPreviewSolutionBeforeExam || false}
+                  onChange={(e) => handleChange("allowPreviewSolutionBeforeExam", e.target.checked)}
+                  className="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 mt-0.5 shrink-0"
+                />
+                <div>
+                  <span className="text-slate-900 font-bold block text-sm">Cho xem trước đề & lời giải chi tiết trước khi thi</span>
+                  <span className="text-slate-600 text-xs leading-relaxed block mt-0.5">
+                    Khi bật, thí sinh có thể bấm nút xem toàn bộ đề thi gốc kèm đáp án chuẩn và lời giải chi tiết ngay tại màn hình chuẩn bị vào thi.
+                  </span>
+                </div>
+              </label>
+            </div>
 
             <div className="h-px bg-slate-200 my-4"></div>
 

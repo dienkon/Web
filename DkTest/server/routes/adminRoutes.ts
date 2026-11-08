@@ -107,10 +107,14 @@ export function parseTimestampMs(val: any): number {
   return isNaN(ms) ? 0 : ms;
 }
 
-export function formatCalendarDateKey(date: Date): string {
-  const y = date.getFullYear();
-  const m = String(date.getMonth() + 1).padStart(2, "0");
-  const d = String(date.getDate()).padStart(2, "0");
+export function formatCalendarDateKey(dateOrVal: Date | number | string): string {
+  const ms = parseTimestampMs(dateOrVal);
+  if (!ms) return "";
+  // Strictly compute calendar date in Vietnam Timezone (UTC+7 / ICT)
+  const vnTime = new Date(ms + 7 * 60 * 60 * 1000);
+  const y = vnTime.getUTCFullYear();
+  const m = String(vnTime.getUTCMonth() + 1).padStart(2, "0");
+  const d = String(vnTime.getUTCDate()).padStart(2, "0");
   return `${y}-${m}-${d}`;
 }
 
@@ -397,6 +401,13 @@ adminRouter.get("/stats", async (req: AuthenticatedRequest, res: Response) => {
       }
 
       if (overviewDoc && (overviewDoc.userStats || overviewDoc.totalAccounts !== undefined) && (overviewDoc.examStats || overviewDoc.totalSubmissions !== undefined)) {
+        // Ensure submissionsToday strictly matches current Vietnam calendar day
+        const todayVnKey = formatCalendarDateKey(Date.now());
+        if (overviewDoc.dailySubmissions && typeof overviewDoc.dailySubmissions === "object") {
+          const countToday = Number(overviewDoc.dailySubmissions[todayVnKey]) || 0;
+          overviewDoc.submissionsToday = countToday;
+          if (overviewDoc.examStats) overviewDoc.examStats.submissionsToday = countToday;
+        }
         console.log(`[Server Stats] Served from dedicated doc "system_stats/overview" (1 doc read / authoritative)`);
         return res.json(overviewDoc);
       }
@@ -481,14 +492,35 @@ adminRouter.get("/analytics", async (req: AuthenticatedRequest, res: Response) =
       queryLimitUsers = 800;
     }
 
-    const now = new Date();
-    // Prepare date buckets strictly based on local calendar dates
+    const nowMs = Date.now();
+    // Prepare date buckets strictly based on Vietnam calendar dates (UTC+7)
     const dateBuckets: Record<string, { date: string; label: string; newUsers: number; submissions: number }> = {};
     for (let i = days - 1; i >= 0; i--) {
-      const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
-      const key = formatCalendarDateKey(d);
-      const label = `${d.getDate()}/${d.getMonth() + 1}`;
+      const targetMs = nowMs - i * 24 * 60 * 60 * 1000;
+      const key = formatCalendarDateKey(targetMs);
+      const vnD = new Date(targetMs + 7 * 60 * 60 * 1000);
+      const label = `${vnD.getUTCDate()}/${vnD.getUTCMonth() + 1}`;
       dateBuckets[key] = { date: key, label, newUsers: 0, submissions: 0 };
+    }
+
+    // Step 1: Read pre-aggregated daily metrics from system_stats/overview (1 doc read!)
+    let overviewDoc: any = null;
+    try {
+      if (adminDb) {
+        const snap = await adminDb.collection("system_stats").doc("overview").get();
+        if (snap.exists) overviewDoc = snap.data();
+      } else {
+        overviewDoc = await getFirestoreRestDoc("system_stats", "overview", true, 60000);
+      }
+    } catch (_) {}
+
+    const hasPreAggregatedDaily = overviewDoc?.dailySubmissions && typeof overviewDoc.dailySubmissions === "object";
+    if (hasPreAggregatedDaily) {
+      Object.keys(overviewDoc.dailySubmissions).forEach((dKey) => {
+        if (dateBuckets[dKey]) {
+          dateBuckets[dKey].submissions = Number(overviewDoc.dailySubmissions[dKey]) || 0;
+        }
+      });
     }
 
     let usersList: any[] = [];
@@ -508,44 +540,50 @@ adminRouter.get("/analytics", async (req: AuthenticatedRequest, res: Response) =
         usersList = usersSnap.docs.map((doc) => doc.data());
       }
 
-      // 2. Fetch submissions ordered newest first (so recent attempts in range are accurately captured)
-      try {
-        const subSnap = await adminDb
-          .collection("submissions")
-          .orderBy("submittedAt", "desc")
-          .limit(queryLimitSubs)
-          .get();
-        subList = subSnap.docs.map((doc) => doc.data());
-      } catch {
-        const subSnap = await adminDb.collection("submissions").limit(200).get();
-        subList = subSnap.docs.map((doc) => doc.data());
+      // 2. Fetch submissions only if dailySubmissions is missing, to save heavy reads
+      if (!hasPreAggregatedDaily) {
+        try {
+          const subSnap = await adminDb
+            .collection("submissions")
+            .orderBy("submittedAt", "desc")
+            .limit(queryLimitSubs)
+            .get();
+          subList = subSnap.docs.map((doc) => doc.data());
+        } catch {
+          const subSnap = await adminDb.collection("submissions").limit(200).get();
+          subList = subSnap.docs.map((doc) => doc.data());
+        }
       }
     } else {
-      usersList = await getFirestoreRestDocs("users", queryLimitUsers, true, 30000);
-      subList = await getFirestoreRestDocs("submissions", queryLimitSubs, true, 30000);
+      usersList = await getFirestoreRestDocs("users", queryLimitUsers, true, 60000);
+      if (!hasPreAggregatedDaily) {
+        subList = await getFirestoreRestDocs("submissions", queryLimitSubs, true, 60000);
+      }
     }
 
-    // Populate user registrations by local calendar date
+    // Populate user registrations by local calendar date (Vietnam timezone)
     usersList.forEach((data) => {
       const ts = parseTimestampMs(data.createdAt);
       if (ts) {
-        const dKey = formatCalendarDateKey(new Date(ts));
+        const dKey = formatCalendarDateKey(ts);
         if (dateBuckets[dKey]) {
           dateBuckets[dKey].newUsers++;
         }
       }
     });
 
-    // Populate submissions by local calendar date (khớp 100% với KPI card và thời gian làm bài)
-    subList.forEach((data) => {
-      const ts = parseTimestampMs(data.submittedAt);
-      if (ts) {
-        const dKey = formatCalendarDateKey(new Date(ts));
-        if (dateBuckets[dKey]) {
-          dateBuckets[dKey].submissions++;
+    // Populate submissions fallback if not already populated from dailySubmissions
+    if (!hasPreAggregatedDaily && subList.length > 0) {
+      subList.forEach((data) => {
+        const ts = parseTimestampMs(data.submittedAt);
+        if (ts) {
+          const dKey = formatCalendarDateKey(ts);
+          if (dateBuckets[dKey]) {
+            dateBuckets[dKey].submissions++;
+          }
         }
-      }
-    });
+      });
+    }
 
     const chartData = Object.values(dateBuckets);
     const result = { range, chartData };

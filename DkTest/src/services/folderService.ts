@@ -5,6 +5,7 @@ import {
   getDocs,
   query,
   where,
+  limit,
   setDoc,
   updateDoc,
   deleteDoc,
@@ -310,19 +311,27 @@ export const getPublicExamsInFolder = async (
   folderId: string | null
 ): Promise<Exam[]> => {
   try {
-    const conditions: any[] = [
-      where("folderId", "==", folderId ?? null),
-    ];
-    const q = query(collection(db, EXAMS_COLLECTION), ...conditions);
+    let q;
+    if (!folderId) {
+      // Query recent exams at root and filter for where folderId is not set or null
+      q = query(collection(db, EXAMS_COLLECTION), limit(60));
+    } else {
+      q = query(collection(db, EXAMS_COLLECTION), where("folderId", "==", folderId), limit(60));
+    }
     const snap = await getDocs(q);
-    console.warn(`[Firestore] READ_MANY (${snap.size} docs): ${EXAMS_COLLECTION} (folderId: ${folderId ?? 'null'})`);
     const exams = snap.docs
       .map((d) => ({ id: d.id, ...(d.data() as any) } as Exam))
-      .filter((ex) => ex.status !== "draft" && ex.status !== "unlisted");
+      .filter((ex) => {
+        if (ex.status === "draft" || ex.status === "unlisted") return false;
+        if (!folderId) {
+          return !ex.folderId; // matches null, undefined, ""
+        }
+        return ex.folderId === folderId;
+      });
 
     exams.sort((a, b) => {
-      const timeA = a.createdAt?.seconds || 0;
-      const timeB = b.createdAt?.seconds || 0;
+      const timeA = (a.updatedAt as any)?.seconds || (a.createdAt as any)?.seconds || 0;
+      const timeB = (b.updatedAt as any)?.seconds || (b.createdAt as any)?.seconds || 0;
       return timeB - timeA;
     });
 
@@ -911,6 +920,7 @@ export const organizeExamsIntoFolders = async (
   const allFolders = await getFolders(options.ownerId || null, "all");
   const existingFolderByName = new Map<string, Folder>();
   allFolders.forEach((f) => {
+    if (!f || !f.name) return;
     const norm = f.name.trim().toLowerCase();
     // Prioritize root folders (parentId == null) if multiple exist with same name
     if (!existingFolderByName.has(norm) || !f.parentId) {

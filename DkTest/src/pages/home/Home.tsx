@@ -55,6 +55,13 @@ import {
 } from "../../services/authService";
 import { FirestoreCache } from "../../services/firebase/firestoreCache";
 import { getExamsCatalogSummary, getExamTimestampMs } from "../../services/statsAggregatorService";
+import { getExamList } from "../../services/examService";
+
+const isExamPublished = (e: any): boolean => {
+  if (!e) return false;
+  if (e.status === "draft" || e.status === "archived" || e.status === "unlisted") return false;
+  return true;
+};
 
 const CACHE_TTL_MS = 180000; // 3 minutes
 
@@ -242,7 +249,19 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
     setLoadingTop(true);
     try {
       const catalog = await getExamsCatalogSummary();
-      const published = (catalog.exams || []).filter((e) => e.status === "published");
+      let published = (catalog.exams || []).filter(isExamPublished);
+
+      // Direct fallback if catalog has no published exams
+      if (published.length === 0) {
+        try {
+          const directExams = await getExamList({ pageSize: 20 });
+          if (directExams && directExams.items && directExams.items.length > 0) {
+            published = directExams.items.filter(isExamPublished) as any;
+          }
+        } catch (fallbackErr) {
+          console.warn("Direct exams fallback error in loadTopExams:", fallbackErr);
+        }
+      }
 
       // 1. Top 5 Newest (strictly sorted by newest first)
       const newestList = [...published]
@@ -289,7 +308,19 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
       const catalog = await getExamsCatalogSummary();
       if (reqId !== filterRequestIdRef.current) return;
 
-      let rawItems = (catalog.exams || []).filter((e) => e.status === "published") as unknown as Exam[];
+      let rawItems = (catalog.exams || []).filter(isExamPublished) as unknown as Exam[];
+
+      // Direct fallback if catalog has no published exams
+      if (rawItems.length === 0) {
+        try {
+          const directRes = await getExamList({ pageSize: 50 });
+          if (directRes && directRes.items) {
+            rawItems = directRes.items.filter(isExamPublished);
+          }
+        } catch (fallbackErr) {
+          console.warn("Direct exams fallback error in loadInitialAllExams:", fallbackErr);
+        }
+      }
       if (selectedSubjectFilter !== "all") {
         rawItems = rawItems.filter((e) => (e as any).subject === selectedSubjectFilter);
       }

@@ -187,18 +187,8 @@ function clearServerRestCache(keyPattern) {
 function getFirebaseApiKey() {
   return process.env.VITE_FIREBASE_API_KEY || process.env.FIREBASE_API_KEY || "AIzaSyDp9p5hkQ6fVEou4znk5YZu81VhgZtM7h4";
 }
-var UNCACHED_COLLECTIONS = /* @__PURE__ */ new Set([
-  "wallets",
-  "deposit_requests",
-  "wallet_transactions",
-  "debt_records",
-  "exam_entitlements",
-  "system_stats",
-  "exams",
-  "users",
-  "notifications"
-]);
-async function getFirestoreRestDocs(collectionName, pageSize = 50, useCache = true, cacheTtlMs = 2e4) {
+var UNCACHED_COLLECTIONS = /* @__PURE__ */ new Set();
+async function getFirestoreRestDocs(collectionName, pageSize = 50, useCache = true, cacheTtlMs = 6e4) {
   const safePageSize = Math.min(pageSize, 100);
   const cacheKey = `docs_${collectionName}_${safePageSize}`;
   const now = Date.now();

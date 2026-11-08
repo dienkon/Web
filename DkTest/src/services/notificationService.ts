@@ -11,6 +11,7 @@ import {
   updateDoc,
   query,
   where,
+  orderBy,
   limit,
 } from "firebase/firestore";
 import { db } from "./firebase/config";
@@ -24,7 +25,7 @@ export async function fetchUserNotifications(
   uid: string,
   forceRefresh: boolean = false,
   isAdmin: boolean = false,
-  maxLimit: number = isAdmin ? 5 : 10
+  maxLimit: number = isAdmin ? 10 : 15
 ): Promise<SystemNotification[]> {
   const targetUid = uid || (isAdmin ? "admin_master" : "");
   if (!targetUid && !isAdmin) return [];
@@ -38,19 +39,34 @@ export async function fetchUserNotifications(
           ? Array.from(new Set([targetUid, "all", "admin"].filter(Boolean)))
           : Array.from(new Set([targetUid, "all"].filter(Boolean)));
 
-        const q = query(
-          collection(db, NOTIF_COLLECTION),
-          where("recipientUid", "in", recipients),
-          limit(maxLimit)
-        );
-        const snap = await getDocs(q);
+        let snap;
+        try {
+          // Strictly query newest first with orderBy createdAt desc
+          const q = query(
+            collection(db, NOTIF_COLLECTION),
+            where("recipientUid", "in", recipients),
+            orderBy("createdAt", "desc"),
+            limit(maxLimit)
+          );
+          snap = await getDocs(q);
+        } catch (idxErr) {
+          // Fallback if composite index is pending deployment
+          console.warn("[notificationService] Composite query failed, falling back to client sort:", idxErr);
+          const fallbackQ = query(
+            collection(db, NOTIF_COLLECTION),
+            where("recipientUid", "in", recipients),
+            limit(Math.max(maxLimit * 3, 30))
+          );
+          snap = await getDocs(fallbackQ);
+        }
+
         const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as SystemNotification));
         items.sort((a, b) => {
           const timeA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
           const timeB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
           return timeB - timeA;
         });
-        return items;
+        return items.slice(0, maxLimit);
       } catch (err) {
         console.error("[notificationService] fetchUserNotifications error:", err);
         return [];

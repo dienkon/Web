@@ -302,7 +302,7 @@ export async function getFirestoreRestDocs(
   collectionName: string,
   pageSize = 50,
   useCache = true,
-  cacheTtlMs = 20000
+  cacheTtlMs = 60000
 ): Promise<any[]> {
   const safePageSize = Math.min(pageSize, 100);
   const cacheKey = `docs_${collectionName}_${safePageSize}`;

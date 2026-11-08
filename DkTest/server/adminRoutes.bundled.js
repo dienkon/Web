@@ -248,7 +248,7 @@ async function queryFirestoreRestDocs(collectionName, field, value, limitCount =
     return [];
   }
 }
-async function getFirestoreRestDocs(collectionName, pageSize = 50, useCache = true, cacheTtlMs = 2e4) {
+async function getFirestoreRestDocs(collectionName, pageSize = 50, useCache = true, cacheTtlMs = 6e4) {
   const safePageSize = Math.min(pageSize, 100);
   const cacheKey = `docs_${collectionName}_${safePageSize}`;
   const now = Date.now();
@@ -1593,7 +1593,7 @@ async function grantOrRevokeExamEntitlement(adminUid, adminName, studentUid, exa
   return { success: true, entitlement };
 }
 var walletOverviewCache = null;
-var WALLET_OVERVIEW_TTL_MS = 60 * 1e3;
+var WALLET_OVERVIEW_TTL_MS = 180 * 1e3;
 function invalidateWalletOverviewCache() {
   walletOverviewCache = null;
 }
@@ -1775,7 +1775,7 @@ async function getWalletOverview(forceRefresh = false) {
   return freshOverview;
 }
 var debtSummariesCache = null;
-var DEBT_SUMMARIES_TTL_MS = 90 * 1e3;
+var DEBT_SUMMARIES_TTL_MS = 180 * 1e3;
 var userMapCache = null;
 var USER_MAP_TTL_MS = 10 * 60 * 1e3;
 function invalidateDebtSummariesCache() {
@@ -2962,10 +2962,13 @@ function parseTimestampMs(val) {
   const ms = d.getTime();
   return isNaN(ms) ? 0 : ms;
 }
-function formatCalendarDateKey(date) {
-  const y = date.getFullYear();
-  const m = String(date.getMonth() + 1).padStart(2, "0");
-  const d = String(date.getDate()).padStart(2, "0");
+function formatCalendarDateKey(dateOrVal) {
+  const ms = parseTimestampMs(dateOrVal);
+  if (!ms) return "";
+  const vnTime = new Date(ms + 7 * 60 * 60 * 1e3);
+  const y = vnTime.getUTCFullYear();
+  const m = String(vnTime.getUTCMonth() + 1).padStart(2, "0");
+  const d = String(vnTime.getUTCDate()).padStart(2, "0");
   return `${y}-${m}-${d}`;
 }
 async function computeSystemStats() {
@@ -3209,6 +3212,12 @@ adminRouter.get("/stats", async (req, res) => {
         overviewDoc = await getFirestoreRestDoc("system_stats", "overview");
       }
       if (overviewDoc && (overviewDoc.userStats || overviewDoc.totalAccounts !== void 0) && (overviewDoc.examStats || overviewDoc.totalSubmissions !== void 0)) {
+        const todayVnKey = formatCalendarDateKey(Date.now());
+        if (overviewDoc.dailySubmissions && typeof overviewDoc.dailySubmissions === "object") {
+          const countToday = Number(overviewDoc.dailySubmissions[todayVnKey]) || 0;
+          overviewDoc.submissionsToday = countToday;
+          if (overviewDoc.examStats) overviewDoc.examStats.submissionsToday = countToday;
+        }
         console.log(`[Server Stats] Served from dedicated doc "system_stats/overview" (1 doc read / authoritative)`);
         return res.json(overviewDoc);
       }
@@ -3276,13 +3285,32 @@ adminRouter.get("/analytics", async (req, res) => {
       queryLimitSubs = 1500;
       queryLimitUsers = 800;
     }
-    const now = /* @__PURE__ */ new Date();
+    const nowMs = Date.now();
     const dateBuckets = {};
     for (let i = days - 1; i >= 0; i--) {
-      const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
-      const key = formatCalendarDateKey(d);
-      const label = `${d.getDate()}/${d.getMonth() + 1}`;
+      const targetMs = nowMs - i * 24 * 60 * 60 * 1e3;
+      const key = formatCalendarDateKey(targetMs);
+      const vnD = new Date(targetMs + 7 * 60 * 60 * 1e3);
+      const label = `${vnD.getUTCDate()}/${vnD.getUTCMonth() + 1}`;
       dateBuckets[key] = { date: key, label, newUsers: 0, submissions: 0 };
+    }
+    let overviewDoc = null;
+    try {
+      if (adminDb) {
+        const snap = await adminDb.collection("system_stats").doc("overview").get();
+        if (snap.exists) overviewDoc = snap.data();
+      } else {
+        overviewDoc = await getFirestoreRestDoc("system_stats", "overview", true, 6e4);
+      }
+    } catch (_) {
+    }
+    const hasPreAggregatedDaily = overviewDoc?.dailySubmissions && typeof overviewDoc.dailySubmissions === "object";
+    if (hasPreAggregatedDaily) {
+      Object.keys(overviewDoc.dailySubmissions).forEach((dKey) => {
+        if (dateBuckets[dKey]) {
+          dateBuckets[dKey].submissions = Number(overviewDoc.dailySubmissions[dKey]) || 0;
+        }
+      });
     }
     let usersList = [];
     let subList = [];
@@ -3294,35 +3322,41 @@ adminRouter.get("/analytics", async (req, res) => {
         const usersSnap = await adminDb.collection("users").limit(100).get();
         usersList = usersSnap.docs.map((doc) => doc.data());
       }
-      try {
-        const subSnap = await adminDb.collection("submissions").orderBy("submittedAt", "desc").limit(queryLimitSubs).get();
-        subList = subSnap.docs.map((doc) => doc.data());
-      } catch {
-        const subSnap = await adminDb.collection("submissions").limit(200).get();
-        subList = subSnap.docs.map((doc) => doc.data());
+      if (!hasPreAggregatedDaily) {
+        try {
+          const subSnap = await adminDb.collection("submissions").orderBy("submittedAt", "desc").limit(queryLimitSubs).get();
+          subList = subSnap.docs.map((doc) => doc.data());
+        } catch {
+          const subSnap = await adminDb.collection("submissions").limit(200).get();
+          subList = subSnap.docs.map((doc) => doc.data());
+        }
       }
     } else {
-      usersList = await getFirestoreRestDocs("users", queryLimitUsers, true, 3e4);
-      subList = await getFirestoreRestDocs("submissions", queryLimitSubs, true, 3e4);
+      usersList = await getFirestoreRestDocs("users", queryLimitUsers, true, 6e4);
+      if (!hasPreAggregatedDaily) {
+        subList = await getFirestoreRestDocs("submissions", queryLimitSubs, true, 6e4);
+      }
     }
     usersList.forEach((data) => {
       const ts = parseTimestampMs(data.createdAt);
       if (ts) {
-        const dKey = formatCalendarDateKey(new Date(ts));
+        const dKey = formatCalendarDateKey(ts);
         if (dateBuckets[dKey]) {
           dateBuckets[dKey].newUsers++;
         }
       }
     });
-    subList.forEach((data) => {
-      const ts = parseTimestampMs(data.submittedAt);
-      if (ts) {
-        const dKey = formatCalendarDateKey(new Date(ts));
-        if (dateBuckets[dKey]) {
-          dateBuckets[dKey].submissions++;
+    if (!hasPreAggregatedDaily && subList.length > 0) {
+      subList.forEach((data) => {
+        const ts = parseTimestampMs(data.submittedAt);
+        if (ts) {
+          const dKey = formatCalendarDateKey(ts);
+          if (dateBuckets[dKey]) {
+            dateBuckets[dKey].submissions++;
+          }
         }
-      }
-    });
+      });
+    }
     const chartData = Object.values(dateBuckets);
     const result = { range, chartData };
     analyticsCache.set(range, { data: result, timestamp: Date.now() });

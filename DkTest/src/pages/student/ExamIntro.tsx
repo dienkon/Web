@@ -30,6 +30,7 @@ import {
   Link2,
   ExternalLink,
   Download,
+  Eye,
 } from "lucide-react";
 import { useToast } from "../../components/ui/ToastNotification";
 import { safeShare } from "../../utils/mobileCompat";
@@ -42,6 +43,7 @@ import { FirestoreRepository } from "../../services/firebase/firestoreRepository
 import { getExamQuestionsWithCache, getExamSectionsWithCache } from "../../services/examCacheService";
 import type { Exam, Section, Question } from "../../types";
 import ExamLeaderboard from "../../components/exam/ExamLeaderboard";
+import ExamPreExamSolutionPreviewModal from "../../components/exam/ExamPreExamSolutionPreviewModal";
 import type { SubExamConfig } from "../../features/sub-exam/types/subExam";
 import StudentSubExamConfig from "../../features/sub-exam/components/StudentSubExamConfig";
 import { getLinkedChildrenForParent, type LinkedChildInfo } from "../../services/parentService";
@@ -85,6 +87,30 @@ export default function ExamIntro() {
   const [showUnlockModal, setShowUnlockModal] = useState<boolean>(false);
   const [unlocking, setUnlocking] = useState<boolean>(false);
   const [unlockSuccessMsg, setUnlockSuccessMsg] = useState<string>("");
+
+  // Solution Preview Before Exam state
+  const [showSolutionPreviewModal, setShowSolutionPreviewModal] = useState<boolean>(false);
+  const [loadingPreviewQuestions, setLoadingPreviewQuestions] = useState<boolean>(false);
+
+  const handleOpenPreviewSolutions = async () => {
+    if (!exam) return;
+    try {
+      setLoadingPreviewQuestions(true);
+      if (questions.length === 0) {
+        const [qs, ss] = await Promise.all([
+          getExamQuestionsWithCache(exam.id, (exam as any).questions, { caller: "ExamIntro:previewSolutions" }),
+          getExamSectionsWithCache(exam.id, (exam as any).sections, { caller: "ExamIntro:previewSections" }),
+        ]);
+        setQuestions(qs);
+        setSections(ss);
+      }
+      setShowSolutionPreviewModal(true);
+    } catch (err) {
+      console.error("Lỗi khi tải đề xem trước:", err);
+    } finally {
+      setLoadingPreviewQuestions(false);
+    }
+  };
 
   // Voucher states for Exam Unlock
   const [voucherCodeInput, setVoucherCodeInput] = useState<string>("");
@@ -1163,6 +1189,43 @@ export default function ExamIntro() {
               />
             )}
 
+            {/* Admin Enabled: Pre-exam Full Solution & Original Exam Preview */}
+            {exam.allowPreviewSolutionBeforeExam && (
+              <div className="bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 border-2 border-amber-300 rounded-2xl p-4 sm:p-5 shadow-xs space-y-3 animate-in fade-in">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-start gap-3">
+                    <div className="p-2.5 bg-amber-500 text-white rounded-xl shadow-xs shrink-0 mt-0.5">
+                      <Eye className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-black uppercase tracking-wider text-amber-800 bg-amber-200/80 px-2 py-0.5 rounded-full inline-block mb-1">
+                        TÍNH NĂNG ĐƯỢC GIÁO VIÊN BẬT
+                      </span>
+                      <h3 className="font-black text-sm sm:text-base text-slate-900 leading-snug">
+                        Xem Trước Đề Gốc & Lời Giải Chi Tiết
+                      </h3>
+                      <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">
+                        Thầy cô đã cho phép xem trước toàn bộ đề thi, đáp án chuẩn và lời giải chi tiết từng bước. Bạn có thể bấm vào để nghiên cứu kỹ trước khi bắt đầu làm bài!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleOpenPreviewSolutions}
+                  disabled={loadingPreviewQuestions}
+                  className="w-full py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-black text-xs sm:text-sm rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99] disabled:opacity-50"
+                >
+                  <Eye className="w-4 h-4" />
+                  <span>
+                    {loadingPreviewQuestions ? "Đang nạp đề & lời giải..." : "Bấm vào để xem trước đề thi & lời giải chi tiết"}
+                  </span>
+                  <Sparkles className="w-4 h-4 text-amber-200" />
+                </button>
+              </div>
+            )}
+
             {/* Rules & Notice */}
             <div className="p-4 bg-amber-50/60 border border-amber-200 rounded-2xl space-y-2 text-xs text-amber-950">
               <p className="font-bold flex items-center gap-1.5 text-amber-900">
@@ -1263,6 +1326,19 @@ export default function ExamIntro() {
           <div className="animate-in fade-in slide-in-from-bottom-3 duration-200">
             <ExamLeaderboard examId={exam.id} maxItems={10} />
           </div>
+        )}
+
+        {/* Modal: Pre-exam Full Solution & Original Exam Preview */}
+        {showSolutionPreviewModal && exam && (
+          <ExamPreExamSolutionPreviewModal
+            exam={exam}
+            sections={sections}
+            questions={questions}
+            onClose={() => setShowSolutionPreviewModal(false)}
+            onStartExam={() => {
+              navigate(`/student/exam/${exam.id}/take`);
+            }}
+          />
         )}
       </div>
     </div>

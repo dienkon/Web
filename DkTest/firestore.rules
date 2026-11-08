@@ -111,7 +111,7 @@ service cloud.firestore {
 
     // 5. Exams & Subcollections (Questions, Sections)
     match /exams/{examId} {
-      allow read: if isAuthenticated();
+      allow read: if isAuthenticated() || resource.data.status == 'published' || !('status' in resource.data) || resource.data.status == null;
       allow write: if isAdmin();
 
       match /questions/{questionId} {

@@ -52,6 +52,7 @@ export interface Exam {
   showScore?: boolean;
   showDetails: boolean;
   showExamUrl?: boolean; // Cho phép hiển thị URL/Link và nút chia sẻ ở màn hình bắt đầu làm bài
+  allowPreviewSolutionBeforeExam?: boolean; // Cho phép thí sinh xem trước đề gốc & lời giải chi tiết trước khi vào làm bài
   submissionsCount?: number;
   totalParticipants?: number;
 

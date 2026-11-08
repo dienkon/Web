@@ -157,61 +157,116 @@ export async function createDepositRequest(
   return res.depositRequest;
 }
 
-export async function getMyDepositRequests(): Promise<DepositRequest[]> {
+export async function getMyDepositRequests(force = false): Promise<DepositRequest[]> {
+  const currentUid = getResolvedStudentUid();
+  const cacheKey = `wallet_reqs_${currentUid || "guest"}`;
+  if (!force && typeof sessionStorage !== "undefined") {
+    try {
+      const stored = sessionStorage.getItem(cacheKey);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Date.now() - parsed.timestamp < 120000 && Array.isArray(parsed.items)) {
+          return parsed.items;
+        }
+      }
+    } catch (_) {}
+  }
+
+  let items: DepositRequest[] = [];
   try {
-    const res = await api.get<{ success: boolean; items: DepositRequest[] }>("/api/wallet/deposit-requests");
-    if (Array.isArray(res?.items)) return res.items;
+    const res = await api.get<{ success: boolean; items: DepositRequest[] }>(
+      `/api/wallet/deposit-requests${force ? "?force=true" : ""}`
+    );
+    if (Array.isArray(res?.items)) items = res.items;
   } catch (err) {
     console.warn("[walletClientService] API getMyDepositRequests failed, trying direct Firestore query:", err);
+    if (currentUid) {
+      try {
+        const q = query(collection(db, "deposit_requests"), where("uid", "==", currentUid), limit(10));
+        const snap = await getDocs(q);
+        items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as DepositRequest));
+        items.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+      } catch (_) {}
+    }
   }
 
-  const currentUid = getResolvedStudentUid();
-  if (currentUid) {
+  if (typeof sessionStorage !== "undefined" && items.length > 0) {
     try {
-      const q = query(collection(db, "deposit_requests"), where("uid", "==", currentUid), limit(20));
-      const snap = await getDocs(q);
-      const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as DepositRequest));
-      items.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
-      return items;
+      sessionStorage.setItem(cacheKey, JSON.stringify({ items, timestamp: Date.now() }));
     } catch (_) {}
   }
 
-  return [];
+  return items;
 }
 
-export async function getMyTransactions(): Promise<WalletTransaction[]> {
+export async function getMyTransactions(force = false): Promise<WalletTransaction[]> {
+  const currentUid = getResolvedStudentUid();
+  const cacheKey = `wallet_txs_${currentUid || "guest"}`;
+  if (!force && typeof sessionStorage !== "undefined") {
+    try {
+      const stored = sessionStorage.getItem(cacheKey);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Date.now() - parsed.timestamp < 120000 && Array.isArray(parsed.items)) {
+          return parsed.items;
+        }
+      }
+    } catch (_) {}
+  }
+
+  let items: WalletTransaction[] = [];
   try {
-    const res = await api.get<{ success: boolean; items: WalletTransaction[] }>("/api/wallet/transactions");
-    if (Array.isArray(res?.items)) return res.items;
+    const res = await api.get<{ success: boolean; items: WalletTransaction[] }>(
+      `/api/wallet/transactions${force ? "?force=true" : ""}`
+    );
+    if (Array.isArray(res?.items)) items = res.items;
   } catch (err) {
     console.warn("[walletClientService] API getMyTransactions failed, trying direct Firestore query:", err);
+    if (currentUid) {
+      try {
+        const q = query(collection(db, "wallet_transactions"), where("uid", "==", currentUid), limit(10));
+        const snap = await getDocs(q);
+        items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as WalletTransaction));
+        items.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+      } catch (_) {}
+    }
   }
 
-  const currentUid = getResolvedStudentUid();
-  if (currentUid) {
+  if (typeof sessionStorage !== "undefined" && items.length > 0) {
     try {
-      const q = query(collection(db, "wallet_transactions"), where("uid", "==", currentUid), limit(20));
-      const snap = await getDocs(q);
-      const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as WalletTransaction));
-      items.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
-      return items;
+      sessionStorage.setItem(cacheKey, JSON.stringify({ items, timestamp: Date.now() }));
     } catch (_) {}
   }
 
-  return [];
+  return items;
 }
 
-export async function getMyDebtSummary(): Promise<{
+export async function getMyDebtSummary(force = false): Promise<{
   totalDebtVnd: number;
   unpaidCount: number;
   records: DebtRecord[];
 }> {
+  const currentUid = getResolvedStudentUid();
+  const cacheKey = `wallet_debt_${currentUid || "guest"}`;
+  if (!force && typeof sessionStorage !== "undefined") {
+    try {
+      const stored = sessionStorage.getItem(cacheKey);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Date.now() - parsed.timestamp < 120000 && parsed.data) {
+          return parsed.data;
+        }
+      }
+    } catch (_) {}
+  }
+
+  let result = { totalDebtVnd: 0, unpaidCount: 0, records: [] as DebtRecord[] };
   try {
     const res = await api.get<{ success: boolean; totalDebtVnd: number; unpaidCount: number; records: DebtRecord[] }>(
-      "/api/wallet/debt"
+      `/api/wallet/debt${force ? "?force=true" : ""}`
     );
     if (res?.records) {
-      return {
+      result = {
         totalDebtVnd: res.totalDebtVnd || 0,
         unpaidCount: res.unpaidCount || 0,
         records: res.records || [],
@@ -219,24 +274,28 @@ export async function getMyDebtSummary(): Promise<{
     }
   } catch (err) {
     console.warn("[walletClientService] API getMyDebtSummary failed, trying direct Firestore query:", err);
+    if (currentUid) {
+      try {
+        const q = query(collection(db, "debt_records"), where("uid", "==", currentUid), limit(10));
+        const snap = await getDocs(q);
+        const allDebts = snap.docs.map((d) => ({ id: d.id, ...d.data() } as DebtRecord));
+        const unpaid = allDebts.filter(
+          (d) => d.status === "unpaid" || d.status === "partial" || (d.remainingVnd && d.remainingVnd > 0)
+        );
+        unpaid.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+        const totalDebtVnd = unpaid.reduce((sum, d) => sum + (d.remainingVnd ?? d.amountVnd ?? 0), 0);
+        result = { totalDebtVnd, unpaidCount: unpaid.length, records: unpaid };
+      } catch (_) {}
+    }
   }
 
-  const currentUid = getResolvedStudentUid();
-  if (currentUid) {
+  if (typeof sessionStorage !== "undefined") {
     try {
-      const q = query(collection(db, "debt_records"), where("uid", "==", currentUid), limit(20));
-      const snap = await getDocs(q);
-      const allDebts = snap.docs.map((d) => ({ id: d.id, ...d.data() } as DebtRecord));
-      const unpaid = allDebts.filter(
-        (d) => d.status === "unpaid" || d.status === "partial" || (d.remainingVnd && d.remainingVnd > 0)
-      );
-      unpaid.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
-      const totalDebtVnd = unpaid.reduce((sum, d) => sum + (d.remainingVnd ?? d.amountVnd ?? 0), 0);
-      return { totalDebtVnd, unpaidCount: unpaid.length, records: unpaid };
+      sessionStorage.setItem(cacheKey, JSON.stringify({ data: result, timestamp: Date.now() }));
     } catch (_) {}
   }
 
-  return { totalDebtVnd: 0, unpaidCount: 0, records: [] };
+  return result;
 }
 
 const clientExamAccessCache = new Map<string, { data: ExamAccessInfo; timestamp: number }>();
@@ -477,16 +536,36 @@ export interface AdminWalletOverview {
 }
 
 let cachedAdminWalletOverview: { data: AdminWalletOverview; timestamp: number } | null = null;
-const CLIENT_WALLET_OVERVIEW_TTL_MS = 45 * 1000;
+const CLIENT_WALLET_OVERVIEW_TTL_MS = 180 * 1000; // 3 minutes
 
 export function invalidateClientWalletOverviewCache() {
   cachedAdminWalletOverview = null;
+  if (typeof sessionStorage !== "undefined") {
+    try {
+      sessionStorage.removeItem("dktest:admin_wallet_overview");
+    } catch (_) {}
+  }
 }
 
 export async function getAdminWalletOverview(force = false): Promise<AdminWalletOverview> {
+  const now = Date.now();
   // Step 1: Memory cache check (0 network calls, 0 Firestore reads)
-  if (!force && cachedAdminWalletOverview && Date.now() - cachedAdminWalletOverview.timestamp < CLIENT_WALLET_OVERVIEW_TTL_MS) {
+  if (!force && cachedAdminWalletOverview && now - cachedAdminWalletOverview.timestamp < CLIENT_WALLET_OVERVIEW_TTL_MS) {
     return cachedAdminWalletOverview.data;
+  }
+
+  // Step 2: SessionStorage check across tab switching (0 Firestore reads)
+  if (!force && typeof sessionStorage !== "undefined") {
+    try {
+      const stored = sessionStorage.getItem("dktest:admin_wallet_overview");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (now - parsed.timestamp < CLIENT_WALLET_OVERVIEW_TTL_MS && parsed.data) {
+          cachedAdminWalletOverview = { data: parsed.data, timestamp: parsed.timestamp };
+          return parsed.data;
+        }
+      }
+    } catch (_) {}
   }
 
   try {
@@ -494,7 +573,12 @@ export async function getAdminWalletOverview(force = false): Promise<AdminWallet
       `/api/admin/wallet/overview${force ? "?force=true" : ""}`
     );
     if (res?.overview) {
-      cachedAdminWalletOverview = { data: res.overview, timestamp: Date.now() };
+      cachedAdminWalletOverview = { data: res.overview, timestamp: now };
+      if (typeof sessionStorage !== "undefined") {
+        try {
+          sessionStorage.setItem("dktest:admin_wallet_overview", JSON.stringify({ data: res.overview, timestamp: now }));
+        } catch (_) {}
+      }
       return res.overview;
     }
   } catch (err) {
@@ -508,16 +592,21 @@ export async function getAdminWalletOverview(force = false): Promise<AdminWallet
         const overviewDocSnap = await getDoc(doc(db, "system_stats", "wallet_overview"));
         if (overviewDocSnap.exists()) {
           const overviewData = overviewDocSnap.data() as AdminWalletOverview;
-          cachedAdminWalletOverview = { data: overviewData, timestamp: Date.now() };
+          cachedAdminWalletOverview = { data: overviewData, timestamp: now };
+          if (typeof sessionStorage !== "undefined") {
+            try {
+              sessionStorage.setItem("dktest:admin_wallet_overview", JSON.stringify({ data: overviewData, timestamp: now }));
+            } catch (_) {}
+          }
           return overviewData;
         }
       } catch (_) {}
     }
 
     const [walletsSnap, reqsSnap, debtsSnap] = await Promise.all([
-      getDocs(query(collection(db, "wallets"), limit(50))),
-      getDocs(query(collection(db, "deposit_requests"), limit(50))),
-      getDocs(query(collection(db, "debt_records"), limit(50))),
+      getDocs(query(collection(db, "wallets"), limit(30))),
+      getDocs(query(collection(db, "deposit_requests"), limit(30))),
+      getDocs(query(collection(db, "debt_records"), limit(30))),
     ]);
 
     let totalWallets = walletsSnap.size;
@@ -561,7 +650,16 @@ export async function getAdminWalletOverview(force = false): Promise<AdminWallet
       recentRequests: allReqs.slice(0, 10),
     };
 
-    cachedAdminWalletOverview = { data: result, timestamp: Date.now() };
+    cachedAdminWalletOverview = { data: result, timestamp: now };
+    if (typeof sessionStorage !== "undefined") {
+      try {
+        sessionStorage.setItem("dktest:admin_wallet_overview", JSON.stringify({ data: result, timestamp: now }));
+      } catch (_) {}
+    }
+
+    // Save to system_stats/wallet_overview so future direct loads only read 1 doc
+    setDoc(doc(db, "system_stats", "wallet_overview"), result).catch(() => {});
+
     return result;
   } catch (fsErr) {
     console.error("[walletClientService] Direct Firestore fallback for overview failed:", fsErr);
@@ -588,20 +686,42 @@ export async function getAdminStudentDebtList(params?: {
   offset?: number;
   force?: boolean;
 }): Promise<{ items: StudentDebtSummary[]; total: number }> {
-  try {
-    const query = new URLSearchParams();
-    if (params?.search) query.set("search", params.search);
-    if (params?.filterStatus) query.set("filterStatus", params.filterStatus);
-    if (params?.className) query.set("className", params.className);
-    const pageSizeLimit = params?.limit !== undefined ? Math.max(1, Number(params.limit)) : 10;
-    query.set("limit", String(pageSizeLimit));
-    if (params?.offset !== undefined) query.set("offset", String(params.offset));
-    if (params?.force) query.set("force", "true");
+  const searchParams = new URLSearchParams();
+  if (params?.search) searchParams.set("search", params.search);
+  if (params?.filterStatus) searchParams.set("filterStatus", params.filterStatus);
+  if (params?.className) searchParams.set("className", params.className);
+  const pageSizeLimit = params?.limit !== undefined ? Math.max(1, Number(params.limit)) : 10;
+  searchParams.set("limit", String(pageSizeLimit));
+  if (params?.offset !== undefined) searchParams.set("offset", String(params.offset));
+  if (params?.force) searchParams.set("force", "true");
 
-    const qs = query.toString();
+  const qs = searchParams.toString();
+  const cacheKey = `admin_debts_${qs}`;
+  const now = Date.now();
+
+  if (!params?.force && typeof sessionStorage !== "undefined") {
+    try {
+      const stored = sessionStorage.getItem(cacheKey);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (now - parsed.timestamp < 120000 && Array.isArray(parsed.items)) {
+          return { items: parsed.items, total: parsed.total || parsed.items.length };
+        }
+      }
+    } catch (_) {}
+  }
+
+  try {
     const endpoint = `/api/admin/wallet/students${qs ? `?${qs}` : ""}`;
     const res = await api.get<{ success: boolean; items: StudentDebtSummary[]; total: number }>(endpoint);
-    if (Array.isArray(res?.items)) return { items: res.items, total: res.total || res.items.length };
+    if (Array.isArray(res?.items)) {
+      if (typeof sessionStorage !== "undefined") {
+        try {
+          sessionStorage.setItem(cacheKey, JSON.stringify({ items: res.items, total: res.total, timestamp: now }));
+        } catch (_) {}
+      }
+      return { items: res.items, total: res.total || res.items.length };
+    }
   } catch (err) {
     console.warn("[walletClientService] API getAdminStudentDebtList error, attempting direct Firestore query:", err);
   }
@@ -791,13 +911,13 @@ export async function getAdminDepositRequests(params?: {
   force?: boolean;
 }): Promise<DepositRequest[]> {
   try {
-    const query = new URLSearchParams();
-    if (params?.status) query.set("status", params.status);
-    if (params?.search) query.set("search", params.search);
-    if (params?.limit) query.set("limit", String(params.limit));
-    if (params?.force) query.set("force", "true");
+    const searchParams = new URLSearchParams();
+    if (params?.status) searchParams.set("status", params.status);
+    if (params?.search) searchParams.set("search", params.search);
+    if (params?.limit) searchParams.set("limit", String(params.limit));
+    if (params?.force) searchParams.set("force", "true");
 
-    const qs = query.toString();
+    const qs = searchParams.toString();
     const endpoint = `/api/admin/wallet/deposit-requests${qs ? `?${qs}` : ""}`;
     const res = await api.get<{ success: boolean; items: DepositRequest[] }>(endpoint);
     if (Array.isArray(res?.items)) return res.items;

@@ -5,6 +5,7 @@ import { fetchUserNotifications, markNotificationAsRead } from "../../services/n
 import type { SystemNotification } from "../../types";
 import { Link } from "react-router-dom";
 import AnnouncementManagerModal from "./AnnouncementManagerModal";
+import { formatRelativeTime } from "../../utils/date";
 
 export default function NotificationCenter() {
   const { user, role } = useAuth();
@@ -21,14 +22,14 @@ export default function NotificationCenter() {
     role === "super_admin" ||
     Boolean(localStorage.getItem("admin_token") || localStorage.getItem("dktest:admin_token"));
 
-  // Only load on demand when opened, limited to 5 latest items to minimize Firestore reads
+  // Only load on demand when opened, fetched newest first
   const loadNotifications = async (forceRefresh: boolean = false) => {
     const targetUid = user?.uid || (isAdmin ? "admin_master" : "");
     if (!targetUid && !isAdmin) return;
 
     try {
       setLoading(true);
-      const list = await fetchUserNotifications(targetUid, forceRefresh, isAdmin, 5);
+      const list = await fetchUserNotifications(targetUid, forceRefresh, isAdmin, 12);
       setNotifications(list);
       setUnreadCount(list.filter((n) => !n.read).length);
       setHasLoaded(true);
@@ -102,7 +103,7 @@ export default function NotificationCenter() {
             <div>
               <h4 className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
                 <span>Thông báo</span>
-                <span className="text-[10px] text-slate-400 font-normal">(5 gần nhất)</span>
+                <span className="text-[10px] text-slate-400 font-normal">(Mới nhất)</span>
               </h4>
             </div>
             <div className="flex items-center gap-1.5">
@@ -153,9 +154,16 @@ export default function NotificationCenter() {
                 >
                   <div className="mt-0.5 shrink-0">{getIcon(notif.type)}</div>
                   <div className="flex-1 min-w-0">
-                    <p className={`text-xs ${!notif.read ? "font-bold text-slate-900" : "font-medium text-slate-700"}`}>
-                      {notif.title}
-                    </p>
+                    <div className="flex items-center justify-between gap-1">
+                      <p className={`text-xs truncate ${!notif.read ? "font-bold text-slate-900" : "font-medium text-slate-700"}`}>
+                        {notif.title}
+                      </p>
+                      {notif.createdAt && (
+                        <span className="text-[10px] text-slate-400 shrink-0 whitespace-nowrap">
+                          {formatRelativeTime(notif.createdAt)}
+                        </span>
+                      )}
+                    </div>
                     <p className="text-[11px] text-slate-500 leading-snug mt-0.5">
                       {notif.content}
                     </p>
