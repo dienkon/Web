@@ -34,6 +34,7 @@ import { stepAlcoholBurner, allocateBurnerHeat, burnerIntensity } from '../engin
 import { createFlameEmission, flameEmissionExpired } from '../engine/flameEmission';
 import { createStudioSample, planStudioProgram } from '../engine/studioProgram';
 import { createStudioMorphologySample, PRECIPITATE_MORPHOLOGIES } from '../engine/studioMorphology';
+import { stageStockContact, resolveStockContact } from '../physical/stockContacts';
 import { getProgramById } from '../vfx/programs/library';
 import { LESSON_PROGRAM_IDS } from '../lesson/programCompiler';
 import { collectSpillWaste } from '../engine/wasteInventory';
@@ -489,7 +490,7 @@ export interface AppState {
   setIsDraggingChemical: (chem: string | null) => void;
   pouringChemical: AnimatedStockDose | null;
   contactPour: (doseId?: number) => void;
-  advancePourContact: (doseId: number, fraction: number) => Promise<void>;
+  advancePourContact: (doseId: number, fraction: number, contacts?: import('../physical/stockTypes').StockContactBirth[]) => Promise<void>;
   triggerPour: (chemical: string, targetId: string, amount?: number) => void;
   clearPour: (doseId?: number) => void;
 
@@ -611,7 +612,11 @@ export const useAppStore = create<AppState>((set, get) => {
   const pushHistorySnapshot: typeof persistHistorySnapshot = (action, vessels, burners, en, vi) =>
     persistHistorySnapshot(action, vessels, burners, en, vi, materials());
   const animatedDoses = new AnimatedDoseQueue(
-    job => get().mixSubstances(job.targetId, job.chemical, job.amount),
+    async job => {
+      const receipt = stageStockContact(job.targetId, job.chemical, job.contacts);
+      try { await get().mixSubstances(job.targetId, job.chemical, job.amount); }
+      finally { resolveStockContact(receipt); }
+    },
     error => set({ mixError: error instanceof Error ? error.message : String(error) }),
   );
   // Push initial snapshot into history
@@ -3361,7 +3366,7 @@ export const useAppStore = create<AppState>((set, get) => {
       set({ pouringChemical: { id: ++_stockDoseId, chemical, targetId, type: chemData.type,
         amount: amt, releasedAmount: 0, awaitingContact: true } });
     },
-    advancePourContact: (doseId, fraction) => {
+    advancePourContact: (doseId, fraction, contacts) => {
       const dose = get().pouringChemical;
       if (!dose || dose.id !== doseId || get().isSimulationPaused) return Promise.resolve();
       const target = get().vessels[dose.targetId];
@@ -3369,7 +3374,7 @@ export const useAppStore = create<AppState>((set, get) => {
       const released = releaseDoseAmount(dose, fraction);
       if (released.amount <= 0) return Promise.resolve();
       set({ pouringChemical: released.dose });
-      return animatedDoses.enqueue({ id: dose.id, targetId: dose.targetId, chemical: dose.chemical, amount: released.amount });
+      return animatedDoses.enqueue({ id: dose.id, targetId: dose.targetId, chemical: dose.chemical, amount: released.amount, contacts });
     },
     contactPour: doseId => {
       const dose = get().pouringChemical;

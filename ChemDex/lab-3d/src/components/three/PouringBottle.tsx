@@ -15,6 +15,9 @@ import { liquidOpacity } from '../../science/liquidOptics';
 import { getWorldVesselProfile } from '../../pour/physics/profiles';
 import { vesselBodyTransform } from '../../science/vesselScale';
 import { VesselBodyScale } from './VesselBodyScale';
+import type { StockContactBirth } from '../../physical/stockTypes';
+import { scenePointToSI, METERS_PER_SCENE_UNIT } from '../../science/sceneUnits';
+import { PRNG, seedForLabel } from '../../core/rng';
 
 // Reagent bottle glass material: highly transparent, specular clearcoat, non-occluding
 const reagentBottleGlass = new THREE.MeshPhysicalMaterial({
@@ -92,6 +95,7 @@ export const AddingAnimation = React.memo(function AddingAnimation({
   const solidChunkScale = targetVessel && chemData.density ? Math.cbrt(solidSceneVolume(targetVessel,
     amount / chemData.density) / solidChunkCount) * body.scale : 0;
   const solidChunksData = useMemo(() => {
+    const rng = new PRNG(seedForLabel(`${targetId}:${doseId}:${chemical}`));
     return Array.from({ length: solidChunkCount }).map((_, i) => {
       const angle = (i * 2.39996) % (Math.PI * 2);
       const spreadR = Math.sqrt((i + 1) / solidChunkCount) * (mouthRadius * 0.42);
@@ -99,16 +103,16 @@ export const AddingAnimation = React.memo(function AddingAnimation({
         stagger: 0.22 + i * 0.038,
         offsetX: Math.cos(angle) * spreadR,
         offsetZ: Math.sin(angle) * spreadR,
-        vx: (Math.random() - 0.5) * 0.06,
-        vz: (Math.random() - 0.5) * 0.06,
+        vx: (rng.next() - 0.5) * 0.5,
+        vz: (rng.next() - 0.5) * 0.5,
         size: 0.09 + (i % 5) * 0.025,
-        spinX: (Math.random() - 0.5) * 8.0,
-        spinY: (Math.random() - 0.5) * 8.0,
-        spinZ: (Math.random() - 0.5) * 8.0,
+        spinX: (rng.next() - 0.5) * 8.0,
+        spinY: (rng.next() - 0.5) * 8.0,
+        spinZ: (rng.next() - 0.5) * 8.0,
         pileY: ((i % 4) * 0.025),
       };
     });
-  }, [mouthRadius, solidChunkCount]);
+  }, [mouthRadius, solidChunkCount, targetId, doseId, chemical]);
 
   useFrame((state, delta) => {
     const live = useAppStore.getState();
@@ -118,10 +122,10 @@ export const AddingAnimation = React.memo(function AddingAnimation({
     const elapsed = elapsedTime.current;
     const time = elapsed;
     if (!live.vessels[targetId] || live.vessels[targetId].isShattered) { onComplete(); return; }
-    const deliver = (fraction: number) => {
+    const deliver = (fraction: number, contacts?: StockContactBirth[]) => {
       if (fraction <= lastContactFraction.current) return;
       lastContactFraction.current = fraction;
-      deliveryRef.current = live.advancePourContact(doseId, fraction);
+      deliveryRef.current = live.advancePourContact(doseId, fraction, contacts);
     };
     // A cloud/local resolver can finish after the last visual contact. Retain
     // the dose until its serialized writes have drained; a no-op contact must
@@ -146,10 +150,20 @@ export const AddingAnimation = React.memo(function AddingAnimation({
 
       const hasWater = targetVessel && (targetVessel.volume_ml > 0.05) && targetVessel.substances.some(s => getChemical(s)?.type !== 'solid');
       const bottomY = targetY + body.offsetY + body.scale * liquidGeometry(targetType).floorY;
-      const actualSurfaceY = hasWater ? liquidSurfaceY : bottomY;
+      const contactRadius = solidChunkScale * (solidGeometry?.boundingSphere?.radius ?? 0);
+      const actualSurfaceY = (hasWater ? liquidSurfaceY : bottomY) + contactRadius;
       const flightTime = fallingContactTime(mouthY + 0.55 - actualSurfaceY);
       const landedCount = solidChunksData.filter(chunk => elapsed >= chunk.stagger + flightTime).length;
-      deliver(landedCount / solidChunkCount);
+      const previouslyLanded = Math.round(lastContactFraction.current * solidChunkCount);
+      const contacts = solidChunksData.slice(previouslyLanded, landedCount).map(c => {
+        const q = new THREE.Quaternion().setFromEuler(new THREE.Euler(flightTime * c.spinX, flightTime * c.spinY, flightTime * c.spinZ));
+        return { mass_g: amount / solidChunkCount,
+          position_m: scenePointToSI([targetX + 0.15 + c.offsetX + c.vx * flightTime, actualSurfaceY, targetZ + c.offsetZ + c.vz * flightTime]),
+          rotation: q.toArray() as [number, number, number, number],
+          velocity_m_s: [c.vx * METERS_PER_SCENE_UNIT, -SCENE_GRAVITY * flightTime * METERS_PER_SCENE_UNIT, c.vz * METERS_PER_SCENE_UNIT] as [number, number, number],
+          angularVelocity_rad_s: [c.spinX, c.spinY, c.spinZ] as [number, number, number] };
+      });
+      deliver(landedCount / solidChunkCount, contacts);
       if (payloadRef.current) payloadRef.current.visible = elapsed < solidChunksData[solidChunkCount - 1].stagger;
       if (payloadMeshRef.current) {
         for (let i = 0; i < solidChunkCount; i++) {

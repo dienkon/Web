@@ -7,7 +7,7 @@ export interface AnimatedStockDose {
   releasedAmount: number;
   awaitingContact: boolean;
 }
-interface Delivery { id: number; targetId: string; chemical: string; amount: number }
+interface Delivery { id: number; targetId: string; chemical: string; amount: number; contacts?: import('../physical/stockTypes').StockContactBirth[] }
 
 /** Serialize contact transactions. A slow resolver may coalesce later contacts,
  * but can never overlap two chemistry writes or replay already delivered matter. */
@@ -19,7 +19,7 @@ export class AnimatedDoseQueue {
   enqueue(job: Delivery): Promise<void> {
     if (!Number.isFinite(job.amount) || job.amount <= 0) return this.running ?? Promise.resolve();
     const pending = this.jobs.find(item => item.id === job.id);
-    if (pending) pending.amount += job.amount;
+    if (pending) { pending.amount += job.amount; if (job.contacts) pending.contacts = [...(pending.contacts ?? []), ...job.contacts]; }
     else this.jobs.push({ ...job });
     if (!this.running) this.start();
     return this.idle();

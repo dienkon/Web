@@ -15,12 +15,13 @@ import { Steam } from '../../vfx/particles/Steam';
 import { waterVisualState } from '../../vfx/waterVisualState';
 import { useLabEnvironment } from '../../store/useLabEnvironment';
 import { SpilledSodium, type SpillSodiumContactPoint } from './SpilledSodium';
+import { StockSpillGrain } from './StockSpillGrain';
 import { spillSurfaceY } from '../../vfx/geometry/spillSodium';
 import { sodiumMetalMass } from '../../science/sodiumWater';
 
 export const WorkbenchSpills = React.memo(function WorkbenchSpills() {
   const spills = useAppStore(state => state.spills);
-  return <group>{Object.values(spills || {}).map(spill => <SpillPuddle key={spill.id} spill={spill} />)}</group>;
+  return <group>{Object.values(spills || {}).map(spill => spill.stockMotion ? <StockSpillGrain key={spill.id} spill={spill} /> : <SpillPuddle key={spill.id} spill={spill} />)}</group>;
 });
 
 function SpillPuddle({ spill }: { spill: SpillState }) {

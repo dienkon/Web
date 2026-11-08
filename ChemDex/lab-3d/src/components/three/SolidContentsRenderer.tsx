@@ -26,6 +26,10 @@ import { iceShape, iceBlockDimensions, iceCenterY } from '../../science/iceShape
 import { iceSurfaceFinish, shadeIceInterior } from '../../vfx/materials/iceAppearance';
 import { useQualityStore } from '../../vfx/quality';
 import { vesselBodyTransform } from '../../science/vesselScale';
+import { stockLocalMatrix } from '../../physical/stockCoordinates';
+import { presentedStockPose } from '../../physical/stockPresentation';
+import { ContactPowder } from './ContactPowder';
+import { renderedVesselBody } from '../../simulation/render/vesselBodyFrames';
 
 // Shared scratch objects for zero-allocation per-frame transforms
 const _dummyMat4 = new THREE.Matrix4();
@@ -471,9 +475,21 @@ export const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
   const initialMass = rows.reduce((sum, row) => sum + Math.max(row.mass_g, row.initialMass_g
     ?? (row.initialMoles !== undefined && chemical ? row.initialMoles * chemical.molarMass : row.mass_g)), 0);
   const initialSceneVolume = vessel && density && density > 0 ? solidSceneVolume(vessel, initialMass / density) : 0;
-  const layout = useMemo(() => !powder && vessel ? createStockSolidLayout(vessel.type, morphology, geometry,
+  const referenceLayout = useMemo(() => !powder && vessel ? createStockSolidLayout(vessel.type, morphology, geometry,
     sceneVolume, initialSceneVolume, baseY, !vessel.isSealed) : null,
     [powder, vessel?.type, vessel?.isSealed, morphology, geometry, sceneVolume, initialSceneVolume, baseY]);
+  const motion = vessel?.stockMotion;
+  const layout = useMemo(() => {
+    const poses = motion?.grains.filter(p => p.formula === substance);
+    if (powder || !vessel || !poses?.length) return referenceLayout;
+    const represented = poses.reduce((s, p) => s + p.mass_g, 0), factor = Math.cbrt(mass / represented);
+    return { status: 'contact-simulated' as const, unitVolume: 1, materialVolume: sceneVolume, pieces: poses.map(p => {
+      const matrix = stockLocalMatrix(vessel, { ...p, scale_m: p.scale_m * factor });
+      const center = new THREE.Vector3().setFromMatrixPosition(matrix), scale = new THREE.Vector3().setFromMatrixScale(matrix).x;
+      const radius = geometry.boundingSphere!.radius * scale;
+      return { matrix, x: center.x, z: center.z, bottom: center.y - radius, top: center.y + radius, radius };
+    }) };
+  }, [motion, vessel?.position, vessel?.rotationY, vessel?.rotationZ, vessel?.physicalMotion, referenceLayout, powder, mass, substance, geometry, sceneVolume]);
   const count = Math.max(1, layout?.pieces.length ?? stockSolidChunkCount(morphology));
   // A vessel may contain both filings and a nail of the same metal. Partition
   // the shared deposit by surviving substrate mass instead of drawing it twice.
@@ -501,14 +517,21 @@ export const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
   useFrame(() => {
     if (!chunksRef.current || powder || !layout) return;
     const previous = uploaded.current;
-    if (previous?.mesh === chunksRef.current && previous.deposit === depositRef.current
+    if (!motion && previous?.mesh === chunksRef.current && previous.deposit === depositRef.current
       && previous.layout === layout && previous.attached === attachedSceneVolume) return;
     chunksRef.current.visible = sceneVolume > 0;
     chunksRef.current.userData.stockSolid = { status: layout.status, materialSceneVolume: sceneVolume, initialSceneVolume,
-      pieces: layout.pieces.length, poseBasis: 'body-fixed-envelope-reference' };
+      pieces: layout.pieces.length, poseBasis: motion ? 'rapier-stock-contact' : 'body-fixed-envelope-reference' };
     const depositScale = Math.cbrt(attachedSceneVolume / (count * 4));
+    const poses = motion?.grains.filter(p => p.formula === substance);
+    const motionScale = poses?.length ? Math.cbrt(mass / poses.reduce((s, p) => s + p.mass_g, 0)) : 1;
+    const bodyMatrix = renderedVesselBody(vesselId)?.matrixWorld;
     for (let i = 0; i < layout.pieces.length; i++) {
       _dummyMat4.copy(layout.pieces[i].matrix);
+      if (motion && vessel) {
+        const p = poses?.[i];
+        if (p) _dummyMat4.copy(stockLocalMatrix(vessel, { ...presentedStockPose(p), scale_m: p.scale_m * motionScale }, bodyMatrix));
+      }
       _dummyMat4.decompose(_dummyPos, _dummyQuat, _dummyScale);
       chunksRef.current.setMatrixAt(i, _dummyMat4);
       if (depositRef.current && depositGeometry && depositScale > 0) {
@@ -534,7 +557,9 @@ export const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
 
   if (!(sceneVolume > 0)) return null;
   return <group name={`stock-solid-${substance}`}>
-    {powder && powderGeometry ? <mesh geometry={powderGeometry} renderOrder={3}>
+    {powder && vessel?.stockMotion?.grains.some(p => p.formula === substance) && density
+      ? <ContactPowder vessel={vessel} formula={substance} mass_g={mass} density={density} color={color} />
+      : powder && powderGeometry ? <mesh geometry={powderGeometry} renderOrder={3}>
       <meshStandardMaterial color={color} roughness={material.roughness} metalness={material.metalness}
         bumpMap={grainTexture} bumpScale={0.003} />
     </mesh> : <instancedMesh ref={chunksRef} name={`stock_solid_${vesselId}_${substance}`} args={[geometry, undefined, count]} renderOrder={3}>

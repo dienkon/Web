@@ -51,6 +51,7 @@ import { RenderActivity } from '../../render/RenderActivity';
 import { useRenderDpr } from '../../render/renderResolution';
 import { LessonScene } from '../../lesson/LessonScene';
 import { PhysicsScene } from '../../physical/PhysicsScene';
+import { StockMechanicsScene } from '../../physical/StockMechanicsScene';
 import { physicalEffectsRuntime } from '../../simulation/core/PhysicalEffectsRuntime';
 import { LAB_GEOMETRY, CABINET_CENTER_Y_SCENE, CABINET_HEIGHT_SCENE } from '../../core/labGeometry';
 
@@ -748,6 +749,7 @@ export function LabScene() {
       >
         <SceneEnvironmentSetup tier={effectiveTier} />
         <PhysicsScene />
+        <StockMechanicsScene />
         <RenderActivity />
 
         {/* Procedural Laboratory Environment with fluorescent tube reflections */}

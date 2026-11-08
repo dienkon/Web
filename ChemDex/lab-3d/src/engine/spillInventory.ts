@@ -58,6 +58,7 @@ function currentRadius(spill: SpillState): number {
 export function normalizeSpillFootprints(spills: Record<string, SpillState>): Record<string, SpillState> {
   let normalized = spills;
   for (const [key, spill] of Object.entries(spills)) {
+    if (spill.stockMotion) continue; // rigid pieces keep their geometric footprint
     const radius = currentRadius(spill);
     if (radius === spill.radius) continue;
     if (normalized === spills) normalized = { ...spills };
@@ -67,7 +68,7 @@ export function normalizeSpillFootprints(spills: Record<string, SpillState>): Re
   return normalized;
 }
 
-type Footprint = { position: [number, number, number]; volume_ml: number; radius: number; contents?: SubstanceContent[]; substances: string[] };
+type Footprint = { position: [number, number, number]; volume_ml: number; radius: number; contents?: SubstanceContent[]; substances: string[]; stockMotion?: SpillState['stockMotion'] };
 
 function liquidFamily(spill: Footprint): string | undefined {
   const layers = new Set(spill.contents?.filter(c => c.mass_g > 0).map(c => c.liquidLayer).filter(Boolean));
@@ -78,6 +79,7 @@ function liquidFamily(spill: Footprint): string | undefined {
 
 /** Contact eligibility, not a microscopic bridge-growth or miscibility model. */
 function footprintsTouch(a: Footprint, b: Footprint): boolean {
+  if (a.stockMotion || b.stockMotion) return false;
   if (supportPlaneScene(a.position) !== supportPlaneScene(b.position)) return false;
   const distance = Math.hypot(a.position[0] - b.position[0], a.position[2] - b.position[2]);
   if ((a.volume_ml > 0) !== (b.volume_ml > 0)) {

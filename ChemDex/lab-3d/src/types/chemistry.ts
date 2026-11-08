@@ -89,6 +89,7 @@ export type VesselType =
 
 export interface VesselState {
   dynamicSolids?: import('../physical/types').DynamicSolid[];
+  stockMotion?: { tick: number; grains: import('../physical/stockTypes').StockGrainPose[] };
   dynamicLoad_g?: number;
   viscosity_mPa_s?: number;
   /** SI mechanical state persisted atomically with the specimen inventory. */
@@ -276,6 +277,7 @@ export interface BurnerState {
 }
 
 export interface SpillState {
+  stockMotion?: import('../physical/stockTypes').StockSpillPose;
   /** One illustrative sodium contact run, invalidated when another dose merges. */
   sodiumContact?: { initialMetal_g: number; reactiveMetal_g: number; duration_s: number; elapsed_s: number;
     regime: 'skitter' | 'disruptive' };

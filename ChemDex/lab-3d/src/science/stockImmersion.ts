@@ -8,9 +8,11 @@ import { isSuspensionRow } from './precipitateInventory';
 import { phaseVolumes, phaseDensities } from './liquidLayers';
 import { compileSolid, clippedSolidVolume, type CompiledSolid, type Point3, type SolidClipPlane } from './clippedSolidVolume';
 import { dynamicImmersion } from '../physical/dynamicImmersion';
+import { stockLocalMatrix } from '../physical/stockCoordinates';
 
 export type StockImmersionVessel = Pick<VesselState, 'type' | 'capacity_ml' | 'volume_ml' | 'contents'>
-  & Partial<Pick<VesselState, 'isSealed' | 'isPulverized' | 'precipitateSubstance' | 'immiscibleOrganicVolume_ml' | 'dynamicSolids'>>;
+  & Partial<Pick<VesselState, 'isSealed' | 'isPulverized' | 'precipitateSubstance' | 'immiscibleOrganicVolume_ml' | 'dynamicSolids'
+    | 'stockMotion' | 'position' | 'rotationY' | 'rotationZ' | 'physicalMotion'>>;
 interface ImmersedPiece extends StockSolidPiece { inverse: Matrix4; factor: number; inside: number; mesh: CompiledSolid }
 export interface StockImmersion {
   basis: 'stock-mesh-envelope-reference' | 'dynamic-solid-reference';
@@ -19,6 +21,7 @@ export interface StockImmersion {
 }
 const geometries = new Map<string, { geometry: BufferGeometry; compiled: CompiledSolid }>();
 const models = new Map<string, StockImmersion | null>();
+const movingModels = new WeakMap<object, { contents: object; pose: string; result: StockImmersion | null }>();
 
 function transformedPlane(piece: ImmersedPiece, normal: Point3, offset: number): SolidClipPlane {
   const e = piece.matrix.elements, [x, y, z] = normal;
@@ -81,6 +84,37 @@ function staticStockImmersion(vessel: StockImmersionVessel, liquidDensity = 1): 
     && r.mass_g > 0 && r.location !== 'filter' && r.location !== 'foam');
   if (!rows.length) return null;
   if (vessel.volume_ml > 0.05 && rows.some(r => isSuspensionRow(r, vessel.contents, vessel.precipitateSubstance))) return null;
+  if (vessel.stockMotion?.grains.length && vessel.position) {
+    const pose = JSON.stringify([vessel.position, vessel.rotationY, vessel.rotationZ, vessel.physicalMotion?.rotation]);
+    const cached = movingModels.get(vessel.stockMotion);
+    if (cached?.contents === vessel.contents && cached.pose === pose) return cached.result;
+    const pieces: ImmersedPiece[] = [], top = vesselInterior(vessel.type).topY;
+    let complete = true;
+    for (const formula of new Set(rows.map(r => r.formula))) {
+      const poses = vessel.stockMotion.grains.filter(p => p.formula === formula && !p.powder), represented = poses.reduce((s, p) => s + p.mass_g, 0);
+      const mass = rows.filter(r => r.formula === formula).reduce((s, r) => s + r.mass_g, 0);
+      if (!(represented > 0)) { complete = false; break; }
+      const geometryKey = `${getSolidMorphology(formula)}:${formula}`;
+      let data = geometries.get(geometryKey);
+      if (!data) { const geometry = createStockSolidGeometry(getSolidMorphology(formula), formula);
+        data = { geometry, compiled: compileSolid(geometry) }; geometries.set(geometryKey, data); }
+      for (const p of poses) {
+        const matrix = stockLocalMatrix(vessel as Parameters<typeof stockLocalMatrix>[0], { ...p, scale_m: p.scale_m * Math.cbrt(mass / represented) });
+        const center = new Vector3().setFromMatrixPosition(matrix), radius = data.geometry.boundingSphere!.radius * new Vector3().setFromMatrixScale(matrix).x;
+        const piece: ImmersedPiece = { matrix, inverse: matrix.clone().invert(), factor: matrix.determinant(), mesh: data.compiled,
+          x: center.x, z: center.z, radius, bottom: center.y - radius, top: center.y + radius, inside: 0 };
+        piece.inside = piece.bottom >= top ? 0 : piece.top <= top ? piece.mesh.volume * piece.factor : clip(piece, [0, 1, 0], top, [0, top, 0]);
+        pieces.push(piece);
+      }
+    }
+    if (complete) {
+      const unit = solidSceneVolume(vessel, 1), result: StockImmersion = { basis: 'dynamic-solid-reference',
+        insideVolume_ml: pieces.reduce((s, p) => s + p.inside, 0) / unit,
+        displacementMl: (n, c) => pieces.reduce((s, p) => s + wetPiece(p, n, c, top), 0) / unit };
+      movingModels.set(vessel.stockMotion, { contents: vessel.contents, pose, result }); return result;
+    }
+    movingModels.set(vessel.stockMotion, { contents: vessel.contents, pose, result: null });
+  }
   const key = JSON.stringify([vessel.type, vessel.capacity_ml, !!vessel.isSealed, liquidDensity,
     rows.map(r => [r.formula, r.mass_g, r.initialMass_g, r.initialMoles, r.solidOrigin])]);
   if (models.has(key)) return models.get(key)!;

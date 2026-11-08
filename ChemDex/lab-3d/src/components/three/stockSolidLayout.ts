@@ -6,7 +6,7 @@ import { geometryVolume, stockSolidChunkCount } from './stockSolidGeometry';
 
 export interface StockSolidPiece { matrix: Matrix4; bottom: number; top: number; x: number; z: number; radius: number }
 export interface StockSolidLayout {
-  status: 'empty' | 'packed-reference' | 'protruding-reference' | 'unresolved-fit';
+  status: 'empty' | 'packed-reference' | 'protruding-reference' | 'unresolved-fit' | 'contact-simulated';
   pieces: StockSolidPiece[];
   materialVolume: number;
   unitVolume: number;
@@ -26,7 +26,7 @@ function envelope(g: BufferGeometry, orientation: number): Envelope {
   }
   const result = { low, high, radius, rotation }; cache.set(key, result); return result;
 }
-interface Column { x: number; z: number; slots: [number, number][] }
+interface Column { x: number; z: number; slots: [number, number][]; spread: number }
 function pack(type: string, count: number, scale: number, e: Envelope, floor: number | undefined, openTop: boolean): StockSolidPiece[] | null {
   const interior = vesselInterior(type), margin = interior.height * 1e-7;
   const radius = e.radius * scale + margin, height = (e.high - e.low) * scale, pitch = height + margin;
@@ -36,8 +36,14 @@ function pack(type: string, count: number, scale: number, e: Envelope, floor: nu
   // Their nonintersecting cylinders certify separation for every yaw angle.
   const variants = [[false, 0, 0], [false, 0.5, 0.5], [true, 0, 0], [true, 0.5, 1 / 6]] as const;
   for (const [hex, ox, oz] of variants) {
-    const columns: Column[] = [], spacing = 2 * radius;
-    const bound = Math.min(count + 1, Math.ceil(maximum / (radius * Math.sqrt(3))) + 2);
+    const columns: Column[] = [];
+    // Cover the reservoir floor instead of stopping once a few central
+    // columns have enough vertical slots. Sparse trace doses still need only
+    // O(count) candidates: skip lattice cells, never enlarge the particles.
+    const fullBound = Math.ceil(maximum / (radius * Math.sqrt(3))) + 2;
+    const stride = Math.max(1, Math.ceil(fullBound / Math.max(2, Math.ceil(Math.sqrt(count) * 2))));
+    const spacing = 2 * radius * stride;
+    const bound = Math.ceil(fullBound / stride);
     let capacity = 0;
     for (let ring = 0; ring <= bound; ring++) {
       for (let j = -ring; j <= ring; j++) for (let i = -ring; i <= ring; i++) {
@@ -51,20 +57,28 @@ function pack(type: string, count: number, scale: number, e: Envelope, floor: nu
           const n = Math.min(count, Math.floor((b - a + margin) / pitch));
           if (n > 0) { slots.push([a, n]); capacity += n; }
         }
-        if (slots.length) columns.push({ x, z, slots });
+        if (slots.length) columns.push({ x, z, slots, spread: -Math.hypot(x, z) });
       }
-      if (capacity >= count && columns.length >= Math.min(count, Math.ceil(Math.sqrt(count)))) break;
     }
     if (capacity < count) continue;
     const pieces: StockSolidPiece[] = [], position = new Vector3(), size = new Vector3(scale, scale, scale);
     for (let n = 0; n < count; n++) {
       let chosen: Column | undefined;
-      for (const col of columns) if (col.slots.length && (!chosen || col.slots[0][0] < chosen.slots[0][0])) chosen = col;
+      let spread = -Infinity;
+      for (const col of columns) if (col.slots.length) {
+        const distance = col.spread;
+        if (!chosen || col.slots[0][0] < chosen.slots[0][0] - margin
+          || Math.abs(col.slots[0][0] - chosen.slots[0][0]) <= margin && distance > spread) { chosen = col; spread = distance; }
+      }
       if (!chosen) return null;
       const bottom = chosen.slots[0][0], yaw = n * 2.399963229728653;
       const q = new Quaternion().setFromAxisAngle(new Vector3(0, 1, 0), yaw).multiply(e.rotation);
       position.set(chosen.x, bottom - e.low * scale, chosen.z);
       pieces.push({ matrix: new Matrix4().compose(position, q, size), bottom, top: bottom + height, x: chosen.x, z: chosen.z, radius });
+      for (const col of columns) {
+        const distance = Math.hypot(chosen.x - col.x, chosen.z - col.z);
+        col.spread = n === 0 ? distance : Math.min(col.spread, distance);
+      }
       chosen.slots[0][0] += pitch; if (--chosen.slots[0][1] === 0) chosen.slots.shift();
     }
     return pieces;
