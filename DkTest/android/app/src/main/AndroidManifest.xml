@@ -22,6 +22,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="dk-test-v3.vercel.app" />
+                <data android:path="/" />
+                <data android:path="/exams" />
+                <data android:path="/journey" />
+                <data android:path="/arena" />
+                <data android:path="/practice" />
+                <data android:path="/escape-room" />
+                <data android:path="/legal-policy" />
+                <data android:pathPrefix="/student/" />
+                <data android:pathPrefix="/exam/" />
+                <data android:pathPrefix="/exams/" />
+                <data android:pathPrefix="/code-exam/" />
+                <data android:pathPrefix="/practice/" />
+                <data android:pathPrefix="/arena/" />
+                <data android:pathPrefix="/voucher/" />
+                <data android:pathPrefix="/vouchers/" />
+            </intent-filter>
+
         </activity>
 
         <provider

@@ -7,6 +7,13 @@
   },
   "headers": [
     {
+      "source": "/.well-known/assetlinks.json",
+      "headers": [
+        { "key": "Content-Type", "value": "application/json" },
+        { "key": "Cache-Control", "value": "public, max-age=300" }
+      ]
+    },
+    {
       "source": "/(.*)",
       "headers": [
         {
@@ -65,6 +72,7 @@
     }
   ],
   "rewrites": [
+    { "source": "/.well-known/assetlinks.json", "destination": "/android-assetlinks.json" },
     { "source": "/code/:slug", "destination": "/api/code-studio?slug=:slug" },
     {
       "source": "/s/:slug",

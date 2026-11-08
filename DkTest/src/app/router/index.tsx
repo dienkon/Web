@@ -9,6 +9,7 @@ import { lazyWithRetry } from "../../utils/lazyWithRetry";
 import { isNativeAndroid } from '../../services/offline/sync';
 import OnlineOnly from '../../components/common/OnlineOnly';
 import MobileLanding from '../../components/student/MobileLanding';
+import NativeAppLinks from '../../components/student/NativeAppLinks';
 const MobileOnline = lazyWithRetry(() => import('../../pages/student/MobileOnline'), 'MobileOnline');
 const OfflineExamSetup = lazyWithRetry(() => import('../../pages/student/OfflineExamSetup'), 'OfflineExamSetup');
 const OfflineLibrary = lazyWithRetry(() => import('../../pages/student/OfflineLibrary'), 'OfflineLibrary');
@@ -364,6 +365,7 @@ const router = createBrowserRouter([
   },
 ]);
 
+const navigateFromAppLink = (route: string) => { void router.navigate(route, { replace: true }); };
 export function AppRouter() {
-  return <RouterProvider router={router} />;
+  return <><NativeAppLinks navigate={navigateFromAppLink} /><RouterProvider router={router} /></>;
 }

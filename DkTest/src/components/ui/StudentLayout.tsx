@@ -33,6 +33,7 @@ import { isAdminAuthenticated, clearStudentSession, clearAdminSession } from "..
 import { useAuth } from "../../context/AuthContext";
 import { isNativeAndroid } from '../../services/offline/sync';
 import { useOnline } from '../../hooks/useOnline';
+import OpenInAppBanner from '../student/OpenInAppBanner';
 import UserAvatar from "../common/UserAvatar";
 import ThemeToggle from "./ThemeToggle";
 import { subscribeToAvatarUpdates } from "../../utils/avatarSync";
@@ -521,6 +522,7 @@ function StudentLayoutContent() {
         )}
 
         <main className="flex-1 overflow-y-auto pb-24 md:pb-6 bg-slate-50/50 dark:bg-slate-950/60">
+          {!hideStudentNav && <OpenInAppBanner />}
           <Outlet />
         </main>
       </div>

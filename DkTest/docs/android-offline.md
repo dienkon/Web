@@ -2,9 +2,13 @@
 
 ## File cài đặt
 
-`releases/DkTEST-1.8.29-debug.apk` là APK cài thử, có chữ ký debug do Android SDK tạo; versionCode 4, có thể cài cập nhật trên bản debug trước cùng khóa ký. Hỗ trợ Android 7.0 (API 24) trở lên và Android System WebView cập nhật. Mã ứng dụng: `vn.dktest.student`. Chưa phải bản phát hành Google Play. [Audit 1.8.29](audits/1.8.29.md) ghi rõ giới hạn và các bước deploy rules/indexes/backend.
+`releases/DkTEST-1.8.30-debug.apk` là APK cài thử, có chữ ký debug do Android SDK tạo; versionCode 5, có thể cài cập nhật trên bản debug trước cùng khóa ký. Hỗ trợ Android 7.0 (API 24) trở lên và Android System WebView cập nhật. Mã ứng dụng: `vn.dktest.student`. Chưa phải bản phát hành Google Play. [Audit 1.8.30](audits/1.8.30.md) ghi rõ giới hạn và các bước deploy rules/indexes/backend.
 
 Giao diện, các trang được tải chậm, font toán học, máy tính và tài nguyên trong `public/` đều được đóng gói trong APK. Không cấu hình `server.url`, không cần tải website để khởi động.
+
+## Mở link bằng app
+
+APK 1.8.30 thêm Android App Links cho `https://dk-test-v3.vercel.app`. Sau khi website triển khai association và Android xác minh domain, bấm link đề từ ứng dụng khác có thể mở trực tiếp vào app. Đã có gói offline thì link đề mở trang setup offline; đang thi thì giữ bài hiện tại. Trình duyệt nhúng hoặc thiết lập người dùng có thể cần nút **Mở trong app** trên web; máy chưa cài tiếp tục dùng web. Bản APK cũ cần cập nhật. Thay chứng chỉ ký phải cập nhật fingerprint association và xác minh lại. Xem [audit 1.8.30](audits/1.8.30.md).
 
 ## Cách dùng cho thí sinh
 
@@ -41,7 +45,7 @@ npm ci
 npm run android:apk
 ```
 
-Script build Vite với mode `mobile`, đồng bộ tài nguyên bằng Capacitor và chạy Gradle `assembleDebug`; APK được chép vào `releases/DkTEST-1.8.29-debug.apk` kèm tệp `.sha256`. Tên file lấy theo `release.json`. Build mobile tách khỏi `dist/` dùng cho website/server. Không đưa APK, SDK, khóa ký hoặc tài nguyên sinh ra vào Git.
+Script build Vite với mode `mobile`, đồng bộ tài nguyên bằng Capacitor và chạy Gradle `assembleDebug`; APK được chép vào `releases/DkTEST-1.8.30-debug.apk` kèm tệp `.sha256`. Tên file lấy theo `release.json`. Build mobile tách khỏi `dist/` dùng cho website/server. Không đưa APK, SDK, khóa ký hoặc tài nguyên sinh ra vào Git.
 
 API trực tuyến mặc định là `https://dk-test-v3.vercel.app`. Đổi bằng `VITE_MOBILE_API_URL` trong `.env.mobile.local` khi cần. Cấu hình Firebase dùng các biến `VITE_FIREBASE_*` hiện có. Không đóng gói biến môi trường server hay service-account private key.
 

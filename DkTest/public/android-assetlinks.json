@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "vn.dktest.student",
+      "sha256_cert_fingerprints": [
+        "8D:63:4A:E5:8B:AB:67:08:B0:02:FB:F0:D0:F4:01:30:7D:19:A7:4D:31:36:13:46:AA:80:D2:D3:B6:E3:42:A1"
+      ]
+    }
+  }
+]

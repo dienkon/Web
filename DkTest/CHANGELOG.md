@@ -1,5 +1,13 @@
 # DkTEST changelog
 
+## 1.8.30 — 2026-11-08 (Android versionCode 5)
+
+- Thêm Android App Links cho domain `dk-test-v3.vercel.app`, liên kết package và SHA-256 chứng chỉ ký APK qua `/.well-known/assetlinks.json`. Máy cài bản app hỗ trợ có thể mở link bằng app sau khi Android xác minh domain.
+- Nhận link khi mở app từ đầu hoặc khi app đang chạy; chờ khôi phục Auth, chỉ nhận domain/route hợp lệ, chuyển link đề offline sang gói đã tải, ưu tiên bài đang làm.
+- Web Android có nút “Mở trong app” bằng package intent, có fallback tiếp tục web nếu chưa cài; tránh vòng lặp và không tự bật app bằng timer bị trình duyệt chặn.
+- Cần cập nhật APK 1.8.30 trở lên; bản cũ chưa có intent filter. Trình duyệt nhúng/lựa chọn mở link của người dùng có thể yêu cầu bấm nút dự phòng.
+- Audit: [1.8.30](docs/audits/1.8.30.md).
+
 ## 1.8.29 — 2026-11-08 (Android versionCode 4)
 
 - Online trong app dùng trực tiếp trang chủ web: banner, công cụ, countdown, bộ lọc, thư mục và thẻ đề; giữ tab Offline riêng. Khi mở Online vẫn chỉ truy vấn 5 đề vừa chỉnh sửa, cache theo UID 5 phút; các kho/thư mục chỉ tải khi chọn.

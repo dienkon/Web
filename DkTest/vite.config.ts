@@ -9,7 +9,12 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), 'VITE_');
   const release = JSON.parse(readFileSync(path.resolve(__dirname, 'release.json'), 'utf8'));
   return {
-    plugins: [react(), tailwindcss(), ...(mobile ? [{
+    plugins: [react(), tailwindcss(), ...(!mobile ? [{
+      name: 'dktest-android-association',
+      generateBundle() {
+        this.emitFile({ type: 'asset', fileName: '.well-known/assetlinks.json', source: readFileSync(path.resolve(__dirname, 'public/android-assetlinks.json'), 'utf8') });
+      },
+    }] : []), ...(mobile ? [{
       name: 'dktest-android-viewport',
       transformIndexHtml: (html: string) => html.replace('viewport-fit=cover', 'viewport-fit=contain'),
     }] : [])],

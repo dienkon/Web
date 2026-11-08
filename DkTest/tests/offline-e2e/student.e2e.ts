@@ -69,6 +69,24 @@ async function seedStudent(page: Page) {
   }, { apiKey: env.VITE_FIREBASE_API_KEY || 'AIzaSyDp9p5hkQ6fVEou4znk5YZu81VhgZtM7h4', projectId: env.VITE_FIREBASE_PROJECT_ID || 'exam-fd7a1' });
 }
 
+async function mockAndroidApp(page: Page, launchUrl?: string) {
+  // Exercise Android-only routing with an explicit bridge double, never claim device coverage.
+  await page.addInitScript((coldUrl) => {
+    const win = window as any;
+    win.CapacitorCustomPlatform = { name: 'android' };
+    const methods = (names: string[]) => names.map((name) => ({ name, rtype: 'promise' }));
+    win.Capacitor = {
+      PluginHeaders: [
+        { name: 'OfflineSync', methods: methods(['setSession', 'clearSession', 'enqueue', 'status', 'schedule']) },
+        ...['App', 'Network'].map((name) => ({ name, methods: [{ name: 'addListener', rtype: 'callback' }, ...methods(['removeListener', ...(name === 'App' ? ['getLaunchUrl'] : [])])] })),
+      ],
+      nativePromise: async (plugin: string, method: string) => method === 'status' ? { items: [] } : plugin === 'App' && method === 'getLaunchUrl' ? { url: coldUrl } : {},
+      nativeCallback: async (plugin: string, method: string, options: any, callback: any) => { if (plugin === 'App' && method === 'addListener' && options.eventName === 'appUrlOpen') win.__testAppUrlOpen = callback; return 'test-listener'; },
+    };
+    Object.defineProperty(navigator, 'onLine', { configurable: true, get: () => sessionStorage.getItem('test-connectivity') !== 'offline' });
+  }, launchUrl);
+}
+
 test('cold offline launch, new attempt, draft resume, offline submit and result reload', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
@@ -133,21 +151,7 @@ test('Android routing defaults online, keeps offline tab local and switches on c
   await page.evaluate(() => {
     localStorage.setItem('dktest_mobile_catalog_v2_offline-ui-student', JSON.stringify({ savedAt: Date.now(), items: Array.from({ length: 5 }, (_, i) => ({ id: `latest-${i}`, title: `Đề mới ${i + 1}`, code: `NEW${i + 1}`, status: 'published', accessMode: 'free' })) }));
   });
-  // Exercise Android-only routing with an explicit bridge double, never claim device coverage.
-  await page.addInitScript(() => {
-    const win = window as any;
-    win.CapacitorCustomPlatform = { name: 'android' };
-    const methods = (names: string[]) => names.map((name) => ({ name, rtype: 'promise' }));
-    win.Capacitor = {
-      PluginHeaders: [
-        { name: 'OfflineSync', methods: methods(['setSession', 'clearSession', 'enqueue', 'status', 'schedule']) },
-        ...['App', 'Network'].map((name) => ({ name, methods: [{ name: 'addListener', rtype: 'callback' }, ...methods(['removeListener'])] })),
-      ],
-      nativePromise: async (_plugin: string, method: string) => method === 'status' ? { items: [] } : {},
-      nativeCallback: async () => 'test-listener',
-    };
-    Object.defineProperty(navigator, 'onLine', { configurable: true, get: () => sessionStorage.getItem('test-connectivity') !== 'offline' });
-  });
+  await mockAndroidApp(page);
   await page.goto('/');
   await expect(page).toHaveURL(/\/student\/online$/);
   await expect(page.getByRole('heading', { name: 'Cổng Thi Thông Minh & Chống Gian Lận' })).toBeVisible();
@@ -191,4 +195,44 @@ test('web homepage accepts an invite link on paste and rejects non-exam links', 
     input.dispatchEvent(new ClipboardEvent('paste', { clipboardData: data, bubbles: true, cancelable: true }));
   });
   await expect(page).toHaveURL(/\/student\/exam\/offline-fixture$/);
+});
+
+test('native App Links restore a cold offline destination, handle warm links and preserve an active attempt', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await seedStudent(page);
+  await mockAndroidApp(page, 'https://dk-test-v3.vercel.app/student/exam/offline-fixture');
+  await page.evaluate(() => sessionStorage.setItem('test-connectivity', 'offline'));
+  await page.goto('/');
+  await expect(page).toHaveURL(/\/student\/offline\/exam\/offline-fixture$/);
+  await expect(page.getByRole('button', { name: 'Bắt đầu làm bài offline' })).toBeVisible();
+  await page.evaluate(() => (window as any).__testAppUrlOpen({ url: 'https://dk-test-v3.vercel.app/student/history' }));
+  await expect(page).toHaveURL(/\/student\/history$/);
+  await page.evaluate(() => (window as any).__testAppUrlOpen({ url: 'https://evil.test/student/exam/stolen' }));
+  await expect(page).toHaveURL(/\/student\/history$/);
+  await page.evaluate(() => (window as any).__testAppUrlOpen({ url: 'https://dk-test-v3.vercel.app/student/exam/offline-fixture' }));
+  await expect(page).toHaveURL(/\/student\/offline\/exam\/offline-fixture$/);
+  await page.getByRole('button', { name: 'Bắt đầu làm bài offline' }).click();
+  await expect(page.locator('[id^="q-card-"]')).toHaveCount(2);
+  await page.evaluate(() => (window as any).__testAppUrlOpen({ url: 'https://dk-test-v3.vercel.app/student/history' }));
+  await expect(page).toHaveURL(/\/student\/exam\/offline-fixture\/take\?offline=1$/);
+  await expect(page.locator('[id^="q-card-"]')).toHaveCount(2);
+  expect(errors).toEqual([]);
+});
+
+test('Android browser offers package intent with web fallback and respects staying on web', async ({ page }) => {
+  await seedStudent(page);
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'onLine', { configurable: true, get: () => false });
+    Object.defineProperty(navigator, 'userAgent', { configurable: true, value: 'Mozilla/5.0 (Linux; Android 14) Chrome/130 Mobile' });
+  });
+  await page.goto('/student/offline');
+  const open = page.getByRole('link', { name: 'Mở trong app', exact: true });
+  await expect(open).toBeVisible();
+  await expect(open).toHaveAttribute('href', /intent:\/\/dk-test-v3\.vercel\.app\/student\/offline#Intent;scheme=https;package=vn\.dktest\.student;S\.browser_fallback_url=/);
+  await page.getByRole('button', { name: 'Dùng bản web' }).click();
+  await expect(open).toHaveCount(0);
+  await page.goto('/student/offline?dktest_web=1');
+  await expect(page.getByRole('heading', { name: 'Đề thi trên máy' })).toBeVisible();
+  await expect(open).toHaveCount(0);
 });

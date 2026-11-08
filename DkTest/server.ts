@@ -24,6 +24,12 @@ async function startServer() {
   const PORT = Number(process.env.PORT) || 3636;
   const httpServer = http.createServer(app);
 
+  // Android verifies this exact public JSON endpoint without auth or redirects.
+  app.get('/.well-known/assetlinks.json', (_req, res) => {
+    res.setHeader('Cache-Control', 'public, max-age=300');
+    res.type('application/json').sendFile(path.join(process.cwd(), 'public', 'android-assetlinks.json'));
+  });
+
   // Global CORS Middleware (Handles preflight OPTIONS and prevents Failed to fetch)
   app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
