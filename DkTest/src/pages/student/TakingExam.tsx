@@ -78,7 +78,6 @@ import type { Exam, Question, Section, QuestionTiming } from "../../types";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 import InteractiveFillBlankText from "../../components/exam/InteractiveFillBlankText";
 import InteractiveMatchingBoard from "../../components/exam/InteractiveMatchingBoard";
-import ExamPreExamSolutionPreviewModal from "../../components/exam/ExamPreExamSolutionPreviewModal";
 import { useToast } from "../../components/ui/ToastNotification";
 import { isNativeAndroid } from '../../services/offline/sync';
 import { prefersOfflineExam } from '../../services/offline/exams';
@@ -161,7 +160,6 @@ export default function TakingExam() {
   const [showScratchpad, setShowScratchpad] = useState(false);
   const [showCasio, setShowCasio] = useState(false);
   const [showAttachmentsModal, setShowAttachmentsModal] = useState(false);
-  const [showPreviewSolutionModal, setShowPreviewSolutionModal] = useState(false);
 
   const preSubmitAttachments = useMemo(() => {
     if (!exam?.attachments || exam.attachments.length === 0) return [];
@@ -2778,19 +2776,6 @@ export default function TakingExam() {
             <span className="hidden sm:inline">Bảng nháp</span>
           </button>
 
-          {/* Pre-Exam Solution Preview (When allowed by teacher) */}
-          {exam?.allowPreviewSolutionBeforeExam && (
-            <button
-              type="button"
-              onClick={() => setShowPreviewSolutionModal(true)}
-              className="px-3 py-2 text-amber-900 bg-amber-50 hover:bg-amber-100 border border-amber-300 rounded-xl transition-all text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-2xs"
-              title="Xem trước đề gốc & lời giải chi tiết chuẩn do giáo viên cho phép"
-            >
-              <Eye className="w-4 h-4 text-amber-600" />
-              <span className="hidden sm:inline">Xem lời giải chi tiết</span>
-            </button>
-          )}
-
           {/* Casio fx-580 VN X Toggle Button */}
           <button
             type="button"
@@ -3538,15 +3523,6 @@ export default function TakingExam() {
         </div>
       )}
 
-      {/* Pre-Exam Solution Preview Modal */}
-      {exam && (
-        <ExamPreExamSolutionPreviewModal
-          isOpen={showPreviewSolutionModal}
-          onClose={() => setShowPreviewSolutionModal(false)}
-          exam={exam}
-          questions={questions}
-        />
-      )}
     </div>
   );
 }

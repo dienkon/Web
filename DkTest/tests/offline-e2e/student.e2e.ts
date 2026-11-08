@@ -55,7 +55,7 @@ async function seedStudent(page: Page) {
     const pixel = Uint8Array.from(atob('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII='), (v) => v.charCodeAt(0));
     const pack = {
       key: `${uid}:offline-fixture`, uid,
-      exam: { id: 'offline-fixture', title: 'Bài kiểm tra offline', code: 'OFF001', status: 'published', timeLimit: 30, duration: 30, shuffleQuestions: false, shuffleOptions: false, allowSubExam: true, maxAttempts: 0, showResults: true, showDetails: true, antiCheatEnabled: false, createdAt: null, updatedAt: null },
+      exam: { id: 'offline-fixture', title: 'Bài kiểm tra offline', code: 'OFF001', status: 'published', timeLimit: 30, duration: 30, shuffleQuestions: false, shuffleOptions: false, allowSubExam: true, allowPreviewSolutionBeforeExam: true, maxAttempts: 0, showResults: true, showDetails: true, antiCheatEnabled: false, createdAt: null, updatedAt: null },
       questions: [
         { id: 'q1', type: 'single_choice', text: 'Hai cộng hai bằng bao nhiêu? ![hình offline](https://offline.test/image.png)', options: [{ id: 'a', text: 'Bốn' }, { id: 'b', text: 'Năm' }], correctOptionIds: ['a'], order: 1, points: 1 },
         { id: 'q2', type: 'short_answer', text: 'Điền số ba', acceptedAnswers: ['3'], order: 2, points: 1 },
@@ -81,6 +81,8 @@ test('cold offline launch, new attempt, draft resume, offline submit and result 
   await expect(page.getByText('Cấu hình Đề thi con (Sub-Exam)', { exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Bắt đầu làm bài offline' }).click();
   await expect(page.getByText('Hai cộng hai bằng bao nhiêu?', { exact: false })).toBeVisible({ timeout: 20000 });
+  await expect(page.getByTitle('Xem trước đề gốc & lời giải chi tiết chuẩn do giáo viên cho phép')).toHaveCount(0);
+  await expect(page.getByText('Xem lời giải chi tiết', { exact: true })).toHaveCount(0);
   await expect(page.locator('img[alt="hình offline"]')).toHaveJSProperty('naturalWidth', 1);
   await page.getByText('Bốn', { exact: true }).click();
   await page.reload();

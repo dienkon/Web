@@ -4,9 +4,9 @@ DkTEST is a modern, clean, and minimalist examination system built with React, V
 
 ## Android APK và đề thi offline
 
-Phiên bản hiện tại: **1.8.27**, Android `versionCode=2`. Xem [changelog](CHANGELOG.md) và [audit phiên bản](docs/audits/1.8.27.md).
+Phiên bản hiện tại: **1.8.28**, Android `versionCode=3`. Xem [changelog](CHANGELOG.md) và [audit phiên bản](docs/audits/1.8.28.md). Xem trước lời giải chỉ nằm ở màn hình trước khi bắt đầu, không xuất hiện trong lúc làm bài trên web/app.
 
-Chạy `npm run android:apk` để tạo `releases/DkTEST-1.8.27-debug.apk`. Có mạng: app mặc định ở Online, chỉ tải 5 đề đã phát hành vừa chỉnh sửa. Trong thông tin đề, nút tải xuất hiện khi có quyền (đề trả phí phải được mua/cấp quyền). Offline: chỉ đọc đề đã tải trên máy, có thiết lập đề con như online và tự đồng bộ bài nộp khi nối mạng. Xem [hướng dẫn](docs/android-offline.md). Mọi cải tiến tiếp theo cần tăng version, cập nhật changelog và có audit chi tiết theo [AGENTS.md](AGENTS.md).
+Chạy `npm run android:apk` để tạo `releases/DkTEST-1.8.28-debug.apk`. Có mạng: app mặc định ở Online, chỉ tải 5 đề đã phát hành vừa chỉnh sửa. Trong thông tin đề, nút tải xuất hiện khi có quyền (đề trả phí phải được mua/cấp quyền). Offline: chỉ đọc đề đã tải trên máy, có thiết lập đề con như online và tự đồng bộ bài nộp khi nối mạng. Xem [hướng dẫn](docs/android-offline.md). Mọi cải tiến tiếp theo cần tăng version, cập nhật changelog và có audit chi tiết theo [AGENTS.md](AGENTS.md).
 
 Trước khi phân phối rộng, cần triển khai backend, rules/indexes và chuyển câu hỏi nhúng của đề trả phí legacy theo [audit](docs/audits/1.8.27.md#deployment-prerequisites). Các bước production này chưa thực hiện vì Firebase CLI chưa đăng nhập. Có công cụ dry-run/backup `npm run migrate:paid-content`, đã kiểm tra bằng emulator. APK hiện là bản debug; chưa kiểm thử trên điện thoại thật.
 
