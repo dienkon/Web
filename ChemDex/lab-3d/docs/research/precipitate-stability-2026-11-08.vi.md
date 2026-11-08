@@ -54,3 +54,9 @@ một benchmark logic/physics qua. Benchmark ba bình ghi trung bình 1.86 ms v�
 p95 4.44 ms mỗi bước kiểm tra, không gồm GPU. Bản production đã mở mẫu 20 lần
 trên mỗi viewport desktop và cảm ứng, không có pageerror/console error hay
 mất WebGL context. Chế độ phóng đại được kiểm tra không sửa particle lúc pause.
+
+Rà tiếp 94 tên thuốc thử bằng `tests/stock_label_forms.test.ts`: nhãn bột,
+đinh, lá, dải, mạt và đá dạng mảnh phải khớp dạng mesh; nhãn dung dịch/khí
+phải khớp pha kho. Mục CaCO3 cơ bản được ghi rõ là bột, đá vôi có mục chips
+riêng. Tên Cu chung không còn ghép hai dạng phoi/lá; tên PbI2 chung không
+mặc định hứa hiện tượng mưa vàng. Đường tạo tinh thể PbI2 vẫn theo lịch sử mẫu.

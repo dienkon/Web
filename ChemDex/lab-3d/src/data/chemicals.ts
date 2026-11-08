@@ -122,8 +122,8 @@ export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
   },
   {
     formula: 'Cu',
-    name_en: 'Copper (Turnings/Foil)',
-    name_vi: 'Đồng (Phôi kim loại)',
+    name_en: 'Copper Metal',
+    name_vi: 'Đồng Kim Loại',
     type: 'solid',
     solidMorphology: 'TURNINGS',
     color: '#b45309',
@@ -164,8 +164,8 @@ export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
   },
   {
     formula: 'CaCO3',
-    name_en: 'Calcium Carbonate (Limestone/Marble)',
-    name_vi: 'Canxi Cacbonat (Đá vôi)',
+    name_en: 'Calcium Carbonate (Powder)',
+    name_vi: 'Canxi Cacbonat (Bột)',
     type: 'solid',
     solidMorphology: 'POWDER',
     color: '#f8fafc',
@@ -1134,8 +1134,8 @@ export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
   },
   {
     formula: 'PbI2',
-    name_en: 'Lead(II) Iodide (Golden Crystals)',
-    name_vi: 'Chì(II) Iotua (Mưa Vàng Tinh Thể)',
+    name_en: 'Lead(II) Iodide (Yellow Solid)',
+    name_vi: 'Chì(II) Iotua (Chất Rắn Vàng)',
     type: 'solid',
     solidMorphology: 'POWDER',
     category: 'salt',
