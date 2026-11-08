@@ -442,11 +442,11 @@ export default function ExamIntro() {
           const initialConfig: SubExamConfig = {
             selectionMode: "by_type",
             ...(foundExam.subExamConfig || {}),
-            enabled: foundExam.subExamConfig?.enabled !== false,
+            enabled: false,
           };
 
           setSubExamConfig(initialConfig);
-          setUseSubExam(initialConfig.enabled);
+          setUseSubExam(false);
         }
       } catch (err) {
         console.error("Lỗi khi tải bài thi:", err);
@@ -757,23 +757,18 @@ export default function ExamIntro() {
 
             {/* Admin Enabled: Pre-exam Full Solution & Original Exam Preview (Prominently placed at the top) */}
             {exam.allowPreviewSolutionBeforeExam && (
-              <div className="bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 border-2 border-amber-300 rounded-3xl p-5 sm:p-6 shadow-sm space-y-3.5 animate-in fade-in">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-start gap-3">
-                    <div className="p-3 bg-amber-500 text-white rounded-2xl shadow-xs shrink-0 mt-0.5">
-                      <Eye className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-black uppercase tracking-wider text-amber-800 bg-amber-200/90 px-2.5 py-0.5 rounded-full inline-block mb-1 shadow-2xs">
-                        TÍNH NĂNG ĐƯỢC GIÁO VIÊN BẬT
-                      </span>
-                      <h3 className="font-black text-base sm:text-lg text-slate-900 leading-snug">
-                        Xem Trước Đề Gốc & Lời Giải Chi Tiết
-                      </h3>
-                      <p className="text-xs sm:text-sm text-slate-600 mt-0.5 leading-relaxed font-medium">
-                        Giáo viên cho phép bạn xem toàn bộ đề thi, phương án đáp án chuẩn và hướng dẫn giải từng bước trước khi bắt đầu tính giờ.
-                      </p>
-                    </div>
+              <div className="bg-gradient-to-r from-amber-50 via-orange-50/70 to-amber-50 border-2 border-amber-300 rounded-2xl p-4 sm:p-5 shadow-xs space-y-3 animate-in fade-in">
+                <div className="flex items-center gap-3">
+                  <div className="p-2.5 bg-amber-500 text-white rounded-xl shadow-xs shrink-0">
+                    <Eye className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-black text-sm sm:text-base text-slate-900 leading-snug">
+                      Xem Trước Đề Gốc & Lời Giải Chi Tiết
+                    </h3>
+                    <p className="text-[11px] sm:text-xs text-slate-600 mt-0.5 leading-relaxed font-medium">
+                      Giáo viên cho phép xem trước toàn bộ câu hỏi và đáp án trước khi bấm bắt đầu làm bài.
+                    </p>
                   </div>
                 </div>
 
@@ -781,13 +776,13 @@ export default function ExamIntro() {
                   type="button"
                   onClick={handleOpenPreviewSolutions}
                   disabled={loadingPreviewQuestions}
-                  className="w-full py-3.5 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-700 text-white font-black text-sm rounded-2xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2.5 cursor-pointer active:scale-[0.99] disabled:opacity-50"
+                  className="w-full py-2.5 sm:py-3 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-700 text-white font-black text-xs sm:text-sm rounded-xl shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99] disabled:opacity-50"
                 >
-                  <Eye className="w-5 h-5" />
+                  <Eye className="w-4 h-4" />
                   <span>
                     {loadingPreviewQuestions ? "Đang nạp đề & lời giải..." : "Bấm vào để xem trước đề thi & lời giải chi tiết"}
                   </span>
-                  <Sparkles className="w-4 h-4 text-amber-200" />
+                  <Sparkles className="w-3.5 h-3.5 text-amber-200" />
                 </button>
               </div>
             )}
@@ -1224,43 +1219,6 @@ export default function ExamIntro() {
                 questions={questions}
                 sections={sections}
               />
-            )}
-
-            {/* Admin Enabled: Pre-exam Full Solution & Original Exam Preview */}
-            {exam.allowPreviewSolutionBeforeExam && (
-              <div className="bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 border-2 border-amber-300 rounded-2xl p-4 sm:p-5 shadow-xs space-y-3 animate-in fade-in">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-start gap-3">
-                    <div className="p-2.5 bg-amber-500 text-white rounded-xl shadow-xs shrink-0 mt-0.5">
-                      <Eye className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-black uppercase tracking-wider text-amber-800 bg-amber-200/80 px-2 py-0.5 rounded-full inline-block mb-1">
-                        TÍNH NĂNG ĐƯỢC GIÁO VIÊN BẬT
-                      </span>
-                      <h3 className="font-black text-sm sm:text-base text-slate-900 leading-snug">
-                        Xem Trước Đề Gốc & Lời Giải Chi Tiết
-                      </h3>
-                      <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">
-                        Thầy cô đã cho phép xem trước toàn bộ đề thi, đáp án chuẩn và lời giải chi tiết từng bước. Bạn có thể bấm vào để nghiên cứu kỹ trước khi bắt đầu làm bài!
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={handleOpenPreviewSolutions}
-                  disabled={loadingPreviewQuestions}
-                  className="w-full py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-black text-xs sm:text-sm rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99] disabled:opacity-50"
-                >
-                  <Eye className="w-4 h-4" />
-                  <span>
-                    {loadingPreviewQuestions ? "Đang nạp đề & lời giải..." : "Bấm vào để xem trước đề thi & lời giải chi tiết"}
-                  </span>
-                  <Sparkles className="w-4 h-4 text-amber-200" />
-                </button>
-              </div>
             )}
 
             {/* Rules & Notice */}
