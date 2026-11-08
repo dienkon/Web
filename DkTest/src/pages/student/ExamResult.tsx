@@ -84,7 +84,7 @@ export default function ExamResult() {
   const [expandedExplanations, setExpandedExplanations] = useState<Record<string, boolean>>({});
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [showRetakeModal, setShowRetakeModal] = useState(false);
-  const [showDetails, setShowDetails] = useState(false);
+  const [showDetails, setShowDetails] = useState(true);
   const [filterStatus, setFilterStatus] = useState<"all" | "correct" | "incorrect" | "unanswered">("all");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -1053,16 +1053,17 @@ export default function ExamResult() {
                 }
                 setShowDetails(!showDetails);
               }}
-              className={`p-2.5 rounded-xl transition-all shadow-2xs ${
+              className={`px-3 py-2 rounded-xl text-xs font-bold transition-all shadow-2xs flex items-center gap-1.5 cursor-pointer ${
                 !allowShowDetails
                   ? "bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed opacity-70"
                   : showDetails 
-                  ? "bg-slate-900 text-white hover:bg-slate-800 cursor-pointer" 
-                  : "bg-white text-slate-700 hover:text-slate-900 border border-slate-200 hover:bg-slate-50 cursor-pointer"
+                  ? "bg-slate-900 text-white hover:bg-slate-800" 
+                  : "bg-emerald-600 text-white hover:bg-emerald-700 shadow-sm"
               }`}
               title={!allowShowDetails ? "Giáo viên không cho xem chi tiết bài làm" : (showDetails ? "Ẩn chi tiết bài làm" : "Xem chi tiết bài làm")}
             >
               <FileText className="w-4 h-4" />
+              <span>{showDetails ? "Ẩn chi tiết" : "Xem chi tiết"}</span>
             </button>
 
             <button
@@ -1127,7 +1128,29 @@ export default function ExamResult() {
               Giáo viên đã cài đặt ẩn chi tiết đáp án và lời giải của bài thi này.
             </p>
           </div>
-        ) : showDetails && (
+        ) : !showDetails ? (
+          <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 border-2 border-emerald-300 rounded-3xl p-6 sm:p-8 text-center space-y-4 shadow-sm animate-in fade-in">
+            <div className="w-14 h-14 rounded-2xl bg-emerald-600 text-white flex items-center justify-center mx-auto shadow-md">
+              <FileText className="w-7 h-7" />
+            </div>
+            <div>
+              <h3 className="text-base sm:text-lg font-black text-slate-900">
+                Chi Tiết Đáp Án & Hướng Dẫn Giải
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto mt-1 leading-relaxed">
+                Giáo viên đã cho phép xem chi tiết từng câu hỏi, đối chiếu đáp án bạn đã chọn với đáp án chuẩn và hướng dẫn giải từng bước.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowDetails(true)}
+              className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-sm rounded-2xl shadow-md hover:shadow-lg transition-all inline-flex items-center gap-2 cursor-pointer active:scale-95"
+            >
+              <Eye className="w-4 h-4" />
+              <span>Bấm vào để xem chi tiết bài làm & lời giải</span>
+            </button>
+          </div>
+        ) : (
           <div className="space-y-6 animate-in fade-in slide-in-from-top-3 duration-200">
             {/* Unified Sticky Header for Mobile and PC */}
             <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm space-y-3 print:hidden">

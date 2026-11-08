@@ -20,19 +20,22 @@ import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 
 interface Props {
   exam: Exam;
-  sections: Section[];
+  sections?: Section[];
   questions: Question[];
   onClose: () => void;
-  onStartExam: () => void;
+  onStartExam?: () => void;
+  isOpen?: boolean;
 }
 
 export default function ExamPreExamSolutionPreviewModal({
   exam,
-  sections,
-  questions,
+  sections = [],
+  questions = [],
   onClose,
   onStartExam,
+  isOpen = true,
 }: Props) {
+  if (isOpen === false) return null;
   const [selectedSectionId, setSelectedSectionId] = useState<string>("all");
   const [expandedSolutions, setExpandedSolutions] = useState<Record<string, boolean>>({});
 
@@ -434,17 +437,19 @@ export default function ExamPreExamSolutionPreviewModal({
             >
               Đóng xem trước
             </button>
-            <button
-              type="button"
-              onClick={() => {
-                onClose();
-                onStartExam();
-              }}
-              className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer"
-            >
-              <span>Vào làm bài thi</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
+            {onStartExam && (
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  onStartExam();
+                }}
+                className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer"
+              >
+                <span>Vào làm bài thi</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            )}
           </div>
         </div>
       </div>

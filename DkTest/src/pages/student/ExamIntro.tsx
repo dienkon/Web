@@ -399,8 +399,8 @@ export default function ExamIntro() {
       if (!examId) return;
       setLoading(true);
       try {
-        // 1. Try finding exam by ID
-        let foundExam = await getExam(examId);
+        // 1. Try finding exam by ID (force refresh to avoid stale cached setting)
+        let foundExam = await getExam(examId, true);
 
         // 2. If not found by ID, try searching by exam code (limit 1)
         if (!foundExam) {
@@ -754,6 +754,43 @@ export default function ExamIntro() {
                 <span className="text-xs font-extrabold text-emerald-700 block mt-1">Đang kích hoạt</span>
               </div>
             </div>
+
+            {/* Admin Enabled: Pre-exam Full Solution & Original Exam Preview (Prominently placed at the top) */}
+            {exam.allowPreviewSolutionBeforeExam && (
+              <div className="bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 border-2 border-amber-300 rounded-3xl p-5 sm:p-6 shadow-sm space-y-3.5 animate-in fade-in">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-start gap-3">
+                    <div className="p-3 bg-amber-500 text-white rounded-2xl shadow-xs shrink-0 mt-0.5">
+                      <Eye className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-black uppercase tracking-wider text-amber-800 bg-amber-200/90 px-2.5 py-0.5 rounded-full inline-block mb-1 shadow-2xs">
+                        TÍNH NĂNG ĐƯỢC GIÁO VIÊN BẬT
+                      </span>
+                      <h3 className="font-black text-base sm:text-lg text-slate-900 leading-snug">
+                        Xem Trước Đề Gốc & Lời Giải Chi Tiết
+                      </h3>
+                      <p className="text-xs sm:text-sm text-slate-600 mt-0.5 leading-relaxed font-medium">
+                        Giáo viên cho phép bạn xem toàn bộ đề thi, phương án đáp án chuẩn và hướng dẫn giải từng bước trước khi bắt đầu tính giờ.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleOpenPreviewSolutions}
+                  disabled={loadingPreviewQuestions}
+                  className="w-full py-3.5 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-700 text-white font-black text-sm rounded-2xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2.5 cursor-pointer active:scale-[0.99] disabled:opacity-50"
+                >
+                  <Eye className="w-5 h-5" />
+                  <span>
+                    {loadingPreviewQuestions ? "Đang nạp đề & lời giải..." : "Bấm vào để xem trước đề thi & lời giải chi tiết"}
+                  </span>
+                  <Sparkles className="w-4 h-4 text-amber-200" />
+                </button>
+              </div>
+            )}
 
             {/* Pre-Submission Attachments from Teacher/Admin */}
             {preSubmitAttachments.length > 0 && (

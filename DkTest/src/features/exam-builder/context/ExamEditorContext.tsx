@@ -345,6 +345,10 @@ function sanitizeForFirestore(obj: any): any {
         FirestoreCache.invalidate("doc:system_stats:exams_summary");
         FirestoreCache.invalidate(`doc:exams:${examId}`);
         FirestoreCache.invalidatePrefix("query:exams");
+        if (typeof sessionStorage !== "undefined") {
+          sessionStorage.removeItem(`exam_${examId}`);
+          sessionStorage.removeItem(`exam_raw_${examId}`);
+        }
         await syncExamToCatalogSummary({ ...cleanExamDoc, id: examId } as any, "upsert");
       } catch (catErr) {
         console.warn("Failed to sync catalog in ExamEditorContext:", catErr);
