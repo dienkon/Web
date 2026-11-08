@@ -20,6 +20,7 @@ import { FirestoreCache } from "./firebase/firestoreCache";
 import { FirestoreRepository } from "./firebase/firestoreRepository";
 import type { Submission } from "../types";
 import { logDocRead, logDocWrite, logCacheHit, logQueryRead } from "../utils/firestoreLogger";
+import { getTimestampMillis } from "../utils/date";
 
 export interface SystemStatsOverview {
   totalSubmissions: number;
@@ -301,14 +302,7 @@ export interface ExamsCatalogSummary {
 }
 
 export const getExamTimestampMs = (val: any): number => {
-  if (!val) return 0;
-  if (typeof val.toMillis === "function") return val.toMillis();
-  if (typeof val.toDate === "function") return val.toDate().getTime();
-  if (typeof val.seconds === "number") return val.seconds * 1000;
-  if (val instanceof Date) return val.getTime();
-  if (typeof val === "number") return val;
-  const parsed = new Date(val).getTime();
-  return isNaN(parsed) ? 0 : parsed;
+  return getTimestampMillis(val);
 };
 
 /**
@@ -363,8 +357,8 @@ export async function getExamsCatalogSummary(forceRefresh = false): Promise<Exam
   // Auto-heal fallback: Fetch exams collection, sort, and save to system_stats/exams_summary
   try {
     const t0 = performance.now();
-    const snap = await getDocs(query(collection(db, "exams"), limit(100)));
-    logQueryRead("exams", snap.size, 100, performance.now() - t0, "Auto-heal exams catalog summary");
+    const snap = await getDocs(collection(db, "exams"));
+    logQueryRead("exams", snap.size, snap.size, performance.now() - t0, "Auto-heal exams catalog summary");
 
     const rawExams: ExamSummaryItem[] = snap.docs.map((d) => {
       const data = d.data();

@@ -88,7 +88,7 @@ export default function StudentHistory() {
         } catch {}
       }
 
-      const PAGE_SIZE = 5;
+      const PAGE_SIZE = 15;
 
       // Check cache first
       if (studentUsername) {
@@ -131,7 +131,7 @@ export default function StudentHistory() {
             const q1Fallback = query(
               collection(db, "submissions"),
               where("studentUsername", "==", targetUsername),
-              limit(PAGE_SIZE)
+              limit(Math.max(PAGE_SIZE * 3, 50))
             );
             const snap1 = await getDocs(q1Fallback);
             snap1.docs.forEach((d) => subMap.set(d.id, { id: d.id, ...d.data() } as Submission));
@@ -146,7 +146,7 @@ export default function StudentHistory() {
               collection(db, "submissions"),
               where("studentId", "==", targetUsername),
               orderBy("submittedAt", "desc"),
-              limit(PAGE_SIZE)
+              limit(Math.max(PAGE_SIZE * 3, 50))
             );
             const snap2 = await getDocs(q2);
             snap2.docs.forEach((d) => subMap.set(d.id, { id: d.id, ...d.data() } as Submission));
@@ -156,7 +156,7 @@ export default function StudentHistory() {
               const q2Fallback = query(
                 collection(db, "submissions"),
                 where("studentId", "==", targetUsername),
-                limit(PAGE_SIZE)
+                limit(Math.max(PAGE_SIZE * 3, 50))
               );
               const snap2 = await getDocs(q2Fallback);
               snap2.docs.forEach((d) => subMap.set(d.id, { id: d.id, ...d.data() } as Submission));
@@ -236,7 +236,7 @@ export default function StudentHistory() {
     try {
       const studentUsername = studentInfo?.username || studentInfo?.displayName || localStorage.getItem("user_id") || "";
       const t0 = performance.now();
-      const PAGE_SIZE = 5;
+      const PAGE_SIZE = 15;
       let snap;
 
       try {

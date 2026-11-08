@@ -769,6 +769,18 @@ function sanitizeVnd(val) {
   if (isNaN(val) || !isFinite(val) || val < 0) return 0;
   return Math.floor(val);
 }
+function parseTimestampMs(val) {
+  if (!val) return 0;
+  if (typeof val?.toMillis === "function") return val.toMillis();
+  if (typeof val?.toDate === "function") return val.toDate().getTime();
+  if (typeof val?.seconds === "number") return val.seconds * 1e3 + Math.floor((val.nanoseconds || 0) / 1e6);
+  if (typeof val?._seconds === "number") return val._seconds * 1e3 + Math.floor((val._nanoseconds || 0) / 1e6);
+  if (val instanceof Date) return val.getTime();
+  if (typeof val === "number") return val < 1e11 ? val * 1e3 : val;
+  const d = new Date(val);
+  const ms = d.getTime();
+  return isNaN(ms) ? 0 : ms;
+}
 async function getOrCreateWallet(uid, initialData) {
   if (!uid || typeof uid !== "string") {
     throw new Error("UID kh\xF4ng h\u1EE3p l\u1EC7.");
@@ -2002,7 +2014,7 @@ async function getStudentTransactions(uid, limitCount = 30) {
   }
   const docs = await queryFirestoreRestDocs("wallet_transactions", "uid", uid, limitCount);
   const filtered = docs.sort(
-    (a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
+    (a, b) => parseTimestampMs(b.createdAt) - parseTimestampMs(a.createdAt)
   );
   return filtered.slice(0, limitCount);
 }
@@ -2013,7 +2025,7 @@ async function getStudentDepositRequests(uid, limitCount = 30) {
   }
   const docs = await queryFirestoreRestDocs("deposit_requests", "uid", uid, limitCount);
   const filtered = docs.sort(
-    (a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
+    (a, b) => parseTimestampMs(b.createdAt) - parseTimestampMs(a.createdAt)
   );
   return filtered.slice(0, limitCount);
 }
@@ -2031,7 +2043,7 @@ async function getStudentUnpaidDebt(uid) {
   const unpaid = debts.filter(
     (d) => d.status === "unpaid" || d.status === "partial" || d.remainingVnd && d.remainingVnd > 0
   );
-  unpaid.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+  unpaid.sort((a, b) => parseTimestampMs(b.createdAt) - parseTimestampMs(a.createdAt));
   const totalDebtVnd = unpaid.reduce((sum, d) => sum + Math.max(0, sanitizeVnd(d.remainingVnd ?? d.amountVnd)), 0);
   return {
     totalDebtVnd,

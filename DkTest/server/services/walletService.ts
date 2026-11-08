@@ -29,6 +29,20 @@ export function sanitizeVnd(val: any): number {
   return Math.floor(val);
 }
 
+// Safely parse timestamps into milliseconds
+export function parseTimestampMs(val: any): number {
+  if (!val) return 0;
+  if (typeof val?.toMillis === "function") return val.toMillis();
+  if (typeof val?.toDate === "function") return val.toDate().getTime();
+  if (typeof val?.seconds === "number") return val.seconds * 1000 + Math.floor((val.nanoseconds || 0) / 1000000);
+  if (typeof val?._seconds === "number") return val._seconds * 1000 + Math.floor((val._nanoseconds || 0) / 1000000);
+  if (val instanceof Date) return val.getTime();
+  if (typeof val === "number") return val < 1e11 ? val * 1000 : val;
+  const d = new Date(val);
+  const ms = d.getTime();
+  return isNaN(ms) ? 0 : ms;
+}
+
 // -------------------------------------------------------------
 // 1. WALLET PROFILE & RETRIEVAL
 // -------------------------------------------------------------
@@ -1702,8 +1716,8 @@ export async function recordManualCashCollection(
         return status === "unpaid" || status === "partial";
       })
       .sort((a, b) => {
-        const tA = new Date(a.data().createdAt || 0).getTime();
-        const tB = new Date(b.data().createdAt || 0).getTime();
+        const tA = parseTimestampMs(a.data().createdAt);
+        const tB = parseTimestampMs(b.data().createdAt);
         return tA - tB;
       });
 
@@ -1809,7 +1823,7 @@ export async function recordManualCashCollection(
   // REST fallback mode
   const allDebts = await queryFirestoreRestDocs("debt_records", "uid", studentUid, 50);
   const studentDebts = (allDebts as DebtRecord[]).filter((d) => d.status === "unpaid" || d.status === "partial");
-  studentDebts.sort((a, b) => new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime());
+  studentDebts.sort((a, b) => parseTimestampMs(a.createdAt) - parseTimestampMs(b.createdAt));
 
   let remainingToAllocate = amount;
   for (const debt of studentDebts) {
@@ -2276,7 +2290,7 @@ export async function getWalletOverview(forceRefresh = false): Promise<WalletOve
     });
 
     const sortedReqs = [...(reqs as DepositRequest[])].sort(
-      (a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
+      (a, b) => parseTimestampMs(b.createdAt) - parseTimestampMs(a.createdAt)
     );
     recentRequests = sortedReqs.slice(0, 10);
 
@@ -2663,19 +2677,19 @@ export async function getStudentWalletDetails(studentUid: string, force = false)
     ]);
 
     transactions = (rawTxs as WalletTransaction[])
-      .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+      .sort((a, b) => parseTimestampMs(b.createdAt) - parseTimestampMs(a.createdAt))
       .slice(0, 20);
 
     depositRequests = (rawReqs as DepositRequest[])
-      .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+      .sort((a, b) => parseTimestampMs(b.createdAt) - parseTimestampMs(a.createdAt))
       .slice(0, 20);
 
     entitlements = (rawEnts as ExamEntitlement[])
-      .sort((a, b) => new Date(b.grantedAt || 0).getTime() - new Date(a.grantedAt || 0).getTime())
+      .sort((a, b) => parseTimestampMs(b.grantedAt) - parseTimestampMs(a.grantedAt))
       .slice(0, 20);
 
     debtRecords = (rawDebts as DebtRecord[])
-      .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+      .sort((a, b) => parseTimestampMs(b.createdAt) - parseTimestampMs(a.createdAt))
       .slice(0, 20);
 
     studentProfile = {
@@ -2749,7 +2763,7 @@ export async function getDepositRequests(options?: {
       docs = (await getFirestoreRestDocs("deposit_requests", safeLimit)) as DepositRequest[];
     }
     list = docs || [];
-    list.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+    list.sort((a, b) => parseTimestampMs(b.createdAt) - parseTimestampMs(a.createdAt));
     if (options?.limit) {
       list = list.slice(0, options.limit);
     }
@@ -2784,7 +2798,7 @@ export async function getStudentTransactions(uid: string, limitCount = 30): Prom
   // REST fallback mode
   const docs = await queryFirestoreRestDocs("wallet_transactions", "uid", uid, limitCount);
   const filtered = (docs as WalletTransaction[]).sort(
-    (a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
+    (a, b) => parseTimestampMs(b.createdAt) - parseTimestampMs(a.createdAt)
   );
   return filtered.slice(0, limitCount);
 }
@@ -2803,7 +2817,7 @@ export async function getStudentDepositRequests(uid: string, limitCount = 30): P
   // REST fallback mode
   const docs = await queryFirestoreRestDocs("deposit_requests", "uid", uid, limitCount);
   const filtered = (docs as DepositRequest[]).sort(
-    (a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
+    (a, b) => parseTimestampMs(b.createdAt) - parseTimestampMs(a.createdAt)
   );
   return filtered.slice(0, limitCount);
 }
@@ -3084,7 +3098,7 @@ export async function getStudentUnpaidDebt(uid: string): Promise<{
   const unpaid = debts.filter(
     (d) => d.status === "unpaid" || d.status === "partial" || (d.remainingVnd && d.remainingVnd > 0)
   );
-  unpaid.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+  unpaid.sort((a, b) => parseTimestampMs(b.createdAt) - parseTimestampMs(a.createdAt));
 
   const totalDebtVnd = unpaid.reduce((sum, d) => sum + Math.max(0, sanitizeVnd(d.remainingVnd ?? d.amountVnd)), 0);
 

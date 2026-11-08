@@ -24,12 +24,20 @@ export default function NotificationCenter() {
 
   // Only load on demand when opened, fetched newest first
   const loadNotifications = async (forceRefresh: boolean = false) => {
-    const targetUid = user?.uid || (isAdmin ? "admin_master" : "");
-    if (!targetUid && !isAdmin) return;
+    let studentId = "";
+    try {
+      const sInfo = localStorage.getItem("student_info") || localStorage.getItem("dktest:auth:student_info");
+      if (sInfo) {
+        const parsed = JSON.parse(sInfo);
+        studentId = parsed.username || parsed.id || parsed.uid || "";
+      }
+    } catch (_) {}
+
+    const targetUid = user?.uid || studentId || (isAdmin ? "admin_master" : "");
 
     try {
       setLoading(true);
-      const list = await fetchUserNotifications(targetUid, forceRefresh, isAdmin, 12);
+      const list = await fetchUserNotifications(targetUid, forceRefresh, isAdmin, 20);
       setNotifications(list);
       setUnreadCount(list.filter((n) => !n.read).length);
       setHasLoaded(true);

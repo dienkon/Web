@@ -753,6 +753,18 @@ function sanitizeVnd(val) {
   if (isNaN(val) || !isFinite(val) || val < 0) return 0;
   return Math.floor(val);
 }
+function parseTimestampMs(val) {
+  if (!val) return 0;
+  if (typeof val?.toMillis === "function") return val.toMillis();
+  if (typeof val?.toDate === "function") return val.toDate().getTime();
+  if (typeof val?.seconds === "number") return val.seconds * 1e3 + Math.floor((val.nanoseconds || 0) / 1e6);
+  if (typeof val?._seconds === "number") return val._seconds * 1e3 + Math.floor((val._nanoseconds || 0) / 1e6);
+  if (val instanceof Date) return val.getTime();
+  if (typeof val === "number") return val < 1e11 ? val * 1e3 : val;
+  const d = new Date(val);
+  const ms = d.getTime();
+  return isNaN(ms) ? 0 : ms;
+}
 async function getOrCreateWallet(uid, initialData) {
   if (!uid || typeof uid !== "string") {
     throw new Error("UID kh\xF4ng h\u1EE3p l\u1EC7.");
@@ -1275,8 +1287,8 @@ async function recordManualCashCollection(adminUid, adminName, studentUid, data)
       const status = d.data().status;
       return status === "unpaid" || status === "partial";
     }).sort((a, b) => {
-      const tA = new Date(a.data().createdAt || 0).getTime();
-      const tB = new Date(b.data().createdAt || 0).getTime();
+      const tA = parseTimestampMs(a.data().createdAt);
+      const tB = parseTimestampMs(b.data().createdAt);
       return tA - tB;
     });
     let remainingToAllocate2 = amount;
@@ -1369,7 +1381,7 @@ async function recordManualCashCollection(adminUid, adminName, studentUid, data)
   }
   const allDebts = await queryFirestoreRestDocs("debt_records", "uid", studentUid, 50);
   const studentDebts = allDebts.filter((d) => d.status === "unpaid" || d.status === "partial");
-  studentDebts.sort((a, b) => new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime());
+  studentDebts.sort((a, b) => parseTimestampMs(a.createdAt) - parseTimestampMs(b.createdAt));
   let remainingToAllocate = amount;
   for (const debt of studentDebts) {
     if (remainingToAllocate <= 0) break;
@@ -1735,7 +1747,7 @@ async function getWalletOverview(forceRefresh = false) {
       pendingRequestsTotalVnd += sanitizeVnd(r.amountVnd);
     });
     const sortedReqs = [...reqs].sort(
-      (a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
+      (a, b) => parseTimestampMs(b.createdAt) - parseTimestampMs(a.createdAt)
     );
     recentRequests = sortedReqs.slice(0, 10);
     const studentsInDebtSet = /* @__PURE__ */ new Set();
@@ -2010,10 +2022,10 @@ async function getStudentWalletDetails(studentUid, force = false) {
       getFirestoreRestDoc("users", studentUid),
       getFirestoreRestDoc("students", studentUid)
     ]);
-    transactions = rawTxs.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()).slice(0, 20);
-    depositRequests = rawReqs.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()).slice(0, 20);
-    entitlements = rawEnts.sort((a, b) => new Date(b.grantedAt || 0).getTime() - new Date(a.grantedAt || 0).getTime()).slice(0, 20);
-    debtRecords = rawDebts.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()).slice(0, 20);
+    transactions = rawTxs.sort((a, b) => parseTimestampMs(b.createdAt) - parseTimestampMs(a.createdAt)).slice(0, 20);
+    depositRequests = rawReqs.sort((a, b) => parseTimestampMs(b.createdAt) - parseTimestampMs(a.createdAt)).slice(0, 20);
+    entitlements = rawEnts.sort((a, b) => parseTimestampMs(b.grantedAt) - parseTimestampMs(a.grantedAt)).slice(0, 20);
+    debtRecords = rawDebts.sort((a, b) => parseTimestampMs(b.createdAt) - parseTimestampMs(a.createdAt)).slice(0, 20);
     studentProfile = {
       uid: studentUid,
       username: uData?.username || sData?.username || "",
@@ -2070,7 +2082,7 @@ async function getDepositRequests(options) {
       docs = await getFirestoreRestDocs("deposit_requests", safeLimit);
     }
     list = docs || [];
-    list.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+    list.sort((a, b) => parseTimestampMs(b.createdAt) - parseTimestampMs(a.createdAt));
     if (options?.limit) {
       list = list.slice(0, options.limit);
     }
@@ -2091,7 +2103,7 @@ async function getStudentDepositRequests(uid, limitCount = 30) {
   }
   const docs = await queryFirestoreRestDocs("deposit_requests", "uid", uid, limitCount);
   const filtered = docs.sort(
-    (a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
+    (a, b) => parseTimestampMs(b.createdAt) - parseTimestampMs(a.createdAt)
   );
   return filtered.slice(0, limitCount);
 }
@@ -2948,7 +2960,7 @@ async function recordAuditLog(actor, action, targetUid, targetType, metadata, re
     console.error("[AuditLog] Failed to record audit log:", err);
   }
 }
-function parseTimestampMs(val) {
+function parseTimestampMs2(val) {
   if (!val) return 0;
   if (typeof val?.toMillis === "function") return val.toMillis();
   if (typeof val?.toDate === "function") return val.toDate().getTime();
@@ -2963,7 +2975,7 @@ function parseTimestampMs(val) {
   return isNaN(ms) ? 0 : ms;
 }
 function formatCalendarDateKey(dateOrVal) {
-  const ms = parseTimestampMs(dateOrVal);
+  const ms = parseTimestampMs2(dateOrVal);
   if (!ms) return "";
   const vnTime = new Date(ms + 7 * 60 * 60 * 1e3);
   const y = vnTime.getUTCFullYear();
@@ -3103,7 +3115,7 @@ async function computeSystemStats() {
   let subList7 = 0;
   let subList30 = 0;
   subList.forEach((sub) => {
-    const ts = parseTimestampMs(sub.submittedAt);
+    const ts = parseTimestampMs2(sub.submittedAt);
     if (ts >= todayMs) subListToday++;
     if (ts >= sevenMs) subList7++;
     if (ts >= thirtyMs) subList30++;
@@ -3338,7 +3350,7 @@ adminRouter.get("/analytics", async (req, res) => {
       }
     }
     usersList.forEach((data) => {
-      const ts = parseTimestampMs(data.createdAt);
+      const ts = parseTimestampMs2(data.createdAt);
       if (ts) {
         const dKey = formatCalendarDateKey(ts);
         if (dateBuckets[dKey]) {
@@ -3348,7 +3360,7 @@ adminRouter.get("/analytics", async (req, res) => {
     });
     if (!hasPreAggregatedDaily && subList.length > 0) {
       subList.forEach((data) => {
-        const ts = parseTimestampMs(data.submittedAt);
+        const ts = parseTimestampMs2(data.submittedAt);
         if (ts) {
           const dKey = formatCalendarDateKey(ts);
           if (dateBuckets[dKey]) {
@@ -4676,7 +4688,7 @@ export {
   formatCalendarDateKey,
   invalidateAnalyticsCache,
   invalidateUserListCache,
-  parseTimestampMs
+  parseTimestampMs2 as parseTimestampMs
 };
 /**
  * @license

@@ -18,6 +18,7 @@ import { db } from "./firebase/config";
 import { FirestoreCache } from "./firebase/firestoreCache";
 import { FirestoreRepository } from "./firebase/firestoreRepository";
 import type { SystemNotification } from "../types";
+import { getTimestampMillis } from "../utils/date";
 
 const NOTIF_COLLECTION = "notifications";
 
@@ -25,11 +26,10 @@ export async function fetchUserNotifications(
   uid: string,
   forceRefresh: boolean = false,
   isAdmin: boolean = false,
-  maxLimit: number = isAdmin ? 10 : 15
+  maxLimit: number = isAdmin ? 15 : 20
 ): Promise<SystemNotification[]> {
   const targetUid = uid || (isAdmin ? "admin_master" : "");
-  if (!targetUid && !isAdmin) return [];
-  const key = `notifications:${targetUid}:${isAdmin ? "admin" : "user"}:${maxLimit}`;
+  const key = `notifications:${targetUid || "guest"}:${isAdmin ? "admin" : "user"}:${maxLimit}`;
 
   return FirestoreCache.getOrFetch<SystemNotification[]>(
     key,
@@ -38,6 +38,8 @@ export async function fetchUserNotifications(
         const recipients = isAdmin
           ? Array.from(new Set([targetUid, "all", "admin"].filter(Boolean)))
           : Array.from(new Set([targetUid, "all"].filter(Boolean)));
+
+        if (recipients.length === 0) return [];
 
         let snap;
         try {
@@ -55,15 +57,15 @@ export async function fetchUserNotifications(
           const fallbackQ = query(
             collection(db, NOTIF_COLLECTION),
             where("recipientUid", "in", recipients),
-            limit(Math.max(maxLimit * 3, 30))
+            limit(Math.max(maxLimit * 3, 50))
           );
           snap = await getDocs(fallbackQ);
         }
 
         const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as SystemNotification));
         items.sort((a, b) => {
-          const timeA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
-          const timeB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+          const timeA = getTimestampMillis(a.createdAt);
+          const timeB = getTimestampMillis(b.createdAt);
           return timeB - timeA;
         });
         return items.slice(0, maxLimit);

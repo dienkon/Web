@@ -36,21 +36,27 @@ export function formatDate(val: any, includeTime = false): string {
 export function getTimestampMillis(val: any): number {
   if (!val) return 0;
   try {
-    if (typeof val === "object" && typeof val.toMillis === "function") {
-      return val.toMillis();
-    }
-    if (typeof val === "object" && typeof val.toDate === "function") {
-      return val.toDate().getTime();
-    }
-    if (typeof val === "object" && val.seconds !== undefined) {
-      return val.seconds * 1000;
+    if (typeof val === "object") {
+      if (typeof val.toMillis === "function") return val.toMillis();
+      if (typeof val.toDate === "function") return val.toDate().getTime();
+      if (typeof val.seconds === "number") {
+        return val.seconds * 1000 + Math.floor((val.nanoseconds || 0) / 1000000);
+      }
+      if (typeof val._seconds === "number") {
+        return val._seconds * 1000 + Math.floor((val._nanoseconds || 0) / 1000000);
+      }
     }
     if (val instanceof Date) {
-      return val.getTime();
+      const t = val.getTime();
+      return isNaN(t) ? 0 : t;
     }
-    if (typeof val === "string" || typeof val === "number") {
+    if (typeof val === "number") {
+      return val < 1e11 ? val * 1000 : val;
+    }
+    if (typeof val === "string") {
       const d = new Date(val);
-      return isNaN(d.getTime()) ? 0 : d.getTime();
+      const t = d.getTime();
+      return isNaN(t) ? 0 : t;
     }
   } catch (e) {
     return 0;

@@ -5,6 +5,7 @@ import {
   getDocs,
   query,
   where,
+  orderBy,
   limit,
   setDoc,
   updateDoc,
@@ -16,6 +17,7 @@ import { db } from "./firebase/config";
 import { FirestoreCache } from "./firebase/firestoreCache";
 import { Folder, Exam } from "../types";
 import { deleteExam } from "./examService";
+import { getTimestampMillis } from "../utils/date";
 
 const FOLDERS_COLLECTION = "folders";
 const EXAMS_COLLECTION = "exams";
@@ -153,8 +155,8 @@ export const getFolders = async (
     const folders = snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) } as Folder));
 
     folders.sort((a, b) => {
-      const timeA = a.createdAt?.seconds || 0;
-      const timeB = b.createdAt?.seconds || 0;
+      const timeA = getTimestampMillis(a.updatedAt) || getTimestampMillis(a.createdAt);
+      const timeB = getTimestampMillis(b.updatedAt) || getTimestampMillis(b.createdAt);
       return timeB - timeA;
     });
 
@@ -270,8 +272,8 @@ export const getPublicFolders = async (
       );
 
       rootFolders.sort((a, b) => {
-        const timeA = a.createdAt?.seconds || 0;
-        const timeB = b.createdAt?.seconds || 0;
+        const timeA = getTimestampMillis(a.updatedAt) || getTimestampMillis(a.createdAt);
+        const timeB = getTimestampMillis(b.updatedAt) || getTimestampMillis(b.createdAt);
         return timeB - timeA;
       });
 
@@ -291,8 +293,8 @@ export const getPublicFolders = async (
         .filter((f) => f.isPublic !== false);
 
       subfolders.sort((a, b) => {
-        const timeA = a.createdAt?.seconds || 0;
-        const timeB = b.createdAt?.seconds || 0;
+        const timeA = getTimestampMillis(a.updatedAt) || getTimestampMillis(a.createdAt);
+        const timeB = getTimestampMillis(b.updatedAt) || getTimestampMillis(b.createdAt);
         return timeB - timeA;
       });
 
@@ -311,14 +313,46 @@ export const getPublicExamsInFolder = async (
   folderId: string | null
 ): Promise<Exam[]> => {
   try {
-    let q;
-    if (!folderId) {
-      // Query recent exams at root and filter for where folderId is not set or null
-      q = query(collection(db, EXAMS_COLLECTION), limit(60));
-    } else {
-      q = query(collection(db, EXAMS_COLLECTION), where("folderId", "==", folderId), limit(60));
+    let snap;
+    try {
+      let q;
+      if (!folderId) {
+        // Query published exams ordered by createdAt descending
+        q = query(
+          collection(db, EXAMS_COLLECTION),
+          where("status", "==", "published"),
+          orderBy("createdAt", "desc"),
+          limit(100)
+        );
+      } else {
+        q = query(
+          collection(db, EXAMS_COLLECTION),
+          where("folderId", "==", folderId),
+          where("status", "==", "published"),
+          orderBy("createdAt", "desc"),
+          limit(100)
+        );
+      }
+      snap = await getDocs(q);
+    } catch (idxErr) {
+      // Fallback if composite index is pending
+      let fallbackQ;
+      if (!folderId) {
+        fallbackQ = query(
+          collection(db, EXAMS_COLLECTION),
+          where("status", "==", "published"),
+          limit(100)
+        );
+      } else {
+        fallbackQ = query(
+          collection(db, EXAMS_COLLECTION),
+          where("folderId", "==", folderId),
+          limit(100)
+        );
+      }
+      snap = await getDocs(fallbackQ);
     }
-    const snap = await getDocs(q);
+
     const exams = snap.docs
       .map((d) => ({ id: d.id, ...(d.data() as any) } as Exam))
       .filter((ex) => {
@@ -330,8 +364,8 @@ export const getPublicExamsInFolder = async (
       });
 
     exams.sort((a, b) => {
-      const timeA = (a.updatedAt as any)?.seconds || (a.createdAt as any)?.seconds || 0;
-      const timeB = (b.updatedAt as any)?.seconds || (b.createdAt as any)?.seconds || 0;
+      const timeA = getTimestampMillis(a.updatedAt) || getTimestampMillis(a.createdAt);
+      const timeB = getTimestampMillis(b.updatedAt) || getTimestampMillis(b.createdAt);
       return timeB - timeA;
     });
 

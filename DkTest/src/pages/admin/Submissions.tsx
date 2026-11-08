@@ -20,6 +20,7 @@ import { formatDate, getTimestampMillis } from "../../utils/date";
 import { useToast } from "../../components/ui/ToastNotification";
 import { regradeExamSubmissions } from "../../services/regradeService";
 import ConfirmModal from "../../components/ui/ConfirmModal";
+import { getExamsCatalogSummary } from "../../services/statsAggregatorService";
 
 export default function Submissions() {
   const location = useLocation();
@@ -33,7 +34,7 @@ export default function Submissions() {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"time" | "score" | "name">("time");
   const [loading, setLoading] = useState(true);
-  const [fetchLimit, setFetchLimit] = useState(5);
+  const [fetchLimit, setFetchLimit] = useState(20);
   const [hasMore, setHasMore] = useState(true);
 
   const [isRegrading, setIsRegrading] = useState(false);
@@ -42,27 +43,52 @@ export default function Submissions() {
   const fetchData = async (currentLimit = fetchLimit) => {
     setLoading(true);
     try {
-      // Fetch exams for filter dropdown (limit to 5)
+      // Fetch exams for filter dropdown (1 read from catalog summary)
       if (exams.length === 0) {
-        const exSnap = await getDocs(query(collection(db, "exams"), limit(5)));
-        const exList = exSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
-        setExams(exList);
+        try {
+          const cat = await getExamsCatalogSummary();
+          if (cat && Array.isArray(cat.exams) && cat.exams.length > 0) {
+            setExams(cat.exams as unknown as Exam[]);
+          } else {
+            const exSnap = await getDocs(query(collection(db, "exams"), limit(50)));
+            setExams(exSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam)));
+          }
+        } catch {
+          const exSnap = await getDocs(query(collection(db, "exams"), limit(50)));
+          setExams(exSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam)));
+        }
       }
 
-      // Fetch submissions (limit to currentLimit, default 5)
-      let subQuery = query(collection(db, "submissions"), orderBy("submittedAt", "desc"), limit(currentLimit));
-      if (selectedExamId !== "all") {
-        subQuery = query(
-          collection(db, "submissions"),
-          where("examId", "==", selectedExamId),
-          orderBy("submittedAt", "desc"),
-          limit(currentLimit)
-        );
+      // Fetch submissions (strictly newest first)
+      let subSnap;
+      try {
+        let subQuery = query(collection(db, "submissions"), orderBy("submittedAt", "desc"), limit(currentLimit));
+        if (selectedExamId !== "all") {
+          subQuery = query(
+            collection(db, "submissions"),
+            where("examId", "==", selectedExamId),
+            orderBy("submittedAt", "desc"),
+            limit(currentLimit)
+          );
+        }
+        subSnap = await getDocs(subQuery);
+      } catch (idxErr) {
+        console.warn("[Submissions] Index fallback for query:", idxErr);
+        let fallbackQuery = query(collection(db, "submissions"), limit(Math.max(currentLimit * 2, 50)));
+        if (selectedExamId !== "all") {
+          fallbackQuery = query(
+            collection(db, "submissions"),
+            where("examId", "==", selectedExamId),
+            limit(Math.max(currentLimit * 2, 50))
+          );
+        }
+        subSnap = await getDocs(fallbackQuery);
       }
 
-      const subSnap = await getDocs(subQuery);
       const subList = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
-      setSubmissions(subList);
+      subList.sort((a, b) => getTimestampMillis(b.submittedAt) - getTimestampMillis(a.submittedAt));
+      const paged = subList.slice(0, currentLimit);
+      setSubmissions(paged);
       setHasMore(subList.length >= currentLimit);
     } catch (err) {
       console.error("Lỗi khi tải danh sách bài nộp:", err);
@@ -72,7 +98,7 @@ export default function Submissions() {
   };
 
   const handleLoadMore = () => {
-    const nextLimit = fetchLimit + 5;
+    const nextLimit = fetchLimit + 20;
     setFetchLimit(nextLimit);
     fetchData(nextLimit);
   };

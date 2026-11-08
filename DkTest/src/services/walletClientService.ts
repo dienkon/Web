@@ -10,10 +10,12 @@ import {
   collection,
   query,
   where,
+  orderBy,
   limit,
   type Unsubscribe,
 } from "firebase/firestore";
 import { auth, db } from "./firebase/config";
+import { getTimestampMillis } from "../utils/date";
 import type {
   StudentWallet,
   WalletTransaction,
@@ -182,10 +184,25 @@ export async function getMyDepositRequests(force = false): Promise<DepositReques
     console.warn("[walletClientService] API getMyDepositRequests failed, trying direct Firestore query:", err);
     if (currentUid) {
       try {
-        const q = query(collection(db, "deposit_requests"), where("uid", "==", currentUid), limit(10));
-        const snap = await getDocs(q);
+        let snap;
+        try {
+          const q = query(
+            collection(db, "deposit_requests"),
+            where("uid", "==", currentUid),
+            orderBy("createdAt", "desc"),
+            limit(50)
+          );
+          snap = await getDocs(q);
+        } catch {
+          const fallbackQ = query(
+            collection(db, "deposit_requests"),
+            where("uid", "==", currentUid),
+            limit(50)
+          );
+          snap = await getDocs(fallbackQ);
+        }
         items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as DepositRequest));
-        items.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+        items.sort((a, b) => getTimestampMillis(b.createdAt) - getTimestampMillis(a.createdAt));
       } catch (_) {}
     }
   }
@@ -224,10 +241,25 @@ export async function getMyTransactions(force = false): Promise<WalletTransactio
     console.warn("[walletClientService] API getMyTransactions failed, trying direct Firestore query:", err);
     if (currentUid) {
       try {
-        const q = query(collection(db, "wallet_transactions"), where("uid", "==", currentUid), limit(10));
-        const snap = await getDocs(q);
+        let snap;
+        try {
+          const q = query(
+            collection(db, "wallet_transactions"),
+            where("uid", "==", currentUid),
+            orderBy("createdAt", "desc"),
+            limit(50)
+          );
+          snap = await getDocs(q);
+        } catch {
+          const fallbackQ = query(
+            collection(db, "wallet_transactions"),
+            where("uid", "==", currentUid),
+            limit(50)
+          );
+          snap = await getDocs(fallbackQ);
+        }
         items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as WalletTransaction));
-        items.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+        items.sort((a, b) => getTimestampMillis(b.createdAt) - getTimestampMillis(a.createdAt));
       } catch (_) {}
     }
   }
@@ -276,13 +308,28 @@ export async function getMyDebtSummary(force = false): Promise<{
     console.warn("[walletClientService] API getMyDebtSummary failed, trying direct Firestore query:", err);
     if (currentUid) {
       try {
-        const q = query(collection(db, "debt_records"), where("uid", "==", currentUid), limit(10));
-        const snap = await getDocs(q);
+        let snap;
+        try {
+          const q = query(
+            collection(db, "debt_records"),
+            where("uid", "==", currentUid),
+            orderBy("createdAt", "desc"),
+            limit(50)
+          );
+          snap = await getDocs(q);
+        } catch {
+          const fallbackQ = query(
+            collection(db, "debt_records"),
+            where("uid", "==", currentUid),
+            limit(50)
+          );
+          snap = await getDocs(fallbackQ);
+        }
         const allDebts = snap.docs.map((d) => ({ id: d.id, ...d.data() } as DebtRecord));
         const unpaid = allDebts.filter(
           (d) => d.status === "unpaid" || d.status === "partial" || (d.remainingVnd && d.remainingVnd > 0)
         );
-        unpaid.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+        unpaid.sort((a, b) => getTimestampMillis(b.createdAt) - getTimestampMillis(a.createdAt));
         const totalDebtVnd = unpaid.reduce((sum, d) => sum + (d.remainingVnd ?? d.amountVnd ?? 0), 0);
         result = { totalDebtVnd, unpaidCount: unpaid.length, records: unpaid };
       } catch (_) {}
@@ -621,7 +668,7 @@ export async function getAdminWalletOverview(force = false): Promise<AdminWallet
     });
 
     const allReqs = reqsSnap.docs.map((d) => ({ id: d.id, ...d.data() } as DepositRequest));
-    allReqs.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+    allReqs.sort((a, b) => getTimestampMillis(b.createdAt) - getTimestampMillis(a.createdAt));
     const pendingReqs = allReqs.filter((r) => r.status === "pending");
     const pendingRequestsTotalVnd = pendingReqs.reduce((sum, r) => sum + (r.amountVnd || 0), 0);
 
@@ -927,14 +974,31 @@ export async function getAdminDepositRequests(params?: {
 
   // Direct Firestore fallback
   try {
-    const safeLimit = params?.limit ? Math.min(params.limit, 50) : 20;
-    let reqQ;
-    if (params?.status && params.status !== "all") {
-      reqQ = query(collection(db, "deposit_requests"), where("status", "==", params.status), limit(safeLimit));
-    } else {
-      reqQ = query(collection(db, "deposit_requests"), limit(safeLimit));
+    const safeLimit = params?.limit ? Math.min(params.limit, 100) : 50;
+    let snap;
+    try {
+      let reqQ;
+      if (params?.status && params.status !== "all") {
+        reqQ = query(
+          collection(db, "deposit_requests"),
+          where("status", "==", params.status),
+          orderBy("createdAt", "desc"),
+          limit(safeLimit)
+        );
+      } else {
+        reqQ = query(collection(db, "deposit_requests"), orderBy("createdAt", "desc"), limit(safeLimit));
+      }
+      snap = await getDocs(reqQ);
+    } catch {
+      let fallbackQ;
+      if (params?.status && params.status !== "all") {
+        fallbackQ = query(collection(db, "deposit_requests"), where("status", "==", params.status), limit(safeLimit));
+      } else {
+        fallbackQ = query(collection(db, "deposit_requests"), limit(safeLimit));
+      }
+      snap = await getDocs(fallbackQ);
     }
-    const snap = await getDocs(reqQ);
+
     let items = snap.docs.map((d: any) => ({ id: d.id, ...d.data() } as DepositRequest));
     if (params?.search) {
       const q = params.search.toLowerCase().trim();
@@ -946,7 +1010,7 @@ export async function getAdminDepositRequests(params?: {
           (r.uid || "").toLowerCase().includes(q)
       );
     }
-    items.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+    items.sort((a, b) => getTimestampMillis(b.createdAt) - getTimestampMillis(a.createdAt));
     if (params?.limit) items = items.slice(0, params.limit);
     return items;
   } catch (fsErr) {
@@ -1394,7 +1458,7 @@ export async function getAdminVouchersApi(force = false): Promise<Voucher[]> {
   try {
     const snap = await getDocs(query(collection(db, "vouchers"), limit(50)));
     const list = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Voucher));
-    list.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+    list.sort((a, b) => getTimestampMillis(b.createdAt) - getTimestampMillis(a.createdAt));
     cachedAdminVouchers = { data: list, timestamp: Date.now() };
     return list;
   } catch (_) {}
@@ -1433,8 +1497,8 @@ export async function getAdminVoucherUsagesApi(voucherId?: string, force = false
     const snap = await getDocs(q);
     const list = snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) } as VoucherUsage));
     list.sort((a, b) => {
-      const timeA = new Date(a.usedAt || a.createdAt || 0).getTime();
-      const timeB = new Date(b.usedAt || b.createdAt || 0).getTime();
+      const timeA = getTimestampMillis(a.usedAt || a.createdAt);
+      const timeB = getTimestampMillis(b.usedAt || b.createdAt);
       return timeB - timeA;
     });
     clientVoucherUsagesCache.set(cacheKey, { data: list, timestamp: Date.now() });

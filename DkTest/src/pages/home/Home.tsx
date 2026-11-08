@@ -289,15 +289,17 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
     }
   };
 
+  const PAGE_BATCH_SIZE = 20;
+
   const loadInitialAllExams = async () => {
     const reqId = ++filterRequestIdRef.current;
     const filterCacheKey = `home:filter:${selectedSubjectFilter}:${selectedGradeFilter}`;
     const cachedFilter = FirestoreCache.get<{ allItems: Exam[] }>(filterCacheKey);
     if (cachedFilter) {
       allFilteredExamsRef.current = cachedFilter.allItems;
-      const initialBatch = cachedFilter.allItems.slice(0, 5);
+      const initialBatch = cachedFilter.allItems.slice(0, PAGE_BATCH_SIZE);
       setAllExams(initialBatch);
-      setHasMoreAll(cachedFilter.allItems.length > 5);
+      setHasMoreAll(cachedFilter.allItems.length > PAGE_BATCH_SIZE);
       setAllCursor(null);
       setLoadingAll(false);
       return;
@@ -310,8 +312,8 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
 
       let rawItems = (catalog.exams || []).filter(isExamPublished) as unknown as Exam[];
 
-      // Direct fallback if catalog has fewer than 5 published exams
-      if (rawItems.length < 5) {
+      // Direct fallback if catalog has fewer than 10 published exams
+      if (rawItems.length < 10) {
         try {
           const directRes = await getExamList({ pageSize: 50 });
           if (directRes && directRes.items && directRes.items.length > rawItems.length) {
@@ -337,8 +339,8 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
       if (reqId !== filterRequestIdRef.current) return;
 
       allFilteredExamsRef.current = rawItems;
-      const initialBatch = rawItems.slice(0, 5);
-      const hasMore = rawItems.length > 5;
+      const initialBatch = rawItems.slice(0, PAGE_BATCH_SIZE);
+      const hasMore = rawItems.length > PAGE_BATCH_SIZE;
       setAllExams(initialBatch);
       setAllCursor(initialBatch.length > 0 ? ({ id: initialBatch[initialBatch.length - 1].id } as any) : null);
       setHasMoreAll(hasMore);
@@ -363,7 +365,7 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
       const filtered = allFilteredExamsRef.current;
       const currentCount = allExams.length;
       if (currentCount < filtered.length) {
-        const nextBatch = filtered.slice(currentCount, currentCount + 5);
+        const nextBatch = filtered.slice(currentCount, currentCount + PAGE_BATCH_SIZE);
         setAllExams((prev) => [...prev, ...nextBatch]);
         setHasMoreAll(currentCount + nextBatch.length < filtered.length);
         setAllCursor(nextBatch.length > 0 ? ({ id: nextBatch[nextBatch.length - 1].id } as any) : null);

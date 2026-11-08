@@ -18,6 +18,7 @@ import {
 import { db } from "./firebase/config";
 import { FirestoreCache } from "./firebase/firestoreCache";
 import type { SystemAnnouncement } from "../types";
+import { getTimestampMillis } from "../utils/date";
 
 const ANNOUNCEMENT_COLLECTION = "system_announcements";
 
@@ -47,7 +48,7 @@ export async function getAnnouncements(): Promise<SystemAnnouncement[]> {
       snap = await getDocs(fallbackQ);
     }
     const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as SystemAnnouncement));
-    items.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+    items.sort((a, b) => getTimestampMillis(b.createdAt) - getTimestampMillis(a.createdAt));
     return items;
   } catch (err) {
     console.error("[announcementService] getAnnouncements error:", err);
@@ -103,7 +104,7 @@ export async function getActiveAnnouncementsForUser(
           .map((d) => ({ id: d.id, ...d.data() } as SystemAnnouncement))
           .filter((a) => {
             // Check expiry
-            if (a.expiresAt && new Date(a.expiresAt).getTime() < now) return false;
+            if (a.expiresAt && getTimestampMillis(a.expiresAt) < now) return false;
             // Check target audience
             if (a.targetType === "all") return true;
             if (a.targetType === "specific_users") {
@@ -113,7 +114,7 @@ export async function getActiveAnnouncementsForUser(
             return true;
           });
 
-        items.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+        items.sort((a, b) => getTimestampMillis(b.createdAt) - getTimestampMillis(a.createdAt));
         return items;
       } catch (err) {
         console.warn("[announcementService] getActiveAnnouncementsForUser error:", err);
