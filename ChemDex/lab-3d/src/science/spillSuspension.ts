@@ -17,6 +17,13 @@ export interface SpillSuspensionState { version: 1; species: SpillSuspensionSpec
 const MAX_COHORTS = 24;
 const columns = new WeakMap<SessileDropShape, { segments: { height: number; end: number; radius: number; slope: number; volume: number }[]; volume: number }>();
 const profiles = new Map<string, ReturnType<typeof getPrecipitateProfile>>();
+function components(contents: readonly SubstanceContent[] = []) {
+  // Older spill records used state="solid" without a phase field. Normalize
+  // the projection only; do not rewrite the quantitative material ledger.
+  const rows = contents.some(c => !c.phase && (c.state === 's' || c.state === 'solid'))
+    ? contents.map(c => !c.phase && (c.state === 's' || c.state === 'solid') ? { ...c, phase: 's' } : c) : contents;
+  return precipitateComponents(rows);
+}
 export function spillPrecipitateProfile(formula: string, formation?: string) {
   const key = `${formula}:${formation ?? ''}`;
   let profile = profiles.get(key);
@@ -66,9 +73,9 @@ function bounded(cohorts: SpillSuspensionSpecies['cohorts']) {
 /** Reconcile only against real solid inventory. Missing historical state is a
  * documented settled estimate, never permission to respawn an old cloud. */
 export function reconcileSpillSuspension(spill: Pick<SpillState, 'contents' | 'suspension'>, fresh = false): SpillSuspensionState | undefined {
-  const components = precipitateComponents(spill.contents ?? []);
-  if (!components.length) return undefined;
-  const species = components.map(c => {
+  const inventory = components(spill.contents);
+  if (!inventory.length) return undefined;
+  const species = inventory.map(c => {
     const old = spill.suspension?.version === 1 ? spill.suspension.species.find(s => s.formula === c.formula) : undefined;
     const valid = old && Number.isFinite(old.mass_g) && old.mass_g > 0 && old.cohorts.every(k => Number.isFinite(k.mass_g + k.travel)
       && k.mass_g >= 0 && k.travel >= 0 && k.travel <= 1);
@@ -113,7 +120,7 @@ export function stepSpillSuspension(before: SpillState, after: SpillState, dt: n
   if (before === after && before.suspension?.species.every(s => !s.cohorts.length)) return after;
   const base = reconcileSpillSuspension(before);
   let state = base;
-  if (!state && !precipitateComponents(after.contents ?? []).length) return after.suspension ? { ...after, suspension: undefined } : after;
+  if (!state && !components(after.contents).length) return after.suspension ? { ...after, suspension: undefined } : after;
   state ??= { version: 1, species: [] };
   const active = state.species.some(s => s.cohorts.length);
   if (active) {

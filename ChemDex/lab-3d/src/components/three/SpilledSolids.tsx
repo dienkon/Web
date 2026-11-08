@@ -9,7 +9,7 @@ export function SpilledSolids({ spill }: { spill: SpillState }) {
   const mesh = useRef<THREE.InstancedMesh>(null);
   const powder = useMemo(() => {
     const rows = (spill.contents ?? []).filter(c => c.mass_g > 0 && c.solidOrigin !== 'precipitate'
-      && (c.phase === 's' || c.state === 's') && getSolidMorphology(c.formula) === 'POWDER' && findChemical(c.formula)?.density > 0);
+      && (c.phase === 's' || c.state === 's' || c.state === 'solid') && getSolidMorphology(c.formula) === 'POWDER' && findChemical(c.formula)?.density > 0);
     return { volume_m3: rows.reduce((s, c) => s + c.mass_g / findChemical(c.formula).density! * 1e-6 / 0.55, 0),
       color: weightedSpillColor(rows.map(c => ({ color: findChemical(c.formula).color, weight: c.mass_g }))) };
   }, [spill.contents]);

@@ -72,6 +72,14 @@ describe('Finite suspended/deposited mass in open spills', () => {
     expect(stepSpillSuspension(a, a, 0.4).suspension).toEqual(stepSpillSuspension(saved, saved, 0.4).suspension);
     expect(stepSpillSuspension(a, a, 0)).toBe(a);
   });
+  it('preserves a legacy solid-state precipitate without hiding it or changing its material row', () => {
+    const original = sample('BaSO4'); const legacy = { ...original, suspension: undefined,
+      contents: original.contents!.map(c => c.phase === 's' ? { ...c, phase: undefined, state: 'solid' } : c) };
+    const before = structuredClone(legacy);
+    expect(spillSuspensionAppearance(legacy).settled_g).toBeCloseTo(0.01, 14);
+    expect(spillSuspensionAppearance(legacy).bedVolume_m3).toBeGreaterThan(0);
+    expect(legacy).toEqual(before);
+  });
   it('scales both reservoirs on dissolution without increasing any suspended fraction', () => {
     const s = sample('Ag2S'); s.suspension!.species[0].cohorts[0].mass_g = 0.006;
     const reduced = { ...s, contents: s.contents!.map(c => c.phase === 's' ? { ...c, mass_g: c.mass_g / 2, moles: c.moles / 2 } : c) };
