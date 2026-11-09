@@ -47,7 +47,8 @@
   let toastTimer = 0,
     pagesVisible = true,
     refreshTimer = 0,
-    thumbObserver;
+    thumbObserver,
+    pageListKey = "";
   const escape = (s) =>
     String(s).replace(
       /[&<>"']/g,
@@ -96,6 +97,7 @@
       button("settings", "Cài đặt", "panel", 'data-panel="settings"');
     document.getElementById("ink-tools").innerHTML =
       button("pen", "Bút viết (P)", "tool", 'data-tool="pen"') +
+      '<button class="pen-types-trigger" data-action="pen-types" title="Chọn loại bút" aria-label="Chọn loại bút">⌄</button>' +
       button("highlighter", "Đánh dấu", "tool", 'data-tool="highlighter"') +
       button(
         "eraser",
@@ -313,6 +315,13 @@
       return;
     }
     const list = document.getElementById("page-list");
+    const pages=Store.book().pages,key=JSON.stringify([Store.book().id,pages.map(p=>[p.id,p.title,p.width,p.height,p.paper,!!p.questionSource])]);
+    if(key===pageListKey && list.children.length){
+      const byId=new Map(pages.map((p,i)=>[p.id,{p,i}]));
+      for(const card of list.children){const entry=byId.get(card.dataset.pageId);if(!entry)continue;card.classList.toggle("active",entry.i===Store.state.pageIndex);const c=card.querySelector("canvas");c.notebookPage=entry.p;if(entry.i===Store.state.pageIndex)Renderer.thumbnail(c,entry.p);}
+      return;
+    }
+    pageListKey=key;
     thumbObserver?.disconnect();
     thumbObserver = new IntersectionObserver(
       (entries) => {
@@ -343,6 +352,7 @@
       const b = document.createElement("div");
       b.className =
         "page-card" + (i === Store.state.pageIndex ? " active" : "");
+      b.dataset.pageId=p.id;
       b.tabIndex = 0;
       b.setAttribute("role", "button");
       b.setAttribute(
@@ -496,7 +506,7 @@
     toastTimer = setTimeout(() => el.classList.remove("visible"), ms);
   }
   function addPage(index = Store.state.pageIndex) {
-    if(Store.book().pages.length>=300)return toast("Sổ tay đã đạt giới hạn 300 trang.");
+    if(Store.book().pages.length>=2000)return toast("Sổ tay đã đạt giới hạn 2.000 trang.");
     CanvasEngine.finishActive();
     Store.transaction(() => {
       const source = Store.book().pages[index], p = Store.page();
@@ -543,6 +553,7 @@
     search.oninput=render;render();
   }
   function setTool(tool) {
+    if(tool==="pen" && Store.state.tool==="pen")return penTypes(document.querySelector('#ink-tools [data-tool="pen"]'));
     CanvasEngine.cancelActive();
     if (tool !== "select") root.TeacherGeometry?.cancel();
     if (tool !== "select") Store.state.transformMode = "auto";
@@ -657,6 +668,18 @@
       setTool("laser");
       closePopover();
     };
+  }
+  function penTypes(anchor){
+    const pop=popover(anchor,'<h3>Chọn loại bút</h3><div class="pen-types-grid"></div><button class="menu-item" id="pen-types-settings">Độ dày màu và Smart Shape…</button>');
+    for(const [id,label,defaultWidth] of InkBrush.catalog){
+      const button=document.createElement("button");button.className="pen-type-option";button.dataset.penType=id;button.title=label;button.setAttribute("aria-pressed",String(Store.state.pen===id));
+      const canvas=document.createElement("canvas");canvas.width=150;canvas.height=40;const points=Array.from({length:50},(_,i)=>[5+i*2.8,20+Math.sin(i/8)*8,.1+i/60]);
+      Renderer.drawObject(canvas.getContext("2d"),Store.object("stroke",{pen:id,points,baseSize:{w:150,h:40}},{position:{x:0,y:0},size:{w:150,h:40},style:{color:Store.state.color,width:4,opacity:1}}));
+      const name=document.createElement("span");name.textContent=label.split(" · ")[0];button.append(canvas,name);
+      button.onclick=e=>{e.stopPropagation();CanvasEngine.finishActive();TeacherGeometry.cancel();const s=Store.state,presets=s.settings.penPresets||={};presets[s.pen]={color:s.color,width:s.width,opacity:s.opacity};s.pen=id;s.settings.activePen=id;const preset=presets[id]||{color:s.color,width:defaultWidth,opacity:1};Object.assign(s,preset);presets[id]={...preset};s.tool="pen";s.selection=[];CanvasEngine.cursor();Store.scheduleSave();Store.emit();closePopover();};pop.querySelector('.pen-types-grid').append(button);
+    }
+    pop.querySelector('#pen-types-settings').onclick=e=>{e.stopPropagation();widthPopover(anchor);};
+    const bounds=anchor.getBoundingClientRect();pop.style.left=Math.max(10,Math.min(bounds.left,innerWidth-pop.offsetWidth-12))+"px";pop.style.top=Math.max(10,Math.min(bounds.bottom+8,innerHeight-pop.offsetHeight-20))+"px";
   }
   const shapeItems = [
     // Row 1: Text & Lines
@@ -1248,7 +1271,7 @@
           ],
           [
             "Trang nối liền",
-            "Cuộn xuống cuối tự thêm trang; viết và kéo hình qua ranh giới trang. Tối đa 300 trang/sổ tay.",
+            "Cuộn xuống cuối tự thêm trang; viết và kéo hình qua ranh giới trang. Tối đa 2.000 trang/sổ tay.",
           ],
           [
             "Toàn màn hình",
@@ -1312,6 +1335,8 @@
     if (action.startsWith("page-"))
       return pageAction(action, Number(b.dataset.index));
     switch (action) {
+      case "pen-types":
+        return penTypes(b);
       case "menu":
         return menu(b);
       case "new":

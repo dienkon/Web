@@ -147,3 +147,10 @@
 #question-page-links { overflow:hidden; }
 .question-page-link { touch-action:none; user-select:none; cursor:default; }
 .question-page-link:active { cursor:grabbing; }
+
+.pen-types-trigger { width:22px; min-width:22px; padding:2px; font-size:17px; }
+.pen-types-grid { display:grid; grid-template-columns:repeat(5,minmax(70px,1fr)); gap:7px; width:min(500px,calc(100vw - 58px)); }
+.pen-type-option { display:flex; flex-direction:column; align-items:center; padding:7px 5px; min-height:74px; border:1px solid var(--line); border-radius:8px; font-size:11px; }
+.pen-type-option canvas { width:80px; max-width:100%; height:28px; }
+.pen-type-option[aria-pressed=true] { background:var(--accent-soft); border-color:var(--accent); }
+@media(max-width:600px){.pen-types-grid{grid-template-columns:repeat(2,minmax(80px,1fr));}}

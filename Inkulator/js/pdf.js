@@ -49,16 +49,14 @@
       verbosity: 0,
     });
     const promise = task.promise;
+    promise.loadingTask=task;
     documents.set(key, promise);
     try {
       await promise;
       if (documents.size > 5) {
         const old = documents.keys().next().value;
         if (old !== key) {
-          documents
-            .get(old)
-            .then((d) => d.destroy())
-            .catch(() => {});
+          documents.get(old).loadingTask?.destroy?.().catch(()=>{});
           documents.delete(old);
         }
       }
@@ -250,8 +248,9 @@
   async function importFile(file) {
     if (importing) return App.toast("Một tệp PDF đang được xử lý.");
     importing = true;
-    let key;
+    let key,imported=false;
     try {
+      if(file.size>160e6)throw Error("PDF vượt 160 MB. Hãy chia nhỏ hoặc tối ưu tệp trước khi nhập.");
       const data = new Uint8Array(await file.arrayBuffer());
       if (!new TextDecoder().decode(data.slice(0, 1024)).includes("%PDF-"))
         throw Error("Tệp không có nội dung PDF hợp lệ.");
@@ -281,7 +280,7 @@
           doc.numPages +
           " trang · " +
           (file.size / 1024 / 1024).toFixed(1) +
-          ' MB</p><span class="badge">Không giới hạn dung lượng · Offline</span></div></div><label class="field"><span>Trang cần nhập</span><input name="range" id="pdf-range" value="1' +
+          ' MB</p><span class="badge">Đọc theo vùng nhìn · Offline</span></div></div><label class="field"><span>Trang cần nhập</span><input name="range" id="pdf-range" value="1' +
           (doc.numPages > 1
             ? "-" + doc.numPages
             : "") +
@@ -290,6 +289,7 @@
       );
       if (!selected) return;
       const pages = parseRange(selected.range, doc.numPages);
+      if(selected.placement==="pages" && Store.book().pages.length+pages.length>2000)throw Error("Sổ tay hỗ trợ tối đa 2.000 trang. Chọn một khoảng trang nhỏ hơn hoặc tạo sổ mới.");
       if (selected.placement === "current" && pages.length !== 1)
         throw Error("Chế độ chèn vào trang hiện tại cần chọn đúng 1 trang.");
       const notebookId = Store.book().id,
@@ -303,16 +303,11 @@
         pages: doc.numPages,
         inIDB: true,
       };
-      if (root.AssetStorage) {
-        root.AssetStorage.put(key, base64Data).catch(() => {});
-      }
-      for (const [i, num] of pages.entries()) {
-        if (pages.length > 5 && i % 5 === 0)
-          App.toast("Đang dựng PDF " + (i + 1) + " / " + pages.length + "…");
-        const source = await doc.getPage(num),
-          v = source.getViewport({ scale: 1 }),
-          w = 1200,
-          h = (1200 * v.height) / v.width;
+      if (root.AssetStorage) a.inIDB=!!await root.AssetStorage.put(key,base64Data);
+      for(let offset=0;offset<pages.length;offset+=12){
+        App.toast("Đang đọc thông tin trang "+Math.min(offset+12,pages.length)+" / "+pages.length+"…");
+        const batch=await Promise.all(pages.slice(offset,offset+12).map(async num=>{const source=await doc.getPage(num),v=source.getViewport({scale:1});return {num,source,w:1200,h:1200*v.height/v.width};}));
+        for(const {num,source,w,h} of batch){
         if (h > 10000 || h < 100)
           throw Error(
             "Tỷ lệ trang PDF quá lớn; hãy cắt trang trong trình đọc PDF rồi nhập lại.",
@@ -340,6 +335,9 @@
         p.objects = [o];
         created.push(p);
         objects.push(o);
+        }
+        await new Promise(resolve=>setTimeout(resolve,0));
+        if(Store.book().id!==notebookId)throw Error("Sổ tay đã thay đổi trong khi đọc PDF. Hãy nhập lại.");
       }
       if (Store.book().id !== notebookId)
         throw Error("Sổ tay đã thay đổi trong khi nhập. Hãy nhập lại PDF.");
@@ -374,14 +372,15 @@
       App.toast(
         "Đã chèn " +
           pages.length +
-          " trang PDF không giới hạn. Có thể dùng bút hoặc hình học đồ trực tiếp lên bài toán!",
+          " trang PDF. Chỉ dựng nội dung đang nhìn thấy; có thể viết và chèn hình lên trang.",
         6000,
       );
-      return true;
+      imported=true;return true;
     } catch (e) {
       App.toast(e.message, 8500);
       return false;
     } finally {
+      if(!imported&&key){const pending=documents.get(key);documents.delete(key);pending?.loadingTask?.destroy?.().catch(()=>{});root.AssetStorage?.remove(key);}
       importing = false;
     }
   }

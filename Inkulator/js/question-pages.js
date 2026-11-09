@@ -16,12 +16,12 @@
   async function create(region){
     if(Store.book().id!==region.bookId)throw Error("Đã chuyển sổ tay.");
     const pages=Store.book().pages,source=pages.find(p=>p.id===region.pageId);
-    if(pages.length>=300)throw Error("Sổ tay đã đạt giới hạn 300 trang.");
+    if(pages.length>=2000)throw Error("Sổ tay đã đạt giới hạn 2.000 trang.");
     if(!source)throw Error("Trang nguồn không còn tồn tại.");
     if(source.questionSource)throw Error("Đóng trang câu hỏi trước khi chụp câu tiếp theo.");
     CanvasEngine.finishActive();
     const image=new Image();image.src=region.src;await image.decode();
-    if(Store.book().id!==region.bookId||Store.book().pages!==pages||!pages.includes(source)||pages.length>=300)throw Error("Tài liệu nguồn vừa thay đổi.");
+    if(Store.book().id!==region.bookId||Store.book().pages!==pages||!pages.includes(source)||pages.length>=2000)throw Error("Tài liệu nguồn vừa thay đổi.");
     const p=Store.page("Câu hỏi "+(pages.filter(page=>page.questionSource?.pageId===source.id && (!page.questionSource.rootId || page.questionSource.rootId===page.id)).length+1));
     p.showTitle=false;
     const b=region.world;

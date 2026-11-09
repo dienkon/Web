@@ -1,10 +1,12 @@
-# Inkulator · 2.2.0
+# Inkulator · 2.3.0
 
 Sổ tay Toán học ngoại tuyến cho Windows, lấy cảm hứng bố cục từ ảnh Scrble Ink được cung cấp. Phần Casio tích hợp source của Tikz-Physics, ghi nguồn riêng bên dưới; không phải sản phẩm chính thức của Scrble, GeoGebra hay Casio.
 
 ## Mở ứng dụng
 
-**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-2.2.0-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Tài liệu tự lưu thành tệp trong **Documents / Inkulator**; bộ đệm cũ được sao lưu nén khi chuyển đổi, ứng dụng mở bản mới nhất trên ổ đĩa. Bộ cài cá nhân chưa ký số.
+**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-2.3.0-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Tài liệu tự lưu thành tệp trong **Documents / Inkulator**; bộ đệm cũ được sao lưu nén khi chuyển đổi, ứng dụng mở bản mới nhất trên ổ đĩa. Bộ cài cá nhân chưa ký số.
+
+**Mới trong 2.3:** mũi tên cạnh bút mở 10 nút chọn loại bút có nét mẫu, khôi phục đầy đủ lựa chọn sau khi mở lại bản Windows. PDF nhập theo nhóm, chỉ dựng vùng nhìn; sổ hỗ trợ tối đa 2.000 trang và mỗi PDF tối đa 160 MB. Đã kiểm tra nhập, tới trang cuối và lưu/mở lại PDF vector mẫu 420 trang. Xem [changelog 2.3](docs/RELEASE-2.3.md) và [hướng dẫn Word có hình cho 2.1, 2.2, 2.3](docs/Inkulator_Changelog_Huong_dan_2.1_2.2_2.3.docx).
 
 **Bản web và iPad:** bản web vẫn chạy từ `index.html` trên máy tính. Trên iPad, phục vụ toàn bộ thư mục ứng dụng qua HTTP/HTTPS rồi mở bằng Safari; iPad không chạy tệp `.exe`. Không có máy chủ nào được triển khai tự động. Bản Windows và trình duyệt có kho lưu riêng; dùng **Ctrl+S / Mở tệp** để chuyển sổ tay giữa các bản.
 

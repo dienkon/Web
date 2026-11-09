@@ -10,7 +10,7 @@
   }
   function sync(){
     if(!ready||!native())return pending;
-    const books=Store.state.notebooks.map(book=>Store.clone(book)),snapshot=Store.snapshot();
+    const books=Store.state.notebooks.map(book=>{const {assets,...content}=book;return {...Store.clone(content),assets:Object.fromEntries(Object.entries(assets||{}).map(([id,a])=>[id,{...a}]))};}),snapshot=Store.snapshot();
     status="Đang lưu tệp trên máy…";root.App?.updateSaveState();
     pending=pending.catch(()=>{}).then(async()=>{
       for(const book of books){const data=await envelope(book),raw=JSON.stringify(data),previews={};let stamp,page;
@@ -79,7 +79,7 @@
       for(const [key,value]of Object.entries(v.settings||{}))if(Object.hasOwn(settings,key)&&value!==null&&typeof value!=='object'&&typeof value===typeof settings[key])settings[key]=value;
       settings.gridSize=Math.max(10,Math.min(100,Number(settings.gridSize)||25));settings.autosave=Math.max(1000,Math.min(300000,Number(settings.autosave)||30000));settings.historyLimit=Math.max(10,Math.min(2000,Number(settings.historyLimit)||500));
       if(!['auto','economy','quality'].includes(settings.performance))settings.performance='auto';
-      const presets={};for(const key of ['ballpoint','fountain','pencil','marker']){const p=v.settings?.penPresets?.[key];if(p&&/^#[a-f\d]{6}$/i.test(p.color)&&Number.isFinite(p.width)&&p.width>=.5&&p.width<=25&&Number.isFinite(p.opacity)&&p.opacity>=.1&&p.opacity<=1)presets[key]={color:p.color,width:p.width,opacity:p.opacity};}settings.penPresets=presets;
+      const presets={};for(const key of (root.InkBrush?.catalog.map(p=>p[0])||['ballpoint','fountain','pencil','marker'])){const p=v.settings?.penPresets?.[key];if(p&&/^#[a-f\d]{6}$/i.test(p.color)&&Number.isFinite(p.width)&&p.width>=.5&&p.width<=25&&Number.isFinite(p.opacity)&&p.opacity>=.1&&p.opacity<=1)presets[key]={color:p.color,width:p.width,opacity:p.opacity};}settings.penPresets=presets;const active=root.InkBrush?.catalog.some(p=>p[0]===settings.activePen)?settings.activePen:"ballpoint";Store.state.pen=active;if(presets[active])Object.assign(Store.state,presets[active]);
     }catch{}
   }
   root.DocumentFiles={init,sync,open,saveAs,panel,settings,exportPackage,location,loadPreferences,get initialized(){return ready;},get status(){return status;},flush:async()=>{if(native()&&!ready)throw Error("Thư viện tệp chưa sẵn sàng. Dùng Lưu bản snapshot để giữ bản sao.");await sync();await pending;if(failure)throw failure;if(native())await native().flush();}};

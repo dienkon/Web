@@ -110,7 +110,7 @@
     const append = () => {
       while (
         l.height <= bottom &&
-        Store.book().pages.length < 300 &&
+        Store.book().pages.length < 2000 &&
         added < 10
       ) {
         const question=Store.current().questionSource,
@@ -129,7 +129,7 @@
         l = layout();
       }
     };
-    if (l.height > bottom || Store.book().pages.length >= 300) return 0;
+    if (l.height > bottom || Store.book().pages.length >= 2000) return 0;
     if (record) Store.transaction(append);
     else {
       append();

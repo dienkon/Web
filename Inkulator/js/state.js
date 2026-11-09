@@ -446,7 +446,7 @@
       n.title.length > 300 ||
       !Array.isArray(n.pages) ||
       n.pages.length < 1 ||
-      n.pages.length > 100000
+      n.pages.length > 2000
     )
       throw Error(
         "Sổ tay hoặc danh sách trang không hợp lệ.",
@@ -916,9 +916,8 @@
     return result;
   }
   function envelope(n = book()) {
-    const notebook = clone(n),
-      assets = notebook.assets || {};
-    delete notebook.assets;
+    const {assets:sourceAssets,...content}=n,notebook=clone(content),
+      assets=Object.fromEntries(Object.entries(sourceAssets||{}).map(([id,a])=>[id,{...a}]));
     return {
       format: "scrble-math",
       version: 1,
