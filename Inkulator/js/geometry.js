@@ -605,7 +605,9 @@
       -0.45,
       -0.55 +
         (kind === "tri-prism"
-          ? -Math.PI / 12
+          ? Math.PI - Math.PI / 12
+          : ["tri-pyramid","tetrahedron"].includes(kind)
+            ? -Math.PI / 3
           : kind === "hex-prism"
             ? -Math.PI / 4
             : 0),
@@ -617,7 +619,10 @@
       const a = rotation[1] + 0.55,
         u = x * Math.cos(a) - y * Math.sin(a),
         v = x * Math.sin(a) + y * Math.cos(a);
-      return [u + 0.55 * v, -v, z + 0.35 * v];
+      const tilt=rotation[0]+0.45;
+      // Avoid a receding coefficient near tan(30°): it nearly superimposes
+      // two vertices of an equilateral triangular base in the textbook view.
+      return [u + 0.4 * Math.cos(tilt) * v, -v, z + (0.35 + 0.35*Math.sin(tilt)) * v];
     }
     const [rx, ry] = rotation,
       xx = x * Math.cos(ry) + y * Math.sin(ry),

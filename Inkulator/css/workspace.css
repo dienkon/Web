@@ -1,4 +1,38 @@
 /* Pen-first controls, with no animations in the writing surface. */
+.compact-file-menu { width: 330px; max-width: calc(100vw - 56px); }
+.compact-file-menu > input { width: 100%; margin-bottom: 9px; }
+.file-menu-tabs { display: flex; gap: 3px; margin-bottom: 8px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+.file-menu-tabs button { flex: 1; padding: 7px 4px; font-size: 11px; white-space: nowrap; }
+.file-menu-tabs button.active { background: var(--accent-soft); color: var(--accent); }
+.file-menu-actions { max-height: min(380px, 55vh); overflow: auto; }
+.file-menu-actions .menu-item { min-height: 34px; padding: 8px; font-size: 12px; }
+.file-menu-actions small { margin-left: 12px; }
+#capture-tray { gap: 2px; padding: 4px; }
+#capture-tray button { min-width: 32px; padding: 4px 7px; }
+#capture-tray img { width: 30px; height: 20px; object-fit: contain; }
+.graph-range { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin: 10px 0; font-size: 11px; }
+.graph-range input { width: 80px; max-width: 100%; }
+.geo-label-directions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin: 10px 0; }
+.geo-label-directions button { min-height: 38px; font-size: 20px; }
+#question-page-header { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); z-index: 12; display: flex; align-items: center; gap: 20px; padding: 7px 10px 7px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 24px; box-shadow: 0 3px 16px #182c1820; }
+#question-page-header[hidden] { display: none; }
+#question-page-header button { font-size: 22px; width: 32px; height: 32px; border-radius: 50%; }
+#question-page-links { position: absolute; inset: 0; pointer-events: none; z-index: 6; }
+.question-page-link { position: absolute; pointer-events: auto; border: 1px solid var(--accent); background: var(--surface); color: var(--accent); border-radius: 18px; padding: 6px 12px; height: 32px; max-width: 180px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; box-shadow: 0 2px 8px #183d2718; }
+.question-page-link[hidden] { display: none; }
+#teaching-ruler { position: absolute; z-index: 9; pointer-events: none; }
+#teaching-ruler[hidden] { display: none; }
+.ruler-body { position: relative; pointer-events: none; }
+.ruler-body svg { overflow: visible; stroke: #365c55; stroke-width: 1; fill: #244a43; font: 11px 'Segoe UI',sans-serif; }
+.ruler-body text { stroke: none; }
+.ruler-body .ruler-surface { fill: #cce3db80; stroke-width: 1.5; }
+.ruler-controls { pointer-events: auto; display: flex; align-items: center; gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 9px; padding: 5px; box-shadow: 0 2px 12px #183d2720; width: max-content; max-width: calc(100vw - 30px); flex-wrap: wrap; }
+.ruler-controls button { min-width: 30px; min-height: 30px; }
+.ruler-controls select { width: 120px; font-size: 11px; }
+.ruler-controls input[type=number] { width: 58px; }
+.ruler-controls input[type=range] { width: 75px; }
+.ruler-grip { cursor: move; touch-action: none; }
+@media print { #teaching-ruler,#question-page-header,#question-page-links { display: none !important; } }
 :root { --tabs-height: 42px; }
 #workspace { position: relative; }
 .workspace-tabs { gap: 5px; overflow-x: auto; scrollbar-width: none; }

@@ -39,6 +39,7 @@ const { pathToFileURL } = require("node:url");
       await page.locator('.workspace-tabs [data-panel="solid"]').click();
       assert.equal(await page.locator(".library-item").count(), 16);
       await page.locator('.workspace-tabs [data-action="calculator"]').click();
+      await page.locator('#native-web').click();
       const casio = page.frameLocator("#casio-frame");
       await casio.locator("#btn-1").waitFor();
       await page.waitForFunction(()=>document.getElementById('casio-calculator').dataset.ready==='true');

@@ -37,7 +37,7 @@ const root=path.resolve(__dirname,"..");fs.mkdirSync(path.join(root,"test-result
     Object.defineProperty(navigator,"clipboard",{configurable:true,value:{read:async()=>{throw Error("blocked");}}});
    });
    const initial=await page.evaluate(()=>({history:Store.state.history.length,count:Store.current().objects.length}));
-   await tap('.workspace-tabs [data-action="capture"]');await page.locator("#capture-overlay").waitFor();
+   await tap('#pen-dock [data-action="capture"]');await page.locator("#capture-overlay").waitFor();
    const area=await page.locator("#canvas-area").boundingBox();
    const A={x:area.x+80+200,y:area.y+60+220},B={x:area.x+80+620,y:area.y+60+480};
    await pen("mouseMoved",B.x,B.y);await pen("mousePressed",B.x,B.y,true);await pen("mouseMoved",A.x,A.y,true);await pen("mouseReleased",A.x,A.y);
@@ -56,7 +56,7 @@ const root=path.resolve(__dirname,"..");fs.mkdirSync(path.join(root,"test-result
    await page.evaluate(()=>Store.redo());assert.equal(await page.evaluate(()=>Store.current().objects.length),3);
    await tap('#capture-tray [data-action="paste-capture"]');await page.waitForFunction(()=>Store.current().objects.length===4);
    console.log("PASS",engine,"reverse pen rectangle captures clean paper/content at Retina scale; paste works with blocked clipboard and has Undo/Redo");
-   await tap('.workspace-tabs [data-action="capture"]');await page.locator("#capture-overlay").waitFor();await page.keyboard.press("Escape");assert.equal(await page.locator("#capture-overlay").count(),0);
+   await tap('#pen-dock [data-action="capture"]');await page.locator("#capture-overlay").waitFor();await page.keyboard.press("Escape");assert.equal(await page.locator("#capture-overlay").count(),0);
    await page.evaluate(()=>Store.save());await page.reload();await page.waitForFunction(()=>CaptureStudio.latest);assert.equal(await page.evaluate(()=>CaptureStudio.latest.src),result.src);
    console.log("PASS",engine,"capture cancellation preserves data and last capture survives reload");
    await page.evaluate(()=>{

@@ -6,8 +6,8 @@ const root = path.resolve(__dirname, "..");
 const url = pathToFileURL(path.join(root, "index.html")).href;
 const report = [];
 (async () => {
-  for (const engine of ["chrome", "webkit"]) {
-    const browser = engine === "chrome" ? await chromium.launch({ channel:"chrome", headless:true }) : await webkit.launch({headless:true,
+  for (const engine of (process.env.INKULATOR_TEST_ENGINES?.split(",") || ["chrome", "webkit"])) {
+    const browser = engine !== "webkit" ? await chromium.launch({ channel:engine, headless:true }) : await webkit.launch({headless:true,
       ...(process.env.INKULATOR_WEBKIT_EXECUTABLE ? {executablePath:process.env.INKULATOR_WEBKIT_EXECUTABLE} : {})});
     try {
       const context = await browser.newContext({ ...devices["iPad Pro 11"], offline:true });
@@ -122,7 +122,7 @@ const report = [];
       console.log(`PASS ${engine}: iPad-size controls, panel restore and economy canvas density`);
       await page.screenshot({path:path.join(root,`test-results/${engine}-tablet-workspace.png`)});
       await page.evaluate(() => { App.closePanel(); Store.state.settings.historyLimit=500; });
-      if (engine === "chrome") {
+      if (engine !== "webkit") {
         const cdp = await context.newCDPSession(page);
         await cdp.send("Emulation.setCPUThrottlingRate", {rate:4});
       }
@@ -144,7 +144,7 @@ const report = [];
         samples.sort((a,b)=>a-b);
         return {strokes:1200,points:76800,renderMedianMs:samples[7],renderP95Ms:samples[14],canvasPixels:document.getElementById("ink-canvas").width*document.getElementById("ink-canvas").height};
       });
-      report.push({engine,...metrics,cpuThrottle:engine==="chrome"?4:1,historyCharacters:result.historyBytes});
+      report.push({engine,...metrics,cpuThrottle:engine!=="webkit"?4:1,historyCharacters:result.historyBytes});
       assert.deepEqual(errors,[]);
       console.log("BENCHMARK", JSON.stringify(report.at(-1)));
       await context.close();

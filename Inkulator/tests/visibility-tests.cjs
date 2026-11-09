@@ -84,6 +84,14 @@ test("Coordinate axes have no opaque faces and remain solid at every angle", () 
     assert.ok(v.segments([0, 0, 0], [4, 0, 0]).every((s) => !s.hidden));
   }
 });
+test("Triangular defaults keep the third base vertex clear of the opposite apex edge",()=>{
+  for(const kind of ["tri-pyramid","tetrahedron"]){
+    const v=V.create(kind,{a:4,b:3,h:3.5},G.defaultRotation(kind),370,320,G.defaultProjection(kind)),[A,B,C,S]=v.pr.points;
+    const dx=S[0]-B[0],dy=S[1]-B[1],t=Math.max(0,Math.min(1,((C[0]-B[0])*dx+(C[1]-B[1])*dy)/(dx*dx+dy*dy)));
+    assert.ok(Math.hypot(C[0]-B[0]-t*dx,C[1]-B[1]-t*dy)>16,kind+" has a distinct projected C instead of a nearly coincident edge");
+    assert.ok(Math.hypot(C[0]-A[0],C[1]-A[1])>30);
+  }
+});
 test("Camera looking from above sees the top face and hides the bottom center", () => {
   const v = cube([-Math.PI / 2, 0]);
   assert.ok(v.planes[1].front);

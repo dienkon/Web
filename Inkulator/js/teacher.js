@@ -483,10 +483,16 @@
     occupied = [],
     others = [],
     edges = [],
+    offset = null,
   ) {
     ctx.save();
     ctx.font = "italic 18px Georgia";
     ctx.textBaseline = "alphabetic";
+    if (offset && Number.isFinite(offset.x) && Number.isFinite(offset.y)) {
+      ctx.strokeStyle="#fff";ctx.lineWidth=3.5;
+      ctx.strokeText?.(text,q[0]+offset.x,q[1]+offset.y);ctx.fillText(text,q[0]+offset.x,q[1]+offset.y);
+      occupied.push({x:q[0]+offset.x,y:q[1]+offset.y-20,w:ctx.measureText(text).width,h:20});ctx.restore();return;
+    }
     const width = ctx.measureText?.(text)?.width || text.length * 10,
       height = 20,
       dx = q[0] - center[0],

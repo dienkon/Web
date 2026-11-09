@@ -75,9 +75,10 @@
       const options=[
         ["focus","⌖ Phóng vừa hình"],["duplicate","⧉ Nhân bản"],["labels",o.data.labels===false?"Aa Hiện tên điểm":"Aa Ẩn tên điểm"],
         ["last","↶ Xóa nét dựng cuối"],["clear","⌫ Xóa nét dựng thêm"],
-        ...(o.type==="solid"?[["hidden",o.data.hiddenEdges===false?"┄ Hiện nét khuất":"┄ Ẩn nét khuất"]]:[]),
+        ["label-position","Aa Vị trí tên đỉnh"],
+        ...(o.type==="solid"?[["angles","⟳ Chỉnh góc nhìn"],["hidden",o.data.hiddenEdges===false?"┄ Hiện nét khuất":"┄ Ẩn nét khuất"]]:[]),
       ];
-      for(const [id,label] of options) {const b=document.createElement("button");b.dataset.geoAction=id;b.textContent=label;b.onclick=()=>{edit(o,id);App.closePopover();};grid.append(b);}
+      for(const [id,label] of options) {const b=document.createElement("button");b.dataset.geoAction=id;b.textContent=label;b.onclick=e=>{e.stopPropagation();if(id==="label-position"||id==="angles")return adjust(o,id,b);edit(o,id);App.closePopover();};grid.append(b);}
       for(const [id,label] of [["transform-selection","⤢ Kích thước"],["edit-selection","⚙ Thuộc tính"],["copy","⧉ Sao chép"],["lock","▣ Khóa hình"],["delete","⌫ Xóa hình"]]) {
         const b=document.createElement("button");b.dataset.action=id;b.textContent=label;grid.append(b);
       }
@@ -92,6 +93,21 @@
     const r=anchor.getBoundingClientRect();
     pop.style.left=Math.max(12,Math.min(r.left,innerWidth-pop.offsetWidth-12))+"px";
     pop.style.top=Math.max(12,Math.min(r.bottom+10,innerHeight-pop.offsetHeight-24))+"px";
+  }
+  function adjust(o,id,anchor){
+    if(id==="angles"){
+      const pop=App.popover(anchor,'<h3>Góc nhìn hình không gian</h3><div class="tiny-buttons"><button data-turn="-15">↶ 15°</button><button data-turn="15">↷ 15°</button><button id="geo-reset-angle">Góc bài tập</button></div><label class="field"><span>Xoay đáy</span><input id="geo-yaw" type="range" min="-180" max="180" step="1"></label><label class="field"><span>Độ nghiêng hình chiếu</span><input id="geo-pitch" type="range" min="-80" max="80" step="1"></label>');
+      const yaw=pop.querySelector("#geo-yaw"),pitch=pop.querySelector("#geo-pitch");
+      const sync=()=>{yaw.value=o.data.rotation[1]*180/Math.PI;pitch.value=o.data.rotation[0]*180/Math.PI;};sync();
+      for(const b of pop.querySelectorAll("[data-turn]"))b.onclick=()=>{Store.transaction(()=>o.data.rotation[1]+=Number(b.dataset.turn)*Math.PI/180);sync();};
+      yaw.onchange=pitch.onchange=()=>Store.transaction(()=>{o.data.rotation=[Number(pitch.value)*Math.PI/180,Number(yaw.value)*Math.PI/180];});
+      pop.querySelector("#geo-reset-angle").onclick=()=>{Store.transaction(()=>{o.data.rotation=Geometry.defaultRotation(o.data.kind);o.data.projection=Geometry.defaultProjection(o.data.kind);});sync();};return;
+    }
+    const points=TeacherGeometry.points(o).filter(p=>p.key.startsWith("v:"));
+    const pop=App.popover(anchor,'<h3>Vị trí tên đỉnh</h3><label class="field"><span>Đỉnh</span><select id="geo-label-vertex"></select></label><div class="geo-label-directions"></div><button id="geo-label-auto" class="full">Tự tránh cạnh và tên khác</button>');
+    const select=pop.querySelector("select");for(const p of points){const opt=document.createElement("option");opt.value=p.key.slice(2);opt.textContent=p.label;select.append(opt);}
+    for(const [label,x,y] of [["↖",-25,-12],["↑",-6,-18],["↗",12,-12],["←",-28,5],["→",14,5],["↙",-25,26],["↓",-6,30],["↘",12,26]]){const b=document.createElement("button");b.textContent=label;b.title="Đặt tên về hướng "+label;b.onclick=()=>Store.transaction(()=>{o.data.labelOffsets||={};o.data.labelOffsets[select.value]={x,y};});pop.querySelector(".geo-label-directions").append(b);}
+    pop.querySelector("#geo-label-auto").onclick=()=>Store.transaction(()=>{if(o.data.labelOffsets)delete o.data.labelOffsets[select.value];});
   }
   function edit(o,id) {
     if(id==="focus") {
@@ -145,5 +161,5 @@
       bubble.style.top=(hintY-y)+"px";
     }
   }
-  root.GeometryControls={enhance,position,categoryFor,collapse(){open=false;},edit};
+  root.GeometryControls={adjust,enhance,position,categoryFor,collapse(){open=false;},edit};
 })(window);

@@ -18,7 +18,7 @@ const options = {
     let page = await app.firstWindow();
     const errors = [];
     page.on("pageerror", (e) => errors.push(e.message));
-    await page.waitForFunction(() => window.Scrble);
+    await page.waitForFunction(() => window.Scrble && DocumentFiles.status === "Đã lưu tệp trên máy");
     assert.equal(await app.evaluate(({app})=>app.getVersion()),require("../package.json").version);
     assert.equal(await page.evaluate(() => window.InkulatorDesktop.platform), "windows");
     assert.equal(await page.evaluate(() => typeof window.require), "undefined");
@@ -46,7 +46,7 @@ const options = {
     });
     let captureClipboard;
     try {
-      await page.click('.workspace-tabs [data-action="capture"]');
+      await page.click('#pen-dock [data-action="capture"]');
       await page.locator("#capture-overlay").waitFor();
       const r=await page.locator("#capture-overlay").boundingBox();
       await page.mouse.move(r.x+r.width*.35,r.y+r.height*.25);await page.mouse.down();
@@ -82,14 +82,14 @@ const options = {
       },captureClipboard);
     }
     await page.screenshot({ path: path.join(root, "test-results/desktop-workspace.png") });
-    await page.click('.workspace-tabs [data-action="calculator"]');
+    await page.click('.workspace-tabs [data-action="calculator"]');await page.click('#native-web');
     await page.frameLocator("#casio-frame").locator("button").first().waitFor({state:"attached"});
     console.log("PASS desktop: bundled Casio iframe loads inside the packaged application");
     assert.deepEqual(errors, []);
     await app.close();
     app = await electron.launch(options);
     page = await app.firstWindow();
-    await page.waitForFunction(() => window.Scrble);
+    await page.waitForFunction(() => window.Scrble && DocumentFiles.status === "Đã lưu tệp trên máy");
     assert.equal(await page.evaluate(() => Store.book().title), marker);
     assert.equal(await page.evaluate(() => Store.current().objects[0].type), "stroke");
     await page.waitForFunction(()=>CaptureStudio.latest);

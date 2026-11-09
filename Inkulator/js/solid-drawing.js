@@ -9,23 +9,23 @@
       rounded = ["sphere", "cylinder", "cone", "cone-frustum"].includes(d.kind),
       width = Math.max(2, o.style.width),
       center = [o.size.w / 2, o.size.h / 2];
-    const label = (text, point) => {
+    const label = (text, point, offset) => {
       ctx.save();
       ctx.fillStyle = o.style.color;
       if (root.TeacherGeometry)
-        TeacherGeometry.drawLabel(ctx, text, point, center, labels, p, v.edges);
+        TeacherGeometry.drawLabel(ctx, text, point, center, labels, p, v.edges, offset);
       else {
         ctx.font = "italic 17px Georgia";
         ctx.fillText(text, point[0] + 7, point[1] - 8);
       }
       ctx.restore();
     };
-    const point = (q, text) => {
+    const point = (q, text, offset) => {
       ctx.beginPath();
       ctx.arc(...q, 2.4, 0, Math.PI * 2);
       ctx.fillStyle = o.style.color;
       ctx.fill();
-      if (d.labels !== false && text) label(text, q);
+      if (d.labels !== false && text) label(text, q, offset);
     };
     if (d.kind === "sphere") {
       const round = SolidView.roundSegments(v, d);
@@ -100,7 +100,7 @@
       const built=d.constructions?.length ? Constructions.build(o) : null;
       v.model.labels.forEach((name,i)=>{
         const extra=built ? [...built.points.values()].filter(q=>q.derived && !q.internal && !q.aliasOf && G.norm(G.sub(q.coords,v.model.vertices[i]))<1e-8).map(q=>q.label) : [];
-        point(p[i],[d.vertexLabels?.[i] || name,...new Set(extra)].join("="));
+        point(p[i],[d.vertexLabels?.[i] || name,...new Set(extra)].join("="),d.labelOffsets?.[i]);
       });
     }
     if (rounded) {

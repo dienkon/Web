@@ -70,7 +70,7 @@
       solid
         ? {
             kind,
-            params: { a: 4, b: 3, h: 6 },
+            params: { a: 4, b: 3, h: ["pyramid","right-pyramid","s-abcd-rec","s-abc-right","tri-pyramid","cone"].includes(kind) ? 3.5 : kind === "box" ? 3 : 5 },
             rotation: Geometry.defaultRotation(kind),
             projection: Geometry.defaultProjection(kind),
             live: false,
@@ -300,6 +300,8 @@
           d.projection = Geometry.defaultProjection(d.kind);
         });
       toggles.append(reset);
+      for(const [label,id] of [["⟳ Góc xoay","angles"],["Aa Vị trí tên đỉnh","label-position"]]){const b=document.createElement("button");b.textContent=label;b.onclick=e=>{e.stopPropagation();GeometryControls.adjust(o,id,b);};toggles.append(b);}
+
       const staticButton = document.createElement("button");
       staticButton.textContent = d.live
         ? "Chuyển hình chiếu tĩnh"

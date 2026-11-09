@@ -1,6 +1,20 @@
 (function (root) {
   "use strict";
   const imageCache = new Map();
+  function rememberImage(src,img) {
+    imageCache.delete(src);imageCache.set(src,img);
+    const budget=state().settings.performance === "economy" ? 16e6 : 48e6;
+    let bytes=[...imageCache.values()].reduce((sum,value)=>sum+value.naturalWidth*value.naturalHeight*4,0);
+    const pinned=new Set();
+    const visit=o=>{if(o.type==="image")pinned.add(o.data.src);if(o.type==="group")o.data.children.forEach(visit);};
+    for(const item of root.PageFlow?.visible?.()||[])item.page.objects.forEach(visit);
+    while(imageCache.size>1 && (imageCache.size>24 || bytes>budget)){
+      const key=[...imageCache.keys()].find(key=>key!==src&&!pinned.has(key));
+      if(!key)break;
+      const old=imageCache.get(key);
+      bytes-=old.naturalWidth*old.naturalHeight*4;imageCache.delete(key);
+    }
+  }
   let layerCache = new WeakMap();
   const strokePaths = new WeakMap();
   let paper,
@@ -77,6 +91,7 @@
     root.CanvasEngine?.drawOverlay(oc);
     root.TeacherGeometry?.drawOverlay(oc);
     root.TeacherGeometry?.positionTools?.();
+    root.QuestionPages?.position();
   }
   function viewport(ctx) {
     const v = state().viewport;
@@ -630,6 +645,8 @@
             [o.size.w / 2, o.size.h / 2],
             labelBoxes,
             p,
+            [],
+            d.labelOffsets?.[i],
           );
         else {
           ctx.font = "italic 18px Georgia";
@@ -751,9 +768,9 @@
         let img = imageCache.get(o.data.src);
         if (!img) {
           img = new Image();
-          img.onload = request;
+          img.onload = () => {rememberImage(o.data.src,img);request();};
           img.src = o.data.src;
-          imageCache.set(o.data.src, img);
+          rememberImage(o.data.src, img);
         }
         if (img.complete && img.naturalWidth)
           ctx.drawImage(img, 0, 0, o.size.w, o.size.h);
@@ -922,7 +939,6 @@
     objects(ic, p);
     root.PDFTiles?.endFrame();
     drawSelection(ic);
-    if (state().ruler) drawRuler(ic);
     updateTitle();
     renderOverlay();
   }
@@ -970,29 +986,9 @@
 
     viewport(ic);
     drawSelection(ic);
-    if (state().ruler) drawRuler(ic);
     updateTitle();
     PageFlow.update();
     renderOverlay();
-  }
-  function drawRuler(ctx) {
-    ctx.save();
-    ctx.fillStyle = "#dfeae388";
-    ctx.strokeStyle = "#82998a";
-    ctx.lineWidth = 1;
-    ctx.fillRect(100, 350, 600, 54);
-    ctx.strokeRect(100, 350, 600, 54);
-    ctx.font = "9px Segoe UI";
-    ctx.fillStyle = "#607769";
-    for (let i = 0; i <= 60; i++) {
-      const x = 100 + i * 10;
-      ctx.beginPath();
-      ctx.moveTo(x, 350);
-      ctx.lineTo(x, 350 + (i % 5 === 0 ? 22 : 12));
-      ctx.stroke();
-      if (i % 10 === 0) ctx.fillText(i / 10, x + 3, 390);
-    }
-    ctx.restore();
   }
   function updateTitle() {
     const el = document.getElementById("page-title"),
@@ -1066,7 +1062,7 @@
       await new Promise((resolve, reject) => {
         img = new Image();
         img.onload = () => {
-          imageCache.set(o.data.src, img);
+          rememberImage(o.data.src, img);
           resolve();
         };
         img.onerror = () => reject(Error("Không đọc được ảnh trong tài liệu."));

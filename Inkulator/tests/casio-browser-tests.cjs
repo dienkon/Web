@@ -15,6 +15,7 @@ fs.mkdirSync(path.resolve(__dirname, "../test-results"), { recursive: true });
     try {
       await p.goto(url("index.html"));
       await p.locator('.workspace-tabs [data-action="calculator"]').click();
+      await p.locator('#native-web').click();
       const f = await p.locator("#casio-frame").contentFrame();
       await f.locator("#btn-1").waitFor();
       await p.waitForFunction(() => document.querySelector("#casio-calculator")?.dataset.ready==='true');
@@ -123,6 +124,7 @@ fs.mkdirSync(path.resolve(__dirname, "../test-results"), { recursive: true });
       await p.evaluate(()=>window.dispatchEvent(new Event('resize')));
       assert.deepEqual(await p.locator('#casio-calculator').evaluate(el=>[el.style.width,el.style.height]),savedSize);
       await p.locator('.workspace-tabs [data-action="calculator"]').click();
+      await p.locator('#native-web').click();
       assert.equal(await p.locator("#casio-frame").getAttribute("src"), src);
       assert.deepEqual(await frame.evaluate(snapshot), state);
       console.log("PASS", channel, "drag, resize, pin, minimize, maximize and reopen preserve state");

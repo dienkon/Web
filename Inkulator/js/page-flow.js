@@ -7,6 +7,7 @@
     cachedLayout = null,
     cachedLayoutBookId = "",
     cachedLayoutVersion = 0,
+    cachedQuestionId = "",
     lastUpdateState = "";
   function enabled() {
     return true;
@@ -18,10 +19,12 @@
   function layout() {
     const book = Store.book();
     const pages = book.pages;
+    const questionId = Store.current().questionSource ? (Store.current().questionSource.rootId || Store.current().id) : "";
     if (
       cachedLayout &&
       cachedLayoutBookId === book.id &&
       cachedLayoutVersion === pages.length &&
+      cachedQuestionId === questionId &&
       cachedLayout.items[0]?.page === pages[0]
     ) {
       return cachedLayout;
@@ -34,12 +37,14 @@
     const items = new Array(pages.length);
     for (let i = 0; i < pages.length; i++) {
       const page = pages[i];
-      items[i] = { page, index: i, x: (width - page.width) / 2, y };
-      y += page.height + GAP;
+      const hidden = questionId ? !page.questionSource || (page.questionSource.rootId || page.id) !== questionId : !!page.questionSource;
+      items[i] = { page, index: i, x: (width - page.width) / 2, y, hidden };
+      if (!hidden) y += page.height + GAP;
     }
     cachedLayout = { items, height: y - GAP, width };
     cachedLayoutBookId = book.id;
     cachedLayoutVersion = pages.length;
+    cachedQuestionId = questionId;
     return cachedLayout;
   }
   function reanchor(index, l = layout()) {
@@ -72,6 +77,7 @@
       .map((item) => ({ ...item, x: item.x - active.x, y: item.y - active.y }))
       .filter(
         (item) =>
+          !item.hidden &&
           item.y + item.page.height >= -v.y / v.zoom &&
           item.y <= -v.y / v.zoom + h &&
           item.x + item.page.width >= -v.x / v.zoom &&
@@ -88,6 +94,7 @@
       y = (clientY - r.top - v.y) / v.zoom + a.y;
     const target = l.items.find(
       (t) =>
+        !t.hidden &&
         x >= t.x &&
         x <= t.x + t.page.width &&
         y >= t.y &&
@@ -106,10 +113,12 @@
         Store.book().pages.length < 300 &&
         added < 10
       ) {
-        const last = Store.book().pages.at(-1),
+        const question=Store.current().questionSource,
+          last = Store.book().pages.findLast(p=>question ? (p.questionSource?.rootId || p.id)===(question.rootId || Store.current().id) : !p.questionSource),
           page = Store.page();
+        if(question){page.questionSource={...question,rootId:question.rootId || Store.current().id};page.title=Store.current().title+" · tiếp";}
         Object.assign(page, {
-          paper: last.paper,
+          paper: "blank",
           width: last.width,
           height: last.height,
           showTitle: false,
@@ -170,7 +179,7 @@
       const P = global[0],
         item = l.items.find(
           (t) =>
-            P[0] >= t.x &&
+            !t.hidden && P[0] >= t.x &&
             P[0] <= t.x + t.page.width &&
             P[1] >= t.y &&
             (P[1] < t.y + t.page.height ||
@@ -189,6 +198,7 @@
         B = global[i],
         intervals = [];
       for (const item of l.items) {
+        if (item.hidden) continue;
         if (
           Math.max(A[1], B[1]) < item.y ||
           Math.min(A[1], B[1]) > item.y + item.page.height
@@ -259,6 +269,7 @@
         y = origin.y + o.position.y + o.size.h / 2,
         target = l.items.find(
           (t) =>
+            !t.hidden &&
             x >= t.x &&
             x <= t.x + t.page.width &&
             y >= t.y &&
@@ -304,8 +315,8 @@
     v.y = a.y * v.zoom + PAD - scroll;
     const center = (scroll + height / 2 - PAD) / v.zoom;
     const next =
-      l.items.find((t) => center < t.y + t.page.height + GAP / 2) ||
-      l.items.at(-1);
+      l.items.find((t) => !t.hidden && center < t.y + t.page.height + GAP / 2) ||
+      l.items.filter(t=>!t.hidden).at(-1);
     reanchor(next.index, l);
     update();
   }
@@ -320,10 +331,10 @@
     if (stateKey === lastUpdateState) return;
     lastUpdateState = stateKey;
     const prevBtn = document.querySelector('[data-action="previous-page"]');
-    if (prevBtn) prevBtn.disabled = Store.state.pageIndex === 0;
+    if (prevBtn) prevBtn.disabled = !l.items.some(t=>!t.hidden && t.index < Store.state.pageIndex);
     const nextBtn = document.querySelector('[data-action="next-page"]');
     if (nextBtn)
-      nextBtn.disabled = Store.state.pageIndex === book.pages.length - 1;
+      nextBtn.disabled = !l.items.some(t=>!t.hidden && t.index > Store.state.pageIndex);
     bar.firstElementChild.style.height = l.height * v.zoom + 2 * PAD + "px";
     expected = Math.max(
       0,
@@ -334,6 +345,10 @@
   }
   function go(index) {
     if (index < 0 || index >= Store.book().pages.length) return;
+    const direction = index < Store.state.pageIndex ? -1 : 1;
+    const items=layout().items;
+    while(items[index]?.hidden)index+=direction;
+    if(!items[index])return;
     const v = { ...Store.state.viewport }, mode = Store.state.viewMode;
     finishUI();
     CanvasEngine.cancelActive();

@@ -138,7 +138,7 @@
           [...renders.values()].reduce(
             (n, c) => n + c.width * c.height,
             canvas.width * canvas.height,
-          ) > 12000000)
+          ) > (Store.state.settings.performance === "economy" ? 4e6 : 8e6))
       ) {
         const old = renders.keys().next().value;
         renders.get(old).width = renders.get(old).height = 1;
@@ -170,8 +170,7 @@
         ),
       ),
       key = cacheKey(o, target);
-    let image =
-      o._cachedRenderKey === key ? o._cachedRenderImage : renders.get(key);
+    let image = renders.get(key);
     if (!image) {
       let best = 0;
       for (const [k, c] of renders)
@@ -213,10 +212,6 @@
             App.toast("PDF: " + e.message, 7000);
           }
         });
-    }
-    if (image) {
-      o._cachedRenderKey = key;
-      o._cachedRenderImage = image;
     }
     ctx.save();
     if (typeof o.style?.opacity === "number") {

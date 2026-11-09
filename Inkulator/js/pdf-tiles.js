@@ -51,7 +51,7 @@
     return null;
   }
   function trim() {
-    while (pixels > BUDGET && cache.size) {
+    while (pixels > (Store.state.settings.performance === "economy" ? BUDGET/2 : BUDGET) && cache.size) {
       // Keep every visible region usable on very large displays; evict regions
       // outside the viewport first instead of repeatedly redrawing visible tiles.
       const key = [...cache.keys()].find((k) => !wanted.has(k));

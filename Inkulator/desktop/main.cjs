@@ -7,6 +7,8 @@ let mainWindow;
 const testProfile = process.env.INKULATOR_TEST_PROFILE;
 if (testProfile) app.setPath("userData", path.resolve(testProfile));
 app.setName("Inkulator");
+// Opt-in software rendering for Windows VMs with incomplete GPU drivers.
+if(process.argv.includes("--software-rendering") || process.env.INKULATOR_SOFTWARE_RENDERING === "1") app.disableHardwareAcceleration();
 if (!app.requestSingleInstanceLock()) app.quit();
 else {
   app.on("second-instance", () => {

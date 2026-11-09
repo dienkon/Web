@@ -2,6 +2,9 @@
 .native-calculator-row strong,.native-calculator-row small { display:block; }
 .native-calculator-row small { font-size:10px; opacity:.7; overflow-wrap:anywhere; margin:6px 0; }
 .native-calculator-row button { padding:9px; min-height:38px; }
+.native-calculator-row { padding: 9px 0; }
+.native-calculator-row strong { font-size: 13px; }
+.native-calculator-row button { padding: 7px 9px; min-height: 34px; }
 .document-file-row { width:100%; display:block; text-align:left; min-height:42px; border-top:1px solid var(--line); overflow-wrap:anywhere; }
 #local-file-list { max-height:60vh; overflow:auto; }
 #ai-region-wheel { position:absolute; width:224px; height:224px; border:1px solid var(--line); border-radius:50%; background:var(--surface); box-shadow:0 6px 26px #133e3325; z-index:25; touch-action:none; }
@@ -37,3 +40,7 @@ img[data-color-icon] { width:24px; height:24px; object-fit:contain; pointer-even
 #pen-dock img[data-color-icon] { width:25px; height:25px; }
 .workspace-tabs img[data-color-icon] { width:26px; height:26px; }
 #library-path { font-size:12px; }
+
+.teaching-ai header { flex-wrap: wrap; gap: 4px; }
+.teaching-ai header strong { flex: 1; font-size: 13px; }
+#ai-model { max-width: 175px; font-size: 11px; padding: 5px; }

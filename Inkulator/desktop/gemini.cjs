@@ -2,7 +2,7 @@
 const {app,ipcMain,safeStorage}=require("electron"),fs=require("node:fs/promises"),path=require("node:path");
 const core=require("./ai-core.cjs");
 const defaultKey=require('./default-key.cjs');
-const model="gemini-3.5-flash-lite",endpoint="https://generativelanguage.googleapis.com/v1beta/models/"+model;
+const model="gemini-3.5-flash-lite",endpoint=id=>"https://generativelanguage.googleapis.com/v1beta/models/"+core.modelId(id);
 module.exports=function installGemini(win){
   const file=path.join(app.getPath("userData"),"gemini-key.enc");
   const trusted=e=>e.sender===win.webContents&&e.senderFrame===win.webContents.mainFrame;
@@ -15,16 +15,16 @@ module.exports=function installGemini(win){
     const save=async()=>{if(!key){await fs.unlink(file).catch(e=>{if(e.code!=="ENOENT")throw e;});return {configured:false,model};}if(!await safeStorage.isAsyncEncryptionAvailable())throw Error("Windows chưa sẵn sàng mã hóa khóa API.");await fs.mkdir(path.dirname(file),{recursive:true});await fs.writeFile(file,await safeStorage.encryptStringAsync(key.trim()));return {configured:true,model};};
     writes=writes.catch(()=>{}).then(save);return writes;
   });
-  function errorFor(status){return status===401||status===403?"Khóa Gemini không có quyền dùng model này. Kiểm tra khóa trong Cài đặt.":status===400?"Google từ chối yêu cầu. Kiểm tra khóa Gemini và model trong tài khoản.":status===404?"Tài khoản chưa truy cập được gemini-3.5-flash-lite.":status===429?"Gemini hết hạn mức hoặc đang giới hạn lượt gọi. Thử lại sau.":"Gemini tạm thời không sẵn sàng ("+status+").";}
-  handle("check",async()=>{const key=await getKey();if(!key)throw Error("Chưa cấu hình khóa Gemini.");try{const response=await fetch(endpoint,{headers:{"x-goog-api-key":key},signal:AbortSignal.timeout(15000)});if(!response.ok)throw Error(errorFor(response.status));return {model,available:true};}catch(e){if(e.name==="TimeoutError"||e.name==="TypeError")throw Error("Không kết nối được Gemini. Kiểm tra Internet.");throw e;}});
+  function errorFor(status){return status===401||status===403?"Khóa Gemini không có quyền dùng model này. Kiểm tra khóa trong Cài đặt.":status===400?"Google từ chối yêu cầu. Kiểm tra khóa Gemini và model trong tài khoản.":status===404?"Tài khoản chưa truy cập được model đã chọn. Chọn model khác trong Cài đặt.":status===429?"Gemini hết hạn mức hoặc đang giới hạn lượt gọi. Thử lại sau.":"Gemini tạm thời không sẵn sàng ("+status+").";}
+  handle("check",async arg=>{const selected=core.modelId(arg?.model);const key=await getKey();if(!key)throw Error("Chưa cấu hình khóa Gemini.");try{const response=await fetch(endpoint(selected),{headers:{"x-goog-api-key":key},signal:AbortSignal.timeout(15000)});if(!response.ok)throw Error(errorFor(response.status));return {model:selected,available:true};}catch(e){if(e.name==="TimeoutError"||e.name==="TypeError")throw Error("Không kết nối được Gemini. Kiểm tra Internet.");throw e;}});
   handle("ask",async arg=>{
     if(active)throw Error("Đang xử lý vùng trước. Hủy hoặc chờ hoàn tất.");
-    const payload=core.request(arg?.action,arg?.src),key=await getKey();if(!key)throw Error("Thêm khóa Gemini trong Cài đặt để dùng AI.");
+    core.modelId(arg?.model);const payload=core.request(arg?.action,arg?.src),key=await getKey();if(!key)throw Error("Thêm khóa Gemini trong Cài đặt để dùng AI.");
     if(active)throw Error("Đang xử lý vùng trước. Hủy hoặc chờ hoàn tất.");
     const controller=new AbortController();active=controller;
     const timer=setTimeout(()=>controller.abort(),45000);
     try{
-      const response=await fetch(endpoint+":generateContent",{method:"POST",headers:{"Content-Type":"application/json","x-goog-api-key":key},body:JSON.stringify(payload),signal:controller.signal});
+      const response=await fetch(endpoint(arg?.model)+":generateContent",{method:"POST",headers:{"Content-Type":"application/json","x-goog-api-key":key},body:JSON.stringify(payload),signal:controller.signal});
       if(!response.ok){lastFailure={status:response.status,action:arg.action,time:new Date().toISOString()};throw Error(errorFor(response.status));}
       const raw=await response.text();if(raw.length>500000)throw Error("Kết quả Gemini quá lớn.");
       const data=JSON.parse(raw),candidate=data.candidates?.[0];

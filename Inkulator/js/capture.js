@@ -15,7 +15,7 @@
     document.querySelector('.canvas-navigation [data-action="fit"]').after(width);
     const tray = document.createElement("div");
     tray.id = "capture-tray"; tray.hidden = true;
-    tray.innerHTML = '<button data-action="paste-capture" title="Dán ảnh vừa chụp" aria-label="Dán ảnh vừa chụp"><img alt="Ảnh vừa chụp"><span>Dán ảnh chụp</span></button><button data-action="download-capture" title="Tải ảnh chụp PNG" aria-label="Tải ảnh chụp PNG">↓</button>';
+    tray.innerHTML = '<button data-action="paste-capture" title="Dán ảnh vừa chụp" aria-label="Dán ảnh vừa chụp"><img alt="Ảnh vừa chụp"></button><button data-action="download-capture" title="Tải ảnh chụp PNG" aria-label="Tải ảnh chụp PNG">↓</button>';
     Renderer.area.append(tray);
     document.addEventListener("keydown", e => {
       if (e.key === "Escape" && (active || preparing)) { e.preventDefault(); e.stopImmediatePropagation(); cancel(); }
@@ -62,7 +62,7 @@
       }
       ctx.restore();
     }
-    return { canvas, w, h, viewport:v,bookId:Store.book().id,pageId:Store.current().id,areaRect:Renderer.area.getBoundingClientRect().toJSON() };
+    return { canvas, w, h, viewport:v,bookId:Store.book().id,pageId:Store.current().id,pages:pages.map(item=>({id:item.page.id,x:item.x,y:item.y,width:item.page.width,height:item.page.height})),areaRect:Renderer.area.getBoundingClientRect().toJSON() };
   }
   async function pdfImages(page,scale){const images=new Map();async function visit(o){if(o.visible===false)return;if(o.type==='pdf')images.set(o.id,await PDFStudio.snapshotImage(o,Math.max(o.size.w,o.size.h)*scale));if(o.type==='group')for(const child of o.data.children)await visit(child);}for(const o of page.objects)if(page.layers.some(l=>l.id===o.layer&&l.visible))await visit(o);return images;}
   async function pageImage(page){if(CanvasEngine.interacting)return null;const budget=Store.state.settings.performance==='economy'?1e6:3e6,scale=Math.min(1,Math.sqrt(budget/(page.width*page.height)));await Renderer.awaitImages(page,{pdf:false});const images=await pdfImages(page,scale);if(CanvasEngine.interacting){for(const c of images.values())c.width=c.height=1;return null;}const canvas=Renderer.pageCanvas(page,scale,{pdfImages:images});const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));if(!blob)throw Error('Không tạo được PNG xem trước.');const src=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(blob);});for(const c of images.values())c.width=c.height=1;canvas.width=canvas.height=1;return src;}
@@ -116,10 +116,12 @@
     const output=document.createElement("canvas");
     output.width=Math.max(1,Math.round(rect.w*sx)); output.height=Math.max(1,Math.round(rect.h*sy));
     output.getContext("2d").drawImage(source,rect.x*sx,rect.y*sy,rect.w*sx,rect.h*sy,0,0,output.width,output.height);
-    const src=output.toDataURL("image/png");
+    const src=output.toDataURL("image/png");output.width=output.height=1;
     if(src.length>7e6) { cancel();throw Error("Vùng chụp quá lớn. Hãy khoanh nhỏ hơn."); }
     if(callback){
       const v=shot.viewport,region={src,rect,bookId:shot.bookId,pageId:shot.pageId,world:{x:(rect.x-v.x)/v.zoom,y:(rect.y-v.y)/v.zoom,w:rect.w/v.zoom,h:rect.h/v.zoom}};
+      const sourcePage=shot.pages.find(p=>region.world.x+region.world.w/2>=p.x && region.world.x+region.world.w/2<=p.x+p.width && region.world.y+region.world.h/2>=p.y && region.world.y+region.world.h/2<=p.y+p.height);
+      if(sourcePage){region.pageId=sourcePage.id;region.world.x-=sourcePage.x;region.world.y-=sourcePage.y;}
       cancel();await callback(region);return;
     }
     latest={src,name:"Inkulator-Capture-"+new Date().toISOString().replace(/[:.]/g,"-")+".png"};
@@ -131,7 +133,7 @@
   }
   function cancel() {
     serial++; preparing=false;
-    active?.overlay.remove(); active=null;
+    if(active){for(const canvas of active.overlay.querySelectorAll("canvas"))canvas.width=canvas.height=1;active.overlay.remove();} active=null;
   }
   async function paste() {
     if(!latest) return App.toast("Chưa có ảnh chụp. Bấm Chụp vùng trước.");

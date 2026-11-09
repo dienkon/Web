@@ -1,10 +1,10 @@
-# Inkulator · 2.0.1
+# Inkulator · 2.1.0
 
 Sổ tay Toán học ngoại tuyến cho Windows, lấy cảm hứng bố cục từ ảnh Scrble Ink được cung cấp. Phần Casio tích hợp source của Tikz-Physics, ghi nguồn riêng bên dưới; không phải sản phẩm chính thức của Scrble, GeoGebra hay Casio.
 
 ## Mở ứng dụng
 
-**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-2.0.1-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Tài liệu tự lưu thành tệp trong **Documents / Inkulator**; bộ đệm cũ được sao lưu nén khi chuyển đổi, ứng dụng mở bản mới nhất trên ổ đĩa. Bộ cài cá nhân chưa ký số.
+**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-2.1.0-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Tài liệu tự lưu thành tệp trong **Documents / Inkulator**; bộ đệm cũ được sao lưu nén khi chuyển đổi, ứng dụng mở bản mới nhất trên ổ đĩa. Bộ cài cá nhân chưa ký số.
 
 **Bản web và iPad:** bản web vẫn chạy từ `index.html` trên máy tính. Trên iPad, phục vụ toàn bộ thư mục ứng dụng qua HTTP/HTTPS rồi mở bằng Safari; iPad không chạy tệp `.exe`. Không có máy chủ nào được triển khai tự động. Bản Windows và trình duyệt có kho lưu riêng; dùng **Ctrl+S / Mở tệp** để chuyển sổ tay giữa các bản.
 
@@ -17,6 +17,17 @@ Nếu dùng bản ZIP trên máy tính:
 **Viết, vẽ, tính toán và lưu tài liệu dùng ngoại tuyến, không cần API key.** Trợ lý Gemini là tính năng tùy chọn cần Internet và khóa API riêng. Không mở index.html ngay bên trong cửa sổ xem ZIP; cần giải nén toàn bộ thư mục để các tệp đi cùng được đọc đúng.
 
 Tất cả script, CSS, icon và thư viện nằm trong thư mục sản phẩm. Bản chạy dùng script cổ điển, không cần ES module từ file://, CDN, service worker hoặc tải font mạng. PDF.js được bundle cùng phần xử lý worker để chạy trên luồng chính, nhận font/CMap/decoder từ dữ liệu nhúng; không tạo worker từ đường dẫn file://. Công thức dùng SVG glyph có sẵn, không tải font ngoài.
+
+## Điểm mới 2.1 · giảng bài từ vùng chụp
+
+- Một nút **Máy tính & công thức**, ưu tiên hai Casio Windows 580/880; menu tài liệu chia nhóm và tìm nhanh. Khay ảnh chụp bỏ chữ để gọn hơn.
+- **Chụp câu hỏi** trên thanh trên mở trang giảng có sẵn ảnh đề, nút × quay về tài liệu và nút ↗ gần vùng gốc để mở lại. Nét/lời giải và các trang tiếp theo được giữ sau khi đóng ứng dụng. **Chụp vùng trên thanh bút** tiếp tục dùng cho chụp/dán PNG.
+- Trang mới mặc định giấy trắng; thêm trang ngay sau trang đang đứng, chuột phải có xóa trang và Undo.
+- Đồ thị không lưới mặc định, trục đậm có mũi tên; thêm mẫu hàm, miền nhìn, đồ thị đạo hàm và diện tích giữa hai hàm. Thước/ê ke/đo góc có kéo, xoay, kẻ cạnh và bắt nét bút. Hình không gian có chỉnh góc và vị trí tên từng đỉnh.
+- AI được chọn bốn model Gemini theo yêu cầu; mặc định `gemini-3.5-flash-lite`. Cho AI dựng thêm điểm, cạnh và phép dựng phụ thuộc tọa độ để hình có thể sửa tiếp.
+- Undo dùng chung ảnh thay vì sao chép vào mỗi bước; giảm bộ đệm ảnh/đồ thị/PDF, OCR tự giải phóng khi không dùng. Máy Windows giả lập có chế độ tiết kiệm RAM; GPU lỗi có thể chạy `Inkulator.exe --software-rendering`.
+
+[Chi tiết, giới hạn và kiểm tra bản 2.1](docs/RELEASE-2.1.md).
 
 ## Điểm mới 2.0 · gói tài liệu, máy tính đi kèm và OCR cục bộ
 

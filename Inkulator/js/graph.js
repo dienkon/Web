@@ -14,6 +14,8 @@
       params: { a: 1, b: 0, c: 0 },
       markers: [],
       axes: true,
+      grid: false,
+      axisWidth: 1.8,
       transparent: true,
       tangent: null,
       shade: null,
@@ -66,26 +68,33 @@
     ctx.font = "9px Segoe UI";
     ctx.fillStyle = "#8a9c8f";
     ctx.beginPath();
-    for (let x = Math.ceil(v.xmin / gx) * gx; x < v.xmax; x += gx) {
+    if (data.grid === true) for (let x = Math.ceil(v.xmin / gx) * gx; x < v.xmax; x += gx) {
       const px = map.x(x);
       ctx.moveTo(px, 0);
       ctx.lineTo(px, h);
     }
-    for (let y = Math.ceil(v.ymin / gy) * gy; y < v.ymax; y += gy) {
+    if (data.grid === true) for (let y = Math.ceil(v.ymin / gy) * gy; y < v.ymax; y += gy) {
       const py = map.y(y);
       ctx.moveTo(0, py);
       ctx.lineTo(w, py);
     }
     ctx.stroke();
     if (data.axes !== false) {
-      ctx.strokeStyle = "#a0b3a5";
-      ctx.lineWidth = 1;
+      ctx.strokeStyle = "#202833";
+      ctx.fillStyle = "#202833";
+      ctx.lineWidth = data.axisWidth || 1.8;
       ctx.beginPath();
       ctx.moveTo(map.x(0), 0);
       ctx.lineTo(map.x(0), h);
       ctx.moveTo(0, map.y(0));
       ctx.lineTo(w, map.y(0));
       ctx.stroke();
+      const ox = map.x(0), oy = map.y(0);
+      ctx.beginPath();
+      if (oy >= 0 && oy <= h) { ctx.moveTo(w-8,oy-4);ctx.lineTo(w-1,oy);ctx.lineTo(w-8,oy+4);ctx.fillText("x",w-12,Math.max(12,oy-8)); }
+      if (ox >= 0 && ox <= w) { ctx.moveTo(ox-4,8);ctx.lineTo(ox,1);ctx.lineTo(ox+4,8);ctx.fillText("y",Math.min(w-12,ox+8),12); }
+      ctx.stroke();
+      if (ox >= 0 && ox <= w && oy >= 0 && oy <= h) ctx.fillText("O",ox-12,oy+13);
       for (let x = Math.ceil(v.xmin / gx) * gx; x < v.xmax; x += gx)
         if (Math.abs(x) > gx / 2)
           ctx.fillText(
@@ -195,13 +204,14 @@
         if (!item.implicit) {
           ctx.fillStyle = data.expressions[0].color + "22";
           ctx.beginPath();
-          ctx.moveTo(map.x(s.a), map.y(0));
+          ctx.moveTo(map.x(s.a), map.y(s.between===1 ? expression(data.expressions[1].text).fn({...params,x:s.a}) : 0));
           for (let i = 0; i <= 300; i++) {
             const x = s.a + ((s.b - s.a) * i) / 300,
               y = item.fn({ ...params, x });
             if (Number.isFinite(y)) ctx.lineTo(map.x(x), map.y(y));
           }
-          ctx.lineTo(map.x(s.b), map.y(0));
+          if(s.between===1){const second=expression(data.expressions[1].text);for(let i=300;i>=0;i--){const x=s.a+(s.b-s.a)*i/300,y=second.fn({...params,x});if(Number.isFinite(y))ctx.lineTo(map.x(x),map.y(y));}}
+          else ctx.lineTo(map.x(s.b), map.y(0));
           ctx.closePath();
           ctx.fill();
         }
@@ -247,13 +257,14 @@
       const cc = c.getContext("2d");
       cc.scale(c.width / o.size.w, c.height / o.size.h);
       draw(cc, o.data, o.size.w, o.size.h);
-      if (cache.size > 30) cache.delete(cache.keys().next().value);
+      const budget = root.Store?.state.settings.performance === "economy" ? 2e6 : 6e6;
+      while (cache.size && [...cache.values()].reduce((sum, item) => sum + item.width*item.height, c.width*c.height) > budget) {
+        const oldest = cache.keys().next().value, old = cache.get(oldest);
+        old.width = old.height = 1; cache.delete(oldest);
+      }
       cache.set(key, c);
     }
     ctx.drawImage(c, 0, 0, o.size.w, o.size.h);
-    ctx.strokeStyle = "#dce5df";
-    ctx.lineWidth = 1;
-    ctx.strokeRect(0, 0, o.size.w, o.size.h);
   }
   function panel(obj = null) {
     editing = obj?.id || null;
@@ -263,6 +274,18 @@
       '<p class="hint">Từ công thức đến hình dung. Nhập hàm số hoặc phương trình theo x, y.</p><div id="graph-expressions"></div><button class="secondary full" id="graph-add">+ Thêm biểu thức</button><div id="graph-error" class="error"></div><div id="graph-parameters"></div><canvas id="graph-preview" class="graph-preview" width="600" height="480" aria-label="Xem trước đồ thị"></canvas><div class="field-row"><button class="secondary" id="graph-reset">Về gốc</button><label><input type="checkbox" id="graph-axes" checked> Hiện trục</label></div><p class="hint">Kéo để di chuyển · Lăn chuột để zoom · Nhấp để đánh dấu tọa độ. Đơn vị góc: radian.</p><button id="graph-insert" class="primary full">' +
       (editing ? "Cập nhật đồ thị" : "Chèn vào trang") +
       '</button><div class="panel-divider"></div><h3>Khảo sát số · biểu thức thứ nhất</h3><div class="field-row"><label>x₀ <input id="graph-x0" type="number" value="1" step="any" style="width:85px"></label><button id="graph-tangent" class="secondary">Tiếp tuyến</button></div><div class="field-row"><label>a <input id="graph-a" type="number" value="0" step="any" style="width:80px"></label><label>b <input id="graph-b" type="number" value="2" step="any" style="width:80px"></label></div><div class="tiny-buttons"><button id="graph-roots">Nghiệm Ox ≈</button><button id="graph-extrema">Cực trị ≈</button><button id="graph-intersections">Giao điểm ≈</button><button id="graph-integral">Tích phân ≈</button><button id="graph-table">Bảng giá trị</button></div><div id="graph-analysis" class="result-box" hidden></div><button id="graph-insert-analysis" class="secondary full" hidden>Chèn kết quả khảo sát</button>';
+    const tools=document.createElement("section");tools.className="graph-options";
+    tools.innerHTML='<label class="field"><span>Mẫu đồ thị</span><select id="graph-template"><option value="">Chọn mẫu…</option><option value="x^2-3x+2">Parabol</option><option value="x^3-3x">Hàm bậc ba</option><option value="(x+1)/(x-2)">Hàm phân thức</option><option value="sin(x)">Lượng giác</option><option value="exp(x)">Hàm mũ</option><option value="log(x)">Logarit</option><option value="x^2+y^2=9">Đường tròn ẩn</option><option value="x^2/9+y^2/4=1">Elip</option></select></label><div class="field-row"><label><input id="graph-grid" type="checkbox"> Lưới</label><label><input id="graph-background" type="checkbox"> Nền trắng</label></div><details class="graph-advanced"><summary>Trục & công cụ nâng cao</summary><label class="field"><span>Độ đậm trục</span><input id="graph-axis-width" type="range" min="1" max="4" step="0.2"></label><div id="graph-range" class="graph-range"></div><div class="tiny-buttons"><button id="graph-square">Đơn vị hai trục bằng nhau</button><button id="graph-clear">Xóa điểm / tiếp tuyến / vùng tô</button><button id="graph-derivative">Thêm đồ thị đạo hàm</button><button id="graph-area-between">Diện tích giữa hai hàm ≈</button></div></details>';
+    document.getElementById("graph-preview").before(tools);
+    const grid=tools.querySelector("#graph-grid");grid.checked=draft.grid===true;grid.onchange=()=>{draft.grid=grid.checked;update();};
+    const background=tools.querySelector("#graph-background");background.checked=!draft.transparent;background.onchange=()=>{draft.transparent=!background.checked;update();};
+    const axis=tools.querySelector("#graph-axis-width");axis.value=draft.axisWidth||1.8;axis.oninput=()=>{draft.axisWidth=Number(axis.value);update();};
+    tools.querySelector("#graph-template").onchange=e=>{if(!e.target.value)return;draft.expressions[0].text=e.target.value;expressionsUI();};
+    for(const name of ["xmin","xmax","ymin","ymax"]){const label=document.createElement("label");label.textContent=name+" ";const input=document.createElement("input");input.type="number";input.step="any";input.value=draft.view[name];input.id="graph-"+name;label.append(input);tools.querySelector("#graph-range").append(label);input.onchange=()=>{const next={...draft.view,[name]:Number(input.value)};if(!input.value||!Object.values(next).every(Number.isFinite)||next.xmax-next.xmin<1e-6||next.ymax-next.ymin<1e-6||Object.values(next).some(v=>Math.abs(v)>1e7)){input.value=draft.view[name];return App.toast("Khoảng trục không hợp lệ.");}draft.view=next;update();};}
+    tools.querySelector("#graph-square").onclick=()=>{const v=draft.view,cy=(v.ymax+v.ymin)/2,half=(v.xmax-v.xmin)*.75/2;v.ymin=cy-half;v.ymax=cy+half;update();};
+    tools.querySelector("#graph-clear").onclick=()=>{draft.markers=[];draft.tangent=null;draft.shade=null;update();};
+    tools.querySelector("#graph-derivative").onclick=()=>analyze("derivative");
+    tools.querySelector("#graph-area-between").onclick=()=>analyze("area-between");
     preview = document.getElementById("graph-preview");
     expressionsUI();
     document.getElementById("graph-add").onclick = () => {
@@ -423,6 +446,7 @@
   }
   function update() {
     if (!preview?.isConnected) return;
+    for(const name of ["xmin","xmax","ymin","ymax"]){const input=document.getElementById("graph-"+name);if(input&&document.activeElement!==input)input.value=Number(draft.view[name].toPrecision(8));}
     const errors = [];
     draft.expressions.forEach((e, i) => {
       try {
@@ -471,6 +495,21 @@
         b = Number(document.getElementById("graph-b").value),
         fmt = MathEngine.format;
       let text = "";
+      if (action === "derivative") {
+        if(draft.expressions.length>=8)throw Error("Tối đa 8 biểu thức.");
+        const source=draft.expressions[0].text.replace(/^y\s*=/,"");
+        const derivative=MathEngine.math.derivative(MathEngine.parse(source,["x","a","b","c","d","t"]),"x").toString();
+        draft.expressions.push({text:String(derivative),color:palette[draft.expressions.length%palette.length],visible:true});
+        expressionsUI();text="Đạo hàm: "+derivative;
+      }
+      if (action === "area-between") {
+        if(!Number.isFinite(a)||!Number.isFinite(b)||b<=a)throw Error("Cần b > a, hữu hạn.");
+        if(draft.expressions.length<2)throw Error("Cần hai hàm số.");
+        const second=expression(draft.expressions[1].text);if(second.implicit)throw Error("Cần hai hàm y = f(x).");
+        const value=MathEngine.integral(x=>Math.abs(f(x)-second.fn({...draft.params,x})),a,b);
+        draft.shade={a,b,between:1};
+        text="Diện tích giữa hai hàm trên ["+a+", "+b+"] ≈ "+fmt(value)+". Áp dụng cho hàm liên tục.";
+      }
       if (action === "roots") {
         const rr = MathEngine.roots(f, v.xmin, v.xmax);
         text =

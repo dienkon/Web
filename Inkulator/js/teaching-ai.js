@@ -39,7 +39,8 @@
   function createPanel(){
     let panel=document.getElementById("teaching-ai");if(panel)return panel;
     panel=document.createElement("section");panel.id="teaching-ai";panel.className="teaching-ai";panel.hidden=true;
-    panel.innerHTML='<header><strong>Trợ lý Toán 12</strong><button id="ai-close" title="Đóng">×</button></header><div id="ai-status" role="status"></div><div id="ai-result"></div><footer><button id="ai-cancel">Hủy yêu cầu</button><button id="ai-retry">Thử lại</button></footer>';
+    panel.innerHTML='<header><strong>Trợ lý Toán 12</strong><select id="ai-model" aria-label="Model giải toán"></select><button id="ai-close" title="Đóng">×</button></header><div id="ai-status" role="status"></div><div id="ai-result"></div><footer><button id="ai-cancel">Hủy yêu cầu</button><button id="ai-retry">Thử lại</button></footer>';
+    const modelSelect=panel.querySelector("#ai-model");for(const model of GeminiProtocol.models){const opt=document.createElement("option");opt.value=model.id;opt.textContent=model.label;modelSelect.append(opt);}modelSelect.value=Store.state.settings.geminiModel||"gemini-3.5-flash-lite";modelSelect.onchange=()=>{Store.state.settings.geminiModel=modelSelect.value;Store.scheduleSave();};
     document.body.append(panel);panel.querySelector("#ai-close").onclick=()=>{if(busy)cancel();panel.hidden=true;};panel.querySelector("#ai-cancel").onclick=cancel;return panel;
   }
   async function ask(action,value){
@@ -48,12 +49,12 @@
     if(!bridge())return App.toast("Cần bản Windows để dùng Gemini.");
     if(navigator.onLine===false)return App.toast("Không có Internet. Vùng viết được giữ nguyên.");
     const current=++generation;region=value;result=null;busy=true;
-    const panel=createPanel();panel.hidden=false;panel.querySelector('header strong').textContent='Trợ lý Toán 12 · Gemini';
-    const status=panel.querySelector("#ai-status"),content=panel.querySelector("#ai-result");status.textContent="Đang "+names[action].toLowerCase()+" · Gemini 3.5 Flash-Lite…";content.replaceChildren();
+    const panel=createPanel();panel.hidden=false;panel.querySelector("#ai-model").value=Store.state.settings.geminiModel;panel.querySelector('header strong').textContent='Trợ lý Toán 12 · Gemini';
+    const status=panel.querySelector("#ai-status"),content=panel.querySelector("#ai-result");status.textContent="Đang "+names[action].toLowerCase()+" · "+GeminiProtocol.modelId(Store.state.settings.geminiModel)+"…";content.replaceChildren();
     const image=document.createElement("img");image.className="ai-source-image";image.src=value.src;image.alt="Vùng được gửi tới Gemini";content.append(image);
     panel.querySelector("#ai-cancel").hidden=false;panel.querySelector("#ai-retry").hidden=true;
     try{
-      const answer=await bridge().ask({action,src:value.src});if(generation!==current)return;
+      const answer=await bridge().ask({action,src:value.src,model:GeminiProtocol.modelId(Store.state.settings.geminiModel)});if(generation!==current)return;
       result=answer;status.textContent="Kiểm tra kết quả trước khi chèn vào trang.";renderResult(content,answer,value,action);
     }catch(error){if(generation===current){status.textContent=error.message;panel.querySelector("#ai-retry").hidden=false;panel.querySelector("#ai-retry").onclick=()=>ask(action,value);}}
     finally{if(generation===current){busy=false;panel.querySelector("#ai-cancel").hidden=true;}}
@@ -91,10 +92,13 @@
     }
   }
   function makeDiagram(d){
+    if(d.kind==="right-triangle")d={...d,kind:"right"};
     const catalog=d.solid?Geometry.solidCatalog:Geometry.flatCatalog;
     if(!catalog.some(([kind])=>kind===d.kind))throw Error("Mẫu hình chưa hỗ trợ.");
     const o=Panels.makeGeometry(d.kind,d.solid);
     if(Array.isArray(d.labels)&&d.labels.length){o.data.vertexLabels={};d.labels.slice(0,16).forEach((label,i)=>{if(typeof label==="string"&&label.trim().length<=12)o.data.vertexLabels[i]=label.trim();});}
+    if(d.solid&&d.params)Object.assign(o.data.params,d.params);
+    if(Array.isArray(d.constructions)&&d.constructions.length){o.data.constructions=Store.clone(d.constructions);const built=Constructions.build(o);if(built.warnings.length)throw Error(built.warnings.join("; "));}
     return o;
   }
   function replaceInk(value,tex){
@@ -109,7 +113,7 @@
   }
   function insertAnswer(value,answer){
     const page=destination(value),startIndex=Store.state.pageIndex,start=App.insertPosition(600,300),newPages=[],entries=[],width=Math.min(760,page.width-100);let target=page,y=Math.max(60,Math.min(start.y,page.height-160));
-    const room=height=>{if(y+height<=target.height-60)return;if(Store.book().pages.length+newPages.length>=300)throw Error("Sổ tay đã đạt giới hạn 300 trang.");target=Store.page();Object.assign(target,{width:page.width,height:page.height,paper:page.paper,showTitle:false});newPages.push(target);y=60;};
+    const room=height=>{if(y+height<=target.height-60)return;if(Store.book().pages.length+newPages.length>=300)throw Error("Sổ tay đã đạt giới hạn 300 trang.");target=Store.page();Object.assign(target,{width:page.width,height:page.height,paper:page.paper,showTitle:false});if(page.questionSource){target.questionSource={...page.questionSource,rootId:page.questionSource.rootId || page.id};target.title=page.title+" · tiếp";}newPages.push(target);y=60;};
     const addText=text=>{if(!text)return;const limit=Math.max(10,Math.floor(width/12)),lines=String(text).split("\n").flatMap(line=>{const words=line.split(/\s+/),rows=[];let row="";for(const word of words){if((row+word).length>limit){rows.push(row);row="";}row+=(row?" ":"")+word;}rows.push(row);return rows;});const perPage=Math.max(1,Math.floor((page.height-140)/28));for(let i=0;i<lines.length;i+=perPage){const chunk=lines.slice(i,i+perPage),height=Math.max(32,chunk.length*28);room(height);entries.push({page:target,object:Store.object("text",{text:chunk.join("\n"),fontSize:22},{position:{x:60,y},size:{w:width,h:height}})});y+=height+12;}};
     const addMath=tex=>{if(!tex)return;let r;try{r=Formulas.render(tex,"#111111",26);}catch{addText(tex);return;}const scale=Math.min(1,width/r.w,(page.height-140)/r.h);room(r.h*scale);entries.push({page:target,object:Store.object("formula",{text:tex,tex:r.tex,fontSize:26},{position:{x:60,y},size:{w:r.w*scale,h:r.h*scale}})});y+=r.h*scale+16;};
     addText(answer.title);addText(answer.transcription);addText(answer.explanation);addMath(answer.latex);
@@ -130,13 +134,18 @@
   }
   async function settings(){
     const host=document.getElementById("panel-content"),section=document.createElement("section");section.className="ai-settings";
-    section.innerHTML='<h3>Công thức · OCR cục bộ</h3><label class="field-row"><input id="setting-handwriting-ai" type="checkbox"><span>Nhận diện công thức viết tay cục bộ khi dừng bút</span></label><p class="hint">Mặc định tắt. OCR CoMER chạy ngay trên thiết bị, dùng mô hình có sẵn trong bộ cài; không gửi nét viết lên Gemini, không cần Internet. Xem và sửa LaTeX trước khi thay nét. Các tác vụ Giải bài/Gợi ý/Vẽ hình vẫn dùng Gemini khi có mạng.</p><h3>Gemini · trợ lý Toán 12</h3><label class="field"><span>Model</span><input readonly value="gemini-3.5-flash-lite"></label><label class="field"><span>Khóa API Gemini</span><input id="gemini-key" type="password" autocomplete="off" placeholder="Nhập khóa mới để thay đổi"></label><div class="tiny-buttons"><button id="gemini-key-save">Lưu khóa</button><button id="gemini-key-check">Kiểm tra kết nối</button><button id="gemini-key-remove">Về khóa mặc định</button></div><p id="gemini-key-status" class="hint" role="status"></p>';
-    host.append(section);section.querySelector("#setting-handwriting-ai").checked=!!Store.state.settings.handwritingOCR;
+    section.innerHTML='<h3>Công thức · OCR cục bộ</h3><label class="field-row"><input id="setting-handwriting-ai" type="checkbox"><span>Nhận diện công thức viết tay cục bộ khi dừng bút</span></label><p class="hint">Mặc định tắt. OCR CoMER chạy ngay trên thiết bị, dùng mô hình có sẵn trong bộ cài; không gửi nét viết lên Gemini, không cần Internet. Xem và sửa LaTeX trước khi thay nét. Các tác vụ Giải bài/Gợi ý/Vẽ hình vẫn dùng Gemini khi có mạng.</p><h3>Gemini · trợ lý Toán 12</h3><label class="field"><span>Model</span><select id="gemini-model"></select></label><label class="field"><span>Khóa API Gemini</span><input id="gemini-key" type="password" autocomplete="off" placeholder="Nhập khóa mới để thay đổi"></label><div class="tiny-buttons"><button id="gemini-key-save">Lưu khóa</button><button id="gemini-key-check">Kiểm tra kết nối</button><button id="gemini-key-remove">Về khóa mặc định</button></div><p id="gemini-key-status" class="hint" role="status"></p>';
+    host.append(section);
+    const models=section.querySelector("#gemini-model");
+    for(const m of GeminiProtocol.models){const opt=document.createElement("option");opt.value=m.id;opt.textContent=m.label;models.append(opt);}
+    models.value=GeminiProtocol.models.some(m=>m.id===Store.state.settings.geminiModel)?Store.state.settings.geminiModel:"gemini-3.5-flash-lite";
+    models.onchange=()=>{Store.state.settings.geminiModel=models.value;Store.scheduleSave();};
+section.querySelector("#setting-handwriting-ai").checked=!!Store.state.settings.handwritingOCR;
     section.querySelector("#setting-handwriting-ai").onchange=e=>{Store.state.settings.handwritingOCR=e.target.checked;if(e.target.checked)LocalMathOCR.init().catch(error=>App.toast(error.message));clearTimeout(inkTimer);inkBatch=[];Store.scheduleSave();};
     const status=section.querySelector("#gemini-key-status"),input=section.querySelector("#gemini-key");
     if(!bridge()){status.textContent="Cấu hình khóa trên bản Windows; khóa không nằm trong tệp sổ tay.";section.querySelectorAll("button").forEach(b=>b.disabled=true);return;}
     const update=async()=>{const s=await bridge().status();status.textContent=s.configured?(s.usesDefault?"Khóa mặc định đã sẵn sàng; có thể dùng ngay.":root.InkulatorDesktop?.gemini?"Đã có khóa, được mã hóa trên máy này.":"Đã có khóa trong phiên này; đóng/tải lại trang sẽ xóa khóa."):"Chưa có khóa API.";};
-    for(const [id,fn] of [["save",async()=>{if(!input.value.trim())throw Error("Nhập khóa trước khi lưu.");await bridge().key(input.value.trim());input.value="";await update();}],["remove",async()=>{await bridge().key("");input.value="";await update();}],["check",async()=>{status.textContent="Đang kiểm tra…";await bridge().check();status.textContent="Kết nối Gemini 3.5 Flash-Lite thành công.";}]])section.querySelector("#gemini-key-"+id).onclick=async()=>{try{await fn();}catch(e){status.textContent=e.message;}};
+    for(const [id,fn] of [["save",async()=>{if(!input.value.trim())throw Error("Nhập khóa trước khi lưu.");await bridge().key(input.value.trim());input.value="";await update();}],["remove",async()=>{await bridge().key("");input.value="";await update();}],["check",async()=>{status.textContent="Đang kiểm tra…";await bridge().check({model:models.value});status.textContent="Kết nối "+models.selectedOptions[0].textContent+" thành công.";}]])section.querySelector("#gemini-key-"+id).onclick=async()=>{try{await fn();}catch(e){status.textContent=e.message;}};
     update().catch(e=>status.textContent=e.message);
   }
   root.TeachingAI={init,start,settings,ask,recognizeLocal,showWheel,replaceInk,makeDiagram,insertAnswer,get busy(){return busy;},get result(){return result;}};

@@ -8,7 +8,7 @@
   const page = (title = "") => ({
     id: uid(),
     title,
-    paper: "grid",
+    paper: "blank",
     width: 1200,
     height: 1700,
     showTitle: true,
@@ -42,6 +42,7 @@
     animations: true,
     autoPages: true,
     handwritingOCR: false,
+    geminiModel: "gemini-3.5-flash-lite",
   };
   const state = {
     notebooks: [notebook()],
@@ -90,13 +91,39 @@
     if (root.document) root.document.dispatchEvent(new Event("statechange"));
   }
   let cachedSnapshot = null;
+  // History owns references to media bytes; editing a caption must not duplicate
+  // every screenshot/PDF preview in every serialized notebook snapshot.
+  const mediaToken=uid(),historyMedia=new Map(),mediaIds=new Map(),snapshotMedia=new Map();
+  let mediaSerial=0;
+  function restoreSnapshot(value){
+    return JSON.parse(value,(_key,item)=>{
+      if(Array.isArray(item)&&item.length===3&&item[0]==="ink-history-media"&&item[1]===mediaToken){
+        if(!historyMedia.has(item[2]))throw Error("Thiếu ảnh trong lịch sử Undo.");
+        return historyMedia.get(item[2]);
+      }
+      return item;
+    });
+  }
+  function pruneHistoryMedia(){
+    const live=new Set([cachedSnapshot,...state.history,...state.future].filter(value=>typeof value==="string")),used=new Set();
+    for(const [value,ids] of snapshotMedia){if(!live.has(value)){snapshotMedia.delete(value);continue;}for(const id of ids)used.add(id);}
+    for(const [id,src] of historyMedia)if(!used.has(id)){historyMedia.delete(id);mediaIds.delete(src);}
+  }
   function invalidateSnapshot() {
     cachedSnapshot = null;
   }
   function snapshot() {
     if (cachedSnapshot !== null) return cachedSnapshot;
     const { assets, ...content } = book();
-    cachedSnapshot = JSON.stringify(content);
+    const refs=new Set();
+    cachedSnapshot = JSON.stringify(content,(_key,value)=>{
+      if(typeof value==="string" && value.startsWith("data:image/") && value.length>1024){
+        let id=mediaIds.get(value);if(id===undefined){id=++mediaSerial;mediaIds.set(value,id);historyMedia.set(id,value);}refs.add(id);
+        return ["ink-history-media",mediaToken,id];
+      }
+      return value;
+    });
+    snapshotMedia.set(cachedSnapshot,refs);
     return cachedSnapshot;
   }
   function transaction(fn) {
@@ -109,8 +136,8 @@
       return false;
     }
     state.history.push(before);
-    trimHistory();
     state.future = [];
+    trimHistory();
     book().modified = new Date().toISOString();
     invalidateSnapshot();
     state.dirty = true;
@@ -123,8 +150,8 @@
     const after = snapshot();
     if (after !== before) {
       state.history.push(before);
-      trimHistory();
       state.future = [];
+      trimHistory();
       book().modified = new Date().toISOString();
       invalidateSnapshot();
       state.dirty = true;
@@ -145,7 +172,7 @@
     state.future.push(snapshot());
     trimHistory();
     state.notebooks[state.active] = {
-      ...JSON.parse(state.history.pop()),
+      ...restoreSnapshot(state.history.pop()),
       assets: book().assets || {},
     };
     afterHistory();
@@ -163,7 +190,7 @@
     state.history.push(snapshot());
     trimHistory();
     state.notebooks[state.active] = {
-      ...JSON.parse(state.future.pop()),
+      ...restoreSnapshot(state.future.pop()),
       assets: book().assets || {},
     };
     afterHistory();
@@ -178,14 +205,30 @@
   }
   function trimHistory() {
     for (const list of [state.history, state.future]) {
-      const bytes = (entry) => typeof entry === "string" ? entry.length : entry.bytes;
+      const bytes = (entry) => 2 * (typeof entry === "string" ? entry.length : entry.bytes);
       let size = list.reduce((n, entry) => n + bytes(entry), 0);
       while (
         list.length > 1 &&
-        (list.length > state.settings.historyLimit || size > 32e6)
+        (list.length > state.settings.historyLimit || size > (state.settings.performance === "economy" ? 8e6 : 24e6))
       )
         size -= bytes(list.shift());
     }
+    pruneHistoryMedia();
+    const budget=state.settings.performance === "economy" ? 8e6 : 24e6;
+    const retainedBytes=()=>{
+      const current=snapshotMedia.get(cachedSnapshot)||new Set(),used=new Set();
+      let size=0;
+      for(const entry of [...state.history,...state.future]){
+        size+=2*(typeof entry==="string"?entry.length:entry.bytes);
+        if(typeof entry==="string")for(const id of snapshotMedia.get(entry)||[])if(!current.has(id))used.add(id);
+      }
+      for(const id of used)size+=2*(historyMedia.get(id)?.length||0);
+      return size;
+    };
+    while(retainedBytes()>budget && (state.history.length>1 || state.future.length>1)){
+      const list=state.history.length>=state.future.length?state.history:state.future;list.shift();
+    }
+    pruneHistoryMedia();
   }
   // Ink history holds only the new objects, never a copy of the whole notebook.
   // Clone at the boundary so subsequent transforms cannot alter the undo entry.
@@ -276,6 +319,7 @@
     state.history = [];
     state.future = [];
     state.selection = [];
+    cachedSnapshot=null;snapshotMedia.clear();historyMedia.clear();mediaIds.clear();
   }
   function switchPage(i) {
     state.pageIndex = Math.max(0, Math.min(i, book().pages.length - 1));
@@ -835,8 +879,11 @@
           "dark",
         ].includes(p.paper)
           ? p.paper
-          : "grid";
+          : "blank";
         cleanPage.showTitle = p.showTitle !== false;
+        const q=p.questionSource;
+        if(q && typeof q.pageId==="string" && ["x","y","w","h"].every(k=>boundedNum(q[k],-1e6,1e6)) && q.w>0 && q.h>0)
+          cleanPage.questionSource={pageId:q.pageId.slice(0,100),...(typeof q.rootId==="string"?{rootId:q.rootId.slice(0,100)}:{}),x:q.x,y:q.y,w:q.w,h:q.h};
         cleanPage.objects = p.objects.map((o) => clean(o));
         if (Array.isArray(p.layers) && p.layers.length === 5) {
           const ids = p.layers.map((l) => l.id);
@@ -853,6 +900,16 @@
         return cleanPage;
       }),
     };
+    for(const p of result.pages){
+      if(!p.questionSource)continue;
+      const sourceIndex=n.pages.findIndex(source=>source.id===p.questionSource.pageId && !source.questionSource);
+      if(sourceIndex<0)delete p.questionSource;
+      else p.questionSource.pageId=result.pages[sourceIndex].id;
+      if(p.questionSource){
+        const rootIndex=n.pages.findIndex(source=>source.id===p.questionSource.rootId && source.questionSource?.pageId===n.pages[sourceIndex].id && (!source.questionSource.rootId || source.questionSource.rootId===source.id));
+        p.questionSource.rootId=rootIndex<0?p.id:result.pages[rootIndex].id;
+      }
+    }
     return result;
   }
   function envelope(n = book()) {
@@ -990,6 +1047,7 @@
           "animations",
           "autoPages",
           "performance",
+          "geminiModel",
           "handwritingOCR",
         ])
           if (typeof lib.settings[k] === typeof defaults[k])
@@ -1017,6 +1075,7 @@
         );
         if (!["auto", "economy", "quality"].includes(state.settings.performance))
           state.settings.performance = "auto";
+        if(!["gemini-3.8-flash","gemini-3.6-flash","gemini-3.5-flash-lite","gemini-3.1-flash-lite"].includes(state.settings.geminiModel))state.settings.geminiModel=defaults.geminiModel;
         // Upgrade old defaults once; keep user preferences on subsequent launches.
         if (!lib.settings.inkPerformanceV2) {
           if (state.settings.autosave <= 2000) state.settings.autosave = defaults.autosave;
@@ -1069,6 +1128,7 @@
     commitInk,
     cancelInk,
     invalidateSnapshot,
+    restoreSnapshot,
     undo,
     redo,
     object,

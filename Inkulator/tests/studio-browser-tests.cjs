@@ -224,7 +224,7 @@ const pass = (s) => {
         Store.state.selection = [];
         Store.emit();
       });
-      await page.locator('.workspace-tabs [data-action="formula"]').click();
+      await page.locator('.workspace-tabs [data-action="calculator"]').click();await page.locator('#popover [data-action="formula"]').click();
       await page.locator("#formula-source").fill("f(x)=sqrt(x^2+1)/(x-2)");
       assert.equal(await page.locator("#formula-preview img").count(), 1);
       await page.locator("#dialog-confirm").click();
@@ -298,11 +298,11 @@ const pass = (s) => {
         channel +
           ": local multi-page PDF imports offline with locked backgrounds and one shared source",
       );
-      const c = await page.locator("#ink-canvas").boundingBox();
+      const c = await page.evaluate(()=>{const r=Renderer.area.getBoundingClientRect(),v=Store.state.viewport;return {x:r.left+v.x,y:r.top+v.y,z:v.zoom};});
       await page.keyboard.press("p");
-      await page.mouse.move(c.x + 160, c.y + 180);
+      await page.mouse.move(c.x + 160*c.z, c.y + 180*c.z);
       await page.mouse.down();
-      await page.mouse.move(c.x + 330, c.y + 210, { steps: 15 });
+      await page.mouse.move(c.x + 330*c.z, c.y + 210*c.z, { steps: 15 });
       await page.mouse.up();
       assert.ok(
         await page.evaluate(() =>

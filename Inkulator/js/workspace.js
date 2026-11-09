@@ -100,7 +100,7 @@
     history.previousElementSibling.textContent = "Số bước Undo (10–2.000)";
     const label = document.createElement("label");
     label.className = "field";
-    label.innerHTML = '<span>Hiệu năng hiển thị</span><select id="setting-performance"><option value="auto">Tự động · cân bằng</option><option value="economy">Máy yếu · tiết kiệm bộ nhớ</option><option value="quality">Độ nét cao</option></select>';
+    label.innerHTML = '<span>Hiệu năng hiển thị</span><select id="setting-performance"><option value="auto">Tự động · cân bằng</option><option value="economy">Máy yếu / Windows giả lập · tiết kiệm RAM</option><option value="quality">Độ nét cao</option></select>';
     history.closest("label").after(label);
     const select = label.querySelector("select");
     select.value = Store.state.settings.performance;
@@ -111,7 +111,7 @@
     };
     const hint = document.createElement("p");
     hint.className = "hint";
-    hint.textContent = "Nhấp đúp chỉ sửa đối tượng khi dùng công cụ Chọn. Undo lưu riêng từng nét; lịch sử có giới hạn bộ nhớ. Tự lưu khi tạm ngưng viết và khi chuyển ứng dụng.";
+    hint.textContent = "Nhấp đúp chỉ sửa đối tượng khi dùng công cụ Chọn. Undo lưu riêng từng nét; lịch sử có giới hạn bộ nhớ. Tự lưu khi tạm ngưng viết và khi chuyển ứng dụng. Máy ảo Windows nên chọn chế độ tiết kiệm RAM.";
     label.after(hint);
     if(root.InkulatorDesktop?.documents){
       const disk=document.createElement("p");disk.className="hint";disk.textContent="Mỗi sổ có thư mục riêng, ảnh/PDF gốc và ảnh PNG xem trước. Dữ liệu nét được nén để sửa tiếp; giữ 10 phiên bản khôi phục. Đổi nơi lưu thư viện ở mục Tài liệu trên máy bên dưới.";hint.after(disk);

@@ -186,12 +186,13 @@
       return result;
     }
     const angle = rotation[1] + 0.55;
+    const tilt=rotation[0]+0.45,kx=0.4*Math.cos(tilt),ky=0.35+0.35*Math.sin(tilt);
     const viewDirection =
       projection === "oblique"
         ? [
-            0.55 * Math.cos(angle) - Math.sin(angle),
-            -0.55 * Math.sin(angle) - Math.cos(angle),
-            0.35,
+            kx * Math.cos(angle) - Math.sin(angle),
+            -kx * Math.sin(angle) - Math.cos(angle),
+            ky,
           ]
         : [
             -Math.sin(rotation[1]) * Math.cos(rotation[0]),

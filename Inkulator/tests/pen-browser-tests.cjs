@@ -356,7 +356,7 @@ const pass = (s) => {
         channel +
           ": denied Clipboard API has a functional native-paste receiver and file fallback",
       );
-      await tap('.workspace-tabs [data-action="formula"]');
+      await tap('.workspace-tabs [data-action="calculator"]');await tap('#popover [data-action="formula"]');
       await page.locator("#pen-keyboard").waitFor({ state: "visible" });
       for (const name of ["x", "x²", "+", "1"])
         await tap('#pen-keyboard [aria-label="Nhập ' + name + '"]');
@@ -563,7 +563,7 @@ const pass = (s) => {
         1366,
       );
       const checkKeyboardLayout = async () => {
-        await tap('.workspace-tabs [data-action="formula"]');
+        await tap('.workspace-tabs [data-action="calculator"]');await tap('#popover [data-action="formula"]');
         await page.locator("#pen-keyboard").waitFor({ state: "visible" });
         const confirm = await page.locator("#dialog-confirm").boundingBox(),
           keyboard = await page.locator("#pen-keyboard").boundingBox();

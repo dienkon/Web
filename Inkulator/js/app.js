@@ -146,6 +146,8 @@
     PenTools.init();
     WorkspaceUI.init();
     CaptureStudio.init();
+    QuestionPages.init();
+    RulerStudio.init();
     NativeCalculators.init();
     TeachingAI.init();
     ColorIcons.init();
@@ -171,7 +173,7 @@
       if (
         !e.target.closest(".popover") &&
         !e.target.closest("#toolbar") &&
-        !e.target.closest('[data-action="calculator-models"]') &&
+        !e.target.closest('[data-action="calculator-models"],[data-action="calculator"]') &&
         !e.target.closest(
           "#pen-keyboard,#pen-dock,#selection-tools,#geometry-toolbar",
         ) &&
@@ -280,7 +282,7 @@
     document.getElementById("width-dot").style.height =
       Math.min(12, s.width + 2) + "px";
     document.getElementById("page-counter").textContent =
-      s.pageIndex + 1 + " / " + Store.book().pages.length;
+      Store.current().questionSource ? Store.current().title : (Store.book().pages.slice(0,s.pageIndex+1).filter(p=>!p.questionSource).length + " / " + Store.book().pages.filter(p=>!p.questionSource).length);
     updateSaveState();
     updateZoom();
     selectionUI();
@@ -334,7 +336,10 @@
       { root: document.getElementById("page-list") },
     );
     list.replaceChildren();
+    let displayIndex=0;
     Store.book().pages.forEach((p, i) => {
+      if (p.questionSource) return;
+      const numberIndex=++displayIndex;
       const b = document.createElement("div");
       b.className =
         "page-card" + (i === Store.state.pageIndex ? " active" : "");
@@ -342,7 +347,7 @@
       b.setAttribute("role", "button");
       b.setAttribute(
         "aria-label",
-        "Trang " + (i + 1) + ": " + (p.title || "Chưa đặt tiêu đề"),
+        "Trang " + numberIndex + ": " + (p.title || "Chưa đặt tiêu đề"),
       );
       const c = document.createElement("canvas");
       c.className = "page-thumb";
@@ -353,9 +358,9 @@
       const label = document.createElement("div");
       label.className = "page-card-label";
       const title = document.createElement("span");
-      title.textContent = p.title || "Trang " + (i + 1);
+      title.textContent = p.title || "Trang " + numberIndex;
       const number = document.createElement("small");
-      number.textContent = String(i + 1).padStart(2, "0");
+      number.textContent = String(numberIndex).padStart(2, "0");
       label.append(title, number);
       b.append(label);
       const more = document.createElement("button");
@@ -372,6 +377,7 @@
         Store.switchPage(i);
         closePanel();
       };
+      b.oncontextmenu = (e) => { e.preventDefault(); pageMenu(i, b); };
       b.onkeydown = (e) => {
         if (e.key === "Enter") b.click();
       };
@@ -406,6 +412,7 @@
     popover(
       anchor,
       [
+        ["page-insert", "Thêm trang ngay sau"],
         ["page-rename", "Đổi tiêu đề"],
         ["page-duplicate", "Nhân bản trang"],
         ["page-up", "Đưa lên"],
@@ -428,6 +435,7 @@
   async function pageAction(action, index) {
     const p = Store.book().pages[index];
     if (!p) return;
+    if (action === "page-insert") { addPage(index); closePopover(); return; }
     if (action === "page-rename") {
       const r = await dialog(
         "Đổi tiêu đề trang",
@@ -459,11 +467,12 @@
       );
       if (r)
         Store.transaction(() => {
+          const activeId = Store.current().id;
           Store.book().pages.splice(index, 1);
-          Store.state.pageIndex = Math.min(
-            Store.state.pageIndex,
-            Store.book().pages.length - 1,
-          );
+          for(const page of Store.book().pages)if(page.questionSource?.pageId===p.id)delete page.questionSource;
+          for(const page of Store.book().pages)if(page.questionSource?.rootId===p.id)delete page.questionSource.rootId;
+          const next = Store.book().pages.findIndex(page => page.id === activeId);
+          Store.state.pageIndex = next < 0 ? Math.min(index, Store.book().pages.length - 1) : next;
           Store.state.selection = [];
         });
     }
@@ -485,6 +494,19 @@
     el.classList.add("visible");
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => el.classList.remove("visible"), ms);
+  }
+  function addPage(index = Store.state.pageIndex) {
+    if(Store.book().pages.length>=300)return toast("Sổ tay đã đạt giới hạn 300 trang.");
+    CanvasEngine.finishActive();
+    Store.transaction(() => {
+      const source = Store.book().pages[index], p = Store.page();
+      if (source) Object.assign(p, {width: source.width, height: source.height});
+      if(source?.questionSource){p.questionSource={...source.questionSource,rootId:source.questionSource.rootId || source.id};p.title=source.title+" · tiếp";p.showTitle=false;}
+      Store.book().pages.splice(index + 1, 0, p);
+      Store.state.pageIndex = index + 1;
+      Store.state.selection = [];
+    });
+    PageFlow.invalidateLayout(); PageFlow.fit("page");
   }
   function popover(anchor, html) {
     const el = document.getElementById("popover");
@@ -508,44 +530,17 @@
     el.classList.remove("shape-popover");
   }
   function menu(anchor) {
-    popover(
-      anchor,
-      [
-        ["new", "Sổ tay mới", "Ctrl+N"],
-        ["library", "Thư viện sổ tay", ""],
-        ["open", "Mở tệp .smath.json", "Ctrl+O"],
-        ["save", "Lưu sổ tay thành tệp", "Ctrl+S"],
-        ...(root.InkulatorDesktop?.documents?[["save-as","Lưu thành…","Ctrl+Shift+S"],["local-documents","Tài liệu trên máy",""]]:[]),
-        ["snapshot", "Lưu bản snapshot", ""],
-        ["backup-all", "Sao lưu tất cả sổ tay", ""],
-        ["export-png", "Xuất trang · PNG", ""],
-        ["export-svg", "Xuất trang · SVG", ""],
-        ["export-pdf", "Xuất sổ tay · PDF", ""],
-        ["print", "In sổ tay", ""],
-        ["image", "Chèn ảnh", ""],
-        ["import-pdf", "Chèn PDF từ máy", ""],
-        ["formula", "Soạn công thức đẹp", ""],
-        ["fullscreen", "Toàn màn hình", ""],
-        ["copy", "Sao chép đối tượng", "Ctrl+C"],
-        ["paste", "Dán ảnh / văn bản / đối tượng", "Ctrl+V"],
-        ["paste-image", "Dán ảnh từ bộ nhớ đệm", ""],
-        ["select-all", "Chọn tất cả đối tượng", ""],
-        ["pen-options", "Thao tác bằng bút…", ""],
-        ["pen-keyboard", "Bàn phím trên màn hình", ""],
-        ["help", "Hướng dẫn và giới hạn", "?"],
-      ]
-        .map(
-          ([a, t, k]) =>
-            '<button class="menu-item" data-action="' +
-            a +
-            '">' +
-            t +
-            "<small>" +
-            k +
-            "</small></button>",
-        )
-        .join(""),
-    );
+    const groups=[
+      ["Tài liệu",[["new","Sổ tay mới","Ctrl+N"],["library","Thư viện sổ tay"],["open","Mở tài liệu .ink / .smath.json","Ctrl+O"],["save","Lưu tài liệu","Ctrl+S"],...(root.InkulatorDesktop?.documents?[["save-as","Lưu thành…","Ctrl+Shift+S"],["local-documents","Tài liệu trên máy"]]:[]),["snapshot","Xuất bản snapshot .ink"],["backup-all","Sao lưu tất cả sổ tay"]]],
+      ["Xuất / In",[["export-png","Trang → PNG"],["export-svg","Trang → SVG"],["export-pdf","Sổ tay → PDF"],["print","In sổ tay"]]],
+      ["Chèn",[["image","Ảnh từ máy"],["import-pdf","PDF từ máy"],["formula","Công thức đẹp"],["calculator","Máy tính & công cụ toán"],["paste-image","Dán ảnh từ bộ nhớ đệm"]]],
+      ["Thao tác",[["copy","Sao chép đối tượng","Ctrl+C"],["paste","Dán ảnh / văn bản / đối tượng","Ctrl+V"],["select-all","Chọn tất cả đối tượng","Ctrl+A"],["fullscreen","Toàn màn hình"],["pen-options","Thao tác bằng bút…"],["pen-keyboard","Bàn phím trên màn hình"],["help","Hướng dẫn","?"]]]
+    ];
+    const pop=popover(anchor,'<div class="compact-file-menu"><input id="file-menu-search" type="search" placeholder="Tìm thao tác…" aria-label="Tìm thao tác"><div class="file-menu-tabs"></div><div class="file-menu-actions"></div></div>');
+    const tabs=pop.querySelector(".file-menu-tabs"),actions=pop.querySelector(".file-menu-actions"),search=pop.querySelector("input");let active=0;
+    const render=()=>{actions.replaceChildren();tabs.querySelectorAll("button").forEach((b,i)=>b.classList.toggle("active",i===active));const query=search.value.trim().toLocaleLowerCase("vi");for(const [group,entries] of (query?groups:[groups[active]])){for(const [action,label,key] of entries){if(query&&!label.toLocaleLowerCase("vi").includes(query))continue;const b=document.createElement("button");b.className="menu-item";b.dataset.action=action;b.append(document.createTextNode(label));const shortcut=document.createElement("small");shortcut.textContent=key||"";b.append(shortcut);actions.append(b);}}};
+    groups.forEach(([label],i)=>{const b=document.createElement("button");b.textContent=label;b.onclick=()=>{active=i;search.value="";render();};tabs.append(b);});
+    search.oninput=render;render();
   }
   function setTool(tool) {
     CanvasEngine.cancelActive();
@@ -1297,6 +1292,7 @@
     PageFlow.fit("page");
   }
   function dispatch(action, b) {
+    if(b?.closest?.("#popover"))closePopover();
     if (
       [
         "tool",
@@ -1346,7 +1342,7 @@
       case "paste-image":
         return ClipboardStudio.read({ imagesOnly: true });
       case "capture":
-        return CaptureStudio.start();
+        return b?.closest('.workspace-tabs') ? CaptureStudio.start({onCapture:QuestionPages.create}) : CaptureStudio.start();
       case "paste-capture":
         return CaptureStudio.paste();
       case "download-capture":
@@ -1410,7 +1406,7 @@
       case "close-panel":
         return closePanel();
       case "calculator":
-        return CasioStudio.open();
+        return NativeCalculators.panel(b?.getBoundingClientRect ? b : document.querySelector('.workspace-tabs [data-action="calculator"]'));
       case "calculator-tools":
         return CasioStudio.tools();
       case "pages":
@@ -1419,19 +1415,9 @@
         if (pagesVisible) renderPages();
         return;
       case "add-page":
-        Store.transaction(() => {
-          Store.book().pages.push(Store.page());
-          Store.state.pageIndex = Store.book().pages.length - 1;
-          Store.state.selection = [];
-          Store.state.viewport = { x: 0, y: 0, zoom: 1 };
-          PageFlow.fit("page");
-        });
-        return;
+        return addPage();
       case "ruler":
-        Store.state.ruler = !Store.state.ruler;
-        Renderer.request();
-        b.classList.toggle("active", Store.state.ruler);
-        return;
+        return RulerStudio.toggle();
       case "zoom-in":
         return CanvasEngine.zoomAt(Store.state.viewport.zoom * 1.15);
       case "zoom-out":

@@ -202,7 +202,9 @@
         gesture = null;
         return App.toast("Lớp Nét bút đang khóa hoặc ẩn.");
       }
-      gesture.points = [[p.x, p.y, pressure(e)]];
+      gesture.rulerLine = mode !== "laser" ? root.RulerStudio?.snapLine(p) : null;
+      const first = gesture.rulerLine ? RulerStudio.project(p,gesture.rulerLine) : p;
+      gesture.points = [[first.x, first.y, pressure(e)]];
       Renderer.requestOverlay();
       return;
     }
@@ -355,7 +357,8 @@
       const coalesced = e.getCoalescedEvents?.(),
         events = coalesced?.length ? coalesced : [e];
       for (const item of events) {
-        const q = Renderer.clientPoint(item),
+        const raw = Renderer.clientPoint(item),
+          q = g.rulerLine ? RulerStudio.project(raw,g.rulerLine) : raw,
           prev = g.points.at(-1);
         if (Math.hypot(q.x - prev[0], q.y - prev[1]) < 0.3) continue;
         const factor = 1 - S().settings.smoothing * 0.35;
@@ -555,7 +558,7 @@
   }
   function up(e) {
     if (gesture?.pointerId === e.pointerId && ["pen", "highlighter", "laser"].includes(gesture.mode)) {
-      const p = Renderer.clientPoint(e), prev = gesture.points.at(-1);
+      const raw = Renderer.clientPoint(e), p = gesture.rulerLine ? RulerStudio.project(raw,gesture.rulerLine) : raw, prev = gesture.points.at(-1);
       if (Math.hypot(p.x - prev[0], p.y - prev[1]) > 0.1)
         gesture.points.push([p.x, p.y, prev[2]]);
     }
@@ -669,7 +672,7 @@
   function rollback() {
     if (gesture?.inkToken) Store.cancelInk(gesture.inkToken);
     if (gesture?.before) {
-      const saved = JSON.parse(gesture.before);
+      const saved = Store.restoreSnapshot(gesture.before);
       Store.state.notebooks[Store.state.active] = {
         ...saved,
         assets: Store.book().assets || {},
@@ -1025,7 +1028,7 @@
   }
   function context(e) {
     e.preventDefault();
-    if (!["select", "pan"].includes(S().tool)) return;
+    root.PageFlow?.activateAt(e.clientX, e.clientY);
     const o = hit(Renderer.clientPoint(e));
     if (o) {
       if (!S().selection.includes(o.id)) S().selection = [o.id];
@@ -1042,15 +1045,18 @@
             ["lock", "Khóa đối tượng"],
             ["front", "Đưa lên trên"],
             ["back", "Đưa xuống dưới"],
+            ["add-page", "Thêm trang ngay sau"],
+            ["page-delete", "Xóa trang này"],
           ]
         : [
             ["paste", "Dán"],
             ["add-page", "Thêm trang"],
+            ["page-delete", "Xóa trang này"],
           ]
     )
       .map(
         ([action, label]) =>
-          '<button data-action="' + action + '">' + label + "</button>",
+          '<button data-action="' + action + '" data-index="' + S().pageIndex + '">' + label + "</button>",
       )
       .join("");
     menu.hidden = false;
