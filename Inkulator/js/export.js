@@ -166,20 +166,33 @@
       App.toast(e.message);
     }
   }
+  function orderedPages(book=Store.book()) {
+    const normal=book.pages.filter(p=>!p.questionSource),result=[],added=new Set(),index=new Map(book.pages.map((p,i)=>[p.id,i]));
+    const append=p=>{if(!added.has(p.id)){result.push(p);added.add(p.id);}};
+    for(const source of normal){
+      append(source);
+      const questions=book.pages.filter(p=>p.questionSource?.pageId===source.id),groups=new Map();
+      for(const p of questions){const id=p.questionSource.rootId||p.id;if(!groups.has(id))groups.set(id,[]);groups.get(id).push(p);}
+      const roots=[...groups.values()].sort((a,b)=>{const qa=a.find(p=>p.id===(p.questionSource.rootId||p.id))||a[0],qb=b.find(p=>p.id===(p.questionSource.rootId||p.id))||b[0];return qa.questionSource.y-qb.questionSource.y||qa.questionSource.x-qb.questionSource.x||index.get(qa.id)-index.get(qb.id);});
+      for(const group of roots){const root=group.find(p=>p.id===(p.questionSource.rootId||p.id));if(root)append(root);for(const p of group)append(p);}
+    }
+    for(const p of book.pages)append(p);
+    return result;
+  }
   async function pdf() {
     try {
       const r = await App.dialog(
         "Xuất sổ tay PDF",
-        '<label class="field"><span>Khổ giấy</span><select name="size"><option value="A4">A4</option><option value="A3">A3</option></select></label><p class="hint">Mỗi trang sổ tay được đặt vừa khổ giấy, giữ tỷ lệ. Nội dung ngoài ranh giới trang không được xuất.</p>',
+        '<label class="field"><span>Khổ giấy</span><select name="size"><option value="A4">A4</option><option value="A3">A3</option></select></label><p class="hint">Gồm cả trang câu hỏi: trang gốc → các câu hỏi từ trên xuống và các trang giải tiếp theo → trang gốc kế tiếp. Giữ tỷ lệ theo khổ giấy.</p>',
         "Xuất PDF",
       );
       if (!r) return;
       App.toast("Đang tạo PDF…");
       const doc = await PDFLib.PDFDocument.create();
       doc.setTitle(Store.book().title);
-      doc.setCreator("SCRBLE MATH STUDIO — Offline");
+      doc.setCreator("Inkulator");
       const sourceCache = new Map();
-      for (const p of Store.book().pages) {
+      for (const p of orderedPages()) {
         await Renderer.awaitImages(p);
         if (p.objects.some((o) => o.type === "pdf" && o.visible !== false)) {
           const base = r.size === "A3" ? [841.89, 1190.55] : [595.28, 841.89],
@@ -214,7 +227,7 @@
       const container = document.createElement("div");
       container.className = "print-pages";
       container.style.display = "none";
-      for (const p of Store.book().pages) {
+      for (const p of orderedPages()) {
         await Renderer.awaitImages(p);
         const img = new Image();
         img.src = Renderer.pageCanvas(p).toDataURL("image/png");
@@ -468,6 +481,7 @@
   }
   root.Exporter = {
     project,
+    orderedPages,
     backupAll,
     importFile,
     importImage,

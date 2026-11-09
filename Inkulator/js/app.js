@@ -173,7 +173,7 @@
       if (
         !e.target.closest(".popover") &&
         !e.target.closest("#toolbar") &&
-        !e.target.closest('[data-action="calculator-models"],[data-action="calculator"]') &&
+        !e.target.closest('[data-action="calculator-models"],[data-action="calculator"],[data-action="capture-options"]') &&
         !e.target.closest(
           "#pen-keyboard,#pen-dock,#selection-tools,#geometry-toolbar",
         ) &&
@@ -272,7 +272,7 @@
             fountain: "Bút mực",
             pencil: "Bút chì",
             marker: "Bút lông",
-          }[s.pen] || "Bút"
+          }[s.pen] || root.InkBrush?.catalog.find(p=>p[0]===s.pen)?.[1] || "Bút"
         : tools[s.tool],
     );
     document.getElementById("width-label").textContent = s.width;
@@ -606,25 +606,30 @@
         s.color +
         '"></label><button class="menu-item" id="laser-tool">Bút laser tạm thời</button>',
     );
+    const penSelect=document.getElementById("pen-type");penSelect.replaceChildren();
+    for(const [id,label] of InkBrush.catalog){const option=document.createElement("option");option.value=id;option.textContent=label;penSelect.append(option);}
+    const smart=document.createElement("label");smart.className="field-row";smart.innerHTML='<input id="pen-smart-shape" type="checkbox"> Smart Shape · sửa nét thành hình';el.querySelector("h3").after(smart);smart.querySelector("input").checked=!!s.settings.smartShape;smart.querySelector("input").onchange=e=>{s.settings.smartShape=e.target.checked;Store.scheduleSave();};
+    const rememberPen=()=>{s.settings.activePen=s.pen;(s.settings.penPresets||={})[s.pen]={color:s.color,width:s.width,opacity:s.opacity};Store.scheduleSave();};
     document.getElementById("pen-type").value = s.pen;
     document.getElementById("pen-type").onchange = (e) => {
       const presets = s.settings.penPresets || {};
       presets[s.pen] = { color: s.color, width: s.width, opacity: s.opacity };
       s.pen = e.target.value;
-      const next = presets[s.pen];
+      const next = presets[s.pen] || {color:s.color,width:InkBrush.catalog.find(p=>p[0]===s.pen)?.[2]||2.5,opacity:1};
       if (next) {
         s.color = next.color;
         s.width = next.width;
         s.opacity = next.opacity;
       }
-      s.settings.penPresets = presets;
-      Store.scheduleSave();
+      presets[s.pen]={color:s.color,width:s.width,opacity:s.opacity};s.settings.penPresets = presets;
+      rememberPen();
       setTool("pen");
       widthPopover(anchor);
     };
     document.getElementById("pen-width").oninput = (e) => {
       s.width = Number(e.target.value);
       document.getElementById("pen-width-output").textContent = s.width;
+      rememberPen();
       Store.emit();
     };
     document.getElementById("pen-width").onchange = () => {
@@ -637,7 +642,7 @@
     };
     document.getElementById("pen-opacity").oninput = (e) => {
       s.opacity = Number(e.target.value);
-      Store.emit();
+      rememberPen();Store.emit();
     };
     document.getElementById("pen-opacity").onchange = () => {
       if (Store.selected().length)
@@ -647,8 +652,7 @@
             .forEach((o) => (o.style.opacity = s.opacity)),
         );
     };
-    document.getElementById("pen-color").oninput = (e) =>
-      setColor(e.target.value);
+    document.getElementById("pen-color").oninput = (e) => {setColor(e.target.value);rememberPen();};
     document.getElementById("laser-tool").onclick = () => {
       setTool("laser");
       closePopover();
@@ -1342,7 +1346,12 @@
       case "paste-image":
         return ClipboardStudio.read({ imagesOnly: true });
       case "capture":
-        return b?.closest('.workspace-tabs') ? CaptureStudio.start({onCapture:QuestionPages.create}) : CaptureStudio.start();
+      case "capture-image":
+        return CaptureStudio.start();
+      case "capture-question":
+        return CaptureStudio.start({mode:"question"});
+      case "capture-options":
+        return CaptureStudio.options(b);
       case "paste-capture":
         return CaptureStudio.paste();
       case "download-capture":

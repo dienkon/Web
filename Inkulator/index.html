@@ -45,7 +45,7 @@
       </button>
     </div>
     <nav class="workspace-tabs">
-      <button data-action="capture" title="Chụp câu hỏi · mở trang giảng bài" aria-label="Chụp câu hỏi"><span class="tab-symbol">▣</span> Chụp câu hỏi</button>
+      <button data-action="capture" title="Chụp ảnh để dán" aria-label="Chụp ảnh để dán"><span class="tab-symbol">▣</span> Chụp ảnh</button>
       <button data-action="pages" id="pages-toggle">
         ☷ <span>Trang sổ tay</span></button
       ><span class="tab-divider"></span
@@ -65,6 +65,7 @@
         <span class="tab-symbol">▦</span> Máy tính</button
       >
       <div class="tab-spacer"></div>
+      <button data-action="export-pdf" title="Xuất PDF · gồm các trang câu hỏi" aria-label="Xuất PDF">Xuất PDF</button>
       <button data-action="panel" data-panel="paper">
         ▤ <span>Kiểu giấy</span></button
       ><button data-action="panel" data-panel="layers">
@@ -184,6 +185,8 @@
     <script src="js/solid-drawing.js"></script>
     <script src="js/constructions.js"></script>
     <script src="js/state.js"></script>
+    <script src="js/ink-brush.js"></script>
+    <script src="js/smart-shapes.js"></script>
     <script src="js/page-flow.js"></script>
     <script src="js/renderer.js"></script>
     <script src="js/formulas.js"></script>
@@ -203,6 +206,7 @@
     <script src="js/workspace.js"></script>
     <script src="js/capture.js"></script>
     <script src="js/question-pages.js"></script>
+    <script src="js/question-ocr.js"></script>
     <script src="js/ruler.js"></script>
     <script src="js/geometry-controls.js"></script>
     <script src="js/document-files.js"></script>

@@ -24,6 +24,7 @@
   }
   function init() {
     canvas = document.getElementById("ink-canvas");
+    cursor();
     canvas.addEventListener("pointerdown", down);
     canvas.addEventListener("pointermove", move);
     canvas.addEventListener("pointerup", up);
@@ -586,7 +587,7 @@
       g.additions = [];
       for (const part of parts) {
         let o = strokeFrom(part.points, g.mode);
-        if (parts.length === 1 && S().settings.smartShape && g.mode === "pen")
+        if (parts.length === 1 && S().settings.smartShape && g.mode === "pen" && !e.altKey)
           o = recognize(o, part.points) || o;
         o.zIndex = part.page.objects.length;
         part.page.objects.push(o);
@@ -910,66 +911,9 @@
     Renderer.request();
   }
   function recognize(o, pts) {
-    if (pts.length < 10) return null;
-    const a = { x: pts[0][0], y: pts[0][1] },
-      b = { x: pts.at(-1)[0], y: pts.at(-1)[1] },
-      diag = Math.hypot(o.size.w, o.size.h);
-    if (diag < 35) return null;
-    if (
-      dist(a, b) > diag * 0.7 &&
-      pts.every(
-        (p) =>
-          segmentDistance({ x: p[0], y: p[1] }, a, b) <
-          Math.max(4, diag * 0.035),
-      )
-    ) {
-      const r = rect(a, b);
-      return Store.object(
-        "shape",
-        { kind: "line", flip: (a.x - b.x) * (a.y - b.y) < 0 },
-        { position: { x: r.x, y: r.y }, size: { w: r.w, h: r.h } },
-      );
-    }
-    if (dist(a, b) > diag * 0.16) return null;
-    const cx = o.position.x + o.size.w / 2,
-      cy = o.position.y + o.size.h / 2,
-      radii = pts.map((p) => Math.hypot(p[0] - cx, p[1] - cy)),
-      mean = radii.reduce((a, b) => a + b, 0) / radii.length,
-      sd = Math.sqrt(
-        radii.reduce((s, r) => s + (r - mean) ** 2, 0) / radii.length,
-      );
-    if (
-      o.size.w / o.size.h > 0.8 &&
-      o.size.w / o.size.h < 1.25 &&
-      sd / mean < 0.12
-    )
-      return Store.object(
-        "shape",
-        { kind: "circle" },
-        {
-          position: { x: cx - mean, y: cy - mean },
-          size: { w: mean * 2, h: mean * 2 },
-        },
-      );
-    const edgeError =
-      pts.reduce(
-        (s, p) =>
-          s +
-          Math.min(
-            Math.abs(p[0] - o.position.x),
-            Math.abs(p[0] - o.position.x - o.size.w),
-            Math.abs(p[1] - o.position.y),
-            Math.abs(p[1] - o.position.y - o.size.h),
-          ),
-        0,
-      ) / pts.length;
-    if (edgeError < diag * 0.035)
-      return Store.object(
-        "shape",
-        { kind: "rectangle" },
-        { position: { ...o.position }, size: { ...o.size } },
-      );
-    return null;
+    const result=root.SmartShapes?.detect(pts,S().viewport.zoom);
+    if(!result)return null;
+    return Store.object("shape",{kind:result.kind,filled:false,...result.data},{position:result.position,size:result.size,rotation:result.rotation||0,style:{...o.style},layer:o.layer});
   }
   function inside(p, poly) {
     let result = false;
@@ -1079,6 +1023,7 @@
     ctx.globalAlpha = Math.max(0.05, Math.min(1, alpha));
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
+    if(root.InkBrush?.draw(ctx,points,penType,width)){ctx.restore();return;}
 
     if (points.length === 1) {
       ctx.beginPath();
@@ -1161,7 +1106,7 @@
         ? "default"
         : S().tool === "pan"
           ? "grab"
-          : "crosshair";
+          : "default";
   }
   function isDrawing() {
     return !!(

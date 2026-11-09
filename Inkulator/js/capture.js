@@ -9,6 +9,7 @@
     button.setAttribute("aria-label", button.title);
     button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M21 16v5h-5M8 21H3v-5M7 7h10v10H7z"/></svg>';
     document.querySelector('#pen-dock [data-action="paste-image"]').before(button);
+    const modes=document.createElement("button");modes.dataset.action="capture-options";modes.className="capture-mode-trigger";modes.textContent="⌄";modes.title="Chế độ chụp ảnh / tạo trang câu hỏi";modes.setAttribute("aria-label",modes.title);document.querySelector('.workspace-tabs [data-action="capture"]').after(modes);
     const width = document.createElement("button");
     width.dataset.action = "fit-width"; width.textContent = "↔";
     width.title = "Vừa chiều rộng"; width.setAttribute("aria-label", width.title);
@@ -31,6 +32,9 @@
         latest = { src, name: "Inkulator-Capture.png" }; updateTray();
       }
     }).catch(() => {});
+  }
+  function options(anchor){
+    App.popover(anchor,'<h3>Chế độ chụp</h3><button class="menu-item" data-action="capture-image">▣ Chụp ảnh để dán · mặc định</button><button class="menu-item" data-action="capture-question">↗ Chụp và tạo trang câu hỏi</button>');
   }
   function updateTray() {
     const tray = document.getElementById("capture-tray");
@@ -79,19 +83,20 @@
       const overlay = document.createElement("div");
       overlay.id = "capture-overlay";
       overlay.setAttribute("aria-label", "Kéo hình chữ nhật để chụp trang viết");
-      overlay.innerHTML = '<div class="capture-guide">Kéo để chụp vùng · Esc để hủy <button id="capture-cancel" type="button">×</button></div><div class="capture-box" hidden></div>';
+      overlay.innerHTML = '<div class="capture-guide">Kéo để chụp vùng · Esc để hủy '+(options.onCapture?'':'<select id="capture-mode" aria-label="Chế độ capture"><option value="image">Ảnh để dán</option><option value="question">Tạo trang câu hỏi</option></select>')+' <button id="capture-cancel" type="button">×</button></div><div class="capture-box" hidden></div>';
       const r=shot.areaRect;
       shot.canvas.className='capture-frozen';Object.assign(shot.canvas.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});
       const reveal=document.createElement('canvas');reveal.className='capture-reveal';reveal.width=shot.canvas.width;reveal.height=shot.canvas.height;reveal.getContext('2d').drawImage(shot.canvas,0,0);Object.assign(reveal.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});reveal.hidden=true;
       overlay.prepend(shot.canvas,reveal); document.body.append(overlay);
-      active = { overlay, shot, start: null, pointerId: null, callback:typeof options.onCapture==="function"?options.onCapture:null };
+      active = { overlay, shot, start: null, pointerId: null, callback:typeof options.onCapture==="function"?options.onCapture:options.mode==="question"?QuestionPages.create:null };
+      const mode=overlay.querySelector('#capture-mode');if(mode){mode.value=options.mode||'image';mode.onchange=()=>active.callback=mode.value==='question'?QuestionPages.create:null;}
       const point = e => ({x:Math.max(0,Math.min(shot.w,e.clientX-r.left)),y:Math.max(0,Math.min(shot.h,e.clientY-r.top))});
       const box = overlay.querySelector(".capture-box");
       const rect = p => ({x:Math.min(active.start.x,p.x),y:Math.min(active.start.y,p.y),w:Math.abs(p.x-active.start.x),h:Math.abs(p.y-active.start.y)});
       overlay.querySelector("#capture-cancel").onclick = cancel;
       overlay.oncontextmenu = e => { e.preventDefault(); cancel(); };
       overlay.onpointerdown = e => {
-        if(e.button !== 0 || e.target.closest("button") || active?.start) return;
+        if(e.button !== 0 || e.target.closest("button,select,option") || active?.start) return;
         e.preventDefault(); active.start=point(e); active.pointerId=e.pointerId;
         overlay.setPointerCapture(e.pointerId); box.hidden=false;
       };
@@ -122,6 +127,11 @@
       const v=shot.viewport,region={src,rect,bookId:shot.bookId,pageId:shot.pageId,world:{x:(rect.x-v.x)/v.zoom,y:(rect.y-v.y)/v.zoom,w:rect.w/v.zoom,h:rect.h/v.zoom}};
       const sourcePage=shot.pages.find(p=>region.world.x+region.world.w/2>=p.x && region.world.x+region.world.w/2<=p.x+p.width && region.world.y+region.world.h/2>=p.y && region.world.y+region.world.h/2<=p.y+p.height);
       if(sourcePage){region.pageId=sourcePage.id;region.world.x-=sourcePage.x;region.world.y-=sourcePage.y;}
+      if(callback===QuestionPages.create){
+        const ctx=source.getContext("2d"),candidates=[];
+        for(const offset of [42,78,114]){const x=Math.max(0,Math.min(shot.w-160,rect.x)),y=rect.y-offset;if(y<0)continue;const data=ctx.getImageData(Math.round(x*sx),Math.round(y*sy),Math.max(1,Math.round(150*sx)),Math.max(1,Math.round(30*sy))).data;let ink=0;for(let i=0;i<data.length;i+=16)if(data[i]+data[i+1]+data[i+2]<570)ink++;candidates.push({x,y,score:ink+offset*.001});}
+        candidates.sort((a,b)=>a.score-b.score);const choice=candidates[0];if(choice)region.anchor={x:(choice.x-v.x)/v.zoom-(sourcePage?.x||0),y:(choice.y-v.y)/v.zoom-(sourcePage?.y||0)};
+      }
       cancel();await callback(region);return;
     }
     latest={src,name:"Inkulator-Capture-"+new Date().toISOString().replace(/[:.]/g,"-")+".png"};
@@ -145,5 +155,5 @@
     if(!latest) return;
     Exporter.download(await (await fetch(latest.src)).blob(),latest.name,"image/png");
   }
-  root.CaptureStudio={init,start,cancel,paste,download,pageImage,releasePreference(){preferred=false;},get preferred(){return preferred;},get latest(){return latest;},get active(){return !!active || preparing;}};
+  root.CaptureStudio={init,start,options,cancel,paste,download,pageImage,releasePreference(){preferred=false;},get preferred(){return preferred;},get latest(){return latest;},get active(){return !!active || preparing;}};
 })(window);

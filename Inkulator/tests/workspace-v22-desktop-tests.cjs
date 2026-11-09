@@ -1,0 +1,14 @@
+const {_electron}=require('playwright'),assert=require('node:assert/strict'),path=require('node:path'),fs=require('node:fs'),os=require('node:os');
+const root=path.resolve(__dirname,'..'),profile=fs.mkdtempSync(path.join(os.tmpdir(),'inkulator-v22-')),executablePath=process.argv[2]&&path.resolve(process.argv[2]);
+const launch=()=>_electron.launch({...(executablePath?{executablePath,args:[]}:{args:[root]}),env:{...process.env,INKULATOR_TEST_PROFILE:profile},timeout:60000});
+(async()=>{let app;try{
+ app=await launch();let page=await app.firstWindow();await page.waitForFunction(()=>window.Scrble&&DocumentFiles.status==='Đã lưu tệp trên máy');
+ await app.evaluate(()=>{globalThis.__networkCount=0;globalThis.fetch=async()=>{__networkCount++;throw Error('Network disabled for local OCR test');};});
+ const info=await page.evaluate(async()=>{Store.state.settings.autoPages=false;const c=document.createElement('canvas');c.width=1100;c.height=220;const ctx=c.getContext('2d');ctx.fillStyle='white';ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle='black';ctx.font='40px Segoe UI';ctx.fillText('Câu 12. a) Tìm x.',30,90);const src=c.toDataURL(),direct=await InkulatorDesktop.questionOCR(src);if(!direct.available)throw Error('Windows OCR must be available in this test environment');const source=Store.current().id;await QuestionPages.create({src,bookId:Store.book().id,pageId:source,world:{x:100,y:300,w:1000,h:200}});return {id:Store.current().id,source,direct};});assert.match(info.direct.text,/12/);
+ await page.waitForFunction(()=>Store.current().title==='Câu 12 · ý a',null,{timeout:30000});assert.equal(await app.evaluate(()=>__networkCount),0);
+ await page.evaluate(()=>{Store.current().questionSource.buttonX=233;Store.current().questionSource.buttonY=144;Store.invalidateSnapshot();Store.save();return DocumentFiles.flush();});
+ await app.close();app=await launch();page=await app.firstWindow();await page.waitForFunction(()=>window.Scrble&&DocumentFiles.status==='Đã lưu tệp trên máy');
+ const restored=await page.evaluate(id=>{const p=Store.book().pages.find(p=>p.id===id);return {title:p.title,q:p.questionSource,order:Exporter.orderedPages().map(p=>p.id)};},info.id);assert.equal(restored.title,'Câu 12 · ý a');assert.equal(restored.q.buttonX,233);assert.equal(restored.q.buttonY,144);assert.equal(restored.q.ocrEngine,'Windows OCR');assert.deepEqual(restored.order,[info.source,info.id]);
+ assert.equal(await page.evaluate(async()=>{try{await InkulatorDesktop.questionOCR('not an image');return false;}catch{return true;}}),true);
+ console.log('PASS desktop 2.2: real Windows OCR reads Vietnamese question/subpart offline; no Gemini/network request; label, OCR metadata, fixed anchor and export order survive actual restart; invalid IPC input rejected');
+}finally{if(app)await app.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

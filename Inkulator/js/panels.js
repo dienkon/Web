@@ -85,6 +85,7 @@
         : { ...Geometry.flat(kind), fillOpacity: 0 },
       {
         size: { w: solid ? 370 : 340, h: solid ? 320 : 300 },
+        rotation:solid?Geometry.defaultDrawingRotation(kind):0,
         style: { color: "#111111", width: 2.6, opacity: 1 },
       },
     );
@@ -297,6 +298,7 @@
       reset.onclick = () =>
         Store.transaction(() => {
           d.rotation = Geometry.defaultRotation(d.kind);
+          o.rotation = Geometry.defaultDrawingRotation(d.kind);
           d.projection = Geometry.defaultProjection(d.kind);
         });
       toggles.append(reset);

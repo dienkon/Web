@@ -183,6 +183,7 @@
     ctx.scale(o.size.w / ow, o.size.h / oh);
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
+    if(root.InkBrush?.draw(ctx,p,o.data.pen,o.style.width))return;
     ctx.globalAlpha *=
       o.data.pen === "highlighter" ? 0.28 : o.data.pen === "pencil" ? 0.7 : 1;
     const width = o.style.width * (o.data.pen === "marker" ? 2 : 1);
@@ -304,6 +305,9 @@
       case "heptagon":
       case "octagon":
       case "decagon": {
+        if(Array.isArray(d.vertices)){
+          d.vertices.forEach((p,i)=>i?ctx.lineTo(p[0]*w,p[1]*h):ctx.moveTo(p[0]*w,p[1]*h));ctx.closePath();break;
+        }
         const sides =
           {
             pentagon: 5,

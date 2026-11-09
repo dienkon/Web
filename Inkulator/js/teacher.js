@@ -1093,7 +1093,7 @@
       const pop=App.popover(viewButton,'<h3>Hướng nhìn bài tập</h3><div class="geo-menu-grid">'+options.map(v=>'<button data-view="'+v.id+'">'+v.title+'</button>').join('')+'</div>');
       pop.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>{
         const view=options.find(v=>v.id===b.dataset.view);
-        cancel(); Store.transaction(()=>{o.data.rotation=[...view.rotation];o.data.projection=view.projection;o.data.live=false;});
+        cancel(); Store.transaction(()=>{o.data.rotation=[...view.rotation];o.rotation=view.id==="standard"?Geometry.defaultDrawingRotation(o.data.kind):0;o.data.projection=view.projection;o.data.live=false;});
         App.closePopover();
       });
     };

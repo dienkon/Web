@@ -43,6 +43,7 @@
     autoPages: true,
     handwritingOCR: false,
     geminiModel: "gemini-3.5-flash-lite",
+    activePen: "ballpoint",
   };
   const state = {
     notebooks: [notebook()],
@@ -574,6 +575,7 @@
         ].includes(d.kind)
       )
         throw Error("Hình chưa hỗ trợ.");
+      if(o.type==="shape" && d.vertices!==undefined && (!Array.isArray(d.vertices)||d.vertices.length<3||d.vertices.length>16||d.vertices.some(p=>!Array.isArray(p)||p.length!==2||p.some(v=>!boundedNum(v,0,1)))))throw Error("Đỉnh hình vẽ không hợp lệ.");
       if (o.type === "geometry") {
         if (
           !root.Geometry.flatCatalog.some(([k]) => k === d.kind) ||
@@ -884,6 +886,7 @@
         const q=p.questionSource;
         if(q && typeof q.pageId==="string" && ["x","y","w","h"].every(k=>boundedNum(q[k],-1e6,1e6)) && q.w>0 && q.h>0)
           cleanPage.questionSource={pageId:q.pageId.slice(0,100),...(typeof q.rootId==="string"?{rootId:q.rootId.slice(0,100)}:{}),x:q.x,y:q.y,w:q.w,h:q.h};
+        if(cleanPage.questionSource){for(const key of ["buttonX","buttonY"])if(boundedNum(q[key],0,20000))cleanPage.questionSource[key]=q[key];for(const key of ["ocrText","ocrEngine"])if(typeof q[key]==="string")cleanPage.questionSource[key]=q[key].slice(0,key==="ocrText"?4000:80);if(q.manualTitle)cleanPage.questionSource.manualTitle=true;}
         cleanPage.objects = p.objects.map((o) => clean(o));
         if (Array.isArray(p.layers) && p.layers.length === 5) {
           const ids = p.layers.map((l) => l.id);
@@ -1048,6 +1051,7 @@
           "autoPages",
           "performance",
           "geminiModel",
+          "activePen",
           "handwritingOCR",
         ])
           if (typeof lib.settings[k] === typeof defaults[k])
@@ -1087,7 +1091,7 @@
           typeof lib.settings.penPresets === "object"
         ) {
           const valid = {};
-          for (const k of ["ballpoint", "fountain", "pencil", "marker"]) {
+          for (const k of (root.InkBrush?.catalog.map(p=>p[0]) || ["ballpoint", "fountain", "pencil", "marker"])) {
             const p = lib.settings.penPresets[k];
             if (
               p &&
@@ -1102,6 +1106,10 @@
               valid[k] = p;
           }
           state.settings.penPresets = valid;
+          const types=root.InkBrush?.catalog.map(p=>p[0])||["ballpoint","fountain","pencil","marker"];
+          state.pen=types.includes(state.settings.activePen)?state.settings.activePen:"ballpoint";
+          if(valid[state.pen]){state.color=valid[state.pen].color;state.width=valid[state.pen].width;state.opacity=valid[state.pen].opacity;}
+
         }
       }
     } catch (error) {

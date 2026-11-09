@@ -1,0 +1,15 @@
+const assert=require('node:assert/strict');require('../js/smart-shapes.js');require('../js/question-ocr.js');
+const dense=vertices=>vertices.flatMap((a,i)=>{const b=vertices[(i+1)%vertices.length];return Array.from({length:20},(_,j)=>[a[0]+(b[0]-a[0])*j/20+Math.sin(j*2.3)*.8,a[1]+(b[1]-a[1])*j/20+Math.cos(j*1.7)*.8]);}).concat([vertices[0]]);
+const rotate=(p,a)=>[p[0]*Math.cos(a)-p[1]*Math.sin(a)+250,p[0]*Math.sin(a)+p[1]*Math.cos(a)+200];
+assert.equal(SmartShapes.detect([[0,1],[200,0]]).kind,'line');
+assert.equal(SmartShapes.detect(dense([[0,0],[200,0],[200,100],[0,100]])).kind,'rectangle');
+const rotated=SmartShapes.detect(dense([[0,0],[200,0],[200,100],[0,100]].map(p=>rotate(p,.42))));assert.equal(rotated.kind,'rectangle');assert.ok(Math.abs(rotated.rotation-24)<2);
+assert.equal(SmartShapes.detect(dense([[0,120],[80,0],[200,120]])).data.smartKind,'triangle');
+assert.equal(SmartShapes.detect(Array.from({length:81},(_,i)=>[100+80*Math.cos(i*2*Math.PI/80),100+80*Math.sin(i*2*Math.PI/80)])).kind,'circle');
+const ellipse=SmartShapes.detect(Array.from({length:81},(_,i)=>rotate([100*Math.cos(i*2*Math.PI/80),40*Math.sin(i*2*Math.PI/80)],.6)));assert.equal(ellipse.kind,'ellipse');assert.ok(Math.abs(ellipse.rotation-.6*180/Math.PI)<2);
+for(const input of [[[0,0],[0,100],[25,0],[25,100],[50,0],[50,100],[75,0],[75,100]],[[0,0],[200,100],[0,100],[200,0],[0,0]],[[0,0],[2,2]],Array.from({length:160},(_,i)=>[100+80*Math.cos(i*4*Math.PI/159),100+80*Math.sin(i*4*Math.PI/159)])])assert.equal(SmartShapes.detect(input),null);
+assert.equal(QuestionOCR.label('Câu 12. Cho phương trình\na) Tìm x.\nb) Tính y.'),'Câu 12 · ý a, b');
+assert.equal(QuestionOCR.label('CAU\n7\na) Tinh x'),'Câu 7 · ý a');
+assert.equal(QuestionOCR.label('Câu 12 · ý a, b'),'Câu 12 · ý a, b');
+assert.equal(QuestionOCR.label('b) Tìm nghiệm'),'Ý b');assert.equal(QuestionOCR.label('x^2 + 2x = 0'),'');
+console.log('PASS smart shapes: sparse lines, noisy/rotated rectangles, triangles, circles and rotated ellipses; handwriting, crossed polygons, dots and multi-loops remain ink; OCR labels parse Vietnamese question/subparts');

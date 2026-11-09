@@ -45,6 +45,7 @@ else {
     });
     mainWindow.once("ready-to-show", () => mainWindow.show());
     require("./capture.cjs")(mainWindow);
+    require("./question-ocr.cjs")(mainWindow);
     require("./document-files.cjs")(mainWindow);
     require("./gemini.cjs")(mainWindow);
     require("./native-calculators.cjs")(mainWindow);

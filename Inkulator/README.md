@@ -1,10 +1,10 @@
-# Inkulator · 2.1.0
+# Inkulator · 2.2.0
 
 Sổ tay Toán học ngoại tuyến cho Windows, lấy cảm hứng bố cục từ ảnh Scrble Ink được cung cấp. Phần Casio tích hợp source của Tikz-Physics, ghi nguồn riêng bên dưới; không phải sản phẩm chính thức của Scrble, GeoGebra hay Casio.
 
 ## Mở ứng dụng
 
-**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-2.1.0-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Tài liệu tự lưu thành tệp trong **Documents / Inkulator**; bộ đệm cũ được sao lưu nén khi chuyển đổi, ứng dụng mở bản mới nhất trên ổ đĩa. Bộ cài cá nhân chưa ký số.
+**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-2.2.0-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Tài liệu tự lưu thành tệp trong **Documents / Inkulator**; bộ đệm cũ được sao lưu nén khi chuyển đổi, ứng dụng mở bản mới nhất trên ổ đĩa. Bộ cài cá nhân chưa ký số.
 
 **Bản web và iPad:** bản web vẫn chạy từ `index.html` trên máy tính. Trên iPad, phục vụ toàn bộ thư mục ứng dụng qua HTTP/HTTPS rồi mở bằng Safari; iPad không chạy tệp `.exe`. Không có máy chủ nào được triển khai tự động. Bản Windows và trình duyệt có kho lưu riêng; dùng **Ctrl+S / Mở tệp** để chuyển sổ tay giữa các bản.
 
@@ -17,6 +17,16 @@ Nếu dùng bản ZIP trên máy tính:
 **Viết, vẽ, tính toán và lưu tài liệu dùng ngoại tuyến, không cần API key.** Trợ lý Gemini là tính năng tùy chọn cần Internet và khóa API riêng. Không mở index.html ngay bên trong cửa sổ xem ZIP; cần giải nén toàn bộ thư mục để các tệp đi cùng được đọc đúng.
 
 Tất cả script, CSS, icon và thư viện nằm trong thư mục sản phẩm. Bản chạy dùng script cổ điển, không cần ES module từ file://, CDN, service worker hoặc tải font mạng. PDF.js được bundle cùng phần xử lý worker để chạy trên luồng chính, nhận font/CMap/decoder từ dữ liệu nhúng; không tạo worker từ đường dẫn file://. Công thức dùng SVG glyph có sẵn, không tải font ngoài.
+
+## Điểm mới 2.2 · capture theo chế độ, PDF xen trang câu hỏi
+
+- Camera mặc định **chụp ảnh để dán**, không tạo trang. Mũi tên cạnh camera hoặc bộ chọn trong lúc khoanh vùng cho phép chọn **Tạo trang câu hỏi** cho riêng lần chụp đó.
+- Nút mở câu hỏi nằm cố định tại khoảng trống phía trên vùng đề, kéo đổi vị trí được và lưu lại; chuột phải đổi tên. Đọc số câu/ý từ lớp chữ PDF hoặc Windows OCR, có Gemini đọc vùng ảnh khi cần và đã cấu hình.
+- Nút **Xuất PDF** trên thanh trên xuất cả các trang ảo xen ngay sau trang gốc theo vị trí câu hỏi, kèm các trang giải tiếp theo.
+- Chóp SA vuông góc đáy đặt SA phía trái bên trong, **thẳng đứng**, không nghiêng cả hình. Thêm 6 bút thành 10 kiểu, con trỏ viết là mũi tên gốc Windows.
+- Smart Shape nhận được nét nhanh, chữ nhật/elip nghiêng, tam giác và tứ giác; giữ nét chữ/phác thảo không phù hợp thay vì ép thành hình. Có nút bật nhanh trong Thiết lập bút.
+
+[Chi tiết và kiểm tra bản 2.2](docs/RELEASE-2.2.md).
 
 ## Điểm mới 2.1 · giảng bài từ vùng chụp
 

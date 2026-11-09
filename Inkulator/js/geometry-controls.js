@@ -101,7 +101,7 @@
       const sync=()=>{yaw.value=o.data.rotation[1]*180/Math.PI;pitch.value=o.data.rotation[0]*180/Math.PI;};sync();
       for(const b of pop.querySelectorAll("[data-turn]"))b.onclick=()=>{Store.transaction(()=>o.data.rotation[1]+=Number(b.dataset.turn)*Math.PI/180);sync();};
       yaw.onchange=pitch.onchange=()=>Store.transaction(()=>{o.data.rotation=[Number(pitch.value)*Math.PI/180,Number(yaw.value)*Math.PI/180];});
-      pop.querySelector("#geo-reset-angle").onclick=()=>{Store.transaction(()=>{o.data.rotation=Geometry.defaultRotation(o.data.kind);o.data.projection=Geometry.defaultProjection(o.data.kind);});sync();};return;
+      pop.querySelector("#geo-reset-angle").onclick=()=>{Store.transaction(()=>{o.data.rotation=Geometry.defaultRotation(o.data.kind);o.rotation=Geometry.defaultDrawingRotation(o.data.kind);o.data.projection=Geometry.defaultProjection(o.data.kind);});sync();};return;
     }
     const points=TeacherGeometry.points(o).filter(p=>p.key.startsWith("v:"));
     const pop=App.popover(anchor,'<h3>Vị trí tên đỉnh</h3><label class="field"><span>Đỉnh</span><select id="geo-label-vertex"></select></label><div class="geo-label-directions"></div><button id="geo-label-auto" class="full">Tự tránh cạnh và tên khác</button>');

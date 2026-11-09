@@ -604,7 +604,9 @@
     return [
       -0.45,
       -0.55 +
-        (kind === "tri-prism"
+        (["right-pyramid","s-abcd-rec","s-abc-right"].includes(kind)
+          ? -Math.PI/2
+          : kind === "tri-prism"
           ? Math.PI - Math.PI / 12
           : ["tri-pyramid","tetrahedron"].includes(kind)
             ? -Math.PI / 3
@@ -684,6 +686,7 @@
     camera,
     defaultProjection,
     defaultRotation,
+    defaultDrawingRotation:()=>0,
     textbookViews,
     sub,
     add,
