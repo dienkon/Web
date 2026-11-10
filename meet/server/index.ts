@@ -26,6 +26,45 @@ app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+app.get('/api/ice-servers', async (_req, res) => {
+  const iceServers: any[] = [
+    { urls: 'stun:stun.l.google.com:19302' },
+    { urls: 'stun:stun1.l.google.com:19302' },
+    { urls: 'stun:stun2.l.google.com:19302' },
+    { urls: 'stun:stun3.l.google.com:19302' },
+    { urls: 'stun:stun4.l.google.com:19302' },
+    { urls: 'stun:stun.cloudflare.com:3478' },
+    { urls: 'stun:stun.relay.metered.ca:80' },
+    { urls: 'stun:stun.services.mozilla.com' },
+  ];
+
+  const turnServer = process.env.TURN_SERVER || process.env.VITE_TURN_SERVER;
+  if (turnServer) {
+    const urls = turnServer.split(',').map((s) => s.trim());
+    iceServers.push({
+      urls,
+      username: process.env.TURN_USERNAME || process.env.VITE_TURN_USERNAME || '',
+      credential: process.env.TURN_PASSWORD || process.env.VITE_TURN_PASSWORD || '',
+    });
+  }
+
+  const meteredApp = process.env.METERED_APP_NAME || process.env.VITE_METERED_APP_NAME;
+  const meteredKey = process.env.METERED_API_KEY || process.env.VITE_METERED_API_KEY;
+  if (meteredApp && meteredKey) {
+    try {
+      const response = await fetch(`https://${meteredApp}.metered.live/api/v1/turn/credentials?apiKey=${meteredKey}`);
+      if (response.ok) {
+        const dynamicServers = await response.json();
+        if (Array.isArray(dynamicServers)) {
+          return res.json({ iceServers: dynamicServers });
+        }
+      }
+    } catch {}
+  }
+
+  res.json({ iceServers });
+});
+
 app.get('/api/rooms/:code', (req, res) => {
   const room = roomManager.getRoom(req.params.code);
   if (!room) {

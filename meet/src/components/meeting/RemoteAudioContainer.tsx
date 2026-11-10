@@ -13,8 +13,16 @@ function RemoteAudio({ stream, enabled, onBlocked }: { stream: MediaStream; enab
     const play = () => { void audio.play().catch(error => { if (error.name === 'NotAllowedError') onBlocked(); }); };
     play();
     window.addEventListener('pointerdown', play);
+    window.addEventListener('touchstart', play);
+    window.addEventListener('click', play);
     window.addEventListener('keydown', play);
-    return () => { window.removeEventListener('pointerdown', play); window.removeEventListener('keydown', play); audio.srcObject = null; };
+    return () => {
+      window.removeEventListener('pointerdown', play);
+      window.removeEventListener('touchstart', play);
+      window.removeEventListener('click', play);
+      window.removeEventListener('keydown', play);
+      audio.srcObject = null;
+    };
   }, [stream, onBlocked]);
   useEffect(() => { if (ref.current) { ref.current.volume = volume; ref.current.muted = !enabled; } }, [volume, enabled]);
   useEffect(() => {

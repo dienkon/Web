@@ -62,9 +62,7 @@ export function useSocket() {
           socketService.emit('webrtc:ice-candidate', { targetId, candidate });
         },
         (connectionState) => updateParticipant(targetId, { connectionState }),
-        isPolite
-          ? (offer) => socketService.emit('webrtc:offer', { targetId, offer })
-          : undefined,
+        (offer) => socketService.emit('webrtc:offer', { targetId, offer }),
         isPolite
       );
 
