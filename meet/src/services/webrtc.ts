@@ -1,4 +1,4 @@
-import { SERVER_URL } from './api';
+import { getServerUrl } from './api';
 export interface PeerStats {
   rtt: number; // round-trip time in milliseconds
   packetLoss: number; // percentage
@@ -59,7 +59,8 @@ export class WebRTCManager {
     if (!force && Date.now() - this.iceLoadedAt < 240000) return;
     if (!this.iceLoad) this.iceLoad = (async () => {
       try {
-        const res = await fetch(`${SERVER_URL}/api/ice-servers`, { signal: AbortSignal.timeout(6000) });
+        const base = await getServerUrl();
+        const res = await fetch(`${base}/api/ice-servers`, { signal: AbortSignal.timeout(6000) });
         if (!res.ok) throw new Error('ICE configuration unavailable');
         const data = await res.json();
         if (Array.isArray(data.iceServers) && data.iceServers.length) {

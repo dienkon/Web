@@ -6,7 +6,7 @@ import { Input } from '../components/ui/Input';
 import { Modal } from '../components/ui/Modal';
 import { useMeetingStore } from '../store/meetingStore';
 import { createRoom } from '../services/api';
-import { saveHostToken } from '../services/identity';
+import { saveHostToken, saveRoomRecovery } from '../services/identity';
 import { showNotice } from '../components/ui/Dialogs';
 import { parseRoomCode } from '../services/roomCode';
 import { ToastContainer } from '../components/ui/Toast';
@@ -27,11 +27,12 @@ export const HomePage: React.FC = () => {
     try {
       const { id, code, hostToken } = await createRoom();
       saveHostToken(code, hostToken);
+      saveRoomRecovery(code, { isLocked: false, requireApproval: false });
       const link = `${window.location.origin}/join/${code}`;
       setRoomInfo(id, code, true);
       setCreatedRoom({ id, code, link });
-    } catch {
-      showNotice('Không thể tạo phòng', 'Không kết nối được máy chủ. Vui lòng thử lại sau.');
+    } catch (error) {
+      showNotice('Không thể tạo phòng', error instanceof Error ? error.message : 'Không kết nối được máy chủ. Vui lòng thử lại sau.');
     } finally { setCreating(false); }
   };
 
@@ -95,11 +96,11 @@ export const HomePage: React.FC = () => {
             <Button
               variant="primary"
               size="lg"
-              onClick={handleCreateRoom} disabled={creating}
+              onClick={handleCreateRoom} isLoading={creating}
               className="gap-2 font-semibold shadow-xl shadow-blue-900/40 shrink-0"
             >
               <Plus className="w-5 h-5" />
-              Tạo cuộc họp
+              {creating ? 'Đang kết nối máy chủ…' : 'Tạo cuộc họp'}
             </Button>
 
             <form onSubmit={handleJoin} className="flex items-center gap-2 flex-1 min-w-0">

@@ -1,10 +1,10 @@
 import { Server, Socket } from 'socket.io';
-import { roomManager } from './rooms.js';
+import { roomManager, RoomRecoveryState } from './rooms.js';
 import { classroomManager } from './classroom.js';
 import { Participant, AnswerOption, WhiteboardStroke, HostSettings } from './types.js';
 import { hashToken, validToken } from './identity.js';
 
-interface JoinPayload { roomId: string; userName: string; identityToken: string; hostToken?: string; audioEnabled?: boolean; videoEnabled?: boolean }
+interface JoinPayload { roomId: string; userName: string; identityToken: string; hostToken?: string; roomRecovery?: RoomRecoveryState; audioEnabled?: boolean; videoEnabled?: boolean }
 const publicParticipant = (p: Participant) => {
   const { identityHash: _privateIdentity, ...data } = p;
   return data;
@@ -13,6 +13,12 @@ const publicParticipant = (p: Participant) => {
 export function setupSocketHandlers(io: Server) {
   const timers = new Map<string, ReturnType<typeof setTimeout>>();
   const waiting = new Map<string, { socket: Socket; roomId: string; payload: JoinPayload; requestedAt: number; admit: (payload: JoinPayload) => void }>();
+  const publishRecoveryState = (room: NonNullable<ReturnType<typeof roomManager.getRoom>>) => {
+    if (room.hostId) io.to(room.hostId).emit('room:recovery-state', {
+      isLocked: !!room.isLocked, requireApproval: !!room.requireApproval, hostSettings: room.hostSettings,
+      kickedUserIds: [...(room.kickedUserIds || [])], approvedUserIds: [...room.approvedUserIds],
+    });
+  };
   const broadcastWaiting = (roomId: string) => {
     const room = roomManager.getRoom(roomId);
     if (room?.hostId) io.to(room.hostId).emit('room:waiting-list', {
@@ -90,6 +96,7 @@ export function setupSocketHandlers(io: Server) {
 
       // Notify others in room
       socket.to(room.id).emit('participant:joined', { participant: publicParticipant(participant) });
+      publishRecoveryState(room);
       broadcastWaiting(room.id);
       io.to(room.id).emit('classroom:statistics', { statistics: classroomManager.calculateStatistics(room), answers: [...room.answers.values()] });
     };
@@ -98,8 +105,8 @@ export function setupSocketHandlers(io: Server) {
         socket.emit('room:error', { message: 'Thông tin tham gia phòng không hợp lệ.' }); return;
       }
       if (currentRoomId) return;
-      const room = roomManager.getRoom(payload.roomId);
-      if (!room) { socket.emit('room:error', { message: 'Phòng không tồn tại. Hãy kiểm tra liên kết mời.' }); return; }
+      const room = roomManager.getRoom(payload.roomId) || roomManager.restoreOwnedRoom(payload.roomId, payload.hostToken, payload.roomRecovery);
+      if (!room) { socket.emit('room:error', { message: 'Phòng không tồn tại hoặc máy chủ vừa khởi động lại. Nếu đây là link đúng, hãy nhờ chủ phòng mở lại link trước.' }); return; }
       const identityHash = hashToken(payload.identityToken);
       const isOwner = validToken(payload.hostToken) && hashToken(payload.hostToken) === room.ownerTokenHash;
       if (!isOwner && room.kickedUserIds?.has(identityHash)) {
@@ -120,6 +127,7 @@ export function setupSocketHandlers(io: Server) {
       if (!room || !room.participants.get(socket.id)?.isHost || typeof required !== 'boolean') return;
       room.requireApproval = required;
       roomManager.persist();
+      publishRecoveryState(room);
       io.to(room.id).emit('room:admission-mode', { requireApproval: required });
     });
     socket.on('host:admission-decide', ({ requestId, approved }: { requestId: string; approved: boolean }) => {
@@ -384,6 +392,7 @@ export function setupSocketHandlers(io: Server) {
       if (typeof locked !== 'boolean') return;
       room.isLocked = locked;
       roomManager.persist();
+      publishRecoveryState(room);
       if (locked) {
         for (const [id, request] of waiting) {
           if (request.roomId !== room.id) continue;
@@ -408,6 +417,7 @@ export function setupSocketHandlers(io: Server) {
         for (const key of allowedKeys) if (key !== 'hostManagement') room.hostSettings![key] = true;
       }
       roomManager.persist();
+      publishRecoveryState(room);
       for (const p of room.participants.values()) {
         if (p.isHost) continue;
         if (!room.hostSettings!.allowMic) p.audioEnabled = false;
@@ -431,6 +441,7 @@ export function setupSocketHandlers(io: Server) {
       if (target.identityHash) { room.kickedUserIds.add(target.identityHash); room.approvedUserIds.delete(target.identityHash); }
       if (target.identityHash) room.answersByIdentity?.delete(target.identityHash);
       roomManager.persist();
+      publishRecoveryState(room);
 
       // Force target to leave
       io.to(targetId).emit('host:removed-by-host');

@@ -172,7 +172,7 @@ const MeetingSession: React.FC = () => {
   const { joinStatus, joinError, waitingRequests } = useMeetingStore();
   if (joinStatus !== 'joined') return <div className="meeting-shell h-dvh">
     <Modal isOpen title={joinStatus === 'waiting' ? 'Chờ duyệt vào phòng' : joinStatus === 'error' ? 'Không thể vào phòng' : 'Đang kết nối phòng'} onClose={exitMeeting}>
-      <p className="text-sm text-slate-300">{joinStatus === 'waiting' ? 'Yêu cầu đã được gửi. Bạn sẽ vào phòng sau khi chủ phòng chấp nhận.' : joinError || 'Đang kết nối tới máy chủ…'}</p>
+      <p className="text-sm text-slate-300">{joinStatus === 'waiting' ? 'Yêu cầu đã được gửi. Bạn sẽ vào phòng sau khi chủ phòng chấp nhận.' : joinError || 'Đang kết nối tới máy chủ. Lần đầu có thể cần khoảng một phút để khởi động.'}</p>
       <Button className="mt-6" onClick={exitMeeting}>{joinStatus === 'waiting' ? 'Hủy yêu cầu' : 'Về trang chủ'}</Button>
     </Modal>
   </div>;

@@ -1,5 +1,6 @@
 import { io, Socket } from 'socket.io-client';
-import { SERVER_URL } from './api';
+import { getRoomRecovery } from './identity';
+import { getServerUrl, waitForBackend } from './api';
 
 type Listener = (...args: any[]) => void;
 
@@ -9,19 +10,29 @@ class SocketService {
   private listeners = new Map<string, Listener[]>();
   private lastJoinPayload: any = null;
 
+  private initialization: Promise<void> | null = null;
+  private generation = 0;
   public connect(): SocketService {
-    if (this.activeSocket) return this;
-    // Admission and moderation always use the same authoritative server.
-    const socket = io(SERVER_URL || undefined, {
-      autoConnect: false, reconnection: true, reconnectionDelay: 1000,
-      reconnectionDelayMax: 5000, timeout: 10000,
-    });
-    this.activeSocket = socket;
-    socket.on('connect', () => {
-      if (this.lastJoinPayload) socket.emit('room:join', this.lastJoinPayload);
-    });
-    this.listeners.forEach((callbacks, event) => callbacks.forEach(cb => socket.on(event, cb)));
-    socket.connect();
+    if (this.activeSocket || this.initialization) return this;
+    const generation = this.generation;
+    this.initialization = (async () => {
+      await waitForBackend();
+      const serverUrl = await getServerUrl();
+      if (generation !== this.generation) return;
+      const socket = io(serverUrl || undefined, {
+        autoConnect: false, reconnection: true, reconnectionDelay: 1000,
+        reconnectionDelayMax: 5000, timeout: 10000,
+      });
+      this.activeSocket = socket;
+      socket.on('connect', () => {
+        if (this.lastJoinPayload) socket.emit('room:join', { ...this.lastJoinPayload, roomRecovery: getRoomRecovery(this.lastJoinPayload.roomId) });
+      });
+      this.listeners.forEach((callbacks, event) => callbacks.forEach(cb => socket.on(event, cb)));
+      socket.connect();
+    })().catch(error => {
+      if (generation !== this.generation) return;
+      for (const listener of this.listeners.get('room:error') || []) listener({ message: error.message });
+    }).finally(() => { if (generation === this.generation) this.initialization = null; });
     return this;
   }
   public on(event: string, callback: Listener) {
@@ -46,6 +57,8 @@ class SocketService {
   public get id(): string | undefined { return this.activeSocket?.id; }
   public getSocket(): Socket | null { return this.activeSocket; }
   public disconnect() {
+    this.generation++;
+    this.initialization = null;
     this.lastJoinPayload = null;
     this.activeSocket?.disconnect();
     this.activeSocket = null;

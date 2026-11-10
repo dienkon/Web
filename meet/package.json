@@ -9,7 +9,7 @@
     "dev:server": "npm --prefix server run dev",
     "build": "npx vite build",
     "typecheck": "tsc --noEmit",
-    "test:server": "npm --prefix server run build && node --test tests/room-persistence.test.mjs",
+    "test:server": "npm --prefix server run build && node --test tests/room-persistence.test.mjs tests/gateway.test.mjs",
     "test:e2e": "playwright test",
     "preview": "npx vite preview",
     "server": "npm --prefix server run dev"

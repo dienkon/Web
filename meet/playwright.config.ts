@@ -15,6 +15,6 @@ export default defineConfig({
   },
   webServer: [
     { command: 'npm --prefix server run dev', url: 'http://localhost:5000/api/health', reuseExistingServer: !process.env.CI },
-    { command: 'npx vite --host localhost --open false', url: 'http://localhost:3000', reuseExistingServer: !process.env.CI },
+    { command: 'npx vite --host localhost --open false', env: { VITE_SERVER_URL: '' }, url: 'http://localhost:3000', reuseExistingServer: !process.env.CI },
   ],
 });

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useMeetingStore } from '../store/meetingStore';
 import { useClassroomStore } from '../store/classroomStore';
-import { getIdentityToken, getHostToken } from '../services/identity';
+import { getIdentityToken, getHostToken, getRoomRecovery, saveRoomRecovery } from '../services/identity';
 import { showNotice } from '../components/ui/Dialogs';
 import { socketService } from '../services/socket';
 import { webRTCManager } from '../services/webrtc';
@@ -359,7 +359,12 @@ export function useSocket() {
       socketService.disconnect();
     };
 
+    const handleRecoveryState = (state: unknown) => {
+      if (useMeetingStore.getState().isHost) saveRoomRecovery(roomId, state);
+    };
+
     // Bind Listeners
+    socketService.on('room:recovery-state', handleRecoveryState);
     socketService.on('timer:updated', handleTimer);
     socketService.on('room:waiting', handleWaiting);
     socketService.on('room:waiting-list', handleWaitingList);
@@ -404,6 +409,7 @@ export function useSocket() {
           userName: userName || 'Học sinh',
           identityToken: getIdentityToken(),
           hostToken: getHostToken(roomId),
+          roomRecovery: getRoomRecovery(roomId),
           audioEnabled: state.audioEnabled,
           videoEnabled: state.videoEnabled,
         }),
@@ -413,6 +419,7 @@ export function useSocket() {
     return () => {
       disposed = true;
       clearTimeout(joinTimer);
+      socketService.off('room:recovery-state', handleRecoveryState);
       socketService.off('timer:updated', handleTimer);
       socketService.off('room:waiting', handleWaiting);
       socketService.off('room:waiting-list', handleWaitingList);

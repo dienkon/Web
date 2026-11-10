@@ -14,3 +14,11 @@ export const getHostToken = (room: string) => localStorage.getItem(hostKey(room)
 export function saveHostToken(room: string, token: string) {
   localStorage.setItem(hostKey(room), token);
 }
+
+export function saveRoomRecovery(room: string, state: unknown) {
+  localStorage.setItem(`meetclass_recovery_${room.toUpperCase().replace(/^ROOM-/, '')}`, JSON.stringify(state));
+}
+export function getRoomRecovery(room: string): unknown {
+  try { return JSON.parse(localStorage.getItem(`meetclass_recovery_${room.toUpperCase().replace(/^ROOM-/, '')}`) || 'null'); }
+  catch { return undefined; }
+}

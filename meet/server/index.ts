@@ -27,6 +27,12 @@ app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// Vite/local or a same-origin reverse proxy needs no external backend URL.
+app.get('/api/config', (_req, res) => {
+  res.setHeader('Cache-Control', 'no-store');
+  res.json({ configured: true, serverUrl: '' });
+});
+
 app.get('/api/ice-servers', async (_req, res) => {
   res.setHeader('Cache-Control', 'no-store');
   const iceServers: any[] = [

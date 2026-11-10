@@ -1,4 +1,4 @@
-import { randomBytes, randomInt } from 'node:crypto';
+import { createHmac, randomBytes, randomInt, timingSafeEqual } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { Room, Participant, HostSettings } from './types.js';
@@ -9,6 +9,32 @@ const DEFAULT_HOST_SETTINGS: HostSettings = {
   allowReactions: true, allowMic: true, allowVideo: true,
 };
 const storagePath = resolve(process.env.ROOM_STORE_PATH || 'data/rooms.json');
+
+export interface RoomRecoveryState {
+  isLocked?: boolean;
+  requireApproval?: boolean;
+  hostSettings?: Partial<HostSettings>;
+  kickedUserIds?: string[];
+  approvedUserIds?: string[];
+}
+
+let signingKey: string | undefined;
+function getSigningKey(): string {
+  if (signingKey) return signingKey;
+  if (process.env.ROOM_SIGNING_SECRET) {
+    if (process.env.ROOM_SIGNING_SECRET.length < 32) throw new Error('ROOM_SIGNING_SECRET must have at least 32 characters.');
+    return signingKey = process.env.ROOM_SIGNING_SECRET;
+  }
+  const keyPath = `${storagePath}.key`;
+  if (!existsSync(keyPath)) {
+    mkdirSync(dirname(storagePath), { recursive: true });
+    writeFileSync(keyPath, randomBytes(32).toString('hex'), { mode: 0o600, flag: 'wx' });
+  }
+  return signingKey = readFileSync(keyPath, 'utf8').trim();
+}
+function signature(code: string, nonce: string): string {
+  return createHmac('sha256', getSigningKey()).update(`${code}:${nonce}`).digest('hex');
+}
 
 class RoomManager {
   private rooms = new Map<string, Room>();
@@ -40,7 +66,8 @@ class RoomManager {
     let code: string;
     do { code = Array.from({ length: 9 }, () => alphabet[randomInt(alphabet.length)]).join(''); }
     while (this.rooms.has(code));
-    const hostToken = randomBytes(32).toString('hex');
+    const nonce = randomBytes(32).toString('hex');
+    const hostToken = nonce + signature(code, nonce);
     const room: Room = {
       id: `ROOM-${code}`, code, hostId: '', ownerTokenHash: hashToken(hostToken),
       classroomMode: true, createdAt: Date.now(), participants: new Map(), answers: new Map(),
@@ -53,6 +80,27 @@ class RoomManager {
   }
   getRoom(value: string): Room | undefined {
     return typeof value === 'string' ? this.rooms.get(value.toUpperCase().replace(/^ROOM-/, '')) : undefined;
+  }
+  restoreOwnedRoom(value: string, token: unknown, state?: RoomRecoveryState): Room | undefined {
+    const code = value.toUpperCase().replace(/^ROOM-/, '');
+    if (!/^[A-Z2-9]{9}$/.test(code) || typeof token !== 'string' || !/^[a-f0-9]{128}$/.test(token)) return;
+    if (!timingSafeEqual(Buffer.from(token.slice(64), 'hex'), Buffer.from(signature(code, token.slice(0, 64)), 'hex'))) return;
+    if (this.rooms.has(code)) return this.rooms.get(code);
+    const hostSettings = { ...DEFAULT_HOST_SETTINGS };
+    for (const key of Object.keys(hostSettings) as (keyof HostSettings)[]) {
+      if (typeof state?.hostSettings?.[key] === 'boolean') hostSettings[key] = state.hostSettings[key]!;
+    }
+    const hashes = (list: unknown) => new Set<string>(Array.isArray(list) ? list.filter(v => typeof v === 'string' && /^[a-f0-9]{64}$/.test(v)).slice(0, 10000) : []);
+    const room: Room = {
+      id: `ROOM-${code}`, code, hostId: '', ownerTokenHash: hashToken(token), classroomMode: true,
+      createdAt: Date.now(), participants: new Map(), answers: new Map(), hostSettings,
+      // If the owner has no saved settings, restore closed instead of opening a locked room.
+      isLocked: state?.isLocked !== false, requireApproval: state?.requireApproval !== false,
+      kickedUserIds: hashes(state?.kickedUserIds), approvedUserIds: hashes(state?.approvedUserIds),
+    };
+    this.rooms.set(code, room);
+    this.persist();
+    return room;
   }
   addParticipant(roomId: string, participant: Participant): { room: Room | undefined; duplicateRemoved?: Participant } {
     const room = this.getRoom(roomId);

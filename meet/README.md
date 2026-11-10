@@ -2,6 +2,10 @@
 
 Ứng dụng họp video và lớp học dùng React, TypeScript, Socket.IO và WebRTC.
 
+## Deploy miễn phí, giữ link Vercel
+
+Xem [hướng dẫn từng bước](FREE_DEPLOY.md) và [Blueprint backend Free](render.yaml). Chỉ cần đặt `REALTIME_SERVER_URL` trên Vercel; client tự đọc `/api/config`, chờ backend khởi động rồi kết nối REST/Socket.IO tới cùng nơi. Tạo phòng không cần API key trả phí. TURN có thể dùng quota miễn phí của Open Relay với key từ tài khoản của bạn.
+
 ## Chạy trên máy
 
 Yêu cầu Node.js 22 trở lên.
@@ -29,7 +33,9 @@ Mở [localhost:3000](http://localhost:3000). Vite chuyển tiếp `/api` và `/
 
 ## Deploy và gọi giữa các mạng
 
-Frontend có thể đặt trên Vercel. Backend cần dịch vụ Node.js chạy liên tục hỗ trợ Socket.IO; serverless memory không cung cấp trạng thái phòng dùng chung. Cấu hình `VITE_SERVER_URL=https://backend-cua-ban` ở frontend rồi build lại. Nếu dùng REST gateway Vercel, đặt thêm `REALTIME_SERVER_URL` tới cùng backend. Hoặc chạy frontend/backend sau reverse proxy cùng domain có hỗ trợ WebSocket và các đường dẫn `/api`, `/socket.io`.
+Frontend giữ trên Vercel. Backend của kiến trúc này dùng một dịch vụ Node.js hỗ trợ Socket.IO để giữ cùng trạng thái phòng. Đặt `REALTIME_SERVER_URL=https://backend-cua-ban` trên Vercel rồi redeploy. `/api/config` trả địa chỉ backend lúc chạy cho REST và Socket.IO. `VITE_SERVER_URL` là tùy chọn override; nên để trống khi dùng cấu hình runtime. Hoặc chạy frontend/backend sau reverse proxy cùng domain có hỗ trợ WebSocket và các đường dẫn `/api`, `/socket.io`.
+
+Render Free có thể mất file local sau restart. Host token mới có chữ ký từ `ROOM_SIGNING_SECRET` và bản sao cài đặt trong trình duyệt cho phép chủ phòng khôi phục phòng trước khi khách vào. Xem hướng dẫn Free để giữ secret ổn định. Vercel hiện hỗ trợ WebSocket, nhưng kết nối mới có thể vào các instance khác nhau; chuyển toàn bộ backend lên Functions cần thêm kho dữ liệu và phối hợp giữa instance, xem [tài liệu Vercel](https://vercel.com/docs/functions/websockets).
 
 Ứng dụng không chuyển sang MQTT công cộng khi backend lỗi, vì việc đó tạo hai hệ thống phòng khác nhau và có thể bỏ qua khóa/duyệt. Khi backend không có hoặc mất kết nối, giao diện báo lỗi/đang thử lại, không tạo phòng thay thế.
 

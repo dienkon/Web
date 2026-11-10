@@ -1,0 +1,21 @@
+# In Render: New > Blueprint, repo dienkon/Web, Blueprint Path: meet/render.yaml
+# Only this backend is hosted on Render; keep the frontend/domain on Vercel.
+services:
+  - type: web
+    name: meetclass-realtime
+    runtime: node
+    region: singapore
+    plan: free
+    rootDir: meet/server
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      - key: ROOM_SIGNING_SECRET
+        generateValue: true
+      - key: ROOM_STORE_PATH
+        value: /tmp/meetclass/rooms.json
