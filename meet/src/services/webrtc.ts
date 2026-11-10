@@ -14,7 +14,6 @@ const DEFAULT_ICE_SERVERS: RTCIceServer[] = [
   { urls: 'stun:stun4.l.google.com:19302' },
   { urls: 'stun:stun.cloudflare.com:3478' },
   { urls: 'stun:stun.relay.metered.ca:80' },
-  { urls: 'stun:stun.services.mozilla.com' },
 ];
 
 if (import.meta.env.VITE_TURN_SERVER) {
@@ -99,7 +98,7 @@ export class WebRTCManager {
     // Advanced WebRTC Configuration for 100% Cross-Network NAT Traversal
     const pc = new RTCPeerConnection({
       iceServers: this.iceServers,
-      iceCandidatePoolSize: 4,
+      iceCandidatePoolSize: 2,
       bundlePolicy: 'max-bundle', // Multiplexes all 4 media slots onto 1 candidate pair
       rtcpMuxPolicy: 'require', // Multiplexes RTP and RTCP on the same port
     });
@@ -114,19 +113,10 @@ export class WebRTCManager {
       this.screenStream?.getAudioTracks()[0] || null,
     ];
 
-    // Pre-allocate 4 dedicated independent transceivers immediately:
-    // Slot 0: Mic audio
-    // Slot 1: Camera video
-    // Slot 2: Screen share video
-    // Slot 3: Screen share audio
-    const slots = (['audio', 'video', 'video', 'audio'] as const).map((kind, i) =>
-      pc.addTransceiver(tracks[i] || kind, { direction: 'sendrecv' })
-    );
-
     const peer: PeerEntry = {
       id,
       pc,
-      slots,
+      slots: [],
       tracks,
       isPolite,
       makingOffer: false,
@@ -222,13 +212,13 @@ export class WebRTCManager {
       }
     };
 
-    // Watchdog: If connection is stuck in 'connecting' across networks for > 12s, attempt ICE restart
+    // Watchdog: If connection is stuck in 'connecting' across networks for > 15s, attempt ICE restart
     peer.connectWatchdogTimer = setTimeout(() => {
       if (pc.connectionState === 'connecting' || pc.iceConnectionState === 'checking') {
-        console.warn('[WebRTC] Peer connection stuck in connecting for 12s, restarting ICE with', id);
+        console.warn('[WebRTC] Peer connection stuck in connecting for 15s, restarting ICE with', id);
         triggerRestart();
       }
-    }, 12000);
+    }, 15000);
 
     return pc;
   }
@@ -259,7 +249,6 @@ export class WebRTCManager {
     try {
       peer.makingOffer = true;
 
-      // Ensure transceivers are synced with current tracks
       if (!peer.slots.length) {
         peer.slots = (['audio', 'video', 'video', 'audio'] as const).map((kind, i) =>
           pc.addTransceiver(tracks[i] || kind, { direction: 'sendrecv' })
@@ -306,17 +295,15 @@ export class WebRTCManager {
 
       await pc.setRemoteDescription(offer);
 
-      // Align transceiver slots with remote negotiation
-      const transceivers = pc.getTransceivers();
-      if (transceivers.length) {
-        peer.slots = transceivers.slice(0, 4);
+      if (!peer.slots.length) {
+        peer.slots = pc.getTransceivers().slice(0, 4);
       }
 
       await Promise.all(
         peer.slots.map(async (slot, i) => {
           slot.direction = 'sendrecv';
-          if (peer.tracks[i]) {
-            await slot.sender.replaceTrack(peer.tracks[i]).catch(() => {});
+          if (peer.tracks[i] !== undefined) {
+            await slot.sender.replaceTrack(peer.tracks[i]);
           }
         })
       );
