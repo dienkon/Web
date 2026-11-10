@@ -16,6 +16,7 @@ export function setupSocketHandlers(io: Server) {
       audioEnabled?: boolean;
       videoEnabled?: boolean;
     }) => {
+      if (currentRoomId === roomManager.getRoom(roomId)?.id && currentUserId === socket.id) return;
       const room = roomManager.getRoom(roomId) || roomManager.createRoom(roomId, roomId, socket.id, true);
       currentRoomId = room.id;
       currentUserId = socket.id;
@@ -26,7 +27,7 @@ export function setupSocketHandlers(io: Server) {
         name: userName || 'Khách',
         audioEnabled: audioEnabled !== undefined ? audioEnabled : true,
         videoEnabled: videoEnabled !== undefined ? videoEnabled : true,
-        isHost: isHost || room.participants.size === 0,
+        isHost: room.hostId === socket.id || room.participants.size === 0,
         isSpeaking: false,
         joinedAt: Date.now(),
       };
@@ -54,7 +55,7 @@ export function setupSocketHandlers(io: Server) {
     });
 
     // 2. Media Toggle (Mic / Camera)
-    socket.on('media:toggle', ({ type, enabled }: { type: 'audio' | 'video'; enabled: boolean }) => {
+    socket.on('media:toggle', ({ type, enabled }: { type: 'audio' | 'video' | 'screen' | 'hand'; enabled: boolean }) => {
       if (!currentRoomId || !currentUserId) return;
       const updated = roomManager.updateMediaState(currentRoomId, currentUserId, type, enabled);
       if (updated) {
@@ -70,14 +71,17 @@ export function setupSocketHandlers(io: Server) {
 
     // 3. WebRTC Signaling (Offer, Answer, ICE Candidate)
     socket.on('webrtc:offer', ({ targetId, offer }: { targetId: string; offer: RTCSessionDescriptionInit }) => {
+      if (!currentRoomId || !roomManager.getRoom(currentRoomId)?.participants.has(targetId)) return;
       io.to(targetId).emit('webrtc:offer', { senderId: socket.id, offer });
     });
 
     socket.on('webrtc:answer', ({ targetId, answer }: { targetId: string; answer: RTCSessionDescriptionInit }) => {
+      if (!currentRoomId || !roomManager.getRoom(currentRoomId)?.participants.has(targetId)) return;
       io.to(targetId).emit('webrtc:answer', { senderId: socket.id, answer });
     });
 
     socket.on('webrtc:ice-candidate', ({ targetId, candidate }: { targetId: string; candidate: RTCIceCandidateInit }) => {
+      if (!currentRoomId || !roomManager.getRoom(currentRoomId)?.participants.has(targetId)) return;
       io.to(targetId).emit('webrtc:ice-candidate', { senderId: socket.id, candidate });
     });
 
@@ -163,6 +167,8 @@ export function setupSocketHandlers(io: Server) {
       const requester = room?.participants.get(currentUserId);
       if (!room || !requester?.isHost) return;
 
+      if (!room.participants.has(targetId)) return;
+
       io.to(targetId).emit('host:muted-by-host');
     });
 
@@ -171,6 +177,8 @@ export function setupSocketHandlers(io: Server) {
       const room = roomManager.getRoom(currentRoomId);
       const requester = room?.participants.get(currentUserId);
       if (!room || !requester?.isHost) return;
+
+      if (!room.participants.has(targetId)) return;
 
       io.to(targetId).emit('host:removed-by-host');
     });
@@ -181,6 +189,8 @@ export function setupSocketHandlers(io: Server) {
       const { room, removed } = roomManager.removeParticipant(currentRoomId, currentUserId);
       if (room && removed) {
         io.to(room.id).emit('participant:left', { userId: currentUserId, participant: removed });
+        const host = room.participants.get(room.hostId);
+        if (host) io.to(room.id).emit('participant:updated', { participant: host });
       }
     });
   });

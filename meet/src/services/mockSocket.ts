@@ -240,6 +240,8 @@ export class MockSocketService {
       if (p) {
         if (payload.type === 'audio') p.audioEnabled = payload.enabled;
         if (payload.type === 'video') p.videoEnabled = payload.enabled;
+        if (payload.type === 'screen') p.isScreenSharing = payload.enabled;
+        if (payload.type === 'hand') p.handRaised = payload.enabled;
         room.participants[senderId] = p;
         this.saveRoom(this.roomId, room);
         this.trigger('participant:updated', { participant: p });

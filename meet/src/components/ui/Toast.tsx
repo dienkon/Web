@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMeetingStore } from '../../store/meetingStore';
 import { CheckCircle2, AlertCircle, Info, AlertTriangle, X } from 'lucide-react';
+
+function ToastLifetime({ id, remove }: { id: string; remove: (id: string) => void }) {
+  useEffect(() => { const timer = setTimeout(() => remove(id), 5000); return () => clearTimeout(timer); }, [id, remove]);
+  return null;
+}
 
 export const ToastContainer: React.FC = () => {
   const { toasts, removeToast } = useMeetingStore();
@@ -14,7 +19,7 @@ export const ToastContainer: React.FC = () => {
   };
 
   return (
-    <div className="fixed top-5 right-5 z-50 flex flex-col gap-2 max-w-sm pointer-events-none">
+    <div aria-live="polite" className="fixed top-[88px] right-4 left-4 sm:left-auto z-50 flex flex-col gap-2 sm:max-w-sm pointer-events-none">
       <AnimatePresence>
         {toasts.map((toast) => (
           <motion.div
@@ -23,15 +28,17 @@ export const ToastContainer: React.FC = () => {
             animate={{ opacity: 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: 20, scale: 0.9 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="pointer-events-auto flex items-center justify-between gap-3 px-4 py-3 bg-[#202124]/95 text-gray-100 text-sm rounded-xl shadow-xl border border-gray-700/80 backdrop-blur-md"
+            className="flex items-center justify-between gap-3 px-4 py-3 bg-[#202124]/95 text-gray-100 text-sm rounded-xl shadow-xl border border-gray-700/80 backdrop-blur-md"
           >
+            <ToastLifetime id={toast.id} remove={removeToast} />
             <div className="flex items-center gap-2.5">
               {icons[toast.type || 'info']}
               <span className="font-medium">{toast.message}</span>
             </div>
             <button
               onClick={() => removeToast(toast.id)}
-              className="text-gray-400 hover:text-white p-0.5 rounded-md hover:bg-gray-800 transition-colors"
+              aria-label="Đóng thông báo"
+              className="pointer-events-auto text-gray-400 hover:text-white p-0.5 rounded-md hover:bg-gray-800 transition-colors"
             >
               <X className="w-3.5 h-3.5" />
             </button>

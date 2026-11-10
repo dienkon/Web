@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { Participant } from '../../types/meeting';
-import { Mic, MicOff, Crown, Pin, PinOff } from 'lucide-react';
+import { Mic, MicOff, Crown, Pin, PinOff, Hand } from 'lucide-react';
 import { useMeetingStore } from '../../store/meetingStore';
 import { clsx } from 'clsx';
 
@@ -27,10 +27,7 @@ export const ParticipantTile: React.FC<ParticipantTileProps> = ({
       participant.stream.getVideoTracks().some((t) => t.readyState === 'live')
   );
 
-  // Attach and play video stream
-  // For local user: muted={true} prevents hearing your own echo.
-  // For remote users: muted={false} allows audio to play directly from the active tile!
-  // When camera is off, opacity-0 keeps audio decoding active and enables instant video resume.
+  // All tiles are muted; persistent audio elements handle sound independently of layout.
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -67,7 +64,7 @@ export const ParticipantTile: React.FC<ParticipantTileProps> = ({
         ref={videoRef}
         autoPlay
         playsInline
-        muted={isLocal}
+        muted
         onLoadedMetadata={() => {
           videoRef.current?.play().catch(() => {});
         }}
@@ -98,9 +95,12 @@ export const ParticipantTile: React.FC<ParticipantTileProps> = ({
           {participant.isHost && (
             <span className="flex items-center gap-1 px-2.5 py-1 bg-amber-500 text-gray-950 font-bold text-xs rounded-full shadow-md">
               <Crown className="w-3 h-3 fill-current" />
-              Teacher
+              Chủ phòng
             </span>
           )}
+          {participant.handRaised && <span className="bg-amber-300 text-slate-950 p-2 rounded-full" title="Đang giơ tay"><Hand size={16} /></span>}
+          {participant.connectionState && ['connecting', 'disconnected', 'failed'].includes(participant.connectionState) &&
+            <span className="text-xs bg-black/60 text-amber-200 px-2 py-1 rounded-full">{participant.connectionState === 'failed' ? 'Đang kết nối lại…' : 'Đang kết nối…'}</span>}
         </div>
 
         <button

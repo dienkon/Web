@@ -46,3 +46,39 @@
 .animate-spin-slow {
   animation: spinSlow 12s linear infinite;
 }
+
+@layer base {
+  :root { color-scheme: dark; }
+  button, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+  button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: 2px solid #93c5fd;
+    outline-offset: 3px;
+  }
+  button:disabled { cursor: not-allowed; opacity: 0.55; }
+}
+
+.meeting-shell {
+  background: radial-gradient(ellipse at 40% 0%, #1b2c43 0%, #111924 48%, #0e141d 100%);
+}
+.home-shell { background: radial-gradient(ellipse at 80% 30%, #1b2f4a 0%, #111924 45%, #0e141d 85%); }
+.meeting-control {
+  width: 44px; height: 44px; border-radius: 14px;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: background-color .15s, color .15s, transform .15s;
+  flex-shrink: 0;
+}
+.meeting-control:active { transform: scale(.94); }
+.menu-action { display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px; border-radius: 10px; text-align: left; }
+.menu-action:hover { background: #ffffff0d; }
+.meeting-workspace > div.border-l { border-radius: 20px 0 0 20px; margin-top: 12px; }
+.meeting-workspace video { background: transparent; }
+.meeting-workspace .group { background: radial-gradient(ellipse at 50% 35%, #28374b, #1b2432 70%); border-color: #ffffff0d; }
+
+@media (max-width: 767px) {
+  .meeting-workspace > div.border-l { position: absolute; inset: 0; width: 100%; border-radius: 16px 16px 0 0; margin: 0; }
+  .meeting-controls { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+}
+@media (max-width: 400px) { .meeting-control { width: 40px; height: 40px; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}

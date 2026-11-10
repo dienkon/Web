@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Video, Plus, ArrowRight, GraduationCap, Copy, Check, Clock } from 'lucide-react';
+import { Video, Plus, ArrowRight, GraduationCap, Copy, Check, Mic, MonitorUp, Sparkles, Hand, MessageSquare } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
 import { Modal } from '../components/ui/Modal';
 import { useMeetingStore } from '../store/meetingStore';
+import { parseRoomCode } from '../services/roomCode';
+import { ToastContainer } from '../components/ui/Toast';
 
 export const HomePage: React.FC = () => {
   const navigate = useNavigate();
@@ -38,9 +40,9 @@ export const HomePage: React.FC = () => {
   // Join by Input Code
   const handleJoin = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    const clean = inputCode.trim().toUpperCase().replace(/^ROOM-/, '');
-    if (!clean) return;
-
+    const clean = parseRoomCode(inputCode);
+    if (!clean) { addToast('Nhập mã phòng hợp lệ hoặc liên kết mời MeetClass.', 'warning'); return; }
+    setRoomInfo(`ROOM-${clean}`, clean, false);
     navigate(`/join/${clean}`);
   };
 
@@ -50,7 +52,7 @@ export const HomePage: React.FC = () => {
       setCopied(true);
       addToast('Đã sao chép liên kết phòng học', 'success');
       setTimeout(() => setCopied(false), 2000);
-    });
+    }).catch(() => addToast('Không sao chép được liên kết. Hãy chọn và sao chép trong ô bên dưới.', 'warning'));
   };
 
   const startCreatedRoom = () => {
@@ -59,7 +61,8 @@ export const HomePage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#121212] text-gray-100 flex flex-col justify-between selection:bg-blue-600 selection:text-white">
+    <div className="home-shell min-h-screen text-gray-100 flex flex-col justify-between selection:bg-blue-600 selection:text-white">
+      <ToastContainer />
       {/* Top Navbar */}
       <nav className="h-20 border-b border-gray-800/60 px-6 sm:px-12 flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -72,19 +75,20 @@ export const HomePage: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-4 text-xs font-semibold text-gray-400">
-          <span className="hidden sm:inline-block">Phòng Học Tương Tác Trực Tuyến</span>
+          <span className="hidden sm:inline-flex items-center gap-2 text-blue-200"><Sparkles size={14} /> Không gian cho những ý tưởng lớn</span>
         </div>
       </nav>
 
       {/* Hero Body Section */}
-      <main className="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center flex-1">
+      <main className="max-w-7xl mx-auto px-6 sm:px-12 py-12 sm:py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center flex-1">
         <div className="space-y-8">
           <div className="space-y-4">
-            <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Cuộc họp video & lớp học tương tác dành cho giáo viên
+            <span className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium text-blue-200 bg-blue-400/10 border border-blue-300/15"><span className="h-1.5 w-1.5 bg-blue-300 rounded-full" /> Học cùng nhau. Tiến xa hơn.</span>
+            <h1 className="text-4xl sm:text-6xl font-semibold text-white tracking-tight leading-[1.12]">
+              Kết nối gần hơn.<br /><span className="text-blue-300">Ý tưởng xa hơn.</span>
             </h1>
             <p className="text-gray-400 text-base sm:text-lg font-normal leading-relaxed">
-              Trải nghiệm họp truyền hình chất lượng cao như Google Meet, kết hợp hệ thống câu hỏi trắc nghiệm <strong className="text-blue-400 font-semibold">A / B / C / D</strong> thời gian thực vượt trội.
+              Một không gian để gặp gỡ, chia sẻ màn hình và cùng học. Bật micro, mở cuộc trò chuyện và để mọi ý tưởng được lắng nghe.
             </p>
           </div>
 
@@ -97,12 +101,13 @@ export const HomePage: React.FC = () => {
               className="gap-2 font-semibold shadow-xl shadow-blue-900/40 shrink-0"
             >
               <Plus className="w-5 h-5" />
-              Tạo phòng học
+              Tạo cuộc họp
             </Button>
 
-            <form onSubmit={handleJoin} className="flex items-center gap-2 flex-1 min-w-[260px]">
+            <form onSubmit={handleJoin} className="flex items-center gap-2 flex-1 min-w-0">
               <Input
                 placeholder="Nhập mã phòng hoặc link..."
+                aria-label="Mã phòng hoặc liên kết mời"
                 value={inputCode}
                 onChange={(e) => setInputCode(e.target.value)}
                 icon={<Video className="w-4 h-4" />}
@@ -110,6 +115,7 @@ export const HomePage: React.FC = () => {
               />
               <Button
                 type="submit"
+                aria-label="Tham gia bằng mã hoặc liên kết"
                 variant="dark"
                 size="lg"
                 disabled={!inputCode.trim()}
@@ -123,36 +129,41 @@ export const HomePage: React.FC = () => {
           {/* Feature Badges */}
           <div className="border-t border-gray-800/80 pt-6 grid grid-cols-2 sm:grid-cols-3 gap-4">
             <div className="space-y-1">
-              <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider block">WebRTC Realtime</span>
-              <p className="text-xs text-gray-400">Video HD & Audio độ trễ cực thấp</p>
+              <Mic className="text-blue-300 mb-3" size={19} /><span className="text-sm font-medium text-slate-200 block">Nghe rõ từng ý</span>
+              <p className="text-xs text-gray-400 leading-relaxed">Chọn micro, thử loa và lọc tiếng ồn.</p>
             </div>
             <div className="space-y-1">
-              <span className="text-xs font-semibold text-emerald-400 uppercase tracking-wider block">Teaching Mode</span>
-              <p className="text-xs text-gray-400">Bộ nút A/B/C/D tương tác tức thì</p>
+              <MonitorUp className="text-emerald-300 mb-3" size={19} /><span className="text-sm font-medium text-slate-200 block">Chia sẻ góc nhìn</span>
+              <p className="text-xs text-gray-400 leading-relaxed">Trình chiếu tài liệu và tiếng của tab.</p>
             </div>
             <div className="space-y-1 hidden sm:block">
-              <span className="text-xs font-semibold text-amber-400 uppercase tracking-wider block">Thống kê Live</span>
-              <p className="text-xs text-gray-400">Biểu đồ câu trả lời cho giáo viên</p>
+              <Hand className="text-amber-300 mb-3" size={19} /><span className="text-sm font-medium text-slate-200 block">Ai cũng góp lời</span>
+              <p className="text-xs text-gray-400 leading-relaxed">Giơ tay và trả lời A/B/C/D trực tiếp.</p>
             </div>
           </div>
         </div>
 
         {/* Recent / Demo Visual Card */}
         <div className="relative">
-          <div className="bg-gradient-to-br from-[#202124] to-[#1a1b1e] rounded-3xl p-6 border border-gray-800 shadow-2xl space-y-6">
+          <div className="bg-gradient-to-br from-[#25344a] to-[#182231] rounded-3xl p-5 sm:p-6 border border-white/10 shadow-2xl space-y-5 lg:rotate-1">
             <div className="flex items-center justify-between border-b border-gray-800 pb-4">
               <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-blue-400" />
-                <span className="text-sm font-semibold text-gray-200">Phòng học thử nghiệm</span>
+                <Video className="w-4 h-4 text-blue-300" />
+                <span className="text-sm font-semibold text-gray-200">Một buổi học nhiều cảm hứng</span>
               </div>
               <span className="text-xs font-bold px-2.5 py-0.5 bg-emerald-950 text-emerald-400 rounded-full border border-emerald-800">
-                Sẵn sàng
+                Minh họa
               </span>
             </div>
 
-            {/* Simulated Answer Bar Visual */}
+            <div className="relative overflow-hidden min-h-56 rounded-2xl bg-[#c8d8f0] p-7 sm:p-9 flex flex-col justify-between text-slate-900">
+              <span className="text-[10px] tracking-[0.2em] uppercase font-semibold text-slate-500">Không gian của những ý tưởng</span>
+              <p className="text-3xl sm:text-4xl tracking-tight font-semibold leading-tight max-w-64 my-6">Một câu hỏi.<br />Nhiều góc nhìn.</p>
+              <span className="flex items-center gap-2 text-xs text-slate-600"><MessageSquare size={15} /> Cùng chia sẻ điều bạn nghĩ</span>
+              <div className="absolute -right-12 -bottom-10 w-48 h-48 rounded-full border-[30px] border-blue-400/30" />
+            </div>
             <div className="space-y-3 bg-[#121212]/80 p-4 rounded-2xl border border-gray-800">
-              <span className="text-xs font-bold text-gray-300">Minh họa Chế độ Trả lời A/B/C/D:</span>
+              <span className="text-xs font-medium text-gray-300">Mỗi lựa chọn đều bắt đầu một cuộc thảo luận</span>
               <div className="grid grid-cols-4 gap-2">
                 <div className="p-3 bg-blue-600/20 border border-blue-500/40 rounded-xl text-center font-black text-blue-400">A</div>
                 <div className="p-3 bg-emerald-600 text-white font-black rounded-xl text-center shadow-lg">B</div>
@@ -167,7 +178,7 @@ export const HomePage: React.FC = () => {
               onClick={() => navigate('/join/DEMO88')}
               className="w-full justify-between"
             >
-              <span>Tham gia phòng Demo nhanh (CODE: DEMO88)</span>
+              <span>Khám phá phòng dùng thử</span>
               <ArrowRight className="w-4 h-4" />
             </Button>
           </div>
@@ -214,7 +225,7 @@ export const HomePage: React.FC = () => {
 
       {/* Footer */}
       <footer className="py-6 border-t border-gray-800/60 text-center text-xs text-gray-500">
-        MeetClass &copy; 2026 - Interactive Google Meet Clone
+        MeetClass &copy; 2026 · Kết nối để cùng tiến xa
       </footer>
     </div>
   );

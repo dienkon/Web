@@ -8,6 +8,8 @@ export interface Participant {
   videoEnabled: boolean;
   isHost: boolean;
   isSpeaking: boolean;
+  isScreenSharing?: boolean;
+  handRaised?: boolean;
   joinedAt: number;
 }
 

@@ -66,7 +66,7 @@ class RoomManager {
     return { room, removed };
   }
 
-  updateMediaState(roomIdOrCode: string, participantId: string, mediaType: 'audio' | 'video', enabled: boolean): Participant | undefined {
+  updateMediaState(roomIdOrCode: string, participantId: string, mediaType: 'audio' | 'video' | 'screen' | 'hand', enabled: boolean): Participant | undefined {
     const room = this.getRoom(roomIdOrCode);
     if (!room) return undefined;
 
@@ -74,6 +74,8 @@ class RoomManager {
     if (participant) {
       if (mediaType === 'audio') participant.audioEnabled = enabled;
       if (mediaType === 'video') participant.videoEnabled = enabled;
+      if (mediaType === 'screen') participant.isScreenSharing = enabled;
+      if (mediaType === 'hand') participant.handRaised = enabled;
     }
     return participant;
   }

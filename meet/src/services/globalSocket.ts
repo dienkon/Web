@@ -99,6 +99,7 @@ export class GlobalSocketService {
 
       this.client.on('connect', () => {
         this.isConnected = true;
+        this.trigger('connect', {});
         console.log('[GlobalSocket] Connected successfully to Global Cloud Broker!');
         if (this.currentTopic) {
           this.client?.subscribe(this.currentTopic, { qos: 0 });
@@ -125,6 +126,7 @@ export class GlobalSocketService {
 
       this.client.on('close', () => {
         this.isConnected = false;
+        this.trigger('disconnect', {});
       });
     } catch (err) {
       console.error('[GlobalSocket] MQTT Init Error:', err);
@@ -271,6 +273,8 @@ export class GlobalSocketService {
       if (p) {
         if (payload.type === 'audio') p.audioEnabled = payload.enabled;
         if (payload.type === 'video') p.videoEnabled = payload.enabled;
+        if (payload.type === 'screen') p.isScreenSharing = payload.enabled;
+        if (payload.type === 'hand') p.handRaised = payload.enabled;
         this.trigger('participant:updated', { participant: p });
       }
       return;
@@ -397,6 +401,8 @@ export class GlobalSocketService {
       if (p) {
         if (payload.type === 'audio') p.audioEnabled = payload.enabled;
         if (payload.type === 'video') p.videoEnabled = payload.enabled;
+        if (payload.type === 'screen') p.isScreenSharing = payload.enabled;
+        if (payload.type === 'hand') p.handRaised = payload.enabled;
       }
       this.publish('media:toggle', payload);
       return;
@@ -515,9 +521,9 @@ export class GlobalSocketService {
       this.publish('peer:leave', {});
       try {
         this.client?.unsubscribe(this.currentTopic);
-        this.client?.end(true);
       } catch {}
     }
+    this.client?.end(true);
 
     this.client = null;
     this.isConnected = false;

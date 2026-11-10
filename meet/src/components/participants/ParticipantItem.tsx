@@ -1,6 +1,6 @@
 import React from 'react';
 import { Participant } from '../../types/meeting';
-import { Mic, MicOff, Crown, Pin, PinOff, MicOff as MuteHost, UserX } from 'lucide-react';
+import { Mic, MicOff, Crown, Pin, PinOff, MicOff as MuteHost, UserX, Hand } from 'lucide-react';
 import { useMeetingStore } from '../../store/meetingStore';
 import { useClassroomStore } from '../../store/classroomStore';
 import { socketService } from '../../services/socket';
@@ -52,6 +52,7 @@ export const ParticipantItem: React.FC<ParticipantItemProps> = ({ participant, i
 
         <div className="min-w-0">
           <div className="flex items-center gap-1.5">
+            {participant.handRaised && <span title="Đang giơ tay"><Hand size={15} className="text-amber-300" /></span>}
             <span className="text-sm font-medium text-gray-100 truncate">
               {participant.name} {isLocal && '(Bạn)'}
             </span>

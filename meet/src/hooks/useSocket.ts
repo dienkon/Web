@@ -34,22 +34,26 @@ export function useSocket() {
     if (!roomId) return;
 
     socketService.connect();
-    setConnectionState('connected');
+    setConnectionState('reconnecting');
 
     const { userName, isHost } = useMeetingStore.getState();
 
     // Helper: Initialize RTCPeerConnection with current local stream
     const initPeerConnection = async (targetId: string, isInitiator: boolean) => {
+      if (webRTCManager.hasPeerConnection(targetId)) return;
       const currentStream = useMeetingStore.getState().localStream;
       webRTCManager.createPeerConnection(
         targetId,
         currentStream,
-        (remoteStream) => {
-          updateParticipant(targetId, { stream: remoteStream });
+        (remoteStream, screenStream) => {
+          updateParticipant(targetId, { stream: remoteStream, screenStream });
         },
         (candidate) => {
           socketService.emit('webrtc:ice-candidate', { targetId, candidate });
-        }
+        },
+        (connectionState) => updateParticipant(targetId, { connectionState }),
+        (socketService.id || '') < targetId
+          ? (offer) => socketService.emit('webrtc:offer', { targetId, offer }) : undefined
       );
 
       if (isInitiator) {
@@ -71,9 +75,15 @@ export function useSocket() {
       statistics?: AnswerStatistics;
     }) => {
       setJoined(true);
+      setConnectionState('connected');
+      useMeetingStore.setState({ isHost: data.participant.isHost });
       const { setMyParticipantId } = useMeetingStore.getState();
       setMyParticipantId(data.participant.id);
       setParticipants(data.participants);
+      const media = useMeetingStore.getState();
+      socketService.emit('media:toggle', { type: 'audio', enabled: media.audioEnabled });
+      socketService.emit('media:toggle', { type: 'video', enabled: media.videoEnabled });
+      socketService.emit('media:toggle', { type: 'screen', enabled: media.isScreenSharing });
 
       if (data.currentQuestion) {
         setCurrentQuestion(data.currentQuestion);
@@ -88,7 +98,7 @@ export function useSocket() {
       // Initialize WebRTC connections to existing participants
       data.participants.forEach((p) => {
         if (p.id !== data.participant.id) {
-          initPeerConnection(p.id, true);
+          void initPeerConnection(p.id, data.participant.id < p.id);
         }
       });
     };
@@ -97,7 +107,7 @@ export function useSocket() {
     const handleParticipantJoined = ({ participant }: { participant: Participant }) => {
       addParticipant(participant);
       addToast(`${participant.name} đã tham gia phòng`, 'info');
-      initPeerConnection(participant.id, false);
+      void initPeerConnection(participant.id, (socketService.id || '') < participant.id);
     };
 
     // 3. Participant Left
@@ -111,6 +121,15 @@ export function useSocket() {
     // 4. Participant Updated (Media toggle / host status)
     const handleParticipantUpdated = ({ participant }: { participant: Participant }) => {
       updateParticipant(participant.id, participant);
+    };
+    const handleDisconnect = () => {
+      setConnectionState('reconnecting');
+      webRTCManager.closeAll();
+      void webRTCManager.updateScreenStream(useMeetingStore.getState().screenStream);
+    };
+    const handleConnect = () => {
+      webRTCManager.closeAll();
+      void webRTCManager.updateScreenStream(useMeetingStore.getState().screenStream);
     };
 
     // 5. Active Speaker Remote Indicator
@@ -212,6 +231,8 @@ export function useSocket() {
 
     // Bind Listeners
     socketService.on('room:joined', handleRoomJoined);
+    socketService.on('disconnect', handleDisconnect);
+    socketService.on('connect', handleConnect);
     socketService.on('participant:joined', handleParticipantJoined);
     socketService.on('participant:left', handleParticipantLeft);
     socketService.on('participant:updated', handleParticipantUpdated);
@@ -233,16 +254,19 @@ export function useSocket() {
 
     // Emit room:join event now that listeners are bound
     const state = useMeetingStore.getState();
-    socketService.emit('room:join', {
+    const joinTimer = setTimeout(() => socketService.emit('room:join', {
       roomId,
       userName: userName || 'Học sinh',
       isHost: isHost || false,
       audioEnabled: state.audioEnabled,
       videoEnabled: state.videoEnabled,
-    });
+    }), 0);
 
     return () => {
+      clearTimeout(joinTimer);
       socketService.off('room:joined', handleRoomJoined);
+      socketService.off('disconnect', handleDisconnect);
+      socketService.off('connect', handleConnect);
       socketService.off('participant:joined', handleParticipantJoined);
       socketService.off('participant:left', handleParticipantLeft);
       socketService.off('participant:updated', handleParticipantUpdated);

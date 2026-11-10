@@ -2,6 +2,9 @@ export interface Participant {
   id: string;
   name: string;
   stream?: MediaStream;
+  screenStream?: MediaStream;
+  handRaised?: boolean;
+  connectionState?: RTCPeerConnectionState;
   audioEnabled: boolean;
   videoEnabled: boolean;
   isHost: boolean;

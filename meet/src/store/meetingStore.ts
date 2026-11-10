@@ -21,6 +21,15 @@ interface MeetingState {
   videoEnabled: boolean;
   isScreenSharing: boolean;
   screenStream: MediaStream | null;
+  inputDeviceId: string;
+  cameraDeviceId: string;
+  outputDeviceId: string;
+  speakerVolume: number;
+  noiseSuppression: boolean;
+  shareQuality: 'detail' | 'motion';
+  layout: 'grid' | 'speaker';
+  handRaised: boolean;
+  setPreferences: (values: Partial<Pick<MeetingState, 'inputDeviceId' | 'cameraDeviceId' | 'outputDeviceId' | 'speakerVolume' | 'noiseSuppression' | 'shareQuality' | 'layout' | 'handRaised'>>) => void;
 
   // Participants & Presentation
   myParticipantId: string | null;
@@ -75,6 +84,15 @@ export const useMeetingStore = create<MeetingState>((set, get) => ({
   videoEnabled: true,
   isScreenSharing: false,
   screenStream: null,
+  inputDeviceId: '',
+  cameraDeviceId: '',
+  outputDeviceId: '',
+  speakerVolume: 1,
+  noiseSuppression: true,
+  shareQuality: 'detail',
+  layout: 'grid',
+  handRaised: false,
+  setPreferences: (values) => set(values),
 
   myParticipantId: null,
   participants: new Map(),
@@ -119,6 +137,7 @@ export const useMeetingStore = create<MeetingState>((set, get) => ({
 
   updateParticipant: (participantId, updates) =>
     set((state) => {
+      if (participantId === state.myParticipantId) return { isHost: updates.isHost ?? state.isHost };
       const existing = state.participants.get(participantId);
       const updatedMap = new Map(state.participants);
       if (existing) {
@@ -144,7 +163,7 @@ export const useMeetingStore = create<MeetingState>((set, get) => ({
       const map = new Map<string, Participant>();
       participantsList.forEach((p) => {
         if (p.id !== state.myParticipantId && p.id !== 'local_user') {
-          map.set(p.id, p);
+          map.set(p.id, { ...state.participants.get(p.id), ...p });
         }
       });
       return { participants: map };
@@ -169,7 +188,7 @@ export const useMeetingStore = create<MeetingState>((set, get) => ({
   addToast: (message, type = 'info') =>
     set((state) => {
       const id = `toast_${Date.now()}_${Math.random().toString(36).substring(2, 5)}`;
-      return { toasts: [...state.toasts, { id, message, type }] };
+      return { toasts: [...state.toasts.slice(-2), { id, message, type }] };
     }),
 
   removeToast: (id) =>
@@ -187,6 +206,8 @@ export const useMeetingStore = create<MeetingState>((set, get) => ({
       localStream: null,
       screenStream: null,
       isScreenSharing: false,
+      myParticipantId: null,
+      handRaised: false,
       participants: new Map(),
       activeSpeakerId: null,
       pinnedParticipantId: null,

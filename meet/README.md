@@ -1,146 +1,84 @@
-# MeetClass - Phòng Học Tương Tác (Google Meet Clone + Classroom Mode)
+# MeetClass
 
-Mô phỏng trải nghiệm họp video Google Meet thời gian thực tích hợp hệ thống tương tác **Teaching/Classroom Mode** dành cho giáo viên và học sinh.
+Ứng dụng họp video và lớp học tương tác dùng React, TypeScript, WebRTC và Socket.IO.
 
----
-
-## 🚀 1. Install (Cài đặt)
-
-Cài đặt tất cả phụ thuộc cho cả Frontend và Backend Node.js server:
+## Chạy trên máy
 
 ```bash
-# Cài đặt frontend dependencies
 npm install
-
-# Cài đặt backend dependencies
-cd server
-npm install
-cd ..
-```
-
----
-
-## 💻 2. Run Frontend
-
-Khởi chạy ứng dụng Web Frontend (port default: `3000`):
-
-```bash
+npm --prefix server install
 npm run dev
 ```
 
-*Lưu ý:* Ứng dụng tích hợp sẵn **Mock Socket & WebRTC Fallback Mode** trong bộ nhớ trình duyệt, vì vậy bạn có thể mở 2 tab riêng biệt ở `http://localhost:3000` để thử nghiệm đầy đủ giao diện và tính năng tương tác ngay cả khi chưa bật server backend.
+Mở http://localhost:3000. Lệnh `dev` chạy cả Vite và backend trên cổng 5000. Tạo cuộc họp, kiểm tra thiết bị rồi chia sẻ liên kết mời cho người khác. Có thể nhập mã hoặc dán liên kết `/join/…`, `/room/…`, `/meeting/…` vào trang chủ.
 
----
+## Âm thanh, video và trình chiếu
 
-## 🖥️ 3. Run Backend
+- Xin quyền micro và camera riêng: camera bị từ chối hoặc không có camera vẫn dùng micro được.
+- Chọn micro, camera, loa/tai nghe; đo mức micro; thử loa; điều chỉnh âm lượng và lọc tiếng ồn.
+- Giữ trạng thái tắt mic/camera từ màn xem trước khi vào phòng, kể cả khi đổi thiết bị.
+- Âm thanh của người tham gia được phát độc lập với ô video, tiếp tục khi ghim video, đổi bố cục hoặc tắt camera.
+- Camera và màn hình dùng các kênh WebRTC riêng; chia sẻ màn hình không thay thế camera hoặc micro.
+- Trình chiếu hướng đến 1080p, 30 fps, giới hạn gửi 4 Mbps cho mỗi kết nối. Chất lượng thực tế phụ thuộc thiết bị và mạng. Chọn ưu tiên văn bản hoặc chuyển động trong cài đặt.
+- Có thể gửi âm thanh của tab đồng thời với micro. Chọn tab trình duyệt và bật **Chia sẻ âm thanh** trong hộp chọn của trình duyệt. Việc thu tiếng của cửa sổ/toàn màn hình tùy hệ điều hành và trình duyệt.
+- Người vào muộn nhận màn hình đang trình chiếu. Dừng bằng nút trong phòng hoặc nút dừng của trình duyệt; có thể chia sẻ lại.
+- Khi trình duyệt chặn tự phát âm thanh, bấm **Bấm để nghe âm thanh cuộc họp**.
 
-Khởi chạy backend Node.js + Express + Socket.IO (port default: `5000`):
+Micro, camera và chia sẻ màn hình cần HTTPS khi triển khai; `localhost` dùng được cho phát triển. Chia sẻ màn hình nên thử bằng Chrome/Edge trên máy tính. Trình duyệt không hỗ trợ chọn loa sẽ dùng thiết bị đầu ra của hệ thống.
 
-```bash
-# Từ thư mục gốc
-npm run server
+## Tiện ích cuộc họp
 
-# Hoặc từ thư mục server/
-cd server
-npm run dev
-```
+- Giơ/hạ tay đồng bộ; danh sách người tham gia hiển thị người đang giơ tay.
+- Bố cục lưới, tập trung người nói, ghim/bỏ ghim video và toàn màn hình.
+- Trò chuyện thời gian thực, tải nội dung trò chuyện về tệp UTF-8.
+- Sao chép liên kết mời, thời lượng cuộc họp, trạng thái kết nối.
+- Phím tắt **Ctrl/⌘ + Shift + M** bật/tắt mic; **Ctrl/⌘ + Shift + V** bật/tắt camera. Phím tắt không chạy khi đang nhập nội dung hoặc mở hộp cài đặt.
+- Chủ phòng tạo câu hỏi A/B/C/D, xem thống kê, khóa/reset câu hỏi, yêu cầu tắt mic và mời người tham gia ra khỏi phòng.
+- Giao diện thích ứng điện thoại; bảng chat/người tham gia phủ lên vùng video, các nút cuộc họp vẫn truy cập được.
+- Thử kết nối lại khi mất signaling; khởi động lại ICE khi kết nối media thất bại. Rời phòng dừng thiết bị và đóng các kết nối.
 
-## 🌐 9. Deploy lên Vercel
+## Cấu hình và triển khai
 
-Ứng dụng đã sẵn sàng 100% để deploy trực tiếp lên **Vercel** chỉ với 1 click hoặc lệnh Vercel CLI:
-
-```bash
-# Cài đặt Vercel CLI nếu chưa có
-npm i -g vercel
-
-# Deploy ứng dụng
-vercel
-```
-
-- File cấu hình `vercel.json` đã được cài đặt sẵn route SPA và Serverless API Gateway `api/index.ts`.
-- Ứng dụng tự động kích hoạt chế độ **Serverless & WebRTC Interactive Mode** trên Vercel giúp mọi tính năng họp video, chat, tạo phòng, câu hỏi trắc nghiệm A/B/C/D và thống kê live hoạt động hoàn hảo mà không cần máy chủ VPS riêng.
-- (Tùy chọn) Nếu có Socket.IO server riêng (trên Render/Railway), thêm biến môi trường trên Vercel Dashboard: `VITE_SERVER_URL=https://your-socket-server.onrender.com`.
-
----
-
-## ⚙️ 4. Environment Variables
-
-Tạo file `.env` ở thư mục gốc (tham khảo từ `.env.example`):
+Tham khảo `.env.example`:
 
 ```env
 VITE_SERVER_URL=http://localhost:5000
 VITE_STUN_SERVER=stun:stun.l.google.com:19302
+VITE_TURN_SERVER=
+VITE_TURN_USERNAME=
+VITE_TURN_PASSWORD=
 ```
 
----
+Để dùng ổn định qua các mạng khác nhau, triển khai backend Socket.IO riêng (máy chủ Node hỗ trợ WebSocket) và cấu hình `VITE_SERVER_URL` bằng địa chỉ HTTPS của backend. Frontend có thể triển khai trên Vercel với cấu hình SPA trong `vercel.json`; API serverless không thay thế một backend Socket.IO chạy liên tục.
 
-## 🏗️ 5. Architecture (Kiến trúc)
+WebRTC cần TURN được vận hành và kiểm tra riêng để đi qua các mạng NAT/firewall hạn chế. Không mặc định dựa vào tài khoản relay công khai. Các biến `VITE_*` được đóng gói vào frontend: tài khoản TURN tĩnh phải được giới hạn quyền/hạn mức; hệ thống production nên cấp thông tin TURN ngắn hạn từ backend có xác thực.
 
-```text
-meet/
-├── server/                     # Backend Node.js + Socket.IO + Express
-│   ├── index.ts                # Server entry point
-│   ├── socket.ts               # Socket.IO Event Handler
-│   ├── rooms.ts                # In-memory Room & Participant Store
-│   ├── classroom.ts            # Question & Realtime A/B/C/D State Manager
-│   └── types.ts                # TypeScript Interfaces
-│
-└── src/                        # Frontend React + TypeScript
-    ├── components/
-    │   ├── classroom/          # AnswerPanel, TeacherQuestionPanel, AnswerStatistics
-    │   ├── controls/           # Bottom ControlBar, MediaControls, HostControls
-    │   ├── meeting/            # VideoGrid, ParticipantTile, ScreenShareView
-    │   ├── chat/               # ChatPanel, ChatMessage
-    │   └── participants/       # ParticipantsPanel
-    ├── hooks/                  # useWebRTC, useSocket, useClassroom, useParticipants
-    ├── services/               # webRTC.ts, socket.ts, mockSocket.ts, api.ts
-    ├── store/                  # meetingStore.ts, classroomStore.ts
-    ├── pages/                  # HomePage, JoinPage, MeetingPage, ClassroomPage
-    └── App.tsx
+Khi không cấu hình backend ngoài trên bản triển khai cloud, ứng dụng hiện có phương án signaling thử nghiệm qua broker MQTT công khai. Khi backend local không kết nối được, ứng dụng cũng chuyển sang phương án này. Broker công khai không có cơ chế xác thực/phân quyền phòng của ứng dụng, không bảo đảm SLA; không dùng cho cuộc họp riêng tư hoặc làm phương án production mặc định. `MockSocketService` là tiện ích thử nghiệm nội bộ bằng BroadcastChannel, không tự động được chọn làm fallback.
+
+Kiến trúc media là P2P mesh: mỗi người gửi media cho từng người còn lại. Phù hợp các phòng nhỏ; phòng đông cần SFU và cơ chế thích nghi băng thông bổ sung. Dữ liệu phòng backend đang lưu trong bộ nhớ, mất khi khởi động lại; chưa có tài khoản, lịch sử lưu bền hoặc cơ chế phân quyền production đầy đủ.
+
+## Kiểm tra
+
+```bash
+npm run typecheck
+npm run build
+npm --prefix server run build
+npx playwright install chromium
+npm run test:e2e
 ```
 
----
+Playwright tự chạy frontend và backend nếu chưa mở. Bài thử dùng thiết bị camera/mic giả của Chromium; hộp chọn màn hình được thay bằng canvas và nguồn tiếng tổng hợp, còn kết nối, RTP, SDP và ICE là WebRTC thật. Kiểm tra tiếng hai chiều, hình camera, tiếng của tab, người vào muộn, dừng/chia sẻ lại, đổi bố cục, quyền camera bị từ chối, bật thiết bị sau khi vào phòng, kết nối lại, đổi micro khi đang tắt tiếng, chat, liên kết mời và giao diện điện thoại.
 
-## 📹 6. WebRTC Flow
+Các bài thử cục bộ không thay thế kiểm tra thiết bị thật, hộp chọn chia sẻ của hệ điều hành, trình duyệt Safari/Firefox và hai máy ở hai mạng khác nhau.
 
-1. **Local Media**: Khi tham gia phòng, `getUserMedia()` khởi tạo âm thanh và video cá nhân.
-2. **Signaling**:
-   - Khi participant mới tham gia, Socket.IO gửi event `participant:joined`.
-   - Client tạo `RTCPeerConnection` mới cho peer đó.
-   - Gửi SDP `offer` qua Socket.IO -> Peer nhận `offer`, phản hồi `answer`.
-   - Đổi Candidate qua `ice-candidate` event.
-3. **Track Control**: Bật/tắt mic hoặc camera trực tiếp thao tác trên `MediaStreamTrack.enabled`.
-4. **Screen Share**: `getDisplayMedia()` thay thế track video hoặc mở stream trình chiếu riêng biệt.
+## Mã nguồn
 
----
+- `src/services/webrtc.ts`: quản lý kết nối với bốn kênh riêng: mic, camera, video màn hình và tiếng màn hình; đợi remote description trước khi xử lý ICE.
+- `src/hooks/useWebRTC.ts`: quyền thiết bị, đổi thiết bị, trình chiếu và nhận biết người nói.
+- `src/components/meeting/RemoteAudioContainer.tsx`: phát tiếng độc lập với bố cục video.
+- `src/components/meeting/DeviceSettings.tsx`: chọn thiết bị và kiểm tra âm thanh.
+- `src/store/audioLevelStore.ts`: mức mic được cập nhật riêng để tránh vẽ lại cả phòng theo nhịp đo âm lượng.
+- `server/`: backend Express + Socket.IO, trạng thái phòng và câu hỏi tương tác.
+- `tests/meeting.spec.ts`: kiểm tra luồng họp qua trình duyệt.
 
-## 🎓 7. Classroom Mode Flow (Hệ thống Trả lời A/B/C/D)
-
-1. **Tạo câu hỏi**: Giáo viên (Host) tạo câu hỏi và tùy chọn A/B/C/D, nhấn **Bắt đầu câu hỏi**.
-2. **Broadcast**: Server gửi event `question:start` tới toàn bộ người dùng trong phòng.
-3. **Trả lời**: Học sinh bấm nút A, B, C, hoặc D (cụm nút nổi responsive phía trên thanh công cụ).
-4. **Cập nhật Realtime**:
-   - Socket gửi `classroom:answer` (User ID, Choice, Timestamp).
-   - Nếu đổi đáp án (ví dụ A -> C), server tự động giảm đếm A và tăng đếm C.
-5. **Thống kê cho Host**: Giáo viên nhìn thấy ngay tỷ lệ phần trăm và danh sách học sinh chọn đáp án realtime thông qua component `AnswerStatistics`.
-6. **Khóa / Reset**: Giáo viên có thể bấm **Khóa câu trả lời** (`question:lock`) hoặc **Reset câu hỏi** (`question:reset`) để học sinh làm lại.
-
----
-
-## 🔌 8. Socket Events
-
-| Event Name | Direction | Payload Description |
-| :--- | :--- | :--- |
-| `room:join` | Client -> Server | `{ roomId, userName, isHost }` |
-| `participant:joined` | Server -> Client | `{ participant }` |
-| `participant:left` | Server -> Client | `{ userId }` |
-| `media:toggle` | Client -> Server | `{ type: 'audio' \| 'video', enabled }` |
-| `webrtc:offer` | Client <-> Server | `{ targetId, offer }` |
-| `webrtc:answer` | Client <-> Server | `{ targetId, answer }` |
-| `webrtc:ice-candidate` | Client <-> Server | `{ targetId, candidate }` |
-| `chat:message` | Client <-> Server | `{ id, senderId, senderName, text, timestamp }` |
-| `question:start` | Host -> Server -> All | `{ question }` |
-| `question:lock` | Host -> Server -> All | `{ roomId }` |
-| `question:reset` | Host -> Server -> All | `{ roomId }` |
-| `classroom:answer` | Student -> Server -> Host | `{ roomId, userId, answer }` |
-| `classroom:stats` | Server -> Host | `{ statistics: { A, B, C, D, total }, answers }` |
+Tham khảo API: [addTransceiver](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/addTransceiver), [replaceTrack](https://developer.mozilla.org/en-US/docs/Web/API/RTCRtpSender/replaceTrack), [getDisplayMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getDisplayMedia).

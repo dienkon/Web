@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { useParams, useNavigate, Navigate } from 'react-router-dom';
 import { RoomHeader } from '../components/meeting/RoomHeader';
 import { VideoGrid } from '../components/meeting/VideoGrid';
 import { ControlBar } from '../components/controls/ControlBar';
@@ -20,8 +20,19 @@ import { useParticipants } from '../hooks/useParticipants';
 import { useClassroom } from '../hooks/useClassroom';
 import { socketService } from '../services/socket';
 import { Participant } from '../types/meeting';
+import { DeviceSettings } from '../components/meeting/DeviceSettings';
+import { LayoutGrid, UserRound, Hand } from 'lucide-react';
 
 export const MeetingPage: React.FC = () => {
+  const { code } = useParams<{ code: string }>();
+  const name = useMeetingStore(s => s.userName);
+  let savedName = '';
+  try { savedName = localStorage.getItem('meetclass_user_name') || ''; } catch {}
+  if (!name && !savedName) return <Navigate to={`/join/${code || 'CLASSROOM'}`} replace />;
+  return <MeetingSession />;
+};
+
+const MeetingSession: React.FC = () => {
   const { code } = useParams<{ code: string }>();
   const navigate = useNavigate();
   const roomCode = (code || 'CLASSROOM').toUpperCase();
@@ -42,6 +53,11 @@ export const MeetingPage: React.FC = () => {
 
   // Host modal state
   const [isHostModalOpen, setIsHostModalOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const leaveTimer = useRef<ReturnType<typeof setTimeout>>();
+  const layout = useMeetingStore(s => s.layout);
+  const handRaised = useMeetingStore(s => s.handRaised);
+  const screenStream = useMeetingStore(s => s.screenStream);
 
   // Custom Hooks
   const {
@@ -54,9 +70,22 @@ export const MeetingPage: React.FC = () => {
     audioEnabled,
     videoEnabled,
     isScreenSharing,
+    changeDevice,
   } = useWebRTC();
 
   useSocket();
+
+  useEffect(() => {
+    clearTimeout(leaveTimer.current);
+    return () => {
+      // Delay one tick so React StrictMode's effect probe does not end the call.
+      leaveTimer.current = setTimeout(() => {
+        stopAllMedia(); socketService.disconnect(); resetMeeting();
+        useClassroomStore.getState().resetQuestionState();
+        useClassroomStore.getState().setCurrentQuestion(null);
+      }, 0);
+    };
+  }, [stopAllMedia, resetMeeting]);
 
   const { participantsList, activeSpeaker } = useParticipants();
   const { submitAnswer } = useClassroom();
@@ -81,10 +110,19 @@ export const MeetingPage: React.FC = () => {
 
   // Ensure media stream is active on mount
   useEffect(() => {
-    if (!localStream || !localStream.getTracks().some((t) => t.readyState === 'live')) {
-      initLocalStream();
-    }
-  }, [initLocalStream, localStream]);
+    void initLocalStream();
+  }, [initLocalStream]);
+
+  useEffect(() => {
+    const shortcut = (e: KeyboardEvent) => {
+      if (!(e.ctrlKey || e.metaKey) || !e.shiftKey || settingsOpen || isHostModalOpen) return;
+      if ((e.target as HTMLElement).closest('input, textarea, select, [contenteditable="true"]')) return;
+      if (e.code === 'KeyM') { e.preventDefault(); void toggleAudio(); }
+      if (e.code === 'KeyV') { e.preventDefault(); void toggleVideo(); }
+    };
+    window.addEventListener('keydown', shortcut);
+    return () => window.removeEventListener('keydown', shortcut);
+  }, [toggleAudio, toggleVideo, settingsOpen, isHostModalOpen]);
 
   // Construct local participant object
   const isLocalSpeaking = activeSpeakerId === 'local_user' || activeSpeakerId === socketService.id;
@@ -97,6 +135,7 @@ export const MeetingPage: React.FC = () => {
     videoEnabled,
     isHost,
     isSpeaking: isLocalSpeaking,
+    handRaised,
   };
 
   const handleLeave = () => {
@@ -109,15 +148,21 @@ export const MeetingPage: React.FC = () => {
   };
 
   return (
-    <div className="w-screen h-screen bg-[#121212] flex flex-col overflow-hidden select-none relative">
+    <div className="meeting-shell w-full h-dvh flex flex-col overflow-hidden relative">
       <ToastContainer />
       <RemoteAudioContainer participants={participantsList} />
 
       {/* Header */}
-      <RoomHeader />
+      <RoomHeader onOpenSettings={() => setSettingsOpen(true)} />
+      <div className="px-4 sm:px-6 pt-4 pb-2 flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2 text-xs text-slate-400"><span className="w-1.5 h-1.5 bg-blue-300 rounded-full" /><span>Trong phòng · {participantsList.length + 1} người</span>
+          {(handRaised || participantsList.some(p => p.handRaised)) && <span className="flex items-center gap-1 text-amber-300 ml-2"><Hand size={13} />{participantsList.filter(p => p.handRaised).length + Number(handRaised)}</span>}
+        </div>
+        <button onClick={() => useMeetingStore.getState().setPreferences({ layout: layout === 'grid' ? 'speaker' : 'grid' })} className="text-xs flex items-center gap-2 text-slate-300 bg-white/5 rounded-lg px-3 py-2">{layout === 'grid' ? <LayoutGrid size={14} /> : <UserRound size={14} />}{layout === 'grid' ? 'Dạng lưới' : 'Người nói'}</button>
+      </div>
 
       {/* Main Workspace Area (Video Grid + Side Panel) */}
-      <div className="flex-1 flex overflow-hidden relative">
+      <div className="meeting-workspace flex-1 min-h-0 flex overflow-hidden relative">
         {/* Question Banner Overlay */}
         <QuestionBanner question={currentQuestion} />
 
@@ -130,7 +175,7 @@ export const MeetingPage: React.FC = () => {
               activeSpeakerId={activeSpeaker?.id || (isLocalSpeaking ? 'local_user' : null)}
               pinnedParticipantId={pinnedParticipantId}
               isScreenSharing={isScreenSharing}
-              screenStream={useMeetingStore.getState().screenStream}
+              screenStream={screenStream}
               onStopScreenShare={toggleScreenShare}
             />
           </div>
@@ -173,7 +218,9 @@ export const MeetingPage: React.FC = () => {
         onToggleScreenShare={toggleScreenShare}
         onLeave={handleLeave}
         onOpenHostModal={() => setIsHostModalOpen(true)}
+        onOpenSettings={() => setSettingsOpen(true)}
       />
+      <DeviceSettings isOpen={settingsOpen} onClose={() => setSettingsOpen(false)} onChangeDevice={changeDevice} />
 
       {/* Teacher / Host Management Modal */}
       {isHost && (

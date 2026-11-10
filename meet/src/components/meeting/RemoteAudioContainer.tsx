@@ -1,77 +1,43 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Volume2 } from 'lucide-react';
 import { Participant } from '../../types/meeting';
-import { VolumeX } from 'lucide-react';
+import { useMeetingStore } from '../../store/meetingStore';
 
-interface RemoteAudioContainerProps {
-  participants: Participant[];
+function RemoteAudio({ stream, enabled, onBlocked }: { stream: MediaStream; enabled: boolean; onBlocked: () => void }) {
+  const ref = useRef<HTMLAudioElement>(null);
+  const volume = useMeetingStore(s => s.speakerVolume);
+  const output = useMeetingStore(s => s.outputDeviceId);
+  useEffect(() => {
+    const audio = ref.current!;
+    audio.srcObject = stream;
+    const play = () => { void audio.play().catch(error => { if (error.name === 'NotAllowedError') onBlocked(); }); };
+    play();
+    window.addEventListener('pointerdown', play);
+    window.addEventListener('keydown', play);
+    return () => { window.removeEventListener('pointerdown', play); window.removeEventListener('keydown', play); audio.srcObject = null; };
+  }, [stream, onBlocked]);
+  useEffect(() => { if (ref.current) { ref.current.volume = volume; ref.current.muted = !enabled; } }, [volume, enabled]);
+  useEffect(() => {
+    const audio = ref.current as (HTMLAudioElement & { setSinkId?: (id: string) => Promise<void> }) | null;
+    if (audio?.setSinkId) void audio.setSinkId(output).catch(() => useMeetingStore.getState().addToast('Không thể dùng loa đã chọn. Hãy chọn loa mặc định.', 'warning'));
+  }, [output]);
+  return <audio ref={ref} autoPlay data-remote-audio />;
 }
 
-export const RemoteAudioContainer: React.FC<RemoteAudioContainerProps> = ({ participants }) => {
-  const [audioBlocked, setAudioBlocked] = useState(false);
-
-  const unlockMedia = useCallback(() => {
-    let blocked = false;
-    const mediaElements = document.querySelectorAll<HTMLMediaElement>('video, audio');
-    mediaElements.forEach((el) => {
-      if (!el.muted && el.paused && el.srcObject) {
-        el.play().catch(() => {
-          blocked = true;
-        });
-      }
-    });
-    setAudioBlocked(blocked);
-  }, []);
-
-  // Check on participant change if any unmuted remote stream is paused
-  useEffect(() => {
-    const checkPaused = () => {
-      const mediaElements = document.querySelectorAll<HTMLMediaElement>('video');
-      let foundBlocked = false;
-      mediaElements.forEach((el) => {
-        if (!el.muted && el.paused && el.srcObject) {
-          el.play().catch(() => {
-            foundBlocked = true;
-            setAudioBlocked(true);
-          });
-        }
-      });
-      if (!foundBlocked) {
-        setAudioBlocked(false);
-      }
-    };
-
-    const timer = setTimeout(checkPaused, 500);
-    return () => clearTimeout(timer);
-  }, [participants]);
-
-  // Unlock audio on any user touch/click/key gesture (satisfies browser autoplay policies)
-  useEffect(() => {
-    const handleGesture = () => {
-      unlockMedia();
-    };
-
-    window.addEventListener('click', handleGesture, { passive: true });
-    window.addEventListener('touchstart', handleGesture, { passive: true });
-    window.addEventListener('pointerdown', handleGesture, { passive: true });
-    window.addEventListener('keydown', handleGesture, { passive: true });
-
-    return () => {
-      window.removeEventListener('click', handleGesture);
-      window.removeEventListener('touchstart', handleGesture);
-      window.removeEventListener('pointerdown', handleGesture);
-      window.removeEventListener('keydown', handleGesture);
-    };
-  }, [unlockMedia]);
-
-  if (!audioBlocked) return null;
-
-  return (
-    <div
-      onClick={unlockMedia}
-      className="absolute top-20 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold text-xs sm:text-sm rounded-full shadow-2xl cursor-pointer animate-bounce select-none border-2 border-white/40"
-    >
-      <VolumeX className="w-4 h-4 text-gray-950 animate-pulse" />
-      <span>Bấm vào đây để BẬT TIẾNG cuộc họp (Âm thanh đang bị trình duyệt chặn)</span>
-    </div>
-  );
+export const RemoteAudioContainer: React.FC<{ participants: Participant[] }> = ({ participants }) => {
+  const [blocked, setBlocked] = useState(false);
+  const onBlocked = React.useCallback(() => setBlocked(true), []);
+  const unlock = async () => {
+    const results = await Promise.allSettled([...document.querySelectorAll<HTMLAudioElement>('audio[data-remote-audio]')].map(el => el.play()));
+    setBlocked(results.some(r => r.status === 'rejected'));
+  };
+  return <>
+    {participants.map(p => <React.Fragment key={p.id}>
+      {p.stream && <RemoteAudio stream={p.stream} enabled={p.audioEnabled} onBlocked={onBlocked} />}
+      {p.screenStream && <RemoteAudio stream={p.screenStream} enabled={!!p.isScreenSharing} onBlocked={onBlocked} />}
+    </React.Fragment>)}
+    {blocked && <button onClick={() => void unlock()} className="absolute top-20 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 px-4 py-3 rounded-2xl bg-amber-300 text-slate-950 shadow-xl text-sm font-semibold">
+      <Volume2 size={18} /> Bấm để nghe âm thanh cuộc họp
+    </button>}
+  </>;
 };

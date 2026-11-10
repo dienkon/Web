@@ -23,7 +23,8 @@ export const VideoGrid: React.FC<VideoGridProps> = ({
   screenStream,
   onStopScreenShare,
 }) => {
-  const { myParticipantId } = useMeetingStore();
+  const myParticipantId = useMeetingStore(s => s.myParticipantId);
+  const layout = useMeetingStore(s => s.layout);
 
   // All participants including local (filtered to prevent self-duplication)
   const remoteParticipants = participants.filter(
@@ -33,18 +34,20 @@ export const VideoGrid: React.FC<VideoGridProps> = ({
 
   const pinnedParticipant = pinnedParticipantId
     ? allParticipants.find((p) => p.id === pinnedParticipantId)
-    : null;
+    : layout === 'speaker' ? allParticipants.find(p => p.id === activeSpeakerId) || localParticipant : null;
+  const remotePresenter = remoteParticipants.find(p => p.isScreenSharing && p.screenStream);
+  const presentation = isScreenSharing ? screenStream : remotePresenter?.screenStream;
 
   // Screen share view takes main priority if active
-  if (isScreenSharing && screenStream) {
+  if (presentation) {
     return (
       <div className="w-full h-full flex flex-col md:flex-row gap-3 p-3 overflow-hidden">
         {/* Main Presentation View */}
         <div className="flex-1 h-full min-h-0">
           <ScreenShareView
-            stream={screenStream}
-            presenterName={localParticipant.name}
-            isSelf={true}
+            stream={presentation}
+            presenterName={isScreenSharing ? localParticipant.name : remotePresenter!.name}
+            isSelf={isScreenSharing}
             onStopShare={onStopScreenShare}
           />
         </div>

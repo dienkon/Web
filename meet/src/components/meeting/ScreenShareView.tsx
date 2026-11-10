@@ -20,6 +20,7 @@ export const ScreenShareView: React.FC<ScreenShareViewProps> = ({
   useEffect(() => {
     if (videoRef.current && stream) {
       videoRef.current.srcObject = stream;
+      void videoRef.current.play().catch(() => {});
     }
   }, [stream]);
 
@@ -29,6 +30,7 @@ export const ScreenShareView: React.FC<ScreenShareViewProps> = ({
         ref={videoRef}
         autoPlay
         playsInline
+        muted
         className="w-full h-full object-contain"
       />
 

@@ -8,6 +8,8 @@
     "dev:client": "npx vite",
     "dev:server": "npm --prefix server run dev",
     "build": "npx vite build",
+    "typecheck": "tsc --noEmit",
+    "test:e2e": "playwright test",
     "preview": "npx vite preview",
     "server": "npm --prefix server run dev"
   },
@@ -24,6 +26,7 @@
     "zustand": "^5.0.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.0",
     "@types/node": "^22.10.7",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",

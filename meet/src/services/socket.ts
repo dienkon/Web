@@ -26,6 +26,7 @@ class SocketService {
     const targetUrl = hasExternalServer ? envUrl : isLocalhost ? (envUrl || 'http://localhost:5000') : undefined;
 
     if (targetUrl) {
+      this.connectionMode = 'socket-io';
       try {
         const realSocket = io(targetUrl, {
           autoConnect: true,
@@ -38,6 +39,7 @@ class SocketService {
         realSocket.on('connect', () => {
           this.connectionMode = 'socket-io';
           console.log('[MeetClass Socket] Connected to Socket.IO Server on', targetUrl);
+          if (this.lastJoinPayload) realSocket.emit('room:join', this.lastJoinPayload);
         });
 
         realSocket.on('connect_error', () => {
@@ -120,6 +122,8 @@ class SocketService {
     if (!this.activeSocket) {
       this.connect();
     }
+    // Join exactly once after transport connection; do not enqueue duplicate joins.
+    if (event === 'room:join' && this.activeSocket instanceof Socket && !this.activeSocket.connected) return;
     this.activeSocket?.emit(event, payload);
   }
 

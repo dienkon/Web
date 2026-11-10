@@ -1,291 +1,158 @@
-const STUN_SERVERS = [
+const iceServers: RTCIceServer[] = [
   { urls: import.meta.env.VITE_STUN_SERVER || 'stun:stun.l.google.com:19302' },
   { urls: 'stun:stun1.l.google.com:19302' },
-  { urls: 'stun:stun2.l.google.com:19302' },
-  { urls: 'stun:stun3.l.google.com:19302' },
-  { urls: 'stun:stun4.l.google.com:19302' },
-  { urls: 'stun:global.stun.twilio.com:3478' },
 ];
-
-const TURN_SERVER = import.meta.env.VITE_TURN_SERVER;
-const TURN_USERNAME = import.meta.env.VITE_TURN_USERNAME;
-const TURN_PASSWORD = import.meta.env.VITE_TURN_PASSWORD;
-
-function getRTCConfiguration(): RTCConfiguration {
-  const iceServers: RTCIceServer[] = [...STUN_SERVERS];
-
-  if (TURN_SERVER) {
-    iceServers.push({
-      urls: TURN_SERVER,
-      username: TURN_USERNAME || undefined,
-      credential: TURN_PASSWORD || undefined,
-    });
-  } else {
-    // Open relay TURN fallback for strict NATs & corporate firewalls
-    iceServers.push(
-      {
-        urls: 'turn:openrelay.metered.ca:80',
-        username: 'openrelayproject',
-        credential: 'openrelayproject',
-      },
-      {
-        urls: 'turn:openrelay.metered.ca:443',
-        username: 'openrelayproject',
-        credential: 'openrelayproject',
-      }
-    );
-  }
-
-  return {
-    iceServers,
-    iceCandidatePoolSize: 10,
-  };
+if (import.meta.env.VITE_TURN_SERVER) {
+  iceServers.push({ urls: import.meta.env.VITE_TURN_SERVER,
+    username: import.meta.env.VITE_TURN_USERNAME, credential: import.meta.env.VITE_TURN_PASSWORD });
 }
 
+// Fixed slots keep microphone, camera, screen video and screen audio independent.
+type Peer = { pc: RTCPeerConnection; slots: RTCRtpTransceiver[]; tracks: (MediaStreamTrack | null)[] };
 export class WebRTCManager {
-  private peerConnections: Map<string, RTCPeerConnection> = new Map();
-  private pendingCandidates: Map<string, RTCIceCandidateInit[]> = new Map();
+  private peers = new Map<string, Peer>();
+  private pendingCandidates = new Map<string, RTCIceCandidateInit[]>();
+  private screenStream: MediaStream | null = null;
 
-  public hasPeerConnection(peerId: string): boolean {
-    return this.peerConnections.has(peerId);
-  }
+  hasPeerConnection(id: string) { return this.peers.has(id); }
 
-  public createPeerConnection(
-    peerId: string,
-    localStream: MediaStream | null,
-    onTrack: (remoteStream: MediaStream) => void,
-    onIceCandidate: (candidate: RTCIceCandidate) => void
-  ): RTCPeerConnection {
-    if (this.peerConnections.has(peerId)) {
-      this.closePeerConnection(peerId);
-    }
-
-    const pc = new RTCPeerConnection(getRTCConfiguration());
-    const remoteStream = new MediaStream();
-
-    // Add local tracks to peer connection
-    if (localStream) {
-      localStream.getTracks().forEach((track) => {
-        try {
-          pc.addTrack(track, localStream);
-        } catch (e) {
-          console.warn('[WebRTC] addTrack error:', e);
-        }
-      });
-    }
-
-    // Always ensure transceivers exist with sendrecv direction so channels are negotiated
-    try {
-      const senders = pc.getSenders();
-      if (!senders.some((s) => s.track?.kind === 'audio')) {
-        pc.addTransceiver('audio', { direction: 'sendrecv' });
-      }
-      if (!senders.some((s) => s.track?.kind === 'video')) {
-        pc.addTransceiver('video', { direction: 'sendrecv' });
-      }
-    } catch (e) {
-      console.warn('[WebRTC] addTransceiver warning:', e);
-    }
-
-    // Receive remote tracks safely
-    const notifyStream = () => {
-      onTrack(new MediaStream(remoteStream.getTracks()));
+  createPeerConnection(id: string, local: MediaStream | null,
+    onTrack: (stream: MediaStream, screenStream: MediaStream) => void,
+    onIce: (candidate: RTCIceCandidate) => void,
+    onState?: (state: RTCPeerConnectionState) => void,
+    onRestart?: (offer: RTCSessionDescriptionInit) => void) {
+    const existing = this.peers.get(id);
+    if (existing) return existing.pc;
+    const pc = new RTCPeerConnection({ iceServers, iceCandidatePoolSize: 2 });
+    const camera = new MediaStream();
+    const screen = new MediaStream();
+    const tracks = [local?.getAudioTracks()[0] || null, local?.getVideoTracks()[0] || null,
+      this.screenStream?.getVideoTracks()[0] || null, this.screenStream?.getAudioTracks()[0] || null];
+    // Answerers must adopt the offered transceivers before adding their sending tracks.
+    this.peers.set(id, { pc, slots: [], tracks });
+    pc.ontrack = ({ track, transceiver }) => {
+      const stream = pc.getTransceivers().indexOf(transceiver) >= 2 ? screen : camera;
+      if (!stream.getTrackById(track.id)) stream.addTrack(track);
+      const notify = () => {
+        if (this.peers.get(id)?.pc === pc) onTrack(new MediaStream(camera.getTracks()), new MediaStream(screen.getTracks()));
+      };
+      track.onunmute = notify;
+      track.onmute = notify;
+      track.onended = () => { stream.removeTrack(track); notify(); };
+      notify();
     };
-
-    pc.ontrack = (event) => {
-      const track = event.track;
-      if (track) {
-        if (!remoteStream.getTracks().some((t) => t.id === track.id)) {
-          remoteStream.addTrack(track);
-        }
-        track.onunmute = () => {
-          notifyStream();
-        };
-        track.onended = () => {
-          notifyStream();
-        };
-      }
-
-      if (event.streams && event.streams[0]) {
-        event.streams[0].getTracks().forEach((t) => {
-          if (!remoteStream.getTracks().some((existing) => existing.id === t.id)) {
-            remoteStream.addTrack(t);
-          }
-          t.onunmute = () => {
-            notifyStream();
-          };
-          t.onended = () => {
-            notifyStream();
-          };
-        });
-      }
-      notifyStream();
-    };
-
-    // Emit ICE candidates
-    pc.onicecandidate = (event) => {
-      if (event.candidate) {
-        onIceCandidate(event.candidate);
+    pc.onicecandidate = ({ candidate }) => { if (candidate) onIce(candidate); };
+    pc.onconnectionstatechange = () => {
+      onState?.(pc.connectionState);
+      if (pc.connectionState === 'failed' && onRestart && pc.signalingState === 'stable') {
+        void this.createOffer(id, true).then(offer => { if (offer) onRestart(offer); });
       }
     };
-
-    pc.oniceconnectionstatechange = () => {
-      if (pc.iceConnectionState === 'disconnected' || pc.iceConnectionState === 'failed') {
-        console.warn(`[WebRTC] Peer connection state with ${peerId}: ${pc.iceConnectionState}`);
-      }
-    };
-
-    this.peerConnections.set(peerId, pc);
-
-    // Process queued candidates if any
-    const pending = this.pendingCandidates.get(peerId);
-    if (pending && pending.length > 0) {
-      pending.forEach((candidate) => {
-        pc.addIceCandidate(new RTCIceCandidate(candidate)).catch(console.error);
-      });
-      this.pendingCandidates.delete(peerId);
-    }
-
     return pc;
   }
 
-  public async createOffer(peerId: string): Promise<RTCSessionDescriptionInit | null> {
-    const pc = this.peerConnections.get(peerId);
-    if (!pc) return null;
-    try {
-      const offer = await pc.createOffer();
-      await pc.setLocalDescription(offer);
-      return offer;
-    } catch (err) {
-      console.error(`[WebRTC] Failed to create offer for ${peerId}:`, err);
-      return null;
+  private async flushCandidates(id: string) {
+    const peer = this.peers.get(id);
+    if (!peer?.pc.remoteDescription) return;
+    const queued = this.pendingCandidates.get(id) || [];
+    this.pendingCandidates.delete(id);
+    for (const candidate of queued) {
+      try { await peer.pc.addIceCandidate(candidate); } catch (error) { console.warn('[WebRTC] Queued ICE', error); }
     }
   }
 
-  public async handleOffer(peerId: string, offer: RTCSessionDescriptionInit): Promise<RTCSessionDescriptionInit | null> {
-    const pc = this.peerConnections.get(peerId);
-    if (!pc) return null;
+  async createOffer(id: string, iceRestart = false): Promise<RTCSessionDescriptionInit | null> {
+    const peer = this.peers.get(id);
+    if (!peer || peer.pc.signalingState !== 'stable') return null;
+    const { pc, tracks } = peer;
     try {
-      // Perfect negotiation / glare avoidance: rollback if we have an outstanding local offer
-      if (pc.signalingState === 'have-local-offer') {
-        try {
-          await pc.setLocalDescription({ type: 'rollback' });
-        } catch (rollbackErr) {
-          console.warn('[WebRTC] Rollback error:', rollbackErr);
-        }
+      if (!peer.slots.length) {
+        peer.slots = (['audio', 'video', 'video', 'audio'] as const).map((kind, i) => pc.addTransceiver(tracks[i] || kind, { direction: 'sendrecv' }));
       }
-
-      await pc.setRemoteDescription(new RTCSessionDescription(offer));
-      const answer = await pc.createAnswer();
-      await pc.setLocalDescription(answer);
-      return answer;
-    } catch (err) {
-      console.error(`[WebRTC] Failed to handle offer from ${peerId}:`, err);
-      return null;
-    }
+      await pc.setLocalDescription(await pc.createOffer({ iceRestart }));
+      return pc.localDescription?.toJSON() || null;
+    } catch (error) { console.warn('[WebRTC] Offer failed', error); return null; }
   }
 
-  public async handleAnswer(peerId: string, answer: RTCSessionDescriptionInit): Promise<void> {
-    const pc = this.peerConnections.get(peerId);
-    if (!pc) return;
+  async handleOffer(id: string, offer: RTCSessionDescriptionInit) {
+    const peer = this.peers.get(id);
+    if (!peer) return null;
+    const { pc } = peer;
     try {
-      if (pc.signalingState !== 'stable') {
-        await pc.setRemoteDescription(new RTCSessionDescription(answer));
-      }
-    } catch (err) {
-      console.error(`[WebRTC] Failed to handle answer from ${peerId}:`, err);
-    }
+      if (pc.signalingState === 'have-local-offer') await pc.setLocalDescription({ type: 'rollback' });
+      await pc.setRemoteDescription(offer);
+      if (!peer.slots.length) peer.slots = pc.getTransceivers().slice(0, 4);
+      await Promise.all(peer.slots.map(async (slot, i) => {
+        slot.direction = 'sendrecv';
+        await slot.sender.replaceTrack(peer.tracks[i]);
+      }));
+      await this.flushCandidates(id);
+      await pc.setLocalDescription(await pc.createAnswer());
+      return pc.localDescription?.toJSON() || null;
+    } catch (error) { console.warn('[WebRTC] Answer failed', error); return null; }
   }
 
-  public async addIceCandidate(peerId: string, candidate: RTCIceCandidateInit): Promise<void> {
-    const pc = this.peerConnections.get(peerId);
-    if (pc && pc.remoteDescription) {
+  async handleAnswer(id: string, answer: RTCSessionDescriptionInit) {
+    const pc = this.peers.get(id)?.pc;
+    if (pc?.signalingState === 'have-local-offer') {
       try {
-        await pc.addIceCandidate(new RTCIceCandidate(candidate));
-      } catch (err) {
-        console.error(`[WebRTC] Failed to add ICE candidate for ${peerId}:`, err);
-      }
+        await pc.setRemoteDescription(answer);
+        await this.flushCandidates(id);
+      } catch (error) { console.warn('[WebRTC] Remote answer failed', error); }
+    }
+  }
+
+  async addIceCandidate(id: string, candidate: RTCIceCandidateInit) {
+    const pc = this.peers.get(id)?.pc;
+    if (pc?.remoteDescription) {
+      try { await pc.addIceCandidate(candidate); } catch (error) { console.warn('[WebRTC] ICE', error); }
     } else {
-      if (!this.pendingCandidates.has(peerId)) {
-        this.pendingCandidates.set(peerId, []);
-      }
-      this.pendingCandidates.get(peerId)!.push(candidate);
+      this.pendingCandidates.set(id, [...(this.pendingCandidates.get(id) || []), candidate]);
     }
   }
 
-  public updateLocalStream(newStream: MediaStream | null): void {
-    if (!newStream) return;
-    this.peerConnections.forEach((pc, peerId) => {
-      newStream.getTracks().forEach((track) => {
-        const transceivers = pc.getTransceivers();
-        const matchingTransceiver = transceivers.find(
-          (t) => t.sender.track?.kind === track.kind || t.receiver.track?.kind === track.kind
-        );
-        if (matchingTransceiver && matchingTransceiver.sender) {
-          if (matchingTransceiver.direction === 'recvonly' || matchingTransceiver.direction === 'inactive') {
-            matchingTransceiver.direction = 'sendrecv';
-          }
-          matchingTransceiver.sender.replaceTrack(track).catch((err) => {
-            console.warn(`[WebRTC] replaceTrack error for peer ${peerId}:`, err);
-          });
-        } else {
-          try {
-            pc.addTrack(track, newStream);
-          } catch (err) {
-            console.warn(`[WebRTC] addTrack error for peer ${peerId}:`, err);
-          }
-        }
-      });
-    });
+  async replaceTrack(kind: 'audio' | 'video', track: MediaStreamTrack | null) {
+    const index = kind === 'audio' ? 0 : 1;
+    await Promise.all([...this.peers.values()].map(peer => {
+      peer.tracks[index] = track;
+      return peer.slots[index]?.sender.replaceTrack(track);
+    }));
   }
 
-  public replaceTrack(kind: 'audio' | 'video', newTrack: MediaStreamTrack | null): void {
-    this.peerConnections.forEach((pc, peerId) => {
-      const transceivers = pc.getTransceivers();
-      const transceiver = transceivers.find(
-        (t) => t.sender.track?.kind === kind || t.receiver.track?.kind === kind
-      );
-      if (transceiver && transceiver.sender) {
-        if (newTrack && (transceiver.direction === 'recvonly' || transceiver.direction === 'inactive')) {
-          transceiver.direction = 'sendrecv';
-        }
-        transceiver.sender.replaceTrack(newTrack).catch((err) => {
-          console.warn(`[WebRTC] replaceTrack error for ${kind} with peer ${peerId}:`, err);
-        });
-      } else {
-        const senders = pc.getSenders();
-        const sender = senders.find((s) => s.track?.kind === kind);
-        if (sender) {
-          sender.replaceTrack(newTrack).catch(console.warn);
-        } else if (newTrack) {
-          try {
-            pc.addTrack(newTrack);
-          } catch (e) {
-            console.warn(`[WebRTC] addTrack fallback error for ${kind}:`, e);
-          }
-        }
+  async updateLocalStream(stream: MediaStream | null) {
+    await Promise.all([this.replaceTrack('audio', stream?.getAudioTracks()[0] || null),
+      this.replaceTrack('video', stream?.getVideoTracks()[0] || null)]);
+  }
+
+  async updateScreenStream(stream: MediaStream | null) {
+    this.screenStream = stream;
+    await Promise.all([...this.peers.values()].map(async (peer) => {
+      const { slots } = peer;
+      peer.tracks[2] = stream?.getVideoTracks()[0] || null;
+      peer.tracks[3] = stream?.getAudioTracks()[0] || null;
+      if (!slots.length) return;
+      await Promise.all([slots[2].sender.replaceTrack(stream?.getVideoTracks()[0] || null),
+        slots[3].sender.replaceTrack(stream?.getAudioTracks()[0] || null)]);
+      const sender = slots[2].sender;
+      const params = sender.getParameters();
+      if (stream && params.encodings?.length) {
+        params.encodings[0].maxBitrate = 4_000_000;
+        params.encodings[0].maxFramerate = 30;
+        params.degradationPreference = 'maintain-resolution';
+        await sender.setParameters(params).catch(() => {});
       }
-    });
+    }));
   }
 
-  public replaceVideoTrack(peerId: string, newTrack: MediaStreamTrack | null): void {
-    this.replaceTrack('video', newTrack);
+  closePeerConnection(id: string) {
+    const pc = this.peers.get(id)?.pc;
+    this.peers.delete(id);
+    if (pc) { pc.onconnectionstatechange = null; pc.ontrack = null; pc.onicecandidate = null; pc.close(); }
+    this.pendingCandidates.delete(id);
   }
-
-  public closePeerConnection(peerId: string): void {
-    const pc = this.peerConnections.get(peerId);
-    if (pc) {
-      pc.close();
-      this.peerConnections.delete(peerId);
-    }
-    this.pendingCandidates.delete(peerId);
-  }
-
-  public closeAll(): void {
-    this.peerConnections.forEach((pc) => pc.close());
-    this.peerConnections.clear();
-    this.pendingCandidates.clear();
+  closeAll() {
+    [...this.peers.keys()].forEach(id => this.closePeerConnection(id));
+    this.pendingCandidates.clear(); this.screenStream = null;
   }
 }
-
 export const webRTCManager = new WebRTCManager();

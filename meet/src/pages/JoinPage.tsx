@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { MediaPreview } from '../components/meeting/MediaPreview';
 import { Button } from '../components/ui/Button';
@@ -6,6 +6,8 @@ import { Input } from '../components/ui/Input';
 import { useMeetingStore } from '../store/meetingStore';
 import { useWebRTC } from '../hooks/useWebRTC';
 import { User, LogIn, ArrowLeft, GraduationCap } from 'lucide-react';
+import { DeviceSettings, MicMeter } from '../components/meeting/DeviceSettings';
+import { ToastContainer } from '../components/ui/Toast';
 
 export const JoinPage: React.FC = () => {
   const { code } = useParams<{ code: string }>();
@@ -13,10 +15,12 @@ export const JoinPage: React.FC = () => {
   const roomCode = (code || 'CLASSROOM').toUpperCase();
   const roomId = `ROOM-${roomCode}`;
 
-  const { userName, setUserName, setRoomInfo, isHost } = useMeetingStore();
+  const { userName, setUserName, setRoomInfo, isHost, roomId: previousRoomId } = useMeetingStore();
   const [nameInput, setNameInput] = useState(
     userName || (typeof localStorage !== 'undefined' ? localStorage.getItem('meetclass_user_name') || '' : '')
   );
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const releaseTimer = useRef<ReturnType<typeof setTimeout>>();
 
   const {
     localStream,
@@ -25,12 +29,20 @@ export const JoinPage: React.FC = () => {
     toggleVideo,
     audioEnabled,
     videoEnabled,
+    changeDevice,
+    stopAllMedia,
   } = useWebRTC();
 
   useEffect(() => {
+    clearTimeout(releaseTimer.current);
     // Initialize stream preview on mount
     initLocalStream();
-  }, [initLocalStream]);
+    return () => {
+      releaseTimer.current = setTimeout(() => {
+        if (!window.location.pathname.startsWith('/meeting/')) stopAllMedia();
+      }, 0);
+    };
+  }, [initLocalStream, stopAllMedia]);
 
   const handleJoinSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,17 +51,17 @@ export const JoinPage: React.FC = () => {
     try {
       localStorage.setItem('meetclass_user_name', finalName);
     } catch {}
-    setRoomInfo(roomId, roomCode, isHost);
+    setRoomInfo(roomId, roomCode, previousRoomId === roomId && isHost);
 
     navigate(`/meeting/${roomCode}`);
   };
 
   return (
-    <div className="min-h-screen bg-[#121212] text-gray-100 flex flex-col justify-between selection:bg-blue-600 selection:text-white">
+    <div className="home-shell min-h-screen text-gray-100 flex flex-col justify-between selection:bg-blue-600 selection:text-white">
       {/* Header */}
       <header className="h-20 border-b border-gray-800/60 px-6 sm:px-12 flex items-center justify-between">
         <button
-          onClick={() => navigate('/')}
+          onClick={() => { stopAllMedia(); navigate('/'); }}
           className="flex items-center gap-2 text-sm font-medium text-gray-400 hover:text-white transition-colors"
         >
           <ArrowLeft className="w-4 h-4" /> Quay lại Trang chủ
@@ -77,6 +89,10 @@ export const JoinPage: React.FC = () => {
             onToggleAudio={toggleAudio}
             onToggleVideo={toggleVideo}
           />
+          <div className="mt-4 p-4 rounded-2xl bg-white/[0.04] border border-white/[0.08] space-y-4">
+            <MicMeter />
+            <button type="button" onClick={() => setSettingsOpen(true)} className="text-sm text-blue-300 hover:text-blue-200">Chọn micro, camera & kiểm tra loa →</button>
+          </div>
         </div>
 
         {/* Right: User Details Form */}
@@ -85,7 +101,7 @@ export const JoinPage: React.FC = () => {
             <span className="text-xs font-bold text-blue-400 uppercase tracking-wider block">
               Tham gia phòng {roomCode}
             </span>
-            <h2 className="text-2xl font-bold text-white">Sẵn sàng học chưa?</h2>
+            <h2 className="text-3xl font-semibold tracking-tight text-white">Sẵn sàng kết nối?</h2>
             <p className="text-xs text-gray-400">
               Kiểm tra camera và micro trước khi bước vào phòng học.
             </p>
@@ -112,10 +128,12 @@ export const JoinPage: React.FC = () => {
           </form>
         </div>
       </main>
+      <DeviceSettings isOpen={settingsOpen} onClose={() => setSettingsOpen(false)} onChangeDevice={changeDevice} />
+      <ToastContainer />
 
       {/* Footer */}
       <footer className="py-6 border-t border-gray-800/60 text-center text-xs text-gray-500">
-        MeetClass &copy; 2026 - Hardware Preview & Join Room
+        MeetClass &copy; 2026 · Một chút chuẩn bị, cuộc trò chuyện trọn vẹn
       </footer>
     </div>
   );
