@@ -55,7 +55,11 @@ export default defineConfig(() => {
       // Do not modifyâfile watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== 'true',
       // Disable file watching when DISABLE_HMR is true to save CPU during agent edits.
-      watch: process.env.DISABLE_HMR === 'true' ? null : {},
+      watch: process.env.DISABLE_HMR === 'true' ? null : {
+        // Audit outputs are not app inputs. Saving reports must not reload a
+        // running experiment or tear down a fullscreen presentation.
+        ignored: ['**/artifacts/**'],
+      },
     },
     preview: {
       port: 6767,

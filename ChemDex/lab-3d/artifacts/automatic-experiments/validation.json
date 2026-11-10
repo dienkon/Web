@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-10",
+  "lint": { "command": "npm run lint", "passed": true },
+  "productionBuild": { "command": "npm run build", "passed": true },
+  "regression": {
+    "command": "npm test -- --maxWorkers=1",
+    "passedFiles": 225,
+    "totalFiles": 225,
+    "passedTests": 2872,
+    "totalTests": 2872,
+    "durationSeconds": 141.52
+  },
+  "physicalAudit": {
+    "command": "npx tsx scripts/auditAutoExperiments.ts",
+    "passed": 149,
+    "total": 149,
+    "report": "catalog-audit.json"
+  },
+  "browserAudit": {
+    "command": "node scripts/auditAutoExperimentsBrowser.mjs",
+    "engine": "Chromium with SwiftShader WebGL",
+    "passed": true,
+    "report": "browser.json",
+    "screenshots": ["no2-close.png", "nh4cl-smoke.png", "mobile.png"]
+  },
+  "measuredRealWorldKinetics": false
+}

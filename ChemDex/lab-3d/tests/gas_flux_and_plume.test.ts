@@ -135,6 +135,8 @@ describe('Colored gas packet transport', () => {
     s.update(1, { ...input, rate: 0, mol_s: 0 });
     expect(s.particles.length).toBeGreaterThan(0);
     s.update(2, { ...input, rate: 0, mol_s: 0 });
+    expect(s.particles.length).toBeGreaterThan(0);
+    s.update(2, { ...input, rate: 0, mol_s: 0 });
     expect(s.particles).toHaveLength(0);
     s.reset(); s.update(1, input); expect(s.particles).toEqual(old);
   });

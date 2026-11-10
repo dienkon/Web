@@ -38,8 +38,9 @@ import { PourSessionState } from '../../pour/controller/modes';
 import { kineticsEngine, ReactionProgressState } from '../../simulation/chemistry/KineticsEngine';
 import { sodiumMetalMass } from '../../science/sodiumWater';
 import { useStudioSnapshot } from './useStudioSnapshot';
+import { AutoExperimentMode } from '../autoplay/AutoExperimentMode';
 
-type StudioTab = 'reactions' | 'simulation' | 'programs' | 'atoms' | 'morphology' | 'physics' | 'flames' | 'telemetry';
+type StudioTab = 'autoplay' | 'reactions' | 'simulation' | 'programs' | 'atoms' | 'morphology' | 'physics' | 'flames' | 'telemetry';
 
 export { PRECIPITATE_MORPHOLOGIES } from '../../engine/studioMorphology';
 
@@ -606,6 +607,9 @@ export const VfxGallery: React.FC = () => {
 
           {/* 3. Navigation Tabs (Clean 4x2 Grid: No horizontal scrollbar, all 8 tabs accessible at a glance) */}
           <div className="grid grid-cols-4 p-1.5 bg-slate-100/80 border-b border-slate-200/80 gap-1 text-[10px] font-semibold select-none">
+            <button onClick={() => setActiveTab('autoplay')} className={`col-span-4 flex items-center justify-center gap-2 rounded-lg py-2 ${activeTab === 'autoplay' ? 'bg-cyan-800 text-white' : 'border border-cyan-200 bg-cyan-50 text-cyan-900 hover:bg-cyan-100'}`}>
+              <Play size={14} /><span>Tự động làm thí nghiệm</span>
+            </button>
             <button
               onClick={() => setActiveTab('reactions')}
               className={`py-1.5 px-1.5 rounded-lg transition-all flex items-center justify-center gap-1.5 truncate ${
@@ -713,6 +717,7 @@ export const VfxGallery: React.FC = () => {
 
           {/* 4. Tab Content Area */}
           <div className="p-3.5 overflow-y-auto space-y-3.5 flex-1 max-h-[calc(88vh-165px)] bg-slate-50/40">
+            {activeTab === 'autoplay' && <AutoExperimentMode />}
 
             {/* TAB: SIMULATION & GIZMOS */}
             {activeTab === 'simulation' && (

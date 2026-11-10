@@ -32,9 +32,11 @@ export function createInstancedMistMaterial(texture: THREE.Texture): THREE.MeshB
         // A bounded optical density pattern carried by each retained puff.
         // Age is simulation time: pause and time scale cannot drift the noise.
         vec2 mistPoint = vMapUv * 3.8 + vec2(vMistStructure.x * 7.3, -vMistStructure.y * 0.35);
-        float density = 0.62 + 0.38 * mistNoise(mistPoint);
+        float coarse = mistNoise(mistPoint + vec2(mistNoise(mistPoint * 0.55), 0.0));
+        float detail = mistNoise(mistPoint * 2.1 + vec2(1.7, vMistStructure.y * 0.15));
+        float density = smoothstep(0.12, 0.75, coarse) * (0.65 + 0.35 * detail);
         diffuseColor.a *= clamp(vMistOpacity, 0.0, 1.0) * density;`);
   };
-  material.customProgramCacheKey = () => 'instanced-water-mist-structure-v2';
+  material.customProgramCacheKey = () => 'instanced-water-mist-structure-v3';
   return material;
 }

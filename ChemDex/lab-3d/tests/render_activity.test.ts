@@ -15,8 +15,9 @@ vi.mock('@react-three/fiber', () => ({ useThree: () => ({
 }) }));
 import { RenderActivity } from '../src/render/RenderActivity';
 import { useQualityStore } from '../src/vfx/quality';
+import { setTheaterActive } from '../src/render/theaterActivity';
 const original = useQualityStore.getState();
-afterEach(() => { harness.cleanup?.(); harness.loop.mockClear(); vi.unstubAllGlobals(); useQualityStore.setState(original); });
+afterEach(() => { harness.cleanup?.(); setTheaterActive(false); harness.loop.mockClear(); vi.unstubAllGlobals(); useQualityStore.setState(original); });
 
 it('suspends a lost context, restores only a visible canvas, and cleans its listeners', () => {
   const document = Object.assign(new EventTarget(), { hidden: false });
@@ -46,4 +47,18 @@ it('suspends a lost context, restores only a visible canvas, and cleans its list
   document.dispatchEvent(new Event('visibilitychange'));
   expect(harness.loop).not.toHaveBeenCalled();
   expect(harness.disconnect).toHaveBeenCalled();
+});
+
+it('stops the hidden workbench canvas during automatic experiments and resumes without overriding visibility', () => {
+  const document = Object.assign(new EventTarget(), { hidden: false });
+  vi.stubGlobal('document', document);
+  vi.stubGlobal('IntersectionObserver', class {
+    constructor(callback: typeof harness.observe) { harness.observe = callback; }
+    observe() {} disconnect = harness.disconnect;
+  });
+  RenderActivity();
+  setTheaterActive(true); expect(harness.loop).toHaveBeenLastCalledWith('never');
+  setTheaterActive(false); expect(harness.loop).toHaveBeenLastCalledWith('always');
+  setTheaterActive(true); document.hidden = true; setTheaterActive(false);
+  expect(harness.loop).toHaveBeenLastCalledWith('never');
 });

@@ -747,7 +747,7 @@ export default function App() {
         </main>
 
         <RightSidebar />
-        {isDev && (
+        {(
           <React.Suspense fallback={null}>
             <VfxGallery />
           </React.Suspense>

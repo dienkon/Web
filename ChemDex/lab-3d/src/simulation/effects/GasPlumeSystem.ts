@@ -75,13 +75,13 @@ export class GasPlumeSystem {
       if (this.particles.length >= this.maxParticles) continue;
       const angle = this.rng.next() * Math.PI * 2;
       const sinking = gasDensityRatio(input.molarMass, input.temperature_c, input.ambient_c) > 1;
-      const r = sinking ? input.mouthRadius + 0.04 : Math.sqrt(this.rng.next()) * input.mouthRadius * 0.88;
-      const baseSize = 0.045 + this.rng.next() * 0.025;
+      const r = sinking ? input.mouthRadius * (0.88 + this.rng.next() * 0.22) : Math.sqrt(this.rng.next()) * input.mouthRadius * 0.88;
+      const baseSize = 0.12 + this.rng.next() * 0.06;
       const birth = input.sourceToWorld?.([Math.cos(angle) * r, input.mouthY + 0.04, Math.sin(angle) * r])
         ?? [Math.cos(angle) * r, input.mouthY + 0.04, Math.sin(angle) * r];
       this.particles.push({ id: this.nextId++, x: birth[0], y: birth[1], z: birth[2],
         vx: Math.cos(angle) * 0.08, vy: 0, vz: Math.sin(angle) * 0.08, age: 0,
-        life: 2.4 + this.rng.next() * 0.6, size: baseSize, baseSize, opacity: 0.4,
+        life: 3.4 + this.rng.next() * 1.2, size: baseSize, baseSize, opacity: 0.64,
         curlSeed: this.rng.next() * 20, sourceTemperature: input.temperature_c, ambient: input.ambient_c, molarMass: input.molarMass });
     }
     for (const p of this.particles) {
@@ -95,7 +95,7 @@ export class GasPlumeSystem {
       p.x += p.vx * dt; p.y += p.vy * dt; p.z += p.vz * dt;
       if (p.y < input.floorY) { p.y = input.floorY; p.vy = Math.max(0, p.vy); }
       p.size = p.baseSize * (1 + 2.6 * p.age / p.life);
-      p.opacity *= Math.exp(-dt * 1.2);
+      p.opacity *= Math.exp(-dt * 0.55);
     }
     this.particles = this.particles.filter(p => p.age < p.life);
   }

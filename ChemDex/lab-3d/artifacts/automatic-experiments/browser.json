@@ -1,0 +1,16 @@
+{
+  "fullscreen": true,
+  "existingFullscreenPreserved": true,
+  "auditWritesDoNotReload": true,
+  "smokeRendered": true,
+  "solidSmokeRendered": true,
+  "pausedClockFrozen": true,
+  "restart": true,
+  "next": true,
+  "playlist": true,
+  "workbenchUnchanged": true,
+  "backgroundInert": true,
+  "mobile": true,
+  "escape": true,
+  "errors": []
+}

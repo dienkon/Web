@@ -43,7 +43,7 @@ it('keeps old and replacement samples separate even when vessel ID and species a
 
 it('retires an empty tail with a residual ambient timestep but no pending source matter', () => {
   const repo = new GasCloudRepository(); repo.advance(0.013, [source()]); const c = cloud(repo);
-  for (let i = 0; i < 40; i++) repo.advance(0.1, []);
+  for (let i = 0; i < 60; i++) repo.advance(0.1, []);
   expect(c.system.pendingSeconds).toBeGreaterThan(0);
   expect(c.system.pendingGas_mol).toBe(0);
   expect(c.system.particles.length).toBe(0); expect(repo.clouds.size).toBe(0);

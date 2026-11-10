@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useThree } from '@react-three/fiber';
 import { useQualityStore } from '../vfx/quality';
 import { Vector2 } from 'three';
+import { isTheaterActive, subscribeTheaterActivity } from './theaterActivity';
 
 /** Suspend both rendering and frame-driven simulation while the canvas cannot
  * be seen. R3F resets its clock when the loop resumes, avoiding a catch-up tick. */
@@ -10,7 +11,8 @@ export function RenderActivity() {
   useEffect(() => {
     let intersects = true;
     let contextLost = gl.getContext().isContextLost();
-    const update = () => setFrameloop(intersects && !document.hidden && !contextLost ? 'always' : 'never');
+    const update = () => setFrameloop(intersects && !document.hidden && !contextLost && !isTheaterActive() ? 'always' : 'never');
+    const unsubscribeTheater = subscribeTheaterActivity(update);
     const onContextLost = (event: Event) => {
       event.preventDefault();
       contextLost = true;
@@ -38,6 +40,7 @@ export function RenderActivity() {
     update();
     return () => {
       observer.disconnect();
+      unsubscribeTheater();
       gl.domElement.removeEventListener('webglcontextlost', onContextLost);
       gl.domElement.removeEventListener('webglcontextrestored', onContextRestored);
       document.removeEventListener('visibilitychange', update);
