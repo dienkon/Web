@@ -6,6 +6,7 @@ import { getLessonDefinition, LESSON_DEFINITIONS } from '../src/lesson/catalog';
 import { LESSON_SPECIES } from '../src/lesson/catalog/species';
 import { compileLessonProgram, LESSON_PROGRAM_IDS } from '../src/lesson/programCompiler';
 import { getReactionReview, SCIENCE_REFERENCES } from '../src/science/reviewCatalog';
+import { reactionObservationGuide } from '../src/science/reactionObservationGuide';
 
 // This is a reproducible export, not an AI endpoint. Quantities are deliberately
 // omitted where the underlying library has no verified experimental protocol.
@@ -22,6 +23,30 @@ const exclude = new Set([
   'fecl3_3kscn', 'iodine_clock',
 ]);
 const special: Record<string, string[]> = {
+  feoh3_hcl: [
+    'Chuẩn bị huyền phù Fe(OH)3 nâu đỏ; ghi lượng rắn, thể tích dịch và pH ban đầu để so sánh.',
+    'Thêm HCl loãng từng phần và khuấy nhẹ; axit tiếp xúc bề mặt bông hydroxide.',
+    'Bông nâu giảm khi axit hòa tan Fe(OH)3; không sinh khí. Màu dung dịch Fe(III) phụ thuộc pH và nồng độ.',
+    'Để cân bằng rồi kiểm tra cặn còn lại: axit thiếu hoặc mẫu còn bão hòa có thể giữ một phần rắn; không ép kết quả luôn trong hoàn toàn.',
+  ],
+  al2so43_naoh: [
+    'Chuẩn bị dung dịch Al2(SO4)3 trong; một mol muối cung cấp hai mol Al tổng, không đồng nhất với lượng Al3+ tự do.',
+    'Thêm NaOH từng phần, chưa dùng lượng dư lớn; pH tăng làm thay đổi phân bố các dạng nhôm và sulfate.',
+    'Khi vượt bão hòa hydroxide, Al(OH)3 keo trắng xuất hiện trong dịch; bông còn lơ lửng, không tức thì thành lớp đáy.',
+    'Theo dõi lượng gel theo pH và chất giới hạn. NaOH đủ dư chuyển sang nhánh aluminate tan; không dùng cùng một trạng thái cuối cho mọi tỉ lệ.',
+  ],
+  alcl3_naoh_excess: [
+    'Chuẩn bị dung dịch AlCl3 và đối chiếu lượng NaOH: nhánh này yêu cầu kiềm đủ dư cho aluminate.',
+    'Thêm kiềm có kiểm soát và khuấy; nếu đi qua vùng kết tủa có thể quan sát keo Al(OH)3 trắng trung gian.',
+    'Khi pH và lượng OH− đủ cao, phần gel tan để tạo [Al(OH)4]− trong dung dịch không màu; không sinh khí.',
+    'Kiểm tra cân bằng và cặn còn lại. Nếu mẫu chưa đủ kiềm hoặc còn quá bão hòa hydroxide, không gán trạng thái trong hoàn toàn.',
+  ],
+  al2so43_naoh_excess: [
+    'Chuẩn bị dung dịch Al2(SO4)3 và kiềm; xét hai mol nhôm trên mỗi mol muối khi đối chiếu phương trình tổng.',
+    'Cho NaOH đủ dư và khuấy. Tùy đường thêm kiềm, mẫu có thể đi qua vùng Al(OH)3 keo trắng trước khi hòa tan.',
+    'Trong vùng kiềm đủ mạnh, nhôm chuyển chủ yếu sang [Al(OH)4]− tan; sulfate và các phức nhôm ảnh hưởng cân bằng.',
+    'So sánh pH, lượng thuốc thử và phần rắn cuối. Chỉ chọn nhánh aluminate khi cân bằng cho phép, không bắt buộc dựng lớp keo nếu mẫu dưới bão hòa.',
+  ],
   thiosulfate_acid_clock: [
     'Trong mô phỏng, chọn dung dịch Na2S2O3 trong suốt và quan sát dấu chữ thập dưới đáy bình; ghi lại nhiệt độ và nồng độ của mẫu.',
     'Cho dung dịch HCl loãng tiếp xúc với thiosulfat và bắt đầu tính giờ; giữ nguyên các yếu tố khác khi so sánh ảnh hưởng của nồng độ hoặc nhiệt độ.',
@@ -170,11 +195,44 @@ for (const record of records) {
     quantitativeCalibration: review.quantitativeCalibration,
     references: review.references.map(key => SCIENCE_REFERENCES[key]),
   };
+  const program = ALL_HANDCRAFTED_PROGRAMS.find(p => p.id === record.programId)
+    ?? (getLessonDefinition(record.id) ? compileLessonProgram(getLessonDefinition(record.id)!) : undefined);
+  if (!program) throw new Error(`Missing observation program: ${record.id}`);
+  record.observationGuide = reactionObservationGuide(program);
+  if (record.observationGuide.solids.length) record.scientificReview.references.push({
+    title: 'Cambridge University Press: particle size, density, viscosity and Stokes settling',
+    url: 'https://assets.cambridge.org/97811071/36670/excerpt/9781107136670_excerpt.pdf', scope: 'teaching_text',
+  });
+  if (record.id === 'h2o2_mno2') record.scientificReview.references.push({
+    title: 'Indiana University: Catalysis of the Decomposition of H2O2',
+    url: 'https://www.chem.indiana.edu/faculty-research/faculty-resources/chemistry-demos/demo/catalysis-of-the-decomposition-of-h2o2/', scope: 'experiment',
+  });
 }
 const output = { schema: 'chemdex.vn-curriculum/1', language: 'vi',
   description_vi: String(records.length) + ' phản ứng THPT và mở rộng: ' + records.filter(record => record.runtime === 'existing_program').length + ' chương trình cảnh tự do và ' + LESSON_DEFINITIONS.length + ' bài mô phỏng có điều kiện. Một số phản ứng chỉ phù hợp minh họa, không phải thực hành bắt buộc.',
   reactions: records };
 writeFileSync('src/data/curriculum/reactions.vi.json', JSON.stringify(output, null, 2) + '\n');
+mkdirSync('docs/research', { recursive: true });
+writeFileSync('docs/research/reaction-observation-guide.vi.md', [
+  '# Diễn biến của từng phản ứng trong thư viện',
+  '',
+  'Tạo lại bằng `npm run curriculum:export`. Mỗi mục ghép phương trình, điều kiện, trình tự quan sát và nguồn đối chiếu của chương trình. Nguồn theo họ phản ứng không xác nhận riêng mọi điều kiện. Thời gian clip, bán thời gian, kích thước hạt và độ đóng gói là giả định minh họa, chưa hiệu chuẩn thực nghiệm.',
+  '',
+  ...records.flatMap(record => [
+    `## ${record.title_vi} (${record.id})`, '', `**Phương trình:** ${record.equation}`, '',
+    `**Điều kiện:** ${record.conditions.description_vi ?? ([record.conditions.activationNote_vi, record.conditions.medium,
+      record.conditions.minTemp_c !== undefined ? `Mốc nhiệt của kịch bản: ${record.conditions.minTemp_c} °C` : ''].filter(Boolean).join('; ') || 'Theo pha và điều kiện của phương trình.')}`, '',
+    ...record.steps.map((step: any) => `${step.order}. ${step.instruction_vi}`), '',
+    `**Khi tiếp xúc:** ${record.observationGuide.contact_vi}`, '',
+    `**Diễn biến:** ${record.observationGuide.evolution_vi}`, '',
+    `**Khi để yên:** ${record.observationGuide.standing_vi}`, '',
+    `**Xúc tác:** ${record.observationGuide.catalyst_vi}`, '',
+    `**Thời gian:** ${record.observationGuide.timing_vi}`, '',
+    `**Giải thích:** ${record.explanation_vi}`, '',
+    `**Đối chiếu:** ${record.scientificReview.finding_vi}`, '',
+    ...record.scientificReview.references.map((ref: any) => `- [${ref.title}](${ref.url})`), '',
+  ]),
+].join('\n').trimEnd() + '\n');
 writeFileSync('src/data/curriculum/lessonDefinitions.vi.json', JSON.stringify({
   schema: 'chemdex.lesson-catalog/1',
   amountBasis: 'mol_or_polymer_repeat_unit',

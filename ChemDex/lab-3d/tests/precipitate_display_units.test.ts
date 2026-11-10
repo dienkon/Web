@@ -7,6 +7,7 @@ describe('Precipitate display dimensions and quiescent motion', () => {
     viscosity_mPa_s: 1, density_g_ml: 1, radius: 1, liquidBottomY: 0, surfaceY: 1 };
   it('converts an unmodified profile radius from meters into the shared scene scale', () => {
     const s = new PrecipitationSystem(40, 'BaSO4');
+    s.profile = { ...s.profile, displayRadius_scene: undefined };
     s.update(0.1, { ...params, substance: 'BaSO4' });
     expect(s.particles.length).toBeGreaterThan(0);
     for (const p of s.particles) {

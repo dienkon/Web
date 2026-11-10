@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import type { ReactionObservationGuide } from '../science/reactionObservationGuide';
 const DynamicLessonPanel = React.lazy(() => import('../lesson/LessonPanel').then(module => ({ default: module.LessonPanel })));
 const ReactionCatalogPanel = React.lazy(() => import('./ReactionCatalogPanel'));
 
@@ -13,6 +14,7 @@ type ReactionEntry = {
   explanation_vi: string;
   safety_vi: string;
   quantityPolicy: string;
+  observationGuide?: ReactionObservationGuide;
   scientificReview?: {
     finding_vi: string;
     evidence: 'specific_observation' | 'family_context' | 'model_caveat';
@@ -102,6 +104,14 @@ export default function ReactionLibraryPanel() {
       </div>
       <p><strong>Quan sát: </strong>{selected.observation_vi}</p>
       <p><strong>Giải thích: </strong>{selected.explanation_vi}</p>
+      {selected.observationGuide && <aside className="space-y-2 rounded border border-teal-200 bg-white p-3" aria-label="Diễn biến theo thời gian">
+        <p className="font-semibold text-teal-900">Diễn biến theo thời gian</p>
+        <p><strong>Khi tiếp xúc: </strong>{selected.observationGuide.contact_vi}</p>
+        <p><strong>Trong phản ứng: </strong>{selected.observationGuide.evolution_vi}</p>
+        <p><strong>Khi để yên: </strong>{selected.observationGuide.standing_vi}</p>
+        <p><strong>Xúc tác: </strong>{selected.observationGuide.catalyst_vi}</p>
+        <p className="text-slate-600">{selected.observationGuide.timing_vi}</p>
+      </aside>}
       {selected.scientificReview && <aside className="space-y-2 rounded border bg-white p-2">
         <p><strong>Đối chiếu khoa học: </strong>{selected.scientificReview.finding_vi}</p>
         <p className="text-slate-600">{selected.scientificReview.evidence === 'specific_observation'

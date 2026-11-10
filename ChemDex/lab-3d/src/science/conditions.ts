@@ -32,6 +32,7 @@ function present(contents: SubstanceContent[], formula: string, expectedPhase?: 
   return contents.some(item => {
     const phase = item.phase ?? item.state ?? identifySpecies(item.formula).phase;
     return sameMolecularFormula(item.formula, formula) && item.moles > 1e-12
+      && Number.isFinite(item.moles) && (!item.location || item.location === 'bulk')
       && (!expectedPhase || !phase || phase === expectedPhase || (phase === 'solid' && expectedPhase === 's'));
   });
 }
@@ -57,9 +58,12 @@ export function assessProgramConditions(
   if (conditions?.activation === 'ignition' && env.ignitedProgramId !== program.id) unmet.push('Cần thao tác mồi cháy cho mẫu này; chỉ có chất phản ứng hoặc tăng nhiệt độ chung chưa xác nhận đã mồi.');
   const temperature = env.temperature_c ?? 25;
   if (conditions?.minTemp_c !== undefined && temperature < conditions.minTemp_c) unmet.push(`Nhiệt độ mẫu chưa đạt ${conditions.minTemp_c} °C của kịch bản.`);
-  if (conditions?.catalyst) {
-    const catalystPhase = program.chemistry.species.find(item => sameMolecularFormula(item.formula, conditions.catalyst!))?.phase;
-    if (!present(contents, conditions.catalyst, catalystPhase)) unmet.push(`Thiếu xúc tác hoặc pha phù hợp của ${conditions.catalyst}.`);
+  const catalysts = program.chemistry.species.filter(item => item.role === 'catalyst');
+  for (const catalyst of catalysts) {
+    if (!present(contents, catalyst.formula, catalyst.phase)) unmet.push(`Thiếu xúc tác hoặc pha phù hợp của ${catalyst.formula}.`);
+  }
+  if (conditions?.catalyst && !catalysts.some(item => sameMolecularFormula(item.formula, conditions.catalyst!))) {
+    if (!present(contents, conditions.catalyst)) unmet.push(`Thiếu xúc tác hoặc pha phù hợp của ${conditions.catalyst}.`);
   }
   if (conditions?.light && !env.light) unmet.push('Chưa có điều kiện chiếu sáng.');
   if (program.chemistry.representation === 'emission' && !env.isHeated) unmet.push('Phép thử ngọn lửa cần nguồn kích thích nhiệt.');

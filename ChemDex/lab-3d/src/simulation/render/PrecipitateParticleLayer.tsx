@@ -72,7 +72,7 @@ export function PrecipitateParticleLayer({ vesselId, system, formation, capacity
       }
       // Representative display enlargement has its own containment bound;
       // it never feeds back into the carrier's physical radius or motion.
-      scratch.scale.setScalar(readable ? readablePrecipitateRadius(p, system.profile, system.renderBounds) : p.radius);
+      scratch.scale.setScalar(readablePrecipitateRadius(p, system.profile, system.renderBounds, readable));
       (geometry.getAttribute('aParticleOpacity') as THREE.InstancedBufferAttribute).setX(i, precipitateOpacity(p, system.profile));
       scratch.matrix.compose(scratch.position, scratch.quaternion, scratch.scale);
       mesh.current.setMatrixAt(i, scratch.matrix);

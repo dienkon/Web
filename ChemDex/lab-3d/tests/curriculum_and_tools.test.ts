@@ -24,6 +24,10 @@ describe('Vietnamese THPT reaction data integrity', () => {
       expect(entry.steps.map(step => step.order)).toEqual([1, 2, 3, 4]);
       expect(entry.steps.every(step => step.instruction_vi.length > 15)).toBe(true);
       expect(entry.quantityPolicy.length).toBeGreaterThan(20);
+      expect(entry.observationGuide.contact_vi.length, entry.id).toBeGreaterThan(30);
+      expect(entry.observationGuide.standing_vi.length, entry.id).toBeGreaterThan(30);
+      expect(entry.observationGuide.catalyst_vi.length, entry.id).toBeGreaterThan(30);
+      expect(entry.observationGuide.timing_vi, entry.id).toContain('minh họa');
       expect(entry.sources.every(source => source.url.startsWith('https://'))).toBe(true);
       if (entry.runtime === 'existing_program' || entry.runtime === 'lesson_simulation') expect(getProgramById(entry.programId!), entry.id).toBeDefined();
       else expect(entry.programId).toBeNull();

@@ -95,7 +95,7 @@ import { continueReactionAfterOutflow } from '../engine/reactionContinuation';
 import { evolveAliquotContact, prepareAliquotContact } from '../engine/aliquotContactChemistry';
 import { useInstrumentStore } from '../handling/instrumentState';
 import { reactionReplayProgress } from '../engine/reactionProgress';
-import { advanceAqueousContactProgress } from '../engine/contactKinetics';
+import { advanceCatalyticProgress } from '../engine/contactKinetics';
 import { measureGasFlux } from '../engine/gasFlux';
 import { supportsWaterSurface } from '../science/waterSurface';
 import { pourContactRemaining } from '../science/pourContactActivity';
@@ -1891,8 +1891,8 @@ export const useAppStore = create<AppState>((set, get) => {
           ? advanceMetalAcidProgress(kinetics, v, effectiveDt, state.stirringVesselId === vId)
           : replayLimited
             ? advanceHeatActivatedProgress(kinetics, v, effectiveDt)
-          : advanceAqueousContactProgress(kinetics, effectiveDt);
-        if (replayLimited) {
+          : advanceCatalyticProgress(kinetics, v, effectiveDt);
+        if (replayLimited || kinetics.program?.chemistry.species.some(s => s.role === 'catalyst')) {
           kinetics.actualProgressRate_s = Math.max(0, newProgress - previousProgress) / effectiveDt;
         }
         kinetics.progress = newProgress;

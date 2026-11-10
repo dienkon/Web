@@ -27,6 +27,7 @@ class PourControllerClass {
   private lastNotifyTime: number = 0;
   private sessionEpoch = 0;
   private parcelCounter = 0;
+  private manualTilt = false;
 
   private syncEpoch(): void {
     if (this.activeSession && this.sessionEpoch !== useAppStore.getState().pourEpoch) {
@@ -110,13 +111,15 @@ class PourControllerClass {
     this.syncEpoch();
     const store = useAppStore.getState();
     const sourceVessel = store.vessels[opts.sourceId];
-    if (!sourceVessel || this.activeSession) return;
+    if (!sourceVessel || this.activeSession || opts.sourceId === opts.targetId) return;
     const finiteVesselMode = !['STOCK_BOTTLE', 'DROPPER', 'SOLID'].includes(opts.mode);
     const recipient = opts.targetId ? store.vessels[opts.targetId] : null;
-    if (finiteVesselMode && ((sourceVessel.volume_ml > 0 && !decantLiquid(sourceVessel, recipient ?? null, 0.001))
+    if (finiteVesselMode && ((!(sourceVessel.volume_ml > 0) && opts.mode !== 'HAND_TILT')
+      || (sourceVessel.volume_ml > 0 && !decantLiquid(sourceVessel, recipient ?? null, 0.001))
       || (opts.targetId && (!recipient || !canReceivePour(recipient))))) return;
     if (opts.requestedVolume_ml !== undefined && (!Number.isFinite(opts.requestedVolume_ml) || opts.requestedVolume_ml <= 0)) return;
     this.timeAccumulator = 0;
+    this.manualTilt = false;
     this.sessionEpoch = store.pourEpoch;
 
     let id: string;
@@ -179,10 +182,35 @@ class PourControllerClass {
    * Sets the target tilt angle in radians (from 3D gizmo, 2D touch dial, mouse wheel, or keys).
    */
   public setTilt(rad: number): void {
-    if (!this.activeSession) return;
+    if (!this.activeSession || !Number.isFinite(rad)
+      || !['lifting', 'tilting', 'pouring'].includes(this.activeSession.phase)) return;
+    this.manualTilt = true;
     const store = useAppStore.getState();
     const sourceVessel = store.vessels[this.activeSession.sourceId];
     this.activeSession.targetTilt = clampTilt(sourceVessel?.type, rad);
+  }
+
+  /** Stop the held gesture on the simulation clock; no delayed callback can
+   * accidentally finalize a later session or bypass the return animation. */
+  public stopPour(): void {
+    this.syncEpoch();
+    if (!this.activeSession) return;
+    this.activeSession.targetTilt = 0;
+    this.activeSession.flow_ml_s = 0;
+    if (this.activeSession.phase === 'lifting') this.activeSession.phase = 'returning';
+    else if (['tilting', 'pouring'].includes(this.activeSession.phase)) this.activeSession.phase = 'dripping';
+    this.notify();
+  }
+
+  public useAssistedTilt(): void {
+    this.syncEpoch();
+    const session = this.activeSession;
+    if (!session || !['lifting', 'tilting', 'pouring'].includes(session.phase)) return;
+    const vessel = useAppStore.getState().vessels[session.sourceId];
+    if (!vessel) return;
+    this.manualTilt = false;
+    session.assist = 'high';
+    session.targetTilt = clampTilt(vessel.type, findVesselPouringTilt(vessel));
   }
 
   /**
@@ -295,8 +323,8 @@ class PourControllerClass {
             if (this.activeSession.lift >= 0.98) {
               this.activeSession.phase = 'tilting';
               this.activeSession.sourcePos = [...hoverPos];
-              if (this.activeSession.assist === 'high' || this.activeSession.mode === 'ASSIST') {
-                this.activeSession.targetTilt = findVesselPouringTilt(sourceVessel);
+              if (!this.manualTilt && (this.activeSession.assist === 'high' || this.activeSession.mode === 'ASSIST')) {
+                this.activeSession.targetTilt = clampTilt(sourceVessel.type, findVesselPouringTilt(sourceVessel));
               }
             }
             break;
@@ -333,6 +361,9 @@ class PourControllerClass {
           }
 
           case 'pouring': {
+            if (!this.manualTilt && (this.activeSession.assist === 'high' || this.activeSession.mode === 'ASSIST')) {
+              this.activeSession.targetTilt = clampTilt(sourceVessel.type, findVesselPouringTilt(sourceVessel));
+            }
             // Lock aligned source position at rim
             this.activeSession.sourcePos = [...hoverPos];
             // Smooth tilt response

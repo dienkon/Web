@@ -5,7 +5,7 @@ import { receivePourAliquot } from '../handling/pourReceiver';
 import { refreshFlowInventory, solidContent } from './funnelFlow';
 import type { MobileSolidInventory } from '../science/suspensionTransport';
 
-const RECEIVERS = new Set(['beaker', 'flask', 'test_tube', 'cylinder', 'volumetric_flask',
+const RECEIVERS = new Set(['beaker', 'flask', 'test_tube', 'cylinder', 'volumetric_flask', 'reagent_bottle',
   'watch_glass', 'evaporating_dish', 'crucible', 'petri_dish', 'filter_funnel', 'separatory_funnel']);
 
 export interface LiquidTransferReceipt {

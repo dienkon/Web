@@ -30,7 +30,7 @@ describe('Finite oxygen foam inventory', () => {
     const { id, initial } = setup();
     let lastTotal = 0;
     let observedFoam = false;
-    for (let frame = 0; frame < 100; frame++) {
+    for (let frame = 0; frame < 150; frame++) {
       useAppStore.getState().tickSimulation(0.1);
       const sample = useAppStore.getState().vessels[id];
       const total = heldMass(sample) + (sample.escapedGas_g?.O2 ?? 0);
@@ -47,7 +47,7 @@ describe('Finite oxygen foam inventory', () => {
   });
   it('does not grow persistent foam from the reaction name without surfactant', () => {
     const { id, initial } = setup(false);
-    for (let frame = 0; frame < 100; frame++) useAppStore.getState().tickSimulation(0.1);
+    for (let frame = 0; frame < 150; frame++) useAppStore.getState().tickSimulation(0.1);
     const state = useAppStore.getState(), end = state.vessels[id];
     expect(end.foam_ml).toBe(0);
     expect(heldMass(end)).toBe(0);

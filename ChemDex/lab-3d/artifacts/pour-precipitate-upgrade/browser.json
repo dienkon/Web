@@ -1,0 +1,27 @@
+{
+  "keyboardHandledOnce": true,
+  "spaceStopsDuringLift": true,
+  "pointerReleasedOutside": true,
+  "reactionGuideVisible": true,
+  "solids": [
+    {
+      "formula": "BaSO4",
+      "bed_g": 0,
+      "mass_g": 0.09999999999999999,
+      "cloudiness": 0.820977160011971
+    },
+    {
+      "formula": "Cu(OH)2",
+      "bed_g": 0,
+      "mass_g": 0.09999999999999999,
+      "cloudiness": 0.7604841061163549
+    },
+    {
+      "formula": "Fe(OH)3",
+      "bed_g": 0,
+      "mass_g": 0.09999999999999999,
+      "cloudiness": 0.7950515654852733
+    }
+  ],
+  "errors": []
+}

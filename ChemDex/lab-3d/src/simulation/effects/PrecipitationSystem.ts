@@ -435,9 +435,11 @@ export class PrecipitationSystem {
       fluidModel: params.convectionFluidModel, agitation, heatPower_W,
       viscosity_mPa_s, radius, liquidBottomY, surfaceY, vesselProfile: params.vesselProfile
     };
-    const reachesBed = (p: PhysicalPrecipitateParticle) => params.sharedSedimentPlane
-      ? pointPlaneDepth(p, surfaceY, params.sharedSedimentPlane) >= -p.radius * 2.01
-      : p.y <= liquidBottomY + p.radius * 2.01 + bedThickness;
+    const physicalExtent = (p: PhysicalPrecipitateParticle) =>
+      (p.physicalRadius_m ?? this.profile.baseParticleRadius_mm * 1e-3) / METERS_PER_SCENE_UNIT;
+    const reachesBed = (p: { x: number; y: number; z: number }, extent: number) => params.sharedSedimentPlane
+      ? pointPlaneDepth(p, surfaceY, params.sharedSedimentPlane) >= -extent
+      : p.y <= liquidBottomY + extent + bedThickness;
 
     for (let i = 0; i < this.particles.length; i++) {
       const p = this.particles[i];
@@ -502,12 +504,19 @@ export class PrecipitationSystem {
       p.vz += (netVz - p.vz) * response.relaxation;
 
       // Check if reached floor sediment bed
-      if (reachesBed(p) || !containParticle(p, params, 2.01) || params.sharedSedimentPlane && reachesBed(p)) {
+      // Contact and transport use the physical grain. Magnified glyphs are
+      // clipped by the renderer; their size cannot turn suspension into a bed.
+      const contact = { x: p.x, y: p.y, z: p.z, radius: physicalExtent(p) };
+      const contained = containParticle(contact, params);
+      if (reachesBed(p, physicalExtent(p)) || !contained
+        || params.sharedSedimentPlane && reachesBed(contact, physicalExtent(p))) {
         p.settled = true;
         // Transfer individual particle mass into the bottom sediment bed
         newlySettledMass_g += p.mass_ug / 1e6;
         continue;
       }
+
+      p.x = contact.x; p.y = contact.y; p.z = contact.z;
 
       this.particles[activeCount++] = p;
     }

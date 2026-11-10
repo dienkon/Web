@@ -3,13 +3,18 @@ import { PourController } from '../controller/PourController';
 import { PourSessionState } from '../controller/modes';
 import { useAppStore } from '../../store/useAppStore';
 import { RotateCw, Play, Square } from 'lucide-react';
+import { getHandleLimits } from '../../handling/limits';
 
 export const PourInput = React.memo(function PourInput() {
   const [session, setSession] = useState<PourSessionState | null>(null);
   const selectedVesselId = useAppStore(state => state.selectedVesselId);
   const nearestPourTargetId = useAppStore(state => state.nearestPourTargetId);
   const isPouringButtonActive = useRef(false);
+  const heldSessionId = useRef<string | null>(null);
+  const spaceSessionId = useRef<string | null>(null);
   const lang = useAppStore(state => state.language);
+  const sourceType = useAppStore(state => state.vessels[session?.sourceId ?? selectedVesselId ?? '']?.type);
+  const maxTilt = getHandleLimits(sourceType).tilt[1];
 
   useEffect(() => {
     return PourController.subscribe(s => setSession(s));
@@ -18,10 +23,11 @@ export const PourInput = React.memo(function PourInput() {
   // Keyboard controls: Q/E or ArrowLeft/ArrowRight to tilt, Space to pour, Esc to cancel
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      if (e.target instanceof HTMLElement && (e.target.isContentEditable || e.target.closest('input, textarea, select, button'))) return;
 
       const current = PourController.getSession();
-      if (e.key === 'q' || e.key === 'Q' || e.key === 'ArrowLeft') {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
         if (current) {
           PourController.setTilt(current.targetTilt + 0.08);
         } else if (selectedVesselId && nearestPourTargetId) {
@@ -32,44 +38,41 @@ export const PourInput = React.memo(function PourInput() {
           });
           PourController.setTilt(0.2);
         }
-      } else if (e.key === 'e' || e.key === 'E' || e.key === 'ArrowRight') {
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
         if (current) {
           PourController.setTilt(Math.max(0, current.targetTilt - 0.08));
         }
       } else if (e.key === ' ' || e.code === 'Space') {
         e.preventDefault();
-        if (current) {
-          PourController.setTilt(1.15); // ~66 degrees optimal weir pour angle
-        } else if (selectedVesselId && nearestPourTargetId) {
+        if (e.repeat) return;
+        if (!current && selectedVesselId && nearestPourTargetId) {
           PourController.beginPour({
             mode: 'ASSIST',
             sourceId: selectedVesselId,
             targetId: nearestPourTargetId
           });
-          PourController.setTilt(1.15);
         }
-      } else if (e.key === 'Escape') {
-        PourController.cancelPour();
+        PourController.useAssistedTilt();
+        spaceSessionId.current = PourController.getSession()?.id ?? null;
       }
     };
 
     const handleKeyUp = (e: KeyboardEvent) => {
       if (e.key === ' ' || e.code === 'Space') {
-        const current = PourController.getSession();
-        if (current) {
-          PourController.setTilt(0);
-          setTimeout(() => {
-            PourController.commitCurrentPour();
-          }, 300);
-        }
+        if (spaceSessionId.current === PourController.getSession()?.id) PourController.stopPour();
+        spaceSessionId.current = null;
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('keyup', handleKeyUp);
+    const onBlur = () => PourController.stopPour();
+    window.addEventListener('blur', onBlur);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
+      window.removeEventListener('blur', onBlur);
     };
   }, [selectedVesselId, nearestPourTargetId]);
 
@@ -90,31 +93,43 @@ export const PourInput = React.memo(function PourInput() {
       });
       PourController.setTilt(target);
     }
+    heldSessionId.current = PourController.getSession()?.id ?? null;
 
     // Slowly increase tilt if user keeps holding
     if (holdIntervalRef.current) clearInterval(holdIntervalRef.current);
     holdIntervalRef.current = setInterval(() => {
       const sess = PourController.getSession();
-      if (!sess) return;
-      target = Math.min(1.35, target + 0.04);
+      if (!sess || sess.id !== heldSessionId.current) {
+        clearInterval(holdIntervalRef.current);
+        holdIntervalRef.current = null;
+        isPouringButtonActive.current = false;
+        return;
+      }
+      target = Math.min(maxTilt, target + 0.04);
       PourController.setTilt(target);
     }, 120);
   };
 
   const handleHoldEnd = () => {
+    if (!isPouringButtonActive.current) return;
     isPouringButtonActive.current = false;
     if (holdIntervalRef.current) {
       clearInterval(holdIntervalRef.current);
       holdIntervalRef.current = null;
     }
-    const current = PourController.getSession();
-    if (current) {
-      PourController.setTilt(0);
-      setTimeout(() => {
-        PourController.commitCurrentPour();
-      }, 350);
-    }
+    if (heldSessionId.current === PourController.getSession()?.id) PourController.stopPour();
+    heldSessionId.current = null;
   };
+
+  useEffect(() => {
+    const release = () => handleHoldEnd();
+    window.addEventListener('blur', release);
+    return () => {
+      window.removeEventListener('blur', release);
+      if (holdIntervalRef.current) clearInterval(holdIntervalRef.current);
+      if (isPouringButtonActive.current && heldSessionId.current === PourController.getSession()?.id) PourController.stopPour();
+    };
+  }, []);
 
   // If a vessel is actively selected and near another vessel, or actively pouring:
   const canShowControls = !!session || (!!selectedVesselId && !!nearestPourTargetId);
@@ -130,7 +145,7 @@ export const PourInput = React.memo(function PourInput() {
         const delta = e.deltaY < 0 ? 0.04 : -0.04;
         const current = PourController.getSession();
         if (current) {
-          PourController.setTilt(Math.max(0, Math.min(1.4, current.targetTilt + delta)));
+          PourController.setTilt(Math.max(0, Math.min(maxTilt, current.targetTilt + delta)));
         } else if (selectedVesselId && nearestPourTargetId && delta > 0) {
           PourController.beginPour({
             mode: 'ASSIST',
@@ -155,8 +170,8 @@ export const PourInput = React.memo(function PourInput() {
         <input
           type="range"
           min="0"
-          max="85"
-          value={currentDeg}
+          max={Math.round(maxTilt * 180 / Math.PI)}
+          value={session ? Math.round(session.targetTilt * 180 / Math.PI) : 0}
           onChange={(e) => {
             const rad = (parseFloat(e.target.value) * Math.PI) / 180;
             if (session) {
@@ -205,9 +220,10 @@ export const PourInput = React.memo(function PourInput() {
 
       {/* Large Tactile "Hold to Pour" Button */}
       <button
-        onPointerDown={handleHoldStart}
+        onPointerDown={(event) => { if (event.button !== 0) return; event.currentTarget.setPointerCapture(event.pointerId); handleHoldStart(); }}
         onPointerUp={handleHoldEnd}
-        onPointerLeave={handleHoldEnd}
+        onPointerCancel={handleHoldEnd}
+        onLostPointerCapture={handleHoldEnd}
         title={lang === 'vi' ? 'Rót dịch phía trên; cặn lắng được giữ trong bình nguồn.' : 'Decant the liquid; settled solids remain in the source.'}
         className={`px-5 py-3 rounded-2xl font-semibold text-sm shadow-xl flex items-center gap-2 transition-all active:scale-95 touch-none ${
           session && session.flow_ml_s > 0

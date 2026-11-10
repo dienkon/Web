@@ -69,7 +69,10 @@ export const DEFAULT_SIMULATION_CONFIG: SimulationConfig = {
 
 /**
  * Material identities and illustrative transport/appearance profiles.
- * Density is sourced separately from uncalibrated particle size and optics.
+ * Density is sourced separately from uncalibrated primary-particle size and optics.
+ * Primary radii below are illustrative micrometre-scale nuclei, NOT visible
+ * floc/glyph radii. Floc growth evolves separately; displayRadius_scene must
+ * never be used to calculate drag, Brownian diffusion or bed contact.
  */
 export const PRECIPITATE_PROFILES: Record<string, PrecipitateProfile> = {
   // Appearance coverage for products already described by precipitates.ts.
@@ -136,7 +139,7 @@ export const PRECIPITATE_PROFILES: Record<string, PrecipitateProfile> = {
     morphology: 'fine_powder',
     color: '#f8fafc',
     particleDensity_g_cm3: 4.50,
-    baseParticleRadius_mm: 0.06,
+    baseParticleRadius_mm: 0.0005, displayRadius_scene: 0.001,
     aggregationRate: 0.25,
     cloudinessFactor: 0.95,
     specularReflectivity: 0.15,
@@ -148,7 +151,7 @@ export const PRECIPITATE_PROFILES: Record<string, PrecipitateProfile> = {
     morphology: 'flocculent',
     color: '#f1f5f9',
     particleDensity_g_cm3: 5.56,
-    baseParticleRadius_mm: 0.12,
+    baseParticleRadius_mm: 0.002, displayRadius_scene: 0.0015,
     aggregationRate: 0.65,
     cloudinessFactor: 0.90,
     specularReflectivity: 0.25,
@@ -159,13 +162,13 @@ export const PRECIPITATE_PROFILES: Record<string, PrecipitateProfile> = {
   // Glyph size and optical coefficients below remain illustrative.
   'AgBr': {
     id: 'AgBr', morphology: 'flocculent', color: '#f5edcd',
-    particleDensity_g_cm3: 6.47, baseParticleRadius_mm: 0.12,
+    particleDensity_g_cm3: 6.47, baseParticleRadius_mm: 0.002, displayRadius_scene: 0.0015,
     aggregationRate: 0.65, cloudinessFactor: 0.90,
     specularReflectivity: 0.20, roughness: 0.85,
   },
   'AgI': {
     id: 'AgI', morphology: 'flocculent', color: '#f6e58d',
-    particleDensity_g_cm3: 5.67, baseParticleRadius_mm: 0.12,
+    particleDensity_g_cm3: 5.67, baseParticleRadius_mm: 0.002, displayRadius_scene: 0.0015,
     aggregationRate: 0.65, cloudinessFactor: 0.90,
     specularReflectivity: 0.20, roughness: 0.85,
   },
@@ -176,7 +179,7 @@ export const PRECIPITATE_PROFILES: Record<string, PrecipitateProfile> = {
     morphology: 'fine_powder',
     color: '#eab308',
     particleDensity_g_cm3: 6.16,
-    baseParticleRadius_mm: 0.08,
+    baseParticleRadius_mm: 0.001, displayRadius_scene: 0.001,
     aggregationRate: 0.35,
     cloudinessFactor: 0.85,
     specularReflectivity: 0.20,
@@ -186,13 +189,13 @@ export const PRECIPITATE_PROFILES: Record<string, PrecipitateProfile> = {
   // Material density is not the effective density of the hydrated gel network.
   'Al(OH)3': {
     id: 'Al(OH)3', morphology: 'gel_like', color: '#f8fafc',
-    particleDensity_g_cm3: 2.42, baseParticleRadius_mm: 0.12,
+    particleDensity_g_cm3: 2.42, baseParticleRadius_mm: 0.0005, displayRadius_scene: 0.0015,
     aggregationRate: 0.80, cloudinessFactor: 0.85,
     specularReflectivity: 0.05, roughness: 0.80,
   },
   'Zn(OH)2': {
     id: 'Zn(OH)2', morphology: 'gel_like', color: '#f8fafc',
-    particleDensity_g_cm3: 3.05, baseParticleRadius_mm: 0.12,
+    particleDensity_g_cm3: 3.05, baseParticleRadius_mm: 0.0005, displayRadius_scene: 0.0015,
     aggregationRate: 0.80, cloudinessFactor: 0.85,
     specularReflectivity: 0.05, roughness: 0.80,
   },
@@ -242,7 +245,7 @@ export const PRECIPITATE_PROFILES: Record<string, PrecipitateProfile> = {
     morphology: 'gel_like',
     color: '#6eadd2',
     particleDensity_g_cm3: 3.37,
-    baseParticleRadius_mm: 0.28,
+    baseParticleRadius_mm: 0.0005, displayRadius_scene: 0.0015,
     aggregationRate: 0.85, // Highly flocculating gelatinous network
     cloudinessFactor: 0.88,
     specularReflectivity: 0.18,
@@ -254,7 +257,7 @@ export const PRECIPITATE_PROFILES: Record<string, PrecipitateProfile> = {
     morphology: 'flocculent',
     color: '#9a3412',
     particleDensity_g_cm3: 3.40,
-    baseParticleRadius_mm: 0.25,
+    baseParticleRadius_mm: 0.0005, displayRadius_scene: 0.0015,
     aggregationRate: 0.80,
     cloudinessFactor: 0.92,
     specularReflectivity: 0.12,
@@ -266,7 +269,7 @@ export const PRECIPITATE_PROFILES: Record<string, PrecipitateProfile> = {
     morphology: 'granular',
     color: '#e2e8f0',
     particleDensity_g_cm3: 2.71,
-    baseParticleRadius_mm: 0.15,
+    baseParticleRadius_mm: 0.001, displayRadius_scene: 0.001,
     aggregationRate: 0.40,
     cloudinessFactor: 0.82,
     specularReflectivity: 0.10,
@@ -346,7 +349,7 @@ export const PRECIPITATE_PROFILES: Record<string, PrecipitateProfile> = {
     morphology: 'fine_powder',
     color: '#0f172a',
     particleDensity_g_cm3: 6.31,
-    baseParticleRadius_mm: 0.08,
+    baseParticleRadius_mm: 0.001, displayRadius_scene: 0.001,
     aggregationRate: 0.45,
     cloudinessFactor: 0.98,
     specularReflectivity: 0.05,
@@ -364,7 +367,7 @@ export function getPrecipitateProfile(substanceOrColor?: string, formation?: str
   for (const [key, profile] of Object.entries(PRECIPITATE_PROFILES)) {
     if (sameMolecularFormula(substanceOrColor, key)) {
       return profile.id === 'PbI2' && formation === 'CRYSTAL_PLATE'
-        ? { ...profile, morphology: 'crystalline', cloudinessFactor: 0.25,
+        ? { ...profile, morphology: 'crystalline', baseParticleRadius_mm: 0.05, displayRadius_scene: 0.003, cloudinessFactor: 0.25,
           specularReflectivity: 0.95, roughness: 0.18 }
         : profile.id === 'PbCl2' && formation === 'CRYSTAL_NEEDLE'
           ? { ...profile, morphology: 'crystalline', cloudinessFactor: 0.25, roughness: 0.25 } : profile;

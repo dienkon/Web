@@ -34,6 +34,10 @@ function setupSlurry() {
   const source = vessel('slurry-source', [item('H2O', 100, 'l'), item('AgBr', 0.1, 's', true), item('CuS', 0.05, 's', true)]);
   const manager = SimulationEngine.getManager(source.id, 'low');
   for (let i = 0; i < 10; i++) manager.step(source, 0.1, { thermalStateAuthoritative: true });
+  // Prepare some old bed alongside fresh suspension; no one-second settling
+  // assumption for the entire newly precipitated micrometre population.
+  for (const p of manager.precipitationSystems.get('AgBr')!.particles.slice(0, 2)) p.y = -100;
+  manager.step(source, 1e-9, { thermalStateAuthoritative: true });
   return { source, manager, mobile: mobileSolidInventory(source, manager) };
 }
 function expectConservation(before: SubstanceContent[], after: SubstanceContent[]) {

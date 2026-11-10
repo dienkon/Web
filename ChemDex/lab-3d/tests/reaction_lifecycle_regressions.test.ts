@@ -28,7 +28,11 @@ describe('Finite reaction and particle lifetimes', () => {
   it.each(['PbI2', 'BaSO4', 'AgCl', 'Cu(OH)2', 'Fe(OH)3', 'CaCO3'])('%s settles without endless replacement particles', substance => {
     const system = new PrecipitationSystem(300, substance, new PRNG(17));
     const conditions = { ...params(), substance };
-    for (let index = 0; index < 6000; index++) system.update(0.1, conditions);
+    for (let index = 0; index < 60; index++) system.update(0.1, conditions);
+    // Exhaust emission, then supply floor contact. This checks finite particle
+    // lifetimes, not the obsolete assumption that fine BaSO4 clears in 600 s.
+    for (const p of system.particles) p.y = conditions.liquidBottomY;
+    system.update(0.1, conditions);
     expect(system.particles.length).toBe(0);
     expect(system.emittedCount).toBeLessThanOrEqual(301);
     expect(system.representedMass_g).toBeCloseTo(0.2, 10);

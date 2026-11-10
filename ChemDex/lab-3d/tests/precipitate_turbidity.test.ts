@@ -21,7 +21,11 @@ describe('Liquid follows finite suspension rather than retained solid flags', ()
     const system = new PrecipitationSystem(40, 'AgBr');
     const params = { substance: 'AgBr', temp_c: 25, viscosity_mPa_s: 1, density_g_ml: 1,
       radius: 1, liquidBottomY: 0, surfaceY: 0.5, precipitateAmount_g: 1 };
-    for (let i = 0; i < 3000; i++) system.update(0.1, params);
+    // Supply a settled specimen explicitly. Fresh micrometre curds need not
+    // clear within a fixed five-minute deadline under every concentration.
+    for (let i = 0; i < 10; i++) system.update(0.1, params);
+    for (const p of system.particles) p.y = params.liquidBottomY;
+    for (let i = 0; i < 150; i++) system.update(0.1, params);
     expect(system.sedimentBed.amount_g).toBeCloseTo(1, 10);
     expect(currentPrecipitateTurbidity(vessel, system)).toBeLessThan(1e-8);
     for (let i = 0; i < 10; i++) system.update(0.1, { ...params, agitation: 1 });

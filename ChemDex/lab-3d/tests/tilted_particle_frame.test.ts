@@ -13,6 +13,7 @@ import { registerVesselBody, renderedVesselBody } from '../src/simulation/render
 import { PRNG } from '../src/core/rng';
 import { vfxBus } from '../src/vfx/bus';
 import type { PhysicalBubble } from '../src/simulation/core/SimulationTypes';
+import { metersPerModelUnit } from '../src/science/sceneUnits';
 
 afterEach(() => vi.restoreAllMocks());
 
@@ -88,7 +89,7 @@ it('settles suspended grains along world gravity and keeps every representative 
     expect(p.vx).toBeCloseTo(-normal[0] * p.sedimentationSpeed, 10);
     expect(p.vy).toBeCloseTo(-normal[1] * p.sedimentationSpeed, 10);
     expect(p.vz).toBeCloseTo(0, 10);
-    expect(pointPlaneDepth(p, 0.2, plane)).toBeGreaterThanOrEqual(p.radius * 2.01 - 1e-8);
+    expect(pointPlaneDepth(p, 0.2, plane)).toBeGreaterThanOrEqual(p.physicalRadius_m! / metersPerModelUnit(profile) - 1e-8);
   }
 });
 

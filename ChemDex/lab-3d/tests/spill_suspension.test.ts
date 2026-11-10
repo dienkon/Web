@@ -61,7 +61,10 @@ describe('Finite suspended/deposited mass in open spills', () => {
     const after = sample('BaSO4'), before = { ...after, contents: [row('H2O', 10, 'l')], mass_g: 10, substances: ['H2O'], suspension: undefined };
     const out = stepSpillSuspension(before, { ...after, suspension: undefined }, 1);
     expect(fractions(out)).toEqual({ suspended: 0.01, settled: 0 });
-    const settled = stepSpillSuspension(out, out, 1);
+    const partial = stepSpillSuspension(out, out, 1);
+    expect(fractions(partial).suspended).toBeGreaterThan(0);
+    expect(fractions(partial).settled).toBeGreaterThan(0);
+    const settled = stepSpillSuspension(partial, partial, 1e6);
     expect(fractions(settled)).toEqual({ suspended: 0, settled: 0.01 });
     expect(stepSpillSuspension(settled, settled, 1)).toBe(settled);
   });

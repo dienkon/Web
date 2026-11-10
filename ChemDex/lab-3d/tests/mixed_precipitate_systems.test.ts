@@ -79,7 +79,9 @@ describe('Independent precipitate species in a shared vessel', () => {
 
   it('adds wet-bed volumes using each material density and packing fraction', () => {
     const v = vessel([row('AgBr', 0.3), row('BaSO4', 0.2)]), manager = new VesselSimulationManager(v.id, 'low');
-    for (let i = 0; i < 1000; i++) manager.step(v, 0.1, { thermalStateAuthoritative: true });
+    // Test packing of an existing bed, independently of species settling time.
+    manager.step({ ...v, volume_ml: 0 }, 0.1, { thermalStateAuthoritative: true });
+    for (let i = 0; i < 100; i++) manager.step(v, 0.1, { thermalStateAuthoritative: true });
     const systems = [...manager.precipitationSystems.values()];
     // AgBr curds have a looser modeled bed than fine BaSO4 powder. These are
     // explicit catalog assumptions, not a universal 65% sphere packing.

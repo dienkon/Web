@@ -130,7 +130,12 @@ describe('Physical Effect Systems', () => {
       });
     }
 
-    // Sediment bed should accumulate on floor
+    // Fresh fine BaSO4 remains suspended at ten seconds. Supply physical
+    // floor contact to test bed accumulation without an artificial fast rate.
+    expect(precip.sedimentBed.amount_g).toBe(0);
+    for (const p of precip.particles) p.y = -0.8;
+    precip.update(0.01, { temp_c: 25, viscosity_mPa_s: 1, density_g_ml: 1,
+      radius: 0.5, liquidBottomY: -0.8, surfaceY: 0.2, precipitateAmount_g: 0.5, substance: 'BaSO4' });
     expect(precip.sedimentBed.amount_g).toBeGreaterThan(0);
     expect(precip.sedimentBed.thickness).toBeGreaterThan(0);
   });

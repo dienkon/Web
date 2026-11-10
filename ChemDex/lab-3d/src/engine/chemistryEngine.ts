@@ -377,9 +377,7 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
     gasColor: '#e2e8f0',
     gasFormula: 'O2',
     isBoiling: false,
-    hasPrecipitate: true,
-    precipitateColor: '#1e293b',
-    precipitateFormula: 'MnO2 (catalyst)',
+    hasPrecipitate: false,
     isDangerous: false
   },
 
@@ -1204,6 +1202,10 @@ export function executeMultiStepReactions(
     const candidate = DETERMINISTIC_REACTIONS.find(r => {
       if (r.equilibriumOnly) return false;
       if (!matchesReactants(activeSubstances, r.reactants)) return false;
+      if (r.id === 'h2o2_mno2_decomposition' && !workingContents.some(item =>
+        sameMolecularFormula(item.formula, 'MnO2') && item.moles > reactionThreshold
+        && (item.phase ?? identifySpecies(item.formula).phase) === 's'
+        && (!item.location || item.location === 'bulk'))) return false;
       if (r.id === 'cuso4_nh3_hydroxide') {
         const copper = workingContents.find(item => sameMolecularFormula(item.formula, 'CuSO4'))?.moles ?? 0;
         const ammonia = workingContents.find(item => sameMolecularFormula(item.formula, 'NH3'))?.moles ?? 0;

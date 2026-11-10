@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-10",
+  "typecheck": "passed",
+  "productionBuild": "passed",
+  "fullSuite": {
+    "files": 224,
+    "tests": 2719,
+    "passed": 2718,
+    "failedAssertions": 0,
+    "timedOut": 1,
+    "timeoutTest": "basic_vessel_effects: conserves collected room moisture across film, evaporation and drainage",
+    "concurrentWork": "production build and Chromium audit"
+  },
+  "timeoutRerun": {
+    "command": "npm test -- tests/basic_vessel_effects.test.ts --maxWorkers=1",
+    "passed": 14,
+    "failed": 0,
+    "duration_s": 25.39
+  },
+  "scientificAudit": {
+    "programs": 149,
+    "deterministicRules": 48,
+    "lessons": 34,
+    "dynamicRules": 18,
+    "ionicEquations": 109,
+    "balanceFailures": 0,
+    "ionicFailures": 0,
+    "visualProductMismatches": 0
+  },
+  "experimentalCalibration": "not established for every reaction; see research notes and per-reaction guides"
+}

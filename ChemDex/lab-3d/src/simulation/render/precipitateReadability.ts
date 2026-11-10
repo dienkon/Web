@@ -7,9 +7,10 @@ import type { PhysicalPrecipitateParticle, PrecipitateProfile } from '../core/Si
  * Transport radius, mass, Brownian motion, settling and bulk opacity stay owned
  * by the quantitative population model. Fine powder remains a fine haze. */
 export function readablePrecipitateRadius(p: Pick<PhysicalPrecipitateParticle, 'x' | 'y' | 'z' | 'radius'>,
-  profile: Pick<PrecipitateProfile, 'morphology'>, bounds?: ParticleBounds) {
-  if (!bounds || !['gel_like', 'flocculent'].includes(profile.morphology)) return p.radius;
-  const target = Math.max(p.radius, Math.min(0.025, bounds.radius * 0.025));
+  profile: Pick<PrecipitateProfile, 'morphology'>, bounds?: ParticleBounds, enlarge = true) {
+  if (!bounds) return p.radius;
+  const target = enlarge && ['gel_like', 'flocculent'].includes(profile.morphology)
+    ? Math.max(p.radius, Math.min(0.025, bounds.radius * 0.025)) : p.radius;
   const vessel = bounds.vesselProfile, top = vessel ? vessel.baseY + vessel.H : bounds.surfaceY;
   let radius = Math.max(0, Math.min(target, p.y - bounds.liquidBottomY, top - p.y,
     pointPlaneDepth(p, bounds.surfaceY, bounds.surfacePlane)));

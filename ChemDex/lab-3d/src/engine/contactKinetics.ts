@@ -1,4 +1,6 @@
 import type { ActiveKineticsState } from '../store/useAppStore';
+import type { VesselState } from '../types/chemistry';
+import { assessProgramConditions } from '../science/conditions';
 
 /** Authored aqueous-contact relaxation, separate from the visual timeline.
  * halfTime_s is illustrative metadata, not a measured rate constant. Gas,
@@ -21,5 +23,24 @@ export function advanceAqueousContactProgress(kinetics: Pick<ActiveKineticsState
   const remaining = (1 - previous) * Math.exp(-Math.LN2 * dt / halfTime);
   // Complete the remaining <0.01% through the same finite ledger. Never
   // remove residual material or add a second heat/precipitate source.
+  return remaining <= 1e-4 ? 1 : 1 - remaining;
+}
+
+/** Catalytic peroxide has one consumed reagent. Honor its authored first-order
+ * half-time rather than the seven-second effect clip. This remains an
+ * illustrative rate: no measured temperature/surface law is available. */
+export function advanceCatalyticProgress(kinetics: ActiveKineticsState, current: VesselState, dt: number): number {
+  const program = kinetics.program;
+  if (!program?.chemistry.species.some(s => s.role === 'catalyst')
+    || program.chemistry.kinetics.model !== 'first_order'
+    || program.chemistry.species.filter(s => s.role === 'reactant').length !== 1)
+    return advanceAqueousContactProgress(kinetics, dt);
+  const previous = Math.max(0, Math.min(1, kinetics.progress));
+  const halfTime = program.chemistry.kinetics.halfTime_s;
+  if (!Number.isFinite(dt) || dt <= 0 || !(halfTime > 0) || !Number.isFinite(halfTime)
+    || !assessProgramConditions(program, current.contents, {
+      temperature_c: current.temperature_c, volume_ml: current.volume_ml, pH: current.ph,
+    }).ready) return previous;
+  const remaining = (1 - previous) * Math.exp(-Math.LN2 * dt / halfTime);
   return remaining <= 1e-4 ? 1 : 1 - remaining;
 }
