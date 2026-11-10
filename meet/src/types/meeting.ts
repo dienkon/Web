@@ -1,3 +1,12 @@
+export interface HostSettings {
+  hostManagement: boolean;
+  allowScreenShare: boolean;
+  allowChat: boolean;
+  allowReactions: boolean;
+  allowMic: boolean;
+  allowVideo: boolean;
+}
+
 export interface Participant {
   id: string;
   name: string;
@@ -14,6 +23,7 @@ export interface Participant {
   joinedAt?: number;
   networkQuality?: 'good' | 'fair' | 'poor' | 'checking';
   latency?: number;
+  lastHeartbeat?: number;
 }
 
 export interface ChatMessage {

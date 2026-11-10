@@ -1,5 +1,14 @@
 export type AnswerOption = 'A' | 'B' | 'C' | 'D';
 
+export interface HostSettings {
+  hostManagement: boolean;
+  allowScreenShare: boolean;
+  allowChat: boolean;
+  allowReactions: boolean;
+  allowMic: boolean;
+  allowVideo: boolean;
+}
+
 export interface Participant {
   id: string;
   socketId: string;
@@ -12,6 +21,7 @@ export interface Participant {
   handRaised?: boolean;
   handRaisedAt?: number;
   joinedAt: number;
+  lastHeartbeat?: number;
 }
 
 export interface Question {
@@ -57,6 +67,8 @@ export interface Room {
   answers: Map<string, UserAnswer>;
   whiteboardDataUrl?: string;
   isLocked?: boolean;
+  kickedUserIds?: Set<string>;
+  hostSettings?: HostSettings;
 }
 
 export interface AnswerStatistics {

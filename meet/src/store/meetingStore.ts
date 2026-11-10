@@ -1,11 +1,27 @@
 import { create } from 'zustand';
-import { Participant, ChatMessage, SidePanelType, ConnectionState, ReactionItem } from '../types/meeting';
+import {
+  Participant,
+  ChatMessage,
+  SidePanelType,
+  ConnectionState,
+  ReactionItem,
+  HostSettings,
+} from '../types/meeting';
 
 interface Toast {
   id: string;
   message: string;
   type?: 'info' | 'success' | 'warning' | 'error';
 }
+
+const DEFAULT_HOST_SETTINGS: HostSettings = {
+  hostManagement: true,
+  allowScreenShare: true,
+  allowChat: true,
+  allowReactions: true,
+  allowMic: true,
+  allowVideo: true,
+};
 
 interface MeetingState {
   roomId: string | null;
@@ -30,7 +46,24 @@ interface MeetingState {
   layout: 'grid' | 'speaker';
   handRaised: boolean;
   cameraFacingMode: 'user' | 'environment';
-  setPreferences: (values: Partial<Pick<MeetingState, 'inputDeviceId' | 'cameraDeviceId' | 'outputDeviceId' | 'speakerVolume' | 'noiseSuppression' | 'shareQuality' | 'layout' | 'handRaised' | 'cameraFacingMode'>>) => void;
+  isMobileLandscape: boolean;
+  setPreferences: (
+    values: Partial<
+      Pick<
+        MeetingState,
+        | 'inputDeviceId'
+        | 'cameraDeviceId'
+        | 'outputDeviceId'
+        | 'speakerVolume'
+        | 'noiseSuppression'
+        | 'shareQuality'
+        | 'layout'
+        | 'handRaised'
+        | 'cameraFacingMode'
+        | 'isMobileLandscape'
+      >
+    >
+  ) => void;
 
   // Participants & Presentation
   myParticipantId: string | null;
@@ -51,6 +84,7 @@ interface MeetingState {
   networkQuality: 'good' | 'fair' | 'poor' | 'checking';
   networkLatency: number;
   isRoomLocked: boolean;
+  hostSettings: HostSettings;
 
   // Toast notifications
   toasts: Toast[];
@@ -65,6 +99,7 @@ interface MeetingState {
   setVideoEnabled: (enabled: boolean) => void;
   setScreenSharing: (isSharing: boolean, stream?: MediaStream | null) => void;
   setCameraFacingMode: (mode: 'user' | 'environment') => void;
+  toggleMobileLandscape: () => void;
 
   setMyParticipantId: (id: string | null) => void;
   addParticipant: (participant: Participant) => void;
@@ -84,6 +119,7 @@ interface MeetingState {
 
   setNetworkStats: (quality: 'good' | 'fair' | 'poor' | 'checking', latency: number) => void;
   setRoomLocked: (locked: boolean) => void;
+  setHostSettings: (settings: Partial<HostSettings>) => void;
 
   addToast: (message: string, type?: Toast['type']) => void;
   removeToast: (id: string) => void;
@@ -113,6 +149,7 @@ export const useMeetingStore = create<MeetingState>((set) => ({
   layout: 'grid',
   handRaised: false,
   cameraFacingMode: 'user',
+  isMobileLandscape: false,
   setPreferences: (values) => set(values),
 
   myParticipantId: null,
@@ -130,6 +167,7 @@ export const useMeetingStore = create<MeetingState>((set) => ({
   networkQuality: 'checking',
   networkLatency: 0,
   isRoomLocked: false,
+  hostSettings: DEFAULT_HOST_SETTINGS,
 
   toasts: [],
 
@@ -142,6 +180,7 @@ export const useMeetingStore = create<MeetingState>((set) => ({
   setVideoEnabled: (videoEnabled) => set({ videoEnabled }),
   setScreenSharing: (isScreenSharing, screenStream = null) => set({ isScreenSharing, screenStream }),
   setCameraFacingMode: (cameraFacingMode) => set({ cameraFacingMode }),
+  toggleMobileLandscape: () => set((s) => ({ isMobileLandscape: !s.isMobileLandscape })),
 
   setMyParticipantId: (myParticipantId) => set({ myParticipantId }),
 
@@ -151,6 +190,12 @@ export const useMeetingStore = create<MeetingState>((set) => ({
         return state;
       }
       const updated = new Map(state.participants);
+      // Remove any ghost with the same name if exists
+      for (const [key, p] of updated.entries()) {
+        if (p.name === participant.name && key !== participant.id) {
+          updated.delete(key);
+        }
+      }
       updated.set(participant.id, participant);
       return { participants: updated };
     }),
@@ -192,6 +237,7 @@ export const useMeetingStore = create<MeetingState>((set) => ({
   setParticipants: (participantsList) =>
     set((state) => {
       const map = new Map<string, Participant>();
+      // Deduplicate by name and ID
       participantsList.forEach((p) => {
         if (p.id !== state.myParticipantId && p.id !== 'local_user') {
           map.set(p.id, { ...state.participants.get(p.id), ...p });
@@ -230,6 +276,8 @@ export const useMeetingStore = create<MeetingState>((set) => ({
 
   setNetworkStats: (networkQuality, networkLatency) => set({ networkQuality, networkLatency }),
   setRoomLocked: (isRoomLocked) => set({ isRoomLocked }),
+  setHostSettings: (settings) =>
+    set((s) => ({ hostSettings: { ...s.hostSettings, ...settings } })),
 
   addToast: (message, type = 'info') =>
     set((state) => {
@@ -265,5 +313,7 @@ export const useMeetingStore = create<MeetingState>((set) => ({
       networkQuality: 'checking',
       networkLatency: 0,
       isRoomLocked: false,
+      isMobileLandscape: false,
+      hostSettings: DEFAULT_HOST_SETTINGS,
     }),
 }));

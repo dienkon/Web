@@ -1,7 +1,7 @@
 import { Server, Socket } from 'socket.io';
 import { roomManager } from './rooms.js';
 import { classroomManager } from './classroom.js';
-import { Participant, AnswerOption, WhiteboardStroke } from './types.js';
+import { Participant, AnswerOption, WhiteboardStroke, HostSettings } from './types.js';
 
 export function setupSocketHandlers(io: Server) {
   io.on('connection', (socket: Socket) => {
@@ -16,8 +16,13 @@ export function setupSocketHandlers(io: Server) {
       audioEnabled?: boolean;
       videoEnabled?: boolean;
     }) => {
-      if (currentRoomId === roomManager.getRoom(roomId)?.id && currentUserId === socket.id) return;
       const room = roomManager.getRoom(roomId) || roomManager.createRoom(roomId, roomId, socket.id, true);
+
+      // Check if user has been kicked from this room
+      if (room.kickedUserIds?.has(userName || '')) {
+        socket.emit('room:error', { message: 'Bạn đã bị mời ra khỏi phòng học này.' });
+        return;
+      }
 
       // Check if room is locked
       if (room.isLocked && room.hostId !== socket.id && room.participants.size > 0 && !isHost) {
@@ -39,7 +44,12 @@ export function setupSocketHandlers(io: Server) {
         joinedAt: Date.now(),
       };
 
-      roomManager.addParticipant(room.id, participant);
+      const { duplicateRemoved } = roomManager.addParticipant(room.id, participant);
+      if (duplicateRemoved) {
+        // Broadcast leave event for old ghost socket on page reload
+        io.to(room.id).emit('participant:left', { userId: duplicateRemoved.id, participant: duplicateRemoved });
+      }
+
       socket.join(room.id);
 
       // Send existing room state to joining participant
@@ -56,6 +66,7 @@ export function setupSocketHandlers(io: Server) {
         statistics: stats,
         whiteboardDataUrl: room.whiteboardDataUrl,
         isLocked: room.isLocked || false,
+        hostSettings: room.hostSettings,
       });
 
       // Notify others in room
@@ -65,6 +76,16 @@ export function setupSocketHandlers(io: Server) {
     // 2. Media Toggle (Mic / Camera / Screen / Hand)
     socket.on('media:toggle', ({ type, enabled }: { type: 'audio' | 'video' | 'screen' | 'hand'; enabled: boolean }) => {
       if (!currentRoomId || !currentUserId) return;
+      const room = roomManager.getRoom(currentRoomId);
+      const participant = room?.participants.get(currentUserId);
+
+      // Check host permissions
+      if (room?.hostSettings && participant && !participant.isHost) {
+        if (type === 'audio' && enabled && !room.hostSettings.allowMic) return;
+        if (type === 'video' && enabled && !room.hostSettings.allowVideo) return;
+        if (type === 'screen' && enabled && !room.hostSettings.allowScreenShare) return;
+      }
+
       const updated = roomManager.updateMediaState(currentRoomId, currentUserId, type, enabled);
       if (updated) {
         io.to(currentRoomId).emit('participant:updated', { participant: updated });
@@ -99,6 +120,11 @@ export function setupSocketHandlers(io: Server) {
       const room = roomManager.getRoom(currentRoomId);
       const sender = room?.participants.get(currentUserId);
       if (!sender) return;
+
+      if (room?.hostSettings && !sender.isHost && !room.hostSettings.allowChat) {
+        socket.emit('chat:error', { message: 'Chủ phòng đã tắt tính năng nhắn tin.' });
+        return;
+      }
 
       const messagePayload = {
         id: `msg_${Date.now()}_${Math.random().toString(36).substring(2, 5)}`,
@@ -144,6 +170,10 @@ export function setupSocketHandlers(io: Server) {
       const room = roomManager.getRoom(currentRoomId);
       const sender = room?.participants.get(currentUserId);
       if (!sender) return;
+
+      if (room?.hostSettings && !sender.isHost && !room.hostSettings.allowReactions) {
+        return;
+      }
 
       const reactionPayload = {
         id: `rx_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
@@ -212,7 +242,7 @@ export function setupSocketHandlers(io: Server) {
       }
     });
 
-    // 8. Host Moderation Privileges
+    // 8. Host Moderation Privileges (Google Meet Standard)
     socket.on('host:mute-participant', ({ targetId }: { targetId: string }) => {
       if (!currentRoomId || !currentUserId) return;
       const room = roomManager.getRoom(currentRoomId);
@@ -220,6 +250,11 @@ export function setupSocketHandlers(io: Server) {
       if (!room || !requester?.isHost) return;
       if (!room.participants.has(targetId)) return;
 
+      // Update state on server
+      const updated = roomManager.updateMediaState(currentRoomId, targetId, 'audio', false);
+      if (updated) {
+        io.to(currentRoomId).emit('participant:updated', { participant: updated });
+      }
       io.to(targetId).emit('host:muted-by-host');
     });
 
@@ -229,6 +264,12 @@ export function setupSocketHandlers(io: Server) {
       const requester = room?.participants.get(currentUserId);
       if (!room || !requester?.isHost) return;
 
+      room.participants.forEach((p) => {
+        if (!p.isHost) {
+          p.audioEnabled = false;
+          io.to(room.id).emit('participant:updated', { participant: p });
+        }
+      });
       socket.to(currentRoomId).emit('host:muted-by-host');
     });
 
@@ -254,14 +295,36 @@ export function setupSocketHandlers(io: Server) {
       io.to(currentRoomId).emit('room:locked', { isLocked: locked });
     });
 
+    socket.on('host:settings-update', (settings: Partial<HostSettings>) => {
+      if (!currentRoomId || !currentUserId) return;
+      const room = roomManager.getRoom(currentRoomId);
+      const requester = room?.participants.get(currentUserId);
+      if (!room || !requester?.isHost) return;
+
+      room.hostSettings = { ...room.hostSettings!, ...settings };
+      io.to(currentRoomId).emit('host:settings-updated', { settings: room.hostSettings });
+    });
+
     socket.on('host:remove-participant', ({ targetId }: { targetId: string }) => {
       if (!currentRoomId || !currentUserId) return;
       const room = roomManager.getRoom(currentRoomId);
       const requester = room?.participants.get(currentUserId);
       if (!room || !requester?.isHost) return;
-      if (!room.participants.has(targetId)) return;
 
+      const target = room.participants.get(targetId);
+      if (!target) return;
+
+      if (!room.kickedUserIds) room.kickedUserIds = new Set();
+      room.kickedUserIds.add(target.name);
+
+      // Force target to leave
       io.to(targetId).emit('host:removed-by-host');
+
+      // Remove from room
+      const { removed } = roomManager.removeParticipant(currentRoomId, targetId);
+      if (removed) {
+        io.to(room.id).emit('participant:left', { userId: targetId, participant: removed });
+      }
     });
 
     // 9. Disconnect / Leave

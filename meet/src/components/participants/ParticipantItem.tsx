@@ -95,20 +95,22 @@ export const ParticipantItem: React.FC<ParticipantItemProps> = ({ participant, i
           )}
         </div>
 
-        {/* Host controls (Mute / Remove) */}
+        {/* Host controls (Mute / Remove) - Always visible for host on mobile & desktop */}
         {isHost && !isLocal && (
-          <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+          <div className="flex items-center gap-1 shrink-0 ml-1">
             <button
               onClick={handleMuteByHost}
-              className="p-1.5 rounded-lg text-amber-400 hover:bg-amber-950/50 transition-colors"
-              title="Tắt mic participant"
+              className="p-1.5 rounded-lg text-amber-400 bg-amber-400/10 hover:bg-amber-400/20 active:scale-95 transition-all"
+              title="Tắt micro người này"
+              aria-label="Tắt micro người này"
             >
               <MuteHost className="w-4 h-4" />
             </button>
             <button
               onClick={handleRemoveByHost}
-              className="p-1.5 rounded-lg text-red-400 hover:bg-red-950/50 transition-colors"
+              className="p-1.5 rounded-lg text-rose-400 bg-rose-400/10 hover:bg-rose-400/20 active:scale-95 transition-all"
               title="Mời ra khỏi phòng"
+              aria-label="Mời ra khỏi phòng"
             >
               <UserX className="w-4 h-4" />
             </button>

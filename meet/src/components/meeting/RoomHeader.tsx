@@ -35,15 +35,17 @@ export const RoomHeader: React.FC<{ onOpenSettings: () => void }> = ({ onOpenSet
             <h1 className="text-sm sm:text-base font-semibold tracking-tight truncate">
               MeetClass <span className="text-slate-500 font-normal">/</span> {roomCode}
             </h1>
+            {isHost && (
+              <span className="flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-300 text-[10px] font-semibold">
+                Chủ phòng
+              </span>
+            )}
             {isRoomLocked && (
-              <span className="flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-bold">
+              <span className="flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-rose-500/15 text-rose-300 text-[10px] font-semibold">
                 <Lock size={10} /> Khóa
               </span>
             )}
           </div>
-          <p className="text-[11px] text-slate-400 mt-0.5 truncate">
-            {isHost ? 'Bạn là chủ phòng' : 'Cùng học, cùng kết nối'}
-          </p>
         </div>
         <button
           onClick={() => void copy()}

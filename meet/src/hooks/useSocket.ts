@@ -3,7 +3,9 @@ import { useMeetingStore } from '../store/meetingStore';
 import { useClassroomStore } from '../store/classroomStore';
 import { socketService } from '../services/socket';
 import { webRTCManager } from '../services/webrtc';
-import { Participant, ChatMessage, ReactionItem } from '../types/meeting';
+import { soundEffects } from '../services/audioUtils';
+import { stopAllMedia } from './useWebRTC';
+import { Participant, ChatMessage, ReactionItem, HostSettings } from '../types/meeting';
 import { Question, AnswerStatistics, UserAnswer } from '../types/classroom';
 
 export function useSocket() {
@@ -19,9 +21,11 @@ export function useSocket() {
     addToast,
     setActiveSpeaker,
     setAudioEnabled,
+    setVideoEnabled,
     addReaction,
     setPreferences,
     setRoomLocked,
+    setHostSettings,
   } = useMeetingStore();
 
   const {
@@ -83,6 +87,7 @@ export function useSocket() {
       statistics?: AnswerStatistics;
       whiteboardDataUrl?: string;
       isLocked?: boolean;
+      hostSettings?: HostSettings;
     }) => {
       setJoined(true);
       setConnectionState('connected');
@@ -93,6 +98,9 @@ export function useSocket() {
 
       if (data.isLocked !== undefined) {
         setRoomLocked(data.isLocked);
+      }
+      if (data.hostSettings) {
+        setHostSettings(data.hostSettings);
       }
 
       const media = useMeetingStore.getState();
@@ -136,6 +144,11 @@ export function useSocket() {
 
     // 4. Participant Updated (Media toggle / host status / hand raise)
     const handleParticipantUpdated = ({ participant }: { participant: Participant }) => {
+      const existing = useMeetingStore.getState().participants.get(participant.id);
+      if (!existing?.handRaised && participant.handRaised) {
+        // Play hand raise chime
+        soundEffects.playHandRaise();
+      }
       updateParticipant(participant.id, participant);
     };
 
@@ -190,6 +203,7 @@ export function useSocket() {
 
     // 8. Reactions
     const handleReactionReceived = (reaction: ReactionItem) => {
+      soundEffects.playReaction();
       addReaction(reaction);
     };
 
@@ -234,6 +248,7 @@ export function useSocket() {
 
     // 10. Host Actions & Moderation
     const handleMutedByHost = () => {
+      soundEffects.playMuteAlert();
       const stream = useMeetingStore.getState().localStream;
       if (stream) {
         const audioTrack = stream.getAudioTracks()[0];
@@ -242,7 +257,7 @@ export function useSocket() {
       setAudioEnabled(false);
       socketService.emit('media:toggle', { type: 'audio', enabled: false });
       socketService.emit('speaker:active', { isSpeaking: false });
-      addToast('Bạn đã bị giáo viên tắt micro', 'warning');
+      addToast('Bạn đã bị chủ phòng tắt micro', 'warning');
     };
 
     const handleHandsLowered = () => {
@@ -261,15 +276,38 @@ export function useSocket() {
       );
     };
 
+    const handleHostSettingsUpdated = ({ settings }: { settings: HostSettings }) => {
+      setHostSettings(settings);
+      const { isHost } = useMeetingStore.getState();
+      if (!isHost) {
+        if (!settings.allowMic && useMeetingStore.getState().audioEnabled) {
+          setAudioEnabled(false);
+          const track = useMeetingStore.getState().localStream?.getAudioTracks()[0];
+          if (track) track.enabled = false;
+          socketService.emit('media:toggle', { type: 'audio', enabled: false });
+          addToast('Chủ phòng đã khóa quyền bật micro', 'warning');
+        }
+        if (!settings.allowVideo && useMeetingStore.getState().videoEnabled) {
+          setVideoEnabled(false);
+          const track = useMeetingStore.getState().localStream?.getVideoTracks()[0];
+          if (track) track.enabled = false;
+          socketService.emit('media:toggle', { type: 'video', enabled: false });
+          addToast('Chủ phòng đã khóa quyền bật camera', 'warning');
+        }
+      }
+    };
+
     const handleRoomError = ({ message }: { message: string }) => {
       addToast(message, 'error');
     };
 
     const handleRemovedByHost = () => {
+      soundEffects.playMuteAlert();
       addToast('Bạn đã bị mời ra khỏi phòng học', 'error');
+      stopAllMedia();
       setTimeout(() => {
         window.location.href = '/';
-      }, 1500);
+      }, 1200);
     };
 
     // Bind Listeners
@@ -296,6 +334,7 @@ export function useSocket() {
     socketService.on('host:muted-by-host', handleMutedByHost);
     socketService.on('host:hands-lowered', handleHandsLowered);
     socketService.on('room:locked', handleRoomLocked);
+    socketService.on('host:settings-updated', handleHostSettingsUpdated);
     socketService.on('room:error', handleRoomError);
     socketService.on('host:removed-by-host', handleRemovedByHost);
 
@@ -338,6 +377,7 @@ export function useSocket() {
       socketService.off('host:muted-by-host', handleMutedByHost);
       socketService.off('host:hands-lowered', handleHandsLowered);
       socketService.off('room:locked', handleRoomLocked);
+      socketService.off('host:settings-updated', handleHostSettingsUpdated);
       socketService.off('room:error', handleRoomError);
       socketService.off('host:removed-by-host', handleRemovedByHost);
     };

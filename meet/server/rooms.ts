@@ -1,4 +1,13 @@
-import { Room, Participant } from './types.js';
+import { Room, Participant, HostSettings } from './types.js';
+
+const DEFAULT_HOST_SETTINGS: HostSettings = {
+  hostManagement: true,
+  allowScreenShare: true,
+  allowChat: true,
+  allowReactions: true,
+  allowMic: true,
+  allowVideo: true,
+};
 
 class RoomManager {
   private rooms: Map<string, Room> = new Map();
@@ -12,9 +21,11 @@ class RoomManager {
       createdAt: Date.now(),
       participants: new Map(),
       answers: new Map(),
+      kickedUserIds: new Set(),
+      hostSettings: { ...DEFAULT_HOST_SETTINGS },
     };
     this.rooms.set(roomId, room);
-    this.rooms.set(room.code, room); // Also register by code for easy join lookup
+    this.rooms.set(room.code, room); // Register by code for easy join lookup
     return room;
   }
 
@@ -22,9 +33,19 @@ class RoomManager {
     return this.rooms.get(roomIdOrCode) || this.rooms.get(roomIdOrCode.toUpperCase());
   }
 
-  addParticipant(roomIdOrCode: string, participant: Participant): Room | undefined {
+  addParticipant(roomIdOrCode: string, participant: Participant): { room: Room | undefined; duplicateRemoved?: Participant } {
     const room = this.getRoom(roomIdOrCode);
-    if (!room) return undefined;
+    if (!room) return { room: undefined };
+
+    // Remove any ghost/duplicate participant with same name (prevents duplicate accounts on reload)
+    let duplicateRemoved: Participant | undefined;
+    for (const [key, p] of room.participants.entries()) {
+      if (p.name === participant.name && key !== participant.id) {
+        duplicateRemoved = p;
+        room.participants.delete(key);
+        room.answers.delete(key);
+      }
+    }
 
     // If first participant, mark as host
     if (room.participants.size === 0) {
@@ -33,7 +54,7 @@ class RoomManager {
     }
 
     room.participants.set(participant.id, participant);
-    return room;
+    return { room, duplicateRemoved };
   }
 
   removeParticipant(roomIdOrCode: string, participantId: string): { room: Room | undefined; removed?: Participant } {
@@ -75,7 +96,10 @@ class RoomManager {
       if (mediaType === 'audio') participant.audioEnabled = enabled;
       if (mediaType === 'video') participant.videoEnabled = enabled;
       if (mediaType === 'screen') participant.isScreenSharing = enabled;
-      if (mediaType === 'hand') participant.handRaised = enabled;
+      if (mediaType === 'hand') {
+        participant.handRaised = enabled;
+        if (enabled) participant.handRaisedAt = Date.now();
+      }
     }
     return participant;
   }

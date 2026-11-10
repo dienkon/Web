@@ -1,10 +1,10 @@
 /**
  * GlobalSocketService: Worldwide zero-config signaling using secure public MQTT over WebSockets.
  * Enables users anywhere across the internet (Vercel, mobile 4G, different Wi-Fi networks)
- * to connect and interact seamlessly like Google Meet with NO paid servers required.
+ * to connect and interact seamlessly with automatic zombie pruning, LWT, and host moderation.
  */
 import mqtt, { MqttClient } from 'mqtt';
-import { Participant } from '../types/meeting';
+import { Participant, HostSettings } from '../types/meeting';
 import { Question, AnswerStatistics, UserAnswer, AnswerOption } from '../types/classroom';
 
 type Listener = (...args: any[]) => void;
@@ -23,6 +23,15 @@ interface WireMessage {
   timestamp: number;
 }
 
+const DEFAULT_HOST_SETTINGS: HostSettings = {
+  hostManagement: true,
+  allowScreenShare: true,
+  allowChat: true,
+  allowReactions: true,
+  allowMic: true,
+  allowVideo: true,
+};
+
 export class GlobalSocketService {
   private client: MqttClient | null = null;
   private listeners: Map<string, Listener[]> = new Map();
@@ -39,17 +48,35 @@ export class GlobalSocketService {
   private answers: Map<string, UserAnswer> = new Map();
   private whiteboardDataUrl?: string;
   private isLocked: boolean = false;
+  private hostSettings: HostSettings = { ...DEFAULT_HOST_SETTINGS };
+  private kickedNames: Set<string> = new Set();
 
   private joinTimeout: any = null;
   private heartbeatInterval: any = null;
+  private pruneInterval: any = null;
   private isConnected: boolean = false;
   private brokerIndex: number = 0;
 
   constructor() {
-    this.id = `usr_${Math.random().toString(36).substring(2, 8)}`;
+    // Persistent Tab Session ID: Ensures reloads in the same tab DO NOT create ghost/duplicate accounts!
+    const SESSION_KEY = 'meetclass_peer_session_id';
+    let savedId = '';
+    try {
+      savedId = sessionStorage.getItem(SESSION_KEY) || '';
+    } catch {}
+    if (!savedId) {
+      savedId = `usr_${Math.random().toString(36).substring(2, 8)}`;
+      try {
+        sessionStorage.setItem(SESSION_KEY, savedId);
+      } catch {}
+    }
+    this.id = savedId;
 
     if (typeof window !== 'undefined') {
       window.addEventListener('beforeunload', () => {
+        this.disconnect();
+      });
+      window.addEventListener('pagehide', () => {
         this.disconnect();
       });
     }
@@ -92,11 +119,22 @@ export class GlobalSocketService {
     console.log('[GlobalSocket] Connecting to Global Cloud Broker:', brokerUrl);
 
     try {
+      const willTopic = this.currentTopic || `meetclass/v2/rooms/${this.roomCode || 'DEFAULT'}`;
       this.client = mqtt.connect(brokerUrl, {
         clientId: `meet_${this.id}`,
         clean: true,
         connectTimeout: 5000,
         reconnectPeriod: 2500,
+        will: {
+          topic: willTopic,
+          payload: JSON.stringify({
+            type: 'peer:leave',
+            senderId: this.id,
+            timestamp: Date.now(),
+          }),
+          qos: 0,
+          retain: false,
+        },
       });
 
       this.client.on('connect', () => {
@@ -107,6 +145,9 @@ export class GlobalSocketService {
           this.client?.subscribe(this.currentTopic, { qos: 0 });
         }
         if (onReady) onReady();
+
+        // Start periodic heartbeat (every 4s) to prove client is alive
+        this.startHeartbeat();
       });
 
       this.client.on('message', (_topic, message) => {
@@ -132,6 +173,31 @@ export class GlobalSocketService {
     } catch (err) {
       console.error('[GlobalSocket] MQTT Init Error:', err);
     }
+  }
+
+  private startHeartbeat() {
+    if (this.heartbeatInterval) clearInterval(this.heartbeatInterval);
+    if (this.pruneInterval) clearInterval(this.pruneInterval);
+
+    // 1. Broadcast heartbeat ping every 4s
+    this.heartbeatInterval = setInterval(() => {
+      if (this.isConnected && this.currentTopic) {
+        this.publish('peer:heartbeat', {});
+      }
+    }, 4000);
+
+    // 2. Sweep & Prune zombie peers (dead tabs/reloads) every 3s
+    this.pruneInterval = setInterval(() => {
+      const now = Date.now();
+      for (const [pId, p] of this.participants.entries()) {
+        if (pId !== this.id && p.lastHeartbeat && now - p.lastHeartbeat > 13000) {
+          console.log('[GlobalSocket] Pruning zombie participant on timeout:', p.name, pId);
+          this.participants.delete(pId);
+          this.answers.delete(pId);
+          this.trigger('participant:left', { userId: pId, participant: p });
+        }
+      }
+    }, 3000);
   }
 
   private publish(type: string, payload?: any, targetId?: string) {
@@ -180,15 +246,44 @@ export class GlobalSocketService {
       return;
     }
 
-    // 2. Peer Discovery & Handshake
+    // 2. Peer Heartbeat (Update liveness)
+    if (type === 'peer:heartbeat') {
+      const p = this.participants.get(senderId);
+      if (p) {
+        p.lastHeartbeat = Date.now();
+      }
+      return;
+    }
+
+    // 3. Peer Discovery & Handshake
     if (type === 'peer:announce') {
       const remoteParticipant: Participant = payload.participant;
-      this.participants.set(remoteParticipant.id, remoteParticipant);
+      remoteParticipant.lastHeartbeat = Date.now();
 
-      // Trigger joined for this peer
+      // Check if user is kicked
+      if (this.isHost && this.kickedNames.has(remoteParticipant.name)) {
+        this.publish('host:removed-by-host', {}, remoteParticipant.id);
+        return;
+      }
+
+      // Check if room is locked
+      if (this.isHost && this.isLocked) {
+        this.publish('room:error', { message: 'Phòng học hiện đang bị khóa bởi giáo viên.' }, remoteParticipant.id);
+        return;
+      }
+
+      // Deduplicate: If an old ghost peer exists with the exact same name or ID, remove the old one!
+      for (const [key, p] of this.participants.entries()) {
+        if ((p.name === remoteParticipant.name && key !== remoteParticipant.id) || key === remoteParticipant.id) {
+          this.participants.delete(key);
+          this.trigger('participant:left', { userId: key, participant: p });
+        }
+      }
+
+      this.participants.set(remoteParticipant.id, remoteParticipant);
       this.trigger('participant:joined', { participant: remoteParticipant });
 
-      // If we are Host (or have room info), reply with full room state to the joining peer
+      // If we are Host (or have room info), reply with full room state to joining peer
       if (this.isHost || this.participants.size > 1) {
         this.publish(
           'room:sync',
@@ -201,6 +296,7 @@ export class GlobalSocketService {
             statistics: this.calcStats(),
             whiteboardDataUrl: this.whiteboardDataUrl,
             isLocked: this.isLocked,
+            hostSettings: this.hostSettings,
           },
           remoteParticipant.id
         );
@@ -208,7 +304,7 @@ export class GlobalSocketService {
       return;
     }
 
-    // 3. Room Synchronization Received (Response to our join)
+    // 4. Room Synchronization Received (Response to our join)
     if (type === 'room:sync' && targetId === this.id) {
       if (this.joinTimeout) {
         clearTimeout(this.joinTimeout);
@@ -218,6 +314,13 @@ export class GlobalSocketService {
       this.hostId = payload.hostId;
       if (payload.participants && Array.isArray(payload.participants)) {
         payload.participants.forEach((p: Participant) => {
+          p.lastHeartbeat = Date.now();
+          // Remove duplicate name if exists
+          for (const [key, existing] of this.participants.entries()) {
+            if (existing.name === p.name && key !== p.id) {
+              this.participants.delete(key);
+            }
+          }
           this.participants.set(p.id, p);
         });
       }
@@ -238,6 +341,9 @@ export class GlobalSocketService {
       if (payload.isLocked !== undefined) {
         this.isLocked = payload.isLocked;
       }
+      if (payload.hostSettings) {
+        this.hostSettings = payload.hostSettings;
+      }
 
       const myParticipant = this.participants.get(this.id);
       if (myParticipant) {
@@ -251,12 +357,13 @@ export class GlobalSocketService {
           statistics: payload.statistics || this.calcStats(),
           whiteboardDataUrl: this.whiteboardDataUrl,
           isLocked: this.isLocked,
+          hostSettings: this.hostSettings,
         });
       }
       return;
     }
 
-    // 4. Peer Left
+    // 5. Peer Left
     if (type === 'peer:leave') {
       const removed = this.participants.get(senderId);
       this.participants.delete(senderId);
@@ -279,32 +386,36 @@ export class GlobalSocketService {
       return;
     }
 
-    // 5. Media Toggle (Mic / Camera / Screen / Hand)
+    // 6. Media Toggle (Mic / Camera / Screen / Hand)
     if (type === 'media:toggle') {
       const p = this.participants.get(senderId);
       if (p) {
+        p.lastHeartbeat = Date.now();
         if (payload.type === 'audio') p.audioEnabled = payload.enabled;
         if (payload.type === 'video') p.videoEnabled = payload.enabled;
         if (payload.type === 'screen') p.isScreenSharing = payload.enabled;
-        if (payload.type === 'hand') p.handRaised = payload.enabled;
+        if (payload.type === 'hand') {
+          p.handRaised = payload.enabled;
+          if (payload.enabled) p.handRaisedAt = Date.now();
+        }
         this.trigger('participant:updated', { participant: p });
       }
       return;
     }
 
-    // 6. Active Speaker
+    // 7. Active Speaker
     if (type === 'speaker:active') {
       this.trigger('speaker:active', { userId: senderId, isSpeaking: Boolean(payload?.isSpeaking) });
       return;
     }
 
-    // 7. Chat Message
+    // 8. Chat Message
     if (type === 'chat:message') {
       this.trigger('chat:message', payload);
       return;
     }
 
-    // 8. Whiteboard Events
+    // 9. Whiteboard Events
     if (type === 'whiteboard:draw') {
       this.trigger('whiteboard:draw', payload);
       return;
@@ -326,13 +437,13 @@ export class GlobalSocketService {
       return;
     }
 
-    // 9. Reaction Received
+    // 10. Reaction Received
     if (type === 'reaction:received') {
       this.trigger('reaction:received', payload);
       return;
     }
 
-    // 10. Classroom Q&A Interactive Events
+    // 11. Classroom Q&A Interactive Events
     if (type === 'question:started') {
       this.currentQuestion = payload.question;
       this.answers.clear();
@@ -363,9 +474,40 @@ export class GlobalSocketService {
       return;
     }
 
-    // 11. Host Moderation Actions
-    if (type === 'host:muted-by-host' && (!targetId || targetId === this.id)) {
-      this.trigger('host:muted-by-host', {});
+    // 12. Host Moderation Actions (Google Meet Standard)
+    if (type === 'participant:updated-remote') {
+      const p = this.participants.get(payload.id);
+      if (p) {
+        Object.assign(p, payload.updates);
+        this.trigger('participant:updated', { participant: p });
+      }
+      return;
+    }
+
+    if (type === 'peer:leave-remote') {
+      const removed = this.participants.get(payload.userId);
+      this.participants.delete(payload.userId);
+      this.answers.delete(payload.userId);
+      this.trigger('participant:left', { userId: payload.userId, participant: removed });
+      return;
+    }
+
+    if (type === 'host:muted-by-host') {
+      if (!targetId || targetId === this.id) {
+        if (!this.isHost) {
+          const myP = this.participants.get(this.id);
+          if (myP) myP.audioEnabled = false;
+          this.trigger('host:muted-by-host', {});
+        }
+      }
+      if (!targetId) {
+        this.participants.forEach((p) => {
+          if (!p.isHost) {
+            p.audioEnabled = false;
+            this.trigger('participant:updated', { participant: p });
+          }
+        });
+      }
       return;
     }
 
@@ -383,8 +525,21 @@ export class GlobalSocketService {
       return;
     }
 
+    if (type === 'host:settings-updated') {
+      if (payload?.settings) {
+        this.hostSettings = { ...this.hostSettings, ...payload.settings };
+        this.trigger('host:settings-updated', payload);
+      }
+      return;
+    }
+
     if (type === 'host:removed-by-host' && targetId === this.id) {
       this.trigger('host:removed-by-host', {});
+      return;
+    }
+
+    if (type === 'room:error' && targetId === this.id) {
+      this.trigger('room:error', payload);
       return;
     }
   }
@@ -405,6 +560,7 @@ export class GlobalSocketService {
           isHost: Boolean(isHost),
           isSpeaking: false,
           joinedAt: Date.now(),
+          lastHeartbeat: Date.now(),
         };
 
         this.participants.set(this.id, myParticipant);
@@ -431,6 +587,7 @@ export class GlobalSocketService {
             statistics: this.calcStats(),
             whiteboardDataUrl: this.whiteboardDataUrl,
             isLocked: this.isLocked,
+            hostSettings: this.hostSettings,
           });
         }, 600);
       });
@@ -458,7 +615,10 @@ export class GlobalSocketService {
         if (payload.type === 'audio') p.audioEnabled = payload.enabled;
         if (payload.type === 'video') p.videoEnabled = payload.enabled;
         if (payload.type === 'screen') p.isScreenSharing = payload.enabled;
-        if (payload.type === 'hand') p.handRaised = payload.enabled;
+        if (payload.type === 'hand') {
+          p.handRaised = payload.enabled;
+          if (payload.enabled) p.handRaisedAt = Date.now();
+        }
       }
       this.publish('media:toggle', payload);
       return;
@@ -520,8 +680,25 @@ export class GlobalSocketService {
       return;
     }
 
-    // Host actions
+    // Host Moderation Actions
+    if (event === 'host:mute-participant') {
+      const targetP = this.participants.get(payload.targetId);
+      if (targetP) {
+        targetP.audioEnabled = false;
+        this.trigger('participant:updated', { participant: targetP });
+      }
+      this.publish('host:muted-by-host', { targetId: payload.targetId }, payload.targetId);
+      this.publish('participant:updated-remote', { id: payload.targetId, updates: { audioEnabled: false } });
+      return;
+    }
+
     if (event === 'host:mute-all') {
+      this.participants.forEach((p) => {
+        if (!p.isHost) {
+          p.audioEnabled = false;
+          this.trigger('participant:updated', { participant: p });
+        }
+      });
       this.publish('host:muted-by-host', {});
       return;
     }
@@ -529,6 +706,7 @@ export class GlobalSocketService {
     if (event === 'host:lower-all-hands') {
       this.participants.forEach((p) => {
         p.handRaised = false;
+        this.trigger('participant:updated', { participant: p });
       });
       this.trigger('host:hands-lowered', {});
       this.publish('host:hands-lowered', {});
@@ -538,6 +716,24 @@ export class GlobalSocketService {
     if (event === 'host:lock-room') {
       this.isLocked = Boolean(payload?.locked);
       this.publish('room:locked', { isLocked: this.isLocked });
+      return;
+    }
+
+    if (event === 'host:settings-update') {
+      this.hostSettings = { ...this.hostSettings, ...payload };
+      this.publish('host:settings-updated', { settings: this.hostSettings });
+      return;
+    }
+
+    if (event === 'host:remove-participant') {
+      const targetP = this.participants.get(payload.targetId);
+      if (targetP) {
+        this.kickedNames.add(targetP.name);
+        this.participants.delete(payload.targetId);
+        this.trigger('participant:left', { userId: payload.targetId, participant: targetP });
+        this.publish('peer:leave-remote', { userId: payload.targetId, name: targetP.name });
+      }
+      this.publish('host:removed-by-host', {}, payload.targetId);
       return;
     }
 
@@ -609,16 +805,6 @@ export class GlobalSocketService {
       this.publish('question:resetted', resetPayload);
       return;
     }
-
-    if (event === 'host:mute-participant') {
-      this.publish('host:muted-by-host', {}, payload.targetId);
-      return;
-    }
-
-    if (event === 'host:remove-participant') {
-      this.publish('host:removed-by-host', {}, payload.targetId);
-      return;
-    }
   }
 
   public disconnect() {
@@ -629,6 +815,10 @@ export class GlobalSocketService {
     if (this.heartbeatInterval) {
       clearInterval(this.heartbeatInterval);
       this.heartbeatInterval = null;
+    }
+    if (this.pruneInterval) {
+      clearInterval(this.pruneInterval);
+      this.pruneInterval = null;
     }
 
     if (this.isConnected && this.currentTopic) {
