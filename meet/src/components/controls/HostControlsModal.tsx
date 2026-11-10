@@ -1,3 +1,4 @@
+import { showNotice, confirmDialog } from '../ui/Dialogs';
 import React, { useState } from 'react';
 import { Modal } from '../ui/Modal';
 import { TeacherQuestionPanel } from '../classroom/TeacherQuestionPanel';
@@ -35,19 +36,18 @@ export const HostControlsModal: React.FC<HostControlsModalProps> = ({ isOpen, on
   const { currentQuestion, statistics, answersList, questionLocked } = useClassroomStore();
   const { startQuestion, lockQuestion, resetQuestion } = useClassroom();
   const {
+    timerEndsAt,
+    requireApproval,
+    waitingRequests,
     isRoomLocked,
-    setRoomLocked,
     participants,
     addToast,
     hostSettings,
-    setHostSettings,
   } = useMeetingStore();
 
   // Local state for meeting tools (Image 2)
-  const [isRecording, setIsRecording] = useState(false);
-  const [isTranscribing, setIsTranscribing] = useState(false);
   const [timerMinutes, setTimerMinutes] = useState(5);
-  const [timerRunning, setTimerRunning] = useState(false);
+  const timerRunning = !!timerEndsAt;
 
   const handleCreate = (text: string, options: { A: string; B: string; C: string; D: string }) => {
     startQuestion(text, options);
@@ -55,13 +55,11 @@ export const HostControlsModal: React.FC<HostControlsModalProps> = ({ isOpen, on
   };
 
   const handleUpdateSettings = (updates: Partial<HostSettings>) => {
-    setHostSettings(updates);
     socketService.emit('host:settings-update', updates);
-    addToast('Đã cập nhật cài đặt người tổ chức', 'success');
   };
 
-  const handleMuteAll = () => {
-    if (window.confirm('Bạn có muốn tắt micro của tất cả học sinh trong phòng?')) {
+  const handleMuteAll = async () => {
+    if (await confirmDialog('Bạn có muốn tắt micro của tất cả học sinh trong phòng?')) {
       socketService.emit('host:mute-all');
       addToast('Đã gửi yêu cầu tắt micro đến tất cả người tham gia', 'info');
     }
@@ -75,8 +73,6 @@ export const HostControlsModal: React.FC<HostControlsModalProps> = ({ isOpen, on
   const handleToggleLock = () => {
     const nextState = !isRoomLocked;
     socketService.emit('host:lock-room', { locked: nextState });
-    setRoomLocked(nextState);
-    addToast(nextState ? 'Đã khóa phòng học' : 'Đã mở khóa phòng học', 'info');
   };
 
   const participantsList = Array.from(participants.values());
@@ -196,6 +192,25 @@ export const HostControlsModal: React.FC<HostControlsModalProps> = ({ isOpen, on
             </button>
           </div>
 
+          <section className="p-4 rounded-2xl border border-white/10 space-y-3">
+            <div className="flex items-center justify-between gap-4">
+              <div><p className="text-sm font-semibold">Duyệt người tham gia</p><p className="text-xs text-slate-400">Người mới chờ bạn chấp nhận trước khi vào phòng.</p></div>
+              <button role="switch" aria-label="Duyệt người tham gia" aria-checked={requireApproval}
+                className="px-3 py-2 rounded-lg bg-blue-600 text-sm"
+                onClick={() => socketService.emit('host:admission-mode', { required: !requireApproval })}>{requireApproval ? 'Đang bật' : 'Đang tắt'}</button>
+            </div>
+            <p className="text-xs text-slate-300">Yêu cầu đang chờ ({waitingRequests.length})</p>
+            {waitingRequests.map(request => <div key={request.id} className="flex items-center justify-between gap-2">
+              <span className="text-sm truncate">{request.name}</span>
+              <div className="flex gap-2 shrink-0">
+                <button className="px-3 py-1 rounded bg-emerald-700" aria-label={`Chấp nhận ${request.name}`} disabled={isRoomLocked}
+                  onClick={() => socketService.emit('host:admission-decide', { requestId: request.id, approved: true })}>Chấp nhận</button>
+                <button className="px-3 py-1 rounded bg-rose-800" aria-label={`Từ chối ${request.name}`}
+                  onClick={() => socketService.emit('host:admission-decide', { requestId: request.id, approved: false })}>Từ chối</button>
+              </div>
+            </div>)}
+          </section>
+
           {/* Raised hands queue */}
           <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2.5">
             <div className="flex items-center justify-between">
@@ -243,7 +258,7 @@ export const HostControlsModal: React.FC<HostControlsModalProps> = ({ isOpen, on
               <button
                 type="button"
                 role="switch"
-                aria-checked={hostSettings.hostManagement}
+                aria-label="Quyền quản lý của người tổ chức" aria-checked={hostSettings.hostManagement}
                 onClick={() => handleUpdateSettings({ hostManagement: !hostSettings.hostManagement })}
                 className={clsx(
                   'relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none',
@@ -279,7 +294,7 @@ export const HostControlsModal: React.FC<HostControlsModalProps> = ({ isOpen, on
                 <button
                   type="button"
                   role="switch"
-                  aria-checked={hostSettings.allowScreenShare}
+                  aria-label="Cho phép chia sẻ màn hình" aria-checked={hostSettings.allowScreenShare}
                   onClick={() => handleUpdateSettings({ allowScreenShare: !hostSettings.allowScreenShare })}
                   className={clsx(
                     'relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out',
@@ -304,7 +319,7 @@ export const HostControlsModal: React.FC<HostControlsModalProps> = ({ isOpen, on
                 <button
                   type="button"
                   role="switch"
-                  aria-checked={hostSettings.allowReactions}
+                  aria-label="Cho phép phản ứng" aria-checked={hostSettings.allowReactions}
                   onClick={() => handleUpdateSettings({ allowReactions: !hostSettings.allowReactions })}
                   className={clsx(
                     'relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out',
@@ -327,7 +342,7 @@ export const HostControlsModal: React.FC<HostControlsModalProps> = ({ isOpen, on
                   <button
                     type="button"
                     role="switch"
-                    aria-checked={hostSettings.allowMic}
+                    aria-label="Cho phép micro" aria-checked={hostSettings.allowMic}
                     onClick={() => handleUpdateSettings({ allowMic: !hostSettings.allowMic })}
                     className={clsx(
                       'relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out',
@@ -354,7 +369,7 @@ export const HostControlsModal: React.FC<HostControlsModalProps> = ({ isOpen, on
                   <button
                     type="button"
                     role="switch"
-                    aria-checked={hostSettings.allowVideo}
+                    aria-label="Cho phép camera" aria-checked={hostSettings.allowVideo}
                     onClick={() => handleUpdateSettings({ allowVideo: !hostSettings.allowVideo })}
                     className={clsx(
                       'relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out',
@@ -383,7 +398,7 @@ export const HostControlsModal: React.FC<HostControlsModalProps> = ({ isOpen, on
                 <button
                   type="button"
                   role="switch"
-                  aria-checked={hostSettings.allowChat}
+                  aria-label="Cho phép trò chuyện" aria-checked={hostSettings.allowChat}
                   onClick={() => handleUpdateSettings({ allowChat: !hostSettings.allowChat })}
                   className={clsx(
                     'relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out',
@@ -423,21 +438,10 @@ export const HostControlsModal: React.FC<HostControlsModalProps> = ({ isOpen, on
                 </div>
               </div>
               <button
-                onClick={() => {
-                  setIsTranscribing(!isTranscribing);
-                  addToast(
-                    !isTranscribing ? 'Đã bật tính năng chép lời phụ đề' : 'Đã tắt chép lời',
-                    'info'
-                  );
-                }}
-                className={clsx(
-                  'px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-colors',
-                  isTranscribing
-                    ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                    : 'bg-white/10 text-slate-300 hover:bg-white/20'
-                )}
+                onClick={() => showNotice('Chép lời chưa khả dụng', 'Ứng dụng chưa tích hợp dịch vụ chép lời. Chưa có phụ đề nào được tạo hoặc lưu.')}
+                className="px-3.5 py-1.5 rounded-xl text-xs bg-white/10 text-slate-300"
               >
-                {isTranscribing ? 'Đang chép lời' : 'Bật'}
+                Chưa hỗ trợ
               </button>
             </div>
 
@@ -465,15 +469,7 @@ export const HostControlsModal: React.FC<HostControlsModalProps> = ({ isOpen, on
                   <option value={10} className="bg-slate-900">10 phút</option>
                 </select>
                 <button
-                  onClick={() => {
-                    setTimerRunning(!timerRunning);
-                    addToast(
-                      !timerRunning
-                        ? `Bắt đầu đồng hồ đếm ngược ${timerMinutes} phút`
-                        : 'Đã dừng đồng hồ đếm ngược',
-                      'info'
-                    );
-                  }}
+                  onClick={() => socketService.emit('host:timer', { minutes: timerRunning ? null : timerMinutes })}
                   className={clsx(
                     'px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-colors',
                     timerRunning
@@ -498,23 +494,10 @@ export const HostControlsModal: React.FC<HostControlsModalProps> = ({ isOpen, on
                 </div>
               </div>
               <button
-                onClick={() => {
-                  setIsRecording(!isRecording);
-                  addToast(
-                    !isRecording
-                      ? 'Đã bắt đầu ghi hình cuộc họp (Cloud Recording)'
-                      : 'Đã dừng ghi hình cuộc họp',
-                    'info'
-                  );
-                }}
-                className={clsx(
-                  'px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-colors',
-                  isRecording
-                    ? 'bg-rose-500 text-white animate-pulse'
-                    : 'bg-white/10 text-slate-300 hover:bg-white/20'
-                )}
+                onClick={() => showNotice('Ghi cuộc họp chưa khả dụng', 'Ứng dụng chưa tích hợp hệ thống ghi cuộc họp. Chưa có bản ghi nào được tạo hoặc lưu.')}
+                className="px-3.5 py-1.5 rounded-xl text-xs bg-white/10 text-slate-300"
               >
-                {isRecording ? 'Đang ghi…' : 'Bắt đầu ghi'}
+                Chưa hỗ trợ
               </button>
             </div>
 
@@ -530,7 +513,7 @@ export const HostControlsModal: React.FC<HostControlsModalProps> = ({ isOpen, on
                 </div>
               </div>
               <button
-                onClick={() => addToast('Tính năng chia nhóm thảo luận tự động sẵn sàng.', 'info')}
+                onClick={() => showNotice('Phòng họp nhóm chưa khả dụng', 'Tính năng chia nhóm chưa được triển khai. Bạn có thể tạo phòng riêng từ trang chủ và chia sẻ liên kết cho từng nhóm.')}
                 className="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white/10 text-slate-300 hover:bg-white/20 transition-colors"
               >
                 Cấu hình

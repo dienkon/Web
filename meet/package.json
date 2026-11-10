@@ -9,6 +9,7 @@
     "dev:server": "npm --prefix server run dev",
     "build": "npx vite build",
     "typecheck": "tsc --noEmit",
+    "test:server": "npm --prefix server run build && node --test tests/room-persistence.test.mjs",
     "test:e2e": "playwright test",
     "preview": "npx vite preview",
     "server": "npm --prefix server run dev"
@@ -17,7 +18,6 @@
     "clsx": "^2.1.1",
     "framer-motion": "^11.18.2",
     "lucide-react": "^0.469.0",
-    "mqtt": "^5.16.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.1",

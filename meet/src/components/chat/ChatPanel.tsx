@@ -10,7 +10,7 @@ interface ChatPanelProps {
 }
 
 export const ChatPanel: React.FC<ChatPanelProps> = ({ onClose }) => {
-  const { chatMessages, addToast } = useMeetingStore();
+  const { chatMessages, addToast, hostSettings, isHost } = useMeetingStore();
   const [text, setText] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -28,8 +28,11 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ onClose }) => {
   const handleSend = (e: React.FormEvent) => {
     e.preventDefault();
     if (!text.trim()) return;
+    if (!isHost && !hostSettings.allowChat) {
+      addToast('Chủ phòng đã tắt tính năng nhắn tin.', 'warning'); return;
+    }
 
-    if (socket) {
+    if (socket?.connected) {
       socket.emit('chat:message', { text: text.trim() });
       setText('');
     } else {

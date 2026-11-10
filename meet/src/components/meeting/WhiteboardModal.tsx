@@ -1,3 +1,4 @@
+import { confirmDialog } from '../ui/Dialogs';
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import {
   X,
@@ -48,22 +49,14 @@ export const WhiteboardModal: React.FC<WhiteboardModalProps> = ({ isOpen, onClos
     const container = containerRef.current;
     if (!canvas || !container) return;
 
-    // Save previous drawing
-    const prevData = canvas.toDataURL();
+    const previous = document.createElement('canvas');
+    previous.width = canvas.width;
+    previous.height = canvas.height;
+    previous.getContext('2d')?.drawImage(canvas, 0, 0);
     const rect = container.getBoundingClientRect();
-
     canvas.width = rect.width;
     canvas.height = rect.height;
-
-    // Restore previous drawing if exists
-    if (prevData) {
-      const img = new Image();
-      img.onload = () => {
-        const ctx = canvas.getContext('2d');
-        ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
-      };
-      img.src = prevData;
-    }
+    if (previous.width && previous.height) canvas.getContext('2d')?.drawImage(previous, 0, 0, canvas.width, canvas.height);
   }, []);
 
   // Listen to remote whiteboard events
@@ -100,15 +93,11 @@ export const WhiteboardModal: React.FC<WhiteboardModalProps> = ({ isOpen, onClos
       ctx?.clearRect(0, 0, canvas.width, canvas.height);
     };
 
-    const handleRemoteSync = ({ dataUrl }: { dataUrl: string }) => {
+    const handleRemoteSync = ({ strokes }: { strokes: WhiteboardStroke[] }) => {
       const canvas = canvasRef.current;
-      if (!canvas || !dataUrl) return;
-      const img = new Image();
-      img.onload = () => {
-        const ctx = canvas.getContext('2d');
-        ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
-      };
-      img.src = dataUrl;
+      if (!canvas) return;
+      canvas.getContext('2d')?.clearRect(0, 0, canvas.width, canvas.height);
+      strokes?.forEach(handleRemoteDraw);
     };
 
     socketService.on('whiteboard:draw', handleRemoteDraw);
@@ -116,10 +105,11 @@ export const WhiteboardModal: React.FC<WhiteboardModalProps> = ({ isOpen, onClos
     socketService.on('whiteboard:sync', handleRemoteSync);
 
     // Request initial canvas state from room
+    resizeCanvas();
     socketService.emit('whiteboard:get');
 
     window.addEventListener('resize', resizeCanvas);
-    const timer = setTimeout(resizeCanvas, 50);
+    const timer = setTimeout(() => { resizeCanvas(); socketService.emit('whiteboard:get'); }, 50);
 
     return () => {
       clearTimeout(timer);
@@ -153,17 +143,11 @@ export const WhiteboardModal: React.FC<WhiteboardModalProps> = ({ isOpen, onClos
       fromY: fromY / canvas.height,
       toX: toX / canvas.width,
       toY: toY / canvas.height,
-      color,
+      color: tool === 'eraser' ? '#ffffff' : color,
       size: tool === 'eraser' ? brushSize * 4 : brushSize,
       isEraser: tool === 'eraser',
     };
     socketService.emit('whiteboard:draw', stroke);
-  };
-
-  const saveCanvasSnapshot = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    socketService.emit('whiteboard:save', { dataUrl: canvas.toDataURL() });
   };
 
   // Mouse Handlers
@@ -193,7 +177,6 @@ export const WhiteboardModal: React.FC<WhiteboardModalProps> = ({ isOpen, onClos
     if (isDrawingRef.current) {
       isDrawingRef.current = false;
       lastPosRef.current = null;
-      saveCanvasSnapshot();
     }
   };
 
@@ -228,12 +211,11 @@ export const WhiteboardModal: React.FC<WhiteboardModalProps> = ({ isOpen, onClos
     if (isDrawingRef.current) {
       isDrawingRef.current = false;
       lastPosRef.current = null;
-      saveCanvasSnapshot();
     }
   };
 
-  const handleClear = () => {
-    if (window.confirm('Bạn có chắc chắn muốn xóa toàn bộ bảng vẽ không?')) {
+  const handleClear = async () => {
+    if (await confirmDialog('Bạn có chắc chắn muốn xóa toàn bộ bảng vẽ không?')) {
       const canvas = canvasRef.current;
       if (!canvas) return;
       const ctx = canvas.getContext('2d');

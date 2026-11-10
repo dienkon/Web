@@ -1,3 +1,4 @@
+import { confirmDialog } from '../ui/Dialogs';
 import React, { useState } from 'react';
 import {
   Mic,
@@ -100,8 +101,8 @@ export const ControlBar: React.FC<Props> = (props) => {
     setMore(false);
   };
 
-  const handleMuteAll = () => {
-    if (window.confirm('Bạn có muốn tắt micro của tất cả học sinh trong phòng?')) {
+  const handleMuteAll = async () => {
+    if (await confirmDialog('Bạn có muốn tắt micro của tất cả học sinh trong phòng?')) {
       socketService.emit('host:mute-all');
       addToast('Đã gửi yêu cầu tắt micro đến tất cả người tham gia', 'info');
       setMore(false);

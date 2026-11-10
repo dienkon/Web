@@ -1,4 +1,8 @@
+import { createTestRoom, guestPage, closeGuestContexts } from './helpers';
 import { test, expect, Page } from '@playwright/test';
+
+test.afterEach(closeGuestContexts);
+
 
 async function instruments(page: Page) {
   await page.addInitScript(() => {
@@ -42,7 +46,7 @@ async function joinRoom(page: Page, room: string, name: string) {
 test('collaborative whiteboard opens, provides pen/eraser tools, and can be saved or closed', async ({
   page,
 }) => {
-  const room = `BOARD${Date.now()}`;
+  const room = await createTestRoom(page);
   await joinRoom(page, room, 'Giáo viên');
 
   // Open Whiteboard
@@ -68,8 +72,8 @@ test('interactive reactions bar sends emoji and displays floating reaction with 
   page,
   context,
 }) => {
-  const room = `REACTION${Date.now()}`;
-  const guest = await context.newPage();
+  const room = await createTestRoom(page);
+  const guest = await guestPage(context);
 
   await joinRoom(page, room, 'Giáo viên');
   await joinRoom(guest, room, 'Học sinh');
@@ -88,7 +92,7 @@ test('interactive reactions bar sends emoji and displays floating reaction with 
 
 test('mobile camera flip switches between front and rear cameras seamlessly', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  const room = `FLIP${Date.now()}`;
+  const room = await createTestRoom(page);
   await joinRoom(page, room, 'Mobile User');
 
   // Camera flip button is visible when camera is on
@@ -103,8 +107,8 @@ test('mobile camera flip switches between front and rear cameras seamlessly', as
 });
 
 test('host moderation controls lower raised hands and lock room', async ({ page, context }) => {
-  const room = `MOD${Date.now()}`;
-  const student = await context.newPage();
+  const room = await createTestRoom(page);
+  const student = await guestPage(context);
 
   await joinRoom(page, room, 'Giáo viên Chủ phòng');
   await joinRoom(student, room, 'Học sinh A');

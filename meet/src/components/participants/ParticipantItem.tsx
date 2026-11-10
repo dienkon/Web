@@ -1,3 +1,4 @@
+import { confirmDialog } from '../ui/Dialogs';
 import React from 'react';
 import { Participant } from '../../types/meeting';
 import { Mic, MicOff, Crown, Pin, PinOff, MicOff as MuteHost, UserX, Hand } from 'lucide-react';
@@ -29,9 +30,9 @@ export const ParticipantItem: React.FC<ParticipantItemProps> = ({ participant, i
     }
   };
 
-  const handleRemoveByHost = () => {
+  const handleRemoveByHost = async () => {
     if (!isHost || isLocal) return;
-    if (window.confirm(`Bạn có chắc chắn muốn mời ${participant.name} ra khỏi phòng học?`)) {
+    if (await confirmDialog(`Bạn có chắc chắn muốn mời ${participant.name} ra khỏi phòng học?`)) {
       const socket = socketService.getSocket();
       if (socket) {
         socket.emit('host:remove-participant', { targetId: participant.id });

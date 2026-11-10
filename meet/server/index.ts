@@ -1,3 +1,4 @@
+import './env.js';
 import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
@@ -27,6 +28,7 @@ app.get('/api/health', (_req, res) => {
 });
 
 app.get('/api/ice-servers', async (_req, res) => {
+  res.setHeader('Cache-Control', 'no-store');
   const iceServers: any[] = [
     { urls: 'stun:stun.l.google.com:19302' },
     { urls: 'stun:stun1.l.google.com:19302' },
@@ -52,7 +54,7 @@ app.get('/api/ice-servers', async (_req, res) => {
   const meteredKey = process.env.METERED_API_KEY || process.env.VITE_METERED_API_KEY;
   if (meteredApp && meteredKey) {
     try {
-      const response = await fetch(`https://${meteredApp}.metered.live/api/v1/turn/credentials?apiKey=${meteredKey}`);
+      const response = await fetch(`https://${meteredApp}.metered.live/api/v1/turn/credentials?apiKey=${encodeURIComponent(meteredKey)}`, { signal: AbortSignal.timeout(4000) });
       if (response.ok) {
         const dynamicServers = await response.json();
         if (Array.isArray(dynamicServers)) {
@@ -77,6 +79,11 @@ app.get('/api/rooms/:code', (req, res) => {
     participantCount: room.participants.size,
     classroomMode: room.classroomMode,
   });
+});
+
+app.post('/api/rooms', (_req, res) => {
+  const { room, hostToken } = roomManager.createRoom();
+  res.status(201).json({ id: room.id, code: room.code, hostToken });
 });
 
 // Initialize Socket Handlers

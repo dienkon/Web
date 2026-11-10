@@ -40,3 +40,6 @@ server/dist
 playwright-report/
 test-results/
 ref_*
+
+/data/
+server/data/

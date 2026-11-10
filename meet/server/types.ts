@@ -10,6 +10,7 @@ export interface HostSettings {
 }
 
 export interface Participant {
+  identityHash?: string;
   id: string;
   socketId: string;
   name: string;
@@ -57,6 +58,13 @@ export interface WhiteboardStroke {
 }
 
 export interface Room {
+  messages?: { id: string; senderId: string; senderName: string; text: string; timestamp: number }[];
+  answersByIdentity?: Map<string, UserAnswer>;
+  timerEndsAt?: number | null;
+  whiteboardStrokes?: WhiteboardStroke[];
+  ownerTokenHash: string;
+  approvedUserIds: Set<string>;
+  requireApproval?: boolean;
   id: string;
   code: string;
   hostId: string;
@@ -65,7 +73,6 @@ export interface Room {
   participants: Map<string, Participant>;
   currentQuestion?: Question;
   answers: Map<string, UserAnswer>;
-  whiteboardDataUrl?: string;
   isLocked?: boolean;
   kickedUserIds?: Set<string>;
   hostSettings?: HostSettings;

@@ -11,12 +11,13 @@ export class ClassroomManager {
       createdAt: Date.now(),
     };
     room.currentQuestion = question;
+    room.answersByIdentity = new Map();
     room.answers.clear(); // Clear previous answers when starting a new question
     return question;
   }
 
   submitAnswer(room: Room, userId: string, userName: string, answer: AnswerOption): { statistics: AnswerStatistics; answerObj: UserAnswer } | null {
-    if (!room.currentQuestion || room.currentQuestion.status === 'locked') {
+    if (!['A', 'B', 'C', 'D'].includes(answer) || !room.currentQuestion || room.currentQuestion.status === 'locked') {
       return null;
     }
 
@@ -45,6 +46,7 @@ export class ClassroomManager {
   resetQuestion(room: Room): boolean {
     if (room.currentQuestion) {
       room.currentQuestion.status = 'active';
+      room.answersByIdentity = new Map();
       room.answers.clear();
       return true;
     }

@@ -1,4 +1,8 @@
+import { createTestRoom, guestPage, closeGuestContexts } from './helpers';
 import { test, expect, Page } from '@playwright/test';
+
+test.afterEach(closeGuestContexts);
+
 
 async function instruments(page: Page) {
   await page.addInitScript(() => {
@@ -50,8 +54,8 @@ async function received(page: Page, kind: 'audio' | 'video') {
 }
 
 test('real peers keep audio across layouts and send presentation plus tab sound to late arrivals', async ({ page, context }) => {
-  const room = `RTC${Date.now()}`;
-  const guest = await context.newPage();
+  const room = await createTestRoom(page);
+  const guest = await guestPage(context);
   await guest.addInitScript(() => {
     const original = HTMLMediaElement.prototype.play;
     (window as any).__allowPlayback = false;
@@ -63,7 +67,20 @@ test('real peers keep audio across layouts and send presentation plus tab sound 
   await join(page, room, 'Giáo viên'); await join(guest, room, 'Học sinh');
   await expect.poll(() => received(guest, 'audio')).toBeGreaterThan(0);
   await expect.poll(() => received(page, 'audio')).toBeGreaterThan(0);
-  await expect.poll(() => received(guest, 'video')).toBeGreaterThan(0);
+  try {
+    await expect.poll(() => received(guest, 'video')).toBeGreaterThan(0);
+  } catch (error) {
+    for (const [name, target] of [['host', page], ['guest', guest]] as const) {
+      const diagnostics = await target.evaluate(async () => Promise.all(((window as any).__peers as RTCPeerConnection[]).map(async pc => ({
+        state: pc.connectionState, signaling: pc.signalingState,
+        senders: pc.getSenders().map(s => ({ kind: s.track?.kind, enabled: s.track?.enabled, readyState: s.track?.readyState })),
+        transceivers: pc.getTransceivers().map(t => ({ mid: t.mid, direction: t.direction, currentDirection: t.currentDirection })),
+        stats: [...(await pc.getStats()).values()].filter(s => s.type === 'outbound-rtp' || s.type === 'inbound-rtp'),
+      }))));
+      await test.info().attach(`${name}-rtc-diagnostics`, { body: JSON.stringify(diagnostics, null, 2), contentType: 'application/json' });
+    }
+    throw error;
+  }
   await expect(guest.getByRole('button', { name: 'Bấm để nghe âm thanh cuộc họp' })).toBeVisible();
   await guest.evaluate(() => { (window as any).__allowPlayback = true; });
   await guest.getByRole('button', { name: 'Bấm để nghe âm thanh cuộc họp' }).click();
@@ -82,7 +99,7 @@ test('real peers keep audio across layouts and send presentation plus tab sound 
     for (const pc of (window as any).__peers as RTCPeerConnection[]) (await pc.getStats()).forEach(s => { if (s.type === 'inbound-rtp' && s.kind === 'audio' && s.bytesReceived > 0) count++; });
     return count;
   })).toBe(2);
-  const late = await context.newPage(); await join(late, room, 'Đến sau');
+  const late = await guestPage(context); await join(late, room, 'Đến sau');
   await expect(late.getByText('Giáo viên đang trình chiếu', { exact: true })).toBeVisible();
   await expect.poll(() => late.locator('video').first().evaluate((v: HTMLVideoElement) => v.videoWidth)).toBe(960);
   // Ending capture through browser UI must propagate and leave the microphone connected.
@@ -107,7 +124,8 @@ test('camera permission denial preserves microphone and preview mute choice', as
     const original = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
     navigator.mediaDevices.getUserMedia = constraints => constraints?.video ? Promise.reject(new DOMException('Denied camera', 'NotAllowedError')) : original(constraints);
   });
-  await page.goto(`/join/AUDIO${Date.now()}`);
+  const room = await createTestRoom(page);
+  await page.goto(`/join/${room}`);
   await expect(page.locator('button[title="Tắt micro"]')).toBeVisible();
   await expect(page.locator('button[title="Bật camera"]')).toBeVisible();
   await page.locator('button[title="Tắt micro"]').click();
@@ -121,7 +139,7 @@ test('camera permission denial preserves microphone and preview mute choice', as
 
 test('mobile controls, settings, chat and leaving release devices', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await join(page, `MOBILE${Date.now()}`, 'Điện thoại');
+  await join(page, await createTestRoom(page), 'Điện thoại');
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await page.getByRole('button', { name: 'Thiết bị & âm thanh', exact: true }).click();
   await expect(page.getByRole('meter', { name: 'Mức âm thanh micro' })).toBeVisible();
@@ -131,16 +149,18 @@ test('mobile controls, settings, chat and leaving release devices', async ({ pag
   await page.getByPlaceholder('Nhập tin nhắn...').press('Enter');
   await expect(page.getByText('Xin chào!', { exact: true })).toBeVisible();
   await page.screenshot({ path: 'test-results/meeting-mobile.png', fullPage: true });
+  await page.keyboard.press('Escape');
   await page.evaluate(() => { (window as any).__tracks = [...document.querySelectorAll('video')].flatMap(v => (v.srcObject as MediaStream)?.getTracks() || []); });
-  page.on('dialog', dialog => dialog.accept());
+  page.on('dialog', () => { throw new Error('Native dialogs are forbidden'); });
   await page.getByRole('button', { name: 'Rời cuộc họp', exact: true }).click();
+  await page.getByRole('dialog', { name: 'Xác nhận' }).getByRole('button', { name: 'Xác nhận', exact: true }).click();
   await expect(page).toHaveURL('/');
   await expect.poll(() => page.evaluate(() => (window as any).__tracks.every((t: MediaStreamTrack) => t.readyState === 'ended'))).toBe(true);
 });
 
 test('devices enabled after joining are received and reconnect restores the call', async ({ page, context }) => {
-  const guest = await context.newPage();
-  const room = `LATE${Date.now()}`;
+  const guest = await guestPage(context);
+  const room = await createTestRoom(page);
   await join(page, room, 'Người tạo');
   await instruments(guest);
   await guest.addInitScript(() => {

@@ -7,6 +7,7 @@ import { useMeetingStore } from '../store/meetingStore';
 import { useWebRTC } from '../hooks/useWebRTC';
 import { User, LogIn, ArrowLeft, GraduationCap } from 'lucide-react';
 import { DeviceSettings, MicMeter } from '../components/meeting/DeviceSettings';
+import { getHostToken } from '../services/identity';
 import { ToastContainer } from '../components/ui/Toast';
 
 export const JoinPage: React.FC = () => {
@@ -15,7 +16,7 @@ export const JoinPage: React.FC = () => {
   const roomCode = (code || 'CLASSROOM').toUpperCase();
   const roomId = `ROOM-${roomCode}`;
 
-  const { userName, setUserName, setRoomInfo, isHost, roomId: previousRoomId } = useMeetingStore();
+  const { userName, setUserName, setRoomInfo } = useMeetingStore();
   const [nameInput, setNameInput] = useState(
     userName || (typeof localStorage !== 'undefined' ? localStorage.getItem('meetclass_user_name') || '' : '')
   );
@@ -51,7 +52,7 @@ export const JoinPage: React.FC = () => {
     try {
       localStorage.setItem('meetclass_user_name', finalName);
     } catch {}
-    setRoomInfo(roomId, roomCode, previousRoomId === roomId && isHost);
+    setRoomInfo(roomId, roomCode, !!getHostToken(roomCode));
 
     navigate(`/meeting/${roomCode}`);
   };

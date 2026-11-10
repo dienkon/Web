@@ -5,6 +5,9 @@ import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
 import { Modal } from '../components/ui/Modal';
 import { useMeetingStore } from '../store/meetingStore';
+import { createRoom } from '../services/api';
+import { saveHostToken } from '../services/identity';
+import { showNotice } from '../components/ui/Dialogs';
 import { parseRoomCode } from '../services/roomCode';
 import { ToastContainer } from '../components/ui/Toast';
 
@@ -17,24 +20,19 @@ export const HomePage: React.FC = () => {
   const [createdRoom, setCreatedRoom] = useState<{ id: string; code: string; link: string } | null>(null);
   const [copied, setCopied] = useState(false);
 
-  // Helper to generate room code like 8F42K
-  const generateRoomCode = () => {
-    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-    let result = '';
-    for (let i = 0; i < 5; i++) {
-      result += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return result;
-  };
-
-  // Create Room
-  const handleCreateRoom = () => {
-    const code = generateRoomCode();
-    const roomId = `ROOM-${code}`;
-    const link = `${window.location.origin}/join/${code}`;
-
-    setRoomInfo(roomId, code, true); // Mark as Host
-    setCreatedRoom({ id: roomId, code, link });
+  const [creating, setCreating] = useState(false);
+  const handleCreateRoom = async () => {
+    if (creating) return;
+    setCreating(true);
+    try {
+      const { id, code, hostToken } = await createRoom();
+      saveHostToken(code, hostToken);
+      const link = `${window.location.origin}/join/${code}`;
+      setRoomInfo(id, code, true);
+      setCreatedRoom({ id, code, link });
+    } catch {
+      showNotice('Không thể tạo phòng', 'Không kết nối được máy chủ. Vui lòng thử lại sau.');
+    } finally { setCreating(false); }
   };
 
   // Join by Input Code
@@ -97,7 +95,7 @@ export const HomePage: React.FC = () => {
             <Button
               variant="primary"
               size="lg"
-              onClick={handleCreateRoom}
+              onClick={handleCreateRoom} disabled={creating}
               className="gap-2 font-semibold shadow-xl shadow-blue-900/40 shrink-0"
             >
               <Plus className="w-5 h-5" />

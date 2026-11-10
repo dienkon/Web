@@ -3,7 +3,7 @@ import { Copy, Check, GraduationCap, Radio, Clock3, Settings2, Lock, Wifi } from
 import { useMeetingStore } from '../../store/meetingStore';
 
 export const RoomHeader: React.FC<{ onOpenSettings: () => void }> = ({ onOpenSettings }) => {
-  const { roomCode, connectionState, addToast, isHost, networkQuality, networkLatency, isRoomLocked } = useMeetingStore();
+  const { timerEndsAt, serverTimeOffset, roomCode, connectionState, addToast, isHost, networkQuality, networkLatency, isRoomLocked } = useMeetingStore();
   const [copied, setCopied] = useState(false);
   const [started] = useState(Date.now);
   const [elapsed, setElapsed] = useState(0);
@@ -63,6 +63,9 @@ export const RoomHeader: React.FC<{ onOpenSettings: () => void }> = ({ onOpenSet
           {String(Math.floor(elapsed / 60)).padStart(2, '0')}:{String(elapsed % 60).padStart(2, '0')}
         </span>
 
+        {timerEndsAt && <span role="timer" aria-label="Thời gian làm bài" className="text-xs font-mono text-amber-300">
+          {Math.floor(Math.max(0, Math.ceil((timerEndsAt - Date.now() - serverTimeOffset) / 1000)) / 60)}:{String(Math.max(0, Math.ceil((timerEndsAt - Date.now() - serverTimeOffset) / 1000)) % 60).padStart(2, '0')}
+        </span>}
         {/* Network Quality Indicator */}
         {networkLatency > 0 && (
           <span

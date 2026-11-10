@@ -124,7 +124,7 @@ export const ParticipantTile: React.FC<ParticipantTileProps> = ({
 
           {participant.connectionState && ['connecting', 'disconnected', 'failed'].includes(participant.connectionState) && (
             <span className="text-xs bg-black/60 text-amber-200 px-2 py-1 rounded-full">
-              {participant.connectionState === 'failed' ? 'Đang kết nối lại…' : 'Đang kết nối…'}
+              {participant.connectionState === 'failed' ? 'Không kết nối được media' : 'Đang kết nối…'}
             </span>
           )}
         </div>

@@ -28,7 +28,13 @@ interface MeetingState {
   roomCode: string | null;
   userName: string;
   isHost: boolean;
+  timerEndsAt: number | null;
+  serverTimeOffset: number;
   joined: boolean;
+  joinStatus: 'connecting' | 'waiting' | 'joined' | 'error';
+  joinError: string;
+  requireApproval: boolean;
+  waitingRequests: { id: string; name: string; requestedAt: number }[];
   connectionState: ConnectionState;
 
   // Local media stream settings
@@ -132,7 +138,13 @@ export const useMeetingStore = create<MeetingState>((set) => ({
   roomCode: null,
   userName: '',
   isHost: false,
+  timerEndsAt: null,
+  serverTimeOffset: 0,
   joined: false,
+  joinStatus: 'connecting',
+  joinError: '',
+  requireApproval: false,
+  waitingRequests: [],
   connectionState: 'disconnected',
 
   localStream: null,
@@ -190,12 +202,6 @@ export const useMeetingStore = create<MeetingState>((set) => ({
         return state;
       }
       const updated = new Map(state.participants);
-      // Remove any ghost with the same name if exists
-      for (const [key, p] of updated.entries()) {
-        if (p.name === participant.name && key !== participant.id) {
-          updated.delete(key);
-        }
-      }
       updated.set(participant.id, participant);
       return { participants: updated };
     }),
@@ -294,7 +300,13 @@ export const useMeetingStore = create<MeetingState>((set) => ({
     set({
       roomId: null,
       roomCode: null,
+      timerEndsAt: null,
+      serverTimeOffset: 0,
       joined: false,
+      joinStatus: 'connecting',
+      joinError: '',
+      requireApproval: false,
+      waitingRequests: [],
       isHost: false,
       connectionState: 'disconnected',
       localStream: null,

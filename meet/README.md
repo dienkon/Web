@@ -1,8 +1,10 @@
 # MeetClass
 
-Ứng dụng họp video và lớp học tương tác thời gian thực chuẩn W3C WebRTC, React, TypeScript và Socket.IO.
+Ứng dụng họp video và lớp học dùng React, TypeScript, Socket.IO và WebRTC.
 
 ## Chạy trên máy
+
+Yêu cầu Node.js 22 trở lên.
 
 ```bash
 npm install
@@ -10,70 +12,54 @@ npm --prefix server install
 npm run dev
 ```
 
-Mở http://localhost:3000. Lệnh `dev` chạy cả Vite (cổng 3000) và backend Socket.IO (cổng 5000). Tạo cuộc họp, kiểm tra thiết bị rồi chia sẻ liên kết mời cho người khác. Có thể nhập mã hoặc dán liên kết `/join/…`, `/room/…`, `/meeting/…` vào trang chủ.
+Mở [localhost:3000](http://localhost:3000). Vite chuyển tiếp `/api` và `/socket.io` tới backend cổng 5000. Tạo phòng từ trang chủ trước khi chia sẻ liên kết. Mã mới gồm 9 ký tự ngẫu nhiên bằng `crypto.randomInt`; server kiểm tra trùng trước khi cấp mã. Mã hoặc link không tồn tại sẽ bị từ chối, không tự tạo phòng.
 
-## Kiến trúc WebRTC chuẩn hóa & Kết nối tối ưu
+## Quyền phòng và đồng bộ
 
-Dựa trên các dự án mã nguồn mở hàng đầu trong [Best of WebRTC](https://github.com/webRTCv1/Best-of-webRTC) và [QuickMeet](https://github.com/i-aryan/quickmeet.git), cơ chế kết nối RTC được tái thiết kế chuẩn hóa:
+- Mỗi phòng chỉ có một chủ sở hữu. Khóa quyền host do server cấp được lưu trong `localStorage` của trình duyệt người tạo; server chỉ lưu mã băm. Người tạo tải lại trang, đóng/mở lại trình duyệt hoặc rời rồi trở lại vẫn là host. Chia sẻ link mời không chia sẻ quyền host. Xóa dữ liệu trình duyệt hoặc đổi thiết bị không tự khôi phục khóa này.
+- Server lưu mã phòng, quyền sở hữu, trạng thái khóa, duyệt người mới và quyền sử dụng tính năng vào `ROOM_STORE_PATH` (mặc định `server/data/rooms.json` khi chạy các lệnh npm ở trên). Gắn đường dẫn này lên ổ lưu trữ bền vững khi deploy. Phòng trống vẫn giữ chủ và trạng thái khóa; không bầu khách thành host. Dùng một tiến trình backend; nhiều replica cần thay file này bằng cơ sở dữ liệu chung cùng adapter Socket.IO.
+- Khóa phòng chặn khách mới ngay tại server. Người đã được vào phòng được nhận diện bằng khóa phiên trong `sessionStorage` để kết nối lại; host luôn có thể quay lại. Đây là định danh phiên trình duyệt, không phải tài khoản đăng nhập.
+- Bật **Duyệt người tham gia** trong quản lý phòng để gửi khách mới vào phòng chờ. Host thấy tên và có thể chấp nhận/từ chối. Người chờ chưa là thành viên nên không nhận chat, bảng vẽ hoặc signaling WebRTC. Hủy yêu cầu sẽ xóa khỏi hàng đợi; khóa phòng sẽ từ chối các yêu cầu đang chờ. Tắt duyệt áp dụng cho yêu cầu mới; yêu cầu đã chờ vẫn cần quyết định của host.
+- Quyền micro, camera, chia sẻ màn hình, chat và phản ứng do server kiểm tra và phát lại cho các thành viên. Tắt quyền sẽ dừng thiết bị/chia sẻ đang bật; mở quyền không tự bật thiết bị thay người dùng. Tắt quản lý tính năng trả lại các quyền này.
+- Danh sách người tham gia phân biệt bằng định danh, không xóa người chỉ vì trùng tên. Khi kết nối lại, phiên cũ bị thay thế và không còn quyền gửi sự kiện.
+- Mic, camera, màn hình và tiếng tab dùng 4 transceiver riêng. Tải ICE trước khi tạo peer; đệm ICE đến khi có SDP, xử lý offer collision và giới hạn số lần ICE restart. Kết nối thất bại hiển thị popup và trạng thái lỗi thay vì quay “đang kết nối” vô hạn.
+- Đồng hồ bài tập dùng thời điểm kết thúc từ server; người đến sau nhận cùng đồng hồ. Câu hỏi, khóa đáp án và thống kê được đồng bộ khi vào phòng. Bảng vẽ lưu chuỗi nét ở server để người đóng/mở bảng hoặc đến sau có cùng nội dung. Các dữ liệu buổi họp này nằm trong bộ nhớ, không khôi phục sau khi backend khởi động lại.
+- Xác nhận rời phòng, mời ra, tắt tiếng tất cả và xóa bảng dùng popup trong ứng dụng. Không dùng `alert`, `confirm`, `prompt` của trình duyệt. Hộp cấp quyền thiết bị vẫn do trình duyệt quản lý.
+- Ghi cuộc họp, chép lời và chia nhóm chưa triển khai: giao diện nêu rõ, không thông báo đã ghi hoặc đã chép lời khi chưa có dữ liệu.
 
-1. **Chuẩn W3C Perfect Negotiation**:
-   - Tự động phân định vai trò Polite / Impolite giữa hai peer dựa trên ID (`myId < targetId`).
-   - Xử lý triệt để xung đột Offer collision (Glare) bằng rollback tự động ở peer Polite và bỏ qua an toàn ở peer Impolite, ngăn chặn lỗi trạng thái SDP `InvalidStateError`.
-   - Quản lý 4 transceiver slot độc lập: Micro (audio), Camera (video), Màn hình trình chiếu (video), Âm thanh tab/màn hình (audio).
-2. **Quản lý ICE Candidate & Multi-STUN Failover**:
-   - Bộ đệm ứng viên ICE thông minh: lưu trữ và tự động xả hàng đợi ngay khi `setRemoteDescription` hoàn tất.
-   - Hỗ trợ danh sách đa máy chủ STUN dự phòng (Google STUN 1-4, Cloudflare STUN) và TURN bảo mật.
-   - Tự động phát hiện đứt gãy mạng và kích hoạt ICE Restart (`createOffer({ iceRestart: true })`) khi trạng thái kết nối chuyển sang `failed` hoặc `disconnected`.
-3. **Giám sát chất lượng mạng (WebRTC Stats & Latency)**:
-   - Đo lường định kỳ Round-Trip Time (RTT/độ trễ ms), tỷ lệ mất gói (Packet Loss %), hiển thị huy hiệu chất lượng mạng (Tốt / Ổn định / Yếu) trên thanh tiêu đề và thẻ người dùng.
-4. **Tối ưu hóa Codec & Băng thông**:
-   - Video camera giới hạn 1.5 Mbps với ưu tiên khung hình (`maintain-framerate`).
-   - Màn hình trình chiếu hướng đến 1080p 30 fps với giới hạn 4 Mbps và ưu tiên độ nét văn bản (`maintain-resolution`).
-   - Âm thanh ưu tiên Opus giọng nói với stereo và in-band FEC chống mất gói.
+## Deploy và gọi giữa các mạng
 
-## Tính năng tiện ích nâng cao
+Frontend có thể đặt trên Vercel. Backend cần dịch vụ Node.js chạy liên tục hỗ trợ Socket.IO; serverless memory không cung cấp trạng thái phòng dùng chung. Cấu hình `VITE_SERVER_URL=https://backend-cua-ban` ở frontend rồi build lại. Nếu dùng REST gateway Vercel, đặt thêm `REALTIME_SERVER_URL` tới cùng backend. Hoặc chạy frontend/backend sau reverse proxy cùng domain có hỗ trợ WebSocket và các đường dẫn `/api`, `/socket.io`.
 
-- **Bảng vẽ cộng tác thời gian thực (Interactive Whiteboard)**:
-  - Tích hợp canvas vẽ 2D đa người dùng: Bút vẽ, Tẩy nét, Bảng màu (Đen, Đỏ, Xanh dương, Xanh lá, Vàng, Tím, Trắng), cỡ nét từ 2px đến 16px.
-  - Tọa độ nét vẽ được chuẩn hóa (0.0 đến 1.0) giúp vẽ chính xác tuyệt đối trên mọi độ phân giải màn hình từ mobile đến màn hình 4K.
-  - Hỗ trợ thao tác cảm ứng mượt mà (ngăn cuộn trang khi vẽ), xóa bảng và xuất file ảnh PNG về máy.
-  - Tự động đồng bộ toàn bộ ảnh bảng vẽ cho người tham gia mới vào phòng.
-- **Thả cảm xúc bay bổng (Interactive Floating Reactions)**:
-  - Thanh chọn cảm xúc nhanh với các biểu tượng thông dụng: 👍, ❤️, 👏, 🎉, 😂, 💡, 🔥.
-  - Hiệu ứng hoạt họa các bong bóng cảm xúc bay lượn từ dưới lên kèm nhãn tên người gửi.
-- **Lật camera trước / sau trên điện thoại (Camera Flip)**:
-  - Nút chuyển nhanh giữa camera trước (`user`) và camera sau (`environment`) dành riêng cho thiết bị di động mà không làm ngắt kết nối cuộc gọi.
-- **Hình trong hình (Picture-in-Picture - PiP)**:
-  - Nút thu nhỏ video ra cửa sổ nổi giúp người dùng vừa theo dõi lớp học/cuộc họp vừa ghi chú hoặc làm việc khác.
-- **Quản lý lớp học nâng cao cho Giáo viên (Host Controls)**:
-  - Tắt micro tất cả học sinh chỉ với 1 cú click.
-  - Hạ tay tất cả học sinh đang giơ tay.
-  - Khóa phòng học (ngăn người lạ tham gia tự do).
-  - Tạo và phát câu hỏi trắc nghiệm A/B/C/D với biểu đồ thống kê trả lời thời gian thực.
-- **Tối ưu hóa trải nghiệm Mobile (Mobile-first UX)**:
-  - Giao diện dạng Bottom Sheet trượt lên tiện lợi cho Chat, Người tham gia, Lớp học, Bảng vẽ và Cài đặt.
-  - Hỗ trợ vùng đệm `env(safe-area-inset-bottom)` cho iPhone và thiết bị có thanh điều hướng cử chỉ.
-  - Lưới video tự động co giãn 1 cột trên điện thoại dọc và chia lưới thông minh khi xoay ngang.
-  - Huy hiệu thông báo tin nhắn chưa đọc trên nút Trò chuyện.
+Ứng dụng không chuyển sang MQTT công cộng khi backend lỗi, vì việc đó tạo hai hệ thống phòng khác nhau và có thể bỏ qua khóa/duyệt. Khi backend không có hoặc mất kết nối, giao diện báo lỗi/đang thử lại, không tạo phòng thay thế.
 
-## Kiểm tra tự động (E2E Tests)
+HTTPS cần thiết cho camera/micro ngoài localhost. STUN chỉ giúp tìm đường trực tiếp; nhiều mạng 4G, NAT đối xứng hoặc firewall cần TURN thật. Tham khảo [hướng dẫn TURN của WebRTC](https://webrtc.org/getting-started/turn-server) và [coturn](https://github.com/coturn/coturn).
 
-Toàn bộ hệ thống được kiểm thử tự động với Playwright:
+Đặt biến server trong `server/.env` hoặc môi trường deploy (xem [mẫu cấu hình](server/.env.example)):
+
+```dotenv
+TURN_SERVER=turn:turn.example.com:3478?transport=udp,turn:turn.example.com:3478?transport=tcp,turns:turn.example.com:443?transport=tcp
+TURN_USERNAME=your-user
+TURN_PASSWORD=your-password
+```
+
+TURN phải truy cập được từ Internet, có chứng chỉ hợp lệ nếu dùng TLS, và mở cổng relay theo cấu hình nhà cung cấp/coturn. Có thể dùng `METERED_APP_NAME` và `METERED_API_KEY` ở backend để cấp thông tin xác thực động. Không đặt API key quản trị trong biến `VITE_*`. Endpoint `/api/ice-servers` trả credential cần thiết cho trình duyệt và tắt cache.
+
+Để xác minh relay, đặt `VITE_ICE_TRANSPORT_POLICY=relay`, build lại, cho hai thiết bị ở Wi-Fi/4G khác nhau vào phòng và xem `chrome://webrtc-internals`: selected candidate pair phải có candidate loại `relay`, và `inbound-rtp.bytesReceived` audio/video tăng ở cả hai phía. Sau kiểm tra, trả về `all`. Các bài Playwright chạy trên một máy không thay thế được phép thử giữa hai mạng Internet thật. Repo không kèm credential TURN công cộng.
+
+## Kiểm tra
 
 ```bash
 npm run typecheck
 npm run build
-npm --prefix server run build
-npx playwright test
+npm run test:server
+npm run test:e2e
 ```
 
-Bao gồm 9 bài test:
-1. WebRTC thật trao đổi âm thanh, hình ảnh, màn hình trình chiếu và tiếng tab cho cả người đến sau.
-2. Từ chối quyền camera vẫn bảo toàn micro và lựa chọn tắt/bật ban đầu.
-3. Điều khiển trên mobile, cài đặt, chat và giải phóng thiết bị khi rời phòng.
-4. Bật thiết bị sau khi vào phòng và phục hồi cuộc gọi khi mất kết nối.
-5. Trang chủ nhận diện URL lời mời và từ chối mã không hợp lệ.
-6. Mở bảng vẽ cộng tác, đổi công cụ bút/tẩy, lưu ảnh và đóng bảng vẽ.
-7. Thanh cảm xúc gửi emoji và hiển thị hoạt họa bay kèm tên người gửi.
-8. Chuyển đổi camera trước/sau mượt mà trên mobile.
-9. Quản lý phòng: hạ tay tất cả học sinh và khóa phòng học.
+Kiểm thử gồm RTP thật cho mic/camera/trình chiếu/tiếng tab, bật thiết bị muộn, reconnect, mobile, bảng vẽ, phản ứng, mã phòng, khóa phòng trống, host quay lại, duyệt/từ chối, chặn giả mạo host và chat từ phòng chờ, quyền thiết bị, đồng hồ cho người đến sau. Kiểm thử server dùng hai tiến trình để xác minh quyền sở hữu và cài đặt còn sau restart. Các phiên khách dùng browser context độc lập để mô phỏng người dùng khác.
+
+## Nguồn tham khảo
+
+- [QuickMeet: server và WebRTC signaling](https://github.com/i-aryan/quickmeet) — tham khảo luồng trao đổi offer/answer/ICE và bảng vẽ.
+- [Best of WebRTC](https://github.com/webRTCv1/Best-of-webRTC) — danh mục dự án P2P/SFU và TURN; đây là danh mục tham khảo, không phải thư viện tích hợp.
+- [MDN Perfect negotiation](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Perfect_negotiation) — vai trò polite/impolite và xử lý offer collision.

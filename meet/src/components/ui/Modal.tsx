@@ -2,10 +2,13 @@ import React, { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 
+const openDialogs: symbol[] = [];
+
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
+  ariaLabel?: string;
   children: React.ReactNode;
   maxWidth?: 'sm' | 'md' | 'lg' | 'xl';
 }
@@ -14,6 +17,7 @@ export const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   title,
+  ariaLabel,
   children,
   maxWidth = 'md',
 }) => {
@@ -21,8 +25,12 @@ export const Modal: React.FC<ModalProps> = ({
   const closeRef = useRef(onClose);
   closeRef.current = onClose;
   useEffect(() => {
+    if (!isOpen) return;
+    const id = Symbol('dialog');
+    openDialogs.push(id);
     const previousFocus = document.activeElement as HTMLElement | null;
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (openDialogs[openDialogs.length - 1] !== id) return;
       if (e.key === 'Escape') closeRef.current();
       if (e.key === 'Tab') {
         const elements = [...(dialogRef.current?.querySelectorAll<HTMLElement>('button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex="0"]') || [])];
@@ -38,7 +46,9 @@ export const Modal: React.FC<ModalProps> = ({
       dialogRef.current?.focus();
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      const index = openDialogs.indexOf(id);
+      if (index >= 0) openDialogs.splice(index, 1);
+      if (!openDialogs.length) document.body.style.overflow = 'unset';
       window.removeEventListener('keydown', handleKeyDown);
       if (isOpen) previousFocus?.focus();
     };
@@ -67,7 +77,7 @@ export const Modal: React.FC<ModalProps> = ({
             ref={dialogRef}
             role="dialog"
             aria-modal="true"
-            aria-label={title || 'Hộp thoại'}
+            aria-label={title || ariaLabel || 'Hộp thoại'}
             tabIndex={-1}
             initial={{ opacity: 0, scale: 0.95, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}

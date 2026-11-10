@@ -1,3 +1,6 @@
+import { Modal } from '../components/ui/Modal';
+import { Button } from '../components/ui/Button';
+import { confirmDialog } from '../components/ui/Dialogs';
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Navigate } from 'react-router-dom';
 import { RoomHeader } from '../components/meeting/RoomHeader';
@@ -154,20 +157,34 @@ const MeetingSession: React.FC = () => {
     handRaised,
   };
 
-  const handleLeave = () => {
-    if (window.confirm('Bạn có muốn rời khỏi cuộc họp?')) {
-      stopAllMedia();
-      resetMeeting();
-      socketService.disconnect();
-      navigate('/');
+  const exitMeeting = () => {
+    stopAllMedia();
+    socketService.disconnect();
+    resetMeeting();
+    navigate('/');
+  };
+  const handleLeave = async () => {
+    if (await confirmDialog('Bạn có muốn rời khỏi cuộc họp?')) {
+      exitMeeting();
     }
   };
+
+  const { joinStatus, joinError, waitingRequests } = useMeetingStore();
+  if (joinStatus !== 'joined') return <div className="meeting-shell h-dvh">
+    <Modal isOpen title={joinStatus === 'waiting' ? 'Chờ duyệt vào phòng' : joinStatus === 'error' ? 'Không thể vào phòng' : 'Đang kết nối phòng'} onClose={exitMeeting}>
+      <p className="text-sm text-slate-300">{joinStatus === 'waiting' ? 'Yêu cầu đã được gửi. Bạn sẽ vào phòng sau khi chủ phòng chấp nhận.' : joinError || 'Đang kết nối tới máy chủ…'}</p>
+      <Button className="mt-6" onClick={exitMeeting}>{joinStatus === 'waiting' ? 'Hủy yêu cầu' : 'Về trang chủ'}</Button>
+    </Modal>
+  </div>;
 
   return (
     <div className="meeting-shell w-full h-dvh flex flex-col overflow-hidden relative">
       <ToastContainer />
       <RemoteAudioContainer participants={participantsList} />
       <ReactionsOverlay />
+      {isHost && waitingRequests.length > 0 && !isHostModalOpen && <button
+        className="absolute top-20 left-1/2 -translate-x-1/2 z-40 px-4 py-3 rounded-xl bg-blue-600 text-sm shadow-xl"
+        onClick={() => setIsHostModalOpen(true)}>Có {waitingRequests.length} yêu cầu tham gia · Xem để duyệt</button>}
 
       {/* Header */}
       <RoomHeader onOpenSettings={() => setSettingsOpen(true)} />
@@ -230,19 +247,17 @@ const MeetingSession: React.FC = () => {
           )}
         </div>
 
-        {/* Side Panels (Chat / Participants / Interactive Classroom) */}
-        {activePanel === 'chat' && <ChatPanel onClose={() => setActivePanel('none')} />}
-        {activePanel === 'participants' && (
-          <ParticipantsPanel
-            participants={participantsList}
-            localParticipant={localParticipant}
-            onClose={() => setActivePanel('none')}
-          />
-        )}
-        {activePanel === 'classroom' && (
-          <ClassroomPanel onClose={() => setActivePanel('none')} />
-        )}
       </div>
+
+      <Modal isOpen={activePanel === 'chat'} onClose={() => setActivePanel('none')} ariaLabel="Trò chuyện" maxWidth="xl">
+        <div className="h-[65vh] [&>div]:!w-full"><ChatPanel onClose={() => setActivePanel('none')} /></div>
+      </Modal>
+      <Modal isOpen={activePanel === 'participants'} onClose={() => setActivePanel('none')} ariaLabel="Người tham gia" maxWidth="xl">
+        <div className="h-[65vh] [&>div]:!w-full"><ParticipantsPanel participants={participantsList} localParticipant={localParticipant} onClose={() => setActivePanel('none')} /></div>
+      </Modal>
+      <Modal isOpen={activePanel === 'classroom'} onClose={() => setActivePanel('none')} ariaLabel="Lớp học tương tác" maxWidth="xl">
+        <div className="h-[65vh] [&>div]:!w-full"><ClassroomPanel onClose={() => setActivePanel('none')} /></div>
+      </Modal>
 
       {/* Bottom Control Bar */}
       <ControlBar

@@ -4,10 +4,12 @@ import { HomePage } from './pages/HomePage';
 import { JoinPage } from './pages/JoinPage';
 import { MeetingPage } from './pages/MeetingPage';
 import { ClassroomPage } from './pages/ClassroomPage';
+import { Dialogs } from './components/ui/Dialogs';
 
 export const App: React.FC = () => {
   return (
     <BrowserRouter>
+      <Dialogs />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/join/:code" element={<JoinPage />} />

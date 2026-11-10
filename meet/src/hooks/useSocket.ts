@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { useMeetingStore } from '../store/meetingStore';
 import { useClassroomStore } from '../store/classroomStore';
+import { getIdentityToken, getHostToken } from '../services/identity';
+import { showNotice } from '../components/ui/Dialogs';
 import { socketService } from '../services/socket';
 import { webRTCManager } from '../services/webrtc';
 import { soundEffects } from '../services/audioUtils';
@@ -43,14 +45,17 @@ export function useSocket() {
     socketService.connect();
     setConnectionState('reconnecting');
 
-    const { userName, isHost } = useMeetingStore.getState();
+    let disposed = false;
+    const { userName } = useMeetingStore.getState();
+    useMeetingStore.setState({ joinStatus: 'connecting', joinError: '' });
 
     // Helper: Initialize RTCPeerConnection with current local stream and polite peer logic
     const initPeerConnection = async (targetId: string, isInitiator: boolean) => {
-      if (webRTCManager.hasPeerConnection(targetId)) return;
+      await webRTCManager.fetchDynamicIceServers();
+      if (disposed || !useMeetingStore.getState().joined || !useMeetingStore.getState().participants.has(targetId) || webRTCManager.hasPeerConnection(targetId)) return;
       const currentStream = useMeetingStore.getState().localStream;
       const myId = socketService.id || useMeetingStore.getState().myParticipantId || '';
-      const isPolite = myId < targetId;
+      const isPolite = myId > targetId;
 
       webRTCManager.createPeerConnection(
         targetId,
@@ -61,7 +66,11 @@ export function useSocket() {
         (candidate) => {
           socketService.emit('webrtc:ice-candidate', { targetId, candidate });
         },
-        (connectionState) => updateParticipant(targetId, { connectionState }),
+        (connectionState) => {
+          updateParticipant(targetId, { connectionState });
+          if (connectionState === 'failed') showNotice('Không kết nối được âm thanh / hình ảnh',
+            'Kết nối âm thanh/hình ảnh tới một người tham gia đã thất bại. Hãy tải lại phòng hoặc đổi mạng. Nếu lỗi vẫn còn, hãy báo cho người quản trị.');
+        },
         (offer) => socketService.emit('webrtc:offer', { targetId, offer }),
         isPolite
       );
@@ -83,11 +92,23 @@ export function useSocket() {
       currentQuestion?: Question;
       myAnswer?: any;
       statistics?: AnswerStatistics;
-      whiteboardDataUrl?: string;
       isLocked?: boolean;
       hostSettings?: HostSettings;
+      chatMessages?: ChatMessage[];
+      timerEndsAt?: number | null;
+      serverTime?: number;
+      requireApproval?: boolean;
+      answers?: UserAnswer[];
     }) => {
       setJoined(true);
+      useMeetingStore.setState({
+        joinStatus: 'joined', joinError: '', requireApproval: !!data.requireApproval,
+        chatMessages: data.chatMessages || [], timerEndsAt: data.timerEndsAt || null,
+        serverTimeOffset: (data.serverTime || Date.now()) - Date.now(),
+      });
+      setAnswersList(data.answers || []);
+      setQuestionLocked(data.currentQuestion?.status === 'locked');
+      if (!data.currentQuestion) setCurrentQuestion(null);
       setConnectionState('connected');
       useMeetingStore.setState({ isHost: data.participant.isHost });
       const { setMyParticipantId } = useMeetingStore.getState();
@@ -97,9 +118,7 @@ export function useSocket() {
       if (data.isLocked !== undefined) {
         setRoomLocked(data.isLocked);
       }
-      if (data.hostSettings) {
-        setHostSettings(data.hostSettings);
-      }
+      if (data.hostSettings) handleHostSettingsUpdated({ settings: data.hostSettings });
 
       const media = useMeetingStore.getState();
       socketService.emit('media:toggle', { type: 'audio', enabled: media.audioEnabled });
@@ -109,9 +128,7 @@ export function useSocket() {
       if (data.currentQuestion) {
         setCurrentQuestion(data.currentQuestion);
       }
-      if (data.myAnswer) {
-        setSelectedAnswer(data.myAnswer);
-      }
+      setSelectedAnswer(data.myAnswer || null);
       if (data.statistics) {
         setStatistics(data.statistics);
       }
@@ -126,6 +143,7 @@ export function useSocket() {
 
     // 2. Participant Joined
     const handleParticipantJoined = ({ participant }: { participant: Participant }) => {
+      if (!useMeetingStore.getState().joined) return;
       addParticipant(participant);
       addToast(`${participant.name} đã tham gia phòng`, 'info');
       const myId = socketService.id || useMeetingStore.getState().myParticipantId || '';
@@ -151,7 +169,10 @@ export function useSocket() {
     };
 
     const handleDisconnect = () => {
+      if (useMeetingStore.getState().joinStatus === 'error') return;
       setConnectionState('reconnecting');
+      setJoined(false);
+      useMeetingStore.setState({ joinStatus: 'connecting', waitingRequests: [] });
       webRTCManager.closeAll();
       void webRTCManager.updateScreenStream(useMeetingStore.getState().screenStream);
     };
@@ -177,6 +198,7 @@ export function useSocket() {
 
     // 6. WebRTC Offer / Answer / ICE
     const handleOffer = async ({ senderId, offer }: { senderId: string; offer: RTCSessionDescriptionInit }) => {
+      if (!useMeetingStore.getState().joined || !useMeetingStore.getState().participants.has(senderId)) return;
       if (!webRTCManager.hasPeerConnection(senderId)) {
         await initPeerConnection(senderId, false);
       }
@@ -198,6 +220,7 @@ export function useSocket() {
     const handleChatMessage = (msg: ChatMessage) => {
       addChatMessage(msg);
     };
+    const handleChatError = ({ message }: { message: string }) => addToast(message, 'warning');
 
     // 8. Reactions
     const handleReactionReceived = (reaction: ReactionItem) => {
@@ -208,6 +231,7 @@ export function useSocket() {
     // 9. Classroom Q&A Events
     const handleQuestionStarted = ({ question, statistics }: { question: Question; statistics: AnswerStatistics }) => {
       setCurrentQuestion(question);
+      setAnswersList([]);
       setSelectedAnswer(null);
       setQuestionLocked(false);
       setStatistics(statistics);
@@ -237,6 +261,10 @@ export function useSocket() {
       addToast('⏱ Câu hỏi đã được khóa!', 'warning');
     };
 
+    const handleQuestionUnlocked = () => {
+      setQuestionLocked(false);
+      addToast('Câu hỏi đã được mở lại.', 'info');
+    };
     const handleQuestionResetted = ({ question, statistics }: { question: Question; statistics: AnswerStatistics }) => {
       setCurrentQuestion(question);
       resetQuestionState();
@@ -278,6 +306,13 @@ export function useSocket() {
       setHostSettings(settings);
       const { isHost } = useMeetingStore.getState();
       if (!isHost) {
+        if (!settings.allowScreenShare && useMeetingStore.getState().isScreenSharing) {
+          const screen = useMeetingStore.getState().screenStream;
+          useMeetingStore.getState().setScreenSharing(false, null);
+          screen?.getTracks().forEach(t => { t.onended = null; t.stop(); });
+          void webRTCManager.updateScreenStream(null);
+          socketService.emit('media:toggle', { type: 'screen', enabled: false });
+        }
         if (!settings.allowMic && useMeetingStore.getState().audioEnabled) {
           setAudioEnabled(false);
           const track = useMeetingStore.getState().localStream?.getAudioTracks()[0];
@@ -296,19 +331,41 @@ export function useSocket() {
     };
 
     const handleRoomError = ({ message }: { message: string }) => {
-      addToast(message, 'error');
+      setJoined(false);
+      setConnectionState('disconnected');
+      useMeetingStore.setState({ joinStatus: 'error', joinError: message });
+      webRTCManager.closeAll();
+      stopAllMedia();
+    };
+    const handleTimer = ({ endsAt, serverTime, completed }: { endsAt: number | null; serverTime: number; completed?: boolean }) => {
+      useMeetingStore.setState({ timerEndsAt: endsAt, serverTimeOffset: serverTime - Date.now() });
+      if (completed) addToast('Đã hết thời gian làm bài.', 'info');
+    };
+    const handleWaiting = () => {
+      setJoined(false);
+      useMeetingStore.setState({ joinStatus: 'waiting' });
+    };
+    const handleWaitingList = ({ requests }: { requests: { id: string; name: string; requestedAt: number }[] }) => {
+      useMeetingStore.setState({ waitingRequests: requests });
+    };
+    const handleAdmissionMode = ({ requireApproval }: { requireApproval: boolean }) => useMeetingStore.setState({ requireApproval });
+    const handleSessionReplaced = () => handleRoomError({ message: 'Phiên này đã được mở ở tab khác. Hãy tiếp tục ở tab mới.' });
+    const handleConnectError = () => {
+      useMeetingStore.setState({ joinStatus: 'connecting', joinError: 'Không kết nối được máy chủ. Đang thử lại…' });
     };
 
     const handleRemovedByHost = () => {
-      soundEffects.playMuteAlert();
-      addToast('Bạn đã bị mời ra khỏi phòng học', 'error');
-      stopAllMedia();
-      setTimeout(() => {
-        window.location.href = '/';
-      }, 1200);
+      handleRoomError({ message: 'Bạn đã bị mời ra khỏi phòng học.' });
+      socketService.disconnect();
     };
 
     // Bind Listeners
+    socketService.on('timer:updated', handleTimer);
+    socketService.on('room:waiting', handleWaiting);
+    socketService.on('room:waiting-list', handleWaitingList);
+    socketService.on('room:admission-mode', handleAdmissionMode);
+    socketService.on('room:session-replaced', handleSessionReplaced);
+    socketService.on('connect_error', handleConnectError);
     socketService.on('room:joined', handleRoomJoined);
     socketService.on('disconnect', handleDisconnect);
     socketService.on('connect', handleConnect);
@@ -322,11 +379,13 @@ export function useSocket() {
     socketService.on('webrtc:ice-candidate', handleIceCandidate);
 
     socketService.on('chat:message', handleChatMessage);
+    socketService.on('chat:error', handleChatError);
     socketService.on('reaction:received', handleReactionReceived);
 
     socketService.on('question:started', handleQuestionStarted);
     socketService.on('classroom:statistics', handleClassroomStats);
     socketService.on('question:locked', handleQuestionLocked);
+    socketService.on('question:unlocked', handleQuestionUnlocked);
     socketService.on('question:resetted', handleQuestionResetted);
 
     socketService.on('host:muted-by-host', handleMutedByHost);
@@ -343,7 +402,8 @@ export function useSocket() {
         socketService.emit('room:join', {
           roomId,
           userName: userName || 'Học sinh',
-          isHost: isHost || false,
+          identityToken: getIdentityToken(),
+          hostToken: getHostToken(roomId),
           audioEnabled: state.audioEnabled,
           videoEnabled: state.videoEnabled,
         }),
@@ -351,7 +411,14 @@ export function useSocket() {
     );
 
     return () => {
+      disposed = true;
       clearTimeout(joinTimer);
+      socketService.off('timer:updated', handleTimer);
+      socketService.off('room:waiting', handleWaiting);
+      socketService.off('room:waiting-list', handleWaitingList);
+      socketService.off('room:admission-mode', handleAdmissionMode);
+      socketService.off('room:session-replaced', handleSessionReplaced);
+      socketService.off('connect_error', handleConnectError);
       socketService.off('room:joined', handleRoomJoined);
       socketService.off('disconnect', handleDisconnect);
       socketService.off('connect', handleConnect);
@@ -365,11 +432,13 @@ export function useSocket() {
       socketService.off('webrtc:ice-candidate', handleIceCandidate);
 
       socketService.off('chat:message', handleChatMessage);
+      socketService.off('chat:error', handleChatError);
       socketService.off('reaction:received', handleReactionReceived);
 
       socketService.off('question:started', handleQuestionStarted);
       socketService.off('classroom:statistics', handleClassroomStats);
       socketService.off('question:locked', handleQuestionLocked);
+      socketService.off('question:unlocked', handleQuestionUnlocked);
       socketService.off('question:resetted', handleQuestionResetted);
 
       socketService.off('host:muted-by-host', handleMutedByHost);

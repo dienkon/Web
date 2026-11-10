@@ -1,3 +1,4 @@
+import { SERVER_URL } from './api';
 export interface PeerStats {
   rtt: number; // round-trip time in milliseconds
   packetLoss: number; // percentage
@@ -36,6 +37,8 @@ interface PeerEntry {
   isSettingRemoteAnswerPending: boolean;
   cameraStream: MediaStream;
   screenStream: MediaStream;
+  restarts: number;
+  restartPending: boolean;
   restartTimer?: any;
   connectWatchdogTimer?: any;
   onTrack: (stream: MediaStream, screenStream: MediaStream) => void;
@@ -49,30 +52,26 @@ export class WebRTCManager {
   private pendingCandidates = new Map<string, RTCIceCandidateInit[]>();
   private screenStream: MediaStream | null = null;
   public iceServers: RTCIceServer[] = [...DEFAULT_ICE_SERVERS];
-  private isIceServersLoaded = false;
+  private iceLoadedAt = 0;
 
-  constructor() {
-    void this.fetchDynamicIceServers();
-  }
-
-  /**
-   * Dynamically fetch enhanced ICE servers (TURN relays) from the backend API if available
-   */
-  async fetchDynamicIceServers() {
-    if (this.isIceServersLoaded) return;
-    try {
-      const res = await fetch('/api/ice-servers');
-      if (res.ok) {
+  private iceLoad: Promise<void> | null = null;
+  async fetchDynamicIceServers(force = false): Promise<void> {
+    if (!force && Date.now() - this.iceLoadedAt < 240000) return;
+    if (!this.iceLoad) this.iceLoad = (async () => {
+      try {
+        const res = await fetch(`${SERVER_URL}/api/ice-servers`, { signal: AbortSignal.timeout(6000) });
+        if (!res.ok) throw new Error('ICE configuration unavailable');
         const data = await res.json();
-        if (Array.isArray(data.iceServers) && data.iceServers.length > 0) {
-          this.iceServers = data.iceServers;
-          this.isIceServersLoaded = true;
-          console.log('[WebRTC] Successfully loaded dynamic ICE servers:', this.iceServers.length);
+        if (Array.isArray(data.iceServers) && data.iceServers.length) {
+          // Retain explicitly configured TURN if the API only returns STUN.
+          this.iceServers = [...data.iceServers, ...DEFAULT_ICE_SERVERS.filter(s =>
+            (Array.isArray(s.urls) ? s.urls : [s.urls]).some(url => /^turns?:/.test(url)))];
+          this.iceLoadedAt = Date.now();
+          this.peers.forEach(peer => peer.pc.setConfiguration({ ...peer.pc.getConfiguration(), iceServers: this.iceServers }));
         }
-      }
-    } catch {
-      // Offline or mock mode, keep default ICE servers
-    }
+      } catch (error) { console.warn('[WebRTC] ICE configuration unavailable; using configured fallback.', error); }
+    })().finally(() => { this.iceLoad = null; });
+    return this.iceLoad;
   }
 
   hasPeerConnection(id: string): boolean {
@@ -95,11 +94,12 @@ export class WebRTCManager {
     const existing = this.peers.get(id);
     if (existing) return existing.pc;
 
-    // Advanced WebRTC Configuration for 100% Cross-Network NAT Traversal
+    // TURN provides relay candidates when direct traversal is blocked.
     const pc = new RTCPeerConnection({
       iceServers: this.iceServers,
       iceCandidatePoolSize: 2,
       bundlePolicy: 'max-bundle', // Multiplexes all 4 media slots onto 1 candidate pair
+      iceTransportPolicy: import.meta.env.VITE_ICE_TRANSPORT_POLICY === 'relay' ? 'relay' : 'all',
       rtcpMuxPolicy: 'require', // Multiplexes RTP and RTCP on the same port
     });
 
@@ -119,6 +119,8 @@ export class WebRTCManager {
       slots: [],
       tracks,
       isPolite,
+      restarts: 0,
+      restartPending: false,
       makingOffer: false,
       ignoreOffer: false,
       isSettingRemoteAnswerPending: false,
@@ -164,14 +166,33 @@ export class WebRTCManager {
     };
 
     // Resilient ICE Restart watchdog for cross-network reconnections
+    const armWatchdog = () => {
+      clearTimeout(peer.connectWatchdogTimer);
+      peer.connectWatchdogTimer = setTimeout(() => {
+        if (this.peers.get(id) !== peer || pc.connectionState === 'closed') return;
+        if (pc.connectionState !== 'connected') triggerRestart();
+      }, 20000);
+    };
     const triggerRestart = () => {
-      if (pc.signalingState !== 'stable' || !peer.onRestart) return;
-      console.log('[WebRTC] Connection degraded/failed, initiating ICE restart with', id);
-      void this.createOffer(id, true).then((offer) => {
-        if (offer && peer.onRestart) {
-          peer.onRestart(offer);
-        }
-      });
+      if (this.peers.get(id) !== peer || pc.connectionState === 'closed' || peer.makingOffer || peer.restartPending) return;
+      if (peer.restarts >= 2) {
+        clearTimeout(peer.restartTimer);
+        clearTimeout(peer.connectWatchdogTimer);
+        pc.onconnectionstatechange = null;
+        pc.oniceconnectionstatechange = null;
+        pc.close();
+        onState?.('failed');
+        return;
+      }
+      peer.restarts++;
+      // Only the designated offerer restarts; the other side waits for its offer.
+      if (!peer.isPolite && pc.signalingState === 'stable' && peer.onRestart) {
+        peer.restartPending = true;
+        void this.fetchDynamicIceServers(true).then(() => this.createOffer(id, true))
+          .then(offer => { if (offer) peer.onRestart?.(offer); })
+          .finally(() => { peer.restartPending = false; });
+      }
+      armWatchdog();
     };
 
     const handleConnectionFail = () => {
@@ -180,8 +201,8 @@ export class WebRTCManager {
 
       if (state === 'failed' || iceState === 'failed') {
         clearTimeout(peer.restartTimer);
-        // Immediate restart on hard failure
-        triggerRestart();
+        // Both ICE and connection state can report the same failure. Coalesce them.
+        peer.restartTimer = setTimeout(triggerRestart, 250);
       } else if (state === 'disconnected' || iceState === 'disconnected') {
         // Disconnection might be transient on mobile 4G handovers; allow 3.5s before restarting
         clearTimeout(peer.restartTimer);
@@ -196,6 +217,7 @@ export class WebRTCManager {
     pc.onconnectionstatechange = () => {
       onState?.(pc.connectionState);
       if (pc.connectionState === 'connected') {
+        peer.restarts = 0;
         clearTimeout(peer.restartTimer);
         clearTimeout(peer.connectWatchdogTimer);
       } else {
@@ -212,13 +234,7 @@ export class WebRTCManager {
       }
     };
 
-    // Watchdog: If connection is stuck in 'connecting' across networks for > 15s, attempt ICE restart
-    peer.connectWatchdogTimer = setTimeout(() => {
-      if (pc.connectionState === 'connecting' || pc.iceConnectionState === 'checking') {
-        console.warn('[WebRTC] Peer connection stuck in connecting for 15s, restarting ICE with', id);
-        triggerRestart();
-      }
-    }, 15000);
+    armWatchdog();
 
     return pc;
   }
@@ -244,7 +260,7 @@ export class WebRTCManager {
     if (!peer) return null;
     const { pc, tracks } = peer;
 
-    if (pc.signalingState !== 'stable') return null;
+    if (pc.signalingState !== 'stable' || peer.makingOffer) return null;
 
     try {
       peer.makingOffer = true;
@@ -280,7 +296,8 @@ export class WebRTCManager {
     const { pc, isPolite } = peer;
 
     // Perfect negotiation glare handling
-    const offerCollision = peer.makingOffer || pc.signalingState !== 'stable';
+    const readyForOffer = !peer.makingOffer && (pc.signalingState === 'stable' || peer.isSettingRemoteAnswerPending);
+    const offerCollision = !readyForOffer;
     peer.ignoreOffer = !isPolite && offerCollision;
 
     if (peer.ignoreOffer) {
@@ -289,11 +306,8 @@ export class WebRTCManager {
     }
 
     try {
-      if (offerCollision && isPolite) {
-        await pc.setLocalDescription({ type: 'rollback' });
-      }
-
       await pc.setRemoteDescription(offer);
+      peer.ignoreOffer = false;
 
       if (!peer.slots.length) {
         peer.slots = pc.getTransceivers().slice(0, 4);
@@ -328,6 +342,7 @@ export class WebRTCManager {
       try {
         peer.isSettingRemoteAnswerPending = true;
         await pc.setRemoteDescription(answer);
+        peer.ignoreOffer = false;
         await this.flushCandidates(id);
       } catch (error) {
         console.warn('[WebRTC] Remote answer failed:', error);

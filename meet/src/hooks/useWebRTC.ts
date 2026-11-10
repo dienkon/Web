@@ -52,7 +52,9 @@ async function acquire(kind: 'audio' | 'video', deviceId?: string, enabled = tru
     fresh.getTracks().forEach((t) => t.stop());
     return;
   }
-  track.enabled = enabled;
+  const permission = kind === 'audio' ? state().hostSettings.allowMic : state().hostSettings.allowVideo;
+  track.enabled = enabled && (!state().joined || state().isHost || permission);
+  enabled = track.enabled;
   try {
     await webRTCManager.replaceTrack(kind, track);
   } catch (error) {
@@ -191,6 +193,10 @@ export function useWebRTC() {
 
   const toggle = useCallback(async (kind: 'audio' | 'video') => {
     if (busy.has(kind)) return;
+    const permission = kind === 'audio' ? state().hostSettings.allowMic : state().hostSettings.allowVideo;
+    if (state().joined && !state().isHost && !permission) {
+      state().addToast('Chủ phòng đã khóa quyền sử dụng thiết bị này.', 'warning'); return;
+    }
     busy.add(kind);
     try {
       const track = state()
@@ -279,6 +285,9 @@ export function useWebRTC() {
     if (state().isScreenSharing) {
       await stop();
       return;
+    }
+    if (state().joined && !state().isHost && !state().hostSettings.allowScreenShare) {
+      state().addToast('Chủ phòng đã tắt quyền chia sẻ màn hình.', 'warning'); return;
     }
     if (!navigator.mediaDevices?.getDisplayMedia) {
       state().addToast(

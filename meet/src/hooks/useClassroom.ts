@@ -11,7 +11,6 @@ export function useClassroom() {
     questionLocked,
     statistics,
     answersList,
-    setSelectedAnswer,
   } = useClassroomStore();
 
   const { addToast, isHost } = useMeetingStore();
@@ -32,14 +31,12 @@ export function useClassroom() {
       }
       lastAnswerTimeRef.current = now;
 
-      setSelectedAnswer(answer);
-
       const socket = socketService.getSocket();
-      if (socket) {
-        socket.emit('classroom:answer', { answer });
+      if (socket?.connected) {
+        socketService.emit('classroom:answer', { answer });
       }
     },
-    [questionLocked, setSelectedAnswer, addToast]
+    [questionLocked, addToast]
   );
 
   // Host: Create and Start Question
@@ -47,7 +44,7 @@ export function useClassroom() {
     (text: string, options: { A: string; B: string; C: string; D: string }) => {
       if (!isHost) return;
       const socket = socketService.getSocket();
-      if (socket) {
+      if (socket?.connected) {
         socket.emit('question:create', { text, options });
         addToast('Đã phát câu hỏi tới toàn bộ phòng học!', 'success');
       }
@@ -59,17 +56,14 @@ export function useClassroom() {
   const lockQuestion = useCallback(() => {
     if (!isHost) return;
     const socket = socketService.getSocket();
-    if (socket) {
-      socket.emit('question:lock');
-      addToast('Đã khóa lượt trả lời của học sinh', 'info');
-    }
-  }, [isHost, addToast]);
+    if (socket?.connected) socketService.emit(questionLocked ? 'question:unlock' : 'question:lock');
+  }, [isHost, questionLocked]);
 
   // Host: Reset Question
   const resetQuestion = useCallback(() => {
     if (!isHost) return;
     const socket = socketService.getSocket();
-    if (socket) {
+    if (socket?.connected) {
       socket.emit('question:reset');
       addToast('Đã reset câu hỏi. Học sinh được phép trả lời lại!', 'info');
     }
