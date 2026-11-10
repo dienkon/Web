@@ -1,158 +1,433 @@
 const iceServers: RTCIceServer[] = [
   { urls: import.meta.env.VITE_STUN_SERVER || 'stun:stun.l.google.com:19302' },
   { urls: 'stun:stun1.l.google.com:19302' },
+  { urls: 'stun:stun2.l.google.com:19302' },
+  { urls: 'stun:stun3.l.google.com:19302' },
+  { urls: 'stun:stun4.l.google.com:19302' },
+  { urls: 'stun:stun.cloudflare.com:3478' },
 ];
+
 if (import.meta.env.VITE_TURN_SERVER) {
-  iceServers.push({ urls: import.meta.env.VITE_TURN_SERVER,
-    username: import.meta.env.VITE_TURN_USERNAME, credential: import.meta.env.VITE_TURN_PASSWORD });
+  iceServers.push({
+    urls: import.meta.env.VITE_TURN_SERVER,
+    username: import.meta.env.VITE_TURN_USERNAME,
+    credential: import.meta.env.VITE_TURN_PASSWORD,
+  });
 }
 
-// Fixed slots keep microphone, camera, screen video and screen audio independent.
-type Peer = { pc: RTCPeerConnection; slots: RTCRtpTransceiver[]; tracks: (MediaStreamTrack | null)[] };
+// 4 Fixed slots keep microphone, camera, screen video and screen audio completely independent
+export interface PeerStats {
+  rtt: number; // round-trip time in milliseconds
+  packetLoss: number; // percentage
+  bytesSent: number;
+  bytesReceived: number;
+  quality: 'good' | 'fair' | 'poor';
+}
+
+interface PeerEntry {
+  id: string;
+  pc: RTCPeerConnection;
+  slots: RTCRtpTransceiver[];
+  tracks: (MediaStreamTrack | null)[];
+  isPolite: boolean;
+  makingOffer: boolean;
+  ignoreOffer: boolean;
+  isSettingRemoteAnswerPending: boolean;
+  cameraStream: MediaStream;
+  screenStream: MediaStream;
+  onTrack: (stream: MediaStream, screenStream: MediaStream) => void;
+  onIce: (candidate: RTCIceCandidate) => void;
+  onState?: (state: RTCPeerConnectionState) => void;
+  onRestart?: (offer: RTCSessionDescriptionInit) => void;
+}
+
 export class WebRTCManager {
-  private peers = new Map<string, Peer>();
+  private peers = new Map<string, PeerEntry>();
   private pendingCandidates = new Map<string, RTCIceCandidateInit[]>();
   private screenStream: MediaStream | null = null;
 
-  hasPeerConnection(id: string) { return this.peers.has(id); }
+  hasPeerConnection(id: string): boolean {
+    return this.peers.has(id);
+  }
 
-  createPeerConnection(id: string, local: MediaStream | null,
+  getPeerConnection(id: string): RTCPeerConnection | undefined {
+    return this.peers.get(id)?.pc;
+  }
+
+  createPeerConnection(
+    id: string,
+    local: MediaStream | null,
     onTrack: (stream: MediaStream, screenStream: MediaStream) => void,
     onIce: (candidate: RTCIceCandidate) => void,
     onState?: (state: RTCPeerConnectionState) => void,
-    onRestart?: (offer: RTCSessionDescriptionInit) => void) {
+    onRestart?: (offer: RTCSessionDescriptionInit) => void,
+    isPolite: boolean = true
+  ): RTCPeerConnection {
     const existing = this.peers.get(id);
     if (existing) return existing.pc;
-    const pc = new RTCPeerConnection({ iceServers, iceCandidatePoolSize: 2 });
-    const camera = new MediaStream();
-    const screen = new MediaStream();
-    const tracks = [local?.getAudioTracks()[0] || null, local?.getVideoTracks()[0] || null,
-      this.screenStream?.getVideoTracks()[0] || null, this.screenStream?.getAudioTracks()[0] || null];
-    // Answerers must adopt the offered transceivers before adding their sending tracks.
-    this.peers.set(id, { pc, slots: [], tracks });
+
+    const pc = new RTCPeerConnection({
+      iceServers,
+      iceCandidatePoolSize: 2,
+    });
+
+    const cameraStream = new MediaStream();
+    const screenStream = new MediaStream();
+
+    const tracks: (MediaStreamTrack | null)[] = [
+      local?.getAudioTracks()[0] || null,
+      local?.getVideoTracks()[0] || null,
+      this.screenStream?.getVideoTracks()[0] || null,
+      this.screenStream?.getAudioTracks()[0] || null,
+    ];
+
+    const peer: PeerEntry = {
+      id,
+      pc,
+      slots: [],
+      tracks,
+      isPolite,
+      makingOffer: false,
+      ignoreOffer: false,
+      isSettingRemoteAnswerPending: false,
+      cameraStream,
+      screenStream,
+      onTrack,
+      onIce,
+      onState,
+      onRestart,
+    };
+
+    this.peers.set(id, peer);
+
     pc.ontrack = ({ track, transceiver }) => {
-      const stream = pc.getTransceivers().indexOf(transceiver) >= 2 ? screen : camera;
-      if (!stream.getTrackById(track.id)) stream.addTrack(track);
+      const transceivers = pc.getTransceivers();
+      const index = transceivers.indexOf(transceiver);
+      // Slots 0, 1 = camera/mic stream; Slots 2, 3 = presentation screen stream
+      const stream = index >= 2 ? screenStream : cameraStream;
+
+      if (!stream.getTrackById(track.id)) {
+        stream.addTrack(track);
+      }
+
       const notify = () => {
-        if (this.peers.get(id)?.pc === pc) onTrack(new MediaStream(camera.getTracks()), new MediaStream(screen.getTracks()));
+        if (this.peers.get(id)?.pc === pc) {
+          onTrack(new MediaStream(cameraStream.getTracks()), new MediaStream(screenStream.getTracks()));
+        }
       };
+
       track.onunmute = notify;
       track.onmute = notify;
-      track.onended = () => { stream.removeTrack(track); notify(); };
+      track.onended = () => {
+        stream.removeTrack(track);
+        notify();
+      };
       notify();
     };
-    pc.onicecandidate = ({ candidate }) => { if (candidate) onIce(candidate); };
-    pc.onconnectionstatechange = () => {
-      onState?.(pc.connectionState);
-      if (pc.connectionState === 'failed' && onRestart && pc.signalingState === 'stable') {
-        void this.createOffer(id, true).then(offer => { if (offer) onRestart(offer); });
+
+    pc.onicecandidate = ({ candidate }) => {
+      if (candidate) {
+        onIce(candidate);
       }
     };
+
+    const handleConnectionFail = () => {
+      if (
+        (pc.connectionState === 'failed' || pc.iceConnectionState === 'failed') &&
+        onRestart &&
+        pc.signalingState === 'stable'
+      ) {
+        console.log('[WebRTC] Connection failed, attempting ICE restart with', id);
+        void this.createOffer(id, true).then((offer) => {
+          if (offer) onRestart(offer);
+        });
+      }
+    };
+
+    pc.onconnectionstatechange = () => {
+      onState?.(pc.connectionState);
+      handleConnectionFail();
+    };
+
+    pc.oniceconnectionstatechange = () => {
+      handleConnectionFail();
+    };
+
     return pc;
   }
 
   private async flushCandidates(id: string) {
     const peer = this.peers.get(id);
     if (!peer?.pc.remoteDescription) return;
+
     const queued = this.pendingCandidates.get(id) || [];
     this.pendingCandidates.delete(id);
+
     for (const candidate of queued) {
-      try { await peer.pc.addIceCandidate(candidate); } catch (error) { console.warn('[WebRTC] Queued ICE', error); }
+      try {
+        await peer.pc.addIceCandidate(candidate);
+      } catch (error) {
+        console.warn('[WebRTC] Queued ICE candidate warning:', error);
+      }
     }
   }
 
   async createOffer(id: string, iceRestart = false): Promise<RTCSessionDescriptionInit | null> {
     const peer = this.peers.get(id);
-    if (!peer || peer.pc.signalingState !== 'stable') return null;
-    const { pc, tracks } = peer;
-    try {
-      if (!peer.slots.length) {
-        peer.slots = (['audio', 'video', 'video', 'audio'] as const).map((kind, i) => pc.addTransceiver(tracks[i] || kind, { direction: 'sendrecv' }));
-      }
-      await pc.setLocalDescription(await pc.createOffer({ iceRestart }));
-      return pc.localDescription?.toJSON() || null;
-    } catch (error) { console.warn('[WebRTC] Offer failed', error); return null; }
-  }
-
-  async handleOffer(id: string, offer: RTCSessionDescriptionInit) {
-    const peer = this.peers.get(id);
     if (!peer) return null;
-    const { pc } = peer;
-    try {
-      if (pc.signalingState === 'have-local-offer') await pc.setLocalDescription({ type: 'rollback' });
-      await pc.setRemoteDescription(offer);
-      if (!peer.slots.length) peer.slots = pc.getTransceivers().slice(0, 4);
-      await Promise.all(peer.slots.map(async (slot, i) => {
-        slot.direction = 'sendrecv';
-        await slot.sender.replaceTrack(peer.tracks[i]);
-      }));
-      await this.flushCandidates(id);
-      await pc.setLocalDescription(await pc.createAnswer());
-      return pc.localDescription?.toJSON() || null;
-    } catch (error) { console.warn('[WebRTC] Answer failed', error); return null; }
-  }
+    const { pc, tracks } = peer;
 
-  async handleAnswer(id: string, answer: RTCSessionDescriptionInit) {
-    const pc = this.peers.get(id)?.pc;
-    if (pc?.signalingState === 'have-local-offer') {
-      try {
-        await pc.setRemoteDescription(answer);
-        await this.flushCandidates(id);
-      } catch (error) { console.warn('[WebRTC] Remote answer failed', error); }
+    if (pc.signalingState !== 'stable') return null;
+
+    try {
+      peer.makingOffer = true;
+      if (!peer.slots.length) {
+        peer.slots = (['audio', 'video', 'video', 'audio'] as const).map((kind, i) =>
+          pc.addTransceiver(tracks[i] || kind, { direction: 'sendrecv' })
+        );
+      }
+
+      const offer = await pc.createOffer({ iceRestart });
+      await pc.setLocalDescription(offer);
+      return pc.localDescription?.toJSON() || null;
+    } catch (error) {
+      console.warn('[WebRTC] Offer failed:', error);
+      return null;
+    } finally {
+      peer.makingOffer = false;
     }
   }
 
-  async addIceCandidate(id: string, candidate: RTCIceCandidateInit) {
-    const pc = this.peers.get(id)?.pc;
-    if (pc?.remoteDescription) {
-      try { await pc.addIceCandidate(candidate); } catch (error) { console.warn('[WebRTC] ICE', error); }
+  async handleOffer(id: string, offer: RTCSessionDescriptionInit): Promise<RTCSessionDescriptionInit | null> {
+    const peer = this.peers.get(id);
+    if (!peer) return null;
+    const { pc, isPolite } = peer;
+
+    // Perfect negotiation glare handling
+    const offerCollision = peer.makingOffer || pc.signalingState !== 'stable';
+    peer.ignoreOffer = !isPolite && offerCollision;
+
+    if (peer.ignoreOffer) {
+      console.warn('[WebRTC] Glare collision detected: impolite peer ignoring offer from', id);
+      return null;
+    }
+
+    try {
+      if (offerCollision && isPolite) {
+        await pc.setLocalDescription({ type: 'rollback' });
+      }
+
+      await pc.setRemoteDescription(offer);
+
+      if (!peer.slots.length) {
+        peer.slots = pc.getTransceivers().slice(0, 4);
+      }
+
+      await Promise.all(
+        peer.slots.map(async (slot, i) => {
+          slot.direction = 'sendrecv';
+          await slot.sender.replaceTrack(peer.tracks[i]);
+        })
+      );
+
+      await this.flushCandidates(id);
+
+      const answer = await pc.createAnswer();
+      await pc.setLocalDescription(answer);
+      return pc.localDescription?.toJSON() || null;
+    } catch (error) {
+      console.warn('[WebRTC] Answer failed:', error);
+      return null;
+    }
+  }
+
+  async handleAnswer(id: string, answer: RTCSessionDescriptionInit): Promise<void> {
+    const peer = this.peers.get(id);
+    if (!peer) return;
+    const pc = peer.pc;
+
+    if (pc.signalingState === 'have-local-offer') {
+      try {
+        peer.isSettingRemoteAnswerPending = true;
+        await pc.setRemoteDescription(answer);
+        await this.flushCandidates(id);
+      } catch (error) {
+        console.warn('[WebRTC] Remote answer failed:', error);
+      } finally {
+        peer.isSettingRemoteAnswerPending = false;
+      }
+    }
+  }
+
+  async addIceCandidate(id: string, candidate: RTCIceCandidateInit): Promise<void> {
+    const peer = this.peers.get(id);
+    const pc = peer?.pc;
+
+    if (!candidate || !candidate.candidate) return;
+
+    if (pc?.remoteDescription && pc.remoteDescription.type) {
+      try {
+        await pc.addIceCandidate(candidate);
+      } catch (error) {
+        if (!peer?.ignoreOffer) {
+          console.warn('[WebRTC] ICE candidate error:', error);
+        }
+      }
     } else {
-      this.pendingCandidates.set(id, [...(this.pendingCandidates.get(id) || []), candidate]);
+      const queued = this.pendingCandidates.get(id) || [];
+      this.pendingCandidates.set(id, [...queued, candidate]);
     }
   }
 
   async replaceTrack(kind: 'audio' | 'video', track: MediaStreamTrack | null) {
     const index = kind === 'audio' ? 0 : 1;
-    await Promise.all([...this.peers.values()].map(peer => {
-      peer.tracks[index] = track;
-      return peer.slots[index]?.sender.replaceTrack(track);
-    }));
+    await Promise.all(
+      [...this.peers.values()].map(async (peer) => {
+        peer.tracks[index] = track;
+        const sender = peer.slots[index]?.sender;
+        if (sender) {
+          await sender.replaceTrack(track);
+
+          // Configure optimal video parameters when enabling camera
+          if (kind === 'video' && track) {
+            try {
+              const params = sender.getParameters();
+              if (params.encodings?.length) {
+                params.encodings[0].maxBitrate = 1_500_000;
+                params.degradationPreference = 'maintain-framerate';
+                await sender.setParameters(params);
+              }
+            } catch {}
+          }
+        }
+      })
+    );
   }
 
   async updateLocalStream(stream: MediaStream | null) {
-    await Promise.all([this.replaceTrack('audio', stream?.getAudioTracks()[0] || null),
-      this.replaceTrack('video', stream?.getVideoTracks()[0] || null)]);
+    await Promise.all([
+      this.replaceTrack('audio', stream?.getAudioTracks()[0] || null),
+      this.replaceTrack('video', stream?.getVideoTracks()[0] || null),
+    ]);
   }
 
   async updateScreenStream(stream: MediaStream | null) {
     this.screenStream = stream;
-    await Promise.all([...this.peers.values()].map(async (peer) => {
-      const { slots } = peer;
-      peer.tracks[2] = stream?.getVideoTracks()[0] || null;
-      peer.tracks[3] = stream?.getAudioTracks()[0] || null;
-      if (!slots.length) return;
-      await Promise.all([slots[2].sender.replaceTrack(stream?.getVideoTracks()[0] || null),
-        slots[3].sender.replaceTrack(stream?.getAudioTracks()[0] || null)]);
-      const sender = slots[2].sender;
-      const params = sender.getParameters();
-      if (stream && params.encodings?.length) {
-        params.encodings[0].maxBitrate = 4_000_000;
-        params.encodings[0].maxFramerate = 30;
-        params.degradationPreference = 'maintain-resolution';
-        await sender.setParameters(params).catch(() => {});
+    await Promise.all(
+      [...this.peers.values()].map(async (peer) => {
+        const { slots } = peer;
+        peer.tracks[2] = stream?.getVideoTracks()[0] || null;
+        peer.tracks[3] = stream?.getAudioTracks()[0] || null;
+
+        if (!slots.length) return;
+
+        await Promise.all([
+          slots[2].sender.replaceTrack(stream?.getVideoTracks()[0] || null),
+          slots[3].sender.replaceTrack(stream?.getAudioTracks()[0] || null),
+        ]);
+
+        const sender = slots[2].sender;
+        const params = sender.getParameters();
+        if (stream && params.encodings?.length) {
+          params.encodings[0].maxBitrate = 4_000_000;
+          params.encodings[0].maxFramerate = 30;
+          params.degradationPreference = 'maintain-resolution';
+          await sender.setParameters(params).catch(() => {});
+        }
+      })
+    );
+  }
+
+  async getPeerStats(id: string): Promise<PeerStats | null> {
+    const peer = this.peers.get(id);
+    if (!peer || peer.pc.connectionState !== 'connected') return null;
+
+    try {
+      const stats = await peer.pc.getStats();
+      let rtt = 0;
+      let packetsLost = 0;
+      let packetsReceived = 0;
+      let bytesSent = 0;
+      let bytesReceived = 0;
+
+      stats.forEach((report) => {
+        if (
+          report.type === 'candidate-pair' &&
+          report.state === 'succeeded' &&
+          report.currentRoundTripTime !== undefined
+        ) {
+          rtt = Math.round(report.currentRoundTripTime * 1000);
+        }
+        if (report.type === 'inbound-rtp') {
+          packetsLost += report.packetsLost || 0;
+          packetsReceived += report.packetsReceived || 0;
+          bytesReceived += report.bytesReceived || 0;
+        }
+        if (report.type === 'outbound-rtp') {
+          bytesSent += report.bytesSent || 0;
+        }
+      });
+
+      const totalPackets = packetsLost + packetsReceived;
+      const lossRate = totalPackets > 0 ? (packetsLost / totalPackets) * 100 : 0;
+
+      let quality: 'good' | 'fair' | 'poor' = 'good';
+      if (rtt > 300 || lossRate > 5) {
+        quality = 'poor';
+      } else if (rtt > 150 || lossRate > 1.5) {
+        quality = 'fair';
       }
-    }));
+
+      return {
+        rtt,
+        packetLoss: Math.round(lossRate * 10) / 10,
+        bytesSent,
+        bytesReceived,
+        quality,
+      };
+    } catch {
+      return null;
+    }
+  }
+
+  async getAllPeerStats(): Promise<{ averageRtt: number; overallQuality: 'good' | 'fair' | 'poor' }> {
+    const activeIds = [...this.peers.keys()];
+    if (!activeIds.length) return { averageRtt: 0, overallQuality: 'good' };
+
+    const statsList = await Promise.all(activeIds.map((id) => this.getPeerStats(id)));
+    const valid = statsList.filter((s): s is PeerStats => s !== null);
+
+    if (!valid.length) return { averageRtt: 0, overallQuality: 'good' };
+
+    const totalRtt = valid.reduce((sum, s) => sum + s.rtt, 0);
+    const avgRtt = Math.round(totalRtt / valid.length);
+
+    let overallQuality: 'good' | 'fair' | 'poor' = 'good';
+    if (valid.some((s) => s.quality === 'poor')) overallQuality = 'poor';
+    else if (valid.some((s) => s.quality === 'fair')) overallQuality = 'fair';
+
+    return { averageRtt: avgRtt, overallQuality };
   }
 
   closePeerConnection(id: string) {
-    const pc = this.peers.get(id)?.pc;
+    const peer = this.peers.get(id);
     this.peers.delete(id);
-    if (pc) { pc.onconnectionstatechange = null; pc.ontrack = null; pc.onicecandidate = null; pc.close(); }
+    if (peer) {
+      const pc = peer.pc;
+      pc.onconnectionstatechange = null;
+      pc.oniceconnectionstatechange = null;
+      pc.ontrack = null;
+      pc.onicecandidate = null;
+      pc.close();
+    }
     this.pendingCandidates.delete(id);
   }
+
   closeAll() {
-    [...this.peers.keys()].forEach(id => this.closePeerConnection(id));
-    this.pendingCandidates.clear(); this.screenStream = null;
+    [...this.peers.keys()].forEach((id) => this.closePeerConnection(id));
+    this.pendingCandidates.clear();
+    this.screenStream = null;
   }
 }
+
 export const webRTCManager = new WebRTCManager();

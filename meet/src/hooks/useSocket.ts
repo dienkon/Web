@@ -3,7 +3,7 @@ import { useMeetingStore } from '../store/meetingStore';
 import { useClassroomStore } from '../store/classroomStore';
 import { socketService } from '../services/socket';
 import { webRTCManager } from '../services/webrtc';
-import { Participant, ChatMessage } from '../types/meeting';
+import { Participant, ChatMessage, ReactionItem } from '../types/meeting';
 import { Question, AnswerStatistics, UserAnswer } from '../types/classroom';
 
 export function useSocket() {
@@ -19,6 +19,9 @@ export function useSocket() {
     addToast,
     setActiveSpeaker,
     setAudioEnabled,
+    addReaction,
+    setPreferences,
+    setRoomLocked,
   } = useMeetingStore();
 
   const {
@@ -38,10 +41,13 @@ export function useSocket() {
 
     const { userName, isHost } = useMeetingStore.getState();
 
-    // Helper: Initialize RTCPeerConnection with current local stream
+    // Helper: Initialize RTCPeerConnection with current local stream and polite peer logic
     const initPeerConnection = async (targetId: string, isInitiator: boolean) => {
       if (webRTCManager.hasPeerConnection(targetId)) return;
       const currentStream = useMeetingStore.getState().localStream;
+      const myId = socketService.id || useMeetingStore.getState().myParticipantId || '';
+      const isPolite = myId < targetId;
+
       webRTCManager.createPeerConnection(
         targetId,
         currentStream,
@@ -52,8 +58,10 @@ export function useSocket() {
           socketService.emit('webrtc:ice-candidate', { targetId, candidate });
         },
         (connectionState) => updateParticipant(targetId, { connectionState }),
-        (socketService.id || '') < targetId
-          ? (offer) => socketService.emit('webrtc:offer', { targetId, offer }) : undefined
+        isPolite
+          ? (offer) => socketService.emit('webrtc:offer', { targetId, offer })
+          : undefined,
+        isPolite
       );
 
       if (isInitiator) {
@@ -73,6 +81,8 @@ export function useSocket() {
       currentQuestion?: Question;
       myAnswer?: any;
       statistics?: AnswerStatistics;
+      whiteboardDataUrl?: string;
+      isLocked?: boolean;
     }) => {
       setJoined(true);
       setConnectionState('connected');
@@ -80,6 +90,11 @@ export function useSocket() {
       const { setMyParticipantId } = useMeetingStore.getState();
       setMyParticipantId(data.participant.id);
       setParticipants(data.participants);
+
+      if (data.isLocked !== undefined) {
+        setRoomLocked(data.isLocked);
+      }
+
       const media = useMeetingStore.getState();
       socketService.emit('media:toggle', { type: 'audio', enabled: media.audioEnabled });
       socketService.emit('media:toggle', { type: 'video', enabled: media.videoEnabled });
@@ -107,7 +122,8 @@ export function useSocket() {
     const handleParticipantJoined = ({ participant }: { participant: Participant }) => {
       addParticipant(participant);
       addToast(`${participant.name} đã tham gia phòng`, 'info');
-      void initPeerConnection(participant.id, (socketService.id || '') < participant.id);
+      const myId = socketService.id || useMeetingStore.getState().myParticipantId || '';
+      void initPeerConnection(participant.id, myId < participant.id);
     };
 
     // 3. Participant Left
@@ -118,15 +134,17 @@ export function useSocket() {
       addToast(`${name} đã rời phòng`, 'info');
     };
 
-    // 4. Participant Updated (Media toggle / host status)
+    // 4. Participant Updated (Media toggle / host status / hand raise)
     const handleParticipantUpdated = ({ participant }: { participant: Participant }) => {
       updateParticipant(participant.id, participant);
     };
+
     const handleDisconnect = () => {
       setConnectionState('reconnecting');
       webRTCManager.closeAll();
       void webRTCManager.updateScreenStream(useMeetingStore.getState().screenStream);
     };
+
     const handleConnect = () => {
       webRTCManager.closeAll();
       void webRTCManager.updateScreenStream(useMeetingStore.getState().screenStream);
@@ -170,7 +188,12 @@ export function useSocket() {
       addChatMessage(msg);
     };
 
-    // 8. Classroom Q&A Events
+    // 8. Reactions
+    const handleReactionReceived = (reaction: ReactionItem) => {
+      addReaction(reaction);
+    };
+
+    // 9. Classroom Q&A Events
     const handleQuestionStarted = ({ question, statistics }: { question: Question; statistics: AnswerStatistics }) => {
       setCurrentQuestion(question);
       setSelectedAnswer(null);
@@ -209,7 +232,7 @@ export function useSocket() {
       addToast('🔄 Giáo viên đã reset câu hỏi. Bạn có thể trả lời lại!', 'info');
     };
 
-    // 9. Host Actions
+    // 10. Host Actions & Moderation
     const handleMutedByHost = () => {
       const stream = useMeetingStore.getState().localStream;
       if (stream) {
@@ -220,6 +243,26 @@ export function useSocket() {
       socketService.emit('media:toggle', { type: 'audio', enabled: false });
       socketService.emit('speaker:active', { isSpeaking: false });
       addToast('Bạn đã bị giáo viên tắt micro', 'warning');
+    };
+
+    const handleHandsLowered = () => {
+      setPreferences({ handRaised: false });
+      socketService.emit('media:toggle', { type: 'hand', enabled: false });
+      addToast('Giáo viên đã hạ tay tất cả học sinh', 'info');
+    };
+
+    const handleRoomLocked = ({ isLocked }: { isLocked: boolean }) => {
+      setRoomLocked(isLocked);
+      addToast(
+        isLocked
+          ? '🔒 Giáo viên đã khóa phòng học'
+          : '🔓 Giáo viên đã mở khóa phòng học',
+        'info'
+      );
+    };
+
+    const handleRoomError = ({ message }: { message: string }) => {
+      addToast(message, 'error');
     };
 
     const handleRemovedByHost = () => {
@@ -243,6 +286,7 @@ export function useSocket() {
     socketService.on('webrtc:ice-candidate', handleIceCandidate);
 
     socketService.on('chat:message', handleChatMessage);
+    socketService.on('reaction:received', handleReactionReceived);
 
     socketService.on('question:started', handleQuestionStarted);
     socketService.on('classroom:statistics', handleClassroomStats);
@@ -250,17 +294,24 @@ export function useSocket() {
     socketService.on('question:resetted', handleQuestionResetted);
 
     socketService.on('host:muted-by-host', handleMutedByHost);
+    socketService.on('host:hands-lowered', handleHandsLowered);
+    socketService.on('room:locked', handleRoomLocked);
+    socketService.on('room:error', handleRoomError);
     socketService.on('host:removed-by-host', handleRemovedByHost);
 
     // Emit room:join event now that listeners are bound
     const state = useMeetingStore.getState();
-    const joinTimer = setTimeout(() => socketService.emit('room:join', {
-      roomId,
-      userName: userName || 'Học sinh',
-      isHost: isHost || false,
-      audioEnabled: state.audioEnabled,
-      videoEnabled: state.videoEnabled,
-    }), 0);
+    const joinTimer = setTimeout(
+      () =>
+        socketService.emit('room:join', {
+          roomId,
+          userName: userName || 'Học sinh',
+          isHost: isHost || false,
+          audioEnabled: state.audioEnabled,
+          videoEnabled: state.videoEnabled,
+        }),
+      0
+    );
 
     return () => {
       clearTimeout(joinTimer);
@@ -277,6 +328,7 @@ export function useSocket() {
       socketService.off('webrtc:ice-candidate', handleIceCandidate);
 
       socketService.off('chat:message', handleChatMessage);
+      socketService.off('reaction:received', handleReactionReceived);
 
       socketService.off('question:started', handleQuestionStarted);
       socketService.off('classroom:statistics', handleClassroomStats);
@@ -284,6 +336,9 @@ export function useSocket() {
       socketService.off('question:resetted', handleQuestionResetted);
 
       socketService.off('host:muted-by-host', handleMutedByHost);
+      socketService.off('host:hands-lowered', handleHandsLowered);
+      socketService.off('room:locked', handleRoomLocked);
+      socketService.off('room:error', handleRoomError);
       socketService.off('host:removed-by-host', handleRemovedByHost);
     };
   }, [roomId]);

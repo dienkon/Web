@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Participant, ChatMessage, SidePanelType, ConnectionState } from '../types/meeting';
+import { Participant, ChatMessage, SidePanelType, ConnectionState, ReactionItem } from '../types/meeting';
 
 interface Toast {
   id: string;
@@ -29,7 +29,8 @@ interface MeetingState {
   shareQuality: 'detail' | 'motion';
   layout: 'grid' | 'speaker';
   handRaised: boolean;
-  setPreferences: (values: Partial<Pick<MeetingState, 'inputDeviceId' | 'cameraDeviceId' | 'outputDeviceId' | 'speakerVolume' | 'noiseSuppression' | 'shareQuality' | 'layout' | 'handRaised'>>) => void;
+  cameraFacingMode: 'user' | 'environment';
+  setPreferences: (values: Partial<Pick<MeetingState, 'inputDeviceId' | 'cameraDeviceId' | 'outputDeviceId' | 'speakerVolume' | 'noiseSuppression' | 'shareQuality' | 'layout' | 'handRaised' | 'cameraFacingMode'>>) => void;
 
   // Participants & Presentation
   myParticipantId: string | null;
@@ -40,6 +41,16 @@ interface MeetingState {
   // Panels & Messages
   activePanel: SidePanelType;
   chatMessages: ChatMessage[];
+  unreadChatCount: number;
+
+  // Interactive Whiteboard & Reactions
+  isWhiteboardOpen: boolean;
+  reactions: ReactionItem[];
+
+  // Network stats & Moderation
+  networkQuality: 'good' | 'fair' | 'poor' | 'checking';
+  networkLatency: number;
+  isRoomLocked: boolean;
 
   // Toast notifications
   toasts: Toast[];
@@ -53,6 +64,7 @@ interface MeetingState {
   setAudioEnabled: (enabled: boolean) => void;
   setVideoEnabled: (enabled: boolean) => void;
   setScreenSharing: (isSharing: boolean, stream?: MediaStream | null) => void;
+  setCameraFacingMode: (mode: 'user' | 'environment') => void;
 
   setMyParticipantId: (id: string | null) => void;
   addParticipant: (participant: Participant) => void;
@@ -64,6 +76,14 @@ interface MeetingState {
 
   setActivePanel: (panel: SidePanelType) => void;
   addChatMessage: (msg: ChatMessage) => void;
+  incrementUnreadChat: () => void;
+  resetUnreadChat: () => void;
+
+  setWhiteboardOpen: (open: boolean) => void;
+  addReaction: (reaction: ReactionItem) => void;
+
+  setNetworkStats: (quality: 'good' | 'fair' | 'poor' | 'checking', latency: number) => void;
+  setRoomLocked: (locked: boolean) => void;
 
   addToast: (message: string, type?: Toast['type']) => void;
   removeToast: (id: string) => void;
@@ -71,7 +91,7 @@ interface MeetingState {
   resetMeeting: () => void;
 }
 
-export const useMeetingStore = create<MeetingState>((set, get) => ({
+export const useMeetingStore = create<MeetingState>((set) => ({
   roomId: null,
   roomCode: null,
   userName: '',
@@ -92,6 +112,7 @@ export const useMeetingStore = create<MeetingState>((set, get) => ({
   shareQuality: 'detail',
   layout: 'grid',
   handRaised: false,
+  cameraFacingMode: 'user',
   setPreferences: (values) => set(values),
 
   myParticipantId: null,
@@ -101,6 +122,15 @@ export const useMeetingStore = create<MeetingState>((set, get) => ({
 
   activePanel: 'none',
   chatMessages: [],
+  unreadChatCount: 0,
+
+  isWhiteboardOpen: false,
+  reactions: [],
+
+  networkQuality: 'checking',
+  networkLatency: 0,
+  isRoomLocked: false,
+
   toasts: [],
 
   setRoomInfo: (roomId, roomCode, isHost) => set({ roomId, roomCode, isHost }),
@@ -111,6 +141,7 @@ export const useMeetingStore = create<MeetingState>((set, get) => ({
   setAudioEnabled: (audioEnabled) => set({ audioEnabled }),
   setVideoEnabled: (videoEnabled) => set({ videoEnabled }),
   setScreenSharing: (isScreenSharing, screenStream = null) => set({ isScreenSharing, screenStream }),
+  setCameraFacingMode: (cameraFacingMode) => set({ cameraFacingMode }),
 
   setMyParticipantId: (myParticipantId) => set({ myParticipantId }),
 
@@ -178,12 +209,27 @@ export const useMeetingStore = create<MeetingState>((set, get) => ({
   setActivePanel: (panel) =>
     set((state) => ({
       activePanel: state.activePanel === panel ? 'none' : panel,
+      unreadChatCount: panel === 'chat' ? 0 : state.unreadChatCount,
     })),
 
   addChatMessage: (msg) =>
     set((state) => ({
       chatMessages: [...state.chatMessages, msg],
+      unreadChatCount: state.activePanel !== 'chat' ? state.unreadChatCount + 1 : 0,
     })),
+
+  incrementUnreadChat: () => set((s) => ({ unreadChatCount: s.unreadChatCount + 1 })),
+  resetUnreadChat: () => set({ unreadChatCount: 0 }),
+
+  setWhiteboardOpen: (isWhiteboardOpen) => set({ isWhiteboardOpen }),
+
+  addReaction: (reaction) =>
+    set((state) => ({
+      reactions: [...state.reactions.slice(-15), reaction],
+    })),
+
+  setNetworkStats: (networkQuality, networkLatency) => set({ networkQuality, networkLatency }),
+  setRoomLocked: (isRoomLocked) => set({ isRoomLocked }),
 
   addToast: (message, type = 'info') =>
     set((state) => {
@@ -213,5 +259,11 @@ export const useMeetingStore = create<MeetingState>((set, get) => ({
       pinnedParticipantId: null,
       activePanel: 'none',
       chatMessages: [],
+      unreadChatCount: 0,
+      isWhiteboardOpen: false,
+      reactions: [],
+      networkQuality: 'checking',
+      networkLatency: 0,
+      isRoomLocked: false,
     }),
 }));

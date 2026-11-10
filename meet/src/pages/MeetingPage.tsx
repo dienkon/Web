@@ -11,6 +11,8 @@ import { ClassroomPanel } from '../components/classroom/ClassroomPanel';
 import { HostControlsModal } from '../components/controls/HostControlsModal';
 import { RemoteAudioContainer } from '../components/meeting/RemoteAudioContainer';
 import { ToastContainer } from '../components/ui/Toast';
+import { WhiteboardModal } from '../components/meeting/WhiteboardModal';
+import { ReactionsOverlay } from '../components/meeting/ReactionsOverlay';
 
 import { useMeetingStore } from '../store/meetingStore';
 import { useClassroomStore } from '../store/classroomStore';
@@ -25,9 +27,11 @@ import { LayoutGrid, UserRound, Hand } from 'lucide-react';
 
 export const MeetingPage: React.FC = () => {
   const { code } = useParams<{ code: string }>();
-  const name = useMeetingStore(s => s.userName);
+  const name = useMeetingStore((s) => s.userName);
   let savedName = '';
-  try { savedName = localStorage.getItem('meetclass_user_name') || ''; } catch {}
+  try {
+    savedName = localStorage.getItem('meetclass_user_name') || '';
+  } catch {}
   if (!name && !savedName) return <Navigate to={`/join/${code || 'CLASSROOM'}`} replace />;
   return <MeetingSession />;
 };
@@ -47,6 +51,8 @@ const MeetingSession: React.FC = () => {
     pinnedParticipantId,
     setRoomInfo,
     resetMeeting,
+    isWhiteboardOpen,
+    setWhiteboardOpen,
   } = useMeetingStore();
 
   const { currentQuestion, selectedAnswer, questionLocked } = useClassroomStore();
@@ -55,9 +61,9 @@ const MeetingSession: React.FC = () => {
   const [isHostModalOpen, setIsHostModalOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const leaveTimer = useRef<ReturnType<typeof setTimeout>>();
-  const layout = useMeetingStore(s => s.layout);
-  const handRaised = useMeetingStore(s => s.handRaised);
-  const screenStream = useMeetingStore(s => s.screenStream);
+  const layout = useMeetingStore((s) => s.layout);
+  const handRaised = useMeetingStore((s) => s.handRaised);
+  const screenStream = useMeetingStore((s) => s.screenStream);
 
   // Custom Hooks
   const {
@@ -65,6 +71,7 @@ const MeetingSession: React.FC = () => {
     initLocalStream,
     toggleAudio,
     toggleVideo,
+    toggleCameraFacingMode,
     toggleScreenShare,
     stopAllMedia,
     audioEnabled,
@@ -78,9 +85,11 @@ const MeetingSession: React.FC = () => {
   useEffect(() => {
     clearTimeout(leaveTimer.current);
     return () => {
-      // Delay one tick so React StrictMode's effect probe does not end the call.
+      // Delay one tick so React StrictMode's effect probe does not end the call prematurely.
       leaveTimer.current = setTimeout(() => {
-        stopAllMedia(); socketService.disconnect(); resetMeeting();
+        stopAllMedia();
+        socketService.disconnect();
+        resetMeeting();
         useClassroomStore.getState().resetQuestionState();
         useClassroomStore.getState().setCurrentQuestion(null);
       }, 0);
@@ -113,16 +122,23 @@ const MeetingSession: React.FC = () => {
     void initLocalStream();
   }, [initLocalStream]);
 
+  // Global keyboard shortcuts
   useEffect(() => {
     const shortcut = (e: KeyboardEvent) => {
-      if (!(e.ctrlKey || e.metaKey) || !e.shiftKey || settingsOpen || isHostModalOpen) return;
+      if (!(e.ctrlKey || e.metaKey) || !e.shiftKey || settingsOpen || isHostModalOpen || isWhiteboardOpen) return;
       if ((e.target as HTMLElement).closest('input, textarea, select, [contenteditable="true"]')) return;
-      if (e.code === 'KeyM') { e.preventDefault(); void toggleAudio(); }
-      if (e.code === 'KeyV') { e.preventDefault(); void toggleVideo(); }
+      if (e.code === 'KeyM') {
+        e.preventDefault();
+        void toggleAudio();
+      }
+      if (e.code === 'KeyV') {
+        e.preventDefault();
+        void toggleVideo();
+      }
     };
     window.addEventListener('keydown', shortcut);
     return () => window.removeEventListener('keydown', shortcut);
-  }, [toggleAudio, toggleVideo, settingsOpen, isHostModalOpen]);
+  }, [toggleAudio, toggleVideo, settingsOpen, isHostModalOpen, isWhiteboardOpen]);
 
   // Construct local participant object
   const isLocalSpeaking = activeSpeakerId === 'local_user' || activeSpeakerId === socketService.id;
@@ -151,14 +167,35 @@ const MeetingSession: React.FC = () => {
     <div className="meeting-shell w-full h-dvh flex flex-col overflow-hidden relative">
       <ToastContainer />
       <RemoteAudioContainer participants={participantsList} />
+      <ReactionsOverlay />
 
       {/* Header */}
       <RoomHeader onOpenSettings={() => setSettingsOpen(true)} />
-      <div className="px-4 sm:px-6 pt-4 pb-2 flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2 text-xs text-slate-400"><span className="w-1.5 h-1.5 bg-blue-300 rounded-full" /><span>Trong phòng · {participantsList.length + 1} người</span>
-          {(handRaised || participantsList.some(p => p.handRaised)) && <span className="flex items-center gap-1 text-amber-300 ml-2"><Hand size={13} />{participantsList.filter(p => p.handRaised).length + Number(handRaised)}</span>}
+
+      {/* Participant stats & Layout switcher bar */}
+      <div className="px-3 sm:px-6 pt-3 pb-2 flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2 text-xs text-slate-400">
+          <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+          <span>Trong phòng · {participantsList.length + 1} người</span>
+          {(handRaised || participantsList.some((p) => p.handRaised)) && (
+            <span className="flex items-center gap-1 text-amber-300 ml-2 font-medium">
+              <Hand size={13} />
+              {participantsList.filter((p) => p.handRaised).length + Number(handRaised)} giơ tay
+            </span>
+          )}
         </div>
-        <button onClick={() => useMeetingStore.getState().setPreferences({ layout: layout === 'grid' ? 'speaker' : 'grid' })} className="text-xs flex items-center gap-2 text-slate-300 bg-white/5 rounded-lg px-3 py-2">{layout === 'grid' ? <LayoutGrid size={14} /> : <UserRound size={14} />}{layout === 'grid' ? 'Dạng lưới' : 'Người nói'}</button>
+
+        <button
+          onClick={() =>
+            useMeetingStore.getState().setPreferences({
+              layout: layout === 'grid' ? 'speaker' : 'grid',
+            })
+          }
+          className="text-xs flex items-center gap-1.5 sm:gap-2 text-slate-300 bg-white/5 hover:bg-white/10 rounded-xl px-3 py-1.5 transition-colors"
+        >
+          {layout === 'grid' ? <LayoutGrid size={14} /> : <UserRound size={14} />}
+          <span>{layout === 'grid' ? 'Dạng lưới' : 'Người nói'}</span>
+        </button>
       </div>
 
       {/* Main Workspace Area (Video Grid + Side Panel) */}
@@ -215,12 +252,25 @@ const MeetingSession: React.FC = () => {
         participantCount={participantsList.length + 1}
         onToggleAudio={toggleAudio}
         onToggleVideo={toggleVideo}
+        onToggleCameraFlip={toggleCameraFacingMode}
         onToggleScreenShare={toggleScreenShare}
         onLeave={handleLeave}
         onOpenHostModal={() => setIsHostModalOpen(true)}
         onOpenSettings={() => setSettingsOpen(true)}
       />
-      <DeviceSettings isOpen={settingsOpen} onClose={() => setSettingsOpen(false)} onChangeDevice={changeDevice} />
+
+      {/* Interactive Collaborative Whiteboard Modal */}
+      <WhiteboardModal
+        isOpen={isWhiteboardOpen}
+        onClose={() => setWhiteboardOpen(false)}
+      />
+
+      {/* Audio / Video Device Settings Modal */}
+      <DeviceSettings
+        isOpen={settingsOpen}
+        onClose={() => setSettingsOpen(false)}
+        onChangeDevice={changeDevice}
+      />
 
       {/* Teacher / Host Management Modal */}
       {isHost && (

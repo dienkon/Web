@@ -39,3 +39,4 @@ server/dist
 .vercel
 playwright-report/
 test-results/
+ref_*

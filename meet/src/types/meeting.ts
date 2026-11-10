@@ -4,6 +4,7 @@ export interface Participant {
   stream?: MediaStream;
   screenStream?: MediaStream;
   handRaised?: boolean;
+  handRaisedAt?: number;
   connectionState?: RTCPeerConnectionState;
   audioEnabled: boolean;
   videoEnabled: boolean;
@@ -11,6 +12,8 @@ export interface Participant {
   isSpeaking: boolean;
   isScreenSharing?: boolean;
   joinedAt?: number;
+  networkQuality?: 'good' | 'fair' | 'poor' | 'checking';
+  latency?: number;
 }
 
 export interface ChatMessage {
@@ -21,6 +24,24 @@ export interface ChatMessage {
   timestamp: number;
 }
 
-export type SidePanelType = 'chat' | 'participants' | 'classroom' | 'none';
+export interface ReactionItem {
+  id: string;
+  senderId: string;
+  senderName: string;
+  emoji: string;
+  timestamp: number;
+}
+
+export interface WhiteboardStroke {
+  fromX: number;
+  fromY: number;
+  toX: number;
+  toY: number;
+  color: string;
+  size: number;
+  isEraser?: boolean;
+}
+
+export type SidePanelType = 'chat' | 'participants' | 'classroom' | 'whiteboard' | 'none';
 
 export type ConnectionState = 'connected' | 'reconnecting' | 'disconnected';

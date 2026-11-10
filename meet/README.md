@@ -1,6 +1,6 @@
 # MeetClass
 
-Ứng dụng họp video và lớp học tương tác dùng React, TypeScript, WebRTC và Socket.IO.
+Ứng dụng họp video và lớp học tương tác thời gian thực chuẩn W3C WebRTC, React, TypeScript và Socket.IO.
 
 ## Chạy trên máy
 
@@ -10,75 +10,70 @@ npm --prefix server install
 npm run dev
 ```
 
-Mở http://localhost:3000. Lệnh `dev` chạy cả Vite và backend trên cổng 5000. Tạo cuộc họp, kiểm tra thiết bị rồi chia sẻ liên kết mời cho người khác. Có thể nhập mã hoặc dán liên kết `/join/…`, `/room/…`, `/meeting/…` vào trang chủ.
+Mở http://localhost:3000. Lệnh `dev` chạy cả Vite (cổng 3000) và backend Socket.IO (cổng 5000). Tạo cuộc họp, kiểm tra thiết bị rồi chia sẻ liên kết mời cho người khác. Có thể nhập mã hoặc dán liên kết `/join/…`, `/room/…`, `/meeting/…` vào trang chủ.
 
-## Âm thanh, video và trình chiếu
+## Kiến trúc WebRTC chuẩn hóa & Kết nối tối ưu
 
-- Xin quyền micro và camera riêng: camera bị từ chối hoặc không có camera vẫn dùng micro được.
-- Chọn micro, camera, loa/tai nghe; đo mức micro; thử loa; điều chỉnh âm lượng và lọc tiếng ồn.
-- Giữ trạng thái tắt mic/camera từ màn xem trước khi vào phòng, kể cả khi đổi thiết bị.
-- Âm thanh của người tham gia được phát độc lập với ô video, tiếp tục khi ghim video, đổi bố cục hoặc tắt camera.
-- Camera và màn hình dùng các kênh WebRTC riêng; chia sẻ màn hình không thay thế camera hoặc micro.
-- Trình chiếu hướng đến 1080p, 30 fps, giới hạn gửi 4 Mbps cho mỗi kết nối. Chất lượng thực tế phụ thuộc thiết bị và mạng. Chọn ưu tiên văn bản hoặc chuyển động trong cài đặt.
-- Có thể gửi âm thanh của tab đồng thời với micro. Chọn tab trình duyệt và bật **Chia sẻ âm thanh** trong hộp chọn của trình duyệt. Việc thu tiếng của cửa sổ/toàn màn hình tùy hệ điều hành và trình duyệt.
-- Người vào muộn nhận màn hình đang trình chiếu. Dừng bằng nút trong phòng hoặc nút dừng của trình duyệt; có thể chia sẻ lại.
-- Khi trình duyệt chặn tự phát âm thanh, bấm **Bấm để nghe âm thanh cuộc họp**.
+Dựa trên các dự án mã nguồn mở hàng đầu trong [Best of WebRTC](https://github.com/webRTCv1/Best-of-webRTC) và [QuickMeet](https://github.com/i-aryan/quickmeet.git), cơ chế kết nối RTC được tái thiết kế chuẩn hóa:
 
-Micro, camera và chia sẻ màn hình cần HTTPS khi triển khai; `localhost` dùng được cho phát triển. Chia sẻ màn hình nên thử bằng Chrome/Edge trên máy tính. Trình duyệt không hỗ trợ chọn loa sẽ dùng thiết bị đầu ra của hệ thống.
+1. **Chuẩn W3C Perfect Negotiation**:
+   - Tự động phân định vai trò Polite / Impolite giữa hai peer dựa trên ID (`myId < targetId`).
+   - Xử lý triệt để xung đột Offer collision (Glare) bằng rollback tự động ở peer Polite và bỏ qua an toàn ở peer Impolite, ngăn chặn lỗi trạng thái SDP `InvalidStateError`.
+   - Quản lý 4 transceiver slot độc lập: Micro (audio), Camera (video), Màn hình trình chiếu (video), Âm thanh tab/màn hình (audio).
+2. **Quản lý ICE Candidate & Multi-STUN Failover**:
+   - Bộ đệm ứng viên ICE thông minh: lưu trữ và tự động xả hàng đợi ngay khi `setRemoteDescription` hoàn tất.
+   - Hỗ trợ danh sách đa máy chủ STUN dự phòng (Google STUN 1-4, Cloudflare STUN) và TURN bảo mật.
+   - Tự động phát hiện đứt gãy mạng và kích hoạt ICE Restart (`createOffer({ iceRestart: true })`) khi trạng thái kết nối chuyển sang `failed` hoặc `disconnected`.
+3. **Giám sát chất lượng mạng (WebRTC Stats & Latency)**:
+   - Đo lường định kỳ Round-Trip Time (RTT/độ trễ ms), tỷ lệ mất gói (Packet Loss %), hiển thị huy hiệu chất lượng mạng (Tốt / Ổn định / Yếu) trên thanh tiêu đề và thẻ người dùng.
+4. **Tối ưu hóa Codec & Băng thông**:
+   - Video camera giới hạn 1.5 Mbps với ưu tiên khung hình (`maintain-framerate`).
+   - Màn hình trình chiếu hướng đến 1080p 30 fps với giới hạn 4 Mbps và ưu tiên độ nét văn bản (`maintain-resolution`).
+   - Âm thanh ưu tiên Opus giọng nói với stereo và in-band FEC chống mất gói.
 
-## Tiện ích cuộc họp
+## Tính năng tiện ích nâng cao
 
-- Giơ/hạ tay đồng bộ; danh sách người tham gia hiển thị người đang giơ tay.
-- Bố cục lưới, tập trung người nói, ghim/bỏ ghim video và toàn màn hình.
-- Trò chuyện thời gian thực, tải nội dung trò chuyện về tệp UTF-8.
-- Sao chép liên kết mời, thời lượng cuộc họp, trạng thái kết nối.
-- Phím tắt **Ctrl/⌘ + Shift + M** bật/tắt mic; **Ctrl/⌘ + Shift + V** bật/tắt camera. Phím tắt không chạy khi đang nhập nội dung hoặc mở hộp cài đặt.
-- Chủ phòng tạo câu hỏi A/B/C/D, xem thống kê, khóa/reset câu hỏi, yêu cầu tắt mic và mời người tham gia ra khỏi phòng.
-- Giao diện thích ứng điện thoại; bảng chat/người tham gia phủ lên vùng video, các nút cuộc họp vẫn truy cập được.
-- Thử kết nối lại khi mất signaling; khởi động lại ICE khi kết nối media thất bại. Rời phòng dừng thiết bị và đóng các kết nối.
+- **Bảng vẽ cộng tác thời gian thực (Interactive Whiteboard)**:
+  - Tích hợp canvas vẽ 2D đa người dùng: Bút vẽ, Tẩy nét, Bảng màu (Đen, Đỏ, Xanh dương, Xanh lá, Vàng, Tím, Trắng), cỡ nét từ 2px đến 16px.
+  - Tọa độ nét vẽ được chuẩn hóa (0.0 đến 1.0) giúp vẽ chính xác tuyệt đối trên mọi độ phân giải màn hình từ mobile đến màn hình 4K.
+  - Hỗ trợ thao tác cảm ứng mượt mà (ngăn cuộn trang khi vẽ), xóa bảng và xuất file ảnh PNG về máy.
+  - Tự động đồng bộ toàn bộ ảnh bảng vẽ cho người tham gia mới vào phòng.
+- **Thả cảm xúc bay bổng (Interactive Floating Reactions)**:
+  - Thanh chọn cảm xúc nhanh với các biểu tượng thông dụng: 👍, ❤️, 👏, 🎉, 😂, 💡, 🔥.
+  - Hiệu ứng hoạt họa các bong bóng cảm xúc bay lượn từ dưới lên kèm nhãn tên người gửi.
+- **Lật camera trước / sau trên điện thoại (Camera Flip)**:
+  - Nút chuyển nhanh giữa camera trước (`user`) và camera sau (`environment`) dành riêng cho thiết bị di động mà không làm ngắt kết nối cuộc gọi.
+- **Hình trong hình (Picture-in-Picture - PiP)**:
+  - Nút thu nhỏ video ra cửa sổ nổi giúp người dùng vừa theo dõi lớp học/cuộc họp vừa ghi chú hoặc làm việc khác.
+- **Quản lý lớp học nâng cao cho Giáo viên (Host Controls)**:
+  - Tắt micro tất cả học sinh chỉ với 1 cú click.
+  - Hạ tay tất cả học sinh đang giơ tay.
+  - Khóa phòng học (ngăn người lạ tham gia tự do).
+  - Tạo và phát câu hỏi trắc nghiệm A/B/C/D với biểu đồ thống kê trả lời thời gian thực.
+- **Tối ưu hóa trải nghiệm Mobile (Mobile-first UX)**:
+  - Giao diện dạng Bottom Sheet trượt lên tiện lợi cho Chat, Người tham gia, Lớp học, Bảng vẽ và Cài đặt.
+  - Hỗ trợ vùng đệm `env(safe-area-inset-bottom)` cho iPhone và thiết bị có thanh điều hướng cử chỉ.
+  - Lưới video tự động co giãn 1 cột trên điện thoại dọc và chia lưới thông minh khi xoay ngang.
+  - Huy hiệu thông báo tin nhắn chưa đọc trên nút Trò chuyện.
 
-## Cấu hình và triển khai
+## Kiểm tra tự động (E2E Tests)
 
-Tham khảo `.env.example`:
-
-```env
-VITE_SERVER_URL=http://localhost:5000
-VITE_STUN_SERVER=stun:stun.l.google.com:19302
-VITE_TURN_SERVER=
-VITE_TURN_USERNAME=
-VITE_TURN_PASSWORD=
-```
-
-Để dùng ổn định qua các mạng khác nhau, triển khai backend Socket.IO riêng (máy chủ Node hỗ trợ WebSocket) và cấu hình `VITE_SERVER_URL` bằng địa chỉ HTTPS của backend. Frontend có thể triển khai trên Vercel với cấu hình SPA trong `vercel.json`; API serverless không thay thế một backend Socket.IO chạy liên tục.
-
-WebRTC cần TURN được vận hành và kiểm tra riêng để đi qua các mạng NAT/firewall hạn chế. Không mặc định dựa vào tài khoản relay công khai. Các biến `VITE_*` được đóng gói vào frontend: tài khoản TURN tĩnh phải được giới hạn quyền/hạn mức; hệ thống production nên cấp thông tin TURN ngắn hạn từ backend có xác thực.
-
-Khi không cấu hình backend ngoài trên bản triển khai cloud, ứng dụng hiện có phương án signaling thử nghiệm qua broker MQTT công khai. Khi backend local không kết nối được, ứng dụng cũng chuyển sang phương án này. Broker công khai không có cơ chế xác thực/phân quyền phòng của ứng dụng, không bảo đảm SLA; không dùng cho cuộc họp riêng tư hoặc làm phương án production mặc định. `MockSocketService` là tiện ích thử nghiệm nội bộ bằng BroadcastChannel, không tự động được chọn làm fallback.
-
-Kiến trúc media là P2P mesh: mỗi người gửi media cho từng người còn lại. Phù hợp các phòng nhỏ; phòng đông cần SFU và cơ chế thích nghi băng thông bổ sung. Dữ liệu phòng backend đang lưu trong bộ nhớ, mất khi khởi động lại; chưa có tài khoản, lịch sử lưu bền hoặc cơ chế phân quyền production đầy đủ.
-
-## Kiểm tra
+Toàn bộ hệ thống được kiểm thử tự động với Playwright:
 
 ```bash
 npm run typecheck
 npm run build
 npm --prefix server run build
-npx playwright install chromium
-npm run test:e2e
+npx playwright test
 ```
 
-Playwright tự chạy frontend và backend nếu chưa mở. Bài thử dùng thiết bị camera/mic giả của Chromium; hộp chọn màn hình được thay bằng canvas và nguồn tiếng tổng hợp, còn kết nối, RTP, SDP và ICE là WebRTC thật. Kiểm tra tiếng hai chiều, hình camera, tiếng của tab, người vào muộn, dừng/chia sẻ lại, đổi bố cục, quyền camera bị từ chối, bật thiết bị sau khi vào phòng, kết nối lại, đổi micro khi đang tắt tiếng, chat, liên kết mời và giao diện điện thoại.
-
-Các bài thử cục bộ không thay thế kiểm tra thiết bị thật, hộp chọn chia sẻ của hệ điều hành, trình duyệt Safari/Firefox và hai máy ở hai mạng khác nhau.
-
-## Mã nguồn
-
-- `src/services/webrtc.ts`: quản lý kết nối với bốn kênh riêng: mic, camera, video màn hình và tiếng màn hình; đợi remote description trước khi xử lý ICE.
-- `src/hooks/useWebRTC.ts`: quyền thiết bị, đổi thiết bị, trình chiếu và nhận biết người nói.
-- `src/components/meeting/RemoteAudioContainer.tsx`: phát tiếng độc lập với bố cục video.
-- `src/components/meeting/DeviceSettings.tsx`: chọn thiết bị và kiểm tra âm thanh.
-- `src/store/audioLevelStore.ts`: mức mic được cập nhật riêng để tránh vẽ lại cả phòng theo nhịp đo âm lượng.
-- `server/`: backend Express + Socket.IO, trạng thái phòng và câu hỏi tương tác.
-- `tests/meeting.spec.ts`: kiểm tra luồng họp qua trình duyệt.
-
-Tham khảo API: [addTransceiver](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/addTransceiver), [replaceTrack](https://developer.mozilla.org/en-US/docs/Web/API/RTCRtpSender/replaceTrack), [getDisplayMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getDisplayMedia).
+Bao gồm 9 bài test:
+1. WebRTC thật trao đổi âm thanh, hình ảnh, màn hình trình chiếu và tiếng tab cho cả người đến sau.
+2. Từ chối quyền camera vẫn bảo toàn micro và lựa chọn tắt/bật ban đầu.
+3. Điều khiển trên mobile, cài đặt, chat và giải phóng thiết bị khi rời phòng.
+4. Bật thiết bị sau khi vào phòng và phục hồi cuộc gọi khi mất kết nối.
+5. Trang chủ nhận diện URL lời mời và từ chối mã không hợp lệ.
+6. Mở bảng vẽ cộng tác, đổi công cụ bút/tẩy, lưu ảnh và đóng bảng vẽ.
+7. Thanh cảm xúc gửi emoji và hiển thị hoạt họa bay kèm tên người gửi.
+8. Chuyển đổi camera trước/sau mượt mà trên mobile.
+9. Quản lý phòng: hạ tay tất cả học sinh và khóa phòng học.

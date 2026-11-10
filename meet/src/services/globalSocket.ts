@@ -37,6 +37,8 @@ export class GlobalSocketService {
   private participants: Map<string, Participant> = new Map();
   private currentQuestion?: Question;
   private answers: Map<string, UserAnswer> = new Map();
+  private whiteboardDataUrl?: string;
+  private isLocked: boolean = false;
 
   private joinTimeout: any = null;
   private heartbeatInterval: any = null;
@@ -120,7 +122,6 @@ export class GlobalSocketService {
 
       this.client.on('error', (err) => {
         console.warn('[GlobalSocket] Broker error:', err);
-        // Try fallback broker on error
         this.brokerIndex++;
       });
 
@@ -198,6 +199,8 @@ export class GlobalSocketService {
             currentQuestion: this.currentQuestion,
             answers: Array.from(this.answers.values()),
             statistics: this.calcStats(),
+            whiteboardDataUrl: this.whiteboardDataUrl,
+            isLocked: this.isLocked,
           },
           remoteParticipant.id
         );
@@ -229,6 +232,13 @@ export class GlobalSocketService {
         });
       }
 
+      if (payload.whiteboardDataUrl) {
+        this.whiteboardDataUrl = payload.whiteboardDataUrl;
+      }
+      if (payload.isLocked !== undefined) {
+        this.isLocked = payload.isLocked;
+      }
+
       const myParticipant = this.participants.get(this.id);
       if (myParticipant) {
         this.trigger('room:joined', {
@@ -239,6 +249,8 @@ export class GlobalSocketService {
           currentQuestion: this.currentQuestion,
           myAnswer: this.answers.get(this.id)?.answer,
           statistics: payload.statistics || this.calcStats(),
+          whiteboardDataUrl: this.whiteboardDataUrl,
+          isLocked: this.isLocked,
         });
       }
       return;
@@ -267,7 +279,7 @@ export class GlobalSocketService {
       return;
     }
 
-    // 5. Media Toggle (Mic / Camera)
+    // 5. Media Toggle (Mic / Camera / Screen / Hand)
     if (type === 'media:toggle') {
       const p = this.participants.get(senderId);
       if (p) {
@@ -292,7 +304,35 @@ export class GlobalSocketService {
       return;
     }
 
-    // 8. Classroom Q&A Interactive Events
+    // 8. Whiteboard Events
+    if (type === 'whiteboard:draw') {
+      this.trigger('whiteboard:draw', payload);
+      return;
+    }
+    if (type === 'whiteboard:clear') {
+      this.whiteboardDataUrl = undefined;
+      this.trigger('whiteboard:clear', {});
+      return;
+    }
+    if (type === 'whiteboard:sync' && (!targetId || targetId === this.id)) {
+      if (payload.dataUrl) this.whiteboardDataUrl = payload.dataUrl;
+      this.trigger('whiteboard:sync', payload);
+      return;
+    }
+    if (type === 'whiteboard:get' && this.isHost) {
+      if (this.whiteboardDataUrl) {
+        this.publish('whiteboard:sync', { dataUrl: this.whiteboardDataUrl }, senderId);
+      }
+      return;
+    }
+
+    // 9. Reaction Received
+    if (type === 'reaction:received') {
+      this.trigger('reaction:received', payload);
+      return;
+    }
+
+    // 10. Classroom Q&A Interactive Events
     if (type === 'question:started') {
       this.currentQuestion = payload.question;
       this.answers.clear();
@@ -323,9 +363,23 @@ export class GlobalSocketService {
       return;
     }
 
-    // 9. Host actions
-    if (type === 'host:muted-by-host' && targetId === this.id) {
+    // 11. Host Moderation Actions
+    if (type === 'host:muted-by-host' && (!targetId || targetId === this.id)) {
       this.trigger('host:muted-by-host', {});
+      return;
+    }
+
+    if (type === 'host:hands-lowered') {
+      this.participants.forEach((p) => {
+        p.handRaised = false;
+      });
+      this.trigger('host:hands-lowered', {});
+      return;
+    }
+
+    if (type === 'room:locked') {
+      this.isLocked = Boolean(payload?.isLocked);
+      this.trigger('room:locked', payload);
       return;
     }
 
@@ -375,6 +429,8 @@ export class GlobalSocketService {
             participants: [myParticipant],
             currentQuestion: this.currentQuestion,
             statistics: this.calcStats(),
+            whiteboardDataUrl: this.whiteboardDataUrl,
+            isLocked: this.isLocked,
           });
         }, 600);
       });
@@ -424,6 +480,64 @@ export class GlobalSocketService {
       };
       this.trigger('chat:message', msg);
       this.publish('chat:message', msg);
+      return;
+    }
+
+    // Whiteboard events
+    if (event === 'whiteboard:draw') {
+      this.publish('whiteboard:draw', payload);
+      return;
+    }
+
+    if (event === 'whiteboard:clear') {
+      this.whiteboardDataUrl = undefined;
+      this.publish('whiteboard:clear', {});
+      return;
+    }
+
+    if (event === 'whiteboard:save') {
+      this.whiteboardDataUrl = payload.dataUrl;
+      return;
+    }
+
+    if (event === 'whiteboard:get') {
+      this.publish('whiteboard:get', {});
+      return;
+    }
+
+    // Reactions
+    if (event === 'reaction:send') {
+      const p = this.participants.get(this.id);
+      const rx = {
+        id: `rx_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+        senderId: this.id,
+        senderName: p?.name || 'Khách',
+        emoji: payload.emoji,
+        timestamp: Date.now(),
+      };
+      this.trigger('reaction:received', rx);
+      this.publish('reaction:received', rx);
+      return;
+    }
+
+    // Host actions
+    if (event === 'host:mute-all') {
+      this.publish('host:muted-by-host', {});
+      return;
+    }
+
+    if (event === 'host:lower-all-hands') {
+      this.participants.forEach((p) => {
+        p.handRaised = false;
+      });
+      this.trigger('host:hands-lowered', {});
+      this.publish('host:hands-lowered', {});
+      return;
+    }
+
+    if (event === 'host:lock-room') {
+      this.isLocked = Boolean(payload?.locked);
+      this.publish('room:locked', { isLocked: this.isLocked });
       return;
     }
 

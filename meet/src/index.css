@@ -47,6 +47,35 @@
   animation: spinSlow 12s linear infinite;
 }
 
+@keyframes reactionFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.6);
+  }
+  15% {
+    opacity: 1;
+    transform: translateY(0) scale(1.1);
+  }
+  30% {
+    transform: translateY(-80px) translateX(-12px) scale(1);
+  }
+  50% {
+    transform: translateY(-180px) translateX(14px) scale(1.05);
+  }
+  75% {
+    transform: translateY(-300px) translateX(-10px) scale(0.95);
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-440px) translateX(6px) scale(0.8);
+  }
+}
+
+.animate-reaction-float {
+  animation: reactionFloat 3.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
 @layer base {
   :root { color-scheme: dark; }
   button, input, select, textarea { -webkit-tap-highlight-color: transparent; }

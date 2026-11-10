@@ -10,6 +10,7 @@ export interface Participant {
   isSpeaking: boolean;
   isScreenSharing?: boolean;
   handRaised?: boolean;
+  handRaisedAt?: number;
   joinedAt: number;
 }
 
@@ -35,6 +36,16 @@ export interface UserAnswer {
   timestamp: number;
 }
 
+export interface WhiteboardStroke {
+  fromX: number;
+  fromY: number;
+  toX: number;
+  toY: number;
+  color: string;
+  size: number;
+  isEraser?: boolean;
+}
+
 export interface Room {
   id: string;
   code: string;
@@ -44,6 +55,8 @@ export interface Room {
   participants: Map<string, Participant>;
   currentQuestion?: Question;
   answers: Map<string, UserAnswer>;
+  whiteboardDataUrl?: string;
+  isLocked?: boolean;
 }
 
 export interface AnswerStatistics {

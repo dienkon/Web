@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { Participant } from '../../types/meeting';
-import { Mic, MicOff, Crown, Pin, PinOff, Hand } from 'lucide-react';
+import { Mic, MicOff, Crown, Pin, PinOff, Hand, PictureInPicture2, Wifi } from 'lucide-react';
 import { useMeetingStore } from '../../store/meetingStore';
 import { clsx } from 'clsx';
 
@@ -89,32 +89,78 @@ export const ParticipantTile: React.FC<ParticipantTileProps> = ({
         </div>
       )}
 
-      {/* Top Controls: Host badge & Pin button */}
+      {/* Top Controls: Host badge, Network Quality, PiP, Pin button */}
       <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none z-10">
-        <div className="flex items-center gap-1.5 pointer-events-auto">
+        <div className="flex items-center gap-1.5 pointer-events-auto flex-wrap">
           {participant.isHost && (
             <span className="flex items-center gap-1 px-2.5 py-1 bg-amber-500 text-gray-950 font-bold text-xs rounded-full shadow-md">
               <Crown className="w-3 h-3 fill-current" />
               Chủ phòng
             </span>
           )}
-          {participant.handRaised && <span className="bg-amber-300 text-slate-950 p-2 rounded-full" title="Đang giơ tay"><Hand size={16} /></span>}
-          {participant.connectionState && ['connecting', 'disconnected', 'failed'].includes(participant.connectionState) &&
-            <span className="text-xs bg-black/60 text-amber-200 px-2 py-1 rounded-full">{participant.connectionState === 'failed' ? 'Đang kết nối lại…' : 'Đang kết nối…'}</span>}
+
+          {participant.handRaised && (
+            <span className="bg-amber-300 text-slate-950 p-1.5 rounded-full shadow-md" title="Đang giơ tay">
+              <Hand size={15} />
+            </span>
+          )}
+
+          {participant.networkQuality && participant.networkQuality !== 'checking' && (
+            <span
+              className={clsx(
+                'flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium backdrop-blur-md shadow-md border border-white/10',
+                participant.networkQuality === 'good'
+                  ? 'bg-emerald-500/30 text-emerald-300'
+                  : participant.networkQuality === 'fair'
+                  ? 'bg-amber-500/30 text-amber-300'
+                  : 'bg-rose-500/30 text-rose-300'
+              )}
+              title={participant.latency ? `Độ trễ: ${participant.latency}ms` : undefined}
+            >
+              <Wifi className="w-2.5 h-2.5" />
+              {participant.latency ? `${participant.latency}ms` : ''}
+            </span>
+          )}
+
+          {participant.connectionState && ['connecting', 'disconnected', 'failed'].includes(participant.connectionState) && (
+            <span className="text-xs bg-black/60 text-amber-200 px-2 py-1 rounded-full">
+              {participant.connectionState === 'failed' ? 'Đang kết nối lại…' : 'Đang kết nối…'}
+            </span>
+          )}
         </div>
 
-        <button
-          onClick={() => setPinnedParticipant(participant.id)}
-          className={clsx(
-            'p-2 rounded-full backdrop-blur-md transition-all pointer-events-auto opacity-0 group-hover:opacity-100',
-            isPinned
-              ? 'bg-blue-600 text-white opacity-100'
-              : 'bg-black/50 text-gray-200 hover:bg-black/80 hover:text-white'
+        <div className="flex items-center gap-1.5 pointer-events-auto">
+          {showVideo && (
+            <button
+              onClick={() => {
+                if (videoRef.current) {
+                  if (document.pictureInPictureElement) {
+                    document.exitPictureInPicture().catch(() => {});
+                  } else {
+                    videoRef.current.requestPictureInPicture().catch(() => {});
+                  }
+                }
+              }}
+              className="p-2 rounded-full backdrop-blur-md bg-black/50 text-gray-200 hover:bg-black/80 hover:text-white transition-all opacity-0 group-hover:opacity-100"
+              title="Hình trong hình (Picture-in-Picture)"
+            >
+              <PictureInPicture2 className="w-4 h-4" />
+            </button>
           )}
-          title={isPinned ? 'Bỏ ghim' : 'Ghim video'}
-        >
-          {isPinned ? <PinOff className="w-4 h-4" /> : <Pin className="w-4 h-4" />}
-        </button>
+
+          <button
+            onClick={() => setPinnedParticipant(participant.id)}
+            className={clsx(
+              'p-2 rounded-full backdrop-blur-md transition-all opacity-0 group-hover:opacity-100',
+              isPinned
+                ? 'bg-blue-600 text-white opacity-100'
+                : 'bg-black/50 text-gray-200 hover:bg-black/80 hover:text-white'
+            )}
+            title={isPinned ? 'Bỏ ghim' : 'Ghim video'}
+          >
+            {isPinned ? <PinOff className="w-4 h-4" /> : <Pin className="w-4 h-4" />}
+          </button>
+        </div>
       </div>
 
       {/* Bottom Name & Mic status tag */}
