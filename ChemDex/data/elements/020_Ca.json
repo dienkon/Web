@@ -60,7 +60,46 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-ca",
+      "amcsdId": "0013147",
+      "mineralName": "Calcium",
+      "formula": "Ca",
+      "spaceGroup": "F m 3 m",
+      "cell": {
+        "a": 5.601,
+        "b": 5.601,
+        "c": 5.601,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 175.710096801,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "King A J",
+          "Kanda F A",
+          "Schottmiller J C"
+        ],
+        "title": "The calcium-strontium metal phase system\n Sample: at T = 25 C",
+        "journal": "Journal of Physical Chemistry",
+        "year": 1958,
+        "volume": "62",
+        "pages": "1446–1449"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-ca.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-ca.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-ca.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-ca.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)",
   "occurrence": {
@@ -103,16 +142,59 @@
       "sourceSearch": "https://rruff.info/Calcite",
       "model": "/assets/periodic-table/minerals/calcite.glb",
       "preview": "/assets/periodic-table/minerals/calcite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "calcite",
+          "amcsdId": "0000984",
+          "mineralName": "Calcite",
+          "formula": "Ca C O3",
+          "spaceGroup": "R -3 c",
+          "cell": {
+            "a": 4.988,
+            "b": 4.988,
+            "c": 17.061,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 120.0
+          },
+          "volume": 367.6105818568375,
+          "siteCount": 30,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Reeder R J",
+              "Markgraf S A"
+            ],
+            "title": "High-temperature structure refinements of calcite and magnesite\n Sample: T = 24 C",
+            "journal": "American Mineralogist",
+            "year": 1985,
+            "volume": "70",
+            "pages": "590–600"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/calcite.json",
+          "cif": "/assets/periodic-table/crystals/calcite.cif",
+          "model": "/assets/periodic-table/crystals/calcite.glb",
+          "preview": "/assets/periodic-table/crystals/calcite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Calcite_Variation.png"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/020_Ca.jpg",
-    "alt": "Calcium: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/calcite.png",
+    "alt": "Calcite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Calcium_crystals_in_ampoule_cropped.jpg",
-    "caption": "Ảnh tham chiếu mẫu Calcium (Ca); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "Original upload by 范皓程 · CC BY 4.0"
+    "source": "https://commons.wikimedia.org/wiki/File:Calcite_Variation.png",
+    "caption": "Ảnh mẫu tham chiếu Calcite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "Original upload by 范皓程 · CC BY 4.0",
+    "author": "PaleoNeolitic (montage creator)",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "isotopes": [
     {
@@ -560,9 +642,63 @@
       "author": "Original upload by 范皓程",
       "license": "CC BY 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/calcite.png",
+      "role": "natural-mineral",
+      "title": "Calcite",
+      "desc": "Ảnh mẫu tham chiếu Calcite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Calcite_Variation.png",
+      "author": "PaleoNeolitic (montage creator)",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Calcite",
+      "src": "/assets/periodic-table/crystals/calcite.json",
+      "crystal": {
+        "id": "calcite",
+        "amcsdId": "0000984",
+        "mineralName": "Calcite",
+        "formula": "Ca C O3",
+        "spaceGroup": "R -3 c",
+        "cell": {
+          "a": 4.988,
+          "b": 4.988,
+          "c": 17.061,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 120.0
+        },
+        "volume": 367.6105818568375,
+        "siteCount": 30,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Reeder R J",
+            "Markgraf S A"
+          ],
+          "title": "High-temperature structure refinements of calcite and magnesite\n Sample: T = 24 C",
+          "journal": "American Mineralogist",
+          "year": 1985,
+          "volume": "70",
+          "pages": "590–600"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/calcite.json",
+        "cif": "/assets/periodic-table/crystals/calcite.cif",
+        "model": "/assets/periodic-table/crystals/calcite.glb",
+        "preview": "/assets/periodic-table/crystals/calcite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -597,6 +733,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -604,6 +745,7 @@
     "sourceFile": "020_Ca.docx",
     "sourceSha256": "3783a53d30efd7c64ec55ffefdbbe70553d776c5da24c7dac547fcd5e9f4a69c",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/020_Ca.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/canxi-ca/audit.md"
   }
 }

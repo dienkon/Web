@@ -13,12 +13,22 @@ export function getCategoryConfig(categoryId: string): CategoryConfig | undefine
 }
 
 // Vite dynamic imports for JSON docs
-const docModules = import.meta.glob('../data/docs/*.json');
-const referenceModules = import.meta.glob('../data/reference/*.json');
+const docModules = import.meta.glob('../data/docs/**/index.json');
+const referenceModules = import.meta.glob('../data/reference/**/index.json');
+
+export function resolveDocId(value: string): string | null {
+  return libraryDocs.find(doc => doc.id === value || doc.slug === value || doc.legacyIds?.includes(value))?.id ?? null;
+}
+
+export const docURL = (id: string) => {
+  const doc = libraryDocs.find(doc => doc.id === resolveDocId(id));
+  return `/trung-tam/tai-lieu-so/${encodeURIComponent(doc?.slug ?? id)}/`;
+};
 
 export async function fetchDocFull(docId: string): Promise<DocFull | null> {
-  const path = `../data/docs/${docId}.json`;
-  const loader = docModules[path] ?? referenceModules[`../data/reference/${docId}.json`];
+  const doc = libraryDocs.find(doc => doc.id === resolveDocId(docId));
+  const path = `../data/${doc?.documentPath}`;
+  const loader = docModules[path] ?? referenceModules[path];
   if (loader) {
     try {
       const module: any = await loader();

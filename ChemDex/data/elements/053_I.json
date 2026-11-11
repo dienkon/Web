@@ -62,7 +62,44 @@
     "valenceElectrons": 7,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Trực thoi (Orthorhombic)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-i",
+      "amcsdId": "0011273",
+      "mineralName": "Iodine",
+      "formula": "I",
+      "spaceGroup": "B m a b",
+      "cell": {
+        "a": 7.27007,
+        "b": 9.79344,
+        "c": 4.79004,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 341.04603085220566,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "7–83"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-i.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-i.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-i.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-i.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Trực thoi (Orthorhombic)",
   "occurrence": {
@@ -427,6 +464,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -434,6 +476,7 @@
     "sourceFile": "053_I.docx",
     "sourceSha256": "e1aa0ddb1ef8f915bcad389e549128aeb5297fd15637b203923f62628ce26428",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/053_I.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/iot-i/audit.md"
   }
 }

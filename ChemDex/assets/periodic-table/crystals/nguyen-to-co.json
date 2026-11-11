@@ -1,0 +1,132 @@
+{
+  "amcsdId": "0009140",
+  "mineralName": "Cobalt",
+  "formula": "Co",
+  "spaceGroup": "P 63/m m c",
+  "cell": {
+    "a": 2.5074,
+    "b": 2.5074,
+    "c": 4.0699,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 22.15958451326187,
+  "declaredVolume": 22.16,
+  "basis": [
+    [
+      2.5074,
+      -1.2536999999999994,
+      0.0
+    ],
+    [
+      0.0,
+      2.1714720974491017,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.0699
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,-x+y,1/2+z",
+    "x,x-y,1/2-z",
+    "-x+y,-x,1/2-z",
+    "x-y,x,1/2+z",
+    "-y,-x,z",
+    "y,x,-z",
+    "y,-x+y,-z",
+    "-y,x-y,z",
+    "x-y,-y,1/2+z",
+    "-x+y,y,1/2-z",
+    "x,y,1/2-z",
+    "-x,-y,1/2+z",
+    "x,x-y,z",
+    "-x,-x+y,-z",
+    "x-y,x,-z",
+    "-x+y,-x,z",
+    "y,x,1/2+z",
+    "-y,-x,1/2-z",
+    "-y,x-y,1/2-z",
+    "y,-x+y,1/2+z",
+    "-x+y,y,z",
+    "x-y,-y,-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Co",
+      "element": "Co",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Co",
+      "label": "Co",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "position": [
+        -3e-07,
+        1.4476482,
+        1.017475
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Co",
+      "label": "Co",
+      "fractional": [
+        0.66666675,
+        0.3333335,
+        0.75
+      ],
+      "position": [
+        1.2537,
+        0.7238244,
+        3.052425
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 2,
+  "speciesPositionCount": 2,
+  "cellComposition": {
+    "Co": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Taylor A",
+      "Floyd R W"
+    ],
+    "title": "Precision measurements of lattice parameters of non-cubic crystals\n Sample: at T < 450 C",
+    "journal": "Acta Crystallographica",
+    "year": 1950,
+    "volume": "3",
+    "pages": "285–289"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 24,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.874975308685544e-05
+  },
+  "id": "nguyen-to-co",
+  "note": ""
+}

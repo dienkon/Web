@@ -62,7 +62,44 @@
     "valenceElectrons": 6,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương (Hexagonal)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-te",
+      "amcsdId": "0011258",
+      "mineralName": "Tellurium",
+      "formula": "Te",
+      "spaceGroup": "P 32 2 1",
+      "cell": {
+        "a": 4.44693,
+        "b": 4.44693,
+        "c": 5.91492,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 101.29781861238916,
+      "siteCount": 3,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "7–83"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-te.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-te.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-te.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-te.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -103,16 +140,59 @@
       "sourceSearch": "https://rruff.info/Calaverite",
       "model": "/assets/periodic-table/minerals/calaverite.glb",
       "preview": "/assets/periodic-table/minerals/calaverite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "calaverite",
+          "amcsdId": "0009826",
+          "mineralName": "Calaverite",
+          "formula": "(Au.9 Ag.1) Te2",
+          "spaceGroup": "C 1 2/m 1",
+          "cell": {
+            "a": 7.1947,
+            "b": 4.4146,
+            "c": 5.0703,
+            "alpha": 90.0,
+            "beta": 90.038,
+            "gamma": 90.0
+          },
+          "volume": 161.04142678173022,
+          "siteCount": 6,
+          "mixedSiteCount": 2,
+          "reference": {
+            "authors": [
+              "de Boer J L",
+              "Schutte W J"
+            ],
+            "title": "Valence fluctuations in the incommensurately modulated structure of calaverite AuTe2\n Sample: T = 298 K",
+            "journal": "Acta Crystallographica, Section B",
+            "year": 1988,
+            "volume": "44",
+            "pages": "486–494"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "Chỉ biểu diễn cấu trúc trung bình tuần hoàn trong bản ghi CIF; không tái dựng đầy đủ điều biến bất tương xứng của calaverite.",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/calaverite.json",
+          "cif": "/assets/periodic-table/crystals/calaverite.cif",
+          "model": "/assets/periodic-table/crystals/calaverite.glb",
+          "preview": "/assets/periodic-table/crystals/calaverite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Calaverite-214667.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/052_Te.jpg",
-    "alt": "Tellurium: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/calaverite.jpg",
+    "alt": "Calaverite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Tellurium2.jpg",
-    "caption": "Ảnh tham chiếu mẫu Tellurium (Te); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "Unknown author Unknown author · CC BY 3.0"
+    "source": "https://commons.wikimedia.org/wiki/File:Calaverite-214667.jpg",
+    "caption": "Ảnh mẫu tham chiếu Calaverite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "Unknown author Unknown author · CC BY 3.0",
+    "author": "Robert M. Lavinsky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -462,9 +542,63 @@
       "author": "Unknown author Unknown author",
       "license": "CC BY 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/calaverite.jpg",
+      "role": "natural-mineral",
+      "title": "Calaverite",
+      "desc": "Ảnh mẫu tham chiếu Calaverite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Calaverite-214667.jpg",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Calaverite",
+      "src": "/assets/periodic-table/crystals/calaverite.json",
+      "crystal": {
+        "id": "calaverite",
+        "amcsdId": "0009826",
+        "mineralName": "Calaverite",
+        "formula": "(Au.9 Ag.1) Te2",
+        "spaceGroup": "C 1 2/m 1",
+        "cell": {
+          "a": 7.1947,
+          "b": 4.4146,
+          "c": 5.0703,
+          "alpha": 90.0,
+          "beta": 90.038,
+          "gamma": 90.0
+        },
+        "volume": 161.04142678173022,
+        "siteCount": 6,
+        "mixedSiteCount": 2,
+        "reference": {
+          "authors": [
+            "de Boer J L",
+            "Schutte W J"
+          ],
+          "title": "Valence fluctuations in the incommensurately modulated structure of calaverite AuTe2\n Sample: T = 298 K",
+          "journal": "Acta Crystallographica, Section B",
+          "year": 1988,
+          "volume": "44",
+          "pages": "486–494"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "Chỉ biểu diễn cấu trúc trung bình tuần hoàn trong bản ghi CIF; không tái dựng đầy đủ điều biến bất tương xứng của calaverite.",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/calaverite.json",
+        "cif": "/assets/periodic-table/crystals/calaverite.cif",
+        "model": "/assets/periodic-table/crystals/calaverite.glb",
+        "preview": "/assets/periodic-table/crystals/calaverite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -499,6 +633,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -506,6 +645,7 @@
     "sourceFile": "052_Te.docx",
     "sourceSha256": "2c8c4fa5feac876b45deb7db869fe59ec64187b3d5a97de43bf621346d69f8b9",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/052_Te.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/tellurium-te/audit.md"
   }
 }

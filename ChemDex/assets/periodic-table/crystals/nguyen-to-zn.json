@@ -1,0 +1,132 @@
+{
+  "amcsdId": "0012940",
+  "mineralName": "Zinc",
+  "formula": "Zn",
+  "spaceGroup": "P 63/m m c",
+  "cell": {
+    "a": 2.6594,
+    "b": 2.6594,
+    "c": 4.9368,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 30.237333777167127,
+  "declaredVolume": 30.237,
+  "basis": [
+    [
+      2.6594,
+      -1.3296999999999994,
+      0.0
+    ],
+    [
+      0.0,
+      2.3031079588243366,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.9368
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,-x+y,1/2+z",
+    "x,x-y,1/2-z",
+    "-x+y,-x,1/2-z",
+    "x-y,x,1/2+z",
+    "-y,-x,z",
+    "y,x,-z",
+    "y,-x+y,-z",
+    "-y,x-y,z",
+    "x-y,-y,1/2+z",
+    "-x+y,y,1/2-z",
+    "x,y,1/2-z",
+    "-x,-y,1/2+z",
+    "x,x-y,z",
+    "-x,-x+y,-z",
+    "x-y,x,-z",
+    "-x+y,-x,z",
+    "y,x,1/2+z",
+    "-y,-x,1/2-z",
+    "-y,x-y,1/2-z",
+    "y,-x+y,1/2+z",
+    "-x+y,y,z",
+    "x-y,-y,-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Zn",
+      "element": "Zn",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Zn",
+      "label": "Zn",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "position": [
+        -3e-07,
+        1.5354055,
+        1.2342
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Zn",
+      "label": "Zn",
+      "fractional": [
+        0.66666675,
+        0.3333335,
+        0.75
+      ],
+      "position": [
+        1.3297,
+        0.767703,
+        3.7026
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 2,
+  "speciesPositionCount": 2,
+  "cellComposition": {
+    "Zn": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Jette E R",
+      "Foote F"
+    ],
+    "title": "Precision determination of lattice constants\n Sample: at T = 25 C\n Note: lattice parameter is average of three samples",
+    "journal": "Journal of Chemical Physics",
+    "year": 1935,
+    "volume": "3",
+    "pages": "605–616"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 24,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.103857799064244e-05
+  },
+  "id": "nguyen-to-zn",
+  "note": ""
+}

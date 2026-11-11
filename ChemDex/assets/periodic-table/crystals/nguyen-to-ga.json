@@ -1,0 +1,214 @@
+{
+  "amcsdId": "0010597",
+  "mineralName": "Gallium",
+  "formula": "Ga",
+  "spaceGroup": "C m c a",
+  "cell": {
+    "a": 4.523,
+    "b": 7.661,
+    "c": 4.524,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 156.75978037199997,
+  "declaredVolume": 156.76,
+  "basis": [
+    [
+      4.523,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      7.661,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.524
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,z",
+    "x,1/2-y,1/2+z",
+    "1/2+x,-y,1/2+z",
+    "-x,1/2+y,1/2-z",
+    "1/2-x,+y,1/2-z",
+    "-x,y,z",
+    "1/2-x,1/2+y,z",
+    "x,-y,-z",
+    "1/2+x,1/2-y,-z",
+    "x,1/2+y,1/2-z",
+    "1/2+x,+y,1/2-z",
+    "-x,1/2-y,1/2+z",
+    "1/2-x,-y,1/2+z",
+    "-x,-y,-z",
+    "1/2-x,1/2-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Ga",
+      "element": "Ga",
+      "fractional": [
+        0.0,
+        0.1549,
+        0.081
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Ga",
+      "label": "Ga",
+      "fractional": [
+        0.0,
+        0.1549,
+        0.081
+      ],
+      "position": [
+        0.0,
+        1.1866889,
+        0.366444
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ga",
+      "label": "Ga",
+      "fractional": [
+        0.5,
+        0.6549,
+        0.081
+      ],
+      "position": [
+        2.2615,
+        5.0171889,
+        0.366444
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ga",
+      "label": "Ga",
+      "fractional": [
+        0.0,
+        0.3451,
+        0.581
+      ],
+      "position": [
+        0.0,
+        2.6438111,
+        2.628444
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ga",
+      "label": "Ga",
+      "fractional": [
+        0.5,
+        0.8451,
+        0.581
+      ],
+      "position": [
+        2.2615,
+        6.4743111,
+        2.628444
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ga",
+      "label": "Ga",
+      "fractional": [
+        0.0,
+        0.6549,
+        0.419
+      ],
+      "position": [
+        0.0,
+        5.0171889,
+        1.895556
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ga",
+      "label": "Ga",
+      "fractional": [
+        0.5,
+        0.1549,
+        0.419
+      ],
+      "position": [
+        2.2615,
+        1.1866889,
+        1.895556
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ga",
+      "label": "Ga",
+      "fractional": [
+        0.0,
+        0.8451,
+        0.919
+      ],
+      "position": [
+        0.0,
+        6.4743111,
+        4.157556
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ga",
+      "label": "Ga",
+      "fractional": [
+        0.5,
+        0.3451,
+        0.919
+      ],
+      "position": [
+        2.2615,
+        2.6438111,
+        4.157556
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 8,
+  "speciesPositionCount": 8,
+  "cellComposition": {
+    "Ga": 8
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Sharma B D",
+      "Donohue J"
+    ],
+    "title": "A refinement of the crystal structure of gallium",
+    "journal": "Zeitschrift fur Kristallographie",
+    "year": 1962,
+    "volume": "117",
+    "pages": "293–300"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 16,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.401048148342967e-06
+  },
+  "id": "nguyen-to-ga",
+  "note": ""
+}

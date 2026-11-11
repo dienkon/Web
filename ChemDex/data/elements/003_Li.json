@@ -56,7 +56,44 @@
     "valenceElectrons": 1,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Tinh thể kim loại lập phương tâm khối (bcc).",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-li",
+      "amcsdId": "0011220",
+      "mineralName": "Lithium",
+      "formula": "Li",
+      "spaceGroup": "I m 3 m",
+      "cell": {
+        "a": 3.5093,
+        "b": 3.5093,
+        "c": 3.5093,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 43.217683949357,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Sample at T = 293 K\n Body centered cubic, bcc, structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "7–83"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-li.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-li.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-li.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-li.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Tinh thể kim loại lập phương tâm khối (bcc).",
   "occurrence": {
@@ -90,16 +127,61 @@
       "sourceSearch": "https://rruff.info/Spodumene",
       "model": "/assets/periodic-table/minerals/spodumene.glb",
       "preview": "/assets/periodic-table/minerals/spodumene.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "spodumene",
+          "amcsdId": "0000355",
+          "mineralName": "Spodumene",
+          "formula": "Si2 Al Li O6",
+          "spaceGroup": "C 1 2/c 1",
+          "cell": {
+            "a": 9.463,
+            "b": 8.392,
+            "c": 5.218,
+            "alpha": 90.0,
+            "beta": 110.15,
+            "gamma": 90.0
+          },
+          "volume": 389.0171008599483,
+          "siteCount": 40,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Prewitt C T",
+              "Cameron M",
+              "Papike J J",
+              "Sueno S"
+            ],
+            "title": "High-temperature crystal chemistry of acmite, diopside, hedenbergite, jadeite,\n spodumene, and ureyite\n T = 24 C\n pyroxene",
+            "journal": "American Mineralogist",
+            "year": 1973,
+            "volume": "58",
+            "pages": "594–618"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/spodumene.json",
+          "cif": "/assets/periodic-table/crystals/spodumene.cif",
+          "model": "/assets/periodic-table/crystals/spodumene.glb",
+          "preview": "/assets/periodic-table/crystals/spodumene.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Spodumene-usa59abg.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/003_Li.png",
-    "alt": "Lithium: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/spodumene.jpg",
+    "alt": "Spodumene — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Purified_lithium_in_an_ampoule_under_argon,_dark_background.png",
-    "caption": "Ảnh tham chiếu mẫu Lithium (Li); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "AdvancedTinkering · CC BY-SA 4.0"
+    "source": "https://commons.wikimedia.org/wiki/File:Spodumene-usa59abg.jpg",
+    "caption": "Ảnh mẫu tham chiếu Spodumene; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "AdvancedTinkering · CC BY-SA 4.0",
+    "author": "Robert M. Lavinsky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -453,9 +535,65 @@
       "author": "AdvancedTinkering",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/spodumene.jpg",
+      "role": "natural-mineral",
+      "title": "Spodumene",
+      "desc": "Ảnh mẫu tham chiếu Spodumene; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Spodumene-usa59abg.jpg",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Spodumene",
+      "src": "/assets/periodic-table/crystals/spodumene.json",
+      "crystal": {
+        "id": "spodumene",
+        "amcsdId": "0000355",
+        "mineralName": "Spodumene",
+        "formula": "Si2 Al Li O6",
+        "spaceGroup": "C 1 2/c 1",
+        "cell": {
+          "a": 9.463,
+          "b": 8.392,
+          "c": 5.218,
+          "alpha": 90.0,
+          "beta": 110.15,
+          "gamma": 90.0
+        },
+        "volume": 389.0171008599483,
+        "siteCount": 40,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Prewitt C T",
+            "Cameron M",
+            "Papike J J",
+            "Sueno S"
+          ],
+          "title": "High-temperature crystal chemistry of acmite, diopside, hedenbergite, jadeite,\n spodumene, and ureyite\n T = 24 C\n pyroxene",
+          "journal": "American Mineralogist",
+          "year": 1973,
+          "volume": "58",
+          "pages": "594–618"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/spodumene.json",
+        "cif": "/assets/periodic-table/crystals/spodumene.cif",
+        "model": "/assets/periodic-table/crystals/spodumene.glb",
+        "preview": "/assets/periodic-table/crystals/spodumene.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -490,6 +628,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -497,6 +640,7 @@
     "sourceFile": "003_Li.docx",
     "sourceSha256": "72f24b4a2a91c4a6312e06e97945bda6139276eaa1684fbbb972acea258aec35",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/003_Li.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/liti-li/audit.md"
   }
 }

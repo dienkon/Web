@@ -1,0 +1,128 @@
+{
+  "amcsdId": "0011258",
+  "mineralName": "Tellurium",
+  "formula": "Te",
+  "spaceGroup": "P 32 2 1",
+  "cell": {
+    "a": 4.44693,
+    "b": 4.44693,
+    "c": 5.91492,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 101.29781861238916,
+  "declaredVolume": 101.298,
+  "basis": [
+    [
+      4.44693,
+      -2.223464999999999,
+      0.0
+    ],
+    [
+      0.0,
+      3.851154348851134,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.91492
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "y,x,-z",
+    "-y,x-y,2/3+z",
+    "-x,-x+y,2/3-z",
+    "-x+y,-x,1/3+z",
+    "x-y,-y,1/3-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Te",
+      "element": "Te",
+      "fractional": [
+        0.269,
+        0.0,
+        0.16667
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Te",
+      "label": "Te",
+      "fractional": [
+        0.269,
+        0.0,
+        0.16667
+      ],
+      "position": [
+        1.1962242,
+        0.0,
+        0.9858397
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Te",
+      "label": "Te",
+      "fractional": [
+        0.0,
+        0.269,
+        0.83333
+      ],
+      "position": [
+        -0.5981121,
+        1.0359605,
+        4.9290803
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Te",
+      "label": "Te",
+      "fractional": [
+        0.731,
+        0.731,
+        0.49999667
+      ],
+      "position": [
+        1.6253529,
+        2.8151938,
+        2.9574403
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 3,
+  "speciesPositionCount": 3,
+  "cellComposition": {
+    "Te": 3
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Wyckoff R W G"
+    ],
+    "title": "Second edition. Interscience Publishers, New York, New York",
+    "journal": "Crystal Structures",
+    "year": 1963,
+    "volume": "1",
+    "pages": "7–83"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "literature-compilation",
+  "validation": {
+    "operatorCount": 6,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.7906368895391688e-06
+  },
+  "id": "nguyen-to-te",
+  "note": ""
+}

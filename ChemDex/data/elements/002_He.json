@@ -54,7 +54,8 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Khí đơn nguyên tử ở điều kiện thường; He rắn ở áp suất cao có các pha HCP hoặc FCC tùy điều kiện.",
-    "latticeEvidence": "phase-dependent"
+    "latticeEvidence": "phase-dependent",
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
   },
   "structureType": "Khí đơn nguyên tử ở điều kiện thường; He rắn ở áp suất cao có các pha HCP hoặc FCC tùy điều kiện.",
   "occurrence": {
@@ -391,6 +392,7 @@
     "sourceFile": "002_He.docx",
     "sourceSha256": "1c80ec6cd4e7232655783c5e08f7fcee5e8cff78523c68c369690eac2a9ad5d2",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/002_He.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/heli-he/audit.md"
   }
 }

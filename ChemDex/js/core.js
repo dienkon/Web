@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import {mountPublishedCrystal} from './three/published-crystal.js';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import {
   buildCrystalGroup,
@@ -1310,9 +1311,10 @@ function createElectronWidget(container, el) {
 }
 
 function createCrystalWidget(container, el) {
+  if (el.structure?.publishedCrystal) return mountPublishedCrystal(container, el.structure.publishedCrystal);
   const latticeKey = inferLatticeKey(el);
   const title = inferLatticeTitle(el, latticeKey);
-  if (!latticeKey) {
+  if (!latticeKey || el.review) {
     container.innerHTML = `<div class="crystal-explanation"><span class="visual-badge">Pha và cấu trúc</span><p>${escapeHtml(title)}</p><small>${el.structure?.latticeEvidence === 'predicted' ? 'Cấu trúc dự đoán; chưa có mẫu tinh thể thực nghiệm.' : 'Chưa có mô hình mạng phù hợp với pha được mô tả. Xem mô hình khoáng vật riêng bên dưới nếu có.'}</small></div>`;
     return { destroy() { container.innerHTML = ''; } };
   }
@@ -1754,7 +1756,7 @@ function renderDetailMediaBlocks(el, sectionKey) {
                       <div class="detail-media-title">${escapeHtml(block.title)}</div>
                       ${block.desc ? `<div class="detail-media-desc">${escapeHtml(block.desc)}</div>` : ""}
                     </div>
-                    <span class="visual-badge shrink-0">${escapeHtml(block.type.toUpperCase())}</span>
+                    <span class="visual-badge shrink-0">${escapeHtml(block.type === 'crystal' ? 'MẠNG TINH THỂ' : block.type.toUpperCase())}</span>
                   </div>
                   <div class="detail-media-body">
                     <div id="${id}"></div>

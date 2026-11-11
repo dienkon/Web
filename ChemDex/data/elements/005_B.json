@@ -56,7 +56,45 @@
     "valenceElectrons": 3,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Mạng thoi (Rhombohedral)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-b",
+      "amcsdId": "0009230",
+      "mineralName": "Boron",
+      "formula": "B",
+      "spaceGroup": "R -3 m",
+      "cell": {
+        "a": 4.908,
+        "b": 4.908,
+        "c": 12.567,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 262.16297388490034,
+      "siteCount": 36,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Kasper J S",
+          "Decker B F"
+        ],
+        "title": "The crystal structure of a simple rhombohedral form of boron",
+        "journal": "Acta Crystallographica",
+        "year": 1959,
+        "volume": "12",
+        "pages": "503–506"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Dạng alpha boron rhombohedral trong bản ghi; không đại diện mọi dạng thù hình của boron.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-b.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-b.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-b.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-b.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Mạng thoi (Rhombohedral)",
   "occurrence": {
@@ -96,16 +134,59 @@
       "sourceSearch": "https://rruff.info/Borax",
       "model": "/assets/periodic-table/minerals/borax.glb",
       "preview": "/assets/periodic-table/minerals/borax.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "borax",
+          "amcsdId": "0009647",
+          "mineralName": "Borax",
+          "formula": "Na2 B4 O17 H20",
+          "spaceGroup": "C 1 2/c 1",
+          "cell": {
+            "a": 11.885,
+            "b": 10.654,
+            "c": 12.206,
+            "alpha": 90.0,
+            "beta": 106.623,
+            "gamma": 90.0
+          },
+          "volume": 1480.9655376624685,
+          "siteCount": 172,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Levy H",
+              "Lisensky G"
+            ],
+            "title": "Crystal structures of sodium sulfate decahydrate (Glauber's salt) and sodium\n tetraborate decahydrate (borax). Redetermination by neutron diffraction\n Note: anisoU's from ICSD",
+            "journal": "Acta Crystallographica, Section B",
+            "year": 1978,
+            "volume": "34",
+            "pages": "3502–3510"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/borax.json",
+          "cif": "/assets/periodic-table/crystals/borax.cif",
+          "model": "/assets/periodic-table/crystals/borax.glb",
+          "preview": "/assets/periodic-table/crystals/borax.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Borax_crystals.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/005_B.jpg",
-    "alt": "Boron: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/borax.jpg",
+    "alt": "Borax — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Boron_R105.jpg",
-    "caption": "Ảnh tham chiếu mẫu Boron (B); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "James L Marshall · CC BY-SA 3.0"
+    "source": "https://commons.wikimedia.org/wiki/File:Borax_crystals.jpg",
+    "caption": "Ảnh mẫu tham chiếu Borax; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "James L Marshall · CC BY-SA 3.0",
+    "author": "Aram Dulyan ( User:Aramgutang )",
+    "license": "Public domain",
+    "licenseUrl": ""
   },
   "isotopes": [
     {
@@ -412,9 +493,63 @@
       "author": "James L Marshall",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/borax.jpg",
+      "role": "natural-mineral",
+      "title": "Borax",
+      "desc": "Ảnh mẫu tham chiếu Borax; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Borax_crystals.jpg",
+      "author": "Aram Dulyan ( User:Aramgutang )",
+      "license": "Public domain",
+      "licenseUrl": ""
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Borax",
+      "src": "/assets/periodic-table/crystals/borax.json",
+      "crystal": {
+        "id": "borax",
+        "amcsdId": "0009647",
+        "mineralName": "Borax",
+        "formula": "Na2 B4 O17 H20",
+        "spaceGroup": "C 1 2/c 1",
+        "cell": {
+          "a": 11.885,
+          "b": 10.654,
+          "c": 12.206,
+          "alpha": 90.0,
+          "beta": 106.623,
+          "gamma": 90.0
+        },
+        "volume": 1480.9655376624685,
+        "siteCount": 172,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Levy H",
+            "Lisensky G"
+          ],
+          "title": "Crystal structures of sodium sulfate decahydrate (Glauber's salt) and sodium\n tetraborate decahydrate (borax). Redetermination by neutron diffraction\n Note: anisoU's from ICSD",
+          "journal": "Acta Crystallographica, Section B",
+          "year": 1978,
+          "volume": "34",
+          "pages": "3502–3510"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/borax.json",
+        "cif": "/assets/periodic-table/crystals/borax.cif",
+        "model": "/assets/periodic-table/crystals/borax.glb",
+        "preview": "/assets/periodic-table/crystals/borax.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -449,6 +584,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -456,6 +596,7 @@
     "sourceFile": "005_B.docx",
     "sourceSha256": "e1405cfba8ade6ccbfee1fa6bc7640bb930b9af66bd812612124247f6cd5a615",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/005_B.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/bo-b/audit.md"
   }
 }

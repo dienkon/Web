@@ -615,6 +615,8 @@ function showElementDetails(el) {
                     ${occurrence.mineral ? `<p class="element-fact-note">${escapeHtml(occurrence.mineral.available ? occurrence.mineral.relation : occurrence.mineral.reason)}</p>` : ''}
                   </div>
                 </div>
+                ${el.naturalState?.caption ? `<p class="element-fact-note mt-3">${escapeHtml(el.naturalState.alt || '')}. ${escapeHtml(el.naturalState.caption)}</p>` : ''}
+                ${el.naturalState?.source ? `<p class="element-image-credit"><a href="${escapeHtml(el.naturalState.source)}" target="_blank" rel="noopener noreferrer">Trang ảnh gốc ↗</a>${el.naturalState.author ? ` · ${escapeHtml(el.naturalState.author)}` : ''}${el.naturalState.licenseUrl ? ` · <a href="${escapeHtml(el.naturalState.licenseUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(el.naturalState.license)}</a>` : el.naturalState.license ? ` · ${escapeHtml(el.naturalState.license)}` : ''}</p>` : ''}
               </div>
 
               <div id="sec-structure-isotopes" class="glass p-5 rounded-2xl border border-slate-700 scroll-mt-24">

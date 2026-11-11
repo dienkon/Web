@@ -1,0 +1,60 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0014675
+_database_code_amcsd 0014675
+_chemical_name_mineral Graphite
+_chemical_formula_sum C
+_symmetry_space_group_name_H-M 'P 63/m m c'
+_cell_length_a 2.464
+_cell_length_b 2.464
+_cell_length_c 6.711
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 120
+_cell_volume 35.2857439
+loop_
+_publ_author_name
+'Trucano P'
+'Chen R'
+_journal_name_full Nature
+_journal_year 1975
+_journal_volume 258
+_publ_section_title
+;Structure of graphite by neutron diffraction
+ Note: natural crystals
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+-x,-x+y,1/2+z
+x,x-y,1/2-z
+-x+y,-x,1/2-z
+x-y,x,1/2+z
+-y,-x,z
+y,x,-z
+y,-x+y,-z
+-y,x-y,z
+x-y,-y,1/2+z
+-x+y,y,1/2-z
+x,y,1/2-z
+-x,-y,1/2+z
+x,x-y,z
+-x,-x+y,-z
+x-y,x,-z
+-x+y,-x,z
+y,x,1/2+z
+-y,-x,1/2-z
+-y,x-y,1/2-z
+y,-x+y,1/2+z
+-x+y,y,z
+x-y,-y,-z
+-x,-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+C1 C 0 0 0.25 1
+C2 C 0.33333325 0.66666675 0.25 1

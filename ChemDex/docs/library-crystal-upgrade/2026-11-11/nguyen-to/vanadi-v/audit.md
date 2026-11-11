@@ -1,0 +1,34 @@
+# Vanadi (V) — kiểm duyệt mạng tinh thể và ảnh
+
+- File: `data/elements/023_V.json`.
+- Sơ suất trước: mô hình hình thái chỉ là hình học gần đúng; chưa có thông số ô mạng, tọa độ nguyên tử, phép đối xứng và trích dẫn mẫu cụ thể.
+- Xử lý: giữ nhãn minh họa hình thái; bổ sung mô hình nguyên tử riêng khi có dữ liệu công bố phù hợp.
+- Không sửa phương trình trong đợt này; đối chiếu phương trình và từng đoạn DOCX xem audit gốc.
+
+## Đơn chất
+
+- AMCSD 0014111; Vanadium; nhóm không gian I m 3 m.
+- Ô mạng: {'a': 3.0241, 'b': 3.0241, 'c': 3.0241, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0}; V = 27.655941 Å³.
+- Giữ nguyên dạng cấu trúc của mẫu trong nguồn.
+- Điều kiện và ghi chú bản gốc: Lattice parameter and expansion coefficient of vanadium  Sample: at T = 25C.
+
+## Khoáng vật / quặng
+
+- Quan hệ với nguyên tố: Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.
+- Vanadinite: AMCSD 0005225, công thức mẫu `Pb5 V3 O12 Cl`, 42 vị trí/ô, 0 vị trí hỗn hợp.
+  - Lưu ý: Không khẳng định mẫu đo là cùng mẫu ảnh; không mô phỏng hình dạng bề mặt quặng từ tọa độ ô mạng.
+  - Giới hạn: Không thêm vị trí nguyên tử ngoài bản ghi đã công bố.
+  - Bài gốc: ['Hughes J M', 'Dai Y S'], 1989, Crystal-structure refinements of vanadinite and pyromorphite.
+
+## Ảnh trạng thái tự nhiên
+
+- Trạng thái: downloaded; [trang nguồn](https://commons.wikimedia.org/wiki/File:Mibladene_Vanadinite.jpg).
+- Tác giả: Didier Descouens; giấy phép: CC BY-SA 4.0.
+- Mô tả nguồn: Vanadinite Locality: Mibladene (Mibladén; Mibladan; Miblanden), Upper Moulouya lead district, Midelt , Khénifra Province , Meknès-Tafilalet Region, Morocco Size: 9x6x5.8 cm.
+- Không gọi ảnh tổng hợp/ảnh mẫu thí nghiệm là ảnh quặng tự nhiên nếu mô tả nguồn không xác nhận.
+
+## Kiểm tra và giới hạn
+
+- Đối chiếu metric đủ sáu thông số, thể tích, phép đối xứng, độ chiếm chỗ và vị trí tương đương; kết quả toàn bộ xem crystal-validation.json.
+- GLB và ảnh preview sinh từ cùng tọa độ với trình xem. Màu/bán kính là quy ước; không giả lập ellipsoid nhiệt, liên kết hay ảnh chụp bề mặt.
+- CIF xuất lại từ dữ liệu Larixite có lượng tử hóa tọa độ phân số 1/4.000.000; không khôi phục độ bất định đã mất.

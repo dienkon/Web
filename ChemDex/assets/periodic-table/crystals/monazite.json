@@ -1,0 +1,495 @@
+{
+  "amcsdId": "0001700",
+  "mineralName": "Monazite-(Ce)",
+  "formula": "Ce P O4",
+  "spaceGroup": "P 1 21/n 1",
+  "cell": {
+    "a": 6.788,
+    "b": 7.0163,
+    "c": 6.465,
+    "alpha": 90.0,
+    "beta": 103.43,
+    "gamma": 90.0
+  },
+  "volume": 299.48637533121257,
+  "declaredVolume": 299.486,
+  "basis": [
+    [
+      6.788,
+      0.0,
+      -1.5015429011952675
+    ],
+    [
+      0.0,
+      7.0163,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      6.288210708609413
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2-y,1/2+z",
+    "1/2-x,1/2+y,1/2-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Ce",
+      "element": "Ce",
+      "fractional": [
+        0.28182,
+        0.15914,
+        0.10008
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "P",
+      "element": "P",
+      "fractional": [
+        0.3047,
+        0.1635,
+        0.6124
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.2508,
+        0.0055,
+        0.4458
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.3811,
+        0.332,
+        0.4982
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.4745,
+        0.1054,
+        0.8042
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O4",
+      "element": "O",
+      "fractional": [
+        0.1268,
+        0.2164,
+        0.7108
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Ce",
+      "label": "Ce",
+      "fractional": [
+        0.28182,
+        0.15914,
+        0.10008
+      ],
+      "position": [
+        1.7627197,
+        1.116574,
+        0.6293241
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ce",
+      "label": "Ce",
+      "fractional": [
+        0.78182,
+        0.34086,
+        0.60008
+      ],
+      "position": [
+        4.4059483,
+        2.391576,
+        3.7734295
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ce",
+      "label": "Ce",
+      "fractional": [
+        0.21818,
+        0.65914,
+        0.39992
+      ],
+      "position": [
+        0.8805088,
+        4.624724,
+        2.5147812
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ce",
+      "label": "Ce",
+      "fractional": [
+        0.71818,
+        0.84086,
+        0.89992
+      ],
+      "position": [
+        3.5237374,
+        5.899726,
+        5.6588866
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "P",
+      "label": "P",
+      "fractional": [
+        0.3047,
+        0.1635,
+        0.6124
+      ],
+      "position": [
+        1.1487587,
+        1.1471651,
+        3.8509002
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "P",
+      "label": "P",
+      "fractional": [
+        0.8047,
+        0.3365,
+        0.1124
+      ],
+      "position": [
+        5.2935302,
+        2.360985,
+        0.7067949
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "P",
+      "label": "P",
+      "fractional": [
+        0.1953,
+        0.6635,
+        0.8876
+      ],
+      "position": [
+        -0.0070731,
+        4.655315,
+        5.5814158
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "P",
+      "label": "P",
+      "fractional": [
+        0.6953,
+        0.8365,
+        0.3876
+      ],
+      "position": [
+        4.1376984,
+        5.869135,
+        2.4373105
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.2508,
+        0.0055,
+        0.4458
+      ],
+      "position": [
+        1.0330426,
+        0.0385896,
+        2.8032843
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.7508,
+        0.4945,
+        0.9458
+      ],
+      "position": [
+        3.6762711,
+        3.4695604,
+        5.9473897
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.2492,
+        0.5055,
+        0.0542
+      ],
+      "position": [
+        1.610186,
+        3.5467396,
+        0.340821
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.7492,
+        0.9945,
+        0.5542
+      ],
+      "position": [
+        4.2534145,
+        6.9777104,
+        3.4849264
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.3811,
+        0.332,
+        0.4982
+      ],
+      "position": [
+        1.8388381,
+        2.3294116,
+        3.1327866
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.8811,
+        0.168,
+        0.9982
+      ],
+      "position": [
+        4.4820667,
+        1.1787384,
+        6.2768919
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.1189,
+        0.832,
+        0.0018
+      ],
+      "position": [
+        0.8043904,
+        5.8375616,
+        0.0113188
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.6189,
+        0.668,
+        0.5018
+      ],
+      "position": [
+        3.447619,
+        4.6868884,
+        3.1554241
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.4745,
+        0.1054,
+        0.8042
+      ],
+      "position": [
+        2.0133652,
+        0.739518,
+        5.0569791
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.9745,
+        0.3946,
+        0.3042
+      ],
+      "position": [
+        6.1581366,
+        2.768632,
+        1.9128737
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.0255,
+        0.6054,
+        0.6958
+      ],
+      "position": [
+        -0.8716796,
+        4.247668,
+        4.375337
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.5255,
+        0.8946,
+        0.1958
+      ],
+      "position": [
+        3.2730919,
+        6.276782,
+        1.2312317
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.1268,
+        0.2164,
+        0.7108
+      ],
+      "position": [
+        -0.2065783,
+        1.5183273,
+        4.4696602
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.6268,
+        0.2836,
+        0.2108
+      ],
+      "position": [
+        3.9381932,
+        1.9898227,
+        1.3255548
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.3732,
+        0.7164,
+        0.7892
+      ],
+      "position": [
+        1.3482639,
+        5.0264773,
+        4.9626559
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.8732,
+        0.7836,
+        0.2892
+      ],
+      "position": [
+        5.4930354,
+        5.4979727,
+        1.8185505
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "Ce": 4,
+    "P": 4,
+    "O": 16
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Hughes J M",
+      "Mariano A N",
+      "Ni Y"
+    ],
+    "title": "Crystal chemistry of the monazite and xenotime structures\n Ce(PO4)",
+    "journal": "American Mineralogist",
+    "year": 1995,
+    "volume": "80",
+    "pages": "21–26"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 4,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.2532497084912112e-06
+  },
+  "id": "monazite",
+  "note": ""
+}

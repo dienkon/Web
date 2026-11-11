@@ -1,0 +1,3 @@
+# Vite bundles retain Markdown hard breaks inside JavaScript template literals.
+# Keep those intentional spaces; other whitespace checks still apply.
+trung-tam/assets/**/*.js whitespace=-blank-at-eol

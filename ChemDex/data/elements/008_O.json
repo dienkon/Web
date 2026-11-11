@@ -56,7 +56,8 @@
     "valenceElectrons": 6,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "O₂ là khí ở điều kiện thường. O₂ rắn có pha α đơn tà, pha β mặt thoi và pha γ lập phương, tùy nhiệt độ.",
-    "latticeEvidence": "phase-dependent"
+    "latticeEvidence": "phase-dependent",
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
   },
   "structureType": "O₂ là khí ở điều kiện thường. O₂ rắn có pha α đơn tà, pha β mặt thoi và pha γ lập phương, tùy nhiệt độ.",
   "occurrence": {
@@ -474,6 +475,7 @@
     "sourceFile": "008_O.docx",
     "sourceSha256": "db62e515f077859199a833993a94cff7d1fccd08b08480d6a274ab0048942901",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/008_O.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/oxi-o/audit.md"
   }
 }

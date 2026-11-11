@@ -1,0 +1,133 @@
+{
+  "amcsdId": "0009174",
+  "mineralName": "Terbium",
+  "formula": "Tb",
+  "spaceGroup": "P 63/m m c",
+  "cell": {
+    "a": 3.601,
+    "b": 3.601,
+    "c": 5.6936,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 63.93870372419551,
+  "declaredVolume": 63.939,
+  "basis": [
+    [
+      3.601,
+      -1.800499999999999,
+      0.0
+    ],
+    [
+      0.0,
+      3.1185574790277637,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.6936
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,-x+y,1/2+z",
+    "x,x-y,1/2-z",
+    "-x+y,-x,1/2-z",
+    "x-y,x,1/2+z",
+    "-y,-x,z",
+    "y,x,-z",
+    "y,-x+y,-z",
+    "-y,x-y,z",
+    "x-y,-y,1/2+z",
+    "-x+y,y,1/2-z",
+    "x,y,1/2-z",
+    "-x,-y,1/2+z",
+    "x,x-y,z",
+    "-x,-x+y,-z",
+    "x-y,x,-z",
+    "-x+y,-x,z",
+    "y,x,1/2+z",
+    "-y,-x,1/2-z",
+    "-y,x-y,1/2-z",
+    "y,-x+y,1/2+z",
+    "-x+y,y,z",
+    "x-y,-y,-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Tb",
+      "element": "Tb",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Tb",
+      "label": "Tb",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "position": [
+        -5e-07,
+        2.0790386,
+        1.4234
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Tb",
+      "label": "Tb",
+      "fractional": [
+        0.66666675,
+        0.3333335,
+        0.75
+      ],
+      "position": [
+        1.8005,
+        1.0395197,
+        4.2702
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 2,
+  "speciesPositionCount": 2,
+  "cellComposition": {
+    "Tb": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Spedding F H",
+      "Daane A H",
+      "Herrmann K W"
+    ],
+    "title": "The crystal structures and lattice parameters of high-purity scandium,\n yttrium and the rare earth metals\n Note: sample 99.9% pure",
+    "journal": "Acta Crystallographica",
+    "year": 1956,
+    "volume": "9",
+    "pages": "559–563"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 24,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 4.633747436690787e-06
+  },
+  "id": "nguyen-to-tb",
+  "note": ""
+}

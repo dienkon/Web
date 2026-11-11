@@ -60,7 +60,45 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-fe",
+      "amcsdId": "0008169",
+      "mineralName": "Iron",
+      "formula": "Fe",
+      "spaceGroup": "I m 3 m",
+      "cell": {
+        "a": 2.8654,
+        "b": 2.8654,
+        "c": 2.8654,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 23.526415870264003,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Zhang J",
+          "Guyot F"
+        ],
+        "title": "Thermal equation of iron and Fe0.91Si0.09\n Sample: P = 0.0 GPa, T = 298 K, prior to experiment",
+        "journal": "Physics and Chemistry of Minerals",
+        "year": 1999,
+        "volume": "26",
+        "pages": "206–211"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-fe.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-fe.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-fe.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-fe.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)",
   "occurrence": {
@@ -102,16 +140,61 @@
       "sourceSearch": "https://rruff.info/Hematite",
       "model": "/assets/periodic-table/minerals/hematite.glb",
       "preview": "/assets/periodic-table/minerals/hematite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "hematite",
+          "amcsdId": "0000143",
+          "mineralName": "Hematite",
+          "formula": "Fe2 O3",
+          "spaceGroup": "R -3 c",
+          "cell": {
+            "a": 5.038,
+            "b": 5.038,
+            "c": 13.772,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 120.0
+          },
+          "volume": 302.7219916764188,
+          "siteCount": 30,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Zoltai T",
+              "Finger L W",
+              "Blake R L",
+              "Hessevick R E"
+            ],
+            "title": "Refinement of the hematite structure",
+            "journal": "American Mineralogist",
+            "year": 1966,
+            "volume": "51",
+            "pages": "123–129"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/hematite.json",
+          "cif": "/assets/periodic-table/crystals/hematite.cif",
+          "model": "/assets/periodic-table/crystals/hematite.glb",
+          "preview": "/assets/periodic-table/crystals/hematite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:WLA_hmns_Hematite.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/diagrams/026_Fe.svg",
-    "alt": "Iron: sơ đồ minh họa nguyên tố",
+    "image": "/assets/periodic-table/mineral-photos/hematite.jpg",
+    "alt": "Hematite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "diagram",
-    "source": "",
-    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
-    "credit": ""
+    "source": "https://commons.wikimedia.org/wiki/File:WLA_hmns_Hematite.jpg",
+    "caption": "Ảnh mẫu tham chiếu Hematite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "",
+    "author": "Wikipedia Loves Art participant \" Assignment_Houston_One \"",
+    "license": "CC BY-SA 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5"
   },
   "isotopes": [
     {
@@ -595,9 +678,65 @@
       "author": "ChemDex",
       "license": "ChemDex schematic diagram",
       "licenseUrl": ""
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/hematite.jpg",
+      "role": "natural-mineral",
+      "title": "Hematite",
+      "desc": "Ảnh mẫu tham chiếu Hematite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:WLA_hmns_Hematite.jpg",
+      "author": "Wikipedia Loves Art participant \" Assignment_Houston_One \"",
+      "license": "CC BY-SA 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Hematite",
+      "src": "/assets/periodic-table/crystals/hematite.json",
+      "crystal": {
+        "id": "hematite",
+        "amcsdId": "0000143",
+        "mineralName": "Hematite",
+        "formula": "Fe2 O3",
+        "spaceGroup": "R -3 c",
+        "cell": {
+          "a": 5.038,
+          "b": 5.038,
+          "c": 13.772,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 120.0
+        },
+        "volume": 302.7219916764188,
+        "siteCount": 30,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Zoltai T",
+            "Finger L W",
+            "Blake R L",
+            "Hessevick R E"
+          ],
+          "title": "Refinement of the hematite structure",
+          "journal": "American Mineralogist",
+          "year": 1966,
+          "volume": "51",
+          "pages": "123–129"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/hematite.json",
+        "cif": "/assets/periodic-table/crystals/hematite.cif",
+        "model": "/assets/periodic-table/crystals/hematite.glb",
+        "preview": "/assets/periodic-table/crystals/hematite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -632,6 +771,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -639,6 +783,7 @@
     "sourceFile": "026_Fe.docx",
     "sourceSha256": "84be4a52717d0b3bd8d2b9b4baae588048ab7790c64b8f0cdced98f94ec8c39d",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/026_Fe.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/sat-fe/audit.md"
   }
 }

@@ -58,7 +58,45 @@
     "valenceElectrons": 6,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Trực thoi (Orthorhombic)",
-    "latticeEvidence": "phase-dependent"
+    "latticeEvidence": "phase-dependent",
+    "publishedCrystal": {
+      "id": "nguyen-to-s",
+      "amcsdId": "0010058",
+      "mineralName": "Sulfur",
+      "formula": "S",
+      "spaceGroup": "F d d d",
+      "cell": {
+        "a": 10.4646,
+        "b": 12.866,
+        "c": 24.486,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 3296.7348925896003,
+      "siteCount": 128,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Rettig S J",
+          "Trotter J"
+        ],
+        "title": "Refinement of the structure of orthorhombic sulfur, alpha-S8\n Sample: at T = 298 K\n Note: alpha phase",
+        "journal": "Acta Crystallographica, Section C",
+        "year": 1987,
+        "volume": "43",
+        "pages": "2260–2262"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-s.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-s.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-s.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-s.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Trực thoi (Orthorhombic)",
   "occurrence": {
@@ -100,16 +138,59 @@
       "sourceSearch": "https://rruff.info/Sulfur",
       "model": "/assets/periodic-table/minerals/sulfur.glb",
       "preview": "/assets/periodic-table/minerals/sulfur.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "sulfur",
+          "amcsdId": "0010058",
+          "mineralName": "Sulfur",
+          "formula": "S",
+          "spaceGroup": "F d d d",
+          "cell": {
+            "a": 10.4646,
+            "b": 12.866,
+            "c": 24.486,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 3296.7348925896003,
+          "siteCount": 128,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Rettig S J",
+              "Trotter J"
+            ],
+            "title": "Refinement of the structure of orthorhombic sulfur, alpha-S8\n Sample: at T = 298 K\n Note: alpha phase",
+            "journal": "Acta Crystallographica, Section C",
+            "year": 1987,
+            "volume": "43",
+            "pages": "2260–2262"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/sulfur.json",
+          "cif": "/assets/periodic-table/crystals/sulfur.cif",
+          "model": "/assets/periodic-table/crystals/sulfur.glb",
+          "preview": "/assets/periodic-table/crystals/sulfur.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Sulfur_-_El_Desierto_mine,_San_Pablo_de_Napa,_Daniel_Campos_Province,_Potos%C3%AD,_Bolivia.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/016_S.jpg",
-    "alt": "Sulfur: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/sulfur.jpg",
+    "alt": "Sulfur tự sinh — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
     "source": "https://commons.wikimedia.org/wiki/File:Sulfur_-_El_Desierto_mine,_San_Pablo_de_Napa,_Daniel_Campos_Province,_Potos%C3%AD,_Bolivia.jpg",
-    "caption": "Ảnh tham chiếu mẫu Sulfur (S); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "Ivar Leidus · CC BY-SA 4.0"
+    "caption": "Ảnh mẫu tham chiếu Sulfur tự sinh; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "Ivar Leidus · CC BY-SA 4.0",
+    "author": "Ivar Leidus",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "isotopes": [
     {
@@ -543,9 +624,63 @@
       "author": "Ivar Leidus",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/sulfur.jpg",
+      "role": "natural-mineral",
+      "title": "Sulfur tự sinh",
+      "desc": "Ảnh mẫu tham chiếu Sulfur tự sinh; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Sulfur_-_El_Desierto_mine,_San_Pablo_de_Napa,_Daniel_Campos_Province,_Potos%C3%AD,_Bolivia.jpg",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Sulfur",
+      "src": "/assets/periodic-table/crystals/sulfur.json",
+      "crystal": {
+        "id": "sulfur",
+        "amcsdId": "0010058",
+        "mineralName": "Sulfur",
+        "formula": "S",
+        "spaceGroup": "F d d d",
+        "cell": {
+          "a": 10.4646,
+          "b": 12.866,
+          "c": 24.486,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 3296.7348925896003,
+        "siteCount": 128,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Rettig S J",
+            "Trotter J"
+          ],
+          "title": "Refinement of the structure of orthorhombic sulfur, alpha-S8\n Sample: at T = 298 K\n Note: alpha phase",
+          "journal": "Acta Crystallographica, Section C",
+          "year": 1987,
+          "volume": "43",
+          "pages": "2260–2262"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/sulfur.json",
+        "cif": "/assets/periodic-table/crystals/sulfur.cif",
+        "model": "/assets/periodic-table/crystals/sulfur.glb",
+        "preview": "/assets/periodic-table/crystals/sulfur.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -580,6 +715,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -587,6 +727,7 @@
     "sourceFile": "016_S.docx",
     "sourceSha256": "86705c1c5a2e9e94636aad1dd434e4a5d565d30710f5c75b54a99be3c3fdeb2d",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/016_S.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/luu-huynh-s/audit.md"
   }
 }

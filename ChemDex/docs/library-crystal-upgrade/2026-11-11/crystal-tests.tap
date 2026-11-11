@@ -1,0 +1,13 @@
+✔ published phases have correct cell populations, including DHCP and noncubic cells (6.2583ms)
+✔ all exported CIFs reproduce independent Gemmi-expanded positions and full cell metric (107.0983ms)
+✔ published symmetry operators preserve each experimental cell metric (65.2747ms)
+✔ crystal transport keeps occupancy, limitations, references and binary asset provenance (70.1594ms)
+✔ CIF parser respects arbitrary column order, uncertainties and fractional symmetry offsets (0.9193ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 340.7681

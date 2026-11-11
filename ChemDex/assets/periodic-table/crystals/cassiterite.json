@@ -1,0 +1,194 @@
+{
+  "amcsdId": "0009162",
+  "mineralName": "Cassiterite",
+  "formula": "Sn O2",
+  "spaceGroup": "P 42/m n m",
+  "cell": {
+    "a": 4.737,
+    "b": 4.737,
+    "c": 3.185,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 71.468753265,
+  "declaredVolume": 71.469,
+  "basis": [
+    [
+      4.737,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      4.737,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      3.185
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-y,-x,z",
+    "y,x,-z",
+    "1/2+y,1/2-x,1/2-z",
+    "1/2-y,1/2+x,1/2+z",
+    "1/2+x,1/2-y,1/2+z",
+    "1/2-x,1/2+y,1/2-z",
+    "x,y,-z",
+    "-x,-y,z",
+    "y,x,z",
+    "-y,-x,-z",
+    "1/2-y,1/2+x,1/2-z",
+    "1/2+y,1/2-x,1/2+z",
+    "1/2-x,1/2+y,1/2+z",
+    "1/2+x,1/2-y,1/2-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Sn",
+      "element": "Sn",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.307,
+        0.307,
+        0.0
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Sn",
+      "label": "Sn",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sn",
+      "label": "Sn",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        2.3685,
+        2.3685,
+        1.5925
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.307,
+        0.307,
+        0.0
+      ],
+      "position": [
+        1.454259,
+        1.454259,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.693,
+        0.693,
+        0.0
+      ],
+      "position": [
+        3.282741,
+        3.282741,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.807,
+        0.193,
+        0.5
+      ],
+      "position": [
+        3.822759,
+        0.914241,
+        1.5925
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.193,
+        0.807,
+        0.5
+      ],
+      "position": [
+        0.914241,
+        3.822759,
+        1.5925
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 6,
+  "speciesPositionCount": 6,
+  "cellComposition": {
+    "Sn": 2,
+    "O": 4
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Baur W H"
+    ],
+    "title": "Uber die verfeinerung der kristallstrukturbestimmung einiger vertreter\n des rutiltyps: TiO2, SnO2, GeO2 und MgF2",
+    "journal": "Acta Crystallographica",
+    "year": 1956,
+    "volume": "9",
+    "pages": "515–520"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 16,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 3.452347896366994e-06
+  },
+  "id": "cassiterite",
+  "note": ""
+}

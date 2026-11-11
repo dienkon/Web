@@ -1,0 +1,203 @@
+{
+  "amcsdId": "0011223",
+  "mineralName": "Sodium",
+  "formula": "Na",
+  "spaceGroup": "I m 3 m",
+  "cell": {
+    "a": 4.2906,
+    "b": 4.2906,
+    "c": 4.2906,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 78.98672101341602,
+  "declaredVolume": 78.987,
+  "basis": [
+    [
+      4.2906,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      4.2906,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.2906
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,1/2+z",
+    "z,-x,y",
+    "1/2+z,1/2-x,1/2+y",
+    "-y,z,-x",
+    "1/2-y,1/2+z,1/2-x",
+    "x,-y,z",
+    "1/2+x,1/2-y,1/2+z",
+    "-z,x,-y",
+    "1/2-z,1/2+x,1/2-y",
+    "y,-z,x",
+    "1/2+y,1/2-z,1/2+x",
+    "-x,y,-z",
+    "1/2-x,1/2+y,1/2-z",
+    "x,-z,-y",
+    "1/2+x,1/2-z,1/2-y",
+    "-z,y,x",
+    "1/2-z,1/2+y,1/2+x",
+    "y,-x,-z",
+    "1/2+y,1/2-x,1/2-z",
+    "-x,z,y",
+    "1/2-x,1/2+z,1/2+y",
+    "z,-y,-x",
+    "1/2+z,1/2-y,1/2-x",
+    "-y,x,z",
+    "1/2-y,1/2+x,1/2+z",
+    "x,z,y",
+    "1/2+x,1/2+z,1/2+y",
+    "-z,-y,-x",
+    "1/2-z,1/2-y,1/2-x",
+    "y,x,z",
+    "1/2+y,1/2+x,1/2+z",
+    "-x,-z,-y",
+    "1/2-x,1/2-z,1/2-y",
+    "z,y,x",
+    "1/2+z,1/2+y,1/2+x",
+    "-y,-x,-z",
+    "1/2-y,1/2-x,1/2-z",
+    "z,x,-y",
+    "1/2+z,1/2+x,1/2-y",
+    "-y,-z,x",
+    "1/2-y,1/2-z,1/2+x",
+    "x,y,-z",
+    "1/2+x,1/2+y,1/2-z",
+    "-z,-x,y",
+    "1/2-z,1/2-x,1/2+y",
+    "y,z,-x",
+    "1/2+y,1/2+z,1/2-x",
+    "-x,-y,z",
+    "1/2-x,1/2-y,1/2+z",
+    "-z,x,y",
+    "1/2-z,1/2+x,1/2+y",
+    "y,-z,-x",
+    "1/2+y,1/2-z,1/2-x",
+    "-x,y,z",
+    "1/2-x,1/2+y,1/2+z",
+    "z,-x,-y",
+    "1/2+z,1/2-x,1/2-y",
+    "-y,z,x",
+    "1/2-y,1/2+z,1/2+x",
+    "x,-y,-z",
+    "1/2+x,1/2-y,1/2-z",
+    "-x,z,-y",
+    "1/2-x,1/2+z,1/2-y",
+    "z,-y,x",
+    "1/2+z,1/2-y,1/2+x",
+    "-y,x,-z",
+    "1/2-y,1/2+x,1/2-z",
+    "x,-z,y",
+    "1/2+x,1/2-z,1/2+y",
+    "-z,y,-x",
+    "1/2-z,1/2+y,1/2-x",
+    "y,-x,z",
+    "1/2+y,1/2-x,1/2+z",
+    "-x,-z,y",
+    "1/2-x,1/2-z,1/2+y",
+    "z,y,-x",
+    "1/2+z,1/2+y,1/2-x",
+    "-y,-x,z",
+    "1/2-y,1/2-x,1/2+z",
+    "x,z,-y",
+    "1/2+x,1/2+z,1/2-y",
+    "-z,-y,x",
+    "1/2-z,1/2-y,1/2+x",
+    "y,x,-z",
+    "1/2+y,1/2+x,1/2-z",
+    "-z,-x,-y",
+    "1/2-z,1/2-x,1/2-y",
+    "y,z,x",
+    "1/2+y,1/2+z,1/2+x",
+    "-x,-y,-z",
+    "1/2-x,1/2-y,1/2-z",
+    "z,x,y",
+    "1/2+z,1/2+x,1/2+y",
+    "-y,-z,-x",
+    "1/2-y,1/2-z,1/2-x"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Na",
+      "element": "Na",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        2.1453,
+        2.1453,
+        2.1453
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 2,
+  "speciesPositionCount": 2,
+  "cellComposition": {
+    "Na": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Wyckoff R W G"
+    ],
+    "title": "Second edition. Interscience Publishers, New York, New York\n Sample at T = 293 K\n Body centered cubic, bcc, structure",
+    "journal": "Crystal Structures",
+    "year": 1963,
+    "volume": "1",
+    "pages": "7–83"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "literature-compilation",
+  "validation": {
+    "operatorCount": 96,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 3.5320694466016513e-06
+  },
+  "id": "nguyen-to-na",
+  "note": ""
+}

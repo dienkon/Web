@@ -1,0 +1,51 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0001256
+_database_code_amcsd 0001256
+_chemical_name_mineral Fluorapatite
+_chemical_formula_sum 'Ca5 P3 O12 F'
+_symmetry_space_group_name_H-M 'P 63/m'
+_cell_length_a 9.3973
+_cell_length_b 9.3973
+_cell_length_c 6.8782
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 120
+_cell_volume 526.031334
+loop_
+_publ_author_name
+'Hughes J M'
+'Cameron M'
+'Crowley K D'
+_journal_name_full 'American Mineralogist'
+_journal_year 1989
+_journal_volume 74
+_publ_section_title 'Structural variations in natural F, OH, and Cl apatites'
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+-x+y,-x,1/2-z
+x-y,x,1/2+z
+y,-x+y,-z
+-y,x-y,z
+x,y,1/2-z
+-x,-y,1/2+z
+x-y,x,-z
+-x+y,-x,z
+-y,x-y,1/2-z
+y,-x+y,1/2+z
+-x,-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Ca1 Ca 0.66666675 0.33333325 0.001 1
+Ca2 Ca -0.00712 0.24227 0.25 1
+P P 0.36895 0.3985 0.25 1
+O1 O 0.4849 0.3273 0.25 1
+O2 O 0.4667 0.5875 0.25 1
+O3 O 0.2575 0.3421 0.0705 1
+F F 0 0 0.25 1

@@ -62,7 +62,44 @@
     "valenceElectrons": 4,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Tứ phương (Tetragonal)",
-    "latticeEvidence": "phase-dependent"
+    "latticeEvidence": "phase-dependent",
+    "publishedCrystal": {
+      "id": "nguyen-to-sn",
+      "amcsdId": "0011248",
+      "mineralName": "Tin",
+      "formula": "Sn",
+      "spaceGroup": "I 41/a m d",
+      "cell": {
+        "a": 5.8197,
+        "b": 5.8197,
+        "c": 3.17488,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 107.52971891677919,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Sample known as white tin",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "7–83"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-sn.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-sn.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-sn.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-sn.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Tứ phương (Tetragonal)",
   "occurrence": {
@@ -100,16 +137,58 @@
       "sourceSearch": "https://rruff.info/Cassiterite",
       "model": "/assets/periodic-table/minerals/cassiterite.glb",
       "preview": "/assets/periodic-table/minerals/cassiterite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "cassiterite",
+          "amcsdId": "0009162",
+          "mineralName": "Cassiterite",
+          "formula": "Sn O2",
+          "spaceGroup": "P 42/m n m",
+          "cell": {
+            "a": 4.737,
+            "b": 4.737,
+            "c": 3.185,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 71.468753265,
+          "siteCount": 6,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Baur W H"
+            ],
+            "title": "Uber die verfeinerung der kristallstrukturbestimmung einiger vertreter\n des rutiltyps: TiO2, SnO2, GeO2 und MgF2",
+            "journal": "Acta Crystallographica",
+            "year": 1956,
+            "volume": "9",
+            "pages": "515–520"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/cassiterite.json",
+          "cif": "/assets/periodic-table/crystals/cassiterite.cif",
+          "model": "/assets/periodic-table/crystals/cassiterite.glb",
+          "preview": "/assets/periodic-table/crystals/cassiterite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:4447M-cassiterite.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/050_Sn.jpg",
-    "alt": "Tin: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/cassiterite.jpg",
+    "alt": "Cassiterite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Sn-Alpha-Beta.jpg",
-    "caption": "Hai dạng thù hình của tin: β-tin trắng và α-tin xám.",
-    "credit": "Alchemist-hp ( talk ) ( www.pse-mendelejew.de ) · CC BY-SA 3.0 de"
+    "source": "https://commons.wikimedia.org/wiki/File:4447M-cassiterite.jpg",
+    "caption": "Ảnh mẫu tham chiếu Cassiterite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "Alchemist-hp ( talk ) ( www.pse-mendelejew.de ) · CC BY-SA 3.0 de",
+    "author": "CarlesMillan",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -552,9 +631,62 @@
       "author": "Alchemist-hp ( talk ) ( www.pse-mendelejew.de )",
       "license": "CC BY-SA 3.0 de",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/cassiterite.jpg",
+      "role": "natural-mineral",
+      "title": "Cassiterite",
+      "desc": "Ảnh mẫu tham chiếu Cassiterite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:4447M-cassiterite.jpg",
+      "author": "CarlesMillan",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Cassiterite",
+      "src": "/assets/periodic-table/crystals/cassiterite.json",
+      "crystal": {
+        "id": "cassiterite",
+        "amcsdId": "0009162",
+        "mineralName": "Cassiterite",
+        "formula": "Sn O2",
+        "spaceGroup": "P 42/m n m",
+        "cell": {
+          "a": 4.737,
+          "b": 4.737,
+          "c": 3.185,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 71.468753265,
+        "siteCount": 6,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Baur W H"
+          ],
+          "title": "Uber die verfeinerung der kristallstrukturbestimmung einiger vertreter\n des rutiltyps: TiO2, SnO2, GeO2 und MgF2",
+          "journal": "Acta Crystallographica",
+          "year": 1956,
+          "volume": "9",
+          "pages": "515–520"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/cassiterite.json",
+        "cif": "/assets/periodic-table/crystals/cassiterite.cif",
+        "model": "/assets/periodic-table/crystals/cassiterite.glb",
+        "preview": "/assets/periodic-table/crystals/cassiterite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -589,6 +721,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -596,6 +733,7 @@
     "sourceFile": "050_Sn.docx",
     "sourceSha256": "ff92c9588a2df2535448b14a25ef537ce789f370734829f9f9bf97429c1e7c58",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/050_Sn.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/tin-sn/audit.md"
   }
 }

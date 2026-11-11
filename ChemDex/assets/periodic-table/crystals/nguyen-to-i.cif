@@ -1,0 +1,47 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0011273
+_database_code_amcsd 0011273
+_chemical_name_mineral Iodine
+_chemical_formula_sum I
+_symmetry_space_group_name_H-M 'B m a b'
+_cell_length_a 7.27007
+_cell_length_b 9.79344
+_cell_length_c 4.79004
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 341.046031
+loop_
+_publ_author_name
+'Wyckoff R W G'
+_journal_name_full 'Crystal Structures'
+_journal_year 1963
+_journal_volume 1
+_publ_section_title 'Second edition. Interscience Publishers, New York, New York'
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+1/2+x,y,1/2+z
+x,1/2+y,1/2-z
+1/2+x,1/2+y,-z
+-x,1/2-y,1/2+z
+1/2-x,1/2-y,+z
+-x,y,z
+1/2-x,y,1/2+z
+x,-y,-z
+1/2+x,-y,1/2-z
+x,1/2-y,1/2+z
+1/2+x,1/2-y,+z
+-x,1/2+y,1/2-z
+1/2-x,1/2+y,-z
+-x,-y,-z
+1/2-x,-y,1/2-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+I I 0 0.1156 0.1493 1

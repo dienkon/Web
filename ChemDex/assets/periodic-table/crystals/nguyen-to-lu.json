@@ -1,0 +1,133 @@
+{
+  "amcsdId": "0009180",
+  "mineralName": "Lutetium",
+  "formula": "Lu",
+  "spaceGroup": "P 63/m m c",
+  "cell": {
+    "a": 3.5031,
+    "b": 3.5031,
+    "c": 5.5509,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 58.99281295024035,
+  "declaredVolume": 58.993,
+  "basis": [
+    [
+      3.5031,
+      -1.751549999999999,
+      0.0
+    ],
+    [
+      0.0,
+      3.0337735919972673,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.5509
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,-x+y,1/2+z",
+    "x,x-y,1/2-z",
+    "-x+y,-x,1/2-z",
+    "x-y,x,1/2+z",
+    "-y,-x,z",
+    "y,x,-z",
+    "y,-x+y,-z",
+    "-y,x-y,z",
+    "x-y,-y,1/2+z",
+    "-x+y,y,1/2-z",
+    "x,y,1/2-z",
+    "-x,-y,1/2+z",
+    "x,x-y,z",
+    "-x,-x+y,-z",
+    "x-y,x,-z",
+    "-x+y,-x,z",
+    "y,x,1/2+z",
+    "-y,-x,1/2-z",
+    "-y,x-y,1/2-z",
+    "y,-x+y,1/2+z",
+    "-x+y,y,z",
+    "x-y,-y,-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Lu",
+      "element": "Lu",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Lu",
+      "label": "Lu",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "position": [
+        -4e-07,
+        2.022516,
+        1.387725
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Lu",
+      "label": "Lu",
+      "fractional": [
+        0.66666675,
+        0.3333335,
+        0.75
+      ],
+      "position": [
+        1.75155,
+        1.0112584,
+        4.163175
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 2,
+  "speciesPositionCount": 2,
+  "cellComposition": {
+    "Lu": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Spedding F H",
+      "Daane A H",
+      "Herrmann K W"
+    ],
+    "title": "The crystal structures and lattice parameters of high-purity scandium,\n yttrium and the rare earth metals\n Note: sample 99.9% pure",
+    "journal": "Acta Crystallographica",
+    "year": 1956,
+    "volume": "9",
+    "pages": "559–563"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 24,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 3.1707211488720463e-06
+  },
+  "id": "nguyen-to-lu",
+  "note": ""
+}

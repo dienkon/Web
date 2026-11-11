@@ -1,0 +1,132 @@
+{
+  "amcsdId": "0012941",
+  "mineralName": "Cadmium",
+  "formula": "Cd",
+  "spaceGroup": "P 63/m m c",
+  "cell": {
+    "a": 2.9731,
+    "b": 2.9731,
+    "c": 5.6069,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 42.92126131548668,
+  "declaredVolume": 42.921,
+  "basis": [
+    [
+      2.9731,
+      -1.4865499999999994,
+      0.0
+    ],
+    [
+      0.0,
+      2.574780127991515,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.6069
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,-x+y,1/2+z",
+    "x,x-y,1/2-z",
+    "-x+y,-x,1/2-z",
+    "x-y,x,1/2+z",
+    "-y,-x,z",
+    "y,x,-z",
+    "y,-x+y,-z",
+    "-y,x-y,z",
+    "x-y,-y,1/2+z",
+    "-x+y,y,1/2-z",
+    "x,y,1/2-z",
+    "-x,-y,1/2+z",
+    "x,x-y,z",
+    "-x,-x+y,-z",
+    "x-y,x,-z",
+    "-x+y,-x,z",
+    "y,x,1/2+z",
+    "-y,-x,1/2-z",
+    "-y,x-y,1/2-z",
+    "y,-x+y,1/2+z",
+    "-x+y,y,z",
+    "x-y,-y,-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Cd",
+      "element": "Cd",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Cd",
+      "label": "Cd",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "position": [
+        -4e-07,
+        1.7165203,
+        1.401725
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cd",
+      "label": "Cd",
+      "fractional": [
+        0.66666675,
+        0.3333335,
+        0.75
+      ],
+      "position": [
+        1.48655,
+        0.8582605,
+        4.205175
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 2,
+  "speciesPositionCount": 2,
+  "cellComposition": {
+    "Cd": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Jette E R",
+      "Foote F"
+    ],
+    "title": "Precision determination of lattice constants\n Sample: at T = 25 C\n Note: lattice parameter is average of two samples",
+    "journal": "Journal of Chemical Physics",
+    "year": 1935,
+    "volume": "3",
+    "pages": "605–616"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 24,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 6.088252737062317e-06
+  },
+  "id": "nguyen-to-cd",
+  "note": ""
+}

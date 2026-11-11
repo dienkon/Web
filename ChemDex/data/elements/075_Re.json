@@ -64,7 +64,44 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương (Hexagonal)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-re",
+      "amcsdId": "0011190",
+      "mineralName": "Rhenium",
+      "formula": "Re",
+      "spaceGroup": "P 63/m m c",
+      "cell": {
+        "a": 2.7608,
+        "b": 2.7608,
+        "c": 4.4582,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 29.427954222783445,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Hexagonal closest packed, hcp, structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "7–83"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-re.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-re.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-re.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-re.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -102,16 +139,60 @@
       "sourceSearch": "https://rruff.info/Molybdenite",
       "model": "/assets/periodic-table/minerals/molybdenite.glb",
       "preview": "/assets/periodic-table/minerals/molybdenite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "molybdenite",
+          "amcsdId": "0009788",
+          "mineralName": "Molybdenite",
+          "formula": "Mo S2",
+          "spaceGroup": "P 63/m m c",
+          "cell": {
+            "a": 3.161,
+            "b": 3.161,
+            "c": 12.295,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 120.0
+          },
+          "volume": 106.39179996177569,
+          "siteCount": 6,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Moss S C",
+              "Schonfeld B",
+              "Huang J J"
+            ],
+            "title": "Anisotropic mean-square displacements (MSD) in single crystals\n of 2H- and 3R-MoS2\n Note: 2H polytype, this is the most common in nature",
+            "journal": "Acta Crystallographica, Section B",
+            "year": 1983,
+            "volume": "39",
+            "pages": "404–407"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/molybdenite.json",
+          "cif": "/assets/periodic-table/crystals/molybdenite.cif",
+          "model": "/assets/periodic-table/crystals/molybdenite.glb",
+          "preview": "/assets/periodic-table/crystals/molybdenite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Molybdenite_quebec2.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/diagrams/075_Re.svg",
-    "alt": "Rhenium: sơ đồ minh họa nguyên tố",
+    "image": "/assets/periodic-table/mineral-photos/molybdenite.jpg",
+    "alt": "Molybdenite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "diagram",
-    "source": "",
-    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
-    "credit": ""
+    "source": "https://commons.wikimedia.org/wiki/File:Molybdenite_quebec2.jpg",
+    "caption": "Ảnh mẫu tham chiếu Molybdenite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+    "credit": "",
+    "author": "Didier Descouens",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
   },
   "isotopes": [
     {
@@ -353,9 +434,64 @@
       "author": "ChemDex",
       "license": "ChemDex schematic diagram",
       "licenseUrl": ""
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/molybdenite.jpg",
+      "role": "natural-mineral",
+      "title": "Molybdenite",
+      "desc": "Ảnh mẫu tham chiếu Molybdenite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Molybdenite_quebec2.jpg",
+      "author": "Didier Descouens",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Molybdenite",
+      "src": "/assets/periodic-table/crystals/molybdenite.json",
+      "crystal": {
+        "id": "molybdenite",
+        "amcsdId": "0009788",
+        "mineralName": "Molybdenite",
+        "formula": "Mo S2",
+        "spaceGroup": "P 63/m m c",
+        "cell": {
+          "a": 3.161,
+          "b": 3.161,
+          "c": 12.295,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 120.0
+        },
+        "volume": 106.39179996177569,
+        "siteCount": 6,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Moss S C",
+            "Schonfeld B",
+            "Huang J J"
+          ],
+          "title": "Anisotropic mean-square displacements (MSD) in single crystals\n of 2H- and 3R-MoS2\n Note: 2H polytype, this is the most common in nature",
+          "journal": "Acta Crystallographica, Section B",
+          "year": 1983,
+          "volume": "39",
+          "pages": "404–407"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/molybdenite.json",
+        "cif": "/assets/periodic-table/crystals/molybdenite.cif",
+        "model": "/assets/periodic-table/crystals/molybdenite.glb",
+        "preview": "/assets/periodic-table/crystals/molybdenite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -390,6 +526,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -397,6 +538,7 @@
     "sourceFile": "075_Re.docx",
     "sourceSha256": "99dd02eae9276ad1d88a9669445bd51f95ade7ecc79d17a092f685188fdb7ded",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/075_Re.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/rhenium-re/audit.md"
   }
 }

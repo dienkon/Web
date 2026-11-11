@@ -1,0 +1,87 @@
+const n="promethium-pm",h="promethium-pm",t="reference/promethium-pm/index.json",i=["ho-so-5c41648ce603"],c="Promethium (Pm) — Phóng sự giải mã nguyên tố: Từ vạch quang phổ đến đơn chất ngoài đời thực",g="Phóng Viên Phòng Thí Nghiệm & Lịch Sử Khoa Học · ChemDex",m="nguyento",u="Bài báo chuyên đề khắc họa chân dung hóa học của Promethium (Pm) gắn với dấu mốc 1945: câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",a="/assets/library/earth-minerals.svg",P="Pm",o=["Biên niên sử nguyên tố","Pm"],r=["Promethium","Pm"],e=["atom-Pm"],s="reference",v=11,p={formula:"Pm",representativeId:"atom-Pm",counts:{Pm:1},mass:145,material:!1,reactionIds:[]},l=`## Câu chuyện: Từ những quan sát thực nghiệm đầu tiên đến danh pháp quốc tế của Promethium (Pm)
+
+Trong thế giới hóa học, không một công thức nào ra đời từ sự ngẫu nhiên. Sự hiện diện của **Promethium (Pm)** trên các trang sách giáo khoa và cơ sở dữ liệu quốc tế hôm nay là kết quả của hàng trăm phép thử nghiệm, những cuộc tranh luận học thuật nảy lửa tại châu Âu thế kỷ XVIII–XIX và sự ra đời của lý thuyết liên kết hóa học hiện đại.
+
+Theo hồ sơ bách khoa trực tuyến từ [Wikipedia Tiếng Việt — Promethi](https://vi.wikipedia.org/wiki/Promethi), bản chất và lịch sử của chất này được ghi nhận cụ thể như sau: Prometi (tên La tinh: Promethium) là một nguyên tố hóa học có ký hiệu Pm và số nguyên tử bằng 61. Nó đáng chú ý ở chỗ là nguyên tố chỉ có các đồng vị phóng xạ (ngoài tecneti) mà trước và sau nó đều có các nguyên tố với các đồng vị ổn định.
+
+Tư liệu bách khoa quốc tế tại [Wikipedia — Promethium](https://en.wikipedia.org/wiki/Promethium) bổ sung thêm góc nhìn lịch sử và danh pháp quốc tế: *“Promethium is a generally synthetic chemical element; it has symbol Pm and . All of its isotopes are radioactive; it is extremely rare, with only about 500–600 grams naturally occurring in the Earth's crust at any given time. Promethium is one of only two radioactive elements that are both preceded and succeeded in the periodic table by elements with stable forms, the other being technetium. Chemically, promethium is a lanthanide. Promethium shows only one stable oxidation state of +3. In 1902 Bohuslav Brauner suggested that there was a then-unknown element with properties intermediate between those of the known elements neody”* — phản ánh vai trò quan trọng của **Promethium (Pm)** trong hệ thống phân loại hóa chất chuẩn IUPAC và thực tiễn phòng thí nghiệm toàn cầu.
+
+Là một nguyên tố nặng với hành trình kiến tạo đầy kịch tính, **Promethium (Pm)** được tôi luyện từ những sự kiện vũ trụ khốc liệt nhất — những vụ va chạm dữ dội giữa các sao neutron hoặc siêu tân tinh giàu neutron, để lại những mạch quặng quý giá sâu trong lòng các tầng địa chất Trái Đất. Trong lịch sử văn minh nhân loại, khoảnh khắc định danh và cô lập được **Promethium** đánh dấu bước ngoặt lớn gắn liền với công trình của **Jacob A. Marinsky, Lawrence E. Glendenin và Charles D. Coryell** vào thời điểm **1945** tại **Oak Ridge, Tennessee, Hoa Kỳ**. Tên gọi quốc tế và ký hiệu **Pm** bắt nguồn từ danh pháp Latinh **Promethium**. Promethium được phát hiện khi nhóm nghiên cứu phân tích các sản phẩm phân hạch của Uranium tại Oak Ridge. Họ đã tách và xác định một nguyên tố đất hiếm mới, có số hiệu nguyên tử 61. Promethium là nguyên tố Lanthanide duy nhất không có đồng vị bền và không tồn tại tự nhiên với lượng đáng kể. Tên Promethium được đặt theo Prometheus, vị thần trong thần thoại Hy Lạp, người đã lấy lửa từ các vị thần đem cho con người. Trong tự nhiên, Promethium gắn liền với các vỉa khoáng vật đặc trưng như **Không tồn tại tự nhiên với lượng đáng kể. Một lượng cực nhỏ có thể hình thành tự nhiên từ quá trình phân hạch Uranium và sự phân rã của các hạt nhân khác**.
+
+![Khởi nguyên lịch sử và hành trình khám phá Promethium (Pm)](/assets/library/earth-minerals.svg)
+*Hình 1. Bối cảnh lịch sử phát hiện, nguồn gốc tự nhiên và tiến trình định danh khoa học của Promethium (Pm).*
+
+## Lần theo thành phần nguyên tử: Trật tự vi mô và góc nhìn cấu trúc 3D của Promethium
+
+Để hiểu vì sao **Promethium (Pm)** lại mang những tính chất vật lý và hóa học đặc thù, chúng ta cần đi sâu vào "bản thiết kế hình học" của chất này. Một đơn vị công thức **Pm** được liên kết chặt chẽ từ **1 nguyên tử** thuộc **1 nguyên tố hóa học**:
+
+- **Nguyên tố Promethium (Pm)**: Góp mặt **1 nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử Promethium phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **Promethium**.
+
+Ở trạng thái đơn chất, **Promethium (Pm)** mang trọn vẹn phong thái và tính chất đặc trưng của nhóm **nguyên tố**. Trong mạng lưới cấu trúc tự nhiên (như Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.), các nguyên tử **Promethium** gắn kết với nhau bằng những liên kết bền vững, tạo nên độ cứng, nhiệt độ chuyển pha và khả năng tương tác riêng biệt khi đặt trong môi trường thử nghiệm.
+
+![Kiến trúc liên kết không gian 3 chiều của Promethium (Pm)](/assets/library/covalent-bonds.svg)
+*Hình 2. Mô phỏng trực quan sự phân bố đám mây electron, góc liên kết và trật tự phối trí không gian 3D của Promethium (Pm).*
+
+| Chỉ tiêu nhận diện & Cấu trúc 3D | Tư liệu xác thực từ hệ thống ChemDex |
+|---|---|
+| Tên chất & Danh pháp quốc tế | **Promethium** (Promethium) |
+| Công thức hóa học thực nghiệm | **Pm**  |
+| Hình thái không gian 3 chiều | Đơn chất tự nhiên () |
+| Quy mô cấu trúc vi mô | **1 nguyên tử** (1× Pm) |
+| Trạng thái & Sắc thái nhận diện | Rắn / Dung dịch thực nghiệm |
+| Phòng quan sát 3D tương tác | [Mở mô hình xoay 360° và kiểm tra góc liên kết](/tien-ich/cau-truc-3d/?compound=atom-Pm) |
+
+Người đọc có thể trực tiếp xoay mô hình 360°, bật/tắt nhãn nguyên tử và kiểm tra độ dài từng liên kết (tính bằng đơn vị Ångström) của chất này tại [Phòng quan sát Cấu trúc & Liên kết 3D — Promethium](/tien-ich/cau-truc-3d/?compound=atom-Pm).
+
+## Kịch bản trong ống nghiệm: Cơ chế hình thành và chuỗi phản ứng của Promethium
+
+Trong tự nhiên, hầu hết các nguyên tố hóa học tồn tại ở dạng hợp chất bền vững về mặt nhiệt động học. Để đưa **Promethium (Pm)** về trạng thái đơn chất tinh khiết phục vụ nghiên cứu và sản xuất, ngành hóa học thực nghiệm đã phát triển hai nhánh quy trình bổ trợ lẫn nhau:
+
+- **Điều chế trong phòng thí nghiệm**: Promethium có thể được tạo ra bằng phản ứng hạt nhân, chẳng hạn chiếu xạ Neodymium-146 bằng neutron Phương trình phản ứng: \`¹⁴⁶Nd + ¹n → ¹⁴⁷Nd + γ\`. 
+- **Điều chế trong phòng thí nghiệm**: Sau đó, Neodymium-147 phân rã beta thành Promethium-147 Phương trình phản ứng: \`¹⁴⁷Nd → ¹⁴⁷Pm + β⁻ + ν̅ₑ\`. 
+- **Sản xuất quy mô công nghiệp**: Promethium (Pm) không có nguồn quặng tự nhiên đáng kể do tất cả các đồng vị đều phóng xạ. Nguyên tố này chủ yếu được thu hồi từ các sản phẩm phân hạch của Uranium trong lò phản ứng hạt nhân.  Promethium có thể được tạo ra từ sự phân hạch của Uranium-235: Promethium được tách khỏi hỗn hợp sản phẩm phóng xạ bằng các phương pháp chuyên dụng.
+
+Bên cạnh câu chuyện điều chế, bản chất hóa học của **Promethium** còn được thể hiện sống động qua chuỗi các phản ứng đặc trưng với đơn chất và hợp chất khác:
+
+- **Tác dụng với Oxygen**: \`4Pm + 3O₂ → 2Pm₂O₃\` 
+- **Tác dụng với Hydrochloric acid**: \`2Pm + 6HCl → 2PmCl₃ + 3H₂\` 
+- **Tạo Promethium(III) hydroxide**: \`PmCl₃ + 3NaOH → Pm(OH)₃↓ + 3NaCl\` 
+- **Điều chế Promethium-147**: \`¹⁴⁷Nd → ¹⁴⁷Pm + β⁻ + ν̅ₑ\` 
+- **Phân rã Beta của Promethium-147**: \`¹⁴⁷Pm → ¹⁴⁷Sm + β⁻ + ν̅ₑ\` 
+
+Trong thực hành hóa học, **Promethium (Pm)** được điều chế và tinh chế dựa trên nguyên lý dịch chuyển cân bằng hóa học (Nguyên lý Le Chatelier) và sự khác biệt về độ tan, nhiệt độ sôi hoặc năng lượng mạng lưới tinh thể. Khi thiết kế quy trình tổng hợp **Pm**, nhà hóa học luôn kiểm soát chặt chẽ độ tinh khiết của tiền chất, nhiệt độ phản ứng và môi trường dung môi để thu được sản phẩm có cấu trúc không gian đồng nhất như mô hình 3D đã khảo sát.
+
+## Sứ mệnh thực tiễn và vai trò của Promethium trong nền văn minh hiện đại
+
+Từ một đối tượng nghiên cứu ban đầu trong các phòng thí nghiệm cổ điển, **Promethium (Pm)** đã từng bước khẳng định vị thế to lớn trong đời sống và tiến trình văn minh nhân loại:
+
+- **Nguồn phóng xạ**: Promethium-147 phát ra bức xạ Beta và từng được sử dụng làm nguồn năng lượng cho các thiết bị đặc biệt.
+- **Pin hạt nhân**: Pm-147 có thể được sử dụng trong một số loại nuclear battery và nguồn năng lượng phóng xạ công suất nhỏ.
+- **Thiết bị đo độ dày**: Nguồn Pm-147 từng được sử dụng trong các thiết bị đo độ dày vật liệu công nghiệp.
+- **Nghiên cứu**: Promethium được sử dụng để nghiên cứu tính chất của Lanthanide và các quá trình phóng xạ.
+- **Ứng dụng**: Do tính phóng xạ và độ hiếm, ứng dụng của Promethium rất hạn chế.
+
+### Câu chuyện lịch sử ứng dụng & Bài học kinh nghiệm thực hành
+
+Lịch sử ứng dụng của **Promethium (Pm)** là một minh chứng sống động cho thấy sự am hiểu về bản chất chất hóa học có thể biến những vật chất thô sơ trong tự nhiên thành công cụ phục vụ đời sống con người. Trải qua hàng thế kỷ thực nghiệm — từ những phát hiện ngẫu nhiên trong xưởng nhuộm, mỏ quặng cho đến các dây chuyền tổng hợp hiện đại — bài học cốt lõi mà các thế hệ tiền bối để lại là luôn tôn trọng tính nết tự nhiên của chất: kiểm soát cẩn trọng nhiệt độ, môi trường tiếp xúc và trang bị đầy đủ phương tiện bảo hộ để phát huy tối đa giá trị hữu ích đồng thời ngăn ngừa mọi rủi ro tiềm ẩn trong thao tác.
+
+## Câu hỏi suy ngẫm & Tự kiểm tra kiến thức
+
+1. Dựa vào câu chuyện lịch sử và hành trình khám phá **Promethium (Pm)**, nguyên nhân vì sao tên gọi và phương pháp điều chế ban đầu của chất này lại phản ánh hoàn cảnh văn hóa và kỹ thuật của thời đại phát hiện ra nó?
+2. Vì sao việc khám phá hình dáng không gian 3 chiều của **Promethium (Pm)** lại là chìa khóa để giải mã các phản ứng đặc trưng của nó thay vì chỉ nhìn vào một công thức viết phẳng?
+
+<details><summary>Xem phân tích và lời giải chi tiết</summary>
+
+- **Giải đáp câu 1:** Tên gọi và phương pháp tiếp cận đầu tiên của Pm bắt nguồn trực tiếp từ nguồn khoáng sản tự nhiên hoặc hiện tượng quan sát bằng mắt thường của các nhà thực nghiệm thời kỳ đó. Chỉ khi kỹ thuật phân tích và mô hình liên kết không gian phát triển, nhân loại mới hiểu trọn vẹn bản chất cấu tạo của chất.
+- **Giải đáp câu 2:** Cấu trúc 3 chiều quyết định vị trí các nguyên tử lộ ra ngoài để tiếp xúc với thuốc thử; chính góc liên kết và sự che chắn không gian quyết định chất phản ứng dễ dàng hay trơ lỳ về mặt hóa học.
+
+</details>
+
+## Nguồn tư liệu khoa học & Khám phá tiếp theo
+
+- [Phòng quan sát Cấu trúc & Liên kết 3D tương tác — Promethium (Pm)](/tien-ich/cau-truc-3d/?compound=atom-Pm)
+- [Bách khoa toàn thư Wikipedia Tiếng Việt — Promethi](https://vi.wikipedia.org/wiki/Promethi)
+- [Wikipedia Quốc tế — Promethium](https://en.wikipedia.org/wiki/Promethium)
+- [Hồ sơ dữ liệu nguyên tố chuyên sâu ChemDex](/data/elements/061_Pm.json)
+
+Bài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tổng hợp từ tư liệu lịch sử bách khoa trực tuyến, hồ sơ cấu trúc không gian 3 chiều và cơ sở dữ liệu phản ứng thực nghiệm, mang lại cái nhìn toàn diện về hành trình ra đời, cấu tạo vi mô và ứng dụng của **Promethium (Pm)**.`,y={id:n,slug:h,documentPath:t,legacyIds:i,title:c,author:g,category:m,summary:u,image:a,chemicalFormula:"Pm",tags:o,aliases:r,substanceIds:e,documentKind:s,readingMinutes:11,chemicalEvidence:p,content:l};export{r as aliases,g as author,m as category,p as chemicalEvidence,P as chemicalFormula,l as content,y as default,s as documentKind,t as documentPath,n as id,a as image,i as legacyIds,v as readingMinutes,h as slug,e as substanceIds,u as summary,o as tags,c as title};

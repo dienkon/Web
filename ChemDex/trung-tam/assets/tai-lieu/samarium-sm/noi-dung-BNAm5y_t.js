@@ -1,0 +1,87 @@
+const n="samarium-sm",h="samarium-sm",t="reference/samarium-sm/index.json",i=["ho-so-0b9ba4255f0c"],a="Samarium (Sm) — Hồ sơ khởi nguyên từ bụi sao vũ trụ đến phòng thí nghiệm hiện đại",c="Ban Biên Tập Biên Niên Sử Hóa Học · ChemDex",m="nguyento",g="Phóng sự khoa học chuyên sâu về Samarium (Sm): lần theo cội nguồn lịch sử từ mốc 1879, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",u="/assets/library/earth-minerals.svg",v="Sm",r=["Biên niên sử nguyên tố","Sm"],o=["Samarium","Sm"],s=["atom-Sm"],e="reference",p=11,l={formula:"Sm",representativeId:"atom-Sm",counts:{Sm:1},mass:150.36,material:!1,reactionIds:[]},S=`## Câu chuyện: Biên niên sử khởi nguyên và hành trình nhân loại định danh Samarium (Sm)
+
+Nếu lật mở những trang biên niên sử của khoa học tự nhiên, ít ai ngờ rằng đằng sau ký hiệu hóa học ngắn gọn **Sm** của **Samarium** lại là cả một cuộc hành trình kéo dài hàng thế kỷ — nơi những nhà giả kim cổ đại, những người thợ mỏ cần mẫn và các nhà hóa học thực nghiệm hiện đại từng bước bóc tách từng lớp bí ẩn của vật chất.
+
+Theo hồ sơ bách khoa trực tuyến từ [Wikipedia Tiếng Việt — Samari](https://vi.wikipedia.org/wiki/Samari), bản chất và lịch sử của chất này được ghi nhận cụ thể như sau: Samari (tên La tinh: Samarium) là một nguyên tố hóa học có ký hiệu Sm và số nguyên tử bằng 62.
+
+Tư liệu bách khoa quốc tế tại [Wikipedia — Samarium](https://en.wikipedia.org/wiki/Samarium) bổ sung thêm góc nhìn lịch sử và danh pháp quốc tế: *“Samarium is a chemical element; it has symbol Sm and . It is a moderately hard silvery metal that slowly oxidizes in air. Being a typical member of the lanthanide series, samarium usually has the oxidation state +3. Compounds of samarium(II) are also known, most notably the monoxide SmO, monochalcogenides SmS, SmSe and SmTe, as well as samarium(II) iodide. Discovered in 1879 by French chemist Paul-Émile Lecoq de Boisbaudran, samarium was named after the mineral samarskite from which it was isolated. The mineral was named after a Russian mine official, Vassili Samarsky-Bykhovets, who thus became the first person to have a chemi”* — phản ánh vai trò quan trọng của **Samarium (Sm)** trong hệ thống phân loại hóa chất chuẩn IUPAC và thực tiễn phòng thí nghiệm toàn cầu.
+
+Là một nguyên tố nặng với hành trình kiến tạo đầy kịch tính, **Samarium (Sm)** được tôi luyện từ những sự kiện vũ trụ khốc liệt nhất — những vụ va chạm dữ dội giữa các sao neutron hoặc siêu tân tinh giàu neutron, để lại những mạch quặng quý giá sâu trong lòng các tầng địa chất Trái Đất. Trong lịch sử văn minh nhân loại, khoảnh khắc định danh và cô lập được **Samarium** đánh dấu bước ngoặt lớn gắn liền với công trình của **Paul-Émile Lecoq de Boisbaudran** vào thời điểm **1879** tại **Pháp**. Tên gọi quốc tế và ký hiệu **Sm** bắt nguồn từ danh pháp Latinh **Samarium**. Samarium được phát hiện khi Paul-Émile Lecoq de Boisbaudran nghiên cứu khoáng vật Samarskite. Ông phát hiện các vạch phổ mới và xác định sự tồn tại của một nguyên tố đất hiếm mới. Sau đó, Samarium được điều chế ở dạng tương đối tinh khiết hơn. Tên Samarium bắt nguồn từ tên khoáng vật Samarskite, vốn được đặt theo tên của Vasili Samarsky-Bykhovets, một kỹ sư khai mỏ người Nga. Trong tự nhiên, Samarium gắn liền với các vỉa khoáng vật đặc trưng như **Monazite, Bastnäsite và Samarskite**.
+
+![Khởi nguyên lịch sử và hành trình khám phá Samarium (Sm)](/assets/library/earth-minerals.svg)
+*Hình 1. Bối cảnh lịch sử phát hiện, nguồn gốc tự nhiên và tiến trình định danh khoa học của Samarium (Sm).*
+
+## Lần theo thành phần nguyên tử: Giải phẫu kiến trúc không gian và bản chất liên kết của Samarium
+
+Để hiểu vì sao **Samarium (Sm)** lại mang những tính chất vật lý và hóa học đặc thù, chúng ta cần đi sâu vào "bản thiết kế hình học" của chất này. Một đơn vị công thức **Sm** được liên kết chặt chẽ từ **1 nguyên tử** thuộc **1 nguyên tố hóa học**:
+
+- **Nguyên tố Samarium (Sm)**: Góp mặt **1 nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử Samarium phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **Samarium**.
+
+Ở trạng thái đơn chất, **Samarium (Sm)** mang trọn vẹn phong thái và tính chất đặc trưng của nhóm **nguyên tố**. Trong mạng lưới cấu trúc tự nhiên (như Rhombohedral), các nguyên tử **Samarium** gắn kết với nhau bằng những liên kết bền vững, tạo nên độ cứng, nhiệt độ chuyển pha và khả năng tương tác riêng biệt khi đặt trong môi trường thử nghiệm.
+
+![Kiến trúc liên kết không gian 3 chiều của Samarium (Sm)](/assets/library/covalent-bonds.svg)
+*Hình 2. Mô phỏng trực quan sự phân bố đám mây electron, góc liên kết và trật tự phối trí không gian 3D của Samarium (Sm).*
+
+| Chỉ tiêu nhận diện & Cấu trúc 3D | Tư liệu xác thực từ hệ thống ChemDex |
+|---|---|
+| Tên chất & Danh pháp quốc tế | **Samarium** (Samarium) |
+| Công thức hóa học thực nghiệm | **Sm**  |
+| Hình thái không gian 3 chiều | Đơn chất tự nhiên () |
+| Quy mô cấu trúc vi mô | **1 nguyên tử** (1× Sm) |
+| Trạng thái & Sắc thái nhận diện | Rắn / Dung dịch thực nghiệm |
+| Phòng quan sát 3D tương tác | [Mở mô hình xoay 360° và kiểm tra góc liên kết](/tien-ich/cau-truc-3d/?compound=atom-Sm) |
+
+Người đọc có thể trực tiếp xoay mô hình 360°, bật/tắt nhãn nguyên tử và kiểm tra độ dài từng liên kết (tính bằng đơn vị Ångström) của chất này tại [Phòng quan sát Cấu trúc & Liên kết 3D — Samarium](/tien-ich/cau-truc-3d/?compound=atom-Sm).
+
+## Từ tự nhiên đến phòng thí nghiệm: Con đường điều chế và chuyển hóa của Samarium (Sm)
+
+Trong tự nhiên, hầu hết các nguyên tố hóa học tồn tại ở dạng hợp chất bền vững về mặt nhiệt động học. Để đưa **Samarium (Sm)** về trạng thái đơn chất tinh khiết phục vụ nghiên cứu và sản xuất, ngành hóa học thực nghiệm đã phát triển hai nhánh quy trình bổ trợ lẫn nhau:
+
+- **Điều chế trong phòng thí nghiệm**: Có thể điều chế Samarium bằng cách khử Samarium chloride khan bằng Calcium. Phương trình phản ứng: \`2SmCl₃ + 3Ca → 2Sm + 3CaCl₂\`. 
+- **Sản xuất quy mô công nghiệp**: Samarium (Sm) chủ yếu được điều chế từ quặng monazite và bastnaesite. Sau khi tách khỏi hỗn hợp đất hiếm, Samarium được thu bằng phương pháp khử Samarium oxide bằng Lanthanum ở nhiệt độ cao. Phương trình chủ đạo: \`Sm₂O₃ + 2La → 2Sm + La₂O₃\`. Samarium thu được được tinh chế để loại bỏ tạp chất.
+
+Bên cạnh câu chuyện điều chế, bản chất hóa học của **Samarium** còn được thể hiện sống động qua chuỗi các phản ứng đặc trưng với đơn chất và hợp chất khác:
+
+- **Tác dụng với Oxygen**: \`4Sm + 3O₂ → 2Sm₂O₃\` 
+- **Tác dụng với Hydrochloric acid**: \`2Sm + 6HCl → 2SmCl₃ + 3H₂\` 
+- **Tạo Samarium(III) hydroxide**: \`SmCl₃ + 3NaOH → Sm(OH)₃↓ + 3NaCl\` 
+- **Điều chế Samarium**: \`2SmCl₃ + 3Ca → 2Sm + 3CaCl₂\` 
+- **Phản ứng hấp thụ neutron của Samarium-149**: \`¹⁴⁹Sm + n → ¹⁵⁰Sm + γ\` 
+
+Trong thực hành hóa học, **Samarium (Sm)** được điều chế và tinh chế dựa trên nguyên lý dịch chuyển cân bằng hóa học (Nguyên lý Le Chatelier) và sự khác biệt về độ tan, nhiệt độ sôi hoặc năng lượng mạng lưới tinh thể. Khi thiết kế quy trình tổng hợp **Sm**, nhà hóa học luôn kiểm soát chặt chẽ độ tinh khiết của tiền chất, nhiệt độ phản ứng và môi trường dung môi để thu được sản phẩm có cấu trúc không gian đồng nhất như mô hình 3D đã khảo sát.
+
+## Dấu ấn trong nền văn minh: Ứng dụng công nghiệp, đời sống và an toàn thực nghiệm của Samarium
+
+Từ một đối tượng nghiên cứu ban đầu trong các phòng thí nghiệm cổ điển, **Samarium (Sm)** đã từng bước khẳng định vị thế to lớn trong đời sống và tiến trình văn minh nhân loại:
+
+- **Nam châm**: Samarium được sử dụng để chế tạo Samarium–Cobalt (SmCo), một loại nam châm vĩnh cửu mạnh có khả năng hoạt động tốt ở nhiệt độ cao.
+- **Lò phản ứng hạt nhân**: Do ¹⁴⁹Sm có tiết diện bắt neutron rất lớn, Samarium có vai trò trong việc hấp thụ neutron và kiểm soát phản ứng hạt nhân.
+- **Laser**: Một số tinh thể pha tạp Samarium được sử dụng trong các hệ thống laser và vật liệu quang học.
+- **Kính quang học**: Samarium compounds có thể được sử dụng trong kính hấp thụ tia hồng ngoại và một số ứng dụng quang học.
+- **Điện tử**: Một số hợp chất Samarium được dùng trong vật liệu điện tử và từ tính.
+
+### Câu chuyện lịch sử ứng dụng & Bài học kinh nghiệm thực hành
+
+Lịch sử ứng dụng của **Samarium (Sm)** là một minh chứng sống động cho thấy sự am hiểu về bản chất chất hóa học có thể biến những vật chất thô sơ trong tự nhiên thành công cụ phục vụ đời sống con người. Trải qua hàng thế kỷ thực nghiệm — từ những phát hiện ngẫu nhiên trong xưởng nhuộm, mỏ quặng cho đến các dây chuyền tổng hợp hiện đại — bài học cốt lõi mà các thế hệ tiền bối để lại là luôn tôn trọng tính nết tự nhiên của chất: kiểm soát cẩn trọng nhiệt độ, môi trường tiếp xúc và trang bị đầy đủ phương tiện bảo hộ để phát huy tối đa giá trị hữu ích đồng thời ngăn ngừa mọi rủi ro tiềm ẩn trong thao tác.
+
+## Câu hỏi suy ngẫm & Tự kiểm tra kiến thức
+
+1. Dựa vào câu chuyện lịch sử và hành trình khám phá **Samarium (Sm)**, nguyên nhân vì sao tên gọi và phương pháp điều chế ban đầu của chất này lại phản ánh hoàn cảnh văn hóa và kỹ thuật của thời đại phát hiện ra nó?
+2. Vì sao việc khám phá hình dáng không gian 3 chiều của **Samarium (Sm)** lại là chìa khóa để giải mã các phản ứng đặc trưng của nó thay vì chỉ nhìn vào một công thức viết phẳng?
+
+<details><summary>Xem phân tích và lời giải chi tiết</summary>
+
+- **Giải đáp câu 1:** Tên gọi và phương pháp tiếp cận đầu tiên của Sm bắt nguồn trực tiếp từ nguồn khoáng sản tự nhiên hoặc hiện tượng quan sát bằng mắt thường của các nhà thực nghiệm thời kỳ đó. Chỉ khi kỹ thuật phân tích và mô hình liên kết không gian phát triển, nhân loại mới hiểu trọn vẹn bản chất cấu tạo của chất.
+- **Giải đáp câu 2:** Cấu trúc 3 chiều quyết định vị trí các nguyên tử lộ ra ngoài để tiếp xúc với thuốc thử; chính góc liên kết và sự che chắn không gian quyết định chất phản ứng dễ dàng hay trơ lỳ về mặt hóa học.
+
+</details>
+
+## Nguồn tư liệu khoa học & Khám phá tiếp theo
+
+- [Phòng quan sát Cấu trúc & Liên kết 3D tương tác — Samarium (Sm)](/tien-ich/cau-truc-3d/?compound=atom-Sm)
+- [Bách khoa toàn thư Wikipedia Tiếng Việt — Samari](https://vi.wikipedia.org/wiki/Samari)
+- [Wikipedia Quốc tế — Samarium](https://en.wikipedia.org/wiki/Samarium)
+- [Hồ sơ dữ liệu nguyên tố chuyên sâu ChemDex](/data/elements/062_Sm.json)
+- [CIAAW (IUPAC) — Bảng trọng lượng nguyên tử chuẩn quốc tế](https://ciaaw.org/abridged-atomic-weights.htm)
+
+Bài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tổng hợp từ tư liệu lịch sử bách khoa trực tuyến, hồ sơ cấu trúc không gian 3 chiều và cơ sở dữ liệu phản ứng thực nghiệm, mang lại cái nhìn toàn diện về hành trình ra đời, cấu tạo vi mô và ứng dụng của **Samarium (Sm)**.`,k={id:n,slug:h,documentPath:t,legacyIds:i,title:a,author:c,category:m,summary:g,image:u,chemicalFormula:"Sm",tags:r,aliases:o,substanceIds:s,documentKind:e,readingMinutes:11,chemicalEvidence:l,content:S};export{o as aliases,c as author,m as category,l as chemicalEvidence,v as chemicalFormula,S as content,k as default,e as documentKind,t as documentPath,n as id,u as image,i as legacyIds,p as readingMinutes,h as slug,s as substanceIds,g as summary,r as tags,a as title};

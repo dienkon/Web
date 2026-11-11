@@ -1,0 +1,51 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0008636
+_database_code_amcsd 0008636
+_chemical_name_mineral Stibnite
+_chemical_formula_sum 'Sb2 S3'
+_symmetry_space_group_name_H-M 'P n m a'
+_cell_length_a 11.314
+_cell_length_b 3.837
+_cell_length_c 11.234
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 487.688363
+loop_
+_publ_author_name
+'Okamoto K'
+'Kimata M'
+'Kyono A'
+'Matsuhisa M'
+'Miyashita Y'
+_journal_name_full 'Physics and Chemistry of Minerals'
+_journal_year 2002
+_journal_volume 29
+_publ_section_title
+;Low-temperature crystal structures of stibnite implying orbital
+ overlap of Sb 5s2 inert pair electrons
+ Sample: T = 293 K
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+x,1/2-y,z
+-x,1/2+y,-z
+1/2-x,1/2+y,1/2+z
+1/2+x,1/2-y,1/2-z
+1/2+x,y,1/2-z
+1/2-x,-y,1/2+z
+-x,-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Sb1 Sb 0.47058 0.25 0.32598 1
+Sb2 Sb 0.35058 0.75 0.03598 1
+S1 S 0.2922 0.25 0.1919 1
+S2 S 0.5498 0.75 0.123 1
+S3 S 0.3751 0.75 0.4388 1

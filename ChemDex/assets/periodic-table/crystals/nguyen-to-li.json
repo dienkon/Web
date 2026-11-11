@@ -1,0 +1,203 @@
+{
+  "amcsdId": "0011220",
+  "mineralName": "Lithium",
+  "formula": "Li",
+  "spaceGroup": "I m 3 m",
+  "cell": {
+    "a": 3.5093,
+    "b": 3.5093,
+    "c": 3.5093,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 43.217683949357,
+  "declaredVolume": 43.218,
+  "basis": [
+    [
+      3.5093,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      3.5093,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      3.5093
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,1/2+z",
+    "z,-x,y",
+    "1/2+z,1/2-x,1/2+y",
+    "-y,z,-x",
+    "1/2-y,1/2+z,1/2-x",
+    "x,-y,z",
+    "1/2+x,1/2-y,1/2+z",
+    "-z,x,-y",
+    "1/2-z,1/2+x,1/2-y",
+    "y,-z,x",
+    "1/2+y,1/2-z,1/2+x",
+    "-x,y,-z",
+    "1/2-x,1/2+y,1/2-z",
+    "x,-z,-y",
+    "1/2+x,1/2-z,1/2-y",
+    "-z,y,x",
+    "1/2-z,1/2+y,1/2+x",
+    "y,-x,-z",
+    "1/2+y,1/2-x,1/2-z",
+    "-x,z,y",
+    "1/2-x,1/2+z,1/2+y",
+    "z,-y,-x",
+    "1/2+z,1/2-y,1/2-x",
+    "-y,x,z",
+    "1/2-y,1/2+x,1/2+z",
+    "x,z,y",
+    "1/2+x,1/2+z,1/2+y",
+    "-z,-y,-x",
+    "1/2-z,1/2-y,1/2-x",
+    "y,x,z",
+    "1/2+y,1/2+x,1/2+z",
+    "-x,-z,-y",
+    "1/2-x,1/2-z,1/2-y",
+    "z,y,x",
+    "1/2+z,1/2+y,1/2+x",
+    "-y,-x,-z",
+    "1/2-y,1/2-x,1/2-z",
+    "z,x,-y",
+    "1/2+z,1/2+x,1/2-y",
+    "-y,-z,x",
+    "1/2-y,1/2-z,1/2+x",
+    "x,y,-z",
+    "1/2+x,1/2+y,1/2-z",
+    "-z,-x,y",
+    "1/2-z,1/2-x,1/2+y",
+    "y,z,-x",
+    "1/2+y,1/2+z,1/2-x",
+    "-x,-y,z",
+    "1/2-x,1/2-y,1/2+z",
+    "-z,x,y",
+    "1/2-z,1/2+x,1/2+y",
+    "y,-z,-x",
+    "1/2+y,1/2-z,1/2-x",
+    "-x,y,z",
+    "1/2-x,1/2+y,1/2+z",
+    "z,-x,-y",
+    "1/2+z,1/2-x,1/2-y",
+    "-y,z,x",
+    "1/2-y,1/2+z,1/2+x",
+    "x,-y,-z",
+    "1/2+x,1/2-y,1/2-z",
+    "-x,z,-y",
+    "1/2-x,1/2+z,1/2-y",
+    "z,-y,x",
+    "1/2+z,1/2-y,1/2+x",
+    "-y,x,-z",
+    "1/2-y,1/2+x,1/2-z",
+    "x,-z,y",
+    "1/2+x,1/2-z,1/2+y",
+    "-z,y,-x",
+    "1/2-z,1/2+y,1/2-x",
+    "y,-x,z",
+    "1/2+y,1/2-x,1/2+z",
+    "-x,-z,y",
+    "1/2-x,1/2-z,1/2+y",
+    "z,y,-x",
+    "1/2+z,1/2+y,1/2-x",
+    "-y,-x,z",
+    "1/2-y,1/2-x,1/2+z",
+    "x,z,-y",
+    "1/2+x,1/2+z,1/2-y",
+    "-z,-y,x",
+    "1/2-z,1/2-y,1/2+x",
+    "y,x,-z",
+    "1/2+y,1/2+x,1/2-z",
+    "-z,-x,-y",
+    "1/2-z,1/2-x,1/2-y",
+    "y,z,x",
+    "1/2+y,1/2+z,1/2+x",
+    "-x,-y,-z",
+    "1/2-x,1/2-y,1/2-z",
+    "z,x,y",
+    "1/2+z,1/2+x,1/2+y",
+    "-y,-z,-x",
+    "1/2-y,1/2-z,1/2-x"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Li",
+      "element": "Li",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Li",
+      "label": "Li",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Li",
+      "label": "Li",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        1.75465,
+        1.75465,
+        1.75465
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 2,
+  "speciesPositionCount": 2,
+  "cellComposition": {
+    "Li": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Wyckoff R W G"
+    ],
+    "title": "Second edition. Interscience Publishers, New York, New York\n Sample at T = 293 K\n Body centered cubic, bcc, structure",
+    "journal": "Crystal Structures",
+    "year": 1963,
+    "volume": "1",
+    "pages": "7–83"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "literature-compilation",
+  "validation": {
+    "operatorCount": 96,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 7.312993527626718e-06
+  },
+  "id": "nguyen-to-li",
+  "note": ""
+}

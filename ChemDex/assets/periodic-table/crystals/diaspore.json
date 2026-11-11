@@ -1,0 +1,357 @@
+{
+  "amcsdId": "0007340",
+  "mineralName": "Diaspore",
+  "formula": "Al O2 H",
+  "spaceGroup": "P b n m",
+  "cell": {
+    "a": 4.4007,
+    "b": 9.4253,
+    "c": 2.8452,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 118.01297146849201,
+  "declaredVolume": 118.013,
+  "basis": [
+    [
+      4.4007,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      9.4253,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      2.8452
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "x,y,1/2-z",
+    "-x,-y,1/2+z",
+    "1/2+x,1/2-y,1/2+z",
+    "1/2-x,1/2+y,1/2-z",
+    "1/2-x,1/2+y,z",
+    "1/2+x,1/2-y,-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Al",
+      "element": "Al",
+      "fractional": [
+        0.04476,
+        -0.14456,
+        -0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.71228,
+        0.19882,
+        -0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.19698,
+        0.0535,
+        -0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H",
+      "element": "H",
+      "fractional": [
+        0.4095,
+        0.0876,
+        -0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Al",
+      "label": "Al",
+      "fractional": [
+        0.04476,
+        0.85544,
+        0.75
+      ],
+      "position": [
+        0.1969753,
+        8.0627786,
+        2.1339
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Al",
+      "label": "Al",
+      "fractional": [
+        0.95524,
+        0.14456,
+        0.25
+      ],
+      "position": [
+        4.2037247,
+        1.3625214,
+        0.7113
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Al",
+      "label": "Al",
+      "fractional": [
+        0.54476,
+        0.64456,
+        0.25
+      ],
+      "position": [
+        2.3973253,
+        6.0751714,
+        0.7113
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Al",
+      "label": "Al",
+      "fractional": [
+        0.45524,
+        0.35544,
+        0.75
+      ],
+      "position": [
+        2.0033747,
+        3.3501286,
+        2.1339
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.71228,
+        0.19882,
+        0.75
+      ],
+      "position": [
+        3.1345306,
+        1.8739381,
+        2.1339
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.28772,
+        0.80118,
+        0.25
+      ],
+      "position": [
+        1.2661694,
+        7.5513619,
+        0.7113
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.21228,
+        0.30118,
+        0.25
+      ],
+      "position": [
+        0.9341806,
+        2.8387119,
+        0.7113
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.78772,
+        0.69882,
+        0.75
+      ],
+      "position": [
+        3.4665194,
+        6.5865881,
+        2.1339
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.19698,
+        0.0535,
+        0.75
+      ],
+      "position": [
+        0.8668499,
+        0.5042535,
+        2.1339
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.80302,
+        0.9465,
+        0.25
+      ],
+      "position": [
+        3.5338501,
+        8.9210465,
+        0.7113
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.69698,
+        0.4465,
+        0.25
+      ],
+      "position": [
+        3.0671999,
+        4.2083965,
+        0.7113
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.30302,
+        0.5535,
+        0.75
+      ],
+      "position": [
+        1.3335001,
+        5.2169035,
+        2.1339
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.4095,
+        0.0876,
+        0.75
+      ],
+      "position": [
+        1.8020866,
+        0.8256563,
+        2.1339
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.5905,
+        0.9124,
+        0.25
+      ],
+      "position": [
+        2.5986133,
+        8.5996437,
+        0.7113
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.9095,
+        0.4124,
+        0.25
+      ],
+      "position": [
+        4.0024366,
+        3.8869937,
+        0.7113
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.0905,
+        0.5876,
+        0.75
+      ],
+      "position": [
+        0.3982633,
+        5.5383063,
+        2.1339
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 16,
+  "speciesPositionCount": 16,
+  "cellComposition": {
+    "Al": 4,
+    "O": 8,
+    "H": 4
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Hill R J"
+    ],
+    "title": "Crystal structure refinement and electron density distribution in diaspore\n Sample: Neutral atom refinement",
+    "journal": "Physics and Chemistry of Minerals",
+    "year": 1979,
+    "volume": "5",
+    "pages": "179–200"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 2.41765863858042e-07
+  },
+  "id": "diaspore",
+  "note": ""
+}

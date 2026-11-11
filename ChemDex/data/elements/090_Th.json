@@ -66,7 +66,44 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm diện (FCC)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-th",
+      "amcsdId": "0011162",
+      "mineralName": "Thorium",
+      "formula": "Th",
+      "spaceGroup": "F m 3 m",
+      "cell": {
+        "a": 5.0843,
+        "b": 5.0843,
+        "c": 5.0843,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 131.429696427107,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Cubic closest packed, ccp, structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "7–83"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-th.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-th.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-th.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-th.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lập phương tâm diện (FCC)",
   "occurrence": {
@@ -104,16 +141,59 @@
       "sourceSearch": "https://rruff.info/Thorite",
       "model": "/assets/periodic-table/minerals/thorite.glb",
       "preview": "/assets/periodic-table/minerals/thorite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "thorite",
+          "amcsdId": "0009633",
+          "mineralName": "Thorite",
+          "formula": "Th Si O4",
+          "spaceGroup": "I 41/a m d",
+          "cell": {
+            "a": 7.1328,
+            "b": 7.1328,
+            "c": 6.3188,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 321.48055030579195,
+          "siteCount": 24,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Ewing R C",
+              "Taylor M"
+            ],
+            "title": "The crystal structure of the ThSiO4 polymorphs: huttonite and thorite",
+            "journal": "Acta Crystallographica, Section B",
+            "year": 1978,
+            "volume": "34",
+            "pages": "1074–1079"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/thorite.json",
+          "cif": "/assets/periodic-table/crystals/thorite.cif",
+          "model": "/assets/periodic-table/crystals/thorite.glb",
+          "preview": "/assets/periodic-table/crystals/thorite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Thorite-288916.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/diagrams/090_Th.svg",
-    "alt": "Thorium: sơ đồ minh họa nguyên tố",
+    "image": "/assets/periodic-table/mineral-photos/thorite.jpg",
+    "alt": "Thorite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "diagram",
-    "source": "",
-    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
-    "credit": ""
+    "source": "https://commons.wikimedia.org/wiki/File:Thorite-288916.jpg",
+    "caption": "Ảnh mẫu tham chiếu Thorite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "",
+    "author": "Robert M. Lavinsky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -459,9 +539,63 @@
       "author": "ChemDex",
       "license": "ChemDex schematic diagram",
       "licenseUrl": ""
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/thorite.jpg",
+      "role": "natural-mineral",
+      "title": "Thorite",
+      "desc": "Ảnh mẫu tham chiếu Thorite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Thorite-288916.jpg",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Thorite",
+      "src": "/assets/periodic-table/crystals/thorite.json",
+      "crystal": {
+        "id": "thorite",
+        "amcsdId": "0009633",
+        "mineralName": "Thorite",
+        "formula": "Th Si O4",
+        "spaceGroup": "I 41/a m d",
+        "cell": {
+          "a": 7.1328,
+          "b": 7.1328,
+          "c": 6.3188,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 321.48055030579195,
+        "siteCount": 24,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Ewing R C",
+            "Taylor M"
+          ],
+          "title": "The crystal structure of the ThSiO4 polymorphs: huttonite and thorite",
+          "journal": "Acta Crystallographica, Section B",
+          "year": 1978,
+          "volume": "34",
+          "pages": "1074–1079"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/thorite.json",
+        "cif": "/assets/periodic-table/crystals/thorite.cif",
+        "model": "/assets/periodic-table/crystals/thorite.glb",
+        "preview": "/assets/periodic-table/crystals/thorite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -496,6 +630,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -503,6 +642,7 @@
     "sourceFile": "090_Th.docx",
     "sourceSha256": "f582d9813e2054b89a90bd4b2e975d5fcfdbf52ca2768099e752ab4333d8db66",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/090_Th.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/thorium-th/audit.md"
   }
 }

@@ -1,0 +1,194 @@
+{
+  "amcsdId": "0011760",
+  "mineralName": "Pyrolusite",
+  "formula": "Mn O2",
+  "spaceGroup": "P 42/m n m",
+  "cell": {
+    "a": 4.396,
+    "b": 4.396,
+    "c": 2.871,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 55.481546736,
+  "declaredVolume": 55.482,
+  "basis": [
+    [
+      4.396,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      4.396,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      2.871
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-y,-x,z",
+    "y,x,-z",
+    "1/2+y,1/2-x,1/2-z",
+    "1/2-y,1/2+x,1/2+z",
+    "1/2+x,1/2-y,1/2+z",
+    "1/2-x,1/2+y,1/2-z",
+    "x,y,-z",
+    "-x,-y,z",
+    "y,x,z",
+    "-y,-x,-z",
+    "1/2-y,1/2+x,1/2-z",
+    "1/2+y,1/2-x,1/2+z",
+    "1/2-x,1/2+y,1/2+z",
+    "1/2+x,1/2-y,1/2-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Mn",
+      "element": "Mn",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.302,
+        0.302,
+        0.0
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Mn",
+      "label": "Mn",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        2.198,
+        2.198,
+        1.4355
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.302,
+        0.302,
+        0.0
+      ],
+      "position": [
+        1.327592,
+        1.327592,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.698,
+        0.698,
+        0.0
+      ],
+      "position": [
+        3.068408,
+        3.068408,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.802,
+        0.198,
+        0.5
+      ],
+      "position": [
+        3.525592,
+        0.870408,
+        1.4355
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.198,
+        0.802,
+        0.5
+      ],
+      "position": [
+        0.870408,
+        3.525592,
+        1.4355
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 6,
+  "speciesPositionCount": 6,
+  "cellComposition": {
+    "Mn": 2,
+    "O": 4
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Wyckoff R W G"
+    ],
+    "title": "Second edition. Interscience Publishers, New York, New York\n Note: beta phase of MnO2, rutile structure",
+    "journal": "Crystal Structures",
+    "year": 1963,
+    "volume": "1",
+    "pages": "239–444"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "literature-compilation",
+  "validation": {
+    "operatorCount": 16,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 8.169635251114567e-06
+  },
+  "id": "pyrolusite",
+  "note": ""
+}

@@ -1,0 +1,488 @@
+{
+  "amcsdId": "0005112",
+  "mineralName": "Celestine",
+  "formula": "Sr S O4",
+  "spaceGroup": "P n m a",
+  "cell": {
+    "a": 8.36,
+    "b": 5.352,
+    "c": 6.858,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 306.84557376,
+  "declaredVolume": 306.846,
+  "basis": [
+    [
+      8.36,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      5.352,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      6.858
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "x,1/2-y,z",
+    "-x,1/2+y,-z",
+    "1/2-x,1/2+y,1/2+z",
+    "1/2+x,1/2-y,1/2-z",
+    "1/2+x,y,1/2-z",
+    "1/2-x,-y,1/2+z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Sr",
+      "element": "Sr",
+      "fractional": [
+        0.1841,
+        0.25,
+        0.1582
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S",
+      "element": "S",
+      "fractional": [
+        0.4379,
+        0.75,
+        0.1849
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.597,
+        0.75,
+        0.0937
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.3101,
+        0.75,
+        0.0406
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.4219,
+        0.9745,
+        0.3101
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Sr",
+      "label": "Sr",
+      "fractional": [
+        0.1841,
+        0.25,
+        0.1582
+      ],
+      "position": [
+        1.539076,
+        1.338,
+        1.0849356
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sr",
+      "label": "Sr",
+      "fractional": [
+        0.8159,
+        0.75,
+        0.8418
+      ],
+      "position": [
+        6.820924,
+        4.014,
+        5.7730644
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sr",
+      "label": "Sr",
+      "fractional": [
+        0.3159,
+        0.75,
+        0.6582
+      ],
+      "position": [
+        2.640924,
+        4.014,
+        4.5139356
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sr",
+      "label": "Sr",
+      "fractional": [
+        0.6841,
+        0.25,
+        0.3418
+      ],
+      "position": [
+        5.719076,
+        1.338,
+        2.3440644
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.4379,
+        0.75,
+        0.1849
+      ],
+      "position": [
+        3.660844,
+        4.014,
+        1.2680442
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.5621,
+        0.25,
+        0.8151
+      ],
+      "position": [
+        4.699156,
+        1.338,
+        5.5899558
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.0621,
+        0.25,
+        0.6849
+      ],
+      "position": [
+        0.519156,
+        1.338,
+        4.6970442
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.9379,
+        0.75,
+        0.3151
+      ],
+      "position": [
+        7.840844,
+        4.014,
+        2.1609558
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.597,
+        0.75,
+        0.0937
+      ],
+      "position": [
+        4.99092,
+        4.014,
+        0.6425946
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.403,
+        0.25,
+        0.9063
+      ],
+      "position": [
+        3.36908,
+        1.338,
+        6.2154054
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.903,
+        0.25,
+        0.5937
+      ],
+      "position": [
+        7.54908,
+        1.338,
+        4.0715946
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.097,
+        0.75,
+        0.4063
+      ],
+      "position": [
+        0.81092,
+        4.014,
+        2.7864054
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.3101,
+        0.75,
+        0.0406
+      ],
+      "position": [
+        2.592436,
+        4.014,
+        0.2784348
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.6899,
+        0.25,
+        0.9594
+      ],
+      "position": [
+        5.767564,
+        1.338,
+        6.5795652
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.1899,
+        0.25,
+        0.5406
+      ],
+      "position": [
+        1.587564,
+        1.338,
+        3.7074348
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.8101,
+        0.75,
+        0.4594
+      ],
+      "position": [
+        6.772436,
+        4.014,
+        3.1505652
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.4219,
+        0.9745,
+        0.3101
+      ],
+      "position": [
+        3.527084,
+        5.215524,
+        2.1266658
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.4219,
+        0.5255,
+        0.3101
+      ],
+      "position": [
+        3.527084,
+        2.812476,
+        2.1266658
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.5781,
+        0.4745,
+        0.6899
+      ],
+      "position": [
+        4.832916,
+        2.539524,
+        4.7313342
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.0781,
+        0.4745,
+        0.8101
+      ],
+      "position": [
+        0.652916,
+        2.539524,
+        5.5556658
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.9219,
+        0.5255,
+        0.1899
+      ],
+      "position": [
+        7.707084,
+        2.812476,
+        1.3023342
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.9219,
+        0.9745,
+        0.1899
+      ],
+      "position": [
+        7.707084,
+        5.215524,
+        1.3023342
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.0781,
+        0.0255,
+        0.8101
+      ],
+      "position": [
+        0.652916,
+        0.136476,
+        5.5556658
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.5781,
+        0.0255,
+        0.6899
+      ],
+      "position": [
+        4.832916,
+        0.136476,
+        4.7313342
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "Sr": 4,
+    "S": 4,
+    "O": 16
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Hawthorne F C",
+      "Ferguson R B"
+    ],
+    "title": "Anhydrous sulphates. I: Refinement of the crystal structure of celestite\n with an appendix on the structure of thenardite",
+    "journal": "The Canadian Mineralogist",
+    "year": 1975,
+    "volume": "13",
+    "pages": "181–187"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.3891026512173863e-06
+  },
+  "id": "celestine",
+  "note": ""
+}

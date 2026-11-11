@@ -1,0 +1,203 @@
+{
+  "amcsdId": "0013214",
+  "mineralName": "Potassium",
+  "formula": "K",
+  "spaceGroup": "I m 3 m",
+  "cell": {
+    "a": 5.328,
+    "b": 5.328,
+    "c": 5.328,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 151.24904755200004,
+  "declaredVolume": 151.249,
+  "basis": [
+    [
+      5.328,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      5.328,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.328
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,1/2+z",
+    "z,-x,y",
+    "1/2+z,1/2-x,1/2+y",
+    "-y,z,-x",
+    "1/2-y,1/2+z,1/2-x",
+    "x,-y,z",
+    "1/2+x,1/2-y,1/2+z",
+    "-z,x,-y",
+    "1/2-z,1/2+x,1/2-y",
+    "y,-z,x",
+    "1/2+y,1/2-z,1/2+x",
+    "-x,y,-z",
+    "1/2-x,1/2+y,1/2-z",
+    "x,-z,-y",
+    "1/2+x,1/2-z,1/2-y",
+    "-z,y,x",
+    "1/2-z,1/2+y,1/2+x",
+    "y,-x,-z",
+    "1/2+y,1/2-x,1/2-z",
+    "-x,z,y",
+    "1/2-x,1/2+z,1/2+y",
+    "z,-y,-x",
+    "1/2+z,1/2-y,1/2-x",
+    "-y,x,z",
+    "1/2-y,1/2+x,1/2+z",
+    "x,z,y",
+    "1/2+x,1/2+z,1/2+y",
+    "-z,-y,-x",
+    "1/2-z,1/2-y,1/2-x",
+    "y,x,z",
+    "1/2+y,1/2+x,1/2+z",
+    "-x,-z,-y",
+    "1/2-x,1/2-z,1/2-y",
+    "z,y,x",
+    "1/2+z,1/2+y,1/2+x",
+    "-y,-x,-z",
+    "1/2-y,1/2-x,1/2-z",
+    "z,x,-y",
+    "1/2+z,1/2+x,1/2-y",
+    "-y,-z,x",
+    "1/2-y,1/2-z,1/2+x",
+    "x,y,-z",
+    "1/2+x,1/2+y,1/2-z",
+    "-z,-x,y",
+    "1/2-z,1/2-x,1/2+y",
+    "y,z,-x",
+    "1/2+y,1/2+z,1/2-x",
+    "-x,-y,z",
+    "1/2-x,1/2-y,1/2+z",
+    "-z,x,y",
+    "1/2-z,1/2+x,1/2+y",
+    "y,-z,-x",
+    "1/2+y,1/2-z,1/2-x",
+    "-x,y,z",
+    "1/2-x,1/2+y,1/2+z",
+    "z,-x,-y",
+    "1/2+z,1/2-x,1/2-y",
+    "-y,z,x",
+    "1/2-y,1/2+z,1/2+x",
+    "x,-y,-z",
+    "1/2+x,1/2-y,1/2-z",
+    "-x,z,-y",
+    "1/2-x,1/2+z,1/2-y",
+    "z,-y,x",
+    "1/2+z,1/2-y,1/2+x",
+    "-y,x,-z",
+    "1/2-y,1/2+x,1/2-z",
+    "x,-z,y",
+    "1/2+x,1/2-z,1/2+y",
+    "-z,y,-x",
+    "1/2-z,1/2+y,1/2-x",
+    "y,-x,z",
+    "1/2+y,1/2-x,1/2+z",
+    "-x,-z,y",
+    "1/2-x,1/2-z,1/2+y",
+    "z,y,-x",
+    "1/2+z,1/2+y,1/2-x",
+    "-y,-x,z",
+    "1/2-y,1/2-x,1/2+z",
+    "x,z,-y",
+    "1/2+x,1/2+z,1/2-y",
+    "-z,-y,x",
+    "1/2-z,1/2-y,1/2+x",
+    "y,x,-z",
+    "1/2+y,1/2+x,1/2-z",
+    "-z,-x,-y",
+    "1/2-z,1/2-x,1/2-y",
+    "y,z,x",
+    "1/2+y,1/2+z,1/2+x",
+    "-x,-y,-z",
+    "1/2-x,1/2-y,1/2-z",
+    "z,x,y",
+    "1/2+z,1/2+x,1/2+y",
+    "-y,-z,-x",
+    "1/2-y,1/2-z,1/2-x"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "K",
+      "element": "K",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "K",
+      "label": "K",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        2.664,
+        2.664,
+        2.664
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 2,
+  "speciesPositionCount": 2,
+  "cellComposition": {
+    "K": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Liu L"
+    ],
+    "title": "Compression and polymorphism of potassium to 400 Kbar\n Sample: bcc at P = 0 GPa",
+    "journal": "Journal of Physics and Chemistry of Solids",
+    "year": 1986,
+    "volume": "47",
+    "pages": "1067–1072"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 96,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 3.1439536850205526e-07
+  },
+  "id": "nguyen-to-k",
+  "note": ""
+}

@@ -1,0 +1,88 @@
+const n="benzen-c6h6",h="benzen-c6h6",t="reference/benzen-c6h6/index.json",c=["ho-so-6829912e6f88"],i="Benzen (C₆H₆) — Di sản thực nghiệm: Lịch sử ra đời, hình học liên kết và biến đổi hóa học",g="Chuyên Mục Di Sản Thực Nghiệm Thế Giới · ChemDex",u="hopchat",a="Khám phá câu chuyện riêng của Benzen (C₆H₆) qua lăng kính báo chí khoa học: nguồn gốc tên gọi, lịch sử điều chế và mô hình không gian 3 chiều.",e="/assets/library/organic-genesis.svg",o="C₆H₆",r=["Câu chuyện hợp chất","C6H6","Cháy hoàn toàn"],m=["Benzen","benzene","C6H6"],s=["cid-241"],p="reference",v=12,y={formula:"C6H6",representativeId:"cid-241",counts:{C:6,H:6},mass:78.114,material:!1,reactionIds:["rx_78a55a5e636c999f"]},l=`## Câu chuyện: Nguồn gốc tên gọi, bối cảnh ra đời và dấu ấn lịch sử của Benzen (C₆H₆)
+
+Đằng sau mỗi cái tên trong danh mục hóa chất là dấu chân của những thế hệ nhà khoa học đã dành trọn cuộc đời bên ngọn đèn cồn, bình cầu chưng cất và cân phân tích. **Benzen (C₆H₆)** không chỉ là một công thức để ghi nhớ, mà là một chứng nhân sống động cho sự tiến hóa của tư duy hóa học từ định tính sang định lượng.
+
+Theo hồ sơ bách khoa trực tuyến từ [Wikipedia Tiếng Việt — Benzen](https://vi.wikipedia.org/wiki/Benzen), bản chất và lịch sử của chất này được ghi nhận cụ thể như sau: Benzene là một hợp chất hữu cơ có công thức hoá học C6H6. Benzene là một hydrocarbon thơm, trong điều kiện bình thường là một chất lỏng không màu, mùi dịu ngọt dễ chịu, dễ cháy. Benzene tan kém trong nước và rượu Vì chỉ chứa carbon và hydro nên benzene là một hydrocarbon. Benzene là thành phần tự nhiên của dầu thô và là một trong những hóa chất dầu cơ bản. Do các liên kết pi liên tục tuần hoàn giữa các nguyên tử carbon, benzen được phân loại là hydrocarbon thơm, [n] - annulen ([6] - annulen) thứ hai. Nó đôi khi được viết tắt là PhH. Benzen là một chất lỏng không màu, rất dễ cháy và có mùi thơm, nó tạo ra mùi thơm xung quanh các trạm xăng. Nó được sử dụng chủ yếu như một tiền chất để sản xuất các hóa chất có cấu trúc phức tạp hơn, chẳng hạn như ethylbenzen và cumen, trong đó hàng tỷ kg được sản xuất hàng năm. Vì benzen có số octan cao, các dẫn xuất thơm như toluen và xylen thường chiếm tới 25% xăng. Bản thân benzen đã bị giới hạn ở mức dưới 1% trong xăng vì nó là chất gây ung thư ở người. Hầu hết các ứng dụng phi công nghiệp cũng bị hạn chế vì lý do tương tự.
+
+Là một đại diện tiêu biểu của **hóa học hữu cơ — hóa học của các hợp chất Carbon**, lịch sử nhận diện phân tử này gắn liền với bước ngoặt thế kỷ XIX khi các nhà hóa học như **Friedrich Wöhler**, **Justus von Liebig**, **August Kekulé** và **Jacobus Henricus van 't Hoff** chứng minh rằng nguyên tử Carbon với hóa trị IV có thể tự nối mạch thành chuỗi thẳng, mạch nhánh và vòng không gian 3 chiều bền vững.
+
+Để hiểu trọn vẹn cội nguồn của hợp chất, cần lần theo lịch sử khám phá từng nguyên tố tạo nên nó:
+
+- **Nhánh nguyên tố Cacbon (C)**: Dấu ấn lịch sử phát hiện (mốc thời gian: **Thời cổ đại**). Carbon đã được con người biết đến từ thời cổ đại dưới dạng than, muội than và kim cương. Carbon được công nhận là một nguyên tố hóa học vào cuối thế kỷ XVIII. Antoine Lavoisier đã xác định Carbon là một nguyên tố và nghiên cứu quá trình Carbon cháy tạo thành khí Carbon dioxide. Nguồn khoáng vật tự nhiên tiêu biểu của nguyên tố này gồm: *Than đá, dầu mỏ, khí tự nhiên, đá carbonate, khí quyển, sinh vật và các vật chất hữu cơ*.
+- **Nhánh nguyên tố Hiđro (H)**: Dấu ấn lịch sử phát hiện do **Henry Cavendish** tìm ra (mốc thời gian: **1766**). Năm 1766, Henry Cavendish là người đầu tiên công nhận Hydrogen là một chất khí riêng biệt bằng cách cho kim loại phản ứng với acid và gọi nó là “khí dễ cháy” (inflammable air). Đến năm 1783, Antoine Lavoisier đã xác định khi đốt cháy chất khí này trong oxygen sẽ tạo thành nước, từ đó đặt tên cho nguyên tố là Hydrogen (bắt nguồn từ tiếng Hy Lạp mang nghĩa “sinh ra nước”).
+
+![Khởi nguyên lịch sử và hành trình khám phá Benzen (C₆H₆)](/assets/library/organic-genesis.svg)
+*Hình 1. Bối cảnh lịch sử phát hiện, nguồn gốc tự nhiên và tiến trình định danh khoa học của Benzen (C₆H₆).*
+
+## Lần theo thành phần nguyên tử: Kiến trúc phân tử, hình học không gian và cá tính của Benzen
+
+Để hiểu vì sao **Benzen (C₆H₆)** lại mang những tính chất vật lý và hóa học đặc thù, chúng ta cần đi sâu vào "bản thiết kế hình học" của chất này. Một đơn vị công thức **C₆H₆** được liên kết chặt chẽ từ **12 nguyên tử** thuộc **2 nguyên tố hóa học**:
+
+- **Nguyên tố Cacbon (C)**: Góp mặt **6 nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử Cacbon phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **Benzen**.
+- **Nguyên tố Hiđro (H)**: Góp mặt **6 nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử Hiđro phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **Benzen**.
+
+Về kiến trúc hình học phân tử, **Benzen (C₆H₆)** sở hữu bộ khung nguyên tử Carbon uốn lượn uyển chuyển trong không gian 3 chiều. Tùy thuộc vào cách các nguyên tử liên kết với nhau (dạng chuỗi dài mềm mại, phân nhánh hay khép vòng đối xứng), mật độ phân tử được phân bố tạo nên những "cánh tay phản ứng" đặc trưng, quyết định hương vị, độ bay hơi và khả năng hòa tan độc đáo của phân tử hữu cơ này.
+
+![Kiến trúc liên kết không gian 3 chiều của Benzen (C₆H₆)](/assets/library/organic-genesis.svg)
+*Hình 2. Mô phỏng trực quan sự phân bố đám mây electron, góc liên kết và trật tự phối trí không gian 3D của Benzen (C₆H₆).*
+
+| Chỉ tiêu nhận diện & Cấu trúc 3D | Tư liệu xác thực từ hệ thống ChemDex |
+|---|---|
+| Tên chất & Danh pháp quốc tế | **Benzen** (benzene) |
+| Công thức hóa học thực nghiệm | **C₆H₆**  |
+| Hình thái không gian 3 chiều | Khung phân tử hữu cơ định hướng không gian |
+| Quy mô cấu trúc vi mô | **12 nguyên tử** (6× C, 6× H) |
+| Trạng thái & Sắc thái nhận diện | Rắn / Dung dịch thực nghiệm |
+| Phòng quan sát 3D tương tác | [Mở mô hình xoay 360° và kiểm tra góc liên kết](/tien-ich/cau-truc-3d/?compound=cid-241) |
+
+Người đọc có thể trực tiếp xoay mô hình 360°, bật/tắt nhãn nguyên tử và kiểm tra độ dài từng liên kết (tính bằng đơn vị Ångström) của chất này tại [Phòng quan sát Cấu trúc & Liên kết 3D — Benzen](/tien-ich/cau-truc-3d/?compound=cid-241).
+
+## Giải mã sự hình thành: Các phản ứng điều chế và chuyển hóa xoay quanh Benzen
+
+Trong cơ sở dữ liệu phản ứng thực nghiệm của ChemDex (với **1 phương trình** có sự góp mặt của **C₆H₆**, trong đó có **0 con đường tổng hợp/tạo thành** và **1 con đường chuyển hóa**), hành trình ra đời và biến đổi của chất này được minh chứng qua các kịch bản tiêu biểu sau:
+
+### Con đường phản ứng & chuyển hóa #1 (Cháy hoàn toàn)
+
+Phương trình hóa học cân bằng chuẩn xác:
+
+\`2C6H6(l) + 15O2(g) → 12CO2(g) + 6H2O(g)\`
+
+- **Bản chất & Cơ chế phản ứng**: Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.
+- **Điều kiện thực hiện**: Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử..
+- **Hiện tượng quan sát thực nghiệm**: Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần..
+- **Phương trình ion rút gọn**: \`2C6H6(l) + 15O2(g) → 12CO2(g) + 6H2O(g)\` (Trạng thái pha: \`2C6H6(l) + 15O2(g) → 12CO2(g) + 6H2O(g)\`).
+
+## Góc nhìn thực tiễn: Ứng dụng đời sống, công nghiệp và kinh nghiệm an toàn với Benzen
+
+Trong dòng chảy của nền văn minh kỹ thuật và ứng dụng thực tiễn, **Benzen (C₆H₆)** giữ vai trò không thể thay thế trên nhiều phương diện đời sống:
+
+- **Trong y học, đời sống & sản xuất công nghiệp**: Tùy thuộc vào bản tính phản ứng và tính chất bề mặt của **C₆H₆**, chất này tham gia vào các chu trình xử lý môi trường, làm chất xúc tác chuyển hóa, sản xuất vật liệu tiên tiến hoặc làm nguyên liệu tổng hợp các chế phẩm có giá trị cao.
+- **Trong nghiên cứu học thuật & thực nghiệm phân tích**: Là nhân vật trung tâm trong các thí nghiệm chuẩn hóa, giúp các nhà nghiên cứu kiểm chứng cơ chế phản ứng và nhận diện sự hiện diện của các hợp chất đồng hành.
+- **Trong thế giới giáo dục trực quan**: Đóng vai trò là vật mẫu điển hình kết nối trực quan giữa công thức trên giấy và thực tế tại [Phòng thí nghiệm ChemDex](/lab-2d/) cùng [Không gian Cấu trúc 3D](/tien-ich/cau-truc-3d/?compound=cid-241).
+
+### Câu chuyện lịch sử ứng dụng & Bài học kinh nghiệm thực hành
+
+Lịch sử ứng dụng của **Benzen (C₆H₆)** là một minh chứng sống động cho thấy sự am hiểu về bản chất chất hóa học có thể biến những vật chất thô sơ trong tự nhiên thành công cụ phục vụ đời sống con người. Trải qua hàng thế kỷ thực nghiệm — từ những phát hiện ngẫu nhiên trong xưởng nhuộm, mỏ quặng cho đến các dây chuyền tổng hợp hiện đại — bài học cốt lõi mà các thế hệ tiền bối để lại là luôn tôn trọng tính nết tự nhiên của chất: kiểm soát cẩn trọng nhiệt độ, môi trường tiếp xúc và trang bị đầy đủ phương tiện bảo hộ để phát huy tối đa giá trị hữu ích đồng thời ngăn ngừa mọi rủi ro tiềm ẩn trong thao tác.
+
+## Câu hỏi suy ngẫm & Tự kiểm tra kiến thức
+
+1. Dựa vào câu chuyện lịch sử và hành trình khám phá **Benzen (C₆H₆)**, nguyên nhân vì sao tên gọi và phương pháp điều chế ban đầu của chất này lại phản ánh hoàn cảnh văn hóa và kỹ thuật của thời đại phát hiện ra nó?
+2. Trong phương trình hóa học \`2C6H6(l) + 15O2(g) → 12CO2(g) + 6H2O(g)\`, hiện tượng thực nghiệm quan sát được hé lộ điều gì về tính cách hóa học của **C₆H₆** khi tương tác với các chất xung quanh?
+
+<details><summary>Xem phân tích và lời giải chi tiết</summary>
+
+- **Giải đáp câu 1:** Tên gọi và phương pháp tiếp cận đầu tiên của C₆H₆ bắt nguồn trực tiếp từ nguồn khoáng sản tự nhiên hoặc hiện tượng quan sát bằng mắt thường của các nhà thực nghiệm thời kỳ đó. Chỉ khi kỹ thuật phân tích và mô hình liên kết không gian phát triển, nhân loại mới hiểu trọn vẹn bản chất cấu tạo của chất.
+- **Giải đáp câu 2:** Phương trình phản ứng phản ánh sự tái sắp xếp liên kết: hiện tượng Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần. là bằng chứng vĩ mô cho thấy các nguyên tử đã đổi chỗ cho nhau để tạo thành cấu trúc mới bền vững hơn.
+
+</details>
+
+## Nguồn tư liệu khoa học & Khám phá tiếp theo
+
+- [Phòng quan sát Cấu trúc & Liên kết 3D tương tác — Benzen (C₆H₆)](/tien-ich/cau-truc-3d/?compound=cid-241)
+- [Bách khoa toàn thư Wikipedia Tiếng Việt — Benzen](https://vi.wikipedia.org/wiki/Benzen)
+- [Wikipedia Quốc tế — Benzene](https://en.wikipedia.org/wiki/Benzene)
+- [Tệp tọa độ không gian 3D chuẩn (SDF)](/shared/structures/241.sdf)
+- [Nguồn cấu trúc gốc đã kiểm chứng](https://cactus.nci.nih.gov/chemical/structure/benzene/file?format=sdf&get3d=true)
+- [Hồ sơ hợp chất quốc tế PubChem CID 241](https://pubchem.ncbi.nlm.nih.gov/compound/241)
+
+Bài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tổng hợp từ tư liệu lịch sử bách khoa trực tuyến, hồ sơ cấu trúc không gian 3 chiều và cơ sở dữ liệu phản ứng thực nghiệm, mang lại cái nhìn toàn diện về hành trình ra đời, cấu tạo vi mô và ứng dụng của **Benzen (C₆H₆)**.`,d={id:n,slug:h,documentPath:t,legacyIds:c,title:i,author:g,category:u,summary:a,image:e,chemicalFormula:o,tags:r,aliases:m,substanceIds:s,documentKind:p,readingMinutes:12,chemicalEvidence:y,content:l};export{m as aliases,g as author,u as category,y as chemicalEvidence,o as chemicalFormula,l as content,d as default,p as documentKind,t as documentPath,n as id,e as image,c as legacyIds,v as readingMinutes,h as slug,s as substanceIds,a as summary,r as tags,i as title};

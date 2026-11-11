@@ -1,0 +1,356 @@
+{
+  "amcsdId": "0009476",
+  "mineralName": "Chalcopyrite",
+  "formula": "Cu Fe S2",
+  "spaceGroup": "I -4 2 d",
+  "cell": {
+    "a": 5.289,
+    "b": 5.289,
+    "c": 10.423,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 291.568009383,
+  "declaredVolume": 291.568,
+  "basis": [
+    [
+      5.289,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      5.289,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      10.423
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,1/2+z",
+    "1/2-y,-x,3/4+z",
+    "-y,1/2-x,1/4+z",
+    "y,-x,-z",
+    "1/2+y,1/2-x,1/2-z",
+    "-x,1/2+y,1/4-z",
+    "1/2-x,+y,3/4-z",
+    "-x,-y,z",
+    "1/2-x,1/2-y,1/2+z",
+    "1/2+y,x,3/4+z",
+    "+y,1/2+x,1/4+z",
+    "-y,x,-z",
+    "1/2-y,1/2+x,1/2-z",
+    "x,1/2-y,1/4-z",
+    "1/2+x,-y,3/4-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Cu",
+      "element": "Cu",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Fe",
+      "element": "Fe",
+      "fractional": [
+        0.0,
+        0.0,
+        0.5
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S",
+      "element": "S",
+      "fractional": [
+        0.2574,
+        0.25,
+        0.125
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Cu",
+      "label": "Cu",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cu",
+      "label": "Cu",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        2.6445,
+        2.6445,
+        5.2115
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cu",
+      "label": "Cu",
+      "fractional": [
+        0.5,
+        0.0,
+        0.75
+      ],
+      "position": [
+        2.6445,
+        0.0,
+        7.81725
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cu",
+      "label": "Cu",
+      "fractional": [
+        0.0,
+        0.5,
+        0.25
+      ],
+      "position": [
+        0.0,
+        2.6445,
+        2.60575
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.0,
+        0.0,
+        0.5
+      ],
+      "position": [
+        0.0,
+        0.0,
+        5.2115
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.5,
+        0.5,
+        0.0
+      ],
+      "position": [
+        2.6445,
+        2.6445,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.5,
+        0.0,
+        0.25
+      ],
+      "position": [
+        2.6445,
+        0.0,
+        2.60575
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.0,
+        0.5,
+        0.75
+      ],
+      "position": [
+        0.0,
+        2.6445,
+        7.81725
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.2574,
+        0.25,
+        0.125
+      ],
+      "position": [
+        1.3613886,
+        1.32225,
+        1.302875
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.7574,
+        0.75,
+        0.625
+      ],
+      "position": [
+        4.0058886,
+        3.96675,
+        6.514375
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.25,
+        0.7426,
+        0.875
+      ],
+      "position": [
+        1.32225,
+        3.9276114,
+        9.120125
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.75,
+        0.2426,
+        0.375
+      ],
+      "position": [
+        3.96675,
+        1.2831114,
+        3.908625
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.7426,
+        0.75,
+        0.125
+      ],
+      "position": [
+        3.9276114,
+        3.96675,
+        1.302875
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.2426,
+        0.25,
+        0.625
+      ],
+      "position": [
+        1.2831114,
+        1.32225,
+        6.514375
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.75,
+        0.2574,
+        0.875
+      ],
+      "position": [
+        3.96675,
+        1.3613886,
+        9.120125
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.25,
+        0.7574,
+        0.375
+      ],
+      "position": [
+        1.32225,
+        4.0058886,
+        3.908625
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 16,
+  "speciesPositionCount": 16,
+  "cellComposition": {
+    "Cu": 4,
+    "Fe": 4,
+    "S": 8
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Stewart J M",
+      "Hall S R"
+    ],
+    "title": "The crystal structure refinement of chalcopyrite, CuFeS2",
+    "journal": "Acta Crystallographica, Section B",
+    "year": 1973,
+    "volume": "29",
+    "pages": "579–585"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 16,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 3.2181171176771654e-08
+  },
+  "id": "chalcopyrite",
+  "note": ""
+}

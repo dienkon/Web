@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export function useLocalStorage<T>(key: string, initialValue: T) {
   // Get from local storage then parse stored json or return initialValue
@@ -19,18 +19,19 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
 
   // Return a wrapped version of useState's setter function that ...
   // ... persists the new value to localStorage.
-  const setValue = (value: T | ((val: T) => T)) => {
-    try {
-      // Allow value to be a function so we have same API as useState
-      const valueToStore = value instanceof Function ? value(storedValue) : value;
-      setStoredValue(valueToStore);
-      if (typeof window !== 'undefined') {
-        window.localStorage.setItem(key, JSON.stringify(valueToStore));
+  const setValue = useCallback((value: T | ((val: T) => T)) => {
+    // Native functional state updates also work from popstate listeners created
+    // before the latest render and preserve sequential migration/history updates.
+    setStoredValue(current => {
+      const next = value instanceof Function ? value(current) : value;
+      try {
+        if (typeof window !== 'undefined') window.localStorage.setItem(key, JSON.stringify(next));
+      } catch (error) {
+        console.warn(`Error setting localStorage key "${key}":`, error);
       }
-    } catch (error) {
-      console.warn(`Error setting localStorage key "${key}":`, error);
-    }
-  };
+      return next;
+    });
+  }, [key]);
 
   // Sync state if another tab changes the value
   useEffect(() => {

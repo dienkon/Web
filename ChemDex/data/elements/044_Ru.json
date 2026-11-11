@@ -62,7 +62,44 @@
     "valenceElectrons": 1,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương (Hexagonal)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-ru",
+      "amcsdId": "0011191",
+      "mineralName": "Ruthenium",
+      "formula": "Ru",
+      "spaceGroup": "P 63/m m c",
+      "cell": {
+        "a": 2.70389,
+        "b": 2.70389,
+        "c": 4.28168,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 27.109585490301882,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Hexagonal closest packed, hcp, structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "7–83"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-ru.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-ru.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-ru.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-ru.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -98,16 +135,61 @@
       "sourceSearch": "https://rruff.info/Laurite",
       "model": "/assets/periodic-table/minerals/laurite.glb",
       "preview": "/assets/periodic-table/minerals/laurite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "laurite",
+          "amcsdId": "0010195",
+          "mineralName": "Laurite",
+          "formula": "Ru S2",
+          "spaceGroup": "P a 3",
+          "cell": {
+            "a": 5.6106,
+            "b": 5.6106,
+            "c": 5.6106,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 176.61513683901597,
+          "siteCount": 12,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Lutz H D",
+              "Muller B",
+              "Schmidt T",
+              "Stingl T"
+            ],
+            "title": "Structure refinement of pyrite-type ruthenium disulfide, RuS2,\n and ruthenium diselenide, RuSe2",
+            "journal": "Acta Crystallographica, Section C",
+            "year": 1990,
+            "volume": "46",
+            "pages": "2003–2005"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/laurite.json",
+          "cif": "/assets/periodic-table/crystals/laurite.cif",
+          "model": "/assets/periodic-table/crystals/laurite.glb",
+          "preview": "/assets/periodic-table/crystals/laurite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Laurite.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/diagrams/044_Ru.svg",
-    "alt": "Ruthenium: sơ đồ minh họa nguyên tố",
+    "image": "/assets/periodic-table/mineral-photos/laurite.jpg",
+    "alt": "Laurite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "diagram",
-    "source": "",
-    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
-    "credit": ""
+    "source": "https://commons.wikimedia.org/wiki/File:Laurite.jpg",
+    "caption": "Ảnh mẫu tham chiếu Laurite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "",
+    "author": "David Hospital",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "isotopes": [
     {
@@ -430,9 +512,65 @@
       "author": "ChemDex",
       "license": "ChemDex schematic diagram",
       "licenseUrl": ""
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/laurite.jpg",
+      "role": "natural-mineral",
+      "title": "Laurite",
+      "desc": "Ảnh mẫu tham chiếu Laurite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Laurite.jpg",
+      "author": "David Hospital",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Laurite",
+      "src": "/assets/periodic-table/crystals/laurite.json",
+      "crystal": {
+        "id": "laurite",
+        "amcsdId": "0010195",
+        "mineralName": "Laurite",
+        "formula": "Ru S2",
+        "spaceGroup": "P a 3",
+        "cell": {
+          "a": 5.6106,
+          "b": 5.6106,
+          "c": 5.6106,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 176.61513683901597,
+        "siteCount": 12,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Lutz H D",
+            "Muller B",
+            "Schmidt T",
+            "Stingl T"
+          ],
+          "title": "Structure refinement of pyrite-type ruthenium disulfide, RuS2,\n and ruthenium diselenide, RuSe2",
+          "journal": "Acta Crystallographica, Section C",
+          "year": 1990,
+          "volume": "46",
+          "pages": "2003–2005"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/laurite.json",
+        "cif": "/assets/periodic-table/crystals/laurite.cif",
+        "model": "/assets/periodic-table/crystals/laurite.glb",
+        "preview": "/assets/periodic-table/crystals/laurite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -467,6 +605,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -474,6 +617,7 @@
     "sourceFile": "044_Ru.docx",
     "sourceSha256": "59fe715ad5b05631bc5035bd402a07a2df41563dc6bf2aa7f91a07e3ca6bcdca",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/044_Ru.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/ruthenium-ru/audit.md"
   }
 }

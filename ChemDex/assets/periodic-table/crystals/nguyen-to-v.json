@@ -1,0 +1,204 @@
+{
+  "amcsdId": "0014111",
+  "mineralName": "Vanadium",
+  "formula": "V",
+  "spaceGroup": "I m 3 m",
+  "cell": {
+    "a": 3.0241,
+    "b": 3.0241,
+    "c": 3.0241,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 27.655941287520996,
+  "declaredVolume": 27.656,
+  "basis": [
+    [
+      3.0241,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      3.0241,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      3.0241
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,1/2+z",
+    "z,-x,y",
+    "1/2+z,1/2-x,1/2+y",
+    "-y,z,-x",
+    "1/2-y,1/2+z,1/2-x",
+    "x,-y,z",
+    "1/2+x,1/2-y,1/2+z",
+    "-z,x,-y",
+    "1/2-z,1/2+x,1/2-y",
+    "y,-z,x",
+    "1/2+y,1/2-z,1/2+x",
+    "-x,y,-z",
+    "1/2-x,1/2+y,1/2-z",
+    "x,-z,-y",
+    "1/2+x,1/2-z,1/2-y",
+    "-z,y,x",
+    "1/2-z,1/2+y,1/2+x",
+    "y,-x,-z",
+    "1/2+y,1/2-x,1/2-z",
+    "-x,z,y",
+    "1/2-x,1/2+z,1/2+y",
+    "z,-y,-x",
+    "1/2+z,1/2-y,1/2-x",
+    "-y,x,z",
+    "1/2-y,1/2+x,1/2+z",
+    "x,z,y",
+    "1/2+x,1/2+z,1/2+y",
+    "-z,-y,-x",
+    "1/2-z,1/2-y,1/2-x",
+    "y,x,z",
+    "1/2+y,1/2+x,1/2+z",
+    "-x,-z,-y",
+    "1/2-x,1/2-z,1/2-y",
+    "z,y,x",
+    "1/2+z,1/2+y,1/2+x",
+    "-y,-x,-z",
+    "1/2-y,1/2-x,1/2-z",
+    "z,x,-y",
+    "1/2+z,1/2+x,1/2-y",
+    "-y,-z,x",
+    "1/2-y,1/2-z,1/2+x",
+    "x,y,-z",
+    "1/2+x,1/2+y,1/2-z",
+    "-z,-x,y",
+    "1/2-z,1/2-x,1/2+y",
+    "y,z,-x",
+    "1/2+y,1/2+z,1/2-x",
+    "-x,-y,z",
+    "1/2-x,1/2-y,1/2+z",
+    "-z,x,y",
+    "1/2-z,1/2+x,1/2+y",
+    "y,-z,-x",
+    "1/2+y,1/2-z,1/2-x",
+    "-x,y,z",
+    "1/2-x,1/2+y,1/2+z",
+    "z,-x,-y",
+    "1/2+z,1/2-x,1/2-y",
+    "-y,z,x",
+    "1/2-y,1/2+z,1/2+x",
+    "x,-y,-z",
+    "1/2+x,1/2-y,1/2-z",
+    "-x,z,-y",
+    "1/2-x,1/2+z,1/2-y",
+    "z,-y,x",
+    "1/2+z,1/2-y,1/2+x",
+    "-y,x,-z",
+    "1/2-y,1/2+x,1/2-z",
+    "x,-z,y",
+    "1/2+x,1/2-z,1/2+y",
+    "-z,y,-x",
+    "1/2-z,1/2+y,1/2-x",
+    "y,-x,z",
+    "1/2+y,1/2-x,1/2+z",
+    "-x,-z,y",
+    "1/2-x,1/2-z,1/2+y",
+    "z,y,-x",
+    "1/2+z,1/2+y,1/2-x",
+    "-y,-x,z",
+    "1/2-y,1/2-x,1/2+z",
+    "x,z,-y",
+    "1/2+x,1/2+z,1/2-y",
+    "-z,-y,x",
+    "1/2-z,1/2-y,1/2+x",
+    "y,x,-z",
+    "1/2+y,1/2+x,1/2-z",
+    "-z,-x,-y",
+    "1/2-z,1/2-x,1/2-y",
+    "y,z,x",
+    "1/2+y,1/2+z,1/2+x",
+    "-x,-y,-z",
+    "1/2-x,1/2-y,1/2-z",
+    "z,x,y",
+    "1/2+z,1/2+x,1/2+y",
+    "-y,-z,-x",
+    "1/2-y,1/2-z,1/2-x"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "V",
+      "element": "V",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "V",
+      "label": "V",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "V",
+      "label": "V",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        1.51205,
+        1.51205,
+        1.51205
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 2,
+  "speciesPositionCount": 2,
+  "cellComposition": {
+    "V": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Straumanis M E",
+      "James W J"
+    ],
+    "title": "Lattice parameter and expansion coefficient of vanadium\n Sample: at T = 25C",
+    "journal": "Journal of the Electrochemical Society",
+    "year": 1960,
+    "volume": "107",
+    "pages": "69–69"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 96,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 2.122960791412754e-06
+  },
+  "id": "nguyen-to-v",
+  "note": ""
+}

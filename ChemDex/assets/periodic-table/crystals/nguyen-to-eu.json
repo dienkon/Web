@@ -1,0 +1,205 @@
+{
+  "amcsdId": "0009172",
+  "mineralName": "Europium",
+  "formula": "Eu",
+  "spaceGroup": "I m 3 m",
+  "cell": {
+    "a": 4.606,
+    "b": 4.606,
+    "c": 4.606,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 97.71737701599999,
+  "declaredVolume": 97.717,
+  "basis": [
+    [
+      4.606,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      4.606,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.606
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,1/2+z",
+    "z,-x,y",
+    "1/2+z,1/2-x,1/2+y",
+    "-y,z,-x",
+    "1/2-y,1/2+z,1/2-x",
+    "x,-y,z",
+    "1/2+x,1/2-y,1/2+z",
+    "-z,x,-y",
+    "1/2-z,1/2+x,1/2-y",
+    "y,-z,x",
+    "1/2+y,1/2-z,1/2+x",
+    "-x,y,-z",
+    "1/2-x,1/2+y,1/2-z",
+    "x,-z,-y",
+    "1/2+x,1/2-z,1/2-y",
+    "-z,y,x",
+    "1/2-z,1/2+y,1/2+x",
+    "y,-x,-z",
+    "1/2+y,1/2-x,1/2-z",
+    "-x,z,y",
+    "1/2-x,1/2+z,1/2+y",
+    "z,-y,-x",
+    "1/2+z,1/2-y,1/2-x",
+    "-y,x,z",
+    "1/2-y,1/2+x,1/2+z",
+    "x,z,y",
+    "1/2+x,1/2+z,1/2+y",
+    "-z,-y,-x",
+    "1/2-z,1/2-y,1/2-x",
+    "y,x,z",
+    "1/2+y,1/2+x,1/2+z",
+    "-x,-z,-y",
+    "1/2-x,1/2-z,1/2-y",
+    "z,y,x",
+    "1/2+z,1/2+y,1/2+x",
+    "-y,-x,-z",
+    "1/2-y,1/2-x,1/2-z",
+    "z,x,-y",
+    "1/2+z,1/2+x,1/2-y",
+    "-y,-z,x",
+    "1/2-y,1/2-z,1/2+x",
+    "x,y,-z",
+    "1/2+x,1/2+y,1/2-z",
+    "-z,-x,y",
+    "1/2-z,1/2-x,1/2+y",
+    "y,z,-x",
+    "1/2+y,1/2+z,1/2-x",
+    "-x,-y,z",
+    "1/2-x,1/2-y,1/2+z",
+    "-z,x,y",
+    "1/2-z,1/2+x,1/2+y",
+    "y,-z,-x",
+    "1/2+y,1/2-z,1/2-x",
+    "-x,y,z",
+    "1/2-x,1/2+y,1/2+z",
+    "z,-x,-y",
+    "1/2+z,1/2-x,1/2-y",
+    "-y,z,x",
+    "1/2-y,1/2+z,1/2+x",
+    "x,-y,-z",
+    "1/2+x,1/2-y,1/2-z",
+    "-x,z,-y",
+    "1/2-x,1/2+z,1/2-y",
+    "z,-y,x",
+    "1/2+z,1/2-y,1/2+x",
+    "-y,x,-z",
+    "1/2-y,1/2+x,1/2-z",
+    "x,-z,y",
+    "1/2+x,1/2-z,1/2+y",
+    "-z,y,-x",
+    "1/2-z,1/2+y,1/2-x",
+    "y,-x,z",
+    "1/2+y,1/2-x,1/2+z",
+    "-x,-z,y",
+    "1/2-x,1/2-z,1/2+y",
+    "z,y,-x",
+    "1/2+z,1/2+y,1/2-x",
+    "-y,-x,z",
+    "1/2-y,1/2-x,1/2+z",
+    "x,z,-y",
+    "1/2+x,1/2+z,1/2-y",
+    "-z,-y,x",
+    "1/2-z,1/2-y,1/2+x",
+    "y,x,-z",
+    "1/2+y,1/2+x,1/2-z",
+    "-z,-x,-y",
+    "1/2-z,1/2-x,1/2-y",
+    "y,z,x",
+    "1/2+y,1/2+z,1/2+x",
+    "-x,-y,-z",
+    "1/2-x,1/2-y,1/2-z",
+    "z,x,y",
+    "1/2+z,1/2+x,1/2+y",
+    "-y,-z,-x",
+    "1/2-y,1/2-z,1/2-x"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Eu",
+      "element": "Eu",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Eu",
+      "label": "Eu",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Eu",
+      "label": "Eu",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        2.303,
+        2.303,
+        2.303
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 2,
+  "speciesPositionCount": 2,
+  "cellComposition": {
+    "Eu": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Spedding F H",
+      "Daane A H",
+      "Herrmann K W"
+    ],
+    "title": "The crystal structures and lattice parameters of high-purity scandium,\n yttrium and the rare earth metals\n Note: sample 98-99% pure",
+    "journal": "Acta Crystallographica",
+    "year": 1956,
+    "volume": "9",
+    "pages": "559–563"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 96,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 3.8582288176408495e-06
+  },
+  "id": "nguyen-to-eu",
+  "note": ""
+}

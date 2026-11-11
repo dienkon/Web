@@ -60,7 +60,46 @@
     "valenceElectrons": 4,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương kim cương (Diamond cubic)",
-    "latticeEvidence": "phase-dependent"
+    "latticeEvidence": "phase-dependent",
+    "publishedCrystal": {
+      "id": "nguyen-to-ge",
+      "amcsdId": "0012844",
+      "mineralName": "Germanium",
+      "formula": "Ge",
+      "spaceGroup": "F d 3 m",
+      "cell": {
+        "a": 5.65782,
+        "b": 5.65782,
+        "c": 5.65782,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 181.11206386139176,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Hom T",
+          "Kiszenick W",
+          "Post B"
+        ],
+        "title": "Accurate lattice constants from multiple reflection mesurements II.\n lattice constants of germanium, silicon and diamond\n Sample: at T = 25 C",
+        "journal": "Journal of Applied Crystallography",
+        "year": 1975,
+        "volume": "8",
+        "pages": "457–458"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-ge.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-ge.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-ge.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-ge.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lập phương kim cương (Diamond cubic)",
   "occurrence": {
@@ -100,16 +139,59 @@
       "sourceSearch": "https://rruff.info/Germanite",
       "model": "/assets/periodic-table/minerals/germanite.glb",
       "preview": "/assets/periodic-table/minerals/germanite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "germanite",
+          "amcsdId": "0000959",
+          "mineralName": "Germanite",
+          "formula": "Cu13 (Ge2 Fe2) S16",
+          "spaceGroup": "P -4 3 n",
+          "cell": {
+            "a": 10.5862,
+            "b": 10.5862,
+            "c": 10.5862,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 1186.370349363928,
+          "siteCount": 66,
+          "mixedSiteCount": 8,
+          "reference": {
+            "authors": [
+              "Tettenhorst R T",
+              "Corbato C E"
+            ],
+            "title": "Crystal structure of germanite, Cu26Ge4Fe4S32, determined by powder X-ray\n diffraction",
+            "journal": "American Mineralogist",
+            "year": 1984,
+            "volume": "69",
+            "pages": "943–947"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/germanite.json",
+          "cif": "/assets/periodic-table/crystals/germanite.cif",
+          "model": "/assets/periodic-table/crystals/germanite.glb",
+          "preview": "/assets/periodic-table/crystals/germanite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Germanite-231229.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/032_Ge.jpg",
-    "alt": "Germanium: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/germanite.jpg",
+    "alt": "Germanite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Polycrystalline-germanium.jpg",
-    "caption": "Ảnh tham chiếu mẫu Germanium (Ge); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "Jurii · CC BY 3.0"
+    "source": "https://commons.wikimedia.org/wiki/File:Germanite-231229.jpg",
+    "caption": "Ảnh mẫu tham chiếu Germanite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "Jurii · CC BY 3.0",
+    "author": "Robert M. Lavinsky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -453,9 +535,63 @@
       "author": "Jurii",
       "license": "CC BY 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/germanite.jpg",
+      "role": "natural-mineral",
+      "title": "Germanite",
+      "desc": "Ảnh mẫu tham chiếu Germanite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Germanite-231229.jpg",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Germanite",
+      "src": "/assets/periodic-table/crystals/germanite.json",
+      "crystal": {
+        "id": "germanite",
+        "amcsdId": "0000959",
+        "mineralName": "Germanite",
+        "formula": "Cu13 (Ge2 Fe2) S16",
+        "spaceGroup": "P -4 3 n",
+        "cell": {
+          "a": 10.5862,
+          "b": 10.5862,
+          "c": 10.5862,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 1186.370349363928,
+        "siteCount": 66,
+        "mixedSiteCount": 8,
+        "reference": {
+          "authors": [
+            "Tettenhorst R T",
+            "Corbato C E"
+          ],
+          "title": "Crystal structure of germanite, Cu26Ge4Fe4S32, determined by powder X-ray\n diffraction",
+          "journal": "American Mineralogist",
+          "year": 1984,
+          "volume": "69",
+          "pages": "943–947"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/germanite.json",
+        "cif": "/assets/periodic-table/crystals/germanite.cif",
+        "model": "/assets/periodic-table/crystals/germanite.glb",
+        "preview": "/assets/periodic-table/crystals/germanite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -494,6 +630,11 @@
     {
       "title": "germanium76",
       "url": "https://pure.mpg.de/pubman/item/item_1781464"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -501,6 +642,7 @@
     "sourceFile": "032_Ge.docx",
     "sourceSha256": "d5621bd1b4722ebc3f0e0096af0d283bc12cc1e71e26929e15a67764b98de651",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/032_Ge.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/gecmani-ge/audit.md"
   }
 }

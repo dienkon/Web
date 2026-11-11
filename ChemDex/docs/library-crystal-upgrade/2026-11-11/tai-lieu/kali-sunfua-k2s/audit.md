@@ -1,0 +1,14 @@
+# kali sunfua (K₂S) — Ký sự từ vỉa khoáng vật tự nhiên đến kiến trúc phân tử chuẩn xác
+
+- Tên thư mục: `kali-sunfua-k2s`.
+- Trước: `trung-tam/src/data/reference/ho-so-89ea595fd24c.json`.
+- Sau: `trung-tam/src/data/reference/kali-sunfua-k2s/index.json`.
+- Đường dẫn: `/trung-tam/tai-lieu-so/kali-sunfua-k2s/`.
+- Định danh liên kết cũ: ho-so-89ea595fd24c.
+- Sơ suất trước: đường dẫn dùng mã băm hoặc mã số nội bộ, không thể đọc tên chất; liên kết dùng tham số doc.
+- Đã sửa: thư mục tên chất, index.json trong từng thư mục, đường dẫn theo tên; ánh xạ mã cũ cho liên kết, dấu trang và lịch sử.
+- Ngăn trùng tên: thêm công thức và loại định danh khi cần; đồng phân giữ tài liệu riêng.
+- Nội dung bài so với commit de8bf50b: giữ nguyên.
+- Kiểm tra: tệp tồn tại, id/metadata/thành phần nhất quán, liên kết chất phủ đủ, tìm kiếm chính xác vẫn phân biệt đồng phân.
+- SHA-256 trước: `e9bae000b42c0045365e0c4e383bba7d871af93afc31e86cb1a28f135e191441`.
+- SHA-256 sau: `f8dec93ea651d4569a34530e6d3b6ec974bc8a8b906b8ca5ba9c2e56d76f2807`.

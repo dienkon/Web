@@ -58,7 +58,46 @@
     "valenceElectrons": 4,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương kim cương (diamond cubic), liên kết cộng hóa trị theo tứ diện.",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-si",
+      "amcsdId": "0012843",
+      "mineralName": "Silicon",
+      "formula": "Si",
+      "spaceGroup": "F d 3 m",
+      "cell": {
+        "a": 5.430941,
+        "b": 5.430941,
+        "c": 5.430941,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 160.1862572980187,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Hom T",
+          "Kiszenick W",
+          "Post B"
+        ],
+        "title": "Accurate lattice constants from multiple reflection mesurements II.\n lattice constants of germanium, silicon and diamond\n Sample: at T = 25 C",
+        "journal": "Journal of Applied Crystallography",
+        "year": 1975,
+        "volume": "8",
+        "pages": "457–458"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-si.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-si.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-si.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-si.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lập phương kim cương (diamond cubic), liên kết cộng hóa trị theo tứ diện.",
   "occurrence": {
@@ -99,16 +138,60 @@
       "sourceSearch": "https://rruff.info/Quartz",
       "model": "/assets/periodic-table/minerals/quartz.glb",
       "preview": "/assets/periodic-table/minerals/quartz.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "quartz",
+          "amcsdId": "0000789",
+          "mineralName": "Quartz",
+          "formula": "Si O2",
+          "spaceGroup": "P 32 2 1",
+          "cell": {
+            "a": 4.916,
+            "b": 4.916,
+            "c": 5.4054,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 120.0
+          },
+          "volume": 113.13115406160388,
+          "siteCount": 9,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Prewitt C T",
+              "Weidner D J",
+              "Levien L"
+            ],
+            "title": "Structure and elastic properties of quartz at pressure\n P = 1 atm",
+            "journal": "American Mineralogist",
+            "year": 1980,
+            "volume": "65",
+            "pages": "920–930"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/quartz.json",
+          "cif": "/assets/periodic-table/crystals/quartz.cif",
+          "model": "/assets/periodic-table/crystals/quartz.glb",
+          "preview": "/assets/periodic-table/crystals/quartz.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Quartz_Br%C3%A9sil.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/014_Si.jpg",
-    "alt": "Silicon: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/quartz.jpg",
+    "alt": "Quartz — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:A_piece_of_zone_refined_silicon.JPG",
-    "caption": "Ảnh tham chiếu mẫu Silicon (Si); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "Rasiel Suarez on behalf of Luciteria LLC · CC BY-SA 4.0"
+    "source": "https://commons.wikimedia.org/wiki/File:Quartz_Br%C3%A9sil.jpg",
+    "caption": "Ảnh mẫu tham chiếu Quartz; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "Rasiel Suarez on behalf of Luciteria LLC · CC BY-SA 4.0",
+    "author": "Didier Descouens",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "isotopes": [
     {
@@ -415,9 +498,64 @@
       "author": "Rasiel Suarez on behalf of Luciteria LLC",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/quartz.jpg",
+      "role": "natural-mineral",
+      "title": "Quartz",
+      "desc": "Ảnh mẫu tham chiếu Quartz; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Quartz_Br%C3%A9sil.jpg",
+      "author": "Didier Descouens",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Quartz",
+      "src": "/assets/periodic-table/crystals/quartz.json",
+      "crystal": {
+        "id": "quartz",
+        "amcsdId": "0000789",
+        "mineralName": "Quartz",
+        "formula": "Si O2",
+        "spaceGroup": "P 32 2 1",
+        "cell": {
+          "a": 4.916,
+          "b": 4.916,
+          "c": 5.4054,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 120.0
+        },
+        "volume": 113.13115406160388,
+        "siteCount": 9,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Prewitt C T",
+            "Weidner D J",
+            "Levien L"
+          ],
+          "title": "Structure and elastic properties of quartz at pressure\n P = 1 atm",
+          "journal": "American Mineralogist",
+          "year": 1980,
+          "volume": "65",
+          "pages": "920–930"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/quartz.json",
+        "cif": "/assets/periodic-table/crystals/quartz.cif",
+        "model": "/assets/periodic-table/crystals/quartz.glb",
+        "preview": "/assets/periodic-table/crystals/quartz.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -452,6 +590,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -459,6 +602,7 @@
     "sourceFile": "014_Si.docx",
     "sourceSha256": "eb789324d11613c0589b59d2c75954b6d6be7a13a37ff7b206e9ec41e37217bb",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/014_Si.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/silic-si/audit.md"
   }
 }

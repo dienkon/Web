@@ -18,6 +18,13 @@ export default defineConfig(() => {
     },
     build: {
       rollupOptions: {
+        output: {
+          chunkFileNames(chunk) {
+            const file = chunk.facadeModuleId?.replace(/\\/g, '/') ?? '';
+            const substance = /\/src\/data\/(?:reference|docs)\/([a-z0-9-]+)\/index\.json$/.exec(file)?.[1];
+            return substance ? `assets/tai-lieu/${substance}/noi-dung-[hash].js` : 'assets/[name]-[hash].js';
+          },
+        },
         input: {
           main: path.resolve(__dirname, 'index.source.html'),
         },

@@ -56,7 +56,44 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương xếp chặt (HCP)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-be",
+      "amcsdId": "0012878",
+      "mineralName": "Beryllium",
+      "formula": "Be",
+      "spaceGroup": "P 63/m m c",
+      "cell": {
+        "a": 2.2858,
+        "b": 2.2858,
+        "c": 3.5843,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 16.218528215582335,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Gordon P"
+        ],
+        "title": "A high temperature precision X-ray camera: some measurements of the thermal\n coefficients of expansion of beryllium\n Sample: at T = 25 C",
+        "journal": "Journal of Applied Physics",
+        "year": 1949,
+        "volume": "20",
+        "pages": "908–917"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-be.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-be.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-be.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-be.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lục phương xếp chặt (HCP)",
   "occurrence": {
@@ -97,16 +134,60 @@
       "sourceSearch": "https://rruff.info/Beryl",
       "model": "/assets/periodic-table/minerals/beryl.glb",
       "preview": "/assets/periodic-table/minerals/beryl.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "beryl",
+          "amcsdId": "0001040",
+          "mineralName": "Beryl",
+          "formula": "Be3 Al2 Si6 O18",
+          "spaceGroup": "P 6/m c c",
+          "cell": {
+            "a": 9.208,
+            "b": 9.208,
+            "c": 9.188,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 120.0
+          },
+          "volume": 674.6557706861795,
+          "siteCount": 58,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Finger L W",
+              "Hazen R M",
+              "Au A Y"
+            ],
+            "title": "High-pressure crystal chemistry of beryl (Be3Al2Si6O18) and euclase (BeAlSiO4OH)\n Sample: Pressure = .001 kbar",
+            "journal": "American Mineralogist",
+            "year": 1986,
+            "volume": "71",
+            "pages": "977–984"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/beryl.json",
+          "cif": "/assets/periodic-table/crystals/beryl.cif",
+          "model": "/assets/periodic-table/crystals/beryl.glb",
+          "preview": "/assets/periodic-table/crystals/beryl.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Beryl09.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/004_Be.jpg",
-    "alt": "Beryllium: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/beryl.jpg",
+    "alt": "Beryl — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Be-140g.jpg",
-    "caption": "Ảnh tham chiếu mẫu Beryllium (Be); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "Alchemist-hp = Alchemist-hp ( pse-mendelejew.de ) · CC BY-SA 3.0"
+    "source": "https://commons.wikimedia.org/wiki/File:Beryl09.jpg",
+    "caption": "Ảnh mẫu tham chiếu Beryl; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "Alchemist-hp = Alchemist-hp ( pse-mendelejew.de ) · CC BY-SA 3.0",
+    "author": "Reno Chris at English Wikipedia",
+    "license": "Public domain",
+    "licenseUrl": ""
   },
   "isotopes": [
     {
@@ -402,9 +483,64 @@
       "author": "Alchemist-hp = Alchemist-hp ( pse-mendelejew.de )",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/beryl.jpg",
+      "role": "natural-mineral",
+      "title": "Beryl",
+      "desc": "Ảnh mẫu tham chiếu Beryl; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Beryl09.jpg",
+      "author": "Reno Chris at English Wikipedia",
+      "license": "Public domain",
+      "licenseUrl": ""
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Beryl",
+      "src": "/assets/periodic-table/crystals/beryl.json",
+      "crystal": {
+        "id": "beryl",
+        "amcsdId": "0001040",
+        "mineralName": "Beryl",
+        "formula": "Be3 Al2 Si6 O18",
+        "spaceGroup": "P 6/m c c",
+        "cell": {
+          "a": 9.208,
+          "b": 9.208,
+          "c": 9.188,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 120.0
+        },
+        "volume": 674.6557706861795,
+        "siteCount": 58,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Finger L W",
+            "Hazen R M",
+            "Au A Y"
+          ],
+          "title": "High-pressure crystal chemistry of beryl (Be3Al2Si6O18) and euclase (BeAlSiO4OH)\n Sample: Pressure = .001 kbar",
+          "journal": "American Mineralogist",
+          "year": 1986,
+          "volume": "71",
+          "pages": "977–984"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/beryl.json",
+        "cif": "/assets/periodic-table/crystals/beryl.cif",
+        "model": "/assets/periodic-table/crystals/beryl.glb",
+        "preview": "/assets/periodic-table/crystals/beryl.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -439,6 +575,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -446,6 +587,7 @@
     "sourceFile": "004_Be.docx",
     "sourceSha256": "96cc7d9da2bfb5d4f10e4968b8172ae0a926218767e1c1146e3fd8886e203909",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/004_Be.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/beri-be/audit.md"
   }
 }

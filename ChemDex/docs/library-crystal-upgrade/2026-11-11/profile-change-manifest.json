@@ -1,0 +1,2529 @@
+[
+  {
+    "symbol": "H",
+    "file": "data/elements/001_H.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/hidro-h/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "ea0e0bf61dcc333b4ec6606c75de8066fbde812156843e4812a77e3c7f34b68c",
+    "afterSha256": "bd7da8bef507f39c394c899ed8a1549c01cd56cbf62a843dd594bc2e87cdca52"
+  },
+  {
+    "symbol": "He",
+    "file": "data/elements/002_He.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/heli-he/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "616ee13a1316e1435009fe4fc36d5bcdbdc67bb8d6ed778d674b8154b32ae552",
+    "afterSha256": "0f74c1591cc856d29575ef9443cb585d7cfb41cd78f86282e2fb6c8b4e6709e8"
+  },
+  {
+    "symbol": "Li",
+    "file": "data/elements/003_Li.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/liti-li/audit.md",
+    "elementCrystal": "0011220",
+    "mineralPhases": [
+      "0000355"
+    ],
+    "photo": {
+      "id": "spodumene",
+      "name": "Spodumene",
+      "query": "Spodumene",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Spodumene-usa59abg.jpg",
+      "filename": "Spodumene-usa59abg.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/d/df/Spodumene-usa59abg.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Spodumene Locality: Walnut Hill Pegmatite Prospect, Huntington , Hampshire County, Massachusetts , USA ( Locality at mindat.org ) Size: cabinet, 14.2 x 9.2 x 3.0 cm Spodumene This is the CRYSTAL TYPE LOCALITY for spodumene, apparently. A LARGE, 660-gram single, sharply terminated crystal of spodumene from this classic old locality circa mid-1800s! They were considered very important at the time (remember, gem pink kunzite had NOT yet been found in California, Brazil, or Afghanistan), and these crystals were considered highly important and sold or traded into all major museums. Owning one of these would be a goal to assemble any major collection of the time, of important US minerals. Today, they are not worth their weight in gold any more (660 grams...ouch!), but they still are important historical pieces. This location was first documented by Edward Hitchcock in 1833 (Report on the Geology, Mineralogy, Botany and Zoology of Massachusetts), and the first location to yield crystallography on the species (1879). The quarry was last operated by B. K Emerson of Amherst College, and Frank Nason (Nasonite) operated the location in 1885. This is when the majority of the old specimens were recovered. For the size of this crystal, this is really good! They generally get a little more \"aesthetically challenged\" with size. This is one of the best I have seen, and although color-challenged, it is a very important historical specimen nonetheless, and a superb example from this now defunct pegmatite. ex. Ken Hollman Collection. Thanks to Jim Chenard for this footnote: A funny note on this area was with regards to the early Professor Emerson, who wrote the Mineralogical Lexicon of Hampshire, Hampden Counties in Mass. His journal well documents the Walnut Hill location, and always used taverns as landmarks. His writing got worse during the day, and he would frequently come back to Amherst on foot, since he would forget where his horse was. This is an old location!",
+      "file": "/assets/periodic-table/mineral-photos/spodumene.jpg",
+      "sha256": "8cf865b45fdc23b44788702660ad8e85cdc7b7ea1449a9ab563029b7a08e8983",
+      "bytes": 95632
+    },
+    "beforeSha256": "d174bd9d9e160766b0c0eae6fe023662942cb5f0762abf4c77170e7aa83cd88d",
+    "afterSha256": "54bb8e3388a44e4e6781e5cb46aea3508ca8af9dc307abc4a850613424f2dcb1"
+  },
+  {
+    "symbol": "Be",
+    "file": "data/elements/004_Be.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/beri-be/audit.md",
+    "elementCrystal": "0012878",
+    "mineralPhases": [
+      "0001040"
+    ],
+    "photo": {
+      "id": "beryl",
+      "name": "Beryl",
+      "query": "Beryl",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Beryl09.jpg",
+      "filename": "Beryl09.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Beryl09.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Reno Chris at English Wikipedia",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "description": "Source: Chris Ralph. This photo taken by Chris Ralph of Nevada-outback-gems.com [1] , Photographer and author: photo taken by author.",
+      "file": "/assets/periodic-table/mineral-photos/beryl.jpg",
+      "sha256": "9d9dd6f0f34b68e3fb835b2e3eefff9204b1c66ddd515b5315203dd1525bc197",
+      "bytes": 161930
+    },
+    "beforeSha256": "caa119e4f9f415e73e0ca9e79825795d4eb227aa3fc6eb097f2a93176f2cd9b9",
+    "afterSha256": "2a2d06e641d0a2d4e0a76c2b0fab14c19156ea2617daabf1825f4cb8939b2e9d"
+  },
+  {
+    "symbol": "B",
+    "file": "data/elements/005_B.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/bo-b/audit.md",
+    "elementCrystal": "0009230",
+    "mineralPhases": [
+      "0009647"
+    ],
+    "photo": {
+      "id": "borax",
+      "name": "Borax",
+      "query": "Borax",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Borax_crystals.jpg",
+      "filename": "Borax_crystals.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Borax_crystals.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Aram Dulyan ( User:Aramgutang )",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "description": "Borax crystals from Kramer , California , USA . Photograph taken at the Natural History Museum , London .",
+      "file": "/assets/periodic-table/mineral-photos/borax.jpg",
+      "sha256": "20a61ff171f6d041c544a8675e556e6e4edd38f06783a983e670eb3b2471bca0",
+      "bytes": 88717
+    },
+    "beforeSha256": "da629484e1677ff9cb8c94fe2d8b18919129d13ea3a168b8754f9332f663494c",
+    "afterSha256": "ef609c1b34b8db94ff06f6f38c56f2b1638bb792daf5b680ed842e3dfc9df81f"
+  },
+  {
+    "symbol": "C",
+    "file": "data/elements/006_C.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/cacbon-c/audit.md",
+    "elementCrystal": "0014675",
+    "mineralPhases": [
+      "0014675"
+    ],
+    "photo": {
+      "id": "graphite",
+      "name": "Graphite",
+      "query": "Graphite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Graphite-233436.jpg",
+      "filename": "Graphite-233436.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Graphite-233436.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Graphite Locality: Old Beneis Farm, Marlborough , Cheshire County, New Hampshire , USA ( Locality at mindat.org ) Size: 5.6 x 3.8 x 1.8 cm. A large, solid mass of elemental carbon or graphite with the super, greasy/waxy feel and typical, sheet-like form. This splendent, steel-gray specimen is from a very uncommon New Hampshire locality - the old Beneis Farm, Marlborough, Cheshire County. Ex. Bob Whitmore Collection, a noted New England collector and field collector.",
+      "file": "/assets/periodic-table/mineral-photos/graphite.jpg",
+      "sha256": "c0caa310c70f6f29a238886c2b83cb5ab46db76cf63952bd2722893a649fdaa4",
+      "bytes": 150253
+    },
+    "beforeSha256": "6c50a097520670bc935624ee6f2e34f91cfe00236aa7e447ef91873417e5c391",
+    "afterSha256": "96e2615504948008e928dc2902385dcdee7aea5e651577ca776487040246e753"
+  },
+  {
+    "symbol": "N",
+    "file": "data/elements/007_N.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/nito-n/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "d95066b3040d12cf1e303ebf00e9b2486831fc573b3315623aa12fb9a2505d5d",
+    "afterSha256": "eecd0144bd3932e3ccdbd8925a748288a1d834ed9a2f9143c106e262654cd7ba"
+  },
+  {
+    "symbol": "O",
+    "file": "data/elements/008_O.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/oxi-o/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "19e067e05fbaacd4f2915454e29dc36058c284aabb1d70932bd6d4d0a0405d17",
+    "afterSha256": "127557d1a5c1d3939965048e7de80c31b5cf009ca316d03e1d4a687edf567871"
+  },
+  {
+    "symbol": "F",
+    "file": "data/elements/009_F.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/flo-f/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [
+      "0008645"
+    ],
+    "photo": {
+      "id": "fluorite",
+      "name": "Fluorite",
+      "query": "Fluorite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:3192M-fluorite1.jpg",
+      "filename": "3192M-fluorite1.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/0/0d/3192M-fluorite1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "CarlesMillan",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Deep green isolated fluorite crystal showing cubic {100} and octahedral {111} faces, complete and undamaged, set upon a micaceous matrix. Overall size: 50 mm x 27 mm. Crystal size: 19 mm wide. Weight: 30 g. From Erongo Mountain, Erongo Region, Namibia.",
+      "file": "/assets/periodic-table/mineral-photos/fluorite.jpg",
+      "sha256": "3a9b772581d3ddf534acc97ad794ea883d9657ac29dbdfdbc799bd27106fa1e1",
+      "bytes": 182796
+    },
+    "beforeSha256": "a891646d354323bcea15d8d9399b704ee3ccf7bd7d766012921ecd376c274bdc",
+    "afterSha256": "6dca85c1ca3236338e708a1f8dcca0ba21d2e2a4911c6a418a74e86192212b83"
+  },
+  {
+    "symbol": "Ne",
+    "file": "data/elements/010_Ne.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/neon-ne/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "ed4cfa56907403f63a958aa51bf08265efc95b35ec8d77f9d90665e1925b08ac",
+    "afterSha256": "359bb461959fa39cbc72be7f25cf36a1271163a71bbe9a4c025ecd38e5688d35"
+  },
+  {
+    "symbol": "Na",
+    "file": "data/elements/011_Na.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/natri-na/audit.md",
+    "elementCrystal": "0011223",
+    "mineralPhases": [
+      "0003397"
+    ],
+    "photo": {
+      "id": "halite",
+      "name": "Halite",
+      "query": "Halite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Halit_(NaCl)_-_Kopalnia_soli_Wieliczka,_Polska.jpg",
+      "filename": "Halit_(NaCl)_-_Kopalnia_soli_Wieliczka,_Polska.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/8/89/Halit_%28NaCl%29_-_Kopalnia_soli_Wieliczka%2C_Polska.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Lech Darski",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "description": "Halit (NaCl) - Kopalnia soli Wieliczka, Polska.",
+      "file": "/assets/periodic-table/mineral-photos/halite.jpg",
+      "sha256": "e61195171e3ee30fa4b3dbe451517103757581f53dd4c2c6370cb9501cdd5ecb",
+      "bytes": 128589
+    },
+    "beforeSha256": "304820b4d26e51b70845b47b43f6793b07160a1ce04d12061e60f15d0f719fee",
+    "afterSha256": "fa7163b767323ced5f4b0856737e9b523b6803303f87ee145e01b053e80151ac"
+  },
+  {
+    "symbol": "Mg",
+    "file": "data/elements/012_Mg.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/magie-mg/audit.md",
+    "elementCrystal": "0012871",
+    "mineralPhases": [
+      "0000990"
+    ],
+    "photo": {
+      "id": "magnesite",
+      "name": "Magnesite",
+      "query": "Magnesite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Magnesite-121892.jpg",
+      "filename": "Magnesite-121892.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Magnesite-121892.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Magnesite Locality: Serra das Éguas, Brumado (Bom Jesus dos Meiras) , Bahia , Northeast Region, Brazil ( Locality at mindat.org ) Size: 11.4 x 9.2 x 3.6 cm. Magnesite is usually seen in small crystals as an \"accessory\" mineral - when from this locality, particularly, with uvites. But this specimen is a superb specimen in and of itself, with large, lustrous, transparent rhombs of magnesite to over 2 cm, sticking up amongst smaller crystals. The magnesites are razor-sharp. There actually ARE a few little uvites to be seen here, too!",
+      "file": "/assets/periodic-table/mineral-photos/magnesite.jpg",
+      "sha256": "39849190ef37453c0337169e00fffff3b097cd7d9adbbf5a5e2dbd1d05985fbf",
+      "bytes": 67682
+    },
+    "beforeSha256": "7916d0f01f9608e18438481bdd9e8f774196267e77b14af9f5e8ca7ac3d61689",
+    "afterSha256": "c1f14860edc7c351519b7f8a194a923a8b9edc211d50b2f3c5b77f62c1e3a5ef"
+  },
+  {
+    "symbol": "Al",
+    "file": "data/elements/013_Al.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/nhom-al/audit.md",
+    "elementCrystal": "0011136",
+    "mineralPhases": [
+      "0010761",
+      "0019146",
+      "0007340"
+    ],
+    "photo": {
+      "id": "bauxite",
+      "name": "Bauxite",
+      "query": "Bauxite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Bauxite_h%C3%A9rault.JPG",
+      "filename": "Bauxite_hérault.JPG",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/1/11/Bauxite_h%C3%A9rault.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "saphon",
+      "license": "CC BY-SA 1.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/1.0",
+      "description": "bauxite (hérault)",
+      "file": "/assets/periodic-table/mineral-photos/bauxite.jpg",
+      "sha256": "5ada8126792bad6630b167326f4f927fa9d39c6bf890eb325e8cb4e4a9519b36",
+      "bytes": 163651
+    },
+    "beforeSha256": "94ac93315b103bbd63d10231be34b543e837a53c58cf31aedcbcbe1a9ccf6c6b",
+    "afterSha256": "92b3afae30c20d537c1cbb637f5af3a487077068cb3c113498105c442b992367"
+  },
+  {
+    "symbol": "Si",
+    "file": "data/elements/014_Si.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/silic-si/audit.md",
+    "elementCrystal": "0012843",
+    "mineralPhases": [
+      "0000789"
+    ],
+    "photo": {
+      "id": "quartz",
+      "name": "Quartz",
+      "query": "Quartz",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Quartz_Br%C3%A9sil.jpg",
+      "filename": "Quartz_Brésil.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Quartz_Br%C3%A9sil.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Didier Descouens",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "description": "Quartz Location: Minas Gerais - Brasil Size : 18x15x13 cm",
+      "file": "/assets/periodic-table/mineral-photos/quartz.jpg",
+      "sha256": "4322d16fb8bca958fa5c28872d392ab71b9047a3add42fd1c69b869ef98fdf87",
+      "bytes": 130988
+    },
+    "beforeSha256": "7036c8d4e488764fe8da82d74d2ca948e46856a6ef8950b84f427580a142e068",
+    "afterSha256": "650b88f9453dd67feec1a209a60d9901a7f3cd0187eb38b8d79f6d70576b13c3"
+  },
+  {
+    "symbol": "P",
+    "file": "data/elements/015_P.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/photpho-p/audit.md",
+    "elementCrystal": "0011250",
+    "mineralPhases": [
+      "0001256"
+    ],
+    "photo": {
+      "id": "apatite",
+      "name": "Fluorapatite",
+      "query": "Apatite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Apatite_on_Siderite_(13156440584).jpg",
+      "filename": "Apatite_on_Siderite_(13156440584).jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/9/91/Apatite_on_Siderite_%2813156440584%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Thomas Spann",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "description": "Panasqueira, Portugal",
+      "file": "/assets/periodic-table/mineral-photos/apatite.jpg",
+      "sha256": "a023eaae1e04ac0654f2ce39482645d00012d45b6123a0bc7825bce719b79c53",
+      "bytes": 108065
+    },
+    "beforeSha256": "272f03d0b836d2a72462724656072294a40c8290d4ef1d55016193e015165994",
+    "afterSha256": "4f7579cd86119845243e73d24d698be224da0d88536bf54f1ce08eece5080fee"
+  },
+  {
+    "symbol": "S",
+    "file": "data/elements/016_S.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/luu-huynh-s/audit.md",
+    "elementCrystal": "0010058",
+    "mineralPhases": [
+      "0010058"
+    ],
+    "photo": {
+      "id": "sulfur",
+      "name": "Sulfur tự sinh",
+      "query": "Sulfur",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Sulfur_-_El_Desierto_mine,_San_Pablo_de_Napa,_Daniel_Campos_Province,_Potos%C3%AD,_Bolivia.jpg",
+      "filename": "Sulfur_-_El_Desierto_mine,_San_Pablo_de_Napa,_Daniel_Campos_Province,_Potosí,_Bolivia.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/8/88/Sulfur_-_El_Desierto_mine%2C_San_Pablo_de_Napa%2C_Daniel_Campos_Province%2C_Potos%C3%AD%2C_Bolivia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "description": "Sulfur crystals on the matrix (4.8 × 3.5 × 3 cm). Found from El Desierto mine, San Pablo de Napa, Daniel Campos Province, Potosí, Bolivia",
+      "file": "/assets/periodic-table/mineral-photos/sulfur.jpg",
+      "sha256": "e3903fd479346fbaaa7f90668ad6f50519820567f53858c7aa43fda7b265c1ec",
+      "bytes": 175009
+    },
+    "beforeSha256": "8ae0fdfedd185d036600ebcf9e2b5a89fa0a0ab5e45fd9754201fcf7ff9e8c3c",
+    "afterSha256": "7b0808e00329b479785dbdeaff6709791b1908f9810141236eca9bb0cbecca56"
+  },
+  {
+    "symbol": "Cl",
+    "file": "data/elements/017_Cl.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/clo-cl/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [
+      "0003397"
+    ],
+    "photo": {
+      "id": "halite",
+      "name": "Halite",
+      "query": "Halite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Halit_(NaCl)_-_Kopalnia_soli_Wieliczka,_Polska.jpg",
+      "filename": "Halit_(NaCl)_-_Kopalnia_soli_Wieliczka,_Polska.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/8/89/Halit_%28NaCl%29_-_Kopalnia_soli_Wieliczka%2C_Polska.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Lech Darski",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "description": "Halit (NaCl) - Kopalnia soli Wieliczka, Polska.",
+      "file": "/assets/periodic-table/mineral-photos/halite.jpg",
+      "sha256": "e61195171e3ee30fa4b3dbe451517103757581f53dd4c2c6370cb9501cdd5ecb",
+      "bytes": 128589
+    },
+    "beforeSha256": "202a54fb54f188e112c366dfb51a41f341cda084180f6b8d24abd983c6ca8ed4",
+    "afterSha256": "8300592824450871977f6566fd3a06284d013980ff361e1cb4f06da3dcb55337"
+  },
+  {
+    "symbol": "Ar",
+    "file": "data/elements/018_Ar.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/argon-ar/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "a4dac73595d7a67659ea1f50f8dc7b54d5b7b000a440c6a4a623d803efb9c189",
+    "afterSha256": "4d4c7da56e381d8b383c8626f953a512582dbb6e43c2588744074c8b8ac3579a"
+  },
+  {
+    "symbol": "K",
+    "file": "data/elements/019_K.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/kali-k/audit.md",
+    "elementCrystal": "0013214",
+    "mineralPhases": [
+      "0003201"
+    ],
+    "photo": {
+      "id": "sylvite",
+      "name": "Sylvite",
+      "query": "Sylvite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Mineral_Silvina_GDFL105.jpg",
+      "filename": "Mineral_Silvina_GDFL105.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Mineral_Silvina_GDFL105.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Luis Miguel Bugallo Sánchez ( Lmbuga Commons )( Lmbuga Galipedia ) Publicada por/ Publish by : Luis Miguel Bugallo Sánchez",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "description": "Self made. For my own collection",
+      "file": "/assets/periodic-table/mineral-photos/sylvite.jpg",
+      "sha256": "f5efdd69946311ba203969877283af95b5813eccb7dc9ec336b61ad920b8bc63",
+      "bytes": 54421
+    },
+    "beforeSha256": "5d6854679c127cc2c8d49483a88014d50e63d2456eca93b7ba25411dadd77caa",
+    "afterSha256": "0135353bd02ce6e452700dc62a2c8aba6e09d87e06578b59db6800da74dd0baf"
+  },
+  {
+    "symbol": "Ca",
+    "file": "data/elements/020_Ca.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/canxi-ca/audit.md",
+    "elementCrystal": "0013147",
+    "mineralPhases": [
+      "0000984"
+    ],
+    "photo": {
+      "id": "calcite",
+      "name": "Calcite",
+      "query": "Calcite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Calcite_Variation.png",
+      "filename": "Calcite_Variation.png",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Calcite_Variation.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "PaleoNeolitic (montage creator)",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+      "description": "Montage featuring the high variation of crystal habits of the carbonate mineral calcite (CaCO3). Clockwise from top left: scalenohedral, rhomboedral, stalactitic, and botryoidal calcite crystals. These files are already on Commons with their respective licenses. This montage was made for the article Calcite on Wikipedia. File:Calcite-Maroc-UV.jpg File:NM Epidote Calcite2.jpg File:Vallina Estalactitas banderolas helictitas.JPG File:Calcite (Cave-in-Rock Mining District, Illinois, USA) 3 (42590140555).jpg",
+      "file": "/assets/periodic-table/mineral-photos/calcite.png",
+      "sha256": "892f147b68eaf5605e6ce50721e4ec721abb4d5511ed50447b8da7f429c9c200",
+      "bytes": 1097318
+    },
+    "beforeSha256": "5ab8ed4d2fbb2446225a696661d5ddd8ddbdd77fa8d1de3c782a736ca6299237",
+    "afterSha256": "6f717ffbf35b3784aeaa711240d812e01335c9628ccae43bf10f5654ff4162d9"
+  },
+  {
+    "symbol": "Sc",
+    "file": "data/elements/021_Sc.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/scandi-sc/audit.md",
+    "elementCrystal": "0009167",
+    "mineralPhases": [
+      "0001160"
+    ],
+    "photo": {
+      "id": "thortveitite",
+      "name": "Thortveitite",
+      "query": "Thortveitite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Thortveitite-ea14a.jpg",
+      "filename": "Thortveitite-ea14a.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/3/34/Thortveitite-ea14a.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Thortveitite Locality: Ljoslandsåsen (Hålandsgruva), Iveland , Aust-Agder , Norway ( Locality at mindat.org ) Size: miniature, 4 x 2 x 2 cm Thortveitite This ugly beast is one of the most impressive examples of the species, that I think could exist. It is a 3-dimensional, sharp, well-formed, 4cm crystal of this rare scandium-containing species. It is from the noted collection of Jean Behier.",
+      "file": "/assets/periodic-table/mineral-photos/thortveitite.jpg",
+      "sha256": "7223ee58a3c8138cf6f7bc7f23231e825bea446cd168ce270a574d73cf7dd564",
+      "bytes": 78129
+    },
+    "beforeSha256": "9f70e957251ff20ec0a05a4027078617eabacca82a1d7970d038a85f0c3e3ed4",
+    "afterSha256": "8a1b3514223b3255fcca8d237c2feb6bb8de11ab4e86f2eaae78fc7dece161e3"
+  },
+  {
+    "symbol": "Ti",
+    "file": "data/elements/022_Ti.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/titan-ti/audit.md",
+    "elementCrystal": "0020263",
+    "mineralPhases": [
+      "0001736"
+    ],
+    "photo": {
+      "id": "rutile",
+      "name": "Rutile",
+      "query": "Rutile",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Rutile-ww7a.jpg",
+      "filename": "Rutile-ww7a.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/3/36/Rutile-ww7a.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Rutile Locality: Diamantina , Jequitinhonha valley, Minas Gerais , Southeast Region, Brazil ( Locality at mindat.org ) Size: thumbnail, 2.5 x 2 x .3 cm Rutile There are many cool Rutiles around, but gram for gram this is one of the finest I have ever seen. The intergrown, mostly-terminated crystals have a superb striated luster and deep red color that takes very little coaxing to glow. The geometry of the bladed crystals creates an architecture that has superb aesthetics. It flashes electric red from so many angles. This is unusually robust for such a reticulated cluster, not just skinny needles strung together but real 3-D crystals. Ex. Wendell E. Wilson Collection.",
+      "file": "/assets/periodic-table/mineral-photos/rutile.jpg",
+      "sha256": "fc11e79ec8e53b2e8cc35f82f60b00d2a913df27ca3f069721e8639d88ec18c5",
+      "bytes": 46401
+    },
+    "beforeSha256": "59c8e800c3855993f8738fa4516f3c1aaf660a0f69a2defeb349515079180f2a",
+    "afterSha256": "8d595a4eb80315b7548a118a27fd02f45ef779df6fe2ca49041c73ecfb0711cb"
+  },
+  {
+    "symbol": "V",
+    "file": "data/elements/023_V.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/vanadi-v/audit.md",
+    "elementCrystal": "0014111",
+    "mineralPhases": [
+      "0005225"
+    ],
+    "photo": {
+      "id": "vanadinite",
+      "name": "Vanadinite",
+      "query": "Vanadinite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Mibladene_Vanadinite.jpg",
+      "filename": "Mibladene_Vanadinite.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Mibladene_Vanadinite.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Didier Descouens",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "description": "Vanadinite Locality: Mibladene (Mibladén; Mibladan; Miblanden), Upper Moulouya lead district, Midelt , Khénifra Province , Meknès-Tafilalet Region, Morocco Size: 9x6x5.8 cm.",
+      "file": "/assets/periodic-table/mineral-photos/vanadinite.jpg",
+      "sha256": "1f4ce10517ef46667c85d8652e9e03b8e1451edbe5cbccdd863f0c0473dd83a4",
+      "bytes": 181680
+    },
+    "beforeSha256": "f9b37f4d563e6a3f7bc62cdaf8e516341b7ef798b714df940b45d472884beba2",
+    "afterSha256": "b35c3cb15e103ad820ed5c5e0341ac67f8797e0b46b00f9ffa3c8b1b9226648e"
+  },
+  {
+    "symbol": "Cr",
+    "file": "data/elements/024_Cr.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/crom-cr/audit.md",
+    "elementCrystal": "0011209",
+    "mineralPhases": [
+      "0004961"
+    ],
+    "photo": {
+      "id": "chromite",
+      "name": "Chromite",
+      "query": "Chromite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Chromite-201529.jpg",
+      "filename": "Chromite-201529.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/1/10/Chromite-201529.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Chromite Locality: Freetown layered complex, Guma Water, Sierra Leone ( Locality at mindat.org ) Size: 1.3 x 1.2 x 1.2 cm. A huge, very sharp, complete all-around, octahedral chromite crystal from a very uncommon locality - the Freetown Layered Complex in Sierra Leone, Africa.",
+      "file": "/assets/periodic-table/mineral-photos/chromite.jpg",
+      "sha256": "022cc9495e3a37bfe31d70274a7b330a78bfc4c6a1b669c6666110a5599f58b4",
+      "bytes": 37715
+    },
+    "beforeSha256": "e0fa8adbd7c59b617f594c151654c734d79bb5ec7a0be90210ce3fffa841a521",
+    "afterSha256": "ec67287376b3318b158c21fad36841690a6c8d41c6df10ca7e2d5a44ca33cbd4"
+  },
+  {
+    "symbol": "Mn",
+    "file": "data/elements/025_Mn.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/mangan-mn/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [
+      "0011760"
+    ],
+    "photo": {
+      "id": "pyrolusite",
+      "name": "Pyrolusite",
+      "query": "Pyrolusite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Pyrolusite_-_USGS_ID_Stose,_GW_1425.jpg",
+      "filename": "Pyrolusite_-_USGS_ID_Stose,_GW_1425.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/8/82/Pyrolusite_-_USGS_ID_Stose%2C_GW_1425.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Unknown author Unknown author",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "description": "Pyrolusite and wad - B, earthy compact wad traversed by a sigmoid band that is of similar composition but has a rod like comb structure and radiate arrangement (the wad apparently is the process of changing to a compact and rod like psilomelane), from Doe Valley mine. Johnson County, Tennessee 1918. Plate 9-B in U.S. Geological Survey Bulletin 737. 1923.",
+      "file": "/assets/periodic-table/mineral-photos/pyrolusite.jpg",
+      "sha256": "1e4c0247be5a63b4bee8efdc246eb11c1d319ea99dd56cb843fd4968e864e29d",
+      "bytes": 194441
+    },
+    "beforeSha256": "c15a12236f0067c5eea87bc0e4236b3741cfb407c0cac3c2fd6a53dae79b29dc",
+    "afterSha256": "7594bbe1ef6e6714977990fae1c3d09193ef79ae7b63eb55ad146608ed972295"
+  },
+  {
+    "symbol": "Fe",
+    "file": "data/elements/026_Fe.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/sat-fe/audit.md",
+    "elementCrystal": "0008169",
+    "mineralPhases": [
+      "0000143"
+    ],
+    "photo": {
+      "id": "hematite",
+      "name": "Hematite",
+      "query": "Hematite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:WLA_hmns_Hematite.jpg",
+      "filename": "WLA_hmns_Hematite.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/1/19/WLA_hmns_Hematite.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Wikipedia Loves Art participant \" Assignment_Houston_One \"",
+      "license": "CC BY-SA 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+      "description": "Hematite Trigonal iron oxide Ibitiara, Mina Gerais Brazil HMNS 5440 Wikipedia Loves Art at the Houston Museum of Natural Science This photo of item # 5440 at the Houston Museum of Natural Science was contributed under the team name \" Assignment_Houston_One \" as part of the Wikipedia Loves Art project in February 2009. Houston Museum of Natural Science The original photograph on Flickr was taken by sulla55 — please add a comment to the original Flickr page whenever a use has been made on Wikipedia or another project. Project galleries on Flickr: this institution , this team",
+      "file": "/assets/periodic-table/mineral-photos/hematite.jpg",
+      "sha256": "2fc18700faf0e1482911c902492e942df39a39014c6349e89627f2cbc47f555b",
+      "bytes": 461089
+    },
+    "beforeSha256": "f9b3cab395ae4772b728199fa3d72ef3d4325d7da2fd92c068c829ca1fd74067",
+    "afterSha256": "4de2aa9c930e181c649a8a080def0d5cec745f297ede796ad69e8785be37ccf4"
+  },
+  {
+    "symbol": "Co",
+    "file": "data/elements/027_Co.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/coban-co/audit.md",
+    "elementCrystal": "0009140",
+    "mineralPhases": [
+      "0000883"
+    ],
+    "photo": {
+      "id": "cobaltite",
+      "name": "Cobaltite",
+      "query": "Cobaltite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Koboltglans.jpg",
+      "filename": "Koboltglans.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/7/75/Koboltglans.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "User Tor Svensson",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "description": "Cobaltite, Riddarhyttan, Sweden",
+      "file": "/assets/periodic-table/mineral-photos/cobaltite.jpg",
+      "sha256": "50c4913d34cebabc2b741eca60d21d5b872491cee7e8b9c8132c778f1b986076",
+      "bytes": 134911
+    },
+    "beforeSha256": "707eb82f1dddd402a97e84a1c2766166b9e01ac6f37fdfe00205274d75d959b3",
+    "afterSha256": "da9639b752c406f1e050dfd9919aaee2d94dcf3fed13c21157616da1d4726c9d"
+  },
+  {
+    "symbol": "Ni",
+    "file": "data/elements/028_Ni.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/niken-ni/audit.md",
+    "elementCrystal": "0013097",
+    "mineralPhases": [
+      "0000437"
+    ],
+    "photo": {
+      "id": "pentlandite",
+      "name": "Pentlandite",
+      "query": "Pentlandite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Pentlandite,_Pyrrhotite-540342.jpg",
+      "filename": "Pentlandite,_Pyrrhotite-540342.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Pentlandite%2C_Pyrrhotite-540342.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "John Sobolewski (JSS)",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "description": "Pentlandite , Pyrrhotite Locality: Flåt Nickel Mines, Flåt, Evje og Hornnes, Aust-Agder, Norway Original description: A 3.1 by 2.6 cms mass of Pentlandite with some Pyrrhotite. JSS specimen and photo.",
+      "file": "/assets/periodic-table/mineral-photos/pentlandite.jpg",
+      "sha256": "ed51733a83587a14042b4f049c078603ba5625f9ae8193302c9082ab8c6f090b",
+      "bytes": 179864
+    },
+    "beforeSha256": "e9ed5988489b15459f1ed4f2fb3ca830576f8086192ecefe3ea32c44377cfee1",
+    "afterSha256": "24bc10e005ede322f101dd80034d0015cf4da84c53cd81754b19494d2e56745d"
+  },
+  {
+    "symbol": "Cu",
+    "file": "data/elements/029_Cu.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/dong-cu/audit.md",
+    "elementCrystal": "0013087",
+    "mineralPhases": [
+      "0009476"
+    ],
+    "photo": {
+      "id": "chalcopyrite",
+      "name": "Chalcopyrite",
+      "query": "Chalcopyrite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Chalcopyrite-199453.jpg",
+      "filename": "Chalcopyrite-199453.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Chalcopyrite-199453.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Chalcopyrite Locality: Ballard Mine, Baxter Springs , Picher Field, Tri-State District, Cherokee County, Kansas , USA ( Locality at mindat.org ) Size: 6.9 x 4.8 x 2.8 cm. An old Treece chalcopyrite specimen out of the Feist Collection, with very sharp, bright brassy crystals to one centimeter. In one place is a beautiful complex cluster of interpenetrating crystals. The crystals are nicely isolated on the matrix. Probably collected prior to the 1960s.",
+      "file": "/assets/periodic-table/mineral-photos/chalcopyrite.jpg",
+      "sha256": "5f97899d649a1ddfec071d39a433afc762292d3fad85e0d3e0917314d8366701",
+      "bytes": 101328
+    },
+    "beforeSha256": "846e72d42e079dd85a45c2077e52fab01b599b9ef694f32e20e71f27ecea210e",
+    "afterSha256": "54c4d11cf22bee94ea63586f6a204ff91cf37a87e780b9fc8945873f1b9f9dc3"
+  },
+  {
+    "symbol": "Zn",
+    "file": "data/elements/030_Zn.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/kem-zn/audit.md",
+    "elementCrystal": "0012940",
+    "mineralPhases": [
+      "0000110"
+    ],
+    "photo": {
+      "id": "sphalerite",
+      "name": "Sphalerite",
+      "query": "Sphalerite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Sphalerite_-_Creede,_Mineral_County,_Colorado,_USA.jpg",
+      "filename": "Sphalerite_-_Creede,_Mineral_County,_Colorado,_USA.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Sphalerite_-_Creede%2C_Mineral_County%2C_Colorado%2C_USA.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "description": "Black tetrahedral crystals of sphalerite up to 8 mm in size across this matrix (4.5 × 3.0 × 2.0 cm) with chalcopyrite and calcite. Found from Creede, Mineral County, Colorado, USA.",
+      "file": "/assets/periodic-table/mineral-photos/sphalerite.jpg",
+      "sha256": "3626bc3049564ca8452702fab93291ca1a65b644089ab163808c9cc3996e7597",
+      "bytes": 276137
+    },
+    "beforeSha256": "09828f23493b881d1840de829631a70cc46f3b657fbb36c72322349c7e5273f9",
+    "afterSha256": "fa7ec75ff7c44554b1f678a12c396aa81c5697e9e43f8f7edf842cc679c9582a"
+  },
+  {
+    "symbol": "Ga",
+    "file": "data/elements/031_Ga.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/gali-ga/audit.md",
+    "elementCrystal": "0010597",
+    "mineralPhases": [
+      "0010761",
+      "0019146",
+      "0007340"
+    ],
+    "photo": {
+      "id": "bauxite",
+      "name": "Bauxite",
+      "query": "Bauxite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Bauxite_h%C3%A9rault.JPG",
+      "filename": "Bauxite_hérault.JPG",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/1/11/Bauxite_h%C3%A9rault.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "saphon",
+      "license": "CC BY-SA 1.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/1.0",
+      "description": "bauxite (hérault)",
+      "file": "/assets/periodic-table/mineral-photos/bauxite.jpg",
+      "sha256": "5ada8126792bad6630b167326f4f927fa9d39c6bf890eb325e8cb4e4a9519b36",
+      "bytes": 163651
+    },
+    "beforeSha256": "13f5ef3a3db248c99576a29473ee9d268eb54be936db121ee02d05519acd3f9b",
+    "afterSha256": "2adfd601ebdba5f13eee946ce13cb8aafa9b22768e52e85874e1b8bed3d20a1c"
+  },
+  {
+    "symbol": "Ge",
+    "file": "data/elements/032_Ge.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/gecmani-ge/audit.md",
+    "elementCrystal": "0012844",
+    "mineralPhases": [
+      "0000959"
+    ],
+    "photo": {
+      "id": "germanite",
+      "name": "Germanite",
+      "query": "Germanite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Germanite-231229.jpg",
+      "filename": "Germanite-231229.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/f/fc/Germanite-231229.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Germanite Locality: Tsumeb Mine (Tsumcorp Mine), Tsumeb , Otjikoto (Oshikoto) Region, Namibia ( Locality at mindat.org ) Size: 3.3 x 3.2 x 1.4 cm. This is a solid 23-gram specimen of germanite-rich ore from level 37 of the Tsumeb Mine, deep in its third oxidation zone. This region was noted for its incredible wealth of very rare elements and minerals containing germanium, among others. From the well-known collection of Belgian teacher and Tsumeb collecting specialist, Willy Israel.",
+      "file": "/assets/periodic-table/mineral-photos/germanite.jpg",
+      "sha256": "2ce5d23c114541df33d87f590e0a1a6358752b2a64d5d8b65c3561ff7e511d7c",
+      "bytes": 137100
+    },
+    "beforeSha256": "2e8cbb5349e588c627ba2a8de698f044e0317f18aa8fa3ca18f690a9d0229db8",
+    "afterSha256": "a805dff576a97103dc496ed087e34bab3978da310fa7167a788a90516b87dd91"
+  },
+  {
+    "symbol": "As",
+    "file": "data/elements/033_As.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/asen-as/audit.md",
+    "elementCrystal": "0012835",
+    "mineralPhases": [
+      "0000112"
+    ],
+    "photo": {
+      "id": "arsenopyrite",
+      "name": "Arsenopyrite",
+      "query": "Arsenopyrite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Arsenopyrite-117874.jpg",
+      "filename": "Arsenopyrite-117874.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Arsenopyrite-117874.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Arsenopyrite Locality: Hidalgo del Parral , Municipio de Hidalgo del Parral , Chihuahua , Mexico ( Locality at mindat.org ) Size: 5.8 x 3.4 x 2.4 cm. The profusion of arsenos from China has overshadowed good specimens from other countries, which remain quite desirable. This is an old Chihuahua piece out of the collection of Scott Williams -- as you can see, showing superb sharp crystal form and luster!",
+      "file": "/assets/periodic-table/mineral-photos/arsenopyrite.jpg",
+      "sha256": "f33bd26ef7bfdefebaf822dd87a7a0415038cac9a2a07623901ddfbc18a8dfca",
+      "bytes": 88012
+    },
+    "beforeSha256": "00b53c8ec84c49050d50a0a94d4f91de70ebf6bf300564a7de21f362576f296b",
+    "afterSha256": "29aa9e89ba4f33862e9e5583c24533c58489cd1ddff4c427550fda95cfb5b39e"
+  },
+  {
+    "symbol": "Se",
+    "file": "data/elements/034_Se.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/selen-se/audit.md",
+    "elementCrystal": "0012674",
+    "mineralPhases": [
+      "0010048"
+    ],
+    "photo": {
+      "id": "clausthalite",
+      "name": "Clausthalite",
+      "query": "Clausthalite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Clausthalite-207330.jpg",
+      "filename": "Clausthalite-207330.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Clausthalite-207330.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Clausthalite Locality: Greywacke quarry, Rieder , Gernrode , Harz Mts, Saxony-Anhalt , Germany ( Locality at mindat.org ) Size: 6.5 x 4.8 x 3.5 cm. Clausthalite is a rare lead selenide and this rich specimen hails from near the Type Locality in the Harz Mountains of Germany. Scintillating, metallic clausthalite microcrystals richly cover the front, top and back of this sculptural, mounded carbonate matrix. The carbonate veins at the Greywacke Quarry at Rieder host a variety of rare selenium minerals.",
+      "file": "/assets/periodic-table/mineral-photos/clausthalite.jpg",
+      "sha256": "3d0d13b474185ce0cf74e99563db611b0d65a38ac6ba9083b5086927990a669f",
+      "bytes": 165930
+    },
+    "beforeSha256": "e53bec6abd2082498773b4d02edf0a6d020b4f317f0b646529d2d102192199c6",
+    "afterSha256": "afd0c22e30d52a779a6699a91f0f65067104b8e1f00a72fbb9ca1fffa0049380"
+  },
+  {
+    "symbol": "Br",
+    "file": "data/elements/035_Br.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/brom-br/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "e5dba54bf8dadbb6744ba23deea080143bab90bbf0268753a6543920ff546bfb",
+    "afterSha256": "6afccc302be25002890e6da06205de0046825f4f7ea63207a95bd12c9bc43859"
+  },
+  {
+    "symbol": "Kr",
+    "file": "data/elements/036_Kr.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/kripton-kr/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "6e80542f3b982dff3234b887083155d99017613c31ce7534f91e2816112a5093",
+    "afterSha256": "5f67f3b97886ac9c77aa3c097cbb298ac23eff6e627b4cc8a07b7d6cb5e700ba"
+  },
+  {
+    "symbol": "Rb",
+    "file": "data/elements/037_Rb.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/rubidium-rb/audit.md",
+    "elementCrystal": "0012170",
+    "mineralPhases": [
+      "0000640"
+    ],
+    "photo": {
+      "id": "lepidolite",
+      "name": "Lepidolite (nhóm mica lithium)",
+      "query": "Lepidolite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Boromuscovite-Lepidolite-ch38a.jpg",
+      "filename": "Boromuscovite-Lepidolite-ch38a.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/4/44/Boromuscovite-Lepidolite-ch38a.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Boromuscovite , Lepidolite Locality: Little Three Mine (Little 3), Ramona District, San Diego County , California , USA ( Locality at mindat.org ) Size: small cabinet, 10 x 8 x 7 cm Lepidolite with Boromuscovite (boron-rich NEW SPECIES) A really fine and attractive lepidolite crystal cluster from anywhere, but especially from San Diego County. This is not just an aside or an association of muscovite here, but rather the new species boromuscovite is present in abundance here as the white earthy stuff. It's a nice example, very rich. The large Lepidolite crystals in middle are 5 cm wide, and have a beautiful metallic lustre, almost a lavender color to them. These specimens came out of one pocket in the 1976 \"New Spaulding pocket\" and were extensively studied by Gene Foord, for their unusual chemistry. Recently, this muscovite variant has been formally accepted as a new species (thanks to Dr. Robert Lauf for clarifying this for me). Ex. Chuck Houser and Chris Korpi Collections.",
+      "file": "/assets/periodic-table/mineral-photos/lepidolite.jpg",
+      "sha256": "75813258fa95485415203e121131d382852b5037fdfe4c77411fa953aab05061",
+      "bytes": 96044
+    },
+    "beforeSha256": "ac47877c18b4729f24a6c40a979d0150b66054ea1587f5b0958549f3e9aeb491",
+    "afterSha256": "9a6bd50818710907a69fd0bb3698780b9dcd70531205a9a84a224b6a9043e160"
+  },
+  {
+    "symbol": "Sr",
+    "file": "data/elements/038_Sr.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/strontium-sr/audit.md",
+    "elementCrystal": "0013142",
+    "mineralPhases": [
+      "0005112"
+    ],
+    "photo": {
+      "id": "celestine",
+      "name": "Celestine",
+      "query": "Celestine (mineral)",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Celestine_-_Sakoany_deposit,_Katsepy,_Mitsinjo,_Boeny,_Madagascar.jpg",
+      "filename": "Celestine_-_Sakoany_deposit,_Katsepy,_Mitsinjo,_Boeny,_Madagascar.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Celestine_-_Sakoany_deposit%2C_Katsepy%2C_Mitsinjo%2C_Boeny%2C_Madagascar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "description": "Celestine crystals (field of view 3.5 × 2.6 cm). Found from Sakoany deposit, Katsepy, Mitsinjo District, Boeny region, Madagascar",
+      "file": "/assets/periodic-table/mineral-photos/celestine.jpg",
+      "sha256": "d57c9e8145245c521be3bb53145a3932b4620f6d3a81ca92252435f85acc9fed",
+      "bytes": 135780
+    },
+    "beforeSha256": "4fac795831d117efae485c114c88ec3c56a977a6bef8ce050fb28e1adde0ccc5",
+    "afterSha256": "922b534fd029c24443158526cbee12874752b7af1fc59fbbbce925e4158b0f91"
+  },
+  {
+    "symbol": "Y",
+    "file": "data/elements/039_Y.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/yttrium-y/audit.md",
+    "elementCrystal": "0009166",
+    "mineralPhases": [
+      "0001706"
+    ],
+    "photo": {
+      "id": "xenotime",
+      "name": "Xenotime-(Y)",
+      "query": "Xenotime",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Xenotime_with_Rutile-08-2-78ab.jpg",
+      "filename": "Xenotime_with_Rutile-08-2-78ab.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Xenotime_with_Rutile-08-2-78ab.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Rutile Locality: Novo Horizonte , Bahia , Northeast Region, Brazil ( Locality at mindat.org ) Size: thumbnail, 2.8 x 1.6 x 1.5 cm Xenotime with Rutile From a small find in January, this is a shockingly large and well-developed xenotime crystal with unusually good lustre , rich chocolate color, and unusually equant crystalllographic form. Furthermore, clusters are rare, of this species, particularly from Brazil. This crystal is complete all around, 360 degrees. As a final accent, we have inclusions of golden rutile in the xenotime, included 0.1 to 1 mm below the surface (though the photo makes it look like they are on the surface, that is an illusion - actually they are under a thin translucent layer of xenotime). A pocket the size of a basketball was hit, and I cherrypicked the choice specimens from this very surprising find!",
+      "file": "/assets/periodic-table/mineral-photos/xenotime.jpg",
+      "sha256": "8026a95d488039df7928d56bb99279de150bde067adb805d84620d014726c590",
+      "bytes": 77330
+    },
+    "beforeSha256": "52625bd5defcb1088fc3c317a453255943a5c6bae0abe44a66c0b132842a94b1",
+    "afterSha256": "d5f2a2013968cbeaa6200277fbf6b2ed58dc1859a0076b1f2f025d29a34a8f2e"
+  },
+  {
+    "symbol": "Zr",
+    "file": "data/elements/040_Zr.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/zirconium-zr/audit.md",
+    "elementCrystal": "0011201",
+    "mineralPhases": [
+      "0000697"
+    ],
+    "photo": {
+      "id": "zircon",
+      "name": "Zircon",
+      "query": "Zircon",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Zircon-dtn1a.jpg",
+      "filename": "Zircon-dtn1a.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Zircon-dtn1a.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Zircon Locality: Gilgit , Gilgit District , Northern Areas , Pakistan ( Locality at mindat.org ) Size: thumbnail, 1.8 x 1.5 x 1.1 cm Zircon This is a lustrous, gemmy, cognac-colored crystal of zircon perched on a sugary, tan matrix of calcite. The tetragonal form of the almost, 1.0 cm zircon crystal, is very evident. It is a superb thumbnail, and of a quality that is extremely rare for the locality - let alone in an aesthetic specimen of any kind! This complex crystal is stunning.",
+      "file": "/assets/periodic-table/mineral-photos/zircon.jpg",
+      "sha256": "0483e39314098e0f7494371dd88925d918013317230bfef26ac383f3d5b8646d",
+      "bytes": 77667
+    },
+    "beforeSha256": "baec5a92b547be1dc551fac6ccfa1078b495679b331ec0fb76a03bd17e61be51",
+    "afterSha256": "be1d01be5e4f53119370d2abd5bf848be019b87d116e2ef4daf9cd79ba066df2"
+  },
+  {
+    "symbol": "Nb",
+    "file": "data/elements/041_Nb.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/niobium-nb/audit.md",
+    "elementCrystal": "0011224",
+    "mineralPhases": [
+      "0001436"
+    ],
+    "photo": {
+      "id": "columbite",
+      "name": "Columbite-(Fe)",
+      "query": "Columbite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Columbite-75444.jpg",
+      "filename": "Columbite-75444.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Columbite-75444.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Columbite Locality: Middletown , Middlesex County, Connecticut , USA ( Locality at mindat.org ) A 3.5 cm crystal of columbite aesthetically perched on a miniature-size pegmatite matrix of muscovite &amp; albite. John Caswell (catalog #1511) acquired this historic specimen from the Newberry collection in 1878; more recently, this specimen was acquired by me in 2001 from Steve Chamberlain, who received it from Ron Bentley in 1980. 5.7 x 4.7 x 3.8 cm",
+      "file": "/assets/periodic-table/mineral-photos/columbite.jpg",
+      "sha256": "a2d77b1a0879ae10c4aa42abe69cdde0ce46032e5bce82c0921912ba605a6873",
+      "bytes": 141610
+    },
+    "beforeSha256": "786a8b959c9413f3544c878079d72e35b48d5f8c57d230d4fa791573df0337e2",
+    "afterSha256": "ca9783eaf68777457691f5f292eec29180d5d1afe4503713f389f0067cbb4345"
+  },
+  {
+    "symbol": "Mo",
+    "file": "data/elements/042_Mo.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/molybdenum-mo/audit.md",
+    "elementCrystal": "0012937",
+    "mineralPhases": [
+      "0009788"
+    ],
+    "photo": {
+      "id": "molybdenite",
+      "name": "Molybdenite",
+      "query": "Molybdenite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Molybdenite_quebec2.jpg",
+      "filename": "Molybdenite_quebec2.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/0/04/Molybdenite_quebec2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Didier Descouens",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "description": "Molybdenite on quartz Locality : Moly Hill mine, La Motte , Abitibi RCM, Abitibi-Témiscamingue , Québec , Canada Size : 5.5 x 3 x 3 cm)",
+      "file": "/assets/periodic-table/mineral-photos/molybdenite.jpg",
+      "sha256": "b793af85f12fd347c30055a35f1ed2beb9686515c3eb24d9fe15df9072f485b9",
+      "bytes": 175040
+    },
+    "beforeSha256": "e569d3c3b1733d547f881315f1feba35bfcc98b6c94344c6bbbb473f4855952d",
+    "afterSha256": "8b6f80fc73d42731849e4640e57741d1337dec85eceeb2cf7d0d193948755741"
+  },
+  {
+    "symbol": "Tc",
+    "file": "data/elements/043_Tc.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/technetium-tc/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "0c8bff2c6e617a48c8237b8df73e4b7ca3bfa1accaf62845d20135569b773233",
+    "afterSha256": "611e0aa12ed767d6fb8b56b0c526ecd7b190d7c80bd4942e4c4c5c2c1fc13859"
+  },
+  {
+    "symbol": "Ru",
+    "file": "data/elements/044_Ru.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/ruthenium-ru/audit.md",
+    "elementCrystal": "0011191",
+    "mineralPhases": [
+      "0010195"
+    ],
+    "photo": {
+      "id": "laurite",
+      "name": "Laurite",
+      "query": "Laurite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Laurite.jpg",
+      "filename": "Laurite.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Laurite.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "David Hospital",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "description": "Very small single nugget of the extremely rare ruthenium sulphide mineral laurite (RuS2) from a river in Alaska (United States of America). Specimen analyzed by SEM/EDS by the former owner of the specimen (The Vandenbroucke Museum). Ex Vandenbroucke Museum collection from Waregem, Belgium.",
+      "file": "/assets/periodic-table/mineral-photos/laurite.jpg",
+      "sha256": "103beb00fba57112347d27f28711216becb133cc78d4c9308e56663c0e7ad91a",
+      "bytes": 37608
+    },
+    "beforeSha256": "a60db613891952d5e05c0a382b47d7391bb9090cc74fac35b348fadb7e5dc5db",
+    "afterSha256": "cafc1864fd1463926649a6233f0a5bd10dee7764b12845bee5554fe8130e9d31"
+  },
+  {
+    "symbol": "Rh",
+    "file": "data/elements/045_Rh.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/rhodium-rh/audit.md",
+    "elementCrystal": "0014948",
+    "mineralPhases": [
+      "0014947"
+    ],
+    "photo": {
+      "id": "native-platinum",
+      "name": "Platinum tự sinh",
+      "query": "Platinum",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Platinum-274992.jpg",
+      "filename": "Platinum-274992.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Platinum-274992.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Platinum Locality: Fox Gulch, Salmon River - Red Mountain District, Goodnews Bay , Bethel Borough, Alaska , USA ( Locality at mindat.org ) Size: 1.4 x 0.8 x 0.8 cm. A very rare and excellent native platinum nugget from an uncommon Alaskan locality - Fox Gulch, Goodnews Bay. The lustrous, very lightly rounded, 3-dimensional, sculptural nugget is composed of a multitude of tiny, hoppered, crudely cubic platinum crystals. This piece looks like a tiny, 3-sided, platinum Christmas tree with ornaments and a bent trunk. Rarely availableon the market. Weighs 15.76 carats or just over 3 grams.",
+      "file": "/assets/periodic-table/mineral-photos/native-platinum.jpg",
+      "sha256": "dc9871a7bb24cb083cc8f42b958ac29b83e22b01090ad3254cafc7273cb6856f",
+      "bytes": 33928
+    },
+    "beforeSha256": "6fb51128d64e2690376bcd9244b62dd84acc798da499a540b30111dc7ce74ffd",
+    "afterSha256": "a06b54d6517290a9a886c1272d6dc5598cdc0bd38fed017a1a2f80eea7c07e03"
+  },
+  {
+    "symbol": "Pd",
+    "file": "data/elements/046_Pd.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/palladium-pd/audit.md",
+    "elementCrystal": "0011155",
+    "mineralPhases": [
+      "0014947"
+    ],
+    "photo": {
+      "id": "native-platinum",
+      "name": "Platinum tự sinh",
+      "query": "Platinum",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Platinum-274992.jpg",
+      "filename": "Platinum-274992.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Platinum-274992.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Platinum Locality: Fox Gulch, Salmon River - Red Mountain District, Goodnews Bay , Bethel Borough, Alaska , USA ( Locality at mindat.org ) Size: 1.4 x 0.8 x 0.8 cm. A very rare and excellent native platinum nugget from an uncommon Alaskan locality - Fox Gulch, Goodnews Bay. The lustrous, very lightly rounded, 3-dimensional, sculptural nugget is composed of a multitude of tiny, hoppered, crudely cubic platinum crystals. This piece looks like a tiny, 3-sided, platinum Christmas tree with ornaments and a bent trunk. Rarely availableon the market. Weighs 15.76 carats or just over 3 grams.",
+      "file": "/assets/periodic-table/mineral-photos/native-platinum.jpg",
+      "sha256": "dc9871a7bb24cb083cc8f42b958ac29b83e22b01090ad3254cafc7273cb6856f",
+      "bytes": 33928
+    },
+    "beforeSha256": "9f96c0619a09e6a4196606efe43bbac8480fea82ce9662ab696a2f16ef6c1146",
+    "afterSha256": "1eb1db495bd654104ce64630614e8ee97cb78804609ae383c671841abf53f865"
+  },
+  {
+    "symbol": "Ag",
+    "file": "data/elements/047_Ag.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/bac-ag/audit.md",
+    "elementCrystal": "0013118",
+    "mineralPhases": [
+      "0010584"
+    ],
+    "photo": {
+      "id": "acanthite",
+      "name": "Acanthite",
+      "query": "Acanthite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Acanthite_-_Imiter_mine,_Jbel_Saghro,_Tinghir,_Dr%C3%A2a-Tafilalet,_Morocco.jpg",
+      "filename": "Acanthite_-_Imiter_mine,_Jbel_Saghro,_Tinghir,_Drâa-Tafilalet,_Morocco.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/2/24/Acanthite_-_Imiter_mine%2C_Jbel_Saghro%2C_Tinghir%2C_Dr%C3%A2a-Tafilalet%2C_Morocco.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "description": "Crystallized acanthite (4.0 × 2.5 × 1.5 cm) from Imiter mine, Jbel Saghro mountain range, Tinghir Province, Drâa-Tafilalet region, Morocco",
+      "file": "/assets/periodic-table/mineral-photos/acanthite.jpg",
+      "sha256": "999a376494a8c5864111363db3e37f2f4133e826f2fee1b9083b2e70fd918f8c",
+      "bytes": 149097
+    },
+    "beforeSha256": "4d63f915ffcf93c7553bd92e50b3271c615d7a9abacdd08436a937397f310f22",
+    "afterSha256": "be791305704cc8bc681c297c3e217606986df4e378a21e61ee3f21a1735726bc"
+  },
+  {
+    "symbol": "Cd",
+    "file": "data/elements/048_Cd.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/cadmium-cd/audit.md",
+    "elementCrystal": "0012941",
+    "mineralPhases": [
+      "0000110"
+    ],
+    "photo": {
+      "id": "sphalerite",
+      "name": "Sphalerite",
+      "query": "Sphalerite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Sphalerite_-_Creede,_Mineral_County,_Colorado,_USA.jpg",
+      "filename": "Sphalerite_-_Creede,_Mineral_County,_Colorado,_USA.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Sphalerite_-_Creede%2C_Mineral_County%2C_Colorado%2C_USA.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "description": "Black tetrahedral crystals of sphalerite up to 8 mm in size across this matrix (4.5 × 3.0 × 2.0 cm) with chalcopyrite and calcite. Found from Creede, Mineral County, Colorado, USA.",
+      "file": "/assets/periodic-table/mineral-photos/sphalerite.jpg",
+      "sha256": "3626bc3049564ca8452702fab93291ca1a65b644089ab163808c9cc3996e7597",
+      "bytes": 276137
+    },
+    "beforeSha256": "8f06d8724d3d5859a2ba80dfc23d4c74d7dea2de1f72b88ae743ccbfeb8a3512",
+    "afterSha256": "e964b22b7fb68f91617f0064a1fbbe58014c2f5706c2c3337828fdf6b2a6f35a"
+  },
+  {
+    "symbol": "In",
+    "file": "data/elements/049_In.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/indium-in/audit.md",
+    "elementCrystal": "0014125",
+    "mineralPhases": [
+      "0000110"
+    ],
+    "photo": {
+      "id": "sphalerite",
+      "name": "Sphalerite",
+      "query": "Sphalerite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Sphalerite_-_Creede,_Mineral_County,_Colorado,_USA.jpg",
+      "filename": "Sphalerite_-_Creede,_Mineral_County,_Colorado,_USA.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Sphalerite_-_Creede%2C_Mineral_County%2C_Colorado%2C_USA.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "description": "Black tetrahedral crystals of sphalerite up to 8 mm in size across this matrix (4.5 × 3.0 × 2.0 cm) with chalcopyrite and calcite. Found from Creede, Mineral County, Colorado, USA.",
+      "file": "/assets/periodic-table/mineral-photos/sphalerite.jpg",
+      "sha256": "3626bc3049564ca8452702fab93291ca1a65b644089ab163808c9cc3996e7597",
+      "bytes": 276137
+    },
+    "beforeSha256": "08c32cfb6f340255db742cb9a228e1d2a3bba53f1108d0465ac3c3bbb2ddc3b6",
+    "afterSha256": "23aacaad3494ec4d03b5fbaf57bb283eb4438f8f25abff37229fabb1197422f5"
+  },
+  {
+    "symbol": "Sn",
+    "file": "data/elements/050_Sn.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/tin-sn/audit.md",
+    "elementCrystal": "0011248",
+    "mineralPhases": [
+      "0009162"
+    ],
+    "photo": {
+      "id": "cassiterite",
+      "name": "Cassiterite",
+      "query": "Cassiterite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:4447M-cassiterite.jpg",
+      "filename": "4447M-cassiterite.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/f/fa/4447M-cassiterite.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "CarlesMillan",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Cassiterite with muscovite from Xuebaoding, Huya, Pingwu, Mianyang, Sichuan, China. Size: 100 mm x 95 mm. Weight: 1128 g.",
+      "file": "/assets/periodic-table/mineral-photos/cassiterite.jpg",
+      "sha256": "9f306cf5818f70225621d3967b0b155e9f6ab20aba6b5a7248be5cb50462e127",
+      "bytes": 255513
+    },
+    "beforeSha256": "79021d92caadda5b4f2efc178f13e7cc05cdf68bf643bbc2d4cc114913b212fa",
+    "afterSha256": "0aa61d9a5cceda0873284c6c987601143a0dfda9bcad4c5b8464ca9cc3722ecc"
+  },
+  {
+    "symbol": "Sb",
+    "file": "data/elements/051_Sb.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/antimony-sb/audit.md",
+    "elementCrystal": "0012838",
+    "mineralPhases": [
+      "0008636"
+    ],
+    "photo": {
+      "id": "stibnite",
+      "name": "Stibnite",
+      "query": "Stibnite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Antimonit_02.jpg",
+      "filename": "Antimonit_02.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/b/bd/Antimonit_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "H. Zell",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Stibnite, Antimonite, Antimony sulfide, Sb 2 S 3 ; Staatliches Museum für Naturkunde Karlsruhe, Germany. Used in homeopathy as remedy: Antimonium crudum / Stibium sulfuratum nigrum (Ant-c.)",
+      "file": "/assets/periodic-table/mineral-photos/stibnite.jpg",
+      "sha256": "83b3ce48c3fb02193944572631f73894ecc32064cb837664be063294d5b44552",
+      "bytes": 207033
+    },
+    "beforeSha256": "b1ed433804d4e0f770f890c6c920f5d2da2394f1548341116c89b36916e39fe7",
+    "afterSha256": "768acd50d5b1cd1c2fbbf9e6b2d7bf3259e35a948bd9fa8b4602bce7cd3ca9a8"
+  },
+  {
+    "symbol": "Te",
+    "file": "data/elements/052_Te.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/tellurium-te/audit.md",
+    "elementCrystal": "0011258",
+    "mineralPhases": [
+      "0009826"
+    ],
+    "photo": {
+      "id": "calaverite",
+      "name": "Calaverite",
+      "query": "Calaverite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Calaverite-214667.jpg",
+      "filename": "Calaverite-214667.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Calaverite-214667.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Calaverite Locality: Cripple Creek , Cripple Creek District, Teller County , Colorado , USA ( Locality at mindat.org ) Size: 6 x 5 x 3.5 cm. Calaverite is a very rare crystallized gold telluride species, found in good crystals over 1mm in only a relatively few locations. The most classic old US locality for the species is from the silver and gold mines in Cripple Creek, Colorado (late 1800s and early 1900s). Most available specimens come from old collections and museum deaccessions. This is a very rich specimen for sheer quantity of platy calaverite crystals embedded in the matrix, showing brilliant metallic flashes from all sides of the specimen. Many of the embedded crystals reach 1 cm, some clusters more so. This came from Harvard via exchange to Phil Scalisi to George Elling, though no label accompanies the piece.",
+      "file": "/assets/periodic-table/mineral-photos/calaverite.jpg",
+      "sha256": "1dc5396ba37a969958378fe7debbbbf45cf16bcf3fafed049a07259b37a98d85",
+      "bytes": 48923
+    },
+    "beforeSha256": "041e88cf90871a01973b2ed08a5bd5fa7c76a6aaa66df56ce3696dd21ce423ad",
+    "afterSha256": "eb64ce665605d3284cfa5c77d3940fc9b69cc6799289c928d2ccf49fcf343f31"
+  },
+  {
+    "symbol": "I",
+    "file": "data/elements/053_I.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/iot-i/audit.md",
+    "elementCrystal": "0011273",
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "dc7eab235609a0d95cd39c26e7ebd72798a5f10aa1c173fc463296aec0921e3e",
+    "afterSha256": "4fcf4388c947bd5e284f421a1d50e298725652900eea691ab9918778baf048a9"
+  },
+  {
+    "symbol": "Xe",
+    "file": "data/elements/054_Xe.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/xenon-xe/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "253cb022bbb8d723207dbc3eb44717329e6bbad453205d336e57084aaf5aa54c",
+    "afterSha256": "a1b372772f7211a284cd45bedd680948b1895118aef2a38f5c4d5f926ec43364"
+  },
+  {
+    "symbol": "Cs",
+    "file": "data/elements/055_Cs.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/cesium-cs/audit.md",
+    "elementCrystal": "0011211",
+    "mineralPhases": [
+      "0000159"
+    ],
+    "photo": {
+      "id": "pollucite",
+      "name": "Pollucite",
+      "query": "Pollucite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Pollucite-193819.jpg",
+      "filename": "Pollucite-193819.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/7/76/Pollucite-193819.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Pollucite Locality: Paprok, Nuristan Province (Nurestan; Nooristan) , Afghanistan ( Locality at mindat.org ) Size: 2.7 x 2.4 x 1.2 cm. Pollucite is a rare zeolite group mineral. This sharp, euhedral, tabular crystal is colorless, translucent and lustrous and has frosted crystal faces. Sharp, pretty, and well-formed.",
+      "file": "/assets/periodic-table/mineral-photos/pollucite.jpg",
+      "sha256": "ae3375efde83534b2f26adead93b61f14703967300ce53ffc6219d813f30ed9a",
+      "bytes": 71541
+    },
+    "beforeSha256": "c1cbfba79b12a8a861c0baef031b84a8d95690f601e37d486f8c7830f57f27cb",
+    "afterSha256": "8035290e10b50ba532cd913d9e4cbdb4ee848abb7cf90a3554c48a9c960e2e2c"
+  },
+  {
+    "symbol": "Ba",
+    "file": "data/elements/056_Ba.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/bari-ba/audit.md",
+    "elementCrystal": "0013145",
+    "mineralPhases": [
+      "0005144"
+    ],
+    "photo": {
+      "id": "barite",
+      "name": "Barite",
+      "query": "Barite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Barite_-_Cerro_Warihuyn,_Miraflores,_Huamalies,_Huanuco,_Peru.jpg",
+      "filename": "Barite_-_Cerro_Warihuyn,_Miraflores,_Huamalies,_Huanuco,_Peru.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Barite_-_Cerro_Warihuyn%2C_Miraflores%2C_Huamalies%2C_Huanuco%2C_Peru.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "description": "Crystals of barite on a dolomite crystal matrix (6.0 × 4.0 × 1.5 cm). Found from Cerro Warihuyn, Miraflores, Huamalies, Huanuco, Peru.",
+      "file": "/assets/periodic-table/mineral-photos/barite.jpg",
+      "sha256": "097a277c007e08bc397c619c753202fceeebe0af9208c80ad8a265b432255d71",
+      "bytes": 230162
+    },
+    "beforeSha256": "3d3b020fb392c885becb1d5318421549da675838eb9b64a7f224b16bc5d4226b",
+    "afterSha256": "9be12d642ade67952e64465ff6b313151f1f70c0968c6b12a9712435237422dd"
+  },
+  {
+    "symbol": "La",
+    "file": "data/elements/057_La.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/lanthanum-la/audit.md",
+    "elementCrystal": "0011203",
+    "mineralPhases": [
+      "0001700"
+    ],
+    "photo": {
+      "id": "monazite",
+      "name": "Monazite-(Ce)",
+      "query": "Monazite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Monazite-(Ce)-164025.jpg",
+      "filename": "Monazite-(Ce)-164025.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Monazite-%28Ce%29-164025.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Monazite-(Ce) Locality: Siglo Veinte Mine (Siglo XX Mine; Llallagua Mine; Catavi), Llallagua , Rafael Bustillo Province , Potosí Department , Bolivia ( Locality at mindat.org ) Size: 3.2 x 3.1 x 2.2 cm. Monazite gets its name from the Greek word \"monazein\", which means \"to be alone\", in allusion to its isolated crystals and their rarity when first found. Monazite is usually found in granitic pegmatites, but these crystals are found in hydrothermal tin veins where is an absolute absence of Thorium (usually a trace element in Monazite). This is a remarkable, very well crystallized, ridiculously rare, specimen consisting of sharp, lustrous, translucent, orange-pink, twinned crystals on Monazite-(Ce) measuring up to 7 mm (!) on Quartz crystal matrix. These twins are some of the most distinct and impressive twinned Monazite crystals I have seen from Bolivia. The crystals actually perform a color change in different lighting ranging from orange-pink to almost colorless depending upon the light source. This specimen has some of the largest crystals I have seen from this mine, and this piece just came out of the ground a few months ago! It is very difficult to obtain any specimens of this incredibly beautiful and rare phosphate, especially in crystals from Bolivia like this. This piece is from the same mine for which this material was discovered along the Contacto and San Jose veins in this mine and was first described by Sam Gordon and Mark Bandy. It is so unbelievably rare to find matrix specimens of Monazite-(Ce) from any locality in Bolivia or anywhere else in the world. This species is often dark and opaque from most localities and rarely bright like these. These crystals also do a color change from indoor lighting to sunlight (more pink indoors). Ex. Brian Kosnar.",
+      "file": "/assets/periodic-table/mineral-photos/monazite.jpg",
+      "sha256": "d70e7f7957b4c59ece3e39c647afac9c139227fe2cd3cf1b275e05d457e897fc",
+      "bytes": 49826
+    },
+    "beforeSha256": "cc897429135c51247d756d4fad0a328468a6d21a376f010a89ff63f029a6d4bd",
+    "afterSha256": "e4d4201e0a750f8995c07bc96799b249532567c7c5b36d44dbbbf98fc510bce5"
+  },
+  {
+    "symbol": "Ce",
+    "file": "data/elements/058_Ce.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/cerium-ce/audit.md",
+    "elementCrystal": "0009169",
+    "mineralPhases": [
+      "0001700"
+    ],
+    "photo": {
+      "id": "monazite",
+      "name": "Monazite-(Ce)",
+      "query": "Monazite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Monazite-(Ce)-164025.jpg",
+      "filename": "Monazite-(Ce)-164025.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Monazite-%28Ce%29-164025.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Monazite-(Ce) Locality: Siglo Veinte Mine (Siglo XX Mine; Llallagua Mine; Catavi), Llallagua , Rafael Bustillo Province , Potosí Department , Bolivia ( Locality at mindat.org ) Size: 3.2 x 3.1 x 2.2 cm. Monazite gets its name from the Greek word \"monazein\", which means \"to be alone\", in allusion to its isolated crystals and their rarity when first found. Monazite is usually found in granitic pegmatites, but these crystals are found in hydrothermal tin veins where is an absolute absence of Thorium (usually a trace element in Monazite). This is a remarkable, very well crystallized, ridiculously rare, specimen consisting of sharp, lustrous, translucent, orange-pink, twinned crystals on Monazite-(Ce) measuring up to 7 mm (!) on Quartz crystal matrix. These twins are some of the most distinct and impressive twinned Monazite crystals I have seen from Bolivia. The crystals actually perform a color change in different lighting ranging from orange-pink to almost colorless depending upon the light source. This specimen has some of the largest crystals I have seen from this mine, and this piece just came out of the ground a few months ago! It is very difficult to obtain any specimens of this incredibly beautiful and rare phosphate, especially in crystals from Bolivia like this. This piece is from the same mine for which this material was discovered along the Contacto and San Jose veins in this mine and was first described by Sam Gordon and Mark Bandy. It is so unbelievably rare to find matrix specimens of Monazite-(Ce) from any locality in Bolivia or anywhere else in the world. This species is often dark and opaque from most localities and rarely bright like these. These crystals also do a color change from indoor lighting to sunlight (more pink indoors). Ex. Brian Kosnar.",
+      "file": "/assets/periodic-table/mineral-photos/monazite.jpg",
+      "sha256": "d70e7f7957b4c59ece3e39c647afac9c139227fe2cd3cf1b275e05d457e897fc",
+      "bytes": 49826
+    },
+    "beforeSha256": "2a3897a12452ee9b5000438cab5848540ac443550041c56929b28797dbb03af2",
+    "afterSha256": "313005fbf7685bf3b88cfe6bf7511d9661a16a3d98d006af28225e2ebf5480e3"
+  },
+  {
+    "symbol": "Pr",
+    "file": "data/elements/059_Pr.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/praseodymium-pr/audit.md",
+    "elementCrystal": "0011205",
+    "mineralPhases": [
+      "0001700"
+    ],
+    "photo": {
+      "id": "monazite",
+      "name": "Monazite-(Ce)",
+      "query": "Monazite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Monazite-(Ce)-164025.jpg",
+      "filename": "Monazite-(Ce)-164025.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Monazite-%28Ce%29-164025.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Monazite-(Ce) Locality: Siglo Veinte Mine (Siglo XX Mine; Llallagua Mine; Catavi), Llallagua , Rafael Bustillo Province , Potosí Department , Bolivia ( Locality at mindat.org ) Size: 3.2 x 3.1 x 2.2 cm. Monazite gets its name from the Greek word \"monazein\", which means \"to be alone\", in allusion to its isolated crystals and their rarity when first found. Monazite is usually found in granitic pegmatites, but these crystals are found in hydrothermal tin veins where is an absolute absence of Thorium (usually a trace element in Monazite). This is a remarkable, very well crystallized, ridiculously rare, specimen consisting of sharp, lustrous, translucent, orange-pink, twinned crystals on Monazite-(Ce) measuring up to 7 mm (!) on Quartz crystal matrix. These twins are some of the most distinct and impressive twinned Monazite crystals I have seen from Bolivia. The crystals actually perform a color change in different lighting ranging from orange-pink to almost colorless depending upon the light source. This specimen has some of the largest crystals I have seen from this mine, and this piece just came out of the ground a few months ago! It is very difficult to obtain any specimens of this incredibly beautiful and rare phosphate, especially in crystals from Bolivia like this. This piece is from the same mine for which this material was discovered along the Contacto and San Jose veins in this mine and was first described by Sam Gordon and Mark Bandy. It is so unbelievably rare to find matrix specimens of Monazite-(Ce) from any locality in Bolivia or anywhere else in the world. This species is often dark and opaque from most localities and rarely bright like these. These crystals also do a color change from indoor lighting to sunlight (more pink indoors). Ex. Brian Kosnar.",
+      "file": "/assets/periodic-table/mineral-photos/monazite.jpg",
+      "sha256": "d70e7f7957b4c59ece3e39c647afac9c139227fe2cd3cf1b275e05d457e897fc",
+      "bytes": 49826
+    },
+    "beforeSha256": "3cf6076fbf8ea72a1ad0d3436673f849ffee5e5a57435625ecb69b2b0e000641",
+    "afterSha256": "360ae4bc83e5c4bb9f0bd98048a98913b8e2277dfe0ad1d2acb436b8462d3d42"
+  },
+  {
+    "symbol": "Nd",
+    "file": "data/elements/060_Nd.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/neodymium-nd/audit.md",
+    "elementCrystal": "0011204",
+    "mineralPhases": [
+      "0001700"
+    ],
+    "photo": {
+      "id": "monazite",
+      "name": "Monazite-(Ce)",
+      "query": "Monazite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Monazite-(Ce)-164025.jpg",
+      "filename": "Monazite-(Ce)-164025.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Monazite-%28Ce%29-164025.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Monazite-(Ce) Locality: Siglo Veinte Mine (Siglo XX Mine; Llallagua Mine; Catavi), Llallagua , Rafael Bustillo Province , Potosí Department , Bolivia ( Locality at mindat.org ) Size: 3.2 x 3.1 x 2.2 cm. Monazite gets its name from the Greek word \"monazein\", which means \"to be alone\", in allusion to its isolated crystals and their rarity when first found. Monazite is usually found in granitic pegmatites, but these crystals are found in hydrothermal tin veins where is an absolute absence of Thorium (usually a trace element in Monazite). This is a remarkable, very well crystallized, ridiculously rare, specimen consisting of sharp, lustrous, translucent, orange-pink, twinned crystals on Monazite-(Ce) measuring up to 7 mm (!) on Quartz crystal matrix. These twins are some of the most distinct and impressive twinned Monazite crystals I have seen from Bolivia. The crystals actually perform a color change in different lighting ranging from orange-pink to almost colorless depending upon the light source. This specimen has some of the largest crystals I have seen from this mine, and this piece just came out of the ground a few months ago! It is very difficult to obtain any specimens of this incredibly beautiful and rare phosphate, especially in crystals from Bolivia like this. This piece is from the same mine for which this material was discovered along the Contacto and San Jose veins in this mine and was first described by Sam Gordon and Mark Bandy. It is so unbelievably rare to find matrix specimens of Monazite-(Ce) from any locality in Bolivia or anywhere else in the world. This species is often dark and opaque from most localities and rarely bright like these. These crystals also do a color change from indoor lighting to sunlight (more pink indoors). Ex. Brian Kosnar.",
+      "file": "/assets/periodic-table/mineral-photos/monazite.jpg",
+      "sha256": "d70e7f7957b4c59ece3e39c647afac9c139227fe2cd3cf1b275e05d457e897fc",
+      "bytes": 49826
+    },
+    "beforeSha256": "be8a10e950c8cdddb44256c835c8c959b18c9ea7c69962ebbc4e7306d8e08f3a",
+    "afterSha256": "6641fdda110c819e0cb496800bbddfe0b0df39ba1b6ad048fd081f247c8ad732"
+  },
+  {
+    "symbol": "Pm",
+    "file": "data/elements/061_Pm.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/promethium-pm/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "6e4eb48628689cbcd12307205d4ac46532e308834061fd6ef24714574173b4ff",
+    "afterSha256": "b6d6d4e1b97698b9f9c0091ee25f70632fc05172ccb6eef058c182b7660d6f28"
+  },
+  {
+    "symbol": "Sm",
+    "file": "data/elements/062_Sm.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/samarium-sm/audit.md",
+    "elementCrystal": "0009181",
+    "mineralPhases": [
+      "0001700"
+    ],
+    "photo": {
+      "id": "monazite",
+      "name": "Monazite-(Ce)",
+      "query": "Monazite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Monazite-(Ce)-164025.jpg",
+      "filename": "Monazite-(Ce)-164025.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Monazite-%28Ce%29-164025.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Monazite-(Ce) Locality: Siglo Veinte Mine (Siglo XX Mine; Llallagua Mine; Catavi), Llallagua , Rafael Bustillo Province , Potosí Department , Bolivia ( Locality at mindat.org ) Size: 3.2 x 3.1 x 2.2 cm. Monazite gets its name from the Greek word \"monazein\", which means \"to be alone\", in allusion to its isolated crystals and their rarity when first found. Monazite is usually found in granitic pegmatites, but these crystals are found in hydrothermal tin veins where is an absolute absence of Thorium (usually a trace element in Monazite). This is a remarkable, very well crystallized, ridiculously rare, specimen consisting of sharp, lustrous, translucent, orange-pink, twinned crystals on Monazite-(Ce) measuring up to 7 mm (!) on Quartz crystal matrix. These twins are some of the most distinct and impressive twinned Monazite crystals I have seen from Bolivia. The crystals actually perform a color change in different lighting ranging from orange-pink to almost colorless depending upon the light source. This specimen has some of the largest crystals I have seen from this mine, and this piece just came out of the ground a few months ago! It is very difficult to obtain any specimens of this incredibly beautiful and rare phosphate, especially in crystals from Bolivia like this. This piece is from the same mine for which this material was discovered along the Contacto and San Jose veins in this mine and was first described by Sam Gordon and Mark Bandy. It is so unbelievably rare to find matrix specimens of Monazite-(Ce) from any locality in Bolivia or anywhere else in the world. This species is often dark and opaque from most localities and rarely bright like these. These crystals also do a color change from indoor lighting to sunlight (more pink indoors). Ex. Brian Kosnar.",
+      "file": "/assets/periodic-table/mineral-photos/monazite.jpg",
+      "sha256": "d70e7f7957b4c59ece3e39c647afac9c139227fe2cd3cf1b275e05d457e897fc",
+      "bytes": 49826
+    },
+    "beforeSha256": "176c7e16c81c72e6ee0ec7024cf9b7fe575f06abf023bef4f4f62871ce41469b",
+    "afterSha256": "a60cd3262875978a3579fa02567b6cc62ad979c9515a3d7eaa61c5c99a979e6a"
+  },
+  {
+    "symbol": "Eu",
+    "file": "data/elements/063_Eu.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/europium-eu/audit.md",
+    "elementCrystal": "0009172",
+    "mineralPhases": [
+      "0001700"
+    ],
+    "photo": {
+      "id": "monazite",
+      "name": "Monazite-(Ce)",
+      "query": "Monazite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Monazite-(Ce)-164025.jpg",
+      "filename": "Monazite-(Ce)-164025.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Monazite-%28Ce%29-164025.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Monazite-(Ce) Locality: Siglo Veinte Mine (Siglo XX Mine; Llallagua Mine; Catavi), Llallagua , Rafael Bustillo Province , Potosí Department , Bolivia ( Locality at mindat.org ) Size: 3.2 x 3.1 x 2.2 cm. Monazite gets its name from the Greek word \"monazein\", which means \"to be alone\", in allusion to its isolated crystals and their rarity when first found. Monazite is usually found in granitic pegmatites, but these crystals are found in hydrothermal tin veins where is an absolute absence of Thorium (usually a trace element in Monazite). This is a remarkable, very well crystallized, ridiculously rare, specimen consisting of sharp, lustrous, translucent, orange-pink, twinned crystals on Monazite-(Ce) measuring up to 7 mm (!) on Quartz crystal matrix. These twins are some of the most distinct and impressive twinned Monazite crystals I have seen from Bolivia. The crystals actually perform a color change in different lighting ranging from orange-pink to almost colorless depending upon the light source. This specimen has some of the largest crystals I have seen from this mine, and this piece just came out of the ground a few months ago! It is very difficult to obtain any specimens of this incredibly beautiful and rare phosphate, especially in crystals from Bolivia like this. This piece is from the same mine for which this material was discovered along the Contacto and San Jose veins in this mine and was first described by Sam Gordon and Mark Bandy. It is so unbelievably rare to find matrix specimens of Monazite-(Ce) from any locality in Bolivia or anywhere else in the world. This species is often dark and opaque from most localities and rarely bright like these. These crystals also do a color change from indoor lighting to sunlight (more pink indoors). Ex. Brian Kosnar.",
+      "file": "/assets/periodic-table/mineral-photos/monazite.jpg",
+      "sha256": "d70e7f7957b4c59ece3e39c647afac9c139227fe2cd3cf1b275e05d457e897fc",
+      "bytes": 49826
+    },
+    "beforeSha256": "5a5235e00d1838dc616237d1406ef6cd148c8c5468c588e7061fd536f45d98fb",
+    "afterSha256": "32c2b061ad2332de7504d4f7730e56e6ec93a8a8d70faf68b8571107909f4d1f"
+  },
+  {
+    "symbol": "Gd",
+    "file": "data/elements/064_Gd.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/gadolinium-gd/audit.md",
+    "elementCrystal": "0011176",
+    "mineralPhases": [
+      "0001700"
+    ],
+    "photo": {
+      "id": "monazite",
+      "name": "Monazite-(Ce)",
+      "query": "Monazite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Monazite-(Ce)-164025.jpg",
+      "filename": "Monazite-(Ce)-164025.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Monazite-%28Ce%29-164025.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Monazite-(Ce) Locality: Siglo Veinte Mine (Siglo XX Mine; Llallagua Mine; Catavi), Llallagua , Rafael Bustillo Province , Potosí Department , Bolivia ( Locality at mindat.org ) Size: 3.2 x 3.1 x 2.2 cm. Monazite gets its name from the Greek word \"monazein\", which means \"to be alone\", in allusion to its isolated crystals and their rarity when first found. Monazite is usually found in granitic pegmatites, but these crystals are found in hydrothermal tin veins where is an absolute absence of Thorium (usually a trace element in Monazite). This is a remarkable, very well crystallized, ridiculously rare, specimen consisting of sharp, lustrous, translucent, orange-pink, twinned crystals on Monazite-(Ce) measuring up to 7 mm (!) on Quartz crystal matrix. These twins are some of the most distinct and impressive twinned Monazite crystals I have seen from Bolivia. The crystals actually perform a color change in different lighting ranging from orange-pink to almost colorless depending upon the light source. This specimen has some of the largest crystals I have seen from this mine, and this piece just came out of the ground a few months ago! It is very difficult to obtain any specimens of this incredibly beautiful and rare phosphate, especially in crystals from Bolivia like this. This piece is from the same mine for which this material was discovered along the Contacto and San Jose veins in this mine and was first described by Sam Gordon and Mark Bandy. It is so unbelievably rare to find matrix specimens of Monazite-(Ce) from any locality in Bolivia or anywhere else in the world. This species is often dark and opaque from most localities and rarely bright like these. These crystals also do a color change from indoor lighting to sunlight (more pink indoors). Ex. Brian Kosnar.",
+      "file": "/assets/periodic-table/mineral-photos/monazite.jpg",
+      "sha256": "d70e7f7957b4c59ece3e39c647afac9c139227fe2cd3cf1b275e05d457e897fc",
+      "bytes": 49826
+    },
+    "beforeSha256": "527d24ec61e259bf023c614b27ef1d0c03965fc8b5045be907a02aef6c0efe82",
+    "afterSha256": "78bf8c33a5078b92d2d4eb8f5dbda7e947b701e143ce09f6491f76720cb075a2"
+  },
+  {
+    "symbol": "Tb",
+    "file": "data/elements/065_Tb.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/terbium-tb/audit.md",
+    "elementCrystal": "0009174",
+    "mineralPhases": [
+      "0001706"
+    ],
+    "photo": {
+      "id": "xenotime",
+      "name": "Xenotime-(Y)",
+      "query": "Xenotime",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Xenotime_with_Rutile-08-2-78ab.jpg",
+      "filename": "Xenotime_with_Rutile-08-2-78ab.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Xenotime_with_Rutile-08-2-78ab.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Rutile Locality: Novo Horizonte , Bahia , Northeast Region, Brazil ( Locality at mindat.org ) Size: thumbnail, 2.8 x 1.6 x 1.5 cm Xenotime with Rutile From a small find in January, this is a shockingly large and well-developed xenotime crystal with unusually good lustre , rich chocolate color, and unusually equant crystalllographic form. Furthermore, clusters are rare, of this species, particularly from Brazil. This crystal is complete all around, 360 degrees. As a final accent, we have inclusions of golden rutile in the xenotime, included 0.1 to 1 mm below the surface (though the photo makes it look like they are on the surface, that is an illusion - actually they are under a thin translucent layer of xenotime). A pocket the size of a basketball was hit, and I cherrypicked the choice specimens from this very surprising find!",
+      "file": "/assets/periodic-table/mineral-photos/xenotime.jpg",
+      "sha256": "8026a95d488039df7928d56bb99279de150bde067adb805d84620d014726c590",
+      "bytes": 77330
+    },
+    "beforeSha256": "7a8ed87c763a6081184d6f4fd18797399657f07050e580d291c4477083047f65",
+    "afterSha256": "01a44332d650171832d3d8bec4435f682c72679300a81008112589bc0d493420"
+  },
+  {
+    "symbol": "Dy",
+    "file": "data/elements/066_Dy.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/dysprosium-dy/audit.md",
+    "elementCrystal": "0011172",
+    "mineralPhases": [
+      "0001706"
+    ],
+    "photo": {
+      "id": "xenotime",
+      "name": "Xenotime-(Y)",
+      "query": "Xenotime",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Xenotime_with_Rutile-08-2-78ab.jpg",
+      "filename": "Xenotime_with_Rutile-08-2-78ab.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Xenotime_with_Rutile-08-2-78ab.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Rutile Locality: Novo Horizonte , Bahia , Northeast Region, Brazil ( Locality at mindat.org ) Size: thumbnail, 2.8 x 1.6 x 1.5 cm Xenotime with Rutile From a small find in January, this is a shockingly large and well-developed xenotime crystal with unusually good lustre , rich chocolate color, and unusually equant crystalllographic form. Furthermore, clusters are rare, of this species, particularly from Brazil. This crystal is complete all around, 360 degrees. As a final accent, we have inclusions of golden rutile in the xenotime, included 0.1 to 1 mm below the surface (though the photo makes it look like they are on the surface, that is an illusion - actually they are under a thin translucent layer of xenotime). A pocket the size of a basketball was hit, and I cherrypicked the choice specimens from this very surprising find!",
+      "file": "/assets/periodic-table/mineral-photos/xenotime.jpg",
+      "sha256": "8026a95d488039df7928d56bb99279de150bde067adb805d84620d014726c590",
+      "bytes": 77330
+    },
+    "beforeSha256": "f5a64e0d5799d0bdee89022f53ce4ee7224bfd39f8e57528b891839e872b73ac",
+    "afterSha256": "e669cb3eb6f843fa701e9625b3c71bb90c75d3a1c222318fadb04b55adec195f"
+  },
+  {
+    "symbol": "Ho",
+    "file": "data/elements/067_Ho.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/holmium-ho/audit.md",
+    "elementCrystal": "0009176",
+    "mineralPhases": [
+      "0001706"
+    ],
+    "photo": {
+      "id": "xenotime",
+      "name": "Xenotime-(Y)",
+      "query": "Xenotime",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Xenotime_with_Rutile-08-2-78ab.jpg",
+      "filename": "Xenotime_with_Rutile-08-2-78ab.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Xenotime_with_Rutile-08-2-78ab.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Rutile Locality: Novo Horizonte , Bahia , Northeast Region, Brazil ( Locality at mindat.org ) Size: thumbnail, 2.8 x 1.6 x 1.5 cm Xenotime with Rutile From a small find in January, this is a shockingly large and well-developed xenotime crystal with unusually good lustre , rich chocolate color, and unusually equant crystalllographic form. Furthermore, clusters are rare, of this species, particularly from Brazil. This crystal is complete all around, 360 degrees. As a final accent, we have inclusions of golden rutile in the xenotime, included 0.1 to 1 mm below the surface (though the photo makes it look like they are on the surface, that is an illusion - actually they are under a thin translucent layer of xenotime). A pocket the size of a basketball was hit, and I cherrypicked the choice specimens from this very surprising find!",
+      "file": "/assets/periodic-table/mineral-photos/xenotime.jpg",
+      "sha256": "8026a95d488039df7928d56bb99279de150bde067adb805d84620d014726c590",
+      "bytes": 77330
+    },
+    "beforeSha256": "9b15615f7ef1c5a36ed5af5fd95629df9eda4ef447bde8206bf34f73467bb039",
+    "afterSha256": "fabbc47659d3c481419883b63fb0488fffc300aa0015234b2f02a40c1ea26e2a"
+  },
+  {
+    "symbol": "Er",
+    "file": "data/elements/068_Er.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/erbium-er/audit.md",
+    "elementCrystal": "0011174",
+    "mineralPhases": [
+      "0001706"
+    ],
+    "photo": {
+      "id": "xenotime",
+      "name": "Xenotime-(Y)",
+      "query": "Xenotime",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Xenotime_with_Rutile-08-2-78ab.jpg",
+      "filename": "Xenotime_with_Rutile-08-2-78ab.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Xenotime_with_Rutile-08-2-78ab.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Rutile Locality: Novo Horizonte , Bahia , Northeast Region, Brazil ( Locality at mindat.org ) Size: thumbnail, 2.8 x 1.6 x 1.5 cm Xenotime with Rutile From a small find in January, this is a shockingly large and well-developed xenotime crystal with unusually good lustre , rich chocolate color, and unusually equant crystalllographic form. Furthermore, clusters are rare, of this species, particularly from Brazil. This crystal is complete all around, 360 degrees. As a final accent, we have inclusions of golden rutile in the xenotime, included 0.1 to 1 mm below the surface (though the photo makes it look like they are on the surface, that is an illusion - actually they are under a thin translucent layer of xenotime). A pocket the size of a basketball was hit, and I cherrypicked the choice specimens from this very surprising find!",
+      "file": "/assets/periodic-table/mineral-photos/xenotime.jpg",
+      "sha256": "8026a95d488039df7928d56bb99279de150bde067adb805d84620d014726c590",
+      "bytes": 77330
+    },
+    "beforeSha256": "e7ad26148390eed7b8b5aad243d818eee50563de07ad4fe6fef88eb1c2f3771b",
+    "afterSha256": "cb9bca35dbe5bd288b6e106c5eda4b3dad8bb5ce4be589d13b4aa557a22198c3"
+  },
+  {
+    "symbol": "Tm",
+    "file": "data/elements/069_Tm.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/thulium-tm/audit.md",
+    "elementCrystal": "0009178",
+    "mineralPhases": [
+      "0001706"
+    ],
+    "photo": {
+      "id": "xenotime",
+      "name": "Xenotime-(Y)",
+      "query": "Xenotime",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Xenotime_with_Rutile-08-2-78ab.jpg",
+      "filename": "Xenotime_with_Rutile-08-2-78ab.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Xenotime_with_Rutile-08-2-78ab.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Rutile Locality: Novo Horizonte , Bahia , Northeast Region, Brazil ( Locality at mindat.org ) Size: thumbnail, 2.8 x 1.6 x 1.5 cm Xenotime with Rutile From a small find in January, this is a shockingly large and well-developed xenotime crystal with unusually good lustre , rich chocolate color, and unusually equant crystalllographic form. Furthermore, clusters are rare, of this species, particularly from Brazil. This crystal is complete all around, 360 degrees. As a final accent, we have inclusions of golden rutile in the xenotime, included 0.1 to 1 mm below the surface (though the photo makes it look like they are on the surface, that is an illusion - actually they are under a thin translucent layer of xenotime). A pocket the size of a basketball was hit, and I cherrypicked the choice specimens from this very surprising find!",
+      "file": "/assets/periodic-table/mineral-photos/xenotime.jpg",
+      "sha256": "8026a95d488039df7928d56bb99279de150bde067adb805d84620d014726c590",
+      "bytes": 77330
+    },
+    "beforeSha256": "44a12cd0c14f88baa74143bdcb1c462e7cac2833b9f070b6833098e8c2ac6ee3",
+    "afterSha256": "93aa074f3a1be5337dd38867bf1c880478e2aadc5b36d22a85869435d55a371f"
+  },
+  {
+    "symbol": "Yb",
+    "file": "data/elements/070_Yb.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/ytterbium-yb/audit.md",
+    "elementCrystal": "0009179",
+    "mineralPhases": [
+      "0001706"
+    ],
+    "photo": {
+      "id": "xenotime",
+      "name": "Xenotime-(Y)",
+      "query": "Xenotime",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Xenotime_with_Rutile-08-2-78ab.jpg",
+      "filename": "Xenotime_with_Rutile-08-2-78ab.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Xenotime_with_Rutile-08-2-78ab.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Rutile Locality: Novo Horizonte , Bahia , Northeast Region, Brazil ( Locality at mindat.org ) Size: thumbnail, 2.8 x 1.6 x 1.5 cm Xenotime with Rutile From a small find in January, this is a shockingly large and well-developed xenotime crystal with unusually good lustre , rich chocolate color, and unusually equant crystalllographic form. Furthermore, clusters are rare, of this species, particularly from Brazil. This crystal is complete all around, 360 degrees. As a final accent, we have inclusions of golden rutile in the xenotime, included 0.1 to 1 mm below the surface (though the photo makes it look like they are on the surface, that is an illusion - actually they are under a thin translucent layer of xenotime). A pocket the size of a basketball was hit, and I cherrypicked the choice specimens from this very surprising find!",
+      "file": "/assets/periodic-table/mineral-photos/xenotime.jpg",
+      "sha256": "8026a95d488039df7928d56bb99279de150bde067adb805d84620d014726c590",
+      "bytes": 77330
+    },
+    "beforeSha256": "76bf9e1d6aaf6e3fed7470e530c8143f3b0c4c791fb7669f0e397a6e49596f1e",
+    "afterSha256": "397bdde1d053eaaf1f4e92cf41a4877260f7e8edac0c8786155a1e8e33fce619"
+  },
+  {
+    "symbol": "Lu",
+    "file": "data/elements/071_Lu.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/lutetium-lu/audit.md",
+    "elementCrystal": "0009180",
+    "mineralPhases": [
+      "0001706"
+    ],
+    "photo": {
+      "id": "xenotime",
+      "name": "Xenotime-(Y)",
+      "query": "Xenotime",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Xenotime_with_Rutile-08-2-78ab.jpg",
+      "filename": "Xenotime_with_Rutile-08-2-78ab.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Xenotime_with_Rutile-08-2-78ab.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Rutile Locality: Novo Horizonte , Bahia , Northeast Region, Brazil ( Locality at mindat.org ) Size: thumbnail, 2.8 x 1.6 x 1.5 cm Xenotime with Rutile From a small find in January, this is a shockingly large and well-developed xenotime crystal with unusually good lustre , rich chocolate color, and unusually equant crystalllographic form. Furthermore, clusters are rare, of this species, particularly from Brazil. This crystal is complete all around, 360 degrees. As a final accent, we have inclusions of golden rutile in the xenotime, included 0.1 to 1 mm below the surface (though the photo makes it look like they are on the surface, that is an illusion - actually they are under a thin translucent layer of xenotime). A pocket the size of a basketball was hit, and I cherrypicked the choice specimens from this very surprising find!",
+      "file": "/assets/periodic-table/mineral-photos/xenotime.jpg",
+      "sha256": "8026a95d488039df7928d56bb99279de150bde067adb805d84620d014726c590",
+      "bytes": 77330
+    },
+    "beforeSha256": "63775df4b3919e891e90e9996b3bbbb041e8dc2a6447e830f00187a0018ff22d",
+    "afterSha256": "4db293258cd70df7bacdb5750af74ef290d74b512ee03f953b0c000096084ee5"
+  },
+  {
+    "symbol": "Hf",
+    "file": "data/elements/072_Hf.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/hafnium-hf/audit.md",
+    "elementCrystal": "0011178",
+    "mineralPhases": [
+      "0000697"
+    ],
+    "photo": {
+      "id": "zircon",
+      "name": "Zircon",
+      "query": "Zircon",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Zircon-dtn1a.jpg",
+      "filename": "Zircon-dtn1a.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Zircon-dtn1a.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Zircon Locality: Gilgit , Gilgit District , Northern Areas , Pakistan ( Locality at mindat.org ) Size: thumbnail, 1.8 x 1.5 x 1.1 cm Zircon This is a lustrous, gemmy, cognac-colored crystal of zircon perched on a sugary, tan matrix of calcite. The tetragonal form of the almost, 1.0 cm zircon crystal, is very evident. It is a superb thumbnail, and of a quality that is extremely rare for the locality - let alone in an aesthetic specimen of any kind! This complex crystal is stunning.",
+      "file": "/assets/periodic-table/mineral-photos/zircon.jpg",
+      "sha256": "0483e39314098e0f7494371dd88925d918013317230bfef26ac383f3d5b8646d",
+      "bytes": 77667
+    },
+    "beforeSha256": "f7cd811e96fbce38ae5a0dcaff3dd3310f6664eff57cc0adbadeaa08e7773cc8",
+    "afterSha256": "b1a05620170d378a6abd895c88c8d8f4172ad8d043f50c542402adc9e95bd7a2"
+  },
+  {
+    "symbol": "Ta",
+    "file": "data/elements/073_Ta.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/tantalum-ta/audit.md",
+    "elementCrystal": "0011230",
+    "mineralPhases": [
+      "0018628"
+    ],
+    "photo": {
+      "id": "tantalite",
+      "name": "Tantalite-(Fe)",
+      "query": "Tantalite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Tantalite.jpg",
+      "filename": "Tantalite.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/c/c0/Tantalite.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Photograph by Andrew Silver",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "description": "Tantalite, Pilbara district, Australia. Mineral collection of Brigham Young University , Department of Geology, Provo, Utah. . BYU index4-8037, (FeMn)O - (TaNb)_2O_5.",
+      "file": "/assets/periodic-table/mineral-photos/tantalite.jpg",
+      "sha256": "4328b8a3751d28a2b4590d7acb860df6adaf17c5cdd80f129c7ebe57079a081b",
+      "bytes": 371401
+    },
+    "beforeSha256": "2fd7083f645948c69a943486b8f48c5f384e63e0622723217148832461d46384",
+    "afterSha256": "2d1af46b2c177b9ebf934d48fba9ad2e284c71feadce91a20cd8ee09c7201f4e"
+  },
+  {
+    "symbol": "W",
+    "file": "data/elements/074_W.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/tungsten-w/audit.md",
+    "elementCrystal": "0008068",
+    "mineralPhases": [
+      "0013201"
+    ],
+    "photo": {
+      "id": "scheelite",
+      "name": "Scheelite",
+      "query": "Scheelite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Scheelite-224167.jpg",
+      "filename": "Scheelite-224167.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/6/60/Scheelite-224167.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Scheelite Locality: Mt Xuebaoding, Pingwu County , Mianyang Prefecture, Sichuan Province , China ( Locality at mindat.org ) Size: 6.2 x 4.4 x 3.3 cm. This well-balanced small cabinet is from a small find on the \"other side of the mountain\" from the former main adits to the Ping Wu mines, on Mt Xuebaoding in the Panda Preserve of Sichuan Province. The crystals are distinctly distorted into fat triangular shapes more slim in one dimension, than equant and octahedral as we normally expect in scheelite. These crystals are to 2 cm in size, and are incredibly gemmy in the terminations.",
+      "file": "/assets/periodic-table/mineral-photos/scheelite.jpg",
+      "sha256": "7c329da6eb05c5586a1ec53cf714a70fb6e0427a66f73806c44c4a0cb304fa55",
+      "bytes": 76101
+    },
+    "beforeSha256": "550044dc25b79d2b0638c81e442a42a74b53fa2ae68406da045dd1fad3bab02e",
+    "afterSha256": "60088062f00458c9d1b7dea229def768ace211994a05c1ebdd6d590162e1009d"
+  },
+  {
+    "symbol": "Re",
+    "file": "data/elements/075_Re.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/rhenium-re/audit.md",
+    "elementCrystal": "0011190",
+    "mineralPhases": [
+      "0009788"
+    ],
+    "photo": {
+      "id": "molybdenite",
+      "name": "Molybdenite",
+      "query": "Molybdenite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Molybdenite_quebec2.jpg",
+      "filename": "Molybdenite_quebec2.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/0/04/Molybdenite_quebec2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Didier Descouens",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "description": "Molybdenite on quartz Locality : Moly Hill mine, La Motte , Abitibi RCM, Abitibi-Témiscamingue , Québec , Canada Size : 5.5 x 3 x 3 cm)",
+      "file": "/assets/periodic-table/mineral-photos/molybdenite.jpg",
+      "sha256": "b793af85f12fd347c30055a35f1ed2beb9686515c3eb24d9fe15df9072f485b9",
+      "bytes": 175040
+    },
+    "beforeSha256": "a487d94dc83b61bdbe0bab8554ca1a6e0307a4f35c4e9ef8e9d7420af546bf4e",
+    "afterSha256": "a92914fbe33d828ce7e1a42c5ab024c5d2287a6cd6f58c604d751c7144c76b6b"
+  },
+  {
+    "symbol": "Os",
+    "file": "data/elements/076_Os.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/osmium-os/audit.md",
+    "elementCrystal": "0011188",
+    "mineralPhases": [
+      "0014947"
+    ],
+    "photo": {
+      "id": "native-platinum",
+      "name": "Platinum tự sinh",
+      "query": "Platinum",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Platinum-274992.jpg",
+      "filename": "Platinum-274992.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Platinum-274992.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Platinum Locality: Fox Gulch, Salmon River - Red Mountain District, Goodnews Bay , Bethel Borough, Alaska , USA ( Locality at mindat.org ) Size: 1.4 x 0.8 x 0.8 cm. A very rare and excellent native platinum nugget from an uncommon Alaskan locality - Fox Gulch, Goodnews Bay. The lustrous, very lightly rounded, 3-dimensional, sculptural nugget is composed of a multitude of tiny, hoppered, crudely cubic platinum crystals. This piece looks like a tiny, 3-sided, platinum Christmas tree with ornaments and a bent trunk. Rarely availableon the market. Weighs 15.76 carats or just over 3 grams.",
+      "file": "/assets/periodic-table/mineral-photos/native-platinum.jpg",
+      "sha256": "dc9871a7bb24cb083cc8f42b958ac29b83e22b01090ad3254cafc7273cb6856f",
+      "bytes": 33928
+    },
+    "beforeSha256": "9dd90294b91d9d8f365255119ddc153446e1e77293908b82289374a2a0a094e3",
+    "afterSha256": "6f93abd56a1ee06444ecfba76203973363a255793c7f9e4a013fec3cb595f391"
+  },
+  {
+    "symbol": "Ir",
+    "file": "data/elements/077_Ir.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/iridium-ir/audit.md",
+    "elementCrystal": "0014950",
+    "mineralPhases": [
+      "0014947"
+    ],
+    "photo": {
+      "id": "native-platinum",
+      "name": "Platinum tự sinh",
+      "query": "Platinum",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Platinum-274992.jpg",
+      "filename": "Platinum-274992.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Platinum-274992.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Platinum Locality: Fox Gulch, Salmon River - Red Mountain District, Goodnews Bay , Bethel Borough, Alaska , USA ( Locality at mindat.org ) Size: 1.4 x 0.8 x 0.8 cm. A very rare and excellent native platinum nugget from an uncommon Alaskan locality - Fox Gulch, Goodnews Bay. The lustrous, very lightly rounded, 3-dimensional, sculptural nugget is composed of a multitude of tiny, hoppered, crudely cubic platinum crystals. This piece looks like a tiny, 3-sided, platinum Christmas tree with ornaments and a bent trunk. Rarely availableon the market. Weighs 15.76 carats or just over 3 grams.",
+      "file": "/assets/periodic-table/mineral-photos/native-platinum.jpg",
+      "sha256": "dc9871a7bb24cb083cc8f42b958ac29b83e22b01090ad3254cafc7273cb6856f",
+      "bytes": 33928
+    },
+    "beforeSha256": "0ce5932646cdad32b5e1a958712f0946149b5a9a17bce6ba366e915abc8609c3",
+    "afterSha256": "adc620d3e10d38f3125ca6e99536dfa7c155fab585debf717ea41eb28c91c70f"
+  },
+  {
+    "symbol": "Pt",
+    "file": "data/elements/078_Pt.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/bach-kim-pt/audit.md",
+    "elementCrystal": "0014947",
+    "mineralPhases": [
+      "0014947"
+    ],
+    "photo": {
+      "id": "native-platinum",
+      "name": "Platinum tự sinh",
+      "query": "Platinum",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Platinum-274992.jpg",
+      "filename": "Platinum-274992.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Platinum-274992.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Platinum Locality: Fox Gulch, Salmon River - Red Mountain District, Goodnews Bay , Bethel Borough, Alaska , USA ( Locality at mindat.org ) Size: 1.4 x 0.8 x 0.8 cm. A very rare and excellent native platinum nugget from an uncommon Alaskan locality - Fox Gulch, Goodnews Bay. The lustrous, very lightly rounded, 3-dimensional, sculptural nugget is composed of a multitude of tiny, hoppered, crudely cubic platinum crystals. This piece looks like a tiny, 3-sided, platinum Christmas tree with ornaments and a bent trunk. Rarely availableon the market. Weighs 15.76 carats or just over 3 grams.",
+      "file": "/assets/periodic-table/mineral-photos/native-platinum.jpg",
+      "sha256": "dc9871a7bb24cb083cc8f42b958ac29b83e22b01090ad3254cafc7273cb6856f",
+      "bytes": 33928
+    },
+    "beforeSha256": "c6e403686a8f3e37fb02772cae99b9ce3a55e6c137bb7b862e69b3a5b34e05b3",
+    "afterSha256": "7d32072e50eca86c226c79c84920ca69cc29bdb2cd3356a751674d6b4f2b3a44"
+  },
+  {
+    "symbol": "Au",
+    "file": "data/elements/079_Au.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/vang-au/audit.md",
+    "elementCrystal": "0013108",
+    "mineralPhases": [
+      "0013108"
+    ],
+    "photo": {
+      "id": "native-gold",
+      "name": "Gold tự sinh",
+      "query": "Native gold",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Gold-crystals.jpg",
+      "filename": "Gold-crystals.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Gold-crystals.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Alchemist-hp ( talk ) www.pse-mendelejew.de",
+      "license": "CC BY-SA 3.0 de",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+      "description": "Synthetic made gold crystals by the chemical transport reaction in chlorine gas. Purity &gt;99.99%",
+      "file": "/assets/periodic-table/mineral-photos/native-gold.jpg",
+      "sha256": "be0ed703d620872aa50373079fc04bbd9b44177ca1e2853a21f19dc780d0d371",
+      "bytes": 117719
+    },
+    "beforeSha256": "31c8ea421a321e0777f097393d9f1c349410e69c519b2dde8a0b8e3e7a08c11f",
+    "afterSha256": "9a8df5e57ac2dff9a8d5258022153812748b9c990c6e1809bf7796f551415c2e"
+  },
+  {
+    "symbol": "Hg",
+    "file": "data/elements/080_Hg.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/thuy-ngan-hg/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [
+      "0012137"
+    ],
+    "photo": {
+      "id": "cinnabar",
+      "name": "Cinnabar",
+      "query": "Cinnabar",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Cinnabarit_01.jpg",
+      "filename": "Cinnabarit_01.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Cinnabarit_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "H. Zell",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Cinnabar, Cinnabarite, HgS; Staatliches Museum für Naturkunde Karlsruhe, Germany. Used in homeopathy as remedy: Cinnabaris (Cinnb.)",
+      "file": "/assets/periodic-table/mineral-photos/cinnabar.jpg",
+      "sha256": "e84e560c96a68c550ee8a1bdc79f63599495c4cab9f857306766afd48f069455",
+      "bytes": 158898
+    },
+    "beforeSha256": "d9c5e50a95dc5645ac89c5372e5321a15e8232477f08db3f18ae0c7316fdd7f3",
+    "afterSha256": "1a0821e779c3541e43a621998134cd63e7f95a71d0e9f5bd1bfdbfd1ed08c662"
+  },
+  {
+    "symbol": "Tl",
+    "file": "data/elements/081_Tl.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/thallium-tl/audit.md",
+    "elementCrystal": "0011197",
+    "mineralPhases": [
+      "0010046"
+    ],
+    "photo": {
+      "id": "galena",
+      "name": "Galena",
+      "query": "Galena",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Galena_-_Huallanca,_Bologesi,_Ancash,_Peru.jpg",
+      "filename": "Galena_-_Huallanca,_Bologesi,_Ancash,_Peru.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/8/81/Galena_-_Huallanca%2C_Bologesi%2C_Ancash%2C_Peru.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "description": "Galena with some golden colored pyrite (3.5 × 2.5 × 2.0 cm) from Huanzala mine, Huallanca, Bolognesi, Ancash, Peru",
+      "file": "/assets/periodic-table/mineral-photos/galena.jpg",
+      "sha256": "5f4b50839dbefb68f8d435699221ca3c816b6ee84e2b0414a9aa7b9b6b573be5",
+      "bytes": 175211
+    },
+    "beforeSha256": "de8ac5caabbc5bf54904b9278229ed55446cc511345870e51b9c862bae2162b1",
+    "afterSha256": "32cafeaeb8946d5321ecddc965dd92986472ad0424bf01c14ef4824e4233fa90"
+  },
+  {
+    "symbol": "Pb",
+    "file": "data/elements/082_Pb.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/chi-pb/audit.md",
+    "elementCrystal": "0012874",
+    "mineralPhases": [
+      "0010046"
+    ],
+    "photo": {
+      "id": "galena",
+      "name": "Galena",
+      "query": "Galena",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Galena_-_Huallanca,_Bologesi,_Ancash,_Peru.jpg",
+      "filename": "Galena_-_Huallanca,_Bologesi,_Ancash,_Peru.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/8/81/Galena_-_Huallanca%2C_Bologesi%2C_Ancash%2C_Peru.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "description": "Galena with some golden colored pyrite (3.5 × 2.5 × 2.0 cm) from Huanzala mine, Huallanca, Bolognesi, Ancash, Peru",
+      "file": "/assets/periodic-table/mineral-photos/galena.jpg",
+      "sha256": "5f4b50839dbefb68f8d435699221ca3c816b6ee84e2b0414a9aa7b9b6b573be5",
+      "bytes": 175211
+    },
+    "beforeSha256": "1d6fb63e56cfc70f69a42d5584fb8931e7c70121e22c820f772266c6b2f3c9d0",
+    "afterSha256": "fa95161146dcfd50b13064bbb2df5dd12e907319aaf0b111e92abc716e2fd540"
+  },
+  {
+    "symbol": "Bi",
+    "file": "data/elements/083_Bi.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/bismuth-bi/audit.md",
+    "elementCrystal": "0012841",
+    "mineralPhases": [
+      "0003562"
+    ],
+    "photo": {
+      "id": "bismuthinite",
+      "name": "Bismuthinite",
+      "query": "Bismuthinite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Bismuthinite.jpg",
+      "filename": "Bismuthinite.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/4/40/Bismuthinite.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Didier Descouens",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "description": "Bismuthinite - Schlaggenwald (Horni Slavkov) - Bohemia - Czech Republic (XX 1.1cm)",
+      "file": "/assets/periodic-table/mineral-photos/bismuthinite.jpg",
+      "sha256": "831b0be52a8a9d230825125e1f073b40d5300a6474de031cd993e56810ff72a0",
+      "bytes": 279911
+    },
+    "beforeSha256": "a5fc9b1c5d92f057580ceffecc546539846f1b27b99c28745da5325c80664f61",
+    "afterSha256": "871109ce5ef5e708a859032e185dadd15c3ec9644aad24c85189295b24e1c2bc"
+  },
+  {
+    "symbol": "Po",
+    "file": "data/elements/084_Po.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/polonium-po/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [
+      "0011728"
+    ],
+    "photo": {
+      "id": "uraninite",
+      "name": "Uraninite",
+      "query": "Uraninite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Pitchblende_schlema-alberoda.JPG",
+      "filename": "Pitchblende_schlema-alberoda.JPG",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Pitchblende_schlema-alberoda.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Geomartin",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "description": "Pitchblende from Niederschlema-Alberoda deposit, Saxony, Germany .",
+      "file": "/assets/periodic-table/mineral-photos/uraninite.jpg",
+      "sha256": "0f41c5134c75c161cee0eec52fc8a758146c278d7d890796380fae7ce49986e9",
+      "bytes": 429501
+    },
+    "beforeSha256": "b7041f0a83adadfc64e2228cb2823063072868aee6549a95826584755eafb738",
+    "afterSha256": "b0d56d5c4bd454641b286136abd059f51a7fcf102c6746604df2a78b26c0cd3c"
+  },
+  {
+    "symbol": "At",
+    "file": "data/elements/085_At.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/astatine-at/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [
+      "0011728"
+    ],
+    "photo": {
+      "id": "uraninite",
+      "name": "Uraninite",
+      "query": "Uraninite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Pitchblende_schlema-alberoda.JPG",
+      "filename": "Pitchblende_schlema-alberoda.JPG",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Pitchblende_schlema-alberoda.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Geomartin",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "description": "Pitchblende from Niederschlema-Alberoda deposit, Saxony, Germany .",
+      "file": "/assets/periodic-table/mineral-photos/uraninite.jpg",
+      "sha256": "0f41c5134c75c161cee0eec52fc8a758146c278d7d890796380fae7ce49986e9",
+      "bytes": 429501
+    },
+    "beforeSha256": "d09a85495154a073e181c036fb26444168cc2b8419d9d29cf4218585d0f1868e",
+    "afterSha256": "147545216235cee494333cfa2a3948c6fdb108a4d2220f6e2665deedc972293b"
+  },
+  {
+    "symbol": "Rn",
+    "file": "data/elements/086_Rn.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/radon-rn/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "44a3524b303c96150cb435b4901d339ade93be37adfe242a9efd4e18ff24dcae",
+    "afterSha256": "c8534f2bbb34679fa210d9f237cf246d3569a5c814fe03da37cab541ba534c46"
+  },
+  {
+    "symbol": "Fr",
+    "file": "data/elements/087_Fr.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/francium-fr/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [
+      "0011728"
+    ],
+    "photo": {
+      "id": "uraninite",
+      "name": "Uraninite",
+      "query": "Uraninite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Pitchblende_schlema-alberoda.JPG",
+      "filename": "Pitchblende_schlema-alberoda.JPG",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Pitchblende_schlema-alberoda.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Geomartin",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "description": "Pitchblende from Niederschlema-Alberoda deposit, Saxony, Germany .",
+      "file": "/assets/periodic-table/mineral-photos/uraninite.jpg",
+      "sha256": "0f41c5134c75c161cee0eec52fc8a758146c278d7d890796380fae7ce49986e9",
+      "bytes": 429501
+    },
+    "beforeSha256": "7a9a9440215fa5ec907f9aa4aaac3affd0cdd1faf52d9e0d9acc48146500961d",
+    "afterSha256": "60ac20230ec63901d7ecb120117958e2b2b30f7149a9e53ecb75fd24aa9e5f09"
+  },
+  {
+    "symbol": "Ra",
+    "file": "data/elements/088_Ra.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/radium-ra/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [
+      "0011728"
+    ],
+    "photo": {
+      "id": "uraninite",
+      "name": "Uraninite",
+      "query": "Uraninite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Pitchblende_schlema-alberoda.JPG",
+      "filename": "Pitchblende_schlema-alberoda.JPG",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Pitchblende_schlema-alberoda.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Geomartin",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "description": "Pitchblende from Niederschlema-Alberoda deposit, Saxony, Germany .",
+      "file": "/assets/periodic-table/mineral-photos/uraninite.jpg",
+      "sha256": "0f41c5134c75c161cee0eec52fc8a758146c278d7d890796380fae7ce49986e9",
+      "bytes": 429501
+    },
+    "beforeSha256": "da21942d1dae5681f35ccee84ddaa01095f193461268ee5bf9168d30d7ad2460",
+    "afterSha256": "53e214c4013a15f3c79ba9afeaf891db516e66905e283b7d5d017a85fa8e85c7"
+  },
+  {
+    "symbol": "Ac",
+    "file": "data/elements/089_Ac.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/actinium-ac/audit.md",
+    "elementCrystal": "0011134",
+    "mineralPhases": [
+      "0011728"
+    ],
+    "photo": {
+      "id": "uraninite",
+      "name": "Uraninite",
+      "query": "Uraninite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Pitchblende_schlema-alberoda.JPG",
+      "filename": "Pitchblende_schlema-alberoda.JPG",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Pitchblende_schlema-alberoda.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Geomartin",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "description": "Pitchblende from Niederschlema-Alberoda deposit, Saxony, Germany .",
+      "file": "/assets/periodic-table/mineral-photos/uraninite.jpg",
+      "sha256": "0f41c5134c75c161cee0eec52fc8a758146c278d7d890796380fae7ce49986e9",
+      "bytes": 429501
+    },
+    "beforeSha256": "25e963f9edf7239f6ea5a060bbc33600ac184e40e1c275207e9a8f29ab978e17",
+    "afterSha256": "5a5a80b791e33f028e05395877535a02058f8ffa3abf6fe7e0bc9b2f32b68e2a"
+  },
+  {
+    "symbol": "Th",
+    "file": "data/elements/090_Th.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/thorium-th/audit.md",
+    "elementCrystal": "0011162",
+    "mineralPhases": [
+      "0009633"
+    ],
+    "photo": {
+      "id": "thorite",
+      "name": "Thorite",
+      "query": "Thorite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Thorite-288916.jpg",
+      "filename": "Thorite-288916.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Thorite-288916.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Thorite Locality: Kemp prospect (Kemp property; Kemp uranium mine), Cardiff Township, Haliburton County , Ontario , Canada ( Locality at mindat.org ) Size: 2.2 x 2.2 x 1.6 cm. A sharp, euhedral, pristine, rust-brown thorite crystal from the less well-known Kemp Uranium Mine in Cheddar, Ontario, Canada. This floater is remarkable for the size. It dates to the 1950s. Good thorite specimens are nearly impossible to obtain today, and specimens from Cheddar rank among the best ever found. Ex. George Elling Collection.",
+      "file": "/assets/periodic-table/mineral-photos/thorite.jpg",
+      "sha256": "72bf01186b55e23e8b948a247708e0d0e0b3ebda236045c7c5970b5691fd3460",
+      "bytes": 58397
+    },
+    "beforeSha256": "a810fc1e99a5c8edfb73305e15198bc08464a9e1b93a3d732ec552e6a3976889",
+    "afterSha256": "21123a4efc3497d738b30c43c3eb504304989f5532e3d996e0f8cbf812315b1a"
+  },
+  {
+    "symbol": "Pa",
+    "file": "data/elements/091_Pa.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/protactinium-pa/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [
+      "0011728"
+    ],
+    "photo": {
+      "id": "uraninite",
+      "name": "Uraninite",
+      "query": "Uraninite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Pitchblende_schlema-alberoda.JPG",
+      "filename": "Pitchblende_schlema-alberoda.JPG",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Pitchblende_schlema-alberoda.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Geomartin",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "description": "Pitchblende from Niederschlema-Alberoda deposit, Saxony, Germany .",
+      "file": "/assets/periodic-table/mineral-photos/uraninite.jpg",
+      "sha256": "0f41c5134c75c161cee0eec52fc8a758146c278d7d890796380fae7ce49986e9",
+      "bytes": 429501
+    },
+    "beforeSha256": "097494eac2e6fdd089566b4adb9a1b97cdde0210af444d70b32d72d06d62c657",
+    "afterSha256": "d1b05a7b0be862aeb8d81077bc44b5d8378365b3f65e77bcf89de71fd81e83df"
+  },
+  {
+    "symbol": "U",
+    "file": "data/elements/092_U.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/uranium-u/audit.md",
+    "elementCrystal": "0011262",
+    "mineralPhases": [
+      "0011728"
+    ],
+    "photo": {
+      "id": "uraninite",
+      "name": "Uraninite",
+      "query": "Uraninite",
+      "status": "downloaded",
+      "source": "https://commons.wikimedia.org/wiki/File:Pitchblende_schlema-alberoda.JPG",
+      "filename": "Pitchblende_schlema-alberoda.JPG",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Pitchblende_schlema-alberoda.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Geomartin",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "description": "Pitchblende from Niederschlema-Alberoda deposit, Saxony, Germany .",
+      "file": "/assets/periodic-table/mineral-photos/uraninite.jpg",
+      "sha256": "0f41c5134c75c161cee0eec52fc8a758146c278d7d890796380fae7ce49986e9",
+      "bytes": 429501
+    },
+    "beforeSha256": "0ddf2f0c58493c4bee60a56a1cb57d59ce2dea14820c275a5bb863827f67d8ce",
+    "afterSha256": "959be31aaeb9ed1059259aa9c8379cfbda9b54a62950c303d3fb49ab937a2242"
+  },
+  {
+    "symbol": "Np",
+    "file": "data/elements/093_Np.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/neptunium-np/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "ba84bbf3bcb0813cd30b6bd852a6afff18e038dfae67ad6489920ac1e306ef33",
+    "afterSha256": "d128347c34fcdb354f8fa560d1fb38cdcf469cb779aec9a477e3bb20fcce91fe"
+  },
+  {
+    "symbol": "Pu",
+    "file": "data/elements/094_Pu.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/plutonium-pu/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "b2fb0e1bcf595cdaeee7ebc7f5d7b15c5b3361df7b735eaf2ca05387930a3216",
+    "afterSha256": "2ee9118f8b6781a0390da8a72b2968b171f69a09cfd660976578d4c8757e1846"
+  },
+  {
+    "symbol": "Am",
+    "file": "data/elements/095_Am.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/americium-am/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "a0bddb192043eb6faaab1105dd477bbe22f7c0676b10b18a0803be0c79e4ebc9",
+    "afterSha256": "f3ee5071a1e35489cd59083b734c69398053ae309969b8198179de01930c9a26"
+  },
+  {
+    "symbol": "Cm",
+    "file": "data/elements/096_Cm.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/curium-cm/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "e397e284f49a81bf0235f6b060c52303e67fddbd628a00d212be9d1f46679717",
+    "afterSha256": "f4e1d779c3d0add4a564e28fb881d68c1f031af4a9a4780ac7ac83f2fa83653d"
+  },
+  {
+    "symbol": "Bk",
+    "file": "data/elements/097_Bk.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/berkelium-bk/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "13074d19c373b235bb042a4928c93b3d553897c4f0a9ef968c8d0f3f5ed7385b",
+    "afterSha256": "ab58a2da7e0668c820a098140fd20b5f95f51fa0a5adf27ee70d3f867f01b00b"
+  },
+  {
+    "symbol": "Cf",
+    "file": "data/elements/098_Cf.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/californium-cf/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "731cb318837eba9f91526576077d9b42db68db65653a828ae72853ae857a43c1",
+    "afterSha256": "8fdd87fa965d72ae731d6f3716a9a00189b50b1336a4afc3559d3054bec10ab3"
+  },
+  {
+    "symbol": "Es",
+    "file": "data/elements/099_Es.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/einsteinium-es/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "c1a6dc6cea20a5beb636bffc2ca9bc6603a1a0f5bf81fa393b0852056f9a2e45",
+    "afterSha256": "65e2b8a97f4d931045c8521febccae4df2b0450fbd5aedfdb8ca59a52faf5f91"
+  },
+  {
+    "symbol": "Fm",
+    "file": "data/elements/100_Fm.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/fermium-fm/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "4f36c7c73835f82c766401efd415f7740e611b886395433e6f77a0426a51fd34",
+    "afterSha256": "b6839024b781a1cb6337ebbb6aa41a9b6eeec9811ebbf3d526af22c30886f79b"
+  },
+  {
+    "symbol": "Md",
+    "file": "data/elements/101_Md.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/mendelevium-md/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "c1bb5e46b60d8a98632f1f3348f22cf89bdaad23b10ae1c1074513e9fd86fcd0",
+    "afterSha256": "432384244459163ed81d641bdaaa6ddc649959996fd0515e41101c21b61fec5a"
+  },
+  {
+    "symbol": "No",
+    "file": "data/elements/102_No.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/nobelium-no/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "5c06d60c16b69aac78f2e0083db78f5c73c943e3ac2e3968d32333b7f3cd1cab",
+    "afterSha256": "fba897801343e3d221f18f889d2638d31d7984a97f4c6b65463da7858489f89b"
+  },
+  {
+    "symbol": "Lr",
+    "file": "data/elements/103_Lr.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/lawrencium-lr/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "e2d659780120095287937d3baaf26f4e3f4f6346261365f575cb146a880b929e",
+    "afterSha256": "12e88ef5fa0f9fd48b6da539973151b7f8f4627aa9a362eaa10c058ddf5101fb"
+  },
+  {
+    "symbol": "Rf",
+    "file": "data/elements/104_Rf.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/rutherfordium-rf/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "d1d14506f7bf3c1eb321d1a1c7264c3302d7e36d99e11034c895b8ee9633557e",
+    "afterSha256": "3c19f5ed282d48b0a7bdb3dcb4f447c39f99e0fc02f0a5bc4419b6de9c55a795"
+  },
+  {
+    "symbol": "Db",
+    "file": "data/elements/105_Db.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/dubnium-db/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "7f2c5d62f6d6d733294db40d4b74b348a492ee09e703aad32cdcd033656c224b",
+    "afterSha256": "78b56bd9a1a5fee5b243b0c689f071316d28d385202b4f90395ad1c236e0c263"
+  },
+  {
+    "symbol": "Sg",
+    "file": "data/elements/106_Sg.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/seaborgium-sg/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "2c543256c7a862db56d225d8c6f6817765e9d7cdb10d3fdc71265a8f04235197",
+    "afterSha256": "739c384e988c36146581973bdfb32cd70b9c364c06bca41d87c35f39a9b40388"
+  },
+  {
+    "symbol": "Bh",
+    "file": "data/elements/107_Bh.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/bohrium-bh/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "6bc51d9a6f14b39cd05d4a38cdf8dbc3f3ec2fbd39f54c51621545e0320dd49e",
+    "afterSha256": "28b98556faf9b6fe13ff471e8be57bbb94229060d13e3f86fe22b04751d3ec84"
+  },
+  {
+    "symbol": "Hs",
+    "file": "data/elements/108_Hs.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/hassium-hs/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "7ab4efc82c3ec3cf7e3c3ca6023de1ecfe61a2d2b31a8edf4c141cae0d6072f1",
+    "afterSha256": "db9a8067ac0806e56303458472f9e0071943a144e566a2c2578a5322f1fd930f"
+  },
+  {
+    "symbol": "Mt",
+    "file": "data/elements/109_Mt.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/meitnerium-mt/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "694a31d8d0fa08b3975735468749db04a789702e00f945b0db1b05861379423f",
+    "afterSha256": "b6a1db0725ad69e12a516ce2fc60c8033995eaacf26b61688275ec2a2ccb983e"
+  },
+  {
+    "symbol": "Ds",
+    "file": "data/elements/110_Ds.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/darmstadtium-ds/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "c2065d784c5e6422e2a05fff44f37e953be0550b5cb52a5f56bb60460473ebb7",
+    "afterSha256": "73cd07ad10fa10231174a5e7bddc120ad734c05c85aeb7ffc18a2fefe0e4514f"
+  },
+  {
+    "symbol": "Rg",
+    "file": "data/elements/111_Rg.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/roentgenium-rg/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "325c4dd116ff5455283064d8bdd6f8c62fdfceb4d2137c23c158cfcbff710174",
+    "afterSha256": "4f13f211ad6375c873151f4c2dc072e848ee42c8dd660510dcf542b483a18186"
+  },
+  {
+    "symbol": "Cn",
+    "file": "data/elements/112_Cn.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/copernicium-cn/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "6d7c07a61ac59a4b71750a7a5c949cda6468f05fe5a934d663261cc581e366eb",
+    "afterSha256": "c69fd07bc6e98e7131b2270e125d121b24d8b4792ab6f0c549e5eb8e431d1f0f"
+  },
+  {
+    "symbol": "Nh",
+    "file": "data/elements/113_Nh.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/nihonium-nh/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "aa33d62ef59b6494443e5502a7c00870ac392a9a678d2071a495fff5fce05761",
+    "afterSha256": "ac3e1d3ee96970343947c83170a91a31fe07dc205a248586fd7a430cc004b66d"
+  },
+  {
+    "symbol": "Fl",
+    "file": "data/elements/114_Fl.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/flerovium-fl/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "d9224c3bb3e33f89e86039fed7c7ac59498954ba2bf503cb9035379f402ed323",
+    "afterSha256": "f941f95314906e79622702b3da55ed8639760c8751ce91dc2b30c5f6650dd259"
+  },
+  {
+    "symbol": "Mc",
+    "file": "data/elements/115_Mc.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/moscovium-mc/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "792a6c57e333078cb1f3ef1319fa527f0dcc4511d69b9ce6c831705fed5b6401",
+    "afterSha256": "243a199df68adc3cc6c94441de65f1c2648f907cd9fa110af5b7bbb83cc07370"
+  },
+  {
+    "symbol": "Lv",
+    "file": "data/elements/116_Lv.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/livermorium-lv/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "73ce6d426fa92b4435bb36a5ef99ad68fb09edf18c928dcd69e570021b3afde3",
+    "afterSha256": "3500fda6717ec8c3fc07b499f8215ad68b5a4b33f80371f64a439968241a409f"
+  },
+  {
+    "symbol": "Ts",
+    "file": "data/elements/117_Ts.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/tennessine-ts/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "3f6be1d5760e1e775de66467c62dff28e48cd222c26bde9966ea50c8736b0730",
+    "afterSha256": "d8fb2d9bff97984c322bd5b94c3ff79870bdf5b5f255809efaabe925eb59a7bd"
+  },
+  {
+    "symbol": "Og",
+    "file": "data/elements/118_Og.json",
+    "audit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/oganesson-og/audit.md",
+    "elementCrystal": null,
+    "mineralPhases": [],
+    "photo": null,
+    "beforeSha256": "b6face12c37c12e399e901979fe3ca4811d6246f23098d145535577afc0cb7d5",
+    "afterSha256": "0409350d087e1305b4032e724178bbe65638e621a6f8b5466bf7b7c3c14bc7d9"
+  }
+]

@@ -1,0 +1,66 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0000959
+_database_code_amcsd 0000959
+_chemical_name_mineral Germanite
+_chemical_formula_sum 'Cu13 (Ge2 Fe2) S16'
+_symmetry_space_group_name_H-M 'P -4 3 n'
+_cell_length_a 10.5862
+_cell_length_b 10.5862
+_cell_length_c 10.5862
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 1186.37035
+loop_
+_publ_author_name
+'Tettenhorst R T'
+'Corbato C E'
+_journal_name_full 'American Mineralogist'
+_journal_year 1984
+_journal_volume 69
+_publ_section_title
+;Crystal structure of germanite, Cu26Ge4Fe4S32, determined by powder X-ray
+ diffraction
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+-z,x,-y
+-y,z,-x
+-x,y,-z
+1/2+x,1/2-z,1/2-y
+1/2+z,1/2-y,1/2-x
+1/2+y,1/2-x,1/2-z
+1/2+x,1/2+z,1/2+y
+1/2+z,1/2+y,1/2+x
+1/2+y,1/2+x,1/2+z
+-z,-x,y
+-y,-z,x
+-x,-y,z
+z,-x,-y
+y,-z,-x
+x,-y,-z
+1/2-x,1/2+z,1/2-y
+1/2-z,1/2+y,1/2-x
+1/2-y,1/2+x,1/2-z
+1/2-x,1/2-z,1/2+y
+1/2-z,1/2-y,1/2+x
+1/2-y,1/2-x,1/2+z
+z,x,y
+y,z,x
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Cu1 Cu 0 0 0 1
+Cu2 Cu 0.25 0.5 0 1
+Cu3 Cu 0.25 0 0.5 1
+Cu4 Cu 0.257 0 0 1
+Ge Ge 0.24 0.24 0.24 0.5
+Fe Fe 0.24 0.24 0.24 0.5
+S1 S 0.121 0.121 0.121 1
+S2 S 0.379 0.364 0.121 1

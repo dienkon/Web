@@ -60,7 +60,46 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương (Hexagonal)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-sc",
+      "amcsdId": "0009167",
+      "mineralName": "Scandium",
+      "formula": "Sc",
+      "spaceGroup": "P 63/m m c",
+      "cell": {
+        "a": 3.309,
+        "b": 3.309,
+        "c": 5.2733,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 50.00421861614811,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Spedding F H",
+          "Daane A H",
+          "Herrmann K W"
+        ],
+        "title": "The crystal structures and lattice parameters of high-purity scandium,\n yttrium and the rare earth metals\n Note: sample 99.6% pure",
+        "journal": "Acta Crystallographica",
+        "year": 1956,
+        "volume": "9",
+        "pages": "559–563"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-sc.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-sc.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-sc.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-sc.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -99,16 +138,62 @@
       "sourceSearch": "https://rruff.info/Thortveitite",
       "model": "/assets/periodic-table/minerals/thortveitite.glb",
       "preview": "/assets/periodic-table/minerals/thortveitite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "thortveitite",
+          "amcsdId": "0001160",
+          "mineralName": "Thortveitite",
+          "formula": "(Sc1.12 Y.88) (Si1.96 Al.04) O7",
+          "spaceGroup": "C 1 2/m 1",
+          "cell": {
+            "a": 6.65,
+            "b": 8.616,
+            "c": 4.686,
+            "alpha": 90.0,
+            "beta": 102.2,
+            "gamma": 90.0
+          },
+          "volume": 262.4273028446219,
+          "siteCount": 22,
+          "mixedSiteCount": 8,
+          "reference": {
+            "authors": [
+              "Pilati T",
+              "Bianchi R",
+              "Mannucci G",
+              "Diella V",
+              "Gamaccioli C M"
+            ],
+            "title": "A re-examination of thortveitite\n Sample 1 from Iveland",
+            "journal": "American Mineralogist",
+            "year": 1988,
+            "volume": "73",
+            "pages": "601–607"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/thortveitite.json",
+          "cif": "/assets/periodic-table/crystals/thortveitite.cif",
+          "model": "/assets/periodic-table/crystals/thortveitite.glb",
+          "preview": "/assets/periodic-table/crystals/thortveitite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Thortveitite-ea14a.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/diagrams/021_Sc.svg",
-    "alt": "Scandium: sơ đồ minh họa nguyên tố",
+    "image": "/assets/periodic-table/mineral-photos/thortveitite.jpg",
+    "alt": "Thortveitite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "diagram",
-    "source": "",
-    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
-    "credit": ""
+    "source": "https://commons.wikimedia.org/wiki/File:Thortveitite-ea14a.jpg",
+    "caption": "Ảnh mẫu tham chiếu Thortveitite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "",
+    "author": "Robert M. Lavinsky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -377,9 +462,66 @@
       "author": "ChemDex",
       "license": "ChemDex schematic diagram",
       "licenseUrl": ""
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/thortveitite.jpg",
+      "role": "natural-mineral",
+      "title": "Thortveitite",
+      "desc": "Ảnh mẫu tham chiếu Thortveitite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Thortveitite-ea14a.jpg",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Thortveitite",
+      "src": "/assets/periodic-table/crystals/thortveitite.json",
+      "crystal": {
+        "id": "thortveitite",
+        "amcsdId": "0001160",
+        "mineralName": "Thortveitite",
+        "formula": "(Sc1.12 Y.88) (Si1.96 Al.04) O7",
+        "spaceGroup": "C 1 2/m 1",
+        "cell": {
+          "a": 6.65,
+          "b": 8.616,
+          "c": 4.686,
+          "alpha": 90.0,
+          "beta": 102.2,
+          "gamma": 90.0
+        },
+        "volume": 262.4273028446219,
+        "siteCount": 22,
+        "mixedSiteCount": 8,
+        "reference": {
+          "authors": [
+            "Pilati T",
+            "Bianchi R",
+            "Mannucci G",
+            "Diella V",
+            "Gamaccioli C M"
+          ],
+          "title": "A re-examination of thortveitite\n Sample 1 from Iveland",
+          "journal": "American Mineralogist",
+          "year": 1988,
+          "volume": "73",
+          "pages": "601–607"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/thortveitite.json",
+        "cif": "/assets/periodic-table/crystals/thortveitite.cif",
+        "model": "/assets/periodic-table/crystals/thortveitite.glb",
+        "preview": "/assets/periodic-table/crystals/thortveitite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -414,6 +556,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -421,6 +568,7 @@
     "sourceFile": "021_Sc.docx",
     "sourceSha256": "434f21a90d8db6cdbc5ae33d51c828da9ed8f1d3dae28908d9d2ce6e2c2f9445",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/021_Sc.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/scandi-sc/audit.md"
   }
 }

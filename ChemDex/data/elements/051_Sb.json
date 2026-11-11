@@ -62,7 +62,45 @@
     "valenceElectrons": 5,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Antimony xám có mạng mặt thoi (rhombohedral), có thể dùng hệ trục lục phương.",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-sb",
+      "amcsdId": "0012838",
+      "mineralName": "Antimony",
+      "formula": "Sb",
+      "spaceGroup": "R -3 m",
+      "cell": {
+        "a": 4.3084,
+        "b": 4.3084,
+        "c": 11.274,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 181.23442598128116,
+      "siteCount": 6,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Schiferl D",
+          "Barrett CS"
+        ],
+        "title": "The crystal structure of arsenic at 4.2, 78 and 299 K\n Sample: T = 299 K",
+        "journal": "Journal of Applied Crystallography",
+        "year": 1969,
+        "volume": "2",
+        "pages": "30–36"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-sb.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-sb.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-sb.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-sb.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Antimony xám có mạng mặt thoi (rhombohedral), có thể dùng hệ trục lục phương.",
   "occurrence": {
@@ -99,16 +137,62 @@
       "sourceSearch": "https://rruff.info/Stibnite",
       "model": "/assets/periodic-table/minerals/stibnite.glb",
       "preview": "/assets/periodic-table/minerals/stibnite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "stibnite",
+          "amcsdId": "0008636",
+          "mineralName": "Stibnite",
+          "formula": "Sb2 S3",
+          "spaceGroup": "P n m a",
+          "cell": {
+            "a": 11.314,
+            "b": 3.837,
+            "c": 11.234,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 487.68836341200006,
+          "siteCount": 20,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Okamoto K",
+              "Kimata M",
+              "Kyono A",
+              "Matsuhisa M",
+              "Miyashita Y"
+            ],
+            "title": "Low-temperature crystal structures of stibnite implying orbital\n overlap of Sb 5s2 inert pair electrons\n Sample: T = 293 K",
+            "journal": "Physics and Chemistry of Minerals",
+            "year": 2002,
+            "volume": "29",
+            "pages": "254–260"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/stibnite.json",
+          "cif": "/assets/periodic-table/crystals/stibnite.cif",
+          "model": "/assets/periodic-table/crystals/stibnite.glb",
+          "preview": "/assets/periodic-table/crystals/stibnite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Antimonit_02.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/051_Sb.jpg",
-    "alt": "Antimony: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/stibnite.jpg",
+    "alt": "Stibnite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Antimony-4.jpg",
-    "caption": "Ảnh tham chiếu mẫu Antimony (Sb); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "Unknown author Unknown author · CC BY 3.0"
+    "source": "https://commons.wikimedia.org/wiki/File:Antimonit_02.jpg",
+    "caption": "Ảnh mẫu tham chiếu Stibnite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "Unknown author Unknown author · CC BY 3.0",
+    "author": "H. Zell",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -446,9 +530,66 @@
       "author": "Unknown author Unknown author",
       "license": "CC BY 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/stibnite.jpg",
+      "role": "natural-mineral",
+      "title": "Stibnite",
+      "desc": "Ảnh mẫu tham chiếu Stibnite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Antimonit_02.jpg",
+      "author": "H. Zell",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Stibnite",
+      "src": "/assets/periodic-table/crystals/stibnite.json",
+      "crystal": {
+        "id": "stibnite",
+        "amcsdId": "0008636",
+        "mineralName": "Stibnite",
+        "formula": "Sb2 S3",
+        "spaceGroup": "P n m a",
+        "cell": {
+          "a": 11.314,
+          "b": 3.837,
+          "c": 11.234,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 487.68836341200006,
+        "siteCount": 20,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Okamoto K",
+            "Kimata M",
+            "Kyono A",
+            "Matsuhisa M",
+            "Miyashita Y"
+          ],
+          "title": "Low-temperature crystal structures of stibnite implying orbital\n overlap of Sb 5s2 inert pair electrons\n Sample: T = 293 K",
+          "journal": "Physics and Chemistry of Minerals",
+          "year": 2002,
+          "volume": "29",
+          "pages": "254–260"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/stibnite.json",
+        "cif": "/assets/periodic-table/crystals/stibnite.cif",
+        "model": "/assets/periodic-table/crystals/stibnite.glb",
+        "preview": "/assets/periodic-table/crystals/stibnite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -487,6 +628,11 @@
     {
       "title": "antimony",
       "url": "https://blogs.helsinki.fi/inorganic-kvali/antimony/"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -494,6 +640,7 @@
     "sourceFile": "051_Sb.docx",
     "sourceSha256": "8e54863a2579d8d3cb1c7af00f89d77766a95603fc9a5422cbd438bc73dafa06",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/051_Sb.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/antimony-sb/audit.md"
   }
 }

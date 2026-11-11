@@ -62,7 +62,46 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-sr",
+      "amcsdId": "0013142",
+      "mineralName": "Strontium",
+      "formula": "Sr",
+      "spaceGroup": "F m 3 m",
+      "cell": {
+        "a": 6.076,
+        "b": 6.076,
+        "c": 6.076,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 224.31240697599998,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Hirst R G",
+          "King A J",
+          "Kanda F A"
+        ],
+        "title": "The barium-strontium equilibrium system\n Sample: at T = 25 C\n note: known as alpha-strontium",
+        "journal": "Journal of Physical Chemistry",
+        "year": 1956,
+        "volume": "60",
+        "pages": "302–304"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-sr.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-sr.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-sr.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-sr.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)",
   "occurrence": {
@@ -100,16 +139,59 @@
       "sourceSearch": "https://rruff.info/Celestine",
       "model": "/assets/periodic-table/minerals/celestine.glb",
       "preview": "/assets/periodic-table/minerals/celestine.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "celestine",
+          "amcsdId": "0005112",
+          "mineralName": "Celestine",
+          "formula": "Sr S O4",
+          "spaceGroup": "P n m a",
+          "cell": {
+            "a": 8.36,
+            "b": 5.352,
+            "c": 6.858,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 306.84557376,
+          "siteCount": 24,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Hawthorne F C",
+              "Ferguson R B"
+            ],
+            "title": "Anhydrous sulphates. I: Refinement of the crystal structure of celestite\n with an appendix on the structure of thenardite",
+            "journal": "The Canadian Mineralogist",
+            "year": 1975,
+            "volume": "13",
+            "pages": "181–187"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/celestine.json",
+          "cif": "/assets/periodic-table/crystals/celestine.cif",
+          "model": "/assets/periodic-table/crystals/celestine.glb",
+          "preview": "/assets/periodic-table/crystals/celestine.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Celestine_-_Sakoany_deposit,_Katsepy,_Mitsinjo,_Boeny,_Madagascar.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/diagrams/038_Sr.svg",
-    "alt": "Strontium: sơ đồ minh họa nguyên tố",
+    "image": "/assets/periodic-table/mineral-photos/celestine.jpg",
+    "alt": "Celestine — ảnh mẫu khoáng vật tham chiếu",
     "kind": "diagram",
-    "source": "",
-    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
-    "credit": ""
+    "source": "https://commons.wikimedia.org/wiki/File:Celestine_-_Sakoany_deposit,_Katsepy,_Mitsinjo,_Boeny,_Madagascar.jpg",
+    "caption": "Ảnh mẫu tham chiếu Celestine; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "",
+    "author": "Ivar Leidus",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "isotopes": [
     {
@@ -440,9 +522,63 @@
       "author": "ChemDex",
       "license": "ChemDex schematic diagram",
       "licenseUrl": ""
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/celestine.jpg",
+      "role": "natural-mineral",
+      "title": "Celestine",
+      "desc": "Ảnh mẫu tham chiếu Celestine; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Celestine_-_Sakoany_deposit,_Katsepy,_Mitsinjo,_Boeny,_Madagascar.jpg",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Celestine",
+      "src": "/assets/periodic-table/crystals/celestine.json",
+      "crystal": {
+        "id": "celestine",
+        "amcsdId": "0005112",
+        "mineralName": "Celestine",
+        "formula": "Sr S O4",
+        "spaceGroup": "P n m a",
+        "cell": {
+          "a": 8.36,
+          "b": 5.352,
+          "c": 6.858,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 306.84557376,
+        "siteCount": 24,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Hawthorne F C",
+            "Ferguson R B"
+          ],
+          "title": "Anhydrous sulphates. I: Refinement of the crystal structure of celestite\n with an appendix on the structure of thenardite",
+          "journal": "The Canadian Mineralogist",
+          "year": 1975,
+          "volume": "13",
+          "pages": "181–187"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/celestine.json",
+        "cif": "/assets/periodic-table/crystals/celestine.cif",
+        "model": "/assets/periodic-table/crystals/celestine.glb",
+        "preview": "/assets/periodic-table/crystals/celestine.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -477,6 +613,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -484,6 +625,7 @@
     "sourceFile": "038_Sr.docx",
     "sourceSha256": "6e65476e90127a57a729ddb24e9a00b6c8fb051bd0082e05f884316f8f4d9fd2",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/038_Sr.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/strontium-sr/audit.md"
   }
 }

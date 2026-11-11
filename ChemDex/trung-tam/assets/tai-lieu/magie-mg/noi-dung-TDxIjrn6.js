@@ -1,0 +1,135 @@
+const n="magie-mg",h="magie-mg",t="reference/magie-mg/index.json",i=["ho-so-477d89b32048"],g="Magie (Mg) — Chân dung một nguyên tố: Lịch sử phát hiện, hình thái tự nhiên và ứng dụng",c="Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",a="nguyento",u="Hồ sơ báo chí toàn diện về Magie (Mg) (khởi nguồn 1755): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",o="/assets/library/earth-minerals.svg",M="Mg",m=["Biên niên sử nguyên tố","Mg","Kim loại đẩy kim loại","Kim loại đẩy kim loại"],s=["Dải Magie (Ruy-băng Mg)","Magnesium Ribbon","Mg","Magiê (Dải kim loại)","Magnesium (Ribbon)","Mg (ribbon)","Magie Dải (Ruy-băng)","Magnesium Ribbon (Dải kim loại)","Mg (powder)","Bột Magie","Magnesium Powder"],e=["chem-mg"],r="reference",k=14,l={formula:"Mg",representativeId:"chem-mg",counts:{Mg:1},mass:24.305,material:!1,reactionIds:["rx_3b7ec587bc9dc466","rx_bb9ed5905380057a","rx_e107275e27e4e8c4","rx_382849b7ad494a07"]},p=`## Câu chuyện: Cội nguồn lịch sử và hành trình bước vào từ điển hóa học của Magie (Mg)
+
+Khi các nhà hóa học đặt câu hỏi *"Chất này từ đâu mà có và vì sao các nguyên tử của nó lại gắn kết bền chặt đến vậy?"*, câu trả lời dành cho **Magie (Mg)** luôn mở ra một bức tranh giao thoa thú vị giữa lịch sử văn minh nhân loại và các định luật bất di bất dịch của cơ học lượng tử.
+
+Theo hồ sơ bách khoa trực tuyến từ [Wikipedia Tiếng Việt — Magnesi](https://vi.wikipedia.org/wiki/Magnesi), bản chất và lịch sử của chất này được ghi nhận cụ thể như sau: Magnesi (tiếng Việt: Magiê, Latinh: Magnesium) là nguyên tố hóa học trong bảng tuần hoàn nguyên tố có ký hiệu Mg và số nguyên tử bằng 12.
+
+Tư liệu bách khoa quốc tế tại [Wikipedia — Magnesium](https://en.wikipedia.org/wiki/Magnesium) bổ sung thêm góc nhìn lịch sử và danh pháp quốc tế: *“Magnesium is a chemical element; it has symbol Mg and . It is a shiny gray metal having a low density, low melting point, and high chemical reactivity. Like the other alkaline earth metals (group 2 of the periodic table), it occurs naturally only in combination with other elements and almost always has an oxidation state of +2. It reacts readily with air to form a thin passivation coating of magnesium oxide that inhibits further corrosion of the metal. The free metal burns with a brilliant-white light. The metal is obtained mainly by electrolysis of magnesium salts obtained from brine. It is less dense than aluminium and is us”* — phản ánh vai trò quan trọng của **Magie (Mg)** trong hệ thống phân loại hóa chất chuẩn IUPAC và thực tiễn phòng thí nghiệm toàn cầu.
+
+Trong tiến trình kiến tạo vật chất tự nhiên, **Magie (Mg)** được tôi luyện trong tâm của các ngôi sao khổng lồ qua hàng trăm triệu năm phản ứng nhiệt hạch, trước khi các vụ nổ siêu tân tinh giải phóng và gieo mầm vào các đám mây tinh vân tiền Mặt Trời để kết tụ nên Trái Đất ngày nay. Trong lịch sử văn minh nhân loại, khoảnh khắc định danh và cô lập được **Magie** đánh dấu bước ngoặt lớn gắn liền với công trình của **Joseph Black** vào thời điểm **1755** tại **Scotland**. Tên gọi quốc tế và ký hiệu **Mg** bắt nguồn từ danh pháp Latinh **Magnesium**. Năm 1755, Joseph Black phân biệt Magnesium compounds với Calcium compounds và xác định Magnesium là một thành phần riêng biệt. Đến năm 1808, Humphry Davy cô lập được Magnesium ở dạng kim loại bằng phương pháp điện hóa. Trong tự nhiên, Magie gắn liền với các vỉa khoáng vật đặc trưng như **Magnesite, Dolomite, Brucite, Carnallite, nước biển và một số khoáng vật Silicate**.
+
+![Khởi nguyên lịch sử và hành trình khám phá Magie (Mg)](/assets/library/earth-minerals.svg)
+*Hình 1. Bối cảnh lịch sử phát hiện, nguồn gốc tự nhiên và tiến trình định danh khoa học của Magie (Mg).*
+
+## Lần theo thành phần nguyên tử: Cấu trúc không gian, hình học phân tử và cá tính của Magie
+
+Để hiểu vì sao **Magie (Mg)** lại mang những tính chất vật lý và hóa học đặc thù, chúng ta cần đi sâu vào "bản thiết kế hình học" của chất này. Một đơn vị công thức **Mg** được liên kết chặt chẽ từ **1 nguyên tử** thuộc **1 nguyên tố hóa học**:
+
+- **Nguyên tố Magie (Mg)**: Góp mặt **1 nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử Magie phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **Magie**.
+
+Ở trạng thái đơn chất, **Magie (Mg)** mang trọn vẹn phong thái và tính chất đặc trưng của nhóm **nguyên tố**. Trong mạng lưới cấu trúc tự nhiên (như Lục phương xếp chặt (HCP)), các nguyên tử **Magie** gắn kết với nhau bằng những liên kết bền vững, tạo nên độ cứng, nhiệt độ chuyển pha và khả năng tương tác riêng biệt khi đặt trong môi trường thử nghiệm.
+
+![Kiến trúc liên kết không gian 3 chiều của Magie (Mg)](/assets/library/covalent-bonds.svg)
+*Hình 2. Mô phỏng trực quan sự phân bố đám mây electron, góc liên kết và trật tự phối trí không gian 3D của Magie (Mg).*
+
+| Chỉ tiêu nhận diện & Cấu trúc 3D | Tư liệu xác thực từ hệ thống ChemDex |
+|---|---|
+| Tên chất & Danh pháp quốc tế | **Magie** (Magnesium Ribbon) |
+| Công thức hóa học thực nghiệm | **Mg**  |
+| Hình thái không gian 3 chiều | Đơn chất tự nhiên () |
+| Quy mô cấu trúc vi mô | **1 nguyên tử** (1× Mg) |
+| Trạng thái & Sắc thái nhận diện | Rắn / Dung dịch thực nghiệm |
+| Phòng quan sát 3D tương tác | [Mở mô hình xoay 360° và kiểm tra góc liên kết](/tien-ich/cau-truc-3d/?compound=chem-mg) |
+
+Người đọc có thể trực tiếp xoay mô hình 360°, bật/tắt nhãn nguyên tử và kiểm tra độ dài từng liên kết (tính bằng đơn vị Ångström) của chất này tại [Phòng quan sát Cấu trúc & Liên kết 3D — Magie](/tien-ich/cau-truc-3d/?compound=chem-mg).
+
+## Dòng chảy phản ứng: Cách Magie ra đời và tương tác với thế giới hóa chất
+
+Trong tự nhiên, hầu hết các nguyên tố hóa học tồn tại ở dạng hợp chất bền vững về mặt nhiệt động học. Để đưa **Magie (Mg)** về trạng thái đơn chất tinh khiết phục vụ nghiên cứu và sản xuất, ngành hóa học thực nghiệm đã phát triển hai nhánh quy trình bổ trợ lẫn nhau:
+
+- **Điều chế trong phòng thí nghiệm**: Magnesium không thường được điều chế trong phòng thí nghiệm phổ thông vì cần điện phân muối nóng chảy ở nhiệt độ cao. Phương trình phản ứng: \`MgCl₂(l) → Mg(l) + Cl₂(g)\`. Về nguyên tắc, có thể điều chế bằng điện phân Magnesium chloride nóng chảy:
+- **Sản xuất quy mô công nghiệp**: Magnesium được sản xuất chủ yếu bằng điện phân Magnesium chloride nóng chảy. Phương trình chủ đạo: \`Mg²⁺ + 2e⁻ → Mg\`. Tại cathode:
+- **Sản xuất quy mô công nghiệp**: Tại anode Phương trình chủ đạo: \`2Cl⁻ → Cl₂ + 2e⁻\`. 
+- **Sản xuất quy mô công nghiệp**: Phương trình tổng quát Phương trình chủ đạo: \`MgCl₂(l) → Mg(l) + Cl₂(g)\`. Magnesium chloride có thể được thu từ nước biển hoặc các khoáng vật chứa Magnesium.
+
+Bên cạnh câu chuyện điều chế, bản chất hóa học của **Magie** còn được thể hiện sống động qua chuỗi các phản ứng đặc trưng với đơn chất và hợp chất khác:
+
+- **Tác dụng với Oxygen**: \`2Mg + O₂ → 2MgO\` 
+- **Khi nung nóng**: \`3Mg + N₂ → Mg₃N₂\` 
+- **Tác dụng với Chlorine**: \`Mg + Cl₂ → MgCl₂\` 
+- **Tác dụng với Hydrochloric acid**: \`Mg + 2HCl → MgCl₂ + H₂↑\` 
+- **Tác dụng với Sulfuric acid loãng**: \`Mg + H₂SO₄ → MgSO₄ + H₂↑\` 
+
+Trong cơ sở dữ liệu phản ứng thực nghiệm của ChemDex (với **36 phương trình** có sự góp mặt của **Mg**, trong đó có **0 con đường tổng hợp/tạo thành** và **36 con đường chuyển hóa**), hành trình ra đời và biến đổi của chất này được minh chứng qua các kịch bản tiêu biểu sau:
+
+### Con đường phản ứng & chuyển hóa #1 (Kim loại đẩy kim loại)
+
+Phương trình hóa học cân bằng chuẩn xác:
+
+\`Mg(s) + 2AgNO3(aq) → Mg(NO3)2(aq) + 2Ag(s)\`
+
+- **Bản chất & Cơ chế phản ứng**: Cặp Mg/Ag có chênh lệch thế chuẩn thuận lợi; bảo toàn electron và ion đối.
+- **Điều kiện thực hiện**: Dung dịch muối không acid hóa mạnh; bề mặt kim loại hoạt động, không có ligand chi phối; chiều thuận theo thế điện cực..
+- **Hiện tượng quan sát thực nghiệm**: Có thể xuất hiện Ag bám trên kim loại; tốc độ/hình thái phụ thuộc bề mặt..
+- **Phương trình ion rút gọn**: \`Mg(s) + 2AgNO3(aq) → Mg(NO3)2(aq) + 2Ag(s)\` (Trạng thái pha: \`Mg(s) + 2AgNO3(aq) → Mg(NO3)2(aq) + 2Ag(s)\`).
+
+### Con đường phản ứng & chuyển hóa #2 (Kim loại đẩy kim loại)
+
+Phương trình hóa học cân bằng chuẩn xác:
+
+\`Mg(s) + 2CH3COOAg(aq) → Mg(CH3COO)2(aq) + 2Ag(s)\`
+
+- **Bản chất & Cơ chế phản ứng**: Cặp Mg/Ag có chênh lệch thế chuẩn thuận lợi; bảo toàn electron và ion đối.
+- **Điều kiện thực hiện**: Dung dịch muối không acid hóa mạnh; bề mặt kim loại hoạt động, không có ligand chi phối; chiều thuận theo thế điện cực..
+- **Hiện tượng quan sát thực nghiệm**: Có thể xuất hiện Ag bám trên kim loại; tốc độ/hình thái phụ thuộc bề mặt..
+- **Phương trình ion rút gọn**: \`Mg(s) + 2CH3COOAg(aq) → Mg(CH3COO)2(aq) + 2Ag(s)\` (Trạng thái pha: \`Mg(s) + 2CH3COOAg(aq) → Mg(CH3COO)2(aq) + 2Ag(s)\`).
+
+### Con đường phản ứng & chuyển hóa #3 (Kim loại và axit)
+
+Phương trình hóa học cân bằng chuẩn xác:
+
+\`Mg(s) + 2HBr(aq) → MgBr2(aq) + H2(g)\`
+
+- **Bản chất & Cơ chế phản ứng**: Kim loại khử H+ của axit không oxi hóa thành H2; không mở rộng sang Cu, Ag hoặc acid oxi hóa.
+- **Điều kiện thực hiện**: HBr loãng, bề mặt kim loại hoạt động; tốc độ tùy kim loại, có thể cần làm ấm..
+- **Hiện tượng quan sát thực nghiệm**: Kim loại tan và H2 không màu thoát ra khi phản ứng diễn ra..
+- **Phương trình ion rút gọn**: \`Mg(s) + 2HBr(aq) → MgBr2(aq) + H2(g)\` (Trạng thái pha: \`Mg(s) + 2HBr(aq) → MgBr2(aq) + H2(g)\`).
+
+### Con đường phản ứng & chuyển hóa #4 (Tổng hợp)
+
+Phương trình hóa học cân bằng chuẩn xác:
+
+\`2Mg(s) + O2(g) → 2MgO(s)\`
+
+- **Bản chất & Cơ chế phản ứng**: Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.
+- **Điều kiện thực hiện**: Mồi cháy, O2 đủ; sản phẩm trong không khí còn có thể chứa nitride..
+- **Hiện tượng quan sát thực nghiệm**: Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần..
+- **Phương trình ion rút gọn**: \`2Mg(s) + O2(g) → 2MgO(s)\` (Trạng thái pha: \`2Mg(s) + O2(g) → 2MgO(s)\`).
+
+## Từ phòng thí nghiệm đến đời sống: Nhận diện, ứng dụng và bài học thực tiễn của Magie
+
+Từ một đối tượng nghiên cứu ban đầu trong các phòng thí nghiệm cổ điển, **Magie (Mg)** đã từng bước khẳng định vị thế to lớn trong đời sống và tiến trình văn minh nhân loại:
+
+- **Hợp kim**: Magnesium được sử dụng để sản xuất các hợp kim nhẹ cho phương tiện và thiết bị kỹ thuật.
+- **Hàng không**: Hợp kim Magnesium được sử dụng trong một số bộ phận cần giảm khối lượng.
+- **Pháo sáng và tín hiệu**: Magnesium tạo ánh sáng trắng mạnh khi cháy nên được sử dụng trong một số loại pháo sáng và thiết bị tín hiệu.
+- **Luyện kim**: Magnesium được sử dụng làm chất khử và trong quá trình sản xuất một số kim loại.
+- **Công nghiệp hóa chất**: Dùng để sản xuất nhiều Magnesium compounds.
+- **Bảo vệ chống ăn mòn**: Magnesium có thể được sử dụng làm anode hy sinh trong một số hệ thống bảo vệ kim loại.
+- **Vật liệu**: Magnesium và hợp kim của nó được sử dụng trong các sản phẩm yêu cầu vật liệu nhẹ.
+
+### Câu chuyện lịch sử ứng dụng & Bài học kinh nghiệm thực hành
+
+Lịch sử ứng dụng của **Magie (Mg)** là một minh chứng sống động cho thấy sự am hiểu về bản chất chất hóa học có thể biến những vật chất thô sơ trong tự nhiên thành công cụ phục vụ đời sống con người. Trải qua hàng thế kỷ thực nghiệm — từ những phát hiện ngẫu nhiên trong xưởng nhuộm, mỏ quặng cho đến các dây chuyền tổng hợp hiện đại — bài học cốt lõi mà các thế hệ tiền bối để lại là luôn tôn trọng tính nết tự nhiên của chất: kiểm soát cẩn trọng nhiệt độ, môi trường tiếp xúc và trang bị đầy đủ phương tiện bảo hộ để phát huy tối đa giá trị hữu ích đồng thời ngăn ngừa mọi rủi ro tiềm ẩn trong thao tác.
+
+## Câu hỏi suy ngẫm & Tự kiểm tra kiến thức
+
+1. Dựa vào câu chuyện lịch sử và hành trình khám phá **Magie (Mg)**, nguyên nhân vì sao tên gọi và phương pháp điều chế ban đầu của chất này lại phản ánh hoàn cảnh văn hóa và kỹ thuật của thời đại phát hiện ra nó?
+2. Trong phương trình hóa học \`Mg(s) + 2AgNO3(aq) → Mg(NO3)2(aq) + 2Ag(s)\`, hiện tượng thực nghiệm quan sát được hé lộ điều gì về tính cách hóa học của **Mg** khi tương tác với các chất xung quanh?
+
+<details><summary>Xem phân tích và lời giải chi tiết</summary>
+
+- **Giải đáp câu 1:** Tên gọi và phương pháp tiếp cận đầu tiên của Mg bắt nguồn trực tiếp từ nguồn khoáng sản tự nhiên hoặc hiện tượng quan sát bằng mắt thường của các nhà thực nghiệm thời kỳ đó. Chỉ khi kỹ thuật phân tích và mô hình liên kết không gian phát triển, nhân loại mới hiểu trọn vẹn bản chất cấu tạo của chất.
+- **Giải đáp câu 2:** Phương trình phản ứng phản ánh sự tái sắp xếp liên kết: hiện tượng Có thể xuất hiện Ag bám trên kim loại; tốc độ/hình thái phụ thuộc bề mặt. là bằng chứng vĩ mô cho thấy các nguyên tử đã đổi chỗ cho nhau để tạo thành cấu trúc mới bền vững hơn.
+
+</details>
+
+## Nguồn tư liệu khoa học & Khám phá tiếp theo
+
+- [Phòng quan sát Cấu trúc & Liên kết 3D tương tác — Magie (Mg)](/tien-ich/cau-truc-3d/?compound=chem-mg)
+- [Bách khoa toàn thư Wikipedia Tiếng Việt — Magnesi](https://vi.wikipedia.org/wiki/Magnesi)
+- [Wikipedia Quốc tế — Magnesium](https://en.wikipedia.org/wiki/Magnesium)
+- [Hồ sơ dữ liệu nguyên tố chuyên sâu ChemDex](/data/elements/012_Mg.json)
+- [CIAAW (IUPAC) — Bảng trọng lượng nguyên tử chuẩn quốc tế](https://ciaaw.org/abridged-atomic-weights.htm)
+
+Bài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tổng hợp từ tư liệu lịch sử bách khoa trực tuyến, hồ sơ cấu trúc không gian 3 chiều và cơ sở dữ liệu phản ứng thực nghiệm, mang lại cái nhìn toàn diện về hành trình ra đời, cấu tạo vi mô và ứng dụng của **Magie (Mg)**.`,v={id:n,slug:h,documentPath:t,legacyIds:i,title:g,author:c,category:a,summary:u,image:o,chemicalFormula:"Mg",tags:m,aliases:s,substanceIds:e,documentKind:r,readingMinutes:14,chemicalEvidence:l,content:p};export{s as aliases,c as author,a as category,l as chemicalEvidence,M as chemicalFormula,p as content,v as default,r as documentKind,t as documentPath,n as id,o as image,i as legacyIds,k as readingMinutes,h as slug,e as substanceIds,u as summary,m as tags,g as title};

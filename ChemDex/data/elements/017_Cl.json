@@ -58,7 +58,8 @@
     "valenceElectrons": 7,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Trực thoi (Orthorhombic)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
   },
   "structureType": "Trực thoi (Orthorhombic)",
   "occurrence": {
@@ -98,16 +99,63 @@
       "sourceSearch": "https://rruff.info/Halite",
       "model": "/assets/periodic-table/minerals/halite.glb",
       "preview": "/assets/periodic-table/minerals/halite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "halite",
+          "amcsdId": "0003397",
+          "mineralName": "Halite",
+          "formula": "Na Cl",
+          "spaceGroup": "F m 3 m",
+          "cell": {
+            "a": 5.6401,
+            "b": 5.6401,
+            "c": 5.6401,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 179.41568704920104,
+          "siteCount": 8,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Walker D",
+              "Clark S M",
+              "Verma P K",
+              "Cranswick L M D",
+              "Jones R L",
+              "Buhre S"
+            ],
+            "title": "Halite-sylvite thermoelasticity\n Sample: msl416031, T = 25 C, P = 0.0 kbar, cell volume = 179.42 ang**3",
+            "journal": "American Mineralogist",
+            "year": 2004,
+            "volume": "89",
+            "pages": "204–210"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/halite.json",
+          "cif": "/assets/periodic-table/crystals/halite.cif",
+          "model": "/assets/periodic-table/crystals/halite.glb",
+          "preview": "/assets/periodic-table/crystals/halite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Halit_(NaCl)_-_Kopalnia_soli_Wieliczka,_Polska.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/017_Cl.jpg",
-    "alt": "Chlorine: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/halite.jpg",
+    "alt": "Halite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Chlorine_in_bottle.jpg",
-    "caption": "Ảnh tham chiếu mẫu Chlorine (Cl); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "W. Oelen · CC BY-SA 3.0"
+    "source": "https://commons.wikimedia.org/wiki/File:Halit_(NaCl)_-_Kopalnia_soli_Wieliczka,_Polska.jpg",
+    "caption": "Ảnh mẫu tham chiếu Halite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "W. Oelen · CC BY-SA 3.0",
+    "author": "Lech Darski",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "isotopes": [
     {
@@ -534,9 +582,67 @@
       "author": "W. Oelen",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/halite.jpg",
+      "role": "natural-mineral",
+      "title": "Halite",
+      "desc": "Ảnh mẫu tham chiếu Halite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Halit_(NaCl)_-_Kopalnia_soli_Wieliczka,_Polska.jpg",
+      "author": "Lech Darski",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Halite",
+      "src": "/assets/periodic-table/crystals/halite.json",
+      "crystal": {
+        "id": "halite",
+        "amcsdId": "0003397",
+        "mineralName": "Halite",
+        "formula": "Na Cl",
+        "spaceGroup": "F m 3 m",
+        "cell": {
+          "a": 5.6401,
+          "b": 5.6401,
+          "c": 5.6401,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 179.41568704920104,
+        "siteCount": 8,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Walker D",
+            "Clark S M",
+            "Verma P K",
+            "Cranswick L M D",
+            "Jones R L",
+            "Buhre S"
+          ],
+          "title": "Halite-sylvite thermoelasticity\n Sample: msl416031, T = 25 C, P = 0.0 kbar, cell volume = 179.42 ang**3",
+          "journal": "American Mineralogist",
+          "year": 2004,
+          "volume": "89",
+          "pages": "204–210"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/halite.json",
+        "cif": "/assets/periodic-table/crystals/halite.cif",
+        "model": "/assets/periodic-table/crystals/halite.glb",
+        "preview": "/assets/periodic-table/crystals/halite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -571,6 +677,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -578,6 +689,7 @@
     "sourceFile": "017_Cl.docx",
     "sourceSha256": "51dcc8431583b73ad412b4c338d7d998a1244954f95c70ec8854d315b1bd5631",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/017_Cl.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/clo-cl/audit.md"
   }
 }

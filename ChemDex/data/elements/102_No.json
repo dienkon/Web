@@ -66,7 +66,8 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Chưa xác định do chỉ tạo được lượng nguyên tử cực nhỏ.",
-    "latticeEvidence": "predicted"
+    "latticeEvidence": "predicted",
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
   },
   "structureType": "Chưa xác định do chỉ tạo được lượng nguyên tử cực nhỏ.",
   "occurrence": {
@@ -415,6 +416,7 @@
     "sourceFile": "102_No.docx",
     "sourceSha256": "43745564f0160a55f30537cd7e9a6125eb58f9b6630a0492b697041017fb35fc",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/102_No.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/nobelium-no/audit.md"
   }
 }

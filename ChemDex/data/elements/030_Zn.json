@@ -60,7 +60,45 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương (Hexagonal)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-zn",
+      "amcsdId": "0012940",
+      "mineralName": "Zinc",
+      "formula": "Zn",
+      "spaceGroup": "P 63/m m c",
+      "cell": {
+        "a": 2.6594,
+        "b": 2.6594,
+        "c": 4.9368,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 30.237333777167127,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Jette E R",
+          "Foote F"
+        ],
+        "title": "Precision determination of lattice constants\n Sample: at T = 25 C\n Note: lattice parameter is average of three samples",
+        "journal": "Journal of Chemical Physics",
+        "year": 1935,
+        "volume": "3",
+        "pages": "605–616"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-zn.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-zn.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-zn.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-zn.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -100,16 +138,58 @@
       "sourceSearch": "https://rruff.info/Sphalerite",
       "model": "/assets/periodic-table/minerals/sphalerite.glb",
       "preview": "/assets/periodic-table/minerals/sphalerite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "sphalerite",
+          "amcsdId": "0000110",
+          "mineralName": "Sphalerite",
+          "formula": "Zn S",
+          "spaceGroup": "F -4 3 m",
+          "cell": {
+            "a": 5.4093,
+            "b": 5.4093,
+            "c": 5.4093,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 158.278965942357,
+          "siteCount": 8,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Skinner B J"
+            ],
+            "title": "Unit-cell edges of natural and synthetic sphalerites",
+            "journal": "American Mineralogist",
+            "year": 1961,
+            "volume": "46",
+            "pages": "1399–1411"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/sphalerite.json",
+          "cif": "/assets/periodic-table/crystals/sphalerite.cif",
+          "model": "/assets/periodic-table/crystals/sphalerite.glb",
+          "preview": "/assets/periodic-table/crystals/sphalerite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Sphalerite_-_Creede,_Mineral_County,_Colorado,_USA.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/diagrams/030_Zn.svg",
-    "alt": "Zinc: sơ đồ minh họa nguyên tố",
+    "image": "/assets/periodic-table/mineral-photos/sphalerite.jpg",
+    "alt": "Sphalerite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "diagram",
-    "source": "",
-    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
-    "credit": ""
+    "source": "https://commons.wikimedia.org/wiki/File:Sphalerite_-_Creede,_Mineral_County,_Colorado,_USA.jpg",
+    "caption": "Ảnh mẫu tham chiếu Sphalerite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "",
+    "author": "Ivar Leidus",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "isotopes": [
     {
@@ -543,9 +623,62 @@
       "author": "ChemDex",
       "license": "ChemDex schematic diagram",
       "licenseUrl": ""
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/sphalerite.jpg",
+      "role": "natural-mineral",
+      "title": "Sphalerite",
+      "desc": "Ảnh mẫu tham chiếu Sphalerite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Sphalerite_-_Creede,_Mineral_County,_Colorado,_USA.jpg",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Sphalerite",
+      "src": "/assets/periodic-table/crystals/sphalerite.json",
+      "crystal": {
+        "id": "sphalerite",
+        "amcsdId": "0000110",
+        "mineralName": "Sphalerite",
+        "formula": "Zn S",
+        "spaceGroup": "F -4 3 m",
+        "cell": {
+          "a": 5.4093,
+          "b": 5.4093,
+          "c": 5.4093,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 158.278965942357,
+        "siteCount": 8,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Skinner B J"
+          ],
+          "title": "Unit-cell edges of natural and synthetic sphalerites",
+          "journal": "American Mineralogist",
+          "year": 1961,
+          "volume": "46",
+          "pages": "1399–1411"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/sphalerite.json",
+        "cif": "/assets/periodic-table/crystals/sphalerite.cif",
+        "model": "/assets/periodic-table/crystals/sphalerite.glb",
+        "preview": "/assets/periodic-table/crystals/sphalerite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -580,6 +713,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -587,6 +725,7 @@
     "sourceFile": "030_Zn.docx",
     "sourceSha256": "4ea06e525281476b7647eb414046a088da9a403caf7a530ab9d87e2c386a68f1",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/030_Zn.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/kem-zn/audit.md"
   }
 }

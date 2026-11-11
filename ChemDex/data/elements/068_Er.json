@@ -64,7 +64,44 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương xếp chặt (HCP)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-er",
+      "amcsdId": "0011174",
+      "mineralName": "Erbium",
+      "formula": "Er",
+      "spaceGroup": "P 63/m m c",
+      "cell": {
+        "a": 3.5588,
+        "b": 3.5588,
+        "c": 5.5874,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 61.284064212511815,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Sample at 293 K\n Hexagonal closest packed, hcp, structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "7–83"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-er.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-er.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-er.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-er.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lục phương xếp chặt (HCP)",
   "occurrence": {
@@ -102,16 +139,60 @@
       "sourceSearch": "https://rruff.info/Xenotime-(Y)",
       "model": "/assets/periodic-table/minerals/xenotime.glb",
       "preview": "/assets/periodic-table/minerals/xenotime.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "xenotime",
+          "amcsdId": "0001706",
+          "mineralName": "Xenotime-(Y)",
+          "formula": "Y P O4",
+          "spaceGroup": "I 41/a m d",
+          "cell": {
+            "a": 6.8947,
+            "b": 6.8947,
+            "c": 6.0276,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 286.53334665128403,
+          "siteCount": 24,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Hughes J M",
+              "Mariano A N",
+              "Ni Y"
+            ],
+            "title": "Crystal chemistry of the monazite and xenotime structures",
+            "journal": "American Mineralogist",
+            "year": 1995,
+            "volume": "80",
+            "pages": "21–26"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/xenotime.json",
+          "cif": "/assets/periodic-table/crystals/xenotime.cif",
+          "model": "/assets/periodic-table/crystals/xenotime.glb",
+          "preview": "/assets/periodic-table/crystals/xenotime.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Xenotime_with_Rutile-08-2-78ab.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/068_Er.jpg",
-    "alt": "Erbium: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/xenotime.jpg",
+    "alt": "Xenotime-(Y) — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Erbium_(68_Er).jpg",
-    "caption": "Ảnh tham chiếu mẫu Erbium (Er); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "Hi-Res Images of Chemical Elements · CC BY 3.0"
+    "source": "https://commons.wikimedia.org/wiki/File:Xenotime_with_Rutile-08-2-78ab.jpg",
+    "caption": "Ảnh mẫu tham chiếu Xenotime-(Y); ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+    "credit": "Hi-Res Images of Chemical Elements · CC BY 3.0",
+    "author": "Robert M. Lavinsky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -381,9 +462,64 @@
       "author": "Hi-Res Images of Chemical Elements",
       "license": "CC BY 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/xenotime.jpg",
+      "role": "natural-mineral",
+      "title": "Xenotime-(Y)",
+      "desc": "Ảnh mẫu tham chiếu Xenotime-(Y); ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Xenotime_with_Rutile-08-2-78ab.jpg",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Xenotime-(Y)",
+      "src": "/assets/periodic-table/crystals/xenotime.json",
+      "crystal": {
+        "id": "xenotime",
+        "amcsdId": "0001706",
+        "mineralName": "Xenotime-(Y)",
+        "formula": "Y P O4",
+        "spaceGroup": "I 41/a m d",
+        "cell": {
+          "a": 6.8947,
+          "b": 6.8947,
+          "c": 6.0276,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 286.53334665128403,
+        "siteCount": 24,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Hughes J M",
+            "Mariano A N",
+            "Ni Y"
+          ],
+          "title": "Crystal chemistry of the monazite and xenotime structures",
+          "journal": "American Mineralogist",
+          "year": 1995,
+          "volume": "80",
+          "pages": "21–26"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/xenotime.json",
+        "cif": "/assets/periodic-table/crystals/xenotime.cif",
+        "model": "/assets/periodic-table/crystals/xenotime.glb",
+        "preview": "/assets/periodic-table/crystals/xenotime.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -418,6 +554,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -425,6 +566,7 @@
     "sourceFile": "068_Er.docx",
     "sourceSha256": "3c9b0d61b73f1155102600c202d908e080ac00db96072c6e87f16466f966c8bd",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/068_Er.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/erbium-er/audit.md"
   }
 }

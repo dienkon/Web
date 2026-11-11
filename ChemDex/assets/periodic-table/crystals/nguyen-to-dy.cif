@@ -1,0 +1,59 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0011172
+_database_code_amcsd 0011172
+_chemical_name_mineral Dysprosium
+_chemical_formula_sum Dy
+_symmetry_space_group_name_H-M 'P 63/m m c'
+_cell_length_a 3.5903
+_cell_length_b 3.5903
+_cell_length_c 5.6475
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 120
+_cell_volume 63.0446662
+loop_
+_publ_author_name
+'Wyckoff R W G'
+_journal_name_full 'Crystal Structures'
+_journal_year 1963
+_journal_volume 1
+_publ_section_title
+;Second edition. Interscience Publishers, New York, New York
+ Sample at T = 293 K
+ Hexagonal closest packed, hcp, structure
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+-x,-x+y,1/2+z
+x,x-y,1/2-z
+-x+y,-x,1/2-z
+x-y,x,1/2+z
+-y,-x,z
+y,x,-z
+y,-x+y,-z
+-y,x-y,z
+x-y,-y,1/2+z
+-x+y,y,1/2-z
+x,y,1/2-z
+-x,-y,1/2+z
+x,x-y,z
+-x,-x+y,-z
+x-y,x,-z
+-x+y,-x,z
+y,x,1/2+z
+-y,-x,1/2-z
+-y,x-y,1/2-z
+y,-x+y,1/2+z
+-x+y,y,z
+x-y,-y,-z
+-x,-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Dy Dy 0.33333325 0.66666675 0.25 1

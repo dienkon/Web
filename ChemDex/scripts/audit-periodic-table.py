@@ -81,7 +81,8 @@ for meta in manifest:
         require(z < 93, f'{symbol}: fabricated synthetic-element ore')
         local_asset(mineral['model'], symbol)
         local_asset(mineral['preview'], symbol)
-        require(r['mediaBlocks'][0]['preview'] == mineral['preview'], f'{symbol}: model poster mismatch')
+        morphology = next((b for b in r['mediaBlocks'] if b['type'] == 'model'), None)
+        require(morphology and morphology['preview'] == mineral['preview'], f'{symbol}: model poster mismatch')
     else: require(bool(mineral['reason']), f'{symbol}: no reason for absent ore')
 
 for model in read(ROOT / 'data/mineral-models.json')['models']:

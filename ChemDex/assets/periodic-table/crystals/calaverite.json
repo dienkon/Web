@@ -1,0 +1,228 @@
+{
+  "amcsdId": "0009826",
+  "mineralName": "Calaverite",
+  "formula": "(Au.9 Ag.1) Te2",
+  "spaceGroup": "C 1 2/m 1",
+  "cell": {
+    "a": 7.1947,
+    "b": 4.4146,
+    "c": 5.0703,
+    "alpha": 90.0,
+    "beta": 90.038,
+    "gamma": 90.0
+  },
+  "volume": 161.04142678173022,
+  "declaredVolume": 161.041,
+  "basis": [
+    [
+      7.1947,
+      0.0,
+      -0.0033627500578994798
+    ],
+    [
+      0.0,
+      4.4146,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.0702988848698105
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,z",
+    "x,-y,z",
+    "1/2+x,1/2-y,z",
+    "-x,y,-z",
+    "1/2-x,1/2+y,-z",
+    "-x,-y,-z",
+    "1/2-x,1/2-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Au",
+      "element": "Au",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 0.9
+    },
+    {
+      "label": "Ag",
+      "element": "Ag",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 0.1
+    },
+    {
+      "label": "Te",
+      "element": "Te",
+      "fractional": [
+        0.6894,
+        0.0,
+        0.2888
+      ],
+      "occupancy": 1.0
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Au",
+      "label": "Au",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 0.9
+    },
+    {
+      "element": "Au",
+      "label": "Au",
+      "fractional": [
+        0.5,
+        0.5,
+        0.0
+      ],
+      "position": [
+        3.59735,
+        2.2073,
+        0.0
+      ],
+      "occupancy": 0.9
+    },
+    {
+      "element": "Ag",
+      "label": "Ag",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 0.1
+    },
+    {
+      "element": "Ag",
+      "label": "Ag",
+      "fractional": [
+        0.5,
+        0.5,
+        0.0
+      ],
+      "position": [
+        3.59735,
+        2.2073,
+        0.0
+      ],
+      "occupancy": 0.1
+    },
+    {
+      "element": "Te",
+      "label": "Te",
+      "fractional": [
+        0.6894,
+        0.0,
+        0.2888
+      ],
+      "position": [
+        4.959055,
+        0.0,
+        1.4643023
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "Te",
+      "label": "Te",
+      "fractional": [
+        0.1894,
+        0.5,
+        0.2888
+      ],
+      "position": [
+        1.361705,
+        2.2073,
+        1.4643023
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "Te",
+      "label": "Te",
+      "fractional": [
+        0.3106,
+        0.0,
+        0.7112
+      ],
+      "position": [
+        2.2322822,
+        0.0,
+        3.6059966
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "Te",
+      "label": "Te",
+      "fractional": [
+        0.8106,
+        0.5,
+        0.7112
+      ],
+      "position": [
+        5.8296322,
+        2.2073,
+        3.6059966
+      ],
+      "occupancy": 1.0
+    }
+  ],
+  "siteCount": 6,
+  "speciesPositionCount": 8,
+  "cellComposition": {
+    "Au": 1.8,
+    "Ag": 0.2,
+    "Te": 4.0
+  },
+  "mixedSiteCount": 2,
+  "reference": {
+    "authors": [
+      "de Boer J L",
+      "Schutte W J"
+    ],
+    "title": "Valence fluctuations in the incommensurately modulated structure of calaverite AuTe2\n Sample: T = 298 K",
+    "journal": "Acta Crystallographica, Section B",
+    "year": 1988,
+    "volume": "44",
+    "pages": "486–494"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1.0,
+    "cellVolumeRelativeError": 2.650136295704901e-06
+  },
+  "id": "calaverite",
+  "note": "Chỉ biểu diễn cấu trúc trung bình tuần hoàn trong bản ghi CIF; không tái dựng đầy đủ điều biến bất tương xứng của calaverite."
+}

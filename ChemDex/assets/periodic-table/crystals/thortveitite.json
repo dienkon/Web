@@ -1,0 +1,603 @@
+{
+  "amcsdId": "0001160",
+  "mineralName": "Thortveitite",
+  "formula": "(Sc1.12 Y.88) (Si1.96 Al.04) O7",
+  "spaceGroup": "C 1 2/m 1",
+  "cell": {
+    "a": 6.65,
+    "b": 8.616,
+    "c": 4.686,
+    "alpha": 90.0,
+    "beta": 102.2,
+    "gamma": 90.0
+  },
+  "volume": 262.4273028446219,
+  "declaredVolume": 262.427,
+  "basis": [
+    [
+      6.65,
+      0.0,
+      -0.9902679961899512
+    ],
+    [
+      0.0,
+      8.616,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.580170880624645
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,z",
+    "x,-y,z",
+    "1/2+x,1/2-y,z",
+    "-x,y,-z",
+    "1/2-x,1/2+y,-z",
+    "-x,-y,-z",
+    "1/2-x,1/2-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Sc",
+      "element": "Sc",
+      "fractional": [
+        0.0,
+        0.30503,
+        0.5
+      ],
+      "occupancy": 0.56
+    },
+    {
+      "label": "Y",
+      "element": "Y",
+      "fractional": [
+        0.0,
+        0.30503,
+        0.5
+      ],
+      "occupancy": 0.44
+    },
+    {
+      "label": "Si",
+      "element": "Si",
+      "fractional": [
+        0.22108,
+        0.0,
+        -0.08762
+      ],
+      "occupancy": 0.98
+    },
+    {
+      "label": "Al",
+      "element": "Al",
+      "fractional": [
+        0.22108,
+        0.0,
+        -0.08762
+      ],
+      "occupancy": 0.02
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.38654,
+        0.0,
+        0.22171
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.23655,
+        0.15499,
+        -0.28174
+      ],
+      "occupancy": 1.0
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Sc",
+      "label": "Sc",
+      "fractional": [
+        0.0,
+        0.30503,
+        0.5
+      ],
+      "position": [
+        -0.495134,
+        2.6281385,
+        2.2900854
+      ],
+      "occupancy": 0.56
+    },
+    {
+      "element": "Sc",
+      "label": "Sc",
+      "fractional": [
+        0.5,
+        0.80503,
+        0.5
+      ],
+      "position": [
+        2.829866,
+        6.9361385,
+        2.2900854
+      ],
+      "occupancy": 0.56
+    },
+    {
+      "element": "Sc",
+      "label": "Sc",
+      "fractional": [
+        0.0,
+        0.69497,
+        0.5
+      ],
+      "position": [
+        -0.495134,
+        5.9878615,
+        2.2900854
+      ],
+      "occupancy": 0.56
+    },
+    {
+      "element": "Sc",
+      "label": "Sc",
+      "fractional": [
+        0.5,
+        0.19497,
+        0.5
+      ],
+      "position": [
+        2.829866,
+        1.6798615,
+        2.2900854
+      ],
+      "occupancy": 0.56
+    },
+    {
+      "element": "Y",
+      "label": "Y",
+      "fractional": [
+        0.0,
+        0.30503,
+        0.5
+      ],
+      "position": [
+        -0.495134,
+        2.6281385,
+        2.2900854
+      ],
+      "occupancy": 0.44
+    },
+    {
+      "element": "Y",
+      "label": "Y",
+      "fractional": [
+        0.5,
+        0.80503,
+        0.5
+      ],
+      "position": [
+        2.829866,
+        6.9361385,
+        2.2900854
+      ],
+      "occupancy": 0.44
+    },
+    {
+      "element": "Y",
+      "label": "Y",
+      "fractional": [
+        0.0,
+        0.69497,
+        0.5
+      ],
+      "position": [
+        -0.495134,
+        5.9878615,
+        2.2900854
+      ],
+      "occupancy": 0.44
+    },
+    {
+      "element": "Y",
+      "label": "Y",
+      "fractional": [
+        0.5,
+        0.19497,
+        0.5
+      ],
+      "position": [
+        2.829866,
+        1.6798615,
+        2.2900854
+      ],
+      "occupancy": 0.44
+    },
+    {
+      "element": "Si",
+      "label": "Si",
+      "fractional": [
+        0.22108,
+        0.0,
+        0.91238
+      ],
+      "position": [
+        0.5666813,
+        0.0,
+        4.1788563
+      ],
+      "occupancy": 0.98
+    },
+    {
+      "element": "Si",
+      "label": "Si",
+      "fractional": [
+        0.72108,
+        0.5,
+        0.91238
+      ],
+      "position": [
+        3.8916813,
+        4.308,
+        4.1788563
+      ],
+      "occupancy": 0.98
+    },
+    {
+      "element": "Si",
+      "label": "Si",
+      "fractional": [
+        0.77892,
+        0.0,
+        0.08762
+      ],
+      "position": [
+        5.0930507,
+        0.0,
+        0.4013146
+      ],
+      "occupancy": 0.98
+    },
+    {
+      "element": "Si",
+      "label": "Si",
+      "fractional": [
+        0.27892,
+        0.5,
+        0.08762
+      ],
+      "position": [
+        1.7680507,
+        4.308,
+        0.4013146
+      ],
+      "occupancy": 0.98
+    },
+    {
+      "element": "Al",
+      "label": "Al",
+      "fractional": [
+        0.22108,
+        0.0,
+        0.91238
+      ],
+      "position": [
+        0.5666813,
+        0.0,
+        4.1788563
+      ],
+      "occupancy": 0.02
+    },
+    {
+      "element": "Al",
+      "label": "Al",
+      "fractional": [
+        0.72108,
+        0.5,
+        0.91238
+      ],
+      "position": [
+        3.8916813,
+        4.308,
+        4.1788563
+      ],
+      "occupancy": 0.02
+    },
+    {
+      "element": "Al",
+      "label": "Al",
+      "fractional": [
+        0.77892,
+        0.0,
+        0.08762
+      ],
+      "position": [
+        5.0930507,
+        0.0,
+        0.4013146
+      ],
+      "occupancy": 0.02
+    },
+    {
+      "element": "Al",
+      "label": "Al",
+      "fractional": [
+        0.27892,
+        0.5,
+        0.08762
+      ],
+      "position": [
+        1.7680507,
+        4.308,
+        0.4013146
+      ],
+      "occupancy": 0.02
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.5,
+        0.5,
+        0.0
+      ],
+      "position": [
+        3.325,
+        4.308,
+        0.0
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.38654,
+        0.0,
+        0.22171
+      ],
+      "position": [
+        2.3509387,
+        0.0,
+        1.0154697
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.88654,
+        0.5,
+        0.22171
+      ],
+      "position": [
+        5.6759387,
+        4.308,
+        1.0154697
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.61346,
+        0.0,
+        0.77829
+      ],
+      "position": [
+        3.3087933,
+        0.0,
+        3.5647012
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.11346,
+        0.5,
+        0.77829
+      ],
+      "position": [
+        -0.0162067,
+        4.308,
+        3.5647012
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.23655,
+        0.15499,
+        0.71826
+      ],
+      "position": [
+        0.8617876,
+        1.3353938,
+        3.2897535
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.73655,
+        0.65499,
+        0.71826
+      ],
+      "position": [
+        4.1867876,
+        5.6433938,
+        3.2897535
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.23655,
+        0.84501,
+        0.71826
+      ],
+      "position": [
+        0.8617876,
+        7.2806062,
+        3.2897535
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.73655,
+        0.34501,
+        0.71826
+      ],
+      "position": [
+        4.1867876,
+        2.9726062,
+        3.2897535
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.76345,
+        0.15499,
+        0.28174
+      ],
+      "position": [
+        4.7979444,
+        1.3353938,
+        1.2904173
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.26345,
+        0.65499,
+        0.28174
+      ],
+      "position": [
+        1.4729444,
+        5.6433938,
+        1.2904173
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.76345,
+        0.84501,
+        0.28174
+      ],
+      "position": [
+        4.7979444,
+        7.2806062,
+        1.2904173
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.26345,
+        0.34501,
+        0.28174
+      ],
+      "position": [
+        1.4729444,
+        2.9726062,
+        1.2904173
+      ],
+      "occupancy": 1.0
+    }
+  ],
+  "siteCount": 22,
+  "speciesPositionCount": 30,
+  "cellComposition": {
+    "Sc": 2.24,
+    "Y": 1.76,
+    "Si": 3.92,
+    "Al": 0.08,
+    "O": 14.0
+  },
+  "mixedSiteCount": 8,
+  "reference": {
+    "authors": [
+      "Pilati T",
+      "Bianchi R",
+      "Mannucci G",
+      "Diella V",
+      "Gamaccioli C M"
+    ],
+    "title": "A re-examination of thortveitite\n Sample 1 from Iveland",
+    "journal": "American Mineralogist",
+    "year": 1988,
+    "volume": "73",
+    "pages": "601–607"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1.0,
+    "cellVolumeRelativeError": 1.1540133919618132e-06
+  },
+  "id": "thortveitite",
+  "note": ""
+}

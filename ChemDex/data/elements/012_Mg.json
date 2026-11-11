@@ -58,7 +58,44 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương xếp chặt (HCP)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-mg",
+      "amcsdId": "0012871",
+      "mineralName": "Magnesium",
+      "formula": "Mg",
+      "spaceGroup": "P 63/m m c",
+      "cell": {
+        "a": 3.2093,
+        "b": 3.2093,
+        "c": 5.2103,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 46.47442164543402,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Straumanis M E"
+        ],
+        "title": "The precision determination of lattice constants by the powder and rotation\n crystal methods and applications\n Sample: at T = 25 C",
+        "journal": "Journal of Applied Physics",
+        "year": 1949,
+        "volume": "20",
+        "pages": "726–734"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-mg.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-mg.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-mg.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-mg.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lục phương xếp chặt (HCP)",
   "occurrence": {
@@ -100,16 +137,59 @@
       "sourceSearch": "https://rruff.info/Magnesite",
       "model": "/assets/periodic-table/minerals/magnesite.glb",
       "preview": "/assets/periodic-table/minerals/magnesite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "magnesite",
+          "amcsdId": "0000990",
+          "mineralName": "Magnesite",
+          "formula": "Mg C O3",
+          "spaceGroup": "R -3 c",
+          "cell": {
+            "a": 4.635,
+            "b": 4.635,
+            "c": 15.019,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 120.0
+          },
+          "volume": 279.42877443175337,
+          "siteCount": 30,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Reeder R J",
+              "Markgraf S A"
+            ],
+            "title": "High-temperature structure refinements of calcite and magnesite\n Sample: T = 24 C",
+            "journal": "American Mineralogist",
+            "year": 1985,
+            "volume": "70",
+            "pages": "590–600"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/magnesite.json",
+          "cif": "/assets/periodic-table/crystals/magnesite.cif",
+          "model": "/assets/periodic-table/crystals/magnesite.glb",
+          "preview": "/assets/periodic-table/crystals/magnesite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Magnesite-121892.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/012_Mg.jpg",
-    "alt": "Magnesium: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/magnesite.jpg",
+    "alt": "Magnesite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:CSIRO_ScienceImage_2893_Crystalised_magnesium.jpg",
-    "caption": "Ảnh tham chiếu mẫu Magnesium (Mg); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "Mark Fergus, CSIRO · CC BY 3.0"
+    "source": "https://commons.wikimedia.org/wiki/File:Magnesite-121892.jpg",
+    "caption": "Ảnh mẫu tham chiếu Magnesite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "Mark Fergus, CSIRO · CC BY 3.0",
+    "author": "Robert M. Lavinsky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -499,9 +579,63 @@
       "author": "Mark Fergus, CSIRO",
       "license": "CC BY 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/magnesite.jpg",
+      "role": "natural-mineral",
+      "title": "Magnesite",
+      "desc": "Ảnh mẫu tham chiếu Magnesite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Magnesite-121892.jpg",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Magnesite",
+      "src": "/assets/periodic-table/crystals/magnesite.json",
+      "crystal": {
+        "id": "magnesite",
+        "amcsdId": "0000990",
+        "mineralName": "Magnesite",
+        "formula": "Mg C O3",
+        "spaceGroup": "R -3 c",
+        "cell": {
+          "a": 4.635,
+          "b": 4.635,
+          "c": 15.019,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 120.0
+        },
+        "volume": 279.42877443175337,
+        "siteCount": 30,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Reeder R J",
+            "Markgraf S A"
+          ],
+          "title": "High-temperature structure refinements of calcite and magnesite\n Sample: T = 24 C",
+          "journal": "American Mineralogist",
+          "year": 1985,
+          "volume": "70",
+          "pages": "590–600"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/magnesite.json",
+        "cif": "/assets/periodic-table/crystals/magnesite.cif",
+        "model": "/assets/periodic-table/crystals/magnesite.glb",
+        "preview": "/assets/periodic-table/crystals/magnesite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -536,6 +670,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -543,6 +682,7 @@
     "sourceFile": "012_Mg.docx",
     "sourceSha256": "c3608273a126a6d77026cccad8f321d6245ec377a70cab18e39c348f73abf8ec",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/012_Mg.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/magie-mg/audit.md"
   }
 }

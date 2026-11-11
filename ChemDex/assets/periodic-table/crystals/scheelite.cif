@@ -1,0 +1,54 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0013201
+_database_code_amcsd 0013201
+_chemical_name_mineral Scheelite
+_chemical_formula_sum 'Ca W O4'
+_symmetry_space_group_name_H-M 'I 41/a'
+_cell_length_a 5.2429
+_cell_length_b 5.2429
+_cell_length_c 11.3737
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 312.64027
+loop_
+_publ_author_name
+'Finger L W'
+'Hazen R M'
+'Mariathasan J W E'
+_journal_name_full 'Journal of Physics and Chemistry of Solids'
+_journal_year 1985
+_journal_volume 46
+_publ_section_title
+;High-pressure crystal chemistry of scheelite-type tungstates and molybdates
+ Note: P = 0.0001 GPa, in air
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+1/2+x,1/2+y,1/2+z
+3/4+y,1/4-x,1/4-z
+1/4+y,3/4-x,3/4-z
+3/4-y,1/4+x,1/4+z
+1/4-y,3/4+x,3/4+z
+1/2+x,y,1/2-z
++x,1/2+y,-z
+1/2-x,-y,1/2+z
+-x,1/2-y,+z
+3/4-y,3/4+x,3/4-z
+1/4-y,1/4+x,1/4-z
+3/4+y,3/4-x,3/4+z
+1/4+y,1/4-x,1/4+z
+-x,-y,-z
+1/2-x,1/2-y,1/2-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Ca Ca 0 0.25 0.625 1
+W W 0 0.25 0.125 1
+O O 0.1507 0.0086 0.2106 1

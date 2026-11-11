@@ -1,0 +1,487 @@
+{
+  "amcsdId": "0005144",
+  "mineralName": "Barite",
+  "formula": "Ba S O4",
+  "spaceGroup": "P n m a",
+  "cell": {
+    "a": 8.8842,
+    "b": 5.4559,
+    "c": 7.1569,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 346.904295493782,
+  "declaredVolume": 346.904,
+  "basis": [
+    [
+      8.8842,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      5.4559,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      7.1569
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "x,1/2-y,z",
+    "-x,1/2+y,-z",
+    "1/2-x,1/2+y,1/2+z",
+    "1/2+x,1/2-y,1/2-z",
+    "1/2+x,y,1/2-z",
+    "1/2-x,-y,1/2+z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Ba",
+      "element": "Ba",
+      "fractional": [
+        0.1845,
+        0.25,
+        0.1585
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S",
+      "element": "S",
+      "fractional": [
+        0.4373,
+        0.75,
+        0.1913
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.589,
+        0.75,
+        0.1066
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.3183,
+        0.75,
+        0.0518
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.4204,
+        0.97,
+        0.3116
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Ba",
+      "label": "Ba",
+      "fractional": [
+        0.1845,
+        0.25,
+        0.1585
+      ],
+      "position": [
+        1.6391349,
+        1.363975,
+        1.1343687
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ba",
+      "label": "Ba",
+      "fractional": [
+        0.8155,
+        0.75,
+        0.8415
+      ],
+      "position": [
+        7.2450651,
+        4.091925,
+        6.0225314
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ba",
+      "label": "Ba",
+      "fractional": [
+        0.3155,
+        0.75,
+        0.6585
+      ],
+      "position": [
+        2.8029651,
+        4.091925,
+        4.7128186
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ba",
+      "label": "Ba",
+      "fractional": [
+        0.6845,
+        0.25,
+        0.3415
+      ],
+      "position": [
+        6.0812349,
+        1.363975,
+        2.4440814
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.4373,
+        0.75,
+        0.1913
+      ],
+      "position": [
+        3.8850607,
+        4.091925,
+        1.369115
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.5627,
+        0.25,
+        0.8087
+      ],
+      "position": [
+        4.9991393,
+        1.363975,
+        5.787785
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.0627,
+        0.25,
+        0.6913
+      ],
+      "position": [
+        0.5570393,
+        1.363975,
+        4.947565
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.9373,
+        0.75,
+        0.3087
+      ],
+      "position": [
+        8.3271607,
+        4.091925,
+        2.209335
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.589,
+        0.75,
+        0.1066
+      ],
+      "position": [
+        5.2327938,
+        4.091925,
+        0.7629255
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.411,
+        0.25,
+        0.8934
+      ],
+      "position": [
+        3.6514062,
+        1.363975,
+        6.3939745
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.911,
+        0.25,
+        0.6066
+      ],
+      "position": [
+        8.0935062,
+        1.363975,
+        4.3413755
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.089,
+        0.75,
+        0.3934
+      ],
+      "position": [
+        0.7906938,
+        4.091925,
+        2.8155245
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.3183,
+        0.75,
+        0.0518
+      ],
+      "position": [
+        2.8278409,
+        4.091925,
+        0.3707274
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.6817,
+        0.25,
+        0.9482
+      ],
+      "position": [
+        6.0563591,
+        1.363975,
+        6.7861726
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.1817,
+        0.25,
+        0.5518
+      ],
+      "position": [
+        1.6142591,
+        1.363975,
+        3.9491774
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.8183,
+        0.75,
+        0.4482
+      ],
+      "position": [
+        7.2699409,
+        4.091925,
+        3.2077226
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.4204,
+        0.97,
+        0.3116
+      ],
+      "position": [
+        3.7349177,
+        5.292223,
+        2.23009
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.4204,
+        0.53,
+        0.3116
+      ],
+      "position": [
+        3.7349177,
+        2.891627,
+        2.23009
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.5796,
+        0.47,
+        0.6884
+      ],
+      "position": [
+        5.1492823,
+        2.564273,
+        4.92681
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.0796,
+        0.47,
+        0.8116
+      ],
+      "position": [
+        0.7071823,
+        2.564273,
+        5.80854
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.9204,
+        0.53,
+        0.1884
+      ],
+      "position": [
+        8.1770177,
+        2.891627,
+        1.34836
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.9204,
+        0.97,
+        0.1884
+      ],
+      "position": [
+        8.1770177,
+        5.292223,
+        1.34836
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.0796,
+        0.03,
+        0.8116
+      ],
+      "position": [
+        0.7071823,
+        0.163677,
+        5.80854
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.5796,
+        0.03,
+        0.6884
+      ],
+      "position": [
+        5.1492823,
+        0.163677,
+        4.92681
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "Ba": 4,
+    "S": 4,
+    "O": 16
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Hill R J"
+    ],
+    "title": "A further refinement of the barite structure",
+    "journal": "The Canadian Mineralogist",
+    "year": 1977,
+    "volume": "15",
+    "pages": "522–526"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 8.518020267935622e-07
+  },
+  "id": "barite",
+  "note": ""
+}

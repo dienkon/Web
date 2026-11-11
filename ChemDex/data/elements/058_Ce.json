@@ -64,7 +64,46 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm diện (FCC)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-ce",
+      "amcsdId": "0009169",
+      "mineralName": "Cerium",
+      "formula": "Ce",
+      "spaceGroup": "F m 3 m",
+      "cell": {
+        "a": 5.1612,
+        "b": 5.1612,
+        "c": 5.1612,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 137.48397045292802,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Spedding F H",
+          "Daane A H",
+          "Herrmann K W"
+        ],
+        "title": "The crystal structures and lattice parameters of high-purity scandium,\n yttrium and the rare earth metals\n Note: sample 99.9% pure",
+        "journal": "Acta Crystallographica",
+        "year": 1956,
+        "volume": "9",
+        "pages": "559–563"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-ce.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-ce.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-ce.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-ce.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lập phương tâm diện (FCC)",
   "occurrence": {
@@ -102,16 +141,60 @@
       "sourceSearch": "https://rruff.info/Monazite-(Ce)",
       "model": "/assets/periodic-table/minerals/monazite.glb",
       "preview": "/assets/periodic-table/minerals/monazite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "monazite",
+          "amcsdId": "0001700",
+          "mineralName": "Monazite-(Ce)",
+          "formula": "Ce P O4",
+          "spaceGroup": "P 1 21/n 1",
+          "cell": {
+            "a": 6.788,
+            "b": 7.0163,
+            "c": 6.465,
+            "alpha": 90.0,
+            "beta": 103.43,
+            "gamma": 90.0
+          },
+          "volume": 299.48637533121257,
+          "siteCount": 24,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Hughes J M",
+              "Mariano A N",
+              "Ni Y"
+            ],
+            "title": "Crystal chemistry of the monazite and xenotime structures\n Ce(PO4)",
+            "journal": "American Mineralogist",
+            "year": 1995,
+            "volume": "80",
+            "pages": "21–26"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/monazite.json",
+          "cif": "/assets/periodic-table/crystals/monazite.cif",
+          "model": "/assets/periodic-table/crystals/monazite.glb",
+          "preview": "/assets/periodic-table/crystals/monazite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Monazite-(Ce)-164025.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/058_Ce.jpg",
-    "alt": "Cerium: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/monazite.jpg",
+    "alt": "Monazite-(Ce) — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Cerium2.jpg",
-    "caption": "Ảnh tham chiếu mẫu Cerium (Ce); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "Jurii · CC BY 3.0"
+    "source": "https://commons.wikimedia.org/wiki/File:Monazite-(Ce)-164025.jpg",
+    "caption": "Ảnh mẫu tham chiếu Monazite-(Ce); ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "Jurii · CC BY 3.0",
+    "author": "Robert M. Lavinsky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -380,9 +463,64 @@
       "author": "Jurii",
       "license": "CC BY 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/monazite.jpg",
+      "role": "natural-mineral",
+      "title": "Monazite-(Ce)",
+      "desc": "Ảnh mẫu tham chiếu Monazite-(Ce); ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Monazite-(Ce)-164025.jpg",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Monazite-(Ce)",
+      "src": "/assets/periodic-table/crystals/monazite.json",
+      "crystal": {
+        "id": "monazite",
+        "amcsdId": "0001700",
+        "mineralName": "Monazite-(Ce)",
+        "formula": "Ce P O4",
+        "spaceGroup": "P 1 21/n 1",
+        "cell": {
+          "a": 6.788,
+          "b": 7.0163,
+          "c": 6.465,
+          "alpha": 90.0,
+          "beta": 103.43,
+          "gamma": 90.0
+        },
+        "volume": 299.48637533121257,
+        "siteCount": 24,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Hughes J M",
+            "Mariano A N",
+            "Ni Y"
+          ],
+          "title": "Crystal chemistry of the monazite and xenotime structures\n Ce(PO4)",
+          "journal": "American Mineralogist",
+          "year": 1995,
+          "volume": "80",
+          "pages": "21–26"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/monazite.json",
+        "cif": "/assets/periodic-table/crystals/monazite.cif",
+        "model": "/assets/periodic-table/crystals/monazite.glb",
+        "preview": "/assets/periodic-table/crystals/monazite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -417,6 +555,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -424,6 +567,7 @@
     "sourceFile": "058_Ce.docx",
     "sourceSha256": "bfa6f8450d4ee8a2304c54257c4f9c1262d62e50de18a122f1f59804ad27114b",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/058_Ce.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/cerium-ce/audit.md"
   }
 }

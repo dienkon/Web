@@ -64,7 +64,44 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương (Hexagonal)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-os",
+      "amcsdId": "0011188",
+      "mineralName": "Osmium",
+      "formula": "Os",
+      "spaceGroup": "P 63/m m c",
+      "cell": {
+        "a": 2.7352,
+        "b": 2.7352,
+        "c": 4.319,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 27.982854307068365,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Hexagonal closest packed, hcp, structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "7–83"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-os.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-os.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-os.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-os.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -102,16 +139,59 @@
       "sourceSearch": "https://rruff.info/Platinum",
       "model": "/assets/periodic-table/minerals/native-platinum.glb",
       "preview": "/assets/periodic-table/minerals/native-platinum.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "native-platinum",
+          "amcsdId": "0014947",
+          "mineralName": "Platinum",
+          "formula": "Pt",
+          "spaceGroup": "F m 3 m",
+          "cell": {
+            "a": 3.9158,
+            "b": 3.9158,
+            "c": 3.9158,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 60.042878732312,
+          "siteCount": 4,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Owen E A",
+              "Yates E L"
+            ],
+            "title": "Precision measurements of crystal parameters\n Sample: at T = 18 C\n Note: lattice parameter is mean value of 5 radiation types",
+            "journal": "Philosophical Magazine",
+            "year": 1933,
+            "volume": "15",
+            "pages": "472–488"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "Pha Pt tham chiếu; không mô phỏng hợp kim hoặc vị trí nguyên tố vết trong platinum tự sinh.",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/native-platinum.json",
+          "cif": "/assets/periodic-table/crystals/native-platinum.cif",
+          "model": "/assets/periodic-table/crystals/native-platinum.glb",
+          "preview": "/assets/periodic-table/crystals/native-platinum.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Platinum-274992.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/diagrams/076_Os.svg",
-    "alt": "Osmium: sơ đồ minh họa nguyên tố",
+    "image": "/assets/periodic-table/mineral-photos/native-platinum.jpg",
+    "alt": "Platinum tự sinh — ảnh mẫu khoáng vật tham chiếu",
     "kind": "diagram",
-    "source": "",
-    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
-    "credit": ""
+    "source": "https://commons.wikimedia.org/wiki/File:Platinum-274992.jpg",
+    "caption": "Ảnh mẫu tham chiếu Platinum tự sinh; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+    "credit": "",
+    "author": "Robert M. Lavinsky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -422,9 +502,63 @@
       "author": "ChemDex",
       "license": "ChemDex schematic diagram",
       "licenseUrl": ""
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/native-platinum.jpg",
+      "role": "natural-mineral",
+      "title": "Platinum tự sinh",
+      "desc": "Ảnh mẫu tham chiếu Platinum tự sinh; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Platinum-274992.jpg",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Platinum",
+      "src": "/assets/periodic-table/crystals/native-platinum.json",
+      "crystal": {
+        "id": "native-platinum",
+        "amcsdId": "0014947",
+        "mineralName": "Platinum",
+        "formula": "Pt",
+        "spaceGroup": "F m 3 m",
+        "cell": {
+          "a": 3.9158,
+          "b": 3.9158,
+          "c": 3.9158,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 60.042878732312,
+        "siteCount": 4,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Owen E A",
+            "Yates E L"
+          ],
+          "title": "Precision measurements of crystal parameters\n Sample: at T = 18 C\n Note: lattice parameter is mean value of 5 radiation types",
+          "journal": "Philosophical Magazine",
+          "year": 1933,
+          "volume": "15",
+          "pages": "472–488"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "Pha Pt tham chiếu; không mô phỏng hợp kim hoặc vị trí nguyên tố vết trong platinum tự sinh.",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/native-platinum.json",
+        "cif": "/assets/periodic-table/crystals/native-platinum.cif",
+        "model": "/assets/periodic-table/crystals/native-platinum.glb",
+        "preview": "/assets/periodic-table/crystals/native-platinum.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -459,6 +593,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -466,6 +605,7 @@
     "sourceFile": "076_Os.docx",
     "sourceSha256": "a9cfbad9da825e27d4afaea207df646225cd9c8b0cb7b9050e932526fd6d4cc7",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/076_Os.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/osmium-os/audit.md"
   }
 }

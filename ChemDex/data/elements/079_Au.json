@@ -64,7 +64,46 @@
     "valenceElectrons": 1,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-au",
+      "amcsdId": "0013108",
+      "mineralName": "Gold",
+      "formula": "Au",
+      "spaceGroup": "F m 3 m",
+      "cell": {
+        "a": 4.072,
+        "b": 4.072,
+        "c": 4.072,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 67.518581248,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Suh I-K",
+          "Ohta H",
+          "Waseda Y"
+        ],
+        "title": "High-temperature thermal expansion of six metallic elements measured\n by dilatation method and X-ray diffraction\n Sample: at T = 293 K",
+        "journal": "Journal of Materials Science",
+        "year": 1988,
+        "volume": "23",
+        "pages": "757–760"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-au.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-au.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-au.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-au.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)",
   "occurrence": {
@@ -101,16 +140,60 @@
       "sourceSearch": "https://rruff.info/Gold",
       "model": "/assets/periodic-table/minerals/native-gold.glb",
       "preview": "/assets/periodic-table/minerals/native-gold.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "native-gold",
+          "amcsdId": "0013108",
+          "mineralName": "Gold",
+          "formula": "Au",
+          "spaceGroup": "F m 3 m",
+          "cell": {
+            "a": 4.072,
+            "b": 4.072,
+            "c": 4.072,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 67.518581248,
+          "siteCount": 4,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Suh I-K",
+              "Ohta H",
+              "Waseda Y"
+            ],
+            "title": "High-temperature thermal expansion of six metallic elements measured\n by dilatation method and X-ray diffraction\n Sample: at T = 293 K",
+            "journal": "Journal of Materials Science",
+            "year": 1988,
+            "volume": "23",
+            "pages": "757–760"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "Pha Au tham chiếu; không mô phỏng hợp kim Au–Ag hay hình dạng hạt vàng tự nhiên.",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/native-gold.json",
+          "cif": "/assets/periodic-table/crystals/native-gold.cif",
+          "model": "/assets/periodic-table/crystals/native-gold.glb",
+          "preview": "/assets/periodic-table/crystals/native-gold.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Gold-crystals.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/079_Au.jpg",
-    "alt": "Gold: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/native-gold.jpg",
+    "alt": "Gold tự sinh — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
     "source": "https://commons.wikimedia.org/wiki/File:Gold-crystals.jpg",
-    "caption": "Ảnh tham chiếu mẫu Gold (Au); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "Alchemist-hp ( talk ) www.pse-mendelejew.de · CC BY-SA 3.0 de"
+    "caption": "Ảnh mẫu tham chiếu Gold tự sinh; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "Alchemist-hp ( talk ) www.pse-mendelejew.de · CC BY-SA 3.0 de",
+    "author": "Alchemist-hp ( talk ) www.pse-mendelejew.de",
+    "license": "CC BY-SA 3.0 de",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en"
   },
   "isotopes": [
     {
@@ -348,9 +431,64 @@
       "author": "Alchemist-hp ( talk ) www.pse-mendelejew.de",
       "license": "CC BY-SA 3.0 de",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/native-gold.jpg",
+      "role": "natural-mineral",
+      "title": "Gold tự sinh",
+      "desc": "Ảnh mẫu tham chiếu Gold tự sinh; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Gold-crystals.jpg",
+      "author": "Alchemist-hp ( talk ) www.pse-mendelejew.de",
+      "license": "CC BY-SA 3.0 de",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Gold",
+      "src": "/assets/periodic-table/crystals/native-gold.json",
+      "crystal": {
+        "id": "native-gold",
+        "amcsdId": "0013108",
+        "mineralName": "Gold",
+        "formula": "Au",
+        "spaceGroup": "F m 3 m",
+        "cell": {
+          "a": 4.072,
+          "b": 4.072,
+          "c": 4.072,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 67.518581248,
+        "siteCount": 4,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Suh I-K",
+            "Ohta H",
+            "Waseda Y"
+          ],
+          "title": "High-temperature thermal expansion of six metallic elements measured\n by dilatation method and X-ray diffraction\n Sample: at T = 293 K",
+          "journal": "Journal of Materials Science",
+          "year": 1988,
+          "volume": "23",
+          "pages": "757–760"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "Pha Au tham chiếu; không mô phỏng hợp kim Au–Ag hay hình dạng hạt vàng tự nhiên.",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/native-gold.json",
+        "cif": "/assets/periodic-table/crystals/native-gold.cif",
+        "model": "/assets/periodic-table/crystals/native-gold.glb",
+        "preview": "/assets/periodic-table/crystals/native-gold.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -389,6 +527,11 @@
     {
       "title": "goldOxygen",
       "url": "https://journals.aps.org/prl/abstract/10.1103/g3bc-t1qv"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -396,6 +539,7 @@
     "sourceFile": "079_Au.docx",
     "sourceSha256": "485bdc85d2b438a1010114b5ef09dd2aa26d7a80cd360ab5f62fcde3f2d93b91",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/079_Au.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/vang-au/audit.md"
   }
 }

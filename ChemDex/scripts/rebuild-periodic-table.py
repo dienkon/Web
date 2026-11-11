@@ -565,6 +565,13 @@ def main():
     write(ROOT / 'data/manifest.json', manifests)
     write(ROOT / 'shared/elements.json', list(shared.values()))
     write(ROOT / 'data/mineral-models.json', {'date': DATE, 'models': list(mineral_catalog.values())})
+    # Keep the subsequent published-structure review on every DOCX replay.
+    if (ROOT / 'data/crystal-catalog.json').exists():
+        import importlib.util
+        overlay_spec = importlib.util.spec_from_file_location('crystal_overlay', ROOT / 'scripts/enrich-crystal-profiles.py')
+        overlay = importlib.util.module_from_spec(overlay_spec)
+        overlay_spec.loader.exec_module(overlay)
+        overlay.main()
     write(AUDIT / 'source-inventory.json', sources)
     write(AUDIT / 'reference-facts.json', refs)
     write(AUDIT / 'summary.json', {'date': DATE, 'files': len(sources), 'paragraphs': sum(a['paragraphs'] for a in audits),

@@ -66,7 +66,8 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Tứ phương tâm khối (BCT)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
   },
   "structureType": "Tứ phương tâm khối (BCT)",
   "occurrence": {
@@ -104,16 +105,58 @@
       "sourceSearch": "https://rruff.info/Uraninite",
       "model": "/assets/periodic-table/minerals/uraninite.glb",
       "preview": "/assets/periodic-table/minerals/uraninite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "uraninite",
+          "amcsdId": "0011728",
+          "mineralName": "Uraninite",
+          "formula": "U O2",
+          "spaceGroup": "F m 3 m",
+          "cell": {
+            "a": 5.4682,
+            "b": 5.4682,
+            "c": 5.4682,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 163.50580330256804,
+          "siteCount": 12,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Wyckoff R W G"
+            ],
+            "title": "Second edition. Interscience Publishers, New York, New York\n Fluorite structure",
+            "journal": "Crystal Structures",
+            "year": 1963,
+            "volume": "1",
+            "pages": "239–444"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "literature-compilation",
+          "note": "Pha UO2 tham chiếu theo tài liệu tổng hợp; quặng uraninite tự nhiên có thể không đúng tỉ lượng, chứa tạp chất và tổn thương phóng xạ.",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/uraninite.json",
+          "cif": "/assets/periodic-table/crystals/uraninite.cif",
+          "model": "/assets/periodic-table/crystals/uraninite.glb",
+          "preview": "/assets/periodic-table/crystals/uraninite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Pitchblende_schlema-alberoda.JPG"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/diagrams/091_Pa.svg",
-    "alt": "Protactinium: sơ đồ minh họa nguyên tố",
+    "image": "/assets/periodic-table/mineral-photos/uraninite.jpg",
+    "alt": "Uraninite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "diagram",
-    "source": "",
-    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
-    "credit": ""
+    "source": "https://commons.wikimedia.org/wiki/File:Pitchblende_schlema-alberoda.JPG",
+    "caption": "Ảnh mẫu tham chiếu Uraninite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+    "credit": "",
+    "author": "Geomartin",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
   },
   "isotopes": [
     {
@@ -398,9 +441,62 @@
       "author": "ChemDex",
       "license": "ChemDex schematic diagram",
       "licenseUrl": ""
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/uraninite.jpg",
+      "role": "natural-mineral",
+      "title": "Uraninite",
+      "desc": "Ảnh mẫu tham chiếu Uraninite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Pitchblende_schlema-alberoda.JPG",
+      "author": "Geomartin",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Uraninite",
+      "src": "/assets/periodic-table/crystals/uraninite.json",
+      "crystal": {
+        "id": "uraninite",
+        "amcsdId": "0011728",
+        "mineralName": "Uraninite",
+        "formula": "U O2",
+        "spaceGroup": "F m 3 m",
+        "cell": {
+          "a": 5.4682,
+          "b": 5.4682,
+          "c": 5.4682,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 163.50580330256804,
+        "siteCount": 12,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Wyckoff R W G"
+          ],
+          "title": "Second edition. Interscience Publishers, New York, New York\n Fluorite structure",
+          "journal": "Crystal Structures",
+          "year": 1963,
+          "volume": "1",
+          "pages": "239–444"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "literature-compilation",
+        "note": "Pha UO2 tham chiếu theo tài liệu tổng hợp; quặng uraninite tự nhiên có thể không đúng tỉ lượng, chứa tạp chất và tổn thương phóng xạ.",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/uraninite.json",
+        "cif": "/assets/periodic-table/crystals/uraninite.cif",
+        "model": "/assets/periodic-table/crystals/uraninite.glb",
+        "preview": "/assets/periodic-table/crystals/uraninite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -435,6 +531,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -442,6 +543,7 @@
     "sourceFile": "091_Pa.docx",
     "sourceSha256": "007db987f3ee0c168d4da775fdf12d2c1443ddd1008bea2840ced416f479b51a",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/091_Pa.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/protactinium-pa/audit.md"
   }
 }

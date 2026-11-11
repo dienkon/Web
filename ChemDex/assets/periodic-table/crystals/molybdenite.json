@@ -1,0 +1,204 @@
+{
+  "amcsdId": "0009788",
+  "mineralName": "Molybdenite",
+  "formula": "Mo S2",
+  "spaceGroup": "P 63/m m c",
+  "cell": {
+    "a": 3.161,
+    "b": 3.161,
+    "c": 12.295,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 106.39179996177569,
+  "declaredVolume": 106.392,
+  "basis": [
+    [
+      3.161,
+      -1.5804999999999993,
+      0.0
+    ],
+    [
+      0.0,
+      2.7375063013626106,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      12.295
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,-x+y,1/2+z",
+    "x,x-y,1/2-z",
+    "-x+y,-x,1/2-z",
+    "x-y,x,1/2+z",
+    "-y,-x,z",
+    "y,x,-z",
+    "y,-x+y,-z",
+    "-y,x-y,z",
+    "x-y,-y,1/2+z",
+    "-x+y,y,1/2-z",
+    "x,y,1/2-z",
+    "-x,-y,1/2+z",
+    "x,x-y,z",
+    "-x,-x+y,-z",
+    "x-y,x,-z",
+    "-x+y,-x,z",
+    "y,x,1/2+z",
+    "-y,-x,1/2-z",
+    "-y,x-y,1/2-z",
+    "y,-x+y,1/2+z",
+    "-x+y,y,z",
+    "x-y,-y,-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Mo",
+      "element": "Mo",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S",
+      "element": "S",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.6275
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Mo",
+      "label": "Mo",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "position": [
+        -4e-07,
+        1.8250044,
+        3.07375
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mo",
+      "label": "Mo",
+      "fractional": [
+        0.66666675,
+        0.3333335,
+        0.75
+      ],
+      "position": [
+        1.5805,
+        0.9125026,
+        9.22125
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.6275
+      ],
+      "position": [
+        -4e-07,
+        1.8250044,
+        7.7151125
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.66666675,
+        0.3333335,
+        0.1275
+      ],
+      "position": [
+        1.5805,
+        0.9125026,
+        1.5676125
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.33333325,
+        0.6666665,
+        0.8725
+      ],
+      "position": [
+        0.0,
+        1.8250037,
+        10.7273875
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.66666675,
+        0.33333325,
+        0.3725
+      ],
+      "position": [
+        1.5805004,
+        0.9125019,
+        4.5798875
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 6,
+  "speciesPositionCount": 6,
+  "cellComposition": {
+    "Mo": 2,
+    "S": 4
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Moss S C",
+      "Schonfeld B",
+      "Huang J J"
+    ],
+    "title": "Anisotropic mean-square displacements (MSD) in single crystals\n of 2H- and 3R-MoS2\n Note: 2H polytype, this is the most common in nature",
+    "journal": "Acta Crystallographica, Section B",
+    "year": 1983,
+    "volume": "39",
+    "pages": "404–407"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 24,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.8802034026934249e-06
+  },
+  "id": "molybdenite",
+  "note": ""
+}

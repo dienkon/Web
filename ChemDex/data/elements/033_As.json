@@ -60,7 +60,45 @@
     "valenceElectrons": 5,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Arsenic xám có mạng mặt thoi (rhombohedral), có thể mô tả bằng hệ trục lục phương.",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-as",
+      "amcsdId": "0012835",
+      "mineralName": "Arsenic",
+      "formula": "As",
+      "spaceGroup": "R -3 m",
+      "cell": {
+        "a": 3.7598,
+        "b": 3.7598,
+        "c": 10.5475,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 129.12479731860074,
+      "siteCount": 6,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Schiferl D",
+          "Barrett CS"
+        ],
+        "title": "The crystal structure of arsenic at 4.2, 78 and 299 K\n Sample: T = 299 K",
+        "journal": "Journal of Applied Crystallography",
+        "year": 1969,
+        "volume": "2",
+        "pages": "30–36"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-as.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-as.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-as.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-as.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Arsenic xám có mạng mặt thoi (rhombohedral), có thể mô tả bằng hệ trục lục phương.",
   "occurrence": {
@@ -100,16 +138,59 @@
       "sourceSearch": "https://rruff.info/Arsenopyrite",
       "model": "/assets/periodic-table/minerals/arsenopyrite.glb",
       "preview": "/assets/periodic-table/minerals/arsenopyrite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "arsenopyrite",
+          "amcsdId": "0000112",
+          "mineralName": "Arsenopyrite",
+          "formula": "Fe As S",
+          "spaceGroup": "P -1",
+          "cell": {
+            "a": 5.744,
+            "b": 5.675,
+            "c": 5.785,
+            "alpha": 90.0,
+            "beta": 112.28,
+            "gamma": 90.0
+          },
+          "volume": 174.49620653383698,
+          "siteCount": 12,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Morimoto N",
+              "Clark L A"
+            ],
+            "title": "Arsenopyrite crystal-chemical relations\n From Freiberg, Germany",
+            "journal": "American Mineralogist",
+            "year": 1961,
+            "volume": "46",
+            "pages": "1448–1469"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/arsenopyrite.json",
+          "cif": "/assets/periodic-table/crystals/arsenopyrite.cif",
+          "model": "/assets/periodic-table/crystals/arsenopyrite.glb",
+          "preview": "/assets/periodic-table/crystals/arsenopyrite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Arsenopyrite-117874.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/033_As.jpg",
-    "alt": "Arsenic: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/arsenopyrite.jpg",
+    "alt": "Arsenopyrite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Arsen_1a.jpg",
-    "caption": "Ảnh tham chiếu mẫu Arsenic (As); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "Arsen_1.jpg : Original uploader was Tomihahndorf at de.wikipedia derivative work: Materialscientist ( talk ) · CC BY-SA 3.0"
+    "source": "https://commons.wikimedia.org/wiki/File:Arsenopyrite-117874.jpg",
+    "caption": "Ảnh mẫu tham chiếu Arsenopyrite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "Arsen_1.jpg : Original uploader was Tomihahndorf at de.wikipedia derivative work: Materialscientist ( talk ) · CC BY-SA 3.0",
+    "author": "Robert M. Lavinsky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -412,9 +493,63 @@
       "author": "Arsen_1.jpg : Original uploader was Tomihahndorf at de.wikipedia derivative work: Materialscientist ( talk )",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/arsenopyrite.jpg",
+      "role": "natural-mineral",
+      "title": "Arsenopyrite",
+      "desc": "Ảnh mẫu tham chiếu Arsenopyrite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Arsenopyrite-117874.jpg",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Arsenopyrite",
+      "src": "/assets/periodic-table/crystals/arsenopyrite.json",
+      "crystal": {
+        "id": "arsenopyrite",
+        "amcsdId": "0000112",
+        "mineralName": "Arsenopyrite",
+        "formula": "Fe As S",
+        "spaceGroup": "P -1",
+        "cell": {
+          "a": 5.744,
+          "b": 5.675,
+          "c": 5.785,
+          "alpha": 90.0,
+          "beta": 112.28,
+          "gamma": 90.0
+        },
+        "volume": 174.49620653383698,
+        "siteCount": 12,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Morimoto N",
+            "Clark L A"
+          ],
+          "title": "Arsenopyrite crystal-chemical relations\n From Freiberg, Germany",
+          "journal": "American Mineralogist",
+          "year": 1961,
+          "volume": "46",
+          "pages": "1448–1469"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/arsenopyrite.json",
+        "cif": "/assets/periodic-table/crystals/arsenopyrite.cif",
+        "model": "/assets/periodic-table/crystals/arsenopyrite.glb",
+        "preview": "/assets/periodic-table/crystals/arsenopyrite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -449,6 +584,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -456,6 +596,7 @@
     "sourceFile": "033_As.docx",
     "sourceSha256": "93cabcb5ac39d1ebebbc24bd5f0170d08a2f726cefe4dc93d6a5673e092a565b",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/033_As.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/asen-as/audit.md"
   }
 }

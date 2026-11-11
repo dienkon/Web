@@ -64,7 +64,45 @@
     "valenceElectrons": 5,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Mặt thoi (rhombohedral) đối với bismuth ở điều kiện thường.",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-bi",
+      "amcsdId": "0012841",
+      "mineralName": "Bismuth",
+      "formula": "Bi",
+      "spaceGroup": "R -3 m",
+      "cell": {
+        "a": 4.546,
+        "b": 4.546,
+        "c": 11.862,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 212.2987388020819,
+      "siteCount": 6,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Schiferl D",
+          "Barrett CS"
+        ],
+        "title": "The crystal structure of arsenic at 4.2, 78 and 299 K\n Sample: T = 298 K",
+        "journal": "Journal of Applied Crystallography",
+        "year": 1969,
+        "volume": "2",
+        "pages": "30–36"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-bi.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-bi.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-bi.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-bi.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Mặt thoi (rhombohedral) đối với bismuth ở điều kiện thường.",
   "occurrence": {
@@ -100,16 +138,59 @@
       "sourceSearch": "https://rruff.info/Bismuthinite",
       "model": "/assets/periodic-table/minerals/bismuthinite.glb",
       "preview": "/assets/periodic-table/minerals/bismuthinite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "bismuthinite",
+          "amcsdId": "0003562",
+          "mineralName": "Bismuthinite",
+          "formula": "Bi2 S3",
+          "spaceGroup": "P n m a",
+          "cell": {
+            "a": 11.316,
+            "b": 3.9709,
+            "c": 11.178,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 502.28012578320005,
+          "siteCount": 20,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Kimata M",
+              "Kyono A"
+            ],
+            "title": "Structural variations induced by difference of the inert pair effect\n in the stibnite-bismuthinite solid solution series (Sb,Bi)2S3\n Sample #1",
+            "journal": "American Mineralogist",
+            "year": 2004,
+            "volume": "89",
+            "pages": "932–940"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/bismuthinite.json",
+          "cif": "/assets/periodic-table/crystals/bismuthinite.cif",
+          "model": "/assets/periodic-table/crystals/bismuthinite.glb",
+          "preview": "/assets/periodic-table/crystals/bismuthinite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Bismuthinite.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/diagrams/083_Bi.svg",
-    "alt": "Bismuth: sơ đồ minh họa nguyên tố",
+    "image": "/assets/periodic-table/mineral-photos/bismuthinite.jpg",
+    "alt": "Bismuthinite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "diagram",
-    "source": "",
-    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
-    "credit": ""
+    "source": "https://commons.wikimedia.org/wiki/File:Bismuthinite.jpg",
+    "caption": "Ảnh mẫu tham chiếu Bismuthinite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "",
+    "author": "Didier Descouens",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "isotopes": [
     {
@@ -391,9 +472,63 @@
       "author": "ChemDex",
       "license": "ChemDex schematic diagram",
       "licenseUrl": ""
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/bismuthinite.jpg",
+      "role": "natural-mineral",
+      "title": "Bismuthinite",
+      "desc": "Ảnh mẫu tham chiếu Bismuthinite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Bismuthinite.jpg",
+      "author": "Didier Descouens",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Bismuthinite",
+      "src": "/assets/periodic-table/crystals/bismuthinite.json",
+      "crystal": {
+        "id": "bismuthinite",
+        "amcsdId": "0003562",
+        "mineralName": "Bismuthinite",
+        "formula": "Bi2 S3",
+        "spaceGroup": "P n m a",
+        "cell": {
+          "a": 11.316,
+          "b": 3.9709,
+          "c": 11.178,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 502.28012578320005,
+        "siteCount": 20,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Kimata M",
+            "Kyono A"
+          ],
+          "title": "Structural variations induced by difference of the inert pair effect\n in the stibnite-bismuthinite solid solution series (Sb,Bi)2S3\n Sample #1",
+          "journal": "American Mineralogist",
+          "year": 2004,
+          "volume": "89",
+          "pages": "932–940"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/bismuthinite.json",
+        "cif": "/assets/periodic-table/crystals/bismuthinite.cif",
+        "model": "/assets/periodic-table/crystals/bismuthinite.glb",
+        "preview": "/assets/periodic-table/crystals/bismuthinite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -428,6 +563,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -435,6 +575,7 @@
     "sourceFile": "083_Bi.docx",
     "sourceSha256": "af384f4a922c89417a3c8187b3bbce63371b1caaae26daa37c23c8f0980c6482",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/083_Bi.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/bismuth-bi/audit.md"
   }
 }

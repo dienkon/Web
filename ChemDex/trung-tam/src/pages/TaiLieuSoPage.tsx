@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Sidebar } from '../components/Sidebar';
 import { DustBackground } from '../components/DustBackground';
 import { Header } from '../components/Header';
@@ -7,7 +7,7 @@ import { ReaderView } from '../components/ReaderView';
 import { PanelDrawer } from '../components/PanelDrawer';
 import { Toast } from '../components/Toast';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import { libraryDocs, fetchDocFull, getCategoryConfig, DocFull, categories } from '../utils/config';
+import { libraryDocs, fetchDocFull, getCategoryConfig, DocFull, categories, resolveDocId, docURL } from '../utils/config';
 import { RefreshCw } from 'lucide-react';
 import { filterLibraryDocs } from '../utils/librarySearch';
 
@@ -16,6 +16,7 @@ export default function App() {
   const [currentDocId, setCurrentDocId] = useState<string | null>(null);
   const [currentDoc, setCurrentDoc] = useState<DocFull | null>(null);
   const [isLoadingDoc, setIsLoadingDoc] = useState(false);
+  const pendingDocRequest = useRef(0);
   
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
@@ -37,10 +38,15 @@ export default function App() {
     setTimeout(() => setToastVisible(false), 3000);
   };
 
-  const handleDocClick = async (id: string) => {
+  const handleDocClick = async (requestedId: string, replace = false) => {
+    const id = resolveDocId(requestedId);
+    if (!id) return;
+    const request = ++pendingDocRequest.current;
     const url = new URL(window.location.href);
-    url.searchParams.set('doc', id);
-    window.history.replaceState(null, '', url);
+    url.pathname = docURL(id);
+    url.searchParams.delete('doc');
+    if (replace) window.history.replaceState(null, '', url);
+    else window.history.pushState(null, '', url);
     // Add to history (front)
     setHistoryIds(prev => {
       const newHistory = [id, ...prev.filter(x => x !== id)].slice(0, 50);
@@ -57,11 +63,11 @@ export default function App() {
     
     try {
       const fullDoc = await fetchDocFull(id);
-      setCurrentDoc(fullDoc);
+      if (request === pendingDocRequest.current) setCurrentDoc(fullDoc);
     } catch (err) {
       console.error("Error fetching doc:", err);
     } finally {
-      setIsLoadingDoc(false);
+      if (request === pendingDocRequest.current) setIsLoadingDoc(false);
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -73,8 +79,22 @@ export default function App() {
     } else {
       document.body.classList.add('light-mode');
     }
-    const docId = new URLSearchParams(window.location.search).get('doc');
-    if (docId && libraryDocs.some(doc => doc.id === docId)) void handleDocClick(docId);
+    // Keep existing saved documents and opaque pre-migration links working.
+    const migrate = (ids: string[]) => [...new Set(ids.map(resolveDocId).filter(Boolean))] as string[];
+    setBookmarkedIds(migrate);
+    setHistoryIds(migrate);
+    const openLocation = () => {
+      const url = new URL(window.location.href);
+      const value = url.searchParams.get('doc') ?? decodeURIComponent(url.pathname.split('/tai-lieu-so/')[1]?.split('/')[0] ?? '');
+      if (resolveDocId(value)) void handleDocClick(value, true);
+      else {
+        pendingDocRequest.current++;
+        setCurrentView('library'); setCurrentDoc(null); setCurrentDocId(null); setIsLoadingDoc(false);
+      }
+    };
+    openLocation();
+    window.addEventListener('popstate', openLocation);
+    return () => { pendingDocRequest.current++; window.removeEventListener('popstate', openLocation); };
   }, []);
 
   const toggleBookmark = (id: string) => {
@@ -204,7 +224,7 @@ export default function App() {
                   <div className="flex items-center justify-between mb-6">
                     <h3 className="text-xl font-extrabold text-slate-900 flex items-center gap-3">
                       <svg className="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                      {activeCatConfig ? activeCatConfig.label : (searchQuery ? 'Kết quả tìm kiếm' : 'Chuyên mục Bài báo & Hồ sơ Chất')}
+                      {activeCatConfig ? activeCatConfig.label : (searchQuery ? 'Kết quả tìm kiếm' : 'Thư viện nguyên tố và hợp chất')}
                       {searchQuery && <span className="text-slate-500 text-sm ml-2 font-normal">Từ khóa: "{searchQuery}"</span>}
                     </h3>
                     <div className="flex items-center gap-2">
@@ -217,7 +237,7 @@ export default function App() {
                     <button onClick={() => setActiveCategory(null)} aria-pressed={!activeCategory} className={`px-4 py-2 rounded-xl border text-sm font-bold transition-all cursor-pointer ${!activeCategory ? 'border-sky-500 bg-sky-600 text-white shadow-sm' : 'border-slate-300 bg-white text-slate-700 hover:border-sky-300 hover:bg-sky-50'}`}>Tất cả</button>
                     {categories.map(cat => <button key={cat.id} onClick={() => setActiveCategory(cat.id)} aria-pressed={activeCategory===cat.id} className={`px-4 py-2 rounded-xl border text-sm font-bold transition-all cursor-pointer ${activeCategory===cat.id ? 'border-sky-500 bg-sky-600 text-white shadow-sm' : 'border-slate-300 bg-white text-slate-700 hover:border-sky-300 hover:bg-sky-50'}`}>{cat.label}</button>)}
                   </div>
-                  <LibraryGrid docs={filteredDocs} onDocClick={handleDocClick} bookmarkedIds={bookmarkedIds} onToggleBookmark={toggleBookmark} onTagClick={handleTagClick} />
+                  <LibraryGrid docs={filteredDocs} onDocClick={(id) => void handleDocClick(id)} bookmarkedIds={bookmarkedIds} onToggleBookmark={toggleBookmark} onTagClick={handleTagClick} />
 
               
             </div>
@@ -234,9 +254,11 @@ export default function App() {
         <ReaderView 
           doc={currentDoc} 
           onBack={() => {
+            pendingDocRequest.current++;
             const url = new URL(window.location.href);
+            url.pathname = '/trung-tam/tai-lieu-so/';
             url.searchParams.delete('doc');
-            window.history.replaceState(null, '', url);
+            window.history.pushState(null, '', url);
             setCurrentView('library');
             setCurrentDoc(null);
             setCurrentDocId(null);
@@ -245,7 +267,7 @@ export default function App() {
           isBookmarked={currentDocId ? bookmarkedIds.includes(currentDocId) : false}
           onToggleBookmark={toggleBookmark}
           onTagClick={handleTagClick}
-          onDocClick={handleDocClick}
+          onDocClick={(id) => void handleDocClick(id)}
           relatedDoc={relatedDoc}
         />
       )}
@@ -272,7 +294,7 @@ export default function App() {
         onClose={() => setHistoryOpen(false)}
         title="Lịch sử đọc"
         items={historyDocs}
-        onItemClick={handleDocClick}
+        onItemClick={(id) => void handleDocClick(id)}
         position="right"
       />
 
@@ -281,7 +303,7 @@ export default function App() {
         onClose={() => setBookmarksOpen(false)}
         title="Tài liệu đã lưu"
         items={bookmarkedDocs}
-        onItemClick={handleDocClick}
+        onItemClick={(id) => void handleDocClick(id)}
         onRemoveItem={toggleBookmark}
         position="right"
       />

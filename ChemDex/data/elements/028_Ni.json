@@ -60,7 +60,46 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-ni",
+      "amcsdId": "0013097",
+      "mineralName": "Nickel",
+      "formula": "Ni",
+      "spaceGroup": "F m 3 m",
+      "cell": {
+        "a": 3.524,
+        "b": 3.524,
+        "c": 3.524,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 43.763061824,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Suh I-K",
+          "Ohta H",
+          "Waseda Y"
+        ],
+        "title": "High-temperature thermal expansion of six metallic elements measured\n by dilatation method and X-ray diffraction\n Sample: at T = 293 K",
+        "journal": "Journal of Materials Science",
+        "year": 1988,
+        "volume": "23",
+        "pages": "757–760"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-ni.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-ni.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-ni.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-ni.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)",
   "occurrence": {
@@ -99,16 +138,59 @@
       "sourceSearch": "https://rruff.info/Pentlandite",
       "model": "/assets/periodic-table/minerals/pentlandite.glb",
       "preview": "/assets/periodic-table/minerals/pentlandite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "pentlandite",
+          "amcsdId": "0000437",
+          "mineralName": "Pentlandite",
+          "formula": "Fe3.969 Ni4.842 Co.072 S8",
+          "spaceGroup": "F m 3 m",
+          "cell": {
+            "a": 10.038,
+            "b": 10.038,
+            "c": 10.038,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 1011.4433748720002,
+          "siteCount": 68,
+          "mixedSiteCount": 36,
+          "reference": {
+            "authors": [
+              "Prewitt C T",
+              "Rajamani V"
+            ],
+            "title": "Thermal expansion of the pentlandite structure\n Frood, at 24 deg C",
+            "journal": "American Mineralogist",
+            "year": 1975,
+            "volume": "60",
+            "pages": "39–48"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/pentlandite.json",
+          "cif": "/assets/periodic-table/crystals/pentlandite.cif",
+          "model": "/assets/periodic-table/crystals/pentlandite.glb",
+          "preview": "/assets/periodic-table/crystals/pentlandite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Pentlandite,_Pyrrhotite-540342.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/diagrams/028_Ni.svg",
-    "alt": "Nickel: sơ đồ minh họa nguyên tố",
+    "image": "/assets/periodic-table/mineral-photos/pentlandite.jpg",
+    "alt": "Pentlandite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "diagram",
-    "source": "",
-    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
-    "credit": ""
+    "source": "https://commons.wikimedia.org/wiki/File:Pentlandite,_Pyrrhotite-540342.jpg",
+    "caption": "Ảnh mẫu tham chiếu Pentlandite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "",
+    "author": "John Sobolewski (JSS)",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
   },
   "isotopes": [
     {
@@ -551,9 +633,63 @@
       "author": "ChemDex",
       "license": "ChemDex schematic diagram",
       "licenseUrl": ""
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/pentlandite.jpg",
+      "role": "natural-mineral",
+      "title": "Pentlandite",
+      "desc": "Ảnh mẫu tham chiếu Pentlandite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Pentlandite,_Pyrrhotite-540342.jpg",
+      "author": "John Sobolewski (JSS)",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Pentlandite",
+      "src": "/assets/periodic-table/crystals/pentlandite.json",
+      "crystal": {
+        "id": "pentlandite",
+        "amcsdId": "0000437",
+        "mineralName": "Pentlandite",
+        "formula": "Fe3.969 Ni4.842 Co.072 S8",
+        "spaceGroup": "F m 3 m",
+        "cell": {
+          "a": 10.038,
+          "b": 10.038,
+          "c": 10.038,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 1011.4433748720002,
+        "siteCount": 68,
+        "mixedSiteCount": 36,
+        "reference": {
+          "authors": [
+            "Prewitt C T",
+            "Rajamani V"
+          ],
+          "title": "Thermal expansion of the pentlandite structure\n Frood, at 24 deg C",
+          "journal": "American Mineralogist",
+          "year": 1975,
+          "volume": "60",
+          "pages": "39–48"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/pentlandite.json",
+        "cif": "/assets/periodic-table/crystals/pentlandite.cif",
+        "model": "/assets/periodic-table/crystals/pentlandite.glb",
+        "preview": "/assets/periodic-table/crystals/pentlandite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -588,6 +724,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -595,6 +736,7 @@
     "sourceFile": "028_Ni.docx",
     "sourceSha256": "24fb8c69cc5788a8d7fcd4d27389141d0728d329078ca5067379f1e3994c0181",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/028_Ni.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/niken-ni/audit.md"
   }
 }

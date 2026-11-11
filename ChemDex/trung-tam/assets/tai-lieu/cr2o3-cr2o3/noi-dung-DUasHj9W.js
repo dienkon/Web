@@ -1,0 +1,83 @@
+const n="cr2o3-cr2o3",h="cr2o3-cr2o3",t="reference/cr2o3-cr2o3/index.json",c=["ho-so-5840bb57a932"],i="Cr2O3 (Cr₂O₃) — Chân dung một hợp chất: Nguồn gốc lịch sử, mạng liên kết và tính chất",g="Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",r="hopchat",u="Hồ sơ báo chí toàn diện về Cr2O3 (Cr₂O₃): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",a="/assets/library/covalent-bonds.svg",o="Cr₂O₃",m=["Câu chuyện hợp chất","Cr2O3","Nhiệt phân"],s=["Cr2O3"],e=["formula-Cr2O3"],p="reference",v=10,C={formula:"Cr2O3",representativeId:"formula-Cr2O3",counts:{Cr:2,O:3},mass:151.989,material:!1,reactionIds:["rx_94345dcfcee7a72e"]},l=`## Câu chuyện: Cội nguồn lịch sử và hành trình bước vào từ điển hóa học của Cr2O3 (Cr₂O₃)
+
+Khi các nhà hóa học đặt câu hỏi *"Chất này từ đâu mà có và vì sao các nguyên tử của nó lại gắn kết bền chặt đến vậy?"*, câu trả lời dành cho **Cr2O3 (Cr₂O₃)** luôn mở ra một bức tranh giao thoa thú vị giữa lịch sử văn minh nhân loại và các định luật bất di bất dịch của cơ học lượng tử.
+
+Tư liệu bách khoa quốc tế tại [Wikipedia — Chromium(III) oxide](https://en.wikipedia.org/wiki/Chromium(III)_oxide) bổ sung thêm góc nhìn lịch sử và danh pháp quốc tế: *“Chromium(III) oxide (or chromia) is an inorganic compound with the formula Cr2O3. It is one of the principal oxides of chromium and is used as a pigment. In nature, it occurs as a rare mineral called eskolaite.”* — phản ánh vai trò quan trọng của **Cr2O3 (Cr₂O₃)** trong hệ thống phân loại hóa chất chuẩn IUPAC và thực tiễn phòng thí nghiệm toàn cầu.
+
+Để hiểu trọn vẹn cội nguồn của hợp chất, cần lần theo lịch sử khám phá từng nguyên tố tạo nên nó:
+
+- **Nhánh nguyên tố Crom (Cr)**: Dấu ấn lịch sử phát hiện do **Louis Nicolas Vauquelin** tìm ra (mốc thời gian: **1797**). Năm 1797, Louis Nicolas Vauquelin nghiên cứu khoáng vật crocoite và phát hiện một oxide mới. Năm 1798, ông điều chế được Chromium kim loại từ oxide này. Chromium được đặt tên từ tiếng Hy Lạp chrōma, có nghĩa là “màu sắc”, do các hợp chất Chromium thường có màu sắc đa dạng. Nguồn khoáng vật tự nhiên tiêu biểu của nguyên tố này gồm: *Quặng Chromite (FeCr₂O₄), Crocoite (PbCrO₄) và một số khoáng vật khác*.
+- **Nhánh nguyên tố Oxi (O)**: Dấu ấn lịch sử phát hiện do **Joseph Priestley và Carl Wilhelm Scheele** tìm ra (mốc thời gian: **1774**). Năm 1774, Joseph Priestley điều chế được Oxygen bằng cách nung Mercury(II) oxide và công bố kết quả. Carl Wilhelm Scheele cũng điều chế được Oxygen độc lập trước đó, khoảng năm 1772, nhưng công trình của ông được công bố sau. Antoine Lavoisier sau đó xác định vai trò của Oxygen trong sự cháy và hô hấp, đồng thời đặt tên Oxygen.
+
+![Khởi nguyên lịch sử và hành trình khám phá Cr2O3 (Cr₂O₃)](/assets/library/lab-synthesis.svg)
+*Hình 1. Bối cảnh lịch sử phát hiện, nguồn gốc tự nhiên và tiến trình định danh khoa học của Cr2O3 (Cr₂O₃).*
+
+## Lần theo thành phần nguyên tử: Cấu trúc không gian, hình học phân tử và cá tính của Cr2O3
+
+Để hiểu vì sao **Cr2O3 (Cr₂O₃)** lại mang những tính chất vật lý và hóa học đặc thù, chúng ta cần đi sâu vào "bản thiết kế hình học" của chất này. Một đơn vị công thức **Cr₂O₃** được liên kết chặt chẽ từ **5 nguyên tử** thuộc **2 nguyên tố hóa học**:
+
+- **Nguyên tố Crom (Cr)**: Góp mặt **2 nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử Crom phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **Cr2O3**.
+- **Nguyên tố Oxi (O)**: Góp mặt **3 nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử Oxi phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **Cr2O3**.
+
+Về kiến trúc hình học phân tử, trong mỗi đơn vị của **Cr2O3 (Cr₂O₃)**, các nguyên tử sắp xếp theo một trật tự không gian tinh tế để triệt tiêu các lực cản trở và đạt trạng thái cân bằng thế năng cực tiểu. Góc liên kết và khoảng cách giữa các tâm nguyên tử tạo nên một hình khối 3 chiều đặc thù, biến chất thành một nhân vật hóa học có cá tính rõ rệt trong thế giới tự nhiên.
+
+![Kiến trúc liên kết không gian 3 chiều của Cr2O3 (Cr₂O₃)](/assets/library/covalent-bonds.svg)
+*Hình 2. Mô phỏng trực quan sự phân bố đám mây electron, góc liên kết và trật tự phối trí không gian 3D của Cr2O3 (Cr₂O₃).*
+
+| Chỉ tiêu nhận diện & Cấu trúc 3D | Tư liệu xác thực từ hệ thống ChemDex |
+|---|---|
+| Tên chất & Danh pháp quốc tế | **Cr2O3** (Cr2O3) |
+| Công thức hóa học thực nghiệm | **Cr₂O₃**  |
+| Hình thái không gian 3 chiều | Kiến trúc phân tử vô cơ liên kết cộng hóa trị |
+| Quy mô cấu trúc vi mô | **5 nguyên tử** (2× Cr, 3× O) |
+| Trạng thái & Sắc thái nhận diện | Rắn / Dung dịch thực nghiệm |
+| Phòng quan sát 3D tương tác | [Mở mô hình xoay 360° và kiểm tra góc liên kết](/tien-ich/cau-truc-3d/?compound=formula-Cr2O3) |
+
+Người đọc có thể trực tiếp xoay mô hình 360°, bật/tắt nhãn nguyên tử và kiểm tra độ dài từng liên kết (tính bằng đơn vị Ångström) của chất này tại [Phòng quan sát Cấu trúc & Liên kết 3D — Cr2O3](/tien-ich/cau-truc-3d/?compound=formula-Cr2O3).
+
+## Dòng chảy phản ứng: Cách Cr2O3 ra đời và tương tác với thế giới hóa chất
+
+Trong cơ sở dữ liệu phản ứng thực nghiệm của ChemDex (với **1 phương trình** có sự góp mặt của **Cr₂O₃**, trong đó có **1 con đường tổng hợp/tạo thành** và **0 con đường chuyển hóa**), hành trình ra đời và biến đổi của chất này được minh chứng qua các kịch bản tiêu biểu sau:
+
+### Con đường hình thành & điều chế #1 (Nhiệt phân)
+
+Phương trình hóa học cân bằng chuẩn xác:
+
+\`2Cr(OH)3(s) → Cr2O3(s) + 3H2O(g)\`
+
+- **Bản chất & Cơ chế phản ứng**: Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.
+- **Điều kiện thực hiện**: Đun nóng làm mất nước; công thức hydroxide dùng quy ước không ghi nước hydrat..
+- **Hiện tượng quan sát thực nghiệm**: Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần..
+- **Phương trình ion rút gọn**: \`2Cr(OH)3(s) → Cr2O3(s) + 3H2O(g)\` (Trạng thái pha: \`2Cr(OH)3(s) → Cr2O3(s) + 3H2O(g)\`).
+
+## Từ phòng thí nghiệm đến đời sống: Nhận diện, ứng dụng và bài học thực tiễn của Cr2O3
+
+Trong dòng chảy của nền văn minh kỹ thuật và ứng dụng thực tiễn, **Cr2O3 (Cr₂O₃)** giữ vai trò không thể thay thế trên nhiều phương diện đời sống:
+
+- **Trong y học, đời sống & sản xuất công nghiệp**: Tùy thuộc vào bản tính phản ứng và tính chất bề mặt của **Cr₂O₃**, chất này tham gia vào các chu trình xử lý môi trường, làm chất xúc tác chuyển hóa, sản xuất vật liệu tiên tiến hoặc làm nguyên liệu tổng hợp các chế phẩm có giá trị cao.
+- **Trong nghiên cứu học thuật & thực nghiệm phân tích**: Là nhân vật trung tâm trong các thí nghiệm chuẩn hóa, giúp các nhà nghiên cứu kiểm chứng cơ chế phản ứng và nhận diện sự hiện diện của các hợp chất đồng hành.
+- **Trong thế giới giáo dục trực quan**: Đóng vai trò là vật mẫu điển hình kết nối trực quan giữa công thức trên giấy và thực tế tại [Phòng thí nghiệm ChemDex](/lab-2d/) cùng [Không gian Cấu trúc 3D](/tien-ich/cau-truc-3d/?compound=formula-Cr2O3).
+
+### Câu chuyện lịch sử ứng dụng & Bài học kinh nghiệm thực hành
+
+Lịch sử ứng dụng của **Cr2O3 (Cr₂O₃)** là một minh chứng sống động cho thấy sự am hiểu về bản chất chất hóa học có thể biến những vật chất thô sơ trong tự nhiên thành công cụ phục vụ đời sống con người. Trải qua hàng thế kỷ thực nghiệm — từ những phát hiện ngẫu nhiên trong xưởng nhuộm, mỏ quặng cho đến các dây chuyền tổng hợp hiện đại — bài học cốt lõi mà các thế hệ tiền bối để lại là luôn tôn trọng tính nết tự nhiên của chất: kiểm soát cẩn trọng nhiệt độ, môi trường tiếp xúc và trang bị đầy đủ phương tiện bảo hộ để phát huy tối đa giá trị hữu ích đồng thời ngăn ngừa mọi rủi ro tiềm ẩn trong thao tác.
+
+## Câu hỏi suy ngẫm & Tự kiểm tra kiến thức
+
+1. Dựa vào câu chuyện lịch sử và hành trình khám phá **Cr2O3 (Cr₂O₃)**, nguyên nhân vì sao tên gọi và phương pháp điều chế ban đầu của chất này lại phản ánh hoàn cảnh văn hóa và kỹ thuật của thời đại phát hiện ra nó?
+2. Trong phương trình hóa học \`2Cr(OH)3(s) → Cr2O3(s) + 3H2O(g)\`, hiện tượng thực nghiệm quan sát được hé lộ điều gì về tính cách hóa học của **Cr₂O₃** khi tương tác với các chất xung quanh?
+
+<details><summary>Xem phân tích và lời giải chi tiết</summary>
+
+- **Giải đáp câu 1:** Tên gọi và phương pháp tiếp cận đầu tiên của Cr₂O₃ bắt nguồn trực tiếp từ nguồn khoáng sản tự nhiên hoặc hiện tượng quan sát bằng mắt thường của các nhà thực nghiệm thời kỳ đó. Chỉ khi kỹ thuật phân tích và mô hình liên kết không gian phát triển, nhân loại mới hiểu trọn vẹn bản chất cấu tạo của chất.
+- **Giải đáp câu 2:** Phương trình phản ứng phản ánh sự tái sắp xếp liên kết: hiện tượng Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần. là bằng chứng vĩ mô cho thấy các nguyên tử đã đổi chỗ cho nhau để tạo thành cấu trúc mới bền vững hơn.
+
+</details>
+
+## Nguồn tư liệu khoa học & Khám phá tiếp theo
+
+- [Phòng quan sát Cấu trúc & Liên kết 3D tương tác — Cr2O3 (Cr₂O₃)](/tien-ich/cau-truc-3d/?compound=formula-Cr2O3)
+- [Wikipedia Quốc tế — Chromium(III) oxide](https://en.wikipedia.org/wiki/Chromium(III)_oxide)
+- [Danh mục hệ thống phản ứng & hợp chất ChemDex](/shared/reaction-catalog.generated.json)
+
+Bài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tổng hợp từ tư liệu lịch sử bách khoa trực tuyến, hồ sơ cấu trúc không gian 3 chiều và cơ sở dữ liệu phản ứng thực nghiệm, mang lại cái nhìn toàn diện về hành trình ra đời, cấu tạo vi mô và ứng dụng của **Cr2O3 (Cr₂O₃)**.`,d={id:n,slug:h,documentPath:t,legacyIds:c,title:i,author:g,category:r,summary:u,image:a,chemicalFormula:o,tags:m,aliases:s,substanceIds:e,documentKind:p,readingMinutes:10,chemicalEvidence:C,content:l};export{s as aliases,g as author,r as category,C as chemicalEvidence,o as chemicalFormula,l as content,d as default,p as documentKind,t as documentPath,n as id,a as image,c as legacyIds,v as readingMinutes,h as slug,e as substanceIds,u as summary,m as tags,i as title};

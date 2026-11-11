@@ -60,7 +60,8 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "α-Mn ở nhiệt độ thường có ô lập phương phức tạp, 58 nguyên tử/ô (I-43m); không phải BCC đơn nguyên tử.",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
   },
   "structureType": "α-Mn ở nhiệt độ thường có ô lập phương phức tạp, 58 nguyên tử/ô (I-43m); không phải BCC đơn nguyên tử.",
   "occurrence": {
@@ -100,16 +101,58 @@
       "sourceSearch": "https://rruff.info/Pyrolusite",
       "model": "/assets/periodic-table/minerals/pyrolusite.glb",
       "preview": "/assets/periodic-table/minerals/pyrolusite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "pyrolusite",
+          "amcsdId": "0011760",
+          "mineralName": "Pyrolusite",
+          "formula": "Mn O2",
+          "spaceGroup": "P 42/m n m",
+          "cell": {
+            "a": 4.396,
+            "b": 4.396,
+            "c": 2.871,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 55.481546736,
+          "siteCount": 6,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Wyckoff R W G"
+            ],
+            "title": "Second edition. Interscience Publishers, New York, New York\n Note: beta phase of MnO2, rutile structure",
+            "journal": "Crystal Structures",
+            "year": 1963,
+            "volume": "1",
+            "pages": "239–444"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "literature-compilation",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/pyrolusite.json",
+          "cif": "/assets/periodic-table/crystals/pyrolusite.cif",
+          "model": "/assets/periodic-table/crystals/pyrolusite.glb",
+          "preview": "/assets/periodic-table/crystals/pyrolusite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Pyrolusite_-_USGS_ID_Stose,_GW_1425.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/diagrams/025_Mn.svg",
-    "alt": "Manganese: sơ đồ minh họa nguyên tố",
+    "image": "/assets/periodic-table/mineral-photos/pyrolusite.jpg",
+    "alt": "Pyrolusite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "diagram",
-    "source": "",
-    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
-    "credit": ""
+    "source": "https://commons.wikimedia.org/wiki/File:Pyrolusite_-_USGS_ID_Stose,_GW_1425.jpg",
+    "caption": "Ảnh mẫu tham chiếu Pyrolusite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "",
+    "author": "Unknown author Unknown author",
+    "license": "Public domain",
+    "licenseUrl": ""
   },
   "isotopes": [
     {
@@ -404,9 +447,62 @@
       "author": "ChemDex",
       "license": "ChemDex schematic diagram",
       "licenseUrl": ""
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/pyrolusite.jpg",
+      "role": "natural-mineral",
+      "title": "Pyrolusite",
+      "desc": "Ảnh mẫu tham chiếu Pyrolusite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Pyrolusite_-_USGS_ID_Stose,_GW_1425.jpg",
+      "author": "Unknown author Unknown author",
+      "license": "Public domain",
+      "licenseUrl": ""
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Pyrolusite",
+      "src": "/assets/periodic-table/crystals/pyrolusite.json",
+      "crystal": {
+        "id": "pyrolusite",
+        "amcsdId": "0011760",
+        "mineralName": "Pyrolusite",
+        "formula": "Mn O2",
+        "spaceGroup": "P 42/m n m",
+        "cell": {
+          "a": 4.396,
+          "b": 4.396,
+          "c": 2.871,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 55.481546736,
+        "siteCount": 6,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Wyckoff R W G"
+          ],
+          "title": "Second edition. Interscience Publishers, New York, New York\n Note: beta phase of MnO2, rutile structure",
+          "journal": "Crystal Structures",
+          "year": 1963,
+          "volume": "1",
+          "pages": "239–444"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "literature-compilation",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/pyrolusite.json",
+        "cif": "/assets/periodic-table/crystals/pyrolusite.cif",
+        "model": "/assets/periodic-table/crystals/pyrolusite.glb",
+        "preview": "/assets/periodic-table/crystals/pyrolusite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -441,6 +537,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -448,6 +549,7 @@
     "sourceFile": "025_Mn.docx",
     "sourceSha256": "6b6c76002c8bc00f1a6923235bb5600a78bef8e61dddee7ec61b07c89049bd7a",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/025_Mn.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/mangan-mn/audit.md"
   }
 }

@@ -64,7 +64,44 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương kép xếp chặt (DHCP) ở nhiệt độ thường.",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-la",
+      "amcsdId": "0011203",
+      "mineralName": "Lanthanum",
+      "formula": "La",
+      "spaceGroup": "P 63/m m c",
+      "cell": {
+        "a": 3.77,
+        "b": 3.77,
+        "c": 12.159,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 149.66187799874442,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Double hexagonal closest packed, dhcp, structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "7–83"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-la.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-la.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-la.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-la.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lục phương kép xếp chặt (DHCP) ở nhiệt độ thường.",
   "occurrence": {
@@ -100,16 +137,60 @@
       "sourceSearch": "https://rruff.info/Monazite-(Ce)",
       "model": "/assets/periodic-table/minerals/monazite.glb",
       "preview": "/assets/periodic-table/minerals/monazite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "monazite",
+          "amcsdId": "0001700",
+          "mineralName": "Monazite-(Ce)",
+          "formula": "Ce P O4",
+          "spaceGroup": "P 1 21/n 1",
+          "cell": {
+            "a": 6.788,
+            "b": 7.0163,
+            "c": 6.465,
+            "alpha": 90.0,
+            "beta": 103.43,
+            "gamma": 90.0
+          },
+          "volume": 299.48637533121257,
+          "siteCount": 24,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Hughes J M",
+              "Mariano A N",
+              "Ni Y"
+            ],
+            "title": "Crystal chemistry of the monazite and xenotime structures\n Ce(PO4)",
+            "journal": "American Mineralogist",
+            "year": 1995,
+            "volume": "80",
+            "pages": "21–26"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/monazite.json",
+          "cif": "/assets/periodic-table/crystals/monazite.cif",
+          "model": "/assets/periodic-table/crystals/monazite.glb",
+          "preview": "/assets/periodic-table/crystals/monazite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Monazite-(Ce)-164025.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/057_La.jpg",
-    "alt": "Lanthanum: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/monazite.jpg",
+    "alt": "Monazite-(Ce) — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Lanthanum-2.jpg",
-    "caption": "Ảnh tham chiếu mẫu Lanthanum (La); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "Jurii (Original uploader was Lanthanum-138 at en.wikipedia · CC BY 3.0"
+    "source": "https://commons.wikimedia.org/wiki/File:Monazite-(Ce)-164025.jpg",
+    "caption": "Ảnh mẫu tham chiếu Monazite-(Ce); ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "Jurii (Original uploader was Lanthanum-138 at en.wikipedia · CC BY 3.0",
+    "author": "Robert M. Lavinsky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -352,9 +433,64 @@
       "author": "Jurii (Original uploader was Lanthanum-138 at en.wikipedia",
       "license": "CC BY 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/monazite.jpg",
+      "role": "natural-mineral",
+      "title": "Monazite-(Ce)",
+      "desc": "Ảnh mẫu tham chiếu Monazite-(Ce); ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Monazite-(Ce)-164025.jpg",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Monazite-(Ce)",
+      "src": "/assets/periodic-table/crystals/monazite.json",
+      "crystal": {
+        "id": "monazite",
+        "amcsdId": "0001700",
+        "mineralName": "Monazite-(Ce)",
+        "formula": "Ce P O4",
+        "spaceGroup": "P 1 21/n 1",
+        "cell": {
+          "a": 6.788,
+          "b": 7.0163,
+          "c": 6.465,
+          "alpha": 90.0,
+          "beta": 103.43,
+          "gamma": 90.0
+        },
+        "volume": 299.48637533121257,
+        "siteCount": 24,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Hughes J M",
+            "Mariano A N",
+            "Ni Y"
+          ],
+          "title": "Crystal chemistry of the monazite and xenotime structures\n Ce(PO4)",
+          "journal": "American Mineralogist",
+          "year": 1995,
+          "volume": "80",
+          "pages": "21–26"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/monazite.json",
+        "cif": "/assets/periodic-table/crystals/monazite.cif",
+        "model": "/assets/periodic-table/crystals/monazite.glb",
+        "preview": "/assets/periodic-table/crystals/monazite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -393,6 +529,11 @@
     {
       "title": "lightRareEarthStructures",
       "url": "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.21.1524"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -400,6 +541,7 @@
     "sourceFile": "057_La.docx",
     "sourceSha256": "a1a2f6dd18b4d18c3283979a2322e2c23758851ea58bb60b66b1388c8ac94884",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/057_La.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/lanthanum-la/audit.md"
   }
 }

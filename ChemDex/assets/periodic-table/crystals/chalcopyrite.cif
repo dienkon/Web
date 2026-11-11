@@ -1,0 +1,50 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0009476
+_database_code_amcsd 0009476
+_chemical_name_mineral Chalcopyrite
+_chemical_formula_sum 'Cu Fe S2'
+_symmetry_space_group_name_H-M 'I -4 2 d'
+_cell_length_a 5.289
+_cell_length_b 5.289
+_cell_length_c 10.423
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 291.568009
+loop_
+_publ_author_name
+'Stewart J M'
+'Hall S R'
+_journal_name_full 'Acta Crystallographica, Section B'
+_journal_year 1973
+_journal_volume 29
+_publ_section_title 'The crystal structure refinement of chalcopyrite, CuFeS2'
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+1/2+x,1/2+y,1/2+z
+1/2-y,-x,3/4+z
+-y,1/2-x,1/4+z
+y,-x,-z
+1/2+y,1/2-x,1/2-z
+-x,1/2+y,1/4-z
+1/2-x,+y,3/4-z
+-x,-y,z
+1/2-x,1/2-y,1/2+z
+1/2+y,x,3/4+z
++y,1/2+x,1/4+z
+-y,x,-z
+1/2-y,1/2+x,1/2-z
+x,1/2-y,1/4-z
+1/2+x,-y,3/4-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Cu Cu 0 0 0 1
+Fe Fe 0 0 0.5 1
+S S 0.2574 0.25 0.125 1

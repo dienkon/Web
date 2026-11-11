@@ -1,0 +1,492 @@
+{
+  "amcsdId": "0000697",
+  "mineralName": "Zircon",
+  "formula": "Zr Si O4",
+  "spaceGroup": "I 41/a m d",
+  "cell": {
+    "a": 6.6042,
+    "b": 6.6042,
+    "c": 5.9796,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 260.80299050414396,
+  "declaredVolume": 260.803,
+  "basis": [
+    [
+      6.6042,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      6.6042,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.9796
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,1/2+z",
+    "1/4-y,3/4-x,1/4+z",
+    "3/4-y,1/4-x,3/4+z",
+    "1/4+y,3/4+x,1/4-z",
+    "3/4+y,1/4+x,3/4-z",
+    "1/4+y,3/4-x,1/4-z",
+    "3/4+y,1/4-x,3/4-z",
+    "1/4-y,3/4+x,1/4+z",
+    "3/4-y,1/4+x,3/4+z",
+    "1/2+x,-y,1/2+z",
+    "+x,1/2-y,+z",
+    "1/2-x,y,1/2-z",
+    "-x,1/2+y,-z",
+    "1/2+x,y,1/2-z",
+    "+x,1/2+y,-z",
+    "1/2-x,-y,1/2+z",
+    "-x,1/2-y,+z",
+    "1/4+y,1/4+x,3/4+z",
+    "3/4+y,3/4+x,1/4+z",
+    "1/4-y,1/4-x,3/4-z",
+    "3/4-y,3/4-x,1/4-z",
+    "1/4-y,1/4+x,3/4-z",
+    "3/4-y,3/4+x,1/4-z",
+    "1/4+y,1/4-x,3/4+z",
+    "3/4+y,3/4-x,1/4+z",
+    "-x,y,z",
+    "1/2-x,1/2+y,1/2+z",
+    "x,-y,-z",
+    "1/2+x,1/2-y,1/2-z",
+    "-x,-y,-z",
+    "1/2-x,1/2-y,1/2-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Zr",
+      "element": "Zr",
+      "fractional": [
+        0.0,
+        0.75,
+        0.125
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Si",
+      "element": "Si",
+      "fractional": [
+        0.0,
+        0.25,
+        0.375
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.0,
+        0.066,
+        0.1951
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Zr",
+      "label": "Zr",
+      "fractional": [
+        0.0,
+        0.75,
+        0.125
+      ],
+      "position": [
+        0.0,
+        4.95315,
+        0.74745
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Zr",
+      "label": "Zr",
+      "fractional": [
+        0.5,
+        0.25,
+        0.625
+      ],
+      "position": [
+        3.3021,
+        1.65105,
+        3.73725
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Zr",
+      "label": "Zr",
+      "fractional": [
+        0.5,
+        0.75,
+        0.375
+      ],
+      "position": [
+        3.3021,
+        4.95315,
+        2.24235
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Zr",
+      "label": "Zr",
+      "fractional": [
+        0.0,
+        0.25,
+        0.875
+      ],
+      "position": [
+        0.0,
+        1.65105,
+        5.23215
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Si",
+      "label": "Si",
+      "fractional": [
+        0.0,
+        0.25,
+        0.375
+      ],
+      "position": [
+        0.0,
+        1.65105,
+        2.24235
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Si",
+      "label": "Si",
+      "fractional": [
+        0.5,
+        0.75,
+        0.875
+      ],
+      "position": [
+        3.3021,
+        4.95315,
+        5.23215
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Si",
+      "label": "Si",
+      "fractional": [
+        0.0,
+        0.75,
+        0.625
+      ],
+      "position": [
+        0.0,
+        4.95315,
+        3.73725
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Si",
+      "label": "Si",
+      "fractional": [
+        0.5,
+        0.25,
+        0.125
+      ],
+      "position": [
+        3.3021,
+        1.65105,
+        0.74745
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.066,
+        0.1951
+      ],
+      "position": [
+        0.0,
+        0.4358772,
+        1.16662
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.5,
+        0.566,
+        0.6951
+      ],
+      "position": [
+        3.3021,
+        3.7379772,
+        4.15642
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.184,
+        0.75,
+        0.4451
+      ],
+      "position": [
+        1.2151728,
+        4.95315,
+        2.66152
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.684,
+        0.25,
+        0.9451
+      ],
+      "position": [
+        4.5172728,
+        1.65105,
+        5.65132
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.316,
+        0.75,
+        0.0549
+      ],
+      "position": [
+        2.0869272,
+        4.95315,
+        0.32828
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.816,
+        0.25,
+        0.5549
+      ],
+      "position": [
+        5.3890272,
+        1.65105,
+        3.31808
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.5,
+        0.934,
+        0.6951
+      ],
+      "position": [
+        3.3021,
+        6.1683228,
+        4.15642
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.434,
+        0.1951
+      ],
+      "position": [
+        0.0,
+        2.8662228,
+        1.16662
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.5,
+        0.066,
+        0.3049
+      ],
+      "position": [
+        3.3021,
+        0.4358772,
+        1.82318
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.566,
+        0.8049
+      ],
+      "position": [
+        0.0,
+        3.7379772,
+        4.81298
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.316,
+        0.25,
+        0.9451
+      ],
+      "position": [
+        2.0869272,
+        1.65105,
+        5.65132
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.816,
+        0.75,
+        0.4451
+      ],
+      "position": [
+        5.3890272,
+        4.95315,
+        2.66152
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.184,
+        0.25,
+        0.5549
+      ],
+      "position": [
+        1.2151728,
+        1.65105,
+        3.31808
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.684,
+        0.75,
+        0.0549
+      ],
+      "position": [
+        4.5172728,
+        4.95315,
+        0.32828
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.934,
+        0.8049
+      ],
+      "position": [
+        0.0,
+        6.1683228,
+        4.81298
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.5,
+        0.434,
+        0.3049
+      ],
+      "position": [
+        3.3021,
+        2.8662228,
+        1.82318
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "Zr": 4,
+    "Si": 4,
+    "O": 16
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Finger L W",
+      "Hazen R M"
+    ],
+    "title": "Crystal structure and compressibility of zircon at high pressure\n crystal No. 1, 1 atm - before P",
+    "journal": "American Mineralogist",
+    "year": 1979,
+    "volume": "64",
+    "pages": "196–201"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 32,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 3.641007342584728e-08
+  },
+  "id": "zircon",
+  "note": ""
+}

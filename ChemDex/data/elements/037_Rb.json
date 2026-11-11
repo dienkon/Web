@@ -62,7 +62,45 @@
     "valenceElectrons": 1,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-rb",
+      "amcsdId": "0012170",
+      "mineralName": "Rubidium",
+      "formula": "Rb",
+      "spaceGroup": "I m 3 m",
+      "cell": {
+        "a": 5.7,
+        "b": 5.7,
+        "c": 5.7,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 185.193,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Pearson W B",
+          "Kelly F M"
+        ],
+        "title": "The rubidium transition at ~180 K\n Sample: at T = 297 K\n Note: specimen III lattice parameter for this T is estimated",
+        "journal": "Canadian Journal of Physics",
+        "year": 1955,
+        "volume": "33",
+        "pages": "17–24"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản ghi ghi rõ hằng số mạng ở 297 K là giá trị ước lượng; giữ nguyên ghi chú nguồn.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-rb.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-rb.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-rb.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-rb.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)",
   "occurrence": {
@@ -100,16 +138,58 @@
       "sourceSearch": "https://rruff.info/Lepidolite",
       "model": "/assets/periodic-table/minerals/lepidolite.glb",
       "preview": "/assets/periodic-table/minerals/lepidolite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "lepidolite",
+          "amcsdId": "0000640",
+          "mineralName": "Lepidolite",
+          "formula": "K.667 Li1.153 Al1.107 Mn.037 Si2.334 O7.004 F H1.334",
+          "spaceGroup": "P 31 1 2",
+          "cell": {
+            "a": 5.2,
+            "b": 5.2,
+            "c": 29.76,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 120.0
+          },
+          "volume": 696.8996490895374,
+          "siteCount": 60,
+          "mixedSiteCount": 21,
+          "reference": {
+            "authors": [
+              "Brown B E"
+            ],
+            "title": "The crystal structure of a 3T lepidolite",
+            "journal": "American Mineralogist",
+            "year": 1978,
+            "volume": "63",
+            "pages": "332–336"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "Mẫu lepidolite 3T cụ thể; nhóm mica lithium có nhiều polytype. Không áp cấu trúc 3T cho mọi mẫu lepidolite.",
+          "limitations": "Nguồn có H trong công thức nhưng không cho tọa độ H; mô hình chỉ vẽ các vị trí đã công bố.",
+          "data": "/assets/periodic-table/crystals/lepidolite.json",
+          "cif": "/assets/periodic-table/crystals/lepidolite.cif",
+          "model": "/assets/periodic-table/crystals/lepidolite.glb",
+          "preview": "/assets/periodic-table/crystals/lepidolite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Boromuscovite-Lepidolite-ch38a.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/037_Rb.jpg",
-    "alt": "Rubidium: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/lepidolite.jpg",
+    "alt": "Lepidolite (nhóm mica lithium) — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Rb5.JPG",
-    "caption": "Ảnh tham chiếu mẫu Rubidium (Rb); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "Dnn87 · CC BY 3.0"
+    "source": "https://commons.wikimedia.org/wiki/File:Boromuscovite-Lepidolite-ch38a.jpg",
+    "caption": "Ảnh mẫu tham chiếu Lepidolite (nhóm mica lithium); ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+    "credit": "Dnn87 · CC BY 3.0",
+    "author": "Robert M. Lavinsky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -347,9 +427,62 @@
       "author": "Dnn87",
       "license": "CC BY 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/lepidolite.jpg",
+      "role": "natural-mineral",
+      "title": "Lepidolite (nhóm mica lithium)",
+      "desc": "Ảnh mẫu tham chiếu Lepidolite (nhóm mica lithium); ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Boromuscovite-Lepidolite-ch38a.jpg",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Lepidolite",
+      "src": "/assets/periodic-table/crystals/lepidolite.json",
+      "crystal": {
+        "id": "lepidolite",
+        "amcsdId": "0000640",
+        "mineralName": "Lepidolite",
+        "formula": "K.667 Li1.153 Al1.107 Mn.037 Si2.334 O7.004 F H1.334",
+        "spaceGroup": "P 31 1 2",
+        "cell": {
+          "a": 5.2,
+          "b": 5.2,
+          "c": 29.76,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 120.0
+        },
+        "volume": 696.8996490895374,
+        "siteCount": 60,
+        "mixedSiteCount": 21,
+        "reference": {
+          "authors": [
+            "Brown B E"
+          ],
+          "title": "The crystal structure of a 3T lepidolite",
+          "journal": "American Mineralogist",
+          "year": 1978,
+          "volume": "63",
+          "pages": "332–336"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "Mẫu lepidolite 3T cụ thể; nhóm mica lithium có nhiều polytype. Không áp cấu trúc 3T cho mọi mẫu lepidolite.",
+        "limitations": "Nguồn có H trong công thức nhưng không cho tọa độ H; mô hình chỉ vẽ các vị trí đã công bố.",
+        "data": "/assets/periodic-table/crystals/lepidolite.json",
+        "cif": "/assets/periodic-table/crystals/lepidolite.cif",
+        "model": "/assets/periodic-table/crystals/lepidolite.glb",
+        "preview": "/assets/periodic-table/crystals/lepidolite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -384,6 +517,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -391,6 +529,7 @@
     "sourceFile": "037_Rb.docx",
     "sourceSha256": "d39098a8285ecf6dc6a95f5bddbbb054d442fb905690fdb138c35e14408ef5bd",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/037_Rb.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/rubidium-rb/audit.md"
   }
 }

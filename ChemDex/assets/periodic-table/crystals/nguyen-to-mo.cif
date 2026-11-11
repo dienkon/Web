@@ -1,0 +1,132 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0012937
+_database_code_amcsd 0012937
+_chemical_name_mineral Molybdenum
+_chemical_formula_sum Mo
+_symmetry_space_group_name_H-M 'I m 3 m'
+_cell_length_a 3.141
+_cell_length_b 3.141
+_cell_length_c 3.141
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 30.9887322
+loop_
+_publ_author_name
+'Jette E R'
+'Foote F'
+_journal_name_full 'Journal of Chemical Physics'
+_journal_year 1935
+_journal_volume 3
+_publ_section_title
+;Precision determination of lattice constants
+ Sample: at T = 25 C
+ Note: lattice parameter is average of two samples
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+1/2+x,1/2+y,1/2+z
+z,-x,y
+1/2+z,1/2-x,1/2+y
+-y,z,-x
+1/2-y,1/2+z,1/2-x
+x,-y,z
+1/2+x,1/2-y,1/2+z
+-z,x,-y
+1/2-z,1/2+x,1/2-y
+y,-z,x
+1/2+y,1/2-z,1/2+x
+-x,y,-z
+1/2-x,1/2+y,1/2-z
+x,-z,-y
+1/2+x,1/2-z,1/2-y
+-z,y,x
+1/2-z,1/2+y,1/2+x
+y,-x,-z
+1/2+y,1/2-x,1/2-z
+-x,z,y
+1/2-x,1/2+z,1/2+y
+z,-y,-x
+1/2+z,1/2-y,1/2-x
+-y,x,z
+1/2-y,1/2+x,1/2+z
+x,z,y
+1/2+x,1/2+z,1/2+y
+-z,-y,-x
+1/2-z,1/2-y,1/2-x
+y,x,z
+1/2+y,1/2+x,1/2+z
+-x,-z,-y
+1/2-x,1/2-z,1/2-y
+z,y,x
+1/2+z,1/2+y,1/2+x
+-y,-x,-z
+1/2-y,1/2-x,1/2-z
+z,x,-y
+1/2+z,1/2+x,1/2-y
+-y,-z,x
+1/2-y,1/2-z,1/2+x
+x,y,-z
+1/2+x,1/2+y,1/2-z
+-z,-x,y
+1/2-z,1/2-x,1/2+y
+y,z,-x
+1/2+y,1/2+z,1/2-x
+-x,-y,z
+1/2-x,1/2-y,1/2+z
+-z,x,y
+1/2-z,1/2+x,1/2+y
+y,-z,-x
+1/2+y,1/2-z,1/2-x
+-x,y,z
+1/2-x,1/2+y,1/2+z
+z,-x,-y
+1/2+z,1/2-x,1/2-y
+-y,z,x
+1/2-y,1/2+z,1/2+x
+x,-y,-z
+1/2+x,1/2-y,1/2-z
+-x,z,-y
+1/2-x,1/2+z,1/2-y
+z,-y,x
+1/2+z,1/2-y,1/2+x
+-y,x,-z
+1/2-y,1/2+x,1/2-z
+x,-z,y
+1/2+x,1/2-z,1/2+y
+-z,y,-x
+1/2-z,1/2+y,1/2-x
+y,-x,z
+1/2+y,1/2-x,1/2+z
+-x,-z,y
+1/2-x,1/2-z,1/2+y
+z,y,-x
+1/2+z,1/2+y,1/2-x
+-y,-x,z
+1/2-y,1/2-x,1/2+z
+x,z,-y
+1/2+x,1/2+z,1/2-y
+-z,-y,x
+1/2-z,1/2-y,1/2+x
+y,x,-z
+1/2+y,1/2+x,1/2-z
+-z,-x,-y
+1/2-z,1/2-x,1/2-y
+y,z,x
+1/2+y,1/2+z,1/2+x
+-x,-y,-z
+1/2-x,1/2-y,1/2-z
+z,x,y
+1/2+z,1/2+x,1/2+y
+-y,-z,-x
+1/2-y,1/2-z,1/2-x
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Mo Mo 0 0 0 1

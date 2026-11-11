@@ -1,0 +1,204 @@
+{
+  "amcsdId": "0012835",
+  "mineralName": "Arsenic",
+  "formula": "As",
+  "spaceGroup": "R -3 m",
+  "cell": {
+    "a": 3.7598,
+    "b": 3.7598,
+    "c": 10.5475,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 129.12479731860074,
+  "declaredVolume": 129.125,
+  "basis": [
+    [
+      3.7598,
+      -1.879899999999999,
+      0.0
+    ],
+    [
+      0.0,
+      3.2560823131487324,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      10.5475
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "2/3+x,1/3+y,1/3+z",
+    "1/3+x,2/3+y,2/3+z",
+    "x,x-y,z",
+    "2/3+x,1/3+x-y,1/3+z",
+    "1/3+x,2/3+x-y,2/3+z",
+    "y,x,-z",
+    "2/3+y,1/3+x,1/3-z",
+    "1/3+y,2/3+x,2/3-z",
+    "-x+y,y,z",
+    "2/3-x+y,1/3+y,1/3+z",
+    "1/3-x+y,2/3+y,2/3+z",
+    "-x,-x+y,-z",
+    "2/3-x,1/3-x+y,1/3-z",
+    "1/3-x,2/3-x+y,2/3-z",
+    "-y,-x,z",
+    "2/3-y,1/3-x,1/3+z",
+    "1/3-y,2/3-x,2/3+z",
+    "x-y,-y,-z",
+    "2/3+x-y,1/3-y,1/3-z",
+    "1/3+x-y,2/3-y,2/3-z",
+    "y,-x+y,-z",
+    "2/3+y,1/3-x+y,1/3-z",
+    "1/3+y,2/3-x+y,2/3-z",
+    "-x+y,-x,z",
+    "2/3-x+y,1/3-x,1/3+z",
+    "1/3-x+y,2/3-x,2/3+z",
+    "-x,-y,-z",
+    "2/3-x,1/3-y,1/3-z",
+    "1/3-x,2/3-y,2/3-z",
+    "-y,x-y,z",
+    "2/3-y,1/3+x-y,1/3+z",
+    "1/3-y,2/3+x-y,2/3+z",
+    "x-y,x,-z",
+    "2/3+x-y,1/3+x,1/3-z",
+    "1/3+x-y,2/3+x,2/3-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "As",
+      "element": "As",
+      "fractional": [
+        0.0,
+        0.0,
+        0.22707
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "As",
+      "label": "As",
+      "fractional": [
+        0.0,
+        0.0,
+        0.22707
+      ],
+      "position": [
+        0.0,
+        0.0,
+        2.3950208
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "As",
+      "label": "As",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.56040333
+      ],
+      "position": [
+        1.8799,
+        1.0853608,
+        5.9108541
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "As",
+      "label": "As",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.89373667
+      ],
+      "position": [
+        -0.0,
+        2.1707216,
+        9.4266875
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "As",
+      "label": "As",
+      "fractional": [
+        0.0,
+        0.0,
+        0.77293
+      ],
+      "position": [
+        0.0,
+        0.0,
+        8.1524792
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "As",
+      "label": "As",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.10626333
+      ],
+      "position": [
+        1.8799,
+        1.0853608,
+        1.1208125
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "As",
+      "label": "As",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.43959667
+      ],
+      "position": [
+        -0.0,
+        2.1707216,
+        4.6366459
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 6,
+  "speciesPositionCount": 6,
+  "cellComposition": {
+    "As": 6
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Schiferl D",
+      "Barrett CS"
+    ],
+    "title": "The crystal structure of arsenic at 4.2, 78 and 299 K\n Sample: T = 299 K",
+    "journal": "Journal of Applied Crystallography",
+    "year": 1969,
+    "volume": "2",
+    "pages": "30–36"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 36,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.5696551202207523e-06
+  },
+  "id": "nguyen-to-as",
+  "note": ""
+}

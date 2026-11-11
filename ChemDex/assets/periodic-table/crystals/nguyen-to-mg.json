@@ -1,0 +1,131 @@
+{
+  "amcsdId": "0012871",
+  "mineralName": "Magnesium",
+  "formula": "Mg",
+  "spaceGroup": "P 63/m m c",
+  "cell": {
+    "a": 3.2093,
+    "b": 3.2093,
+    "c": 5.2103,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 46.47442164543402,
+  "declaredVolume": 46.474,
+  "basis": [
+    [
+      3.2093,
+      -1.6046499999999992,
+      0.0
+    ],
+    [
+      0.0,
+      2.779335328365399,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.2103
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,-x+y,1/2+z",
+    "x,x-y,1/2-z",
+    "-x+y,-x,1/2-z",
+    "x-y,x,1/2+z",
+    "-y,-x,z",
+    "y,x,-z",
+    "y,-x+y,-z",
+    "-y,x-y,z",
+    "x-y,-y,1/2+z",
+    "-x+y,y,1/2-z",
+    "x,y,1/2-z",
+    "-x,-y,1/2+z",
+    "x,x-y,z",
+    "-x,-x+y,-z",
+    "x-y,x,-z",
+    "-x+y,-x,z",
+    "y,x,1/2+z",
+    "-y,-x,1/2-z",
+    "-y,x-y,1/2-z",
+    "y,-x+y,1/2+z",
+    "-x+y,y,z",
+    "x-y,-y,-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Mg",
+      "element": "Mg",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Mg",
+      "label": "Mg",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "position": [
+        -4e-07,
+        1.8528905,
+        1.302575
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mg",
+      "label": "Mg",
+      "fractional": [
+        0.66666675,
+        0.3333335,
+        0.75
+      ],
+      "position": [
+        1.60465,
+        0.9264456,
+        3.907725
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 2,
+  "speciesPositionCount": 2,
+  "cellComposition": {
+    "Mg": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Straumanis M E"
+    ],
+    "title": "The precision determination of lattice constants by the powder and rotation\n crystal methods and applications\n Sample: at T = 25 C",
+    "journal": "Journal of Applied Physics",
+    "year": 1949,
+    "volume": "20",
+    "pages": "726–734"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 24,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 9.072634345848021e-06
+  },
+  "id": "nguyen-to-mg",
+  "note": ""
+}

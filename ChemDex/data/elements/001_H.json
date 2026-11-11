@@ -54,7 +54,8 @@
     "valenceElectrons": 1,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Tinh thể phân tử; pha rắn thường có cấu trúc lục phương xếp chặt (hcp).",
-    "latticeEvidence": "phase-dependent"
+    "latticeEvidence": "phase-dependent",
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
   },
   "structureType": "Tinh thể phân tử; pha rắn thường có cấu trúc lục phương xếp chặt (hcp).",
   "occurrence": {
@@ -564,6 +565,7 @@
     "sourceFile": "001_H.docx",
     "sourceSha256": "e5169eaef4c71f814ffc338a8b0f32271442bc73ea61a3df1158bffd72d025d8",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/001_H.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/hidro-h/audit.md"
   }
 }

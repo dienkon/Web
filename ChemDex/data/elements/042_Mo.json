@@ -62,7 +62,45 @@
     "valenceElectrons": 1,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-mo",
+      "amcsdId": "0012937",
+      "mineralName": "Molybdenum",
+      "formula": "Mo",
+      "spaceGroup": "I m 3 m",
+      "cell": {
+        "a": 3.141,
+        "b": 3.141,
+        "c": 3.141,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 30.988732221,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Jette E R",
+          "Foote F"
+        ],
+        "title": "Precision determination of lattice constants\n Sample: at T = 25 C\n Note: lattice parameter is average of two samples",
+        "journal": "Journal of Chemical Physics",
+        "year": 1935,
+        "volume": "3",
+        "pages": "605–616"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-mo.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-mo.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-mo.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-mo.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)",
   "occurrence": {
@@ -100,16 +138,60 @@
       "sourceSearch": "https://rruff.info/Molybdenite",
       "model": "/assets/periodic-table/minerals/molybdenite.glb",
       "preview": "/assets/periodic-table/minerals/molybdenite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "molybdenite",
+          "amcsdId": "0009788",
+          "mineralName": "Molybdenite",
+          "formula": "Mo S2",
+          "spaceGroup": "P 63/m m c",
+          "cell": {
+            "a": 3.161,
+            "b": 3.161,
+            "c": 12.295,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 120.0
+          },
+          "volume": 106.39179996177569,
+          "siteCount": 6,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Moss S C",
+              "Schonfeld B",
+              "Huang J J"
+            ],
+            "title": "Anisotropic mean-square displacements (MSD) in single crystals\n of 2H- and 3R-MoS2\n Note: 2H polytype, this is the most common in nature",
+            "journal": "Acta Crystallographica, Section B",
+            "year": 1983,
+            "volume": "39",
+            "pages": "404–407"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/molybdenite.json",
+          "cif": "/assets/periodic-table/crystals/molybdenite.cif",
+          "model": "/assets/periodic-table/crystals/molybdenite.glb",
+          "preview": "/assets/periodic-table/crystals/molybdenite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Molybdenite_quebec2.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/diagrams/042_Mo.svg",
-    "alt": "Molybdenum: sơ đồ minh họa nguyên tố",
+    "image": "/assets/periodic-table/mineral-photos/molybdenite.jpg",
+    "alt": "Molybdenite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "diagram",
-    "source": "",
-    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
-    "credit": ""
+    "source": "https://commons.wikimedia.org/wiki/File:Molybdenite_quebec2.jpg",
+    "caption": "Ảnh mẫu tham chiếu Molybdenite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "",
+    "author": "Didier Descouens",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
   },
   "isotopes": [
     {
@@ -490,9 +572,64 @@
       "author": "ChemDex",
       "license": "ChemDex schematic diagram",
       "licenseUrl": ""
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/molybdenite.jpg",
+      "role": "natural-mineral",
+      "title": "Molybdenite",
+      "desc": "Ảnh mẫu tham chiếu Molybdenite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Molybdenite_quebec2.jpg",
+      "author": "Didier Descouens",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Molybdenite",
+      "src": "/assets/periodic-table/crystals/molybdenite.json",
+      "crystal": {
+        "id": "molybdenite",
+        "amcsdId": "0009788",
+        "mineralName": "Molybdenite",
+        "formula": "Mo S2",
+        "spaceGroup": "P 63/m m c",
+        "cell": {
+          "a": 3.161,
+          "b": 3.161,
+          "c": 12.295,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 120.0
+        },
+        "volume": 106.39179996177569,
+        "siteCount": 6,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Moss S C",
+            "Schonfeld B",
+            "Huang J J"
+          ],
+          "title": "Anisotropic mean-square displacements (MSD) in single crystals\n of 2H- and 3R-MoS2\n Note: 2H polytype, this is the most common in nature",
+          "journal": "Acta Crystallographica, Section B",
+          "year": 1983,
+          "volume": "39",
+          "pages": "404–407"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/molybdenite.json",
+        "cif": "/assets/periodic-table/crystals/molybdenite.cif",
+        "model": "/assets/periodic-table/crystals/molybdenite.glb",
+        "preview": "/assets/periodic-table/crystals/molybdenite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -535,6 +672,11 @@
     {
       "title": "molybdenumChlorination",
       "url": "https://www.jstage.jst.go.jp/article/jesj/33/1/33_53/_pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -542,6 +684,7 @@
     "sourceFile": "042_Mo.docx",
     "sourceSha256": "32e98c3c00353fc1d76d5d3c377f3f8641cf76b1f7f040e5b6e6037802b2a938",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/042_Mo.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/molybdenum-mo/audit.md"
   }
 }

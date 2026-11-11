@@ -1,0 +1,477 @@
+{
+  "amcsdId": "0013201",
+  "mineralName": "Scheelite",
+  "formula": "Ca W O4",
+  "spaceGroup": "I 41/a",
+  "cell": {
+    "a": 5.2429,
+    "b": 5.2429,
+    "c": 11.3737,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 312.64027026321696,
+  "declaredVolume": 312.64,
+  "basis": [
+    [
+      5.2429,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      5.2429,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      11.3737
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,1/2+z",
+    "3/4+y,1/4-x,1/4-z",
+    "1/4+y,3/4-x,3/4-z",
+    "3/4-y,1/4+x,1/4+z",
+    "1/4-y,3/4+x,3/4+z",
+    "1/2+x,y,1/2-z",
+    "+x,1/2+y,-z",
+    "1/2-x,-y,1/2+z",
+    "-x,1/2-y,+z",
+    "3/4-y,3/4+x,3/4-z",
+    "1/4-y,1/4+x,1/4-z",
+    "3/4+y,3/4-x,3/4+z",
+    "1/4+y,1/4-x,1/4+z",
+    "-x,-y,-z",
+    "1/2-x,1/2-y,1/2-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Ca",
+      "element": "Ca",
+      "fractional": [
+        0.0,
+        0.25,
+        0.625
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "W",
+      "element": "W",
+      "fractional": [
+        0.0,
+        0.25,
+        0.125
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.1507,
+        0.0086,
+        0.2106
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Ca",
+      "label": "Ca",
+      "fractional": [
+        0.0,
+        0.25,
+        0.625
+      ],
+      "position": [
+        0.0,
+        1.310725,
+        7.1085625
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ca",
+      "label": "Ca",
+      "fractional": [
+        0.5,
+        0.75,
+        0.125
+      ],
+      "position": [
+        2.62145,
+        3.932175,
+        1.4217125
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ca",
+      "label": "Ca",
+      "fractional": [
+        0.5,
+        0.25,
+        0.875
+      ],
+      "position": [
+        2.62145,
+        1.310725,
+        9.9519875
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ca",
+      "label": "Ca",
+      "fractional": [
+        0.0,
+        0.75,
+        0.375
+      ],
+      "position": [
+        0.0,
+        3.932175,
+        4.2651375
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "W",
+      "label": "W",
+      "fractional": [
+        0.0,
+        0.25,
+        0.125
+      ],
+      "position": [
+        0.0,
+        1.310725,
+        1.4217125
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "W",
+      "label": "W",
+      "fractional": [
+        0.5,
+        0.75,
+        0.625
+      ],
+      "position": [
+        2.62145,
+        3.932175,
+        7.1085625
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "W",
+      "label": "W",
+      "fractional": [
+        0.5,
+        0.25,
+        0.375
+      ],
+      "position": [
+        2.62145,
+        1.310725,
+        4.2651375
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "W",
+      "label": "W",
+      "fractional": [
+        0.0,
+        0.75,
+        0.875
+      ],
+      "position": [
+        0.0,
+        3.932175,
+        9.9519875
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.1507,
+        0.0086,
+        0.2106
+      ],
+      "position": [
+        0.790105,
+        0.0450889,
+        2.3953012
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.6507,
+        0.5086,
+        0.7106
+      ],
+      "position": [
+        3.411555,
+        2.6665389,
+        8.0821512
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.7586,
+        0.0993,
+        0.0394
+      ],
+      "position": [
+        3.9772639,
+        0.52062,
+        0.4481238
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.2586,
+        0.5993,
+        0.5394
+      ],
+      "position": [
+        1.3558139,
+        3.14207,
+        6.1349738
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.7414,
+        0.4007,
+        0.4606
+      ],
+      "position": [
+        3.8870861,
+        2.10083,
+        5.2387262
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.2414,
+        0.9007,
+        0.9606
+      ],
+      "position": [
+        1.2656361,
+        4.72228,
+        10.9255762
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.6507,
+        0.0086,
+        0.2894
+      ],
+      "position": [
+        3.411555,
+        0.0450889,
+        3.2915488
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.1507,
+        0.5086,
+        0.7894
+      ],
+      "position": [
+        0.790105,
+        2.6665389,
+        8.9783988
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.3493,
+        0.9914,
+        0.7106
+      ],
+      "position": [
+        1.831345,
+        5.1978111,
+        8.0821512
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.8493,
+        0.4914,
+        0.2106
+      ],
+      "position": [
+        4.452795,
+        2.5763611,
+        2.3953012
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.7414,
+        0.9007,
+        0.5394
+      ],
+      "position": [
+        3.8870861,
+        4.72228,
+        6.1349738
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.2414,
+        0.4007,
+        0.0394
+      ],
+      "position": [
+        1.2656361,
+        2.10083,
+        0.4481238
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.7586,
+        0.5993,
+        0.9606
+      ],
+      "position": [
+        3.9772639,
+        3.14207,
+        10.9255762
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.2586,
+        0.0993,
+        0.4606
+      ],
+      "position": [
+        1.3558139,
+        0.52062,
+        5.2387262
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.8493,
+        0.9914,
+        0.7894
+      ],
+      "position": [
+        4.452795,
+        5.1978111,
+        8.9783988
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.3493,
+        0.4914,
+        0.2894
+      ],
+      "position": [
+        1.831345,
+        2.5763611,
+        3.2915488
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "Ca": 4,
+    "W": 4,
+    "O": 16
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Finger L W",
+      "Hazen R M",
+      "Mariathasan J W E"
+    ],
+    "title": "High-pressure crystal chemistry of scheelite-type tungstates and molybdates\n Note: P = 0.0001 GPa, in air",
+    "journal": "Journal of Physics and Chemistry of Solids",
+    "year": 1985,
+    "volume": "46",
+    "pages": "253–263"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 16,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 8.644542711923338e-07
+  },
+  "id": "scheelite",
+  "note": ""
+}

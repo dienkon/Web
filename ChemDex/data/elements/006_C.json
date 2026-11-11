@@ -56,7 +56,45 @@
     "valenceElectrons": 4,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Graphite có các lớp lục giác; kim cương có mạng lập phương kim cương với phối trí tứ diện, không phải kim loại FCC.",
-    "latticeEvidence": "phase-dependent"
+    "latticeEvidence": "phase-dependent",
+    "publishedCrystal": {
+      "id": "nguyen-to-c",
+      "amcsdId": "0014675",
+      "mineralName": "Graphite",
+      "formula": "C",
+      "spaceGroup": "P 63/m m c",
+      "cell": {
+        "a": 2.464,
+        "b": 2.464,
+        "c": 6.711,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 35.285743880564326,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Trucano P",
+          "Chen R"
+        ],
+        "title": "Structure of graphite by neutron diffraction\n Note: natural crystals",
+        "journal": "Nature",
+        "year": 1975,
+        "volume": "258",
+        "pages": "136–137"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Đây là graphite; carbon còn có kim cương và các dạng thù hình khác.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-c.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-c.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-c.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-c.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Graphite có các lớp lục giác; kim cương có mạng lập phương kim cương với phối trí tứ diện, không phải kim loại FCC.",
   "occurrence": {
@@ -99,16 +137,59 @@
       "sourceSearch": "https://rruff.info/Graphite",
       "model": "/assets/periodic-table/minerals/graphite.glb",
       "preview": "/assets/periodic-table/minerals/graphite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "graphite",
+          "amcsdId": "0014675",
+          "mineralName": "Graphite",
+          "formula": "C",
+          "spaceGroup": "P 63/m m c",
+          "cell": {
+            "a": 2.464,
+            "b": 2.464,
+            "c": 6.711,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 120.0
+          },
+          "volume": 35.285743880564326,
+          "siteCount": 4,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Trucano P",
+              "Chen R"
+            ],
+            "title": "Structure of graphite by neutron diffraction\n Note: natural crystals",
+            "journal": "Nature",
+            "year": 1975,
+            "volume": "258",
+            "pages": "136–137"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/graphite.json",
+          "cif": "/assets/periodic-table/crystals/graphite.cif",
+          "model": "/assets/periodic-table/crystals/graphite.glb",
+          "preview": "/assets/periodic-table/crystals/graphite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Graphite-233436.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/006_C.jpg",
-    "alt": "Carbon: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/graphite.jpg",
+    "alt": "Graphite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Graphite-and-diamond-with-scale.jpg",
-    "caption": "Ảnh tham chiếu mẫu Carbon (C); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "Robert M. Lavinsky · CC BY-SA 3.0"
+    "source": "https://commons.wikimedia.org/wiki/File:Graphite-233436.jpg",
+    "caption": "Ảnh mẫu tham chiếu Graphite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "Robert M. Lavinsky · CC BY-SA 3.0",
+    "author": "Robert M. Lavinsky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -433,9 +514,63 @@
       "author": "Robert M. Lavinsky",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/graphite.jpg",
+      "role": "natural-mineral",
+      "title": "Graphite",
+      "desc": "Ảnh mẫu tham chiếu Graphite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Graphite-233436.jpg",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Graphite",
+      "src": "/assets/periodic-table/crystals/graphite.json",
+      "crystal": {
+        "id": "graphite",
+        "amcsdId": "0014675",
+        "mineralName": "Graphite",
+        "formula": "C",
+        "spaceGroup": "P 63/m m c",
+        "cell": {
+          "a": 2.464,
+          "b": 2.464,
+          "c": 6.711,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 120.0
+        },
+        "volume": 35.285743880564326,
+        "siteCount": 4,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Trucano P",
+            "Chen R"
+          ],
+          "title": "Structure of graphite by neutron diffraction\n Note: natural crystals",
+          "journal": "Nature",
+          "year": 1975,
+          "volume": "258",
+          "pages": "136–137"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/graphite.json",
+        "cif": "/assets/periodic-table/crystals/graphite.cif",
+        "model": "/assets/periodic-table/crystals/graphite.glb",
+        "preview": "/assets/periodic-table/crystals/graphite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -470,6 +605,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -477,6 +617,7 @@
     "sourceFile": "006_C.docx",
     "sourceSha256": "18dce191181c1ca8e36a050e84aad62e51e2a9dca1cacd3385fdacade7583a7c",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/006_C.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/cacbon-c/audit.md"
   }
 }

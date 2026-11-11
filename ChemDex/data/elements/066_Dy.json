@@ -64,7 +64,44 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương xếp chặt (HCP)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-dy",
+      "amcsdId": "0011172",
+      "mineralName": "Dysprosium",
+      "formula": "Dy",
+      "spaceGroup": "P 63/m m c",
+      "cell": {
+        "a": 3.5903,
+        "b": 3.5903,
+        "c": 5.6475,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 63.04466617418795,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Sample at T = 293 K\n Hexagonal closest packed, hcp, structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "7–83"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-dy.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-dy.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-dy.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-dy.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lục phương xếp chặt (HCP)",
   "occurrence": {
@@ -102,16 +139,60 @@
       "sourceSearch": "https://rruff.info/Xenotime-(Y)",
       "model": "/assets/periodic-table/minerals/xenotime.glb",
       "preview": "/assets/periodic-table/minerals/xenotime.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "xenotime",
+          "amcsdId": "0001706",
+          "mineralName": "Xenotime-(Y)",
+          "formula": "Y P O4",
+          "spaceGroup": "I 41/a m d",
+          "cell": {
+            "a": 6.8947,
+            "b": 6.8947,
+            "c": 6.0276,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 286.53334665128403,
+          "siteCount": 24,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Hughes J M",
+              "Mariano A N",
+              "Ni Y"
+            ],
+            "title": "Crystal chemistry of the monazite and xenotime structures",
+            "journal": "American Mineralogist",
+            "year": 1995,
+            "volume": "80",
+            "pages": "21–26"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/xenotime.json",
+          "cif": "/assets/periodic-table/crystals/xenotime.cif",
+          "model": "/assets/periodic-table/crystals/xenotime.glb",
+          "preview": "/assets/periodic-table/crystals/xenotime.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Xenotime_with_Rutile-08-2-78ab.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/066_Dy.jpg",
-    "alt": "Dysprosium: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/xenotime.jpg",
+    "alt": "Xenotime-(Y) — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Dy_chips.jpg",
-    "caption": "Ảnh tham chiếu mẫu Dysprosium (Dy); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "Materialscientist at en.wikipedia · CC BY-SA 3.0"
+    "source": "https://commons.wikimedia.org/wiki/File:Xenotime_with_Rutile-08-2-78ab.jpg",
+    "caption": "Ảnh mẫu tham chiếu Xenotime-(Y); ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+    "credit": "Materialscientist at en.wikipedia · CC BY-SA 3.0",
+    "author": "Robert M. Lavinsky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -411,9 +492,64 @@
       "author": "Materialscientist at en.wikipedia",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/xenotime.jpg",
+      "role": "natural-mineral",
+      "title": "Xenotime-(Y)",
+      "desc": "Ảnh mẫu tham chiếu Xenotime-(Y); ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Xenotime_with_Rutile-08-2-78ab.jpg",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Xenotime-(Y)",
+      "src": "/assets/periodic-table/crystals/xenotime.json",
+      "crystal": {
+        "id": "xenotime",
+        "amcsdId": "0001706",
+        "mineralName": "Xenotime-(Y)",
+        "formula": "Y P O4",
+        "spaceGroup": "I 41/a m d",
+        "cell": {
+          "a": 6.8947,
+          "b": 6.8947,
+          "c": 6.0276,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 286.53334665128403,
+        "siteCount": 24,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Hughes J M",
+            "Mariano A N",
+            "Ni Y"
+          ],
+          "title": "Crystal chemistry of the monazite and xenotime structures",
+          "journal": "American Mineralogist",
+          "year": 1995,
+          "volume": "80",
+          "pages": "21–26"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/xenotime.json",
+        "cif": "/assets/periodic-table/crystals/xenotime.cif",
+        "model": "/assets/periodic-table/crystals/xenotime.glb",
+        "preview": "/assets/periodic-table/crystals/xenotime.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -448,6 +584,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -455,6 +596,7 @@
     "sourceFile": "066_Dy.docx",
     "sourceSha256": "40c1d3e928160ef900099897e737cc718c94d414597c1c92208ac02e7c592f56",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/066_Dy.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/dysprosium-dy/audit.md"
   }
 }

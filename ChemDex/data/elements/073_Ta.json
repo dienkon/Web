@@ -64,7 +64,44 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-ta",
+      "amcsdId": "0011230",
+      "mineralName": "Tantalum",
+      "formula": "Ta",
+      "spaceGroup": "I m 3 m",
+      "cell": {
+        "a": 3.3058,
+        "b": 3.3058,
+        "c": 3.3058,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 36.126819231112,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Body centered cubic, bcc, structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "7–83"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-ta.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-ta.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-ta.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-ta.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)",
   "occurrence": {
@@ -91,8 +128,8 @@
     "mineral": {
       "available": true,
       "id": "tantalite",
-      "name": "Tantalite-(Fe)",
-      "formula": "FeTa₂O₆",
+      "name": "Tantalite (nhóm khoáng vật)",
+      "formula": "(Fe,Mn)(Ta,Nb)₂O₆; mô hình nguyên tử dùng mẫu tantalite-(Mn)",
       "habit": "prismatic",
       "color": "#625964",
       "crystalSystem": "orthorhombic",
@@ -101,16 +138,62 @@
       "sourceSearch": "https://rruff.info/Tantalite-(Fe)",
       "model": "/assets/periodic-table/minerals/tantalite.glb",
       "preview": "/assets/periodic-table/minerals/tantalite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "tantalite",
+          "amcsdId": "0018628",
+          "mineralName": "Tantalite-(Mn)",
+          "formula": "Mn.88 Fe.09 (Ta1.72 Nb.28) O6",
+          "spaceGroup": "P b c n",
+          "cell": {
+            "a": 14.3196,
+            "b": 5.7413,
+            "c": 5.0624,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 416.195696055552,
+          "siteCount": 36,
+          "mixedSiteCount": 12,
+          "reference": {
+            "authors": [
+              "dos Santos C A",
+              "Zawislak L I",
+              "Kinast E J",
+              "Antonietti V",
+              "da Cunha J B M"
+            ],
+            "title": "Crystal chemistry and structure of the orthorhombic\n (Fe,Mn)(Ta,Nb)2O6 family of compounds\n Note: Sample Mn0.88Fe0.09Ta1.72Nb0.28O6",
+            "journal": "Brazilian Journal of Physics",
+            "year": 2001,
+            "volume": "31",
+            "pages": "616–631"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "Dùng mẫu tantalite-(Mn) có công thức đo Mn0.88Fe0.09(Ta1.72Nb0.28)O6; không gán tọa độ này cho tantalite-(Fe).",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/tantalite.json",
+          "cif": "/assets/periodic-table/crystals/tantalite.cif",
+          "model": "/assets/periodic-table/crystals/tantalite.glb",
+          "preview": "/assets/periodic-table/crystals/tantalite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Tantalite.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/diagrams/073_Ta.svg",
-    "alt": "Tantalum: sơ đồ minh họa nguyên tố",
+    "image": "/assets/periodic-table/mineral-photos/tantalite.jpg",
+    "alt": "Tantalite (nhóm khoáng vật) — ảnh mẫu khoáng vật tham chiếu",
     "kind": "diagram",
-    "source": "",
-    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
-    "credit": ""
+    "source": "https://commons.wikimedia.org/wiki/File:Tantalite.jpg",
+    "caption": "Ảnh mẫu tham chiếu Tantalite (nhóm khoáng vật); ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "",
+    "author": "Photograph by Andrew Silver",
+    "license": "Public domain",
+    "licenseUrl": ""
   },
   "isotopes": [
     {
@@ -366,16 +449,73 @@
       "author": "ChemDex",
       "license": "ChemDex schematic diagram",
       "licenseUrl": ""
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/tantalite.jpg",
+      "role": "natural-mineral",
+      "title": "Tantalite (nhóm khoáng vật)",
+      "desc": "Ảnh mẫu tham chiếu Tantalite (nhóm khoáng vật); ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Tantalite.jpg",
+      "author": "Photograph by Andrew Silver",
+      "license": "Public domain",
+      "licenseUrl": ""
     }
   ],
   "mediaBlocks": [
     {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Tantalite-(Mn)",
+      "src": "/assets/periodic-table/crystals/tantalite.json",
+      "crystal": {
+        "id": "tantalite",
+        "amcsdId": "0018628",
+        "mineralName": "Tantalite-(Mn)",
+        "formula": "Mn.88 Fe.09 (Ta1.72 Nb.28) O6",
+        "spaceGroup": "P b c n",
+        "cell": {
+          "a": 14.3196,
+          "b": 5.7413,
+          "c": 5.0624,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 416.195696055552,
+        "siteCount": 36,
+        "mixedSiteCount": 12,
+        "reference": {
+          "authors": [
+            "dos Santos C A",
+            "Zawislak L I",
+            "Kinast E J",
+            "Antonietti V",
+            "da Cunha J B M"
+          ],
+          "title": "Crystal chemistry and structure of the orthorhombic\n (Fe,Mn)(Ta,Nb)2O6 family of compounds\n Note: Sample Mn0.88Fe0.09Ta1.72Nb0.28O6",
+          "journal": "Brazilian Journal of Physics",
+          "year": 2001,
+          "volume": "31",
+          "pages": "616–631"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "Dùng mẫu tantalite-(Mn) có công thức đo Mn0.88Fe0.09(Ta1.72Nb0.28)O6; không gán tọa độ này cho tantalite-(Fe).",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/tantalite.json",
+        "cif": "/assets/periodic-table/crystals/tantalite.cif",
+        "model": "/assets/periodic-table/crystals/tantalite.glb",
+        "preview": "/assets/periodic-table/crystals/tantalite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
+    {
       "type": "model",
       "section": "structure",
-      "title": "Mẫu khoáng vật 3D · Tantalite-(Fe)",
+      "title": "Hình thái minh họa · Tantalite (nhóm khoáng vật)",
       "src": "/assets/periodic-table/minerals/tantalite.glb",
       "preview": "/assets/periodic-table/minerals/tantalite.png",
-      "desc": "FeTa₂O₆. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "desc": "(Fe,Mn)(Ta,Nb)₂O₆; mô hình nguyên tử dùng mẫu tantalite-(Mn). Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
     }
   ],
   "sources": [
@@ -403,6 +543,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -410,6 +555,7 @@
     "sourceFile": "073_Ta.docx",
     "sourceSha256": "dead44b1c45a318f7e64812545f808a22be646fbdafba1b0be9fd1377e191c99",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/073_Ta.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/tantalum-ta/audit.md"
   }
 }

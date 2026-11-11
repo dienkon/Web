@@ -64,7 +64,44 @@
     "valenceElectrons": 1,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-cs",
+      "amcsdId": "0011211",
+      "mineralName": "Cesium",
+      "formula": "Cs",
+      "spaceGroup": "I m 3 m",
+      "cell": {
+        "a": 6.067,
+        "b": 6.067,
+        "c": 6.067,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 223.317102763,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Sample at T = 78 K\n Body centered cubic, bcc, structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "7–83"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản ghi đo ở 78 K; ô mạng này không phải phép đo ở nhiệt độ phòng.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-cs.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-cs.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-cs.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-cs.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)",
   "occurrence": {
@@ -101,16 +138,58 @@
       "sourceSearch": "https://rruff.info/Pollucite",
       "model": "/assets/periodic-table/minerals/pollucite.glb",
       "preview": "/assets/periodic-table/minerals/pollucite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "pollucite",
+          "amcsdId": "0000159",
+          "mineralName": "Pollucite",
+          "formula": "(Cs.7 Na.3) (Al.99 Si2.01) O6",
+          "spaceGroup": "I a -3 d",
+          "cell": {
+            "a": 13.682,
+            "b": 13.682,
+            "c": 13.682,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 2561.2310505680002,
+          "siteCount": 160,
+          "mixedSiteCount": 64,
+          "reference": {
+            "authors": [
+              "Newnham R E"
+            ],
+            "title": "Crystal structure and optical properties of pollucite",
+            "journal": "American Mineralogist",
+            "year": 1967,
+            "volume": "52",
+            "pages": "1515–1518"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "Bản ghi không định vị H của nước; không tự thêm các nguyên tử H vào mô hình.",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/pollucite.json",
+          "cif": "/assets/periodic-table/crystals/pollucite.cif",
+          "model": "/assets/periodic-table/crystals/pollucite.glb",
+          "preview": "/assets/periodic-table/crystals/pollucite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Pollucite-193819.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/055_Cs.jpg",
-    "alt": "Cesium: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/pollucite.jpg",
+    "alt": "Pollucite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Cesium.jpg",
-    "caption": "Ảnh tham chiếu mẫu Cesium (Cs); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "Dnn87 Contact email: Dnn87 yahoo.dk · CC BY-SA 3.0"
+    "source": "https://commons.wikimedia.org/wiki/File:Pollucite-193819.jpg",
+    "caption": "Ảnh mẫu tham chiếu Pollucite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "Dnn87 Contact email: Dnn87 yahoo.dk · CC BY-SA 3.0",
+    "author": "Robert M. Lavinsky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -348,9 +427,62 @@
       "author": "Dnn87 Contact email: Dnn87 yahoo.dk",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/pollucite.jpg",
+      "role": "natural-mineral",
+      "title": "Pollucite",
+      "desc": "Ảnh mẫu tham chiếu Pollucite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Pollucite-193819.jpg",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Pollucite",
+      "src": "/assets/periodic-table/crystals/pollucite.json",
+      "crystal": {
+        "id": "pollucite",
+        "amcsdId": "0000159",
+        "mineralName": "Pollucite",
+        "formula": "(Cs.7 Na.3) (Al.99 Si2.01) O6",
+        "spaceGroup": "I a -3 d",
+        "cell": {
+          "a": 13.682,
+          "b": 13.682,
+          "c": 13.682,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 2561.2310505680002,
+        "siteCount": 160,
+        "mixedSiteCount": 64,
+        "reference": {
+          "authors": [
+            "Newnham R E"
+          ],
+          "title": "Crystal structure and optical properties of pollucite",
+          "journal": "American Mineralogist",
+          "year": 1967,
+          "volume": "52",
+          "pages": "1515–1518"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "Bản ghi không định vị H của nước; không tự thêm các nguyên tử H vào mô hình.",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/pollucite.json",
+        "cif": "/assets/periodic-table/crystals/pollucite.cif",
+        "model": "/assets/periodic-table/crystals/pollucite.glb",
+        "preview": "/assets/periodic-table/crystals/pollucite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -385,6 +517,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -392,6 +529,7 @@
     "sourceFile": "055_Cs.docx",
     "sourceSha256": "dcf20ec4116a10c7e73c403448eabcca323b6670c027619a8872b439cdfbc997",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/055_Cs.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/cesium-cs/audit.md"
   }
 }

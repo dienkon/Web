@@ -60,7 +60,45 @@
     "valenceElectrons": 3,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Trực thoi (Orthorhombic)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-ga",
+      "amcsdId": "0010597",
+      "mineralName": "Gallium",
+      "formula": "Ga",
+      "spaceGroup": "C m c a",
+      "cell": {
+        "a": 4.523,
+        "b": 7.661,
+        "c": 4.524,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 156.75978037199997,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Sharma B D",
+          "Donohue J"
+        ],
+        "title": "A refinement of the crystal structure of gallium",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1962,
+        "volume": "117",
+        "pages": "293–300"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-ga.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-ga.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-ga.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-ga.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Trực thoi (Orthorhombic)",
   "occurrence": {
@@ -98,16 +136,132 @@
       "sourceSearch": "https://rruff.info/Bauxite",
       "model": "/assets/periodic-table/minerals/bauxite.glb",
       "preview": "/assets/periodic-table/minerals/bauxite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "gibbsite",
+          "amcsdId": "0010761",
+          "mineralName": "Gibbsite",
+          "formula": "Al O3 H3",
+          "spaceGroup": "P 1 21/n 1",
+          "cell": {
+            "a": 8.684,
+            "b": 5.078,
+            "c": 9.736,
+            "alpha": 90.0,
+            "beta": 94.54,
+            "gamma": 90.0
+          },
+          "volume": 427.9847114981603,
+          "siteCount": 56,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Saalfeld H",
+              "Wedde M"
+            ],
+            "title": "Refinement of the crystal structure of gibbsite, Al(OH)3",
+            "journal": "Zeitschrift fur Kristallographie",
+            "year": 1974,
+            "volume": "139",
+            "pages": "129–135"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/gibbsite.json",
+          "cif": "/assets/periodic-table/crystals/gibbsite.cif",
+          "model": "/assets/periodic-table/crystals/gibbsite.glb",
+          "preview": "/assets/periodic-table/crystals/gibbsite.png"
+        },
+        {
+          "id": "boehmite",
+          "amcsdId": "0019146",
+          "mineralName": "Bohmite",
+          "formula": "Al O2 H.08",
+          "spaceGroup": "A m a m",
+          "cell": {
+            "a": 3.693,
+            "b": 12.221,
+            "c": 2.865,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 129.30361834500002,
+          "siteCount": 20,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Hill R J"
+            ],
+            "title": "Hydrogen atoms in boehmite: A single crystal X-ray diffraction and\n molecular orbital study",
+            "journal": "Clays and Clay Minerals",
+            "year": 1981,
+            "volume": "29",
+            "pages": "435–445"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "Độ chiếm chỗ H theo bản ghi là 0,04; đây là mô hình tinh chỉnh được công bố, không bổ sung các vị trí H chưa được xác định.",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/boehmite.json",
+          "cif": "/assets/periodic-table/crystals/boehmite.cif",
+          "model": "/assets/periodic-table/crystals/boehmite.glb",
+          "preview": "/assets/periodic-table/crystals/boehmite.png"
+        },
+        {
+          "id": "diaspore",
+          "amcsdId": "0007340",
+          "mineralName": "Diaspore",
+          "formula": "Al O2 H",
+          "spaceGroup": "P b n m",
+          "cell": {
+            "a": 4.4007,
+            "b": 9.4253,
+            "c": 2.8452,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 118.01297146849201,
+          "siteCount": 16,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Hill R J"
+            ],
+            "title": "Crystal structure refinement and electron density distribution in diaspore\n Sample: Neutral atom refinement",
+            "journal": "Physics and Chemistry of Minerals",
+            "year": 1979,
+            "volume": "5",
+            "pages": "179–200"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/diaspore.json",
+          "cif": "/assets/periodic-table/crystals/diaspore.cif",
+          "model": "/assets/periodic-table/crystals/diaspore.glb",
+          "preview": "/assets/periodic-table/crystals/diaspore.png"
+        }
+      ],
+      "crystallographyNote": "Bauxite là hỗn hợp đá/quặng. Ba mô hình gibbsite, boehmite và diaspore là các pha riêng, không phải một ô mạng chung của bauxite.",
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Bauxite_h%C3%A9rault.JPG"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/031_Ga.png",
-    "alt": "Gallium: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/bauxite.jpg",
+    "alt": "Bauxite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Gallium_bar_cracked_open_to_show_crystal_structure_with_scale_1.png",
-    "caption": "Ảnh tham chiếu mẫu Gallium (Ga); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "Arònel123 · CC BY 4.0"
+    "source": "https://commons.wikimedia.org/wiki/File:Bauxite_h%C3%A9rault.JPG",
+    "caption": "Ảnh mẫu tham chiếu Bauxite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+    "credit": "Arònel123 · CC BY 4.0",
+    "author": "saphon",
+    "license": "CC BY-SA 1.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/1.0"
   },
   "isotopes": [
     {
@@ -399,9 +553,149 @@
       "author": "Arònel123",
       "license": "CC BY 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/bauxite.jpg",
+      "role": "natural-mineral",
+      "title": "Bauxite",
+      "desc": "Ảnh mẫu tham chiếu Bauxite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Bauxite_h%C3%A9rault.JPG",
+      "author": "saphon",
+      "license": "CC BY-SA 1.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/1.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Gibbsite",
+      "src": "/assets/periodic-table/crystals/gibbsite.json",
+      "crystal": {
+        "id": "gibbsite",
+        "amcsdId": "0010761",
+        "mineralName": "Gibbsite",
+        "formula": "Al O3 H3",
+        "spaceGroup": "P 1 21/n 1",
+        "cell": {
+          "a": 8.684,
+          "b": 5.078,
+          "c": 9.736,
+          "alpha": 90.0,
+          "beta": 94.54,
+          "gamma": 90.0
+        },
+        "volume": 427.9847114981603,
+        "siteCount": 56,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Saalfeld H",
+            "Wedde M"
+          ],
+          "title": "Refinement of the crystal structure of gibbsite, Al(OH)3",
+          "journal": "Zeitschrift fur Kristallographie",
+          "year": 1974,
+          "volume": "139",
+          "pages": "129–135"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/gibbsite.json",
+        "cif": "/assets/periodic-table/crystals/gibbsite.cif",
+        "model": "/assets/periodic-table/crystals/gibbsite.glb",
+        "preview": "/assets/periodic-table/crystals/gibbsite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Bohmite",
+      "src": "/assets/periodic-table/crystals/boehmite.json",
+      "crystal": {
+        "id": "boehmite",
+        "amcsdId": "0019146",
+        "mineralName": "Bohmite",
+        "formula": "Al O2 H.08",
+        "spaceGroup": "A m a m",
+        "cell": {
+          "a": 3.693,
+          "b": 12.221,
+          "c": 2.865,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 129.30361834500002,
+        "siteCount": 20,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Hill R J"
+          ],
+          "title": "Hydrogen atoms in boehmite: A single crystal X-ray diffraction and\n molecular orbital study",
+          "journal": "Clays and Clay Minerals",
+          "year": 1981,
+          "volume": "29",
+          "pages": "435–445"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "Độ chiếm chỗ H theo bản ghi là 0,04; đây là mô hình tinh chỉnh được công bố, không bổ sung các vị trí H chưa được xác định.",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/boehmite.json",
+        "cif": "/assets/periodic-table/crystals/boehmite.cif",
+        "model": "/assets/periodic-table/crystals/boehmite.glb",
+        "preview": "/assets/periodic-table/crystals/boehmite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Diaspore",
+      "src": "/assets/periodic-table/crystals/diaspore.json",
+      "crystal": {
+        "id": "diaspore",
+        "amcsdId": "0007340",
+        "mineralName": "Diaspore",
+        "formula": "Al O2 H",
+        "spaceGroup": "P b n m",
+        "cell": {
+          "a": 4.4007,
+          "b": 9.4253,
+          "c": 2.8452,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 118.01297146849201,
+        "siteCount": 16,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Hill R J"
+          ],
+          "title": "Crystal structure refinement and electron density distribution in diaspore\n Sample: Neutral atom refinement",
+          "journal": "Physics and Chemistry of Minerals",
+          "year": 1979,
+          "volume": "5",
+          "pages": "179–200"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/diaspore.json",
+        "cif": "/assets/periodic-table/crystals/diaspore.cif",
+        "model": "/assets/periodic-table/crystals/diaspore.glb",
+        "preview": "/assets/periodic-table/crystals/diaspore.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -436,6 +730,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -443,6 +742,7 @@
     "sourceFile": "031_Ga.docx",
     "sourceSha256": "50460c966f4790f2c4140cf2dadc3869adb4f62c4ba6dc432800dbacd510f431",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/031_Ga.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/gali-ga/audit.md"
   }
 }

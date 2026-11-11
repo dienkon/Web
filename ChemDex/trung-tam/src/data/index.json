@@ -12,7 +12,9 @@
       "Năng lượng",
       "Nguyên tử"
     ],
-    "readingMinutes": 7
+    "readingMinutes": 7,
+    "slug": "hydrogen-h",
+    "documentPath": "docs/hydrogen-h/index.json"
   },
   {
     "id": "002_He",
@@ -26,7 +28,9 @@
       "Bóng bay",
       "Làm lạnh"
     ],
-    "readingMinutes": 8
+    "readingMinutes": 8,
+    "slug": "heli-he",
+    "documentPath": "docs/heli-he/index.json"
   },
   {
     "id": "003_Li",
@@ -40,7 +44,9 @@
       "Pin Lithium",
       "Năng lượng"
     ],
-    "readingMinutes": 7
+    "readingMinutes": 7,
+    "slug": "liti-li",
+    "documentPath": "docs/liti-li/index.json"
   },
   {
     "id": "004_C",
@@ -54,7 +60,9 @@
       "Kim cương",
       "Hữu cơ"
     ],
-    "readingMinutes": 8
+    "readingMinutes": 8,
+    "slug": "carbon-c",
+    "documentPath": "docs/carbon-c/index.json"
   },
   {
     "id": "005_N",
@@ -68,7 +76,9 @@
       "Phân bón",
       "Phi kim"
     ],
-    "readingMinutes": 8
+    "readingMinutes": 8,
+    "slug": "nito-n",
+    "documentPath": "docs/nito-n/index.json"
   },
   {
     "id": "006_O",
@@ -82,7 +92,9 @@
       "Sự sống",
       "Oxi hóa"
     ],
-    "readingMinutes": 8
+    "readingMinutes": 8,
+    "slug": "oxy-o",
+    "documentPath": "docs/oxy-o/index.json"
   },
   {
     "id": "007_Na",
@@ -96,7 +108,9 @@
       "Muối",
       "Phản ứng mạnh"
     ],
-    "readingMinutes": 8
+    "readingMinutes": 8,
+    "slug": "natri-na",
+    "documentPath": "docs/natri-na/index.json"
   },
   {
     "id": "008_Fe",
@@ -110,7 +124,9 @@
       "Từ tính",
       "Xây dựng"
     ],
-    "readingMinutes": 7
+    "readingMinutes": 7,
+    "slug": "sat-fe",
+    "documentPath": "docs/sat-fe/index.json"
   },
   {
     "id": "009_Cu",
@@ -124,7 +140,9 @@
       "Dẫn điện",
       "Hợp kim"
     ],
-    "readingMinutes": 9
+    "readingMinutes": 9,
+    "slug": "dong-cu",
+    "documentPath": "docs/dong-cu/index.json"
   },
   {
     "id": "010_Ag",
@@ -138,7 +156,9 @@
       "Trang sức",
       "Kháng khuẩn"
     ],
-    "readingMinutes": 9
+    "readingMinutes": 9,
+    "slug": "bac-ag",
+    "documentPath": "docs/bac-ag/index.json"
   },
   {
     "id": "011_HistoryPT",
@@ -152,7 +172,9 @@
       "Mendeleev",
       "Định luật tuần hoàn"
     ],
-    "readingMinutes": 7
+    "readingMinutes": 7,
+    "slug": "bien-nien-su-bang-tuan-hoan",
+    "documentPath": "docs/bien-nien-su-bang-tuan-hoan/index.json"
   },
   {
     "id": "012_SafetyRules",
@@ -166,7 +188,9 @@
       "Thực hành",
       "Cấp cứu"
     ],
-    "readingMinutes": 7
+    "readingMinutes": 7,
+    "slug": "bai-hoc-xuong-mau-trong-phong-thi-nghiem",
+    "documentPath": "docs/bai-hoc-xuong-mau-trong-phong-thi-nghiem/index.json"
   },
   {
     "id": "013_HTML_Sample",
@@ -180,7 +204,9 @@
       "Template",
       "Mẫu"
     ],
-    "readingMinutes": 7
+    "readingMinutes": 7,
+    "slug": "nghe-thuat-truc-quan-hoa-phan-tu",
+    "documentPath": "docs/nghe-thuat-truc-quan-hoa-phan-tu/index.json"
   },
   {
     "id": "chat-nuoc",
@@ -203,7 +229,9 @@
       "cid-962",
       "chem-h2o"
     ],
-    "readingMinutes": 13
+    "readingMinutes": 13,
+    "slug": "nuoc-h2o",
+    "documentPath": "docs/nuoc-h2o/index.json"
   },
   {
     "id": "chat-amoniac",
@@ -226,7 +254,9 @@
       "cid-222",
       "chem-nh3"
     ],
-    "readingMinutes": 12
+    "readingMinutes": 12,
+    "slug": "amoniac-nh3",
+    "documentPath": "docs/amoniac-nh3/index.json"
   },
   {
     "id": "chat-natri-clorua",
@@ -250,7 +280,9 @@
       "crystal-nacl",
       "chem-nacl"
     ],
-    "readingMinutes": 11
+    "readingMinutes": 11,
+    "slug": "natri-clorua-nacl",
+    "documentPath": "docs/natri-clorua-nacl/index.json"
   },
   {
     "id": "chat-etanol",
@@ -274,7 +306,9 @@
       "cid-702",
       "chem-c2h5oh"
     ],
-    "readingMinutes": 10
+    "readingMinutes": 10,
+    "slug": "etanol-c2h5oh",
+    "documentPath": "docs/etanol-c2h5oh/index.json"
   },
   {
     "id": "chat-carbon-dioxide",
@@ -298,7 +332,9 @@
       "cid-280",
       "chem-co2"
     ],
-    "readingMinutes": 10
+    "readingMinutes": 10,
+    "slug": "carbon-dioxide-co2",
+    "documentPath": "docs/carbon-dioxide-co2/index.json"
   },
   {
     "id": "chat-metan",
@@ -321,6 +357,8 @@
     "substanceIds": [
       "cid-297"
     ],
-    "readingMinutes": 11
+    "readingMinutes": 11,
+    "slug": "metan-ch4",
+    "documentPath": "docs/metan-ch4/index.json"
   }
 ]

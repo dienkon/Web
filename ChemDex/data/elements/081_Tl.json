@@ -64,7 +64,44 @@
     "valenceElectrons": 3,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương (Hexagonal)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-tl",
+      "amcsdId": "0011197",
+      "mineralName": "Thallium",
+      "formula": "Tl",
+      "spaceGroup": "P 63/m m c",
+      "cell": {
+        "a": 3.456,
+        "b": 3.456,
+        "c": 5.525,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 57.14922978439461,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Sample at T = 297 K\n Hexagonal closest packed, hcp, structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "7–83"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-tl.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-tl.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-tl.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-tl.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -103,16 +140,64 @@
       "sourceSearch": "https://rruff.info/Galena",
       "model": "/assets/periodic-table/minerals/galena.glb",
       "preview": "/assets/periodic-table/minerals/galena.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "galena",
+          "amcsdId": "0010046",
+          "mineralName": "Galena",
+          "formula": "Pb S",
+          "spaceGroup": "F m 3 m",
+          "cell": {
+            "a": 5.9315,
+            "b": 5.9315,
+            "c": 5.9315,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 208.68613908087497,
+          "siteCount": 8,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Noda Y",
+              "Masumoto K",
+              "Ohba S",
+              "Saito Y",
+              "Toriumi K",
+              "Iwata Y",
+              "Shibuya I"
+            ],
+            "title": "Temperature dependence of atomic thermal parameters of lead chalcogenides, PbS,\n PbSe and PbTe\n Sample: T = 298 K",
+            "journal": "Acta Crystallographica, Section C",
+            "year": 1987,
+            "volume": "43",
+            "pages": "1443–1445"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/galena.json",
+          "cif": "/assets/periodic-table/crystals/galena.cif",
+          "model": "/assets/periodic-table/crystals/galena.glb",
+          "preview": "/assets/periodic-table/crystals/galena.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Galena_-_Huallanca,_Bologesi,_Ancash,_Peru.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/081_Tl.jpg",
-    "alt": "Thallium: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/galena.jpg",
+    "alt": "Galena — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Thallium_pieces_in_ampoule.jpg",
-    "caption": "Ảnh tham chiếu mẫu Thallium (Tl); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "W. Oelen · CC BY-SA 3.0"
+    "source": "https://commons.wikimedia.org/wiki/File:Galena_-_Huallanca,_Bologesi,_Ancash,_Peru.jpg",
+    "caption": "Ảnh mẫu tham chiếu Galena; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+    "credit": "W. Oelen · CC BY-SA 3.0",
+    "author": "Ivar Leidus",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "isotopes": [
     {
@@ -390,9 +475,68 @@
       "author": "W. Oelen",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/galena.jpg",
+      "role": "natural-mineral",
+      "title": "Galena",
+      "desc": "Ảnh mẫu tham chiếu Galena; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Galena_-_Huallanca,_Bologesi,_Ancash,_Peru.jpg",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Galena",
+      "src": "/assets/periodic-table/crystals/galena.json",
+      "crystal": {
+        "id": "galena",
+        "amcsdId": "0010046",
+        "mineralName": "Galena",
+        "formula": "Pb S",
+        "spaceGroup": "F m 3 m",
+        "cell": {
+          "a": 5.9315,
+          "b": 5.9315,
+          "c": 5.9315,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 208.68613908087497,
+        "siteCount": 8,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Noda Y",
+            "Masumoto K",
+            "Ohba S",
+            "Saito Y",
+            "Toriumi K",
+            "Iwata Y",
+            "Shibuya I"
+          ],
+          "title": "Temperature dependence of atomic thermal parameters of lead chalcogenides, PbS,\n PbSe and PbTe\n Sample: T = 298 K",
+          "journal": "Acta Crystallographica, Section C",
+          "year": 1987,
+          "volume": "43",
+          "pages": "1443–1445"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/galena.json",
+        "cif": "/assets/periodic-table/crystals/galena.cif",
+        "model": "/assets/periodic-table/crystals/galena.glb",
+        "preview": "/assets/periodic-table/crystals/galena.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -427,6 +571,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -434,6 +583,7 @@
     "sourceFile": "081_Tl.docx",
     "sourceSha256": "0a09529238ee20b67a10ed972e764fe76648463c2cdb4ec35877ffcfa545a53b",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/081_Tl.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/thallium-tl/audit.md"
   }
 }

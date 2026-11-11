@@ -1,0 +1,133 @@
+{
+  "amcsdId": "0009176",
+  "mineralName": "Holmium",
+  "formula": "Ho",
+  "spaceGroup": "P 63/m m c",
+  "cell": {
+    "a": 3.5773,
+    "b": 3.5773,
+    "c": 5.6158,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 62.237621811845294,
+  "declaredVolume": 62.238,
+  "basis": [
+    [
+      3.5773,
+      -1.7886499999999992,
+      0.0
+    ],
+    [
+      0.0,
+      3.0980326769580726,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.6158
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,-x+y,1/2+z",
+    "x,x-y,1/2-z",
+    "-x+y,-x,1/2-z",
+    "x-y,x,1/2+z",
+    "-y,-x,z",
+    "y,x,-z",
+    "y,-x+y,-z",
+    "-y,x-y,z",
+    "x-y,-y,1/2+z",
+    "-x+y,y,1/2-z",
+    "x,y,1/2-z",
+    "-x,-y,1/2+z",
+    "x,x-y,z",
+    "-x,-x+y,-z",
+    "x-y,x,-z",
+    "-x+y,-x,z",
+    "y,x,1/2+z",
+    "-y,-x,1/2-z",
+    "-y,x-y,1/2-z",
+    "y,-x+y,1/2+z",
+    "-x+y,y,z",
+    "x-y,-y,-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Ho",
+      "element": "Ho",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Ho",
+      "label": "Ho",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "position": [
+        -4e-07,
+        2.0653554,
+        1.40395
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ho",
+      "label": "Ho",
+      "fractional": [
+        0.66666675,
+        0.3333335,
+        0.75
+      ],
+      "position": [
+        1.78865,
+        1.0326781,
+        4.21185
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 2,
+  "speciesPositionCount": 2,
+  "cellComposition": {
+    "Ho": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Spedding F H",
+      "Daane A H",
+      "Herrmann K W"
+    ],
+    "title": "The crystal structures and lattice parameters of high-purity scandium,\n yttrium and the rare earth metals\n Note: sample 99.4% pure",
+    "journal": "Acta Crystallographica",
+    "year": 1956,
+    "volume": "9",
+    "pages": "559–563"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 24,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 6.076520016283865e-06
+  },
+  "id": "nguyen-to-ho",
+  "note": ""
+}

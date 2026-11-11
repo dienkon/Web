@@ -156,7 +156,7 @@ export class ChemStructureViewer extends HTMLElement {
         <div class="bond-inspector-block">
           <div class="bond-inspector-title">LIÊN KẾT HÓA HỌC TRONG MÔ HÌNH (${bonds.length} LIÊN KẾT)</div>
           <div class="bond-order-summary">
-            ${bonds.length === 0 ? `<span class="bond-stat-tag">Đơn nguyên tử (không có liên kết)</span>` : ""}
+            ${bonds.length === 0 ? `<span class="bond-stat-tag">${model.periodic ? "Không suy ra liên kết hóa học chỉ từ khoảng cách mạng" : "Đơn nguyên tử (không có liên kết)"}</span>` : ""}
             ${singleCount > 0 ? `<span class="bond-stat-tag">Liên kết đơn (—): <strong>${singleCount}</strong></span>` : ""}
             ${doubleCount > 0 ? `<span class="bond-stat-tag double">Liên kết đôi (=): <strong>${doubleCount}</strong></span>` : ""}
             ${tripleCount > 0 ? `<span class="bond-stat-tag triple">Liên kết ba (≡): <strong>${tripleCount}</strong></span>` : ""}
@@ -263,7 +263,7 @@ export class ChemStructureViewer extends HTMLElement {
           ? 1
           : 2;
         this.viewer.resize();
-        this.viewer.addModel(raw, this.rawFormat, { keepH: true });
+          this.viewer.addModel(raw, this.rawFormat, { keepH: true, ...(this.rawFormat === 'cif' ? {assignBonds: false} : {}) });
 
         // Ensure all bonds from parsedModel (including crystal coordination & ionic bonds) exist in 3Dmol model
         const glAtoms = this.viewer.getModel()?.selectedAtoms({}) ?? [];
@@ -320,7 +320,7 @@ export class ChemStructureViewer extends HTMLElement {
         generated
           ? `${generated.atoms.length} nguyên tử · ${bondTotal} liên kết · ${generated.mode === "ions" ? "Mô hình phối trí & nhóm ion 3D" : generated.mode === "atom" ? "Nguyên tử 3D" : generated.mode === "idealized" ? "Hình học liên kết 3D" : "Mô hình khung hóa trị 3D"} · Kéo để xoay`
           : record.kind === "crystal"
-            ? `${this.parsedModel?.atoms?.length ?? ""} nguyên tử · ${bondTotal} liên kết phối trí mạng tinh thể · Kéo để xoay`
+            ? `${this.parsedModel?.atoms?.length ?? ""} vị trí nguyên tử trong ô mạng · Kéo để xoay`
             : `${this.parsedModel?.atoms?.length ?? ""} nguyên tử · ${bondTotal} liên kết · Kéo để xoay · Cuộn/chụm để thu phóng · Chọn nguyên tử để đo`,
       );
       this.querySelector(".viewer-source").innerHTML = generated

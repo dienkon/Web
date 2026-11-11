@@ -3,6 +3,7 @@ import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { parseFormula } from '../shared/chemistry/formula.mjs';
+import { substanceSlug, documentFile } from '../shared/library-paths.mjs';
 
 process.chdir(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'));
 
@@ -20,6 +21,9 @@ const wikiData = fs.existsSync('shared/substance-wiki.json')
   ? read('shared/substance-wiki.json')
   : {};
 const output = 'trung-tam/src/data/reference';
+const resolvedOutput = path.resolve(output);
+if (path.dirname(resolvedOutput) !== path.resolve('trung-tam/src/data') || path.basename(resolvedOutput) !== 'reference')
+  throw new Error('Refusing to clear a directory outside the generated reference library');
 fs.rmSync(output, { recursive: true, force: true });
 fs.mkdirSync(output, { recursive: true });
 
@@ -310,7 +314,7 @@ function identity(s) {
 
 const existing = new Map();
 for (const a of authored) {
-  const file = path.join('trung-tam/src/data/docs', a.id + '.json');
+  const file = documentFile(a);
   if (!fs.existsSync(file)) continue;
   const article = read(file);
   if (
@@ -336,6 +340,7 @@ for (const subject of subjects) {
 
 const generated = [];
 const links = {};
+const usedSlugs = new Set(authored.map(a => a.slug ?? a.id));
 
 for (const [key, group] of groups) {
   const editorial = group.map((s) => existing.get(s.id)).find(Boolean);
@@ -396,11 +401,16 @@ for (const [key, group] of groups) {
     : null;
 
   const hashHex = createHash('sha256').update(key).digest('hex');
-  const id = 'ho-so-' + hashHex.slice(0, 12);
   const styleIdx = parseInt(hashHex.slice(0, 6), 16) % JOURNALISTIC_STYLES.length;
   const style = JOURNALISTIC_STYLES[styleIdx];
 
   const name = element?.name_vi ?? s.name_vi ?? s.name_en ?? formula;
+  const baseSlug = substanceSlug(`${s.material ? s.materialLabel : name} ${s.material ? '' : formula}`);
+  let id = baseSlug;
+  if (usedSlugs.has(id)) id = `${baseSlug}-${substanceSlug(s.kind ?? s.family ?? 'chat')}`;
+  if (usedSlugs.has(id)) id += `-${substanceSlug(s.cid ? `pubchem-${s.cid}` : s.id)}`;
+  if (usedSlugs.has(id)) throw new Error(`Substance slug collision: ${id}`);
+  usedSlugs.add(id);
   const pFormula = prettyFormula(formula);
   const displayFormula = s.material ? (s.materialLabel || 'Hỗn hợp') : safeMetaText(pFormula);
   const modelURL =
@@ -712,6 +722,9 @@ for (const [key, group] of groups) {
 
   const meta = {
     id,
+    slug: id,
+    documentPath: `reference/${id}/index.json`,
+    legacyIds: ['ho-so-' + hashHex.slice(0, 12)],
     title,
     author: style.author,
     category: element ? 'nguyento' : 'hopchat',
@@ -747,8 +760,9 @@ for (const [key, group] of groups) {
     readingMinutes: Math.max(5, Math.round(wordCount / 180)),
   };
 
+  fs.mkdirSync(path.join(output, id), { recursive: true });
   fs.writeFileSync(
-    path.join(output, id + '.json'),
+    path.join(output, id, 'index.json'),
     JSON.stringify(
       {
         ...meta,
@@ -778,6 +792,13 @@ fs.writeFileSync(
   'shared/library-links.generated.json',
   JSON.stringify(links, null, 2) + '\n',
 );
+const routes = {};
+for (const doc of [...authored, ...generated])
+  for (const alias of [doc.id, doc.slug ?? doc.id, ...(doc.legacyIds ?? [])]) {
+    if (routes[alias] && routes[alias] !== (doc.slug ?? doc.id)) throw new Error(`Ambiguous document alias: ${alias}`);
+    routes[alias] = doc.slug ?? doc.id;
+  }
+fs.writeFileSync('shared/library-routes.generated.json', JSON.stringify(routes, null, 2) + '\n');
 console.log(
   `Reference library: ${generated.length} unique 1000+ word articles; ${Object.keys(links).length} subject links.`,
 );

@@ -1,0 +1,1054 @@
+{
+  "amcsdId": "0010761",
+  "mineralName": "Gibbsite",
+  "formula": "Al O3 H3",
+  "spaceGroup": "P 1 21/n 1",
+  "cell": {
+    "a": 8.684,
+    "b": 5.078,
+    "c": 9.736,
+    "alpha": 90.0,
+    "beta": 94.54,
+    "gamma": 90.0
+  },
+  "volume": 427.9847114981603,
+  "declaredVolume": 427.985,
+  "basis": [
+    [
+      8.684,
+      0.0,
+      -0.7706536266282897
+    ],
+    [
+      0.0,
+      5.078,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      9.705451508701936
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2-y,1/2+z",
+    "1/2-x,1/2+y,1/2-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Al1",
+      "element": "Al",
+      "fractional": [
+        0.1679,
+        0.5295,
+        -0.0023
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Al2",
+      "element": "Al",
+      "fractional": [
+        0.3344,
+        0.0236,
+        -0.0024
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.1779,
+        0.2183,
+        -0.1115
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.6692,
+        0.6558,
+        -0.1023
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.4984,
+        0.1315,
+        -0.1044
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O4",
+      "element": "O",
+      "fractional": [
+        -0.0205,
+        0.6293,
+        -0.1068
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O5",
+      "element": "O",
+      "fractional": [
+        0.2971,
+        0.7178,
+        -0.1052
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O6",
+      "element": "O",
+      "fractional": [
+        0.8194,
+        0.1491,
+        -0.1015
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.101,
+        0.152,
+        -0.124
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H2",
+      "element": "H",
+      "fractional": [
+        0.595,
+        0.573,
+        -0.098
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H3",
+      "element": "H",
+      "fractional": [
+        0.503,
+        0.137,
+        -0.19
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H4",
+      "element": "H",
+      "fractional": [
+        -0.029,
+        0.801,
+        -0.107
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H5",
+      "element": "H",
+      "fractional": [
+        0.293,
+        0.724,
+        -0.196
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H6",
+      "element": "H",
+      "fractional": [
+        0.815,
+        0.16,
+        -0.19
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Al",
+      "label": "Al1",
+      "fractional": [
+        0.1679,
+        0.5295,
+        0.9977
+      ],
+      "position": [
+        0.6891625,
+        2.688801,
+        9.683129
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Al",
+      "label": "Al1",
+      "fractional": [
+        0.6679,
+        0.9705,
+        0.4977
+      ],
+      "position": [
+        5.4164893,
+        4.928199,
+        4.8304032
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Al",
+      "label": "Al1",
+      "fractional": [
+        0.3321,
+        0.0295,
+        0.5023
+      ],
+      "position": [
+        2.4968571,
+        0.149801,
+        4.8750483
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Al",
+      "label": "Al1",
+      "fractional": [
+        0.8321,
+        0.4705,
+        0.0023
+      ],
+      "position": [
+        7.2241839,
+        2.389199,
+        0.0223225
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Al",
+      "label": "Al2",
+      "fractional": [
+        0.3344,
+        0.0236,
+        0.9976
+      ],
+      "position": [
+        2.1351255,
+        0.1198408,
+        9.6821584
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Al",
+      "label": "Al2",
+      "fractional": [
+        0.8344,
+        0.4764,
+        0.4976
+      ],
+      "position": [
+        6.8624524,
+        2.4191592,
+        4.8294327
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Al",
+      "label": "Al2",
+      "fractional": [
+        0.1656,
+        0.5236,
+        0.5024
+      ],
+      "position": [
+        1.050894,
+        2.6588408,
+        4.8760188
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Al",
+      "label": "Al2",
+      "fractional": [
+        0.6656,
+        0.9764,
+        0.0024
+      ],
+      "position": [
+        5.7782208,
+        4.9581592,
+        0.0232931
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.1779,
+        0.2183,
+        0.8885
+      ],
+      "position": [
+        0.8601579,
+        1.1085274,
+        8.6232937
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.6779,
+        0.2817,
+        0.3885
+      ],
+      "position": [
+        5.5874847,
+        1.4304726,
+        3.7705679
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.3221,
+        0.7183,
+        0.6115
+      ],
+      "position": [
+        2.3258617,
+        3.6475274,
+        5.9348836
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.8221,
+        0.7817,
+        0.1115
+      ],
+      "position": [
+        7.0531885,
+        3.9694726,
+        1.0821578
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.6692,
+        0.6558,
+        0.8977
+      ],
+      "position": [
+        5.119517,
+        3.3301524,
+        8.7125838
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.1692,
+        0.8442,
+        0.3977
+      ],
+      "position": [
+        1.1628439,
+        4.2868476,
+        3.8598581
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.8308,
+        0.1558,
+        0.6023
+      ],
+      "position": [
+        6.7505025,
+        0.7911524,
+        5.8455934
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.3308,
+        0.3442,
+        0.1023
+      ],
+      "position": [
+        2.7938293,
+        1.7478476,
+        0.9928677
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.4984,
+        0.1315,
+        0.8956
+      ],
+      "position": [
+        3.6379082,
+        0.667757,
+        8.6922024
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.9984,
+        0.3685,
+        0.3956
+      ],
+      "position": [
+        8.365235,
+        1.871243,
+        3.8394766
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.0016,
+        0.6315,
+        0.6044
+      ],
+      "position": [
+        -0.4518887,
+        3.206757,
+        5.8659749
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.5016,
+        0.8685,
+        0.1044
+      ],
+      "position": [
+        4.2754382,
+        4.410243,
+        1.0132491
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.9795,
+        0.6293,
+        0.8932
+      ],
+      "position": [
+        7.8176302,
+        3.1955854,
+        8.6689093
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.4795,
+        0.8707,
+        0.3932
+      ],
+      "position": [
+        3.860957,
+        4.4214146,
+        3.8161835
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.5205,
+        0.1293,
+        0.6068
+      ],
+      "position": [
+        4.0523894,
+        0.6565854,
+        5.889268
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.0205,
+        0.3707,
+        0.1068
+      ],
+      "position": [
+        0.0957162,
+        1.8824146,
+        1.0365422
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O5",
+      "fractional": [
+        0.2971,
+        0.7178,
+        0.8948
+      ],
+      "position": [
+        1.8904355,
+        3.6449884,
+        8.684438
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O5",
+      "fractional": [
+        0.7971,
+        0.7822,
+        0.3948
+      ],
+      "position": [
+        6.6177623,
+        3.9720116,
+        3.8317123
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O5",
+      "fractional": [
+        0.2029,
+        0.2178,
+        0.6052
+      ],
+      "position": [
+        1.295584,
+        1.1059884,
+        5.8737393
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O5",
+      "fractional": [
+        0.7029,
+        0.2822,
+        0.1052
+      ],
+      "position": [
+        6.0229108,
+        1.4330116,
+        1.0210135
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O6",
+      "fractional": [
+        0.8194,
+        0.1491,
+        0.8985
+      ],
+      "position": [
+        6.4232373,
+        0.7571298,
+        8.7203482
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O6",
+      "fractional": [
+        0.3194,
+        0.3509,
+        0.3985
+      ],
+      "position": [
+        2.4665641,
+        1.7818702,
+        3.8676224
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O6",
+      "fractional": [
+        0.6806,
+        0.6491,
+        0.6015
+      ],
+      "position": [
+        5.4467822,
+        3.2961298,
+        5.8378291
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O6",
+      "fractional": [
+        0.1806,
+        0.8509,
+        0.1015
+      ],
+      "position": [
+        1.4901091,
+        4.3208702,
+        0.9851033
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.101,
+        0.152,
+        0.876
+      ],
+      "position": [
+        0.2019914,
+        0.771856,
+        8.5019755
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.601,
+        0.348,
+        0.376
+      ],
+      "position": [
+        4.9293182,
+        1.767144,
+        3.6492498
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.399,
+        0.652,
+        0.624
+      ],
+      "position": [
+        2.9840281,
+        3.310856,
+        6.0562017
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.899,
+        0.848,
+        0.124
+      ],
+      "position": [
+        7.711355,
+        4.306144,
+        1.203476
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.595,
+        0.573,
+        0.902
+      ],
+      "position": [
+        4.4718504,
+        2.909694,
+        8.7543173
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.095,
+        0.927,
+        0.402
+      ],
+      "position": [
+        0.5151772,
+        4.707306,
+        3.9015915
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.905,
+        0.073,
+        0.598
+      ],
+      "position": [
+        7.3981691,
+        0.370694,
+        5.80386
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.405,
+        0.427,
+        0.098
+      ],
+      "position": [
+        3.4414959,
+        2.168306,
+        0.9511342
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H3",
+      "fractional": [
+        0.503,
+        0.137,
+        0.81
+      ],
+      "position": [
+        3.7438226,
+        0.695686,
+        7.8614157
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H3",
+      "fractional": [
+        0.003,
+        0.363,
+        0.31
+      ],
+      "position": [
+        -0.2128506,
+        1.843314,
+        3.00869
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H3",
+      "fractional": [
+        0.997,
+        0.637,
+        0.69
+      ],
+      "position": [
+        8.126197,
+        3.234686,
+        6.6967615
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H3",
+      "fractional": [
+        0.497,
+        0.863,
+        0.19
+      ],
+      "position": [
+        4.1695238,
+        4.382314,
+        1.8440358
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H4",
+      "fractional": [
+        0.971,
+        0.801,
+        0.893
+      ],
+      "position": [
+        7.7439703,
+        4.067478,
+        8.6669682
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H4",
+      "fractional": [
+        0.471,
+        0.699,
+        0.393
+      ],
+      "position": [
+        3.7872971,
+        3.549522,
+        3.8142424
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H4",
+      "fractional": [
+        0.529,
+        0.301,
+        0.607
+      ],
+      "position": [
+        4.1260492,
+        1.528478,
+        5.8912091
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H4",
+      "fractional": [
+        0.029,
+        0.199,
+        0.107
+      ],
+      "position": [
+        0.1693761,
+        1.010522,
+        1.0384833
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H5",
+      "fractional": [
+        0.293,
+        0.724,
+        0.804
+      ],
+      "position": [
+        1.9248065,
+        3.676472,
+        7.803183
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H5",
+      "fractional": [
+        0.793,
+        0.776,
+        0.304
+      ],
+      "position": [
+        6.6521333,
+        3.940528,
+        2.9504573
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H5",
+      "fractional": [
+        0.207,
+        0.224,
+        0.696
+      ],
+      "position": [
+        1.2612131,
+        1.137472,
+        6.7549943
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H5",
+      "fractional": [
+        0.707,
+        0.276,
+        0.196
+      ],
+      "position": [
+        5.9885399,
+        1.401528,
+        1.9022685
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H6",
+      "fractional": [
+        0.815,
+        0.16,
+        0.81
+      ],
+      "position": [
+        6.4532306,
+        0.81248,
+        7.8614157
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H6",
+      "fractional": [
+        0.315,
+        0.34,
+        0.31
+      ],
+      "position": [
+        2.4965574,
+        1.72652,
+        3.00869
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H6",
+      "fractional": [
+        0.685,
+        0.66,
+        0.69
+      ],
+      "position": [
+        5.416789,
+        3.35148,
+        6.6967615
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H6",
+      "fractional": [
+        0.185,
+        0.84,
+        0.19
+      ],
+      "position": [
+        1.4601158,
+        4.26552,
+        1.8440358
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 56,
+  "speciesPositionCount": 56,
+  "cellComposition": {
+    "Al": 8,
+    "O": 24,
+    "H": 24
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Saalfeld H",
+      "Wedde M"
+    ],
+    "title": "Refinement of the crystal structure of gibbsite, Al(OH)3",
+    "journal": "Zeitschrift fur Kristallographie",
+    "year": 1974,
+    "volume": "139",
+    "pages": "129–135"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 4,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 6.740937980730186e-07
+  },
+  "id": "gibbsite",
+  "note": ""
+}

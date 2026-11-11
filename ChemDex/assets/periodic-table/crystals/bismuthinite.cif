@@ -1,0 +1,48 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0003562
+_database_code_amcsd 0003562
+_chemical_name_mineral Bismuthinite
+_chemical_formula_sum 'Bi2 S3'
+_symmetry_space_group_name_H-M 'P n m a'
+_cell_length_a 11.316
+_cell_length_b 3.9709
+_cell_length_c 11.178
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 502.280126
+loop_
+_publ_author_name
+'Kimata M'
+'Kyono A'
+_journal_name_full 'American Mineralogist'
+_journal_year 2004
+_journal_volume 89
+_publ_section_title
+;Structural variations induced by difference of the inert pair effect
+ in the stibnite-bismuthinite solid solution series (Sb,Bi)2S3
+ Sample #1
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+x,1/2-y,z
+-x,1/2+y,-z
+1/2-x,1/2+y,1/2+z
+1/2+x,1/2-y,1/2-z
+1/2+x,y,1/2-z
+1/2-x,-y,1/2+z
+-x,-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Bi1 Bi 0.48339 0.25 0.32581 1
+Bi2 Bi 0.34069 0.75 0.03429 1
+S1 S 0.2854 0.25 0.1941 1
+S2 S 0.55 0.75 0.1284 1
+S3 S 0.3756 0.75 0.4423 1

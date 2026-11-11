@@ -1,0 +1,430 @@
+{
+  "amcsdId": "0008636",
+  "mineralName": "Stibnite",
+  "formula": "Sb2 S3",
+  "spaceGroup": "P n m a",
+  "cell": {
+    "a": 11.314,
+    "b": 3.837,
+    "c": 11.234,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 487.68836341200006,
+  "declaredVolume": 487.688,
+  "basis": [
+    [
+      11.314,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      3.837,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      11.234
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "x,1/2-y,z",
+    "-x,1/2+y,-z",
+    "1/2-x,1/2+y,1/2+z",
+    "1/2+x,1/2-y,1/2-z",
+    "1/2+x,y,1/2-z",
+    "1/2-x,-y,1/2+z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Sb1",
+      "element": "Sb",
+      "fractional": [
+        0.47058,
+        0.25,
+        0.32598
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Sb2",
+      "element": "Sb",
+      "fractional": [
+        0.35058,
+        0.75,
+        0.03598
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S1",
+      "element": "S",
+      "fractional": [
+        0.2922,
+        0.25,
+        0.1919
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S2",
+      "element": "S",
+      "fractional": [
+        0.5498,
+        0.75,
+        0.123
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S3",
+      "element": "S",
+      "fractional": [
+        0.3751,
+        0.75,
+        0.4388
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Sb",
+      "label": "Sb1",
+      "fractional": [
+        0.47058,
+        0.25,
+        0.32598
+      ],
+      "position": [
+        5.3241421,
+        0.95925,
+        3.6620593
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sb",
+      "label": "Sb1",
+      "fractional": [
+        0.52942,
+        0.75,
+        0.67402
+      ],
+      "position": [
+        5.9898579,
+        2.87775,
+        7.5719407
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sb",
+      "label": "Sb1",
+      "fractional": [
+        0.02942,
+        0.75,
+        0.82598
+      ],
+      "position": [
+        0.3328579,
+        2.87775,
+        9.2790593
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sb",
+      "label": "Sb1",
+      "fractional": [
+        0.97058,
+        0.25,
+        0.17402
+      ],
+      "position": [
+        10.9811421,
+        0.95925,
+        1.9549407
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sb",
+      "label": "Sb2",
+      "fractional": [
+        0.35058,
+        0.75,
+        0.03598
+      ],
+      "position": [
+        3.9664621,
+        2.87775,
+        0.4041993
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sb",
+      "label": "Sb2",
+      "fractional": [
+        0.64942,
+        0.25,
+        0.96402
+      ],
+      "position": [
+        7.3475379,
+        0.95925,
+        10.8298007
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sb",
+      "label": "Sb2",
+      "fractional": [
+        0.14942,
+        0.25,
+        0.53598
+      ],
+      "position": [
+        1.6905379,
+        0.95925,
+        6.0211993
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sb",
+      "label": "Sb2",
+      "fractional": [
+        0.85058,
+        0.75,
+        0.46402
+      ],
+      "position": [
+        9.6234621,
+        2.87775,
+        5.2128007
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S1",
+      "fractional": [
+        0.2922,
+        0.25,
+        0.1919
+      ],
+      "position": [
+        3.3059508,
+        0.95925,
+        2.1558046
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S1",
+      "fractional": [
+        0.7078,
+        0.75,
+        0.8081
+      ],
+      "position": [
+        8.0080492,
+        2.87775,
+        9.0781954
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S1",
+      "fractional": [
+        0.2078,
+        0.75,
+        0.6919
+      ],
+      "position": [
+        2.3510492,
+        2.87775,
+        7.7728046
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S1",
+      "fractional": [
+        0.7922,
+        0.25,
+        0.3081
+      ],
+      "position": [
+        8.9629508,
+        0.95925,
+        3.4611954
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S2",
+      "fractional": [
+        0.5498,
+        0.75,
+        0.123
+      ],
+      "position": [
+        6.2204372,
+        2.87775,
+        1.381782
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S2",
+      "fractional": [
+        0.4502,
+        0.25,
+        0.877
+      ],
+      "position": [
+        5.0935628,
+        0.95925,
+        9.852218
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S2",
+      "fractional": [
+        0.9502,
+        0.25,
+        0.623
+      ],
+      "position": [
+        10.7505628,
+        0.95925,
+        6.998782
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S2",
+      "fractional": [
+        0.0498,
+        0.75,
+        0.377
+      ],
+      "position": [
+        0.5634372,
+        2.87775,
+        4.235218
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S3",
+      "fractional": [
+        0.3751,
+        0.75,
+        0.4388
+      ],
+      "position": [
+        4.2438814,
+        2.87775,
+        4.9294792
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S3",
+      "fractional": [
+        0.6249,
+        0.25,
+        0.5612
+      ],
+      "position": [
+        7.0701186,
+        0.95925,
+        6.3045208
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S3",
+      "fractional": [
+        0.1249,
+        0.25,
+        0.9388
+      ],
+      "position": [
+        1.4131186,
+        0.95925,
+        10.5464792
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S3",
+      "fractional": [
+        0.8751,
+        0.75,
+        0.0612
+      ],
+      "position": [
+        9.9008814,
+        2.87775,
+        0.6875208
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 20,
+  "speciesPositionCount": 20,
+  "cellComposition": {
+    "Sb": 8,
+    "S": 12
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Okamoto K",
+      "Kimata M",
+      "Kyono A",
+      "Matsuhisa M",
+      "Miyashita Y"
+    ],
+    "title": "Low-temperature crystal structures of stibnite implying orbital\n overlap of Sb 5s2 inert pair electrons\n Sample: T = 293 K",
+    "journal": "Physics and Chemistry of Minerals",
+    "year": 2002,
+    "volume": "29",
+    "pages": "254–260"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 7.451725883455584e-07
+  },
+  "id": "stibnite",
+  "note": ""
+}

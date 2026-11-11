@@ -1,0 +1,87 @@
+const n="neodymium-nd",h="neodymium-nd",t="reference/neodymium-nd/index.json",i=["ho-so-cda25fc250b1"],c="Neodymium (Nd) — Chân dung một nguyên tố: Lịch sử phát hiện, hình thái tự nhiên và ứng dụng",g="Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",m="nguyento",u="Hồ sơ báo chí toàn diện về Neodymium (Nd) (khởi nguồn 1885): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",a="/assets/library/earth-minerals.svg",l="Nd",o=["Biên niên sử nguyên tố","Nd"],d=["Neodymium","Nd"],e=["atom-Nd"],r="reference",N=11,s={formula:"Nd",representativeId:"atom-Nd",counts:{Nd:1},mass:144.24,material:!1,reactionIds:[]},y=`## Câu chuyện: Cội nguồn lịch sử và hành trình bước vào từ điển hóa học của Neodymium (Nd)
+
+Khi các nhà hóa học đặt câu hỏi *"Chất này từ đâu mà có và vì sao các nguyên tử của nó lại gắn kết bền chặt đến vậy?"*, câu trả lời dành cho **Neodymium (Nd)** luôn mở ra một bức tranh giao thoa thú vị giữa lịch sử văn minh nhân loại và các định luật bất di bất dịch của cơ học lượng tử.
+
+Theo hồ sơ bách khoa trực tuyến từ [Wikipedia Tiếng Việt — ND](https://vi.wikipedia.org/wiki/ND), bản chất và lịch sử của chất này được ghi nhận cụ thể như sau: ND có thể ldmksnadns Kannakans neodymium (Nd), ký hiệu của một nguyên tố hóa học từ viết tắt của nhân dân từ viết tắt của nội dung từ viết tắt của nông dân mannsdna
+
+Tư liệu bách khoa quốc tế tại [Wikipedia — Neodymium](https://en.wikipedia.org/wiki/Neodymium) bổ sung thêm góc nhìn lịch sử và danh pháp quốc tế: *“Neodymium is a chemical element with the symbol Nd and . It is a silvery-white metal belonging to the lanthanide series and is one of the rare-earth elements. The metal tarnishes in air and reacts with water. Its compounds predominantly contain neodymium in the +3 oxidation state, although +2 and +4 compounds are also known. Natural neodymium contains seven isotopes, two of which are radioactive with extremely long half-lives. The Austrian chemist Carl Auer von Welsbach discovered neodymium in 1885 when he separated didymium, previously regarded as an element, into neodymium and praseodymium. Its name derives from the Greek fo”* — phản ánh vai trò quan trọng của **Neodymium (Nd)** trong hệ thống phân loại hóa chất chuẩn IUPAC và thực tiễn phòng thí nghiệm toàn cầu.
+
+Là một nguyên tố nặng với hành trình kiến tạo đầy kịch tính, **Neodymium (Nd)** được tôi luyện từ những sự kiện vũ trụ khốc liệt nhất — những vụ va chạm dữ dội giữa các sao neutron hoặc siêu tân tinh giàu neutron, để lại những mạch quặng quý giá sâu trong lòng các tầng địa chất Trái Đất. Trong lịch sử văn minh nhân loại, khoảnh khắc định danh và cô lập được **Neodymium** đánh dấu bước ngoặt lớn gắn liền với công trình của **Carl Auer von Welsbach** vào thời điểm **1885** tại **Vienna, Áo-Hung**. Tên gọi quốc tế và ký hiệu **Nd** bắt nguồn từ danh pháp Latinh **Neodymium**. Neodymium được Carl Auer von Welsbach tách ra từ Didymium, một chất trước đó được cho là một nguyên tố duy nhất. Ông chứng minh Didymium thực chất là hỗn hợp của Praseodymium và Neodymium. Tên Neodymium bắt nguồn từ tiếng Hy Lạp neos (νέος, “mới”) và didymos (δίδυμος, “sinh đôi”), nghĩa là “sinh đôi mới”. Trong tự nhiên, Neodymium gắn liền với các vỉa khoáng vật đặc trưng như **Monazite và Bastnäsite**.
+
+![Khởi nguyên lịch sử và hành trình khám phá Neodymium (Nd)](/assets/library/earth-minerals.svg)
+*Hình 1. Bối cảnh lịch sử phát hiện, nguồn gốc tự nhiên và tiến trình định danh khoa học của Neodymium (Nd).*
+
+## Lần theo thành phần nguyên tử: Cấu trúc không gian, hình học phân tử và cá tính của Neodymium
+
+Để hiểu vì sao **Neodymium (Nd)** lại mang những tính chất vật lý và hóa học đặc thù, chúng ta cần đi sâu vào "bản thiết kế hình học" của chất này. Một đơn vị công thức **Nd** được liên kết chặt chẽ từ **1 nguyên tử** thuộc **1 nguyên tố hóa học**:
+
+- **Nguyên tố Neodymium (Nd)**: Góp mặt **1 nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử Neodymium phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **Neodymium**.
+
+Ở trạng thái đơn chất, **Neodymium (Nd)** mang trọn vẹn phong thái và tính chất đặc trưng của nhóm **nguyên tố**. Trong mạng lưới cấu trúc tự nhiên (như Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.), các nguyên tử **Neodymium** gắn kết với nhau bằng những liên kết bền vững, tạo nên độ cứng, nhiệt độ chuyển pha và khả năng tương tác riêng biệt khi đặt trong môi trường thử nghiệm.
+
+![Kiến trúc liên kết không gian 3 chiều của Neodymium (Nd)](/assets/library/covalent-bonds.svg)
+*Hình 2. Mô phỏng trực quan sự phân bố đám mây electron, góc liên kết và trật tự phối trí không gian 3D của Neodymium (Nd).*
+
+| Chỉ tiêu nhận diện & Cấu trúc 3D | Tư liệu xác thực từ hệ thống ChemDex |
+|---|---|
+| Tên chất & Danh pháp quốc tế | **Neodymium** (Neodymium) |
+| Công thức hóa học thực nghiệm | **Nd**  |
+| Hình thái không gian 3 chiều | Đơn chất tự nhiên () |
+| Quy mô cấu trúc vi mô | **1 nguyên tử** (1× Nd) |
+| Trạng thái & Sắc thái nhận diện | Rắn / Dung dịch thực nghiệm |
+| Phòng quan sát 3D tương tác | [Mở mô hình xoay 360° và kiểm tra góc liên kết](/tien-ich/cau-truc-3d/?compound=atom-Nd) |
+
+Người đọc có thể trực tiếp xoay mô hình 360°, bật/tắt nhãn nguyên tử và kiểm tra độ dài từng liên kết (tính bằng đơn vị Ångström) của chất này tại [Phòng quan sát Cấu trúc & Liên kết 3D — Neodymium](/tien-ich/cau-truc-3d/?compound=atom-Nd).
+
+## Dòng chảy phản ứng: Cách Neodymium ra đời và tương tác với thế giới hóa chất
+
+Trong tự nhiên, hầu hết các nguyên tố hóa học tồn tại ở dạng hợp chất bền vững về mặt nhiệt động học. Để đưa **Neodymium (Nd)** về trạng thái đơn chất tinh khiết phục vụ nghiên cứu và sản xuất, ngành hóa học thực nghiệm đã phát triển hai nhánh quy trình bổ trợ lẫn nhau:
+
+- **Điều chế trong phòng thí nghiệm**: Có thể điều chế Neodymium bằng cách khử Neodymium chloride khan bằng Calcium. Phương trình phản ứng: \`2NdCl₃ + 3Ca → 2Nd + 3CaCl₂\`. 
+- **Sản xuất quy mô công nghiệp**: Neodymium (Nd) chủ yếu được điều chế từ quặng monazite và bastnaesite. Sau khi tách khỏi hỗn hợp đất hiếm, Neodymium được thu bằng phương pháp điện phân muối nóng chảy hoặc khử Neodymium fluoride bằng Calcium. Phương trình chủ đạo: \`2NdF₃ + 3Ca → 2Nd + 3CaF₂\`. 
+
+Bên cạnh câu chuyện điều chế, bản chất hóa học của **Neodymium** còn được thể hiện sống động qua chuỗi các phản ứng đặc trưng với đơn chất và hợp chất khác:
+
+- **Tác dụng với Oxygen**: \`4Nd + 3O₂ → 2Nd₂O₃\` 
+- **Tác dụng với Hydrochloric acid**: \`2Nd + 6HCl → 2NdCl₃ + 3H₂\` 
+- **Tác dụng với nước**: \`2Nd + 6H₂O → 2Nd(OH)₃ + 3H₂\` 
+- **Tạo Neodymium(III) hydroxide**: \`NdCl₃ + 3NaOH → Nd(OH)₃↓ + 3NaCl\` 
+- **Điều chế Neodymium**: \`2NdCl₃ + 3Ca → 2Nd + 3CaCl₂\` 
+
+Trong thực hành hóa học, **Neodymium (Nd)** được điều chế và tinh chế dựa trên nguyên lý dịch chuyển cân bằng hóa học (Nguyên lý Le Chatelier) và sự khác biệt về độ tan, nhiệt độ sôi hoặc năng lượng mạng lưới tinh thể. Khi thiết kế quy trình tổng hợp **Nd**, nhà hóa học luôn kiểm soát chặt chẽ độ tinh khiết của tiền chất, nhiệt độ phản ứng và môi trường dung môi để thu được sản phẩm có cấu trúc không gian đồng nhất như mô hình 3D đã khảo sát.
+
+## Từ phòng thí nghiệm đến đời sống: Nhận diện, ứng dụng và bài học thực tiễn của Neodymium
+
+Từ một đối tượng nghiên cứu ban đầu trong các phòng thí nghiệm cổ điển, **Neodymium (Nd)** đã từng bước khẳng định vị thế to lớn trong đời sống và tiến trình văn minh nhân loại:
+
+- **Nam châm Nd-Fe-B**: Đây là ứng dụng nổi bật nhất của Neodymium. Nam châm Neodymium–Iron–Boron (Nd-Fe-B) có từ tính rất mạnh và được sử dụng trong động cơ điện, máy phát điện, loa, tai nghe và nhiều thiết bị điện tử.
+- **Laser**: Neodymium-doped Yttrium Aluminum Garnet (Nd:YAG) là vật liệu laser quan trọng, được sử dụng trong công nghiệp, nghiên cứu và một số thiết bị y tế.
+- **Kính quang học**: Hợp chất Neodymium được sử dụng để tạo kính có màu đặc trưng và điều chỉnh khả năng hấp thụ ánh sáng.
+- **Kính lọc**: Một số loại kính chứa Neodymium được dùng để lọc các vùng bước sóng nhất định trong quang học.
+- **Gốm và thủy tinh**: Neodymium compounds được sử dụng làm chất tạo màu cho glass và ceramic.
+
+### Câu chuyện lịch sử ứng dụng & Bài học kinh nghiệm thực hành
+
+Lịch sử ứng dụng của **Neodymium (Nd)** là một minh chứng sống động cho thấy sự am hiểu về bản chất chất hóa học có thể biến những vật chất thô sơ trong tự nhiên thành công cụ phục vụ đời sống con người. Trải qua hàng thế kỷ thực nghiệm — từ những phát hiện ngẫu nhiên trong xưởng nhuộm, mỏ quặng cho đến các dây chuyền tổng hợp hiện đại — bài học cốt lõi mà các thế hệ tiền bối để lại là luôn tôn trọng tính nết tự nhiên của chất: kiểm soát cẩn trọng nhiệt độ, môi trường tiếp xúc và trang bị đầy đủ phương tiện bảo hộ để phát huy tối đa giá trị hữu ích đồng thời ngăn ngừa mọi rủi ro tiềm ẩn trong thao tác.
+
+## Câu hỏi suy ngẫm & Tự kiểm tra kiến thức
+
+1. Dựa vào câu chuyện lịch sử và hành trình khám phá **Neodymium (Nd)**, nguyên nhân vì sao tên gọi và phương pháp điều chế ban đầu của chất này lại phản ánh hoàn cảnh văn hóa và kỹ thuật của thời đại phát hiện ra nó?
+2. Vì sao việc khám phá hình dáng không gian 3 chiều của **Neodymium (Nd)** lại là chìa khóa để giải mã các phản ứng đặc trưng của nó thay vì chỉ nhìn vào một công thức viết phẳng?
+
+<details><summary>Xem phân tích và lời giải chi tiết</summary>
+
+- **Giải đáp câu 1:** Tên gọi và phương pháp tiếp cận đầu tiên của Nd bắt nguồn trực tiếp từ nguồn khoáng sản tự nhiên hoặc hiện tượng quan sát bằng mắt thường của các nhà thực nghiệm thời kỳ đó. Chỉ khi kỹ thuật phân tích và mô hình liên kết không gian phát triển, nhân loại mới hiểu trọn vẹn bản chất cấu tạo của chất.
+- **Giải đáp câu 2:** Cấu trúc 3 chiều quyết định vị trí các nguyên tử lộ ra ngoài để tiếp xúc với thuốc thử; chính góc liên kết và sự che chắn không gian quyết định chất phản ứng dễ dàng hay trơ lỳ về mặt hóa học.
+
+</details>
+
+## Nguồn tư liệu khoa học & Khám phá tiếp theo
+
+- [Phòng quan sát Cấu trúc & Liên kết 3D tương tác — Neodymium (Nd)](/tien-ich/cau-truc-3d/?compound=atom-Nd)
+- [Bách khoa toàn thư Wikipedia Tiếng Việt — ND](https://vi.wikipedia.org/wiki/ND)
+- [Wikipedia Quốc tế — Neodymium](https://en.wikipedia.org/wiki/Neodymium)
+- [Hồ sơ dữ liệu nguyên tố chuyên sâu ChemDex](/data/elements/060_Nd.json)
+- [CIAAW (IUPAC) — Bảng trọng lượng nguyên tử chuẩn quốc tế](https://ciaaw.org/abridged-atomic-weights.htm)
+
+Bài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tổng hợp từ tư liệu lịch sử bách khoa trực tuyến, hồ sơ cấu trúc không gian 3 chiều và cơ sở dữ liệu phản ứng thực nghiệm, mang lại cái nhìn toàn diện về hành trình ra đời, cấu tạo vi mô và ứng dụng của **Neodymium (Nd)**.`,v={id:n,slug:h,documentPath:t,legacyIds:i,title:c,author:g,category:m,summary:u,image:a,chemicalFormula:"Nd",tags:o,aliases:d,substanceIds:e,documentKind:r,readingMinutes:11,chemicalEvidence:s,content:y};export{d as aliases,g as author,m as category,s as chemicalEvidence,l as chemicalFormula,y as content,v as default,r as documentKind,t as documentPath,n as id,a as image,i as legacyIds,N as readingMinutes,h as slug,e as substanceIds,u as summary,o as tags,c as title};

@@ -1,0 +1,50 @@
+[
+  {
+    "record": "AMCSD 0001011",
+    "mineral": "Beryl",
+    "finding": "WatC1 là vị trí nước giả nguyên tử, không có đủ tọa độ H để dựng phân tử nước thật. Không tự đổi nhãn Wat thành một nguyên tử khác.",
+    "resolution": "Chọn mẫu beryl 0001040 ở 0.001 kbar, không chứa nhãn giả nguyên tử."
+  },
+  {
+    "record": "AMCSD 0000049",
+    "mineral": "Graphite",
+    "finding": "Ô trực thoi Fmmm có 8 vị trí là cách biểu diễn lịch sử, không phải ô lục giác 4 nguyên tử mong muốn cho đối chiếu lớp graphite. Không coi số 8 là lỗi bản ghi.",
+    "resolution": "Chọn tinh thể tự nhiên đo neutron 0014675, ô lục giác P63/mmc, 4 nguyên tử."
+  },
+  {
+    "record": "AMCSD 0017791",
+    "mineral": "Pyrolusite",
+    "finding": "Gamma 120 độ không phù hợp đối xứng tứ phương P42/mnm; phép đối xứng không bảo toàn metric.",
+    "resolution": "Không đoán sửa gamma của bản ghi; thay bằng bản ghi tài liệu 0011760 có metric tứ phương 90 độ."
+  },
+  {
+    "record": "AMCSD 0009168 / 0009170 / 0009171",
+    "mineral": "La / Pr / Nd",
+    "finding": "Bản ghi truyền tải chỉ khai triển 2 nguyên tử với c tương ứng ô DHCP; thiếu vị trí so với cấu trúc DHCP 4 nguyên tử.",
+    "resolution": "Dùng 0011203 / 0011205 / 0011204 có cả hai loại vị trí; kiểm tra quần thể ô = 4."
+  },
+  {
+    "record": "Tantalite-(Fe)",
+    "mineral": "Tantalite",
+    "finding": "Snapshot không có bản ghi tantalite-(Fe) đã chọn; dùng tọa độ Mn rồi gán Fe sẽ sai thành phần.",
+    "resolution": "Dùng mẫu tantalite-(Mn) 0018628 và hiển thị công thức/loài mẫu thật."
+  },
+  {
+    "record": "Bauxite",
+    "mineral": "Bauxite",
+    "finding": "Bauxite là hỗn hợp đá/quặng, không có một mạng tinh thể duy nhất.",
+    "resolution": "Ba pha riêng gibbsite, boehmite, diaspore; không tạo ô bauxite giả."
+  },
+  {
+    "record": "Platinum_crystals.jpg",
+    "mineral": "Platinum tự sinh",
+    "finding": "Ảnh nuôi tinh thể trong phòng thí nghiệm không xác nhận trạng thái tự sinh.",
+    "resolution": "Thay bằng Platinum-274992.jpg, mẫu địa phương Fox Gulch, Alaska; CC BY-SA 3.0."
+  },
+  {
+    "record": "CIF viewer",
+    "mineral": "Mọi CIF nhập",
+    "finding": "Parser trước bỏ qua alpha/beta/gamma, giả định thứ tự cột, bỏ qua phép đối xứng, dùng hằng số mặc định 5.5 và suy liên kết từ khoảng cách.",
+    "resolution": "Parser CIF có tokenizer, cột theo tên, metric đầy đủ, khai triển đối xứng an toàn không eval, từ chối bản ghi thiếu và không gán bậc liên kết theo khoảng cách."
+  }
+]

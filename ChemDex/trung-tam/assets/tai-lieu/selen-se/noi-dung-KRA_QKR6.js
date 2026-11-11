@@ -1,0 +1,87 @@
+const n="selen-se",h="selen-se",t="reference/selen-se/index.json",i=["ho-so-bce5c4b4900e"],c="Selen (Se) — Từ lò luyện kim cổ truyền đến trụ cột công nghệ nguyên tố hiện đại",g="Tạp Chí Công Nghệ Hóa Chất & Vật Liệu · ChemDex",e="nguyento",u="Chuyên đề báo chí về Selen (Se) từ cột mốc 1817: tái hiện lịch sử phát hiện, cơ chế tạo thành liên kết hóa học và vai trò trong công nghiệp – phòng lab.",a="/assets/library/earth-minerals.svg",S="Se",l=["Biên niên sử nguyên tố","Se"],o=["Selen","Selenium","Se"],r=["atom-Se"],m="reference",p=12,s={formula:"Se",representativeId:"atom-Se",counts:{Se:1},mass:78.971,material:!1,reactionIds:[]},v=`## Câu chuyện: Hành trình lịch sử đưa Selen (Se) từ bí ẩn tự nhiên thành tri thức nhân loại
+
+Mỗi chất hóa học đều có một "tiểu sử" riêng biệt không trộn lẫn. Với **Selen (Se)**, câu chuyện ấy bắt đầu từ khoảnh khắc con người nhận ra rằng thế giới vật chất xung quanh được lắp ghép từ những đơn vị nguyên tử tuân theo quy luật tỷ lượng tuyệt đối và hình học không gian tinh vi.
+
+Theo hồ sơ bách khoa trực tuyến từ [Wikipedia Tiếng Việt — Seleni](https://vi.wikipedia.org/wiki/Seleni), bản chất và lịch sử của chất này được ghi nhận cụ thể như sau: Seleni hay selen là một nguyên tố hóa học với số nguyên tử 34 và ký hiệu hóa học Se. Nó là một phi kim, về mặt hóa học rất giống với lưu huỳnh và teluri, trong tự nhiên rất hiếm thấy ở dạng nguyên tố. Đối với sinh vật, nó độc hại khi ở liều lượng lớn, nhưng khi ở liều lượng nhỏ thì nó rất cần thiết cho chức năng trong phần lớn tế bào, nếu như không là tất cả, các động vật, tạo thành trung tâm hoạt hóa của các enzym glutathion peroxidase và thioredoxin reductase (gián tiếp khử các phân tử bị oxy hóa nhất định trong động vật và một số thực vật) và ba enzym deiodinase đã biết (chuyển hóa các hormone tuyến giáp lẫn nhau). Nhu cầu về seleni ở thực vật phụ thuộc tùy theo loài, với một số thực vật dường như không cần nó. Seleni được cô lập tồn tại dưới vài dạng khác nhau, ổn định nhất trong số đó là dạng bán kim loại (bán dẫn) màu xám ánh tía và nặng, về mặt cấu trúc là chuỗi polyme tam giác. Nó dẫn điện dưới ánh sáng tốt hơn trong bóng tối và được sử dụng trong các tế bào quang điện (xem phần thù hình dưới đây). Seleni cũng tồn tại trong nhiều dạng không dẫn điện: thù hình màu đen tương tự như thủy tinh, cũng như một vài dạng kết tinh màu đỏ được tạo ra từ các phân tử vòng 8 nguyên tử, tương tự như người chị em nhẹ hơn là lưu huỳnh. Seleni được tìm thấy ở lượng có giá trị kinh tế trong các quặng sulfide như pyrit, trong đó nó thay thế phần nào cho lưu huỳnh trong chất nền của quặng. Các khoáng vật chứa selenide hay seleniat cũng đã được biết tới nhưng chúng khá hiếm.
+
+Là một nguyên tố nặng với hành trình kiến tạo đầy kịch tính, **Selen (Se)** được tôi luyện từ những sự kiện vũ trụ khốc liệt nhất — những vụ va chạm dữ dội giữa các sao neutron hoặc siêu tân tinh giàu neutron, để lại những mạch quặng quý giá sâu trong lòng các tầng địa chất Trái Đất. Trong lịch sử văn minh nhân loại, khoảnh khắc định danh và cô lập được **Selen** đánh dấu bước ngoặt lớn gắn liền với công trình của **Jöns Jacob Berzelius và Johan Gottlieb Gahn** vào thời điểm **1817** tại **Thụy Điển**. Tên gọi quốc tế và ký hiệu **Se** bắt nguồn từ danh pháp Latinh **Selenium**. Năm 1817, Jöns Jacob Berzelius phát hiện Selenium khi nghiên cứu một chất cặn trong quá trình sản xuất Sulfuric acid. Ban đầu, ông cho rằng đó là Tellurium, nhưng sau khi nghiên cứu thêm, ông xác định đây là một nguyên tố mới. Tên Selenium bắt nguồn từ tiếng Hy Lạp Selene, nghĩa là Mặt Trăng. Trong tự nhiên, Selen gắn liền với các vỉa khoáng vật đặc trưng như **Thường tồn tại với lượng nhỏ trong các quặng Sulfide của Copper, Lead, Silver và Nickel**.
+
+![Khởi nguyên lịch sử và hành trình khám phá Selen (Se)](/assets/library/earth-minerals.svg)
+*Hình 1. Bối cảnh lịch sử phát hiện, nguồn gốc tự nhiên và tiến trình định danh khoa học của Selen (Se).*
+
+## Lần theo thành phần nguyên tử: Giải mã bộ khung liên kết và cá tính hình học của Selen
+
+Để hiểu vì sao **Selen (Se)** lại mang những tính chất vật lý và hóa học đặc thù, chúng ta cần đi sâu vào "bản thiết kế hình học" của chất này. Một đơn vị công thức **Se** được liên kết chặt chẽ từ **1 nguyên tử** thuộc **1 nguyên tố hóa học**:
+
+- **Nguyên tố Selen (Se)**: Góp mặt **1 nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử Selen phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **Selen**.
+
+Ở trạng thái đơn chất, **Selen (Se)** mang trọn vẹn phong thái và tính chất đặc trưng của nhóm **nguyên tố**. Trong mạng lưới cấu trúc tự nhiên (như Lục phương (Hexagonal)), các nguyên tử **Selen** gắn kết với nhau bằng những liên kết bền vững, tạo nên độ cứng, nhiệt độ chuyển pha và khả năng tương tác riêng biệt khi đặt trong môi trường thử nghiệm.
+
+![Kiến trúc liên kết không gian 3 chiều của Selen (Se)](/assets/library/covalent-bonds.svg)
+*Hình 2. Mô phỏng trực quan sự phân bố đám mây electron, góc liên kết và trật tự phối trí không gian 3D của Selen (Se).*
+
+| Chỉ tiêu nhận diện & Cấu trúc 3D | Tư liệu xác thực từ hệ thống ChemDex |
+|---|---|
+| Tên chất & Danh pháp quốc tế | **Selen** (Selenium) |
+| Công thức hóa học thực nghiệm | **Se**  |
+| Hình thái không gian 3 chiều | Đơn chất tự nhiên () |
+| Quy mô cấu trúc vi mô | **1 nguyên tử** (1× Se) |
+| Trạng thái & Sắc thái nhận diện | Rắn / Dung dịch thực nghiệm |
+| Phòng quan sát 3D tương tác | [Mở mô hình xoay 360° và kiểm tra góc liên kết](/tien-ich/cau-truc-3d/?compound=atom-Se) |
+
+Người đọc có thể trực tiếp xoay mô hình 360°, bật/tắt nhãn nguyên tử và kiểm tra độ dài từng liên kết (tính bằng đơn vị Ångström) của chất này tại [Phòng quan sát Cấu trúc & Liên kết 3D — Selen](/tien-ich/cau-truc-3d/?compound=atom-Se).
+
+## Con đường khai sinh hợp chất: Phương pháp điều chế và phản ứng đặc trưng của Selen
+
+Trong tự nhiên, hầu hết các nguyên tố hóa học tồn tại ở dạng hợp chất bền vững về mặt nhiệt động học. Để đưa **Selen (Se)** về trạng thái đơn chất tinh khiết phục vụ nghiên cứu và sản xuất, ngành hóa học thực nghiệm đã phát triển hai nhánh quy trình bổ trợ lẫn nhau:
+
+- **Điều chế trong phòng thí nghiệm**: Có thể điều chế Selenium bằng cách khử Selenium dioxide bằng Sulfur dioxide Phương trình phản ứng: \`SeO₂ + 2SO₂ + 2H₂O → Se + 2H₂SO₄\`. 
+- **Sản xuất quy mô công nghiệp**: Selenium chủ yếu được thu hồi như sản phẩm phụ trong quá trình tinh chế Copper. Phương trình chủ đạo: \`SeO₂ + 2SO₂ + 2H₂O → Se + 2H₂SO₄\`. Cặn anode chứa Selenium được xử lý để thu Selenium compounds, sau đó Selenium được khử để thu Selenium nguyên tố. Một phản ứng tổng quát:
+
+Bên cạnh câu chuyện điều chế, bản chất hóa học của **Selen** còn được thể hiện sống động qua chuỗi các phản ứng đặc trưng với đơn chất và hợp chất khác:
+
+- **Tác dụng với Oxygen**: \`Se + O₂ → SeO₂\` 
+- **Tác dụng với Hydrogen**: \`H₂ + Se → H₂Se\` 
+- **Tác dụng với Chlorine**: \`Se + 2Cl₂ → SeCl₄\` 
+- **Tạo Hydrogen selenide**: \`H₂ + Se → H₂Se\` 
+- **Khử Selenium dioxide**: \`SeO₂ + 2SO₂ + 2H₂O → Se + 2H₂SO₄\` 
+
+Trong thực hành hóa học, **Selen (Se)** được điều chế và tinh chế dựa trên nguyên lý dịch chuyển cân bằng hóa học (Nguyên lý Le Chatelier) và sự khác biệt về độ tan, nhiệt độ sôi hoặc năng lượng mạng lưới tinh thể. Khi thiết kế quy trình tổng hợp **Se**, nhà hóa học luôn kiểm soát chặt chẽ độ tinh khiết của tiền chất, nhiệt độ phản ứng và môi trường dung môi để thu được sản phẩm có cấu trúc không gian đồng nhất như mô hình 3D đã khảo sát.
+
+## Bức tranh ứng dụng thực tế, giá trị kinh tế và kinh nghiệm thực hành với Selen
+
+Từ một đối tượng nghiên cứu ban đầu trong các phòng thí nghiệm cổ điển, **Selen (Se)** đã từng bước khẳng định vị thế to lớn trong đời sống và tiến trình văn minh nhân loại:
+
+- **Điện tử**: Selenium có tính quang dẫn nên từng được sử dụng trong một số thiết bị quang điện.
+- **Kính**: Selenium compounds được sử dụng để khử màu hoặc tạo màu cho thủy tinh.
+- **Pigment**: Một số Selenium compounds được sử dụng để tạo pigment màu đỏ.
+- **Solar cells**: Selenium được sử dụng trong một số vật liệu quang điện và công nghệ tế bào mặt trời.
+- **Luyện kim**: Selenium được thêm vào một số hợp kim để cải thiện khả năng gia công.
+- **Nông nghiệp**: Selenium là nguyên tố vi lượng cần thiết với một số sinh vật, nhưng lượng quá cao có thể gây độc.
+- **Công nghiệp hóa chất**: Selenium compounds được sử dụng trong một số quá trình tổng hợp hóa học.
+
+### Câu chuyện lịch sử ứng dụng & Bài học kinh nghiệm thực hành
+
+Lịch sử ứng dụng của **Selen (Se)** là một minh chứng sống động cho thấy sự am hiểu về bản chất chất hóa học có thể biến những vật chất thô sơ trong tự nhiên thành công cụ phục vụ đời sống con người. Trải qua hàng thế kỷ thực nghiệm — từ những phát hiện ngẫu nhiên trong xưởng nhuộm, mỏ quặng cho đến các dây chuyền tổng hợp hiện đại — bài học cốt lõi mà các thế hệ tiền bối để lại là luôn tôn trọng tính nết tự nhiên của chất: kiểm soát cẩn trọng nhiệt độ, môi trường tiếp xúc và trang bị đầy đủ phương tiện bảo hộ để phát huy tối đa giá trị hữu ích đồng thời ngăn ngừa mọi rủi ro tiềm ẩn trong thao tác.
+
+## Câu hỏi suy ngẫm & Tự kiểm tra kiến thức
+
+1. Dựa vào câu chuyện lịch sử và hành trình khám phá **Selen (Se)**, nguyên nhân vì sao tên gọi và phương pháp điều chế ban đầu của chất này lại phản ánh hoàn cảnh văn hóa và kỹ thuật của thời đại phát hiện ra nó?
+2. Vì sao việc khám phá hình dáng không gian 3 chiều của **Selen (Se)** lại là chìa khóa để giải mã các phản ứng đặc trưng của nó thay vì chỉ nhìn vào một công thức viết phẳng?
+
+<details><summary>Xem phân tích và lời giải chi tiết</summary>
+
+- **Giải đáp câu 1:** Tên gọi và phương pháp tiếp cận đầu tiên của Se bắt nguồn trực tiếp từ nguồn khoáng sản tự nhiên hoặc hiện tượng quan sát bằng mắt thường của các nhà thực nghiệm thời kỳ đó. Chỉ khi kỹ thuật phân tích và mô hình liên kết không gian phát triển, nhân loại mới hiểu trọn vẹn bản chất cấu tạo của chất.
+- **Giải đáp câu 2:** Cấu trúc 3 chiều quyết định vị trí các nguyên tử lộ ra ngoài để tiếp xúc với thuốc thử; chính góc liên kết và sự che chắn không gian quyết định chất phản ứng dễ dàng hay trơ lỳ về mặt hóa học.
+
+</details>
+
+## Nguồn tư liệu khoa học & Khám phá tiếp theo
+
+- [Phòng quan sát Cấu trúc & Liên kết 3D tương tác — Selen (Se)](/tien-ich/cau-truc-3d/?compound=atom-Se)
+- [Bách khoa toàn thư Wikipedia Tiếng Việt — Seleni](https://vi.wikipedia.org/wiki/Seleni)
+- [Wikipedia Quốc tế — Se](https://en.wikipedia.org/wiki/Se)
+- [Hồ sơ dữ liệu nguyên tố chuyên sâu ChemDex](/data/elements/034_Se.json)
+- [CIAAW (IUPAC) — Bảng trọng lượng nguyên tử chuẩn quốc tế](https://ciaaw.org/abridged-atomic-weights.htm)
+
+Bài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tổng hợp từ tư liệu lịch sử bách khoa trực tuyến, hồ sơ cấu trúc không gian 3 chiều và cơ sở dữ liệu phản ứng thực nghiệm, mang lại cái nhìn toàn diện về hành trình ra đời, cấu tạo vi mô và ứng dụng của **Selen (Se)**.`,k={id:n,slug:h,documentPath:t,legacyIds:i,title:c,author:g,category:e,summary:u,image:a,chemicalFormula:"Se",tags:l,aliases:o,substanceIds:r,documentKind:m,readingMinutes:12,chemicalEvidence:s,content:v};export{o as aliases,g as author,e as category,s as chemicalEvidence,S as chemicalFormula,v as content,k as default,m as documentKind,t as documentPath,n as id,a as image,i as legacyIds,p as readingMinutes,h as slug,r as substanceIds,u as summary,l as tags,c as title};

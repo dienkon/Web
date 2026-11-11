@@ -1,0 +1,57 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0001736
+_database_code_amcsd 0001736
+_chemical_name_mineral Rutile
+_chemical_formula_sum 'Ti.91 Al.08 Nb.01 Cr.01 O2'
+_symmetry_space_group_name_H-M 'P 42/m n m'
+_cell_length_a 4.594
+_cell_length_b 4.594
+_cell_length_c 2.9586
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 62.4407678
+loop_
+_publ_author_name
+'Smyth J R'
+'Swope R J'
+'Larson A C'
+_journal_name_full 'American Mineralogist'
+_journal_year 1995
+_journal_volume 80
+_publ_section_title
+;H in rutile-type compounds: I. Single-crystal neutron and X-ray diffraction
+ study of H in rutile
+ Sample: X-ray; natural, T = 300 K
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+-y,-x,z
+y,x,-z
+1/2+y,1/2-x,1/2-z
+1/2-y,1/2+x,1/2+z
+1/2+x,1/2-y,1/2+z
+1/2-x,1/2+y,1/2-z
+x,y,-z
+-x,-y,z
+y,x,z
+-y,-x,-z
+1/2-y,1/2+x,1/2-z
+1/2+y,1/2-x,1/2+z
+1/2-x,1/2+y,1/2+z
+1/2+x,1/2-y,1/2-z
+-x,-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Ti Ti 0 0 0 0.91
+Al Al 0 0 0 0.08
+Nb Nb 0 0 0 0.01
+Cr Cr 0 0 0 0.01
+O O 0.30495 0.30495 0 1

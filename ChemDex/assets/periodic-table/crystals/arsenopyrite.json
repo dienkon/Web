@@ -1,0 +1,312 @@
+{
+  "amcsdId": "0000112",
+  "mineralName": "Arsenopyrite",
+  "formula": "Fe As S",
+  "spaceGroup": "P -1",
+  "cell": {
+    "a": 5.744,
+    "b": 5.675,
+    "c": 5.785,
+    "alpha": 90.0,
+    "beta": 112.28,
+    "gamma": 90.0
+  },
+  "volume": 174.49620653383698,
+  "declaredVolume": 174.496,
+  "basis": [
+    [
+      5.744,
+      0.0,
+      -2.1932854306841274
+    ],
+    [
+      0.0,
+      5.675,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.353104148019982
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Fe1",
+      "element": "Fe",
+      "fractional": [
+        0.272,
+        0.0,
+        0.289
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Fe2",
+      "element": "Fe",
+      "fractional": [
+        0.275,
+        0.502,
+        0.787
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "As1",
+      "element": "As",
+      "fractional": [
+        0.154,
+        0.371,
+        0.363
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "As2",
+      "element": "As",
+      "fractional": [
+        0.155,
+        0.129,
+        0.863
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S1",
+      "element": "S",
+      "fractional": [
+        0.346,
+        -0.37,
+        0.175
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S2",
+      "element": "S",
+      "fractional": [
+        0.343,
+        -0.131,
+        0.675
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Fe",
+      "label": "Fe1",
+      "fractional": [
+        0.272,
+        0.0,
+        0.289
+      ],
+      "position": [
+        0.9285085,
+        0.0,
+        1.5470471
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe1",
+      "fractional": [
+        0.728,
+        0.0,
+        0.711
+      ],
+      "position": [
+        2.6222061,
+        0.0,
+        3.806057
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe2",
+      "fractional": [
+        0.275,
+        0.502,
+        0.787
+      ],
+      "position": [
+        -0.1465156,
+        2.84885,
+        4.212893
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe2",
+      "fractional": [
+        0.725,
+        0.498,
+        0.213
+      ],
+      "position": [
+        3.6972302,
+        2.82615,
+        1.1402112
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "As",
+      "label": "As1",
+      "fractional": [
+        0.154,
+        0.371,
+        0.363
+      ],
+      "position": [
+        0.0884134,
+        2.105425,
+        1.9431768
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "As",
+      "label": "As1",
+      "fractional": [
+        0.846,
+        0.629,
+        0.637
+      ],
+      "position": [
+        3.4623012,
+        3.569575,
+        3.4099273
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "As",
+      "label": "As2",
+      "fractional": [
+        0.155,
+        0.129,
+        0.863
+      ],
+      "position": [
+        -1.0024853,
+        0.732075,
+        4.6197289
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "As",
+      "label": "As2",
+      "fractional": [
+        0.845,
+        0.871,
+        0.137
+      ],
+      "position": [
+        4.5531999,
+        4.942925,
+        0.7333753
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S1",
+      "fractional": [
+        0.346,
+        0.63,
+        0.175
+      ],
+      "position": [
+        1.603599,
+        3.57525,
+        0.9367932
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S1",
+      "fractional": [
+        0.654,
+        0.37,
+        0.825
+      ],
+      "position": [
+        1.9471155,
+        2.09975,
+        4.4163109
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S2",
+      "fractional": [
+        0.343,
+        0.869,
+        0.675
+      ],
+      "position": [
+        0.4897243,
+        4.931575,
+        3.6133453
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S2",
+      "fractional": [
+        0.657,
+        0.131,
+        0.325
+      ],
+      "position": [
+        3.0609902,
+        0.743425,
+        1.7397588
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 12,
+  "speciesPositionCount": 12,
+  "cellComposition": {
+    "Fe": 4,
+    "As": 4,
+    "S": 4
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Morimoto N",
+      "Clark L A"
+    ],
+    "title": "Arsenopyrite crystal-chemical relations\n From Freiberg, Germany",
+    "journal": "American Mineralogist",
+    "year": 1961,
+    "volume": "46",
+    "pages": "1448–1469"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 2,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.1836007273497503e-06
+  },
+  "id": "arsenopyrite",
+  "note": ""
+}

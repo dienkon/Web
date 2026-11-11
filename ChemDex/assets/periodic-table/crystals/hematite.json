@@ -1,0 +1,577 @@
+{
+  "amcsdId": "0000143",
+  "mineralName": "Hematite",
+  "formula": "Fe2 O3",
+  "spaceGroup": "R -3 c",
+  "cell": {
+    "a": 5.038,
+    "b": 5.038,
+    "c": 13.772,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 302.7219916764188,
+  "declaredVolume": 302.722,
+  "basis": [
+    [
+      5.038,
+      -2.518999999999999,
+      0.0
+    ],
+    [
+      0.0,
+      4.363035984266002,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      13.772
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "2/3+x,1/3+y,1/3+z",
+    "1/3+x,2/3+y,2/3+z",
+    "x,x-y,1/2+z",
+    "2/3+x,1/3+x-y,5/6+z",
+    "1/3+x,2/3+x-y,1/6+z",
+    "y,x,1/2-z",
+    "2/3+y,1/3+x,5/6-z",
+    "1/3+y,2/3+x,1/6-z",
+    "-x+y,y,1/2+z",
+    "2/3-x+y,1/3+y,5/6+z",
+    "1/3-x+y,2/3+y,1/6+z",
+    "-x,-x+y,1/2-z",
+    "2/3-x,1/3-x+y,5/6-z",
+    "1/3-x,2/3-x+y,1/6-z",
+    "-y,-x,1/2+z",
+    "2/3-y,1/3-x,5/6+z",
+    "1/3-y,2/3-x,1/6+z",
+    "x-y,-y,1/2-z",
+    "2/3+x-y,1/3-y,5/6-z",
+    "1/3+x-y,2/3-y,1/6-z",
+    "y,-x+y,-z",
+    "2/3+y,1/3-x+y,1/3-z",
+    "1/3+y,2/3-x+y,2/3-z",
+    "-x+y,-x,z",
+    "2/3-x+y,1/3-x,1/3+z",
+    "1/3-x+y,2/3-x,2/3+z",
+    "-x,-y,-z",
+    "2/3-x,1/3-y,1/3-z",
+    "1/3-x,2/3-y,2/3-z",
+    "-y,x-y,z",
+    "2/3-y,1/3+x-y,1/3+z",
+    "1/3-y,2/3+x-y,2/3+z",
+    "x-y,x,-z",
+    "2/3+x-y,1/3+x,1/3-z",
+    "1/3+x-y,2/3+x,2/3-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Fe",
+      "element": "Fe",
+      "fractional": [
+        0.0,
+        0.0,
+        0.3553
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.3059,
+        0.0,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.0,
+        0.0,
+        0.3553
+      ],
+      "position": [
+        0.0,
+        0.0,
+        4.8931916
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.68863333
+      ],
+      "position": [
+        2.519,
+        1.4543453,
+        9.4838582
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.02196667
+      ],
+      "position": [
+        -0.0,
+        2.9086907,
+        0.302525
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.0,
+        0.0,
+        0.8553
+      ],
+      "position": [
+        0.0,
+        0.0,
+        11.7791916
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.18863333
+      ],
+      "position": [
+        2.519,
+        1.4543453,
+        2.5978582
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.52196667
+      ],
+      "position": [
+        -0.0,
+        2.9086907,
+        7.188525
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.0,
+        0.0,
+        0.1447
+      ],
+      "position": [
+        0.0,
+        0.0,
+        1.9928084
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.47803333
+      ],
+      "position": [
+        2.519,
+        1.4543453,
+        6.583475
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.81136667
+      ],
+      "position": [
+        -0.0,
+        2.9086907,
+        11.1741418
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.0,
+        0.0,
+        0.6447
+      ],
+      "position": [
+        0.0,
+        0.0,
+        8.8788084
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.97803333
+      ],
+      "position": [
+        2.519,
+        1.4543453,
+        13.469475
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.31136667
+      ],
+      "position": [
+        -0.0,
+        2.9086907,
+        4.2881418
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.3059,
+        0.0,
+        0.25
+      ],
+      "position": [
+        1.5411242,
+        0.0,
+        3.443
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.97256667,
+        0.33333333,
+        0.58333333
+      ],
+      "position": [
+        4.0601242,
+        1.4543453,
+        8.0336666
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.63923333,
+        0.66666667,
+        0.91666667
+      ],
+      "position": [
+        1.5411242,
+        2.9086907,
+        12.6243334
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.3059,
+        0.3059,
+        0.75
+      ],
+      "position": [
+        0.7705621,
+        1.3346527,
+        10.329
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.97256667,
+        0.63923333,
+        0.08333333
+      ],
+      "position": [
+        3.2895621,
+        2.788998,
+        1.1476666
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.63923333,
+        0.97256667,
+        0.41666667
+      ],
+      "position": [
+        0.7705621,
+        4.2433434,
+        5.7383334
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.3059,
+        0.25
+      ],
+      "position": [
+        -0.7705621,
+        1.3346527,
+        3.443
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.66666667,
+        0.63923333,
+        0.58333333
+      ],
+      "position": [
+        1.7484379,
+        2.788998,
+        8.0336666
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.33333333,
+        0.97256667,
+        0.91666667
+      ],
+      "position": [
+        -0.7705621,
+        4.2433434,
+        12.6243334
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.6941,
+        0.0,
+        0.75
+      ],
+      "position": [
+        3.4968758,
+        0.0,
+        10.329
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.36076667,
+        0.33333333,
+        0.08333333
+      ],
+      "position": [
+        0.9778758,
+        1.4543453,
+        1.1476666
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.02743333,
+        0.66666667,
+        0.41666667
+      ],
+      "position": [
+        -1.5411242,
+        2.9086907,
+        5.7383334
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.6941,
+        0.6941,
+        0.25
+      ],
+      "position": [
+        1.7484379,
+        3.0283833,
+        3.443
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.36076667,
+        0.02743333,
+        0.58333333
+      ],
+      "position": [
+        1.7484379,
+        0.1196926,
+        8.0336666
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.02743333,
+        0.36076667,
+        0.91666667
+      ],
+      "position": [
+        -0.7705621,
+        1.574038,
+        12.6243334
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.6941,
+        0.75
+      ],
+      "position": [
+        -1.7484379,
+        3.0283833,
+        10.329
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.66666667,
+        0.02743333,
+        0.08333333
+      ],
+      "position": [
+        3.2895621,
+        0.1196926,
+        1.1476666
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.33333333,
+        0.36076667,
+        0.41666667
+      ],
+      "position": [
+        0.7705621,
+        1.574038,
+        5.7383334
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 30,
+  "speciesPositionCount": 30,
+  "cellComposition": {
+    "Fe": 12,
+    "O": 18
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Zoltai T",
+      "Finger L W",
+      "Blake R L",
+      "Hessevick R E"
+    ],
+    "title": "Refinement of the hematite structure",
+    "journal": "American Mineralogist",
+    "year": 1966,
+    "volume": "51",
+    "pages": "123–129"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 36,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 2.7495792930061165e-08
+  },
+  "id": "hematite",
+  "note": ""
+}

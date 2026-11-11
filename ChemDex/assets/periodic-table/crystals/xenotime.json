@@ -1,0 +1,493 @@
+{
+  "amcsdId": "0001706",
+  "mineralName": "Xenotime-(Y)",
+  "formula": "Y P O4",
+  "spaceGroup": "I 41/a m d",
+  "cell": {
+    "a": 6.8947,
+    "b": 6.8947,
+    "c": 6.0276,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 286.53334665128403,
+  "declaredVolume": 286.533,
+  "basis": [
+    [
+      6.8947,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      6.8947,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      6.0276
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,1/2+z",
+    "1/4-y,3/4-x,1/4+z",
+    "3/4-y,1/4-x,3/4+z",
+    "1/4+y,3/4+x,1/4-z",
+    "3/4+y,1/4+x,3/4-z",
+    "1/4+y,3/4-x,1/4-z",
+    "3/4+y,1/4-x,3/4-z",
+    "1/4-y,3/4+x,1/4+z",
+    "3/4-y,1/4+x,3/4+z",
+    "1/2+x,-y,1/2+z",
+    "+x,1/2-y,+z",
+    "1/2-x,y,1/2-z",
+    "-x,1/2+y,-z",
+    "1/2+x,y,1/2-z",
+    "+x,1/2+y,-z",
+    "1/2-x,-y,1/2+z",
+    "-x,1/2-y,+z",
+    "1/4+y,1/4+x,3/4+z",
+    "3/4+y,3/4+x,1/4+z",
+    "1/4-y,1/4-x,3/4-z",
+    "3/4-y,3/4-x,1/4-z",
+    "1/4-y,1/4+x,3/4-z",
+    "3/4-y,3/4+x,1/4-z",
+    "1/4+y,1/4-x,3/4+z",
+    "3/4+y,3/4-x,1/4+z",
+    "-x,y,z",
+    "1/2-x,1/2+y,1/2+z",
+    "x,-y,-z",
+    "1/2+x,1/2-y,1/2-z",
+    "-x,-y,-z",
+    "1/2-x,1/2-y,1/2-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Y",
+      "element": "Y",
+      "fractional": [
+        0.0,
+        0.75,
+        0.125
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "P",
+      "element": "P",
+      "fractional": [
+        0.0,
+        0.25,
+        0.375
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.0,
+        0.0753,
+        0.2158
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Y",
+      "label": "Y",
+      "fractional": [
+        0.0,
+        0.75,
+        0.125
+      ],
+      "position": [
+        0.0,
+        5.171025,
+        0.75345
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Y",
+      "label": "Y",
+      "fractional": [
+        0.5,
+        0.25,
+        0.625
+      ],
+      "position": [
+        3.44735,
+        1.723675,
+        3.76725
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Y",
+      "label": "Y",
+      "fractional": [
+        0.5,
+        0.75,
+        0.375
+      ],
+      "position": [
+        3.44735,
+        5.171025,
+        2.26035
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Y",
+      "label": "Y",
+      "fractional": [
+        0.0,
+        0.25,
+        0.875
+      ],
+      "position": [
+        0.0,
+        1.723675,
+        5.27415
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "P",
+      "label": "P",
+      "fractional": [
+        0.0,
+        0.25,
+        0.375
+      ],
+      "position": [
+        0.0,
+        1.723675,
+        2.26035
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "P",
+      "label": "P",
+      "fractional": [
+        0.5,
+        0.75,
+        0.875
+      ],
+      "position": [
+        3.44735,
+        5.171025,
+        5.27415
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "P",
+      "label": "P",
+      "fractional": [
+        0.0,
+        0.75,
+        0.625
+      ],
+      "position": [
+        0.0,
+        5.171025,
+        3.76725
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "P",
+      "label": "P",
+      "fractional": [
+        0.5,
+        0.25,
+        0.125
+      ],
+      "position": [
+        3.44735,
+        1.723675,
+        0.75345
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.0753,
+        0.2158
+      ],
+      "position": [
+        0.0,
+        0.5191709,
+        1.3007561
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.5,
+        0.5753,
+        0.7158
+      ],
+      "position": [
+        3.44735,
+        3.9665209,
+        4.3145561
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.1747,
+        0.75,
+        0.4658
+      ],
+      "position": [
+        1.2045041,
+        5.171025,
+        2.8076561
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.6747,
+        0.25,
+        0.9658
+      ],
+      "position": [
+        4.6518541,
+        1.723675,
+        5.8214561
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.3253,
+        0.75,
+        0.0342
+      ],
+      "position": [
+        2.2428459,
+        5.171025,
+        0.2061439
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.8253,
+        0.25,
+        0.5342
+      ],
+      "position": [
+        5.6901959,
+        1.723675,
+        3.2199439
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.5,
+        0.9247,
+        0.7158
+      ],
+      "position": [
+        3.44735,
+        6.3755291,
+        4.3145561
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.4247,
+        0.2158
+      ],
+      "position": [
+        0.0,
+        2.9281791,
+        1.3007561
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.5,
+        0.0753,
+        0.2842
+      ],
+      "position": [
+        3.44735,
+        0.5191709,
+        1.7130439
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.5753,
+        0.7842
+      ],
+      "position": [
+        0.0,
+        3.9665209,
+        4.7268439
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.3253,
+        0.25,
+        0.9658
+      ],
+      "position": [
+        2.2428459,
+        1.723675,
+        5.8214561
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.8253,
+        0.75,
+        0.4658
+      ],
+      "position": [
+        5.6901959,
+        5.171025,
+        2.8076561
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.1747,
+        0.25,
+        0.5342
+      ],
+      "position": [
+        1.2045041,
+        1.723675,
+        3.2199439
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.6747,
+        0.75,
+        0.0342
+      ],
+      "position": [
+        4.6518541,
+        5.171025,
+        0.2061439
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.9247,
+        0.7842
+      ],
+      "position": [
+        0.0,
+        6.3755291,
+        4.7268439
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.5,
+        0.4247,
+        0.2842
+      ],
+      "position": [
+        3.44735,
+        2.9281791,
+        1.7130439
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "Y": 4,
+    "P": 4,
+    "O": 16
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Hughes J M",
+      "Mariano A N",
+      "Ni Y"
+    ],
+    "title": "Crystal chemistry of the monazite and xenotime structures",
+    "journal": "American Mineralogist",
+    "year": 1995,
+    "volume": "80",
+    "pages": "21–26"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 32,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.2098113119133659e-06
+  },
+  "id": "xenotime",
+  "note": ""
+}

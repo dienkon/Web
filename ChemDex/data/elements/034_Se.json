@@ -60,7 +60,45 @@
     "valenceElectrons": 6,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương (Hexagonal)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-se",
+      "amcsdId": "0012674",
+      "mineralName": "Selenium",
+      "formula": "Se",
+      "spaceGroup": "P 31 2 1",
+      "cell": {
+        "a": 4.3662,
+        "b": 4.3662,
+        "c": 4.9536,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 81.7822052281472,
+      "siteCount": 3,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Cherin P",
+          "Unger P"
+        ],
+        "title": "The crystal structure of trigonal selenium",
+        "journal": "Inorganic Chemistry",
+        "year": 1967,
+        "volume": "6",
+        "pages": "1589–1591"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-se.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-se.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-se.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-se.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -100,16 +138,64 @@
       "sourceSearch": "https://rruff.info/Clausthalite",
       "model": "/assets/periodic-table/minerals/clausthalite.glb",
       "preview": "/assets/periodic-table/minerals/clausthalite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "clausthalite",
+          "amcsdId": "0010048",
+          "mineralName": "Clausthalite",
+          "formula": "Pb Se",
+          "spaceGroup": "F m 3 m",
+          "cell": {
+            "a": 6.1213,
+            "b": 6.1213,
+            "c": 6.1213,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 229.36703119059698,
+          "siteCount": 8,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Noda Y",
+              "Masumoto K",
+              "Ohba S",
+              "Saito Y",
+              "Toriumi K",
+              "Iwata Y",
+              "Shibuya I"
+            ],
+            "title": "Temperature dependence of atomic thermal parameters of lead chalcogenides, PbS,\n PbSe and PbTe\n Sample: T = 298 K",
+            "journal": "Acta Crystallographica, Section C",
+            "year": 1987,
+            "volume": "43",
+            "pages": "1443–1445"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/clausthalite.json",
+          "cif": "/assets/periodic-table/crystals/clausthalite.cif",
+          "model": "/assets/periodic-table/crystals/clausthalite.glb",
+          "preview": "/assets/periodic-table/crystals/clausthalite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Clausthalite-207330.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/034_Se.jpg",
-    "alt": "Selenium: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/clausthalite.jpg",
+    "alt": "Clausthalite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:SeBlackRed.jpg",
-    "caption": "Ảnh tham chiếu mẫu Selenium (Se); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "W. Oelen · CC BY-SA 3.0"
+    "source": "https://commons.wikimedia.org/wiki/File:Clausthalite-207330.jpg",
+    "caption": "Ảnh mẫu tham chiếu Clausthalite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "W. Oelen · CC BY-SA 3.0",
+    "author": "Robert M. Lavinsky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -447,9 +533,68 @@
       "author": "W. Oelen",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/clausthalite.jpg",
+      "role": "natural-mineral",
+      "title": "Clausthalite",
+      "desc": "Ảnh mẫu tham chiếu Clausthalite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Clausthalite-207330.jpg",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Clausthalite",
+      "src": "/assets/periodic-table/crystals/clausthalite.json",
+      "crystal": {
+        "id": "clausthalite",
+        "amcsdId": "0010048",
+        "mineralName": "Clausthalite",
+        "formula": "Pb Se",
+        "spaceGroup": "F m 3 m",
+        "cell": {
+          "a": 6.1213,
+          "b": 6.1213,
+          "c": 6.1213,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 229.36703119059698,
+        "siteCount": 8,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Noda Y",
+            "Masumoto K",
+            "Ohba S",
+            "Saito Y",
+            "Toriumi K",
+            "Iwata Y",
+            "Shibuya I"
+          ],
+          "title": "Temperature dependence of atomic thermal parameters of lead chalcogenides, PbS,\n PbSe and PbTe\n Sample: T = 298 K",
+          "journal": "Acta Crystallographica, Section C",
+          "year": 1987,
+          "volume": "43",
+          "pages": "1443–1445"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/clausthalite.json",
+        "cif": "/assets/periodic-table/crystals/clausthalite.cif",
+        "model": "/assets/periodic-table/crystals/clausthalite.glb",
+        "preview": "/assets/periodic-table/crystals/clausthalite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -484,6 +629,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -491,6 +641,7 @@
     "sourceFile": "034_Se.docx",
     "sourceSha256": "a7ef1344d42324586baa3129517fcb0f6265ff394c170aa0163226c3d0d058c8",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/034_Se.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/selen-se/audit.md"
   }
 }

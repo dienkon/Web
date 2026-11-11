@@ -1,0 +1,425 @@
+{
+  "amcsdId": "0019146",
+  "mineralName": "Bohmite",
+  "formula": "Al O2 H.08",
+  "spaceGroup": "A m a m",
+  "cell": {
+    "a": 3.693,
+    "b": 12.221,
+    "c": 2.865,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 129.30361834500002,
+  "declaredVolume": 129.304,
+  "basis": [
+    [
+      3.693,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      12.221,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      2.865
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "x,1/2+y,1/2+z",
+    "1/2+x,-y,z",
+    "1/2+x,1/2-y,1/2+z",
+    "1/2-x,y,-z",
+    "1/2-x,1/2+y,1/2-z",
+    "x,y,-z",
+    "x,1/2+y,1/2-z",
+    "-x,-y,z",
+    "-x,1/2-y,1/2+z",
+    "1/2-x,y,z",
+    "1/2-x,1/2+y,1/2+z",
+    "1/2+x,-y,-z",
+    "1/2+x,1/2-y,1/2-z",
+    "-x,-y,-z",
+    "-x,1/2-y,1/2-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Al",
+      "element": "Al",
+      "fractional": [
+        0.25,
+        -0.3178,
+        0.0
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.25,
+        0.2897,
+        0.0
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.25,
+        0.0809,
+        0.0
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "label": "H",
+      "element": "H",
+      "fractional": [
+        0.396,
+        0.038,
+        0.0
+      ],
+      "occupancy": 0.04
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Al",
+      "label": "Al",
+      "fractional": [
+        0.25,
+        0.6822,
+        0.0
+      ],
+      "position": [
+        0.92325,
+        8.3371662,
+        0.0
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "Al",
+      "label": "Al",
+      "fractional": [
+        0.25,
+        0.1822,
+        0.5
+      ],
+      "position": [
+        0.92325,
+        2.2266662,
+        1.4325
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "Al",
+      "label": "Al",
+      "fractional": [
+        0.75,
+        0.3178,
+        0.0
+      ],
+      "position": [
+        2.76975,
+        3.8838338,
+        0.0
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "Al",
+      "label": "Al",
+      "fractional": [
+        0.75,
+        0.8178,
+        0.5
+      ],
+      "position": [
+        2.76975,
+        9.9943338,
+        1.4325
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.25,
+        0.2897,
+        0.0
+      ],
+      "position": [
+        0.92325,
+        3.5404237,
+        0.0
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.25,
+        0.7897,
+        0.5
+      ],
+      "position": [
+        0.92325,
+        9.6509237,
+        1.4325
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.75,
+        0.7103,
+        0.0
+      ],
+      "position": [
+        2.76975,
+        8.6805763,
+        0.0
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.75,
+        0.2103,
+        0.5
+      ],
+      "position": [
+        2.76975,
+        2.5700763,
+        1.4325
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.25,
+        0.0809,
+        0.0
+      ],
+      "position": [
+        0.92325,
+        0.9886789,
+        0.0
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.25,
+        0.5809,
+        0.5
+      ],
+      "position": [
+        0.92325,
+        7.0991789,
+        1.4325
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.75,
+        0.9191,
+        0.0
+      ],
+      "position": [
+        2.76975,
+        11.2323211,
+        0.0
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.75,
+        0.4191,
+        0.5
+      ],
+      "position": [
+        2.76975,
+        5.1218211,
+        1.4325
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.396,
+        0.038,
+        0.0
+      ],
+      "position": [
+        1.462428,
+        0.464398,
+        0.0
+      ],
+      "occupancy": 0.04
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.396,
+        0.538,
+        0.5
+      ],
+      "position": [
+        1.462428,
+        6.574898,
+        1.4325
+      ],
+      "occupancy": 0.04
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.896,
+        0.962,
+        0.0
+      ],
+      "position": [
+        3.308928,
+        11.756602,
+        0.0
+      ],
+      "occupancy": 0.04
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.896,
+        0.462,
+        0.5
+      ],
+      "position": [
+        3.308928,
+        5.646102,
+        1.4325
+      ],
+      "occupancy": 0.04
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.104,
+        0.038,
+        0.0
+      ],
+      "position": [
+        0.384072,
+        0.464398,
+        0.0
+      ],
+      "occupancy": 0.04
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.104,
+        0.538,
+        0.5
+      ],
+      "position": [
+        0.384072,
+        6.574898,
+        1.4325
+      ],
+      "occupancy": 0.04
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.604,
+        0.962,
+        0.0
+      ],
+      "position": [
+        2.230572,
+        11.756602,
+        0.0
+      ],
+      "occupancy": 0.04
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.604,
+        0.462,
+        0.5
+      ],
+      "position": [
+        2.230572,
+        5.646102,
+        1.4325
+      ],
+      "occupancy": 0.04
+    }
+  ],
+  "siteCount": 20,
+  "speciesPositionCount": 20,
+  "cellComposition": {
+    "Al": 4.0,
+    "O": 8.0,
+    "H": 0.32
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Hill R J"
+    ],
+    "title": "Hydrogen atoms in boehmite: A single crystal X-ray diffraction and\n molecular orbital study",
+    "journal": "Clays and Clay Minerals",
+    "year": 1981,
+    "volume": "29",
+    "pages": "435–445"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 16,
+    "maxSiteOccupancy": 1.0,
+    "cellVolumeRelativeError": 2.9516188709095904e-06
+  },
+  "id": "boehmite",
+  "note": "Độ chiếm chỗ H theo bản ghi là 0,04; đây là mô hình tinh chỉnh được công bố, không bổ sung các vị trí H chưa được xác định."
+}

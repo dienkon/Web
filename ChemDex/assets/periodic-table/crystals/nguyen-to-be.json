@@ -1,0 +1,131 @@
+{
+  "amcsdId": "0012878",
+  "mineralName": "Beryllium",
+  "formula": "Be",
+  "spaceGroup": "P 63/m m c",
+  "cell": {
+    "a": 2.2858,
+    "b": 2.2858,
+    "c": 3.5843,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 16.218528215582335,
+  "declaredVolume": 16.219,
+  "basis": [
+    [
+      2.2858,
+      -1.1428999999999996,
+      0.0
+    ],
+    [
+      0.0,
+      1.9795608679704702,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      3.5843
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,-x+y,1/2+z",
+    "x,x-y,1/2-z",
+    "-x+y,-x,1/2-z",
+    "x-y,x,1/2+z",
+    "-y,-x,z",
+    "y,x,-z",
+    "y,-x+y,-z",
+    "-y,x-y,z",
+    "x-y,-y,1/2+z",
+    "-x+y,y,1/2-z",
+    "x,y,1/2-z",
+    "-x,-y,1/2+z",
+    "x,x-y,z",
+    "-x,-x+y,-z",
+    "x-y,x,-z",
+    "-x+y,-x,z",
+    "y,x,1/2+z",
+    "-y,-x,1/2-z",
+    "-y,x-y,1/2-z",
+    "y,-x+y,1/2+z",
+    "-x+y,y,z",
+    "x-y,-y,-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Be",
+      "element": "Be",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Be",
+      "label": "Be",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "position": [
+        -3e-07,
+        1.3197074,
+        0.896075
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Be",
+      "label": "Be",
+      "fractional": [
+        0.66666675,
+        0.3333335,
+        0.75
+      ],
+      "position": [
+        1.1429,
+        0.659854,
+        2.688225
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 2,
+  "speciesPositionCount": 2,
+  "cellComposition": {
+    "Be": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Gordon P"
+    ],
+    "title": "A high temperature precision X-ray camera: some measurements of the thermal\n coefficients of expansion of beryllium\n Sample: at T = 25 C",
+    "journal": "Journal of Applied Physics",
+    "year": 1949,
+    "volume": "20",
+    "pages": "908–917"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 24,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 2.9089225076093246e-05
+  },
+  "id": "nguyen-to-be",
+  "note": ""
+}

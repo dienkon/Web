@@ -1,0 +1,231 @@
+{
+  "amcsdId": "0000789",
+  "mineralName": "Quartz",
+  "formula": "Si O2",
+  "spaceGroup": "P 32 2 1",
+  "cell": {
+    "a": 4.916,
+    "b": 4.916,
+    "c": 5.4054,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 113.13115406160388,
+  "declaredVolume": 113.131,
+  "basis": [
+    [
+      4.916,
+      -2.4579999999999993,
+      0.0
+    ],
+    [
+      0.0,
+      4.257380885004301,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.4054
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "y,x,2/3-z",
+    "-y,x-y,2/3+z",
+    "-x,-x+y,1/3-z",
+    "-x+y,-x,1/3+z",
+    "x-y,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Si",
+      "element": "Si",
+      "fractional": [
+        0.4697,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.4135,
+        0.2669,
+        0.1191
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Si",
+      "label": "Si",
+      "fractional": [
+        0.4697,
+        0.0,
+        0.0
+      ],
+      "position": [
+        2.3090452,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Si",
+      "label": "Si",
+      "fractional": [
+        0.0,
+        0.4697,
+        0.66666667
+      ],
+      "position": [
+        -1.1545226,
+        1.9996918,
+        3.6036
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Si",
+      "label": "Si",
+      "fractional": [
+        0.5303,
+        0.5303,
+        0.33333333
+      ],
+      "position": [
+        1.3034774,
+        2.2576891,
+        1.8018
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.4135,
+        0.2669,
+        0.1191
+      ],
+      "position": [
+        1.3767258,
+        1.136295,
+        0.6437831
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.2669,
+        0.4135,
+        0.54756667
+      ],
+      "position": [
+        0.2956974,
+        1.760427,
+        2.9598169
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.7331,
+        0.1466,
+        0.78576667
+      ],
+      "position": [
+        3.2435768,
+        0.624132,
+        4.2473832
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.5865,
+        0.8534,
+        0.21423333
+      ],
+      "position": [
+        0.7855768,
+        3.6332488,
+        1.1580168
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.8534,
+        0.5865,
+        0.45243333
+      ],
+      "position": [
+        2.7536974,
+        2.4969539,
+        2.4455831
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.1466,
+        0.7331,
+        0.8809
+      ],
+      "position": [
+        -1.0812742,
+        3.1210859,
+        4.7616169
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 9,
+  "speciesPositionCount": 9,
+  "cellComposition": {
+    "Si": 3,
+    "O": 6
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Prewitt C T",
+      "Weidner D J",
+      "Levien L"
+    ],
+    "title": "Structure and elastic properties of quartz at pressure\n P = 1 atm",
+    "journal": "American Mineralogist",
+    "year": 1980,
+    "volume": "65",
+    "pages": "920–930"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 6,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.3617964490634353e-06
+  },
+  "id": "quartz",
+  "note": ""
+}

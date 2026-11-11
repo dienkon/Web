@@ -1,0 +1,140 @@
+{
+  "amcsdId": "0014125",
+  "mineralName": "Indium",
+  "formula": "In",
+  "spaceGroup": "I 4/m m m",
+  "cell": {
+    "a": 3.253,
+    "b": 3.253,
+    "c": 4.9455,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 52.33332550950001,
+  "declaredVolume": 52.333,
+  "basis": [
+    [
+      3.253,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      3.253,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.9455
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,1/2+z",
+    "-y,-x,z",
+    "1/2-y,1/2-x,1/2+z",
+    "y,x,-z",
+    "1/2+y,1/2+x,1/2-z",
+    "y,-x,-z",
+    "1/2+y,1/2-x,1/2-z",
+    "-y,x,z",
+    "1/2-y,1/2+x,1/2+z",
+    "x,-y,z",
+    "1/2+x,1/2-y,1/2+z",
+    "-x,y,-z",
+    "1/2-x,1/2+y,1/2-z",
+    "x,y,-z",
+    "1/2+x,1/2+y,1/2-z",
+    "-x,-y,z",
+    "1/2-x,1/2-y,1/2+z",
+    "y,x,z",
+    "1/2+y,1/2+x,1/2+z",
+    "-y,-x,-z",
+    "1/2-y,1/2-x,1/2-z",
+    "-y,x,-z",
+    "1/2-y,1/2+x,1/2-z",
+    "y,-x,z",
+    "1/2+y,1/2-x,1/2+z",
+    "-x,y,z",
+    "1/2-x,1/2+y,1/2+z",
+    "x,-y,-z",
+    "1/2+x,1/2-y,1/2-z",
+    "-x,-y,-z",
+    "1/2-x,1/2-y,1/2-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "In",
+      "element": "In",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "In",
+      "label": "In",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "In",
+      "label": "In",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        1.6265,
+        1.6265,
+        2.47275
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 2,
+  "speciesPositionCount": 2,
+  "cellComposition": {
+    "In": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Smith J F",
+      "Schneider V L"
+    ],
+    "title": "Anisotropic thermal expansion of indium\n Sample: 99.9999% indium\n Note: converted from kx units",
+    "journal": "Journal of the Less-Common Metals",
+    "year": 1964,
+    "volume": "7",
+    "pages": "17–22"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 32,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 6.219927681634656e-06
+  },
+  "id": "nguyen-to-in",
+  "note": ""
+}

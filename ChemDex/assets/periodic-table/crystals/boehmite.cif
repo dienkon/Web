@@ -1,0 +1,53 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0019146
+_database_code_amcsd 0019146
+_chemical_name_mineral Bohmite
+_chemical_formula_sum 'Al O2 H.08'
+_symmetry_space_group_name_H-M 'A m a m'
+_cell_length_a 3.693
+_cell_length_b 12.221
+_cell_length_c 2.865
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 129.303618
+loop_
+_publ_author_name
+'Hill R J'
+_journal_name_full 'Clays and Clay Minerals'
+_journal_year 1981
+_journal_volume 29
+_publ_section_title
+;Hydrogen atoms in boehmite: A single crystal X-ray diffraction and
+ molecular orbital study
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+x,1/2+y,1/2+z
+1/2+x,-y,z
+1/2+x,1/2-y,1/2+z
+1/2-x,y,-z
+1/2-x,1/2+y,1/2-z
+x,y,-z
+x,1/2+y,1/2-z
+-x,-y,z
+-x,1/2-y,1/2+z
+1/2-x,y,z
+1/2-x,1/2+y,1/2+z
+1/2+x,-y,-z
+1/2+x,1/2-y,1/2-z
+-x,-y,-z
+-x,1/2-y,1/2-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Al Al 0.25 -0.3178 0 1
+O1 O 0.25 0.2897 0 1
+O2 O 0.25 0.0809 0 1
+H H 0.396 0.038 0 0.04

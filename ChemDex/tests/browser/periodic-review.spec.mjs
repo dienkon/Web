@@ -29,15 +29,16 @@ test('all 118 reviewed profiles render with isotope and source sections', async 
 test('mineral loads on demand, preserves its poster and has usable controls', async ({ page }) => {
   await page.goto('/?element=Fe');
   const model = page.locator('[id^="model-shell-Fe"]');
+  const widget = page.locator('[id^="detail-media-Fe-"]').filter({has:model});
   await model.scrollIntoViewIfNeeded();
   await expect(model.locator('.mineral-poster')).toHaveJSProperty('naturalWidth', 640);
   await model.getByRole('button', { name: /Nhấn để xem mô hình 3D/ }).click();
   await expect(page.locator('[id^="model-status-Fe"]')).toHaveAttribute('data-state', 'ready');
   await expect(model.locator('canvas')).toBeVisible();
-  await page.getByRole('button', { name: 'Tạm dừng xoay', exact: true }).click();
-  await expect(page.getByRole('button', { name: 'Tự động xoay', exact: true })).toHaveAttribute('aria-pressed', 'false');
-  await page.getByRole('button', { name: 'Góc nhìn ban đầu', exact: true }).click();
-  await expect(page.getByRole('link', { name: 'Tải mô hình GLB', exact: true })).toHaveAttribute('href', /hematite\.glb$/);
+  await widget.getByRole('button', { name: 'Tạm dừng xoay', exact: true }).click();
+  await expect(widget.getByRole('button', { name: 'Tự động xoay', exact: true })).toHaveAttribute('aria-pressed', 'false');
+  await widget.getByRole('button', { name: 'Góc nhìn ban đầu', exact: true }).click();
+  await expect(widget.getByRole('link', { name: 'Tải mô hình GLB', exact: true })).toHaveAttribute('href', /hematite\.glb$/);
 });
 
 test('unmeasured heavy-element phases and formal equations are labelled', async ({ page }) => {

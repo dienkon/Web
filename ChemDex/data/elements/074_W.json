@@ -64,7 +64,45 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-w",
+      "amcsdId": "0008068",
+      "mineralName": "Tungsten",
+      "formula": "W",
+      "spaceGroup": "I m 3 m",
+      "cell": {
+        "a": 3.1648,
+        "b": 3.1648,
+        "c": 3.1648,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 31.698507169792002,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Dubrovinsky L S",
+          "Saxena S K"
+        ],
+        "title": "Thermal expansion of periclase (MgO) and tungsten (W)\n to melting temperatures\n Sample: T = 298 K",
+        "journal": "Physics and Chemistry of Minerals",
+        "year": 1997,
+        "volume": "24",
+        "pages": "547–550"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-w.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-w.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-w.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-w.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)",
   "occurrence": {
@@ -102,16 +140,60 @@
       "sourceSearch": "https://rruff.info/Scheelite",
       "model": "/assets/periodic-table/minerals/scheelite.glb",
       "preview": "/assets/periodic-table/minerals/scheelite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "scheelite",
+          "amcsdId": "0013201",
+          "mineralName": "Scheelite",
+          "formula": "Ca W O4",
+          "spaceGroup": "I 41/a",
+          "cell": {
+            "a": 5.2429,
+            "b": 5.2429,
+            "c": 11.3737,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 312.64027026321696,
+          "siteCount": 24,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Finger L W",
+              "Hazen R M",
+              "Mariathasan J W E"
+            ],
+            "title": "High-pressure crystal chemistry of scheelite-type tungstates and molybdates\n Note: P = 0.0001 GPa, in air",
+            "journal": "Journal of Physics and Chemistry of Solids",
+            "year": 1985,
+            "volume": "46",
+            "pages": "253–263"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/scheelite.json",
+          "cif": "/assets/periodic-table/crystals/scheelite.cif",
+          "model": "/assets/periodic-table/crystals/scheelite.glb",
+          "preview": "/assets/periodic-table/crystals/scheelite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Scheelite-224167.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/diagrams/074_W.svg",
-    "alt": "Tungsten: sơ đồ minh họa nguyên tố",
+    "image": "/assets/periodic-table/mineral-photos/scheelite.jpg",
+    "alt": "Scheelite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "diagram",
-    "source": "",
-    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
-    "credit": ""
+    "source": "https://commons.wikimedia.org/wiki/File:Scheelite-224167.jpg",
+    "caption": "Ảnh mẫu tham chiếu Scheelite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "",
+    "author": "Robert M. Lavinsky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -427,9 +509,64 @@
       "author": "ChemDex",
       "license": "ChemDex schematic diagram",
       "licenseUrl": ""
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/scheelite.jpg",
+      "role": "natural-mineral",
+      "title": "Scheelite",
+      "desc": "Ảnh mẫu tham chiếu Scheelite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Scheelite-224167.jpg",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Scheelite",
+      "src": "/assets/periodic-table/crystals/scheelite.json",
+      "crystal": {
+        "id": "scheelite",
+        "amcsdId": "0013201",
+        "mineralName": "Scheelite",
+        "formula": "Ca W O4",
+        "spaceGroup": "I 41/a",
+        "cell": {
+          "a": 5.2429,
+          "b": 5.2429,
+          "c": 11.3737,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 312.64027026321696,
+        "siteCount": 24,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Finger L W",
+            "Hazen R M",
+            "Mariathasan J W E"
+          ],
+          "title": "High-pressure crystal chemistry of scheelite-type tungstates and molybdates\n Note: P = 0.0001 GPa, in air",
+          "journal": "Journal of Physics and Chemistry of Solids",
+          "year": 1985,
+          "volume": "46",
+          "pages": "253–263"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/scheelite.json",
+        "cif": "/assets/periodic-table/crystals/scheelite.cif",
+        "model": "/assets/periodic-table/crystals/scheelite.glb",
+        "preview": "/assets/periodic-table/crystals/scheelite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -464,6 +601,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -471,6 +613,7 @@
     "sourceFile": "074_W.docx",
     "sourceSha256": "e2127d815a8dddae4b3c4887199b7328865a84ba0548f9182eb9f04b3469b703",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/074_W.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/tungsten-w/audit.md"
   }
 }

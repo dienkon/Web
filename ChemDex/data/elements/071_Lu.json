@@ -64,7 +64,46 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương xếp chặt (HCP)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-lu",
+      "amcsdId": "0009180",
+      "mineralName": "Lutetium",
+      "formula": "Lu",
+      "spaceGroup": "P 63/m m c",
+      "cell": {
+        "a": 3.5031,
+        "b": 3.5031,
+        "c": 5.5509,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 58.99281295024035,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Spedding F H",
+          "Daane A H",
+          "Herrmann K W"
+        ],
+        "title": "The crystal structures and lattice parameters of high-purity scandium,\n yttrium and the rare earth metals\n Note: sample 99.9% pure",
+        "journal": "Acta Crystallographica",
+        "year": 1956,
+        "volume": "9",
+        "pages": "559–563"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-lu.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-lu.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-lu.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-lu.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lục phương xếp chặt (HCP)",
   "occurrence": {
@@ -102,16 +141,60 @@
       "sourceSearch": "https://rruff.info/Xenotime-(Y)",
       "model": "/assets/periodic-table/minerals/xenotime.glb",
       "preview": "/assets/periodic-table/minerals/xenotime.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "xenotime",
+          "amcsdId": "0001706",
+          "mineralName": "Xenotime-(Y)",
+          "formula": "Y P O4",
+          "spaceGroup": "I 41/a m d",
+          "cell": {
+            "a": 6.8947,
+            "b": 6.8947,
+            "c": 6.0276,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 286.53334665128403,
+          "siteCount": 24,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Hughes J M",
+              "Mariano A N",
+              "Ni Y"
+            ],
+            "title": "Crystal chemistry of the monazite and xenotime structures",
+            "journal": "American Mineralogist",
+            "year": 1995,
+            "volume": "80",
+            "pages": "21–26"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/xenotime.json",
+          "cif": "/assets/periodic-table/crystals/xenotime.cif",
+          "model": "/assets/periodic-table/crystals/xenotime.glb",
+          "preview": "/assets/periodic-table/crystals/xenotime.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Xenotime_with_Rutile-08-2-78ab.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/diagrams/071_Lu.svg",
-    "alt": "Lutetium: sơ đồ minh họa nguyên tố",
+    "image": "/assets/periodic-table/mineral-photos/xenotime.jpg",
+    "alt": "Xenotime-(Y) — ảnh mẫu khoáng vật tham chiếu",
     "kind": "diagram",
-    "source": "",
-    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
-    "credit": ""
+    "source": "https://commons.wikimedia.org/wiki/File:Xenotime_with_Rutile-08-2-78ab.jpg",
+    "caption": "Ảnh mẫu tham chiếu Xenotime-(Y); ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+    "credit": "",
+    "author": "Robert M. Lavinsky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -321,9 +404,64 @@
       "author": "ChemDex",
       "license": "ChemDex schematic diagram",
       "licenseUrl": ""
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/xenotime.jpg",
+      "role": "natural-mineral",
+      "title": "Xenotime-(Y)",
+      "desc": "Ảnh mẫu tham chiếu Xenotime-(Y); ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Xenotime_with_Rutile-08-2-78ab.jpg",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Xenotime-(Y)",
+      "src": "/assets/periodic-table/crystals/xenotime.json",
+      "crystal": {
+        "id": "xenotime",
+        "amcsdId": "0001706",
+        "mineralName": "Xenotime-(Y)",
+        "formula": "Y P O4",
+        "spaceGroup": "I 41/a m d",
+        "cell": {
+          "a": 6.8947,
+          "b": 6.8947,
+          "c": 6.0276,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 286.53334665128403,
+        "siteCount": 24,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Hughes J M",
+            "Mariano A N",
+            "Ni Y"
+          ],
+          "title": "Crystal chemistry of the monazite and xenotime structures",
+          "journal": "American Mineralogist",
+          "year": 1995,
+          "volume": "80",
+          "pages": "21–26"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/xenotime.json",
+        "cif": "/assets/periodic-table/crystals/xenotime.cif",
+        "model": "/assets/periodic-table/crystals/xenotime.glb",
+        "preview": "/assets/periodic-table/crystals/xenotime.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -358,6 +496,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -365,6 +508,7 @@
     "sourceFile": "071_Lu.docx",
     "sourceSha256": "8cabe5e012ad3da2f4ac9d4e93a695534ec887f1847435b3075b5ea61a07bc99",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/071_Lu.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/lutetium-lu/audit.md"
   }
 }

@@ -1,0 +1,283 @@
+{
+  "amcsdId": "0000883",
+  "mineralName": "Cobaltite",
+  "formula": "Co As S",
+  "spaceGroup": "P c a 21",
+  "cell": {
+    "a": 5.592,
+    "b": 5.587,
+    "c": 5.567,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 173.92701976799998,
+  "declaredVolume": 173.927,
+  "basis": [
+    [
+      5.592,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      5.587,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.567
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,-y,z",
+    "1/2-x,y,1/2+z",
+    "-x,-y,1/2+z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Co",
+      "element": "Co",
+      "fractional": [
+        0.9955,
+        0.2596,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "As",
+      "element": "As",
+      "fractional": [
+        0.3845,
+        0.6314,
+        0.3809
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S",
+      "element": "S",
+      "fractional": [
+        0.6195,
+        0.8694,
+        0.6168
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Co",
+      "label": "Co",
+      "fractional": [
+        0.9955,
+        0.2596,
+        0.0
+      ],
+      "position": [
+        5.566836,
+        1.4503852,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Co",
+      "label": "Co",
+      "fractional": [
+        0.4955,
+        0.7404,
+        0.0
+      ],
+      "position": [
+        2.770836,
+        4.1366148,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Co",
+      "label": "Co",
+      "fractional": [
+        0.5045,
+        0.2596,
+        0.5
+      ],
+      "position": [
+        2.821164,
+        1.4503852,
+        2.7835
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Co",
+      "label": "Co",
+      "fractional": [
+        0.0045,
+        0.7404,
+        0.5
+      ],
+      "position": [
+        0.025164,
+        4.1366148,
+        2.7835
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "As",
+      "label": "As",
+      "fractional": [
+        0.3845,
+        0.6314,
+        0.3809
+      ],
+      "position": [
+        2.150124,
+        3.5276318,
+        2.1204703
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "As",
+      "label": "As",
+      "fractional": [
+        0.8845,
+        0.3686,
+        0.3809
+      ],
+      "position": [
+        4.946124,
+        2.0593682,
+        2.1204703
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "As",
+      "label": "As",
+      "fractional": [
+        0.1155,
+        0.6314,
+        0.8809
+      ],
+      "position": [
+        0.645876,
+        3.5276318,
+        4.9039703
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "As",
+      "label": "As",
+      "fractional": [
+        0.6155,
+        0.3686,
+        0.8809
+      ],
+      "position": [
+        3.441876,
+        2.0593682,
+        4.9039703
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.6195,
+        0.8694,
+        0.6168
+      ],
+      "position": [
+        3.464244,
+        4.8573378,
+        3.4337256
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.1195,
+        0.1306,
+        0.6168
+      ],
+      "position": [
+        0.668244,
+        0.7296622,
+        3.4337256
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.8805,
+        0.8694,
+        0.1168
+      ],
+      "position": [
+        4.923756,
+        4.8573378,
+        0.6502256
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.3805,
+        0.1306,
+        0.1168
+      ],
+      "position": [
+        2.127756,
+        0.7296622,
+        0.6502256
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 12,
+  "speciesPositionCount": 12,
+  "cellComposition": {
+    "Co": 4,
+    "As": 4,
+    "S": 4
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Bayliss P"
+    ],
+    "title": "A further crystal structure refinement of cobaltite",
+    "journal": "American Mineralogist",
+    "year": 1982,
+    "volume": "67",
+    "pages": "1048–1057"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 4,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.1365686604370559e-07
+  },
+  "id": "cobaltite",
+  "note": ""
+}

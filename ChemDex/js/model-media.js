@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import {mountPublishedCrystal} from './three/published-crystal.js';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
@@ -294,6 +295,8 @@ function mountMediaBlocks(el) {
     let widget = null;
     if (block.type === "video")
       widget = createVideoQuizBlock(container, block, el);
+    else if (block.type === 'crystal')
+      widget = mountPublishedCrystal(container, block.crystal);
     else if (block.type === "3d" || block.type === "model")
       widget = createModelViewerBlock(container, block, el);
     else if (block.type === "image" || block.type === "gallery") {

@@ -60,7 +60,44 @@
     "valenceElectrons": 1,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-k",
+      "amcsdId": "0013214",
+      "mineralName": "Potassium",
+      "formula": "K",
+      "spaceGroup": "I m 3 m",
+      "cell": {
+        "a": 5.328,
+        "b": 5.328,
+        "c": 5.328,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 151.24904755200004,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Liu L"
+        ],
+        "title": "Compression and polymorphism of potassium to 400 Kbar\n Sample: bcc at P = 0 GPa",
+        "journal": "Journal of Physics and Chemistry of Solids",
+        "year": 1986,
+        "volume": "47",
+        "pages": "1067–1072"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-k.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-k.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-k.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-k.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)",
   "occurrence": {
@@ -99,16 +136,63 @@
       "sourceSearch": "https://rruff.info/Sylvite",
       "model": "/assets/periodic-table/minerals/sylvite.glb",
       "preview": "/assets/periodic-table/minerals/sylvite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "sylvite",
+          "amcsdId": "0003201",
+          "mineralName": "Sylvite",
+          "formula": "K Cl",
+          "spaceGroup": "F m 3 m",
+          "cell": {
+            "a": 6.2879,
+            "b": 6.2879,
+            "c": 6.2879,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 248.60901837743893,
+          "siteCount": 8,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Walker D",
+              "Clark S M",
+              "Verma P K",
+              "Cranswick L M D",
+              "Jones R L",
+              "Buhre S"
+            ],
+            "title": "Halite-sylvite thermoelasticity\n Sample: msl515031, T = 25 C, P = 0.0 kbar, cell volume = 248.61 ang**3",
+            "journal": "American Mineralogist",
+            "year": 2004,
+            "volume": "89",
+            "pages": "204–210"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/sylvite.json",
+          "cif": "/assets/periodic-table/crystals/sylvite.cif",
+          "model": "/assets/periodic-table/crystals/sylvite.glb",
+          "preview": "/assets/periodic-table/crystals/sylvite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Mineral_Silvina_GDFL105.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/019_K.jpg",
-    "alt": "Potassium: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/sylvite.jpg",
+    "alt": "Sylvite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Potassium-2.jpg",
-    "caption": "Ảnh tham chiếu mẫu Potassium (K); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "Unknown author Unknown author · CC BY 3.0"
+    "source": "https://commons.wikimedia.org/wiki/File:Mineral_Silvina_GDFL105.jpg",
+    "caption": "Ảnh mẫu tham chiếu Sylvite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "Unknown author Unknown author · CC BY 3.0",
+    "author": "Luis Miguel Bugallo Sánchez ( Lmbuga Commons )( Lmbuga Galipedia ) Publicada por/ Publish by : Luis Miguel Bugallo Sánchez",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
   },
   "isotopes": [
     {
@@ -396,9 +480,67 @@
       "author": "Unknown author Unknown author",
       "license": "CC BY 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/sylvite.jpg",
+      "role": "natural-mineral",
+      "title": "Sylvite",
+      "desc": "Ảnh mẫu tham chiếu Sylvite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Mineral_Silvina_GDFL105.jpg",
+      "author": "Luis Miguel Bugallo Sánchez ( Lmbuga Commons )( Lmbuga Galipedia ) Publicada por/ Publish by : Luis Miguel Bugallo Sánchez",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Sylvite",
+      "src": "/assets/periodic-table/crystals/sylvite.json",
+      "crystal": {
+        "id": "sylvite",
+        "amcsdId": "0003201",
+        "mineralName": "Sylvite",
+        "formula": "K Cl",
+        "spaceGroup": "F m 3 m",
+        "cell": {
+          "a": 6.2879,
+          "b": 6.2879,
+          "c": 6.2879,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 248.60901837743893,
+        "siteCount": 8,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Walker D",
+            "Clark S M",
+            "Verma P K",
+            "Cranswick L M D",
+            "Jones R L",
+            "Buhre S"
+          ],
+          "title": "Halite-sylvite thermoelasticity\n Sample: msl515031, T = 25 C, P = 0.0 kbar, cell volume = 248.61 ang**3",
+          "journal": "American Mineralogist",
+          "year": 2004,
+          "volume": "89",
+          "pages": "204–210"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/sylvite.json",
+        "cif": "/assets/periodic-table/crystals/sylvite.cif",
+        "model": "/assets/periodic-table/crystals/sylvite.glb",
+        "preview": "/assets/periodic-table/crystals/sylvite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -433,6 +575,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -440,6 +587,7 @@
     "sourceFile": "019_K.docx",
     "sourceSha256": "9431076e2921a7fa3aa33ee7a8e866b80cc0b48e7424a0a8c339f978b6dc2089",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/019_K.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/kali-k/audit.md"
   }
 }

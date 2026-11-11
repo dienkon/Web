@@ -66,7 +66,8 @@
     "valenceElectrons": 8,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm diện (Face-centered cubic, FCC) (dự đoán)",
-    "latticeEvidence": "predicted"
+    "latticeEvidence": "predicted",
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
   },
   "structureType": "Lập phương tâm diện (Face-centered cubic, FCC) (dự đoán)",
   "occurrence": {
@@ -318,6 +319,7 @@
     "sourceFile": "118_Og.docx",
     "sourceSha256": "950ca9ef21576e92f1036c0c8791965db0e7c48850d4a652491aed0d02a038c5",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/118_Og.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/oganesson-og/audit.md"
   }
 }

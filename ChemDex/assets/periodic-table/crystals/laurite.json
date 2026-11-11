@@ -1,0 +1,295 @@
+{
+  "amcsdId": "0010195",
+  "mineralName": "Laurite",
+  "formula": "Ru S2",
+  "spaceGroup": "P a 3",
+  "cell": {
+    "a": 5.6106,
+    "b": 5.6106,
+    "c": 5.6106,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 176.61513683901597,
+  "declaredVolume": 176.615,
+  "basis": [
+    [
+      5.6106,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      5.6106,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.6106
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+z,x,1/2-y",
+    "z,1/2-x,1/2+y",
+    "1/2-z,1/2+x,y",
+    "-z,-x,-y",
+    "1/2+y,1/2-z,-x",
+    "1/2-y,-z,1/2+x",
+    "-y,1/2+z,1/2-x",
+    "y,z,x",
+    "x,1/2-y,1/2+z",
+    "1/2-x,1/2+y,z",
+    "1/2+x,y,1/2-z",
+    "-x,-y,-z",
+    "1/2-z,-x,1/2+y",
+    "-z,1/2+x,1/2-y",
+    "1/2+z,1/2-x,-y",
+    "z,x,y",
+    "1/2-y,1/2+z,x",
+    "1/2+y,z,1/2-x",
+    "y,1/2-z,1/2+x",
+    "-y,-z,-x",
+    "-x,1/2+y,1/2-z",
+    "1/2+x,1/2-y,-z",
+    "1/2-x,-y,1/2+z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Ru",
+      "element": "Ru",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S",
+      "element": "S",
+      "fractional": [
+        0.38831,
+        0.38831,
+        0.38831
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Ru",
+      "label": "Ru",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ru",
+      "label": "Ru",
+      "fractional": [
+        0.5,
+        0.0,
+        0.5
+      ],
+      "position": [
+        2.8053,
+        0.0,
+        2.8053
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ru",
+      "label": "Ru",
+      "fractional": [
+        0.0,
+        0.5,
+        0.5
+      ],
+      "position": [
+        0.0,
+        2.8053,
+        2.8053
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ru",
+      "label": "Ru",
+      "fractional": [
+        0.5,
+        0.5,
+        0.0
+      ],
+      "position": [
+        2.8053,
+        2.8053,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.38831,
+        0.38831,
+        0.38831
+      ],
+      "position": [
+        2.1786521,
+        2.1786521,
+        2.1786521
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.88831,
+        0.38831,
+        0.11169
+      ],
+      "position": [
+        4.9839521,
+        2.1786521,
+        0.6266479
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.38831,
+        0.11169,
+        0.88831
+      ],
+      "position": [
+        2.1786521,
+        0.6266479,
+        4.9839521
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.11169,
+        0.88831,
+        0.38831
+      ],
+      "position": [
+        0.6266479,
+        4.9839521,
+        2.1786521
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.61169,
+        0.61169,
+        0.61169
+      ],
+      "position": [
+        3.4319479,
+        3.4319479,
+        3.4319479
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.88831,
+        0.11169,
+        0.61169
+      ],
+      "position": [
+        4.9839521,
+        0.6266479,
+        3.4319479
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.11169,
+        0.61169,
+        0.88831
+      ],
+      "position": [
+        0.6266479,
+        3.4319479,
+        4.9839521
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.61169,
+        0.88831,
+        0.11169
+      ],
+      "position": [
+        3.4319479,
+        4.9839521,
+        0.6266479
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 12,
+  "speciesPositionCount": 12,
+  "cellComposition": {
+    "Ru": 4,
+    "S": 8
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Lutz H D",
+      "Muller B",
+      "Schmidt T",
+      "Stingl T"
+    ],
+    "title": "Structure refinement of pyrite-type ruthenium disulfide, RuS2,\n and ruthenium diselenide, RuSe2",
+    "journal": "Acta Crystallographica, Section C",
+    "year": 1990,
+    "volume": "46",
+    "pages": "2003–2005"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 24,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 7.747864561022006e-07
+  },
+  "id": "laurite",
+  "note": ""
+}

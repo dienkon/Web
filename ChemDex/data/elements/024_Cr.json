@@ -60,7 +60,44 @@
     "valenceElectrons": 1,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-cr",
+      "amcsdId": "0011209",
+      "mineralName": "Chromium",
+      "formula": "Cr",
+      "spaceGroup": "I m 3 m",
+      "cell": {
+        "a": 2.8839,
+        "b": 2.8839,
+        "c": 2.8839,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 23.985047953719004,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Body centered cubic, bcc, structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "7–83"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-cr.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-cr.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-cr.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-cr.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)",
   "occurrence": {
@@ -99,16 +136,61 @@
       "sourceSearch": "https://rruff.info/Chromite",
       "model": "/assets/periodic-table/minerals/chromite.glb",
       "preview": "/assets/periodic-table/minerals/chromite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "chromite",
+          "amcsdId": "0004961",
+          "mineralName": "Chromite",
+          "formula": "Mg.567 Mn.009 Fe.479 Al.19 Ti.004 Cr1.75 O4",
+          "spaceGroup": "F d 3 m",
+          "cell": {
+            "a": 8.33273,
+            "b": 8.33273,
+            "c": 8.33273,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 578.5780183593173,
+          "siteCount": 56,
+          "mixedSiteCount": 24,
+          "reference": {
+            "authors": [
+              "Princivalle F",
+              "Logvinova A M",
+              "Lenaz D",
+              "Sobolev N V"
+            ],
+            "title": "Structural parameters of chromite included in diamond and kimberlites\n from Siberia: A new tool for discriminating ultramafic source\n Note: sample UDK1",
+            "journal": "American Mineralogist",
+            "year": 2009,
+            "volume": "94",
+            "pages": "1067–1070"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/chromite.json",
+          "cif": "/assets/periodic-table/crystals/chromite.cif",
+          "model": "/assets/periodic-table/crystals/chromite.glb",
+          "preview": "/assets/periodic-table/crystals/chromite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Chromite-201529.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/diagrams/024_Cr.svg",
-    "alt": "Chromium: sơ đồ minh họa nguyên tố",
+    "image": "/assets/periodic-table/mineral-photos/chromite.jpg",
+    "alt": "Chromite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "diagram",
-    "source": "",
-    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
-    "credit": ""
+    "source": "https://commons.wikimedia.org/wiki/File:Chromite-201529.jpg",
+    "caption": "Ảnh mẫu tham chiếu Chromite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "",
+    "author": "Robert M. Lavinsky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -514,9 +596,65 @@
       "author": "ChemDex",
       "license": "ChemDex schematic diagram",
       "licenseUrl": ""
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/chromite.jpg",
+      "role": "natural-mineral",
+      "title": "Chromite",
+      "desc": "Ảnh mẫu tham chiếu Chromite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Chromite-201529.jpg",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Chromite",
+      "src": "/assets/periodic-table/crystals/chromite.json",
+      "crystal": {
+        "id": "chromite",
+        "amcsdId": "0004961",
+        "mineralName": "Chromite",
+        "formula": "Mg.567 Mn.009 Fe.479 Al.19 Ti.004 Cr1.75 O4",
+        "spaceGroup": "F d 3 m",
+        "cell": {
+          "a": 8.33273,
+          "b": 8.33273,
+          "c": 8.33273,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 578.5780183593173,
+        "siteCount": 56,
+        "mixedSiteCount": 24,
+        "reference": {
+          "authors": [
+            "Princivalle F",
+            "Logvinova A M",
+            "Lenaz D",
+            "Sobolev N V"
+          ],
+          "title": "Structural parameters of chromite included in diamond and kimberlites\n from Siberia: A new tool for discriminating ultramafic source\n Note: sample UDK1",
+          "journal": "American Mineralogist",
+          "year": 2009,
+          "volume": "94",
+          "pages": "1067–1070"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/chromite.json",
+        "cif": "/assets/periodic-table/crystals/chromite.cif",
+        "model": "/assets/periodic-table/crystals/chromite.glb",
+        "preview": "/assets/periodic-table/crystals/chromite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -551,6 +689,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -558,6 +701,7 @@
     "sourceFile": "024_Cr.docx",
     "sourceSha256": "38a1a9a9924f24415823c1eff1ec514625b0ab6deec2b7d9dad9f58c8d6f2463",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/024_Cr.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/crom-cr/audit.md"
   }
 }

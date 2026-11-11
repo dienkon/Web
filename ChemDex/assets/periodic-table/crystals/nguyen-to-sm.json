@@ -1,0 +1,147 @@
+{
+  "amcsdId": "0009181",
+  "mineralName": "Samarium",
+  "formula": "Sm",
+  "spaceGroup": "R -3 m",
+  "cell": {
+    "a": 8.996,
+    "b": 8.996,
+    "c": 8.996,
+    "alpha": 23.22,
+    "beta": 23.22,
+    "gamma": 23.22
+  },
+  "volume": 99.3461774792358,
+  "declaredVolume": 99.346,
+  "basis": [
+    [
+      8.996,
+      8.26730395325442,
+      8.26730395325442
+    ],
+    [
+      0.0,
+      3.546787468189187,
+      1.6985375532118774
+    ],
+    [
+      0.0,
+      0.0,
+      3.11362674783489
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,-z,-y",
+    "-z,-x,-y",
+    "y,x,z",
+    "y,z,x",
+    "-z,-y,-x",
+    "-x,-y,-z",
+    "x,z,y",
+    "z,x,y",
+    "-y,-x,-z",
+    "-y,-z,-x",
+    "z,y,x"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Sm1",
+      "element": "Sm",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Sm2",
+      "element": "Sm",
+      "fractional": [
+        0.22222,
+        0.22222,
+        0.22222
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Sm",
+      "label": "Sm1",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sm",
+      "label": "Sm2",
+      "fractional": [
+        0.22222,
+        0.22222,
+        0.22222
+      ],
+      "position": [
+        5.6734117,
+        1.1656161,
+        0.6919101
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sm",
+      "label": "Sm2",
+      "fractional": [
+        0.77778,
+        0.77778,
+        0.77778
+      ],
+      "position": [
+        19.8571962,
+        4.0797089,
+        2.4217166
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 3,
+  "speciesPositionCount": 3,
+  "cellComposition": {
+    "Sm": 3
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Rundle R E",
+      "Smith H G",
+      "Spedding F H",
+      "Daane A H"
+    ],
+    "title": "The crystal structure of samarium\n Note: sample 99% pure",
+    "journal": "Acta Crystallographica",
+    "year": 1954,
+    "volume": "7",
+    "pages": "532–535"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 12,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.7864727189842772e-06
+  },
+  "id": "nguyen-to-sm",
+  "note": ""
+}

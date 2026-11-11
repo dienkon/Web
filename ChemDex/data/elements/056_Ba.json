@@ -64,7 +64,46 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-ba",
+      "amcsdId": "0013145",
+      "mineralName": "Barium",
+      "formula": "Ba",
+      "spaceGroup": "I m 3 m",
+      "cell": {
+        "a": 5.013,
+        "b": 5.013,
+        "c": 5.013,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 125.97753719699999,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Hirst R G",
+          "King A J",
+          "Kanda F A"
+        ],
+        "title": "The barium-strontium equilibrium system\n Sample: at T = 25 C",
+        "journal": "Journal of Physical Chemistry",
+        "year": 1956,
+        "volume": "60",
+        "pages": "302–304"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-ba.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-ba.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-ba.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-ba.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)",
   "occurrence": {
@@ -102,16 +141,58 @@
       "sourceSearch": "https://rruff.info/Barite",
       "model": "/assets/periodic-table/minerals/barite.glb",
       "preview": "/assets/periodic-table/minerals/barite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "barite",
+          "amcsdId": "0005144",
+          "mineralName": "Barite",
+          "formula": "Ba S O4",
+          "spaceGroup": "P n m a",
+          "cell": {
+            "a": 8.8842,
+            "b": 5.4559,
+            "c": 7.1569,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 346.904295493782,
+          "siteCount": 24,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Hill R J"
+            ],
+            "title": "A further refinement of the barite structure",
+            "journal": "The Canadian Mineralogist",
+            "year": 1977,
+            "volume": "15",
+            "pages": "522–526"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/barite.json",
+          "cif": "/assets/periodic-table/crystals/barite.cif",
+          "model": "/assets/periodic-table/crystals/barite.glb",
+          "preview": "/assets/periodic-table/crystals/barite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Barite_-_Cerro_Warihuyn,_Miraflores,_Huamalies,_Huanuco,_Peru.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/056_Ba.jpg",
-    "alt": "Barium: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/barite.jpg",
+    "alt": "Barite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Barium_unter_Argon_Schutzgas_Atmosph%C3%A4re.jpg",
-    "caption": "Ảnh tham chiếu mẫu Barium (Ba); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "Matthias Zepper · Public domain"
+    "source": "https://commons.wikimedia.org/wiki/File:Barite_-_Cerro_Warihuyn,_Miraflores,_Huamalies,_Huanuco,_Peru.jpg",
+    "caption": "Ảnh mẫu tham chiếu Barite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "Matthias Zepper · Public domain",
+    "author": "Ivar Leidus",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "isotopes": [
     {
@@ -483,9 +564,62 @@
       "author": "Matthias Zepper",
       "license": "Public domain",
       "licenseUrl": ""
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/barite.jpg",
+      "role": "natural-mineral",
+      "title": "Barite",
+      "desc": "Ảnh mẫu tham chiếu Barite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Barite_-_Cerro_Warihuyn,_Miraflores,_Huamalies,_Huanuco,_Peru.jpg",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Barite",
+      "src": "/assets/periodic-table/crystals/barite.json",
+      "crystal": {
+        "id": "barite",
+        "amcsdId": "0005144",
+        "mineralName": "Barite",
+        "formula": "Ba S O4",
+        "spaceGroup": "P n m a",
+        "cell": {
+          "a": 8.8842,
+          "b": 5.4559,
+          "c": 7.1569,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 346.904295493782,
+        "siteCount": 24,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Hill R J"
+          ],
+          "title": "A further refinement of the barite structure",
+          "journal": "The Canadian Mineralogist",
+          "year": 1977,
+          "volume": "15",
+          "pages": "522–526"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/barite.json",
+        "cif": "/assets/periodic-table/crystals/barite.cif",
+        "model": "/assets/periodic-table/crystals/barite.glb",
+        "preview": "/assets/periodic-table/crystals/barite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -520,6 +654,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -527,6 +666,7 @@
     "sourceFile": "056_Ba.docx",
     "sourceSha256": "a9d1de52bdb5bb8029d4652360b6794619d696b777f23a768e686c57cea425f3",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/056_Ba.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/bari-ba/audit.md"
   }
 }

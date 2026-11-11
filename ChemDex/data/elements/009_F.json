@@ -56,7 +56,8 @@
     "valenceElectrons": 7,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "F₂ là khí ở điều kiện thường; α-F₂ rắn có cấu trúc đơn tà, β-F₂ có cấu trúc lập phương tùy nhiệt độ.",
-    "latticeEvidence": "phase-dependent"
+    "latticeEvidence": "phase-dependent",
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
   },
   "structureType": "F₂ là khí ở điều kiện thường; α-F₂ rắn có cấu trúc đơn tà, β-F₂ có cấu trúc lập phương tùy nhiệt độ.",
   "occurrence": {
@@ -96,16 +97,59 @@
       "sourceSearch": "https://rruff.info/Fluorite",
       "model": "/assets/periodic-table/minerals/fluorite.glb",
       "preview": "/assets/periodic-table/minerals/fluorite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "fluorite",
+          "amcsdId": "0008645",
+          "mineralName": "Fluorite",
+          "formula": "Ca F2",
+          "spaceGroup": "F m 3 m",
+          "cell": {
+            "a": 5.4631,
+            "b": 5.4631,
+            "c": 5.4631,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 163.048741321591,
+          "siteCount": 12,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Speziale S",
+              "Duffy T S"
+            ],
+            "title": "Single-crystal elastic constants of fluorite (CaF2) to 9.3 GPa\n Sample: P = 0 GPa",
+            "journal": "Physics and Chemistry of Minerals",
+            "year": 2002,
+            "volume": "29",
+            "pages": "465–472"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/fluorite.json",
+          "cif": "/assets/periodic-table/crystals/fluorite.cif",
+          "model": "/assets/periodic-table/crystals/fluorite.glb",
+          "preview": "/assets/periodic-table/crystals/fluorite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:3192M-fluorite1.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/009_F.jpg",
-    "alt": "Fluorine: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/fluorite.jpg",
+    "alt": "Fluorite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Fluoro_liquido_a_-196%C2%B0C_1.jpg",
-    "caption": "Fluorine lỏng ở −196 °C; ở nhiệt độ phòng fluorine là khí.",
-    "credit": "Fulvio314 · CC BY-SA 3.0"
+    "source": "https://commons.wikimedia.org/wiki/File:3192M-fluorite1.jpg",
+    "caption": "Ảnh mẫu tham chiếu Fluorite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "Fulvio314 · CC BY-SA 3.0",
+    "author": "CarlesMillan",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -449,9 +493,63 @@
       "author": "Fulvio314",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/fluorite.jpg",
+      "role": "natural-mineral",
+      "title": "Fluorite",
+      "desc": "Ảnh mẫu tham chiếu Fluorite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:3192M-fluorite1.jpg",
+      "author": "CarlesMillan",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Fluorite",
+      "src": "/assets/periodic-table/crystals/fluorite.json",
+      "crystal": {
+        "id": "fluorite",
+        "amcsdId": "0008645",
+        "mineralName": "Fluorite",
+        "formula": "Ca F2",
+        "spaceGroup": "F m 3 m",
+        "cell": {
+          "a": 5.4631,
+          "b": 5.4631,
+          "c": 5.4631,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 163.048741321591,
+        "siteCount": 12,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Speziale S",
+            "Duffy T S"
+          ],
+          "title": "Single-crystal elastic constants of fluorite (CaF2) to 9.3 GPa\n Sample: P = 0 GPa",
+          "journal": "Physics and Chemistry of Minerals",
+          "year": 2002,
+          "volume": "29",
+          "pages": "465–472"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/fluorite.json",
+        "cif": "/assets/periodic-table/crystals/fluorite.cif",
+        "model": "/assets/periodic-table/crystals/fluorite.glb",
+        "preview": "/assets/periodic-table/crystals/fluorite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -486,6 +584,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -493,6 +596,7 @@
     "sourceFile": "009_F.docx",
     "sourceSha256": "f7b630d9aac6869d3801283acc12a85b3abb84c639f00855cf6c688ccc12b76f",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/009_F.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/flo-f/audit.md"
   }
 }

@@ -1,3 +1,4 @@
+import libraryRoutes from '../shared/library-routes.generated.json';
 import compounds from "../shared/compounds.json";
 import coverage from "../shared/lab-structure-coverage.json";
 import generatedCatalog from "../shared/structure-catalog.generated.json";
@@ -246,7 +247,7 @@ async function open(record) {
       <div class="viewer-toolbar viewer-actions-bar">
         <button class="button" id="favorite" type="button">${favorites.includes(record.id) ? "★ Đã yêu thích" : "☆ Yêu thích"}</button>
         <button class="button" id="compare" type="button">+ So sánh</button>
-        ${libraryLinks[record.id] ? `<a class="button" href="/trung-tam/tai-lieu-so/?doc=${encodeURIComponent(libraryLinks[record.id])}" target="${embedded ? "_top" : "_self"}">Đọc hồ sơ chất ↗</a>` : ""}
+        ${libraryLinks[record.id] ? `<a class="button" href="/trung-tam/tai-lieu-so/${encodeURIComponent(libraryRoutes[libraryLinks[record.id]] ?? libraryLinks[record.id])}/" target="${embedded ? "_top" : "_self"}">Đọc tài liệu về chất ↗</a>` : ""}
         ${lab ? `<a class="button primary" href="/lab-2d/?chemical=${encodeURIComponent(lab.chemicalId)}" target="${embedded ? "_top" : "_self"}">Mở trong lab ↗</a>` : ""}
       </div>
     </div>

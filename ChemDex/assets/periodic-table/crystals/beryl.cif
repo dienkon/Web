@@ -1,0 +1,64 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0001040
+_database_code_amcsd 0001040
+_chemical_name_mineral Beryl
+_chemical_formula_sum 'Be3 Al2 Si6 O18'
+_symmetry_space_group_name_H-M 'P 6/m c c'
+_cell_length_a 9.208
+_cell_length_b 9.208
+_cell_length_c 9.188
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 120
+_cell_volume 674.655771
+loop_
+_publ_author_name
+'Finger L W'
+'Hazen R M'
+'Au A Y'
+_journal_name_full 'American Mineralogist'
+_journal_year 1986
+_journal_volume 71
+_publ_section_title
+;High-pressure crystal chemistry of beryl (Be3Al2Si6O18) and euclase (BeAlSiO4OH)
+ Sample: Pressure = .001 kbar
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+-x,-x+y,1/2+z
+x,x-y,1/2-z
+-x+y,-x,-z
+x-y,x,z
+-y,-x,1/2+z
+y,x,1/2-z
+y,-x+y,-z
+-y,x-y,z
+x-y,-y,1/2+z
+-x+y,y,1/2-z
+x,y,-z
+-x,-y,z
+x,x-y,1/2+z
+-x,-x+y,1/2-z
+x-y,x,-z
+-x+y,-x,z
+y,x,1/2+z
+-y,-x,1/2-z
+-y,x-y,-z
+y,-x+y,z
+-x+y,y,1/2+z
+x-y,-y,1/2-z
+-x,-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Be Be 0.5 0 0.25 1
+Al Al 0.33333325 0.66666675 0.25 1
+Si Si 0.3876 0.1159 0 1
+O1 O 0.3103 0.2369 0 1
+O2 O 0.4985 0.1456 0.1453 1

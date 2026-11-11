@@ -1,0 +1,69 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0000697
+_database_code_amcsd 0000697
+_chemical_name_mineral Zircon
+_chemical_formula_sum 'Zr Si O4'
+_symmetry_space_group_name_H-M 'I 41/a m d'
+_cell_length_a 6.6042
+_cell_length_b 6.6042
+_cell_length_c 5.9796
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 260.802991
+loop_
+_publ_author_name
+'Finger L W'
+'Hazen R M'
+_journal_name_full 'American Mineralogist'
+_journal_year 1979
+_journal_volume 64
+_publ_section_title
+;Crystal structure and compressibility of zircon at high pressure
+ crystal No. 1, 1 atm - before P
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+1/2+x,1/2+y,1/2+z
+1/4-y,3/4-x,1/4+z
+3/4-y,1/4-x,3/4+z
+1/4+y,3/4+x,1/4-z
+3/4+y,1/4+x,3/4-z
+1/4+y,3/4-x,1/4-z
+3/4+y,1/4-x,3/4-z
+1/4-y,3/4+x,1/4+z
+3/4-y,1/4+x,3/4+z
+1/2+x,-y,1/2+z
++x,1/2-y,+z
+1/2-x,y,1/2-z
+-x,1/2+y,-z
+1/2+x,y,1/2-z
++x,1/2+y,-z
+1/2-x,-y,1/2+z
+-x,1/2-y,+z
+1/4+y,1/4+x,3/4+z
+3/4+y,3/4+x,1/4+z
+1/4-y,1/4-x,3/4-z
+3/4-y,3/4-x,1/4-z
+1/4-y,1/4+x,3/4-z
+3/4-y,3/4+x,1/4-z
+1/4+y,1/4-x,3/4+z
+3/4+y,3/4-x,1/4+z
+-x,y,z
+1/2-x,1/2+y,1/2+z
+x,-y,-z
+1/2+x,1/2-y,1/2-z
+-x,-y,-z
+1/2-x,1/2-y,1/2-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Zr Zr 0 0.75 0.125 1
+Si Si 0 0.25 0.375 1
+O O 0 0.066 0.1951 1

@@ -9,7 +9,7 @@ export const searchIndex = [
   ...elements.map((e) => ({ id: `element-${e.symbol}`, title: `${e.name_vi} · ${e.symbol}`, detail: `${e.name_en} · Số hiệu ${e.z}`, kind: "Nguyên tố", mark: e.symbol, href: `/?element=${e.symbol}`, exact: [e.symbol, String(e.z)], terms: [e.name_vi, e.name_en] })),
   ...compounds.map((c) => ({ id: c.id, title: `${c.name_vi} · ${c.formula}`, detail: `${c.name_en} · ${c.kind === "crystal" ? "Mạng tinh thể" : c.kind === "ion" ? "Ion" : "Phân tử"}`, kind: "Cấu trúc", mark: "⌬", href: `/tien-ich/cau-truc-3d/?compound=${c.id}`, exact: [c.formula], terms: [c.name_vi, c.name_en, c.formula, ...c.aliases] })),
   ...tools.map((t) => ({ ...t, detail: t.category, kind: "Tiện ích", exact: [], terms: [t.title, t.description, ...t.keywords] })),
-  ...[...stories,...references].map(doc=>({id:`doc-${doc.id}`,title:doc.title,detail:doc.summary,kind:'Tài liệu',mark:doc.chemicalFormula??'▤',href:`/trung-tam/tai-lieu-so/?doc=${encodeURIComponent(doc.id)}`,exact:doc.chemicalFormula?[doc.chemicalFormula]:[],terms:[doc.title,doc.summary,...doc.tags,...(doc.aliases??[])]})),
+  ...[...stories,...references].map(doc=>({id:`doc-${doc.id}`,title:doc.title,detail:doc.summary,kind:'Tài liệu',mark:doc.chemicalFormula??'▤',href:`/trung-tam/tai-lieu-so/${encodeURIComponent(doc.slug ?? doc.id)}/`,exact:doc.chemicalFormula?[doc.chemicalFormula]:[],terms:[doc.title,doc.summary,...doc.tags,...(doc.aliases??[])]})),
 ];
 
 export function searchRecords(query, records = searchIndex) {

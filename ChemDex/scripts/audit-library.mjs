@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {documentFile} from '../shared/library-paths.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=file=>JSON.parse(fs.readFileSync(path.join(root,file),'utf8').replace(/^\uFEFF/,''));
 export function auditLibrary() {
@@ -12,7 +13,7 @@ export function auditLibrary() {
     if(docIds.has(meta.id))errors.push(`Duplicate document: ${meta.id}`);
     docIds.add(meta.id);
     let full;
-    try {full=read(`trung-tam/src/data/${meta.documentKind==='reference'?'reference':'docs'}/${meta.id}.json`);}catch{errors.push(`Missing document: ${meta.id}`);continue;}
+    try {full=read(documentFile(meta));}catch{errors.push(`Missing document: ${meta.id}`);continue;}
     for(const key of ['id','title','category','summary','chemicalFormula','aliases','substanceIds'])
       if(JSON.stringify(full[key])!==JSON.stringify(meta[key]))errors.push(`Metadata mismatch: ${meta.id}.${key}`);
     const explicit=meta.substanceIds??[];

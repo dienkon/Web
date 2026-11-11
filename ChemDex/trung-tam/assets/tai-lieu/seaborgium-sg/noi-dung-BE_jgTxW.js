@@ -1,0 +1,85 @@
+const n="seaborgium-sg",h="seaborgium-sg",t="reference/seaborgium-sg/index.json",i=["ho-so-86c98b3965d8"],g="Seaborgium (Sg) — Chân dung một nguyên tố: Lịch sử phát hiện, hình thái tự nhiên và ứng dụng",c="Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",a="nguyento",u="Hồ sơ báo chí toàn diện về Seaborgium (Sg) (khởi nguồn 1974): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",o="/assets/library/earth-minerals.svg",p="Sg",r=["Biên niên sử nguyên tố","Sg"],e=["Seaborgium","Sg"],m=["atom-Sg"],s="reference",v=11,b={formula:"Sg",representativeId:"atom-Sg",counts:{Sg:1},mass:271,material:!1,reactionIds:[]},l=`## Câu chuyện: Cội nguồn lịch sử và hành trình bước vào từ điển hóa học của Seaborgium (Sg)
+
+Khi các nhà hóa học đặt câu hỏi *"Chất này từ đâu mà có và vì sao các nguyên tử của nó lại gắn kết bền chặt đến vậy?"*, câu trả lời dành cho **Seaborgium (Sg)** luôn mở ra một bức tranh giao thoa thú vị giữa lịch sử văn minh nhân loại và các định luật bất di bất dịch của cơ học lượng tử.
+
+Theo hồ sơ bách khoa trực tuyến từ [Wikipedia Tiếng Việt — Seaborgi](https://vi.wikipedia.org/wiki/Seaborgi), bản chất và lịch sử của chất này được ghi nhận cụ thể như sau: Seaborgi (phát âm như "xi-bo-ghi") là một nguyên tố hóa học với ký hiệu Sg và số nguyên tử 106. Seaborgi (Sg) là nguyên tố tổng hợp với đồng vị ổn định nhất là 271Sg có chu kỳ bán rã 1,9 phút. Các thí nghiệm hóa học đã xác nhận rằng Seaborgi (Sg) thuộc nhóm 6 và là một đồng đẳng nặng hơn của Wolfram (hay còn gọi là Tungsten, kí hiệu là W).
+
+Tư liệu bách khoa quốc tế tại [Wikipedia — Seaborgium](https://en.wikipedia.org/wiki/Seaborgium) bổ sung thêm góc nhìn lịch sử và danh pháp quốc tế: *“Seaborgium is a synthetic chemical element; it has symbol Sg and . It is named after the American nuclear chemist Glenn T. Seaborg. As a synthetic element, it can be created in a laboratory but is not found in nature. It is also radioactive; the most stable known isotopes have half-lives on the order of several minutes. In the periodic table of the elements, it is a d-block transactinide element. It is a member of the 7th period and belongs to the group 6 elements as the fourth member of the 6d series of transition metals. Very few chemical reactions of seaborgium have been studied: only a few atoms at a time can be produced”* — phản ánh vai trò quan trọng của **Seaborgium (Sg)** trong hệ thống phân loại hóa chất chuẩn IUPAC và thực tiễn phòng thí nghiệm toàn cầu.
+
+Là một nguyên tố nặng với hành trình kiến tạo đầy kịch tính, **Seaborgium (Sg)** được tôi luyện từ những sự kiện vũ trụ khốc liệt nhất — những vụ va chạm dữ dội giữa các sao neutron hoặc siêu tân tinh giàu neutron, để lại những mạch quặng quý giá sâu trong lòng các tầng địa chất Trái Đất. Trong lịch sử văn minh nhân loại, khoảnh khắc định danh và cô lập được **Seaborgium** đánh dấu bước ngoặt lớn gắn liền với công trình của **Albert Ghiorso và cộng sự** vào thời điểm **1974** tại **Lawrence Berkeley Laboratory, Hoa Kỳ**. Tên gọi quốc tế và ký hiệu **Sg** bắt nguồn từ danh pháp Latinh **Seaborgium**. Seaborgium được tổng hợp lần đầu năm 1974 tại Lawrence Berkeley Laboratory bằng cách bắn phá Californium-249 bằng ion Oxygen-18: ²⁴⁹Cf + ¹⁸O → ²⁶³Sg + 4n Nguyên tố được đặt tên Seaborgium để vinh danh nhà hóa học người Mỹ Glenn T. Seaborg, một trong những nhà khoa học quan trọng trong việc phát hiện nhiều nguyên tố Actinide. Đây là một trường hợp đặc biệt vì Seaborgium là nguyên tố được đặt tên theo một nhà khoa học khi người đó vẫn còn sống. Trong tự nhiên, Seaborgium gắn liền với các vỉa khoáng vật đặc trưng như **Không tồn tại tự nhiên với lượng đáng kể. Seaborgium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm**.
+
+![Khởi nguyên lịch sử và hành trình khám phá Seaborgium (Sg)](/assets/library/earth-minerals.svg)
+*Hình 1. Bối cảnh lịch sử phát hiện, nguồn gốc tự nhiên và tiến trình định danh khoa học của Seaborgium (Sg).*
+
+## Lần theo thành phần nguyên tử: Cấu trúc không gian, hình học phân tử và cá tính của Seaborgium
+
+Để hiểu vì sao **Seaborgium (Sg)** lại mang những tính chất vật lý và hóa học đặc thù, chúng ta cần đi sâu vào "bản thiết kế hình học" của chất này. Một đơn vị công thức **Sg** được liên kết chặt chẽ từ **1 nguyên tử** thuộc **1 nguyên tố hóa học**:
+
+- **Nguyên tố Seaborgium (Sg)**: Góp mặt **1 nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử Seaborgium phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **Seaborgium**.
+
+Ở trạng thái đơn chất, **Seaborgium (Sg)** mang trọn vẹn phong thái và tính chất đặc trưng của nhóm **nguyên tố**. Trong mạng lưới cấu trúc tự nhiên (như Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)), các nguyên tử **Seaborgium** gắn kết với nhau bằng những liên kết bền vững, tạo nên độ cứng, nhiệt độ chuyển pha và khả năng tương tác riêng biệt khi đặt trong môi trường thử nghiệm.
+
+![Kiến trúc liên kết không gian 3 chiều của Seaborgium (Sg)](/assets/library/covalent-bonds.svg)
+*Hình 2. Mô phỏng trực quan sự phân bố đám mây electron, góc liên kết và trật tự phối trí không gian 3D của Seaborgium (Sg).*
+
+| Chỉ tiêu nhận diện & Cấu trúc 3D | Tư liệu xác thực từ hệ thống ChemDex |
+|---|---|
+| Tên chất & Danh pháp quốc tế | **Seaborgium** (Seaborgium) |
+| Công thức hóa học thực nghiệm | **Sg**  |
+| Hình thái không gian 3 chiều | Đơn chất tự nhiên () |
+| Quy mô cấu trúc vi mô | **1 nguyên tử** (1× Sg) |
+| Trạng thái & Sắc thái nhận diện | Rắn / Dung dịch thực nghiệm |
+| Phòng quan sát 3D tương tác | [Mở mô hình xoay 360° và kiểm tra góc liên kết](/tien-ich/cau-truc-3d/?compound=atom-Sg) |
+
+Người đọc có thể trực tiếp xoay mô hình 360°, bật/tắt nhãn nguyên tử và kiểm tra độ dài từng liên kết (tính bằng đơn vị Ångström) của chất này tại [Phòng quan sát Cấu trúc & Liên kết 3D — Seaborgium](/tien-ich/cau-truc-3d/?compound=atom-Sg).
+
+## Dòng chảy phản ứng: Cách Seaborgium ra đời và tương tác với thế giới hóa chất
+
+Trong tự nhiên, hầu hết các nguyên tố hóa học tồn tại ở dạng hợp chất bền vững về mặt nhiệt động học. Để đưa **Seaborgium (Sg)** về trạng thái đơn chất tinh khiết phục vụ nghiên cứu và sản xuất, ngành hóa học thực nghiệm đã phát triển hai nhánh quy trình bổ trợ lẫn nhau:
+
+- **Điều chế trong phòng thí nghiệm**: Seaborgium được tổng hợp bằng cách bắn phá Californium-249 bằng ion Oxygen-18 trong máy gia tốc hạt. Phương trình phản ứng: \`²⁴⁹Cf + ¹⁸O → ²⁶³Sg + 4¹n\`. 
+- **Sản xuất quy mô công nghiệp**: Seaborgium (Sg) không được sản xuất công nghiệp do tính phóng xạ rất cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp trong các cơ sở nghiên cứu hạt nhân.  
+
+Bên cạnh câu chuyện điều chế, bản chất hóa học của **Seaborgium** còn được thể hiện sống động qua chuỗi các phản ứng đặc trưng với đơn chất và hợp chất khác:
+
+- **Tổng hợp Seaborgium-263**: \`²⁴⁹Cf + ¹⁸O → ²⁶³Sg + 4n\` 
+- **Phân rã Alpha**: \`²⁶⁹Sg → ²⁶⁵Rf + ⁴He\` 
+- **Tạo Seaborgium(VI) oxide**: \`2Sg + 3O₂ → 2SgO₃\` 
+- **Tạo Seaborgium(VI) chloride**: \`Sg + 3Cl₂ → SgCl₆\` 
+
+Trong thực hành hóa học, **Seaborgium (Sg)** được điều chế và tinh chế dựa trên nguyên lý dịch chuyển cân bằng hóa học (Nguyên lý Le Chatelier) và sự khác biệt về độ tan, nhiệt độ sôi hoặc năng lượng mạng lưới tinh thể. Khi thiết kế quy trình tổng hợp **Sg**, nhà hóa học luôn kiểm soát chặt chẽ độ tinh khiết của tiền chất, nhiệt độ phản ứng và môi trường dung môi để thu được sản phẩm có cấu trúc không gian đồng nhất như mô hình 3D đã khảo sát.
+
+## Từ phòng thí nghiệm đến đời sống: Nhận diện, ứng dụng và bài học thực tiễn của Seaborgium
+
+Từ một đối tượng nghiên cứu ban đầu trong các phòng thí nghiệm cổ điển, **Seaborgium (Sg)** đã từng bước khẳng định vị thế to lớn trong đời sống và tiến trình văn minh nhân loại:
+
+- **Ứng dụng**: Seaborgium không có ứng dụng công nghiệp hoặc dân dụng.
+- **Nó chủ yếu được sử dụng trong**: 
+- **Nghiên cứu hạt nhân**: Nghiên cứu tính chất của các nguyên tố siêu nặng.
+- **Hóa học nguyên tố siêu nặng**: So sánh Seaborgium với Chromium và Molybdenum, qua đó kiểm tra các xu hướng tuần hoàn ở nguyên tố có số hiệu nguyên tử rất lớn.
+- **Nghiên cứu cấu trúc hạt nhân**: Giúp nghiên cứu độ ổn định và chuỗi phân rã của các hạt nhân siêu nặng.
+
+### Câu chuyện lịch sử ứng dụng & Bài học kinh nghiệm thực hành
+
+Lịch sử ứng dụng của **Seaborgium (Sg)** là một minh chứng sống động cho thấy sự am hiểu về bản chất chất hóa học có thể biến những vật chất thô sơ trong tự nhiên thành công cụ phục vụ đời sống con người. Trải qua hàng thế kỷ thực nghiệm — từ những phát hiện ngẫu nhiên trong xưởng nhuộm, mỏ quặng cho đến các dây chuyền tổng hợp hiện đại — bài học cốt lõi mà các thế hệ tiền bối để lại là luôn tôn trọng tính nết tự nhiên của chất: kiểm soát cẩn trọng nhiệt độ, môi trường tiếp xúc và trang bị đầy đủ phương tiện bảo hộ để phát huy tối đa giá trị hữu ích đồng thời ngăn ngừa mọi rủi ro tiềm ẩn trong thao tác.
+
+## Câu hỏi suy ngẫm & Tự kiểm tra kiến thức
+
+1. Dựa vào câu chuyện lịch sử và hành trình khám phá **Seaborgium (Sg)**, nguyên nhân vì sao tên gọi và phương pháp điều chế ban đầu của chất này lại phản ánh hoàn cảnh văn hóa và kỹ thuật của thời đại phát hiện ra nó?
+2. Vì sao việc khám phá hình dáng không gian 3 chiều của **Seaborgium (Sg)** lại là chìa khóa để giải mã các phản ứng đặc trưng của nó thay vì chỉ nhìn vào một công thức viết phẳng?
+
+<details><summary>Xem phân tích và lời giải chi tiết</summary>
+
+- **Giải đáp câu 1:** Tên gọi và phương pháp tiếp cận đầu tiên của Sg bắt nguồn trực tiếp từ nguồn khoáng sản tự nhiên hoặc hiện tượng quan sát bằng mắt thường của các nhà thực nghiệm thời kỳ đó. Chỉ khi kỹ thuật phân tích và mô hình liên kết không gian phát triển, nhân loại mới hiểu trọn vẹn bản chất cấu tạo của chất.
+- **Giải đáp câu 2:** Cấu trúc 3 chiều quyết định vị trí các nguyên tử lộ ra ngoài để tiếp xúc với thuốc thử; chính góc liên kết và sự che chắn không gian quyết định chất phản ứng dễ dàng hay trơ lỳ về mặt hóa học.
+
+</details>
+
+## Nguồn tư liệu khoa học & Khám phá tiếp theo
+
+- [Phòng quan sát Cấu trúc & Liên kết 3D tương tác — Seaborgium (Sg)](/tien-ich/cau-truc-3d/?compound=atom-Sg)
+- [Bách khoa toàn thư Wikipedia Tiếng Việt — Seaborgi](https://vi.wikipedia.org/wiki/Seaborgi)
+- [Wikipedia Quốc tế — Seaborgium](https://en.wikipedia.org/wiki/Seaborgium)
+- [Hồ sơ dữ liệu nguyên tố chuyên sâu ChemDex](/data/elements/106_Sg.json)
+
+Bài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tổng hợp từ tư liệu lịch sử bách khoa trực tuyến, hồ sơ cấu trúc không gian 3 chiều và cơ sở dữ liệu phản ứng thực nghiệm, mang lại cái nhìn toàn diện về hành trình ra đời, cấu tạo vi mô và ứng dụng của **Seaborgium (Sg)**.`,S={id:n,slug:h,documentPath:t,legacyIds:i,title:g,author:c,category:a,summary:u,image:o,chemicalFormula:"Sg",tags:r,aliases:e,substanceIds:m,documentKind:s,readingMinutes:11,chemicalEvidence:b,content:l};export{e as aliases,c as author,a as category,b as chemicalEvidence,p as chemicalFormula,l as content,S as default,s as documentKind,t as documentPath,n as id,o as image,i as legacyIds,v as readingMinutes,h as slug,m as substanceIds,u as summary,r as tags,g as title};

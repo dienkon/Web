@@ -62,7 +62,44 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương (Hexagonal)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-zr",
+      "amcsdId": "0011201",
+      "mineralName": "Zirconium",
+      "formula": "Zr",
+      "spaceGroup": "P 63/m m c",
+      "cell": {
+        "a": 3.232,
+        "b": 3.232,
+        "c": 5.147,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 46.56155803258272,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Hexagonal closest packed, hcp, structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "7–83"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-zr.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-zr.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-zr.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-zr.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -99,16 +136,59 @@
       "sourceSearch": "https://rruff.info/Zircon",
       "model": "/assets/periodic-table/minerals/zircon.glb",
       "preview": "/assets/periodic-table/minerals/zircon.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "zircon",
+          "amcsdId": "0000697",
+          "mineralName": "Zircon",
+          "formula": "Zr Si O4",
+          "spaceGroup": "I 41/a m d",
+          "cell": {
+            "a": 6.6042,
+            "b": 6.6042,
+            "c": 5.9796,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 260.80299050414396,
+          "siteCount": 24,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Finger L W",
+              "Hazen R M"
+            ],
+            "title": "Crystal structure and compressibility of zircon at high pressure\n crystal No. 1, 1 atm - before P",
+            "journal": "American Mineralogist",
+            "year": 1979,
+            "volume": "64",
+            "pages": "196–201"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/zircon.json",
+          "cif": "/assets/periodic-table/crystals/zircon.cif",
+          "model": "/assets/periodic-table/crystals/zircon.glb",
+          "preview": "/assets/periodic-table/crystals/zircon.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Zircon-dtn1a.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/diagrams/040_Zr.svg",
-    "alt": "Zirconium: sơ đồ minh họa nguyên tố",
+    "image": "/assets/periodic-table/mineral-photos/zircon.jpg",
+    "alt": "Zircon — ảnh mẫu khoáng vật tham chiếu",
     "kind": "diagram",
-    "source": "",
-    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
-    "credit": ""
+    "source": "https://commons.wikimedia.org/wiki/File:Zircon-dtn1a.jpg",
+    "caption": "Ảnh mẫu tham chiếu Zircon; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "",
+    "author": "Robert M. Lavinsky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -453,9 +533,63 @@
       "author": "ChemDex",
       "license": "ChemDex schematic diagram",
       "licenseUrl": ""
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/zircon.jpg",
+      "role": "natural-mineral",
+      "title": "Zircon",
+      "desc": "Ảnh mẫu tham chiếu Zircon; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Zircon-dtn1a.jpg",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Zircon",
+      "src": "/assets/periodic-table/crystals/zircon.json",
+      "crystal": {
+        "id": "zircon",
+        "amcsdId": "0000697",
+        "mineralName": "Zircon",
+        "formula": "Zr Si O4",
+        "spaceGroup": "I 41/a m d",
+        "cell": {
+          "a": 6.6042,
+          "b": 6.6042,
+          "c": 5.9796,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 260.80299050414396,
+        "siteCount": 24,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Finger L W",
+            "Hazen R M"
+          ],
+          "title": "Crystal structure and compressibility of zircon at high pressure\n crystal No. 1, 1 atm - before P",
+          "journal": "American Mineralogist",
+          "year": 1979,
+          "volume": "64",
+          "pages": "196–201"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/zircon.json",
+        "cif": "/assets/periodic-table/crystals/zircon.cif",
+        "model": "/assets/periodic-table/crystals/zircon.glb",
+        "preview": "/assets/periodic-table/crystals/zircon.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -490,6 +624,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -497,6 +636,7 @@
     "sourceFile": "040_Zr.docx",
     "sourceSha256": "b230d28f6d52e0b4c5ffb44b67c309cbf390e09e6311a90c1664abf55fb26147",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/040_Zr.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/zirconium-zr/audit.md"
   }
 }

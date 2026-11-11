@@ -62,7 +62,46 @@
     "valenceElectrons": 1,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-ag",
+      "amcsdId": "0013118",
+      "mineralName": "Silver",
+      "formula": "Ag",
+      "spaceGroup": "F m 3 m",
+      "cell": {
+        "a": 4.086,
+        "b": 4.086,
+        "c": 4.086,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 68.21738805600002,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Suh I-K",
+          "Ohta H",
+          "Waseda Y"
+        ],
+        "title": "High-temperature thermal expansion of six metallic elements measured\n by dilatation method and X-ray diffraction\n Sample: at T = 293 K",
+        "journal": "Journal of Materials Science",
+        "year": 1988,
+        "volume": "23",
+        "pages": "757–760"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-ag.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-ag.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-ag.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-ag.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)",
   "occurrence": {
@@ -103,16 +142,58 @@
       "sourceSearch": "https://rruff.info/Acanthite",
       "model": "/assets/periodic-table/minerals/acanthite.glb",
       "preview": "/assets/periodic-table/minerals/acanthite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "acanthite",
+          "amcsdId": "0010584",
+          "mineralName": "Acanthite",
+          "formula": "Ag2 S",
+          "spaceGroup": "P 1 21/n 1",
+          "cell": {
+            "a": 4.23,
+            "b": 6.91,
+            "c": 7.87,
+            "alpha": 90.0,
+            "beta": 99.58,
+            "gamma": 90.0
+          },
+          "volume": 226.8265723633782,
+          "siteCount": 12,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Frueh A J"
+            ],
+            "title": "The crystallography of silver sulfide, Ag2S",
+            "journal": "Zeitschrift fur Kristallographie",
+            "year": 1958,
+            "volume": "110",
+            "pages": "136–144"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/acanthite.json",
+          "cif": "/assets/periodic-table/crystals/acanthite.cif",
+          "model": "/assets/periodic-table/crystals/acanthite.glb",
+          "preview": "/assets/periodic-table/crystals/acanthite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Acanthite_-_Imiter_mine,_Jbel_Saghro,_Tinghir,_Dr%C3%A2a-Tafilalet,_Morocco.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/047_Ag.jpg",
-    "alt": "Silver: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/acanthite.jpg",
+    "alt": "Acanthite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Silver_crystal.jpg",
-    "caption": "Ảnh tham chiếu mẫu Silver (Ag); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "Alchemist-hp ( talk ) ( www.pse-mendelejew.de ) · CC BY-SA 3.0 de"
+    "source": "https://commons.wikimedia.org/wiki/File:Acanthite_-_Imiter_mine,_Jbel_Saghro,_Tinghir,_Dr%C3%A2a-Tafilalet,_Morocco.jpg",
+    "caption": "Ảnh mẫu tham chiếu Acanthite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "Alchemist-hp ( talk ) ( www.pse-mendelejew.de ) · CC BY-SA 3.0 de",
+    "author": "Ivar Leidus",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "isotopes": [
     {
@@ -433,9 +514,62 @@
       "author": "Alchemist-hp ( talk ) ( www.pse-mendelejew.de )",
       "license": "CC BY-SA 3.0 de",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/acanthite.jpg",
+      "role": "natural-mineral",
+      "title": "Acanthite",
+      "desc": "Ảnh mẫu tham chiếu Acanthite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Acanthite_-_Imiter_mine,_Jbel_Saghro,_Tinghir,_Dr%C3%A2a-Tafilalet,_Morocco.jpg",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Acanthite",
+      "src": "/assets/periodic-table/crystals/acanthite.json",
+      "crystal": {
+        "id": "acanthite",
+        "amcsdId": "0010584",
+        "mineralName": "Acanthite",
+        "formula": "Ag2 S",
+        "spaceGroup": "P 1 21/n 1",
+        "cell": {
+          "a": 4.23,
+          "b": 6.91,
+          "c": 7.87,
+          "alpha": 90.0,
+          "beta": 99.58,
+          "gamma": 90.0
+        },
+        "volume": 226.8265723633782,
+        "siteCount": 12,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Frueh A J"
+          ],
+          "title": "The crystallography of silver sulfide, Ag2S",
+          "journal": "Zeitschrift fur Kristallographie",
+          "year": 1958,
+          "volume": "110",
+          "pages": "136–144"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/acanthite.json",
+        "cif": "/assets/periodic-table/crystals/acanthite.cif",
+        "model": "/assets/periodic-table/crystals/acanthite.glb",
+        "preview": "/assets/periodic-table/crystals/acanthite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -470,6 +604,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -477,6 +616,7 @@
     "sourceFile": "047_Ag.docx",
     "sourceSha256": "6f203f7d3334e86d223c6541ed06cc5df01d77a38d9014ceb322a992d0d26db9",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/047_Ag.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/bac-ag/audit.md"
   }
 }

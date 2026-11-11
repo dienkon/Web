@@ -56,7 +56,8 @@
     "valenceElectrons": 5,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "N₂ là khí ở điều kiện thường; pha α-N₂ rắn có cấu trúc lập phương và pha β-N₂ có cấu trúc lục phương.",
-    "latticeEvidence": "phase-dependent"
+    "latticeEvidence": "phase-dependent",
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
   },
   "structureType": "N₂ là khí ở điều kiện thường; pha α-N₂ rắn có cấu trúc lập phương và pha β-N₂ có cấu trúc lục phương.",
   "occurrence": {
@@ -411,6 +412,7 @@
     "sourceFile": "007_N.docx",
     "sourceSha256": "b39df663f09728c7917722b26dd343543153622b6b9071632ac304157c6bed8a",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/007_N.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/nito-n/audit.md"
   }
 }

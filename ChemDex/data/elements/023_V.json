@@ -60,7 +60,45 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-v",
+      "amcsdId": "0014111",
+      "mineralName": "Vanadium",
+      "formula": "V",
+      "spaceGroup": "I m 3 m",
+      "cell": {
+        "a": 3.0241,
+        "b": 3.0241,
+        "c": 3.0241,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 27.655941287520996,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Straumanis M E",
+          "James W J"
+        ],
+        "title": "Lattice parameter and expansion coefficient of vanadium\n Sample: at T = 25C",
+        "journal": "Journal of the Electrochemical Society",
+        "year": 1960,
+        "volume": "107",
+        "pages": "69–69"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-v.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-v.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-v.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-v.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)",
   "occurrence": {
@@ -101,16 +139,59 @@
       "sourceSearch": "https://rruff.info/Vanadinite",
       "model": "/assets/periodic-table/minerals/vanadinite.glb",
       "preview": "/assets/periodic-table/minerals/vanadinite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "vanadinite",
+          "amcsdId": "0005225",
+          "mineralName": "Vanadinite",
+          "formula": "Pb5 V3 O12 Cl",
+          "spaceGroup": "P 63/m",
+          "cell": {
+            "a": 10.3174,
+            "b": 10.3174,
+            "c": 7.3378,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 120.0
+          },
+          "volume": 676.452083170141,
+          "siteCount": 42,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Hughes J M",
+              "Dai Y S"
+            ],
+            "title": "Crystal-structure refinements of vanadinite and pyromorphite",
+            "journal": "The Canadian Mineralogist",
+            "year": 1989,
+            "volume": "27",
+            "pages": "189–192"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/vanadinite.json",
+          "cif": "/assets/periodic-table/crystals/vanadinite.cif",
+          "model": "/assets/periodic-table/crystals/vanadinite.glb",
+          "preview": "/assets/periodic-table/crystals/vanadinite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Mibladene_Vanadinite.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/diagrams/023_V.svg",
-    "alt": "Vanadium: sơ đồ minh họa nguyên tố",
+    "image": "/assets/periodic-table/mineral-photos/vanadinite.jpg",
+    "alt": "Vanadinite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "diagram",
-    "source": "",
-    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
-    "credit": ""
+    "source": "https://commons.wikimedia.org/wiki/File:Mibladene_Vanadinite.jpg",
+    "caption": "Ảnh mẫu tham chiếu Vanadinite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "",
+    "author": "Didier Descouens",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "isotopes": [
     {
@@ -384,9 +465,63 @@
       "author": "ChemDex",
       "license": "ChemDex schematic diagram",
       "licenseUrl": ""
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/vanadinite.jpg",
+      "role": "natural-mineral",
+      "title": "Vanadinite",
+      "desc": "Ảnh mẫu tham chiếu Vanadinite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Mibladene_Vanadinite.jpg",
+      "author": "Didier Descouens",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Vanadinite",
+      "src": "/assets/periodic-table/crystals/vanadinite.json",
+      "crystal": {
+        "id": "vanadinite",
+        "amcsdId": "0005225",
+        "mineralName": "Vanadinite",
+        "formula": "Pb5 V3 O12 Cl",
+        "spaceGroup": "P 63/m",
+        "cell": {
+          "a": 10.3174,
+          "b": 10.3174,
+          "c": 7.3378,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 120.0
+        },
+        "volume": 676.452083170141,
+        "siteCount": 42,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Hughes J M",
+            "Dai Y S"
+          ],
+          "title": "Crystal-structure refinements of vanadinite and pyromorphite",
+          "journal": "The Canadian Mineralogist",
+          "year": 1989,
+          "volume": "27",
+          "pages": "189–192"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/vanadinite.json",
+        "cif": "/assets/periodic-table/crystals/vanadinite.cif",
+        "model": "/assets/periodic-table/crystals/vanadinite.glb",
+        "preview": "/assets/periodic-table/crystals/vanadinite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -425,6 +560,11 @@
     {
       "title": "halides",
       "url": "https://doi.org/10.1002/anie.201207552"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -432,6 +572,7 @@
     "sourceFile": "023_V.docx",
     "sourceSha256": "697384f6e5d369dcc0bcc25112562c59b62bc0f4ce7fdb6ec0e75c4ee5f191f5",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/023_V.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/vanadi-v/audit.md"
   }
 }

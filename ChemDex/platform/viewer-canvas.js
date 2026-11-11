@@ -1,3 +1,4 @@
+import {parseCIF} from '../shared/chemistry/cif.mjs';
 // Software projection and 3D geometry parser for SDF and CIF structures.
 export const CPK_COLORS = {
   H: '#f8fafc',
@@ -91,70 +92,7 @@ export function readSDF(raw) {
   return { atoms, bonds };
 }
 
-export function readCIF(raw) {
-  const lines = String(raw).replace(/^\uFEFF/, '').split(/\r?\n/);
-  let aLen = 5.5,
-    bLen = 5.5,
-    cLen = 5.5;
-  const atoms = [];
-  let inLoop = false;
-  for (const rawLine of lines) {
-    const line = rawLine.trim();
-    if (!line || line.startsWith('#')) continue;
-    if (line.startsWith('_cell_length_a')) aLen = parseFloat(line.split(/\s+/)[1]) || aLen;
-    if (line.startsWith('_cell_length_b')) bLen = parseFloat(line.split(/\s+/)[1]) || bLen;
-    if (line.startsWith('_cell_length_c')) cLen = parseFloat(line.split(/\s+/)[1]) || cLen;
-    if (line.startsWith('_atom_site_fract_z')) {
-      inLoop = true;
-      continue;
-    }
-    if (inLoop) {
-      if (line.startsWith('_') || line.startsWith('loop_') || line.startsWith('data_')) {
-        inLoop = false;
-        continue;
-      }
-      const parts = line.split(/\s+/);
-      if (parts.length >= 5) {
-        const elem = parts[1].replace(/[^A-Za-z]/g, '');
-        const fx = parseFloat(parts[2]);
-        const fy = parseFloat(parts[3]);
-        const fz = parseFloat(parts[4]);
-        if ([fx, fy, fz].every(Number.isFinite)) {
-          atoms.push({ elem, x: fx * aLen, y: fy * bLen, z: fz * cLen });
-        }
-      }
-    }
-  }
-  const bonds = [];
-  if (atoms.length > 1) {
-    // Compute nearest-neighbor coordination bonds in the crystal unit cell
-    let minDist = Infinity;
-    for (let i = 0; i < atoms.length; i++) {
-      for (let j = i + 1; j < atoms.length; j++) {
-        if (atoms[i].elem === atoms[j].elem) continue;
-        const d = Math.hypot(
-          atoms[i].x - atoms[j].x,
-          atoms[i].y - atoms[j].y,
-          atoms[i].z - atoms[j].z,
-        );
-        if (d > 0.5 && d < minDist) minDist = d;
-      }
-    }
-    const cutoff = Number.isFinite(minDist) ? minDist * 1.18 : 3.2;
-    for (let i = 0; i < atoms.length; i++) {
-      for (let j = i + 1; j < atoms.length; j++) {
-        if (atoms[i].elem === atoms[j].elem) continue;
-        const d = Math.hypot(
-          atoms[i].x - atoms[j].x,
-          atoms[i].y - atoms[j].y,
-          atoms[i].z - atoms[j].z,
-        );
-        if (d <= cutoff) bonds.push({ a: i, b: j, order: 1 });
-      }
-    }
-  }
-  return { atoms, bonds };
-}
+export const readCIF = parseCIF;
 
 export function createCanvasViewer(host, model, onPick) {
   const canvas = document.createElement('canvas');

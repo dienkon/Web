@@ -1,0 +1,492 @@
+{
+  "amcsdId": "0009633",
+  "mineralName": "Thorite",
+  "formula": "Th Si O4",
+  "spaceGroup": "I 41/a m d",
+  "cell": {
+    "a": 7.1328,
+    "b": 7.1328,
+    "c": 6.3188,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 321.48055030579195,
+  "declaredVolume": 321.481,
+  "basis": [
+    [
+      7.1328,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      7.1328,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      6.3188
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,1/2+z",
+    "1/4-y,3/4-x,1/4+z",
+    "3/4-y,1/4-x,3/4+z",
+    "1/4+y,3/4+x,1/4-z",
+    "3/4+y,1/4+x,3/4-z",
+    "1/4+y,3/4-x,1/4-z",
+    "3/4+y,1/4-x,3/4-z",
+    "1/4-y,3/4+x,1/4+z",
+    "3/4-y,1/4+x,3/4+z",
+    "1/2+x,-y,1/2+z",
+    "+x,1/2-y,+z",
+    "1/2-x,y,1/2-z",
+    "-x,1/2+y,-z",
+    "1/2+x,y,1/2-z",
+    "+x,1/2+y,-z",
+    "1/2-x,-y,1/2+z",
+    "-x,1/2-y,+z",
+    "1/4+y,1/4+x,3/4+z",
+    "3/4+y,3/4+x,1/4+z",
+    "1/4-y,1/4-x,3/4-z",
+    "3/4-y,3/4-x,1/4-z",
+    "1/4-y,1/4+x,3/4-z",
+    "3/4-y,3/4+x,1/4-z",
+    "1/4+y,1/4-x,3/4+z",
+    "3/4+y,3/4-x,1/4+z",
+    "-x,y,z",
+    "1/2-x,1/2+y,1/2+z",
+    "x,-y,-z",
+    "1/2+x,1/2-y,1/2-z",
+    "-x,-y,-z",
+    "1/2-x,1/2-y,1/2-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Th",
+      "element": "Th",
+      "fractional": [
+        0.0,
+        0.75,
+        0.125
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Si",
+      "element": "Si",
+      "fractional": [
+        0.0,
+        0.75,
+        0.625
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.0,
+        0.0732,
+        0.2104
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Th",
+      "label": "Th",
+      "fractional": [
+        0.0,
+        0.75,
+        0.125
+      ],
+      "position": [
+        0.0,
+        5.3496,
+        0.78985
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Th",
+      "label": "Th",
+      "fractional": [
+        0.5,
+        0.25,
+        0.625
+      ],
+      "position": [
+        3.5664,
+        1.7832,
+        3.94925
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Th",
+      "label": "Th",
+      "fractional": [
+        0.5,
+        0.75,
+        0.375
+      ],
+      "position": [
+        3.5664,
+        5.3496,
+        2.36955
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Th",
+      "label": "Th",
+      "fractional": [
+        0.0,
+        0.25,
+        0.875
+      ],
+      "position": [
+        0.0,
+        1.7832,
+        5.52895
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Si",
+      "label": "Si",
+      "fractional": [
+        0.0,
+        0.75,
+        0.625
+      ],
+      "position": [
+        0.0,
+        5.3496,
+        3.94925
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Si",
+      "label": "Si",
+      "fractional": [
+        0.5,
+        0.25,
+        0.125
+      ],
+      "position": [
+        3.5664,
+        1.7832,
+        0.78985
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Si",
+      "label": "Si",
+      "fractional": [
+        0.5,
+        0.75,
+        0.875
+      ],
+      "position": [
+        3.5664,
+        5.3496,
+        5.52895
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Si",
+      "label": "Si",
+      "fractional": [
+        0.0,
+        0.25,
+        0.375
+      ],
+      "position": [
+        0.0,
+        1.7832,
+        2.36955
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.0732,
+        0.2104
+      ],
+      "position": [
+        0.0,
+        0.522121,
+        1.3294755
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.5,
+        0.5732,
+        0.7104
+      ],
+      "position": [
+        3.5664,
+        4.088521,
+        4.4888755
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.1768,
+        0.75,
+        0.4604
+      ],
+      "position": [
+        1.261079,
+        5.3496,
+        2.9091755
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.6768,
+        0.25,
+        0.9604
+      ],
+      "position": [
+        4.827479,
+        1.7832,
+        6.0685755
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.3232,
+        0.75,
+        0.0396
+      ],
+      "position": [
+        2.305321,
+        5.3496,
+        0.2502245
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.8232,
+        0.25,
+        0.5396
+      ],
+      "position": [
+        5.871721,
+        1.7832,
+        3.4096245
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.5,
+        0.9268,
+        0.7104
+      ],
+      "position": [
+        3.5664,
+        6.610679,
+        4.4888755
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.4268,
+        0.2104
+      ],
+      "position": [
+        0.0,
+        3.044279,
+        1.3294755
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.5,
+        0.0732,
+        0.2896
+      ],
+      "position": [
+        3.5664,
+        0.522121,
+        1.8299245
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.5732,
+        0.7896
+      ],
+      "position": [
+        0.0,
+        4.088521,
+        4.9893245
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.3232,
+        0.25,
+        0.9604
+      ],
+      "position": [
+        2.305321,
+        1.7832,
+        6.0685755
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.8232,
+        0.75,
+        0.4604
+      ],
+      "position": [
+        5.871721,
+        5.3496,
+        2.9091755
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.1768,
+        0.25,
+        0.5396
+      ],
+      "position": [
+        1.261079,
+        1.7832,
+        3.4096245
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.6768,
+        0.75,
+        0.0396
+      ],
+      "position": [
+        4.827479,
+        5.3496,
+        0.2502245
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.9268,
+        0.7896
+      ],
+      "position": [
+        0.0,
+        6.610679,
+        4.9893245
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.5,
+        0.4268,
+        0.2896
+      ],
+      "position": [
+        3.5664,
+        3.044279,
+        1.8299245
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "Th": 4,
+    "Si": 4,
+    "O": 16
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Ewing R C",
+      "Taylor M"
+    ],
+    "title": "The crystal structure of the ThSiO4 polymorphs: huttonite and thorite",
+    "journal": "Acta Crystallographica, Section B",
+    "year": 1978,
+    "volume": "34",
+    "pages": "1074–1079"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 32,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.3988224407849549e-06
+  },
+  "id": "thorite",
+  "note": ""
+}

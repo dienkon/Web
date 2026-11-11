@@ -1,0 +1,282 @@
+{
+  "amcsdId": "0010584",
+  "mineralName": "Acanthite",
+  "formula": "Ag2 S",
+  "spaceGroup": "P 1 21/n 1",
+  "cell": {
+    "a": 4.23,
+    "b": 6.91,
+    "c": 7.87,
+    "alpha": 90.0,
+    "beta": 99.58,
+    "gamma": 90.0
+  },
+  "volume": 226.8265723633782,
+  "declaredVolume": 226.827,
+  "basis": [
+    [
+      4.23,
+      0.0,
+      -1.3097612794699982
+    ],
+    [
+      0.0,
+      6.91,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      7.760246477451674
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2-y,1/2+z",
+    "1/2-x,1/2+y,1/2-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "AgI",
+      "element": "Ag",
+      "fractional": [
+        0.758,
+        0.015,
+        0.305
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "AgII",
+      "element": "Ag",
+      "fractional": [
+        0.285,
+        0.32,
+        0.435
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S",
+      "element": "S",
+      "fractional": [
+        0.359,
+        0.239,
+        0.134
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Ag",
+      "label": "AgI",
+      "fractional": [
+        0.758,
+        0.015,
+        0.305
+      ],
+      "position": [
+        2.8068628,
+        0.10365,
+        2.3668752
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ag",
+      "label": "AgI",
+      "fractional": [
+        0.258,
+        0.485,
+        0.805
+      ],
+      "position": [
+        0.0369822,
+        3.35135,
+        6.2469984
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ag",
+      "label": "AgI",
+      "fractional": [
+        0.742,
+        0.515,
+        0.195
+      ],
+      "position": [
+        2.8832566,
+        3.55865,
+        1.5132481
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ag",
+      "label": "AgI",
+      "fractional": [
+        0.242,
+        0.985,
+        0.695
+      ],
+      "position": [
+        0.1133759,
+        6.80635,
+        5.3933713
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ag",
+      "label": "AgII",
+      "fractional": [
+        0.285,
+        0.32,
+        0.435
+      ],
+      "position": [
+        0.6358038,
+        2.2112,
+        3.3757072
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ag",
+      "label": "AgII",
+      "fractional": [
+        0.785,
+        0.18,
+        0.935
+      ],
+      "position": [
+        2.0959232,
+        1.2438,
+        7.2558305
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ag",
+      "label": "AgII",
+      "fractional": [
+        0.215,
+        0.82,
+        0.065
+      ],
+      "position": [
+        0.8243155,
+        5.6662,
+        0.504416
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ag",
+      "label": "AgII",
+      "fractional": [
+        0.715,
+        0.68,
+        0.565
+      ],
+      "position": [
+        2.2844349,
+        4.6988,
+        4.3845393
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.359,
+        0.239,
+        0.134
+      ],
+      "position": [
+        1.343062,
+        1.65149,
+        1.039873
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.859,
+        0.261,
+        0.634
+      ],
+      "position": [
+        2.8031813,
+        1.80351,
+        4.9199963
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.141,
+        0.739,
+        0.366
+      ],
+      "position": [
+        0.1170574,
+        5.10649,
+        2.8402502
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.641,
+        0.761,
+        0.866
+      ],
+      "position": [
+        1.5771767,
+        5.25851,
+        6.7203734
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 12,
+  "speciesPositionCount": 12,
+  "cellComposition": {
+    "Ag": 8,
+    "S": 4
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Frueh A J"
+    ],
+    "title": "The crystallography of silver sulfide, Ag2S",
+    "journal": "Zeitschrift fur Kristallographie",
+    "year": 1958,
+    "volume": "110",
+    "pages": "136–144"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 4,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.8853021378315562e-06
+  },
+  "id": "acanthite",
+  "note": ""
+}

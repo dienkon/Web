@@ -11,6 +11,9 @@ export interface CategoryConfig {
 
 export interface DocMeta {
   id: string;
+  slug?: string;
+  documentPath?: string;
+  legacyIds?: string[];
   title: string;
   author: string;
   category: string;

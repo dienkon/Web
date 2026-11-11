@@ -1,0 +1,319 @@
+{
+  "amcsdId": "0001736",
+  "mineralName": "Rutile",
+  "formula": "Ti.91 Al.08 Nb.01 Cr.01 O2",
+  "spaceGroup": "P 42/m n m",
+  "cell": {
+    "a": 4.594,
+    "b": 4.594,
+    "c": 2.9586,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 62.44076778960001,
+  "declaredVolume": 62.441,
+  "basis": [
+    [
+      4.594,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      4.594,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      2.9586
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-y,-x,z",
+    "y,x,-z",
+    "1/2+y,1/2-x,1/2-z",
+    "1/2-y,1/2+x,1/2+z",
+    "1/2+x,1/2-y,1/2+z",
+    "1/2-x,1/2+y,1/2-z",
+    "x,y,-z",
+    "-x,-y,z",
+    "y,x,z",
+    "-y,-x,-z",
+    "1/2-y,1/2+x,1/2-z",
+    "1/2+y,1/2-x,1/2+z",
+    "1/2-x,1/2+y,1/2+z",
+    "1/2+x,1/2-y,1/2-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Ti",
+      "element": "Ti",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 0.91
+    },
+    {
+      "label": "Al",
+      "element": "Al",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 0.08
+    },
+    {
+      "label": "Nb",
+      "element": "Nb",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 0.01
+    },
+    {
+      "label": "Cr",
+      "element": "Cr",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 0.01
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.30495,
+        0.30495,
+        0.0
+      ],
+      "occupancy": 1.0
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Ti",
+      "label": "Ti",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 0.91
+    },
+    {
+      "element": "Ti",
+      "label": "Ti",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        2.297,
+        2.297,
+        1.4793
+      ],
+      "occupancy": 0.91
+    },
+    {
+      "element": "Al",
+      "label": "Al",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 0.08
+    },
+    {
+      "element": "Al",
+      "label": "Al",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        2.297,
+        2.297,
+        1.4793
+      ],
+      "occupancy": 0.08
+    },
+    {
+      "element": "Nb",
+      "label": "Nb",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 0.01
+    },
+    {
+      "element": "Nb",
+      "label": "Nb",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        2.297,
+        2.297,
+        1.4793
+      ],
+      "occupancy": 0.01
+    },
+    {
+      "element": "Cr",
+      "label": "Cr",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 0.01
+    },
+    {
+      "element": "Cr",
+      "label": "Cr",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        2.297,
+        2.297,
+        1.4793
+      ],
+      "occupancy": 0.01
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.30495,
+        0.30495,
+        0.0
+      ],
+      "position": [
+        1.4009403,
+        1.4009403,
+        0.0
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.69505,
+        0.69505,
+        0.0
+      ],
+      "position": [
+        3.1930597,
+        3.1930597,
+        0.0
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.80495,
+        0.19505,
+        0.5
+      ],
+      "position": [
+        3.6979403,
+        0.8960597,
+        1.4793
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.19505,
+        0.80495,
+        0.5
+      ],
+      "position": [
+        0.8960597,
+        3.6979403,
+        1.4793
+      ],
+      "occupancy": 1.0
+    }
+  ],
+  "siteCount": 6,
+  "speciesPositionCount": 12,
+  "cellComposition": {
+    "Ti": 1.82,
+    "Al": 0.16,
+    "Nb": 0.02,
+    "Cr": 0.02,
+    "O": 4.0
+  },
+  "mixedSiteCount": 2,
+  "reference": {
+    "authors": [
+      "Smyth J R",
+      "Swope R J",
+      "Larson A C"
+    ],
+    "title": "H in rutile-type compounds: I. Single-crystal neutron and X-ray diffraction\n study of H in rutile\n Sample: X-ray; natural, T = 300 K",
+    "journal": "American Mineralogist",
+    "year": 1995,
+    "volume": "80",
+    "pages": "448–453"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 16,
+    "maxSiteOccupancy": 1.01,
+    "cellVolumeRelativeError": 3.718890849892305e-06
+  },
+  "id": "rutile",
+  "note": ""
+}

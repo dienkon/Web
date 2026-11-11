@@ -60,7 +60,45 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương (Hexagonal)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-co",
+      "amcsdId": "0009140",
+      "mineralName": "Cobalt",
+      "formula": "Co",
+      "spaceGroup": "P 63/m m c",
+      "cell": {
+        "a": 2.5074,
+        "b": 2.5074,
+        "c": 4.0699,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 22.15958451326187,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Taylor A",
+          "Floyd R W"
+        ],
+        "title": "Precision measurements of lattice parameters of non-cubic crystals\n Sample: at T < 450 C",
+        "journal": "Acta Crystallographica",
+        "year": 1950,
+        "volume": "3",
+        "pages": "285–289"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-co.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-co.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-co.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-co.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -100,16 +138,58 @@
       "sourceSearch": "https://rruff.info/Cobaltite",
       "model": "/assets/periodic-table/minerals/cobaltite.glb",
       "preview": "/assets/periodic-table/minerals/cobaltite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "cobaltite",
+          "amcsdId": "0000883",
+          "mineralName": "Cobaltite",
+          "formula": "Co As S",
+          "spaceGroup": "P c a 21",
+          "cell": {
+            "a": 5.592,
+            "b": 5.587,
+            "c": 5.567,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 173.92701976799998,
+          "siteCount": 12,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Bayliss P"
+            ],
+            "title": "A further crystal structure refinement of cobaltite",
+            "journal": "American Mineralogist",
+            "year": 1982,
+            "volume": "67",
+            "pages": "1048–1057"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/cobaltite.json",
+          "cif": "/assets/periodic-table/crystals/cobaltite.cif",
+          "model": "/assets/periodic-table/crystals/cobaltite.glb",
+          "preview": "/assets/periodic-table/crystals/cobaltite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Koboltglans.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/diagrams/027_Co.svg",
-    "alt": "Cobalt: sơ đồ minh họa nguyên tố",
+    "image": "/assets/periodic-table/mineral-photos/cobaltite.jpg",
+    "alt": "Cobaltite — ảnh mẫu khoáng vật tham chiếu",
     "kind": "diagram",
-    "source": "",
-    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
-    "credit": ""
+    "source": "https://commons.wikimedia.org/wiki/File:Koboltglans.jpg",
+    "caption": "Ảnh mẫu tham chiếu Cobaltite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "",
+    "author": "User Tor Svensson",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
   },
   "isotopes": [
     {
@@ -422,9 +502,62 @@
       "author": "ChemDex",
       "license": "ChemDex schematic diagram",
       "licenseUrl": ""
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/cobaltite.jpg",
+      "role": "natural-mineral",
+      "title": "Cobaltite",
+      "desc": "Ảnh mẫu tham chiếu Cobaltite; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Koboltglans.jpg",
+      "author": "User Tor Svensson",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Cobaltite",
+      "src": "/assets/periodic-table/crystals/cobaltite.json",
+      "crystal": {
+        "id": "cobaltite",
+        "amcsdId": "0000883",
+        "mineralName": "Cobaltite",
+        "formula": "Co As S",
+        "spaceGroup": "P c a 21",
+        "cell": {
+          "a": 5.592,
+          "b": 5.587,
+          "c": 5.567,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 173.92701976799998,
+        "siteCount": 12,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Bayliss P"
+          ],
+          "title": "A further crystal structure refinement of cobaltite",
+          "journal": "American Mineralogist",
+          "year": 1982,
+          "volume": "67",
+          "pages": "1048–1057"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/cobaltite.json",
+        "cif": "/assets/periodic-table/crystals/cobaltite.cif",
+        "model": "/assets/periodic-table/crystals/cobaltite.glb",
+        "preview": "/assets/periodic-table/crystals/cobaltite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -459,6 +592,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -466,6 +604,7 @@
     "sourceFile": "027_Co.docx",
     "sourceSha256": "467ce9dd0ae7acf913daf8936fb5199f83bd49fff43f9511b74508aa64e9db7c",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/027_Co.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/coban-co/audit.md"
   }
 }

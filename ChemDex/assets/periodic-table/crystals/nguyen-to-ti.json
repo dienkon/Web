@@ -1,0 +1,138 @@
+{
+  "amcsdId": "0020263",
+  "mineralName": "Titanium",
+  "formula": "Ti",
+  "spaceGroup": "P 63/m m c",
+  "cell": {
+    "a": 2.95,
+    "b": 2.95,
+    "c": 4.686,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 35.31644235417009,
+  "declaredVolume": 35.316,
+  "basis": [
+    [
+      2.95,
+      -1.4749999999999994,
+      0.0
+    ],
+    [
+      0.0,
+      2.5547749411640943,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.686
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,-x+y,1/2+z",
+    "x,x-y,1/2-z",
+    "-x+y,-x,1/2-z",
+    "x-y,x,1/2+z",
+    "-y,-x,z",
+    "y,x,-z",
+    "y,-x+y,-z",
+    "-y,x-y,z",
+    "x-y,-y,1/2+z",
+    "-x+y,y,1/2-z",
+    "x,y,1/2-z",
+    "-x,-y,1/2+z",
+    "x,x-y,z",
+    "-x,-x+y,-z",
+    "x-y,x,-z",
+    "-x+y,-x,z",
+    "y,x,1/2+z",
+    "-y,-x,1/2-z",
+    "-y,x-y,1/2-z",
+    "y,-x+y,1/2+z",
+    "-x+y,y,z",
+    "x-y,-y,-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Ti",
+      "element": "Ti",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Ti",
+      "label": "Ti",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "position": [
+        -4e-07,
+        1.7031835,
+        1.1715
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ti",
+      "label": "Ti",
+      "fractional": [
+        0.66666675,
+        0.3333335,
+        0.75
+      ],
+      "position": [
+        1.475,
+        0.8515921,
+        3.5145
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 2,
+  "speciesPositionCount": 2,
+  "cellComposition": {
+    "Ti": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Ma Z",
+      "Shi N",
+      "Li G",
+      "Xiong M",
+      "Bai W",
+      "Fang Q",
+      "Yang J",
+      "Rong H"
+    ],
+    "title": "Titanium, Ti, a new mineral species from Luobusha, Tibet, China",
+    "journal": "Acta Geologica Sinica",
+    "year": 2013,
+    "volume": "87",
+    "pages": "1275–1280"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 24,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.2525445390395207e-05
+  },
+  "id": "nguyen-to-ti",
+  "note": ""
+}

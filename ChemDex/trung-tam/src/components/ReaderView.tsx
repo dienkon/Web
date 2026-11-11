@@ -286,9 +286,9 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
             <div className="space-y-4">
               {/* Internal Link */}
               {relatedDoc && (
-                <div 
+                <button type="button"
                   onClick={() => onDocClick?.(relatedDoc.id)}
-                  className="flex items-center justify-between p-4 bg-slate-900/40 hover:bg-slate-900/60 rounded-xl border border-slate-700/40 cursor-pointer transition-all group"
+                  className="w-full text-left flex items-center justify-between p-4 bg-slate-900/40 hover:bg-slate-900/60 rounded-xl border border-slate-700/40 cursor-pointer transition-all group"
                 >
                   <div>
                     <p className="text-xs text-blue-400 font-semibold mb-1 uppercase tracking-wider">Có thể bạn sẽ thích</p>
@@ -297,7 +297,7 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
                     </h4>
                   </div>
                   <ArrowRight className="text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" size={20} />
-                </div>
+                </button>
               )}
 
               {/* External Links */}

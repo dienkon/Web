@@ -1,3 +1,5 @@
+import {documentFile} from '../shared/library-paths.mjs';
+import {documentURL} from '../shared/library-paths.mjs';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -7,6 +9,18 @@ import {parseFormula} from '../shared/chemistry/formula.mjs';
 const bundle=await build({entryPoints:['trung-tam/src/utils/librarySearch.ts'],bundle:true,write:false,platform:'node',format:'esm'});
 const {matchesLibraryDoc,filterLibraryDocs}=await import(`data:text/javascript;base64,${Buffer.from(bundle.outputFiles[0].text).toString('base64')}`);
 const docs=['trung-tam/src/data/index.json','trung-tam/src/data/reference-index.generated.json'].flatMap(p=>JSON.parse(fs.readFileSync(p,'utf8')));
+test('substance-named directories and canonical URLs preserve all former document links',()=>{
+  const routes=JSON.parse(fs.readFileSync('shared/library-routes.generated.json','utf8'));
+  assert.equal(new Set(docs.map(d=>d.slug)).size,docs.length);
+  for(const doc of docs){
+    assert.match(doc.slug,/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
+    assert.ok(!doc.slug.startsWith('ho-so-'));
+    assert.match(documentFile(doc),new RegExp(`/${doc.slug}/index.json$`));
+    assert.equal(documentURL(doc),`/trung-tam/tai-lieu-so/${doc.slug}/`);
+    for(const alias of [doc.id,...(doc.legacyIds??[])])assert.equal(routes[alias],doc.slug);
+  }
+  assert.equal(Object.keys(routes).filter(id=>id.startsWith('ho-so-')).length,468);
+});
 test('library metadata, files and explicit chemical identities stay in sync',()=>{
   const report=auditLibrary();assert.deepEqual(report.errors,[]);
   assert.equal(report.subjects.length,report.subjectCount);
@@ -20,7 +34,7 @@ test('every primary subject article is substantive, structured, sourced and incl
   const authors=new Set();
   for(const meta of docs){
     const folder=meta.documentKind==='reference'?'reference':'docs';
-    const article=JSON.parse(fs.readFileSync(`trung-tam/src/data/${folder}/${meta.id}.json`,'utf8'));
+    const article=JSON.parse(fs.readFileSync(documentFile(meta),'utf8'));
     const wordCount=article.content.trim().split(/\s+/).length;
     assert.ok(wordCount>=1000,`${meta.id} has only ${wordCount} words (expected >= 1000)`);
     authors.add(article.author);
@@ -29,7 +43,7 @@ test('every primary subject article is substantive, structured, sourced and incl
   for(const id of new Set(Object.values(links))){
     const meta=docs.find(doc=>doc.id===id);assert.ok(meta,id);
     const folder=meta.documentKind==='reference'?'reference':'docs';
-    const article=JSON.parse(fs.readFileSync(`trung-tam/src/data/${folder}/${id}.json`,'utf8'));
+    const article=JSON.parse(fs.readFileSync(documentFile(meta),'utf8'));
     assert.ok(article.content.length>=2500,id);
     assert.ok((article.content.match(/^## /gm)??[]).length>=4,id);
     assert.match(article.content,/<details>/,id);
@@ -40,7 +54,7 @@ test('every generated dossier has specific formula evidence, working model links
   const subjects=[...JSON.parse(fs.readFileSync('shared/compounds.json','utf8')),...JSON.parse(fs.readFileSync('shared/structure-catalog.generated.json','utf8'))];
   const ids=new Set(subjects.map(s=>s.id));
   for(const meta of docs.filter(d=>d.documentKind==='reference')){
-    const full=JSON.parse(fs.readFileSync(`trung-tam/src/data/reference/${meta.id}.json`,'utf8'));
+    const full=JSON.parse(fs.readFileSync(documentFile(meta),'utf8'));
     assert.equal(full.id,meta.id);
     assert.ok(full.content.includes('## Câu chuyện:'));
     assert.ok(full.content.includes('## Lần theo thành phần nguyên tử'));
@@ -58,7 +72,7 @@ test('all dossier calculations and chosen reaction contexts agree with the under
   const reactions=new Map(json('shared/reaction-catalog.generated.json').entries.map(r=>[r.id,r]));
   const links=json('shared/library-links.generated.json');
   for(const meta of docs.filter(d=>d.documentKind==='reference')){
-    const full=json(`trung-tam/src/data/reference/${meta.id}.json`),proof=full.chemicalEvidence;
+    const full=json(documentFile(meta)),proof=full.chemicalEvidence;
     const subject=subjects.find(s=>s.id===proof.representativeId);
     assert.ok(subject,meta.id);
     assert.equal(proof.formula,subject.formula);

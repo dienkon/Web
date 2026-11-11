@@ -60,7 +60,51 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương (Hexagonal)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-ti",
+      "amcsdId": "0020263",
+      "mineralName": "Titanium",
+      "formula": "Ti",
+      "spaceGroup": "P 63/m m c",
+      "cell": {
+        "a": 2.95,
+        "b": 2.95,
+        "c": 4.686,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 35.31644235417009,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Ma Z",
+          "Shi N",
+          "Li G",
+          "Xiong M",
+          "Bai W",
+          "Fang Q",
+          "Yang J",
+          "Rong H"
+        ],
+        "title": "Titanium, Ti, a new mineral species from Luobusha, Tibet, China",
+        "journal": "Acta Geologica Sinica",
+        "year": 2013,
+        "volume": "87",
+        "pages": "1275–1280"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-ti.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-ti.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-ti.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-ti.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -99,16 +143,60 @@
       "sourceSearch": "https://rruff.info/Rutile",
       "model": "/assets/periodic-table/minerals/rutile.glb",
       "preview": "/assets/periodic-table/minerals/rutile.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "rutile",
+          "amcsdId": "0001736",
+          "mineralName": "Rutile",
+          "formula": "Ti.91 Al.08 Nb.01 Cr.01 O2",
+          "spaceGroup": "P 42/m n m",
+          "cell": {
+            "a": 4.594,
+            "b": 4.594,
+            "c": 2.9586,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 62.44076778960001,
+          "siteCount": 6,
+          "mixedSiteCount": 2,
+          "reference": {
+            "authors": [
+              "Smyth J R",
+              "Swope R J",
+              "Larson A C"
+            ],
+            "title": "H in rutile-type compounds: I. Single-crystal neutron and X-ray diffraction\n study of H in rutile\n Sample: X-ray; natural, T = 300 K",
+            "journal": "American Mineralogist",
+            "year": 1995,
+            "volume": "80",
+            "pages": "448–453"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/rutile.json",
+          "cif": "/assets/periodic-table/crystals/rutile.cif",
+          "model": "/assets/periodic-table/crystals/rutile.glb",
+          "preview": "/assets/periodic-table/crystals/rutile.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Rutile-ww7a.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/022_Ti.jpg",
-    "alt": "Titanium: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/rutile.jpg",
+    "alt": "Rutile — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Titan-crystal_bar.JPG",
-    "caption": "Ảnh tham chiếu mẫu Titanium (Ti); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "Alchemist-hp ( pse-mendelejew.de ) · CC BY-SA 3.0"
+    "source": "https://commons.wikimedia.org/wiki/File:Rutile-ww7a.jpg",
+    "caption": "Ảnh mẫu tham chiếu Rutile; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "Alchemist-hp ( pse-mendelejew.de ) · CC BY-SA 3.0",
+    "author": "Robert M. Lavinsky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -467,9 +555,64 @@
       "author": "Alchemist-hp ( pse-mendelejew.de )",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/rutile.jpg",
+      "role": "natural-mineral",
+      "title": "Rutile",
+      "desc": "Ảnh mẫu tham chiếu Rutile; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Rutile-ww7a.jpg",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Rutile",
+      "src": "/assets/periodic-table/crystals/rutile.json",
+      "crystal": {
+        "id": "rutile",
+        "amcsdId": "0001736",
+        "mineralName": "Rutile",
+        "formula": "Ti.91 Al.08 Nb.01 Cr.01 O2",
+        "spaceGroup": "P 42/m n m",
+        "cell": {
+          "a": 4.594,
+          "b": 4.594,
+          "c": 2.9586,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 62.44076778960001,
+        "siteCount": 6,
+        "mixedSiteCount": 2,
+        "reference": {
+          "authors": [
+            "Smyth J R",
+            "Swope R J",
+            "Larson A C"
+          ],
+          "title": "H in rutile-type compounds: I. Single-crystal neutron and X-ray diffraction\n study of H in rutile\n Sample: X-ray; natural, T = 300 K",
+          "journal": "American Mineralogist",
+          "year": 1995,
+          "volume": "80",
+          "pages": "448–453"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/rutile.json",
+        "cif": "/assets/periodic-table/crystals/rutile.cif",
+        "model": "/assets/periodic-table/crystals/rutile.glb",
+        "preview": "/assets/periodic-table/crystals/rutile.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -504,6 +647,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -511,6 +659,7 @@
     "sourceFile": "022_Ti.docx",
     "sourceSha256": "8744e2cd4c10f071a7a09ece6fd336798e2ff66d6bb09e34ddefefc9a0959083",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/022_Ti.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/titan-ti/audit.md"
   }
 }

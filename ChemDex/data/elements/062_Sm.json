@@ -64,7 +64,47 @@
     "valenceElectrons": 2,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Rhombohedral",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-sm",
+      "amcsdId": "0009181",
+      "mineralName": "Samarium",
+      "formula": "Sm",
+      "spaceGroup": "R -3 m",
+      "cell": {
+        "a": 8.996,
+        "b": 8.996,
+        "c": 8.996,
+        "alpha": 23.22,
+        "beta": 23.22,
+        "gamma": 23.22
+      },
+      "volume": 99.3461774792358,
+      "siteCount": 3,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Rundle R E",
+          "Smith H G",
+          "Spedding F H",
+          "Daane A H"
+        ],
+        "title": "The crystal structure of samarium\n Note: sample 99% pure",
+        "journal": "Acta Crystallographica",
+        "year": 1954,
+        "volume": "7",
+        "pages": "532–535"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-sm.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-sm.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-sm.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-sm.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Rhombohedral",
   "occurrence": {
@@ -102,16 +142,60 @@
       "sourceSearch": "https://rruff.info/Monazite-(Ce)",
       "model": "/assets/periodic-table/minerals/monazite.glb",
       "preview": "/assets/periodic-table/minerals/monazite.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "monazite",
+          "amcsdId": "0001700",
+          "mineralName": "Monazite-(Ce)",
+          "formula": "Ce P O4",
+          "spaceGroup": "P 1 21/n 1",
+          "cell": {
+            "a": 6.788,
+            "b": 7.0163,
+            "c": 6.465,
+            "alpha": 90.0,
+            "beta": 103.43,
+            "gamma": 90.0
+          },
+          "volume": 299.48637533121257,
+          "siteCount": 24,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Hughes J M",
+              "Mariano A N",
+              "Ni Y"
+            ],
+            "title": "Crystal chemistry of the monazite and xenotime structures\n Ce(PO4)",
+            "journal": "American Mineralogist",
+            "year": 1995,
+            "volume": "80",
+            "pages": "21–26"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/monazite.json",
+          "cif": "/assets/periodic-table/crystals/monazite.cif",
+          "model": "/assets/periodic-table/crystals/monazite.glb",
+          "preview": "/assets/periodic-table/crystals/monazite.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Monazite-(Ce)-164025.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/photos/062_Sm.jpg",
-    "alt": "Samarium: ảnh tham chiếu từ Commons",
+    "image": "/assets/periodic-table/mineral-photos/monazite.jpg",
+    "alt": "Monazite-(Ce) — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Samarium-2.jpg",
-    "caption": "Ảnh tham chiếu mẫu Samarium (Sm); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
-    "credit": "Unknown author Unknown author · CC BY 3.0"
+    "source": "https://commons.wikimedia.org/wiki/File:Monazite-(Ce)-164025.jpg",
+    "caption": "Ảnh mẫu tham chiếu Monazite-(Ce); ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+    "credit": "Unknown author Unknown author · CC BY 3.0",
+    "author": "Robert M. Lavinsky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -411,9 +495,64 @@
       "author": "Unknown author Unknown author",
       "license": "CC BY 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/monazite.jpg",
+      "role": "natural-mineral",
+      "title": "Monazite-(Ce)",
+      "desc": "Ảnh mẫu tham chiếu Monazite-(Ce); ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Monazite-(Ce)-164025.jpg",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Monazite-(Ce)",
+      "src": "/assets/periodic-table/crystals/monazite.json",
+      "crystal": {
+        "id": "monazite",
+        "amcsdId": "0001700",
+        "mineralName": "Monazite-(Ce)",
+        "formula": "Ce P O4",
+        "spaceGroup": "P 1 21/n 1",
+        "cell": {
+          "a": 6.788,
+          "b": 7.0163,
+          "c": 6.465,
+          "alpha": 90.0,
+          "beta": 103.43,
+          "gamma": 90.0
+        },
+        "volume": 299.48637533121257,
+        "siteCount": 24,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Hughes J M",
+            "Mariano A N",
+            "Ni Y"
+          ],
+          "title": "Crystal chemistry of the monazite and xenotime structures\n Ce(PO4)",
+          "journal": "American Mineralogist",
+          "year": 1995,
+          "volume": "80",
+          "pages": "21–26"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/monazite.json",
+        "cif": "/assets/periodic-table/crystals/monazite.cif",
+        "model": "/assets/periodic-table/crystals/monazite.glb",
+        "preview": "/assets/periodic-table/crystals/monazite.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -448,6 +587,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -455,6 +599,7 @@
     "sourceFile": "062_Sm.docx",
     "sourceSha256": "8f232b332f9db87c04418298f9a00cc790e8582b6382cdd232fdcd6435697797",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/062_Sm.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/samarium-sm/audit.md"
   }
 }

@@ -1,0 +1,82 @@
+const n="mendelevium-md",h="mendelevium-md",t="reference/mendelevium-md/index.json",c=["ho-so-c492b6b14409"],i="Mendelevium (Md) — Phóng sự giải mã nguyên tố: Từ vạch quang phổ đến đơn chất ngoài đời thực",g="Phóng Viên Phòng Thí Nghiệm & Lịch Sử Khoa Học · ChemDex",e="nguyento",u="Bài báo chuyên đề khắc họa chân dung hóa học của Mendelevium (Md) gắn với dấu mốc 1955: câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",a="/assets/library/earth-minerals.svg",s="Md",m=["Biên niên sử nguyên tố","Md"],d=["Mendelevium","Md"],o=["atom-Md"],l="reference",M=10,v={formula:"Md",representativeId:"atom-Md",counts:{Md:1},mass:258,material:!1,reactionIds:[]},r=`## Câu chuyện: Từ những quan sát thực nghiệm đầu tiên đến danh pháp quốc tế của Mendelevium (Md)
+
+Trong thế giới hóa học, không một công thức nào ra đời từ sự ngẫu nhiên. Sự hiện diện của **Mendelevium (Md)** trên các trang sách giáo khoa và cơ sở dữ liệu quốc tế hôm nay là kết quả của hàng trăm phép thử nghiệm, những cuộc tranh luận học thuật nảy lửa tại châu Âu thế kỷ XVIII–XIX và sự ra đời của lý thuyết liên kết hóa học hiện đại.
+
+Theo hồ sơ bách khoa trực tuyến từ [Wikipedia Tiếng Việt — Mendelevi](https://vi.wikipedia.org/wiki/Mendelevi), bản chất và lịch sử của chất này được ghi nhận cụ thể như sau: Mendelevi là một nguyên tố kim loại tổng hợp có ký hiệu Md (trước đây là Mv) và số hiệu nguyên tử là 101. Mendelevi là nguyên tố siêu urani thuộc nhóm actini, thường được tổng hợp bằng cách bắn phá hạt nhân einsteini bởi các hạt anpha. Nguyên tố này được đặt theo tên của Dimitri Ivanovich Mendeleev, người đã lập ra bảng tuần hoàn. Hệ thống tuần hoàn của Mendeleev là cơ sở để phân nhóm các nguyên tố hóa học.
+
+Là một nguyên tố nặng với hành trình kiến tạo đầy kịch tính, **Mendelevium (Md)** được tôi luyện từ những sự kiện vũ trụ khốc liệt nhất — những vụ va chạm dữ dội giữa các sao neutron hoặc siêu tân tinh giàu neutron, để lại những mạch quặng quý giá sâu trong lòng các tầng địa chất Trái Đất. Trong lịch sử văn minh nhân loại, khoảnh khắc định danh và cô lập được **Mendelevium** đánh dấu bước ngoặt lớn gắn liền với công trình của **Albert Ghiorso, Bernard G. Harvey, Gregory R. Choppin, Stanley G. Thompson và Glenn T. Seaborg** vào thời điểm **1955** tại **Berkeley, California, Hoa Kỳ**. Tên gọi quốc tế và ký hiệu **Md** bắt nguồn từ danh pháp Latinh **Mendelevium**. Mendelevium được tạo ra lần đầu tiên vào năm 1955 bằng cách bắn phá Einsteinium-253 bằng các hạt alpha trong cyclotron. Phản ứng: ²⁵³Es + ⁴He → ²⁵⁶Md + n Chỉ 17 nguyên tử Mendelevium được tạo ra trong thí nghiệm ban đầu. Tên Mendelevium được đặt để vinh danh Dmitri Mendeleev, nhà hóa học người Nga và là người xây dựng bảng tuần hoàn các nguyên tố. Trong tự nhiên, Mendelevium gắn liền với các vỉa khoáng vật đặc trưng như **Không tồn tại tự nhiên, được tạo ra nhân tạo**.
+
+![Khởi nguyên lịch sử và hành trình khám phá Mendelevium (Md)](/assets/library/earth-minerals.svg)
+*Hình 1. Bối cảnh lịch sử phát hiện, nguồn gốc tự nhiên và tiến trình định danh khoa học của Mendelevium (Md).*
+
+## Lần theo thành phần nguyên tử: Trật tự vi mô và góc nhìn cấu trúc 3D của Mendelevium
+
+Để hiểu vì sao **Mendelevium (Md)** lại mang những tính chất vật lý và hóa học đặc thù, chúng ta cần đi sâu vào "bản thiết kế hình học" của chất này. Một đơn vị công thức **Md** được liên kết chặt chẽ từ **1 nguyên tử** thuộc **1 nguyên tố hóa học**:
+
+- **Nguyên tố Mendelevium (Md)**: Góp mặt **1 nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử Mendelevium phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **Mendelevium**.
+
+Ở trạng thái đơn chất, **Mendelevium (Md)** mang trọn vẹn phong thái và tính chất đặc trưng của nhóm **nguyên tố**. Trong mạng lưới cấu trúc tự nhiên (như Chưa xác định do chỉ tạo được lượng nguyên tử cực nhỏ.), các nguyên tử **Mendelevium** gắn kết với nhau bằng những liên kết bền vững, tạo nên độ cứng, nhiệt độ chuyển pha và khả năng tương tác riêng biệt khi đặt trong môi trường thử nghiệm.
+
+![Kiến trúc liên kết không gian 3 chiều của Mendelevium (Md)](/assets/library/covalent-bonds.svg)
+*Hình 2. Mô phỏng trực quan sự phân bố đám mây electron, góc liên kết và trật tự phối trí không gian 3D của Mendelevium (Md).*
+
+| Chỉ tiêu nhận diện & Cấu trúc 3D | Tư liệu xác thực từ hệ thống ChemDex |
+|---|---|
+| Tên chất & Danh pháp quốc tế | **Mendelevium** (Mendelevium) |
+| Công thức hóa học thực nghiệm | **Md**  |
+| Hình thái không gian 3 chiều | Đơn chất tự nhiên () |
+| Quy mô cấu trúc vi mô | **1 nguyên tử** (1× Md) |
+| Trạng thái & Sắc thái nhận diện | Rắn / Dung dịch thực nghiệm |
+| Phòng quan sát 3D tương tác | [Mở mô hình xoay 360° và kiểm tra góc liên kết](/tien-ich/cau-truc-3d/?compound=atom-Md) |
+
+Người đọc có thể trực tiếp xoay mô hình 360°, bật/tắt nhãn nguyên tử và kiểm tra độ dài từng liên kết (tính bằng đơn vị Ångström) của chất này tại [Phòng quan sát Cấu trúc & Liên kết 3D — Mendelevium](/tien-ich/cau-truc-3d/?compound=atom-Md).
+
+## Kịch bản trong ống nghiệm: Cơ chế hình thành và chuỗi phản ứng của Mendelevium
+
+Trong tự nhiên, hầu hết các nguyên tố hóa học tồn tại ở dạng hợp chất bền vững về mặt nhiệt động học. Để đưa **Mendelevium (Md)** về trạng thái đơn chất tinh khiết phục vụ nghiên cứu và sản xuất, ngành hóa học thực nghiệm đã phát triển hai nhánh quy trình bổ trợ lẫn nhau:
+
+- **Điều chế trong phòng thí nghiệm**: Mendelevium được tổng hợp bằng cách bắn phá Einsteinium-253 bằng hạt Helium-4 (hạt alpha) trong máy gia tốc hạt. Phương trình phản ứng: \`²⁵³Es + ⁴He → ²⁵⁶Md + ¹n\`. 
+- **Sản xuất quy mô công nghiệp**: Mendelevium (Md) được điều chế bằng cách chiếu xạ các nguyên tố Actinide trong lò phản ứng hạt nhân, sau đó tách sản phẩm bằng phương pháp hóa học.  
+
+Bên cạnh câu chuyện điều chế, bản chất hóa học của **Mendelevium** còn được thể hiện sống động qua chuỗi các phản ứng đặc trưng với đơn chất và hợp chất khác:
+
+- **Điều chế Mendelevium-256**: \`²⁵³Es + ⁴He → ²⁵⁶Md + n\` 
+- **Phân rã Alpha của Mendelevium-256**: \`²⁵⁶Md → ²⁵²Es + α\` 
+- **Tạo ion Mendelevium(II)**: \`Md → Md²⁺ + 2e⁻\` 
+- **Tạo ion Mendelevium(III)**: \`Md → Md³⁺ + 3e⁻\` 
+
+Trong thực hành hóa học, **Mendelevium (Md)** được điều chế và tinh chế dựa trên nguyên lý dịch chuyển cân bằng hóa học (Nguyên lý Le Chatelier) và sự khác biệt về độ tan, nhiệt độ sôi hoặc năng lượng mạng lưới tinh thể. Khi thiết kế quy trình tổng hợp **Md**, nhà hóa học luôn kiểm soát chặt chẽ độ tinh khiết của tiền chất, nhiệt độ phản ứng và môi trường dung môi để thu được sản phẩm có cấu trúc không gian đồng nhất như mô hình 3D đã khảo sát.
+
+## Sứ mệnh thực tiễn và vai trò của Mendelevium trong nền văn minh hiện đại
+
+Từ một đối tượng nghiên cứu ban đầu trong các phòng thí nghiệm cổ điển, **Mendelevium (Md)** đã từng bước khẳng định vị thế to lớn trong đời sống và tiến trình văn minh nhân loại:
+
+- **Nghiên cứu hạt nhân**: Mendelevium được sử dụng gần như hoàn toàn trong nghiên cứu vật lý hạt nhân và hóa học Actinide.
+- **Nghiên cứu cấu trúc electron**: Mendelevium giúp các nhà khoa học nghiên cứu sự thay đổi tính chất hóa học của các nguyên tố Actinide nặng.
+- **Nghiên cứu nguyên tố siêu nặng**: Các đồng vị Mendelevium có thể đóng vai trò trong việc nghiên cứu các phản ứng hạt nhân tạo ra những hạt nhân nặng hơn.
+- **Ứng dụng**: Do chỉ tạo được từng lượng nguyên tử rất nhỏ và có tính phóng xạ cao, Mendelevium không có ứng dụng công nghiệp hoặc đời sống thông thường.
+
+### Câu chuyện lịch sử ứng dụng & Bài học kinh nghiệm thực hành
+
+Lịch sử ứng dụng của **Mendelevium (Md)** là một minh chứng sống động cho thấy sự am hiểu về bản chất chất hóa học có thể biến những vật chất thô sơ trong tự nhiên thành công cụ phục vụ đời sống con người. Trải qua hàng thế kỷ thực nghiệm — từ những phát hiện ngẫu nhiên trong xưởng nhuộm, mỏ quặng cho đến các dây chuyền tổng hợp hiện đại — bài học cốt lõi mà các thế hệ tiền bối để lại là luôn tôn trọng tính nết tự nhiên của chất: kiểm soát cẩn trọng nhiệt độ, môi trường tiếp xúc và trang bị đầy đủ phương tiện bảo hộ để phát huy tối đa giá trị hữu ích đồng thời ngăn ngừa mọi rủi ro tiềm ẩn trong thao tác.
+
+## Câu hỏi suy ngẫm & Tự kiểm tra kiến thức
+
+1. Dựa vào câu chuyện lịch sử và hành trình khám phá **Mendelevium (Md)**, nguyên nhân vì sao tên gọi và phương pháp điều chế ban đầu của chất này lại phản ánh hoàn cảnh văn hóa và kỹ thuật của thời đại phát hiện ra nó?
+2. Vì sao việc khám phá hình dáng không gian 3 chiều của **Mendelevium (Md)** lại là chìa khóa để giải mã các phản ứng đặc trưng của nó thay vì chỉ nhìn vào một công thức viết phẳng?
+
+<details><summary>Xem phân tích và lời giải chi tiết</summary>
+
+- **Giải đáp câu 1:** Tên gọi và phương pháp tiếp cận đầu tiên của Md bắt nguồn trực tiếp từ nguồn khoáng sản tự nhiên hoặc hiện tượng quan sát bằng mắt thường của các nhà thực nghiệm thời kỳ đó. Chỉ khi kỹ thuật phân tích và mô hình liên kết không gian phát triển, nhân loại mới hiểu trọn vẹn bản chất cấu tạo của chất.
+- **Giải đáp câu 2:** Cấu trúc 3 chiều quyết định vị trí các nguyên tử lộ ra ngoài để tiếp xúc với thuốc thử; chính góc liên kết và sự che chắn không gian quyết định chất phản ứng dễ dàng hay trơ lỳ về mặt hóa học.
+
+</details>
+
+## Nguồn tư liệu khoa học & Khám phá tiếp theo
+
+- [Phòng quan sát Cấu trúc & Liên kết 3D tương tác — Mendelevium (Md)](/tien-ich/cau-truc-3d/?compound=atom-Md)
+- [Bách khoa toàn thư Wikipedia Tiếng Việt — Mendelevi](https://vi.wikipedia.org/wiki/Mendelevi)
+- [Wikipedia Quốc tế — MD](https://en.wikipedia.org/wiki/MD)
+- [Hồ sơ dữ liệu nguyên tố chuyên sâu ChemDex](/data/elements/101_Md.json)
+
+Bài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tổng hợp từ tư liệu lịch sử bách khoa trực tuyến, hồ sơ cấu trúc không gian 3 chiều và cơ sở dữ liệu phản ứng thực nghiệm, mang lại cái nhìn toàn diện về hành trình ra đời, cấu tạo vi mô và ứng dụng của **Mendelevium (Md)**.`,p={id:n,slug:h,documentPath:t,legacyIds:c,title:i,author:g,category:e,summary:u,image:a,chemicalFormula:"Md",tags:m,aliases:d,substanceIds:o,documentKind:l,readingMinutes:10,chemicalEvidence:v,content:r};export{d as aliases,g as author,e as category,v as chemicalEvidence,s as chemicalFormula,r as content,p as default,l as documentKind,t as documentPath,n as id,a as image,c as legacyIds,M as readingMinutes,h as slug,o as substanceIds,u as summary,m as tags,i as title};

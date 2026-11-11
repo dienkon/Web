@@ -64,7 +64,44 @@
     "valenceElectrons": 4,
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC)",
-    "latticeEvidence": "source-reviewed"
+    "latticeEvidence": "source-reviewed",
+    "publishedCrystal": {
+      "id": "nguyen-to-pb",
+      "amcsdId": "0012874",
+      "mineralName": "Lead",
+      "formula": "Pb",
+      "spaceGroup": "F m 3 m",
+      "cell": {
+        "a": 4.94006,
+        "b": 4.94006,
+        "c": 4.94006,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 120.5581767013522,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Straumanis M E"
+        ],
+        "title": "The precision determination of lattice constants by the powder and rotation\n crystal methods and applications\n Sample: at T = 25 C",
+        "journal": "Journal of Applied Physics",
+        "year": 1949,
+        "volume": "20",
+        "pages": "726–734"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/nguyen-to-pb.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-pb.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-pb.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-pb.png"
+    },
+    "publishedCrystalStatus": "available"
   },
   "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)",
   "occurrence": {
@@ -102,16 +139,64 @@
       "sourceSearch": "https://rruff.info/Galena",
       "model": "/assets/periodic-table/minerals/galena.glb",
       "preview": "/assets/periodic-table/minerals/galena.png",
-      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm.",
+      "publishedCrystals": [
+        {
+          "id": "galena",
+          "amcsdId": "0010046",
+          "mineralName": "Galena",
+          "formula": "Pb S",
+          "spaceGroup": "F m 3 m",
+          "cell": {
+            "a": 5.9315,
+            "b": 5.9315,
+            "c": 5.9315,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0
+          },
+          "volume": 208.68613908087497,
+          "siteCount": 8,
+          "mixedSiteCount": 0,
+          "reference": {
+            "authors": [
+              "Noda Y",
+              "Masumoto K",
+              "Ohba S",
+              "Saito Y",
+              "Toriumi K",
+              "Iwata Y",
+              "Shibuya I"
+            ],
+            "title": "Temperature dependence of atomic thermal parameters of lead chalcogenides, PbS,\n PbSe and PbTe\n Sample: T = 298 K",
+            "journal": "Acta Crystallographica, Section C",
+            "year": 1987,
+            "volume": "43",
+            "pages": "1443–1445"
+          },
+          "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+          "evidence": "published-structure",
+          "note": "",
+          "limitations": "",
+          "data": "/assets/periodic-table/crystals/galena.json",
+          "cif": "/assets/periodic-table/crystals/galena.cif",
+          "model": "/assets/periodic-table/crystals/galena.glb",
+          "preview": "/assets/periodic-table/crystals/galena.png"
+        }
+      ],
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Galena_-_Huallanca,_Bologesi,_Ancash,_Peru.jpg"
     }
   },
   "naturalState": {
-    "image": "/assets/periodic-table/diagrams/082_Pb.svg",
-    "alt": "Lead: sơ đồ minh họa nguyên tố",
+    "image": "/assets/periodic-table/mineral-photos/galena.jpg",
+    "alt": "Galena — ảnh mẫu khoáng vật tham chiếu",
     "kind": "diagram",
-    "source": "",
-    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
-    "credit": ""
+    "source": "https://commons.wikimedia.org/wiki/File:Galena_-_Huallanca,_Bologesi,_Ancash,_Peru.jpg",
+    "caption": "Ảnh mẫu tham chiếu Galena; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+    "credit": "",
+    "author": "Ivar Leidus",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "isotopes": [
     {
@@ -468,9 +553,68 @@
       "author": "ChemDex",
       "license": "ChemDex schematic diagram",
       "licenseUrl": ""
+    },
+    {
+      "src": "/assets/periodic-table/mineral-photos/galena.jpg",
+      "role": "natural-mineral",
+      "title": "Galena",
+      "desc": "Ảnh mẫu tham chiếu Galena; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://commons.wikimedia.org/wiki/File:Galena_-_Huallanca,_Bologesi,_Ancash,_Peru.jpg",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
     }
   ],
   "mediaBlocks": [
+    {
+      "type": "crystal",
+      "section": "structure",
+      "title": "Mạng tinh thể · Galena",
+      "src": "/assets/periodic-table/crystals/galena.json",
+      "crystal": {
+        "id": "galena",
+        "amcsdId": "0010046",
+        "mineralName": "Galena",
+        "formula": "Pb S",
+        "spaceGroup": "F m 3 m",
+        "cell": {
+          "a": 5.9315,
+          "b": 5.9315,
+          "c": 5.9315,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0
+        },
+        "volume": 208.68613908087497,
+        "siteCount": 8,
+        "mixedSiteCount": 0,
+        "reference": {
+          "authors": [
+            "Noda Y",
+            "Masumoto K",
+            "Ohba S",
+            "Saito Y",
+            "Toriumi K",
+            "Iwata Y",
+            "Shibuya I"
+          ],
+          "title": "Temperature dependence of atomic thermal parameters of lead chalcogenides, PbS,\n PbSe and PbTe\n Sample: T = 298 K",
+          "journal": "Acta Crystallographica, Section C",
+          "year": 1987,
+          "volume": "43",
+          "pages": "1443–1445"
+        },
+        "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "evidence": "published-structure",
+        "note": "",
+        "limitations": "",
+        "data": "/assets/periodic-table/crystals/galena.json",
+        "cif": "/assets/periodic-table/crystals/galena.cif",
+        "model": "/assets/periodic-table/crystals/galena.glb",
+        "preview": "/assets/periodic-table/crystals/galena.png"
+      },
+      "desc": "Cấu trúc tuần hoàn theo tọa độ công bố; không phải ảnh quét bề mặt mẫu quặng."
+    },
     {
       "type": "model",
       "section": "structure",
@@ -505,6 +649,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
+      "url": "https://xraypy.github.io/larixite/",
+      "role": "crystallography"
     }
   ],
   "review": {
@@ -512,6 +661,7 @@
     "sourceFile": "082_Pb.docx",
     "sourceSha256": "dfc0604f59f4cd875d8856691995b1a4d9ad7792c674d220d2e5b2c577f60650",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/082_Pb.md",
-    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/chi-pb/audit.md"
   }
 }

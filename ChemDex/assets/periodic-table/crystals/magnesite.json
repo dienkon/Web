@@ -1,0 +1,586 @@
+{
+  "amcsdId": "0000990",
+  "mineralName": "Magnesite",
+  "formula": "Mg C O3",
+  "spaceGroup": "R -3 c",
+  "cell": {
+    "a": 4.635,
+    "b": 4.635,
+    "c": 15.019,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 279.42877443175337,
+  "declaredVolume": 279.429,
+  "basis": [
+    [
+      4.635,
+      -2.317499999999999,
+      0.0
+    ],
+    [
+      0.0,
+      4.014027746540873,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      15.019
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "2/3+x,1/3+y,1/3+z",
+    "1/3+x,2/3+y,2/3+z",
+    "x,x-y,1/2+z",
+    "2/3+x,1/3+x-y,5/6+z",
+    "1/3+x,2/3+x-y,1/6+z",
+    "y,x,1/2-z",
+    "2/3+y,1/3+x,5/6-z",
+    "1/3+y,2/3+x,1/6-z",
+    "-x+y,y,1/2+z",
+    "2/3-x+y,1/3+y,5/6+z",
+    "1/3-x+y,2/3+y,1/6+z",
+    "-x,-x+y,1/2-z",
+    "2/3-x,1/3-x+y,5/6-z",
+    "1/3-x,2/3-x+y,1/6-z",
+    "-y,-x,1/2+z",
+    "2/3-y,1/3-x,5/6+z",
+    "1/3-y,2/3-x,1/6+z",
+    "x-y,-y,1/2-z",
+    "2/3+x-y,1/3-y,5/6-z",
+    "1/3+x-y,2/3-y,1/6-z",
+    "y,-x+y,-z",
+    "2/3+y,1/3-x+y,1/3-z",
+    "1/3+y,2/3-x+y,2/3-z",
+    "-x+y,-x,z",
+    "2/3-x+y,1/3-x,1/3+z",
+    "1/3-x+y,2/3-x,2/3+z",
+    "-x,-y,-z",
+    "2/3-x,1/3-y,1/3-z",
+    "1/3-x,2/3-y,2/3-z",
+    "-y,x-y,z",
+    "2/3-y,1/3+x-y,1/3+z",
+    "1/3-y,2/3+x-y,2/3+z",
+    "x-y,x,-z",
+    "2/3+x-y,1/3+x,1/3-z",
+    "1/3+x-y,2/3+x,2/3-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Mg",
+      "element": "Mg",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "C",
+      "element": "C",
+      "fractional": [
+        0.0,
+        0.0,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.2778,
+        0.0,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Mg",
+      "label": "Mg",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mg",
+      "label": "Mg",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.33333333
+      ],
+      "position": [
+        2.3175,
+        1.3380092,
+        5.0063333
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mg",
+      "label": "Mg",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.66666667
+      ],
+      "position": [
+        -0.0,
+        2.6760185,
+        10.0126667
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mg",
+      "label": "Mg",
+      "fractional": [
+        0.0,
+        0.0,
+        0.5
+      ],
+      "position": [
+        0.0,
+        0.0,
+        7.5095
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mg",
+      "label": "Mg",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.83333333
+      ],
+      "position": [
+        2.3175,
+        1.3380092,
+        12.5158333
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mg",
+      "label": "Mg",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.16666667
+      ],
+      "position": [
+        -0.0,
+        2.6760185,
+        2.5031667
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.0,
+        0.0,
+        0.25
+      ],
+      "position": [
+        0.0,
+        0.0,
+        3.75475
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.58333333
+      ],
+      "position": [
+        2.3175,
+        1.3380092,
+        8.7610833
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.91666667
+      ],
+      "position": [
+        -0.0,
+        2.6760185,
+        13.7674167
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.0,
+        0.0,
+        0.75
+      ],
+      "position": [
+        0.0,
+        0.0,
+        11.26425
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.08333333
+      ],
+      "position": [
+        2.3175,
+        1.3380092,
+        1.2515833
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.41666667
+      ],
+      "position": [
+        -0.0,
+        2.6760185,
+        6.2579167
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.2778,
+        0.0,
+        0.25
+      ],
+      "position": [
+        1.287603,
+        0.0,
+        3.75475
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.94446667,
+        0.33333333,
+        0.58333333
+      ],
+      "position": [
+        3.605103,
+        1.3380092,
+        8.7610833
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.61113333,
+        0.66666667,
+        0.91666667
+      ],
+      "position": [
+        1.287603,
+        2.6760185,
+        13.7674167
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.2778,
+        0.2778,
+        0.75
+      ],
+      "position": [
+        0.6438015,
+        1.1150969,
+        11.26425
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.94446667,
+        0.61113333,
+        0.08333333
+      ],
+      "position": [
+        2.9613015,
+        2.4531061,
+        1.2515833
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.61113333,
+        0.94446667,
+        0.41666667
+      ],
+      "position": [
+        0.6438015,
+        3.7911154,
+        6.2579167
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.2778,
+        0.25
+      ],
+      "position": [
+        -0.6438015,
+        1.1150969,
+        3.75475
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.66666667,
+        0.61113333,
+        0.58333333
+      ],
+      "position": [
+        1.6736985,
+        2.4531061,
+        8.7610833
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.33333333,
+        0.94446667,
+        0.91666667
+      ],
+      "position": [
+        -0.6438015,
+        3.7911154,
+        13.7674167
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.7222,
+        0.0,
+        0.75
+      ],
+      "position": [
+        3.347397,
+        0.0,
+        11.26425
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.38886667,
+        0.33333333,
+        0.08333333
+      ],
+      "position": [
+        1.029897,
+        1.3380092,
+        1.2515833
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.05553333,
+        0.66666667,
+        0.41666667
+      ],
+      "position": [
+        -1.287603,
+        2.6760185,
+        6.2579167
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.7222,
+        0.7222,
+        0.25
+      ],
+      "position": [
+        1.6736985,
+        2.8989308,
+        3.75475
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.38886667,
+        0.05553333,
+        0.58333333
+      ],
+      "position": [
+        1.6736985,
+        0.2229123,
+        8.7610833
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.05553333,
+        0.38886667,
+        0.91666667
+      ],
+      "position": [
+        -0.6438015,
+        1.5609216,
+        13.7674167
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.7222,
+        0.75
+      ],
+      "position": [
+        -1.6736985,
+        2.8989308,
+        11.26425
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.66666667,
+        0.05553333,
+        0.08333333
+      ],
+      "position": [
+        2.9613015,
+        0.2229123,
+        1.2515833
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.33333333,
+        0.38886667,
+        0.41666667
+      ],
+      "position": [
+        0.6438015,
+        1.5609216,
+        6.2579167
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 30,
+  "speciesPositionCount": 30,
+  "cellComposition": {
+    "Mg": 6,
+    "C": 6,
+    "O": 18
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Reeder R J",
+      "Markgraf S A"
+    ],
+    "title": "High-temperature structure refinements of calcite and magnesite\n Sample: T = 24 C",
+    "journal": "American Mineralogist",
+    "year": 1985,
+    "volume": "70",
+    "pages": "590–600"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 36,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 8.072477398378369e-07
+  },
+  "id": "magnesite",
+  "note": ""
+}
