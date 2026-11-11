@@ -1,18 +1,18 @@
 <!doctype html>
-<html lang="vi">
+<html lang="vi" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kỷ Niệm Thanh Xuân - Lớp Chúng Mình</title>
+    <title>Kỷ Niệm Thanh Xuân - Kho Lưu Trữ Lớp Chúng Mình</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <style>
       body {
         font-family: "Quicksand", sans-serif;
-        background-color: #fcfcfd;
+        background-color: #f8fafc;
         overflow-x: hidden;
       }
       .font-cursive {
@@ -22,9 +22,10 @@
       /* Custom Scrollbar */
       ::-webkit-scrollbar {
         width: 8px;
+        height: 8px;
       }
       ::-webkit-scrollbar-track {
-        background: #f1f1f1;
+        background: #f1f5f9;
       }
       ::-webkit-scrollbar-thumb {
         background: #cbd5e1;
@@ -36,13 +37,13 @@
 
       /* Animations */
       .fade-in {
-        animation: fadeIn 0.5s ease-in-out;
+        animation: fadeIn 0.35s ease-out;
       }
       .slide-up {
-        animation: slideUp 0.6s ease-out;
+        animation: slideUp 0.5s ease-out;
       }
       .pop-in {
-        animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       }
 
       @keyframes fadeIn {
@@ -56,7 +57,7 @@
       @keyframes slideUp {
         from {
           opacity: 0;
-          transform: translateY(30px);
+          transform: translateY(24px);
         }
         to {
           opacity: 1;
@@ -66,7 +67,7 @@
       @keyframes popIn {
         from {
           opacity: 0;
-          transform: scale(0.8);
+          transform: scale(0.92);
         }
         to {
           opacity: 1;
@@ -76,19 +77,19 @@
 
       /* Glassmorphism */
       .glass-panel {
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.78);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
       }
 
       /* Avatar Hover Effect in Map */
       .desk-avatar {
-        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        transition: all 0.28s cubic-bezier(0.25, 0.8, 0.25, 1);
       }
       .desk-avatar:hover {
-        transform: scale(1.15) translateY(-5px);
-        box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.5);
+        transform: translateY(-6px) scale(1.04);
+        box-shadow: 0 14px 30px -8px rgba(79, 70, 229, 0.25);
         z-index: 10;
       }
 
@@ -106,83 +107,156 @@
         position: relative;
         display: block;
         width: calc(100% + 1.3px);
-        height: 120px;
+        height: 100px;
       }
       .wave-container .shape-fill {
-        fill: #fcfcfd;
+        fill: #f8fafc;
+      }
+
+      /* Media card skeleton */
+      .img-skeleton {
+        background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+      }
+      @keyframes shimmer {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: -200% 0;
+        }
+      }
+
+      /* Lightbox zoom image */
+      #lightbox-img {
+        transition: transform 0.15s ease-out;
+        transform-origin: center center;
+        user-select: none;
+        -webkit-user-drag: none;
       }
     </style>
   </head>
-  <body class="text-gray-700 antialiased">
+  <body class="text-slate-700 antialiased">
+    <!-- Top Floating Navbar -->
+    <nav class="sticky top-0 z-40 glass-panel border-b border-slate-200/70 shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between gap-4">
+        <a href="#" class="flex items-center gap-2.5 group">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-pink-500 flex items-center justify-center text-white font-bold shadow-md group-hover:scale-105 transition-transform">
+            12
+          </div>
+          <div>
+            <span class="font-cursive text-2xl text-indigo-950 font-bold block leading-none">Kỷ Niệm Thanh Xuân</span>
+            <span class="text-[11px] font-semibold text-slate-500 tracking-wide" id="nav-stats-sub">Đang kết nối Google Drive...</span>
+          </div>
+        </a>
+
+        <div class="hidden md:flex items-center gap-6 text-sm font-bold text-slate-600">
+          <a href="#section-timeline" class="hover:text-indigo-600 transition-colors">Hành Trình Năm Học</a>
+          <a href="#section-drive-explorer" class="hover:text-indigo-600 transition-colors flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+            Kho Drive Chuẩn HD
+          </a>
+          <a href="#section-class-map" class="hover:text-indigo-600 transition-colors">47 Thành Viên & GVCN</a>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <a
+            href="#section-drive-explorer"
+            class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs md:text-sm font-bold shadow-sm transition-all flex items-center gap-1.5"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span>Duyệt Kho Ảnh/Video</span>
+          </a>
+          <a
+            href="https://drive.google.com/drive/folders/1MmsTXHQZ4QoSsbi5XixRHzwE8lrGBVxa?usp=drive_link"
+            target="_blank"
+            rel="noopener"
+            title="Mở thư mục gốc trên Google Drive"
+            class="p-2 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 shadow-sm transition-all"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M7.71 3.5L1.15 15l3.43 6 6.55-11.5L7.71 3.5zm8.58 0L9.74 15l3.43 6h6.55l3.43-6L16.29 3.5z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </nav>
+
     <!-- Hero Section with Curves -->
     <header
-      class="relative pt-20 pb-40 bg-gradient-to-br from-blue-200 via-purple-100 to-pink-200 overflow-hidden text-center"
+      class="relative pt-14 pb-36 bg-gradient-to-br from-blue-200 via-indigo-100 to-pink-200 overflow-hidden text-center"
     >
       <!-- Floating shapes background -->
       <div
-        class="absolute top-10 left-10 w-32 h-32 bg-white rounded-full mix-blend-multiply filter blur-2xl opacity-50 animate-pulse"
+        class="absolute top-10 left-10 w-40 h-40 bg-white rounded-full mix-blend-multiply filter blur-2xl opacity-60 animate-pulse"
       ></div>
       <div
-        class="absolute top-20 right-20 w-40 h-40 bg-pink-300 rounded-full mix-blend-multiply filter blur-2xl opacity-50 animate-pulse"
+        class="absolute top-16 right-16 w-48 h-48 bg-pink-300 rounded-full mix-blend-multiply filter blur-2xl opacity-50 animate-pulse"
         style="animation-delay: 2s"
       ></div>
 
-      <div class="relative z-10 max-w-4xl mx-auto px-6 slide-up">
+      <div class="relative z-10 max-w-5xl mx-auto px-6 slide-up">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel text-indigo-900 text-xs md:text-sm font-bold mb-5 shadow-sm">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+          <span id="hero-badge-stats">Đã kết nối trực tiếp Google Drive • 9.228 Kỷ niệm gốc</span>
+        </div>
+
         <h1
-          class="text-5xl md:text-7xl font-cursive text-indigo-900 mb-4 drop-shadow-md"
+          class="text-5xl md:text-7xl font-cursive text-indigo-950 mb-4 drop-shadow-sm"
         >
           Thanh Xuân Của Chúng Ta
         </h1>
-        <p class="text-lg md:text-xl text-indigo-800/80 mb-12 font-medium">
-          Những năm tháng cấp 3 rực rỡ nhất, cất giữ tại đây...
+        <p class="text-base md:text-xl text-indigo-900/80 mb-10 font-medium max-w-2xl mx-auto">
+          Toàn bộ ảnh gốc độ phân giải cao (kể cả ảnh HEIC/iPhone) và video Full HD từ Google Drive của lớp được lưu giữ trọn vẹn tại đây.
         </p>
 
-        <!-- 3 Years Logos -->
-        <div class="flex justify-center items-center gap-6 md:gap-16">
+        <!-- 4 Category / Year Buttons -->
+        <div class="flex flex-wrap justify-center items-center gap-5 md:gap-10 pb-6">
           <!-- Lớp 10 -->
           <button
             onclick="selectYear(10)"
             id="btn-year-10"
-            class="group relative w-24 h-24 md:w-32 md:h-32 rounded-full glass-panel shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:bg-white focus:outline-none ring-4 ring-transparent hover:ring-blue-300 year-btn"
+            class="group relative w-24 h-24 md:w-28 md:h-28 rounded-full glass-panel shadow-lg flex flex-col items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:bg-white focus:outline-none ring-4 ring-transparent year-btn"
           >
-            <span
-              class="text-2xl md:text-4xl font-bold text-blue-500 group-hover:text-blue-600 transition-colors"
-              >10</span
-            >
-            <span
-              class="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity text-sm font-semibold text-indigo-900"
-              >Bỡ ngỡ</span
-            >
+            <span class="text-2xl md:text-4xl font-bold text-blue-600">10</span>
+            <span class="text-[11px] font-bold text-slate-500">Bỡ ngỡ</span>
+            <span id="badge-count-10" class="absolute -top-1 -right-1 bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">12 album</span>
           </button>
+
           <!-- Lớp 11 -->
           <button
             onclick="selectYear(11)"
             id="btn-year-11"
-            class="group relative w-24 h-24 md:w-32 md:h-32 rounded-full glass-panel shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:bg-white focus:outline-none ring-4 ring-transparent hover:ring-purple-300 year-btn"
+            class="group relative w-24 h-24 md:w-28 md:h-28 rounded-full glass-panel shadow-lg flex flex-col items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:bg-white focus:outline-none ring-4 ring-transparent year-btn"
           >
-            <span
-              class="text-2xl md:text-4xl font-bold text-purple-500 group-hover:text-purple-600 transition-colors"
-              >11</span
-            >
-            <span
-              class="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity text-sm font-semibold text-indigo-900"
-              >Nổi loạn</span
-            >
+            <span class="text-2xl md:text-4xl font-bold text-purple-600">11</span>
+            <span class="text-[11px] font-bold text-slate-500">Nổi loạn</span>
+            <span id="badge-count-11" class="absolute -top-1 -right-1 bg-purple-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">22 album</span>
           </button>
+
           <!-- Lớp 12 -->
           <button
             onclick="selectYear(12)"
             id="btn-year-12"
-            class="group relative w-24 h-24 md:w-32 md:h-32 rounded-full glass-panel shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:bg-white focus:outline-none ring-4 ring-transparent hover:ring-pink-300 year-btn active-year"
+            class="group relative w-24 h-24 md:w-28 md:h-28 rounded-full glass-panel shadow-lg flex flex-col items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:bg-white focus:outline-none ring-4 ring-transparent year-btn"
           >
-            <span
-              class="text-2xl md:text-4xl font-bold text-pink-500 group-hover:text-pink-600 transition-colors"
-              >12</span
-            >
-            <span
-              class="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity text-sm font-semibold text-indigo-900"
-              >Chia xa</span
-            >
+            <span class="text-2xl md:text-4xl font-bold text-pink-600">12</span>
+            <span class="text-[11px] font-bold text-slate-500">Chia xa</span>
+            <span id="badge-count-12" class="absolute -top-1 -right-1 bg-pink-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">6 album</span>
+          </button>
+
+          <!-- Chung & Tổng hợp -->
+          <button
+            onclick="selectYear('chung')"
+            id="btn-year-chung"
+            class="group relative w-24 h-24 md:w-28 md:h-28 rounded-full glass-panel shadow-lg flex flex-col items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:bg-white focus:outline-none ring-4 ring-transparent year-btn"
+          >
+            <span class="text-xl md:text-2xl font-bold text-amber-600">Chung</span>
+            <span class="text-[11px] font-bold text-slate-500">Đại gia đình</span>
+            <span id="badge-count-chung" class="absolute -top-1 -right-1 bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">Tất cả</span>
           </button>
         </div>
       </div>
@@ -203,67 +277,256 @@
       </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-4 md:px-8 -mt-10 relative z-20 pb-24">
-      <!-- Timeline Section -->
+    <main class="max-w-7xl mx-auto px-4 md:px-8 -mt-10 relative z-20 pb-24 space-y-16">
+      <!-- 1. Timeline & Year Albums Section -->
       <section
-        class="bg-white rounded-[2.5rem] shadow-xl p-8 md:p-12 mb-16 slide-up"
+        id="section-timeline"
+        class="bg-white rounded-[2.25rem] shadow-xl p-6 md:p-10 border border-slate-100 slide-up"
       >
-        <div class="text-center mb-10">
-          <h2
-            id="timeline-title"
-            class="text-3xl font-bold text-indigo-900 mb-2"
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pb-6 border-b border-slate-100">
+          <div>
+            <div class="flex items-center gap-3">
+              <h2
+                id="timeline-title"
+                class="text-2xl md:text-3xl font-bold text-indigo-950"
+              >
+                Hành trình Lớp 12
+              </h2>
+              <span id="timeline-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-pink-100 text-pink-700"></span>
+            </div>
+            <p id="timeline-desc" class="text-slate-500 mt-1.5 text-sm md:text-base">
+              Click vào bất kỳ Album sự kiện nào để xem toàn bộ ảnh gốc sắc nét và phát video chuẩn HD.
+            </p>
+          </div>
+          <button
+            id="btn-open-year-in-explorer"
+            class="self-start md:self-auto px-4 py-2.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-sm transition-colors flex items-center gap-2"
           >
-            Hành trình Lớp 12
-          </h2>
-          <div
-            class="w-24 h-1 bg-gradient-to-r from-blue-400 to-pink-400 mx-auto rounded-full"
-          ></div>
-          <p id="timeline-desc" class="text-gray-500 mt-4 italic">
-            Năm cuối cấp nhiều áp lực nhưng cũng đầy ắp tiếng cười.
-          </p>
+            <span>Mở thư mục năm học trong Kho Drive</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </button>
         </div>
 
-        <!-- Vertical Timeline structure populated by JS -->
+        <!-- Album Grid for Selected Year -->
         <div
-          class="relative border-l-4 border-purple-100 ml-4 md:ml-12"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
           id="timeline-content"
         >
-          <!-- Content injected here -->
+          <!-- Injected by JS -->
         </div>
       </section>
 
-      <!-- Class Map Section -->
-      <section class="mb-16">
-        <div class="text-center mb-12 slide-up">
-          <h2 class="text-4xl font-cursive text-indigo-900 mb-2">
-            Sơ Đồ Lớp Mình
+      <!-- 2. Full Google Drive Media Explorer Section -->
+      <section
+        id="section-drive-explorer"
+        class="bg-white rounded-[2.25rem] shadow-xl p-6 md:p-10 border border-slate-100 slide-up"
+      >
+        <!-- Explorer Top Header -->
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+          <div>
+            <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-indigo-600 mb-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+              </svg>
+              <span>Trình Duyệt Kho Dữ Liệu Google Drive</span>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-bold text-indigo-950">
+              Kho Ảnh & Video Sắc Nét Chuẩn Drive
+            </h2>
+          </div>
+
+          <!-- Search & Action Controls -->
+          <div class="flex flex-wrap items-center gap-2.5">
+            <div class="relative flex-1 sm:flex-initial sm:w-64">
+              <input
+                type="text"
+                id="drive-search-input"
+                oninput="handleDriveSearch(this.value)"
+                placeholder="Tìm tên ảnh, video, thư mục..."
+                class="w-full pl-9 pr-8 py-2 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-medium"
+              />
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-400 absolute left-3 top-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <button
+                id="btn-clear-search"
+                onclick="clearDriveSearch()"
+                class="hidden absolute right-2.5 top-2.5 text-slate-400 hover:text-slate-600"
+              >
+                ✕
+              </button>
+            </div>
+
+            <a
+              id="btn-open-current-drive"
+              href="https://drive.google.com/drive/folders/1MmsTXHQZ4QoSsbi5XixRHzwE8lrGBVxa"
+              target="_blank"
+              rel="noopener"
+              class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs md:text-sm font-bold transition-colors flex items-center gap-1.5"
+            >
+              <span>Mở thư mục này trên Drive</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Shortcuts Bar -->
+        <div class="flex items-center gap-2 overflow-x-auto py-3 border-b border-slate-100 no-scrollbar" id="drive-quick-shortcuts">
+          <!-- Injected by JS -->
+        </div>
+
+        <!-- Breadcrumb & Media Type Filters -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 py-4">
+          <!-- Breadcrumbs -->
+          <nav class="flex items-center flex-wrap gap-1.5 text-sm font-bold text-slate-600" id="drive-breadcrumbs">
+            <!-- Injected by JS -->
+          </nav>
+
+          <!-- Filter Pills & Grid Size -->
+          <div class="flex flex-wrap items-center gap-2">
+            <div class="inline-flex rounded-xl bg-slate-100 p-1 text-xs font-bold">
+              <button
+                onclick="setMediaFilter('all')"
+                id="filter-btn-all"
+                class="px-3 py-1.5 rounded-lg bg-white text-indigo-700 shadow-sm transition-all"
+              >
+                Tất cả
+              </button>
+              <button
+                onclick="setMediaFilter('image')"
+                id="filter-btn-image"
+                class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-indigo-700 transition-all"
+              >
+                📷 Ảnh
+              </button>
+              <button
+                onclick="setMediaFilter('video')"
+                id="filter-btn-video"
+                class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-indigo-700 transition-all"
+              >
+                🎬 Video
+              </button>
+            </div>
+
+            <!-- Grid density toggle -->
+            <div class="inline-flex rounded-xl bg-slate-100 p-1 text-xs font-bold">
+              <button
+                onclick="setGridCols('large')"
+                id="grid-btn-large"
+                title="Ảnh lớn (3-4 cột)"
+                class="px-2.5 py-1.5 rounded-lg bg-white text-indigo-700 shadow-sm transition-all"
+              >
+                Lớn
+              </button>
+              <button
+                onclick="setGridCols('compact')"
+                id="grid-btn-compact"
+                title="Thu gọn (5-6 cột)"
+                class="px-2.5 py-1.5 rounded-lg text-slate-600 hover:text-indigo-700 transition-all"
+              >
+                Nhỏ
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subfolders Container -->
+        <div id="drive-subfolders-wrap" class="mb-8 hidden">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
+            <span>Thư mục con</span>
+            <span id="drive-subfolders-count" class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">0</span>
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5" id="drive-subfolders-grid"></div>
+        </div>
+
+        <!-- Files (Images & Videos) Container -->
+        <div id="drive-files-wrap">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+              <span id="drive-files-heading">Tệp đa phương tiện trong thư mục</span>
+              <span id="drive-files-count" class="px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-bold">0</span>
+            </h3>
+            <span class="text-xs text-slate-400 hidden sm:inline">💡 Mẹo: Click vào ảnh để phóng to 100% nét gốc, click vào video để phát Full HD</span>
+          </div>
+
+          <div id="drive-files-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            <!-- Injected by JS -->
+          </div>
+
+          <!-- Load More Button -->
+          <div id="drive-load-more-wrap" class="mt-8 text-center hidden">
+            <button
+              onclick="loadMoreDriveFiles()"
+              id="btn-load-more-files"
+              class="px-6 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-lg shadow-indigo-500/20 transition-all hover:-translate-y-0.5"
+            >
+              Xem thêm ảnh & video...
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Class Map & 47 Students Directory Section -->
+      <section id="section-class-map" class="mb-16">
+        <div class="text-center mb-10 slide-up">
+          <h2 class="text-4xl md:text-5xl font-cursive text-indigo-950 mb-2">
+            Đại Gia Đình Lớp Mình
           </h2>
           <div
             class="w-32 h-1 bg-gradient-to-r from-purple-400 to-indigo-400 mx-auto rounded-full"
           ></div>
-          <p class="text-gray-500 mt-4">
-            Nơi chất chứa những trò "nhất quỷ nhì ma". Click vào từng thành viên
-            để xem bí mật nhé!
+          <p class="text-slate-500 mt-3 max-w-xl mx-auto text-sm md:text-base">
+            Danh sách 47 thành viên & Thầy Cô GVCN được kết nối trực tiếp với từng thư mục cá nhân trên Google Drive.
           </p>
+
+          <!-- Filter buttons for Class Members -->
+          <div class="flex flex-wrap justify-center items-center gap-2 mt-6">
+            <button
+              onclick="filterStudents('all')"
+              id="stu-filter-all"
+              class="px-4 py-2 rounded-xl text-xs md:text-sm font-bold bg-indigo-600 text-white shadow-sm transition-all"
+            >
+              Tất cả 47 Thành viên
+            </button>
+            <button
+              onclick="filterStudents('has-media')"
+              id="stu-filter-media"
+              class="px-4 py-2 rounded-xl text-xs md:text-sm font-bold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition-all"
+            >
+              Đã có ảnh/video cá nhân
+            </button>
+            <button
+              onclick="filterStudents('teachers')"
+              id="stu-filter-teachers"
+              class="px-4 py-2 rounded-xl text-xs md:text-sm font-bold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition-all"
+            >
+              👩‍🏫 Thầy Cô GVCN (Cô Tiên, Má Kiều, Tía Tín)
+            </button>
+          </div>
         </div>
 
         <!-- Bục giảng (Teacher's Desk) -->
         <div
-          class="w-full max-w-4xl mx-auto mb-12 flex justify-center slide-up"
+          class="w-full max-w-5xl mx-auto mb-8 flex justify-center slide-up"
         >
           <div
-            class="bg-indigo-50 border-2 border-indigo-200 text-indigo-800 px-8 py-3 rounded-2xl font-bold tracking-widest shadow-sm"
+            onclick="filterStudents('teachers')"
+            class="cursor-pointer bg-indigo-50 hover:bg-indigo-100 border-2 border-indigo-200 text-indigo-900 px-8 py-3 rounded-2xl font-bold tracking-widest shadow-sm transition-colors flex items-center gap-2"
           >
-            BỤC GIẢNG
+            <span>👩‍🏫 BỤC GIẢNG • THẦY CÔ CHỦ NHIỆM</span>
           </div>
         </div>
 
-        <!-- Grid Sơ đồ lớp (Mock 3 rows x 4 columns) -->
+        <!-- Grid Sơ đồ lớp (47 Học sinh) -->
         <div
-          class="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-[3rem] shadow-xl slide-up"
+          class="max-w-6xl mx-auto bg-white p-6 md:p-10 rounded-[2.5rem] shadow-xl border border-slate-100 slide-up"
         >
           <div
-            class="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-12"
+            class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-4 gap-y-8"
             id="class-map-grid"
           >
             <!-- Avatars injected here -->
@@ -273,451 +536,1415 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-indigo-900 text-indigo-200 text-center py-8">
-      <p class="font-cursive text-2xl mb-2">Mãi nhớ 12A1</p>
-      <p class="text-sm">Made with ❤️ for our memories</p>
+    <footer class="bg-indigo-950 text-indigo-200 text-center py-10">
+      <p class="font-cursive text-3xl text-white mb-2">Mãi Nhớ Thanh Xuân Của Chúng Mình</p>
+      <p class="text-xs md:text-sm text-indigo-300/80 mb-4">
+        Đã kết nối trực tiếp với Google Drive Lớp • Xem ảnh gốc & video Full HD
+      </p>
+      <a
+        href="https://drive.google.com/drive/folders/1MmsTXHQZ4QoSsbi5XixRHzwE8lrGBVxa?usp=drive_link"
+        target="_blank"
+        rel="noopener"
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-colors"
+      >
+        <span>Đóng góp thêm ảnh/video vào Google Drive</span>
+        <span>↗</span>
+      </a>
     </footer>
 
-    <!-- Student Profile Modal -->
+    <!-- Student / Folder Profile Modal -->
     <div
       id="student-modal"
-      class="fixed inset-0 z-50 hidden flex items-center justify-center p-4"
+      class="fixed inset-0 z-50 hidden flex items-center justify-center p-3 md:p-6"
     >
       <!-- Backdrop -->
       <div
-        class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity"
+        class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm transition-opacity"
         onclick="closeModal()"
       ></div>
 
       <!-- Modal Content -->
       <div
-        class="bg-white rounded-[2rem] shadow-2xl w-full max-w-2xl relative z-10 overflow-hidden transform transition-all pop-in flex flex-col max-h-[90vh]"
+        class="bg-white rounded-[2rem] shadow-2xl w-full max-w-4xl relative z-10 overflow-hidden transform transition-all pop-in flex flex-col max-h-[90vh]"
       >
         <!-- Modal Header / Cover -->
         <div
-          class="h-32 md:h-40 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 relative"
+          class="h-28 md:h-36 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 relative shrink-0"
         >
-          <button
-            onclick="closeModal()"
-            class="absolute top-4 right-4 bg-white/20 hover:bg-white/40 backdrop-blur rounded-full p-2 text-white transition-colors"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+          <div class="absolute top-4 right-4 flex items-center gap-2">
+            <a
+              id="modal-drive-link"
+              href="#"
+              target="_blank"
+              rel="noopener"
+              class="px-3.5 py-1.5 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur text-white text-xs font-bold transition-colors flex items-center gap-1.5"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
+              <span>Mở trên Google Drive</span>
+              <span>↗</span>
+            </a>
+            <button
+              onclick="closeModal()"
+              class="bg-white/20 hover:bg-white/40 backdrop-blur rounded-full p-2 text-white transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
         </div>
 
-        <div
-          class="px-6 pb-6 md:px-10 md:pb-10 overflow-y-auto flex-1 custom-scrollbar"
-        >
+        <div class="px-6 pb-6 md:px-8 md:pb-8 overflow-y-auto flex-1">
           <!-- Avatar & Basic Info -->
           <div
-            class="relative flex flex-col md:flex-row items-center md:items-end -mt-16 md:-mt-20 mb-6 gap-4 text-center md:text-left"
+            class="relative flex flex-col sm:flex-row items-center sm:items-end -mt-14 md:-mt-16 mb-6 gap-4 text-center sm:text-left"
           >
             <img
               id="modal-avatar"
               src=""
               alt="Avatar"
-              class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white shadow-xl object-cover bg-white"
+              class="w-28 h-28 md:w-32 md:h-32 rounded-2xl border-4 border-white shadow-xl object-cover bg-white shrink-0"
             />
-            <div class="pt-2 md:pt-0">
-              <h3 id="modal-name" class="text-3xl font-bold text-gray-800"></h3>
-              <p
-                id="modal-role"
-                class="text-blue-600 font-semibold uppercase tracking-wider text-sm mt-1"
-              ></p>
+            <div class="flex-1 pt-1">
+              <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                <span id="modal-number" class="px-2.5 py-0.5 rounded-lg bg-indigo-100 text-indigo-700 font-bold text-xs"></span>
+                <span id="modal-role" class="text-pink-600 font-bold uppercase tracking-wider text-xs"></span>
+              </div>
+              <h3 id="modal-name" class="text-2xl md:text-3xl font-bold text-slate-800 mt-1"></h3>
+              <p id="modal-stats" class="text-xs md:text-sm text-slate-500 font-medium mt-0.5"></p>
             </div>
-          </div>
-
-          <!-- Info Grid -->
-          <div class="grid md:grid-cols-2 gap-4 mb-8">
-            <div class="bg-blue-50 p-4 rounded-2xl">
-              <h4 class="text-sm text-blue-400 font-bold uppercase mb-1">
-                Đặc điểm nhận dạng
-              </h4>
-              <p id="modal-personality" class="text-gray-700 font-medium"></p>
-            </div>
-            <div class="bg-pink-50 p-4 rounded-2xl">
-              <h4 class="text-sm text-pink-400 font-bold uppercase mb-1">
-                Câu nói cửa miệng
-              </h4>
-              <p id="modal-quote" class="text-gray-700 font-medium italic">
-                ""
-              </p>
-            </div>
+            <button
+              id="modal-open-in-explorer"
+              class="px-4 py-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold transition-colors"
+            >
+              Xem trong Kho Drive chính
+            </button>
           </div>
 
           <!-- Gallery Section -->
           <div>
-            <h4
-              class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 text-purple-500"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-              Khoảnh khắc đáng nhớ
-            </h4>
+            <div class="flex items-center justify-between mb-4">
+              <h4 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
+                </svg>
+                <span>Khoảnh khắc trong thư mục cá nhân</span>
+              </h4>
+              <span class="text-xs text-slate-400">Click vào ảnh/video để xem nét gốc</span>
+            </div>
             <div
-              class="grid grid-cols-2 md:grid-cols-3 gap-3"
+              class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3"
               id="modal-gallery"
             >
-              <!-- Photos injected here -->
+              <!-- Photos & Videos injected here -->
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Data & Logic -->
-    <script>
-      // --- MOCK DATA ---
+    <!-- PRO HIGH-RES GOOGLE DRIVE LIGHTBOX (IMAGES & VIDEOS) -->
+    <div
+      id="drive-lightbox"
+      class="fixed inset-0 z-[60] hidden bg-slate-950/95 backdrop-blur-md flex flex-col select-none"
+    >
+      <!-- Top Bar -->
+      <div class="flex items-center justify-between px-4 md:px-6 h-16 bg-gradient-to-b from-black/70 to-transparent text-white shrink-0 z-20">
+        <div class="flex items-center gap-3 min-w-0">
+          <span id="lb-badge-type" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-600 uppercase shrink-0">ẢNH GỐC</span>
+          <div class="min-w-0">
+            <h4 id="lb-title" class="text-sm md:text-base font-bold truncate max-w-[200px] sm:max-w-md md:max-w-xl"></h4>
+            <p id="lb-counter" class="text-xs text-slate-300"></p>
+          </div>
+        </div>
 
-      // Dữ liệu các năm học
-      const yearsData = {
-        10: {
-          title: "Lớp 10 - Sự Bắt Đầu Bỡ Ngỡ",
-          desc: "Ngày đầu tiên bước vào trường cấp 3, ai cũng rụt rè, lạ lẫm.",
-          events: [
-            {
-              date: "Tháng 9, 2021",
-              title: "Lễ Khai Giảng Đầu Tiên",
-              content:
-                "Mặc áo dài/áo sơ mi mới, ngơ ngác tìm đúng lớp của mình ở sân trường.",
-            },
-            {
-              date: "Tháng 11, 2021",
-              title: "20/11 - Hội diễn văn nghệ",
-              content:
-                "Lần đầu tiên cả lớp tập múa cùng nhau, cãi nhau chí chóe nhưng cuối cùng cũng đạt giải Khuyến khích.",
-            },
-            {
-              date: "Tháng 5, 2022",
-              title: "Bế giảng năm lớp 10",
-              content:
-                "Nhận ra tập thể này thật sự rất vui và đáng yêu. Hẹn gặp lại vào năm sau!",
-            },
-          ],
-        },
-        11: {
-          title: "Lớp 11 - Tuổi Trẻ Nổi Loạn",
-          desc: "Năm quậy nhất, vui nhất, không vướng bận thi cử quá nhiều.",
-          events: [
-            {
-              date: "Tháng 10, 2022",
-              title: "Giải Bóng Đá Khối",
-              content:
-                "Đội tuyển nam lớp mình xuất sắc lọt vào bán kết. Con gái cổ vũ khản cả cổ.",
-            },
-            {
-              date: "Tháng 3, 2023",
-              title: "Cắm trại 26/3",
-              content:
-                "Đêm lửa trại không thể quên. Lén mang đồ ăn vặt và thức trắng đêm tâm sự.",
-            },
-            {
-              date: "Tháng 5, 2023",
-              title: "Chụp ảnh kỷ yếu cơ bản",
-              content:
-                "Bắt đầu thấy thời gian trôi nhanh hơn, chớp mắt đã hết 2/3 quãng đường.",
-            },
-          ],
-        },
-        12: {
-          title: "Lớp 12 - Áp Lực & Chia Xa",
-          desc: "Năm cuối cấp nhiều áp lực thi cử nhưng cũng đầy ắp tình yêu thương.",
-          events: [
-            {
-              date: "Tháng 9, 2023",
-              title: "Khai giảng cuối cùng",
-              content:
-                "Cảm xúc lâng lâng khó tả, tự nhiên thấy yêu từng gốc cây, ghế đá của trường.",
-            },
-            {
-              date: "Tháng 4, 2024",
-              title: "Chụp Kỷ Yếu Chính Thức",
-              content:
-                "Đầu tư hoành tráng, concept thanh xuân. Khóc sưng cả mắt lúc viết lưu bút.",
-            },
-            {
-              date: "Tháng 6, 2024",
-              title: "Lễ Tri Ân & Trưởng Thành",
-              content:
-                "Ôm nhau khóc nức nở. Thanh xuân cấp 3 chính thức khép lại, mở ra hành trình mới.",
-            },
-          ],
-        },
+        <!-- Toolbar Actions -->
+        <div class="flex items-center gap-1.5 md:gap-2">
+          <!-- Image Zoom Controls -->
+          <div id="lb-zoom-controls" class="hidden sm:flex items-center bg-white/10 rounded-xl p-1 mr-1">
+            <button onclick="zoomLightbox(-0.4)" title="Thu nhỏ (-)" class="px-2.5 py-1 hover:bg-white/20 rounded-lg text-sm font-bold">−</button>
+            <button onclick="resetLightboxZoom()" id="lb-zoom-label" title="Đặt lại 100%" class="px-2.5 py-1 hover:bg-white/20 rounded-lg text-xs font-bold">100%</button>
+            <button onclick="zoomLightbox(0.4)" title="Phóng to (+)" class="px-2.5 py-1 hover:bg-white/20 rounded-lg text-sm font-bold">+</button>
+            <button onclick="rotateLightbox()" title="Xoay ảnh 90°" class="px-2.5 py-1 hover:bg-white/20 rounded-lg text-xs font-bold">↻</button>
+          </div>
+
+          <!-- Toggle Google Drive Native Preview vs Direct Ultra-HD -->
+          <button
+            id="lb-toggle-embed-btn"
+            onclick="toggleLightboxDriveEmbed()"
+            class="px-3 py-1.5 rounded-xl bg-white/15 hover:bg-white/25 text-xs font-bold transition-colors flex items-center gap-1.5"
+            title="Chuyển đổi giữa Ảnh gốc Ultra-HD và Khung Google Drive Preview"
+          >
+            <span id="lb-toggle-embed-text">Khung chuẩn Drive</span>
+          </button>
+
+          <!-- Download Original -->
+          <a
+            id="lb-download-link"
+            href="#"
+            target="_blank"
+            rel="noopener"
+            title="Tải tệp gốc về máy"
+            class="p-2 rounded-xl bg-white/15 hover:bg-white/25 transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+          </a>
+
+          <!-- Open in Google Drive -->
+          <a
+            id="lb-drive-link"
+            href="#"
+            target="_blank"
+            rel="noopener"
+            title="Mở trực tiếp trên Google Drive"
+            class="p-2 rounded-xl bg-white/15 hover:bg-white/25 transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+
+          <!-- Close Lightbox -->
+          <button
+            onclick="closeLightbox()"
+            title="Đóng (Esc)"
+            class="p-2 rounded-xl bg-rose-500/80 hover:bg-rose-600 text-white transition-colors ml-1"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Stage -->
+      <div class="relative flex-1 flex items-center justify-center overflow-hidden p-2 md:p-6" id="lb-stage">
+        <!-- Prev Button -->
+        <button
+          id="lb-prev-btn"
+          onclick="stepLightbox(-1)"
+          class="absolute left-3 md:left-6 z-30 w-11 h-11 md:w-12 md:h-12 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center border border-white/15 transition-all hover:scale-110"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <!-- Loading Spinner -->
+        <div id="lb-spinner" class="absolute z-10 flex flex-col items-center gap-2 text-white/80 pointer-events-none">
+          <div class="w-10 h-10 border-4 border-indigo-400 border-t-transparent rounded-full animate-spin"></div>
+          <span class="text-xs font-bold tracking-wider" id="lb-loading-text">Đang tải độ phân giải gốc...</span>
+        </div>
+
+        <!-- High-Res Image View -->
+        <img
+          id="lightbox-img"
+          src=""
+          alt=""
+          class="max-h-full max-w-full object-contain rounded-lg shadow-2xl z-20 cursor-grab active:cursor-grabbing hidden"
+        />
+
+        <!-- Google Drive Official HD Video / Embed Player -->
+        <div id="lightbox-iframe-wrap" class="w-full max-w-5xl h-[72vh] md:h-[78vh] z-20 hidden">
+          <iframe
+            id="lightbox-iframe"
+            src=""
+            allow="autoplay; fullscreen"
+            allowfullscreen
+            class="w-full h-full rounded-2xl border border-white/15 shadow-2xl bg-black"
+          ></iframe>
+        </div>
+
+        <!-- Next Button -->
+        <button
+          id="lb-next-btn"
+          onclick="stepLightbox(1)"
+          class="absolute right-3 md:right-6 z-30 w-11 h-11 md:w-12 md:h-12 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center border border-white/15 transition-all hover:scale-110"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Bottom Thumbnail Filmstrip -->
+      <div class="h-20 bg-black/70 border-t border-white/10 px-4 flex items-center gap-2 overflow-x-auto shrink-0 z-20" id="lb-filmstrip">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+
+    <!-- Load Indexed Google Drive Data -->
+    <script src="drive-data.js"></script>
+
+    <!-- Main Application Logic -->
+    <script>
+      // --- GOOGLE DRIVE URL HELPERS (CHUẨN SẮC NÉT) ---
+      // Thumbnail sắc nét cho lưới (w600)
+      function getDriveThumbUrl(fileId, width = 600) {
+        return `https://lh3.googleusercontent.com/d/${fileId}=w${width}`;
+      }
+      function getDriveThumbFallbackUrl(fileId, width = 600) {
+        return `https://drive.google.com/thumbnail?id=${fileId}&sz=w${width}`;
+      }
+      // Ảnh gốc độ phân giải 100% nguyên bản (=s0), tự động convert cả HEIC sang JPEG nét căng
+      function getDriveOriginalImageUrl(fileId) {
+        return `https://lh3.googleusercontent.com/d/${fileId}=s0`;
+      }
+      function getDriveOriginalFallbackUrl(fileId) {
+        return `https://drive.google.com/thumbnail?id=${fileId}&sz=s0`;
+      }
+      // Khung phát Video Full HD & Preview chuẩn Google Drive
+      function getDrivePreviewEmbedUrl(fileId) {
+        return `https://drive.google.com/file/d/${fileId}/preview`;
+      }
+      function getDriveViewUrl(fileId) {
+        return `https://drive.google.com/file/d/${fileId}/view?usp=drive_web`;
+      }
+      function getDriveDownloadUrl(fileId) {
+        return `https://drive.google.com/uc?export=download&id=${fileId}`;
+      }
+      function getDriveFolderUrl(folderId) {
+        return `https://drive.google.com/drive/folders/${folderId}`;
+      }
+
+      // --- STATE QUẢN LÝ DỮ LIỆU ---
+      const driveRoot = window.DRIVE_DATA || {
+        rootId: "1MmsTXHQZ4QoSsbi5XixRHzwE8lrGBVxa",
+        totalImages: 0,
+        totalVideos: 0,
+        folders: [],
       };
 
-      // Dữ liệu học sinh (Sơ đồ lớp)
-      // Tạo một số data mẫu, sử dụng https://ui-avatars.com và unsplash source
-      const studentsData = [
-        {
-          id: 1,
-          name: "Nguyễn Văn A",
-          role: "Lớp Trưởng",
-          avatar:
-            "https://ui-avatars.com/api/?name=Van+A&background=0D8ABC&color=fff&size=128",
-          personality: "Nghiêm túc nhưng hay hùa theo lớp",
-          quote: "Tuần này lớp mình lại bét bảng thi đua nhé!",
-          photos: [
-            "https://images.unsplash.com/photo-1529390079861-591de354faf5?w=300&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=300&h=300&fit=crop",
-          ],
-        },
-        {
-          id: 2,
-          name: "Trần Thị B",
-          role: "Lớp Phó Học Tập",
-          avatar:
-            "https://ui-avatars.com/api/?name=Thi+B&background=F472B6&color=fff&size=128",
-          personality: "Con nhà người ta, hay cho chép bài",
-          quote: "Đề này dễ mà mấy đứa?",
-          photos: [
-            "https://images.unsplash.com/photo-1516585427167-9f4af9627e6c?w=300&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&h=300&fit=crop",
-          ],
-        },
-        {
-          id: 3,
-          name: "Lê Hoàng C",
-          role: "Thành viên",
-          avatar:
-            "https://ui-avatars.com/api/?name=Hoang+C&background=10B981&color=fff&size=128",
-          personality: "Chuyên gia ngủ gật, thánh ăn vụng",
-          quote: "Sắp trống chưa mày?",
-          photos: [
-            "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=300&h=300&fit=crop",
-          ],
-        },
-        {
-          id: 4,
-          name: "Phạm D",
-          role: "Bí Thư",
-          avatar:
-            "https://ui-avatars.com/api/?name=Pham+D&background=F59E0B&color=fff&size=128",
-          personality: "Nhiệt tình, MC của mọi sự kiện",
-          quote: "Các bạn ơi đóng quỹ lớp!!!",
-          photos: [
-            "https://images.unsplash.com/photo-1528892952291-009c663ce843?w=300&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop",
-          ],
-        },
-        {
-          id: 5,
-          name: "Vũ E",
-          role: "Tổ trưởng tổ 1",
-          avatar:
-            "https://ui-avatars.com/api/?name=Vu+E&background=6366F1&color=fff&size=128",
-          personality: "Mọt sách, hướng nội",
-          quote: "Đừng ồn nữa để tôi làm bài.",
-          photos: [],
-        },
-        {
-          id: 6,
-          name: "Hoàng F",
-          role: "Thành viên",
-          avatar:
-            "https://ui-avatars.com/api/?name=Hoang+F&background=EC4899&color=fff&size=128",
-          personality: "Fashionista của lớp",
-          quote: "Hôm nay tao mặc bộ này hợp không?",
-          photos: [
-            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=300&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1485230405346-71acb9518d9c?w=300&h=300&fit=crop",
-          ],
-        },
-        {
-          id: 7,
-          name: "Ngô G",
-          role: "Thành viên",
-          avatar:
-            "https://ui-avatars.com/api/?name=Ngo+G&background=8B5CF6&color=fff&size=128",
-          personality: "Chúa tể tấu hài",
-          quote: "Cô gọi lên bảng kìa (Đùa đấy)!",
-          photos: [
-            "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=300&fit=crop",
-          ],
-        },
-        {
-          id: 8,
-          name: "Bùi H",
-          role: "Thành viên",
-          avatar:
-            "https://ui-avatars.com/api/?name=Bui+H&background=EF4444&color=fff&size=128",
-          personality: "Nghệ sĩ đàn hát",
-          quote: "Để tôi đánh cho một bản.",
-          photos: [
-            "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=300&h=300&fit=crop",
-          ],
-        },
-        // Có thể thêm tối đa theo số lượng lớp
-      ];
+      // Map tra cứu nhanh mọi folder theo ID kèm đường dẫn cha
+      const folderById = new Map();
+      const parentById = new Map();
 
-      // --- LOGIC GIAO DIỆN ---
+      const ROOT_VIRTUAL_NODE = {
+        id: driveRoot.rootId,
+        n: "Drive Lớp Mình (Tất cả)",
+        ti: driveRoot.totalImages,
+        tv: driveRoot.totalVideos,
+        f: driveRoot.folders,
+        items: [],
+      };
 
-      // Khởi tạo
+      function indexFolderTree(node, parent = null) {
+        folderById.set(node.id, node);
+        if (parent) parentById.set(node.id, parent.id);
+        if (node.f && node.f.length) {
+          node.f.forEach((child) => indexFolderTree(child, node));
+        }
+      }
+      indexFolderTree(ROOT_VIRTUAL_NODE, null);
+
+      // Tìm thư mục theo tên bên trong 1 node
+      function findSubfolderByName(parentNode, namePart) {
+        if (!parentNode || !parentNode.f) return null;
+        const lower = namePart.toLowerCase();
+        return parentNode.f.find((sf) => sf.n.toLowerCase().includes(lower));
+      }
+
+      const folderChung = findSubfolderByName(ROOT_VIRTUAL_NODE, "0. chung");
+      const folderLuoi = findSubfolderByName(ROOT_VIRTUAL_NODE, "lười chọn tên");
+      const folderLop10 = findSubfolderByName(folderChung, "lớp 10");
+      const folderLop11 = findSubfolderByName(folderChung, "lớp 11");
+      const folderLop12 = findSubfolderByName(folderChung, "lớp 12");
+      const folderGVCN = findSubfolderByName(folderChung, "gvcn");
+
+      // Trạng thái trình duyệt Drive
+      let currentFolderId = driveRoot.rootId;
+      let currentMediaFilter = "all"; // 'all' | 'image' | 'video'
+      let currentGridMode = "large"; // 'large' | 'compact'
+      let currentSearchQuery = "";
+      let displayedFilesLimit = 60;
+      let activeMediaList = []; // Danh sách file hiện tại để mở Lightbox
+
+      // Trạng thái Lightbox
+      let lightboxList = [];
+      let lightboxIndex = 0;
+      let lbZoom = 1;
+      let lbRotate = 0;
+      let lbPanX = 0;
+      let lbPanY = 0;
+      let isDraggingImg = false;
+      let dragStartX = 0;
+      let dragStartY = 0;
+      let forceDriveIframeForImage = false;
+
+      // --- KHỞI TẠO KHI TRANG TẢI XONG ---
       document.addEventListener("DOMContentLoaded", () => {
-        selectYear(12); // Mặc định mở năm lớp 12
-        renderClassMap();
+        initHeroStats();
+        initQuickShortcuts();
+        selectYear(11); // Mặc định hiển thị Lớp 11 (nhiều album sôi động nhất) hoặc có thể đổi sang 10/12/Chung
+        openFolderInExplorer(folderChung ? folderChung.id : driveRoot.rootId, false);
+        renderClassMap("all");
+        initLightboxInteractions();
       });
 
-      // Đổi năm học
-      function selectYear(year) {
-        // Cập nhật UI nút
+      function initHeroStats() {
+        const totalFiles = driveRoot.totalImages + driveRoot.totalVideos;
+        const fmt = (n) => n.toLocaleString("vi-VN");
+        document.getElementById("nav-stats-sub").innerText =
+          `${fmt(driveRoot.totalImages)} ảnh gốc • ${fmt(driveRoot.totalVideos)} video HD`;
+        document.getElementById("hero-badge-stats").innerText =
+          `Đã kết nối Google Drive • ${fmt(totalFiles)} tệp (${fmt(driveRoot.totalImages)} Ảnh & ${fmt(driveRoot.totalVideos)} Video)`;
+
+        if (folderLop10) {
+          document.getElementById("badge-count-10").innerText =
+            `${folderLop10.f.length} album`;
+        }
+        if (folderLop11) {
+          document.getElementById("badge-count-11").innerText =
+            `${folderLop11.f.length} album`;
+        }
+        if (folderLop12) {
+          document.getElementById("badge-count-12").innerText =
+            `${folderLop12.f.length} album`;
+        }
+      }
+
+      // --- 1. HÀNH TRÌNH NĂM HỌC (LỚP 10 / 11 / 12 / CHUNG) ---
+      function selectYear(yearKey) {
         document.querySelectorAll(".year-btn").forEach((btn) => {
-          btn.classList.remove(
-            "ring-offset-2",
-            "ring-4",
-            "bg-white",
-            "scale-110",
+          btn.classList.remove("ring-offset-2", "ring-4", "bg-white", "scale-110");
+        });
+        const activeBtn = document.getElementById(`btn-year-${yearKey}`);
+        if (activeBtn) {
+          const ringColor =
+            yearKey === 10
+              ? "ring-blue-500"
+              : yearKey === 11
+                ? "ring-purple-500"
+                : yearKey === 12
+                  ? "ring-pink-500"
+                  : "ring-amber-500";
+          activeBtn.classList.add("ring-offset-2", ringColor, "bg-white", "scale-110");
+        }
+
+        const titleEl = document.getElementById("timeline-title");
+        const badgeEl = document.getElementById("timeline-badge");
+        const descEl = document.getElementById("timeline-desc");
+        const openBtn = document.getElementById("btn-open-year-in-explorer");
+        const container = document.getElementById("timeline-content");
+
+        let albums = [];
+        let targetFolderId = driveRoot.rootId;
+
+        if (yearKey === 10 && folderLop10) {
+          targetFolderId = folderLop10.id;
+          titleEl.innerText = "Hành Trình Lớp 10 — Sự Bắt Đầu Bỡ Ngỡ";
+          badgeEl.innerText = `${folderLop10.ti.toLocaleString("vi-VN")} ảnh • ${folderLop10.tv.toLocaleString("vi-VN")} video`;
+          badgeEl.className = "px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-700";
+          descEl.innerText = "Những kỷ niệm đầu cấp 3: Đầu năm lớp 10, 20/11, Sinh nhật cô Kiều, Trại xuân, Cầu lông và Tổng kết lớp 10.";
+          albums = [...folderLop10.f];
+          if (folderLop10.items && folderLop10.items.length > 0) {
+            albums.unshift({
+              id: folderLop10.id,
+              n: "Khoảnh khắc Lớp 10 (Chung)",
+              ti: folderLop10.items.filter((x) => x[2] === 0).length,
+              tv: folderLop10.items.filter((x) => x[2] === 1).length,
+              c: folderLop10.items[0][0],
+              items: folderLop10.items,
+              f: [],
+            });
+          }
+        } else if (yearKey === 11 && folderLop11) {
+          targetFolderId = folderLop11.id;
+          titleEl.innerText = "Hành Trình Lớp 11 — Tuổi Trẻ Nổi Loạn & Rực Rỡ";
+          badgeEl.innerText = `${folderLop11.ti.toLocaleString("vi-VN")} ảnh • ${folderLop11.tv.toLocaleString("vi-VN")} video`;
+          badgeEl.className = "px-3 py-1 rounded-full text-xs font-bold bg-purple-100 text-purple-700";
+          descEl.innerText = "Năm học bùng nổ nhất với 22 album: Đi suối 16/11, Thả diều, Múa 11, Quốc tế Phụ nữ 8/3, Ngày Phụ Nam, Banh bóng và Tổng kết 11!";
+          albums = [...folderLop11.f];
+          if (folderLop11.items && folderLop11.items.length > 0) {
+            albums.unshift({
+              id: folderLop11.id,
+              n: "Khoảnh khắc Lớp 11 (Chung)",
+              ti: folderLop11.items.filter((x) => x[2] === 0).length,
+              tv: folderLop11.items.filter((x) => x[2] === 1).length,
+              c: folderLop11.items[0][0],
+              items: folderLop11.items,
+              f: [],
+            });
+          }
+        } else if (yearKey === 12 && folderLop12) {
+          targetFolderId = folderLop12.id;
+          titleEl.innerText = "Hành Trình Lớp 12 — Trân Quý Từng Phút Giây";
+          badgeEl.innerText = `${folderLop12.ti.toLocaleString("vi-VN")} ảnh • ${folderLop12.tv.toLocaleString("vi-VN")} video`;
+          badgeEl.className = "px-3 py-1 rounded-full text-xs font-bold bg-pink-100 text-pink-700";
+          descEl.innerText = "Năm cuối cấp với Khai giảng 12, Tắm đồng 1/10, Ăn xiên 5/10, Góc Cam ngẫu hứng và Happy 11/11.";
+          albums = [...folderLop12.f];
+        } else if (folderChung) {
+          targetFolderId = folderChung.id;
+          titleEl.innerText = "Kỷ Niệm Chung & Các Bộ Sưu Tập Đặc Biệt";
+          const ti = folderChung.ti + (folderLuoi ? folderLuoi.ti : 0);
+          const tv = folderChung.tv + (folderLuoi ? folderLuoi.tv : 0);
+          badgeEl.innerText = `${ti.toLocaleString("vi-VN")} ảnh • ${tv.toLocaleString("vi-VN")} video`;
+          badgeEl.className = "px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-700";
+          descEl.innerText = "Bao gồm HKPĐ 25-26, KPĐ 26-27, Thầy Cô GVCN, Suối con gái, Đực rựa, Thất Bại Tư Bản và Kho Lười Chọn Tên.";
+          albums = folderChung.f.filter(
+            (sf) => !["lớp 10", "lớp 11", "lớp 12"].includes(sf.n.toLowerCase())
           );
-        });
-        const activeBtn = document.getElementById(`btn-year-${year}`);
-
-        // Setup màu viền theo năm
-        let ringColor =
-          year === 10
-            ? "ring-blue-400"
-            : year === 11
-              ? "ring-purple-400"
-              : "ring-pink-400";
-        activeBtn.classList.add(
-          "ring-offset-2",
-          ringColor,
-          "bg-white",
-          "scale-110",
-        );
-
-        // Render dữ liệu
-        const data = yearsData[year];
-        const contentDiv = document.getElementById("timeline-content");
-
-        // Hiệu ứng mờ dần
-        contentDiv.classList.remove("fade-in");
-        void contentDiv.offsetWidth; // trigger reflow
-
-        document.getElementById("timeline-title").innerText = data.title;
-        document.getElementById("timeline-desc").innerText = data.desc;
-
-        let html = "";
-        data.events.forEach((event, index) => {
-          html += `
-                    <div class="relative pl-6 pb-10 group">
-                        <!-- Vòng tròn timeline -->
-                        <div class="absolute -left-[11px] top-1 w-5 h-5 rounded-full bg-white border-4 border-indigo-400 group-hover:bg-indigo-400 transition-colors"></div>
-                        <div class="bg-gray-50 rounded-2xl p-5 shadow-sm border border-gray-100 transition-all hover:shadow-md hover:-translate-y-1">
-                            <span class="text-sm font-bold text-pink-500 mb-1 block">${event.date}</span>
-                            <h3 class="text-xl font-bold text-gray-800 mb-2">${event.title}</h3>
-                            <p class="text-gray-600">${event.content}</p>
-                        </div>
-                    </div>
-                `;
-        });
-        contentDiv.innerHTML = html;
-        contentDiv.classList.add("fade-in");
-      }
-
-      // Render Sơ đồ lớp (Ghế ngồi)
-      function renderClassMap() {
-        const mapContainer = document.getElementById("class-map-grid");
-        let html = "";
-
-        // Loop qua danh sách học sinh để tạo bàn học
-        studentsData.forEach((student) => {
-          html += `
-                    <div class="flex flex-col items-center justify-center relative cursor-pointer desk-avatar group" onclick="openModal(${student.id})">
-                        <!-- Bàn học mô phỏng -->
-                        <div class="absolute bottom-0 w-20 h-4 bg-gray-200 rounded-t-lg -z-10 group-hover:bg-indigo-100 transition-colors"></div>
-                        
-                        <!-- Avatar -->
-                        <div class="relative">
-                            <img src="${student.avatar}" alt="${student.name}" class="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-white shadow-md object-cover bg-gray-100">
-                            <!-- Chức vụ badge (nếu có) -->
-                            ${student.role !== "Thành viên" ? `<span class="absolute -top-2 -right-2 bg-pink-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-sm">${student.role.charAt(0)}</span>` : ""}
-                        </div>
-                        
-                        <!-- Tên -->
-                        <span class="mt-3 text-sm font-bold text-gray-700 bg-white px-2 py-1 rounded shadow-sm whitespace-nowrap">${student.name}</span>
-                    </div>
-                `;
-        });
-
-        // Thêm ghế trống cho đủ form 3x4 (12 chỗ) nếu ít người
-        const emptyDesks = 12 - studentsData.length;
-        for (let i = 0; i < emptyDesks; i++) {
-          html += `
-                    <div class="flex flex-col items-center justify-center opacity-40">
-                        <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-dashed border-gray-300 flex items-center justify-center text-gray-400 text-2xl">+</div>
-                        <span class="mt-3 text-sm text-gray-400 bg-gray-100 px-2 py-1 rounded">Bàn trống</span>
-                    </div>
-                `;
+          if (folderLuoi) albums.unshift(folderLuoi);
+          if (folderChung.items && folderChung.items.length > 0) {
+            albums.push({
+              id: folderChung.id,
+              n: "Ảnh Locket & Chung (0. Chung)",
+              ti: folderChung.items.filter((x) => x[2] === 0).length,
+              tv: folderChung.items.filter((x) => x[2] === 1).length,
+              c: folderChung.items[0][0],
+              items: folderChung.items,
+              f: [],
+            });
+          }
         }
 
-        mapContainer.innerHTML = html;
+        openBtn.onclick = () => openFolderInExplorer(targetFolderId, true);
+
+        // Render Album Cards
+        let html = "";
+        albums.forEach((alb) => {
+          const previewItems = getSampleItemsFromFolder(alb, 4);
+          const coverId = alb.c || (previewItems[0] ? previewItems[0][0] : "");
+          const isEmpty = alb.ti === 0 && alb.tv === 0;
+
+          html += `
+            <div
+              onclick="openFolderInExplorer('${alb.id}', true)"
+              class="group bg-slate-50/70 hover:bg-white rounded-3xl p-4 border border-slate-200/80 hover:border-indigo-300 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col justify-between"
+            >
+              <div>
+                <!-- Cover Preview -->
+                <div class="relative h-48 rounded-2xl overflow-hidden bg-slate-200 mb-3.5 img-skeleton">
+                  ${
+                    coverId
+                      ? `<img
+                          src="${getDriveThumbUrl(coverId, 600)}"
+                          onerror="this.onerror=null;this.src='${getDriveThumbFallbackUrl(coverId, 600)}'"
+                          alt="${escapeHtml(alb.n)}"
+                          loading="lazy"
+                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />`
+                      : `<div class="w-full h-full flex items-center justify-center text-slate-400 text-sm font-semibold">Thư mục trống</div>`
+                  }
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent"></div>
+                  <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white">
+                    <div class="flex items-center gap-1.5 text-xs font-bold">
+                      ${alb.ti > 0 ? `<span class="px-2.5 py-1 rounded-lg bg-black/50 backdrop-blur-sm">📷 ${alb.ti} ảnh</span>` : ""}
+                      ${alb.tv > 0 ? `<span class="px-2.5 py-1 rounded-lg bg-rose-600/80 backdrop-blur-sm">🎬 ${alb.tv} video</span>` : ""}
+                      ${isEmpty ? `<span class="px-2.5 py-1 rounded-lg bg-black/40">Chưa có tệp</span>` : ""}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Title -->
+                <h3 class="text-lg font-bold text-slate-800 group-hover:text-indigo-600 transition-colors line-clamp-1 px-1">
+                  ${escapeHtml(alb.n)}
+                </h3>
+              </div>
+
+              <!-- Mini Thumbnails Strip -->
+              ${
+                previewItems.length > 1
+                  ? `<div class="grid grid-cols-4 gap-1.5 mt-3 pt-3 border-t border-slate-200/60">
+                      ${previewItems
+                        .slice(0, 4)
+                        .map(
+                          (it) => `
+                        <div class="relative aspect-square rounded-lg overflow-hidden bg-slate-200">
+                          <img
+                            src="${getDriveThumbUrl(it[0], 240)}"
+                            onerror="this.onerror=null;this.src='${getDriveThumbFallbackUrl(it[0], 240)}'"
+                            loading="lazy"
+                            class="w-full h-full object-cover"
+                            alt=""
+                          />
+                          ${
+                            it[2] === 1
+                              ? `<div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                                  <span class="w-5 h-5 rounded-full bg-white/90 text-rose-600 flex items-center justify-center text-[10px]">▶</span>
+                                </div>`
+                              : ""
+                          }
+                        </div>`
+                        )
+                        .join("")}
+                    </div>`
+                  : `<div class="mt-3 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs font-bold text-indigo-600 px-1">
+                      <span>Mở album trong Kho Drive</span>
+                      <span>→</span>
+                    </div>`
+              }
+            </div>
+          `;
+        });
+
+        container.innerHTML = html;
       }
 
-      // Mở Modal Profile
-      function openModal(id) {
-        const student = studentsData.find((s) => s.id === id);
-        if (!student) return;
+      function getSampleItemsFromFolder(folderNode, count = 4) {
+        let result = [];
+        function collect(n) {
+          if (result.length >= count) return;
+          if (n.items && n.items.length) {
+            for (const it of n.items) {
+              result.push(it);
+              if (result.length >= count) return;
+            }
+          }
+          if (n.f && n.f.length) {
+            for (const sf of n.f) {
+              collect(sf);
+              if (result.length >= count) return;
+            }
+          }
+        }
+        collect(folderNode);
+        return result;
+      }
 
-        document.getElementById("modal-avatar").src = student.avatar;
-        document.getElementById("modal-name").innerText = student.name;
-        document.getElementById("modal-role").innerText = student.role;
-        document.getElementById("modal-personality").innerText =
-          student.personality;
-        document.getElementById("modal-quote").innerText = `"${student.quote}"`;
+      // --- 2. TRÌNH DUYỆT KHO LƯU TRỮ GOOGLE DRIVE ---
+      function initQuickShortcuts() {
+        const bar = document.getElementById("drive-quick-shortcuts");
+        const shortcuts = [
+          { label: "🏠 Gốc Drive", id: driveRoot.rootId },
+          folderChung ? { label: "⭐ 0. Chung", id: folderChung.id } : null,
+          folderLop10 ? { label: "📘 Lớp 10", id: folderLop10.id } : null,
+          folderLop11 ? { label: "🔮 Lớp 11", id: folderLop11.id } : null,
+          folderLop12 ? { label: "🌸 Lớp 12", id: folderLop12.id } : null,
+          folderGVCN ? { label: "👩‍🏫 GVCN", id: folderGVCN.id } : null,
+          folderLuoi ? { label: "📂 Kho Lười Chọn Tên (1.091)", id: folderLuoi.id } : null,
+        ].filter(Boolean);
 
-        // Render thư viện ảnh cá nhân
-        const galleryDiv = document.getElementById("modal-gallery");
-        if (student.photos && student.photos.length > 0) {
-          let photosHtml = "";
-          student.photos.forEach((url) => {
-            photosHtml += `<img src="${url}" class="w-full h-24 md:h-32 object-cover rounded-xl shadow-sm hover:scale-105 transition-transform cursor-pointer" alt="photo">`;
-          });
-          galleryDiv.innerHTML = photosHtml;
+        // Thêm nhanh HKPĐ2526 & KPĐ2627 nếu có
+        const hkpd = findSubfolderByName(folderChung, "hkpđ2526");
+        const kpd = findSubfolderByName(folderChung, "kpđ2627");
+        if (hkpd) shortcuts.push({ label: "🏅 HKPĐ 25-26", id: hkpd.id });
+        if (kpd) shortcuts.push({ label: "🏆 KPĐ 26-27", id: kpd.id });
+
+        bar.innerHTML = shortcuts
+          .map(
+            (sc) => `
+            <button
+              onclick="openFolderInExplorer('${sc.id}', false)"
+              data-shortcut-id="${sc.id}"
+              class="drive-shortcut-btn shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 hover:bg-indigo-50 hover:text-indigo-700 hover:border-indigo-200 transition-all"
+            >
+              ${sc.label}
+            </button>
+          `
+          )
+          .join("");
+      }
+
+      function openFolderInExplorer(folderId, scrollToSection = false) {
+        if (!folderById.has(folderId)) folderId = driveRoot.rootId;
+        currentFolderId = folderId;
+        displayedFilesLimit = 60;
+        if (currentSearchQuery) {
+          currentSearchQuery = "";
+          document.getElementById("drive-search-input").value = "";
+          document.getElementById("btn-clear-search").classList.add("hidden");
+        }
+
+        renderDriveExplorer();
+
+        if (scrollToSection) {
+          document
+            .getElementById("section-drive-explorer")
+            .scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+
+      function setMediaFilter(filter) {
+        currentMediaFilter = filter;
+        displayedFilesLimit = 60;
+        ["all", "image", "video"].forEach((k) => {
+          const btn = document.getElementById(`filter-btn-${k}`);
+          if (k === filter) {
+            btn.className = "px-3 py-1.5 rounded-lg bg-white text-indigo-700 shadow-sm transition-all";
+          } else {
+            btn.className = "px-3 py-1.5 rounded-lg text-slate-600 hover:text-indigo-700 transition-all";
+          }
+        });
+        renderDriveExplorer();
+      }
+
+      function setGridCols(mode) {
+        currentGridMode = mode;
+        ["large", "compact"].forEach((k) => {
+          const btn = document.getElementById(`grid-btn-${k}`);
+          if (k === mode) {
+            btn.className = "px-2.5 py-1.5 rounded-lg bg-white text-indigo-700 shadow-sm transition-all";
+          } else {
+            btn.className = "px-2.5 py-1.5 rounded-lg text-slate-600 hover:text-indigo-700 transition-all";
+          }
+        });
+        const gridEl = document.getElementById("drive-files-grid");
+        gridEl.className =
+          mode === "compact"
+            ? "grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2.5"
+            : "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4";
+      }
+
+      function handleDriveSearch(query) {
+        currentSearchQuery = query.trim();
+        displayedFilesLimit = 60;
+        const clearBtn = document.getElementById("btn-clear-search");
+        if (currentSearchQuery) {
+          clearBtn.classList.remove("hidden");
         } else {
-          galleryDiv.innerHTML = `<p class="text-gray-400 text-sm col-span-2 italic">Thành viên này chưa có ảnh cá nhân nào.</p>`;
+          clearBtn.classList.add("hidden");
+        }
+        renderDriveExplorer();
+      }
+
+      function clearDriveSearch() {
+        document.getElementById("drive-search-input").value = "";
+        handleDriveSearch("");
+      }
+
+      function renderDriveExplorer() {
+        const folder = folderById.get(currentFolderId) || ROOT_VIRTUAL_NODE;
+
+        // Cập nhật link mở thư mục trên Google Drive
+        document.getElementById("btn-open-current-drive").href = getDriveFolderUrl(folder.id);
+
+        // Highlight shortcut đang chọn
+        document.querySelectorAll(".drive-shortcut-btn").forEach((btn) => {
+          if (btn.getAttribute("data-shortcut-id") === currentFolderId) {
+            btn.className =
+              "drive-shortcut-btn shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-bold border border-indigo-600 bg-indigo-600 text-white shadow-sm transition-all";
+          } else {
+            btn.className =
+              "drive-shortcut-btn shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 hover:bg-indigo-50 hover:text-indigo-700 hover:border-indigo-200 transition-all";
+          }
+        });
+
+        // Render Breadcrumbs
+        const crumbs = [];
+        let ptr = folder;
+        while (ptr) {
+          crumbs.unshift(ptr);
+          const pid = parentById.get(ptr.id);
+          ptr = pid ? folderById.get(pid) : null;
+        }
+        const bcContainer = document.getElementById("drive-breadcrumbs");
+        bcContainer.innerHTML = crumbs
+          .map((c, idx) => {
+            const isLast = idx === crumbs.length - 1;
+            return `
+              <button
+                onclick="openFolderInExplorer('${c.id}', false)"
+                class="${
+                  isLast
+                    ? "text-indigo-700 bg-indigo-50 px-3 py-1 rounded-lg font-bold"
+                    : "text-slate-500 hover:text-indigo-600 px-2 py-1 rounded-lg transition-colors"
+                }"
+              >
+                ${escapeHtml(c.n)}
+              </button>
+              ${!isLast ? `<span class="text-slate-300">/</span>` : ""}
+            `;
+          })
+          .join("");
+
+        // Lấy danh sách thư mục con và danh sách tệp
+        let subfolders = folder.f || [];
+        let filesToDisplay = [];
+
+        if (currentSearchQuery) {
+          // Tìm kiếm toàn cục trong toàn bộ cây Drive
+          const q = currentSearchQuery.toLowerCase();
+          subfolders = [];
+          filesToDisplay = [];
+          folderById.forEach((node) => {
+            if (node.id !== driveRoot.rootId && node.n.toLowerCase().includes(q)) {
+              subfolders.push(node);
+            }
+            if (node.items) {
+              node.items.forEach((it) => {
+                if (it[1].toLowerCase().includes(q)) {
+                  filesToDisplay.push([...it, node.n]);
+                }
+              });
+            }
+          });
+        } else {
+          // Nếu thư mục hiện tại có tệp trực tiếp thì hiển thị tệp trực tiếp;
+          // Nếu thư mục chỉ chứa các thư mục con (như Lớp 11, Lớp 12), gom luôn toàn bộ ảnh/video trong các thư mục con để người dùng xem ngay bên dưới!
+          if (folder.items && folder.items.length > 0) {
+            filesToDisplay = folder.items.map((it) => [...it, folder.n]);
+          } else {
+            filesToDisplay = collectAllFilesUnderFolder(folder);
+          }
         }
 
-        // Hiển thị modal
+        // Áp dụng bộ lọc Ảnh / Video
+        if (currentMediaFilter === "image") {
+          filesToDisplay = filesToDisplay.filter((it) => it[2] === 0);
+        } else if (currentMediaFilter === "video") {
+          filesToDisplay = filesToDisplay.filter((it) => it[2] === 1);
+        }
+
+        activeMediaList = filesToDisplay;
+
+        // Render Subfolders
+        const subWrap = document.getElementById("drive-subfolders-wrap");
+        const subGrid = document.getElementById("drive-subfolders-grid");
+        const subCount = document.getElementById("drive-subfolders-count");
+
+        if (subfolders.length > 0) {
+          subWrap.classList.remove("hidden");
+          subCount.innerText = subfolders.length;
+          subGrid.innerHTML = subfolders
+            .map((sf) => {
+              const coverId = sf.c;
+              return `
+                <div
+                  onclick="openFolderInExplorer('${sf.id}', false)"
+                  class="group flex items-center gap-3.5 p-3 rounded-2xl border border-slate-200/80 hover:border-indigo-400 bg-slate-50/60 hover:bg-white shadow-sm hover:shadow-md transition-all cursor-pointer"
+                >
+                  <div class="w-14 h-14 rounded-xl overflow-hidden bg-indigo-100 shrink-0 relative flex items-center justify-center">
+                    ${
+                      coverId
+                        ? `<img
+                            src="${getDriveThumbUrl(coverId, 240)}"
+                            onerror="this.onerror=null;this.src='${getDriveThumbFallbackUrl(coverId, 240)}'"
+                            loading="lazy"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform"
+                            alt=""
+                          />`
+                        : `<svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-indigo-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />
+                          </svg>`
+                    }
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <h4 class="text-sm font-bold text-slate-800 group-hover:text-indigo-600 truncate">
+                      ${escapeHtml(sf.n)}
+                    </h4>
+                    <div class="flex items-center gap-2 text-xs text-slate-500 font-semibold mt-0.5">
+                      <span>📷 ${sf.ti} ảnh</span>
+                      <span>•</span>
+                      <span>🎬 ${sf.tv} video</span>
+                    </div>
+                  </div>
+                </div>
+              `;
+            })
+            .join("");
+        } else {
+          subWrap.classList.add("hidden");
+        }
+
+        // Render Media Files
+        renderDriveFilesSlice();
+      }
+
+      function collectAllFilesUnderFolder(folderNode) {
+        const list = [];
+        function walk(n) {
+          if (n.items && n.items.length) {
+            for (const it of n.items) {
+              list.push([...it, n.n]);
+            }
+          }
+          if (n.f && n.f.length) {
+            for (const sf of n.f) {
+              walk(sf);
+            }
+          }
+        }
+        walk(folderNode);
+        return list;
+      }
+
+      function renderDriveFilesSlice() {
+        const filesGrid = document.getElementById("drive-files-grid");
+        const countBadge = document.getElementById("drive-files-count");
+        const headingEl = document.getElementById("drive-files-heading");
+        const loadMoreWrap = document.getElementById("drive-load-more-wrap");
+        const loadMoreBtn = document.getElementById("btn-load-more-files");
+
+        const total = activeMediaList.length;
+        countBadge.innerText = total.toLocaleString("vi-VN");
+
+        const folder = folderById.get(currentFolderId) || ROOT_VIRTUAL_NODE;
+        headingEl.innerText = currentSearchQuery
+          ? `Kết quả tìm kiếm cho "${currentSearchQuery}"`
+          : folder.items && folder.items.length > 0
+            ? `Ảnh & Video trong "${folder.n}"`
+            : `Tất cả Ảnh & Video tổng hợp trong "${folder.n}"`;
+
+        if (total === 0) {
+          filesGrid.innerHTML = `
+            <div class="col-span-full py-14 text-center bg-slate-50 rounded-3xl border border-dashed border-slate-200">
+              <p class="text-slate-500 font-bold">Chưa có tệp nào phù hợp trong mục này.</p>
+              <a
+                href="${getDriveFolderUrl(folder.id)}"
+                target="_blank"
+                rel="noopener"
+                class="inline-flex items-center gap-1.5 mt-3 px-4 py-2 rounded-xl bg-indigo-50 text-indigo-700 text-xs font-bold hover:bg-indigo-100"
+              >
+                <span>Mở thư mục này trên Google Drive</span>
+                <span>↗</span>
+              </a>
+            </div>
+          `;
+          loadMoreWrap.classList.add("hidden");
+          return;
+        }
+
+        const slice = activeMediaList.slice(0, displayedFilesLimit);
+        filesGrid.innerHTML = slice
+          .map((item, idx) => {
+            const [id, name, isVideo, modified, folderName] = item;
+            return `
+              <div
+                onclick="openLightboxFromExplorer(${idx})"
+                class="group relative aspect-square rounded-2xl overflow-hidden bg-slate-200 border border-slate-200/80 shadow-sm hover:shadow-xl cursor-pointer img-skeleton"
+              >
+                <img
+                  src="${getDriveThumbUrl(id, 600)}"
+                  onerror="this.onerror=null;this.src='${getDriveThumbFallbackUrl(id, 600)}'"
+                  alt="${escapeHtml(name)}"
+                  loading="lazy"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/10 opacity-80 group-hover:opacity-100 transition-opacity"></div>
+
+                <!-- Badge loại file -->
+                <div class="absolute top-2.5 left-2.5 flex items-center gap-1.5">
+                  ${
+                    isVideo
+                      ? `<span class="px-2.5 py-1 rounded-lg bg-rose-600 text-white text-[11px] font-bold shadow flex items-center gap-1">
+                          <span>▶ VIDEO HD</span>
+                        </span>`
+                      : name.toLowerCase().endsWith(".heic")
+                        ? `<span class="px-2 py-0.5 rounded-md bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold">HEIC GỐC</span>`
+                        : ""
+                  }
+                </div>
+
+                <!-- Nút Play chính giữa nếu là Video -->
+                ${
+                  isVideo
+                    ? `<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div class="w-12 h-12 rounded-full bg-white/90 text-rose-600 flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-0.5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                          </svg>
+                        </div>
+                      </div>`
+                    : ""
+                }
+
+                <!-- Thông tin cuối card -->
+                <div class="absolute bottom-2.5 left-2.5 right-2.5 text-white">
+                  <p class="text-xs font-bold truncate">${escapeHtml(name)}</p>
+                  ${
+                    folderName
+                      ? `<p class="text-[10px] text-slate-300 truncate">${escapeHtml(folderName)}</p>`
+                      : ""
+                  }
+                </div>
+              </div>
+            `;
+          })
+          .join("");
+
+        if (total > displayedFilesLimit) {
+          loadMoreWrap.classList.remove("hidden");
+          const remain = total - displayedFilesLimit;
+          loadMoreBtn.innerText = `Xem thêm ${Math.min(60, remain)} mục nữa (còn ${remain.toLocaleString("vi-VN")} mục)...`;
+        } else {
+          loadMoreWrap.classList.add("hidden");
+        }
+      }
+
+      function loadMoreDriveFiles() {
+        displayedFilesLimit += 60;
+        renderDriveFilesSlice();
+      }
+
+      // --- 3. SƠ ĐỒ 47 THÀNH VIÊN & THẦY CÔ GVCN ---
+      function getStudentFolders() {
+        // Lấy các folder đánh số từ 1. đến 47.
+        return driveRoot.folders.filter((f) => {
+          const num = parseInt(f.n.split(".")[0], 10);
+          return !isNaN(num) && num >= 1 && num <= 50;
+        });
+      }
+
+      function filterStudents(mode) {
+        ["all", "media", "teachers"].forEach((k) => {
+          const btn = document.getElementById(`stu-filter-${k}`);
+          if (!btn) return;
+          const active =
+            (mode === "all" && k === "all") ||
+            (mode === "has-media" && k === "media") ||
+            (mode === "teachers" && k === "teachers");
+          btn.className = active
+            ? "px-4 py-2 rounded-xl text-xs md:text-sm font-bold bg-indigo-600 text-white shadow-sm transition-all"
+            : "px-4 py-2 rounded-xl text-xs md:text-sm font-bold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition-all";
+        });
+        renderClassMap(mode);
+      }
+
+      function renderClassMap(mode = "all") {
+        const mapContainer = document.getElementById("class-map-grid");
+        let list = [];
+
+        if (mode === "teachers" && folderGVCN) {
+          list = folderGVCN.f.map((tf, idx) => ({
+            folder: tf,
+            number: `GVCN ${idx + 1}`,
+            cleanName: tf.n,
+            role: "Giáo Viên Chủ Nhiệm",
+          }));
+        } else {
+          const rawStudents = getStudentFolders();
+          list = rawStudents
+            .filter((sf) => (mode === "has-media" ? sf.ti + sf.tv > 0 : true))
+            .map((sf) => {
+              const parts = sf.n.split(".");
+              const num = parts[0].trim();
+              const cleanName = parts.slice(1).join(".").trim() || sf.n;
+              return {
+                folder: sf,
+                number: `#${num}`,
+                cleanName,
+                role: sf.ti + sf.tv > 0 ? `${sf.ti} ảnh${sf.tv > 0 ? ` • ${sf.tv} video` : ""}` : "Thành viên lớp",
+              };
+            });
+        }
+
+        const colors = ["0D8ABC", "EC4899", "8B5CF6", "10B981", "F59E0B", "6366F1", "EF4444", "14B8A6"];
+
+        mapContainer.innerHTML = list
+          .map((item, idx) => {
+            const sf = item.folder;
+            const totalMedia = sf.ti + sf.tv;
+            const avatarUrl = sf.c
+              ? getDriveThumbUrl(sf.c, 300)
+              : `https://ui-avatars.com/api/?name=${encodeURIComponent(item.cleanName)}&background=${colors[idx % colors.length]}&color=fff&size=160&bold=true`;
+
+            return `
+              <div
+                onclick="openStudentModal('${sf.id}')"
+                class="flex flex-col items-center justify-between p-3.5 rounded-2xl bg-slate-50/70 hover:bg-white border border-slate-200/70 hover:border-indigo-300 cursor-pointer desk-avatar group"
+              >
+                <div class="relative">
+                  <img
+                    src="${avatarUrl}"
+                    onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(item.cleanName)}&background=6366F1&color=fff&size=160'"
+                    alt="${escapeHtml(item.cleanName)}"
+                    loading="lazy"
+                    class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-white shadow-md object-cover bg-slate-200"
+                  />
+                  <span class="absolute -top-1 -left-1 bg-indigo-900 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">
+                    ${item.number}
+                  </span>
+                  ${
+                    totalMedia > 0
+                      ? `<span class="absolute -bottom-1 -right-1 bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">
+                          ${totalMedia} tệp
+                        </span>`
+                      : ""
+                  }
+                </div>
+
+                <div class="text-center mt-3 w-full">
+                  <p class="text-xs md:text-sm font-bold text-slate-800 group-hover:text-indigo-600 truncate">
+                    ${escapeHtml(item.cleanName)}
+                  </p>
+                  <p class="text-[11px] font-semibold ${totalMedia > 0 ? "text-emerald-600" : "text-slate-400"} mt-0.5">
+                    ${item.role}
+                  </p>
+                </div>
+              </div>
+            `;
+          })
+          .join("");
+      }
+
+      // --- 4. MODAL HỒ SƠ THÀNH VIÊN ---
+      let modalMediaList = [];
+
+      function openStudentModal(folderId) {
+        const sf = folderById.get(folderId);
+        if (!sf) return;
+
+        const parts = sf.n.split(".");
+        const hasNum = !isNaN(parseInt(parts[0], 10));
+        const numLabel = hasNum ? `Số thứ tự #${parts[0].trim()}` : "Thầy Cô / Tập Thể";
+        const cleanName = hasNum ? parts.slice(1).join(".").trim() : sf.n;
+
+        const avatarUrl = sf.c
+          ? getDriveThumbUrl(sf.c, 400)
+          : `https://ui-avatars.com/api/?name=${encodeURIComponent(cleanName)}&background=4F46E5&color=fff&size=200&bold=true`;
+
+        document.getElementById("modal-avatar").src = avatarUrl;
+        document.getElementById("modal-number").innerText = numLabel;
+        document.getElementById("modal-role").innerText =
+          sf.ti + sf.tv > 0 ? "Đã kết nối thư mục Drive" : "Thư mục Drive đang chờ thêm ảnh";
+        document.getElementById("modal-name").innerText = cleanName;
+        document.getElementById("modal-stats").innerText =
+          `${sf.ti} Ảnh gốc • ${sf.tv} Video HD trên Google Drive`;
+        document.getElementById("modal-drive-link").href = getDriveFolderUrl(sf.id);
+
+        document.getElementById("modal-open-in-explorer").onclick = () => {
+          closeModal();
+          openFolderInExplorer(sf.id, true);
+        };
+
+        modalMediaList = collectAllFilesUnderFolder(sf);
+        const galleryDiv = document.getElementById("modal-gallery");
+
+        if (modalMediaList.length > 0) {
+          galleryDiv.innerHTML = modalMediaList
+            .map((it, idx) => {
+              const [id, name, isVideo] = it;
+              return `
+                <div
+                  onclick="openLightboxFromModal(${idx})"
+                  class="group relative aspect-square rounded-2xl overflow-hidden bg-slate-200 border border-slate-200 shadow-sm hover:shadow-lg cursor-pointer img-skeleton"
+                >
+                  <img
+                    src="${getDriveThumbUrl(id, 500)}"
+                    onerror="this.onerror=null;this.src='${getDriveThumbFallbackUrl(id, 500)}'"
+                    alt="${escapeHtml(name)}"
+                    loading="lazy"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  ${
+                    isVideo
+                      ? `<div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                          <span class="px-2.5 py-1 rounded-full bg-rose-600 text-white text-xs font-bold shadow">▶ Video HD</span>
+                        </div>`
+                      : ""
+                  }
+                </div>
+              `;
+            })
+            .join("");
+        } else {
+          galleryDiv.innerHTML = `
+            <div class="col-span-full py-10 text-center bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+              <p class="text-slate-500 text-sm font-semibold mb-3">Thư mục cá nhân của ${escapeHtml(cleanName)} hiện chưa có ảnh hoặc video.</p>
+              <a
+                href="${getDriveFolderUrl(sf.id)}"
+                target="_blank"
+                rel="noopener"
+                class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold hover:bg-indigo-700 transition-colors"
+              >
+                <span>Tải ảnh/video lên thư mục Google Drive của ${escapeHtml(cleanName)}</span>
+                <span>↗</span>
+              </a>
+            </div>
+          `;
+        }
+
         const modal = document.getElementById("student-modal");
         modal.classList.remove("hidden");
-        document.body.style.overflow = "hidden"; // Ngăn cuộn trang phía sau
+        document.body.style.overflow = "hidden";
       }
 
-      // Đóng Modal Profile
       function closeModal() {
         const modal = document.getElementById("student-modal");
         modal.classList.add("hidden");
-        document.body.style.overflow = "auto"; // Cho phép cuộn trang trở lại
+        document.body.style.overflow = "auto";
       }
 
-      // Hỗ trợ nhấn phím ESC để đóng Modal
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeModal();
-      });
+      // --- 5. PRO LIGHTBOX VIEWER (ẢNH GỐC SẮC NÉT & VIDEO FULL HD CHUẨN DRIVE) ---
+      function openLightboxFromExplorer(index) {
+        lightboxList = activeMediaList;
+        openLightboxAt(index);
+      }
+
+      function openLightboxFromModal(index) {
+        lightboxList = modalMediaList;
+        openLightboxAt(index);
+      }
+
+      function openLightboxAt(index) {
+        if (!lightboxList || !lightboxList.length) return;
+        lightboxIndex = (index + lightboxList.length) % lightboxList.length;
+        forceDriveIframeForImage = false;
+
+        const lb = document.getElementById("drive-lightbox");
+        lb.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+
+        renderLightboxCurrentItem();
+        renderLightboxFilmstrip();
+      }
+
+      function renderLightboxCurrentItem() {
+        const item = lightboxList[lightboxIndex];
+        if (!item) return;
+        const [id, name, isVideo, modified, folderName] = item;
+
+        resetLightboxZoom();
+
+        // Cập nhật tiêu đề & links
+        document.getElementById("lb-title").innerText = name;
+        document.getElementById("lb-counter").innerText =
+          `${lightboxIndex + 1} / ${lightboxList.length}${folderName ? ` • Thư mục: ${folderName}` : ""}`;
+        document.getElementById("lb-download-link").href = getDriveDownloadUrl(id);
+        document.getElementById("lb-drive-link").href = getDriveViewUrl(id);
+
+        const badgeEl = document.getElementById("lb-badge-type");
+        const imgEl = document.getElementById("lightbox-img");
+        const iframeWrap = document.getElementById("lightbox-iframe-wrap");
+        const iframeEl = document.getElementById("lightbox-iframe");
+        const spinner = document.getElementById("lb-spinner");
+        const loadingText = document.getElementById("lb-loading-text");
+        const zoomControls = document.getElementById("lb-zoom-controls");
+        const toggleBtn = document.getElementById("lb-toggle-embed-btn");
+        const toggleText = document.getElementById("lb-toggle-embed-text");
+
+        // Dừng video cũ nếu đang phát
+        iframeEl.src = "";
+
+        if (isVideo === 1) {
+          // CHẾ ĐỘ PHÁT VIDEO CHUẨN GOOGLE DRIVE HD PLAYER
+          badgeEl.innerText = "🎬 VIDEO HD DRIVE";
+          badgeEl.className = "px-2.5 py-1 rounded-lg text-xs font-bold bg-rose-600 uppercase shrink-0";
+          imgEl.classList.add("hidden");
+          zoomControls.classList.add("hidden");
+          toggleBtn.classList.add("hidden");
+
+          spinner.classList.remove("hidden");
+          loadingText.innerText = "Đang khởi tạo trình phát Video HD chuẩn Google Drive...";
+          iframeWrap.classList.remove("hidden");
+          iframeEl.src = getDrivePreviewEmbedUrl(id);
+          iframeEl.onload = () => {
+            spinner.classList.add("hidden");
+          };
+        } else if (forceDriveIframeForImage) {
+          // CHẾ ĐỘ XEM ẢNH BẰNG KHUNG NHÚNG GOOGLE DRIVE (/preview)
+          badgeEl.innerText = "KHUNG CHUẨN DRIVE";
+          badgeEl.className = "px-2.5 py-1 rounded-lg text-xs font-bold bg-blue-600 uppercase shrink-0";
+          imgEl.classList.add("hidden");
+          zoomControls.classList.add("hidden");
+          toggleBtn.classList.remove("hidden");
+          toggleText.innerText = "Xem Ảnh Gốc Ultra-HD";
+
+          spinner.classList.remove("hidden");
+          loadingText.innerText = "Đang mở khung Google Drive Preview...";
+          iframeWrap.classList.remove("hidden");
+          iframeEl.src = getDrivePreviewEmbedUrl(id);
+          iframeEl.onload = () => {
+            spinner.classList.add("hidden");
+          };
+        } else {
+          // CHẾ ĐỘ XEM ẢNH ĐỘ PHÂN GIẢI GỐC 100% (=s0) + ZOOM CHI TIẾT
+          badgeEl.innerText = "✨ ẢNH GỐC ULTRA-HD";
+          badgeEl.className = "px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-600 uppercase shrink-0";
+          iframeWrap.classList.add("hidden");
+          zoomControls.classList.remove("hidden");
+          toggleBtn.classList.remove("hidden");
+          toggleText.innerText = "Khung chuẩn Drive";
+
+          spinner.classList.remove("hidden");
+          loadingText.innerText = "Đang tải ảnh gốc độ phân giải tối đa...";
+          imgEl.classList.remove("hidden");
+
+          // Tải bản nét gốc (=s0) trực tiếp
+          const fullUrl = getDriveOriginalImageUrl(id);
+          const fallbackFullUrl = getDriveOriginalFallbackUrl(id);
+
+          imgEl.onload = () => {
+            spinner.classList.add("hidden");
+          };
+          imgEl.onerror = () => {
+            if (imgEl.src !== fallbackFullUrl) {
+              imgEl.src = fallbackFullUrl;
+            } else {
+              spinner.classList.add("hidden");
+            }
+          };
+          imgEl.src = fullUrl;
+        }
+
+        // Highlight active item in filmstrip
+        document.querySelectorAll(".lb-strip-thumb").forEach((el, idx) => {
+          if (idx === lightboxIndex) {
+            el.classList.add("ring-2", "ring-white", "opacity-100", "scale-105");
+            el.classList.remove("opacity-50");
+            el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+          } else {
+            el.classList.remove("ring-2", "ring-white", "opacity-100", "scale-105");
+            el.classList.add("opacity-50");
+          }
+        });
+      }
+
+      function renderLightboxFilmstrip() {
+        const strip = document.getElementById("lb-filmstrip");
+        // Để mượt với danh sách >500 ảnh, hiển thị cửa sổ 80 mục quanh vị trí hiện tại hoặc toàn bộ nếu <= 120
+        const maxStrip = 120;
+        let start = 0;
+        let end = lightboxList.length;
+        if (lightboxList.length > maxStrip) {
+          start = Math.max(0, lightboxIndex - 60);
+          end = Math.min(lightboxList.length, start + maxStrip);
+        }
+
+        let html = "";
+        for (let i = start; i < end; i++) {
+          const [id, name, isVideo] = lightboxList[i];
+          const active = i === lightboxIndex;
+          html += `
+            <div
+              onclick="openLightboxAt(${i})"
+              class="lb-strip-thumb relative w-14 h-14 rounded-lg overflow-hidden shrink-0 cursor-pointer transition-all ${
+                active ? "ring-2 ring-white opacity-100 scale-105" : "opacity-50 hover:opacity-80"
+              }"
+            >
+              <img
+                src="${getDriveThumbUrl(id, 200)}"
+                onerror="this.onerror=null;this.src='${getDriveThumbFallbackUrl(id, 200)}'"
+                loading="lazy"
+                class="w-full h-full object-cover"
+                alt=""
+              />
+              ${
+                isVideo
+                  ? `<span class="absolute inset-0 flex items-center justify-center bg-black/30 text-white text-xs font-bold">▶</span>`
+                  : ""
+              }
+            </div>
+          `;
+        }
+        strip.innerHTML = html;
+      }
+
+      function stepLightbox(delta) {
+        if (!lightboxList.length) return;
+        lightboxIndex = (lightboxIndex + delta + lightboxList.length) % lightboxList.length;
+        renderLightboxCurrentItem();
+        if (lightboxList.length > 120) {
+          renderLightboxFilmstrip();
+        }
+      }
+
+      function toggleLightboxDriveEmbed() {
+        forceDriveIframeForImage = !forceDriveIframeForImage;
+        renderLightboxCurrentItem();
+      }
+
+      function zoomLightbox(delta) {
+        lbZoom = Math.min(5, Math.max(0.5, +(lbZoom + delta).toFixed(2)));
+        if (lbZoom === 1) {
+          lbPanX = 0;
+          lbPanY = 0;
+        }
+        applyLightboxTransform();
+      }
+
+      function rotateLightbox() {
+        lbRotate = (lbRotate + 90) % 360;
+        applyLightboxTransform();
+      }
+
+      function resetLightboxZoom() {
+        lbZoom = 1;
+        lbRotate = 0;
+        lbPanX = 0;
+        lbPanY = 0;
+        applyLightboxTransform();
+      }
+
+      function applyLightboxTransform() {
+        const imgEl = document.getElementById("lightbox-img");
+        const label = document.getElementById("lb-zoom-label");
+        if (imgEl) {
+          imgEl.style.transform = `translate(${lbPanX}px, ${lbPanY}px) scale(${lbZoom}) rotate(${lbRotate}deg)`;
+        }
+        if (label) {
+          label.innerText = `${Math.round(lbZoom * 100)}%`;
+        }
+      }
+
+      function closeLightbox() {
+        const lb = document.getElementById("drive-lightbox");
+        const iframeEl = document.getElementById("lightbox-iframe");
+        iframeEl.src = "";
+        lb.classList.add("hidden");
+        if (document.getElementById("student-modal").classList.contains("hidden")) {
+          document.body.style.overflow = "auto";
+        }
+      }
+
+      function initLightboxInteractions() {
+        const stage = document.getElementById("lb-stage");
+        const imgEl = document.getElementById("lightbox-img");
+
+        // Lăn chuột để Zoom ảnh chi tiết
+        stage.addEventListener(
+          "wheel",
+          (e) => {
+            if (imgEl.classList.contains("hidden")) return;
+            e.preventDefault();
+            const delta = e.deltaY < 0 ? 0.25 : -0.25;
+            zoomLightbox(delta);
+          },
+          { passive: false }
+        );
+
+        // Kéo chuột để di chuyển ảnh khi đang phóng to
+        imgEl.addEventListener("mousedown", (e) => {
+          if (lbZoom <= 1) return;
+          isDraggingImg = true;
+          dragStartX = e.clientX - lbPanX;
+          dragStartY = e.clientY - lbPanY;
+        });
+        window.addEventListener("mousemove", (e) => {
+          if (!isDraggingImg) return;
+          lbPanX = e.clientX - dragStartX;
+          lbPanY = e.clientY - dragStartY;
+          applyLightboxTransform();
+        });
+        window.addEventListener("mouseup", () => {
+          isDraggingImg = false;
+        });
+
+        // Double click vào ảnh để phóng to 2.5x hoặc thu về 1x
+        imgEl.addEventListener("dblclick", () => {
+          if (lbZoom > 1) {
+            resetLightboxZoom();
+          } else {
+            lbZoom = 2.5;
+            applyLightboxTransform();
+          }
+        });
+
+        // Phím tắt bàn phím
+        document.addEventListener("keydown", (e) => {
+          const lbOpen = !document.getElementById("drive-lightbox").classList.contains("hidden");
+          if (lbOpen) {
+            if (e.key === "Escape") closeLightbox();
+            else if (e.key === "ArrowRight") stepLightbox(1);
+            else if (e.key === "ArrowLeft") stepLightbox(-1);
+            else if (e.key === "+" || e.key === "=") zoomLightbox(0.3);
+            else if (e.key === "-") zoomLightbox(-0.3);
+            else if (e.key === "0") resetLightboxZoom();
+            return;
+          }
+          if (e.key === "Escape") closeModal();
+        });
+      }
+
+      function escapeHtml(str) {
+        return String(str || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
     </script>
   </body>
 </html>
