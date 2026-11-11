@@ -74,7 +74,9 @@ function finish(upload) {
   const browser = await chromium.launch({ headless: true });
   try {
     const context = await browser.newContext({ viewport: { width: 1280, height: 1000 } });
-    await context.addInitScript(url => localStorage.setItem('kn-drive-script-url', url), URL);
+    await context.addInitScript(url => {
+      if (location.origin === 'http://localhost:8080') localStorage.setItem('kn-drive-script-url', url);
+    }, URL);
     await context.route('https://script.google.com/**', routeDrive);
     await context.route(/https:\/\/(lh3\.googleusercontent|drive\.google|ui-avatars\.com)/, route => route.abort());
     const page = await context.newPage();
