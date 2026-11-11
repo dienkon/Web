@@ -15,6 +15,7 @@
         background-color: #f8fafc;
         overflow-x: hidden;
       }
+      section[id] { scroll-margin-top: 6rem; }
       .font-cursive {
         font-family: "Dancing Script", cursive;
       }
@@ -157,7 +158,7 @@
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
             Kho Drive Chuẩn HD
           </a>
-          <a href="#section-class-map" class="hover:text-indigo-600 transition-colors">47 Thành Viên & GVCN</a>
+          <a href="#section-class-map" class="hover:text-indigo-600 transition-colors">Thành Viên & GVCN</a>
         </div>
 
         <div class="flex items-center gap-2">
@@ -201,7 +202,7 @@
       <div class="relative z-10 max-w-5xl mx-auto px-6 slide-up">
         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel text-indigo-900 text-xs md:text-sm font-bold mb-5 shadow-sm">
           <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-          <span id="hero-badge-stats">Đã kết nối trực tiếp Google Drive • 9.228 Kỷ niệm gốc</span>
+          <span id="hero-badge-stats">Đang kết nối Google Drive…</span>
         </div>
 
         <h1
@@ -223,7 +224,7 @@
           >
             <span class="text-2xl md:text-4xl font-bold text-blue-600">10</span>
             <span class="text-[11px] font-bold text-slate-500">Bỡ ngỡ</span>
-            <span id="badge-count-10" class="absolute -top-1 -right-1 bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">12 album</span>
+            <span id="badge-count-10" class="absolute -top-1 -right-1 bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">Đang đọc…</span>
           </button>
 
           <!-- Lớp 11 -->
@@ -234,7 +235,7 @@
           >
             <span class="text-2xl md:text-4xl font-bold text-purple-600">11</span>
             <span class="text-[11px] font-bold text-slate-500">Nổi loạn</span>
-            <span id="badge-count-11" class="absolute -top-1 -right-1 bg-purple-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">22 album</span>
+            <span id="badge-count-11" class="absolute -top-1 -right-1 bg-purple-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">Đang đọc…</span>
           </button>
 
           <!-- Lớp 12 -->
@@ -245,7 +246,7 @@
           >
             <span class="text-2xl md:text-4xl font-bold text-pink-600">12</span>
             <span class="text-[11px] font-bold text-slate-500">Chia xa</span>
-            <span id="badge-count-12" class="absolute -top-1 -right-1 bg-pink-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">6 album</span>
+            <span id="badge-count-12" class="absolute -top-1 -right-1 bg-pink-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">Đang đọc…</span>
           </button>
 
           <!-- Chung & Tổng hợp -->
@@ -323,6 +324,13 @@
         id="section-drive-explorer"
         class="bg-white rounded-[2.25rem] shadow-xl p-6 md:p-10 border border-slate-100 slide-up"
       >
+        <div class="flex flex-wrap items-center gap-2 mb-4" role="tablist" aria-label="Kho Drive và lịch sử">
+          <button id="tab-drive" role="tab" aria-controls="drive-browser-panel" aria-selected="true" onclick="switchDriveTab('drive')" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold">Kho Drive</button>
+          <button id="tab-history" role="tab" aria-controls="drive-history-panel" aria-selected="false" onclick="switchDriveTab('history')" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-700 font-bold">Lịch sử tải lên</button>
+          <button onclick="openDriveSettings()" class="ml-auto px-3 py-2 rounded-xl border text-sm font-bold">Kết nối Drive</button>
+        </div>
+        <p id="drive-live-status" role="status" class="text-sm text-slate-500 mb-4">Đang kết nối Drive…</p>
+        <div id="drive-browser-panel" role="tabpanel" aria-labelledby="tab-drive">
         <!-- Explorer Top Header -->
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-slate-100">
           <div>
@@ -338,8 +346,8 @@
           </div>
 
           <!-- Search & Action Controls -->
-          <div class="flex flex-wrap items-center gap-2.5">
-            <div class="relative flex-1 sm:flex-initial sm:w-64">
+          <div class="flex flex-wrap items-center gap-2.5 w-full lg:w-auto">
+            <div class="relative w-full sm:w-64">
               <input
                 type="text"
                 id="drive-search-input"
@@ -374,6 +382,19 @@
           </div>
         </div>
 
+        <div class="py-4 space-y-3">
+          <div class="flex flex-wrap gap-2 items-center">
+            <button id="drive-upload-button" onclick="document.getElementById('drive-upload-input').click()" class="px-4 py-2.5 rounded-xl bg-indigo-600 text-white font-bold disabled:opacity-50" disabled>↑ Tải tệp lên thư mục này</button>
+            <button id="drive-create-folder-button" onclick="openCreateFolderDialog()" class="px-4 py-2.5 rounded-xl bg-indigo-50 text-indigo-700 font-bold disabled:opacity-50" disabled>+ Tạo thư mục</button>
+            <button id="drive-refresh-button" onclick="refreshDriveNow()" class="px-3 py-2 rounded-xl border text-sm font-bold">↻ Cập nhật</button>
+            <input id="drive-upload-input" type="file" multiple hidden onchange="enqueueDriveFiles(this.files);this.value=''" />
+          </div>
+          <div id="drive-dropzone" tabindex="0" role="button" aria-label="Chọn hoặc kéo thả tệp để tải lên" class="rounded-2xl border-2 border-dashed border-indigo-200 p-5 text-center text-sm text-slate-500">
+            Kéo thả tệp vào đây hoặc bấm để chọn. Nhận mọi loại tệp, không đặt giới hạn dung lượng trên web.
+          </div>
+          <p class="text-xs text-slate-500">Tệp được giữ nguyên chất lượng. Dung lượng khả dụng và hạn mức tải lên theo tài khoản Google Drive.</p>
+          <div id="drive-upload-queue" class="space-y-2" aria-live="polite"></div>
+        </div>
         <!-- Quick Shortcuts Bar -->
         <div class="flex items-center gap-2 overflow-x-auto py-3 border-b border-slate-100 no-scrollbar" id="drive-quick-shortcuts">
           <!-- Injected by JS -->
@@ -468,6 +489,16 @@
             </button>
           </div>
         </div>
+        </div>
+        <div id="drive-history-panel" role="tabpanel" aria-labelledby="tab-history" hidden>
+          <div class="flex flex-wrap items-center justify-between gap-3 py-4">
+            <div><h3 class="text-xl font-bold text-indigo-950">Lịch sử hoạt động</h3><p class="text-sm text-slate-500">Tải tệp và tạo thư mục qua web, lưu dùng chung trên Google Drive.</p></div>
+            <button onclick="loadDriveHistory()" class="px-3 py-2 rounded-xl border text-sm font-bold">↻ Làm mới</button>
+          </div>
+          <p id="drive-history-status" role="status" class="text-sm text-slate-500 mb-3"></p>
+          <div id="drive-history-list" class="space-y-3"></div>
+          <button id="drive-history-more" onclick="loadDriveHistory(true)" class="mt-4 px-4 py-2 rounded-xl bg-indigo-50 font-bold" hidden>Xem lịch sử cũ hơn</button>
+        </div>
       </section>
 
       <!-- 3. Class Map & 47 Students Directory Section -->
@@ -480,7 +511,7 @@
             class="w-32 h-1 bg-gradient-to-r from-purple-400 to-indigo-400 mx-auto rounded-full"
           ></div>
           <p class="text-slate-500 mt-3 max-w-xl mx-auto text-sm md:text-base">
-            Danh sách 47 thành viên & Thầy Cô GVCN được kết nối trực tiếp với từng thư mục cá nhân trên Google Drive.
+            Danh sách thành viên và thư mục cá nhân được cập nhật theo kho Google Drive của lớp.
           </p>
 
           <!-- Filter buttons for Class Members -->
@@ -490,7 +521,7 @@
               id="stu-filter-all"
               class="px-4 py-2 rounded-xl text-xs md:text-sm font-bold bg-indigo-600 text-white shadow-sm transition-all"
             >
-              Tất cả 47 Thành viên
+              Đang đọc thành viên…
             </button>
             <button
               onclick="filterStudents('has-media')"
@@ -539,7 +570,7 @@
     <footer class="bg-indigo-950 text-indigo-200 text-center py-10">
       <p class="font-cursive text-3xl text-white mb-2">Mãi Nhớ Thanh Xuân Của Chúng Mình</p>
       <p class="text-xs md:text-sm text-indigo-300/80 mb-4">
-        Đã kết nối trực tiếp với Google Drive Lớp • Xem ảnh gốc & video Full HD
+        Kho Google Drive Lớp • Ảnh, video và mọi loại tệp
       </p>
       <a
         href="https://drive.google.com/drive/folders/1MmsTXHQZ4QoSsbi5XixRHzwE8lrGBVxa?usp=drive_link"
@@ -774,8 +805,30 @@
       </div>
     </div>
 
-    <!-- Load Indexed Google Drive Data -->
-    <script src="drive-data.js"></script>
+    <dialog id="drive-settings-dialog" class="rounded-3xl p-6 w-full max-w-xl shadow-xl backdrop:bg-black/40">
+      <form onsubmit="saveDriveSettings(event)" class="space-y-4">
+        <h2 class="text-xl font-bold text-indigo-950">Kết nối Google Drive</h2>
+        <p class="text-sm text-slate-600">Kết nối một lần để đọc Drive, tải mọi loại tệp, tạo thư mục và xem lịch sử dùng chung.</p>
+        <label class="block text-sm font-bold">URL Google Apps Script Web App
+          <input id="drive-script-url" type="url" placeholder="https://script.google.com/macros/s/…/exec" class="mt-2 w-full border rounded-xl p-3" />
+        </label>
+        <p class="text-xs text-slate-500">URL nhập tại đây được lưu trên trình duyệt này. Đặt URL trong drive-config.js khi triển khai để mọi người dùng chung.</p>
+        <p class="text-sm"><a href="DRIVE-SETUP.md" target="_blank" rel="noopener" class="text-indigo-700 underline">Hướng dẫn kết nối</a> · <a href="google-apps-script.gs" download class="text-indigo-700 underline">Tải mã Apps Script</a></p>
+        <p id="drive-settings-error" role="alert" class="text-sm text-red-600"></p>
+        <div class="flex gap-2 justify-end"><button type="button" onclick="document.getElementById('drive-settings-dialog').close()" class="px-4 py-2 rounded-xl border">Đóng</button><button id="drive-settings-save" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold">Lưu & kết nối</button></div>
+      </form>
+    </dialog>
+    <dialog id="drive-folder-dialog" class="rounded-3xl p-6 w-full max-w-md shadow-xl backdrop:bg-black/40">
+      <form onsubmit="submitDriveFolder(event)" class="space-y-4">
+        <h2 class="text-xl font-bold">Tạo thư mục trên Drive</h2>
+        <p id="drive-folder-parent" class="text-sm text-slate-500"></p>
+        <label class="block text-sm font-bold">Tên thư mục<input id="drive-folder-name" required class="mt-2 w-full border rounded-xl p-3" /></label>
+        <p id="drive-folder-error" role="alert" class="text-sm text-red-600"></p>
+        <div class="flex gap-2 justify-end"><button type="button" onclick="document.getElementById('drive-folder-dialog').close()" class="px-4 py-2 rounded-xl border">Hủy</button><button id="drive-folder-submit" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold">Tạo thư mục</button></div>
+      </form>
+    </dialog>
+    <!-- Cấu hình chung; dữ liệu thư mục luôn được đọc từ Drive. -->
+    <script src="drive-config.js"></script>
 
     <!-- Main Application Logic -->
     <script>
@@ -809,8 +862,8 @@
       }
 
       // --- STATE QUẢN LÝ DỮ LIỆU ---
-      const driveRoot = window.DRIVE_DATA || {
-        rootId: "1MmsTXHQZ4QoSsbi5XixRHzwE8lrGBVxa",
+      const driveRoot = {
+        rootId: window.DRIVE_CONFIG?.rootId || "1MmsTXHQZ4QoSsbi5XixRHzwE8lrGBVxa",
         totalImages: 0,
         totalVideos: 0,
         folders: [],
@@ -845,12 +898,9 @@
         return parentNode.f.find((sf) => sf.n.toLowerCase().includes(lower));
       }
 
-      const folderChung = findSubfolderByName(ROOT_VIRTUAL_NODE, "0. chung");
-      const folderLuoi = findSubfolderByName(ROOT_VIRTUAL_NODE, "lười chọn tên");
-      const folderLop10 = findSubfolderByName(folderChung, "lớp 10");
-      const folderLop11 = findSubfolderByName(folderChung, "lớp 11");
-      const folderLop12 = findSubfolderByName(folderChung, "lớp 12");
-      const folderGVCN = findSubfolderByName(folderChung, "gvcn");
+      let folderChung, folderLuoi, folderLop10, folderLop11, folderLop12, folderGVCN;
+      let selectedYear = 11;
+      let selectedStudentFilter = "all";
 
       // Trạng thái trình duyệt Drive
       let currentFolderId = driveRoot.rootId;
@@ -874,12 +924,8 @@
 
       // --- KHỞI TẠO KHI TRANG TẢI XONG ---
       document.addEventListener("DOMContentLoaded", () => {
-        initHeroStats();
-        initQuickShortcuts();
-        selectYear(11); // Mặc định hiển thị Lớp 11 (nhiều album sôi động nhất) hoặc có thể đổi sang 10/12/Chung
-        openFolderInExplorer(folderChung ? folderChung.id : driveRoot.rootId, false);
-        renderClassMap("all");
         initLightboxInteractions();
+        initLiveDrive();
       });
 
       function initHeroStats() {
@@ -888,24 +934,18 @@
         document.getElementById("nav-stats-sub").innerText =
           `${fmt(driveRoot.totalImages)} ảnh gốc • ${fmt(driveRoot.totalVideos)} video HD`;
         document.getElementById("hero-badge-stats").innerText =
-          `Đã kết nối Google Drive • ${fmt(totalFiles)} tệp (${fmt(driveRoot.totalImages)} Ảnh & ${fmt(driveRoot.totalVideos)} Video)`;
+          `Đã đọc từ Drive • ${fmt(totalFiles)} ảnh/video • ${fmt(ROOT_VIRTUAL_NODE.to || 0)} tệp khác`;
 
-        if (folderLop10) {
-          document.getElementById("badge-count-10").innerText =
-            `${folderLop10.f.length} album`;
-        }
-        if (folderLop11) {
-          document.getElementById("badge-count-11").innerText =
-            `${folderLop11.f.length} album`;
-        }
-        if (folderLop12) {
-          document.getElementById("badge-count-12").innerText =
-            `${folderLop12.f.length} album`;
-        }
+        [10, 11, 12].forEach((year) => {
+          const node = {10: folderLop10, 11: folderLop11, 12: folderLop12}[year];
+          document.getElementById(`badge-count-${year}`).innerText = node ? `${node.f.length} album` : "Chưa tìm thấy";
+        });
+        document.getElementById("stu-filter-all").innerText = `Tất cả ${getStudentFolders().length} thành viên`;
       }
 
       // --- 1. HÀNH TRÌNH NĂM HỌC (LỚP 10 / 11 / 12 / CHUNG) ---
       function selectYear(yearKey) {
+        selectedYear = yearKey;
         document.querySelectorAll(".year-btn").forEach((btn) => {
           btn.classList.remove("ring-offset-2", "ring-4", "bg-white", "scale-110");
         });
@@ -936,7 +976,7 @@
           titleEl.innerText = "Hành Trình Lớp 10 — Sự Bắt Đầu Bỡ Ngỡ";
           badgeEl.innerText = `${folderLop10.ti.toLocaleString("vi-VN")} ảnh • ${folderLop10.tv.toLocaleString("vi-VN")} video`;
           badgeEl.className = "px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-700";
-          descEl.innerText = "Những kỷ niệm đầu cấp 3: Đầu năm lớp 10, 20/11, Sinh nhật cô Kiều, Trại xuân, Cầu lông và Tổng kết lớp 10.";
+          descEl.innerText = `Có ${folderLop10.f.length} album trong thư mục năm học trên Drive.`;
           albums = [...folderLop10.f];
           if (folderLop10.items && folderLop10.items.length > 0) {
             albums.unshift({
@@ -954,7 +994,7 @@
           titleEl.innerText = "Hành Trình Lớp 11 — Tuổi Trẻ Nổi Loạn & Rực Rỡ";
           badgeEl.innerText = `${folderLop11.ti.toLocaleString("vi-VN")} ảnh • ${folderLop11.tv.toLocaleString("vi-VN")} video`;
           badgeEl.className = "px-3 py-1 rounded-full text-xs font-bold bg-purple-100 text-purple-700";
-          descEl.innerText = "Năm học bùng nổ nhất với 22 album: Đi suối 16/11, Thả diều, Múa 11, Quốc tế Phụ nữ 8/3, Ngày Phụ Nam, Banh bóng và Tổng kết 11!";
+          descEl.innerText = `Có ${folderLop11.f.length} album trong thư mục năm học trên Drive.`;
           albums = [...folderLop11.f];
           if (folderLop11.items && folderLop11.items.length > 0) {
             albums.unshift({
@@ -972,7 +1012,7 @@
           titleEl.innerText = "Hành Trình Lớp 12 — Trân Quý Từng Phút Giây";
           badgeEl.innerText = `${folderLop12.ti.toLocaleString("vi-VN")} ảnh • ${folderLop12.tv.toLocaleString("vi-VN")} video`;
           badgeEl.className = "px-3 py-1 rounded-full text-xs font-bold bg-pink-100 text-pink-700";
-          descEl.innerText = "Năm cuối cấp với Khai giảng 12, Tắm đồng 1/10, Ăn xiên 5/10, Góc Cam ngẫu hứng và Happy 11/11.";
+          descEl.innerText = `Có ${folderLop12.f.length} album trong thư mục năm học trên Drive.`;
           albums = [...folderLop12.f];
         } else if (folderChung) {
           targetFolderId = folderChung.id;
@@ -981,7 +1021,7 @@
           const tv = folderChung.tv + (folderLuoi ? folderLuoi.tv : 0);
           badgeEl.innerText = `${ti.toLocaleString("vi-VN")} ảnh • ${tv.toLocaleString("vi-VN")} video`;
           badgeEl.className = "px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-700";
-          descEl.innerText = "Bao gồm HKPĐ 25-26, KPĐ 26-27, Thầy Cô GVCN, Suối con gái, Đực rựa, Thất Bại Tư Bản và Kho Lười Chọn Tên.";
+          descEl.innerText = "Các bộ sưu tập chung được đọc theo thư mục hiện có trên Drive.";
           albums = folderChung.f.filter(
             (sf) => !["lớp 10", "lớp 11", "lớp 12"].includes(sf.n.toLowerCase())
           );
@@ -997,6 +1037,11 @@
               f: [],
             });
           }
+        } else {
+          titleEl.innerText = "Các thư mục trên Drive";
+          badgeEl.innerText = `${ROOT_VIRTUAL_NODE.f.length} thư mục`;
+          descEl.innerText = "Danh sách được đọc trực tiếp từ Drive và tự cập nhật theo nội dung thực tế.";
+          albums = ROOT_VIRTUAL_NODE.f;
         }
 
         openBtn.onclick = () => openFolderInExplorer(targetFolderId, true);
@@ -1006,7 +1051,7 @@
         albums.forEach((alb) => {
           const previewItems = getSampleItemsFromFolder(alb, 4);
           const coverId = alb.c || (previewItems[0] ? previewItems[0][0] : "");
-          const isEmpty = alb.ti === 0 && alb.tv === 0;
+          const isEmpty = alb.ti === 0 && alb.tv === 0 && !alb.to;
 
           html += `
             <div
@@ -1025,13 +1070,14 @@
                           loading="lazy"
                           class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />`
-                      : `<div class="w-full h-full flex items-center justify-center text-slate-400 text-sm font-semibold">Thư mục trống</div>`
+                      : `<div class="w-full h-full flex items-center justify-center text-slate-400 text-sm font-semibold">${alb.loaded ? (isEmpty ? "Thư mục trống" : "📁 Thư mục Drive") : "Đang đọc nội dung…"}</div>`
                   }
                   <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent"></div>
                   <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white">
                     <div class="flex items-center gap-1.5 text-xs font-bold">
                       ${alb.ti > 0 ? `<span class="px-2.5 py-1 rounded-lg bg-black/50 backdrop-blur-sm">📷 ${alb.ti} ảnh</span>` : ""}
                       ${alb.tv > 0 ? `<span class="px-2.5 py-1 rounded-lg bg-rose-600/80 backdrop-blur-sm">🎬 ${alb.tv} video</span>` : ""}
+                      ${alb.to > 0 ? `<span class="px-2.5 py-1 rounded-lg bg-black/50">📄 ${alb.to} tệp khác</span>` : ""}
                       ${isEmpty ? `<span class="px-2.5 py-1 rounded-lg bg-black/40">Chưa có tệp</span>` : ""}
                     </div>
                   </div>
@@ -1088,6 +1134,7 @@
           if (result.length >= count) return;
           if (n.items && n.items.length) {
             for (const it of n.items) {
+              if (it[2] === 2) continue;
               result.push(it);
               if (result.length >= count) return;
             }
@@ -1113,7 +1160,7 @@
           folderLop11 ? { label: "🔮 Lớp 11", id: folderLop11.id } : null,
           folderLop12 ? { label: "🌸 Lớp 12", id: folderLop12.id } : null,
           folderGVCN ? { label: "👩‍🏫 GVCN", id: folderGVCN.id } : null,
-          folderLuoi ? { label: "📂 Kho Lười Chọn Tên (1.091)", id: folderLuoi.id } : null,
+          folderLuoi ? { label: "📂 Kho Lười Chọn Tên", id: folderLuoi.id } : null,
         ].filter(Boolean);
 
         // Thêm nhanh HKPĐ2526 & KPĐ2627 nếu có
@@ -1148,6 +1195,8 @@
         }
 
         renderDriveExplorer();
+
+        refreshLiveFolder(folderId).catch(showDriveError);
 
         if (scrollToSection) {
           document
@@ -1325,9 +1374,7 @@
                       ${escapeHtml(sf.n)}
                     </h4>
                     <div class="flex items-center gap-2 text-xs text-slate-500 font-semibold mt-0.5">
-                      <span>📷 ${sf.ti} ảnh</span>
-                      <span>•</span>
-                      <span>🎬 ${sf.tv} video</span>
+                      ${sf.loaded ? `<span>📷 ${sf.ti} ảnh · 🎬 ${sf.tv} video${sf.to ? ` · ${sf.to} tệp khác` : ""}</span>` : `<span>Đang đọc nội dung…</span>`}
                     </div>
                   </div>
                 </div>
@@ -1374,8 +1421,8 @@
         headingEl.innerText = currentSearchQuery
           ? `Kết quả tìm kiếm cho "${currentSearchQuery}"`
           : folder.items && folder.items.length > 0
-            ? `Ảnh & Video trong "${folder.n}"`
-            : `Tất cả Ảnh & Video tổng hợp trong "${folder.n}"`;
+            ? `Tệp trong "${folder.n}"`
+            : `Tất cả tệp đã đọc trong "${folder.n}"`;
 
         if (total === 0) {
           filesGrid.innerHTML = `
@@ -1400,6 +1447,7 @@
         filesGrid.innerHTML = slice
           .map((item, idx) => {
             const [id, name, isVideo, modified, folderName] = item;
+            if (isVideo === 2) return `<button onclick="openLightboxFromExplorer(${idx})" class="aspect-square rounded-2xl border border-slate-200 bg-slate-50 p-4 text-left hover:bg-indigo-50 flex flex-col justify-between"><span class="text-4xl" aria-hidden="true">📄</span><span class="text-sm font-bold break-all">${escapeHtml(name)}</span><span class="text-xs text-slate-500">Mở xem / tải tệp trên Drive ↗</span></button>`;
             return `
               <div
                 onclick="openLightboxFromExplorer(${idx})"
@@ -1417,7 +1465,7 @@
                 <!-- Badge loại file -->
                 <div class="absolute top-2.5 left-2.5 flex items-center gap-1.5">
                   ${
-                    isVideo
+                    isVideo === 1
                       ? `<span class="px-2.5 py-1 rounded-lg bg-rose-600 text-white text-[11px] font-bold shadow flex items-center gap-1">
                           <span>▶ VIDEO HD</span>
                         </span>`
@@ -1429,7 +1477,7 @@
 
                 <!-- Nút Play chính giữa nếu là Video -->
                 ${
-                  isVideo
+                  isVideo === 1
                     ? `<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
                         <div class="w-12 h-12 rounded-full bg-white/90 text-rose-600 flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
                           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-0.5" viewBox="0 0 20 20" fill="currentColor">
@@ -1473,11 +1521,12 @@
         // Lấy các folder đánh số từ 1. đến 47.
         return driveRoot.folders.filter((f) => {
           const num = parseInt(f.n.split(".")[0], 10);
-          return !isNaN(num) && num >= 1 && num <= 50;
+          return /^\d+\./.test(f.n) && num >= 1;
         });
       }
 
       function filterStudents(mode) {
+        selectedStudentFilter = mode;
         ["all", "media", "teachers"].forEach((k) => {
           const btn = document.getElementById(`stu-filter-${k}`);
           if (!btn) return;
@@ -1528,7 +1577,7 @@
             const totalMedia = sf.ti + sf.tv;
             const avatarUrl = sf.c
               ? getDriveThumbUrl(sf.c, 300)
-              : `https://ui-avatars.com/api/?name=${encodeURIComponent(item.cleanName)}&background=${colors[idx % colors.length]}&color=fff&size=160&bold=true`;
+              : `https://ui-avatars.com/api/?name=${encodeURIComponent(item.cleanName).replace(/'/g, '%27')}&background=${colors[idx % colors.length]}&color=fff&size=160&bold=true`;
 
             return `
               <div
@@ -1538,7 +1587,7 @@
                 <div class="relative">
                   <img
                     src="${avatarUrl}"
-                    onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(item.cleanName)}&background=6366F1&color=fff&size=160'"
+                    onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(item.cleanName).replace(/'/g, '%27')}&background=6366F1&color=fff&size=160'"
                     alt="${escapeHtml(item.cleanName)}"
                     loading="lazy"
                     class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-white shadow-md object-cover bg-slate-200"
@@ -1583,7 +1632,7 @@
 
         const avatarUrl = sf.c
           ? getDriveThumbUrl(sf.c, 400)
-          : `https://ui-avatars.com/api/?name=${encodeURIComponent(cleanName)}&background=4F46E5&color=fff&size=200&bold=true`;
+          : `https://ui-avatars.com/api/?name=${encodeURIComponent(cleanName).replace(/'/g, '%27')}&background=4F46E5&color=fff&size=200&bold=true`;
 
         document.getElementById("modal-avatar").src = avatarUrl;
         document.getElementById("modal-number").innerText = numLabel;
@@ -1599,7 +1648,7 @@
           openFolderInExplorer(sf.id, true);
         };
 
-        modalMediaList = collectAllFilesUnderFolder(sf);
+        modalMediaList = collectAllFilesUnderFolder(sf).filter(item => item[2] !== 2);
         const galleryDiv = document.getElementById("modal-gallery");
 
         if (modalMediaList.length > 0) {
@@ -1619,7 +1668,7 @@
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   ${
-                    isVideo
+                    isVideo === 1
                       ? `<div class="absolute inset-0 bg-black/30 flex items-center justify-center">
                           <span class="px-2.5 py-1 rounded-full bg-rose-600 text-white text-xs font-bold shadow">▶ Video HD</span>
                         </div>`
@@ -1723,13 +1772,13 @@
           iframeEl.onload = () => {
             spinner.classList.add("hidden");
           };
-        } else if (forceDriveIframeForImage) {
+        } else if (forceDriveIframeForImage || isVideo === 2) {
           // CHẾ ĐỘ XEM ẢNH BẰNG KHUNG NHÚNG GOOGLE DRIVE (/preview)
           badgeEl.innerText = "KHUNG CHUẨN DRIVE";
           badgeEl.className = "px-2.5 py-1 rounded-lg text-xs font-bold bg-blue-600 uppercase shrink-0";
           imgEl.classList.add("hidden");
           zoomControls.classList.add("hidden");
-          toggleBtn.classList.remove("hidden");
+          toggleBtn.classList.toggle("hidden", isVideo === 2);
           toggleText.innerText = "Xem Ảnh Gốc Ultra-HD";
 
           spinner.classList.remove("hidden");
@@ -1812,7 +1861,7 @@
                 alt=""
               />
               ${
-                isVideo
+                isVideo === 1
                   ? `<span class="absolute inset-0 flex items-center justify-center bg-black/30 text-white text-xs font-bold">▶</span>`
                   : ""
               }
@@ -1943,8 +1992,10 @@
           .replace(/&/g, "&amp;")
           .replace(/</g, "&lt;")
           .replace(/>/g, "&gt;")
-          .replace(/"/g, "&quot;");
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
       }
     </script>
+    <script src="drive-live.js"></script>
   </body>
 </html>
