@@ -13,6 +13,15 @@ Trang không dùng `drive-data.js`. Danh sách thư mục/tệp lấy từ Drive
 
 Sau khi sửa Apps Script, vào **Deploy → Manage deployments → Edit → New version → Deploy** để URL `/exec` chạy mã mới.
 
+### Lỗi thiếu quyền `UrlFetchApp.fetch` / `script.external_request`
+
+1. Vào **Project Settings**, bật hiển thị manifest, rồi mở **appsscript.json** trong trình soạn thảo. Thay bằng nội dung file `appsscript.json` trong repo; mảng `oauthScopes` phải có cả `drive`, `spreadsheets` và `script.external_request` với URL đầy đủ như file đó.
+2. Lưu mã và manifest. Chọn **setup → Run** ngay trong trình soạn thảo bằng tài khoản chủ deployment. Trong **Review permissions**, cấp đủ các quyền được yêu cầu, kể cả kết nối dịch vụ bên ngoài. Mở URL `/exec` không thay thế được bước cấp quyền này.
+3. Đợi `setup` hoàn tất thành công. Bản setup mới yêu cầu đủ quyền và thử đọc Drive API trước khi báo thành công.
+4. **Deploy → Manage deployments → Edit → New version → Deploy**. Giữ **Execute as: Me**, dùng URL `/exec` của deployment vừa cập nhật rồi thử lại.
+
+Nếu vẫn thiếu quyền, kiểm tra lại tài khoản chạy `setup` có phải tài khoản triển khai và manifest của chính dự án đang cung cấp URL `/exec` hay không. Hướng dẫn chính thức: [Apps Script authorization troubleshooting](https://developers.google.com/apps-script/guides/support/troubleshooting#authorization-is).
+
 ## Chạy tại máy
 
 ```powershell

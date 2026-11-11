@@ -9,7 +9,15 @@ const CHUNK_BYTES = 8 * 1024 * 1024; // Mỗi request; không giới hạn dung 
 const SESSION_TTL = 7 * 24 * 60 * 60 * 1000;
 
 function setup() {
+  // Run from the editor: Web Apps cannot present the owner's consent dialog.
+  ScriptApp.requireScopes(ScriptApp.AuthMode.FULL, [
+    'https://www.googleapis.com/auth/drive',
+    'https://www.googleapis.com/auth/spreadsheets',
+    'https://www.googleapis.com/auth/script.external_request'
+  ]);
   const root = allowedFolder(ROOT_FOLDER_ID);
+  // Verify external requests and Drive API before reporting setup as complete.
+  readFolder(ROOT_FOLDER_ID);
   const lock = LockService.getScriptLock();
   lock.waitLock(30000);
   try {

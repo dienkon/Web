@@ -25,7 +25,8 @@ function gas() {
   };
   const res = (code, data = {}, headers = {}) => ({ getResponseCode: () => code, getContentText: () => JSON.stringify(data), getAllHeaders: () => headers });
   const context = vm.createContext({ console: { log() {} },
-    DriveApp: { getFolderById: folder }, ScriptApp: { getOAuthToken: () => 'server-only-token' },
+    DriveApp: { getFolderById: folder }, ScriptApp: { getOAuthToken: () => 'server-only-token', AuthMode: { FULL: 'FULL' },
+      requireScopes: (mode, scopes) => { assert.equal(mode, 'FULL'); assert.ok(scopes.includes('https://www.googleapis.com/auth/script.external_request')); } },
     ContentService: { MimeType: { JSON: 'json' }, createTextOutput: value => ({ setMimeType: () => JSON.parse(value) }) },
     PropertiesService: { getScriptProperties: () => props },
     LockService: { getScriptLock: () => ({ waitLock: () => { assert.equal(locked, false); locked = true; }, releaseLock: () => { locked = false; } }) },
@@ -44,6 +45,7 @@ function gas() {
   });
   vm.runInContext(fs.readFileSync(path.join(base, 'google-apps-script.gs'), 'utf8'), context);
   context.setup();
+  requests.length = 0;
   return { context, properties, rows, requests, res, tree, post: body => context.doPost({ postData: { contents: JSON.stringify(body) } }),
     get: params => context.doGet({ parameter: params }) };
 }
@@ -55,6 +57,16 @@ test('public API rejects folders outside the root and trashed ancestors', () => 
     assert.equal(g.post({ action: 'createFolder', parentId: id, folderName: 'X', operationId: OP }).ok, false);
   }
   assert.equal(g.requests.length, 0);
+});
+
+test('setup requires external-request consent and verifies the real API call', () => {
+  const g = gas();
+  g.context.ScriptApp.requireScopes = () => { throw new Error('Authorization required'); };
+  assert.throws(() => g.context.setup(), /Authorization required/);
+  assert.equal(g.requests.length, 0);
+  g.context.ScriptApp.requireScopes = () => {};
+  g.context.fetchResponse = () => { throw new Error('Missing script.external_request'); };
+  assert.throws(() => g.context.setup(), /Missing script.external_request/);
 });
 
 test('live listing retains all file types and forwards pagination', () => {
