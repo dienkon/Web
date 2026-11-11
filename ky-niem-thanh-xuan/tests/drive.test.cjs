@@ -128,9 +128,10 @@ test('history pagination never drops older events or exposes private session dat
   assert.doesNotMatch(JSON.stringify(all), /private/);
 });
 
-function frontend() {
-  const context = vm.createContext({ console, localStorage: { getItem() { return null; } }, window: { DRIVE_CONFIG: {} },
-    document: { addEventListener() {} }, crypto: {}, location: { href: 'http://localhost/' }, setTimeout, clearTimeout,
+function frontend(storage = new Map()) {
+  const context = vm.createContext({ console, localStorage: { getItem: key => storage.get(key) || null,
+    setItem: (key, value) => storage.set(key, value), removeItem: key => storage.delete(key) }, window: { DRIVE_CONFIG: {} },
+    document: { addEventListener() {}, hidden: false }, navigator: { onLine: true }, crypto: {}, location: { href: 'http://localhost/' }, setTimeout, clearTimeout,
     AbortSignal, URL, fetch() { throw new Error('Unexpected real network request'); } });
   const html = fs.readFileSync(path.join(base, 'index.html'), 'utf8');
   const scripts = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)].map(x => x[1]);
@@ -164,4 +165,44 @@ test('failed pagination preserves last successful listing', async () => {
   };
   await assert.rejects(c.refreshLiveFolder(ROOT), /Offline/);
   assert.equal(vm.runInContext('ROOT_VIRTUAL_NODE.items[0][0]', c), 'old');
+});
+
+test('cached Drive data restores before network and fresh folders need no new request', async () => {
+  const storage = new Map(), c = frontend(storage);
+  c.driveRequest = async () => ({ ok: true, folder: { id: ROOT, n: 'Live root', f: [], items: [['img', 'Live.jpg', 0, '']] } });
+  await c.refreshLiveFolder(ROOT);
+  c.saveDriveCache();
+  const next = frontend(storage);
+  assert.equal(next.restoreDriveCache(), true);
+  assert.equal(vm.runInContext('driveRoot.totalImages', next), 1);
+  let requests = 0;
+  next.driveRequest = async () => { requests++; return { ok: true, folder: { id: ROOT, n: 'Live root', f: [], items: [] } }; };
+  await next.ensureLiveFolder(ROOT);
+  assert.equal(requests, 0, 'warm navigation uses the last actual Drive listing');
+  await next.refreshLiveFolder(ROOT);
+  assert.equal(requests, 1, 'manual/write refresh bypasses the cached listing');
+  assert.equal(vm.runInContext('driveRoot.totalImages', next), 0);
+});
+
+test('polling waits ten minutes and returning to the tab does not trigger repeated scans', async () => {
+  const c = frontend(); let requests = 0;
+  c.driveRequest = async () => { requests++; return { ok: true, folder: { id: ROOT, n: 'Root', f: [], items: [] } }; };
+  vm.runInContext('liveState.lastPoll = Date.now(); liveState.lastScan = Date.now();', c);
+  await c.pollLiveDrive(); await c.pollLiveDrive();
+  assert.equal(requests, 0);
+  vm.runInContext('liveState.lastPoll -= 10 * 60 * 1000;', c);
+  await c.pollLiveDrive();
+  assert.equal(requests, 1);
+  await c.pollLiveDrive();
+  assert.equal(requests, 1);
+});
+
+test('expired or malformed caches are ignored', () => {
+  for (const root of [{ id: ROOT, n: 'Old', f: [], items: [] }, { id: ROOT, n: 'Bad', f: [], items: [['invalid\"id', 'X', 0]] }]) {
+    const storage = new Map(), c = frontend(storage);
+    const lastRead = root.n === 'Old' ? Date.now() - 11 * 60 * 60 * 1000 : Date.now();
+    storage.set(c.driveCacheKey(), JSON.stringify({ version: 1, root, lastRead, savedAt: Date.now() }));
+    assert.equal(c.restoreDriveCache(), false);
+    assert.equal(vm.runInContext('driveRoot.totalImages', c), 0);
+  }
 });

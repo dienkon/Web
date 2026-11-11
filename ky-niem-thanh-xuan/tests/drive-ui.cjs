@@ -12,13 +12,19 @@ const folders = new Map([
 ]);
 const events = [], uploads = new Map(), errors = [];
 let lostAck = true;
+let delayPing = false;
+const folderReads = new Map();
 
 async function routeDrive(route) {
   const request = route.request(), url = new global.URL(request.url());
   const body = request.method() === 'POST' ? request.postDataJSON() : Object.fromEntries(url.searchParams);
   let response = { ok: true };
-  if (body.action === 'ping') response = { ok: true, rootId: ROOT, version: 2, writable: true };
+  if (body.action === 'ping') {
+    if (delayPing) await new Promise(resolve => setTimeout(resolve, 1000));
+    response = { ok: true, rootId: ROOT, version: 2, writable: true };
+  }
   else if (body.action === 'folder') {
+    folderReads.set(body.id, (folderReads.get(body.id) || 0) + 1);
     const folder = structuredClone(folders.get(body.id));
     if (!folder) response = { ok: false, error: 'Folder removed' };
     else {
@@ -82,8 +88,31 @@ function finish(upload) {
     assert.equal(await page.evaluate(() => driveRoot.totalVideos), 1);
     assert.equal(dataRequests.length, 0);
     assert.equal(await page.locator('#drive-files-grid b').count(), 0, 'Drive names are escaped');
+    const readsBeforeOpen = folderReads.get('photos');
     await page.evaluate(() => openFolderInExplorer('photos'));
     await page.waitForFunction(() => activeMediaList.length === 2);
+    assert.equal(folderReads.get('photos'), readsBeforeOpen, 'cached folder opens without waiting for Drive');
+    const stableImage = await page.evaluate(() => {
+      const image = document.querySelector('#drive-files-grid img');
+      repaintLiveData();
+      return image === document.querySelector('#drive-files-grid img');
+    });
+    assert.equal(stableImage, true, 'background renders preserve decoded thumbnails');
+    await page.evaluate(() => { window.testLoadedThumbnail = document.querySelector('#drive-files-grid img'); });
+    folders.get('photos').items.push(['extra', 'Ảnh thêm.jpg', 0, '2026-11-11']);
+    await page.evaluate(() => refreshLiveFolder('photos'));
+    assert.equal(await page.evaluate(() => window.testLoadedThumbnail === document.querySelector('#drive-files-grid img')), true, 'new Drive items do not reload existing images');
+    await page.evaluate(() => openLightboxFromExplorer(0));
+    assert.match(await page.locator('#lightbox-img').getAttribute('src'), /w600|sz=w600/, 'preview appears while original loads');
+    await page.evaluate(() => closeLightbox());
+    const videoPreview = await page.evaluate(() => {
+      openLightboxFromExplorer(1);
+      const poster = document.getElementById('lightbox-video-poster');
+      return { visible: !poster.hidden, src: poster.src };
+    });
+    assert.equal(videoPreview.visible, true, 'video poster is visible before the Drive player loads');
+    assert.match(videoPreview.src, /video1=w600/);
+    await page.evaluate(() => closeLightbox());
     const payload = Buffer.alloc(600000, 37);
     await page.locator('#drive-upload-input').setInputFiles([
       { name: 'archive.bin', mimeType: 'application/octet-stream', buffer: payload },
@@ -101,10 +130,15 @@ function finish(upload) {
     await page.locator('#tab-history').click();
     await page.waitForFunction(() => document.querySelector('#drive-history-list').children.length === 3);
     assert.match(await page.locator('#drive-history-list').innerText(), /archive\.bin/);
+    await page.waitForFunction(() => !liveState.scanning);
+    await page.evaluate(() => saveDriveCache());
+    delayPing = true;
     const other = await context.newPage();
     await other.goto('http://localhost:8080', { waitUntil: 'domcontentloaded' });
+    assert.equal(await other.evaluate(() => folderById.get('photos')?.loaded), true, 'reload restores real Drive data before slow connection checks');
     await other.locator('#tab-history').click();
     await other.waitForFunction(() => document.querySelector('#drive-history-list').children.length === 3);
+    delayPing = false;
     folders.get(ROOT).f = folders.get(ROOT).f.filter(item => item.id !== 'photos');
     folders.get('empty').n = 'Đã đổi tên';
     folders.get(ROOT).f.find(item => item.id === 'empty').n = 'Đã đổi tên';

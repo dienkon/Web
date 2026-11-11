@@ -3,6 +3,7 @@
 window.DRIVE_CONFIG = {
   rootId: "1MmsTXHQZ4QoSsbi5XixRHzwE8lrGBVxa",
   appsScriptUrl: "",
-  pollIntervalMs: 15000,
-  treeRefreshIntervalMs: 120000,
+  pollIntervalMs: 10 * 60 * 1000,
+  treeRefreshIntervalMs: 6 * 60 * 60 * 1000,
+  cacheMaxAgeMs: 10 * 60 * 60 * 1000,
 };

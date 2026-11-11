@@ -1,6 +1,6 @@
 # Google Drive trực tiếp
 
-Trang không dùng `drive-data.js`. Danh sách thư mục/tệp được lấy từ Drive khi mở trang, khi chuyển thư mục, và tự kiểm tra lại mỗi 15 giây. Toàn bộ cây được quét lại mỗi 2 phút khi trang đang mở để cập nhật album, tìm kiếm, số lượng và thành viên. Thay đổi ngoài Drive có thể chậm đến chu kỳ kiểm tra tiếp theo; đây là polling, không phải thông báo push tức thì của Google.
+Trang không dùng `drive-data.js`. Danh sách thư mục/tệp lấy từ Drive được lưu tại trình duyệt tối đa 10 giờ để hiện ngay khi mở lại. Thư mục đã có dữ liệu được hiển thị trước, chỉ đọc lại khi dữ liệu quá 10 phút; thư mục mới được đọc ngay khi mở. Thư mục đang xem được tự kiểm tra mỗi 10 phút, toàn bộ cây mỗi 6 giờ khi trang đang mở để cập nhật album, tìm kiếm, số lượng và thành viên. Có thể đổi các khoảng thời gian trong `drive-config.js`; nút Cập nhật và thao tác tải lên/tạo thư mục luôn đọc lại ngay. Lưới giữ nguyên các ảnh đã tải nếu nội dung không đổi; khung xem ảnh hiện bản xem trước trong lúc tải bản gốc. Thay đổi ngoài Drive có thể chậm đến chu kỳ kiểm tra tiếp theo; đây là polling, không phải thông báo push tức thì của Google.
 
 ## Kết nối dùng chung (một lần bằng tài khoản có quyền ghi thư mục)
 

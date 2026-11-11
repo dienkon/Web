@@ -1,9 +1,11 @@
 /* Live Drive data, resumable uploads and shared operation history. */
 const liveConfig = window.DRIVE_CONFIG || {};
+const drivePollInterval = Math.max(60000, liveConfig.pollIntervalMs || 10 * 60 * 1000);
+const driveTreeInterval = Math.max(drivePollInterval, liveConfig.treeRefreshIntervalMs || 6 * 60 * 60 * 1000);
 const liveState = {
   url: storageGet('kn-drive-script-url') || liveConfig.appsScriptUrl || '',
   writable: false, generation: 0, requests: new Map(), scanning: false,
-  lastScan: 0, lastRead: 0, tab: 'drive', historyBefore: null, historyBusy: false,
+  lastScan: 0, lastRead: 0, lastPoll: 0, tab: 'drive', historyBefore: null, historyBusy: false,
   queue: [], uploading: false, folderTarget: null, historyEvents: [],
 };
 
@@ -12,6 +14,47 @@ function storageGet(key) {
 }
 function storageSet(key, value) {
   try { value === null ? localStorage.removeItem(key) : localStorage.setItem(key, value); } catch (_) {}
+}
+function driveCacheKey() {
+  return 'kn-drive-cache-v1:' + JSON.stringify([driveRoot.rootId, liveState.url]);
+}
+function restoreDriveCache() {
+  try {
+    const cached = JSON.parse(storageGet(driveCacheKey()));
+    if (!cached || cached.version !== 1 || cached.root.id !== driveRoot.rootId ||
+        !Number.isFinite(cached.lastRead) || Date.now() - cached.lastRead > (liveConfig.cacheMaxAgeMs || 10 * 60 * 60 * 1000)) return false;
+    const validNode = node => /^[\w-]+$/.test(node.id) && typeof node.n === 'string' &&
+      Array.isArray(node.items) && node.items.every(item => Array.isArray(item) && /^[\w-]+$/.test(item[0]) && typeof item[1] === 'string' && [0, 1, 2].includes(item[2])) &&
+      Array.isArray(node.f) && node.f.every(validNode);
+    if (!validNode(cached.root)) return false;
+    Object.assign(ROOT_VIRTUAL_NODE, cached.root);
+    liveState.lastRead = cached.lastRead || 0;
+    liveState.lastScan = cached.lastScan || 0;
+    liveState.lastPoll = cached.lastPoll || 0;
+    rebuildDriveIndex();
+    return true;
+  } catch (_) { return false; }
+}
+let driveCacheTimer = null;
+function saveDriveCache() {
+  if (!ROOT_VIRTUAL_NODE.loaded) return;
+  const cache = JSON.stringify({ version: 1, savedAt: Date.now(), lastRead: liveState.lastRead,
+    lastScan: liveState.lastScan, lastPoll: liveState.lastPoll, root: ROOT_VIRTUAL_NODE },
+  (key, value) => key === 'liveSignature' ? undefined : value);
+  storageSet(driveCacheKey(), cache);
+}
+function scheduleDriveCache() {
+  if (driveCacheTimer !== null) return;
+  const generation = liveState.generation;
+  driveCacheTimer = setTimeout(() => {
+    driveCacheTimer = null;
+    if (generation === liveState.generation) saveDriveCache();
+  }, 1500);
+}
+function ensureLiveFolder(id, generation = liveState.generation) {
+  const node = folderById.get(id);
+  if (node?.loaded && Date.now() - node.loadedAt < drivePollInterval) return Promise.resolve(node);
+  return refreshLiveFolder(id, generation);
 }
 function newOperationId() {
   return crypto.randomUUID ? crypto.randomUUID() : 'op-' + Date.now() + '-' + Math.random().toString(36).slice(2);
@@ -69,30 +112,35 @@ async function initLiveDrive() {
     event.preventDefault(); zone.classList.remove('bg-indigo-50');
     enqueueDriveFiles(event.dataTransfer.files);
   });
+  restoreDriveCache();
   repaintLiveData();
   await connectLiveDrive();
-  setInterval(pollLiveDrive, Math.max(5000, liveConfig.pollIntervalMs || 15000));
+  setInterval(pollLiveDrive, drivePollInterval);
   document.addEventListener('visibilitychange', () => { if (!document.hidden) pollLiveDrive(); });
   window.addEventListener('online', () => { pollLiveDrive(); });
   window.addEventListener('beforeunload', event => {
     if (liveState.uploading) { event.preventDefault(); event.returnValue = ''; }
   });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) saveDriveCache(); });
 }
 
 async function connectLiveDrive() {
   const generation = ++liveState.generation;
-  liveState.requests.clear(); liveState.lastScan = 0;
+  clearTimeout(driveCacheTimer); driveCacheTimer = null;
+  liveState.requests.clear();
   setWritable(false);
-  setDriveStatus('Đang kết nối và đọc dữ liệu thực tế từ Drive…');
+  setDriveStatus(ROOT_VIRTUAL_NODE.loaded ? 'Đang hiển thị dữ liệu Drive đã lưu. Kiểm tra kết nối trong nền…' : 'Đang kết nối và đọc dữ liệu thực tế từ Drive…');
   try {
     const status = await driveRequest('ping');
     if (generation !== liveState.generation) return;
     if (status.rootId !== driveRoot.rootId) throw new Error('Cầu nối được cấu hình cho một thư mục Drive khác.');
     if (liveState.url && status.version !== 2) throw new Error('Cần triển khai phiên bản mới của google-apps-script.gs.');
     setWritable(Boolean(liveState.url && status.writable));
-    await refreshLiveFolder(driveRoot.rootId);
+    await ensureLiveFolder(driveRoot.rootId);
     if (generation !== liveState.generation) return;
-    scanDriveTree().catch(showDriveError);
+    liveState.lastPoll = Date.now();
+    showLiveTimestamp();
+    if (!liveState.lastScan || Date.now() - liveState.lastScan >= driveTreeInterval) scanDriveTree().catch(showDriveError);
   } catch (error) {
     if (generation === liveState.generation) {
       showDriveError(error);
@@ -131,9 +179,12 @@ async function refreshLiveFolder(id, generation = liveState.generation) {
       node.liveSignature = signature;
       node.loaded = true;
       rebuildDriveIndex();
-      repaintLiveData();
+      if (id === currentFolderId) repaintLiveData();
+      else scheduleLiveRepaint();
     }
+    node.loadedAt = Date.now();
     liveState.lastRead = Date.now();
+    scheduleDriveCache();
     if (!liveState.scanning) showLiveTimestamp();
     return node;
   })();
@@ -175,31 +226,38 @@ function repaintLiveData() {
   initHeroStats(); initQuickShortcuts(); selectYear(selectedYear);
   renderDriveExplorer(); renderClassMap(selectedStudentFilter);
 }
+let driveRepaintTimer = null;
+function scheduleLiveRepaint() {
+  if (driveRepaintTimer !== null) return;
+  driveRepaintTimer = setTimeout(() => { driveRepaintTimer = null; repaintLiveData(); }, 100);
+}
 function showLiveTimestamp() {
   const time = new Date(liveState.lastRead).toLocaleTimeString('vi-VN');
-  setDriveStatus(`Đã đọc Drive lúc ${time} · Tự kiểm tra thư mục đang xem mỗi 15 giây, toàn kho mỗi 2 phút.${liveState.writable ? '' : ' Kết nối Apps Script để bật tải lên và lịch sử.'}`);
+  setDriveStatus(`Dữ liệu Drive lúc ${time} · Cập nhật nền mỗi ${Math.round(drivePollInterval / 60000)} phút, toàn kho mỗi ${Math.round(driveTreeInterval / 3600000)} giờ.${liveState.writable ? '' : ' Kết nối Apps Script để bật tải lên và lịch sử.'}`);
 }
 
-async function scanDriveTree() {
+async function scanDriveTree(force = false) {
   if (liveState.scanning) return;
   liveState.scanning = true;
   const generation = liveState.generation, queue = [driveRoot.rootId], seen = new Set(), failures = [];
   let read = 0;
   try {
     while (queue.length && generation === liveState.generation) {
-      const batch = queue.splice(0, 4).filter(id => !seen.has(id));
+      const batch = queue.splice(0, 2).filter(id => !seen.has(id));
       batch.forEach(id => seen.add(id));
       await Promise.all(batch.map(async id => {
         try {
-          const node = await refreshLiveFolder(id, generation);
-          if (node) { read++; queue.push(...node.f.map(child => child.id)); }
+          const node = await (force ? refreshLiveFolder(id, generation) : ensureLiveFolder(id, generation));
+          if (node) { read++; queue.unshift(...node.f.map(child => child.id)); }
         } catch (error) { failures.push(error); }
       }));
       if (generation === liveState.generation) setDriveStatus(`Đang đọc toàn bộ Drive: ${read} thư mục. Có thể mở thư mục và tải tệp trong lúc chờ…`);
+      await new Promise(resolve => setTimeout(resolve, 16));
     }
     if (generation === liveState.generation) {
-      liveState.lastScan = Date.now();
       if (failures.length) throw new Error(`${failures.length} thư mục chưa đọc được. ${failures[0].message}`);
+      liveState.lastScan = Date.now();
+      scheduleDriveCache();
       showLiveTimestamp();
     }
   } finally {
@@ -210,8 +268,9 @@ async function scanDriveTree() {
 
 let livePollBusy = false;
 async function pollLiveDrive() {
-  if (document.hidden || !navigator.onLine || livePollBusy) return;
+  if (document.hidden || !navigator.onLine || livePollBusy || Date.now() - liveState.lastPoll < drivePollInterval) return;
   livePollBusy = true;
+  liveState.lastPoll = Date.now();
   try {
     // Refresh ancestors first so a removed/moved folder cannot remain in navigation.
     const ids = [currentFolderId];
@@ -219,14 +278,14 @@ async function pollLiveDrive() {
     while (parent) { ids.unshift(parent); parent = parentById.get(parent); }
     if (!ids.includes(driveRoot.rootId)) ids.unshift(driveRoot.rootId);
     for (const id of ids) if (folderById.has(id)) await refreshLiveFolder(id);
-    if (Date.now() - liveState.lastScan > (liveConfig.treeRefreshIntervalMs || 120000)) scanDriveTree().catch(showDriveError);
+    if (Date.now() - liveState.lastScan >= driveTreeInterval) scanDriveTree().catch(showDriveError);
     if (liveState.tab === 'history') await loadDriveHistory(false, true);
   } catch (error) { showDriveError(error); } finally { livePollBusy = false; }
 }
 async function refreshDriveNow() {
   const button = document.getElementById('drive-refresh-button');
   button.disabled = true;
-  try { await refreshLiveFolder(currentFolderId); await scanDriveTree(); }
+  try { await refreshLiveFolder(currentFolderId); await scanDriveTree(true); }
   catch (error) { showDriveError(error); } finally { button.disabled = false; }
 }
 
@@ -245,7 +304,12 @@ async function saveDriveSettings(event) {
     if (url && !validScriptUrl(url)) throw new Error('URL cần có dạng https://script.google.com/macros/s/…/exec');
     const status = await driveRequest('ping', {}, false, { url });
     if (status.rootId !== driveRoot.rootId || (url && status.version !== 2)) throw new Error('Cần triển khai đúng phiên bản Apps Script và thư mục Drive của lớp.');
+    saveDriveCache();
     liveState.url = url; storageSet('kn-drive-script-url', url || null);
+    liveState.lastScan = 0; liveState.lastPoll = 0; liveState.lastRead = 0;
+    Object.assign(ROOT_VIRTUAL_NODE, { n: 'Drive Lớp Mình (Tất cả)', f: [], items: [], loaded: false, loadedAt: 0, liveSignature: null });
+    restoreDriveCache(); rebuildDriveIndex(); repaintLiveData();
+    liveState.historyEvents = []; liveState.historyBefore = null;
     liveState.queue = []; renderUploadQueue();
     document.getElementById('drive-settings-dialog').close();
     await connectLiveDrive();

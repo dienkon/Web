@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kỷ Niệm Thanh Xuân - Kho Lưu Trữ Lớp Chúng Mình</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://lh3.googleusercontent.com" />
+    <link rel="preconnect" href="https://drive.google.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap"
       rel="stylesheet"
@@ -777,7 +779,8 @@
         />
 
         <!-- Google Drive Official HD Video / Embed Player -->
-        <div id="lightbox-iframe-wrap" class="w-full max-w-5xl h-[72vh] md:h-[78vh] z-20 hidden">
+        <div id="lightbox-iframe-wrap" class="relative w-full max-w-5xl h-[72vh] md:h-[78vh] z-20 hidden">
+          <img id="lightbox-video-poster" alt="Ảnh xem trước video" hidden class="absolute inset-0 z-10 w-full h-full object-contain rounded-2xl bg-black pointer-events-none" />
           <iframe
             id="lightbox-iframe"
             src=""
@@ -913,6 +916,7 @@
       // Trạng thái Lightbox
       let lightboxList = [];
       let lightboxIndex = 0;
+      let lightboxImageRequest = 0;
       let lbZoom = 1;
       let lbRotate = 0;
       let lbPanX = 0;
@@ -1067,7 +1071,7 @@
                           src="${getDriveThumbUrl(coverId, 600)}"
                           onerror="this.onerror=null;this.src='${getDriveThumbFallbackUrl(coverId, 600)}'"
                           alt="${escapeHtml(alb.n)}"
-                          loading="lazy"
+                          loading="lazy" decoding="async"
                           class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />`
                       : `<div class="w-full h-full flex items-center justify-center text-slate-400 text-sm font-semibold">${alb.loaded ? (isEmpty ? "Thư mục trống" : "📁 Thư mục Drive") : "Đang đọc nội dung…"}</div>`
@@ -1101,7 +1105,7 @@
                           <img
                             src="${getDriveThumbUrl(it[0], 240)}"
                             onerror="this.onerror=null;this.src='${getDriveThumbFallbackUrl(it[0], 240)}'"
-                            loading="lazy"
+                            loading="lazy" decoding="async"
                             class="w-full h-full object-cover"
                             alt=""
                           />
@@ -1125,7 +1129,7 @@
           `;
         });
 
-        container.innerHTML = html;
+        setDriveMarkup(container, html);
       }
 
       function getSampleItemsFromFolder(folderNode, count = 4) {
@@ -1169,7 +1173,7 @@
         if (hkpd) shortcuts.push({ label: "🏅 HKPĐ 25-26", id: hkpd.id });
         if (kpd) shortcuts.push({ label: "🏆 KPĐ 26-27", id: kpd.id });
 
-        bar.innerHTML = shortcuts
+        setDriveMarkup(bar, shortcuts
           .map(
             (sc) => `
             <button
@@ -1181,7 +1185,7 @@
             </button>
           `
           )
-          .join("");
+          .join(""));
       }
 
       function openFolderInExplorer(folderId, scrollToSection = false) {
@@ -1196,7 +1200,7 @@
 
         renderDriveExplorer();
 
-        refreshLiveFolder(folderId).catch(showDriveError);
+        ensureLiveFolder(folderId).catch(showDriveError);
 
         if (scrollToSection) {
           document
@@ -1279,7 +1283,7 @@
           ptr = pid ? folderById.get(pid) : null;
         }
         const bcContainer = document.getElementById("drive-breadcrumbs");
-        bcContainer.innerHTML = crumbs
+        setDriveMarkup(bcContainer, crumbs
           .map((c, idx) => {
             const isLast = idx === crumbs.length - 1;
             return `
@@ -1296,7 +1300,7 @@
               ${!isLast ? `<span class="text-slate-300">/</span>` : ""}
             `;
           })
-          .join("");
+          .join(""));
 
         // Lấy danh sách thư mục con và danh sách tệp
         let subfolders = folder.f || [];
@@ -1346,7 +1350,7 @@
         if (subfolders.length > 0) {
           subWrap.classList.remove("hidden");
           subCount.innerText = subfolders.length;
-          subGrid.innerHTML = subfolders
+          setDriveMarkup(subGrid, subfolders
             .map((sf) => {
               const coverId = sf.c;
               return `
@@ -1360,7 +1364,7 @@
                         ? `<img
                             src="${getDriveThumbUrl(coverId, 240)}"
                             onerror="this.onerror=null;this.src='${getDriveThumbFallbackUrl(coverId, 240)}'"
-                            loading="lazy"
+                            loading="lazy" decoding="async"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform"
                             alt=""
                           />`
@@ -1380,7 +1384,7 @@
                 </div>
               `;
             })
-            .join("");
+            .join(""));
         } else {
           subWrap.classList.add("hidden");
         }
@@ -1425,7 +1429,7 @@
             : `Tất cả tệp đã đọc trong "${folder.n}"`;
 
         if (total === 0) {
-          filesGrid.innerHTML = `
+          setDriveMarkup(filesGrid, `
             <div class="col-span-full py-14 text-center bg-slate-50 rounded-3xl border border-dashed border-slate-200">
               <p class="text-slate-500 font-bold">Chưa có tệp nào phù hợp trong mục này.</p>
               <a
@@ -1438,18 +1442,20 @@
                 <span>↗</span>
               </a>
             </div>
-          `;
+          `);
           loadMoreWrap.classList.add("hidden");
           return;
         }
 
         const slice = activeMediaList.slice(0, displayedFilesLimit);
-        filesGrid.innerHTML = slice
+        setDriveMarkup(filesGrid, slice
           .map((item, idx) => {
             const [id, name, isVideo, modified, folderName] = item;
-            if (isVideo === 2) return `<button onclick="openLightboxFromExplorer(${idx})" class="aspect-square rounded-2xl border border-slate-200 bg-slate-50 p-4 text-left hover:bg-indigo-50 flex flex-col justify-between"><span class="text-4xl" aria-hidden="true">📄</span><span class="text-sm font-bold break-all">${escapeHtml(name)}</span><span class="text-xs text-slate-500">Mở xem / tải tệp trên Drive ↗</span></button>`;
+            const cardAttributes = `data-drive-file-id="${escapeHtml(id)}" data-drive-file-key="${escapeHtml(JSON.stringify(item))}"`;
+            if (isVideo === 2) return `<button ${cardAttributes} onclick="openLightboxFromExplorer(${idx})" class="aspect-square rounded-2xl border border-slate-200 bg-slate-50 p-4 text-left hover:bg-indigo-50 flex flex-col justify-between"><span class="text-4xl" aria-hidden="true">📄</span><span class="text-sm font-bold break-all">${escapeHtml(name)}</span><span class="text-xs text-slate-500">Mở xem / tải tệp trên Drive ↗</span></button>`;
             return `
               <div
+                ${cardAttributes}
                 onclick="openLightboxFromExplorer(${idx})"
                 class="group relative aspect-square rounded-2xl overflow-hidden bg-slate-200 border border-slate-200/80 shadow-sm hover:shadow-xl cursor-pointer img-skeleton"
               >
@@ -1457,7 +1463,8 @@
                   src="${getDriveThumbUrl(id, 600)}"
                   onerror="this.onerror=null;this.src='${getDriveThumbFallbackUrl(id, 600)}'"
                   alt="${escapeHtml(name)}"
-                  loading="lazy"
+                  loading="${idx < 8 ? "eager" : "lazy"}" decoding="async"
+                  fetchpriority="${idx < 4 ? "high" : "auto"}"
                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/10 opacity-80 group-hover:opacity-100 transition-opacity"></div>
@@ -1500,7 +1507,7 @@
               </div>
             `;
           })
-          .join("");
+          .join(""));
 
         if (total > displayedFilesLimit) {
           loadMoreWrap.classList.remove("hidden");
@@ -1571,7 +1578,7 @@
 
         const colors = ["0D8ABC", "EC4899", "8B5CF6", "10B981", "F59E0B", "6366F1", "EF4444", "14B8A6"];
 
-        mapContainer.innerHTML = list
+        setDriveMarkup(mapContainer, list
           .map((item, idx) => {
             const sf = item.folder;
             const totalMedia = sf.ti + sf.tv;
@@ -1589,7 +1596,7 @@
                     src="${avatarUrl}"
                     onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(item.cleanName).replace(/'/g, '%27')}&background=6366F1&color=fff&size=160'"
                     alt="${escapeHtml(item.cleanName)}"
-                    loading="lazy"
+                    loading="lazy" decoding="async"
                     class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-white shadow-md object-cover bg-slate-200"
                   />
                   <span class="absolute -top-1 -left-1 bg-indigo-900 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">
@@ -1615,7 +1622,7 @@
               </div>
             `;
           })
-          .join("");
+          .join(""));
       }
 
       // --- 4. MODAL HỒ SƠ THÀNH VIÊN ---
@@ -1664,7 +1671,7 @@
                     src="${getDriveThumbUrl(id, 500)}"
                     onerror="this.onerror=null;this.src='${getDriveThumbFallbackUrl(id, 500)}'"
                     alt="${escapeHtml(name)}"
-                    loading="lazy"
+                    loading="lazy" decoding="async"
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   ${
@@ -1734,6 +1741,7 @@
         const item = lightboxList[lightboxIndex];
         if (!item) return;
         const [id, name, isVideo, modified, folderName] = item;
+        const imageRequest = ++lightboxImageRequest;
 
         resetLightboxZoom();
 
@@ -1748,6 +1756,8 @@
         const imgEl = document.getElementById("lightbox-img");
         const iframeWrap = document.getElementById("lightbox-iframe-wrap");
         const iframeEl = document.getElementById("lightbox-iframe");
+        const videoPoster = document.getElementById("lightbox-video-poster");
+        videoPoster.hidden = isVideo !== 1;
         const spinner = document.getElementById("lb-spinner");
         const loadingText = document.getElementById("lb-loading-text");
         const zoomControls = document.getElementById("lb-zoom-controls");
@@ -1768,8 +1778,11 @@
           spinner.classList.remove("hidden");
           loadingText.innerText = "Đang khởi tạo trình phát Video HD chuẩn Google Drive...";
           iframeWrap.classList.remove("hidden");
+          videoPoster.src = getDriveThumbUrl(id, 600);
           iframeEl.src = getDrivePreviewEmbedUrl(id);
           iframeEl.onload = () => {
+            if (imageRequest !== lightboxImageRequest) return;
+            videoPoster.hidden = true;
             spinner.classList.add("hidden");
           };
         } else if (forceDriveIframeForImage || isVideo === 2) {
@@ -1801,21 +1814,30 @@
           loadingText.innerText = "Đang tải ảnh gốc độ phân giải tối đa...";
           imgEl.classList.remove("hidden");
 
-          // Tải bản nét gốc (=s0) trực tiếp
-          const fullUrl = getDriveOriginalImageUrl(id);
-          const fallbackFullUrl = getDriveOriginalFallbackUrl(id);
-
-          imgEl.onload = () => {
+          // Show the already loaded grid preview immediately; replace it after the original loads.
+          imgEl.alt = name;
+          imgEl.onload = () => spinner.classList.add("hidden");
+          imgEl.onerror = () => {
+            imgEl.onerror = null;
+            imgEl.src = getDriveThumbFallbackUrl(id, 600);
+          };
+          imgEl.src = getDriveThumbUrl(id, 600);
+          const original = new Image();
+          let triedFallback = false;
+          original.onload = () => {
+            if (imageRequest !== lightboxImageRequest) return;
+            imgEl.onerror = null;
+            imgEl.src = original.src;
             spinner.classList.add("hidden");
           };
-          imgEl.onerror = () => {
-            if (imgEl.src !== fallbackFullUrl) {
-              imgEl.src = fallbackFullUrl;
-            } else {
-              spinner.classList.add("hidden");
-            }
+          original.onerror = () => {
+            if (imageRequest !== lightboxImageRequest) return;
+            if (!triedFallback) {
+              triedFallback = true;
+              original.src = getDriveOriginalFallbackUrl(id);
+            } else spinner.classList.add("hidden");
           };
-          imgEl.src = fullUrl;
+          original.src = getDriveOriginalImageUrl(id);
         }
 
         // Highlight active item in filmstrip
@@ -1856,7 +1878,7 @@
               <img
                 src="${getDriveThumbUrl(id, 200)}"
                 onerror="this.onerror=null;this.src='${getDriveThumbFallbackUrl(id, 200)}'"
-                loading="lazy"
+                loading="lazy" decoding="async"
                 class="w-full h-full object-cover"
                 alt=""
               />
@@ -1919,6 +1941,7 @@
       }
 
       function closeLightbox() {
+        lightboxImageRequest++;
         const lb = document.getElementById("drive-lightbox");
         const iframeEl = document.getElementById("lightbox-iframe");
         iframeEl.src = "";
@@ -1985,6 +2008,29 @@
           }
           if (e.key === "Escape") closeModal();
         });
+      }
+
+      // Keep decoded images and existing DOM nodes when the visible content is unchanged.
+      function setDriveMarkup(element, html) {
+        if (element._driveMarkup === html) return;
+        if (element.id === "drive-files-grid" && html.includes('data-drive-file-id="')) {
+          const template = document.createElement("template");
+          template.innerHTML = html;
+          const previous = new Map(Array.from(element.children).map(card => [card.dataset.driveFileId, card]));
+          const keep = new Set();
+          let position = 0;
+          for (const next of Array.from(template.content.children)) {
+            const old = previous.get(next.dataset.driveFileId);
+            const card = old && old.dataset.driveFileKey === next.dataset.driveFileKey ? old : next;
+            // Its lightbox index can change while the decoded image remains the same.
+            card.setAttribute("onclick", next.getAttribute("onclick"));
+            keep.add(card);
+            if (element.children[position] !== card) element.insertBefore(card, element.children[position] || null);
+            position++;
+          }
+          for (const card of Array.from(element.children)) if (!keep.has(card)) card.remove();
+        } else element.innerHTML = html;
+        element._driveMarkup = html;
       }
 
       function escapeHtml(str) {
